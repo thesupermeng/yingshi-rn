@@ -8,20 +8,19 @@ const palette = {
     red: '#CD0E61'
 }
 
-export const theme = {
+export const YingshiDarkTheme = {
+  dark: false,
   colors: {
-    background: palette.white,
-    foreground: palette.black,
-    primary: palette.purple,
-    success: palette.green,
-    danger: palette.red,
-    failure: palette.red,
-  },
-  spacing: {
-    s: 8,
-    m: 16,
-    l: 24,
-    xl: 40,
+    dark: palette.dark,
+    grey: palette.grey,
+    yellow: palette.yellow,
+    white: palette.white,
+    primary: palette.yellow,
+    background: palette.dark,
+    card: palette.dark,
+    text: palette.white,
+    border: palette.dark,
+    notification: palette.yellow,
   },
   textVariants: {
     header: {
@@ -32,14 +31,11 @@ export const theme = {
         fontFamily: 'PingFang SC',
         fontSize: 16,
     },
-  }
+  },
+  spacing: {
+    s: 8,
+    m: 16,
+    l: 24,
+    xl: 40,
+  },
 };
-
-export const darkTheme = {
-  ...theme,
-  colors: {
-    ...theme.colors,
-    background: palette.dark,
-    foreground: palette.white,
-  }
-}
