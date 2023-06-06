@@ -1,17 +1,19 @@
 import Logo from '../../../static/images/logo.svg';
 import { useTheme } from '@react-navigation/native';
-import { TextInput, StyleSheet, View } from 'react-native';
+import { TextInput, StyleSheet, View, TouchableOpacity } from 'react-native';
 
+import { YingshiDarkTheme } from '../../theme';
 interface Props {
     placeholder?: string;
+    onPress?: (onPress: any) => any
 }
 
-export default function SearchBar({ placeholder = '子弹列车' }: Props) {
+export default function SearchBar({ placeholder = '子弹列车', onPress = () => {}}: Props) {
     const theme = useTheme();
     return (
-        <View style={styles.container}>
-            <TextInput  defaultValue={placeholder} style={{color: theme.colors.text, ...styles.input}} />
-        </View>
+        <TouchableOpacity style={styles.container} onPress={onPress}>
+            <TextInput defaultValue={placeholder} style={{ color: theme.colors.text, ...styles.input }} editable={false} />
+        </TouchableOpacity>
     );
 }
 
@@ -25,7 +27,7 @@ const styles = StyleSheet.create({
     },
     input: {
         paddingLeft: 20,
-        backgroundColor: "rgba(255, 255, 255, 0.1)",
+        backgroundColor: YingshiDarkTheme.colors.search,
         textAlign: 'left',
         borderRadius: 20
     },

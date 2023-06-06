@@ -1,5 +1,5 @@
 import { createStore, combineReducers} from 'redux';
-import CountReducer from './reducers/countReducer';
+import CountReducer from './reducers/themeReducer';
 
 const rootReducer = combineReducers({
   count: CountReducer,

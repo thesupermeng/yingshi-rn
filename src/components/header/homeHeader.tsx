@@ -1,13 +1,19 @@
 import SearchBar from './searchbar';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
-
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import Logo from '../../../static/images/logo.svg';
 import History from '../../../static/images/history.svg';
-export default function MainHeader() {
+import { HomeStackScreenProps } from '../../types/navigationTypes';
+
+export default function MainHeader({ navigation }: any) {
+    const nav = () => {
+        if (navigation !== undefined) {
+            navigation.navigate('Search')
+        }
+    }
     return (
         <View style={styles.container}>
             <Logo />
-            <SearchBar />
+            <SearchBar onPress={nav} />
             <TouchableOpacity style={styles.historyBtn}>
                 <History height="35" width='35' />
             </TouchableOpacity>
@@ -22,9 +28,5 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         width: '100%',
         alignItems: 'center',
-    },
-    historyBtn: {
-        // float: 'right',
-        // alignSelf: 'center'
     }
 });

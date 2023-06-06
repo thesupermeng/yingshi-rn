@@ -1,13 +1,15 @@
 import * as React from 'react';
+import { useSelector } from "react-redux";
 import { NavigationContainer } from '@react-navigation/native'
+
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import HomeScreen from '../screens/Home';
 import PlaylistScreen from '../screens/Playlist';
 import ProfileScreen from '../screens/Profile';
 import WatchAnytime from '../screens/WatchAnytime';
-
-import MainHeader from '../components/header/mainHeader';
+import SearchScreen from '../screens/Search';
 
 import HomeTab from '../../static/images/home_tab.svg';
 import HomeActiveTab from '../../static/images/home_tab_active.svg';
@@ -18,30 +20,42 @@ import ProfileActiveTab from '../../static/images/profile_tab_active.svg';
 import WatchAnytimeTab from '../../static/images/video_tab.svg';
 import WatchAnytimeActiveTab from '../../static/images/video_tab_active.svg';
 
+import { YingshiDarkTheme, YingshiLightTheme } from '../theme';
+import { HomeStackParamList, RootTabParamList } from '../types/navigationTypes';
+import combineReducer from '../redux/reducers/combineReducer';
+import RNBootSplash from "react-native-bootsplash";
 
-import { YingshiDarkTheme } from '../theme';
 export default () => {
-    const Tab = createBottomTabNavigator();
+    const Tab = createBottomTabNavigator<RootTabParamList>();
+    const HomeStack = createNativeStackNavigator<HomeStackParamList>();
+    const themeReducer = useSelector(({ themeReducer }:ReturnType<typeof combineReducer>) => themeReducer);
+    function HomeStackScreen() {
+        return (
+            <HomeStack.Navigator>
+                <HomeStack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
+                <HomeStack.Screen name="Search" component={SearchScreen} options={{ headerShown: false }} />
+            </HomeStack.Navigator>
+        );
+    }
     return (
-        <NavigationContainer theme={YingshiDarkTheme}>
+        <NavigationContainer theme={themeReducer.theme ? YingshiDarkTheme : YingshiLightTheme} onReady={() => RNBootSplash.hide()}>
             <Tab.Navigator screenOptions={({ route }) => ({
+                headerShown: false,
                 tabBarIcon: ({ focused, color, size }) => {
-                    let Icon;
+                    let icon: React.ReactNode;
                     if (route.name === '首页') {
-                        Icon = focused ? HomeActiveTab : HomeTab;
+                        icon = focused ? <HomeActiveTab /> : <HomeTab />;
                     } else if (route.name === '随心看') {
-                        Icon = focused ? PlaylistActiveTab : PlaylistTab;
+                        icon = focused ? <PlaylistActiveTab /> : <PlaylistTab />;
                     } else if (route.name === '播单') {
-                        Icon = focused ? ProfileActiveTab : ProfileTab;
+                        icon = focused ? <ProfileActiveTab /> : <ProfileTab />;
                     } else if (route.name === '我的') {
-                        Icon = focused ? WatchAnytimeActiveTab : WatchAnytimeTab;
+                        icon = focused ? <WatchAnytimeActiveTab /> : <WatchAnytimeTab />;
                     }
-                    return (
-                        <Icon />
-                    );
+                    return icon;
                 },
             })} >
-                <Tab.Screen name="首页" component={HomeScreen} options={{header: () => <MainHeader />}}/>
+                <Tab.Screen name="首页" component={HomeStackScreen} />
                 <Tab.Screen name="随心看" component={WatchAnytime} />
                 <Tab.Screen name="播单" component={PlaylistScreen} />
                 <Tab.Screen name="我的" component={ProfileScreen} />
