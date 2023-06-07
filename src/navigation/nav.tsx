@@ -10,6 +10,7 @@ import PlaylistScreen from '../screens/Playlist';
 import ProfileScreen from '../screens/Profile';
 import WatchAnytime from '../screens/WatchAnytime';
 import SearchScreen from '../screens/Search';
+import PlayScreen from '../screens/Play';
 
 import HomeTab from '../../static/images/home_tab.svg';
 import HomeActiveTab from '../../static/images/home_tab_active.svg';
@@ -34,6 +35,7 @@ export default () => {
             <HomeStack.Navigator>
                 <HomeStack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
                 <HomeStack.Screen name="Search" component={SearchScreen} options={{ headerShown: false }} />
+                <HomeStack.Screen name="Play" component={PlayScreen} options={{ headerShown: false }} />
             </HomeStack.Navigator>
         );
     }
@@ -58,7 +60,7 @@ export default () => {
                 <Tab.Screen name="首页" component={HomeStackScreen} />
                 <Tab.Screen name="随心看" component={WatchAnytime} />
                 <Tab.Screen name="播单" component={PlaylistScreen} />
-                <Tab.Screen name="我的" component={ProfileScreen} />
+                <Tab.Screen name="我的" component={PlayScreen} />
             </Tab.Navigator>
         </NavigationContainer>
     );

@@ -17,13 +17,14 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 export type HomeStackParamList = {
     Home: undefined;
     Search: undefined;
+    Play: undefined;
 };
 
 export type RootTabParamList = {
     首页: NativeStackNavigationProp<HomeStackParamList>;
     随心看: undefined;
     播单: undefined;
-    我的: undefined;
+    我的: NativeStackNavigationProp<HomeStackParamList>;
 };
 
 export type HomeStackScreenProps<T extends keyof HomeStackParamList> = NativeStackScreenProps<HomeStackParamList, T, undefined>;
