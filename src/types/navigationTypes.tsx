@@ -26,7 +26,7 @@ export type RootTabParamList = {
     首页: NavigatorScreenParams<HomeStackParamList>;
     随心看: undefined;
     播单: undefined;
-    我的: undefined;
+    我的: NativeStackNavigationProp<HomeStackParamList>;
 };
 
 export type RootTabScreenProps<T extends keyof RootTabParamList> =

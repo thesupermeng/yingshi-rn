@@ -60,7 +60,7 @@ export default () => {
                 <Tab.Screen name="首页" component={HomeStackScreen} />
                 <Tab.Screen name="随心看" component={WatchAnytime} />
                 <Tab.Screen name="播单" component={PlaylistScreen} />
-                <Tab.Screen name="我的" component={ProfileScreen} />
+                <Tab.Screen name="我的" component={PlayScreen} />
             </Tab.Navigator>
         </NavigationContainer>
     );
