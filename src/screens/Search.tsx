@@ -2,24 +2,34 @@ import React, { useState } from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { SearchBar } from '@rneui/base';
 import { useTheme } from '@react-navigation/native';
-import { YingshiDarkTheme } from '../theme';
-import OrderedSearchResultsList from '../components/search/orderedSearchResultList';
-
+import OrderedSearchResultsList from '../components/search/RecommendationList';
+import SearchResultList from '../components/search/SearchResultList';
+import ScreenContainer from '../components/container/screenContainer';
+import BackButton from '../components/button/backButton';
 import SearchIcon from '../../static/images/search.svg';
 import ClearIcon from '../../static/images/cross.svg';
-import BackButton from '../../static/images/back_arrow.svg';
+import { useQuery } from '@tanstack/react-query'
+import { useNavigation } from '@react-navigation/native';
 
 import { SuggestType } from '../types/ajaxTypes';
 type Props = {
     defaultInput?: string,
-    navigation?: any
 }
-export default ({ navigation, defaultInput = '' }: Props) => {
+export default ({ defaultInput = '' }: Props) => {
     const [search, setSearch] = useState("");
+    const navigation = useNavigation();
     const [searchTimer, setSearchTimer] = useState<ReturnType<typeof setTimeout> | null>(null);
     const [searchResults, setSearchResults] = useState<Array<SuggestType>>([]);
     const { colors } = useTheme();
-
+    const { data:recommendations } = useQuery({
+        queryKey: ["recommendationList"],
+        queryFn: () =>
+            fetch(`https://www.yingshi.tv/index.php/ajax/suggest.html?wd=a&mid=1&limit=10`)
+                .then(response => response.json())
+                .then(json => {
+                    return json.list
+                })
+    });
     async function fetchData(text: string) {
         fetch(`https://www.yingshi.tv/index.php/ajax/suggest.html?wd=${text}&mid=1&limit=10`)
             .then(response => response.json())
@@ -44,35 +54,42 @@ export default ({ navigation, defaultInput = '' }: Props) => {
         );
     };
     return (
-        <View>
+        <ScreenContainer>
             <View style={styles.nav}>
-                <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <BackButton></BackButton>
-                </TouchableOpacity>
+                <BackButton onPress={() => navigation.goBack()} />
                 <SearchBar
                     platform="default"
-                    containerStyle={styles.inputContainer}
-                    inputContainerStyle={styles.input}
+                    containerStyle={styles.containerStyle}
+                    inputContainerStyle={{ backgroundColor: colors.search, ...styles.inputContainerStyle }}
                     leftIconContainerStyle={{}}
                     rightIconContainerStyle={{}}
                     loadingProps={{}}
-                    onChangeText={newVal => updateSearch(newVal)}
+                    onChangeText={(newVal:string) => updateSearch(newVal)}
                     placeholder="输入搜索关键词"
-                    placeholderTextColor="#888"
+                    placeholderTextColor={colors.text}
                     round
                     searchIcon={<SearchIcon />}
                     value={search}
                     clearIcon={
-                        <TouchableOpacity onPress={() => {
-                            setSearchResults([]);
-                            setSearch('');
-                        }} >
-                            <ClearIcon />
-                        </TouchableOpacity>}
+                        search ? 
+                            <TouchableOpacity onPress={() => {
+                                setSearchResults([]);
+                                setSearch('');
+                            }} >
+                                <ClearIcon />
+                            </TouchableOpacity>
+                            : <></>
+                        }
                 />
             </View>
-            <OrderedSearchResultsList searchResults={searchResults} />
-        </View>
+            <View style={styles.searchResult}>
+                {
+                    search.length === 0
+                        ? <OrderedSearchResultsList recommendationList={recommendations} />
+                        : <SearchResultList searchResultList={searchResults} />
+                }
+            </View>
+        </ScreenContainer>
     )
 }
 
@@ -84,14 +101,19 @@ const styles = StyleSheet.create({
         width: '100%',
         alignItems: 'center',
     },
-    inputContainer: {
-        paddingLeft: 30,
+    containerStyle: {
+        paddingLeft: 10,
         paddingRight: 30,
         backgroundColor: 'transparent',
         textAlign: 'left',
-        width: '100%'
+        flexGrow: 1,
+        borderRadius: 100
     },
-    input: {
-        backgroundColor: YingshiDarkTheme.colors.search
+    inputContainerStyle: {
+        borderRadius: 100
     },
+    searchResult: {
+        marginTop: 20,
+        marginLeft: 20
+    }
 });

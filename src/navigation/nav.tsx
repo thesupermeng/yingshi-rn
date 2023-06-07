@@ -10,6 +10,7 @@ import PlaylistScreen from '../screens/Playlist';
 import ProfileScreen from '../screens/Profile';
 import WatchAnytime from '../screens/WatchAnytime';
 import SearchScreen from '../screens/Search';
+import PlayScreen from '../screens/Play';
 
 import HomeTab from '../../static/images/home_tab.svg';
 import HomeActiveTab from '../../static/images/home_tab_active.svg';
@@ -31,9 +32,10 @@ export default () => {
     const themeReducer = useSelector(({ themeReducer }:ReturnType<typeof combineReducer>) => themeReducer);
     function HomeStackScreen() {
         return (
-            <HomeStack.Navigator>
-                <HomeStack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
-                <HomeStack.Screen name="Search" component={SearchScreen} options={{ headerShown: false }} />
+            <HomeStack.Navigator screenOptions={{headerShown: false}}>
+                <HomeStack.Screen name="Home" component={HomeScreen} />
+                <HomeStack.Screen name="Search" component={SearchScreen} />
+                <HomeStack.Screen name="Play" component={PlayScreen} />
             </HomeStack.Navigator>
         );
     }

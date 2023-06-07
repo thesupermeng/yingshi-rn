@@ -3,12 +3,11 @@ export type ExtendedTheme = {
   dark: boolean,
   colors: {
     dark: string,
-    grey: string,
-    yellow: string,
-    white: string,
+    muted: string,
+    title: string,
     primary: string,
-    orange: string,
-    darkYellow: string,
+    recommendation3: string,
+    recommendation2: string,
     background: string,
     card: string,
     text: string,
@@ -18,12 +17,16 @@ export type ExtendedTheme = {
   },
   textVariants: {
     header: {
+      color: string,
       fontFamily: string,
       fontSize: number,
+      fontWeight: string
     },
     body: {
       fontFamily: string,
       fontSize: number,
+      fontWeight: string,
+      color: string,
     },
   },
   spacing: {
@@ -44,34 +47,38 @@ const palette = {
   green: '#0ECD9D',
   red: '#CD0E61',
   orange: '#FF8A00',
-  darkYellow: '#FFB800'
+  darkYellow: '#FFB800',
+  grey_translucent: 'rgba(255, 255, 255, 0.1)'
 }
 
-export const YingshiDarkTheme:ExtendedTheme = {
+export const YingshiDarkTheme: ExtendedTheme = {
   dark: true,
   colors: {
     dark: palette.dark,
-    grey: palette.grey,
-    yellow: palette.yellow,
-    white: palette.white,
+    muted: palette.grey,
+    title: palette.yellow,
     primary: palette.yellow,
-    orange: palette.orange,
-    darkYellow: palette.darkYellow,
+    recommendation2: palette.orange,
+    recommendation3: palette.darkYellow,
     background: palette.dark,
     card: palette.dark,
     text: palette.white,
     border: palette.dark,
     notification: palette.yellow,
-    search: 'rgba(255, 255, 255, 0.1)',
+    search: palette.grey_translucent,
   },
   textVariants: {
     header: {
+      color: palette.white,
       fontFamily: 'PingFang SC',
-      fontSize: 18,
+      fontSize: 20,
+      fontWeight: '800'
     },
     body: {
       fontFamily: 'PingFang SC',
       fontSize: 16,
+      fontWeight: '400',
+      color: palette.white,
     },
   },
   spacing: {
@@ -82,32 +89,35 @@ export const YingshiDarkTheme:ExtendedTheme = {
   },
 };
 
-export const YingshiLightTheme:ExtendedTheme = {
+export const YingshiLightTheme: ExtendedTheme = {
   ...DefaultTheme,
   dark: false,
   colors: {
     dark: palette.dark,
-    grey: palette.grey,
-    yellow: palette.yellow,
-    white: palette.white,
+    muted: palette.grey,
+    title: palette.yellow,
     primary: palette.yellow,
-    darkYellow: palette.darkYellow,
+    recommendation2: palette.orange,
+    recommendation3: palette.darkYellow,
     background: palette.dark,
-    orange: palette.orange,
     card: palette.dark,
     text: palette.white,
     border: palette.dark,
     notification: palette.yellow,
-    search: 'rgba(255, 255, 255, 0.1)',
+    search: palette.grey_translucent,
   },
   textVariants: {
     header: {
       fontFamily: 'PingFang SC',
-      fontSize: 18,
+      fontSize: 50,
+      fontWeight: '800',
+      color: palette.white,
     },
     body: {
       fontFamily: 'PingFang SC',
       fontSize: 16,
+      fontWeight: '400',
+      color: palette.white,
     },
   },
   spacing: {

@@ -2,18 +2,14 @@ import SearchBar from './searchbar';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import Logo from '../../../static/images/logo.svg';
 import History from '../../../static/images/history.svg';
-import { HomeStackScreenProps } from '../../types/navigationTypes';
+import { useNavigation } from '@react-navigation/native';
 
-export default function MainHeader({ navigation }: any) {
-    const nav = () => {
-        if (navigation !== undefined) {
-            navigation.navigate('Search')
-        }
-    }
+export default function MainHeader() {
+    const navigation = useNavigation();
     return (
         <View style={styles.container}>
             <Logo />
-            <SearchBar onPress={nav} />
+            <SearchBar onPress={() => navigation.navigate('首页', {screen: 'Search'})} />
             <TouchableOpacity style={styles.historyBtn}>
                 <History height="35" width='35' />
             </TouchableOpacity>

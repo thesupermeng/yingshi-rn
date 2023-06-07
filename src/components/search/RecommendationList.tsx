@@ -1,23 +1,21 @@
-import Logo from '../../../static/images/logo.svg';
 import { useTheme } from '@react-navigation/native';
-import { TextInput, StyleSheet, View, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import { SuggestType } from '../../types/ajaxTypes'
-import { YingshiDarkTheme } from '../../theme';
 interface Props {
-    searchResults: Array<SuggestType>;
+    recommendationList: Array<SuggestType>;
 }
 
-export default function SearchBar({ searchResults }: Props) {
+export default function RecommendationList({ recommendationList }: Props) {
     const theme = useTheme();
     return (
         <View>
             {
-                searchResults && searchResults.map((result, id) => (
-                    <TouchableOpacity id={`search-result-${id}`} style={styles.suggestion}>
+                recommendationList && recommendationList.map((result, id) => (
+                    <TouchableOpacity key={`search-result-${id}`} style={styles.suggestion}>
                         <Text style={{ color: 
-                            id === 0 ? theme.colors.yellow : 
-                            id === 1 ? theme.colors.orange : 
-                            id === 2 ? theme.colors.darkYellow : 
+                            id === 0 ? theme.colors.title : 
+                            id === 1 ? theme.colors.recommendation2 : 
+                            id === 2 ? theme.colors.recommendation3 : 
                             theme.colors.text,
                             ...styles.suggestionIndex }}>{id + 1}</Text>
                         <Text style={{ color: theme.colors.text }}>{result.name}</Text>
