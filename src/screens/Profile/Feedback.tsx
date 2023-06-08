@@ -8,14 +8,14 @@ import { RootState } from '../../redux/store';
 
 import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
 
-export default ({ navigation }: ProfileStackScreenProps<'收藏'>) => {
+export default ({ navigation }: ProfileStackScreenProps<'反馈'>) => {
     const { colors, textVariants, icons } = useTheme()
     const dispatch = useAppDispatch();
     const themeReducer = useAppSelector(({ themeReducer }: RootState) => themeReducer);
 
     return (
         <ScreenContainer>
-            <TitleWithBackButtonHeader title='我的收藏'/>
+            <TitleWithBackButtonHeader title='我要反馈'/>
         </ScreenContainer >
     )
 }
