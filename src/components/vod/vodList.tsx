@@ -20,7 +20,6 @@ export default function VodList({ query_url, initial_page = 0, vodStyle }: Props
     const [page, setPage] = useState(initial_page);
 
     const fetchVods = (page = 0) => fetch(`${query_url}/&page=${page}`).then((res) => res.json().then((json : VodResponseType) => {
-        console.log(json);
         return json.list;
     }));
 

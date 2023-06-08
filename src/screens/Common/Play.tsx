@@ -1,19 +1,17 @@
 import React from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, SafeAreaView, ScrollView, Image } from 'react-native';
 import Video from 'react-native-video';
-import { YingshiDarkTheme } from '../theme';
+import { YingshiDarkTheme } from '../../theme';
 import { StarIcon } from 'react-native-heroicons/solid';
-import ScreenContainer from '../components/container/screenContainer';
+import ScreenContainer from '../../components/container/screenContainer';
 import { useTheme } from '@react-navigation/native';
-import { HomeStackScreenProps } from '../types/navigationTypes';
-import { VodType } from '../types/ajaxTypes';
+import { HomeStackScreenProps } from '../../types/navigationTypes';
+import { VodType } from '../../types/ajaxTypes';
 interface Props {
-  navigation: HomeStackScreenProps<'Play'>,
   vod?: VodType
 }
 
-
-export default ({ navigation, vod }: Props) => {
+export default ({ vod }: Props) => {
   const { colors, textVariants } = useTheme()
   return (
     <ScreenContainer>

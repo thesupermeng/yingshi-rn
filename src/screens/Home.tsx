@@ -23,7 +23,7 @@ export default ({ navigation }: HomeStackScreenProps<'Home'>) => {
       <View style={{height: 250}}>
         <Swiper style={styles.wrapper}
           autoplay
-          dotColor='rgba(255, 255, 255, 0.3)'
+          dotColor={colors.muted}
           activeDotColor={colors.text}
           dotStyle={styles.dotStyle}
           paginationStyle={styles.paginationStyle}
