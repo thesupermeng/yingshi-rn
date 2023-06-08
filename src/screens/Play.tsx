@@ -8,6 +8,7 @@ import { useTheme } from '@react-navigation/native';
 import { HomeStackScreenProps } from '../types/navigationTypes';
 import { VodType } from '../types/ajaxTypes';
 import { useOrientation } from '../components/hooks/useOrientation';
+import PlayFullScreenGesture from '../components/gestures/vod/PlayFullScreenGesture';
 interface Props {
   navigation: HomeStackScreenProps<'Play'>,
   vod?: VodType
@@ -25,11 +26,16 @@ export default ({ navigation, vod }: Props) => {
     return (
         <ScreenContainer>
             <SafeAreaView>
-                <View style={styles.bofangBox}>
-                    <Video controls={true} resizeMode="contain" source={{ uri: 'https://m3u.haiwaikan.com/xm3u8/395b22f1f066891ed8f7b191457a685490095df735c1e3c32e37ba4903b4bb649921f11e97d0da21.m3u8', type: 'm3u8' }} style={styles.video} />
-                </View>
-                <View style={styles.videoHeader}>
-                    <Text style={{color: colors.text , ...styles.videoHeaderContent}}>花戎</Text>
+                <View>
+                    {!isPotrait &&
+                        <PlayFullScreenGesture />
+                    }
+                    <View style={styles.bofangBox}>
+                        <Video resizeMode="contain" source={{ uri: 'https://m3u.haiwaikan.com/xm3u8/395b22f1f066891ed8f7b191457a685490095df735c1e3c32e37ba4903b4bb649921f11e97d0da21.m3u8', type: 'm3u8' }} style={styles.video} />
+                    </View>
+                    <View style={styles.videoHeader}>
+                        <Text style={{color: colors.text , ...styles.videoHeaderContent}}>花戎</Text>
+                    </View>
                 </View>
                 <ScrollView
                 contentInsetAdjustmentBehavior="automatic">
