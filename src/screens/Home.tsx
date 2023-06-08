@@ -38,13 +38,13 @@ export default ({ navigation }: HomeStackScreenProps<'Home'>) => {
         </Swiper>
       </View>
       <ShowMoreVodButton text='重磅热播' />
-      <VodList query_url='https://www.yingshi.tv/index.php/ajax/data.html?mid=1&limit=1&by=score&order=desc' key='hot_list' vodStyle={styles.vod_hotlist}/>
+      <VodList query_url='https://www.yingshi.tv/index.php/ajax/data.html?mid=1&limit=1&by=score&order=desc' vodStyle={styles.vod_hotlist}/>
       <ShowMoreVodButton text='热播电视剧' />
-      <VodList query_url='https://www.yingshi.tv/index.php/ajax/data.html?mid=1&limit=35&page=1&tid=2&by=hits_day' key='hot_movies'/>
+      <VodList query_url='https://www.yingshi.tv/index.php/ajax/data.html?mid=1&limit=35&page=1&tid=2&by=hits_day' />
       <ShowMoreVodButton text='热播综艺' />
-      <VodList query_url='https://www.yingshi.tv/index.php/ajax/data.html?mid=1&limit=35&page=1&tid=3&by=hits_day' key='hot_variety'/>
+      <VodList query_url='https://www.yingshi.tv/index.php/ajax/data.html?mid=1&limit=35&page=1&tid=3&by=hits_day' />
       <ShowMoreVodButton text='动漫' />
-      <VodList query_url='https://www.yingshi.tv/index.php/ajax/data.html?mid=1&limit=35&page=1&tid=4&by=hits_day' key='hot_anime'/>
+      <VodList query_url='https://www.yingshi.tv/index.php/ajax/data.html?mid=1&limit=35&page=1&tid=4&by=hits_day' />
     </ScreenContainer>
   )
 }

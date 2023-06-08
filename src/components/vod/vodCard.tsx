@@ -7,15 +7,13 @@ import { useNavigation } from '@react-navigation/native';
 interface Props {
     vod: VodType,
     vodStyle?: typeof StyleSheet,
-    key?: string
 }
 
-export default function VodCard({ vod, vodStyle, key }: Props) {
+export default function VodCard({ vod, vodStyle }: Props) {
     const theme = useTheme();
     const navigation = useNavigation();
     return (
         <TouchableOpacity 
-        key={key} 
         style={styles.vod}
         onPress={()=>{navigation.navigate('首页', {screen: 'Play', params: vod})}}
         >
