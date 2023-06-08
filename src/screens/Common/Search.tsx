@@ -2,16 +2,16 @@ import React, { useState } from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { SearchBar } from '@rneui/base';
 import { useTheme } from '@react-navigation/native';
-import OrderedSearchResultsList from '../components/search/RecommendationList';
-import SearchResultList from '../components/search/SearchResultList';
-import ScreenContainer from '../components/container/screenContainer';
-import BackButton from '../components/button/backButton';
-import SearchIcon from '../../static/images/search.svg';
-import ClearIcon from '../../static/images/cross.svg';
+import OrderedSearchResultsList from '../../components/search/RecommendationList';
+import SearchResultList from '../../components/search/SearchResultList';
+import ScreenContainer from '../../components/container/screenContainer';
+import BackButton from '../../components/button/backButton';
+import SearchIcon from '../../../static/images/search.svg';
+import ClearIcon from '../../../static/images/cross.svg';
 import { useQuery } from '@tanstack/react-query'
 import { useNavigation } from '@react-navigation/native';
 
-import { SuggestType } from '../types/ajaxTypes';
+import { SuggestType } from '../../types/ajaxTypes';
 type Props = {
     defaultInput?: string,
 }

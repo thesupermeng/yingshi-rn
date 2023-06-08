@@ -2,7 +2,6 @@ import { DefaultTheme } from '@react-navigation/native';
 export type ExtendedTheme = {
   dark: boolean,
   colors: {
-    dark: string,
     muted: string,
     title: string,
     primary: string,
@@ -16,6 +15,12 @@ export type ExtendedTheme = {
     search: string,
   },
   textVariants: {
+    bigHeader: {
+      color: string,
+      fontFamily: string,
+      fontSize: number,
+      fontWeight: string
+    },
     header: {
       color: string,
       fontFamily: string,
@@ -35,11 +40,16 @@ export type ExtendedTheme = {
     l: number,
     xl: number,
   },
+  icons: {
+    activeNavIconColor: string,
+    iconColor: string
+  }
 };
 
 // Add color palettes here:
 const palette = {
   dark: '#161616',
+  light_grey: '#D9D9D9',
   grey: '#2D2D2D',
   yellow: '#FAC33D',
   white: '#FFFFFF',
@@ -48,14 +58,17 @@ const palette = {
   red: '#CD0E61',
   orange: '#FF8A00',
   darkYellow: '#FFB800',
-  grey_translucent: 'rgba(255, 255, 255, 0.1)'
+  grey_translucent_1: 'rgba(255, 255, 255, 0.1)',
+  grey_translucent_3: 'rgba(255, 255, 255, 0.3)',
+  dark_grey_translucent: 'rgba(169, 169, 169, 0.15)',
+  off_white: 'rgba(255, 255, 255, 0.92)',
+  blue: '#1778F2',
 }
 
 export const YingshiDarkTheme: ExtendedTheme = {
   dark: true,
   colors: {
-    dark: palette.dark,
-    muted: palette.grey,
+    muted: palette.grey_translucent_3,
     title: palette.yellow,
     primary: palette.yellow,
     recommendation2: palette.orange,
@@ -65,9 +78,15 @@ export const YingshiDarkTheme: ExtendedTheme = {
     text: palette.white,
     border: palette.dark,
     notification: palette.yellow,
-    search: palette.grey_translucent,
+    search: palette.grey_translucent_1,
   },
   textVariants: {
+    bigHeader: {
+      color: palette.white,
+      fontFamily: 'PingFang SC',
+      fontSize: 24,
+      fontWeight: '800'
+    },
     header: {
       color: palette.white,
       fontFamily: 'PingFang SC',
@@ -87,37 +106,46 @@ export const YingshiDarkTheme: ExtendedTheme = {
     l: 24,
     xl: 40,
   },
+  icons: {
+    activeNavIconColor: palette.yellow,
+    iconColor: palette.white
+  }
 };
 
 export const YingshiLightTheme: ExtendedTheme = {
   ...DefaultTheme,
   dark: false,
   colors: {
-    dark: palette.dark,
-    muted: palette.grey,
-    title: palette.yellow,
-    primary: palette.yellow,
+    muted: palette.light_grey,
+    title: palette.white,
+    primary: palette.blue,
     recommendation2: palette.orange,
     recommendation3: palette.darkYellow,
-    background: palette.dark,
-    card: palette.dark,
-    text: palette.white,
-    border: palette.dark,
-    notification: palette.yellow,
-    search: palette.grey_translucent,
+    background: palette.white,
+    card: palette.off_white,
+    text: palette.dark,
+    border: palette.grey_translucent_3,
+    notification: palette.blue,
+    search: palette.dark_grey_translucent,
   },
   textVariants: {
+    bigHeader: {
+      color: palette.dark,
+      fontFamily: 'PingFang SC',
+      fontSize: 24,
+      fontWeight: '800'
+    },
     header: {
       fontFamily: 'PingFang SC',
-      fontSize: 50,
+      fontSize: 20,
       fontWeight: '800',
-      color: palette.white,
+      color: palette.dark,
     },
     body: {
       fontFamily: 'PingFang SC',
       fontSize: 16,
       fontWeight: '400',
-      color: palette.white,
+      color: palette.dark,
     },
   },
   spacing: {
@@ -126,6 +154,10 @@ export const YingshiLightTheme: ExtendedTheme = {
     l: 24,
     xl: 40,
   },
+  icons: {
+    activeNavIconColor: palette.blue,
+    iconColor: palette.dark
+  }
 };
 
 declare module '@react-navigation/native' {

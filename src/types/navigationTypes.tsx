@@ -18,15 +18,25 @@ import { VodType } from './ajaxTypes';
 
 export type HomeStackParamList = {
     Home: undefined;
-    Search: undefined;
-    Play: VodType;
+    搜索: undefined;
+    播放: VodType;
 };
 
 export type RootTabParamList = {
     首页: NavigatorScreenParams<HomeStackParamList>;
     随心看: undefined;
     播单: undefined;
-    我的: NativeStackNavigationProp<HomeStackParamList>;
+    我的: NativeStackNavigationProp<ProfileStackParamList>;
+};
+
+export type ProfileStackParamList = {
+    Profile: undefined;
+    收藏: undefined;
+    播放历史: undefined;
+    反馈: undefined;
+    设置: undefined;
+    关于我们: undefined;
+    分享App: undefined;
 };
 
 export type RootTabScreenProps<T extends keyof RootTabParamList> =
@@ -40,6 +50,7 @@ export type HomeTabScreenProps<T extends keyof HomeStackParamList> =
         NativeStackScreenProps<HomeStackParamList, T>
     >;
 
+export type ProfileStackScreenProps<T extends keyof ProfileStackParamList> = NativeStackScreenProps<ProfileStackParamList, T>;
 
 declare global {
     namespace ReactNavigation {

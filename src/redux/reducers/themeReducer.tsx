@@ -4,7 +4,6 @@ const initialState = {
   theme: true
 };
 
-
 export default (theme = initialState, { type } : ThemeConstantsType) => {
   switch (type) {
     case DARK_THEME:
