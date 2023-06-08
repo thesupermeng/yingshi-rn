@@ -23,14 +23,14 @@ import WatchAnytimeActiveTab from '../../static/images/video_tab_active.svg';
 
 import { YingshiDarkTheme, YingshiLightTheme } from '../theme';
 import { HomeStackParamList, RootTabParamList, ProfileStackParamList } from '../types/navigationTypes';
-import combineReducer from '../redux/reducers/combineReducer';
 import RNBootSplash from "react-native-bootsplash";
+import { RootState } from '../redux/store';
 
 export default () => {
     const Tab = createBottomTabNavigator<RootTabParamList>();
     const HomeStack = createNativeStackNavigator<HomeStackParamList>();
     const ProfileStack = createNativeStackNavigator<ProfileStackParamList>();
-    const themeReducer = useSelector(({ themeReducer }:ReturnType<typeof combineReducer>) => themeReducer);
+    const themeReducer = useSelector(({ themeReducer }:RootState) => themeReducer);
     const theme = themeReducer.theme ? YingshiDarkTheme : YingshiLightTheme
     function HomeStackScreen() {
         return (

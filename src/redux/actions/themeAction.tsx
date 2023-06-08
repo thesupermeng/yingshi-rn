@@ -1,22 +1,21 @@
+import { ThunkAction } from 'redux-thunk'
+
 import {
-  DARK_THEME,LIGHT_THEME
+  DARK_THEME, LIGHT_THEME
 } from "../../constants";
 
-import { ThemeConstantsType } from "../../types/constantTypes";
-export const ToggleDarkTheme = () => ({
+import { AppDispatchType, RootState } from "../store";
+export const toggleDarkTheme = () => ({
   type: DARK_THEME,
 });
-export const ToggleLightTheme = () => ({
+export const toggleLightTheme = () => ({
   type: LIGHT_THEME,
 });
 
-export const ToggleTheme = (theme:boolean) => {
-  return async (dispatch) => {
-      if (theme === true) {
-          dispatch(ToggleDarkTheme())
-      } else {
-          dispatch(ToggleLightTheme())
-      }
-
+export const toggleTheme = (theme: boolean) => {
+  if (theme === true) {
+    return toggleDarkTheme();
+  } else {
+    return toggleLightTheme();
   }
 }

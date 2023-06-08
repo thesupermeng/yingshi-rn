@@ -4,19 +4,27 @@ import ScreenContainer from '../../components/container/screenContainer';
 import { ProfileStackScreenProps } from '../../types/navigationTypes';
 import LightMode from '../../../static/images/light_mode.svg';
 import { useTheme } from '@react-navigation/native';
-import { useDispatch, useSelector } from 'react-redux';
-import { ToggleTheme } from '../../redux/actions/themeAction';
-import combineReducer from '../../redux/reducers/combineReducer';
+import { toggleDarkTheme, toggleTheme } from '../../redux/actions/themeAction';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { RootState } from '../../redux/store';
+import { ThemeConstantsType } from '../../types/constantTypes';
+
 export default ({ navigation }: ProfileStackScreenProps<'Profile'>) => {
     const { colors, textVariants, icons } = useTheme()
-    const dispatch = useDispatch();
-     const themeReducer = useSelector(({ themeReducer }:ReturnType<typeof combineReducer>) => themeReducer);
-    console.log(themeReducer)
+    const dispatch = useAppDispatch();
+    const themeReducer = useAppSelector(({ themeReducer }: RootState) => themeReducer);
+    const changeTheme = () => (
+        {
+            ...themeReducer,
+            theme: !themeReducer.theme,
+        }
+    )
+
     return (
         <ScreenContainer>
             <View style={styles.topNav}>
                 <Text style={textVariants.bigHeader}>我的</Text>
-                <TouchableOpacity onPress={() => dispatch(ToggleTheme(!themeReducer.theme))}>
+                <TouchableOpacity onPress={() => dispatch(toggleTheme(!themeReducer.theme))}>
                     <LightMode color={icons.iconColor} />
                 </TouchableOpacity>
             </View>
