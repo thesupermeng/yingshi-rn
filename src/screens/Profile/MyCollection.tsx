@@ -17,27 +17,17 @@ import SettingsIcon from '../../../static/images/settings.svg';
 import InfoIcon from '../../../static/images/info.svg';
 import ShareIcon from '../../../static/images/share.svg';
 
-export default ({ navigation }: ProfileStackScreenProps<'Profile'>) => {
+import BackButton from '../../components/button/backButton';
+import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
+
+export default ({ navigation }: ProfileStackScreenProps<'收藏'>) => {
     const { colors, textVariants, icons } = useTheme()
     const dispatch = useAppDispatch();
     const themeReducer = useAppSelector(({ themeReducer }: RootState) => themeReducer);
 
     return (
         <ScreenContainer>
-            <View style={styles.topNav}>
-                <Text style={textVariants.bigHeader}>我的</Text>
-                <TouchableOpacity onPress={() => dispatch(toggleTheme(!themeReducer.theme))}>
-                    <LightMode color={icons.iconColor} />
-                </TouchableOpacity>
-            </View>
-            <View>
-                <ShowMoreButton text='我的收藏' leftIcon={<CollectionIcon style={{ color: colors.button }} />} onPress={()=>navigation.navigate('收藏')}/>
-                <ShowMoreButton text='播放历史' leftIcon={<HistoryIcon style={{ color: colors.button }} />} />
-                <ShowMoreButton text='我要反馈' leftIcon={<FeedbackIcon style={{ color: colors.button }} />} />
-                <ShowMoreButton text='设置' leftIcon={<SettingsIcon style={{ color: colors.button }} />} />
-                <ShowMoreButton text='关于我们' leftIcon={<InfoIcon style={{ color: colors.button }} />} />
-                <ShowMoreButton text='分享App' leftIcon={<ShareIcon style={{ color: colors.button }} />} />
-            </View>
+            <TitleWithBackButtonHeader title='我的收藏'/>
         </ScreenContainer >
     )
 }

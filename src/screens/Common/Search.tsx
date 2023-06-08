@@ -56,7 +56,7 @@ export default ({ defaultInput = '' }: Props) => {
     return (
         <ScreenContainer>
             <View style={styles.nav}>
-                <BackButton onPress={() => navigation.goBack()} />
+                <BackButton />
                 <SearchBar
                     platform="default"
                     containerStyle={styles.containerStyle}
@@ -66,9 +66,9 @@ export default ({ defaultInput = '' }: Props) => {
                     loadingProps={{}}
                     onChangeText={(newVal:string) => updateSearch(newVal)}
                     placeholder="输入搜索关键词"
-                    placeholderTextColor={colors.text}
+                    placeholderTextColor={colors.muted}
                     round
-                    searchIcon={<SearchIcon />}
+                    searchIcon={<SearchIcon color={colors.muted} />}
                     value={search}
                     clearIcon={
                         search ? 
@@ -107,7 +107,9 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent',
         textAlign: 'left',
         flexGrow: 1,
-        borderRadius: 100
+        borderRadius: 100,
+        borderTopWidth: 0,
+        borderBottomWidth: 0
     },
     inputContainerStyle: {
         borderRadius: 100

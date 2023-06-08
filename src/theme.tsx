@@ -3,16 +3,19 @@ export type ExtendedTheme = {
   dark: boolean,
   colors: {
     muted: string,
+    sliderDot: string,
     title: string,
     primary: string,
     recommendation3: string,
     recommendation2: string,
     background: string,
     card: string,
+    card2: string,
     text: string,
     border: string,
     notification: string,
     search: string,
+    button: string
   },
   textVariants: {
     bigHeader: {
@@ -49,6 +52,7 @@ export type ExtendedTheme = {
 // Add color palettes here:
 const palette = {
   dark: '#161616',
+  black: '#000000',
   light_grey: '#D9D9D9',
   grey: '#2D2D2D',
   yellow: '#FAC33D',
@@ -57,28 +61,34 @@ const palette = {
   green: '#0ECD9D',
   red: '#CD0E61',
   orange: '#FF8A00',
-  darkYellow: '#FFB800',
+  dark_yellow: '#FFB800',
   grey_translucent_1: 'rgba(255, 255, 255, 0.1)',
   grey_translucent_3: 'rgba(255, 255, 255, 0.3)',
   dark_grey_translucent: 'rgba(169, 169, 169, 0.15)',
   off_white: 'rgba(255, 255, 255, 0.92)',
   blue: '#1778F2',
+  grey2: '#9C9C9C',
+  lighter_dark: '#1D2023',
+  light_grey2: 'rgba(201, 201, 201, 0.1)',
 }
 
 export const YingshiDarkTheme: ExtendedTheme = {
   dark: true,
   colors: {
-    muted: palette.grey_translucent_3,
+    sliderDot: palette.grey_translucent_3,
+    muted: palette.grey2,
     title: palette.yellow,
     primary: palette.yellow,
     recommendation2: palette.orange,
-    recommendation3: palette.darkYellow,
+    recommendation3: palette.dark_yellow,
     background: palette.dark,
     card: palette.dark,
+    card2: palette.lighter_dark,
     text: palette.white,
     border: palette.dark,
     notification: palette.yellow,
     search: palette.grey_translucent_1,
+    button: palette.grey2
   },
   textVariants: {
     bigHeader: {
@@ -116,17 +126,20 @@ export const YingshiLightTheme: ExtendedTheme = {
   ...DefaultTheme,
   dark: false,
   colors: {
-    muted: palette.light_grey,
+    sliderDot: palette.light_grey,
+    muted: palette.grey2,
     title: palette.white,
     primary: palette.blue,
     recommendation2: palette.orange,
-    recommendation3: palette.darkYellow,
+    recommendation3: palette.dark_yellow,
     background: palette.white,
     card: palette.off_white,
+    card2: palette.light_grey2,
     text: palette.dark,
     border: palette.grey_translucent_3,
     notification: palette.blue,
     search: palette.dark_grey_translucent,
+    button: palette.black
   },
   textVariants: {
     bigHeader: {

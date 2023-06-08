@@ -15,7 +15,7 @@ export default function VodCard({ vod, vodStyle }: Props) {
     return (
         <TouchableOpacity 
         style={styles.vod}
-        onPress={()=>{navigation.navigate('首页', {screen: 'Play', params: vod})}}
+        onPress={()=>{navigation.navigate('首页', {screen: '播放', params: vod})}}
         >
             <Image source={{ uri: vod.vod_pic }} style={{ ...styles.image, ...vodStyle }} />
         </TouchableOpacity>

@@ -16,9 +16,9 @@ export default function RecommendationList({ recommendationList }: Props) {
                             id === 0 ? theme.colors.title : 
                             id === 1 ? theme.colors.recommendation2 : 
                             id === 2 ? theme.colors.recommendation3 : 
-                            theme.colors.text,
+                            theme.textVariants.body,
                             ...styles.suggestionIndex }}>{id + 1}</Text>
-                        <Text style={{ color: theme.colors.text }}>{result.name}</Text>
+                        <Text style={theme.textVariants.body}>{result.name}</Text>
                     </TouchableOpacity>
                 ))
             }
