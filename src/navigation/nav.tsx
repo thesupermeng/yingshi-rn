@@ -39,7 +39,7 @@ export default () => {
             <HomeStack.Navigator screenOptions={{headerShown: false}}>
                 <HomeStack.Screen name='Home' component={HomeScreen} />
                 <HomeStack.Screen name='搜索' component={SearchScreen} />
-                <HomeStack.Screen name='播放' component={PlayScreen} />
+                <HomeStack.Screen name='播放' component={PlayScreen} initialParams={{ vod_id: 1 }}/>
             </HomeStack.Navigator>
         );
     }

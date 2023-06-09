@@ -10,21 +10,26 @@ import { HomeStackScreenProps } from '../../types/navigationTypes';
 import { VodType } from '../../types/ajaxTypes';
 import { useOrientation } from '../../components/hooks/useOrientation';
 import PlayFullScreenGesture from '../../components/gestures/vod/PlayFullScreenGesture';
+import { addVodToFavorites } from '../../redux/actions/vodActions';
+import { useAppSelector } from '../../hooks';
+import { RootState } from '../../redux/store';
 interface Props {
-  vod?: VodType
+    params?: {
+        vod_id: VodType['vod_id']
+    }
 }
 
-export default ({ vod }: Props) => {
-  const { colors, textVariants } = useTheme()
+export default ({ navigation, route }: HomeStackScreenProps<'播放'>) => {
+    const { colors, textVariants } = useTheme()
+    console.log('PASSED PARAMS INTO PLAY:', route.params.vod_id)
+    const isPotrait = useOrientation();
+    const vod = useAppSelector(({ playVodReducer }: RootState) => playVodReducer).vod;
 
-  const isPotrait = useOrientation();
+    useEffect(() => {
+        console.log(isPotrait);
+    }, [isPotrait]);
 
-  useEffect(() => {
-      console.log(isPotrait);
-  }, [isPotrait]);
-  
-  return (
-    <ScreenContainer>
+    return (
         <SafeAreaView>
             {!isPotrait &&
                 <PlayFullScreenGesture />
@@ -33,30 +38,30 @@ export default ({ vod }: Props) => {
                 <Video controls={true} resizeMode="contain" source={{ uri: 'https://m3u.haiwaikan.com/xm3u8/395b22f1f066891ed8f7b191457a685490095df735c1e3c32e37ba4903b4bb649921f11e97d0da21.m3u8', type: 'm3u8' }} style={styles.video} />
             </View>
             <View style={styles.videoHeader}>
-                <Text style={{color: colors.text , ...styles.videoHeaderContent}}>花戎</Text>
+                <Text style={{ color: colors.text, ...styles.videoHeaderContent }}>{vod?.vod_name}</Text>
             </View>
             <ScrollView
-            contentInsetAdjustmentBehavior="automatic">
+                contentInsetAdjustmentBehavior="automatic">
                 <View>
                     <View style={styles.videoDescription}>
                         <View style={styles.imageContainer}>
                             <Image
-                            source={{ uri: 'https://img.haiwaikan.com/ximgs/828579e4cbcbcf34a113d20d1da50f86e9a562d89d1fb5dfb08f5782f4cae074c3e811d104cd56778d3b8146644871d2.jpg' }}
-                            resizeMode={'cover'}
-                            style={styles.descriptionImage}
+                                source={{ uri: vod?.vod_pic }}
+                                resizeMode={'cover'}
+                                style={styles.descriptionImage}
                             />
                         </View>
                         <View style={styles.descriptionContainer}>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                            <Text style={{...textVariants.body, ...styles.descriptionContainerText}}>花戎</Text>
-                            <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <View style={{ paddingTop: 3, paddingRight: 5 }}>
-                                <StarIcon size={22} color="orange" opacity={0.5} />
-                                </View>
-                                <View>
-                                <Text style={styles.descriptionContainerText}>收藏</Text>
-                                </View>
-                            </TouchableOpacity>
+                                <Text style={{ ...textVariants.body, ...styles.descriptionContainerText }}>{vod?.vod_name}</Text>
+                                <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                    <View style={{ paddingTop: 3, paddingRight: 5 }}>
+                                        <StarIcon size={22} color="orange" opacity={0.5} />
+                                    </View>
+                                    <View>
+                                        <Text style={styles.descriptionContainerText}>收藏</Text>
+                                    </View>
+                                </TouchableOpacity>
                             </View>
                             <Text style={styles.descriptionContainerText}>2023 大陆 古装 爱情 仙侠 剧情</Text>
                             <Text style={styles.descriptionContainerText}>更新：2023-02-10</Text>
@@ -69,14 +74,12 @@ export default ({ vod }: Props) => {
                             导演：瑞恩·库格勒
                             编剧：乔·罗伯特·科尔/瑞恩·库格勒
                             主演：利蒂希娅·赖特/露皮塔·尼永奥/安吉拉·贝塞特/丹娜·奎里拉/温斯顿·杜克/马丁·弗瑞曼/特诺切·韦尔塔/理查德·希夫/多米尼克·索恩/米凯拉·科尔/弗洛伦丝·卡松巴/玛丽亚·梅塞德斯·科罗伊/伊萨赫·德·班克尔/施奎塔·詹姆斯/胡安·卡洛斯·坎图/洁基伯明翰/索佩·阿卢科/小弗洛伊德·安东尼·约翰/布伦特·莫雷尔·加斯金斯/拉希姆·赖利/乔丹·沃克·罗斯
-
                         </Text>
                     </View>
 
                 </View>
             </ScrollView>
         </SafeAreaView>
-    </ScreenContainer>
     )
 }
 

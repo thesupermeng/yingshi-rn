@@ -4,6 +4,8 @@ import { useTheme } from '@react-navigation/native';
 import { useQuery } from '@tanstack/react-query';
 import { VodType } from '../../types/ajaxTypes';
 import { useNavigation } from '@react-navigation/native';
+import { useAppDispatch } from '../../hooks';
+import { playVod } from '../../redux/actions/vodActions';
 interface Props {
     vod: VodType,
     vodStyle?: typeof StyleSheet,
@@ -12,10 +14,17 @@ interface Props {
 export default function VodCard({ vod, vodStyle }: Props) {
     const theme = useTheme();
     const navigation = useNavigation();
+    const dispatch = useAppDispatch();
     return (
-        <TouchableOpacity 
-        style={styles.vod}
-        onPress={()=>{navigation.navigate('首页', {screen: '播放', params: vod})}}
+        <TouchableOpacity
+            style={styles.vod}
+            onPress={() => {
+                dispatch(playVod(vod));
+                navigation.navigate('首页', {
+                    screen: '播放',
+                    params: { vod_id: vod.vod_id },
+                })
+            }}
         >
             <Image source={{ uri: vod.vod_pic }} style={{ ...styles.image, ...vodStyle }} />
         </TouchableOpacity>

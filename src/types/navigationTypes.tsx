@@ -19,7 +19,9 @@ import { VodType } from './ajaxTypes';
 export type HomeStackParamList = {
     Home: undefined;
     搜索: undefined;
-    播放: VodType;
+    播放: {
+        vod_id: VodType['vod_id']
+    };
 };
 
 export type RootTabParamList = {
