@@ -14,8 +14,8 @@ export default ({ navigation }: ProfileStackScreenProps<'反馈'>) => {
     return (
         <ScreenContainer>
             <TitleWithBackButtonHeader title='我要反馈' />
-            <View style={{ marginTop: 30 }}>
-                <Text style={textVariants.header}>问题反馈:</Text>
+            <View style={{ marginTop: 30, marginBottom: 20 }}>
+                <Text style={{...textVariants.header, marginBottom: 20}}>问题反馈:</Text>
                 <TextInput
                     style={{ ...styles.input, backgroundColor: colors.card2, ...textVariants.body }}
                     onChangeText={setTextInput}

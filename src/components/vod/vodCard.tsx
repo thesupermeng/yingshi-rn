@@ -4,7 +4,7 @@ import { useTheme } from '@react-navigation/native';
 import { useQuery } from '@tanstack/react-query';
 import { VodType } from '../../types/ajaxTypes';
 import { useNavigation } from '@react-navigation/native';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch } from '../../hooks/hooks';
 import { playVod } from '../../redux/actions/vodActions';
 interface Props {
     vod: VodType,
@@ -20,6 +20,7 @@ export default function VodCard({ vod, vodStyle }: Props) {
             style={styles.vod}
             onPress={() => {
                 dispatch(playVod(vod));
+                
                 navigation.navigate('首页', {
                     screen: '播放',
                     params: { vod_id: vod.vod_id },

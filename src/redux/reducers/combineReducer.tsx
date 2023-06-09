@@ -1,8 +1,7 @@
 import { combineReducers } from "redux";
 import themeReducer from './themeReducer';
-import {vodReducer, playVodReducer} from './vodReducer';
+import { vodReducer } from './vodReducer';
 export default combineReducers({
     themeReducer,
     vodReducer,
-    playVodReducer
 })

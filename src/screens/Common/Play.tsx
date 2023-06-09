@@ -8,11 +8,12 @@ import { useTheme } from '@react-navigation/native';
 
 import { HomeStackScreenProps } from '../../types/navigationTypes';
 import { VodType } from '../../types/ajaxTypes';
-import { useOrientation } from '../../components/hooks/useOrientation';
+import { useOrientation } from '../../hooks/useOrientation';
 import PlayFullScreenGesture from '../../components/gestures/vod/PlayFullScreenGesture';
-import { addVodToFavorites } from '../../redux/actions/vodActions';
-import { useAppSelector } from '../../hooks';
+import { toggleVodFavorites } from '../../redux/actions/vodActions';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { RootState } from '../../redux/store';
+import { VodReducerState } from '../../redux/reducers/vodReducer';
 interface Props {
     params?: {
         vod_id: VodType['vod_id']
@@ -20,15 +21,21 @@ interface Props {
 }
 
 export default ({ navigation, route }: HomeStackScreenProps<'播放'>) => {
-    const { colors, textVariants } = useTheme()
-    console.log('PASSED PARAMS INTO PLAY:', route.params.vod_id)
+    const { colors, textVariants } = useTheme();
     const isPotrait = useOrientation();
-    const vod = useAppSelector(({ playVodReducer }: RootState) => playVodReducer).vod;
-
+    const vodReducer : VodReducerState = useAppSelector(({ vodReducer }: RootState) => vodReducer);
+    const vod = vodReducer.playVod.vod;
+    const dispatch = useAppDispatch();
     useEffect(() => {
+        console.log('FAV', vodReducer.playVod.isFavorite, vodReducer.favorites)
         console.log(isPotrait);
-    }, [isPotrait]);
+    }, [isPotrait, vodReducer]);
 
+    const toggleFavoriteVod = () => {
+        if (vod) {
+            dispatch(toggleVodFavorites(vod));
+        }
+    }
     return (
         <SafeAreaView>
             {!isPotrait &&
@@ -54,7 +61,7 @@ export default ({ navigation, route }: HomeStackScreenProps<'播放'>) => {
                         <View style={styles.descriptionContainer}>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                 <Text style={{ ...textVariants.body, ...styles.descriptionContainerText }}>{vod?.vod_name}</Text>
-                                <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }} onPress={toggleFavoriteVod}>
                                     <View style={{ paddingTop: 3, paddingRight: 5 }}>
                                         <StarIcon size={22} color="orange" opacity={0.5} />
                                     </View>

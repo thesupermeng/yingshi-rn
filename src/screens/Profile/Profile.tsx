@@ -6,7 +6,7 @@ import { ProfileStackScreenProps } from '../../types/navigationTypes';
 import LightMode from '../../../static/images/light_mode.svg';
 import { useTheme } from '@react-navigation/native';
 import { toggleTheme } from '../../redux/actions/themeAction';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { RootState } from '../../redux/store';
 import ShowMoreButton from '../../components/button/showMoreButton';
 

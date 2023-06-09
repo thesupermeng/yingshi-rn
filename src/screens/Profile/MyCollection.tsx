@@ -3,7 +3,7 @@ import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
 import { ProfileStackScreenProps } from '../../types/navigationTypes';
 import { useTheme } from '@react-navigation/native';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { RootState } from '../../redux/store';
 
 import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
