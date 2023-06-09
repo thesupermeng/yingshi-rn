@@ -3,7 +3,7 @@ import { StyleSheet, TouchableOpacity, Text, ScrollView, Image } from 'react-nat
 import { useTheme } from '@react-navigation/native';
 import { useQuery } from '@tanstack/react-query';
 import { VodType } from '../../types/ajaxTypes';
-import VodCard from './vodCard';
+import VodCard from './vodImageCard';
 interface Props {
     query_url: string,
     initial_page?: number,

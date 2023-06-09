@@ -7,15 +7,24 @@ import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { RootState } from '../../redux/store';
 
 import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
+import { VodReducerState } from '../../redux/reducers/vodReducer';
+import FavoriteVodCard from '../../components/cards/favoriteVodCard';
 
 export default ({ navigation }: ProfileStackScreenProps<'收藏'>) => {
     const { colors, textVariants, icons } = useTheme()
     const dispatch = useAppDispatch();
-    const themeReducer = useAppSelector(({ themeReducer }: RootState) => themeReducer);
-
+    const vodReducer : VodReducerState = useAppSelector(({ vodReducer }: RootState) => vodReducer);
+    const favorites = vodReducer.favorites;
     return (
         <ScreenContainer>
             <TitleWithBackButtonHeader title='我的收藏'/>
+            <View>
+                {
+                    favorites.map((vod, idx) => (
+                        <FavoriteVodCard vod={vod} key={`fav-${idx}`} />
+                    ))
+                }
+            </View>
         </ScreenContainer >
     )
 }

@@ -14,22 +14,13 @@ import { toggleVodFavorites } from '../../redux/actions/vodActions';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { RootState } from '../../redux/store';
 import { VodReducerState } from '../../redux/reducers/vodReducer';
-interface Props {
-    params?: {
-        vod_id: VodType['vod_id']
-    }
-}
 
 export default ({ navigation, route }: HomeStackScreenProps<'播放'>) => {
     const { colors, textVariants } = useTheme();
-    const isPotrait = useOrientation();
+    // const isPotrait = useOrientation();
     const vodReducer : VodReducerState = useAppSelector(({ vodReducer }: RootState) => vodReducer);
     const vod = vodReducer.playVod.vod;
     const dispatch = useAppDispatch();
-    useEffect(() => {
-        console.log('FAV', vodReducer.playVod.isFavorite, vodReducer.favorites)
-        console.log(isPotrait);
-    }, [isPotrait, vodReducer]);
 
     const toggleFavoriteVod = () => {
         if (vod) {
@@ -38,9 +29,9 @@ export default ({ navigation, route }: HomeStackScreenProps<'播放'>) => {
     }
     return (
         <SafeAreaView>
-            {!isPotrait &&
+            {/* {!isPotrait &&
                 <PlayFullScreenGesture />
-            }
+            } */}
             <View style={styles.bofangBox}>
                 <Video controls={true} resizeMode="contain" source={{ uri: 'https://m3u.haiwaikan.com/xm3u8/395b22f1f066891ed8f7b191457a685490095df735c1e3c32e37ba4903b4bb649921f11e97d0da21.m3u8', type: 'm3u8' }} style={styles.video} />
             </View>

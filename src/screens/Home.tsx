@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   wrapper: {
     borderRadius: 100,
     marginTop: 10,
-    height: 240
+    height: 180
   },
   slide: {
     // flex: 1,

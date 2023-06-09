@@ -11,7 +11,7 @@ interface Props {
     vodStyle?: typeof StyleSheet,
 }
 
-export default function VodCard({ vod, vodStyle }: Props) {
+export default function vodImageCard({ vod, vodStyle }: Props) {
     const theme = useTheme();
     const navigation = useNavigation();
     const dispatch = useAppDispatch();
