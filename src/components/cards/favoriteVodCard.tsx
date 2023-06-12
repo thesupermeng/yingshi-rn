@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { VodType } from '../../types/ajaxTypes';
 import VodCard from '../vod/vodImageCard';
 import FavoriteButton from '../button/favoriteButton';
+import VodDescription from '../vod/vodDescription';
 
 interface Props {
     vod: VodType,
@@ -13,12 +14,14 @@ interface Props {
     btnStyle?: typeof StyleSheet
 }
 export default function FavoriteVodCard({ vod, onPress, btnStyle, ...params }: Props) {
-    const { colors } = useTheme();
-    const navigation = useNavigation();
+    const { colors, spacing } = useTheme();
     return (
         <View style={styles.card}>
-            <VodCard vod={vod} />
-            <FavoriteButton text={vod.vod_name} />
+            <VodCard vod={vod} vodStyle={styles.image}/>
+            <View style={styles.description} gap={spacing.xs}>
+                <FavoriteButton vod={vod} />
+                <VodDescription vod={vod} />
+            </View>
         </View>
     );
 }
@@ -27,6 +30,15 @@ const styles = StyleSheet.create({
     card: {
         padding: 10,
         display: 'flex',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    description: {
+        flexGrow: 1,
+        paddingTop: 8,
+        paddingBottom: 8
+    },
+    image: {
+        width: 128
     }
 });

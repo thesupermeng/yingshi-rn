@@ -38,6 +38,8 @@ export type ExtendedTheme = {
     },
   },
   spacing: {
+    xxs: number,
+    xs: number,
     s: number,
     m: number,
     l: number,
@@ -111,7 +113,9 @@ export const YingshiDarkTheme: ExtendedTheme = {
     },
   },
   spacing: {
-    s: 8,
+    xxs: 4,
+    xs: 8,
+    s: 12,
     m: 16,
     l: 24,
     xl: 40,
@@ -162,7 +166,9 @@ export const YingshiLightTheme: ExtendedTheme = {
     },
   },
   spacing: {
-    s: 8,
+    xxs: 4,
+    xs: 8,
+    s: 12,
     m: 16,
     l: 24,
     xl: 40,

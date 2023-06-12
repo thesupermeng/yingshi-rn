@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, SafeAreaView, ScrollView, Image } from 'react-native';
 import Video from 'react-native-video';
 import { YingshiDarkTheme } from '../../theme';
-import { StarIcon } from 'react-native-heroicons/solid';
+import FavoriteButton from '../../components/button/favoriteButton';
+import FavoriteIcon from '../../../static/images/favorite.svg'
 import ScreenContainer from '../../components/container/screenContainer';
 import { useTheme } from '@react-navigation/native';
 
@@ -16,10 +17,12 @@ import { RootState } from '../../redux/store';
 import { VodReducerState } from '../../redux/reducers/vodReducer';
 
 export default ({ navigation, route }: HomeStackScreenProps<'播放'>) => {
-    const { colors, textVariants } = useTheme();
+    const { colors, spacing, textVariants } = useTheme();
     // const isPotrait = useOrientation();
-    const vodReducer : VodReducerState = useAppSelector(({ vodReducer }: RootState) => vodReducer);
+    const vodReducer: VodReducerState = useAppSelector(({ vodReducer }: RootState) => vodReducer);
     const vod = vodReducer.playVod.vod;
+    const isFavorite = vodReducer.playVod.isFavorite;
+
     const dispatch = useAppDispatch();
 
     const toggleFavoriteVod = () => {
@@ -33,7 +36,7 @@ export default ({ navigation, route }: HomeStackScreenProps<'播放'>) => {
                 <PlayFullScreenGesture />
             } */}
             <View style={styles.bofangBox}>
-                <Video controls={true} resizeMode="contain" source={{ uri: 'https://m3u.haiwaikan.com/xm3u8/395b22f1f066891ed8f7b191457a685490095df735c1e3c32e37ba4903b4bb649921f11e97d0da21.m3u8', type: 'm3u8' }} style={styles.video} />
+                {/* <Video controls={true} resizeMode="contain" source={{ uri: 'https://m3u.haiwaikan.com/xm3u8/395b22f1f066891ed8f7b191457a685490095df735c1e3c32e37ba4903b4bb649921f11e97d0da21.m3u8', type: 'm3u8' }} style={styles.video} /> */}
             </View>
             <View style={styles.videoHeader}>
                 <Text style={{ color: colors.text, ...styles.videoHeaderContent }}>{vod?.vod_name}</Text>
@@ -50,17 +53,15 @@ export default ({ navigation, route }: HomeStackScreenProps<'播放'>) => {
                             />
                         </View>
                         <View style={styles.descriptionContainer}>
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                <Text style={{ ...textVariants.body, ...styles.descriptionContainerText }}>{vod?.vod_name}</Text>
-                                <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }} onPress={toggleFavoriteVod}>
-                                    <View style={{ paddingTop: 3, paddingRight: 5 }}>
-                                        <StarIcon size={22} color="orange" opacity={0.5} />
+                            {vod && <FavoriteButton
+                                vod={vod}
+                                leftIcon={
+                                    <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}} gap={spacing.xxs}>
+                                        <FavoriteIcon width={24} height={24}  style={{ color: isFavorite ? colors.primary : colors.muted }}/>
+                                        <Text style={{ color: isFavorite ? colors.primary : colors.muted }}>收藏</Text>
                                     </View>
-                                    <View>
-                                        <Text style={styles.descriptionContainerText}>收藏</Text>
-                                    </View>
-                                </TouchableOpacity>
-                            </View>
+                                }
+                            />}
                             <Text style={styles.descriptionContainerText}>2023 大陆 古装 爱情 仙侠 剧情</Text>
                             <Text style={styles.descriptionContainerText}>更新：2023-02-10</Text>
                             <Text style={styles.descriptionContainerText}>分享：2023-02-10</Text>

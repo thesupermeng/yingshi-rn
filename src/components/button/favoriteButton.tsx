@@ -1,27 +1,39 @@
 import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
 import FavoriteIcon from '../../../static/images/favorite.svg';
 import { useTheme } from '@react-navigation/native';
+import { useAppSelector, useAppDispatch } from '../../hooks/hooks';
+import { RootState } from '../../redux/store';
+import { toggleVodFavorites } from '../../redux/actions/vodActions';
+import { VodType } from '../../types/ajaxTypes';
 interface Props {
+    vod: VodType,
     onPress?: any,
-    text: string,
     textColor?: string,
     params?: any[],
-    leftIcon?: React.SVGAttributes<SVGElement>,
+    leftIcon?: React.ReactNode,
     buttonStyle?: typeof StyleSheet
 }
-export default function FavoriteButton({ text, onPress, leftIcon, textColor = '', buttonStyle, ...params }: Props) {
+export default function FavoriteButton({ onPress, leftIcon, textColor = '', buttonStyle, vod, ...params }: Props) {
     const { colors, textVariants } = useTheme();
+    const dispatch = useAppDispatch();
     return (
         <View style={styles.btn}>
             <View style={styles.title}>
-                <Text style={{
-                    ...StyleSheet.create(textVariants.header),
-                    color: textColor ? textColor : colors.text
+                <Text numberOfLines={1} style={{
+                    ...textVariants.header,
+                    color: textColor ? textColor : colors.text,
+                    flex: 1
                 }}>
-                    {text}
+                    {vod?.vod_name}
                 </Text>
             </View>
-            <FavoriteIcon width={24} height={24} color='yellow' />
+            <TouchableOpacity onPress={() => dispatch(toggleVodFavorites(vod))}>
+                {
+                    leftIcon ?
+                    leftIcon
+                    : <FavoriteIcon width={24} height={24} style={{ color: colors.primary, ...buttonStyle,}} />
+                }
+            </TouchableOpacity>
         </View>
     );
 }
@@ -38,6 +50,5 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         flexShrink: 1,
-        flexGrow: 1
     }
 });

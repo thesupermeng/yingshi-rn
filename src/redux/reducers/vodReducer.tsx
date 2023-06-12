@@ -25,11 +25,12 @@ const initialState: VodReducerState = {
 export function vodReducer(state = initialState, action: VodActionType) {
     switch (action.type) {
         case PLAY_VOD:
+            console.log('PLAYING VOD', state.favorites)
             return {
                 ...state,
                 playVod: {
                     vod: action.payload,
-                    isFavorite: initialState.favorites.some(x => x.vod_id === action.payload.vod_id)
+                    isFavorite: state.favorites.some(x => x.vod_id === action.payload.vod_id)
                 }
             };
         case TOGGLE_VOD_FAVORITES:

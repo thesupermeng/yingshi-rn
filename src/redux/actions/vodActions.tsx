@@ -9,13 +9,11 @@ export const addVodToFavorites = (vod: VodType) => (
     }
 )
 
-export const removeVodFromFavorites = (vod: VodType) => (dispatch: (arg0: VodActionType) => any) => (
-    dispatch(
-        {
-            type: REMOVE_VOD_FROM_FAVORITES,
-            payload: vod
-        }
-    )
+export const removeVodFromFavorites = (vod: VodType) => (
+    {
+        type: REMOVE_VOD_FROM_FAVORITES,
+        payload: vod
+    }
 )
 
 export const toggleVodFavorites = (vod: VodType) => (

@@ -15,8 +15,8 @@ export default function ScreenContainer({children, ...params}:Props) {
 const styles = StyleSheet.create({
     container: {
         paddingTop: 4,
-        paddingLeft: 15,
-        paddingRight: 15,
+        paddingLeft: 10,
+        paddingRight: 10,
         flex: 1,
         paddingVertical: 200
     }
