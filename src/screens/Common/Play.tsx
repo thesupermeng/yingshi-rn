@@ -15,6 +15,7 @@ import { toggleVodFavorites } from '../../redux/actions/vodActions';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { RootState } from '../../redux/store';
 import { VodReducerState } from '../../redux/reducers/vodReducer';
+import BackButton from '../../components/button/backButton';
 
 export default ({ navigation, route }: HomeStackScreenProps<'播放'>) => {
     const { colors, spacing, textVariants } = useTheme();
@@ -25,11 +26,6 @@ export default ({ navigation, route }: HomeStackScreenProps<'播放'>) => {
 
     const dispatch = useAppDispatch();
 
-    const toggleFavoriteVod = () => {
-        if (vod) {
-            dispatch(toggleVodFavorites(vod));
-        }
-    }
     return (
         <SafeAreaView>
             {/* {!isPotrait &&
@@ -39,7 +35,8 @@ export default ({ navigation, route }: HomeStackScreenProps<'播放'>) => {
                 {/* <Video controls={true} resizeMode="contain" source={{ uri: 'https://m3u.haiwaikan.com/xm3u8/395b22f1f066891ed8f7b191457a685490095df735c1e3c32e37ba4903b4bb649921f11e97d0da21.m3u8', type: 'm3u8' }} style={styles.video} /> */}
             </View>
             <View style={styles.videoHeader}>
-                <Text style={{ color: colors.text, ...styles.videoHeaderContent }}>{vod?.vod_name}</Text>
+                <BackButton btnStyle={{padding: 20}}/>
+                <Text style={{ ...textVariants.header, color: colors.text, marginLeft: spacing.l }}>{vod?.vod_name}</Text>
             </View>
             <ScrollView
                 contentInsetAdjustmentBehavior="automatic">
@@ -96,12 +93,9 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: 0,
         left: 0,
-    },
-    videoHeaderContent: {
-        fontWeight: '600',
-        fontSize: 16,
-        paddingLeft: 43,
-        paddingTop: 17
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center'
     },
     videoDescription: {
         flexDirection: 'row',

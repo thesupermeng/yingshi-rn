@@ -33,7 +33,9 @@ export type RootTabParamList = {
 
 export type ProfileStackParamList = {
     Profile: undefined;
-    收藏: undefined;
+    视频收藏: undefined;
+    播单收藏: undefined;
+    合辑收藏: undefined;
     播放历史: undefined;
     反馈: undefined;
     设置: undefined;

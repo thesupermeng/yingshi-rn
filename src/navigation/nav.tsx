@@ -11,7 +11,7 @@ import ProfileScreen from '../screens/Profile/Profile';
 import WatchAnytime from '../screens/WatchAnytime';
 import SearchScreen from '../screens/Common/Search';
 import PlayScreen from '../screens/Common/Play';
-import MyCollectionScreen from '../screens/Profile/MyCollection';
+import MyCollectionScreen from '../screens/Profile/Collection/VodCollection';
 import FeedbackScreen from '../screens/Profile/Feedback';
 
 import HomeTab from '../../static/images/home_tab.svg';
@@ -48,7 +48,7 @@ export default () => {
         return (
             <ProfileStack.Navigator screenOptions={{headerShown: false}}>
                 <ProfileStack.Screen name='Profile' component={ProfileScreen} />
-                <ProfileStack.Screen name='收藏' component={MyCollectionScreen} />
+                <ProfileStack.Screen name='视频收藏' component={MyCollectionScreen} />
                 <ProfileStack.Screen name='反馈' component={FeedbackScreen} />
             </ProfileStack.Navigator>
         );

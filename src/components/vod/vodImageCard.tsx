@@ -11,7 +11,7 @@ interface Props {
     vodStyle?: typeof StyleSheet,
 }
 
-export default function vodImageCard({ vod, vodStyle }: Props) {
+export default function VodImageCard({ vod, vodStyle }: Props) {
     const theme = useTheme();
     const navigation = useNavigation();
     const dispatch = useAppDispatch();
@@ -39,7 +39,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         height: 200,
         width: 150,
-        borderRadius: 20,
-        marginRight: 20
+        borderRadius: 20
     }
 });

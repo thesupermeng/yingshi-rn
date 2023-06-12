@@ -3,9 +3,9 @@ import BackIcon from '../../../static/images/back_arrow.svg';
 import { useTheme } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
 import { VodType } from '../../types/ajaxTypes';
-import VodCard from '../vod/vodImageCard';
+import VodCard from './vodImageCard';
 import FavoriteButton from '../button/favoriteButton';
-import VodDescription from '../vod/vodDescription';
+import VodDescription from './vodDescription';
 
 interface Props {
     vod: VodType,
@@ -16,7 +16,7 @@ interface Props {
 export default function FavoriteVodCard({ vod, onPress, btnStyle, ...params }: Props) {
     const { colors, spacing } = useTheme();
     return (
-        <View style={styles.card}>
+        <View style={styles.card} gap={spacing.s}>
             <VodCard vod={vod} vodStyle={styles.image}/>
             <View style={styles.description} gap={spacing.xs}>
                 <FavoriteButton vod={vod} />

@@ -3,7 +3,7 @@ import { StyleSheet, TouchableOpacity, Text, ScrollView, Image } from 'react-nat
 import { useTheme } from '@react-navigation/native';
 import { useQuery } from '@tanstack/react-query';
 import { VodType } from '../../types/ajaxTypes';
-import VodCard from './vodImageCard';
+import VodCard from './vodCard';
 interface Props {
     query_url: string,
     initial_page?: number,
@@ -36,7 +36,7 @@ export default function VodList({ query_url, initial_page = 0, vodStyle }: Props
         <ScrollView style={styles.list} horizontal>
             {
                 vodlist && vodlist.map((vod, id) => (
-                    <VodCard key={`${query_url}-${page}-${id}`} vodStyle={vodStyle} vod={vod} />
+                    <VodCard key={`${query_url}-${page}-${id}`} vodImageStyle={vodStyle} vod={vod} />
                 ))
             }
         </ScrollView>

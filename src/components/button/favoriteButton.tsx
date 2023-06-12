@@ -14,24 +14,22 @@ interface Props {
     buttonStyle?: typeof StyleSheet
 }
 export default function FavoriteButton({ onPress, leftIcon, textColor = '', buttonStyle, vod, ...params }: Props) {
-    const { colors, textVariants } = useTheme();
+    const { colors, textVariants, spacing } = useTheme();
     const dispatch = useAppDispatch();
     return (
         <View style={styles.btn}>
-            <View style={styles.title}>
-                <Text numberOfLines={1} style={{
-                    ...textVariants.header,
-                    color: textColor ? textColor : colors.text,
-                    flex: 1
-                }}>
-                    {vod?.vod_name}
-                </Text>
-            </View>
-            <TouchableOpacity onPress={() => dispatch(toggleVodFavorites(vod))}>
+            <Text numberOfLines={1} style={{
+                ...textVariants.header,
+                color: textColor ? textColor : colors.text,
+                flex: 1
+            }}>
+                {vod.vod_name}
+            </Text>
+            <TouchableOpacity onPress={() => dispatch(toggleVodFavorites(vod))} style={{marginLeft: spacing.xs}}>
                 {
                     leftIcon ?
-                    leftIcon
-                    : <FavoriteIcon width={24} height={24} style={{ color: colors.primary, ...buttonStyle,}} />
+                        leftIcon
+                        : <FavoriteIcon width={24} height={24} style={{ color: colors.primary, ...buttonStyle, }} />
                 }
             </TouchableOpacity>
         </View>

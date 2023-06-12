@@ -7,7 +7,7 @@ import { useTheme } from '@react-navigation/native';
 import BackButton from '../button/backButton';
 
 interface Props {
-    title: string
+    title?: string
 }
 
 export default function TitleWithBackButtonHeader({ title }: Props) {
