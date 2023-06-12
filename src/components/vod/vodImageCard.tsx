@@ -20,7 +20,6 @@ export default function VodImageCard({ vod, vodStyle }: Props) {
             style={styles.vod}
             onPress={() => {
                 dispatch(playVod(vod));
-                
                 navigation.navigate('首页', {
                     screen: '播放',
                     params: { vod_id: vod.vod_id },

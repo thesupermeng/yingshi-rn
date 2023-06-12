@@ -18,7 +18,7 @@ export default function VodCard({ vod, vodImageStyle }: Props) {
     return (
         <View style={{...styles.card, ...vodImageStyle, height: 'auto' }}>
             <VodImageCard vod={vod} vodStyle={vodImageStyle}/>
-            <Text style={{...styles.text, ...textVariants.body}}>{vod.vod_name}</Text>
+            <Text style={{...styles.text, ...textVariants.body, height: textVariants.body.fontSize * 3}} numberOfLines={2}>{vod.vod_name}</Text>
         </View>
     );
 }
@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
         flexShrink: 1,
         textAlign: 'center',
         paddingLeft: 10,
-        paddingRight: 10
+        paddingRight: 10,
+        marginTop: 4,
     }
 });

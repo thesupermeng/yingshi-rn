@@ -18,7 +18,7 @@ import InfoIcon from '../../../static/images/info.svg';
 import ShareIcon from '../../../static/images/share.svg';
 
 export default ({ navigation }: ProfileStackScreenProps<'Profile'>) => {
-    const { colors, textVariants, icons } = useTheme()
+    const { colors, textVariants, icons } = useTheme();
     const dispatch = useAppDispatch();
     const themeReducer = useAppSelector(({ themeReducer }: RootState) => themeReducer);
 

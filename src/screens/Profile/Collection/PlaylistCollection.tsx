@@ -11,21 +11,21 @@ import { VodReducerState } from '../../../redux/reducers/vodReducer';
 import FavoriteVodCard from '../../../components/vod/favoriteVodCard';
 import CollectionHeader from '../../../components/header/myCollectionHeader';
 
-export default ({ navigation }: ProfileStackScreenProps<'视频收藏'>) => {
+export default ({ navigation }: ProfileStackScreenProps<'播单收藏'>) => {
     const { colors, textVariants, icons } = useTheme()
     const dispatch = useAppDispatch();
-    const vodReducer: VodReducerState = useAppSelector(({ vodReducer }: RootState) => vodReducer);
-    const favorites = vodReducer.favorites;
+    // const vodReducer: VodReducerState = useAppSelector(({ vodReducer }: RootState) => vodReducer);
+    // const favorites = vodReducer.favorites;
     return (
         <ScreenContainer>
             <TitleWithBackButtonHeader title='我的收藏' />
-            <CollectionHeader route='视频收藏' navigator={navigation} />
+            <CollectionHeader route='播单收藏' navigator={navigation} />
             <View>
-                {
+                {/* {
                     favorites.map((vod, idx) => (
                         <FavoriteVodCard vod={vod} key={`fav-${idx}`} />
                     ))
-                }
+                } */}
             </View>
             <Text style={{ ...textVariants.body, color: colors.muted, ...styles.noMore }}>没有更多了</Text>
         </ScreenContainer >

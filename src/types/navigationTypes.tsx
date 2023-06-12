@@ -24,6 +24,11 @@ export type HomeStackParamList = {
     };
 };
 
+export type PlaylistParamList = {
+    Playlist: undefined;
+    搜索: undefined;
+};
+
 export type RootTabParamList = {
     首页: NavigatorScreenParams<HomeStackParamList>;
     随心看: undefined;
@@ -41,7 +46,19 @@ export type ProfileStackParamList = {
     设置: undefined;
     关于我们: undefined;
     分享App: undefined;
+    播放: {
+        vod_id: VodType['vod_id']
+    };
 };
+
+// export type PlaylistParamList = {
+//     Playlist: NavigatorScreenParams<PlaylistParamList>;
+//     随心看: undefined;
+//     播单: undefined;
+//     我的: NativeStackNavigationProp<ProfileStackParamList>;
+// };
+
+
 
 export type RootTabScreenProps<T extends keyof RootTabParamList> =
     BottomTabScreenProps<RootTabParamList, T>;
@@ -55,6 +72,7 @@ export type HomeTabScreenProps<T extends keyof HomeStackParamList> =
     >;
 
 export type ProfileStackScreenProps<T extends keyof ProfileStackParamList> = NativeStackScreenProps<ProfileStackParamList, T>;
+export type PlaylistStackScreenProps<T extends keyof PlaylistParamList> = NativeStackScreenProps<PlaylistParamList, T>;
 
 declare global {
     namespace ReactNavigation {

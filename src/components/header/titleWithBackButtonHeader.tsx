@@ -16,7 +16,7 @@ export default function TitleWithBackButtonHeader({ title }: Props) {
     return (
         <View style={styles.container}>
             <BackButton />
-            <Text style={textVariants.header}>{title}</Text>
+            <Text style={textVariants.header} numberOfLines={1}>{title}</Text>
             <View style={{width: 44}}></View>
         </View>
     );
@@ -30,5 +30,8 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         width: '100%',
         alignItems: 'center',
+    },
+    header: {
+        flex: 1
     }
 });

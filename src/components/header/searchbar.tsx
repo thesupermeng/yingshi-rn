@@ -9,13 +9,14 @@ interface Props {
 }
 
 export default function HomeSearchBar({ defaultValue = '子弹列车', onPress = () => { } }: Props) {
-    const {colors, icons} = useTheme();
+    const {colors, icons, textVariants} = useTheme();
     return (
         <TouchableOpacity style={styles.container} onPress={onPress}>
             <SearchBar
                 platform="default"
                 containerStyle={styles.containerStyle}
                 inputContainerStyle={{ color:colors.text, backgroundColor: colors.search, ...styles.inputContainerStyle }}
+                inputStyle={{...textVariants.body}}
                 placeholder="输入搜索关键词"
                 placeholderTextColor={colors.text}
                 round
@@ -35,21 +36,24 @@ const styles = StyleSheet.create({
         alignSelf: 'stretch',
         marginLeft: 8,
         marginRight: 8,
-        height: '90%',
+
     },
     containerStyle: {
-        paddingLeft: 0,
-        paddingRight: 0,
-        margin: 0,
-        backgroundColor: 'transparent',
+        padding: 0,
+        marginLeft: 0,
+        marginRight: 0,
         textAlign: 'left',
-        flexGrow: 1,
-        borderRadius: 100,
+        borderRadius: 20,
         borderTopWidth: 0,
-        borderBottomWidth: 0
+        borderBottomWidth: 0,
+        flex: 1,
+        paddingTop: 4,
+        paddingBottom: 4,
+        backgroundColor: 'transparent'
     },
     inputContainerStyle: {
-        borderRadius: 100,
-        pointerEvents: 'none'
+        borderRadius: 20,
+        pointerEvents: 'none',
+        height: 35
     }
 });

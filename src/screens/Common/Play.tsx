@@ -25,7 +25,6 @@ export default ({ navigation, route }: HomeStackScreenProps<'播放'>) => {
     const isFavorite = vodReducer.playVod.isFavorite;
 
     const dispatch = useAppDispatch();
-
     return (
         <SafeAreaView>
             {/* {!isPotrait &&
@@ -35,8 +34,8 @@ export default ({ navigation, route }: HomeStackScreenProps<'播放'>) => {
                 {/* <Video controls={true} resizeMode="contain" source={{ uri: 'https://m3u.haiwaikan.com/xm3u8/395b22f1f066891ed8f7b191457a685490095df735c1e3c32e37ba4903b4bb649921f11e97d0da21.m3u8', type: 'm3u8' }} style={styles.video} /> */}
             </View>
             <View style={styles.videoHeader}>
-                <BackButton btnStyle={{padding: 20}}/>
-                <Text style={{ ...textVariants.header, color: colors.text, marginLeft: spacing.l }}>{vod?.vod_name}</Text>
+                <BackButton btnStyle={{ padding: 20 }} />
+                <Text style={{ ...textVariants.header, color: colors.text, marginLeft: spacing.l, flex: 1 }} numberOfLines={1}>{vod?.vod_name}</Text>
             </View>
             <ScrollView
                 contentInsetAdjustmentBehavior="automatic">
@@ -47,14 +46,15 @@ export default ({ navigation, route }: HomeStackScreenProps<'播放'>) => {
                                 source={{ uri: vod?.vod_pic }}
                                 resizeMode={'cover'}
                                 style={styles.descriptionImage}
+                                alt='Thumbnail'
                             />
                         </View>
                         <View style={styles.descriptionContainer}>
                             {vod && <FavoriteButton
                                 vod={vod}
                                 leftIcon={
-                                    <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}} gap={spacing.xxs}>
-                                        <FavoriteIcon width={24} height={24}  style={{ color: isFavorite ? colors.primary : colors.muted }}/>
+                                    <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }} gap={spacing.xxs}>
+                                        <FavoriteIcon width={24} height={24} style={{ color: isFavorite ? colors.primary : colors.muted }} />
                                         <Text style={{ color: isFavorite ? colors.primary : colors.muted }}>收藏</Text>
                                     </View>
                                 }

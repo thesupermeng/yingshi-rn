@@ -12,16 +12,18 @@ import { useQuery } from '@tanstack/react-query'
 import { useNavigation } from '@react-navigation/native';
 
 import { SuggestType } from '../../types/ajaxTypes';
+import { HomeStackParamList, ProfileStackParamList, RootTabScreenProps } from '../../types/navigationTypes';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 type Props = {
     defaultInput?: string,
+    navigation: NativeStackNavigationProp<HomeStackParamList | ProfileStackParamList, any, undefined>
 }
-export default ({ defaultInput = '' }: Props) => {
+export default ({ defaultInput = '', navigation }: Props) => {
     const [search, setSearch] = useState("");
-    const navigation = useNavigation();
     const [searchTimer, setSearchTimer] = useState<ReturnType<typeof setTimeout> | null>(null);
     const [searchResults, setSearchResults] = useState<Array<SuggestType>>([]);
     const { colors } = useTheme();
-    const { data:recommendations } = useQuery({
+    const { data: recommendations } = useQuery({
         queryKey: ["recommendationList"],
         queryFn: () =>
             fetch(`https://www.yingshi.tv/index.php/ajax/suggest.html?wd=a&mid=1&limit=10`)
@@ -34,7 +36,6 @@ export default ({ defaultInput = '' }: Props) => {
         fetch(`https://www.yingshi.tv/index.php/ajax/suggest.html?wd=${text}&mid=1&limit=10`)
             .then(response => response.json())
             .then(json => {
-                console.log(json.list)
                 setSearchResults(json.list)
             })
             .catch(error => {
@@ -56,7 +57,7 @@ export default ({ defaultInput = '' }: Props) => {
     return (
         <ScreenContainer>
             <View style={styles.nav}>
-                <BackButton />
+                <BackButton onPress={()=>navigation.goBack()}/>
                 <SearchBar
                     platform="default"
                     containerStyle={styles.containerStyle}
@@ -64,14 +65,14 @@ export default ({ defaultInput = '' }: Props) => {
                     leftIconContainerStyle={{}}
                     rightIconContainerStyle={{}}
                     loadingProps={{}}
-                    onChangeText={(newVal:string) => updateSearch(newVal)}
+                    onChangeText={(newVal: string) => updateSearch(newVal)}
                     placeholder="输入搜索关键词"
                     placeholderTextColor={colors.muted}
                     round
                     searchIcon={<SearchIcon color={colors.muted} />}
                     value={search}
                     clearIcon={
-                        search ? 
+                        search ?
                             <TouchableOpacity onPress={() => {
                                 setSearchResults([]);
                                 setSearch('');
@@ -79,7 +80,7 @@ export default ({ defaultInput = '' }: Props) => {
                                 <ClearIcon />
                             </TouchableOpacity>
                             : <></>
-                        }
+                    }
                 />
             </View>
             <View style={styles.searchResult}>
