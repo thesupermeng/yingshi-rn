@@ -1,0 +1,44 @@
+import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
+import FavoriteIcon from '../../../static/images/favorite.svg';
+import { useTheme } from '@react-navigation/native';
+import { useAppSelector, useAppDispatch } from '../../hooks/hooks';
+import { RootState } from '../../redux/store';
+import { togglePlaylistFavorites } from '../../redux/actions/vodActions';
+import { VodTopicType } from '../../types/ajaxTypes';
+interface Props {
+    playlist: VodTopicType,
+    leftIcon?: React.ReactNode,
+    buttonStyle?: typeof StyleSheet
+}
+export default function FavoritePlaylistButton({ leftIcon, buttonStyle, playlist}: Props) {
+    const { colors, textVariants, spacing, icons } = useTheme();
+    const favoritePlaylistSelector = useAppSelector(({ vodPlaylistReducer }: RootState) => vodPlaylistReducer)
+    const dispatch = useAppDispatch();
+    const isFavorited = favoritePlaylistSelector.playlistFavorites.some(x => x.topic_id === playlist.topic_id);
+    return (
+        <TouchableOpacity onPress={() => dispatch(togglePlaylistFavorites(playlist))}
+            style={{ ...styles.btn, backgroundColor: isFavorited ? colors.primary : colors.playlistFavorite, ...buttonStyle }}>
+            {
+                leftIcon ?
+                    leftIcon
+                    : <FavoriteIcon width={icons.sizes.l} height={icons.sizes.l} style={{ color: isFavorited ? colors.background : colors.muted, ...buttonStyle, }} />
+            }
+            <Text style={{ ...textVariants.body, color: isFavorited ? colors.background : colors.text, ...styles.text}}>{isFavorited ? '已收藏了' : '收藏播单'}</Text>
+        </TouchableOpacity>
+    );
+}
+
+const styles = StyleSheet.create({
+    text: {
+        marginLeft: 4
+    },
+    btn: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        flexShrink: 1,
+        padding: 5,
+        borderRadius: 5
+    }
+});

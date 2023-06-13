@@ -11,13 +11,14 @@ import VodImageCard from './vodImageCard';
 interface Props {
     vod: VodType,
     vodImageStyle?: typeof StyleSheet,
+    onPress?: any,
 }
 
-export default function VodCard({ vod, vodImageStyle }: Props) {
+export default function VodCard({ vod, vodImageStyle, onPress }: Props) {
     const {colors, textVariants} = useTheme();
     return (
         <View style={{...styles.card, ...vodImageStyle, height: 'auto' }}>
-            <VodImageCard vod={vod} vodStyle={vodImageStyle}/>
+            <VodImageCard vod={vod} vodStyle={vodImageStyle} onPress={onPress}/>
             <Text style={{...styles.text, ...textVariants.body, height: textVariants.body.fontSize * 3}} numberOfLines={2}>{vod.vod_name}</Text>
         </View>
     );

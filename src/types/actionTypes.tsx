@@ -1,4 +1,4 @@
-import { VodType } from "./ajaxTypes"
+import { VodTopicType, VodType } from "./ajaxTypes"
 
 export interface ThemeActionType {
     type: string
@@ -6,5 +6,10 @@ export interface ThemeActionType {
 
 export interface VodActionType {
     type: string,
-    payload: VodType
+    payload: VodType 
+}
+
+export interface VodPlaylistActionType {
+    type: string,
+    payload: VodTopicType 
 }

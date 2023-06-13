@@ -13,7 +13,7 @@ interface Props {
     leftIcon?: React.ReactNode,
     buttonStyle?: typeof StyleSheet
 }
-export default function FavoriteButton({ onPress, leftIcon, textColor = '', buttonStyle, vod, ...params }: Props) {
+export default function FavoriteVodButton({ onPress, leftIcon, textColor = '', buttonStyle, vod, ...params }: Props) {
     const { colors, textVariants, spacing } = useTheme();
     const dispatch = useAppDispatch();
     return (

@@ -6,7 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import HomeScreen from '../screens/Home';
-import PlaylistScreen from '../screens/Playlist';
+import PlaylistScreen from '../screens/Playlist/Playlist';
 import ProfileScreen from '../screens/Profile/Profile';
 import WatchAnytime from '../screens/WatchAnytime';
 import SearchScreen from '../screens/Common/Search';
@@ -14,6 +14,7 @@ import PlayScreen from '../screens/Common/Play';
 import VodCollectionScreen from '../screens/Profile/Collection/VodCollection';
 import FeedbackScreen from '../screens/Profile/Feedback';
 import PlaylistCollectionScreen from '../screens/Profile/Collection/PlaylistCollection';
+import PlaylistDetailsScreen from '../screens/Playlist/PlaylistDetails';
 
 import HomeTab from '../../static/images/home_tab.svg';
 import HomeActiveTab from '../../static/images/home_tab_active.svg';
@@ -25,7 +26,7 @@ import WatchAnytimeTab from '../../static/images/video_tab.svg';
 import WatchAnytimeActiveTab from '../../static/images/video_tab_active.svg';
 
 import { YingshiDarkTheme, YingshiLightTheme } from '../theme';
-import { HomeStackParamList, RootTabParamList, ProfileStackParamList, PlaylistParamList } from '../types/navigationTypes';
+import { HomeStackParamList, RootTabParamList, ProfileStackParamList, PlaylistStackParamList } from '../types/navigationTypes';
 import RNBootSplash from "react-native-bootsplash";
 import { RootState } from '../redux/store';
 
@@ -33,7 +34,7 @@ export default () => {
     const Tab = createBottomTabNavigator<RootTabParamList>();
     const HomeStack = createNativeStackNavigator<HomeStackParamList>();
     const ProfileStack = createNativeStackNavigator<ProfileStackParamList>();
-    const PlaylistStack = createNativeStackNavigator<PlaylistParamList>();
+    const PlaylistStack = createNativeStackNavigator<PlaylistStackParamList>();
 
     const themeReducer = useSelector(({ themeReducer }:RootState) => themeReducer);
     const theme = themeReducer.theme ? YingshiDarkTheme : YingshiLightTheme
@@ -64,6 +65,8 @@ export default () => {
             <PlaylistStack.Navigator screenOptions={{headerShown: false}}>
                 <PlaylistStack.Screen name='Playlist' component={PlaylistScreen} />
                 <PlaylistStack.Screen name='搜索' component={SearchScreen} />
+                <PlaylistStack.Screen name='播放' component={PlayScreen} initialParams={{ vod_id: 1 }}/>
+                <PlaylistStack.Screen name='PlaylistDetail' component={PlaylistDetailsScreen} initialParams={{topic_id: 1}} />
             </PlaylistStack.Navigator>
         );
     }

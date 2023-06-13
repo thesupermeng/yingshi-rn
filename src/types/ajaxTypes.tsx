@@ -83,35 +83,124 @@ export interface VodType {
 }
 
 export interface SuggestType {
-    en:        string;
-    id:        number;
-    name:      string;
-    pic:       string;
-    type:      SuggestVodNestedType;
-    type_1:    null;
-    type_id:   number;
+    en: string;
+    id: number;
+    name: string;
+    pic: string;
+    type: SuggestVodNestedType;
+    type_1: null;
+    type_id: number;
     type_name: string;
 }
 
 interface SuggestVodNestedType {
-    childids:        null;
-    type_des:        string;
-    type_en:         string;
-    type_id:         number;
-    type_jumpurl:    string;
-    type_key:        string;
-    type_logo:       string;
-    type_mid:        number;
-    type_name:       string;
-    type_pic:        string;
-    type_pid:        number;
-    type_sort:       number;
-    type_status:     number;
-    type_title:      string;
-    type_tpl:        string;
+    childids: null;
+    type_des: string;
+    type_en: string;
+    type_id: number;
+    type_jumpurl: string;
+    type_key: string;
+    type_logo: string;
+    type_mid: number;
+    type_name: string;
+    type_pic: string;
+    type_pid: number;
+    type_sort: number;
+    type_status: number;
+    type_title: string;
+    type_tpl: string;
     type_tpl_detail: string;
-    type_tpl_down:   string;
-    type_tpl_list:   string;
-    type_tpl_play:   string;
-    type_union:      string;
+    type_tpl_down: string;
+    type_tpl_list: string;
+    type_tpl_play: string;
+    type_union: string;
 }
+
+
+export interface TypeExtendType {
+    class: string
+    area: string
+    lang: string
+    year: string
+    star: string
+    director: string
+    state: string
+    version: string
+}
+export interface TypeType {
+    type_id: number
+    type_name: string
+    type_en: string
+    type_sort: number
+    type_mid: number
+    type_pid: number
+    type_status: number
+    type_tpl: string
+    type_tpl_list: string
+    type_tpl_detail: string
+    type_tpl_play: string
+    type_tpl_down: string
+    type_key: string
+    type_des: string
+    type_title: string
+    type_union: string
+    type_extend: TypeExtendType
+    type_logo: string
+    type_pic: string
+    type_jumpurl: string
+    childids: any
+}
+interface VodListType extends VodType {
+    type: TypeType
+}
+
+export interface VodTopicType {
+    topic_id: number
+    topic_name: string
+    topic_en: string
+    topic_sub: string
+    topic_status: number
+    topic_sort: number
+    topic_letter: string
+    topic_color: string
+    topic_tpl: string
+    topic_type: string
+    topic_pic: string
+    topic_pic_thumb: string
+    topic_pic_slide: string
+    topic_key: string
+    topic_des: string
+    topic_title: string
+    topic_blurb: string
+    topic_remarks: string
+    topic_level: number
+    topic_up: number
+    topic_down: number
+    topic_score: string
+    topic_score_all: number
+    topic_score_num: number
+    topic_hits: number
+    topic_hits_day: number
+    topic_hits_week: number
+    topic_hits_month: number
+    topic_time: string
+    topic_time_add: string
+    topic_tag: string
+    topic_rel_vod: string
+    topic_rel_art: string
+    topic_content: string
+    topic_extend: string
+    vod_list: VodListType[]
+  }
+
+  export interface VodPlaylistResponseType {
+    code: number
+    msg: string
+    page: number
+    pagecount: number
+    limit: number
+    total: number
+    list: {
+        [key: string] : VodTopicType
+    }
+  }

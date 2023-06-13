@@ -23,7 +23,9 @@ export default ({ navigation }: ProfileStackScreenProps<'视频收藏'>) => {
             <View>
                 {
                     favorites.map((vod, idx) => (
-                        <FavoriteVodCard vod={vod} key={`fav-${idx}`} />
+                        <FavoriteVodCard vod={vod} key={`fav-${idx}`} onPress={() => navigation.navigate('播放', {
+                            vod_id: vod.vod_id
+                        })} />
                     ))
                 }
             </View>

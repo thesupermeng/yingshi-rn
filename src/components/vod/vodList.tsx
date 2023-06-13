@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { StyleSheet, TouchableOpacity, Text, ScrollView, Image } from 'react-native';
-import { useTheme } from '@react-navigation/native';
+import { useNavigation, useTheme } from '@react-navigation/native';
 import { useQuery } from '@tanstack/react-query';
 import { VodType } from '../../types/ajaxTypes';
 import VodCard from './vodCard';
@@ -18,8 +18,8 @@ type VodResponseType = {
 export default function VodList({ query_url, initial_page = 0, vodStyle }: Props) {
     const theme = useTheme();
     const [page, setPage] = useState(initial_page);
-
-    const fetchVods = (page = 0) => fetch(`${query_url}/&page=${page}`).then((res) => res.json().then((json : VodResponseType) => {
+    const navigation = useNavigation();
+    const fetchVods = (page = 0) => fetch(`${query_url}/&page=${page}`).then((res) => res.json().then((json: VodResponseType) => {
         return json.list;
     }));
 
@@ -36,7 +36,12 @@ export default function VodList({ query_url, initial_page = 0, vodStyle }: Props
         <ScrollView style={styles.list} horizontal>
             {
                 vodlist && vodlist.map((vod, id) => (
-                    <VodCard key={`${query_url}-${page}-${id}`} vodImageStyle={vodStyle} vod={vod} />
+                    <VodCard key={`${query_url}-${page}-${id}`} vodImageStyle={vodStyle} vod={vod} onPress={() => {
+                        navigation.navigate('首页', {
+                            screen: '播放',
+                            params: { vod_id: vod.vod_id },
+                        })
+                    }} />
                 ))
             }
         </ScrollView>

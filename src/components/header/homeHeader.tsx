@@ -9,12 +9,13 @@ import { RootTabParamList } from '../../types/navigationTypes';
 
 interface Props {
     logo?: React.ReactNode,
-    navigator: any
+    navigator: any,
+    headerStyle?: typeof StyleSheet,
 }
-export default function MainHeader({ logo, navigator }: Props) {
+export default function MainHeader({ logo, navigator, headerStyle }: Props) {
     const { icons } = useTheme();
     return (
-        <View style={styles.container}>
+        <View style={{...styles.container, ...headerStyle}}>
             {
                 logo
                     ? logo

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, SafeAreaView, ScrollView, Image } from 'react-native';
 import Video from 'react-native-video';
 import { YingshiDarkTheme } from '../../theme';
-import FavoriteButton from '../../components/button/favoriteButton';
+import FavoriteButton from '../../components/button/favoriteVodButton';
 import FavoriteIcon from '../../../static/images/favorite.svg'
 import ScreenContainer from '../../components/container/screenContainer';
 import { useTheme } from '@react-navigation/native';
@@ -34,7 +34,7 @@ export default ({ navigation, route }: HomeStackScreenProps<'播放'>) => {
                 {/* <Video controls={true} resizeMode="contain" source={{ uri: 'https://m3u.haiwaikan.com/xm3u8/395b22f1f066891ed8f7b191457a685490095df735c1e3c32e37ba4903b4bb649921f11e97d0da21.m3u8', type: 'm3u8' }} style={styles.video} /> */}
             </View>
             <View style={styles.videoHeader}>
-                <BackButton btnStyle={{ padding: 20 }} />
+                <BackButton btnStyle={{ padding: 20 }} onPress={() => navigation.goBack()}/>
                 <Text style={{ ...textVariants.header, color: colors.text, marginLeft: spacing.l, flex: 1 }} numberOfLines={1}>{vod?.vod_name}</Text>
             </View>
             <ScrollView

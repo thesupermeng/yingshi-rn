@@ -7,17 +7,18 @@ import { useTheme } from '@react-navigation/native';
 import BackButton from '../button/backButton';
 
 interface Props {
-    title?: string
+    title?: string,
+    onBack?: any,
+    headerStyle?: typeof StyleSheet
 }
 
-export default function TitleWithBackButtonHeader({ title }: Props) {
-    const navigation = useNavigation();
+export default function TitleWithBackButtonHeader({ title, onBack, headerStyle }: Props) {
     const { textVariants } = useTheme()
     return (
-        <View style={styles.container}>
-            <BackButton />
+        <View style={{...styles.container, ...headerStyle}}>
+            <BackButton onPress={onBack} />
             <Text style={textVariants.header} numberOfLines={1}>{title}</Text>
-            <View style={{width: 44}}></View>
+            <View style={{ width: 44 }}></View>
         </View>
     );
 }

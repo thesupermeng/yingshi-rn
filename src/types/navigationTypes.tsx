@@ -6,7 +6,7 @@ import type {
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { VodType } from './ajaxTypes';
+import { VodType, VodTopicType } from './ajaxTypes';
 // https://reactnavigation.org/docs/typescript/
 
 //   export type RootStackParamList = {
@@ -24,9 +24,15 @@ export type HomeStackParamList = {
     };
 };
 
-export type PlaylistParamList = {
+export type PlaylistStackParamList = {
     Playlist: undefined;
     搜索: undefined;
+    播放: {
+        vod_id: VodType['vod_id']
+    };
+    PlaylistDetail: {
+        topic_id: VodTopicType['topic_id']
+    };
 };
 
 export type RootTabParamList = {
@@ -72,7 +78,7 @@ export type HomeTabScreenProps<T extends keyof HomeStackParamList> =
     >;
 
 export type ProfileStackScreenProps<T extends keyof ProfileStackParamList> = NativeStackScreenProps<ProfileStackParamList, T>;
-export type PlaylistStackScreenProps<T extends keyof PlaylistParamList> = NativeStackScreenProps<PlaylistParamList, T>;
+export type PlaylistStackScreenProps<T extends keyof PlaylistStackParamList> = NativeStackScreenProps<PlaylistStackParamList, T>;
 
 declare global {
     namespace ReactNavigation {

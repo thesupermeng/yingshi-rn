@@ -10,7 +10,7 @@ interface Props {
     buttonStyle?: typeof StyleSheet
 }
 export default function ShowMoreButton({ text, onPress, leftIcon, textColor = '', buttonStyle, ...params }: Props) {
-    const { colors, textVariants } = useTheme();
+    const { colors, textVariants, icons } = useTheme();
     return (
         <TouchableOpacity style={{ ...styles.btn, backgroundColor: colors.card2, ...buttonStyle }} onPress={onPress} {...params} >
             <View style={styles.left}>
@@ -22,14 +22,14 @@ export default function ShowMoreButton({ text, onPress, leftIcon, textColor = ''
                     {text}
                 </Text>
             </View>
-            <MoreArrow width={24} height={30} />
+            <MoreArrow width={icons.sizes.xl} height={icons.sizes.xl} color={colors.muted} />
         </TouchableOpacity>
     );
 }
 
 const styles = StyleSheet.create({
     icon: {
-        marginRight: 10, 
+        marginRight: 10,
         paddingTop: 4,
         height: 30,
         width: 24

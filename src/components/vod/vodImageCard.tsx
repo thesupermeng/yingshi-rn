@@ -1,30 +1,25 @@
-import { useState } from 'react';
 import { StyleSheet, TouchableOpacity, Text, ScrollView, Image } from 'react-native';
 import { useTheme } from '@react-navigation/native';
-import { useQuery } from '@tanstack/react-query';
 import { VodType } from '../../types/ajaxTypes';
-import { useNavigation } from '@react-navigation/native';
 import { useAppDispatch } from '../../hooks/hooks';
 import { playVod } from '../../redux/actions/vodActions';
 interface Props {
     vod: VodType,
     vodStyle?: typeof StyleSheet,
+    onPress?: any,
 }
 
-export default function VodImageCard({ vod, vodStyle }: Props) {
+export default function VodImageCard({ vod, vodStyle, onPress }: Props) {
     const theme = useTheme();
-    const navigation = useNavigation();
     const dispatch = useAppDispatch();
+    const onCardPress = () => {
+        dispatch(playVod(vod));
+        onPress();
+    }
     return (
         <TouchableOpacity
             style={styles.vod}
-            onPress={() => {
-                dispatch(playVod(vod));
-                navigation.navigate('首页', {
-                    screen: '播放',
-                    params: { vod_id: vod.vod_id },
-                })
-            }}
+            onPress={onCardPress}
         >
             <Image source={{ uri: vod.vod_pic }} style={{ ...styles.image, ...vodStyle }} />
         </TouchableOpacity>

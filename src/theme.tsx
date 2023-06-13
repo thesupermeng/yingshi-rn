@@ -15,7 +15,8 @@ export type ExtendedTheme = {
     border: string,
     notification: string,
     search: string,
-    button: string
+    button: string,
+    playlistFavorite: string,
   },
   textVariants: {
     bigHeader: {
@@ -47,7 +48,13 @@ export type ExtendedTheme = {
   },
   icons: {
     activeNavIconColor: string,
-    iconColor: string
+    iconColor: string,
+    sizes: {
+      s: number,
+      m: number,
+      l: number,
+      xl: number
+    }
   }
 };
 
@@ -72,6 +79,7 @@ const palette = {
   grey2: '#9C9C9C',
   lighter_dark: '#1D2023',
   light_grey2: 'rgba(201, 201, 201, 0.1)',
+  dark_grey: '#303030'
 }
 
 export const YingshiDarkTheme: ExtendedTheme = {
@@ -90,7 +98,8 @@ export const YingshiDarkTheme: ExtendedTheme = {
     border: palette.dark,
     notification: palette.yellow,
     search: palette.grey_translucent_1,
-    button: palette.grey2
+    button: palette.grey2,
+    playlistFavorite: palette.dark_grey,
   },
   textVariants: {
     bigHeader: {
@@ -122,7 +131,13 @@ export const YingshiDarkTheme: ExtendedTheme = {
   },
   icons: {
     activeNavIconColor: palette.yellow,
-    iconColor: palette.white
+    iconColor: palette.white,
+    sizes: {
+      s: 12,
+      m: 18,
+      l: 24,
+      xl: 32
+    }
   }
 };
 
@@ -143,7 +158,8 @@ export const YingshiLightTheme: ExtendedTheme = {
     border: palette.grey_translucent_3,
     notification: palette.blue,
     search: palette.dark_grey_translucent,
-    button: palette.black
+    button: palette.black,
+    playlistFavorite: palette.dark_grey,
   },
   textVariants: {
     bigHeader: {
@@ -175,7 +191,13 @@ export const YingshiLightTheme: ExtendedTheme = {
   },
   icons: {
     activeNavIconColor: palette.blue,
-    iconColor: palette.dark
+    iconColor: palette.dark,
+    sizes: {
+      s: 12,
+      m: 18,
+      l: 24,
+      xl: 32
+    }
   }
 };
 
