@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: '100%',
         alignItems: 'center',
+        paddingBottom: 10,
     },
     underline: {
         marginTop: 2,

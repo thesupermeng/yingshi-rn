@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, FlatList } from 'react-native';
 import ScreenContainer from '../../../components/container/screenContainer';
 import { ProfileStackScreenProps } from '../../../types/navigationTypes';
 import { useTheme } from '@react-navigation/native';
@@ -11,6 +11,11 @@ import { VodReducerState } from '../../../redux/reducers/vodReducer';
 import FavoriteVodCard from '../../../components/vod/favoriteVodCard';
 import CollectionHeader from '../../../components/header/myCollectionHeader';
 import FavoritePlaylist from '../../../components/playlist/favoritePlaylist';
+import { VodTopicType } from '../../../types/ajaxTypes';
+
+type FlatListType = {
+    item: VodTopicType
+}
 
 export default ({ navigation }: ProfileStackScreenProps<'播单收藏'>) => {
     const { colors, textVariants, icons, spacing } = useTheme()
@@ -19,16 +24,16 @@ export default ({ navigation }: ProfileStackScreenProps<'播单收藏'>) => {
     const favorites = vodPlaylistReducer.playlistFavorites;
     return (
         <ScreenContainer>
-            <TitleWithBackButtonHeader title='我的收藏'/>
+            <TitleWithBackButtonHeader title='我的收藏' />
             <CollectionHeader route='播单收藏' navigator={navigation} />
-            <View>
-                {
-                    favorites && favorites.map((playlist, idx) => (
-                        <FavoritePlaylist playlist={playlist} key={`playlist-${idx}`} navigator={navigation}/>
-                    ))
-                }
-            </View>
-            <Text style={{ ...textVariants.body, color: colors.muted, ...styles.noMore }}>没有更多了</Text>
+            {
+                favorites && <FlatList
+                    data={favorites}
+                    contentContainerStyle={{ paddingBottom: 30 }}
+                    ListFooterComponent={<Text style={{ ...textVariants.body, color: colors.muted, ...styles.noMore }}>没有更多了</Text>}
+                    renderItem={({ item }: FlatListType) => <FavoritePlaylist playlist={item} navigator={navigation} />}
+                />
+            }
         </ScreenContainer >
     )
 }

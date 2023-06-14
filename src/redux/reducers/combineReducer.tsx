@@ -3,6 +3,6 @@ import themeReducer from './themeReducer';
 import { vodReducer, vodPlaylistReducer } from './vodReducer';
 export default combineReducers({
     themeReducer,
-    vodReducer,
     vodPlaylistReducer,
+    vodReducer,
 })

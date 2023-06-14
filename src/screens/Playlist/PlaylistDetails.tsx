@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { View, FlatList, Text, StyleSheet } from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
 import MainHeader from '../../components/header/homeHeader';
 import { useTheme } from '@react-navigation/native';
@@ -10,7 +10,10 @@ import TitleWithBackButtonHeader from '../../components/header/titleWithBackButt
 import FavoritePlaylistButton from '../../components/button/favoritePlaylistButton';
 import FavoriteVodCard from '../../components/vod/favoriteVodCard';
 import { playVod } from '../../redux/actions/vodActions';
-
+import { VodType } from '../../types/ajaxTypes';
+type FlatListType = {
+    item: VodType
+}
 export default ({ navigation }: PlaylistStackScreenProps<'PlaylistDetail'>) => {
     const { textVariants, colors, spacing } = useTheme();
     const playlistReducer = useAppSelector(({ vodPlaylistReducer }: RootState) => vodPlaylistReducer);
@@ -29,14 +32,14 @@ export default ({ navigation }: PlaylistStackScreenProps<'PlaylistDetail'>) => {
                         <FavoritePlaylistButton playlist={playlist} />
                     </View>
                     <Text style={{ ...textVariants.body }}>{`(共${playlist.vod_list.length}部)`}</Text>
-                    {
-                        playlist.vod_list.map((vod, idx) => (
-                            <FavoriteVodCard hideFavoriteButton={true} key={idx} vod={vod} onPress={() => {
-                                dispatch(playVod(vod));
-                                navigation.navigate('播放', { vod_id: vod.vod_id });
-                            }} />
-                        ))
-                    }
+                    <FlatList
+                        data={playlist.vod_list}
+                        contentContainerStyle={{ paddingBottom: 200 }}
+                        renderItem={({ item }: FlatListType) => <FavoriteVodCard hideFavoriteButton={true} vod={item} onPress={() => {
+                            dispatch(playVod(item));
+                            navigation.navigate('播放', { vod_id: item.vod_id });
+                        }} />}
+                    />
                 </View>
             }
         </ScreenContainer>

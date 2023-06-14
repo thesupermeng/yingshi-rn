@@ -1,4 +1,5 @@
-import { GET_VOD_FAVORITES, ADD_VOD_TO_FAVORITES, REMOVE_VOD_FROM_FAVORITES, PLAY_VOD, TOGGLE_VOD_FAVORITES, TOGGLE_PLAYLIST_FAVORITES, VIEW_PLAYLIST, ADD_VOD_TO_HISTORY, CLEAR_HISTORY } from "../../constants"
+import { ADD_VOD_TO_FAVORITES, REMOVE_VOD_FROM_FAVORITES, PLAY_VOD, TOGGLE_VOD_FAVORITES, 
+    TOGGLE_PLAYLIST_FAVORITES, VIEW_PLAYLIST, ADD_VOD_TO_HISTORY, CLEAR_HISTORY, REMOVE_VOD_HISTORY } from "../../constants"
 import { VodActionType, VodPlaylistActionType } from "../../types/actionTypes"
 import { VodTopicType, VodType } from "../../types/ajaxTypes"
 
@@ -27,20 +28,25 @@ const initialState: VodReducerState = {
 }
 
 export function vodReducer(state = initialState, action: VodActionType) {
-    const payloadWithTimestamp: VodRecordType = {
-        ...action.payload,
+    const firstPayloadItemWithTimestamp: VodRecordType = {
+        ...action.payload?.[0],
         recordedAt: new Date(),
         timeWatched: action.timeWatched === undefined ? 0 : action.timeWatched
     };
     switch (action.type) {
-        case PLAY_VOD:
+        case PLAY_VOD: {
+            let play = state.history.find(vod => vod.vod_id === firstPayloadItemWithTimestamp.vod_id);
+            if (play === undefined) {
+                play = firstPayloadItemWithTimestamp;
+            } 
             return {
                 ...state,
                 playVod: {
-                    vod: payloadWithTimestamp,
-                    isFavorite: state.favorites.some(x => x.vod_id === payloadWithTimestamp.vod_id)
+                    vod: play,
+                    isFavorite: state.favorites.some(x => x.vod_id === firstPayloadItemWithTimestamp.vod_id)
                 }
             };
+        }
         case CLEAR_HISTORY:
             return {
                 ...state,
@@ -48,43 +54,48 @@ export function vodReducer(state = initialState, action: VodActionType) {
             };
         case ADD_VOD_TO_HISTORY: {
             return {
-                ...state, history: [payloadWithTimestamp, ...state.history.filter(vod => vod.vod_id !== payloadWithTimestamp.vod_id)]
+                ...state, history: [firstPayloadItemWithTimestamp, ...state.history.filter(vod => vod.vod_id !== firstPayloadItemWithTimestamp.vod_id)]
             };
         }
         case TOGGLE_VOD_FAVORITES: {
             let new_fav = [];
             let isVodFavorite = false;
-            if (state.favorites.some(vod => vod.vod_id === payloadWithTimestamp.vod_id)) {
-                new_fav = state.favorites.filter(vod => vod.vod_id !== payloadWithTimestamp.vod_id);
+            if (state.favorites.some(vod => vod.vod_id === firstPayloadItemWithTimestamp.vod_id)) {
+                new_fav = state.favorites.filter(vod => vod.vod_id !== firstPayloadItemWithTimestamp.vod_id);
             } else {
-                new_fav = [payloadWithTimestamp, ...state.favorites];
+                new_fav = [firstPayloadItemWithTimestamp, ...state.favorites];
                 isVodFavorite = true;
             }
             return {
                 ...state, favorites: new_fav, playVod: {
-                    vod: payloadWithTimestamp,
+                    vod: firstPayloadItemWithTimestamp,
                     isFavorite: isVodFavorite
                 }
             };
         }
-        case GET_VOD_FAVORITES:
-            return { ...state, favorites: payloadWithTimestamp };
-        case ADD_VOD_TO_FAVORITES:
+        case ADD_VOD_TO_FAVORITES: { 
             return {
-                ...state, favorites: [payloadWithTimestamp, ...state.favorites], playVod: {
-                    vod: payloadWithTimestamp,
+                ...state, favorites: [firstPayloadItemWithTimestamp, ...state.favorites], playVod: {
+                    vod: firstPayloadItemWithTimestamp,
                     isFavorite: true
                 }
             };
+        }
         case REMOVE_VOD_FROM_FAVORITES:
             return {
                 ...state,
-                favorites: state.favorites.filter(vod => vod.vod_id !== payloadWithTimestamp.vod_id),
+                favorites: state.favorites.filter(vod => vod.vod_id !== firstPayloadItemWithTimestamp.vod_id),
                 playVod: {
-                    vod: payloadWithTimestamp,
+                    vod: firstPayloadItemWithTimestamp,
                     isFavorite: false
                 }
             };
+        case REMOVE_VOD_HISTORY: {
+            return {
+                ...state,
+                history: state.history.filter(vod => !action.payload.includes(vod))
+            };
+        }
         default:
             return state
     }

@@ -40,9 +40,12 @@ export default function VodPlaylist({ playlist, navigator }: Props) {
                 data={playlist.vod_list}
                 horizontal
                 renderItem={({ item }: FlatListType) => {
-                    return <VodCard vod_name={item.vod_name} vod_pic={item.vod_pic} onPress={() => navigator.navigate('播放', {
-                        vod_id: item.vod_id,
-                    })} />
+                    return <VodCard vod_name={item.vod_name} vod_pic={item.vod_pic} onPress={() => {
+                        dispatch(playVod(item));
+                        navigator.navigate('播放', {
+                            vod_id: item.vod_id,
+                        })
+                    }} />
                 }}
             />
         </View>

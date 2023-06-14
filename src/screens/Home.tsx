@@ -32,13 +32,12 @@ export default ({ navigation }: HomeStackScreenProps<'Home'>) => {
       fetch(`https://api.yingshi.tv/page/v1/typepage`)
         .then(response => response.json())
         .then((json: VodCarousellResponseType) => {
-          console.log(json.data.categories.map(x => [x.type_name, x.vod_list[0].vod_name]))
           return json.data
         })
   });
 
   return (
-    <ScreenContainer>
+    <ScreenContainer scrollView={true}>
       <HomeHeader navigator={navigation} />
       {
         data?.categories[0] && <View style={{ height: 200 }}>

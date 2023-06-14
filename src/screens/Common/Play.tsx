@@ -27,7 +27,7 @@ export default ({ navigation, route }: HomeStackScreenProps<'播放'>) => {
     const dispatch = useAppDispatch();
     useEffect(() => {
         if (vod) {
-            dispatch(addVodToHistory(vod));
+            dispatch(addVodToHistory(vod, 0));
         }
     }, [vod])
     
