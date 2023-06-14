@@ -17,6 +17,7 @@ export type ExtendedTheme = {
     search: string,
     button: string,
     playlistFavorite: string,
+    loading: string,
   },
   textVariants: {
     bigHeader: {
@@ -100,6 +101,7 @@ export const YingshiDarkTheme: ExtendedTheme = {
     search: palette.grey_translucent_1,
     button: palette.grey2,
     playlistFavorite: palette.dark_grey,
+    loading: palette.grey,
   },
   textVariants: {
     bigHeader: {
@@ -148,7 +150,7 @@ export const YingshiLightTheme: ExtendedTheme = {
     sliderDot: palette.light_grey,
     muted: palette.grey2,
     title: palette.white,
-    primary: palette.blue,
+    primary: palette.yellow,
     recommendation2: palette.orange,
     recommendation3: palette.dark_yellow,
     background: palette.white,
@@ -156,10 +158,11 @@ export const YingshiLightTheme: ExtendedTheme = {
     card2: palette.light_grey2,
     text: palette.dark,
     border: palette.grey_translucent_3,
-    notification: palette.blue,
+    notification: palette.yellow,
     search: palette.dark_grey_translucent,
     button: palette.black,
     playlistFavorite: palette.dark_grey,
+    loading: palette.grey,
   },
   textVariants: {
     bigHeader: {
@@ -190,7 +193,7 @@ export const YingshiLightTheme: ExtendedTheme = {
     xl: 40,
   },
   icons: {
-    activeNavIconColor: palette.blue,
+    activeNavIconColor: palette.yellow,
     iconColor: palette.dark,
     sizes: {
       s: 12,

@@ -1,15 +1,19 @@
-import { GET_VOD_FAVORITES, ADD_VOD_TO_FAVORITES, REMOVE_VOD_FROM_FAVORITES, PLAY_VOD, TOGGLE_VOD_FAVORITES, TOGGLE_PLAYLIST_FAVORITES, VIEW_PLAYLIST } from "../../constants"
+import { GET_VOD_FAVORITES, ADD_VOD_TO_FAVORITES, REMOVE_VOD_FROM_FAVORITES, PLAY_VOD, TOGGLE_VOD_FAVORITES, TOGGLE_PLAYLIST_FAVORITES, VIEW_PLAYLIST, ADD_VOD_TO_HISTORY, CLEAR_HISTORY } from "../../constants"
 import { VodActionType, VodPlaylistActionType } from "../../types/actionTypes"
 import { VodTopicType, VodType } from "../../types/ajaxTypes"
 
+export interface VodRecordType extends VodType {
+    timeWatched: number,
+    recordedAt: Date
+}
 interface PlayVodType {
-    vod: VodType | null,
+    vod: VodRecordType | null,
     isFavorite: boolean
 }
 
 export interface VodReducerState {
-    favorites: Array<VodType>,
-    history: Array<VodType>,
+    favorites: Array<VodRecordType>,
+    history: Array<VodRecordType>,
     playVod: PlayVodType,
 }
 
@@ -23,46 +27,61 @@ const initialState: VodReducerState = {
 }
 
 export function vodReducer(state = initialState, action: VodActionType) {
+    const payloadWithTimestamp: VodRecordType = {
+        ...action.payload,
+        recordedAt: new Date(),
+        timeWatched: action.timeWatched === undefined ? 0 : action.timeWatched
+    };
     switch (action.type) {
         case PLAY_VOD:
             return {
                 ...state,
                 playVod: {
-                    vod: action.payload,
-                    isFavorite: state.favorites.some(x => x.vod_id === action.payload.vod_id)
+                    vod: payloadWithTimestamp,
+                    isFavorite: state.favorites.some(x => x.vod_id === payloadWithTimestamp.vod_id)
                 }
             };
+        case CLEAR_HISTORY:
+            return {
+                ...state,
+                history: []
+            };
+        case ADD_VOD_TO_HISTORY: {
+            return {
+                ...state, history: [payloadWithTimestamp, ...state.history.filter(vod => vod.vod_id !== payloadWithTimestamp.vod_id)]
+            };
+        }
         case TOGGLE_VOD_FAVORITES: {
             let new_fav = [];
             let isVodFavorite = false;
-            if (state.favorites.some(vod => vod.vod_id === action.payload.vod_id)) {
-                new_fav = state.favorites.filter(vod => vod.vod_id !== action.payload.vod_id);
+            if (state.favorites.some(vod => vod.vod_id === payloadWithTimestamp.vod_id)) {
+                new_fav = state.favorites.filter(vod => vod.vod_id !== payloadWithTimestamp.vod_id);
             } else {
-                new_fav = [action.payload, ...state.favorites];
+                new_fav = [payloadWithTimestamp, ...state.favorites];
                 isVodFavorite = true;
             }
             return {
                 ...state, favorites: new_fav, playVod: {
-                    vod: action.payload,
+                    vod: payloadWithTimestamp,
                     isFavorite: isVodFavorite
                 }
             };
         }
         case GET_VOD_FAVORITES:
-            return { ...state, favorites: action.payload };
+            return { ...state, favorites: payloadWithTimestamp };
         case ADD_VOD_TO_FAVORITES:
             return {
-                ...state, favorites: [action.payload, ...state.favorites], playVod: {
-                    vod: action.payload,
+                ...state, favorites: [payloadWithTimestamp, ...state.favorites], playVod: {
+                    vod: payloadWithTimestamp,
                     isFavorite: true
                 }
             };
         case REMOVE_VOD_FROM_FAVORITES:
             return {
                 ...state,
-                favorites: state.favorites.filter(vod => vod.vod_id !== action.payload.vod_id),
+                favorites: state.favorites.filter(vod => vod.vod_id !== payloadWithTimestamp.vod_id),
                 playVod: {
-                    vod: action.payload,
+                    vod: payloadWithTimestamp,
                     isFavorite: false
                 }
             };

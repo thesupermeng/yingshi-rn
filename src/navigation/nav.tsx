@@ -15,6 +15,7 @@ import VodCollectionScreen from '../screens/Profile/Collection/VodCollection';
 import FeedbackScreen from '../screens/Profile/Feedback';
 import PlaylistCollectionScreen from '../screens/Profile/Collection/PlaylistCollection';
 import PlaylistDetailsScreen from '../screens/Playlist/PlaylistDetails';
+import History from '../screens/Profile/History';
 
 import HomeTab from '../../static/images/home_tab.svg';
 import HomeActiveTab from '../../static/images/home_tab_active.svg';
@@ -56,6 +57,7 @@ export default () => {
                 <ProfileStack.Screen name='播单收藏' component={PlaylistCollectionScreen} />
                 <ProfileStack.Screen name='反馈' component={FeedbackScreen} />
                 <ProfileStack.Screen name='播放' component={PlayScreen} initialParams={{ vod_id: 1 }}/>
+                <ProfileStack.Screen name='播放历史' component={History} />
             </ProfileStack.Navigator>
         );
     }

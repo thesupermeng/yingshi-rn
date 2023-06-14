@@ -9,16 +9,22 @@ import BackButton from '../button/backButton';
 interface Props {
     title?: string,
     onBack?: any,
-    headerStyle?: typeof StyleSheet
+    headerStyle?: typeof StyleSheet,
+    right?: React.ReactNode
 }
 
-export default function TitleWithBackButtonHeader({ title, onBack, headerStyle }: Props) {
+export default function TitleWithBackButtonHeader({ title, onBack, headerStyle, right }: Props) {
     const { textVariants } = useTheme()
     return (
-        <View style={{...styles.container, ...headerStyle}}>
+        <View style={{ ...styles.container, ...headerStyle }}>
             <BackButton onPress={onBack} />
-            <Text style={textVariants.header} numberOfLines={1}>{title}</Text>
-            <View style={{ width: 44 }}></View>
+            <Text style={textVariants.header} numberOfLines={1}>{title}
+            </Text>
+            {
+                right
+                    ? right
+                    : <View style={{ width: 44 }}></View>
+            }
         </View>
     );
 }

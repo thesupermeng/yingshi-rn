@@ -1,27 +1,29 @@
-import { StyleSheet, TouchableOpacity, Text, ScrollView, Image } from 'react-native';
+import { StyleSheet, TouchableOpacity, Text, Image } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import { VodType } from '../../types/ajaxTypes';
 import { useAppDispatch } from '../../hooks/hooks';
 import { playVod } from '../../redux/actions/vodActions';
+import FastImage from 'react-native-fast-image';
 interface Props {
-    vod: VodType,
+    vod_img: string,
     vodStyle?: typeof StyleSheet,
-    onPress?: any,
+    onPress: any,
 }
 
-export default function VodImageCard({ vod, vodStyle, onPress }: Props) {
+export default function VodImageCard({ vod_img, vodStyle, onPress }: Props) {
     const theme = useTheme();
-    const dispatch = useAppDispatch();
-    const onCardPress = () => {
-        dispatch(playVod(vod));
-        onPress();
-    }
     return (
         <TouchableOpacity
             style={styles.vod}
-            onPress={onCardPress}
+            onPress={onPress}
         >
-            <Image source={{ uri: vod.vod_pic }} style={{ ...styles.image, ...vodStyle }} />
+            <FastImage
+                style={{ ...styles.image, ...vodStyle }}
+                source={{
+                    uri: vod_img,
+                    priority: FastImage.priority.normal,
+                }}
+            />
         </TouchableOpacity>
     );
 }

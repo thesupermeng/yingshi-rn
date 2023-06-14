@@ -10,28 +10,38 @@ import ShowMoreVodButton from '../components/button/showMoreVodButton';
 import VodList from '../components/vod/vodList';
 import { useQuery } from '@tanstack/react-query';
 import { VodType } from '../types/ajaxTypes';
+import FastImage from 'react-native-fast-image'
+
+type VodData = {
+  vod_list: Array<VodType>,
+  type_name: string
+}
 
 type VodCarousellResponseType = {
-  list: Array<VodType>
+  data: {
+    yunying: Array<VodData>
+    categories: Array<VodData>
+  }
 }
 
 export default ({ navigation }: HomeStackScreenProps<'Home'>) => {
   const { colors } = useTheme();
-  const { data: images } = useQuery({
-    queryKey: ["carousell"],
+  const { data } = useQuery({
+    queryKey: ["HomePage"],
     queryFn: () =>
-      fetch(`https://www.yingshi.tv/index.php/ajax/data.html?mid=1&limit=1&by=score&order=desc`)
+      fetch(`https://api.yingshi.tv/page/v1/typepage`)
         .then(response => response.json())
         .then((json: VodCarousellResponseType) => {
-          return json.list
+          console.log(json.data.categories.map(x => [x.type_name, x.vod_list[0].vod_name]))
+          return json.data
         })
   });
 
   return (
     <ScreenContainer>
-      <HomeHeader navigator={navigation}/>
+      <HomeHeader navigator={navigation} />
       {
-        images && <View style={{ height: 200 }}>
+        data?.categories[0] && <View style={{ height: 200 }}>
           <Swiper style={styles.wrapper}
             autoplay
             dotColor={colors.muted}
@@ -40,23 +50,32 @@ export default ({ navigation }: HomeStackScreenProps<'Home'>) => {
             paginationStyle={styles.paginationStyle}
             activeDotStyle={styles.activeDotStyle}>
             {
-              images.map((img, idx) => (
-                <View style={styles.slide} key={`slider-${idx}`}>
-                  <Image source={{ uri: img.vod_pic }} style={styles.image} resizeMode={"cover"} />
+              data.categories[0].vod_list.slice(0, 4).map((img, idx) => {
+                return <View style={styles.slide} key={`slider-${idx}`}>
+                  <FastImage
+                    style={styles.image}
+                    source={{
+                      uri: img.vod_pic,
+                      priority: FastImage.priority.normal,
+                    }}
+                    resizeMode={FastImage.resizeMode.cover}
+                  />
                 </View>
-              ))
+              })
             }
           </Swiper>
         </View>
       }
       <ShowMoreVodButton text='重磅热播' />
       <VodList query_url='https://www.yingshi.tv/index.php/ajax/data.html?mid=1&limit=1&by=score&order=desc' vodStyle={styles.vod_hotlist} />
-      <ShowMoreVodButton text='热播电视剧' />
-      <VodList query_url='https://www.yingshi.tv/index.php/ajax/data.html?mid=1&limit=35&page=1&tid=2&by=hits_day' />
-      <ShowMoreVodButton text='热播综艺' />
-      <VodList query_url='https://www.yingshi.tv/index.php/ajax/data.html?mid=1&limit=35&page=1&tid=3&by=hits_day' />
-      <ShowMoreVodButton text='动漫' />
-      <VodList query_url='https://www.yingshi.tv/index.php/ajax/data.html?mid=1&limit=35&page=1&tid=4&by=hits_day' />
+      {
+        data?.categories.map((lst, idx) => (
+          <View key={`${lst.type_name}-${idx}`}>
+            <ShowMoreVodButton text={lst.type_name} />
+            <VodList vodList={lst.vod_list.slice(0, 10)} />
+          </View>
+        ))
+      }
     </ScreenContainer>
   )
 }

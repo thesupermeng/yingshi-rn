@@ -1,9 +1,9 @@
 import { useTheme } from '@react-navigation/native';
 import { VodTopicType, VodType } from '../../types/ajaxTypes';
 import { playVod, viewPlaylistDetails } from '../../redux/actions/vodActions';
-import { View, StyleSheet, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, FlatList } from 'react-native';
 import RightIcon from '../../../static/images/more_arrow.svg';
-import VodCard from './vodCard';
+import VodCard from '../vod/vodCard';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { PlaylistStackParamList } from '../../types/navigationTypes';
 import { useAppDispatch } from '../../hooks/hooks';
@@ -11,7 +11,11 @@ import { useAppDispatch } from '../../hooks/hooks';
 interface Props {
     playlist: VodTopicType,
     vodStyle?: typeof StyleSheet,
-    navigator: NativeStackNavigationProp<PlaylistStackParamList, keyof PlaylistStackParamList, undefined>
+    navigator: NativeStackNavigationProp<any, any, undefined>
+}
+
+type FlatListType = {
+    item: VodType
 }
 
 export default function VodPlaylist({ playlist, navigator }: Props) {
@@ -32,15 +36,15 @@ export default function VodPlaylist({ playlist, navigator }: Props) {
             <Text numberOfLines={3} style={{ ...textVariants.body, color: colors.text, flex: 1 }}>
                 {playlist.topic_blurb}
             </Text>
-            <ScrollView style={styles.list} horizontal>
-                {
-                    playlist.vod_list.map((vod, id) => (
-                        <VodCard key={`${playlist.topic_id}-${id}`} vod={vod} onPress={() => navigator.navigate('播放', {
-                            vod_id: vod.vod_id,
-                        })} />
-                    ))
-                }
-            </ScrollView>
+            <FlatList
+                data={playlist.vod_list}
+                horizontal
+                renderItem={({ item }: FlatListType) => {
+                    return <VodCard vod_name={item.vod_name} vod_pic={item.vod_pic} onPress={() => navigator.navigate('播放', {
+                        vod_id: item.vod_id,
+                    })} />
+                }}
+            />
         </View>
     );
 }

@@ -7,13 +7,13 @@ interface Props {
     params?: any[]
 }
 export default function ShowMoreVodButton({ text, onPress, ...params }: Props) {
-    const theme = useTheme();
+    const { colors, textVariants, icons } = useTheme();
     return (
         <View style={styles.banner}>
-            <Text style={StyleSheet.create(theme.textVariants.header)}>{text}</Text>
+            <Text style={StyleSheet.create(textVariants.header)}>{text}</Text>
             <TouchableOpacity onPress={onPress} style={styles.banner}>
-                <Text style={{ color: theme.colors.text, fontSize: theme.textVariants.body.fontSize }}>更多</Text>
-                <MoreArrow style={{ marginLeft: 4 }} height={17} width={10}></MoreArrow>
+                <Text style={{ color: colors.text, fontSize: textVariants.body.fontSize }}>更多</Text>
+                <MoreArrow style={{ color: colors.muted }} height={icons.sizes.m} width={icons.sizes.m} ></MoreArrow>
             </TouchableOpacity>
         </View>
     );

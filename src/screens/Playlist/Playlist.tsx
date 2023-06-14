@@ -6,7 +6,7 @@ import { useTheme } from '@react-navigation/native';
 import { PlaylistStackScreenProps } from '../../types/navigationTypes';
 import { useQuery } from '@tanstack/react-query';
 import { VodPlaylistResponseType } from '../../types/ajaxTypes';
-import VodPlaylist from '../../components/vod/vodPlaylist';
+import VodPlaylist from '../../components/playlist/vodPlaylist';
 export default ({ navigation }: PlaylistStackScreenProps<'Playlist'>) => {
     const { textVariants, colors, spacing } = useTheme();
     const { data: playlists } = useQuery({

@@ -10,22 +10,23 @@ import TitleWithBackButtonHeader from '../../../components/header/titleWithBackB
 import { VodReducerState } from '../../../redux/reducers/vodReducer';
 import FavoriteVodCard from '../../../components/vod/favoriteVodCard';
 import CollectionHeader from '../../../components/header/myCollectionHeader';
+import FavoritePlaylist from '../../../components/playlist/favoritePlaylist';
 
 export default ({ navigation }: ProfileStackScreenProps<'播单收藏'>) => {
-    const { colors, textVariants, icons } = useTheme()
+    const { colors, textVariants, icons, spacing } = useTheme()
     const dispatch = useAppDispatch();
-    // const vodReducer: VodReducerState = useAppSelector(({ vodReducer }: RootState) => vodReducer);
-    // const favorites = vodReducer.favorites;
+    const vodPlaylistReducer = useAppSelector(({ vodPlaylistReducer }: RootState) => vodPlaylistReducer);
+    const favorites = vodPlaylistReducer.playlistFavorites;
     return (
         <ScreenContainer>
-            <TitleWithBackButtonHeader title='我的收藏' />
+            <TitleWithBackButtonHeader title='我的收藏'/>
             <CollectionHeader route='播单收藏' navigator={navigation} />
             <View>
-                {/* {
-                    favorites.map((vod, idx) => (
-                        <FavoriteVodCard vod={vod} key={`fav-${idx}`} />
+                {
+                    favorites && favorites.map((playlist, idx) => (
+                        <FavoritePlaylist playlist={playlist} key={`playlist-${idx}`} navigator={navigation}/>
                     ))
-                } */}
+                }
             </View>
             <Text style={{ ...textVariants.body, color: colors.muted, ...styles.noMore }}>没有更多了</Text>
         </ScreenContainer >

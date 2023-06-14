@@ -11,7 +11,7 @@ import { HomeStackScreenProps } from '../../types/navigationTypes';
 import { VodType } from '../../types/ajaxTypes';
 import { useOrientation } from '../../hooks/useOrientation';
 import PlayFullScreenGesture from '../../components/gestures/vod/PlayFullScreenGesture';
-import { toggleVodFavorites } from '../../redux/actions/vodActions';
+import { addVodToHistory, toggleVodFavorites } from '../../redux/actions/vodActions';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { RootState } from '../../redux/store';
 import { VodReducerState } from '../../redux/reducers/vodReducer';
@@ -25,6 +25,12 @@ export default ({ navigation, route }: HomeStackScreenProps<'播放'>) => {
     const isFavorite = vodReducer.playVod.isFavorite;
 
     const dispatch = useAppDispatch();
+    useEffect(() => {
+        if (vod) {
+            dispatch(addVodToHistory(vod));
+        }
+    }, [vod])
+    
     return (
         <SafeAreaView>
             {/* {!isPotrait &&
@@ -34,7 +40,7 @@ export default ({ navigation, route }: HomeStackScreenProps<'播放'>) => {
                 {/* <Video controls={true} resizeMode="contain" source={{ uri: 'https://m3u.haiwaikan.com/xm3u8/395b22f1f066891ed8f7b191457a685490095df735c1e3c32e37ba4903b4bb649921f11e97d0da21.m3u8', type: 'm3u8' }} style={styles.video} /> */}
             </View>
             <View style={styles.videoHeader}>
-                <BackButton btnStyle={{ padding: 20 }} onPress={() => navigation.goBack()}/>
+                <BackButton btnStyle={{ padding: 20 }} onPress={() => navigation.goBack()} />
                 <Text style={{ ...textVariants.header, color: colors.text, marginLeft: spacing.l, flex: 1 }} numberOfLines={1}>{vod?.vod_name}</Text>
             </View>
             <ScrollView

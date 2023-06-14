@@ -1,50 +1,56 @@
 import { useState } from 'react';
-import { StyleSheet, TouchableOpacity, Text, ScrollView, Image } from 'react-native';
+import { StyleSheet, TouchableOpacity, Text, FlatList, Image } from 'react-native';
 import { useNavigation, useTheme } from '@react-navigation/native';
 import { useQuery } from '@tanstack/react-query';
 import { VodType } from '../../types/ajaxTypes';
 import VodCard from './vodCard';
 interface Props {
-    query_url: string,
+    query_url?: string,
     initial_page?: number,
     params?: any[],
     vodStyle?: typeof StyleSheet,
+    horizontal?: boolean,
+    vodList?: Array<VodType>
 }
 
 type VodResponseType = {
     list: Array<VodType>
 }
 
-export default function VodList({ query_url, initial_page = 0, vodStyle }: Props) {
-    const theme = useTheme();
+type FlatListType = {
+    item: VodType
+}
+export default function VodList({ query_url, initial_page = 0, vodStyle, horizontal = true, vodList=[] }: Props) {
     const [page, setPage] = useState(initial_page);
     const navigation = useNavigation();
-    const fetchVods = (page = 0) => fetch(`${query_url}/&page=${page}`).then((res) => res.json().then((json: VodResponseType) => {
-        return json.list;
-    }));
+    const fetchVods = (page = 0) => {
+        return fetch(`${query_url}/&page=${page}`).then((res) => res.json().then((json: VodResponseType) => {
+            return json.list;
+        }));
+    }
 
     const {
         isLoading,
         isError,
         error,
-        data: vodlist,
+        data,
         isFetching,
         isPreviousData,
-    } = useQuery({ queryKey: [query_url, page], queryFn: () => fetchVods(page), keepPreviousData: true });
+    } = useQuery({ queryKey: [query_url, page, vodList.map(x => x.vod_id)], queryFn: () => fetchVods(page), keepPreviousData: true, initialData: vodList, enabled: query_url !== undefined });
 
     return (
-        <ScrollView style={styles.list} horizontal>
-            {
-                vodlist && vodlist.map((vod, id) => (
-                    <VodCard key={`${query_url}-${page}-${id}`} vodImageStyle={vodStyle} vod={vod} onPress={() => {
-                        navigation.navigate('首页', {
-                            screen: '播放',
-                            params: { vod_id: vod.vod_id },
-                        })
-                    }} />
-                ))
-            }
-        </ScrollView>
+        <FlatList
+            data={data}
+            horizontal
+            renderItem={({item} : FlatListType)  => {
+                return <VodCard vodImageStyle={vodStyle} vod_name={item.vod_name} vod_pic={item.vod_pic} onPress={() => {
+                    navigation.navigate('首页', {
+                        screen: '播放',
+                        params: { vod_id: item.vod_id },
+                    })
+                }} />
+            }}
+        />
     );
 }
 

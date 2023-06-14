@@ -6,7 +6,8 @@ export interface ThemeActionType {
 
 export interface VodActionType {
     type: string,
-    payload: VodType 
+    payload: VodType
+    timeWatched?: number
 }
 
 export interface VodPlaylistActionType {

@@ -18,7 +18,7 @@ export default function FavoriteVodCard({ vod, onPress, btnStyle, hideFavoriteBu
     const { colors, spacing, textVariants } = useTheme();
     return (
         <View style={styles.card} gap={spacing.s}>
-            <VodImageCard vod={vod} vodStyle={styles.image} onPress={onPress} />
+            <VodImageCard vod_img={vod.vod_pic} vodStyle={styles.image} onPress={onPress} />
             <View style={styles.description} gap={spacing.xs}>
                 {
                     hideFavoriteButton

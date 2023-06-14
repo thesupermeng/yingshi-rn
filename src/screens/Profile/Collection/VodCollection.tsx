@@ -10,6 +10,7 @@ import TitleWithBackButtonHeader from '../../../components/header/titleWithBackB
 import { VodReducerState } from '../../../redux/reducers/vodReducer';
 import FavoriteVodCard from '../../../components/vod/favoriteVodCard';
 import CollectionHeader from '../../../components/header/myCollectionHeader';
+import { playVod } from '../../../redux/actions/vodActions';
 
 export default ({ navigation }: ProfileStackScreenProps<'视频收藏'>) => {
     const { colors, textVariants, icons } = useTheme()
@@ -23,9 +24,12 @@ export default ({ navigation }: ProfileStackScreenProps<'视频收藏'>) => {
             <View>
                 {
                     favorites.map((vod, idx) => (
-                        <FavoriteVodCard vod={vod} key={`fav-${idx}`} onPress={() => navigation.navigate('播放', {
-                            vod_id: vod.vod_id
-                        })} />
+                        <FavoriteVodCard vod={vod} key={`fav-${idx}`} onPress={() => {
+                            dispatch(playVod(vod));
+                            navigation.navigate('播放', {
+                                vod_id: vod.vod_id
+                            });
+                        }} />
                     ))
                 }
             </View>
@@ -35,16 +39,6 @@ export default ({ navigation }: ProfileStackScreenProps<'视频收藏'>) => {
 }
 
 const styles = StyleSheet.create({
-    topNav: {
-        paddingTop: 10,
-        paddingLeft: 10,
-        paddingRight: 10,
-        display: 'flex',
-        flexDirection: 'row',
-        width: '100%',
-        alignItems: 'center',
-        justifyContent: 'space-between'
-    },
     noMore: {
         textAlign: 'center',
         marginTop: 30
