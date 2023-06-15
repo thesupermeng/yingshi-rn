@@ -2,7 +2,7 @@ import React from 'react';
 import { ListItem } from '@rneui/themed';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
-import { ProfileStackScreenProps } from '../../types/navigationTypes';
+import { RootStackScreenProps } from '../../types/navigationTypes';
 import LightMode from '../../../static/images/light_mode.svg';
 import { useTheme } from '@react-navigation/native';
 import { toggleTheme } from '../../redux/actions/themeAction';
@@ -16,8 +16,8 @@ import FeedbackIcon from '../../../static/images/feedback.svg';
 import SettingsIcon from '../../../static/images/settings.svg';
 import InfoIcon from '../../../static/images/info.svg';
 import ShareIcon from '../../../static/images/share.svg';
-
-export default ({ navigation }: ProfileStackScreenProps<'Profile'>) => {
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+export default ({ navigation }: BottomTabScreenProps<any>) => {
     const { colors, textVariants, icons } = useTheme();
     const dispatch = useAppDispatch();
     const themeReducer = useAppSelector(({ themeReducer }: RootState) => themeReducer);

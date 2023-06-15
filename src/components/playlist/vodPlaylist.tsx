@@ -1,25 +1,24 @@
-import { useTheme } from '@react-navigation/native';
+import { useNavigation, useTheme } from '@react-navigation/native';
 import { VodTopicType, VodType } from '../../types/ajaxTypes';
 import { playVod, viewPlaylistDetails } from '../../redux/actions/vodActions';
 import { View, StyleSheet, Text, TouchableOpacity, FlatList } from 'react-native';
 import RightIcon from '../../../static/images/more_arrow.svg';
 import VodCard from '../vod/vodCard';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { PlaylistStackParamList } from '../../types/navigationTypes';
 import { useAppDispatch } from '../../hooks/hooks';
 
 interface Props {
     playlist: VodTopicType,
     vodStyle?: typeof StyleSheet,
-    navigator: NativeStackNavigationProp<any, any, undefined>
 }
 
 type FlatListType = {
     item: VodType
 }
 
-export default function VodPlaylist({ playlist, navigator }: Props) {
+export default function VodPlaylist({ playlist }: Props) {
     const { textVariants, spacing, colors, icons } = useTheme();
+    const navigator = useNavigation();
     const dispatch = useAppDispatch();
     const viewMore = () => {
         dispatch(viewPlaylistDetails(playlist));

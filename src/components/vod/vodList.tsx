@@ -48,10 +48,7 @@ export default function VodList({ query_url, initial_page = 0, vodStyle, horizon
             renderItem={({item} : FlatListType)  => {
                 return <VodCard vodImageStyle={vodStyle} vod_name={item.vod_name} vod_pic={item.vod_pic} onPress={() => {
                     dispatch(playVod(item));
-                    navigation.navigate('首页', {
-                        screen: '播放',
-                        params: { vod_id: item.vod_id },
-                    })
+                    navigation.navigate('播放', { vod_id: item.vod_id })
                 }} />
             }}
         />

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, FlatList } from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
-import { ProfileStackScreenProps } from '../../types/navigationTypes';
+import { RootStackScreenProps } from '../../types/navigationTypes';
 import { useTheme } from '@react-navigation/native';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { RootState } from '../../redux/store';
@@ -22,7 +22,7 @@ import ConfirmationModal from '../../components/modal/confirmationModal';
 type FlatListType = {
     item: VodRecordType
 }
-export default ({ navigation }: ProfileStackScreenProps<'播放历史'>) => {
+export default ({ navigation }: RootStackScreenProps<'播放历史'>) => {
     const { colors, textVariants, icons, spacing } = useTheme();
     const dispatch = useAppDispatch();
     const vodReducer: VodReducerState = useAppSelector(({ vodReducer }: RootState) => vodReducer);

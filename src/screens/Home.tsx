@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Button, Image } from 'react-n
 import ScreenContainer from '../components/container/screenContainer';
 import { useSelector, useDispatch } from 'react-redux';
 import HomeHeader from '../components/header/homeHeader';
-import { HomeStackScreenProps, RootTabScreenProps } from '../types/navigationTypes';
+import { RootStackScreenProps } from '../types/navigationTypes';
 import { useTheme } from '@react-navigation/native';
 import Swiper from 'react-native-swiper';
 import ShowMoreVodButton from '../components/button/showMoreVodButton';
@@ -14,7 +14,7 @@ import FastImage from 'react-native-fast-image'
 import { VodReducerState } from '../redux/reducers/vodReducer';
 import { useAppSelector } from '../hooks/hooks';
 import { RootState } from '../redux/store';
-
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 type VodData = {
   vod_list: Array<VodType>,
   type_name: string
@@ -27,7 +27,7 @@ type VodCarousellResponseType = {
   }
 }
 
-export default ({ navigation }: HomeStackScreenProps<'Home'>) => {
+export default ({ navigation }: BottomTabScreenProps<any>) => {
   const { colors } = useTheme();
   const [url, setUrl] = useState('https://api.yingshi.tv/page/v1/typepage?id=0');
   const vodReducer: VodReducerState = useAppSelector(({ vodReducer }: RootState) => vodReducer);

@@ -3,16 +3,16 @@ import { View, FlatList, Text } from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
 import MainHeader from '../../components/header/homeHeader';
 import { useTheme } from '@react-navigation/native';
-import { PlaylistStackScreenProps } from '../../types/navigationTypes';
+import { PlaylistTabScreenProps, RootStackParamList } from '../../types/navigationTypes';
 import { useQuery } from '@tanstack/react-query';
 import { VodPlaylistResponseType, VodTopicType } from '../../types/ajaxTypes';
 import VodPlaylist from '../../components/playlist/vodPlaylist';
-
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 type FlatListType = {
     item: VodTopicType
 }
 
-export default ({ navigation }: PlaylistStackScreenProps<'Playlist'>) => {
+export default ({ navigation }: PlaylistTabScreenProps<'播单'>) => {
     const { textVariants, colors, spacing } = useTheme();
     const { data: playlists } = useQuery({
         queryKey: ["vodPlaylist"],
@@ -31,7 +31,7 @@ export default ({ navigation }: PlaylistStackScreenProps<'Playlist'>) => {
             <FlatList
                 data={playlists}
                 
-                renderItem={({ item }: FlatListType) => <VodPlaylist playlist={item} navigator={navigation}/> }
+                renderItem={({ item }: FlatListType) => <VodPlaylist playlist={item} /> }
             />
         </ScreenContainer>
     )

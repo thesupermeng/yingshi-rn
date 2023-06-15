@@ -9,16 +9,11 @@ import BackButton from '../../components/button/backButton';
 import SearchIcon from '../../../static/images/search.svg';
 import ClearIcon from '../../../static/images/cross.svg';
 import { useQuery } from '@tanstack/react-query'
-import { useNavigation } from '@react-navigation/native';
 
 import { SuggestType } from '../../types/ajaxTypes';
-import { HomeStackParamList, ProfileStackParamList, RootTabScreenProps } from '../../types/navigationTypes';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-type Props = {
-    defaultInput?: string,
-    navigation: NativeStackNavigationProp<HomeStackParamList | ProfileStackParamList, any, undefined>
-}
-export default ({ defaultInput = '', navigation }: Props) => {
+import { RootStackScreenProps } from '../../types/navigationTypes';
+
+export default ({ navigation }: RootStackScreenProps<'搜索'>) => {
     const [search, setSearch] = useState("");
     const [searchTimer, setSearchTimer] = useState<ReturnType<typeof setTimeout> | null>(null);
     const [searchResults, setSearchResults] = useState<Array<SuggestType>>([]);

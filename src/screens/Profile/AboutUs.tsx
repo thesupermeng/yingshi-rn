@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
-import { ProfileStackScreenProps } from '../../types/navigationTypes';
+import { RootStackScreenProps } from '../../types/navigationTypes';
 import { useTheme } from '@react-navigation/native';
 import { RootState } from '../../redux/store';
 
@@ -11,7 +11,7 @@ import ShowMoreButton from '../../components/button/showMoreButton';
 import Logo2 from '../../../static/images/logo2.svg';
 import NotificationModal from '../../components/modal/notificationModal';
 
-export default ({ navigation }: ProfileStackScreenProps<'关于我们'>) => {
+export default ({ navigation }: RootStackScreenProps<'关于我们'>) => {
     const { colors, textVariants, icons, spacing } = useTheme();
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 

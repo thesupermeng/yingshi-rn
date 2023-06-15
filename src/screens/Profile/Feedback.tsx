@@ -1,14 +1,14 @@
 import React from 'react';
 import { View, Text, StyleSheet, TextInput } from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
-import { ProfileStackScreenProps } from '../../types/navigationTypes';
+import { RootStackScreenProps } from '../../types/navigationTypes';
 import { useTheme } from '@react-navigation/native';
 import { RootState } from '../../redux/store';
 
 import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
 import { Button } from '@rneui/themed';
 
-export default ({ navigation }: ProfileStackScreenProps<'反馈'>) => {
+export default ({ navigation }: RootStackScreenProps<'反馈'>) => {
     const { colors, textVariants, icons } = useTheme();
     const [text, setTextInput] = React.useState('');
     return (
