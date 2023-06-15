@@ -15,8 +15,10 @@ import VodCollectionScreen from '../screens/Profile/Collection/VodCollection';
 import FeedbackScreen from '../screens/Profile/Feedback';
 import PlaylistCollectionScreen from '../screens/Profile/Collection/PlaylistCollection';
 import PlaylistDetailsScreen from '../screens/Playlist/PlaylistDetails';
-import History from '../screens/Profile/History';
-import AboutUs from '../screens/Profile/AboutUs';
+import HistoryScreen from '../screens/Profile/History';
+import AboutUsScreen from '../screens/Profile/AboutUs';
+import PrivacyScreen from '../screens/Profile/Privacy';
+import UserAgreementScreen from '../screens/Profile/UserAgreement';
 
 import HomeTabIcon from '../../static/images/home_tab.svg';
 import HomeActiveTabIcon from '../../static/images/home_tab_active.svg';
@@ -123,10 +125,12 @@ export default () => {
                     <Stack.Screen name='播单收藏' component={PlaylistCollectionScreen} />
                     <Stack.Screen name='反馈' component={FeedbackScreen} />
                     <Stack.Screen name='播放' component={PlayScreen} initialParams={{ vod_id: 1 }} />
-                    <Stack.Screen name='播放历史' component={History} />
-                    <Stack.Screen name='关于我们' component={AboutUs} />
+                    <Stack.Screen name='播放历史' component={HistoryScreen} />
+                    <Stack.Screen name='关于我们' component={AboutUsScreen} />
                     <Stack.Screen name='搜索' component={SearchScreen} />
                     <Stack.Screen name='PlaylistDetail' component={PlaylistDetailsScreen} />
+                    <Stack.Screen name='隐私政策' component={PrivacyScreen} />
+                    <Stack.Screen name='用户协议' component={UserAgreementScreen} />
                 </Stack.Navigator>
             </NavigationContainer>
         </SafeAreaProvider>

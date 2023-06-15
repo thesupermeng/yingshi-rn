@@ -29,8 +29,8 @@ export default ({ navigation }: RootStackScreenProps<'关于我们'>) => {
                 <Text style={{ textAlign: 'center', ...textVariants.body }}>V1.0.01</Text>
                 <NotificationModal onConfirm={toggleOverlay} isVisible={isDialogOpen} />
                 <View>
-                    <ShowMoreButton text='隐私政策' onPress={() => navigation.navigate('视频收藏')} />
-                    <ShowMoreButton text='用户协议' onPress={() => navigation.navigate('播放历史')} />
+                    <ShowMoreButton text='隐私政策' onPress={() => navigation.navigate('用户协议')} />
+                    <ShowMoreButton text='用户协议' onPress={() => navigation.navigate('隐私政策')} />
                     <ShowMoreButton text='版权声明' onPress={() => setIsDialogOpen(!isDialogOpen)} />
                 </View>
             </View>

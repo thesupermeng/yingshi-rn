@@ -30,19 +30,13 @@ export default function ScreenContainer({ children, scrollView = false, footer, 
 }
 
 const styles = StyleSheet.create({
-    scrollContainer: {
-        paddingLeft: 10,
-        paddingRight: 10,
-        flex: 1,
-        paddingVertical: 200
-    },
     viewContainer: {
         paddingTop: 4,
-        paddingLeft: 10,
-        paddingRight: 10,
         flex: 1,
     },
     innerContainer: {
-        flex: 1
+        flex: 1,
+        paddingLeft: 15,
+        paddingRight: 15,
     }
 });

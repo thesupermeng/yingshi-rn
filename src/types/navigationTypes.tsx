@@ -53,6 +53,8 @@ export type RootStackParamList = {
     PlaylistDetail: {
         topic_id: VodTopicType['topic_id']
     };
+    隐私政策: undefined;
+    用户协议: undefined;
 };
 
 
