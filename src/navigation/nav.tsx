@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useSelector } from "react-redux";
-import { NavigationContainer } from '@react-navigation/native'
+import { NavigationContainer, getFocusedRouteNameFromRoute } from '@react-navigation/native'
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -16,6 +16,7 @@ import FeedbackScreen from '../screens/Profile/Feedback';
 import PlaylistCollectionScreen from '../screens/Profile/Collection/PlaylistCollection';
 import PlaylistDetailsScreen from '../screens/Playlist/PlaylistDetails';
 import History from '../screens/Profile/History';
+import AboutUs from '../screens/Profile/AboutUs';
 
 import HomeTab from '../../static/images/home_tab.svg';
 import HomeActiveTab from '../../static/images/home_tab_active.svg';
@@ -27,9 +28,14 @@ import WatchAnytimeTab from '../../static/images/video_tab.svg';
 import WatchAnytimeActiveTab from '../../static/images/video_tab_active.svg';
 
 import { YingshiDarkTheme, YingshiLightTheme } from '../theme';
-import { HomeStackParamList, RootTabParamList, ProfileStackParamList, PlaylistStackParamList } from '../types/navigationTypes';
+import { HomeStackParamList, RootTabParamList, ProfileStackParamList, PlaylistStackParamList, ProfileStackScreenProps, RootTabScreenProps } from '../types/navigationTypes';
 import RNBootSplash from "react-native-bootsplash";
 import { RootState } from '../redux/store';
+import {
+    SafeAreaProvider,
+    useSafeAreaInsets,
+} from 'react-native-safe-area-context';
+
 
 export default () => {
     const Tab = createBottomTabNavigator<RootTabParamList>();
@@ -37,65 +43,94 @@ export default () => {
     const ProfileStack = createNativeStackNavigator<ProfileStackParamList>();
     const PlaylistStack = createNativeStackNavigator<PlaylistStackParamList>();
 
-    const themeReducer = useSelector(({ themeReducer }:RootState) => themeReducer);
+    const themeReducer = useSelector(({ themeReducer }: RootState) => themeReducer);
     const theme = themeReducer.theme ? YingshiDarkTheme : YingshiLightTheme
+
+
+    const ProfileNavigator = ({ navigation, route }: RootTabScreenProps<'我的'>) => {
+        const tabHiddenRoutes = ['关于我们'];
+        React.useLayoutEffect(() => {
+            const name = getFocusedRouteNameFromRoute(route);
+            if (name && tabHiddenRoutes.includes(name)) {
+                navigation.setOptions({ tabBarStyle: { display: 'none' } });
+            } else {
+                navigation.setOptions({ tabBarStyle: { display: 'flex' } });
+            }
+        }, [navigation, route]);
+   
+        return (
+            <ProfileStack.Navigator screenOptions={{ headerShown: false}}>
+                <ProfileStack.Screen name='Profile' component={ProfileScreen} />
+                <ProfileStack.Screen name='视频收藏' component={VodCollectionScreen} />
+                <ProfileStack.Screen name='播单收藏' component={PlaylistCollectionScreen} />
+                <ProfileStack.Screen name='反馈' component={FeedbackScreen} />
+                <ProfileStack.Screen name='播放' component={PlayScreen} initialParams={{ vod_id: 1 }} />
+                <ProfileStack.Screen name='播放历史' component={History} />
+                <ProfileStack.Screen name='关于我们' component={AboutUs} />
+            </ProfileStack.Navigator>
+        )
+    };
+
     function HomeStackScreen() {
         return (
-            <HomeStack.Navigator screenOptions={{headerShown: false}}>
+            <HomeStack.Navigator screenOptions={{ headerShown: false }}>
                 <HomeStack.Screen name='Home' component={HomeScreen} />
                 <HomeStack.Screen name='搜索' component={SearchScreen} />
-                <HomeStack.Screen name='播放' component={PlayScreen} initialParams={{ vod_id: 1 }}/>
+                <HomeStack.Screen name='播放' component={PlayScreen} initialParams={{ vod_id: 1 }} />
             </HomeStack.Navigator>
         );
     }
 
     function ProfileStackScreen() {
         return (
-            <ProfileStack.Navigator screenOptions={{headerShown: false}}>
+            <ProfileStack.Navigator screenOptions={{ headerShown: false }}>
                 <ProfileStack.Screen name='Profile' component={ProfileScreen} />
                 <ProfileStack.Screen name='视频收藏' component={VodCollectionScreen} />
                 <ProfileStack.Screen name='播单收藏' component={PlaylistCollectionScreen} />
                 <ProfileStack.Screen name='反馈' component={FeedbackScreen} />
-                <ProfileStack.Screen name='播放' component={PlayScreen} initialParams={{ vod_id: 1 }}/>
+                <ProfileStack.Screen name='播放' component={PlayScreen} initialParams={{ vod_id: 1 }} />
                 <ProfileStack.Screen name='播放历史' component={History} />
+                <ProfileStack.Screen name='关于我们' component={AboutUs} />
             </ProfileStack.Navigator>
         );
     }
 
     function PlaylistStackScreen() {
         return (
-            <PlaylistStack.Navigator screenOptions={{headerShown: false}}>
+            <PlaylistStack.Navigator screenOptions={{ headerShown: false }}>
                 <PlaylistStack.Screen name='Playlist' component={PlaylistScreen} />
                 <PlaylistStack.Screen name='搜索' component={SearchScreen} />
-                <PlaylistStack.Screen name='播放' component={PlayScreen} initialParams={{ vod_id: 1 }}/>
-                <PlaylistStack.Screen name='PlaylistDetail' component={PlaylistDetailsScreen} initialParams={{topic_id: 1}} />
+                <PlaylistStack.Screen name='播放' component={PlayScreen} initialParams={{ vod_id: 1 }} />
+                <PlaylistStack.Screen name='PlaylistDetail' component={PlaylistDetailsScreen} initialParams={{ topic_id: 1 }} />
             </PlaylistStack.Navigator>
         );
     }
 
     return (
-        <NavigationContainer theme={theme} onReady={() => RNBootSplash.hide()}>
-            <Tab.Navigator screenOptions={({ route }) => ({
-                headerShown: false,
-                tabBarIcon: ({ focused, color, size }) => {
-                    let icon: React.ReactNode;
-                    if (route.name === '首页') {
-                        icon = focused ? <HomeActiveTab color={theme.icons.activeNavIconColor} /> : <HomeTab />;
-                    } else if (route.name === '播单') {
-                        icon = focused ? <PlaylistActiveTab color={theme.icons.activeNavIconColor}/> : <PlaylistTab />;
-                    } else if (route.name === '我的') {
-                        icon = focused ? <ProfileActiveTab color={theme.icons.activeNavIconColor} /> : <ProfileTab />;
-                    } else if (route.name === '随心看') {
-                        icon = focused ? <WatchAnytimeActiveTab color={theme.icons.activeNavIconColor} /> : <WatchAnytimeTab />;
-                    }
-                    return icon;
-                },
-            })} >
-                <Tab.Screen name="首页" component={HomeStackScreen} />
-                <Tab.Screen name="随心看" component={WatchAnytime} />
-                <Tab.Screen name="播单" component={PlaylistStackScreen} />
-                <Tab.Screen name="我的" component={ProfileStackScreen} />
-            </Tab.Navigator>
-        </NavigationContainer>
+        <SafeAreaProvider>
+            <NavigationContainer theme={theme} onReady={() => RNBootSplash.hide()}>
+                <Tab.Navigator screenOptions={({ route }) => ({
+                    headerShown: false,
+                    tabBarIcon: ({ focused, color, size }) => {
+                        let icon: React.ReactNode;
+                        if (route.name === '首页') {
+                            icon = focused ? <HomeActiveTab color={theme.icons.activeNavIconColor} /> : <HomeTab />;
+                        } else if (route.name === '播单') {
+                            icon = focused ? <PlaylistActiveTab color={theme.icons.activeNavIconColor} /> : <PlaylistTab />;
+                        } else if (route.name === '我的') {
+                            icon = focused ? <ProfileActiveTab color={theme.icons.activeNavIconColor} /> : <ProfileTab />;
+                        } else if (route.name === '随心看') {
+                            icon = focused ? <WatchAnytimeActiveTab color={theme.icons.activeNavIconColor} /> : <WatchAnytimeTab />;
+                        }
+                        return icon;
+                    },
+                })} >
+                    <Tab.Screen name="首页" component={HomeStackScreen} />
+                    <Tab.Screen name="随心看" component={WatchAnytime} />
+                    <Tab.Screen name="播单" component={PlaylistStackScreen} />
+                    <Tab.Screen name="我的" component={ProfileNavigator} />
+                </Tab.Navigator>
+            </NavigationContainer>
+        </SafeAreaProvider>
     );
 }

@@ -45,7 +45,7 @@ export type ExtendedTheme = {
     s: number,
     m: number,
     l: number,
-    xl: number,
+    xl: number
   },
   icons: {
     activeNavIconColor: string,
@@ -54,7 +54,8 @@ export type ExtendedTheme = {
       s: number,
       m: number,
       l: number,
-      xl: number
+      xl: number,
+      xxl: number,
     }
   }
 };
@@ -129,7 +130,7 @@ export const YingshiDarkTheme: ExtendedTheme = {
     s: 12,
     m: 16,
     l: 24,
-    xl: 40,
+    xl: 32,
   },
   icons: {
     activeNavIconColor: palette.yellow,
@@ -138,7 +139,8 @@ export const YingshiDarkTheme: ExtendedTheme = {
       s: 12,
       m: 18,
       l: 24,
-      xl: 32
+      xl: 32,
+      xxl: 96,
     }
   }
 };
@@ -190,7 +192,7 @@ export const YingshiLightTheme: ExtendedTheme = {
     s: 12,
     m: 16,
     l: 24,
-    xl: 40,
+    xl: 32,
   },
   icons: {
     activeNavIconColor: palette.yellow,
@@ -199,7 +201,8 @@ export const YingshiLightTheme: ExtendedTheme = {
       s: 12,
       m: 18,
       l: 24,
-      xl: 32
+      xl: 32,
+      xxl: 96,
     }
   }
 };

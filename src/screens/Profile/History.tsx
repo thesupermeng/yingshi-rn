@@ -17,17 +17,24 @@ import CheckBoxSelected from '../../../static/images/checkbox_selected.svg';
 import CheckBoxUnselected from '../../../static/images/checkbox_unselected.svg';
 import { VodType } from '../../types/ajaxTypes';
 import { Button } from '@rneui/themed';
+import ConfirmationModal from '../../components/modal/confirmationModal';
 
 type FlatListType = {
     item: VodRecordType
 }
 export default ({ navigation }: ProfileStackScreenProps<'播放历史'>) => {
-    const { colors, textVariants, icons, spacing } = useTheme()
+    const { colors, textVariants, icons, spacing } = useTheme();
     const dispatch = useAppDispatch();
     const vodReducer: VodReducerState = useAppSelector(({ vodReducer }: RootState) => vodReducer);
     const history = vodReducer.history;
     const [isEditing, setIsEditing] = useState(false);
-    const [removeHistory, setRemoveHistory] = useState<Array<VodType>>([])
+    const [removeHistory, setRemoveHistory] = useState<Array<VodType>>([]);
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+    const toggleOverlay = () => {
+        setIsDialogOpen(!isDialogOpen);
+    };
+
     const toggleHistory = (vod: VodType) => {
         const filtered = removeHistory.filter(x => x.vod_id !== vod.vod_id);
         if (filtered.length === removeHistory.length) {
@@ -39,7 +46,10 @@ export default ({ navigation }: ProfileStackScreenProps<'播放历史'>) => {
     return (
         <ScreenContainer>
             <TitleWithBackButtonHeader title='播放历史' right={
-                <TouchableOpacity onPress={() => setIsEditing(!isEditing)}>
+                <TouchableOpacity onPress={() => {
+                    setIsEditing(!isEditing);
+                    setRemoveHistory([]);
+                }}>
                     <Text style={{ ...textVariants.body, padding: 8 }}>{isEditing ? '取消' : '编辑'}</Text>
                 </TouchableOpacity>
             }
@@ -69,27 +79,40 @@ export default ({ navigation }: ProfileStackScreenProps<'播放历史'>) => {
                     }}
                 />
             }
+            <ConfirmationModal onConfirm={() => {
+                dispatch(removeVodsFromHistory(removeHistory));
+                setIsEditing(false);
+                setRemoveHistory([]);
+                toggleOverlay();
+            }} onCancel={toggleOverlay} isVisible={isDialogOpen} />
             {
-                isEditing && removeHistory.length > 0 && <View style={styles.deleteConfirmationModal}>
+                isEditing && <View style={styles.deleteConfirmationModal}>
                     <Button
                         onPress={() => {
-                            setIsEditing(false);
-                            setRemoveHistory([]);
+                            if (removeHistory.length === 0 || removeHistory.length !== history.length) {
+                                setRemoveHistory(vodReducer.history);
+                            } else {
+                                setRemoveHistory([]);
+                            }
                         }}
                         containerStyle={styles.confirmationBtn}
                         color={colors.card2}
-                        titleStyle={{  ...textVariants.body, color: colors.muted }}>
-                        取消全选
+                        titleStyle={{ ...textVariants.body, color: colors.muted }}>
+                        {
+                            removeHistory.length === 0 || removeHistory.length !== history.length
+                            ? '全选'
+                            : '取消全选'
+                        }
                     </Button>
                     <Button
                         onPress={() => {
-                            dispatch(removeVodsFromHistory(removeHistory));
-                            setIsEditing(false);
-                            setRemoveHistory([]);
+                            if (removeHistory.length > 0) {
+                                toggleOverlay();
+                            }
                         }}
                         containerStyle={styles.confirmationBtn}
-                        color={colors.primary}
-                        titleStyle={{ ...textVariants.body, color: colors.background }}>
+                        color={removeHistory.length === 0 ? colors.card2 : colors.primary}
+                        titleStyle={{ ...textVariants.body, color: removeHistory.length === 0 ? colors.muted : colors.background }}>
                         删除
                     </Button>
                 </View>

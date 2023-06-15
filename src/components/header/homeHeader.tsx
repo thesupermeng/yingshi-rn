@@ -22,7 +22,7 @@ export default function MainHeader({ logo, navigator, headerStyle }: Props) {
                     : <Logo />
             }
             <SearchBar onPress={() => navigator.navigate('搜索')} />
-            <TouchableOpacity style={styles.historyBtn}>
+            <TouchableOpacity style={styles.historyBtn} onPress={() => navigator.navigate('我的', {screen: '播放历史'})}>
                 <History height={35} width={35} color={icons.iconColor} />
             </TouchableOpacity>
         </View>

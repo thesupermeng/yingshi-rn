@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Button, Image } from 'react-native';
 import ScreenContainer from '../components/container/screenContainer';
 import { useSelector, useDispatch } from 'react-redux';
@@ -11,6 +11,9 @@ import VodList from '../components/vod/vodList';
 import { useQuery } from '@tanstack/react-query';
 import { VodType } from '../types/ajaxTypes';
 import FastImage from 'react-native-fast-image'
+import { VodReducerState } from '../redux/reducers/vodReducer';
+import { useAppSelector } from '../hooks/hooks';
+import { RootState } from '../redux/store';
 
 type VodData = {
   vod_list: Array<VodType>,
@@ -26,10 +29,14 @@ type VodCarousellResponseType = {
 
 export default ({ navigation }: HomeStackScreenProps<'Home'>) => {
   const { colors } = useTheme();
+  const [url, setUrl] = useState('https://api.yingshi.tv/page/v1/typepage?id=0');
+  const vodReducer: VodReducerState = useAppSelector(({ vodReducer }: RootState) => vodReducer);
+  const history = vodReducer.history;
+
   const { data } = useQuery({
     queryKey: ["HomePage"],
     queryFn: () =>
-      fetch(`https://api.yingshi.tv/page/v1/typepage`)
+      fetch(url)
         .then(response => response.json())
         .then((json: VodCarousellResponseType) => {
           return json.data
@@ -63,6 +70,13 @@ export default ({ navigation }: HomeStackScreenProps<'Home'>) => {
               })
             }
           </Swiper>
+        </View>
+      }
+      {
+        history &&
+        <View>
+          <ShowMoreVodButton text='继续看' />
+          <VodList vodStyle={styles.vod_hotlist} vodList={history.slice(0, 10)} />
         </View>
       }
       <ShowMoreVodButton text='重磅热播' />

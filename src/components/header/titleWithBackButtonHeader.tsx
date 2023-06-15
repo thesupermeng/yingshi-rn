@@ -23,7 +23,9 @@ export default function TitleWithBackButtonHeader({ title, onBack, headerStyle, 
             {
                 right
                     ? right
-                    : <View style={{ width: 44 }}></View>
+                    : <View style={{ opacity: 0, pointerEvents: 'none' }}>
+                        <BackButton onPress={onBack} />
+                    </View>
             }
         </View>
     );
