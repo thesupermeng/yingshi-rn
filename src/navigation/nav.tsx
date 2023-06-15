@@ -43,55 +43,9 @@ export default () => {
     const ProfileTab = createBottomTabNavigator<ProfileTabParamList>();
     const PlaylistTab = createBottomTabNavigator<PlaylistTabParamList>();
     const WatchAnytimeTab = createBottomTabNavigator<WatchAnytimeTabParamList>();
-
+    
     const themeReducer = useSelector(({ themeReducer }: RootState) => themeReducer);
     const theme = themeReducer.theme ? YingshiDarkTheme : YingshiLightTheme
-
-    {/* < Tab.Navigator screenOptions = {({ route }) => ({
-            headerShown: false,
-            tabBarIcon: ({ focused, color, size }) => {
-                let icon: React.ReactNode;
-                if (route.name === '首页') {
-                    icon = focused ? <HomeActiveTab color={theme.icons.activeNavIconColor} /> : <HomeTab />;
-                } else if (route.name === '播单') {
-                    icon = focused ? <PlaylistActiveTab color={theme.icons.activeNavIconColor} /> : <PlaylistTab />;
-                } else if (route.name === '我的') {
-                    icon = focused ? <ProfileActiveTab color={theme.icons.activeNavIconColor} /> : <ProfileTab />;
-                } else if (route.name === '随心看') {
-                    icon = focused ? <WatchAnytimeActiveTab color={theme.icons.activeNavIconColor} /> : <WatchAnytimeTab />;
-                }
-                return icon;
-            },
-        })
-} >
-                    <Tab.Screen name="首页" component={HomeStackScreen} />
-                    <Tab.Screen name="随心看" component={WatchAnytime} />
-                    <Tab.Screen name="播单" component={PlaylistStackScreen} />
-                    <Tab.Screen name="我的" component={ProfileNavigator} />
-                </Tab.Navigator > */}
-    // const ProfileNavigator = ({ navigation, route }: RootTabScreenProps<'我的'>) => {
-    //     const tabHiddenRoutes = ['关于我们'];
-    //     React.useLayoutEffect(() => {
-    //         const name = getFocusedRouteNameFromRoute(route);
-    //         if (name && tabHiddenRoutes.includes(name)) {
-    //             navigation.setOptions({ tabBarStyle: { display: 'none' } });
-    //         } else {
-    //             navigation.setOptions({ tabBarStyle: { display: 'flex' } });
-    //         }
-    //     }, [navigation, route]);
-
-    //     return (
-    //         <ProfileStack.Navigator screenOptions={{ headerShown: false }}>
-    //             <ProfileStack.Screen name='Profile' component={ProfileScreen} />
-    //             <ProfileStack.Screen name='视频收藏' component={VodCollectionScreen} />
-    //             <ProfileStack.Screen name='播单收藏' component={PlaylistCollectionScreen} />
-    //             <ProfileStack.Screen name='反馈' component={FeedbackScreen} />
-    //             <ProfileStack.Screen name='播放' component={PlayScreen} initialParams={{ vod_id: 1 }} />
-    //             <ProfileStack.Screen name='播放历史' component={History} />
-    //             <ProfileStack.Screen name='关于我们' component={AboutUs} />
-    //         </ProfileStack.Navigator>
-    //     )
-    // };
 
     function HomeTabScreen() {
         return (

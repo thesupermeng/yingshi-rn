@@ -8,9 +8,6 @@ import { RootState } from '../../redux/store';
 
 import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
 import { VodRecordType, VodReducerState } from '../../redux/reducers/vodReducer';
-import FavoriteVodCard from '../../components/vod/favoriteVodCard';
-import CollectionHeader from '../../components/header/myCollectionHeader';
-import FavoritePlaylist from '../../components/playlist/favoritePlaylist';
 import { removeVodsFromHistory, playVod } from '../../redux/actions/vodActions';
 import VodHistoryCard from '../../components/vod/vodHistoryCard';
 import CheckBoxSelected from '../../../static/images/checkbox_selected.svg';

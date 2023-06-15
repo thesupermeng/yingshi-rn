@@ -3,16 +3,16 @@ import { View, FlatList, Text } from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
 import MainHeader from '../../components/header/homeHeader';
 import { useTheme } from '@react-navigation/native';
-import { PlaylistTabScreenProps, RootStackParamList } from '../../types/navigationTypes';
 import { useQuery } from '@tanstack/react-query';
 import { VodPlaylistResponseType, VodTopicType } from '../../types/ajaxTypes';
 import VodPlaylist from '../../components/playlist/vodPlaylist';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+
 type FlatListType = {
     item: VodTopicType
 }
 
-export default ({ navigation }: PlaylistTabScreenProps<'播单'>) => {
+export default ({ navigation }: BottomTabScreenProps<any>) => {
     const { textVariants, colors, spacing } = useTheme();
     const { data: playlists } = useQuery({
         queryKey: ["vodPlaylist"],

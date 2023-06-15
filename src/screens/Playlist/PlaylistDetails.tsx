@@ -3,7 +3,6 @@ import { View, FlatList, Text, StyleSheet } from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
 import MainHeader from '../../components/header/homeHeader';
 import { useTheme } from '@react-navigation/native';
-import { PlaylistStackScreenProps } from '../../types/navigationTypes';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { RootState } from '../../redux/store';
 import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
@@ -11,10 +10,11 @@ import FavoritePlaylistButton from '../../components/button/favoritePlaylistButt
 import FavoriteVodCard from '../../components/vod/favoriteVodCard';
 import { playVod } from '../../redux/actions/vodActions';
 import { VodType } from '../../types/ajaxTypes';
+import { RootStackScreenProps } from '../../types/navigationTypes';
 type FlatListType = {
     item: VodType
 }
-export default ({ navigation }: PlaylistStackScreenProps<'PlaylistDetail'>) => {
+export default ({ navigation }: RootStackScreenProps<'PlaylistDetail'>) => {
     const { textVariants, colors, spacing } = useTheme();
     const playlistReducer = useAppSelector(({ vodPlaylistReducer }: RootState) => vodPlaylistReducer);
     const playlist = playlistReducer?.playlistDetails?.playlist;

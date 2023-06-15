@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, FlatList, Text, StyleSheet } from 'react-native';
 import ScreenContainer from '../../../components/container/screenContainer';
-import { ProfileStackScreenProps } from '../../../types/navigationTypes';
 import { useTheme } from '@react-navigation/native';
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
 import { RootState } from '../../../redux/store';
@@ -12,12 +11,13 @@ import FavoriteVodCard from '../../../components/vod/favoriteVodCard';
 import CollectionHeader from '../../../components/header/myCollectionHeader';
 import { playVod } from '../../../redux/actions/vodActions';
 import { VodType } from '../../../types/ajaxTypes';
+import { RootStackScreenProps } from '../../../types/navigationTypes';
 
 type FlatListType = {
     item: VodType
 }
 
-export default ({ navigation }: ProfileStackScreenProps<'视频收藏'>) => {
+export default ({ navigation }: RootStackScreenProps<'视频收藏'>) => {
     const { colors, textVariants, icons } = useTheme()
     const dispatch = useAppDispatch();
     const vodReducer: VodReducerState = useAppSelector(({ vodReducer }: RootState) => vodReducer);

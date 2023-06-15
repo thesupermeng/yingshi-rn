@@ -1,8 +1,4 @@
-import SearchBar from './searchbar';
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native';
-import Logo from '../../../static/images/logo.svg';
-import History from '../../../static/images/history.svg';
-import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '@react-navigation/native';
 import BackButton from '../button/backButton';
 

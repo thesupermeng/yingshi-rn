@@ -1,23 +1,21 @@
 import React from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, FlatList } from 'react-native';
 import ScreenContainer from '../../../components/container/screenContainer';
-import { ProfileStackScreenProps } from '../../../types/navigationTypes';
 import { useTheme } from '@react-navigation/native';
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
 import { RootState } from '../../../redux/store';
 
 import TitleWithBackButtonHeader from '../../../components/header/titleWithBackButtonHeader';
-import { VodReducerState } from '../../../redux/reducers/vodReducer';
-import FavoriteVodCard from '../../../components/vod/favoriteVodCard';
 import CollectionHeader from '../../../components/header/myCollectionHeader';
 import FavoritePlaylist from '../../../components/playlist/favoritePlaylist';
 import { VodTopicType } from '../../../types/ajaxTypes';
+import { RootStackScreenProps } from '../../../types/navigationTypes';
 
 type FlatListType = {
     item: VodTopicType
 }
 
-export default ({ navigation }: ProfileStackScreenProps<'播单收藏'>) => {
+export default ({ navigation }: RootStackScreenProps<'播单收藏'>) => {
     const { colors, textVariants, icons, spacing } = useTheme()
     const dispatch = useAppDispatch();
     const vodPlaylistReducer = useAppSelector(({ vodPlaylistReducer }: RootState) => vodPlaylistReducer);

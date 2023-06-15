@@ -1,11 +1,5 @@
-import { useState } from 'react';
 import { StyleSheet, TouchableOpacity, Text, ScrollView, Image, View } from 'react-native';
 import { useTheme } from '@react-navigation/native';
-import { useQuery } from '@tanstack/react-query';
-import { VodType } from '../../types/ajaxTypes';
-import { useNavigation } from '@react-navigation/native';
-import { useAppDispatch } from '../../hooks/hooks';
-import { playVod } from '../../redux/actions/vodActions';
 import VodImageCard from './vodImageCard';
 import LoadingImage from '../../../static/images/loading_img.svg';
 interface Props {

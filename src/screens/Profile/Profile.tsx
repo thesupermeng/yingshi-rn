@@ -2,7 +2,6 @@ import React from 'react';
 import { ListItem } from '@rneui/themed';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
-import { RootStackScreenProps } from '../../types/navigationTypes';
 import LightMode from '../../../static/images/light_mode.svg';
 import { useTheme } from '@react-navigation/native';
 import { toggleTheme } from '../../redux/actions/themeAction';

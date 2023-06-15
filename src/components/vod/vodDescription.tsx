@@ -1,6 +1,5 @@
 import { useTheme } from '@react-navigation/native';
 import { VodType } from '../../types/ajaxTypes';
-import { playVod } from '../../redux/actions/vodActions';
 import { View, StyleSheet, Text } from 'react-native';
 
 interface Props {

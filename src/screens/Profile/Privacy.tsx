@@ -2,14 +2,12 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
 import { RootStackScreenProps } from '../../types/navigationTypes';
-import { useTheme } from '@react-navigation/native';
-import { RootState } from '../../redux/store';
-
 import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
-import { Button } from '@rneui/themed';
 import ShowMoreButton from '../../components/button/showMoreButton';
 import Logo2 from '../../../static/images/logo2.svg';
 import NotificationModal from '../../components/modal/notificationModal';
+
+import { useTheme } from '@react-navigation/native';
 
 export default ({ navigation }: RootStackScreenProps<'关于我们'>) => {
     const { colors, textVariants, icons, spacing } = useTheme();

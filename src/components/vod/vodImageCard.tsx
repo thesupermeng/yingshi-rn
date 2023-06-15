@@ -1,8 +1,5 @@
 import { StyleSheet, TouchableOpacity, Text, Image } from 'react-native';
 import { useTheme } from '@react-navigation/native';
-import { VodType } from '../../types/ajaxTypes';
-import { useAppDispatch } from '../../hooks/hooks';
-import { playVod } from '../../redux/actions/vodActions';
 import FastImage from 'react-native-fast-image';
 interface Props {
     vod_img: string,
