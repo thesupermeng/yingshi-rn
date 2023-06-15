@@ -3,9 +3,6 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-nativ
 import ScreenContainer from '../../components/container/screenContainer';
 import { RootStackScreenProps } from '../../types/navigationTypes';
 import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
-import ShowMoreButton from '../../components/button/showMoreButton';
-import Logo2 from '../../../static/images/logo2.svg';
-import NotificationModal from '../../components/modal/notificationModal';
 
 import { useTheme } from '@react-navigation/native';
 
@@ -16,7 +13,7 @@ export default ({ navigation }: RootStackScreenProps<'用户协议'>) => {
     const toggleOverlay = () => {
         setIsDialogOpen(!isDialogOpen);
     };
-    
+
     return (
         <ScreenContainer scrollView={true}>
             <View gap={spacing.m}>
