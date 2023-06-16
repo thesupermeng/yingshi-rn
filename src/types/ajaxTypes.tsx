@@ -82,40 +82,53 @@ export interface VodType {
     type_name: string,
 }
 
-export interface SuggestType {
-    en: string;
-    id: number;
-    name: string;
-    pic: string;
-    type: SuggestVodNestedType;
-    type_1: null;
-    type_id: number;
-    type_name: string;
+export interface SuggestResponseType {
+    code: number
+    data: SuggestResponseDataType
 }
 
-interface SuggestVodNestedType {
-    childids: null;
-    type_des: string;
-    type_en: string;
-    type_id: number;
-    type_jumpurl: string;
-    type_key: string;
-    type_logo: string;
-    type_mid: number;
-    type_name: string;
-    type_pic: string;
-    type_pid: number;
-    type_sort: number;
-    type_status: number;
-    type_title: string;
-    type_tpl: string;
-    type_tpl_detail: string;
-    type_tpl_down: string;
-    type_tpl_list: string;
-    type_tpl_play: string;
-    type_union: string;
+interface SuggestResponseDataType {
+    Total: number
+    TotalPageCount: number
+    Page: number
+    Limit: number
+    List: SuggestedVodType[]
 }
 
+export interface SuggestedVodType extends VodType {
+    vod_id: number
+    type_id: number
+    vod_name: string
+    vod_en: string
+    vod_letter: string
+    vod_class: string
+    vod_pic: string
+    vod_blurb: string
+    vod_remarks: string
+    vod_area: string
+    vod_lang: string
+    vod_state: string
+    vod_score: number
+    vod_time: number
+    vod_time_add: number
+    vod_content: string
+    vod_play_from: string
+    vod_play_url: string
+    vod_play_list: VodEpisodeListType
+    type_name: string
+}
+
+export interface VodEpisodeListType {
+    url_count: number
+    urls: Url[]
+}
+
+interface Url {
+    name: string
+    url: string
+    from: string
+    nid: number
+}
 
 export interface TypeExtendType {
     class: string
@@ -191,9 +204,9 @@ export interface VodTopicType {
     topic_content: string
     topic_extend: string
     vod_list: VodListType[]
-  }
+}
 
-  export interface VodPlaylistResponseType {
+export interface VodPlaylistResponseType {
     code: number
     msg: string
     page: number
@@ -201,6 +214,18 @@ export interface VodTopicType {
     limit: number
     total: number
     list: {
-        [key: string] : VodTopicType
+        [key: string]: VodTopicType
     }
-  }
+}
+
+type VodData = {
+    vod_list: Array<VodType>,
+    type_name: string
+}
+
+export interface VodCarousellResponseType {
+    data: {
+        yunying: Array<VodData>
+        categories: Array<VodData>
+    }
+}

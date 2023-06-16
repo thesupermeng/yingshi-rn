@@ -33,5 +33,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         width: '100%',
         alignItems: 'center',
+        marginBottom: 8
     }
 });

@@ -1,39 +1,64 @@
-import { useTheme } from '@react-navigation/native';
-import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
-import { SuggestType } from '../../types/ajaxTypes'
+import { useNavigation, useTheme } from '@react-navigation/native';
+import { StyleSheet, View, TouchableOpacity, Text, FlatList } from 'react-native';
+import { SuggestedVodType } from '../../types/ajaxTypes'
+import { useAppDispatch } from '../../hooks/hooks';
+import { playVod } from '../../redux/actions/vodActions';
 interface Props {
-    recommendationList: Array<SuggestType>;
+    recommendationList: Array<SuggestedVodType>;
 }
-
+type FlatListType = {
+    item: SuggestedVodType
+    index: number
+}
 export default function RecommendationList({ recommendationList }: Props) {
-    const theme = useTheme();
+    const { colors, textVariants, spacing } = useTheme();
+    const navigation = useNavigation();
+    const dispatch = useAppDispatch();
     return (
         <View>
             {
-                recommendationList && recommendationList.map((result, id) => (
-                    <TouchableOpacity key={`search-result-${id}`} style={styles.suggestion}>
-                        <Text style={{ color: 
-                            id === 0 ? theme.colors.title : 
-                            id === 1 ? theme.colors.recommendation2 : 
-                            id === 2 ? theme.colors.recommendation3 : 
-                            theme.textVariants.body,
-                            ...styles.suggestionIndex }}>{id + 1}</Text>
-                        <Text style={theme.textVariants.body}>{result.name}</Text>
-                    </TouchableOpacity>
-                ))
+                recommendationList &&
+                < FlatList
+                    data={recommendationList}
+                    renderItem={({ item, index }: FlatListType) => (
+                        <View style={{ ...styles.suggestion, marginBottom: spacing.l }} gap={spacing.s}>
+                            <TouchableOpacity style={styles.suggestionName} onPress={() => {
+                                dispatch(playVod(item));
+                                navigation.navigate('播放', { vod_id: item.vod_id })
+                            }}>
+                                <Text style={{
+                                    color:
+                                        index === 0 ? colors.title :
+                                            index === 1 ? colors.recommendation2 :
+                                                index === 2 ? colors.recommendation3 :
+                                                    colors.muted,
+                                    ...styles.suggestionIndex
+                                }}>{index + 1}</Text>
+                                <Text style={textVariants.body}>{item.vod_name}</Text>
+                            </TouchableOpacity>
+                            <Text style={{ ...textVariants.small, color: colors.muted, }}>{item.vod_class}</Text>
+                        </View>
+                    )}
+                />
             }
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    suggestion: {
+    suggestionName: {
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: 20
+        flexShrink: 1,
     },
     suggestionIndex: {
         marginRight: 10
     },
+    suggestion: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between'
+    }
 });

@@ -28,6 +28,7 @@ import ProfileTabIcon from '../../static/images/profile_tab.svg';
 import ProfileActiveTabIcon from '../../static/images/profile_tab_active.svg';
 import WatchAnytimeTabIcon from '../../static/images/video_tab.svg';
 import WatchAnytimeActiveTabIcon from '../../static/images/video_tab_active.svg';
+import CatalogScreen from '../screens/Common/Catalog';
 
 import { YingshiDarkTheme, YingshiLightTheme } from '../theme';
 import { HomeTabParamList, PlaylistTabParamList, ProfileTabParamList, RootStackParamList, WatchAnytimeTabParamList } from '../types/navigationTypes';
@@ -131,6 +132,7 @@ export default () => {
                     <Stack.Screen name='PlaylistDetail' component={PlaylistDetailsScreen} />
                     <Stack.Screen name='隐私政策' component={PrivacyScreen} />
                     <Stack.Screen name='用户协议' component={UserAgreementScreen} />
+                    <Stack.Screen name='片库' component={CatalogScreen} />
                 </Stack.Navigator>
             </NavigationContainer>
         </SafeAreaProvider>

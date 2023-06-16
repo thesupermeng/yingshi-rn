@@ -12,3 +12,5 @@ export const CLEAR_HISTORY = 'clear_history';
 
 export const TOGGLE_PLAYLIST_FAVORITES = 'toggle_playlist_fav';
 export const VIEW_PLAYLIST = 'view_playlist';
+
+export const API_DOMAIN = 'https://api.yingshi.tv/'

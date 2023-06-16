@@ -12,13 +12,26 @@ export default function ScreenContainer({ children, scrollView = false, footer, 
         <>
             {
                 scrollView
-                    ? <ScrollView style={{...styles.container, paddingTop: insets.top, paddingBottom: insets.bottom}} {...params} contentContainerStyle={{ paddingBottom: 30 }} >
+                    ? <ScrollView style={{
+                        ...styles.container,
+                        paddingTop: insets.top,
+                        paddingBottom: insets.bottom,
+                        paddingLeft: insets.left,
+                        paddingRight: insets.right
+                    }}
+                        {...params} contentContainerStyle={{ paddingBottom: 30 }} >
                         <View style={styles.innerContainer}>
                             {children}
                         </View>
                         {footer}
                     </ScrollView>
-                    : <View style={{...styles.viewContainer, paddingTop: insets.top, paddingBottom: insets.bottom }} {...params}>
+                    : <View style={{
+                        ...styles.viewContainer,
+                        paddingTop: insets.top,
+                        paddingBottom: insets.bottom,
+                        paddingLeft: insets.left,
+                        paddingRight: insets.right,
+                    }} {...params}>
                         <View style={styles.innerContainer}>
                             {children}
                         </View>
@@ -36,7 +49,7 @@ const styles = StyleSheet.create({
     },
     innerContainer: {
         flex: 1,
-        paddingLeft: 15,
-        paddingRight: 15,
+        paddingLeft: 10,
+        paddingRight: 10,
     }
 });

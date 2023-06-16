@@ -38,6 +38,12 @@ export type ExtendedTheme = {
       fontWeight: string,
       color: string,
     },
+    small: {
+      fontFamily: string,
+      fontSize: number,
+      fontWeight: string,
+      color: string,
+    },
   },
   spacing: {
     xxs: number,
@@ -123,6 +129,12 @@ export const YingshiDarkTheme: ExtendedTheme = {
       fontWeight: '400',
       color: palette.white,
     },
+    small: {
+      fontFamily: 'PingFang SC',
+      fontSize: 12,
+      fontWeight: '400',
+      color: palette.white,
+    },
   },
   spacing: {
     xxs: 4,
@@ -184,6 +196,12 @@ export const YingshiLightTheme: ExtendedTheme = {
       fontSize: 16,
       fontWeight: '400',
       color: palette.dark,
+    },
+    small: {
+      fontFamily: 'PingFang SC',
+      fontSize: 12,
+      fontWeight: '400',
+      color: palette.white,
     },
   },
   spacing: {

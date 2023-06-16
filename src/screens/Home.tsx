@@ -1,42 +1,49 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Button, Image } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Button, Image, FlatList } from 'react-native';
 import ScreenContainer from '../components/container/screenContainer';
 import { useSelector, useDispatch } from 'react-redux';
 import HomeHeader from '../components/header/homeHeader';
-import { RootStackScreenProps } from '../types/navigationTypes';
 import { useTheme } from '@react-navigation/native';
 import Swiper from 'react-native-swiper';
 import ShowMoreVodButton from '../components/button/showMoreVodButton';
 import VodList from '../components/vod/vodList';
 import { useQuery } from '@tanstack/react-query';
-import { VodType } from '../types/ajaxTypes';
+import { VodCarousellResponseType, VodType } from '../types/ajaxTypes';
 import FastImage from 'react-native-fast-image'
 import { VodReducerState } from '../redux/reducers/vodReducer';
 import { useAppSelector } from '../hooks/hooks';
 import { RootState } from '../redux/store';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
-type VodData = {
-  vod_list: Array<VodType>,
-  type_name: string
-}
+import VodHistoryList from '../components/vod/vodHistoryList';
+import { API_DOMAIN } from '../constants';
 
-type VodCarousellResponseType = {
-  data: {
-    yunying: Array<VodData>
-    categories: Array<VodData>
+interface NavType {
+  item: {
+    id: number,
+    name: string
   }
 }
 
 export default ({ navigation }: BottomTabScreenProps<any>) => {
-  const { colors } = useTheme();
-  const [url, setUrl] = useState('https://api.yingshi.tv/page/v1/typepage?id=0');
+  const { colors, textVariants, spacing } = useTheme();
+  const [navId, setNavId] = useState(0);
   const vodReducer: VodReducerState = useAppSelector(({ vodReducer }: RootState) => vodReducer);
   const history = vodReducer.history;
 
   const { data } = useQuery({
-    queryKey: ["HomePage"],
+    queryKey: ["HomePage", navId],
     queryFn: () =>
-      fetch(url)
+      fetch(`${API_DOMAIN}page/v1/typepage?id=${navId}`, {})
+        .then(response => response.json())
+        .then((json: VodCarousellResponseType) => {
+          return json.data
+        })
+  });
+
+  const { data: navOptions } = useQuery({
+    queryKey: ["HomePageNavOptions"],
+    queryFn: () =>
+      fetch('https://testapi.yingshi.tv/nav/v1/navItems', {})
         .then(response => response.json())
         .then((json: VodCarousellResponseType) => {
           return json.data
@@ -46,6 +53,20 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
   return (
     <ScreenContainer scrollView={true}>
       <HomeHeader navigator={navigation} />
+      <FlatList
+        data={navOptions}
+        horizontal
+        contentContainerStyle={styles.nav}
+        renderItem={({ item }: NavType) => {
+          return <TouchableOpacity style={{ marginRight: spacing.m, justifyContent: 'center', display: 'flex' }} onPress={() => setNavId(item.id)}>
+            <Text style={{
+              selfAlign: 'center',
+              fontSize: navId === item.id ? textVariants.bigHeader.fontSize : textVariants.header.fontSize,
+              color: navId === item.id ? colors.primary : colors.muted
+            }}>{item.name}</Text>
+          </TouchableOpacity>
+        }}
+      />
       {
         data?.categories[0] && <View style={{ height: 200 }}>
           <Swiper style={styles.wrapper}
@@ -75,16 +96,18 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
       {
         history &&
         <View>
-          <ShowMoreVodButton text='继续看' />
-          <VodList vodStyle={styles.vod_hotlist} vodList={history.slice(0, 10)} />
+          <ShowMoreVodButton text='继续看' onPress={() => {
+            navigation.navigate('播放历史');
+          }} />
+          <VodHistoryList vodStyle={styles.vod_hotlist} vodList={history.slice(0, 10)} showInfo='watch_progress' />
         </View>
       }
-      <ShowMoreVodButton text='重磅热播' />
-      <VodList query_url='https://www.yingshi.tv/index.php/ajax/data.html?mid=1&limit=1&by=score&order=desc' vodStyle={styles.vod_hotlist} />
       {
         data?.categories.map((lst, idx) => (
           <View key={`${lst.type_name}-${idx}`}>
-            <ShowMoreVodButton text={lst.type_name} />
+            <ShowMoreVodButton text={lst.type_name} onPress={() => {
+              navigation.navigate('片库');
+            }} />
             <VodList vodList={lst.vod_list.slice(0, 10)} />
           </View>
         ))
@@ -123,5 +146,10 @@ const styles = StyleSheet.create({
   vod_hotlist: {
     height: 150,
     width: 250
+  },
+  nav: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    marginBottom: 10
   }
 })

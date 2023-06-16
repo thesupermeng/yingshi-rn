@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
 import { SearchBar } from '@rneui/base';
 import { useTheme } from '@react-navigation/native';
 import OrderedSearchResultsList from '../../components/search/RecommendationList';
@@ -10,28 +10,33 @@ import SearchIcon from '../../../static/images/search.svg';
 import ClearIcon from '../../../static/images/cross.svg';
 import { useQuery } from '@tanstack/react-query'
 
-import { SuggestType } from '../../types/ajaxTypes';
+import { SuggestResponseType, SuggestedVodType } from '../../types/ajaxTypes';
 import { RootStackScreenProps } from '../../types/navigationTypes';
+import { API_DOMAIN } from '../../constants';
+import VodWithDescriptionList from '../../components/vod/vodWithDescriptionList';
 
 export default ({ navigation }: RootStackScreenProps<'搜索'>) => {
     const [search, setSearch] = useState("");
     const [searchTimer, setSearchTimer] = useState<ReturnType<typeof setTimeout> | null>(null);
-    const [searchResults, setSearchResults] = useState<Array<SuggestType>>([]);
-    const { colors } = useTheme();
+    const [searchResults, setSearchResults] = useState<Array<SuggestedVodType>>([]);
+    const [showResults, setShowResults] = useState(false);
+
+    const { colors, textVariants } = useTheme();
     const { data: recommendations } = useQuery({
         queryKey: ["recommendationList"],
         queryFn: () =>
-            fetch(`https://www.yingshi.tv/index.php/ajax/suggest.html?wd=a&mid=1&limit=10`)
+            fetch(`${API_DOMAIN}vod/v1/vod?by=hits_day`)
                 .then(response => response.json())
-                .then(json => {
-                    return json.list
-                })
+                .then((json: SuggestResponseType) => {
+                    return json.data.List
+                }),
+        initialData: [],
     });
     async function fetchData(text: string) {
-        fetch(`https://www.yingshi.tv/index.php/ajax/suggest.html?wd=${text}&mid=1&limit=10`)
+        fetch(`${API_DOMAIN}vod/v1/vod?wd=${text}`)
             .then(response => response.json())
-            .then(json => {
-                setSearchResults(json.list)
+            .then((json: SuggestResponseType) => {
+                setSearchResults(json.data.List);
             })
             .catch(error => {
                 console.error(error);
@@ -52,18 +57,23 @@ export default ({ navigation }: RootStackScreenProps<'搜索'>) => {
     return (
         <ScreenContainer>
             <View style={styles.nav}>
-                <BackButton onPress={()=>navigation.goBack()}/>
+                <BackButton onPress={() => navigation.goBack()} />
                 <SearchBar
                     platform="default"
                     containerStyle={styles.containerStyle}
-                    inputContainerStyle={{ backgroundColor: colors.search, ...styles.inputContainerStyle }}
+                    inputContainerStyle={{ backgroundColor: colors.search, ...styles.inputContainerStyle, }}
                     leftIconContainerStyle={{}}
                     rightIconContainerStyle={{}}
+                    inputStyle={textVariants.body}
                     loadingProps={{}}
-                    onChangeText={(newVal: string) => updateSearch(newVal)}
+                    onChangeText={(newVal: string) => {
+                        setShowResults(false);
+                        updateSearch(newVal)
+                    }}
                     placeholder="输入搜索关键词"
                     placeholderTextColor={colors.muted}
                     round
+                    onSubmitEditing={() => setShowResults(!showResults)}
                     searchIcon={<SearchIcon color={colors.muted} />}
                     value={search}
                     clearIcon={
@@ -71,6 +81,7 @@ export default ({ navigation }: RootStackScreenProps<'搜索'>) => {
                             <TouchableOpacity onPress={() => {
                                 setSearchResults([]);
                                 setSearch('');
+                                setShowResults(false);
                             }} >
                                 <ClearIcon />
                             </TouchableOpacity>
@@ -80,10 +91,18 @@ export default ({ navigation }: RootStackScreenProps<'搜索'>) => {
             </View>
             <View style={styles.searchResult}>
                 {
-                    search.length === 0
-                        ? <OrderedSearchResultsList recommendationList={recommendations} />
-                        : <SearchResultList searchResultList={searchResults} />
+                    showResults
+                        ? <VodWithDescriptionList vodList={searchResults} />
+                        : <View style={{marginLeft: 20}}>
+                            {
+                                search.length === 0
+                                    ? <OrderedSearchResultsList recommendationList={recommendations} />
+                                    : <SearchResultList searchResultList={searchResults} />
+                            }
+                        </View>
+
                 }
+
             </View>
         </ScreenContainer>
     )
@@ -91,27 +110,26 @@ export default ({ navigation }: RootStackScreenProps<'搜索'>) => {
 
 const styles = StyleSheet.create({
     nav: {
-        paddingTop: 4,
         display: 'flex',
         flexDirection: 'row',
         width: '100%',
         alignItems: 'center',
+        marginTop: 5
     },
     containerStyle: {
         paddingLeft: 10,
-        paddingRight: 30,
         backgroundColor: 'transparent',
         textAlign: 'left',
         flexGrow: 1,
         borderRadius: 100,
         borderTopWidth: 0,
-        borderBottomWidth: 0
+        borderBottomWidth: 0,
     },
     inputContainerStyle: {
-        borderRadius: 100
+        borderRadius: 100,
+        height: 35
     },
     searchResult: {
         marginTop: 20,
-        marginLeft: 20
     }
 });
