@@ -22,24 +22,10 @@ type MiniVideoResponseType = {
         List: Array<MiniVideo>
     }
 }
-export default ({ navigation }) => {
+
+export default ({ navigation } : BottomTabScreenProps<any>) => {
 
     const { colors } = useTheme();
-    // const { data } = useQuery({
-    //     queryKey: ["WatchAnytime"],
-    //     queryFn: () =>
-    //         fetch(`https://api.yingshi.tv/miniVod/v1/miniVod`)
-    //         .then(response => {
-    //             console.log('convert Resp')
-    //             console.log(response)
-    //             return response.json()
-    //         } )
-    //         .then((json: MiniVideoResponseType) => {
-    //             console.log('HI')
-    //             console.log(json)
-    //             return "ADADAS"
-    //         })
-    // });
 
     const [current, setCurrent] = useState<number | null>(null);
     const [isPaused, setIsPaused] = useState(false);
@@ -108,40 +94,39 @@ export default ({ navigation }) => {
     const renderFlatListItem = useCallback(({item, index}: { item: MiniVideo; index: number }) => {
         const isCurrentVideo = index === current;
         console.log(item.mini_video_origin_video_url);
-            return (
-                // Note : Will change to windowHeight - "NavBarHeight" instead
-                <View style={{flex: 1}}>
-                    <View style={{height: windowHeight - 50.2, width: '100%', flex: 1}}> 
-                        <TouchableWithoutFeedback style={{ backgroundColor: "blue", width: "100", height: "100", zIndex: "2000" }} onPress={() => {
-                            console.log(isPaused);
-                            setIsPaused(!isPaused);
-                        }}>
-                            <Video 
-                                resizeMode="contain"
-                                // source={{ uri: item.mini_video_origin_video_url }}
-                                source={{ uri: "https://m3u.haiwaikan.com/xm3u8/407446996534684cddf4218fc0510c8447c8adbd35097c06b906388343423d949921f11e97d0da21.m3u8" }}
-                                repeat={true} 
-                                style={styles.video}
-                                paused={!isCurrentVideo || isPaused} 
-                                preload={isCurrentVideo ? 'auto' : 'metadata'} />
-                        </TouchableWithoutFeedback>
-                        <View column style={{position:'absolute', marginTop: (windowHeight - 50.2) / 2, height: (windowHeight - 50.2) / 2, width: '100%', justifyContent:'flex-end', padding: 20, marginBottom: 30}}>
-                            <View style={{marginTop:10}}>
-                                {/* <Text style={{fontSize:14,color:'red',marginTop:10}}>{item.mini_video_title}</Text> */}
-                                <TouchableOpacity row style={{backgroundColor:'#4d4d4d',borderRadius:17,padding:10,alignItems:'center',width:270}}>
-                                    <Text style={{fontSize:14,color:'#fff',marginLeft:10}}>为什么这个不在视觉框里面为什么这个不在视觉框里面为什么这个不在视觉框里</Text>
-                                </TouchableOpacity>
-                            </View>
+        return (
+            // Note : Will change to windowHeight - "NavBarHeight" instead
+            <View style={{flex: 1}}>
+                <View style={{height: windowHeight - 50.2, width: '100%', flex: 1}}> 
+                    <TouchableWithoutFeedback style={{ backgroundColor: "blue", width: "100", height: "100", zIndex: "2000" }} onPress={() => {
+                        console.log(isPaused);
+                        setIsPaused(!isPaused);
+                    }}>
+                        <Video 
+                            resizeMode="contain"
+                            // source={{ uri: item.mini_video_origin_video_url }}
+                            source={{ uri: "https://m3u.haiwaikan.com/xm3u8/407446996534684cddf4218fc0510c8447c8adbd35097c06b906388343423d949921f11e97d0da21.m3u8" }}
+                            repeat={true} 
+                            style={styles.video}
+                            paused={!isCurrentVideo || isPaused} 
+                            preload={isCurrentVideo ? 'auto' : 'metadata'} />
+                    </TouchableWithoutFeedback>
+                    <View column style={{position:'absolute', marginTop: (windowHeight - 50.2) / 2, height: (windowHeight - 50.2) / 2, width: '100%', justifyContent:'flex-end', padding: 20, marginBottom: 30}}>
+                        <View style={{marginTop:10}}>
+                            {/* <Text style={{fontSize:14,color:'red',marginTop:10}}>{item.mini_video_title}</Text> */}
+                            <TouchableOpacity row style={{backgroundColor:'#4d4d4d',borderRadius:17,padding:10,alignItems:'center',width:270}}>
+                                <Text style={{fontSize:14,color:'#fff',marginLeft:10}}>为什么这个不在视觉框里面为什么这个不在视觉框里面为什么这个不在视觉框里</Text>
+                            </TouchableOpacity>
                         </View>
                     </View>
-                    <View style={{height: 1, width: '100%', backgroundColor: 'red'}}>
-
-                    </View>
                 </View>
-            )
-        }, [videos, current, isPaused])
+                <View style={{height: 1, width: '100%', backgroundColor: 'red'}}>
 
-export default ({ navigation } : BottomTabScreenProps<any>) => {
+                </View>
+            </View>
+        )
+    }, [videos, current, isPaused])
+
     return (
         <SafeAreaView>
             {videos.length != 0 &&
