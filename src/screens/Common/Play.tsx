@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, createContext, useContext } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, SafeAreaView, ScrollView, Image } from 'react-native';
 import Video from 'react-native-video';
 import { YingshiDarkTheme } from '../../theme';
@@ -16,28 +16,74 @@ import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { RootState } from '../../redux/store';
 import { VodReducerState } from '../../redux/reducers/vodReducer';
 import BackButton from '../../components/button/backButton';
+import Sun from '../../../static/images/Sun.svg';
+import BackIcon from '../../../static/images/back_arrow.svg';
+import { Dimensions } from 'react-native';
+
+type PlayContextValue = {
+    value: string;
+    updateValue: (newValue: string) => void;
+};
+
+const PlayContext = createContext<PlayContextValue | undefined>(undefined);
 
 export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
     const { colors, spacing, textVariants } = useTheme();
-    // const isPotrait = useOrientation();
+    const isPotrait = useOrientation();
     const vodReducer: VodReducerState = useAppSelector(({ vodReducer }: RootState) => vodReducer);
     const vod = vodReducer.playVod.vod;
     const isFavorite = vodReducer.playVod.isFavorite;
 
+    const [isFullScreen, setIsFullScreen] = useState(false);
+    const [height, setHeight] = useState(0);
+    const [width, setWidth] = useState(0);
+    const [isPaused, setIsPaused] = useState(false);
+
     const dispatch = useAppDispatch();
     useEffect(() => {
+        console.log(vod);
         if (vod) {
             dispatch(addVodToHistory(vod, 0));
         }
     }, [vod])
+    useEffect(() => {
+        const dimension = Dimensions.get('screen');
+        let h = dimension.height;
+        let w = dimension.width;
+
+        setHeight(h);
+        setWidth(w);
+
+        if (!isPotrait) {
+            setIsFullScreen(true);
+            console.log("FULL SCREEN NW");
+        }else{
+            setIsFullScreen(false);
+            console.log("NOPEEEE FULL SCREEN NOW");
+        }
+    }, [isPotrait])
+
+    useEffect(() => {
+        console.log("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP")
+        console.log(isPaused);
+    }, [isPaused])
+
+    const playStatus = useContext(PlayContext);
+    console.log('=============&&==============');
+    console.log(playStatus);
+    console.log('=============&&==============');
+
+    const onPauseVideo = (val: boolean) => {
+        setIsPaused(val)
+    }
     
     return (
-        <SafeAreaView>
-            {/* {!isPotrait &&
-                <PlayFullScreenGesture />
-            } */}
+        <SafeAreaView style={{ flex: 1 }}>
+            {isFullScreen &&
+                <PlayFullScreenGesture onPauseVideo={onPauseVideo}/>
+            }
             <View style={styles.bofangBox}>
-                {/* <Video controls={true} resizeMode="contain" source={{ uri: 'https://m3u.haiwaikan.com/xm3u8/395b22f1f066891ed8f7b191457a685490095df735c1e3c32e37ba4903b4bb649921f11e97d0da21.m3u8', type: 'm3u8' }} style={styles.video} /> */}
+                <Video fullscreen={isFullScreen} paused={isPaused} resizeMode="contain" source={{ uri: 'https://m3u.haiwaikan.com/xm3u8/395b22f1f066891ed8f7b191457a685490095df735c1e3c32e37ba4903b4bb649921f11e97d0da21.m3u8', type: 'm3u8' }} style={!isFullScreen ? styles.videoPotrait : [styles.panView, { height: height }]} />
             </View>
             <View style={styles.videoHeader}>
                 <BackButton btnStyle={{ padding: 20 }} onPress={() => navigation.goBack()} />
@@ -86,8 +132,12 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
 }
 
 const styles = StyleSheet.create({
-    video: {
-        aspectRatio: 428 / 242,
+    videoPotrait: {
+        height: '100%',
+        width: '100%',
+        backgroundColor: '#000',
+    },
+    videoLandscape: {
         width: '100%',
         backgroundColor: '#000',
     },
@@ -101,7 +151,8 @@ const styles = StyleSheet.create({
         left: 0,
         display: 'flex',
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
+        zIndex: 50
     },
     videoDescription: {
         flexDirection: 'row',
