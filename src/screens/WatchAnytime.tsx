@@ -15,6 +15,7 @@ import { useQuery } from '@tanstack/react-query';
 import Video from 'react-native-video';
 import { StyleSheet } from 'react-native';
 import { MiniVideo } from '../types/ajaxTypes';
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 
 type MiniVideoResponseType = {
     data: {
@@ -140,6 +141,7 @@ export default ({ navigation }) => {
             )
         }, [videos, current, isPaused])
 
+export default ({ navigation } : BottomTabScreenProps<any>) => {
     return (
         <SafeAreaView>
             {videos.length != 0 &&

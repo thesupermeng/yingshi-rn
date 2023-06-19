@@ -1,8 +1,4 @@
-import SearchBar from './searchbar';
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native';
-import Logo from '../../../static/images/logo.svg';
-import History from '../../../static/images/history.svg';
-import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '@react-navigation/native';
 import BackButton from '../button/backButton';
 
@@ -23,7 +19,9 @@ export default function TitleWithBackButtonHeader({ title, onBack, headerStyle, 
             {
                 right
                     ? right
-                    : <View style={{ width: 44 }}></View>
+                    : <View style={{ opacity: 0, pointerEvents: 'none' }}>
+                        <BackButton onPress={onBack} />
+                    </View>
             }
         </View>
     );

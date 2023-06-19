@@ -7,7 +7,7 @@ import FavoriteIcon from '../../../static/images/favorite.svg'
 import ScreenContainer from '../../components/container/screenContainer';
 import { useTheme } from '@react-navigation/native';
 
-import { HomeStackScreenProps } from '../../types/navigationTypes';
+import { RootStackScreenProps } from '../../types/navigationTypes';
 import { VodType } from '../../types/ajaxTypes';
 import { useOrientation } from '../../hooks/useOrientation';
 import PlayFullScreenGesture from '../../components/gestures/vod/PlayFullScreenGesture';
@@ -17,7 +17,7 @@ import { RootState } from '../../redux/store';
 import { VodReducerState } from '../../redux/reducers/vodReducer';
 import BackButton from '../../components/button/backButton';
 
-export default ({ navigation, route }: HomeStackScreenProps<'播放'>) => {
+export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
     const { colors, spacing, textVariants } = useTheme();
     // const isPotrait = useOrientation();
     const vodReducer: VodReducerState = useAppSelector(({ vodReducer }: RootState) => vodReducer);
@@ -27,7 +27,7 @@ export default ({ navigation, route }: HomeStackScreenProps<'播放'>) => {
     const dispatch = useAppDispatch();
     useEffect(() => {
         if (vod) {
-            dispatch(addVodToHistory(vod));
+            dispatch(addVodToHistory(vod, 0));
         }
     }, [vod])
     

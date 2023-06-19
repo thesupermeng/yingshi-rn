@@ -1,7 +1,5 @@
 import { StyleSheet, TouchableOpacity, View, Text } from 'react-native';
-import BackIcon from '../../../static/images/back_arrow.svg';
 import { useTheme } from '@react-navigation/native';
-import { useNavigation } from '@react-navigation/native';
 import { VodType } from '../../types/ajaxTypes';
 import VodImageCard from './vodImageCard';
 import FavoriteButton from '../button/favoriteVodButton';

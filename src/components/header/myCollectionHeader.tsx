@@ -2,11 +2,11 @@ import { View, TouchableOpacity, StyleSheet, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { ProfileStackParamList } from '../../types/navigationTypes';
+import { RootStackParamList } from '../../types/navigationTypes';
 
 interface Props {
     route: '视频收藏' | '播单收藏' | '合辑收藏',
-    navigator: NativeStackNavigationProp<ProfileStackParamList,  '视频收藏' | '播单收藏' | '合辑收藏', any>
+    navigator: NativeStackNavigationProp<RootStackParamList,  '视频收藏' | '播单收藏' | '合辑收藏', any>
 }
 
 export default function CollectionHeader({ route, navigator }: Props) {
@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: '100%',
         alignItems: 'center',
+        paddingBottom: 10,
     },
     underline: {
         marginTop: 2,

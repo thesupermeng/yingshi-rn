@@ -6,55 +6,38 @@ import { VodType } from '../../types/ajaxTypes';
 import VodCard from './vodCard';
 import { useAppDispatch } from '../../hooks/hooks';
 import { playVod } from '../../redux/actions/vodActions';
+import { VodRecordType } from '../../redux/reducers/vodReducer';
 interface Props {
-    query_url?: string,
-    initial_page?: number,
     params?: any[],
     vodStyle?: typeof StyleSheet,
     horizontal?: boolean,
-    vodList?: Array<VodType>,
-    showPlayIcon?: boolean,
-    showInfo?: 'none' | 'vod_remarks'
+    vodList?: Array<VodRecordType>,
+    showInfo?: 'none' | 'watch_progress'
 }
 
 type VodResponseType = {
-    list: Array<VodType>
+    list: Array<VodRecordType>
 }
 
 type FlatListType = {
-    item: VodType
+    item: VodRecordType
 }
-export default function VodList({ query_url, initial_page = 0, vodStyle, horizontal = true, vodList=[], showPlayIcon, showInfo='vod_remarks' }: Props) {
-    const [page, setPage] = useState(initial_page);
+export default function VodHistoryList({ vodStyle, horizontal = true, vodList=[], showInfo='none' }: Props) {
     const navigation = useNavigation();
     const dispatch = useAppDispatch();
-    const fetchVods = (page = 0) => {
-        return fetch(`${query_url}/&page=${page}`).then((res) => res.json().then((json: VodResponseType) => {
-            return json.list;
-        }));
-    }
-
-    const {
-        isLoading,
-        isError,
-        error,
-        data,
-        isFetching,
-        isPreviousData,
-    } = useQuery({ queryKey: [query_url, page, vodList.map(x => x.vod_id)], queryFn: () => fetchVods(page), keepPreviousData: true, initialData: vodList, enabled: query_url !== undefined });
 
     return (
         <FlatList
-            data={data}
+            data={vodList}
             horizontal
             gap={3}
             renderItem={({item} : FlatListType)  => {
-                return <VodCard showPlayIcon={showPlayIcon} vodImageStyle={vodStyle} 
+                return <VodCard showPlayIcon={true} vodImageStyle={vodStyle} shadowBottom={true}
                 vod_name={item.vod_name} vod_pic={item.vod_pic}  
                 showInfo={
                     showInfo === 'none'
                     ? ''
-                    : item.vod_remarks
+                    : `观看至 ${new Date(item.timeWatched * 1000).toISOString().substring(11, 16)}`
                 }
                 onPress={() => {
                     dispatch(playVod(item));

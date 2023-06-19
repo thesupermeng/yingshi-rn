@@ -1,49 +1,43 @@
-import type {
-    CompositeScreenProps,
-    NavigatorScreenParams,
-    CompositeNavigationProp
-} from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { VodType, VodTopicType } from './ajaxTypes';
+
 // https://reactnavigation.org/docs/typescript/
-
-//   export type RootStackParamList = {
-//     Home: NavigatorScreenParams<HomeTabParamList>;
-//     PostDetails: { id: string };
-//     NotFound: undefined;
-//   };
-
-
-export type HomeStackParamList = {
-    Home: undefined;
-    搜索: undefined;
-    播放: {
-        vod_id: VodType['vod_id']
-    };
-};
-
-export type PlaylistStackParamList = {
-    Playlist: undefined;
-    搜索: undefined;
-    播放: {
-        vod_id: VodType['vod_id']
-    };
-    PlaylistDetail: {
-        topic_id: VodTopicType['topic_id']
-    };
-};
-
-export type RootTabParamList = {
-    首页: NavigatorScreenParams<HomeStackParamList>;
+export type HomeTabParamList = {
+    首页: undefined;
     随心看: undefined;
     播单: undefined;
-    我的: NativeStackNavigationProp<ProfileStackParamList>;
+    我的: undefined;
 };
 
-export type ProfileStackParamList = {
-    Profile: undefined;
+export type ProfileTabParamList = {
+    我的: undefined;
+    首页: undefined;
+    随心看: undefined;
+    播单: undefined;
+};
+
+export type PlaylistTabParamList = {
+    我的: undefined;
+    首页: undefined;
+    随心看: undefined;
+    播单: undefined;
+};
+
+export type WatchAnytimeTabParamList = {
+    我的: undefined;
+    首页: undefined;
+    随心看: undefined;
+    播单: undefined;
+};
+
+export type RootStackParamList = {
+    Profile: BottomTabScreenProps<ProfileTabParamList>;
+    Playlist: BottomTabScreenProps<PlaylistTabParamList>;
+    WatchAnytime: BottomTabScreenProps<WatchAnytimeTabParamList>;
+    Home: BottomTabScreenProps<HomeTabParamList>;
+
     视频收藏: undefined;
     播单收藏: undefined;
     合辑收藏: undefined;
@@ -55,33 +49,25 @@ export type ProfileStackParamList = {
     播放: {
         vod_id: VodType['vod_id']
     };
+    搜索: undefined;
+    PlaylistDetail: {
+        topic_id: VodTopicType['topic_id']
+    };
+    隐私政策: undefined;
+    用户协议: undefined;
+    片库: undefined;
 };
 
-// export type PlaylistParamList = {
-//     Playlist: NavigatorScreenParams<PlaylistParamList>;
-//     随心看: undefined;
-//     播单: undefined;
-//     我的: NativeStackNavigationProp<ProfileStackParamList>;
-// };
 
+export type RootStackScreenProps<T extends keyof RootStackParamList> = NativeStackScreenProps<RootStackParamList, T>;
 
-
-export type RootTabScreenProps<T extends keyof RootTabParamList> =
-    BottomTabScreenProps<RootTabParamList, T>;
-
-export type HomeStackScreenProps<T extends keyof HomeStackParamList> = NativeStackScreenProps<HomeStackParamList, T>;
-
-export type HomeTabScreenProps<T extends keyof HomeStackParamList> =
-    CompositeScreenProps<
-        BottomTabScreenProps<RootTabParamList, '首页'>,
-        NativeStackScreenProps<HomeStackParamList, T>
-    >;
-
-export type ProfileStackScreenProps<T extends keyof ProfileStackParamList> = NativeStackScreenProps<ProfileStackParamList, T>;
-export type PlaylistStackScreenProps<T extends keyof PlaylistStackParamList> = NativeStackScreenProps<PlaylistStackParamList, T>;
+export type HomeTabScreenProps<T extends keyof HomeTabParamList> = BottomTabScreenProps<HomeTabParamList, T>;
+export type ProfileTabScreenProps<T extends keyof ProfileTabParamList> = BottomTabScreenProps<ProfileTabParamList, T>;
+export type PlaylistTabScreenProps<T extends keyof PlaylistTabParamList> = BottomTabScreenProps<PlaylistTabParamList, T>;
+export type WatchAnytimeTabScreenProps<T extends keyof WatchAnytimeTabParamList> = BottomTabScreenProps<WatchAnytimeTabParamList, T>;
 
 declare global {
     namespace ReactNavigation {
-        interface RootParamList extends RootTabParamList { }
+        interface RootParamList extends RootStackParamList { }
     }
 }

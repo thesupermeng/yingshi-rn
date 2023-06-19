@@ -2,7 +2,6 @@ import React from 'react';
 import { ListItem } from '@rneui/themed';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
-import { ProfileStackScreenProps } from '../../types/navigationTypes';
 import LightMode from '../../../static/images/light_mode.svg';
 import { useTheme } from '@react-navigation/native';
 import { toggleTheme } from '../../redux/actions/themeAction';
@@ -16,8 +15,8 @@ import FeedbackIcon from '../../../static/images/feedback.svg';
 import SettingsIcon from '../../../static/images/settings.svg';
 import InfoIcon from '../../../static/images/info.svg';
 import ShareIcon from '../../../static/images/share.svg';
-
-export default ({ navigation }: ProfileStackScreenProps<'Profile'>) => {
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+export default ({ navigation }: BottomTabScreenProps<any>) => {
     const { colors, textVariants, icons } = useTheme();
     const dispatch = useAppDispatch();
     const themeReducer = useAppSelector(({ themeReducer }: RootState) => themeReducer);
@@ -35,7 +34,7 @@ export default ({ navigation }: ProfileStackScreenProps<'Profile'>) => {
                 <ShowMoreButton text='播放历史' leftIcon={<HistoryIcon style={{ color: colors.button }} />} onPress={()=>navigation.navigate('播放历史')} />
                 <ShowMoreButton text='我要反馈' leftIcon={<FeedbackIcon style={{ color: colors.button }} />} onPress={()=>navigation.navigate('反馈')} />
                 <ShowMoreButton text='设置' leftIcon={<SettingsIcon style={{ color: colors.button }} />} />
-                <ShowMoreButton text='关于我们' leftIcon={<InfoIcon style={{ color: colors.button }} />} />
+                <ShowMoreButton text='关于我们' leftIcon={<InfoIcon style={{ color: colors.button }} />} onPress={()=>navigation.navigate('关于我们')} />
                 <ShowMoreButton text='分享App' leftIcon={<ShareIcon style={{ color: colors.button }} />} />
             </View>
         </ScreenContainer >

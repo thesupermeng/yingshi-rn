@@ -2,10 +2,7 @@ import SearchBar from './searchbar';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import Logo from '../../../static/images/logo.svg';
 import History from '../../../static/images/history.svg';
-import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '@react-navigation/native';
-import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
-import { RootTabParamList } from '../../types/navigationTypes';
 
 interface Props {
     logo?: React.ReactNode,
@@ -22,7 +19,7 @@ export default function MainHeader({ logo, navigator, headerStyle }: Props) {
                     : <Logo />
             }
             <SearchBar onPress={() => navigator.navigate('搜索')} />
-            <TouchableOpacity style={styles.historyBtn}>
+            <TouchableOpacity style={styles.historyBtn} onPress={() => navigator.navigate('播放历史')}>
                 <History height={35} width={35} color={icons.iconColor} />
             </TouchableOpacity>
         </View>
@@ -36,5 +33,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         width: '100%',
         alignItems: 'center',
+        marginBottom: 8
     }
 });
