@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, SafeAreaView, ScrollView, Image } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, SafeAreaView, ScrollView, Image, FlatList } from 'react-native';
 import Video from 'react-native-video';
 import { YingshiDarkTheme } from '../../theme';
 import FavoriteButton from '../../components/button/favoriteVodButton';
@@ -16,6 +16,18 @@ import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { RootState } from '../../redux/store';
 import { VodReducerState } from '../../redux/reducers/vodReducer';
 import BackButton from '../../components/button/backButton';
+import LinearGradient from 'react-native-linear-gradient';
+import SinaIcon from '../../../static/images/sina.svg';
+import WeChatIcon from '../../../static/images/wechat.svg'
+import QQIcon from '../../../static/images/qq.svg';
+import PYQIcon from '../../../static/images/pyq.svg';
+
+const definedValue = (val: any) => {
+    if (val === undefined || val === null) {
+        return '';
+    }
+    return val + ' ';
+}
 
 export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
     const { colors, spacing, textVariants } = useTheme();
@@ -23,26 +35,31 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
     const vodReducer: VodReducerState = useAppSelector(({ vodReducer }: RootState) => vodReducer);
     const vod = vodReducer.playVod.vod;
     const isFavorite = vodReducer.playVod.isFavorite;
-
     const dispatch = useAppDispatch();
     useEffect(() => {
         if (vod) {
             dispatch(addVodToHistory(vod, 0));
         }
     }, [vod])
-    
     return (
-        <SafeAreaView>
+        <ScreenContainer style={{ paddingLeft: 0, paddingRight: 0 }}>
             {/* {!isPotrait &&
                 <PlayFullScreenGesture />
             } */}
             <View style={styles.bofangBox}>
-                {/* <Video controls={true} resizeMode="contain" source={{ uri: 'https://m3u.haiwaikan.com/xm3u8/395b22f1f066891ed8f7b191457a685490095df735c1e3c32e37ba4903b4bb649921f11e97d0da21.m3u8', type: 'm3u8' }} style={styles.video} /> */}
+                {
+                    vod && <Video controls={true} resizeMode="contain" source={{ uri: vod?.vod_play_list.urls[0].url, type: 'm3u8' }} style={styles.video} />
+                }
             </View>
-            <View style={styles.videoHeader}>
+            <LinearGradient
+                colors={['rgba(0, 0, 0, 0.4)', 'transparent',]}
+                start={{ x: 0.5, y: 0.1 }}
+                end={{ x: 0.5, y: 0.8 }}
+                style={styles.videoHeader}
+            >
                 <BackButton btnStyle={{ padding: 20 }} onPress={() => navigation.goBack()} />
                 <Text style={{ ...textVariants.header, color: colors.text, marginLeft: spacing.l, flex: 1 }} numberOfLines={1}>{vod?.vod_name}</Text>
-            </View>
+            </LinearGradient>
             <ScrollView
                 contentInsetAdjustmentBehavior="automatic">
                 <View>
@@ -65,23 +82,50 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
                                     </View>
                                 }
                             />}
-                            <Text style={styles.descriptionContainerText}>2023 大陆 古装 爱情 仙侠 剧情</Text>
-                            <Text style={styles.descriptionContainerText}>更新：2023-02-10</Text>
-                            <Text style={styles.descriptionContainerText}>分享：2023-02-10</Text>
+                            <Text style={{ ...textVariants.body, color: colors.muted }} numberOfLines={2}>
+                                {`${definedValue(vod?.vod_year)}`}
+                                {`${definedValue(vod?.vod_area)}`}
+                                {`${definedValue(vod?.vod_class.split(",").join(" "))}`}
+                            </Text>
+                            <Text style={{ ...textVariants.body, color: colors.muted }}>
+                                {`更新：${vod ?
+                                    new Date(vod?.vod_time_add * 1000).toLocaleDateString().replace(/\//g, '-')
+                                    : new Date().toLocaleDateString().replace(/\//g, '-')
+                                    }`}
+                            </Text>
+                            <View style={styles.share}>
+                                <Text style={{ ...textVariants.body, color: colors.muted }}>分享：</Text>
+                                <WeChatIcon />
+                                <PYQIcon />
+                                <WeChatIcon />
+                                <QQIcon />
+                            </View>
+
+
                         </View>
                     </View>
-
-                    <View style={styles.descriptionContainer2}>
+                    <View style={styles.descriptionContainer2} gap={spacing.m}>
                         <Text style={styles.descriptionContainer2Text}>
-                            导演：瑞恩·库格勒
-                            编剧：乔·罗伯特·科尔/瑞恩·库格勒
-                            主演：利蒂希娅·赖特/露皮塔·尼永奥/安吉拉·贝塞特/丹娜·奎里拉/温斯顿·杜克/马丁·弗瑞曼/特诺切·韦尔塔/理查德·希夫/多米尼克·索恩/米凯拉·科尔/弗洛伦丝·卡松巴/玛丽亚·梅塞德斯·科罗伊/伊萨赫·德·班克尔/施奎塔·詹姆斯/胡安·卡洛斯·坎图/洁基伯明翰/索佩·阿卢科/小弗洛伊德·安东尼·约翰/布伦特·莫雷尔·加斯金斯/拉希姆·赖利/乔丹·沃克·罗斯
+                            {
+                                `导演：${definedValue(vod?.vod_director)}${'\n'}编剧：${definedValue(vod?.vod_writer)}${'\n'}主演：${definedValue(vod?.vod_actor)}`
+                            }
                         </Text>
+                        <Text style={styles.descriptionContainer2Text}>{`${definedValue(vod?.vod_blurb)}`}</Text>
                     </View>
-
+                    {/* <FlatList
+                        data={vod?.vod_play_list}
+                        renderItem={({ item }: FlatListType) => {
+                            return <VodCard vod_name={item.vod_name} vod_pic={item.vod_pic} onPress={() => {
+                                dispatch(playVod(item));
+                                navigator.navigate('播放', {
+                                    vod_id: item.vod_id,
+                                })
+                            }} />
+                        }}
+                    /> */}
                 </View>
             </ScrollView>
-        </SafeAreaView>
+        </ScreenContainer>
     )
 }
 
@@ -101,7 +145,7 @@ const styles = StyleSheet.create({
         left: 0,
         display: 'flex',
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     videoDescription: {
         flexDirection: 'row',
@@ -134,5 +178,10 @@ const styles = StyleSheet.create({
     descriptionContainer2Text: {
         color: '#9C9C9C',
         fontSize: 16
+    },
+    share: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center'
     }
 });
