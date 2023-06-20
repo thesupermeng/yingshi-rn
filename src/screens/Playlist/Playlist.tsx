@@ -29,8 +29,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                 <Text style={{ ...textVariants.bigHeader, color: colors.primary }}>播单</Text>
             } navigator={navigation} />
             <FlatList
-                data={playlists}
-                
+                data={playlists}   
                 renderItem={({ item }: FlatListType) => <VodPlaylist playlist={item} /> }
             />
         </ScreenContainer>

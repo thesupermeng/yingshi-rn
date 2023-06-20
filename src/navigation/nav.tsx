@@ -132,7 +132,7 @@ export default () => {
                     <Stack.Screen name='PlaylistDetail' component={PlaylistDetailsScreen} />
                     <Stack.Screen name='隐私政策' component={PrivacyScreen} />
                     <Stack.Screen name='用户协议' component={UserAgreementScreen} />
-                    <Stack.Screen name='片库' component={CatalogScreen} />
+                    <Stack.Screen name='片库' component={CatalogScreen} initialParams={{ type_id: 1 }}/>
                 </Stack.Navigator>
             </NavigationContainer>
         </SafeAreaProvider>

@@ -220,8 +220,9 @@ export interface VodPlaylistResponseType {
 }
 
 type VodData = {
-    vod_list: Array<VodType>,
+    vod_list: Array<VodType>
     type_name: string
+    type_id: number
 }
 
 export interface VodCarousellResponseType {
@@ -229,7 +230,7 @@ export interface VodCarousellResponseType {
         yunying: Array<VodData>
         categories: Array<VodData>
     }
-  }
+}
 
 export interface MiniVideo {
     mini_video_id: number
@@ -255,4 +256,33 @@ export interface MiniVideo {
     mini_video_play_count: number
     mini_video_size: number
     mini_video_keyword: string
+}
+
+export interface FilterOptionsResponseType {
+    code: number
+    data: FilterOptionsType[]
+}
+
+export interface FilterOptionsType {
+    type_id: number
+    type_name: string
+    type_en: string
+    type_mid: number
+    type_tpl: string
+    type_tpl_list: string
+    type_tpl_detail: string
+    type_tpl_play: string
+    type_tpl_down: string
+    type_key: string
+    type_des: string
+    type_title: string
+    type_extend: string
+    type_extend_obj: FilterOptionsTypeExtendObj
+}
+
+export interface FilterOptionsTypeExtendObj {
+    class: string
+    area: string
+    lang: string
+    year: string
 }

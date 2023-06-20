@@ -60,7 +60,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
         renderItem={({ item }: NavType) => {
           return <TouchableOpacity style={{ marginRight: spacing.m, justifyContent: 'center', display: 'flex' }} onPress={() => setNavId(item.id)}>
             <Text style={{
-              selfAlign: 'center',
+              textAlign: 'center',
               fontSize: navId === item.id ? textVariants.bigHeader.fontSize : textVariants.header.fontSize,
               color: navId === item.id ? colors.primary : colors.muted
             }}>{item.name}</Text>
@@ -106,7 +106,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
         data?.categories.map((lst, idx) => (
           <View key={`${lst.type_name}-${idx}`}>
             <ShowMoreVodButton text={lst.type_name} onPress={() => {
-              navigation.navigate('片库');
+              navigation.navigate('片库', {type_id:  lst.type_id});
             }} />
             <VodList vodList={lst.vod_list.slice(0, 10)} />
           </View>

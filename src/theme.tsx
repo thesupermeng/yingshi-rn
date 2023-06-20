@@ -18,6 +18,7 @@ export type ExtendedTheme = {
     button: string,
     playlistFavorite: string,
     loading: string,
+    highlight: string
   },
   textVariants: {
     bigHeader: {
@@ -87,7 +88,8 @@ const palette = {
   grey2: '#9C9C9C',
   lighter_dark: '#1D2023',
   light_grey2: 'rgba(201, 201, 201, 0.1)',
-  dark_grey: '#303030'
+  dark_grey: '#303030',
+  yello_translucent: 'rgba(250, 195, 61, 0.12)',
 }
 
 export const YingshiDarkTheme: ExtendedTheme = {
@@ -109,6 +111,7 @@ export const YingshiDarkTheme: ExtendedTheme = {
     button: palette.grey2,
     playlistFavorite: palette.dark_grey,
     loading: palette.grey,
+    highlight: palette.yello_translucent,
   },
   textVariants: {
     bigHeader: {
@@ -177,6 +180,7 @@ export const YingshiLightTheme: ExtendedTheme = {
     button: palette.black,
     playlistFavorite: palette.dark_grey,
     loading: palette.grey,
+    highlight: palette.yello_translucent,
   },
   textVariants: {
     bigHeader: {

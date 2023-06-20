@@ -55,7 +55,9 @@ export type RootStackParamList = {
     };
     隐私政策: undefined;
     用户协议: undefined;
-    片库: undefined;
+    片库: {
+        type_id: number
+    };
 };
 
 
