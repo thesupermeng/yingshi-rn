@@ -8,7 +8,7 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query'
 import { API_DOMAIN } from './src/constants';
-import { SuggestResponseType, VodCarousellResponseType, VodPlaylistResponseType, } from './src/types/ajaxTypes';
+import { FilterOptionsResponseType, SuggestResponseType, VodCarousellResponseType, VodPlaylistResponseType, } from './src/types/ajaxTypes';
 
 export default function App() {
   const queryClient = new QueryClient();
@@ -22,7 +22,7 @@ export default function App() {
           return json.data.List
         }),
     initialData: [],
-  })
+  });
 
   queryClient.prefetchQuery({
     queryKey: ["HomePage", 0],
@@ -32,7 +32,27 @@ export default function App() {
         .then((json: VodCarousellResponseType) => {
           return json.data
         })
-  })
+  });
+
+  queryClient.prefetchQuery({
+    queryKey: ["filterOptions"],
+    queryFn: () =>
+      fetch('https://testapi.yingshi.tv/nav/v1/navItems', {})
+        .then(response => response.json())
+        .then((json: VodCarousellResponseType) => {
+          return json.data
+        })
+  });
+
+  queryClient.prefetchQuery({
+    queryKey: ["HomePageNavOptions"],
+    queryFn: () =>
+      fetch('https://testapi.yingshi.tv/nav/v1/navItems', {})
+        .then(response => response.json())
+        .then((json: VodCarousellResponseType) => {
+          return json.data
+        })
+  });
 
   queryClient.prefetchQuery({
     queryKey: ["vodPlaylist"],
@@ -42,7 +62,8 @@ export default function App() {
         .then((json: VodPlaylistResponseType) => {
           return Object.values(json.list)
         })
-  })
+  });
+  
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>

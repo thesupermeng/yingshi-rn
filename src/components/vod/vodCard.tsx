@@ -12,16 +12,18 @@ interface Props {
     shadowBottom?: boolean
 }
 
-export default function VodCard({ vod_name, vod_pic, vodImageStyle, onPress, showInfo, showPlayIcon=false, shadowBottom=false }: Props) {
+export default function VodCard({ vod_name, vod_pic, vodImageStyle, onPress, showInfo, showPlayIcon = false, shadowBottom = false }: Props) {
     const { colors, textVariants, spacing } = useTheme();
     return (
-        <View>
+        <View style={{ marginRight: vodImageStyle?.marginRight !== undefined ? vodImageStyle.marginRight : spacing.m }}>
             {
-                vod_name === undefined || vod_pic === undefined
+                vod_name == undefined || vod_pic === undefined
                     ? <View style={{ height: vodImageStyle?.height !== undefined ? vodImageStyle.height : 200, backgroundColor: colors.loading, ...styles.loadingCard, ...vodImageStyle, }}>
                         <LoadingImage />
                     </View>
-                    : <View style={{ width: vodImageStyle?.width !== undefined ? vodImageStyle.width : styles.card.width, marginRight: spacing.m }}>
+                    : <View style={{
+                        width: vodImageStyle?.width !== undefined ? vodImageStyle.width : styles.card.width,
+                    }}>
                         <VodImageCard vod_img={vod_pic} shadowBottom={shadowBottom} vodStyle={{ ...styles.card, ...vodImageStyle }} onPress={onPress} showPlayIcon={showPlayIcon} showInfo={showInfo} />
                         <Text style={{ ...styles.text, ...textVariants.body, height: textVariants.body.fontSize * 3 }} numberOfLines={2}>{vod_name}</Text>
                     </View>
@@ -34,7 +36,6 @@ const styles = StyleSheet.create({
     card: {
         flexShrink: 1,
         width: 150,
-        marginRight: 20
     },
     loadingCard: {
         width: 150,
