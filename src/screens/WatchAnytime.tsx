@@ -104,8 +104,8 @@ export default ({ navigation } : BottomTabScreenProps<any>) => {
                     }}>
                         <Video 
                             resizeMode="contain"
-                            // source={{ uri: item.mini_video_origin_video_url }}
-                            source={{ uri: "https://m3u.haiwaikan.com/xm3u8/407446996534684cddf4218fc0510c8447c8adbd35097c06b906388343423d949921f11e97d0da21.m3u8" }}
+                            source={{ uri: item.mini_video_origin_video_url }}
+                            // source={{ uri: "https://m3u.haiwaikan.com/xm3u8/407446996534684cddf4218fc0510c8447c8adbd35097c06b906388343423d949921f11e97d0da21.m3u8" }}
                             repeat={true} 
                             style={styles.video}
                             paused={!isCurrentVideo || isPaused} 
