@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, SafeAreaView, ScrollView, Image } from 'react-native';
+import React, { useEffect, useState, createContext, useContext } from 'react';
+import { View, TouchableOpacity, TouchableWithoutFeedback, Text, StyleSheet, SafeAreaView, ScrollView, Image } from 'react-native';
 import Video from 'react-native-video';
 import { YingshiDarkTheme } from '../../theme';
 import FavoriteButton from '../../components/button/favoriteVodButton';
@@ -16,32 +16,133 @@ import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { RootState } from '../../redux/store';
 import { VodReducerState } from '../../redux/reducers/vodReducer';
 import BackButton from '../../components/button/backButton';
+import Sun from '../../../static/images/Sun.svg';
+import BackIcon from '../../../static/images/back_arrow.svg';
+import { Dimensions } from 'react-native';
+import VideoControlsOverlay from '../../components/videoPlayer/VideoControlsOverlay';
+
+type PlayContextValue = {
+    value: string;
+    updateValue: (newValue: string) => void;
+};
+
+const PlayContext = createContext<PlayContextValue | undefined>(undefined);
 
 export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
+
+    const videoPlayerRef = React.createRef<any>();
+
     const { colors, spacing, textVariants } = useTheme();
-    // const isPotrait = useOrientation();
+    const isPotrait = useOrientation();
     const vodReducer: VodReducerState = useAppSelector(({ vodReducer }: RootState) => vodReducer);
     const vod = vodReducer.playVod.vod;
     const isFavorite = vodReducer.playVod.isFavorite;
 
+    const [isFullScreen, setIsFullScreen] = useState(false);
+    const [height, setHeight] = useState(0);
+    const [width, setWidth] = useState(0);
+    const [isPaused, setIsPaused] = useState(false);
+    const [isShowControls, setIsShowControls] = useState(false);
+
+    const [episodeUrl, setEpisodeUrl] = useState("");
+    const [duration, setDuration] = useState(0);
+    const [currentTime, setCurrentTime] = useState(0);
+
     const dispatch = useAppDispatch();
+
+    let controlsOverlayTimeOut: any;
+
     useEffect(() => {
         if (vod) {
+            setEpisodeUrl(vod.vod_play_list.urls[0]?.url);
             dispatch(addVodToHistory(vod, 0));
         }
     }, [vod])
+    useEffect(() => {
+        const dimension = Dimensions.get('screen');
+        let h = dimension.height;
+        let w = dimension.width;
+
+        setHeight(h);
+        setWidth(w);
+
+        if (!isPotrait) {
+            setIsFullScreen(true);
+            console.log("FULL SCREEN NW");
+        }else{
+            setIsFullScreen(false);
+            console.log("NOPEEEE FULL SCREEN NOW");
+        }
+    }, [isPotrait])
+
+    useEffect(() => {
+        
+    }, [isPaused])
+
+    const toggleControls = () => {
+        setIsShowControls(prev => !prev);
+        clearTimeout(controlsOverlayTimeOut);
+        if(!isShowControls){
+            controlsOverlayTimeOut = setTimeout(() => setIsShowControls(prev => false), 2000);
+        }
+    }
+
+    const onVideoLoaded = (data: any) => {
+        setDuration(data.duration);
+        setCurrentTime(data.currentTime);
+    }
+
+    const onSeek = (time: number) => {
+        console.log("SEEK : " + time);
+        videoPlayerRef.current.seek(time);
+        setCurrentTime(time);
+    };
+
+    const onVideoProgessing = (data: any) => {
+        setCurrentTime(data.currentTime);
+    }
+
+    const onSkip = (time: any) => {
+        videoPlayerRef.current.seek(currentTime + time);
+        setCurrentTime(currentTime + time);
+    }
+
+    const onTogglePlayPause = () => {
+        setIsPaused(prev => !prev);
+    }
     
     return (
-        <SafeAreaView>
-            {/* {!isPotrait &&
+        <SafeAreaView style={{ flex: 1 }}>
+            {isFullScreen &&
                 <PlayFullScreenGesture />
-            } */}
-            <View style={styles.bofangBox}>
-                {/* <Video controls={true} resizeMode="contain" source={{ uri: 'https://m3u.haiwaikan.com/xm3u8/395b22f1f066891ed8f7b191457a685490095df735c1e3c32e37ba4903b4bb649921f11e97d0da21.m3u8', type: 'm3u8' }} style={styles.video} /> */}
-            </View>
+            }
+            <TouchableWithoutFeedback onPress={toggleControls}>
+                <View style={styles.bofangBox}>
+                    {episodeUrl != "" &&
+                        <Video
+                            ref={videoPlayerRef}
+                            fullscreen={isFullScreen}
+                            paused={isPaused}
+                            resizeMode="contain"
+                            source={{ uri: episodeUrl }}
+                            onLoad={onVideoLoaded}
+                            onProgress={onVideoProgessing}
+                            style={!isFullScreen ? styles.videoPotrait : [styles.panView, { height: height }]} />
+                    }
+                    {isShowControls && !isFullScreen &&
+                        <VideoControlsOverlay
+                            onVideoSeek={onSeek}
+                            currentTime={currentTime}
+                            duration={duration}
+                            onFastForward={onSkip}
+                            paused={isPaused}
+                            onTogglePlayPause={onTogglePlayPause} />
+                    }
+                </View>
+            </TouchableWithoutFeedback>
             <View style={styles.videoHeader}>
                 <BackButton btnStyle={{ padding: 20 }} onPress={() => navigation.goBack()} />
-                <Text style={{ ...textVariants.header, color: colors.text, marginLeft: spacing.l, flex: 1 }} numberOfLines={1}>{vod?.vod_name}</Text>
+                <Text style={{ ...textVariants.small, color: colors.text, marginLeft: spacing.s, flex: 1 }} numberOfLines={1}>{vod?.vod_name}</Text>
             </View>
             <ScrollView
                 contentInsetAdjustmentBehavior="automatic">
@@ -86,8 +187,12 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
 }
 
 const styles = StyleSheet.create({
-    video: {
-        aspectRatio: 428 / 242,
+    videoPotrait: {
+        height: '100%',
+        width: '100%',
+        backgroundColor: '#000',
+    },
+    videoLandscape: {
         width: '100%',
         backgroundColor: '#000',
     },
@@ -101,7 +206,8 @@ const styles = StyleSheet.create({
         left: 0,
         display: 'flex',
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
+        zIndex: 50
     },
     videoDescription: {
         flexDirection: 'row',
@@ -134,5 +240,5 @@ const styles = StyleSheet.create({
     descriptionContainer2Text: {
         color: '#9C9C9C',
         fontSize: 16
-    }
+    },
 });

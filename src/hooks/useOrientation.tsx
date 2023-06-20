@@ -14,10 +14,11 @@ export function useOrientation(): boolean {
 
     useEffect(() => {
         const callback = () => setIsPotrait(isPortrait() ? true : false);
-        Dimensions.addEventListener('change', callback);
+        let eventListener = Dimensions.addEventListener('change', callback);
 
         return () => {
-            Dimensions.removeEventListener('change', callback);
+            // Dimensions.removeEventListener('change', callback);
+            // eventListener.remove();
         };
     }, []);
 

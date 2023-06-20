@@ -4,12 +4,13 @@ import PanHandler from './PanHandler';
 import SystemSetting from 'react-native-system-setting';
 
 type Props = {
-    onChangeVolume: (params: any) => any
+    onChangeVolume: (params: any) => any,
+    onPauseVideo: (params: any) => any
 }
 
 const steps = 10;
 
-export default ({ onChangeVolume }: Props) => {
+export default ({ onChangeVolume, onPauseVideo }: Props) => {
 
     const [startY, setStartY] = useState(0)
     const [endY, setEndY] = useState(0)
@@ -30,8 +31,12 @@ export default ({ onChangeVolume }: Props) => {
         return;
     }
 
+    const onVideoPaused = (val: boolean) => {
+        onPauseVideo(val)
+    }
+
     return (
-        <PanHandler step={10} onTouch={onScreenTouched} onChange={onVolumeChanged}/>
+        <PanHandler step={10} onTouch={onScreenTouched} onChange={onVolumeChanged} onPause={onVideoPaused}/>
     )
 }
 
