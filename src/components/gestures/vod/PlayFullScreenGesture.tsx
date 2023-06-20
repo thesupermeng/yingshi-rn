@@ -21,10 +21,10 @@ const Icons = {
 }
 
 type Props = {
-    onPauseVideo: (params: any) => any
+    // onPauseVideo: (params: any) => any
 }
 
-export default ({ onPauseVideo }: Props) => {
+export default ({  }: Props) => {
     const [icon, setIcon] = useState({
         noValue: "MutedVolume",
         hasValue: "Volume"
@@ -49,7 +49,7 @@ export default ({ onPauseVideo }: Props) => {
     }
 
     const pauseVideo = (val: boolean) => {
-        onPauseVideo(val);
+        // onPauseVideo(val);
     }
 
     return (
