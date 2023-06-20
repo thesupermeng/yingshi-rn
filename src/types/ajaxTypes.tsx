@@ -232,6 +232,32 @@ export interface VodCarousellResponseType {
     }
 }
 
+export interface MiniVideo {
+    mini_video_id: number
+    mini_video_aweme_id: number
+    mini_video_title: string
+    mini_video_author: string
+    updated_time: string
+    created_time: string
+    mini_video_release_time: number
+    mini_video_mix_id: number
+    mini_video_collect_count: number
+    mini_video_comment_count: number
+    mini_video_total_share_count: number
+    mini_video_total_like_count: number
+    mini_video_tags: string
+    mini_video_collection_id: number
+    mini_video_duration: number
+    mini_video_origin_video_url: string
+    mini_video_video_url: string
+    mini_video_origin_cover: string
+    mini_video_cover: string
+    mini_video_hashtags: string
+    mini_video_play_count: number
+    mini_video_size: number
+    mini_video_keyword: string
+}
+
 export interface FilterOptionsResponseType {
     code: number
     data: FilterOptionsType[]
