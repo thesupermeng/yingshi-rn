@@ -83,7 +83,7 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
         setIsShowControls(prev => !prev);
         clearTimeout(controlsOverlayTimeOut);
         if(!isShowControls){
-            controlsOverlayTimeOut = setTimeout(() => setIsShowControls(prev => !prev), 2000);
+            controlsOverlayTimeOut = setTimeout(() => setIsShowControls(prev => false), 2000);
         }
     }
 
