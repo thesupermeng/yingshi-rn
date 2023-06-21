@@ -62,7 +62,7 @@ export default ({ currentTime, duration, onSlideCapture, onSlideStart, onSlideCo
                         <Text style={styles.timeLeft}>{position} / </Text>
                         <Text style={styles.timeRight}>{fullDuration}</Text>
                         <TouchableWithoutFeedback onPress={onPressFullScreenBtn}>
-                            <FullScreen width={24} height={24} />
+                            <FullScreen width={30} height={30} />
                         </TouchableWithoutFeedback>
                     </View>
                 </View>
@@ -84,23 +84,30 @@ export default ({ currentTime, duration, onSlideCapture, onSlideStart, onSlideCo
                             thumbTintColor={'#FFFFFF'}
                             style={{ flex: 16, marginTop: 2 }} />
                         <View style={styles.timeWrapperLandscape}>
-                            <Text style={styles.timeLeft}>{position} / </Text>
-                            <Text style={styles.timeRight}>{fullDuration}</Text>
+                            <Text style={styles.timeLeftLandscape}>{position} / </Text>
+                            <Text style={styles.timeRightLandscape}>{fullDuration}</Text>
                         </View>
                     </View>
                     <View style={styles.buttonsContainer}>
-                        <TouchableWithoutFeedback onPress={onPressFullScreenBtn}>
-                            <Unlock width={40} height={40} />
-                        </TouchableWithoutFeedback>
-                        <TouchableWithoutFeedback onPress={onPressFullScreenBtn}>
-                            <NextEpisode width={40} height={40} />
-                        </TouchableWithoutFeedback>
-                        <TouchableWithoutFeedback onPress={onPressFullScreenBtn}>
-                            <Episodes width={40} height={40} />
-                        </TouchableWithoutFeedback>
-                        <TouchableWithoutFeedback onPress={onPressFullScreenBtn}>
-                            <FullScreen width={40} height={40} />
-                        </TouchableWithoutFeedback>
+                        <View style={{ flex: 7 }}>
+                            <TouchableWithoutFeedback onPress={onPressFullScreenBtn}>
+                                <Unlock width={30} height={30} />
+                            </TouchableWithoutFeedback>
+                        </View>
+                        <View style={styles.buttonsSubContainer}>
+                            <TouchableWithoutFeedback style={styles.containerItem} onPress={onPressFullScreenBtn}>
+                                <Text>1.25x</Text>
+                            </TouchableWithoutFeedback>
+                            <TouchableWithoutFeedback style={styles.containerItem} onPress={onPressFullScreenBtn}>
+                                <NextEpisode width={30} height={30} />
+                            </TouchableWithoutFeedback>
+                            <TouchableWithoutFeedback style={styles.containerItem} onPress={onPressFullScreenBtn}>
+                                <Episodes width={30} height={30} />
+                            </TouchableWithoutFeedback>
+                            <TouchableWithoutFeedback style={styles.containerItem} onPress={onPressFullScreenBtn}>
+                                <FullScreen width={30} height={30} />
+                            </TouchableWithoutFeedback>
+                        </View>
                     </View>
                 </View>
             }
@@ -111,12 +118,22 @@ export default ({ currentTime, duration, onSlideCapture, onSlideStart, onSlideCo
 const styles = StyleSheet.create({
     landscapeContainer: {
         flex: 1,
-        flexDirection: 'column'
+        flexDirection: 'column',
+        paddingHorizontal: 20
     },
     buttonsContainer: {
         flex: 1,
         flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginHorizontal: 10
+    },
+    buttonsSubContainer: {
+        flex: 2,
+        flexDirection: 'row',
         justifyContent: 'space-between'
+    },
+    containerItem: {
+        marginLeft: 50
     },
     wrapper: {
         paddingVertical: 10,
@@ -136,11 +153,20 @@ const styles = StyleSheet.create({
     },
     timeLeft: {
         fontSize: 12,
-        color: '#9C9C9C',
+        color: '#FFFFFF',
     },
     timeRight: {
         fontSize: 12,
-        color: '#9C9C9C',
+        color: '#FFFFFF',
+        textAlign: 'right',
+    },
+    timeLeftLandscape: {
+        fontSize: 12,
+        color: '#FFFFFF',
+    },
+    timeRightLandscape: {
+        fontSize: 12,
+        color: '#FFFFFF',
         textAlign: 'right',
     },
 });

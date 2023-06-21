@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { View, PanResponder, StyleSheet, Dimensions } from 'react-native';
 import MiddleControls from './MiddleControls';
 import BottomControls from './BottomControls';
+import TopControls from './TopControls';
 
 type Props = {
     currentTime: number,
@@ -42,6 +43,9 @@ export default ({ currentTime, duration, onVideoSeek, onFastForward, onTogglePla
 
     return (
         <View style={!isFullScreen ? styles.controlsOverlay : [styles.controlsOverlay, { height: height }]}>
+            {/* Top Controls */}
+            <TopControls 
+                isFullScreen={isFullScreen}/>
             {/* Middle Controls */}
             <MiddleControls 
                 fastForward={handleFastForward}

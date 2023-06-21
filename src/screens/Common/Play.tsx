@@ -112,9 +112,11 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
         if (isFullScreen) {
             Orientation.lockToPortrait();
             Orientation.unlockAllOrientations();
+            setIsFullScreen(false);
         } else {
             Orientation.lockToLandscapeLeft();
             Orientation.unlockAllOrientations();
+            setIsFullScreen(true);
         }
     }
 
