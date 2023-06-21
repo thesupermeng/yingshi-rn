@@ -54,7 +54,8 @@ export default ({ currentTime, duration, onVideoSeek, onFastForward, onTogglePla
                 onSlideStart={handlePlayPause}
                 onSlideComplete={handlePlayPause}
                 onSlideCapture={onSeek}
-                onToggleFullScreen={handleFullScreen} />
+                onToggleFullScreen={handleFullScreen}
+                isFullScreen={isFullScreen} />
         </View>
     )
 }
