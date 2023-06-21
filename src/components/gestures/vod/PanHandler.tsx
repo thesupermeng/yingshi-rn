@@ -3,29 +3,22 @@ import { View, PanResponder, StyleSheet, Dimensions } from 'react-native';
 
 type Props = {
     step: number,
-    onTouch: (params: any) => any,
-    onChange: (params: any) => any,
-    onPause: (params: any) => any
+    onTouch: () => any,
+    onChange: (params: any) => any
 }
-export default ({ step, onTouch, onChange, onPause }: Props) => {
+export default ({ step, onTouch, onChange }: Props) => {
 
-    const [startY, setStartY] = useState(0)
-    const [endY, setEndY] = useState(0)
-
-    const [isPaused, setIsPaused] = useState(false)
+    const [startY, setStartY] = useState(0);
+    const [endY, setEndY] = useState(0);
 
     useEffect(() => {
         if (Math.abs(endY - startY) < step) {
-            onPause(!isPaused)
-            setIsPaused(prev => !prev)
             return;
         }
 
         if (endY - startY > step) {
-            console.log('LOWER');
             onChange(-1);
         } else {
-            console.log('INCREASE');
             onChange(1);
         }
         setStartY(endY);
@@ -42,22 +35,18 @@ export default ({ step, onTouch, onChange, onPause }: Props) => {
             setStartY(_gestureState.y0);
         },
         onPanResponderMove: (_evt: any, _gestureState: any) => {
-            // console.log('MOVE');
-            // console.log(_gestureState);
-            setEndY(_gestureState.moveY);
-        },
-        onPanResponderLeave: (_evt: any, _gestureState: any) => {
-            // console.log('Leave');
-            // console.log(_gestureState);
-            
-            // Check if startY and endY same
-            // If same then trigger other actions
+            let newY = _gestureState.moveY;
+            setEndY(newY);
         },
         onPanResponderRelease: (_evt: any, _gestureState: any) => {
             console.log('Leave');
-            console.log(_gestureState);
 
-            setEndY(_gestureState.moveY);
+            let newY = endY;
+            let oldY = startY;
+            console.log(Math.abs(newY - oldY));
+            if(Math.abs(newY - oldY) == 0){
+                onTouch();
+            }
             // Check if startY and endY same
             // If same then trigger other actions
         }

@@ -5,22 +5,21 @@ import SystemSetting from 'react-native-system-setting';
 
 type Props = {
     onChangeBrightness: (params: any) => any,
-    onPauseVideo: (params: any) => any
+    onTouchScreen: () => any
 }
 
 const steps = 10;
 
-export default ({ onChangeBrightness, onPauseVideo }: Props) => {
+export default ({ onChangeBrightness, onTouchScreen }: Props) => {
 
     const [startY, setStartY] = useState(0)
     const [endY, setEndY] = useState(0)
 
     const onScreenTouched = () => {
-        console.log('Brightness side touched');
+        onTouchScreen();
     }
 
     const onBrightnessChanged = async (val: number) => {
-        console.log('Brightness changed');
         const currVolume = await SystemSetting.getAppBrightness();
         val = val > 0 ? currVolume + 1 / steps : currVolume - 1 / steps;
         val = Math.min(1, Math.max(0, val));
@@ -31,12 +30,8 @@ export default ({ onChangeBrightness, onPauseVideo }: Props) => {
         return;
     }
 
-    const onVideoPaused = (val: boolean) => {
-        onPauseVideo(val)
-    }
-
     return (
-        <PanHandler step={10} onTouch={onScreenTouched} onChange={onBrightnessChanged} onPause={onVideoPaused}/>
+        <PanHandler step={10} onTouch={onScreenTouched} onChange={onBrightnessChanged} />
     )
 }
 

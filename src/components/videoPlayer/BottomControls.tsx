@@ -1,20 +1,21 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { View, PanResponder, StyleSheet, Dimensions, Text } from 'react-native';
 import Slider from '@react-native-community/slider';
+import FullScreen from '../../../static/images/fullScreen.svg';
+import { TouchableWithoutFeedback } from 'react-native';
 
 type Props = {
     currentTime: number,
     duration: number,
     onSlideCapture: (params: any) => any,
     onSlideStart: (params: any) => any,
-    onSlideComplete: (params: any) => any
+    onSlideComplete: (params: any) => any,
+    onToggleFullScreen: () => any
 }
 
-export default ({ currentTime, duration, onSlideCapture, onSlideStart, onSlideComplete }: Props) => {
+export default ({ currentTime, duration, onSlideCapture, onSlideStart, onSlideComplete, onToggleFullScreen }: Props) => {
 
     useEffect(() => {
-        console.log('ASDADASDASDADADADADADADA')
-        console.log(currentTime);
     }, [])
 
     const getMinutesFromSeconds = (time: number) => {
@@ -27,9 +28,12 @@ export default ({ currentTime, duration, onSlideCapture, onSlideStart, onSlideCo
     };
 
     const onSlideProgressBar = (time: any) => {
-        console.log("PULL SLIDE");
         onSlideCapture(time);
     };
+
+    const onPressFullScreenBtn = () => {
+        onToggleFullScreen();
+    }
 
     const position = getMinutesFromSeconds(currentTime);
     const fullDuration = getMinutesFromSeconds(duration);
@@ -51,6 +55,9 @@ export default ({ currentTime, duration, onSlideCapture, onSlideStart, onSlideCo
             <View style={styles.timeWrapper}>
                 <Text style={styles.timeLeft}>{position} / </Text>
                 <Text style={styles.timeRight}>{fullDuration}</Text>
+                <TouchableWithoutFeedback onPress={onPressFullScreenBtn}>
+                    <FullScreen width={24} height={24} />
+                </TouchableWithoutFeedback>
             </View>
         </View>
     )
@@ -66,7 +73,7 @@ const styles = StyleSheet.create({
     timeWrapper: {
         flexDirection: 'row',
         alignItems: 'center',
-        flex: 6,
+        flex: 4,
     },
     timeLeft: {
         fontSize: 12,
