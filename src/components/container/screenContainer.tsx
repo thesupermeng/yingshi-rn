@@ -5,8 +5,9 @@ interface Props {
     params?: any[],
     scrollView?: boolean,
     footer?: React.ReactNode,
+    style?: typeof StyleSheet
 }
-export default function ScreenContainer({ children, scrollView = false, footer, ...params }: Props) {
+export default function ScreenContainer({ children, scrollView = false, footer, style, ...params }: Props) {
     const insets = useSafeAreaInsets();
     return (
         <>
@@ -20,7 +21,7 @@ export default function ScreenContainer({ children, scrollView = false, footer, 
                         paddingRight: insets.right
                     }}
                         {...params} contentContainerStyle={{ paddingBottom: 30 }} >
-                        <View style={styles.innerContainer}>
+                        <View style={{...styles.innerContainer, ...style}}>
                             {children}
                         </View>
                         {footer}
@@ -32,7 +33,7 @@ export default function ScreenContainer({ children, scrollView = false, footer, 
                         paddingLeft: insets.left,
                         paddingRight: insets.right,
                     }} {...params}>
-                        <View style={styles.innerContainer}>
+                        <View style={{...styles.innerContainer, ...style}}>
                             {children}
                         </View>
                         {footer}
