@@ -112,14 +112,15 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
         if (isFullScreen) {
             Orientation.lockToPortrait();
             Orientation.unlockAllOrientations();
+            setIsFullScreen(false);
         } else {
             Orientation.lockToLandscapeLeft();
             Orientation.unlockAllOrientations();
+            setIsFullScreen(true);
         }
     }
 
     const toggleControls = () => {
-        console.log('Toggle Controls');
         setIsShowControls(prev => !prev);
         setDisableFullScreenGesture(prev => !prev);
         debouncedFn();
@@ -143,16 +144,15 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
     const onSkip = (time: any) => {
         videoPlayerRef.current.seek(currentTime + time);
         setCurrentTime(currentTime + time);
+        debouncedFn();
     }
 
     const onTogglePlayPause = () => {
-        console.log('togglePLAYPAUSE');
         setIsPaused(prev => !prev);
         debouncedFn();
     }
 
     const onTouchScreen = useCallback(() => {
-        console.log('TOUCHTYYYTTTT')
         setDisableFullScreenGesture(prev => !prev);
         setIsShowControls(prev => !prev);
         debouncedFn();
