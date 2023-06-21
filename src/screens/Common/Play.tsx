@@ -1,5 +1,5 @@
-import React, { useEffect, useState, createContext, useContext, useMemo } from 'react';
-import { View, TouchableOpacity, FlatList, Text, StyleSheet, SafeAreaView, ScrollView, TouchableWithoutFeedback } from 'react-native';
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
+import { View, TouchableOpacity, TouchableWithoutFeedback, Text, StyleSheet, SafeAreaView, ScrollView, Image } from 'react-native';
 import Video from 'react-native-video';
 import FavoriteButton from '../../components/button/favoriteVodButton';
 import FavoriteIcon from '../../../static/images/favorite.svg'
@@ -38,11 +38,15 @@ import VideoControlsOverlay from '../../components/videoPlayer/VideoControlsOver
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import VodEpisodeSelectionModal from '../../components/modal/vodEpisodeSelectionModal';
 import FastImage from 'react-native-fast-image';
+import Orientation from 'react-native-orientation-locker';
 
 type PlayContextValue = {
     value: string;
     updateValue: (newValue: string) => void;
 };
+
+const height = Dimensions.get('window').width;
+const width = Dimensions.get('window').height;
 
 export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
 
@@ -61,6 +65,7 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
     const [width, setWidth] = useState(0);
     const [isPaused, setIsPaused] = useState(false);
     const [isShowControls, setIsShowControls] = useState(false);
+    const [disableFullScreenGesture, setDisableFullScreenGesture] = useState(false);
 
     const [episodeUrl, setEpisodeUrl] = useState("");
     const [duration, setDuration] = useState(0);
@@ -103,32 +108,57 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
         }
     }, [vod])
     useEffect(() => {
-        const dimension = Dimensions.get('screen');
-        let h = dimension.height;
-        let w = dimension.width;
+        // const dimension = Dimensions.get('screen');
+        // let h = dimension.height;
+        // let w = dimension.width;
 
-        setHeight(h);
-        setWidth(w);
+        // setHeight(h);
+        // setWidth(w);
 
-        if (!isPotrait) {
-            setIsFullScreen(true);
-            console.log("FULL SCREEN NW");
-        } else {
-            setIsFullScreen(false);
-            console.log("NOPEEEE FULL SCREEN NOW");
-        }
+        // if (!isPotrait) {
+        //     setIsFullScreen(true);
+        //     console.log("FULL SCREEN NW");
+        // }else{
+        //     setIsFullScreen(false);
+        //     console.log("NOPEEEE FULL SCREEN NOW");
+        // }
     }, [isPotrait])
 
     useEffect(() => {
 
     }, [isPaused])
 
+    useEffect(() => {
+        Orientation.addOrientationListener(handleOrientation);
+        return () => {
+            Orientation.removeOrientationListener(handleOrientation);
+        };
+    }, []);
+
+    const handleOrientation = (orientation: any) => {
+        if (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT') {
+            setIsFullScreen(true);
+        } else {
+            setIsFullScreen(false);
+        }
+    };
+
+    const onToggleFullScreen = () => {
+        if (isFullScreen) {
+            Orientation.lockToPortrait();
+            Orientation.unlockAllOrientations();
+            setIsFullScreen(false);
+        } else {
+            Orientation.lockToLandscapeLeft();
+            Orientation.unlockAllOrientations();
+            setIsFullScreen(true);
+        }
+    }
+
     const toggleControls = () => {
         setIsShowControls(prev => !prev);
-        clearTimeout(controlsOverlayTimeOut);
-        if (!isShowControls) {
-            controlsOverlayTimeOut = setTimeout(() => setIsShowControls(prev => false), 2000);
-        }
+        setDisableFullScreenGesture(prev => !prev);
+        debouncedFn();
     }
 
     const onVideoLoaded = (data: any) => {
@@ -149,16 +179,44 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
     const onSkip = (time: any) => {
         videoPlayerRef.current.seek(currentTime + time);
         setCurrentTime(currentTime + time);
+        debouncedFn();
     }
 
     const onTogglePlayPause = () => {
         setIsPaused(prev => !prev);
+        debouncedFn();
     }
+
+    const onTouchScreen = useCallback(() => {
+        setDisableFullScreenGesture(prev => !prev);
+        setIsShowControls(prev => !prev);
+        debouncedFn();
+    }, []);
+
+    const changeControlsState = () => {
+        setIsShowControls(prev => false);
+        setDisableFullScreenGesture(prev => false);
+        return;
+    }
+
+    const debounce = (func: any) => {
+        let timer: any;
+        return function (...args: any) {
+            const context = this;
+            if (timer) clearTimeout(timer);
+            timer = setTimeout(() => {
+                timer = null;
+                func.apply(context, args);
+            }, 2000);
+        };
+    };
+    
+    const debouncedFn = useCallback(debounce(changeControlsState), []);
 
     return (
         <ScreenContainer style={{ flex: 1, paddingRight: 0, paddingLeft: 0 }}>
-            {isFullScreen &&
-                <PlayFullScreenGesture />
+            {isFullScreen && 
+                <PlayFullScreenGesture onScreenTouched={onTouchScreen} disableFullScreenGesture={disableFullScreenGesture} />
             }
             <TouchableWithoutFeedback onPress={toggleControls}>
                 <View style={styles.bofangBox}>
@@ -171,16 +229,18 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
                             source={{ uri: episodeUrl }}
                             onLoad={onVideoLoaded}
                             onProgress={onVideoProgessing}
-                            style={!isFullScreen ? styles.videoPotrait : [styles.panView, { height: height }]} />
+                            style={!isFullScreen ? styles.videoPotrait : styles.videoLandscape} />
                     }
-                    {isShowControls && !isFullScreen &&
+                    {isShowControls &&
                         <VideoControlsOverlay
                             onVideoSeek={onSeek}
                             currentTime={currentTime}
                             duration={duration}
                             onFastForward={onSkip}
                             paused={isPaused}
-                            onTogglePlayPause={onTogglePlayPause} />
+                            isFullScreen={isFullScreen}
+                            onTogglePlayPause={onTogglePlayPause}
+                            onHandleFullScreen={onToggleFullScreen} />
                     }
                 </View>
             </TouchableWithoutFeedback>
@@ -306,8 +366,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#000',
     },
     videoLandscape: {
+        flex: 1,
+        maxHeight: height,
         width: '100%',
-        backgroundColor: '#000',
+        backgroundColor: 'black',
     },
     bofangBox: {
         aspectRatio: 428 / 242,

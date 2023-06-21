@@ -40,7 +40,7 @@ export default ({percent, icon}: Props) => {
                     }}>
                 </View>
             </View>
-            <Text style={styles.percentText}>{Math.ceil(percent)}%</Text>
+            <Text style={styles.percentText}>{percent.toFixed()}%</Text>
         </View>
     )
 }
