@@ -9,10 +9,15 @@ type Props = {
     onVideoSeek: (params: any) => any,
     onFastForward: (params: any) => any,
     onTogglePlayPause: () => any,
-    paused: boolean
+    onHandleFullScreen: () => any,
+    paused: boolean,
+    isFullScreen: boolean
 }
 
-export default ({ currentTime, duration, onVideoSeek, onFastForward, onTogglePlayPause, paused }: Props) => {
+const height = Dimensions.get('window').width;
+const width = Dimensions.get('window').height;
+
+export default ({ currentTime, duration, onVideoSeek, onFastForward, onTogglePlayPause, onHandleFullScreen, paused, isFullScreen }: Props) => {
 
     useEffect(() => {
         console.log(paused)
@@ -31,8 +36,12 @@ export default ({ currentTime, duration, onVideoSeek, onFastForward, onTogglePla
         onVideoSeek(time);
     }
 
+    const handleFullScreen = () => {
+        onHandleFullScreen();
+    }
+
     return (
-        <View style={styles.controlsOverlay}>
+        <View style={!isFullScreen ? styles.controlsOverlay : [styles.controlsOverlay, { height: height }]}>
             {/* Middle Controls */}
             <MiddleControls 
                 fastForward={handleFastForward}
@@ -44,7 +53,8 @@ export default ({ currentTime, duration, onVideoSeek, onFastForward, onTogglePla
                 duration={duration > 0 ? duration : 0}
                 onSlideStart={handlePlayPause}
                 onSlideComplete={handlePlayPause}
-                onSlideCapture={onSeek} />
+                onSlideCapture={onSeek}
+                onToggleFullScreen={handleFullScreen} />
         </View>
     )
 }
@@ -58,5 +68,8 @@ const styles = StyleSheet.create({
         right: 0,
         backgroundColor: '#00000090',
         justifyContent: 'space-between',
+    },
+    fullScreenBottom: {
+        paddingBottom: 60
     }
 });

@@ -20,13 +20,15 @@ import Sun from '../../../static/images/Sun.svg';
 import BackIcon from '../../../static/images/back_arrow.svg';
 import { Dimensions } from 'react-native';
 import VideoControlsOverlay from '../../components/videoPlayer/VideoControlsOverlay';
+import Orientation from 'react-native-orientation-locker';
 
 type PlayContextValue = {
     value: string;
     updateValue: (newValue: string) => void;
 };
 
-const PlayContext = createContext<PlayContextValue | undefined>(undefined);
+const height = Dimensions.get('window').width;
+const width = Dimensions.get('window').height;
 
 export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
 
@@ -59,25 +61,49 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
         }
     }, [vod])
     useEffect(() => {
-        const dimension = Dimensions.get('screen');
-        let h = dimension.height;
-        let w = dimension.width;
+        // const dimension = Dimensions.get('screen');
+        // let h = dimension.height;
+        // let w = dimension.width;
 
-        setHeight(h);
-        setWidth(w);
+        // setHeight(h);
+        // setWidth(w);
 
-        if (!isPotrait) {
-            setIsFullScreen(true);
-            console.log("FULL SCREEN NW");
-        }else{
-            setIsFullScreen(false);
-            console.log("NOPEEEE FULL SCREEN NOW");
-        }
+        // if (!isPotrait) {
+        //     setIsFullScreen(true);
+        //     console.log("FULL SCREEN NW");
+        // }else{
+        //     setIsFullScreen(false);
+        //     console.log("NOPEEEE FULL SCREEN NOW");
+        // }
     }, [isPotrait])
 
     useEffect(() => {
         
     }, [isPaused])
+
+    useEffect(() => {
+        Orientation.addOrientationListener(handleOrientation);
+        return () => {
+            Orientation.removeOrientationListener(handleOrientation);
+        };
+    }, []);
+
+    const handleOrientation = (orientation: any) => {
+        if (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT') {
+            setIsFullScreen(true);
+        } else {
+            setIsFullScreen(false);
+        }
+    };
+
+    const onToggleFullScreen = () => {
+        if (isFullScreen) {
+            Orientation.lockToPortrait();
+            Orientation.unlockAllOrientations();
+        } else {
+            Orientation.lockToLandscapeLeft();
+        }
+    }
 
     const toggleControls = () => {
         setIsShowControls(prev => !prev);
@@ -113,9 +139,9 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
     
     return (
         <SafeAreaView style={{ flex: 1 }}>
-            {isFullScreen &&
+            {/* {isFullScreen &&
                 <PlayFullScreenGesture />
-            }
+            } */}
             <TouchableWithoutFeedback onPress={toggleControls}>
                 <View style={styles.bofangBox}>
                     {episodeUrl != "" &&
@@ -127,16 +153,18 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
                             source={{ uri: episodeUrl }}
                             onLoad={onVideoLoaded}
                             onProgress={onVideoProgessing}
-                            style={!isFullScreen ? styles.videoPotrait : [styles.panView, { height: height }]} />
+                            style={!isFullScreen ? styles.videoPotrait : styles.videoLandscape} />
                     }
-                    {isShowControls && !isFullScreen &&
+                    {isShowControls &&
                         <VideoControlsOverlay
                             onVideoSeek={onSeek}
                             currentTime={currentTime}
                             duration={duration}
                             onFastForward={onSkip}
                             paused={isPaused}
-                            onTogglePlayPause={onTogglePlayPause} />
+                            isFullScreen={isFullScreen}
+                            onTogglePlayPause={onTogglePlayPause}
+                            onHandleFullScreen={onToggleFullScreen} />
                     }
                 </View>
             </TouchableWithoutFeedback>
@@ -193,8 +221,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#000',
     },
     videoLandscape: {
+        flex: 1,
+        maxHeight: height,
         width: '100%',
-        backgroundColor: '#000',
+        backgroundColor: 'black',
     },
     bofangBox: {
         aspectRatio: 428 / 242,
