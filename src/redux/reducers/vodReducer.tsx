@@ -5,7 +5,8 @@ import { VodTopicType, VodType } from "../../types/ajaxTypes"
 
 export interface VodRecordType extends VodType {
     timeWatched: number,
-    recordedAt: Date
+    recordedAt: Date,
+    episodeWatched: number,
 }
 interface PlayVodType {
     vod: VodRecordType | null,
@@ -31,7 +32,8 @@ export function vodReducer(state = initialState, action: VodActionType) {
     const firstPayloadItemWithTimestamp: VodRecordType = {
         ...action.payload?.[0],
         recordedAt: new Date(),
-        timeWatched: action.timeWatched === undefined ? 0 : action.timeWatched
+        timeWatched: action.timeWatched === undefined ? 0 : action.timeWatched,
+        episodeWatched: action.episodeWatched === undefined ? 0 : action.episodeWatched
     };
     switch (action.type) {
         case PLAY_VOD: {

@@ -49,7 +49,7 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
     const [lang, setLang] = useState('全部语言');
     const [year, setYear] = useState('全部时间');
 
-    const windowDim = useMemo(() => (Dimensions.get('window').width - insets.left - insets.right), []);
+    const windowDim = useMemo(() => (Dimensions.get('window').width - insets.left - insets.right), [insets]);
     const paddingPerCard = 10;
     const minWidth = useMemo(() => (windowDim / 3) - paddingPerCard, [windowDim, paddingPerCard]);
     const cardWidth = useMemo(() => Math.min(150, Math.floor(minWidth)), [minWidth]);

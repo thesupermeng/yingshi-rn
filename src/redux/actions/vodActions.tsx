@@ -26,11 +26,12 @@ export const toggleVodFavorites = (vod: VodType) => (
     }
 )
 
-export const playVod = (vod: VodType) => {
-
+export const playVod = (vod: VodType, timeWatched: number = 0, episodeToPlay: number = 0) => {
     return {
         type: PLAY_VOD,
-        payload: [vod]
+        payload: [vod],
+        timeWatched: timeWatched,
+        episodeWatched: episodeToPlay
     }
 }
 
@@ -48,11 +49,12 @@ export const viewPlaylistDetails = (playlist: VodTopicType) => (
     }
 )
 
-export const addVodToHistory = (vod: VodType, timeWatched: number) => (
+export const addVodToHistory = (vod: VodType, timeWatched: number, episodeWatched: number = 0) => (
     {
         type: ADD_VOD_TO_HISTORY,
         payload: [vod],
-        timeWatched: timeWatched
+        timeWatched: timeWatched,
+        episodeWatched: episodeWatched
     }
 )
 
