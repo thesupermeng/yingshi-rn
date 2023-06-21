@@ -16,8 +16,6 @@ type Props = {
 export default ({ currentTime, duration, onSlideCapture, onSlideStart, onSlideComplete, onToggleFullScreen }: Props) => {
 
     useEffect(() => {
-        console.log('ASDADASDASDADADADADADADA')
-        console.log(currentTime);
     }, [])
 
     const getMinutesFromSeconds = (time: number) => {

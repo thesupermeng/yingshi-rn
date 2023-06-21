@@ -5,38 +5,33 @@ import SystemSetting from 'react-native-system-setting';
 
 type Props = {
     onChangeVolume: (params: any) => any,
-    onPauseVideo: (params: any) => any
+    onTouchScreen: () => any
 }
 
 const steps = 10;
 
-export default ({ onChangeVolume, onPauseVideo }: Props) => {
+export default ({ onChangeVolume, onTouchScreen }: Props) => {
 
     const [startY, setStartY] = useState(0)
     const [endY, setEndY] = useState(0)
 
     const onScreenTouched = () => {
-        console.log('Volume side touched');
+        onTouchScreen();
     }
 
     const onVolumeChanged = async (val: number) => {
-        console.log('Volume changed');
         const currVolume = await SystemSetting.getVolume();
         val = val > 0 ? currVolume + 1 / steps : currVolume - 1 / steps;
         val = Math.min(1, Math.max(0, val));
 
-        onChangeVolume(val);
+        onChangeVolume(parseFloat(val.toFixed(2)));
 
         SystemSetting.setVolume(val);
         return;
     }
 
-    const onVideoPaused = (val: boolean) => {
-        onPauseVideo(val)
-    }
-
     return (
-        <PanHandler step={10} onTouch={onScreenTouched} onChange={onVolumeChanged} onPause={onVideoPaused}/>
+        <PanHandler step={10} onTouch={onScreenTouched} onChange={onVolumeChanged}/>
     )
 }
 

@@ -21,10 +21,11 @@ const Icons = {
 }
 
 type Props = {
-    // onPauseVideo: (params: any) => any
+    onScreenTouched: () => any,
+    disableFullScreenGesture: boolean
 }
 
-export default ({  }: Props) => {
+export default ({ onScreenTouched, disableFullScreenGesture }: Props) => {
     const [icon, setIcon] = useState({
         noValue: "MutedVolume",
         hasValue: "Volume"
@@ -35,11 +36,11 @@ export default ({  }: Props) => {
 
     useEffect(() => {
         console.log('PlayFullScreenGesture USEEFFECT');
-    }, [])
+    }, [disableFullScreenGesture])
 
     const onPropertyChanged = (gestureType: string, value: number) => {
         setIcon(Icons[gestureType]);
-        setValue(value);
+        setValue(parseFloat(value.toFixed(2)));
         setShowSlider(true);
 
         clearTimeout(sliderTimeout.current);
@@ -48,23 +49,23 @@ export default ({  }: Props) => {
         }, 3000);
     }
 
-    const pauseVideo = (val: boolean) => {
-        // onPauseVideo(val);
+    const handleScreenTouch = () => {
+        onScreenTouched();
     }
 
     return (
-        <View style={{ flexDirection: 'row', flex: 1, zIndex: 20, height: '100%' }}>
+        <View style={!disableFullScreenGesture ? styles.container : { zIndex: -10 }}>
             <BrightnessGestureControl
                 onChangeBrightness={(value: number) => {
                     onPropertyChanged(GestureControls.BRIGHTNESS, value)
                 }}
-                onPauseVideo={pauseVideo}
+                onTouchScreen={handleScreenTouch}
             />
             <VolumeGestureControl
                 onChangeVolume={(value: number) => {
                     onPropertyChanged(GestureControls.VOLUME, value)
                 }} 
-                onPauseVideo={pauseVideo}
+                onTouchScreen={handleScreenTouch}
             />
             {showSlider && (
                 <BrightnessVolumeSlider
@@ -79,5 +80,10 @@ export default ({  }: Props) => {
 }
 
 const styles = StyleSheet.create({
-
+    container: {
+        flex: 1,
+        flexDirection: 'row',
+        height: '100%',
+        zIndex: 20
+    }
 });
