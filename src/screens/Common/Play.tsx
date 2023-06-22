@@ -21,7 +21,7 @@ import QQIcon from '../../../static/images/qq.svg';
 import PYQIcon from '../../../static/images/pyq.svg';
 import MoreArrow from '../../../static/images/more_arrow.svg';
 import { ListItem } from '@rneui/themed';
-import Animated, { useAnimatedStyle, SlideInDown, SlideOutUp } from 'react-native-reanimated';
+import Animated, { useAnimatedStyle, FadeInUp, useSharedValue } from 'react-native-reanimated';
 import DownIcon from '../../../static/images/down_arrow_grey.svg';
 import UpIcon from '../../../static/images/arrow_up_grey.svg'
 
@@ -39,6 +39,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import VodEpisodeSelectionModal from '../../components/modal/vodEpisodeSelectionModal';
 import FastImage from 'react-native-fast-image';
 import Orientation from 'react-native-orientation-locker';
+import { Easing } from 'react-native';
 
 type PlayContextValue = {
     value: string;
@@ -70,19 +71,18 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
     const [episodeUrl, setEpisodeUrl] = useState("");
     const [duration, setDuration] = useState(0);
     const [currentTime, setCurrentTime] = useState(0);
-    const EPISODE_RANGE_SIZE = 100;
-    const [isExpandEpisodes, setIsExpandEpisodes] = useState(false);
     const [openVodSelectionModal, setOpenVodSelectionModal] = useState(false);
+    const isExpandEpisodes = useSharedValue(false);
     const dispatch = useAppDispatch();
 
     let controlsOverlayTimeOut: any;
 
+
+    const EPISODE_RANGE_SIZE = 100;
+    const INIT_NUM_OF_EPISODES_ROWS = 6;
+
     const showEpisodeRangeStart = useMemo(() => Math.floor((vod ? vod.episodeWatched : 0) / EPISODE_RANGE_SIZE) * EPISODE_RANGE_SIZE, [vod]);
-    const showEpisodeRangeEnd = useMemo(
-        () => Math.min(showEpisodeRangeStart + EPISODE_RANGE_SIZE,
-            vod ? vod.vod_play_list.url_count : showEpisodeRangeStart + EPISODE_RANGE_SIZE),
-        [vod, showEpisodeRangeStart]
-    );
+
     const windowDim = useMemo(() => (Dimensions.get('window').width - insets.left - insets.right), [insets]);
 
     const BTN_SELECT_WIDTH = useMemo(() => {
@@ -91,15 +91,40 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
         }
         let maxTitleLength = vod.vod_play_list.urls.reduce(function (prev, current) {
             return (prev.name.length > current.name.length) ? prev : current
-        }).name.length * textVariants.header.fontSize * 0.9;
+        }).name.length * textVariants.header.fontSize * 0.8;
         maxTitleLength += (2 * spacing.s) // Padding
         return maxTitleLength
     }, [vod]);
 
-    const NUM_PER_ROW = useMemo(() => Math.max(Math.floor(windowDim / (BTN_SELECT_WIDTH + 10)), 3), [windowDim, BTN_SELECT_WIDTH]);
+    const NUM_PER_ROW = useMemo(() => Math.max(Math.floor(windowDim / (BTN_SELECT_WIDTH + 10)), 1), [windowDim, BTN_SELECT_WIDTH]);
     const BTN_MARGIN_RIGHT = useMemo(() => {
         return (windowDim - (NUM_PER_ROW * BTN_SELECT_WIDTH) - 40) / NUM_PER_ROW
     }, [NUM_PER_ROW, BTN_SELECT_WIDTH, windowDim])
+    // const showEpisodeRangeEnd = useMemo(
+    //     () => Math.min(showEpisodeRangeStart + EPISODE_RANGE_SIZE,
+    //         vod ? vod.vod_play_list.url_count : showEpisodeRangeStart + EPISODE_RANGE_SIZE),
+    //     [vod, showEpisodeRangeStart]
+    // );
+
+    const animatedStyle = useAnimatedStyle(() => {
+        return {
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            alignItems: 'flex-start',
+            display: isExpandEpisodes.value ? 'flex' : 'none',
+        };
+    }, []);
+
+    const animatedBtnStyle = useAnimatedStyle(() => {
+        return {
+
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+            transform: isExpandEpisodes.value ? [{ rotate: '180deg' }] : [{ rotate: '0deg' }]
+        };
+    }, []);
 
     useEffect(() => {
         if (vod) {
@@ -210,12 +235,12 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
             }, 2000);
         };
     };
-    
+
     const debouncedFn = useCallback(debounce(changeControlsState), []);
 
     return (
         <ScreenContainer style={{ flex: 1, paddingRight: 0, paddingLeft: 0 }}>
-            {isFullScreen && 
+            {/* {isFullScreen && 
                 <PlayFullScreenGesture onScreenTouched={onTouchScreen} disableFullScreenGesture={disableFullScreenGesture} />
             }
             <TouchableWithoutFeedback onPress={toggleControls}>
@@ -243,7 +268,7 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
                             onHandleFullScreen={onToggleFullScreen} />
                     }
                 </View>
-            </TouchableWithoutFeedback>
+            </TouchableWithoutFeedback> */}
             <View style={styles.videoHeader}>
                 <BackButton btnStyle={{ padding: 20 }} onPress={() => navigation.goBack()} />
                 <Text style={{ ...textVariants.small, color: colors.text, marginLeft: spacing.s, flex: 1 }} numberOfLines={1}>{vod?.vod_name}</Text>
@@ -303,35 +328,16 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
                     <View style={styles.spaceApart}>
                         <Text style={textVariants.header}>选集播放</Text>
                         <TouchableOpacity style={styles.share} onPress={() => setOpenVodSelectionModal(!openVodSelectionModal)}>
-                            <Text style={{ color: colors.text, fontSize: textVariants.body.fontSize }}>{`${showEpisodeRangeStart}-${showEpisodeRangeEnd}集`}</Text>
+                            <Text style={{ color: colors.text, fontSize: textVariants.body.fontSize }}>{`1-${vod?.vod_play_list.url_count}集`}</Text>
                             <MoreArrow style={{ color: colors.muted }} height={icons.sizes.m} width={icons.sizes.m} ></MoreArrow>
                         </TouchableOpacity>
                     </View>
                     <Animated.View>
-                        <View style={styles.episodeList}>
+                        <Animated.View style={styles.episodeList}>
                             {
-                                vod && vod.vod_play_list.urls.slice(showEpisodeRangeStart, NUM_PER_ROW * 6).map(url =>
-                                    <TouchableOpacity key={`url=-${url.nid}`} style={{
-                                        backgroundColor: colors.primary,
-                                        padding: spacing.s,
-                                        width: BTN_SELECT_WIDTH,
-                                        marginBottom: spacing.s,
-                                        marginRight: BTN_MARGIN_RIGHT,
-                                        ...styles.episodeBtn
-                                    }}>
-                                        <Text style={{ textAlign: 'center', ...textVariants.header }}>{url.name}</Text>
-                                    </TouchableOpacity>)
-                            }
-                        </View>
-                        <Animated.View
-                            style={styles.episodeList}
-                        // entering={SlideInDown}
-                        // exiting={SlideOutUp}
-                        >
-                            {
-                                vod && vod.vod_play_list.urls.slice(NUM_PER_ROW * 6, showEpisodeRangeEnd).map(url =>
-                                    <TouchableOpacity key={`url=-${url.nid}`} style={{
-                                        backgroundColor: colors.primary,
+                                vod && vod.vod_play_list.urls.slice(showEpisodeRangeStart, NUM_PER_ROW * INIT_NUM_OF_EPISODES_ROWS).map((url, idx) =>
+                                    <TouchableOpacity key={`url-${url.nid}`} style={{
+                                        backgroundColor: vod.episodeWatched === url.nid ? colors.primary : colors.search,
                                         padding: spacing.s,
                                         width: BTN_SELECT_WIDTH,
                                         marginBottom: spacing.s,
@@ -342,16 +348,37 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
                                     </TouchableOpacity>)
                             }
                         </Animated.View>
-                        <Animated.View style={{ ...styles.share, justifyContent: 'center', }}>
-                            <TouchableOpacity style={{ height: icons.sizes.l * 2, width: icons.sizes.l * 2, ...styles.share, justifyContent: 'center', }}
-                                onPress={() => setIsExpandEpisodes(!isExpandEpisodes)}>
-                                {
-                                    isExpandEpisodes
-                                        ? <UpIcon height={icons.sizes.l} width={icons.sizes.l} />
-                                        : <DownIcon height={icons.sizes.l} width={icons.sizes.l} />
-                                }
-                            </TouchableOpacity>
-                        </Animated.View>
+                        {/* {
+                            // Show more episodes
+                            vod && vod.vod_play_list.url_count > NUM_PER_ROW * INIT_NUM_OF_EPISODES_ROWS &&
+                            <>
+                                <Animated.View
+                                    style={animatedStyle}
+                                    entering={FadeInUp}
+                                    exiting={FadeInUp}
+                                >
+                                    {
+                                        vod && vod.vod_play_list.urls.slice(NUM_PER_ROW * INIT_NUM_OF_EPISODES_ROWS, showEpisodeRangeEnd).map(url =>
+                                            <TouchableOpacity key={`url=-${url.nid}`} style={{
+                                                backgroundColor: colors.primary,
+                                                padding: spacing.s,
+                                                width: BTN_SELECT_WIDTH,
+                                                marginBottom: spacing.s,
+                                                marginRight: BTN_MARGIN_RIGHT,
+                                                ...styles.episodeBtn
+                                            }}>
+                                                <Text style={{ textAlign: 'center', ...textVariants.header }}>{url.name}</Text>
+                                            </TouchableOpacity>)
+                                    }
+                                </Animated.View>
+                                <Animated.View style={animatedBtnStyle}>
+                                    <TouchableOpacity style={{ height: icons.sizes.l * 2, width: icons.sizes.l * 2, ...styles.share, justifyContent: 'center', }}
+                                        onPress={() => isExpandEpisodes.value = !isExpandEpisodes.value}>
+                                        <DownIcon height={icons.sizes.l} width={icons.sizes.l} />
+                                    </TouchableOpacity>
+                                </Animated.View>
+                            </>
+                        } */}
                     </Animated.View>
                 </View>
             </ScrollView>
@@ -431,6 +458,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
     },
     episodeList: {
+        display: 'flex',
         flexDirection: 'row',
         flexWrap: 'wrap',
         alignItems: 'flex-start',
