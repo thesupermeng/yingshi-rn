@@ -33,7 +33,7 @@ export function vodReducer(state = initialState, action: VodActionType) {
         ...action.payload?.[0],
         recordedAt: new Date(),
         timeWatched: action.timeWatched === undefined ? 0 : action.timeWatched,
-        episodeWatched: action.episodeWatched === undefined ? 0 : action.episodeWatched
+        episodeWatched: action.episodeWatched === undefined ? 1 : action.episodeWatched
     };
     switch (action.type) {
         case PLAY_VOD: {

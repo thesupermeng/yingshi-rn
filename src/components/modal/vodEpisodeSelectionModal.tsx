@@ -80,6 +80,9 @@ export default function VodEpisodeSelectionModal({ onConfirm, onCancel, isVisibl
                                 marginBottom: spacing.s,
                                 marginRight: BTN_MARGIN_RIGHT,
                                 borderRadius: 8
+                            }} onPress={() => {
+                                onConfirm(ep.nid);
+                                onCancel();
                             }}>
                                 <Text style={{ ...textVariants.header, textAlign: 'center'}}>{`${ep.name}`}</Text>
                             </TouchableOpacity>

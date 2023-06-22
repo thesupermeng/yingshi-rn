@@ -68,7 +68,7 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
     const [isShowControls, setIsShowControls] = useState(false);
     const [disableFullScreenGesture, setDisableFullScreenGesture] = useState(false);
 
-    const [episodeUrl, setEpisodeUrl] = useState("");
+    const [currentEpisode, setCurrentEpisode] = useState(vod?.episodeWatched);
     const [duration, setDuration] = useState(0);
     const [currentTime, setCurrentTime] = useState(0);
     const [openVodSelectionModal, setOpenVodSelectionModal] = useState(false);
@@ -128,7 +128,7 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
 
     useEffect(() => {
         if (vod) {
-            setEpisodeUrl(vod.vod_play_list.urls[vod.episodeWatched]?.url);
+            setCurrentEpisode(vod.episodeWatched);
             dispatch(addVodToHistory(vod, 0));
         }
     }, [vod])
@@ -240,18 +240,18 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
 
     return (
         <ScreenContainer style={{ flex: 1, paddingRight: 0, paddingLeft: 0 }}>
-            {/* {isFullScreen && 
+            {isFullScreen && 
                 <PlayFullScreenGesture onScreenTouched={onTouchScreen} disableFullScreenGesture={disableFullScreenGesture} />
             }
             <TouchableWithoutFeedback onPress={toggleControls}>
                 <View style={styles.bofangBox}>
-                    {episodeUrl != "" &&
+                    {currentEpisode !== undefined && vod &&
                         <Video
                             ref={videoPlayerRef}
                             fullscreen={isFullScreen}
                             paused={isPaused}
                             resizeMode="contain"
-                            source={{ uri: episodeUrl }}
+                            source={{ uri: vod.vod_play_list.urls.find(url => url.nid === currentEpisode)?.url}}
                             onLoad={onVideoLoaded}
                             onProgress={onVideoProgessing}
                             style={!isFullScreen ? styles.videoPotrait : styles.videoLandscape} />
@@ -268,16 +268,16 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
                             onHandleFullScreen={onToggleFullScreen} />
                     }
                 </View>
-            </TouchableWithoutFeedback> */}
+            </TouchableWithoutFeedback>
             <View style={styles.videoHeader}>
                 <BackButton btnStyle={{ padding: 20 }} onPress={() => navigation.goBack()} />
                 <Text style={{ ...textVariants.small, color: colors.text, marginLeft: spacing.s, flex: 1 }} numberOfLines={1}>{vod?.vod_name}</Text>
             </View>
-            <VodEpisodeSelectionModal activeEpisode={vod?.episodeWatched}
+            <VodEpisodeSelectionModal activeEpisode={currentEpisode}
                 episodes={vod?.vod_play_list}
                 isVisible={openVodSelectionModal}
                 onCancel={() => setOpenVodSelectionModal(false)}
-                onConfirm={setEpisodeUrl} />
+                onConfirm={setCurrentEpisode} />
             <ScrollView
                 contentInsetAdjustmentBehavior="automatic">
                 <View style={styles.descriptionContainer2} gap={spacing.m}>
@@ -337,13 +337,13 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
                             {
                                 vod && vod.vod_play_list.urls.slice(showEpisodeRangeStart, NUM_PER_ROW * INIT_NUM_OF_EPISODES_ROWS).map((url, idx) =>
                                     <TouchableOpacity key={`url-${url.nid}`} style={{
-                                        backgroundColor: vod.episodeWatched === url.nid ? colors.primary : colors.search,
+                                        backgroundColor: currentEpisode === url.nid ? colors.primary : colors.search,
                                         padding: spacing.s,
                                         width: BTN_SELECT_WIDTH,
                                         marginBottom: spacing.s,
                                         marginRight: BTN_MARGIN_RIGHT,
                                         ...styles.episodeBtn
-                                    }}>
+                                    }} onPress={() => setCurrentEpisode(url.nid)}>
                                         <Text style={{ textAlign: 'center', ...textVariants.header }}>{url.name}</Text>
                                     </TouchableOpacity>)
                             }
