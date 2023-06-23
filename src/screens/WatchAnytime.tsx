@@ -16,6 +16,11 @@ import Video from 'react-native-video';
 import { StyleSheet } from 'react-native';
 import { MiniVideo } from '../types/ajaxTypes';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import Wechat from '../../static/images/wechat.svg';
+import PYQ from '../../static/images/pyq.svg';
+import Weibo from '../../static/images/weibo.svg';
+import QQ from '../../static/images/qq.svg';
+import Search from '../../static/images/search.svg';
 
 type MiniVideoResponseType = {
     data: {
@@ -97,7 +102,7 @@ export default ({ navigation } : BottomTabScreenProps<any>) => {
         return (
             // Note : Will change to windowHeight - "NavBarHeight" instead
             <View style={{flex: 1}}>
-                <View style={{height: windowHeight - 50.2, width: '100%', flex: 1}}> 
+                <View style={{height: windowHeight - 51.1, width: '100%', flex: 1}}> 
                     <TouchableWithoutFeedback style={{ backgroundColor: "blue", width: "100", height: "100", zIndex: "2000" }} onPress={() => {
                         console.log(isPaused);
                         setIsPaused(!isPaused);
@@ -111,17 +116,64 @@ export default ({ navigation } : BottomTabScreenProps<any>) => {
                             paused={!isCurrentVideo || isPaused} 
                             preload={isCurrentVideo ? 'auto' : 'metadata'} />
                     </TouchableWithoutFeedback>
-                    <View column style={{position:'absolute', marginTop: (windowHeight - 50.2) / 2, height: (windowHeight - 50.2) / 2, width: '100%', justifyContent:'flex-end', padding: 20, marginBottom: 30}}>
-                        <View style={{marginTop:10}}>
-                            {/* <Text style={{fontSize:14,color:'red',marginTop:10}}>{item.mini_video_title}</Text> */}
-                            <TouchableOpacity row style={{backgroundColor:'#4d4d4d',borderRadius:17,padding:10,alignItems:'center',width:270}}>
-                                <Text style={{fontSize:14,color:'#fff',marginLeft:10}}>为什么这个不在视觉框里面为什么这个不在视觉框里面为什么这个不在视觉框里</Text>
-                            </TouchableOpacity>
+                    <View column style={{position:'absolute', left: 0, top: 0, marginTop: (windowHeight - 51.1) / 2, height: (windowHeight - 51.1) / 2, width: '100%', justifyContent:'flex-end', padding: 20, paddingBottom: 30}}>
+                        <View style={{marginTop:10, flexDirection: 'row'}}>
+                            <View style={{ flex: 10, flexDirection: 'column', justifyContent: 'flex-end', marginRight: 35 }}>
+                                {/* <Text style={{fontSize:14,color:'red',marginTop:10}}>{item.mini_video_title}</Text> */}
+                                <TouchableOpacity row style={{background: 'rgba(255, 255, 255, 0.16)', borderRadius:17 }}>
+                                    <Text style={{fontSize:14,color:'#fff'}}>{item.mini_video_title}</Text>
+                                </TouchableOpacity>
+                            </View>
+                            <View style={{ flex: 1, flexDirection: 'column', justifyContent:'flex-end', alignItems:'center' }}>
+                                <TouchableOpacity column right style={styles.bottomRightBn} >
+                                    <Wechat width={40} height={40} style={{ color: 'white' }} />
+                                    <Text style={styles.bottomRightText}>微信</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity column cerightnter style={styles.bottomRightBn}>
+                                    <PYQ width={40} height={40} style={{ color: 'white' }} />
+                                    <Text style={styles.bottomRightText}>朋友圈</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity column right style={styles.bottomRightBn}>
+                                    <Weibo width={40} height={40} style={{ color: 'white' }} />
+                                    <Text style={styles.bottomRightText}>微博</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity column right style={styles.bottomRightBn}>
+                                    <QQ width={40} height={40} style={{ color: 'white' }} />
+                                    <Text style={styles.bottomRightText}>QQ</Text>
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     </View>
-                </View>
-                <View style={{height: 1, width: '100%', backgroundColor: 'red'}}>
-
+                    {/* <View column style={{position:'absolute', marginTop: (windowHeight - 50.1) / 2, height: (windowHeight - 50.1) / 2, width: '100%', justifyContent:'flex-end', padding: 20, marginBottom: 30}}>
+                        <View style={{marginTop:10, flexDirection: 'row'}}>
+                            <View>
+                                <TouchableOpacity row style={{background: 'rgba(255, 255, 255, 0.16)',borderRadius:17,padding:10,alignItems:'center',width:270}}>
+                                    <Text style={{fontSize:14,color:'#fff',marginLeft:10}}>{item.mini_video_title}</Text>
+                                </TouchableOpacity>
+                            </View>
+                            <View>
+                                <Text>K</Text>
+                            </View>
+                        </View>
+                    </View>
+                    <View column style={{position:'absolute', width: '100%', marginTop: (windowHeight - 50.1) / 2, height: (windowHeight - 50.1) / 2,justifyContent:'flex-end',alignItems:'flex-end' }}>
+                        <TouchableOpacity column center style={styles.bottomRightBn} >
+                            <Wechat width={24} height={24} style={{ color: 'white' }} />
+                            <Text style={styles.bottomRightText}>我拍</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity column center style={styles.bottomRightBn}>
+                            <PYQ width={24} height={24} style={{ color: 'white' }} />
+                            <Text style={styles.bottomRightText}>2.1万</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity column center style={styles.bottomRightBn}>
+                            <Weibo width={24} height={24} style={{ color: 'white' }} />
+                            <Text style={styles.bottomRightText}>300</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity column center style={[styles.bottomRightBn,{marginBottom:50}]}>
+                            <QQ width={24} height={24} style={{ color: 'white' }} />
+                            <Text style={styles.bottomRightText}>分享</Text>
+                        </TouchableOpacity>
+                    </View> */}
                 </View>
             </View>
         )
@@ -129,6 +181,10 @@ export default ({ navigation } : BottomTabScreenProps<any>) => {
 
     return (
         <SafeAreaView>
+            <View style={{ position: 'absolute', top: 0, left: 0, padding: 20, zIndex: 10, width: '100%', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+                <Text style={{ color: '#FFF', fontSize: 20 }}>随心看</Text>
+                <Search width={30} height={30} style={{ color: 'white' }} />
+            </View>
             {videos.length != 0 &&
                 <FlatList
                     data={videos}
@@ -154,12 +210,21 @@ const styles = StyleSheet.create({
     video: {
         height: '100%',
         width: '100%',
-        backgroundColor: '#FFF',
-        border: '1px solid red'
+        backgroundColor: '#000',
+        // border: '1px solid red'
     },
     bottomRightText:{
         fontSize: 14,
-        color: 'red',
-        marginTop: 5,
-    }
+        color: '#FFFFFF',
+        marginTop: 5
+    },
+    bottomRightBn:{
+        width: 50,
+        height: 50,
+        marginTop: 20,
+        marginLeft: 20,
+        marginRight: 35,
+        alignItems: 'center',
+        textAlign: 'center'
+    },
 })
