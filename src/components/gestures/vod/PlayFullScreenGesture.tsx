@@ -46,7 +46,7 @@ export default ({ onScreenTouched, disableFullScreenGesture }: Props) => {
         clearTimeout(sliderTimeout.current);
         sliderTimeout.current = setTimeout(() => {
             setShowSlider(false);
-        }, 3000);
+        }, 1000);
     }
 
     const handleScreenTouch = () => {

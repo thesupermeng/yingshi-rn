@@ -8,7 +8,11 @@
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest",
-    "android-dev": "./adb reverse tcp:8081 tcp:8081 && react-native run-android"
+    "android-dev": "./adb reverse tcp:8081 tcp:8081 && react-native run-android",
+    "android-apk-debug": "mkdir -p android/app/src/main/assets/ && react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res && cd android && ./gradlew assembleDebug && cd ..",
+    "android-apk-release": "cd android && ./gradlew assembleRelease",
+    "ios-ipa-debug": "",
+    "ios-ipa-release": ""
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.18.2",

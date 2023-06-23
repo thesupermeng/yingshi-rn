@@ -14,10 +14,11 @@ type Props = {
     onSlideStart: (params: any) => any,
     onSlideComplete: (params: any) => any,
     onToggleFullScreen: () => any,
+    onToggleEpisodes: () => any,
     isFullScreen: boolean
 }
 
-export default ({ currentTime, duration, onSlideCapture, onSlideStart, onSlideComplete, onToggleFullScreen, isFullScreen }: Props) => {
+export default ({ currentTime, duration, onSlideCapture, onSlideStart, onSlideComplete, onToggleFullScreen, onToggleEpisodes, isFullScreen }: Props) => {
 
     useEffect(() => {
     }, [])
@@ -37,6 +38,10 @@ export default ({ currentTime, duration, onSlideCapture, onSlideStart, onSlideCo
 
     const onPressFullScreenBtn = () => {
         onToggleFullScreen();
+    }
+
+    const handleShowEpisodes = () => {
+        onToggleEpisodes();
     }
 
     const position = getMinutesFromSeconds(currentTime);
@@ -95,13 +100,13 @@ export default ({ currentTime, duration, onSlideCapture, onSlideStart, onSlideCo
                             </TouchableWithoutFeedback>
                         </View>
                         <View style={styles.buttonsSubContainer}>
-                            <TouchableWithoutFeedback style={styles.containerItem} onPress={onPressFullScreenBtn}>
+                            <TouchableWithoutFeedback style={styles.containerItem} onPress={handleShowEpisodes}>
                                 <Text>1.25x</Text>
                             </TouchableWithoutFeedback>
-                            <TouchableWithoutFeedback style={styles.containerItem} onPress={onPressFullScreenBtn}>
+                            <TouchableWithoutFeedback style={styles.containerItem} onPress={handleShowEpisodes}>
                                 <NextEpisode width={30} height={30} />
                             </TouchableWithoutFeedback>
-                            <TouchableWithoutFeedback style={styles.containerItem} onPress={onPressFullScreenBtn}>
+                            <TouchableWithoutFeedback style={styles.containerItem} onPress={handleShowEpisodes}>
                                 <Episodes width={30} height={30} />
                             </TouchableWithoutFeedback>
                             <TouchableWithoutFeedback style={styles.containerItem} onPress={onPressFullScreenBtn}>
