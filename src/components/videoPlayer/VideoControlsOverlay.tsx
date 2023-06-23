@@ -41,6 +41,10 @@ export default ({ currentTime, duration, onVideoSeek, onFastForward, onTogglePla
         onHandleFullScreen();
     }
 
+    const handleToggleEpisodes = () => {
+
+    }
+
     return (
         <View style={!isFullScreen ? styles.controlsOverlay : [styles.controlsOverlay, { height: height }]}>
             {/* Top Controls */}
@@ -59,6 +63,7 @@ export default ({ currentTime, duration, onVideoSeek, onFastForward, onTogglePla
                 onSlideComplete={handlePlayPause}
                 onSlideCapture={onSeek}
                 onToggleFullScreen={handleFullScreen}
+                onToggleEpisodes={handleToggleEpisodes}
                 isFullScreen={isFullScreen} />
         </View>
     )

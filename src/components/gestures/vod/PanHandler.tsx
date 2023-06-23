@@ -10,6 +10,7 @@ export default ({ step, onTouch, onChange }: Props) => {
 
     const [startY, setStartY] = useState(0);
     const [endY, setEndY] = useState(0);
+    const [prevY, setPrevY] = useState(0);
 
     useEffect(() => {
         if (Math.abs(endY - startY) < step) {
@@ -31,20 +32,24 @@ export default ({ step, onTouch, onChange }: Props) => {
         onPanResponderGrant: (_evt: any, _gestureState: any) => {
             console.log('GRANT');
             // console.log(_gestureState);
-            onTouch;
+            // onTouch;
             setStartY(_gestureState.y0);
         },
         onPanResponderMove: (_evt: any, _gestureState: any) => {
             let newY = _gestureState.moveY;
             setEndY(newY);
+            setPrevY(newY);
         },
         onPanResponderRelease: (_evt: any, _gestureState: any) => {
             console.log('Leave');
 
-            let newY = endY;
             let oldY = startY;
+            let newY = endY;
+            console.log('ADASDADADA');
+            console.log(newY, prevY);
             console.log(Math.abs(newY - oldY));
-            if(Math.abs(newY - oldY) == 0){
+            if(Math.abs(newY - oldY) == 0 || prevY == newY){
+                console.log('000000');
                 onTouch();
             }
             // Check if startY and endY same
