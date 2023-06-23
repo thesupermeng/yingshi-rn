@@ -11,16 +11,17 @@ import { useQuery } from '@tanstack/react-query';
 import { VodCarousellResponseType, VodType } from '../types/ajaxTypes';
 import FastImage from 'react-native-fast-image'
 import { VodReducerState } from '../redux/reducers/vodReducer';
-import { useAppSelector } from '../hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../hooks/hooks';
 import { RootState } from '../redux/store';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import VodHistoryList from '../components/vod/vodHistoryList';
 import { API_DOMAIN } from '../constants';
+import VodListVertical from '../components/vod/vodListVertical';
 
 interface NavType {
   item: {
     id: number,
-    name: string
+    name: string,
   }
 }
 
@@ -29,7 +30,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
   const [navId, setNavId] = useState(0);
   const vodReducer: VodReducerState = useAppSelector(({ vodReducer }: RootState) => vodReducer);
   const history = vodReducer.history;
-
+  const BTN_COLORS = ['#30AA55', '#7E9CEE', '#F1377A', '#FFCC12', '#ED7445',];
   const { data } = useQuery({
     queryKey: ["HomePage", navId],
     queryFn: () =>
@@ -39,7 +40,6 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
           return json.data
         })
   });
-
   const { data: navOptions } = useQuery({
     queryKey: ["HomePageNavOptions"],
     queryFn: () =>
@@ -62,7 +62,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
             <Text style={{
               textAlign: 'center',
               fontSize: navId === item.id ? textVariants.bigHeader.fontSize : textVariants.header.fontSize,
-              color: navId === item.id ? colors.primary : colors.muted
+              color: navId === item.id ? colors.primary : colors.muted,
             }}>{item.name}</Text>
           </TouchableOpacity>
         }}
@@ -93,6 +93,23 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
           </Swiper>
         </View>
       }
+      <FlatList
+        data={data && data.class_list && data.class_list.length > 0 ? ['全部剧集', ...data.class_list] : []}
+        horizontal
+        contentContainerStyle={styles.nav}
+        renderItem={({ item, index }: { item: string, index: number }) => {
+          return <TouchableOpacity style={{
+            marginRight: spacing.m, justifyContent: 'center', display: 'flex', backgroundColor: BTN_COLORS[index % BTN_COLORS.length],
+            padding: spacing.xs,
+            borderRadius: spacing.xs,
+          }} onPress={() => navigation.navigate('片库', { type_id: navId, class: item })}>
+            <Text style={{
+              textAlign: 'center',
+              ...textVariants.body,
+            }}>{item}</Text>
+          </TouchableOpacity>
+        }}
+      />
       {
         history &&
         <View>
@@ -102,16 +119,18 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
           <VodHistoryList vodStyle={styles.vod_hotlist} vodList={history.slice(0, 10)} showInfo='watch_progress' />
         </View>
       }
-      {
-        data?.categories.map((lst, idx) => (
-          <View key={`${lst.type_name}-${idx}`}>
-            <ShowMoreVodButton text={lst.type_name} onPress={() => {
-              navigation.navigate('片库', {type_id:  lst.type_id});
-            }} />
-            <VodList vodList={lst.vod_list.slice(0, 10)} />
-          </View>
-        ))
-      }
+      <View gap={spacing.l}>
+        {
+          data?.categories.map((lst, idx) => (
+            <View key={`${lst.type_name}-${idx}`}>
+              <ShowMoreVodButton text={lst.type_name} onPress={() => {
+                navigation.navigate('片库', { type_id: lst.type_id });
+              }} />
+              <VodListVertical vods={lst.vod_list.slice(0, 6)} />
+            </View>
+          ))
+        }
+      </View>
     </ScreenContainer>
   )
 }
@@ -150,6 +169,12 @@ const styles = StyleSheet.create({
   nav: {
     flexGrow: 1,
     justifyContent: 'center',
-    marginBottom: 10
+    marginBottom: 10,
+    marginTop: 10
+  },
+  vodList: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap'
   }
 })

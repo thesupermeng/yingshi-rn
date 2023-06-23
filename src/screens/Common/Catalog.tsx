@@ -44,13 +44,13 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
         initialData: []
     });
     const [currentTopicId, setCurrentTopicId] = useState(route.params.type_id === undefined ? 1 : route.params.type_id);
-    const [topicClass, setTopicClass] = useState('全部类型');
-    const [area, setArea] = useState('全部地区');
-    const [lang, setLang] = useState('全部语言');
-    const [year, setYear] = useState('全部时间');
+    const [topicClass, setTopicClass] = useState(route.params.class === undefined || route.params.class.startsWith('全部') ? '全部类型' : route.params.class);
+    const [area, setArea] = useState(route.params.area === undefined || route.params.area.startsWith('全部') ? '全部地区' : route.params.area);
+    const [lang, setLang] = useState(route.params.lang === undefined || route.params.lang.startsWith('全部') ? '全部语言' : route.params.lang);
+    const [year, setYear] = useState(route.params.year === undefined || route.params.year.startsWith('全部') ? '全部时间' : route.params.year);
 
-    const windowDim = useMemo(() => (Dimensions.get('window').width - insets.left - insets.right), [insets]);
-    const paddingPerCard = 10;
+    const windowDim = useMemo(() => (Dimensions.get('window').width - insets.left - insets.right), []);
+    const paddingPerCard = 14;
     const minWidth = useMemo(() => (windowDim / 3) - paddingPerCard, [windowDim, paddingPerCard]);
     const cardWidth = useMemo(() => Math.min(150, Math.floor(minWidth)), [minWidth]);
     const cardHeight = useMemo(() => 1.6 * cardWidth, [cardWidth]);
@@ -220,7 +220,7 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
             {
                 vods && <AnimatFlatList
                     data={results}
-                    // onScroll={scrollHandler}
+                    onScroll={scrollHandler}
                     keyExtractor={(item: SuggestedVodType, index) => {
                         return `#-${item?.vod_id}-${index}`
                     }}

@@ -227,6 +227,7 @@ type VodData = {
 
 export interface VodCarousellResponseType {
     data: {
+        class_list: Array<string>,
         yunying: Array<VodData>
         categories: Array<VodData>
     }

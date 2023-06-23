@@ -38,13 +38,12 @@ export default function VodEpisodeSelectionModal({ onConfirm, onCancel, isVisibl
             return (prev.name.length > current.name.length) ? prev : current
         }).name.length * textVariants.header.fontSize * 0.9;
         maxTitleLength += (2 * spacing.s) // Padding
-        console.log('MAX TITLE LENGTH', maxTitleLength)
         return maxTitleLength
     }, [episodes]);
 
     const NUM_PER_ROW = useMemo(() => Math.max(Math.floor(windowDim / (BTN_SELECT_WIDTH + 10)), 1), [windowDim, BTN_SELECT_WIDTH]);
     const BTN_MARGIN_RIGHT = useMemo(() => {
-        return (windowDim - (NUM_PER_ROW * BTN_SELECT_WIDTH) - 20) / NUM_PER_ROW
+        return (windowDim - (NUM_PER_ROW * BTN_SELECT_WIDTH) - 20) / (NUM_PER_ROW - 1)
     }, [NUM_PER_ROW, BTN_SELECT_WIDTH, windowDim])
 
     // const [displayEpisodes, setDisplayEpisodes] 
@@ -60,7 +59,8 @@ export default function VodEpisodeSelectionModal({ onConfirm, onCancel, isVisibl
                     <FlatList
                         horizontal
                         data={ranges}
-                        initialScrollIndex={currentIndex}
+                        // initialScrollIndex={1}
+                        inverted
                         renderItem={({ item, index }: { item: string, index: number }) => {
                             return <TouchableOpacity style={styles.btn} onPress={() => setCurrentIndex(index)}>
                                 <Text style={{ textAlign: 'center', ...textVariants.header, color: index === currentIndex ? colors.text : colors.muted }}>
@@ -78,7 +78,7 @@ export default function VodEpisodeSelectionModal({ onConfirm, onCancel, isVisibl
                                 padding: spacing.s,
                                 width: BTN_SELECT_WIDTH,
                                 marginBottom: spacing.s,
-                                marginRight: BTN_MARGIN_RIGHT,
+                                marginRight: (idx % NUM_PER_ROW) === NUM_PER_ROW - 1 ? 0 : BTN_MARGIN_RIGHT,
                                 borderRadius: 8
                             }} onPress={() => {
                                 onConfirm(ep.nid);
