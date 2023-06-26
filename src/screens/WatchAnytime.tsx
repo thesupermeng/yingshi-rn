@@ -37,7 +37,7 @@ export default ({ navigation } : BottomTabScreenProps<any>) => {
     const [page, setPage] = useState(1)
 
     const [videos, setVideos] = useState<MiniVideo[]>([]);
-    const miniVideos = useQuery({
+    const getMiniVideos = useQuery({
         queryKey: ["WatchAnytime"],
         queryFn: async () => {
             console.log('=======*&*&(^(&^^(^*^&(%%(%)_++@)#(!+(#+(!+#(+!(+#+')
@@ -63,10 +63,11 @@ export default ({ navigation } : BottomTabScreenProps<any>) => {
     });
     useEffect(() => {
         console.log("IOOOOOOOOOOOOOOOOOOOOOOOO")
-        miniVideos;
+        getMiniVideos;
 
         return () => {
-            miniVideos.remove();
+            console.log('aa');
+            getMiniVideos.remove();
         };
     }, [])
 
@@ -99,6 +100,7 @@ export default ({ navigation } : BottomTabScreenProps<any>) => {
     const renderFlatListItem = useCallback(({item, index}: { item: MiniVideo; index: number }) => {
         const isCurrentVideo = index === current;
         console.log(item.mini_video_origin_video_url);
+        console.log('AAAAAJJJ');
         return (
             // Note : Will change to windowHeight - "NavBarHeight" instead
             <View style={{flex: 1}}>
@@ -113,6 +115,7 @@ export default ({ navigation } : BottomTabScreenProps<any>) => {
                             // source={{ uri: "https://m3u.haiwaikan.com/xm3u8/407446996534684cddf4218fc0510c8447c8adbd35097c06b906388343423d949921f11e97d0da21.m3u8" }}
                             repeat={true} 
                             style={styles.video}
+                            muted={true}
                             paused={!isCurrentVideo || isPaused} 
                             preload={isCurrentVideo ? 'auto' : 'metadata'} />
                     </TouchableWithoutFeedback>
