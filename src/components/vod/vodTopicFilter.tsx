@@ -3,17 +3,22 @@ import { View, TouchableOpacity, Text, StyleSheet, SafeAreaView, FlatList, Image
 import { useTheme } from '@react-navigation/native';
 
 interface FlatListType {
-    item: string
+    item: Option
 }
+
+interface Option {
+    text: string
+    value: any
+}
+
 interface Props {
-    init: string
+    init: Option
     callback?: any,
-    options?: Array<string>
+    options?: Array<Option>
 }
 
 export default ({ init, callback, options = [] }: Props) => {
     const { textVariants, colors, spacing } = useTheme();
-
     return (
         <View style={{marginTop: spacing.m}}>
             <FlatList
@@ -24,8 +29,8 @@ export default ({ init, callback, options = [] }: Props) => {
                         <Text style={{
                             textAlign: 'center',
                             fontSize: textVariants.header.fontSize,
-                            color: init === item ? colors.primary : colors.muted
-                        }}>{item}</Text>
+                            color: init.value === item.value ? colors.primary : colors.muted
+                        }}>{item.text}</Text>
                     </TouchableOpacity>
                 }}
             />

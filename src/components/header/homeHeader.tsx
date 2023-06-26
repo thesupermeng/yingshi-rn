@@ -16,11 +16,11 @@ export default function MainHeader({ logo, navigator, headerStyle }: Props) {
             {
                 logo
                     ? logo
-                    : <Logo />
+                    : <Logo width={120}/>
             }
             <SearchBar onPress={() => navigator.navigate('搜索')} />
             <TouchableOpacity style={styles.historyBtn} onPress={() => navigator.navigate('播放历史')}>
-                <History height={35} width={35} color={icons.iconColor} />
+                <History height={28} width={28} color={icons.iconColor} />
             </TouchableOpacity>
         </View>
     );

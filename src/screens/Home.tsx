@@ -51,27 +51,31 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
   });
 
   return (
-    <ScreenContainer scrollView={true}>
-      <HomeHeader navigator={navigation} />
-      <FlatList
-        data={navOptions}
-        horizontal
-        contentContainerStyle={styles.nav}
-        renderItem={({ item }: NavType) => {
-          return <TouchableOpacity style={{ marginRight: spacing.m, justifyContent: 'center', display: 'flex' }} onPress={() => setNavId(item.id)}>
-            <Text style={{
-              textAlign: 'center',
-              fontSize: navId === item.id ? textVariants.bigHeader.fontSize : textVariants.header.fontSize,
-              color: navId === item.id ? colors.primary : colors.muted,
-            }}>{item.name}</Text>
-          </TouchableOpacity>
-        }}
-      />
+    <ScreenContainer scrollView={true} header={
+      <View style={{backgroundColor: colors.background, paddingLeft: 10, paddingRight: 10}}>
+        <HomeHeader navigator={navigation} />
+        <FlatList
+          data={navOptions}
+          horizontal
+          contentContainerStyle={styles.nav}
+          renderItem={({ item }: NavType) => {
+            return <TouchableOpacity style={{ marginRight: spacing.m, justifyContent: 'center', display: 'flex' }} onPress={() => setNavId(item.id)}>
+              <Text style={{
+                textAlign: 'center',
+                fontSize: navId === item.id ? textVariants.selected.fontSize : textVariants.unselected.fontSize,
+                fontWeight: navId === item.id ? textVariants.selected.fontWeight : textVariants.unselected.fontWeight,
+                color: navId === item.id ? colors.primary : colors.muted,
+              }}>{item.name}</Text>
+            </TouchableOpacity>
+          }}
+        />
+      </View>
+    }>
       {
         data?.categories[0] && <View style={{ height: 200 }}>
           <Swiper style={styles.wrapper}
             autoplay
-            dotColor={colors.muted}
+            dotColor={colors.sliderDot}
             activeDotColor={colors.text}
             dotStyle={styles.dotStyle}
             paginationStyle={styles.paginationStyle}
@@ -111,22 +115,22 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
         }}
       />
       {
-        history &&
-        <View>
+        history && history.length > 0 &&
+        <View gap={spacing.m}>
           <ShowMoreVodButton text='继续看' onPress={() => {
             navigation.navigate('播放历史');
           }} />
           <VodHistoryList vodStyle={styles.vod_hotlist} vodList={history.slice(0, 10)} showInfo='watch_progress' />
         </View>
       }
-      <View gap={spacing.l}>
+      <View gap={spacing.m}>
         {
           data?.categories.map((lst, idx) => (
-            <View key={`${lst.type_name}-${idx}`}>
+            <View key={`${lst.type_name}-${idx}`} gap={spacing.m}>
               <ShowMoreVodButton text={lst.type_name} onPress={() => {
                 navigation.navigate('片库', { type_id: lst.type_id });
               }} />
-              <VodListVertical vods={lst.vod_list.slice(0, 6)} />
+              <VodListVertical vods={lst.vod_list.slice(0, 6)} outerRowPadding={40}/>
             </View>
           ))
         }
@@ -151,26 +155,25 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   dotStyle: {
-    width: 12,
-    height: 7
+    width: 6,
+    height: 4
   },
   activeDotStyle: {
-    width: 25,
-    height: 7
+    width: 14,
+    height: 4
   },
   paginationStyle: {
     top: 180,
     height: 20
   },
   vod_hotlist: {
-    height: 150,
-    width: 250
+    height: 99,
+    width: 176
   },
   nav: {
     flexGrow: 1,
     justifyContent: 'center',
     marginBottom: 10,
-    marginTop: 10
   },
   vodList: {
     display: 'flex',

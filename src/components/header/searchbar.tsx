@@ -16,7 +16,7 @@ export default function HomeSearchBar({ defaultValue = '子弹列车', onPress =
                 platform="default"
                 containerStyle={styles.containerStyle}
                 inputContainerStyle={{ color:colors.text, backgroundColor: colors.search, ...styles.inputContainerStyle }}
-                inputStyle={{...textVariants.body}}
+                inputStyle={{...textVariants.small}}
                 placeholder="输入搜索关键词"
                 placeholderTextColor={colors.text}
                 round
@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
     inputContainerStyle: {
         borderRadius: 20,
         pointerEvents: 'none',
-        height: 35
+        height: 32,
+        opacity: 0.6
     }
 });

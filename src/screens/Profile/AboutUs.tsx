@@ -26,7 +26,7 @@ export default ({ navigation }: RootStackScreenProps<'关于我们'>) => {
                 <View style={styles.logo}>
                     <Logo2 height={icons.sizes.xxl} width={icons.sizes.xxl} />
                 </View>
-                <Text style={{ textAlign: 'center', ...textVariants.body }}>V1.0.01</Text>
+                <Text style={{ textAlign: 'center', ...textVariants.body }}>V1.0.0.1</Text>
                 <NotificationModal onConfirm={toggleOverlay} isVisible={isDialogOpen} />
                 <View>
                     <ShowMoreButton text='隐私政策' onPress={() => navigation.navigate('用户协议')} />

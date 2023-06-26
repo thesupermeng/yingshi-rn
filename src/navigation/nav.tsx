@@ -54,6 +54,12 @@ export default () => {
         return (
             <HomeTab.Navigator screenOptions={({ route }) => ({
                 headerShown: false,
+                // // tabBarStyle: {paddingBottom: 10, paddingTop: 10},
+                // tabStyle: {
+                //     // height: 20,
+                //     // padding: 10,
+                //     paddingVertical: 
+                //   },
                 tabBarIcon: ({ focused, color, size }) => {
                     let icon: React.ReactNode;
                     if (route.name === '首页') {
@@ -91,7 +97,7 @@ export default () => {
 
     function PlaylistTabScreen() {
         return (
-            <PlaylistTab.Navigator screenOptions={{ headerShown: false }}>
+            <PlaylistTab.Navigator screenOptions={{ headerShown: false, tabBarStyle: {paddingBottom: 10} }}>
                 <PlaylistTab.Screen name="首页" component={HomeScreen} />
                 <PlaylistTab.Screen name="随心看" component={WatchAnytime} />
                 <PlaylistTab.Screen name="播单" component={PlaylistScreen} />
@@ -114,7 +120,6 @@ export default () => {
     return (
         <SafeAreaProvider>
             <NavigationContainer theme={theme} onReady={() => RNBootSplash.hide()}>
-
                 <Stack.Navigator screenOptions={({ route }) => ({
                     headerShown: false,
                 })} >
