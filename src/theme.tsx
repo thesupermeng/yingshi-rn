@@ -18,7 +18,8 @@ export type ExtendedTheme = {
     button: string,
     playlistFavorite: string,
     loading: string,
-    highlight: string
+    highlight: string,
+    selected: string
   },
   textVariants: {
     bigHeader: {
@@ -51,6 +52,12 @@ export type ExtendedTheme = {
       fontWeight: string,
       color: string,
     },
+    subBody: {
+      fontFamily: string,
+      fontSize: number,
+      fontWeight: string,
+      color: string,
+    },
     small: {
       fontFamily: string,
       fontSize: number,
@@ -70,7 +77,8 @@ export type ExtendedTheme = {
     s: number,
     m: number,
     l: number,
-    xl: number
+    xl: number,
+    sideOffset: number
   },
   icons: {
     activeNavIconColor: string,
@@ -108,6 +116,7 @@ const palette = {
   light_grey2: 'rgba(201, 201, 201, 0.1)',
   dark_grey: '#303030',
   yello_translucent: 'rgba(250, 195, 61, 0.12)',
+  dark2: '#1D2023'
 }
 
 export const YingshiDarkTheme: ExtendedTheme = {
@@ -130,6 +139,7 @@ export const YingshiDarkTheme: ExtendedTheme = {
     playlistFavorite: palette.dark_grey,
     loading: palette.grey,
     highlight: palette.yello_translucent,
+    selected: palette.dark2
   },
   textVariants: {
     bigHeader: {
@@ -174,6 +184,12 @@ export const YingshiDarkTheme: ExtendedTheme = {
       fontWeight: '400',
       color: palette.white,
     },
+    subBody: {
+      fontFamily: 'PingFang SC',
+      fontSize: 14,
+      fontWeight: '400',
+      color: palette.white,
+    },
   },
   spacing: {
     xxs: 4,
@@ -182,6 +198,7 @@ export const YingshiDarkTheme: ExtendedTheme = {
     m: 16,
     l: 24,
     xl: 32,
+    sideOffset: 16
   },
   icons: {
     activeNavIconColor: palette.yellow,
@@ -217,6 +234,7 @@ export const YingshiLightTheme: ExtendedTheme = {
     playlistFavorite: palette.dark_grey,
     loading: palette.grey,
     highlight: palette.yello_translucent,
+    selected: palette.dark2
   },
   textVariants: {
     bigHeader: {
@@ -240,6 +258,12 @@ export const YingshiLightTheme: ExtendedTheme = {
     body: {
       fontFamily: 'PingFang SC',
       fontSize: 16,
+      fontWeight: '400',
+      color: palette.dark,
+    },
+    subBody: {
+      fontFamily: 'PingFang SC',
+      fontSize: 14,
       fontWeight: '400',
       color: palette.dark,
     },
@@ -269,6 +293,7 @@ export const YingshiLightTheme: ExtendedTheme = {
     m: 16,
     l: 24,
     xl: 32,
+    sideOffset: 16
   },
   icons: {
     activeNavIconColor: palette.yellow,

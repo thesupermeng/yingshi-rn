@@ -52,7 +52,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
 
   return (
     <ScreenContainer scrollView={true} header={
-      <View style={{backgroundColor: colors.background, paddingLeft: 10, paddingRight: 10}}>
+      <View style={{ backgroundColor: colors.background, paddingLeft: spacing.sideOffset, paddingRight: spacing.sideOffset}}>
         <HomeHeader navigator={navigation} />
         <FlatList
           data={navOptions}
@@ -97,25 +97,36 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
           </Swiper>
         </View>
       }
-      <FlatList
-        data={data && data.class_list && data.class_list.length > 0 ? ['全部剧集', ...data.class_list] : []}
-        horizontal
-        contentContainerStyle={styles.nav}
-        renderItem={({ item, index }: { item: string, index: number }) => {
-          return <TouchableOpacity style={{
-            marginRight: spacing.m, justifyContent: 'center', display: 'flex', backgroundColor: BTN_COLORS[index % BTN_COLORS.length],
-            padding: spacing.xs,
-            borderRadius: spacing.xs,
-          }} onPress={() => navigation.navigate('片库', { type_id: navId, class: item })}>
-            <Text style={{
-              textAlign: 'center',
-              ...textVariants.body,
-            }}>{item}</Text>
-          </TouchableOpacity>
-        }}
-      />
       {
-        history && history.length > 0 &&
+        data && data.class_list && data.class_list.length > 0 &&
+        <FlatList
+          data={['全部剧集', ...data.class_list]}
+          horizontal
+          contentContainerStyle={{ ...styles.catalogNav, marginBottom: spacing.m, }}
+          renderItem={({ item, index }: { item: string, index: number }) => {
+            return <TouchableOpacity style={{
+              marginRight: spacing.m, justifyContent: 'center',
+              display: 'flex',
+              backgroundColor: BTN_COLORS[index % BTN_COLORS.length],
+              paddingLeft: spacing.s,
+              paddingRight: spacing.s,
+              paddingTop: spacing.s - 4,
+              paddingBottom: spacing.s - 1,
+              borderRadius: spacing.xs,
+              opacity: 0.9
+            }} onPress={() => navigation.navigate('片库', { type_id: navId, class: item })}>
+              <Text style={{
+                textAlign: 'center',
+                ...textVariants.body,
+                fontWeight: '700',
+                opacity: 0.9
+              }}>{item}</Text>
+            </TouchableOpacity>
+          }}
+        />
+      }
+      {
+        data && !data.class_list && history && history.length > 0 &&
         <View gap={spacing.m}>
           <ShowMoreVodButton text='继续看' onPress={() => {
             navigation.navigate('播放历史');
@@ -130,7 +141,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
               <ShowMoreVodButton text={lst.type_name} onPress={() => {
                 navigation.navigate('片库', { type_id: lst.type_id });
               }} />
-              <VodListVertical vods={lst.vod_list.slice(0, 6)} outerRowPadding={40}/>
+              <VodListVertical vods={lst.vod_list.slice(0, 6)} outerRowPadding={40} />
             </View>
           ))
         }
@@ -163,7 +174,7 @@ const styles = StyleSheet.create({
     height: 4
   },
   paginationStyle: {
-    top: 180,
+    top: 173,
     height: 20
   },
   vod_hotlist: {
@@ -174,6 +185,11 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: 'center',
     marginBottom: 10,
+  },
+  catalogNav: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    marginTop: 5
   },
   vodList: {
     display: 'flex',

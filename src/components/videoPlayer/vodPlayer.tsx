@@ -19,7 +19,7 @@ interface Props {
 const height = Dimensions.get('window').width;
 const width = Dimensions.get('window').height;
 
-export default ({ vod_url, currentTimeRef, initialStartTime=0 }: Props) => {
+export default ({ vod_url, currentTimeRef, initialStartTime = 0 }: Props) => {
 
     const videoPlayerRef = React.createRef<any>();
     const { colors, spacing, textVariants, icons } = useTheme();
@@ -96,13 +96,17 @@ export default ({ vod_url, currentTimeRef, initialStartTime=0 }: Props) => {
         if (currentTimeRef) {
             currentTimeRef.current = data.currentTime;
         }
-        videoPlayerRef.current.seek(initialStartTime);
+        if (videoPlayerRef.current !== null) {
+            videoPlayerRef.current.seek(initialStartTime);
+        }
     }
 
     const onSeek = (time: number) => {
         console.log("SEEK : " + time);
         setCurrentTime(time);
-        videoPlayerRef.current.seek(time);
+        if (videoPlayerRef.current !== null) {
+            videoPlayerRef.current.seek(time);
+        }
         if (currentTimeRef) {
             currentTimeRef.current = time;
         }
@@ -110,14 +114,16 @@ export default ({ vod_url, currentTimeRef, initialStartTime=0 }: Props) => {
 
     const onVideoProgessing = useMemo(() => throttle((data: any) => {
         setCurrentTime(data.currentTime)
-        if (currentTimeRef) {
+        if (currentTimeRef.current) {
             currentTimeRef.current = data.currentTime;
         }
     }, 500), [])
 
     const onSkip = (time: any) => {
         console.log('SKIPPPING')
-        videoPlayerRef.current.seek(currentTime + time);
+        if (videoPlayerRef) {
+            videoPlayerRef.current.seek(currentTime + time);
+        }
         setCurrentTime(currentTime + time);
         if (currentTimeRef) {
             currentTimeRef.current = currentTime + time;

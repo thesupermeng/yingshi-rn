@@ -9,6 +9,8 @@ import {
 } from '@tanstack/react-query'
 import { API_DOMAIN } from './src/constants';
 import { FilterOptionsResponseType, SuggestResponseType, VodCarousellResponseType, VodPlaylistResponseType, } from './src/types/ajaxTypes';
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export default function App() {
   const queryClient = new QueryClient();
@@ -63,12 +65,16 @@ export default function App() {
           return Object.values(json.list)
         })
   });
-  
+
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <QueryClientProvider client={queryClient}>
-          <Nav />
+          <GestureHandlerRootView style={{ flex: 1 }}>
+            <BottomSheetModalProvider>
+              <Nav />
+            </BottomSheetModalProvider>
+          </GestureHandlerRootView>
         </QueryClientProvider>
       </PersistGate>
     </Provider>

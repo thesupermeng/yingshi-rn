@@ -1,14 +1,16 @@
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useTheme } from '@react-navigation/native';
 interface Props {
     children?: React.ReactNode,
     scrollView?: boolean,
     footer?: React.ReactNode,
-    style?: typeof StyleSheet,
+    containerStyle?: typeof StyleSheet,
     header?: React.ReactNode,
 }
-export default function ScreenContainer({ children, scrollView = false, footer, style, header }: Props) {
+export default function ScreenContainer({ children, scrollView = false, footer, containerStyle, header }: Props) {
     const insets = useSafeAreaInsets();
+    const { spacing } = useTheme();
     return (
         <>
             {
@@ -25,7 +27,12 @@ export default function ScreenContainer({ children, scrollView = false, footer, 
                         <>
                             {header}
                         </>
-                        <View style={{ ...styles.innerContainer, ...style }}>
+                        <View style={{
+                            ...styles.innerContainer,
+                            paddingLeft: spacing.sideOffset,
+                            paddingRight: spacing.sideOffset,
+                            ...containerStyle
+                        }}>
                             {children}
                         </View>
                         {footer}
@@ -37,7 +44,12 @@ export default function ScreenContainer({ children, scrollView = false, footer, 
                         paddingLeft: insets.left,
                         paddingRight: insets.right,
                     }}>
-                        <View style={{ ...styles.innerContainer, ...style }}>
+                        <View style={{
+                            ...styles.innerContainer,
+                            paddingLeft: spacing.sideOffset,
+                            paddingRight: spacing.sideOffset,
+                            ...containerStyle
+                        }}>
                             {children}
                         </View>
                         {footer}
@@ -54,7 +66,5 @@ const styles = StyleSheet.create({
     },
     innerContainer: {
         flex: 1,
-        paddingLeft: 20,
-        paddingRight: 20,
     }
 });

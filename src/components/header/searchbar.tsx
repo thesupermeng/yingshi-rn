@@ -36,7 +36,6 @@ const styles = StyleSheet.create({
         alignSelf: 'stretch',
         marginLeft: 8,
         marginRight: 8,
-
     },
     containerStyle: {
         padding: 0,
@@ -47,8 +46,8 @@ const styles = StyleSheet.create({
         borderTopWidth: 0,
         borderBottomWidth: 0,
         flex: 1,
-        paddingTop: 4,
-        paddingBottom: 4,
+        // paddingTop: 4,
+        // paddingBottom: 4,
         backgroundColor: 'transparent'
     },
     inputContainerStyle: {

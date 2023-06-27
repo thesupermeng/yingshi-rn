@@ -15,3 +15,8 @@ export interface VodPlaylistActionType {
     type: string,
     payload: VodTopicType 
 }
+
+export interface SearchHistoryActionType {
+    type: string,
+    payload: string
+}

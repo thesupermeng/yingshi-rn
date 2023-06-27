@@ -1,19 +1,21 @@
-import React, { useState, useMemo } from 'react';
-import { BottomSheet } from '@rneui/themed';
+import React, { useState, useMemo, RefObject, useRef, useCallback } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, Dimensions } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import { VodEpisodeListType, VodEpisodeType } from '../../types/ajaxTypes';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-
+import BottomSheet, { BottomSheetBackdrop, BottomSheetModalProvider, BottomSheetView } from "@gorhom/bottom-sheet";
+import { BottomSheetMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { BottomSheetDefaultBackdropProps } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types';
 
 interface Props {
     onConfirm: any,
     onCancel: any,
-    isVisible: boolean
     episodes?: VodEpisodeListType
-    activeEpisode?: number
+    activeEpisode?: number,
+    sheetRef?: RefObject<BottomSheetMethods>;
 }
-export default function VodEpisodeSelectionModal({ onConfirm, onCancel, isVisible, episodes, activeEpisode = 0 }: Props) {
+export default function VodEpisodeSelectionModal({ onConfirm, onCancel, sheetRef, episodes, activeEpisode = 0 }: Props) {
     const { colors, textVariants, spacing } = useTheme();
     const EPISODE_RANGE_SIZE = 100;
     const insets = useSafeAreaInsets();
@@ -22,7 +24,7 @@ export default function VodEpisodeSelectionModal({ onConfirm, onCancel, isVisibl
             x => `${x * EPISODE_RANGE_SIZE + 1}-${Math.min((x + 1) * EPISODE_RANGE_SIZE, episodes?.url_count === undefined ? (x + 1) * EPISODE_RANGE_SIZE - 1 : episodes?.url_count)
                 }`
         );
-    const windowDim = useMemo(() => (Dimensions.get('window').width - insets.left - insets.right), [insets]);
+    const windowDim = useMemo(() => (Dimensions.get('window').width - insets.left - insets.right - (spacing.sideOffset * 2)), [insets]);
     const [currentIndex, setCurrentIndex] = useState(Math.floor(activeEpisode / EPISODE_RANGE_SIZE));
     const showEpisodeRangeStart = useMemo(() => currentIndex * EPISODE_RANGE_SIZE, [activeEpisode, currentIndex]);
     const showEpisodeRangeEnd = useMemo(
@@ -46,15 +48,33 @@ export default function VodEpisodeSelectionModal({ onConfirm, onCancel, isVisibl
         return (windowDim - (NUM_PER_ROW * BTN_SELECT_WIDTH) - 20) / (NUM_PER_ROW - 1)
     }, [NUM_PER_ROW, BTN_SELECT_WIDTH, windowDim])
 
-    // const [displayEpisodes, setDisplayEpisodes] 
+    const snapPoints = useMemo(() => ["25%", "50%", "75%"], []);
+
+    const renderBackdrop = useCallback(
+        (props: React.JSX.IntrinsicAttributes & BottomSheetDefaultBackdropProps) => <BottomSheetBackdrop {...props} />,
+        []);
+
     return (
         <BottomSheet
-            isVisible={isVisible}
-            onBackdropPress={onCancel}
-        // scrollViewProps={{ ...styles.episodeList }}
-        // containerStyle={{backgroundColor: 'red'}}
+            ref={sheetRef}
+            index={-1}
+            snapPoints={snapPoints}
+            backdropComponent={renderBackdrop}
+            backgroundStyle={{
+                backgroundColor: colors.card,
+            }}
+            handleIndicatorStyle={{
+                backgroundColor: colors.text,
+            }}
         >
-            <View style={{ ...styles.container, backgroundColor: colors.card }} gap={spacing.m}>
+            <View gap={spacing.m}
+                style={{
+                    ...styles.container,
+                    backgroundColor: colors.card,
+                    paddingLeft: spacing.sideOffset,
+                    paddingRight: spacing.sideOffset
+                }}
+            >
                 <View>
                     <FlatList
                         horizontal
@@ -63,7 +83,12 @@ export default function VodEpisodeSelectionModal({ onConfirm, onCancel, isVisibl
                         inverted
                         renderItem={({ item, index }: { item: string, index: number }) => {
                             return <TouchableOpacity style={styles.btn} onPress={() => setCurrentIndex(index)}>
-                                <Text style={{ textAlign: 'center', ...textVariants.header, color: index === currentIndex ? colors.text : colors.muted }}>
+                                <Text
+                                    style={{
+                                        textAlign: 'center', ...textVariants.header,
+                                        color: index === currentIndex ? colors.text : colors.muted,
+                                        fontSize: index === currentIndex ? 18 : 15
+                                    }}>
                                     {`${item}集`}
                                 </Text>
                             </TouchableOpacity>
@@ -84,7 +109,10 @@ export default function VodEpisodeSelectionModal({ onConfirm, onCancel, isVisibl
                                 onConfirm(ep.nid);
                                 onCancel();
                             }}>
-                                <Text style={{ ...textVariants.header, textAlign: 'center'}}>{`${ep.name}`}</Text>
+                                <Text style={{
+                                    ...textVariants.header, textAlign: 'center',
+                                    color: ep.nid === activeEpisode ? colors.selected : colors.muted,
+                                }}>{`${ep.name}`}</Text>
                             </TouchableOpacity>
                         )}
                 </View>
@@ -94,11 +122,11 @@ export default function VodEpisodeSelectionModal({ onConfirm, onCancel, isVisibl
 };
 const styles = StyleSheet.create({
     container: {
-        minHeight: 300,
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
-        paddingBottom: 10,
-        paddingTop: 30,
+        flex: 1
+        // paddingBottom: 10,
+        // paddingTop: 30,
     },
     text: {
         color: 'white',

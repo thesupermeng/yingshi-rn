@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     tag: {
         position: 'absolute',
         borderRadius: 4,
-        bottom: 10,
+        bottom: 6,
         right: 10,
         padding: 5,
         marginLeft: 10

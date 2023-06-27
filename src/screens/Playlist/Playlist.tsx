@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, FlatList, Text } from 'react-native';
+import { StyleSheet, FlatList, Text } from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
 import MainHeader from '../../components/header/homeHeader';
 import { useTheme } from '@react-navigation/native';
@@ -24,14 +24,25 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                 })
     });
     return (
-        <ScreenContainer>
-            <MainHeader headerStyle={{marginBottom: spacing.m }} logo={
+        <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
+            <MainHeader headerStyle={{
+                marginBottom: spacing.m,
+                paddingLeft: spacing.sideOffset,
+                paddingRight: spacing.sideOffset
+            }} logo={
                 <Text style={{ ...textVariants.bigHeader, color: colors.primary }}>播单</Text>
             } navigator={navigation} />
             <FlatList
-                data={playlists}   
-                renderItem={({ item }: FlatListType) => <VodPlaylist playlist={item} /> }
+                data={playlists}
+                renderItem={({ item }: FlatListType) => <VodPlaylist playlist={item} />}
             />
         </ScreenContainer>
     )
 }
+
+const styles = StyleSheet.create({
+    header: {
+        paddingLeft: 20,
+        paddingRight: 20
+    },
+});

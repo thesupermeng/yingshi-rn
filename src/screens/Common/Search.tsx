@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
+import { View, TouchableOpacity, StyleSheet, Text } from 'react-native';
 import { SearchBar } from '@rneui/base';
 import { useTheme } from '@react-navigation/native';
 import OrderedSearchResultsList from '../../components/search/RecommendationList';
@@ -14,14 +14,21 @@ import { SuggestResponseType, SuggestedVodType } from '../../types/ajaxTypes';
 import { RootStackScreenProps } from '../../types/navigationTypes';
 import { API_DOMAIN } from '../../constants';
 import VodWithDescriptionList from '../../components/vod/vodWithDescriptionList';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
+import { RootState } from '../../redux/store';
+import { addSearchHistory, clearSearchHistory } from '../../redux/actions/searchActions';
+import Animated, { FadeInUp, FadeOutUp } from 'react-native-reanimated';
+import ClearHistoryIcon from '../../../static/images/clear.svg'
 
 export default ({ navigation }: RootStackScreenProps<'搜索'>) => {
     const [search, setSearch] = useState("");
     const [searchTimer, setSearchTimer] = useState<ReturnType<typeof setTimeout> | null>(null);
     const [searchResults, setSearchResults] = useState<Array<SuggestedVodType>>([]);
     const [showResults, setShowResults] = useState(false);
+    const dispatch = useAppDispatch();
+    const searchHistory = useAppSelector(({ searchHistoryReducer }: RootState) => searchHistoryReducer)
 
-    const { colors, textVariants } = useTheme();
+    const { colors, textVariants, spacing, icons } = useTheme();
     const { data: recommendations } = useQuery({
         queryKey: ["recommendationList"],
         queryFn: () =>
@@ -54,6 +61,16 @@ export default ({ navigation }: RootStackScreenProps<'搜索'>) => {
             }, 100),
         );
     };
+
+    const onSubmit = () => {
+        dispatch(addSearchHistory(search));
+        setShowResults(!showResults);
+    }
+
+    const clearHistory = () => {
+        dispatch(clearSearchHistory());
+    }
+
     return (
         <ScreenContainer>
             <View style={styles.nav}>
@@ -73,7 +90,7 @@ export default ({ navigation }: RootStackScreenProps<'搜索'>) => {
                     placeholder="输入搜索关键词"
                     placeholderTextColor={colors.muted}
                     round
-                    onSubmitEditing={() => setShowResults(!showResults)}
+                    onSubmitEditing={onSubmit}
                     searchIcon={<SearchIcon color={colors.muted} />}
                     value={search}
                     clearIcon={
@@ -93,16 +110,45 @@ export default ({ navigation }: RootStackScreenProps<'搜索'>) => {
                 {
                     showResults
                         ? <VodWithDescriptionList vodList={searchResults} />
-                        : <View style={{marginLeft: 20}}>
+                        : <View style={{ marginLeft: 10 }}>
                             {
                                 search.length === 0
-                                    ? <OrderedSearchResultsList recommendationList={recommendations} />
+                                    ? <View gap={spacing.m}>
+                                        {
+                                            searchHistory.history.length > 0 &&
+                                            <Animated.View
+                                                gap={spacing.m}
+                                                entering={FadeInUp}
+                                                exiting={FadeOutUp}
+                                            >
+                                                <View style={styles.rowApart}>
+                                                    <Text style={{ ...textVariants.header }}>历史搜索</Text>
+                                                    <TouchableOpacity style={styles.rowApart} onPress={clearHistory}>
+                                                        <Text style={{ ...textVariants.subBody, marginRight: 4 }}>清除</Text>
+                                                        <ClearHistoryIcon height={icons.sizes.s} width={icons.sizes.s} />
+                                                    </TouchableOpacity>
+                                                </View>
+                                                <View style={styles.searchContainer}>
+                                                    {
+                                                        searchHistory.history.map((hst, idx) => <TouchableOpacity
+                                                            key={`search-${idx}`} style={{ backgroundColor: colors.search, ...styles.hst }}
+                                                            onPress={() => {
+                                                                setSearch(hst);
+                                                                updateSearch(hst);
+                                                            }}
+                                                        >
+                                                            <Text style={{ ...textVariants.body, color: colors.muted }}>{hst}</Text>
+                                                        </TouchableOpacity>)
+                                                    }
+                                                </View>
+                                            </Animated.View>
+                                        }
+                                        <OrderedSearchResultsList recommendationList={recommendations} />
+                                    </View>
                                     : <SearchResultList searchResultList={searchResults} />
                             }
                         </View>
-
                 }
-
             </View>
         </ScreenContainer>
     )
@@ -131,5 +177,22 @@ const styles = StyleSheet.create({
     },
     searchResult: {
         marginTop: 20,
+    },
+    rowApart: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between'
+    },
+    searchContainer: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        flexDirection: 'row'
+    },
+    hst: {
+        padding: 6,
+        borderRadius: 8,
+        marginBottom: 4,
+        marginRight: 4
     }
 });
