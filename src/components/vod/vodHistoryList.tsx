@@ -32,12 +32,13 @@ export default function VodHistoryList({ vodStyle, horizontal = true, vodList=[]
             horizontal
             gap={3}
             renderItem={({item} : FlatListType)  => {
+                console.log('current time', item?.timeWatched, 'ep', item?.episodeWatched)
                 return <VodCard showPlayIcon={true} vodImageStyle={vodStyle} shadowBottom={true}
                 vod_name={item.vod_name} vod_pic={item.vod_pic}  
                 showInfo={
                     showInfo === 'none'
                     ? ''
-                    : `观看至 ${new Date(item.timeWatched * 1000).toISOString().substring(11, 16)}`
+                    : `观看至 ${new Date(1000 * item.timeWatched).toISOString().substr(11, 8)}`
                 }
                 onPress={() => {
                     dispatch(playVod(item));

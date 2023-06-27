@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo, useCallback } from 'react';
+import React, { useEffect, useState, useMemo, useRef } from 'react';
 import { View, TouchableOpacity, TouchableWithoutFeedback, Text, StyleSheet, SafeAreaView, ScrollView, Image } from 'react-native';
 import Video from 'react-native-video';
 import FavoriteButton from '../../components/button/favoriteVodButton';
@@ -45,42 +45,26 @@ import { useQuery } from '@tanstack/react-query';
 import ShowMoreVodButton from '../../components/button/showMoreVodButton';
 import VodListVertical from '../../components/vod/vodListVertical';
 import { FlatList } from 'react-native-gesture-handler';
+import VodPlayer from '../../components/videoPlayer/vodPlayer';
 
 type PlayContextValue = {
     value: string;
     updateValue: (newValue: string) => void;
 };
 
-const height = Dimensions.get('window').width;
-const width = Dimensions.get('window').height;
-
 export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
-
-    const videoPlayerRef = React.createRef<any>();
     const insets = useSafeAreaInsets();
 
     const { colors, spacing, textVariants, icons } = useTheme();
-    const isPotrait = useOrientation();
     const vodReducer: VodReducerState = useAppSelector(({ vodReducer }: RootState) => vodReducer);
     const vod = vodReducer.playVod.vod;
     const isFavorite = vodReducer.playVod.isFavorite;
-
-    const [isFullScreen, setIsFullScreen] = useState(false);
-    const [height, setHeight] = useState(0);
-
-    const [width, setWidth] = useState(0);
-    const [isPaused, setIsPaused] = useState(false);
-    const [isShowControls, setIsShowControls] = useState(false);
-    const [disableFullScreenGesture, setDisableFullScreenGesture] = useState(false);
-
+    console.log('initial current time', vod?.timeWatched, 'episode', vod?.episodeWatched)
     const [currentEpisode, setCurrentEpisode] = useState(vod?.episodeWatched === undefined ? 0 : vod.episodeWatched);
-    const [duration, setDuration] = useState(0);
-    const [currentTime, setCurrentTime] = useState(0);
+    const currentTimeRef = useRef<number>(0);
     const [openVodSelectionModal, setOpenVodSelectionModal] = useState(false);
     const isExpandEpisodes = useSharedValue(false);
     const dispatch = useAppDispatch();
-
-    let controlsOverlayTimeOut: any;
 
 
     // Calculate the scroll position, number of episodes per row to display given viewport width, margin right
@@ -90,7 +74,7 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
     const showEpisodeRangeStart = useMemo(() => Math.floor((currentEpisode ? currentEpisode : 0) / EPISODE_RANGE_SIZE) * EPISODE_RANGE_SIZE, [currentEpisode]);
     const showEpisodeRangeEnd = useMemo(
         () => Math.min(showEpisodeRangeStart + EPISODE_RANGE_SIZE,
-            vod ? vod.vod_play_list.url_count : showEpisodeRangeStart + EPISODE_RANGE_SIZE),
+            vod?.vod_play_list ? vod.vod_play_list.url_count : showEpisodeRangeStart + EPISODE_RANGE_SIZE),
         [currentEpisode, showEpisodeRangeStart]
     );
     const windowDim = useMemo(() => (Dimensions.get('window').width - insets.left - insets.right), [insets]);
@@ -110,7 +94,7 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
     const BTN_MARGIN_RIGHT = useMemo(() => {
         return (windowDim - (NUM_PER_ROW * BTN_SELECT_WIDTH) - 40) / (NUM_PER_ROW - 1)
     }, [NUM_PER_ROW, BTN_SELECT_WIDTH, windowDim])
-    const NUM_OF_ROWS = useMemo(() => vod ? Math.floor(vod.vod_play_list.url_count / NUM_PER_ROW) : 0, [vod, NUM_PER_ROW]);
+    const NUM_OF_ROWS = useMemo(() => vod?.vod_play_list ? Math.floor(vod.vod_play_list.url_count / NUM_PER_ROW) : 0, [vod, NUM_PER_ROW]);
     const ROW_HEIGHT = useMemo(() => (spacing.s * 3) + textVariants.header.fontSize + 6.5, [])
 
 
@@ -131,106 +115,14 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
     }, []);
 
     useEffect(() => {
-        // const dimension = Dimensions.get('screen');
-        // let h = dimension.height;
-        // let w = dimension.width;
-
-        // setHeight(h);
-        // setWidth(w);
-
-        // if (!isPotrait) {
-        //     setIsFullScreen(true);
-        //     console.log("FULL SCREEN NW");
-        // }else{
-        //     setIsFullScreen(false);
-        //     console.log("NOPEEEE FULL SCREEN NOW");
-        // }
-    }, [isPotrait])
-
-    useEffect(() => {
-
-    }, [isPaused])
-
-    useEffect(() => {
-        Orientation.addOrientationListener(handleOrientation);
+        console.log(currentTimeRef.current)
         return () => {
-            Orientation.removeOrientationListener(handleOrientation);
-        };
-    }, []);
-
-    const handleOrientation = (orientation: any) => {
-        if (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT') {
-            setIsFullScreen(true);
-        } else {
-            setIsFullScreen(false);
+            if (vod) {
+                console.log('current time', currentTimeRef.current)
+                dispatch(addVodToHistory(vod, currentTimeRef.current, currentEpisode));
+            }
         }
-    };
-
-    const onToggleFullScreen = () => {
-        if (isFullScreen) {
-            Orientation.lockToPortrait();
-            Orientation.unlockAllOrientations();
-            setIsFullScreen(false);
-        } else {
-            Orientation.lockToLandscapeLeft();
-            Orientation.unlockAllOrientations();
-            setIsFullScreen(true);
-        }
-    }
-
-    const toggleControls = () => {
-        setIsShowControls(prev => !prev);
-        setDisableFullScreenGesture(prev => !prev);
-        debouncedFn();
-    }
-
-    const onVideoLoaded = (data: any) => {
-        setDuration(data.duration);
-        setCurrentTime(data.currentTime);
-    }
-
-    const onSeek = (time: number) => {
-        console.log("SEEK : " + time);
-        setCurrentTime(time);
-        videoPlayerRef.current.seek(time);
-    };
-
-    const onVideoProgessing = useMemo(() => throttle((data: any) => {
-        setCurrentTime(data.currentTime)
-    }, 500), [])
-
-    const onSkip = (time: any) => {
-        console.log('SKIPPPING')
-        videoPlayerRef.current.seek(currentTime + time);
-        setCurrentTime(currentTime + time);
-        debouncedFn();
-    }
-
-    const onTogglePlayPause = () => {
-        setIsPaused(prev => !prev);
-        debouncedFn();
-    }
-
-    const onTouchScreen = useCallback(() => {
-        setDisableFullScreenGesture(prev => !prev);
-        setIsShowControls(prev => !prev);
-        debouncedFn();
-    }, []);
-
-    const changeControlsState = () => {
-        setIsShowControls(prev => false);
-        setDisableFullScreenGesture(prev => false);
-        return;
-    }
-
-    // useEffect(() => {
-    //     if (vod) {
-    //         console.log("DISMOUNTING")
-    //         dispatch(addVodToHistory(vod, currentTime, currentEpisode));
-    //     }
-    // }, [currentTime, currentEpisode])
-
-    const debouncedFn = useCallback(debounce(changeControlsState, 1000), []);
+    }, [currentEpisode, vod, currentTimeRef]);
 
     const fetchVod = () => fetch(`${API_DOMAIN}vod/v1/vod?class=${vod?.vod_class.split(",").shift()}&tid=${vod?.type_id}&limit=6`)
         .then(response => response.json())
@@ -243,8 +135,19 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
         queryFn: () => fetchVod()
     });
 
-    const VodDetails = useMemo(() => {
-        return <>
+    return (
+        <ScreenContainer style={{ flex: 1, paddingRight: 0, paddingLeft: 0 }}>
+            <View style={styles.videoHeader}>
+                <BackButton btnStyle={{ padding: 20 }} onPress={() => navigation.goBack()} />
+                <Text style={{ ...textVariants.small, color: colors.text, marginLeft: spacing.s, flex: 1 }} numberOfLines={1}>{vod?.vod_name}</Text>
+            </View>
+            {
+                vod?.vod_play_list?.urls?.find(url => url.nid === currentEpisode)?.url !== undefined &&
+                <VodPlayer vod_url={vod.vod_play_list.urls.find(url => url.nid === currentEpisode)?.url} 
+                currentTimeRef={currentTimeRef} 
+                initialStartTime={vod.timeWatched}
+                />
+            }
             <VodEpisodeSelectionModal activeEpisode={currentEpisode}
                 episodes={vod?.vod_play_list}
                 isVisible={openVodSelectionModal}
@@ -317,7 +220,7 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
                                     contentOffset={{ x: 0, y: ROW_HEIGHT * (Math.floor((currentEpisode % EPISODE_RANGE_SIZE) / NUM_PER_ROW)) }}
                                     scrollEnabled={NUM_OF_ROWS > 6}>
                                     {
-                                        vod && vod.vod_play_list.urls.slice(showEpisodeRangeStart, showEpisodeRangeEnd).map((url, idx) => {
+                                        vod?.vod_play_list && vod.vod_play_list.urls.slice(showEpisodeRangeStart, showEpisodeRangeEnd).map((url, idx) => {
                                             return <TouchableOpacity key={`url-${url.nid}`} style={{
                                                 backgroundColor: currentEpisode === url.nid ? colors.primary : colors.search,
                                                 padding: spacing.s,
@@ -348,64 +251,11 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
                     }
                 </View>
             </ScrollView>
-        </>
-    }, [vod, currentEpisode, BTN_SELECT_WIDTH, suggestedVods, showEpisodeRangeEnd, showEpisodeRangeStart, BTN_SELECT_WIDTH, openVodSelectionModal])
-    return (
-        <ScreenContainer style={{ flex: 1, paddingRight: 0, paddingLeft: 0 }}>
-            <View style={styles.videoHeader}>
-                <BackButton btnStyle={{ padding: 20 }} onPress={() => navigation.goBack()} />
-                <Text style={{ ...textVariants.small, color: colors.text, marginLeft: spacing.s, flex: 1 }} numberOfLines={1}>{vod?.vod_name}</Text>
-            </View>
-            {isFullScreen &&
-                <PlayFullScreenGesture onScreenTouched={onTouchScreen} disableFullScreenGesture={disableFullScreenGesture} />
-            }
-            <TouchableWithoutFeedback onPress={toggleControls}>
-                <View style={styles.bofangBox}>
-                    {currentEpisode !== undefined && vod &&
-                        <Video
-                            ref={videoPlayerRef}
-                            fullscreen={isFullScreen}
-                            paused={isPaused}
-                            resizeMode="contain"
-                            source={{ uri: vod.vod_play_list.urls.find(url => url.nid === currentEpisode)?.url }}
-                            onLoad={onVideoLoaded}
-                            onProgress={onVideoProgessing}
-                            style={!isFullScreen ? styles.videoPotrait : styles.videoLandscape} />
-                    }
-                    {isShowControls &&
-                        <VideoControlsOverlay
-                            onVideoSeek={onSeek}
-                            currentTime={currentTime}
-                            duration={duration}
-                            onFastForward={onSkip}
-                            paused={isPaused}
-                            isFullScreen={isFullScreen}
-                            onTogglePlayPause={onTogglePlayPause}
-                            onHandleFullScreen={onToggleFullScreen} />
-                    }
-                </View>
-            </TouchableWithoutFeedback>
-            {VodDetails}
         </ScreenContainer>
     )
 }
 
 const styles = StyleSheet.create({
-    videoPotrait: {
-        height: '100%',
-        width: '100%',
-        backgroundColor: '#000',
-    },
-    videoLandscape: {
-        flex: 1,
-        maxHeight: height,
-        width: '100%',
-        backgroundColor: 'black',
-    },
-    bofangBox: {
-        aspectRatio: 428 / 242,
-        width: '100%',
-    },
     videoHeader: {
         position: 'absolute',
         top: 0,
