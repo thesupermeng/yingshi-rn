@@ -1,11 +1,11 @@
 import React, { useState, useMemo, RefObject, useRef, useCallback } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, FlatList, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import { VodEpisodeListType, VodEpisodeType } from '../../types/ajaxTypes';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import BottomSheet, { BottomSheetBackdrop, BottomSheetModalProvider, BottomSheetView } from "@gorhom/bottom-sheet";
+import BottomSheet, { BottomSheetBackdrop, BottomSheetFlatList, BottomSheetModalProvider, BottomSheetScrollView, BottomSheetView } from "@gorhom/bottom-sheet";
 import { BottomSheetMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { FlatList, GestureHandlerRootView } from 'react-native-gesture-handler';
 import { BottomSheetDefaultBackdropProps } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types';
 
 interface Props {
@@ -24,7 +24,7 @@ export default function VodEpisodeSelectionModal({ onConfirm, onCancel, sheetRef
             x => `${x * EPISODE_RANGE_SIZE + 1}-${Math.min((x + 1) * EPISODE_RANGE_SIZE, episodes?.url_count === undefined ? (x + 1) * EPISODE_RANGE_SIZE - 1 : episodes?.url_count)
                 }`
         );
-    const windowDim = useMemo(() => (Dimensions.get('window').width - insets.left - insets.right - (spacing.sideOffset * 2)), [insets]);
+    const windowDim = useMemo(() => (Dimensions.get('window').width - insets.left - insets.right - (spacing.sideOffset * 3)), [insets]);
     const [currentIndex, setCurrentIndex] = useState(Math.floor(activeEpisode / EPISODE_RANGE_SIZE));
     const showEpisodeRangeStart = useMemo(() => currentIndex * EPISODE_RANGE_SIZE, [activeEpisode, currentIndex]);
     const showEpisodeRangeEnd = useMemo(
@@ -45,7 +45,7 @@ export default function VodEpisodeSelectionModal({ onConfirm, onCancel, sheetRef
 
     const NUM_PER_ROW = useMemo(() => Math.max(Math.floor(windowDim / (BTN_SELECT_WIDTH + 10)), 1), [windowDim, BTN_SELECT_WIDTH]);
     const BTN_MARGIN_RIGHT = useMemo(() => {
-        return (windowDim - (NUM_PER_ROW * BTN_SELECT_WIDTH) - 20) / (NUM_PER_ROW - 1)
+        return Math.floor((windowDim - (NUM_PER_ROW * BTN_SELECT_WIDTH)) / (NUM_PER_ROW - 1))
     }, [NUM_PER_ROW, BTN_SELECT_WIDTH, windowDim])
 
     const snapPoints = useMemo(() => ["25%", "50%", "75%"], []);
@@ -95,7 +95,7 @@ export default function VodEpisodeSelectionModal({ onConfirm, onCancel, sheetRef
                         }}
                     />
                 </View>
-                <View style={styles.episodeList}>
+                <BottomSheetScrollView contentContainerStyle={styles.episodeList}>
                     {episodes?.urls.slice(showEpisodeRangeStart, showEpisodeRangeEnd)
                         .map((ep, idx) =>
                             <TouchableOpacity key={`expand-${idx}`} style={{
@@ -115,7 +115,7 @@ export default function VodEpisodeSelectionModal({ onConfirm, onCancel, sheetRef
                                 }}>{`${ep.name}`}</Text>
                             </TouchableOpacity>
                         )}
-                </View>
+                </BottomSheetScrollView>
             </View>
         </BottomSheet>
     );

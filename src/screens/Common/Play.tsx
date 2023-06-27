@@ -77,7 +77,7 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
             vod?.vod_play_list ? vod.vod_play_list.url_count : showEpisodeRangeStart + EPISODE_RANGE_SIZE),
         [currentEpisode, showEpisodeRangeStart]
     );
-    const windowDim = useMemo(() => (Dimensions.get('window').width - insets.left - insets.right), [insets]);
+    const windowDim = useMemo(() => (Dimensions.get('window').width - insets.left - insets.right - (spacing.sideOffset * 3)), [insets]);
 
     const BTN_SELECT_WIDTH = useMemo(() => {
         if (vod?.vod_play_list === undefined || vod === null) {
@@ -92,10 +92,10 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
 
     const NUM_PER_ROW = useMemo(() => Math.max(Math.floor(windowDim / (BTN_SELECT_WIDTH + 10)), 1), [windowDim, BTN_SELECT_WIDTH]);
     const BTN_MARGIN_RIGHT = useMemo(() => {
-        return (windowDim - (NUM_PER_ROW * BTN_SELECT_WIDTH) - 40) / (NUM_PER_ROW - 1)
+        return Math.floor((windowDim - (NUM_PER_ROW * BTN_SELECT_WIDTH)) / (NUM_PER_ROW - 1))
     }, [NUM_PER_ROW, BTN_SELECT_WIDTH, windowDim])
     const NUM_OF_ROWS = useMemo(() => vod?.vod_play_list ? Math.floor(vod.vod_play_list.url_count / NUM_PER_ROW) : 0, [vod, NUM_PER_ROW]);
-    const ROW_HEIGHT = useMemo(() => (spacing.s * 3) + textVariants.header.fontSize + 5, [])
+    const ROW_HEIGHT = useMemo(() => (spacing.s * 3) + textVariants.header.fontSize + 6, [])
 
 
     const animatedTextStyle = useAnimatedStyle(() => {
