@@ -140,13 +140,13 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
                     numberOfLines={1}>{vod?.vod_name}
                 </Text>
             </View>
-            {/* {
+            {
                 vod?.vod_play_list?.urls?.find(url => url.nid === currentEpisode)?.url !== undefined &&
                 <VodPlayer vod_url={vod.vod_play_list.urls.find(url => url.nid === currentEpisode)?.url}
                     currentTimeRef={currentTimeRef}
                     initialStartTime={vod.timeWatched}
                 />
-            } */}
+            }
             <ScrollView
                 nestedScrollEnabled={true}
                 contentContainerStyle={{ marginTop: spacing.m }}
