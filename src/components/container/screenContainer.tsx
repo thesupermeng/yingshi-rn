@@ -39,7 +39,7 @@ export default function ScreenContainer({ children, scrollView = false, footer, 
                     </ScrollView>
                     : <View style={{
                         ...styles.viewContainer,
-                        paddingTop: insets.top,
+                        paddingTop: insets.top + 10,
                         paddingBottom: insets.bottom,
                         paddingLeft: insets.left,
                         paddingRight: insets.right,

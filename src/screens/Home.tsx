@@ -51,8 +51,8 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
   });
 
   return (
-    <ScreenContainer scrollView={true} header={
-      <View style={{ backgroundColor: colors.background, paddingLeft: spacing.sideOffset, paddingRight: spacing.sideOffset}}>
+    <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }} scrollView={true} header={
+      <View style={{ backgroundColor: colors.background, paddingLeft: spacing.sideOffset, paddingRight: spacing.sideOffset }}>
         <HomeHeader navigator={navigation} />
         <FlatList
           data={navOptions}
@@ -72,7 +72,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
       </View>
     }>
       {
-        data?.categories[0] && <View style={{ height: 200 }}>
+        data?.categories[0] && <View style={{ height: 200, paddingLeft: spacing.sideOffset, paddingRight: spacing.sideOffset }}>
           <Swiper style={styles.wrapper}
             autoplay
             dotColor={colors.sliderDot}
@@ -102,7 +102,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
         <FlatList
           data={['全部剧集', ...data.class_list]}
           horizontal
-          contentContainerStyle={{ ...styles.catalogNav, marginBottom: spacing.m, }}
+          contentContainerStyle={{ ...styles.catalogNav, marginBottom: spacing.m, paddingLeft: spacing.sideOffset, paddingRight: spacing.sideOffset }}
           renderItem={({ item, index }: { item: string, index: number }) => {
             return <TouchableOpacity style={{
               marginRight: spacing.m, justifyContent: 'center',
@@ -127,14 +127,18 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
       }
       {
         data && !data.class_list && history && history.length > 0 &&
-        <View gap={spacing.m}>
-          <ShowMoreVodButton text='继续看' onPress={() => {
-            navigation.navigate('播放历史');
-          }} />
-          <VodHistoryList vodStyle={styles.vod_hotlist} vodList={history.slice(0, 10)} showInfo='watch_progress' />
+        <View gap={spacing.m} >
+          <View style={{ paddingLeft: spacing.sideOffset, paddingRight: spacing.sideOffset }}>
+            <ShowMoreVodButton text='继续看' onPress={() => {
+              navigation.navigate('播放历史');
+            }} />
+          </View>
+          <View style={{ paddingLeft: spacing.sideOffset }}>
+            <VodHistoryList vodStyle={styles.vod_hotlist} vodList={history.slice(0, 10)} showInfo='watch_progress' />
+          </View>
         </View>
       }
-      <View gap={spacing.m}>
+      <View gap={spacing.m} style={{paddingLeft: spacing.sideOffset, paddingRight: spacing.sideOffset}}>
         {
           data?.categories.map((lst, idx) => (
             <View key={`${lst.type_name}-${idx}`} gap={spacing.m}>

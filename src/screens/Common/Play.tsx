@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo, useRef } from 'react';
-import { View, TouchableOpacity, TouchableWithoutFeedback, Text, StyleSheet, SafeAreaView, ScrollView, Image } from 'react-native';
+import { View, TouchableOpacity, Share, Text, StyleSheet, Alert, ScrollView, Image } from 'react-native';
 import Video from 'react-native-video';
 import FavoriteButton from '../../components/button/favoriteVodButton';
 import FavoriteIcon from '../../../static/images/favorite.svg'
@@ -7,44 +7,28 @@ import ScreenContainer from '../../components/container/screenContainer';
 import { useTheme } from '@react-navigation/native';
 
 import { RootStackScreenProps } from '../../types/navigationTypes';
-import { SuggestResponseType, VodEpisodeType, VodType } from '../../types/ajaxTypes';
-import { useOrientation } from '../../hooks/useOrientation';
-import PlayFullScreenGesture from '../../components/gestures/vod/PlayFullScreenGesture';
-import { addVodToHistory, toggleVodFavorites } from '../../redux/actions/vodActions';
+import { SuggestResponseType } from '../../types/ajaxTypes';
+import { addVodToHistory } from '../../redux/actions/vodActions';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { RootState } from '../../redux/store';
-import { VodRecordType, VodReducerState } from '../../redux/reducers/vodReducer';
+import { VodReducerState } from '../../redux/reducers/vodReducer';
 import BackButton from '../../components/button/backButton';
 import SinaIcon from '../../../static/images/sina.svg';
 import WeChatIcon from '../../../static/images/wechat.svg'
 import QQIcon from '../../../static/images/qq.svg';
 import PYQIcon from '../../../static/images/pyq.svg';
 import MoreArrow from '../../../static/images/more_arrow.svg';
-import { ListItem } from '@rneui/themed';
-import Animated, { useAnimatedStyle, FadeInUp, useSharedValue } from 'react-native-reanimated';
-import DownIcon from '../../../static/images/down_arrow_grey.svg';
-import UpIcon from '../../../static/images/arrow_up_grey.svg'
-import { debounce, throttle } from "lodash";
+import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 
-const definedValue = (val: any) => {
-    if (val === undefined || val === null) {
-        return '-';
-    }
-    return val + ' ';
-}
-import Sun from '../../../static/images/Sun.svg';
-import BackIcon from '../../../static/images/back_arrow.svg';
+
 import { Dimensions } from 'react-native';
-import VideoControlsOverlay from '../../components/videoPlayer/VideoControlsOverlay';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import VodEpisodeSelectionModal from '../../components/modal/vodEpisodeSelectionModal';
 import FastImage from 'react-native-fast-image';
-import Orientation from 'react-native-orientation-locker';
 import { API_DOMAIN } from '../../constants';
 import { useQuery } from '@tanstack/react-query';
 import ShowMoreVodButton from '../../components/button/showMoreVodButton';
 import VodListVertical from '../../components/vod/vodListVertical';
-import { FlatList } from 'react-native-gesture-handler';
 import VodPlayer from '../../components/videoPlayer/vodPlayer';
 import BottomSheet from '@gorhom/bottom-sheet';
 
@@ -52,6 +36,13 @@ type PlayContextValue = {
     value: string;
     updateValue: (newValue: string) => void;
 };
+
+const definedValue = (val: any) => {
+    if (val === undefined || val === null) {
+        return '-';
+    }
+    return val + ' ';
+}
 
 export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
     const insets = useSafeAreaInsets();
@@ -113,6 +104,26 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
             transform: isExpandEpisodes.value ? [{ rotate: '180deg' }] : [{ rotate: '0deg' }]
         };
     }, []);
+
+    const onShare = async () => {
+        try {
+            const result = await Share.share({
+                message:
+                    `《${vod?.vod_name}》高清播放${'\n'}https://yingshi.tv/index.php/vod/play/id/${vod?.vod_id}/sid/1/nid/${currentEpisode+1}.html${'\n'}影视TV-海量高清视频在线观看`,
+            });
+            if (result.action === Share.sharedAction) {
+                if (result.activityType) {
+                    // shared with activity type of result.activityType
+                } else {
+                    // shared
+                }
+            } else if (result.action === Share.dismissedAction) {
+                // dismissed
+            }
+        } catch (error: any) {
+            Alert.alert(error.message);
+        }
+    };
 
     useEffect(() => {
         return () => {
@@ -183,13 +194,15 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
                                     : new Date().toLocaleDateString().replace(/\//g, '-')
                                     }`}
                             </Text>
-                            <View style={styles.share} gap={10}>
-                                <Text style={{ ...textVariants.subBody, color: colors.muted }}>分享：</Text>
-                                <WeChatIcon />
-                                <PYQIcon />
-                                <SinaIcon />
-                                <QQIcon />
-                            </View>
+                            <TouchableOpacity onPress={onShare}>
+                                <View style={styles.share} gap={10}>
+                                    <Text style={{ ...textVariants.subBody, color: colors.muted }}>分享：</Text>
+                                    <WeChatIcon />
+                                    <PYQIcon />
+                                    <SinaIcon />
+                                    <QQIcon />
+                                </View>
+                            </TouchableOpacity>
                         </View>
                     </View>
                     <Text>
@@ -228,7 +241,6 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
                                                 marginRight: (idx % NUM_PER_ROW) === NUM_PER_ROW - 1 ? 0 : BTN_MARGIN_RIGHT,
                                                 ...styles.episodeBtn
                                             }} onPress={() => {
-                                                // dispatch(addVodToHistory(vod, 0, url.nid));
                                                 setCurrentEpisode(url.nid);
                                             }}>
                                                 <Text style={{

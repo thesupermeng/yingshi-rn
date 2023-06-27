@@ -17,10 +17,10 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     const { data: playlists } = useQuery({
         queryKey: ["vodPlaylist"],
         queryFn: () =>
-            fetch(`https://yingshi.tv/index.php/ajax/data?mid=3&page=2&limit=18&by=id`)
+            fetch(`https://testapi.yingshi.tv/topic/v1/topic`)
                 .then(response => response.json())
                 .then((json: VodPlaylistResponseType) => {
-                    return Object.values(json.list)
+                    return Object.values(json.data.List)
                 })
     });
     return (

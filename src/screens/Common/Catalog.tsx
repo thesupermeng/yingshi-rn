@@ -284,7 +284,7 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
                             fetchNextPage();
                         }
                     }}
-                    onEndReachedThreshold={0.5}
+                    onEndReachedThreshold={0.4}
                     columnWrapperStyle={{}}
                     ListFooterComponent={
                         <View style={{ ...styles.loading, marginBottom: spacing.xl }}>
