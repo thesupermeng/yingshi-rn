@@ -209,14 +209,16 @@ export interface VodTopicType {
 
 export interface VodPlaylistResponseType {
     code: number
-    msg: string
-    page: number
-    pagecount: number
-    limit: number
-    total: number
-    list: {
-        [key: string]: VodTopicType
+    data: {
+        Page: number
+        TotalPageCount: number
+        Limit: number
+        Total: number
+        List: {
+            [key: string]: VodTopicType
+        }
     }
+
 }
 
 type VodData = {
@@ -227,6 +229,7 @@ type VodData = {
 
 export interface VodCarousellResponseType {
     data: {
+        class_list: Array<string>,
         yunying: Array<VodData>
         categories: Array<VodData>
     }

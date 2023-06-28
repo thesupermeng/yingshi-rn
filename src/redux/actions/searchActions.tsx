@@ -1,14 +1,17 @@
-// export const clearSearchHistory = () => (
-//     {
-//         type: CLEAR_HISTORY,
-//         payload: null
-//     }
-// )
+import {
+    CLEAR_SEARCH_HISTORY, ADD_SEARCH_HISTORY
+} from "../../constants";
 
-// export const addSearchHistory = (vod: VodType) => (
-//     {
-//         type: ADD_VOD_TO_HISTORY,
-//         payload: [vod],
-//         timeWatched: timeWatched
-//     }
-// )
+export const clearSearchHistory = () => (
+    {
+        type: CLEAR_SEARCH_HISTORY,
+        payload: null
+    }
+)
+
+export const addSearchHistory = (search: string) => (
+    {
+        type: ADD_SEARCH_HISTORY,
+        payload: search,
+    }
+)

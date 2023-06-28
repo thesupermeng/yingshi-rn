@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, FlatList, Text } from 'react-native';
+import { StyleSheet, FlatList, Text } from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
 import MainHeader from '../../components/header/homeHeader';
 import { useTheme } from '@react-navigation/native';
@@ -17,21 +17,32 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     const { data: playlists } = useQuery({
         queryKey: ["vodPlaylist"],
         queryFn: () =>
-            fetch(`https://yingshi.tv/index.php/ajax/data?mid=3&page=2&limit=18&by=id`)
+            fetch(`https://testapi.yingshi.tv/topic/v1/topic`)
                 .then(response => response.json())
                 .then((json: VodPlaylistResponseType) => {
-                    return Object.values(json.list)
+                    return Object.values(json.data.List)
                 })
     });
     return (
-        <ScreenContainer>
-            <MainHeader headerStyle={{marginBottom: spacing.m }} logo={
+        <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
+            <MainHeader headerStyle={{
+                marginBottom: spacing.m,
+                paddingLeft: spacing.sideOffset,
+                paddingRight: spacing.sideOffset
+            }} logo={
                 <Text style={{ ...textVariants.bigHeader, color: colors.primary }}>播单</Text>
             } navigator={navigation} />
             <FlatList
-                data={playlists}   
-                renderItem={({ item }: FlatListType) => <VodPlaylist playlist={item} /> }
+                data={playlists}
+                renderItem={({ item }: FlatListType) => <VodPlaylist playlist={item} />}
             />
         </ScreenContainer>
     )
 }
+
+const styles = StyleSheet.create({
+    header: {
+        paddingLeft: 20,
+        paddingRight: 20
+    },
+});

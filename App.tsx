@@ -9,6 +9,8 @@ import {
 } from '@tanstack/react-query'
 import { API_DOMAIN } from './src/constants';
 import { FilterOptionsResponseType, SuggestResponseType, VodCarousellResponseType, VodPlaylistResponseType, } from './src/types/ajaxTypes';
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export default function App() {
   const queryClient = new QueryClient();
@@ -57,18 +59,22 @@ export default function App() {
   queryClient.prefetchQuery({
     queryKey: ["vodPlaylist"],
     queryFn: () =>
-      fetch(`https://yingshi.tv/index.php/ajax/data?mid=3&page=2&limit=18&by=id`)
+      fetch(`https://testapi.yingshi.tv/topic/v1/topic`)
         .then(response => response.json())
         .then((json: VodPlaylistResponseType) => {
-          return Object.values(json.list)
+          return Object.values(json.data.List)
         })
   });
-  
+
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <QueryClientProvider client={queryClient}>
-          <Nav />
+          <GestureHandlerRootView style={{ flex: 1 }}>
+            <BottomSheetModalProvider>
+              <Nav />
+            </BottomSheetModalProvider>
+          </GestureHandlerRootView>
         </QueryClientProvider>
       </PersistGate>
     </Provider>

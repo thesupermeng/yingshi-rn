@@ -1,39 +1,24 @@
-import React, { useEffect, useMemo } from 'react';
+import React from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, SafeAreaView, FlatList, Image } from 'react-native';
-import Video from 'react-native-video';
-import { YingshiDarkTheme } from '../../theme';
-import FavoriteButton from '../button/favoriteVodButton';
-import FavoriteIcon from '../../../static/images/favorite.svg'
-import ScreenContainer from '../container/screenContainer';
 import { useTheme } from '@react-navigation/native';
 
-import { RootStackScreenProps } from '../../types/navigationTypes';
-import { FilterOptionsResponseType, FilterOptionsTypeExtendObj, VodType } from '../../types/ajaxTypes';
-import { useOrientation } from '../../hooks/useOrientation';
-import PlayFullScreenGesture from '../gestures/vod/PlayFullScreenGesture';
-import { addVodToHistory, toggleVodFavorites } from '../../redux/actions/vodActions';
-import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-import { RootState } from '../../redux/store';
-import { VodReducerState } from '../../redux/reducers/vodReducer';
-import BackButton from '../button/backButton';
-import MainHeader from '../header/homeHeader';
-import { useQuery } from '@tanstack/react-query';
-import TitleWithBackButtonHeader from '../header/titleWithBackButtonHeader';
-import { API_DOMAIN } from '../../constants';
-
 interface FlatListType {
-    item: string
+    item: Option
+}
+
+interface Option {
+    text: string
+    value: any
 }
 
 interface Props {
-    init: string
+    init: Option
     callback?: any,
-    options?: Array<string>
+    options?: Array<Option>
 }
 
 export default ({ init, callback, options = [] }: Props) => {
     const { textVariants, colors, spacing } = useTheme();
-
     return (
         <View style={{marginTop: spacing.m}}>
             <FlatList
@@ -44,8 +29,8 @@ export default ({ init, callback, options = [] }: Props) => {
                         <Text style={{
                             textAlign: 'center',
                             fontSize: textVariants.header.fontSize,
-                            color: init === item ? colors.primary : colors.muted
-                        }}>{item}</Text>
+                            color: init.value === item.value ? colors.primary : colors.muted
+                        }}>{item.text}</Text>
                     </TouchableOpacity>
                 }}
             />

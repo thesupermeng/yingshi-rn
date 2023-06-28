@@ -11,16 +11,17 @@ import { useQuery } from '@tanstack/react-query';
 import { VodCarousellResponseType, VodType } from '../types/ajaxTypes';
 import FastImage from 'react-native-fast-image'
 import { VodReducerState } from '../redux/reducers/vodReducer';
-import { useAppSelector } from '../hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../hooks/hooks';
 import { RootState } from '../redux/store';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import VodHistoryList from '../components/vod/vodHistoryList';
 import { API_DOMAIN } from '../constants';
+import VodListVertical from '../components/vod/vodListVertical';
 
 interface NavType {
   item: {
     id: number,
-    name: string
+    name: string,
   }
 }
 
@@ -29,7 +30,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
   const [navId, setNavId] = useState(0);
   const vodReducer: VodReducerState = useAppSelector(({ vodReducer }: RootState) => vodReducer);
   const history = vodReducer.history;
-
+  const BTN_COLORS = ['#30AA55', '#7E9CEE', '#F1377A', '#FFCC12', '#ED7445',];
   const { data } = useQuery({
     queryKey: ["HomePage", navId],
     queryFn: () =>
@@ -39,7 +40,6 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
           return json.data
         })
   });
-
   const { data: navOptions } = useQuery({
     queryKey: ["HomePageNavOptions"],
     queryFn: () =>
@@ -51,27 +51,31 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
   });
 
   return (
-    <ScreenContainer scrollView={true}>
-      <HomeHeader navigator={navigation} />
-      <FlatList
-        data={navOptions}
-        horizontal
-        contentContainerStyle={styles.nav}
-        renderItem={({ item }: NavType) => {
-          return <TouchableOpacity style={{ marginRight: spacing.m, justifyContent: 'center', display: 'flex' }} onPress={() => setNavId(item.id)}>
-            <Text style={{
-              textAlign: 'center',
-              fontSize: navId === item.id ? textVariants.bigHeader.fontSize : textVariants.header.fontSize,
-              color: navId === item.id ? colors.primary : colors.muted
-            }}>{item.name}</Text>
-          </TouchableOpacity>
-        }}
-      />
+    <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }} scrollView={true} header={
+      <View style={{ backgroundColor: colors.background, paddingLeft: spacing.sideOffset, paddingRight: spacing.sideOffset }}>
+        <HomeHeader navigator={navigation} />
+        <FlatList
+          data={navOptions}
+          horizontal
+          contentContainerStyle={styles.nav}
+          renderItem={({ item }: NavType) => {
+            return <TouchableOpacity style={{ marginRight: spacing.m, justifyContent: 'center', display: 'flex' }} onPress={() => setNavId(item.id)}>
+              <Text style={{
+                textAlign: 'center',
+                fontSize: navId === item.id ? textVariants.selected.fontSize : textVariants.unselected.fontSize,
+                fontWeight: navId === item.id ? textVariants.selected.fontWeight : textVariants.unselected.fontWeight,
+                color: navId === item.id ? colors.primary : colors.muted,
+              }}>{item.name}</Text>
+            </TouchableOpacity>
+          }}
+        />
+      </View>
+    }>
       {
-        data?.categories[0] && <View style={{ height: 200 }}>
+        data?.categories[0] && <View style={{ height: 200, paddingLeft: spacing.sideOffset, paddingRight: spacing.sideOffset }}>
           <Swiper style={styles.wrapper}
             autoplay
-            dotColor={colors.muted}
+            dotColor={colors.sliderDot}
             activeDotColor={colors.text}
             dotStyle={styles.dotStyle}
             paginationStyle={styles.paginationStyle}
@@ -94,24 +98,58 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
         </View>
       }
       {
-        history &&
-        <View>
-          <ShowMoreVodButton text='继续看' onPress={() => {
-            navigation.navigate('播放历史');
-          }} />
-          <VodHistoryList vodStyle={styles.vod_hotlist} vodList={history.slice(0, 10)} showInfo='watch_progress' />
-        </View>
+        data && data.class_list && data.class_list.length > 0 &&
+        <FlatList
+          data={['全部剧集', ...data.class_list]}
+          horizontal
+          contentContainerStyle={{ ...styles.catalogNav, marginBottom: spacing.m, paddingLeft: spacing.sideOffset, paddingRight: spacing.sideOffset }}
+          renderItem={({ item, index }: { item: string, index: number }) => {
+            return <TouchableOpacity style={{
+              marginRight: spacing.m, justifyContent: 'center',
+              display: 'flex',
+              backgroundColor: BTN_COLORS[index % BTN_COLORS.length],
+              paddingLeft: spacing.s,
+              paddingRight: spacing.s,
+              paddingTop: spacing.s - 4,
+              paddingBottom: spacing.s - 1,
+              borderRadius: spacing.xs,
+              opacity: 0.9
+            }} onPress={() => navigation.navigate('片库', { type_id: navId, class: item })}>
+              <Text style={{
+                textAlign: 'center',
+                ...textVariants.body,
+                fontWeight: '700',
+                opacity: 0.9
+              }}>{item}</Text>
+            </TouchableOpacity>
+          }}
+        />
       }
       {
-        data?.categories.map((lst, idx) => (
-          <View key={`${lst.type_name}-${idx}`}>
-            <ShowMoreVodButton text={lst.type_name} onPress={() => {
-              navigation.navigate('片库', {type_id:  lst.type_id});
+        data && !data.class_list && history && history.length > 0 &&
+        <View gap={spacing.m} >
+          <View style={{ paddingLeft: spacing.sideOffset, paddingRight: spacing.sideOffset }}>
+            <ShowMoreVodButton text='继续看' onPress={() => {
+              navigation.navigate('播放历史');
             }} />
-            <VodList vodList={lst.vod_list.slice(0, 10)} />
           </View>
-        ))
+          <View style={{ paddingLeft: spacing.sideOffset }}>
+            <VodHistoryList vodStyle={styles.vod_hotlist} vodList={history.slice(0, 10)} showInfo='watch_progress' />
+          </View>
+        </View>
       }
+      <View gap={spacing.m} style={{paddingLeft: spacing.sideOffset, paddingRight: spacing.sideOffset}}>
+        {
+          data?.categories.map((lst, idx) => (
+            <View key={`${lst.type_name}-${idx}`} gap={spacing.m}>
+              <ShowMoreVodButton text={lst.type_name} onPress={() => {
+                navigation.navigate('片库', { type_id: lst.type_id });
+              }} />
+              <VodListVertical vods={lst.vod_list.slice(0, 6)} outerRowPadding={40} />
+            </View>
+          ))
+        }
+      </View>
     </ScreenContainer>
   )
 }
@@ -132,24 +170,34 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   dotStyle: {
-    width: 12,
-    height: 7
+    width: 6,
+    height: 4
   },
   activeDotStyle: {
-    width: 25,
-    height: 7
+    width: 14,
+    height: 4
   },
   paginationStyle: {
-    top: 180,
+    top: 173,
     height: 20
   },
   vod_hotlist: {
-    height: 150,
-    width: 250
+    height: 99,
+    width: 176
   },
   nav: {
     flexGrow: 1,
     justifyContent: 'center',
-    marginBottom: 10
+    marginBottom: 10,
+  },
+  catalogNav: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    marginTop: 5
+  },
+  vodList: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap'
   }
 })

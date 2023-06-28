@@ -14,15 +14,17 @@ export default function ShowMoreButton({ text, onPress, leftIcon, textColor = ''
     return (
         <TouchableOpacity style={{ ...styles.btn, backgroundColor: colors.card2, ...buttonStyle }} onPress={onPress} {...params} >
             <View style={styles.left}>
-                <View style={styles.icon}>{leftIcon}</View>
+                {
+                    leftIcon && <View style={styles.icon}>{leftIcon}</View>
+                }
                 <Text style={{
-                    ...StyleSheet.create(textVariants.header),
+                    ...StyleSheet.create(textVariants.body),
                     color: textColor ? textColor : colors.button
                 }}>
                     {text}
                 </Text>
             </View>
-            <MoreArrow width={icons.sizes.xl} height={icons.sizes.xl} color={colors.muted} />
+            <MoreArrow width={icons.sizes.l} height={icons.sizes.l} color={colors.muted} />
         </TouchableOpacity>
     );
 }
@@ -31,7 +33,7 @@ const styles = StyleSheet.create({
     icon: {
         marginRight: 10,
         paddingTop: 4,
-        height: 30,
+        height: 24,
         width: 24
     },
     left: {

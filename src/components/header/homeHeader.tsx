@@ -16,11 +16,11 @@ export default function MainHeader({ logo, navigator, headerStyle }: Props) {
             {
                 logo
                     ? logo
-                    : <Logo />
+                    : <Logo width={110}/>
             }
             <SearchBar onPress={() => navigator.navigate('搜索')} />
-            <TouchableOpacity style={styles.historyBtn} onPress={() => navigator.navigate('播放历史')}>
-                <History height={35} width={35} color={icons.iconColor} />
+            <TouchableOpacity onPress={() => navigator.navigate('播放历史')}>
+                <History height={28} width={28} color={icons.iconColor} />
             </TouchableOpacity>
         </View>
     );
@@ -33,6 +33,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         width: '100%',
         alignItems: 'center',
-        marginBottom: 8
-    }
+        marginBottom: 8,
+    },
 });

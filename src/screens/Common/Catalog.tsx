@@ -26,12 +26,48 @@ interface NavType {
     id: number,
     name: string
 }
+interface Option {
+    text: string
+    value: any
+}
 
+const sameTextAndValueObj = (text: string): Option => {
+    return {
+        text: text,
+        value: text
+    }
+}
+
+// Translate Chinese to English order_by for API / display
+const translateToCN = (txt: string) => {
+    if ('time' === txt) {
+        return '新上线'
+    }
+    if (txt === 'score') {
+        return '好评榜'
+    }
+    return '热播榜'
+}
+
+// Order by options for filtering
+const ORDER_BY_OPTIONS: Array<Option> = [
+    {
+        text: '新上线',
+        value: 'time'
+    },
+    {
+        text: '热播榜',
+        value: 'hits_day'
+    },
+    {
+        text: '好评榜',
+        value: 'score'
+    }
+]
 export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
     const { textVariants, colors, spacing, icons } = useTheme();
     const insets = useSafeAreaInsets();
     const queryClient = useQueryClient();
-    const AnimatFlatList = Animated.createAnimatedComponent<FlatListProps<SuggestedVodType>>(FlatList);
     const SCROLL_THRESHOLD = 50;
     const dispatch = useAppDispatch();
     const { data: navOptions } = useQuery({
@@ -43,22 +79,32 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
             }),
         initialData: []
     });
+    // Filtering
     const [currentTopicId, setCurrentTopicId] = useState(route.params.type_id === undefined ? 1 : route.params.type_id);
-    const [topicClass, setTopicClass] = useState('全部类型');
-    const [area, setArea] = useState('全部地区');
-    const [lang, setLang] = useState('全部语言');
-    const [year, setYear] = useState('全部时间');
+    const [topicClass, setTopicClass] = useState(route.params.class === undefined || route.params.class.startsWith('全部') ? sameTextAndValueObj('全部类型') : sameTextAndValueObj(route.params.class));
+    const [area, setArea] = useState(route.params.area === undefined || route.params.area.startsWith('全部') ? sameTextAndValueObj('全部地区') : sameTextAndValueObj(route.params.area));
+    const [lang, setLang] = useState(route.params.lang === undefined || route.params.lang.startsWith('全部') ? sameTextAndValueObj('全部语言') : sameTextAndValueObj(route.params.lang));
+    const [year, setYear] = useState(route.params.year === undefined || route.params.year.startsWith('全部') ? sameTextAndValueObj('全部时间') : sameTextAndValueObj(route.params.year));
+    const [orderBy, setOrderBy] = useState(route.params.order_by === undefined ? {
+        text: '热播榜',
+        value: 'hits_day'
+    } : { text: translateToCN(route.params.order_by), value: route.params.order_by })
 
-    const windowDim = useMemo(() => (Dimensions.get('window').width - insets.left - insets.right), [insets]);
-    const paddingPerCard = 10;
+    // For calculating the margin and width for displaying the vods for different viewports.
+    // Cannot fix width and height. Min 3 cards each row. Max width 150 for iPad, tablet
+    const windowDim = useMemo(() => (Dimensions.get('window').width - insets.left - insets.right), []);
+    const paddingPerCard = 14;
     const minWidth = useMemo(() => (windowDim / 3) - paddingPerCard, [windowDim, paddingPerCard]);
     const cardWidth = useMemo(() => Math.min(150, Math.floor(minWidth)), [minWidth]);
     const cardHeight = useMemo(() => 1.6 * cardWidth, [cardWidth]);
+    const LIMIT_PER_PAGE = useMemo(() => Math.floor(windowDim / (cardWidth + paddingPerCard)) * 5, [cardWidth, paddingPerCard, windowDim]) // 5 Rows;
+    const CARDS_PER_ROW = useMemo(() => Math.floor(windowDim / cardWidth), [cardWidth]);
+
+    // For scroll animation - reanimated 3
     const lastContentOffset = useSharedValue(0);
     const isScrolling = useSharedValue(false);
     const isFilterCollapse = useSharedValue(false);
-    const LIMIT_PER_PAGE = useMemo(() => Math.floor(windowDim / (cardWidth + paddingPerCard)) * 5, [cardWidth, paddingPerCard, windowDim]) // 5 Rows;
-    const CARDS_PER_ROW = useMemo(() => Math.floor(windowDim / cardWidth), [cardWidth]);
+
     const [results, setResults] = useState<Array<SuggestedVodType>>([])
 
     const contentStyle = useAnimatedStyle(() => {
@@ -75,38 +121,38 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
     }, []);
 
     const reset = () => {
-        setTopicClass('全部类型');
-        setArea('全部地区');
-        setLang('全部语言');
-        setYear('全部时间');
+        setTopicClass(sameTextAndValueObj('全部类型'));
+        setArea(sameTextAndValueObj('全部地区'));
+        setLang(sameTextAndValueObj('全部语言'));
+        setYear(sameTextAndValueObj('全部时间'));
     }
 
     const fetchVods = useCallback((page: number) => {
         let url = `${API_DOMAIN}vod/v1/vod?limit=${LIMIT_PER_PAGE}`;
         url += `&tid=${currentTopicId}`;
-        if (topicClass !== '全部类型') {
-            url += `&class=${topicClass}`;
+        if (topicClass.value !== '全部类型') {
+            url += `&class=${topicClass.value}`;
         }
-        if (area !== '全部地区') {
-            url += `&area=${area}`;
+        if (area.value !== '全部地区') {
+            url += `&area=${area.value}`;
         }
-        if (lang !== '全部语言') {
-            url += `&lang=${lang}`;
+        if (lang.value !== '全部语言') {
+            url += `&lang=${lang.value}`;
         }
-        if (year !== '全部时间') {
-            url += `&year=${year}`;
+        if (year.value !== '全部时间') {
+            url += `&year=${year.value}`;
         }
+        url += `&by=${orderBy.value}&order=desc`
         url += `&page=${page}`
-        console.log(url)
         return fetch(url)
             .then(response => response.json())
             .then((json: SuggestResponseType) => {
                 return json.data.List
             })
-    }, [area, year, lang, topicClass, currentTopicId]);
+    }, [area, year, lang, topicClass, currentTopicId, orderBy]);
 
     const { data: vods, isSuccess, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } =
-        useInfiniteQuery(['filteredVods', area, year, lang, topicClass, currentTopicId], ({ pageParam = 1 }) => fetchVods(pageParam), {
+        useInfiniteQuery(['filteredVods', area, year, lang, topicClass, currentTopicId, orderBy], ({ pageParam = 1 }) => fetchVods(pageParam), {
             getNextPageParam: (lastPage, allPages) => {
                 if (lastPage === null) {
                     return undefined;
@@ -116,7 +162,15 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
                 return nextPage;
             },
             onSuccess: (data) => {
-                setResults([...results, ...data.pages[data.pages.length - 1].flat()])
+                if (data.pages.length === 1) {
+                    if (data !== null && data.pages[data.pages.length - 1] !== null) {
+                        setResults(data.pages.flat())
+                    }
+                } else {
+                    if (data !== null && data.pages[data.pages.length - 1] !== null) {
+                        setResults([...results, ...data.pages[data.pages.length - 1].flat()])
+                    }
+                }
             }
         });
 
@@ -187,10 +241,11 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
             <Animated.View style={{ paddingBottom: spacing.s }}>
                 {
                     options && <Animated.View style={contentStyle}>
-                        <VodTopicFilter callback={setTopicClass} init={topicClass} options={['全部类型', ...options.type_extend_obj.class.split(',')]} />
-                        <VodTopicFilter callback={setArea} init={area} options={['全部地区', ...options.type_extend_obj.area.split(',')]} />
-                        <VodTopicFilter callback={setLang} init={lang} options={['全部语言', ...options.type_extend_obj.lang.split(',')]} />
-                        <VodTopicFilter callback={setYear} init={year} options={['全部时间', ...options.type_extend_obj.year.split(',')]} />
+                        <VodTopicFilter callback={setOrderBy} init={orderBy} options={ORDER_BY_OPTIONS} />
+                        <VodTopicFilter callback={setTopicClass} init={topicClass} options={['全部类型', ...options.type_extend_obj.class.split(',')].map(x => sameTextAndValueObj(x))} />
+                        <VodTopicFilter callback={setArea} init={area} options={['全部地区', ...options.type_extend_obj.area.split(',')].map(x => sameTextAndValueObj(x))} />
+                        <VodTopicFilter callback={setLang} init={lang} options={['全部语言', ...options.type_extend_obj.lang.split(',')].map(x => sameTextAndValueObj(x))} />
+                        <VodTopicFilter callback={setYear} init={year} options={['全部时间', ...options.type_extend_obj.year.split(',')].map(x => sameTextAndValueObj(x))} />
                     </Animated.View>
                 }
                 <Animated.View containerStyle={{ marginBottom: spacing.m, backgroundColor: colors.background, padding: 0 }}>
@@ -198,13 +253,13 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
                         options && <Animated.View style={contentSummaryStyle}>
                             <View style={{ marginTop: spacing.s, ...styles.collapedSummary, justifyContent: 'space-between' }}>
                                 <View style={{ ...styles.collapedSummary }} gap={4}>
-                                    <Text style={{ ...textVariants.body, color: colors.muted }}>{topicClass}</Text>
+                                    <Text style={{ ...textVariants.body, color: colors.muted }}>{topicClass.text}</Text>
                                     <View style={{ ...styles.dot, backgroundColor: colors.primary }}></View>
-                                    <Text style={{ ...textVariants.body, color: colors.muted }}>{area}</Text>
+                                    <Text style={{ ...textVariants.body, color: colors.muted }}>{area.text}</Text>
                                     <View style={{ ...styles.dot, backgroundColor: colors.primary }}></View>
-                                    <Text style={{ ...textVariants.body, color: colors.muted }}>{lang}</Text>
+                                    <Text style={{ ...textVariants.body, color: colors.muted }}>{lang.text}</Text>
                                     <View style={{ ...styles.dot, backgroundColor: colors.primary }}></View>
-                                    <Text style={{ ...textVariants.body, color: colors.muted }}>{year}</Text>
+                                    <Text style={{ ...textVariants.body, color: colors.muted }}>{year.text}</Text>
                                 </View>
                                 <TouchableOpacity onPress={() => {
                                     // lastContentOffset.value = event.contentOffset.y;
@@ -218,10 +273,10 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
                 </Animated.View>
             </Animated.View>
             {
-                vods && <AnimatFlatList
+                vods && <Animated.FlatList
                     data={results}
-                    // onScroll={scrollHandler}
-                    keyExtractor={(item: SuggestedVodType, index) => {
+                    onScroll={scrollHandler}
+                    keyExtractor={(item: SuggestedVodType, index: number) => {
                         return `#-${item?.vod_id}-${index}`
                     }}
                     onEndReached={() => {
@@ -229,13 +284,13 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
                             fetchNextPage();
                         }
                     }}
-                    onEndReachedThreshold={0.2}
+                    onEndReachedThreshold={0.4}
                     columnWrapperStyle={{}}
                     ListFooterComponent={
-                        <View style={{...styles.loading, marginBottom: spacing.xl}}>
+                        <View style={{ ...styles.loading, marginBottom: spacing.xl }}>
                             {
-                                (isFetchingNextPage || isFetching) && <FastImage
-                                    style={{ height: '15%', width: '50%' }}
+                                hasNextPage && <FastImage
+                                    style={{ height: 100, width: 100 }}
                                     source={require('../../../static/images/loading-spinner.gif')}
                                     resizeMode={FastImage.resizeMode.contain}
                                 />
@@ -262,7 +317,6 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
                     }}
                 />
             }
-
         </ScreenContainer >
     )
 }

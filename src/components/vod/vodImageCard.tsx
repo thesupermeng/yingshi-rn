@@ -43,7 +43,7 @@ export default function VodImageCard({ vod_img, vodStyle, onPress, showInfo = ''
             {
                 showInfo !== '' && <View style={{ backgroundColor: shadowBottom ? 'transparent' : 'rgba(0, 0, 0, 0.6)', ...styles.tag }}>
                     <Text style={{
-                        ...textVariants.body,
+                        ...textVariants.small,
                         color: 'white'
                     }} numberOfLines={1}>{showInfo}</Text>
                 </View>
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     image: {
         height: 200,
         width: 150,
-        borderRadius: 20
+        borderRadius: 10
     },
     vod: {
         position: 'relative',
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     tag: {
         position: 'absolute',
         borderRadius: 4,
-        bottom: 10,
+        bottom: 6,
         right: 10,
         padding: 5,
         marginLeft: 10
@@ -82,8 +82,8 @@ const styles = StyleSheet.create({
         bottom: 0,
         height: 45,
         flex: 1,
-        borderBottomRightRadius: 20,
-        borderBottomLeftRadius: 20,
+        borderBottomRightRadius: 10,
+        borderBottomLeftRadius: 10,
         opacity: 0.8
     }
 });

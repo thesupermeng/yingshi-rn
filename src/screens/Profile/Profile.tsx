@@ -2,7 +2,6 @@ import React from 'react';
 import { ListItem } from '@rneui/themed';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
-import LightMode from '../../../static/images/light_mode.svg';
 import { useTheme } from '@react-navigation/native';
 import { toggleTheme } from '../../redux/actions/themeAction';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
@@ -15,6 +14,9 @@ import FeedbackIcon from '../../../static/images/feedback.svg';
 import SettingsIcon from '../../../static/images/settings.svg';
 import InfoIcon from '../../../static/images/info.svg';
 import ShareIcon from '../../../static/images/share.svg';
+import LightMode from '../../../static/images/light_mode.svg';
+import DarkMode from '../../../static/images/dark_mode.svg';
+
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 export default ({ navigation }: BottomTabScreenProps<any>) => {
     const { colors, textVariants, icons } = useTheme();
@@ -26,7 +28,12 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
             <View style={styles.topNav}>
                 <Text style={textVariants.bigHeader}>我的</Text>
                 <TouchableOpacity onPress={() => dispatch(toggleTheme(!themeReducer.theme))}>
-                    <LightMode color={icons.iconColor} />
+                    {
+                        themeReducer.theme
+                        ? <LightMode color={icons.iconColor} />
+                        : <DarkMode color={icons.iconColor} />
+                         
+                    }
                 </TouchableOpacity>
             </View>
             <View>

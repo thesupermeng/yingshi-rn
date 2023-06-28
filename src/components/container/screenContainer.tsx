@@ -1,39 +1,55 @@
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useTheme } from '@react-navigation/native';
 interface Props {
     children?: React.ReactNode,
-    params?: any[],
     scrollView?: boolean,
     footer?: React.ReactNode,
-    style?: typeof StyleSheet
+    containerStyle?: typeof StyleSheet,
+    header?: React.ReactNode,
 }
-export default function ScreenContainer({ children, scrollView = false, footer, style, ...params }: Props) {
+export default function ScreenContainer({ children, scrollView = false, footer, containerStyle, header }: Props) {
     const insets = useSafeAreaInsets();
+    const { spacing } = useTheme();
     return (
         <>
             {
                 scrollView
                     ? <ScrollView style={{
                         ...styles.container,
-                        paddingTop: insets.top,
+                        paddingTop: insets.top + 10,
                         paddingBottom: insets.bottom,
                         paddingLeft: insets.left,
-                        paddingRight: insets.right
+                        paddingRight: insets.right,
                     }}
-                        {...params} contentContainerStyle={{ paddingBottom: 30 }} >
-                        <View style={{...styles.innerContainer, ...style}}>
+                        stickyHeaderIndices={[0]}
+                        contentContainerStyle={{ paddingBottom: 30 }} >
+                        <>
+                            {header}
+                        </>
+                        <View style={{
+                            ...styles.innerContainer,
+                            paddingLeft: spacing.sideOffset,
+                            paddingRight: spacing.sideOffset,
+                            ...containerStyle
+                        }}>
                             {children}
                         </View>
                         {footer}
                     </ScrollView>
                     : <View style={{
                         ...styles.viewContainer,
-                        paddingTop: insets.top,
+                        paddingTop: insets.top + 10,
                         paddingBottom: insets.bottom,
                         paddingLeft: insets.left,
                         paddingRight: insets.right,
-                    }} {...params}>
-                        <View style={{...styles.innerContainer, ...style}}>
+                    }}>
+                        <View style={{
+                            ...styles.innerContainer,
+                            paddingLeft: spacing.sideOffset,
+                            paddingRight: spacing.sideOffset,
+                            ...containerStyle
+                        }}>
                             {children}
                         </View>
                         {footer}
@@ -50,7 +66,5 @@ const styles = StyleSheet.create({
     },
     innerContainer: {
         flex: 1,
-        paddingLeft: 10,
-        paddingRight: 10,
     }
 });

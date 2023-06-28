@@ -25,7 +25,7 @@ export default function VodCard({ vod_name, vod_pic, vodImageStyle, onPress, sho
                         width: vodImageStyle?.width !== undefined ? vodImageStyle.width : styles.card.width,
                     }}>
                         <VodImageCard vod_img={vod_pic} shadowBottom={shadowBottom} vodStyle={{ ...styles.card, ...vodImageStyle }} onPress={onPress} showPlayIcon={showPlayIcon} showInfo={showInfo} />
-                        <Text style={{ ...styles.text, ...textVariants.body, height: textVariants.body.fontSize * 3 }} numberOfLines={2}>{vod_name}</Text>
+                        <Text style={{ ...styles.text, ...textVariants.small, height: textVariants.body.fontSize * 2.5 }} numberOfLines={2}>{vod_name}</Text>
                     </View>
             }
         </View>

@@ -23,7 +23,8 @@ export default function FavoriteVodCard({ vod, onPress, btnStyle, hideFavoriteBu
                         ? <Text numberOfLines={1} style={{
                             ...textVariants.header,
                             color: colors.text,
-                            flex: 1
+                            // flex: 1,
+                            flexShrink: 1
                         }}>
                             {vod.vod_name}
                         </Text>
@@ -45,7 +46,8 @@ const styles = StyleSheet.create({
     description: {
         flexGrow: 1,
         paddingTop: 8,
-        paddingBottom: 8
+        paddingBottom: 8,
+        flexShrink: 1
     },
     image: {
         width: 128

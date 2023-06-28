@@ -37,7 +37,7 @@ export default function VodHistoryList({ vodStyle, horizontal = true, vodList=[]
                 showInfo={
                     showInfo === 'none'
                     ? ''
-                    : `观看至 ${new Date(item.timeWatched * 1000).toISOString().substring(11, 16)}`
+                    : `观看至 ${new Date(1000 * item.timeWatched).toISOString().substr(11, 8)}`
                 }
                 onPress={() => {
                     dispatch(playVod(item));

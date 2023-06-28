@@ -25,27 +25,34 @@ export default function VodPlaylist({ playlist }: Props) {
     }
     return (
         <View style={styles.playlist} gap={spacing.s}>
-            <View style={styles.header}>
-                <Text style={{ ...textVariants.bigHeader, color: colors.primary }}>{playlist.topic_name}</Text>
-                <TouchableOpacity onPress={viewMore}>
-                    <RightIcon color={colors.text} height={icons.sizes.xl} width={icons.sizes.xl} />
-                </TouchableOpacity>
+            <View style={{
+                paddingLeft: spacing.sideOffset,
+                paddingRight: spacing.sideOffset,
+            }}>
+                <View style={styles.header}>
+                    <Text style={{ ...textVariants.bigHeader, color: colors.primary }}>{playlist.topic_name}</Text>
+                    <TouchableOpacity onPress={viewMore}>
+                        <RightIcon color={colors.text} height={icons.sizes.xl} width={icons.sizes.xl} />
+                    </TouchableOpacity>
+                </View>
+                <Text numberOfLines={3} style={{ ...textVariants.body, color: colors.text, flex: 1 }}>
+                    {playlist.topic_blurb}
+                </Text>
             </View>
-            <Text numberOfLines={3} style={{ ...textVariants.body, color: colors.text, flex: 1 }}>
-                {playlist.topic_blurb}
-            </Text>
-            <FlatList
-                data={playlist.vod_list}
-                horizontal
-                renderItem={({ item }: FlatListType) => {
-                    return <VodCard vod_name={item.vod_name} vod_pic={item.vod_pic} onPress={() => {
-                        dispatch(playVod(item));
-                        navigator.navigate('播放', {
-                            vod_id: item.vod_id,
-                        })
-                    }} />
-                }}
-            />
+            <View style={{paddingLeft: spacing.sideOffset}}>
+                <FlatList
+                    data={playlist.vod_list}
+                    horizontal
+                    renderItem={({ item }: FlatListType) => {
+                        return <VodCard vod_name={item.vod_name} vod_pic={item.vod_pic} onPress={() => {
+                            dispatch(playVod(item));
+                            navigator.navigate('播放', {
+                                vod_id: item.vod_id,
+                            })
+                        }} />
+                    }}
+                />
+            </View>
         </View>
     );
 }

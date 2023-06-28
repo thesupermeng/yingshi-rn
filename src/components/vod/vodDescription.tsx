@@ -12,8 +12,10 @@ export default function VodDescription({ vod, vodStyle }: Props) {
     return (
         <View gap={spacing.xs}>
             <View style={styles.des} gap={spacing.s}>
-                <Text style={{...textVariants.body, color: colors.muted}}>{vod.vod_year}</Text>
-                <Text style={{...textVariants.body, color: colors.muted}}>{vod.vod_class}</Text>
+                {
+                    vod.vod_year && <Text style={{...textVariants.body, color: colors.muted}}>{vod.vod_year}</Text>
+                }
+                {/* <Text style={{...textVariants.body, color: colors.muted}}>{vod.vod_class}</Text> */}
                 <Text style={{...textVariants.body, color: colors.muted, flex: 1}} numberOfLines={1}>{vod.vod_class}</Text>
             </View>
             <View style={styles.des} gap={spacing.s}>
