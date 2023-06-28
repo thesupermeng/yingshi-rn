@@ -1,10 +1,10 @@
-import React, { useEffect, useState, useMemo, useRef } from 'react';
+import React, { useEffect, useState, useMemo, useRef, useCallback } from 'react';
 import { View, TouchableOpacity, Share, Text, StyleSheet, Alert, ScrollView, Image } from 'react-native';
 import Video from 'react-native-video';
 import FavoriteButton from '../../components/button/favoriteVodButton';
 import FavoriteIcon from '../../../static/images/favorite.svg'
 import ScreenContainer from '../../components/container/screenContainer';
-import { useTheme } from '@react-navigation/native';
+import { useTheme, useFocusEffect } from '@react-navigation/native';
 
 import { RootStackScreenProps } from '../../types/navigationTypes';
 import { SuggestResponseType } from '../../types/ajaxTypes';
@@ -19,6 +19,7 @@ import QQIcon from '../../../static/images/qq.svg';
 import PYQIcon from '../../../static/images/pyq.svg';
 import MoreArrow from '../../../static/images/more_arrow.svg';
 import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
+import Orientation from 'react-native-orientation-locker';
 
 
 import { Dimensions } from 'react-native';
@@ -143,6 +144,15 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
         queryKey: ["relatedVods", vod],
         queryFn: () => fetchVod()
     });
+
+    useFocusEffect(
+        useCallback(() => {
+            return () => {
+                Orientation.unlockAllOrientations();
+            };
+        }, [])
+    );
+
     return (
         <ScreenContainer containerStyle={{ flex: 1, paddingRight: 0, paddingLeft: 0 }}>
             <View style={styles.videoHeader}>

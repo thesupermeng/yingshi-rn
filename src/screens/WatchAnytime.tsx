@@ -50,7 +50,7 @@ export default ({ navigation } : BottomTabScreenProps<any>) => {
             const signal = abortController.signal;
             try {
                 const response = await fetch(
-                    `${API_DOMAIN}miniVod/v1/miniVod?page=` + page,{ signal }
+                    `https://testapi.yingshi.tv/miniVod/v1/miniVod?page=` + page,{ signal }
                 );
                 const json: MiniVideoResponseType = await response.json();
                 if(json.data.List == null){

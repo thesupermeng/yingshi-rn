@@ -79,7 +79,7 @@ export default ({ vod_url, currentTimeRef, initialStartTime = 0 }: Props) => {
             setIsFullScreen(false);
         } else {
             Orientation.lockToLandscapeLeft();
-            Orientation.unlockAllOrientations();
+            // Orientation.unlockAllOrientations();
             setIsFullScreen(true);
         }
     }, [isFullScreen, Orientation])
