@@ -100,6 +100,8 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        resValue "string", "UMENG_APPKEY", '648ec50987568a379b587f39'
+        resValue "string", "UMENG_CHANNEL", '10001'
     }
 
     splits {
@@ -148,9 +150,19 @@ android {
     }
 }
 
+repositories{
+    flatDir{
+        dirs 'libs'
+    }
+}
+
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
+    implementation fileTree(include:['*.jar'], dir:'libs')
+    implementation (name:'umeng-asms-armeabi-v1.8.0', ext:'aar')
+    implementation (name:'umeng-abtest-v1.0.1', ext:'aar')
+    implementation (name:'umeng-common-9.6.1', ext:'aar')
 
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.0.0")
     implementation("androidx.core:core-splashscreen:1.0.0")
