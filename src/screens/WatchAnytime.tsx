@@ -26,6 +26,7 @@ import Play from '../../static/images/blackPlay.svg';
 import FastImage from 'react-native-fast-image';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import Orientation from 'react-native-orientation-locker';
+import { API_DOMAIN } from '../constants';
 
 type MiniVideoResponseType = {
     data: {
@@ -45,12 +46,11 @@ export default ({ navigation } : BottomTabScreenProps<any>) => {
     const getMiniVideos = useQuery({
         queryKey: ["WatchAnytime"],
         queryFn: async () => {
-            console.log('=======*&*&(^(&^^(^*^&(%%(%)_++@)#(!+(#+(!+#(+!(+#+')
             const abortController = new AbortController();
             const signal = abortController.signal;
             try {
                 const response = await fetch(
-                    `https://testapi.yingshi.tv/miniVod/v1/miniVod?page=` + page,{ signal }
+                    `${API_DOMAIN}miniVod/v1/miniVod?page=` + page,{ signal }
                 );
                 const json: MiniVideoResponseType = await response.json();
                 if(json.data.List == null){
@@ -63,7 +63,7 @@ export default ({ navigation } : BottomTabScreenProps<any>) => {
                 return json.data.List;
             } catch (error: any) {
                 if (error.name === "AbortError") {
-                    console.log("Aborted");
+                    
                 }
             }
         }
@@ -84,7 +84,6 @@ export default ({ navigation } : BottomTabScreenProps<any>) => {
     );
 
     useEffect(() => {
-        console.log("IOOOOOOOOOOOOOOOOOOOOOOOO")
         getMiniVideos;
 
         return () => {
@@ -105,22 +104,20 @@ export default ({ navigation } : BottomTabScreenProps<any>) => {
             setCurrent(curr);
         }
         return () => {
-            console.log('aa2');
+            
         };
     }, []);
 
     const loadMoreVideos = async () => {
-        fetch(`https://testapi.yingshi.tv/miniVod/v1/miniVod?page=` + page)
+        fetch(`${API_DOMAIN}miniVod/v1/miniVod?page=` + page)
             .then(response => response.json())
             .then((json: MiniVideoResponseType) => {
-                console.log("JOOOOS")
                 setVideos((prevVideos: any) => [...prevVideos, ...json.data.List]);
                 setPage((prevPage: any) => {
                     return prevPage + 1;
                 });
             })
     }
-    console.log('AAAA');
 
     const renderFlatListItem = useCallback(({item, index}: { item: MiniVideo; index: number }) => {
         const isCurrentVideo = index === current;
