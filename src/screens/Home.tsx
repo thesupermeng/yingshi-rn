@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Button, Image, FlatList } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, FlatList } from 'react-native';
 import ScreenContainer from '../components/container/screenContainer';
 import { useSelector, useDispatch } from 'react-redux';
 import HomeHeader from '../components/header/homeHeader';

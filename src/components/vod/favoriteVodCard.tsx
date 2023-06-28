@@ -21,7 +21,7 @@ export default function FavoriteVodCard({ vod, onPress, btnStyle, hideFavoriteBu
                 {
                     hideFavoriteButton
                         ? <Text numberOfLines={1} style={{
-                            ...textVariants.header,
+                            ...textVariants.body,
                             color: colors.text,
                             // flex: 1,
                             flexShrink: 1
@@ -45,11 +45,12 @@ const styles = StyleSheet.create({
     },
     description: {
         flexGrow: 1,
-        paddingTop: 8,
+        paddingTop: 4,
         paddingBottom: 8,
         flexShrink: 1
     },
     image: {
-        width: 128
+        width: 120,
+        height: 180
     }
 });

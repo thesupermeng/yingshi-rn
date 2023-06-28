@@ -12,7 +12,7 @@ export default function ShowMoreVodButton({ text, onPress, ...params }: Props) {
         <View style={styles.banner}>
             <Text style={StyleSheet.create(textVariants.header)}>{text}</Text>
             <TouchableOpacity onPress={onPress} style={styles.banner}>
-                <Text style={{ color: colors.muted, fontSize: textVariants.small.fontSize }}>更多</Text>
+                <Text style={{ color: colors.muted, fontSize: textVariants.small.fontSize, paddingBottom: 3 }}>更多</Text>
                 <MoreArrow style={{ color: colors.muted }} height={icons.sizes.m} width={icons.sizes.m} ></MoreArrow>
             </TouchableOpacity>
         </View>

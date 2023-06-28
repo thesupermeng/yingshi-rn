@@ -20,7 +20,7 @@ export default function MainHeader({ logo, navigator, headerStyle }: Props) {
             }
             <SearchBar onPress={() => navigator.navigate('搜索')} />
             <TouchableOpacity onPress={() => navigator.navigate('播放历史')}>
-                <History height={28} width={28} color={icons.iconColor} />
+                <History height={26} width={26} color={icons.iconColor} />
             </TouchableOpacity>
         </View>
     );
@@ -28,7 +28,7 @@ export default function MainHeader({ logo, navigator, headerStyle }: Props) {
 
 const styles = StyleSheet.create({
     container: {
-        paddingTop: 4,
+        paddingTop: 8,
         display: 'flex',
         flexDirection: 'row',
         width: '100%',

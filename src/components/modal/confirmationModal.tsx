@@ -6,9 +6,13 @@ import { useTheme } from '@react-navigation/native';
 interface Props {
     onConfirm: any,
     onCancel: any,
-    isVisible: boolean
+    isVisible: boolean,
+    title?: string,
+    subtitle?: string,
+    confirmationText?: string
+    cancelText?: string
 }
-export default function ConfirmationModal({ onConfirm, onCancel, isVisible }: Props) {
+export default function ConfirmationModal({ onConfirm, onCancel, isVisible, title = '', subtitle = '', confirmationText = '确定', cancelText = '取消' }: Props) {
     const { colors, textVariants, spacing } = useTheme();
 
     return (
@@ -19,14 +23,14 @@ export default function ConfirmationModal({ onConfirm, onCancel, isVisible }: Pr
             onBackdropPress={onCancel}
         >
             <View gap={spacing.m}>
-                <Dialog.Title titleStyle={{ ...textVariants.header, ...styles.text, }} title="清除提示" />
-                <Text style={{ ...textVariants.body, ...styles.text, }} >您是否确定清除播放历史吗？</Text>
+                <Text style={{ ...textVariants.header, ...styles.text, }}>{title}</Text>
+                <Text style={{ ...textVariants.subBody, ...styles.text, }} >{subtitle}</Text>
                 <View style={styles.btns}>
                     <TouchableOpacity style={styles.btn} onPress={onCancel}>
-                        <Text style={{ ...textVariants.body, ...styles.text, }}>取消</Text>
+                        <Text style={{ ...textVariants.body, ...styles.text, }}>{cancelText}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.btn} onPress={onConfirm}>
-                        <Text style={{ ...textVariants.body, ...styles.text, color: colors.primary }}>确定</Text>
+                        <Text style={{ ...textVariants.body, ...styles.text, color: colors.primary }}>{confirmationText}</Text>
                     </TouchableOpacity>
                 </View>
             </View>

@@ -19,6 +19,7 @@ import HistoryScreen from '../screens/Profile/History';
 import AboutUsScreen from '../screens/Profile/AboutUs';
 import PrivacyScreen from '../screens/Profile/Privacy';
 import UserAgreementScreen from '../screens/Profile/UserAgreement';
+import ConfigureScreen from '../screens/Profile/Configure';
 
 import HomeTabIcon from '../../static/images/home_tab.svg';
 import HomeActiveTabIcon from '../../static/images/home_tab_active.svg';
@@ -46,7 +47,7 @@ export default () => {
     const ProfileTab = createBottomTabNavigator<ProfileTabParamList>();
     const PlaylistTab = createBottomTabNavigator<PlaylistTabParamList>();
     const WatchAnytimeTab = createBottomTabNavigator<WatchAnytimeTabParamList>();
-    
+
     const themeReducer = useSelector(({ themeReducer }: RootState) => themeReducer);
     const theme = themeReducer.theme ? YingshiDarkTheme : YingshiLightTheme
 
@@ -54,12 +55,7 @@ export default () => {
         return (
             <HomeTab.Navigator screenOptions={({ route }) => ({
                 headerShown: false,
-                // // tabBarStyle: {paddingBottom: 10, paddingTop: 10},
-                // tabStyle: {
-                //     // height: 20,
-                //     // padding: 10,
-                //     paddingVertical: 
-                //   },
+                tabBarStyle: { paddingBottom: 5, paddingTop: 4 },
                 tabBarIcon: ({ focused, color, size }) => {
                     let icon: React.ReactNode;
                     if (route.name === '首页') {
@@ -86,7 +82,10 @@ export default () => {
 
     function ProfileTabScreen() {
         return (
-            <ProfileTab.Navigator screenOptions={{ headerShown: false }}>
+            <ProfileTab.Navigator screenOptions={{
+                tabBarStyle: { paddingBottom: 5, paddingTop: 4 },
+                headerShown: false
+            }}>
                 <ProfileTab.Screen name="首页" component={HomeScreen} />
                 <ProfileTab.Screen name="随心看" component={WatchAnytime} />
                 <ProfileTab.Screen name="播单" component={PlaylistScreen} />
@@ -97,7 +96,10 @@ export default () => {
 
     function PlaylistTabScreen() {
         return (
-            <PlaylistTab.Navigator screenOptions={{ headerShown: false, tabBarStyle: {paddingBottom: 10} }}>
+            <PlaylistTab.Navigator screenOptions={{
+                headerShown: false,
+                tabBarStyle: { paddingBottom: 5, paddingTop: 4 },
+            }}>
                 <PlaylistTab.Screen name="首页" component={HomeScreen} />
                 <PlaylistTab.Screen name="随心看" component={WatchAnytime} />
                 <PlaylistTab.Screen name="播单" component={PlaylistScreen} />
@@ -108,7 +110,10 @@ export default () => {
 
     function WatchAnytimeTabScreen() {
         return (
-            <WatchAnytimeTab.Navigator screenOptions={{ headerShown: false }}>
+            <WatchAnytimeTab.Navigator screenOptions={{
+                tabBarStyle: { paddingBottom: 5, paddingTop: 4 },
+                headerShown: false
+            }}>
                 <WatchAnytimeTab.Screen name="首页" component={HomeScreen} />
                 <WatchAnytimeTab.Screen name="随心看" component={WatchAnytime} />
                 <WatchAnytimeTab.Screen name="播单" component={PlaylistScreen} />
@@ -137,7 +142,8 @@ export default () => {
                     <Stack.Screen name='PlaylistDetail' component={PlaylistDetailsScreen} />
                     <Stack.Screen name='隐私政策' component={PrivacyScreen} />
                     <Stack.Screen name='用户协议' component={UserAgreementScreen} />
-                    <Stack.Screen name='片库' component={CatalogScreen} initialParams={{ type_id: 1 }}/>
+                    <Stack.Screen name='片库' component={CatalogScreen} initialParams={{ type_id: 1 }} />
+                    <Stack.Screen name='设置' component={ConfigureScreen} />
                 </Stack.Navigator>
             </NavigationContainer>
         </SafeAreaProvider>

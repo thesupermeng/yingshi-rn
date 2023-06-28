@@ -92,13 +92,16 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
 
     // For calculating the margin and width for displaying the vods for different viewports.
     // Cannot fix width and height. Min 3 cards each row. Max width 150 for iPad, tablet
-    const windowDim = useMemo(() => (Dimensions.get('window').width - insets.left - insets.right), []);
-    const paddingPerCard = 14;
+    const windowDim = useMemo(() => (Dimensions.get('window').width - insets.left - insets.right - (spacing.sideOffset * 4)), []);
+    const paddingPerCard = 0;
     const minWidth = useMemo(() => (windowDim / 3) - paddingPerCard, [windowDim, paddingPerCard]);
-    const cardWidth = useMemo(() => Math.min(150, Math.floor(minWidth)), [minWidth]);
+    const cardWidth = useMemo(() => Math.min(180, Math.floor(minWidth)), [minWidth]);
     const cardHeight = useMemo(() => 1.6 * cardWidth, [cardWidth]);
     const LIMIT_PER_PAGE = useMemo(() => Math.floor(windowDim / (cardWidth + paddingPerCard)) * 5, [cardWidth, paddingPerCard, windowDim]) // 5 Rows;
     const CARDS_PER_ROW = useMemo(() => Math.floor(windowDim / cardWidth), [cardWidth]);
+    const MARGIN_RIGHT = useMemo(() => {
+        return Math.floor((windowDim - (CARDS_PER_ROW * cardWidth)) / (CARDS_PER_ROW - 1))
+    }, [windowDim, CARDS_PER_ROW, cardWidth]);
 
     // For scroll animation - reanimated 3
     const lastContentOffset = useSharedValue(0);
@@ -230,8 +233,9 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
                         }}>
                             <Text style={{
                                 textAlign: 'center',
-                                fontSize: textVariants.header.fontSize,
-                                color: currentTopicId === item.id ? colors.primary : colors.muted
+                                fontSize: currentTopicId === item.id ? textVariants.body.fontSize : textVariants.subBody.fontSize,
+                                color: currentTopicId === item.id ? colors.primary : colors.muted,
+                                fontWeight: currentTopicId === item.id ? '600' : '400',
                             }}>{item.name}</Text>
                             <View style={underlineStyle(item.id)}></View>
                         </TouchableOpacity>
@@ -253,13 +257,13 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
                         options && <Animated.View style={contentSummaryStyle}>
                             <View style={{ marginTop: spacing.s, ...styles.collapedSummary, justifyContent: 'space-between' }}>
                                 <View style={{ ...styles.collapedSummary }} gap={4}>
-                                    <Text style={{ ...textVariants.body, color: colors.muted }}>{topicClass.text}</Text>
+                                    <Text style={{ ...textVariants.small, color: colors.muted }}>{topicClass.text}</Text>
                                     <View style={{ ...styles.dot, backgroundColor: colors.primary }}></View>
-                                    <Text style={{ ...textVariants.body, color: colors.muted }}>{area.text}</Text>
+                                    <Text style={{ ...textVariants.small, color: colors.muted }}>{area.text}</Text>
                                     <View style={{ ...styles.dot, backgroundColor: colors.primary }}></View>
-                                    <Text style={{ ...textVariants.body, color: colors.muted }}>{lang.text}</Text>
+                                    <Text style={{ ...textVariants.small, color: colors.muted }}>{lang.text}</Text>
                                     <View style={{ ...styles.dot, backgroundColor: colors.primary }}></View>
-                                    <Text style={{ ...textVariants.body, color: colors.muted }}>{year.text}</Text>
+                                    <Text style={{ ...textVariants.small, color: colors.muted }}>{year.text}</Text>
                                 </View>
                                 <TouchableOpacity onPress={() => {
                                     // lastContentOffset.value = event.contentOffset.y;
@@ -302,17 +306,21 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
                         </View>
                     }
                     numColumns={CARDS_PER_ROW}
-                    renderItem={({ item }: { item: SuggestedVodType }) => {
-                        return <VodCard vod_pic={item?.vod_pic}
-                            vod_name={item?.vod_name}
-                            vodImageStyle={{ width: cardWidth, height: cardHeight, marginRight: 'auto', }}
-                            onPress={() => {
-                                dispatch(playVod(item));
-                                navigation.navigate('播放', {
-                                    vod_id: item?.vod_id,
-                                });
-                            }}
-                        />
+                    renderItem={({ item, index }: { item: SuggestedVodType, index: number }) => {
+                        return <View style={{marginBottom: spacing.s, marginRight: (index % CARDS_PER_ROW) === CARDS_PER_ROW - 1 ? 0 : MARGIN_RIGHT}}>
+                            <VodCard vod_pic={item?.vod_pic}
+                                vod_name={item?.vod_name}
+                                vodImageStyle={{
+                                    width: cardWidth, height: cardHeight,  
+                                }}
+                                onPress={() => {
+                                    dispatch(playVod(item));
+                                    navigation.navigate('播放', {
+                                        vod_id: item?.vod_id,
+                                    });
+                                }}
+                            />
+                        </View>
                         // return <View style={{height: 200, width: 200, backgroundColor: 'red'}}></View>
                     }}
                 />
@@ -327,12 +335,12 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
     btn: {
-        paddingRight: 10
+        paddingRight: 20
     },
     underline: {
-        marginTop: 3,
-        height: 5,
-        width: '60%',
+        marginTop: 7,
+        height: 4,
+        width: '50%',
         borderRadius: 20,
         alignSelf: 'center'
     },
@@ -345,8 +353,8 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
     },
     dot: {
-        height: 8,
-        width: 8,
+        height: 3,
+        width: 3,
         marginTop: 3,
         borderRadius: 999,
     },

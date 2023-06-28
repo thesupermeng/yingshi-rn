@@ -28,7 +28,7 @@ export default ({ navigation }: RootStackScreenProps<'播单收藏'>) => {
                 favorites && <FlatList
                     data={favorites}
                     contentContainerStyle={{ paddingBottom: 30 }}
-                    ListFooterComponent={<Text style={{ ...textVariants.body, color: colors.muted, ...styles.noMore }}>没有更多了</Text>}
+                    ListFooterComponent={<Text style={{ ...textVariants.subBody, color: colors.muted, ...styles.noMore }}>没有更多了</Text>}
                     renderItem={({ item }: FlatListType) => <FavoritePlaylist playlist={item} navigator={navigation} />}
                 />
             }

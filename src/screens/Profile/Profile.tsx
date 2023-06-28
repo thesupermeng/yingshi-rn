@@ -40,7 +40,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                 <ShowMoreButton text='我的收藏' leftIcon={<CollectionIcon style={{ color: colors.button }} />} onPress={()=>navigation.navigate('视频收藏')}/>
                 <ShowMoreButton text='播放历史' leftIcon={<HistoryIcon style={{ color: colors.button }} />} onPress={()=>navigation.navigate('播放历史')} />
                 <ShowMoreButton text='我要反馈' leftIcon={<FeedbackIcon style={{ color: colors.button }} />} onPress={()=>navigation.navigate('反馈')} />
-                <ShowMoreButton text='设置' leftIcon={<SettingsIcon style={{ color: colors.button }} />} />
+                <ShowMoreButton text='设置' leftIcon={<SettingsIcon style={{ color: colors.button }} />} onPress={()=>navigation.navigate('设置')} />
                 <ShowMoreButton text='关于我们' leftIcon={<InfoIcon style={{ color: colors.button }} />} onPress={()=>navigation.navigate('关于我们')} />
                 <ShowMoreButton text='分享App' leftIcon={<ShareIcon style={{ color: colors.button }} />} />
             </View>

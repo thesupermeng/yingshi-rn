@@ -20,12 +20,12 @@ export default ({ navigation }: RootStackScreenProps<'PlaylistDetail'>) => {
                 playlist &&
                 <View gap={spacing.s}>
                     <View style={styles.header}>
-                        <Text numberOfLines={3} style={{ ...textVariants.body, color: colors.text, flex: 1 }}>
+                        <Text numberOfLines={3} style={{ ...textVariants.small, color: colors.text, flex: 1, marginRight: spacing.l }}>
                             {playlist?.topic_blurb}
                         </Text>
                         <FavoritePlaylistButton playlist={playlist} />
                     </View>
-                    <Text style={{ ...textVariants.body }}>{`(共${playlist.vod_list.length}部)`}</Text>
+                    <Text style={{ ...textVariants.small }}>{`(共${playlist.vod_list.length}部)`}</Text>
                     <VodWithDescriptionList vodList={playlist.vod_list} />
                 </View>
             }

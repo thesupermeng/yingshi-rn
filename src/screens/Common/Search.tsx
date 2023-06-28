@@ -81,7 +81,7 @@ export default ({ navigation }: RootStackScreenProps<'搜索'>) => {
                     inputContainerStyle={{ backgroundColor: colors.search, ...styles.inputContainerStyle, }}
                     leftIconContainerStyle={{}}
                     rightIconContainerStyle={{}}
-                    inputStyle={textVariants.body}
+                    inputStyle={textVariants.small}
                     loadingProps={{}}
                     onChangeText={(newVal: string) => {
                         setShowResults(false);
@@ -91,7 +91,7 @@ export default ({ navigation }: RootStackScreenProps<'搜索'>) => {
                     placeholderTextColor={colors.muted}
                     round
                     onSubmitEditing={onSubmit}
-                    searchIcon={<SearchIcon color={colors.muted} />}
+                    searchIcon={<SearchIcon color={colors.muted} height={23} width={23}/>}
                     value={search}
                     clearIcon={
                         search ?
@@ -100,7 +100,7 @@ export default ({ navigation }: RootStackScreenProps<'搜索'>) => {
                                 setSearch('');
                                 setShowResults(false);
                             }} >
-                                <ClearIcon />
+                                <ClearIcon height={12} width={12}/>
                             </TouchableOpacity>
                             : <></>
                     }
@@ -124,8 +124,8 @@ export default ({ navigation }: RootStackScreenProps<'搜索'>) => {
                                                 <View style={styles.rowApart}>
                                                     <Text style={{ ...textVariants.header }}>历史搜索</Text>
                                                     <TouchableOpacity style={styles.rowApart} onPress={clearHistory}>
-                                                        <Text style={{ ...textVariants.subBody, marginRight: 4 }}>清除</Text>
-                                                        <ClearHistoryIcon height={icons.sizes.s} width={icons.sizes.s} />
+                                                        <Text style={{ ...textVariants.small, marginRight: 5, color: colors.muted }}>清除</Text>
+                                                        <ClearHistoryIcon height={textVariants.small.fontSize} width={textVariants.small.fontSize} />
                                                     </TouchableOpacity>
                                                 </View>
                                                 <View style={styles.searchContainer}>
@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
         height: 35
     },
     searchResult: {
-        marginTop: 20,
+        marginTop: 10,
     },
     rowApart: {
         display: 'flex',
@@ -190,9 +190,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     hst: {
-        padding: 6,
+        paddingTop: 7,
+        paddingBottom: 9,
+        paddingLeft: 16,
+        paddingRight: 16,
         borderRadius: 8,
         marginBottom: 4,
-        marginRight: 4
+        marginRight: 10
     }
 });

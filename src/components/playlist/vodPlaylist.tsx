@@ -9,13 +9,15 @@ import { useAppDispatch } from '../../hooks/hooks';
 interface Props {
     playlist: VodTopicType,
     vodStyle?: typeof StyleSheet,
+    titleStyle?: typeof StyleSheet
 }
 
 type FlatListType = {
     item: VodType
+    index: number
 }
 
-export default function VodPlaylist({ playlist }: Props) {
+export default function VodPlaylist({ playlist, titleStyle }: Props) {
     const { textVariants, spacing, colors, icons } = useTheme();
     const navigator = useNavigation();
     const dispatch = useAppDispatch();
@@ -24,32 +26,36 @@ export default function VodPlaylist({ playlist }: Props) {
         navigator.navigate('PlaylistDetail', { topic_id: playlist.topic_id });
     }
     return (
-        <View style={styles.playlist} gap={spacing.s}>
-            <View style={{
-                paddingLeft: spacing.sideOffset,
-                paddingRight: spacing.sideOffset,
-            }}>
-                <View style={styles.header}>
-                    <Text style={{ ...textVariants.bigHeader, color: colors.primary }}>{playlist.topic_name}</Text>
-                    <TouchableOpacity onPress={viewMore}>
-                        <RightIcon color={colors.text} height={icons.sizes.xl} width={icons.sizes.xl} />
-                    </TouchableOpacity>
+        <View style={styles.playlist} gap={spacing.m}>
+            <TouchableOpacity onPress={viewMore}>
+                <View style={{
+                    paddingLeft: spacing.sideOffset,
+                    paddingRight: spacing.sideOffset,
+                }} gap={spacing.s}>
+                    <View style={styles.header}>
+                        <Text style={{ ...textVariants.bigHeader, ...titleStyle }}>{playlist.topic_name}</Text>
+
+                        <RightIcon color={colors.text} height={icons.sizes.l} width={icons.sizes.l} />
+
+                    </View>
+                    <Text numberOfLines={3} style={{ ...textVariants.small, color: colors.text, flex: 1 }}>
+                        {playlist.topic_blurb}
+                    </Text>
                 </View>
-                <Text numberOfLines={3} style={{ ...textVariants.body, color: colors.text, flex: 1 }}>
-                    {playlist.topic_blurb}
-                </Text>
-            </View>
-            <View style={{paddingLeft: spacing.sideOffset}}>
+            </TouchableOpacity>
+            <View style={{ paddingLeft: spacing.sideOffset }}>
                 <FlatList
                     data={playlist.vod_list}
                     horizontal
-                    renderItem={({ item }: FlatListType) => {
-                        return <VodCard vod_name={item.vod_name} vod_pic={item.vod_pic} onPress={() => {
-                            dispatch(playVod(item));
-                            navigator.navigate('播放', {
-                                vod_id: item.vod_id,
-                            })
-                        }} />
+                    renderItem={({ item, index }: FlatListType) => {
+                        return <VodCard vod_name={item.vod_name}
+                            vodImageStyle={{ width: 120, height: 180 }}
+                            vod_pic={item.vod_pic} onPress={() => {
+                                dispatch(playVod(item));
+                                navigator.navigate('播放', {
+                                    vod_id: item.vod_id,
+                                })
+                            }} />
                     }}
                 />
             </View>

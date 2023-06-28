@@ -9,10 +9,12 @@ import VodPlaylist from '../../components/playlist/vodPlaylist';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 
 type FlatListType = {
-    item: VodTopicType
+    item: VodTopicType,
+    index: number
 }
 
 export default ({ navigation }: BottomTabScreenProps<any>) => {
+    const BTN_COLORS = ['#FFCC12', '#F1377A', '#ED7445', '#7E9CEE', '#30AA55',];
     const { textVariants, colors, spacing } = useTheme();
     const { data: playlists } = useQuery({
         queryKey: ["vodPlaylist"],
@@ -30,11 +32,14 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                 paddingLeft: spacing.sideOffset,
                 paddingRight: spacing.sideOffset
             }} logo={
-                <Text style={{ ...textVariants.bigHeader, color: colors.primary }}>播单</Text>
+                <Text style={{ ...textVariants.bigHeader, color: colors.text, fontSize: 22 }}>播单</Text>
             } navigator={navigation} />
             <FlatList
                 data={playlists}
-                renderItem={({ item }: FlatListType) => <VodPlaylist playlist={item} />}
+                renderItem={({ item, index }: FlatListType) =>
+                    <VodPlaylist playlist={item} 
+                    titleStyle={{color: BTN_COLORS[index % BTN_COLORS.length]}}/>
+                }
             />
         </ScreenContainer>
     )
