@@ -22,24 +22,28 @@ export default function FavoritePlaylist({ playlist, navigator }: Props) {
     return (
         <View style={styles.playlist} gap={spacing.s}>
             <View style={styles.header}>
-                <Text style={{ ...textVariants.bigHeader, color: colors.primary }}>{playlist.topic_name}</Text>
+                <Text style={{ ...textVariants.header, color: colors.primary }}>{playlist.topic_name}</Text>
                 <TouchableOpacity onPress={() => dispatch(togglePlaylistFavorites(playlist))} style={{ marginLeft: spacing.xs }}>
-                    <FavoriteIcon width={24} height={24} style={{ color: colors.primary, marginRight: spacing.m }} />
+                    <FavoriteIcon width={icons.sizes.m} height={icons.sizes.m} style={{ color: colors.primary, marginRight: spacing.m }} />
                 </TouchableOpacity>
             </View>
-            <Text numberOfLines={3} style={{ ...textVariants.body, color: colors.text, flex: 1 }}>
+            <Text numberOfLines={3} style={{ ...textVariants.small, color: colors.text, flex: 1 }}>
                 {playlist.topic_blurb}
             </Text>
             <FlatList
                 data={playlist.vod_list}
                 horizontal
                 renderItem={({ item }: FlatListType) => {
-                    return <VodCard vod_name={item.vod_name} vod_pic={item.vod_pic} onPress={() => {
-                        dispatch(playVod(item));
-                        navigator.navigate('播放', {
-                            vod_id: item.vod_id,
-                        })
-                    }} />
+                    return <VodCard
+                        vod_name={item.vod_name}
+                        vod_pic={item.vod_pic}
+                        vodImageStyle={{ width: 120, height: 180 }}
+                        onPress={() => {
+                            dispatch(playVod(item));
+                            navigator.navigate('播放', {
+                                vod_id: item.vod_id,
+                            })
+                        }} />
                 }}
             />
         </View>

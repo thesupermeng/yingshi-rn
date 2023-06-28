@@ -145,7 +145,7 @@ export const YingshiDarkTheme: ExtendedTheme = {
     bigHeader: {
       color: palette.white,
       fontFamily: 'PingFang SC',
-      fontSize: 19,
+      fontSize: 20,
       fontWeight: '600'
     },
     header: {

@@ -28,7 +28,7 @@ export default ({ init, callback, options = [] }: Props) => {
                     return <TouchableOpacity style={{ marginRight: spacing.m, justifyContent: 'center', display: 'flex' }} onPress={() => callback(item)}>
                         <Text style={{
                             textAlign: 'center',
-                            fontSize: textVariants.header.fontSize,
+                            fontSize: textVariants.subBody.fontSize,
                             color: init.value === item.value ? colors.primary : colors.muted
                         }}>{item.text}</Text>
                     </TouchableOpacity>

@@ -5,9 +5,13 @@ import { useTheme } from '@react-navigation/native';
 
 interface Props {
     onConfirm: any,
-    isVisible: boolean
+    isVisible: boolean,
+    title?: string,
+    subtitle1?: string,
+    subtitle2?: string,
+    confirmationText?: string
 }
-export default function NotificationModal({ onConfirm, isVisible }: Props) {
+export default function NotificationModal({ onConfirm, isVisible, title = '', subtitle1, subtitle2, confirmationText='确定' }: Props) {
     const { colors, textVariants, spacing } = useTheme();
 
     return (
@@ -18,14 +22,14 @@ export default function NotificationModal({ onConfirm, isVisible }: Props) {
             onBackdropPress={onConfirm}
         >
             <View gap={spacing.m}>
-                <Dialog.Title titleStyle={{ ...textVariants.header, ...styles.head, }} title="清除提示" />
-                <Text style={{ ...textVariants.body, ...styles.body, }}>
-                    <Text>如果本站提供内容侵犯了您的版权，请来函说明，本网站将立即删除，保护版权所有者的权益。</Text>
-                    <Text>联系邮箱: hello@yingshi.com</Text>
+                <Text style={{ ...textVariants.header, ...styles.head, }}>{title}</Text>
+                <Text style={{ ...textVariants.subBody, ...styles.body, textAlign: subtitle2 ? 'left' : 'center' }}>
+                    {subtitle1 && <Text>{subtitle1}{'\n'}</Text>}
+                    {subtitle2 && <Text>{subtitle2}</Text>}
                 </Text>
                 <View style={styles.btns}>
                     <TouchableOpacity style={styles.btn} onPress={onConfirm}>
-                        <Text style={{ ...textVariants.body, ...styles.head, color: colors.primary }}>确定</Text>
+                        <Text style={{ ...textVariants.body, ...styles.head, color: colors.primary }}>{confirmationText}</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -43,7 +47,6 @@ const styles = StyleSheet.create({
     },
     body: {
         color: 'white',
-        textAlign: 'left'
     },
     btns: {
         display: 'flex',

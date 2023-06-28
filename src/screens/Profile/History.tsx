@@ -55,7 +55,7 @@ export default ({ navigation }: RootStackScreenProps<'播放历史'>) => {
             {
                 history && <FlatList
                     data={history}
-                    ListFooterComponent={<Text style={{ ...textVariants.body, color: colors.muted, ...styles.noMore }}>没有更多了</Text>}
+                    ListFooterComponent={<Text style={{ ...textVariants.subBody, color: colors.muted, ...styles.noMore }}>没有更多了</Text>}
                     contentContainerStyle={{ paddingBottom: 30 }}
                     renderItem={({ item }: FlatListType) => {
                         return <View style={styles.card}>
@@ -63,8 +63,8 @@ export default ({ navigation }: RootStackScreenProps<'播放历史'>) => {
                                 isEditing && <TouchableOpacity style={styles.checkbox} onPress={() => toggleHistory(item)}>
                                     {
                                         removeHistory.some(x => x.vod_id === item.vod_id)
-                                            ? <CheckBoxSelected height={icons.sizes.l} width={icons.sizes.l} />
-                                            : <CheckBoxUnselected height={icons.sizes.l} width={icons.sizes.l} />
+                                            ? <CheckBoxSelected height={icons.sizes.m} width={icons.sizes.m} />
+                                            : <CheckBoxUnselected height={icons.sizes.m} width={icons.sizes.m} />
                                     }
                                 </TouchableOpacity>
                             }
@@ -81,7 +81,7 @@ export default ({ navigation }: RootStackScreenProps<'播放历史'>) => {
                 setIsEditing(false);
                 setRemoveHistory([]);
                 toggleOverlay();
-            }} onCancel={toggleOverlay} isVisible={isDialogOpen} />
+            }} onCancel={toggleOverlay} isVisible={isDialogOpen} title='清除提示' subtitle='您是否确定清除播放历史吗？'/>
             {
                 isEditing && <View style={styles.deleteConfirmationModal}>
                     <Button
@@ -146,11 +146,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding: 10
+        padding: 8
     },
     confirmationBtn: {
         flex: 1,
         margin: 10,
-        borderRadius: 10
+        borderRadius: 10,
+        marginTop: 8
     }
 });

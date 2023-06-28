@@ -17,7 +17,7 @@ export default function ScreenContainer({ children, scrollView = false, footer, 
                 scrollView
                     ? <ScrollView style={{
                         ...styles.container,
-                        paddingTop: insets.top + 10,
+                        paddingTop: insets.top,
                         paddingBottom: insets.bottom,
                         paddingLeft: insets.left,
                         paddingRight: insets.right,
@@ -39,7 +39,7 @@ export default function ScreenContainer({ children, scrollView = false, footer, 
                     </ScrollView>
                     : <View style={{
                         ...styles.viewContainer,
-                        paddingTop: insets.top + 10,
+                        paddingTop: insets.top,
                         paddingBottom: insets.bottom,
                         paddingLeft: insets.left,
                         paddingRight: insets.right,

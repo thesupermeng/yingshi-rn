@@ -22,7 +22,8 @@ export default ({ vodList }: Props) => {
         <FlatList
             data={vodList}
             contentContainerStyle={{ paddingBottom: 200 }}
-            renderItem={({ item }: FlatListType) => <FavoriteVodCard hideFavoriteButton={true} vod={item} onPress={() => {
+            renderItem={({ item }: FlatListType) => <FavoriteVodCard 
+            hideFavoriteButton={true} vod={item} onPress={() => {
                 dispatch(playVod(item));
                 navigation.navigate('播放', { vod_id: item.vod_id });
             }} />}

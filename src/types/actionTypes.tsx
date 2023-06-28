@@ -20,3 +20,7 @@ export interface SearchHistoryActionType {
     type: string,
     payload: string
 }
+
+export interface ClearStorageActionType {
+    type: string
+}

@@ -14,7 +14,7 @@ interface Props {
     buttonStyle?: typeof StyleSheet
 }
 export default function FavoriteVodButton({ onPress, leftIcon, textColor = '', buttonStyle, vod, ...params }: Props) {
-    const { colors, textVariants, spacing } = useTheme();
+    const { colors, textVariants, spacing, icons } = useTheme();
     const dispatch = useAppDispatch();
     return (
         <View style={styles.btn}>
@@ -29,7 +29,7 @@ export default function FavoriteVodButton({ onPress, leftIcon, textColor = '', b
                 {
                     leftIcon ?
                         leftIcon
-                        : <FavoriteIcon width={24} height={24} style={{ color: colors.primary, ...buttonStyle, }} />
+                        : <FavoriteIcon width={icons.sizes.m} height={icons.sizes.m} style={{ color: colors.primary, ...buttonStyle, }} />
                 }
             </TouchableOpacity>
         </View>
