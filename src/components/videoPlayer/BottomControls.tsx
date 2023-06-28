@@ -5,6 +5,7 @@ import FullScreen from '../../../static/images/fullScreen.svg';
 import Unlock from '../../../static/images/unlock.svg';
 import Episodes from '../../../static/images/episodes.svg';
 import NextEpisode from '../../../static/images/nextEpisode.svg';
+import MinimizeScreen from '../../../static/images/minimizeScreen.svg';
 import { TouchableWithoutFeedback } from 'react-native';
 
 type Props = {
@@ -110,7 +111,7 @@ export default ({ currentTime, duration, onSlideCapture, onSlideStart, onSlideCo
                                 <Episodes width={30} height={30} />
                             </TouchableWithoutFeedback>
                             <TouchableWithoutFeedback style={styles.containerItem} onPress={onPressFullScreenBtn}>
-                                <FullScreen width={30} height={30} />
+                                <MinimizeScreen width={30} height={30} />
                             </TouchableWithoutFeedback>
                         </View>
                     </View>
