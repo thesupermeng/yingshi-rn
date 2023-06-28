@@ -10,7 +10,7 @@ interface Props {
     leftIcon?: React.ReactNode,
     buttonStyle?: typeof StyleSheet
 }
-export default function FavoritePlaylistButton({ leftIcon, buttonStyle, playlist}: Props) {
+export default function FavoritePlaylistButton({ leftIcon, buttonStyle, playlist }: Props) {
     const { colors, textVariants, spacing, icons } = useTheme();
     const favoritePlaylistSelector = useAppSelector(({ vodPlaylistReducer }: RootState) => vodPlaylistReducer)
     const dispatch = useAppDispatch();
@@ -21,9 +21,12 @@ export default function FavoritePlaylistButton({ leftIcon, buttonStyle, playlist
             {
                 leftIcon ?
                     leftIcon
-                    : <FavoriteIcon width={icons.sizes.l} height={icons.sizes.l} style={{ color: isFavorited ? colors.background : colors.muted, ...buttonStyle, }} />
+                    : <FavoriteIcon width={icons.sizes.m} height={icons.sizes.m} style={{ color: isFavorited ? colors.background : colors.muted, ...buttonStyle, }} />
             }
-            <Text style={{ ...textVariants.body, color: isFavorited ? colors.background : colors.text, ...styles.text}}>{isFavorited ? '已收藏了' : '收藏播单'}</Text>
+            <Text
+                style={{ ...textVariants.small, color: isFavorited ? colors.background : colors.text, ...styles.text, paddingBottom: 3 }}>
+                {isFavorited ? '已收藏了' : '收藏播单'}
+            </Text>
         </TouchableOpacity>
     );
 }
@@ -38,7 +41,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         flexShrink: 1,
-        padding: 5,
+        paddingLeft: 8,
+        paddingRight: 8,
+        paddingTop: 4,
+        paddingBottom: 4,
         borderRadius: 5
     }
 });

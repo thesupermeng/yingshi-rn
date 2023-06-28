@@ -4,8 +4,7 @@ import {
 
 export const clearSearchHistory = () => (
     {
-        type: CLEAR_SEARCH_HISTORY,
-        payload: null
+        type: CLEAR_SEARCH_HISTORY
     }
 )
 

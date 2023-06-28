@@ -55,14 +55,14 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         width: '100%',
-        alignItems: 'center',
+        alignItems: 'baseline',
         paddingBottom: 10,
     },
     underline: {
-        marginTop: 2,
+        marginTop: 7,
         height: 4,
         width: '60%',
         borderRadius: 20,
-        alignSelf: 'center'
+        alignSelf: 'center',
     }
 });

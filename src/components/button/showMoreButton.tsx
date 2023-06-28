@@ -7,9 +7,10 @@ interface Props {
     textColor?: string,
     params?: any[],
     leftIcon?: React.SVGAttributes<SVGElement>,
-    buttonStyle?: typeof StyleSheet
+    buttonStyle?: typeof StyleSheet,
+    rightIcon?: React.SVGAttributes<SVGElement>,
 }
-export default function ShowMoreButton({ text, onPress, leftIcon, textColor = '', buttonStyle, ...params }: Props) {
+export default function ShowMoreButton({ text, onPress, leftIcon, textColor = '', buttonStyle, rightIcon, ...params }: Props) {
     const { colors, textVariants, icons } = useTheme();
     return (
         <TouchableOpacity style={{ ...styles.btn, backgroundColor: colors.card2, ...buttonStyle }} onPress={onPress} {...params} >
@@ -24,7 +25,11 @@ export default function ShowMoreButton({ text, onPress, leftIcon, textColor = ''
                     {text}
                 </Text>
             </View>
-            <MoreArrow width={icons.sizes.l} height={icons.sizes.l} color={colors.muted} />
+            {
+                rightIcon
+                    ? rightIcon
+                    : <MoreArrow width={icons.sizes.l} height={icons.sizes.l} color={colors.muted} />
+            }
         </TouchableOpacity>
     );
 }

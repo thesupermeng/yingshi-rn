@@ -18,3 +18,5 @@ export const API_DOMAIN = 'https://api.yingshi.tv/'
 export const ADD_SEARCH_HISTORY = 'add_search_history';
 export const REMOVE_SEARCH_HISTORY = 'remove_from_search_history';
 export const CLEAR_SEARCH_HISTORY = 'clear_search_history';
+
+export const CLEAR_STORAGE_MEMORY = 'clear_storage_memory';

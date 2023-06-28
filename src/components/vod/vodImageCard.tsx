@@ -54,8 +54,8 @@ export default function VodImageCard({ vod_img, vodStyle, onPress, showInfo = ''
 
 const styles = StyleSheet.create({
     image: {
-        height: 200,
-        width: 150,
+        height: 180,
+        width: 120,
         borderRadius: 10
     },
     vod: {

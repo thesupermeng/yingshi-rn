@@ -15,8 +15,8 @@ export default function VodHistoryCard({ vod, onPress, btnStyle, ...params }: Pr
         <View style={styles.card} gap={spacing.s}>
             <VodImageCard vod_img={vod.vod_pic} vodStyle={styles.image} onPress={onPress} />
             <View style={styles.description} gap={spacing.xs}>
-                <Text numberOfLines={2} style={{...textVariants.header, ...styles.text}}>{vod.vod_name}</Text>
-                <Text style={{...textVariants.body, ...styles.text}}>{`观看至 ${new Date(vod.timeWatched * 1000).toISOString().substring(11, 16)}`}</Text>
+                <Text numberOfLines={2} style={{...textVariants.body, ...styles.text}}>{vod.vod_name}</Text>
+                <Text style={{...textVariants.small, ...styles.text}}>{`观看至 ${new Date(1000 * vod.timeWatched).toISOString().substr(11, 8)}`}</Text>
             </View>
         </View>
     );
@@ -32,15 +32,15 @@ const styles = StyleSheet.create({
     },
     description: {
         flexGrow: 1,
-        paddingTop: 8,
-        paddingBottom: 8,
+        paddingTop: 2,
+        paddingBottom: 2,
         display: 'flex',
         justifyContent: 'space-between',
         flexShrink: 1
     },
     image: {
-        width: 165,
-        height: 110
+        width: 154,
+        height: 87
     },
     text: {
         flexShrink: 1

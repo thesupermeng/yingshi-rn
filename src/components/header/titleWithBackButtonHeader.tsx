@@ -13,8 +13,10 @@ export default function TitleWithBackButtonHeader({ title, onBack, headerStyle, 
     const { textVariants } = useTheme()
     return (
         <View style={{ ...styles.container, ...headerStyle }}>
-            <BackButton onPress={onBack} />
-            <Text style={textVariants.header} numberOfLines={1}>{title}
+            <View style={{ paddingTop: 4 }}>
+                <BackButton onPress={onBack} />
+            </View>
+            <Text style={{...textVariants.header, fontSize: 16}} numberOfLines={1}>{title}
             </Text>
             {
                 right
@@ -29,14 +31,11 @@ export default function TitleWithBackButtonHeader({ title, onBack, headerStyle, 
 
 const styles = StyleSheet.create({
     container: {
-        paddingTop: 10,
+        paddingTop: 4,
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
         width: '100%',
         alignItems: 'center',
     },
-    header: {
-        flex: 1
-    }
 });
