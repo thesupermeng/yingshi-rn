@@ -25,6 +25,7 @@ import Search from '../../static/images/search.svg';
 import Play from '../../static/images/blackPlay.svg';
 import FastImage from 'react-native-fast-image';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
+import Orientation from 'react-native-orientation-locker';
 
 type MiniVideoResponseType = {
     data: {
@@ -52,7 +53,9 @@ export default ({ navigation } : BottomTabScreenProps<any>) => {
                     `https://testapi.yingshi.tv/miniVod/v1/miniVod?page=` + page,{ signal }
                 );
                 const json: MiniVideoResponseType = await response.json();
-                // console.log(json.data.List);
+                if(json.data.List == null){
+                    return;
+                }
                 setVideos((prevVideos: any) => [...prevVideos, ...json.data.List]);
                 setPage((prevPage: any) => {
                     return prevPage + 1;
@@ -71,9 +74,11 @@ export default ({ navigation } : BottomTabScreenProps<any>) => {
     useFocusEffect(
         useCallback(() => {
             setIsPaused(false);
+            Orientation.lockToPortrait();
 
             return () => {
                 setIsPaused(true);
+                Orientation.unlockAllOrientations();
             };
         }, [])
     );
