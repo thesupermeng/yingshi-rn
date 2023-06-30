@@ -40,7 +40,7 @@ type PlayContextValue = {
 
 const definedValue = (val: any) => {
     if (val === undefined || val === null) {
-        return '-';
+        return '';
     }
     return val + ' ';
 }
@@ -69,22 +69,25 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
             vod?.vod_play_list ? vod.vod_play_list.url_count : showEpisodeRangeStart + EPISODE_RANGE_SIZE),
         [currentEpisode, showEpisodeRangeStart]
     );
-    const windowDim = useMemo(() => (Dimensions.get('window').width - insets.left - insets.right - (spacing.sideOffset * 3)), [insets]);
+    const windowDim = useMemo(() => (Dimensions.get('window').width - insets.left - insets.right - (spacing.sideOffset * 2.5)), [insets]);
 
     const BTN_SELECT_WIDTH = useMemo(() => {
         if (vod?.vod_play_list === undefined || vod === null) {
             return spacing.m;
         }
-        let maxTitleLength = vod.vod_play_list.urls.reduce(function (prev, current) {
+        let maxTitleLength = vod.vod_play_list.urls.slice(showEpisodeRangeStart, showEpisodeRangeEnd).reduce(function (prev, current) {
             return (prev.name.length > current.name.length) ? prev : current
-        }).name.length * textVariants.header.fontSize * 0.9;
+        }).name.length * textVariants.header.fontSize * 0.85;
         maxTitleLength += (2 * spacing.s) // Padding
         return maxTitleLength
-    }, [vod]);
+    }, [vod, showEpisodeRangeStart, showEpisodeRangeEnd]);
 
     const NUM_PER_ROW = useMemo(() => Math.max(Math.floor(windowDim / (BTN_SELECT_WIDTH + 10)), 1), [windowDim, BTN_SELECT_WIDTH]);
     const BTN_MARGIN_RIGHT = useMemo(() => {
-        return Math.floor((windowDim - (NUM_PER_ROW * BTN_SELECT_WIDTH)) / (NUM_PER_ROW - 1))
+        if (NUM_PER_ROW > 1) {
+            return Math.floor((windowDim - (NUM_PER_ROW * BTN_SELECT_WIDTH)) / (NUM_PER_ROW - 1))
+        }
+        return 0
     }, [NUM_PER_ROW, BTN_SELECT_WIDTH, windowDim])
     const NUM_OF_ROWS = useMemo(() => vod?.vod_play_list ? Math.floor(vod.vod_play_list.url_count / NUM_PER_ROW) : 0, [vod, NUM_PER_ROW]);
     const ROW_HEIGHT = useMemo(() => (spacing.s * 3) + textVariants.header.fontSize + 6, [])
@@ -200,8 +203,8 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
                             </Text>
                             <Text style={{ ...textVariants.subBody, color: colors.muted }}>
                                 {`更新：${vod ?
-                                    new Date(vod?.vod_time_add * 1000).toLocaleDateString().replace(/\//g, '-')
-                                    : new Date().toLocaleDateString().replace(/\//g, '-')
+                                    new Date(vod?.vod_time_add * 1000).toLocaleDateString('en-GB').replace(/\//g, '-')
+                                    : new Date().toLocaleDateString('en-GB').replace(/\//g, '-')
                                     }`}
                             </Text>
                             <TouchableOpacity onPress={onShare}>

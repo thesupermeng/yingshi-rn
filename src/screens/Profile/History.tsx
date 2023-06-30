@@ -15,6 +15,7 @@ import CheckBoxUnselected from '../../../static/images/checkbox_unselected.svg';
 import { VodType } from '../../types/ajaxTypes';
 import { Button } from '@rneui/themed';
 import ConfirmationModal from '../../components/modal/confirmationModal';
+import EmptyList from '../../components/common/emptyList';
 
 type FlatListType = {
     item: VodRecordType
@@ -53,7 +54,7 @@ export default ({ navigation }: RootStackScreenProps<'播放历史'>) => {
                 headerStyle={{ marginBottom: spacing.m }}
             />
             {
-                history && <FlatList
+                history && history.length > 0 && <FlatList
                     data={history}
                     ListFooterComponent={<Text style={{ ...textVariants.subBody, color: colors.muted, ...styles.noMore }}>没有更多了</Text>}
                     contentContainerStyle={{ paddingBottom: 30 }}
@@ -75,6 +76,10 @@ export default ({ navigation }: RootStackScreenProps<'播放历史'>) => {
                         </View>
                     }}
                 />
+            }
+            {
+                history && history.length === 0 && 
+                <EmptyList description='暂无播放历史' />
             }
             <ConfirmationModal onConfirm={() => {
                 dispatch(removeVodsFromHistory(removeHistory));

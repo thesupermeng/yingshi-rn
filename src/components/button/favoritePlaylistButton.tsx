@@ -24,7 +24,7 @@ export default function FavoritePlaylistButton({ leftIcon, buttonStyle, playlist
                     : <FavoriteIcon width={icons.sizes.m} height={icons.sizes.m} style={{ color: isFavorited ? colors.background : colors.muted, ...buttonStyle, }} />
             }
             <Text
-                style={{ ...textVariants.small, color: isFavorited ? colors.background : colors.text, ...styles.text, paddingBottom: 3 }}>
+                style={{ ...textVariants.small, color: isFavorited ? colors.background : 'white', ...styles.text, paddingBottom: 3 }}>
                 {isFavorited ? '已收藏了' : '收藏播单'}
             </Text>
         </TouchableOpacity>

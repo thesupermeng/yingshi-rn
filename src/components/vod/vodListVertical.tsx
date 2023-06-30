@@ -26,18 +26,20 @@ interface Props {
     vods: Array<VodType>,
     numOfRows?: number,
     outerRowPadding?: number,
+    minNumPerRow?: number,
+    heightToWidthRatio?: number
 }
 
-export default function VodListVertical({ vods, numOfRows = 2, outerRowPadding = 20}: Props) {
+export default function VodListVertical({ vods, numOfRows = 2, outerRowPadding = 0, minNumPerRow = 3, heightToWidthRatio = 1.414 }: Props) {
     const { textVariants, colors, spacing, icons } = useTheme();
     const insets = useSafeAreaInsets();
     const navigation = useNavigation();
     const dispatch = useAppDispatch();
 
-    const windowDim = useMemo(() => (Dimensions.get('window').width - insets.left - insets.right - outerRowPadding), []); // usable space
-    const minWidth = useMemo(() => (windowDim / 3) - 8, [windowDim]);
-    const cardWidth = useMemo(() => Math.min(180, Math.floor(minWidth)), [minWidth]);
-    const cardHeight = useMemo(() => 1.6 * cardWidth, [cardWidth]);
+    const windowDim = useMemo(() => (Dimensions.get('window').width - insets.left - insets.right - outerRowPadding - (2 * spacing.sideOffset)), []); // usable space
+    const minWidth = useMemo(() => (windowDim / minNumPerRow) - 8, [windowDim]);
+    const cardWidth = useMemo(() => Math.min(200, Math.floor(minWidth)), [minWidth]);
+    const cardHeight = useMemo(() => heightToWidthRatio * cardWidth, [cardWidth]);
     const CARDS_PER_ROW = useMemo(() => Math.floor(windowDim / cardWidth), [cardWidth]);
     const BTN_MARGIN_RIGHT = useMemo(() => {
         return (windowDim - (CARDS_PER_ROW * cardWidth)) / (CARDS_PER_ROW - 1)
@@ -50,6 +52,7 @@ export default function VodListVertical({ vods, numOfRows = 2, outerRowPadding =
                         key={`${vod.vod_id}`}
                         vod_name={vod?.vod_name}
                         vod_pic={vod?.vod_pic}
+                        showInfo={vod?.vod_remarks}
                         vodImageStyle={{
                             width: cardWidth,
                             height: cardHeight,
