@@ -86,7 +86,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
             {
               data.carousel.map((carouselItem, idx) => {
                 return <View style={styles.slide} key={`slider-${idx}`}>
-                  <TouchableWithoutFeedback 
+                  <TouchableOpacity 
                       onPress={() => {
                         dispatch(playVod(carouselItem.vod));
                         navigation.navigate('播放', {
@@ -101,7 +101,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                       }}
                       resizeMode={FastImage.resizeMode.cover}
                     />
-                  </TouchableWithoutFeedback>
+                  </TouchableOpacity>
                 </View>
               })
             }
