@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, FlatList } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, FlatList, TouchableWithoutFeedback } from 'react-native';
 import ScreenContainer from '../components/container/screenContainer';
 import { useSelector, useDispatch } from 'react-redux';
 import HomeHeader from '../components/header/homeHeader';
@@ -86,7 +86,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
             {
               data.carousel.map((carouselItem, idx) => {
                 return <View style={styles.slide} key={`slider-${idx}`}>
-                  <TouchableOpacity 
+                  <TouchableWithoutFeedback 
                       onPress={() => {
                         dispatch(playVod(carouselItem.vod));
                         navigation.navigate('播放', {
@@ -101,7 +101,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                       }}
                       resizeMode={FastImage.resizeMode.cover}
                     />
-                  </TouchableOpacity>
+                  </TouchableWithoutFeedback>
                 </View>
               })
             }
