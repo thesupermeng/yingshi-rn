@@ -50,7 +50,7 @@ export default ({ navigation } : BottomTabScreenProps<any>) => {
             const signal = abortController.signal;
             try {
                 const response = await fetch(
-                    `https://testapi.yingshi.tv/miniVod/v1/miniVod?page=` + page,{ signal }
+                    `${API_DOMAIN}miniVod/v1/miniVod?page=` + page,{ signal }
                 );
                 const json: MiniVideoResponseType = await response.json();
                 if(json.data.List == null){
@@ -142,21 +142,25 @@ export default ({ navigation } : BottomTabScreenProps<any>) => {
                     }}>
                         <Video 
                             resizeMode="contain"
+                            poster={ item.mini_video_origin_cover }
                             source={{ uri: item.mini_video_origin_video_url }}
-                            // source={{ uri: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4' }}
+                            // source={{ uri: 'https://v11-o.douyinvod.com/72ac691ca9c1c8b297fd761d1c6a584f/649e9352/video/tos/cn/tos-cn-ve-15c001-alinc2/oQZQAEgCYLyALkhHwJhrBfTAeARzWg2NJINyGI/?a=1128&ch=0&cr=0&dr=0&er=0&cd=0%7C0%7C0%7C0&cv=1&br=1263&bt=1263&cs=0&ds=4&ft=pfusebymVZmo0PB8-bpkVQ.PaK~_KJd.&mime_type=video_mp4&qs=0&rc=ZDQ8NTo2ZTU8Omc5NmZpM0Bpajs3ZmU6ZjQ0bDMzNGkzM0AxMDFeYC4zNWMxMGE0Y2MtYSMyYC5fcjQwamBgLS1kLWFzcw%3D%3D&l=2023063015295125C4033D00103B0C0A1E&btag=e000a8000&cc=3e&dy_q=1688110192&dy_va_biz_cert=2%3Aa%3AmT5HwjiM0%2FoUzvsEsoTUJIEuGBKXCwv5lj3ynqNXpNAO17ZKxYwQveq6pp62tOab' }}
                             repeat={true} 
                             style={styles.video}
                             paused={!isCurrentVideo || isPaused} 
-                            preload={isCurrentVideo ? 'auto' : 'metadata'} />
+                            // preload={'metadata'}
+                            preload={isCurrentVideo ? 'auto' : 'metadata'}
+                            />
                     </TouchableWithoutFeedback>
                     <View column style={{position:'absolute', left: 0, top: 0, marginTop: (windowHeight - navBarHeight) / 2, height: (windowHeight - navBarHeight) / 2, width: '100%', justifyContent:'flex-end', padding: 20, paddingBottom: 30}}>
                         <View style={{marginTop:10, flexDirection: 'row'}}>
-                            <View style={{ flex: 10, flexDirection: 'column', justifyContent: 'flex-end', marginRight: 35 }}>
+                            {/* <View style={{ flex: 10, flexDirection: 'column', justifyContent: 'flex-end', marginRight: 35 }}> */}
+                            <View style={{ flex: 10, flexDirection: 'column', justifyContent: 'flex-end' }}>
                                 <TouchableOpacity row style={{background: 'rgba(255, 255, 255, 0.16)', borderRadius:17 }}>
                                     <Text style={{fontSize:14,color:'#fff'}}>{item.mini_video_title}</Text>
                                 </TouchableOpacity>
                             </View>
-                            <View style={{ flex: 1, flexDirection: 'column', justifyContent:'flex-end', alignItems:'center' }}>
+                            {/* <View style={{ flex: 1, flexDirection: 'column', justifyContent:'flex-end', alignItems:'center' }}>
                                 <TouchableOpacity column right style={styles.bottomRightBn} >
                                     <Wechat width={30} height={30} style={{ color: 'white' }} />
                                     <Text style={styles.bottomRightText}>微信</Text>
@@ -173,7 +177,7 @@ export default ({ navigation } : BottomTabScreenProps<any>) => {
                                     <QQ width={30} height={30} style={{ color: 'white' }} />
                                     <Text style={styles.bottomRightText}>QQ</Text>
                                 </TouchableOpacity>
-                            </View>
+                            </View> */}
                         </View>
                     </View>
                 </View>
@@ -183,9 +187,12 @@ export default ({ navigation } : BottomTabScreenProps<any>) => {
 
     return (
         <SafeAreaView>
-            <View style={{ position: 'absolute', top: 0, left: 0, padding: 20, zIndex: 50, width: '100%', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+            {/* <View style={{ position: 'absolute', top: 0, left: 0, padding: 20, zIndex: 50, width: '100%', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
                 <Text style={{ color: '#FFF', fontSize: 20 }}>随心看</Text>
                 <Search width={30} height={30} style={{ color: 'white' }} />
+            </View> */}
+            <View style={{ position: 'absolute', top: 0, left: 0, padding: 20, zIndex: 50, width: '100%', flexDirection: 'row', alignItems: 'center'}}>
+                <Text style={{ color: '#FFF', fontSize: 20 }}>随心看</Text>
             </View>
             {videos.length != 0 ?
                 <FlatList

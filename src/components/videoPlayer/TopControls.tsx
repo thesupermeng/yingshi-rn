@@ -23,7 +23,7 @@ export default ({ isFullScreen }: Props) => {
 
                     </View>
                     <View style={styles.rightContainer}>
-                        <TouchableWithoutFeedback>
+                        {/* <TouchableWithoutFeedback>
                             <ScreenCast width={30} height={30} />
                         </TouchableWithoutFeedback>
                         <TouchableWithoutFeedback>
@@ -31,7 +31,7 @@ export default ({ isFullScreen }: Props) => {
                         </TouchableWithoutFeedback>
                         <TouchableWithoutFeedback>
                             <VideoShare width={30} height={30} />
-                        </TouchableWithoutFeedback>
+                        </TouchableWithoutFeedback> */}
                     </View>
                 </View>
                 :
@@ -40,7 +40,7 @@ export default ({ isFullScreen }: Props) => {
 
                     </View>
                     <View style={styles.rightContainerLandscape}>
-                        <TouchableWithoutFeedback>
+                        {/* <TouchableWithoutFeedback>
                             <ScreenCast width={30} height={30} />
                         </TouchableWithoutFeedback>
                         <TouchableWithoutFeedback>
@@ -48,7 +48,7 @@ export default ({ isFullScreen }: Props) => {
                         </TouchableWithoutFeedback>
                         <TouchableWithoutFeedback>
                             <VideoShare width={30} height={30} />
-                        </TouchableWithoutFeedback>
+                        </TouchableWithoutFeedback> */}
                     </View>
                 </View>
             }

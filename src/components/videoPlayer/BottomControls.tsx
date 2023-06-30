@@ -95,13 +95,13 @@ export default ({ currentTime, duration, onSlideCapture, onSlideStart, onSlideCo
                         </View>
                     </View>
                     <View style={styles.buttonsContainer}>
-                        <View style={{ flex: 7 }}>
-                            <TouchableWithoutFeedback onPress={onPressFullScreenBtn}>
+                        {/* <View style={{ flex: 7 }}>
+                            <TouchableWithoutFeedback onPress={handleShowEpisodes}>
                                 <Unlock width={30} height={30} />
                             </TouchableWithoutFeedback>
-                        </View>
+                        </View> */}
                         <View style={styles.buttonsSubContainer}>
-                            <TouchableWithoutFeedback style={styles.containerItem} onPress={handleShowEpisodes}>
+                            {/* <TouchableWithoutFeedback style={styles.containerItem} onPress={handleShowEpisodes}>
                                 <Text>1.25x</Text>
                             </TouchableWithoutFeedback>
                             <TouchableWithoutFeedback style={styles.containerItem} onPress={handleShowEpisodes}>
@@ -109,7 +109,7 @@ export default ({ currentTime, duration, onSlideCapture, onSlideStart, onSlideCo
                             </TouchableWithoutFeedback>
                             <TouchableWithoutFeedback style={styles.containerItem} onPress={handleShowEpisodes}>
                                 <Episodes width={30} height={30} />
-                            </TouchableWithoutFeedback>
+                            </TouchableWithoutFeedback> */}
                             <TouchableWithoutFeedback style={styles.containerItem} onPress={onPressFullScreenBtn}>
                                 <MinimizeScreen width={30} height={30} />
                             </TouchableWithoutFeedback>
@@ -133,10 +133,15 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         marginHorizontal: 10
     },
+    // buttonsSubContainer: {
+    //     flex: 2,
+    //     flexDirection: 'row',
+    //     justifyContent: 'space-between'
+    // },
     buttonsSubContainer: {
         flex: 2,
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'flex-end'
     },
     containerItem: {
         marginLeft: 50

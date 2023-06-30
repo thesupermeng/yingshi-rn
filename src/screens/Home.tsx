@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, FlatList } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, FlatList, TouchableWithoutFeedback } from 'react-native';
 import ScreenContainer from '../components/container/screenContainer';
 import { useSelector, useDispatch } from 'react-redux';
 import HomeHeader from '../components/header/homeHeader';
@@ -17,6 +17,7 @@ import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import VodHistoryList from '../components/vod/vodHistoryList';
 import { API_DOMAIN } from '../constants';
 import VodListVertical from '../components/vod/vodListVertical';
+import { playVod } from '../redux/actions/vodActions';
 
 interface NavType {
   item: {
@@ -35,6 +36,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     queryKey: ["HomePage", navId],
     queryFn: () =>
       fetch(`${API_DOMAIN}page/v1/typepage?id=${navId}`, {})
+      // fetch(`https://testapi.yingshi.tv/page/v1/typepage?id=${navId}`, {})
         .then(response => response.json())
         .then((json: VodCarousellResponseType) => {
           return json.data
@@ -49,6 +51,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
           return json.data
         })
   });
+  const dispatch = useAppDispatch();
 
   return (
     <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }} scrollView={true} header={
@@ -72,7 +75,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
       </View>
     }>
       {
-        data?.categories[0] && <View style={{ height: 200, paddingLeft: spacing.sideOffset, paddingRight: spacing.sideOffset }}>
+        data?.carousel[0] && <View style={{ height: 200, paddingLeft: spacing.sideOffset, paddingRight: spacing.sideOffset }}>
           <Swiper style={styles.wrapper}
             autoplay
             dotColor={colors.sliderDot}
@@ -81,16 +84,24 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
             paginationStyle={styles.paginationStyle}
             activeDotStyle={styles.activeDotStyle}>
             {
-              data.categories[0].vod_list.slice(0, 4).map((img, idx) => {
+              data.carousel.map((carouselItem, idx) => {
                 return <View style={styles.slide} key={`slider-${idx}`}>
-                  <FastImage
-                    style={styles.image}
-                    source={{
-                      uri: img.vod_pic,
-                      priority: FastImage.priority.normal,
-                    }}
-                    resizeMode={FastImage.resizeMode.cover}
-                  />
+                  <TouchableOpacity 
+                      onPress={() => {
+                        dispatch(playVod(carouselItem.vod));
+                        navigation.navigate('播放', {
+                            vod_id: carouselItem.carousel_content_id,
+                        });
+                    }}>
+                    <FastImage
+                      style={styles.image}
+                      source={{
+                        uri: carouselItem.carousel_pic_mobile,
+                        priority: FastImage.priority.normal,
+                      }}
+                      resizeMode={FastImage.resizeMode.cover}
+                    />
+                  </TouchableOpacity>
                 </View>
               })
             }
