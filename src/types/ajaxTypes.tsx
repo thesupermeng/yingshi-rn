@@ -227,8 +227,21 @@ type VodData = {
     type_id: number
 }
 
+type CarouselData = {
+    carousel_id: number
+    carousel_name: string
+    carousel_channel: number
+    carousel_remarks: string
+    carousel_content_type: number
+    carousel_content_id: number
+    carousel_pic_pc: string
+    carousel_pic_mobile: string
+    vod: VodType
+}
+
 export interface VodCarousellResponseType {
     data: {
+        carousel: Array<CarouselData>,
         class_list: Array<string>,
         yunying: Array<VodData>
         categories: Array<VodData>
