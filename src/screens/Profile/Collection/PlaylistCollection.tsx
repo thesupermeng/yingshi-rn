@@ -10,6 +10,7 @@ import CollectionHeader from '../../../components/header/myCollectionHeader';
 import FavoritePlaylist from '../../../components/playlist/favoritePlaylist';
 import { VodTopicType } from '../../../types/ajaxTypes';
 import { RootStackScreenProps } from '../../../types/navigationTypes';
+import EmptyList from '../../../components/common/emptyList';
 
 type FlatListType = {
     item: VodTopicType
@@ -25,12 +26,16 @@ export default ({ navigation }: RootStackScreenProps<'播单收藏'>) => {
             <TitleWithBackButtonHeader title='我的收藏' />
             <CollectionHeader route='播单收藏' navigator={navigation} />
             {
-                favorites && <FlatList
+                favorites && favorites.length > 0 && <FlatList
                     data={favorites}
                     contentContainerStyle={{ paddingBottom: 30 }}
                     ListFooterComponent={<Text style={{ ...textVariants.subBody, color: colors.muted, ...styles.noMore }}>没有更多了</Text>}
                     renderItem={({ item }: FlatListType) => <FavoritePlaylist playlist={item} navigator={navigation} />}
                 />
+            }
+            {
+                favorites && favorites.length === 0 &&
+                <EmptyList description='暂无播单收藏' />
             }
         </ScreenContainer >
     )

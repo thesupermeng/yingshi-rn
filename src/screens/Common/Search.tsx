@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native';
 import { SearchBar } from '@rneui/base';
 import { useTheme } from '@react-navigation/native';
@@ -20,8 +20,8 @@ import { addSearchHistory, clearSearchHistory } from '../../redux/actions/search
 import Animated, { FadeInUp, FadeOutUp } from 'react-native-reanimated';
 import ClearHistoryIcon from '../../../static/images/clear.svg'
 
-export default ({ navigation }: RootStackScreenProps<'搜索'>) => {
-    const [search, setSearch] = useState("");
+export default ({ navigation, route }: RootStackScreenProps<'搜索'>) => {
+    const [search, setSearch] = useState(route.params.initial);
     const [searchTimer, setSearchTimer] = useState<ReturnType<typeof setTimeout> | null>(null);
     const [searchResults, setSearchResults] = useState<Array<SuggestedVodType>>([]);
     const [showResults, setShowResults] = useState(false);
@@ -39,18 +39,28 @@ export default ({ navigation }: RootStackScreenProps<'搜索'>) => {
                 }),
         initialData: [],
     });
+
     async function fetchData(text: string) {
         fetch(`${API_DOMAIN}vod/v1/vod?wd=${text}`)
             .then(response => response.json())
             .then((json: SuggestResponseType) => {
                 setSearchResults(json.data.List);
+                setSearchTimer(0);
             })
             .catch(error => {
                 console.error(error);
+                setSearchTimer(0);
             });
     }
 
+    useEffect(() => {
+        if (route.params.initial !== '') {
+            fetchData(route.params.initial);
+        }
+    }, [])
+
     const updateSearch = (input: string) => {
+        setSearchResults([]);
         if (searchTimer) {
             clearTimeout(searchTimer);
         }
@@ -58,7 +68,7 @@ export default ({ navigation }: RootStackScreenProps<'搜索'>) => {
         setSearchTimer(
             setTimeout(() => {
                 fetchData(input);
-            }, 100),
+            }, 250),
         );
     };
 
@@ -91,7 +101,7 @@ export default ({ navigation }: RootStackScreenProps<'搜索'>) => {
                     placeholderTextColor={colors.muted}
                     round
                     onSubmitEditing={onSubmit}
-                    searchIcon={<SearchIcon color={colors.muted} height={23} width={23}/>}
+                    searchIcon={<SearchIcon color={colors.muted} height={23} width={23} />}
                     value={search}
                     clearIcon={
                         search ?
@@ -100,7 +110,7 @@ export default ({ navigation }: RootStackScreenProps<'搜索'>) => {
                                 setSearch('');
                                 setShowResults(false);
                             }} >
-                                <ClearIcon height={12} width={12}/>
+                                <ClearIcon height={12} width={12} />
                             </TouchableOpacity>
                             : <></>
                     }
@@ -110,9 +120,9 @@ export default ({ navigation }: RootStackScreenProps<'搜索'>) => {
                 {
                     showResults
                         ? <VodWithDescriptionList vodList={searchResults} />
-                        : <View style={{ marginLeft: 10 }}>
+                        : <View style={{ marginLeft: 10, flex: 1 }}>
                             {
-                                search.length === 0
+                                search && search.length === 0
                                     ? <View gap={spacing.m}>
                                         {
                                             searchHistory.history.length > 0 &&
@@ -133,7 +143,6 @@ export default ({ navigation }: RootStackScreenProps<'搜索'>) => {
                                                         searchHistory.history.map((hst, idx) => <TouchableOpacity
                                                             key={`search-${idx}`} style={{ backgroundColor: colors.search, ...styles.hst }}
                                                             onPress={() => {
-                                                                setSearch(hst);
                                                                 updateSearch(hst);
                                                             }}
                                                         >
@@ -145,7 +154,14 @@ export default ({ navigation }: RootStackScreenProps<'搜索'>) => {
                                         }
                                         <OrderedSearchResultsList recommendationList={recommendations} />
                                     </View>
-                                    : <SearchResultList searchResultList={searchResults} />
+                                    : <SearchResultList
+                                        searchResultList={searchResults}
+                                        emptyDescription={`抱歉没有找到“${search}”的相关视频为你推荐更多精彩内容`}
+                                        onItemSelect={(vod: string) => {
+                                            updateSearch(vod);
+                                            setShowResults(true);
+                                        }}
+                                    />
                             }
                         </View>
                 }
@@ -177,6 +193,8 @@ const styles = StyleSheet.create({
     },
     searchResult: {
         marginTop: 10,
+        flex: 1,
+        display: 'flex'
     },
     rowApart: {
         display: 'flex',

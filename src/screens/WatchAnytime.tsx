@@ -95,12 +95,12 @@ export default ({ navigation } : BottomTabScreenProps<any>) => {
     // const fullHeight = windowHeight + (StatusBar.currentHeight || 0);
 
     const handleViewableItemsChanged = useCallback(({ viewableItems }: { viewableItems: any }) => {
-        console.log("VIEWABLE : " + JSON.stringify(viewableItems));
+        // console.log("VIEWABLE : " + JSON.stringify(viewableItems));
         if(viewableItems.length == 1 && typeof viewableItems[0] != 'undefined'){
             const curr = viewableItems[0].index;
 
-            console.log("Currently Playing : " + curr);
-            console.log(viewableItems[0].item.mini_video_title + " - " + viewableItems[0].item.mini_video_origin_video_url);
+            // console.log("Currently Playing : " + curr);
+            // console.log(viewableItems[0].item.mini_video_title + " - " + viewableItems[0].item.mini_video_origin_video_url);
             setCurrent(curr);
         }
         return () => {

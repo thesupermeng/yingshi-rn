@@ -52,6 +52,12 @@ export type ExtendedTheme = {
       fontWeight: string,
       color: string,
     },
+    bodyBold: {
+      fontFamily: string,
+      fontSize: number,
+      fontWeight: string,
+      color: string,
+    },
     subBody: {
       fontFamily: string,
       fontSize: number,
@@ -82,6 +88,7 @@ export type ExtendedTheme = {
   },
   icons: {
     activeNavIconColor: string,
+    inactiveNavIconColor: string,
     iconColor: string,
     sizes: {
       s: number,
@@ -116,7 +123,9 @@ const palette = {
   light_grey2: 'rgba(201, 201, 201, 0.1)',
   dark_grey: '#303030',
   yello_translucent: 'rgba(250, 195, 61, 0.12)',
-  dark2: '#1D2023'
+  dark2: '#1D2023',
+  light_grey3: '#AEAEAE',
+  dark_grey2: '#6A6A6A',
 }
 
 export const YingshiDarkTheme: ExtendedTheme = {
@@ -190,6 +199,12 @@ export const YingshiDarkTheme: ExtendedTheme = {
       fontWeight: '400',
       color: palette.white,
     },
+    bodyBold: {
+      fontFamily: 'PingFang SC',
+      fontSize: 16,
+      fontWeight: '600',
+      color: palette.white,
+    },
   },
   spacing: {
     xxs: 4,
@@ -202,6 +217,7 @@ export const YingshiDarkTheme: ExtendedTheme = {
   },
   icons: {
     activeNavIconColor: palette.yellow,
+    inactiveNavIconColor: palette.dark_grey2,
     iconColor: palette.white,
     sizes: {
       s: 12,
@@ -231,7 +247,7 @@ export const YingshiLightTheme: ExtendedTheme = {
     notification: palette.yellow,
     search: palette.dark_grey_translucent,
     button: palette.black,
-    playlistFavorite: palette.dark_grey,
+    playlistFavorite: palette.dark,
     loading: palette.grey,
     highlight: palette.yello_translucent,
     selected: palette.dark2
@@ -285,6 +301,12 @@ export const YingshiLightTheme: ExtendedTheme = {
       fontWeight: '400',
       color: palette.dark,
     },
+    bodyBold: {
+      fontFamily: 'PingFang SC',
+      fontSize: 16,
+      fontWeight: '600',
+      color: palette.dark,
+    },
   },
   spacing: {
     xxs: 4,
@@ -297,6 +319,7 @@ export const YingshiLightTheme: ExtendedTheme = {
   },
   icons: {
     activeNavIconColor: palette.yellow,
+    inactiveNavIconColor: palette.light_grey3,
     iconColor: palette.dark,
     sizes: {
       s: 12,

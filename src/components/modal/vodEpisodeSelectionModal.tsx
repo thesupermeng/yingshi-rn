@@ -54,11 +54,18 @@ export default function VodEpisodeSelectionModal({ onConfirm, onCancel, sheetRef
         (props: React.JSX.IntrinsicAttributes & BottomSheetDefaultBackdropProps) => <BottomSheetBackdrop {...props} />,
         []);
 
+    const handleSheetChanges = useCallback((index: number) => {
+        if (index === 0 && sheetRef?.current) {
+            sheetRef?.current.close();
+        }
+    }, [sheetRef]);
+
     return (
         <BottomSheet
             ref={sheetRef}
             index={-1}
             snapPoints={snapPoints}
+            onChange={handleSheetChanges}
             backdropComponent={renderBackdrop}
             backgroundStyle={{
                 backgroundColor: colors.card,
@@ -79,7 +86,6 @@ export default function VodEpisodeSelectionModal({ onConfirm, onCancel, sheetRef
                     <FlatList
                         horizontal
                         data={ranges}
-                        // initialScrollIndex={1}
                         inverted
                         renderItem={({ item, index }: { item: string, index: number }) => {
                             return <TouchableOpacity style={styles.btn} onPress={() => setCurrentIndex(index)}>

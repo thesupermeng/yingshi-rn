@@ -30,6 +30,7 @@ import ProfileActiveTabIcon from '../../static/images/profile_tab_active.svg';
 import WatchAnytimeTabIcon from '../../static/images/video_tab.svg';
 import WatchAnytimeActiveTabIcon from '../../static/images/video_tab_active.svg';
 import CatalogScreen from '../screens/Common/Catalog';
+import ShortVodCollectionScreen from '../screens/Profile/Collection/shortVodCollection';
 
 import { YingshiDarkTheme, YingshiLightTheme } from '../theme';
 import { HomeTabParamList, PlaylistTabParamList, ProfileTabParamList, RootStackParamList, WatchAnytimeTabParamList } from '../types/navigationTypes';
@@ -39,6 +40,7 @@ import {
     SafeAreaProvider,
     useSafeAreaInsets,
 } from 'react-native-safe-area-context';
+import { StatusBar } from 'react-native';
 
 
 export default () => {
@@ -59,13 +61,13 @@ export default () => {
                 tabBarIcon: ({ focused, color, size }) => {
                     let icon: React.ReactNode;
                     if (route.name === '首页') {
-                        icon = focused ? <HomeActiveTabIcon color={theme.icons.activeNavIconColor} /> : <HomeTabIcon />;
+                        icon = focused ? <HomeActiveTabIcon color={theme.icons.activeNavIconColor} /> : <HomeTabIcon color={theme.icons.inactiveNavIconColor} />;
                     } else if (route.name === '播单') {
-                        icon = focused ? <PlaylistActiveTabIcon color={theme.icons.activeNavIconColor} /> : <PlaylistTabIcon />;
+                        icon = focused ? <PlaylistActiveTabIcon color={theme.icons.activeNavIconColor} /> : <PlaylistTabIcon color={theme.icons.inactiveNavIconColor} />;
                     } else if (route.name === '我的') {
-                        icon = focused ? <ProfileActiveTabIcon color={theme.icons.activeNavIconColor} /> : <ProfileTabIcon />;
+                        icon = focused ? <ProfileActiveTabIcon color={theme.icons.activeNavIconColor} /> : <ProfileTabIcon color={theme.icons.inactiveNavIconColor} />;
                     } else if (route.name === '随心看') {
-                        icon = focused ? <WatchAnytimeActiveTabIcon color={theme.icons.activeNavIconColor} /> : <WatchAnytimeTabIcon />;
+                        icon = focused ? <WatchAnytimeActiveTabIcon color={theme.icons.activeNavIconColor} /> : <WatchAnytimeTabIcon color={theme.icons.inactiveNavIconColor} />;
                     }
                     return icon;
                 },
@@ -124,6 +126,10 @@ export default () => {
 
     return (
         <SafeAreaProvider>
+            <StatusBar
+                backgroundColor={theme.colors.background}
+                barStyle = {themeReducer.theme ? "light-content" : "dark-content"}
+            />
             <NavigationContainer theme={theme} onReady={() => RNBootSplash.hide()}>
                 <Stack.Navigator screenOptions={({ route }) => ({
                     headerShown: false,
@@ -138,12 +144,13 @@ export default () => {
                     <Stack.Screen name='播放' component={PlayScreen} initialParams={{ vod_id: 1 }} />
                     <Stack.Screen name='播放历史' component={HistoryScreen} />
                     <Stack.Screen name='关于我们' component={AboutUsScreen} />
-                    <Stack.Screen name='搜索' component={SearchScreen} />
+                    <Stack.Screen name='搜索' component={SearchScreen} initialParams={{ initial: "" }} />
                     <Stack.Screen name='PlaylistDetail' component={PlaylistDetailsScreen} />
                     <Stack.Screen name='隐私政策' component={PrivacyScreen} />
                     <Stack.Screen name='用户协议' component={UserAgreementScreen} />
                     <Stack.Screen name='片库' component={CatalogScreen} initialParams={{ type_id: 1 }} />
                     <Stack.Screen name='设置' component={ConfigureScreen} />
+                    <Stack.Screen name='合辑收藏' component={ShortVodCollectionScreen} />
                 </Stack.Navigator>
             </NavigationContainer>
         </SafeAreaProvider>

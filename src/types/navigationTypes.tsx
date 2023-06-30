@@ -49,7 +49,9 @@ export type RootStackParamList = {
     播放: {
         vod_id: VodType['vod_id']
     };
-    搜索: undefined;
+    搜索: {
+        initial: string,
+    };
     PlaylistDetail: {
         topic_id: VodTopicType['topic_id']
     };

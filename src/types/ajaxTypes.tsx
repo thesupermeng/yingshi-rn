@@ -279,6 +279,13 @@ export interface FilterOptionsResponseType {
     data: FilterOptionsType[]
 }
 
+export interface NavOptionsResponseType {
+    data: {
+        id: number,
+        name: string,
+    }[]
+}
+
 export interface FilterOptionsType {
     type_id: number
     type_name: string
