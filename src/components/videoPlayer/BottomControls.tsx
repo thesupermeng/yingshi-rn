@@ -93,15 +93,21 @@ export default ({ currentTime, duration, onSlideCapture, onSlideStart, onSlideCo
                             <Text style={styles.timeLeftLandscape}>{position} / </Text>
                             <Text style={styles.timeRightLandscape}>{fullDuration}</Text>
                         </View>
+
+                        <View style={{ paddingRight: 20 }}>
+                            <TouchableWithoutFeedback style={styles.containerItem} onPress={onPressFullScreenBtn}>
+                                <MinimizeScreen width={30} height={30} />
+                            </TouchableWithoutFeedback>
+                        </View>
                     </View>
-                    <View style={styles.buttonsContainer}>
-                        {/* <View style={{ flex: 7 }}>
+                    {/* <View style={styles.buttonsContainer}>
+                        <View style={{ flex: 7 }}>
                             <TouchableWithoutFeedback onPress={handleShowEpisodes}>
                                 <Unlock width={30} height={30} />
                             </TouchableWithoutFeedback>
-                        </View> */}
+                        </View>
                         <View style={styles.buttonsSubContainer}>
-                            {/* <TouchableWithoutFeedback style={styles.containerItem} onPress={handleShowEpisodes}>
+                            <TouchableWithoutFeedback style={styles.containerItem} onPress={handleShowEpisodes}>
                                 <Text>1.25x</Text>
                             </TouchableWithoutFeedback>
                             <TouchableWithoutFeedback style={styles.containerItem} onPress={handleShowEpisodes}>
@@ -109,12 +115,12 @@ export default ({ currentTime, duration, onSlideCapture, onSlideStart, onSlideCo
                             </TouchableWithoutFeedback>
                             <TouchableWithoutFeedback style={styles.containerItem} onPress={handleShowEpisodes}>
                                 <Episodes width={30} height={30} />
-                            </TouchableWithoutFeedback> */}
+                            </TouchableWithoutFeedback>
                             <TouchableWithoutFeedback style={styles.containerItem} onPress={onPressFullScreenBtn}>
                                 <MinimizeScreen width={30} height={30} />
                             </TouchableWithoutFeedback>
                         </View>
-                    </View>
+                    </View> */}
                 </View>
             }
         </>
@@ -122,10 +128,17 @@ export default ({ currentTime, duration, onSlideCapture, onSlideStart, onSlideCo
 }
 
 const styles = StyleSheet.create({
+    // landscapeContainer: {
+    //     flex: 1,
+    //     flexDirection: 'column',
+    //     paddingHorizontal: 20,
+    //     zIndex: 1
+    // },
     landscapeContainer: {
-        flex: 1,
-        flexDirection: 'column',
-        paddingHorizontal: 20
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        zIndex: 1
     },
     buttonsContainer: {
         flex: 1,
@@ -144,23 +157,26 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end'
     },
     containerItem: {
-        marginLeft: 50
     },
     wrapper: {
-        paddingVertical: 10,
         flexDirection: 'row',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        zIndex: 1
     },
     timeWrapper: {
         flexDirection: 'row',
         alignItems: 'center',
-        flex: 4,
+        flex: 5,
     },
     timeWrapperLandscape: {
-        paddingHorizontal: 10,
         flexDirection: 'row',
-        alignItems: 'center'
+        alignSelf: 'center',
+        alignItems: 'center',
+        textAlign: 'center',
+        float: 'center',
+        justifyContent: 'center',
+        flex: 3
     },
     timeLeft: {
         fontSize: 12,

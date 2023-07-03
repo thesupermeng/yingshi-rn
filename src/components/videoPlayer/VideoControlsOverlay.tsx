@@ -3,6 +3,7 @@ import { View, PanResponder, StyleSheet, Dimensions } from 'react-native';
 import MiddleControls from './MiddleControls';
 import BottomControls from './BottomControls';
 import TopControls from './TopControls';
+import LinearGradient from 'react-native-linear-gradient';
 
 type Props = {
     currentTime: number,
@@ -65,6 +66,19 @@ export default ({ currentTime, duration, onVideoSeek, onFastForward, onTogglePla
                 onToggleFullScreen={handleFullScreen}
                 onToggleEpisodes={handleToggleEpisodes}
                 isFullScreen={isFullScreen} />
+
+            <LinearGradient
+                colors={['transparent', 'black']}
+                start={{ x: 0.5, y: 0 }}
+                end={{ x: 0.5, y: 0.8 }}
+                style={styles.bottomBlur}
+            />
+            <LinearGradient
+                colors={['transparent', 'black']}
+                start={{ x: 0.5, y: 0.8 }}
+                end={{ x: 0.5, y: 0 }}
+                style={styles.topBlur}
+            />
         </View>
     )
 }
@@ -76,10 +90,29 @@ const styles = StyleSheet.create({
         bottom: 0,
         left: 0,
         right: 0,
-        backgroundColor: '#00000090',
+        // backgroundColor: '#00000090',
+        backgroundColor: '#00000010',
         justifyContent: 'space-between',
     },
     fullScreenBottom: {
         paddingBottom: 60
+    },
+    bottomBlur: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        bottom: 0,
+        height: 80,
+        flex: 1,
+        opacity: 0.8
+    },
+    topBlur: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        height: 100,
+        flex: 1,
+        opacity: 0.8
     }
 });
