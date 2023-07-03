@@ -40,7 +40,9 @@ export default ({ navigation } : BottomTabScreenProps<any>) => {
 
     const [current, setCurrent] = useState<number | null>(null);
     const [isPaused, setIsPaused] = useState(false);
-    const [page, setPage] = useState(1)
+    const [page, setPage] = useState(2)
+
+    const [isBuffering, setIsBuffering] = useState(false);
 
     const [videos, setVideos] = useState<MiniVideo[]>([]);
     const getMiniVideos = useQuery({
@@ -56,10 +58,16 @@ export default ({ navigation } : BottomTabScreenProps<any>) => {
                 if(json.data.List == null){
                     return;
                 }
+                console.log("AAAAAAA")
+                console.log(json.data.List);
+                for(let i = 0; i < json.data.List.length; i++){
+                    json.data.List[i].mini_video_origin_video_url = json.data.List[i].mini_video_origin_video_url.replace('http://', 'https://');
+                }
                 setVideos((prevVideos: any) => [...prevVideos, ...json.data.List]);
-                setPage((prevPage: any) => {
-                    return prevPage + 1;
-                });
+                // setPage((prevPage: any) => {
+                //     return prevPage + 1;
+                // });
+                setPage(1);
                 return json.data.List;
             } catch (error: any) {
                 if (error.name === "AbortError") {
@@ -95,8 +103,10 @@ export default ({ navigation } : BottomTabScreenProps<any>) => {
     // const fullHeight = windowHeight + (StatusBar.currentHeight || 0);
 
     const handleViewableItemsChanged = useCallback(({ viewableItems }: { viewableItems: any }) => {
-        // console.log("VIEWABLE : " + JSON.stringify(viewableItems));
+        setIsBuffering(false);
+        console.log("VIEWABLE : " + JSON.stringify(viewableItems));
         if(viewableItems.length == 1 && typeof viewableItems[0] != 'undefined'){
+            setIsBuffering(true);
             const curr = viewableItems[0].index;
 
             // console.log("Currently Playing : " + curr);
@@ -114,10 +124,22 @@ export default ({ navigation } : BottomTabScreenProps<any>) => {
             .then((json: MiniVideoResponseType) => {
                 setVideos((prevVideos: any) => [...prevVideos, ...json.data.List]);
                 setPage((prevPage: any) => {
+                    console.log(prevPage);
+                    console.log(prevPage + 1);
+                    console.log('ZZZZCASDZZZZZZ');
                     return prevPage + 1;
                 });
             })
     }
+
+    const onBuffer = (bufferObj: any) => {
+        console.log(bufferObj);
+        setIsBuffering(bufferObj.isBuffering);
+    }
+
+    const videoError = (err: any) => {
+        console.log(err);
+     }
 
     const renderFlatListItem = useCallback(({item, index}: { item: MiniVideo; index: number }) => {
         const isCurrentVideo = index === current;
@@ -144,12 +166,14 @@ export default ({ navigation } : BottomTabScreenProps<any>) => {
                             resizeMode="contain"
                             poster={ item.mini_video_origin_cover }
                             source={{ uri: item.mini_video_origin_video_url }}
-                            // source={{ uri: 'https://v11-o.douyinvod.com/72ac691ca9c1c8b297fd761d1c6a584f/649e9352/video/tos/cn/tos-cn-ve-15c001-alinc2/oQZQAEgCYLyALkhHwJhrBfTAeARzWg2NJINyGI/?a=1128&ch=0&cr=0&dr=0&er=0&cd=0%7C0%7C0%7C0&cv=1&br=1263&bt=1263&cs=0&ds=4&ft=pfusebymVZmo0PB8-bpkVQ.PaK~_KJd.&mime_type=video_mp4&qs=0&rc=ZDQ8NTo2ZTU8Omc5NmZpM0Bpajs3ZmU6ZjQ0bDMzNGkzM0AxMDFeYC4zNWMxMGE0Y2MtYSMyYC5fcjQwamBgLS1kLWFzcw%3D%3D&l=2023063015295125C4033D00103B0C0A1E&btag=e000a8000&cc=3e&dy_q=1688110192&dy_va_biz_cert=2%3Aa%3AmT5HwjiM0%2FoUzvsEsoTUJIEuGBKXCwv5lj3ynqNXpNAO17ZKxYwQveq6pp62tOab' }}
+                            // source={{ uri: 'https://v5-dy-o-abtest.zjcdn.com/4000bf51799fb919d077e3186c0d31cf/64a28054/video/tos/cn/tos-cn-ve-15c001-alinc2/osAQhflDlUPmznYCeNsBMWAOgDhyAO2EcyIiI7/?a=6383&ch=11&cr=3&dr=0&lr=all&cd=0%7C0%7C0%7C3&cv=1&br=496&bt=496&cs=0&ds=2&ft=dqY4KG0Y0d-17XvjVQZEF6K7usZLQ5vmaglc&mime_type=video_mp4&qs=0&rc=M2RnaTU1aTY2Ozg1Njk1ZUBpanZkdWg6ZjRzbDMzNGkzM0BgLWIvNWAxX18xLV5gMF8zYSNxXjE0cjRnMmRgLS1kLTBzcw%3D%3D&l=20230703150037158E39DF1CC73A058EDA&btag=e00020000&cc=46' }}
+                            onBuffer={onBuffer}
+                            onError={videoError}
                             repeat={true} 
                             style={styles.video}
                             paused={!isCurrentVideo || isPaused} 
                             // preload={'metadata'}
-                            preload={isCurrentVideo ? 'auto' : 'metadata'}
+                            // preload={isCurrentVideo ? 'auto' : 'metadata'}
                             />
                     </TouchableWithoutFeedback>
                     <View column style={{position:'absolute', left: 0, top: 0, marginTop: (windowHeight - navBarHeight) / 2, height: (windowHeight - navBarHeight) / 2, width: '100%', justifyContent:'flex-end', padding: 20, paddingBottom: 30}}>
@@ -194,6 +218,15 @@ export default ({ navigation } : BottomTabScreenProps<any>) => {
             <View style={{ position: 'absolute', top: 0, left: 0, padding: 20, zIndex: 50, width: '100%', flexDirection: 'row', alignItems: 'center'}}>
                 <Text style={{ color: '#FFF', fontSize: 20 }}>随心看</Text>
             </View>
+            {isBuffering &&
+                <View style={styles.buffering}>
+                    <FastImage
+                        source={require('../../static/images/videoBufferLoading.gif')}
+                        style={{ width: 100, height: 100 }}
+                        resizeMode="contain"
+                    />
+                </View>
+            }
             {videos.length != 0 ?
                 <FlatList
                     data={videos}
@@ -257,5 +290,17 @@ const styles = StyleSheet.create({
         backgroundColor: '#00000010',
         zIndex: 10,
         // backgroundColor: 'yellow',
-    }
+    },
+    buffering: {
+        paddingHorizontal: 5,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flex: 3,
+        color: 'yellow',
+        position: 'absolute',
+        top: '40%',
+        left: '36%',
+        zIndex: 100
+    },
 })
