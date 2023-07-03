@@ -9,11 +9,12 @@ interface Props {
     leftIcon?: React.SVGAttributes<SVGElement>,
     buttonStyle?: typeof StyleSheet,
     rightIcon?: React.SVGAttributes<SVGElement>,
+    disabled?: boolean
 }
-export default function ShowMoreButton({ text, onPress, leftIcon, textColor = '', buttonStyle, rightIcon, ...params }: Props) {
+export default function ShowMoreButton({ text, onPress, leftIcon, textColor = '', buttonStyle, rightIcon, disabled = false, ...params }: Props) {
     const { colors, textVariants, icons } = useTheme();
     return (
-        <TouchableOpacity style={{ ...styles.btn, backgroundColor: colors.card2, ...buttonStyle }} onPress={onPress} {...params} >
+        <TouchableOpacity style={{ ...styles.btn, backgroundColor: colors.card2, ...buttonStyle }} onPress={onPress} {...params} disabled={disabled}>
             <View style={styles.left}>
                 {
                     leftIcon && <View style={styles.icon}>{leftIcon}</View>

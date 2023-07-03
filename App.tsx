@@ -8,7 +8,7 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query'
 import { API_DOMAIN } from './src/constants';
-import { FilterOptionsResponseType, SuggestResponseType, VodCarousellResponseType, VodPlaylistResponseType, } from './src/types/ajaxTypes';
+import { FilterOptionsResponseType, NavOptionsResponseType, SuggestResponseType, VodCarousellResponseType, VodPlaylistResponseType, } from './src/types/ajaxTypes';
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
@@ -39,7 +39,7 @@ export default function App() {
   queryClient.prefetchQuery({
     queryKey: ["filterOptions"],
     queryFn: () =>
-      fetch('https://testapi.yingshi.tv/nav/v1/navItems', {})
+      fetch(`${API_DOMAIN}nav/v1/navItems`, {})
         .then(response => response.json())
         .then((json: VodCarousellResponseType) => {
           return json.data
@@ -49,22 +49,21 @@ export default function App() {
   queryClient.prefetchQuery({
     queryKey: ["HomePageNavOptions"],
     queryFn: () =>
-      fetch('https://testapi.yingshi.tv/nav/v1/navItems', {})
+      fetch(`${API_DOMAIN}nav/v1/navItems`, {})
         .then(response => response.json())
-        .then((json: VodCarousellResponseType) => {
+        .then((json: NavOptionsResponseType) => {
           return json.data
         })
   });
 
-  queryClient.prefetchQuery({
-    queryKey: ["vodPlaylist"],
-    queryFn: () =>
-      fetch(`https://testapi.yingshi.tv/topic/v1/topic`)
-        .then(response => response.json())
-        .then((json: VodPlaylistResponseType) => {
-          return Object.values(json.data.List)
-        })
-  });
+  // const fetchPlaylist = (page: number) => fetch(`${API_DOMAIN}topic/v1/topic?page=${page}`)
+  //   .then(response => response.json())
+  //   .then((json: VodPlaylistResponseType) => {
+  //     console.log("PREFETCHED!")
+  //     return Object.values(json.data.List)
+  //   })
+
+  // queryClient.prefetchInfiniteQuery(['vodPlaylist'], ({ pageParam = 1 }) => fetchPlaylist(pageParam));
 
   return (
     <Provider store={store}>

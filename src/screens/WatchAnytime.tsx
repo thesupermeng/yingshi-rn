@@ -109,8 +109,8 @@ export default ({ navigation } : BottomTabScreenProps<any>) => {
             setIsBuffering(true);
             const curr = viewableItems[0].index;
 
-            console.log("Currently Playing : " + curr);
-            console.log(viewableItems[0].item.mini_video_title + " - " + viewableItems[0].item.mini_video_origin_video_url);
+            // console.log("Currently Playing : " + curr);
+            // console.log(viewableItems[0].item.mini_video_title + " - " + viewableItems[0].item.mini_video_origin_video_url);
             setCurrent(curr);
         }
         return () => {

@@ -12,13 +12,14 @@ import CollectionHeader from '../../../components/header/myCollectionHeader';
 import { playVod } from '../../../redux/actions/vodActions';
 import { VodType } from '../../../types/ajaxTypes';
 import { RootStackScreenProps } from '../../../types/navigationTypes';
+import EmptyIcon from '../../../../static/images/empty.svg';
 import EmptyList from '../../../components/common/emptyList';
 
 type FlatListType = {
     item: VodType
 }
 
-export default ({ navigation }: RootStackScreenProps<'视频收藏'>) => {
+export default ({ navigation }: RootStackScreenProps<'合辑收藏'>) => {
     const { colors, textVariants, icons } = useTheme()
     const dispatch = useAppDispatch();
     const vodReducer: VodReducerState = useAppSelector(({ vodReducer }: RootState) => vodReducer);
@@ -26,10 +27,11 @@ export default ({ navigation }: RootStackScreenProps<'视频收藏'>) => {
     return (
         <ScreenContainer>
             <TitleWithBackButtonHeader title='我的收藏' />
-            <CollectionHeader route='视频收藏' navigator={navigation} />
+            <CollectionHeader route='合辑收藏' navigator={navigation} />
             <View>
                 {
-                    favorites && favorites.length > 0 && <FlatList
+                    favorites && favorites.length > 0 &&
+                    <FlatList
                         data={favorites}
                         contentContainerStyle={{ paddingBottom: 120 }}
                         ListFooterComponent={<Text style={{ ...textVariants.body, color: colors.muted, ...styles.noMore }}>没有更多了</Text>}
@@ -44,7 +46,7 @@ export default ({ navigation }: RootStackScreenProps<'视频收藏'>) => {
             </View>
             {
                 favorites && favorites.length === 0 &&
-                <EmptyList description='暂无视频收藏' />
+                <EmptyList description='暂无合辑收藏'/>
             }
         </ScreenContainer >
     )

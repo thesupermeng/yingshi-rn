@@ -9,7 +9,7 @@ interface Props {
     title?: string,
     subtitle1?: string,
     subtitle2?: string,
-    confirmationText?: string
+    confirmationText?: string,
 }
 export default function NotificationModal({ onConfirm, isVisible, title = '', subtitle1, subtitle2, confirmationText='确定' }: Props) {
     const { colors, textVariants, spacing } = useTheme();
@@ -39,7 +39,6 @@ export default function NotificationModal({ onConfirm, isVisible, title = '', su
 const styles = StyleSheet.create({
     overlay: {
         borderRadius: 14,
-
     },
     head: {
         color: 'white',
