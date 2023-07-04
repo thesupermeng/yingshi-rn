@@ -3,7 +3,6 @@ import { StyleSheet, View, TouchableOpacity, Text, FlatList } from 'react-native
 import { SuggestedVodType } from '../../types/ajaxTypes'
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { playVod } from '../../redux/actions/vodActions';
-import { RootState } from '../../redux/store';
 import { addSearchHistory, clearSearchHistory } from '../../redux/actions/searchActions';
 interface Props {
     recommendationList: Array<SuggestedVodType>;
@@ -16,7 +15,6 @@ export default function RecommendationList({ recommendationList }: Props) {
     const { colors, textVariants, spacing, icons } = useTheme();
     const navigation = useNavigation();
     const dispatch = useAppDispatch();
-    const searchHistory = useAppSelector(({ searchHistoryReducer }: RootState) => searchHistoryReducer)
 
     return (
         <View gap={spacing.m}>

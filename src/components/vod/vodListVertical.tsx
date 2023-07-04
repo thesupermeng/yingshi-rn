@@ -47,6 +47,7 @@ export default function VodListVertical({ vods, numOfRows = 2, outerRowPadding =
     return (
         <View style={styles.vodList}>
             {
+                vods && 
                 vods.slice(0, numOfRows * CARDS_PER_ROW).map((vod, idx) => (
                     <VodCard
                         key={`${vod.vod_id}`}

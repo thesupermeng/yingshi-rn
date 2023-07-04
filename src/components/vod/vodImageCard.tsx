@@ -6,7 +6,7 @@ import LinearGradient from 'react-native-linear-gradient'
 interface Props {
     vod_img: string,
     vodStyle?: typeof StyleSheet,
-    onPress: any,
+    onPress?: any,
     showInfo?: string
     showPlayIcon?: boolean
     shadowBottom?: boolean

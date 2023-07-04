@@ -113,7 +113,7 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
         try {
             const result = await Share.share({
                 message:
-                    `《${vod?.vod_name}》高清播放${'\n'}https://yingshi.tv/index.php/vod/play/id/${vod?.vod_id}/sid/1/nid/${currentEpisode+1}.html${'\n'}影视TV-海量高清视频在线观看`,
+                    `《${vod?.vod_name}》高清播放${'\n'}https://yingshi.tv/index.php/vod/play/id/${vod?.vod_id}/sid/1/nid/${currentEpisode + 1}.html${'\n'}影视TV-海量高清视频在线观看`,
             });
             if (result.action === Share.sharedAction) {
                 if (result.activityType) {
@@ -135,13 +135,17 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
                 dispatch(addVodToHistory(vod, currentTimeRef.current, currentEpisode));
             }
         }
-    }, [currentEpisode, vod, currentTimeRef]);
+    }, [currentEpisode, vod, currentTimeRef.current]);
 
     const fetchVod = () => fetch(`${API_DOMAIN}vod/v1/vod?class=${vod?.vod_class.split(",").shift()}&tid=${vod?.type_id}&limit=6`)
         .then(response => response.json())
         .then((json: SuggestResponseType) => {
             return json.data.List
         });
+
+    useEffect(() => {
+        setCurrentEpisode(vod?.episodeWatched === undefined ? 0 : vod.episodeWatched);
+    }, [vod])
 
     const { data: suggestedVods } = useQuery({
         queryKey: ["relatedVods", vod],
@@ -233,10 +237,13 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
                         <>
                             <View style={styles.spaceApart} gap={spacing.l}>
                                 <Text style={textVariants.body}>选集播放</Text>
-                                <TouchableOpacity style={styles.share} onPress={() => sheetRef.current?.snapToIndex(1)}>
-                                    <Text style={{ color: colors.muted, fontSize: 15, paddingBottom: 3 }}>{`${showEpisodeRangeStart + 1}-${showEpisodeRangeEnd}集`}</Text>
-                                    <MoreArrow style={{ color: colors.muted }} height={icons.sizes.m} width={icons.sizes.m} ></MoreArrow>
-                                </TouchableOpacity>
+                                {
+                                    showEpisodeRangeEnd - showEpisodeRangeStart === 100 &&
+                                    <TouchableOpacity style={styles.share} onPress={() => sheetRef.current?.snapToIndex(1)}>
+                                        <Text style={{ color: colors.muted, fontSize: 15, paddingBottom: 3 }}>{`${showEpisodeRangeStart + 1}-${showEpisodeRangeEnd}集`}</Text>
+                                        <MoreArrow style={{ color: colors.muted }} height={icons.sizes.m} width={icons.sizes.m} ></MoreArrow>
+                                    </TouchableOpacity>
+                                }
                             </View>
                             <View style={{ height: NUM_OF_ROWS > 6 ? ROW_HEIGHT * 6.5 : 'auto' }}>
                                 <ScrollView
@@ -275,7 +282,7 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
                             <ShowMoreVodButton text={`相关${vod?.type_name}`} onPress={() => {
                                 navigation.navigate('片库', { type_id: vod.type_id });
                             }} />
-                            <VodListVertical vods={suggestedVods} outerRowPadding={40} />
+                            <VodListVertical vods={suggestedVods} outerRowPadding={2 * (20 - spacing.sideOffset)} />
                         </View>
                     }
                 </View>

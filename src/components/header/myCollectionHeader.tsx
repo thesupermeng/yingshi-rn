@@ -5,28 +5,28 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../types/navigationTypes';
 
 interface Props {
-    route: '视频收藏' | '播单收藏' | '合辑收藏',
-    navigator: NativeStackNavigationProp<RootStackParamList,  '视频收藏' | '播单收藏' | '合辑收藏', any>
+    route: '视频收藏' | '播单收藏' | '合集收藏',
+    navigator: NativeStackNavigationProp<RootStackParamList,  '视频收藏' | '播单收藏' | '合集收藏', any>
 }
 
 export default function CollectionHeader({ route, navigator }: Props) {
     const { textVariants, spacing, colors } = useTheme();
 
-    const btnStyle = (currRoute: '视频收藏' | '播单收藏' | '合辑收藏') => {
+    const btnStyle = (currRoute: '视频收藏' | '播单收藏' | '合集收藏') => {
         if (route === currRoute) {
             return { ...textVariants.header, color: colors.primary, };
         }
         return { ...textVariants.body, color: colors.muted };
     }
 
-    const underlineStyle = (currRoute: '视频收藏' | '播单收藏' | '合辑收藏') => {
+    const underlineStyle = (currRoute: '视频收藏' | '播单收藏' | '合集收藏') => {
         if (route === currRoute) {
             return { backgroundColor: colors.primary, ...styles.underline };
         }
         return {};
     }
 
-    const navigate = (currRoute: '视频收藏' | '播单收藏' | '合辑收藏') => {
+    const navigate = (currRoute: '视频收藏' | '播单收藏' | '合集收藏') => {
         return () => navigator.navigate(currRoute);
     }
 
@@ -40,10 +40,10 @@ export default function CollectionHeader({ route, navigator }: Props) {
                 <Text style={btnStyle('播单收藏')}>播单</Text>
                 <View style={underlineStyle('播单收藏')}></View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={navigate('合辑收藏')}>
-                <Text style={btnStyle('合辑收藏')}>合辑</Text>
-                <View style={underlineStyle('合辑收藏')}></View>
-            </TouchableOpacity>
+            {/* <TouchableOpacity onPress={navigate('合集收藏')}>
+                <Text style={btnStyle('合集收藏')}>合集</Text>
+                <View style={underlineStyle('合集收藏')}></View>
+            </TouchableOpacity> */}
         </View>
     );
 }

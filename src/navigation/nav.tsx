@@ -128,29 +128,29 @@ export default () => {
         <SafeAreaProvider>
             <StatusBar
                 backgroundColor={theme.colors.background}
-                barStyle = {themeReducer.theme ? "light-content" : "dark-content"}
+                barStyle={themeReducer.theme ? "light-content" : "dark-content"}
             />
             <NavigationContainer theme={theme} onReady={() => RNBootSplash.hide()}>
-                <Stack.Navigator screenOptions={({ route }) => ({
+                <Stack.Navigator initialRouteName="Home" screenOptions={({ route }) => ({
                     headerShown: false,
                 })} >
-                    <Stack.Screen name='Home' component={HomeTabScreen} />
-                    <Stack.Screen name='Profile' component={ProfileTabScreen} />
-                    <Stack.Screen name='Playlist' component={PlaylistTabScreen} />
-                    <Stack.Screen name='WatchAnytime' component={WatchAnytimeTabScreen} />
-                    <Stack.Screen name='视频收藏' component={VodCollectionScreen} />
-                    <Stack.Screen name='播单收藏' component={PlaylistCollectionScreen} />
-                    <Stack.Screen name='反馈' component={FeedbackScreen} />
-                    <Stack.Screen name='播放' component={PlayScreen} initialParams={{ vod_id: 1 }} />
-                    <Stack.Screen name='播放历史' component={HistoryScreen} />
-                    <Stack.Screen name='关于我们' component={AboutUsScreen} />
-                    <Stack.Screen name='搜索' component={SearchScreen} initialParams={{ initial: "" }} />
-                    <Stack.Screen name='PlaylistDetail' component={PlaylistDetailsScreen} />
-                    <Stack.Screen name='隐私政策' component={PrivacyScreen} />
-                    <Stack.Screen name='用户协议' component={UserAgreementScreen} />
-                    <Stack.Screen name='片库' component={CatalogScreen} initialParams={{ type_id: 1 }} />
-                    <Stack.Screen name='设置' component={ConfigureScreen} />
-                    <Stack.Screen name='合辑收藏' component={ShortVodCollectionScreen} />
+                    <Stack.Screen name='Home' component={HomeTabScreen} options={{ orientation: 'portrait' }} />
+                    <Stack.Screen name='Profile' component={ProfileTabScreen} options={{ orientation: 'portrait' }} />
+                    <Stack.Screen name='Playlist' component={PlaylistTabScreen} options={{ orientation: 'portrait' }} />
+                    <Stack.Screen name='WatchAnytime' component={WatchAnytimeTabScreen} options={{ orientation: 'portrait' }} />
+                    <Stack.Screen name='视频收藏' component={VodCollectionScreen} options={{ orientation: 'portrait' }} />
+                    <Stack.Screen name='播单收藏' component={PlaylistCollectionScreen} options={{ orientation: 'portrait' }} />
+                    <Stack.Screen name='反馈' component={FeedbackScreen} options={{ orientation: 'portrait' }} />
+                    <Stack.Screen name='播放' component={PlayScreen} initialParams={{ vod_id: 1 }} options={{ orientation: 'all' }} />
+                    <Stack.Screen name='播放历史' component={HistoryScreen} options={{ orientation: 'portrait' }} />
+                    <Stack.Screen name='关于我们' component={AboutUsScreen} options={{ orientation: 'portrait' }} />
+                    <Stack.Screen name='搜索' component={SearchScreen} initialParams={{ initial: "" }} options={{ orientation: 'portrait' }} />
+                    <Stack.Screen name='PlaylistDetail' component={PlaylistDetailsScreen} options={{ orientation: 'portrait' }} />
+                    <Stack.Screen name='隐私政策' component={PrivacyScreen} options={{ orientation: 'portrait' }} />
+                    <Stack.Screen name='用户协议' component={UserAgreementScreen} options={{ orientation: 'portrait' }} />
+                    <Stack.Screen name='片库' component={CatalogScreen} initialParams={{ type_id: 1 }} options={{ orientation: 'portrait' }} />
+                    <Stack.Screen name='设置' component={ConfigureScreen} options={{ orientation: 'portrait' }} />
+                    <Stack.Screen name='合集收藏' component={ShortVodCollectionScreen} options={{ orientation: 'portrait' }} />
                 </Stack.Navigator>
             </NavigationContainer>
         </SafeAreaProvider>

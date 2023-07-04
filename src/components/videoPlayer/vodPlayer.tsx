@@ -102,7 +102,6 @@ export default ({ vod_url, currentTimeRef, initialStartTime = 0 }: Props) => {
     }
 
     const onSeek = (time: number) => {
-        console.log("SEEK : " + time);
         setCurrentTime(time);
         if (videoPlayerRef.current !== null) {
             videoPlayerRef.current.seek(time);
@@ -114,13 +113,12 @@ export default ({ vod_url, currentTimeRef, initialStartTime = 0 }: Props) => {
 
     const onVideoProgessing = useMemo(() => throttle((data: any) => {
         setCurrentTime(data.currentTime)
-        if (currentTimeRef.current) {
+        if (currentTimeRef.current !== undefined) {
             currentTimeRef.current = data.currentTime;
         }
     }, 500), [])
 
     const onSkip = (time: any) => {
-        console.log('SKIPPPING')
         if (videoPlayerRef) {
             videoPlayerRef.current.seek(currentTime + time);
         }
@@ -149,7 +147,6 @@ export default ({ vod_url, currentTimeRef, initialStartTime = 0 }: Props) => {
     }
 
     const debouncedFn = useCallback(debounce(changeControlsState, 1000), []);
-
 
     return (
         <>

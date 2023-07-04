@@ -73,11 +73,12 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
     const { data: navOptions } = useQuery({
         queryKey: ["filterOptions"],
         queryFn: () => fetch(`${API_DOMAIN}type/v1/type`)
-            .then(response => response.json())
+            .then(response => {
+                return response.json()
+            })
             .then((json: FilterOptionsResponseType) => {
                 return json.data
-            }),
-        initialData: []
+            })
     });
     // Filtering
     const [currentTopicId, setCurrentTopicId] = useState(route.params.type_id === undefined ? 1 : route.params.type_id);
@@ -165,26 +166,35 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
                 return nextPage;
             },
             onSuccess: (data) => {
-                if (data.pages.length === 1) {
-                    if (data !== null && data.pages[data.pages.length - 1] !== null) {
+                if (data === null || data.pages[0] === null) {
+                    setResults([]);
+                }
+                else if (data.pages.length === 1) {
+                    if (data.pages[data.pages.length - 1] !== null) {
                         setResults(data.pages.flat())
                     }
                 } else {
-                    if (data !== null && data.pages[data.pages.length - 1] !== null) {
+                    if (data.pages[data.pages.length - 1] !== null) {
                         setResults([...results, ...data.pages[data.pages.length - 1].flat()])
                     }
                 }
+                
             }
         });
 
-    const topicOptions: Array<NavType> = useMemo(() => navOptions.map(x => (
-        {
-            id: x.type_id,
-            name: x.type_name
+    const topicOptions: Array<NavType> = useMemo(() => {
+        if (navOptions) {
+            return navOptions.map(x => (
+                {
+                    id: x.type_id,
+                    name: x.type_name
+                })
+            );
         }
-    )), [navOptions]);
+        return [];
+    }, [navOptions]);
 
-    const options = navOptions.find(x => x.type_id === currentTopicId);
+    const options = navOptions?.find(x => x.type_id === currentTopicId);
     const underlineStyle = (option: number) => {
         if (option === currentTopicId) {
             return { backgroundColor: colors.primary, ...styles.underline };
@@ -294,7 +304,7 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
                         <View style={{ ...styles.loading, marginBottom: spacing.xl }}>
                             {
                                 hasNextPage && <FastImage
-                                    style={{ height: 100, width: 100 }}
+                                    style={{ height: 80, width: 80 }}
                                     source={require('../../../static/images/loading-spinner.gif')}
                                     resizeMode={FastImage.resizeMode.contain}
                                 />
@@ -307,11 +317,11 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
                     }
                     numColumns={CARDS_PER_ROW}
                     renderItem={({ item, index }: { item: SuggestedVodType, index: number }) => {
-                        return <View style={{marginBottom: spacing.s, marginRight: (index % CARDS_PER_ROW) === CARDS_PER_ROW - 1 ? 0 : MARGIN_RIGHT}}>
+                        return <View style={{ marginBottom: spacing.s, marginRight: (index % CARDS_PER_ROW) === CARDS_PER_ROW - 1 ? 0 : MARGIN_RIGHT }}>
                             <VodCard vod_pic={item?.vod_pic}
                                 vod_name={item?.vod_name}
                                 vodImageStyle={{
-                                    width: cardWidth, height: cardHeight,  
+                                    width: cardWidth, height: cardHeight,
                                 }}
                                 onPress={() => {
                                     dispatch(playVod(item));

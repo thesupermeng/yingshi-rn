@@ -10,12 +10,13 @@ interface Props {
 }
 export default function ScreenContainer({ children, scrollView = false, footer, containerStyle, header }: Props) {
     const insets = useSafeAreaInsets();
-    const { spacing } = useTheme();
+    const { spacing, colors } = useTheme();
     return (
         <>
             {
                 scrollView
                     ? <ScrollView style={{
+                        backgroundColor: colors.background,
                         ...styles.container,
                         paddingTop: insets.top,
                         paddingBottom: insets.bottom,
@@ -38,6 +39,7 @@ export default function ScreenContainer({ children, scrollView = false, footer, 
                         {footer}
                     </ScrollView>
                     : <View style={{
+                        backgroundColor: colors.background,
                         ...styles.viewContainer,
                         paddingTop: insets.top,
                         paddingBottom: insets.bottom,

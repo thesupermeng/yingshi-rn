@@ -19,15 +19,20 @@ export default ({ vodList }: Props) => {
     const dispatch = useAppDispatch();
     const navigation = useNavigation()
     return (
-        <FlatList
-            data={vodList}
-            contentContainerStyle={{ paddingBottom: 200 }}
-            renderItem={({ item }: FlatListType) => <FavoriteVodCard 
-            hideFavoriteButton={true} vod={item} onPress={() => {
-                dispatch(playVod(item));
-                navigation.navigate('播放', { vod_id: item.vod_id });
-            }} />}
-        />
+        <View>
+            {
+                vodList.length > 0 &&
+                <FlatList
+                    data={vodList}
+                    contentContainerStyle={{ paddingBottom: 200 }}
+                    renderItem={({ item }: FlatListType) => <FavoriteVodCard
+                        hideFavoriteButton={true} vod={item} onPress={() => {
+                            dispatch(playVod(item));
+                            navigation.navigate('播放', { vod_id: item.vod_id });
+                        }} />}
+                />
+            }
+        </View>
     )
 }
 

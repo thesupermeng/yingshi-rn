@@ -45,7 +45,7 @@ export default function VodPlaylist({ playlist, titleStyle }: Props) {
             </TouchableOpacity>
             <View style={{ paddingLeft: spacing.sideOffset }}>
                 <FlatList
-                    data={playlist.vod_list}
+                    data={playlist?.vod_list}
                     horizontal
                     renderItem={({ item, index }: FlatListType) => {
                         return <VodCard vod_name={item.vod_name}

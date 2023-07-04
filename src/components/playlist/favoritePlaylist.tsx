@@ -21,15 +21,20 @@ export default function FavoritePlaylist({ playlist, navigator }: Props) {
     const dispatch = useAppDispatch();
     return (
         <View style={styles.playlist} gap={spacing.s}>
-            <View style={styles.header}>
-                <Text style={{ ...textVariants.header, color: colors.primary }}>{playlist.topic_name}</Text>
-                <TouchableOpacity onPress={() => dispatch(togglePlaylistFavorites(playlist))} style={{ marginLeft: spacing.xs }}>
-                    <FavoriteIcon width={icons.sizes.m} height={icons.sizes.m} style={{ color: colors.primary, marginRight: spacing.m }} />
-                </TouchableOpacity>
-            </View>
-            <Text numberOfLines={3} style={{ ...textVariants.small, color: colors.text, flex: 1 }}>
-                {playlist.topic_blurb}
-            </Text>
+            <TouchableOpacity onPress={() => {
+                dispatch(viewPlaylistDetails(playlist));
+                navigator.navigate('PlaylistDetail', { topic_id: playlist.topic_id });
+            }}>
+                <View style={styles.header}>
+                    <Text style={{ ...textVariants.header, color: colors.primary }}>{playlist.topic_name}</Text>
+                    <TouchableOpacity onPress={() => dispatch(togglePlaylistFavorites(playlist))} style={{ marginLeft: spacing.xs }}>
+                        <FavoriteIcon width={icons.sizes.m} height={icons.sizes.m} style={{ color: colors.primary, marginRight: spacing.m }} />
+                    </TouchableOpacity>
+                </View>
+                <Text numberOfLines={3} style={{ ...textVariants.small, color: colors.text, flex: 1 }}>
+                    {playlist.topic_blurb}
+                </Text>
+            </TouchableOpacity>
             <FlatList
                 data={playlist.vod_list}
                 horizontal

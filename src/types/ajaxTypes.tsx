@@ -221,7 +221,7 @@ export interface VodPlaylistResponseType {
 
 }
 
-type VodData = {
+export type VodData = {
     vod_list: Array<VodType>
     type_name: string
     type_id: number
