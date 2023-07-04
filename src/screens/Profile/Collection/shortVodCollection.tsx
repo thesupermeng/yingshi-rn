@@ -19,7 +19,7 @@ type FlatListType = {
     item: VodType
 }
 
-export default ({ navigation }: RootStackScreenProps<'合辑收藏'>) => {
+export default ({ navigation }: RootStackScreenProps<'合集收藏'>) => {
     const { colors, textVariants, icons } = useTheme()
     const dispatch = useAppDispatch();
     const vodReducer: VodReducerState = useAppSelector(({ vodReducer }: RootState) => vodReducer);
@@ -27,7 +27,7 @@ export default ({ navigation }: RootStackScreenProps<'合辑收藏'>) => {
     return (
         <ScreenContainer>
             <TitleWithBackButtonHeader title='我的收藏' />
-            <CollectionHeader route='合辑收藏' navigator={navigation} />
+            <CollectionHeader route='合集收藏' navigator={navigation} />
             <View>
                 {
                     favorites && favorites.length > 0 &&
@@ -46,7 +46,7 @@ export default ({ navigation }: RootStackScreenProps<'合辑收藏'>) => {
             </View>
             {
                 favorites && favorites.length === 0 &&
-                <EmptyList description='暂无合辑收藏'/>
+                <EmptyList description='暂无合集收藏'/>
             }
         </ScreenContainer >
     )

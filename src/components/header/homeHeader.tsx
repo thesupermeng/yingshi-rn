@@ -27,10 +27,10 @@ export default function MainHeader({ logo, navigator, headerStyle }: Props) {
     });
 
     const randomVod = useMemo(() => {
-        if ( data && data.yunying.length > 0 && data.yunying[0].vod_list.length > 0) {
+        if ( data?.yunying && data.yunying.length > 0 &&  data.yunying[0]?.vod_list?.length && data.yunying[0].vod_list.length > 0) {
             return data.yunying[0].vod_list[Math.floor(Math.random() * data.yunying.length)]
         }
-    }, [data])
+    }, [data?.yunying])
 
     return (
         <View style={{ ...styles.container, ...headerStyle }}>

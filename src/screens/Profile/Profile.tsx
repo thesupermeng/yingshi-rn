@@ -27,14 +27,14 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
         <ScreenContainer >
             <View style={{ ...styles.topNav }}>
                 <Text style={{ ...textVariants.bigHeader, color: colors.text, fontSize: 22 }}>我的</Text>
-                <TouchableOpacity onPress={() => dispatch(toggleTheme(!themeReducer.theme))}>
+                {/* <TouchableOpacity onPress={() => dispatch(toggleTheme(!themeReducer.theme))}>
                     {
                         themeReducer.theme
                             ? <LightMode color={icons.iconColor} height={26} width={26} />
                             : <DarkMode color={icons.iconColor}  height={26} width={26} />
 
                     }
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </View>
             <View>
                 <ShowMoreButton text='我的收藏' leftIcon={<CollectionIcon style={{ color: colors.button }} />} onPress={() => navigation.navigate('视频收藏')} />

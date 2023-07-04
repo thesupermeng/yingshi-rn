@@ -12,13 +12,15 @@ interface Props {
 export default function VodHistoryCard({ vod, onPress, btnStyle, ...params }: Props) {
     const { colors, spacing, textVariants } = useTheme();
     return (
-        <View style={styles.card} gap={spacing.s}>
-            <VodImageCard vod_img={vod.vod_pic} vodStyle={styles.image} onPress={onPress} />
-            <View style={styles.description} gap={spacing.xs}>
-                <Text numberOfLines={2} style={{...textVariants.body, ...styles.text}}>{vod.vod_name}</Text>
-                <Text style={{...textVariants.small, ...styles.text}}>{`观看至 ${new Date(1000 * vod.timeWatched).toISOString().substr(11, 8)}`}</Text>
+        <TouchableOpacity onPress={onPress}>
+            <View style={styles.card} gap={spacing.s}>
+                <VodImageCard vod_img={vod.vod_pic} vodStyle={styles.image} />
+                <View style={styles.description} gap={spacing.xs}>
+                    <Text numberOfLines={2} style={{ ...textVariants.body, ...styles.text }}>{vod.vod_name}</Text>
+                    <Text style={{ ...textVariants.small, ...styles.text }}>{`观看至 ${new Date(1000 * vod.timeWatched).toISOString().substr(11, 8)}`}</Text>
+                </View>
             </View>
-        </View>
+        </TouchableOpacity>
     );
 }
 

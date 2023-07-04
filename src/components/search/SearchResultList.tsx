@@ -7,7 +7,6 @@ import EmptyList from '../common/emptyList';
 import { addSearchHistory } from '../../redux/actions/searchActions';
 interface Props {
     searchResultList: Array<SuggestedVodType>;
-    emptyDescription?: string;
     onItemSelect?(vod: string): any;
 }
 
@@ -15,29 +14,25 @@ type FlatListType = {
     item: SuggestedVodType
 }
 
-export default function SearchResultList({ searchResultList, emptyDescription, onItemSelect }: Props) {
+export default function SearchResultList({ searchResultList, onItemSelect }: Props) {
     const { spacing, textVariants } = useTheme();
     const navigation = useNavigation();
     const dispatch = useAppDispatch();
     return (
         <View style={styles.container}>
-            {
-                searchResultList && searchResultList.length > 0
-                    ? <FlatList
-                        data={searchResultList}
-                        renderItem={({ item }: FlatListType) => {
-                            return <TouchableOpacity style={{ ...styles.suggestion, marginBottom: spacing.l }} onPress={() => {
-                                dispatch(addSearchHistory(item.vod_name));
-                                if (onItemSelect) {
-                                    onItemSelect(item.vod_name);
-                                }
-                            }}>
-                                <Text style={textVariants.body}>{item.vod_name}</Text>
-                            </TouchableOpacity>
-                        }}
-                    />
-                    : <EmptyList description={emptyDescription} />
-            }
+            <FlatList
+                data={searchResultList}
+                renderItem={({ item }: FlatListType) => {
+                    return <TouchableOpacity style={{ ...styles.suggestion, marginBottom: spacing.l }} onPress={() => {
+                        dispatch(addSearchHistory(item.vod_name));
+                        if (onItemSelect) {
+                            onItemSelect(item.vod_name);
+                        }
+                    }}>
+                        <Text style={textVariants.body}>{item.vod_name}</Text>
+                    </TouchableOpacity>
+                }}
+            />
         </View>
     );
 }

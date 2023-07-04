@@ -13,7 +13,13 @@ import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export default function App() {
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 300000,
+      },
+    },
+  })
 
   queryClient.prefetchQuery({
     queryKey: ["recommendationList"],
@@ -22,8 +28,7 @@ export default function App() {
         .then(response => response.json())
         .then((json: SuggestResponseType) => {
           return json.data.List
-        }),
-    initialData: [],
+        })
   });
 
   queryClient.prefetchQuery({
@@ -38,12 +43,13 @@ export default function App() {
 
   queryClient.prefetchQuery({
     queryKey: ["filterOptions"],
-    queryFn: () =>
-      fetch(`${API_DOMAIN}nav/v1/navItems`, {})
-        .then(response => response.json())
-        .then((json: VodCarousellResponseType) => {
-          return json.data
-        })
+    queryFn: () => fetch(`${API_DOMAIN}type/v1/type`)
+      .then(response => {
+        return response.json()
+      })
+      .then((json: FilterOptionsResponseType) => {
+        return json.data
+      })
   });
 
   queryClient.prefetchQuery({
@@ -56,26 +62,26 @@ export default function App() {
         })
   });
 
-  // const fetchPlaylist = (page: number) => fetch(`${API_DOMAIN}topic/v1/topic?page=${page}`)
-  //   .then(response => response.json())
-  //   .then((json: VodPlaylistResponseType) => {
-  //     console.log("PREFETCHED!")
-  //     return Object.values(json.data.List)
-  //   })
+  const fetchPlaylist = (page: number) => fetch(`${API_DOMAIN}topic/v1/topic?page=${page}`)
+    .then(response => response.json())
+    .then((json: VodPlaylistResponseType) => {
+      // console.log("PREFETCHED!")
+      return Object.values(json.data.List)
+    })
 
-  // queryClient.prefetchInfiniteQuery(['vodPlaylist'], ({ pageParam = 1 }) => fetchPlaylist(pageParam));
+  queryClient.prefetchInfiniteQuery(['vodPlaylist'], ({ pageParam = 1 }) => fetchPlaylist(pageParam));
 
   return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
           <GestureHandlerRootView style={{ flex: 1 }}>
             <BottomSheetModalProvider>
               <Nav />
             </BottomSheetModalProvider>
           </GestureHandlerRootView>
-        </QueryClientProvider>
-      </PersistGate>
-    </Provider>
+        </PersistGate>
+      </Provider>
+    </QueryClientProvider>
   );
 }

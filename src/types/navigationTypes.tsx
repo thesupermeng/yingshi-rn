@@ -40,7 +40,7 @@ export type RootStackParamList = {
 
     视频收藏: undefined;
     播单收藏: undefined;
-    合辑收藏: undefined;
+    合集收藏: undefined;
     播放历史: undefined;
     反馈: undefined;
     设置: undefined;

@@ -3,7 +3,7 @@ import { StyleSheet, View, Text } from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
 import MainHeader from '../../components/header/homeHeader';
 import { useTheme } from '@react-navigation/native';
-import { QueryCache, useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { VodPlaylistResponseType, VodTopicType } from '../../types/ajaxTypes';
 import VodPlaylist from '../../components/playlist/vodPlaylist';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
@@ -17,7 +17,7 @@ type FlatListType = {
 }
 
 export default ({ navigation }: BottomTabScreenProps<any>) => {
-    const BTN_COLORS = ['#FFCC12', '#F1377A', '#ED7445', '#7E9CEE', '#30AA55',];
+    // const BTN_COLORS = ['#FFCC12', '#F1377A', '#ED7445', '#7E9CEE', '#30AA55',];
     const { textVariants, colors, spacing } = useTheme();
     const LIMIT_PER_PAGE = 10;
     const [results, setResults] = useState<Array<VodTopicType>>([])
@@ -27,19 +27,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
         .then((json: VodPlaylistResponseType) => {
             return Object.values(json.data.List)
         })
-    const queryCache = new QueryCache({
-        onError: (error) => {
-            console.log(error)
-        },
-        onSuccess: (data) => {
-            console.log(data)
-        },
-        onSettled: (data, error) => {
-            console.log(data, error)
-        },
-    })
-
-    const query = queryCache.findAll(['vodPlaylist', 'filterOptions'])
+  
     const { data: playlists, isSuccess, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } =
         useInfiniteQuery(['vodPlaylist'], ({ pageParam = 1 }) => fetchPlaylist(pageParam), {
             getNextPageParam: (lastPage, allPages) => {
@@ -76,13 +64,13 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                 onEndReachedThreshold={0.1}
                 renderItem={({ item, index }: FlatListType) =>
                     <VodPlaylist playlist={item}
-                        titleStyle={{ color: BTN_COLORS[index % BTN_COLORS.length] }} />
+                        titleStyle={{ color: colors.text }} />
                 }
                 ListFooterComponent={
                     <View style={{ ...styles.loading, marginBottom: spacing.xl }}>
                         {
                             hasNextPage && <FastImage
-                                style={{ height: 100, width: 100 }}
+                                style={{ height: 80, width: 80 }}
                                 source={require('../../../static/images/loading-spinner.gif')}
                                 resizeMode={FastImage.resizeMode.contain}
                             />

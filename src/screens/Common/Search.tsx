@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native';
 import { SearchBar } from '@rneui/base';
 import { useTheme } from '@react-navigation/native';
@@ -17,8 +17,9 @@ import VodWithDescriptionList from '../../components/vod/vodWithDescriptionList'
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { RootState } from '../../redux/store';
 import { addSearchHistory, clearSearchHistory } from '../../redux/actions/searchActions';
-import Animated, { FadeInUp, FadeOutUp } from 'react-native-reanimated';
+import Animated, { FadeInUp, FadeOutUp, useAnimatedStyle } from 'react-native-reanimated';
 import ClearHistoryIcon from '../../../static/images/clear.svg'
+import EmptyList from '../../components/common/emptyList';
 
 export default ({ navigation, route }: RootStackScreenProps<'搜索'>) => {
     const [search, setSearch] = useState(route.params.initial);
@@ -27,6 +28,8 @@ export default ({ navigation, route }: RootStackScreenProps<'搜索'>) => {
     const [showResults, setShowResults] = useState(false);
     const dispatch = useAppDispatch();
     const searchHistory = useAppSelector(({ searchHistoryReducer }: RootState) => searchHistoryReducer)
+    const [isFetching, setisFetching] = useState(false);
+
 
     const { colors, textVariants, spacing, icons } = useTheme();
     const { data: recommendations } = useQuery({
@@ -35,21 +38,34 @@ export default ({ navigation, route }: RootStackScreenProps<'搜索'>) => {
             fetch(`${API_DOMAIN}vod/v1/vod?by=hits_day`)
                 .then(response => response.json())
                 .then((json: SuggestResponseType) => {
+                    console.log(json)
                     return json.data.List
                 }),
-        initialData: [],
     });
+
+    // const defaultSpringStyles = useAnimatedStyle(() => {
+    //     return {
+    //       height: searchHistory.history.length === 0 ? 0 : 'auto',
+    //     };
+    //   }, [searchHistory.history]);
 
     async function fetchData(text: string) {
         fetch(`${API_DOMAIN}vod/v1/vod?wd=${text}`)
             .then(response => response.json())
             .then((json: SuggestResponseType) => {
-                setSearchResults(json.data.List);
                 setSearchTimer(0);
+                if (json.data.List === null) {
+                    setSearchResults([]);
+                } else {
+                    setSearchResults(json.data.List);
+                }
+
             })
             .catch(error => {
                 console.error(error);
-                setSearchTimer(0);
+            })
+            .finally(() => {
+                setisFetching(false);
             });
     }
 
@@ -60,11 +76,11 @@ export default ({ navigation, route }: RootStackScreenProps<'搜索'>) => {
     }, [])
 
     const updateSearch = (input: string) => {
+        setSearch(input);
         setSearchResults([]);
         if (searchTimer) {
             clearTimeout(searchTimer);
         }
-        setSearch(input);
         setSearchTimer(
             setTimeout(() => {
                 fetchData(input);
@@ -77,9 +93,9 @@ export default ({ navigation, route }: RootStackScreenProps<'搜索'>) => {
         setShowResults(!showResults);
     }
 
-    const clearHistory = () => {
+    const clearHistory = useCallback(() => {
         dispatch(clearSearchHistory());
-    }
+    }, [])
 
     return (
         <ScreenContainer>
@@ -122,14 +138,13 @@ export default ({ navigation, route }: RootStackScreenProps<'搜索'>) => {
                         ? <VodWithDescriptionList vodList={searchResults} />
                         : <View style={{ marginLeft: 10, flex: 1 }}>
                             {
-                                search && search.length === 0
+                                search !== null && search.length === 0 && recommendations
                                     ? <View gap={spacing.m}>
                                         {
                                             searchHistory.history.length > 0 &&
                                             <Animated.View
                                                 gap={spacing.m}
                                                 entering={FadeInUp}
-                                                exiting={FadeOutUp}
                                             >
                                                 <View style={styles.rowApart}>
                                                     <Text style={{ ...textVariants.header }}>历史搜索</Text>
@@ -156,7 +171,6 @@ export default ({ navigation, route }: RootStackScreenProps<'搜索'>) => {
                                     </View>
                                     : <SearchResultList
                                         searchResultList={searchResults}
-                                        emptyDescription={`抱歉没有找到“${search}”的相关视频为你推荐更多精彩内容`}
                                         onItemSelect={(vod: string) => {
                                             updateSearch(vod);
                                             setShowResults(true);
@@ -164,6 +178,10 @@ export default ({ navigation, route }: RootStackScreenProps<'搜索'>) => {
                                     />
                             }
                         </View>
+                }
+                {
+                    showResults && searchResults.length === 0 &&
+                    <EmptyList description={`抱歉没有找到“${search}”的相关视频为你推荐更多精彩内容`} />
                 }
             </View>
         </ScreenContainer>

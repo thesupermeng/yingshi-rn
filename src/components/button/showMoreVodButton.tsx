@@ -4,7 +4,7 @@ import { useTheme } from '@react-navigation/native';
 interface Props {
     onPress?: any,
     text: string,
-    params?: any[]
+    params?: any[],
 }
 export default function ShowMoreVodButton({ text, onPress, ...params }: Props) {
     const { colors, textVariants, icons } = useTheme();
