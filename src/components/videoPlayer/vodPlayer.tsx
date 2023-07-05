@@ -157,6 +157,7 @@ export default ({ vod_url, currentTimeRef, initialStartTime = 0 }: Props) => {
                 <View style={styles.bofangBox}>
                     {
                         vod_url !== undefined && <Video
+                            ignoreSilentSwitch={"ignore"}
                             ref={videoPlayerRef}
                             fullscreen={isFullScreen}
                             paused={isPaused}
