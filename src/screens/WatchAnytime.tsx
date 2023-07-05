@@ -117,7 +117,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                             isActive={current === index && !isPaused}
                             thumbnail={item.mini_video_origin_cover}
                             videoTitle={item.mini_video_title}
-                            displayHeight={displayHeight}
+                            displayHeight={displayHeight ? displayHeight : 0}
                         />
                     }
                     horizontal={false}

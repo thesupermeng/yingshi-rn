@@ -31,7 +31,7 @@ export default function CollectionHeader({ route, navigator }: Props) {
     }
 
     return (
-        <View style={styles.container} gap={spacing.l}>
+        <View style={{...styles.container, gap: spacing.l}}>
             <TouchableOpacity onPress={navigate('视频收藏')} >
                 <Text style={btnStyle('视频收藏')}>视频</Text>
                 <View style={underlineStyle('视频收藏')}></View>

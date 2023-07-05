@@ -1,4 +1,4 @@
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity, ViewStyle } from 'react-native';
 import BackIcon from '../../../static/images/back_arrow.svg';
 import { useTheme } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
@@ -6,7 +6,7 @@ interface Props {
     children?: React.ReactNode,
     onPress?: any,
     params?: any[],
-    btnStyle?: typeof StyleSheet
+    btnStyle?: ViewStyle
 }
 export default function BackButton({ children, onPress, btnStyle, ...params }: Props) {
     const { colors } = useTheme();

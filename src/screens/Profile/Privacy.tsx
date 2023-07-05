@@ -16,7 +16,7 @@ export default ({ navigation }: RootStackScreenProps<'隐私政策'>) => {
 
     return (
         <ScreenContainer scrollView={true}>
-            <View gap={spacing.m}>
+            <View style={{ gap: spacing.m }}>
                 <TitleWithBackButtonHeader title='隐私政策' />
                 <Text style={{ ...textVariants.header, textAlign: 'center' }}>影视TV隐私协议</Text>
                 <Text style={textVariants.body}>

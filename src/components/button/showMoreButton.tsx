@@ -6,9 +6,9 @@ interface Props {
     text: string,
     textColor?: string,
     params?: any[],
-    leftIcon?: React.SVGAttributes<SVGElement>,
+    leftIcon?: React.ReactNode,
     buttonStyle?: typeof StyleSheet,
-    rightIcon?: React.SVGAttributes<SVGElement>,
+    rightIcon?: React.ReactNode,
     disabled?: boolean
 }
 export default function ShowMoreButton({ text, onPress, leftIcon, textColor = '', buttonStyle, rightIcon, disabled = false, ...params }: Props) {
@@ -20,7 +20,7 @@ export default function ShowMoreButton({ text, onPress, leftIcon, textColor = ''
                     leftIcon && <View style={styles.icon}>{leftIcon}</View>
                 }
                 <Text style={{
-                    ...StyleSheet.create(textVariants.body),
+                    ...textVariants.body,
                     color: textColor ? textColor : colors.button
                 }}>
                     {text}

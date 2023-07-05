@@ -1,9 +1,9 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TextStyle } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import EmptyIcon from '../../../static/images/empty.svg';
 
 interface Props {
-    style?: typeof StyleSheet,
+    style?: TextStyle,
     description?: string
 }
 export default function EmptyList({ style, description }: Props) {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { View, PanResponder, StyleSheet, Dimension, TouchableOpacity } from 'react-native';
+import { View, PanResponder, StyleSheet, TouchableOpacity } from 'react-native';
 import Play from '../../../static/images/blackPlay.svg';
 import Pause from '../../../static/images/pause.svg';
 import Rewind from '../../../static/images/rewind.svg';

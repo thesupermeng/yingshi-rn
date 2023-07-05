@@ -77,7 +77,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                         }
                         {
                             !(isFetchingNextPage || isFetching) && !hasNextPage &&
-                            <Text style={{ ...textVariants.body, color: colors.muted, ...styles.noMore }}>没有更多了</Text>
+                            <Text style={{ ...textVariants.body, color: colors.muted }}>没有更多了</Text>
                         }
                     </View>
                 }

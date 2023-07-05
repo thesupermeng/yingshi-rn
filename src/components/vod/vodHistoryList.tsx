@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { StyleSheet, TouchableOpacity, Text, FlatList, Image } from 'react-native';
+import { StyleSheet, TouchableOpacity, Text, FlatList, Image, ViewStyle } from 'react-native';
 import { useNavigation, useTheme } from '@react-navigation/native';
 import { useQuery } from '@tanstack/react-query';
 import { VodType } from '../../types/ajaxTypes';
@@ -9,7 +9,7 @@ import { playVod } from '../../redux/actions/vodActions';
 import { VodRecordType } from '../../redux/reducers/vodReducer';
 interface Props {
     params?: any[],
-    vodStyle?: typeof StyleSheet,
+    vodStyle?: ViewStyle,
     horizontal?: boolean,
     vodList?: Array<VodRecordType>,
     showInfo?: 'none' | 'watch_progress'
@@ -30,7 +30,6 @@ export default function VodHistoryList({ vodStyle, horizontal = true, vodList=[]
         <FlatList
             data={vodList}
             horizontal
-            gap={3}
             renderItem={({item} : FlatListType)  => {
                 return <VodCard showPlayIcon={true} vodImageStyle={vodStyle} shadowBottom={true}
                 vod_name={item.vod_name} vod_pic={item.vod_pic}  

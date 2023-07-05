@@ -9,20 +9,20 @@ interface Props {
 }
 
 export default function HomeSearchBar({ defaultValue = '子弹列车', onPress = () => { } }: Props) {
-    const {colors, icons, textVariants} = useTheme();
+    const { colors, icons, textVariants } = useTheme();
     return (
         <TouchableOpacity style={styles.container} onPress={onPress}>
             <SearchBar
                 platform="default"
                 containerStyle={styles.containerStyle}
-                inputContainerStyle={{ color:colors.text, backgroundColor: colors.search, ...styles.inputContainerStyle }}
-                inputStyle={{...textVariants.subBody}}
+                inputContainerStyle={{backgroundColor: colors.search, ...styles.inputContainerStyle }}
+                inputStyle={{ ...textVariants.subBody }}
                 placeholder="输入搜索关键词"
                 placeholderTextColor={colors.text}
                 round
-                searchIcon={<SearchIcon color={colors.text} height={23} width={23}/>}
+                searchIcon={<SearchIcon color={colors.text} height={23} width={23} />}
                 value={defaultValue}
-                showCancel={false}
+                // showCancel={false}
                 showLoading={false}
                 clearIcon={<></>}
             />

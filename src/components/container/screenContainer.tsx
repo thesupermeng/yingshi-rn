@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View, ViewStyle } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '@react-navigation/native';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
@@ -7,7 +7,7 @@ interface Props {
     children?: React.ReactNode,
     scrollView?: boolean,
     footer?: React.ReactNode,
-    containerStyle?: typeof StyleSheet,
+    containerStyle?: ViewStyle,
     header?: React.ReactNode
 }
 export default function ScreenContainer({ children, scrollView = false, footer, containerStyle, header }: Props) {
@@ -31,7 +31,7 @@ export default function ScreenContainer({ children, scrollView = false, footer, 
                 scrollView
                     ? <ScrollView style={{
                         backgroundColor: colors.background,
-                        ...styles.container,
+
                         paddingTop: insets.top,
                         paddingBottom: insets.bottom,
                         paddingLeft: insets.left,

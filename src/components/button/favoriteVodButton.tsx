@@ -1,4 +1,4 @@
-import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, Text, View, TextStyle } from 'react-native';
 import FavoriteIcon from '../../../static/images/favorite.svg';
 import { useTheme } from '@react-navigation/native';
 import { useAppSelector, useAppDispatch } from '../../hooks/hooks';
@@ -11,7 +11,7 @@ interface Props {
     textColor?: string,
     params?: any[],
     leftIcon?: React.ReactNode,
-    buttonStyle?: typeof StyleSheet
+    buttonStyle?: TextStyle
 }
 export default function FavoriteVodButton({ onPress, leftIcon, textColor = '', buttonStyle, vod, ...params }: Props) {
     const { colors, textVariants, spacing, icons } = useTheme();
@@ -29,7 +29,7 @@ export default function FavoriteVodButton({ onPress, leftIcon, textColor = '', b
                 {
                     leftIcon ?
                         leftIcon
-                        : <FavoriteIcon width={icons.sizes.m} height={icons.sizes.m} style={{ color: colors.primary, ...buttonStyle, }} />
+                        : <FavoriteIcon width={icons.sizes.m} height={icons.sizes.m}  />
                 }
             </TouchableOpacity>
         </View>

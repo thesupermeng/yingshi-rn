@@ -17,14 +17,14 @@ export default function RecommendationList({ recommendationList }: Props) {
     const dispatch = useAppDispatch();
 
     return (
-        <View gap={spacing.m}>
+        <View style={{ gap: spacing.m }}>
             <Text style={{ ...textVariants.header }}>热搜总榜</Text>
             {
                 recommendationList &&
                 < FlatList
                     data={recommendationList}
                     renderItem={({ item, index }: FlatListType) => (
-                        <View style={{ ...styles.suggestion, marginBottom: spacing.l }} gap={spacing.s}>
+                        <View style={{ ...styles.suggestion, marginBottom: spacing.l, gap: spacing.s }}>
                             <TouchableOpacity style={styles.suggestionName} onPress={() => {
                                 dispatch(playVod(item));
                                 dispatch(addSearchHistory(item.vod_name));

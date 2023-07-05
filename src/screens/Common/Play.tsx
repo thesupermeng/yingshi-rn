@@ -20,7 +20,7 @@ import PYQIcon from '../../../static/images/pyq.svg';
 import MoreArrow from '../../../static/images/more_arrow.svg';
 import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 import Orientation from 'react-native-orientation-locker';
-
+import { getMaxWidth } from '../../helper';
 
 import { Dimensions } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -75,24 +75,33 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
         if (vod?.vod_play_list === undefined || vod === null) {
             return spacing.m;
         }
-        let maxTitleLength = vod.vod_play_list.urls.slice(showEpisodeRangeStart, showEpisodeRangeEnd).reduce(function (prev, current) {
-            return (prev.name.length > current.name.length) ? prev : current
-        }).name.length * textVariants.header.fontSize * 0.85;
-        maxTitleLength += (2 * spacing.s) // Padding
-        return maxTitleLength
+        const val = textVariants?.header?.fontSize === undefined ? 16 : textVariants.header.fontSize;
+        const episodes = vod.vod_play_list.urls.slice(showEpisodeRangeStart, showEpisodeRangeEnd);
+        let maxTitleWidth = 0;
+        for (const ep of episodes) {
+            const width = getMaxWidth(ep.name, val);
+            if (width > maxTitleWidth) {
+                maxTitleWidth = width;
+            }
+        }
+        maxTitleWidth += (2 * spacing.s) // Padding
+        return maxTitleWidth
     }, [vod, showEpisodeRangeStart, showEpisodeRangeEnd]);
 
     const NUM_PER_ROW = useMemo(() => Math.max(Math.floor(windowDim / (BTN_SELECT_WIDTH + 10)), 1), [windowDim, BTN_SELECT_WIDTH]);
     const BTN_MARGIN_RIGHT = useMemo(() => {
+        let mr = 0;
         if (NUM_PER_ROW > 1) {
-            return Math.floor((windowDim - (NUM_PER_ROW * BTN_SELECT_WIDTH)) / (NUM_PER_ROW - 1))
+            mr = Math.floor((windowDim - (NUM_PER_ROW * BTN_SELECT_WIDTH)) / (NUM_PER_ROW - 1))
         }
-        return 0
+        return Math.min(mr, BTN_SELECT_WIDTH / 2);
     }, [NUM_PER_ROW, BTN_SELECT_WIDTH, windowDim])
+    
     const NUM_OF_ROWS = useMemo(() => vod?.vod_play_list ? Math.floor(vod.vod_play_list.url_count / NUM_PER_ROW) : 0, [vod, NUM_PER_ROW]);
-    const ROW_HEIGHT = useMemo(() => (spacing.s * 3) + textVariants.header.fontSize + 6, [])
-
-
+    const ROW_HEIGHT = useMemo(() => {
+        const height = textVariants?.header?.fontSize === undefined ? 22 : textVariants.header.fontSize + 6;
+        return (spacing.s * 3) + height;
+    }, [])
     const animatedTextStyle = useAnimatedStyle(() => {
         return {
             display: isExpandEpisodes.value ? 'flex' : 'none',
@@ -179,7 +188,7 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
                 nestedScrollEnabled={true}
                 contentContainerStyle={{ marginTop: spacing.m }}
                 contentInsetAdjustmentBehavior="automatic">
-                <View style={styles.descriptionContainer2} gap={spacing.m}>
+                <View style={{ ...styles.descriptionContainer2, gap: spacing.m }}>
                     <View style={styles.videoDescription}>
                         <FastImage
                             source={{ uri: vod?.vod_pic }}
@@ -190,7 +199,7 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
                             {vod && <FavoriteButton
                                 vod={vod}
                                 leftIcon={
-                                    <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }} gap={spacing.xxs}>
+                                    <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: spacing.xxs }}>
                                         <FavoriteIcon width={20} height={20} style={{ color: isFavorite ? colors.primary : colors.muted }} />
                                         {
                                             isFavorite
@@ -212,7 +221,7 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
                                     }`}
                             </Text>
                             <TouchableOpacity onPress={onShare}>
-                                <View style={styles.share} gap={10}>
+                                <View style={{ ...styles.share, gap: 10 }}>
                                     <Text style={{ ...textVariants.subBody, color: colors.muted }}>分享：</Text>
                                     <WeChatIcon />
                                     <PYQIcon />
@@ -235,7 +244,7 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
                     {
                         vod?.vod_play_list !== undefined &&
                         <>
-                            <View style={styles.spaceApart} gap={spacing.l}>
+                            <View style={{ ...styles.spaceApart, gap: spacing.l }}>
                                 <Text style={textVariants.body}>选集播放</Text>
                                 {
                                     showEpisodeRangeEnd - showEpisodeRangeStart === 100 &&
@@ -278,7 +287,7 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
                     }
                     {
                         vod && suggestedVods !== undefined && suggestedVods.length > 0 &&
-                        <View gap={spacing.l}>
+                        <View style={{ gap: spacing.l }}>
                             <ShowMoreVodButton text={`相关${vod?.type_name}`} onPress={() => {
                                 navigation.navigate('片库', { type_id: vod.type_id });
                             }} />

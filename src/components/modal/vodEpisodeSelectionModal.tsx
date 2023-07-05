@@ -36,9 +36,10 @@ export default function VodEpisodeSelectionModal({ onConfirm, onCancel, sheetRef
         if (episodes === undefined || episodes === null) {
             return spacing.m;
         }
+        const val = textVariants?.header?.fontSize === undefined ? 0 : textVariants.header.fontSize;
         let maxTitleLength = episodes.urls.reduce(function (prev, current) {
             return (prev.name.length > current.name.length) ? prev : current
-        }).name.length * textVariants.header.fontSize * 0.9;
+        }).name.length * val * 0.9;
         maxTitleLength += (2 * spacing.s) // Padding
         return maxTitleLength
     }, [episodes]);
@@ -74,12 +75,13 @@ export default function VodEpisodeSelectionModal({ onConfirm, onCancel, sheetRef
                 backgroundColor: colors.text,
             }}
         >
-            <View gap={spacing.m}
+            <View
                 style={{
                     ...styles.container,
                     backgroundColor: colors.card,
                     paddingLeft: spacing.sideOffset,
-                    paddingRight: spacing.sideOffset
+                    paddingRight: spacing.sideOffset,
+                    gap: spacing.m
                 }}
             >
                 <View>

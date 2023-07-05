@@ -1,11 +1,11 @@
-import { View, TouchableOpacity, StyleSheet, Text } from 'react-native';
+import { View, TouchableOpacity, StyleSheet, Text, ViewStyle } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import BackButton from '../button/backButton';
 
 interface Props {
     title?: string,
     onBack?: any,
-    headerStyle?: typeof StyleSheet,
+    headerStyle?: ViewStyle,
     right?: React.ReactNode
 }
 

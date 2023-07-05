@@ -10,7 +10,6 @@ import FavoriteIcon from '../../../static/images/favorite.svg';
 
 interface Props {
     playlist: VodTopicType,
-    vodStyle?: typeof StyleSheet,
     navigator: NativeStackNavigationProp<any, any, undefined>
 }
 type FlatListType = {
@@ -20,7 +19,7 @@ export default function FavoritePlaylist({ playlist, navigator }: Props) {
     const { textVariants, spacing, colors, icons } = useTheme();
     const dispatch = useAppDispatch();
     return (
-        <View style={styles.playlist} gap={spacing.s}>
+        <View style={{ ...styles.playlist, gap: spacing.s }}>
             <TouchableOpacity onPress={() => {
                 dispatch(viewPlaylistDetails(playlist));
                 navigator.navigate('PlaylistDetail', { topic_id: playlist.topic_id });

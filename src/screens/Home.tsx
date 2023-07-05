@@ -176,7 +176,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                       activeDotStyle={styles.activeDotStyle}>
                       {
                         data.carousel.map((carouselItem, idx) => {
-                          return <TouchableOpacity style={styles.slide} key={`slider-${idx}`} onPress={() => {
+                          return <TouchableOpacity key={`slider-${idx}`} onPress={() => {
                             dispatch(playVod(carouselItem.vod));
                             navigation.navigate('播放', {
                               vod_id: carouselItem.carousel_content_id,
@@ -235,7 +235,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                   }
                   {
                     navId === 0 && history && history.length > 0 &&
-                    <View gap={spacing.m} >
+                    <View style={{ gap: spacing.m }}>
                       <View style={{ paddingLeft: spacing.sideOffset, paddingRight: spacing.sideOffset }}>
                         <ShowMoreVodButton text='继续看' onPress={() => {
                           navigation.navigate('播放历史');
@@ -248,7 +248,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                   }
                   {
                     data && data.yunying &&
-                    <View gap={spacing.m} style={{ paddingLeft: spacing.sideOffset, paddingRight: spacing.sideOffset }}>
+                    <View style={{ paddingLeft: spacing.sideOffset, paddingRight: spacing.sideOffset, gap: spacing.m }}>
                       <View>
                         <ShowMoreVodButton text='精选热播' onPress={() => {
                           navigation.navigate('片库');
@@ -257,15 +257,15 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                       <VodListVertical vods={data.yunying[navId].vod_list.slice(0, 6)} />
                     </View>
                   }
-                  <View gap={spacing.m} style={{ paddingLeft: spacing.sideOffset, paddingRight: spacing.sideOffset }}>
+                  <View style={{ paddingLeft: spacing.sideOffset, paddingRight: spacing.sideOffset, gap: spacing.m }}>
                     {
                       data?.categories.map((lst, idx) => {
-                        return <View key={`${lst.type_name}-${idx}`} gap={spacing.m}>
+                        return <View key={`${lst.type_name}-${idx}`} style={{ gap: spacing.m }}>
                           <ShowMoreVodButton text={lst.type_name} onPress={() => {
                             navigation.navigate('片库', { type_id: lst.type_id, class: navId === 0 ? '全部' : lst.type_name });
                           }} />
                           {
-                            lst.vod_list.length >= 6 &&
+                            lst?.vod_list && lst.vod_list.length >= 6 &&
                             <VodListVertical vods={lst.vod_list.slice(0, 6)} />
                           }
                         </View>
@@ -283,8 +283,8 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
             }}
             onEndReachedThreshold={0.1}
             renderItem={({ item, index }: { item: VodTopicType, index: number }) =>
-              <View gap={spacing.m} style={{ paddingLeft: spacing.sideOffset, paddingRight: spacing.sideOffset }}>
-                <View key={`${item.topic_name}-${index}`} gap={spacing.m}>
+              <View style={{ paddingLeft: spacing.sideOffset, paddingRight: spacing.sideOffset, gap: spacing.m }}>
+                <View key={`${item.topic_name}-${index}`} style={{ gap: spacing.m }}>
                   <ShowMoreVodButton text={item.topic_name} onPress={() => {
                     dispatch(viewPlaylistDetails(item));
                     navigation.navigate('PlaylistDetail', { topic_id: item.topic_id });
@@ -295,17 +295,21 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
 
             }
             ListFooterComponent={
-              navId === 0 && <View style={{ ...styles.loading, marginBottom: spacing.xl }}>
+              <View>
                 {
-                  hasNextPage && <FastImage
-                    style={{ height: 80, width: 80 }}
-                    source={require('../../static/images/loading-spinner.gif')}
-                    resizeMode={FastImage.resizeMode.contain}
-                  />
-                }
-                {
-                  !(isFetchingNextPage || isFetching) && !hasNextPage &&
-                  <Text style={{ ...textVariants.body, color: colors.muted, ...styles.noMore }}>没有更多了</Text>
+                  navId === 0 && <View style={{ ...styles.loading, marginBottom: spacing.xl }}>
+                    {
+                      hasNextPage && <FastImage
+                        style={{ height: 80, width: 80 }}
+                        source={require('../../static/images/loading-spinner.gif')}
+                        resizeMode={FastImage.resizeMode.contain}
+                      />
+                    }
+                    {
+                      !(isFetchingNextPage || isFetching) && !hasNextPage &&
+                      <Text style={{ ...textVariants.body, color: colors.muted }}>没有更多了</Text>
+                    }
+                  </View>
                 }
               </View>
             }
