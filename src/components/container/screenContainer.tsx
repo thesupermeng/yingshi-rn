@@ -48,7 +48,7 @@ export default function ScreenContainer({ children, scrollView = false, footer, 
                         backgroundColor: colors.background,
                         ...styles.viewContainer,
                         paddingTop: insets.top,
-                        paddingBottom: insets.bottom,
+                        // paddingBottom: insets.bottom,
                         paddingLeft: insets.left,
                         paddingRight: insets.right,
                         height: displayHeight
