@@ -8,11 +8,19 @@ interface Props {
     scrollView?: boolean,
     footer?: React.ReactNode,
     containerStyle?: typeof StyleSheet,
-    header?: React.ReactNode,
+    header?: React.ReactNode
 }
 export default function ScreenContainer({ children, scrollView = false, footer, containerStyle, header }: Props) {
     const windowHeight = Dimensions.get('window').height;
-    const bottomTabHeight = useBottomTabBarHeight();
+    let bottomTabHeight = 0;
+
+    try {
+        useBottomTabBarHeight();
+        bottomTabHeight = useBottomTabBarHeight();
+    } catch (e) {
+        bottomTabHeight = 0;
+    }
+
     const displayHeight = windowHeight - bottomTabHeight;
     
     const insets = useSafeAreaInsets();
