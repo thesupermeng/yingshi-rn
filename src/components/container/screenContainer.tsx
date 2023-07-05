@@ -1,6 +1,8 @@
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '@react-navigation/native';
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
+import { Dimensions } from 'react-native';
 interface Props {
     children?: React.ReactNode,
     scrollView?: boolean,
@@ -9,6 +11,10 @@ interface Props {
     header?: React.ReactNode,
 }
 export default function ScreenContainer({ children, scrollView = false, footer, containerStyle, header }: Props) {
+    const windowHeight = Dimensions.get('window').height;
+    const bottomTabHeight = useBottomTabBarHeight();
+    const displayHeight = windowHeight - bottomTabHeight;
+    
     const insets = useSafeAreaInsets();
     const { spacing, colors } = useTheme();
     return (
@@ -45,6 +51,7 @@ export default function ScreenContainer({ children, scrollView = false, footer, 
                         paddingBottom: insets.bottom,
                         paddingLeft: insets.left,
                         paddingRight: insets.right,
+                        height: displayHeight
                     }}>
                         <View style={{
                             ...styles.innerContainer,
@@ -63,8 +70,7 @@ export default function ScreenContainer({ children, scrollView = false, footer, 
 
 const styles = StyleSheet.create({
     viewContainer: {
-        paddingTop: 4,
-        flex: 1,
+        paddingTop: 4
     },
     innerContainer: {
         flex: 1,

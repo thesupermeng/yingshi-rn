@@ -17,10 +17,10 @@ interface Props {
     thumbnail?: string
     isActive?: boolean
     videoTitle?: string
+    displayHeight: number | null
 };
-const windowHeight = Dimensions.get('window').height;
 
-function ShortVideoPlayer({ vod_url, isActive, thumbnail, videoTitle }: Props) {
+function ShortVideoPlayer({ vod_url, isActive, thumbnail, videoTitle, displayHeight }: Props) {
     const bottomTabHeight = useBottomTabBarHeight();
     const [isBuffering, setIsBuffering] = useState();
     // console.log(vod_url, 'playing', isActive)
@@ -33,7 +33,7 @@ function ShortVideoPlayer({ vod_url, isActive, thumbnail, videoTitle }: Props) {
         <View
             style={[
                 styles.container,
-                { height: windowHeight - bottomTabHeight },
+                { height: displayHeight },
             ]}
         >
             {isBuffering &&

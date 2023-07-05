@@ -41,6 +41,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
 
     const { spacing } = useTheme();
 
+    const [displayHeight, setDisplayHeight] = useState<number | null>(0);
     const [current, setCurrent] = useState<number | null>(0);
     const [isPaused, setIsPaused] = useState(false);
     const [videos, setVideos] = useState<MiniVideo[]>([]);
@@ -71,6 +72,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
         });
 
     const navBarHeight = useBottomTabBarHeight();
+
     console.log('rendering')
     useFocusEffect(
         useCallback(() => {
@@ -83,7 +85,11 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
         }, [])
     );
 
-    const windowHeight = Dimensions.get('window').height;
+    // const windowHeight = Dimensions.get('window').height;
+    // console.log("Has Notch : ", hasNotch)
+    // console.log("Full Screen Height : ", windowHeight)
+    // console.log("Bottom Nav Height : ", navBarHeight)
+    // console.log("Full Screen - Bottom Nav Height : ", windowHeight - navBarHeight)
 
     const handleViewableItemsChanged = useCallback(({ viewableItems }: { viewableItems: any }) => {
         if (viewableItems.length == 1 && typeof viewableItems[0] != 'undefined') {
@@ -97,26 +103,27 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
             <View style={{ position: 'absolute', top: 0, left: 0, padding: 20, zIndex: 50, width: '100%', flexDirection: 'row', alignItems: 'center' }}>
                 <Text style={{ color: '#FFF', fontSize: 20 }}>随心看</Text>
             </View>
-            <View style={{ flex: 1 }}>
+            <View style={{ flex: 1 }} onLayout={(event: any) => {
+                var {x, y, width, height} = event.nativeEvent.layout;
+                setDisplayHeight(height)
+            }}>
                 <FlatList
                     data={videos}
                     initialNumToRender={1}
-                    maxToRenderPerBatch={3}
+                    maxToRenderPerBatch={3}     
                     windowSize={5}
                     renderItem={({ item, index }: { item: MiniVideo, index: number }) =>
                         <ShortVideoPlayer vod_url={item.mini_video_origin_video_url}
                             isActive={current === index && !isPaused}
                             thumbnail={item.mini_video_origin_cover}
                             videoTitle={item.mini_video_title}
+                            displayHeight={displayHeight}
                         />
                     }
                     horizontal={false}
                     pagingEnabled={true}
-                    getItemLayout={(data: any, index: number) => {
-                        return { length: windowHeight - navBarHeight, offset: ((windowHeight - navBarHeight) * index), index }
-                    }}
                     keyExtractor={(item: any, index: any) => item.mini_video_id.toString()}
-                    viewabilityConfig={{ viewAreaCoveragePercentThreshold: 80 }}
+                    viewabilityConfig={{ viewAreaCoveragePercentThreshold: 100 }}
                     showsHorizontalScrollIndicator={false}
                     onViewableItemsChanged={handleViewableItemsChanged}
                     onEndReached={() => {
@@ -138,6 +145,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                         </View>
                     }
                 />
+                {/* <Text style={{ position: 'absolute', bottom: 0, right: 0 }}>aaaa</Text> */}
             </View>
         </ScreenContainer>
     )
