@@ -11,7 +11,7 @@ interface Props {
     subtitle2?: string,
     confirmationText?: string,
 }
-export default function NotificationModal({ onConfirm, isVisible, title = '', subtitle1, subtitle2, confirmationText='确定' }: Props) {
+export default function NotificationModal({ onConfirm, isVisible, title = '', subtitle1, subtitle2, confirmationText = '确定' }: Props) {
     const { colors, textVariants, spacing } = useTheme();
 
     return (
@@ -21,7 +21,7 @@ export default function NotificationModal({ onConfirm, isVisible, title = '', su
             backdropStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.8)' }}
             onBackdropPress={onConfirm}
         >
-            <View gap={spacing.m}>
+            <View style={{ gap: spacing.m }}>
                 <Text style={{ ...textVariants.header, ...styles.head, }}>{title}</Text>
                 <Text style={{ ...textVariants.subBody, ...styles.body, textAlign: subtitle2 ? 'left' : 'center' }}>
                     {subtitle1 && <Text>{subtitle1}{'\n'}</Text>}

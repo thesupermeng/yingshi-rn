@@ -1,5 +1,5 @@
 import SearchBar from './searchbar';
-import { View, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, StyleSheet, ViewStyle } from 'react-native';
 import Logo from '../../../static/images/logo.svg';
 import History from '../../../static/images/history.svg';
 import { useTheme } from '@react-navigation/native';
@@ -11,7 +11,7 @@ import { useMemo } from 'react';
 interface Props {
     logo?: React.ReactNode,
     navigator: any,
-    headerStyle?: typeof StyleSheet,
+    headerStyle?: ViewStyle,
 }
 export default function MainHeader({ logo, navigator, headerStyle }: Props) {
     const { icons } = useTheme();
@@ -27,7 +27,7 @@ export default function MainHeader({ logo, navigator, headerStyle }: Props) {
     });
 
     const randomVod = useMemo(() => {
-        if ( data?.yunying && data.yunying.length > 0 &&  data.yunying[0]?.vod_list?.length && data.yunying[0].vod_list.length > 0) {
+        if (data?.yunying && data.yunying.length > 0 && data.yunying[0]?.vod_list?.length && data.yunying[0].vod_list.length > 0) {
             return data.yunying[0].vod_list[Math.floor(Math.random() * data.yunying.length)]
         }
     }, [data?.yunying])
@@ -41,7 +41,10 @@ export default function MainHeader({ logo, navigator, headerStyle }: Props) {
             }
             <SearchBar onPress={() => navigator.navigate('搜索', { initial: randomVod?.vod_name })} defaultValue={randomVod !== undefined ? randomVod.vod_name : ''} />
             <TouchableOpacity onPress={() => navigator.navigate('播放历史')}>
-                <History height={26} width={26} color={icons.iconColor} />
+                {
+                    icons.iconColor !== undefined &&
+                    <History height={26} width={26} color={icons.iconColor} />
+                }
             </TouchableOpacity>
         </View>
     );

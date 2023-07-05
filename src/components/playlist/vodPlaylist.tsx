@@ -5,11 +5,11 @@ import { View, StyleSheet, Text, TouchableOpacity, FlatList } from 'react-native
 import RightIcon from '../../../static/images/more_arrow.svg';
 import VodCard from '../vod/vodCard';
 import { useAppDispatch } from '../../hooks/hooks';
+import { TextStyle } from 'react-native';
 
 interface Props {
     playlist: VodTopicType,
-    vodStyle?: typeof StyleSheet,
-    titleStyle?: typeof StyleSheet
+    titleStyle?: TextStyle
 }
 
 type FlatListType = {
@@ -26,12 +26,13 @@ export default function VodPlaylist({ playlist, titleStyle }: Props) {
         navigator.navigate('PlaylistDetail', { topic_id: playlist.topic_id });
     }
     return (
-        <View style={styles.playlist} gap={spacing.m}>
+        <View style={{...styles.playlist, gap: spacing.m}}>
             <TouchableOpacity onPress={viewMore}>
                 <View style={{
                     paddingLeft: spacing.sideOffset,
                     paddingRight: spacing.sideOffset,
-                }} gap={spacing.s}>
+                    gap: spacing.s
+                }}>
                     <View style={styles.header}>
                         <Text style={{ ...textVariants.bigHeader, ...titleStyle }}>{playlist.topic_name}</Text>
 

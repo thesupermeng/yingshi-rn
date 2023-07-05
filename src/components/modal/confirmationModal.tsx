@@ -22,7 +22,7 @@ export default function ConfirmationModal({ onConfirm, onCancel, isVisible, titl
             backdropStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.8)' }}
             onBackdropPress={onCancel}
         >
-            <View gap={spacing.m}>
+            <View style={{gap: spacing.m}}>
                 <Text style={{ ...textVariants.header, ...styles.text, }}>{title}</Text>
                 <Text style={{ ...textVariants.subBody, ...styles.text, }} >{subtitle}</Text>
                 <View style={styles.btns}>
