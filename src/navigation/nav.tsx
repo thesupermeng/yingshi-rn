@@ -40,7 +40,8 @@ import {
     SafeAreaProvider,
     useSafeAreaInsets,
 } from 'react-native-safe-area-context';
-import { StatusBar } from 'react-native';
+import { StatusBar, StyleSheet } from 'react-native';
+import DeviceInfo from 'react-native-device-info';
 
 
 export default () => {
@@ -51,23 +52,32 @@ export default () => {
     const WatchAnytimeTab = createBottomTabNavigator<WatchAnytimeTabParamList>();
 
     const themeReducer = useSelector(({ themeReducer }: RootState) => themeReducer);
-    const theme = themeReducer.theme ? YingshiDarkTheme : YingshiLightTheme
+    const theme = themeReducer.theme ? YingshiDarkTheme : YingshiLightTheme;
+
+    let hasNotch = DeviceInfo.hasNotch();
+    console.log(hasNotch);
+
+    let iconWidth = 22;
+    if(hasNotch){
+        iconWidth = 22;
+    }
 
     function HomeTabScreen() {
         return (
             <HomeTab.Navigator screenOptions={({ route }) => ({
                 headerShown: false,
-                tabBarStyle: { paddingBottom: 5, paddingTop: 4 },
+                tabBarStyle: hasNotch ? styles.navStyleWithNotch : styles.navStyle,
                 tabBarIcon: ({ focused, color, size }) => {
                     let icon: React.ReactNode;
+                    
                     if (route.name === '首页') {
-                        icon = focused ? <HomeActiveTabIcon color={theme.icons.activeNavIconColor} /> : <HomeTabIcon color={theme.icons.inactiveNavIconColor} />;
+                        icon = focused ? <HomeActiveTabIcon width={iconWidth} color={theme.icons.activeNavIconColor}  /> : <HomeTabIcon width={iconWidth} color={theme.icons.inactiveNavIconColor} />;
                     } else if (route.name === '播单') {
-                        icon = focused ? <PlaylistActiveTabIcon color={theme.icons.activeNavIconColor} /> : <PlaylistTabIcon color={theme.icons.inactiveNavIconColor} />;
+                        icon = focused ? <PlaylistActiveTabIcon width={iconWidth} color={theme.icons.activeNavIconColor} /> : <PlaylistTabIcon width={iconWidth} color={theme.icons.inactiveNavIconColor} />;
                     } else if (route.name === '我的') {
-                        icon = focused ? <ProfileActiveTabIcon color={theme.icons.activeNavIconColor} /> : <ProfileTabIcon color={theme.icons.inactiveNavIconColor} />;
+                        icon = focused ? <ProfileActiveTabIcon width={iconWidth} color={theme.icons.activeNavIconColor} /> : <ProfileTabIcon width={iconWidth} color={theme.icons.inactiveNavIconColor} />;
                     } else if (route.name === '随心看') {
-                        icon = focused ? <WatchAnytimeActiveTabIcon color={theme.icons.activeNavIconColor} /> : <WatchAnytimeTabIcon color={theme.icons.inactiveNavIconColor} />;
+                        icon = focused ? <WatchAnytimeActiveTabIcon width={iconWidth} color={theme.icons.activeNavIconColor} /> : <WatchAnytimeTabIcon width={iconWidth} color={theme.icons.inactiveNavIconColor} />;
                     }
                     return icon;
                 },
@@ -156,3 +166,16 @@ export default () => {
         </SafeAreaProvider>
     );
 }
+
+const styles = StyleSheet.create({
+    navStyleWithNotch: {
+        paddingTop: 10,
+        paddingBottom: 25,
+        height: 80
+    },
+    navStyle: {
+        paddingTop: 6,
+        paddingBottom: 8,
+        height: 50
+    }
+});
