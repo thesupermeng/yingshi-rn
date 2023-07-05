@@ -54,7 +54,7 @@ function ShortVideoPlayer({ vod_url, isActive, thumbnail, videoTitle, displayHei
                 style={styles.video}
                 paused={!isActive}
             />
-            <View column style={{ position: 'absolute', left: 0, bottom: 0, width: '100%', justifyContent: 'flex-end', padding: 20, paddingBottom: 30 }}>
+            <View column style={{ position: 'absolute', left: 0, bottom: 0, width: '100%', justifyContent: 'flex-end', padding: 20, paddingBottom: 40 }}>
                 <View style={{ marginTop: 10, flexDirection: 'row' }}>
                     {/* <View style={{ flex: 10, flexDirection: 'column', justifyContent: 'flex-end', marginRight: 35 }}> */}
                     <View style={{ flex: 10, flexDirection: 'column', justifyContent: 'flex-end' }}>
