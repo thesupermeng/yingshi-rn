@@ -44,10 +44,8 @@ export default ({ vod_url, currentTimeRef, initialStartTime = 0 }: Props) => {
 
         if (!isPotrait) {
             setIsFullScreen(true);
-            console.log("FULL SCREEN NW");
         } else {
             setIsFullScreen(false);
-            console.log("NOPEEEE FULL SCREEN NOW");
         }
     }, [isPotrait])
 

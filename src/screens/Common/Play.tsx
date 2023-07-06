@@ -58,6 +58,8 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
     const isExpandEpisodes = useSharedValue(false);
     const dispatch = useAppDispatch();
 
+    const [dismountPlayer, setDismountPlayer] = useState(false);
+
 
     // Calculate the scroll position, number of episodes per row to display given viewport width, margin right
     // to get a even, centered grid
@@ -164,6 +166,7 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
     useFocusEffect(
         useCallback(() => {
             return () => {
+                setDismountPlayer(true);
                 Orientation.unlockAllOrientations();
             };
         }, [])
@@ -178,7 +181,7 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
                 </Text>
             </View>
             {
-                vod?.vod_play_list?.urls?.find(url => url.nid === currentEpisode)?.url !== undefined &&
+                vod?.vod_play_list?.urls?.find(url => url.nid === currentEpisode)?.url !== undefined && !dismountPlayer &&
                 <VodPlayer vod_url={vod.vod_play_list.urls.find(url => url.nid === currentEpisode)?.url}
                     currentTimeRef={currentTimeRef}
                     initialStartTime={vod.timeWatched}
