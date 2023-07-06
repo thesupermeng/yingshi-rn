@@ -1,4 +1,4 @@
-import React, { useState, useMemo, RefObject, useRef, useCallback } from 'react';
+import React, { useState, useMemo, RefObject, memo, useCallback } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import { VodEpisodeListType, VodEpisodeType } from '../../types/ajaxTypes';
@@ -15,7 +15,8 @@ interface Props {
     activeEpisode?: number,
     sheetRef?: RefObject<BottomSheetMethods>;
 }
-export default function VodEpisodeSelectionModal({ onConfirm, onCancel, sheetRef, episodes, activeEpisode = 0 }: Props) {
+function VodEpisodeSelectionModal({ onConfirm, onCancel, sheetRef, episodes, activeEpisode = 0 }: Props) {
+    console.log('MODAL RENDERING')
     const { colors, textVariants, spacing } = useTheme();
     const EPISODE_RANGE_SIZE = 100;
     const insets = useSafeAreaInsets();
@@ -128,6 +129,9 @@ export default function VodEpisodeSelectionModal({ onConfirm, onCancel, sheetRef
         </BottomSheet>
     );
 };
+
+export default memo(VodEpisodeSelectionModal);
+
 const styles = StyleSheet.create({
     container: {
         borderTopLeftRadius: 30,

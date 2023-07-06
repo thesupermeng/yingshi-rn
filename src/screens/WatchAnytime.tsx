@@ -45,12 +45,13 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     const [current, setCurrent] = useState<number | null>(0);
     const [isPaused, setIsPaused] = useState(false);
     const [videos, setVideos] = useState<MiniVideo[]>([]);
-    const LIMIT = 10;
+    const LIMIT = 100;
     const fetchVods = (page: number) => fetch(
-        `${API_DOMAIN}miniVod/v1/miniVod?page=${page}&limit=100`,
+        `${API_DOMAIN}miniVod/v1/miniVod?page=${page}&limit=${LIMIT}`,
     )
         .then(response => response.json())
         .then((json: MiniVideoResponseType) => {
+            console.log('API length', json.data.List.length)
             return json.data.List
         })
 
@@ -73,7 +74,6 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
 
     const navBarHeight = useBottomTabBarHeight();
 
-    console.log('rendering')
     useFocusEffect(
         useCallback(() => {
             setIsPaused(false);
@@ -97,29 +97,34 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
             setCurrent(curr);
         }
     }, []);
-
+    console.log('renderinggg')
     return (
         <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
             <View style={{ position: 'absolute', top: 0, left: 0, padding: 20, zIndex: 50, width: '100%', flexDirection: 'row', alignItems: 'center' }}>
                 <Text style={{ color: '#FFF', fontSize: 20 }}>随心看</Text>
             </View>
             <View style={{ flex: 1 }} onLayout={(event: any) => {
-                var {x, y, width, height} = event.nativeEvent.layout;
+                var { x, y, width, height } = event.nativeEvent.layout;
                 setDisplayHeight(height)
             }}>
                 <FlatList
                     data={videos}
                     initialNumToRender={1}
-                    maxToRenderPerBatch={3}     
+                    maxToRenderPerBatch={3}
                     windowSize={5}
-                    renderItem={({ item, index }: { item: MiniVideo, index: number }) =>
-                        <ShortVideoPlayer vod_url={item.mini_video_origin_video_url}
-                            isActive={current === index && !isPaused}
-                            thumbnail={item.mini_video_origin_cover}
-                            videoTitle={item.mini_video_title}
-                            displayHeight={displayHeight ? displayHeight : 0}
-                        />
-                    }
+                    renderItem={({ item, index }: { item: MiniVideo, index: number }) => {
+                        return <View style={{ height: displayHeight ? displayHeight : 0 }}>
+                            {
+                                current !== null && Math.abs(current - index) <= 2 && <ShortVideoPlayer
+                                    vod_url={item.mini_video_origin_video_url}
+                                    isActive={current === index && !isPaused}
+                                    thumbnail={item.mini_video_origin_cover}
+                                    videoTitle={item.mini_video_title}
+                                    displayHeight={displayHeight ? displayHeight : 0}
+                                />
+                            }
+                        </View>
+                    }}
                     horizontal={false}
                     pagingEnabled={true}
                     keyExtractor={(item: any, index: any) => item.mini_video_id.toString()}
