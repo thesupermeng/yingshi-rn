@@ -47,7 +47,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     const [videos, setVideos] = useState<MiniVideo[]>([]);
     const LIMIT = 10;
     const fetchVods = (page: number) => fetch(
-        `${API_DOMAIN}miniVod/v1/miniVod?page=${page}&limit=5`,
+        `${API_DOMAIN}miniVod/v1/miniVod?page=${page}&limit=20`,
     )
         .then(response => response.json())
         .then((json: MiniVideoResponseType) => {
