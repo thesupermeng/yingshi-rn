@@ -45,12 +45,13 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     const [current, setCurrent] = useState<number | null>(0);
     const [isPaused, setIsPaused] = useState(false);
     const [videos, setVideos] = useState<MiniVideo[]>([]);
-    const LIMIT = 10;
+    const LIMIT = 100;
     const fetchVods = (page: number) => fetch(
-        `${API_DOMAIN}miniVod/v1/miniVod?page=${page}&limit=5`,
+        `${API_DOMAIN}miniVod/v1/miniVod?page=${page}&limit=${LIMIT}`,
     )
         .then(response => response.json())
         .then((json: MiniVideoResponseType) => {
+            console.log('API length', json.data.List.length)
             return json.data.List
         })
 
@@ -73,7 +74,6 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
 
     const navBarHeight = useBottomTabBarHeight();
 
-    console.log('rendering')
     useFocusEffect(
         useCallback(() => {
             setIsPaused(false);
@@ -104,22 +104,24 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                 <Text style={{ color: '#FFF', fontSize: 20 }}>随心看</Text>
             </View>
             <View style={{ flex: 1 }} onLayout={(event: any) => {
-                var {x, y, width, height} = event.nativeEvent.layout;
+                var { x, y, width, height } = event.nativeEvent.layout;
                 setDisplayHeight(height)
             }}>
                 <FlatList
                     data={videos}
                     initialNumToRender={1}
-                    maxToRenderPerBatch={3}     
+                    maxToRenderPerBatch={3}
                     windowSize={5}
-                    renderItem={({ item, index }: { item: MiniVideo, index: number }) =>
-                        <ShortVideoPlayer vod_url={item.mini_video_origin_video_url}
+                    renderItem={({ item, index }: { item: MiniVideo, index: number }) => {
+                        // console.log('rendering list', index, current);
+                        return <ShortVideoPlayer
+                            vod_url='https://m3u.haiwaikan.com/xm3u8/196dc52974b431e61f48d5bd6a581708c409f1348127cc43c5e4288cd7cb36479921f11e97d0da21.m3u8'
                             isActive={current === index && !isPaused}
                             thumbnail={item.mini_video_origin_cover}
                             videoTitle={item.mini_video_title}
                             displayHeight={displayHeight ? displayHeight : 0}
                         />
-                    }
+                    }}
                     horizontal={false}
                     pagingEnabled={true}
                     keyExtractor={(item: any, index: any) => item.mini_video_id.toString()}

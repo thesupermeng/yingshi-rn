@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { View, PanResponder, StyleSheet, Dimensions } from 'react-native';
+import { View, PanResponder, StyleSheet, Dimensions, Text } from 'react-native';
 import MiddleControls from './MiddleControls';
 import BottomControls from './BottomControls';
 import TopControls from './TopControls';
 import LinearGradient from 'react-native-linear-gradient';
+import BackButton from '../button/backButton';
+import { useNavigation, useTheme } from '@react-navigation/native';
 
 type Props = {
     currentTime: number,
@@ -13,14 +15,16 @@ type Props = {
     onTogglePlayPause: () => any,
     onHandleFullScreen: () => any,
     paused: boolean,
-    isFullScreen: boolean
+    isFullScreen: boolean,
+    headerTitle: string
 }
 
 const height = Dimensions.get('window').width;
 const width = Dimensions.get('window').height;
 
-export default ({ currentTime, duration, onVideoSeek, onFastForward, onTogglePlayPause, onHandleFullScreen, paused, isFullScreen }: Props) => {
-
+export default ({ currentTime, duration, onVideoSeek, onFastForward, onTogglePlayPause, onHandleFullScreen, paused, isFullScreen, headerTitle }: Props) => {
+    const { colors, spacing, textVariants, icons } = useTheme();
+    const navigation = useNavigation();
     useEffect(() => {
         console.log(paused)
     }, [paused])
@@ -48,16 +52,22 @@ export default ({ currentTime, duration, onVideoSeek, onFastForward, onTogglePla
 
     return (
         <View style={!isFullScreen ? styles.controlsOverlay : [styles.controlsOverlay, { height: height }]}>
+            <View style={styles.videoHeader}>
+                <BackButton btnStyle={{ padding: 20 }} onPress={() => navigation.goBack()} />
+                <Text style={{ ...textVariants.body, fontSize: 17, fontWeight: '600', color: colors.text, flex: 1, paddingBottom: 3 }}
+                    numberOfLines={1}>{headerTitle}
+                </Text>
+            </View>
             {/* Top Controls */}
-            <TopControls 
-                isFullScreen={isFullScreen}/>
+            <TopControls
+                isFullScreen={isFullScreen} />
             {/* Middle Controls */}
-            <MiddleControls 
+            <MiddleControls
                 fastForward={handleFastForward}
                 togglePlayPause={handlePlayPause}
-                paused={paused}/>
+                paused={paused} />
             {/* Bottom Controls */}
-            <BottomControls 
+            <BottomControls
                 currentTime={currentTime}
                 duration={duration > 0 ? duration : 0}
                 onSlideStart={handlePlayPause}
@@ -114,5 +124,14 @@ const styles = StyleSheet.create({
         height: 100,
         flex: 1,
         opacity: 0.8
-    }
+    },
+    videoHeader: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        zIndex: 50,
+    },
 });
