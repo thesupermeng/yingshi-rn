@@ -20,7 +20,7 @@ interface Props {
     displayHeight: number
 };
 
-function ShortVideoPlayer({ vod_url, isActive, thumbnail, videoTitle, displayHeight=0 }: Props) {
+function ShortVideoPlayer({ vod_url, isActive, thumbnail, videoTitle, displayHeight = 0 }: Props) {
     const bottomTabHeight = useBottomTabBarHeight();
     const [isBuffering, setIsBuffering] = useState();
     // console.log(vod_url, 'playing', isActive)

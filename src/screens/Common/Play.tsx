@@ -60,7 +60,6 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
 
     const [dismountPlayer, setDismountPlayer] = useState(false);
 
-
     // Calculate the scroll position, number of episodes per row to display given viewport width, margin right
     // to get a even, centered grid
     const EPISODE_RANGE_SIZE = 100;
@@ -119,7 +118,7 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
             transform: isExpandEpisodes.value ? [{ rotate: '180deg' }] : [{ rotate: '0deg' }]
         };
     }, []);
-
+    
     const onShare = async () => {
         try {
             const result = await Share.share({
@@ -171,20 +170,14 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
             };
         }, [])
     );
-
     return (
         <ScreenContainer containerStyle={{ flex: 1, paddingRight: 0, paddingLeft: 0 }}>
-            <View style={styles.videoHeader}>
-                <BackButton btnStyle={{ padding: 20 }} onPress={() => navigation.goBack()} />
-                <Text style={{ ...textVariants.body, fontSize: 17, fontWeight: '600', color: colors.text, flex: 1, paddingBottom: 3 }}
-                    numberOfLines={1}>{vod?.vod_name}
-                </Text>
-            </View>
             {
                 vod?.vod_play_list?.urls?.find(url => url.nid === currentEpisode)?.url !== undefined && !dismountPlayer &&
                 <VodPlayer vod_url={vod.vod_play_list.urls.find(url => url.nid === currentEpisode)?.url}
                     currentTimeRef={currentTimeRef}
                     initialStartTime={vod.timeWatched}
+                    vodTitle={vod.vod_name}
                 />
             }
             <ScrollView
@@ -300,7 +293,6 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
             </ScrollView>
             <VodEpisodeSelectionModal activeEpisode={currentEpisode}
                 episodes={vod?.vod_play_list}
-                // isVisible={openVodSelectionModal}
                 sheetRef={sheetRef}
                 onCancel={() => sheetRef.current?.close()}
                 onConfirm={setCurrentEpisode} />

@@ -4,7 +4,7 @@ import Video from 'react-native-video';
 import { useTheme } from '@react-navigation/native';
 import { useOrientation } from '../../hooks/useOrientation';
 import PlayFullScreenGesture from '../gestures/vod/PlayFullScreenGesture';
-import { debounce, throttle } from "lodash";
+import { debounce } from "lodash";
 
 import { Dimensions } from 'react-native';
 import VideoControlsOverlay from './VideoControlsOverlay';
@@ -12,6 +12,7 @@ import Orientation from 'react-native-orientation-locker';
 
 interface Props {
     vod_url?: string
+    vodTitle?: string
     currentTimeRef?: any
     initialStartTime?: number
 };
@@ -19,21 +20,21 @@ interface Props {
 const height = Dimensions.get('window').width;
 const width = Dimensions.get('window').height;
 
-export default ({ vod_url, currentTimeRef, initialStartTime = 0 }: Props) => {
+export default ({ vod_url, currentTimeRef, initialStartTime = 0, vodTitle='' }: Props) => {
 
     const videoPlayerRef = React.useRef<Video | null>();
     const { colors, spacing, textVariants, icons } = useTheme();
     const isPotrait = useOrientation();
     const [isFullScreen, setIsFullScreen] = useState(false);
-    const [height, setHeight] = useState(0);
 
-    const [width, setWidth] = useState(0);
     const [isPaused, setIsPaused] = useState(false);
     const [isShowControls, setIsShowControls] = useState(false);
     const [disableFullScreenGesture, setDisableFullScreenGesture] = useState(false);
 
     const [duration, setDuration] = useState(0);
-    const [currentTime, setCurrentTime] = useState(initialStartTime);
+    // const [currentTime, setCurrentTime] = useState(initialStartTime);
+    const hasSeeked = useRef(false);
+    // const currentTime = useRef(initialStartTime);
 
     useEffect(() => {
         const dimension = Dimensions.get('screen');
@@ -48,10 +49,6 @@ export default ({ vod_url, currentTimeRef, initialStartTime = 0 }: Props) => {
             setIsFullScreen(false);
         }
     }, [isPotrait])
-
-    useEffect(() => {
-
-    }, [isPaused])
 
     useEffect(() => {
         Orientation.addOrientationListener(handleOrientation);
@@ -93,7 +90,7 @@ export default ({ vod_url, currentTimeRef, initialStartTime = 0 }: Props) => {
 
     const onVideoLoaded = (data: any) => {
         setDuration(data.duration);
-        setCurrentTime(initialStartTime);
+        // setCurrentTime(initialStartTime);
         if (currentTimeRef) {
             currentTimeRef.current = data.currentTime;
         }
@@ -103,7 +100,8 @@ export default ({ vod_url, currentTimeRef, initialStartTime = 0 }: Props) => {
     }
 
     const onSeek = (time: number) => {
-        setCurrentTime(time);
+        // setCurrentTime(time);
+        hasSeeked.current = true;
         if (videoPlayerRef.current) {
             videoPlayerRef.current.seek(time);
         }
@@ -112,20 +110,23 @@ export default ({ vod_url, currentTimeRef, initialStartTime = 0 }: Props) => {
         }
     };
 
-    const onVideoProgessing = useMemo(() => throttle((data: any) => {
-        setCurrentTime(data.currentTime)
-        if (currentTimeRef.current !== undefined) {
-            currentTimeRef.current = data.currentTime;
-        }
-    }, 500), [])
+    // const onVideoProgessing = (data: any) => {
+    //     if (!hasSeeked.current) {
+    //         // setCurrentTime(data.currentTime)
+    //         if (currentTimeRef.current !== undefined) {
+    //             currentTimeRef.current = data.currentTime;
+    //         }
+    //     }
+    //     hasSeeked.current = false;
+    // }
 
     const onSkip = (time: any) => {
         if (videoPlayerRef?.current) {
-            videoPlayerRef.current.seek(currentTime + time);
+            videoPlayerRef.current.seek(currentTimeRef.current + time);
         }
-        setCurrentTime(currentTime + time);
+        // setCurrentTime(currentTime + time);
         if (currentTimeRef) {
-            currentTimeRef.current = currentTime + time;
+            currentTimeRef.current += time;
         }
         debouncedFn();
     }
@@ -171,12 +172,13 @@ export default ({ vod_url, currentTimeRef, initialStartTime = 0 }: Props) => {
                     {vod_url !== undefined && isShowControls &&
                         <VideoControlsOverlay
                             onVideoSeek={onSeek}
-                            currentTime={currentTime}
+                            currentTime={currentTimeRef.current}
                             duration={duration}
                             onFastForward={onSkip}
                             paused={isPaused}
                             isFullScreen={isFullScreen}
                             onTogglePlayPause={onTogglePlayPause}
+                            headerTitle={vodTitle}
                             onHandleFullScreen={onToggleFullScreen} />
                     }
                 </View>
