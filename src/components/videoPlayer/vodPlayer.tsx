@@ -37,12 +37,6 @@ export default ({ vod_url, currentTimeRef, initialStartTime = 0, vodTitle='' }: 
     // const currentTime = useRef(initialStartTime);
 
     useEffect(() => {
-        const dimension = Dimensions.get('screen');
-        let h = dimension.height;
-        let w = dimension.width;
-        setHeight(h);
-        setWidth(w);
-
         if (!isPotrait) {
             setIsFullScreen(true);
         } else {
