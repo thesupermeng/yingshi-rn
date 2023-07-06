@@ -66,7 +66,7 @@ function ShortVideoPlayer({ vod_url, isActive, thumbnail, videoTitle, displayHei
                 <View style={{ marginTop: 10, flexDirection: 'row' }}>
                     {/* <View style={{ flex: 10, flexDirection: 'column', justifyContent: 'flex-end', marginRight: 35 }}> */}
                     <View style={{ flex: 10, flexDirection: 'column', justifyContent: 'flex-end' }}>
-                        <TouchableOpacity style={{ backgroundColor: 'rgba(255, 255, 255, 0.16)', borderRadius: 17 }}>
+                        <TouchableOpacity>
                             <Text style={{ fontSize: 14, color: '#fff' }}>{videoTitle}</Text>
                         </TouchableOpacity>
                     </View>
