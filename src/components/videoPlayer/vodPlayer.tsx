@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo, useCallback, useRef } from 'react';
-import { View, TouchableWithoutFeedback, StyleSheet, } from 'react-native';
+import { View, TouchableWithoutFeedback, StyleSheet, StatusBar } from 'react-native';
 import Video from 'react-native-video';
 import { useTheme } from '@react-navigation/native';
 import { useOrientation } from '../../hooks/useOrientation';
@@ -39,7 +39,6 @@ export default ({ vod_url, currentTimeRef, initialStartTime = 0 }: Props) => {
         const dimension = Dimensions.get('screen');
         let h = dimension.height;
         let w = dimension.width;
-
         setHeight(h);
         setWidth(w);
 
@@ -65,20 +64,25 @@ export default ({ vod_url, currentTimeRef, initialStartTime = 0 }: Props) => {
 
     const handleOrientation = (orientation: any) => {
         if (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT') {
+            StatusBar.setHidden(true);
             setIsFullScreen(true);
         } else {
+            StatusBar.setHidden(false);
             setIsFullScreen(false);
         }
     };
 
     const onToggleFullScreen = useCallback(() => {
+        console.log(isFullScreen);
         if (isFullScreen) {
             Orientation.lockToPortrait();
             Orientation.unlockAllOrientations();
+            StatusBar.setHidden(false);
             setIsFullScreen(false);
         } else {
             Orientation.lockToLandscapeLeft();
             // Orientation.unlockAllOrientations();
+            StatusBar.setHidden(true);
             setIsFullScreen(true);
         }
     }, [isFullScreen, Orientation])
