@@ -29,6 +29,10 @@ function ShortVideoPlayer({ vod_url, isActive, thumbnail, videoTitle, displayHei
         setIsBuffering(bufferObj.isBuffering);
     }
 
+    const onError = (errorObj: any) => {
+        console.log(errorObj)
+    }
+
     return (
         <View
             style={[
@@ -50,11 +54,15 @@ function ShortVideoPlayer({ vod_url, isActive, thumbnail, videoTitle, displayHei
                 poster={thumbnail}
                 source={{ uri: vod_url }}
                 onBuffer={onBuffer}
+                onError={onError}
                 repeat={true}
                 style={styles.video}
+                ignoreSilentSwitch={"ignore"}
                 paused={!isActive}
             />
-            <View style={{ position: 'absolute', left: 0, bottom: 0, width: '100%', justifyContent: 'flex-end', padding: 20, paddingBottom: 30 }}>
+            
+            <View style={{ position: 'absolute', left: 0, bottom: 0, width: '100%', justifyContent: 'flex-end', padding: 20, paddingBottom: 40 }}>
+            
                 <View style={{ marginTop: 10, flexDirection: 'row' }}>
                     {/* <View style={{ flex: 10, flexDirection: 'column', justifyContent: 'flex-end', marginRight: 35 }}> */}
                     <View style={{ flex: 10, flexDirection: 'column', justifyContent: 'flex-end' }}>

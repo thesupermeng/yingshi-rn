@@ -155,7 +155,8 @@ export default ({ vod_url, currentTimeRef, initialStartTime = 0 }: Props) => {
             <TouchableWithoutFeedback onPress={toggleControls}>
                 <View style={styles.bofangBox}>
                     {
-                        vod_url !== undefined && <Video
+                        vod_url !== undefined && <Video 
+                            ignoreSilentSwitch={"ignore"}
                             ref={ref => (videoPlayerRef.current = ref)}
                             fullscreen={isFullScreen}
                             paused={isPaused}
