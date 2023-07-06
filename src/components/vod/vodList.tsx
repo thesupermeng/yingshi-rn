@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { StyleSheet, TouchableOpacity, Text, FlatList, Image } from 'react-native';
+import { StyleSheet, TouchableOpacity, Text, FlatList, Image, ViewStyle } from 'react-native';
 import { useNavigation, useTheme } from '@react-navigation/native';
 import { useQuery } from '@tanstack/react-query';
 import { VodType } from '../../types/ajaxTypes';
@@ -10,7 +10,7 @@ interface Props {
     query_url?: string,
     initial_page?: number,
     params?: any[],
-    vodStyle?: typeof StyleSheet,
+    vodStyle?: ViewStyle,
     horizontal?: boolean,
     vodList?: Array<VodType>,
     showPlayIcon?: boolean,
@@ -47,7 +47,6 @@ export default function VodList({ query_url, initial_page = 0, vodStyle, horizon
         <FlatList
             data={data}
             horizontal
-            gap={3}
             renderItem={({item} : FlatListType)  => {
                 return <VodCard showPlayIcon={showPlayIcon} vodImageStyle={vodStyle} 
                 vod_name={item.vod_name} vod_pic={item.vod_pic}  

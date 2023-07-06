@@ -262,11 +262,11 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
                         <VodTopicFilter callback={setYear} init={year} options={['全部时间', ...options.type_extend_obj.year.split(',')].map(x => sameTextAndValueObj(x))} />
                     </Animated.View>
                 }
-                <Animated.View containerStyle={{ marginBottom: spacing.m, backgroundColor: colors.background, padding: 0 }}>
+                <Animated.View style={{ marginBottom: spacing.m, backgroundColor: colors.background, padding: 0 }}>
                     {
                         options && <Animated.View style={contentSummaryStyle}>
                             <View style={{ marginTop: spacing.s, ...styles.collapedSummary, justifyContent: 'space-between' }}>
-                                <View style={{ ...styles.collapedSummary }} gap={4}>
+                                <View style={{ ...styles.collapedSummary, gap: 4 }}>
                                     <Text style={{ ...textVariants.small, color: colors.muted }}>{topicClass.text}</Text>
                                     <View style={{ ...styles.dot, backgroundColor: colors.primary }}></View>
                                     <Text style={{ ...textVariants.small, color: colors.muted }}>{area.text}</Text>
@@ -311,7 +311,7 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
                             }
                             {
                                 !(isFetchingNextPage || isFetching) && !hasNextPage &&
-                                <Text style={{ ...textVariants.body, color: colors.muted, ...styles.noMore }}>没有更多了</Text>
+                                <Text style={{ ...textVariants.body, color: colors.muted }}>没有更多了</Text>
                             }
                         </View>
                     }

@@ -21,7 +21,7 @@ export default ({ navigation }: RootStackScreenProps<'关于我们'>) => {
 
     return (
         <ScreenContainer footer={<Text style={{ textAlign: 'center', ...textVariants.body, marginBottom: spacing.m }}>yingshitvdeveloper@gmail.com</Text>}>
-            <View gap={spacing.m}>
+            <View style={{ gap: spacing.m }}>
                 <TitleWithBackButtonHeader title='关于我们' />
                 <View style={styles.logo}>
                     <Logo2 height={icons.sizes.xxl} width={icons.sizes.xxl} />

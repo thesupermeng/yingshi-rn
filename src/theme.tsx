@@ -1,4 +1,5 @@
 import { DefaultTheme } from '@react-navigation/native';
+import { ColorValue, TextStyle } from 'react-native';
 export type ExtendedTheme = {
   dark: boolean,
   colors: {
@@ -23,58 +24,58 @@ export type ExtendedTheme = {
   },
   textVariants: {
     bigHeader: {
-      color: string,
-      fontFamily: string,
-      fontSize: number,
-      fontWeight: string
+      color: TextStyle['color'],
+      fontFamily: TextStyle['fontFamily'],
+      fontSize: TextStyle['fontSize'],
+      fontWeight: TextStyle['fontWeight']
     },
     header: {
-      color: string,
-      fontFamily: string,
-      fontSize: number,
-      fontWeight: string
+      color: TextStyle['color'],
+      fontFamily: TextStyle['fontFamily'],
+      fontSize: TextStyle['fontSize'],
+      fontWeight: TextStyle['fontWeight']
     },
     selected: {
-      color: string,
-      fontFamily: string,
-      fontSize: number,
-      fontWeight: string
+      color: TextStyle['color'],
+      fontFamily: TextStyle['fontFamily'],
+      fontSize: TextStyle['fontSize'],
+      fontWeight: TextStyle['fontWeight']
     },
     unselected: {
-      color: string,
-      fontFamily: string,
-      fontSize: number,
-      fontWeight: string
+      color: TextStyle['color'],
+      fontFamily: TextStyle['fontFamily'],
+      fontSize: TextStyle['fontSize'],
+      fontWeight: TextStyle['fontWeight']
     },
     body: {
-      fontFamily: string,
-      fontSize: number,
-      fontWeight: string,
-      color: string,
+      fontFamily: TextStyle['fontFamily'],
+      fontSize: TextStyle['fontSize'],
+      fontWeight: TextStyle['fontWeight'],
+      color: TextStyle['color'],
     },
     bodyBold: {
-      fontFamily: string,
-      fontSize: number,
-      fontWeight: string,
-      color: string,
+      fontFamily: TextStyle['fontFamily'],
+      fontSize: TextStyle['fontSize'],
+      fontWeight: TextStyle['fontWeight'],
+      color: TextStyle['color'],
     },
     subBody: {
-      fontFamily: string,
-      fontSize: number,
-      fontWeight: string,
-      color: string,
+      fontFamily: TextStyle['fontFamily'],
+      fontSize: TextStyle['fontSize'],
+      fontWeight: TextStyle['fontWeight'],
+      color: TextStyle['color'],
     },
     small: {
-      fontFamily: string,
-      fontSize: number,
-      fontWeight: string,
-      color: string,
+      fontFamily: TextStyle['fontFamily'],
+      fontSize: TextStyle['fontSize'],
+      fontWeight: TextStyle['fontWeight'],
+      color: TextStyle['color'],
     },
     fine: {
-      fontFamily: string,
-      fontSize: number,
-      fontWeight: string,
-      color: string,
+      fontFamily: TextStyle['fontFamily'],
+      fontSize: TextStyle['fontSize'],
+      fontWeight: TextStyle['fontWeight'],
+      color: TextStyle['color'],
     },
   },
   spacing: {

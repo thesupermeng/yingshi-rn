@@ -17,10 +17,10 @@ interface Props {
     thumbnail?: string
     isActive?: boolean
     videoTitle?: string
-    displayHeight: number | null
+    displayHeight: number
 };
 
-function ShortVideoPlayer({ vod_url, isActive, thumbnail, videoTitle, displayHeight }: Props) {
+function ShortVideoPlayer({ vod_url, isActive, thumbnail, videoTitle, displayHeight=0 }: Props) {
     const bottomTabHeight = useBottomTabBarHeight();
     const [isBuffering, setIsBuffering] = useState();
     // console.log(vod_url, 'playing', isActive)
@@ -60,11 +60,13 @@ function ShortVideoPlayer({ vod_url, isActive, thumbnail, videoTitle, displayHei
                 ignoreSilentSwitch={"ignore"}
                 paused={!isActive}
             />
-            <View column style={{ position: 'absolute', left: 0, bottom: 0, width: '100%', justifyContent: 'flex-end', padding: 20, paddingBottom: 40 }}>
+            
+            <View style={{ position: 'absolute', left: 0, bottom: 0, width: '100%', justifyContent: 'flex-end', padding: 20, paddingBottom: 40 }}>
+            
                 <View style={{ marginTop: 10, flexDirection: 'row' }}>
                     {/* <View style={{ flex: 10, flexDirection: 'column', justifyContent: 'flex-end', marginRight: 35 }}> */}
                     <View style={{ flex: 10, flexDirection: 'column', justifyContent: 'flex-end' }}>
-                        <TouchableOpacity row style={{ background: 'rgba(255, 255, 255, 0.16)', borderRadius: 17 }}>
+                        <TouchableOpacity style={{ backgroundColor: 'rgba(255, 255, 255, 0.16)', borderRadius: 17 }}>
                             <Text style={{ fontSize: 14, color: '#fff' }}>{videoTitle}</Text>
                         </TouchableOpacity>
                     </View>

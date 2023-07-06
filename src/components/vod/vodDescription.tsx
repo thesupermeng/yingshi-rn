@@ -8,22 +8,22 @@ interface Props {
 }
 
 export default function VodDescription({ vod, vodStyle }: Props) {
-    const {textVariants, spacing, colors} = useTheme();
+    const { textVariants, spacing, colors } = useTheme();
     return (
-        <View gap={spacing.xs}>
-            <View style={styles.des} gap={spacing.s}>
+        <View style={{ gap: spacing.xs }}>
+            <View style={{ ...styles.des, gap: spacing.s }}>
                 {
-                    vod.vod_year && <Text style={{...textVariants.subBody, color: colors.muted}}>{vod.vod_year}</Text>
+                    vod.vod_year && <Text style={{ ...textVariants.subBody, color: colors.muted }}>{vod.vod_year}</Text>
                 }
                 {/* <Text style={{...textVariants.body, color: colors.muted}}>{vod.vod_class}</Text> */}
-                <Text style={{...textVariants.subBody, color: colors.muted, flex: 1}} numberOfLines={1}>{vod.vod_class}</Text>
+                <Text style={{ ...textVariants.subBody, color: colors.muted, flex: 1 }} numberOfLines={1}>{vod.vod_class}</Text>
             </View>
-            <View style={styles.des} gap={spacing.s}>
-                <Text style={{...textVariants.subBody, color: colors.muted}}>主演:</Text>
-                <Text style={{...textVariants.subBody, flex: 1, color: colors.muted}} numberOfLines={1} >{vod.vod_actor}</Text>
+            <View style={{ ...styles.des, gap: spacing.s }}>
+                <Text style={{ ...textVariants.subBody, color: colors.muted }}>主演:</Text>
+                <Text style={{ ...textVariants.subBody, flex: 1, color: colors.muted }} numberOfLines={1} >{vod.vod_actor}</Text>
             </View>
             <View style={styles.des}>
-                <Text numberOfLines={4} style={{...textVariants.subBody, flex: 1, color: colors.muted}}>{vod.vod_blurb}</Text>
+                <Text numberOfLines={4} style={{ ...textVariants.subBody, flex: 1, color: colors.muted }}>{vod.vod_blurb}</Text>
             </View>
         </View>
     );

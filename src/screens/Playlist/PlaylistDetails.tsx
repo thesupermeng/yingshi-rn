@@ -18,7 +18,7 @@ export default ({ navigation }: RootStackScreenProps<'PlaylistDetail'>) => {
             <TitleWithBackButtonHeader title={playlist?.topic_name} headerStyle={{ marginBottom: spacing.s }} />
             {
                 playlist &&
-                <View gap={spacing.s}>
+                <View style={{ gap: spacing.s }}>
                     <View style={styles.header}>
                         <Text numberOfLines={3} style={{ ...textVariants.small, color: colors.text, flex: 1, marginRight: spacing.l }}>
                             {playlist?.topic_blurb}

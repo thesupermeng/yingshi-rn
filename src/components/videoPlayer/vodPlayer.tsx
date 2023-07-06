@@ -21,10 +21,9 @@ const width = Dimensions.get('window').height;
 
 export default ({ vod_url, currentTimeRef, initialStartTime = 0 }: Props) => {
 
-    const videoPlayerRef = React.createRef<any>();
+    const videoPlayerRef = React.useRef<Video | null>();
     const { colors, spacing, textVariants, icons } = useTheme();
     const isPotrait = useOrientation();
-
     const [isFullScreen, setIsFullScreen] = useState(false);
     const [height, setHeight] = useState(0);
 
@@ -96,14 +95,14 @@ export default ({ vod_url, currentTimeRef, initialStartTime = 0 }: Props) => {
         if (currentTimeRef) {
             currentTimeRef.current = data.currentTime;
         }
-        if (videoPlayerRef.current !== null) {
+        if (videoPlayerRef.current) {
             videoPlayerRef.current.seek(initialStartTime);
         }
     }
 
     const onSeek = (time: number) => {
         setCurrentTime(time);
-        if (videoPlayerRef.current !== null) {
+        if (videoPlayerRef.current) {
             videoPlayerRef.current.seek(time);
         }
         if (currentTimeRef) {
@@ -119,7 +118,7 @@ export default ({ vod_url, currentTimeRef, initialStartTime = 0 }: Props) => {
     }, 500), [])
 
     const onSkip = (time: any) => {
-        if (videoPlayerRef) {
+        if (videoPlayerRef?.current) {
             videoPlayerRef.current.seek(currentTime + time);
         }
         setCurrentTime(currentTime + time);
@@ -156,15 +155,15 @@ export default ({ vod_url, currentTimeRef, initialStartTime = 0 }: Props) => {
             <TouchableWithoutFeedback onPress={toggleControls}>
                 <View style={styles.bofangBox}>
                     {
-                        vod_url !== undefined && <Video
+                        vod_url !== undefined && <Video 
                             ignoreSilentSwitch={"ignore"}
-                            ref={videoPlayerRef}
+                            ref={ref => (videoPlayerRef.current = ref)}
                             fullscreen={isFullScreen}
                             paused={isPaused}
                             resizeMode="contain"
                             source={{ uri: vod_url }}
                             onLoad={onVideoLoaded}
-                            onProgress={onVideoProgessing}
+                            // onProgress={onVideoProgessing}
                             style={!isFullScreen ? styles.videoPotrait : styles.videoLandscape} />
                     }
                     {vod_url !== undefined && isShowControls &&

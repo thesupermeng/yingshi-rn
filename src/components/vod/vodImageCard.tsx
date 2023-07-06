@@ -1,11 +1,11 @@
 import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
 import { useTheme } from '@react-navigation/native';
-import FastImage from 'react-native-fast-image';
+import FastImage, { ImageStyle } from 'react-native-fast-image';
 import PlayIcon from '../../../static/images/play.svg';
 import LinearGradient from 'react-native-linear-gradient'
 interface Props {
     vod_img: string,
-    vodStyle?: typeof StyleSheet,
+    vodStyle?: ImageStyle,
     onPress?: any,
     showInfo?: string
     showPlayIcon?: boolean
@@ -14,7 +14,7 @@ interface Props {
 
 export default function VodImageCard({ vod_img, vodStyle, onPress, showInfo = '', showPlayIcon = false, shadowBottom = false }: Props) {
     const { colors, textVariants, spacing } = useTheme();
-    const iconSize = vodStyle?.height !== undefined ? 0.3 * vodStyle.height : 0.3 * styles.image.height
+    const iconSize = 0.3 * parseInt(vodStyle?.height === undefined ? '180' : `${vodStyle.height}`)
     return (
         <TouchableOpacity
             style={styles.vod}

@@ -138,12 +138,12 @@ export default ({ navigation, route }: RootStackScreenProps<'搜索'>) => {
                         ? <VodWithDescriptionList vodList={searchResults} />
                         : <View style={{ marginLeft: 10, flex: 1 }}>
                             {
-                                search !== null && search.length === 0 && recommendations
-                                    ? <View gap={spacing.m}>
+                                search !== undefined && search !== null && search.length === 0 && recommendations
+                                    ? <View style={{ gap: spacing.m }}>
                                         {
                                             searchHistory.history.length > 0 &&
                                             <Animated.View
-                                                gap={spacing.m}
+                                                style={{ gap: spacing.m }}
                                                 entering={FadeInUp}
                                             >
                                                 <View style={styles.rowApart}>
