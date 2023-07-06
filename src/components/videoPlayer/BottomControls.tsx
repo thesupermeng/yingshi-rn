@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { View, PanResponder, StyleSheet, Dimensions, Text } from 'react-native';
+import { View, PanResponder, StyleSheet, Dimensions, Text, Pressable } from 'react-native';
 import Slider from '@react-native-community/slider';
 import FullScreen from '../../../static/images/fullScreen.svg';
 import Unlock from '../../../static/images/unlock.svg';
@@ -63,14 +63,14 @@ export default ({ currentTime, duration, onSlideCapture, onSlideStart, onSlideCo
                         minimumTrackTintColor={'#FAC33D'}
                         maximumTrackTintColor={'#FFFFFF'}
                         thumbTintColor={'#FFFFFF'}
-                        style={{ flex: 10, marginTop: 2 }} />
+                        style={{ flex: 12, marginTop: 2 }} />
                     <View style={styles.timeWrapper}>
                         <Text style={styles.timeLeft}>{position} / </Text>
                         <Text style={styles.timeRight}>{fullDuration}</Text>
-                        <TouchableWithoutFeedback onPress={onPressFullScreenBtn}>
-                            <FullScreen width={30} height={30} />
-                        </TouchableWithoutFeedback>
                     </View>
+                    <Pressable onPress={onPressFullScreenBtn} style={{ alignItems: 'flex-end' }}>
+                        <FullScreen width={30} height={30} />
+                    </Pressable>
                 </View>
 
                 :
@@ -93,11 +93,10 @@ export default ({ currentTime, duration, onSlideCapture, onSlideStart, onSlideCo
                             <Text style={styles.timeLeftLandscape}>{position} / </Text>
                             <Text style={styles.timeRightLandscape}>{fullDuration}</Text>
                         </View>
-
-                        <View style={{ paddingRight: 20 }}>
-                            <TouchableWithoutFeedback style={styles.containerItem} onPress={onPressFullScreenBtn}>
+                        <View>
+                            <Pressable style={styles.containerItem} onPress={onPressFullScreenBtn}>
                                 <MinimizeScreen width={30} height={30} />
-                            </TouchableWithoutFeedback>
+                            </Pressable>
                         </View>
                     </View>
                     {/* <View style={styles.buttonsContainer}>
@@ -160,14 +159,14 @@ const styles = StyleSheet.create({
     },
     wrapper: {
         flexDirection: 'row',
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         alignItems: 'center',
         zIndex: 1
     },
     timeWrapper: {
         flexDirection: 'row',
         alignItems: 'center',
-        flex: 5,
+        flex: 4,
     },
     timeWrapperLandscape: {
         flexDirection: 'row',

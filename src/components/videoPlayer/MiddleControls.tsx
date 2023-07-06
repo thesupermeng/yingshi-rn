@@ -28,17 +28,17 @@ export default ({ fastForward, togglePlayPause, paused }: Props) => {
     return (
         <View style={styles.middleControls}>
             <TouchableOpacity style={styles.sideButtons} onPress={()=> onSkip(-10)}>
-                <Rewind width={50} height={50} />
+                <Rewind width={60} height={60} />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => onTogglePlayPause()}>
                 {paused ?
-                    <Play width={50} height={50} />
+                    <Play width={55} height={55} />
                     :
-                    <Pause width={50} height={50} />
+                    <Pause width={55} height={55} />
                 }
             </TouchableOpacity>
             <TouchableOpacity style={styles.sideButtons} onPress={()=> onSkip(10)}>
-                <Fastforward width={50} height={50} />
+                <Fastforward width={60} height={60} />
             </TouchableOpacity>
         </View>
     )
