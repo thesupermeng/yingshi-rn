@@ -97,7 +97,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
             setCurrent(curr);
         }
     }, []);
-
+    console.log('renderinggg')
     return (
         <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
             <View style={{ position: 'absolute', top: 0, left: 0, padding: 20, zIndex: 50, width: '100%', flexDirection: 'row', alignItems: 'center' }}>
@@ -113,14 +113,17 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                     maxToRenderPerBatch={3}
                     windowSize={5}
                     renderItem={({ item, index }: { item: MiniVideo, index: number }) => {
-                        // console.log('rendering list', index, current);
-                        return <ShortVideoPlayer
-                            vod_url='https://m3u.haiwaikan.com/xm3u8/196dc52974b431e61f48d5bd6a581708c409f1348127cc43c5e4288cd7cb36479921f11e97d0da21.m3u8'
-                            isActive={current === index && !isPaused}
-                            thumbnail={item.mini_video_origin_cover}
-                            videoTitle={item.mini_video_title}
-                            displayHeight={displayHeight ? displayHeight : 0}
-                        />
+                        return <View style={{ height: displayHeight ? displayHeight : 0 }}>
+                            {
+                                current !== null && Math.abs(current - index) <= 2 && <ShortVideoPlayer
+                                    vod_url={item.mini_video_origin_video_url}
+                                    isActive={current === index && !isPaused}
+                                    thumbnail={item.mini_video_origin_cover}
+                                    videoTitle={item.mini_video_title}
+                                    displayHeight={displayHeight ? displayHeight : 0}
+                                />
+                            }
+                        </View>
                     }}
                     horizontal={false}
                     pagingEnabled={true}
