@@ -115,12 +115,16 @@ export default ({ vod_url, currentTimeRef, initialStartTime = 0, vodTitle='' }: 
     // }
 
     const onSkip = (time: any) => {
+
         if (videoPlayerRef?.current) {
-            videoPlayerRef.current.seek(currentTimeRef.current + time);
+            let currentTime = currentTimeRef.current;
+            currentTime + time < 0 ? currentTime = 0 : currentTime;
+            videoPlayerRef.current.seek(currentTime);
         }
         // setCurrentTime(currentTime + time);
         if (currentTimeRef) {
             currentTimeRef.current += time;
+            currentTimeRef.current < 0 ? currentTimeRef.current = 0 : currentTimeRef.current;
         }
         debouncedFn();
     }
