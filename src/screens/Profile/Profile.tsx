@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { ListItem } from '@rneui/themed';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
-import { useTheme } from '@react-navigation/native';
+import { useTheme, useFocusEffect } from '@react-navigation/native';
 import { toggleTheme } from '../../redux/actions/themeAction';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { RootState } from '../../redux/store';
@@ -16,12 +16,22 @@ import InfoIcon from '../../../static/images/info.svg';
 import ShareIcon from '../../../static/images/share.svg';
 import LightMode from '../../../static/images/light_mode.svg';
 import DarkMode from '../../../static/images/dark_mode.svg';
+import Orientation from 'react-native-orientation-locker';
 
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 export default ({ navigation }: BottomTabScreenProps<any>) => {
     const { colors, textVariants, icons, spacing } = useTheme();
     const dispatch = useAppDispatch();
     const themeReducer = useAppSelector(({ themeReducer }: RootState) => themeReducer);
+
+    useFocusEffect(
+        useCallback(() => {
+            Orientation.lockToPortrait();
+            return () => {
+                Orientation.unlockAllOrientations();
+            };
+        }, [])
+    );
 
     return (
         <ScreenContainer >

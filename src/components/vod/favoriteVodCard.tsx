@@ -15,23 +15,25 @@ interface Props {
 export default function FavoriteVodCard({ vod, onPress, btnStyle, hideFavoriteButton = false, ...params }: Props) {
     const { colors, spacing, textVariants } = useTheme();
     return (
-        <View style={{...styles.card, gap: spacing.s}}>
+        <View style={{ ...styles.card, gap: spacing.s }}>
             <VodImageCard vod_img={vod.vod_pic} vodStyle={styles.image} onPress={onPress} />
-            <View style={{...styles.description, gap: spacing.xs}}>
-                {
-                    hideFavoriteButton
-                        ? <Text numberOfLines={1} style={{
-                            ...textVariants.body,
-                            color: colors.text,
-                            // flex: 1,
-                            flexShrink: 1
-                        }}>
-                            {vod.vod_name}
-                        </Text>
-                        : <FavoriteButton vod={vod} initialState={true}/>
-                }
-                <VodDescription vod={vod} />
-            </View>
+            <TouchableOpacity style={{ ...styles.description, gap: spacing.xs }} onPress={onPress} >
+                <View style={{ ...styles.description, gap: spacing.xs }}>
+                    {
+                        hideFavoriteButton
+                            ? <Text numberOfLines={1} style={{
+                                ...textVariants.body,
+                                color: colors.text,
+                                // flex: 1,
+                                flexShrink: 1
+                            }}>
+                                {vod.vod_name}
+                            </Text>
+                            : <FavoriteButton vod={vod} />
+                    }
+                    <VodDescription vod={vod} />
+                </View>
+            </TouchableOpacity>
         </View>
     );
 }
