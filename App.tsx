@@ -37,7 +37,7 @@ export default function App() {
       fetch(`${API_DOMAIN}page/v1/typepage?id=0`)
         .then(response => response.json())
         .then((json: VodCarousellResponseType) => {
-          return json.data
+          return json
         })
   });
 
