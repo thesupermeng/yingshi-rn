@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo, useCallback, useRef } from 'react';
 import { View, TouchableWithoutFeedback, StyleSheet, StatusBar } from 'react-native';
 import Video from 'react-native-video';
-import { useTheme } from '@react-navigation/native';
+import { useTheme, useNavigation } from '@react-navigation/native';
 import { useOrientation } from '../../hooks/useOrientation';
 import PlayFullScreenGesture from '../gestures/vod/PlayFullScreenGesture';
 import { debounce } from "lodash";
@@ -22,14 +22,18 @@ const width = Dimensions.get('window').height;
 
 export default ({ vod_url, currentTimeRef, initialStartTime = 0, vodTitle='' }: Props) => {
 
+    const navigation = useNavigation();
+
     const videoPlayerRef = React.useRef<Video | null>();
     const { colors, spacing, textVariants, icons } = useTheme();
     const isPotrait = useOrientation();
     const [isFullScreen, setIsFullScreen] = useState(false);
-
+    
     const [isPaused, setIsPaused] = useState(false);
     const [isShowControls, setIsShowControls] = useState(false);
     const [disableFullScreenGesture, setDisableFullScreenGesture] = useState(false);
+
+    const [showVideo, setShowVideo] = useState(true);
 
     const [duration, setDuration] = useState(0);
     // const [currentTime, setCurrentTime] = useState(initialStartTime);
@@ -147,6 +151,17 @@ export default ({ vod_url, currentTimeRef, initialStartTime = 0, vodTitle='' }: 
     }
 
     const debouncedFn = useCallback(debounce(changeControlsState, 1000), []);
+    console.log("Show Video", showVideo);
+
+    const onGoBack = () => {
+        setShowVideo(false);
+    }
+
+    useEffect(() => {
+        if(showVideo == false){
+            navigation.goBack();
+        }
+    }, [showVideo])
 
     return (
         <>
@@ -156,7 +171,7 @@ export default ({ vod_url, currentTimeRef, initialStartTime = 0, vodTitle='' }: 
             <TouchableWithoutFeedback onPress={toggleControls}>
                 <View style={styles.bofangBox}>
                     {
-                        vod_url !== undefined && <Video 
+                        vod_url !== undefined && showVideo && <Video 
                             ignoreSilentSwitch={"ignore"}
                             ref={ref => (videoPlayerRef.current = ref)}
                             fullscreen={isFullScreen}
@@ -177,7 +192,8 @@ export default ({ vod_url, currentTimeRef, initialStartTime = 0, vodTitle='' }: 
                             isFullScreen={isFullScreen}
                             onTogglePlayPause={onTogglePlayPause}
                             headerTitle={vodTitle}
-                            onHandleFullScreen={onToggleFullScreen} />
+                            onHandleFullScreen={onToggleFullScreen}
+                            onHandleGoBack={onGoBack} />
                     }
                 </View>
             </TouchableWithoutFeedback>
