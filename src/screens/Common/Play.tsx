@@ -11,7 +11,7 @@ import { SuggestResponseType } from '../../types/ajaxTypes';
 import { addVodToHistory } from '../../redux/actions/vodActions';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { RootState } from '../../redux/store';
-import { VodReducerState } from '../../redux/reducers/vodReducer';
+import { FavoriteVodReducerState, VodReducerState } from '../../redux/reducers/vodReducer';
 import BackButton from '../../components/button/backButton';
 import SinaIcon from '../../../static/images/sina.svg';
 import WeChatIcon from '../../../static/images/wechat.svg'
@@ -50,8 +50,10 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
 
     const { colors, spacing, textVariants, icons } = useTheme();
     const vodReducer: VodReducerState = useAppSelector(({ vodReducer }: RootState) => vodReducer);
+    const vodFavouriteReducer: FavoriteVodReducerState = useAppSelector(({ vodFavouritesReducer }: RootState) => vodFavouritesReducer);
+
     const vod = vodReducer.playVod.vod;
-    const isFavorite = vodReducer.playVod.isFavorite;
+    const isFavorite = vodFavouriteReducer.favorites.some(x => x.vod_id === vod?.vod_id);
     const [currentEpisode, setCurrentEpisode] = useState(vod?.episodeWatched === undefined ? 0 : vod.episodeWatched);
     const currentTimeRef = useRef<number>(0);
     const sheetRef = useRef<BottomSheet>(null);
@@ -97,7 +99,7 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
         }
         return Math.min(mr, BTN_SELECT_WIDTH / 2);
     }, [NUM_PER_ROW, BTN_SELECT_WIDTH, windowDim])
-    
+
     const NUM_OF_ROWS = useMemo(() => vod?.vod_play_list ? Math.floor(vod.vod_play_list.url_count / NUM_PER_ROW) : 0, [vod, NUM_PER_ROW]);
     const ROW_HEIGHT = useMemo(() => {
         const height = textVariants?.header?.fontSize === undefined ? 22 : textVariants.header.fontSize + 6;
@@ -118,7 +120,7 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
             transform: isExpandEpisodes.value ? [{ rotate: '180deg' }] : [{ rotate: '0deg' }]
         };
     }, []);
-    
+
     const onShare = async () => {
         try {
             const result = await Share.share({
@@ -147,7 +149,7 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
         }
     }, [currentEpisode, vod, currentTimeRef.current]);
 
-    const fetchVod = () => fetch(`${API_DOMAIN}vod/v1/vod?class=${vod?.vod_class.split(",").shift()}&tid=${vod?.type_id}&limit=6`)
+    const fetchVod = () => fetch(`${API_DOMAIN}vod/v1/vod?class=${vod?.vod_class?.split(",").shift()}&tid=${vod?.type_id}&limit=6`)
         .then(response => response.json())
         .then((json: SuggestResponseType) => {
             return json.data.List
@@ -193,6 +195,7 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
                         />
                         <View style={styles.descriptionContainer}>
                             {vod && <FavoriteButton
+                                initialState={isFavorite}
                                 vod={vod}
                                 leftIcon={
                                     <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: spacing.xxs }}>
@@ -208,7 +211,7 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
                             <Text style={{ ...textVariants.subBody, color: colors.muted }} numberOfLines={2}>
                                 {`${definedValue(vod?.vod_year)}`}
                                 {`${definedValue(vod?.vod_area)}`}
-                                {`${definedValue(vod?.vod_class.split(",").join(" "))}`}
+                                {`${definedValue(vod?.vod_class?.split(",").join(" "))}`}
                             </Text>
                             <Text style={{ ...textVariants.subBody, color: colors.muted }}>
                                 {`更新：${vod ?
@@ -281,7 +284,7 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
                         </>
                     }
                     {
-                        vod && suggestedVods !== undefined && suggestedVods.length > 0 &&
+                        vod && suggestedVods !== undefined && suggestedVods?.length > 0 &&
                         <View style={{ gap: spacing.l }}>
                             <ShowMoreVodButton text={`相关${vod?.type_name}`} onPress={() => {
                                 navigation.navigate('片库', { type_id: vod.type_id });
@@ -291,11 +294,15 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
                     }
                 </View>
             </ScrollView>
-            <VodEpisodeSelectionModal activeEpisode={currentEpisode}
-                episodes={vod?.vod_play_list}
-                sheetRef={sheetRef}
-                onCancel={() => sheetRef.current?.close()}
-                onConfirm={setCurrentEpisode} />
+            {
+                showEpisodeRangeEnd - showEpisodeRangeStart === 100 &&
+                <VodEpisodeSelectionModal
+                    activeEpisode={currentEpisode}
+                    episodes={vod?.vod_play_list}
+                    sheetRef={sheetRef}
+                    onCancel={() => sheetRef.current?.close()}
+                    onConfirm={setCurrentEpisode} />
+            }
         </ScreenContainer>
     )
 }

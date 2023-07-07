@@ -10,15 +10,17 @@ interface Props {
     showInfo?: string
     showPlayIcon?: boolean
     shadowBottom?: boolean
+    isDisabled?: boolean
 }
 
-export default function VodImageCard({ vod_img, vodStyle, onPress, showInfo = '', showPlayIcon = false, shadowBottom = false }: Props) {
+export default function VodImageCard({ vod_img, vodStyle, onPress, showInfo = '', showPlayIcon = false, shadowBottom = false, isDisabled }: Props) {
     const { colors, textVariants, spacing } = useTheme();
     const iconSize = 0.3 * parseInt(vodStyle?.height === undefined ? '180' : `${vodStyle.height}`)
     return (
         <TouchableOpacity
             style={styles.vod}
             onPress={onPress}
+            disabled={isDisabled}
         >
             <FastImage
                 style={{ ...styles.image, ...vodStyle }}

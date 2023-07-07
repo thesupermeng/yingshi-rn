@@ -8,23 +8,23 @@ import { VodTopicType, VodType } from "../../types/ajaxTypes";
 export const addVodToFavorites = (vod: VodType) => (
     {
         type: ADD_VOD_TO_FAVORITES,
-        payload: [vod]
+        payload: vod
     }
 )
 
 export const removeVodFromFavorites = (vod: VodType) => (
     {
         type: REMOVE_VOD_FROM_FAVORITES,
-        payload: [vod]
+        payload: vod
     }
 )
 
-export const toggleVodFavorites = (vod: VodType) => (
-    {
-        type: TOGGLE_VOD_FAVORITES,
-        payload: [vod]
-    }
-)
+// export const toggleVodFavorites = (vod: VodType) => (
+//     {
+//         type: TOGGLE_VOD_FAVORITES,
+//         payload: [vod]
+//     }
+// )
 
 export const playVod = (vod: VodType, timeWatched: number = 0, episodeToPlay: number = 0) => {
     return {

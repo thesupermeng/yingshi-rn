@@ -155,7 +155,7 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
             })
     }, [area, year, lang, topicClass, currentTopicId, orderBy]);
 
-    const { data: vods, isSuccess, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } =
+    const { data: vods, isSuccess, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching, refetch } =
         useInfiniteQuery(['filteredVods', area, year, lang, topicClass, currentTopicId, orderBy], ({ pageParam = 1 }) => fetchVods(pageParam), {
             getNextPageParam: (lastPage, allPages) => {
                 if (lastPage === null) {
@@ -181,6 +181,11 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
                 
             }
         });
+
+    useEffect(() => {
+        setResults([]);
+        refetch();
+    }, [area, year, lang, topicClass, currentTopicId, orderBy])
 
     const topicOptions: Array<NavType> = useMemo(() => {
         if (navOptions) {
@@ -294,7 +299,8 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
                         return `#-${item?.vod_id}-${index}`
                     }}
                     onEndReached={() => {
-                        if (hasNextPage && !isFetchingNextPage && !isFetching) {
+                        console.log('fetching next page', hasNextPage)
+                        if (hasNextPage) {
                             fetchNextPage();
                         }
                     }}

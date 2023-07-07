@@ -15,10 +15,10 @@ interface Props {
 export default function FavoriteVodCard({ vod, onPress, btnStyle, hideFavoriteButton = false, ...params }: Props) {
     const { colors, spacing, textVariants } = useTheme();
     return (
-        <View style={{...styles.card, gap: spacing.s}}>
+        <View style={{ ...styles.card, gap: spacing.s }}>
             <VodImageCard vod_img={vod.vod_pic} vodStyle={styles.image} onPress={onPress} />
-            <TouchableOpacity style={{...styles.description, gap: spacing.xs}}onPress={onPress} >
-                <View style={{...styles.description, gap: spacing.xs}}>
+            <TouchableOpacity style={{ ...styles.description, gap: spacing.xs }} onPress={onPress} >
+                <View style={{ ...styles.description, gap: spacing.xs }}>
                     {
                         hideFavoriteButton
                             ? <Text numberOfLines={1} style={{

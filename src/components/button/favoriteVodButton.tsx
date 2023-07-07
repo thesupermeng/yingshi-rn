@@ -3,7 +3,7 @@ import FavoriteIcon from '../../../static/images/favorite.svg';
 import { useTheme } from '@react-navigation/native';
 import { useAppSelector, useAppDispatch } from '../../hooks/hooks';
 import { RootState } from '../../redux/store';
-import { toggleVodFavorites } from '../../redux/actions/vodActions';
+import { addVodToFavorites, removeVodFromFavorites } from '../../redux/actions/vodActions';
 import { VodType } from '../../types/ajaxTypes';
 interface Props {
     vod: VodType,
@@ -11,9 +11,10 @@ interface Props {
     textColor?: string,
     params?: any[],
     leftIcon?: React.ReactNode,
-    buttonStyle?: TextStyle
+    buttonStyle?: TextStyle,
+    initialState?: boolean
 }
-export default function FavoriteVodButton({ onPress, leftIcon, textColor = '', buttonStyle, vod, ...params }: Props) {
+export default function FavoriteVodButton({ onPress, leftIcon, textColor = '', buttonStyle, vod, initialState=false, ...params }: Props) {
     const { colors, textVariants, spacing, icons } = useTheme();
     const dispatch = useAppDispatch();
     return (
@@ -25,11 +26,17 @@ export default function FavoriteVodButton({ onPress, leftIcon, textColor = '', b
             }}>
                 {vod.vod_name}
             </Text>
-            <TouchableOpacity onPress={() => dispatch(toggleVodFavorites(vod))} style={{marginLeft: spacing.xs}}>
+            <TouchableOpacity onPress={() => {
+                if (initialState) {
+                    dispatch(removeVodFromFavorites(vod))
+                } else {
+                    dispatch(addVodToFavorites(vod))
+                }
+            }} style={{ marginLeft: spacing.xs }}>
                 {
                     leftIcon ?
                         leftIcon
-                        : <FavoriteIcon width={icons.sizes.m} height={icons.sizes.m}  />
+                        : <FavoriteIcon width={icons.sizes.m} height={icons.sizes.m} color={colors.primary} />
                 }
             </TouchableOpacity>
         </View>
