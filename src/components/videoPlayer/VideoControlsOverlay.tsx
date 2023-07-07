@@ -16,13 +16,14 @@ type Props = {
     onHandleFullScreen: () => any,
     paused: boolean,
     isFullScreen: boolean,
-    headerTitle: string
+    headerTitle: string,
+    onHandleGoBack: () => any,
 }
 
 const height = Dimensions.get('window').width;
 const width = Dimensions.get('window').height;
 
-export default ({ currentTime, duration, onVideoSeek, onFastForward, onTogglePlayPause, onHandleFullScreen, paused, isFullScreen, headerTitle }: Props) => {
+export default ({ currentTime, duration, onVideoSeek, onFastForward, onTogglePlayPause, onHandleFullScreen, paused, isFullScreen, headerTitle, onHandleGoBack }: Props) => {
     const { colors, spacing, textVariants, icons } = useTheme();
     const navigation = useNavigation();
     useEffect(() => {
@@ -45,15 +46,19 @@ export default ({ currentTime, duration, onVideoSeek, onFastForward, onTogglePla
     const handleFullScreen = () => {
         onHandleFullScreen();
     }
+    
+    const goBack = () => {
+        onHandleGoBack();
+    }
 
     const handleToggleEpisodes = () => {
-
+        
     }
 
     return (
         <View style={!isFullScreen ? styles.controlsOverlay : [styles.controlsOverlay, { height: height }]}>
             <View style={styles.videoHeader}>
-                <BackButton btnStyle={{ padding: 20 }} onPress={() => navigation.goBack()} />
+                <BackButton btnStyle={{ padding: 20 }} onPress={() => goBack()} />
                 <Text style={{ ...textVariants.body, fontSize: 17, fontWeight: '600', color: colors.text, flex: 1, paddingBottom: 3 }}
                     numberOfLines={1}>{headerTitle}
                 </Text>
