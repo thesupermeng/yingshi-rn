@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, memo } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, Dimensions, FlatList, Image } from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
 import { useNavigation, useTheme } from '@react-navigation/native';
@@ -30,7 +30,7 @@ interface Props {
     heightToWidthRatio?: number
 }
 
-export default function VodListVertical({ vods, numOfRows = 2, outerRowPadding = 0, minNumPerRow = 3, heightToWidthRatio = 1.414 }: Props) {
+function VodListVertical({ vods, numOfRows = 2, outerRowPadding = 0, minNumPerRow = 3, heightToWidthRatio = 1.414 }: Props) {
     const { textVariants, colors, spacing, icons } = useTheme();
     const insets = useSafeAreaInsets();
     const navigation = useNavigation();
@@ -71,6 +71,8 @@ export default function VodListVertical({ vods, numOfRows = 2, outerRowPadding =
         </View>
     )
 }
+
+export default VodListVertical;
 
 const styles = StyleSheet.create({
     vodList: {

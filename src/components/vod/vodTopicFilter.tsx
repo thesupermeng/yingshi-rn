@@ -24,6 +24,7 @@ export default ({ init, callback, options = [] }: Props) => {
             <FlatList
                 data={options}
                 horizontal
+                showsHorizontalScrollIndicator={false}
                 renderItem={({ item }: FlatListType) => {
                     return <TouchableOpacity style={{ marginRight: spacing.m, justifyContent: 'center', display: 'flex' }} onPress={() => callback(item)}>
                         <Text style={{

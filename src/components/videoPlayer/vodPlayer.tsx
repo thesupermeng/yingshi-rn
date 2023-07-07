@@ -20,7 +20,7 @@ interface Props {
 const height = Dimensions.get('window').width;
 const width = Dimensions.get('window').height;
 
-export default ({ vod_url, currentTimeRef, initialStartTime = 0, vodTitle='' }: Props) => {
+export default ({ vod_url, currentTimeRef, initialStartTime = 0, vodTitle = '' }: Props) => {
 
     const videoPlayerRef = React.useRef<Video | null>();
     const { colors, spacing, textVariants, icons } = useTheme();
@@ -30,11 +30,9 @@ export default ({ vod_url, currentTimeRef, initialStartTime = 0, vodTitle='' }: 
     const [isPaused, setIsPaused] = useState(false);
     const [isShowControls, setIsShowControls] = useState(false);
     const [disableFullScreenGesture, setDisableFullScreenGesture] = useState(false);
-
     const [duration, setDuration] = useState(0);
-    // const [currentTime, setCurrentTime] = useState(initialStartTime);
-    const hasSeeked = useRef(false);
-    // const currentTime = useRef(initialStartTime);
+    const [currentTime, setCurrentTime] = useState(initialStartTime);
+
 
     useEffect(() => {
         if (!isPotrait) {
@@ -43,6 +41,19 @@ export default ({ vod_url, currentTimeRef, initialStartTime = 0, vodTitle='' }: 
             setIsFullScreen(false);
         }
     }, [isPotrait])
+
+    useEffect(() => {
+        let intervalId = 0;
+        setCurrentTime(currentTimeRef.current)
+        if (isShowControls) {
+            intervalId = setInterval(() => {
+                setCurrentTime(currentTimeRef.current)
+            }, 500);
+        }
+        return () => {
+            clearInterval(intervalId);
+        };
+    }, [isShowControls, currentTimeRef])
 
     useEffect(() => {
         Orientation.addOrientationListener(handleOrientation);
@@ -84,7 +95,6 @@ export default ({ vod_url, currentTimeRef, initialStartTime = 0, vodTitle='' }: 
 
     const onVideoLoaded = (data: any) => {
         setDuration(data.duration);
-        // setCurrentTime(initialStartTime);
         if (currentTimeRef) {
             currentTimeRef.current = data.currentTime;
         }
@@ -94,33 +104,18 @@ export default ({ vod_url, currentTimeRef, initialStartTime = 0, vodTitle='' }: 
     }
 
     const onSeek = (time: number) => {
-        // setCurrentTime(time);
-        hasSeeked.current = true;
         if (videoPlayerRef.current) {
             videoPlayerRef.current.seek(time);
         }
-        if (currentTimeRef) {
-            currentTimeRef.current = time;
-        }
     };
 
-    // const onVideoProgessing = (data: any) => {
-    //     if (!hasSeeked.current) {
-    //         // setCurrentTime(data.currentTime)
-    //         if (currentTimeRef.current !== undefined) {
-    //             currentTimeRef.current = data.currentTime;
-    //         }
-    //     }
-    //     hasSeeked.current = false;
-    // }
+    const onVideoProgessing = (data: any) => {
+        currentTimeRef.current = data.currentTime;
+    }
 
     const onSkip = (time: any) => {
         if (videoPlayerRef?.current) {
             videoPlayerRef.current.seek(currentTimeRef.current + time);
-        }
-        // setCurrentTime(currentTime + time);
-        if (currentTimeRef) {
-            currentTimeRef.current += time;
         }
         debouncedFn();
     }
@@ -139,10 +134,11 @@ export default ({ vod_url, currentTimeRef, initialStartTime = 0, vodTitle='' }: 
     const changeControlsState = () => {
         setIsShowControls(prev => false);
         setDisableFullScreenGesture(prev => false);
+
         return;
     }
 
-    const debouncedFn = useCallback(debounce(changeControlsState, 1000), []);
+    const debouncedFn = useMemo(() => debounce(changeControlsState, 4000), []);
 
     return (
         <>
@@ -152,7 +148,7 @@ export default ({ vod_url, currentTimeRef, initialStartTime = 0, vodTitle='' }: 
             <TouchableWithoutFeedback onPress={toggleControls}>
                 <View style={styles.bofangBox}>
                     {
-                        vod_url !== undefined && <Video 
+                        vod_url !== undefined && <Video
                             ignoreSilentSwitch={"ignore"}
                             ref={ref => (videoPlayerRef.current = ref)}
                             fullscreen={isFullScreen}
@@ -160,13 +156,19 @@ export default ({ vod_url, currentTimeRef, initialStartTime = 0, vodTitle='' }: 
                             resizeMode="contain"
                             source={{ uri: vod_url }}
                             onLoad={onVideoLoaded}
-                            // onProgress={onVideoProgessing}
+                            progressUpdateInterval={1000}
+                            onProgress={onVideoProgessing}
+                            onSeek={(data) => {
+                                if (currentTimeRef) {
+                                    currentTimeRef.current = data.currentTime;
+                                }
+                            }}
                             style={!isFullScreen ? styles.videoPotrait : styles.videoLandscape} />
                     }
                     {vod_url !== undefined && isShowControls &&
                         <VideoControlsOverlay
                             onVideoSeek={onSeek}
-                            currentTime={currentTimeRef.current}
+                            currentTime={currentTime}
                             duration={duration}
                             onFastForward={onSkip}
                             paused={isPaused}
