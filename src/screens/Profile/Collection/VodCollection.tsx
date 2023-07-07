@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
 import { RootState } from '../../../redux/store';
 
 import TitleWithBackButtonHeader from '../../../components/header/titleWithBackButtonHeader';
-import { VodReducerState } from '../../../redux/reducers/vodReducer';
+import { FavoriteVodReducerState, VodReducerState } from '../../../redux/reducers/vodReducer';
 import FavoriteVodCard from '../../../components/vod/favoriteVodCard';
 import CollectionHeader from '../../../components/header/myCollectionHeader';
 import { playVod } from '../../../redux/actions/vodActions';
@@ -21,8 +21,9 @@ type FlatListType = {
 export default ({ navigation }: RootStackScreenProps<'视频收藏'>) => {
     const { colors, textVariants, icons } = useTheme()
     const dispatch = useAppDispatch();
-    const vodReducer: VodReducerState = useAppSelector(({ vodReducer }: RootState) => vodReducer);
-    const favorites = vodReducer.favorites;
+    const favs: FavoriteVodReducerState = useAppSelector(({ vodFavouritesReducer }: RootState) => vodFavouritesReducer);
+    const favorites = favs.favorites;
+    
     return (
         <ScreenContainer>
             <TitleWithBackButtonHeader title='我的收藏' />

@@ -67,7 +67,6 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
   const fetchData = (id: number) => fetch(`${API_DOMAIN}page/v1/typepage?id=${id}`)
     .then(response => response.json())
     .then((json: VodCarousellResponseType) => {
-      console.log('FETCHED', id)
       return json.data
     });
 

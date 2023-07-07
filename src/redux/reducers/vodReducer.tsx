@@ -2,7 +2,7 @@ import {
     ADD_VOD_TO_FAVORITES, REMOVE_VOD_FROM_FAVORITES, PLAY_VOD, TOGGLE_VOD_FAVORITES,
     TOGGLE_PLAYLIST_FAVORITES, VIEW_PLAYLIST, ADD_VOD_TO_HISTORY, CLEAR_HISTORY, REMOVE_VOD_HISTORY
 } from "../../constants"
-import { VodActionType, VodPlaylistActionType } from "../../types/actionTypes"
+import { FavoriteVodActionType, VodActionType, VodPlaylistActionType } from "../../types/actionTypes"
 import { VodTopicType, VodType } from "../../types/ajaxTypes"
 
 export interface VodRecordType extends VodType {
@@ -64,39 +64,6 @@ export function vodReducer(state = initialState, action: VodActionType) {
                 ...state, history: hst
             };
         }
-        case TOGGLE_VOD_FAVORITES: {
-            let new_fav = [];
-            let isVodFavorite = false;
-            if (state.playVod.isFavorite) {
-                new_fav = state.favorites.filter(vod => vod.vod_id !== firstPayloadItemWithTimestamp.vod_id);
-            } else {
-                new_fav = [firstPayloadItemWithTimestamp, ...state.favorites];
-                isVodFavorite = true;
-            }
-            return {
-                ...state, favorites: new_fav, playVod: {
-                    vod: firstPayloadItemWithTimestamp,
-                    isFavorite: isVodFavorite
-                }
-            };
-        }
-        case ADD_VOD_TO_FAVORITES: {
-            return {
-                ...state, favorites: [firstPayloadItemWithTimestamp, ...state.favorites], playVod: {
-                    vod: firstPayloadItemWithTimestamp,
-                    isFavorite: true
-                }
-            };
-        }
-        case REMOVE_VOD_FROM_FAVORITES:
-            return {
-                ...state,
-                favorites: state.favorites.filter(vod => vod.vod_id !== firstPayloadItemWithTimestamp.vod_id),
-                playVod: {
-                    vod: firstPayloadItemWithTimestamp,
-                    isFavorite: false
-                }
-            };
         case REMOVE_VOD_HISTORY: {
             return {
                 ...state,
@@ -107,6 +74,32 @@ export function vodReducer(state = initialState, action: VodActionType) {
             return state
     }
 }
+
+export interface FavoriteVodReducerState {
+    favorites: Array<VodType>,
+}
+
+const initialFavoriteState: FavoriteVodReducerState = {
+    favorites: [],
+}
+
+export function vodFavouritesReducer(state = initialFavoriteState, action: FavoriteVodActionType) {
+    switch (action.type) {
+        case ADD_VOD_TO_FAVORITES: {
+            return {
+                ...state, favorites: state.favorites.concat(action.payload)
+            };
+        }
+        case REMOVE_VOD_FROM_FAVORITES:
+            return {
+                ...state,
+                favorites: state.favorites.filter(vod => vod.vod_id !== action.payload.vod_id),
+            };
+        default:
+            return state
+    }
+}
+
 
 export interface VodPlaylistReducerState {
     playlistFavorites: Array<VodTopicType>,

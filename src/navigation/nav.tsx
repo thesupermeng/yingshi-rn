@@ -92,48 +92,6 @@ export default () => {
         );
     }
 
-    function ProfileTabScreen() {
-        return (
-            <ProfileTab.Navigator screenOptions={{
-                tabBarStyle: { paddingBottom: 5, paddingTop: 4 },
-                headerShown: false
-            }}>
-                <ProfileTab.Screen name="首页" component={HomeScreen} />
-                <ProfileTab.Screen name="随心看" component={WatchAnytime} />
-                <ProfileTab.Screen name="播单" component={PlaylistScreen} />
-                <ProfileTab.Screen name="我的" component={ProfileScreen} />
-            </ProfileTab.Navigator>
-        );
-    }
-
-    function PlaylistTabScreen() {
-        return (
-            <PlaylistTab.Navigator screenOptions={{
-                headerShown: false,
-                tabBarStyle: { paddingBottom: 5, paddingTop: 4 },
-            }}>
-                <PlaylistTab.Screen name="首页" component={HomeScreen} />
-                <PlaylistTab.Screen name="随心看" component={WatchAnytime} />
-                <PlaylistTab.Screen name="播单" component={PlaylistScreen} />
-                <PlaylistTab.Screen name="我的" component={ProfileScreen} />
-            </PlaylistTab.Navigator>
-        );
-    }
-
-    function WatchAnytimeTabScreen() {
-        return (
-            <WatchAnytimeTab.Navigator screenOptions={{
-                tabBarStyle: { paddingBottom: 5, paddingTop: 4 },
-                headerShown: false
-            }}>
-                <WatchAnytimeTab.Screen name="首页" component={HomeScreen} />
-                <WatchAnytimeTab.Screen name="随心看" component={WatchAnytime} />
-                <WatchAnytimeTab.Screen name="播单" component={PlaylistScreen} />
-                <WatchAnytimeTab.Screen name="我的" component={ProfileScreen} />
-            </WatchAnytimeTab.Navigator>
-        );
-    }
-
     return (
         <SafeAreaProvider>
             <StatusBar
@@ -145,9 +103,6 @@ export default () => {
                     headerShown: false,
                 })} >
                     <Stack.Screen name='Home' component={HomeTabScreen} options={{ orientation: 'portrait' }} />
-                    <Stack.Screen name='Profile' component={ProfileTabScreen} options={{ orientation: 'portrait' }} />
-                    <Stack.Screen name='Playlist' component={PlaylistTabScreen} options={{ orientation: 'portrait' }} />
-                    <Stack.Screen name='WatchAnytime' component={WatchAnytimeTabScreen} options={{ orientation: 'portrait' }} />
                     <Stack.Screen name='视频收藏' component={VodCollectionScreen} options={{ orientation: 'portrait' }} />
                     <Stack.Screen name='播单收藏' component={PlaylistCollectionScreen} options={{ orientation: 'portrait' }} />
                     <Stack.Screen name='反馈' component={FeedbackScreen} options={{ orientation: 'portrait' }} />

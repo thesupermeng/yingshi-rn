@@ -28,7 +28,7 @@ export default function FavoriteVodCard({ vod, onPress, btnStyle, hideFavoriteBu
                         }}>
                             {vod.vod_name}
                         </Text>
-                        : <FavoriteButton vod={vod} />
+                        : <FavoriteButton vod={vod} initialState={true}/>
                 }
                 <VodDescription vod={vod} />
             </View>

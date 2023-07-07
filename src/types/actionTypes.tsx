@@ -11,6 +11,11 @@ export interface VodActionType {
     episodeWatched?: number
 }
 
+export interface FavoriteVodActionType {
+    type: string,
+    payload:  VodType
+}
+
 export interface VodPlaylistActionType {
     type: string,
     payload: VodTopicType 
