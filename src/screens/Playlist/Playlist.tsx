@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
 import MainHeader from '../../components/header/homeHeader';
@@ -27,7 +27,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
         .then((json: VodPlaylistResponseType) => {
             return Object.values(json.data.List)
         })
-  
+
     const { data: playlists, isSuccess, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } =
         useInfiniteQuery(['vodPlaylist'], ({ pageParam = 1 }) => fetchPlaylist(pageParam), {
             getNextPageParam: (lastPage, allPages) => {
@@ -45,6 +45,10 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
             }
         });
 
+    const renderItem = useCallback(({ item, index }: FlatListType) =>
+        <VodPlaylist playlist={item}
+            titleStyle={{ color: colors.text }} />, [])
+
     return (
         <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
             <MainHeader headerStyle={{
@@ -57,15 +61,14 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
             <Animated.FlatList
                 data={results}
                 onEndReached={() => {
-                    if (hasNextPage && !isFetchingNextPage && !isFetching) {
+                    if (hasNextPage) {
                         fetchNextPage();
                     }
                 }}
-                onEndReachedThreshold={0.1}
-                renderItem={({ item, index }: FlatListType) =>
-                    <VodPlaylist playlist={item}
-                        titleStyle={{ color: colors.text }} />
-                }
+                onEndReachedThreshold={0.5}
+                windowSize={5}
+                maxToRenderPerBatch={5}
+                renderItem={renderItem}
                 ListFooterComponent={
                     <View style={{ ...styles.loading, marginBottom: spacing.xl }}>
                         {

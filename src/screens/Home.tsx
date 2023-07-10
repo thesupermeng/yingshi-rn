@@ -1,41 +1,31 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, FlatList, TouchableWithoutFeedback } from 'react-native';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, FlatList, Dimensions } from 'react-native';
 import ScreenContainer from '../components/container/screenContainer';
-import HomeHeader from '../components/header/homeHeader';
 import { useTheme } from '@react-navigation/native';
-import Swiper from 'react-native-swiper';
-import ShowMoreVodButton from '../components/button/showMoreVodButton';
-import VodList from '../components/vod/vodList';
-import { useQuery, QueryClient, useQueryClient, useInfiniteQuery } from '@tanstack/react-query';
+import { useQuery, useQueries, UseQueryResult } from '@tanstack/react-query';
 import { NavOptionsResponseType, VodCarousellResponseType, VodPlaylistResponseType, VodTopicType, VodType } from '../types/ajaxTypes';
-import FastImage from 'react-native-fast-image'
-import { VodReducerState } from '../redux/reducers/vodReducer';
-import { useAppDispatch, useAppSelector } from '../hooks/hooks';
-import { RootState } from '../redux/store';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
-import VodHistoryList from '../components/vod/vodHistoryList';
 import { API_DOMAIN } from '../constants';
-import VodListVertical from '../components/vod/vodListVertical';
-import LinearGradient from 'react-native-linear-gradient';
-import { playVod, viewPlaylistDetails } from '../redux/actions/vodActions';
-import { Directions, FlingGestureHandler, Gesture, GestureDetector, PanGestureHandler } from 'react-native-gesture-handler';
-import { ScrollView } from 'react-native';
+import CatagoryHome from '../components/container/CatagoryHome';
+import RecommendationHome from '../components/container/RecommendationHome';
+import HomeHeader from '../components/header/homeHeader';
+import FastImage from 'react-native-fast-image';
+// import { FlatList } from 'react-native-gesture-handler';
+
 interface NavType {
-  item: {
-    id: number,
-    name: string,
-  }
+  id: number,
+  name: string,
 }
 
 export default ({ navigation }: BottomTabScreenProps<any>) => {
   const { colors, textVariants, spacing } = useTheme();
   const [navId, setNavId] = useState(0);
-  const vodReducer: VodReducerState = useAppSelector(({ vodReducer }: RootState) => vodReducer);
-  const history = vodReducer.history;
+  const width = Dimensions.get('window').width;
+  const ref = useRef<any>();
+  const onEndReachedCalledDuringMomentum = useRef(true);
   const BTN_COLORS = ['#30AA55', '#7E9CEE', '#F1377A', '#FFCC12', '#ED7445',];
-  const dispatch = useAppDispatch();
-  const [results, setResults] = useState<Array<VodTopicType>>([])
-  const queryClient = useQueryClient();
+  const [scrollEnabled, setScrollEnabled] = useState(true);
+  const navRef = useRef<any>();
 
   const { data: navOptions } = useQuery({
     queryKey: ["HomePageNavOptions"],
@@ -47,275 +37,104 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
         })
   });
 
-  const nextNavId = useMemo(() => {
-    if (navOptions === undefined || navOptions.length < 2) {
-      return 1
-    }
-    const navLength = navOptions.length;
-    return (((navId + 1) % navLength) + navLength) % navLength
-  }, [navId, navOptions])
-
-  const prevNavId = useMemo(() => {
-    if (navOptions === undefined || navOptions.length < 2) {
-      return 1
-    }
-    const navLength = navOptions.length;
-    return (((navId - 1) % navLength) + navLength) % navLength
-  }, [navId, navOptions])
-
-
   const fetchData = (id: number) => fetch(`${API_DOMAIN}page/v1/typepage?id=${id}`)
     .then(response => response.json())
     .then((json: VodCarousellResponseType) => {
-      return json.data
+      return json
     });
 
-  const { data } = useQuery({
-    queryKey: ["HomePage", navId],
-    queryFn: () => {
-      return fetchData(navId);
-    },
-    staleTime: 300000,
-  });
+  const data = useQueries({
+    queries: navOptions ? navOptions?.map(x => ({ queryKey: ['HomePage', x.id], queryFn: () => fetchData(x.id) })) : []
+  })
 
-  const fetchPlaylist = (page: number) => fetch(`${API_DOMAIN}topic/v1/topic?page=${page}`)
-    .then(response => response.json())
-    .then((json: VodPlaylistResponseType) => {
-      return Object.values(json.data.List)
-    })
-
-  const { data: playlists, isSuccess, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } =
-    useInfiniteQuery(['vodPlaylist'], ({ pageParam = 1 }) => fetchPlaylist(pageParam), {
-      getNextPageParam: (lastPage, allPages) => {
-        if (lastPage === null) {
-          return undefined;
-        }
-        const nextPage =
-          lastPage.length === 10 ? allPages.length + 1 : undefined;
-        return nextPage;
-      },
-      onSuccess: (data) => {
-        if (data && data?.pages) {
-          setResults([...results, ...data.pages[data.pages.length - 1].flat()])
-        }
+  const Content = useCallback(({ item, index }: { item: UseQueryResult<VodCarousellResponseType>, index: number }) => {
+    return <View style={{ width: width }}>
+      {
+        item.data !== undefined && (
+          index === 0
+            ? <RecommendationHome vodCarouselRes={item.data} setScrollEnabled={setScrollEnabled} />
+            : <CatagoryHome vodCarouselRes={item.data} navId={index} setScrollEnabled={setScrollEnabled} />
+        )
       }
-    });
+    </View>
+  }, [data])
 
-  useEffect(() => {
-    queryClient.prefetchQuery({
-      queryKey: ["HomePage", nextNavId],
-      queryFn: () => {
-        return fetchData(nextNavId);
-      },
-      staleTime: 300000,
-    });
-    queryClient.prefetchQuery({
-      queryKey: ["HomePage", prevNavId],
-      queryFn: () => {
-        return fetchData(prevNavId);
-      },
-      staleTime: 300000,
-    });
-  }, [queryClient, nextNavId, prevNavId])
-
-  const onLeftFling = Gesture.Fling().runOnJS(true)
-    .direction(Directions.LEFT)
-    .onStart((e) => {
-      if (navOptions) {
-        const l = navOptions?.length;
-        const idx = (((navId + 1) % l) + l) % l;
-        setNavId(idx);
+  const onScrollEnd = useCallback((e: any) => {
+    if (!onEndReachedCalledDuringMomentum.current) {
+      const pageNumber = Math.min(Math.max(Math.floor(e.nativeEvent.contentOffset.x / width + 0.5), 0), data.length);
+      if (pageNumber !== navId) {
+        setNavId(pageNumber);
+        navRef?.current?.scrollToIndex({
+          index: pageNumber,
+          viewOffset: 24
+        });
       }
-
-    });
-
-  const onRightFling = Gesture.Fling().runOnJS(true)
-    .direction(Directions.RIGHT)
-    .onStart((e) => {
-      if (navOptions && navOptions.length > 0) {
-        const l = navOptions?.length;
-        const idx = (((navId - 1) % l) + l) % l;
-        setNavId(idx);
-      }
-    });
+      onEndReachedCalledDuringMomentum.current = true;
+    }
+  }, [data, width, onEndReachedCalledDuringMomentum, navRef, navId])
 
   return (
-    <GestureDetector gesture={onLeftFling} >
-      <GestureDetector gesture={onRightFling} >
-        <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
-          <View style={{ backgroundColor: colors.background, paddingLeft: spacing.sideOffset, paddingRight: spacing.sideOffset }}>
-            <HomeHeader navigator={navigation} />
-            <FlatList
-              data={navOptions}
-              horizontal
-              contentContainerStyle={styles.nav}
-              renderItem={({ item }: NavType) => {
-                return <TouchableOpacity style={{ marginRight: spacing.m, justifyContent: 'center', display: 'flex' }} onPress={() => setNavId(item.id)}>
-                  <Text style={{
-                    textAlign: 'center',
-                    fontSize: navId === item.id ? textVariants.selected.fontSize : textVariants.unselected.fontSize,
-                    fontWeight: navId === item.id ? textVariants.selected.fontWeight : textVariants.unselected.fontWeight,
-                    color: navId === item.id ? colors.primary : colors.muted,
-                  }}>{item.name}</Text>
-                </TouchableOpacity>
-              }}
+    <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
+      <View style={{ backgroundColor: colors.background, paddingLeft: spacing.sideOffset, paddingRight: spacing.sideOffset }}>
+        <HomeHeader navigator={navigation} />
+        <FlatList
+          data={navOptions ? navOptions : []}
+          horizontal
+          ref={navRef}
+          contentContainerStyle={styles.nav}
+          renderItem={({ item, index }: { item: NavType, index: number }) => {
+            return (
+              <TouchableOpacity style={{ marginRight: spacing.m, justifyContent: 'center', display: 'flex' }} onPress={() => {
+                if (data.length > 0) {
+                  setNavId(index)
+                  ref?.current?.scrollToIndex({
+                    index: index,
+                  });
+                }
+              }}>
+                <Text style={{
+                  textAlign: 'center',
+                  fontSize: navId === index ? textVariants.selected.fontSize : textVariants.unselected.fontSize,
+                  fontWeight: navId === index ? textVariants.selected.fontWeight : textVariants.unselected.fontWeight,
+                  color: navId === index ? colors.primary : colors.muted,
+                }}>{item.name}</Text>
+              </TouchableOpacity>
+
+            )
+          }}
+        />
+      </View>
+      {
+        !data && <View style={{ ...styles.loading, marginBottom: spacing.xl }}>
+          {
+            <FastImage
+              style={{ height: 80, width: 80 }}
+              source={require('../../static/images/loading-spinner.gif')}
+              resizeMode={FastImage.resizeMode.contain}
             />
-          </View>
-          <FlatList
-            ListHeaderComponent={
-              <>
-                {
-                  data?.carousel[0] && <View style={{ height: 200, paddingLeft: spacing.sideOffset, paddingRight: spacing.sideOffset }}>
-                    <Swiper style={styles.wrapper}
-                      autoplay
-                      dotColor={colors.sliderDot}
-                      activeDotColor={colors.text}
-                      dotStyle={styles.dotStyle}
-                      paginationStyle={styles.paginationStyle}
-                      activeDotStyle={styles.activeDotStyle}>
-                      {
-                        data.carousel.map((carouselItem, idx) => {
-                          return <TouchableOpacity key={`slider-${idx}`} onPress={() => {
-                            dispatch(playVod(carouselItem.vod));
-                            navigation.navigate('播放', {
-                              vod_id: carouselItem.carousel_content_id,
-                            });
-                          }} >
-                            <FastImage
-                              style={styles.image}
-                              source={{
-                                uri: carouselItem.carousel_pic_mobile,
-                                priority: FastImage.priority.normal,
-                              }}
-                              resizeMode={FastImage.resizeMode.cover}
-                            />
-                            <LinearGradient
-                              colors={['transparent', 'black']}
-                              start={{ x: 0.5, y: 0 }}
-                              end={{ x: 0.5, y: 0.6 }}
-                              style={styles.bottomBlur}
-                            />
-                            <Text style={{ ...textVariants.bodyBold, ...styles.carouselTag, color: 'white' }} numberOfLines={1}>{carouselItem.carousel_name}</Text>
-                          </TouchableOpacity>
-                        })
-                      }
-                    </Swiper>
-                  </View>
-                }
-
-                <View>
-                  {
-                    data && data.class_list && data.class_list.length > 0 &&
-                    <FlatList
-                      data={['全部剧集', ...data.class_list]}
-                      horizontal
-                      contentContainerStyle={{ ...styles.catalogNav, marginBottom: spacing.m, paddingLeft: spacing.sideOffset, paddingRight: spacing.sideOffset }}
-                      renderItem={({ item, index }: { item: string, index: number }) => {
-                        return <TouchableOpacity style={{
-                          marginRight: spacing.m, justifyContent: 'center',
-                          display: 'flex',
-                          backgroundColor: BTN_COLORS[index % BTN_COLORS.length],
-                          paddingLeft: spacing.s,
-                          paddingRight: spacing.s,
-                          paddingTop: spacing.s - 4,
-                          paddingBottom: spacing.s - 1,
-                          borderRadius: spacing.xs,
-                          opacity: 0.9
-                        }} onPress={() => navigation.navigate('片库', { type_id: navId, class: item })}>
-                          <Text style={{
-                            textAlign: 'center',
-                            ...textVariants.body,
-                            fontWeight: '700',
-                            opacity: 0.9
-                          }}>{item}</Text>
-                        </TouchableOpacity>
-                      }}
-                    />
-                  }
-                  {
-                    navId === 0 && history && history.length > 0 &&
-                    <View style={{ gap: spacing.m }}>
-                      <View style={{ paddingLeft: spacing.sideOffset, paddingRight: spacing.sideOffset }}>
-                        <ShowMoreVodButton text='继续看' onPress={() => {
-                          navigation.navigate('播放历史');
-                        }} />
-                      </View>
-                      <View style={{ paddingLeft: spacing.sideOffset }}>
-                        <VodHistoryList vodStyle={styles.vod_hotlist} vodList={history.slice(0, 10)} showInfo='watch_progress' />
-                      </View>
-                    </View>
-                  }
-                  {
-                    data && data.yunying &&
-                    <View style={{ paddingLeft: spacing.sideOffset, paddingRight: spacing.sideOffset, gap: spacing.m }}>
-                      <View>
-                        <ShowMoreVodButton text='精选热播' onPress={() => {
-                          navigation.navigate('片库');
-                        }} />
-                      </View>
-                      <VodListVertical vods={data.yunying[navId].vod_list.slice(0, 6)} />
-                    </View>
-                  }
-                  <View style={{ paddingLeft: spacing.sideOffset, paddingRight: spacing.sideOffset, gap: spacing.m }}>
-                    {
-                      data?.categories.map((lst, idx) => {
-                        return <View key={`${lst.type_name}-${idx}`} style={{ gap: spacing.m }}>
-                          <ShowMoreVodButton text={lst.type_name} onPress={() => {
-                            navigation.navigate('片库', { type_id: lst.type_id, class: navId === 0 ? '全部' : lst.type_name });
-                          }} />
-                          {
-                            lst?.vod_list && lst.vod_list.length >= 6 &&
-                            <VodListVertical vods={lst.vod_list.slice(0, 6)} />
-                          }
-                        </View>
-                      })
-                    }
-                  </View>
-                </View>
-              </>
-            }
-            data={navId === 0 ? results : []}
-            onEndReached={() => {
-              if (navId === 0 && hasNextPage && !isFetchingNextPage && !isFetching) {
-                fetchNextPage();
-              }
-            }}
-            onEndReachedThreshold={0.1}
-            renderItem={({ item, index }: { item: VodTopicType, index: number }) =>
-              <View style={{ paddingLeft: spacing.sideOffset, paddingRight: spacing.sideOffset, gap: spacing.m }}>
-                <View key={`${item.topic_name}-${index}`} style={{ gap: spacing.m }}>
-                  <ShowMoreVodButton text={item.topic_name} onPress={() => {
-                    dispatch(viewPlaylistDetails(item));
-                    navigation.navigate('PlaylistDetail', { topic_id: item.topic_id });
-                  }} />
-                  <VodListVertical vods={item.vod_list.slice(0, 6)} />
-                </View>
-              </View>
-
-            }
-            ListFooterComponent={
-              <View>
-                {
-                  navId === 0 && <View style={{ ...styles.loading, marginBottom: spacing.xl }}>
-                    {
-                      hasNextPage && <FastImage
-                        style={{ height: 80, width: 80 }}
-                        source={require('../../static/images/loading-spinner.gif')}
-                        resizeMode={FastImage.resizeMode.contain}
-                      />
-                    }
-                    {
-                      !(isFetchingNextPage || isFetching) && !hasNextPage &&
-                      <Text style={{ ...textVariants.body, color: colors.muted }}>没有更多了</Text>
-                    }
-                  </View>
-                }
-              </View>
-            }
-          />
-        </ScreenContainer>
-      </GestureDetector>
-    </GestureDetector>
+          }
+        </View>
+      }
+      <FlatList
+        ref={ref}
+        data={data}
+        pagingEnabled={true}
+        scrollEnabled={scrollEnabled && onEndReachedCalledDuringMomentum.current}
+        horizontal={true}
+        windowSize={3}
+        maxToRenderPerBatch={2}
+        initialNumToRender={1}
+        nestedScrollEnabled={true}
+        getItemLayout={(data, index) => (
+          { length: width, offset: width * index, index }
+        )}
+        onMomentumScrollBegin={() => {
+          onEndReachedCalledDuringMomentum.current = false;
+        }}
+        onMomentumScrollEnd={onScrollEnd}
+        renderItem={Content}
+      />
+    </ScreenContainer>
   )
 }
 
@@ -385,6 +204,7 @@ const styles = StyleSheet.create({
   loading: {
     flexDirection: 'row',
     justifyContent: 'center',
-    flex: 1
+    flex: 1,
+    height: '100%'
   }
 })
