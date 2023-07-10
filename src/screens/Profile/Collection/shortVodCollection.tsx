@@ -24,7 +24,6 @@ export default ({ navigation }: RootStackScreenProps<'合集收藏'>) => {
     const dispatch = useAppDispatch();
     const favs: FavoriteVodReducerState = useAppSelector(({ vodFavouritesReducer }: RootState) => vodFavouritesReducer);
     const favorites = favs.favorites;
-    console.log(favorites)
     return (
         <ScreenContainer>
             <TitleWithBackButtonHeader title='我的收藏' />

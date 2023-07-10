@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, FlatList } from 'react-native';
+import React, { memo, useCallback, useState } from 'react';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { useNavigation, useTheme } from '@react-navigation/native';
 import Swiper from 'react-native-swiper';
 import ShowMoreVodButton from '../button/showMoreVodButton';
@@ -12,6 +12,7 @@ import VodListVertical from '../vod/vodListVertical';
 import LinearGradient from 'react-native-linear-gradient';
 import { playVod } from '../../redux/actions/vodActions';
 import HomeHeader from '../header/homeHeader';
+import { FlatList } from 'react-native-gesture-handler';
 
 interface NavType {
     id: number,
@@ -21,25 +22,36 @@ interface Props {
     vodCarouselRes: VodCarousellResponseType,
     navOptions?: NavType[] | undefined,
     onNavChange?: any,
-    navId?: number
+    navId?: number,
+    setScrollEnabled?: any
 }
-
-export default ({ vodCarouselRes, navId=0 }: Props) => {
+const BTN_COLORS = ['#30AA55', '#7E9CEE', '#F1377A', '#FFCC12', '#ED7445'];
+const CatagoryHome = ({ vodCarouselRes, navId = 0, setScrollEnabled }: Props) => {
     const { colors, textVariants, spacing } = useTheme();
-    const vodReducer: VodReducerState = useAppSelector(({ vodReducer }: RootState) => vodReducer);
-    const BTN_COLORS = ['#30AA55', '#7E9CEE', '#F1377A', '#FFCC12', '#ED7445',];
     const dispatch = useAppDispatch();
     const navigation = useNavigation();
     const data = vodCarouselRes.data;
+
+    const listItem = useCallback(({ item, index }: { item: VodData, index: number }) =>
+        <View key={`${item.type_name}-${index}`} style={{ gap: spacing.m, paddingLeft: spacing.sideOffset, paddingRight: spacing.sideOffset }}>
+            <ShowMoreVodButton text={item.type_name} onPress={() => {
+                navigation.navigate('片库', { type_id: item.type_id, class: item.type_name });
+            }} />
+            {
+                item?.vod_list && item?.vod_list?.length >= 6 &&
+                <VodListVertical vods={item?.vod_list?.slice(0, 6)} />
+            }
+        </View>, [])
 
     return (
         <FlatList
             ListHeaderComponent={
                 <>
                     {
-                        data?.carousel[0] && <View style={{ height: 200, paddingLeft: spacing.sideOffset, paddingRight: spacing.sideOffset }}>
+                        data?.carousel[0] && <View style={{ height: 200, paddingLeft: spacing.sideOffset, paddingRight: spacing.sideOffset, }}>
                             <Swiper style={styles.wrapper}
                                 autoplay
+                                loadMinimal={true}
                                 dotColor={colors.sliderDot}
                                 activeDotColor={colors.text}
                                 dotStyle={styles.dotStyle}
@@ -52,12 +64,18 @@ export default ({ vodCarouselRes, navId=0 }: Props) => {
                                             navigation.navigate('播放', {
                                                 vod_id: carouselItem.carousel_content_id,
                                             });
-                                        }} >
+                                        }}
+                                            onPressIn={() => { setScrollEnabled(false) }}
+                                            onPressOut={() => { setScrollEnabled(true) }}
+                                            delayPressIn={0}
+                                            delayPressOut={0}
+                                            delayLongPress={0}
+                                        >
                                             <FastImage
                                                 style={styles.image}
                                                 source={{
                                                     uri: carouselItem.carousel_pic_mobile,
-                                                    priority: FastImage.priority.normal,
+                                                    priority: FastImage.priority.high,
                                                 }}
                                                 resizeMode={FastImage.resizeMode.cover}
                                             />
@@ -80,6 +98,7 @@ export default ({ vodCarouselRes, navId=0 }: Props) => {
                             <FlatList
                                 data={['全部剧集', ...data.class_list]}
                                 horizontal
+                                initialNumToRender={5}
                                 contentContainerStyle={{ ...styles.catalogNav, marginBottom: spacing.m, paddingLeft: spacing.sideOffset, paddingRight: spacing.sideOffset }}
                                 renderItem={({ item, index }: { item: string, index: number }) => {
                                     return <TouchableOpacity style={{
@@ -118,21 +137,15 @@ export default ({ vodCarouselRes, navId=0 }: Props) => {
                 </>
             }
             data={data?.categories ? data?.categories : []}
-            renderItem={({ item, index }: { item: VodData, index: number }) =>
-                <View key={`${item.type_name}-${index}`} style={{ gap: spacing.m, paddingLeft: spacing.sideOffset, paddingRight: spacing.sideOffset }}>
-                    <ShowMoreVodButton text={item.type_name} onPress={() => {
-                        navigation.navigate('片库', { type_id: item.type_id, class: navId === 0 ? '全部' : item.type_name });
-                    }} />
-                    {
-                        item?.vod_list && item?.vod_list?.length >= 6 &&
-                        <VodListVertical vods={item?.vod_list?.slice(0, 6)} />
-                    }
-                </View>
-
-            }
+            initialNumToRender={0}
+            windowSize={1}
+            maxToRenderPerBatch={1}
+            renderItem={listItem}
         />
     )
 }
+
+export default memo(CatagoryHome);
 
 const styles = StyleSheet.create({
     wrapper: {

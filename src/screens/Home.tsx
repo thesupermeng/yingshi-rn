@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, FlatList, TouchableWithoutFeedback, Dimensions, ViewToken, FlatListProps } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, FlatList, Dimensions } from 'react-native';
 import ScreenContainer from '../components/container/screenContainer';
 import { useTheme } from '@react-navigation/native';
 import { useQuery, useQueries, UseQueryResult } from '@tanstack/react-query';
@@ -10,6 +10,7 @@ import CatagoryHome from '../components/container/CatagoryHome';
 import RecommendationHome from '../components/container/RecommendationHome';
 import HomeHeader from '../components/header/homeHeader';
 import FastImage from 'react-native-fast-image';
+// import { FlatList } from 'react-native-gesture-handler';
 
 interface NavType {
   id: number,
@@ -21,6 +22,10 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
   const [navId, setNavId] = useState(0);
   const width = Dimensions.get('window').width;
   const ref = useRef<any>();
+  const onEndReachedCalledDuringMomentum = useRef(true);
+  const BTN_COLORS = ['#30AA55', '#7E9CEE', '#F1377A', '#FFCC12', '#ED7445',];
+  const [scrollEnabled, setScrollEnabled] = useState(true);
+  const navRef = useRef<any>();
 
   const { data: navOptions } = useQuery({
     queryKey: ["HomePageNavOptions"],
@@ -38,29 +43,36 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
       return json
     });
 
-  // const data = useQueries({
-  //   queryKey: [navOptions ? navOptions : 'pages'],
-  //   queries: navOptions ? navOptions?.map(x => ({ queryKey: ['HomePage', x.id - 1], queryFn: () => fetchData(x.id - 1) })) : []
-  // })
   const data = useQueries({
-    queries: [
-      { queryKey: ['HomePage', 0], queryFn: () => fetchData(0) },
-      { queryKey: ['HomePage', 1], queryFn: () => fetchData(1) },
-      { queryKey: ['HomePage', 2], queryFn: () => fetchData(2) },
-      { queryKey: ['HomePage', 3], queryFn: () => fetchData(3) },
-      { queryKey: ['HomePage', 4], queryFn: () => fetchData(4) },
-      { queryKey: ['HomePage', 5], queryFn: () => fetchData(5) },
-      { queryKey: ['HomePage', 6], queryFn: () => fetchData(6) },
-      { queryKey: ['HomePage', 7], queryFn: () => fetchData(7) },
-    ]
+    queries: navOptions ? navOptions?.map(x => ({ queryKey: ['HomePage', x.id], queryFn: () => fetchData(x.id) })) : []
   })
 
-  // console.log('first item', data[0])
+  const Content = useCallback(({ item, index }: { item: UseQueryResult<VodCarousellResponseType>, index: number }) => {
+    return <View style={{ width: width }}>
+      {
+        item.data !== undefined && (
+          index === 0
+            ? <RecommendationHome vodCarouselRes={item.data} setScrollEnabled={setScrollEnabled} />
+            : <CatagoryHome vodCarouselRes={item.data} navId={index} setScrollEnabled={setScrollEnabled} />
+        )
+      }
+    </View>
+  }, [data])
 
   const onScrollEnd = useCallback((e: any) => {
-    let pageNumber = Math.min(Math.max(Math.floor(e.nativeEvent.contentOffset.x / width + 0.5), 0), data.length);
-    setNavId(pageNumber);
-  }, [data, width, setNavId])
+    if (!onEndReachedCalledDuringMomentum.current) {
+      const pageNumber = Math.min(Math.max(Math.floor(e.nativeEvent.contentOffset.x / width + 0.5), 0), data.length);
+      if (pageNumber !== navId) {
+        setNavId(pageNumber);
+        navRef?.current?.scrollToIndex({
+          index: pageNumber,
+          viewOffset: 24
+        });
+      }
+      onEndReachedCalledDuringMomentum.current = true;
+    }
+  }, [data, width, onEndReachedCalledDuringMomentum, navRef, navId])
+
   return (
     <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
       <View style={{ backgroundColor: colors.background, paddingLeft: spacing.sideOffset, paddingRight: spacing.sideOffset }}>
@@ -68,6 +80,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
         <FlatList
           data={navOptions ? navOptions : []}
           horizontal
+          ref={navRef}
           contentContainerStyle={styles.nav}
           renderItem={({ item, index }: { item: NavType, index: number }) => {
             return (
@@ -81,9 +94,9 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
               }}>
                 <Text style={{
                   textAlign: 'center',
-                  fontSize: navId === item.id ? textVariants.selected.fontSize : textVariants.unselected.fontSize,
-                  fontWeight: navId === item.id ? textVariants.selected.fontWeight : textVariants.unselected.fontWeight,
-                  color: navId === item.id ? colors.primary : colors.muted,
+                  fontSize: navId === index ? textVariants.selected.fontSize : textVariants.unselected.fontSize,
+                  fontWeight: navId === index ? textVariants.selected.fontWeight : textVariants.unselected.fontWeight,
+                  color: navId === index ? colors.primary : colors.muted,
                 }}>{item.name}</Text>
               </TouchableOpacity>
 
@@ -106,25 +119,20 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
         ref={ref}
         data={data}
         pagingEnabled={true}
+        scrollEnabled={scrollEnabled && onEndReachedCalledDuringMomentum.current}
         horizontal={true}
         windowSize={3}
+        maxToRenderPerBatch={2}
         initialNumToRender={1}
+        nestedScrollEnabled={true}
         getItemLayout={(data, index) => (
           { length: width, offset: width * index, index }
         )}
+        onMomentumScrollBegin={() => {
+          onEndReachedCalledDuringMomentum.current = false;
+        }}
         onMomentumScrollEnd={onScrollEnd}
-        renderItem={
-          ({ item, index }: { item: UseQueryResult<VodCarousellResponseType>, index: number }) => <View style={{ width: width }}>
-            {
-              item.data !== undefined && Math.abs(navId - index) <= 2 && index === 0 &&
-              <RecommendationHome vodCarouselRes={item.data} />
-            }
-            {
-              item.data !== undefined && Math.abs(navId - index) <= 2 && index > 0 &&
-              <CatagoryHome vodCarouselRes={item.data} navId={index} />
-            }
-          </View>
-        }
+        renderItem={Content}
       />
     </ScreenContainer>
   )

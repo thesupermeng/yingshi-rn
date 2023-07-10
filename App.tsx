@@ -8,7 +8,7 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query'
 import { API_DOMAIN } from './src/constants';
-import { FilterOptionsResponseType, NavOptionsResponseType, SuggestResponseType, VodCarousellResponseType, VodPlaylistResponseType, } from './src/types/ajaxTypes';
+import { FilterOptionsResponseType, MiniVideo, NavOptionsResponseType, SuggestResponseType, VodCarousellResponseType, VodPlaylistResponseType, } from './src/types/ajaxTypes';
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
@@ -28,7 +28,7 @@ export default function App() {
         .then(response => response.json())
         .then((json: SuggestResponseType) => {
           return json.data.List
-        })
+        }),
   });
 
   queryClient.prefetchQuery({
@@ -49,7 +49,8 @@ export default function App() {
       })
       .then((json: FilterOptionsResponseType) => {
         return json.data
-      })
+      }),
+    staleTime: Infinity,
   });
 
   queryClient.prefetchQuery({
@@ -59,17 +60,33 @@ export default function App() {
         .then(response => response.json())
         .then((json: NavOptionsResponseType) => {
           return json.data
-        })
+        }),
+    staleTime: Infinity,
   });
 
   const fetchPlaylist = (page: number) => fetch(`${API_DOMAIN}topic/v1/topic?page=${page}`)
     .then(response => response.json())
     .then((json: VodPlaylistResponseType) => {
-      // console.log("PREFETCHED!")
       return Object.values(json.data.List)
     })
 
+
   queryClient.prefetchInfiniteQuery(['vodPlaylist'], ({ pageParam = 1 }) => fetchPlaylist(pageParam));
+
+  const fetchVods = (page: number) => fetch(
+    `${API_DOMAIN}miniVod/v1/miniVod?page=${page}&limit=100`,
+  )
+    .then(response => response.json())
+    .then((json: MiniVideoResponseType) => {
+      return json.data.List
+    })
+
+  type MiniVideoResponseType = {
+    data: {
+      List: Array<MiniVideo>
+    }
+  }
+  queryClient.prefetchInfiniteQuery(['watchAnytime'], ({ pageParam = 1 }) => fetchVods(pageParam));
 
   return (
     <QueryClientProvider client={queryClient}>

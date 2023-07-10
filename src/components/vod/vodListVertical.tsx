@@ -36,14 +36,13 @@ function VodListVertical({ vods, numOfRows = 2, outerRowPadding = 0, minNumPerRo
     const navigation = useNavigation();
     const dispatch = useAppDispatch();
 
-    const windowDim = useMemo(() => (Dimensions.get('window').width - insets.left - insets.right - outerRowPadding - (2 * spacing.sideOffset)), []); // usable space
-    const minWidth = useMemo(() => (windowDim / minNumPerRow) - 8, [windowDim]);
-    const cardWidth = useMemo(() => Math.min(200, Math.floor(minWidth)), [minWidth]);
-    const cardHeight = useMemo(() => heightToWidthRatio * cardWidth, [cardWidth]);
-    const CARDS_PER_ROW = useMemo(() => Math.floor(windowDim / cardWidth), [cardWidth]);
-    const BTN_MARGIN_RIGHT = useMemo(() => {
-        return (windowDim - (CARDS_PER_ROW * cardWidth)) / (CARDS_PER_ROW - 1)
-    }, [CARDS_PER_ROW, cardWidth])
+    const windowDim = Dimensions.get('window').width - insets.left - insets.right - outerRowPadding - (2 * spacing.sideOffset); // usable space
+    const minWidth = windowDim / minNumPerRow - 8;
+    const cardWidth = Math.min(200, Math.floor(minWidth));
+    const cardHeight = heightToWidthRatio * cardWidth;
+    const CARDS_PER_ROW = Math.floor(windowDim / cardWidth);
+    const BTN_MARGIN_RIGHT = (windowDim - (CARDS_PER_ROW * cardWidth)) / (CARDS_PER_ROW - 1);
+    
     return (
         <View style={styles.vodList}>
             {

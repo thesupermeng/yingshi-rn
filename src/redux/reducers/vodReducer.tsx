@@ -31,7 +31,6 @@ const initialState: VodReducerState = {
 }
 
 export function vodReducer(state = initialState, action: VodActionType) {
-    console.log('reducer called', action.type)
     const firstPayloadItemWithTimestamp: VodRecordType = {
         ...action.payload?.[0],
         recordedAt: new Date(),

@@ -51,7 +51,6 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     )
         .then(response => response.json())
         .then((json: MiniVideoResponseType) => {
-            console.log('API length', json.data.List.length)
             return json.data.List
         })
 
@@ -97,7 +96,6 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
             setCurrent(curr);
         }
     }, []);
-    console.log('renderinggg')
     return (
         <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
             <View style={{ position: 'absolute', top: 0, left: 0, padding: 20, zIndex: 50, width: '100%', flexDirection: 'row', alignItems: 'center' }}>
