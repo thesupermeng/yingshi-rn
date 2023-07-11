@@ -58,7 +58,6 @@ export default ({ navigation } : BottomTabScreenProps<any>) => {
                 if(json.data.List == null){
                     return;
                 }
-                console.log(json.data.List.length);
                 for(let i = 0; i < json.data.List.length; i++){
                     json.data.List[i].mini_video_origin_video_url = json.data.List[i].mini_video_origin_video_url.replace('http://', 'https://');
                 }
@@ -77,7 +76,6 @@ export default ({ navigation } : BottomTabScreenProps<any>) => {
     });
 
     const navBarHeight = useBottomTabBarHeight();
-    console.log('rendering')
     useFocusEffect(
         useCallback(() => {
             setIsPaused(false);
@@ -103,11 +101,10 @@ export default ({ navigation } : BottomTabScreenProps<any>) => {
 
     const handleViewableItemsChanged = useCallback(({ viewableItems }: { viewableItems: any }) => {
         setIsBuffering(false);
-        console.log("VIEWABLE : " + JSON.stringify(viewableItems));
+        // console.log("VIEWABLE : " + JSON.stringify(viewableItems));
         if(viewableItems.length == 1 && typeof viewableItems[0] != 'undefined'){
             setIsBuffering(true);
             const curr = viewableItems[0].index;
-
             // console.log("Currently Playing : " + curr);
             // console.log(viewableItems[0].item.mini_video_title + " - " + viewableItems[0].item.mini_video_origin_video_url);
             setCurrent(curr);

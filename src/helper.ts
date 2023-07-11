@@ -1,4 +1,4 @@
-export const getMaxWidth = (text: string, fontSize: number, ratio=0.85) => {
+export const getMaxWidth = (text: string, fontSize: number, ratio = 0.8) => {
     let size = 0;
     let nonNum = 0
     for (var i = 0; i < text.length; i++) {
@@ -10,6 +10,6 @@ export const getMaxWidth = (text: string, fontSize: number, ratio=0.85) => {
         }
     }
     size *= ratio;
-    size += (nonNum * fontSize);
+    size += (nonNum * (fontSize + 1));
     return size;
 }

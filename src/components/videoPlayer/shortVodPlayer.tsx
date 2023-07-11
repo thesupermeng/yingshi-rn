@@ -1,16 +1,13 @@
-import React, { useEffect, useState, memo, useCallback, useRef } from 'react';
-import { View, TouchableWithoutFeedback, StyleSheet, TouchableOpacity, Text } from 'react-native';
-import Video from 'react-native-video';
-import { useOrientation } from '../../hooks/useOrientation';
-import PlayFullScreenGesture from '../gestures/vod/PlayFullScreenGesture';
+import React, { useEffect, useState, memo, useMemo, useRef } from 'react';
+import { View, TouchableWithoutFeedback, StyleSheet, TouchableOpacity, Text, Dimensions } from 'react-native';
+import Video, { OnProgressData } from 'react-native-video';
 import { debounce, throttle } from "lodash";
-import { useTheme, useFocusEffect } from '@react-navigation/native';
-import { Dimensions } from 'react-native';
-import VideoControlsOverlay from './VideoControlsOverlay';
-import Orientation from 'react-native-orientation-locker';
-import Play from '../../../static/images/blackPlay.svg';
+import PlayIcon from '../../../static/images/blackPlay.svg';
+import PauseIcon from '../../../static/images/pause.svg';
+
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import FastImage from 'react-native-fast-image';
+import { Slider } from '@rneui/themed';
 
 interface Props {
     vod_url?: string
@@ -23,56 +20,125 @@ interface Props {
 function ShortVideoPlayer({ vod_url, isActive, thumbnail, videoTitle, displayHeight = 0 }: Props) {
     const bottomTabHeight = useBottomTabBarHeight();
     const [isBuffering, setIsBuffering] = useState();
-    // console.log(vod_url, 'playing', isActive)
+    const videoRef = useRef<Video>(null);
+    const [paused, setPaused] = useState(false);
+    const [currentTime, setCurrentTime] = useState(0);
+    const [duration, setDuration] = useState(0);
+    const [showOverlay, setShowOverlay] = useState(false);
+    const timer = useRef<number>(0);
+    const iconTimer = useRef<number>(0);
+    const [showIcon, setShowIcon] = useState(false);
 
     const onBuffer = (bufferObj: any) => {
         setIsBuffering(bufferObj.isBuffering);
     }
 
     const onError = (errorObj: any) => {
-        console.log(errorObj)
+        // console.log(errorObj)
     }
 
+    const handleProgress = (progress: OnProgressData) => {
+        setCurrentTime(progress.currentTime);
+    };
+
+    const showControls = () => {
+        clearTimeout(timer.current);
+        setShowOverlay(true);
+        timer.current = setTimeout(() => setShowOverlay(false), 3000);
+    }
+    const handleSeek = useMemo(() => throttle((value: number) => {
+        showControls();
+        if (videoRef.current) {
+            videoRef.current.seek(value);
+        }
+    }, 250), [videoRef.current, timer.current])
+
+    const handlePlayPause = () => {
+        clearTimeout(iconTimer.current);
+        setShowIcon(true);
+        if (paused) {
+            iconTimer.current = setTimeout(() => setShowIcon(false), 1000);
+        }
+        setPaused(!paused);
+    };
+
+    const handleLoad = (meta: any) => {
+        setDuration(meta.duration);
+    };
+
     return (
-        <View
-            style={[
+        <TouchableWithoutFeedback onPress={() => {
+            showControls();
+            if (showOverlay) {
+                handlePlayPause();
+            }
+        }}
+        >
+            <View style={[
                 styles.container,
                 { height: displayHeight },
-            ]}
-        >
-            {isBuffering &&
-                <View style={styles.buffering}>
-                    <FastImage
-                        source={require('../../../static/images/videoBufferLoading.gif')}
-                        style={{ width: 100, height: 100 }}
-                        resizeMode="contain"
-                    />
-                </View>
-            }
-            <Video
-                resizeMode="contain"
-                poster={thumbnail}
-                source={{ uri: vod_url }}
-                onBuffer={onBuffer}
-                onError={onError}
-                repeat={true}
-                style={styles.video}
-                ignoreSilentSwitch={"ignore"}
-                paused={!isActive}
-            />
-            
-            <View style={{ position: 'absolute', left: 0, bottom: 0, width: '100%', justifyContent: 'flex-end', padding: 20, paddingBottom: 40 }}>
-            
-                <View style={{ marginTop: 10, flexDirection: 'row' }}>
-                    {/* <View style={{ flex: 10, flexDirection: 'column', justifyContent: 'flex-end', marginRight: 35 }}> */}
-                    <View style={{ flex: 10, flexDirection: 'column', justifyContent: 'flex-end' }}>
-                        <TouchableOpacity>
-                            <Text style={{ fontSize: 14, color: '#fff' }}>{videoTitle}</Text>
-                        </TouchableOpacity>
+            ]}>
+                {isBuffering &&
+                    <View style={styles.buffering}>
+                        <FastImage
+                            source={require('../../../static/images/videoBufferLoading.gif')}
+                            style={{ width: 100, height: 100 }}
+                            resizeMode="contain"
+                        />
                     </View>
+                }
+                <Video
+                    ref={videoRef}
+                    resizeMode="contain"
+                    poster={thumbnail}
+                    source={{ uri: vod_url }}
+                    onBuffer={onBuffer}
+                    onError={onError}
+                    repeat={true}
+                    style={styles.video}
+                    // ignoreSilentSwitch={"ignore"}
+                    paused={!isActive || paused}
+                    onLoad={handleLoad}
+                    onProgress={handleProgress}
+                    progressUpdateInterval={400}
+                />
+                <View style={{ position: 'absolute', left: (Dimensions.get('window').width - 80) / 2, top: (Dimensions.get('window').height - 80) / 2, zIndex: 999 }}>
+                    {
+                        showIcon && (
+                            paused
+                                ? <PauseIcon />
+                                : <PlayIcon />
+                        )
+                    }
                 </View>
+                <View style={{ position: 'absolute', left: 0, bottom: 0, width: '100%', justifyContent: 'flex-end', padding: 20, paddingBottom: 40 }}>
+                    <View style={{ marginTop: 10, flexDirection: 'row' }}>
+
+                        {/* <View style={{ flex: 10, flexDirection: 'column', justifyContent: 'flex-end', marginRight: 35 }}> */}
+                        <View style={{ flex: 10, flexDirection: 'column', justifyContent: 'flex-end' }}>
+                            <TouchableOpacity>
+                                <Text style={{ fontSize: 14, color: '#fff' }}>{videoTitle}</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+
+                </View>
+                <Slider
+                    style={styles.slider}
+                    maximumValue={duration}
+                    minimumValue={0}
+                    disabled={!showOverlay}
+                    // allowTouchTrack={true}
+                    thumbStyle={{ height: showOverlay ? 20 : 1, width: showOverlay ? 20 : 1, }}
+                    value={currentTime}
+                    onValueChange={handleSeek}
+                    onSlidingComplete={handleSeek}
+                    minimumTrackTintColor={'#FAC33D'}
+                    maximumTrackTintColor={'#FFFFFF'}
+                    thumbTintColor={'#FFFFFF'}
+                />
             </View>
-        </View>
+        </TouchableWithoutFeedback>
     );
 }
 export default memo(ShortVideoPlayer);
@@ -179,4 +245,11 @@ const styles = StyleSheet.create({
         left: '36%',
         zIndex: 100
     },
+    slider: {
+        position: 'absolute',
+        left: 0,
+        bottom: 0,
+        right: 0,
+        height: 40
+    }
 });

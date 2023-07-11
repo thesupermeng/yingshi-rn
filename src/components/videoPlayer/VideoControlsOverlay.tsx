@@ -26,9 +26,6 @@ const width = Dimensions.get('window').height;
 export default ({ currentTime, duration, onVideoSeek, onFastForward, onTogglePlayPause, onHandleFullScreen, paused, isFullScreen, headerTitle, onHandleGoBack }: Props) => {
     const { colors, spacing, textVariants, icons } = useTheme();
     const navigation = useNavigation();
-    useEffect(() => {
-        console.log(paused)
-    }, [paused])
 
     const handleFastForward = (time: any) => {
         onFastForward(time);

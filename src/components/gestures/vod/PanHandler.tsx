@@ -30,7 +30,7 @@ export default ({ step, onTouch, onChange }: Props) => {
         onStartShouldSetPanResponder: (_evt: any, _gestureState: any) => true,
         onStartShouldSetPanResponderCapture: (_evt: any, _gestureState: any) => true,
         onPanResponderGrant: (_evt: any, _gestureState: any) => {
-            console.log('GRANT');
+            // console.log('GRANT');
             // console.log(_gestureState);
             // onTouch;
             setStartY(_gestureState.y0);
@@ -41,15 +41,10 @@ export default ({ step, onTouch, onChange }: Props) => {
             setPrevY(newY);
         },
         onPanResponderRelease: (_evt: any, _gestureState: any) => {
-            console.log('Leave');
-
+            // console.log('Leave');
             let oldY = startY;
             let newY = endY;
-            console.log('ADASDADADA');
-            console.log(newY, prevY);
-            console.log(Math.abs(newY - oldY));
             if(Math.abs(newY - oldY) == 0 || prevY == newY){
-                console.log('000000');
                 onTouch();
             }
             // Check if startY and endY same

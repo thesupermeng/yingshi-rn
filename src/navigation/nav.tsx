@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useSelector } from "react-redux";
 import { NavigationContainer, RouteProp, getFocusedRouteNameFromRoute } from '@react-navigation/native'
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -42,23 +41,20 @@ import {
 } from 'react-native-safe-area-context';
 import { StatusBar, StyleSheet } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
+import { useAppSelector } from '../hooks/hooks';
 
 
 export default () => {
     const Stack = createNativeStackNavigator<RootStackParamList>();
     const HomeTab = createBottomTabNavigator<HomeTabParamList>();
-    const ProfileTab = createBottomTabNavigator<ProfileTabParamList>();
-    const PlaylistTab = createBottomTabNavigator<PlaylistTabParamList>();
-    const WatchAnytimeTab = createBottomTabNavigator<WatchAnytimeTabParamList>();
 
-    const themeReducer = useSelector(({ themeReducer }: RootState) => themeReducer);
+    const themeReducer = useAppSelector(({ themeReducer }: RootState) => themeReducer);
     const theme = themeReducer.theme ? YingshiDarkTheme : YingshiLightTheme;
 
     let hasNotch = DeviceInfo.hasNotch();
-    console.log(hasNotch);
 
     let iconWidth = 22;
-    if(hasNotch){
+    if (hasNotch) {
         iconWidth = 22;
     }
 
@@ -69,9 +65,9 @@ export default () => {
                 tabBarStyle: hasNotch ? styles.navStyleWithNotch : styles.navStyle,
                 tabBarIcon: ({ focused, color, size }) => {
                     let icon: React.ReactNode;
-                    
+
                     if (route.name === '首页') {
-                        icon = focused ? <HomeActiveTabIcon width={iconWidth} color={theme.icons.activeNavIconColor}  /> : <HomeTabIcon width={iconWidth} color={theme.icons.inactiveNavIconColor} />;
+                        icon = focused ? <HomeActiveTabIcon width={iconWidth} color={theme.icons.activeNavIconColor} /> : <HomeTabIcon width={iconWidth} color={theme.icons.inactiveNavIconColor} />;
                     } else if (route.name === '播单') {
                         icon = focused ? <PlaylistActiveTabIcon width={iconWidth} color={theme.icons.activeNavIconColor} /> : <PlaylistTabIcon width={iconWidth} color={theme.icons.inactiveNavIconColor} />;
                     } else if (route.name === '我的') {
@@ -93,7 +89,7 @@ export default () => {
     }
 
     return (
-        <SafeAreaProvider>
+        <SafeAreaProvider >
             <StatusBar
                 backgroundColor={theme.colors.background}
                 barStyle={themeReducer.theme ? "light-content" : "dark-content"}
@@ -101,6 +97,7 @@ export default () => {
             <NavigationContainer theme={theme} onReady={() => RNBootSplash.hide()}>
                 <Stack.Navigator initialRouteName="Home" screenOptions={({ route }) => ({
                     headerShown: false,
+                    animation: 'slide_from_right',
                 })} >
                     <Stack.Screen name='Home' component={HomeTabScreen} options={{ orientation: 'portrait' }} />
                     <Stack.Screen name='视频收藏' component={VodCollectionScreen} options={{ orientation: 'portrait' }} />
