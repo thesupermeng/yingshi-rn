@@ -34,7 +34,7 @@ function ShortVideoPlayer({ vod_url, isActive, thumbnail, videoTitle, displayHei
     }
 
     const onError = (errorObj: any) => {
-        console.log(errorObj)
+        // console.log(errorObj)
     }
 
     const handleProgress = (progress: OnProgressData) => {
@@ -70,7 +70,6 @@ function ShortVideoPlayer({ vod_url, isActive, thumbnail, videoTitle, displayHei
         <TouchableWithoutFeedback onPress={() => {
             showControls();
             if (showOverlay) {
-                console.log(!paused)
                 handlePlayPause();
             }
         }}

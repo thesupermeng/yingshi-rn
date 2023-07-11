@@ -20,7 +20,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     // const BTN_COLORS = ['#FFCC12', '#F1377A', '#ED7445', '#7E9CEE', '#30AA55',];
     const { textVariants, colors, spacing } = useTheme();
     const LIMIT_PER_PAGE = 10;
-    const [results, setResults] = useState<Array<VodTopicType>>([])
+    // const [results, setResults] = useState<Array<VodTopicType>>([])
 
     const fetchPlaylist = (page: number) => fetch(`${API_DOMAIN}topic/v1/topic?page=${page}`)
         .then(response => response.json())
@@ -38,16 +38,17 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                     lastPage.length === LIMIT_PER_PAGE ? allPages.length + 1 : undefined;
                 return nextPage;
             },
-            onSuccess: (data) => {
-                if (data && data?.pages) {
-                    setResults([...results, ...data.pages[data.pages.length - 1].flat()])
-                }
-            }
+            // onSuccess: (data) => {
+            //     if (data && data?.pages) {
+            //         setResults([...results, ...data.pages[data.pages.length - 1].flat()])
+            //     }
+            // }
         });
 
-    const renderItem = useCallback(({ item, index }: FlatListType) =>
+    const renderItem = ({ item }: FlatListType) => (
         <VodPlaylist playlist={item}
-            titleStyle={{ color: colors.text }} />, [])
+            titleStyle={{ color: colors.text }} />
+    )
 
     return (
         <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
@@ -59,13 +60,13 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                 <Text style={{ ...textVariants.bigHeader, color: colors.text, fontSize: 22 }}>播单</Text>
             } navigator={navigation} />
             <Animated.FlatList
-                data={results}
+                data={playlists?.pages.flat()}
                 onEndReached={() => {
                     if (hasNextPage) {
                         fetchNextPage();
                     }
                 }}
-                onEndReachedThreshold={0.5}
+                onEndReachedThreshold={0.3}
                 windowSize={5}
                 maxToRenderPerBatch={5}
                 renderItem={renderItem}

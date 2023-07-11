@@ -34,10 +34,6 @@ export default ({ onScreenTouched, disableFullScreenGesture }: Props) => {
     const [value, setValue] = useState(0)
     const sliderTimeout = useRef(0)
 
-    useEffect(() => {
-        console.log('PlayFullScreenGesture USEEFFECT');
-    }, [disableFullScreenGesture])
-
     const onPropertyChanged = (gestureType: string, value: number) => {
         setIcon(Icons[gestureType]);
         setValue(parseFloat(value.toFixed(2)));
