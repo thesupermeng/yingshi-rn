@@ -15,12 +15,13 @@ interface Props {
     vodTitle?: string
     currentTimeRef?: any
     initialStartTime?: number
+    videoType?: string
 };
 
 const height = Dimensions.get('window').width;
 const width = Dimensions.get('window').height;
 
-export default ({ vod_url, currentTimeRef, initialStartTime = 0, vodTitle = '' }: Props) => {
+export default ({ vod_url, currentTimeRef = 0, initialStartTime = 0, vodTitle = '', videoType = 'vod' }: Props) => {
 
     const navigation = useNavigation();
 
@@ -200,7 +201,8 @@ export default ({ vod_url, currentTimeRef, initialStartTime = 0, vodTitle = '' }
                             onTogglePlayPause={onTogglePlayPause}
                             headerTitle={vodTitle}
                             onHandleFullScreen={onToggleFullScreen}
-                            onHandleGoBack={onGoBack} />
+                            onHandleGoBack={onGoBack}
+                            videoType={videoType} />
                     }
                 </View>
             </TouchableWithoutFeedback>

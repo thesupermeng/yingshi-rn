@@ -11,11 +11,13 @@ import ProfileScreen from '../screens/Profile/Profile';
 import WatchAnytime from '../screens/WatchAnytime';
 import SearchScreen from '../screens/Common/Search';
 import PlayScreen from '../screens/Common/Play';
+import LiveStationPlayScreen from '../screens/Common/LiveStationPlay';
 import VodCollectionScreen from '../screens/Profile/Collection/VodCollection';
 import FeedbackScreen from '../screens/Profile/Feedback';
 import PlaylistCollectionScreen from '../screens/Profile/Collection/PlaylistCollection';
 import PlaylistDetailsScreen from '../screens/Playlist/PlaylistDetails';
 import HistoryScreen from '../screens/Profile/History';
+import LiveStationsScreen from '../screens/Common/LiveStations';
 import AboutUsScreen from '../screens/Profile/AboutUs';
 import PrivacyScreen from '../screens/Profile/Privacy';
 import UserAgreementScreen from '../screens/Profile/UserAgreement';
@@ -116,6 +118,8 @@ export default () => {
                     <Stack.Screen name='片库' component={CatalogScreen} initialParams={{ type_id: 1 }} options={{ orientation: 'portrait' }} />
                     <Stack.Screen name='设置' component={ConfigureScreen} options={{ orientation: 'portrait' }} />
                     <Stack.Screen name='合集收藏' component={ShortVodCollectionScreen} options={{ orientation: 'portrait' }} />
+                    <Stack.Screen name='电视台列表' component={LiveStationsScreen} options={{ orientation: 'portrait' }} />
+                    <Stack.Screen name='电视台播放' component={LiveStationPlayScreen} initialParams={{ liveStationItemList: undefined, liveStationItem: undefined }} options={{ orientation: 'all' }} />
                 </Stack.Navigator>
             </NavigationContainer>
         </SafeAreaProvider>

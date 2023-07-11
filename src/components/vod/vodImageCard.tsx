@@ -33,7 +33,7 @@ export default function VodImageCard({ vod_img, vodStyle, onPress, showInfo = ''
                 shadowBottom && <LinearGradient
                     colors={['transparent', 'black']}
                     start={{ x: 0.5, y: 0 }}
-                    end={{ x: 0.5, y: 0.6 }}
+                    end={{ x: 0.5, y: 1.5 }}
                     style={styles.bottomBlur}
                 />
             }

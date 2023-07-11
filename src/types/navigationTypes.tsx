@@ -1,7 +1,7 @@
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { VodType, VodTopicType } from './ajaxTypes';
+import { VodType, VodTopicType, LiveTVStationItem } from './ajaxTypes';
 
 // https://reactnavigation.org/docs/typescript/
 export type HomeTabParamList = {
@@ -65,6 +65,11 @@ export type RootStackParamList = {
         year?: string,
         order_by?: string
     };
+    电视台列表: undefined;
+    电视台播放: {
+        liveStationItemList: Array<LiveTVStationItem>
+        liveStationItem: LiveTVStationItem
+    }
 };
 
 

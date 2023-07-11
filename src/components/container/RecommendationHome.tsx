@@ -3,16 +3,17 @@ import { StyleSheet, Text, View, TouchableOpacity, FlatList, TouchableWithoutFee
 import { useNavigation, useTheme } from '@react-navigation/native';
 import Swiper from 'react-native-swiper';
 import ShowMoreVodButton from '../button/showMoreVodButton';
-import { VodCarousellResponseType, VodPlaylistResponseType, VodTopicType, VodType } from '../../types/ajaxTypes';
+import { VodCarousellResponseType, VodPlaylistResponseType, VodTopicType, VodType, LiveTVStationsResponseType } from '../../types/ajaxTypes';
 import FastImage from 'react-native-fast-image'
 import { VodReducerState } from '../../redux/reducers/vodReducer';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { RootState } from '../../redux/store';
 import VodHistoryList from '../vod/vodHistoryList';
+import VodLiveStationList from '../vod/vodLiveStationList';
 import { API_DOMAIN } from '../../constants';
 import VodListVertical from '../vod/vodListVertical';
 import { playVod, viewPlaylistDetails } from '../../redux/actions/vodActions';
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useQuery, useInfiniteQuery } from '@tanstack/react-query';
 import LinearGradient from 'react-native-linear-gradient';
 
 interface NavType {
@@ -57,6 +58,18 @@ const RecommendationHome = ({ vodCarouselRes, setScrollEnabled }: Props) => {
                 }
             }
         });
+
+    
+
+    const { data: liveStations } = useQuery({
+        queryKey: ["LiveTVStations"],
+        queryFn: () =>
+            fetch(`https://testapi.yingshi.tv/live/v1/livestations`, {})
+            .then(response => response.json())
+            .then((json: LiveTVStationsResponseType) => {
+            return json.data
+        }),
+    });
 
     return (
         <FlatList
@@ -119,6 +132,19 @@ const RecommendationHome = ({ vodCarouselRes, setScrollEnabled }: Props) => {
                                 </View>
                                 <View style={{ paddingLeft: spacing.sideOffset }}>
                                     <VodHistoryList vodStyle={styles.vod_hotlist} vodList={history.slice(0, 10)} showInfo='watch_progress' />
+                                </View>
+                            </View>
+                        }
+                        {
+                            liveStations && liveStations?.length > 0 &&
+                            <View style={{ gap: spacing.m }}>
+                                <View style={{ paddingLeft: spacing.sideOffset, paddingRight: spacing.sideOffset }}>
+                                    <ShowMoreVodButton text='电视台推荐' onPress={() => {
+                                        navigation.navigate('电视台列表');
+                                    }} />
+                                </View>
+                                <View style={{ paddingLeft: spacing.sideOffset }}>
+                                    <VodLiveStationList vodStyle={styles.vod_live_station} liveStationList={liveStations.slice(0, 10)} />
                                 </View>
                             </View>
                         }
@@ -207,6 +233,10 @@ const styles = StyleSheet.create({
     vod_hotlist: {
         height: 99,
         width: 176
+    },
+    vod_live_station: {
+        height: 90,
+        width: 150
     },
     nav: {
         flexGrow: 1,

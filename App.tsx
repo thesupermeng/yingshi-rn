@@ -8,7 +8,7 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query'
 import { API_DOMAIN } from './src/constants';
-import { FilterOptionsResponseType, MiniVideo, NavOptionsResponseType, SuggestResponseType, VodCarousellResponseType, VodPlaylistResponseType, } from './src/types/ajaxTypes';
+import { FilterOptionsResponseType, MiniVideo, NavOptionsResponseType, SuggestResponseType, VodCarousellResponseType, VodPlaylistResponseType, LiveTVStationsResponseType } from './src/types/ajaxTypes';
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
@@ -59,6 +59,17 @@ export default function App() {
       fetch(`${API_DOMAIN}nav/v1/navItems`, {})
         .then(response => response.json())
         .then((json: NavOptionsResponseType) => {
+          return json.data
+        }),
+    staleTime: Infinity,
+  });
+
+  queryClient.prefetchQuery({
+    queryKey: ["LiveTVStations"],
+    queryFn: () =>
+      fetch(`https://testapi.yingshi.tv/live/v1/livestations`, {})
+        .then(response => response.json())
+        .then((json: LiveTVStationsResponseType) => {
           return json.data
         }),
     staleTime: Infinity,
