@@ -30,6 +30,8 @@ import WatchAnytimeTabIcon from '../../static/images/video_tab.svg';
 import WatchAnytimeActiveTabIcon from '../../static/images/video_tab_active.svg';
 import CatalogScreen from '../screens/Common/Catalog';
 import ShortVodCollectionScreen from '../screens/Profile/Collection/shortVodCollection';
+import SportsIcon from '../../static/images/sports.svg';
+import MatchesScreen from '../screens/Sports/Matches';
 
 import { YingshiDarkTheme, YingshiLightTheme } from '../theme';
 import { HomeTabParamList, PlaylistTabParamList, ProfileTabParamList, RootStackParamList, WatchAnytimeTabParamList } from '../types/navigationTypes';
@@ -75,12 +77,16 @@ export default () => {
                     } else if (route.name === '随心看') {
                         icon = focused ? <WatchAnytimeActiveTabIcon width={iconWidth} color={theme.icons.activeNavIconColor} /> : <WatchAnytimeTabIcon width={iconWidth} color={theme.icons.inactiveNavIconColor} />;
                     }
+                    else if (route.name === '体育') {
+                        icon = focused ? <SportsIcon width={iconWidth} color={theme.icons.activeNavIconColor} /> : <SportsIcon width={iconWidth} color={theme.icons.inactiveNavIconColor} />;
+                    }
                     return icon;
                 },
             })
             } >
                 <HomeTab.Screen name="首页" component={HomeScreen} />
                 <HomeTab.Screen name="随心看" component={WatchAnytime} />
+                <HomeTab.Screen name="体育" component={MatchesScreen} />
                 <HomeTab.Screen name="播单" component={PlaylistScreen} />
                 <HomeTab.Screen name="我的" component={ProfileScreen} />
             </HomeTab.Navigator>

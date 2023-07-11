@@ -1,5 +1,5 @@
-import React, { memo, useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, FlatList, TouchableWithoutFeedback } from 'react-native';
+import React, { memo, useState, useRef } from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, FlatList, TouchableWithoutFeedback, RefreshControl } from 'react-native';
 import { useNavigation, useTheme } from '@react-navigation/native';
 import Swiper from 'react-native-swiper';
 import ShowMoreVodButton from '../button/showMoreVodButton';
@@ -60,6 +60,7 @@ const RecommendationHome = ({ vodCarouselRes, setScrollEnabled }: Props) => {
 
     return (
         <FlatList
+            // refreshControl={<RefreshControl refreshing={true} onRefresh={() => { }} />}
             ListHeaderComponent={
                 <>
                     {
@@ -71,6 +72,8 @@ const RecommendationHome = ({ vodCarouselRes, setScrollEnabled }: Props) => {
                                 dotColor={colors.sliderDot}
                                 activeDotColor={colors.text}
                                 dotStyle={styles.dotStyle}
+                                onTouchStart={() => { setScrollEnabled(false) }}
+                                onTouchCancel={() => { setScrollEnabled(true) }}
                                 paginationStyle={styles.paginationStyle}
                                 activeDotStyle={styles.activeDotStyle}>
                                 {
@@ -80,13 +83,7 @@ const RecommendationHome = ({ vodCarouselRes, setScrollEnabled }: Props) => {
                                             navigation.navigate('播放', {
                                                 vod_id: carouselItem.carousel_content_id,
                                             });
-                                        }}
-                                        onPressIn={() => { setScrollEnabled(false) }}
-                                        onPressOut={() => { setScrollEnabled(true) }}
-                                        delayPressIn={0}
-                                        delayPressOut={0}
-                                        delayLongPress={0}
-                                        >
+                                        }}>
                                             <FastImage
                                                 style={styles.image}
                                                 source={{
@@ -181,6 +178,7 @@ const styles = StyleSheet.create({
     wrapper: {
         borderRadius: 100,
         marginTop: 10,
+        zIndex: 99
     },
     image: {
         width: '100%',

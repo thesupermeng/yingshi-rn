@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, FlatList, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, FlatList, Dimensions, RefreshControl } from 'react-native';
 import ScreenContainer from '../components/container/screenContainer';
 import { useTheme } from '@react-navigation/native';
 import { useQuery, useQueries, UseQueryResult } from '@tanstack/react-query';

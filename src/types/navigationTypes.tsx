@@ -9,6 +9,7 @@ export type HomeTabParamList = {
     随心看: undefined;
     播单: undefined;
     我的: undefined;
+    体育: undefined
 };
 
 export type ProfileTabParamList = {
