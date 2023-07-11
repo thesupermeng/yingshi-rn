@@ -19,7 +19,7 @@ interface Props {
 
 function ShortVideoPlayer({ vod_url, isActive, thumbnail, videoTitle, displayHeight = 0 }: Props) {
     const bottomTabHeight = useBottomTabBarHeight();
-    const [isBuffering, setIsBuffering] = useState();
+    const [isBuffering, setIsBuffering] = useState(false);
     const videoRef = useRef<Video>(null);
     const [paused, setPaused] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
@@ -28,6 +28,15 @@ function ShortVideoPlayer({ vod_url, isActive, thumbnail, videoTitle, displayHei
     const timer = useRef<number>(0);
     const iconTimer = useRef<number>(0);
     const [showIcon, setShowIcon] = useState(false);
+
+    useEffect(() => {
+        return () => {
+            setPaused(false);
+            setShowOverlay(false);
+            setShowIcon(false);
+            setCurrentTime(0);
+        }
+    }, [])
 
     const onBuffer = (bufferObj: any) => {
         setIsBuffering(bufferObj.isBuffering);
