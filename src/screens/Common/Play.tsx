@@ -257,7 +257,7 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
                                     contentContainerStyle={styles.episodeList}
                                     nestedScrollEnabled={true}
                                     contentOffset={{ x: 0, y: ROW_HEIGHT * (Math.floor((currentEpisode % EPISODE_RANGE_SIZE) / NUM_PER_ROW)) }}
-                                    scrollEnabled={NUM_OF_ROWS > 6}>
+                                >
                                     {
                                         vod?.vod_play_list && vod.vod_play_list.urls.slice(showEpisodeRangeStart, showEpisodeRangeEnd).map((url, idx) => {
                                             return <TouchableOpacity key={`url-${url.nid}`} style={{

@@ -1,26 +1,13 @@
-import React, { useCallback, useEffect, useMemo, memo } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, Dimensions, FlatList, Image } from 'react-native';
-import ScreenContainer from '../../components/container/screenContainer';
+import React from 'react';
+import { View, Text, StyleSheet, Dimensions, FlatList, Image } from 'react-native';
 import { useNavigation, useTheme } from '@react-navigation/native';
 
-import { RootStackScreenProps } from '../../types/navigationTypes';
-import { FilterOptionsResponseType, FilterOptionsTypeExtendObj, SuggestResponseType, SuggestedVodType, VodType } from '../../types/ajaxTypes';
 import { playVod } from '../../redux/actions/vodActions';
 import { useAppDispatch } from '../../hooks/hooks';
-import { useInfiniteQuery, useQuery, useQueryClient } from '@tanstack/react-query';
-import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
-import { API_DOMAIN } from '../../constants';
-import VodTopicFilter from '../../components/vod/vodTopicFilter';
 import VodCard from '../../components/vod/vodCard';
-import DownArrow from '../../../static/images/arrow_down_yellow.svg'
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import Animated, {
-    useSharedValue,
-    useAnimatedScrollHandler,
-    useAnimatedStyle,
-} from 'react-native-reanimated';
-import { FlatListProps } from 'react-native/Libraries/Lists/FlatList';
-import FastImage from 'react-native-fast-image';
+import { VodType } from '../../types/ajaxTypes';
+
 
 interface Props {
     vods: Array<VodType>,
@@ -36,17 +23,18 @@ function VodListVertical({ vods, numOfRows = 2, outerRowPadding = 0, minNumPerRo
     const navigation = useNavigation();
     const dispatch = useAppDispatch();
 
-    const windowDim = Dimensions.get('window').width - insets.left - insets.right - outerRowPadding - (2 * spacing.sideOffset); // usable space
+    const width = Math.min(Dimensions.get('window').width, Dimensions.get('window').height)
+    const windowDim = width - insets.left - insets.right - outerRowPadding - (2 * spacing.sideOffset); // usable space
     const minWidth = windowDim / minNumPerRow - 8;
     const cardWidth = Math.min(200, Math.floor(minWidth));
     const cardHeight = heightToWidthRatio * cardWidth;
     const CARDS_PER_ROW = Math.floor(windowDim / cardWidth);
     const BTN_MARGIN_RIGHT = (windowDim - (CARDS_PER_ROW * cardWidth)) / (CARDS_PER_ROW - 1);
-    
+
     return (
         <View style={styles.vodList}>
             {
-                vods && 
+                vods &&
                 vods.slice(0, numOfRows * CARDS_PER_ROW).map((vod, idx) => (
                     <VodCard
                         key={`${vod.vod_id}`}

@@ -78,7 +78,9 @@ export default function ScreenContainer({ children, scrollView = false, footer, 
 
 const styles = StyleSheet.create({
     viewContainer: {
-        paddingTop: 4
+        paddingTop: 4,
+        flexGrow: 1,
+        flex: 1
     },
     innerContainer: {
         flex: 1,

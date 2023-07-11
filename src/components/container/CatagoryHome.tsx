@@ -75,7 +75,7 @@ const CatagoryHome = ({ vodCarouselRes, navId = 0, setScrollEnabled }: Props) =>
                                                 style={styles.image}
                                                 source={{
                                                     uri: carouselItem.carousel_pic_mobile,
-                                                    priority: FastImage.priority.high,
+                                                    priority: FastImage.priority.normal,
                                                 }}
                                                 resizeMode={FastImage.resizeMode.cover}
                                             />
