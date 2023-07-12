@@ -140,7 +140,7 @@ const RecommendationHome = ({ vodCarouselRes, setScrollEnabled }: Props) => {
                             <View style={{ gap: spacing.m }}>
                                 <View style={{ paddingLeft: spacing.sideOffset, paddingRight: spacing.sideOffset }}>
                                     <ShowMoreVodButton text='电视台推荐' onPress={() => {
-                                        navigation.navigate('电视台列表');
+                                        navigation.navigate('电视台列表', { liveStationItemList: liveStations });
                                     }} />
                                 </View>
                                 <View style={{ paddingLeft: spacing.sideOffset }}>

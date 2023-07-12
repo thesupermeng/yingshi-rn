@@ -29,13 +29,12 @@ interface Props {
     numOfRows?: number,
 }
 
-export default function VodLiveStationListVertical({ itemList, itemsPerRow = 2, numOfRows = 3 }: Props) {
+export default function VodLiveStationListVertical({ itemList, itemsPerRow = 2, numOfRows = 4 }: Props) {
     const { textVariants, colors, spacing, icons } = useTheme();
     const insets = useSafeAreaInsets();
     const navigation = useNavigation();
     const dispatch = useAppDispatch();
 
-    // let items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
     let items = itemList.slice(0, itemsPerRow * numOfRows);
     
     const renderItems = () => {
@@ -47,6 +46,7 @@ export default function VodLiveStationListVertical({ itemList, itemsPerRow = 2, 
                     {rowItems.map((item) => (
                         <TouchableOpacity
                             style={{...styles.cardItem, margin: 0}}
+                            key={item.id}
                             onPress={() => {
                                 navigation.navigate('电视台播放', { liveStationItemList: itemList, liveStationItem: item });
                             }}>
@@ -54,7 +54,7 @@ export default function VodLiveStationListVertical({ itemList, itemsPerRow = 2, 
                                 <FastImage
                                     style={{ flex: 1, aspectRatio: 130 / 80, borderRadius: 10 }}
                                     source={{
-                                        uri: 'https://static.nivod4.tv/imgs/2022/06/17/78d2eac6-0d78-47fd-9424-a257240a8415.png_300x169.jpg',
+                                        uri: item.live_station_img_url,
                                         priority: FastImage.priority.normal,
                                     }}
                                 />

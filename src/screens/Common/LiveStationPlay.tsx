@@ -80,7 +80,7 @@ export default ({ navigation, route }: RootStackScreenProps<'电视台播放'>) 
         <ScreenContainer containerStyle={{ flex: 1, paddingRight: 0, paddingLeft: 0 }}>
             {
                 liveStationItem !== undefined && !dismountPlayer &&
-                <VodPlayer vod_url={liveStationItem.live_station_url}
+                <VodPlayer vod_url={'rtmp://ivi.bupt.edu.cn:1935/livetv/hunanhd'}
                     vodTitle={liveStationItem.live_station_name}
                     videoType={'live'}
                 />
@@ -94,7 +94,7 @@ export default ({ navigation, route }: RootStackScreenProps<'电视台播放'>) 
                     <View style={{ flexDirection: 'row', width: '100%', height: 100, margin: 5 }}>
                         <View style={{ flex: 4 }}>
                             <FastImage
-                                source={{ uri: 'https://static.nivod4.tv/imgs/2022/06/17/78d2eac6-0d78-47fd-9424-a257240a8415.png_300x169.jpg' }}
+                                source={{ uri: liveStationItem.live_station_img_url }}
                                 resizeMode={'cover'}
                                 style={{ ...styles.descriptionImage, ...styles.imageContainer }}
                             />
@@ -158,12 +158,12 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         resizeMode: 'cover'
     },
-    descriptionContainer: {
-        flex: 5,
-        flexDirection: 'column',
-        justifyContent: 'space-evenly',
-        paddingLeft: 10
-    },
+    // descriptionContainer: {
+    //     flex: 5,
+    //     flexDirection: 'column',
+    //     justifyContent: 'space-evenly',
+    //     paddingLeft: 10
+    // },
     descriptionContainerText: {
         fontSize: 17
     },

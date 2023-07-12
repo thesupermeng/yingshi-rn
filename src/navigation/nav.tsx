@@ -118,7 +118,7 @@ export default () => {
                     <Stack.Screen name='片库' component={CatalogScreen} initialParams={{ type_id: 1 }} options={{ orientation: 'portrait' }} />
                     <Stack.Screen name='设置' component={ConfigureScreen} options={{ orientation: 'portrait' }} />
                     <Stack.Screen name='合集收藏' component={ShortVodCollectionScreen} options={{ orientation: 'portrait' }} />
-                    <Stack.Screen name='电视台列表' component={LiveStationsScreen} options={{ orientation: 'portrait' }} />
+                    <Stack.Screen name='电视台列表' component={LiveStationsScreen} initialParams={{ liveStationItemList: undefined }} options={{ orientation: 'portrait' }} />
                     <Stack.Screen name='电视台播放' component={LiveStationPlayScreen} initialParams={{ liveStationItemList: undefined, liveStationItem: undefined }} options={{ orientation: 'all' }} />
                 </Stack.Navigator>
             </NavigationContainer>

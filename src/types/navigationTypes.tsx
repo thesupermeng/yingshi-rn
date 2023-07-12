@@ -65,7 +65,9 @@ export type RootStackParamList = {
         year?: string,
         order_by?: string
     };
-    电视台列表: undefined;
+    电视台列表: {
+        liveStationItemList: Array<LiveTVStationItem>
+    }
     电视台播放: {
         liveStationItemList: Array<LiveTVStationItem>
         liveStationItem: LiveTVStationItem

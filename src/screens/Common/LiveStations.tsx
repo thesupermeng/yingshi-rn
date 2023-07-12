@@ -15,12 +15,15 @@ import CheckBoxUnselected from '../../../static/images/checkbox_unselected.svg';
 import { VodType } from '../../types/ajaxTypes';
 import { Button } from '@rneui/themed';
 import ConfirmationModal from '../../components/modal/confirmationModal';
+import VodLiveStationListVertical from '../../components/vod/vodLiveStationListVertical';
 import EmptyList from '../../components/common/emptyList';
+import { ScrollView } from 'react-native-gesture-handler';
 
 type FlatListType = {
     item: VodRecordType
 }
-export default ({ navigation }: RootStackScreenProps<'电视台列表'>) => {
+export default ({ navigation, route }: RootStackScreenProps<'电视台列表'>) => {
+    const { liveStationItemList } = route.params;
     const { colors, textVariants, icons, spacing } = useTheme();
     const dispatch = useAppDispatch();
     const vodReducer: VodReducerState = useAppSelector(({ vodReducer }: RootState) => vodReducer);
@@ -43,82 +46,19 @@ export default ({ navigation }: RootStackScreenProps<'电视台列表'>) => {
     }
     return (
         <ScreenContainer>
-            <TitleWithBackButtonHeader title='播放历史' right={
-                <TouchableOpacity onPress={() => {
-                    setIsEditing(!isEditing);
-                    setRemoveHistory([]);
-                }}>
-                    <Text style={{ ...textVariants.body, padding: 8 }}>{isEditing ? '取消' : '编辑'}</Text>
-                </TouchableOpacity>
-            }
-                headerStyle={{ marginBottom: spacing.m }}
-            />
-            {
-                history && history.length > 0 && <FlatList
-                    data={history}
-                    ListFooterComponent={<Text style={{ ...textVariants.subBody, color: colors.muted, ...styles.noMore }}>没有更多了</Text>}
-                    contentContainerStyle={{ paddingBottom: 30 }}
-                    renderItem={({ item }: FlatListType) => {
-                        return <View style={styles.card}>
-                            {
-                                isEditing && <TouchableOpacity style={styles.checkbox} onPress={() => toggleHistory(item)}>
-                                    {
-                                        removeHistory.some(x => x.vod_id === item.vod_id)
-                                            ? <CheckBoxSelected height={icons.sizes.m} width={icons.sizes.m} />
-                                            : <CheckBoxUnselected height={icons.sizes.m} width={icons.sizes.m} />
-                                    }
-                                </TouchableOpacity>
-                            }
-                            <VodHistoryCard vod={item} onPress={() => {
-                                dispatch(playVod(item));
-                                navigation.navigate('播放', { vod_id: item.vod_id });
-                            }} />
-                        </View>
-                    }}
+            <ScrollView>
+                <TitleWithBackButtonHeader title='电视台'
+                    headerStyle={{ marginBottom: spacing.m }}
                 />
-            }
-            {
-                history && history.length === 0 && 
-                <EmptyList description='暂无播放历史' />
-            }
-            <ConfirmationModal onConfirm={() => {
-                dispatch(removeVodsFromHistory(removeHistory));
-                setIsEditing(false);
-                setRemoveHistory([]);
-                toggleOverlay();
-            }} onCancel={toggleOverlay} isVisible={isDialogOpen} title='清除提示' subtitle='您是否确定清除播放历史吗？'/>
-            {
-                isEditing && <View style={styles.deleteConfirmationModal}>
-                    <Button
-                        onPress={() => {
-                            if (removeHistory.length === 0 || removeHistory.length !== history.length) {
-                                setRemoveHistory(vodReducer.history);
-                            } else {
-                                setRemoveHistory([]);
-                            }
-                        }}
-                        containerStyle={styles.confirmationBtn}
-                        color={colors.card2}
-                        titleStyle={{ ...textVariants.body, color: colors.muted }}>
-                        {
-                            removeHistory.length === 0 || removeHistory.length !== history.length
-                            ? '全选'
-                            : '取消全选'
-                        }
-                    </Button>
-                    <Button
-                        onPress={() => {
-                            if (removeHistory.length > 0) {
-                                toggleOverlay();
-                            }
-                        }}
-                        containerStyle={styles.confirmationBtn}
-                        color={removeHistory.length === 0 ? colors.card2 : colors.primary}
-                        titleStyle={{ ...textVariants.body, color: removeHistory.length === 0 ? colors.muted : colors.background }}>
-                        删除
-                    </Button>
-                </View>
-            }
+                {
+                    liveStationItemList != undefined && liveStationItemList.length > 0 && 
+                    <VodLiveStationListVertical itemList={liveStationItemList} itemsPerRow={2} numOfRows={100}/>
+                }
+                {
+                    history && history.length === 0 && 
+                    <EmptyList description='暂无播放历史' />
+                }
+            </ScrollView>
         </ScreenContainer >
     )
 }

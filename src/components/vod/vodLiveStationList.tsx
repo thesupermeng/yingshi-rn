@@ -31,7 +31,8 @@ export default function VodLiveStationList({ vodStyle, horizontal = true, liveSt
             horizontal
             renderItem={({item} : LiveStationType)  => {
                 return <VodCard showPlayIcon={false} vodImageStyle={vodStyle} shadowBottom={true}
-                vod_name={item.live_station_name} vod_pic={'https://static.nivod4.tv/imgs/2022/06/17/78d2eac6-0d78-47fd-9424-a257240a8415.png_300x169.jpg'}  
+                key={item.id}
+                vod_name={item.live_station_name} vod_pic={item.live_station_img_url}  
                 showInfo={''}
                 onPress={() => {
                     console.log('PRESSED ' + item.live_station_name)
