@@ -45,15 +45,21 @@ export default function VodLiveStationListVertical({ itemList, itemsPerRow = 2, 
             const row = (
                 <View key={i} style={{...styles.cardRow, flex: itemsPerRow}}>
                     {rowItems.map((item) => (
-                        <View key={item.id} style={styles.cardItem}>
-                            <FastImage
-                                style={{ flex: 1, aspectRatio: 130 / 80, borderRadius: 10 }}
-                                source={{
-                                    uri: 'https://static.nivod4.tv/imgs/2022/06/17/78d2eac6-0d78-47fd-9424-a257240a8415.png_300x169.jpg',
-                                    priority: FastImage.priority.normal,
-                                }}
-                            />
-                        </View>
+                        <TouchableOpacity
+                            style={{...styles.cardItem, margin: 0}}
+                            onPress={() => {
+                                navigation.navigate('电视台播放', { liveStationItemList: itemList, liveStationItem: item });
+                            }}>
+                            <View key={item.id} style={styles.cardItem}>
+                                <FastImage
+                                    style={{ flex: 1, aspectRatio: 130 / 80, borderRadius: 10 }}
+                                    source={{
+                                        uri: 'https://static.nivod4.tv/imgs/2022/06/17/78d2eac6-0d78-47fd-9424-a257240a8415.png_300x169.jpg',
+                                        priority: FastImage.priority.normal,
+                                    }}
+                                />
+                            </View>
+                        </TouchableOpacity>
                     ))}
                 </View>
             );
