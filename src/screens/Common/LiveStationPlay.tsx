@@ -3,6 +3,7 @@ import { View, TouchableOpacity, Share, Text, StyleSheet, Alert, ScrollView, Ima
 import Video from 'react-native-video';
 import FavoriteButton from '../../components/button/favoriteVodButton';
 import FavoriteIcon from '../../../static/images/favorite.svg'
+import VodCard from '../../components/vod/vodCard';
 import ScreenContainer from '../../components/container/screenContainer';
 import { useTheme, useFocusEffect } from '@react-navigation/native';
 
@@ -29,7 +30,7 @@ import FastImage from 'react-native-fast-image';
 import { API_DOMAIN } from '../../constants';
 import { useQuery } from '@tanstack/react-query';
 import ShowMoreVodButton from '../../components/button/showMoreVodButton';
-import VodListVertical from '../../components/vod/vodListVertical';
+import VodLiveStationListVertical from '../../components/vod/vodLiveStationListVertical';
 import VodPlayer from '../../components/videoPlayer/vodPlayer';
 import BottomSheet from '@gorhom/bottom-sheet';
 
@@ -56,6 +57,17 @@ export default ({ navigation, route }: RootStackScreenProps<'电视台播放'>) 
 
     const [dismountPlayer, setDismountPlayer] = useState(false);
 
+    const outerRowPadding = 0;
+    const minNumPerRow = 2;
+    const heightToWidthRatio = 0.7;
+
+    const windowDim = Dimensions.get('window').width - insets.left - insets.right - outerRowPadding - (2 * spacing.sideOffset); // usable space
+    const minWidth = windowDim / minNumPerRow - 8;
+    const cardWidth = Math.min(210, Math.floor(minWidth));
+    const cardHeight = heightToWidthRatio * cardWidth;
+    const CARDS_PER_ROW = Math.floor(windowDim / cardWidth);
+    const BTN_MARGIN_RIGHT = (windowDim - (CARDS_PER_ROW * cardWidth)) / (CARDS_PER_ROW - 1);
+
     useFocusEffect(
         useCallback(() => {
             return () => {
@@ -73,42 +85,56 @@ export default ({ navigation, route }: RootStackScreenProps<'电视台播放'>) 
                     videoType={'live'}
                 />
             }
-            <Text style={{ ...textVariants.subBody, color: colors.muted }} numberOfLines={2}>
-                {`${definedValue(liveStationItem.live_station_name)}`}
-            </Text>
-            <Text style={{ ...textVariants.subBody, color: colors.muted }} numberOfLines={2}>
-                {`${definedValue(liveStationItem.live_station_url)}`}
-            </Text>
-            <View style={{ flexDirection: 'row', width: '100%', height: 100 }}>
-                <View style={{ flex: 1 }}>
-                    <FastImage
-                        source={{ uri: 'https://static.nivod4.tv/imgs/2022/06/17/78d2eac6-0d78-47fd-9424-a257240a8415.png_300x169.jpg' }}
-                        resizeMode={'cover'}
-                        style={{ ...styles.descriptionImage, ...styles.imageContainer }}
-                    />
-                </View>
-                <View style={{ flex: 1, paddingLeft: 10, paddingTop: 10 }}>
+            <ScrollView
+                nestedScrollEnabled={true}
+                contentContainerStyle={{ marginTop: spacing.m }}
+                contentInsetAdjustmentBehavior="automatic">
+
+                <View style={{ ...styles.descriptionContainer, gap: spacing.m }}>
+                    <View style={{ flexDirection: 'row', width: '100%', height: 100, margin: 5 }}>
+                        <View style={{ flex: 4 }}>
+                            <FastImage
+                                source={{ uri: 'https://static.nivod4.tv/imgs/2022/06/17/78d2eac6-0d78-47fd-9424-a257240a8415.png_300x169.jpg' }}
+                                resizeMode={'cover'}
+                                style={{ ...styles.descriptionImage, ...styles.imageContainer }}
+                            />
+                        </View>
+                        <View style={{ flex: 7, paddingLeft: 10, paddingTop: 10 }}>
+                            <Text numberOfLines={1} style={{
+                                ...textVariants.header,
+                                color: colors.text,
+                                flex: 1
+                            }}>
+                                {liveStationItem.live_station_name}
+                            </Text>
+                        </View>
+                    </View>
                     <Text numberOfLines={1} style={{
                         ...textVariants.header,
                         color: colors.text,
                         flex: 1
                     }}>
-                        {liveStationItem.live_station_name}
+                        相关电视台
                     </Text>
+                    <VodLiveStationListVertical itemList={liveStationItemList} />
                 </View>
-            </View>
-            <Text numberOfLines={1} style={{
-                ...textVariants.header,
-                color: colors.text,
-                flex: 1
-            }}>
-                相关电视台
-            </Text>
+            </ScrollView>
         </ScreenContainer>
     )
 }
 
 const styles = StyleSheet.create({
+    descriptionContainer: {
+        padding: 10,
+        paddingLeft: 20,
+        paddingRight: 20,
+    },
+    liveStationCardListContainer: {
+        display: 'flex',
+        flex: 3,
+        flexDirection: 'row',
+        flexWrap: 'wrap'
+    },
     videoHeader: {
         position: 'absolute',
         top: 0,

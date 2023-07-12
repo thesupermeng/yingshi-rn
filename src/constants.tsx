@@ -14,6 +14,7 @@ export const TOGGLE_PLAYLIST_FAVORITES = 'toggle_playlist_fav';
 export const VIEW_PLAYLIST = 'view_playlist';
 
 export const API_DOMAIN = 'https://api.yingshi.tv/'
+export const API_DOMAIN_TEST = 'https://testapi.yingshi.tv/'
 
 export const ADD_SEARCH_HISTORY = 'add_search_history';
 export const REMOVE_SEARCH_HISTORY = 'remove_from_search_history';
