@@ -9,7 +9,7 @@ import { VodReducerState } from '../../redux/reducers/vodReducer';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { RootState } from '../../redux/store';
 import VodHistoryList from '../vod/vodHistoryList';
-import { API_DOMAIN } from '../../constants';
+import { API_DOMAIN } from '../../utility/constants';
 import VodListVertical from '../vod/vodListVertical';
 import { playVod, viewPlaylistDetails } from '../../redux/actions/vodActions';
 import { useInfiniteQuery } from '@tanstack/react-query';

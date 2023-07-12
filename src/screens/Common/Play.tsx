@@ -20,13 +20,13 @@ import PYQIcon from '../../../static/images/pyq.svg';
 import MoreArrow from '../../../static/images/more_arrow.svg';
 import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 import Orientation from 'react-native-orientation-locker';
-import { getMaxWidth } from '../../helper';
+import { getMaxWidth } from '../../utility/helper';
 
 import { Dimensions } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import VodEpisodeSelectionModal from '../../components/modal/vodEpisodeSelectionModal';
 import FastImage from 'react-native-fast-image';
-import { API_DOMAIN } from '../../constants';
+import { API_DOMAIN } from '../../utility/constants';
 import { useQuery } from '@tanstack/react-query';
 import ShowMoreVodButton from '../../components/button/showMoreVodButton';
 import VodListVertical from '../../components/vod/vodListVertical';

@@ -31,9 +31,9 @@ import WatchAnytimeActiveTabIcon from '../../static/images/video_tab_active.svg'
 import CatalogScreen from '../screens/Common/Catalog';
 import ShortVodCollectionScreen from '../screens/Profile/Collection/shortVodCollection';
 import SportsIcon from '../../static/images/sports.svg';
-import MatchesScreen from '../screens/Sports/Matches';
+import MatchesScreen from '../Sports/screens/Sports/Matches';
 
-import { YingshiDarkTheme, YingshiLightTheme } from '../theme';
+import { YingshiDarkTheme, YingshiLightTheme } from '../utility/theme';
 import { HomeTabParamList, PlaylistTabParamList, ProfileTabParamList, RootStackParamList, WatchAnytimeTabParamList } from '../types/navigationTypes';
 import RNBootSplash from "react-native-bootsplash";
 import { RootState } from '../redux/store';

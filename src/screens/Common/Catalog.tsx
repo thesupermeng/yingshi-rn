@@ -9,7 +9,7 @@ import { playVod } from '../../redux/actions/vodActions';
 import { useAppDispatch } from '../../hooks/hooks';
 import { useInfiniteQuery, useQuery, useQueryClient } from '@tanstack/react-query';
 import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
-import { API_DOMAIN } from '../../constants';
+import { API_DOMAIN } from '../../utility/constants';
 import VodTopicFilter from '../../components/vod/vodTopicFilter';
 import VodCard from '../../components/vod/vodCard';
 import DownArrow from '../../../static/images/arrow_down_yellow.svg'
