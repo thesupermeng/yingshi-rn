@@ -1,5 +1,5 @@
 import React, { memo, useCallback, useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, RefreshControl } from 'react-native';
 import { useNavigation, useTheme } from '@react-navigation/native';
 import Swiper from 'react-native-swiper';
 import ShowMoreVodButton from '../button/showMoreVodButton';
@@ -56,6 +56,8 @@ const CatagoryHome = ({ vodCarouselRes, navId = 0, setScrollEnabled }: Props) =>
                                 activeDotColor={colors.text}
                                 dotStyle={styles.dotStyle}
                                 paginationStyle={styles.paginationStyle}
+                                onTouchStart={() => { setScrollEnabled(false) }}
+                                onTouchCancel={() => { setScrollEnabled(true) }}
                                 activeDotStyle={styles.activeDotStyle}>
                                 {
                                     data.carousel.map((carouselItem, idx) => {
@@ -65,11 +67,11 @@ const CatagoryHome = ({ vodCarouselRes, navId = 0, setScrollEnabled }: Props) =>
                                                 vod_id: carouselItem.carousel_content_id,
                                             });
                                         }}
-                                            onPressIn={() => { setScrollEnabled(false) }}
-                                            onPressOut={() => { setScrollEnabled(true) }}
-                                            delayPressIn={0}
-                                            delayPressOut={0}
-                                            delayLongPress={0}
+                                        // onPressIn={() => { setScrollEnabled(false) }}
+                                        // onPressOut={() => { setScrollEnabled(true) }}
+                                        // delayPressIn={0}
+                                        // delayPressOut={0}
+                                        // delayLongPress={0}
                                         >
                                             <FastImage
                                                 style={styles.image}
@@ -137,9 +139,9 @@ const CatagoryHome = ({ vodCarouselRes, navId = 0, setScrollEnabled }: Props) =>
                 </>
             }
             data={data?.categories ? data?.categories : []}
-            initialNumToRender={0}
-            windowSize={1}
-            maxToRenderPerBatch={1}
+            initialNumToRender={1}
+            windowSize={3}
+            maxToRenderPerBatch={3}
             renderItem={listItem}
         />
     )
