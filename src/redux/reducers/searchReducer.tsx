@@ -1,4 +1,4 @@
-import { ADD_SEARCH_HISTORY, REMOVE_SEARCH_HISTORY, CLEAR_SEARCH_HISTORY} from "../../constants"
+import { ADD_SEARCH_HISTORY, REMOVE_SEARCH_HISTORY, CLEAR_SEARCH_HISTORY} from "../../utility/constants"
 import { SearchHistoryActionType } from "../../types/actionTypes"
 import { VodTopicType, VodType } from "../../types/ajaxTypes"
 

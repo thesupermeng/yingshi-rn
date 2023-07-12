@@ -3,7 +3,7 @@ import themeReducer from './themeReducer';
 import { vodReducer, vodPlaylistReducer, vodFavouritesReducer } from './vodReducer';
 import { searchHistoryReducer } from './searchReducer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { CLEAR_STORAGE_MEMORY } from "../../constants";
+import { CLEAR_STORAGE_MEMORY } from "../../utility/constants";
 
 const appReducer = combineReducers({
     themeReducer,

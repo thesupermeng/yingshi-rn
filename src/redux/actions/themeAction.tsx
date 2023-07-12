@@ -2,7 +2,7 @@ import { ThunkAction } from 'redux-thunk'
 
 import {
   DARK_THEME, LIGHT_THEME
-} from "../../constants";
+} from "../../utility/constants";
 
 import { AppDispatchType, RootState } from "../store";
 export const toggleDarkTheme = () => ({
