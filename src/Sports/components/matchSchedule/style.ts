@@ -1,6 +1,5 @@
 import {StyleSheet} from 'react-native';
 import {color} from 'react-native-reanimated';
-import {Colors} from '../../global/colors';
 
 const styles = StyleSheet.create({
   matchScheduleHeader: {
@@ -42,7 +41,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '400',
     fontFamily: 'PingFang SC',
-    color: Colors.colorMatchTitle,
   },
   liveStatus: {
     color: 'red',
@@ -80,7 +78,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontFamily: 'PingFang SC',
     paddingHorizontal: 5,
-    color: 'black',
+    color: 'white',
   },
   highScoreFont: {
     fontStyle: 'normal',
@@ -88,14 +86,12 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontFamily: 'PingFang SC',
     paddingHorizontal: 5,
-    color: Colors.colorLightOrange,
   },
   headerFont: {
     fontStyle: 'normal',
     fontSize: 12,
     fontWeight: '400',
     fontFamily: 'PingFang SC',
-    color: Colors.colorMatchTitle,
   },
   viewImage: {
     width: 15,
@@ -131,7 +127,6 @@ const styles = StyleSheet.create({
   },
   border: {
     borderTopWidth: 1,
-    borderTopColor: Colors.colorLightGrey,
     height: 90,
   },
   teamContentA: {

@@ -14,9 +14,11 @@ import FastImage from 'react-native-fast-image';
 import Api from '../../middleware/api';
 import { Url } from '../../middleware/url';
 import { formatMatchDate } from '../../utility/utils';
+import { MatchDetailsType } from '../../types/matchTypes';
+import MatchSchedule from '../../components/matchSchedule/MatchSchedule';
 
 type FlatListType = {
-    item: VodTopicType,
+    item: MatchDetailsType,
     index: number
 }
 
@@ -30,7 +32,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     const { textVariants, colors, spacing } = useTheme();
     const LIMIT_PER_PAGE = 10;
     const BTN_COLORS = ['#30AA55', '#7E9CEE', '#F1377A', '#FFCC12', '#ED7445'];
-    const [navId, setNavId] = useState(0);
+    const [navId, setNavId] = useState({ index: 0, apiIndex: 0 });
     const width = Dimensions.get('window').width;
     const onEndReachedCalledDuringMomentum = useRef(true);
     const navRef = useRef<any>();
@@ -40,16 +42,18 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
         queryKey: ["matchesNavOptions"],
         queryFn: () => Api.call(Url.sportTypes, {}, 'GET').then(res => {
             // console.log(res.data[0])
+            setNavId({ index: 0, apiIndex: res.data[0].ids[0] })
             return res.data;
         }),
     });
 
     const { data: matches } = useQuery({
-        queryKey: ["matches"],
-        queryFn: () => Api.call(Url.matches + `?sports_type=1`, {}, 'GET').then(res => {
-            if (res?.data != undefined) {
+        queryKey: ["matchessss", navId],
+        queryFn: () => Api.call(Url.matches + `?sports_type=${navId.apiIndex}`, {}, 'GET').then(res => {
+            const data = res?.data;
+            if (data != undefined) {
                 const dates = Object.keys(res.data);
-                const matches = dates.map(date => ({ date: formatMatchDate(date), data: res.data[date] }))
+                const matches: { date: string, data: MatchDetailsType[] }[] = dates.map(date => ({ date: formatMatchDate(date), data: res.data[date] }))
                 return matches;
             }
         }
@@ -79,22 +83,26 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
             // }
         });
 
-    const renderItem = ({ item }: FlatListType) => (
-        <VodPlaylist playlist={item}
-            titleStyle={{ color: colors.text }} />
-    )
-
     const Content = useCallback(({ item, index }: { item: any, index: number }) => {
         return <View style={{ width: width, backgroundColor: BTN_COLORS[index % BTN_COLORS.length], height: '100%' }}>
-
+            {
+                matches &&
+                matches.map(match =>
+                    <View key={match.date}>
+                        <Text>{match.date}</Text>
+                        <FlatList data={match.data} renderItem={({ item }: FlatListType) => <MatchSchedule match={item} />} />
+                    </View>
+                )
+            }
         </View>
-    }, [])
+    }, [matches, navId])
 
     const onScrollEnd = useCallback((e: any) => {
         if (!onEndReachedCalledDuringMomentum.current) {
             const pageNumber = Math.min(Math.max(Math.floor(e.nativeEvent.contentOffset.x / width + 0.5), 0), navOptions.length);
-            if (pageNumber !== navId) {
-                setNavId(pageNumber);
+            if (pageNumber !== navId.index) {
+                console.log({ index: pageNumber, apiIndex: navId.apiIndex })
+                setNavId({ index: pageNumber, apiIndex: navOptions[pageNumber].ids[0] });
                 navRef?.current?.scrollToIndex({
                     index: pageNumber,
                     viewOffset: 24
@@ -119,7 +127,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                         return (
                             <TouchableOpacity style={{ marginRight: spacing.m, justifyContent: 'center', display: 'flex' }} onPress={() => {
                                 if (navOptions.length > 0) {
-                                    setNavId(index)
+                                    setNavId({ index: index, apiIndex: item.ids[0] })
                                     contentRef?.current?.scrollToIndex({
                                         index: index,
                                     });
@@ -127,9 +135,9 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                             }}>
                                 <Text style={{
                                     textAlign: 'center',
-                                    fontSize: navId === index ? textVariants.selected.fontSize : textVariants.unselected.fontSize,
-                                    fontWeight: navId === index ? textVariants.selected.fontWeight : textVariants.unselected.fontWeight,
-                                    color: navId === index ? colors.primary : colors.muted,
+                                    fontSize: navId.index === index ? textVariants.selected.fontSize : textVariants.unselected.fontSize,
+                                    fontWeight: navId.index === index ? textVariants.selected.fontWeight : textVariants.unselected.fontWeight,
+                                    color: navId.index === index ? colors.primary : colors.muted,
                                 }}>{item.type}</Text>
                             </TouchableOpacity>
 

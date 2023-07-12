@@ -66,7 +66,7 @@ export default class Api {
       DeviceInfo: `{ "uuid": "${Config.uniqueId}","version": "${Config.version}", "platform": "${Config.platform}", "osVersion": "${Config.baseOs}",   "model": "${Config.brand}", "channel":"${Config.channelId}", "appName":"${Config.appNameEng}", "appType":"${Config.appType}" }`,
     };
 
-    console.log(deviceInfo)
+    // console.log(deviceInfo)
     if (url.startsWith('live/')) {
       configuratinObject.url = `${baseUrl}${url}`;
       if (token) {
@@ -107,12 +107,13 @@ export default class Api {
 
     // printRequestLog(url, configuratinObject);
     // return axios(configuratinObject);
-    console.log('calling', `${MATCH_API_DOMAIN}${url}`, configuratinObject)
+    // console.log('calling', `${MATCH_API_DOMAIN}${url}`, configuratinObject)
     // return axios(configuratinObject);
     try {
       const response = await axios(configuratinObject);
+      console.log(configuratinObject)
       const {code, data, msg} = response.data;
-      console.log(data, msg, code);
+      // console.log(data, msg, code);
       if (response.status === 200) {
         if (code == 0) {
           return {success: true, data: data, message: msg};
@@ -124,11 +125,11 @@ export default class Api {
         return {success: false, data: null, message: msg};
       }
     } catch (error) {
-      console.log("ERR", error)
+      // console.log("ERR", error)
       const status = error?.response?.status;
       const msg = error?.response?.data?.msg;
 
-      console.log(url, msg ?? error, false);
+      // console.log(url, msg ?? error, false);
 
       if (status === 401) {
 

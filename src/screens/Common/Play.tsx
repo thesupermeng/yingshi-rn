@@ -88,10 +88,14 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
             }
         }
         maxTitleWidth += (2 * spacing.s) // Padding
-        return maxTitleWidth
+        if (episodes.length > 3) {
+            return Math.floor(Math.min(maxTitleWidth, windowDim / 3)) - 5;
+        }
+        return maxTitleWidth - 5;
     }, [vod, showEpisodeRangeStart, showEpisodeRangeEnd]);
 
-    const NUM_PER_ROW = useMemo(() => Math.max(Math.floor(windowDim / (BTN_SELECT_WIDTH + 10)), 1), [windowDim, BTN_SELECT_WIDTH]);
+    const NUM_PER_ROW = useMemo(() => Math.max(Math.floor(windowDim / BTN_SELECT_WIDTH), 1), [windowDim, BTN_SELECT_WIDTH]);
+    console.log(NUM_PER_ROW)
     const BTN_MARGIN_RIGHT = useMemo(() => {
         let mr = 0;
         if (NUM_PER_ROW > 1) {
@@ -270,11 +274,12 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
                                             }} onPress={() => {
                                                 setCurrentEpisode(url.nid);
                                             }}>
-                                                <Text style={{
+                                                <Text numberOfLines={1} style={{
                                                     textAlign: 'center',
                                                     ...textVariants.header,
                                                     fontWeight: '500',
                                                     color: currentEpisode === url.nid ? colors.selected : colors.muted,
+                                                    flexShrink: 1
                                                 }}>{url.name}</Text>
                                             </TouchableOpacity>
                                         })
