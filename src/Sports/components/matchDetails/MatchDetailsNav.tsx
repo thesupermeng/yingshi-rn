@@ -20,6 +20,7 @@ interface Props {
 }
 
 export default function MatchDetailsNav({ tabList, streamId }: Props) {
+    const { colors } = useTheme();
     console.log('MATCH DETAILSS');
     
     return (
@@ -67,9 +68,9 @@ export default function MatchDetailsNav({ tabList, streamId }: Props) {
                             // }
                             options={{
                                 tabBarLabel: tab.title,
-                                tabBarOptions: {
-                                    showIcon: true,
-                                },
+                                tabBarActiveTintColor: colors.primary,
+                                tabBarInactiveTintColor: colors.text,
+                                tabBarIndicatorStyle: {opacity: 0},
                                 tabBarIcon: () =>
                                 tab.name == 'PUBLIC',
                                 tabBarIconStyle: {position: 'absolute', top: -22, right: -20},
