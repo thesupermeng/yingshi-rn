@@ -70,6 +70,8 @@ const MatchSchedule = ({ match, onPress, followMatchIds = [], isMatchPage = fals
 
   const matchClicked = async () => {
 
+    navigation.navigate('体育详情');
+
     // const route = await liveRoomName(match?.id);
     // navigation.navigate(route, {
     //   matchId: match?.id,

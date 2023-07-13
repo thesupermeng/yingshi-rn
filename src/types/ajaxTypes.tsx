@@ -321,3 +321,9 @@ export interface LiveTVStationItem {
     live_station_url: string
     live_station_img_url: string
 }
+
+export interface DetailTab {
+    name: string,
+    title: string,
+    page: any
+}

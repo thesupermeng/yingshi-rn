@@ -80,7 +80,7 @@ export default ({ navigation, route }: RootStackScreenProps<'电视台播放'>) 
         <ScreenContainer containerStyle={{ flex: 1, paddingRight: 0, paddingLeft: 0 }}>
             {
                 liveStationItem !== undefined && !dismountPlayer &&
-                <VodPlayer vod_url={'rtmp://ivi.bupt.edu.cn:1935/livetv/hunanhd'}
+                <VodPlayer vod_url={liveStationItem.live_station_url}
                     vodTitle={liveStationItem.live_station_name}
                     videoType={'live'}
                 />

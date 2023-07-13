@@ -7,7 +7,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
-import { API_DOMAIN, API_DOMAIN_TEST } from './src/constants';
+import { API_DOMAIN, API_DOMAIN_TEST } from './src/utility/constants';
 import { FilterOptionsResponseType, MiniVideo, NavOptionsResponseType, SuggestResponseType, VodCarousellResponseType, VodPlaylistResponseType, LiveTVStationsResponseType } from './src/types/ajaxTypes';
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';

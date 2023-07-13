@@ -9,7 +9,8 @@ export type HomeTabParamList = {
     随心看: undefined;
     播单: undefined;
     我的: undefined;
-    体育: undefined
+    体育: undefined;
+    体育详情: undefined;
 };
 
 export type ProfileTabParamList = {
@@ -68,11 +69,12 @@ export type RootStackParamList = {
     };
     电视台列表: {
         liveStationItemList: Array<LiveTVStationItem>
-    }
+    };
     电视台播放: {
         liveStationItemList: Array<LiveTVStationItem>
         liveStationItem: LiveTVStationItem
-    }
+    };
+    体育详情: undefined;
 };
 
 
