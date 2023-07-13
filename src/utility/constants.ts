@@ -13,7 +13,8 @@ export const CLEAR_HISTORY = 'clear_history';
 export const TOGGLE_PLAYLIST_FAVORITES = 'toggle_playlist_fav';
 export const VIEW_PLAYLIST = 'view_playlist';
 
-export const API_DOMAIN = 'https://api.yingshi.tv/';
+export const API_DOMAIN = 'https://api.yingshi.tv/'
+export const API_DOMAIN_TEST = 'https://testapi.yingshi.tv/'
 export const MATCH_API_DOMAIN = 'https://api.ggsimida.com/';
 
 export const ADD_SEARCH_HISTORY = 'add_search_history';

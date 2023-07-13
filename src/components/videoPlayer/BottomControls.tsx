@@ -16,10 +16,11 @@ type Props = {
     onSlideComplete: (params: any) => any,
     onToggleFullScreen: () => any,
     onToggleEpisodes: () => any,
-    isFullScreen: boolean
+    isFullScreen: boolean,
+    videoType: string
 }
 
-export default ({ currentTime, duration, onSlideCapture, onSlideStart, onSlideComplete, onToggleFullScreen, onToggleEpisodes, isFullScreen }: Props) => {
+export default ({ currentTime, duration, onSlideCapture, onSlideStart, onSlideComplete, onToggleFullScreen, onToggleEpisodes, isFullScreen, videoType }: Props) => {
 
     useEffect(() => {
     }, [])
@@ -64,10 +65,12 @@ export default ({ currentTime, duration, onSlideCapture, onSlideStart, onSlideCo
                         maximumTrackTintColor={'#FFFFFF'}
                         thumbTintColor={'#FFFFFF'}
                         style={{ flex: 12, marginTop: 2 }} />
-                    <View style={styles.timeWrapper}>
-                        <Text style={styles.timeLeft}>{position} / </Text>
-                        <Text style={styles.timeRight}>{fullDuration}</Text>
-                    </View>
+                    {videoType == 'vod' &&
+                        <View style={styles.timeWrapper}>
+                            <Text style={styles.timeLeft}>{position} / </Text>
+                            <Text style={styles.timeRight}>{fullDuration}</Text>
+                        </View>
+                    }
                     <Pressable onPress={onPressFullScreenBtn} style={{ alignItems: 'flex-end' }}>
                         <FullScreen width={30} height={30} />
                     </Pressable>
@@ -89,10 +92,12 @@ export default ({ currentTime, duration, onSlideCapture, onSlideStart, onSlideCo
                             maximumTrackTintColor={'#FFFFFF'}
                             thumbTintColor={'#FFFFFF'}
                             style={{ flex: 16, marginTop: 2 }} />
-                        <View style={styles.timeWrapperLandscape}>
-                            <Text style={styles.timeLeftLandscape}>{position} / </Text>
-                            <Text style={styles.timeRightLandscape}>{fullDuration}</Text>
-                        </View>
+                        {videoType == 'vod' &&
+                            <View style={styles.timeWrapperLandscape}>
+                                <Text style={styles.timeLeftLandscape}>{position} / </Text>
+                                <Text style={styles.timeRightLandscape}>{fullDuration}</Text>
+                            </View>
+                        }
                         <View>
                             <Pressable style={styles.containerItem} onPress={onPressFullScreenBtn}>
                                 <MinimizeScreen width={30} height={30} />

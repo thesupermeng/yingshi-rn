@@ -309,3 +309,15 @@ export interface FilterOptionsTypeExtendObj {
     lang: string
     year: string
 }
+
+export interface LiveTVStationsResponseType{
+    code: number
+    data: LiveTVStationItem[]
+}
+
+export interface LiveTVStationItem {
+    id: number
+    live_station_name: string
+    live_station_url: string
+    live_station_img_url: string
+}

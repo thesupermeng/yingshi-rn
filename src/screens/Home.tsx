@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, FlatList, Dimensions, Refresh
 import ScreenContainer from '../components/container/screenContainer';
 import { useTheme } from '@react-navigation/native';
 import { useQuery, useQueries, UseQueryResult } from '@tanstack/react-query';
-import { NavOptionsResponseType, VodCarousellResponseType, VodPlaylistResponseType, VodTopicType, VodType } from '../types/ajaxTypes';
+import { NavOptionsResponseType, VodCarousellResponseType, VodPlaylistResponseType, VodTopicType, VodType, LiveTVStationsResponseType } from '../types/ajaxTypes';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { API_DOMAIN } from '../utility/constants';
 import CatagoryHome from '../components/container/CatagoryHome';
