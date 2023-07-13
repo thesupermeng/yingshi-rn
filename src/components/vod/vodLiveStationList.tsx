@@ -30,6 +30,7 @@ export default function VodLiveStationList({ vodStyle, horizontal = true, liveSt
             data={liveStationList}
             horizontal
             renderItem={({item} : LiveStationType)  => {
+
                 return <VodCard showPlayIcon={false} vodImageStyle={vodStyle} shadowBottom={true}
                 key={item.id}
                 vod_name={item.live_station_name} vod_pic={item.live_station_img_url}  
