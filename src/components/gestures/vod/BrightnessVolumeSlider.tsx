@@ -12,10 +12,6 @@ type Props = {
 
 export default ({percent, icon}: Props) => {
 
-    useEffect(() => {
-        console.log(percent, icon);
-    }, [])
-
     return (
         <View style={styles.smallContainer}>
             {icon == "Moon" &&

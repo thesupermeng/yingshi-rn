@@ -79,7 +79,6 @@ export default ({ vod_url, currentTimeRef = 0, initialStartTime = 0, vodTitle = 
     };
 
     const onToggleFullScreen = useCallback(() => {
-        console.log(isFullScreen);
         if (isFullScreen) {
             Orientation.lockToPortrait();
             Orientation.unlockAllOrientations();

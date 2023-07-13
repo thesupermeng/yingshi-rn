@@ -27,7 +27,7 @@ import Play from '../../static/images/blackPlay.svg';
 import FastImage from 'react-native-fast-image';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import Orientation from 'react-native-orientation-locker';
-import { API_DOMAIN } from '../constants';
+import { API_DOMAIN } from '../utility/constants';
 import { memoize } from 'lodash';
 import ShortVideoPlayer from '../components/videoPlayer/shortVodPlayer';
 
@@ -44,7 +44,6 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     const [displayHeight, setDisplayHeight] = useState<number | null>(0);
     const [current, setCurrent] = useState<number | null>(0);
     const [isPaused, setIsPaused] = useState(false);
-    const [videos, setVideos] = useState<MiniVideo[]>([]);
     const LIMIT = 100;
     const fetchVods = (page: number) => fetch(
         `${API_DOMAIN}miniVod/v1/miniVod?page=${page}&limit=${LIMIT}`,
@@ -54,7 +53,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
             return json.data.List
         })
 
-    const { data: playlists, isSuccess, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } =
+    const { data: videos, isSuccess, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } =
         useInfiniteQuery(['watchAnytime'], ({ pageParam = 1 }) => fetchVods(pageParam), {
             getNextPageParam: (lastPage, allPages) => {
                 if (lastPage === null) {
@@ -65,9 +64,6 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                 return nextPage;
             },
             onSuccess: (data) => {
-                if (data && data?.pages) {
-                    setVideos([...videos, ...data.pages[data.pages.length - 1].flat()])
-                }
             }
         });
 
@@ -106,7 +102,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                 setDisplayHeight(height)
             }}>
                 <FlatList
-                    data={videos}
+                    data={videos?.pages.flat()}
                     initialNumToRender={1}
                     maxToRenderPerBatch={3}
                     windowSize={5}

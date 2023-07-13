@@ -16,7 +16,6 @@ interface Props {
     sheetRef?: RefObject<BottomSheetMethods>;
 }
 function VodEpisodeSelectionModal({ onConfirm, onCancel, sheetRef, episodes, activeEpisode = 0 }: Props) {
-    console.log('MODAL RENDERING')
     const { colors, textVariants, spacing } = useTheme();
     const EPISODE_RANGE_SIZE = 100;
     const insets = useSafeAreaInsets();

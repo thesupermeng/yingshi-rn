@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useSelector } from "react-redux";
 import { NavigationContainer, RouteProp, getFocusedRouteNameFromRoute } from '@react-navigation/native'
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -33,8 +32,10 @@ import WatchAnytimeTabIcon from '../../static/images/video_tab.svg';
 import WatchAnytimeActiveTabIcon from '../../static/images/video_tab_active.svg';
 import CatalogScreen from '../screens/Common/Catalog';
 import ShortVodCollectionScreen from '../screens/Profile/Collection/shortVodCollection';
+import SportsIcon from '../../static/images/sports.svg';
+import MatchesScreen from '../Sports/screens/Sports/Matches';
 
-import { YingshiDarkTheme, YingshiLightTheme } from '../theme';
+import { YingshiDarkTheme, YingshiLightTheme } from '../utility/theme';
 import { HomeTabParamList, PlaylistTabParamList, ProfileTabParamList, RootStackParamList, WatchAnytimeTabParamList } from '../types/navigationTypes';
 import RNBootSplash from "react-native-bootsplash";
 import { RootState } from '../redux/store';
@@ -44,23 +45,20 @@ import {
 } from 'react-native-safe-area-context';
 import { StatusBar, StyleSheet } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
+import { useAppSelector } from '../hooks/hooks';
 
 
 export default () => {
     const Stack = createNativeStackNavigator<RootStackParamList>();
     const HomeTab = createBottomTabNavigator<HomeTabParamList>();
-    const ProfileTab = createBottomTabNavigator<ProfileTabParamList>();
-    const PlaylistTab = createBottomTabNavigator<PlaylistTabParamList>();
-    const WatchAnytimeTab = createBottomTabNavigator<WatchAnytimeTabParamList>();
 
-    const themeReducer = useSelector(({ themeReducer }: RootState) => themeReducer);
+    const themeReducer = useAppSelector(({ themeReducer }: RootState) => themeReducer);
     const theme = themeReducer.theme ? YingshiDarkTheme : YingshiLightTheme;
 
     let hasNotch = DeviceInfo.hasNotch();
-    console.log(hasNotch);
 
     let iconWidth = 22;
-    if(hasNotch){
+    if (hasNotch) {
         iconWidth = 22;
     }
 
@@ -71,9 +69,9 @@ export default () => {
                 tabBarStyle: hasNotch ? styles.navStyleWithNotch : styles.navStyle,
                 tabBarIcon: ({ focused, color, size }) => {
                     let icon: React.ReactNode;
-                    
+
                     if (route.name === '首页') {
-                        icon = focused ? <HomeActiveTabIcon width={iconWidth} color={theme.icons.activeNavIconColor}  /> : <HomeTabIcon width={iconWidth} color={theme.icons.inactiveNavIconColor} />;
+                        icon = focused ? <HomeActiveTabIcon width={iconWidth} color={theme.icons.activeNavIconColor} /> : <HomeTabIcon width={iconWidth} color={theme.icons.inactiveNavIconColor} />;
                     } else if (route.name === '播单') {
                         icon = focused ? <PlaylistActiveTabIcon width={iconWidth} color={theme.icons.activeNavIconColor} /> : <PlaylistTabIcon width={iconWidth} color={theme.icons.inactiveNavIconColor} />;
                     } else if (route.name === '我的') {
@@ -81,12 +79,16 @@ export default () => {
                     } else if (route.name === '随心看') {
                         icon = focused ? <WatchAnytimeActiveTabIcon width={iconWidth} color={theme.icons.activeNavIconColor} /> : <WatchAnytimeTabIcon width={iconWidth} color={theme.icons.inactiveNavIconColor} />;
                     }
+                    else if (route.name === '体育') {
+                        icon = focused ? <SportsIcon width={iconWidth} color={theme.icons.activeNavIconColor} /> : <SportsIcon width={iconWidth} color={theme.icons.inactiveNavIconColor} />;
+                    }
                     return icon;
                 },
             })
             } >
                 <HomeTab.Screen name="首页" component={HomeScreen} />
                 <HomeTab.Screen name="随心看" component={WatchAnytime} />
+                {/* <HomeTab.Screen name="体育" component={MatchesScreen} /> */}
                 <HomeTab.Screen name="播单" component={PlaylistScreen} />
                 <HomeTab.Screen name="我的" component={ProfileScreen} />
             </HomeTab.Navigator>
@@ -95,7 +97,7 @@ export default () => {
     }
 
     return (
-        <SafeAreaProvider>
+        <SafeAreaProvider >
             <StatusBar
                 backgroundColor={theme.colors.background}
                 barStyle={themeReducer.theme ? "light-content" : "dark-content"}
@@ -103,6 +105,7 @@ export default () => {
             <NavigationContainer theme={theme} onReady={() => RNBootSplash.hide()}>
                 <Stack.Navigator initialRouteName="Home" screenOptions={({ route }) => ({
                     headerShown: false,
+                    animation: 'slide_from_right',
                 })} >
                     <Stack.Screen name='Home' component={HomeTabScreen} options={{ orientation: 'portrait' }} />
                     <Stack.Screen name='视频收藏' component={VodCollectionScreen} options={{ orientation: 'portrait' }} />

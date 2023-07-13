@@ -4,8 +4,8 @@ import Logo from '../../../static/images/logo.svg';
 import History from '../../../static/images/history.svg';
 import { useTheme } from '@react-navigation/native';
 import { useQuery } from '@tanstack/react-query';
-import { API_DOMAIN } from '../../constants';
-import { VodCarousellResponseType } from '../../types/ajaxTypes';
+import { API_DOMAIN } from '../../utility/constants';
+import { SuggestResponseType, VodCarousellResponseType } from '../../types/ajaxTypes';
 import { useMemo } from 'react';
 
 interface Props {
@@ -16,21 +16,21 @@ interface Props {
 export default function MainHeader({ logo, navigator, headerStyle }: Props) {
     const { icons } = useTheme();
 
-    const { data } = useQuery({
-        queryKey: ["HomePage", 0],
+    const { data: recommendations } = useQuery({
+        queryKey: ["recommendationList"],
         queryFn: () =>
-            fetch(`${API_DOMAIN}page/v1/typepage?id=0`, {})
+            fetch(`${API_DOMAIN}vod/v1/vod?by=hits_day`)
                 .then(response => response.json())
-                .then((json: VodCarousellResponseType) => {
-                    return json.data
+                .then((json: SuggestResponseType) => {
+                    return json.data.List
                 }),
     });
 
     const randomVod = useMemo(() => {
-        if (data?.yunying && data.yunying.length > 0 && data.yunying[0]?.vod_list?.length && data.yunying[0].vod_list.length > 0) {
-            return data.yunying[0].vod_list[Math.floor(Math.random() * data.yunying.length)]
+        if (recommendations && recommendations.length > 0) {
+            return recommendations[Math.floor(Math.random() * recommendations.length)]
         }
-    }, [data?.yunying])
+    }, [recommendations])
 
     return (
         <View style={{ ...styles.container, ...headerStyle }}>

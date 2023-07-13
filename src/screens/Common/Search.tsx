@@ -12,7 +12,7 @@ import { useQuery } from '@tanstack/react-query'
 
 import { SuggestResponseType, SuggestedVodType } from '../../types/ajaxTypes';
 import { RootStackScreenProps } from '../../types/navigationTypes';
-import { API_DOMAIN } from '../../constants';
+import { API_DOMAIN } from '../../utility/constants';
 import VodWithDescriptionList from '../../components/vod/vodWithDescriptionList';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { RootState } from '../../redux/store';
@@ -38,7 +38,6 @@ export default ({ navigation, route }: RootStackScreenProps<'搜索'>) => {
             fetch(`${API_DOMAIN}vod/v1/vod?by=hits_day`)
                 .then(response => response.json())
                 .then((json: SuggestResponseType) => {
-                    console.log(json)
                     return json.data.List
                 }),
     });
