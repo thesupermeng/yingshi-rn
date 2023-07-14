@@ -128,17 +128,19 @@ export default ({
 
   const onSkip = (time: any) => {
     if (videoPlayerRef?.current) {
-      let currentTime = currentTimeRef.current;
-      currentTime + time < 0 ? (currentTime = 0) : currentTime;
+      let currentTime = currentTimeRef.current + time;
+      currentTime = Math.max(0, currentTime); // Ensure currentTime is not negative
+      currentTimeRef.current = currentTime;
       videoPlayerRef.current.seek(currentTime);
     }
     // setCurrentTime(currentTime + time);
-    if (currentTimeRef) {
-      currentTimeRef.current += time;
-      currentTimeRef.current < 0
-        ? (currentTimeRef.current = 0)
-        : currentTimeRef.current;
-    }
+    // if (currentTimeRef) {
+    //   console.log('pass 2nd  111111');
+    //   currentTimeRef.current += time;
+    //   currentTimeRef.current < 0
+    //     ? (currentTimeRef.current = 0)
+    //     : currentTimeRef.current;
+    // }
     debouncedFn();
   };
 
