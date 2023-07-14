@@ -132,7 +132,7 @@ const RecommendationHome = ({ vodCarouselRes, setScrollEnabled }: Props) => {
                                 </View>
                             </View>
                         }
-                        {
+                        {/* {
                             liveStations && liveStations?.length > 0 &&
                             <View style={{ gap: spacing.m }}>
                                 <View style={{ paddingLeft: spacing.sideOffset, paddingRight: spacing.sideOffset }}>
@@ -144,7 +144,7 @@ const RecommendationHome = ({ vodCarouselRes, setScrollEnabled }: Props) => {
                                     <VodLiveStationList vodStyle={styles.vod_live_station} liveStationList={liveStations.slice(0, 10)} />
                                 </View>
                             </View>
-                        }
+                        } */}
                         {
                             data?.yunying && data.yunying.length > 0 &&
                             <View style={{ paddingLeft: spacing.sideOffset, paddingRight: spacing.sideOffset, gap: spacing.m }}>
