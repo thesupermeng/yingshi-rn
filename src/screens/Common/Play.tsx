@@ -80,7 +80,7 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
         if (vod?.vod_play_list === undefined || vod === null) {
             return spacing.m;
         }
-        const val = textVariants?.header?.fontSize === undefined ? 16 : textVariants.header.fontSize;
+        const val = textVariants?.body?.fontSize === undefined ? 14 : textVariants.body.fontSize;
         const episodes = vod.vod_play_list.urls.slice(showEpisodeRangeStart, showEpisodeRangeEnd);
         let maxTitleWidth = 0;
         for (const ep of episodes) {
@@ -116,8 +116,8 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
 
     const NUM_OF_ROWS = useMemo(() => vod?.vod_play_list ? Math.ceil(vod.vod_play_list.url_count / NUM_PER_ROW) : 0, [vod, NUM_PER_ROW]);
     const ROW_HEIGHT = useMemo(() => {
-        const height = textVariants?.header?.fontSize === undefined ? 22 : textVariants.header.fontSize + 6;
-        return (spacing.s * 3) + height;
+        const height = textVariants?.subBody?.fontSize === undefined ? 22 : textVariants.subBody.fontSize + 6;
+        return (spacing.s * 2.55) + height;
     }, [textVariants, spacing])
     const animatedTextStyle = useAnimatedStyle(() => {
         return {
@@ -277,7 +277,10 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
                                         vod?.vod_play_list && vod.vod_play_list.urls.slice(showEpisodeRangeStart, showEpisodeRangeEnd).map((url, idx) => {
                                             return <TouchableOpacity key={`url-${url.nid}`} style={{
                                                 backgroundColor: currentEpisode === url.nid ? colors.primary : colors.search,
-                                                padding: spacing.s,
+                                                paddingLeft: spacing.s,
+                                                paddingRight: spacing.s,
+                                                paddingTop: spacing.xs,
+                                                paddingBottom: spacing.s,
                                                 width: BTN_SELECT_WIDTH,
                                                 marginBottom: spacing.s,
                                                 marginRight: (idx % NUM_PER_ROW) === NUM_PER_ROW - 1 ? 0 : BTN_MARGIN_RIGHT,
@@ -287,7 +290,7 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
                                             }}>
                                                 <Text numberOfLines={1} style={{
                                                     textAlign: 'center',
-                                                    ...textVariants.header,
+                                                    ...textVariants.subBody,
                                                     fontWeight: '500',
                                                     color: currentEpisode === url.nid ? colors.selected : colors.muted,
                                                     flexShrink: 1
