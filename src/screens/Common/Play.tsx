@@ -180,6 +180,7 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
 
     useFocusEffect(
         useCallback(() => {
+            setDismountPlayer(false);
             return () => {
                 setDismountPlayer(true);
                 Orientation.unlockAllOrientations();

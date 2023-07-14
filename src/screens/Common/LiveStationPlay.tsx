@@ -8,26 +8,13 @@ import ScreenContainer from '../../components/container/screenContainer';
 import { useTheme, useFocusEffect } from '@react-navigation/native';
 
 import { RootStackScreenProps } from '../../types/navigationTypes';
-import { SuggestResponseType } from '../../types/ajaxTypes';
-import { addVodToHistory } from '../../redux/actions/vodActions';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-import { RootState } from '../../redux/store';
-import { FavoriteVodReducerState, VodReducerState } from '../../redux/reducers/vodReducer';
-import BackButton from '../../components/button/backButton';
-import SinaIcon from '../../../static/images/sina.svg';
-import WeChatIcon from '../../../static/images/wechat.svg'
-import QQIcon from '../../../static/images/qq.svg';
-import PYQIcon from '../../../static/images/pyq.svg';
-import MoreArrow from '../../../static/images/more_arrow.svg';
-import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 import Orientation from 'react-native-orientation-locker';
-import { getMaxWidth } from '../../helper';
 
 import { Dimensions } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import VodEpisodeSelectionModal from '../../components/modal/vodEpisodeSelectionModal';
 import FastImage from 'react-native-fast-image';
-import { API_DOMAIN } from '../../constants';
 import { useQuery } from '@tanstack/react-query';
 import ShowMoreVodButton from '../../components/button/showMoreVodButton';
 import VodLiveStationListVertical from '../../components/vod/vodLiveStationListVertical';
