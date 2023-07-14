@@ -65,6 +65,8 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
     // Calculate the scroll position, number of episodes per row to display given viewport width, margin right
     // to get a even, centered grid
     const EPISODE_RANGE_SIZE = 100;
+    const MIN_PER_ROW = 3;
+    const MIN_MARGIN_RIGHT = 8;
 
     const showEpisodeRangeStart = useMemo(() => Math.floor((currentEpisode ? currentEpisode : 0) / EPISODE_RANGE_SIZE) * EPISODE_RANGE_SIZE, [currentEpisode]);
     const showEpisodeRangeEnd = useMemo(
@@ -72,9 +74,9 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
             vod?.vod_play_list ? vod.vod_play_list.url_count : showEpisodeRangeStart + EPISODE_RANGE_SIZE),
         [currentEpisode, showEpisodeRangeStart]
     );
-    const windowDim = useMemo(() => (Dimensions.get('window').width - insets.left - insets.right - (spacing.sideOffset * 2.5)), [insets]);
+    const windowDim = Dimensions.get('window').width - insets.left - insets.right - (spacing.sideOffset * 2.5);
 
-    const BTN_SELECT_WIDTH = useMemo(() => {
+    const BTN_SELECT_WIDTH_UNADJUSTED = useMemo(() => {
         if (vod?.vod_play_list === undefined || vod === null) {
             return spacing.m;
         }
@@ -87,28 +89,36 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
                 maxTitleWidth = width;
             }
         }
-        maxTitleWidth += (2 * spacing.s) // Padding
-        if (episodes.length > 3) {
-            return Math.floor(Math.min(maxTitleWidth, windowDim / 3)) - 5;
+        maxTitleWidth += (2 * spacing.s)// Padding
+        if (episodes.length > MIN_PER_ROW) {
+            return Math.floor(Math.min(maxTitleWidth, windowDim / MIN_PER_ROW));
         }
-        return maxTitleWidth - 5;
+        return maxTitleWidth;
     }, [vod, showEpisodeRangeStart, showEpisodeRangeEnd]);
 
-    const NUM_PER_ROW = useMemo(() => Math.max(Math.floor(windowDim / BTN_SELECT_WIDTH), 1), [windowDim, BTN_SELECT_WIDTH]);
-    console.log(NUM_PER_ROW)
-    const BTN_MARGIN_RIGHT = useMemo(() => {
+    const NUM_PER_ROW = Math.max(Math.floor(windowDim / BTN_SELECT_WIDTH_UNADJUSTED), 1);
+
+    const BTN_MARGIN_RIGHT_UNADJUSTED = useMemo(() => {
         let mr = 0;
         if (NUM_PER_ROW > 1) {
-            mr = Math.floor((windowDim - (NUM_PER_ROW * BTN_SELECT_WIDTH)) / (NUM_PER_ROW - 1))
+            mr = Math.floor((windowDim - (NUM_PER_ROW * BTN_SELECT_WIDTH_UNADJUSTED)) / (NUM_PER_ROW - 1))
         }
-        return Math.min(mr, BTN_SELECT_WIDTH / 2);
-    }, [NUM_PER_ROW, BTN_SELECT_WIDTH, windowDim])
+        return Math.min(mr, BTN_SELECT_WIDTH_UNADJUSTED / 2);
+    }, [NUM_PER_ROW, BTN_SELECT_WIDTH_UNADJUSTED, windowDim]);
 
-    const NUM_OF_ROWS = useMemo(() => vod?.vod_play_list ? Math.floor(vod.vod_play_list.url_count / NUM_PER_ROW) : 0, [vod, NUM_PER_ROW]);
+    let BTN_SELECT_WIDTH = BTN_SELECT_WIDTH_UNADJUSTED;
+    let BTN_MARGIN_RIGHT = BTN_MARGIN_RIGHT_UNADJUSTED;
+    if (BTN_MARGIN_RIGHT < MIN_MARGIN_RIGHT) {
+        const offset = Math.ceil(((MIN_MARGIN_RIGHT - BTN_MARGIN_RIGHT) * (NUM_PER_ROW - 1)) / NUM_PER_ROW);
+        BTN_SELECT_WIDTH -= offset;
+        BTN_MARGIN_RIGHT = MIN_MARGIN_RIGHT;
+    }
+
+    const NUM_OF_ROWS = useMemo(() => vod?.vod_play_list ? Math.ceil(vod.vod_play_list.url_count / NUM_PER_ROW) : 0, [vod, NUM_PER_ROW]);
     const ROW_HEIGHT = useMemo(() => {
         const height = textVariants?.header?.fontSize === undefined ? 22 : textVariants.header.fontSize + 6;
         return (spacing.s * 3) + height;
-    }, [])
+    }, [textVariants, spacing])
     const animatedTextStyle = useAnimatedStyle(() => {
         return {
             display: isExpandEpisodes.value ? 'flex' : 'none',
@@ -256,7 +266,7 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
                                     </TouchableOpacity>
                                 }
                             </View>
-                            <View style={{ height: NUM_OF_ROWS > 6 ? ROW_HEIGHT * 6.5 : 'auto' }}>
+                            <View style={{ height: Math.min(6 * ROW_HEIGHT, NUM_OF_ROWS * ROW_HEIGHT) }}>
                                 <ScrollView
                                     contentContainerStyle={styles.episodeList}
                                     nestedScrollEnabled={true}
