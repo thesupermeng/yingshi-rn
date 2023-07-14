@@ -243,7 +243,8 @@ export default ({navigation, route}: RootStackScreenProps<'播放'>) => {
 
   useEffect(() => {
     const backAction = () => {
-      setDismountPlayer(true);
+      console.log('backAction 111111');
+      setDismountPlayer(false);
       return true;
     };
 
@@ -251,15 +252,14 @@ export default ({navigation, route}: RootStackScreenProps<'播放'>) => {
       BackHandler.addEventListener('hardwareBackPress', backAction);
     }
 
-    return () => {
-      if (Platform.OS === 'android') {
-        BackHandler.removeEventListener('hardwareBackPress', backAction);
-      }
-    };
+    if (Platform.OS === 'android') {
+      BackHandler.removeEventListener('hardwareBackPress', backAction);
+    }
   }, []);
 
   useFocusEffect(
     React.useCallback(() => {
+      console.log('back 111111');
       // Triggered when the user navigates back to the page
       setDismountPlayer(false);
     }, [navigation]),
@@ -268,6 +268,7 @@ export default ({navigation, route}: RootStackScreenProps<'播放'>) => {
   useFocusEffect(
     useCallback(() => {
       return () => {
+        console.log('go away 111111');
         // Triggered when the user navigates away to the page
         setDismountPlayer(true);
         Orientation.unlockAllOrientations();
