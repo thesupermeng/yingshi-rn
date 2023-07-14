@@ -20,7 +20,7 @@ interface Props {
 }
 
 export default function LiveStatPage({ }: Props) {    
-    console.log('LIVESTAT PAGE');
+    // console.log('LIVESTAT PAGE');
 
     return (
         <ScreenContainer>

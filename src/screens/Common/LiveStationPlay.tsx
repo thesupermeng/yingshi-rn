@@ -47,8 +47,8 @@ const definedValue = (val: any) => {
 }
 
 export default ({ navigation, route }: RootStackScreenProps<'电视台播放'>) => {
-    console.log('电视台播放');
-    console.log(route);
+    // console.log('电视台播放');
+    // console.log(route);
     const { liveStationItemList, liveStationItem } = route.params;
     const insets = useSafeAreaInsets();
 

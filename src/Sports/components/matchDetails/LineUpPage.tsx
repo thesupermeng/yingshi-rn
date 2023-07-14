@@ -19,7 +19,7 @@ interface Props {
 }
 
 export default function LineUpPage({ }: Props) {
-    console.log('LINEUP PAGE');
+    // console.log('LINEUP PAGE');
     
     return (
         <ScreenContainer>

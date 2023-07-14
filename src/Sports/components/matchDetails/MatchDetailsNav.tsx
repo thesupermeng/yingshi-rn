@@ -21,7 +21,7 @@ interface Props {
 
 export default function MatchDetailsNav({ tabList, streamId }: Props) {
     const { colors } = useTheme();
-    console.log('MATCH DETAILSS');
+    // console.log('MATCH DETAILSS');
     
     return (
         <SafeAreaView style={{ flex: 1 }}>

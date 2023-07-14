@@ -58,7 +58,7 @@ const MatchScheduleList = ({ matchTypeID }: Props) => {
     }
     ),
   });
-  console.log('flatlist', matchTypeID)
+  // console.log('flatlist', matchTypeID)
   const Content = useCallback(({ item, index }: { item: any, index: number }) => {
     return <View style={{ width: width }}>
       {

@@ -36,7 +36,7 @@ export default function VodLiveStationList({ vodStyle, horizontal = true, liveSt
                 vod_name={item.live_station_name} vod_pic={item.live_station_img_url}  
                 showInfo={''}
                 onPress={() => {
-                    console.log('PRESSED ' + item.live_station_name)
+                    // console.log('PRESSED ' + item.live_station_name)
                     navigation.navigate('电视台播放', { liveStationItemList: liveStationList, liveStationItem: item });
                 }} />
             }}

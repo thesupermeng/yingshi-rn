@@ -152,7 +152,7 @@ export default ({ vod_url, currentTimeRef = 0, initialStartTime = 0, vodTitle = 
     }
 
     const debouncedFn = useCallback(debounce(changeControlsState, 4000), []);
-    console.log("Show Video", showVideo);
+    // console.log("Show Video", showVideo);
 
     const onGoBack = () => {
         setShowVideo(false);
