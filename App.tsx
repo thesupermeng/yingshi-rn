@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Provider } from "react-redux";
 import Nav from './src/navigation/nav'
 import { store, persistor } from './src/redux/store';
@@ -7,12 +7,46 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
-import { API_DOMAIN, API_DOMAIN_TEST } from './src/utility/constants';
+import { API_DOMAIN, API_DOMAIN_TEST, APPSFLYER_DEVKEY } from './src/utility/constants';
 import { FilterOptionsResponseType, MiniVideo, NavOptionsResponseType, SuggestResponseType, VodCarousellResponseType, VodPlaylistResponseType, LiveTVStationsResponseType } from './src/types/ajaxTypes';
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import appsFlyer from 'react-native-appsflyer';
 
 export default function App() {
+
+  appsFlyer.initSdk(
+    {
+      devKey: APPSFLYER_DEVKEY,
+      isDebug: false,
+      // appId: '41*****44',
+      onInstallConversionDataListener: true,
+      onDeepLinkListener: true,
+      timeToWaitForATTUserAuthorization: 10
+    },
+    (result) => {
+      console.log(result);
+      const eventName = 'open_app';
+      const eventValues = {
+        ip: '1'
+      };
+
+      appsFlyer.logEvent(
+        eventName,
+        eventValues,
+        (res) => {
+          console.log(res);
+        },
+        (err) => {
+          console.error(err);
+        }
+      );
+    },
+    (error) => {
+      console.error(error);
+    }
+  );
+
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {

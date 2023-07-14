@@ -1,3 +1,4 @@
+import React, { useEffect, useState, useCallback, useMemo, memo } from 'react';
 import { useNavigation, useTheme } from '@react-navigation/native';
 import { VodTopicType, VodType } from '../../types/ajaxTypes';
 import { playVod, viewPlaylistDetails } from '../../redux/actions/vodActions';
@@ -6,6 +7,7 @@ import RightIcon from '../../../static/images/more_arrow.svg';
 import VodCard from '../vod/vodCard';
 import { useAppDispatch } from '../../hooks/hooks';
 import { TextStyle } from 'react-native';
+import appsFlyer from 'react-native-appsflyer';
 
 interface Props {
     playlist: VodTopicType,
@@ -25,6 +27,25 @@ export default function VodPlaylist({ playlist, titleStyle }: Props) {
         dispatch(viewPlaylistDetails(playlist));
         navigator.navigate('PlaylistDetail', { topic_id: playlist.topic_id });
     }
+
+    useEffect(() => {
+        const eventName = 'topic';
+        const eventValues = {
+            topic_name: playlist.topic_name
+        };
+
+        appsFlyer.logEvent(
+            eventName,
+            eventValues,
+            (res) => {
+                console.log(res);
+            },
+            (err) => {
+                console.error(err);
+            }
+        );
+    }, []);
+
     return (
         <View style={{...styles.playlist, gap: spacing.m}}>
             <TouchableOpacity onPress={viewMore}>

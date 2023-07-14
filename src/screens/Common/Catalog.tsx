@@ -21,6 +21,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { FlatListProps } from 'react-native/Libraries/Lists/FlatList';
 import FastImage from 'react-native-fast-image';
+import appsFlyer from 'react-native-appsflyer';
 
 interface NavType {
     id: number,
@@ -233,6 +234,25 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
             isScrolling.value = false;
         },
     });
+
+    useEffect(() => {
+        const eventName = 'catalog';
+        const eventValues = {
+            pianku: 'pianku'
+        };
+
+        appsFlyer.logEvent(
+            eventName,
+            eventValues,
+            (res) => {
+                console.log(res);
+            },
+            (err) => {
+                console.error(err);
+            }
+        );
+    }, []);
+
     return (
         <ScreenContainer>
             <TitleWithBackButtonHeader title='片库' headerStyle={{ marginBottom: spacing.s }} />
