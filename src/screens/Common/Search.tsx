@@ -1,21 +1,21 @@
-import React, {useCallback, useEffect, useState} from 'react';
-import {View, TouchableOpacity, StyleSheet, Text} from 'react-native';
-import {SearchBar} from '@rneui/base';
-import {useTheme} from '@react-navigation/native';
+import React, { useCallback, useEffect, useState } from 'react';
+import { View, TouchableOpacity, StyleSheet, Text } from 'react-native';
+import { SearchBar } from '@rneui/base';
+import { useTheme } from '@react-navigation/native';
 import OrderedSearchResultsList from '../../components/search/RecommendationList';
 import SearchResultList from '../../components/search/SearchResultList';
 import ScreenContainer from '../../components/container/screenContainer';
 import BackButton from '../../components/button/backButton';
 import SearchIcon from '../../../static/images/search.svg';
 import ClearIcon from '../../../static/images/cross.svg';
-import {useQuery} from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
 import { SuggestResponseType, SuggestedVodType } from '../../types/ajaxTypes';
 import { RootStackScreenProps } from '../../types/navigationTypes';
 import { API_DOMAIN } from '../../utility/constants';
 import VodWithDescriptionList from '../../components/vod/vodWithDescriptionList';
-import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
-import {RootState} from '../../redux/store';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
+import { RootState } from '../../redux/store';
 import FastImage from 'react-native-fast-image';
 import {
   addSearchHistory,
@@ -28,8 +28,9 @@ import Animated, {
 } from 'react-native-reanimated';
 import ClearHistoryIcon from '../../../static/images/clear.svg';
 import EmptyList from '../../components/common/emptyList';
+import appsFlyer from 'react-native-appsflyer';
 
-export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
+export default ({ navigation, route }: RootStackScreenProps<'搜索'>) => {
   const [search, setSearch] = useState(route.params.initial);
   const [searchTimer, setSearchTimer] = useState<ReturnType<
     typeof setTimeout
@@ -41,12 +42,12 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
 
   const dispatch = useAppDispatch();
   const searchHistory = useAppSelector(
-    ({searchHistoryReducer}: RootState) => searchHistoryReducer,
+    ({ searchHistoryReducer }: RootState) => searchHistoryReducer,
   );
   const [isFetching, setisFetching] = useState(false);
 
-  const {colors, textVariants, spacing, icons} = useTheme();
-  const {data: recommendations} = useQuery({
+  const { colors, textVariants, spacing, icons } = useTheme();
+  const { data: recommendations } = useQuery({
     queryKey: ['recommendationList'],
     queryFn: () =>
       fetch(`${API_DOMAIN}vod/v1/vod?by=hits_day`)
@@ -90,8 +91,6 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
   }, []);
 
   const updateSearch = (input: string) => {
-    console.log('updateSearch 111111');
-    console.log(input);
     setSearch(input);
     setSearchResults([]);
     if (searchTimer) {
@@ -99,13 +98,28 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
     }
     setSearchTimer(
       setTimeout(() => {
-        console.log('updateSearch 2222 111111');
         fetchData(input);
       }, 250),
     );
   };
 
   const onSubmit = () => {
+    const eventName = 'search_keyword';
+    const eventValues = {
+      keyword: search
+    };
+
+    appsFlyer.logEvent(
+      eventName,
+      eventValues,
+      (res) => {
+        console.log(res);
+      },
+      (err) => {
+        console.error(err);
+      }
+    );
+
     dispatch(addSearchHistory(search));
     setShowResults(!showResults);
   };
@@ -161,16 +175,16 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
         {showResults ? (
           <VodWithDescriptionList vodList={searchResults} />
         ) : (
-          <View style={{marginLeft: 10, flex: 1}}>
+          <View style={{ marginLeft: 10, flex: 1 }}>
             {search !== undefined &&
-            search !== null &&
-            search.length === 0 &&
-            recommendations ? (
-              <View style={{gap: spacing.m}}>
+              search !== null &&
+              search.length === 0 &&
+              recommendations ? (
+              <View style={{ gap: spacing.m }}>
                 {searchHistory.history.length > 0 && (
-                  <Animated.View style={{gap: spacing.m}} entering={FadeInUp}>
+                  <Animated.View style={{ gap: spacing.m }} entering={FadeInUp}>
                     <View style={styles.rowApart}>
-                      <Text style={{...textVariants.header}}>历史搜索</Text>
+                      <Text style={{ ...textVariants.header }}>历史搜索</Text>
                       <TouchableOpacity
                         style={styles.rowApart}
                         onPress={clearHistory}>
@@ -197,11 +211,10 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
                             ...styles.hst,
                           }}
                           onPress={() => {
-                            console.log('onPress 11111111');
                             updateSearch(hst);
                           }}>
                           <Text
-                            style={{...textVariants.body, color: colors.muted}}>
+                            style={{ ...textVariants.body, color: colors.muted }}>
                             {hst}
                           </Text>
                         </TouchableOpacity>
@@ -217,7 +230,6 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
               <SearchResultList
                 searchResultList={searchResults}
                 onItemSelect={(vod: string) => {
-                  console.log('onItemSelect 11111111');
                   setisFetching(true);
                   updateSearch(vod);
                   setShowResults(true);
@@ -236,7 +248,7 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
           <View style={styles.buffering}>
             <FastImage
               source={require('../../../static/images/videoBufferLoading.gif')}
-              style={{width: 100, height: 100}}
+              style={{ width: 100, height: 100 }}
               resizeMode="contain"
             />
           </View>

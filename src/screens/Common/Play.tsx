@@ -48,6 +48,7 @@ import ShowMoreVodButton from '../../components/button/showMoreVodButton';
 import VodListVertical from '../../components/vod/vodListVertical';
 import VodPlayer from '../../components/videoPlayer/vodPlayer';
 import BottomSheet from '@gorhom/bottom-sheet';
+import appsFlyer from 'react-native-appsflyer';
 
 type PlayContextValue = {
     value: string;
@@ -175,6 +176,24 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
             Alert.alert(error.message);
         }
     };
+
+    useEffect(() => {
+        const eventName = 'watch_video';
+        const eventValues = {
+            vod_name: vod?.vod_name
+        };
+
+        appsFlyer.logEvent(
+            eventName,
+            eventValues,
+            (res) => {
+                console.log(res);
+            },
+            (err) => {
+                console.error(err);
+            }
+        );
+    }, []);
 
     useEffect(() => {
         return () => {
