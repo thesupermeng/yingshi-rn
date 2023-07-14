@@ -12,9 +12,6 @@ import { DetailTab } from '../../../types/ajaxTypes';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import ScreenContainer from '../../../components/container/screenContainer';
 import Chart from '../statisticCharts/Chart';
-import StoryLineEvent from './StoryLineEvent';
-import MatchStatistics from './MatchStatistics';
-import CustomMatchSubTab from './CustomMatchSubTab';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -22,28 +19,11 @@ interface Props {
     
 }
 
-const subTabs = [
-    {
-        name: '重要事件',
-        children: StoryLineEvent
-    },
-    {
-        name: '技术统计',
-        children: MatchStatistics
-    }
-]
-
-export default function LiveStatPage({ }: Props) {    
-    // console.log('LIVESTAT PAGE');
-
+export default function StoryLineEvent({ }: Props) {
     return (
         <ScreenContainer>
             <Text style={{ color: 'white' }}>Live Stat</Text>
             <Chart stats={undefined} />
-
-            {subTabs != undefined && subTabs.length > 0 &&
-                <CustomMatchSubTab subTabs={subTabs} />
-            }
         </ScreenContainer>
     )
 }
