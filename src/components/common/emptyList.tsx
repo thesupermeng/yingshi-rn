@@ -22,6 +22,6 @@ const styles = StyleSheet.create({
         flexGrow: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        paddingBottom: '30%'
+        paddingBottom: '50%'
     },
 });

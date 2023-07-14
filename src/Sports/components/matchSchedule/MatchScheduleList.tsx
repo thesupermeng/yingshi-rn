@@ -22,6 +22,8 @@ import { Url } from '../../middleware/url';
 import { useQuery } from '@tanstack/react-query';
 import Api from '../../middleware/api';
 import MatchSchedule from './MatchSchedule';
+import ScreenContainer from '../../../components/container/screenContainer';
+import EmptyList from '../../../components/common/emptyList';
 
 interface Props {
   // match: MatchDetailsType,
@@ -35,16 +37,9 @@ type FlatListType = {
 
 const MatchScheduleList = ({ matchTypeID }: Props) => {
 
-  const navigation = useNavigation();
-  const [subscribe, setSubscribe] = useState(false);
   const { colors, textVariants, spacing } = useTheme();
   const width = Dimensions.get('window').width;
-  const BTN_COLORS = ['#30AA55', '#7E9CEE', '#F1377A', '#FFCC12', '#ED7445'];
-  // useEffect(() => {
-  //   setSubscribe(isSub);
-  // }, [isSub]);
-
-  // let totalViews = 0;
+  const height = Dimensions.get('window').height;
 
   const { data: matches } = useQuery({
     queryKey: ["matches", matchTypeID],
@@ -62,44 +57,35 @@ const MatchScheduleList = ({ matchTypeID }: Props) => {
   const Content = useCallback(({ item, index }: { item: any, index: number }) => {
     return <View style={{ width: width }}>
       {
-        matches &&
-        matches.map(match =>
+        matches?.map(match =>
           <View key={match.date}>
-            <Text>{match.date}</Text>
-            <FlatList data={match.data} renderItem={({ item }: FlatListType) => <MatchSchedule match={item} />} />
+            <View style={{ backgroundColor: colors.card2, padding: spacing.sideOffset }}>
+              <Text style={textVariants.header}>{match.date}</Text>
+            </View>
+            <View>
+              <FlatList data={match.data} renderItem={({ item }: FlatListType) => <MatchSchedule match={item} />} />
+            </View>
           </View>
         )
       }
     </View>
   }, [matches, matchTypeID])
 
-  const matchClicked = async () => {
-
-    navigation.navigate('体育详情');
-
-    // const route = await liveRoomName(match?.id);
-    // navigation.navigate(route, {
-    //   matchId: match?.id,
-    //   streamerId:
-    //     match?.streams?.length > 0
-    //       ? match?.streams[0]?.streamer_id
-    //       : null,
-    // });
-    // navigation.navigate(redirectPage(), {
-    //   matchId: match?.id,
-    //   streamerId: getOnlineStreamer(),
-    // });
-  }
-
   return (
     <View>
-      <FlatList
-        data={matches}
-        windowSize={3}
-        maxToRenderPerBatch={15}
-        initialNumToRender={20}
-        renderItem={Content}
-      />
+      {
+        matches && matches.length > 0
+          ? <FlatList
+            data={matches}
+            windowSize={3}
+            maxToRenderPerBatch={2}
+            initialNumToRender={2}
+            renderItem={Content}
+          />
+          : <View style={{ height: height }}>
+            <EmptyList description='暂无比赛' />
+          </View>
+      }
     </View>
   );
 };

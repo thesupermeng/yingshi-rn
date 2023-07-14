@@ -116,13 +116,11 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                     }}
                 /> */}
             </View>
-            <ScreenContainer>
-                {matchTabs && matchTabs.length > 0 && (
-                    <MatchScheduleNav
-                        tabList={matchTabs}
-                    />
-                )}
-            </ScreenContainer>
+            {matchTabs && matchTabs.length > 0 && (
+                <MatchScheduleNav
+                    tabList={matchTabs}
+                />
+            )}
         </ScreenContainer>
     )
 }
