@@ -20,6 +20,7 @@ import { addSearchHistory, clearSearchHistory } from '../../redux/actions/search
 import Animated, { FadeInUp, FadeOutUp, useAnimatedStyle } from 'react-native-reanimated';
 import ClearHistoryIcon from '../../../static/images/clear.svg'
 import EmptyList from '../../components/common/emptyList';
+import appsFlyer from 'react-native-appsflyer';
 
 export default ({ navigation, route }: RootStackScreenProps<'搜索'>) => {
     const [search, setSearch] = useState(route.params.initial);
@@ -88,6 +89,23 @@ export default ({ navigation, route }: RootStackScreenProps<'搜索'>) => {
     };
 
     const onSubmit = () => {
+
+        const eventName = 'search_keyword';
+        const eventValues = {
+            keyword: search
+        };
+
+        appsFlyer.logEvent(
+            eventName,
+            eventValues,
+            (res) => {
+                console.log(res);
+            },
+            (err) => {
+                console.error(err);
+            }
+        );
+
         dispatch(addSearchHistory(search));
         setShowResults(!showResults);
     }

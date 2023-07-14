@@ -22,3 +22,5 @@ export const REMOVE_SEARCH_HISTORY = 'remove_from_search_history';
 export const CLEAR_SEARCH_HISTORY = 'clear_search_history';
 
 export const CLEAR_STORAGE_MEMORY = 'clear_storage_memory';
+
+export const APPSFLYER_DEVKEY = 'wrxTHihLJNWrrusXtgRJZa'
