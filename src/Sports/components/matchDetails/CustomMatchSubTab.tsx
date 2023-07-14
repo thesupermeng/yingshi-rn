@@ -38,7 +38,7 @@ export default function CustomMatchSubTab({ subTabs }: Props) {
                         styles.tabNavigator,
                         {
                             backgroundColor:
-                            tab === idx ? activeTabColor : Colors.colorLightGrey,
+                            tab === idx ? activeTabColor : colors.primary,
                         },
                     ]}>
                     <Text
