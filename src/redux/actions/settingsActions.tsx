@@ -1,6 +1,6 @@
 import {
     CLEAR_STORAGE_MEMORY
-} from "../../constants";
+} from "../../utility/constants";
 
 export const clearStorageMemory = () => (
     {

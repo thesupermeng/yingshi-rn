@@ -10,11 +10,13 @@ import ProfileScreen from '../screens/Profile/Profile';
 import WatchAnytime from '../screens/WatchAnytime';
 import SearchScreen from '../screens/Common/Search';
 import PlayScreen from '../screens/Common/Play';
+import LiveStationPlayScreen from '../screens/Common/LiveStationPlay';
 import VodCollectionScreen from '../screens/Profile/Collection/VodCollection';
 import FeedbackScreen from '../screens/Profile/Feedback';
 import PlaylistCollectionScreen from '../screens/Profile/Collection/PlaylistCollection';
 import PlaylistDetailsScreen from '../screens/Playlist/PlaylistDetails';
 import HistoryScreen from '../screens/Profile/History';
+import LiveStationsScreen from '../screens/Common/LiveStations';
 import AboutUsScreen from '../screens/Profile/AboutUs';
 import PrivacyScreen from '../screens/Profile/Privacy';
 import UserAgreementScreen from '../screens/Profile/UserAgreement';
@@ -31,9 +33,10 @@ import WatchAnytimeActiveTabIcon from '../../static/images/video_tab_active.svg'
 import CatalogScreen from '../screens/Common/Catalog';
 import ShortVodCollectionScreen from '../screens/Profile/Collection/shortVodCollection';
 import SportsIcon from '../../static/images/sports.svg';
-import MatchesScreen from '../screens/Sports/Matches';
+import MatchesScreen from '../Sports/screens/Sports/Matches';
+import MatchDetailsScreen from '../Sports/screens/Sports/MatchDetails';
 
-import { YingshiDarkTheme, YingshiLightTheme } from '../theme';
+import { YingshiDarkTheme, YingshiLightTheme } from '../utility/theme';
 import { HomeTabParamList, PlaylistTabParamList, ProfileTabParamList, RootStackParamList, WatchAnytimeTabParamList } from '../types/navigationTypes';
 import RNBootSplash from "react-native-bootsplash";
 import { RootState } from '../redux/store';
@@ -86,7 +89,7 @@ export default () => {
             } >
                 <HomeTab.Screen name="首页" component={HomeScreen} />
                 <HomeTab.Screen name="随心看" component={WatchAnytime} />
-                {/* <HomeTab.Screen name="体育" component={MatchesScreen} /> */}
+                <HomeTab.Screen name="体育" component={MatchesScreen} />
                 <HomeTab.Screen name="播单" component={PlaylistScreen} />
                 <HomeTab.Screen name="我的" component={ProfileScreen} />
             </HomeTab.Navigator>
@@ -119,6 +122,9 @@ export default () => {
                     <Stack.Screen name='片库' component={CatalogScreen} initialParams={{ type_id: 1 }} options={{ orientation: 'portrait' }} />
                     <Stack.Screen name='设置' component={ConfigureScreen} options={{ orientation: 'portrait' }} />
                     <Stack.Screen name='合集收藏' component={ShortVodCollectionScreen} options={{ orientation: 'portrait' }} />
+                    <Stack.Screen name='体育详情' component={MatchDetailsScreen} options={{ orientation: 'portrait' }} />
+                    <Stack.Screen name='电视台列表' component={LiveStationsScreen} initialParams={{ liveStationItemList: undefined }} options={{ orientation: 'portrait' }} />
+                    <Stack.Screen name='电视台播放' component={LiveStationPlayScreen} initialParams={{ liveStationItemList: undefined, liveStationItem: undefined }} options={{ orientation: 'all' }} />
                 </Stack.Navigator>
             </NavigationContainer>
         </SafeAreaProvider>

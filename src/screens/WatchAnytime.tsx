@@ -27,7 +27,7 @@ import Play from '../../static/images/blackPlay.svg';
 import FastImage from 'react-native-fast-image';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import Orientation from 'react-native-orientation-locker';
-import { API_DOMAIN } from '../constants';
+import { API_DOMAIN } from '../utility/constants';
 import { memoize } from 'lodash';
 import ShortVideoPlayer from '../components/videoPlayer/shortVodPlayer';
 

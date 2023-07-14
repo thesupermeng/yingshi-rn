@@ -18,12 +18,13 @@ type Props = {
     isFullScreen: boolean,
     headerTitle: string,
     onHandleGoBack: () => any,
+    videoType: string
 }
 
 const height = Dimensions.get('window').width;
 const width = Dimensions.get('window').height;
 
-export default ({ currentTime, duration, onVideoSeek, onFastForward, onTogglePlayPause, onHandleFullScreen, paused, isFullScreen, headerTitle, onHandleGoBack }: Props) => {
+export default ({ currentTime, duration, onVideoSeek, onFastForward, onTogglePlayPause, onHandleFullScreen, paused, isFullScreen, headerTitle, onHandleGoBack, videoType }: Props) => {
     const { colors, spacing, textVariants, icons } = useTheme();
     const navigation = useNavigation();
 
@@ -77,7 +78,8 @@ export default ({ currentTime, duration, onVideoSeek, onFastForward, onTogglePla
                 onSlideCapture={onSeek}
                 onToggleFullScreen={handleFullScreen}
                 onToggleEpisodes={handleToggleEpisodes}
-                isFullScreen={isFullScreen} />
+                isFullScreen={isFullScreen}
+                videoType={videoType} />
 
             <LinearGradient
                 colors={['transparent', 'black']}

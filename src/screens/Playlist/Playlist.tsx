@@ -7,7 +7,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { VodPlaylistResponseType, VodTopicType } from '../../types/ajaxTypes';
 import VodPlaylist from '../../components/playlist/vodPlaylist';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
-import { API_DOMAIN } from '../../constants';
+import { API_DOMAIN } from '../../utility/constants';
 import Animated from 'react-native-reanimated';
 import FastImage from 'react-native-fast-image';
 
