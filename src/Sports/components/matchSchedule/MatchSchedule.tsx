@@ -130,14 +130,14 @@ const MatchSchedule = ({ match, onPress, followMatchIds = [], isMatchPage = fals
   // };
   // console.log('WTF', match)
   return (
-    <FixedTouchableHighlight onPress={matchClicked} style={{flex: 1, height: 200}}>
+    <FixedTouchableHighlight onPress={matchClicked} style={{ flex: 1 }}>
       <View style={styles.border}>
         <View style={styles.matchScheduleHeader}>
           <View style={styles.matchInfo}>
-            <Text style={styles.spaceBetween}>
+            <Text style={{ ...styles.spaceBetween, color: colors.muted }}>
               {match?.competition?.name_short}
             </Text>
-            <Text style={textVariants.header}>
+            <Text style={{ ...textVariants.small, color: colors.muted }}>
               {('0' + new Date(match?.match_time_ts).getHours()).slice(-2) +
                 ':' +
                 ('0' + new Date(match?.match_time).getMinutes()).slice(-2)}
@@ -157,12 +157,6 @@ const MatchSchedule = ({ match, onPress, followMatchIds = [], isMatchPage = fals
               <Image style={styles.liveTypeImage} source={AnimationLive} />
             )}
           </View>
-          {/* {match?.streams != undefined && match?.streams.length > 0 && (
-            <View style={styles.onlineViews}>
-              <Image style={styles.viewImage} source={Views} />
-              <Text style={styles.headerFont}>{calTotalViews()}</Text>
-            </View>
-          )} */}
         </View>
         <View style={styles.matchScheduleContent}>
           <View style={styles.teamContentA}>
@@ -207,7 +201,7 @@ const MatchSchedule = ({ match, onPress, followMatchIds = [], isMatchPage = fals
                           match?.away_score,
                           match?.sports_type,
                         )
-                        ? styles.highScoreFont
+                        ? { ...styles.highScoreFont, color: colors.primary }
                         : styles.scoreFont
                     }>
                     {calculateScore(
@@ -226,7 +220,7 @@ const MatchSchedule = ({ match, onPress, followMatchIds = [], isMatchPage = fals
                           match?.home_score,
                           match?.sports_type,
                         )
-                        ? styles.highScoreFont
+                        ? { ...styles.highScoreFont, color: colors.primary }
                         : styles.scoreFont
                     }>
                     {calculateScore(
@@ -291,7 +285,7 @@ const MatchSchedule = ({ match, onPress, followMatchIds = [], isMatchPage = fals
                 </Text>
               </ImageBackground>
             )}
-            <Text style={styles.scheduleFont} numberOfLines={1}>
+            <Text style={{ ...textVariants.body, flexShrink: 1 }} numberOfLines={1}>
               {match?.away?.name}
             </Text>
           </View>

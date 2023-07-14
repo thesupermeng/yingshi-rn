@@ -102,7 +102,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    width: '95%',
     justifyContent: 'center',
     marginLeft: 10,
     marginRight: 10,
@@ -138,6 +137,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '25%',
     justifyContent: 'flex-start',
+    flexShrink: 1
   },
   teamImage: {
     height: 30,

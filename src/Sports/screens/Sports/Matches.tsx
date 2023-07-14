@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { StyleSheet, View, Text, FlatList, TouchableOpacity, Dimensions } from 'react-native';
 import ScreenContainer from '../../../components/container/screenContainer';
 import MainHeader from '../../../components/header/homeHeader';
@@ -16,11 +16,9 @@ import { Url } from '../../middleware/url';
 import { formatMatchDate } from '../../utility/utils';
 import { MatchDetailsType } from '../../types/matchTypes';
 import MatchSchedule from '../../components/matchSchedule/MatchSchedule';
+import MatchScheduleNav from '../../components/matchSchedule/MatchScheduleNav';
 
-type FlatListType = {
-    item: MatchDetailsType,
-    index: number
-}
+
 
 interface NavType {
     has_submenu: boolean,
@@ -33,14 +31,14 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     const LIMIT_PER_PAGE = 10;
     const BTN_COLORS = ['#30AA55', '#7E9CEE', '#F1377A', '#FFCC12', '#ED7445'];
     const [navId, setNavId] = useState({ index: 0, apiIndex: 0 });
-    const width = Dimensions.get('window').width;
+
     const onEndReachedCalledDuringMomentum = useRef(true);
     const navRef = useRef<any>();
     const contentRef = useRef<any>();
 
     const { data: navOptions } = useQuery({
         queryKey: ["matchesNavOptions"],
-        queryFn: () => Api.call(Url.sportTypes, {}, 'GET').then(res => {
+        queryFn: () => Api.call(Url.sportTypes, {}, 'GET').then((res): NavType[] => {
             // console.log(res.data[0])
             setNavId({ index: 0, apiIndex: res.data[0].ids[0] })
             return res.data;
@@ -48,7 +46,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     });
 
     const { data: matches } = useQuery({
-        queryKey: ["matchessss", navId],
+        queryKey: ["matches", navId],
         queryFn: () => Api.call(Url.matches + `?sports_type=${navId.apiIndex}`, {}, 'GET').then(res => {
             const data = res?.data;
             if (data != undefined) {
@@ -60,57 +58,30 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
         ),
     });
 
-    const fetchPlaylist = (page: number) => fetch(`${API_DOMAIN}topic/v1/topic?page=${page}`)
-        .then(response => response.json())
-        .then((json: VodPlaylistResponseType) => {
-            return Object.values(json.data.List)
-        })
-
-    const { data: playlists, isSuccess, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } =
-        useInfiniteQuery(['vodPlaylist'], ({ pageParam = 1 }) => fetchPlaylist(pageParam), {
-            getNextPageParam: (lastPage, allPages) => {
-                if (lastPage === null) {
-                    return undefined;
-                }
-                const nextPage =
-                    lastPage.length === LIMIT_PER_PAGE ? allPages.length + 1 : undefined;
-                return nextPage;
-            },
-            // onSuccess: (data) => {
-            //     if (data && data?.pages) {
-            //         setResults([...results, ...data.pages[data.pages.length - 1].flat()])
-            //     }
-            // }
-        });
-
-    const Content = useCallback(({ item, index }: { item: any, index: number }) => {
-        return <View style={{ width: width, backgroundColor: BTN_COLORS[index % BTN_COLORS.length], height: '100%' }}>
-            {
-                matches &&
-                matches.map(match =>
-                    <View key={match.date}>
-                        <Text>{match.date}</Text>
-                        <FlatList data={match.data} renderItem={({ item }: FlatListType) => <MatchSchedule match={item} />} />
-                    </View>
-                )
-            }
-        </View>
-    }, [matches, navId])
-
-    const onScrollEnd = useCallback((e: any) => {
-        if (!onEndReachedCalledDuringMomentum.current) {
-            const pageNumber = Math.min(Math.max(Math.floor(e.nativeEvent.contentOffset.x / width + 0.5), 0), navOptions.length);
-            if (pageNumber !== navId.index) {
-                console.log({ index: pageNumber, apiIndex: navId.apiIndex })
-                setNavId({ index: pageNumber, apiIndex: navOptions[pageNumber].ids[0] });
-                navRef?.current?.scrollToIndex({
-                    index: pageNumber,
-                    viewOffset: 24
-                });
-            }
-            onEndReachedCalledDuringMomentum.current = true;
+    const matchTabs = useMemo(() => navOptions?.map(x => (
+        {
+            id: x.ids[0],
+            title: x.type,
+            name: x.type,
         }
-    }, [navOptions, width, onEndReachedCalledDuringMomentum, navRef, navId])
+    )), [navOptions])
+
+
+
+    // const onScrollEnd = useCallback((e: any) => {
+    //     if (!onEndReachedCalledDuringMomentum.current) {
+    //         const pageNumber = Math.min(Math.max(Math.floor(e.nativeEvent.contentOffset.x / width + 0.5), 0), navOptions.length);
+    //         if (pageNumber !== navId.index) {
+    //             console.log({ index: pageNumber, apiIndex: navId.apiIndex })
+    //             setNavId({ index: pageNumber, apiIndex: navOptions[pageNumber].ids[0] });
+    //             navRef?.current?.scrollToIndex({
+    //                 index: pageNumber,
+    //                 viewOffset: 24
+    //             });
+    //         }
+    //         onEndReachedCalledDuringMomentum.current = true;
+    //     }
+    // }, [navOptions, width, onEndReachedCalledDuringMomentum, navRef, navId])
 
     return (
         <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
@@ -118,7 +89,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                 <MainHeader logo={
                     <Text style={{ ...textVariants.bigHeader, color: colors.text, fontSize: 22 }}>体育</Text>
                 } navigator={navigation} />
-                <FlatList
+                {/* <FlatList
                     data={navOptions ? navOptions : []}
                     horizontal
                     ref={navRef}
@@ -126,7 +97,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                     renderItem={({ item, index }: { item: NavType, index: number }) => {
                         return (
                             <TouchableOpacity style={{ marginRight: spacing.m, justifyContent: 'center', display: 'flex' }} onPress={() => {
-                                if (navOptions.length > 0) {
+                                if (navOptions && navOptions?.length > 0) {
                                     setNavId({ index: index, apiIndex: item.ids[0] })
                                     contentRef?.current?.scrollToIndex({
                                         index: index,
@@ -143,26 +114,15 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
 
                         )
                     }}
-                />
+                /> */}
             </View>
-            <FlatList
-                ref={contentRef}
-                data={navOptions}
-                pagingEnabled={true}
-                horizontal={true}
-                windowSize={3}
-                maxToRenderPerBatch={2}
-                initialNumToRender={1}
-                nestedScrollEnabled={true}
-                getItemLayout={(data, index) => (
-                    { length: width, offset: width * index, index }
+            <ScreenContainer>
+                {matchTabs && matchTabs.length > 0 && (
+                    <MatchScheduleNav
+                        tabList={matchTabs}
+                    />
                 )}
-                onMomentumScrollBegin={() => {
-                    onEndReachedCalledDuringMomentum.current = false;
-                }}
-                onMomentumScrollEnd={onScrollEnd}
-                renderItem={Content}
-            />
+            </ScreenContainer>
         </ScreenContainer>
     )
 }
