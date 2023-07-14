@@ -34,7 +34,7 @@ export default ({navigation}: RootStackScreenProps<'关于我们'>) => {
             ...textVariants.body,
             marginBottom: spacing.m,
           }}>
-          fankui@yingshi.tv
+          contactus@yingshi.tv
         </Text>
       }>
       <View style={{gap: spacing.m}}>
@@ -50,7 +50,7 @@ export default ({navigation}: RootStackScreenProps<'关于我们'>) => {
           isVisible={isDialogOpen}
           title="清除提示"
           subtitle1="如果本站提供内容侵犯了您的版权，请来函说明，本网站将立即删除，保护版权所有者的权益。"
-          subtitle2="联系邮箱: fankui@yingshi.tv"
+          subtitle2="联系邮箱: contactus@yingshi.tv"
         />
         <View>
           {/* <ShowMoreButton text='隐私政策' onPress={() => navigation.navigate('用户协议')} />
