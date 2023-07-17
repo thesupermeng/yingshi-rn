@@ -1,4 +1,4 @@
-import React, { memo, useState, useRef } from 'react';
+import React, {memo, useState, useRef} from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,20 +8,26 @@ import {
   TouchableWithoutFeedback,
   RefreshControl,
 } from 'react-native';
-import { useNavigation, useTheme } from '@react-navigation/native';
+import {useNavigation, useTheme} from '@react-navigation/native';
 import Swiper from 'react-native-swiper';
 import ShowMoreVodButton from '../button/showMoreVodButton';
-import { VodCarousellResponseType, VodPlaylistResponseType, VodTopicType, VodType, LiveTVStationsResponseType } from '../../types/ajaxTypes';
-import FastImage from 'react-native-fast-image'
-import { VodReducerState } from '../../redux/reducers/vodReducer';
-import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-import { RootState } from '../../redux/store';
+import {
+  VodCarousellResponseType,
+  VodPlaylistResponseType,
+  VodTopicType,
+  VodType,
+  LiveTVStationsResponseType,
+} from '../../types/ajaxTypes';
+import FastImage from 'react-native-fast-image';
+import {VodReducerState} from '../../redux/reducers/vodReducer';
+import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
+import {RootState} from '../../redux/store';
 import VodHistoryList from '../vod/vodHistoryList';
 import VodLiveStationList from '../vod/vodLiveStationList';
-import { API_DOMAIN, API_DOMAIN_TEST } from '../../utility/constants';
+import {API_DOMAIN, API_DOMAIN_TEST} from '../../utility/constants';
 import VodListVertical from '../vod/vodListVertical';
-import { playVod, viewPlaylistDetails } from '../../redux/actions/vodActions';
-import { useQuery, useInfiniteQuery } from '@tanstack/react-query';
+import {playVod, viewPlaylistDetails} from '../../redux/actions/vodActions';
+import {useQuery, useInfiniteQuery} from '@tanstack/react-query';
 import LinearGradient from 'react-native-linear-gradient';
 
 interface NavType {
@@ -43,10 +49,10 @@ const fetchPlaylist = (page: number) =>
       return Object.values(json.data.List);
     });
 
-const RecommendationHome = ({ vodCarouselRes, setScrollEnabled }: Props) => {
-  const { colors, textVariants, spacing } = useTheme();
+const RecommendationHome = ({vodCarouselRes, setScrollEnabled}: Props) => {
+  const {colors, textVariants, spacing} = useTheme();
   const vodReducer: VodReducerState = useAppSelector(
-    ({ vodReducer }: RootState) => vodReducer,
+    ({vodReducer}: RootState) => vodReducer,
   );
   const history = vodReducer.history;
   const dispatch = useAppDispatch();
@@ -62,7 +68,7 @@ const RecommendationHome = ({ vodCarouselRes, setScrollEnabled }: Props) => {
     isFetching,
   } = useInfiniteQuery(
     ['vodPlaylist'],
-    ({ pageParam = 1 }) => fetchPlaylist(pageParam),
+    ({pageParam = 1}) => fetchPlaylist(pageParam),
     {
       getNextPageParam: (lastPage, allPages) => {
         if (lastPage === null) {
@@ -80,16 +86,15 @@ const RecommendationHome = ({ vodCarouselRes, setScrollEnabled }: Props) => {
     },
   );
 
-  const { data: liveStations } = useQuery({
-    queryKey: ["LiveTVStations"],
+  const {data: liveStations} = useQuery({
+    queryKey: ['LiveTVStations'],
     queryFn: () =>
       fetch(`${API_DOMAIN_TEST}live/v1/livestations`, {})
         .then(response => response.json())
         .then((json: LiveTVStationsResponseType) => {
-          return json.data
+          return json.data;
         }),
   });
-
 
   return (
     <FlatList
@@ -139,8 +144,8 @@ const RecommendationHome = ({ vodCarouselRes, setScrollEnabled }: Props) => {
                       />
                       <LinearGradient
                         colors={['transparent', 'black']}
-                        start={{ x: 0.5, y: 0 }}
-                        end={{ x: 0.5, y: 0.6 }}
+                        start={{x: 0.5, y: 0}}
+                        end={{x: 0.5, y: 0.6}}
                         style={styles.bottomBlur}
                       />
                       <Text
@@ -161,7 +166,7 @@ const RecommendationHome = ({ vodCarouselRes, setScrollEnabled }: Props) => {
           <View>
             {/* previous style={{ gap: spacing.m }} */}
             {history.length > 0 && (
-              <View style={{ paddingTop: 10 }}>
+              <View style={{paddingTop: 10}}>
                 <View
                   style={{
                     paddingLeft: spacing.sideOffset,
@@ -175,7 +180,7 @@ const RecommendationHome = ({ vodCarouselRes, setScrollEnabled }: Props) => {
                     }}
                   />
                 </View>
-                <View style={{ paddingLeft: spacing.sideOffset }}>
+                <View style={{paddingLeft: spacing.sideOffset}}>
                   <VodHistoryList
                     vodStyle={styles.vod_hotlist}
                     vodList={history.slice(0, 10)}
@@ -184,19 +189,30 @@ const RecommendationHome = ({ vodCarouselRes, setScrollEnabled }: Props) => {
                 </View>
               </View>
             )}
-            {
-              liveStations && liveStations?.length > 0 &&
-              <View style={{ gap: spacing.m }}>
-                <View style={{ paddingLeft: spacing.sideOffset, paddingRight: spacing.sideOffset }}>
-                  <ShowMoreVodButton text='电视台推荐' onPress={() => {
-                    navigation.navigate('电视台列表', { liveStationItemList: liveStations });
-                  }} />
+            {liveStations && liveStations?.length > 0 && (
+              <View style={{gap: spacing.m}}>
+                <View
+                  style={{
+                    paddingLeft: spacing.sideOffset,
+                    paddingRight: spacing.sideOffset,
+                  }}>
+                  <ShowMoreVodButton
+                    text="电视台推荐"
+                    onPress={() => {
+                      navigation.navigate('电视台列表', {
+                        liveStationItemList: liveStations,
+                      });
+                    }}
+                  />
                 </View>
-                <View style={{ paddingLeft: spacing.sideOffset }}>
-                  <VodLiveStationList vodStyle={styles.vod_live_station} liveStationList={liveStations.slice(0, 10)} />
+                <View style={{paddingLeft: spacing.sideOffset}}>
+                  <VodLiveStationList
+                    vodStyle={styles.vod_live_station}
+                    liveStationList={liveStations.slice(0, 10)}
+                  />
                 </View>
               </View>
-            }
+            )}
             {data?.yunying && data.yunying.length > 0 && (
               <View
                 style={{
@@ -220,6 +236,33 @@ const RecommendationHome = ({ vodCarouselRes, setScrollEnabled }: Props) => {
                 <VodListVertical vods={data.yunying[0].vod_list.slice(0, 6)} />
               </View>
             )}
+
+            {data?.categories &&
+              data.categories.length > 0 &&
+              data.categories.map((category, index) => (
+                <View
+                  key={`category-${index}`}
+                  style={{
+                    paddingLeft: spacing.sideOffset,
+                    paddingRight: spacing.sideOffset,
+                    paddingTop: 5,
+                  }}>
+                  <View
+                    style={{
+                      paddingBottom: 5,
+                    }}>
+                    <ShowMoreVodButton
+                      text={category.type_name}
+                      onPress={() => {
+                        navigation.navigate('片库', {
+                          type_id: category.type_id,
+                        });
+                      }}
+                    />
+                  </View>
+                  <VodListVertical vods={category.vod_list.slice(0, 6)} />
+                </View>
+              ))}
           </View>
         </>
       }
@@ -231,15 +274,15 @@ const RecommendationHome = ({ vodCarouselRes, setScrollEnabled }: Props) => {
       }}
       initialNumToRender={0}
       onEndReachedThreshold={0.5}
-      renderItem={({ item, index }: { item: VodTopicType; index: number }) => (
+      renderItem={({item, index}: {item: VodTopicType; index: number}) => (
         <View
           style={{
             paddingLeft: spacing.sideOffset,
             paddingRight: spacing.sideOffset,
           }}>
           {/* previous style={{ gap: spacing.m }} */}
-          <View key={`${item.topic_name}-${index}`} style={{ paddingTop: 10 }}>
-            <View style={{ paddingBottom: 5 }}>
+          <View key={`${item.topic_name}-${index}`} style={{paddingTop: 10}}>
+            <View style={{paddingBottom: 5}}>
               <ShowMoreVodButton
                 text={item.topic_name}
                 onPress={() => {
@@ -255,16 +298,16 @@ const RecommendationHome = ({ vodCarouselRes, setScrollEnabled }: Props) => {
         </View>
       )}
       ListFooterComponent={
-        <View style={{ ...styles.loading, marginBottom: spacing.xl }}>
+        <View style={{...styles.loading, marginBottom: spacing.xl}}>
           {hasNextPage && (
             <FastImage
-              style={{ height: 80, width: 80 }}
+              style={{height: 80, width: 80}}
               source={require('../../../static/images/loading-spinner.gif')}
               resizeMode={FastImage.resizeMode.contain}
             />
           )}
           {!(isFetchingNextPage || isFetching) && !hasNextPage && (
-            <Text style={{ ...textVariants.body, color: colors.muted }}>
+            <Text style={{...textVariants.body, color: colors.muted}}>
               没有更多了
             </Text>
           )}
@@ -310,7 +353,7 @@ const styles = StyleSheet.create({
   },
   vod_live_station: {
     height: 90,
-    width: 150
+    width: 150,
   },
   nav: {
     flexGrow: 1,
