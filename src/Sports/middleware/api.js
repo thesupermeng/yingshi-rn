@@ -22,9 +22,9 @@ date: ${Date()}
 `;
 
   if (success) {
-    console.log(logString);
+    // console.log(logString);
   } else {
-    console.error(logString);
+    // console.error(logString);
   }
 };
 
@@ -111,7 +111,7 @@ export default class Api {
     // return axios(configuratinObject);
     try {
       const response = await axios(configuratinObject);
-      console.log(configuratinObject)
+      // console.log(configuratinObject)
       const {code, data, msg} = response.data;
       // console.log(data, msg, code);
       if (response.status === 200) {

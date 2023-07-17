@@ -26,8 +26,8 @@ import ScreenContainer from '../../../components/container/screenContainer';
 import EmptyList from '../../../components/common/emptyList';
 
 interface Props {
-  // match: MatchDetailsType,
-  matchTypeID: number
+  matchTypeID: number,
+  status?: number
 }
 
 type FlatListType = {
@@ -35,15 +35,15 @@ type FlatListType = {
   index: number
 }
 
-const MatchScheduleList = ({ matchTypeID }: Props) => {
+const MatchScheduleList = ({ matchTypeID, status }: Props) => {
 
   const { colors, textVariants, spacing } = useTheme();
   const width = Dimensions.get('window').width;
   const height = Dimensions.get('window').height;
 
   const { data: matches } = useQuery({
-    queryKey: ["matches", matchTypeID],
-    queryFn: () => Api.call(Url.matches + `?sports_type=${matchTypeID}`, {}, 'GET').then(res => {
+    queryKey: ["matches", matchTypeID, `status=${status}`],
+    queryFn: () => Api.call(`${Url.matches11}?sports_type=${matchTypeID}${status && `&status=${status}`}` , {}, 'GET').then(res => {
       const data = res?.data;
       if (data != undefined) {
         const dates = Object.keys(res.data);
@@ -53,7 +53,6 @@ const MatchScheduleList = ({ matchTypeID }: Props) => {
     }
     ),
   });
-  // console.log('flatlist', matchTypeID)
   const Content = useCallback(({ item, index }: { item: any, index: number }) => {
     return <View style={{ width: width }}>
       {
@@ -79,7 +78,7 @@ const MatchScheduleList = ({ matchTypeID }: Props) => {
             data={matches}
             windowSize={3}
             maxToRenderPerBatch={2}
-            initialNumToRender={2}
+            initialNumToRender={1}
             renderItem={Content}
           />
           : <View style={{ height: height }}>

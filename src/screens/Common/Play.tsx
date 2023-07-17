@@ -107,13 +107,13 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
             }
         }
         maxTitleWidth += (2 * spacing.s)// Padding
-        if (episodes.length > MIN_PER_ROW) {
+        if (episodes.length >= MIN_PER_ROW) {
             return Math.floor(Math.min(maxTitleWidth, windowDim / MIN_PER_ROW));
         }
         return maxTitleWidth;
     }, [vod, showEpisodeRangeStart, showEpisodeRangeEnd]);
 
-    const NUM_PER_ROW = Math.max(Math.floor(windowDim / BTN_SELECT_WIDTH_UNADJUSTED), 1);
+    let NUM_PER_ROW = Math.max(Math.floor(windowDim / BTN_SELECT_WIDTH_UNADJUSTED), 1);
 
     const BTN_MARGIN_RIGHT_UNADJUSTED = useMemo(() => {
         let mr = 0;
@@ -130,7 +130,7 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
         BTN_SELECT_WIDTH -= offset;
         BTN_MARGIN_RIGHT = MIN_MARGIN_RIGHT;
     }
-
+    NUM_PER_ROW = Math.max(Math.floor(windowDim / BTN_SELECT_WIDTH), 1);
     const NUM_OF_ROWS = useMemo(() => vod?.vod_play_list ? Math.ceil(vod.vod_play_list.url_count / NUM_PER_ROW) : 0, [vod, NUM_PER_ROW]);
     const ROW_HEIGHT = useMemo(() => {
         const height = textVariants?.subBody?.fontSize === undefined ? 22 : textVariants.subBody.fontSize + 6;
@@ -401,6 +401,8 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
                                                                     ? colors.primary
                                                                     : colors.search,
                                                             padding: spacing.s,
+                                                            paddingTop: spacing.xs,
+                                                            paddingBottom: spacing.xs,
                                                             width: BTN_SELECT_WIDTH,
                                                             marginBottom: spacing.s,
                                                             marginRight:
@@ -416,7 +418,7 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
                                                             numberOfLines={1}
                                                             style={{
                                                                 textAlign: 'center',
-                                                                ...textVariants.header,
+                                                                ...textVariants.body,
                                                                 fontWeight: '500',
                                                                 color:
                                                                     currentEpisode === url.nid
