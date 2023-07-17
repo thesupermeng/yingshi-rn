@@ -1,5 +1,11 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {View, TouchableOpacity, StyleSheet, Text} from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  StyleSheet,
+  Text,
+  ScrollView,
+} from 'react-native';
 import {SearchBar} from '@rneui/base';
 import {useTheme} from '@react-navigation/native';
 import OrderedSearchResultsList from '../../components/search/RecommendationList';
@@ -56,12 +62,6 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
           return json.data.List;
         }),
   });
-
-  // const defaultSpringStyles = useAnimatedStyle(() => {
-  //     return {
-  //       height: searchHistory.history.length === 0 ? 0 : 'auto',
-  //     };
-  //   }, [searchHistory.history]);
 
   async function fetchData(text: string) {
     setisFetching(true);
@@ -171,11 +171,15 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
           }
         />
       </View>
-      <View style={styles.searchResult}>
+      <ScrollView
+        style={styles.searchResult}
+        contentContainerStyle={{flexGrow: 1}}
+        showsVerticalScrollIndicator={false} // Hide the vertical scroll bar
+      >
         {showResults ? (
           <VodWithDescriptionList vodList={searchResults} />
         ) : (
-          <View style={{marginLeft: 10, flex: 1}}>
+          <View style={{marginLeft: 10}}>
             {search !== undefined &&
             search !== null &&
             search.length === 0 &&
@@ -232,6 +236,7 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
                 )}
                 <OrderedSearchResultsList
                   recommendationList={recommendations}
+                  style={{flex: 1, maxHeight: '100%'}} // Adjust the styles here to make it scrollable
                 />
               </View>
             ) : (
@@ -261,7 +266,7 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
             />
           </View>
         )}
-      </View>
+      </ScrollView>
     </ScreenContainer>
   );
 };
@@ -290,7 +295,6 @@ const styles = StyleSheet.create({
   searchResult: {
     marginTop: 10,
     flex: 1,
-    display: 'flex',
   },
   rowApart: {
     display: 'flex',
