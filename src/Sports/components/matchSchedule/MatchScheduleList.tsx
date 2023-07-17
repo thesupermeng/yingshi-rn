@@ -62,7 +62,7 @@ const MatchScheduleList = ({ matchTypeID, status }: Props) => {
               <Text style={textVariants.header}>{match.date}</Text>
             </View>
             <View>
-              <FlatList data={match.data} renderItem={({ item }: FlatListType) => <MatchSchedule match={item} />} />
+              <FlatList data={match.data} renderItem={({ item }: FlatListType) => <MatchSchedule matchSche={item} />} />
             </View>
           </View>
         )

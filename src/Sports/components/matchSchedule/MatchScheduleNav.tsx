@@ -87,7 +87,7 @@ export default function MatchScheduleNav({ tabList, streamId }: Props) {
                                         key={`inner-${index}-1`}
                                         name='进行中'
                                         children={() => (
-                                            <MatchScheduleList matchTypeID={tab.id} status={1} />
+                                            <MatchScheduleList matchTypeID={tab.id} status={1}  />
                                         )}
                                     />
                                     <Tab.Screen

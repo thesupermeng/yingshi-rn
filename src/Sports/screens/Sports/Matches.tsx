@@ -39,8 +39,8 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     const { data: navOptions } = useQuery({
         queryKey: ["matchesNavOptions"],
         queryFn: () => Api.call(Url.sportTypes, {}, 'GET').then((res): NavType[] => {
-            // console.log(res.data[0])
             setNavId({ index: 0, apiIndex: res.data[0].ids[0] })
+            console.log(res.data[0])
             return res.data;
         }),
     });

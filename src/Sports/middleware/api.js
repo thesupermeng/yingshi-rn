@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Platform } from 'react-native';
 // import {getAccessToken, getAuthToken} from '../global/asyncStorage';
-import Config from '../env';
+import Config from '../global/env';
 // import {addHeaderSignature} from './util';
 import { MATCH_API_DOMAIN } from '../../utility/constants';
 
