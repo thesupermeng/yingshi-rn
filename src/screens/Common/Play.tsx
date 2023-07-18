@@ -470,7 +470,6 @@ export default ({navigation, route}: RootStackScreenProps<'播放'>) => {
                             <Text
                               numberOfLines={1}
                               style={{
-                                fontSize: 2,
                                 textAlign: 'center',
                                 ...textVariants.header,
                                 fontWeight: '500',

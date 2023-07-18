@@ -42,9 +42,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
     const { textVariants, colors, spacing } = useTheme();
     const LIMIT_PER_PAGE = 10;
     const BTN_COLORS = ['#30AA55', '#7E9CEE', '#F1377A', '#FFCC12', '#ED7445'];
-    const [navId, setNavId] = useState({ index: 0, apiIndex: 0 });
     const width = Dimensions.get('window').width;
-    const onEndReachedCalledDuringMomentum = useRef(true);
     const navRef = useRef<any>();
     const contentRef = useRef<any>();
     const [isLiveVideoEnd, setIsLiveVideoEnd] = useState(false);
@@ -61,25 +59,33 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
         ),
     });
 
+    const { data: liveRoomUpdate } = useQuery({
+        queryKey: ["liveRoomUpdate", matchID],
+        queryFn: () => Api.call(`${Url.matchUpdate}?device_type=3&id=${matchID}`, {}, 'GET').then((res): MatchDetailsType => {
+            return res?.data;
+        }),
+        staleTime: 1000
+    });
+
     useEffect(() => {
         setTabList([
             {
                 name: 'Live',
                 title: '直播',
-                page: LiveStatPage
+                page: <LiveStatPage liveRoomUpdate={liveRoomUpdate}></LiveStatPage>
             },
             {
                 name: 'Formation',
                 title: '阵容',
-                page: LineUpPage
+                page: <LineUpPage></LineUpPage>
             },
             {
                 name: 'TeamData',
                 title: '数据',
-                page: TeamDataPage
+                page: <TeamDataPage></TeamDataPage>
             }
         ])
-    }, [])
+    }, [liveRoomUpdate])
     // console.log(match[0])
     const onHandleBack = () => {
         navigation.navigate('体育');

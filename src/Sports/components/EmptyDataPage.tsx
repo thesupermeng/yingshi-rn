@@ -2,10 +2,10 @@ import React from 'react';
 import {View, Image, Text, StyleSheet} from 'react-native';
 
 interface Props {
-    subTabs: any
+    
 }
 
-export default function EmptyDataPage({ subTabs }: Props) {
+export default function EmptyDataPage({  }: Props) {
     return (
         <View style={styles.mainContainer}>
             {/* <Image
