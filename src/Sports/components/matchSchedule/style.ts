@@ -153,7 +153,6 @@ const styles = StyleSheet.create({
     marginTop: 'auto',
     color: 'white',
     fontSize: 18,
-    fontFamily: '045-SSYiFeiTi',
   },
   liveIcon: {
     backgroundColor: 'red',

@@ -68,7 +68,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
             {
                 name: 'Live',
                 title: '直播',
-                page: <LiveStatPage liveRoomUpdate={liveRoomUpdate}></LiveStatPage>
+                page: <LiveStatPage liveRoomUpdate={liveRoomUpdate} liveRoomMatchDetails={match}></LiveStatPage>
             },
             {
                 name: 'Formation',
