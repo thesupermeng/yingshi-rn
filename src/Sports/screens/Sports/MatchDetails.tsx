@@ -14,13 +14,16 @@ import FastImage from 'react-native-fast-image';
 import Api from '../../middleware/api';
 import { Url } from '../../middleware/url';
 import { formatMatchDate } from '../../utility/utils';
-import { MatchDetailsType } from '../../types/matchTypes';
+import { MatchDetailsType, Stream } from '../../types/matchTypes';
 import MatchDetailsNav from '../../components/matchDetails/MatchDetailsNav';
 import MatchSchedule from '../../components/matchSchedule/MatchSchedule';
 import LineUpPage from '../../components/matchDetails/LineUpPage';
 import LiveStatPage from '../../components/matchDetails/LiveStatPage';
 import TeamDataPage from '../../components/matchDetails/TeamDataPage';
 import { BackWhite, InOutTargetGreen } from '../../assets';
+import VodPlayer from '../../../components/videoPlayer/vodPlayer';
+import { parseVideoURL } from '../../utility/urlEncryp';
+import Video from 'react-native-video';
 
 type FlatListType = {
     item: MatchDetailsType,
@@ -33,7 +36,7 @@ interface NavType {
     type: string
 }
 
-export default ({ navigation }: BottomTabScreenProps<any>) => {
+export default ({ navigation, route }: BottomTabScreenProps<any>) => {
     const { textVariants, colors, spacing } = useTheme();
     const LIMIT_PER_PAGE = 10;
     const BTN_COLORS = ['#30AA55', '#7E9CEE', '#F1377A', '#FFCC12', '#ED7445'];
@@ -42,8 +45,17 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     const onEndReachedCalledDuringMomentum = useRef(true);
     const navRef = useRef<any>();
     const contentRef = useRef<any>();
+    const matchId = route?.params?.matchId;
 
     const [tabList, setTabList] = useState(Array<DetailTab>);
+
+    const { data: match } = useQuery({
+        queryKey: ["matchesDetails", matchId],
+        queryFn: () => Api.call(`${Url.liveRoomDetail}?id=${matchId}`, {}, 'GET').then((res): MatchDetailsType => {
+            return res?.data;
+        }
+        ),
+    });
 
     useEffect(() => {
         setTabList([
@@ -64,23 +76,25 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
             }
         ])
     }, [])
-
+    // console.log(match[0])
     const onHandleBack = () => {
         navigation.navigate('体育');
     }
 
+    const videoUrl = parseVideoURL(match?.streams[0].src);
+    console.log(parseVideoURL(match?.streams[0].src), match?.streams[0].src)
     return (
         <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
             <View style={{ flex: 1, backgroundColor: 'blue' }}>
-                <View style={{ height: 250 }}>
+                <View>
                     <View style={styles.topBannerCotainer}>
                         <TouchableOpacity
                             style={styles.backButtonTouch}
                             onPress={() => onHandleBack()}>
                             <Image
-                            resizeMode="contain"
-                            style={styles.backButtonIcon}
-                            source={BackWhite}></Image>
+                                resizeMode="contain"
+                                style={styles.backButtonIcon}
+                                source={BackWhite}></Image>
                         </TouchableOpacity>
 
                         {/* <View style={styles.alignCenterTopBannerContainer}>
@@ -88,13 +102,14 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                             <Text style={styles.middleTitleName}>{` |  `}</Text>
                             <Text style={styles.middleTitleName}>{tempDateTime}</Text>
                         </View> */}
-                        
+                        <VodPlayer vod_source={videoUrl} />
+                        {/* <Video  source={videoUrl} /> */}
                     </View>
                 </View>
                 {tabList.length > 0 && (
                     <MatchDetailsNav
-                    streamId={10001}
-                    tabList={tabList}
+                        streamId={10001}
+                        tabList={tabList}
                     // initialTab={
                     //     {
                     //     0: tabList[tabList.length - 1].name,
@@ -139,11 +154,11 @@ const styles = StyleSheet.create({
         zIndex: 2,
     },
     topBannerCotainer: {
-        height: '30%',
+        // height: '30%',
         width: '100%',
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'center',
-        paddingHorizontal: 15,
+        // paddingHorizontal: 15,
     },
 });

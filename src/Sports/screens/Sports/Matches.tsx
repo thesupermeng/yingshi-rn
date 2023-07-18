@@ -39,24 +39,25 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     const { data: navOptions } = useQuery({
         queryKey: ["matchesNavOptions"],
         queryFn: () => Api.call(Url.sportTypes, {}, 'GET').then((res): NavType[] => {
-            // console.log(res.data[0])
             setNavId({ index: 0, apiIndex: res.data[0].ids[0] })
+            console.log(res.data[0])
             return res.data;
         }),
     });
 
-    const { data: matches } = useQuery({
-        queryKey: ["matches", navId],
-        queryFn: () => Api.call(Url.matches + `?sports_type=${navId.apiIndex}`, {}, 'GET').then(res => {
-            const data = res?.data;
-            if (data != undefined) {
-                const dates = Object.keys(res.data);
-                const matches: { date: string, data: MatchDetailsType[] }[] = dates.map(date => ({ date: formatMatchDate(date), data: res.data[date] }))
-                return matches;
-            }
-        }
-        ),
-    });
+    // const { data: matches } = useQuery({
+    //     queryKey: ["matches", navId],
+    //     queryFn: () => Api.call(Url.matches + `?sports_type=${navId.apiIndex}`, {}, 'GET').then(res => {
+    //         const data = res?.data;
+    //         if (data != undefined) {
+    //             const dates = Object.keys(data);
+    //             console.log(data[dates[0]])
+    //             const matches: { date: string, data: MatchDetailsType[] }[] = dates.map(date => ({ date: formatMatchDate(date), data: res.data[date] }))
+    //             return matches;
+    //         }
+    //     }
+    //     ),
+    // });
 
     const matchTabs = useMemo(() => navOptions?.map(x => (
         {

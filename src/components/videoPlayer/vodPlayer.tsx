@@ -21,12 +21,13 @@ interface Props {
     currentTimeRef?: any
     initialStartTime?: number
     videoType?: string
+    vod_source?: any
 };
 
 const height = Dimensions.get('window').width;
 const width = Dimensions.get('window').height;
 
-export default ({ vod_url, currentTimeRef = 0, initialStartTime = 0, vodTitle = '', videoType = 'vod' }: Props) => {
+export default ({ vod_url, currentTimeRef = 0, initialStartTime = 0, vodTitle = '', videoType = 'vod', vod_source }: Props) => {
 
   const videoPlayerRef = React.useRef<Video | null>();
   const {colors, spacing, textVariants, icons} = useTheme();
@@ -180,14 +181,14 @@ export default ({ vod_url, currentTimeRef = 0, initialStartTime = 0, vodTitle = 
       )}
       <TouchableWithoutFeedback onPress={toggleControls}>
         <View style={styles.bofangBox}>
-          {vod_url !== undefined && (
+          {(vod_url !== undefined || vod_source !== undefined) && (
             <Video
               ignoreSilentSwitch={'ignore'}
               ref={ref => (videoPlayerRef.current = ref)}
               fullscreen={isFullScreen}
               paused={isPaused}
               resizeMode="contain"
-              source={{uri: vod_url}}
+              source={vod_source !== undefined? vod_source : {uri: vod_url}}
               onLoad={onVideoLoaded}
               progressUpdateInterval={1000}
               onProgress={onVideoProgessing}

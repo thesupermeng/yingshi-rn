@@ -2,6 +2,27 @@ export interface MatchType {
     [date: string]: MatchDetailsType[]
 }
 
+export interface Stream {
+    id: number
+    streamer_id: number
+    match_id: number
+    status: number
+    src: string
+    ql_status: number
+    room_image_type: number
+    room_image_url: string
+    view_num: number
+    streamer: Streamer
+}
+
+export interface Streamer {
+    id: number
+    nickname: string
+    subscribed: number
+    avatar: string
+    cover_image: string
+}
+
 export interface MatchDetailsType {
     id: number
     sports_type: number
@@ -24,7 +45,8 @@ export interface MatchDetailsType {
     home: HomeType
     away: AwayType
     mlive_2d_url?: string
-    mlive_3d_url?: string
+    mlive_3d_url?: string,
+    streams: Stream[]
 }
 
 export interface CompetitionType {
