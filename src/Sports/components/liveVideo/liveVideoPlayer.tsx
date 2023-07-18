@@ -178,7 +178,13 @@ const LiveVideo = ({ matchID, liveDataState, onLiveEnd, onLoad, streamID, videoS
                 }>
                 {/* <View style={styles.videoDiv}> */}
                 {(videoSource !== undefined || streamData?.src) && (
-                    <VodPlayer vod_source={videoSource} videoType='live' vodTitle={combinedName} />
+                    <>
+                    {
+                        videoSource?.url !== undefined && videoSource
+                        ? <VodPlayer vod_source={videoSource.url} videoType='live' vodTitle={combinedName} />
+                        : <VodPlayer vod_url={liveDataState?.mlive_2d_url} videoType='live' vodTitle={combinedName} />
+                    }
+                    </>
                     // <Video
                     //     ref={playerRef}
                     //     fullscreen={isFullScreen}

@@ -102,7 +102,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
 
     if(match != undefined && match.streams != undefined){
         videoUrl = parseVideoURL(match?.streams[0].src);
-    }
+    } 
     // console.log(parseVideoURL(match?.streams[0].src), match?.streams[0].src)
     return (
         <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
@@ -127,7 +127,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
                             liveDataState={match}
                             // fullScreen={tempFullscreen}
                             streamID={streamID}
-                            // setStreamID={props?.setStreamID}
+                            setVideoSource={setVideoSource}
                             matchID={matchID}
                             onLiveEnd={onLiveEnd}
                             onLoad={onLiveLoad}

@@ -28,7 +28,6 @@ const height = Dimensions.get('window').width;
 const width = Dimensions.get('window').height;
 
 export default ({ vod_url, currentTimeRef = 0, initialStartTime = 0, vodTitle = '', videoType = 'vod', vod_source }: Props) => {
-
   const videoPlayerRef = React.useRef<Video | null>();
   const {colors, spacing, textVariants, icons} = useTheme();
   const isPotrait = useOrientation();

@@ -68,6 +68,7 @@ export default ({ currentTime, duration, onVideoSeek, onFastForward, onTogglePla
             <MiddleControls
                 fastForward={handleFastForward}
                 togglePlayPause={handlePlayPause}
+                videoType={videoType} 
                 paused={paused} />
             {/* Bottom Controls */}
             <BottomControls
