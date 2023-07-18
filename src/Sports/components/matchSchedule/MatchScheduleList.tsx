@@ -1,5 +1,5 @@
 import React, { memo, useCallback, useEffect, useState } from 'react';
-import { View, Text, Image, ImageBackground, FlatList, Dimensions } from 'react-native';
+import { View, Text, Image, ImageBackground, FlatList, Dimensions, StyleSheet } from 'react-native';
 import { Link, useTheme } from '@react-navigation/native';
 import styles from './style';
 import { IsSub, Sub, Views, IconViewerGif } from '../../assets';
@@ -24,6 +24,7 @@ import Api from '../../middleware/api';
 import MatchSchedule from './MatchSchedule';
 import ScreenContainer from '../../../components/container/screenContainer';
 import EmptyList from '../../../components/common/emptyList';
+import FastImage from 'react-native-fast-image';
 
 interface Props {
   matchTypeID: number,
@@ -41,9 +42,25 @@ const MatchScheduleList = ({ matchTypeID, status }: Props) => {
   const width = Dimensions.get('window').width;
   const height = Dimensions.get('window').height;
 
-  const { data: matches } = useQuery({
+  const getUrl = () => {
+    let url = '';
+    if (matchTypeID !== -1) {
+      url += `?sports_type=${matchTypeID}`;
+    }
+    if (url === '') {
+      url = '?';
+    }
+    if (status !== -1) {
+      url += `&status=${status}`;
+    } else {
+      url += `&is_live=${true}`;
+    }
+    return Url.matches11 + url;
+  }
+
+  const { data: matches, isFetching } = useQuery({
     queryKey: ["matches", matchTypeID, `status=${status}`],
-    queryFn: () => Api.call(`${Url.matches11}?sports_type=${matchTypeID}${status && `&status=${status}`}` , {}, 'GET').then(res => {
+    queryFn: () => Api.call(getUrl(), {}, 'GET').then(res => {
       const data = res?.data;
       if (data != undefined) {
         const dates = Object.keys(res.data);
@@ -56,8 +73,8 @@ const MatchScheduleList = ({ matchTypeID, status }: Props) => {
   const Content = useCallback(({ item, index }: { item: any, index: number }) => {
     return <View style={{ width: width }}>
       {
-        matches?.map(match =>
-          <View key={match.date}>
+        matches?.map((match, idx) =>
+          <View key={`${match.date}-${idx}`}>
             <View style={{ backgroundColor: colors.card2, padding: spacing.sideOffset }}>
               <Text style={textVariants.header}>{match.date}</Text>
             </View>
@@ -82,11 +99,22 @@ const MatchScheduleList = ({ matchTypeID, status }: Props) => {
             renderItem={Content}
           />
           : <View style={{ height: height }}>
-            <EmptyList description='暂无比赛' />
+            {
+              isFetching
+                ? <View style={styles.buffering}>
+                  <FastImage
+                    source={require('../../../../static/images/loading-spinner.gif')}
+                    style={{ width: 100, height: 100 }}
+                    resizeMode="contain"
+                  />
+                </View>
+                : <EmptyList description='暂无比赛' />
+
+            }
+
           </View>
       }
     </View>
   );
 };
-
 export default memo(MatchScheduleList);

@@ -13,7 +13,7 @@ import VideoPlayerstyles from './style';
 import LiveRoomAction, {
   hideControlAction,
   setVideoControlProp,
-} from '../../pages/matchDetails/action';
+} from '../../screens/Sports/MatchDetails/action';
 import {useDispatch, useSelector} from 'react-redux';
 import {VideoLiveType} from '../../global/const';
 import WebView from 'react-native-webview';
@@ -28,8 +28,7 @@ import {
 } from './util/util';
 import VideoPlayerControls from './videoPlayerControls';
 import {showToast} from '../../utility/toast';
-import VideoAdsComp from './videoAds';
-import {useAds} from '../../hooks/useAds';
+// import {useAds} from '../../hooks/useAds';
 import {parseVideoURL} from '../../utility/urlEncryp';
 
 export const VideoPlayer = React.forwardRef((props, playerRef) => {
@@ -42,7 +41,7 @@ export const VideoPlayer = React.forwardRef((props, playerRef) => {
   const cast = useSelector(s => s.cast);
   const liveRoomAction = new LiveRoomAction(dispatch);
   const adsList = useSelector(state => state.videoAdsList);
-  const [ads] = useAds(adsList);
+  // const [ads] = useAds(adsList);
   const [isPipEnabled, setIsPipEnabled] = useState(false);
 
   usePipState(playerRef, setIsPipEnabled);
@@ -245,7 +244,7 @@ export const VideoPlayer = React.forwardRef((props, playerRef) => {
         </SafeAreaView>
       </TouchableWithoutFeedback>
       <Error display={isError} onClick={onRetry} />
-      {showAds && ads && (
+      {/* {showAds && ads && (
         <VideoAdsComp
           item={ads}
           videoPlayerControl={videoPlayerControl}
@@ -253,7 +252,7 @@ export const VideoPlayer = React.forwardRef((props, playerRef) => {
             setShowAds(false);
             liveRoomAction.clearVideoAdsList();
           }}></VideoAdsComp>
-      )}
+      )} */}
     </>
   );
 });

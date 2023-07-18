@@ -35,7 +35,7 @@ export default ({ vod_url, currentTimeRef = 0, initialStartTime = 0, vodTitle = 
   const [isFullScreen, setIsFullScreen] = useState(false);
 
   const [isPaused, setIsPaused] = useState(false);
-  const [isShowControls, setIsShowControls] = useState(false);
+  const [isShowControls, setIsShowControls] = useState(true);
   const [disableFullScreenGesture, setDisableFullScreenGesture] =
     useState(false);
 
@@ -202,7 +202,7 @@ export default ({ vod_url, currentTimeRef = 0, initialStartTime = 0, vodTitle = 
               }
             />
           )}
-          {vod_url !== undefined && isShowControls && (
+          {(vod_url !== undefined || vod_source !== undefined) && isShowControls && (
             <VideoControlsOverlay
               onVideoSeek={onSeek}
               currentTime={currentTime}

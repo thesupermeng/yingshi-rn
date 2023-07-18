@@ -73,17 +73,10 @@ export type RootStackParamList = {
         liveStationItemList: Array<LiveTVStationItem>
         liveStationItem: LiveTVStationItem
     };
-    足球详情: {
-        matchId?: number,
-        streamerId?: number
-    };
     体育详情: {
         matchId?: number,
-        streamerId?: number
-    };
-    篮球详情: {
-        matchId?: number,
-        streamerId?: number
+        streamerId?: number,
+        sportType?: '足球' | '篮球'
     };
 };
 
