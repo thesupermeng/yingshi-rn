@@ -34,6 +34,7 @@ const logUrl = Config.apiLogUrl;
 
 export default class Api {
   static call = async (url, data, method = 'POST') => {
+    console.log(url)
     // add default params
     if (!data) {
       data = {};

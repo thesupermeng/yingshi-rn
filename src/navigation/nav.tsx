@@ -34,7 +34,7 @@ import CatalogScreen from '../screens/Common/Catalog';
 import ShortVodCollectionScreen from '../screens/Profile/Collection/shortVodCollection';
 import SportsIcon from '../../static/images/sports.svg';
 import MatchesScreen from '../Sports/screens/Sports/Matches';
-import MatchDetailsScreen from '../Sports/screens/Sports/MatchDetails';
+import MatchDetailsScreen from '../Sports/screens/Sports/MatchDetails/MatchDetails';
 
 import { YingshiDarkTheme, YingshiLightTheme } from '../utility/theme';
 import { HomeTabParamList, PlaylistTabParamList, ProfileTabParamList, RootStackParamList, WatchAnytimeTabParamList } from '../types/navigationTypes';
@@ -122,7 +122,7 @@ export default () => {
                     <Stack.Screen name='片库' component={CatalogScreen} initialParams={{ type_id: 1 }} options={{ orientation: 'portrait' }} />
                     <Stack.Screen name='设置' component={ConfigureScreen} options={{ orientation: 'portrait' }} />
                     <Stack.Screen name='合集收藏' component={ShortVodCollectionScreen} options={{ orientation: 'portrait' }} />
-                    <Stack.Screen name='足球详情' component={MatchDetailsScreen} options={{ orientation: 'portrait' }} initialParams={{ streamerId: undefined, matchId: undefined }}  />
+                    <Stack.Screen name='体育详情' component={MatchDetailsScreen} options={{ orientation: 'portrait' }} initialParams={{ streamerId: undefined, matchId: undefined, sportType: '足球' }}  />
                     <Stack.Screen name='电视台列表' component={LiveStationsScreen} initialParams={{ liveStationItemList: undefined }} options={{ orientation: 'portrait' }} />
                     <Stack.Screen name='电视台播放' component={LiveStationPlayScreen} initialParams={{ liveStationItemList: undefined, liveStationItem: undefined }} options={{ orientation: 'all' }} />
                 </Stack.Navigator>

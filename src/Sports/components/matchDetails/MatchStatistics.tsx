@@ -16,14 +16,14 @@ import Chart from '../statisticCharts/Chart';
 const Tab = createMaterialTopTabNavigator();
 
 interface Props {
-    
+    statisticData: any
+    sportType: any
 }
 
 export default function MatchStatistics({ }: Props) {
     return (
         <ScreenContainer>
-            <Text style={{ color: 'white' }}>Live Stat</Text>
-            <Chart stats={undefined} />
+            <Text style={{ color: 'white' }}>Match Statistics</Text>
         </ScreenContainer>
     )
 }

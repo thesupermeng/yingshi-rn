@@ -9,7 +9,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import FastImage from 'react-native-fast-image';
 import BottomSheet from '@gorhom/bottom-sheet';
 import { DetailTab } from '../../../types/ajaxTypes';
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import LineUpPage from './LineUpPage';
 
 const Tab = createMaterialTopTabNavigator();
@@ -22,7 +22,7 @@ interface Props {
 export default function MatchDetailsNav({ tabList, streamId }: Props) {
     const { colors } = useTheme();
     // console.log('MATCH DETAILSS');
-    
+
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <Tab.Navigator
@@ -52,28 +52,26 @@ export default function MatchDetailsNav({ tabList, streamId }: Props) {
                     tabBarStyle: {},
                 }}
                 // tabBar={tabBarArrow}
-                sceneContainerStyle={{backgroundColor: 'white'}}>
+                sceneContainerStyle={{ backgroundColor: 'white' }}>
                 {tabList != undefined && tabList.map((tab, index) => {
                     return (
                         <Tab.Screen
                             key={index}
                             name={tab.name}
                             children={() => (
-                                <tab.page />
+                                tab.page
                             )}
-                            // listeners={({route}) =>
-                            //     e.name == 'PrivateChatRoom' && {
-                            //         tabPress: privateTabPressed,
-                            //     }
-                            // }
+                            listeners={({route}) =>
+                                console.log(route)
+                            }
                             options={{
                                 tabBarLabel: tab.title,
                                 tabBarActiveTintColor: colors.primary,
                                 tabBarInactiveTintColor: colors.text,
-                                tabBarIndicatorStyle: {opacity: 0},
+                                tabBarIndicatorStyle: { opacity: 0 },
                                 tabBarIcon: () =>
-                                tab.name == 'PUBLIC',
-                                tabBarIconStyle: {position: 'absolute', top: -22, right: -20},
+                                    tab.name == 'PUBLIC',
+                                tabBarIconStyle: { position: 'absolute', top: -22, right: -20 },
                             }}></Tab.Screen>
                     );
                 })}
@@ -83,5 +81,5 @@ export default function MatchDetailsNav({ tabList, streamId }: Props) {
 }
 
 const styles = StyleSheet.create({
-    
+
 });

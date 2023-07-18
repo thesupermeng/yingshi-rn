@@ -525,30 +525,30 @@ export const getMatchStorylineStatus = status => {
 //   });
 // };
 
-// export const createShareLink = async (path, id) => {
-//   const params = {path: path, params: {channel_id: Config.channelId}};
-//   switch (path) {
-//     case 'news':
-//       params.params.news_id = id;
-//       break;
-//     case 'streams':
-//       params.params.match_id = id;
-//       break;
-//     case 'info':
-//       params.params.info_id = id;
-//       break;
-//     default:
-//       break;
-//   }
-//   const response = await Api.call(Url.createShare, params);
-//   if (response.success) {
-//     const key = response.data;
-//     const shareLink = `${AppConfig.instance.config?.shortUrlDomain}/${key}`;
-//     return shareLink;
-//   } else {
-//     return '';
-//   }
-// };
+export const createShareLink = async (path, id) => {
+  const params = {path: path, params: {channel_id: Config.channelId}};
+  switch (path) {
+    case 'news':
+      params.params.news_id = id;
+      break;
+    case 'streams':
+      params.params.match_id = id;
+      break;
+    case 'info':
+      params.params.info_id = id;
+      break;
+    default:
+      break;
+  }
+  const response = await Api.call(Url.createShare, params);
+  if (response.success) {
+    const key = response.data;
+    const shareLink = `${AppConfig.instance.config?.shortUrlDomain}/${key}`;
+    return shareLink;
+  } else {
+    return '';
+  }
+};
 
 export const comparePredictionShareTimeStamp = async () => {
   const response = await getPredictionShareTimeStamp();
