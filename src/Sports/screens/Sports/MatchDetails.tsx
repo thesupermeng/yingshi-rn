@@ -51,8 +51,8 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
         queryKey: ["matchesDetails", matchId],
         queryFn: () => Api.call(`${Url.liveRoomDetail}?id=${matchId}`, {}, 'GET').then((res): MatchDetailsType => {
             return res?.data;
-        }
-        ),
+        }),
+        staleTime: 1000
     });
 
     const { data: liveRoomUpdate } = useQuery({
@@ -87,8 +87,12 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
         navigation.navigate('体育');
     }
 
-    const videoUrl = parseVideoURL(match?.streams[0].src);
-    console.log(parseVideoURL(match?.streams[0].src), match?.streams[0].src)
+    let videoUrl = undefined;
+
+    if(match != undefined && match.streams != undefined){
+        videoUrl = parseVideoURL(match?.streams[0].src);
+    }
+    // console.log(parseVideoURL(match?.streams[0].src), match?.streams[0].src)
     return (
         <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
             <View style={{ flex: 1, backgroundColor: 'blue' }}>
