@@ -9,45 +9,56 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import FastImage from 'react-native-fast-image';
 import BottomSheet from '@gorhom/bottom-sheet';
 import { DetailTab } from '../../../types/ajaxTypes';
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import ScreenContainer from '../../../components/container/screenContainer';
 import Chart from '../statisticCharts/Chart';
-import StoryLineEvent from './StoryLineEvent';
+import StoryLineEvent from './storyLine/StoryLineEvent';
 import MatchStatistics from './MatchStatistics';
 import CustomMatchSubTab from './CustomMatchSubTab';
 
 const Tab = createMaterialTopTabNavigator();
 
 interface Props {
-    
+    liveRoomUpdate: any
 }
 
-const subTabs = [
-    {
-        name: '重要事件',
-        children: StoryLineEvent
-    },
-    {
-        name: '技术统计',
-        children: MatchStatistics
-    }
-]
+export default function LiveStatPage({ liveRoomUpdate }: Props) {
 
-export default function LiveStatPage({ }: Props) {    
-    // console.log('LIVESTAT PAGE');
+    const subTabs = [
+        {
+            name: '重要事件',
+            children: <StoryLineEvent></StoryLineEvent>
+        },
+        {
+            name: '技术统计',
+            children: (
+                <MatchStatistics
+                    statisticData={liveRoomUpdate?.football_match_stats?.stats?.filter(
+                        x => x.type != 'team_id',
+                    )}
+                    sportType={liveRoomUpdate?.sports_type}
+                />
+            ),
+        }
+    ]
+
+    console.log('ADASDAAAAAAA');
+    console.log(liveRoomUpdate);
 
     return (
         <ScreenContainer>
-            <Text style={{ color: 'white' }}>Live Stat</Text>
-            <Chart stats={undefined} />
+            <ScrollView>
+                <Text style={{ color: 'white' }}>Live Stat</Text>
+                <Chart stats={undefined} />
 
-            {subTabs != undefined && subTabs.length > 0 &&
-                <CustomMatchSubTab subTabs={subTabs} />
-            }
+                {subTabs != undefined && subTabs.length > 0 &&
+                    <CustomMatchSubTab subTabs={subTabs} />
+                }
+            </ScrollView>
         </ScreenContainer>
     )
 }
 
 const styles = StyleSheet.create({
-    
+
 });
