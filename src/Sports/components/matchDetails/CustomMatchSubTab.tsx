@@ -12,6 +12,7 @@ import { DetailTab } from '../../../types/ajaxTypes';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import ScreenContainer from '../../../components/container/screenContainer';
 import Chart from '../statisticCharts/Chart';
+import EmptyDataPage from '../EmptyDataPage';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -85,7 +86,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     container: {
-        backgroundColor: 'grey',
+        // backgroundColor: 'grey',
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',

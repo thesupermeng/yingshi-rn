@@ -13,10 +13,8 @@ import FastImage from 'react-native-fast-image';
 // import { API } from './util';
 import Api from '../../middleware/api';
 import { Url } from '../../middleware/url';
-import { formatMatchDate } from '../../utility/utils';
 import { MatchDetailsType, Stream } from '../../types/matchTypes';
 import MatchDetailsNav from '../../components/matchDetails/MatchDetailsNav';
-import MatchSchedule from '../../components/matchSchedule/MatchSchedule';
 import LineUpPage from '../../components/matchDetails/LineUpPage';
 import LiveStatPage from '../../components/matchDetails/LiveStatPage';
 import TeamDataPage from '../../components/matchDetails/TeamDataPage';
@@ -57,25 +55,33 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
         ),
     });
 
+    const { data: liveRoomUpdate } = useQuery({
+        queryKey: ["liveRoomUpdate", matchId],
+        queryFn: () => Api.call(`${Url.matchUpdate}?device_type=3&id=${matchId}`, {}, 'GET').then((res): MatchDetailsType => {
+            return res?.data;
+        }),
+        staleTime: 1000
+    });
+
     useEffect(() => {
         setTabList([
             {
                 name: 'Live',
                 title: '直播',
-                page: LiveStatPage
+                page: <LiveStatPage liveRoomUpdate={liveRoomUpdate}></LiveStatPage>
             },
             {
                 name: 'Formation',
                 title: '阵容',
-                page: LineUpPage
+                page: <LineUpPage></LineUpPage>
             },
             {
                 name: 'TeamData',
                 title: '数据',
-                page: TeamDataPage
+                page: <TeamDataPage></TeamDataPage>
             }
         ])
-    }, [])
+    }, [liveRoomUpdate])
     // console.log(match[0])
     const onHandleBack = () => {
         navigation.navigate('体育');
