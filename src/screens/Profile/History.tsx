@@ -37,7 +37,9 @@ export default ({navigation}: RootStackScreenProps<'播放历史'>) => {
   const [isEditing, setIsEditing] = useState(false);
   const [removeHistory, setRemoveHistory] = useState<Array<VodType>>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-
+  const textStyles = isEditing
+    ? [styles.text, textVariants.body, {marginLeft: 30}]
+    : [styles.text, textVariants.body];
   const toggleOverlay = () => {
     setIsDialogOpen(!isDialogOpen);
   };
@@ -95,53 +97,45 @@ export default ({navigation}: RootStackScreenProps<'播放历史'>) => {
         <ScrollView contentContainerStyle={styles.scrollContainer}>
           {customHistoryToday.length > 0 && (
             <>
-              <Text
-                style={{
-                  ...textVariants.body,
-                  ...styles.text,
-                }}>
-                今日
-              </Text>
-              {customHistoryToday.map((item: VodRecordType, index: number) => (
-                <View style={styles.card} key={index}>
-                  {isEditing && (
-                    <TouchableOpacity
-                      style={styles.checkbox}
-                      onPress={() => toggleHistory(item)}>
-                      {removeHistory.some(x => x.vod_id === item.vod_id) ? (
-                        <CheckBoxSelected
-                          height={icons.sizes.m}
-                          width={icons.sizes.m}
-                        />
-                      ) : (
-                        <CheckBoxUnselected
-                          height={icons.sizes.m}
-                          width={icons.sizes.m}
-                        />
+              <View style={{marginBottom: 10}}>
+                <Text style={textStyles}>今日</Text>
+                {customHistoryToday.map(
+                  (item: VodRecordType, index: number) => (
+                    <View style={styles.card} key={index}>
+                      {isEditing && (
+                        <TouchableOpacity
+                          style={styles.checkbox}
+                          onPress={() => toggleHistory(item)}>
+                          {removeHistory.some(x => x.vod_id === item.vod_id) ? (
+                            <CheckBoxSelected
+                              height={icons.sizes.m}
+                              width={icons.sizes.m}
+                            />
+                          ) : (
+                            <CheckBoxUnselected
+                              height={icons.sizes.m}
+                              width={icons.sizes.m}
+                            />
+                          )}
+                        </TouchableOpacity>
                       )}
-                    </TouchableOpacity>
-                  )}
-                  <VodHistoryCard
-                    vod={item}
-                    onPress={() => {
-                      dispatch(playVod(item));
-                      navigation.navigate('播放', {vod_id: item.vod_id});
-                    }}
-                  />
-                </View>
-              ))}
+                      <VodHistoryCard
+                        vod={item}
+                        onPress={() => {
+                          dispatch(playVod(item));
+                          navigation.navigate('播放', {vod_id: item.vod_id});
+                        }}
+                      />
+                    </View>
+                  ),
+                )}
+              </View>
             </>
           )}
 
           {customHistoryEarly.length > 0 && (
             <>
-              <Text
-                style={{
-                  ...textVariants.body,
-                  ...styles.text,
-                }}>
-                更早
-              </Text>
+              <Text style={textStyles}>更早</Text>
               {customHistoryEarly.map((item: VodRecordType, index: number) => (
                 <View style={styles.card} key={index}>
                   {isEditing && (
@@ -257,8 +251,9 @@ const styles = StyleSheet.create({
   },
   text: {
     flexShrink: 1,
-    padding: 8,
-    marginTop: 8,
-    marginBottom: 2,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 3,
+    paddingBottom: 10,
   },
 });
