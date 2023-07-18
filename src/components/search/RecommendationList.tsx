@@ -30,7 +30,7 @@ export default function RecommendationList({recommendationList}: Props) {
           key={`suggestion-${index}`}
           style={{
             ...styles.suggestion,
-            marginBottom: spacing.s,
+            marginBottom: spacing.m,
             gap: spacing.s,
           }}>
           <TouchableOpacity
