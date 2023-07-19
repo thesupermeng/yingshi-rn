@@ -14,14 +14,14 @@ interface Props {
 }
 
 export default function TopStats({ label = '进攻', home = 3, away = 8 }: Props) {
-    const { colors, textVariants, spacing, icons } = useTheme();
+    const { colors } = useTheme();
 
     const totalProgress = home + away;
     const awayProgress = away / totalProgress;
 
     const data = {
         data: [awayProgress ? awayProgress : 0],
-        colors: [awayProgress ? 'blue' : ''],
+        colors: [awayProgress ? colors.sportsSecondary : ''],
     }
 
     return (

@@ -187,8 +187,15 @@ export default ({ vod_url, currentTimeRef = 0, initialStartTime = 0, vodTitle = 
               fullscreen={isFullScreen}
               paused={isPaused}
               resizeMode="contain"
-              source={vod_source !== undefined? vod_source : {uri: vod_url}}
+              source={vod_source !== undefined? vod_source : {uri: vod_url, headers: {origin: 'https://v.kylintv.com', referer: 'https://v.kylintv.com'}}}
+              // source={{
+              //   uri: 'https://h5cdn2.kylintv.tv/live/ctshd_iphone.m3u8',
+              //   headers: {
+              //     origin: 'https://v.kylintv.com',
+              //     referer: 'https://v.kylintv.com/'
+              //   }}}
               onLoad={onVideoLoaded}
+              onError={(err) => { console.log(err) }}
               progressUpdateInterval={1000}
               onProgress={onVideoProgessing}
               onSeek={data => {
