@@ -9,7 +9,6 @@ import { playVod } from '../../redux/actions/vodActions';
 import { useAppDispatch } from '../../hooks/hooks';
 import { useInfiniteQuery, useQuery, useQueryClient } from '@tanstack/react-query';
 import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
-import { API_DOMAIN } from '../../constants';
 import VodTopicFilter from '../../components/vod/vodTopicFilter';
 import VodCard from '../../components/vod/vodCard';
 import DownArrow from '../../../static/images/arrow_down_yellow.svg'
@@ -77,13 +76,16 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItem: 'center',
+        paddingBottom: 20
 
     },
     cardRow: {
-        flexDirection: 'row'
+        flexDirection: 'row',
     },
     cardItem: {
-        flex: 1,
+        height: 100,
+        marginVertical: 2,
+        marginHorizontal: 2,
         aspectRatio: 130 / 80,
         margin: 5,
     }
