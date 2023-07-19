@@ -38,7 +38,7 @@ export default ({ vod_url, currentTimeRef = 0, initialStartTime = 0, vodTitle = 
   const [isFullScreen, setIsFullScreen] = useState(false);
 
   const [isPaused, setIsPaused] = useState(false);
-  const [isShowControls, setIsShowControls] = useState(true);
+  const [isShowControls, setIsShowControls] = useState(false);
   const [disableFullScreenGesture, setDisableFullScreenGesture] =
     useState(false);
 
