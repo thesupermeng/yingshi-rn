@@ -9,7 +9,7 @@ import {
   Image,
 } from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
-import {useTheme} from '@react-navigation/native';
+import {useFocusEffect, useTheme} from '@react-navigation/native';
 
 import {RootStackScreenProps} from '../../types/navigationTypes';
 import {
@@ -192,6 +192,7 @@ export default ({navigation, route}: RootStackScreenProps<'片库'>) => {
   }, []);
 
   const reset = () => {
+    queryClient.removeQueries(['filteredVods']);
     setTopicClass(sameTextAndValueObj('全部类型'));
     setArea(sameTextAndValueObj('全部地区'));
     setLang(sameTextAndValueObj('全部语言'));
@@ -216,6 +217,7 @@ export default ({navigation, route}: RootStackScreenProps<'片库'>) => {
       }
       url += `&by=${orderBy.value}&order=desc`;
       url += `&page=${page}`;
+
       return fetch(url)
         .then(response => response.json())
         .then((json: SuggestResponseType) => {
@@ -232,7 +234,7 @@ export default ({navigation, route}: RootStackScreenProps<'片库'>) => {
     fetchNextPage,
     isFetchingNextPage,
     isFetching,
-    refetch,
+    // refetch,
   } = useInfiniteQuery(
     ['filteredVods', area, year, lang, topicClass, currentTopicId, orderBy],
     ({pageParam = 1}) => fetchVods(pageParam),
@@ -266,8 +268,14 @@ export default ({navigation, route}: RootStackScreenProps<'片库'>) => {
 
   useEffect(() => {
     setResults([]);
-    refetch();
+    // refetch();
   }, [area, year, lang, topicClass, currentTopicId, orderBy]);
+
+  useFocusEffect(
+    useCallback(() => {
+      queryClient.removeQueries(['filteredVods']);
+    }, [queryClient]),
+  );
 
   const topicOptions: Array<NavType> = useMemo(() => {
     if (navOptions) {
@@ -346,9 +354,8 @@ export default ({navigation, route}: RootStackScreenProps<'片库'>) => {
               <TouchableOpacity
                 style={{...styles.btn}}
                 onPress={() => {
-                  setCurrentTopicId(item.id);
                   reset();
-                  queryClient.invalidateQueries({queryKey: ['filteredVods']});
+                  setCurrentTopicId(item.id);
                 }}>
                 <Text
                   style={{
