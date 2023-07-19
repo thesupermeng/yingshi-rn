@@ -29,9 +29,8 @@ export default ({ currentTime, duration, onSlideCapture, onSlideStart, onSlideCo
         const minutes = time >= 60 ? Math.floor(time / 60) : 0;
         const seconds = Math.floor(time - minutes * 60);
 
-        return `${minutes >= 10 ? minutes : '0' + minutes}:${
-            seconds >= 10 ? seconds : '0' + seconds
-        }`;
+        return `${minutes >= 10 ? minutes : '0' + minutes}:${seconds >= 10 ? seconds : '0' + seconds
+            }`;
     };
 
     const onSlideProgressBar = (time: any) => {
@@ -53,34 +52,29 @@ export default ({ currentTime, duration, onSlideCapture, onSlideStart, onSlideCo
         <>
             {!isFullScreen ?
                 <View style={styles.wrapper}>
-                    <Slider 
-                        value={currentTime}
-                        minimumValue={0}
-                        maximumValue={duration}
-                        step={1}
-                        onValueChange={onSlideProgressBar}
-                        onSlidingStart={onSlideStart}
-                        onSlidingComplete={onSlideComplete}
-                        minimumTrackTintColor={'#FAC33D'}
-                        maximumTrackTintColor={'#FFFFFF'}
-                        thumbTintColor={'#FFFFFF'}
-                        style={{ flex: 12, marginTop: 2 }} />
-                    {videoType == 'vod' &&
-                        <View style={styles.timeWrapper}>
-                            <Text style={styles.timeLeft}>{position} / </Text>
-                            <Text style={styles.timeRight}>{fullDuration}</Text>
-                        </View>
+                    {
+                        videoType !== 'live' &&
+                        <Slider
+                            value={currentTime}
+                            minimumValue={0}
+                            maximumValue={duration}
+                            step={1}
+                            onValueChange={onSlideProgressBar}
+                            onSlidingStart={onSlideStart}
+                            onSlidingComplete={onSlideComplete}
+                            minimumTrackTintColor={'#FAC33D'}
+                            maximumTrackTintColor={'#FFFFFF'}
+                            thumbTintColor={'#FFFFFF'}
+                            style={{ flex: 12, marginTop: 2 }} />
                     }
-                    <Pressable onPress={onPressFullScreenBtn} style={{ alignItems: 'flex-end' }}>
+                    <Pressable onPress={onPressFullScreenBtn} style={{ alignItems: 'flex-end', width: '100%' }}>
                         <FullScreen width={30} height={30} />
                     </Pressable>
                 </View>
-
                 :
-
                 <View style={styles.landscapeContainer}>
                     <View style={styles.wrapper}>
-                        <Slider 
+                        <Slider
                             value={currentTime}
                             minimumValue={0}
                             maximumValue={duration}
@@ -161,6 +155,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end'
     },
     containerItem: {
+        paddingRight: 20
     },
     wrapper: {
         flexDirection: 'row',

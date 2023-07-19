@@ -26,17 +26,17 @@ export default ({navigation}: RootStackScreenProps<'关于我们'>) => {
   };
 
   return (
-    <ScreenContainer
-      footer={
-        <Text
-          style={{
-            textAlign: 'center',
-            ...textVariants.body,
-            marginBottom: spacing.m,
-          }}>
-          contactus@yingshi.tv
-        </Text>
-      }>
+    // footer={
+    //   <Text
+    //     style={{
+    //       textAlign: 'center',
+    //       ...textVariants.body,
+    //       marginBottom: spacing.m,
+    //     }}>
+    //     contactus@yingshi.tv
+    //   </Text>
+    // }
+    <ScreenContainer>
       <View style={{gap: spacing.m}}>
         <TitleWithBackButtonHeader title="关于我们" />
         <View style={styles.logo}>
@@ -49,7 +49,7 @@ export default ({navigation}: RootStackScreenProps<'关于我们'>) => {
           onConfirm={toggleOverlay}
           isVisible={isDialogOpen}
           title="清除提示"
-          subtitle1="如果本站提供内容侵犯了您的版权，请来函说明，本网站将立即删除，保护版权所有者的权益。"
+          subtitle1="如果影视TV提供内容侵犯了您的版权，请发送电子邮件说明，影视TV将立即删除内容，保护版权所有者的权益。"
           subtitle2="联系邮箱: contactus@yingshi.tv"
         />
         <View>

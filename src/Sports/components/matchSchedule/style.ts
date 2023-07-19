@@ -9,6 +9,18 @@ const styles = StyleSheet.create({
     marginRight: 10,
     marginTop: 10,
   },
+  buffering: {
+    paddingHorizontal: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 3,
+    color: 'yellow',
+    position: 'absolute',
+    top: '35%',
+    left: '36%',
+    zIndex: 100,
+  },
   onlineViews: {
     flexDirection: 'row',
     marginLeft: 'auto',
@@ -132,12 +144,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '25%',
     justifyContent: 'flex-end',
+    alignItems: 'center'
   },
   teamContentB: {
     flexDirection: 'row',
     width: '25%',
     justifyContent: 'flex-start',
-    flexShrink: 1
+    flexShrink: 1,
+    alignItems: 'center'
   },
   teamImage: {
     height: 30,
@@ -195,6 +209,7 @@ const styles = StyleSheet.create({
     paddingVertical: 1,
     borderTopLeftRadius: 2,
     borderTopRightRadius: 2,
+    alignItems: 'center'
   },
   footerFont: {
     fontStyle: 'normal',

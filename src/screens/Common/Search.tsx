@@ -295,6 +295,7 @@ const styles = StyleSheet.create({
   searchResult: {
     marginTop: 10,
     flex: 1,
+    marginBottom: 20,
   },
   rowApart: {
     display: 'flex',
