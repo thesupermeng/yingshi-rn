@@ -25,8 +25,8 @@ export interface MatchDetailsResponseType {
     home: Home
     away: Away
     football_match: FootballMatch
-    football_home_injuries: FootballHomeInjury[]
-    football_away_injuries: FootballAwayInjury[]
+    football_home_injuries: Injury[]
+    football_away_injuries: Injury[]
     football_home_ranking: FootballRanking
     football_away_ranking: FootballRanking
     basketball_match: BasketballMatch
@@ -34,6 +34,8 @@ export interface MatchDetailsResponseType {
     basketball_away_stats: BasketballAwayStats
     basketball_home_ranking: FootballRanking
     basketball_away_ranking: FootballRanking
+    basketball_home_injuries: Injury[]
+    basketball_away_injuries: Injury[]
   }
   
   export interface Competition {
@@ -136,7 +138,7 @@ export interface MatchDetailsResponseType {
     name_en: string
   }
   
-  export interface FootballHomeInjury {
+  export interface Injury {
     type: number
     reason: string
     end_time: number
@@ -169,17 +171,6 @@ export interface MatchDetailsResponseType {
     preferred_foot: number
     position: string
     positions: string
-  }
-  
-  export interface FootballAwayInjury {
-    type: number
-    reason: string
-    end_time: number
-    player_id: number
-    start_time: number
-    competition_id: number
-    missed_matches: number
-    player: Player
   }
   
   export interface FootballRanking {

@@ -41,7 +41,31 @@ export interface Competition {
   name_br: string
   icon: string
 }
-
+export interface Player {
+  id: number
+  name_zh: string
+  name_zht: string
+  name_en: string
+  short_name_zh: string
+  short_name_zht: string
+  short_name_en: string
+  icon: string
+  country_id: number
+  nationality: string
+  national_logo: string
+  birthday: number
+  age: number
+  height: number
+  weight: number
+  market_value: number
+  market_value_currency: string
+  contract_until: number
+  preferred_foot: number
+  position: string
+  positions: string
+  away: number
+  home: number
+}
 
 export interface Home {
   id: number
@@ -144,6 +168,25 @@ export interface BasketballMatchTrend {
   data: number[]
 }
 
+
+export interface Total {
+  away: string
+  home: string
+}
+
+export interface Players {
+  away: [number, string, string, string, string, string, number[]][]
+  away_top_assist: [number, string, string, string, string, string, number[]]
+  away_top_rebound: [number, string, string, string, string, string, number[]]
+  away_top_scorer: [number, string, string, string, string, string, number[]]
+  home: [number, string, string, string, string, string, number[]][]
+  home_top_assist: [number, string, string, string, string, string, number[]]
+  home_top_rebound: [number, string, string, string, string, string, number[]]
+  home_top_scorer: [number, string, string, string, string, string, number[]]
+  total: Total[]
+}
+
 export interface BasketballMatchLive {
   stats: Stat[]
+  players: Players
 }

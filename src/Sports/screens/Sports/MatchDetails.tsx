@@ -1,36 +1,37 @@
 import React, { Component, useCallback, useEffect, useRef, useState } from 'react';
 import { StyleSheet, View, Text, FlatList, TouchableOpacity, Dimensions, Image } from 'react-native';
-import ScreenContainer from '../../../../components/container/screenContainer';
-import MainHeader from '../../../../components/header/homeHeader';
+import ScreenContainer from '../../../components/container/screenContainer';
+import MainHeader from '../../../components/header/homeHeader';
 import { useTheme } from '@react-navigation/native';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
-import { DetailTab } from '../../../../types/ajaxTypes';
-import VodPlaylist from '../../../../components/playlist/vodPlaylist';
+import { DetailTab } from '../../../types/ajaxTypes';
+import VodPlaylist from '../../../components/playlist/vodPlaylist';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
-import { API_DOMAIN, MATCH_API_DOMAIN } from '../../../../utility/constants';
+import { API_DOMAIN, MATCH_API_DOMAIN } from '../../../utility/constants';
 import Animated from 'react-native-reanimated';
 import FastImage from 'react-native-fast-image';
 // import { API } from './util';
-import Api from '../../../middleware/api';
-import { Url } from '../../../middleware/url';
-import { formatMatchDate } from '../../../utility/utils';
-import { MatchDetailsType, Stream } from '../../../types/matchTypes';
-import MatchDetailsNav from '../../../components/matchDetails/MatchDetailsNav';
-import MatchSchedule from '../../../components/matchSchedule/MatchSchedule';
-import LineUpPage from '../../../components/matchDetails/LineUpPage';
-import LiveStatPage from '../../../components/matchDetails/LiveStatPage';
-import TeamDataPage from '../../../components/matchDetails/TeamDataPage';
-import { BackWhite, InOutTargetGreen } from '../../../assets';
-import VodPlayer from '../../../../components/videoPlayer/vodPlayer';
-import { parseVideoURL } from '../../../utility/urlEncryp';
+import Api from '../../middleware/api';
+import { Url } from '../../middleware/url';
+import { formatMatchDate } from '../../utility/utils';
+import { MatchDetailsType, Stream } from '../../types/matchTypes';
+import MatchDetailsNav from '../../components/matchDetails/MatchDetailsNav';
+import MatchSchedule from '../../components/matchSchedule/MatchSchedule';
+import LineUpPage from '../../components/matchDetails/LineUpPage';
+import LiveStatPage from '../../components/matchDetails/LiveStatPage';
+import TeamDataPage from '../../components/matchDetails/TeamDataPage';
+import { BackWhite, InOutTargetGreen } from '../../assets';
+import VodPlayer from '../../../components/videoPlayer/vodPlayer';
+import { parseVideoURL } from '../../utility/urlEncryp';
 import Video from 'react-native-video';
-import LiveVideo from '../../../components/liveVideo/liveVideoPlayer';
-import { VideoLiveType } from '../../../global/const';
-import LiveThumbnail from '../../../components/liveThumbnail';
-import LiveStream from '../../../components/liveStream';
-import { MatchDetailWithRankingData, MatchDetailsResponseType } from '../../../types/liveMatchTypes';
-import { MatchUpdatesResponseType } from '../../../types/matchUpdatesType';
-import BeforeLive from '../../../components/beforeLive';
+import LiveVideo from '../../components/liveVideo/liveVideoPlayer';
+import { VideoLiveType } from '../../global/const';
+import LiveThumbnail from '../../components/liveThumbnail';
+import LiveStream from '../../components/liveStream';
+import { MatchDetailWithRankingData, MatchDetailsResponseType } from '../../types/liveMatchTypes';
+import { MatchUpdatesResponseType, MatchUpdatesType } from '../../types/matchUpdatesType';
+import BeforeLive from '../../components/beforeLive';
+import StatisticPage from '../../components/matchDetails/statisticPage';
 
 type FlatListType = {
     item: MatchDetailsType,
@@ -79,7 +80,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
 
     const { data: liveRoomUpdate } = useQuery({
         queryKey: ["liveRoomUpdate", matchID],
-        queryFn: () => Api.call(`${Url.matchUpdate}?device_type=3&id=${matchID}`, {}, 'GET').then((res): MatchUpdatesResponseType => {
+        queryFn: () => Api.call(`${Url.matchUpdate}?device_type=3&id=${matchID}`, {}, 'GET').then((res): MatchUpdatesType => {
             return res?.data;
         }),
         staleTime: 1000
@@ -100,7 +101,10 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
             {
                 name: 'TeamData',
                 title: '数据',
-                page: <TeamDataPage></TeamDataPage>
+                page: <StatisticPage 
+                liveRoomMatchDetails={matchDetails}
+                liveRoomUpdate={liveRoomUpdate}
+                />
             }
         ])
     }, [liveRoomUpdate])
@@ -172,8 +176,6 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
                                     setVideoSource={setVideoSource}
                                     liveDataState={match}
                                     listLiveMatchDetailsUpdates={undefined}
-
-
                                 />
                         }
                         {/* <TouchableOpacity
