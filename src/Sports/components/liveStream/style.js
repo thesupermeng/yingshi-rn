@@ -1,15 +1,31 @@
-import {StyleSheet} from 'react-native';
-import {Colors} from '../../global/colors';
+import { StyleSheet } from 'react-native';
+import { Colors } from '../../global/colors';
 
 const styles = StyleSheet.create({
   container: {
     borderRadius: 4,
     shadowColor: '#000',
-    shadowOffset: {width: 0, height: 1},
+    shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.2,
     shadowRadius: 1,
     elevation: 1,
     backgroundColor: 'white',
+    flex: 1
+  },
+  backButtonTouch: {
+    height: 60,
+    width: 66,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    left: 20,
+    position: 'absolute',
+    zIndex: 2,
+    flexDirection: 'row'
+  },
+  backButtonIcon: {
+    height: 18,
+    width: 16,
   },
   containerInside: {
     borderRadius: 4,

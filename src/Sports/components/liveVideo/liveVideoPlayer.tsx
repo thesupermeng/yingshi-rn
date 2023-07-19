@@ -43,6 +43,7 @@ const LiveVideo = ({ matchID, liveDataState, onLiveEnd, onLoad, streamID, videoS
     const beginWatch = useRef(new Date());
     const [isFullScreen, setIsFullScreen] = useState(false);
     const [isLocked, setIsLocked] = useState(false);
+
     // const {
     //   source: videoSource,
     //   isFullScreen,
@@ -159,7 +160,7 @@ const LiveVideo = ({ matchID, liveDataState, onLiveEnd, onLoad, streamID, videoS
         }
     };
 
-    console.log('videoPlayerControl.source', videoSource);
+    // console.log('videoPlayerControl.source', videoSource);
     return (
         <View style={styles.container}>
             <View
@@ -179,11 +180,14 @@ const LiveVideo = ({ matchID, liveDataState, onLiveEnd, onLoad, streamID, videoS
                 {/* <View style={styles.videoDiv}> */}
                 {(videoSource !== undefined || streamData?.src) && (
                     <>
-                    {
-                        videoSource?.url !== undefined && videoSource
-                        ? <VodPlayer vod_source={videoSource.url} videoType='live' vodTitle={combinedName} />
-                        : <VodPlayer vod_url={liveDataState?.mlive_2d_url} videoType='live' vodTitle={combinedName} />
-                    }
+                        {
+                            videoSource?.url !== undefined && videoSource && (
+                                videoSource.type === VideoLiveType.LIVE
+                                    ? <VodPlayer onBack={onHandleBack} vod_source={videoSource.url} videoType='live' vodTitle={combinedName} />
+                                    : <VodPlayer onBack={onHandleBack} vod_url={videoSource.url} videoType='live' vodTitle={combinedName} useWebview={true} />
+                            )
+
+                        }
                     </>
                     // <Video
                     //     ref={playerRef}

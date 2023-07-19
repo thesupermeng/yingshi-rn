@@ -26,6 +26,11 @@ import { parseVideoURL } from '../../../utility/urlEncryp';
 import Video from 'react-native-video';
 import LiveVideo from '../../../components/liveVideo/liveVideoPlayer';
 import { VideoLiveType } from '../../../global/const';
+import LiveThumbnail from '../../../components/liveThumbnail';
+import LiveStream from '../../../components/liveStream';
+import { MatchDetailWithRankingData, MatchDetailsResponseType } from '../../../types/liveMatchTypes';
+import { MatchUpdatesResponseType } from '../../../types/matchUpdatesType';
+import BeforeLive from '../../../components/beforeLive';
 
 type FlatListType = {
     item: MatchDetailsType,
@@ -38,6 +43,11 @@ interface NavType {
     type: string
 }
 
+type VideoSource = {
+    type: number,
+    url: any
+}
+
 export default ({ navigation, route }: BottomTabScreenProps<any>) => {
     const { textVariants, colors, spacing } = useTheme();
     const LIMIT_PER_PAGE = 10;
@@ -47,13 +57,21 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
     const contentRef = useRef<any>();
     const [isLiveVideoEnd, setIsLiveVideoEnd] = useState(false);
     const matchID: number = route?.params?.matchId;
-    const streamID: number = route?.params?.streamId;
+    const [streamID, setStreamID] = useState<number>(route?.params?.streamId)
     const [tabList, setTabList] = useState(Array<DetailTab>);
-    const [videoSource, setVideoSource] = useState('');
-
+    const [videoSource, setVideoSource] = useState<VideoSource>({ type: 0, url: undefined });
+    console.log("MATCH ID IS", matchID)
     const { data: match } = useQuery({
-        queryKey: ["matchesDetails", matchID],
+        queryKey: ["liveRoomDetails", matchID],
         queryFn: () => Api.call(`${Url.liveRoomDetail}?id=${matchID}`, {}, 'GET').then((res): MatchDetailsType => {
+            return res?.data;
+        }),
+        staleTime: 1000
+    });
+
+    const { data: matchDetails } = useQuery({
+        queryKey: ["matchDetails", matchID],
+        queryFn: () => Api.call(`${Url.matchDetails}?id=${matchID}`, {}, 'GET').then((res): MatchDetailWithRankingData => {
             return res?.data;
         }),
         staleTime: 1000
@@ -61,7 +79,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
 
     const { data: liveRoomUpdate } = useQuery({
         queryKey: ["liveRoomUpdate", matchID],
-        queryFn: () => Api.call(`${Url.matchUpdate}?device_type=3&id=${matchID}`, {}, 'GET').then((res): MatchDetailsType => {
+        queryFn: () => Api.call(`${Url.matchUpdate}?device_type=3&id=${matchID}`, {}, 'GET').then((res): MatchUpdatesResponseType => {
             return res?.data;
         }),
         staleTime: 1000
@@ -98,42 +116,79 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
         setIsLiveVideoEnd(false);
     };
 
-    let videoUrl = undefined;
+    useEffect(() => {
+        if (match != undefined && match.streams != undefined) {
+            const videoUrl = parseVideoURL(match?.streams[0].src);
+            setVideoSource({ type: VideoLiveType.LIVE, url: videoUrl })
+        }
+    }, [match])
 
-    if(match != undefined && match.streams != undefined){
-        videoUrl = parseVideoURL(match?.streams[0].src);
-    } 
     // console.log(parseVideoURL(match?.streams[0].src), match?.streams[0].src)
     return (
         <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
             <View style={{ flex: 1, backgroundColor: 'blue' }}>
                 <View>
                     <View style={styles.topBannerCotainer}>
-                        {/* <TouchableOpacity
-                            style={styles.backButtonTouch}
-                            onPress={() => onHandleBack()}>
-                            <Image
-                                resizeMode="contain"
-                                style={styles.backButtonIcon}
-                                source={BackWhite}></Image>
-                        </TouchableOpacity> */}
+                        {
+                            videoSource.url
+                                ? <LiveVideo
+                                    liveDataState={match}
+                                    // fullScreen={tempFullscreen}
+                                    streamID={streamID}
+                                    setVideoSource={setVideoSource}
+                                    matchID={matchID}
+                                    onLiveEnd={onLiveEnd}
+                                    onLoad={onLiveLoad}
+                                    videoSource={videoSource}
+                                // changeFullscreen={changeFullscreen}
+                                />
+                                :
+                                <BeforeLive
+                                    // setAnimaionStreammSource={props?.setAnimaionStreammSource}
+                                    dataLive={match?.streams}
+                                    onOpenLive={() => {
+                                        if (match?.streams && match?.streams?.length > 0) {
+                                            // onOpen('videoLive');
+                                            const { streamer_id, src } = match?.streams[0]
+                                            setStreamID(streamer_id);
+                                            setIsLiveVideoEnd(false);
+                                            setVideoSource({ type: VideoLiveType.LIVE, url: parseVideoURL(src) })
+                                        }
+                                        //  else if (match?.streams.length === 1) {
+                                        //     const { streamer_id, src } = match?.streams[0];
+                                        //     setStreamID(streamer_id);
+                                        //     setIsLiveVideoEnd(false);
+                                        //     setVideoSource(videoSource);
+                                        // }
 
+                                    }}
+                                    onOpenAnimation={(url : string) => {
+                                        // onOpen('animation');
+                                        console.log(url)
+                                        setIsLiveVideoEnd(false);
+                                        setVideoSource({ type: VideoLiveType.ANIMATION, url: url })
+                                    }}
+                                    listLiveDetails={matchDetails}
+                                    setVideoSource={setVideoSource}
+                                    liveDataState={match}
+                                    listLiveMatchDetailsUpdates={undefined}
+
+
+                                />
+                        }
+                        {/* <TouchableOpacity
+                                        style={styles.backButtonTouch}
+                                        onPress={() => onHandleBack()}>
+                                        <Image
+                                            resizeMode="contain"
+                                            style={styles.backButtonIcon}
+                                            source={BackWhite}></Image>
+                                    </TouchableOpacity> */}
                         {/* <View style={styles.alignCenterTopBannerContainer}>
                             <Text style={styles.middleTitleName}>{competitionNameShort}</Text>
                             <Text style={styles.middleTitleName}>{` |  `}</Text>
                             <Text style={styles.middleTitleName}>{tempDateTime}</Text>
                         </View> */}
-                        <LiveVideo
-                            liveDataState={match}
-                            // fullScreen={tempFullscreen}
-                            streamID={streamID}
-                            setVideoSource={setVideoSource}
-                            matchID={matchID}
-                            onLiveEnd={onLiveEnd}
-                            onLoad={onLiveLoad}
-                            videoSource={{type: VideoLiveType.LIVE, url: videoUrl}}
-                        // changeFullscreen={changeFullscreen}
-                        ></LiveVideo>
                     </View>
                 </View>
                 {tabList.length > 0 && (
@@ -179,7 +234,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        left: 0,
+        left: 20,
         position: 'absolute',
         zIndex: 2,
     },

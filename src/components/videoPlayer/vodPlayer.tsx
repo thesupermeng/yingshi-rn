@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useMemo, useCallback, useRef} from 'react';
+import React, { useEffect, useState, useMemo, useCallback, useRef } from 'react';
 import {
   View,
   TouchableWithoutFeedback,
@@ -6,30 +6,34 @@ import {
   StatusBar,
 } from 'react-native';
 import Video from 'react-native-video';
-import {useTheme, useNavigation} from '@react-navigation/native';
-import {useOrientation} from '../../hooks/useOrientation';
+import { useTheme, useNavigation } from '@react-navigation/native';
+import { useOrientation } from '../../hooks/useOrientation';
 import PlayFullScreenGesture from '../gestures/vod/PlayFullScreenGesture';
-import {debounce} from 'lodash';
+import { debounce } from 'lodash';
 
-import {Dimensions} from 'react-native';
+import { Dimensions } from 'react-native';
 import VideoControlsOverlay from './VideoControlsOverlay';
 import Orientation from 'react-native-orientation-locker';
+import WebView from 'react-native-webview';
 
 interface Props {
-    vod_url?: string
-    vodTitle?: string
-    currentTimeRef?: any
-    initialStartTime?: number
-    videoType?: string
-    vod_source?: any
+  vod_url?: string
+  vodTitle?: string
+  currentTimeRef?: any
+  initialStartTime?: number
+  videoType?: string
+  vod_source?: any
+  onBack?: () => any
+  useWebview?: boolean
 };
 
 const height = Dimensions.get('window').width;
 const width = Dimensions.get('window').height;
 
-export default ({ vod_url, currentTimeRef = 0, initialStartTime = 0, vodTitle = '', videoType = 'vod', vod_source }: Props) => {
+export default ({ vod_url, currentTimeRef = 0, initialStartTime = 0, vodTitle = '', videoType = 'vod', vod_source, onBack, useWebview = false }: Props) => {
+  // console.log('vod_url is', vod_url)
   const videoPlayerRef = React.useRef<Video | null>();
-  const {colors, spacing, textVariants, icons} = useTheme();
+  const { colors, spacing, textVariants, icons } = useTheme();
   const isPotrait = useOrientation();
   const [isFullScreen, setIsFullScreen] = useState(false);
 
@@ -160,13 +164,17 @@ export default ({ vod_url, currentTimeRef = 0, initialStartTime = 0, vodTitle = 
   const debouncedFn = useCallback(debounce(changeControlsState, 4000), []);
 
   const onGoBack = () => {
-    if (isFullScreen) {
-      Orientation.lockToPortrait();
-      Orientation.unlockAllOrientations();
-      StatusBar.setHidden(false);
-      setIsFullScreen(false);
+    if (onBack !== undefined) {
+      onBack()
     } else {
-      navigation.goBack();
+      if (isFullScreen) {
+        Orientation.lockToPortrait();
+        Orientation.unlockAllOrientations();
+        StatusBar.setHidden(false);
+        setIsFullScreen(false);
+      } else {
+        navigation.goBack();
+      }
     }
   };
 
@@ -181,25 +189,47 @@ export default ({ vod_url, currentTimeRef = 0, initialStartTime = 0, vodTitle = 
       <TouchableWithoutFeedback onPress={toggleControls}>
         <View style={styles.bofangBox}>
           {(vod_url !== undefined || vod_source !== undefined) && (
-            <Video
-              ignoreSilentSwitch={'ignore'}
-              ref={ref => (videoPlayerRef.current = ref)}
-              fullscreen={isFullScreen}
-              paused={isPaused}
-              resizeMode="contain"
-              source={vod_source !== undefined? vod_source : {uri: vod_url}}
-              onLoad={onVideoLoaded}
-              progressUpdateInterval={1000}
-              onProgress={onVideoProgessing}
-              onSeek={data => {
-                if (currentTimeRef) {
-                  currentTimeRef.current = data.currentTime;
+            useWebview
+              ? <WebView
+                resizeMode="contain"
+                source={vod_url === undefined ? vod_source : { uri: vod_url }}
+                // style={[
+                //   { backgroundColor: 'black' },
+                //   isFullScreen
+                //     ? {
+                //       // aspectRatio: 803 / 464,
+                //       alignSelf: 'center',
+                //     }
+                //     : {},
+                // ]}
+                style={
+                  !isFullScreen ? styles.videoPotrait : styles.videoLandscape
                 }
-              }}
-              style={
-                !isFullScreen ? styles.videoPotrait : styles.videoLandscape
-              }
-            />
+                onLoad={onVideoLoaded}
+              // onLoadEnd={onEnd}
+              // renderError={onError}
+              // renderLoading={<Loader />}
+              />
+              : <Video
+                ignoreSilentSwitch={'ignore'}
+                ref={ref => (videoPlayerRef.current = ref)}
+                fullscreen={isFullScreen}
+                paused={isPaused}
+                resizeMode="contain"
+                source={vod_source !== undefined ? vod_source : { uri: vod_url }}
+                onLoad={onVideoLoaded}
+                progressUpdateInterval={1000}
+                onProgress={onVideoProgessing}
+                onSeek={data => {
+                  if (currentTimeRef) {
+                    currentTimeRef.current = data.currentTime;
+                  }
+                }}
+                style={
+                  !isFullScreen ? styles.videoPotrait : styles.videoLandscape
+                }
+              />
+
           )}
           {(vod_url !== undefined || vod_source !== undefined) && isShowControls && (
             <VideoControlsOverlay
@@ -224,6 +254,7 @@ export default ({ vod_url, currentTimeRef = 0, initialStartTime = 0, vodTitle = 
 
 const styles = StyleSheet.create({
   videoPotrait: {
+    flex: 1,
     height: '100%',
     width: '100%',
     backgroundColor: '#000',
