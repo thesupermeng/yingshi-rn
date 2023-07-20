@@ -184,7 +184,13 @@ export default ({
         StatusBar.setHidden(false);
         setIsFullScreen(false);
       } else {
-        navigation.goBack();
+        setIsPaused(true);
+
+        setTimeout(() => {
+          navigation.goBack();
+        });
+
+        // navigation.goBack();
       }
     }
   };

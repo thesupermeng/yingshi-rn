@@ -293,7 +293,6 @@ export default ({navigation, route}: RootStackScreenProps<'播放'>) => {
       return () => {
         // Triggered when the user navigates away to the page
         setDismountPlayer(true);
-        Orientation.unlockAllOrientations();
       };
     }, []),
   );
