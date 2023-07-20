@@ -98,7 +98,6 @@ export default ({
 
   const onToggleFullScreen = useCallback(() => {
     if (isFullScreen) {
-      console.log('111111111');
       Orientation.lockToPortrait();
       // Orientation.unlockAllOrientations();
       StatusBar.setHidden(false);
