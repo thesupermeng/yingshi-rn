@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     fontSize: 10,
     marginLeft: 5,
-    color: '#000000',
+    color: '#FFFFFF',
     marginTop: 'auto',
     marginBottom: 'auto',
   },

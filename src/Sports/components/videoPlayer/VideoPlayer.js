@@ -110,7 +110,7 @@ export const VideoPlayer = React.forwardRef((props, playerRef) => {
     }
   };
   const onLoadStart = () => {
-    console.log('load start');
+    // console.log('load start');
     // setIsError(false);
     setIsLoading(true);
     if (typeof props.onLoadStart === 'function') {
@@ -118,7 +118,7 @@ export const VideoPlayer = React.forwardRef((props, playerRef) => {
     }
   };
   const onLoad = () => {
-    console.log('load end');
+    // console.log('load end');
     setIsLoading(false);
     setIsError(false);
     if (typeof props.onLoad === 'function') {

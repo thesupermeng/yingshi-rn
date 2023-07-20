@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   topStatsLabel: {
     fontSize: 13,
     fontWeight: '400',
-    color: 'black',
+    color: 'white',
   },
   topStatsRowContent: {
     display: 'flex',

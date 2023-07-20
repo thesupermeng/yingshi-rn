@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     //backgroundColor: Colors.colorLightGrey,
   },
   container: {
-    backgroundColor: Colors.colorLightGrey,
+    backgroundColor: '#1D2023',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',

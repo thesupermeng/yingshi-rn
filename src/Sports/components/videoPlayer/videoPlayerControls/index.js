@@ -20,7 +20,7 @@ const VideoPlayerControls = ({videoTitle, isError, isCast}) => {
         return;
       }
       const currentTime = new Date().getTime();
-      console.log('currentTime >= timeout', currentTime, timeout);
+      // console.log('currentTime >= timeout', currentTime, timeout);
       if (currentTime >= timeout) {
         dispatch(hideControlAction());
       }

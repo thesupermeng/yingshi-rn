@@ -29,7 +29,7 @@ const CustomMatchDetailsTabBar = ({ tabBar }: Props) => {
                 styles.tabNavigator,
                 {
                   backgroundColor:
-                    tab === idx ? activeTabColor : Colors.colorLightGrey,
+                    tab === idx ? activeTabColor : '#1D2023',
                 },
               ]}>
               <Text

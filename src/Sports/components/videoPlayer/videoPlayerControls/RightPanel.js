@@ -48,7 +48,7 @@ export const RightPanel = ({display}) => {
   }, [display]);
 
   const onPress = () => {
-    console.log('right panel pressed');
+    // console.log('right panel pressed');
     return false;
   };
 

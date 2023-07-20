@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontStyle: 'normal',
     fontFamily: 'PingFang SC',
-    color: color || '#000000',
+    color: color || '#FFFFFF',
     marginLeft: 5,
     marginRight: 5,
   }),
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontStyle: 'normal',
     fontFamily: 'PingFang SC',
-    color: color || '#000000',
+    color: color || '#FFFFFF',
   }),
   statBar: {
     width: '65%',
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontStyle: 'normal',
     fontFamily: 'PingFang SC',
-    color: color || '#000000',
+    color: color || '#FFFFFF',
   }),
   statTextViewRight: {
     width: '15%',
@@ -119,13 +119,13 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '400',
     textAlign: 'center',
-    color: color || 'black'
+    color: color || 'white'
   }),
   numberMatchValue: color => ({
     fontSize: 15,
     fontWeight: '400',
     textAlign: 'center',
-    color: color || 'black'
+    color: color || 'white'
   }),
 });
 

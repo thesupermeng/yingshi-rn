@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     marginHorizontal: 5,
     marginBottom: 50,
-    backgroundColor: 'white',
+    backgroundColor: '#14161A',
   },
 });
 

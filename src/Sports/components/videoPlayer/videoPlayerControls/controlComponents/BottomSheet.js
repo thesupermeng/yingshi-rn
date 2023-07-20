@@ -43,7 +43,7 @@ export const BottomSheet = () => {
     dispatch(updateVideoPropPipe([VideoPlayerActions.hideBottomSheet]));
   };
   const closeSheet = async () => {
-    console.log('called close');
+    // console.log('called close');
     ref.current.close();
   };
   return (

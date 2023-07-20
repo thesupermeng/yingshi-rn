@@ -16,7 +16,7 @@ import { formatMatchDate } from '../../utility/utils';
 import { MatchDetailsType, Stream } from '../../types/matchTypes';
 import MatchDetailsNav from '../../components/matchDetails/MatchDetailsNav';
 import MatchSchedule from '../../components/matchSchedule/MatchSchedule';
-import LiveStatPage from '../../components/matchDetails/LiveStatPage';
+import LiveStatPage from '../../components/matchDetails/liveStatPage';
 import TeamDataPage from '../../components/matchDetails/TeamDataPage';
 import { BackWhite, InOutTargetGreen } from '../../assets';
 import VodPlayer from '../../../components/videoPlayer/vodPlayer';
@@ -99,7 +99,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
             {
                 name: 'Live',
                 title: '直播',
-                page: <LiveStatPage liveRoomUpdate={liveRoomUpdate}></LiveStatPage>
+                page: <LiveStatPage liveRoomUpdate={liveRoomUpdate} liveRoomMatchDetails={matchDetails} />
             },
             {
                 name: 'TeamData',
@@ -110,7 +110,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
                 ? {
                     name: 'Lineup',
                     title: '阵容',
-                    page: <LineUpPage liveRoomLineup={matchLineUp} liveRoomMatchDetails={matchDetails}/>,
+                    page: <LineUpPage liveRoomLineup={matchLineUp} liveRoomMatchDetails={matchDetails} />,
                 }
                 : {
                     name: 'Statistic',

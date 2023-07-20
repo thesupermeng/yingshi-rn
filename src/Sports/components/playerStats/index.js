@@ -56,7 +56,7 @@ let getArrayIndex = (index, item) => {
 const PlayerStats = ({playerData, status}) => {
   return (
     <View style={styles.playerStatView}>
-      <View style={[styles.playerNameView, {backgroundColor: 'white',borderRightColor: '#1D2023', borderRightWidth: 1}]}>
+      <View style={[styles.playerNameView, {backgroundColor: '#14161A',borderRightColor: '#1D2023', borderRightWidth: 1}]}>
         <View style={styles.playerNameTabView}>
           <Text style={styles.playerTitleText}>球员</Text>
         </View>
@@ -116,7 +116,7 @@ const PlayerStats = ({playerData, status}) => {
                       <View
                         style={styles.playerStatDetailTabView}
                         key={`playerStatDetailTabView-${idx1}`}>
-                        <Text>
+                        <Text style={{color: 'white'}}>
                           {getArrayIndex(Menu.indexOf(data), item[6])}
                         </Text>
                       </View>

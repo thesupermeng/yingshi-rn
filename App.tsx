@@ -25,7 +25,7 @@ export default function App() {
       timeToWaitForATTUserAuthorization: 10
     },
     (result) => {
-      console.log(result);
+      // console.log(result);
       const eventName = 'open_app';
       const eventValues = {
         ip: '1'
@@ -35,7 +35,7 @@ export default function App() {
         eventName,
         eventValues,
         (res) => {
-          console.log(res);
+          // console.log(res);
         },
         (err) => {
           console.error(err);

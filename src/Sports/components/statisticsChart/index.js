@@ -63,7 +63,7 @@ const LeftRightStats = props => {
           source={statsIcon}
           resizeMode={'contain'}></Image>
       </View>
-      <Text style={{fontSize: 14, fontWeight: '400', color: 'black'}}>
+      <Text style={{fontSize: 14, fontWeight: '400', color: 'white'}}>
         {statsLabel}
       </Text>
     </View>

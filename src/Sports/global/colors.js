@@ -30,7 +30,7 @@ export const Colors = {
   colorPlayerRateBaground: '#313802',
   colorDarkGreyText: '#8C97A5',
   colorTabBarGreyBg: '#FBFBFB',
-  colorBlackGreyText: '#414141',
+  colorBlackGreyText: '#9C9C9C',
   colorLightOrangeBg: '#FFFBF4',
   colorVeryLightGreyBg: '#F8F8F8',
   colorHomeGreyBg: '#F9F9F9',

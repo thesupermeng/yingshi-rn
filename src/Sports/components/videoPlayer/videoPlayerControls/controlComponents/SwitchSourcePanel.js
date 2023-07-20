@@ -86,7 +86,6 @@ export const SwitchSourcePanel = ({isBottom}) => {
           data={liveVideoList}
           callback={item => {
             dispatch(setVideoSource(VideoLiveType.LIVE, item.src));
-            console.log(JSON.stringify(item));
           }}
         />
       ) : null}
@@ -97,7 +96,7 @@ export const SwitchSourcePanel = ({isBottom}) => {
           data={animationVideoList}
           callback={item => {
             dispatch(setVideoSource(VideoLiveType.ANIMATION, item.code));
-            console.log(JSON.stringify(item));
+            // console.log(JSON.stringify(item));
           }}
         />
       ) : null}

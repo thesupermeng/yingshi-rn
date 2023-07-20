@@ -23,7 +23,7 @@ export const ControlTemplate = ({updateSysVal, style = {}}) => {
     }
   };
   const onChange = d => {
-    console.log('change d', d);
+    // console.log('change d', d);
     updateSysVal(d);
   };
   return (

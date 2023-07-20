@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
         fontSize: 12,
         fontStyle: "normal",
         fontWeight: '400',
-        color: '#414141'
+        color: '#9C9C9C'
     },
     showButtonIcon: {
         width: 10,

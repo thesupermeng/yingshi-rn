@@ -73,6 +73,7 @@ const styles = StyleSheet.create({
         fontWeight: '400',
         fontSize: 15,
         textAlign: 'center',
+        color: 'white'
     },
 });
 

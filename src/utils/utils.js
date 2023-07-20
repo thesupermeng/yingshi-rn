@@ -420,7 +420,7 @@ export const adsClick = (apkUrl, landingUrl, adsId) => {
     check(PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE).then(result => {
       switch (result) {
         case RESULTS.UNAVAILABLE:
-          console.log('This feature is not available on this device');
+          // console.log('This feature is not available on this device');
           break;
         case RESULTS.DENIED:
           // setSelfForceUpdateDesc('请到设置打开存储空间权限');
@@ -441,7 +441,7 @@ export const adsClick = (apkUrl, landingUrl, adsId) => {
           );
           break;
         case RESULTS.LIMITED:
-          console.log('The permission is limited: some actions are possible');
+          // console.log('The permission is limited: some actions are possible');
           break;
         case RESULTS.GRANTED:
           if (underGap) {
@@ -505,7 +505,7 @@ export const adsClick = (apkUrl, landingUrl, adsId) => {
         AppSettingsAction.instance.sendAdsClick(adsId);
         Linking.openURL(landingUrl);
       } else {
-        console.log("Don't know how to open URI: " + landingUrl);
+        // console.log("Don't know how to open URI: " + landingUrl);
       }
     });
   }

@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     marginLeft: '5%',
     width: 120,
+    color: 'white'
   },
   playerTitleText: {
     color: '#FFFFFF',
