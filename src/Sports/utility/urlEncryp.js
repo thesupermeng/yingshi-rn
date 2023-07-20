@@ -3,7 +3,7 @@ import CryptoJS from 'crypto-js';
 import {AppConfig} from '../global/appConfig';
 
 const decryptURL = (src) => {
-  console.log('src', src);
+  // console.log('src', src);
   var key = Config.urlEncryptKey;
   var base64data = CryptoJS.enc.Base64.parse(String(src));
   var encrypted = new CryptoJS.lib.WordArray.init(
@@ -17,7 +17,7 @@ const decryptURL = (src) => {
     mode: CryptoJS.mode.CFB,
     padding: CryptoJS.pad.NoPadding,
   });
-  console.log('srcnew', decrypted.toString(CryptoJS.enc.Utf8));
+  // console.log('srcnew', decrypted.toString(CryptoJS.enc.Utf8));
   return decrypted.toString(CryptoJS.enc.Utf8);
 };
 
@@ -26,7 +26,7 @@ export const parseVideoURL = (src) => {
     AppConfig.instance.config.boosterLink || 'https://example.com';
   const origin = AppConfig.instance.config.boosterSalt || 'https://example.com';
 
-  console.log(referer, origin)
+  // console.log(referer, origin)
   return {
     uri: decryptURL(src),
     headers: {

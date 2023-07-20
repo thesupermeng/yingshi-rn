@@ -1,6 +1,6 @@
 import {View, Text} from 'react-native';
 import styles from './style';
-import vars from '../../../../utility/vars';
+import vars from '../../../utility/vars';
 
 const MatchStatisticComponent = ({index, data, sportType}) => {
   const {away, home, type} = data;
