@@ -510,7 +510,7 @@ const styles = StyleSheet.create({
     titleStyle: {
         fontWeight: '400',
         fontSize: 12,
-        color: '#000000',
+        color: '#FFFFFF',
         textAlign: 'justify',
         marginRight: 30,
     },

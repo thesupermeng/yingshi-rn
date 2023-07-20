@@ -36,8 +36,21 @@ export interface MatchDetailsResponseType {
     basketball_away_ranking: FootballRanking
     basketball_home_injuries: Injury[]
     basketball_away_injuries: Injury[]
+    football_match_analysis: FootballMatchAnalysis
+    basketball_match_analysis: BasketballMatchAnalysis
   }
-  
+  export interface GoalDistribution {
+    home_scored: number[][]
+    away_scored: number[][]
+  }
+  export interface FootballMatchAnalysis {
+    history: History
+    goal_distribution: GoalDistribution
+  }
+  export interface BasketballMatchAnalysis {
+    history: History
+  }
+
   export interface Competition {
     id: number
     name: string
@@ -61,6 +74,19 @@ export interface MatchDetailsResponseType {
     short_name_en: string
   }
   
+  export interface Home2 {
+    home_team_id: number
+    away_team_id: number
+    home_scores: number[]
+    away_scores: number[]
+    match_time: string
+    match_time_ts: number
+    competition_id: number
+    competition: Competition
+    home: Home
+    away: Away
+  }
+
   export interface Coach {
     id: number
     name_zh: string
@@ -283,3 +309,56 @@ export interface MatchDetailsResponseType {
     blocks: number
   }
   
+  export interface Away2 {
+    home_team_id: number
+    away_team_id: number
+    home_scores: number[]
+    away_scores: number[]
+    match_time: string
+    match_time_ts: number
+    competition_id: number
+    competition: Competition
+    home: Home
+    away: Away
+  }
+
+  export interface V {
+    home_team_id: number
+    away_team_id: number
+    home_scores: number[]
+    away_scores: number[]
+    match_time: string
+    match_time_ts: number
+    competition_id: number
+    competition: Competition
+    home: Home
+    away: Away
+  }
+
+  export interface HomeTotal {
+    draws: number
+    losses: number
+    win_rate: number
+    wins: number
+  }
+  
+  export interface AwayTotal {
+    draws: number
+    losses: number
+    win_rate: number
+    wins: number
+  }
+  export interface VsTotal {
+    draws: number
+    losses: number
+    win_rate: number
+    wins: number
+  }
+  export interface History {
+    home: Home2[]
+    away: Away2[]
+    vs: V[]
+    home_total: HomeTotal
+    away_total: AwayTotal
+    vs_total: VsTotal
+  }

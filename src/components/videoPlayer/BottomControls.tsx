@@ -22,9 +22,6 @@ type Props = {
 
 export default ({ currentTime, duration, onSlideCapture, onSlideStart, onSlideComplete, onToggleFullScreen, onToggleEpisodes, isFullScreen, videoType }: Props) => {
 
-    useEffect(() => {
-    }, [])
-
     const getMinutesFromSeconds = (time: number) => {
         const minutes = time >= 60 ? Math.floor(time / 60) : 0;
         const seconds = Math.floor(time - minutes * 60);
@@ -47,13 +44,12 @@ export default ({ currentTime, duration, onSlideCapture, onSlideStart, onSlideCo
 
     const position = getMinutesFromSeconds(currentTime);
     const fullDuration = getMinutesFromSeconds(duration);
-
     return (
         <>
             {!isFullScreen ?
                 <View style={styles.wrapper}>
                     {
-                        videoType !== 'live' &&
+                        videoType === 'vod' &&
                         <Slider
                             value={currentTime}
                             minimumValue={0}
@@ -67,26 +63,38 @@ export default ({ currentTime, duration, onSlideCapture, onSlideStart, onSlideCo
                             thumbTintColor={'#FFFFFF'}
                             style={{ flex: 12, marginTop: 2 }} />
                     }
-                    <Pressable onPress={onPressFullScreenBtn} style={{ alignItems: 'flex-end', width: '100%' }}>
+                    <View>
+                        {videoType === 'vod' &&
+                            <View style={styles.timeWrapper}>
+                                <Text style={styles.timeLeft}>{position} / </Text>
+                                <Text style={styles.timeRight}>{fullDuration}</Text>
+                            </View>
+                        }
+                    </View>
+                    <Pressable onPress={onPressFullScreenBtn} style={{ alignItems: 'flex-end' }}>
                         <FullScreen width={30} height={30} />
                     </Pressable>
+
                 </View>
                 :
                 <View style={styles.landscapeContainer}>
                     <View style={styles.wrapper}>
-                        <Slider
-                            value={currentTime}
-                            minimumValue={0}
-                            maximumValue={duration}
-                            step={1}
-                            onValueChange={onSlideProgressBar}
-                            onSlidingStart={onSlideStart}
-                            onSlidingComplete={onSlideComplete}
-                            minimumTrackTintColor={'#FAC33D'}
-                            maximumTrackTintColor={'#FFFFFF'}
-                            thumbTintColor={'#FFFFFF'}
-                            style={{ flex: 16, marginTop: 2 }} />
-                        {videoType == 'vod' &&
+                        {
+                            videoType === 'vod' &&
+                            <Slider
+                                value={currentTime}
+                                minimumValue={0}
+                                maximumValue={duration}
+                                step={1}
+                                onValueChange={onSlideProgressBar}
+                                onSlidingStart={onSlideStart}
+                                onSlidingComplete={onSlideComplete}
+                                minimumTrackTintColor={'#FAC33D'}
+                                maximumTrackTintColor={'#FFFFFF'}
+                                thumbTintColor={'#FFFFFF'}
+                                style={{ flex: 16, marginTop: 2 }} />
+                        }
+                        {videoType === 'vod' &&
                             <View style={styles.timeWrapperLandscape}>
                                 <Text style={styles.timeLeftLandscape}>{position} / </Text>
                                 <Text style={styles.timeRightLandscape}>{fullDuration}</Text>

@@ -13,7 +13,7 @@ export const Colors = {
   colorGreyText: '#808080',
   colorMediumGreyText: '#BBBABA',
   colorLightGreyText: '#ABABAB',
-  colorLightGrey: '#F2F3F4',
+  colorLightGrey: '#1D2023',
   colorGreyBg: '#C5C5C5',
   colorLightGreyBg: '#F4F4F4',
   colorDivider: '#F7F7F7',

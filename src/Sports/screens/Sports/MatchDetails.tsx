@@ -7,7 +7,6 @@ import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { DetailTab } from '../../../types/ajaxTypes';
 import VodPlaylist from '../../../components/playlist/vodPlaylist';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
-import { API_DOMAIN, MATCH_API_DOMAIN } from '../../../utility/constants';
 import Animated from 'react-native-reanimated';
 import FastImage from 'react-native-fast-image';
 // import { API } from './util';
@@ -17,7 +16,6 @@ import { formatMatchDate } from '../../utility/utils';
 import { MatchDetailsType, Stream } from '../../types/matchTypes';
 import MatchDetailsNav from '../../components/matchDetails/MatchDetailsNav';
 import MatchSchedule from '../../components/matchSchedule/MatchSchedule';
-import LineUpPage from '../../components/matchDetails/LineUpPage';
 import LiveStatPage from '../../components/matchDetails/LiveStatPage';
 import TeamDataPage from '../../components/matchDetails/TeamDataPage';
 import { BackWhite, InOutTargetGreen } from '../../assets';
@@ -29,9 +27,11 @@ import { VideoLiveType } from '../../global/const';
 import LiveThumbnail from '../../components/liveThumbnail';
 import LiveStream from '../../components/liveStream';
 import { MatchDetailWithRankingData, MatchDetailsResponseType } from '../../types/liveMatchTypes';
-import { MatchUpdatesResponseType, MatchUpdatesType } from '../../types/matchUpdatesType';
+import { MatchUpdatesType } from '../../types/matchUpdatesType';
 import BeforeLive from '../../components/beforeLive';
 import StatisticPage from '../../components/matchDetails/statisticPage';
+import { LineUpType } from '../../types/lineUpTypes';
+import LineUpPage from '../../components/matchDetails/lineUpPage';
 
 type FlatListType = {
     item: MatchDetailsType,
@@ -86,6 +86,14 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
         staleTime: 1000
     });
 
+    const { data: matchLineUp } = useQuery({
+        queryKey: ["matchLineUp", matchID],
+        queryFn: () => Api.call(`${Url.matchLineup}?device_type=3&id=${matchID}`, {}, 'GET').then((res): LineUpType => {
+            return res?.data;
+        }),
+        staleTime: 1000
+    });
+
     useEffect(() => {
         setTabList([
             {
@@ -94,18 +102,24 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
                 page: <LiveStatPage liveRoomUpdate={liveRoomUpdate}></LiveStatPage>
             },
             {
-                name: 'Formation',
-                title: '阵容',
-                page: <LineUpPage></LineUpPage>
-            },
-            {
                 name: 'TeamData',
                 title: '数据',
-                page: <StatisticPage 
-                liveRoomMatchDetails={matchDetails}
-                liveRoomUpdate={liveRoomUpdate}
-                />
-            }
+                page: <TeamDataPage liveRoomMatchDetails={matchDetails} />
+            },
+            matchDetails?.sports_type == 1
+                ? {
+                    name: 'Lineup',
+                    title: '阵容',
+                    page: <LineUpPage liveRoomLineup={matchLineUp} liveRoomMatchDetails={matchDetails}/>,
+                }
+                : {
+                    name: 'Statistic',
+                    title: '统计',
+                    page: <StatisticPage
+                        liveRoomMatchDetails={matchDetails}
+                        liveRoomUpdate={liveRoomUpdate}
+                    />,
+                },
         ])
     }, [liveRoomUpdate])
     // console.log(match[0])
@@ -130,7 +144,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
     // console.log(parseVideoURL(match?.streams[0].src), match?.streams[0].src)
     return (
         <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
-            <View style={{ flex: 1, backgroundColor: 'blue' }}>
+            <View style={{ flex: 1 }}>
                 <View>
                     <View style={styles.topBannerCotainer}>
                         {
@@ -166,7 +180,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
                                         // }
 
                                     }}
-                                    onOpenAnimation={(url : string) => {
+                                    onOpenAnimation={(url: string) => {
                                         // onOpen('animation');
                                         console.log(url)
                                         setIsLiveVideoEnd(false);
@@ -175,7 +189,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
                                     listLiveDetails={matchDetails}
                                     setVideoSource={setVideoSource}
                                     liveDataState={match}
-                                    listLiveMatchDetailsUpdates={undefined}
+                                    listLiveMatchDetailsUpdates={liveRoomUpdate}
                                 />
                         }
                         {/* <TouchableOpacity

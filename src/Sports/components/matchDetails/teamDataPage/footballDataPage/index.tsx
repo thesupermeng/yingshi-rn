@@ -1,13 +1,17 @@
 import {ScrollView, SafeAreaView, View} from 'react-native';
 import {useSelector} from 'react-redux';
-import GoalDistribution from '../../../../components/goalDistribution';
-import MatchHistory from '../../../../components/matchHistory';
-import SubsComponent from '../../../../components/substituteComponent';
+import GoalDistribution from '../../../goalDistribution';
+import MatchHistory from '../../../matchHistory';
+import SubsComponent from '../../../substituteComponent';
 import styles from './style';
-import EmptyDataPage from '../../../../components/emptyDataPage';
-import AdsComp from '../../../../components/adsComp';
+import EmptyDataPage from '../../../EmptyDataPage';
+import { MatchDetailWithRankingData } from '../../../../types/liveMatchTypes';
 
-const FootballDataPage = ({liveRoomMatchDetails, ads}) => {
+interface Props {
+  liveRoomMatchDetails?: MatchDetailWithRankingData,
+}
+
+const FootballDataPage = ({liveRoomMatchDetails} : Props) => {
   return (
     <SafeAreaView style={{height: '100%'}}>
       {liveRoomMatchDetails?.football_match_analysis == undefined &&
@@ -16,7 +20,6 @@ const FootballDataPage = ({liveRoomMatchDetails, ads}) => {
         )}
 
       <ScrollView>
-        {ads && <AdsComp item={ads} />}
         {liveRoomMatchDetails?.status == 0 &&
           liveRoomMatchDetails?.home != undefined &&
           liveRoomMatchDetails?.away != undefined &&

@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
         fontStyle: 'normal',
         fontWeight: '400',
         fontSize: 10,
-        color: '#000000'
+        color: '#FFFFFF'
     },
     subPlayerDetailView: {
         width: subPlayerViewWidth - 30 - 30,
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
         fontStyle: 'normal',
         fontWeight: '400',
         fontSize: 12,
-        color: '#000000',
+        color: '#FFFFFF',
     },
     playerNumText: {
         fontFamily: 'PingFang SC',

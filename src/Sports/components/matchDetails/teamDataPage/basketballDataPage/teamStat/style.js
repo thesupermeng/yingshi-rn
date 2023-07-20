@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontStyle: 'normal',
     fontFamily: 'PingFang SC',
-    color: '#000000',
+    color: 'white',
     marginLeft: 5,
     marginRight: 5,
   },
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontStyle: 'normal',
     fontFamily: 'PingFang SC',
-    color: '#000000',
+    color: '#FFFFFF',
   },
   teamStatTitleText: {
     fontWeight: '400',

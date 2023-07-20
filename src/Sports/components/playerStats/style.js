@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     width: 120,
   },
   playerTitleText: {
-    color: '#000000',
+    color: '#FFFFFF',
     fontFamily: 'PingFang SC',
     fontStyle: 'normal',
     fontWeight: '500',

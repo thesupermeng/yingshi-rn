@@ -312,6 +312,7 @@ export default ({navigation, route}: RootStackScreenProps<'播放'>) => {
             currentTimeRef={currentTimeRef}
             initialStartTime={vod.timeWatched}
             vodTitle={vod.vod_name}
+            videoType='vod'
           />
         )}
       <ScrollView

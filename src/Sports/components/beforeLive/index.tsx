@@ -30,7 +30,7 @@ import {
   calculateScore,
 } from '../../utility/utils';
 import { matchOnTime, matchRunningStatusBasketball } from '../../utility/date';
-import DefaultTeamIcon from '../defaultTeamIcon';
+import DefaultTeamIcon from '../DefaultTeamIcon';
 import { MatchDetailWithRankingData } from '../../types/liveMatchTypes';
 import { MatchDetailsType, Stream } from '../../types/matchTypes';
 import { MatchUpdatesType } from '../../types/matchUpdatesType';
@@ -56,6 +56,7 @@ const BeforeLive = ({ liveDataState, listLiveDetails, setVideoSource, listLiveMa
   const matchState = listLiveMatchDetailsUpdates?.state;
   const matchStatus = listLiveMatchDetailsUpdates?.status;
   const matchSportType = listLiveMatchDetailsUpdates?.sports_type;
+  
   // const matchSportType = props?.sportType;
   const matchStartTime = listLiveMatchDetailsUpdates?.start_time;
 
@@ -300,7 +301,7 @@ const BeforeLive = ({ liveDataState, listLiveDetails, setVideoSource, listLiveMa
                   isHome={true}
                   iconSize={34}
                   textSize={16}
-                  text={homeName}
+                  text={homeName ? homeName : ''}
                 />
               )}
 
@@ -406,7 +407,7 @@ const BeforeLive = ({ liveDataState, listLiveDetails, setVideoSource, listLiveMa
                   isHome={false}
                   iconSize={34}
                   textSize={16}
-                  text={awayName}
+                  text={awayName ? awayName : ''}
                 />
               )}
 

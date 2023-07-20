@@ -1,12 +1,17 @@
-import {SafeAreaView, ScrollView, View} from 'react-native';
-import MatchHistory from '../../../../components/matchHistory';
+import { SafeAreaView, ScrollView, View } from 'react-native';
+import MatchHistory from '../../../matchHistory';
 import TeamStat from './teamStat';
 import MatchAverage from './matchAverage';
-import CustomMatchDetailsTabBar from '../../../../components/customMatchDetailsTabBar';
+import CustomMatchDetailsTabBar from '../../../customMatchDetailsTabBar';
 import styles from './style';
-import AdsComp from '../../../../components/adsComp';
+// import AdsComp from '../../../../components/adsComp';
+import { MatchDetailWithRankingData } from '../../../../types/liveMatchTypes';
 
-const BasketballDataPage = ({liveRoomMatchDetails, ads}) => {
+interface Props {
+  liveRoomMatchDetails: MatchDetailWithRankingData
+}
+
+const BasketballDataPage = ({ liveRoomMatchDetails }: Props) => {
   const tabBar = [
     {
       name: '球队概况',
@@ -21,7 +26,7 @@ const BasketballDataPage = ({liveRoomMatchDetails, ads}) => {
   return (
     <SafeAreaView>
       <ScrollView>
-        {ads && <AdsComp item={ads} />}
+        {/* {ads && <AdsComp item={ads} />} */}
         {tabBar.length && (
           <View>
             <CustomMatchDetailsTabBar tabBar={tabBar} />
@@ -31,9 +36,9 @@ const BasketballDataPage = ({liveRoomMatchDetails, ads}) => {
         {liveRoomMatchDetails?.home != undefined &&
           liveRoomMatchDetails?.away != undefined &&
           liveRoomMatchDetails?.basketball_match_analysis?.history?.vs !=
-            undefined &&
+          undefined &&
           liveRoomMatchDetails?.basketball_match_analysis?.history?.vs_total !=
-            undefined && (
+          undefined && (
             <MatchHistory
               title="历史交锋"
               data={

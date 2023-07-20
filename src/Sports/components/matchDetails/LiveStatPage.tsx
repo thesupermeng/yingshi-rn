@@ -22,8 +22,8 @@ import FootballIconComponent from './FootballIconComponent';
 const Tab = createMaterialTopTabNavigator();
 
 interface Props {
-    liveRoomUpdate: any
-    liveRoomMatchDetails: any
+    liveRoomUpdate?: any
+    liveRoomMatchDetails?: any
 }
 
 export default function LiveStatPage({ liveRoomUpdate, liveRoomMatchDetails }: Props) {
@@ -46,9 +46,8 @@ export default function LiveStatPage({ liveRoomUpdate, liveRoomMatchDetails }: P
         }
     ]
 
-    console.log('GGGG')
-    console.log(liveRoomMatchDetails?.sports_type);
-    console.log(liveRoomMatchDetails?.status);
+    // console.log(liveRoomMatchDetails?.sports_type);
+    // console.log(liveRoomMatchDetails?.status);
 
     if (liveRoomMatchDetails?.sports_type === 1) {
         // 比赛未开赛

@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         fontStyle: "normal",
         fontWeight: '600',
-        color: '#000000',
+        color: '#FFFFFF',
         marginLeft: 5
     },
     titleText: {
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontStyle: "normal",
         fontWeight: '600',
-        color: '#000000',
+        color: '#FFFFFF',
     }
 })
 

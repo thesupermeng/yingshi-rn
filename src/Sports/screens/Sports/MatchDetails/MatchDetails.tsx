@@ -17,7 +17,6 @@ import { formatMatchDate } from '../../../utility/utils';
 import { MatchDetailsType, Stream } from '../../../types/matchTypes';
 import MatchDetailsNav from '../../../components/matchDetails/MatchDetailsNav';
 import MatchSchedule from '../../../components/matchSchedule/MatchSchedule';
-import LineUpPage from '../../../components/matchDetails/LineUpPage';
 import LiveStatPage from '../../../components/matchDetails/LiveStatPage';
 import TeamDataPage from '../../../components/matchDetails/TeamDataPage';
 import { BackWhite, InOutTargetGreen } from '../../../assets';

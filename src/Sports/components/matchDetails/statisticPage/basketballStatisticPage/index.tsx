@@ -18,9 +18,9 @@ const BasketballStatisticPage = ({
   liveRoomUpdate,
   liveRoomMatchDetails,
 } : Props) => {
-  console.log('Stats', liveRoomUpdate)
+  // console.log('Stats', liveRoomMatchDetails?.home)
   return (
-    <SafeAreaView style={{height: '100%'}}>
+    <SafeAreaView style={{height: '100%', backgroundColor: '#161616'}}>
       {liveRoomUpdate?.basketball_match_live?.players == undefined &&
         liveRoomMatchDetails?.basketball_home_injuries == undefined &&
         liveRoomMatchDetails?.basketball_away_injuries == undefined && (

@@ -1,13 +1,6 @@
 import React, { useEffect, useState, useMemo, useRef, useCallback } from 'react';
 import { View, TouchableOpacity, Share, Text, StyleSheet, Alert, ScrollView, Image, SafeAreaView } from 'react-native';
 import { useTheme, useFocusEffect } from '@react-navigation/native';
-
-import Orientation from 'react-native-orientation-locker';
-
-import { Dimensions } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import FastImage from 'react-native-fast-image';
-import BottomSheet from '@gorhom/bottom-sheet';
 import { DetailTab } from '../../../types/ajaxTypes';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import LineUpPage from './LineUpPage';
@@ -28,7 +21,6 @@ export default function MatchDetailsNav({ tabList, streamId }: Props) {
             <Tab.Navigator
                 initialRouteName={"Live"}
                 keyboardDismissMode="none"
-                animationEnabled={false}
                 screenOptions={{
                     tabBarScrollEnabled: false,
                     tabBarIndicatorStyle: {
@@ -49,7 +41,10 @@ export default function MatchDetailsNav({ tabList, streamId }: Props) {
                         lineHeight: 21,
                         marginHorizontal: -3,
                     },
-                    tabBarStyle: {},
+                    tabBarStyle: {
+                        borderBottomColor: '#1D2023',
+                        borderBottomWidth: 1
+                    },
                 }}
                 // tabBar={tabBarArrow}
                 sceneContainerStyle={{ backgroundColor: 'white' }}>
@@ -61,9 +56,6 @@ export default function MatchDetailsNav({ tabList, streamId }: Props) {
                             children={() => (
                                 tab.page
                             )}
-                            listeners={({route}) =>
-                                console.log(route)
-                            }
                             options={{
                                 tabBarLabel: tab.title,
                                 tabBarActiveTintColor: colors.primary,

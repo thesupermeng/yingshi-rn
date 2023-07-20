@@ -1,11 +1,11 @@
 import React from 'react';
-import {View, Image, Text, StyleSheet} from 'react-native';
+import { View, Image, Text, StyleSheet } from 'react-native';
 
 interface Props {
-    
+
 }
 
-export default function EmptyDataPage({  }: Props) {
+export default function EmptyDataPage({ }: Props) {
     return (
         <View style={styles.mainContainer}>
             {/* <Image
@@ -20,18 +20,17 @@ export default function EmptyDataPage({  }: Props) {
 
 const styles = StyleSheet.create({
     mainContainer: {
-        backgroundColor: '',
+        backgroundColor: '#1D2023',
         height: '100%',
-        marginHorizontal: 5,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        },
-        mainImage: {
+    },
+    mainImage: {
         width: '80%',
         height: '50%',
-        },
-        title: {
+    },
+    title: {
         fontFamily: 'PingFang SC',
         fontStyle: 'normal',
         fontWeight: '500',
@@ -44,4 +43,4 @@ const styles = StyleSheet.create({
         color: '#808080',
     },
 });
-  
+
