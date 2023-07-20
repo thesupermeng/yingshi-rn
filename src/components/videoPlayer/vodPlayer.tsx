@@ -87,7 +87,7 @@ export default ({
   const handleOrientation = (orientation: any) => {
     if (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT') {
       StatusBar.setHidden(true);
-      Orientation.lockToLandscapeLeft();
+      Orientation.lockToLandscape();
       setIsFullScreen(true);
     } else {
       StatusBar.setHidden(false);
@@ -103,7 +103,7 @@ export default ({
       StatusBar.setHidden(false);
       setIsFullScreen(false);
     } else {
-      Orientation.lockToLandscapeLeft();
+      Orientation.lockToLandscape();
       // Orientation.unlockAllOrientations();
       StatusBar.setHidden(true);
       setIsFullScreen(true);
