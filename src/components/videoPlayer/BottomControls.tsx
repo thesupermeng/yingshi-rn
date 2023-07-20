@@ -1,5 +1,12 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { View, PanResponder, StyleSheet, Dimensions, Text, Pressable } from 'react-native';
+import {
+  View,
+  PanResponder,
+  StyleSheet,
+  Dimensions,
+  Text,
+  Pressable,
+} from 'react-native';
 import Slider from '@react-native-community/slider';
 import FullScreen from '../../../static/images/fullScreen.svg';
 import Unlock from '../../../static/images/unlock.svg';
@@ -9,104 +16,116 @@ import MinimizeScreen from '../../../static/images/minimizeScreen.svg';
 import { TouchableWithoutFeedback } from 'react-native';
 
 type Props = {
-    currentTime: number,
-    duration: number,
-    onSlideCapture: (params: any) => any,
-    onSlideStart: (params: any) => any,
-    onSlideComplete: (params: any) => any,
-    onToggleFullScreen: () => any,
-    onToggleEpisodes: () => any,
-    isFullScreen: boolean,
-    videoType: string
-}
+  currentTime: number;
+  duration: number;
+  onSlideCapture: (params: any) => any;
+  onSlideStart: (params: any) => any;
+  onSlideComplete: (params: any) => any;
+  onToggleFullScreen: () => any;
+  onToggleEpisodes: () => any;
+  isFullScreen: boolean;
+  videoType: string;
+};
 
-export default ({ currentTime, duration, onSlideCapture, onSlideStart, onSlideComplete, onToggleFullScreen, onToggleEpisodes, isFullScreen, videoType }: Props) => {
+export default ({
+  currentTime,
+  duration,
+  onSlideCapture,
+  onSlideStart,
+  onSlideComplete,
+  onToggleFullScreen,
+  onToggleEpisodes,
+  isFullScreen,
+  videoType,
+}: Props) => {
+  useEffect(() => { }, []);
 
-    const getMinutesFromSeconds = (time: number) => {
-        const minutes = time >= 60 ? Math.floor(time / 60) : 0;
-        const seconds = Math.floor(time - minutes * 60);
+  const getMinutesFromSeconds = (time: number) => {
+    const minutes = time >= 60 ? Math.floor(time / 60) : 0;
+    const seconds = Math.floor(time - minutes * 60);
 
-        return `${minutes >= 10 ? minutes : '0' + minutes}:${seconds >= 10 ? seconds : '0' + seconds
-            }`;
-    };
+    return `${minutes >= 10 ? minutes : '0' + minutes}:${seconds >= 10 ? seconds : '0' + seconds
+      }`;
+  };
 
-    const onSlideProgressBar = (time: any) => {
-        onSlideCapture(time);
-    };
+  const onSlideProgressBar = (time: any) => {
+    onSlideCapture(time);
+  };
 
-    const onPressFullScreenBtn = () => {
-        onToggleFullScreen();
-    }
+  const onPressFullScreenBtn = () => {
+    onToggleFullScreen();
+  };
 
-    const handleShowEpisodes = () => {
-        onToggleEpisodes();
-    }
+  const handleShowEpisodes = () => {
+    onToggleEpisodes();
+  };
 
-    const position = getMinutesFromSeconds(currentTime);
-    const fullDuration = getMinutesFromSeconds(duration);
-    return (
-        <>
-            {!isFullScreen ?
-                <View style={styles.wrapper}>
-                    {
-                        videoType === 'vod' &&
-                        <Slider
-                            value={currentTime}
-                            minimumValue={0}
-                            maximumValue={duration}
-                            step={1}
-                            onValueChange={onSlideProgressBar}
-                            onSlidingStart={onSlideStart}
-                            onSlidingComplete={onSlideComplete}
-                            minimumTrackTintColor={'#FAC33D'}
-                            maximumTrackTintColor={'#FFFFFF'}
-                            thumbTintColor={'#FFFFFF'}
-                            style={{ flex: 12, marginTop: 2 }} />
-                    }
-                    <View>
-                        {videoType === 'vod' &&
-                            <View style={styles.timeWrapper}>
-                                <Text style={styles.timeLeft}>{position} / </Text>
-                                <Text style={styles.timeRight}>{fullDuration}</Text>
-                            </View>
-                        }
-                    </View>
-                    <Pressable onPress={onPressFullScreenBtn} style={{ alignItems: 'flex-end' }}>
-                        <FullScreen width={30} height={30} />
-                    </Pressable>
 
-                </View>
-                :
-                <View style={styles.landscapeContainer}>
-                    <View style={styles.wrapper}>
-                        {
-                            videoType === 'vod' &&
-                            <Slider
-                                value={currentTime}
-                                minimumValue={0}
-                                maximumValue={duration}
-                                step={1}
-                                onValueChange={onSlideProgressBar}
-                                onSlidingStart={onSlideStart}
-                                onSlidingComplete={onSlideComplete}
-                                minimumTrackTintColor={'#FAC33D'}
-                                maximumTrackTintColor={'#FFFFFF'}
-                                thumbTintColor={'#FFFFFF'}
-                                style={{ flex: 16, marginTop: 2 }} />
-                        }
-                        {videoType === 'vod' &&
-                            <View style={styles.timeWrapperLandscape}>
-                                <Text style={styles.timeLeftLandscape}>{position} / </Text>
-                                <Text style={styles.timeRightLandscape}>{fullDuration}</Text>
-                            </View>
-                        }
-                        <View>
-                            <Pressable style={styles.containerItem} onPress={onPressFullScreenBtn}>
-                                <MinimizeScreen width={30} height={30} />
-                            </Pressable>
-                        </View>
-                    </View>
-                    {/* <View style={styles.buttonsContainer}>
+  const position = getMinutesFromSeconds(currentTime);
+  const fullDuration = getMinutesFromSeconds(duration);
+  return (
+    <>
+      {!isFullScreen ?
+        <View style={styles.wrapper}>
+          {
+            videoType === 'vod' &&
+            <Slider
+              value={currentTime}
+              minimumValue={0}
+              maximumValue={duration}
+              step={1}
+              onValueChange={onSlideProgressBar}
+              onSlidingStart={onSlideStart}
+              onSlidingComplete={onSlideComplete}
+              minimumTrackTintColor={'#FAC33D'}
+              maximumTrackTintColor={'#FFFFFF'}
+              thumbTintColor={'#FFFFFF'}
+              style={{ flex: 12, marginTop: 2 }} />
+          }
+          <View>
+            {videoType === 'vod' &&
+              <View style={styles.timeWrapper}>
+                <Text style={styles.timeLeft}>{position} / </Text>
+                <Text style={styles.timeRight}>{fullDuration}</Text>
+              </View>
+            }
+          </View>
+          <Pressable onPress={onPressFullScreenBtn} style={{ alignItems: 'flex-end' }}>
+            <FullScreen width={30} height={30} />
+          </Pressable>
+
+        </View>
+        :
+        <View style={styles.landscapeContainer}>
+          <View style={styles.wrapper}>
+            {
+              videoType === 'vod' &&
+              <Slider
+                value={currentTime}
+                minimumValue={0}
+                maximumValue={duration}
+                step={1}
+                onValueChange={onSlideProgressBar}
+                onSlidingStart={onSlideStart}
+                onSlidingComplete={onSlideComplete}
+                minimumTrackTintColor={'#FAC33D'}
+                maximumTrackTintColor={'#FFFFFF'}
+                thumbTintColor={'#FFFFFF'}
+                style={{ flex: 16, marginTop: 2 }} />
+            }
+            {videoType === 'vod' &&
+              <View style={styles.timeWrapperLandscape}>
+                <Text style={styles.timeLeftLandscape}>{position} / </Text>
+                <Text style={styles.timeRightLandscape}>{fullDuration}</Text>
+              </View>
+            }
+            <View>
+              <Pressable style={styles.containerItem} onPress={onPressFullScreenBtn}>
+                <MinimizeScreen width={30} height={30} />
+              </Pressable>
+            </View>
+          </View>
+          {/* <View style={styles.buttonsContainer}>
                         <View style={{ flex: 7 }}>
                             <TouchableWithoutFeedback onPress={handleShowEpisodes}>
                                 <Unlock width={30} height={30} />
@@ -127,80 +146,80 @@ export default ({ currentTime, duration, onSlideCapture, onSlideStart, onSlideCo
                             </TouchableWithoutFeedback>
                         </View>
                     </View> */}
-                </View>
-            }
-        </>
-    )
-}
+        </View>
+      }
+    </>
+  );
+};
 
 const styles = StyleSheet.create({
-    // landscapeContainer: {
-    //     flex: 1,
-    //     flexDirection: 'column',
-    //     paddingHorizontal: 20,
-    //     zIndex: 1
-    // },
-    landscapeContainer: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        zIndex: 1
-    },
-    buttonsContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginHorizontal: 10
-    },
-    // buttonsSubContainer: {
-    //     flex: 2,
-    //     flexDirection: 'row',
-    //     justifyContent: 'space-between'
-    // },
-    buttonsSubContainer: {
-        flex: 2,
-        flexDirection: 'row',
-        justifyContent: 'flex-end'
-    },
-    containerItem: {
-        paddingRight: 20
-    },
-    wrapper: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        zIndex: 1
-    },
-    timeWrapper: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        flex: 4,
-    },
-    timeWrapperLandscape: {
-        flexDirection: 'row',
-        alignSelf: 'center',
-        alignItems: 'center',
-        textAlign: 'center',
-        float: 'center',
-        justifyContent: 'center',
-        flex: 3
-    },
-    timeLeft: {
-        fontSize: 12,
-        color: '#FFFFFF',
-    },
-    timeRight: {
-        fontSize: 12,
-        color: '#FFFFFF',
-        textAlign: 'right',
-    },
-    timeLeftLandscape: {
-        fontSize: 12,
-        color: '#FFFFFF',
-    },
-    timeRightLandscape: {
-        fontSize: 12,
-        color: '#FFFFFF',
-        textAlign: 'right',
-    },
+  // landscapeContainer: {
+  //     flex: 1,
+  //     flexDirection: 'column',
+  //     paddingHorizontal: 20,
+  //     zIndex: 1
+  // },
+  landscapeContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 1,
+  },
+  buttonsContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginHorizontal: 10,
+  },
+  // buttonsSubContainer: {
+  //     flex: 2,
+  //     flexDirection: 'row',
+  //     justifyContent: 'space-between'
+  // },
+  buttonsSubContainer: {
+    flex: 2,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
+  containerItem: {
+    paddingRight: 20,
+  },
+  wrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    zIndex: 1,
+  },
+  timeWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 4,
+  },
+  timeWrapperLandscape: {
+    flexDirection: 'row',
+    alignSelf: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    float: 'center',
+    justifyContent: 'center',
+    flex: 3,
+  },
+  timeLeft: {
+    fontSize: 12,
+    color: '#FFFFFF',
+  },
+  timeRight: {
+    fontSize: 12,
+    color: '#FFFFFF',
+    textAlign: 'right',
+  },
+  timeLeftLandscape: {
+    fontSize: 12,
+    color: '#FFFFFF',
+  },
+  timeRightLandscape: {
+    fontSize: 12,
+    color: '#FFFFFF',
+    textAlign: 'right',
+  },
 });
