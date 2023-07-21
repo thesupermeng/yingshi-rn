@@ -34,7 +34,7 @@ export default ({navigation}: RootStackScreenProps<'设置'>) => {
   return (
     <ScreenContainer>
       <View style={{gap: spacing.m}}>
-        <TitleWithBackButtonHeader title="关于我们" />
+        <TitleWithBackButtonHeader title="设置" />
         <NotificationModal
           onConfirm={toggleVersionDialog}
           isVisible={isVersionDialogOpen}
