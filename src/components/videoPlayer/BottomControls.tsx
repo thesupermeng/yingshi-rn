@@ -113,12 +113,14 @@ export default ({
                 thumbTintColor={'#FFFFFF'}
                 style={{ flex: 16, marginTop: 2 }} />
             }
+            <View>
             {videoType === 'vod' &&
               <View style={styles.timeWrapperLandscape}>
                 <Text style={styles.timeLeftLandscape}>{position} / </Text>
                 <Text style={styles.timeRightLandscape}>{fullDuration}</Text>
               </View>
             }
+            </View>
             <View>
               <Pressable style={styles.containerItem} onPress={onPressFullScreenBtn}>
                 <MinimizeScreen width={30} height={30} />
@@ -160,9 +162,9 @@ const styles = StyleSheet.create({
   //     zIndex: 1
   // },
   landscapeContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    // flexDirection: 'row',
+    // justifyContent: 'center',
+    // alignItems: 'center',
     zIndex: 1,
   },
   buttonsContainer: {

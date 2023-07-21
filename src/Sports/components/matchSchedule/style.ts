@@ -1,5 +1,5 @@
-import {StyleSheet} from 'react-native';
-import {color} from 'react-native-reanimated';
+import { StyleSheet } from 'react-native';
+import { color } from 'react-native-reanimated';
 
 const styles = StyleSheet.create({
   matchScheduleHeader: {
@@ -232,6 +232,29 @@ const styles = StyleSheet.create({
     fontSize: 11,
     fontWeight: '400',
   },
+  refresh: {
+    backgroundColor: '#FAC33D',
+    position: 'absolute',
+    bottom: 50,
+    right: 20,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderRadius: 22,
+    paddingLeft: 6,
+    paddingRight: 11,
+    paddingTop: 3,
+    paddingBottom: 3,
+    zIndex: 1
+  },
+  refreshFont: {
+    color: 'black',
+    fontFamily: 'PingFang SC',
+    fontStyle: 'normal',
+    fontSize: 14,
+    fontWeight: '600',
+    marginBottom: 4
+  }
 });
 
 export default styles;

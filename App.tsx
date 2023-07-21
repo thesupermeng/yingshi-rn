@@ -12,6 +12,8 @@ import { FilterOptionsResponseType, MiniVideo, NavOptionsResponseType, SuggestRe
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import appsFlyer from 'react-native-appsflyer';
+import Api from './src/Sports/middleware/api';
+import { Url } from './src/Sports/middleware/url';
 
 export default function App() {
 
@@ -132,6 +134,19 @@ export default function App() {
     }
   }
   queryClient.prefetchInfiniteQuery(['watchAnytime'], ({ pageParam = 1 }) => fetchVods(pageParam));
+
+
+  queryClient.prefetchQuery({
+    queryKey: ["matchesNavOptions"],
+    queryFn: () => Api.call(Url.sportTypes, {}, 'GET').then((res): {
+      has_submenu: boolean,
+      ids: Array<number>,
+      type: string
+    }[] => {
+      return res.data;
+    }),
+    staleTime: Infinity,
+  });
 
   return (
     <QueryClientProvider client={queryClient}>
