@@ -120,6 +120,7 @@ export default ({navigation}: RootStackScreenProps<'播放历史'>) => {
                         </TouchableOpacity>
                       )}
                       <VodHistoryCard
+                        activeOpacity={isEditing ? 1 : 0.2}
                         vod={item}
                         onPress={() => {
                           if (isEditing) {
@@ -160,6 +161,7 @@ export default ({navigation}: RootStackScreenProps<'播放历史'>) => {
                     </TouchableOpacity>
                   )}
                   <VodHistoryCard
+                    activeOpacity={isEditing ? 1 : 0.2}
                     vod={item}
                     onPress={() => {
                       if (isEditing) {
