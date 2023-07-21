@@ -122,8 +122,12 @@ export default ({navigation}: RootStackScreenProps<'播放历史'>) => {
                       <VodHistoryCard
                         vod={item}
                         onPress={() => {
-                          dispatch(playVod(item));
-                          navigation.navigate('播放', {vod_id: item.vod_id});
+                          if (isEditing) {
+                            toggleHistory(item);
+                          } else {
+                            dispatch(playVod(item));
+                            navigation.navigate('播放', {vod_id: item.vod_id});
+                          }
                         }}
                       />
                     </View>
@@ -158,8 +162,12 @@ export default ({navigation}: RootStackScreenProps<'播放历史'>) => {
                   <VodHistoryCard
                     vod={item}
                     onPress={() => {
-                      dispatch(playVod(item));
-                      navigation.navigate('播放', {vod_id: item.vod_id});
+                      if (isEditing) {
+                        toggleHistory(item);
+                      } else {
+                        dispatch(playVod(item));
+                        navigation.navigate('播放', {vod_id: item.vod_id});
+                      }
                     }}
                   />
                 </View>
