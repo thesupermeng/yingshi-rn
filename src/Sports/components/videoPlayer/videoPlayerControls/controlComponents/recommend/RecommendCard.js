@@ -145,6 +145,6 @@ const styles = StyleSheet.create({
     fontSize: 11,
   },
   awayScore: {
-    color: '#FFA100',
+    color: '#FAC33D',
   },
 });

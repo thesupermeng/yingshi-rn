@@ -19,7 +19,7 @@ import MatchDetailsNav from '../../../components/matchDetails/MatchDetailsNav';
 import MatchSchedule from '../../../components/matchSchedule/MatchSchedule';
 import LiveStatPage from '../../../components/matchDetails/LiveStatPage';
 import TeamDataPage from '../../../components/matchDetails/TeamDataPage';
-import { BackWhite, InOutTargetGreen } from '../../../assets';
+import { BackWhite, InOutTargetRed } from '../../../assets';
 import VodPlayer from '../../../../components/videoPlayer/vodPlayer';
 import { parseVideoURL } from '../../../utility/urlEncryp';
 import Video from 'react-native-video';

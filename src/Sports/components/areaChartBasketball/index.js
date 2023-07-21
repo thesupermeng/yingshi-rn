@@ -136,7 +136,7 @@ const AreaChartBasketball = props => {
                   bottom: '50%',
                   left: 0,
                   right: 0,
-                  backgroundColor: 'rgba(255, 161, 0, 0.18)',
+                  backgroundColor: '#212225',
                 }}></View>
               <View
                 style={{
@@ -145,7 +145,7 @@ const AreaChartBasketball = props => {
                   bottom: 0,
                   left: 0,
                   right: 0,
-                  backgroundColor: 'rgba(7, 193, 96, 0.18)',
+                  backgroundColor: '#262729',
                 }}></View>
             </View>
             {/* 时间指标 */}
@@ -164,7 +164,7 @@ const AreaChartBasketball = props => {
                 datasets: [
                   {
                     data: chartHome,
-                    color: (opacity = 1) => '#FFA100',
+                    color: (opacity = 1) => '#FAC33D',
                     strokeWidth: 0.1,
                   },
                   {data: [0]}, //min
@@ -179,15 +179,15 @@ const AreaChartBasketball = props => {
               withVerticalLabels={false}
               withHorizontalLabels={false}
               chartConfig={{
-                backgroundColor: '#FFA100',
-                backgroundGradientFrom: '#FFA100',
-                backgroundGradientTo: '#07C160',
+                backgroundColor: '#FAC33D',
+                backgroundGradientFrom: '#FAC33D',
+                backgroundGradientTo: '#FF6835',
                 backgroundGradientFromOpacity: 0,
                 backgroundGradientToOpacity: 0,
                 fillShadowGradientOpacity: 0,
                 fillShadowGradientFromOpacity: 1,
                 fillShadowGradientToOpacity: 1,
-                color: (opacity = 1) => '#FFA100',
+                color: (opacity = 1) => '#FAC33D',
                 labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
                 useShadowColorFromDataset: false,
               }}
@@ -199,7 +199,7 @@ const AreaChartBasketball = props => {
                 datasets: [
                   {
                     data: chartAway,
-                    color: (opacity = 1) => '#07C160',
+                    color: (opacity = 1) => '#FF6835',
                     strokeWidth: 0.1,
                   },
                   {data: [0]}, //min
@@ -214,15 +214,15 @@ const AreaChartBasketball = props => {
               withVerticalLabels={false}
               withHorizontalLabels={false}
               chartConfig={{
-                backgroundColor: '#FFA100',
-                backgroundGradientFrom: '#FFA100',
-                backgroundGradientTo: '#07C160',
+                backgroundColor: '#FF6835',
+                backgroundGradientFrom: '#FAC33D',
+                backgroundGradientTo: '#FF6835',
                 backgroundGradientFromOpacity: 0,
                 backgroundGradientToOpacity: 0,
                 fillShadowGradientOpacity: 0,
                 fillShadowGradientFromOpacity: 1,
                 fillShadowGradientToOpacity: 1,
-                color: (opacity = 1) => '#07C160',
+                color: (opacity = 1) => '#FF6835',
                 labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
                 useShadowColorFromDataset: false,
               }}

@@ -19,7 +19,7 @@ const InjuryComponent = ({data, isHome = true}) => {
                   source={isHome ? BasketballHomeTeam : BasketballAwayTeam}
                   style={styles.defaultSubPlayerImage}>
                   {data?.player?.shirt_number != undefined && (
-                    <Text style={[styles.defaultSubPlayerText, isHome ? {color: '#FFA100'} : {color: '#07C160'}]}>
+                    <Text style={[styles.defaultSubPlayerText, isHome ? {color: '#FAC33D'} : {color: '#FF6835'}]}>
                       {data?.player?.shirt_number}
                     </Text>
                   )}

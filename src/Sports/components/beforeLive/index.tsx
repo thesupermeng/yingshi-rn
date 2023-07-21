@@ -30,10 +30,10 @@ import {
   calculateScore,
 } from '../../utility/utils';
 import { matchOnTime, matchRunningStatusBasketball } from '../../utility/date';
-import DefaultTeamIcon from '../DefaultTeamIcon';
 import { MatchDetailWithRankingData } from '../../types/liveMatchTypes';
 import { MatchDetailsType, Stream } from '../../types/matchTypes';
 import { MatchUpdatesType } from '../../types/matchUpdatesType';
+import DefaultTeamIcon from '../defaultTeamIcon';
 
 interface Props {
   listLiveDetails?: MatchDetailWithRankingData,

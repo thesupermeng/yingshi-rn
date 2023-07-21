@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   orangeVerticalOval: {
-    backgroundColor: '#FFA100',
+    backgroundColor: '#FAC33D',
     // flex: 1,
     height: 75,
     width: 34,
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   greenVerticalOval: {
-    backgroundColor: '#07C160',
+    backgroundColor: '#FF6835',
     // flex: 1,
     height: 75,
     width: 34,

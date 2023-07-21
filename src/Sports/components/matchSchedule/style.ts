@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
   viewFooter: {
     height: 15,
     flexDirection: 'row',
-    backgroundColor: '#FFA100',
+    backgroundColor: '#FAC33D',
     paddingHorizontal: 3,
     paddingVertical: 1,
     borderTopLeftRadius: 2,
@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
   },
   penaltyWinScore: {
-    color: '#FFA100',
+    color: '#FAC33D',
     fontFamily: 'PingFang SC',
     fontStyle: 'normal',
     fontSize: 11,

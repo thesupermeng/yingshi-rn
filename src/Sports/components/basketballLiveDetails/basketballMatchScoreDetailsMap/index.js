@@ -4,8 +4,8 @@ import {ImageBackground, View, Text} from 'react-native';
 //assets
 import {
   BasketballDetailsBG,
-  GreenCircleBG,
-  OrangeCircleBG,
+  RedCircleBG,
+  YellowCircleBG,
 } from '../../../assets';
 //style
 import styles from './style';
@@ -47,7 +47,7 @@ const BasketballMatchScoreDetailsMap = props => {
               <ImageBackground
                 style={styles.circleBackground}
                 resizeMode={'contain'}
-                source={OrangeCircleBG}>
+                source={YellowCircleBG}>
                 <Text
                   style={
                     styles.scoreTitle
@@ -59,7 +59,7 @@ const BasketballMatchScoreDetailsMap = props => {
               <ImageBackground
                 style={styles.circleBackground}
                 resizeMode={'contain'}
-                source={GreenCircleBG}>
+                source={RedCircleBG}>
                 <Text
                   style={
                     styles.scoreTitle
@@ -73,7 +73,7 @@ const BasketballMatchScoreDetailsMap = props => {
               <ImageBackground
                 style={styles.circleBackground}
                 resizeMode={'contain'}
-                source={OrangeCircleBG}>
+                source={YellowCircleBG}>
                 <Text
                   style={
                     styles.scoreTitle
@@ -86,7 +86,7 @@ const BasketballMatchScoreDetailsMap = props => {
               <ImageBackground
                 style={styles.circleBackground}
                 resizeMode={'contain'}
-                source={GreenCircleBG}>
+                source={RedCircleBG}>
                 <Text
                   style={
                     styles.scoreTitle
@@ -100,7 +100,7 @@ const BasketballMatchScoreDetailsMap = props => {
               <ImageBackground
                 style={styles.circleBackground}
                 resizeMode={'contain'}
-                source={OrangeCircleBG}>
+                source={YellowCircleBG}>
                 <Text
                   style={
                     styles.scoreTitle
@@ -113,7 +113,7 @@ const BasketballMatchScoreDetailsMap = props => {
               <ImageBackground
                 style={styles.circleBackground}
                 resizeMode={'contain'}
-                source={GreenCircleBG}>
+                source={RedCircleBG}>
                 <Text
                   style={
                     styles.scoreTitle

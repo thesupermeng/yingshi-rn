@@ -56,7 +56,8 @@ function ShortVideoPlayer({
   };
 
   const onError = (errorObj: any) => {
-    // console.log(errorObj)
+    console.log(vod_url)
+    console.log(errorObj)
   };
 
   const handleProgress = (progress: OnProgressData) => {

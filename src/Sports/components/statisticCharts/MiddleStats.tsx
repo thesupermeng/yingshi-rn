@@ -4,7 +4,7 @@ import { useTheme, useFocusEffect } from '@react-navigation/native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import styles from './style';
 import {ProgressChart} from 'react-native-chart-kit';
-import { InOutTargetOrange, InOutTargetGreen } from '../../assets';
+import { InOutTargetYellow, InOutTargetRed } from '../../assets';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -20,7 +20,7 @@ export default function MiddleStats({ isHome, inTarget, offTarget }: Props) {
     return (
         <ImageBackground
             style={{width: 60, height: 60, position: 'relative'}}
-            source={isHome ? InOutTargetOrange : InOutTargetGreen}
+            source={isHome ? InOutTargetYellow : InOutTargetRed}
             resizeMode={'stretch'}>
 
             <Text

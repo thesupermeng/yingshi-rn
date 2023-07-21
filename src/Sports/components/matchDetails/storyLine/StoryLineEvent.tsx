@@ -27,7 +27,7 @@ export default function StoryLineEvent({ }: Props) {
                 <View style={styles.switchContainer}>
                     <Text style={styles.switchTitle}>只看进球</Text>
                     <Switch
-                        trackColor={{ false: '#767577', true: '#07C160' }}
+                        trackColor={{ false: '#767577', true: '#FF6835' }}
                         thumbColor={isEnabled ? 'white' : 'white'}
                         ios_backgroundColor="#3e3e3e"
                         style={styles.switchStyle}

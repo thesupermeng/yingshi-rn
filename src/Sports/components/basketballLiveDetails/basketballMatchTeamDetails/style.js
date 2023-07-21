@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   statBar: {
     width: '65%',
     height: 5,
-    backgroundColor: '#07C160',
+    backgroundColor: '#FF6835',
     marginBottom: 'auto',
     marginTop: 'auto',
     flexDirection: 'row',

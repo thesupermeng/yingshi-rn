@@ -174,7 +174,7 @@ const MatchAverage = ({data}) => {
                   style={{
                     height: 5,
                     borderRadius: 4,
-                    backgroundColor: '#FFA100',
+                    backgroundColor: '#FAC33D',
                     width: tempPercent,
                   }}></View>
               </View>

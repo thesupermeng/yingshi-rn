@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     fontStyle: 'normal',
     fontSize: 9,
     fontFamily: 'PingFang SC',
-    color: '#07C160',
+    color: '#FF6835',
   },
   shirtText1: {
     fontWeight: '500',

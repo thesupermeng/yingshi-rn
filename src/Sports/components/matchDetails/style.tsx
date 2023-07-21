@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
 
         width: 2,
 
-        backgroundColor: '#FFA100',
+        backgroundColor: '#FAC33D',
         display: 'flex',
         justifyContent: 'space-between',
     },
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     smallOrangeCircle: {
         width: 7,
         height: 7,
-        backgroundColor: '#FFA100',
+        backgroundColor: '#FAC33D',
         borderRadius: 20,
         alignSelf: 'center',
         // position: 'absolute',

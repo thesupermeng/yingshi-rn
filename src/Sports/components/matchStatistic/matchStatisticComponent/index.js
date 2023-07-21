@@ -27,7 +27,7 @@ const MatchStatisticComponent = ({index, data, sportType}) => {
                   style={{
                     height: 5,
                     borderRadius: 4,
-                    backgroundColor: '#FFA100',
+                    backgroundColor: '#FAC33D',
                     width: homePercent(),
                   }}></View>
               </View>
@@ -49,7 +49,7 @@ const MatchStatisticComponent = ({index, data, sportType}) => {
     //           height: '100%',
     //           width: homePercent(),
     //           marginLeft: 'auto',
-    //           backgroundColor: '#FFA100',
+    //           backgroundColor: '#FAC33D',
     //         }}></View>
     //     </View>
     //   </View>

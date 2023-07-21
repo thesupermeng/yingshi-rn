@@ -5,8 +5,8 @@ import {ProgressChart} from 'react-native-chart-kit';
 import {Colors} from '../../global/colors';
 import {
   CornerKick,
-  InOutTargetGreen,
-  InOutTargetOrange,
+  InOutTargetRed,
+  InOutTargetYellow,
   RedCard,
   YellowCard,
 } from '../../assets';
@@ -76,7 +76,7 @@ const CenterStats = props => {
   return (
     <ImageBackground
       style={{width: 60, height: 60, position: 'relative'}}
-      source={isHome ? InOutTargetOrange : InOutTargetGreen}
+      source={isHome ? InOutTargetYellow : InOutTargetRed}
       resizeMode={'stretch'}>
       <Text
         style={{
