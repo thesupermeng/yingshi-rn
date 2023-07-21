@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   mainTextContainContainer: {
-    backgroundColor: 'white',
+    backgroundColor: 'transparent',
     flex: 1,
     // marginHorizontal: 5,
     // marginTop: 100, // testing
@@ -26,9 +26,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   containContainer: {
-    borderColor: '#D9D9D9',
+    borderColor: '#1D2023',
     borderRadius: 8,
-    borderWidth: 1,
+    // borderWidth: 1,
     padding: 3,
     flex: 1,
     marginHorizontal: 8,
@@ -37,8 +37,8 @@ const styles = StyleSheet.create({
     // display: 'flex',
   },
   leftArrow: {
-    backgroundColor: 'white',
-    borderColor: '#D9D9D9',
+    backgroundColor: '#1D2023',
+    borderColor: '#1D2023',
     borderBottomWidth: 0,
     borderRightWidth: 0,
     borderTopWidth: 1,
@@ -54,8 +54,8 @@ const styles = StyleSheet.create({
   },
 
   rightArrow: {
-    backgroundColor: 'white',
-    borderColor: '#D9D9D9',
+    backgroundColor: '#1D2023',
+    borderColor: '#1D2023',
     borderBottomWidth: 0,
     borderRightWidth: 0,
     borderTopWidth: 1,
@@ -86,13 +86,13 @@ const styles = StyleSheet.create({
     height: 21,
     borderRadius: 30,
     justifyContent: 'center',
-    backgroundColor: 'white',
+    backgroundColor: '#1D2023',
     alignItems: 'center',
     marginHorizontal: 10,
     // marginVertical: 30,
   },
   timeTitle: {
-    color: '#FFFFFF',
+    color: 'black',
     fontWeight: '500',
     fontSize: 11,
     textAlign: 'center',

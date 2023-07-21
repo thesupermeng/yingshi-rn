@@ -1,7 +1,7 @@
 import React from 'react';
-import {View, ScrollView, Image} from 'react-native';
-import {ColorSpace} from 'react-native-reanimated';
-import {GoalLogo} from '../../../assets';
+import { View, ScrollView, Image } from 'react-native';
+import { ColorSpace } from 'react-native-reanimated';
+import { GoalLogo } from '../../../assets';
 
 //components
 import StorylineTap from '../storylineTab';
@@ -9,15 +9,17 @@ import StorylineTabListItem from '../storylineTabListItem';
 
 //style
 import styles from './style';
+import { MatchUpdatesType } from '../../../types/matchUpdatesType';
 
-//redux
-import {useSelector} from 'react-redux';
+interface Props {
+  liveRoomUpdate?: MatchUpdatesType
+  isEnabled?: boolean
+}
 
-const StorylineTapList = props => {
-  const listLiveUpdates = useSelector(state => state.liveRoomUpdate);
-  const arrayValue = listLiveUpdates?.football_match_live?.incidents ?? [];
+const StorylineTapList = ({ liveRoomUpdate, isEnabled=true }: Props) => {
+  const arrayValue = liveRoomUpdate?.football_match_live?.incidents ?? [];
 
-  const dataTesting = {imageName: GoalLogo, textName: '123'};
+  const dataTesting = { imageName: GoalLogo, textName: '123' };
 
   // const isHome = true;
   const arrayExcluded = [10, 2, 0];
@@ -26,9 +28,9 @@ const StorylineTapList = props => {
   // console.log('DATAAAA', arrayValue);
   return (
     // <ScrollView>
-    <View style={{flex: 1, marginBottom: 50}}>
+    <View style={{ flex: 1, marginBottom: 50 }}>
       {arrayValue.map((value, index) => {
-        if (props?.isEnabled) {
+        if (isEnabled) {
           return (
             arrayOnlyWatchGoal.includes(value?.type) && (
               <View style={styles.mainContainer} key={`incident-${index}`}>

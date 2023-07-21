@@ -1,17 +1,19 @@
-import React, {useState} from 'react';
-import {View, Image, ScrollView, Switch, Text} from 'react-native';
+import React, { useState } from 'react';
+import { View, Image, ScrollView, Switch, Text } from 'react-native';
 import StorylineTap from './storylineTab';
 import StorylineTapList from './storylineTabList';
-import {WhistleOrange, OrangeClock} from '../../assets';
+import { WhistleOrange, OrangeClock } from '../../assets';
 
 //style
 import styles from './style';
-// {arrayValue.map(index => {
-//   return (
-//     );
-// })}
+import { MatchUpdatesType } from '../../types/matchUpdatesType';
 
-const StorylineEvent = props => {
+
+interface Props {
+  liveRoomUpdate?: MatchUpdatesType
+}
+
+const StorylineEvent = ({ liveRoomUpdate }: Props) => {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   return (
@@ -19,7 +21,7 @@ const StorylineEvent = props => {
       <View style={styles.switchContainer}>
         <Text style={styles.switchTitle}>只看进球</Text>
         <Switch
-          trackColor={{false: '#767577', true: '#FF6835'}}
+          trackColor={{ false: '#767577', true: '#00CC6A' }}
           thumbColor={isEnabled ? 'white' : 'white'}
           ios_backgroundColor="#3e3e3e"
           style={styles.switchStyle}
@@ -43,7 +45,7 @@ const StorylineEvent = props => {
           source={WhistleOrange}></Image>
       </View>
       <View style={styles.scrollViewContainer}>
-        <StorylineTapList isEnabled={isEnabled}></StorylineTapList>
+        <StorylineTapList liveRoomUpdate={liveRoomUpdate} isEnabled={isEnabled}></StorylineTapList>
       </View>
     </View>
   );

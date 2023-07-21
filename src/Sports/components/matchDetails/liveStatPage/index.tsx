@@ -35,7 +35,7 @@ const LiveStatPage = ({liveRoomUpdate, liveRoomMatchDetails} : Props) => {
   const tabBar : Tab[]  = [
     {
       name: '重要事件',
-      children: <StorylineEvent></StorylineEvent>,
+      children: <StorylineEvent liveRoomUpdate={liveRoomUpdate} />,
     },
     {
       name: '技术统计',
