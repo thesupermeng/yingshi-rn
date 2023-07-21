@@ -66,8 +66,8 @@ import FootBallField from './images/footballField.png';
 import FootBallFieldLayout from './images/footballFiledLayout.png';
 import HomeTeamField from './images/homeTeamField.png';
 import AwayTeamField from './images/awayTeamField.png';
-import VideoLive from './images/video-live.png';
-import AnimationLive from './images/animation-live.png';
+import VideoLive from './images/yellowVideoLive.png';
+import AnimationLive from './images/yellow-animation-live.png';
 import SubIn from './images/subIn.png';
 import SubOut from './images/subOut.png';
 import Goal from './images/goal.png';
@@ -92,8 +92,8 @@ import YellowRedCard from './images/yellowRedCard.png';
 import VideoVAR from './images/videoVAR.png';
 import CornerShoot from './images/cornerShoot.png';
 import CornerKick from './images/cornerKick.png';
-import InOutTargetGreen from './images/InOutTargetGreen.png';
-import InOutTargetOrange from './images/InOutTargetOrange.png';
+import InOutTargetRed from './images/InOutTargetRed.png';
+import InOutTargetYellow from './images/InOutTargetYellow.png';
 import MatchDetailBG from './images/matchDetailBG.png';
 import NotificationFilled from './images/notificationFilled.png';
 import BasketballMatchDetailBG from './images/basketballMatchDetailBG.png';
@@ -110,10 +110,10 @@ import IconArrowUp from './images/ArrowUp.png';
 import IconArrowDown from './images/ArrowDown.png';
 import IconArrowRight from './images/ArrowRight.png';
 import PenaltyMatchIcon from './images/penaltyMatchIcon.png';
-import GreenCircleBG from './images/greenCircleBG.png';
-import OrangeCircleBG from './images/orangeCircleBG.png';
-import OrangeScoreBall from './images/orangeScoreBall.png';
-import GreenScoreBall from './images/greenScoreBall.png';
+import RedCircleBG from './images/redCircleBG.png';
+import YellowCircleBG from './images/yellowCircleBG.png';
+import YellowScoreBall from './images/yellowScoreBall.png';
+import RedScoreBall from './images/redScoreBall.png';
 import BasketballHomeTeam from './images/basketballHomeTeam.png';
 import BasketballAwayTeam from './images/basketballAwayTeam.png';
 import SubBasketballPlayer from './images/subBasketballPlayer.png';
@@ -338,8 +338,8 @@ export {
   VideoVAR,
   CornerShoot,
   CornerKick,
-  InOutTargetGreen,
-  InOutTargetOrange,
+  InOutTargetRed,
+  InOutTargetYellow,
   MatchDetailBG,
   BasketballMatchDetailBG,
   NotificationFilled,
@@ -356,10 +356,10 @@ export {
   IconArrowDown,
   IconArrowRight,
   PenaltyMatchIcon,
-  GreenCircleBG,
-  OrangeCircleBG,
-  OrangeScoreBall,
-  GreenScoreBall,
+  RedCircleBG,
+  YellowCircleBG,
+  YellowScoreBall,
+  RedScoreBall,
   BasketballAwayTeam,
   BasketballHomeTeam,
   SubBasketballPlayer,

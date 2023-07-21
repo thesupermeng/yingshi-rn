@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
         marginRight: 5
     },
     goalConcededTotalText2: {
-        color: '#FFA100',
+        color: '#FAC33D',
         fontFamily: 'PingFang SC',
         fontWeight: '600',
         fontSize: 22,
@@ -227,7 +227,7 @@ const styles = StyleSheet.create({
         marginRight: 5
     },
     winRateTotalText2: {
-        color: '#FFA100',
+        color: '#FAC33D',
         fontFamily: 'PingFang SC',
         fontWeight: '600',
         fontSize: 14,

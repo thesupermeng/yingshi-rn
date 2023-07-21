@@ -3,7 +3,6 @@ import { View, TouchableOpacity, Share, Text, StyleSheet, Alert, ScrollView, Ima
 import { useTheme, useFocusEffect } from '@react-navigation/native';
 import { DetailTab } from '../../../types/ajaxTypes';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import LineUpPage from './LineUpPage';
 
 const Tab = createMaterialTopTabNavigator();
 

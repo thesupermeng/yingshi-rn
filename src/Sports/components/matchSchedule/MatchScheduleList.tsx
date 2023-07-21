@@ -58,7 +58,7 @@ const MatchScheduleList = ({ matchTypeID, status }: Props) => {
     return Url.matches11 + url;
   }
 
-  const { data: matches, isFetching } = useQuery({
+  const { data: matches, isFetching, refetch, isRefetching } = useQuery({
     queryKey: ["matches", matchTypeID, `status=${status}`],
     queryFn: () => Api.call(getUrl(), {}, 'GET').then(res => {
       const data = res?.data;
@@ -70,7 +70,7 @@ const MatchScheduleList = ({ matchTypeID, status }: Props) => {
     }
     ),
   });
-  const Content = useCallback(({ item, index }: { item: any, index: number }) => {
+  const Content = useCallback(() => {
     return <View style={{ width: width }}>
       {
         matches?.map((match, idx) =>
@@ -79,16 +79,17 @@ const MatchScheduleList = ({ matchTypeID, status }: Props) => {
               <Text style={textVariants.header}>{match.date}</Text>
             </View>
             <View>
-              <FlatList data={match.data} renderItem={({ item }: FlatListType) => <MatchSchedule matchSche={item} />} />
+              {match.data.map((item, index) =>  <MatchSchedule key={index} matchSche={item} />)}
+              {/* <FlatList data={match.data} renderItem={({ item }: FlatListType) => <MatchSchedule matchSche={item} />} /> */}
             </View>
           </View>
         )
       }
     </View>
-  }, [matches, matchTypeID])
+  }, [matches])
 
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       {
         matches && matches.length > 0
           ? <FlatList
@@ -100,7 +101,7 @@ const MatchScheduleList = ({ matchTypeID, status }: Props) => {
           />
           : <View style={{ height: height }}>
             {
-              isFetching
+              (isFetching || isRefetching)
                 ? <View style={styles.buffering}>
                   <FastImage
                     source={require('../../../../static/images/loading-spinner.gif')}
@@ -113,6 +114,17 @@ const MatchScheduleList = ({ matchTypeID, status }: Props) => {
             }
 
           </View>
+      }
+      {
+        !isFetching && !isRefetching &&
+        <TouchableOpacity style={styles.refresh} onPress={() => { refetch() }}>
+          <FastImage
+            source={require('../../assets/images/IconRefresh.png')}
+            style={{ width: 25, height: 25 }}
+            resizeMode="contain"
+          />
+          <Text style={styles.refreshFont}>刷新</Text>
+        </TouchableOpacity>
       }
     </View>
   );

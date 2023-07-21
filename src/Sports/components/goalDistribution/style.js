@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     goalDistributionHomeHighest: {
         height: 22,
         width: "33%",
-        backgroundColor: "#FFA100"
+        backgroundColor: "#FAC33D"
     },
     goalDistributionAway: {
         height: 22,
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     goalDistributionAwayHighest: {
         height: 22,
         width: "33%",
-        backgroundColor: "#07C160",
+        backgroundColor: "#FF6835",
     },
     goalDistributionText: {
         fontFamily: 'PingFang SC',
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
         fontStyle: 'normal',
         fontWeight: '400',
         fontSize: 12,
-        color: '#FFA100',
+        color: '#FAC33D',
         marginTop: "auto",
         marginBottom: "auto",
         marginLeft: "auto",
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
         fontStyle: 'normal',
         fontWeight: '400',
         fontSize: 12,
-        color: '#07C160',
+        color: '#FF6835',
         marginTop: "auto",
         marginBottom: "auto",
         marginLeft: "auto",

@@ -85,22 +85,22 @@ const styles = StyleSheet.create({
     fontFamily: 'PingFang SC',
     fontWeight: '400',
     fontStyle: 'normal',
-    color: '#FFA100',
+    color: '#FAC33D',
     fontSize: 10,
   },
   playerAwayStatText: {
     fontFamily: 'PingFang SC',
     fontWeight: '400',
     fontStyle: 'normal',
-    color: '#07C160',
+    color: '#FF6835',
     fontSize: 10,
   },
   playerHomeStatView: {
-    backgroundColor: '#FFA100',
+    backgroundColor: '#FAC33D',
     width: 12,
   },
   playerAwayStatView: {
-    backgroundColor: '#07C160',
+    backgroundColor: '#FF6835',
     width: 12,
   },
   playerHomeStat: {

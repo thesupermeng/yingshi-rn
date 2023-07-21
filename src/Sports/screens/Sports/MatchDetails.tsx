@@ -18,7 +18,6 @@ import MatchDetailsNav from '../../components/matchDetails/MatchDetailsNav';
 import MatchSchedule from '../../components/matchSchedule/MatchSchedule';
 import LiveStatPage from '../../components/matchDetails/liveStatPage';
 import TeamDataPage from '../../components/matchDetails/TeamDataPage';
-import { BackWhite, InOutTargetGreen } from '../../assets';
 import VodPlayer from '../../../components/videoPlayer/vodPlayer';
 import { parseVideoURL } from '../../utility/urlEncryp';
 import Video from 'react-native-video';
@@ -61,7 +60,6 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
     const [streamID, setStreamID] = useState<number>(route?.params?.streamId)
     const [tabList, setTabList] = useState(Array<DetailTab>);
     const [videoSource, setVideoSource] = useState<VideoSource>({ type: 0, url: undefined });
-    console.log("MATCH ID IS", matchID)
     const { data: match } = useQuery({
         queryKey: ["liveRoomDetails", matchID],
         queryFn: () => Api.call(`${Url.liveRoomDetail}?id=${matchID}`, {}, 'GET').then((res): MatchDetailsType => {

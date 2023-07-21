@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
         height: 21,
         borderRadius: 30,
         justifyContent: 'center',
-        backgroundColor: '#FFA100',
+        backgroundColor: '#FAC33D',
         alignItems: 'center',
         marginHorizontal: 10,
     },
@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     HTtimeTitle: {
-        color: '#FFA100',
+        color: '#FAC33D',
         fontWeight: '500',
         fontSize: 11,
         textAlign: 'center',

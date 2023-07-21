@@ -25,7 +25,7 @@ function VodListVertical({ vods, numOfRows = 2, outerRowPadding = 0, minNumPerRo
 
     const width = Math.min(Dimensions.get('window').width, Dimensions.get('window').height)
    
-    const windowDim = width - insets.left - insets.right - outerRowPadding - (2 * spacing.sideOffset); // usable space
+    const windowDim = width - insets.left - insets.right - outerRowPadding - (2.1 * spacing.sideOffset); // usable space
     const minWidth = windowDim / minNumPerRow - 8;
     const cardWidth = Math.min(200, Math.floor(minWidth));
     const cardHeight = heightToWidthRatio * cardWidth;

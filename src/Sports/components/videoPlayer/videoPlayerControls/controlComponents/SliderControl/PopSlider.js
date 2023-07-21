@@ -13,7 +13,7 @@ export const PopSlider = ({icon, percent}) => {
           style={{
             height: 5,
             borderRadius: 4,
-            backgroundColor: '#FFA100',
+            backgroundColor: '#FAC33D',
             width: `${percent > 100 ? 100 : percent}%`,
           }}></View>
       </View>

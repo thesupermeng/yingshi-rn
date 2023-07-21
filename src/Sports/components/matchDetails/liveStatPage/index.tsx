@@ -91,10 +91,10 @@ const LiveStatPage = ({liveRoomUpdate, liveRoomMatchDetails} : Props) => {
         <ScrollView style={{backgroundColor: '#14161A'}}>
           {/* {ads && <AdsComp item={ads} />} */}
           <LiveScoreBasketball liveRoomUpdate={liveRoomUpdate} />
-          {liveRoomUpdate !== undefined && Object.keys(liveRoomUpdate).length > 0 && (
+          {/* {liveRoomUpdate !== undefined && Object.keys(liveRoomUpdate).length > 0 && (
             <BasketballLiveDetails
               liveRoomUpdate={liveRoomUpdate}></BasketballLiveDetails>
-          )}
+          )} */}
         </ScrollView>
       );
     }

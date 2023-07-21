@@ -4,7 +4,7 @@ import { Text, TouchableHighlight, View, TouchableOpacity } from 'react-native';
 import { liveRoomName } from '../../utility/utils';
 import styles from './style';
 import LiveThumbnail from '../liveThumbnail';
-import { BackWhite, InOutTargetGreen } from '../../assets';
+import { BackWhite, InOutTargetRed } from '../../assets';
 import FastImage from 'react-native-fast-image';
 
 const LiveStream = props => {

@@ -2,7 +2,7 @@ import React from 'react';
 import {ImageBackground, View, Text} from 'react-native';
 
 //assets
-import {OrangeScoreBall, GreenScoreBall} from '../../../assets';
+import {YellowScoreBall, RedScoreBall} from '../../../assets';
 //style
 import styles from './style';
 
@@ -37,7 +37,7 @@ const BasketballMatchScoreDetails = props => {
         <ImageBackground
           style={styles.circleBackground}
           resizeMode={'contain'}
-          source={OrangeScoreBall}>
+          source={YellowScoreBall}>
           <View style={styles.centerTextContainer}>
             <Text style={styles.centerscoreTitle}>篮板</Text>
             <Text style={styles.centerscoreMark}>{homeUB}</Text>
@@ -48,7 +48,7 @@ const BasketballMatchScoreDetails = props => {
         <ImageBackground
           style={styles.circleBackground}
           resizeMode={'contain'}
-          source={GreenScoreBall}>
+          source={RedScoreBall}>
           <View style={styles.centerTextContainer}>
             <Text style={styles.centerscoreTitle}>篮板</Text>
             <Text style={styles.centerscoreMark}>{awayUB}</Text>

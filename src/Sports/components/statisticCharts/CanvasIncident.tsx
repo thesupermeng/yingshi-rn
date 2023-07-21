@@ -3,8 +3,8 @@ import { StyleSheet } from 'react-native';
 import Canvas, { Path2D } from 'react-native-canvas';
 
 const Color = {
-    home: '#FFA100',
-    away: '#07C160',
+    home: '#FAC33D',
+    away: '#FF6835',
 };
 
 interface Props {

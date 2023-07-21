@@ -56,7 +56,8 @@ function ShortVideoPlayer({
   };
 
   const onError = (errorObj: any) => {
-    // console.log(errorObj)
+    console.log(vod_url)
+    console.log(errorObj)
   };
 
   const handleProgress = (progress: OnProgressData) => {
@@ -91,7 +92,7 @@ function ShortVideoPlayer({
   const handleLoad = (meta: any) => {
     setDuration(meta.duration);
   };
-
+  
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -114,7 +115,13 @@ function ShortVideoPlayer({
           ref={videoRef}
           resizeMode="contain"
           poster={thumbnail}
-          source={{uri: vod_url}}
+          source={{
+            uri: vod_url,
+            headers: {
+              'User-Agent':
+                'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+            },
+          }}
           onBuffer={onBuffer}
           onError={onError}
           repeat={true}
