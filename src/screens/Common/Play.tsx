@@ -481,8 +481,8 @@ export default ({navigation, route}: RootStackScreenProps<'播放'>) => {
                             <Text
                               numberOfLines={1}
                               style={{
+                                fontSize: 13,
                                 textAlign: 'center',
-                                ...textVariants.header,
                                 fontWeight: '500',
                                 color:
                                   currentEpisode === url.nid
