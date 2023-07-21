@@ -86,7 +86,7 @@ export default ({navigation, route}: RootStackScreenProps<'播放'>) => {
   const dispatch = useAppDispatch();
 
   const [dismountPlayer, setDismountPlayer] = useState(false);
-
+  const [orientation, setOrientation] = useState('PORTRAIT');
   // Calculate the scroll position, number of episodes per row to display given viewport width, margin right
   // to get a even, centered grid
   const EPISODE_RANGE_SIZE = 100;
@@ -244,6 +244,16 @@ export default ({navigation, route}: RootStackScreenProps<'播放'>) => {
   }, []);
 
   useEffect(() => {
+    Dimensions.addEventListener('change', ({window: {width, height}}) => {
+      if (width < height) {
+        setOrientation('PORTRAIT');
+      } else {
+        setOrientation('LANDSCAPE');
+      }
+    });
+  }, []);
+
+  useEffect(() => {
     return () => {
       if (vod) {
         dispatch(addVodToHistory(vod, currentTimeRef.current, currentEpisode));
@@ -299,6 +309,7 @@ export default ({navigation, route}: RootStackScreenProps<'播放'>) => {
 
   return (
     <ScreenContainer
+      isVideoLandscape={orientation == 'LANDSCAPE'}
       containerStyle={{flex: 1, paddingRight: 0, paddingLeft: 0}}>
       {vod?.vod_play_list?.urls?.find(url => url.nid === currentEpisode)
         ?.url !== undefined &&
@@ -311,7 +322,7 @@ export default ({navigation, route}: RootStackScreenProps<'播放'>) => {
             currentTimeRef={currentTimeRef}
             initialStartTime={vod.timeWatched}
             vodTitle={vod.vod_name}
-            videoType='vod'
+            videoType="vod"
           />
         )}
       <ScrollView
@@ -470,8 +481,8 @@ export default ({navigation, route}: RootStackScreenProps<'播放'>) => {
                             <Text
                               numberOfLines={1}
                               style={{
+                                fontSize: 13,
                                 textAlign: 'center',
-                                ...textVariants.header,
                                 fontWeight: '500',
                                 color:
                                   currentEpisode === url.nid

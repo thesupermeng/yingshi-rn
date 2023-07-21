@@ -45,58 +45,26 @@ export default ({ navigation, route }: RootStackScreenProps<'电视台列表'>) 
         }
     }
     return (
-        <ScreenContainer>
-            <ScrollView>
-                <TitleWithBackButtonHeader title='电视台'
-                    headerStyle={{ marginBottom: spacing.m }}
-                />
-                {
-                    liveStationItemList != undefined && liveStationItemList.length > 0 && 
+        <ScrollView>
+            <TitleWithBackButtonHeader title='电视台'
+                headerStyle={{ marginBottom: spacing.m }}
+            />
+            {
+                liveStationItemList != undefined && liveStationItemList.length > 0 && 
+                <View style={{ ...styles.descriptionContainer, gap: spacing.m, alignItems: 'center' }}>
                     <VodLiveStationListVertical itemList={liveStationItemList} itemsPerRow={2} numOfRows={100}/>
-                }
-                {
-                    history && history.length === 0 && 
-                    <EmptyList description='暂无播放历史' />
-                }
-            </ScrollView>
-        </ScreenContainer >
+                </View>
+            }
+            {
+                history && history.length === 0 && 
+                <EmptyList description='暂无播放历史' />
+            }
+        </ScrollView>
     )
 }
 
 const styles = StyleSheet.create({
-    topNav: {
-        paddingTop: 10,
-        paddingLeft: 10,
-        paddingRight: 10,
-        display: 'flex',
-        flexDirection: 'row',
-        width: '100%',
-        alignItems: 'center',
-        justifyContent: 'space-between'
-    },
-    noMore: {
-        textAlign: 'center',
-        marginTop: 30
-    },
-    card: {
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    checkbox: {
-        padding: 5
-    },
-    deleteConfirmationModal: {
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: 8
-    },
-    confirmationBtn: {
+    descriptionContainer: {
         flex: 1,
-        margin: 10,
-        borderRadius: 10,
-        marginTop: 8
-    }
+    },
 });

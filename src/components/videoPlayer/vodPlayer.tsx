@@ -87,11 +87,11 @@ export default ({
   const handleOrientation = (orientation: any) => {
     if (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT') {
       StatusBar.setHidden(true);
-      Orientation.lockToLandscape();
+      // Orientation.lockToLandscape();
       setIsFullScreen(true);
     } else {
       StatusBar.setHidden(false);
-      Orientation.lockToPortrait();
+      //Orientation.lockToPortrait();
       setIsFullScreen(false);
     }
   };
@@ -99,7 +99,7 @@ export default ({
   const onToggleFullScreen = useCallback(() => {
     if (isFullScreen) {
       Orientation.lockToPortrait();
-      Orientation.unlockAllOrientations();
+      // Orientation.unlockAllOrientations();
       StatusBar.setHidden(false);
       setIsFullScreen(false);
     } else {
