@@ -17,7 +17,7 @@ import { MatchDetailsType, Stream } from '../../types/matchTypes';
 import MatchDetailsNav from '../../components/matchDetails/MatchDetailsNav';
 import MatchSchedule from '../../components/matchSchedule/MatchSchedule';
 import LiveStatPage from '../../components/matchDetails/liveStatPage';
-import TeamDataPage from '../../components/matchDetails/TeamDataPage';
+import TeamDataPage from '../../components/matchDetails/teamDataPage';
 import { BackWhite, InOutTargetGreen } from '../../assets';
 import VodPlayer from '../../../components/videoPlayer/vodPlayer';
 import { parseVideoURL } from '../../utility/urlEncryp';
