@@ -89,7 +89,7 @@ const RecommendationHome = ({vodCarouselRes, setScrollEnabled}: Props) => {
   const {data: liveStations} = useQuery({
     queryKey: ['LiveTVStations'],
     queryFn: () =>
-      fetch(`${API_DOMAIN_TEST}live/v1/livestations`, {})
+      fetch(`${API_DOMAIN}live/v1/livestations`, {})
         .then(response => response.json())
         .then((json: LiveTVStationsResponseType) => {
           return json.data;
