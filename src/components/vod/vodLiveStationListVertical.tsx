@@ -9,7 +9,6 @@ import { playVod } from '../../redux/actions/vodActions';
 import { useAppDispatch } from '../../hooks/hooks';
 import { useInfiniteQuery, useQuery, useQueryClient } from '@tanstack/react-query';
 import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
-import { API_DOMAIN } from '../../constants';
 import VodTopicFilter from '../../components/vod/vodTopicFilter';
 import VodCard from '../../components/vod/vodCard';
 import DownArrow from '../../../static/images/arrow_down_yellow.svg'
@@ -44,22 +43,25 @@ export default function VodLiveStationListVertical({ itemList, itemsPerRow = 2, 
             const row = (
                 <View key={i} style={{...styles.cardRow, flex: itemsPerRow}}>
                     {rowItems.map((item) => (
-                        <TouchableOpacity
-                            style={{...styles.cardItem, margin: 0}}
-                            key={item.id}
-                            onPress={() => {
-                                navigation.navigate('电视台播放', { liveStationItemList: itemList, liveStationItem: item });
-                            }}>
-                            <View key={item.id} style={styles.cardItem}>
-                                <FastImage
-                                    style={{ flex: 1, aspectRatio: 130 / 80, borderRadius: 10 }}
-                                    source={{
-                                        uri: item.live_station_img_url,
-                                        priority: FastImage.priority.normal,
-                                    }}
-                                />
-                            </View>
-                        </TouchableOpacity>
+                        <View
+                        key={item.id}
+                        style={{ paddingLeft: 5, paddingRight: 5, paddingBottom: 10 }}>
+                            <TouchableOpacity
+                                style={{...styles.cardItem}}
+                                onPress={() => {
+                                    navigation.navigate('电视台播放', { liveStationItemList: itemList, liveStationItem: item });
+                                }}>
+                                <View key={item.id} style={styles.cardItem}>
+                                    <FastImage
+                                        style={{ flex: 1, aspectRatio: 130 / 80, borderRadius: 10 }}
+                                        source={{
+                                            uri: item.live_station_img_url,
+                                            priority: FastImage.priority.normal,
+                                        }}
+                                    />
+                                </View>
+                            </TouchableOpacity>
+                        </View>
                     ))}
                 </View>
             );
@@ -77,14 +79,14 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItem: 'center',
+        paddingBottom: 20
 
     },
     cardRow: {
-        flexDirection: 'row'
+        flexDirection: 'row',
     },
     cardItem: {
-        flex: 1,
+        height: 100,
         aspectRatio: 130 / 80,
-        margin: 5,
     }
 })

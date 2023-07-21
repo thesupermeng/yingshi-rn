@@ -52,7 +52,7 @@ export default ({ currentTime, duration, onVideoSeek, onFastForward, onTogglePla
     const handleToggleEpisodes = () => {
         
     }
-
+    console.log
     return (
         <View style={!isFullScreen ? styles.controlsOverlay : [styles.controlsOverlay, { height: height }]}>
             <View style={styles.videoHeader}>
@@ -68,6 +68,7 @@ export default ({ currentTime, duration, onVideoSeek, onFastForward, onTogglePla
             <MiddleControls
                 fastForward={handleFastForward}
                 togglePlayPause={handlePlayPause}
+                videoType={videoType} 
                 paused={paused} />
             {/* Bottom Controls */}
             <BottomControls

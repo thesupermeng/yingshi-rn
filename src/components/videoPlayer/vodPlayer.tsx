@@ -14,20 +14,33 @@ import {debounce} from 'lodash';
 import {Dimensions} from 'react-native';
 import VideoControlsOverlay from './VideoControlsOverlay';
 import Orientation from 'react-native-orientation-locker';
+import WebView from 'react-native-webview';
 
 interface Props {
-    vod_url?: string
-    vodTitle?: string
-    currentTimeRef?: any
-    initialStartTime?: number
-    videoType?: string
-};
+  vod_url?: string;
+  vodTitle?: string;
+  currentTimeRef?: any;
+  initialStartTime?: number;
+  videoType?: string;
+  vod_source?: any;
+  onBack?: () => any;
+  useWebview?: boolean;
+}
 
 const height = Dimensions.get('window').width;
 const width = Dimensions.get('window').height;
 
-export default ({ vod_url, currentTimeRef = 0, initialStartTime = 0, vodTitle = '', videoType = 'vod' }: Props) => {
-
+export default ({
+  vod_url,
+  currentTimeRef = 0,
+  initialStartTime = 0,
+  vodTitle = '',
+  videoType = 'vod',
+  vod_source,
+  onBack,
+  useWebview = false,
+}: Props) => {
+  // console.log('vod_url is', vod_url)
   const videoPlayerRef = React.useRef<Video | null>();
   const {colors, spacing, textVariants, icons} = useTheme();
   const isPotrait = useOrientation();
@@ -74,9 +87,11 @@ export default ({ vod_url, currentTimeRef = 0, initialStartTime = 0, vodTitle = 
   const handleOrientation = (orientation: any) => {
     if (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT') {
       StatusBar.setHidden(true);
+      // Orientation.lockToLandscape();
       setIsFullScreen(true);
     } else {
       StatusBar.setHidden(false);
+      //Orientation.lockToPortrait();
       setIsFullScreen(false);
     }
   };
@@ -84,11 +99,11 @@ export default ({ vod_url, currentTimeRef = 0, initialStartTime = 0, vodTitle = 
   const onToggleFullScreen = useCallback(() => {
     if (isFullScreen) {
       Orientation.lockToPortrait();
-      Orientation.unlockAllOrientations();
+      // Orientation.unlockAllOrientations();
       StatusBar.setHidden(false);
       setIsFullScreen(false);
     } else {
-      Orientation.lockToLandscapeLeft();
+      Orientation.lockToLandscape();
       // Orientation.unlockAllOrientations();
       StatusBar.setHidden(true);
       setIsFullScreen(true);
@@ -160,13 +175,23 @@ export default ({ vod_url, currentTimeRef = 0, initialStartTime = 0, vodTitle = 
   const debouncedFn = useCallback(debounce(changeControlsState, 4000), []);
 
   const onGoBack = () => {
-    if (isFullScreen) {
-      Orientation.lockToPortrait();
-      Orientation.unlockAllOrientations();
-      StatusBar.setHidden(false);
-      setIsFullScreen(false);
+    if (onBack !== undefined) {
+      onBack();
     } else {
-      navigation.goBack();
+      if (isFullScreen) {
+        Orientation.lockToPortrait();
+
+        StatusBar.setHidden(false);
+        setIsFullScreen(false);
+      } else {
+        setIsPaused(true);
+
+        setTimeout(() => {
+          navigation.goBack();
+        });
+
+        // navigation.goBack();
+      }
     }
   };
 
@@ -180,42 +205,81 @@ export default ({ vod_url, currentTimeRef = 0, initialStartTime = 0, vodTitle = 
       )}
       <TouchableWithoutFeedback onPress={toggleControls}>
         <View style={styles.bofangBox}>
-          {vod_url !== undefined && (
-            <Video
-              ignoreSilentSwitch={'ignore'}
-              ref={ref => (videoPlayerRef.current = ref)}
-              fullscreen={isFullScreen}
-              paused={isPaused}
-              resizeMode="contain"
-              source={{uri: vod_url}}
-              onLoad={onVideoLoaded}
-              progressUpdateInterval={1000}
-              onProgress={onVideoProgessing}
-              onSeek={data => {
-                if (currentTimeRef) {
-                  currentTimeRef.current = data.currentTime;
+          {(vod_url !== undefined || vod_source !== undefined) &&
+            (useWebview ? (
+              <WebView
+                resizeMode="contain"
+                source={vod_url === undefined ? vod_source : {uri: vod_url}}
+                // style={[
+                //   { backgroundColor: 'black' },
+                //   isFullScreen
+                //     ? {
+                //       // aspectRatio: 803 / 464,
+                //       alignSelf: 'center',
+                //     }
+                //     : {},
+                // ]}
+                style={
+                  !isFullScreen ? styles.videoPotrait : styles.videoLandscape
                 }
-              }}
-              style={
-                !isFullScreen ? styles.videoPotrait : styles.videoLandscape
-              }
-            />
-          )}
-          {vod_url !== undefined && isShowControls && (
-            <VideoControlsOverlay
-              onVideoSeek={onSeek}
-              currentTime={currentTime}
-              duration={duration}
-              onFastForward={onSkip}
-              paused={isPaused}
-              isFullScreen={isFullScreen}
-              onTogglePlayPause={onTogglePlayPause}
-              headerTitle={vodTitle}
-              onHandleFullScreen={onToggleFullScreen}
-              onHandleGoBack={onGoBack}
-              videoType={videoType}
-            />
-          )}
+                onLoad={onVideoLoaded}
+                // onLoadEnd={onEnd}
+                // renderError={onError}
+                // renderLoading={<Loader />}
+              />
+            ) : (
+              <Video
+                ignoreSilentSwitch={'ignore'}
+                ref={ref => (videoPlayerRef.current = ref)}
+                fullscreen={isFullScreen}
+                paused={isPaused}
+                resizeMode="contain"
+                source={
+                  vod_source !== undefined
+                    ? vod_source
+                    : {
+                        uri: vod_url,
+                        headers: {
+                          origin: 'https://v.kylintv.com',
+                          referer: 'https://v.kylintv.com',
+                        },
+                      }
+                }
+                // source={{
+                //   uri: 'https://h5cdn2.kylintv.tv/live/ctshd_iphone.m3u8',
+                //   headers: {
+                //     origin: 'https://v.kylintv.com',
+                //     referer: 'https://v.kylintv.com/'
+                //   }}}
+                onLoad={onVideoLoaded}
+                progressUpdateInterval={1000}
+                onProgress={onVideoProgessing}
+                onSeek={data => {
+                  if (currentTimeRef) {
+                    currentTimeRef.current = data.currentTime;
+                  }
+                }}
+                style={
+                  !isFullScreen ? styles.videoPotrait : styles.videoLandscape
+                }
+              />
+            ))}
+          {(vod_url !== undefined || vod_source !== undefined) &&
+            isShowControls && (
+              <VideoControlsOverlay
+                onVideoSeek={onSeek}
+                currentTime={currentTime}
+                duration={duration}
+                onFastForward={onSkip}
+                paused={isPaused}
+                isFullScreen={isFullScreen}
+                onTogglePlayPause={onTogglePlayPause}
+                headerTitle={vodTitle}
+                onHandleFullScreen={onToggleFullScreen}
+                onHandleGoBack={onGoBack}
+                videoType={videoType}
+              />
+            )}
         </View>
       </TouchableWithoutFeedback>
     </>
@@ -224,6 +288,7 @@ export default ({ vod_url, currentTimeRef = 0, initialStartTime = 0, vodTitle = 
 
 const styles = StyleSheet.create({
   videoPotrait: {
+    flex: 1,
     height: '100%',
     width: '100%',
     backgroundColor: '#000',

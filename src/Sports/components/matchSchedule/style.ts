@@ -1,5 +1,5 @@
-import {StyleSheet} from 'react-native';
-import {color} from 'react-native-reanimated';
+import { StyleSheet } from 'react-native';
+import { color } from 'react-native-reanimated';
 
 const styles = StyleSheet.create({
   matchScheduleHeader: {
@@ -8,6 +8,18 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10,
     marginTop: 10,
+  },
+  buffering: {
+    paddingHorizontal: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 3,
+    color: 'yellow',
+    position: 'absolute',
+    top: '35%',
+    left: '36%',
+    zIndex: 100,
   },
   onlineViews: {
     flexDirection: 'row',
@@ -132,12 +144,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '25%',
     justifyContent: 'flex-end',
+    alignItems: 'center'
   },
   teamContentB: {
     flexDirection: 'row',
     width: '25%',
     justifyContent: 'flex-start',
-    flexShrink: 1
+    flexShrink: 1,
+    alignItems: 'center'
   },
   teamImage: {
     height: 30,
@@ -153,7 +167,6 @@ const styles = StyleSheet.create({
     marginTop: 'auto',
     color: 'white',
     fontSize: 18,
-    fontFamily: '045-SSYiFeiTi',
   },
   liveIcon: {
     backgroundColor: 'red',
@@ -191,11 +204,12 @@ const styles = StyleSheet.create({
   viewFooter: {
     height: 15,
     flexDirection: 'row',
-    backgroundColor: '#FFA100',
+    backgroundColor: '#FAC33D',
     paddingHorizontal: 3,
     paddingVertical: 1,
     borderTopLeftRadius: 2,
     borderTopRightRadius: 2,
+    alignItems: 'center'
   },
   footerFont: {
     fontStyle: 'normal',
@@ -212,12 +226,35 @@ const styles = StyleSheet.create({
     fontWeight: '400',
   },
   penaltyWinScore: {
-    color: '#FFA100',
+    color: '#FAC33D',
     fontFamily: 'PingFang SC',
     fontStyle: 'normal',
     fontSize: 11,
     fontWeight: '400',
   },
+  refresh: {
+    backgroundColor: '#FAC33D',
+    position: 'absolute',
+    bottom: 50,
+    right: 20,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderRadius: 22,
+    paddingLeft: 6,
+    paddingRight: 11,
+    paddingTop: 3,
+    paddingBottom: 3,
+    zIndex: 1
+  },
+  refreshFont: {
+    color: 'black',
+    fontFamily: 'PingFang SC',
+    fontStyle: 'normal',
+    fontSize: 14,
+    fontWeight: '600',
+    marginBottom: 4
+  }
 });
 
 export default styles;
