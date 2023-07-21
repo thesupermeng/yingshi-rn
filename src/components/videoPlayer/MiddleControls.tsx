@@ -9,9 +9,10 @@ type Props = {
     fastForward: (params: any) => any,
     togglePlayPause: () => any,
     paused: boolean
+    videoType?: string
 }
 
-export default ({ fastForward, togglePlayPause, paused }: Props) => {
+export default ({ fastForward, togglePlayPause, paused, videoType }: Props) => {
 
     useEffect(() => {
 
@@ -27,9 +28,12 @@ export default ({ fastForward, togglePlayPause, paused }: Props) => {
 
     return (
         <View style={styles.middleControls}>
-            <TouchableOpacity style={styles.sideButtons} onPress={()=> onSkip(-10)}>
-                <Rewind width={60} height={60} />
-            </TouchableOpacity>
+            {
+                videoType !== 'live' &&
+                <TouchableOpacity style={styles.sideButtons} onPress={() => onSkip(-10)}>
+                    <Rewind width={60} height={60} />
+                </TouchableOpacity>
+            }
             <TouchableOpacity onPress={() => onTogglePlayPause()}>
                 {paused ?
                     <Play width={55} height={55} />
@@ -37,9 +41,12 @@ export default ({ fastForward, togglePlayPause, paused }: Props) => {
                     <Pause width={55} height={55} />
                 }
             </TouchableOpacity>
-            <TouchableOpacity style={styles.sideButtons} onPress={()=> onSkip(10)}>
-                <Fastforward width={60} height={60} />
-            </TouchableOpacity>
+            {
+                videoType !== 'live' &&
+                <TouchableOpacity style={styles.sideButtons} onPress={() => onSkip(10)}>
+                    <Fastforward width={60} height={60} />
+                </TouchableOpacity>
+            }
         </View>
     )
 }

@@ -20,7 +20,8 @@ export type ExtendedTheme = {
     playlistFavorite: string,
     loading: string,
     highlight: string,
-    selected: string
+    selected: string,
+    sportsSecondary: string
   },
   textVariants: {
     bigHeader: {
@@ -127,6 +128,7 @@ const palette = {
   dark2: '#1D2023',
   light_grey3: '#AEAEAE',
   dark_grey2: '#6A6A6A',
+  orange_sports: '#FF6835',
 }
 
 export const YingshiDarkTheme: ExtendedTheme = {
@@ -149,7 +151,8 @@ export const YingshiDarkTheme: ExtendedTheme = {
     playlistFavorite: palette.dark_grey,
     loading: palette.grey,
     highlight: palette.yello_translucent,
-    selected: palette.dark2
+    selected: palette.dark2,
+    sportsSecondary: palette.orange_sports
   },
   textVariants: {
     bigHeader: {

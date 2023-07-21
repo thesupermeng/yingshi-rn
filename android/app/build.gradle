@@ -98,8 +98,8 @@ android {
         applicationId "com.yingshi"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1.0"
         resValue "string", "UMENG_APPKEY", '648ec50987568a379b587f39'
         resValue "string", "UMENG_CHANNEL", '10001'
         resValue "string", "UMENG_CHANNEL_APPNEXT", '10002'
@@ -132,6 +132,8 @@ android {
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
+            minifyEnabled enableProguardInReleaseBuilds
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
         release {
             // Caution! In production, you need to generate your own keystore file.

@@ -77,7 +77,7 @@ export default ({ navigation, route }: RootStackScreenProps<'电视台播放'>) 
                 contentContainerStyle={{ marginTop: spacing.m }}
                 contentInsetAdjustmentBehavior="automatic">
 
-                <View style={{ ...styles.descriptionContainer, gap: spacing.m }}>
+                <View style={{ ...styles.descriptionContainer, gap: spacing.m, paddingLeft: 12 }}>
                     <View style={{ flexDirection: 'row', width: '100%', height: 100, margin: 5 }}>
                         <View style={{ flex: 4 }}>
                             <FastImage
@@ -96,13 +96,19 @@ export default ({ navigation, route }: RootStackScreenProps<'电视台播放'>) 
                             </Text>
                         </View>
                     </View>
-                    <Text numberOfLines={1} style={{
-                        ...textVariants.header,
-                        color: colors.text,
-                        flex: 1
-                    }}>
-                        相关电视台
-                    </Text>
+                </View>
+                
+
+                <Text numberOfLines={1} style={{
+                    ...textVariants.header,
+                    color: colors.text,
+                    flex: 1,
+                    padding: 12
+                }}>
+                    相关电视台
+                </Text>
+                <View style={{ ...styles.descriptionContainer, gap: spacing.m, alignItems: 'center' }}>
+                    
                     <VodLiveStationListVertical itemList={liveStationItemList} />
                 </View>
             </ScrollView>
@@ -112,9 +118,7 @@ export default ({ navigation, route }: RootStackScreenProps<'电视台播放'>) 
 
 const styles = StyleSheet.create({
     descriptionContainer: {
-        padding: 10,
-        paddingLeft: 20,
-        paddingRight: 20,
+        flex: 1,
     },
     liveStationCardListContainer: {
         display: 'flex',

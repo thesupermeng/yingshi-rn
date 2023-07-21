@@ -61,7 +61,7 @@ const formatDate = date => {
 };
 
 const parseStringToDate = dateStr => {
-  console.log('dateStr', dateStr);
+  // console.log('dateStr', dateStr);
   if (!dateStr) return new Date();
   if (typeof dateStr === 'string') {
     const splittedDate = dateStr.split(' ');
@@ -127,21 +127,21 @@ const dateFormat = (date, fmt = 'yyyy-MM-dd') => {
 const formatToDateCountdown = leftTime => {
   // 定义变量 d,h,m,s保存倒计时的时间
   if (leftTime >= 0) {
-    console.log('leftTimeaa', leftTime);
+    // console.log('leftTimeaa', leftTime);
     // 天
     day = Math.floor(leftTime / 1000 / 60 / 60 / 24);
     // 时
     var h = Math.floor((leftTime / 1000 / 60 / 60) % 24);
     hour = h < 10 ? '0' + h : String(h);
-    console.log('leftTimebb', hour);
+    // console.log('leftTimebb', hour);
     // 分
     var m = Math.floor((leftTime / 1000 / 60) % 60);
     min = m < 10 ? '0' + m : String(m);
-    console.log('leftTimecc', min);
+    // console.log('leftTimecc', min);
     // 秒
     var s = Math.floor((leftTime / 1000) % 60);
     second = s < 10 ? '0' + s : String(s);
-    console.log('leftTimedd', second);
+    // console.log('leftTimedd', second);
   } else {
     day = '00';
     hour = '00';
@@ -150,7 +150,7 @@ const formatToDateCountdown = leftTime => {
   }
 
   // return `距离开赛时间: ${day}天 ${hour} 小時 ${min} 分鐘 ${second} 秒`;
-  console.log('second', second);
+  // console.log('second', second);
   return {day, hour, min, second};
 };
 

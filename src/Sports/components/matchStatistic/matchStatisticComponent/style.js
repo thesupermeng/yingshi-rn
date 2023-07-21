@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
         fontStyle: 'normal',
         fontWeight: '600',
         fontSize: 13,
-        color: '#000000',
+        color: '#FFFFFF',
         paddingHorizontal: 10
     },
     statisticText: {
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
         fontStyle: 'normal',
         fontWeight: '600',
         fontSize: 13,
-        color: '#000000',
+        color: '#FFFFFF',
         paddingHorizontal: 20
     },
     statisticTitleText: {
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
         fontStyle: 'normal',
         fontWeight: '400',
         fontSize: 12,
-        color: '#000000',
+        color: '#FFFFFF',
     },
     homeStatisticView: {
         width: '35%',
@@ -60,12 +60,12 @@ const styles = StyleSheet.create({
         fontSize: 13,
         fontStyle: 'normal',
         fontFamily: 'PingFang SC',
-        color: '#000000',
+        color: '#FFFFFF',
       },
       statBar: {
         width: '70%',
         height: 5,
-        backgroundColor: '#07C160',
+        backgroundColor: '#FF6835',
         marginBottom: 'auto',
         marginTop: 'auto',
         flexDirection: 'row',
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
         fontSize: 13,
         fontStyle: 'normal',
         fontFamily: 'PingFang SC',
-        color: '#000000',
+        color: '#FFFFFF',
         marginLeft: 10,
         marginRight: 10
       },

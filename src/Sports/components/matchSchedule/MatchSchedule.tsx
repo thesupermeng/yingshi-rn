@@ -1,5 +1,6 @@
 import React, { memo, useEffect, useState } from 'react';
-import { View, Text, Image, ImageBackground } from 'react-native';
+import { View, Text, ImageBackground } from 'react-native';
+import FastImage from 'react-native-fast-image';
 import { Link, useTheme } from '@react-navigation/native';
 import styles from './style';
 import { IsSub, Sub, Views, IconViewerGif } from '../../assets';
@@ -19,14 +20,15 @@ import { MatchDetailsType } from '../../types/matchTypes';
 import FixedTouchableHighlight from '../fixedTouchableHighlight';
 
 interface Props {
-  match: MatchDetailsType,
+  matchSche: MatchDetailsType,
   onPress?: any
   followMatchIds?: Array<number>
   isMatchPage?: boolean
+  matchType?: 'basketball' | 'football' | 'others'
 }
 
-const MatchSchedule = ({ match, onPress, followMatchIds = [], isMatchPage = false }: Props) => {
-  const isSub = followMatchIds?.includes(match.id);
+const MatchSchedule = ({ matchSche, onPress, followMatchIds = [], isMatchPage = true, matchType }: Props) => {
+  const isSub = followMatchIds?.includes(matchSche.id);
 
   const navigation = useNavigation();
   const [subscribe, setSubscribe] = useState(false);
@@ -36,19 +38,19 @@ const MatchSchedule = ({ match, onPress, followMatchIds = [], isMatchPage = fals
   }, [isSub]);
 
   let totalViews = 0;
-  // const calTotalViews = () => {
-  //   if (match?.streams != undefined && match?.streams.length > 0) {
-  //     match?.streams.map(e => (totalViews += e.view_num));
-  //   }
+  const calTotalViews = () => {
+    if (matchSche?.streams != undefined && matchSche?.streams.length > 0) {
+      matchSche?.streams.map(e => (totalViews += e.view_num));
+    }
 
-  //   let dividedTotalViews = 0;
-  //   if (totalViews / 10000 >= 1) {
-  //     dividedTotalViews = totalViews / 10000;
-  //     return dividedTotalViews.toFixed(1) + '万';
-  //   }
+    let dividedTotalViews = 0;
+    if (totalViews / 10000 >= 1) {
+      dividedTotalViews = totalViews / 10000;
+      return dividedTotalViews.toFixed(1) + '万';
+    }
 
-  //   return totalViews;
-  // };
+    return totalViews;
+  };
 
   // const checkIsLogin = () => {
   //   let isLogin = store.getState().accessToken;
@@ -70,29 +72,40 @@ const MatchSchedule = ({ match, onPress, followMatchIds = [], isMatchPage = fals
 
   const matchClicked = async () => {
 
-    navigation.navigate('体育详情');
+    // navigation.navigate('体育详情');
 
-    // const route = await liveRoomName(match?.id);
-    // navigation.navigate(route, {
-    //   matchId: match?.id,
-    //   streamerId:
-    //     match?.streams?.length > 0
-    //       ? match?.streams[0]?.streamer_id
-    //       : null,
-    // });
-    // navigation.navigate(redirectPage(), {
-    //   matchId: match?.id,
-    //   streamerId: getOnlineStreamer(),
-    // });
+    // const route = await liveRoomName(matchSche?.id);
+    let route: '体育详情' | '足球详情' | '篮球详情' = '体育详情';
+    if (matchType === 'football') {
+      route = '足球详情';
+    } else if (matchType === 'basketball') {
+      route = '篮球详情'
+    }
+    navigation.navigate('体育详情', {
+      matchId: matchSche?.id === null ? undefined : matchSche.id,
+      streamerId:
+        matchSche?.streams?.length > 0
+          ? matchSche?.streams[0]?.streamer_id
+          : undefined,
+      sportType: '足球'
+    });
   }
 
 
 
   // const streamerClicked = (streamerId, streamerStatus) => {
   //   return () => {
-  //     navigation.navigate(redirectPage(streamerId, streamerStatus), {
-  //       matchId: match?.id,
-  //       streamerId: streamerId,
+  //     // navigation.navigate(redirectPage(streamerId, streamerStatus), {
+  //     //   matchId: match?.id,
+  //     //   streamerId: streamerId,
+  //     // });
+  //     navigation.navigate('体育详情', {
+  //       matchId: matchSche?.id === null ? undefined : matchSche.id,
+  //       streamerId:
+  //         matchSche?.streams?.length > 0
+  //           ? matchSche?.streams[0]?.streamer_id
+  //           : undefined,
+  //       sportType: '足球'
   //     });
   //   };
   // };
@@ -120,73 +133,93 @@ const MatchSchedule = ({ match, onPress, followMatchIds = [], isMatchPage = fals
   //   }
   // };
 
-  // const getOnlineStreamer = () => {
-  //   const onlineStreamer = match?.streams?.findIndex(e => e.status == 3);
-  //   if (onlineStreamer != undefined && onlineStreamer != -1) {
-  //     return match?.streams[onlineStreamer].streamer_id;
-  //   } else {
-  //     return null;
-  //   }
-  // };
+  const getOnlineStreamer = () => {
+    const onlineStreamer = matchSche?.streams?.findIndex(e => e.status == 3);
+    if (onlineStreamer != undefined && onlineStreamer != -1) {
+      return matchSche?.streams[onlineStreamer].streamer_id;
+    } else {
+      return null;
+    }
+  };
   // console.log('WTF', match)
   return (
-    <FixedTouchableHighlight onPress={matchClicked} style={{ flex: 1 }}>
+    <FixedTouchableHighlight onPress={matchClicked}>
       <View style={styles.border}>
         <View style={styles.matchScheduleHeader}>
           <View style={styles.matchInfo}>
             <Text style={{ ...styles.spaceBetween, color: colors.muted }}>
-              {match?.competition?.name_short}
+              {matchSche?.competition?.name_short}
             </Text>
             <Text style={{ ...textVariants.small, color: colors.muted }}>
-              {('0' + new Date(match?.match_time_ts).getHours()).slice(-2) +
+              {('0' + new Date(matchSche?.match_time_ts).getHours()).slice(-2) +
                 ':' +
-                ('0' + new Date(match?.match_time).getMinutes()).slice(-2)}
+                ('0' + new Date(matchSche?.match_time).getMinutes()).slice(-2)}
             </Text>
           </View>
           <View style={styles.matchStatus}>
-            <Text style={styles.headerFont}>
+            {matchSche?.streams != undefined &&
+              matchSche?.streams?.length > 0 &&
+              matchSche?.streams?.some(streamer => streamer.status == 3) && (
+                <View style={{ flexDirection: 'row' }}>
+                  <View style={styles.liveIcon}></View>
+                  <Text style={{...styles.liveStatus}}>直播中</Text>
+                </View>
+              )}
+            <Text style={textVariants.small}>
               {getMatchStatus(
-                match?.state,
-                match?.status,
-                match?.sports_type,
+                matchSche?.state,
+                matchSche?.status,
+                matchSche?.sports_type,
               )}
             </Text>
           </View>
           <View style={styles.liveType}>
-            {isMatchPage === true && match?.mlive == 1 && (
-              <Image style={styles.liveTypeImage} source={AnimationLive} />
+            {isMatchPage === true &&
+              matchSche?.streams != undefined &&
+              matchSche?.streams.length > 0 &&
+              matchSche?.streams?.some(streamer => streamer.status == 3) && (
+                <FastImage style={styles.liveTypeImage} source={VideoLive} />
+              )}
+            {isMatchPage === true && matchSche?.mlive == 1 && (
+              <FastImage style={styles.liveTypeImage} source={AnimationLive} />
             )}
           </View>
+          {/* {matchSche?.streams != undefined && matchSche?.streams.length > 0 && (
+            <View style={styles.onlineViews}>
+              <FastImage style={styles.viewImage} source={Views} />
+              <Text style={textVariants.small}>{calTotalViews()}</Text>
+            </View>
+          )} */}
         </View>
         <View style={styles.matchScheduleContent}>
           <View style={styles.teamContentA}>
             <Text
-              style={textVariants.body}
+              style={textVariants.small}
               numberOfLines={1}
               ellipsizeMode={'tail'}>
-              {match.home?.name}
+              {matchSche.home?.name}
             </Text>
-            {match?.home?.icon != undefined &&
-              match?.home?.icon.length > 0 ? (
-              <Image
+            {matchSche?.home?.icon != undefined &&
+              matchSche?.home?.icon.length > 0 ? (
+              <FastImage
                 style={styles.teamImage}
-                source={{ uri: match?.home?.icon }}
+                source={{ uri: matchSche?.home?.icon }}
               />
             ) : (
               <ImageBackground style={styles.teamImage} source={HomeIcon}>
                 <Text style={styles.teamLogoText}>
-                  {match?.home?.name.charAt(0)}
+                  {matchSche?.home?.name.charAt(0)}
                 </Text>
               </ImageBackground>
             )}
           </View>
-          {match?.status == -2 ? (
+          {matchSche?.status == -2 ? (
             <View style={styles.liveScore}>
               <Text style={styles.scoreFont}></Text>
               <Text style={styles.scoreFont}>-</Text>
               <Text style={styles.scoreFont}></Text>
             </View>
-          ) : match?.status == 1 || match?.status == -1 ? (
+          ) : matchSche?.status == 1 || matchSche?.status == -1 ? (
             <View
               style={styles.liveScore}>
               <View>
@@ -194,63 +227,63 @@ const MatchSchedule = ({ match, onPress, followMatchIds = [], isMatchPage = fals
                   <Text
                     style={
                       calculateScore(
-                        match?.home_score,
-                        match?.sports_type,
+                        matchSche?.home_score,
+                        matchSche?.sports_type,
                       ) >
                         calculateScore(
-                          match?.away_score,
-                          match?.sports_type,
+                          matchSche?.away_score,
+                          matchSche?.sports_type,
                         )
                         ? { ...styles.highScoreFont, color: colors.primary }
                         : styles.scoreFont
                     }>
                     {calculateScore(
-                      match?.home_score,
-                      match?.sports_type,
+                      matchSche?.home_score,
+                      matchSche?.sports_type,
                     )}
                   </Text>
                   <Text style={styles.scoreFont}>-</Text>
                   <Text
                     style={
                       calculateScore(
-                        match?.away_score,
-                        match?.sports_type,
+                        matchSche?.away_score,
+                        matchSche?.sports_type,
                       ) >
                         calculateScore(
-                          match?.home_score,
-                          match?.sports_type,
+                          matchSche?.home_score,
+                          matchSche?.sports_type,
                         )
                         ? { ...styles.highScoreFont, color: colors.primary }
                         : styles.scoreFont
                     }>
                     {calculateScore(
-                      match?.away_score,
-                      match?.sports_type,
+                      matchSche?.away_score,
+                      matchSche?.sports_type,
                     )}
                   </Text>
                 </View>
-                {match?.sports_type == 1 &&
-                  (match?.away_score[6] > 0 ||
-                    match?.home_score[6] > 0) && (
+                {matchSche?.sports_type == 1 &&
+                  (matchSche?.away_score[6] > 0 ||
+                    matchSche?.home_score[6] > 0) && (
                     <View
                       style={{ flexDirection: 'row', justifyContent: 'center' }}>
                       <Text style={styles.penaltyScore}>点球 </Text>
                       <Text
                         style={
-                          match?.home_score[6] > match?.away_score[6]
+                          matchSche?.home_score[6] > matchSche?.away_score[6]
                             ? styles.penaltyWinScore
                             : styles.penaltyScore
                         }>
-                        {match?.home_score[6]}
+                        {matchSche?.home_score[6]}
                       </Text>
                       <Text style={styles.penaltyScore}> - </Text>
                       <Text
                         style={
-                          match?.away_score[6] > match?.home_score[6]
+                          matchSche?.away_score[6] > matchSche?.home_score[6]
                             ? styles.penaltyWinScore
                             : styles.penaltyScore
                         }>
-                        {match?.away_score[6]}
+                        {matchSche?.away_score[6]}
                       </Text>
                     </View>
                   )}
@@ -258,42 +291,47 @@ const MatchSchedule = ({ match, onPress, followMatchIds = [], isMatchPage = fals
             </View>
           ) : (
             <View style={styles.subscribeBtn}>
-              <FixedTouchableHighlight
-              // onPress={checkIsLogin() ? subscribeMatch : onPress}
-              >
+              <FixedTouchableHighlight>
                 <View style={styles.subscribeTouchable}>
-                  {subscribe ? (
-                    <Image style={styles.subImage} source={IsSub} />
-                  ) : (
-                    <Image style={styles.subImage} source={Sub} />
-                  )}
+                  <FastImage style={styles.subImage} source={Sub} />
                 </View>
               </FixedTouchableHighlight>
             </View>
           )}
           <View style={styles.teamContentB}>
-            {match?.away?.icon != undefined &&
-              match?.away?.icon.length > 0 ? (
-              <Image
+            {matchSche?.away?.icon != undefined &&
+              matchSche?.away?.icon.length > 0 ? (
+              <FastImage
                 style={styles.teamImage}
-                source={{ uri: match?.away?.icon }}
+                source={{ uri: matchSche?.away?.icon }}
               />
             ) : (
               <ImageBackground style={styles.teamImage} source={AwayIcon}>
                 <Text style={styles.teamLogoText}>
-                  {match?.away?.name.charAt(0)}
+                  {matchSche?.away?.name.charAt(0)}
                 </Text>
               </ImageBackground>
             )}
-            <Text style={{ ...textVariants.body, flexShrink: 1 }} numberOfLines={1}>
-              {match?.away?.name}
+            <Text style={{ ...textVariants.small, flexShrink: 1 }} numberOfLines={1}>
+              {matchSche?.away?.name}
             </Text>
           </View>
         </View>
+        {isMatchPage === true &&
+          matchSche?.streams != undefined &&
+          matchSche?.streams.length > 0 &&
+          matchSche?.streams?.some(streamer => streamer.status == 3) && (
+            <View style={styles.matchScheduleFooter}>
+              <View style={styles.viewFooter}>
+                <FastImage style={styles.viewImage} source={IconViewerGif} />
+                <Text style={styles.footerFont}>{calTotalViews()}</Text>
+              </View>
+            </View>
+          )}
         {/* <View style={styles.streamerList}>
-          {match?.streams != undefined &&
-            match?.streams.length > 0 &&
-            match?.streams.map(e => (
+          {matchSche?.streams != undefined &&
+            matchSche?.streams.length > 0 &&
+            matchSche?.streams.map(e => (
               <TouchableWithoutFeedback
                 onPress={streamerClicked(e.streamer.id, e.status)}>
                 <Text

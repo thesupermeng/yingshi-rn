@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Platform } from 'react-native';
 // import {getAccessToken, getAuthToken} from '../global/asyncStorage';
-import Config from '../env';
+import Config from '../global/env';
 // import {addHeaderSignature} from './util';
 import { MATCH_API_DOMAIN } from '../../utility/constants';
 
@@ -22,9 +22,9 @@ date: ${Date()}
 `;
 
   if (success) {
-    console.log(logString);
+    // console.log(logString);
   } else {
-    console.error(logString);
+    // console.error(logString);
   }
 };
 
@@ -34,6 +34,7 @@ const logUrl = Config.apiLogUrl;
 
 export default class Api {
   static call = async (url, data, method = 'POST') => {
+    console.log(url)
     // add default params
     if (!data) {
       data = {};
@@ -111,7 +112,7 @@ export default class Api {
     // return axios(configuratinObject);
     try {
       const response = await axios(configuratinObject);
-      console.log(configuratinObject)
+      // console.log(configuratinObject)
       const {code, data, msg} = response.data;
       // console.log(data, msg, code);
       if (response.status === 200) {
