@@ -176,7 +176,7 @@ const CatagoryHome = ({vodCarouselRes, navId = 0, setScrollEnabled}: Props) => {
                           fontWeight: '700',
                           opacity: 0.9,
                         }}>
-                        {item}111
+                        {item}
                       </Text>
                     </TouchableOpacity>
                   );

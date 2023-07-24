@@ -349,6 +349,7 @@ export default ({navigation, route}: RootStackScreenProps<'片库'>) => {
         <FlatList
           data={topicOptions}
           horizontal
+          showsHorizontalScrollIndicator={false}
           renderItem={({item}: {item: NavType}) => {
             return (
               <TouchableOpacity
