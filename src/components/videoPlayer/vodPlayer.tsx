@@ -1,9 +1,10 @@
-import React, {useEffect, useState, useMemo, useCallback, useRef} from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import {
   View,
   TouchableWithoutFeedback,
   StyleSheet,
   StatusBar,
+  AppState,
 } from 'react-native';
 import Video from 'react-native-video';
 import {useTheme, useNavigation} from '@react-navigation/native';
@@ -40,21 +41,21 @@ export default ({
   onBack,
   useWebview = false,
 }: Props) => {
-  // console.log('vod_url is', vod_url)
   const videoPlayerRef = React.useRef<Video | null>();
   const {colors, spacing, textVariants, icons} = useTheme();
   const isPotrait = useOrientation();
   const [isFullScreen, setIsFullScreen] = useState(false);
-
   const [isPaused, setIsPaused] = useState(false);
   const [isShowControls, setIsShowControls] = useState(false);
   const [disableFullScreenGesture, setDisableFullScreenGesture] =
     useState(false);
-
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(initialStartTime);
 
   const navigation = useNavigation();
+
+  // New state to keep track of app's background/foreground status
+  const [isInBackground, setIsInBackground] = useState(false);
 
   useEffect(() => {
     if (!isPotrait) {
@@ -84,14 +85,36 @@ export default ({
     };
   }, []);
 
+  useEffect(() => {
+    setIsShowControls(true);
+    setDisableFullScreenGesture(prev => !prev);
+    debouncedFn();
+    // if (videoPlayerRef.current) {
+    //   videoPlayerRef.current.seek(0);
+    // }
+  }, []);
+
+  useEffect(() => {
+    AppState.addEventListener('change', handleAppStateChange);
+    return () => {
+      AppState.removeEventListener('change', handleAppStateChange);
+    };
+  }, []);
+
+  // Handle app's background/foreground status
+  const handleAppStateChange = nextAppState => {
+    setIsInBackground(nextAppState !== 'active');
+    if (nextAppState === 'active') {
+      setIsPaused(false); // Resume video when app becomes active (foreground)
+    }
+  };
+
   const handleOrientation = (orientation: any) => {
     if (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT') {
       StatusBar.setHidden(true);
-      // Orientation.lockToLandscape();
       setIsFullScreen(true);
     } else {
       StatusBar.setHidden(false);
-      //Orientation.lockToPortrait();
       setIsFullScreen(false);
     }
   };
@@ -99,12 +122,10 @@ export default ({
   const onToggleFullScreen = useCallback(() => {
     if (isFullScreen) {
       Orientation.lockToPortrait();
-      // Orientation.unlockAllOrientations();
       StatusBar.setHidden(false);
       setIsFullScreen(false);
     } else {
       Orientation.lockToLandscape();
-      // Orientation.unlockAllOrientations();
       StatusBar.setHidden(true);
       setIsFullScreen(true);
     }
@@ -139,18 +160,10 @@ export default ({
   const onSkip = (time: any) => {
     if (videoPlayerRef?.current) {
       let currentTime = currentTimeRef.current + time;
-      currentTime = Math.max(0, currentTime); // Ensure currentTime is not negative
+      currentTime = Math.max(0, currentTime);
       currentTimeRef.current = currentTime;
       videoPlayerRef.current.seek(currentTime);
     }
-    // setCurrentTime(currentTime + time);
-    // if (currentTimeRef) {
-    //   console.log('pass 2nd  111111');
-    //   currentTimeRef.current += time;
-    //   currentTimeRef.current < 0
-    //     ? (currentTimeRef.current = 0)
-    //     : currentTimeRef.current;
-    // }
     debouncedFn();
   };
 
@@ -168,7 +181,6 @@ export default ({
   const changeControlsState = () => {
     setIsShowControls(prev => false);
     setDisableFullScreenGesture(prev => false);
-
     return;
   };
 
@@ -180,17 +192,13 @@ export default ({
     } else {
       if (isFullScreen) {
         Orientation.lockToPortrait();
-
         StatusBar.setHidden(false);
         setIsFullScreen(false);
       } else {
         setIsPaused(true);
-
         setTimeout(() => {
           navigation.goBack();
         });
-
-        // navigation.goBack();
       }
     }
   };
@@ -210,29 +218,19 @@ export default ({
               <WebView
                 resizeMode="contain"
                 source={vod_url === undefined ? vod_source : {uri: vod_url}}
-                // style={[
-                //   { backgroundColor: 'black' },
-                //   isFullScreen
-                //     ? {
-                //       // aspectRatio: 803 / 464,
-                //       alignSelf: 'center',
-                //     }
-                //     : {},
-                // ]}
                 style={
                   !isFullScreen ? styles.videoPotrait : styles.videoLandscape
                 }
                 onLoad={onVideoLoaded}
-                // onLoadEnd={onEnd}
-                // renderError={onError}
-                // renderLoading={<Loader />}
               />
             ) : (
               <Video
-                ignoreSilentSwitch={'ignore'}
+                mixWithOthers="mix"
+                disableFocus
+                ignoreSilentSwitch="ignore"
                 ref={ref => (videoPlayerRef.current = ref)}
                 fullscreen={isFullScreen}
-                paused={isPaused}
+                paused={isPaused || isInBackground} // Pause video when app is in the background
                 resizeMode="contain"
                 source={
                   vod_source !== undefined
@@ -245,12 +243,6 @@ export default ({
                         },
                       }
                 }
-                // source={{
-                //   uri: 'https://h5cdn2.kylintv.tv/live/ctshd_iphone.m3u8',
-                //   headers: {
-                //     origin: 'https://v.kylintv.com',
-                //     referer: 'https://v.kylintv.com/'
-                //   }}}
                 onLoad={onVideoLoaded}
                 progressUpdateInterval={1000}
                 onProgress={onVideoProgessing}
