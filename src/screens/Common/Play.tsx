@@ -89,8 +89,8 @@ export default ({navigation, route}: RootStackScreenProps<'播放'>) => {
   const [orientation, setOrientation] = useState('PORTRAIT');
   // Calculate the scroll position, number of episodes per row to display given viewport width, margin right
   // to get a even, centered grid
-  const EPISODE_RANGE_SIZE = 100;
-  const MIN_PER_ROW = 3;
+  const EPISODE_RANGE_SIZE = 10;
+  const MIN_PER_ROW = 1;
   const MIN_MARGIN_RIGHT = 8;
 
   const showEpisodeRangeStart = useMemo(
@@ -455,45 +455,41 @@ export default ({navigation, route}: RootStackScreenProps<'播放'>) => {
                       ),
                   }}>
                   {vod?.vod_play_list &&
-                    vod.vod_play_list.urls
-                      .slice(showEpisodeRangeStart, showEpisodeRangeEnd)
-                      .map((url, idx) => {
-                        return (
-                          <TouchableOpacity
-                            key={`url-${url.nid}`}
+                    vod.vod_play_list.urls.map((url, idx) => {
+                      return (
+                        <TouchableOpacity
+                          key={`url-${url.nid}`}
+                          style={{
+                            backgroundColor:
+                              currentEpisode === url.nid
+                                ? colors.primary
+                                : colors.search,
+                            paddingVertical: 8,
+                            paddingHorizontal: 10,
+                            minWidth: 70,
+                            marginBottom: spacing.s,
+                            marginRight: spacing.s,
+                            ...styles.episodeBtn,
+                          }}
+                          onPress={() => {
+                            setCurrentEpisode(url.nid);
+                          }}>
+                          <Text
+                            numberOfLines={1}
                             style={{
-                              backgroundColor:
+                              fontSize: 13,
+                              textAlign: 'center',
+                              fontWeight: '500',
+                              color:
                                 currentEpisode === url.nid
-                                  ? colors.primary
-                                  : colors.search,
-                              padding: spacing.s,
-                              width: BTN_SELECT_WIDTH,
-                              marginBottom: spacing.s,
-                              marginRight:
-                                idx % NUM_PER_ROW === NUM_PER_ROW - 1
-                                  ? 0
-                                  : BTN_MARGIN_RIGHT,
-                              ...styles.episodeBtn,
-                            }}
-                            onPress={() => {
-                              setCurrentEpisode(url.nid);
+                                  ? colors.selected
+                                  : colors.muted,
                             }}>
-                            <Text
-                              numberOfLines={1}
-                              style={{
-                                fontSize: 13,
-                                textAlign: 'center',
-                                fontWeight: '500',
-                                color:
-                                  currentEpisode === url.nid
-                                    ? colors.selected
-                                    : colors.muted,
-                              }}>
-                              {url.name}
-                            </Text>
-                          </TouchableOpacity>
-                        );
-                      })}
+                            {url.name}
+                          </Text>
+                        </TouchableOpacity>
+                      );
+                    })}
                 </ScrollView>
               </View>
             </>
