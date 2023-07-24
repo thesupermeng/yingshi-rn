@@ -120,10 +120,15 @@ export default ({navigation}: RootStackScreenProps<'播放历史'>) => {
                         </TouchableOpacity>
                       )}
                       <VodHistoryCard
+                        activeOpacity={isEditing ? 1 : 0.2}
                         vod={item}
                         onPress={() => {
-                          dispatch(playVod(item));
-                          navigation.navigate('播放', {vod_id: item.vod_id});
+                          if (isEditing) {
+                            toggleHistory(item);
+                          } else {
+                            dispatch(playVod(item));
+                            navigation.navigate('播放', {vod_id: item.vod_id});
+                          }
                         }}
                       />
                     </View>
@@ -156,10 +161,15 @@ export default ({navigation}: RootStackScreenProps<'播放历史'>) => {
                     </TouchableOpacity>
                   )}
                   <VodHistoryCard
+                    activeOpacity={isEditing ? 1 : 0.2}
                     vod={item}
                     onPress={() => {
-                      dispatch(playVod(item));
-                      navigation.navigate('播放', {vod_id: item.vod_id});
+                      if (isEditing) {
+                        toggleHistory(item);
+                      } else {
+                        dispatch(playVod(item));
+                        navigation.navigate('播放', {vod_id: item.vod_id});
+                      }
                     }}
                   />
                 </View>
