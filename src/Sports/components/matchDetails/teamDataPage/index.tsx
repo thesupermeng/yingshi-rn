@@ -15,7 +15,7 @@ const TeamDataPage = ({ liveRoomMatchDetails }: Props) => {
   // const [ads] = useAds(adsList);
 
   return (
-    <ScreenContainer >
+    <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
       {liveRoomMatchDetails?.sports_type == 1 && (
         <FootballDataPage
           liveRoomMatchDetails={liveRoomMatchDetails}

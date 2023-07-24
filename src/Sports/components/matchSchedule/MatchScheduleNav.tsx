@@ -56,7 +56,7 @@ export default function MatchScheduleNav({ tabList, streamId }: Props) {
                     key={-1}
                     name={'直播'}
                     children={() => (
-                        <MatchScheduleList matchTypeID={-1} status={-1} />
+                        <MatchScheduleList matchTypeID={-1} status={-1} matchDetailType='live' />
                     )}
                 />
                 {tabList != undefined && tabList.map((tab, index) => {
@@ -95,14 +95,14 @@ export default function MatchScheduleNav({ tabList, streamId }: Props) {
                                         key={`inner-${index}-1`}
                                         name='进行中'
                                         children={() => (
-                                            <MatchScheduleList matchTypeID={tab.id} status={1} />
+                                            <MatchScheduleList matchTypeID={tab.id} status={1} matchDetailType='live' />
                                         )}
                                     />
                                     <Tab.Screen
                                         key={`inner-${index}-2`}
                                         name='赛程'
                                         children={() => (
-                                            <MatchScheduleList matchTypeID={tab.id} status={2} />
+                                            <MatchScheduleList matchTypeID={tab.id} status={2} matchDetailType='live' />
                                         )}
                                     />
                                     <Tab.Screen

@@ -1,4 +1,4 @@
-import {ScrollView, View} from 'react-native';
+import { ScrollView, View } from 'react-native';
 import LineUpFootball from '../../../components/lineUpFootball';
 import SubsComponent from '../../substituteComponent';
 import styles from './style';
@@ -15,7 +15,7 @@ interface Props {
 }
 
 
-const LineUpPage = ({liveRoomLineup, liveRoomMatchDetails} : Props) => {
+const LineUpPage = ({ liveRoomLineup, liveRoomMatchDetails }: Props) => {
   // const adsList = useSelector(state => state.adsList);
   // const [ads] = useAds(adsList);
   return (
@@ -37,7 +37,7 @@ const LineUpPage = ({liveRoomLineup, liveRoomMatchDetails} : Props) => {
                   homePlayerList={liveRoomLineup?.football_match_lineup?.home[0]}
                   awayPlayerList={
                     liveRoomLineup?.football_match_lineup?.away[0]
-                  }></SubsComponent>
+                  } />
               )}
           </View>
         )}
@@ -48,7 +48,7 @@ const LineUpPage = ({liveRoomLineup, liveRoomMatchDetails} : Props) => {
             liveRoomMatchDetails?.football_home_injuries?.length > 0) ||
             (liveRoomMatchDetails?.football_away_injuries != undefined &&
               liveRoomMatchDetails?.football_away_injuries?.length > 0)) && (
-            <View >
+            <View style={{ backgroundColor: '#161616' }}>
               <View style={styles.firstBar}></View>
               <SubsComponent
                 homeTeam={liveRoomMatchDetails?.home}
@@ -61,7 +61,7 @@ const LineUpPage = ({liveRoomLineup, liveRoomMatchDetails} : Props) => {
             </View>
           )}
         {liveRoomLineup?.sports_type === 1 && (
-          <View style={{backgroundColor: '#14161A'}}>
+          <View style={{ backgroundColor: '#14161A' }}>
             <View style={styles.firstBar}></View>
             <FootballIconComponent showLessIcon={true} />
           </View>
