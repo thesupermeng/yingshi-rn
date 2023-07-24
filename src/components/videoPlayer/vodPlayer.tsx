@@ -102,7 +102,7 @@ export default ({
   }, []);
 
   // Handle app's background/foreground status
-  const handleAppStateChange = nextAppState => {
+  const handleAppStateChange = (nextAppState: any) => {
     setIsInBackground(nextAppState !== 'active');
     if (nextAppState === 'active') {
       setIsPaused(false); // Resume video when app becomes active (foreground)
