@@ -252,9 +252,7 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
           </View>
         )}
         {showResults && searchResults.length === 0 && !isFetching && (
-          <EmptyList
-            description={`抱歉没有找到“${search}”的相关视频为你推荐更多精彩内容`}
-          />
+          <EmptyList description={`抱歉没有找到“${search}”的相关视频`} />
         )}
 
         {showResults && searchResults.length === 0 && isFetching && (

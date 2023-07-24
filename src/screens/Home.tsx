@@ -1,11 +1,26 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, FlatList, Dimensions, RefreshControl } from 'react-native';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  FlatList,
+  Dimensions,
+  RefreshControl,
+} from 'react-native';
 import ScreenContainer from '../components/container/screenContainer';
-import { useTheme } from '@react-navigation/native';
-import { useQuery, useQueries, UseQueryResult } from '@tanstack/react-query';
-import { NavOptionsResponseType, VodCarousellResponseType, VodPlaylistResponseType, VodTopicType, VodType, LiveTVStationsResponseType } from '../types/ajaxTypes';
-import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
-import { API_DOMAIN } from '../utility/constants';
+import {useTheme} from '@react-navigation/native';
+import {useQuery, useQueries, UseQueryResult} from '@tanstack/react-query';
+import {
+  NavOptionsResponseType,
+  VodCarousellResponseType,
+  VodPlaylistResponseType,
+  VodTopicType,
+  VodType,
+  LiveTVStationsResponseType,
+} from '../types/ajaxTypes';
+import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
+import {API_DOMAIN} from '../utility/constants';
 import CatagoryHome from '../components/container/CatagoryHome';
 import RecommendationHome from '../components/container/RecommendationHome';
 import HomeHeader from '../components/header/homeHeader';
@@ -13,121 +28,174 @@ import FastImage from 'react-native-fast-image';
 // import { FlatList } from 'react-native-gesture-handler';
 
 interface NavType {
-  id: number,
-  name: string,
+  id: number;
+  name: string;
 }
 
-export default ({ navigation }: BottomTabScreenProps<any>) => {
-  const { colors, textVariants, spacing } = useTheme();
+export default ({navigation}: BottomTabScreenProps<any>) => {
+  const {colors, textVariants, spacing} = useTheme();
   const [navId, setNavId] = useState(0);
   const width = Dimensions.get('window').width;
   const ref = useRef<any>();
   const onEndReachedCalledDuringMomentum = useRef(true);
-  const BTN_COLORS = ['#30AA55', '#7E9CEE', '#F1377A', '#FFCC12', '#ED7445',];
+  const BTN_COLORS = ['#30AA55', '#7E9CEE', '#F1377A', '#FFCC12', '#ED7445'];
   const [scrollEnabled, setScrollEnabled] = useState(true);
   const navRef = useRef<any>();
 
-  const { data: navOptions } = useQuery({
-    queryKey: ["HomePageNavOptions"],
+  const {data: navOptions} = useQuery({
+    queryKey: ['HomePageNavOptions'],
     queryFn: () =>
       fetch(`${API_DOMAIN}nav/v1/navItems`, {})
         .then(response => response.json())
         .then((json: NavOptionsResponseType) => {
-          return json.data
-        })
+          return json.data;
+        }),
   });
 
-  const fetchData = (id: number) => fetch(`${API_DOMAIN}page/v1/typepage?id=${id}`)
-    .then(response => response.json())
-    .then((json: VodCarousellResponseType) => {
-      return json
-    });
+  const fetchData = (id: number) =>
+    fetch(`${API_DOMAIN}page/v1/typepage?id=${id}`)
+      .then(response => response.json())
+      .then((json: VodCarousellResponseType) => {
+        return json;
+      });
 
   const data = useQueries({
-    queries: navOptions ? navOptions?.map(x => ({ queryKey: ['HomePage', x.id], queryFn: () => fetchData(x.id) })) : []
-  })
+    queries: navOptions
+      ? navOptions?.map(x => ({
+          queryKey: ['HomePage', x.id],
+          queryFn: () => fetchData(x.id),
+        }))
+      : [],
+  });
 
-  const Content = useCallback(({ item, index }: { item: UseQueryResult<VodCarousellResponseType>, index: number }) => {
-    return <View style={{ width: width }}>
-      {
-        item.data !== undefined && (
-          index === 0
-            ? <RecommendationHome vodCarouselRes={item.data} setScrollEnabled={setScrollEnabled} />
-            : <CatagoryHome vodCarouselRes={item.data} navId={index} setScrollEnabled={setScrollEnabled} />
-        )
-      }
-    </View>
-  }, [data])
+  const Content = useCallback(
+    ({
+      item,
+      index,
+    }: {
+      item: UseQueryResult<VodCarousellResponseType>;
+      index: number;
+    }) => {
+      return (
+        <View style={{width: width}}>
+          {item.data !== undefined &&
+            (index === 0 ? (
+              <RecommendationHome
+                vodCarouselRes={item.data}
+                setScrollEnabled={setScrollEnabled}
+              />
+            ) : (
+              <CatagoryHome
+                vodCarouselRes={item.data}
+                navId={index}
+                setScrollEnabled={setScrollEnabled}
+              />
+            ))}
+        </View>
+      );
+    },
+    [data],
+  );
 
-  const onScrollEnd = useCallback((e: any) => {
-    if (!onEndReachedCalledDuringMomentum.current) {
-      const pageNumber = Math.min(Math.max(Math.floor(e.nativeEvent.contentOffset.x / width + 0.5), 0), data.length);
-      if (pageNumber !== navId) {
-        setNavId(pageNumber);
-        navRef?.current?.scrollToIndex({
-          index: pageNumber,
-          viewOffset: 24
-        });
+  const onScrollEnd = useCallback(
+    (e: any) => {
+      if (!onEndReachedCalledDuringMomentum.current) {
+        const pageNumber = Math.min(
+          Math.max(Math.floor(e.nativeEvent.contentOffset.x / width + 0.5), 0),
+          data.length,
+        );
+        if (pageNumber !== navId) {
+          setNavId(pageNumber);
+          navRef?.current?.scrollToIndex({
+            index: pageNumber,
+            viewOffset: 24,
+          });
+        }
+        onEndReachedCalledDuringMomentum.current = true;
       }
-      onEndReachedCalledDuringMomentum.current = true;
-    }
-  }, [data, width, onEndReachedCalledDuringMomentum, navRef, navId])
+    },
+    [data, width, onEndReachedCalledDuringMomentum, navRef, navId],
+  );
 
   return (
-    <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
-      <View style={{ backgroundColor: colors.background, paddingLeft: spacing.sideOffset, paddingRight: spacing.sideOffset }}>
+    <ScreenContainer containerStyle={{paddingLeft: 0, paddingRight: 0}}>
+      <View
+        style={{
+          backgroundColor: colors.background,
+          paddingLeft: spacing.sideOffset,
+          paddingRight: spacing.sideOffset,
+        }}>
         <HomeHeader navigator={navigation} />
         <FlatList
           data={navOptions ? navOptions : []}
           horizontal
+          showsHorizontalScrollIndicator={false}
           ref={navRef}
           contentContainerStyle={styles.nav}
-          renderItem={({ item, index }: { item: NavType, index: number }) => {
+          renderItem={({item, index}: {item: NavType; index: number}) => {
             return (
-              <TouchableOpacity style={{ marginRight: spacing.m, justifyContent: 'center', display: 'flex' }} onPress={() => {
-                if (data.length > 0) {
-                  setNavId(index)
-                  ref?.current?.scrollToIndex({
-                    index: index,
-                  });
-                }
-              }}>
-                <Text style={{
-                  textAlign: 'center',
-                  fontSize: navId === index ? textVariants.selected.fontSize : textVariants.unselected.fontSize,
-                  fontWeight: navId === index ? textVariants.selected.fontWeight : textVariants.unselected.fontWeight,
-                  color: navId === index ? colors.primary : colors.muted,
-                }}>{item.name}</Text>
+              <TouchableOpacity
+                style={{
+                  marginRight: spacing.m,
+                  justifyContent: 'center',
+                  display: 'flex',
+                }}
+                onPress={() => {
+                  if (data.length > 0) {
+                    setNavId(index);
+                    ref?.current?.scrollToIndex({
+                      index: index,
+                    });
+                  }
+                }}>
+                <Text
+                  style={{
+                    textAlign: 'center',
+                    fontSize:
+                      navId === index
+                        ? textVariants.selected.fontSize
+                        : textVariants.unselected.fontSize,
+                    fontWeight:
+                      navId === index
+                        ? textVariants.selected.fontWeight
+                        : textVariants.unselected.fontWeight,
+                    color: navId === index ? colors.primary : colors.muted,
+                  }}>
+                  {item.name}
+                </Text>
               </TouchableOpacity>
-
-            )
+            );
           }}
         />
       </View>
-      {
-        !data && <View style={{ ...styles.loading, marginBottom: spacing.xl }}>
+      {!data && (
+        <View style={{...styles.loading, marginBottom: spacing.xl}}>
           {
             <FastImage
-              style={{ height: 80, width: 80 }}
+              style={{height: 80, width: 80}}
               source={require('../../static/images/loading-spinner.gif')}
               resizeMode={FastImage.resizeMode.contain}
             />
           }
         </View>
-      }
+      )}
       <FlatList
         ref={ref}
         data={data}
         pagingEnabled={true}
-        scrollEnabled={scrollEnabled && onEndReachedCalledDuringMomentum.current}
+        scrollEnabled={
+          scrollEnabled && onEndReachedCalledDuringMomentum.current
+        }
         horizontal={true}
         windowSize={3}
         maxToRenderPerBatch={2}
         initialNumToRender={1}
         nestedScrollEnabled={true}
-        getItemLayout={(data, index) => (
-          { length: width, offset: width * index, index }
-        )}
+        getItemLayout={(data, index) => ({
+          length: width,
+          offset: width * index,
+          index,
+        })}
         onMomentumScrollBegin={() => {
           onEndReachedCalledDuringMomentum.current = false;
         }}
@@ -135,8 +203,8 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
         renderItem={Content}
       />
     </ScreenContainer>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -151,23 +219,23 @@ const styles = StyleSheet.create({
   text: {
     color: '#fff',
     fontSize: 30,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   dotStyle: {
     width: 6,
-    height: 4
+    height: 4,
   },
   activeDotStyle: {
     width: 14,
-    height: 4
+    height: 4,
   },
   paginationStyle: {
     top: 173,
-    height: 20
+    height: 20,
   },
   vod_hotlist: {
     height: 99,
-    width: 176
+    width: 176,
   },
   nav: {
     flexGrow: 1,
@@ -177,12 +245,12 @@ const styles = StyleSheet.create({
   catalogNav: {
     flexGrow: 1,
     justifyContent: 'center',
-    marginTop: 5
+    marginTop: 5,
   },
   vodList: {
     display: 'flex',
     flexDirection: 'row',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
   },
   bottomBlur: {
     position: 'absolute',
@@ -193,18 +261,18 @@ const styles = StyleSheet.create({
     flex: 1,
     borderBottomRightRadius: 10,
     borderBottomLeftRadius: 10,
-    opacity: 0.8
+    opacity: 0.8,
   },
   carouselTag: {
     position: 'absolute',
     bottom: 12,
     left: 16,
-    marginRight: 16
+    marginRight: 16,
   },
   loading: {
     flexDirection: 'row',
     justifyContent: 'center',
     flex: 1,
-    height: '100%'
-  }
-})
+    height: '100%',
+  },
+});
