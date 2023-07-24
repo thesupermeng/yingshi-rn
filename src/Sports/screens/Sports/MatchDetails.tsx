@@ -91,7 +91,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
         }),
         staleTime: 1000
     });
-
+    console.log('Match Id is ', matchID)
     useEffect(() => {
         setTabList([
             {

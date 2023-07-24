@@ -25,10 +25,12 @@ import MatchSchedule from './MatchSchedule';
 import ScreenContainer from '../../../components/container/screenContainer';
 import EmptyList from '../../../components/common/emptyList';
 import FastImage from 'react-native-fast-image';
+import MatchScheduleLive from './MatchScheduleLive';
 
 interface Props {
   matchTypeID: number,
   status?: number
+  matchDetailType?: 'default' | 'live'
 }
 
 type FlatListType = {
@@ -36,7 +38,7 @@ type FlatListType = {
   index: number
 }
 
-const MatchScheduleList = ({ matchTypeID, status }: Props) => {
+const MatchScheduleList = ({ matchTypeID, status, matchDetailType = 'default' }: Props) => {
 
   const { colors, textVariants, spacing } = useTheme();
   const width = Dimensions.get('window').width;
@@ -67,20 +69,25 @@ const MatchScheduleList = ({ matchTypeID, status }: Props) => {
         const matches: { date: string, data: MatchDetailsType[] }[] = dates.map(date => ({ date: formatMatchDate(date), data: res.data[date] }))
         return matches;
       }
-    }
-    ),
-  });
+    }),
+    cacheTime: 60,
+    staleTime: 60
+  }
+  );
   const Content = useCallback(() => {
     return <View style={{ width: width }}>
       {
         matches?.map((match, idx) =>
-          <View key={`${match.date}-${idx}`}>
-            <View style={{ backgroundColor: colors.card2, padding: spacing.sideOffset }}>
+          <View key={`${match.date}-${idx}`} >
+            <View style={{ backgroundColor: colors.card2, padding: spacing.sideOffset, marginBottom: matchDetailType === 'default' ? 0 : 16 }}>
               <Text style={textVariants.header}>{match.date}</Text>
             </View>
             <View>
-              {match.data.map((item, index) =>  <MatchSchedule key={index} matchSche={item} />)}
-              {/* <FlatList data={match.data} renderItem={({ item }: FlatListType) => <MatchSchedule matchSche={item} />} /> */}
+              {
+                matchDetailType === 'default'
+                  ? match.data.map((item, index) => <MatchSchedule key={index} matchSche={item} />)
+                  : match.data.map((item, index) => <MatchScheduleLive key={index} matchSche={item} />)
+              }
             </View>
           </View>
         )

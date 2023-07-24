@@ -68,6 +68,8 @@ import HomeTeamField from './images/homeTeamField.png';
 import AwayTeamField from './images/awayTeamField.png';
 import VideoLive from './images/yellowVideoLive.png';
 import AnimationLive from './images/yellow-animation-live.png';
+import VideoLiveWhite from './images/whiteVideoLive.png';
+import AnimationLiveWhite from './images/whiteAnimationLive.png';
 import SubIn from './images/subIn.png';
 import SubOut from './images/subOut.png';
 import Goal from './images/goal.png';
@@ -236,6 +238,8 @@ import ChatBotPhoto from './images/chatBotPhoto.png';
 import TypingLoading from './images/typingLoading.gif';
 import GiftLottie from './images/GIFT.json';
 import LottieRedBlink from './images/LottieRedBlink.json';
+
+import Live from './images/live.png';
 import {Image} from 'react-native';
 import FastImage from 'react-native-fast-image';
 
@@ -484,4 +488,7 @@ export {
   TypingLoading,
   GiftLottie,
   LottieRedBlink,
+  Live,
+  VideoLiveWhite,
+  AnimationLiveWhite
 };
