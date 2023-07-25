@@ -76,7 +76,6 @@ export default ({
               minimumValue={0}
               maximumValue={duration}
               step={1}
-              tapToSeek={false}
               onValueChange={onSlideProgressBar}
               onSlidingStart={onSlideStart}
               onSlidingComplete={onSlideComplete}
@@ -122,7 +121,23 @@ export default ({
       ) : (
         <View style={styles.landscapeContainer}>
           <View style={styles.wrapper}>
-            {videoType === 'vod' && (
+            {videoType === 'vod' && Platform.OS == 'ios' && (
+              <Slider
+                value={currentTime}
+                minimumValue={0}
+                maximumValue={duration}
+                step={1}
+                onValueChange={onSlideProgressBar}
+                onSlidingStart={onSlideStart}
+                onSlidingComplete={onSlideComplete}
+                minimumTrackTintColor={'#FAC33D'}
+                maximumTrackTintColor={'#FFFFFF'}
+                thumbTintColor={'#FFFFFF'}
+                thumbImage={thumbImage}
+                style={{flex: 16, marginTop: 2}}
+              />
+            )}
+            {videoType === 'vod' && Platform.OS != 'ios' && (
               <Slider
                 value={currentTime}
                 minimumValue={0}
