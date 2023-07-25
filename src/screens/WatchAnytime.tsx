@@ -27,7 +27,7 @@ import Play from '../../static/images/blackPlay.svg';
 import FastImage from 'react-native-fast-image';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import Orientation from 'react-native-orientation-locker';
-import { API_DOMAIN } from '../utility/constants';
+import { API_DOMAIN, API_DOMAIN_TEST, API_DOMAIN_LOCAL } from '../utility/constants';
 import { memoize } from 'lodash';
 import ShortVideoPlayer from '../components/videoPlayer/shortVodPlayer';
 
@@ -46,7 +46,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     const [isPaused, setIsPaused] = useState(false);
     const LIMIT = 100;
     const fetchVods = (page: number) => fetch(
-        `${API_DOMAIN}miniVod/v1/miniVod?page=${page}&limit=${LIMIT}`,
+        `${API_DOMAIN_TEST}miniVod/v1/miniVod?page=${page}&limit=${LIMIT}`,
     )
         .then(response => response.json())
         .then((json: MiniVideoResponseType) => {
@@ -110,6 +110,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                         return <View style={{ height: displayHeight ? displayHeight : 0 }}>
                             {
                                 current !== null && Math.abs(current - index) <= 2 && <ShortVideoPlayer
+                                    vod={item}
                                     vod_url={item.mini_video_origin_video_url}
                                     isActive={current === index && !isPaused}
                                     thumbnail={item.mini_video_origin_cover}
