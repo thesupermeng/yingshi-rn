@@ -162,7 +162,7 @@ const MatchSchedule = ({ matchSche, onPress, followMatchIds = [], isMatchPage = 
               matchSche?.streams?.some(streamer => streamer.status == 3) && (
                 <View style={{ flexDirection: 'row' }}>
                   <View style={styles.liveIcon}></View>
-                  <Text style={{...styles.liveStatus}}>直播中</Text>
+                  <Text style={{ ...styles.liveStatus }}>直播中</Text>
                 </View>
               )}
             <Text style={textVariants.small}>
@@ -194,7 +194,7 @@ const MatchSchedule = ({ matchSche, onPress, followMatchIds = [], isMatchPage = 
         <View style={styles.matchScheduleContent}>
           <View style={styles.teamContentA}>
             <Text
-              style={textVariants.small}
+              style={{...textVariants.small, flexShrink: 1}}
               numberOfLines={1}
               ellipsizeMode={'tail'}>
               {matchSche.home?.name}
@@ -291,11 +291,7 @@ const MatchSchedule = ({ matchSche, onPress, followMatchIds = [], isMatchPage = 
             </View>
           ) : (
             <View style={styles.subscribeBtn}>
-              <FixedTouchableHighlight>
-                <View style={styles.subscribeTouchable}>
-                  <FastImage style={styles.subImage} source={Sub} />
-                </View>
-              </FixedTouchableHighlight>
+              <Text style={{...textVariants.header, color: colors.primary}}>VS</Text>
             </View>
           )}
           <View style={styles.teamContentB}>

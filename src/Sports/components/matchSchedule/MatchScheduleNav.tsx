@@ -23,6 +23,7 @@ interface Props {
 
 export default function MatchScheduleNav({ tabList, streamId }: Props) {
     const { colors } = useTheme();
+    const width = Dimensions.get('window').width;
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <Tab.Navigator
@@ -56,7 +57,7 @@ export default function MatchScheduleNav({ tabList, streamId }: Props) {
                     key={-1}
                     name={'直播'}
                     children={() => (
-                        <MatchScheduleList matchTypeID={-1} status={-1} matchDetailType='live' />
+                        <MatchScheduleList matchTypeID={-1} status={-1} />
                     )}
                 />
                 {tabList != undefined && tabList.map((tab, index) => {
@@ -70,16 +71,15 @@ export default function MatchScheduleNav({ tabList, streamId }: Props) {
                                         tabBarScrollEnabled: false,
                                         tabBarIndicatorStyle: {
                                             height: 4,
-                                            position: 'absolute',
-                                            bottom: 5,
-                                            width: 0.4,
-                                            borderRadius: 99,
+                                            width: 4,
+                                            left: (width / 6 - 4) / 2,
+                                            backgroundColor: colors.primary,
+                                            borderRadius: 10,
+                                            bottom: 5
                                         },
                                         tabBarItemStyle: {
-                                            alignItems: 'center',
-                                            display: 'flex',
-                                            flexDirection: 'row-reverse',
-                                            width: 'auto'
+                                            width: width / 6,
+                                            padding: 0
                                         },
                                         tabBarActiveTintColor: colors.primary,
                                         tabBarInactiveTintColor: colors.text,
@@ -95,14 +95,14 @@ export default function MatchScheduleNav({ tabList, streamId }: Props) {
                                         key={`inner-${index}-1`}
                                         name='进行中'
                                         children={() => (
-                                            <MatchScheduleList matchTypeID={tab.id} status={1} matchDetailType='live' />
+                                            <MatchScheduleList matchTypeID={tab.id} status={1} />
                                         )}
                                     />
                                     <Tab.Screen
                                         key={`inner-${index}-2`}
                                         name='赛程'
                                         children={() => (
-                                            <MatchScheduleList matchTypeID={tab.id} status={2} matchDetailType='live' />
+                                            <MatchScheduleList matchTypeID={tab.id} status={2} />
                                         )}
                                     />
                                     <Tab.Screen

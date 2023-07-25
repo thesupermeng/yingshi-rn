@@ -142,17 +142,17 @@ const styles = StyleSheet.create({
   },
   teamContentA: {
     flexDirection: 'row',
-    width: '25%',
+    width: '35%',
     justifyContent: 'flex-end',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   teamContentB: {
     display: 'flex',
     flexDirection: 'row',
-    width: '25%',
+    width: '35%',
     justifyContent: 'flex-start',
     flexShrink: 1,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   teamImage: {
     height: 30,

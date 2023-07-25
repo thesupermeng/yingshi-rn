@@ -30,7 +30,6 @@ import MatchScheduleLive from './MatchScheduleLive';
 interface Props {
   matchTypeID: number,
   status?: number
-  matchDetailType?: 'default' | 'live'
 }
 
 type FlatListType = {
@@ -38,7 +37,7 @@ type FlatListType = {
   index: number
 }
 
-const MatchScheduleList = ({ matchTypeID, status, matchDetailType = 'default' }: Props) => {
+const MatchScheduleList = ({ matchTypeID, status }: Props) => {
 
   const { colors, textVariants, spacing } = useTheme();
   const width = Dimensions.get('window').width;
@@ -79,14 +78,12 @@ const MatchScheduleList = ({ matchTypeID, status, matchDetailType = 'default' }:
       {
         matches?.map((match, idx) =>
           <View key={`${match.date}-${idx}`} >
-            <View style={{ backgroundColor: colors.card2, padding: spacing.sideOffset, marginBottom: matchDetailType === 'default' ? 0 : 16 }}>
+            <View style={{ backgroundColor: colors.card2, padding: spacing.s }}>
               <Text style={textVariants.header}>{match.date}</Text>
             </View>
             <View>
               {
-                matchDetailType === 'default'
-                  ? match.data.map((item, index) => <MatchSchedule key={index} matchSche={item} />)
-                  : match.data.map((item, index) => <MatchScheduleLive key={index} matchSche={item} />)
+                match.data.map((item, index) => <MatchSchedule key={index} matchSche={item} />)
               }
             </View>
           </View>

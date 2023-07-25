@@ -148,14 +148,14 @@ const MatchScheduleLive = ({ matchSche, onPress, isMatchPage = true, matchType }
   //   }
   // };
 
-  const getOnlineStreamer = () => {
-    const onlineStreamer = matchSche?.streams?.findIndex(e => e.status == 3);
-    if (onlineStreamer != undefined && onlineStreamer != -1) {
-      return matchSche?.streams[onlineStreamer].streamer_id;
-    } else {
-      return null;
-    }
-  };
+  // const getOnlineStreamer = () => {
+  //   const onlineStreamer = matchSche?.streams?.findIndex(e => e.status == 3);
+  //   if (onlineStreamer != undefined && onlineStreamer != -1) {
+  //     return matchSche?.streams[onlineStreamer].streamer_id;
+  //   } else {
+  //     return null;
+  //   }
+  // };
 
   return (
     <FixedTouchableHighlight onPress={matchClicked} >
