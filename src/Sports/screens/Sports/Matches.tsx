@@ -46,9 +46,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     return (
         <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
             <View style={{ backgroundColor: colors.background, paddingLeft: spacing.sideOffset, paddingRight: spacing.sideOffset }}>
-                <MainHeader logo={
-                    <Text style={{ ...textVariants.bigHeader, color: colors.text, fontSize: 22 }}>体育</Text>
-                } navigator={navigation} />
+                <Text style={{ ...textVariants.bigHeader, color: colors.text, fontSize: 22 }}>体育</Text>
             </View>
             {matchTabs && matchTabs.length > 0 && (
                 <MatchScheduleNav

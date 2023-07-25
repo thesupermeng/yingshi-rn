@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    height: '25%',
+    height: '35%',
   },
   bookingButton: {
     backgroundColor: Colors.colorPrimary,
