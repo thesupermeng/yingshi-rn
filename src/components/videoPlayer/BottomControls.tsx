@@ -121,7 +121,7 @@ export default ({
       ) : (
         <View style={styles.landscapeContainer}>
           <View style={styles.wrapper}>
-            {videoType === 'vod' && Platform.OS == 'ios' && (
+            {videoType === 'vod' && Platform.OS === 'ios' && (
               <Slider
                 value={currentTime}
                 minimumValue={0}
@@ -137,7 +137,7 @@ export default ({
                 style={{flex: 16, marginTop: 2}}
               />
             )}
-            {videoType === 'vod' && Platform.OS != 'ios' && (
+            {videoType === 'vod' && Platform.OS !== 'ios' && (
               <Slider
                 value={currentTime}
                 minimumValue={0}
