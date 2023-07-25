@@ -189,13 +189,14 @@ const RecommendationHome = ({vodCarouselRes, setScrollEnabled}: Props) => {
                 </View>
               </View>
             )}
-            {liveStations && liveStations?.length > 0 && (
-              <View style={{gap: spacing.m}}>
-                <View
-                  style={{
-                    paddingLeft: spacing.sideOffset,
-                    paddingRight: spacing.sideOffset,
-                  }}>
+
+            <View style={{gap: spacing.m}}>
+              <View
+                style={{
+                  paddingLeft: spacing.sideOffset,
+                  paddingRight: spacing.sideOffset,
+                }}>
+                {liveStations && liveStations?.length > 0 ? (
                   <ShowMoreVodButton
                     text="电视台推荐"
                     onPress={() => {
@@ -204,15 +205,29 @@ const RecommendationHome = ({vodCarouselRes, setScrollEnabled}: Props) => {
                       });
                     }}
                   />
-                </View>
+                )
+                :
+                (
+                  <View style={styles.banner}>
+                    <Text style={textVariants.header}>电视台推荐</Text>
+                  </View>
+                )}
+              </View>
+              {liveStations && liveStations?.length > 0 ? (
                 <View style={{paddingLeft: spacing.sideOffset}}>
                   <VodLiveStationList
                     vodStyle={styles.vod_live_station}
                     liveStationList={liveStations.slice(0, 10)}
                   />
                 </View>
-              </View>
-            )}
+
+              )
+              :
+              (
+                <View style={{paddingLeft: spacing.sideOffset, height: 134}}>
+                </View>
+              )}
+            </View>
             {data?.yunying && data.yunying.length > 0 && (
               <View
                 style={{
@@ -392,4 +407,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flex: 1,
   },
+  banner: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 4,
+    marginBottom: 5,
+  }
 });

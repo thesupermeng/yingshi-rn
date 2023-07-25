@@ -7,7 +7,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
-import { API_DOMAIN, API_DOMAIN_TEST, APPSFLYER_DEVKEY } from './src/utility/constants';
+import { API_DOMAIN, API_DOMAIN_TEST, API_DOMAIN_LOCAL, APPSFLYER_DEVKEY } from './src/utility/constants';
 import { FilterOptionsResponseType, MiniVideo, NavOptionsResponseType, SuggestResponseType, VodCarousellResponseType, VodPlaylistResponseType, LiveTVStationsResponseType } from './src/types/ajaxTypes';
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -121,7 +121,7 @@ export default function App() {
   queryClient.prefetchInfiniteQuery(['vodPlaylist'], ({ pageParam = 1 }) => fetchPlaylist(pageParam));
 
   const fetchVods = (page: number) => fetch(
-    `${API_DOMAIN}miniVod/v1/miniVod?page=${page}&limit=100`,
+    `${API_DOMAIN_TEST}miniVod/v1/miniVod?page=${page}&limit=100`,
   )
     .then(response => response.json())
     .then((json: MiniVideoResponseType) => {
