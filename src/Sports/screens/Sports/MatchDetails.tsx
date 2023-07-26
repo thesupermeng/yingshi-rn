@@ -91,7 +91,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
         }),
         staleTime: 1000
     });
-    console.log('Match Id is ', matchID)
+
     useEffect(() => {
         setTabList([
             {
@@ -139,14 +139,13 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
         }
     }, [match])
 
-    // console.log(parseVideoURL(match?.streams[0].src), match?.streams[0].src)
     return (
         <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
             <View style={{ flex: 1 }}>
                 <View>
                     <View style={styles.topBannerCotainer}>
                         {
-                            videoSource.url
+                            videoSource.url && match?.streams?.some(streamer => streamer.status == 3)
                                 ? <LiveVideo
                                     liveDataState={match}
                                     // fullScreen={tempFullscreen}

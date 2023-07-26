@@ -151,7 +151,7 @@ const MatchSchedule = ({ matchSche, onPress, followMatchIds = [], isMatchPage = 
               {matchSche?.competition?.name_short}
             </Text>
             <Text style={{ ...textVariants.small, color: colors.muted }}>
-              {('0' + new Date(matchSche?.match_time_ts).getHours()).slice(-2) +
+              {('0' + new Date(matchSche?.match_time).getHours()).slice(-2) +
                 ':' +
                 ('0' + new Date(matchSche?.match_time).getMinutes()).slice(-2)}
             </Text>
@@ -178,10 +178,10 @@ const MatchSchedule = ({ matchSche, onPress, followMatchIds = [], isMatchPage = 
               matchSche?.streams != undefined &&
               matchSche?.streams.length > 0 &&
               matchSche?.streams?.some(streamer => streamer.status == 3) && (
-                <FastImage style={styles.liveTypeImage} source={VideoLive} />
+                <FastImage resizeMode='contain' style={styles.liveTypeImage} source={VideoLive} />
               )}
             {isMatchPage === true && matchSche?.mlive == 1 && (
-              <FastImage style={styles.liveTypeImage} source={AnimationLive} />
+              <FastImage resizeMode='contain' style={styles.liveTypeImage} source={AnimationLive} />
             )}
           </View>
           {/* {matchSche?.streams != undefined && matchSche?.streams.length > 0 && (

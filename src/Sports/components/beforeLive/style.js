@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     
   },
   subIcon: {
-    height: 14,
+    height: 18,
     width: 22,
     // alignSelf: 'center',
     marginHorizontal: 5,

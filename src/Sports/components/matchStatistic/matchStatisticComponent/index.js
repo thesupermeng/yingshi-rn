@@ -22,7 +22,7 @@ const MatchStatisticComponent = ({index, data, sportType}) => {
               <View style={styles.statTextView}>
                 <Text style={styles.statText}>{data.home}</Text>
               </View>
-              <View style={home == 0 && away == 0 ? [styles.statBar, {backgroundColor: 'rgba(0, 0, 0, 0.05)'}] : styles.statBar}>
+              <View style={home == 0 && away == 0 ? [styles.statBar, {backgroundColor: '#383838'}] : styles.statBar}>
                 <View
                   style={{
                     height: 5,

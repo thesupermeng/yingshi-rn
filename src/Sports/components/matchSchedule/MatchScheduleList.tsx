@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect, useState } from 'react';
+import React, { memo, useCallback, useEffect, useMemo } from 'react';
 import { View, Text, Image, ImageBackground, FlatList, Dimensions, StyleSheet } from 'react-native';
 import { Link, useTheme } from '@react-navigation/native';
 import styles from './style';
@@ -65,43 +65,59 @@ const MatchScheduleList = ({ matchTypeID, status }: Props) => {
       const data = res?.data;
       if (data != undefined) {
         const dates = Object.keys(res.data);
-        const matches: { date: string, data: MatchDetailsType[] }[] = dates.map(date => ({ date: formatMatchDate(date), data: res.data[date] }))
-        return matches;
+        let lst: { date: string | undefined, data: MatchDetailsType | undefined }[] = []
+        let headers = [];
+        let count = 0;
+        for (const date of dates) {
+          lst.push({ date: formatMatchDate(date), data: undefined })
+          headers.push(count);
+          count += 1;
+          data[date].forEach((element: MatchDetailsType) => {
+            lst.push({ date: undefined, data: element });
+            count += 1;
+          });
+        }
+        return {
+          headers: headers,
+          data: lst
+        };
       }
     }),
     cacheTime: 60,
     staleTime: 60
   }
   );
-  const Content = useCallback(() => {
+
+  const Content = ({ item, index }: { item: { date: string | undefined, data: MatchDetailsType | undefined }; index: number }) => {
     return <View style={{ width: width }}>
       {
-        matches?.map((match, idx) =>
-          <View key={`${match.date}-${idx}`} >
-            <View style={{ backgroundColor: colors.card2, padding: spacing.s }}>
-              <Text style={textVariants.header}>{match.date}</Text>
-            </View>
-            <View>
-              {
-                match.data.map((item, index) => <MatchSchedule key={index} matchSche={item} />)
-              }
-            </View>
+        item?.date !== undefined
+          ? <View style={{ backgroundColor: colors.card2, padding: spacing.xs }}>
+            <Text style={textVariants.header}>{item?.date}</Text>
           </View>
-        )
+          : item?.data !== undefined && <MatchSchedule key={index} matchSche={item?.data} />
       }
     </View>
-  }, [matches])
+  }
 
   return (
     <View style={{ flex: 1 }}>
       {
-        matches && matches.length > 0
+        matches && matches.data.length > 0 && !isFetching && !isRefetching
           ? <FlatList
-            data={matches}
+            data={matches.data}
             windowSize={3}
-            maxToRenderPerBatch={2}
-            initialNumToRender={1}
+            maxToRenderPerBatch={3}
+            initialNumToRender={2}
             renderItem={Content}
+            stickyHeaderIndices={matches.headers}
+            ListFooterComponent={
+              <View style={{ ...styles.loading, marginVertical: spacing.xl }}>
+                <Text style={{ ...textVariants.body, color: colors.muted }}>
+                  没有更多了
+                </Text>
+              </View>
+            }
           />
           : <View style={{ height: height }}>
             {
@@ -114,9 +130,7 @@ const MatchScheduleList = ({ matchTypeID, status }: Props) => {
                   />
                 </View>
                 : <EmptyList description='暂无比赛' />
-
             }
-
           </View>
       }
       {

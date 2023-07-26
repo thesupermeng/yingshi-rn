@@ -188,8 +188,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   liveTypeImage: {
-    width: 23,
-    height: 15,
+    width: 25,
+    height: 18,
     marginRight: 5,
     right: 0,
   },
@@ -236,7 +236,7 @@ const styles = StyleSheet.create({
   refresh: {
     backgroundColor: '#FAC33D',
     position: 'absolute',
-    bottom: 50,
+    bottom: 15,
     right: 20,
     display: 'flex',
     flexDirection: 'row',
@@ -294,7 +294,12 @@ const styles = StyleSheet.create({
     width: 60,
     display: 'flex',
     justifyContent: 'center'
-  }
+  },
+  loading: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    flex: 1
+},
 });
 
 export default styles;

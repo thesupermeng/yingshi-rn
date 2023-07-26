@@ -22,11 +22,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     // marginHorizontal: 5,
     position: 'absolute',
-    
   },
   scrollViewContainer: {
     // height: '90%',
     flex: 1,
+    padding: 40
     // width: '100%',
     // backgroundColor: 'green',
   },
@@ -44,8 +44,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   smallIcon: {
-    width: 19,
-    height: 15,
+    width: 18,
+    height: 18,
     margin: 10,
   },
   smallOrangeCircle: {
@@ -61,7 +61,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    paddingVertical: 15,
     width: '96%',
     alignItems: 'center',
     zIndex: 1,

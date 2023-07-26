@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Image, ScrollView, Switch, Text } from 'react-native';
+import { View, ScrollView, Switch, Text } from 'react-native';
 import StorylineTap from './storylineTab';
 import StorylineTapList from './storylineTabList';
 import { WhistleOrange, OrangeClock } from '../../assets';
@@ -7,6 +7,7 @@ import { WhistleOrange, OrangeClock } from '../../assets';
 //style
 import styles from './style';
 import { MatchUpdatesType } from '../../types/matchUpdatesType';
+import FastImage from 'react-native-fast-image';
 
 
 interface Props {
@@ -29,23 +30,25 @@ const StorylineEvent = ({ liveRoomUpdate }: Props) => {
           value={isEnabled}
         />
       </View>
-      <View style={styles.lineContainer}>
-        <Image
-          resizeMode="contain"
-          style={styles.smallIcon}
-          source={OrangeClock}></Image>
-        <View style={styles.middleline}>
-          <View style={styles.smallOrangeCircle}></View>
+      <View>
+        <View style={styles.lineContainer}>
+          <FastImage
+            resizeMode="contain"
+            style={styles.smallIcon}
+            source={OrangeClock} />
+          <View style={styles.middleline}>
+            <View style={styles.smallOrangeCircle}></View>
 
-          <View style={styles.smallOrangeCircle}></View>
+            <View style={styles.smallOrangeCircle}></View>
+          </View>
+          <FastImage
+            resizeMode="contain"
+            style={styles.smallIcon}
+            source={WhistleOrange} />
         </View>
-        <Image
-          resizeMode="contain"
-          style={styles.smallIcon}
-          source={WhistleOrange}></Image>
-      </View>
-      <View style={styles.scrollViewContainer}>
-        <StorylineTapList liveRoomUpdate={liveRoomUpdate} isEnabled={isEnabled}></StorylineTapList>
+        <View style={styles.scrollViewContainer}>
+          <StorylineTapList liveRoomUpdate={liveRoomUpdate} isEnabled={isEnabled}></StorylineTapList>
+        </View>
       </View>
     </View>
   );

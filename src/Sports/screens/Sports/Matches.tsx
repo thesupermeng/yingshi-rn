@@ -45,8 +45,8 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
 
     return (
         <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
-            <View style={{ backgroundColor: colors.background, paddingLeft: spacing.sideOffset, paddingRight: spacing.sideOffset }}>
-                <Text style={{ ...textVariants.bigHeader, color: colors.text, fontSize: 22 }}>体育</Text>
+            <View style={{ backgroundColor: colors.background, paddingLeft: spacing.s, paddingRight: spacing.s }}>
+                <Text style={{ ...textVariants.bigHeader, color: colors.text, fontSize: 22, ...styles.header }}>体育</Text>
             </View>
             {matchTabs && matchTabs.length > 0 && (
                 <MatchScheduleNav
@@ -59,8 +59,12 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
 
 const styles = StyleSheet.create({
     header: {
-        paddingLeft: 20,
-        paddingRight: 20
+        paddingTop: 8,
+            display: 'flex',
+            flexDirection: 'row',
+            width: '100%',
+            alignItems: 'center',
+            marginBottom: 8,
     },
     loading: {
         flexDirection: 'row',
