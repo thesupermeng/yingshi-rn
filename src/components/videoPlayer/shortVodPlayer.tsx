@@ -38,6 +38,10 @@ function ShortVideoPlayer({
   displayHeight = 0,
 }: Props) {
 
+  const maxLength = 10;
+  let vodName = vod?.mini_video_original_video_name.length > maxLength ? vod?.mini_video_original_video_name.substring(0, maxLength) + '...' : vod?.mini_video_original_video_name;
+  // let vodName = "我的"
+
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
 
@@ -173,50 +177,53 @@ function ShortVideoPlayer({
             paddingBottom: 40,
           }}>
           {vod != undefined && vod.mini_video_original_img_url != null && vod.mini_video_original_img_url != '' &&
-            <View style={{padding: 8, width: 170, height: 75, flexDirection: 'row', borderRadius: 8, backgroundColor: 'rgba(255, 255, 255, 0.16)'}}>
+            <View style={{ flexWrap: 'wrap' }}>
               {/* <View style={{ flex: 10, flexDirection: 'column', justifyContent: 'flex-end', marginRight: 35 }}> */}
-              <View
-                style={{
-                  flex: 4,
-                  flexDirection: 'column',
-                  justifyContent: 'flex-end',
-                }}>
-                <TouchableOpacity style={{ flex: 1 }} onPress={redirectVod}>
-                  <FastImage
-                    style={{ flex: 1, borderRadius: 6 }}
-                    source={{
-                        uri: vod.mini_video_original_img_url,
-                        priority: FastImage.priority.high,
-                    }}
-                  />
-                </TouchableOpacity>
-              </View>
-              <View
-                style={{
-                  flex: 8,
-                  flexDirection: 'column',
-                  alignContent: 'center',
-                  marginLeft: 10,
-                  // backgroundColor: 'yellow'
-                }}>
-                <TouchableOpacity onPress={redirectVod}>
-                  <View style={{ flexDirection: 'column', justifyContent: 'space-between', height: '100%', paddingVertical: 3 }}>
-                    <View style={{ }}>
-                      <Text numberOfLines={1} ellipsizeMode="tail" style={{ ...textVariants.bodyBold, color: colors.text }}>{vod.mini_video_original_video_name}</Text>
-                    </View>
-                    <View style={{ flexDirection: 'row' }}>
-                      <View style={{ flexWrap: 'wrap', marginHorizontal: 8 }}>
-                        <PlayZhengPianIcon
-                          width={20}
-                          height={20}
-                        />
+              <View style={{padding: 8, height: 75, flexDirection: 'row', borderRadius: 8, backgroundColor: 'rgba(106, 106, 106, 0.25)'}}>
+                <View
+                  style={{
+                    width: 45,
+                    flexDirection: 'column',
+                    justifyContent: 'flex-end',
+                  }}>
+                  <TouchableOpacity style={{ flex: 1 }} onPress={redirectVod}>
+                    <FastImage
+                      style={{ flex: 1, borderRadius: 6 }}
+                      source={{
+                          uri: vod.mini_video_original_img_url,
+                          priority: FastImage.priority.high,
+                      }}
+                    />
+                  </TouchableOpacity>
+                </View>
+                <View
+                  style={{
+                    flexDirection: 'column',
+                    alignContent: 'center',
+                    marginLeft: 10,
+                    marginRight: 5
+                  }}>
+                  <TouchableOpacity onPress={redirectVod}>
+                    <View style={{ flexDirection: 'column', justifyContent: 'space-between', height: '100%', paddingVertical: 5 }}>
+                      <View style={{ justifyContent: 'flex-start', flexDirection: 'row' }}>
+                        <View>
+                          <Text numberOfLines={1} ellipsizeMode="tail" style={{ ...textVariants.bodyBold, color: colors.text, fontSize: 15 }}>{vodName}</Text>
+                        </View>
                       </View>
-                      <View style={{ paddingLeft: 6 }}>
-                        <Text style={{ ...textVariants.subBody, color: colors.text }}>看正片</Text>
+                      <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+                        <View style={{ flexWrap: 'wrap' }}>
+                          <PlayZhengPianIcon
+                            width={20}
+                            height={20}
+                          />
+                        </View>
+                        <View style={{ paddingLeft: 6 }}>
+                          <Text style={{ ...textVariants.subBody, color: colors.text, fontSize: 14 }}>看正片</Text>
+                        </View>
                       </View>
                     </View>
-                  </View>
-                </TouchableOpacity>
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
           }
@@ -241,15 +248,16 @@ function ShortVideoPlayer({
           disabled={!showOverlay}
           // allowTouchTrack={true}
           thumbStyle={{
-            height: showOverlay ? 20 : 1,
-            width: showOverlay ? 20 : 1,
+            height: showOverlay ? 8 : 1,
+            width: showOverlay ? 8 : 1,
           }}
           value={currentTime}
           onValueChange={handleSeek}
           onSlidingComplete={handleSeek}
-          minimumTrackTintColor={'#FAC33D'}
-          maximumTrackTintColor={'#FFFFFF'}
+          minimumTrackTintColor={'#ffffff80'}
+          maximumTrackTintColor={'#ffffff24'}
           thumbTintColor={'#FFFFFF'}
+          trackStyle={{ height: 2, opacity: 1 }}
         />
       </View>
     </TouchableWithoutFeedback>
@@ -364,6 +372,6 @@ const styles = StyleSheet.create({
     left: 0,
     bottom: 0,
     right: 0,
-    height: 40,
+    height: 9,
   },
 });

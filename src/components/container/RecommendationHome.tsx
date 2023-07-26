@@ -198,7 +198,7 @@ const RecommendationHome = ({vodCarouselRes, setScrollEnabled}: Props) => {
                 }}>
                 {liveStations && liveStations?.length > 0 ? (
                   <ShowMoreVodButton
-                    text="电视台推荐"
+                    text="电视台直播"
                     onPress={() => {
                       navigation.navigate('电视台列表', {
                         liveStationItemList: liveStations,
@@ -209,7 +209,7 @@ const RecommendationHome = ({vodCarouselRes, setScrollEnabled}: Props) => {
                 :
                 (
                   <View style={styles.banner}>
-                    <Text style={textVariants.header}>电视台推荐</Text>
+                    <Text style={textVariants.header}>电视台直播</Text>
                   </View>
                 )}
               </View>
