@@ -30,9 +30,9 @@ export default ({navigation}: RootStackScreenProps<'视频收藏'>) => {
   const favorites = favs.favorites;
 
   return (
-    <ScreenContainer>
-      <TitleWithBackButtonHeader title="我的收藏" />
-      <CollectionHeader route="视频收藏" navigator={navigation} />
+    <>
+      {/* <TitleWithBackButtonHeader title="我的收藏" />
+      <CollectionHeader route="视频收藏" navigator={navigation} /> */}
       <View>
         {favorites && favorites.length > 0 && (
           <FlatList
@@ -66,7 +66,7 @@ export default ({navigation}: RootStackScreenProps<'视频收藏'>) => {
       {favorites && favorites.length === 0 && (
         <EmptyList description="暂无视频收藏" />
       )}
-    </ScreenContainer>
+    </>
   );
 };
 
