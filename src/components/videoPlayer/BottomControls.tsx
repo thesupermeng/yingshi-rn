@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import {
   View,
   PanResponder,
@@ -6,6 +6,7 @@ import {
   Dimensions,
   Text,
   Pressable,
+  Platform,
 } from 'react-native';
 import Slider from '@react-native-community/slider';
 import FullScreen from '../../../static/images/fullScreen.svg';
@@ -13,7 +14,7 @@ import Unlock from '../../../static/images/unlock.svg';
 import Episodes from '../../../static/images/episodes.svg';
 import NextEpisode from '../../../static/images/nextEpisode.svg';
 import MinimizeScreen from '../../../static/images/minimizeScreen.svg';
-import { TouchableWithoutFeedback } from 'react-native';
+import {TouchableWithoutFeedback} from 'react-native';
 
 type Props = {
   currentTime: number;
@@ -38,14 +39,15 @@ export default ({
   isFullScreen,
   videoType,
 }: Props) => {
-  useEffect(() => { }, []);
+  useEffect(() => {}, []);
 
   const getMinutesFromSeconds = (time: number) => {
     const minutes = time >= 60 ? Math.floor(time / 60) : 0;
     const seconds = Math.floor(time - minutes * 60);
 
-    return `${minutes >= 10 ? minutes : '0' + minutes}:${seconds >= 10 ? seconds : '0' + seconds
-      }`;
+    return `${minutes >= 10 ? minutes : '0' + minutes}:${
+      seconds >= 10 ? seconds : '0' + seconds
+    }`;
   };
 
   const onSlideProgressBar = (time: any) => {
@@ -59,16 +61,16 @@ export default ({
   const handleShowEpisodes = () => {
     onToggleEpisodes();
   };
-
+  const thumbImage = require('../../../static/images/white-dot.png');
 
   const position = getMinutesFromSeconds(currentTime);
   const fullDuration = getMinutesFromSeconds(duration);
+
   return (
     <>
-      {!isFullScreen ?
+      {!isFullScreen ? (
         <View style={styles.wrapper}>
-          {
-            videoType === 'vod' &&
+          {videoType === 'vod' && Platform.OS === 'ios' && (
             <Slider
               value={currentTime}
               minimumValue={0}
@@ -80,26 +82,46 @@ export default ({
               minimumTrackTintColor={'#FAC33D'}
               maximumTrackTintColor={'#FFFFFF'}
               thumbTintColor={'#FFFFFF'}
-              style={{ flex: 12, marginTop: 2 }} />
-          }
+              thumbImage={thumbImage}
+              style={{
+                flex: 12,
+                marginTop: 2,
+              }}
+            />
+          )}
+          {videoType === 'vod' && Platform.OS !== 'ios' && (
+            <Slider
+              value={currentTime}
+              minimumValue={0}
+              maximumValue={duration}
+              step={1}
+              onValueChange={onSlideProgressBar}
+              onSlidingStart={onSlideStart}
+              onSlidingComplete={onSlideComplete}
+              minimumTrackTintColor={'#FAC33D'}
+              maximumTrackTintColor={'#FFFFFF'}
+              thumbTintColor={'#FFFFFF'}
+              style={{flex: 12, marginTop: 2}}
+            />
+          )}
           <View>
-            {videoType === 'vod' &&
+            {videoType === 'vod' && (
               <View style={styles.timeWrapper}>
                 <Text style={styles.timeLeft}>{position} / </Text>
                 <Text style={styles.timeRight}>{fullDuration}</Text>
               </View>
-            }
+            )}
           </View>
-          <Pressable onPress={onPressFullScreenBtn} style={{ alignItems: 'flex-end' }}>
+          <Pressable
+            onPress={onPressFullScreenBtn}
+            style={{alignItems: 'flex-end'}}>
             <FullScreen width={30} height={30} />
           </Pressable>
-
         </View>
-        :
+      ) : (
         <View style={styles.landscapeContainer}>
           <View style={styles.wrapper}>
-            {
-              videoType === 'vod' &&
+            {videoType === 'vod' && Platform.OS === 'ios' && (
               <Slider
                 value={currentTime}
                 minimumValue={0}
@@ -111,18 +133,37 @@ export default ({
                 minimumTrackTintColor={'#FAC33D'}
                 maximumTrackTintColor={'#FFFFFF'}
                 thumbTintColor={'#FFFFFF'}
-                style={{ flex: 16, marginTop: 2 }} />
-            }
+                thumbImage={thumbImage}
+                style={{flex: 16, marginTop: 2}}
+              />
+            )}
+            {videoType === 'vod' && Platform.OS !== 'ios' && (
+              <Slider
+                value={currentTime}
+                minimumValue={0}
+                maximumValue={duration}
+                step={1}
+                onValueChange={onSlideProgressBar}
+                onSlidingStart={onSlideStart}
+                onSlidingComplete={onSlideComplete}
+                minimumTrackTintColor={'#FAC33D'}
+                maximumTrackTintColor={'#FFFFFF'}
+                thumbTintColor={'#FFFFFF'}
+                style={{flex: 16, marginTop: 2}}
+              />
+            )}
             <View>
-            {videoType === 'vod' &&
-              <View style={styles.timeWrapperLandscape}>
-                <Text style={styles.timeLeftLandscape}>{position} / </Text>
-                <Text style={styles.timeRightLandscape}>{fullDuration}</Text>
-              </View>
-            }
+              {videoType === 'vod' && (
+                <View style={styles.timeWrapperLandscape}>
+                  <Text style={styles.timeLeftLandscape}>{position} / </Text>
+                  <Text style={styles.timeRightLandscape}>{fullDuration}</Text>
+                </View>
+              )}
             </View>
             <View>
-              <Pressable style={styles.containerItem} onPress={onPressFullScreenBtn}>
+              <Pressable
+                style={styles.containerItem}
+                onPress={onPressFullScreenBtn}>
                 <MinimizeScreen width={30} height={30} />
               </Pressable>
             </View>
@@ -149,7 +190,7 @@ export default ({
                         </View>
                     </View> */}
         </View>
-      }
+      )}
     </>
   );
 };
