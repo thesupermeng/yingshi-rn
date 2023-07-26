@@ -173,7 +173,7 @@ function ShortVideoPlayer({
             paddingBottom: 40,
           }}>
           {vod != undefined && vod.mini_video_original_img_url != null && vod.mini_video_original_img_url != '' &&
-            <View style={{padding: 8, paddingTop: 11, minWidth: windowWidth * 0.30, maxWidth: windowWidth * 0.45, height: 75, flexDirection: 'row', borderRadius: 8, backgroundColor: 'rgba(255, 255, 255, 0.16)'}}>
+            <View style={{padding: 8, width: 170, height: 75, flexDirection: 'row', borderRadius: 8, backgroundColor: 'rgba(255, 255, 255, 0.16)'}}>
               {/* <View style={{ flex: 10, flexDirection: 'column', justifyContent: 'flex-end', marginRight: 35 }}> */}
               <View
                 style={{
@@ -183,7 +183,7 @@ function ShortVideoPlayer({
                 }}>
                 <TouchableOpacity style={{ flex: 1 }} onPress={redirectVod}>
                   <FastImage
-                    style={{ flex: 1, borderRadius: 8 }}
+                    style={{ flex: 1, borderRadius: 6 }}
                     source={{
                         uri: vod.mini_video_original_img_url,
                         priority: FastImage.priority.high,
@@ -200,12 +200,12 @@ function ShortVideoPlayer({
                   // backgroundColor: 'yellow'
                 }}>
                 <TouchableOpacity onPress={redirectVod}>
-                  <View style={{ flexDirection: 'column' }}>
-                    <View style={{ paddingVertical: 2 }}>
+                  <View style={{ flexDirection: 'column', justifyContent: 'space-between', height: '100%', paddingVertical: 3 }}>
+                    <View style={{ }}>
                       <Text numberOfLines={1} ellipsizeMode="tail" style={{ ...textVariants.bodyBold, color: colors.text }}>{vod.mini_video_original_video_name}</Text>
                     </View>
-                    <View style={{ flexDirection: 'row', marginVertical: 5 }}>
-                      <View style={{ flexWrap: 'wrap', marginHorizontal: 4 }}>
+                    <View style={{ flexDirection: 'row' }}>
+                      <View style={{ flexWrap: 'wrap', marginHorizontal: 8 }}>
                         <PlayZhengPianIcon
                           width={20}
                           height={20}
