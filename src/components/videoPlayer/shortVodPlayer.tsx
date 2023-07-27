@@ -217,7 +217,7 @@ function ShortVideoPlayer({
                             height={20}
                           />
                         </View>
-                        <View style={{ paddingLeft: 6 }}>
+                        <View style={{ flex: 1, paddingLeft: 6, justifyContent: 'center' }}>
                           <Text style={{ ...textVariants.subBody, color: colors.text, fontSize: 14 }}>看正片</Text>
                         </View>
                       </View>
