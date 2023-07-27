@@ -320,7 +320,9 @@ export default ({navigation, route}: RootStackScreenProps<'播放'>) => {
                 ?.url
             }
             currentTimeRef={currentTimeRef}
-            initialStartTime={vod.timeWatched}
+            initialStartTime={
+              vod.episodeWatched === currentEpisode ? vod.timeWatched : 0
+            }
             vodTitle={vod.vod_name}
             videoType="vod"
           />
