@@ -1,31 +1,21 @@
-import React, { memo, useCallback, useEffect, useMemo } from 'react';
+import React, { memo, useCallback, useState, useRef } from 'react';
 import { View, Text, Image, ImageBackground, FlatList, Dimensions, StyleSheet } from 'react-native';
-import { Link, useTheme } from '@react-navigation/native';
+import { useTheme } from '@react-navigation/native';
 import styles from './style';
-import { IsSub, Sub, Views, IconViewerGif } from '../../assets';
 import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
-import vars from '../../utility/vars';
-import { HomeIcon, AwayIcon, AnimationLive, VideoLive } from '../../assets';
 import {
-  calculateScore,
   formatMatchDate,
-  getMatchStatus,
-  liveRoomName,
 } from '../../utility/utils';
 import store from '../../../redux/store';
 // import FollowMatchAction from '../../redux/actions/followMatchAction';
-import { useNavigation } from '@react-navigation/native';
 import { MatchDetailsType } from '../../types/matchTypes';
 // import {showToast} from '../../utility/toast';
-import FixedTouchableHighlight from '../fixedTouchableHighlight';
 import { Url } from '../../middleware/url';
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import Api from '../../middleware/api';
 import MatchSchedule from './MatchSchedule';
-import ScreenContainer from '../../../components/container/screenContainer';
 import EmptyList from '../../../components/common/emptyList';
 import FastImage from 'react-native-fast-image';
-import MatchScheduleLive from './MatchScheduleLive';
 
 interface Props {
   matchTypeID: number,
@@ -37,11 +27,26 @@ type FlatListType = {
   index: number
 }
 
-const MatchScheduleList = ({ matchTypeID, status }: Props) => {
+type MatchType = {
+  date: string | undefined,
+  data: MatchDetailsType | undefined
+}
+
+type Matches = {
+  headers: number[],
+  data: MatchType[]
+}
+
+const MatchScheduleList = ({ matchTypeID, status = -1 }: Props) => {
 
   const { colors, textVariants, spacing } = useTheme();
   const width = Dimensions.get('window').width;
   const height = Dimensions.get('window').height;
+  const latestListDate = useRef<Date | undefined>();
+  const [matches, setMatches] = useState<Matches>({
+    headers: [],
+    data: []
+  });
 
   const getUrl = () => {
     let url = '';
@@ -56,37 +61,64 @@ const MatchScheduleList = ({ matchTypeID, status }: Props) => {
     } else {
       url += `&is_live=${true}`;
     }
+    if (latestListDate.current !== undefined) {
+      try {
+        url += `&date=${latestListDate.current.toISOString().split("T")[0]}`
+      } catch (e) {
+        console.log("ERRORRR!!", e)
+      }
+    }
     return Url.matches11 + url;
   }
 
-  const { data: matches, isFetching, refetch, isRefetching } = useQuery({
-    queryKey: ["matches", matchTypeID, `status=${status}`],
-    queryFn: () => Api.call(getUrl(), {}, 'GET').then(res => {
-      const data = res?.data;
-      if (data != undefined) {
-        const dates = Object.keys(res.data);
-        let lst: { date: string | undefined, data: MatchDetailsType | undefined }[] = []
-        let headers = [];
-        let count = 0;
-        for (const date of dates) {
-          lst.push({ date: formatMatchDate(date), data: undefined })
-          headers.push(count);
-          count += 1;
-          data[date].forEach((element: MatchDetailsType) => {
-            lst.push({ date: undefined, data: element });
+  const {
+    isSuccess,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
+    isRefetching,
+    refetch,
+    isFetching, } =
+    useInfiniteQuery(['matches', matchTypeID, `status=${status}`], () =>
+      Api.call(getUrl(), {}, 'GET'), {
+      getNextPageParam: (lastPage, allPages) => {
+        // return undefined
+        if (lastPage === null || status < 2) {
+          return undefined;
+        }
+        const nextPage =
+          Object.keys(lastPage.data).length > 0 ? allPages.length + 1 : undefined;
+        return nextPage;
+      },
+      onSuccess: (res) => {
+        const data = res.pages[res.pages.length - 1].data;
+        if (data != undefined) {
+          const dates = Object.keys(data);
+          let lst: MatchType[] = matches.data;
+          let headers = matches.headers;
+          let count = matches.data.length;
+          if (latestListDate.current === undefined) {
+            latestListDate.current = new Date(dates[dates.length - 1]);
+          }
+          latestListDate.current = new Date(latestListDate.current.getTime() + 86400000);
+          for (const date of dates) {
+            lst.push({ date: formatMatchDate(date), data: undefined })
+            headers.push(count);
             count += 1;
+            data[date].forEach((element: MatchDetailsType) => {
+              lst.push({ date: undefined, data: element });
+              count += 1;
+            });
+          }
+          setMatches({
+            headers: headers,
+            data: lst
           });
         }
-        return {
-          headers: headers,
-          data: lst
-        };
-      }
-    }),
-    cacheTime: 60,
-    staleTime: 60
-  }
-  );
+      },
+      cacheTime: 60,
+      staleTime: 60
+    });
 
   const Content = ({ item, index }: { item: { date: string | undefined, data: MatchDetailsType | undefined }; index: number }) => {
     return <View style={{ width: width }}>
@@ -103,19 +135,34 @@ const MatchScheduleList = ({ matchTypeID, status }: Props) => {
   return (
     <View style={{ flex: 1 }}>
       {
-        matches && matches.data.length > 0 && !isFetching && !isRefetching
+        matches && matches.data.length > 0 && !isRefetching
           ? <FlatList
             data={matches.data}
             windowSize={3}
-            maxToRenderPerBatch={3}
-            initialNumToRender={2}
+            maxToRenderPerBatch={10}
+            initialNumToRender={10}
             renderItem={Content}
+            onEndReached={() => {
+              if (hasNextPage) {
+                fetchNextPage();
+              }
+            }}
+            onEndReachedThreshold={0.9}
             stickyHeaderIndices={matches.headers}
             ListFooterComponent={
-              <View style={{ ...styles.loading, marginVertical: spacing.xl }}>
-                <Text style={{ ...textVariants.body, color: colors.muted }}>
-                  没有更多了
-                </Text>
+              <View style={{ ...styles.loading, marginBottom: spacing.xl }}>
+                {hasNextPage && (
+                  <FastImage
+                    source={require('../../../../static/images/loading-spinner.gif')}
+                    style={{ width: 80, height: 80 }}
+                    resizeMode="contain"
+                  />
+                )}
+                {!(isFetchingNextPage || isFetching) && !hasNextPage && (
+                  <Text style={{ ...textVariants.body, color: colors.muted, marginVertical: spacing.m }}>
+                    没有更多了
+                  </Text>
+                )}
               </View>
             }
           />

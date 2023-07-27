@@ -159,19 +159,22 @@ const MatchSchedule = ({ matchSche, onPress, followMatchIds = [], isMatchPage = 
           <View style={styles.matchStatus}>
             {matchSche?.streams != undefined &&
               matchSche?.streams?.length > 0 &&
-              matchSche?.streams?.some(streamer => streamer.status == 3) && (
+              matchSche?.streams?.some(streamer => streamer.status == 3)
+              ? (
                 <View style={{ flexDirection: 'row' }}>
                   <View style={styles.liveIcon}></View>
                   <Text style={{ ...styles.liveStatus }}>直播中</Text>
                 </View>
-              )}
-            <Text style={textVariants.small}>
-              {getMatchStatus(
-                matchSche?.state,
-                matchSche?.status,
-                matchSche?.sports_type,
-              )}
-            </Text>
+              )
+              : <Text style={textVariants.small}>
+                {getMatchStatus(
+                  matchSche?.state,
+                  matchSche?.status,
+                  matchSche?.sports_type,
+                )}
+              </Text>
+            }
+
           </View>
           <View style={styles.liveType}>
             {isMatchPage === true &&
@@ -194,7 +197,7 @@ const MatchSchedule = ({ matchSche, onPress, followMatchIds = [], isMatchPage = 
         <View style={styles.matchScheduleContent}>
           <View style={styles.teamContentA}>
             <Text
-              style={{...textVariants.small, flexShrink: 1}}
+              style={{ ...textVariants.small, flexShrink: 1 }}
               numberOfLines={1}
               ellipsizeMode={'tail'}>
               {matchSche.home?.name}
@@ -291,7 +294,7 @@ const MatchSchedule = ({ matchSche, onPress, followMatchIds = [], isMatchPage = 
             </View>
           ) : (
             <View style={styles.subscribeBtn}>
-              <Text style={{...textVariants.header, color: colors.primary}}>VS</Text>
+              <Text style={{ ...textVariants.header, color: colors.primary }}>VS</Text>
             </View>
           )}
           <View style={styles.teamContentB}>

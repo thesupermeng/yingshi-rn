@@ -45,13 +45,11 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
         if (lastPage === null) {
           return undefined;
         }
-
         const nextPage = allPages.length + 1;
         //if reach end
         if (nextPage > totalPage && totalPage != 0) {
           return undefined;
         }
-
         return nextPage;
       },
       // onSuccess: (data) => {
