@@ -66,7 +66,6 @@ const LiveVideo = ({ matchID, liveDataState, onLiveEnd, onLoad, streamID, videoS
     }, [isFullScreen]);
 
     useEffect(() => {
-        console.log(':streamsData', streamsData);
         if (streamsData) {
             const streamsDataArrayData = streamsData?.map(index => {
                 // console.log('INDEX', index?.streamer_id);

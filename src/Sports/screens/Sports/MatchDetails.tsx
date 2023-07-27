@@ -23,8 +23,6 @@ import { parseVideoURL } from '../../utility/urlEncryp';
 import Video from 'react-native-video';
 import LiveVideo from '../../components/liveVideo/liveVideoPlayer';
 import { VideoLiveType } from '../../global/const';
-import LiveThumbnail from '../../components/liveThumbnail';
-import LiveStream from '../../components/liveStream';
 import { MatchDetailWithRankingData, MatchDetailsResponseType } from '../../types/liveMatchTypes';
 import { MatchUpdatesType } from '../../types/matchUpdatesType';
 import BeforeLive from '../../components/beforeLive';
@@ -50,11 +48,6 @@ type VideoSource = {
 
 export default ({ navigation, route }: BottomTabScreenProps<any>) => {
     const { textVariants, colors, spacing } = useTheme();
-    const LIMIT_PER_PAGE = 10;
-    const BTN_COLORS = ['#30AA55', '#7E9CEE', '#F1377A', '#FFCC12', '#ED7445'];
-    const width = Dimensions.get('window').width;
-    const navRef = useRef<any>();
-    const contentRef = useRef<any>();
     const [isLiveVideoEnd, setIsLiveVideoEnd] = useState(false);
     const matchID: number = route?.params?.matchId;
     const [streamID, setStreamID] = useState<number>(route?.params?.streamId)
@@ -68,24 +61,24 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
         staleTime: 1000
     });
 
-    const { data: matchDetails } = useQuery({
-        queryKey: ["matchDetails", matchID],
+    const { data: matchDetails, isFetching: f1 } = useQuery({
+        queryKey: ["matchDetails", matchID, streamID],
         queryFn: () => Api.call(`${Url.matchDetails}?id=${matchID}`, {}, 'GET').then((res): MatchDetailWithRankingData => {
             return res?.data;
         }),
         staleTime: 1000
     });
 
-    const { data: liveRoomUpdate } = useQuery({
-        queryKey: ["liveRoomUpdate", matchID],
+    const { data: liveRoomUpdate, isFetching: f2 } = useQuery({
+        queryKey: ["liveRoomUpdate", matchID, streamID],
         queryFn: () => Api.call(`${Url.matchUpdate}?device_type=3&id=${matchID}`, {}, 'GET').then((res): MatchUpdatesType => {
             return res?.data;
         }),
         staleTime: 1000
     });
 
-    const { data: matchLineUp } = useQuery({
-        queryKey: ["matchLineUp", matchID],
+    const { data: matchLineUp, isFetching: f3 } = useQuery({
+        queryKey: ["matchLineUp", matchID, streamID],
         queryFn: () => Api.call(`${Url.matchLineup}?device_type=3&id=${matchID}`, {}, 'GET').then((res): LineUpType => {
             return res?.data;
         }),
@@ -139,6 +132,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
         }
     }, [match])
 
+    const isFullyLoaded = !f1 && !f2 && !f3;
     return (
         <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
             <View style={{ flex: 1 }}>
@@ -155,11 +149,9 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
                                     onLiveEnd={onLiveEnd}
                                     onLoad={onLiveLoad}
                                     videoSource={videoSource}
-                                // changeFullscreen={changeFullscreen}
                                 />
                                 :
                                 <BeforeLive
-                                    // setAnimaionStreammSource={props?.setAnimaionStreammSource}
                                     dataLive={match?.streams}
                                     onOpenLive={() => {
                                         if (match?.streams && match?.streams?.length > 0) {
@@ -169,13 +161,6 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
                                             setIsLiveVideoEnd(false);
                                             setVideoSource({ type: VideoLiveType.LIVE, url: parseVideoURL(src) })
                                         }
-                                        //  else if (match?.streams.length === 1) {
-                                        //     const { streamer_id, src } = match?.streams[0];
-                                        //     setStreamID(streamer_id);
-                                        //     setIsLiveVideoEnd(false);
-                                        //     setVideoSource(videoSource);
-                                        // }
-
                                     }}
                                     onOpenAnimation={(url: string) => {
                                         // onOpen('animation');
@@ -189,34 +174,22 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
                                     listLiveMatchDetailsUpdates={liveRoomUpdate}
                                 />
                         }
-                        {/* <TouchableOpacity
-                                        style={styles.backButtonTouch}
-                                        onPress={() => onHandleBack()}>
-                                        <Image
-                                            resizeMode="contain"
-                                            style={styles.backButtonIcon}
-                                            source={BackWhite}></Image>
-                                    </TouchableOpacity> */}
-                        {/* <View style={styles.alignCenterTopBannerContainer}>
-                            <Text style={styles.middleTitleName}>{competitionNameShort}</Text>
-                            <Text style={styles.middleTitleName}>{` |  `}</Text>
-                            <Text style={styles.middleTitleName}>{tempDateTime}</Text>
-                        </View> */}
                     </View>
                 </View>
-                {tabList.length > 0 && (
+                {isFullyLoaded && tabList.length > 0
+                    ?
                     <MatchDetailsNav
                         streamId={10001}
                         tabList={tabList}
-                    // initialTab={
-                    //     {
-                    //     0: tabList[tabList.length - 1].name,
-                    //     1: tabList[0].name,
-                    //     '-2': tabList[tabList.length - 1].name,
-                    //     }tabList[1].name
-                    // }
                     />
-                )}
+                    : <View style={styles.fetching}>
+                        <FastImage
+                            source={require('../../../../static/images/loading-spinner.gif')}
+                            style={{ width: 100, height: 100 }}
+                            resizeMode="contain"
+                        />
+                    </View>
+                }
             </View>
         </ScreenContainer>
     )
@@ -258,5 +231,13 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         // paddingHorizontal: 15,
+    },
+    fetching: {
+        paddingHorizontal: 5,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '100%',
+        paddingBottom: '30%'
     },
 });

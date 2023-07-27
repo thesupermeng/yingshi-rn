@@ -22,40 +22,76 @@ interface Props {
 }
 
 export default function MatchScheduleNav({ tabList, streamId }: Props) {
-    const { colors } = useTheme();
+    const { colors, textVariants, spacing } = useTheme();
     const width = Dimensions.get('window').width;
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <Tab.Navigator
                 keyboardDismissMode="none"
-                screenOptions={{
+                screenOptions={({ route }) => ({
                     tabBarScrollEnabled: true,
                     tabBarIndicatorStyle: {
-                        height: 4,
+                        // height: 4,
                         opacity: 0
                     },
                     tabBarItemStyle: {
                         alignItems: 'center',
                         display: 'flex',
                         flexDirection: 'row-reverse',
-                        width: 'auto'
+                        width: 50,
+                        paddingTop: 0,
+                        paddingBottom: 0
                     },
                     tabBarLabelStyle: {
-                        fontFamily: 'PingFang SC',
-                        fontWeight: '500',
-                        fontSize: 15,
-                        lineHeight: 21,
-                        marginHorizontal: -3,
+                        fontFamily: textVariants.unselected.fontFamily,
+                        fontWeight: textVariants.unselected.fontWeight,
+                        // lineHeight: 22,
+                        // height: 30,
                     },
-                    tabBarStyle: {},
-                    tabBarActiveTintColor: colors.primary,
-                    tabBarInactiveTintColor: colors.text,
-                    tabBarIconStyle: { position: 'absolute', top: -22, right: -20 },
-                }}
+                    tabBarStyle: {
+                        padding: 0,
+                        marginTop: -8,
+                        marginBottom: -12,
+                        paddingLeft: 12
+                    },
+                    // // tabBarActiveTintColor: colors.primary,
+                    // // tabBarInactiveTintColor: colors.muted,
+                    // // tabBarIconStyle: { position: 'absolute', top: -22, right: -20 },
+                    // tabBarLabel: ({ focused, color }) => (
+                    //     focused
+                    //     ? <Text>{}</Text>
+                    //     : <Text>sax</Text>
+                    // )
+                })}
             >
                 <Tab.Screen
                     key={-1}
                     name={'直播'}
+                    options={({ route }) => ({
+                        tabBarLabel: ({ focused, color }) => (
+                            focused
+                                ? <Text style={{
+                                    fontSize: textVariants.selected.fontSize,
+                                    color: colors.primary,
+                                    height: 30,
+                                    width: 40,
+                                    textAlignVertical: 'bottom',
+                                    fontWeight: textVariants.selected.fontWeight
+                                }}>
+                                    直播
+                                </Text>
+                                : <Text style={{
+                                    fontSize: textVariants.unselected.fontSize,
+                                    color: colors.muted,
+                                    height: 30,
+                                    width: 40,
+                                    textAlignVertical: 'bottom',
+                                    fontWeight: textVariants.unselected.fontWeight
+                                }}>
+                                    直播
+                                </Text>
+                        )
+                    })}
                     children={() => (
                         <MatchScheduleList matchTypeID={-1} status={-1} />
                     )}
@@ -65,6 +101,31 @@ export default function MatchScheduleNav({ tabList, streamId }: Props) {
                         <Tab.Screen
                             key={index}
                             name={tab.name}
+                            options={({ route }) => ({
+                                tabBarLabel: ({ focused, color }) => (
+                                    focused
+                                        ? <Text style={{
+                                            fontSize: textVariants.selected.fontSize,
+                                            color: colors.primary,
+                                            height: 30,
+                                            width: 40,
+                                            textAlignVertical: 'bottom',
+                                            fontWeight: textVariants.selected.fontWeight
+                                        }}>
+                                            {tab.name}
+                                        </Text>
+                                        : <Text style={{
+                                            fontSize: textVariants.unselected.fontSize,
+                                            color: colors.muted,
+                                            height: 30,
+                                            width: 40,
+                                            textAlignVertical: 'bottom',
+                                            fontWeight: textVariants.unselected.fontWeight
+                                        }}>
+                                            {tab.name}
+                                        </Text>
+                                )
+                            })}
                             children={() => (
                                 <Tab.Navigator
                                     screenOptions={{
@@ -72,7 +133,7 @@ export default function MatchScheduleNav({ tabList, streamId }: Props) {
                                         tabBarIndicatorStyle: {
                                             height: 4,
                                             width: 4,
-                                            left: (width / 6 - 4) / 2,
+                                            left: (width / 6 + 12) / 2,
                                             backgroundColor: colors.primary,
                                             borderRadius: 10,
                                             bottom: 5
@@ -82,13 +143,15 @@ export default function MatchScheduleNav({ tabList, streamId }: Props) {
                                             padding: 0
                                         },
                                         tabBarActiveTintColor: colors.primary,
-                                        tabBarInactiveTintColor: colors.text,
+                                        tabBarInactiveTintColor: colors.muted,
                                         tabBarLabelStyle: {
-                                            fontFamily: 'PingFang SC',
-                                            fontWeight: '500',
-                                            fontSize: 15,
+                                            fontFamily: textVariants.unselected.fontFamily,
+                                            fontWeight: textVariants.unselected.fontWeight,
+                                            fontSize: textVariants.unselected.fontSize,
                                         },
-                                        tabBarStyle: {},
+                                        tabBarStyle: {
+                                            paddingLeft: 8
+                                        },
                                     }}
                                 >
                                     <Tab.Screen

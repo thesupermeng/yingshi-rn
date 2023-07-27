@@ -124,7 +124,7 @@ const MatchScheduleList = ({ matchTypeID, status = -1 }: Props) => {
     return <View style={{ width: width }}>
       {
         item?.date !== undefined
-          ? <View style={{ backgroundColor: colors.card2, padding: spacing.xs }}>
+          ? <View style={{ backgroundColor: colors.card2, padding: spacing.xs, paddingLeft: spacing.sideOffset }}>
             <Text style={textVariants.header}>{item?.date}</Text>
           </View>
           : item?.data !== undefined && <MatchSchedule key={index} matchSche={item?.data} />

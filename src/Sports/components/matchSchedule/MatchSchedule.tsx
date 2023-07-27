@@ -150,10 +150,11 @@ const MatchSchedule = ({ matchSche, onPress, followMatchIds = [], isMatchPage = 
             <Text style={{ ...styles.spaceBetween, color: colors.muted }}>
               {matchSche?.competition?.name_short}
             </Text>
-            <Text style={{ ...textVariants.small, color: colors.muted }}>
-              {('0' + new Date(matchSche?.match_time).getHours()).slice(-2) +
+            <Text style={{ ...textVariants.small, color: colors.muted, paddingTop: 2 }}>
+              {/* {('0' + new Date(matchSche?.match_time).getHours()).slice(-2) +
                 ':' +
-                ('0' + new Date(matchSche?.match_time).getMinutes()).slice(-2)}
+                ('0' + new Date(matchSche?.match_time).getMinutes()).slice(-2)} */}
+                {new Date(matchSche?.match_time).toLocaleTimeString('en-GB', {hour: '2-digit', minute: '2-digit'})}
             </Text>
           </View>
           <View style={styles.matchStatus}>

@@ -15,7 +15,7 @@ import iconArrowRight from './images/iconArrowRight.png';
 import iconArrowLeft from './images/iconArrowLeft.png';
 import iconLogout from './images/iconLogout.png';
 import IconViewer from './images/iconViewer.png';
-import IconViewerGif from './images/iconViewerGif.gif';
+import IconViewerGif from './images/iconViewerGif1.gif';
 import IconBell from './images/iconBell.png';
 import IconBellActive from './images/iconBellActive.png';
 import Sub from './images/sub.png';

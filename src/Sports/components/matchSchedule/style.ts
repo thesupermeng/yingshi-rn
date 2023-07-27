@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     fontFamily: 'PingFang SC',
   },
   liveStatus: {
-    color: 'red',
+    color: '#F6423A',
     marginRight: 5,
     fontStyle: 'normal',
     fontSize: 12,
@@ -217,7 +217,7 @@ const styles = StyleSheet.create({
     fontSize: 9,
     fontWeight: '600',
     fontFamily: 'PingFang SC',
-    color: '#FFFFFF',
+    color: 'black',
   },
   penaltyScore: {
     color: '#808080',

@@ -11,7 +11,7 @@ interface Props {
   params?: any[];
   btnStyle?: typeof StyleSheet;
   hideFavoriteButton?: boolean;
-  initialFavoriteState: boolean;
+  initialFavoriteState?: boolean;
 }
 export default function FavoriteVodCard({
   vod,
