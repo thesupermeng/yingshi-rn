@@ -37,7 +37,9 @@ import EmptyList from '../../components/common/emptyList';
 import appsFlyer from 'react-native-appsflyer';
 
 export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
-  const [search, setSearch] = useState(route.params.initial);
+  const [search, setSearch] = useState('');
+  const [placeholderSearch, setPlaceHolderSearch] = useState(route.params.initial);
+
   const [searchTimer, setSearchTimer] = useState<ReturnType<
     typeof setTimeout
   > | null>(null);
@@ -104,9 +106,16 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
   };
 
   const onSubmit = () => {
+
+    let searchKeyword = placeholderSearch;
+
+    if(search != ''){
+      searchKeyword = search;
+    }
+
     const eventName = 'search_keyword';
     const eventValues = {
-      keyword: search,
+      keyword: searchKeyword,
     };
 
     appsFlyer.logEvent(
@@ -119,8 +128,9 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
         console.error(err);
       },
     );
-
-    dispatch(addSearchHistory(search));
+    
+    fetchData(searchKeyword);
+    dispatch(addSearchHistory(searchKeyword));
     setShowResults(!showResults);
   };
 
@@ -147,7 +157,8 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
             setShowResults(false);
             updateSearch(newVal);
           }}
-          placeholder="输入搜索关键词"
+          // placeholder="输入搜索关键词"
+          placeholder={placeholderSearch}
           placeholderTextColor={colors.muted}
           round
           onSubmitEditing={onSubmit}

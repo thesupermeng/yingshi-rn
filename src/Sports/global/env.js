@@ -32,7 +32,8 @@ const appType = 1002;
 var channelId = null;
 switch (appType) {
   case 1002:
-    channelId = 501001;
+    // channelId = 501001;
+    channelId = 520001;
     break;
   default:
     break;
