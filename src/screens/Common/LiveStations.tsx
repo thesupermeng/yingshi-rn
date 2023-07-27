@@ -45,21 +45,23 @@ export default ({ navigation, route }: RootStackScreenProps<'电视台列表'>) 
         }
     }
     return (
-        <ScrollView>
+        <ScreenContainer>
             <TitleWithBackButtonHeader title='电视台'
                 headerStyle={{ marginBottom: spacing.m }}
             />
-            {
-                liveStationItemList != undefined && liveStationItemList.length > 0 && 
-                <View style={{ ...styles.descriptionContainer, gap: spacing.m, alignItems: 'center' }}>
-                    <VodLiveStationListVertical itemList={liveStationItemList} itemsPerRow={2} numOfRows={100}/>
-                </View>
-            }
-            {
-                history && history.length === 0 && 
-                <EmptyList description='暂无播放历史' />
-            }
-        </ScrollView>
+            <ScrollView>
+                {
+                    liveStationItemList != undefined && liveStationItemList.length > 0 && 
+                    <View style={{ ...styles.descriptionContainer, gap: spacing.m, alignItems: 'center' }}>
+                        <VodLiveStationListVertical itemList={liveStationItemList} itemsPerRow={2} numOfRows={100}/>
+                    </View>
+                }
+                {/* {
+                    history && history.length === 0 && 
+                    <EmptyList description='暂无播放历史' />
+                } */}
+            </ScrollView>
+        </ScreenContainer>
     )
 }
 
