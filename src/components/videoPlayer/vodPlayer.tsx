@@ -6,6 +6,7 @@ import {
   StatusBar,
   AppState,
 } from 'react-native';
+
 import Video from 'react-native-video';
 import {useTheme, useNavigation} from '@react-navigation/native';
 import {useOrientation} from '../../hooks/useOrientation';
@@ -71,7 +72,7 @@ export default ({
     if (isShowControls) {
       intervalId = setInterval(() => {
         setCurrentTime(currentTimeRef.current);
-      }, 500);
+      }, 200);
     }
     return () => {
       clearInterval(intervalId);
@@ -95,9 +96,14 @@ export default ({
   }, []);
 
   useEffect(() => {
-    AppState.addEventListener('change', handleAppStateChange);
+    // ... (rest of the useEffect hook remains unchanged)
+    const subscription = AppState.addEventListener(
+      'change',
+      handleAppStateChange,
+    );
     return () => {
-      AppState.removeEventListener('change', handleAppStateChange);
+      subscription.remove();
+      // AppState.removeEventListener('change', handleAppStateChange);
     };
   }, []);
 
