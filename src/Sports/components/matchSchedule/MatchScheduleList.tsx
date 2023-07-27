@@ -183,6 +183,7 @@ const MatchScheduleList = ({ matchTypeID, status = -1 }: Props) => {
       {
         !isFetching && !isRefetching &&
         <TouchableOpacity style={styles.refresh} onPress={() => {
+          latestListDate.current = undefined;
           setMatches({
             headers: [],
             data: []
