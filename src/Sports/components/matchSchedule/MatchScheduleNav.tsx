@@ -51,7 +51,6 @@ export default function MatchScheduleNav({ tabList, streamId }: Props) {
                     tabBarStyle: {
                         padding: 0,
                         marginTop: -8,
-                        marginBottom: -12,
                         paddingLeft: 12
                     },
                     // // tabBarActiveTintColor: colors.primary,
@@ -150,7 +149,8 @@ export default function MatchScheduleNav({ tabList, streamId }: Props) {
                                             fontSize: textVariants.unselected.fontSize,
                                         },
                                         tabBarStyle: {
-                                            paddingLeft: 8
+                                            paddingLeft: 8,
+                                            marginTop: -8,
                                         },
                                     }}
                                 >

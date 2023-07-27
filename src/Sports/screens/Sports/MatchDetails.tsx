@@ -185,9 +185,10 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
                     : <View style={styles.fetching}>
                         <FastImage
                             source={require('../../../../static/images/loading-spinner.gif')}
-                            style={{ width: 100, height: 100 }}
+                            style={{ width: 100, height: 80, marginBottom: -20 }}
                             resizeMode="contain"
                         />
+                        <Text style={{...textVariants.body, color: colors.muted, textAlign: 'center'}}>加载中。。。</Text>
                     </View>
                 }
             </View>
@@ -233,8 +234,6 @@ const styles = StyleSheet.create({
         // paddingHorizontal: 15,
     },
     fetching: {
-        paddingHorizontal: 5,
-        flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
         height: '100%',
