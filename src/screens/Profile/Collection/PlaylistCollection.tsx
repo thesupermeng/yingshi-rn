@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, TouchableOpacity, Text, StyleSheet, FlatList} from 'react-native';
 import ScreenContainer from '../../../components/container/screenContainer';
-import {useTheme} from '@react-navigation/native';
+import {useNavigation, useTheme} from '@react-navigation/native';
 import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
 import {RootState} from '../../../redux/store';
 
@@ -16,7 +16,8 @@ type FlatListType = {
   item: VodTopicType;
 };
 
-export default ({navigation}: RootStackScreenProps<'播单收藏'>) => {
+export default () => {
+  const navigation = useNavigation();
   const {colors, textVariants, icons, spacing} = useTheme();
   const dispatch = useAppDispatch();
   const vodPlaylistReducer = useAppSelector(
