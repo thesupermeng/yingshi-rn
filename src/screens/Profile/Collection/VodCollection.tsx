@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, FlatList, Text, StyleSheet} from 'react-native';
 import ScreenContainer from '../../../components/container/screenContainer';
-import {useTheme} from '@react-navigation/native';
+import {useNavigation, useTheme} from '@react-navigation/native';
 import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
 import {RootState} from '../../../redux/store';
 
@@ -21,7 +21,8 @@ type FlatListType = {
   item: VodType;
 };
 
-export default ({navigation}: RootStackScreenProps<'视频收藏'>) => {
+export default () => {
+  const navigation = useNavigation();
   const {colors, textVariants, icons} = useTheme();
   const dispatch = useAppDispatch();
   const favs: FavoriteVodReducerState = useAppSelector(
@@ -30,9 +31,9 @@ export default ({navigation}: RootStackScreenProps<'视频收藏'>) => {
   const favorites = favs.favorites;
 
   return (
-    <ScreenContainer>
-      <TitleWithBackButtonHeader title="我的收藏" />
-      <CollectionHeader route="视频收藏" navigator={navigation} />
+    <>
+      {/* <TitleWithBackButtonHeader title="我的收藏" />
+      <CollectionHeader route="视频收藏" navigator={navigation} /> */}
       <View>
         {favorites && favorites.length > 0 && (
           <FlatList
@@ -66,7 +67,7 @@ export default ({navigation}: RootStackScreenProps<'视频收藏'>) => {
       {favorites && favorites.length === 0 && (
         <EmptyList description="暂无视频收藏" />
       )}
-    </ScreenContainer>
+    </>
   );
 };
 

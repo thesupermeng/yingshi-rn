@@ -46,7 +46,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     const [isPaused, setIsPaused] = useState(false);
     const LIMIT = 100;
     const fetchVods = (page: number) => fetch(
-        `${API_DOMAIN_TEST}miniVod/v1/miniVod?page=${page}&limit=${LIMIT}`,
+        `${API_DOMAIN}miniVod/v1/miniVod?page=${page}&limit=${LIMIT}`,
     )
         .then(response => response.json())
         .then((json: MiniVideoResponseType) => {

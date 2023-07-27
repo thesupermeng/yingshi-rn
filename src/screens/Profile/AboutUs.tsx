@@ -47,8 +47,9 @@ export default ({navigation}: RootStackScreenProps<'关于我们'>) => {
           onConfirm={toggleOverlay}
           isVisible={isDialogOpen}
           title="版权声明"
-          subtitle1="如果影视TV提供内容侵犯了您的版权，请发送电子邮件说明，影视TV将立即删除内容，保护版权所有者的权益。"
-          subtitle2="联系邮箱: contactus@yingshi.tv"
+          subtitle1="如果影视TV提供内容侵犯了您的版权, 请发送电子邮件说明, 影视TV将立即删除内容, 保护版权所有者的权益。"
+          subtitle2="联系邮箱:"
+          subtitle3="contactus@yingshi.tv"
         />
         <View>
           {/* <ShowMoreButton text='隐私政策' onPress={() => navigation.navigate('用户协议')} />

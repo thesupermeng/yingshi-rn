@@ -8,11 +8,13 @@ interface Props {
   onPress: any;
   params?: any[];
   activeOpacity?: number;
+  isEditing?: boolean;
 }
 export default function VodHistoryCard({
   vod,
   onPress,
   activeOpacity = 0.2,
+  isEditing = false,
   ...params
 }: Props) {
   const {colors, spacing, textVariants} = useTheme();
@@ -24,10 +26,22 @@ export default function VodHistoryCard({
           vodStyle={styles.image}
           isDisabled={true}
         />
-        <View style={{...styles.description, gap: spacing.xs}}>
+        <View
+          style={{
+            ...styles.description,
+            gap: spacing.xs,
+            width: '100%',
+          }}>
           <Text
             numberOfLines={2}
-            style={{...textVariants.body, ...styles.text}}>
+            style={{
+              ...textVariants.body,
+              ...styles.text,
+              flex: 1,
+              flexWrap: 'wrap',
+              flexShrink: 1,
+              paddingRight: 175,
+            }}>
             {vod.vod_name}
           </Text>
           <Text
