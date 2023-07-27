@@ -112,7 +112,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
                     />,
                 },
         ])
-    }, [liveRoomUpdate])
+    }, [liveRoomUpdate, matchLineUp, matchDetails])
     // console.log(match[0])
     const onHandleBack = () => {
         navigation.navigate('体育');
@@ -164,7 +164,6 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
                                     }}
                                     onOpenAnimation={(url: string) => {
                                         // onOpen('animation');
-                                        console.log(url)
                                         setIsLiveVideoEnd(false);
                                         setVideoSource({ type: VideoLiveType.ANIMATION, url: url })
                                     }}
