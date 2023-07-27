@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, TextInput} from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
 import {RootStackScreenProps} from '../../types/navigationTypes';
 import {useTheme} from '@react-navigation/native';
 import {RootState} from '../../redux/store';
-
+// import NetInfo from '@react-native-community/netinfo';
 import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
 import {Button, Dialog} from '@rneui/themed';
 import {TouchableOpacity} from '@gorhom/bottom-sheet';
@@ -13,7 +13,26 @@ import FeedbackSuccessIcon from '../../../static/images/feedback_success.svg';
 export default ({navigation}: RootStackScreenProps<'反馈'>) => {
   const {colors, textVariants, icons} = useTheme();
   const [text, setTextInput] = React.useState('');
+  const [dialogText, setDialogText] = React.useState('反馈提交成功');
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
+  const [isConnected, setIsConnected] = useState<boolean>(true);
+
+  // useEffect(() => {
+  //   const unsubscribe = NetInfo.addEventListener(state => {
+  //     setIsConnected(!!state.isConnected);
+  //   });
+
+  //   return () => unsubscribe();
+  // }, []);
+
+  function sendFeedbackHandler() {
+    if (isConnected) {
+      setDialogText('反馈提交成功');
+    } else {
+      setDialogText('无法检测网络， 请稍后再试');
+    }
+    setIsDialogOpen(true);
+  }
 
   return (
     <ScreenContainer>
@@ -43,7 +62,7 @@ export default ({navigation}: RootStackScreenProps<'反馈'>) => {
       <TouchableOpacity
         onPress={() => {
           setTextInput('');
-          setIsDialogOpen(true);
+          sendFeedbackHandler();
         }}>
         <View
           style={{
@@ -68,8 +87,9 @@ export default ({navigation}: RootStackScreenProps<'反馈'>) => {
         }}
         backdropStyle={{backgroundColor: 'rgba(0, 0, 0, 0.8)'}}
         onBackdropPress={() => setIsDialogOpen(false)}>
-        <FeedbackSuccessIcon />
-        <Text style={textVariants.bigHeader}>反馈提交成功</Text>
+        {isConnected && <FeedbackSuccessIcon />}
+
+        <Text style={textVariants.bigHeader}>{dialogText}</Text>
       </Dialog>
     </ScreenContainer>
   );
