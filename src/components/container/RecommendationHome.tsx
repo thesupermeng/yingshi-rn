@@ -42,13 +42,6 @@ interface Props {
   setScrollEnabled?: any;
 }
 
-const fetchPlaylist = (page: number) =>
-  fetch(`${API_DOMAIN}topic/v1/topic?page=${page}`)
-    .then(response => response.json())
-    .then((json: VodPlaylistResponseType) => {
-      return Object.values(json.data.List);
-    });
-
 const RecommendationHome = ({vodCarouselRes, setScrollEnabled}: Props) => {
   const {colors, textVariants, spacing} = useTheme();
   const vodReducer: VodReducerState = useAppSelector(
@@ -58,7 +51,17 @@ const RecommendationHome = ({vodCarouselRes, setScrollEnabled}: Props) => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const data = vodCarouselRes.data;
+  const [totalPage, setTotalPage] = useState(0);
   const [results, setResults] = useState<Array<VodTopicType>>([]);
+
+  const fetchPlaylist = (page: number) =>
+    fetch(`${API_DOMAIN}topic/v1/topic?page=${page}`)
+      .then(response => response.json())
+      .then((json: VodPlaylistResponseType) => {
+        console.log('page ' + page);
+        setTotalPage(Number(json.data.TotalPageCount));
+        return Object.values(json.data.List);
+      });
   const {
     data: playlists,
     isSuccess,
@@ -74,8 +77,13 @@ const RecommendationHome = ({vodCarouselRes, setScrollEnabled}: Props) => {
         if (lastPage === null) {
           return undefined;
         }
-        const nextPage =
-          lastPage.length === 10 ? allPages.length + 1 : undefined;
+
+        const nextPage = allPages.length + 1;
+        //if reach end
+        if (nextPage > totalPage && totalPage != 0) {
+          return undefined;
+        }
+
         return nextPage;
       },
       onSuccess: data => {
@@ -205,9 +213,7 @@ const RecommendationHome = ({vodCarouselRes, setScrollEnabled}: Props) => {
                       });
                     }}
                   />
-                )
-                :
-                (
+                ) : (
                   <View style={styles.banner}>
                     <Text style={textVariants.header}>电视台直播</Text>
                   </View>
@@ -220,12 +226,8 @@ const RecommendationHome = ({vodCarouselRes, setScrollEnabled}: Props) => {
                     liveStationList={liveStations.slice(0, 10)}
                   />
                 </View>
-
-              )
-              :
-              (
-                <View style={{paddingLeft: spacing.sideOffset, height: 134}}>
-                </View>
+              ) : (
+                <View style={{paddingLeft: spacing.sideOffset, height: 134}} />
               )}
             </View>
             {data?.yunying && data.yunying.length > 0 && (
@@ -414,5 +416,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 4,
     marginBottom: 5,
-  }
+  },
 });
