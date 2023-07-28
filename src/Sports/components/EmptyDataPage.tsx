@@ -1,20 +1,23 @@
 import React from 'react';
-import { View, Image, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ViewStyle } from 'react-native';
+import FastImage from 'react-native-fast-image';
+import EmptyList from '../../components/common/emptyList';
 
 interface Props {
-
+    containerStyle?: ViewStyle
 }
 
-export default function EmptyDataPage({ }: Props) {
+export default function EmptyDataPage({containerStyle }: Props) {
     return (
-        <View style={styles.mainContainer}>
-            {/* <Image
-            resizeMode="contain"
-            style={styles.mainImage}
-            source={TempNoData}></Image> */}
-            <Text style={styles.title}>暂无数据</Text>
-            {/* </View> */}
-        </View>
+        // <View style={{...styles.mainContainer, ...containerStyle}}>
+        //     <FastImage
+        //     resizeMode="contain"
+        //     style={styles.mainImage}
+        //     source={} />
+        //     <Text style={styles.title}>暂无数据</Text>
+        //     {/* </View> */}
+        // </View>
+        <EmptyList description='暂无数据' style={{paddingBottom: 0, paddingTop: 50}}/>
     );
 };
 

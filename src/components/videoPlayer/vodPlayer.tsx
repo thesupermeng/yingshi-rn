@@ -286,7 +286,7 @@ export default ({
               />
             )}
           {isBuffering && (
-            <View style={styles.buffering}>
+            <View style={{...styles.buffering, left: isFullScreen ? (width / 2) - 50 : (height / 2) - 50 }}>
               <FastImage
                 source={require('../../../static/images/videoBufferLoading.gif')}
                 style={{ width: 100, height: 100 }}
@@ -335,7 +335,6 @@ const styles = StyleSheet.create({
     color: 'yellow',
     position: 'absolute',
     top: '30%',
-    left: '36%',
     zIndex: 100,
   },
 });

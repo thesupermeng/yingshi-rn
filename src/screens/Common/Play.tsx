@@ -212,6 +212,7 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
       return 0
     }
     let offset = 0;
+    console.log(showEpisodeRangeStart, id)
     for (const item of vod?.vod_play_list?.urls.slice(showEpisodeRangeStart, id)) {
       let size = 20;
       const name = item.name;
@@ -226,6 +227,13 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
     // console.log(offset)
     return offset;
   }
+
+  useEffect(() => {
+    episodeRef?.current?.scrollToOffset({
+      offset: getOffSet(currentEpisode),
+      animated: true,
+    });
+  }, [currentEpisode, episodeRef])
   // useEffect(() => {
   //     const backAction = () => {
   //         setDismountPlayer(false);
@@ -384,6 +392,7 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
               </View>
               <FlatList
                 horizontal={true}
+                showsHorizontalScrollIndicator={false}
                 initialNumToRender={10}
                 onScrollToIndexFailed={() => { }}
                 ref={episodeRef}
@@ -445,13 +454,8 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
         episodes={vod?.vod_play_list}
         sheetRef={sheetRef}
         onCancel={() => sheetRef.current?.close()}
-        onConfirm={(id: number) => {
-          setCurrentEpisode(id);
-          episodeRef?.current?.scrollToOffset({
-            offset: getOffSet(id),
-            animated: true,
-          });
-        }}
+        onConfirm={(id: number) => {setCurrentEpisode(id)}}
+        rangeSize={EPISODE_RANGE_SIZE}
       />
     </ScreenContainer>
   );

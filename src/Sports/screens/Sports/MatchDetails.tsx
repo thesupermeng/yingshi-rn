@@ -139,7 +139,11 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
                 <View>
                     <View style={styles.topBannerCotainer}>
                         {
-                            videoSource.url && match?.streams?.some(streamer => streamer.status == 3)
+                            videoSource.url &&
+                                (
+                                    videoSource.type === VideoLiveType.LIVE && match?.streams?.some(streamer => streamer.status == 3)
+                                    || videoSource.type === VideoLiveType.ANIMATION
+                                )
                                 ? <LiveVideo
                                     liveDataState={match}
                                     // fullScreen={tempFullscreen}
@@ -187,7 +191,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
                             style={{ width: 100, height: 80, marginBottom: -20 }}
                             resizeMode="contain"
                         />
-                        <Text style={{...textVariants.body, color: colors.muted, textAlign: 'center'}}>加载中。。。</Text>
+                        <Text style={{ ...textVariants.body, color: colors.muted, textAlign: 'center' }}>加载中。。。</Text>
                     </View>
                 }
             </View>
