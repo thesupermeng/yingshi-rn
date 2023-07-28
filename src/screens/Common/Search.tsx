@@ -38,7 +38,9 @@ import appsFlyer from 'react-native-appsflyer';
 
 export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
   const [search, setSearch] = useState('');
-  const [placeholderSearch, setPlaceHolderSearch] = useState(route.params.initial);
+  const [placeholderSearch, setPlaceHolderSearch] = useState(
+    route.params.initial,
+  );
 
   const [searchTimer, setSearchTimer] = useState<ReturnType<
     typeof setTimeout
@@ -106,10 +108,9 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
   };
 
   const onSubmit = () => {
-
     let searchKeyword = placeholderSearch;
 
-    if(search != ''){
+    if (search != '') {
       searchKeyword = search;
     }
 
@@ -128,7 +129,7 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
         console.error(err);
       },
     );
-    
+
     fetchData(searchKeyword);
     dispatch(addSearchHistory(searchKeyword));
     setShowResults(!showResults);
@@ -230,7 +231,9 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
                               ...styles.hst,
                             }}
                             onPress={() => {
+                              console.log('111111');
                               updateSearch(hst);
+                              onSubmit();
                             }}>
                             <Text
                               style={{
