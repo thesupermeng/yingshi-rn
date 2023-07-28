@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useCallback} from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import {
   View,
   TouchableWithoutFeedback,
@@ -8,15 +8,16 @@ import {
 } from 'react-native';
 
 import Video from 'react-native-video';
-import {useTheme, useNavigation} from '@react-navigation/native';
-import {useOrientation} from '../../hooks/useOrientation';
+import { useTheme, useNavigation } from '@react-navigation/native';
+import { useOrientation } from '../../hooks/useOrientation';
 import PlayFullScreenGesture from '../gestures/vod/PlayFullScreenGesture';
-import {debounce} from 'lodash';
+import { debounce } from 'lodash';
 
-import {Dimensions} from 'react-native';
+import { Dimensions } from 'react-native';
 import VideoControlsOverlay from './VideoControlsOverlay';
 import Orientation from 'react-native-orientation-locker';
 import WebView from 'react-native-webview';
+import FastImage from 'react-native-fast-image';
 
 interface Props {
   vod_url?: string;
@@ -43,7 +44,7 @@ export default ({
   useWebview = false,
 }: Props) => {
   const videoPlayerRef = React.useRef<Video | null>();
-  const {colors, spacing, textVariants, icons} = useTheme();
+  const { colors, spacing, textVariants, icons } = useTheme();
   const isPotrait = useOrientation();
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
@@ -52,8 +53,13 @@ export default ({
     useState(false);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(initialStartTime);
+  const [isBuffering, setIsBuffering] = useState(false);
 
   const navigation = useNavigation();
+
+  const onBuffer = (bufferObj: any) => {
+    setIsBuffering(bufferObj.isBuffering);
+  };
 
   // New state to keep track of app's background/foreground status
   const [isInBackground, setIsInBackground] = useState(false);
@@ -223,7 +229,7 @@ export default ({
             (useWebview ? (
               <WebView
                 resizeMode="contain"
-                source={vod_url === undefined ? vod_source : {uri: vod_url}}
+                source={vod_url === undefined ? vod_source : { uri: vod_url }}
                 style={
                   !isFullScreen ? styles.videoPotrait : styles.videoLandscape
                 }
@@ -236,18 +242,19 @@ export default ({
                 ignoreSilentSwitch="ignore"
                 ref={ref => (videoPlayerRef.current = ref)}
                 fullscreen={isFullScreen}
+                onBuffer={onBuffer}
                 paused={isPaused || isInBackground} // Pause video when app is in the background
                 resizeMode="contain"
                 source={
                   vod_source !== undefined
                     ? vod_source
                     : {
-                        uri: vod_url,
-                        headers: {
-                          origin: 'https://v.kylintv.com',
-                          referer: 'https://v.kylintv.com',
-                        },
-                      }
+                      uri: vod_url,
+                      headers: {
+                        origin: 'https://v.kylintv.com',
+                        referer: 'https://v.kylintv.com',
+                      },
+                    }
                 }
                 onLoad={onVideoLoaded}
                 progressUpdateInterval={1000}
@@ -278,6 +285,15 @@ export default ({
                 videoType={videoType}
               />
             )}
+          {isBuffering && (
+            <View style={styles.buffering}>
+              <FastImage
+                source={require('../../../static/images/videoBufferLoading.gif')}
+                style={{ width: 100, height: 100 }}
+                resizeMode="contain"
+              />
+            </View>
+          )}
         </View>
       </TouchableWithoutFeedback>
     </>
@@ -309,5 +325,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     zIndex: 50,
+  },
+  buffering: {
+    paddingHorizontal: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 3,
+    color: 'yellow',
+    position: 'absolute',
+    top: '40%',
+    left: '36%',
+    zIndex: 100,
   },
 });

@@ -65,7 +65,7 @@ const MatchScheduleList = ({ matchTypeID, status = -1 }: Props) => {
       try {
         url += `&date=${latestListDate.current.toISOString().split("T")[0]}`
       } catch (e) {
-        console.log("ERRORRR!!", e)
+        console.log("ERRORRR!!", e, latestListDate.current.toISOString())
       }
     }
     return Url.matches11 + url;
@@ -92,7 +92,7 @@ const MatchScheduleList = ({ matchTypeID, status = -1 }: Props) => {
       },
       onSuccess: (res) => {
         const data = res.pages[res.pages.length - 1].data;
-        if (data != undefined) {
+        if (data !== undefined) {
           const dates = Object.keys(data);
           let lst: MatchType[] = matches.data;
           let headers = matches.headers;
@@ -116,8 +116,8 @@ const MatchScheduleList = ({ matchTypeID, status = -1 }: Props) => {
           });
         }
       },
-      cacheTime: 60,
-      staleTime: 60
+      cacheTime: 0,
+      staleTime: 0
     });
 
   const Content = ({ item, index }: { item: { date: string | undefined, data: MatchDetailsType | undefined }; index: number }) => {
@@ -135,7 +135,7 @@ const MatchScheduleList = ({ matchTypeID, status = -1 }: Props) => {
   return (
     <View style={{ flex: 1 }}>
       {
-        matches && matches.data.length > 0 && !isRefetching
+        matches?.data !== undefined && matches.data.length > 0 && !isRefetching
           ? <FlatList
             data={matches.data}
             windowSize={3}
@@ -182,7 +182,14 @@ const MatchScheduleList = ({ matchTypeID, status = -1 }: Props) => {
       }
       {
         !isFetching && !isRefetching &&
-        <TouchableOpacity style={styles.refresh} onPress={() => { refetch() }}>
+        <TouchableOpacity style={styles.refresh} onPress={() => {
+          latestListDate.current = undefined;
+          setMatches({
+            headers: [],
+            data: []
+          });
+          refetch();
+        }}>
           <FastImage
             source={require('../../assets/images/IconRefresh.png')}
             style={{ width: 25, height: 25 }}
