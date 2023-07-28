@@ -98,11 +98,13 @@ android {
         applicationId "com.yingshi"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "1.2.0"
         resValue "string", "UMENG_APPKEY", '648ec50987568a379b587f39'
         resValue "string", "UMENG_CHANNEL", '10001'
-        resValue "string", "UMENG_CHANNEL_APPNEXT", '10002'
+        resValue "string", "UMENG_CHANNEL_GENERAL", '10001'
+        resValue "string", "UMENG_CHANNEL_YINGSHI_WEB", '10002'
+        resValue "string", "UMENG_CHANNEL_GOOGLE_PLAY", '10003'
     }
 
     splits {

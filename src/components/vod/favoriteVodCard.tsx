@@ -28,11 +28,18 @@ export default function FavoriteVodCard({
         vod_img={vod.vod_pic}
         vodStyle={styles.image}
         onPress={onPress}
+        showInfo={vod.vod_remarks}
       />
       <TouchableOpacity
+        activeOpacity={1}
         style={{...styles.description, gap: spacing.xs}}
         onPress={onPress}>
-        <View style={{...styles.description, gap: spacing.xs}}>
+        <View
+          style={{
+            ...styles.description,
+            gap: spacing.xs,
+            justifyContent: 'center',
+          }}>
           {hideFavoriteButton ? (
             <Text
               numberOfLines={1}

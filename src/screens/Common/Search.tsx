@@ -38,7 +38,9 @@ import appsFlyer from 'react-native-appsflyer';
 
 export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
   const [search, setSearch] = useState('');
-  const [placeholderSearch, setPlaceHolderSearch] = useState(route.params.initial);
+  const [placeholderSearch, setPlaceHolderSearch] = useState(
+    route.params.initial,
+  );
 
   const [searchTimer, setSearchTimer] = useState<ReturnType<
     typeof setTimeout
@@ -101,15 +103,14 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
     setSearchTimer(
       setTimeout(() => {
         fetchData(input);
-      }, 250),
+      }, 100),
     );
   };
 
   const onSubmit = () => {
-
     let searchKeyword = placeholderSearch;
 
-    if(search != ''){
+    if (search != '') {
       searchKeyword = search;
     }
 
@@ -128,7 +129,7 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
         console.error(err);
       },
     );
-    
+
     fetchData(searchKeyword);
     dispatch(addSearchHistory(searchKeyword));
     setShowResults(!showResults);
@@ -182,14 +183,17 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
           }
         />
       </View>
-      <ScrollView
-        style={styles.searchResult}
-        contentContainerStyle={{flexGrow: 1}}
-        showsVerticalScrollIndicator={false} // Hide the vertical scroll bar
-      >
-        {showResults ? (
+
+      {showResults ? (
+        <View style={styles.searchResult}>
           <VodWithDescriptionList vodList={searchResults} />
-        ) : (
+        </View>
+      ) : (
+        <ScrollView
+          style={styles.searchResult}
+          contentContainerStyle={{flexGrow: 1}}
+          showsVerticalScrollIndicator={false} // Hide the vertical scroll bar
+        >
           <View style={{marginLeft: 10}}>
             {search !== undefined &&
             search !== null &&
@@ -219,7 +223,7 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
                     </View>
                     <View style={styles.searchContainer}>
                       {searchHistory.history.map((hst, idx) => {
-                        if (hst.trim().length === 0) {
+                        if (hst === null || hst.trim().length === 0) {
                           return null; // Skip rendering for empty strings
                         }
                         return (
@@ -261,21 +265,21 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
               />
             )}
           </View>
-        )}
-        {showResults && searchResults.length === 0 && !isFetching && (
-          <EmptyList description={`抱歉没有找到“${search}”的相关视频`} />
-        )}
+        </ScrollView>
+      )}
+      {showResults && searchResults.length === 0 && !isFetching && (
+        <EmptyList description={`抱歉没有找到“${search}”的相关视频`} />
+      )}
 
-        {showResults && searchResults.length === 0 && isFetching && (
-          <View style={styles.buffering}>
-            <FastImage
-              source={require('../../../static/images/videoBufferLoading.gif')}
-              style={{width: 100, height: 100}}
-              resizeMode="contain"
-            />
-          </View>
-        )}
-      </ScrollView>
+      {showResults && searchResults.length === 0 && isFetching && (
+        <View style={styles.buffering}>
+          <FastImage
+            source={require('../../../static/images/videoBufferLoading.gif')}
+            style={{width: 100, height: 100}}
+            resizeMode="contain"
+          />
+        </View>
+      )}
     </ScreenContainer>
   );
 };
