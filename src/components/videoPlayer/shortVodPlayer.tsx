@@ -246,7 +246,6 @@ function ShortVideoPlayer({
                           </View>
                           <View
                             style={{
-                              flex: 1,
                               paddingLeft: 6,
                               justifyContent: 'center',
                             }}>
