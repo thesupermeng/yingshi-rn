@@ -103,7 +103,7 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
     setSearchTimer(
       setTimeout(() => {
         fetchData(input);
-      }, 250),
+      }, 100),
     );
   };
 
@@ -183,10 +183,17 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
           }
         />
       </View>
-      <View style={styles.searchResult}>
-        {showResults ? (
+
+      {showResults ? (
+        <View style={styles.searchResult}>
           <VodWithDescriptionList vodList={searchResults} />
-        ) : (
+        </View>
+      ) : (
+        <ScrollView
+          style={styles.searchResult}
+          contentContainerStyle={{flexGrow: 1}}
+          showsVerticalScrollIndicator={false} // Hide the vertical scroll bar
+        >
           <View style={{marginLeft: 10}}>
             {search !== undefined &&
             search !== null &&
@@ -227,9 +234,7 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
                               ...styles.hst,
                             }}
                             onPress={() => {
-                              console.log('111111');
                               updateSearch(hst);
-                              onSubmit();
                             }}>
                             <Text
                               style={{
@@ -260,21 +265,21 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
               />
             )}
           </View>
-        )}
-        {showResults && searchResults.length === 0 && !isFetching && (
-          <EmptyList description={`抱歉没有找到“${search}”的相关视频`} />
-        )}
+        </ScrollView>
+      )}
+      {showResults && searchResults.length === 0 && !isFetching && (
+        <EmptyList description={`抱歉没有找到“${search}”的相关视频`} />
+      )}
 
-        {showResults && searchResults.length === 0 && isFetching && (
-          <View style={styles.buffering}>
-            <FastImage
-              source={require('../../../static/images/videoBufferLoading.gif')}
-              style={{width: 100, height: 100}}
-              resizeMode="contain"
-            />
-          </View>
-        )}
-      </View>
+      {showResults && searchResults.length === 0 && isFetching && (
+        <View style={styles.buffering}>
+          <FastImage
+            source={require('../../../static/images/videoBufferLoading.gif')}
+            style={{width: 100, height: 100}}
+            resizeMode="contain"
+          />
+        </View>
+      )}
     </ScreenContainer>
   );
 };
