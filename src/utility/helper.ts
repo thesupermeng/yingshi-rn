@@ -13,3 +13,4 @@ export const getMaxWidth = (text: string, fontSize: number, ratio = 1) => {
     size += (nonNum * (fontSize + 1));
     return size;
 }
+

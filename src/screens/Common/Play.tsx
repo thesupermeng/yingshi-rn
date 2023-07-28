@@ -1,5 +1,5 @@
-import React, {useEffect, useState, useMemo, useRef, useCallback} from 'react';
-import {BackHandler, Platform} from 'react-native';
+import React, { useEffect, useState, useMemo, useRef, useCallback } from 'react';
+import { BackHandler, Platform } from 'react-native';
 import {
   View,
   TouchableOpacity,
@@ -14,13 +14,13 @@ import Video from 'react-native-video';
 import FavoriteButton from '../../components/button/favoriteVodButton';
 import FavoriteIcon from '../../../static/images/favorite.svg';
 import ScreenContainer from '../../components/container/screenContainer';
-import {useTheme, useFocusEffect} from '@react-navigation/native';
+import { useTheme, useFocusEffect } from '@react-navigation/native';
 
-import {RootStackScreenProps} from '../../types/navigationTypes';
-import {SuggestResponseType} from '../../types/ajaxTypes';
-import {addVodToHistory} from '../../redux/actions/vodActions';
-import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
-import {RootState} from '../../redux/store';
+import { RootStackScreenProps } from '../../types/navigationTypes';
+import { SuggestResponseType } from '../../types/ajaxTypes';
+import { addVodToHistory } from '../../redux/actions/vodActions';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
+import { RootState } from '../../redux/store';
 import {
   FavoriteVodReducerState,
   VodReducerState,
@@ -36,19 +36,20 @@ import Animated, {
   useSharedValue,
 } from 'react-native-reanimated';
 import Orientation from 'react-native-orientation-locker';
-import {getMaxWidth} from '../../utility/helper';
+import { getMaxWidth } from '../../utility/helper';
 
-import {Dimensions} from 'react-native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import { Dimensions } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import VodEpisodeSelectionModal from '../../components/modal/vodEpisodeSelectionModal';
 import FastImage from 'react-native-fast-image';
-import {API_DOMAIN} from '../../utility/constants';
-import {useQuery} from '@tanstack/react-query';
+import { API_DOMAIN } from '../../utility/constants';
+import { useQuery } from '@tanstack/react-query';
 import ShowMoreVodButton from '../../components/button/showMoreVodButton';
 import VodListVertical from '../../components/vod/vodListVertical';
 import VodPlayer from '../../components/videoPlayer/vodPlayer';
 import BottomSheet from '@gorhom/bottom-sheet';
 import appsFlyer from 'react-native-appsflyer';
+import { FlatList } from 'react-native-gesture-handler';
 
 type PlayContextValue = {
   value: string;
@@ -62,15 +63,15 @@ const definedValue = (val: any) => {
   return val + ' ';
 };
 
-export default ({navigation, route}: RootStackScreenProps<'播放'>) => {
+export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
   const insets = useSafeAreaInsets();
 
-  const {colors, spacing, textVariants, icons} = useTheme();
+  const { colors, spacing, textVariants, icons } = useTheme();
   const vodReducer: VodReducerState = useAppSelector(
-    ({vodReducer}: RootState) => vodReducer,
+    ({ vodReducer }: RootState) => vodReducer,
   );
   const vodFavouriteReducer: FavoriteVodReducerState = useAppSelector(
-    ({vodFavouritesReducer}: RootState) => vodFavouritesReducer,
+    ({ vodFavouritesReducer }: RootState) => vodFavouritesReducer,
   );
 
   const vod = vodReducer.playVod.vod;
@@ -82,16 +83,14 @@ export default ({navigation, route}: RootStackScreenProps<'播放'>) => {
   );
   const currentTimeRef = useRef<number>(0);
   const sheetRef = useRef<BottomSheet>(null);
+  const episodeRef = useRef<FlatList>(null);
+
   const isExpandEpisodes = useSharedValue(false);
   const dispatch = useAppDispatch();
 
   const [dismountPlayer, setDismountPlayer] = useState(false);
   const [orientation, setOrientation] = useState('PORTRAIT');
-  // Calculate the scroll position, number of episodes per row to display given viewport width, margin right
-  // to get a even, centered grid
-  const EPISODE_RANGE_SIZE = 10;
-  const MIN_PER_ROW = 1;
-  const MIN_MARGIN_RIGHT = 8;
+  const EPISODE_RANGE_SIZE = 50;
 
   const showEpisodeRangeStart = useMemo(
     () =>
@@ -109,78 +108,6 @@ export default ({navigation, route}: RootStackScreenProps<'播放'>) => {
       ),
     [currentEpisode, showEpisodeRangeStart],
   );
-  const windowDim =
-    Dimensions.get('window').width -
-    insets.left -
-    insets.right -
-    spacing.sideOffset * 2.5;
-
-  const BTN_SELECT_WIDTH_UNADJUSTED = useMemo(() => {
-    if (vod?.vod_play_list === undefined || vod === null) {
-      return spacing.m;
-    }
-    const val =
-      textVariants?.body?.fontSize === undefined
-        ? 14
-        : textVariants.body.fontSize;
-    const episodes = vod.vod_play_list.urls.slice(
-      showEpisodeRangeStart,
-      showEpisodeRangeEnd,
-    );
-    let maxTitleWidth = 20;
-    for (const ep of episodes) {
-      const width = getMaxWidth(ep.name, val);
-      if (width > maxTitleWidth) {
-        maxTitleWidth = width;
-      }
-    }
-    maxTitleWidth += 2 * spacing.s; // Padding
-    if (episodes.length > MIN_PER_ROW) {
-      return Math.floor(Math.min(maxTitleWidth, windowDim / MIN_PER_ROW));
-    }
-    return maxTitleWidth;
-  }, [vod, showEpisodeRangeStart, showEpisodeRangeEnd]);
-
-  const NUM_PER_ROW = Math.max(
-    Math.floor(windowDim / BTN_SELECT_WIDTH_UNADJUSTED),
-    1,
-  );
-
-  const BTN_MARGIN_RIGHT_UNADJUSTED = useMemo(() => {
-    let mr = 0;
-    if (NUM_PER_ROW > 1) {
-      mr = Math.floor(
-        (windowDim - NUM_PER_ROW * BTN_SELECT_WIDTH_UNADJUSTED) /
-          (NUM_PER_ROW - 1),
-      );
-    }
-    return Math.min(mr, BTN_SELECT_WIDTH_UNADJUSTED / 2);
-  }, [NUM_PER_ROW, BTN_SELECT_WIDTH_UNADJUSTED, windowDim]);
-
-  let BTN_SELECT_WIDTH = BTN_SELECT_WIDTH_UNADJUSTED;
-  let BTN_MARGIN_RIGHT = BTN_MARGIN_RIGHT_UNADJUSTED;
-  if (BTN_MARGIN_RIGHT < MIN_MARGIN_RIGHT) {
-    const offset = Math.ceil(
-      ((MIN_MARGIN_RIGHT - BTN_MARGIN_RIGHT) * (NUM_PER_ROW - 1)) / NUM_PER_ROW,
-    );
-    BTN_SELECT_WIDTH -= offset;
-    BTN_MARGIN_RIGHT = MIN_MARGIN_RIGHT;
-  }
-
-  const NUM_OF_ROWS = useMemo(
-    () =>
-      vod?.vod_play_list
-        ? Math.ceil(vod.vod_play_list.url_count / NUM_PER_ROW)
-        : 0,
-    [vod, NUM_PER_ROW],
-  );
-  const ROW_HEIGHT = useMemo(() => {
-    const height =
-      textVariants?.subBody?.fontSize === undefined
-        ? 22
-        : textVariants.subBody.fontSize + 6;
-    return spacing.s * 2.55 + height;
-  }, [textVariants, spacing]);
 
   const animatedTextStyle = useAnimatedStyle(() => {
     return {
@@ -195,21 +122,18 @@ export default ({navigation, route}: RootStackScreenProps<'播放'>) => {
       alignItems: 'center',
       justifyContent: 'center',
       transform: isExpandEpisodes.value
-        ? [{rotate: '180deg'}]
-        : [{rotate: '0deg'}],
+        ? [{ rotate: '180deg' }]
+        : [{ rotate: '0deg' }],
     };
   }, []);
 
   const onShare = async () => {
     try {
       const result = await Share.share({
-        message: `《${
-          vod?.vod_name
-        }》高清播放${'\n'}https://yingshi.tv/index.php/vod/play/id/${
-          vod?.vod_id
-        }/sid/1/nid/${
-          currentEpisode + 1
-        }.html${'\n'}影视TV-海量高清视频在线观看`,
+        message: `《${vod?.vod_name
+          }》高清播放${'\n'}https://yingshi.tv/index.php/vod/play/id/${vod?.vod_id
+          }/sid/1/nid/${currentEpisode + 1
+          }.html${'\n'}影视TV-海量高清视频在线观看`,
       });
       if (result.action === Share.sharedAction) {
         if (result.activityType) {
@@ -244,7 +168,7 @@ export default ({navigation, route}: RootStackScreenProps<'播放'>) => {
   }, []);
 
   useEffect(() => {
-    Dimensions.addEventListener('change', ({window: {width, height}}) => {
+    Dimensions.addEventListener('change', ({ window: { width, height } }) => {
       if (width < height) {
         setOrientation('PORTRAIT');
       } else {
@@ -278,11 +202,30 @@ export default ({navigation, route}: RootStackScreenProps<'播放'>) => {
     );
   }, [vod]);
 
-  const {data: suggestedVods} = useQuery({
+  const { data: suggestedVods } = useQuery({
     queryKey: ['relatedVods', vod],
     queryFn: () => fetchVod(),
   });
 
+  const getOffSet = (id: number) => {
+    if (vod?.vod_play_list.urls === undefined) {
+      return 0
+    }
+    let offset = 0;
+    for (const item of vod?.vod_play_list?.urls.slice(showEpisodeRangeStart, id)) {
+      let size = 20;
+      const name = item.name;
+      for (var i = 0; i < name.length; i++) {
+        size += 13
+      }
+      size = Math.max(70, size);
+      size += spacing.s;
+      offset += size;
+      // console.log(name, size)
+    }
+    // console.log(offset)
+    return offset;
+  }
   // useEffect(() => {
   //     const backAction = () => {
   //         setDismountPlayer(false);
@@ -310,7 +253,7 @@ export default ({navigation, route}: RootStackScreenProps<'播放'>) => {
   return (
     <ScreenContainer
       isVideoLandscape={orientation == 'LANDSCAPE'}
-      containerStyle={{flex: 1, paddingRight: 0, paddingLeft: 0}}>
+      containerStyle={{ flex: 1, paddingRight: 0, paddingLeft: 0 }}>
       {vod?.vod_play_list?.urls?.find(url => url.nid === currentEpisode)
         ?.url !== undefined &&
         !dismountPlayer && (
@@ -329,14 +272,14 @@ export default ({navigation, route}: RootStackScreenProps<'播放'>) => {
         )}
       <ScrollView
         nestedScrollEnabled={true}
-        contentContainerStyle={{marginTop: spacing.m}}
+        contentContainerStyle={{ marginTop: spacing.m }}
         contentInsetAdjustmentBehavior="automatic">
-        <View style={{...styles.descriptionContainer2, gap: spacing.m}}>
+        <View style={{ ...styles.descriptionContainer2, gap: spacing.m }}>
           <View style={styles.videoDescription}>
             <FastImage
-              source={{uri: vod?.vod_pic}}
+              source={{ uri: vod?.vod_pic }}
               resizeMode={'cover'}
-              style={{...styles.descriptionImage, ...styles.imageContainer}}
+              style={{ ...styles.descriptionImage, ...styles.imageContainer }}
             />
             <View style={styles.descriptionContainer}>
               {vod && (
@@ -382,24 +325,23 @@ export default ({navigation, route}: RootStackScreenProps<'播放'>) => {
                 />
               )}
               <Text
-                style={{...textVariants.subBody, color: colors.muted}}
+                style={{ ...textVariants.subBody, color: colors.muted }}
                 numberOfLines={2}>
                 {`${definedValue(vod?.vod_year)}`}
                 {`${definedValue(vod?.vod_area)}`}
                 {`${definedValue(vod?.vod_class?.split(',').join(' '))}`}
               </Text>
-              <Text style={{...textVariants.subBody, color: colors.muted}}>
-                {`更新：${
-                  vod
-                    ? new Date(vod?.vod_time_add * 1000)
-                        .toLocaleDateString('en-GB')
-                        .replace(/\//g, '-')
-                    : new Date().toLocaleDateString('en-GB').replace(/\//g, '-')
-                }`}
+              <Text style={{ ...textVariants.subBody, color: colors.muted }}>
+                {`更新：${vod
+                  ? new Date(vod?.vod_time_add * 1000)
+                    .toLocaleDateString('en-GB')
+                    .replace(/\//g, '-')
+                  : new Date().toLocaleDateString('en-GB').replace(/\//g, '-')
+                  }`}
               </Text>
               <TouchableOpacity onPress={onShare}>
-                <View style={{...styles.share, gap: 10}}>
-                  <Text style={{...textVariants.subBody, color: colors.muted}}>
+                <View style={{ ...styles.share, gap: 10 }}>
+                  <Text style={{ ...textVariants.subBody, color: colors.muted }}>
                     分享：
                   </Text>
                   <WeChatIcon />
@@ -421,87 +363,73 @@ export default ({navigation, route}: RootStackScreenProps<'播放'>) => {
           </Text>
           {vod?.vod_play_list !== undefined && (
             <>
-              <View style={{...styles.spaceApart, gap: spacing.l}}>
+              <View style={{ ...styles.spaceApart, gap: spacing.l }}>
                 <Text style={textVariants.body}>选集播放</Text>
-                {showEpisodeRangeEnd - showEpisodeRangeStart === 100 && (
-                  <TouchableOpacity
-                    style={styles.share}
-                    onPress={() => sheetRef.current?.snapToIndex(1)}>
-                    <Text
-                      style={{
-                        color: colors.muted,
-                        fontSize: 15,
-                        paddingBottom: 3,
-                      }}>{`${
-                      showEpisodeRangeStart + 1
-                    }-${showEpisodeRangeEnd}集`}</Text>
-                    <MoreArrow
-                      style={{color: colors.muted}}
-                      height={icons.sizes.m}
-                      width={icons.sizes.m}
-                    />
-                  </TouchableOpacity>
-                )}
+                <TouchableOpacity
+                  style={styles.share}
+                  onPress={() => sheetRef.current?.snapToIndex(1)}>
+                  <Text
+                    style={{
+                      color: colors.muted,
+                      fontSize: 15,
+                      paddingBottom: 3,
+                    }}>{`${showEpisodeRangeStart + 1
+                      }-${showEpisodeRangeEnd}集`}</Text>
+                  <MoreArrow
+                    style={{ color: colors.muted }}
+                    height={icons.sizes.m}
+                    width={icons.sizes.m}
+                  />
+                </TouchableOpacity>
               </View>
-              <View
-                style={{height: NUM_OF_ROWS > 6 ? ROW_HEIGHT * 6.5 : 'auto'}}>
-                <ScrollView
-                  contentContainerStyle={styles.episodeList}
-                  nestedScrollEnabled={true}
-                  contentOffset={{
-                    x: 0,
-                    y:
-                      ROW_HEIGHT *
-                      Math.floor(
-                        (currentEpisode % EPISODE_RANGE_SIZE) / NUM_PER_ROW,
-                      ),
-                  }}>
-                  {vod?.vod_play_list &&
-                    vod.vod_play_list.urls.map((url, idx) => {
-                      return (
-                        <TouchableOpacity
-                          key={`url-${url.nid}`}
-                          style={{
-                            backgroundColor:
-                              currentEpisode === url.nid
-                                ? colors.primary
-                                : colors.search,
-                            paddingVertical: 8,
-                            paddingHorizontal: 10,
-                            minWidth: 70,
-                            marginBottom: spacing.s,
-                            marginRight: spacing.s,
-                            ...styles.episodeBtn,
-                          }}
-                          onPress={() => {
-                            setCurrentEpisode(url.nid);
-                          }}>
-                          <Text
-                            numberOfLines={1}
-                            style={{
-                              fontSize: 13,
-                              textAlign: 'center',
-                              fontWeight: '500',
-                              color:
-                                currentEpisode === url.nid
-                                  ? colors.selected
-                                  : colors.muted,
-                            }}>
-                            {url.name}
-                          </Text>
-                        </TouchableOpacity>
-                      );
-                    })}
-                </ScrollView>
+              <FlatList
+                horizontal={true}
+                initialNumToRender={10}
+                onScrollToIndexFailed={() => { }}
+                ref={episodeRef}
+                data={vod?.vod_play_list.urls.slice(showEpisodeRangeStart, showEpisodeRangeEnd)}
+                renderItem={({ item }) =>
+                  <TouchableOpacity
+                    style={{
+                      backgroundColor:
+                        currentEpisode === item.nid
+                          ? colors.primary
+                          : colors.search,
+                      paddingVertical: 8,
+                      paddingHorizontal: 10,
+                      minWidth: 70,
+                      marginRight: spacing.s,
+                      ...styles.episodeBtn,
+                    }}
+                    onPress={() => {
+                      setCurrentEpisode(item.nid);
+                    }}>
+                    <Text
+                      numberOfLines={1}
+                      style={{
+                        fontSize: 13,
+                        textAlign: 'center',
+                        fontWeight: '500',
+                        color:
+                          currentEpisode === item.nid
+                            ? colors.selected
+                            : colors.muted,
+                      }}>
+                      {item.name}
+                    </Text>
+                  </TouchableOpacity>
+                }
+              />
+              <View>
               </View>
             </>
           )}
           {vod && suggestedVods !== undefined && suggestedVods?.length > 0 && (
-            <View style={{gap: spacing.l}}>
+            <View style={{ gap: spacing.l }}>
               <ShowMoreVodButton
                 text={`相关${vod?.type_name}`}
                 onPress={() => {
-                  navigation.navigate('片库', {type_id: vod.type_id});
+                  navigation.navigate('片库', { type_id: vod.type_id });
                 }}
               />
               <VodListVertical
@@ -512,15 +440,19 @@ export default ({navigation, route}: RootStackScreenProps<'播放'>) => {
           )}
         </View>
       </ScrollView>
-      {showEpisodeRangeEnd - showEpisodeRangeStart === 100 && (
-        <VodEpisodeSelectionModal
-          activeEpisode={currentEpisode}
-          episodes={vod?.vod_play_list}
-          sheetRef={sheetRef}
-          onCancel={() => sheetRef.current?.close()}
-          onConfirm={setCurrentEpisode}
-        />
-      )}
+      <VodEpisodeSelectionModal
+        activeEpisode={currentEpisode}
+        episodes={vod?.vod_play_list}
+        sheetRef={sheetRef}
+        onCancel={() => sheetRef.current?.close()}
+        onConfirm={(id: number) => {
+          setCurrentEpisode(id);
+          episodeRef?.current?.scrollToOffset({
+            offset: getOffSet(id),
+            animated: true,
+          });
+        }}
+      />
     </ScreenContainer>
   );
 };

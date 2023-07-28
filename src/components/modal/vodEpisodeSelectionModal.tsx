@@ -14,17 +14,17 @@ interface Props {
     episodes?: VodEpisodeListType
     activeEpisode?: number,
     sheetRef?: RefObject<BottomSheetMethods>;
+    rangeSize?: number
 }
-function VodEpisodeSelectionModal({ onConfirm, onCancel, sheetRef, episodes, activeEpisode = 0 }: Props) {
+function VodEpisodeSelectionModal({ onConfirm, onCancel, sheetRef, episodes, activeEpisode = 0, rangeSize = 50 }: Props) {
     const { colors, textVariants, spacing } = useTheme();
-    const EPISODE_RANGE_SIZE = 100;
+    const EPISODE_RANGE_SIZE = rangeSize;
     const insets = useSafeAreaInsets();
     const ranges = [...Array(episodes?.url_count === undefined ? 0 : Math.ceil(episodes.url_count / EPISODE_RANGE_SIZE)).keys()]
         .map(
             x => `${x * EPISODE_RANGE_SIZE + 1}-${Math.min((x + 1) * EPISODE_RANGE_SIZE, episodes?.url_count === undefined ? (x + 1) * EPISODE_RANGE_SIZE - 1 : episodes?.url_count)
                 }`
         );
-    const windowDim = useMemo(() => (Dimensions.get('window').width - insets.left - insets.right - (spacing.sideOffset * 3)), [insets]);
     const [currentIndex, setCurrentIndex] = useState(Math.floor(activeEpisode / EPISODE_RANGE_SIZE));
     const showEpisodeRangeStart = useMemo(() => currentIndex * EPISODE_RANGE_SIZE, [activeEpisode, currentIndex]);
     const showEpisodeRangeEnd = useMemo(
@@ -32,22 +32,6 @@ function VodEpisodeSelectionModal({ onConfirm, onCancel, sheetRef, episodes, act
             episodes ? episodes.url_count : showEpisodeRangeStart + EPISODE_RANGE_SIZE),
         [episodes, showEpisodeRangeStart]
     );
-    const BTN_SELECT_WIDTH = useMemo(() => {
-        if (episodes === undefined || episodes === null) {
-            return spacing.m;
-        }
-        const val = textVariants?.header?.fontSize === undefined ? 0 : textVariants.header.fontSize;
-        let maxTitleLength = episodes.urls.reduce(function (prev, current) {
-            return (prev.name.length > current.name.length) ? prev : current
-        }).name.length * val * 0.9;
-        maxTitleLength += (2 * spacing.s) // Padding
-        return maxTitleLength
-    }, [episodes]);
-
-    const NUM_PER_ROW = useMemo(() => Math.max(Math.floor(windowDim / (BTN_SELECT_WIDTH + 10)), 1), [windowDim, BTN_SELECT_WIDTH]);
-    const BTN_MARGIN_RIGHT = useMemo(() => {
-        return Math.floor((windowDim - (NUM_PER_ROW * BTN_SELECT_WIDTH)) / (NUM_PER_ROW - 1))
-    }, [NUM_PER_ROW, BTN_SELECT_WIDTH, windowDim])
 
     const snapPoints = useMemo(() => ["25%", "50%", "75%"], []);
 
@@ -106,21 +90,28 @@ function VodEpisodeSelectionModal({ onConfirm, onCancel, sheetRef, episodes, act
                 <BottomSheetScrollView contentContainerStyle={styles.episodeList}>
                     {episodes?.urls.slice(showEpisodeRangeStart, showEpisodeRangeEnd)
                         .map((ep, idx) =>
-                            <TouchableOpacity key={`expand-${idx}`} style={{
-                                backgroundColor: ep.nid === activeEpisode ? colors.primary : colors.search,
-                                padding: spacing.s,
-                                width: BTN_SELECT_WIDTH,
-                                marginBottom: spacing.s,
-                                marginRight: (idx % NUM_PER_ROW) === NUM_PER_ROW - 1 ? 0 : BTN_MARGIN_RIGHT,
-                                borderRadius: 8
-                            }} onPress={() => {
+                            <TouchableOpacity key={`expand-${idx}`} onPress={() => {
                                 onConfirm(ep.nid);
                                 onCancel();
-                            }}>
-                                <Text style={{
-                                    ...textVariants.header, textAlign: 'center',
-                                    color: ep.nid === activeEpisode ? colors.selected : colors.muted,
-                                }}>{`${ep.name}`}</Text>
+                            }} style={{ paddingRight: spacing.s }}>
+                                <View style={{
+                                    backgroundColor: ep.nid === activeEpisode ? colors.primary : colors.search,
+                                    padding: spacing.s,
+                                    minWidth: 70,
+                                    marginRight: 'auto',
+                                    marginBottom: spacing.s,
+                                    borderRadius: 8
+                                }} >
+                                    <Text numberOfLines={1}
+                                        style={{
+                                            fontSize: 13,
+                                            textAlign: 'center',
+                                            fontWeight: '500',
+                                            color: ep.nid === activeEpisode ? colors.selected : colors.muted,
+                                        }}>
+                                        {`${ep.name}`}
+                                    </Text>
+                                </View>
                             </TouchableOpacity>
                         )}
                 </BottomSheetScrollView>
