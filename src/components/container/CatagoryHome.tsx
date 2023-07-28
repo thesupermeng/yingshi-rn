@@ -183,28 +183,29 @@ const CatagoryHome = ({vodCarouselRes, navId = 0, setScrollEnabled}: Props) => {
                 }}
               />
             )}
-            {data?.yunying && data.yunying.length > 0 && (
-              <View
-                style={{
-                  paddingLeft: spacing.sideOffset,
-                  paddingRight: spacing.sideOffset,
-                  gap: spacing.m,
-                }}>
-                <View>
-                  <ShowMoreVodButton
-                    text="精选热播"
-                    onPress={() => {
-                      navigation.navigate('片库', {
-                        type_id: data.yunying[0].type_id,
-                      });
-                    }}
-                  />
+            {data?.yunying &&
+              data.yunying.length > 0 &&
+              data.yunying.map((item, index) => (
+                <View
+                  key={item.type_name}
+                  style={{
+                    paddingLeft: spacing.sideOffset,
+                    paddingRight: spacing.sideOffset,
+                    gap: spacing.m,
+                  }}>
+                  <View>
+                    <ShowMoreVodButton
+                      text={item.type_name}
+                      onPress={() => {
+                        navigation.navigate('片库', {
+                          type_id: item.vod_list[0].type_id,
+                        });
+                      }}
+                    />
+                  </View>
+                  <VodListVertical vods={item.vod_list?.slice(0, 6)} />
                 </View>
-                <VodListVertical
-                  vods={data?.yunying[navId]?.vod_list?.slice(0, 6)}
-                />
-              </View>
-            )}
+              ))}
           </View>
         </>
       }

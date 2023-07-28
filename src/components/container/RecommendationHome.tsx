@@ -58,7 +58,7 @@ const RecommendationHome = ({vodCarouselRes, setScrollEnabled}: Props) => {
     fetch(`${API_DOMAIN}topic/v1/topic?page=${page}`)
       .then(response => response.json())
       .then((json: VodPlaylistResponseType) => {
-        console.log('page ' + page);
+        //  console.log('1111 page ' + page);
         setTotalPage(Number(json.data.TotalPageCount));
         return Object.values(json.data.List);
       });
@@ -230,29 +230,29 @@ const RecommendationHome = ({vodCarouselRes, setScrollEnabled}: Props) => {
                 <View style={{paddingLeft: spacing.sideOffset, height: 134}} />
               )}
             </View>
-            {data?.yunying && data.yunying.length > 0 && (
-              <View
-                style={{
-                  paddingLeft: spacing.sideOffset,
-                  paddingRight: spacing.sideOffset,
-                  paddingTop: 5,
-                }}>
+            {data?.yunying &&
+              data.yunying.length > 0 &&
+              data.yunying.map((item, index) => (
                 <View
+                  key={item.type_name}
                   style={{
-                    paddingBottom: 5,
+                    paddingLeft: spacing.sideOffset,
+                    paddingRight: spacing.sideOffset,
+                    gap: spacing.m,
                   }}>
-                  <ShowMoreVodButton
-                    text="精选热播"
-                    onPress={() => {
-                      navigation.navigate('片库', {
-                        type_id: data.yunying[0].type_id,
-                      });
-                    }}
-                  />
+                  <View>
+                    <ShowMoreVodButton
+                      text={item.type_name}
+                      onPress={() => {
+                        navigation.navigate('片库', {
+                          type_id: item.vod_list[0].type_id,
+                        });
+                      }}
+                    />
+                  </View>
+                  <VodListVertical vods={item.vod_list?.slice(0, 6)} />
                 </View>
-                <VodListVertical vods={data.yunying[0].vod_list.slice(0, 6)} />
-              </View>
-            )}
+              ))}
 
             {data?.categories &&
               data.categories.length > 0 &&
