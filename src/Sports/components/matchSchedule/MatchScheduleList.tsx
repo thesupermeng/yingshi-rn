@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useState, useRef } from 'react';
+import React, { memo, useEffect, useState, useRef } from 'react';
 import { View, Text, Image, ImageBackground, FlatList, Dimensions, StyleSheet } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import styles from './style';
@@ -43,6 +43,7 @@ const MatchScheduleList = ({ matchTypeID, status = -1 }: Props) => {
   const width = Dimensions.get('window').width;
   const height = Dimensions.get('window').height;
   const latestListDate = useRef<Date | undefined>();
+
   const [matches, setMatches] = useState<Matches>({
     headers: [],
     data: []
@@ -72,7 +73,6 @@ const MatchScheduleList = ({ matchTypeID, status = -1 }: Props) => {
   }
 
   const {
-    isSuccess,
     hasNextPage,
     fetchNextPage,
     isFetchingNextPage,
