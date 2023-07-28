@@ -1,4 +1,4 @@
-import React, {useEffect, useState, memo, useMemo, useRef} from 'react';
+import React, { useEffect, useState, memo, useMemo, useRef } from 'react';
 import {
   View,
   TouchableWithoutFeedback,
@@ -7,18 +7,18 @@ import {
   Text,
   Dimensions,
 } from 'react-native';
-import Video, {OnProgressData} from 'react-native-video';
-import {debounce, throttle} from 'lodash';
+import Video, { OnProgressData } from 'react-native-video';
+import { debounce, throttle } from 'lodash';
 import PlayIcon from '../../../static/images/blackPlay.svg';
 import PauseIcon from '../../../static/images/pause.svg';
 import PlayZhengPianIcon from '../../../static/images/play_zhengpian.svg';
 
-import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import FastImage from 'react-native-fast-image';
-import {Slider} from '@rneui/themed';
-import {useAppDispatch} from '../../hooks/hooks';
-import {playVod} from '../../redux/actions/vodActions';
-import {useNavigation, useTheme} from '@react-navigation/native';
+import { Slider } from '@rneui/themed';
+import { useAppDispatch } from '../../hooks/hooks';
+import { playVod } from '../../redux/actions/vodActions';
+import { useNavigation, useTheme } from '@react-navigation/native';
 
 interface Props {
   vod_url?: string;
@@ -47,7 +47,7 @@ function ShortVideoPlayer({
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
 
-  const {colors, textVariants} = useTheme();
+  const { colors, textVariants } = useTheme();
 
   const bottomTabHeight = useBottomTabBarHeight();
   const [isBuffering, setIsBuffering] = useState(false);
@@ -89,16 +89,13 @@ function ShortVideoPlayer({
     setShowOverlay(true);
     timer.current = setTimeout(() => setShowOverlay(false), 3000);
   };
-  const handleSeek = useMemo(
-    () =>
-      throttle((value: number) => {
-        showControls();
-        if (videoRef.current) {
-          videoRef.current.seek(value);
-        }
-      }, 250),
-    [videoRef.current, timer.current],
-  );
+  const handleSeek = (value: number) => {
+    showControls();
+    setCurrentTime(value)
+    if (videoRef.current) {
+      videoRef.current.seek(value);
+    }
+  }
 
   const handlePlayPause = () => {
     clearTimeout(iconTimer.current);
@@ -128,12 +125,12 @@ function ShortVideoPlayer({
           handlePlayPause();
         }
       }}>
-      <View style={[styles.container, {height: displayHeight}]}>
+      <View style={[styles.container, { height: displayHeight }]}>
         {isBuffering && (
           <View style={styles.buffering}>
             <FastImage
               source={require('../../../static/images/videoBufferLoading.gif')}
-              style={{width: 100, height: 100}}
+              style={{ width: 100, height: 100 }}
               resizeMode="contain"
             />
           </View>
@@ -153,6 +150,7 @@ function ShortVideoPlayer({
           onError={onError}
           repeat={true}
           style={styles.video}
+          // onVideoSeek={}
           // ignoreSilentSwitch={"ignore"}
           paused={!isActive || paused}
           onLoad={handleLoad}
@@ -181,7 +179,7 @@ function ShortVideoPlayer({
           {vod != undefined &&
             vod.mini_video_original_img_url != null &&
             vod.mini_video_original_img_url != '' && (
-              <View style={{flexWrap: 'wrap'}}>
+              <View style={{ flexWrap: 'wrap' }}>
                 {/* <View style={{ flex: 10, flexDirection: 'column', justifyContent: 'flex-end', marginRight: 35 }}> */}
                 <View
                   style={{
@@ -197,9 +195,9 @@ function ShortVideoPlayer({
                       flexDirection: 'column',
                       justifyContent: 'flex-end',
                     }}>
-                    <TouchableOpacity style={{flex: 1}} onPress={redirectVod}>
+                    <TouchableOpacity style={{ flex: 1 }} onPress={redirectVod}>
                       <FastImage
-                        style={{flex: 1, borderRadius: 6}}
+                        style={{ flex: 1, borderRadius: 6 }}
                         source={{
                           uri: vod.mini_video_original_img_url,
                           priority: FastImage.priority.high,
@@ -240,8 +238,8 @@ function ShortVideoPlayer({
                             </Text>
                           </View>
                         </View>
-                        <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-                          <View style={{flexWrap: 'wrap'}}>
+                        <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+                          <View style={{ flexWrap: 'wrap' }}>
                             <PlayZhengPianIcon width={20} height={20} />
                           </View>
                           <View
@@ -265,7 +263,7 @@ function ShortVideoPlayer({
                 </View>
               </View>
             )}
-          <View style={{marginTop: 10, flexDirection: 'row'}}>
+          <View style={{ marginTop: 10, flexDirection: 'row' }}>
             {/* <View style={{ flex: 10, flexDirection: 'column', justifyContent: 'flex-end', marginRight: 35 }}> */}
             <View
               style={{
@@ -274,7 +272,7 @@ function ShortVideoPlayer({
                 justifyContent: 'flex-end',
               }}>
               <TouchableOpacity>
-                <Text style={{...textVariants.small, color: colors.text}}>
+                <Text style={{ ...textVariants.small, color: colors.text }}>
                   {videoTitle}
                 </Text>
               </TouchableOpacity>
@@ -297,8 +295,19 @@ function ShortVideoPlayer({
           minimumTrackTintColor={'#ffffff80'}
           maximumTrackTintColor={'#ffffff24'}
           thumbTintColor={'#FFFFFF'}
-          trackStyle={{height: 2, opacity: 1}}
+          trackStyle={{ height: 2, opacity: 1 }}
         />
+        {
+          duration > 0 && showOverlay &&
+          <Text style={{
+            position: 'absolute',
+            bottom: 20,
+            left: Math.min(Math.max(0, (currentTime / duration) * windowWidth - 34), windowWidth - 76)
+          }}>
+            <Text style={textVariants.small}>{new Date(currentTime * 1000).toISOString().substring(14, 19)}</Text>
+            <Text style={{...textVariants.small, color: colors.muted}}>{` / ${new Date(duration * 1000).toISOString().substring(14, 19)}`}</Text>
+          </Text>
+        }
       </View>
     </TouchableWithoutFeedback>
   );
