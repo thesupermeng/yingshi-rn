@@ -183,11 +183,7 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
           }
         />
       </View>
-      <ScrollView
-        style={styles.searchResult}
-        contentContainerStyle={{flexGrow: 1}}
-        showsVerticalScrollIndicator={false} // Hide the vertical scroll bar
-      >
+      <View style={styles.searchResult}>
         {showResults ? (
           <VodWithDescriptionList vodList={searchResults} />
         ) : (
@@ -278,7 +274,7 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
             />
           </View>
         )}
-      </ScrollView>
+      </View>
     </ScreenContainer>
   );
 };
