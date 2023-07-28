@@ -220,7 +220,7 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
                     </View>
                     <View style={styles.searchContainer}>
                       {searchHistory.history.map((hst, idx) => {
-                        if (hst.trim().length === 0) {
+                        if (hst === null || hst.trim().length === 0) {
                           return null; // Skip rendering for empty strings
                         }
                         return (
