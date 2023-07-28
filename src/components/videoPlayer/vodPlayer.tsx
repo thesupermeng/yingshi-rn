@@ -334,7 +334,7 @@ const styles = StyleSheet.create({
     flex: 3,
     color: 'yellow',
     position: 'absolute',
-    top: '40%',
+    top: '30%',
     left: '36%',
     zIndex: 100,
   },

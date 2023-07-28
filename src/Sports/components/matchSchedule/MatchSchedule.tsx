@@ -1,11 +1,10 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo } from 'react';
 import { View, Text, ImageBackground } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import { Link, useTheme } from '@react-navigation/native';
+import { useTheme } from '@react-navigation/native';
 import styles from './style';
-import { IsSub, Sub, Views, IconViewerGif } from '../../assets';
-import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
-import vars from '../../utility/vars';
+import { IconViewerGif } from '../../assets';
+import { TouchableOpacity } from 'react-native';
 import { HomeIcon, AwayIcon, AnimationLive, VideoLive } from '../../assets';
 import {
   calculateScore,
@@ -16,26 +15,17 @@ import store from '../../../redux/store';
 // import FollowMatchAction from '../../redux/actions/followMatchAction';
 import { useNavigation } from '@react-navigation/native';
 import { MatchDetailsType } from '../../types/matchTypes';
-// import {showToast} from '../../utility/toast';
-import FixedTouchableHighlight from '../fixedTouchableHighlight';
 
 interface Props {
   matchSche: MatchDetailsType,
-  onPress?: any
+  onPress?: () => any,
   followMatchIds?: Array<number>
   isMatchPage?: boolean
-  matchType?: 'basketball' | 'football' | 'others'
 }
 
-const MatchSchedule = ({ matchSche, onPress, followMatchIds = [], isMatchPage = true, matchType }: Props) => {
-  const isSub = followMatchIds?.includes(matchSche.id);
-
+const MatchSchedule = ({ matchSche, onPress = () => {}, isMatchPage = true }: Props) => {
   const navigation = useNavigation();
-  const [subscribe, setSubscribe] = useState(false);
   const { colors, textVariants, spacing } = useTheme();
-  useEffect(() => {
-    setSubscribe(isSub);
-  }, [isSub]);
 
   let totalViews = 0;
   const calTotalViews = () => {
@@ -52,42 +42,9 @@ const MatchSchedule = ({ matchSche, onPress, followMatchIds = [], isMatchPage = 
     return totalViews;
   };
 
-  // const checkIsLogin = () => {
-  //   let isLogin = store.getState().accessToken;
-  //   if (isLogin) {
-  //     return true;
-  //   }
-  //   return false;
-  // };
-
-  // const subscribeMatch = async () => {
-  //   if (subscribe) {
-  //     const res = await FollowMatchAction.instance.unfollowMatch(match?.id);
-  //     res ? setSubscribe(false) : showToast('失败');
-  //   } else {
-  //     const res = await FollowMatchAction.instance.followMatch(match?.id);
-  //     res ? setSubscribe(true) : showToast('失败');
-  //   }
-  // };
-
-  const matchClicked = async () => {
-
-    // navigation.navigate('体育详情');
-
-    // const route = await liveRoomName(matchSche?.id);
-    let route: '体育详情' | '足球详情' | '篮球详情' = '体育详情';
-    if (matchType === 'football') {
-      route = '足球详情';
-    } else if (matchType === 'basketball') {
-      route = '篮球详情'
-    }
+  const matchClicked = () => {
     navigation.navigate('体育详情', {
       matchId: matchSche?.id === null ? undefined : matchSche.id,
-      streamerId:
-        matchSche?.streams?.length > 0
-          ? matchSche?.streams[0]?.streamer_id
-          : undefined,
-      sportType: '足球'
     });
   }
 
@@ -133,17 +90,17 @@ const MatchSchedule = ({ matchSche, onPress, followMatchIds = [], isMatchPage = 
   //   }
   // };
 
-  const getOnlineStreamer = () => {
-    const onlineStreamer = matchSche?.streams?.findIndex(e => e.status == 3);
-    if (onlineStreamer != undefined && onlineStreamer != -1) {
-      return matchSche?.streams[onlineStreamer].streamer_id;
-    } else {
-      return null;
-    }
-  };
-  // console.log('WTF', match)
+  // const getOnlineStreamer = () => {
+  //   const onlineStreamer = matchSche?.streams?.findIndex(e => e.status == 3);
+  //   if (onlineStreamer != undefined && onlineStreamer != -1) {
+  //     return matchSche?.streams[onlineStreamer].streamer_id;
+  //   } else {
+  //     return null;
+  //   }
+  // };
+
   return (
-    <FixedTouchableHighlight onPress={matchClicked}>
+    <TouchableOpacity onPress={matchClicked}>
       <View style={styles.border}>
         <View style={styles.matchScheduleHeader}>
           <View style={styles.matchInfo}>
@@ -154,7 +111,7 @@ const MatchSchedule = ({ matchSche, onPress, followMatchIds = [], isMatchPage = 
               {/* {('0' + new Date(matchSche?.match_time).getHours()).slice(-2) +
                 ':' +
                 ('0' + new Date(matchSche?.match_time).getMinutes()).slice(-2)} */}
-                {new Date(matchSche?.match_time).toLocaleTimeString('en-GB', {hour: '2-digit', minute: '2-digit'})}
+              {new Date(matchSche?.match_time).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}
             </Text>
           </View>
           <View style={styles.matchStatus}>
@@ -342,7 +299,7 @@ const MatchSchedule = ({ matchSche, onPress, followMatchIds = [], isMatchPage = 
             ))}
         </View> */}
       </View>
-    </FixedTouchableHighlight>
+    </TouchableOpacity>
   );
 };
 

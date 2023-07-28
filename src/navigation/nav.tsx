@@ -256,7 +256,6 @@ export default () => {
             initialParams={{
               streamerId: undefined,
               matchId: undefined,
-              sportType: '足球',
             }}
           />
           <Stack.Screen

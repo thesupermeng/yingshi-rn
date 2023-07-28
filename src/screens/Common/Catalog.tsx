@@ -263,6 +263,8 @@ export default ({navigation, route}: RootStackScreenProps<'片库'>) => {
           }
         }
       },
+      cacheTime: 0,
+      staleTime: 0
     },
   );
 
