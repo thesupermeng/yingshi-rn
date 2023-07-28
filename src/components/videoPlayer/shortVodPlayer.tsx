@@ -163,7 +163,7 @@ function ShortVideoPlayer({
           style={{
             position: 'absolute',
             left: (Dimensions.get('window').width - 80) / 2,
-            top: (Dimensions.get('window').height - 200) / 2,
+            top: (Dimensions.get('window').height - 130) / 2,
             zIndex: 999,
           }}>
           {showIcon && (paused ? <PlayIcon /> : <PauseIcon />)}
