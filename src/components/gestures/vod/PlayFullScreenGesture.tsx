@@ -3,6 +3,7 @@ import { View, PanResponder, StyleSheet } from 'react-native';
 import VolumeGestureControl from './VolumeGestureControl';
 import BrightnessGestureControl from './BrightnessGestureControl';
 import BrightnessVolumeSlider from './BrightnessVolumeSlider';
+import ProgressGestureControl from './ProgressGestureControl';
 
 const GestureControls = {
     VOLUME: 'Volume',
@@ -22,16 +23,18 @@ const Icons = {
 
 type Props = {
     onScreenTouched: () => any,
-    disableFullScreenGesture: boolean
+    disableFullScreenGesture: boolean,
+    onSkip?: any
 }
 
-export default ({ onScreenTouched, disableFullScreenGesture }: Props) => {
+export default ({ onScreenTouched, disableFullScreenGesture, onSkip }: Props) => {
     const [icon, setIcon] = useState({
         noValue: "MutedVolume",
         hasValue: "Volume"
     })
     const [showSlider, setShowSlider] = useState(false)
     const [value, setValue] = useState(0)
+
     const sliderTimeout = useRef(0)
 
     const onPropertyChanged = (gestureType: string, value: number) => {
@@ -50,17 +53,21 @@ export default ({ onScreenTouched, disableFullScreenGesture }: Props) => {
     }
 
     return (
-        <View style={!disableFullScreenGesture ? styles.container : { zIndex: -10 }}>
+        <View style={!disableFullScreenGesture ? styles.container : { zIndex: -10, position: 'absolute' }}>
             <BrightnessGestureControl
                 onChangeBrightness={(value: number) => {
                     onPropertyChanged(GestureControls.BRIGHTNESS, value)
                 }}
                 onTouchScreen={handleScreenTouch}
             />
+            <ProgressGestureControl
+                onTouchScreen={handleScreenTouch}
+                onProgressChange={onSkip}
+            />
             <VolumeGestureControl
                 onChangeVolume={(value: number) => {
                     onPropertyChanged(GestureControls.VOLUME, value)
-                }} 
+                }}
                 onTouchScreen={handleScreenTouch}
             />
             {showSlider && (
@@ -80,6 +87,8 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         height: '100%',
-        zIndex: 20
+        width: '100%',
+        zIndex: 20,
+        position: 'absolute'
     }
 });

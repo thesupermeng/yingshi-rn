@@ -37,9 +37,7 @@ const LiveVideo = ({ matchID, liveDataState, onLiveEnd, onLoad, streamID, videoS
     const playerRef = React.useRef<Video>(null);
     const homeName = liveDataState?.home?.name;
     const awayName = liveDataState?.away?.name;
-
     const combinedName = `${homeName} vs ${awayName}`;
-    const dispatch = useDispatch();
     const beginWatch = useRef(new Date());
     const [isFullScreen, setIsFullScreen] = useState(false);
     const [isLocked, setIsLocked] = useState(false);
@@ -180,7 +178,7 @@ const LiveVideo = ({ matchID, liveDataState, onLiveEnd, onLoad, streamID, videoS
                 {(videoSource !== undefined || streamData?.src) && (
                     <>
                         {
-                            videoSource?.url !== undefined && videoSource && (
+                            videoSource?.url !== undefined && (
                                 videoSource.type === VideoLiveType.LIVE
                                     ? <VodPlayer onBack={onHandleBack} vod_source={videoSource.url} videoType='live' vodTitle={combinedName} />
                                     : <VodPlayer onBack={onHandleBack} vod_url={videoSource.url} videoType='live' vodTitle={combinedName} useWebview={true} />

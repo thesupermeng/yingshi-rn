@@ -5,6 +5,7 @@ import {
   StyleSheet,
   StatusBar,
   AppState,
+  Text,
 } from 'react-native';
 
 import Video from 'react-native-video';
@@ -18,7 +19,9 @@ import VideoControlsOverlay from './VideoControlsOverlay';
 import Orientation from 'react-native-orientation-locker';
 import WebView from 'react-native-webview';
 import FastImage from 'react-native-fast-image';
-
+import FastForwardProgressIcon from '../../../static/images/fastforwardProgress.svg';
+import RewindProgressIcon from '../../../static/images/rewindProgress.svg';
+import ProgressGestureControl from '../gestures/vod/ProgressGestureControl';
 interface Props {
   vod_url?: string;
   vodTitle?: string;
@@ -54,7 +57,7 @@ export default ({
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(initialStartTime);
   const [isBuffering, setIsBuffering] = useState(false);
-
+  const [seekDirection, setSeekDirection] = useState<'backward' | 'none' | 'forward'>('none');
   const navigation = useNavigation();
 
   const onBuffer = (bufferObj: any) => {
@@ -63,7 +66,6 @@ export default ({
 
   // New state to keep track of app's background/foreground status
   const [isInBackground, setIsInBackground] = useState(false);
-
   useEffect(() => {
     if (!isPotrait) {
       setIsFullScreen(true);
@@ -71,19 +73,6 @@ export default ({
       setIsFullScreen(false);
     }
   }, [isPotrait]);
-
-  useEffect(() => {
-    let intervalId = 0;
-    setCurrentTime(currentTimeRef.current);
-    if (isShowControls) {
-      intervalId = setInterval(() => {
-        setCurrentTime(currentTimeRef.current);
-      }, 200);
-    }
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, [isShowControls, currentTimeRef]);
 
   useEffect(() => {
     Orientation.addOrientationListener(handleOrientation);
@@ -94,7 +83,6 @@ export default ({
 
   useEffect(() => {
     setIsShowControls(true);
-    setDisableFullScreenGesture(prev => !prev);
     debouncedFn();
     // if (videoPlayerRef.current) {
     //   videoPlayerRef.current.seek(0);
@@ -145,7 +133,7 @@ export default ({
 
   const toggleControls = () => {
     setIsShowControls(prev => !prev);
-    setDisableFullScreenGesture(prev => !prev);
+    // setDisableFullScreenGesture(prev => !prev);
     debouncedFn();
   };
 
@@ -160,21 +148,36 @@ export default ({
   };
 
   const onSeek = (time: number) => {
+    if (currentTime < time) {
+      setSeekDirection('forward')
+    } else {
+      setSeekDirection('backward')
+    }
+    hideSeekProgress();
+    setCurrentTime(time)
     if (videoPlayerRef.current) {
       videoPlayerRef.current.seek(time);
     }
   };
 
   const onVideoProgessing = (data: any) => {
+    setCurrentTime(data.currentTime);
     currentTimeRef.current = data.currentTime;
   };
 
   const onSkip = (time: any) => {
+    if (time < 0) {
+      setSeekDirection('backward')
+    } else {
+      setSeekDirection('forward')
+    }
+    hideSeekProgress();
     if (videoPlayerRef?.current) {
       let currentTime = currentTimeRef.current + time;
       currentTime = Math.max(0, currentTime);
       currentTimeRef.current = currentTime;
       videoPlayerRef.current.seek(currentTime);
+      setCurrentTime(currentTime);
     }
     debouncedFn();
   };
@@ -185,18 +188,19 @@ export default ({
   };
 
   const onTouchScreen = useCallback(() => {
-    setDisableFullScreenGesture(prev => !prev);
+    // setDisableFullScreenGesture(prev => !prev);
     setIsShowControls(prev => !prev);
     debouncedFn();
   }, []);
 
   const changeControlsState = () => {
     setIsShowControls(prev => false);
-    setDisableFullScreenGesture(prev => false);
+    // setDisableFullScreenGesture(prev => false);
     return;
   };
 
   const debouncedFn = useCallback(debounce(changeControlsState, 4000), []);
+  const hideSeekProgress = useCallback(debounce(() => setSeekDirection('none'), 300), []);
 
   const onGoBack = () => {
     if (onBack !== undefined) {
@@ -217,14 +221,13 @@ export default ({
 
   return (
     <>
-      {isFullScreen && (
-        <PlayFullScreenGesture
-          onScreenTouched={onTouchScreen}
-          disableFullScreenGesture={disableFullScreenGesture}
-        />
-      )}
       <TouchableWithoutFeedback onPress={toggleControls}>
         <View style={styles.bofangBox}>
+          <PlayFullScreenGesture
+            onScreenTouched={onTouchScreen}
+            disableFullScreenGesture={disableFullScreenGesture}
+            onSkip={onSkip}
+          />
           {(vod_url !== undefined || vod_source !== undefined) &&
             (useWebview ? (
               <WebView
@@ -285,13 +288,47 @@ export default ({
                 videoType={videoType}
               />
             )}
-          {isBuffering && (
-            <View style={{...styles.buffering, left: isFullScreen ? (width / 2) - 50 : (height / 2) - 50 }}>
-              <FastImage
-                source={require('../../../static/images/videoBufferLoading.gif')}
-                style={{ width: 100, height: 100 }}
-                resizeMode="contain"
-              />
+          {(isBuffering || seekDirection !== 'none') && (
+            <View style={{ ...styles.buffering }}>
+              {
+                seekDirection !== 'none'
+                  ? <View
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      backgroundColor: 'rgba(0,0,0,0.4)',
+                      padding: 8,
+                      borderRadius: 8
+                    }}>
+                    {
+                      seekDirection === 'forward'
+                        ? <FastForwardProgressIcon
+                          height={60}
+                          width={60}
+                        />
+                        : <RewindProgressIcon
+                          height={60}
+                          width={60}
+                        />
+                    }
+                    <Text style={{
+                      textAlign: 'center'
+                    }}>
+                      <Text style={{ ...textVariants.header, color: colors.primary }}>
+                        {new Date(currentTime * 1000).toISOString().substring(14, 19)}
+                      </Text>
+                      <Text style={{ ...textVariants.header }}>
+                        {` / ${new Date(duration * 1000).toISOString().substring(14, 19)}`}
+                      </Text>
+                    </Text>
+                  </View>
+                  : <FastImage
+                    source={require('../../../static/images/videoBufferLoading.gif')}
+                    style={{ width: 100, height: 100 }}
+                    resizeMode="contain"
+                  />
+              }
             </View>
           )}
         </View>
@@ -327,14 +364,13 @@ const styles = StyleSheet.create({
     zIndex: 50,
   },
   buffering: {
-    paddingHorizontal: 5,
-    flexDirection: 'row',
+    display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    flex: 3,
     color: 'yellow',
     position: 'absolute',
-    top: '30%',
-    zIndex: 100,
+    width: '100%',
+    top: '32%',
+    zIndex: 10,
   },
 });

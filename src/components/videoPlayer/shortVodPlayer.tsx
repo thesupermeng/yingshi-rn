@@ -11,7 +11,7 @@ import Video, { OnProgressData } from 'react-native-video';
 import { debounce, throttle } from 'lodash';
 import PlayIcon from '../../../static/images/blackPlay.svg';
 import PauseIcon from '../../../static/images/pause.svg';
-import PlayZhengPianIcon from '../../../static/images/play_zhengpian.svg';
+import PlayZhengPianIcon from '../../../static/images/play-zhengpian1.svg';
 
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import FastImage from 'react-native-fast-image';

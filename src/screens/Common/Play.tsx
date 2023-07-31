@@ -394,7 +394,6 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
                 initialNumToRender={10}
-                onScrollToIndexFailed={() => { }}
                 ref={episodeRef}
                 data={vod?.vod_play_list.urls.slice(showEpisodeRangeStart, showEpisodeRangeEnd)}
                 renderItem={({ item }) =>

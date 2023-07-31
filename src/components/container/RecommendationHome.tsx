@@ -69,6 +69,7 @@ const RecommendationHome = ({vodCarouselRes, setScrollEnabled}: Props) => {
     fetchNextPage,
     isFetchingNextPage,
     isFetching,
+    refetch
   } = useInfiniteQuery(
     ['vodPlaylist'],
     ({pageParam = 1}) => fetchPlaylist(pageParam),
@@ -93,7 +94,6 @@ const RecommendationHome = ({vodCarouselRes, setScrollEnabled}: Props) => {
       },
     },
   );
-
   const {data: liveStations} = useQuery({
     queryKey: ['LiveTVStations'],
     queryFn: () =>

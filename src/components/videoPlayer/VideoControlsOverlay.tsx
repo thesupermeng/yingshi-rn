@@ -62,13 +62,12 @@ export default ({
   };
 
   const handleToggleEpisodes = () => {};
-  console.log;
   return (
     <View
       style={
         !isFullScreen
           ? styles.controlsOverlay
-          : [styles.controlsOverlay, {height: height}]
+          : [styles.controlsOverlay, {height: isFullScreen ? height : width}]
       }>
       <View style={styles.videoHeader}>
         <BackButton btnStyle={{padding: 20}} onPress={() => goBack()} />
@@ -133,6 +132,7 @@ const styles = StyleSheet.create({
     // backgroundColor: '#00000090',
     backgroundColor: '#00000010',
     justifyContent: 'space-between',
+    zIndex: 50
   },
   fullScreenBottom: {
     paddingBottom: 60,

@@ -88,7 +88,6 @@ function VodEpisodeSelectionModal({ onConfirm, onCancel, sheetRef, episodes, act
                     <FlatList
                         horizontal
                         data={ranges}
-                        inverted
                         renderItem={({ item, index }: { item: string, index: number }) => {
                             return <TouchableOpacity style={styles.btn} onPress={() => setCurrentIndex(index)}>
                                 <Text

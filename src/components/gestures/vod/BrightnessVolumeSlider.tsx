@@ -38,17 +38,17 @@ export default ({percent, icon}: Props) => {
 
 const styles = StyleSheet.create({
   smallContainer: {
-    width: '35%',
+    width: '50%',
     height: 32,
     borderRadius: 10,
     backgroundColor: 'rgba(0, 0, 0, 0.6)',
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     alignItems: 'center',
     position: 'absolute',
     marginTop: 20,
-    left: '35%',
+    left: '25%',
     zIndex: 20,
   },
   statBar: {
@@ -65,11 +65,10 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 12,
     width: '15%',
-    marginLeft: 8,
   },
   icon: {
     color: 'white',
-    width: '15%',
+    // width: '15%',
     maxWidth: '15%',
     objectFix: 'contain',
   },

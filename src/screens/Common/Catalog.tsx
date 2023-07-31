@@ -489,7 +489,6 @@ export default ({navigation, route}: RootStackScreenProps<'片库'>) => {
             return `#-${item?.vod_id}-${index}`;
           }}
           onEndReached={() => {
-            console.log('fetching next page', hasNextPage);
             if (hasNextPage) {
               fetchNextPage();
             }

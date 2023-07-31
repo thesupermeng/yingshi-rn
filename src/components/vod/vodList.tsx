@@ -24,7 +24,7 @@ type VodResponseType = {
 type FlatListType = {
     item: VodType
 }
-export default function VodList({ query_url, initial_page = 0, vodStyle, horizontal = true, vodList=[], showPlayIcon, showInfo='vod_remarks' }: Props) {
+export default function VodList({ query_url, initial_page = 0, vodStyle, horizontal = true, vodList = [], showPlayIcon, showInfo = 'vod_remarks' }: Props) {
     const [page, setPage] = useState(initial_page);
     const navigation = useNavigation();
     const dispatch = useAppDispatch();
@@ -41,24 +41,28 @@ export default function VodList({ query_url, initial_page = 0, vodStyle, horizon
         data,
         isFetching,
         isPreviousData,
-    } = useQuery({ queryKey: [query_url, page, vodList.map(x => x.vod_id)], queryFn: () => fetchVods(page), keepPreviousData: true, initialData: vodList, enabled: query_url !== undefined });
+    } = useQuery({
+        queryKey: [query_url, page, vodList.map(x => x.vod_id)],
+        queryFn: () => fetchVods(page), keepPreviousData: true,
+        initialData: vodList, enabled: query_url !== undefined
+    });
 
     return (
         <FlatList
             data={data}
             horizontal
-            renderItem={({item} : FlatListType)  => {
-                return <VodCard showPlayIcon={showPlayIcon} vodImageStyle={vodStyle} 
-                vod_name={item.vod_name} vod_pic={item.vod_pic}  
-                showInfo={
-                    showInfo === 'none'
-                    ? ''
-                    : item.vod_remarks
-                }
-                onPress={() => {
-                    dispatch(playVod(item));
-                    navigation.navigate('播放', { vod_id: item.vod_id })
-                }} />
+            renderItem={({ item }: FlatListType) => {
+                return <VodCard showPlayIcon={showPlayIcon} vodImageStyle={vodStyle}
+                    vod_name={item.vod_name} vod_pic={item.vod_pic}
+                    showInfo={
+                        showInfo === 'none'
+                            ? ''
+                            : item.vod_remarks
+                    }
+                    onPress={() => {
+                        dispatch(playVod(item));
+                        navigation.navigate('播放', { vod_id: item.vod_id })
+                    }} />
             }}
         />
     );
