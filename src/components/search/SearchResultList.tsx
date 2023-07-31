@@ -1,3 +1,4 @@
+import React from 'react';
 import {useNavigation, useTheme} from '@react-navigation/native';
 import {StyleSheet, View, TouchableOpacity, Text} from 'react-native';
 import {SuggestedVodType} from '../../types/ajaxTypes';
@@ -9,15 +10,32 @@ import {addSearchHistory} from '../../redux/actions/searchActions';
 interface Props {
   searchResultList: Array<SuggestedVodType>;
   onItemSelect?(vod: string): any;
+  keyword: string;
 }
 
 export default function SearchResultList({
   searchResultList,
   onItemSelect,
+  keyword,
 }: Props) {
-  const {spacing, textVariants} = useTheme();
+  const {spacing, textVariants, colors} = useTheme();
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
+
+  const highlightText = (text: string, keyword: string) => {
+    const parts = text.split(new RegExp(`(${keyword})`, 'gi'));
+    return parts.map((part, index) =>
+      part.toLowerCase() === keyword.toLowerCase() ? (
+        <Text key={index} style={{...textVariants.body, color: colors.primary}}>
+          {part}
+        </Text>
+      ) : (
+        <Text key={index} style={textVariants.body}>
+          {part}
+        </Text>
+      ),
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -31,7 +49,7 @@ export default function SearchResultList({
               onItemSelect(item.vod_name);
             }
           }}>
-          <Text style={textVariants.body}>{item.vod_name}</Text>
+          {highlightText(item.vod_name, keyword)}
         </TouchableOpacity>
       ))}
     </View>
@@ -50,5 +68,8 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     flex: 1,
+  },
+  highlightColor: {
+    color: '#FAC33D', // Change this color to your desired highlight color
   },
 });

@@ -257,6 +257,7 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
             ) : (
               <SearchResultList
                 searchResultList={searchResults}
+                keyword={search}
                 onItemSelect={(vod: string) => {
                   setisFetching(true);
                   updateSearch(vod);
