@@ -48,6 +48,8 @@ export default function FavoriteVodCard({
                 color: colors.text,
                 // flex: 1,
                 flexShrink: 1,
+                marginBottom: 10,
+                fontWeight: '600',
               }}>
               {vod.vod_name}
             </Text>
