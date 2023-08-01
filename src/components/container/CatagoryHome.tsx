@@ -1,24 +1,35 @@
-import React, {memo, useCallback, useState} from 'react';
+import React, {memo, useState, useRef, useCallback} from 'react';
 import {
   StyleSheet,
   Text,
   View,
   TouchableOpacity,
+  FlatList,
+  TouchableWithoutFeedback,
   RefreshControl,
 } from 'react-native';
 import {useNavigation, useTheme} from '@react-navigation/native';
 import Swiper from 'react-native-swiper';
 import ShowMoreVodButton from '../button/showMoreVodButton';
-import {VodCarousellResponseType, VodData} from '../../types/ajaxTypes';
+import {
+  VodCarousellResponseType,
+  VodPlaylistResponseType,
+  VodTopicType,
+  VodType,
+  LiveTVStationsResponseType,
+  VodData,
+} from '../../types/ajaxTypes';
 import FastImage from 'react-native-fast-image';
 import {VodReducerState} from '../../redux/reducers/vodReducer';
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
 import {RootState} from '../../redux/store';
+import VodHistoryList from '../vod/vodHistoryList';
+import VodLiveStationList from '../vod/vodLiveStationList';
+import {API_DOMAIN, API_DOMAIN_TEST} from '../../utility/constants';
 import VodListVertical from '../vod/vodListVertical';
+import {playVod, viewPlaylistDetails} from '../../redux/actions/vodActions';
+import {useQuery, useInfiniteQuery} from '@tanstack/react-query';
 import LinearGradient from 'react-native-linear-gradient';
-import {playVod} from '../../redux/actions/vodActions';
-import HomeHeader from '../header/homeHeader';
-import {FlatList} from 'react-native-gesture-handler';
 
 interface NavType {
   id: number;
@@ -30,13 +41,24 @@ interface Props {
   onNavChange?: any;
   navId?: number;
   setScrollEnabled?: any;
+  onRefresh?: any;
 }
 const BTN_COLORS = ['#30AA55', '#7E9CEE', '#F1377A', '#FFCC12', '#ED7445'];
-const CatagoryHome = ({vodCarouselRes, navId = 0, setScrollEnabled}: Props) => {
+const CatagoryHome = ({
+  vodCarouselRes,
+  navId = 0,
+  setScrollEnabled,
+  onRefresh,
+}: Props) => {
   const {colors, textVariants, spacing} = useTheme();
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const data = vodCarouselRes.data;
+  const [refreshing, setRefreshing] = useState(false);
+
+  const handleRefresh = useCallback(() => {
+    onRefresh(navId);
+  }, []);
 
   const listItem = useCallback(
     ({item, index}: {item: VodData; index: number}) => (
@@ -66,6 +88,7 @@ const CatagoryHome = ({vodCarouselRes, navId = 0, setScrollEnabled}: Props) => {
 
   return (
     <FlatList
+      style={{marginBottom: 130}}
       ListHeaderComponent={
         <>
           {data?.carousel[0] && (
@@ -214,6 +237,9 @@ const CatagoryHome = ({vodCarouselRes, navId = 0, setScrollEnabled}: Props) => {
       windowSize={3}
       maxToRenderPerBatch={3}
       renderItem={listItem}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+      }
     />
   );
 };
