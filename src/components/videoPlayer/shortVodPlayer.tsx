@@ -299,7 +299,7 @@ function ShortVideoPlayer({
           trackStyle={{ height: 2, opacity: 1 }}
         />
         {
-          duration > 0 && showOverlay &&
+          duration > 0 && showOverlay && currentTime >= 0 &&
           (
             duration < 3600
               ? <Text style={{
