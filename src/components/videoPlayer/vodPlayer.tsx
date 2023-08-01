@@ -223,11 +223,12 @@ export default ({
   return (
     <>
       <TouchableWithoutFeedback onPress={toggleControls}>
-        <View style={styles.bofangBox}>
+        <View style={{...styles.bofangBox, height: isFullScreen ? '100%' : 'auto'}}>
           <PlayFullScreenGesture
             onScreenTouched={onTouchScreen}
             disableFullScreenGesture={disableFullScreenGesture}
             onSkip={onSkip}
+            vodType={videoType}
           />
           {(vod_url !== undefined || vod_source !== undefined) &&
             (useWebview ? (
@@ -356,26 +357,20 @@ const styles = StyleSheet.create({
     flex: 1,
     height: '100%',
     width: '100%',
-    backgroundColor: '#000',
+    backgroundColor: 'black',
   },
   videoLandscape: {
     flex: 1,
     maxHeight: height,
     width: '100%',
+    height: '100%',
     backgroundColor: 'black',
   },
   bofangBox: {
-    aspectRatio: 428 / 242,
+    aspectRatio: 3/2,
     width: '100%',
-  },
-  videoHeader: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    zIndex: 50,
+    maxHeight: '100%',
+    maxWidth: '100%'
   },
   buffering: {
     display: 'flex',

@@ -239,7 +239,7 @@ const styles = StyleSheet.create({
   },
   nav: {
     flexGrow: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     marginBottom: 10,
   },
   catalogNav: {
