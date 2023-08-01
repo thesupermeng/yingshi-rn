@@ -7,8 +7,8 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
-import { API_DOMAIN, API_DOMAIN_TEST, API_DOMAIN_LOCAL, APPSFLYER_DEVKEY } from './src/utility/constants';
-import { FilterOptionsResponseType, MiniVideo, NavOptionsResponseType, SuggestResponseType, VodCarousellResponseType, VodPlaylistResponseType, LiveTVStationsResponseType } from './src/types/ajaxTypes';
+import { API_DOMAIN, API_DOMAIN_TEST, API_DOMAIN_LOCAL, APPSFLYER_DEVKEY, UMENG_CHANNEL } from './src/utility/constants';
+import { BottomNavTabs, BottomNavTabsResponse, FilterOptionsResponseType, MiniVideo, NavOptionsResponseType, SuggestResponseType, VodCarousellResponseType, VodPlaylistResponseType, LiveTVStationsResponseType } from './src/types/ajaxTypes';
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import appsFlyer from 'react-native-appsflyer';
@@ -56,6 +56,24 @@ export default function App() {
       },
     },
   })
+
+  const navQueryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 99999999,
+      },
+    },
+  })
+
+  navQueryClient.prefetchQuery({
+    queryKey: ["navTabs"],
+    queryFn: () =>
+      fetch(`${API_DOMAIN}nav/v1/bottomtabs?channelId=` + UMENG_CHANNEL)
+        .then(response => response.json())
+        .then((json: BottomNavTabsResponse) => {
+          return json.data
+        }),
+  });
 
   queryClient.prefetchQuery({
     queryKey: ["recommendationList"],

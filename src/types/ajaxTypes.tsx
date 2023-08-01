@@ -327,3 +327,12 @@ export interface DetailTab {
     title: string,
     page: any
 }
+
+export interface BottomNavTabsResponse {
+    data: BottomNavTabs[]
+}
+
+export interface BottomNavTabs {
+    name: string,
+    settings: any
+}
