@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   NavigationContainer,
   RouteProp,
@@ -59,22 +59,52 @@ import {
 import {StatusBar, StyleSheet} from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import {useAppSelector} from '../hooks/hooks';
+import {
+    QueryClient,
+    useQuery,
+} from '@tanstack/react-query'
+import { API_DOMAIN, UMENG_CHANNEL } from '../../src/utility/constants';
+import { BottomNavTabsResponse } from '../../src/types/ajaxTypes';
+
 
 export default () => {
-  const Stack = createNativeStackNavigator<RootStackParamList>();
-  const HomeTab = createBottomTabNavigator<HomeTabParamList>();
 
-  const themeReducer = useAppSelector(
-    ({themeReducer}: RootState) => themeReducer,
-  );
-  const theme = themeReducer.theme ? YingshiDarkTheme : YingshiLightTheme;
+    const {data: navTabs} = useQuery({
+        queryKey: ["navTabs"],
+        queryFn: () =>
+        fetch(`${API_DOMAIN}nav/v1/bottomtabs?channelId=` + UMENG_CHANNEL)
+            .then(response => response.json())
+            .then((json: BottomNavTabsResponse) => {
+              return json.data;
+            }),
+    });
 
-  let hasNotch = DeviceInfo.hasNotch();
+    const [tabs, setTabs] = useState([])
 
-  let iconWidth = 22;
-  if (hasNotch) {
-    iconWidth = 22;
-  }
+    const Stack = createNativeStackNavigator<RootStackParamList>();
+    const HomeTab = createBottomTabNavigator<HomeTabParamList>();
+
+    const themeReducer = useAppSelector(
+        ({themeReducer}: RootState) => themeReducer,
+    );
+    const theme = themeReducer.theme ? YingshiDarkTheme : YingshiLightTheme;
+
+    let hasNotch = DeviceInfo.hasNotch();
+
+    let iconWidth = 22;
+    if (hasNotch) {
+        iconWidth = 22;
+    }
+
+    useEffect(() => {
+        let tabsArr: any = [];
+        if(navTabs != undefined && navTabs.length > 0){
+            for(var i = 0; i < navTabs.length; i++){
+                tabsArr.push(navTabs[i].name)
+            }
+            setTabs(tabsArr)
+        }
+    }, [navTabs])
 
   function HomeTabScreen() {
     return (
@@ -149,11 +179,27 @@ export default () => {
             return icon;
           },
         })}>
-        <HomeTab.Screen name="首页" component={HomeScreen} />
-        <HomeTab.Screen name="随心看" component={WatchAnytime} />
-        <HomeTab.Screen name="体育" component={MatchesScreen} />
-        <HomeTab.Screen name="播单" component={PlaylistScreen} />
-        <HomeTab.Screen name="我的" component={ProfileScreen} />
+        { tabs.length == 5 ?
+            (
+                <>
+                    <HomeTab.Screen name="首页" component={HomeScreen} />
+                    <HomeTab.Screen name="随心看" component={WatchAnytime} />
+                    <HomeTab.Screen name="体育" component={MatchesScreen} />
+                    <HomeTab.Screen name="播单" component={PlaylistScreen} />
+                    <HomeTab.Screen name="我的" component={ProfileScreen} />
+                </>
+            )
+            :
+            (
+
+                <>
+                    <HomeTab.Screen name="首页" component={HomeScreen} />
+                    <HomeTab.Screen name="随心看" component={WatchAnytime} />
+                    <HomeTab.Screen name="播单" component={PlaylistScreen} />
+                    <HomeTab.Screen name="我的" component={ProfileScreen} />
+                </>
+            )
+        }
       </HomeTab.Navigator>
     );
   }

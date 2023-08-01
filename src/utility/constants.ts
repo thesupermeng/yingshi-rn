@@ -24,4 +24,14 @@ export const CLEAR_SEARCH_HISTORY = 'clear_search_history';
 
 export const CLEAR_STORAGE_MEMORY = 'clear_storage_memory';
 
-export const APPSFLYER_DEVKEY = 'wrxTHihLJNWrrusXtgRJZa'
+export const APPSFLYER_DEVKEY = 'wrxTHihLJNWrrusXtgRJZa';
+
+export const UMENG_CHANNEL_GENERAL = '10001';
+export const UMENG_CHANNEL_YINGSHI_WEB = '10002';
+export const UMENG_CHANNEL_GOOGLE_PLAY = '10003';
+
+export const UMENG_CHANNEL = '10001';
+// export const UMENG_CHANNEL = '10002';
+// export const UMENG_CHANNEL = '10003';
+
+export const APP_VERSION = '1.3.0';
