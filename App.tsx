@@ -57,24 +57,6 @@ export default function App() {
     },
   })
 
-  const navQueryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        staleTime: 99999999,
-      },
-    },
-  })
-
-  navQueryClient.prefetchQuery({
-    queryKey: ["navTabs"],
-    queryFn: () =>
-      fetch(`${API_DOMAIN}nav/v1/bottomtabs?channelId=` + UMENG_CHANNEL)
-        .then(response => response.json())
-        .then((json: BottomNavTabsResponse) => {
-          return json.data
-        }),
-  });
-
   queryClient.prefetchQuery({
     queryKey: ["recommendationList"],
     queryFn: () =>
