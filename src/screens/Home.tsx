@@ -56,6 +56,9 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
     fetch(`${API_DOMAIN}page/v1/typepage?id=${id}`)
       .then(response => response.json())
       .then((json: VodCarousellResponseType) => {
+        console.log('fetchData');
+        console.log(id);
+        console.log(json);
         return json;
       });
 
@@ -67,6 +70,20 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
         }))
       : [],
   });
+
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  // Function to handle the pull-to-refresh action
+  const handleRefresh = async (id: any) => {
+    setIsRefreshing(true);
+    await fetchData(id);
+    setTimeout(() => {
+      setNavId(id);
+      ref?.current?.scrollToIndex({
+        index: id,
+      });
+      setIsRefreshing(false);
+    }, 100); // Replace this with your actual API calls
+  };
 
   const Content = useCallback(
     ({
@@ -83,12 +100,14 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
               <RecommendationHome
                 vodCarouselRes={item.data}
                 setScrollEnabled={setScrollEnabled}
+                onRefresh={handleRefresh}
               />
             ) : (
               <CatagoryHome
                 vodCarouselRes={item.data}
                 navId={index}
                 setScrollEnabled={setScrollEnabled}
+                onRefresh={handleRefresh}
               />
             ))}
         </View>
@@ -168,40 +187,45 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
           }}
         />
       </View>
-      {!data && (
-        <View style={{...styles.loading, marginBottom: spacing.xl}}>
-          {
-            <FastImage
-              style={{height: 80, width: 80}}
-              source={require('../../static/images/loading-spinner.gif')}
-              resizeMode={FastImage.resizeMode.contain}
-            />
-          }
+      {!data ||
+        (isRefreshing && (
+          <View style={{...styles.loading, marginBottom: 80}}>
+            {
+              <FastImage
+                style={{height: 80, width: 80}}
+                source={require('../../static/images/loading-spinner.gif')}
+                resizeMode={FastImage.resizeMode.contain}
+              />
+            }
+          </View>
+        ))}
+      {data && (
+        <View style={{opacity: !isRefreshing ? 1 : 0}}>
+          <FlatList
+            ref={ref}
+            data={data}
+            pagingEnabled={true}
+            scrollEnabled={
+              scrollEnabled && onEndReachedCalledDuringMomentum.current
+            }
+            horizontal={true}
+            windowSize={3}
+            maxToRenderPerBatch={2}
+            initialNumToRender={1}
+            nestedScrollEnabled={true}
+            getItemLayout={(data, index) => ({
+              length: width,
+              offset: width * index,
+              index,
+            })}
+            onMomentumScrollBegin={() => {
+              onEndReachedCalledDuringMomentum.current = false;
+            }}
+            onMomentumScrollEnd={onScrollEnd}
+            renderItem={Content}
+          />
         </View>
       )}
-      <FlatList
-        ref={ref}
-        data={data}
-        pagingEnabled={true}
-        scrollEnabled={
-          scrollEnabled && onEndReachedCalledDuringMomentum.current
-        }
-        horizontal={true}
-        windowSize={3}
-        maxToRenderPerBatch={2}
-        initialNumToRender={1}
-        nestedScrollEnabled={true}
-        getItemLayout={(data, index) => ({
-          length: width,
-          offset: width * index,
-          index,
-        })}
-        onMomentumScrollBegin={() => {
-          onEndReachedCalledDuringMomentum.current = false;
-        }}
-        onMomentumScrollEnd={onScrollEnd}
-        renderItem={Content}
-      />
     </ScreenContainer>
   );
 };

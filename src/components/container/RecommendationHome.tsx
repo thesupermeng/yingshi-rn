@@ -40,9 +40,14 @@ interface Props {
   onNavChange?: any;
   navId?: number;
   setScrollEnabled?: any;
+  onRefresh?: any;
 }
 
-const RecommendationHome = ({vodCarouselRes, setScrollEnabled}: Props) => {
+const RecommendationHome = ({
+  vodCarouselRes,
+  setScrollEnabled,
+  onRefresh,
+}: Props) => {
   const {colors, textVariants, spacing} = useTheme();
   const vodReducer: VodReducerState = useAppSelector(
     ({vodReducer}: RootState) => vodReducer,
@@ -53,12 +58,17 @@ const RecommendationHome = ({vodCarouselRes, setScrollEnabled}: Props) => {
   const data = vodCarouselRes.data;
   const [totalPage, setTotalPage] = useState(0);
   const [results, setResults] = useState<Array<VodTopicType>>([]);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  // Function to handle the pull-to-refresh action
+  const handleRefresh = () => {
+    onRefresh(0);
+  };
 
   const fetchPlaylist = (page: number) =>
     fetch(`${API_DOMAIN}topic/v1/topic?page=${page}`)
       .then(response => response.json())
       .then((json: VodPlaylistResponseType) => {
-        //  console.log('1111 page ' + page);
         setTotalPage(Number(json.data.TotalPageCount));
         return Object.values(json.data.List);
       });
@@ -289,6 +299,9 @@ const RecommendationHome = ({vodCarouselRes, setScrollEnabled}: Props) => {
           fetchNextPage();
         }
       }}
+      refreshControl={
+        <RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} />
+      }
       initialNumToRender={0}
       onEndReachedThreshold={0.5}
       renderItem={({item, index}: {item: VodTopicType; index: number}) => (
