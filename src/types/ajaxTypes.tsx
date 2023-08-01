@@ -336,3 +336,9 @@ export interface BottomNavTabs {
     name: string,
     settings: any
 }
+
+export interface SubmitFeedbackRequest {
+    email: string,
+    feedback_category: number,
+    feedback: string
+}

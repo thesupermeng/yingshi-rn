@@ -9,10 +9,15 @@ import TitleWithBackButtonHeader from '../../components/header/titleWithBackButt
 import {Button, Dialog} from '@rneui/themed';
 import {TouchableOpacity} from '@gorhom/bottom-sheet';
 import FeedbackSuccessIcon from '../../../static/images/feedback_success.svg';
+import axios from 'axios';
+import {SubmitFeedbackRequest} from '../../../src/types/ajaxTypes';
+import { API_DOMAIN, API_DOMAIN_TEST, API_DOMAIN_LOCAL } from '../../../src/utility/constants';
 
 export default ({navigation}: RootStackScreenProps<'反馈'>) => {
   const {colors, textVariants, icons} = useTheme();
   const [text, setTextInput] = React.useState('');
+  const [feedbackCategory, setFeedbackCategory] = React.useState(0);
+  const [email, setEmail] = React.useState('');
   const [dialogText, setDialogText] = React.useState('反馈提交成功');
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
   const [isConnected, setIsConnected] = useState<boolean>(true);
@@ -25,13 +30,29 @@ export default ({navigation}: RootStackScreenProps<'反馈'>) => {
   //   return () => unsubscribe();
   // }, []);
 
-  function sendFeedbackHandler() {
+  const submitFeedback = async (data: SubmitFeedbackRequest) => {
+    const { data: response } = await axios.post(`${API_DOMAIN}feedback/v1/submit`, data);
+
     if (isConnected) {
       setDialogText('反馈提交成功');
     } else {
       setDialogText('无法检测网络， 请稍后再试');
     }
     setIsDialogOpen(true);
+
+    return response.data;
+  };
+
+  function sendFeedbackHandler() {
+
+    const body: SubmitFeedbackRequest = {
+      "email": email,
+      "feedback_category": feedbackCategory,
+      "feedback": text,
+    }
+
+    submitFeedback(body);
+
   }
 
   return (
