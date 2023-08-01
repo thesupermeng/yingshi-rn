@@ -284,7 +284,7 @@ function ShortVideoPlayer({
           maximumValue={duration}
           minimumValue={0}
           disabled={!showOverlay}
-          thumbTouchSize={{ width: 60, height: 60 }}
+          thumbTouchSize={{ width: 50, height: 50 }}
           allowTouchTrack={true}
           thumbStyle={{
             height: showOverlay ? 8 : 1,
@@ -301,7 +301,7 @@ function ShortVideoPlayer({
         {
           duration > 0 && showOverlay &&
           (
-            duration > 3600
+            duration < 3600
               ? <Text style={{
                 position: 'absolute',
                 bottom: 20,
