@@ -100,7 +100,11 @@ const MatchScheduleList = ({ matchTypeID, status = -1 }: Props) => {
           if (latestListDate.current === undefined) {
             latestListDate.current = new Date(dates[dates.length - 1]);
           }
-          latestListDate.current = new Date(latestListDate.current.getTime() + 86400000);
+          if (status <= 2) {
+            latestListDate.current = new Date(latestListDate.current.getTime() + 86400000);
+          } else {
+            latestListDate.current = new Date(latestListDate.current.getTime() - 86400000);
+          }
           for (const date of dates) {
             lst.push({ date: formatMatchDate(date), data: undefined })
             headers.push(count);

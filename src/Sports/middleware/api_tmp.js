@@ -1,27 +1,10 @@
 import axios from 'axios';
-import {Platform} from 'react-native';
-import {SHOWAPILOG} from '../global/const';
+import { Platform } from 'react-native';
+// import {getAccessToken, getAuthToken} from '../global/asyncStorage';
 import Config from '../global/env';
-import {Url} from './url';
-import {addHeaderSignature} from '../utility/hash_util';
-import {AppConfig} from '../global/appConfig';
+// import {addHeaderSignature} from './util';
+import { MATCH_API_DOMAIN } from '../../utility/constants';
 
-const printRequestLog = (api, data) => {
-  if (!SHOWAPILOG) {
-    return;
-  }
-  const logString = `
-======================== Request ========================
-
-api: ${api}
-request: ${JSON.stringify(data)}
-date: ${Date()}
-
-=========================================================
-`;
-
-  console.log(logString);
-};
 
 const printResponseLog = (api, response, success) => {
   if (!SHOWAPILOG) {
@@ -39,21 +22,19 @@ date: ${Date()}
 `;
 
   if (success) {
-    console.log(logString);
+    // console.log(logString);
   } else {
-    console.error(logString);
+    // console.error(logString);
   }
 };
 
 const baseUrl = Config.apiUrl;
+const authUrl = Config.apiAuthUrl;
 const logUrl = Config.apiLogUrl;
 
-const ServerTimeOffset = {value: 0};
-export const setServerTimeOffset = offset => {
-  ServerTimeOffset.value = offset || 0;
-};
 export default class Api {
-  static call = async (url, data, method = 'POST', containImage = false) => {
+  static call = async (url, data, method = 'POST') => {
+    // console.log(url)
     // add default params
     if (!data) {
       data = {};
@@ -73,15 +54,25 @@ export default class Api {
     const configuratinObject = {
       method: method,
       // data: method === 'GET' ? null : data,
+      data: null,
       params: data,
     };
 
+    // const token = await getAccessToken('');
+    // const authToken = await getAuthToken('');
+    const token = '';
+    const authToken = '';
+
     const deviceInfo = {
-      DeviceInfo: `{ "uuid": "${Config.uniqueId}","version": "${Config.version}", "platform": "${Config.platform}", "osVersion": "${Config.baseOs}",   "model": "${Config.brand}", "channel":"${Config.channelId}", "appName":"${Config.appNameEng}", "appType":"${Config.appType}", "sessionId":"${AppConfig.instance.sessionId}" }`,
+      DeviceInfo: `{ "uuid": "${Config.uniqueId}","version": "${Config.version}", "platform": "${Config.platform}", "osVersion": "${Config.baseOs}",   "model": "${Config.brand}", "channel":"${Config.channelId}", "appName":"${Config.appNameEng}", "appType":"${Config.appType}" }`,
     };
 
+    // console.log(deviceInfo)
     if (url.startsWith('live/')) {
       configuratinObject.url = `${baseUrl}${url}`;
+      if (token) {
+        configuratinObject.headers = { Authorization: `Bearer ${token}` };
+      }
       configuratinObject.headers = {
         ...configuratinObject.headers,
         ...deviceInfo,
@@ -91,53 +82,57 @@ export default class Api {
       configuratinObject.url = `${logUrl}${url}`;
       configuratinObject.headers = deviceInfo;
     }
-    if (url === Url.getServerTime) {
-      configuratinObject.url = `${baseUrl}${url}`;
+    if (url.startsWith('auth/')) {
+      configuratinObject.url = `${authUrl}${url}`;
+      if (authToken) {
+        configuratinObject.headers = { Authorization: `Bearer ${authToken}` };
+      }
+      configuratinObject.headers = {
+        ...configuratinObject.headers,
+        ...deviceInfo,
+      };
     }
 
     configuratinObject.headers = {
       ...configuratinObject.headers,
       Locale: Config.locale,
       Timezone: Config.timeZone,
-      ...(containImage ? {'Content-Type': 'multipart/form-data'} : {}),
     };
-    const timestamp =
-      Math.floor(new Date().getTime() / 1000) + ServerTimeOffset.value;
+    const timestamp = Math.floor(new Date().getTime() / 1000);
     configuratinObject.headers = {
       ...configuratinObject.headers,
-      Signature: addHeaderSignature(method === 'GET' ? data : '', timestamp),
+      Signature: data,
       Timestamp: timestamp,
     };
 
-    if (containImage) {
-      configuratinObject.transformRequest = (_, headers) => data;
-    }
-
-    printRequestLog(url, configuratinObject);
-
+    // printRequestLog(url, configuratinObject);
+    // return axios(configuratinObject);
+    // console.log('calling', `${MATCH_API_DOMAIN}${url}`, configuratinObject)
+    // return axios(configuratinObject);
     try {
       const response = await axios(configuratinObject);
+      // console.log(configuratinObject)
       const {code, data, msg} = response.data;
-
+      // console.log(data, msg, code);
       if (response.status === 200) {
         if (code == 0) {
-          printResponseLog(url, data, true);
           return {success: true, data: data, message: msg};
         } else {
-          printResponseLog(url, msg, true);
           return {success: false, data: data, message: msg};
         }
       } else {
-        printResponseLog(url, msg, false);
+        
         return {success: false, data: null, message: msg};
       }
     } catch (error) {
+      // console.log("ERR", error)
       const status = error?.response?.status;
       const msg = error?.response?.data?.msg;
 
-      printResponseLog(url, msg ?? error, false);
+      // console.log(url, msg ?? error, false);
 
       if (status === 401) {
+
         return {success: false, data: null, message: msg ?? ''};
       } else {
         return {success: false, data: null, message: 'Internal Server Error'};

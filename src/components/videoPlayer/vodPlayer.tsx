@@ -198,7 +198,6 @@ export default ({
     // setDisableFullScreenGesture(prev => false);
     return;
   };
-
   const debouncedFn = useCallback(debounce(changeControlsState, 4000), []);
   const hideSeekProgress = useCallback(debounce(() => setSeekDirection('none'), 300), []);
 
@@ -218,6 +217,8 @@ export default ({
       }
     }
   };
+
+
 
   return (
     <>
@@ -304,24 +305,37 @@ export default ({
                     {
                       seekDirection === 'forward'
                         ? <FastForwardProgressIcon
-                          height={60}
-                          width={60}
+                          height={50}
+                          width={50}
                         />
                         : <RewindProgressIcon
-                          height={60}
-                          width={60}
+                          height={50}
+                          width={50}
                         />
                     }
-                    <Text style={{
-                      textAlign: 'center'
-                    }}>
-                      <Text style={{ ...textVariants.header, color: colors.primary }}>
-                        {new Date(currentTime * 1000).toISOString().substring(14, 19)}
-                      </Text>
-                      <Text style={{ ...textVariants.header }}>
-                        {` / ${new Date(duration * 1000).toISOString().substring(14, 19)}`}
-                      </Text>
-                    </Text>
+                    {
+                      duration > 3600
+                        ? <Text style={{
+                          textAlign: 'center'
+                        }}>
+                          <Text style={{ ...textVariants.header, color: colors.primary }}>
+                            {new Date(currentTime * 1000).toISOString().substring(11, 19)}
+                          </Text>
+                          <Text style={{ ...textVariants.header }}>
+                            {` / ${new Date(duration * 1000).toISOString().substring(11, 19)}`}
+                          </Text>
+                        </Text>
+                        : <Text style={{
+                          textAlign: 'center'
+                        }}>
+                          <Text style={{ ...textVariants.header, color: colors.primary }}>
+                            {new Date(currentTime * 1000).toISOString().substring(14, 19)}
+                          </Text>
+                          <Text style={{ ...textVariants.header }}>
+                            {` / ${new Date(duration * 1000).toISOString().substring(14, 19)}`}
+                          </Text>
+                        </Text>
+                    }
                   </View>
                   : <FastImage
                     source={require('../../../static/images/videoBufferLoading.gif')}

@@ -284,7 +284,8 @@ function ShortVideoPlayer({
           maximumValue={duration}
           minimumValue={0}
           disabled={!showOverlay}
-          // allowTouchTrack={true}
+          thumbTouchSize={{ width: 60, height: 60 }}
+          allowTouchTrack={true}
           thumbStyle={{
             height: showOverlay ? 8 : 1,
             width: showOverlay ? 8 : 1,
@@ -299,14 +300,25 @@ function ShortVideoPlayer({
         />
         {
           duration > 0 && showOverlay &&
-          <Text style={{
-            position: 'absolute',
-            bottom: 20,
-            left: Math.min(Math.max(0, (currentTime / duration) * windowWidth - 34), windowWidth - 76)
-          }}>
-            <Text style={textVariants.small}>{new Date(currentTime * 1000).toISOString().substring(14, 19)}</Text>
-            <Text style={{...textVariants.small, color: colors.muted}}>{` / ${new Date(duration * 1000).toISOString().substring(14, 19)}`}</Text>
-          </Text>
+          (
+            duration > 3600
+              ? <Text style={{
+                position: 'absolute',
+                bottom: 20,
+                left: Math.min(Math.max(0, (currentTime / duration) * windowWidth - 34), windowWidth - 76)
+              }}>
+                <Text style={textVariants.small}>{new Date(currentTime * 1000).toISOString().substring(14, 19)}</Text>
+                <Text style={{ ...textVariants.small, color: colors.muted }}>{` / ${new Date(duration * 1000).toISOString().substring(14, 19)}`}</Text>
+              </Text>
+              : <Text style={{
+                position: 'absolute',
+                bottom: 20,
+                left: Math.min(Math.max(0, (currentTime / duration) * windowWidth - 34), windowWidth - 76)
+              }}>
+                <Text style={textVariants.small}>{new Date(currentTime * 1000).toISOString().substring(11, 19)}</Text>
+                <Text style={{ ...textVariants.small, color: colors.muted }}>{` / ${new Date(duration * 1000).toISOString().substring(11, 19)}`}</Text>
+              </Text>
+          )
         }
       </View>
     </TouchableWithoutFeedback>

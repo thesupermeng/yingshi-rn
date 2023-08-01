@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useContext} from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import {
   View,
   PanResponder,
@@ -14,7 +14,7 @@ import Unlock from '../../../static/images/unlock.svg';
 import Episodes from '../../../static/images/episodes.svg';
 import NextEpisode from '../../../static/images/nextEpisode.svg';
 import MinimizeScreen from '../../../static/images/minimizeScreen.svg';
-import {TouchableWithoutFeedback} from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native';
 
 type Props = {
   currentTime: number;
@@ -39,15 +39,14 @@ export default ({
   isFullScreen,
   videoType,
 }: Props) => {
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
   const getMinutesFromSeconds = (time: number) => {
     const minutes = time >= 60 ? Math.floor(time / 60) : 0;
     const seconds = Math.floor(time - minutes * 60);
 
-    return `${minutes >= 10 ? minutes : '0' + minutes}:${
-      seconds >= 10 ? seconds : '0' + seconds
-    }`;
+    return `${minutes >= 10 ? minutes : '0' + minutes}:${seconds >= 10 ? seconds : '0' + seconds
+      }`;
   };
 
   const onSlideProgressBar = (time: any) => {
@@ -101,20 +100,24 @@ export default ({
               minimumTrackTintColor={'#FAC33D'}
               maximumTrackTintColor={'#FFFFFF'}
               thumbTintColor={'#FFFFFF'}
-              style={{flex: 12, marginTop: 2}}
+              style={{ flex: 12, marginTop: 2 }}
             />
           )}
           <View>
             {videoType === 'vod' && (
               <View style={styles.timeWrapper}>
-                <Text style={styles.timeLeft}>{position} / </Text>
-                <Text style={styles.timeRight}>{fullDuration}</Text>
+                <Text style={styles.timeLeft}>
+                  {new Date(currentTime * 1000).toISOString().substring(11, 19)}
+                </Text>
+                <Text style={styles.timeRight}>
+                  {` / ${new Date(duration * 1000).toISOString().substring(11, 19)}`}
+                </Text>
               </View>
             )}
           </View>
           <Pressable
             onPress={onPressFullScreenBtn}
-            style={{alignItems: 'flex-end'}}>
+            style={{ alignItems: 'flex-end' }}>
             <FullScreen width={30} height={30} />
           </Pressable>
         </View>
@@ -134,7 +137,7 @@ export default ({
                 maximumTrackTintColor={'#FFFFFF'}
                 thumbTintColor={'#FFFFFF'}
                 thumbImage={thumbImage}
-                style={{flex: 16, marginTop: 2}}
+                style={{ flex: 16, marginTop: 2 }}
               />
             )}
             {videoType === 'vod' && Platform.OS !== 'ios' && (
@@ -149,14 +152,18 @@ export default ({
                 minimumTrackTintColor={'#FAC33D'}
                 maximumTrackTintColor={'#FFFFFF'}
                 thumbTintColor={'#FFFFFF'}
-                style={{flex: 16, marginTop: 2}}
+                style={{ flex: 16, marginTop: 2 }}
               />
             )}
             <View>
               {videoType === 'vod' && (
                 <View style={styles.timeWrapperLandscape}>
-                  <Text style={styles.timeLeftLandscape}>{position} / </Text>
-                  <Text style={styles.timeRightLandscape}>{fullDuration}</Text>
+                  <Text style={styles.timeLeftLandscape}>
+                    {new Date(currentTime * 1000).toISOString().substring(11, 19)}
+                  </Text>
+                  <Text style={styles.timeRightLandscape}>
+                    {` / ${new Date(duration * 1000).toISOString().substring(11, 19)}`}
+                  </Text>
                 </View>
               )}
             </View>

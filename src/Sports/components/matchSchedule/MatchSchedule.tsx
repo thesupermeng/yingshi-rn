@@ -98,7 +98,6 @@ const MatchSchedule = ({ matchSche, onPress = () => {}, isMatchPage = true }: Pr
   //     return null;
   //   }
   // };
-
   return (
     <TouchableOpacity onPress={matchClicked}>
       <View style={styles.border}>
@@ -111,7 +110,7 @@ const MatchSchedule = ({ matchSche, onPress = () => {}, isMatchPage = true }: Pr
               {/* {('0' + new Date(matchSche?.match_time).getHours()).slice(-2) +
                 ':' +
                 ('0' + new Date(matchSche?.match_time).getMinutes()).slice(-2)} */}
-              {new Date(matchSche?.match_time).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}
+              {new Date(matchSche?.match_time_ts).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}
             </Text>
           </View>
           <View style={styles.matchStatus}>
