@@ -6,10 +6,7 @@ export class YSConfig {
   
     setTabConfig(tabConfig) {
         this.tabConfig = tabConfig;
-    }
-
-    setTabConfigSize(len) {
-        this.len = this.tabConfig.length;
+        this.len = tabConfig.length;
     }
   }
   
