@@ -90,6 +90,9 @@ function ShortVideoPlayer({
     timer.current = setTimeout(() => setShowOverlay(false), 3000);
   };
   const handleSeek = (value: number) => {
+    if(Number.isNaN(value)){
+      value = 0;
+    }
     showControls();
     setCurrentTime(value)
     if (videoRef.current) {
@@ -285,7 +288,7 @@ function ShortVideoPlayer({
           minimumValue={0}
           disabled={!showOverlay}
           thumbTouchSize={{ width: 50, height: 50 }}
-          allowTouchTrack={true}
+          allowTouchTrack={!isBuffering}
           thumbStyle={{
             height: showOverlay ? 8 : 1,
             width: showOverlay ? 8 : 1,

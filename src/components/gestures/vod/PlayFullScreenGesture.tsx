@@ -25,9 +25,10 @@ type Props = {
     onScreenTouched: () => any,
     disableFullScreenGesture: boolean,
     onSkip?: any
+    vodType?: string
 }
 
-export default ({ onScreenTouched, disableFullScreenGesture, onSkip }: Props) => {
+export default ({ onScreenTouched, disableFullScreenGesture, onSkip, vodType = 'vod' }: Props) => {
     const [icon, setIcon] = useState({
         noValue: "MutedVolume",
         hasValue: "Volume"
@@ -60,10 +61,12 @@ export default ({ onScreenTouched, disableFullScreenGesture, onSkip }: Props) =>
                 }}
                 onTouchScreen={handleScreenTouch}
             />
-            <ProgressGestureControl
-                onTouchScreen={handleScreenTouch}
-                onProgressChange={onSkip}
-            />
+            {
+                vodType === 'vod' && <ProgressGestureControl
+                    onTouchScreen={handleScreenTouch}
+                    onProgressChange={onSkip}
+                />
+            }
             <VolumeGestureControl
                 onChangeVolume={(value: number) => {
                     onPropertyChanged(GestureControls.VOLUME, value)

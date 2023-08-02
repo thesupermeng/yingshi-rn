@@ -65,21 +65,9 @@ import {
 } from '@tanstack/react-query'
 import { API_DOMAIN, UMENG_CHANNEL } from '../../src/utility/constants';
 import { BottomNavTabsResponse } from '../../src/types/ajaxTypes';
-
+import { YSConfig } from '../../ysConfig';
 
 export default () => {
-
-    const {data: navTabs} = useQuery({
-        queryKey: ["navTabs"],
-        queryFn: () =>
-        fetch(`${API_DOMAIN}nav/v1/bottomtabs?channelId=` + UMENG_CHANNEL)
-            .then(response => response.json())
-            .then((json: BottomNavTabsResponse) => {
-              return json.data;
-            }),
-    });
-
-    const [tabs, setTabs] = useState([])
 
     const Stack = createNativeStackNavigator<RootStackParamList>();
     const HomeTab = createBottomTabNavigator<HomeTabParamList>();
@@ -95,16 +83,6 @@ export default () => {
     if (hasNotch) {
         iconWidth = 22;
     }
-
-    useEffect(() => {
-        let tabsArr: any = [];
-        if(navTabs != undefined && navTabs.length > 0){
-            for(var i = 0; i < navTabs.length; i++){
-                tabsArr.push(navTabs[i].name)
-            }
-            setTabs(tabsArr)
-        }
-    }, [navTabs])
 
   function HomeTabScreen() {
     return (
@@ -179,7 +157,7 @@ export default () => {
             return icon;
           },
         })}>
-        { tabs.length == 5 ?
+        { YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5 ?
             (
                 <>
                     <HomeTab.Screen name="首页" component={HomeScreen} />

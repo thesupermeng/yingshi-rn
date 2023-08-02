@@ -160,20 +160,7 @@ const LiveVideo = ({ matchID, liveDataState, onLiveEnd, onLoad, streamID, videoS
     // console.log('videoPlayerControl.source', videoSource);
     return (
         <View style={styles.container}>
-            <View
-                style={
-                    isFullScreen
-                        ? styles.videoDivFul
-                        : {
-                            ...styles.videoDiv,
-                            aspectRatio:
-                                liveDataState?.streams === undefined || liveDataState.streams.length === 0
-                                    ? Platform.OS === 'ios'
-                                        ? 749 / 464
-                                        : 738 / 464
-                                    : 1024 / 576,
-                        }
-                }>
+            <View style={{height: isFullScreen ? '100%' : 'auto'}}>
                 {/* <View style={styles.videoDiv}> */}
                 {(videoSource !== undefined || streamData?.src) && (
                     <>
