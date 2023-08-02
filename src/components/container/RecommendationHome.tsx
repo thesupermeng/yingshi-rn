@@ -331,7 +331,7 @@ const RecommendationHome = ({
         <View style={{...styles.loading, marginBottom: spacing.xl}}>
           {hasNextPage && (
             <FastImage
-              style={{height: 80, width: 80}}
+              style={{height: 80, width: 80, marginBottom: 80}}
               source={require('../../../static/images/loading-spinner.gif')}
               resizeMode={FastImage.resizeMode.contain}
             />
