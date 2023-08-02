@@ -223,7 +223,7 @@ export default ({
   return (
     <>
       <TouchableWithoutFeedback onPress={toggleControls}>
-        <View style={{...styles.bofangBox, aspectRatio: isFullScreen ? 926 / 428 : 3 / 2,
+        <View style={{...styles.bofangBox, aspectRatio: isFullScreen ? 926 / 428 : 16 / 9,
           height: isFullScreen ? '100%' : 'auto'
       }}>
           <PlayFullScreenGesture
@@ -369,7 +369,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
   },
   bofangBox: {
-    aspectRatio: 3/2,
+    aspectRatio: 16/9,
     width: '100%',
     maxHeight: '100%',
     maxWidth: '100%',
