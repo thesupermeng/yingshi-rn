@@ -4,10 +4,10 @@ import {
   Text,
   View,
   TouchableOpacity,
-  FlatList,
   TouchableWithoutFeedback,
   RefreshControl,
 } from 'react-native';
+import {FlatList} from 'react-native-gesture-handler';
 import {useNavigation, useTheme} from '@react-navigation/native';
 import Swiper from 'react-native-swiper';
 import ShowMoreVodButton from '../button/showMoreVodButton';
