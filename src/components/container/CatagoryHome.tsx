@@ -249,7 +249,7 @@ const CatagoryHome = ({
           <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
         }
       />
-      <View style={{paddingBottom: 80}} />
+      <View style={{paddingBottom: 100}} />
     </>
   );
 };
