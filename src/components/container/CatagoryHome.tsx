@@ -6,8 +6,9 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   RefreshControl,
+  FlatList,
 } from 'react-native';
-import {FlatList} from 'react-native-gesture-handler';
+import {FlatList as FlatListSecondary} from 'react-native-gesture-handler';
 import {useNavigation, useTheme} from '@react-navigation/native';
 import Swiper from 'react-native-swiper';
 import ShowMoreVodButton from '../button/showMoreVodButton';
@@ -160,7 +161,7 @@ const CatagoryHome = ({
             )}
             <View>
               {data && data.class_list && data.class_list.length > 0 && (
-                <FlatList
+                <FlatListSecondary
                   data={['全部剧集', ...data.class_list]}
                   horizontal
                   showsHorizontalScrollIndicator={false}
