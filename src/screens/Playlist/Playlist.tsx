@@ -11,7 +11,7 @@ import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import {API_DOMAIN} from '../../utility/constants';
 import Animated from 'react-native-reanimated';
 import FastImage from 'react-native-fast-image';
-
+import {useIsFocused} from '@react-navigation/native';
 type FlatListType = {
   item: VodTopicType;
   index: number;
@@ -24,17 +24,22 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
   // const [results, setResults] = useState<Array<VodTopicType>>([])
   const [totalPage, setTotalPage] = useState(0);
 
-  // Function to handle the reload/refresh action
+  const isFocused = useIsFocused();
+
+  // Function to handle the refresh action
   const handleTabPress = () => {
-    handleRefresh();
+    if (isFocused) {
+      handleRefresh();
+    }
   };
 
   // Add an event listener to the navigation object for the tab press event
   useEffect(() => {
     const unsubscribe = navigation.addListener('tabPress', handleTabPress);
+
     // Clean up the event listener when the component unmounts
     return () => unsubscribe();
-  }, [navigation]);
+  }, [navigation, isFocused]);
 
   const fetchPlaylist = (page: number) =>
     fetch(`${API_DOMAIN}topic/v1/topic?page=${page}`)

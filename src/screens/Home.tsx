@@ -73,13 +73,11 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [hideContent, setHideContent] = useState(false);
 
-  // Function to handle the reload/refresh action
+  // Function to handle the refresh action
   const handleTabPress = () => {
-    handleRefresh(navId);
-    // Trigger the reload action here, e.g., fetching new data or refreshing the content.
-    // Example:
-    // fetchData();
-    // refreshContent();
+    if (isFocused) {
+      handleRefresh(navId);
+    }
   };
 
   // Add an event listener to the navigation object for the tab press event
@@ -88,7 +86,7 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
 
     // Clean up the event listener when the component unmounts
     return () => unsubscribe();
-  }, [navigation]);
+  }, [navigation, isFocused]);
 
   // Function to handle the pull-to-refresh action
   const handleRefresh = async (id: number) => {
