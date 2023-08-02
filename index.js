@@ -31,13 +31,13 @@ AppRegistry.registerRunnable(appName, async initialProps => {
         }
 
         const response = await fetch(`${API_DOMAIN}nav/v1/bottomtabs?channelId=` + UMENG_CHANNEL)
-        if (!response.ok) {
-            throw new Error('Failed to get tabs');
+        if (response.ok) {
+            const tabData = await response.json();
+    
+            if(tabData != undefined && tabData != null){
+                YSConfig.instance.setTabConfig(tabData.data);
+            }
         }
-        const tabData = await response.json();
-
-        YSConfig.instance.setTabConfig(tabData.data);
-        YSConfig.instance.setTabConfigSize(tabData.data.length);
 
         AppRegistry.registerComponent(appName, () => App);
         AppRegistry.runApplication(appName, initialProps);
