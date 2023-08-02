@@ -87,160 +87,169 @@ const CatagoryHome = ({
   );
 
   return (
-    <FlatList
-      style={{marginBottom: 130}}
-      ListHeaderComponent={
-        <>
-          {data?.carousel[0] && (
-            <View
-              style={{
-                height: 200,
-                paddingLeft: spacing.sideOffset,
-                paddingRight: spacing.sideOffset,
-              }}>
-              <Swiper
-                style={styles.wrapper}
-                autoplay
-                loadMinimal={true}
-                dotColor={colors.sliderDot}
-                activeDotColor={colors.text}
-                dotStyle={styles.dotStyle}
-                paginationStyle={styles.paginationStyle}
-                onTouchStart={() => {
-                  setScrollEnabled(false);
-                }}
-                onTouchCancel={() => {
-                  setScrollEnabled(true);
-                }}
-                activeDotStyle={styles.activeDotStyle}>
-                {data.carousel.map((carouselItem, idx) => {
-                  return (
-                    <TouchableOpacity
-                      key={`slider-${idx}`}
-                      onPress={() => {
-                        dispatch(playVod(carouselItem.vod));
-                        navigation.navigate('播放', {
-                          vod_id: carouselItem.carousel_content_id,
-                        });
-                      }}
-                      // onPressIn={() => { setScrollEnabled(false) }}
-                      // onPressOut={() => { setScrollEnabled(true) }}
-                      // delayPressIn={0}
-                      // delayPressOut={0}
-                      // delayLongPress={0}
-                    >
-                      <FastImage
-                        style={styles.image}
-                        source={{
-                          uri: carouselItem.carousel_pic_mobile,
-                          priority: FastImage.priority.normal,
-                        }}
-                        resizeMode={FastImage.resizeMode.cover}
-                      />
-                      <LinearGradient
-                        colors={['transparent', 'black']}
-                        start={{x: 0.5, y: 0}}
-                        end={{x: 0.5, y: 0.6}}
-                        style={styles.bottomBlur}
-                      />
-                      <Text
-                        style={{
-                          ...textVariants.bodyBold,
-                          ...styles.carouselTag,
-                          color: 'white',
-                        }}
-                        numberOfLines={1}>
-                        {carouselItem.carousel_name}
-                      </Text>
-                    </TouchableOpacity>
-                  );
-                })}
-              </Swiper>
-            </View>
-          )}
-          <View>
-            {data && data.class_list && data.class_list.length > 0 && (
-              <FlatList
-                data={['全部剧集', ...data.class_list]}
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                initialNumToRender={5}
-                contentContainerStyle={{
-                  ...styles.catalogNav,
-                  marginBottom: spacing.m,
+    <>
+      <FlatList
+        ListHeaderComponent={
+          <>
+            {data?.carousel[0] && (
+              <View
+                style={{
+                  height: 200,
                   paddingLeft: spacing.sideOffset,
                   paddingRight: spacing.sideOffset,
-                }}
-                renderItem={({item, index}: {item: string; index: number}) => {
-                  return (
-                    <TouchableOpacity
-                      style={{
-                        marginRight: spacing.m,
-                        justifyContent: 'center',
-                        display: 'flex',
-                        backgroundColor: BTN_COLORS[index % BTN_COLORS.length],
-                        paddingLeft: spacing.s,
-                        paddingRight: spacing.s,
-                        paddingTop: spacing.s - 4,
-                        paddingBottom: spacing.s - 1,
-                        borderRadius: spacing.xs,
-                        opacity: 0.9,
-                      }}
-                      onPress={() =>
-                        navigation.navigate('片库', {
-                          type_id: navId,
-                          class: item,
-                        })
-                      }>
-                      <Text
-                        style={{
-                          textAlign: 'center',
-                          ...textVariants.body,
-                          fontWeight: '700',
-                          opacity: 0.9,
-                        }}>
-                        {item}
-                      </Text>
-                    </TouchableOpacity>
-                  );
-                }}
-              />
+                }}>
+                <Swiper
+                  style={styles.wrapper}
+                  autoplay
+                  loadMinimal={true}
+                  dotColor={colors.sliderDot}
+                  activeDotColor={colors.text}
+                  dotStyle={styles.dotStyle}
+                  paginationStyle={styles.paginationStyle}
+                  onTouchStart={() => {
+                    setScrollEnabled(false);
+                  }}
+                  onTouchCancel={() => {
+                    setScrollEnabled(true);
+                  }}
+                  activeDotStyle={styles.activeDotStyle}>
+                  {data.carousel.map((carouselItem, idx) => {
+                    return (
+                      <TouchableOpacity
+                        key={`slider-${idx}`}
+                        onPress={() => {
+                          dispatch(playVod(carouselItem.vod));
+                          navigation.navigate('播放', {
+                            vod_id: carouselItem.carousel_content_id,
+                          });
+                        }}
+                        // onPressIn={() => { setScrollEnabled(false) }}
+                        // onPressOut={() => { setScrollEnabled(true) }}
+                        // delayPressIn={0}
+                        // delayPressOut={0}
+                        // delayLongPress={0}
+                      >
+                        <FastImage
+                          style={styles.image}
+                          source={{
+                            uri: carouselItem.carousel_pic_mobile,
+                            priority: FastImage.priority.normal,
+                          }}
+                          resizeMode={FastImage.resizeMode.cover}
+                        />
+                        <LinearGradient
+                          colors={['transparent', 'black']}
+                          start={{x: 0.5, y: 0}}
+                          end={{x: 0.5, y: 0.6}}
+                          style={styles.bottomBlur}
+                        />
+                        <Text
+                          style={{
+                            ...textVariants.bodyBold,
+                            ...styles.carouselTag,
+                            color: 'white',
+                          }}
+                          numberOfLines={1}>
+                          {carouselItem.carousel_name}
+                        </Text>
+                      </TouchableOpacity>
+                    );
+                  })}
+                </Swiper>
+              </View>
             )}
-            {data?.yunying &&
-              data.yunying.length > 0 &&
-              data.yunying.map((item, index) => (
-                <View
-                  key={item.type_name}
-                  style={{
+            <View>
+              {data && data.class_list && data.class_list.length > 0 && (
+                <FlatList
+                  data={['全部剧集', ...data.class_list]}
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  initialNumToRender={5}
+                  contentContainerStyle={{
+                    ...styles.catalogNav,
+                    marginBottom: spacing.m,
                     paddingLeft: spacing.sideOffset,
                     paddingRight: spacing.sideOffset,
-                    gap: spacing.m,
-                  }}>
-                  <View>
-                    <ShowMoreVodButton
-                      text={item.type_name}
-                      onPress={() => {
-                        navigation.navigate('片库', {
-                          type_id: item.vod_list[0].type_id,
-                        });
-                      }}
-                    />
+                  }}
+                  renderItem={({
+                    item,
+                    index,
+                  }: {
+                    item: string;
+                    index: number;
+                  }) => {
+                    return (
+                      <TouchableOpacity
+                        style={{
+                          marginRight: spacing.m,
+                          justifyContent: 'center',
+                          display: 'flex',
+                          backgroundColor:
+                            BTN_COLORS[index % BTN_COLORS.length],
+                          paddingLeft: spacing.s,
+                          paddingRight: spacing.s,
+                          paddingTop: spacing.s - 4,
+                          paddingBottom: spacing.s - 1,
+                          borderRadius: spacing.xs,
+                          opacity: 0.9,
+                        }}
+                        onPress={() =>
+                          navigation.navigate('片库', {
+                            type_id: navId,
+                            class: item,
+                          })
+                        }>
+                        <Text
+                          style={{
+                            textAlign: 'center',
+                            ...textVariants.body,
+                            fontWeight: '700',
+                            opacity: 0.9,
+                          }}>
+                          {item}
+                        </Text>
+                      </TouchableOpacity>
+                    );
+                  }}
+                />
+              )}
+              {data?.yunying &&
+                data.yunying.length > 0 &&
+                data.yunying.map((item, index) => (
+                  <View
+                    key={item.type_name}
+                    style={{
+                      paddingLeft: spacing.sideOffset,
+                      paddingRight: spacing.sideOffset,
+                      gap: spacing.m,
+                    }}>
+                    <View>
+                      <ShowMoreVodButton
+                        text={item.type_name}
+                        onPress={() => {
+                          navigation.navigate('片库', {
+                            type_id: item.vod_list[0].type_id,
+                          });
+                        }}
+                      />
+                    </View>
+                    <VodListVertical vods={item.vod_list?.slice(0, 6)} />
                   </View>
-                  <VodListVertical vods={item.vod_list?.slice(0, 6)} />
-                </View>
-              ))}
-          </View>
-        </>
-      }
-      data={data?.categories ? data?.categories : []}
-      initialNumToRender={1}
-      windowSize={3}
-      maxToRenderPerBatch={3}
-      renderItem={listItem}
-      refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
-      }
-    />
+                ))}
+            </View>
+          </>
+        }
+        data={data?.categories ? data?.categories : []}
+        initialNumToRender={1}
+        windowSize={3}
+        maxToRenderPerBatch={3}
+        renderItem={listItem}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+        }
+      />
+      <View style={{paddingBottom: 80}} />
+    </>
   );
 };
 
