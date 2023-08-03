@@ -26,8 +26,13 @@ export const CLEAR_STORAGE_MEMORY = 'clear_storage_memory';
 
 export const APPSFLYER_DEVKEY = 'wrxTHihLJNWrrusXtgRJZa';
 
-export const UMENG_CHANNEL = '10001'; // GENERAL
-// export const UMENG_CHANNEL = '10002'; // YINGSHI_WEB
-// export const UMENG_CHANNEL = '10003'; // GOOGLE_PLAY
+// export const UMENG_CHANNEL = '10001';
+// export const UMENG_CHANNEL = '10002';
+// export const UMENG_CHANNEL = '10003';
+export const UMENG_CHANNEL = 'DEFAULT';
+// export const UMENG_CHANNEL = 'WEB';
+// export const UMENG_CHANNEL = 'GOOGLE_PLAY';
+// export const UMENG_CHANNEL = 'HUAWEI_APP_GALLERY_OVERSEAS';
+// export const UMENG_CHANNEL = 'OPPO_APP_MARKET';
 
 export const APP_VERSION = '1.3.0';
