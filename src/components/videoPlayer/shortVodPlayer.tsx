@@ -12,13 +12,14 @@ import { debounce, throttle } from 'lodash';
 import PlayIcon from '../../../static/images/blackPlay.svg';
 import PauseIcon from '../../../static/images/pause.svg';
 import PlayZhengPianIcon from '../../../static/images/play-zhengpian1.svg';
+import PlayBoDanIcon from '../../../static/images/play-bodan.svg';
 
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import FastImage from 'react-native-fast-image';
 import { Slider } from '@rneui/themed';
 import { useAppDispatch } from '../../hooks/hooks';
-import { playVod } from '../../redux/actions/vodActions';
 import { useNavigation, useTheme } from '@react-navigation/native';
+import { playVod, viewPlaylistDetails } from '../../redux/actions/vodActions';
 
 interface Props {
   vod_url?: string;
@@ -59,17 +60,31 @@ function ShortVideoPlayer({
   const timer = useRef<number>(0);
   const iconTimer = useRef<number>(0);
   const [showIcon, setShowIcon] = useState(false);
+  const [imageContainerHeight, setImageContainerHeight] = useState(0);
+  const [isBodan, setIsBodan] = useState(true);
+  const [watchText, setWatchText] = useState('看正片');
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   const windowWidth = Dimensions.get('window').width;
 
   useEffect(() => {
+    if(vod.mini_video_topic.topic_id != 0){
+      setIsBodan(true);
+      setWatchText('看播单');
+    }else{
+      setIsBodan(false);
+      setWatchText('看正片');
+    }
+
     return () => {
       setPaused(false);
       setShowOverlay(false);
       setShowIcon(false);
       setCurrentTime(0);
+      setIsBodan(false);
+      setWatchText('看正片');
     };
-  }, []);
+  }, [vod]);
 
   const onBuffer = (bufferObj: any) => {
     setIsBuffering(bufferObj.isBuffering);
@@ -114,11 +129,23 @@ function ShortVideoPlayer({
   };
 
   const redirectVod = () => {
-    dispatch(playVod(vod.mini_video_vod));
-    navigation.navigate('播放', {
-      vod_id: vod.vod?.vod_id,
-    });
+    if(isBodan){
+      dispatch(viewPlaylistDetails(vod.mini_video_topic));
+      navigation.navigate('PlaylistDetail', {
+        topic_id: vod.mini_video_topic.topic_id,
+      });
+    }else{
+      dispatch(playVod(vod.mini_video_vod));
+      navigation.navigate('播放', {
+        vod_id: vod.vod?.vod_id,
+      });
+    }
   };
+
+  const handleViewLayout = (event: any) => {
+    const { height } = event.nativeEvent.layout;
+    setImageContainerHeight(height);
+  }
 
   return (
     <TouchableWithoutFeedback
@@ -192,22 +219,63 @@ function ShortVideoPlayer({
                     borderRadius: 8,
                     backgroundColor: 'rgba(106, 106, 106, 0.25)',
                   }}>
-                  <View
-                    style={{
-                      width: 45,
-                      flexDirection: 'column',
-                      justifyContent: 'flex-end',
-                    }}>
-                    <TouchableOpacity style={{ flex: 1 }} onPress={redirectVod}>
-                      <FastImage
-                        style={{ flex: 1, borderRadius: 6 }}
-                        source={{
-                          uri: vod.mini_video_original_img_url,
-                          priority: FastImage.priority.high,
-                        }}
-                      />
-                    </TouchableOpacity>
-                  </View>
+                  { !isBodan && 
+                    <View
+                      style={{
+                        width: 45,
+                        flexDirection: 'column',
+                        justifyContent: 'flex-end',
+                      }}
+                      onLayout={handleViewLayout}>
+                      <TouchableOpacity style={{ flex: 1, position: 'relative' }} onPress={redirectVod}>
+                        <FastImage
+                          style={{ flex: 1, borderRadius: 6 }}
+                          source={{
+                            uri: vod.mini_video_original_img_url,
+                            priority: FastImage.priority.high,
+                          }}
+                        />
+                      </TouchableOpacity>
+                    </View>
+                  }
+                  { isBodan &&
+                    <View
+                      style={{
+                        width: 45,
+                        flexDirection: 'column',
+                        justifyContent: 'flex-end',
+                        marginRight: 6
+                      }}
+                      onLayout={handleViewLayout}>
+                      <TouchableOpacity style={{ flex: 1, position: 'relative' }} onPress={redirectVod}>
+                        <FastImage
+                          style={{ flex: 1, borderRadius: 6, transform: 'translate(0px, 0px)', position: 'absolute', width: '100%', height: '100%', zIndex: 3 }}
+                          source={{
+                            uri: vod.mini_video_original_img_url,
+                            priority: FastImage.priority.high,
+                          }}
+                          onProgress={(e) => {
+                            setImageLoaded(false)
+                          }}
+                          onLoad={(e) => {
+                            setImageLoaded(true)
+                          }}
+                        />
+                        { imageLoaded && isBodan &&
+                          <View>
+                            <FastImage
+                              style={{ flex: 1, borderRadius: 6, transform: 'translate(4px, 0px)', position: 'absolute', width: '100%', height: imageContainerHeight - 6, zIndex: 2, top: 5.8 }}
+                              source={require('../../../static/images/bodan2.jpeg')}
+                            />
+                            <FastImage
+                              style={{ flex: 1, borderRadius: 6, transform: 'translate(8px, 0px)', position: 'absolute', width: '100%', height: imageContainerHeight - 12, top: 11.8 }}
+                              source={require('../../../static/images/bodan3.jpg')}
+                            />
+                          </View>
+                        }
+                      </TouchableOpacity>
+                    </View>
+                  }
                   <View
                     style={{
                       flexDirection: 'column',
@@ -243,7 +311,11 @@ function ShortVideoPlayer({
                         </View>
                         <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
                           <View style={{ flexWrap: 'wrap' }}>
-                            <PlayZhengPianIcon width={20} height={20} />
+                            { isBodan ?
+                              <PlayBoDanIcon width={20} height={20} />
+                              :
+                              <PlayZhengPianIcon width={20} height={20} />
+                            }
                           </View>
                           <View
                             style={{
@@ -256,7 +328,7 @@ function ShortVideoPlayer({
                                 color: colors.text,
                                 fontSize: 14,
                               }}>
-                              看正片
+                              {watchText}
                             </Text>
                           </View>
                         </View>
