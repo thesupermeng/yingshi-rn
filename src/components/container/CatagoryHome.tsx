@@ -193,11 +193,9 @@ const CatagoryHome = ({
                   autoPlayInterval={2300}
                   onSnapToItem={index => {
                     setActiveIndex(index);
-                    console.log('current index:', activeIndex);
                   }}
                   onScrollEnd={index => {
                     setActiveIndex(index);
-                    console.log('onScrollEnd index:', activeIndex);
                   }}
                   // onSnapToItem={index => console.log('current index:', index)}
                   renderItem={({item, index}) => (
