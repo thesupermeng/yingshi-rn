@@ -4,12 +4,12 @@
 #import "Orientation.h"
 
 @implementation AppDelegate
-#import "RNUMConfigure.h"
+// #import "RNUMConfigure.h"
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  [UMConfigure setLogEnabled:YES];
-  [RNUMConfigure initWithAppkey:@"64a632e5bd4b621232c9e379" channel:@"App Store"];
+  // [UMConfigure setLogEnabled:YES];
+  // [RNUMConfigure initWithAppkey:@"64a632e5bd4b621232c9e379" channel:@"App Store"];
   self.moduleName = @"yingshi";
   // You can add your custom initial props in the dictionary below.
   // They will be passed down to the ViewController used by React Native.
@@ -25,8 +25,8 @@
   BOOL success = [super application:application didFinishLaunchingWithOptions:launchOptions];
   if (success) {
     // Modify as needed to match the main color of your splash.
-    [MobClick setScenarioType:E_UM_NORMAL];
-    [MobClick setScenarioType:E_UM_E_UM_GAME|E_UM_DPLUS];
+    // [MobClick setScenarioType:E_UM_NORMAL];
+    // [MobClick setScenarioType:E_UM_E_UM_GAME|E_UM_DPLUS];
   }
   return success;
 }
