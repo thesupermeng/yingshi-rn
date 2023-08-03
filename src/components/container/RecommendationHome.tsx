@@ -31,7 +31,7 @@ import {playVod, viewPlaylistDetails} from '../../redux/actions/vodActions';
 import {useQuery, useInfiniteQuery} from '@tanstack/react-query';
 import LinearGradient from 'react-native-linear-gradient';
 import Carousel from 'react-native-reanimated-carousel';
-
+import CarouselPagination from './CarouselPagination';
 interface NavType {
   id: number;
   name: string;
@@ -59,6 +59,7 @@ const RecommendationHome = ({
   const navigation = useNavigation();
   const data = vodCarouselRes.data;
   const [totalPage, setTotalPage] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
   const [results, setResults] = useState<Array<VodTopicType>>([]);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const width = Dimensions.get('window').width;
@@ -91,7 +92,7 @@ const RecommendationHome = ({
           return undefined;
         }
 
-        const nextPage = allPages.length + 1;
+        const nextPage: any = allPages.length + 1;
         //if reach end
         if (nextPage > totalPage && totalPage != 0) {
           return undefined;
@@ -125,10 +126,9 @@ const RecommendationHome = ({
             <View
               style={{
                 flex: 1,
-                height: 200,
                 paddingLeft: spacing.sideOffset,
                 paddingRight: spacing.sideOffset,
-                paddingTop: 10,
+                paddingTop: 5,
               }}>
               <Carousel
                 loop
@@ -138,7 +138,14 @@ const RecommendationHome = ({
                 data={data.carousel}
                 scrollAnimationDuration={500}
                 autoPlayInterval={2300}
-                onSnapToItem={index => console.log('current index:', index)}
+                onSnapToItem={index => {
+                  setActiveIndex(index);
+                  console.log('current index:', activeIndex);
+                }}
+                onScrollEnd={index => {
+                  setActiveIndex(index);
+                  console.log('onScrollEnd index:', activeIndex);
+                }}
                 renderItem={({item, index}) => (
                   <TouchableOpacity
                     activeOpacity={1}
@@ -174,6 +181,10 @@ const RecommendationHome = ({
                     </Text>
                   </TouchableOpacity>
                 )}
+              />
+              <CarouselPagination
+                data={data.carousel}
+                activeIndex={activeIndex}
               />
             </View>
           )}
@@ -353,7 +364,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '100%',
-    height: 180,
+    height: 210,
     borderRadius: 10,
   },
   text: {
@@ -401,7 +412,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    height: 45,
+    height: 75,
     flex: 1,
     borderBottomRightRadius: 10,
     borderBottomLeftRadius: 10,
@@ -409,8 +420,8 @@ const styles = StyleSheet.create({
   },
   carouselTag: {
     position: 'absolute',
-    bottom: 12,
-    left: 16,
+    bottom: 35,
+    left: 20,
     marginRight: 16,
   },
   loading: {
