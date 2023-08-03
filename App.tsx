@@ -27,14 +27,13 @@ import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import appsFlyer from 'react-native-appsflyer';
 import Api from './src/Sports/middleware/api';
 import {Url} from './src/Sports/middleware/url';
-import RouteContextProvider from './src/store/context/route-context';
 
 export default function App() {
   appsFlyer.initSdk(
     {
       devKey: APPSFLYER_DEVKEY,
       isDebug: false,
-      // appId: '41*****44',
+      //appId: '41*****44',
       onInstallConversionDataListener: true,
       onDeepLinkListener: true,
       timeToWaitForATTUserAuthorization: 10,
@@ -171,17 +170,15 @@ export default function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <RouteContextProvider>
-        <Provider store={store}>
-          <PersistGate loading={null} persistor={persistor}>
-            <GestureHandlerRootView style={{flex: 1}}>
-              <BottomSheetModalProvider>
-                <Nav />
-              </BottomSheetModalProvider>
-            </GestureHandlerRootView>
-          </PersistGate>
-        </Provider>
-      </RouteContextProvider>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <GestureHandlerRootView style={{flex: 1}}>
+            <BottomSheetModalProvider>
+              <Nav />
+            </BottomSheetModalProvider>
+          </GestureHandlerRootView>
+        </PersistGate>
+      </Provider>
     </QueryClientProvider>
   );
 }
