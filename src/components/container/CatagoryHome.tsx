@@ -7,6 +7,7 @@ import {
   TouchableWithoutFeedback,
   RefreshControl,
   FlatList,
+  Dimensions,
 } from 'react-native';
 import {FlatList as FlatListSecondary} from 'react-native-gesture-handler';
 import {useNavigation, useTheme} from '@react-navigation/native';
@@ -31,7 +32,7 @@ import VodListVertical from '../vod/vodListVertical';
 import {playVod, viewPlaylistDetails} from '../../redux/actions/vodActions';
 import {useQuery, useInfiniteQuery} from '@tanstack/react-query';
 import LinearGradient from 'react-native-linear-gradient';
-
+import Carousel from 'react-native-reanimated-carousel';
 interface NavType {
   id: number;
   name: string;
@@ -56,7 +57,7 @@ const CatagoryHome = ({
   const navigation = useNavigation();
   const data = vodCarouselRes.data;
   const [refreshing, setRefreshing] = useState(false);
-
+  const width = Dimensions.get('window').width;
   const handleRefresh = useCallback(() => {
     onRefresh(navId);
   }, []);
@@ -92,8 +93,18 @@ const CatagoryHome = ({
       <FlatList
         ListHeaderComponent={
           <>
-            {data?.carousel[0] && (
+            {/* {data?.carousel[0] && (
               <View
+                onStartShouldSetResponder={event => true}
+                onTouchStart={e => {
+                  e.stopPropagation();
+                }}
+                onTouchMove={e => {
+                  e.stopPropagation();
+                }}
+                onTouchEnd={e => {
+                  e.stopPropagation();
+                }}
                 style={{
                   height: 200,
                   paddingLeft: spacing.sideOffset,
@@ -157,6 +168,62 @@ const CatagoryHome = ({
                     );
                   })}
                 </Swiper>
+              </View>
+            )} */}
+
+            {data?.carousel[0] && (
+              <View
+                style={{
+                  flex: 1,
+                  height: 190,
+                  paddingLeft: spacing.sideOffset,
+                  paddingRight: spacing.sideOffset,
+                  paddingTop: 10,
+                }}>
+                <Carousel
+                  loop
+                  width={width - spacing.sideOffset - spacing.sideOffset}
+                  height={190}
+                  autoPlay={true}
+                  data={data.carousel}
+                  scrollAnimationDuration={1800}
+                  // onSnapToItem={index => console.log('current index:', index)}
+                  renderItem={({item, index}) => (
+                    <TouchableOpacity
+                      activeOpacity={1}
+                      key={`slider-${index}`}
+                      onPress={() => {
+                        dispatch(playVod(item.vod));
+                        navigation.navigate('播放', {
+                          vod_id: item.carousel_content_id,
+                        });
+                      }}>
+                      <FastImage
+                        style={styles.image}
+                        source={{
+                          uri: item.carousel_pic_mobile,
+                          priority: FastImage.priority.normal,
+                        }}
+                        resizeMode={FastImage.resizeMode.cover}
+                      />
+                      <LinearGradient
+                        colors={['transparent', 'black']}
+                        start={{x: 0.5, y: 0}}
+                        end={{x: 0.5, y: 0.6}}
+                        style={styles.bottomBlur}
+                      />
+                      <Text
+                        style={{
+                          ...textVariants.bodyBold,
+                          ...styles.carouselTag,
+                          color: 'white',
+                        }}
+                        numberOfLines={1}>
+                        {item.carousel_name}
+                      </Text>
+                    </TouchableOpacity>
+                  )}
+                />
               </View>
             )}
             <View>

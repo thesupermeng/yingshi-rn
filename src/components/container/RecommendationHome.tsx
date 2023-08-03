@@ -7,6 +7,7 @@ import {
   FlatList,
   TouchableWithoutFeedback,
   RefreshControl,
+  Dimensions,
 } from 'react-native';
 import {useNavigation, useTheme} from '@react-navigation/native';
 import Swiper from 'react-native-swiper';
@@ -29,6 +30,7 @@ import VodListVertical from '../vod/vodListVertical';
 import {playVod, viewPlaylistDetails} from '../../redux/actions/vodActions';
 import {useQuery, useInfiniteQuery} from '@tanstack/react-query';
 import LinearGradient from 'react-native-linear-gradient';
+import Carousel from 'react-native-reanimated-carousel';
 
 interface NavType {
   id: number;
@@ -59,7 +61,7 @@ const RecommendationHome = ({
   const [totalPage, setTotalPage] = useState(0);
   const [results, setResults] = useState<Array<VodTopicType>>([]);
   const [isRefreshing, setIsRefreshing] = useState(false);
-
+  const width = Dimensions.get('window').width;
   // Function to handle the pull-to-refresh action
   const handleRefresh = () => {
     onRefresh(0);
@@ -79,7 +81,7 @@ const RecommendationHome = ({
     fetchNextPage,
     isFetchingNextPage,
     isFetching,
-    refetch
+    refetch,
   } = useInfiniteQuery(
     ['vodPlaylist'],
     ({pageParam = 1}) => fetchPlaylist(pageParam),
@@ -119,7 +121,7 @@ const RecommendationHome = ({
       // refreshControl={<RefreshControl refreshing={true} onRefresh={() => { }} />}
       ListHeaderComponent={
         <>
-          {data?.carousel[0] && (
+          {/* {data?.carousel[0] && (
             <View
               style={{
                 height: 200,
@@ -180,11 +182,67 @@ const RecommendationHome = ({
                 })}
               </Swiper>
             </View>
+          )} */}
+
+          {data?.carousel[0] && (
+            <View
+              style={{
+                flex: 1,
+                height: 185,
+                paddingLeft: spacing.sideOffset,
+                paddingRight: spacing.sideOffset,
+                paddingTop: 10,
+              }}>
+              <Carousel
+                loop
+                width={width - spacing.sideOffset - spacing.sideOffset}
+                height={185}
+                autoPlay={true}
+                data={data.carousel}
+                scrollAnimationDuration={1800}
+                // onSnapToItem={index => console.log('current index:', index)}
+                renderItem={({item, index}) => (
+                  <TouchableOpacity
+                    activeOpacity={1}
+                    key={`slider-${index}`}
+                    onPress={() => {
+                      dispatch(playVod(item.vod));
+                      navigation.navigate('播放', {
+                        vod_id: item.carousel_content_id,
+                      });
+                    }}>
+                    <FastImage
+                      style={styles.image}
+                      source={{
+                        uri: item.carousel_pic_mobile,
+                        priority: FastImage.priority.normal,
+                      }}
+                      resizeMode={FastImage.resizeMode.cover}
+                    />
+                    <LinearGradient
+                      colors={['transparent', 'black']}
+                      start={{x: 0.5, y: 0}}
+                      end={{x: 0.5, y: 0.6}}
+                      style={styles.bottomBlur}
+                    />
+                    <Text
+                      style={{
+                        ...textVariants.bodyBold,
+                        ...styles.carouselTag,
+                        color: 'white',
+                      }}
+                      numberOfLines={1}>
+                      {item.carousel_name}
+                    </Text>
+                  </TouchableOpacity>
+                )}
+              />
+            </View>
           )}
           <View>
             {/* previous style={{ gap: spacing.m }} */}
             {history.length > 0 && (
-              <View style={{paddingTop: 10}}>
+              <View>
                 <View
                   style={{
                     paddingLeft: spacing.sideOffset,
