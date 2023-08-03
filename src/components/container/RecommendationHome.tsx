@@ -132,6 +132,7 @@ const RecommendationHome = ({
               }}>
               <Carousel
                 loop
+                style={{borderRadius: 10}}
                 width={width - spacing.sideOffset - spacing.sideOffset}
                 height={200}
                 autoPlay={true}
