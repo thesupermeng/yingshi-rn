@@ -345,7 +345,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '100%',
-    height: 210,
+    height: '100%',
     borderRadius: 10,
   },
   text: {
@@ -397,7 +397,7 @@ const styles = StyleSheet.create({
   },
   carouselTag: {
     position: 'absolute',
-    bottom: 35,
+    bottom: 25,
     left: 20,
     marginRight: 16,
   },

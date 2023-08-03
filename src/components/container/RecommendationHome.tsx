@@ -148,7 +148,6 @@ const RecommendationHome = ({
                 }}
                 renderItem={({item, index}) => (
                   <TouchableOpacity
-                    activeOpacity={1}
                     key={`slider-${index}`}
                     onPress={() => {
                       dispatch(playVod(item.vod));
@@ -162,7 +161,7 @@ const RecommendationHome = ({
                         uri: item.carousel_pic_mobile,
                         priority: FastImage.priority.normal,
                       }}
-                      resizeMode={FastImage.resizeMode.stretch}
+                      resizeMode={FastImage.resizeMode.contain}
                     />
                     <LinearGradient
                       colors={['transparent', 'black']}
@@ -364,7 +363,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '100%',
-    height: 210,
+    height: '100%',
     borderRadius: 10,
   },
   text: {
@@ -420,7 +419,7 @@ const styles = StyleSheet.create({
   },
   carouselTag: {
     position: 'absolute',
-    bottom: 35,
+    bottom: 25,
     left: 20,
     marginRight: 16,
   },
