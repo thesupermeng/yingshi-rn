@@ -121,74 +121,11 @@ const RecommendationHome = ({
       // refreshControl={<RefreshControl refreshing={true} onRefresh={() => { }} />}
       ListHeaderComponent={
         <>
-          {/* {data?.carousel[0] && (
-            <View
-              style={{
-                height: 200,
-                paddingLeft: spacing.sideOffset,
-                paddingRight: spacing.sideOffset,
-              }}>
-              <Swiper
-                style={styles.wrapper}
-                autoplay
-                nestedScrollEnabled={true}
-                loadMinimal={true}
-                dotColor={colors.sliderDot}
-                activeDotColor={colors.text}
-                dotStyle={styles.dotStyle}
-                onTouchStart={() => {
-                  setScrollEnabled(false);
-                }}
-                onTouchCancel={() => {
-                  setScrollEnabled(true);
-                }}
-                paginationStyle={styles.paginationStyle}
-                activeDotStyle={styles.activeDotStyle}>
-                {data.carousel.map((carouselItem, idx) => {
-                  return (
-                    <TouchableOpacity
-                      key={`slider-${idx}`}
-                      onPress={() => {
-                        dispatch(playVod(carouselItem.vod));
-                        navigation.navigate('播放', {
-                          vod_id: carouselItem.carousel_content_id,
-                        });
-                      }}>
-                      <FastImage
-                        style={styles.image}
-                        source={{
-                          uri: carouselItem.carousel_pic_mobile,
-                          priority: FastImage.priority.normal,
-                        }}
-                        resizeMode={FastImage.resizeMode.cover}
-                      />
-                      <LinearGradient
-                        colors={['transparent', 'black']}
-                        start={{x: 0.5, y: 0}}
-                        end={{x: 0.5, y: 0.6}}
-                        style={styles.bottomBlur}
-                      />
-                      <Text
-                        style={{
-                          ...textVariants.bodyBold,
-                          ...styles.carouselTag,
-                          color: 'white',
-                        }}
-                        numberOfLines={1}>
-                        {carouselItem.carousel_name}
-                      </Text>
-                    </TouchableOpacity>
-                  );
-                })}
-              </Swiper>
-            </View>
-          )} */}
-
           {data?.carousel[0] && (
             <View
               style={{
                 flex: 1,
-                height: 185,
+                height: 200,
                 paddingLeft: spacing.sideOffset,
                 paddingRight: spacing.sideOffset,
                 paddingTop: 10,
@@ -196,11 +133,12 @@ const RecommendationHome = ({
               <Carousel
                 loop
                 width={width - spacing.sideOffset - spacing.sideOffset}
-                height={185}
+                height={200}
                 autoPlay={true}
                 data={data.carousel}
-                scrollAnimationDuration={1800}
-                // onSnapToItem={index => console.log('current index:', index)}
+                scrollAnimationDuration={500}
+                autoPlayInterval={2300}
+                onSnapToItem={index => console.log('current index:', index)}
                 renderItem={({item, index}) => (
                   <TouchableOpacity
                     activeOpacity={1}
@@ -217,7 +155,7 @@ const RecommendationHome = ({
                         uri: item.carousel_pic_mobile,
                         priority: FastImage.priority.normal,
                       }}
-                      resizeMode={FastImage.resizeMode.cover}
+                      resizeMode={FastImage.resizeMode.stretch}
                     />
                     <LinearGradient
                       colors={['transparent', 'black']}
@@ -415,7 +353,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '100%',
-    height: 160,
+    height: 180,
     borderRadius: 10,
   },
   text: {

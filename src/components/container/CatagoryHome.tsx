@@ -175,7 +175,7 @@ const CatagoryHome = ({
               <View
                 style={{
                   flex: 1,
-                  height: 190,
+                  height: 200,
                   paddingLeft: spacing.sideOffset,
                   paddingRight: spacing.sideOffset,
                   paddingTop: 10,
@@ -183,7 +183,7 @@ const CatagoryHome = ({
                 <Carousel
                   loop
                   width={width - spacing.sideOffset - spacing.sideOffset}
-                  height={190}
+                  height={200}
                   autoPlay={true}
                   data={data.carousel}
                   scrollAnimationDuration={1800}
@@ -204,7 +204,7 @@ const CatagoryHome = ({
                           uri: item.carousel_pic_mobile,
                           priority: FastImage.priority.normal,
                         }}
-                        resizeMode={FastImage.resizeMode.cover}
+                        resizeMode={FastImage.resizeMode.stretch}
                       />
                       <LinearGradient
                         colors={['transparent', 'black']}
@@ -330,7 +330,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '100%',
-    height: 160,
+    height: 180,
     borderRadius: 10,
   },
   text: {
