@@ -98,13 +98,15 @@ android {
         applicationId "com.yingshi"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 3
-        versionName "1.2.0"
+        versionCode 4
+        versionName "1.2.1"
         resValue "string", "UMENG_APPKEY", '648ec50987568a379b587f39'
-        resValue "string", "UMENG_CHANNEL", '10001'
-        resValue "string", "UMENG_CHANNEL_GENERAL", '10001'
-        resValue "string", "UMENG_CHANNEL_YINGSHI_WEB", '10002'
-        resValue "string", "UMENG_CHANNEL_GOOGLE_PLAY", '10003'
+        resValue "string", "UMENG_CHANNEL", 'DEFAULT'
+        resValue "string", "UMENG_CHANNEL_GENERAL", 'DEFAULT'
+        resValue "string", "UMENG_CHANNEL_YINGSHI_WEB", 'WEB'
+        resValue "string", "UMENG_CHANNEL_GOOGLE_PLAY", 'GOOGLE_PLAY'
+        resValue "string", "UMENG_CHANNEL_HUAWEI_APP_GALLERY_OVERSEAS", 'HUAWEI_APP_GALLERY_OVERSEAS'
+        resValue "string", "UMENG_CHANNEL_OPPO_APP_MARKET", 'OPPO_APP_MARKET'
     }
 
     splits {

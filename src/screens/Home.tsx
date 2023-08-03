@@ -11,6 +11,7 @@ import {
 import ScreenContainer from '../components/container/screenContainer';
 import {useTheme} from '@react-navigation/native';
 import {useQuery, useQueries, UseQueryResult} from '@tanstack/react-query';
+import {useQueryClient} from '@tanstack/react-query';
 import {
   NavOptionsResponseType,
   VodCarousellResponseType,
@@ -26,13 +27,14 @@ import RecommendationHome from '../components/container/RecommendationHome';
 import HomeHeader from '../components/header/homeHeader';
 import FastImage from 'react-native-fast-image';
 // import { FlatList } from 'react-native-gesture-handler';
-
+import {useIsFocused} from '@react-navigation/native';
 interface NavType {
   id: number;
   name: string;
 }
 
 export default ({navigation}: BottomTabScreenProps<any>) => {
+  const isFocused = useIsFocused();
   const {colors, textVariants, spacing} = useTheme();
   const [navId, setNavId] = useState(0);
   const width = Dimensions.get('window').width;
@@ -41,7 +43,7 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
   const BTN_COLORS = ['#30AA55', '#7E9CEE', '#F1377A', '#FFCC12', '#ED7445'];
   const [scrollEnabled, setScrollEnabled] = useState(true);
   const navRef = useRef<any>();
-
+  const queryClient = useQueryClient();
   const {data: navOptions} = useQuery({
     queryKey: ['HomePageNavOptions'],
     queryFn: () =>
@@ -69,17 +71,47 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
   });
 
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [hideContent, setHideContent] = useState(false);
+
+  // Function to handle the refresh action
+  const handleTabPress = () => {
+    if (isFocused) {
+      handleRefresh(navId);
+    }
+  };
+
+  // Add an event listener to the navigation object for the tab press event
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('tabPress', handleTabPress);
+
+    // Clean up the event listener when the component unmounts
+    return () => unsubscribe();
+  }, [navigation, isFocused]);
+
   // Function to handle the pull-to-refresh action
-  const handleRefresh = async (id: any) => {
+  const handleRefresh = async (id: number) => {
     setIsRefreshing(true);
-    await fetchData(id);
-    setTimeout(() => {
+    setHideContent(true);
+
+    try {
+      // const newData = await fetchData(id); // Fetch new data
+
+      // Update the cache for the specific query using the queryClient
+      await queryClient.invalidateQueries(['HomePage', id]);
+
+      setIsRefreshing(false);
       setNavId(id);
       ref?.current?.scrollToIndex({
         index: id,
       });
-      setIsRefreshing(false);
-    }, 100); // Replace this with your actual API calls
+      setTimeout(() => {
+        setHideContent(false);
+      }, 420);
+      // After updating the cache, you can optionally log the data
+      //console.log('newData', newData);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
   };
 
   const Content = useCallback(
@@ -184,20 +216,19 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
           }}
         />
       </View>
-      {!data ||
-        (isRefreshing && (
-          <View style={{...styles.loading, marginBottom: 80}}>
-            {
-              <FastImage
-                style={{height: 80, width: 80}}
-                source={require('../../static/images/loading-spinner.gif')}
-                resizeMode={FastImage.resizeMode.contain}
-              />
-            }
-          </View>
-        ))}
-      {data && (
-        <View style={{opacity: !isRefreshing ? 1 : 0}}>
+      {(!data || isRefreshing || hideContent) && (
+        <View style={{...styles.loading, marginBottom: 80}}>
+          {
+            <FastImage
+              style={{height: 80, width: 80}}
+              source={require('../../static/images/loading-spinner.gif')}
+              resizeMode={FastImage.resizeMode.contain}
+            />
+          }
+        </View>
+      )}
+      {data && !isRefreshing && (
+        <View style={{opacity: hideContent ? 0 : 1}}>
           <FlatList
             ref={ref}
             data={data}
