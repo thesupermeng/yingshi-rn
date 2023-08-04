@@ -30,9 +30,12 @@ export const APPSFLYER_DEVKEY = 'wrxTHihLJNWrrusXtgRJZa';
 // export const UMENG_CHANNEL = '10002';
 // export const UMENG_CHANNEL = '10003';
 export const UMENG_CHANNEL = 'DEFAULT';
+// export const UMENG_CHANNEL = 'DEFAULT';
 // export const UMENG_CHANNEL = 'WEB';
 // export const UMENG_CHANNEL = 'GOOGLE_PLAY';
 // export const UMENG_CHANNEL = 'HUAWEI_APP_GALLERY_OVERSEAS';
 // export const UMENG_CHANNEL = 'OPPO_APP_MARKET';
+// export const UMENG_CHANNEL = 'VIVO_APP_STORE';
+// export const UMENG_CHANNEL = 'MI_GETAPPS';
 
 export const APP_VERSION = '1.3.0';
