@@ -39,7 +39,7 @@ export default ({navigation}: RootStackScreenProps<'设置'>) => {
           onConfirm={toggleVersionDialog}
           isVisible={isVersionDialogOpen}
           title="检查更新"
-          subtitle1="当前已是最新版本1.1.0"
+          subtitle1="当前已是最新版本1.3.0"
           confirmationText="我知道了"
         />
         <ConfirmationModal
@@ -66,7 +66,7 @@ export default ({navigation}: RootStackScreenProps<'设置'>) => {
                     paddingBottom: 3,
                     color: colors.muted,
                   }}>
-                  当前版本1.1.0
+                  当前版本1.3.0
                 </Text>
                 <MoreArrow
                   width={icons.sizes.l}
