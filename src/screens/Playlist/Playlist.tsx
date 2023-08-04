@@ -92,13 +92,13 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
 
   const handleRefresh = useCallback(async () => {
     setIsRefreshing(true);
-    console.log('true');
+
     // Reset your variables here (e.g., setTotalPage(0))
     // You may also need to reset other states related to data fetching.
 
     // Reset the playlists by clearing the cache and refetching data
     await queryClient.resetQueries(['vodPlaylist']); // Pass the query key as an array of strings
-    console.log('false');
+
     setIsRefreshing(false);
   }, []);
 
