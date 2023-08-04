@@ -10,6 +10,7 @@ import {
   Dimensions,
   SafeAreaView,
   Text,
+  RefreshControl,
 } from 'react-native';
 import ScreenContainer from '../components/container/screenContainer';
 import {useTheme, useFocusEffect} from '@react-navigation/native';
@@ -193,6 +194,12 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
             }
           }}
           onEndReachedThreshold={0.8}
+          refreshControl={
+            <RefreshControl
+              refreshing={isRefreshing}
+              onRefresh={handleRefresh}
+            />
+          }
           ListFooterComponent={
             <View style={{...styles.loading, marginBottom: spacing.xl}}>
               {hasNextPage && (
