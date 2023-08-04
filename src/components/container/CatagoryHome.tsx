@@ -139,8 +139,8 @@ const CatagoryHome = ({
                       />
                       <LinearGradient
                         colors={['transparent', 'black']}
-                        start={{x: 0.5, y: 0}}
-                        end={{x: 0.5, y: 0.6}}
+                        start={{x: 0.8, y: 0}}
+                        end={{x: 0.8, y: 0.9}}
                         style={styles.bottomBlur}
                       />
                       <Text
