@@ -42,7 +42,7 @@ export default ({navigation}: RootStackScreenProps<'关于我们'>) => {
         <View style={styles.logo}>
           <Logo2 height={icons.sizes.xxl} width={icons.sizes.xxl} />
         </View>
-        <Text style={{textAlign: 'center', ...textVariants.body}}>V1.1.0</Text>
+        <Text style={{textAlign: 'center', ...textVariants.body}}>v1.3.0</Text>
         <NotificationModal
           onConfirm={toggleOverlay}
           isVisible={isDialogOpen}
