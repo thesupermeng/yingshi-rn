@@ -96,91 +96,12 @@ const CatagoryHome = ({
       <FlatList
         ListHeaderComponent={
           <>
-            {/* {data?.carousel[0] && (
-              <View
-                onStartShouldSetResponder={event => true}
-                onTouchStart={e => {
-                  e.stopPropagation();
-                }}
-                onTouchMove={e => {
-                  e.stopPropagation();
-                }}
-                onTouchEnd={e => {
-                  e.stopPropagation();
-                }}
-                style={{
-                  height: 200,
-                  paddingLeft: spacing.sideOffset,
-                  paddingRight: spacing.sideOffset,
-                }}>
-                <Swiper
-                  style={styles.wrapper}
-                  autoplay
-                  loadMinimal={true}
-                  dotColor={colors.sliderDot}
-                  activeDotColor={colors.text}
-                  dotStyle={styles.dotStyle}
-                  paginationStyle={styles.paginationStyle}
-                  onTouchStart={() => {
-                    setScrollEnabled(false);
-                  }}
-                  onTouchCancel={() => {
-                    setScrollEnabled(true);
-                  }}
-                  activeDotStyle={styles.activeDotStyle}>
-                  {data.carousel.map((carouselItem, idx) => {
-                    return (
-                      <TouchableOpacity
-                        key={`slider-${idx}`}
-                        onPress={() => {
-                          dispatch(playVod(carouselItem.vod));
-                          navigation.navigate('播放', {
-                            vod_id: carouselItem.carousel_content_id,
-                          });
-                        }}
-                        // onPressIn={() => { setScrollEnabled(false) }}
-                        // onPressOut={() => { setScrollEnabled(true) }}
-                        // delayPressIn={0}
-                        // delayPressOut={0}
-                        // delayLongPress={0}
-                      >
-                        <FastImage
-                          style={styles.image}
-                          source={{
-                            uri: carouselItem.carousel_pic_mobile,
-                            priority: FastImage.priority.normal,
-                          }}
-                          resizeMode={FastImage.resizeMode.cover}
-                        />
-                        <LinearGradient
-                          colors={['transparent', 'black']}
-                          start={{x: 0.5, y: 0}}
-                          end={{x: 0.5, y: 0.6}}
-                          style={styles.bottomBlur}
-                        />
-                        <Text
-                          style={{
-                            ...textVariants.bodyBold,
-                            ...styles.carouselTag,
-                            color: 'white',
-                          }}
-                          numberOfLines={1}>
-                          {carouselItem.carousel_name}
-                        </Text>
-                      </TouchableOpacity>
-                    );
-                  })}
-                </Swiper>
-              </View>
-            )} */}
-
             {data?.carousel[0] && (
               <View
                 style={{
                   flex: 1,
                   paddingLeft: spacing.sideOffset,
                   paddingRight: spacing.sideOffset,
-                  paddingTop: 5,
                 }}>
                 <Carousel
                   loop

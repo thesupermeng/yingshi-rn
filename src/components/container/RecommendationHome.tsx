@@ -128,7 +128,6 @@ const RecommendationHome = ({
                 flex: 1,
                 paddingLeft: spacing.sideOffset,
                 paddingRight: spacing.sideOffset,
-                paddingTop: 5,
               }}>
               <Carousel
                 loop
