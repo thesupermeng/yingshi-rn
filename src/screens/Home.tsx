@@ -73,21 +73,6 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [hideContent, setHideContent] = useState(false);
 
-  // Function to handle the refresh action
-  const handleTabPress = () => {
-    if (isFocused) {
-      handleRefresh(navId);
-    }
-  };
-
-  // Add an event listener to the navigation object for the tab press event
-  useEffect(() => {
-    const unsubscribe = navigation.addListener('tabPress', handleTabPress);
-
-    // Clean up the event listener when the component unmounts
-    return () => unsubscribe();
-  }, [navigation, isFocused]);
-
   // Function to handle the pull-to-refresh action
   const handleRefresh = async (id: number) => {
     setIsRefreshing(true);
@@ -95,10 +80,8 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
 
     try {
       // const newData = await fetchData(id); // Fetch new data
-
       // Update the cache for the specific query using the queryClient
       await queryClient.invalidateQueries(['HomePage', id]);
-
       setIsRefreshing(false);
       setNavId(id);
       ref?.current?.scrollToIndex({
@@ -114,6 +97,17 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
     }
   };
 
+  useEffect(() => {
+    const handleTabPress = () => {
+      if (isFocused) {
+        handleRefresh(navId);
+      }
+    };
+    // Add an event listener to the navigation object for the tab press event
+    const unsubscribe = navigation.addListener('tabPress', handleTabPress);
+    // Clean up the event listener when the component unmounts or when navId changes
+    return () => unsubscribe();
+  }, [navigation, isFocused, navId, handleRefresh]);
   const Content = useCallback(
     ({
       item,
