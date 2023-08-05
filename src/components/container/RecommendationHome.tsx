@@ -63,8 +63,6 @@ const RecommendationHome = ({
   const [results, setResults] = useState<Array<VodTopicType>>([]);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const {width, height} = Dimensions.get('window');
-  const actualImageHeight = 672;
-  const actualImageWidth = 1920;
   // Function to handle the pull-to-refresh action
   const handleRefresh = () => {
     onRefresh(0);

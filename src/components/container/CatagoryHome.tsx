@@ -111,7 +111,7 @@ const CatagoryHome = ({
                     flex: 1,
                     width: width - spacing.sideOffset - spacing.sideOffset,
                   }}
-                  width={width - spacing.sideOffset - spacing.sideOffset}
+                  width={width}
                   height={(width + spacing.sideOffset + spacing.sideOffset) / 2}
                   autoPlay={true}
                   data={data.carousel}
