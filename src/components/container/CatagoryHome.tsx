@@ -100,14 +100,19 @@ const CatagoryHome = ({
               <View
                 style={{
                   flex: 1,
-                  paddingLeft: spacing.sideOffset,
-                  paddingRight: spacing.sideOffset,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  borderRadius: 15,
                 }}>
                 <Carousel
                   loop
-                  style={{borderRadius: 10}}
+                  style={{
+                    borderRadius: 15,
+                    flex: 1,
+                    width: width - spacing.sideOffset - spacing.sideOffset,
+                  }}
                   width={width - spacing.sideOffset - spacing.sideOffset}
-                  height={200}
+                  height={(width + spacing.sideOffset + spacing.sideOffset) / 2}
                   autoPlay={true}
                   data={data.carousel}
                   scrollAnimationDuration={500}
@@ -266,7 +271,7 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     height: '100%',
-    borderRadius: 10,
+    borderRadius: 15,
   },
   text: {
     color: '#fff',

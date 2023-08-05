@@ -62,7 +62,9 @@ const RecommendationHome = ({
   const [activeIndex, setActiveIndex] = useState(0);
   const [results, setResults] = useState<Array<VodTopicType>>([]);
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const width = Dimensions.get('window').width;
+  const {width, height} = Dimensions.get('window');
+  const actualImageHeight = 672;
+  const actualImageWidth = 1920;
   // Function to handle the pull-to-refresh action
   const handleRefresh = () => {
     onRefresh(0);
@@ -126,14 +128,19 @@ const RecommendationHome = ({
             <View
               style={{
                 flex: 1,
-                paddingLeft: spacing.sideOffset,
-                paddingRight: spacing.sideOffset,
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderRadius: 15,
               }}>
               <Carousel
                 loop
-                style={{borderRadius: 10}}
-                width={width - spacing.sideOffset - spacing.sideOffset}
-                height={200}
+                style={{
+                  borderRadius: 15,
+                  flex: 1,
+                  width: width - spacing.sideOffset - spacing.sideOffset,
+                }}
+                width={width}
+                height={(width + spacing.sideOffset + spacing.sideOffset) / 2}
                 autoPlay={true}
                 data={data.carousel}
                 scrollAnimationDuration={500}
@@ -362,7 +369,7 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     height: '100%',
-    borderRadius: 10,
+    borderRadius: 15,
   },
   text: {
     color: '#fff',
