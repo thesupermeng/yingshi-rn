@@ -644,7 +644,7 @@ const styles = StyleSheet.create({
     left: 0,
     height: 500,
     width: '100%',
-    backgroundColor: 'green',
+    //backgroundColor: 'green',
     zIndex: 0,
   },
   lottieView: {
