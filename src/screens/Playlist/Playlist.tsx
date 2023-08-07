@@ -9,14 +9,26 @@ import {VodPlaylistResponseType, VodTopicType} from '../../types/ajaxTypes';
 import VodPlaylist from '../../components/playlist/vodPlaylist';
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import {API_DOMAIN} from '../../utility/constants';
-import Animated from 'react-native-reanimated';
 import FastImage from 'react-native-fast-image';
 import {useIsFocused} from '@react-navigation/native';
+import {FlatList, PanGestureHandler} from 'react-native-gesture-handler';
+import Animated, {
+  Extrapolate,
+  interpolate,
+  runOnJS,
+  scrollTo,
+  useAnimatedGestureHandler,
+  useAnimatedRef,
+  useAnimatedStyle,
+  useSharedValue,
+  withDelay,
+  withTiming,
+} from 'react-native-reanimated';
 type FlatListType = {
   item: VodTopicType;
   index: number;
 };
-
+const REFRESH_AREA_HEIGHT = 80;
 export default ({navigation}: BottomTabScreenProps<any>) => {
   // const BTN_COLORS = ['#FFCC12', '#F1377A', '#ED7445', '#7E9CEE', '#30AA55',];
   const {textVariants, colors, spacing} = useTheme();
@@ -46,9 +58,6 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
       .then(response => response.json())
       .then((json: VodPlaylistResponseType) => {
         setTotalPage(Number(json.data.TotalPageCount));
-
-        console.log('11111 page');
-        console.log(page);
         return Object.values(json.data.List);
       });
 
@@ -99,9 +108,141 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
     // Reset the playlists by clearing the cache and refetching data
     await queryClient.resetQueries(['vodPlaylist']); // Pass the query key as an array of strings
 
-    setIsRefreshing(false);
+    return setIsRefreshing(false);
   }, []);
+  //refresh.js
 
+  const [toggleLottie, setToggleLottie] = useState(false);
+  const [toggleGesture, setToggleGesture] = useState(true);
+  const [gestureActive, setGestureActive] = useState(false);
+
+  const flatlistRef = useAnimatedRef();
+
+  const translationY = useSharedValue(0);
+  const pullUpTranslate = useSharedValue(0);
+
+  const fetchData = async () => {
+    // setTimeout(() => {
+    //   setRecipes([fDAta, ...recipes]);
+    // }, 1000);
+
+    await handleRefresh();
+
+    translationY.value = withTiming(0, {duration: 0}, finished => {
+      pullUpTranslate.value = 0;
+
+      runOnJS(setToggleLottie)(false);
+    });
+  };
+
+  const pullUpAnimation = () => {
+    pullUpTranslate.value = withDelay(
+      0,
+      withTiming(
+        pullUpTranslate.value === 0 ? -100 : 0,
+        {duration: 200},
+        finished => {
+          if (finished) {
+            runOnJS(setToggleLottie)(true);
+            runOnJS(fetchData)();
+          }
+        },
+      ),
+    );
+  };
+  const gestureHandler = useAnimatedGestureHandler({
+    onStart: (_, ctx: any) => {
+      ctx.startY = translationY.value;
+      runOnJS(setGestureActive)(true);
+    },
+    onActive: (event, ctx) => {
+      const total = ctx.startY + event.translationY;
+      // console.log('translateY', total);
+
+      if (total < REFRESH_AREA_HEIGHT) {
+        translationY.value = total;
+      } else {
+        translationY.value = REFRESH_AREA_HEIGHT;
+      }
+
+      if (total < 0) {
+        translationY.value = 0;
+        scrollTo(flatlistRef, 0, total * -1, false);
+      }
+    },
+    onEnd: () => {
+      runOnJS(setGestureActive)(false);
+      if (translationY.value <= REFRESH_AREA_HEIGHT - 1) {
+        translationY.value = withTiming(0, {duration: 200});
+      } else {
+        runOnJS(pullUpAnimation)();
+      }
+      if (!(translationY.value > 0)) {
+        runOnJS(setToggleGesture)(false);
+      }
+    },
+  });
+
+  const handleOnScroll = (event: any) => {
+    const position = event.nativeEvent.contentOffset.y;
+    if (position === 0) {
+      setToggleGesture(true);
+    } else if (position > 0 && toggleGesture && !gestureActive) {
+      setToggleGesture(false);
+    }
+  };
+
+  const animatedSpace = useAnimatedStyle(() => {
+    return {
+      height: translationY.value,
+    };
+  });
+
+  const pullDownIconSection = useAnimatedStyle(() => {
+    const rotate = interpolate(
+      translationY.value,
+      [0, REFRESH_AREA_HEIGHT],
+      [0, 180],
+    );
+    return {
+      transform: [{rotate: `${rotate}deg`}],
+      //transform: 0,
+    };
+  });
+
+  const pullUpTranslateStyle = useAnimatedStyle(() => {
+    const opacity = interpolate(
+      translationY.value,
+      [58, REFRESH_AREA_HEIGHT],
+      [0, 1],
+    );
+
+    return {
+      opacity,
+      // transform: [
+      //   {
+      //     translateY: pullUpTranslate.value,
+      //   },
+      // ],
+    };
+  });
+
+  const statusBarStyle = useAnimatedStyle(() => {
+    const translate = interpolate(
+      translationY.value,
+      [80, REFRESH_AREA_HEIGHT],
+      [0, -40],
+      {extrapolateLeft: Extrapolate.CLAMP, extrapolateRight: Extrapolate.CLAMP},
+    );
+
+    return {
+      transform: [
+        {
+          translateY: translate,
+        },
+      ],
+    };
+  });
   return (
     <>
       <ScreenContainer containerStyle={{paddingLeft: 0, paddingRight: 0}}>
@@ -135,40 +276,77 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
           </View>
         )}
         {!isRefreshing && (
-          <Animated.FlatList
-            data={playlists?.pages.flat()}
-            onEndReached={() => {
-              if (hasNextPage) {
-                fetchNextPage();
-              }
-            }}
-            onEndReachedThreshold={0.3}
-            windowSize={5}
-            maxToRenderPerBatch={5}
-            renderItem={renderItem}
-            ListFooterComponent={
-              <View style={{...styles.loading, marginBottom: spacing.xl}}>
-                {hasNextPage && (
+          <>
+            {/* Pull to Refresh Section */}
+            <Animated.View style={[styles.pullToRefreshArea, animatedSpace]}>
+              {/* <FastImage
+          style={{height: 80, width: 80}}
+          source={require('../../../static/images/loading-spinner.gif')}
+          resizeMode={FastImage.resizeMode.contain}
+        /> */}
+              <Animated.View style={[styles.center, pullUpTranslateStyle]}>
+                {/* style={pullDownIconSection} */}
+                <Animated.View>
                   <FastImage
                     style={{height: 80, width: 80}}
                     source={require('../../../static/images/loading-spinner.gif')}
                     resizeMode={FastImage.resizeMode.contain}
                   />
-                )}
-                {!(isFetchingNextPage || isFetching) && !hasNextPage && (
-                  <Text style={{...textVariants.body, color: colors.muted}}>
-                    没有更多了
-                  </Text>
-                )}
-              </View>
-            }
-            refreshControl={
-              <RefreshControl
-                refreshing={isRefreshing}
-                onRefresh={handleRefresh}
-              />
-            }
-          />
+                </Animated.View>
+              </Animated.View>
+              {toggleLottie && (
+                <>
+                  <FastImage
+                    style={{height: 80, width: 80, marginBottom: 80}}
+                    source={require('../../../static/images/loading-spinner.gif')}
+                    resizeMode={FastImage.resizeMode.contain}
+                  />
+                </>
+              )}
+            </Animated.View>
+            <FlatList
+              ref={flatlistRef}
+              onScroll={handleOnScroll}
+              showsVerticalScrollIndicator={false}
+              data={playlists?.pages.flat()}
+              onEndReached={() => {
+                if (hasNextPage) {
+                  fetchNextPage();
+                }
+              }}
+              onEndReachedThreshold={0.3}
+              windowSize={5}
+              maxToRenderPerBatch={5}
+              renderItem={renderItem}
+              ListFooterComponent={
+                <View style={{...styles.loading, marginBottom: spacing.xl}}>
+                  {hasNextPage && (
+                    <FastImage
+                      style={{height: 80, width: 80}}
+                      source={require('../../../static/images/loading-spinner.gif')}
+                      resizeMode={FastImage.resizeMode.contain}
+                    />
+                  )}
+                  {!(isFetchingNextPage || isFetching) && !hasNextPage && (
+                    <Text style={{...textVariants.body, color: colors.muted}}>
+                      没有更多了
+                    </Text>
+                  )}
+                </View>
+              }
+              // refreshControl={
+              //   <RefreshControl
+              //     refreshing={isRefreshing}
+              //     onRefresh={handleRefresh}
+              //   />
+              // }
+            />
+            {toggleGesture && (
+              <PanGestureHandler onGestureEvent={gestureHandler}>
+                <Animated.View style={styles.gesture} />
+              </PanGestureHandler>
+            )}
+          </>
         )}
       </ScreenContainer>
     </>
@@ -185,4 +363,41 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flex: 1,
   },
+  //refresh
+  catagory: {
+    marginRight: 20,
+  },
+  active: {
+    width: 70,
+    height: 2,
+    backgroundColor: 'black',
+    marginBottom: 20,
+  },
+  catagoryContainer: {flexDirection: 'row', marginBottom: 5, marginTop: 30},
+
+  gesture: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    height: 500,
+    width: '100%',
+    //backgroundColor: 'green',
+    zIndex: 0,
+  },
+  lottieView: {
+    width: 80,
+    height: 80,
+    backgroundColor: 'transparent',
+    marginTop: -15,
+  },
+  pullToRefreshArea: {
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    overflow: 'hidden',
+  },
+  customStatusBar: {height: 40, backgroundColor: '#E0144C'},
+  contentContainer: {flex: 1, marginHorizontal: 15, marginVertical: 15},
+  center: {justifyContent: 'center', alignItems: 'center'},
 });

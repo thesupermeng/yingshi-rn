@@ -105,13 +105,11 @@ const RecommendationHome = ({
         if (lastPage === null) {
           return undefined;
         }
-
         const nextPage: any = allPages.length + 1;
         //if reach end
         if (nextPage > totalPage && totalPage != 0) {
           return undefined;
         }
-
         return nextPage;
       },
       onSuccess: data => {
@@ -132,7 +130,6 @@ const RecommendationHome = ({
   });
 
   //refresh.js
-  const [recipes, setRecipes] = useState(data);
   const [toggleLottie, setToggleLottie] = useState(false);
   const [toggleGesture, setToggleGesture] = useState(true);
   const [gestureActive, setGestureActive] = useState(false);
