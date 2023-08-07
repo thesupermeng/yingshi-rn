@@ -254,12 +254,12 @@ const CatagoryHome = ({
                   flex: 1,
                   justifyContent: 'center',
                   alignItems: 'center',
-                  borderRadius: 15,
+                  borderRadius: 10,
                 }}>
                 <Carousel
                   loop
                   style={{
-                    borderRadius: 15,
+                    borderRadius: 10,
                     flex: 1,
                     width: width - spacing.sideOffset - spacing.sideOffset,
                   }}
@@ -425,7 +425,7 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     height: '100%',
-    borderRadius: 15,
+    borderRadius: 10,
   },
   text: {
     color: '#fff',
