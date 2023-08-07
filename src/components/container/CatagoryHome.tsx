@@ -496,13 +496,12 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   catagoryContainer: {flexDirection: 'row', marginBottom: 5, marginTop: 30},
-
   gesture: {
     position: 'absolute',
     top: 0,
-    left: '20%',
-    height: 400,
-    width: '60%',
+    left: 0,
+    height: 500,
+    width: '100%',
     // backgroundColor: 'green',
     zIndex: 0,
   },

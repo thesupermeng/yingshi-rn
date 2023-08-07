@@ -641,10 +641,9 @@ const styles = StyleSheet.create({
   gesture: {
     position: 'absolute',
     top: 0,
-    left: '20%',
-    height: 400,
-    width: '60%',
-
+    left: 0,
+    height: 500,
+    width: '100%',
     // backgroundColor: 'green',
     zIndex: 0,
   },
