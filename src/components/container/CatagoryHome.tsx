@@ -103,11 +103,14 @@ const CatagoryHome = ({
     ),
     [],
   );
+
   //refresh.js
   const [toggleLottie, setToggleLottie] = useState(false);
   const [toggleGesture, setToggleGesture] = useState(true);
   const [gestureActive, setGestureActive] = useState(false);
+
   const flatlistRef = useAnimatedRef();
+
   const translationY = useSharedValue(0);
   const pullUpTranslate = useSharedValue(0);
 
@@ -126,6 +129,7 @@ const CatagoryHome = ({
       });
     }, 1500);
   };
+
   const pullUpAnimation = () => {
     pullUpTranslate.value = withDelay(
       0,
@@ -173,6 +177,7 @@ const CatagoryHome = ({
       }
     },
   });
+
   const handleOnScroll = (event: any) => {
     const position = event.nativeEvent.contentOffset.y;
     if (position === 0) {
@@ -181,11 +186,13 @@ const CatagoryHome = ({
       setToggleGesture(false);
     }
   };
+
   const animatedSpace = useAnimatedStyle(() => {
     return {
       height: translationY.value,
     };
   });
+
   const pullDownIconSection = useAnimatedStyle(() => {
     const rotate = interpolate(
       translationY.value,
@@ -194,15 +201,17 @@ const CatagoryHome = ({
     );
     return {
       transform: [{rotate: `${rotate}deg`}],
+      //transform: 0,
     };
   });
+
   const pullUpTranslateStyle = useAnimatedStyle(() => {
-    // const opacity = interpolate(
-    //   translationY.value,
-    //   [58, REFRESH_AREA_HEIGHT],
-    //   [0, 1],
-    // );
-    const opacity = 1;
+    const opacity = interpolate(
+      translationY.value,
+      [58, REFRESH_AREA_HEIGHT],
+      [0, 1],
+    );
+
     return {
       opacity,
       // transform: [
@@ -210,6 +219,23 @@ const CatagoryHome = ({
       //     translateY: pullUpTranslate.value,
       //   },
       // ],
+    };
+  });
+
+  const statusBarStyle = useAnimatedStyle(() => {
+    const translate = interpolate(
+      translationY.value,
+      [80, REFRESH_AREA_HEIGHT],
+      [0, -40],
+      {extrapolateLeft: Extrapolate.CLAMP, extrapolateRight: Extrapolate.CLAMP},
+    );
+
+    return {
+      transform: [
+        {
+          translateY: translate,
+        },
+      ],
     };
   });
   return (
