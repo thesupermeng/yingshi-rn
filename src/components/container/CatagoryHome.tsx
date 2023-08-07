@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   RefreshControl,
-  FlatList,
   Dimensions,
 } from 'react-native';
 import {FlatList as FlatListSecondary} from 'react-native-gesture-handler';
@@ -34,7 +33,21 @@ import {useQuery, useInfiniteQuery} from '@tanstack/react-query';
 import LinearGradient from 'react-native-linear-gradient';
 import Carousel from 'react-native-reanimated-carousel';
 import CarouselPagination from './CarouselPagination';
+import Animated, {
+  Extrapolate,
+  interpolate,
+  runOnJS,
+  scrollTo,
+  useAnimatedGestureHandler,
+  useAnimatedRef,
+  useAnimatedStyle,
+  useSharedValue,
+  withDelay,
+  withTiming,
+} from 'react-native-reanimated';
+import {FlatList, PanGestureHandler} from 'react-native-gesture-handler';
 
+const REFRESH_AREA_HEIGHT = 80;
 interface NavType {
   id: number;
   name: string;
@@ -90,10 +103,149 @@ const CatagoryHome = ({
     ),
     [],
   );
+  //refresh.js
+  const [toggleLottie, setToggleLottie] = useState(false);
+  const [toggleGesture, setToggleGesture] = useState(true);
+  const [gestureActive, setGestureActive] = useState(false);
+  const flatlistRef = useAnimatedRef();
+  const translationY = useSharedValue(0);
+  const pullUpTranslate = useSharedValue(0);
 
+  const fetchData = async () => {
+    // setTimeout(() => {
+    //   setRecipes([fDAta, ...recipes]);
+    // }, 1000);
+
+    await handleRefresh();
+
+    setTimeout(() => {
+      translationY.value = withTiming(0, {duration: 200}, finished => {
+        pullUpTranslate.value = 0;
+
+        runOnJS(setToggleLottie)(false);
+      });
+    }, 1500);
+  };
+  const pullUpAnimation = () => {
+    pullUpTranslate.value = withDelay(
+      0,
+      withTiming(
+        pullUpTranslate.value === 0 ? -100 : 0,
+        {duration: 200},
+        finished => {
+          if (finished) {
+            runOnJS(setToggleLottie)(true);
+            runOnJS(fetchData)();
+          }
+        },
+      ),
+    );
+  };
+  const gestureHandler = useAnimatedGestureHandler({
+    onStart: (_, ctx: any) => {
+      ctx.startY = translationY.value;
+      runOnJS(setGestureActive)(true);
+    },
+    onActive: (event, ctx) => {
+      const total = ctx.startY + event.translationY;
+      // console.log('translateY', total);
+
+      if (total < REFRESH_AREA_HEIGHT) {
+        translationY.value = total;
+      } else {
+        translationY.value = REFRESH_AREA_HEIGHT;
+      }
+
+      if (total < 0) {
+        translationY.value = 0;
+        scrollTo(flatlistRef, 0, total * -1, false);
+      }
+    },
+    onEnd: () => {
+      runOnJS(setGestureActive)(false);
+      if (translationY.value <= REFRESH_AREA_HEIGHT - 1) {
+        translationY.value = withTiming(0, {duration: 200});
+      } else {
+        runOnJS(pullUpAnimation)();
+      }
+      if (!(translationY.value > 0)) {
+        runOnJS(setToggleGesture)(false);
+      }
+    },
+  });
+  const handleOnScroll = (event: any) => {
+    const position = event.nativeEvent.contentOffset.y;
+    if (position === 0) {
+      setToggleGesture(true);
+    } else if (position > 0 && toggleGesture && !gestureActive) {
+      setToggleGesture(false);
+    }
+  };
+  const animatedSpace = useAnimatedStyle(() => {
+    return {
+      height: translationY.value,
+    };
+  });
+  const pullDownIconSection = useAnimatedStyle(() => {
+    const rotate = interpolate(
+      translationY.value,
+      [0, REFRESH_AREA_HEIGHT],
+      [0, 180],
+    );
+    return {
+      transform: [{rotate: `${rotate}deg`}],
+    };
+  });
+  const pullUpTranslateStyle = useAnimatedStyle(() => {
+    // const opacity = interpolate(
+    //   translationY.value,
+    //   [58, REFRESH_AREA_HEIGHT],
+    //   [0, 1],
+    // );
+    const opacity = 1;
+    return {
+      opacity,
+      // transform: [
+      //   {
+      //     translateY: pullUpTranslate.value,
+      //   },
+      // ],
+    };
+  });
   return (
     <>
+      {/* Pull to Refresh Section */}
+      <Animated.View style={[styles.pullToRefreshArea, animatedSpace]}>
+        {/* <FastImage
+          style={{height: 80, width: 80}}
+          source={require('../../../static/images/loading-spinner.gif')}
+          resizeMode={FastImage.resizeMode.contain}
+        /> */}
+        <Animated.View style={[styles.center, pullUpTranslateStyle]}>
+          {/* style={pullDownIconSection} */}
+          <Animated.View>
+            <FastImage
+              style={{height: 80, width: 80}}
+              source={require('../../../static/images/loading-spinner.gif')}
+              resizeMode={FastImage.resizeMode.contain}
+            />
+          </Animated.View>
+        </Animated.View>
+        {toggleLottie && (
+          <>
+            <FastImage
+              style={{height: 80, width: 80, marginBottom: 80}}
+              source={require('../../../static/images/loading-spinner.gif')}
+              resizeMode={FastImage.resizeMode.contain}
+            />
+          </>
+        )}
+      </Animated.View>
+
       <FlatList
+        ref={flatlistRef}
+        showsVerticalScrollIndicator={false}
+        onScroll={handleOnScroll}
         ListHeaderComponent={
           <>
             {data?.carousel[0] && (
@@ -252,11 +404,13 @@ const CatagoryHome = ({
         windowSize={3}
         maxToRenderPerBatch={3}
         renderItem={listItem}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
-        }
       />
       <View style={{paddingBottom: 100}} />
+      {toggleGesture && (
+        <PanGestureHandler onGestureEvent={gestureHandler}>
+          <Animated.View style={styles.gesture} />
+        </PanGestureHandler>
+      )}
     </>
   );
 };
@@ -331,4 +485,41 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flex: 1,
   },
+  //refresh
+  catagory: {
+    marginRight: 20,
+  },
+  active: {
+    width: 70,
+    height: 2,
+    backgroundColor: 'black',
+    marginBottom: 20,
+  },
+  catagoryContainer: {flexDirection: 'row', marginBottom: 5, marginTop: 30},
+
+  gesture: {
+    position: 'absolute',
+    top: 0,
+    left: '20%',
+    height: 400,
+    width: '60%',
+    // backgroundColor: 'green',
+    zIndex: 0,
+  },
+  lottieView: {
+    width: 80,
+    height: 80,
+    backgroundColor: 'transparent',
+    marginTop: -15,
+  },
+  pullToRefreshArea: {
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    overflow: 'hidden',
+  },
+  customStatusBar: {height: 40, backgroundColor: '#E0144C'},
+  contentContainer: {flex: 1, marginHorizontal: 15, marginVertical: 15},
+  center: {justifyContent: 'center', alignItems: 'center'},
 });
