@@ -212,6 +212,16 @@ const RecommendationHome = ({
     }
   };
 
+  const onTouchStart = (event: any) => {
+    console.log('onTouchStart');
+    setToggleGesture(true);
+  };
+
+  const onTouchEnd = (event: any) => {
+    console.log('ontouchEnd');
+    setToggleGesture(false);
+  };
+
   const animatedSpace = useAnimatedStyle(() => {
     return {
       height: translationY.value,
@@ -296,6 +306,9 @@ const RecommendationHome = ({
       <FlatList
         ref={flatlistRef}
         onScroll={handleOnScroll}
+        onTouchStart={onTouchEnd}
+        onTouchEnd={onTouchEnd}
+        onScrollBeginDrag={onTouchEnd}
         showsVerticalScrollIndicator={false}
         // refreshControl={<RefreshControl refreshing={true} onRefresh={() => { }} />}
         ListHeaderComponent={
@@ -639,7 +652,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     left: 0,
-    height: 500,
+    height: '100%',
     width: '100%',
     //backgroundColor: 'green',
     zIndex: 0,

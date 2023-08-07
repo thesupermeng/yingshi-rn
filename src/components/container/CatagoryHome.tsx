@@ -187,6 +187,16 @@ const CatagoryHome = ({
     }
   };
 
+  const onTouchStart = (event: any) => {
+    console.log('onTouchStart');
+    setToggleGesture(true);
+  };
+
+  const onTouchEnd = (event: any) => {
+    console.log('ontouchEnd');
+    setToggleGesture(false);
+  };
+
   const animatedSpace = useAnimatedStyle(() => {
     return {
       height: translationY.value,
@@ -272,6 +282,9 @@ const CatagoryHome = ({
         ref={flatlistRef}
         showsVerticalScrollIndicator={false}
         onScroll={handleOnScroll}
+        onTouchStart={onTouchEnd}
+        onTouchEnd={onTouchEnd}
+        onScrollBeginDrag={onTouchEnd}
         ListHeaderComponent={
           <>
             {data?.carousel[0] && (
@@ -526,7 +539,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     left: 0,
-    height: 500,
+    height: '100%',
     width: '100%',
     // backgroundColor: 'green',
     zIndex: 0,

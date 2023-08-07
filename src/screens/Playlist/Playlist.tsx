@@ -192,6 +192,16 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
     }
   };
 
+  const onTouchStart = (event: any) => {
+    console.log('onTouchStart');
+    setToggleGesture(true);
+  };
+
+  const onTouchEnd = (event: any) => {
+    console.log('ontouchEnd');
+    setToggleGesture(false);
+  };
+
   const animatedSpace = useAnimatedStyle(() => {
     return {
       height: translationY.value,
@@ -307,6 +317,9 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
             <FlatList
               ref={flatlistRef}
               onScroll={handleOnScroll}
+              onTouchStart={onTouchEnd}
+              onTouchEnd={onTouchEnd}
+              onScrollBeginDrag={onTouchEnd}
               showsVerticalScrollIndicator={false}
               data={playlists?.pages.flat()}
               onEndReached={() => {
