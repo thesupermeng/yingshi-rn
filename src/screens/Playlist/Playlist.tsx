@@ -379,9 +379,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     left: 0,
-    height: 600,
+    height: 700,
     width: '100%',
-    //backgroundColor: 'green',
+    // backgroundColor: 'green',
     zIndex: 0,
   },
   lottieView: {
