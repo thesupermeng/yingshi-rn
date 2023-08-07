@@ -8,7 +8,7 @@ type Props = {
     axis?: 'x' | 'y',
     gestureStyle?: ViewStyle
 }
-export default ({ step, onTouch, onChange, axis = 'y', gestureStyle }: Props) => {
+export default  ({ step, onTouch, onChange, axis = 'y', gestureStyle }: Props) => {
 
     const [start, setStart] = useState({ x: 0, y: 0 });
     const [end, setEnd] = useState({ x: 0, y: 0 });

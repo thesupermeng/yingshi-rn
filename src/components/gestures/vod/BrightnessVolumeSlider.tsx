@@ -31,7 +31,7 @@ export default ({percent, icon}: Props) => {
           }}
         />
       </View>
-      <Text style={styles.percentText}>{percent.toFixed()}%</Text>
+      <Text style={styles.percentText}>{percent.toFixed(0)}%</Text>
     </View>
   );
 };
