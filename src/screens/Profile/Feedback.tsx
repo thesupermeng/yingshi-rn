@@ -11,7 +11,13 @@ import {TouchableOpacity} from '@gorhom/bottom-sheet';
 import FeedbackSuccessIcon from '../../../static/images/feedback_success.svg';
 import axios from 'axios';
 import {SubmitFeedbackRequest} from '../../../src/types/ajaxTypes';
-import { API_DOMAIN, API_DOMAIN_TEST, API_DOMAIN_LOCAL } from '../../../src/utility/constants';
+import {Keyboard} from 'react-native';
+import {
+  API_DOMAIN,
+  API_DOMAIN_TEST,
+  API_DOMAIN_LOCAL,
+} from '../../../src/utility/constants';
+import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
 
 export default ({navigation}: RootStackScreenProps<'反馈'>) => {
   const {colors, textVariants, icons} = useTheme();
@@ -20,39 +26,46 @@ export default ({navigation}: RootStackScreenProps<'反馈'>) => {
   const [email, setEmail] = React.useState('');
   const [dialogText, setDialogText] = React.useState('反馈提交成功');
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
-  const [isConnected, setIsConnected] = useState<boolean>(true);
 
-  // useEffect(() => {
-  //   const unsubscribe = NetInfo.addEventListener(state => {
-  //     setIsConnected(!!state.isConnected);
-  //   });
+  const [isOffline, setIsOffline] = useState(false);
+  useEffect(() => {
+    const removeNetInfoSubscription = NetInfo.addEventListener(
+      (state: NetInfoState) => {
+        const offline = !(state.isConnected && state.isInternetReachable);
+        console.log(offline);
+        setIsOffline(offline);
+      },
+    );
 
-  //   return () => unsubscribe();
-  // }, []);
+    return () => removeNetInfoSubscription();
+  }, []);
 
   const submitFeedback = async (data: SubmitFeedbackRequest) => {
-    const { data: response } = await axios.post(`${API_DOMAIN}feedback/v1/submit`, data);
-
-    if (isConnected) {
+    if (!isOffline) {
+      const {data: response} = await axios.post(
+        `${API_DOMAIN}feedback/v1/submit`,
+        data,
+      );
       setDialogText('反馈提交成功');
+      Keyboard.dismiss();
+      setIsDialogOpen(true);
+
+      return response.data;
     } else {
       setDialogText('无法检测网络， 请稍后再试');
+      Keyboard.dismiss();
+      setIsDialogOpen(true);
     }
-    setIsDialogOpen(true);
-
-    return response.data;
   };
 
   function sendFeedbackHandler() {
-
     const body: SubmitFeedbackRequest = {
-      "email": email,
-      "feedback_category": feedbackCategory,
-      "feedback": text,
-    }
+      email: email,
+      feedback_category: feedbackCategory,
+      feedback: text,
+    };
 
     submitFeedback(body);
-
   }
 
   return (
@@ -108,7 +121,7 @@ export default ({navigation}: RootStackScreenProps<'反馈'>) => {
         }}
         backdropStyle={{backgroundColor: 'rgba(0, 0, 0, 0.8)'}}
         onBackdropPress={() => setIsDialogOpen(false)}>
-        {isConnected && <FeedbackSuccessIcon />}
+        {!isOffline && <FeedbackSuccessIcon />}
 
         <Text style={textVariants.bigHeader}>{dialogText}</Text>
       </Dialog>
