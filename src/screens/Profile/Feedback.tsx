@@ -32,7 +32,6 @@ export default ({navigation}: RootStackScreenProps<'反馈'>) => {
     const removeNetInfoSubscription = NetInfo.addEventListener(
       (state: NetInfoState) => {
         const offline = !(state.isConnected && state.isInternetReachable);
-        console.log(offline);
         setIsOffline(offline);
       },
     );

@@ -28,6 +28,8 @@ import HomeHeader from '../components/header/homeHeader';
 import FastImage from 'react-native-fast-image';
 // import { FlatList } from 'react-native-gesture-handler';
 import {useIsFocused} from '@react-navigation/native';
+import NoConnection from './../components/common/noConnection';
+import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
 interface NavType {
   id: number;
   name: string;
@@ -44,6 +46,9 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
   const [scrollEnabled, setScrollEnabled] = useState(true);
   const navRef = useRef<any>();
   const queryClient = useQueryClient();
+
+  const [isOffline, setIsOffline] = useState(false);
+
   const {data: navOptions} = useQuery({
     queryKey: ['HomePageNavOptions'],
     queryFn: () =>
@@ -70,6 +75,30 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
       : [],
   });
 
+  const checkConnection = async () => {
+    const state = await NetInfo.fetch();
+    const offline = !(state.isConnected && state.isInternetReachable);
+    setIsOffline(offline);
+    console.log('checkConnection isoffline');
+    console.log(offline);
+    if (!offline) {
+      console.log('online');
+      handleRefresh(navId);
+    }
+  };
+
+  useEffect(() => {
+    const removeNetInfoSubscription = NetInfo.addEventListener(
+      (state: NetInfoState) => {
+        const offline = !(state.isConnected && state.isInternetReachable);
+        setIsOffline(offline);
+      },
+    );
+
+    return () => removeNetInfoSubscription();
+  }, []);
+
+  //refresh
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [hideContent, setHideContent] = useState(false);
 
@@ -160,95 +189,101 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
   );
 
   return (
-    <ScreenContainer containerStyle={{paddingLeft: 0, paddingRight: 0}}>
-      <View
-        style={{
-          backgroundColor: colors.background,
-          paddingLeft: spacing.sideOffset,
-          paddingRight: spacing.sideOffset,
-        }}>
-        <HomeHeader navigator={navigation} />
-        <FlatList
-          data={navOptions ? navOptions : []}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          ref={navRef}
-          contentContainerStyle={styles.nav}
-          renderItem={({item, index}: {item: NavType; index: number}) => {
-            return (
-              <TouchableOpacity
-                style={{
-                  marginRight: spacing.m,
-                  justifyContent: 'center',
-                  display: 'flex',
-                }}
-                onPress={() => {
-                  if (data.length > 0) {
-                    setNavId(index);
-                    ref?.current?.scrollToIndex({
-                      index: index,
-                    });
-                  }
-                }}>
-                <Text
-                  style={{
-                    textAlign: 'center',
-                    fontSize:
-                      navId === index
-                        ? textVariants.selected.fontSize
-                        : textVariants.unselected.fontSize,
-                    fontWeight:
-                      navId === index
-                        ? textVariants.selected.fontWeight
-                        : textVariants.unselected.fontWeight,
-                    color: navId === index ? colors.primary : colors.muted,
-                  }}>
-                  {item.name}
-                </Text>
-              </TouchableOpacity>
-            );
-          }}
-        />
-      </View>
-      {(!data || isRefreshing || hideContent) && (
-        <View style={{...styles.loading, marginBottom: 80}}>
-          {
-            <FastImage
-              style={{height: 80, width: 80}}
-              source={require('../../static/images/loading-spinner.gif')}
-              resizeMode={FastImage.resizeMode.contain}
-            />
-          }
-        </View>
-      )}
-      {data && !isRefreshing && (
-        <View style={{opacity: hideContent ? 0 : 1}}>
+    <>
+      <ScreenContainer containerStyle={{paddingLeft: 0, paddingRight: 0}}>
+        <View
+          style={{
+            backgroundColor: colors.background,
+            paddingLeft: spacing.sideOffset,
+            paddingRight: spacing.sideOffset,
+          }}>
+          <HomeHeader navigator={navigation} />
+
           <FlatList
-            ref={ref}
-            data={data}
-            pagingEnabled={true}
-            scrollEnabled={
-              scrollEnabled && onEndReachedCalledDuringMomentum.current
-            }
-            horizontal={true}
-            windowSize={3}
-            maxToRenderPerBatch={2}
-            initialNumToRender={1}
-            nestedScrollEnabled={true}
-            getItemLayout={(data, index) => ({
-              length: width,
-              offset: width * index,
-              index,
-            })}
-            onMomentumScrollBegin={() => {
-              onEndReachedCalledDuringMomentum.current = false;
+            data={navOptions ? navOptions : []}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            ref={navRef}
+            contentContainerStyle={styles.nav}
+            renderItem={({item, index}: {item: NavType; index: number}) => {
+              return (
+                <TouchableOpacity
+                  style={{
+                    marginRight: spacing.m,
+                    justifyContent: 'center',
+                    display: 'flex',
+                  }}
+                  onPress={() => {
+                    if (data.length > 0) {
+                      setNavId(index);
+                      ref?.current?.scrollToIndex({
+                        index: index,
+                      });
+                    }
+                  }}>
+                  <Text
+                    style={{
+                      textAlign: 'center',
+                      fontSize:
+                        navId === index
+                          ? textVariants.selected.fontSize
+                          : textVariants.unselected.fontSize,
+                      fontWeight:
+                        navId === index
+                          ? textVariants.selected.fontWeight
+                          : textVariants.unselected.fontWeight,
+                      color: navId === index ? colors.primary : colors.muted,
+                    }}>
+                    {item.name}
+                  </Text>
+                </TouchableOpacity>
+              );
             }}
-            onMomentumScrollEnd={onScrollEnd}
-            renderItem={Content}
           />
         </View>
-      )}
-    </ScreenContainer>
+        {(!data || isRefreshing || hideContent) && (
+          <View style={{...styles.loading, marginBottom: 80}}>
+            {
+              <FastImage
+                style={{height: 80, width: 80}}
+                source={require('../../static/images/loading-spinner.gif')}
+                resizeMode={FastImage.resizeMode.contain}
+              />
+            }
+          </View>
+        )}
+
+        {data && !isRefreshing && !isOffline && (
+          <View style={{opacity: hideContent ? 0 : 1}}>
+            <FlatList
+              ref={ref}
+              data={data}
+              pagingEnabled={true}
+              scrollEnabled={
+                scrollEnabled && onEndReachedCalledDuringMomentum.current
+              }
+              horizontal={true}
+              windowSize={3}
+              maxToRenderPerBatch={2}
+              initialNumToRender={1}
+              nestedScrollEnabled={true}
+              getItemLayout={(data, index) => ({
+                length: width,
+                offset: width * index,
+                index,
+              })}
+              onMomentumScrollBegin={() => {
+                onEndReachedCalledDuringMomentum.current = false;
+              }}
+              onMomentumScrollEnd={onScrollEnd}
+              renderItem={Content}
+            />
+          </View>
+        )}
+      </ScreenContainer>
+
+      {isOffline && <NoConnection onClickRetry={checkConnection} />}
+    </>
   );
 };
 
