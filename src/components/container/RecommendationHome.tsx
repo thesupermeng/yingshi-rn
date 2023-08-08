@@ -131,7 +131,7 @@ const RecommendationHome = ({
 
   //refresh.js
   const [toggleLottie, setToggleLottie] = useState(false);
-  const [toggleGesture, setToggleGesture] = useState(true);
+  const [toggleGesture, setToggleGesture] = useState(false);
   const [gestureActive, setGestureActive] = useState(false);
 
   const flatlistRef = useAnimatedRef();
@@ -213,12 +213,10 @@ const RecommendationHome = ({
   };
 
   const onTouchStart = (event: any) => {
-    console.log('onTouchStart');
     setToggleGesture(true);
   };
 
   const onTouchEnd = (event: any) => {
-    console.log('ontouchEnd');
     setToggleGesture(false);
   };
 
@@ -320,6 +318,7 @@ const RecommendationHome = ({
                   justifyContent: 'center',
                   alignItems: 'center',
                   borderRadius: 10,
+                  zIndex: 9999,
                 }}>
                 <Carousel
                   loop
@@ -383,7 +382,7 @@ const RecommendationHome = ({
             )}
             <View>
               {/* previous style={{ gap: spacing.m }} */}
-              {history.length > 0 && (
+              {data?.carousel[0] && history.length > 0 && (
                 <View>
                   <View
                     style={{
@@ -416,7 +415,7 @@ const RecommendationHome = ({
                   }}>
                   {liveStations && liveStations?.length > 0 ? (
                     <ShowMoreVodButton
-                      text="电视台直播"
+                      text="电视台推荐"
                       onPress={() => {
                         navigation.navigate('电视台列表', {
                           liveStationItemList: liveStations,
@@ -425,7 +424,7 @@ const RecommendationHome = ({
                     />
                   ) : (
                     <View style={styles.banner}>
-                      <Text style={textVariants.header}>电视台直播</Text>
+                      <Text style={textVariants.header}>电视台推荐</Text>
                     </View>
                   )}
                 </View>
@@ -655,7 +654,7 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
     //backgroundColor: 'green',
-    zIndex: 0,
+    zIndex: 999,
   },
   lottieView: {
     width: 80,
