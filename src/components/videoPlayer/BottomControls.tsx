@@ -51,7 +51,7 @@ export default ({
   onEpisodeSelection,
   onNextEpisode,
   onLock,
-  showMoreType='episodes'
+  showMoreType = 'episodes'
 }: Props) => {
   useEffect(() => { }, []);
   const { textVariants, colors } = useTheme();
@@ -84,7 +84,7 @@ export default ({
     <>
       {!isFullScreen ? (
         <View style={styles.wrapper}>
-          {videoType === 'vod' && (
+          {videoType === 'vod' ? (
             <>
               <Slider
                 value={currentTime}
@@ -112,7 +112,8 @@ export default ({
                 </Text>
               </Text>
             </>
-          )}
+          ) : <View />
+          }
           <Pressable
             onPress={onPressFullScreenBtn}
             style={{ alignItems: 'flex-end' }}>
@@ -169,12 +170,12 @@ export default ({
               <RectButton
                 disallowInterruption={true}
                 onPress={onEpisodeSelection}>
-                  {
-                    showMoreType === 'movies'
+                {
+                  showMoreType === 'movies'
                     ? <MoreMoviesIcon width={30} height={30} />
                     : <SelectEpisodesIcon width={30} height={30} />
-                  }
-                
+                }
+
               </RectButton>
               {
                 videoType !== 'live' &&

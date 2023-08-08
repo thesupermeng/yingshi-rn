@@ -346,7 +346,7 @@ export default forwardRef<RefHandler, Props>(({
                               resizeMode={FastImage.resizeMode.contain}
                             />
                           </View>
-                          : <VodListVertical vods={movieList.slice(0, 6)} outerRowPadding={40} />
+                          : <VodListVertical vods={movieList.slice(0, 6)} outerRowPadding={50} />
                       }
                     </View>
                   }
@@ -369,8 +369,8 @@ export default forwardRef<RefHandler, Props>(({
                 end={{ x: 0.5, y: 0 }}
                 style={styles.topBlur}
               >
-                <View style={styles.videoHeader}>
-                  <View style={{ flexDirection: 'row', alignItems: 'center', flexShrink: 1, paddingRight: 20 }}>
+                <View style={{...styles.videoHeader, marginRight: isFullScreen ? 20 : 0}}>
+                  <View style={{ flexDirection: 'row', alignItems: 'center', flexShrink: 1, paddingRight: 10 }}>
                     <BackButton onPress={() => goBack()} />
                     <Text
                       style={{
@@ -479,7 +479,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    paddingRight: 10
   },
   sidePanel: {
     height: '100%',
