@@ -289,7 +289,7 @@ const CatagoryHome = ({
                   flex: 1,
                   justifyContent: 'center',
                   alignItems: 'center',
-                  borderRadius: 10,
+                  borderRadius: 17,
                   zIndex: 9999,
                 }}>
                 <Carousel
@@ -456,7 +456,7 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     height: '100%',
-    borderRadius: 10,
+    borderRadius: 17,
   },
   text: {
     color: '#fff',
