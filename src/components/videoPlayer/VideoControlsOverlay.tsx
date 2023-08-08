@@ -346,7 +346,7 @@ export default forwardRef<RefHandler, Props>(({
                               resizeMode={FastImage.resizeMode.contain}
                             />
                           </View>
-                          : <VodListVertical vods={movieList.slice(0, 6)} outerRowPadding={32} />
+                          : <VodListVertical vods={movieList.slice(0, 6)} outerRowPadding={40} />
                       }
                     </View>
                   }
