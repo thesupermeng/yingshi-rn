@@ -70,6 +70,8 @@ export default ({ navigation, route }: RootStackScreenProps<'电视台播放'>) 
                 <VodPlayer vod_url={liveStationItem.live_station_url}
                     vodTitle={liveStationItem.live_station_name}
                     videoType={'live'}
+                    showMoreType='streams'
+                    streams={liveStationItemList}
                 />
             }
             <ScrollView
@@ -108,7 +110,6 @@ export default ({ navigation, route }: RootStackScreenProps<'电视台播放'>) 
                     相关电视台
                 </Text>
                 <View style={{ ...styles.descriptionContainer, gap: spacing.m, alignItems: 'center' }}>
-                    
                     <VodLiveStationListVertical itemList={liveStationItemList} />
                 </View>
             </ScrollView>

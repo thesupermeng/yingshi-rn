@@ -24,7 +24,7 @@ import RewindProgressIcon from '../../../static/images/rewindProgress.svg';
 import ProgressGestureControl from '../gestures/vod/ProgressGestureControl';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import { runOnJS } from 'react-native-reanimated';
-import { VodEpisodeListType, VodType } from '../../types/ajaxTypes';
+import { LiveTVStationItem, VodEpisodeListType, VodType } from '../../types/ajaxTypes';
 
 interface Props {
   vod_url?: string;
@@ -35,24 +35,25 @@ interface Props {
   vod_source?: any;
   onBack?: () => any;
   useWebview?: boolean;
-  onEpisodeChange: any,
+  onEpisodeChange?: any,
   episodes?: VodEpisodeListType
   activeEpisode?: number,
   rangeSize?: number,
   autoPlayNext?: boolean,
   onShare?: () => any,
-  movieList?: VodType[]
+  movieList?: VodType[],
+  showGuide?: boolean,
+  showMoreType?: 'episodes' | 'streams' | 'movies' | 'none', 
+  streams?: LiveTVStationItem[],
 }
 
 type RefHandler = {
   showControls: () => void,
   hideControls: () => void,
   toggleControls: () => void,
-  isVisible: boolean
+  isVisible: boolean,
+  hideSlider: () => void
 }
-
-
-const height = Dimensions.get('window').width;
 
 export default ({
   vod_url,
@@ -69,7 +70,10 @@ export default ({
   episodes,
   autoPlayNext = true,
   onShare = () => { },
-  movieList = []
+  movieList = [],
+  showGuide = false,
+  streams = [],
+  showMoreType = 'none',
 }: Props) => {
   const videoPlayerRef = React.useRef<Video | null>();
   const { colors, spacing, textVariants, icons } = useTheme();
@@ -83,6 +87,10 @@ export default ({
   const [playbackRate, setPlaybackRate] = useState<number>(1)
   const controlsRef = useRef() as React.MutableRefObject<RefHandler>;
   const accumulatedSkip = useRef(0);
+
+
+  const height = Dimensions.get('window').height;
+  const width = Dimensions.get('window').width;
 
   const toggleControls = () => {
     controlsRef.current.toggleControls();
@@ -138,6 +146,7 @@ export default ({
     if (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT') {
       StatusBar.setHidden(true);
       setIsFullScreen(true);
+      controlsRef.current.hideSlider();
     } else {
       StatusBar.setHidden(false);
       setIsFullScreen(false);
@@ -267,7 +276,6 @@ export default ({
               paused={isPaused || isInBackground} // Pause video when app is in the background
               resizeMode="contain"
               onEnd={() => {
-                console.log('ENDED')
                 const nextEpi = getNextEpisode();
                 if (nextEpi !== undefined) {
                   nextEpi();
@@ -325,10 +333,13 @@ export default ({
               accumulatedSkip={accumulatedSkip.current}
               onShare={onShare}
               movieList={movieList}
+              showGuide={showGuide}
+              showMoreType={showMoreType}
+              streams={streams}
             />
           )}
         {(isBuffering || seekDirection !== 'none') && (
-          <View style={{ ...styles.buffering }}>
+          <View style={{ ...styles.buffering, top: isFullScreen ? (height/2) - 30 : (width * 9/32) - 45 }}>
             {
               seekDirection !== 'none'
                 ? <View
@@ -397,7 +408,6 @@ const styles = StyleSheet.create({
   },
   videoLandscape: {
     flex: 1,
-    maxHeight: height,
     width: '100%',
     height: '100%',
     backgroundColor: 'black',
@@ -416,6 +426,5 @@ const styles = StyleSheet.create({
     color: 'yellow',
     position: 'absolute',
     width: '100%',
-    top: '32%',
   },
 });

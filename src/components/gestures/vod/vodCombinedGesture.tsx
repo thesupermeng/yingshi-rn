@@ -71,9 +71,8 @@ export default ({ vodType, children, enabled = true, onSkipBackwards, onSkipForw
         } else {
             const bias = currentTime;
             const delX = start.x;
-            const delY = -totalDuration;
-            // Quadratic function -- y = ((delY - bias) / delX^2) * translation^2 + bias
-            const runtime = ((delY - bias) / Math.pow(delX, 2)) * Math.pow(translation, 2) + bias;
+            // Quadratic function -- y = -(bias / delX^2) * translation^2 + bias
+            const runtime = (-bias / Math.pow(delX, 2)) * Math.pow(translation, 2) + bias;
             runOnJS(onSeek)(runtime);
         }
     }
@@ -96,13 +95,12 @@ export default ({ vodType, children, enabled = true, onSkipBackwards, onSkipForw
             if (absDyDx > 10) {
                 const leftX = Math.floor(width / 2 - 20);
                 const rightX = Math.ceil(width / 2 + 20);
-                console.log('vertical')
                 if (nativeEvent.x <= leftX && (settings.name === 'none' || settings.name === 'brightness')) {
                     runOnJS(onBrightnessChanged)(nativeEvent.y)
                 } else if (nativeEvent.x >= rightX && (settings.name === 'none' || settings.name === 'volume')) {
                     runOnJS(onVolumeChanged)(nativeEvent.y)
                 }
-            } else if (absDyDx < 0.05 && (settings.name === 'none' || settings.name === 'progress')) {
+            } else if (absDyDx < 0.05 && vodType !== 'live' && (settings.name === 'none' || settings.name === 'progress')) {
                 runOnJS(onProgressChange)(nativeEvent.translationX);
             }
         })
@@ -131,7 +129,7 @@ export default ({ vodType, children, enabled = true, onSkipBackwards, onSkipForw
         })
 
 
-    const taps = Gesture.Exclusive(doubleTap, singleTap)
+    const taps = vodType === 'live' ? singleTap : Gesture.Exclusive(doubleTap, singleTap)
     const composed = Gesture.Simultaneous(pan, taps)
 
     return (

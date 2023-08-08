@@ -49,6 +49,7 @@ import VodPlayer from '../../components/videoPlayer/vodPlayer';
 import BottomSheet from '@gorhom/bottom-sheet';
 import appsFlyer from 'react-native-appsflyer';
 import { FlatList } from 'react-native-gesture-handler';
+import { SettingsReducerState } from '../../redux/reducers/settingsReducer';
 // import UpIcon from './../../../static/images/up_arrow.png';
 // import DownIcon from './../../../static/images/down_arrow.png';
 
@@ -74,7 +75,9 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
   const vodFavouriteReducer: FavoriteVodReducerState = useAppSelector(
     ({ vodFavouritesReducer }: RootState) => vodFavouritesReducer,
   );
-
+  const settingsReducer: SettingsReducerState = useAppSelector(
+    ({ settingsReducer }: RootState) => settingsReducer,
+  );
   const vod = vodReducer.playVod.vod;
   const isFavorite = vodFavouriteReducer.favorites.some(
     x => x.vod_id === vod?.vod_id,
@@ -218,9 +221,7 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
       size = Math.max(70, size);
       size += spacing.s;
       offset += size;
-      // console.log(name, size)
     }
-    // console.log(offset)
     return offset;
   };
 
@@ -274,14 +275,16 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
             vodTitle={vod.vod_name}
             videoType="vod"
             activeEpisode={currentEpisode}
-            episodes={vod?.vod_play_list}
+            episodes={vod.type_id !== 2 ? vod?.vod_play_list : undefined}
             onEpisodeChange={(id: number) => {
               setCurrentEpisode(id);
             }}
+            showGuide={settingsReducer.showVodPlayerGuide}
             rangeSize={EPISODE_RANGE_SIZE}
             autoPlayNext={vod.type_id !== 2}
             onShare={onShare}
-            movieList={suggestedVods}
+            movieList={vod.type_id === 2 ? suggestedVods : []}
+            showMoreType={vod.type_id === 2 ? 'movies' : 'episodes'}
           />
         )}
       <ScrollView
@@ -347,10 +350,10 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
               </Text>
               <Text style={{ ...textVariants.subBody, color: colors.muted }}>
                 {`更新：${vod
-                    ? new Date(vod?.vod_time_add * 1000)
-                      .toLocaleDateString('en-GB')
-                      .replace(/\//g, '-')
-                    : new Date().toLocaleDateString('en-GB').replace(/\//g, '-')
+                  ? new Date(vod?.vod_time_add * 1000)
+                    .toLocaleDateString('en-GB')
+                    .replace(/\//g, '-')
+                  : new Date().toLocaleDateString('en-GB').replace(/\//g, '-')
                   }`}
               </Text>
               <TouchableOpacity onPress={onShare}>

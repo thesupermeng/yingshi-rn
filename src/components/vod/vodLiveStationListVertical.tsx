@@ -75,7 +75,7 @@ export default function VodLiveStationListVertical({ itemList, itemsPerRow = 2, 
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        // flex: 1,
         flexDirection: 'column',
         justifyContent: 'center',
         alignItem: 'center',

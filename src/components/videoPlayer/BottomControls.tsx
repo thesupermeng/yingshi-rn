@@ -149,7 +149,7 @@ export default ({
               </>
             )}
           </View>
-          <View style={{...styles.row, marginHorizontal: 20}}>
+          <View style={{ ...styles.row, marginHorizontal: 20 }}>
             <View>
               <RectButton
                 disallowInterruption={true}
@@ -157,23 +157,28 @@ export default ({
                 <LockScreenIcon width={30} height={30} style={{ color: onNextEpisode === undefined ? colors.muted : colors.text }} />
               </RectButton>
             </View>
-            <View style={{...styles.row, gap: 20}}>
-              <RectButton
-                enabled={onNextEpisode !== undefined}
-                disallowInterruption={true}
-                onPress={onNextEpisode}>
-                <NextEpisodeIcon width={30} height={30} style={{ color: onNextEpisode === undefined ? colors.muted : colors.text }} />
-              </RectButton>
+            <View style={{ ...styles.row, gap: 20 }}>
+              {
+                onNextEpisode !== undefined &&
+                <RectButton
+                  disallowInterruption={true}
+                  onPress={onNextEpisode}>
+                  <NextEpisodeIcon width={30} height={30} style={{ color: onNextEpisode === undefined ? colors.muted : colors.text }} />
+                </RectButton>
+              }
               <RectButton
                 disallowInterruption={true}
                 onPress={onEpisodeSelection}>
                 <SelectEpisodesIcon width={30} height={30} />
               </RectButton>
-              <RectButton
-                disallowInterruption={true}
-                onPress={onPlaybackRateChange}>
-                <Text style={textVariants.header}>{`${playbackRate}X`}</Text>
-              </RectButton>
+              {
+                videoType !== 'live' &&
+                <RectButton
+                  disallowInterruption={true}
+                  onPress={onPlaybackRateChange}>
+                  <Text style={textVariants.header}>{`${playbackRate}X`}</Text>
+                </RectButton>
+              }
               <RectButton
                 disallowInterruption={true}
                 onPress={onPressFullScreenBtn}>

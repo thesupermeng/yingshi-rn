@@ -47,8 +47,6 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
       .then((json: VodPlaylistResponseType) => {
         setTotalPage(Number(json.data.TotalPageCount));
 
-        console.log('11111 page');
-        console.log(page);
         return Object.values(json.data.List);
       });
 

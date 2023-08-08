@@ -23,7 +23,6 @@ const MiddleControls = ({ fastForward, togglePlayPause, paused, videoType}: Prop
   };
 
   const onTogglePlayPause = () => {
-    console.log('toggling play')
     togglePlayPause();
   };
   return (

@@ -7,13 +7,15 @@ import BackButton from '../button/backButton';
 import { useNavigation, useTheme } from '@react-navigation/native';
 import { BaseButton, FlatList, Gesture, GestureDetector, RectButton, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import VodEpisodeSelection from '../vod/vodEpisodeSelection';
-import { VodEpisodeListType, VodType } from '../../types/ajaxTypes';
+import { LiveTVStationItem, VodEpisodeListType, VodType } from '../../types/ajaxTypes';
 import VodCombinedGesture from '../gestures/vod/vodCombinedGesture';
-import Animated, { SlideInDown, useAnimatedStyle, withTiming, useSharedValue, SlideInRight, runOnJS } from 'react-native-reanimated';
+import Animated, { SlideInRight, useAnimatedStyle, withTiming, useSharedValue, FadeInDown, runOnJS } from 'react-native-reanimated';
 import Orientation from 'react-native-orientation-locker';
 import UnlockScreenIcon from '../../../static/images/unlockScreen.svg';
 import ProjectIcon from '../../../static/images/project.svg'
 import VodListVertical from '../vod/vodListVertical';
+import GesturesGuide from '../gestures/vod/GesturesGuide';
+import VodLiveStationListVertical from '../vod/vodLiveStationListVertical';
 
 type Props = {
   currentTime: number;
@@ -37,14 +39,18 @@ type Props = {
   onNextEpisode?: () => any,
   onSeekGesture: (params: any) => any;
   accumulatedSkip?: number,
-  onShare: () => any
+  onShare: () => any,
+  showGuide: boolean,
+  showMoreType?: 'episodes' | 'streams' | 'movies' | 'none',
+  streams?: LiveTVStationItem[],
 };
 
 type RefHandler = {
   showControls: () => void,
   hideControls: () => void,
   toggleControls: () => void,
-  isVisible: boolean
+  isVisible: boolean,
+  hideSlider: () => void
 }
 
 export default forwardRef<RefHandler, Props>(({
@@ -69,11 +75,14 @@ export default forwardRef<RefHandler, Props>(({
   onNextEpisode,
   onSeekGesture,
   accumulatedSkip = 0,
-  onShare
+  onShare,
+  showGuide,
+  showMoreType = 'none',
+  streams = []
 }, ref) => {
   const { colors, spacing, textVariants, icons } = useTheme();
   const navigation = useNavigation();
-  const [showSlider, setShowSlider] = useState<'none' | 'playback' | 'selectEpisode' | 'selectMovie'>('none');
+  const [showSlider, setShowSlider] = useState<'none' | 'playback' | 'episodes' | 'movies' | 'streams'>('none');
   const [showControls, setShowControls] = useState(true);
   const hideControlsTimeout = useRef(-1);
   const opacity = useSharedValue(1);
@@ -81,7 +90,6 @@ export default forwardRef<RefHandler, Props>(({
   const [isLocked, setIsLocked] = useState(false);
 
   const height = Dimensions.get('window').width;
-  const width = Dimensions.get('window').height;
 
   // Animation function to hide the text after a delay
   const hideText = () => {
@@ -130,8 +138,11 @@ export default forwardRef<RefHandler, Props>(({
     return {
       opacity: opacity.value,
       position: 'absolute',
-      left: 200,
-      top: (height / 2)
+      top: (height / 2) - 20,
+      left: isFullScreen ? '8%' : '20%',
+      backgroundColor: 'rgba(0,0,0,0.7)',
+      padding: 10,
+      borderRadius: 8
     };
   });
 
@@ -140,13 +151,14 @@ export default forwardRef<RefHandler, Props>(({
       opacity: opacity.value,
       position: 'absolute',
       right: isFullScreen ? '8%' : '20%',
-      top: '49%',
-      backgroundColor: 'red'
+      top: (height / 2) - 20,
+      backgroundColor: 'rgba(0,0,0,0.7)',
+      padding: 10,
+      borderRadius: 8
     };
   });
 
   const changePlaybackRate = (rate: number) => {
-    console.log('clicked', rate)
     setShowSlider('none');
     onPlaybackRateChange(rate);
     delayControls(false);
@@ -154,13 +166,11 @@ export default forwardRef<RefHandler, Props>(({
 
   useImperativeHandle(ref, () => ({
     toggleControls: () => {
-      console.log('togginh controls', showControls)
       if (showControls) {
         setShowControls(false);
       } else {
         setShowSlider('none');
         setShowControls(true);
-        console.log('calling show controls')
         delayControls();
       }
     },
@@ -172,7 +182,10 @@ export default forwardRef<RefHandler, Props>(({
       setShowControls(true);
       delayControls();
     },
-    isVisible: showControls
+    isVisible: showControls,
+    hideSlider: () => {
+      setShowSlider('none')
+    }
   }))
 
   const changeControlsState = () => {
@@ -195,7 +208,7 @@ export default forwardRef<RefHandler, Props>(({
       } else {
         setShowControls(delayValue)
       }
-    }, 2000)
+    }, 3000)
   }
 
   const toggleLock = () => {
@@ -207,7 +220,6 @@ export default forwardRef<RefHandler, Props>(({
       setIsLocked(true);
     }
   }
-
   return (
     <View
       style={{ ...styles.controlsOverlay }}>
@@ -228,18 +240,18 @@ export default forwardRef<RefHandler, Props>(({
       }
       {
         accumulatedSkip < 0 &&
-        <Animated.View entering={SlideInDown} style={rewindTextAnimatedStyle}>
+        <Animated.View entering={FadeInDown} style={rewindTextAnimatedStyle}>
           <Text style={textVariants.header}>{`${accumulatedSkip}s`}</Text>
         </Animated.View>
       }
       {
         accumulatedSkip > 0 &&
-        <Animated.View entering={SlideInDown} style={ffTextAnimatedStyle}>
+        <Animated.View entering={FadeInDown} style={ffTextAnimatedStyle}>
           <Text style={textVariants.header}>{`+${accumulatedSkip}s`}</Text>
         </Animated.View>
       }
       {
-        showControls && Orientation.isLocked() &&
+        showControls && isLocked &&
         <View style={styles.unlock}>
           <RectButton
             disallowInterruption={true}
@@ -249,8 +261,12 @@ export default forwardRef<RefHandler, Props>(({
         </View>
       }
       {
-        showControls && !Orientation.isLocked() && (
-          showSlider !== 'none'
+        isFullScreen && showGuide &&
+        <GesturesGuide />
+      }
+      {
+        showControls && !isLocked && (
+          showSlider !== 'none' && isFullScreen
             ? <View style={{ flex: 1, flexDirection: 'row' }}>
               <BaseButton onPress={
                 () => {
@@ -271,13 +287,19 @@ export default forwardRef<RefHandler, Props>(({
                     <Text style={{ ...textVariants.header, marginBottom: 20, textAlign: 'center' }}>倍速</Text>
                   }
                   {
-                    showSlider === 'selectEpisode' &&
+                    showSlider === 'episodes' &&
                     <Text style={{ ...textVariants.header, marginBottom: 20, textAlign: 'left', marginLeft: spacing.sideOffset + 12 }}>选集</Text>
                   }
                   {
-                    showSlider === 'selectMovie' &&
+                    showSlider === 'movies' &&
                     <Text style={{ ...textVariants.header, marginBottom: 20, textAlign: 'left', marginLeft: spacing.sideOffset + 10 }}>
                       电影推荐
+                    </Text>
+                  }
+                  {
+                    showSlider === 'streams' &&
+                    <Text style={{ ...textVariants.header, marginBottom: 20, textAlign: 'left', marginLeft: spacing.sideOffset + 10 }}>
+                      电视台推荐
                     </Text>
                   }
                   {
@@ -300,7 +322,7 @@ export default forwardRef<RefHandler, Props>(({
                     />
                   }
                   {
-                    showSlider === 'selectEpisode' &&
+                    showSlider === 'episodes' &&
                     <VodEpisodeSelection
                       activeEpisode={activeEpisode}
                       episodes={episodes}
@@ -310,44 +332,53 @@ export default forwardRef<RefHandler, Props>(({
                     />
                   }
                   {
-                    showSlider === 'selectMovie' &&
-                    <View style={{paddingLeft: spacing.sideOffset + 10}}>
+                    showSlider === 'movies' &&
+                    <View style={{ paddingLeft: spacing.sideOffset + 10 }}>
                       <VodListVertical vods={movieList.slice(0, 6)} outerRowPadding={30} />
+                    </View>
+                  }
+                  {
+                    showSlider === 'streams' &&
+                    <View style={{ paddingLeft: spacing.sideOffset + 10 }}>
+                      <View style={{ alignItems: 'center' }}>
+                        <VodLiveStationListVertical itemList={streams} numOfRows={3}/>
+                      </View>
                     </View>
                   }
                 </View>
               </Animated.View>
             </View>
             : <View style={{ height: '100%', flex: 1 }}>
-              <View style={styles.videoHeader}>
-                <View style={{ flexDirection: 'row', alignItems: 'center', flexShrink: 1, paddingRight: 20 }}>
-                  <BackButton btnStyle={{ padding: 20 }} onPress={() => goBack()} />
-                  <Text
-                    style={{
-                      ...textVariants.body,
-                      fontSize: 17,
-                      fontWeight: '600',
-                      color: colors.text,
-                      flex: 1,
-                      paddingBottom: 3,
-                    }}
-                    numberOfLines={1}>
-                    {headerTitle}
-                  </Text>
-                </View>
-                <RectButton
-                  disallowInterruption={true}
-                  onPress={onShare}>
-                  <ProjectIcon width={30} height={30} />
-                </RectButton>
-              </View>
               {/* Top Controls */}
               <LinearGradient
                 colors={['transparent', 'black']}
                 start={{ x: 0.5, y: 0.8 }}
                 end={{ x: 0.5, y: 0 }}
                 style={styles.topBlur}
-              />
+              >
+                <View style={styles.videoHeader}>
+                  <View style={{ flexDirection: 'row', alignItems: 'center', flexShrink: 1, paddingRight: 20 }}>
+                    <BackButton onPress={() => goBack()} />
+                    <Text
+                      style={{
+                        ...textVariants.body,
+                        fontSize: 17,
+                        fontWeight: '600',
+                        color: colors.text,
+                        flex: 1,
+                        paddingBottom: 3,
+                      }}
+                      numberOfLines={1}>
+                      {headerTitle}
+                    </Text>
+                  </View>
+                  <RectButton
+                    disallowInterruption={true}
+                    onPress={onShare}>
+                    <ProjectIcon width={30} height={30} />
+                  </RectButton>
+                </View>
+              </LinearGradient>
               {/* Middle Controls */}
               <VodCombinedGesture
                 vodType={videoType}
@@ -382,7 +413,7 @@ export default forwardRef<RefHandler, Props>(({
                   onToggleFullScreen={handleFullScreen}
                   onEpisodeSelection={() => {
                     clearHidingDelay();
-                    setShowSlider(onNextEpisode === undefined ? 'selectMovie' : 'selectEpisode');
+                    setShowSlider(showMoreType);
                   }}
                   isFullScreen={isFullScreen}
                   videoType={videoType}
@@ -421,23 +452,20 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    // height: 80,
+    zIndex: 99
   },
   topBlur: {
     position: 'absolute',
     left: 0,
     right: 0,
     top: 0,
-    height: 100,
+    zIndex: 99
   },
   videoHeader: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    zIndex: 50,
+    paddingRight: 10
   },
   sidePanel: {
     height: '100%',
