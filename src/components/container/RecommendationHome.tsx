@@ -322,13 +322,8 @@ const RecommendationHome = ({
                 }}>
                 <Carousel
                   loop
-                  style={{
-                    borderRadius: 10,
-                    flex: 1,
-                    width: width - spacing.sideOffset - spacing.sideOffset,
-                  }}
-                  width={width}
-                  height={(width + spacing.sideOffset + spacing.sideOffset) / 2}
+                  width={width - spacing.sideOffset - spacing.sideOffset}
+                  height={width / 2}
                   autoPlay={true}
                   data={data.carousel}
                   scrollAnimationDuration={500}

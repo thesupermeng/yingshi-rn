@@ -106,7 +106,7 @@ const CatagoryHome = ({
 
   //refresh.js
   const [toggleLottie, setToggleLottie] = useState(false);
-  const [toggleGesture, setToggleGesture] = useState(true);
+  const [toggleGesture, setToggleGesture] = useState(false);
   const [gestureActive, setGestureActive] = useState(false);
 
   const flatlistRef = useAnimatedRef();
@@ -187,13 +187,7 @@ const CatagoryHome = ({
     }
   };
 
-  const onTouchStart = (event: any) => {
-    console.log('onTouchStart');
-    setToggleGesture(true);
-  };
-
   const onTouchEnd = (event: any) => {
-    console.log('ontouchEnd');
     setToggleGesture(false);
   };
 
@@ -285,6 +279,8 @@ const CatagoryHome = ({
         onTouchStart={onTouchEnd}
         onTouchEnd={onTouchEnd}
         onScrollBeginDrag={onTouchEnd}
+        onTouchMove={onTouchEnd}
+        onTouchCancel={onTouchEnd}
         ListHeaderComponent={
           <>
             {data?.carousel[0] && (
@@ -294,16 +290,12 @@ const CatagoryHome = ({
                   justifyContent: 'center',
                   alignItems: 'center',
                   borderRadius: 10,
+                  zIndex: 9999,
                 }}>
                 <Carousel
                   loop
-                  style={{
-                    borderRadius: 10,
-                    flex: 1,
-                    width: width - spacing.sideOffset - spacing.sideOffset,
-                  }}
-                  width={width}
-                  height={(width + spacing.sideOffset + spacing.sideOffset) / 2}
+                  width={width - spacing.sideOffset - spacing.sideOffset}
+                  height={width / 2}
                   autoPlay={true}
                   data={data.carousel}
                   scrollAnimationDuration={500}
