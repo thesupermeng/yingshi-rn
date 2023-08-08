@@ -45,6 +45,8 @@ interface Props {
   showGuide?: boolean,
   showMoreType?: 'episodes' | 'streams' | 'movies' | 'none', 
   streams?: LiveTVStationItem[],
+  isFetchingRecommendedMovies?: boolean
+
 }
 
 type RefHandler = {
@@ -52,7 +54,7 @@ type RefHandler = {
   hideControls: () => void,
   toggleControls: () => void,
   isVisible: boolean,
-  hideSlider: () => void
+  hideSlider: () => void,
 }
 
 export default ({
@@ -74,6 +76,7 @@ export default ({
   showGuide = false,
   streams = [],
   showMoreType = 'none',
+  isFetchingRecommendedMovies=false
 }: Props) => {
   const videoPlayerRef = React.useRef<Video | null>();
   const { colors, spacing, textVariants, icons } = useTheme();
@@ -336,6 +339,7 @@ export default ({
               showGuide={showGuide}
               showMoreType={showMoreType}
               streams={streams}
+              isFetchingRecommendedMovies={isFetchingRecommendedMovies}
             />
           )}
         {(isBuffering || seekDirection !== 'none') && (

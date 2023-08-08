@@ -198,7 +198,7 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
     );
   }, [vod]);
 
-  const { data: suggestedVods } = useQuery({
+  const { data: suggestedVods, isFetching: isFetchingSuggestedVod } = useQuery({
     queryKey: ['relatedVods', vod],
     queryFn: () => fetchVod(),
   });
@@ -285,6 +285,7 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
             onShare={onShare}
             movieList={vod.type_id === 2 ? suggestedVods : []}
             showMoreType={vod.type_id === 2 ? 'movies' : 'episodes'}
+            isFetchingRecommendedMovies={isFetchingSuggestedVod}
           />
         )}
       <ScrollView

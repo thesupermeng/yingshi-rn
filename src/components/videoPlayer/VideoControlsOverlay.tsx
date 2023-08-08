@@ -16,6 +16,7 @@ import ProjectIcon from '../../../static/images/project.svg'
 import VodListVertical from '../vod/vodListVertical';
 import GesturesGuide from '../gestures/vod/GesturesGuide';
 import VodLiveStationListVertical from '../vod/vodLiveStationListVertical';
+import FastImage from 'react-native-fast-image';
 
 type Props = {
   currentTime: number;
@@ -43,6 +44,7 @@ type Props = {
   showGuide: boolean,
   showMoreType?: 'episodes' | 'streams' | 'movies' | 'none',
   streams?: LiveTVStationItem[],
+  isFetchingRecommendedMovies?: boolean
 };
 
 type RefHandler = {
@@ -78,7 +80,8 @@ export default forwardRef<RefHandler, Props>(({
   onShare,
   showGuide,
   showMoreType = 'none',
-  streams = []
+  streams = [],
+  isFetchingRecommendedMovies = false
 }, ref) => {
   const { colors, spacing, textVariants, icons } = useTheme();
   const navigation = useNavigation();
@@ -333,15 +336,25 @@ export default forwardRef<RefHandler, Props>(({
                   }
                   {
                     showSlider === 'movies' &&
-                    <View style={{ paddingLeft: spacing.sideOffset + 10 }}>
-                      <VodListVertical vods={movieList.slice(0, 6)} outerRowPadding={30} />
+                    <View style={{ paddingLeft: spacing.sideOffset + 10, flex: 1 }}>
+                      {
+                        isFetchingRecommendedMovies
+                          ? <View style={{ ...styles.loading }}>
+                            <FastImage
+                              style={{ height: 80, width: 80 }}
+                              source={require('../../../static/images/loading-spinner.gif')}
+                              resizeMode={FastImage.resizeMode.contain}
+                            />
+                          </View>
+                          : <VodListVertical vods={movieList.slice(0, 6)} outerRowPadding={32} />
+                      }
                     </View>
                   }
                   {
                     showSlider === 'streams' &&
                     <View style={{ paddingLeft: spacing.sideOffset + 10 }}>
                       <View style={{ alignItems: 'center' }}>
-                        <VodLiveStationListVertical itemList={streams} numOfRows={3}/>
+                        <VodLiveStationListVertical itemList={streams} numOfRows={3} />
                       </View>
                     </View>
                   }
@@ -485,5 +498,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 20,
     left: 20
-  }
+  },
+  loading: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
+    width: 300
+  },
 });
