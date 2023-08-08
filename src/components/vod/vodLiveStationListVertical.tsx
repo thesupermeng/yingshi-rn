@@ -1,92 +1,143 @@
-import React, { useCallback, useEffect, useMemo, memo } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, Dimensions, FlatList, Image } from 'react-native';
+import React, {useCallback, useEffect, useMemo, memo, useState} from 'react';
+import {
+  View,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  Dimensions,
+  FlatList,
+  Image,
+} from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
-import { useNavigation, useTheme } from '@react-navigation/native';
+import {useNavigation, useTheme} from '@react-navigation/native';
 
-import { RootStackScreenProps } from '../../types/navigationTypes';
-import { FilterOptionsResponseType, FilterOptionsTypeExtendObj, SuggestResponseType, SuggestedVodType, VodType } from '../../types/ajaxTypes';
-import { playVod } from '../../redux/actions/vodActions';
-import { useAppDispatch } from '../../hooks/hooks';
-import { useInfiniteQuery, useQuery, useQueryClient } from '@tanstack/react-query';
+import {RootStackScreenProps} from '../../types/navigationTypes';
+import {
+  FilterOptionsResponseType,
+  FilterOptionsTypeExtendObj,
+  SuggestResponseType,
+  SuggestedVodType,
+  VodType,
+} from '../../types/ajaxTypes';
+import {playVod} from '../../redux/actions/vodActions';
+import {useAppDispatch} from '../../hooks/hooks';
+import {
+  useInfiniteQuery,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
 import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
 import VodTopicFilter from '../../components/vod/vodTopicFilter';
 import VodCard from '../../components/vod/vodCard';
-import DownArrow from '../../../static/images/arrow_down_yellow.svg'
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import DownArrow from '../../../static/images/arrow_down_yellow.svg';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Animated, {
-    useSharedValue,
-    useAnimatedScrollHandler,
-    useAnimatedStyle,
+  useSharedValue,
+  useAnimatedScrollHandler,
+  useAnimatedStyle,
 } from 'react-native-reanimated';
-import { FlatListProps } from 'react-native/Libraries/Lists/FlatList';
+import {FlatListProps} from 'react-native/Libraries/Lists/FlatList';
 import FastImage from 'react-native-fast-image';
-import { LiveTVStationItem } from '../../types/ajaxTypes';
+import {LiveTVStationItem} from '../../types/ajaxTypes';
 
 interface Props {
-    itemList: Array<LiveTVStationItem>,
-    itemsPerRow?: number,
-    numOfRows?: number,
+  itemList: Array<LiveTVStationItem>;
+  itemsPerRow?: number;
+  numOfRows?: number;
+  selectedItem?: LiveTVStationItem;
 }
 
-export default function VodLiveStationListVertical({ itemList, itemsPerRow = 2, numOfRows = 4 }: Props) {
-    const { textVariants, colors, spacing, icons } = useTheme();
-    const insets = useSafeAreaInsets();
-    const navigation = useNavigation();
-    const dispatch = useAppDispatch();
+export default function VodLiveStationListVertical({
+  itemList,
+  itemsPerRow = 2,
+  numOfRows = 4,
+  selectedItem,
+}: Props) {
+  const {textVariants, colors, spacing, icons} = useTheme();
+  const insets = useSafeAreaInsets();
+  const navigation = useNavigation();
+  const dispatch = useAppDispatch();
+  const [isLoading, setIsLoading] = useState(false);
 
-    let items = itemList.slice(0, itemsPerRow * numOfRows);
-    
-    const renderItems = () => {
-        const rows = [];
-        for (let i = 0; i < items.length; i += itemsPerRow) {
-            const rowItems = items.slice(i, i + itemsPerRow);
-            const row = (
-                <View key={i} style={{...styles.cardRow, flex: itemsPerRow}}>
-                    {rowItems.map((item) => (
-                        <View
-                        key={item.id}
-                        style={{ paddingLeft: 5, paddingRight: 5, paddingBottom: 10 }}>
-                            <TouchableOpacity
-                                style={{...styles.cardItem}}
-                                onPress={() => {
-                                    navigation.navigate('电视台播放', { liveStationItemList: itemList, liveStationItem: item });
-                                }}>
-                                <View key={item.id} style={styles.cardItem}>
-                                    <FastImage
-                                        style={{ flex: 1, aspectRatio: 130 / 80, borderRadius: 10 }}
-                                        source={{
-                                            uri: item.live_station_img_url,
-                                            priority: FastImage.priority.normal,
-                                        }}
-                                    />
-                                </View>
-                            </TouchableOpacity>
-                        </View>
-                    ))}
-                </View>
-            );
-            rows.push(row);
-        }
-        return rows;
-    };
+  let items = itemList.slice(0, itemsPerRow * numOfRows);
 
-    return <View style={styles.container}>{renderItems()}</View>;
+  if (selectedItem) {
+    items = items.filter(i => i.id !== selectedItem.id);
+  }
+
+  const renderItems = () => {
+    const rows = [];
+    for (let i = 0; i < items.length; i += itemsPerRow) {
+      const rowItems = items.slice(i, i + itemsPerRow);
+      const row = (
+        <View key={i} style={{...styles.cardRow, gap: 10}}>
+          {rowItems.map(item => (
+            <TouchableOpacity
+              key={item.id}
+              style={styles.cardItem}
+              onPress={() => {
+                setIsLoading(true);
+                setTimeout(() => setIsLoading(false), 750);
+
+                navigation.navigate('电视台播放', {
+                  liveStationItemList: itemList,
+                  liveStationItem: item,
+                });
+              }}>
+              <FastImage
+                style={{flex: 1, borderRadius: 10}}
+                source={{
+                  uri: item.live_station_img_url,
+                  priority: FastImage.priority.normal,
+                }}
+              />
+            </TouchableOpacity>
+          ))}
+        </View>
+      );
+      rows.push(row);
+    }
+    return rows;
+  };
+  return (
+    <>
+      {!isLoading && <View style={styles.container}>{renderItems()}</View>}
+
+      {isLoading && (
+        <View style={{...styles.loading, paddingTop: 20}}>
+          <FastImage
+            style={{height: 80, width: 80}}
+            source={require('../../../static/images/loading-spinner.gif')}
+            resizeMode={FastImage.resizeMode.contain}
+          />
+        </View>
+      )}
+    </>
+  );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        // flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItem: 'center',
-        paddingBottom: 20
-
-    },
-    cardRow: {
-        flexDirection: 'row',
-    },
-    cardItem: {
-        height: 100,
-        aspectRatio: 130 / 80,
-    }
-})
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    paddingBottom: 20,
+  },
+  cardRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between', // Distribute items evenly in the row
+    marginBottom: 10, // Add spacing between rows
+  },
+  cardItem: {
+    width: '48%', // Take up 48% of the available width (2 items per row with spacing)
+    aspectRatio: 130 / 80,
+    borderRadius: 10,
+    overflow: 'hidden', // Ensure content stays within borders
+  },
+  loading: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    flex: 1,
+  },
+});

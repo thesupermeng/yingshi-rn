@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -11,14 +11,14 @@ import {RootStackScreenProps} from '../../types/navigationTypes';
 import {useTheme} from '@react-navigation/native';
 
 import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
-import {Button} from '@rneui/themed';
+import {Button, Dialog} from '@rneui/themed';
 import ShowMoreButton from '../../components/button/showMoreButton';
 import NotificationModal from '../../components/modal/notificationModal';
 import MoreArrow from '../../../static/images/more_arrow.svg';
 import ConfirmationModal from '../../components/modal/confirmationModal';
 import {useAppDispatch} from '../../hooks/hooks';
 import {clearStorageMemory} from '../../redux/actions/settingsActions';
-
+import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
 export default ({navigation}: RootStackScreenProps<'设置'>) => {
   const {colors, textVariants, icons, spacing} = useTheme();
   const [isVersionDialogOpen, setIsVersionDialogOpen] = useState(false);
@@ -31,17 +31,37 @@ export default ({navigation}: RootStackScreenProps<'设置'>) => {
   const toggleClearDialog = () => {
     setIsClearDialogOpen(!isClearDialogOpen);
   };
+
+  const [isOffline, setIsOffline] = useState(false);
+  useEffect(() => {
+    const removeNetInfoSubscription = NetInfo.addEventListener(
+      (state: NetInfoState) => {
+        const offline = !(state.isConnected && state.isInternetReachable);
+        setIsOffline(offline);
+      },
+    );
+
+    return () => removeNetInfoSubscription();
+  }, []);
   return (
     <ScreenContainer>
       <View style={{gap: spacing.m}}>
         <TitleWithBackButtonHeader title="设置" />
+
         <NotificationModal
           onConfirm={toggleVersionDialog}
-          isVisible={isVersionDialogOpen}
+          isVisible={isVersionDialogOpen && !isOffline}
           title="检查更新"
-          subtitle1="当前已是最新版本1.1.0"
+          subtitle1="当前已是最新版本1.3.0"
           confirmationText="我知道了"
         />
+
+        <NotificationModal
+          isVisible={isVersionDialogOpen && isOffline}
+          onConfirm={toggleVersionDialog}
+          title="无法检测网络，请稍后再试"
+        />
+
         <ConfirmationModal
           onConfirm={() => {
             dispatch(clearStorageMemory());
@@ -66,7 +86,7 @@ export default ({navigation}: RootStackScreenProps<'设置'>) => {
                     paddingBottom: 3,
                     color: colors.muted,
                   }}>
-                  当前版本1.1.0
+                  当前版本1.3.0
                 </Text>
                 <MoreArrow
                   width={icons.sizes.l}
@@ -106,5 +126,12 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  overlay: {
+    borderRadius: 14,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
   },
 });

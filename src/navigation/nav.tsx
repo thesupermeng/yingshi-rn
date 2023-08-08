@@ -59,30 +59,26 @@ import {
 import {StatusBar, StyleSheet} from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import {useAppSelector} from '../hooks/hooks';
-import {
-    QueryClient,
-    useQuery,
-} from '@tanstack/react-query'
-import { API_DOMAIN, UMENG_CHANNEL } from '../../src/utility/constants';
-import { BottomNavTabsResponse } from '../../src/types/ajaxTypes';
-import { YSConfig } from '../../ysConfig';
+import {QueryClient, useQuery} from '@tanstack/react-query';
+import {API_DOMAIN, UMENG_CHANNEL} from '../../src/utility/constants';
+import {BottomNavTabsResponse} from '../../src/types/ajaxTypes';
+import {YSConfig} from '../../ysConfig';
 
 export default () => {
+  const Stack = createNativeStackNavigator<RootStackParamList>();
+  const HomeTab = createBottomTabNavigator<HomeTabParamList>();
 
-    const Stack = createNativeStackNavigator<RootStackParamList>();
-    const HomeTab = createBottomTabNavigator<HomeTabParamList>();
+  const themeReducer = useAppSelector(
+    ({themeReducer}: RootState) => themeReducer,
+  );
+  const theme = themeReducer.theme ? YingshiDarkTheme : YingshiLightTheme;
 
-    const themeReducer = useAppSelector(
-        ({themeReducer}: RootState) => themeReducer,
-    );
-    const theme = themeReducer.theme ? YingshiDarkTheme : YingshiLightTheme;
+  let hasNotch = DeviceInfo.hasNotch();
 
-    let hasNotch = DeviceInfo.hasNotch();
-
-    let iconWidth = 22;
-    if (hasNotch) {
-        iconWidth = 22;
-    }
+  let iconWidth = 22;
+  if (hasNotch) {
+    iconWidth = 22;
+  }
 
   function HomeTabScreen() {
     return (
@@ -157,27 +153,22 @@ export default () => {
             return icon;
           },
         })}>
-        { YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5 ?
-            (
-                <>
-                    <HomeTab.Screen name="首页" component={HomeScreen} />
-                    <HomeTab.Screen name="随心看" component={WatchAnytime} />
-                    <HomeTab.Screen name="体育" component={MatchesScreen} />
-                    <HomeTab.Screen name="播单" component={PlaylistScreen} />
-                    <HomeTab.Screen name="我的" component={ProfileScreen} />
-                </>
-            )
-            :
-            (
-
-                <>
-                    <HomeTab.Screen name="首页" component={HomeScreen} />
-                    <HomeTab.Screen name="随心看" component={WatchAnytime} />
-                    <HomeTab.Screen name="播单" component={PlaylistScreen} />
-                    <HomeTab.Screen name="我的" component={ProfileScreen} />
-                </>
-            )
-        }
+        {YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5 ? (
+          <>
+            <HomeTab.Screen name="首页" component={HomeScreen} />
+            <HomeTab.Screen name="随心看" component={WatchAnytime} />
+            <HomeTab.Screen name="体育" component={MatchesScreen} />
+            <HomeTab.Screen name="播单" component={PlaylistScreen} />
+            <HomeTab.Screen name="我的" component={ProfileScreen} />
+          </>
+        ) : (
+          <>
+            <HomeTab.Screen name="首页" component={HomeScreen} />
+            <HomeTab.Screen name="随心看" component={WatchAnytime} />
+            <HomeTab.Screen name="播单" component={PlaylistScreen} />
+            <HomeTab.Screen name="我的" component={ProfileScreen} />
+          </>
+        )}
       </HomeTab.Navigator>
     );
   }
