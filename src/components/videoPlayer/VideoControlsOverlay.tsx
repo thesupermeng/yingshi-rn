@@ -424,6 +424,7 @@ export default forwardRef<RefHandler, Props>(({
                   playbackRate={playbackRate}
                   onNextEpisode={onNextEpisode}
                   onLock={toggleLock}
+                  showMoreType={showMoreType}
                 />
               </LinearGradient>
             </View>

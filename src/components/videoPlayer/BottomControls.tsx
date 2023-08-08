@@ -10,9 +10,7 @@ import {
 } from 'react-native';
 import Slider from '@react-native-community/slider';
 import FullScreen from '../../../static/images/fullScreen.svg';
-import Unlock from '../../../static/images/unlock.svg';
-import Episodes from '../../../static/images/episodes.svg';
-import NextEpisode from '../../../static/images/nextEpisode.svg';
+import MoreMoviesIcon from '../../../static/images/moreMovies.svg';
 import MinimizeScreen from '../../../static/images/minimizeScreen.svg';
 import { TouchableWithoutFeedback } from 'react-native';
 import { useTheme } from '@react-navigation/native';
@@ -35,7 +33,8 @@ type Props = {
   onEpisodeSelection: () => any;
   playbackRate?: number,
   onNextEpisode?: () => any,
-  onLock: () => any
+  onLock: () => any,
+  showMoreType?: 'episodes' | 'streams' | 'movies' | 'none',
 };
 
 export default ({
@@ -51,7 +50,8 @@ export default ({
   onPlaybackRateChange,
   onEpisodeSelection,
   onNextEpisode,
-  onLock
+  onLock,
+  showMoreType='episodes'
 }: Props) => {
   useEffect(() => { }, []);
   const { textVariants, colors } = useTheme();
@@ -169,7 +169,12 @@ export default ({
               <RectButton
                 disallowInterruption={true}
                 onPress={onEpisodeSelection}>
-                <SelectEpisodesIcon width={30} height={30} />
+                  {
+                    showMoreType === 'movies'
+                    ? <MoreMoviesIcon width={30} height={30} />
+                    : <SelectEpisodesIcon width={30} height={30} />
+                  }
+                
               </RectButton>
               {
                 videoType !== 'live' &&
