@@ -419,7 +419,7 @@ export default ({navigation, route}: RootStackScreenProps<'播放'>) => {
             </TouchableOpacity>
           </View>
 
-          {vod?.vod_play_list !== undefined && (
+          {vod?.vod_play_list !== undefined && vod?.type_id !== 2 && (
             <>
               <View style={{...styles.spaceApart, gap: spacing.l}}>
                 <Text style={textVariants.body}>选集播放</Text>
