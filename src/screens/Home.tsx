@@ -79,10 +79,7 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
     const state = await NetInfo.fetch();
     const offline = !(state.isConnected && state.isInternetReachable);
     setIsOffline(offline);
-    console.log('checkConnection isoffline');
-    console.log(offline);
     if (!offline) {
-      console.log('online');
       handleRefresh(navId);
     }
   };
@@ -106,21 +103,21 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
   const handleRefresh = async (id: number) => {
     setIsRefreshing(true);
     setHideContent(true);
-
+    console.log(id);
     try {
       // const newData = await fetchData(id); // Fetch new data
       // Update the cache for the specific query using the queryClient
       await queryClient.invalidateQueries(['HomePage', id]);
       setIsRefreshing(false);
       setNavId(id);
+
       ref?.current?.scrollToIndex({
-        index: id,
+        index: Number(id),
       });
+
       setTimeout(() => {
         setHideContent(false);
       }, 420);
-      // After updating the cache, you can optionally log the data
-      //console.log('newData', newData);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -153,6 +150,7 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
                 vodCarouselRes={item.data}
                 setScrollEnabled={setScrollEnabled}
                 onRefresh={handleRefresh}
+                refreshProp={isRefreshing}
               />
             ) : (
               <CatagoryHome
@@ -160,6 +158,7 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
                 navId={index}
                 setScrollEnabled={setScrollEnabled}
                 onRefresh={handleRefresh}
+                refreshProp={isRefreshing}
               />
             ))}
         </View>
@@ -262,7 +261,7 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
           </View>
         )}
 
-        {data && !isRefreshing && !isOffline && (
+        {data && !isOffline && (
           <View style={{opacity: hideContent ? 0 : 1}}>
             <FlatList
               ref={ref}

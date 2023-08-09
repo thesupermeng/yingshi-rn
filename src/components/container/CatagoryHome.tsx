@@ -1,4 +1,4 @@
-import React, {memo, useState, useRef, useCallback} from 'react';
+import React, {memo, useState, useRef, useCallback, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -59,6 +59,7 @@ interface Props {
   navId?: number;
   setScrollEnabled?: any;
   onRefresh?: any;
+  refreshProp?: boolean;
 }
 const BTN_COLORS = ['#30AA55', '#7E9CEE', '#F1377A', '#FFCC12', '#ED7445'];
 const CatagoryHome = ({
@@ -66,6 +67,7 @@ const CatagoryHome = ({
   navId = 0,
   setScrollEnabled,
   onRefresh,
+  refreshProp,
 }: Props) => {
   const {colors, textVariants, spacing} = useTheme();
   const dispatch = useAppDispatch();
@@ -105,15 +107,23 @@ const CatagoryHome = ({
     [],
   );
 
+  useEffect(() => {
+    setActiveIndex(0);
+  }, [refreshProp]);
+
   return (
     <>
       <FlatList
         refreshControl={
-          <RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} />
+          <RefreshControl
+            refreshing={isRefreshing}
+            onRefresh={handleRefresh}
+            tintColor="#FAC33D"
+          />
         }
         ListHeaderComponent={
           <>
-            {data?.carousel[0] && (
+            {data?.carousel[0] && !refreshProp && (
               <View
                 style={{
                   flex: 1,

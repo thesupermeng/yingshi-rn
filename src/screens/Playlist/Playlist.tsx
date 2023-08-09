@@ -183,6 +183,7 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
                 <RefreshControl
                   refreshing={isRefreshing}
                   onRefresh={handleRefresh}
+                  tintColor="#FAC33D" // Customize the color of the loading spinner
                 />
               }
             />

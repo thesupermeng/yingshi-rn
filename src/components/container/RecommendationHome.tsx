@@ -1,4 +1,4 @@
-import React, {memo, useState, useRef} from 'react';
+import React, {memo, useState, useRef, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -46,12 +46,14 @@ interface Props {
   navId?: number;
   setScrollEnabled?: any;
   onRefresh?: any;
+  refreshProp?: boolean;
 }
 
 const RecommendationHome = ({
   vodCarouselRes,
   setScrollEnabled,
   onRefresh,
+  refreshProp,
 }: Props) => {
   const {colors, textVariants, spacing} = useTheme();
   const vodReducer: VodReducerState = useAppSelector(
@@ -118,37 +120,23 @@ const RecommendationHome = ({
         }),
   });
 
+  useEffect(() => {
+    setActiveIndex(0);
+  }, [refreshProp]);
+
   return (
     <>
-      {/* Pull to Refresh Section */}
-      {/* <Animated.View style={[styles.pullToRefreshArea, animatedSpace]}>
-        <Animated.View style={[styles.center, pullUpTranslateStyle]}>
-          <Animated.View>
-            <FastImage
-              style={{height: 80, width: 80}}
-              source={require('../../../static/images/loading-spinner.gif')}
-              resizeMode={FastImage.resizeMode.contain}
-            />
-          </Animated.View>
-        </Animated.View>
-        {toggleLottie && (
-          <>
-            <FastImage
-              style={{height: 80, width: 80, marginBottom: 80}}
-              source={require('../../../static/images/loading-spinner.gif')}
-              resizeMode={FastImage.resizeMode.contain}
-            />
-          </>
-        )}
-      </Animated.View> */}
-
       <FlatList
         refreshControl={
-          <RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} />
+          <RefreshControl
+            refreshing={isRefreshing}
+            onRefresh={handleRefresh}
+            tintColor="#FAC33D"
+          />
         }
         ListHeaderComponent={
           <>
-            {data?.carousel[0] && (
+            {data?.carousel[0] && !refreshProp && (
               <View
                 style={{
                   flex: 1,
