@@ -242,7 +242,16 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
           />
         </View>
         {(!data || isRefreshing || hideContent) && (
-          <View style={{...styles.loading, marginBottom: 80}}>
+          <View
+            style={{
+              ...styles.loading,
+              flex: 1,
+              alignItems: 'center',
+              justifyContent: 'center',
+              position: 'absolute',
+              left: '50%',
+              marginLeft: -40, // Half of the element's width
+            }}>
             {
               <FastImage
                 style={{height: 80, width: 80}}
