@@ -90,7 +90,6 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
         setIsOffline(offline);
       },
     );
-
     return () => removeNetInfoSubscription();
   }, []);
 
@@ -102,7 +101,6 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
   const handleRefresh = async (id: number) => {
     setIsRefreshing(true);
     setHideContent(true);
-    console.log(id);
     try {
       // const newData = await fetchData(id); // Fetch new data
       // Update the cache for the specific query using the queryClient

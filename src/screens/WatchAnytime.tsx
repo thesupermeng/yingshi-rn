@@ -37,6 +37,9 @@ import {memoize} from 'lodash';
 import ShortVideoPlayer from '../components/videoPlayer/shortVodPlayer';
 import {useIsFocused} from '@react-navigation/native';
 import {useQueryClient} from '@tanstack/react-query';
+import NoConnection from './../components/common/noConnection';
+import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
+
 type MiniVideoResponseType = {
   data: {
     List: Array<MiniVideo>;
@@ -59,6 +62,7 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
   const isFocused = useIsFocused();
   const [isRefreshing, setIsRefreshing] = useState(false);
   const queryClient = useQueryClient();
+  const [isOffline, setIsOffline] = useState(false);
   const handleTabPress = () => {
     if (isFocused) {
       handleRefresh();
@@ -68,7 +72,6 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
   // Add an event listener to the navigation object for the tab press event
   useEffect(() => {
     const unsubscribe = navigation.addListener('tabPress', handleTabPress);
-
     // Clean up the event listener when the component unmounts
     return () => unsubscribe();
   }, [navigation, isFocused]);
@@ -80,6 +83,25 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
     // Reset the playlists by clearing the cache and refetching data
     await queryClient.resetQueries(['watchAnytime']); // Pass the query key as an array of strings
     setIsRefreshing(false);
+  }, []);
+
+  const checkConnection = async () => {
+    const state = await NetInfo.fetch();
+    const offline = !(state.isConnected && state.isInternetReachable);
+    setIsOffline(offline);
+    if (!offline) {
+      handleRefresh();
+    }
+  };
+
+  useEffect(() => {
+    const removeNetInfoSubscription = NetInfo.addEventListener(
+      (state: NetInfoState) => {
+        const offline = !(state.isConnected && state.isInternetReachable);
+        setIsOffline(offline);
+      },
+    );
+    return () => removeNetInfoSubscription();
   }, []);
 
   const {
@@ -138,83 +160,89 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
     [],
   );
   return (
-    <ScreenContainer containerStyle={{paddingLeft: 0, paddingRight: 0}}>
-      <View
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          padding: 20,
-          zIndex: 50,
-          width: '100%',
-          flexDirection: 'row',
-          alignItems: 'center',
-        }}>
-        <Text style={{color: '#FFF', fontSize: 20}}>随心看</Text>
-      </View>
-      <View
-        style={{flex: 1}}
-        onLayout={(event: any) => {
-          var {x, y, width, height} = event.nativeEvent.layout;
-          setDisplayHeight(height);
-        }}>
-        <FlatList
-          data={videos?.pages.flat()}
-          initialNumToRender={1}
-          maxToRenderPerBatch={3}
-          windowSize={5}
-          renderItem={({item, index}: {item: MiniVideo; index: number}) => {
-            return (
-              <View style={{height: displayHeight ? displayHeight : 0}}>
-                {current !== null && Math.abs(current - index) <= 2 && (
-                  <ShortVideoPlayer
-                    vod={item}
-                    vod_url={item.mini_video_origin_video_url}
-                    isActive={current === index && !isPaused}
-                    thumbnail={item.mini_video_origin_cover}
-                    videoTitle={item.mini_video_title}
-                    displayHeight={displayHeight ? displayHeight : 0}
-                  />
-                )}
-              </View>
-            );
-          }}
-          horizontal={false}
-          pagingEnabled={true}
-          keyExtractor={(item: any, index: any) =>
-            item.mini_video_id.toString()
-          }
-          viewabilityConfig={{viewAreaCoveragePercentThreshold: 100}}
-          showsHorizontalScrollIndicator={false}
-          onViewableItemsChanged={handleViewableItemsChanged}
-          onEndReached={() => {
-            if (hasNextPage && !isFetchingNextPage && !isFetching) {
-              console.log('Fetching next page');
-              fetchNextPage();
-            }
-          }}
-          onEndReachedThreshold={0.8}
-          refreshControl={
-            <RefreshControl
-              refreshing={isRefreshing}
-              onRefresh={handleRefresh}
-            />
-          }
-          ListFooterComponent={
-            <View style={{...styles.loading, marginBottom: spacing.xl}}>
-              {hasNextPage && (
-                <FastImage
-                  style={{height: 80, width: 80}}
-                  source={require('../../static/images/loading-spinner.gif')}
-                  resizeMode={FastImage.resizeMode.contain}
+    <>
+      <ScreenContainer containerStyle={{paddingLeft: 0, paddingRight: 0}}>
+        <View
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            padding: 20,
+            zIndex: 50,
+            width: '100%',
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}>
+          <Text style={{color: '#FFF', fontSize: 20}}>随心看</Text>
+        </View>
+        {!isOffline && (
+          <View
+            style={{flex: 1}}
+            onLayout={(event: any) => {
+              var {x, y, width, height} = event.nativeEvent.layout;
+              setDisplayHeight(height);
+            }}>
+            <FlatList
+              data={videos?.pages.flat()}
+              initialNumToRender={1}
+              maxToRenderPerBatch={3}
+              windowSize={5}
+              renderItem={({item, index}: {item: MiniVideo; index: number}) => {
+                return (
+                  <View style={{height: displayHeight ? displayHeight : 0}}>
+                    {current !== null && Math.abs(current - index) <= 2 && (
+                      <ShortVideoPlayer
+                        vod={item}
+                        vod_url={item.mini_video_origin_video_url}
+                        isActive={current === index && !isPaused}
+                        thumbnail={item.mini_video_origin_cover}
+                        videoTitle={item.mini_video_title}
+                        displayHeight={displayHeight ? displayHeight : 0}
+                      />
+                    )}
+                  </View>
+                );
+              }}
+              horizontal={false}
+              pagingEnabled={true}
+              keyExtractor={(item: any, index: any) =>
+                item.mini_video_id.toString()
+              }
+              viewabilityConfig={{viewAreaCoveragePercentThreshold: 100}}
+              showsHorizontalScrollIndicator={false}
+              onViewableItemsChanged={handleViewableItemsChanged}
+              onEndReached={() => {
+                if (hasNextPage && !isFetchingNextPage && !isFetching) {
+                  console.log('Fetching next page');
+                  fetchNextPage();
+                }
+              }}
+              onEndReachedThreshold={0.8}
+              refreshControl={
+                <RefreshControl
+                  refreshing={isRefreshing}
+                  onRefresh={handleRefresh}
                 />
-              )}
-            </View>
-          }
-        />
-        {/* <Text style={{ position: 'absolute', bottom: 0, right: 0 }}>aaaa</Text> */}
-      </View>
-    </ScreenContainer>
+              }
+              ListFooterComponent={
+                <View style={{...styles.loading, marginBottom: spacing.xl}}>
+                  {hasNextPage && (
+                    <FastImage
+                      style={{height: 80, width: 80}}
+                      source={require('../../static/images/loading-spinner.gif')}
+                      resizeMode={FastImage.resizeMode.contain}
+                    />
+                  )}
+                </View>
+              }
+            />
+            {/* <Text style={{ position: 'absolute', bottom: 0, right: 0 }}>aaaa</Text> */}
+          </View>
+        )}
+      </ScreenContainer>
+
+      {isOffline && <NoConnection onClickRetry={checkConnection} />}
+    </>
   );
 };
 
