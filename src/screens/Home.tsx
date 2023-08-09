@@ -68,7 +68,7 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
 
   const data = useQueries({
     queries: navOptions
-      ? navOptions?.map(x => ({
+      ? navOptions?.map((x: any) => ({
           queryKey: ['HomePage', x.id],
           queryFn: () => fetchData(x.id),
         }))
