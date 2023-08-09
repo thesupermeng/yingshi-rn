@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useRef, useMemo } from 'react';
 import {
   View,
   TouchableWithoutFeedback,
@@ -22,6 +22,10 @@ import FastImage from 'react-native-fast-image';
 import FastForwardProgressIcon from '../../../static/images/fastforwardProgress.svg';
 import RewindProgressIcon from '../../../static/images/rewindProgress.svg';
 import ProgressGestureControl from '../gestures/vod/ProgressGestureControl';
+import { Gesture, GestureDetector } from 'react-native-gesture-handler';
+import { runOnJS } from 'react-native-reanimated';
+import { LiveTVStationItem, VodEpisodeListType, VodType } from '../../types/ajaxTypes';
+
 interface Props {
   vod_url?: string;
   vodTitle?: string;
@@ -31,10 +35,27 @@ interface Props {
   vod_source?: any;
   onBack?: () => any;
   useWebview?: boolean;
+  onEpisodeChange?: any,
+  episodes?: VodEpisodeListType
+  activeEpisode?: number,
+  rangeSize?: number,
+  autoPlayNext?: boolean,
+  onShare?: () => any,
+  movieList?: VodType[],
+  showGuide?: boolean,
+  showMoreType?: 'episodes' | 'streams' | 'movies' | 'none', 
+  streams?: LiveTVStationItem[],
+  isFetchingRecommendedMovies?: boolean
+
 }
 
-const height = Dimensions.get('window').width;
-const width = Dimensions.get('window').height;
+type RefHandler = {
+  showControls: () => void,
+  hideControls: () => void,
+  toggleControls: () => void,
+  isVisible: boolean,
+  hideSlider: () => void,
+}
 
 export default ({
   vod_url,
@@ -45,22 +66,45 @@ export default ({
   vod_source,
   onBack,
   useWebview = false,
+  activeEpisode,
+  onEpisodeChange,
+  rangeSize,
+  episodes,
+  autoPlayNext = true,
+  onShare = () => { },
+  movieList = [],
+  showGuide = false,
+  streams = [],
+  showMoreType = 'none',
+  isFetchingRecommendedMovies=false
 }: Props) => {
   const videoPlayerRef = React.useRef<Video | null>();
   const { colors, spacing, textVariants, icons } = useTheme();
   const isPotrait = useOrientation();
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
-  const [isShowControls, setIsShowControls] = useState(false);
-  const [disableFullScreenGesture, setDisableFullScreenGesture] =
-    useState(false);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(initialStartTime);
   const [isBuffering, setIsBuffering] = useState(false);
   const [seekDirection, setSeekDirection] = useState<'backward' | 'none' | 'forward'>('none');
+  const [playbackRate, setPlaybackRate] = useState<number>(1)
+  const controlsRef = useRef() as React.MutableRefObject<RefHandler>;
+  const accumulatedSkip = useRef(0);
+
+
+  const height = Dimensions.get('window').height;
+  const width = Dimensions.get('window').width;
+
+  const toggleControls = () => {
+    controlsRef.current.toggleControls();
+  }
+
   const navigation = useNavigation();
 
   const onBuffer = (bufferObj: any) => {
+    if (!bufferObj.isBuffering) {
+      accumulatedSkip.current = 0;
+    }
     setIsBuffering(bufferObj.isBuffering);
   };
 
@@ -79,14 +123,6 @@ export default ({
     return () => {
       Orientation.removeOrientationListener(handleOrientation);
     };
-  }, []);
-
-  useEffect(() => {
-    setIsShowControls(true);
-    debouncedFn();
-    // if (videoPlayerRef.current) {
-    //   videoPlayerRef.current.seek(0);
-    // }
   }, []);
 
   useEffect(() => {
@@ -113,6 +149,7 @@ export default ({
     if (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT') {
       StatusBar.setHidden(true);
       setIsFullScreen(true);
+      controlsRef.current.hideSlider();
     } else {
       StatusBar.setHidden(false);
       setIsFullScreen(false);
@@ -131,12 +168,6 @@ export default ({
     }
   }, [isFullScreen, Orientation]);
 
-  const toggleControls = () => {
-    setIsShowControls(prev => !prev);
-    // setDisableFullScreenGesture(prev => !prev);
-    debouncedFn();
-  };
-
   const onVideoLoaded = (data: any) => {
     setDuration(data.duration);
     if (currentTimeRef) {
@@ -148,16 +179,25 @@ export default ({
   };
 
   const onSeek = (time: number) => {
+    hideSeekProgress();
+    time = Math.min(Math.max(time, 0), duration);
+    try {
+      if (videoPlayerRef.current && !isNaN(time)) {
+        videoPlayerRef.current.seek(time);
+        setCurrentTime(time)
+      }
+    } catch (err) {
+      console.log('Error!', err, time)
+    }
+  };
+
+  const onSeekGesture = (time: number) => {
     if (currentTime < time) {
       setSeekDirection('forward')
     } else {
       setSeekDirection('backward')
     }
-    hideSeekProgress();
-    setCurrentTime(time)
-    if (videoPlayerRef.current) {
-      videoPlayerRef.current.seek(time);
-    }
+    onSeek(time);
   };
 
   const onVideoProgessing = (data: any) => {
@@ -166,39 +206,20 @@ export default ({
   };
 
   const onSkip = (time: any) => {
-    if (time < 0) {
-      setSeekDirection('backward')
-    } else {
-      setSeekDirection('forward')
-    }
-    hideSeekProgress();
     if (videoPlayerRef?.current) {
+      accumulatedSkip.current += time
       let currentTime = currentTimeRef.current + time;
       currentTime = Math.max(0, currentTime);
       currentTimeRef.current = currentTime;
       videoPlayerRef.current.seek(currentTime);
       setCurrentTime(currentTime);
     }
-    debouncedFn();
   };
 
   const onTogglePlayPause = () => {
-    setIsPaused(prev => !prev);
-    debouncedFn();
+    setIsPaused(!isPaused);
   };
 
-  const onTouchScreen = useCallback(() => {
-    // setDisableFullScreenGesture(prev => !prev);
-    setIsShowControls(prev => !prev);
-    debouncedFn();
-  }, []);
-
-  const changeControlsState = () => {
-    setIsShowControls(prev => false);
-    // setDisableFullScreenGesture(prev => false);
-    return;
-  };
-  const debouncedFn = useCallback(debounce(changeControlsState, 4000), []);
   const hideSeekProgress = useCallback(debounce(() => setSeekDirection('none'), 300), []);
 
   const onGoBack = () => {
@@ -218,138 +239,166 @@ export default ({
     }
   };
 
+  const changeEpisodeAndPlay = (ep: any) => {
+    setIsPaused(false);
+    onEpisodeChange(ep);
+  }
 
+  const getNextEpisode = () => {
+    if (autoPlayNext && activeEpisode !== undefined && episodes && activeEpisode < episodes?.url_count - 1) {
+      return () => changeEpisodeAndPlay(episodes.urls[activeEpisode + 1].nid);
+    }
+    return undefined
+  }
 
   return (
     <>
-      <TouchableWithoutFeedback onPress={toggleControls}>
-        <View style={{...styles.bofangBox, aspectRatio: isFullScreen ? 926 / 428 : 16 / 9,
-          height: isFullScreen ? '100%' : 'auto'
+      <View style={{
+        ...styles.bofangBox, aspectRatio: isFullScreen ? 926 / 428 : 16 / 9,
+        height: isFullScreen ? '100%' : 'auto',
       }}>
-          <PlayFullScreenGesture
-            onScreenTouched={onTouchScreen}
-            disableFullScreenGesture={disableFullScreenGesture}
-            onSkip={onSkip}
-            vodType={videoType}
-          />
-          {(vod_url !== undefined || vod_source !== undefined) &&
-            (useWebview ? (
-              <WebView
-                resizeMode="contain"
-                source={vod_url === undefined ? vod_source : { uri: vod_url }}
-                style={
-                  !isFullScreen ? styles.videoPotrait : styles.videoLandscape
-                }
-                onLoad={onVideoLoaded}
-              />
-            ) : (
-              <Video
-                mixWithOthers="mix"
-                disableFocus
-                ignoreSilentSwitch="ignore"
-                ref={ref => (videoPlayerRef.current = ref)}
-                fullscreen={isFullScreen}
-                onBuffer={onBuffer}
-                paused={isPaused || isInBackground} // Pause video when app is in the background
-                resizeMode="contain"
-                source={
-                  vod_source !== undefined
-                    ? vod_source
-                    : {
-                      uri: vod_url,
-                      headers: {
-                        origin: 'https://v.kylintv.com',
-                        referer: 'https://v.kylintv.com',
-                      },
-                    }
-                }
-                onLoad={onVideoLoaded}
-                progressUpdateInterval={1000}
-                onProgress={onVideoProgessing}
-                onSeek={data => {
-                  if (currentTimeRef) {
-                    currentTimeRef.current = data.currentTime;
-                  }
-                }}
-                style={
-                  !isFullScreen ? styles.videoPotrait : styles.videoLandscape
-                }
-              />
-            ))}
-          {(vod_url !== undefined || vod_source !== undefined) &&
-            isShowControls && (
-              <VideoControlsOverlay
-                onVideoSeek={onSeek}
-                currentTime={currentTime}
-                duration={duration}
-                onFastForward={onSkip}
-                paused={isPaused}
-                isFullScreen={isFullScreen}
-                onTogglePlayPause={onTogglePlayPause}
-                headerTitle={vodTitle}
-                onHandleFullScreen={onToggleFullScreen}
-                onHandleGoBack={onGoBack}
-                videoType={videoType}
-              />
-            )}
-          {(isBuffering || seekDirection !== 'none') && (
-            <View style={{ ...styles.buffering }}>
-              {
-                seekDirection !== 'none'
-                  ? <View
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      backgroundColor: 'rgba(0,0,0,0.4)',
-                      padding: 8,
-                      borderRadius: 8
-                    }}>
-                    {
-                      seekDirection === 'forward'
-                        ? <FastForwardProgressIcon
-                          height={50}
-                          width={50}
-                        />
-                        : <RewindProgressIcon
-                          height={50}
-                          width={50}
-                        />
-                    }
-                    {
-                      duration > 3600
-                        ? <Text style={{
-                          textAlign: 'center'
-                        }}>
-                          <Text style={{ ...textVariants.header, color: colors.primary }}>
-                            {new Date(currentTime * 1000).toISOString().substring(11, 19)}
-                          </Text>
-                          <Text style={{ ...textVariants.header }}>
-                            {` / ${new Date(duration * 1000).toISOString().substring(11, 19)}`}
-                          </Text>
-                        </Text>
-                        : <Text style={{
-                          textAlign: 'center'
-                        }}>
-                          <Text style={{ ...textVariants.header, color: colors.primary }}>
-                            {new Date(currentTime * 1000).toISOString().substring(14, 19)}
-                          </Text>
-                          <Text style={{ ...textVariants.header }}>
-                            {` / ${new Date(duration * 1000).toISOString().substring(14, 19)}`}
-                          </Text>
-                        </Text>
-                    }
-                  </View>
-                  : <FastImage
-                    source={require('../../../static/images/videoBufferLoading.gif')}
-                    style={{ width: 100, height: 100 }}
-                    resizeMode="contain"
-                  />
+        {(vod_url !== undefined || vod_source !== undefined) &&
+          (useWebview ? (
+            <WebView
+              resizeMode="contain"
+              source={vod_url === undefined ? vod_source : { uri: vod_url }}
+              style={
+                !isFullScreen ? styles.videoPotrait : styles.videoLandscape
               }
-            </View>
+              onLoad={onVideoLoaded}
+            />
+          ) : (
+            <Video
+              mixWithOthers="mix"
+              disableFocus
+              rate={playbackRate}
+              ignoreSilentSwitch="ignore"
+              ref={ref => (videoPlayerRef.current = ref)}
+              fullscreen={isFullScreen}
+              onBuffer={onBuffer}
+              paused={isPaused || isInBackground} // Pause video when app is in the background
+              resizeMode="contain"
+              onEnd={() => {
+                const nextEpi = getNextEpisode();
+                if (nextEpi !== undefined) {
+                  nextEpi();
+                }
+              }}
+              source={
+                vod_source !== undefined
+                  ? vod_source
+                  : {
+                    uri: vod_url,
+                    headers: {
+                      origin: 'https://v.kylintv.com',
+                      referer: 'https://v.kylintv.com',
+                    },
+                  }
+              }
+              onLoad={onVideoLoaded}
+              progressUpdateInterval={1000}
+              onProgress={onVideoProgessing}
+              onSeek={data => {
+                if (currentTimeRef) {
+                  currentTimeRef.current = data.currentTime;
+                }
+              }}
+              style={
+                !isFullScreen ? styles.videoPotrait : styles.videoLandscape
+              }
+            />
+          ))}
+        {(vod_url !== undefined || vod_source !== undefined) &&
+          (
+            <VideoControlsOverlay
+              ref={controlsRef}
+              onVideoSeek={onSeek}
+              onSeekGesture={onSeekGesture}
+              currentTime={currentTime}
+              duration={duration}
+              onFastForward={onSkip}
+              paused={isPaused}
+              isFullScreen={isFullScreen}
+              onTogglePlayPause={onTogglePlayPause}
+              headerTitle={vodTitle}
+              onHandleFullScreen={onToggleFullScreen}
+              onHandleGoBack={onGoBack}
+              videoType={videoType}
+              playbackRate={playbackRate}
+              onPlaybackRateChange={(rate: number) => {
+                setPlaybackRate(rate);
+              }}
+              activeEpisode={activeEpisode}
+              episodes={episodes}
+              onEpisodeChange={changeEpisodeAndPlay}
+              rangeSize={rangeSize}
+              onNextEpisode={getNextEpisode()}
+              accumulatedSkip={accumulatedSkip.current}
+              onShare={onShare}
+              movieList={movieList}
+              showGuide={showGuide}
+              showMoreType={showMoreType}
+              streams={streams}
+              isFetchingRecommendedMovies={isFetchingRecommendedMovies}
+            />
           )}
-        </View>
-      </TouchableWithoutFeedback>
+        {(isBuffering || seekDirection !== 'none') && (
+          <View style={{ ...styles.buffering, top: isFullScreen ? (height/2) - 30 : (width * 9/32) - 45 }}>
+            {
+              seekDirection !== 'none'
+                ? <View
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: 'rgba(0,0,0,0.4)',
+                    padding: 8,
+                    borderRadius: 8
+                  }}>
+                  {
+                    seekDirection === 'forward'
+                      ? <FastForwardProgressIcon
+                        height={50}
+                        width={50}
+                      />
+                      : <RewindProgressIcon
+                        height={50}
+                        width={50}
+                      />
+                  }
+                  {
+                    duration > 3600
+                      ? <Text style={{
+                        textAlign: 'center'
+                      }}>
+                        <Text style={{ ...textVariants.header, color: colors.primary }}>
+                          {new Date(currentTime * 1000).toISOString().substring(11, 19)}
+                        </Text>
+                        <Text style={{ ...textVariants.header }}>
+                          {` / ${new Date(duration * 1000).toISOString().substring(11, 19)}`}
+                        </Text>
+                      </Text>
+                      : <Text style={{
+                        textAlign: 'center'
+                      }}>
+                        <Text style={{ ...textVariants.header, color: colors.primary }}>
+                          {new Date(currentTime * 1000).toISOString().substring(14, 19)}
+                        </Text>
+                        <Text style={{ ...textVariants.header }}>
+                          {` / ${new Date(duration * 1000).toISOString().substring(14, 19)}`}
+                        </Text>
+                      </Text>
+                  }
+                </View>
+                : <FastImage
+                  source={require('../../../static/images/videoBufferLoading.gif')}
+                  style={{ width: 100, height: 100 }}
+                  resizeMode="contain"
+                />
+            }
+          </View>
+        )}
+      </View>
     </>
   );
 };
@@ -363,13 +412,12 @@ const styles = StyleSheet.create({
   },
   videoLandscape: {
     flex: 1,
-    maxHeight: height,
     width: '100%',
     height: '100%',
     backgroundColor: 'black',
   },
   bofangBox: {
-    aspectRatio: 16/9,
+    aspectRatio: 16 / 9,
     width: '100%',
     maxHeight: '100%',
     maxWidth: '100%',
@@ -382,7 +430,5 @@ const styles = StyleSheet.create({
     color: 'yellow',
     position: 'absolute',
     width: '100%',
-    top: '32%',
-    zIndex: 10,
   },
 });

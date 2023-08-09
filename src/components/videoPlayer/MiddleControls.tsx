@@ -1,9 +1,11 @@
-import React, {useEffect, useState, useContext} from 'react';
-import {View, PanResponder, StyleSheet, TouchableOpacity} from 'react-native';
+import React, { useEffect, useState, useContext, useRef, memo } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Play from '../../../static/images/blackPlay.svg';
 import Pause from '../../../static/images/pause.svg';
 import Rewind from '../../../static/images/rewind.svg';
 import Fastforward from '../../../static/images/fastforward.svg';
+import { BaseButton, RectButton } from 'react-native-gesture-handler';
+import { useTheme } from '@react-navigation/native';
 
 type Props = {
   fastForward: (params: any) => any;
@@ -12,8 +14,9 @@ type Props = {
   videoType?: string;
 };
 
-export default ({fastForward, togglePlayPause, paused, videoType}: Props) => {
-  useEffect(() => {}, []);
+const MiddleControls = ({ fastForward, togglePlayPause, paused, videoType}: Props) => {
+  const animationTimeout = useRef(-1);
+  const { textVariants } = useTheme();
 
   const onSkip = (seconds: number) => {
     fastForward(seconds);
@@ -22,31 +25,33 @@ export default ({fastForward, togglePlayPause, paused, videoType}: Props) => {
   const onTogglePlayPause = () => {
     togglePlayPause();
   };
-
   return (
     <View style={styles.middleControls}>
       {videoType !== 'live' && (
-        <TouchableOpacity
-          style={styles.sideButtons}
-          onPress={() => onSkip(-10)}>
-          <Rewind width={68} height={68} />
-        </TouchableOpacity>
+        <View style={styles.sideButtons}>
+          <RectButton disallowInterruption={true}
+            onPress={() => onSkip(-10)}>
+            <Rewind width={68} height={68} />
+          </RectButton>
+        </View>
       )}
-      <TouchableOpacity onPress={() => onTogglePlayPause()}>
+      <RectButton disallowInterruption={true} onPress={() => onTogglePlayPause()}>
         {paused ? (
           <Play width={55} height={55} />
         ) : (
           <Pause width={55} height={55} />
         )}
-      </TouchableOpacity>
+      </RectButton>
       {videoType !== 'live' && (
-        <TouchableOpacity style={styles.sideButtons} onPress={() => onSkip(10)}>
+        <RectButton disallowInterruption={true} style={styles.sideButtons} onPress={() => onSkip(10)}>
           <Fastforward width={68} height={68} />
-        </TouchableOpacity>
+        </RectButton>
       )}
     </View>
   );
 };
+
+export default memo(MiddleControls);
 
 const styles = StyleSheet.create({
   middleControls: {

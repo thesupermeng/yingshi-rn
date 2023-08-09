@@ -28,7 +28,7 @@ import HomeHeader from '../components/header/homeHeader';
 import FastImage from 'react-native-fast-image';
 // import { FlatList } from 'react-native-gesture-handler';
 import {useIsFocused} from '@react-navigation/native';
-import NoConnection from './../components/common/noConnection';
+// import NoConnection from './../components/common/noConnection';
 import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
 interface NavType {
   id: number;

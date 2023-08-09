@@ -10,11 +10,15 @@ import {
 } from 'react-native';
 import Slider from '@react-native-community/slider';
 import FullScreen from '../../../static/images/fullScreen.svg';
-import Unlock from '../../../static/images/unlock.svg';
-import Episodes from '../../../static/images/episodes.svg';
-import NextEpisode from '../../../static/images/nextEpisode.svg';
+import MoreMoviesIcon from '../../../static/images/moreMovies.svg';
 import MinimizeScreen from '../../../static/images/minimizeScreen.svg';
 import { TouchableWithoutFeedback } from 'react-native';
+import { useTheme } from '@react-navigation/native';
+import { RectButton } from 'react-native-gesture-handler';
+import NextEpisodeIcon from '../../../static/images/nextEpisode.svg';
+import SelectEpisodesIcon from '../../../static/images/selectEpisodes.svg';
+import LockScreenIcon from '../../../static/images/lockScreen.svg';
+import Orientation from 'react-native-orientation-locker';
 
 type Props = {
   currentTime: number;
@@ -23,24 +27,34 @@ type Props = {
   onSlideStart: (params: any) => any;
   onSlideComplete: (params: any) => any;
   onToggleFullScreen: () => any;
-  onToggleEpisodes: () => any;
   isFullScreen: boolean;
   videoType: string;
+  onPlaybackRateChange: () => any;
+  onEpisodeSelection: () => any;
+  playbackRate?: number,
+  onNextEpisode?: () => any,
+  onLock: () => any,
+  showMoreType?: 'episodes' | 'streams' | 'movies' | 'none',
 };
 
 export default ({
   currentTime,
   duration,
+  playbackRate = 1,
   onSlideCapture,
   onSlideStart,
   onSlideComplete,
   onToggleFullScreen,
-  onToggleEpisodes,
   isFullScreen,
   videoType,
+  onPlaybackRateChange,
+  onEpisodeSelection,
+  onNextEpisode,
+  onLock,
+  showMoreType = 'episodes'
 }: Props) => {
   useEffect(() => { }, []);
-
+  const { textVariants, colors } = useTheme();
   const getMinutesFromSeconds = (time: number) => {
     const minutes = time >= 60 ? Math.floor(time / 60) : 0;
     const seconds = Math.floor(time - minutes * 60);
@@ -57,9 +71,10 @@ export default ({
     onToggleFullScreen();
   };
 
-  const handleShowEpisodes = () => {
-    onToggleEpisodes();
-  };
+  const lockScreen = () => {
+    Orientation.lockToLandscape();
+  }
+
   const thumbImage = require('../../../static/images/white-dot.png');
 
   const position = getMinutesFromSeconds(currentTime);
@@ -69,52 +84,36 @@ export default ({
     <>
       {!isFullScreen ? (
         <View style={styles.wrapper}>
-          {videoType === 'vod' && Platform.OS === 'ios' && (
-            <Slider
-              value={currentTime}
-              minimumValue={0}
-              maximumValue={duration}
-              step={1}
-              onValueChange={onSlideProgressBar}
-              onSlidingStart={onSlideStart}
-              onSlidingComplete={onSlideComplete}
-              minimumTrackTintColor={'#FAC33D'}
-              maximumTrackTintColor={'#FFFFFF'}
-              thumbTintColor={'#FFFFFF'}
-              thumbImage={thumbImage}
-              style={{
-                flex: 12,
-                marginTop: 2,
-              }}
-            />
-          )}
-          {videoType === 'vod' && Platform.OS !== 'ios' && (
-            <Slider
-              value={currentTime}
-              minimumValue={0}
-              maximumValue={duration}
-              step={1}
-              onValueChange={onSlideProgressBar}
-              onSlidingStart={onSlideStart}
-              onSlidingComplete={onSlideComplete}
-              minimumTrackTintColor={'#FAC33D'}
-              maximumTrackTintColor={'#FFFFFF'}
-              thumbTintColor={'#FFFFFF'}
-              style={{ flex: 12, marginTop: 2 }}
-            />
-          )}
-          <View>
-            {videoType === 'vod' && (
-              <View style={styles.timeWrapper}>
+          {videoType === 'vod' ? (
+            <>
+              <Slider
+                value={currentTime}
+                minimumValue={0}
+                maximumValue={duration}
+                step={1}
+                onValueChange={onSlideProgressBar}
+                onSlidingStart={onSlideStart}
+                onSlidingComplete={onSlideComplete}
+                minimumTrackTintColor={'#FAC33D'}
+                maximumTrackTintColor={'#FFFFFF'}
+                thumbTintColor={'#FFFFFF'}
+                thumbImage={Platform.OS === 'ios' ? thumbImage : undefined}
+                style={{
+                  flex: 12,
+                  marginTop: 2,
+                }}
+              />
+              <Text>
                 <Text style={styles.timeLeft}>
                   {new Date(currentTime * 1000).toISOString().substring(11, 19)}
                 </Text>
                 <Text style={styles.timeRight}>
                   {` / ${new Date(duration * 1000).toISOString().substring(11, 19)}`}
                 </Text>
-              </View>
-            )}
-          </View>
+              </Text>
+            </>
+          ) : <View />
+          }
           <Pressable
             onPress={onPressFullScreenBtn}
             style={{ alignItems: 'flex-end' }}>
@@ -122,42 +121,25 @@ export default ({
           </Pressable>
         </View>
       ) : (
-        <View style={styles.landscapeContainer}>
+        <View style={styles.landscapeContainer} >
           <View style={styles.wrapper}>
-            {videoType === 'vod' && Platform.OS === 'ios' && (
-              <Slider
-                value={currentTime}
-                minimumValue={0}
-                maximumValue={duration}
-                step={1}
-                onValueChange={onSlideProgressBar}
-                onSlidingStart={onSlideStart}
-                onSlidingComplete={onSlideComplete}
-                minimumTrackTintColor={'#FAC33D'}
-                maximumTrackTintColor={'#FFFFFF'}
-                thumbTintColor={'#FFFFFF'}
-                thumbImage={thumbImage}
-                style={{ flex: 16, marginTop: 2 }}
-              />
-            )}
-            {videoType === 'vod' && Platform.OS !== 'ios' && (
-              <Slider
-                value={currentTime}
-                minimumValue={0}
-                maximumValue={duration}
-                step={1}
-                onValueChange={onSlideProgressBar}
-                onSlidingStart={onSlideStart}
-                onSlidingComplete={onSlideComplete}
-                minimumTrackTintColor={'#FAC33D'}
-                maximumTrackTintColor={'#FFFFFF'}
-                thumbTintColor={'#FFFFFF'}
-                style={{ flex: 16, marginTop: 2 }}
-              />
-            )}
-            <View>
-              {videoType === 'vod' && (
-                <View style={styles.timeWrapperLandscape}>
+            {videoType === 'vod' && (
+              <>
+                <Slider
+                  value={currentTime}
+                  minimumValue={0}
+                  maximumValue={duration}
+                  step={1}
+                  onValueChange={onSlideProgressBar}
+                  onSlidingStart={onSlideStart}
+                  onSlidingComplete={onSlideComplete}
+                  minimumTrackTintColor={'#FAC33D'}
+                  maximumTrackTintColor={'#FFFFFF'}
+                  thumbTintColor={'#FFFFFF'}
+                  thumbImage={Platform.OS === 'ios' ? thumbImage : undefined}
+                  style={{ flex: 16, marginTop: 2 }}
+                />
+                <View style={[styles.timeWrapperLandscape]}>
                   <Text style={styles.timeLeftLandscape}>
                     {new Date(currentTime * 1000).toISOString().substring(11, 19)}
                   </Text>
@@ -165,37 +147,51 @@ export default ({
                     {` / ${new Date(duration * 1000).toISOString().substring(11, 19)}`}
                   </Text>
                 </View>
-              )}
-            </View>
+              </>
+            )}
+          </View>
+          <View style={{ ...styles.row, marginHorizontal: 20 }}>
             <View>
-              <Pressable
-                style={styles.containerItem}
+              <RectButton
+                disallowInterruption={true}
+                onPress={onLock}>
+                <LockScreenIcon width={30} height={30} style={{ color: onNextEpisode === undefined ? colors.muted : colors.text }} />
+              </RectButton>
+            </View>
+            <View style={{ ...styles.row, gap: 20 }}>
+              {
+                onNextEpisode !== undefined &&
+                <RectButton
+                  disallowInterruption={true}
+                  onPress={onNextEpisode}>
+                  <NextEpisodeIcon width={30} height={30} style={{ color: onNextEpisode === undefined ? colors.muted : colors.text }} />
+                </RectButton>
+              }
+              <RectButton
+                disallowInterruption={true}
+                onPress={onEpisodeSelection}>
+                {
+                  showMoreType === 'movies'
+                    ? <MoreMoviesIcon width={30} height={30} />
+                    : <SelectEpisodesIcon width={30} height={30} />
+                }
+
+              </RectButton>
+              {
+                videoType !== 'live' &&
+                <RectButton
+                  disallowInterruption={true}
+                  onPress={onPlaybackRateChange}>
+                  <Text style={textVariants.header}>{`${playbackRate}X`}</Text>
+                </RectButton>
+              }
+              <RectButton
+                disallowInterruption={true}
                 onPress={onPressFullScreenBtn}>
                 <MinimizeScreen width={30} height={30} />
-              </Pressable>
+              </RectButton>
             </View>
           </View>
-          {/* <View style={styles.buttonsContainer}>
-                        <View style={{ flex: 7 }}>
-                            <TouchableWithoutFeedback onPress={handleShowEpisodes}>
-                                <Unlock width={30} height={30} />
-                            </TouchableWithoutFeedback>
-                        </View>
-                        <View style={styles.buttonsSubContainer}>
-                            <TouchableWithoutFeedback style={styles.containerItem} onPress={handleShowEpisodes}>
-                                <Text>1.25x</Text>
-                            </TouchableWithoutFeedback>
-                            <TouchableWithoutFeedback style={styles.containerItem} onPress={handleShowEpisodes}>
-                                <NextEpisode width={30} height={30} />
-                            </TouchableWithoutFeedback>
-                            <TouchableWithoutFeedback style={styles.containerItem} onPress={handleShowEpisodes}>
-                                <Episodes width={30} height={30} />
-                            </TouchableWithoutFeedback>
-                            <TouchableWithoutFeedback style={styles.containerItem} onPress={onPressFullScreenBtn}>
-                                <MinimizeScreen width={30} height={30} />
-                            </TouchableWithoutFeedback>
-                        </View>
-                    </View> */}
         </View>
       )}
     </>
@@ -203,17 +199,11 @@ export default ({
 };
 
 const styles = StyleSheet.create({
-  // landscapeContainer: {
-  //     flex: 1,
-  //     flexDirection: 'column',
-  //     paddingHorizontal: 20,
-  //     zIndex: 1
-  // },
   landscapeContainer: {
     // flexDirection: 'row',
     // justifyContent: 'center',
     // alignItems: 'center',
-    zIndex: 1,
+    zIndex: 100,
   },
   buttonsContainer: {
     flex: 1,
@@ -221,29 +211,24 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginHorizontal: 10,
   },
-  // buttonsSubContainer: {
-  //     flex: 2,
-  //     flexDirection: 'row',
-  //     justifyContent: 'space-between'
-  // },
   buttonsSubContainer: {
     flex: 2,
     flexDirection: 'row',
     justifyContent: 'flex-end',
   },
   containerItem: {
-    paddingRight: 20,
   },
   wrapper: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    zIndex: 1,
+    width: '100%',
+    gap: 8,
   },
   timeWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
-    flex: 4,
+    flex: 4
   },
   timeWrapperLandscape: {
     flexDirection: 'row',
@@ -272,4 +257,9 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     textAlign: 'right',
   },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  }
 });

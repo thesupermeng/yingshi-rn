@@ -86,6 +86,8 @@ export default ({navigation, route}: RootStackScreenProps<'电视台播放'>) =>
           vod_url={liveStationItem.live_station_url}
           vodTitle={liveStationItem.live_station_name}
           videoType={'live'}
+          streams={liveStationItemList}
+          showMoreType='streams'
         />
       )}
       <ScrollView
