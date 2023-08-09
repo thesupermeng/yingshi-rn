@@ -192,13 +192,7 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
     }
   };
 
-  const onTouchStart = (event: any) => {
-    console.log('onTouchStart');
-    setToggleGesture(true);
-  };
-
   const onTouchEnd = (event: any) => {
-    console.log('ontouchEnd');
     setToggleGesture(false);
   };
 
@@ -320,6 +314,8 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
               onTouchStart={onTouchEnd}
               onTouchEnd={onTouchEnd}
               onScrollBeginDrag={onTouchEnd}
+              onTouchMove={onTouchEnd}
+              onTouchCancel={onTouchEnd}
               showsVerticalScrollIndicator={false}
               data={playlists?.pages.flat()}
               onEndReached={() => {
@@ -392,7 +388,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     left: 0,
-    height: 700,
+    height: '100%',
     width: '100%',
     // backgroundColor: 'green',
     zIndex: 0,

@@ -89,7 +89,7 @@ export default ({navigation, route}: RootStackScreenProps<'播放'>) => {
   const [actualNumberOfLines, setActualNumberOfLines] = useState(0);
   const textRef = useRef(null);
 
-  const handleTextLayout = (event: { nativeEvent: { lines: any; }; }) => {
+  const handleTextLayout = (event: {nativeEvent: {lines: any}}) => {
     const {lines} = event.nativeEvent;
     setActualNumberOfLines(lines.length);
   };
@@ -396,7 +396,7 @@ export default ({navigation, route}: RootStackScreenProps<'播放'>) => {
                   onTextLayout={handleTextLayout}
                   style={styles.descriptionContainer2Text}
                   numberOfLines={isCollapsed ? 2 : 20}>
-                  {`${definedValue(vod?.vod_blurb)}`}
+                  {`${definedValue(vod?.vod_content)}`}
                 </Text>
               </View>
               <View style={{paddingBottom: 0}}>

@@ -38,7 +38,7 @@ export default function VodDescription({vod, vodStyle}: Props) {
         <Text
           numberOfLines={2}
           style={{...textVariants.subBody, flex: 1, color: colors.muted}}>
-          {vod.vod_blurb}
+          {vod.vod_blurb.trim()}
         </Text>
       </View>
     </View>
