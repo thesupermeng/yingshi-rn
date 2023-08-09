@@ -41,12 +41,15 @@ export default function NoConnection({onClickRetry}: Props) {
             ...styles.refreshBtn,
             backgroundColor: colors.title,
           }}>
+          <View style={{position: 'relative', top: 2, paddingRight: 3}}>
+            <RefreshIcon />
+          </View>
           <Text
             style={{
               ...styles.head,
               color: colors.background,
             }}>
-            <RefreshIcon /> 点击重试
+            点击重试
           </Text>
         </View>
       </TouchableOpacity>

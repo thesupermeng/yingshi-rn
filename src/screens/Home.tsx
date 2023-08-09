@@ -46,7 +46,6 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
   const [scrollEnabled, setScrollEnabled] = useState(true);
   const navRef = useRef<any>();
   const queryClient = useQueryClient();
-
   const [isOffline, setIsOffline] = useState(false);
 
   const {data: navOptions} = useQuery({
@@ -111,13 +110,13 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
       setIsRefreshing(false);
       setNavId(id);
 
-      ref?.current?.scrollToIndex({
-        index: Number(id),
-      });
-
-      setTimeout(() => {
-        setHideContent(false);
-      }, 420);
+      // ref?.current?.scrollToIndex({
+      //   index: Number(id),
+      // });
+      setHideContent(false);
+      // setTimeout(() => {
+      //   setHideContent(false);
+      // }, 100);
     } catch (error) {
       console.error('Error fetching data:', error);
     }

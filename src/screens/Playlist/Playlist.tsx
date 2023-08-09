@@ -12,18 +12,8 @@ import {API_DOMAIN} from '../../utility/constants';
 import FastImage from 'react-native-fast-image';
 import {useIsFocused} from '@react-navigation/native';
 // import {FlatList, PanGestureHandler} from 'react-native-gesture-handler';
-import Animated, {
-  Extrapolate,
-  interpolate,
-  runOnJS,
-  scrollTo,
-  useAnimatedGestureHandler,
-  useAnimatedRef,
-  useAnimatedStyle,
-  useSharedValue,
-  withDelay,
-  withTiming,
-} from 'react-native-reanimated';
+import NoConnection from './../../components/common/noConnection';
+import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
 type FlatListType = {
   item: VodTopicType;
   index: number;
@@ -37,13 +27,39 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
   const [totalPage, setTotalPage] = useState(0);
 
   const isFocused = useIsFocused();
-
+  const [isOffline, setIsOffline] = useState(false);
   // Function to handle the refresh action
   const handleTabPress = () => {
     if (isFocused) {
       handleRefresh();
     }
   };
+
+  const checkConnection = async () => {
+    const state = await NetInfo.fetch();
+    const offline = !(state.isConnected && state.isInternetReachable);
+    setIsOffline(offline);
+    if (!offline) {
+      handleRefresh();
+    }
+  };
+
+  useEffect(() => {
+    const removeNetInfoSubscription = NetInfo.addEventListener(
+      (state: NetInfoState) => {
+        const offline = !(state.isConnected && state.isInternetReachable);
+        setIsOffline(offline);
+      },
+    );
+
+    return () => removeNetInfoSubscription();
+  }, []);
+
+  useEffect(() => {
+    if (!isOffline) {
+      handleRefresh();
+    }
+  }, [isOffline]);
 
   // Add an event listener to the navigation object for the tab press event
   useEffect(() => {
@@ -149,7 +165,7 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
             }
           </View>
         )}
-        {!isRefreshing && (
+        {!isRefreshing && !isOffline && (
           <>
             <FlatList
               showsVerticalScrollIndicator={false}
@@ -190,6 +206,7 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
           </>
         )}
       </ScreenContainer>
+      {isOffline && <NoConnection onClickRetry={checkConnection} />}
     </>
   );
 };
