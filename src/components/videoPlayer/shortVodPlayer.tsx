@@ -1,4 +1,4 @@
-import React, { useEffect, useState, memo, useMemo, useRef } from 'react';
+import React, {useEffect, useState, memo, useMemo, useRef} from 'react';
 import {
   View,
   TouchableWithoutFeedback,
@@ -7,19 +7,19 @@ import {
   Text,
   Dimensions,
 } from 'react-native';
-import Video, { OnProgressData } from 'react-native-video';
-import { debounce, throttle } from 'lodash';
+import Video, {OnProgressData} from 'react-native-video';
+import {debounce, throttle} from 'lodash';
 import PlayIcon from '../../../static/images/blackPlay.svg';
 import PauseIcon from '../../../static/images/pause.svg';
 import PlayZhengPianIcon from '../../../static/images/play-zhengpian1.svg';
 import PlayBoDanIcon from '../../../static/images/play-bodan.svg';
 
-import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
+import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 import FastImage from 'react-native-fast-image';
-import { Slider } from '@rneui/themed';
-import { useAppDispatch } from '../../hooks/hooks';
-import { useNavigation, useTheme } from '@react-navigation/native';
-import { playVod, viewPlaylistDetails } from '../../redux/actions/vodActions';
+import {Slider} from '@rneui/themed';
+import {useAppDispatch} from '../../hooks/hooks';
+import {useNavigation, useTheme} from '@react-navigation/native';
+import {playVod, viewPlaylistDetails} from '../../redux/actions/vodActions';
 
 interface Props {
   vod_url?: string;
@@ -48,7 +48,7 @@ function ShortVideoPlayer({
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
 
-  const { colors, textVariants } = useTheme();
+  const {colors, textVariants} = useTheme();
 
   const bottomTabHeight = useBottomTabBarHeight();
   const [isBuffering, setIsBuffering] = useState(false);
@@ -68,10 +68,10 @@ function ShortVideoPlayer({
   const windowWidth = Dimensions.get('window').width;
 
   useEffect(() => {
-    if(vod.mini_video_topic.topic_id != 0){
+    if (vod.mini_video_topic.topic_id != 0) {
       setIsBodan(true);
       setWatchText('看播单');
-    }else{
+    } else {
       setIsBodan(false);
       setWatchText('看正片');
     }
@@ -105,15 +105,15 @@ function ShortVideoPlayer({
     timer.current = setTimeout(() => setShowOverlay(false), 3000);
   };
   const handleSeek = (value: number) => {
-    if(Number.isNaN(value)){
+    if (Number.isNaN(value)) {
       value = 0;
     }
     showControls();
-    setCurrentTime(value)
+    setCurrentTime(value);
     if (videoRef.current) {
       videoRef.current.seek(value);
     }
-  }
+  };
 
   const handlePlayPause = () => {
     clearTimeout(iconTimer.current);
@@ -129,12 +129,12 @@ function ShortVideoPlayer({
   };
 
   const redirectVod = () => {
-    if(isBodan){
+    if (isBodan) {
       dispatch(viewPlaylistDetails(vod.mini_video_topic));
       navigation.navigate('PlaylistDetail', {
         topic_id: vod.mini_video_topic.topic_id,
       });
-    }else{
+    } else {
       dispatch(playVod(vod.mini_video_vod));
       navigation.navigate('播放', {
         vod_id: vod.vod?.vod_id,
@@ -143,9 +143,9 @@ function ShortVideoPlayer({
   };
 
   const handleViewLayout = (event: any) => {
-    const { height } = event.nativeEvent.layout;
+    const {height} = event.nativeEvent.layout;
     setImageContainerHeight(height);
-  }
+  };
 
   return (
     <TouchableWithoutFeedback
@@ -155,12 +155,12 @@ function ShortVideoPlayer({
           handlePlayPause();
         }
       }}>
-      <View style={[styles.container, { height: displayHeight }]}>
+      <View style={[styles.container, {height: displayHeight}]}>
         {isBuffering && (
           <View style={styles.buffering}>
             <FastImage
               source={require('../../../static/images/videoBufferLoading.gif')}
-              style={{ width: 100, height: 100 }}
+              style={{width: 100, height: 100}}
               resizeMode="contain"
             />
           </View>
@@ -190,11 +190,16 @@ function ShortVideoPlayer({
         <View
           style={{
             position: 'absolute',
-            left: (Dimensions.get('window').width - 80) / 2,
-            top: (Dimensions.get('window').height - 130) / 2,
+            left: (Dimensions.get('window').width - 70) / 2,
+            top: (Dimensions.get('window').height - 100) / 2,
             zIndex: 999,
           }}>
-          {showIcon && (paused ? <PlayIcon /> : <PauseIcon />)}
+          {showIcon &&
+            (paused ? (
+              <PlayIcon width={70} height={70} />
+            ) : (
+              <PauseIcon width={70} height={70} />
+            ))}
         </View>
         <View
           style={{
@@ -209,7 +214,7 @@ function ShortVideoPlayer({
           {vod != undefined &&
             vod.mini_video_original_img_url != null &&
             vod.mini_video_original_img_url != '' && (
-              <View style={{ flexWrap: 'wrap' }}>
+              <View style={{flexWrap: 'wrap'}}>
                 {/* <View style={{ flex: 10, flexDirection: 'column', justifyContent: 'flex-end', marginRight: 35 }}> */}
                 <View
                   style={{
@@ -219,7 +224,7 @@ function ShortVideoPlayer({
                     borderRadius: 8,
                     backgroundColor: 'rgba(106, 106, 106, 0.25)',
                   }}>
-                  { !isBodan && 
+                  {!isBodan && (
                     <View
                       style={{
                         width: 45,
@@ -227,9 +232,11 @@ function ShortVideoPlayer({
                         justifyContent: 'flex-end',
                       }}
                       onLayout={handleViewLayout}>
-                      <TouchableOpacity style={{ flex: 1, position: 'relative' }} onPress={redirectVod}>
+                      <TouchableOpacity
+                        style={{flex: 1, position: 'relative'}}
+                        onPress={redirectVod}>
                         <FastImage
-                          style={{ flex: 1, borderRadius: 6 }}
+                          style={{flex: 1, borderRadius: 6}}
                           source={{
                             uri: vod.mini_video_original_img_url,
                             priority: FastImage.priority.high,
@@ -237,45 +244,72 @@ function ShortVideoPlayer({
                         />
                       </TouchableOpacity>
                     </View>
-                  }
-                  { isBodan &&
+                  )}
+                  {isBodan && (
                     <View
                       style={{
                         width: 45,
                         flexDirection: 'column',
                         justifyContent: 'flex-end',
-                        marginRight: 6
+                        marginRight: 6,
                       }}
                       onLayout={handleViewLayout}>
-                      <TouchableOpacity style={{ flex: 1, position: 'relative' }} onPress={redirectVod}>
+                      <TouchableOpacity
+                        style={{flex: 1, position: 'relative'}}
+                        onPress={redirectVod}>
                         <FastImage
-                          style={{ flex: 1, borderRadius: 6, transform: 'translate(0px, 0px)', position: 'absolute', width: '100%', height: '100%', zIndex: 3 }}
+                          style={{
+                            flex: 1,
+                            borderRadius: 6,
+                            transform: 'translate(0px, 0px)',
+                            position: 'absolute',
+                            width: '100%',
+                            height: '100%',
+                            zIndex: 3,
+                          }}
                           source={{
                             uri: vod.mini_video_original_img_url,
                             priority: FastImage.priority.high,
                           }}
-                          onProgress={(e) => {
-                            setImageLoaded(false)
+                          onProgress={e => {
+                            setImageLoaded(false);
                           }}
-                          onLoad={(e) => {
-                            setImageLoaded(true)
+                          onLoad={e => {
+                            setImageLoaded(true);
                           }}
                         />
-                        { imageLoaded && isBodan &&
+                        {imageLoaded && isBodan && (
                           <View>
                             <FastImage
-                              style={{ flex: 1, borderRadius: 6, transform: 'translate(4px, 0px)', position: 'absolute', width: '100%', height: imageContainerHeight - 6, zIndex: 2, top: 5.8 }}
+                              style={{
+                                flex: 1,
+                                borderRadius: 6,
+                                transform: 'translate(4px, 0px)',
+                                position: 'absolute',
+                                width: '100%',
+                                height: imageContainerHeight - 6,
+                                zIndex: 2,
+                                top: 5.8,
+                              }}
                               source={require('../../../static/images/bodan2.jpeg')}
                             />
                             <FastImage
-                              style={{ flex: 1, borderRadius: 6, transform: 'translate(8px, 0px)', position: 'absolute', width: '100%', height: imageContainerHeight - 12, top: 11.8 }}
+                              style={{
+                                flex: 1,
+                                borderRadius: 6,
+                                transform: 'translate(8px, 0px)',
+                                position: 'absolute',
+                                width: '100%',
+                                height: imageContainerHeight - 12,
+                                top: 11.8,
+                              }}
                               source={require('../../../static/images/bodan3.jpg')}
                             />
                           </View>
-                        }
+                        )}
                       </TouchableOpacity>
                     </View>
-                  }
+                  )}
                   <View
                     style={{
                       flexDirection: 'column',
@@ -309,13 +343,13 @@ function ShortVideoPlayer({
                             </Text>
                           </View>
                         </View>
-                        <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-                          <View style={{ flexWrap: 'wrap' }}>
-                            { isBodan ?
+                        <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+                          <View style={{flexWrap: 'wrap'}}>
+                            {isBodan ? (
                               <PlayBoDanIcon width={20} height={20} />
-                              :
+                            ) : (
                               <PlayZhengPianIcon width={20} height={20} />
-                            }
+                            )}
                           </View>
                           <View
                             style={{
@@ -338,7 +372,7 @@ function ShortVideoPlayer({
                 </View>
               </View>
             )}
-          <View style={{ marginTop: 10, flexDirection: 'row' }}>
+          <View style={{marginTop: 10, flexDirection: 'row'}}>
             {/* <View style={{ flex: 10, flexDirection: 'column', justifyContent: 'flex-end', marginRight: 35 }}> */}
             <View
               style={{
@@ -347,7 +381,7 @@ function ShortVideoPlayer({
                 justifyContent: 'flex-end',
               }}>
               <TouchableOpacity>
-                <Text style={{ ...textVariants.small, color: colors.text }}>
+                <Text style={{...textVariants.small, color: colors.text}}>
                   {videoTitle}
                 </Text>
               </TouchableOpacity>
@@ -359,7 +393,7 @@ function ShortVideoPlayer({
           maximumValue={duration}
           minimumValue={0}
           disabled={!showOverlay}
-          thumbTouchSize={{ width: 50, height: 50 }}
+          thumbTouchSize={{width: 50, height: 50}}
           allowTouchTrack={!isBuffering}
           thumbStyle={{
             height: showOverlay ? 8 : 1,
@@ -371,30 +405,54 @@ function ShortVideoPlayer({
           minimumTrackTintColor={'#ffffff80'}
           maximumTrackTintColor={'#ffffff24'}
           thumbTintColor={'#FFFFFF'}
-          trackStyle={{ height: 2, opacity: 1 }}
+          trackStyle={{height: 2, opacity: 1}}
         />
-        {
-          duration > 0 && showOverlay && currentTime >= 0 &&
-          (
-            duration < 3600
-              ? <Text style={{
+        {duration > 0 &&
+          showOverlay &&
+          currentTime >= 0 &&
+          (duration < 3600 ? (
+            <Text
+              style={{
                 position: 'absolute',
                 bottom: 20,
-                left: Math.min(Math.max(0, (currentTime / duration) * windowWidth - 34), windowWidth - 76)
+                left: Math.min(
+                  Math.max(0, (currentTime / duration) * windowWidth - 34),
+                  windowWidth - 76,
+                ),
               }}>
-                <Text style={textVariants.small}>{new Date(currentTime * 1000).toISOString().substring(14, 19)}</Text>
-                <Text style={{ ...textVariants.small, color: colors.muted }}>{` / ${new Date(duration * 1000).toISOString().substring(14, 19)}`}</Text>
+              <Text style={textVariants.small}>
+                {new Date(currentTime * 1000).toISOString().substring(14, 19)}
               </Text>
-              : <Text style={{
+              <Text
+                style={{
+                  ...textVariants.small,
+                  color: colors.muted,
+                }}>{` / ${new Date(duration * 1000)
+                .toISOString()
+                .substring(14, 19)}`}</Text>
+            </Text>
+          ) : (
+            <Text
+              style={{
                 position: 'absolute',
                 bottom: 20,
-                left: Math.min(Math.max(0, (currentTime / duration) * windowWidth - 34), windowWidth - 76)
+                left: Math.min(
+                  Math.max(0, (currentTime / duration) * windowWidth - 34),
+                  windowWidth - 76,
+                ),
               }}>
-                <Text style={textVariants.small}>{new Date(currentTime * 1000).toISOString().substring(11, 19)}</Text>
-                <Text style={{ ...textVariants.small, color: colors.muted }}>{` / ${new Date(duration * 1000).toISOString().substring(11, 19)}`}</Text>
+              <Text style={textVariants.small}>
+                {new Date(currentTime * 1000).toISOString().substring(11, 19)}
               </Text>
-          )
-        }
+              <Text
+                style={{
+                  ...textVariants.small,
+                  color: colors.muted,
+                }}>{` / ${new Date(duration * 1000)
+                .toISOString()
+                .substring(11, 19)}`}</Text>
+            </Text>
+          ))}
       </View>
     </TouchableWithoutFeedback>
   );

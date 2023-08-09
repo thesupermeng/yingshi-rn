@@ -102,19 +102,10 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
     setIsRefreshing(true);
     setHideContent(true);
     try {
-      // const newData = await fetchData(id); // Fetch new data
-      // Update the cache for the specific query using the queryClient
       await queryClient.invalidateQueries(['HomePage', id]);
       setIsRefreshing(false);
       setNavId(id);
-
-      // ref?.current?.scrollToIndex({
-      //   index: Number(id),
-      // });
       setHideContent(false);
-      // setTimeout(() => {
-      //   setHideContent(false);
-      // }, 100);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
