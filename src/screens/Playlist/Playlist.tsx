@@ -51,15 +51,8 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
         setIsOffline(offline);
       },
     );
-
     return () => removeNetInfoSubscription();
   }, []);
-
-  useEffect(() => {
-    if (!isOffline) {
-      handleRefresh();
-    }
-  }, [isOffline]);
 
   // Add an event listener to the navigation object for the tab press event
   useEffect(() => {
