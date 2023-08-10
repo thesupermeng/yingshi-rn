@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {StyleSheet, View, Text, RefreshControl} from 'react-native';
+import {StyleSheet, View, Text, RefreshControl, FlatList} from 'react-native';
 import {useQueryClient} from '@tanstack/react-query';
 import ScreenContainer from '../../components/container/screenContainer';
 import MainHeader from '../../components/header/homeHeader';
@@ -11,24 +11,14 @@ import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import {API_DOMAIN} from '../../utility/constants';
 import FastImage from 'react-native-fast-image';
 import {useIsFocused} from '@react-navigation/native';
-import {FlatList, PanGestureHandler} from 'react-native-gesture-handler';
-import Animated, {
-  Extrapolate,
-  interpolate,
-  runOnJS,
-  scrollTo,
-  useAnimatedGestureHandler,
-  useAnimatedRef,
-  useAnimatedStyle,
-  useSharedValue,
-  withDelay,
-  withTiming,
-} from 'react-native-reanimated';
+// import {FlatList, PanGestureHandler} from 'react-native-gesture-handler';
+import NoConnection from './../../components/common/noConnection';
+import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
 type FlatListType = {
   item: VodTopicType;
   index: number;
 };
-const REFRESH_AREA_HEIGHT = 80;
+
 export default ({navigation}: BottomTabScreenProps<any>) => {
   // const BTN_COLORS = ['#FFCC12', '#F1377A', '#ED7445', '#7E9CEE', '#30AA55',];
   const {textVariants, colors, spacing} = useTheme();
@@ -37,13 +27,32 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
   const [totalPage, setTotalPage] = useState(0);
 
   const isFocused = useIsFocused();
-
+  const [isOffline, setIsOffline] = useState(false);
   // Function to handle the refresh action
   const handleTabPress = () => {
     if (isFocused) {
       handleRefresh();
     }
   };
+
+  const checkConnection = async () => {
+    const state = await NetInfo.fetch();
+    const offline = !(state.isConnected && state.isInternetReachable);
+    setIsOffline(offline);
+    if (!offline) {
+      handleRefresh();
+    }
+  };
+
+  useEffect(() => {
+    const removeNetInfoSubscription = NetInfo.addEventListener(
+      (state: NetInfoState) => {
+        const offline = !(state.isConnected && state.isInternetReachable);
+        setIsOffline(offline);
+      },
+    );
+    return () => removeNetInfoSubscription();
+  }, []);
 
   // Add an event listener to the navigation object for the tab press event
   useEffect(() => {
@@ -110,149 +119,7 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
 
     return setIsRefreshing(false);
   }, []);
-  //refresh.js
 
-  const [toggleLottie, setToggleLottie] = useState(false);
-  const [toggleGesture, setToggleGesture] = useState(true);
-  const [gestureActive, setGestureActive] = useState(false);
-
-  const flatlistRef = useAnimatedRef();
-
-  const translationY = useSharedValue(0);
-  const pullUpTranslate = useSharedValue(0);
-
-  const fetchData = async () => {
-    // setTimeout(() => {
-    //   setRecipes([fDAta, ...recipes]);
-    // }, 1000);
-
-    await handleRefresh();
-
-    translationY.value = withTiming(0, {duration: 0}, finished => {
-      pullUpTranslate.value = 0;
-
-      runOnJS(setToggleLottie)(false);
-    });
-  };
-
-  const pullUpAnimation = () => {
-    pullUpTranslate.value = withDelay(
-      0,
-      withTiming(
-        pullUpTranslate.value === 0 ? -100 : 0,
-        {duration: 200},
-        finished => {
-          if (finished) {
-            runOnJS(setToggleLottie)(true);
-            runOnJS(fetchData)();
-          }
-        },
-      ),
-    );
-  };
-  const gestureHandler = useAnimatedGestureHandler({
-    onStart: (_, ctx: any) => {
-      ctx.startY = translationY.value;
-      runOnJS(setGestureActive)(true);
-    },
-    onActive: (event, ctx) => {
-      const total = ctx.startY + event.translationY;
-      // console.log('translateY', total);
-
-      if (total < REFRESH_AREA_HEIGHT) {
-        translationY.value = total;
-      } else {
-        translationY.value = REFRESH_AREA_HEIGHT;
-      }
-
-      if (total < 0) {
-        translationY.value = 0;
-        scrollTo(flatlistRef, 0, total * -1, false);
-      }
-    },
-    onEnd: () => {
-      runOnJS(setGestureActive)(false);
-      if (translationY.value <= REFRESH_AREA_HEIGHT - 1) {
-        translationY.value = withTiming(0, {duration: 200});
-      } else {
-        runOnJS(pullUpAnimation)();
-      }
-      if (!(translationY.value > 0)) {
-        runOnJS(setToggleGesture)(false);
-      }
-    },
-  });
-
-  const handleOnScroll = (event: any) => {
-    const position = event.nativeEvent.contentOffset.y;
-    if (position === 0) {
-      setToggleGesture(true);
-    } else if (position > 0 && toggleGesture && !gestureActive) {
-      setToggleGesture(false);
-    }
-  };
-
-  const onTouchStart = (event: any) => {
-    console.log('onTouchStart');
-    setToggleGesture(true);
-  };
-
-  const onTouchEnd = (event: any) => {
-    console.log('ontouchEnd');
-    setToggleGesture(false);
-  };
-
-  const animatedSpace = useAnimatedStyle(() => {
-    return {
-      height: translationY.value,
-    };
-  });
-
-  const pullDownIconSection = useAnimatedStyle(() => {
-    const rotate = interpolate(
-      translationY.value,
-      [0, REFRESH_AREA_HEIGHT],
-      [0, 180],
-    );
-    return {
-      transform: [{rotate: `${rotate}deg`}],
-      //transform: 0,
-    };
-  });
-
-  const pullUpTranslateStyle = useAnimatedStyle(() => {
-    const opacity = interpolate(
-      translationY.value,
-      [58, REFRESH_AREA_HEIGHT],
-      [0, 1],
-    );
-
-    return {
-      opacity,
-      // transform: [
-      //   {
-      //     translateY: pullUpTranslate.value,
-      //   },
-      // ],
-    };
-  });
-
-  const statusBarStyle = useAnimatedStyle(() => {
-    const translate = interpolate(
-      translationY.value,
-      [80, REFRESH_AREA_HEIGHT],
-      [0, -40],
-      {extrapolateLeft: Extrapolate.CLAMP, extrapolateRight: Extrapolate.CLAMP},
-    );
-
-    return {
-      transform: [
-        {
-          translateY: translate,
-        },
-      ],
-    };
-  });
   return (
     <>
       <ScreenContainer containerStyle={{paddingLeft: 0, paddingRight: 0}}>
@@ -275,7 +142,13 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
           navigator={navigation}
         />
         {isRefreshing && (
-          <View style={{...styles.loading, marginBottom: 80}}>
+          <View
+            style={{
+              ...styles.loading,
+              flex: 1,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
             {
               <FastImage
                 style={{height: 80, width: 80}}
@@ -285,41 +158,9 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
             }
           </View>
         )}
-        {!isRefreshing && (
+        {!isRefreshing && !isOffline && (
           <>
-            {/* Pull to Refresh Section */}
-            <Animated.View style={[styles.pullToRefreshArea, animatedSpace]}>
-              {/* <FastImage
-          style={{height: 80, width: 80}}
-          source={require('../../../static/images/loading-spinner.gif')}
-          resizeMode={FastImage.resizeMode.contain}
-        /> */}
-              <Animated.View style={[styles.center, pullUpTranslateStyle]}>
-                {/* style={pullDownIconSection} */}
-                <Animated.View>
-                  <FastImage
-                    style={{height: 80, width: 80}}
-                    source={require('../../../static/images/loading-spinner.gif')}
-                    resizeMode={FastImage.resizeMode.contain}
-                  />
-                </Animated.View>
-              </Animated.View>
-              {toggleLottie && (
-                <>
-                  <FastImage
-                    style={{height: 80, width: 80, marginBottom: 80}}
-                    source={require('../../../static/images/loading-spinner.gif')}
-                    resizeMode={FastImage.resizeMode.contain}
-                  />
-                </>
-              )}
-            </Animated.View>
             <FlatList
-              ref={flatlistRef}
-              onScroll={handleOnScroll}
-              onTouchStart={onTouchEnd}
-              onTouchEnd={onTouchEnd}
-              onScrollBeginDrag={onTouchEnd}
               showsVerticalScrollIndicator={false}
               data={playlists?.pages.flat()}
               onEndReached={() => {
@@ -347,21 +188,18 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
                   )}
                 </View>
               }
-              // refreshControl={
-              //   <RefreshControl
-              //     refreshing={isRefreshing}
-              //     onRefresh={handleRefresh}
-              //   />
-              // }
+              refreshControl={
+                <RefreshControl
+                  refreshing={isRefreshing}
+                  onRefresh={handleRefresh}
+                  tintColor="#FAC33D" // Customize the color of the loading spinner
+                />
+              }
             />
-            {toggleGesture && (
-              <PanGestureHandler onGestureEvent={gestureHandler}>
-                <Animated.View style={styles.gesture} />
-              </PanGestureHandler>
-            )}
           </>
         )}
       </ScreenContainer>
+      {isOffline && <NoConnection onClickRetry={checkConnection} />}
     </>
   );
 };
@@ -376,41 +214,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flex: 1,
   },
-  //refresh
-  catagory: {
-    marginRight: 20,
-  },
-  active: {
-    width: 70,
-    height: 2,
-    backgroundColor: 'black',
-    marginBottom: 20,
-  },
-  catagoryContainer: {flexDirection: 'row', marginBottom: 5, marginTop: 30},
-
-  gesture: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    height: 700,
-    width: '100%',
-    // backgroundColor: 'green',
-    zIndex: 0,
-  },
-  lottieView: {
-    width: 80,
-    height: 80,
-    backgroundColor: 'transparent',
-    marginTop: -15,
-  },
-  pullToRefreshArea: {
-    height: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-    overflow: 'hidden',
-  },
-  customStatusBar: {height: 40, backgroundColor: '#E0144C'},
-  contentContainer: {flex: 1, marginHorizontal: 15, marginVertical: 15},
-  center: {justifyContent: 'center', alignItems: 'center'},
 });

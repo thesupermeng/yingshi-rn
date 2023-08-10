@@ -27,9 +27,9 @@ import RecommendationHome from '../components/container/RecommendationHome';
 import HomeHeader from '../components/header/homeHeader';
 import FastImage from 'react-native-fast-image';
 // import { FlatList } from 'react-native-gesture-handler';
-import { useIsFocused } from '@react-navigation/native';
-// import NoConnection from './../components/common/noConnection';
-import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
+import {useIsFocused} from '@react-navigation/native';
+import NoConnection from './../components/common/noConnection';
+import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
 interface NavType {
   id: number;
   name: string;
@@ -46,7 +46,6 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
   const [scrollEnabled, setScrollEnabled] = useState(true);
   const navRef = useRef<any>();
   const queryClient = useQueryClient();
-
   const [isOffline, setIsOffline] = useState(false);
 
   const { data: navOptions } = useQuery({
@@ -69,10 +68,10 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
 
   const data = useQueries({
     queries: navOptions
-      ? navOptions?.map(x => ({
-        queryKey: ['HomePage', x.id],
-        queryFn: () => fetchData(x.id),
-      }))
+      ? navOptions?.map((x: any) => ({
+          queryKey: ['HomePage', x.id],
+          queryFn: () => fetchData(x.id),
+        }))
       : [],
   });
 
@@ -80,10 +79,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     const state = await NetInfo.fetch();
     const offline = !(state.isConnected && state.isInternetReachable);
     setIsOffline(offline);
-    console.log('checkConnection isoffline');
-    console.log(offline);
     if (!offline) {
-      console.log('online');
       handleRefresh(navId);
     }
   };
@@ -95,7 +91,6 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
         setIsOffline(offline);
       },
     );
-
     return () => removeNetInfoSubscription();
   }, []);
 
@@ -107,21 +102,11 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
   const handleRefresh = async (id: number) => {
     setIsRefreshing(true);
     setHideContent(true);
-
     try {
-      // const newData = await fetchData(id); // Fetch new data
-      // Update the cache for the specific query using the queryClient
       await queryClient.invalidateQueries(['HomePage', id]);
       setIsRefreshing(false);
       setNavId(id);
-      ref?.current?.scrollToIndex({
-        index: id,
-      });
-      setTimeout(() => {
-        setHideContent(false);
-      }, 420);
-      // After updating the cache, you can optionally log the data
-      //console.log('newData', newData);
+      setHideContent(false);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -155,6 +140,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                 vodCarouselRes={item.data}
                 setScrollEnabled={setScrollEnabled}
                 onRefresh={handleRefresh}
+                refreshProp={isRefreshing}
               />
             ) : (
               <CatagoryHome
@@ -162,6 +148,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                 navId={index}
                 setScrollEnabled={setScrollEnabled}
                 onRefresh={handleRefresh}
+                refreshProp={isRefreshing}
               />
             ))}
         </View>
@@ -242,7 +229,16 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
           />
         </View>
         {(!data || isRefreshing || hideContent) && (
-          <View style={{ ...styles.loading, marginBottom: 80 }}>
+          <View
+            style={{
+              ...styles.loading,
+              flex: 1,
+              alignItems: 'center',
+              justifyContent: 'center',
+              position: 'absolute',
+              left: '50%',
+              marginLeft: -40, // Half of the element's width
+            }}>
             {
               <FastImage
                 style={{ height: 80, width: 80 }}
@@ -253,8 +249,8 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
           </View>
         )}
 
-        {data && !isRefreshing && !isOffline && (
-          <View style={{ opacity: hideContent ? 0 : 1 }}>
+        {data && !isOffline && (
+          <View style={{opacity: hideContent ? 0 : 1}}>
             <FlatList
               ref={ref}
               data={data}

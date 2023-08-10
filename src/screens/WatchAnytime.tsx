@@ -28,15 +28,15 @@ import Play from '../../static/images/blackPlay.svg';
 import FastImage from 'react-native-fast-image';
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 import Orientation from 'react-native-orientation-locker';
-import {
-  API_DOMAIN,
-  API_DOMAIN_TEST,
-  API_DOMAIN_LOCAL,
-} from '../utility/constants';
-import {memoize} from 'lodash';
+import { API_DOMAIN, API_DOMAIN_TEST, API_DOMAIN_LOCAL } from '../utility/constants';
+import { memoize } from 'lodash';
+import MiniVideoList from '../components/videoPlayer/miniVodList';
 import ShortVideoPlayer from '../components/videoPlayer/shortVodPlayer';
 import {useIsFocused} from '@react-navigation/native';
 import {useQueryClient} from '@tanstack/react-query';
+import NoConnection from './../components/common/noConnection';
+import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
+
 type MiniVideoResponseType = {
   data: {
     List: Array<MiniVideo>;
@@ -46,32 +46,23 @@ type MiniVideoResponseType = {
 export default ({navigation}: BottomTabScreenProps<any>) => {
   const {spacing} = useTheme();
 
-  const [displayHeight, setDisplayHeight] = useState<number | null>(0);
-  const [current, setCurrent] = useState<number | null>(0);
-  const [isPaused, setIsPaused] = useState(false);
-  const LIMIT = 100;
-  const fetchVods = (page: number) =>
-    fetch(`${API_DOMAIN}miniVod/v1/miniVod?page=${page}&limit=${LIMIT}`)
-      .then(response => response.json())
-      .then((json: MiniVideoResponseType) => {
-        return json.data.List;
-      });
   const isFocused = useIsFocused();
   const [isRefreshing, setIsRefreshing] = useState(false);
   const queryClient = useQueryClient();
+  const [isOffline, setIsOffline] = useState(false);
+
+  // Add an event listener to the navigation object for the tab press event
+  useEffect(() => {
   const handleTabPress = () => {
     if (isFocused) {
       handleRefresh();
     }
   };
-
-  // Add an event listener to the navigation object for the tab press event
-  useEffect(() => {
     const unsubscribe = navigation.addListener('tabPress', handleTabPress);
-
     // Clean up the event listener when the component unmounts
     return () => unsubscribe();
   }, [navigation, isFocused]);
+  
 
   const handleRefresh = useCallback(async () => {
     setIsRefreshing(true);
@@ -82,190 +73,92 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
     setIsRefreshing(false);
   }, []);
 
-  const {
-    data: videos,
-    isSuccess,
-    hasNextPage,
-    fetchNextPage,
-    isFetchingNextPage,
-    isFetching,
-    refetch,
-  } = useInfiniteQuery(
-    ['watchAnytime'],
-    ({pageParam = 1}) => fetchVods(pageParam),
-    {
-      getNextPageParam: (lastPage, allPages) => {
-        if (lastPage === null) {
-          return undefined;
-        }
-        const nextPage =
-          lastPage.length === LIMIT ? allPages.length + 1 : undefined;
-        return nextPage;
-      },
-      onSuccess: data => {},
-    },
-  );
+    const [flattenedVideos, setFlattenedVideos] = useState(Array<MiniVideo>);
+    const [displayHeight, setDisplayHeight] = useState<number | null>(0);
+    const [current, setCurrent] = useState<number | null>(0);
+    const [isPaused, setIsPaused] = useState(false);
+    const LIMIT = 100;
+    const fetchVods = (page: number) => fetch(
+        `${API_DOMAIN_TEST}miniVod/v1/miniVod?page=${page}&limit=${LIMIT}`,
+    )
+        .then(response => response.json())
+        .then((json: MiniVideoResponseType) => {
+            return json.data.List
+        })
 
-  const navBarHeight = useBottomTabBarHeight();
-
-  useFocusEffect(
-    useCallback(() => {
-      setIsPaused(false);
-      Orientation.lockToPortrait();
-      return () => {
-        setIsPaused(true);
-        Orientation.unlockAllOrientations();
-      };
-    }, []),
-  );
-
-  // const windowHeight = Dimensions.get('window').height;
-  // console.log("Has Notch : ", hasNotch)
-  // console.log("Full Screen Height : ", windowHeight)
-  // console.log("Bottom Nav Height : ", navBarHeight)
-  // console.log("Full Screen - Bottom Nav Height : ", windowHeight - navBarHeight)
-
-  const handleViewableItemsChanged = useCallback(
-    ({viewableItems}: {viewableItems: any}) => {
-      if (
-        viewableItems.length == 1 &&
-        typeof viewableItems[0] !== 'undefined'
-      ) {
-        const curr = viewableItems[0].index;
-        setCurrent(curr);
-      }
-    },
-    [],
-  );
-  return (
-    <ScreenContainer containerStyle={{paddingLeft: 0, paddingRight: 0}}>
-      <View
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          padding: 20,
-          zIndex: 50,
-          width: '100%',
-          flexDirection: 'row',
-          alignItems: 'center',
-        }}>
-        <Text style={{color: '#FFF', fontSize: 20}}>随心看</Text>
-      </View>
-      <View
-        style={{flex: 1}}
-        onLayout={(event: any) => {
-          var {x, y, width, height} = event.nativeEvent.layout;
-          setDisplayHeight(height);
-        }}>
-        <FlatList
-          data={videos?.pages.flat()}
-          initialNumToRender={1}
-          maxToRenderPerBatch={3}
-          windowSize={5}
-          renderItem={({item, index}: {item: MiniVideo; index: number}) => {
-            return (
-              <View style={{height: displayHeight ? displayHeight : 0}}>
-                {current !== null && Math.abs(current - index) <= 2 && (
-                  <ShortVideoPlayer
-                    vod={item}
-                    vod_url={item.mini_video_origin_video_url}
-                    isActive={current === index && !isPaused}
-                    thumbnail={item.mini_video_origin_cover}
-                    videoTitle={item.mini_video_title}
-                    displayHeight={displayHeight ? displayHeight : 0}
-                  />
-                )}
-              </View>
-            );
-          }}
-          horizontal={false}
-          pagingEnabled={true}
-          keyExtractor={(item: any, index: any) =>
-            item.mini_video_id.toString()
-          }
-          viewabilityConfig={{viewAreaCoveragePercentThreshold: 100}}
-          showsHorizontalScrollIndicator={false}
-          onViewableItemsChanged={handleViewableItemsChanged}
-          onEndReached={() => {
-            if (hasNextPage && !isFetchingNextPage && !isFetching) {
-              console.log('Fetching next page');
-              fetchNextPage();
+    const { data: videos, isSuccess, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } =
+        useInfiniteQuery(['watchAnytime'], ({ pageParam = 1 }) => fetchVods(pageParam), {
+            getNextPageParam: (lastPage, allPages) => {
+                if (lastPage === null) {
+                    return undefined;
+                }
+                const nextPage =
+                    lastPage.length === LIMIT ? allPages.length + 1 : undefined;
+                return nextPage;
+            },
+            onSuccess: (data) => {
             }
-          }}
-          onEndReachedThreshold={0.8}
-          refreshControl={
-            <RefreshControl
-              refreshing={isRefreshing}
-              onRefresh={handleRefresh}
-            />
-          }
-          ListFooterComponent={
-            <View style={{...styles.loading, marginBottom: spacing.xl}}>
-              {hasNextPage && (
-                <FastImage
-                  style={{height: 80, width: 80}}
-                  source={require('../../static/images/loading-spinner.gif')}
-                  resizeMode={FastImage.resizeMode.contain}
-                />
-              )}
+        });
+        
+    useEffect(() => {
+        if(videos != undefined){
+            console.log(videos?.pages.flat()[0]);
+            setFlattenedVideos(videos?.pages.flat());
+        }
+    }, [videos])
+
+    const navBarHeight = useBottomTabBarHeight();
+
+    useFocusEffect(
+        useCallback(() => {
+            setIsPaused(false);
+            Orientation.lockToPortrait();
+            return () => {
+                setIsPaused(true);
+                Orientation.unlockAllOrientations();
+            };
+        }, [])
+    )
+
+    const checkConnection = async () => {
+        const state = await NetInfo.fetch();
+        const offline = !(state.isConnected && state.isInternetReachable);
+        setIsOffline(offline);
+        if (!offline) {
+            handleRefresh();
+        }
+    };
+
+    useEffect(() => {
+        const removeNetInfoSubscription = NetInfo.addEventListener(
+            (state: NetInfoState) => {
+                const offline = !(state.isConnected && state.isInternetReachable);
+                setIsOffline(offline);
+            },
+        );
+        return () => removeNetInfoSubscription();
+    }, []);
+
+    return (
+        <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
+            <View style={{ position: 'absolute', top: 0, left: 0, padding: 20, zIndex: 50, width: '100%', flexDirection: 'row', alignItems: 'center' }}>
+                <Text style={{ color: '#FFF', fontSize: 20 }}>随心看</Text>
             </View>
-          }
-        />
-        {/* <Text style={{ position: 'absolute', bottom: 0, right: 0 }}>aaaa</Text> */}
-      </View>
-    </ScreenContainer>
-  );
-};
+            {!isOffline &&
+                <MiniVideoList 
+                    videos={flattenedVideos}
+                    fetchNextPage={fetchNextPage}
+                    hasNextPage={hasNextPage}
+                    isFetching={isFetching}
+                    isFetchingNextPage={isFetchingNextPage}
+                    isPaused={isPaused}
+                />
+            }
+            {isOffline && <NoConnection onClickRetry={checkConnection} />}
+        </ScreenContainer>
+    )
+}
 
 const styles = StyleSheet.create({
-  video: {
-    height: '100%',
-    width: '100%',
-    backgroundColor: '#000',
-    // border: '1px solid red'
-  },
-  bottomRightText: {
-    fontSize: 12,
-    color: '#FFFFFF',
-  },
-  bottomRightBn: {
-    width: 50,
-    height: 40,
-    marginTop: 20,
-    marginLeft: 20,
-    marginRight: 35,
-    alignItems: 'center',
-    textAlign: 'center',
-  },
-  pauseOverlay: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    paddingHorizontal: 5,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    backgroundColor: '#00000010',
-    zIndex: 10,
-    // backgroundColor: 'yellow',
-  },
-  buffering: {
-    paddingHorizontal: 5,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 3,
-    color: 'yellow',
-    position: 'absolute',
-    top: '40%',
-    left: '36%',
-    zIndex: 100,
-  },
-  loading: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    flex: 1,
-  },
-});
+    
+})

@@ -1,4 +1,4 @@
-import React, {memo, useState, useRef} from 'react';
+import React, {memo, useState, useRef, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,8 +7,9 @@ import {
   TouchableWithoutFeedback,
   RefreshControl,
   Dimensions,
+  FlatList,
 } from 'react-native';
-import {FlatList, PanGestureHandler} from 'react-native-gesture-handler';
+// import {FlatList, PanGestureHandler} from 'react-native-gesture-handler';
 import {useNavigation, useTheme} from '@react-navigation/native';
 import Swiper from 'react-native-swiper';
 import ShowMoreVodButton from '../button/showMoreVodButton';
@@ -31,18 +32,7 @@ import {playVod, viewPlaylistDetails} from '../../redux/actions/vodActions';
 import {useQuery, useInfiniteQuery} from '@tanstack/react-query';
 import LinearGradient from 'react-native-linear-gradient';
 import Carousel from 'react-native-reanimated-carousel';
-import Animated, {
-  Extrapolate,
-  interpolate,
-  runOnJS,
-  scrollTo,
-  useAnimatedGestureHandler,
-  useAnimatedRef,
-  useAnimatedStyle,
-  useSharedValue,
-  withDelay,
-  withTiming,
-} from 'react-native-reanimated';
+
 import CarouselPagination from './CarouselPagination';
 
 interface NavType {
@@ -56,13 +46,14 @@ interface Props {
   navId?: number;
   setScrollEnabled?: any;
   onRefresh?: any;
+  refreshProp?: boolean;
 }
 
-const REFRESH_AREA_HEIGHT = 80;
 const RecommendationHome = ({
   vodCarouselRes,
   setScrollEnabled,
   onRefresh,
+  refreshProp,
 }: Props) => {
   const {colors, textVariants, spacing} = useTheme();
   const vodReducer: VodReducerState = useAppSelector(
@@ -129,189 +120,23 @@ const RecommendationHome = ({
         }),
   });
 
-  //refresh.js
-  const [toggleLottie, setToggleLottie] = useState(false);
-  const [toggleGesture, setToggleGesture] = useState(false);
-  const [gestureActive, setGestureActive] = useState(false);
+  useEffect(() => {
+    setActiveIndex(0);
+  }, [refreshProp]);
 
-  const flatlistRef = useAnimatedRef();
-
-  const translationY = useSharedValue(0);
-  const pullUpTranslate = useSharedValue(0);
-
-  const fetchData = async () => {
-    // setTimeout(() => {
-    //   setRecipes([fDAta, ...recipes]);
-    // }, 1000);
-
-    await handleRefresh();
-
-    setTimeout(() => {
-      translationY.value = withTiming(0, {duration: 200}, finished => {
-        pullUpTranslate.value = 0;
-
-        runOnJS(setToggleLottie)(false);
-      });
-    }, 1500);
-  };
-
-  const pullUpAnimation = () => {
-    pullUpTranslate.value = withDelay(
-      0,
-      withTiming(
-        pullUpTranslate.value === 0 ? -100 : 0,
-        {duration: 200},
-        finished => {
-          if (finished) {
-            runOnJS(setToggleLottie)(true);
-            runOnJS(fetchData)();
-          }
-        },
-      ),
-    );
-  };
-  const gestureHandler = useAnimatedGestureHandler({
-    onStart: (_, ctx: any) => {
-      ctx.startY = translationY.value;
-      runOnJS(setGestureActive)(true);
-    },
-    onActive: (event, ctx) => {
-      const total = ctx.startY + event.translationY;
-      // console.log('translateY', total);
-
-      if (total < REFRESH_AREA_HEIGHT) {
-        translationY.value = total;
-      } else {
-        translationY.value = REFRESH_AREA_HEIGHT;
-      }
-
-      if (total < 0) {
-        translationY.value = 0;
-        scrollTo(flatlistRef, 0, total * -1, false);
-      }
-    },
-    onEnd: () => {
-      runOnJS(setGestureActive)(false);
-      if (translationY.value <= REFRESH_AREA_HEIGHT - 1) {
-        translationY.value = withTiming(0, {duration: 200});
-      } else {
-        runOnJS(pullUpAnimation)();
-      }
-      if (!(translationY.value > 0)) {
-        runOnJS(setToggleGesture)(false);
-      }
-    },
-  });
-
-  const handleOnScroll = (event: any) => {
-    const position = event.nativeEvent.contentOffset.y;
-    if (position === 0) {
-      setToggleGesture(true);
-    } else if (position > 0 && toggleGesture && !gestureActive) {
-      setToggleGesture(false);
-    }
-  };
-
-  const onTouchStart = (event: any) => {
-    setToggleGesture(true);
-  };
-
-  const onTouchEnd = (event: any) => {
-    setToggleGesture(false);
-  };
-
-  const animatedSpace = useAnimatedStyle(() => {
-    return {
-      height: translationY.value,
-    };
-  });
-
-  const pullDownIconSection = useAnimatedStyle(() => {
-    const rotate = interpolate(
-      translationY.value,
-      [0, REFRESH_AREA_HEIGHT],
-      [0, 180],
-    );
-    return {
-      transform: [{rotate: `${rotate}deg`}],
-      //transform: 0,
-    };
-  });
-
-  const pullUpTranslateStyle = useAnimatedStyle(() => {
-    const opacity = interpolate(
-      translationY.value,
-      [58, REFRESH_AREA_HEIGHT],
-      [0, 1],
-    );
-
-    return {
-      opacity,
-      // transform: [
-      //   {
-      //     translateY: pullUpTranslate.value,
-      //   },
-      // ],
-    };
-  });
-
-  const statusBarStyle = useAnimatedStyle(() => {
-    const translate = interpolate(
-      translationY.value,
-      [80, REFRESH_AREA_HEIGHT],
-      [0, -40],
-      {extrapolateLeft: Extrapolate.CLAMP, extrapolateRight: Extrapolate.CLAMP},
-    );
-
-    return {
-      transform: [
-        {
-          translateY: translate,
-        },
-      ],
-    };
-  });
   return (
     <>
-      {/* Pull to Refresh Section */}
-      <Animated.View style={[styles.pullToRefreshArea, animatedSpace]}>
-        {/* <FastImage
-          style={{height: 80, width: 80}}
-          source={require('../../../static/images/loading-spinner.gif')}
-          resizeMode={FastImage.resizeMode.contain}
-        /> */}
-        <Animated.View style={[styles.center, pullUpTranslateStyle]}>
-          {/* style={pullDownIconSection} */}
-          <Animated.View>
-            <FastImage
-              style={{height: 80, width: 80}}
-              source={require('../../../static/images/loading-spinner.gif')}
-              resizeMode={FastImage.resizeMode.contain}
-            />
-          </Animated.View>
-        </Animated.View>
-        {toggleLottie && (
-          <>
-            <FastImage
-              style={{height: 80, width: 80, marginBottom: 80}}
-              source={require('../../../static/images/loading-spinner.gif')}
-              resizeMode={FastImage.resizeMode.contain}
-            />
-          </>
-        )}
-      </Animated.View>
-
       <FlatList
-        ref={flatlistRef}
-        onScroll={handleOnScroll}
-        onTouchStart={onTouchEnd}
-        onTouchEnd={onTouchEnd}
-        onScrollBeginDrag={onTouchEnd}
-        showsVerticalScrollIndicator={false}
-        // refreshControl={<RefreshControl refreshing={true} onRefresh={() => { }} />}
+        refreshControl={
+          <RefreshControl
+            refreshing={isRefreshing}
+            onRefresh={handleRefresh}
+            tintColor="#FAC33D"
+          />
+        }
         ListHeaderComponent={
           <>
-            {data?.carousel[0] && (
+            {data?.carousel[0] && !refreshProp && (
               <View
                 style={{
                   flex: 1,
@@ -444,7 +269,7 @@ const RecommendationHome = ({
                     style={{
                       paddingLeft: spacing.sideOffset,
                       paddingRight: spacing.sideOffset,
-                      gap: spacing.m,
+                      gap: spacing.xxs,
                     }}>
                     <View>
                       <ShowMoreVodButton
@@ -524,7 +349,14 @@ const RecommendationHome = ({
           <View style={{...styles.loading, marginBottom: spacing.xl}}>
             {hasNextPage && (
               <FastImage
-                style={{height: 80, width: 80, marginBottom: 80}}
+                style={{
+                  height: 80,
+                  width: 80,
+                  marginBottom: 80,
+                  flex: 1,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
                 source={require('../../../static/images/loading-spinner.gif')}
                 resizeMode={FastImage.resizeMode.contain}
               />
@@ -538,11 +370,11 @@ const RecommendationHome = ({
         }
       />
 
-      {toggleGesture && (
+      {/* {toggleGesture && (
         <PanGestureHandler onGestureEvent={gestureHandler}>
           <Animated.View style={styles.gesture} />
         </PanGestureHandler>
-      )}
+      )} */}
     </>
   );
 };
@@ -630,41 +462,4 @@ const styles = StyleSheet.create({
     marginTop: 4,
     marginBottom: 5,
   },
-  //refresh
-  catagory: {
-    marginRight: 20,
-  },
-  active: {
-    width: 70,
-    height: 2,
-    backgroundColor: 'black',
-    marginBottom: 20,
-  },
-  catagoryContainer: {flexDirection: 'row', marginBottom: 5, marginTop: 30},
-
-  gesture: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    height: '100%',
-    width: '100%',
-    //backgroundColor: 'green',
-    zIndex: 999,
-  },
-  lottieView: {
-    width: 80,
-    height: 80,
-    backgroundColor: 'transparent',
-    marginTop: -15,
-  },
-  pullToRefreshArea: {
-    height: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-    overflow: 'hidden',
-  },
-  customStatusBar: {height: 40, backgroundColor: '#E0144C'},
-  contentContainer: {flex: 1, marginHorizontal: 15, marginVertical: 15},
-  center: {justifyContent: 'center', alignItems: 'center'},
 });

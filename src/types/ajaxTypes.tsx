@@ -342,3 +342,31 @@ export interface SubmitFeedbackRequest {
     feedback_category: number,
     feedback: string
 }
+
+export interface CollectionResponseType {
+    code: number
+    data: CollectionResponseDataType
+}
+
+export interface CollectionResponseDataType {
+    Total: number
+    TotalPageCount: number
+    Page: number
+    Limit: number
+    List: MiniVideoCollectionItem[]
+}
+
+export interface MiniVideoCollectionItem {
+    mini_video_id: number;
+    mini_video_title: string;
+    mini_video_duration: number;
+    mini_video_origin_video_url: string;
+    mini_video_origin_cover: string;
+    mini_video_hashtags: string;
+    mini_video_size: number;
+    mini_video_keyword: string;
+    mini_video_status: number;
+    mini_video_release_time: number;
+    current_episode: number;
+    mini_video_collection_title: string;
+}
