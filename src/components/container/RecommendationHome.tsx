@@ -269,7 +269,7 @@ const RecommendationHome = ({
                     style={{
                       paddingLeft: spacing.sideOffset,
                       paddingRight: spacing.sideOffset,
-                      gap: spacing.m,
+                      gap: spacing.xxs,
                     }}>
                     <View>
                       <ShowMoreVodButton
