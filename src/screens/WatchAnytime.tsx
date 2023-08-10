@@ -173,7 +173,9 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
             flexDirection: 'row',
             alignItems: 'center',
           }}>
-          <Text style={{color: '#FFF', fontSize: 20}}>随心看</Text>
+          <Text style={{color: '#FFF', fontSize: 20, fontWeight: 'bold'}}>
+            随心看
+          </Text>
         </View>
         {!isOffline && (
           <View
