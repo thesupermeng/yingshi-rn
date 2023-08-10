@@ -208,7 +208,6 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
       return 0;
     }
     let offset = 0;
-    console.log(showEpisodeRangeStart, id);
     for (const item of vod?.vod_play_list?.urls.slice(
       showEpisodeRangeStart,
       id,
@@ -248,6 +247,7 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
 
   useFocusEffect(
     useCallback(() => {
+      console.log('mount')
       setDismountPlayer(false);
       return () => {
         // Triggered when the user navigates away to the page
@@ -261,8 +261,7 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
       isVideoLandscape={orientation == 'LANDSCAPE'}
       containerStyle={{ flex: 1, paddingRight: 0, paddingLeft: 0 }}>
       {vod?.vod_play_list?.urls?.find(url => url.nid === currentEpisode)
-        ?.url !== undefined &&
-        !dismountPlayer && (
+        ?.url !== undefined && !dismountPlayer && (
           <VodPlayer
             vod_url={
               vod.vod_play_list.urls.find(url => url.nid === currentEpisode)

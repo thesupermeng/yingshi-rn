@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, { useMemo, useCallback, useEffect, useRef, useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -9,9 +9,9 @@ import {
   RefreshControl,
 } from 'react-native';
 import ScreenContainer from '../components/container/screenContainer';
-import {useTheme} from '@react-navigation/native';
-import {useQuery, useQueries, UseQueryResult} from '@tanstack/react-query';
-import {useQueryClient} from '@tanstack/react-query';
+import { useTheme } from '@react-navigation/native';
+import { useQuery, useQueries, UseQueryResult } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import {
   NavOptionsResponseType,
   VodCarousellResponseType,
@@ -20,24 +20,24 @@ import {
   VodType,
   LiveTVStationsResponseType,
 } from '../types/ajaxTypes';
-import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
-import {API_DOMAIN} from '../utility/constants';
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import { API_DOMAIN } from '../utility/constants';
 import CatagoryHome from '../components/container/CatagoryHome';
 import RecommendationHome from '../components/container/RecommendationHome';
 import HomeHeader from '../components/header/homeHeader';
 import FastImage from 'react-native-fast-image';
 // import { FlatList } from 'react-native-gesture-handler';
-import {useIsFocused} from '@react-navigation/native';
+import { useIsFocused } from '@react-navigation/native';
 // import NoConnection from './../components/common/noConnection';
-import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
+import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 interface NavType {
   id: number;
   name: string;
 }
 
-export default ({navigation}: BottomTabScreenProps<any>) => {
+export default ({ navigation }: BottomTabScreenProps<any>) => {
   const isFocused = useIsFocused();
-  const {colors, textVariants, spacing} = useTheme();
+  const { colors, textVariants, spacing } = useTheme();
   const [navId, setNavId] = useState(0);
   const width = Dimensions.get('window').width;
   const ref = useRef<any>();
@@ -49,7 +49,7 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
 
   const [isOffline, setIsOffline] = useState(false);
 
-  const {data: navOptions} = useQuery({
+  const { data: navOptions } = useQuery({
     queryKey: ['HomePageNavOptions'],
     queryFn: () =>
       fetch(`${API_DOMAIN}nav/v1/navItems`, {})
@@ -59,19 +59,20 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
         }),
   });
 
-  const fetchData = (id: number) =>
-    fetch(`${API_DOMAIN}page/v1/typepage?id=${id}`)
+  const fetchData = useCallback((id: number) => {
+    return fetch(`${API_DOMAIN}page/v1/typepage?id=${id}`)
       .then(response => response.json())
       .then((json: VodCarousellResponseType) => {
         return json;
-      });
+      })
+  }, []);
 
   const data = useQueries({
     queries: navOptions
       ? navOptions?.map(x => ({
-          queryKey: ['HomePage', x.id],
-          queryFn: () => fetchData(x.id),
-        }))
+        queryKey: ['HomePage', x.id],
+        queryFn: () => fetchData(x.id),
+      }))
       : [],
   });
 
@@ -137,7 +138,8 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
     // Clean up the event listener when the component unmounts or when navId changes
     return () => unsubscribe();
   }, [navigation, isFocused, navId, handleRefresh]);
-  const Content = useCallback(
+
+  const getContent = useCallback(
     ({
       item,
       index,
@@ -146,8 +148,8 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
       index: number;
     }) => {
       return (
-        <View style={{width: width}}>
-          {item.data !== undefined &&
+        <View style={{ width: width }}>
+          {item?.data !== undefined &&
             (index === 0 ? (
               <RecommendationHome
                 vodCarouselRes={item.data}
@@ -165,8 +167,7 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
         </View>
       );
     },
-    [data],
-  );
+    [],);
 
   const onScrollEnd = useCallback(
     (e: any) => {
@@ -190,7 +191,7 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
 
   return (
     <>
-      <ScreenContainer containerStyle={{paddingLeft: 0, paddingRight: 0}}>
+      <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
         <View
           style={{
             backgroundColor: colors.background,
@@ -198,14 +199,13 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
             paddingRight: spacing.sideOffset,
           }}>
           <HomeHeader navigator={navigation} />
-
           <FlatList
             data={navOptions ? navOptions : []}
             horizontal
             showsHorizontalScrollIndicator={false}
             ref={navRef}
             contentContainerStyle={styles.nav}
-            renderItem={({item, index}: {item: NavType; index: number}) => {
+            renderItem={({ item, index }: { item: NavType; index: number }) => {
               return (
                 <TouchableOpacity
                   style={{
@@ -242,10 +242,10 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
           />
         </View>
         {(!data || isRefreshing || hideContent) && (
-          <View style={{...styles.loading, marginBottom: 80}}>
+          <View style={{ ...styles.loading, marginBottom: 80 }}>
             {
               <FastImage
-                style={{height: 80, width: 80}}
+                style={{ height: 80, width: 80 }}
                 source={require('../../static/images/loading-spinner.gif')}
                 resizeMode={FastImage.resizeMode.contain}
               />
@@ -254,7 +254,7 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
         )}
 
         {data && !isRefreshing && !isOffline && (
-          <View style={{opacity: hideContent ? 0 : 1}}>
+          <View style={{ opacity: hideContent ? 0 : 1 }}>
             <FlatList
               ref={ref}
               data={data}
@@ -276,13 +276,13 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
                 onEndReachedCalledDuringMomentum.current = false;
               }}
               onMomentumScrollEnd={onScrollEnd}
-              renderItem={Content}
+              renderItem={getContent}
             />
           </View>
         )}
       </ScreenContainer>
 
-      {isOffline && <NoConnection onClickRetry={checkConnection} />}
+      {/* {isOffline && <NoConnection onClickRetry={checkConnection} />} */}
     </>
   );
 };

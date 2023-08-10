@@ -116,34 +116,6 @@ function VodEpisodeSelection({ onConfirm, onCancel, episodes, activeEpisode = 0,
                         </TouchableOpacity>
                     )}
             </ScrollView>
-            {/* <FlatList
-                data={displayEpisodes}
-                renderItem={({ item }) => (
-                    <TouchableOpacity onPress={() => {
-                        onConfirm(item.nid);
-                        onCancel();
-                    }} style={{ paddingRight: spacing.s }}>
-                        <View style={{
-                            backgroundColor: item.nid === activeEpisode ? colors.primary : colors.search,
-                            padding: spacing.s,
-                            minWidth: 70,
-                            marginRight: 'auto',
-                            marginBottom: spacing.s,
-                            borderRadius: 8
-                        }} >
-                            <Text numberOfLines={1}
-                                style={{
-                                    fontSize: 13,
-                                    textAlign: 'center',
-                                    fontWeight: '500',
-                                    color: item.nid === activeEpisode ? colors.selected : colors.muted,
-                                }}>
-                                {`${item.name}`}
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
-                )}
-            /> */}
         </View>
     );
 };
@@ -152,7 +124,7 @@ export default memo(VodEpisodeSelection);
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
         // paddingBottom: 10,
         // paddingTop: 30,
     },
@@ -174,7 +146,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',
         // alignItems: 'flex-start',
-        paddingLeft: 10
     },
     sortBtn: {
         display: 'flex',

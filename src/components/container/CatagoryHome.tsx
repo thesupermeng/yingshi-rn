@@ -96,8 +96,8 @@ const CatagoryHome = ({
             });
           }}
         />
-        {item?.vod_list && item?.vod_list?.length >= 6 && (
-          <VodListVertical vods={item?.vod_list?.slice(0, 6)} />
+        {item?.vod_list && (
+          <VodListVertical vods={item?.vod_list} />
         )}
       </View>
     ),
@@ -424,7 +424,7 @@ const CatagoryHome = ({
                         }}
                       />
                     </View>
-                    <VodListVertical vods={item.vod_list?.slice(0, 6)} />
+                    <VodListVertical vods={item.vod_list} />
                   </View>
                 ))}
             </View>
@@ -446,7 +446,7 @@ const CatagoryHome = ({
   );
 };
 
-export default memo(CatagoryHome);
+export default CatagoryHome;
 
 const styles = StyleSheet.create({
   wrapper: {

@@ -92,7 +92,8 @@ export default forwardRef<RefHandler, Props>(({
   const timeout = useRef(-1);
   const [isLocked, setIsLocked] = useState(false);
 
-  const height = Dimensions.get('window').width;
+  const width = Dimensions.get('window').width;
+  const height = Dimensions.get('window').height;
 
   // Animation function to hide the text after a delay
   const hideText = () => {
@@ -136,30 +137,29 @@ export default forwardRef<RefHandler, Props>(({
     delayControls();
     onHandleGoBack();
   };
-
   const rewindTextAnimatedStyle = useAnimatedStyle(() => {
     return {
       opacity: opacity.value,
       position: 'absolute',
-      top: (height / 2) - 20,
-      left: isFullScreen ? '8%' : '20%',
+      top: isFullScreen ? (height / 2) - 25 : (width * 9 / 32) - 25,
+      left: isFullScreen ? '15%' : '4%',
       backgroundColor: 'rgba(0,0,0,0.7)',
       padding: 10,
       borderRadius: 8
     };
-  });
+  }, [isFullScreen, height, width]);
 
   const ffTextAnimatedStyle = useAnimatedStyle(() => {
     return {
       opacity: opacity.value,
       position: 'absolute',
-      right: isFullScreen ? '8%' : '20%',
-      top: (height / 2) - 20,
+      right: isFullScreen ? '15%' : '4%',
+      top: isFullScreen ? (height / 2) - 25 : (width * 9 / 32) - 25,
       backgroundColor: 'rgba(0,0,0,0.7)',
       padding: 10,
       borderRadius: 8
     };
-  });
+  }, [isFullScreen, height, width]);
 
   const changePlaybackRate = (rate: number) => {
     setShowSlider('none');
@@ -291,7 +291,7 @@ export default forwardRef<RefHandler, Props>(({
                   }
                   {
                     showSlider === 'episodes' &&
-                    <Text style={{ ...textVariants.header, marginBottom: 20, textAlign: 'left', marginLeft: spacing.sideOffset + 12 }}>选集</Text>
+                    <Text style={{ ...textVariants.header, marginBottom: 20, textAlign: 'left', marginLeft: spacing.sideOffset + 10 }}>选集</Text>
                   }
                   {
                     showSlider === 'movies' &&
@@ -346,7 +346,7 @@ export default forwardRef<RefHandler, Props>(({
                               resizeMode={FastImage.resizeMode.contain}
                             />
                           </View>
-                          : <VodListVertical vods={movieList.slice(0, 6)} outerRowPadding={50} />
+                          : <VodListVertical vods={movieList} outerRowPadding={50} />
                       }
                     </View>
                   }
@@ -369,7 +369,7 @@ export default forwardRef<RefHandler, Props>(({
                 end={{ x: 0.5, y: 0 }}
                 style={styles.topBlur}
               >
-                <View style={{...styles.videoHeader, marginRight: isFullScreen ? 20 : 0}}>
+                <View style={{ ...styles.videoHeader, marginRight: isFullScreen ? 20 : 0 }}>
                   <View style={{ flexDirection: 'row', alignItems: 'center', flexShrink: 1, paddingRight: 10 }}>
                     <BackButton onPress={() => goBack()} />
                     <Text
@@ -454,7 +454,6 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    // backgroundColor: 'red',
     width: '100%',
     // backgroundColor: '#00000010',
   },

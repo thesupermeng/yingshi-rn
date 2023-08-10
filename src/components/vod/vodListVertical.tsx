@@ -37,7 +37,7 @@ function VodListVertical({ vods, numOfRows = 2, outerRowPadding = 0, minNumPerRo
         BTN_MARGIN_RIGHT = 16;
         cardWidth += Math.floor(excess / CARDS_PER_ROW)  
     }
-
+    
     return (
         <View style={styles.vodList}>
             {

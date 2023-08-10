@@ -456,7 +456,7 @@ const RecommendationHome = ({
                         }}
                       />
                     </View>
-                    <VodListVertical vods={item.vod_list?.slice(0, 6)} />
+                    <VodListVertical vods={item.vod_list} />
                   </View>
                 ))}
 
@@ -483,7 +483,7 @@ const RecommendationHome = ({
                         }}
                       />
                     </View>
-                    <VodListVertical vods={category.vod_list.slice(0, 6)} />
+                    <VodListVertical vods={category.vod_list} />
                   </View>
                 ))}
             </View>
@@ -516,7 +516,7 @@ const RecommendationHome = ({
                   }}
                 />
               </View>
-              <VodListVertical vods={item.vod_list.slice(0, 6)} />
+              <VodListVertical vods={item.vod_list} />
             </View>
           </View>
         )}
