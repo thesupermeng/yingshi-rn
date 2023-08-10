@@ -135,12 +135,15 @@ export default function App() {
     fetchPlaylist(pageParam),
   );
 
-  const fetchVods = (page: number) =>
-    fetch(`${API_DOMAIN}miniVod/v1/miniVod?page=${page}&limit=100`)
-      .then(response => response.json())
-      .then((json: MiniVideoResponseType) => {
-        return json.data.List;
-      });
+  queryClient.prefetchInfiniteQuery(['vodPlaylist'], ({ pageParam = 1 }) => fetchPlaylist(pageParam));
+
+  const fetchVods = (page: number) => fetch(
+    `${API_DOMAIN_TEST}miniVod/v1/miniVod?page=${page}&limit=100`,
+  )
+    .then(response => response.json())
+    .then((json: MiniVideoResponseType) => {
+      return json.data.List
+    })
 
   type MiniVideoResponseType = {
     data: {

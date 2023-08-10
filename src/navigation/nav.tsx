@@ -41,6 +41,7 @@ import ShortVodCollectionScreen from '../screens/Profile/Collection/shortVodColl
 import SportsIcon from '../../static/images/sports.svg';
 import MatchesScreen from '../Sports/screens/Sports/Matches';
 import MatchDetailsScreen from '../Sports/screens/Sports/MatchDetails';
+import WatchCollectionScreen from '../../src/screens/WatchCollection';
 
 import {YingshiDarkTheme, YingshiLightTheme} from '../utility/theme';
 import {
@@ -287,6 +288,11 @@ export default () => {
               liveStationItem: undefined,
             }}
             options={{orientation: 'all'}}
+          />
+          <Stack.Screen
+            name="合集播放"
+            component={WatchCollectionScreen}
+            options={{orientation: 'portrait'}}
           />
         </Stack.Navigator>
       </NavigationContainer>
