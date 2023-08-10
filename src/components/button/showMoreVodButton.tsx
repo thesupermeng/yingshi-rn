@@ -5,17 +5,26 @@ interface Props {
   onPress?: any;
   text: string;
   params?: any[];
+  isPlayScreen?: boolean;
 }
-export default function ShowMoreVodButton({text, onPress, ...params}: Props) {
+export default function ShowMoreVodButton({
+  text,
+  onPress,
+  isPlayScreen = false,
+  ...params
+}: Props) {
   const {colors, textVariants, icons} = useTheme();
   return (
-    <View style={styles.banner}>
-      <Text style={textVariants.header}>{text}</Text>
-      <TouchableOpacity onPress={onPress} style={styles.banner}>
+    <View style={{...styles.banner, marginBottom: isPlayScreen ? -5 : 5}}>
+      <Text style={isPlayScreen ? textVariants.body : textVariants.header}>
+        {text}
+      </Text>
+
+      <TouchableOpacity onPress={onPress} style={{...styles.banner}}>
         <Text
           style={{
             color: colors.muted,
-            fontSize: textVariants.small.fontSize,
+            fontSize: isPlayScreen ? 15 : textVariants.small.fontSize,
           }}>
           更多
         </Text>
@@ -36,7 +45,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginTop: 4,
-    marginBottom: 5,
   },
   btn: {
     display: 'flex',

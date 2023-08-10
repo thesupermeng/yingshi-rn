@@ -341,8 +341,8 @@ export default ({navigation, route}: RootStackScreenProps<'播放'>) => {
                             gap: spacing.xxs,
                           }}>
                           <FavoriteIcon
-                            width={16}
-                            height={16}
+                            width={18}
+                            height={18}
                             style={{
                               color: isFavorite ? colors.primary : colors.muted,
                             }}
@@ -350,7 +350,7 @@ export default ({navigation, route}: RootStackScreenProps<'播放'>) => {
                           {isFavorite ? (
                             <Text
                               style={{
-                                ...textVariants.small,
+                                ...textVariants.subBody,
                                 color: colors.primary,
                                 paddingBottom: 3,
                               }}>
@@ -359,7 +359,7 @@ export default ({navigation, route}: RootStackScreenProps<'播放'>) => {
                           ) : (
                             <Text
                               style={{
-                                ...textVariants.small,
+                                ...textVariants.subBody,
                                 color: colors.muted,
                                 paddingBottom: 3,
                               }}>
@@ -460,7 +460,6 @@ export default ({navigation, route}: RootStackScreenProps<'播放'>) => {
                         style={{
                           color: colors.muted,
                           fontSize: 15,
-                          paddingBottom: 3,
                         }}>{`${
                         showEpisodeRangeStart + 1
                       }-${showEpisodeRangeEnd}集`}</Text>
@@ -521,6 +520,7 @@ export default ({navigation, route}: RootStackScreenProps<'播放'>) => {
                 suggestedVods?.length > 0 && (
                   <View style={{gap: spacing.l}}>
                     <ShowMoreVodButton
+                      isPlayScreen={true}
                       text={`相关${vod?.type_name}`}
                       onPress={() => {
                         navigation.navigate('片库', {type_id: vod.type_id});
