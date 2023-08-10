@@ -8,51 +8,101 @@ import {
 import {useTheme} from '@react-navigation/native';
 import NoWifi from '../../../static/images/no-wifi.svg';
 import RefreshIcon from '../../../static/images/refresh.svg';
+import YingshiGreyIcon from '../../../static/images/yingshi-grey.svg';
 interface Props {
   onClickRetry?: any;
+  isPlay?: boolean;
+  isPlayBottom?: boolean;
 }
-export default function NoConnection({onClickRetry}: Props) {
+export default function NoConnection({
+  onClickRetry,
+  isPlay = false,
+  isPlayBottom = false,
+}: Props) {
   const {textVariants, colors, icons} = useTheme();
   return (
-    <View style={{...styles.container}}>
-      <NoWifi />
-      <Text
-        style={{
-          ...textVariants.subBody,
-          color: colors.text,
-          textAlign: 'center',
-          paddingTop: 10,
-        }}>
-        无网络
-      </Text>
-      <Text
-        style={{
-          ...textVariants.subBody,
-          color: colors.muted,
-          textAlign: 'center',
-          paddingTop: 12,
-        }}>
-        网络连接失败，请刷新重试
-      </Text>
-
-      <TouchableOpacity activeOpacity={0.7} onPress={onClickRetry}>
-        <View
-          style={{
-            ...styles.refreshBtn,
-            backgroundColor: colors.title,
-          }}>
-          <View style={{position: 'relative', top: 2, paddingRight: 3}}>
-            <RefreshIcon />
+    <View
+      style={{
+        ...styles.container,
+        marginBottom: isPlay ? 150 : '50%',
+        backgroundColor: isPlay ? '#000000' : colors.background,
+        minHeight: isPlay || isPlayBottom ? 200 : 0,
+      }}>
+      {!isPlay && (
+        <>
+          <NoWifi />
+          <Text
+            style={{
+              ...textVariants.subBody,
+              color: colors.text,
+              textAlign: 'center',
+              paddingTop: 10,
+            }}>
+            无网络
+          </Text>
+          <Text
+            style={{
+              ...textVariants.subBody,
+              color: colors.muted,
+              textAlign: 'center',
+              paddingTop: 12,
+            }}>
+            网络连接失败，请刷新重试
+          </Text>
+          <TouchableOpacity activeOpacity={0.7} onPress={onClickRetry}>
+            <View
+              style={{
+                ...styles.refreshBtn,
+                backgroundColor: colors.title,
+              }}>
+              <View style={{position: 'relative', top: 2, paddingRight: 3}}>
+                <RefreshIcon />
+              </View>
+              <Text
+                style={{
+                  ...styles.head,
+                  color: colors.background,
+                }}>
+                点击重试
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </>
+      )}
+      {isPlay && (
+        <>
+          <View>
+            <YingshiGreyIcon />
           </View>
           <Text
             style={{
-              ...styles.head,
-              color: colors.background,
+              ...textVariants.subBody,
+              color: colors.muted,
+              textAlign: 'center',
+              paddingTop: 12,
             }}>
-            点击重试
+            无网络或断网，请刷新视频
           </Text>
-        </View>
-      </TouchableOpacity>
+          <TouchableOpacity activeOpacity={0.7} onPress={onClickRetry}>
+            <View
+              style={{
+                ...styles.refreshBtn,
+                backgroundColor: colors.title,
+              }}>
+              <View style={{position: 'relative', top: 2, paddingRight: 3}}>
+                <RefreshIcon />
+              </View>
+              <Text
+                style={{
+                  ...styles.head,
+                  color: colors.background,
+                }}>
+                刷新
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </>
+      )}
     </View>
   );
 }
@@ -63,7 +113,6 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingBottom: '50%',
   },
   btns: {
     display: 'flex',
