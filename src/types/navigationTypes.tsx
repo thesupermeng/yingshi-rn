@@ -79,6 +79,9 @@ export type RootStackParamList = {
     streamerId?: number;
     sportType?: '足球' | '篮球';
   };
+  合集播放: {
+
+  }
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> =
