@@ -5,6 +5,7 @@ import {
   TextStyle,
   TouchableOpacity,
 } from 'react-native';
+import React from 'react';
 import {useTheme} from '@react-navigation/native';
 import NoWifi from '../../../static/images/no-wifi.svg';
 import RefreshIcon from '../../../static/images/refresh.svg';
