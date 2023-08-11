@@ -257,7 +257,7 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
             }
           </View>
         )}
-        {showHomeLoading && !isOffline && (
+        {showHomeLoading && !isOffline && navOptions && (
           <View
             style={{
               flex: 1,
