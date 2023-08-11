@@ -147,11 +147,11 @@ export default ({
 
   const handleOrientation = (orientation: any) => {
     if (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT') {
-      // StatusBar.setHidden(true);
+      StatusBar.setHidden(true);
       setIsFullScreen(true);
       controlsRef.current.hideSlider();
     } else {
-      // StatusBar.setHidden(false);
+      StatusBar.setHidden(false);
       setIsFullScreen(false);
     }
   };
@@ -159,11 +159,11 @@ export default ({
   const onToggleFullScreen = useCallback(() => {
     if (isFullScreen) {
       // Orientation.lockToPortrait();
-      // StatusBar.setHidden(false);
+      StatusBar.setHidden(false);
       setIsFullScreen(false);
     } else {
       Orientation.lockToLandscape();
-      // StatusBar.setHidden(true);
+      StatusBar.setHidden(true);
       setIsFullScreen(true);
     }
   }, [isFullScreen, Orientation]);
@@ -228,7 +228,7 @@ export default ({
     } else {
       if (isFullScreen) {
         Orientation.lockToPortrait();
-        // StatusBar.setHidden(false);
+        StatusBar.setHidden(false);
         setIsFullScreen(false);
       } else {
         setIsPaused(true);

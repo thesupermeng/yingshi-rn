@@ -182,6 +182,7 @@ export default () => {
           screenOptions={({ route }) => ({
             headerShown: false,
             animation: 'slide_from_right',
+            navigationBarColor: theme.colors.background 
           })}>
           <Stack.Screen
             name="Home"
@@ -212,7 +213,7 @@ export default () => {
             name="播放"
             component={PlayScreen}
             initialParams={{ vod_id: 1 }}
-            options={{ orientation: 'all', headerTintColor: theme.colors.background, navigationBarColor: theme.colors.background }}
+            options={{ orientation: 'all' }}
           />
           <Stack.Screen
             name="播放历史"

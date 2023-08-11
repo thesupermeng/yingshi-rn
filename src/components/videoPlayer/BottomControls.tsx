@@ -95,9 +95,9 @@ export default ({
                 onSlidingStart={onSlideStart}
                 onSlidingComplete={onSlideComplete}
                 minimumTrackTintColor={'#FAC33D'}
-                maximumTrackTintColor={'#FFFFFF'}
+                maximumTrackTintColor='rgba(255,255,255,0.2)'
                 thumbTintColor={'#FFFFFF'}
-                thumbStyle={{height: 15, width: 15}}
+                thumbStyle={{ height: 15, width: 15 }}
                 // thumbTouchSize={{}}
                 // thumbImage={Platform.OS === 'ios' ? thumbImage : undefined}
                 style={{
@@ -124,7 +124,7 @@ export default ({
         </View>
       ) : (
         <View style={styles.landscapeContainer} >
-          <View style={styles.wrapper}>
+          <View style={{ ...styles.wrapper, paddingLeft: 20 }}>
             {videoType === 'vod' && (
               <>
                 <Slider
@@ -139,7 +139,7 @@ export default ({
                   maximumTrackTintColor={'#FFFFFF'}
                   thumbTintColor={'#FFFFFF'}
                   // thumbImage={Platform.OS === 'ios' ? thumbImage : undefined}
-                  thumbStyle={{height: 15, width: 15}}
+                  thumbStyle={{ height: 15, width: 15 }}
                   style={{ flex: 16, marginTop: 2 }}
                 />
                 <View style={[styles.timeWrapperLandscape]}>
@@ -227,6 +227,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     gap: 8,
+    paddingLeft: 8
   },
   timeWrapper: {
     flexDirection: 'row',

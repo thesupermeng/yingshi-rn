@@ -35,6 +35,7 @@ export default function ScreenContainer({
   const { spacing, colors } = useTheme();
   return (
     <>
+      <StatusBar backgroundColor={colors.background} barStyle='light-content' />
       {scrollView ? (
         <ScrollView
           style={{
