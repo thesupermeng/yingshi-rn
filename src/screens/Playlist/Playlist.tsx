@@ -141,7 +141,7 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
           }
           navigator={navigation}
         />
-        {isRefreshing && (
+        {isRefreshing && !isOffline && (
           <View
             style={{
               ...styles.loading,

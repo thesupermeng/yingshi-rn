@@ -99,9 +99,7 @@ const CatagoryHome = ({
             });
           }}
         />
-        {item?.vod_list && (
-          <VodListVertical vods={item?.vod_list} />
-        )}
+        {item?.vod_list && <VodListVertical vods={item?.vod_list} />}
       </View>
     ),
     [],
@@ -149,7 +147,6 @@ const CatagoryHome = ({
                   // onSnapToItem={index => console.log('current index:', index)}
                   renderItem={({item, index}) => (
                     <TouchableOpacity
-                      activeOpacity={1}
                       key={`slider-${index}`}
                       onPress={() => {
                         dispatch(playVod(item.vod));

@@ -34,7 +34,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import Carousel from 'react-native-reanimated-carousel';
 
 import CarouselPagination from './CarouselPagination';
-
+import LoadingIcon from './../../../static/images/MutedVolume.svg';
 interface NavType {
   id: number;
   name: string;
@@ -47,6 +47,7 @@ interface Props {
   setScrollEnabled?: any;
   onRefresh?: any;
   refreshProp?: boolean;
+  onLoad?: any;
 }
 
 const RecommendationHome = ({
@@ -54,6 +55,7 @@ const RecommendationHome = ({
   setScrollEnabled,
   onRefresh,
   refreshProp,
+  onLoad = () => {},
 }: Props) => {
   const {colors, textVariants, spacing} = useTheme();
   const vodReducer: VodReducerState = useAppSelector(
@@ -67,6 +69,7 @@ const RecommendationHome = ({
   const [activeIndex, setActiveIndex] = useState(0);
   const [results, setResults] = useState<Array<VodTopicType>>([]);
   const [isRefreshing, setIsRefreshing] = useState(false);
+
   const {width, height} = Dimensions.get('window');
   // Function to handle the pull-to-refresh action
   const handleRefresh = () => {
@@ -121,260 +124,263 @@ const RecommendationHome = ({
   });
 
   useEffect(() => {
+    if (liveStations && liveStations?.length > 0) {
+      onLoad();
+    }
+  }, [liveStations]);
+
+  useEffect(() => {
     setActiveIndex(0);
   }, [refreshProp]);
-
   return (
     <>
-      <FlatList
-        refreshControl={
-          <RefreshControl
-            refreshing={isRefreshing}
-            onRefresh={handleRefresh}
-            tintColor="#FAC33D"
-          />
-        }
-        ListHeaderComponent={
-          <>
-            {data?.carousel[0] && !refreshProp && (
-              <View
-                style={{
-                  flex: 1,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  borderRadius: 17,
-                  zIndex: 9999,
-                }}>
-                <Carousel
-                  loop
-                  width={width - spacing.sideOffset - spacing.sideOffset}
-                  height={width / 2}
-                  autoPlay={true}
-                  data={data.carousel}
-                  scrollAnimationDuration={500}
-                  autoPlayInterval={2300}
-                  onSnapToItem={index => {
-                    setActiveIndex(index);
-                  }}
-                  onScrollEnd={index => {
-                    setActiveIndex(index);
-                  }}
-                  renderItem={({item, index}) => (
-                    <TouchableOpacity
-                      key={`slider-${index}`}
-                      onPress={() => {
-                        dispatch(playVod(item.vod));
-                        navigation.navigate('播放', {
-                          vod_id: item.carousel_content_id,
-                        });
-                      }}>
-                      <FastImage
-                        style={styles.image}
-                        source={{
-                          uri: item.carousel_pic_mobile,
-                          priority: FastImage.priority.normal,
-                        }}
-                        resizeMode={FastImage.resizeMode.contain}
-                      />
-                      <LinearGradient
-                        colors={['transparent', 'black']}
-                        start={{x: 0.8, y: 0}}
-                        end={{x: 0.8, y: 0.9}}
-                        style={styles.bottomBlur}
-                      />
-                      <Text
-                        style={{
-                          ...textVariants.bodyBold,
-                          ...styles.carouselTag,
-                          color: 'white',
-                        }}
-                        numberOfLines={1}>
-                        {item.carousel_name}
-                      </Text>
-                    </TouchableOpacity>
-                  )}
-                />
-                <CarouselPagination
-                  data={data.carousel}
-                  activeIndex={activeIndex}
-                />
-              </View>
-            )}
-            <View>
-              {/* previous style={{ gap: spacing.m }} */}
-              {data?.carousel[0] && history.length > 0 && (
-                <View>
-                  <View
-                    style={{
-                      paddingLeft: spacing.sideOffset,
-                      paddingRight: spacing.sideOffset,
-                      paddingBottom: 5,
-                    }}>
-                    <ShowMoreVodButton
-                      text="继续看"
-                      onPress={() => {
-                        navigation.navigate('播放历史');
-                      }}
-                    />
-                  </View>
-                  <View style={{paddingLeft: spacing.sideOffset}}>
-                    <VodHistoryList
-                      vodStyle={styles.vod_hotlist}
-                      vodList={history.slice(0, 10)}
-                      showInfo="watch_progress"
-                    />
-                  </View>
-                </View>
-              )}
-
-              <View style={{gap: spacing.m}}>
+      {liveStations && liveStations?.length > 0 && (
+        <FlatList
+          refreshControl={
+            <RefreshControl
+              refreshing={isRefreshing}
+              onRefresh={handleRefresh}
+              tintColor="#FAC33D"
+            />
+          }
+          ListHeaderComponent={
+            <>
+              {data?.carousel[0] && !refreshProp && (
                 <View
                   style={{
-                    paddingLeft: spacing.sideOffset,
-                    paddingRight: spacing.sideOffset,
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderRadius: 17,
+                    zIndex: 9999,
                   }}>
-                  {liveStations && liveStations?.length > 0 ? (
-                    <ShowMoreVodButton
-                      text="电视台推荐"
-                      onPress={() => {
-                        navigation.navigate('电视台列表', {
-                          liveStationItemList: liveStations,
-                        });
-                      }}
-                    />
-                  ) : (
-                    <View style={styles.banner}>
-                      <Text style={textVariants.header}>电视台推荐</Text>
-                    </View>
-                  )}
-                </View>
-                {liveStations && liveStations?.length > 0 ? (
-                  <View style={{paddingLeft: spacing.sideOffset}}>
-                    <VodLiveStationList
-                      vodStyle={styles.vod_live_station}
-                      liveStationList={liveStations.slice(0, 10)}
-                    />
-                  </View>
-                ) : (
-                  <View
-                    style={{paddingLeft: spacing.sideOffset, height: 134}}
-                  />
-                )}
-              </View>
-              {data?.yunying &&
-                data.yunying.length > 0 &&
-                data.yunying.map((item, index) => (
-                  <View
-                    key={item.type_name}
-                    style={{
-                      paddingLeft: spacing.sideOffset,
-                      paddingRight: spacing.sideOffset,
-                      gap: spacing.xxs,
-                    }}>
-                    <View>
-                      <ShowMoreVodButton
-                        text={item.type_name}
+                  <Carousel
+                    loop
+                    width={width - spacing.sideOffset - spacing.sideOffset}
+                    height={width / 2}
+                    autoPlay={true}
+                    data={data.carousel}
+                    scrollAnimationDuration={500}
+                    autoPlayInterval={2300}
+                    onSnapToItem={index => {
+                      setActiveIndex(index);
+                    }}
+                    onScrollEnd={index => {
+                      setActiveIndex(index);
+                    }}
+                    renderItem={({item, index}) => (
+                      <TouchableOpacity
+                        key={`slider-${index}`}
                         onPress={() => {
-                          navigation.navigate('片库', {
-                            type_id: item.vod_list[0].type_id,
+                          dispatch(playVod(item.vod));
+                          navigation.navigate('播放', {
+                            vod_id: item.carousel_content_id,
                           });
-                        }}
-                      />
-                    </View>
-                    <VodListVertical vods={item.vod_list} />
-                  </View>
-                ))}
-
-              {data?.categories &&
-                data.categories.length > 0 &&
-                data.categories.map((category, index) => (
-                  <View
-                    key={`category-${index}`}
-                    style={{
-                      paddingLeft: spacing.sideOffset,
-                      paddingRight: spacing.sideOffset,
-                      paddingTop: 5,
-                    }}>
+                        }}>
+                        <FastImage
+                          style={styles.image}
+                          source={{
+                            uri: item.carousel_pic_mobile,
+                            priority: FastImage.priority.normal,
+                          }}
+                          resizeMode={FastImage.resizeMode.contain}
+                        />
+                        <LinearGradient
+                          colors={['transparent', 'black']}
+                          start={{x: 0.8, y: 0}}
+                          end={{x: 0.8, y: 0.9}}
+                          style={styles.bottomBlur}
+                        />
+                        <Text
+                          style={{
+                            ...textVariants.bodyBold,
+                            ...styles.carouselTag,
+                            color: 'white',
+                          }}
+                          numberOfLines={1}>
+                          {item.carousel_name}
+                        </Text>
+                      </TouchableOpacity>
+                    )}
+                  />
+                  <CarouselPagination
+                    data={data.carousel}
+                    activeIndex={activeIndex}
+                  />
+                </View>
+              )}
+              <View>
+                {/* previous style={{ gap: spacing.m }} */}
+                {data?.carousel[0] && history.length > 0 && (
+                  <View>
                     <View
                       style={{
+                        paddingLeft: spacing.sideOffset,
+                        paddingRight: spacing.sideOffset,
                         paddingBottom: 5,
                       }}>
                       <ShowMoreVodButton
-                        text={category.type_name}
+                        text="继续看"
                         onPress={() => {
-                          navigation.navigate('片库', {
-                            type_id: category.type_id,
-                          });
+                          navigation.navigate('播放历史');
                         }}
                       />
                     </View>
-                    <VodListVertical vods={category.vod_list} />
+                    <View style={{paddingLeft: spacing.sideOffset}}>
+                      <VodHistoryList
+                        vodStyle={styles.vod_hotlist}
+                        vodList={history.slice(0, 10)}
+                        showInfo="watch_progress"
+                      />
+                    </View>
                   </View>
-                ))}
-            </View>
-          </>
-        }
-        data={results}
-        onEndReached={() => {
-          if (hasNextPage && !isFetchingNextPage && !isFetching) {
-            fetchNextPage();
-          }
-        }}
-        initialNumToRender={0}
-        onEndReachedThreshold={0.5}
-        renderItem={({item, index}: {item: VodTopicType; index: number}) => (
-          <View
-            style={{
-              paddingLeft: spacing.sideOffset,
-              paddingRight: spacing.sideOffset,
-            }}>
-            {/* previous style={{ gap: spacing.m }} */}
-            <View key={`${item.topic_name}-${index}`} style={{paddingTop: 10}}>
-              <View style={{paddingBottom: 5}}>
-                <ShowMoreVodButton
-                  text={item.topic_name}
-                  onPress={() => {
-                    dispatch(viewPlaylistDetails(item));
-                    navigation.navigate('PlaylistDetail', {
-                      topic_id: item.topic_id,
-                    });
-                  }}
-                />
-              </View>
-              <VodListVertical vods={item.vod_list} />
-            </View>
-          </View>
-        )}
-        ListFooterComponent={
-          <View style={{...styles.loading, marginBottom: spacing.xl}}>
-            {hasNextPage && (
-              <FastImage
-                style={{
-                  height: 80,
-                  width: 80,
-                  marginBottom: 80,
-                  flex: 1,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-                source={require('../../../static/images/loading-spinner.gif')}
-                resizeMode={FastImage.resizeMode.contain}
-              />
-            )}
-            {!(isFetchingNextPage || isFetching) && !hasNextPage && (
-              <Text style={{...textVariants.body, color: colors.muted}}>
-                没有更多了
-              </Text>
-            )}
-          </View>
-        }
-      />
+                )}
 
-      {/* {toggleGesture && (
-        <PanGestureHandler onGestureEvent={gestureHandler}>
-          <Animated.View style={styles.gesture} />
-        </PanGestureHandler>
-      )} */}
+                <View style={{gap: spacing.m}}>
+                  <View
+                    style={{
+                      paddingLeft: spacing.sideOffset,
+                      paddingRight: spacing.sideOffset,
+                    }}>
+                    {liveStations && liveStations?.length > 0 ? (
+                      <ShowMoreVodButton
+                        text="电视台推荐"
+                        onPress={() => {
+                          navigation.navigate('电视台列表', {
+                            liveStationItemList: liveStations,
+                          });
+                        }}
+                      />
+                    ) : (
+                      <View style={styles.banner}>
+                        <Text style={textVariants.header}>电视台推荐</Text>
+                      </View>
+                    )}
+                  </View>
+                  {liveStations && liveStations?.length > 0 ? (
+                    <View style={{paddingLeft: spacing.sideOffset}}>
+                      <VodLiveStationList
+                        vodStyle={styles.vod_live_station}
+                        liveStationList={liveStations.slice(0, 10)}
+                      />
+                    </View>
+                  ) : (
+                    <View
+                      style={{paddingLeft: spacing.sideOffset, height: 134}}
+                    />
+                  )}
+                </View>
+                {data?.yunying &&
+                  data.yunying.length > 0 &&
+                  data.yunying.map((item, index) => (
+                    <View
+                      key={item.type_name}
+                      style={{
+                        paddingLeft: spacing.sideOffset,
+                        paddingRight: spacing.sideOffset,
+                        gap: spacing.xxs,
+                      }}>
+                      <View>
+                        <ShowMoreVodButton
+                          text={item.type_name}
+                          onPress={() => {
+                            navigation.navigate('片库', {
+                              type_id: item.vod_list[0].type_id,
+                            });
+                          }}
+                        />
+                      </View>
+                      <VodListVertical vods={item.vod_list} />
+                    </View>
+                  ))}
+
+                {data?.categories &&
+                  data.categories.length > 0 &&
+                  data.categories.map((category, index) => (
+                    <View
+                      key={`category-${index}`}
+                      style={{
+                        paddingLeft: spacing.sideOffset,
+                        paddingRight: spacing.sideOffset,
+                        paddingTop: 5,
+                      }}>
+                      <View
+                        style={{
+                          paddingBottom: 5,
+                        }}>
+                        <ShowMoreVodButton
+                          text={category.type_name}
+                          onPress={() => {
+                            navigation.navigate('片库', {
+                              type_id: category.type_id,
+                            });
+                          }}
+                        />
+                      </View>
+                      <VodListVertical vods={category.vod_list} />
+                    </View>
+                  ))}
+              </View>
+            </>
+          }
+          data={results}
+          onEndReached={() => {
+            if (hasNextPage && !isFetchingNextPage && !isFetching) {
+              fetchNextPage();
+            }
+          }}
+          initialNumToRender={0}
+          onEndReachedThreshold={0.5}
+          renderItem={({item, index}: {item: VodTopicType; index: number}) => (
+            <View
+              style={{
+                paddingLeft: spacing.sideOffset,
+                paddingRight: spacing.sideOffset,
+              }}>
+              {/* previous style={{ gap: spacing.m }} */}
+              <View
+                key={`${item.topic_name}-${index}`}
+                style={{paddingTop: 10}}>
+                <View style={{paddingBottom: 5}}>
+                  <ShowMoreVodButton
+                    text={item.topic_name}
+                    onPress={() => {
+                      dispatch(viewPlaylistDetails(item));
+                      navigation.navigate('PlaylistDetail', {
+                        topic_id: item.topic_id,
+                      });
+                    }}
+                  />
+                </View>
+                <VodListVertical vods={item.vod_list} />
+              </View>
+            </View>
+          )}
+          ListFooterComponent={
+            <View style={{...styles.loading, marginBottom: spacing.xl}}>
+              {hasNextPage && (
+                <FastImage
+                  style={{
+                    height: 80,
+                    width: 80,
+                    marginBottom: 80,
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                  source={require('../../../static/images/loading-spinner.gif')}
+                  resizeMode={FastImage.resizeMode.contain}
+                />
+              )}
+              {!(isFetchingNextPage || isFetching) && !hasNextPage && (
+                <Text style={{...textVariants.body, color: colors.muted}}>
+                  没有更多了
+                </Text>
+              )}
+            </View>
+          }
+        />
+      )}
     </>
   );
 };
@@ -461,5 +467,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 4,
     marginBottom: 5,
+  },
+  icon: {
+    color: 'white',
+    // width: '15%',
+    maxWidth: '15%',
+    objectFix: 'contain',
   },
 });
