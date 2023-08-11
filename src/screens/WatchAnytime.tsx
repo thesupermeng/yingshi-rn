@@ -69,12 +69,8 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
 
   const handleRefresh = useCallback(async () => {
     setIsRefreshing(true);
-    console.log('watchAnytime 111');
-
     // await queryClient.resetQueries(['watchAnytime']); // Pass the query key as an array of strings
-
     await refetch();
-
     setIsRefreshing(false);
     return;
   }, []);
@@ -180,6 +176,7 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
           isFetchingNextPage={isFetchingNextPage}
           isPaused={isPaused}
           handleRefresh={handleRefresh}
+          refreshProp={isRefreshing}
         />
       )}
       {isOffline && <NoConnection onClickRetry={checkConnection} />}

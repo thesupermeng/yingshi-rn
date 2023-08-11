@@ -34,6 +34,7 @@ interface Props {
   enterPosition?: number;
   setCollectionEpisode?: any;
   handleRefresh?: any;
+  refreshProp?: boolean;
 }
 
 const ITEM_HEIGHT = Dimensions.get('window').height;
@@ -52,6 +53,7 @@ export default ({
   collection_ori_all_videos,
   enterPosition = 0,
   setCollectionEpisode,
+  refreshProp = false,
 }: Props) => {
   const {spacing} = useTheme();
 
@@ -84,9 +86,13 @@ export default ({
     [],
   );
 
+  useEffect(() => {
+    console.log('1111  ' + refreshProp);
+    setIsRefreshing(refreshProp);
+  }, [refreshProp]);
+
   const onRefreshHandler = async () => {
     setIsRefreshing(true);
-    console.log(';handleRefresh');
     await handleRefresh();
     setIsRefreshing(false);
   };
