@@ -125,7 +125,6 @@ const RecommendationHome = ({
 
   useEffect(() => {
     if (liveStations && liveStations?.length > 0) {
-      console.log('onload');
       onLoad();
     }
   }, [liveStations]);
