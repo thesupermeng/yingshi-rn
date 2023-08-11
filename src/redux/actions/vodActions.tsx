@@ -1,5 +1,5 @@
 import {
-    ADD_VOD_TO_FAVORITES, REMOVE_VOD_FROM_FAVORITES, CLEAR_HISTORY, PLAY_VOD, TOGGLE_VOD_FAVORITES,
+    ADD_VOD_TO_FAVORITES, REMOVE_VOD_FROM_FAVORITES, CLEAR_HISTORY, PLAY_VOD, TOGGLE_VOD_FAVORITES, SELECT_MINI_VOD_COLLECTION_ITEM,
     TOGGLE_PLAYLIST_FAVORITES, VIEW_PLAYLIST, ADD_VOD_TO_HISTORY, REMOVE_VOD_HISTORY
 } from "../../utility/constants";
 import { VodActionType } from "../../types/actionTypes";
@@ -71,3 +71,10 @@ export const clearHistory = () => (
         payload: null
     }
 )
+
+export const selectMiniVodCollection = (index: number = 0) => {
+    return {
+        type: SELECT_MINI_VOD_COLLECTION_ITEM,
+        miniVodCollectionItemIndex: index,
+    }
+}
