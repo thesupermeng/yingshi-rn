@@ -111,6 +111,7 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
       setIsRefreshing(false);
       setNavId(id);
       setHideContent(false);
+      setShowHomeLoading(false);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
