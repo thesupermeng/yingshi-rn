@@ -264,11 +264,16 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
               justifyContent: 'center',
               alignItems: 'center',
               backgroundColor: 'rgb(20,22,25)',
-              position: 'relative',
             }}>
             <FastImage
               source={require('../../static/images/home-loading.png')}
-              style={{width: 200, height: 200}}
+              style={{
+                width: 150,
+                height: 150,
+                position: 'relative',
+                bottom: 50,
+                zIndex: -1,
+              }}
               resizeMode="contain"
             />
           </View>
