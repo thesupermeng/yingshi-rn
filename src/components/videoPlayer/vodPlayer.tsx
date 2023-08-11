@@ -43,7 +43,7 @@ interface Props {
   onShare?: () => any,
   movieList?: VodType[],
   showGuide?: boolean,
-  showMoreType?: 'episodes' | 'streams' | 'movies' | 'none', 
+  showMoreType?: 'episodes' | 'streams' | 'movies' | 'none',
   streams?: LiveTVStationItem[],
   isFetchingRecommendedMovies?: boolean
 
@@ -76,7 +76,7 @@ export default ({
   showGuide = false,
   streams = [],
   showMoreType = 'none',
-  isFetchingRecommendedMovies=false
+  isFetchingRecommendedMovies = false
 }: Props) => {
   const videoPlayerRef = React.useRef<Video | null>();
   const { colors, spacing, textVariants, icons } = useTheme();
@@ -147,23 +147,23 @@ export default ({
 
   const handleOrientation = (orientation: any) => {
     if (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT') {
-      StatusBar.setHidden(true);
+      // StatusBar.setHidden(true);
       setIsFullScreen(true);
       controlsRef.current.hideSlider();
     } else {
-      StatusBar.setHidden(false);
+      // StatusBar.setHidden(false);
       setIsFullScreen(false);
     }
   };
 
   const onToggleFullScreen = useCallback(() => {
     if (isFullScreen) {
-      Orientation.lockToPortrait();
-      StatusBar.setHidden(false);
+      // Orientation.lockToPortrait();
+      // StatusBar.setHidden(false);
       setIsFullScreen(false);
     } else {
       Orientation.lockToLandscape();
-      StatusBar.setHidden(true);
+      // StatusBar.setHidden(true);
       setIsFullScreen(true);
     }
   }, [isFullScreen, Orientation]);
@@ -228,7 +228,7 @@ export default ({
     } else {
       if (isFullScreen) {
         Orientation.lockToPortrait();
-        StatusBar.setHidden(false);
+        // StatusBar.setHidden(false);
         setIsFullScreen(false);
       } else {
         setIsPaused(true);
@@ -343,7 +343,7 @@ export default ({
             />
           )}
         {(isBuffering || seekDirection !== 'none') && (
-          <View style={{ ...styles.buffering, top: isFullScreen ? (height/2) - 30 : (width * 9/32) - 45 }}>
+          <View style={{ ...styles.buffering, top: isFullScreen ? (height / 2) - 30 : (width * 9 / 32) - 45 }}>
             {
               seekDirection !== 'none'
                 ? <View

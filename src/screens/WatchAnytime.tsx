@@ -6,7 +6,6 @@ import {
   TouchableWithoutFeedback,
   FlatList,
   ViewToken,
-  StatusBar,
   Dimensions,
   SafeAreaView,
   Text,

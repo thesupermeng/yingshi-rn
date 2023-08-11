@@ -8,7 +8,6 @@ import {
   Pressable,
   Platform,
 } from 'react-native';
-import Slider from '@react-native-community/slider';
 import FullScreen from '../../../static/images/fullScreen.svg';
 import MoreMoviesIcon from '../../../static/images/moreMovies.svg';
 import MinimizeScreen from '../../../static/images/minimizeScreen.svg';
@@ -19,6 +18,7 @@ import NextEpisodeIcon from '../../../static/images/nextEpisode.svg';
 import SelectEpisodesIcon from '../../../static/images/selectEpisodes.svg';
 import LockScreenIcon from '../../../static/images/lockScreen.svg';
 import Orientation from 'react-native-orientation-locker';
+import { Slider } from '@rneui/themed';
 
 type Props = {
   currentTime: number;
@@ -75,7 +75,7 @@ export default ({
     Orientation.lockToLandscape();
   }
 
-  const thumbImage = require('../../../static/images/white-dot.png');
+  // const thumbImage = require('../../../static/images/white-dot.png');
 
   const position = getMinutesFromSeconds(currentTime);
   const fullDuration = getMinutesFromSeconds(duration);
@@ -97,7 +97,9 @@ export default ({
                 minimumTrackTintColor={'#FAC33D'}
                 maximumTrackTintColor={'#FFFFFF'}
                 thumbTintColor={'#FFFFFF'}
-                thumbImage={Platform.OS === 'ios' ? thumbImage : undefined}
+                thumbStyle={{height: 15, width: 15}}
+                // thumbTouchSize={{}}
+                // thumbImage={Platform.OS === 'ios' ? thumbImage : undefined}
                 style={{
                   flex: 12,
                   marginTop: 2,
@@ -136,7 +138,8 @@ export default ({
                   minimumTrackTintColor={'#FAC33D'}
                   maximumTrackTintColor={'#FFFFFF'}
                   thumbTintColor={'#FFFFFF'}
-                  thumbImage={Platform.OS === 'ios' ? thumbImage : undefined}
+                  // thumbImage={Platform.OS === 'ios' ? thumbImage : undefined}
+                  thumbStyle={{height: 15, width: 15}}
                   style={{ flex: 16, marginTop: 2 }}
                 />
                 <View style={[styles.timeWrapperLandscape]}>
