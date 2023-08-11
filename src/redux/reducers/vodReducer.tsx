@@ -1,6 +1,6 @@
 import {
     ADD_VOD_TO_FAVORITES, REMOVE_VOD_FROM_FAVORITES, PLAY_VOD, TOGGLE_VOD_FAVORITES,
-    TOGGLE_PLAYLIST_FAVORITES, VIEW_PLAYLIST, ADD_VOD_TO_HISTORY, CLEAR_HISTORY, REMOVE_VOD_HISTORY
+    TOGGLE_PLAYLIST_FAVORITES, VIEW_PLAYLIST, ADD_VOD_TO_HISTORY, CLEAR_HISTORY, REMOVE_VOD_HISTORY, SELECT_MINI_VOD_COLLECTION_ITEM
 } from "../../utility/constants"
 import { FavoriteVodActionType, VodActionType, VodPlaylistActionType } from "../../types/actionTypes"
 import { VodTopicType, VodType } from "../../types/ajaxTypes"
@@ -19,6 +19,7 @@ export interface VodReducerState {
     favorites: Array<VodRecordType>,
     history: Array<VodRecordType>,
     playVod: PlayVodType,
+    miniVodCollectionItemIndex: number,
 }
 
 const initialState: VodReducerState = {
@@ -27,7 +28,8 @@ const initialState: VodReducerState = {
     playVod: {
         vod: null,
         isFavorite: true
-    }
+    },
+    miniVodCollectionItemIndex: 0,
 }
 
 export function vodReducer(state = initialState, action: VodActionType) {
@@ -67,6 +69,12 @@ export function vodReducer(state = initialState, action: VodActionType) {
             return {
                 ...state,
                 history: state.history.filter(vod => !action.payload.includes(vod))
+            };
+        }
+        case SELECT_MINI_VOD_COLLECTION_ITEM: {
+            return {
+                ...state,
+                miniVodCollectionItemIndex: action.miniVodCollectionItemIndex
             };
         }
         default:
