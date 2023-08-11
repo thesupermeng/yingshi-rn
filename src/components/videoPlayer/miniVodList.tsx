@@ -87,7 +87,6 @@ export default ({
   );
 
   useEffect(() => {
-    console.log('1111  ' + refreshProp);
     setIsRefreshing(refreshProp);
   }, [refreshProp]);
 
