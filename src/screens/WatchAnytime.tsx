@@ -69,11 +69,14 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
 
   const handleRefresh = useCallback(async () => {
     setIsRefreshing(true);
-    // Reset your variables here (e.g., setTotalPage(0))
-    // You may also need to reset other states related to data fetching.
-    // Reset the playlists by clearing the cache and refetching data
-    await queryClient.resetQueries(['watchAnytime']); // Pass the query key as an array of strings
+    console.log('watchAnytime 111');
+
+    // await queryClient.resetQueries(['watchAnytime']); // Pass the query key as an array of strings
+
+    await refetch();
+
     setIsRefreshing(false);
+    return;
   }, []);
 
   const [flattenedVideos, setFlattenedVideos] = useState(Array<MiniVideo>);
@@ -95,6 +98,7 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
     fetchNextPage,
     isFetchingNextPage,
     isFetching,
+    refetch,
   } = useInfiniteQuery(
     ['watchAnytime'],
     ({pageParam = 1}) => fetchVods(pageParam),
@@ -175,6 +179,7 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
           isFetching={isFetching}
           isFetchingNextPage={isFetchingNextPage}
           isPaused={isPaused}
+          handleRefresh={handleRefresh}
         />
       )}
       {isOffline && <NoConnection onClickRetry={checkConnection} />}
