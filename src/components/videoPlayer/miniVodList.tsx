@@ -26,26 +26,22 @@ interface Props {
     collection_ori_all_videos?: any,
     enterPosition?: number,
     setCollectionEpisode?: any,
+    currentVodIndex?: number,
+    handleRefreshMiniVod?: any,
 }
 
 const ITEM_HEIGHT = Dimensions.get('window').height;
 
-export default ({videos, initialIndex = 0, setParentCurrent = null, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching, isPaused, inCollectionView = false, collection_ori_all_videos, enterPosition = 0, setCollectionEpisode} : Props) => {
+export default ({ handleRefreshMiniVod, currentVodIndex = 0, videos, initialIndex = 0, setParentCurrent = null, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching, isPaused, inCollectionView = false, collection_ori_all_videos, enterPosition = 0, setCollectionEpisode} : Props) => {
 
     const { spacing } = useTheme();
 
     const [displayHeight, setDisplayHeight] = useState<number | null>(0);
     const [current, setCurrent] = useState<number | null>(0);
     const [collectionPartialVideos, setCollectionPartialVideos] = useState(videos);
-    const [startPosition, setStartPosition] = useState(enterPosition);
     const queryClient = useQueryClient();
     const isFocused = useIsFocused();
     const [isRefreshing, setIsRefreshing] = useState(false);
-    const handleTabPress = () => {
-        if (isFocused) {
-            handleRefresh();
-        }
-    };
     const handleViewableItemsChanged = useCallback(({ viewableItems }: { viewableItems: any }) => {
         if (viewableItems.length == 1 && typeof viewableItems[0] != 'undefined') {
             const curr = viewableItems[0].index;
@@ -56,29 +52,14 @@ export default ({videos, initialIndex = 0, setParentCurrent = null, fetchNextPag
         }
     }, []);
 
-    const handleRefresh = useCallback(async () => {
-        setIsRefreshing(true);
-        // Reset your variables here (e.g., setTotalPage(0))
-        // You may also need to reset other states related to data fetching.
-        // Reset the playlists by clearing the cache and refetching data
-        await queryClient.resetQueries(['watchAnytime']); // Pass the query key as an array of strings
-        setIsRefreshing(false);
-    }, []);
-
     useEffect(() => {
         setCurrent(initialIndex)
     }, [initialIndex]);
 
     useEffect(() => {
         setCollectionPartialVideos(videos);
-
-        if(videos != undefined && videos.length > 0){
-            console.log('OKK');
-            console.log(videos[0].mini_video_origin_video_url);
-        }
         
         if(inCollectionView == true){
-            setStartPosition(enterPosition);
         }
 
     }, [videos]);
@@ -87,6 +68,17 @@ export default ({videos, initialIndex = 0, setParentCurrent = null, fetchNextPag
         setCollectionEpisode(index);
     }
 
+    const refreshComponent = () => {
+        if(inCollectionView == false){
+            return <RefreshControl
+                        refreshing={isRefreshing}
+                        onRefresh={handleRefreshMiniVod}
+                    />
+        }
+        
+        return <></>
+    }
+    
     return (
         <View style={{ flex: 1 }} onLayout={(event: any) => {
             var { x, y, width, height } = event.nativeEvent.layout;
@@ -97,12 +89,7 @@ export default ({videos, initialIndex = 0, setParentCurrent = null, fetchNextPag
                 initialNumToRender={3}
                 maxToRenderPerBatch={3}
                 windowSize={5}
-                refreshControl={
-                    <RefreshControl
-                    refreshing={isRefreshing}
-                    onRefresh={handleRefresh}
-                    />
-                }
+                refreshControl={refreshComponent()}
                 renderItem={({ item, index }: { item: MiniVideo, index: number }) => {
                     return <View style={{ height: displayHeight ? displayHeight : 0 }}>
                         {

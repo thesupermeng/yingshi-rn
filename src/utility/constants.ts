@@ -6,6 +6,8 @@ export const REMOVE_VOD_FROM_FAVORITES = 'remove_from_fav';
 export const PLAY_VOD = 'play_vod';
 export const TOGGLE_VOD_FAVORITES = 'toggle_vod_fav';
 
+export const SELECT_MINI_VOD_COLLECTION_ITEM = 'select_mini_vod_collection_item';
+
 export const ADD_VOD_TO_HISTORY = 'add_vod_to_history';
 export const REMOVE_VOD_HISTORY = 'remove_from_history';
 export const CLEAR_HISTORY = 'clear_history';

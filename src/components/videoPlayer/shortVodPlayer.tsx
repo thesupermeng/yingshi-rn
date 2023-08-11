@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   Text,
   Dimensions,
-  useCallback,
 } from 'react-native';
 import Video, {OnProgressData} from 'react-native-video';
 import {debounce, throttle} from 'lodash';
@@ -80,7 +79,6 @@ function ShortVideoPlayer({
   const [watchText, setWatchText] = useState('看正片');
   const [imageLoaded, setImageLoaded] = useState(false);
   const [vodUrl, setVodUrl] = useState(vod_url);
-  const [currentVodIndex, setCurrentVodIndex] = useState(0);
   const sheetRef = useRef<BottomSheet>(null);
 
   const windowWidth = Dimensions.get('window').width;
@@ -165,11 +163,10 @@ function ShortVideoPlayer({
   const changeEpisode = (item: any, index: number) => {
     setVodUrl(item.mini_video_origin_video_url);
     setVod(item);
-    setCurrentVodIndex(index);
     setCollectionEpisode(index);
     sheetRef.current?.close();
   }
-
+  
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -385,7 +382,7 @@ function ShortVideoPlayer({
                   <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
                     <View style={{ flex: 1, flexDirection: 'row' }}>
                       <HejiIcon height={24} width={24} />
-                      <Text style={{ paddingLeft: 6, alignSelf: 'center', fontSize: textVariants.bodyBold.fontSize, color: colors.text, fontWeight: 700 }}>{currentVod.mini_video_collection_title}合集</Text>
+                      <Text style={{ paddingLeft: 6, alignSelf: 'center', fontSize: textVariants.bodyBold.fontSize, color: colors.text, fontWeight: 700 }}>{currentVod.mini_video_collection_title}</Text>
                     </View>
                     <View style={{ }}>
                       <ExpandUpIcon height={24} width={24} />
@@ -419,21 +416,25 @@ function ShortVideoPlayer({
             (
               duration < 3600
                 ? <Text style={{
-                  position: 'absolute',
-                  bottom: 20,
-                  left: Math.min(Math.max(0, (currentTime / duration) * windowWidth - 34), windowWidth - 76)
-                }}>
-                  <Text style={textVariants.small}>{new Date(currentTime * 1000).toISOString().substring(14, 19)}</Text>
-                  <Text style={{ ...textVariants.small, color: colors.muted }}>{` / ${new Date(duration * 1000).toISOString().substring(14, 19)}`}</Text>
-                </Text>
+                    position: 'absolute',
+                    bottom: 12,
+                    backgroundColor: '#000',
+                    borderRadius: 4,
+                    paddingVertical: 6,
+                    paddingHorizontal: 10,
+                    left: Math.min(Math.max(0, (currentTime / duration) * windowWidth - 44), windowWidth - 76)
+                  }}>
+                    <Text style={textVariants.small}>{new Date(currentTime * 1000).toISOString().substring(14, 19)}</Text>
+                    <Text style={{ ...textVariants.small, color: colors.muted }}>{` / ${new Date(duration * 1000).toISOString().substring(14, 19)}`}</Text>
+                  </Text>
                 : <Text style={{
-                  position: 'absolute',
-                  bottom: 20,
-                  left: Math.min(Math.max(0, (currentTime / duration) * windowWidth - 34), windowWidth - 76)
-                }}>
-                  <Text style={textVariants.small}>{new Date(currentTime * 1000).toISOString().substring(11, 19)}</Text>
-                  <Text style={{ ...textVariants.small, color: colors.muted }}>{` / ${new Date(duration * 1000).toISOString().substring(11, 19)}`}</Text>
-                </Text>
+                    position: 'absolute',
+                    bottom: 20,
+                    left: Math.min(Math.max(0, (currentTime / duration) * windowWidth - 34), windowWidth - 76)
+                  }}>
+                    <Text style={textVariants.small}>{new Date(currentTime * 1000).toISOString().substring(11, 19)}</Text>
+                    <Text style={{ ...textVariants.small, color: colors.muted }}>{` / ${new Date(duration * 1000).toISOString().substring(11, 19)}`}</Text>
+                  </Text>
             )
           }
         </View>
