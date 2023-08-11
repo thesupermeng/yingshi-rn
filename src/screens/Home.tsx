@@ -256,7 +256,7 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
             }
           </View>
         )}
-        {showHomeLoading && (
+        {showHomeLoading && !isOffline && (
           <View
             style={{
               flex: 1,
@@ -305,7 +305,7 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
         )}
       </ScreenContainer>
 
-      {/* {isOffline && <NoConnection onClickRetry={checkConnection} />} */}
+      {isOffline && <NoConnection onClickRetry={checkConnection} />}
     </>
   );
 };
