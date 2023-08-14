@@ -75,6 +75,7 @@ const CatagoryHome = ({
   const [activeIndex, setActiveIndex] = useState(0);
   const data = vodCarouselRes.data;
   const carouselRef = useRef<any>();
+  const categoryListRef = useRef<any>();
   const width = Dimensions.get('window').width;
   const [isRefreshing, setIsRefreshing] = useState(false);
   // Function to handle the pull-to-refresh action
@@ -83,6 +84,7 @@ const CatagoryHome = ({
     onRefresh(navId);
 
     setTimeout(() => {
+      categoryListRef?.current?.scrollToIndex({index: 0, viewOffset: 24});
       setActiveIndex(0);
       if (carouselRef) {
         carouselRef?.current?.scrollTo({index: 0, animated: false});
@@ -200,6 +202,7 @@ const CatagoryHome = ({
             <View>
               {data && data.class_list && data.class_list.length > 0 && (
                 <FlatListSecondary
+                  ref={categoryListRef}
                   data={['全部剧集', ...data.class_list]}
                   horizontal
                   showsHorizontalScrollIndicator={false}
