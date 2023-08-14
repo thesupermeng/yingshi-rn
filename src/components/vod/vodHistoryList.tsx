@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {StyleSheet, TouchableOpacity, Image, ViewStyle} from 'react-native';
 import {useNavigation, useTheme} from '@react-navigation/native';
 import {useQuery} from '@tanstack/react-query';
@@ -14,6 +14,7 @@ interface Props {
   horizontal?: boolean;
   vodList?: Array<VodRecordType>;
   showInfo?: 'none' | 'watch_progress';
+  isRefreshing?: boolean;
 }
 
 type VodResponseType = {
@@ -28,12 +29,26 @@ export default function VodHistoryList({
   horizontal = true,
   vodList = [],
   showInfo = 'none',
+  isRefreshing = false,
 }: Props) {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
 
+  const historyRef = useRef<FlatList>(null);
+
+  const resetListPositionHandler = () => {
+    historyRef?.current?.scrollToIndex({
+      index: 0,
+    });
+  };
+
+  useEffect(() => {
+    resetListPositionHandler(); //children function of interest
+  }, [isRefreshing]);
+
   return (
     <FlatList
+      ref={historyRef}
       data={vodList}
       horizontal
       showsHorizontalScrollIndicator={false}

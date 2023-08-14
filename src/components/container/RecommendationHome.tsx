@@ -54,7 +54,7 @@ const RecommendationHome = ({
   vodCarouselRes,
   setScrollEnabled,
   onRefresh,
-  refreshProp,
+  refreshProp = false,
   onLoad = () => {},
 }: Props) => {
   const {colors, textVariants, spacing} = useTheme();
@@ -73,7 +73,11 @@ const RecommendationHome = ({
   const {width, height} = Dimensions.get('window');
   // Function to handle the pull-to-refresh action
   const handleRefresh = () => {
+    setIsRefreshing(true);
     onRefresh(0);
+    setTimeout(() => {
+      setIsRefreshing(false);
+    }, 0);
   };
 
   const fetchPlaylist = (page: number) =>
@@ -132,6 +136,7 @@ const RecommendationHome = ({
   useEffect(() => {
     setActiveIndex(0);
   }, [refreshProp]);
+
   return (
     <>
       {liveStations && liveStations?.length > 0 && (
@@ -231,6 +236,7 @@ const RecommendationHome = ({
                         vodStyle={styles.vod_hotlist}
                         vodList={history.slice(0, 10)}
                         showInfo="watch_progress"
+                        isRefreshing={isRefreshing}
                       />
                     </View>
                   </View>
@@ -262,6 +268,7 @@ const RecommendationHome = ({
                       <VodLiveStationList
                         vodStyle={styles.vod_live_station}
                         liveStationList={liveStations.slice(0, 10)}
+                        isRefreshing={isRefreshing}
                       />
                     </View>
                   ) : (
