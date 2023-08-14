@@ -43,7 +43,7 @@ interface Props {
   onShare?: () => any,
   movieList?: VodType[],
   showGuide?: boolean,
-  showMoreType?: 'episodes' | 'streams' | 'movies' | 'none', 
+  showMoreType?: 'episodes' | 'streams' | 'movies' | 'none',
   streams?: LiveTVStationItem[],
   isFetchingRecommendedMovies?: boolean
 
@@ -76,7 +76,7 @@ export default ({
   showGuide = false,
   streams = [],
   showMoreType = 'none',
-  isFetchingRecommendedMovies=false
+  isFetchingRecommendedMovies = false
 }: Props) => {
   const videoPlayerRef = React.useRef<Video | null>();
   const { colors, spacing, textVariants, icons } = useTheme();
@@ -158,7 +158,7 @@ export default ({
 
   const onToggleFullScreen = useCallback(() => {
     if (isFullScreen) {
-      Orientation.lockToPortrait();
+      // Orientation.lockToPortrait();
       StatusBar.setHidden(false);
       setIsFullScreen(false);
     } else {
@@ -343,7 +343,7 @@ export default ({
             />
           )}
         {(isBuffering || seekDirection !== 'none') && (
-          <View style={{ ...styles.buffering, top: isFullScreen ? (height/2) - 30 : (width * 9/32) - 45 }}>
+          <View style={{ ...styles.buffering, top: isFullScreen ? (height / 2) - 30 : (width * 9 / 32) - 45 }}>
             {
               seekDirection !== 'none'
                 ? <View

@@ -9,7 +9,7 @@ import { BaseButton, FlatList, Gesture, GestureDetector, RectButton, TouchableWi
 import VodEpisodeSelection from '../vod/vodEpisodeSelection';
 import { LiveTVStationItem, VodEpisodeListType, VodType } from '../../types/ajaxTypes';
 import VodCombinedGesture from '../gestures/vod/vodCombinedGesture';
-import Animated, { SlideInRight, useAnimatedStyle, withTiming, useSharedValue, FadeInDown, runOnJS } from 'react-native-reanimated';
+import Animated, { SlideInRight, useAnimatedStyle, withTiming, useSharedValue, FadeInDown, runOnJS, FadeIn } from 'react-native-reanimated';
 import Orientation from 'react-native-orientation-locker';
 import UnlockScreenIcon from '../../../static/images/unlockScreen.svg';
 import ProjectIcon from '../../../static/images/project.svg'
@@ -137,29 +137,6 @@ export default forwardRef<RefHandler, Props>(({
     delayControls();
     onHandleGoBack();
   };
-  const rewindTextAnimatedStyle = useAnimatedStyle(() => {
-    return {
-      opacity: opacity.value,
-      position: 'absolute',
-      top: isFullScreen ? (height / 2) - 25 : (width * 9 / 32) - 25,
-      left: isFullScreen ? '15%' : '4%',
-      backgroundColor: 'rgba(0,0,0,0.7)',
-      padding: 10,
-      borderRadius: 8
-    };
-  }, [isFullScreen, height, width]);
-
-  const ffTextAnimatedStyle = useAnimatedStyle(() => {
-    return {
-      opacity: opacity.value,
-      position: 'absolute',
-      right: isFullScreen ? '15%' : '4%',
-      top: isFullScreen ? (height / 2) - 25 : (width * 9 / 32) - 25,
-      backgroundColor: 'rgba(0,0,0,0.7)',
-      padding: 10,
-      borderRadius: 8
-    };
-  }, [isFullScreen, height, width]);
 
   const changePlaybackRate = (rate: number) => {
     setShowSlider('none');
@@ -224,7 +201,7 @@ export default forwardRef<RefHandler, Props>(({
     }
   }
   return (
-    <View
+    <Animated.View
       style={{ ...styles.controlsOverlay }}>
       {
         !showControls &&
@@ -243,13 +220,29 @@ export default forwardRef<RefHandler, Props>(({
       }
       {
         accumulatedSkip < 0 &&
-        <Animated.View entering={FadeInDown} style={rewindTextAnimatedStyle}>
+        <Animated.View entering={FadeInDown} style={{
+          opacity: opacity.value,
+          position: 'absolute',
+          top: isFullScreen ? (height / 2) - 25 : (width * 9 / 32) - 25,
+          left: isFullScreen ? '15%' : '4%',
+          backgroundColor: 'rgba(0,0,0,0.7)',
+          padding: 10,
+          borderRadius: 8
+        }}>
           <Text style={textVariants.header}>{`${accumulatedSkip}s`}</Text>
         </Animated.View>
       }
       {
         accumulatedSkip > 0 &&
-        <Animated.View entering={FadeInDown} style={ffTextAnimatedStyle}>
+        <Animated.View entering={FadeInDown} style={{
+          opacity: opacity.value,
+          position: 'absolute',
+          right: isFullScreen ? '15%' : '4%',
+          top: isFullScreen ? (height / 2) - 25 : (width * 9 / 32) - 25,
+          backgroundColor: 'rgba(0,0,0,0.7)',
+          padding: 10,
+          borderRadius: 8
+        }}>
           <Text style={textVariants.header}>{`+${accumulatedSkip}s`}</Text>
         </Animated.View>
       }
@@ -443,7 +436,7 @@ export default forwardRef<RefHandler, Props>(({
             </View>
         )
       }
-    </View >
+    </Animated.View>
   );
 });
 
@@ -455,6 +448,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     width: '100%',
+    height: '100%'
     // backgroundColor: '#00000010',
   },
   fullScreenBottom: {

@@ -24,6 +24,8 @@ import Orientation from 'react-native-orientation-locker';
 import { StyleSheet } from 'react-native';
 import TitleWithBackButtonHeader from '../components/header/titleWithBackButtonHeader';
 import BackIcon from '../../static/images/back_arrow.svg';
+import {useAppDispatch, useAppSelector} from '../hooks/hooks';
+import { selectMiniVodCollection } from '../redux/actions/vodActions';
 
 type PlayContextValue = {
     value: string;
@@ -44,6 +46,7 @@ type MiniVideoResponseType = {
 }
 
 export default ({ navigation, route }: RootStackScreenProps<'合集播放'>) => {
+    const dispatch = useAppDispatch();
 
     const { colors, spacing, textVariants, icons } = useTheme();
     const [isPaused, setIsPaused] = useState(false);
@@ -52,6 +55,7 @@ export default ({ navigation, route }: RootStackScreenProps<'合集播放'>) => 
     const [currentEpisode, setCurrentEpisode] = useState(route.params.collection_video_display_position);
 
     const goBack = () => {
+        dispatch(selectMiniVodCollection(0));
         navigation.goBack();
     }
 
@@ -67,9 +71,6 @@ export default ({ navigation, route }: RootStackScreenProps<'合集播放'>) => 
 
     return (
         <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
-            {/* <View style={{ position: 'absolute', top: 0, left: 0, padding: 20, zIndex: 50, width: '100%', flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={{ color: '#FFF', fontSize: 20 }}>返回随心看</Text>
-            </View> */}
             <View style={{ position: 'absolute', left: 0, top: 0, zIndex: 100, width: '100%', height: 50 }}>
                 <TouchableOpacity style={{ zIndex: 101 }} onPress={goBack}>
                     <View style={{ left: 0, top: 0, position: 'relative', justifyContent: 'center', alignContent: 'center', alignItems: 'center', width: 40, height: 50 }}>
@@ -84,8 +85,6 @@ export default ({ navigation, route }: RootStackScreenProps<'合集播放'>) => 
             </View>
             <MiniVideoList 
                 videos={route.params.collection_videos}
-                enterPosition={route.params.collection_enter_position}
-                collection_ori_all_videos={route.params.collection_ori_all_videos}
                 fetchNextPage={false}
                 hasNextPage={false}
                 isFetching={false}

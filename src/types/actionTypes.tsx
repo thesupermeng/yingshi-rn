@@ -9,6 +9,7 @@ export interface VodActionType {
     payload:  Array<VodType>
     timeWatched?: number,
     episodeWatched?: number
+    miniVodCollectionItemIndex?: number
 }
 
 export interface FavoriteVodActionType {

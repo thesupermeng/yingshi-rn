@@ -1,8 +1,8 @@
-import {ScrollView, StyleSheet, View, ViewStyle} from 'react-native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {useTheme} from '@react-navigation/native';
-import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
-import {Dimensions} from 'react-native';
+import { ScrollView, StyleSheet, View, ViewStyle, StatusBar } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useTheme } from '@react-navigation/native';
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
+import { Dimensions } from 'react-native';
 interface Props {
   children?: React.ReactNode;
   scrollView?: boolean;
@@ -32,9 +32,10 @@ export default function ScreenContainer({
   const displayHeight = windowHeight - bottomTabHeight;
 
   const insets = useSafeAreaInsets();
-  const {spacing, colors} = useTheme();
+  const { spacing, colors } = useTheme();
   return (
     <>
+      <StatusBar backgroundColor={colors.background} barStyle='light-content' />
       {scrollView ? (
         <ScrollView
           style={{
@@ -46,7 +47,7 @@ export default function ScreenContainer({
             paddingRight: insets.right,
           }}
           stickyHeaderIndices={[0]}
-          contentContainerStyle={{paddingBottom: 30}}>
+          contentContainerStyle={{ paddingBottom: 30 }}>
           <>{header}</>
           <View
             style={{

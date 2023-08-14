@@ -2,7 +2,6 @@ import React, {useEffect, useState, useMemo} from 'react';
 
 import {StatusBar, View} from 'react-native';
 import styles from './style';
-import EmptyDataPage from '../../components/emptyDataPage';
 import Basic from '../../components/basicApp';
 import ZhuboPage from './zhuboPage';
 

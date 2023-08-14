@@ -1,305 +1,241 @@
-import React, {
-  useState,
-  useMemo,
-  RefObject,
-  memo,
-  useCallback,
-  useEffect,
-} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Dimensions,
-} from 'react-native';
-import {useNavigation, useTheme} from '@react-navigation/native';
-import {VodEpisodeListType, VodEpisodeType} from '../../types/ajaxTypes';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import BottomSheet, {
-  BottomSheetBackdrop,
-  BottomSheetFlatList,
-  BottomSheetModalProvider,
-  BottomSheetScrollView,
-  BottomSheetView,
-} from '@gorhom/bottom-sheet';
-import {BottomSheetMethods} from '@gorhom/bottom-sheet/lib/typescript/types';
-import {FlatList, GestureHandlerRootView} from 'react-native-gesture-handler';
-import {BottomSheetDefaultBackdropProps} from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types';
+import React, { useState, useMemo, RefObject, memo, useCallback, useEffect } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions, ImageBackground, Image } from 'react-native';
+import { useNavigation, useTheme } from '@react-navigation/native';
+import { VodEpisodeListType, VodEpisodeType } from '../../types/ajaxTypes';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import BottomSheet, { BottomSheetBackdrop, BottomSheetFlatList, BottomSheetModalProvider, BottomSheetScrollView, BottomSheetView } from "@gorhom/bottom-sheet";
+import { BottomSheetMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
+import { FlatList, GestureHandlerRootView } from 'react-native-gesture-handler';
+import { BottomSheetDefaultBackdropProps } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types';
 import SortAscIcon from '../../../static/images/sortAsc.svg';
 import SortDescIcon from '../../../static/images/sortDesc.svg';
 import FastImage from 'react-native-fast-image';
-import {useQuery} from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
+import { selectMiniVodCollection } from '../../redux/actions/vodActions';
+import { API_DOMAIN, API_DOMAIN_TEST, API_DOMAIN_LOCAL } from '../../utility/constants';
+import { CollectionResponseType, MiniVideoCollectionItem } from '../../types/ajaxTypes';
+import { getMinuteSecond } from '../../utility/helper';
+import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
 import {
-  API_DOMAIN,
-  API_DOMAIN_TEST,
-  API_DOMAIN_LOCAL,
-} from '../../utility/constants';
-import {
-  CollectionResponseType,
-  MiniVideoCollectionItem,
-} from '../../types/ajaxTypes';
-import {getMinuteSecond} from '../../utility/helper';
+    VodReducerState,
+  } from '../../redux/reducers/vodReducer';
+  import { RootState } from '../../redux/store';
 
 interface Props {
-  sheetRef?: RefObject<BottomSheetMethods>;
-  collectionId: number;
-  collectionVideoList?: any;
-  collectionVideoId?: number;
-  collectionName?: string;
-  inCollectionView?: boolean;
-  changeEpisode: any;
+    sheetRef?: RefObject<BottomSheetMethods>;
+    collectionId: number;
+    collectionVideoList?: any;
+    collectionVideoId?: number;
+    collectionName?: string;
+    inCollectionView?: boolean;
+    changeEpisode: any;
+    currentVodIndex?: number;
+    changeCurrentVodIndex?: any;
 }
 
 interface TrimResType {
-  toPlayPosition: number;
-  trimmedItems: MiniVideoCollectionItem[];
+    toPlayPosition: number;
+    trimmedItems: MiniVideoCollectionItem[];
 }
 
-function CollectionBottomSheet({
-  changeEpisode,
-  sheetRef,
-  collectionName,
-  collectionVideoId = 0,
-  collectionId,
-  inCollectionView = false,
-}: Props) {
-  const navigation = useNavigation();
-  const [enabledUseQuery, setEnabledUseQuery] = useState(false);
-  const [totalCollectionEpisodes, setTotalCollectionEpisodes] = useState(0);
+function CollectionBottomSheet({ changeEpisode, sheetRef, collectionName, collectionVideoId = 0, collectionId, inCollectionView = false, currentVodIndex = 0 } : Props) {
+    
+    const vodReducer: VodReducerState = useAppSelector(
+        ({vodReducer}: RootState) => vodReducer,
+    );
+    
+    const navigation = useNavigation();
+    const dispatch = useAppDispatch();
+    const [enabledUseQuery, setEnabledUseQuery] = useState(false);
+    const [totalCollectionEpisodes, setTotalCollectionEpisodes] = useState(0);
+    const [itemIndex, setItemIndex] = useState(0);
 
-  const {
-    isLoading,
-    isError,
-    error,
-    data: collectionData,
-    isFetching,
-    isPreviousData,
-  } = useQuery(
-    ['collection', collectionId],
-    () =>
-      fetch(
-        `${API_DOMAIN_TEST}miniVod/v1/collections/${collectionVideoId}?limit=1000`,
-      )
-        .then(response => response.json())
-        .then((json: CollectionResponseType) => {
-          return json.data.List;
-        }),
-    {
-      enabled: enabledUseQuery,
-    },
-  );
-
-  useEffect(() => {
-    if (collectionData != undefined) {
-      setTotalCollectionEpisodes(collectionData.length);
-    }
-  }, [collectionData]);
-
-  const {colors, textVariants, spacing} = useTheme();
-  const snapPoints = useMemo(() => ['25%', '80%'], []);
-  const renderBackdrop = useCallback(
-    (
-      props: React.JSX.IntrinsicAttributes & BottomSheetDefaultBackdropProps,
-    ) => <BottomSheetBackdrop {...props} />,
-    [],
-  );
-
-  const handleSheetChanges = useCallback(
-    (index: number) => {
-      if (index === 0 && sheetRef?.current) {
-        sheetRef?.current.close();
-      }
-
-      if (index == 1) {
-        setEnabledUseQuery(true);
-      } else {
-        setEnabledUseQuery(false);
-      }
-    },
-    [sheetRef],
-  );
-
-  const trimVideosSize = (items: MiniVideoCollectionItem[], curr: number) => {
-    // trim into 3, prev + current + next
-
-    let trimmed = [];
-    let toPlayPosition = 0;
-    // if(items.length > 1){
-    //     trimmed.push(items[curr]);
-    //     if(curr + 1 < items.length){
-    //         trimmed.push(items[curr + 1]);
-    //     }
-    // }else{
-    //     trimmed.push(items[curr]);
-    // }
-    trimmed.push(items[curr]);
-
-    let res: TrimResType = {
-      trimmedItems: trimmed,
-      toPlayPosition: toPlayPosition,
-    };
-
-    return res;
-  };
-
-  const goToCollection = (item: MiniVideoCollectionItem, index: number) => {
-    if (collectionData !== undefined) {
-      let trimRes = trimVideosSize(collectionData, index);
-
-      if (inCollectionView == true) {
-        changeEpisode(item, index);
-      } else {
-        let tempTitle = item.mini_video_collection_title;
-        if (!item.mini_video_collection_title.includes('合集')) {
-          tempTitle + '合集';
+    const {
+        isLoading,
+        isError,
+        error,
+        data: collectionData,
+        isFetching,
+        isPreviousData,
+    } = useQuery(
+        ['collection', collectionId],
+        () =>
+        fetch(`${API_DOMAIN_TEST}miniVod/v1/collections/${collectionVideoId}?limit=1000`)
+            .then(response => response.json())
+            .then((json: CollectionResponseType) => {
+                return json.data.List
+            }),
+        {
+            enabled: enabledUseQuery
         }
-        navigation.navigate('合集播放', {
-          collection_id: item.mini_video_id,
-          collection_title: tempTitle,
-          collection_videos:
-            collectionData == undefined ? collectionData : trimRes.trimmedItems,
-          collection_video_display_position: index + 1,
-          collection_video_item_to_play: trimRes.toPlayPosition,
-          collection_enter_position: index,
-          collection_video_total_items:
-            collectionData == undefined ? 0 : collectionData.length,
-          collection_ori_all_videos: collectionData,
-        });
-      }
+    );
+
+    useEffect(() => {    
+        if(collectionData != undefined){
+            const itemIndex = collectionData.findIndex(obj => {
+                return obj.mini_video_id === collectionVideoId;
+            });
+            setItemIndex(itemIndex);
+            setTotalCollectionEpisodes(collectionData.length);
+        }
+    }, [collectionData])
+    
+    const { colors, textVariants, spacing } = useTheme();
+    const snapPoints = useMemo(() => ["25%", "80%"], []);
+    const renderBackdrop = useCallback(
+        (props: React.JSX.IntrinsicAttributes & BottomSheetDefaultBackdropProps) => <BottomSheetBackdrop {...props} />,
+        []);
+
+    const handleSheetChanges = useCallback((index: number) => {
+        if (index === 0 && sheetRef?.current) {
+            sheetRef?.current.close();
+        }
+
+        if(index == 1){
+            setEnabledUseQuery(true);
+        }else{
+            setEnabledUseQuery(false);
+        }
+    }, [sheetRef]);
+
+    const goToCollection = useCallback((item: MiniVideoCollectionItem, index: number) => {
+        if(collectionData !== undefined){
+            dispatch(selectMiniVodCollection(index));
+
+            if(inCollectionView == true){
+                changeEpisode(item, index)
+            }else{
+                navigation.navigate('合集播放', {
+                    collection_title: item.mini_video_collection_title + '合集',
+                    collection_videos: collectionData == undefined ? collectionData : [collectionData[index]],
+                    collection_video_display_position: index + 1,
+                    collection_video_total_items: collectionData == undefined ? 0 : collectionData.length,
+                });
+            }
+        }
+    }, [])
+
+    let selectedIndex = (vodReducer.miniVodCollectionItemIndex == 0) ? itemIndex : vodReducer.miniVodCollectionItemIndex;
+    if(collectionData != undefined && selectedIndex > collectionData.length - 1){
+        selectedIndex = 0;
     }
-  };
-  return (
-    <BottomSheet
-      ref={sheetRef}
-      index={-1}
-      snapPoints={snapPoints}
-      onChange={handleSheetChanges}
-      backdropComponent={renderBackdrop}
-      backgroundStyle={{
-        backgroundColor: '#171717',
-      }}
-      handleIndicatorStyle={{
-        backgroundColor: colors.text,
-      }}>
-      <View
-        style={{
-          ...styles.container,
-          // backgroundColor: colors.card,
-          backgroundColor: '#171717',
-          paddingLeft: spacing.sideOffset,
-          paddingRight: spacing.sideOffset,
-          gap: spacing.m,
-        }}>
-        <View style={{paddingTop: 16}}>
-          <Text style={{...textVariants.header, textAlign: 'center'}}>
-            {collectionName}
-            {!collectionName?.includes('合集') && <Text>合集</Text>}
-          </Text>
-          {isLoading ||
-            (!isFetching && (
-              <Text
-                style={{
-                  ...textVariants.subBody,
-                  textAlign: 'center',
-                  color: colors.sliderDot,
-                }}>
-                更新至{totalCollectionEpisodes}集
-              </Text>
-            ))}
-        </View>
-        <BottomSheetScrollView contentContainerStyle={styles.episodeList}>
-          {!isLoading && !isFetching ? (
-            <View style={{flex: 1}}>
-              {collectionData?.map(
-                (item: MiniVideoCollectionItem, index: number) => {
-                  return (
-                    <TouchableOpacity
-                      key={index}
-                      onPress={() => goToCollection(item, index)}
-                      style={{width: '100%', marginVertical: 8}}>
-                      <View
-                        style={{flex: 1, height: 150, flexDirection: 'row'}}>
-                        <View
-                          style={{
-                            flex: 2,
-                            backgroundColor: 'black',
-                            borderRadius: 6,
-                          }}>
-                          <FastImage
-                            style={{flex: 1, borderRadius: 6}}
-                            source={{
-                              uri: item.mini_video_origin_cover,
-                              cache: FastImage.cacheControl.web,
-                            }}
-                            resizeMode={FastImage.resizeMode.contain}
-                          />
-                        </View>
-                        <View
-                          style={{
-                            flex: 5,
-                            flexDirection: 'column',
-                            alignSelf: 'center',
-                          }}>
-                          <View style={{paddingLeft: 12}}>
-                            <Text
-                              numberOfLines={4}
-                              style={{
-                                ...textVariants.header,
-                                paddingBottom: 10,
-                              }}>
-                              {item.mini_video_title}
-                            </Text>
-                            <Text
-                              style={{
-                                ...textVariants.subBody,
-                                color: colors.sliderDot,
-                              }}>
-                              {getMinuteSecond(item.mini_video_duration)}
-                            </Text>
-                          </View>
-                        </View>
-                      </View>
-                    </TouchableOpacity>
-                  );
-                },
-              )}
-            </View>
-          ) : (
+    return (
+        <BottomSheet
+            ref={sheetRef}
+            index={-1}
+            snapPoints={snapPoints}
+            onChange={handleSheetChanges}
+            backdropComponent={renderBackdrop}
+            backgroundStyle={{
+                backgroundColor: '#171717',
+            }}
+            handleIndicatorStyle={{
+                backgroundColor: colors.text,
+            }}
+        >   
             <View
-              style={{
-                flex: 1,
-                alignContent: 'center',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-              <FastImage
-                style={{height: 80, width: 80}}
-                source={require('../../../static/images/loading-spinner.gif')}
-                resizeMode={FastImage.resizeMode.contain}
-              />
+                style={{
+                    ...styles.container,
+                    // backgroundColor: colors.card,
+                    backgroundColor: '#171717',
+                    paddingLeft: spacing.sideOffset,
+                    paddingRight: spacing.sideOffset,
+                    gap: spacing.m
+                }}
+            >
+                <View style={{ paddingTop: 16 }}>
+                    <Text style={{ ...textVariants.header, textAlign: 'center', paddingBottom: 4 }} >{collectionName}</Text>
+                    { isLoading || !isFetching &&
+                        <Text style={{ ...textVariants.subBody, textAlign: 'center', color: colors.sliderDot }} >更新至{totalCollectionEpisodes}集</Text>
+                    }
+                </View>
+
+                { (isLoading || isFetching ) &&
+                    <View style={{ flex: 1, alignContent: 'center', alignItems: 'center', justifyContent: 'center' }}>
+                        <FastImage
+                            style={{ height: 80, width: 80 }}
+                            source={require('../../../static/images/loading-spinner.gif')}
+                            resizeMode={FastImage.resizeMode.contain}
+                        />
+                    </View>
+                }
+                { !isLoading && !isFetching && collectionData != undefined &&
+                    <View style={{ flex: 1, marginRight: 8 }}>
+                        <FlatList
+                            data={collectionData}
+                            // initialNumToRender={3}
+                            // maxToRenderPerBatch={3}
+                            // windowSize={5}
+                            initialScrollIndex={selectedIndex}
+                            getItemLayout={(data, index) => ({
+                                length: 160,
+                                offset: 160 * index,
+                                index,
+                            })}
+                            showsVerticalScrollIndicator={false}
+                            renderItem={({ item, index }: { item: MiniVideoCollectionItem, index: number }) => {
+                                return <View style={{ width: '100%', height: 160}}>
+                                            <TouchableOpacity key={index} onPress={() => goToCollection(item, index)} style={[ styles.bottomSheetItem, index == selectedIndex ? styles.selectedBottomSheetItem : styles.notSelected ]}>
+                                                <View style={{ flex: 1, flexDirection: 'row' }}>
+                                                    <View style={{ flex: 2, backgroundColor: 'black', borderRadius: 6 }}>
+                                                        <Image
+                                                            defaultSource={{
+                                                                uri: 'https://i.ibb.co/d765qyH/image.png'
+                                                            }}
+                                                            source={{
+                                                                uri: item.mini_video_origin_cover,
+                                                            }}
+                                                            style={{ borderRadius: 6, height: '100%' }}
+                                                            resizeMode="contain"
+                                                        />
+                                                    </View>
+                                                    <View style={{ flex: 5, flexDirection: 'column', alignSelf: 'center' }}>
+                                                        <View style={{ paddingLeft: 12 }}>
+                                                            <Text numberOfLines={4} style={{...textVariants.header, paddingBottom: 10}}>{item.mini_video_title}</Text>
+                                                            <Text style={{...textVariants.subBody, color: colors.sliderDot}}>{getMinuteSecond(item.mini_video_duration)}</Text>
+                                                        </View>
+                                                    </View>
+                                                </View>
+                                            </TouchableOpacity>
+                                        </View>
+                            }}
+                            horizontal={false}
+                            keyExtractor={(item: any, index: any) => item.mini_video_id.toString()}
+                            showsHorizontalScrollIndicator={false}
+                        />
+                    </View>
+                }
             </View>
-          )}
-        </BottomSheetScrollView>
-      </View>
-    </BottomSheet>
-  );
-}
+        </BottomSheet>
+    )
+};
 
 const styles = StyleSheet.create({
-  container: {
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
-    flex: 1,
-    height: '100%',
-  },
-  episodeList: {
-    display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    // alignItems: 'flex-start',
-    paddingLeft: 10,
-  },
-});
+    container: {
+        borderTopLeftRadius: 30,
+        borderTopRightRadius: 30,
+        flex: 1,
+        height: '100%'
+    },
+    episodeList: {
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        // alignItems: 'flex-start',
+        paddingLeft: 10
+    },
+    bottomSheetItem: {
+        width: '100%',
+        marginVertical: 8,
+        padding: 10,
+        borderRadius: 6,
+        flex: 1,
+    },
+    selectedBottomSheetItem: {
+        backgroundColor: '#303030'
+    },
+    notSelected: {
+    }
+})
 
 export default memo(CollectionBottomSheet);
