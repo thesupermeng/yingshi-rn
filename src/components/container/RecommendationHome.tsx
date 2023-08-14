@@ -69,13 +69,18 @@ const RecommendationHome = ({
   const [activeIndex, setActiveIndex] = useState(0);
   const [results, setResults] = useState<Array<VodTopicType>>([]);
   const [isRefreshing, setIsRefreshing] = useState(false);
-
+  const carouselRef = useRef<any>();
   const {width, height} = Dimensions.get('window');
   // Function to handle the pull-to-refresh action
-  const handleRefresh = () => {
+  const handleRefresh = async () => {
     setIsRefreshing(true);
     onRefresh(0);
+
     setTimeout(() => {
+      setActiveIndex(0);
+      if (carouselRef) {
+        carouselRef?.current?.scrollTo({index: 0, animated: false});
+      }
       setIsRefreshing(false);
     }, 0);
   };
@@ -133,9 +138,9 @@ const RecommendationHome = ({
     }
   }, [liveStations]);
 
-  useEffect(() => {
-    setActiveIndex(0);
-  }, [refreshProp]);
+  // useEffect(() => {
+  //   setActiveIndex(0);
+  // }, [refreshProp]);
 
   return (
     <>
@@ -160,6 +165,7 @@ const RecommendationHome = ({
                     zIndex: 9999,
                   }}>
                   <Carousel
+                    ref={carouselRef}
                     loop
                     width={width - spacing.sideOffset - spacing.sideOffset}
                     height={width / 2}
