@@ -254,7 +254,8 @@ export const YingshiLightTheme: ExtendedTheme = {
     playlistFavorite: palette.dark,
     loading: palette.grey,
     highlight: palette.yello_translucent,
-    selected: palette.dark2
+    selected: palette.dark2,
+    sportsSecondary: palette.orange_sports
   },
   textVariants: {
     bigHeader: {

@@ -1,6 +1,6 @@
 import React, {useEffect, useState, useMemo} from 'react';
 
-import {StatusBar, View} from 'react-native';
+import {View} from 'react-native';
 import styles from './style';
 import Basic from '../../components/basicApp';
 import ZhuboPage from './zhuboPage';

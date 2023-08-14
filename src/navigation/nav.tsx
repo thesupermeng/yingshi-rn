@@ -57,7 +57,7 @@ import {
   SafeAreaProvider,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
-import { StatusBar, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import { useAppSelector } from '../hooks/hooks';
 import { QueryClient, useQuery } from '@tanstack/react-query';
@@ -80,7 +80,6 @@ export default () => {
   if (hasNotch) {
     iconWidth = 22;
   }
-
   function HomeTabScreen() {
     return (
       <HomeTab.Navigator
@@ -182,6 +181,10 @@ export default () => {
           screenOptions={({ route }) => ({
             headerShown: false,
             animation: 'slide_from_right',
+            contentStyle: {
+              flex: 1,
+            },
+            // style
           })}>
           <Stack.Screen
             name="Home"
@@ -212,7 +215,7 @@ export default () => {
             name="播放"
             component={PlayScreen}
             initialParams={{ vod_id: 1 }}
-            options={{ orientation: 'all', navigationBarColor: theme.colors.background }}
+            options={{ orientation: 'all', navigationBarColor: 'black' }}
           />
           <Stack.Screen
             name="播放历史"
@@ -304,7 +307,7 @@ const styles = StyleSheet.create({
   },
   navStyle: {
     paddingTop: 6,
-    paddingBottom: 8,
-    height: 50,
+    // paddingBottom: 8,
+    // height: 50,
   },
 });

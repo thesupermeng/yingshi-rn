@@ -3,7 +3,6 @@ import {
   Animated,
   ImageBackground,
   SafeAreaView,
-  StatusBar,
   StyleSheet,
   Text,
   View,

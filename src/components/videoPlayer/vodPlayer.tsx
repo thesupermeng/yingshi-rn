@@ -118,12 +118,22 @@ export default ({
     }
   }, [isPotrait]);
 
+  const handleOrientation = (orientation: any) => {
+    if (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT') {
+      StatusBar.setHidden(true)
+      setIsFullScreen(true);
+      controlsRef.current.hideSlider();
+    } else {
+      // StatusBar.setHidden(false);
+      setIsFullScreen(false);
+    }
+  };
   useEffect(() => {
     Orientation.addOrientationListener(handleOrientation);
     return () => {
       Orientation.removeOrientationListener(handleOrientation);
     };
-  }, []);
+  }, [handleOrientation, Orientation, StatusBar]);
 
   useEffect(() => {
     // ... (rest of the useEffect hook remains unchanged)
@@ -145,21 +155,11 @@ export default ({
     }
   };
 
-  const handleOrientation = (orientation: any) => {
-    if (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT') {
-      StatusBar.setHidden(true);
-      setIsFullScreen(true);
-      controlsRef.current.hideSlider();
-    } else {
-      StatusBar.setHidden(false);
-      setIsFullScreen(false);
-    }
-  };
 
   const onToggleFullScreen = useCallback(() => {
     if (isFullScreen) {
-      // Orientation.lockToPortrait();
-      StatusBar.setHidden(false);
+      Orientation.lockToPortrait();
+      // StatusBar.setHidden(false);
       setIsFullScreen(false);
     } else {
       Orientation.lockToLandscape();
@@ -228,7 +228,7 @@ export default ({
     } else {
       if (isFullScreen) {
         Orientation.lockToPortrait();
-        StatusBar.setHidden(false);
+        // StatusBar.setHidden(false);
         setIsFullScreen(false);
       } else {
         setIsPaused(true);
@@ -252,10 +252,10 @@ export default ({
   }
 
   return (
-    <>
+    <View style={isFullScreen ? styles.containerLandscape : styles.containerPortrait}>
+      {isFullScreen ? <StatusBar hidden={true} /> : <StatusBar backgroundColor={colors.background} barStyle='light-content' />}
       <View style={{
         ...styles.bofangBox, aspectRatio: isFullScreen ? 926 / 428 : 16 / 9,
-        height: isFullScreen ? '100%' : 'auto',
       }}>
         {(vod_url !== undefined || vod_source !== undefined) &&
           (useWebview ? (
@@ -399,7 +399,7 @@ export default ({
           </View>
         )}
       </View>
-    </>
+    </View>
   );
 };
 
@@ -415,13 +415,12 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     backgroundColor: 'black',
+    alignSelf: 'center'
   },
   bofangBox: {
     aspectRatio: 16 / 9,
-    width: '100%',
     maxHeight: '100%',
     maxWidth: '100%',
-    display: 'flex',
   },
   buffering: {
     display: 'flex',
@@ -431,4 +430,12 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: '100%',
   },
+  containerLandscape: {
+    backgroundColor: 'black',
+    display: 'flex',
+    alignItems: 'center'
+  },
+  containerPortrait: {
+    backgroundColor: 'black',
+  }
 });
