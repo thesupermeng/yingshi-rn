@@ -136,13 +136,13 @@ export default ({
                   onSlidingStart={onSlideStart}
                   onSlidingComplete={onSlideComplete}
                   minimumTrackTintColor={'#FAC33D'}
-                  maximumTrackTintColor={'#FFFFFF'}
+                  maximumTrackTintColor='rgba(255,255,255,0.2)'
                   thumbTintColor={'#FFFFFF'}
                   // thumbImage={Platform.OS === 'ios' ? thumbImage : undefined}
                   thumbStyle={{ height: 15, width: 15 }}
                   style={{ flex: 16, marginTop: 2 }}
                 />
-                <View style={[styles.timeWrapperLandscape]}>
+                <View style={{...styles.timeWrapperLandscape}}>
                   <Text style={styles.timeLeftLandscape}>
                     {new Date(currentTime * 1000).toISOString().substring(11, 19)}
                   </Text>
