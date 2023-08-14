@@ -117,14 +117,14 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
         }, [])
     )
 
-    const checkConnection = async () => {
+    const checkConnection = useCallback(async () => {
         const state = await NetInfo.fetch();
         const offline = !(state.isConnected && state.isInternetReachable);
         setIsOffline(offline);
         if (!offline) {
             handleRefresh();
         }
-    };
+    }, []);
 
     useEffect(() => {
         const removeNetInfoSubscription = NetInfo.addEventListener(
