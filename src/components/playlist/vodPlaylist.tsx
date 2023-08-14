@@ -38,7 +38,7 @@ export default function VodPlaylist({playlist, titleStyle}: Props) {
       eventName,
       eventValues,
       res => {
-        console.log(res);
+        // console.log(res);
       },
       err => {
         console.error(err);
