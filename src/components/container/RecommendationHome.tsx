@@ -54,7 +54,7 @@ const RecommendationHome = ({
   vodCarouselRes,
   setScrollEnabled,
   onRefresh,
-  refreshProp,
+  refreshProp = false,
   onLoad = () => {},
 }: Props) => {
   const {colors, textVariants, spacing} = useTheme();
@@ -69,11 +69,20 @@ const RecommendationHome = ({
   const [activeIndex, setActiveIndex] = useState(0);
   const [results, setResults] = useState<Array<VodTopicType>>([]);
   const [isRefreshing, setIsRefreshing] = useState(false);
-
+  const carouselRef = useRef<any>();
   const {width, height} = Dimensions.get('window');
   // Function to handle the pull-to-refresh action
-  const handleRefresh = () => {
+  const handleRefresh = async () => {
+    setIsRefreshing(true);
     onRefresh(0);
+
+    setTimeout(() => {
+      setActiveIndex(0);
+      if (carouselRef) {
+        carouselRef?.current?.scrollTo({index: 0, animated: false});
+      }
+      setIsRefreshing(false);
+    }, 0);
   };
 
   const fetchPlaylist = (page: number) =>
@@ -129,9 +138,10 @@ const RecommendationHome = ({
     }
   }, [liveStations]);
 
-  useEffect(() => {
-    setActiveIndex(0);
-  }, [refreshProp]);
+  // useEffect(() => {
+  //   setActiveIndex(0);
+  // }, [refreshProp]);
+
   return (
     <>
       {liveStations && liveStations?.length > 0 && (
@@ -155,6 +165,7 @@ const RecommendationHome = ({
                     zIndex: 9999,
                   }}>
                   <Carousel
+                    ref={carouselRef}
                     loop
                     width={width - spacing.sideOffset - spacing.sideOffset}
                     height={width / 2}
@@ -231,6 +242,7 @@ const RecommendationHome = ({
                         vodStyle={styles.vod_hotlist}
                         vodList={history.slice(0, 10)}
                         showInfo="watch_progress"
+                        isRefreshing={isRefreshing}
                       />
                     </View>
                   </View>
@@ -262,6 +274,7 @@ const RecommendationHome = ({
                       <VodLiveStationList
                         vodStyle={styles.vod_live_station}
                         liveStationList={liveStations.slice(0, 10)}
+                        isRefreshing={isRefreshing}
                       />
                     </View>
                   ) : (

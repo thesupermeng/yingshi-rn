@@ -1,4 +1,10 @@
-import {useState} from 'react';
+import {
+  useRef,
+  useState,
+  forwardRef,
+  useImperativeHandle,
+  useEffect,
+} from 'react';
 import {StyleSheet, TouchableOpacity, Image, ViewStyle} from 'react-native';
 import {useNavigation, useTheme} from '@react-navigation/native';
 import {useQuery} from '@tanstack/react-query';
@@ -15,23 +21,41 @@ interface Props {
   horizontal?: boolean;
   liveStationList?: Array<LiveTVStationItem>;
   showInfo?: 'none' | 'watch_progress';
+  isRefreshing?: boolean;
 }
 type LiveStationType = {
   item: LiveTVStationItem;
 };
 
-export default function VodLiveStationList({
-  vodStyle,
-  horizontal = true,
-  liveStationList = [],
-  showInfo = 'none',
-}: Props) {
+export default function VodLiveStationList(
+  {
+    vodStyle,
+    horizontal = true,
+    liveStationList = [],
+    showInfo = 'none',
+    isRefreshing = false,
+  }: Props,
+  ref: any,
+) {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
+  const liveRef = useRef<FlatList>(null);
+
+  const resetListPositionHandler = () => {
+    liveRef?.current?.scrollToIndex({
+      index: 0,
+    });
+  };
+
+  useEffect(() => {
+    resetListPositionHandler(); //children function of interest
+  }, [isRefreshing]);
 
   return (
     <FlatList
+      ref={liveRef}
       data={liveStationList}
+      initialScrollIndex={0}
       horizontal
       showsHorizontalScrollIndicator={false}
       renderItem={({item}: LiveStationType) => {

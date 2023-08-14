@@ -112,6 +112,8 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
       setNavId(id);
       setHideContent(false);
       setShowHomeLoading(false);
+
+      return;
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -257,7 +259,7 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
             }
           </View>
         )}
-        {showHomeLoading && !isOffline && (
+        {showHomeLoading && !isOffline && navOptions && (
           <View
             style={{
               flex: 1,

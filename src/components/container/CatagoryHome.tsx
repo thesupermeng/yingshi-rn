@@ -74,12 +74,24 @@ const CatagoryHome = ({
   const navigation = useNavigation();
   const [activeIndex, setActiveIndex] = useState(0);
   const data = vodCarouselRes.data;
-
+  const carouselRef = useRef<any>();
+  const categoryListRef = useRef<any>();
   const width = Dimensions.get('window').width;
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const handleRefresh = useCallback(() => {
+  // Function to handle the pull-to-refresh action
+  const handleRefresh = async () => {
+    setIsRefreshing(true);
     onRefresh(navId);
-  }, []);
+
+    setTimeout(() => {
+      categoryListRef?.current?.scrollToIndex({index: 0, viewOffset: 24});
+      setActiveIndex(0);
+      if (carouselRef) {
+        carouselRef?.current?.scrollTo({index: 0, animated: false});
+      }
+      setIsRefreshing(false);
+    }, 0);
+  };
 
   const listItem = useCallback(
     ({item, index}: {item: VodData; index: number}) => (
@@ -105,9 +117,9 @@ const CatagoryHome = ({
     [],
   );
 
-  useEffect(() => {
-    setActiveIndex(0);
-  }, [refreshProp]);
+  // useEffect(() => {
+  //   setActiveIndex(0);
+  // }, [refreshProp]);
 
   return (
     <>
@@ -131,6 +143,7 @@ const CatagoryHome = ({
                   zIndex: 9999,
                 }}>
                 <Carousel
+                  ref={carouselRef}
                   loop
                   width={width - spacing.sideOffset - spacing.sideOffset}
                   height={width / 2}
@@ -189,6 +202,7 @@ const CatagoryHome = ({
             <View>
               {data && data.class_list && data.class_list.length > 0 && (
                 <FlatListSecondary
+                  ref={categoryListRef}
                   data={['全部剧集', ...data.class_list]}
                   horizontal
                   showsHorizontalScrollIndicator={false}
