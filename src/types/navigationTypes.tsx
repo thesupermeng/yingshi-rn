@@ -38,9 +38,6 @@ export type RootStackParamList = {
   Playlist: BottomTabScreenProps<PlaylistTabParamList>;
   WatchAnytime: BottomTabScreenProps<WatchAnytimeTabParamList>;
   Home: BottomTabScreenProps<HomeTabParamList>;
-
-  //视频收藏: undefined;
-  //播单收藏: undefined;
   我的收藏: undefined;
   合集收藏: undefined;
   播放历史: undefined;
@@ -79,9 +76,7 @@ export type RootStackParamList = {
     streamerId?: number;
     sportType?: '足球' | '篮球';
   };
-  合集播放: {
-
-  }
+  合集播放: {};
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> =
