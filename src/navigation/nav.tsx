@@ -299,5 +299,6 @@ const styles = StyleSheet.create({
     paddingTop: 6,
     // paddingBottom: 8,
     // height: 50,
+    marginBottom: 8, //solve Navigation bar 底部少了空位
   },
 });
