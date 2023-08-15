@@ -143,7 +143,7 @@ const RecommendationHome = ({
   // }, [refreshProp]);
 
   return (
-    <>
+    <View style={{width: width}}>
       {liveStations && liveStations?.length > 0 && (
         <FlatList
           refreshControl={
@@ -394,7 +394,7 @@ const RecommendationHome = ({
           }
         />
       )}
-    </>
+    </View>
   );
 };
 

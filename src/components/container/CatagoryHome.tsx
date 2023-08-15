@@ -122,7 +122,7 @@ const CatagoryHome = ({
   // }, [refreshProp]);
 
   return (
-    <>
+    <View style={{width: width}}>
       <FlatList
         refreshControl={
           <RefreshControl
@@ -288,7 +288,7 @@ const CatagoryHome = ({
         renderItem={listItem}
       />
       <View style={{paddingBottom: 100}} />
-    </>
+    </View>
   );
 };
 
