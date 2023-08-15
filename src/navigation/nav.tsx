@@ -181,10 +181,6 @@ export default () => {
           screenOptions={({ route }) => ({
             headerShown: false,
             animation: 'slide_from_right',
-            contentStyle: {
-              flex: 1,
-            },
-            // style
           })}>
           <Stack.Screen
             name="Home"
@@ -307,7 +303,8 @@ const styles = StyleSheet.create({
   },
   navStyle: {
     paddingTop: 6,
-    // paddingBottom: 8,
-    // height: 50,
+    paddingBottom: 8,
+    flex: 0,
+    flexGrow: 0
   },
 });

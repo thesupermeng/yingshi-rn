@@ -19,7 +19,6 @@ import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { MiniVideo } from '../types/ajaxTypes';
 import MiniVideoList from '../components/videoPlayer/miniVodList';
 import { API_DOMAIN, API_DOMAIN_TEST, API_DOMAIN_LOCAL } from '../utility/constants';
-import Orientation from 'react-native-orientation-locker';
 import { StyleSheet } from 'react-native';
 import TitleWithBackButtonHeader from '../components/header/titleWithBackButtonHeader';
 import BackIcon from '../../static/images/back_arrow.svg';

@@ -204,8 +204,8 @@ export default forwardRef<RefHandler, Props>(({
     <Animated.View
       style={{ ...styles.controlsOverlay }}>
       {
-        !showControls &&
-        <VodCombinedGesture
+        !showControls && !isLocked &&
+        <VodCombinedGesture                                                                                 
           vodType={videoType}
           enabled={showSlider === 'none'}
           onSkipBackwards={() => handleFastForward(-10)}

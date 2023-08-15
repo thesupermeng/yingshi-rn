@@ -48,11 +48,17 @@ target 'yingshi' do
     # Pods for testing
   end
 
-  # 按需复制相应SDK名称代码
-  # pod <友盟+统计> 
+  # UMPlusDemo为工程target名
+  pod 'UMCommon'   
+  pod 'UMDevice'
+
+  # pod <友盟+SDK名> 按需复制相应SDK名称代码
+
   # 依赖库
-  # pod 'UMCommon'
-  # 更多可用Pod 代码，请参见 可用pod 列表
+
+  pod 'UMCCommonLog'
+  # 必选，APM组件，原错误分析升级为独立产品U-APM
+  pod 'UMAPM' 	
 
   post_install do |installer|
     react_native_post_install(

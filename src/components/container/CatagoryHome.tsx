@@ -1,4 +1,4 @@
-import React, {memo, useState, useRef, useCallback, useEffect} from 'react';
+import React, { memo, useState, useRef, useCallback, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -9,8 +9,8 @@ import {
   Dimensions,
   FlatList,
 } from 'react-native';
-import {FlatList as FlatListSecondary} from 'react-native-gesture-handler';
-import {useNavigation, useTheme} from '@react-navigation/native';
+import { FlatList as FlatListSecondary } from 'react-native-gesture-handler';
+import { useNavigation, useTheme } from '@react-navigation/native';
 import Swiper from 'react-native-swiper';
 import ShowMoreVodButton from '../button/showMoreVodButton';
 import {
@@ -22,15 +22,15 @@ import {
   VodData,
 } from '../../types/ajaxTypes';
 import FastImage from 'react-native-fast-image';
-import {VodReducerState} from '../../redux/reducers/vodReducer';
-import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
-import {RootState} from '../../redux/store';
+import { VodReducerState } from '../../redux/reducers/vodReducer';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
+import { RootState } from '../../redux/store';
 import VodHistoryList from '../vod/vodHistoryList';
 import VodLiveStationList from '../vod/vodLiveStationList';
-import {API_DOMAIN, API_DOMAIN_TEST} from '../../utility/constants';
+import { API_DOMAIN, API_DOMAIN_TEST } from '../../utility/constants';
 import VodListVertical from '../vod/vodListVertical';
-import {playVod, viewPlaylistDetails} from '../../redux/actions/vodActions';
-import {useQuery, useInfiniteQuery} from '@tanstack/react-query';
+import { playVod, viewPlaylistDetails } from '../../redux/actions/vodActions';
+import { useQuery, useInfiniteQuery } from '@tanstack/react-query';
 import LinearGradient from 'react-native-linear-gradient';
 import Carousel from 'react-native-reanimated-carousel';
 import CarouselPagination from './CarouselPagination';
@@ -69,7 +69,7 @@ const CatagoryHome = ({
   onRefresh,
   refreshProp,
 }: Props) => {
-  const {colors, textVariants, spacing} = useTheme();
+  const { colors, textVariants, spacing } = useTheme();
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const [activeIndex, setActiveIndex] = useState(0);
@@ -82,19 +82,18 @@ const CatagoryHome = ({
   const handleRefresh = async () => {
     setIsRefreshing(true);
     onRefresh(navId);
-
     setTimeout(() => {
-      categoryListRef?.current?.scrollToIndex({index: 0, viewOffset: 24});
+      categoryListRef?.current?.scrollToIndex({ index: 0, viewOffset: 24 });
       setActiveIndex(0);
       if (carouselRef) {
-        carouselRef?.current?.scrollTo({index: 0, animated: false});
+        carouselRef?.current?.scrollTo({ index: 0, animated: false });
       }
       setIsRefreshing(false);
     }, 0);
   };
 
   const listItem = useCallback(
-    ({item, index}: {item: VodData; index: number}) => (
+    ({ item, index }: { item: VodData; index: number }) => (
       <View
         key={`${item.type_name}-${index}`}
         style={{
@@ -117,178 +116,172 @@ const CatagoryHome = ({
     [],
   );
 
-  // useEffect(() => {
-  //   setActiveIndex(0);
-  // }, [refreshProp]);
-
   return (
-    <>
-      <FlatList
-        refreshControl={
-          <RefreshControl
-            refreshing={isRefreshing}
-            onRefresh={handleRefresh}
-            tintColor="#FAC33D"
-          />
-        }
-        ListHeaderComponent={
-          <>
-            {data?.carousel[0] && !refreshProp && (
-              <View
-                style={{
-                  flex: 1,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  borderRadius: 17,
-                  zIndex: 9999,
-                }}>
-                <Carousel
-                  ref={carouselRef}
-                  loop
-                  width={width - spacing.sideOffset - spacing.sideOffset}
-                  height={width / 2}
-                  autoPlay={true}
-                  data={data.carousel}
-                  scrollAnimationDuration={500}
-                  autoPlayInterval={2300}
-                  onSnapToItem={index => {
-                    setActiveIndex(index);
-                  }}
-                  onScrollEnd={index => {
-                    setActiveIndex(index);
-                  }}
-                  // onSnapToItem={index => console.log('current index:', index)}
-                  renderItem={({item, index}) => (
+    <FlatList
+      refreshControl={
+        <RefreshControl
+          refreshing={isRefreshing}
+          onRefresh={handleRefresh}
+          tintColor="#FAC33D"
+        />
+      }
+      ListHeaderComponent={
+        <>
+          {data?.carousel[0] && !refreshProp && (
+            <View
+              style={{
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderRadius: 17,
+                zIndex: 9999,
+              }}>
+              <Carousel
+                ref={carouselRef}
+                loop
+                width={width - spacing.sideOffset - spacing.sideOffset}
+                height={width / 2}
+                autoPlay={true}
+                data={data.carousel}
+                scrollAnimationDuration={500}
+                autoPlayInterval={2300}
+                onSnapToItem={index => {
+                  setActiveIndex(index);
+                }}
+                onScrollEnd={index => {
+                  setActiveIndex(index);
+                }}
+                // onSnapToItem={index => console.log('current index:', index)}
+                renderItem={({ item, index }) => (
+                  <TouchableOpacity
+                    key={`slider-${index}`}
+                    onPress={() => {
+                      dispatch(playVod(item.vod));
+                      navigation.navigate('播放', {
+                        vod_id: item.carousel_content_id,
+                      });
+                    }}>
+                    <FastImage
+                      style={styles.image}
+                      source={{
+                        uri: item.carousel_pic_mobile,
+                        priority: FastImage.priority.normal,
+                      }}
+                      resizeMode={FastImage.resizeMode.contain}
+                    />
+                    <LinearGradient
+                      colors={['transparent', 'black']}
+                      start={{ x: 0.8, y: 0 }}
+                      end={{ x: 0.8, y: 0.9 }}
+                      style={styles.bottomBlur}
+                    />
+                    <Text
+                      style={{
+                        ...textVariants.bodyBold,
+                        ...styles.carouselTag,
+                        color: 'white',
+                      }}
+                      numberOfLines={1}>
+                      {item.carousel_name}
+                    </Text>
+                  </TouchableOpacity>
+                )}
+              />
+              <CarouselPagination
+                data={data.carousel}
+                activeIndex={activeIndex}
+              />
+            </View>
+          )}
+          <View>
+            {data && data.class_list && data.class_list.length > 0 && (
+              <FlatListSecondary
+                ref={categoryListRef}
+                data={['全部剧集', ...data.class_list]}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                initialNumToRender={5}
+                contentContainerStyle={{
+                  ...styles.catalogNav,
+                  marginBottom: spacing.m,
+                  paddingLeft: spacing.sideOffset,
+                  paddingRight: spacing.sideOffset,
+                }}
+                renderItem={({
+                  item,
+                  index,
+                }: {
+                  item: string;
+                  index: number;
+                }) => {
+                  return (
                     <TouchableOpacity
-                      key={`slider-${index}`}
-                      onPress={() => {
-                        dispatch(playVod(item.vod));
-                        navigation.navigate('播放', {
-                          vod_id: item.carousel_content_id,
-                        });
-                      }}>
-                      <FastImage
-                        style={styles.image}
-                        source={{
-                          uri: item.carousel_pic_mobile,
-                          priority: FastImage.priority.normal,
-                        }}
-                        resizeMode={FastImage.resizeMode.contain}
-                      />
-                      <LinearGradient
-                        colors={['transparent', 'black']}
-                        start={{x: 0.8, y: 0}}
-                        end={{x: 0.8, y: 0.9}}
-                        style={styles.bottomBlur}
-                      />
+                      style={{
+                        marginRight: spacing.m,
+                        justifyContent: 'center',
+                        display: 'flex',
+                        backgroundColor:
+                          BTN_COLORS[index % BTN_COLORS.length],
+                        paddingLeft: spacing.s,
+                        paddingRight: spacing.s,
+                        paddingTop: spacing.s - 4,
+                        paddingBottom: spacing.s - 1,
+                        borderRadius: spacing.xs,
+                        opacity: 0.9,
+                      }}
+                      onPress={() =>
+                        navigation.navigate('片库', {
+                          type_id: navId,
+                          class: item,
+                        })
+                      }>
                       <Text
                         style={{
-                          ...textVariants.bodyBold,
-                          ...styles.carouselTag,
-                          color: 'white',
-                        }}
-                        numberOfLines={1}>
-                        {item.carousel_name}
+                          textAlign: 'center',
+                          ...textVariants.body,
+                          fontWeight: '700',
+                          opacity: 0.9,
+                        }}>
+                        {item}
                       </Text>
                     </TouchableOpacity>
-                  )}
-                />
-                <CarouselPagination
-                  data={data.carousel}
-                  activeIndex={activeIndex}
-                />
-              </View>
+                  );
+                }}
+              />
             )}
-            <View>
-              {data && data.class_list && data.class_list.length > 0 && (
-                <FlatListSecondary
-                  ref={categoryListRef}
-                  data={['全部剧集', ...data.class_list]}
-                  horizontal
-                  showsHorizontalScrollIndicator={false}
-                  initialNumToRender={5}
-                  contentContainerStyle={{
-                    ...styles.catalogNav,
-                    marginBottom: spacing.m,
+            {data?.yunying &&
+              data.yunying.length > 0 &&
+              data.yunying.map((item, index) => (
+                <View
+                  key={item.type_name}
+                  style={{
                     paddingLeft: spacing.sideOffset,
                     paddingRight: spacing.sideOffset,
-                  }}
-                  renderItem={({
-                    item,
-                    index,
-                  }: {
-                    item: string;
-                    index: number;
-                  }) => {
-                    return (
-                      <TouchableOpacity
-                        style={{
-                          marginRight: spacing.m,
-                          justifyContent: 'center',
-                          display: 'flex',
-                          backgroundColor:
-                            BTN_COLORS[index % BTN_COLORS.length],
-                          paddingLeft: spacing.s,
-                          paddingRight: spacing.s,
-                          paddingTop: spacing.s - 4,
-                          paddingBottom: spacing.s - 1,
-                          borderRadius: spacing.xs,
-                          opacity: 0.9,
-                        }}
-                        onPress={() =>
-                          navigation.navigate('片库', {
-                            type_id: navId,
-                            class: item,
-                          })
-                        }>
-                        <Text
-                          style={{
-                            textAlign: 'center',
-                            ...textVariants.body,
-                            fontWeight: '700',
-                            opacity: 0.9,
-                          }}>
-                          {item}
-                        </Text>
-                      </TouchableOpacity>
-                    );
-                  }}
-                />
-              )}
-              {data?.yunying &&
-                data.yunying.length > 0 &&
-                data.yunying.map((item, index) => (
-                  <View
-                    key={item.type_name}
-                    style={{
-                      paddingLeft: spacing.sideOffset,
-                      paddingRight: spacing.sideOffset,
-                      gap: spacing.m,
-                    }}>
-                    <View>
-                      <ShowMoreVodButton
-                        text={item.type_name}
-                        onPress={() => {
-                          navigation.navigate('片库', {
-                            type_id: item.vod_list[0].type_id,
-                          });
-                        }}
-                      />
-                    </View>
-                    <VodListVertical vods={item.vod_list} />
+                    gap: spacing.m,
+                  }}>
+                  <View>
+                    <ShowMoreVodButton
+                      text={item.type_name}
+                      onPress={() => {
+                        navigation.navigate('片库', {
+                          type_id: item.vod_list[0].type_id,
+                        });
+                      }}
+                    />
                   </View>
-                ))}
-            </View>
-          </>
-        }
-        data={data?.categories ? data?.categories : []}
-        initialNumToRender={1}
-        windowSize={3}
-        maxToRenderPerBatch={3}
-        renderItem={listItem}
-      />
-      <View style={{paddingBottom: 100}} />
-    </>
+                  <VodListVertical vods={item.vod_list} />
+                </View>
+              ))}
+          </View>
+        </>
+      }
+      data={data?.categories ? data?.categories : []}
+      initialNumToRender={1}
+      windowSize={3}
+      maxToRenderPerBatch={3}
+      renderItem={listItem}
+      contentContainerStyle={{paddingBottom: 100}}
+    />
   );
 };
 
