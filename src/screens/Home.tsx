@@ -139,26 +139,24 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
     }) => {
       return (
         <>
-          <View style={{width: width}}>
-            {item?.data !== undefined &&
-              (index === 0 ? (
-                <RecommendationHome
-                  vodCarouselRes={item.data}
-                  setScrollEnabled={setScrollEnabled}
-                  onRefresh={handleRefresh}
-                  onLoad={handleShowLoading}
-                  refreshProp={isRefreshing}
-                />
-              ) : (
-                <CatagoryHome
-                  vodCarouselRes={item.data}
-                  navId={index}
-                  setScrollEnabled={setScrollEnabled}
-                  onRefresh={handleRefresh}
-                  refreshProp={isRefreshing}
-                />
-              ))}
-          </View>
+          {item?.data !== undefined &&
+            (index === 0 ? (
+              <RecommendationHome
+                vodCarouselRes={item.data}
+                setScrollEnabled={setScrollEnabled}
+                onRefresh={handleRefresh}
+                onLoad={handleShowLoading}
+                refreshProp={isRefreshing}
+              />
+            ) : (
+              <CatagoryHome
+                vodCarouselRes={item.data}
+                navId={index}
+                setScrollEnabled={setScrollEnabled}
+                onRefresh={handleRefresh}
+                refreshProp={isRefreshing}
+              />
+            ))}
         </>
       );
     },

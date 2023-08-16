@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   NavigationContainer,
   RouteProp,
   getFocusedRouteNameFromRoute,
 } from '@react-navigation/native';
 
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import HomeScreen from '../screens/Home';
 import PlaylistScreen from '../screens/Playlist/Playlist';
@@ -43,7 +43,7 @@ import MatchesScreen from '../Sports/screens/Sports/Matches';
 import MatchDetailsScreen from '../Sports/screens/Sports/MatchDetails';
 import WatchCollectionScreen from '../../src/screens/WatchCollection';
 
-import { YingshiDarkTheme, YingshiLightTheme } from '../utility/theme';
+import {YingshiDarkTheme, YingshiLightTheme} from '../utility/theme';
 import {
   HomeTabParamList,
   PlaylistTabParamList,
@@ -52,25 +52,25 @@ import {
   WatchAnytimeTabParamList,
 } from '../types/navigationTypes';
 import RNBootSplash from 'react-native-bootsplash';
-import { RootState } from '../redux/store';
+import {RootState} from '../redux/store';
 import {
   SafeAreaProvider,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 import DeviceInfo from 'react-native-device-info';
-import { useAppSelector } from '../hooks/hooks';
-import { QueryClient, useQuery } from '@tanstack/react-query';
-import { API_DOMAIN, UMENG_CHANNEL } from '../../src/utility/constants';
-import { BottomNavTabsResponse } from '../../src/types/ajaxTypes';
-import { YSConfig } from '../../ysConfig';
+import {useAppSelector} from '../hooks/hooks';
+import {QueryClient, useQuery} from '@tanstack/react-query';
+import {API_DOMAIN, UMENG_CHANNEL} from '../../src/utility/constants';
+import {BottomNavTabsResponse} from '../../src/types/ajaxTypes';
+import {YSConfig} from '../../ysConfig';
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
   const HomeTab = createBottomTabNavigator<HomeTabParamList>();
 
   const themeReducer = useAppSelector(
-    ({ themeReducer }: RootState) => themeReducer,
+    ({themeReducer}: RootState) => themeReducer,
   );
   const theme = themeReducer.theme ? YingshiDarkTheme : YingshiLightTheme;
 
@@ -83,10 +83,10 @@ export default () => {
   function HomeTabScreen() {
     return (
       <HomeTab.Navigator
-        screenOptions={({ route }) => ({
+        screenOptions={({route}) => ({
           headerShown: false,
           tabBarStyle: hasNotch ? styles.navStyleWithNotch : styles.navStyle,
-          tabBarIcon: ({ focused, color, size }) => {
+          tabBarIcon: ({focused, color, size}) => {
             let icon: React.ReactNode;
 
             if (route.name === '首页') {
@@ -178,92 +178,82 @@ export default () => {
       <NavigationContainer theme={theme} onReady={() => RNBootSplash.hide()}>
         <Stack.Navigator
           initialRouteName="Home"
-          screenOptions={({ route }) => ({
+          screenOptions={({route}) => ({
             headerShown: false,
             animation: 'slide_from_right',
           })}>
           <Stack.Screen
             name="Home"
             component={HomeTabScreen}
-            options={{ orientation: 'portrait' }}
+            options={{orientation: 'portrait'}}
           />
           <Stack.Screen
             name="我的收藏"
             component={MainCollectionScreen}
-            options={{ orientation: 'portrait' }}
-          />
-          {/* <Stack.Screen
-            name="视频收藏"
-            component={VodCollectionScreen}
             options={{orientation: 'portrait'}}
           />
-          <Stack.Screen
-            name="播单收藏"
-            component={PlaylistCollectionScreen}
-            options={{orientation: 'portrait'}}
-          /> */}
           <Stack.Screen
             name="反馈"
             component={FeedbackScreen}
-            options={{ orientation: 'portrait' }}
+            options={{orientation: 'portrait'}}
           />
           <Stack.Screen
             name="播放"
             component={PlayScreen}
-            initialParams={{ vod_id: 1 }}
-            options={{ orientation: 'all', navigationBarColor: 'black' }}
+            initialParams={{vod_id: 1}}
+            options={{orientation: 'all', navigationBarColor: 'black'}}
           />
           <Stack.Screen
             name="播放历史"
             component={HistoryScreen}
-            options={{ orientation: 'portrait' }}
+            options={{orientation: 'portrait'}}
           />
           <Stack.Screen
             name="关于我们"
             component={AboutUsScreen}
-            options={{ orientation: 'portrait' }}
+            options={{orientation: 'portrait'}}
           />
           <Stack.Screen
             name="搜索"
             component={SearchScreen}
-            initialParams={{ initial: '' }}
-            options={{ orientation: 'portrait' }}
+            initialParams={{initial: ''}}
+            options={{orientation: 'portrait'}}
           />
           <Stack.Screen
             name="PlaylistDetail"
             component={PlaylistDetailsScreen}
-            options={{ orientation: 'portrait' }}
+            options={{orientation: 'portrait'}}
           />
           <Stack.Screen
             name="隐私政策"
             component={PrivacyScreen}
-            options={{ orientation: 'portrait' }}
+            options={{orientation: 'portrait'}}
           />
           <Stack.Screen
             name="用户协议"
             component={UserAgreementScreen}
-            options={{ orientation: 'portrait' }}
+            options={{orientation: 'portrait'}}
           />
           <Stack.Screen
             name="片库"
             component={CatalogScreen}
-            initialParams={{ type_id: 1 }}
-            options={{ orientation: 'portrait' }}
+            initialParams={{type_id: 1}}
+            options={{orientation: 'portrait'}}
           />
           <Stack.Screen
             name="设置"
             component={ConfigureScreen}
-            options={{ orientation: 'portrait' }}
+            options={{orientation: 'portrait'}}
           />
           <Stack.Screen
             name="合集收藏"
             component={ShortVodCollectionScreen}
-            options={{ orientation: 'portrait' }}
+            options={{orientation: 'portrait'}}
           />
           <Stack.Screen
             name="体育详情"
             component={MatchDetailsScreen}
-            options={{ orientation: 'portrait' }}
+            options={{orientation: 'portrait'}}
             initialParams={{
               streamerId: undefined,
               matchId: undefined,
@@ -272,8 +262,8 @@ export default () => {
           <Stack.Screen
             name="电视台列表"
             component={LiveStationsScreen}
-            initialParams={{ liveStationItemList: undefined }}
-            options={{ orientation: 'portrait' }}
+            initialParams={{liveStationItemList: undefined}}
+            options={{orientation: 'portrait'}}
           />
           <Stack.Screen
             name="电视台播放"
@@ -282,12 +272,12 @@ export default () => {
               liveStationItemList: undefined,
               liveStationItem: undefined,
             }}
-            options={{ orientation: 'all' }}
+            options={{orientation: 'all'}}
           />
           <Stack.Screen
             name="合集播放"
             component={WatchCollectionScreen}
-            options={{ orientation: 'portrait' }}
+            options={{orientation: 'portrait'}}
           />
         </Stack.Navigator>
       </NavigationContainer>
@@ -303,7 +293,7 @@ const styles = StyleSheet.create({
   },
   navStyle: {
     paddingTop: 6,
-    paddingBottom: 8,
+    // paddingBottom: 8,
     flex: 0,
     flexGrow: 0
   },

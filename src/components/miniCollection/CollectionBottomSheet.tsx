@@ -49,6 +49,7 @@ function CollectionBottomSheet({ changeEpisode, sheetRef, collectionName, collec
     const [enabledUseQuery, setEnabledUseQuery] = useState(false);
     const [totalCollectionEpisodes, setTotalCollectionEpisodes] = useState(0);
     const [itemIndex, setItemIndex] = useState(0);
+    const [imageError, setImageError] = useState(false);
 
     const {
         isLoading,
@@ -98,7 +99,7 @@ function CollectionBottomSheet({ changeEpisode, sheetRef, collectionName, collec
         }
     }, [sheetRef]);
 
-    const goToCollection = useCallback((item: MiniVideoCollectionItem, index: number) => {
+    const goToCollection = (item: MiniVideoCollectionItem, index: number) => {
         if(collectionData !== undefined){
             dispatch(selectMiniVodCollection(index));
 
@@ -113,7 +114,7 @@ function CollectionBottomSheet({ changeEpisode, sheetRef, collectionName, collec
                 });
             }
         }
-    }, [])
+    };
 
     let selectedIndex = (vodReducer.miniVodCollectionItemIndex == 0) ? itemIndex : vodReducer.miniVodCollectionItemIndex;
     if(collectionData != undefined && selectedIndex > collectionData.length - 1){
@@ -180,13 +181,17 @@ function CollectionBottomSheet({ changeEpisode, sheetRef, collectionName, collec
                                                     <View style={{ flex: 2, backgroundColor: 'black', borderRadius: 6 }}>
                                                         <Image
                                                             defaultSource={{
-                                                                uri: 'https://i.ibb.co/d765qyH/image.png'
+                                                                uri: 'https://static.wixstatic.com/media/5dca26_0052ca4edcc94049a9115dea94e6616d~mv2.png'
                                                             }}
                                                             source={{
-                                                                uri: item.mini_video_origin_cover,
+                                                                uri: imageError == false ? item.mini_video_origin_cover : 'https://static.wixstatic.com/media/5dca26_0052ca4edcc94049a9115dea94e6616d~mv2.png',
+                                                            }}
+                                                            onError={(e) => {
+                                                                setImageError(true);
                                                             }}
                                                             style={{ borderRadius: 6, height: '100%' }}
                                                             resizeMode="contain"
+                                                            resizeMethod="auto"
                                                         />
                                                     </View>
                                                     <View style={{ flex: 5, flexDirection: 'column', alignSelf: 'center' }}>
