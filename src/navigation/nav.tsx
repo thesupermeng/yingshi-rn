@@ -293,7 +293,7 @@ const styles = StyleSheet.create({
   },
   navStyle: {
     paddingTop: 6,
-    // paddingBottom: 8,
+    paddingBottom: 8,
     flex: 0,
     flexGrow: 0
   },
