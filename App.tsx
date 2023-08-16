@@ -138,7 +138,7 @@ export default function App() {
   queryClient.prefetchInfiniteQuery(['vodPlaylist'], ({ pageParam = 1 }) => fetchPlaylist(pageParam));
 
   const fetchVods = (page: number) => fetch(
-    `${API_DOMAIN_TEST}miniVod/v1/miniVod?page=${page}&limit=100`,
+    `${API_DOMAIN}miniVod/v1/miniVod?page=${page}&limit=100`,
   )
     .then(response => response.json())
     .then((json: MiniVideoResponseType) => {

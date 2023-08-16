@@ -119,8 +119,9 @@ export default ({
   }, [isPotrait]);
 
   const handleOrientation = (orientation: any) => {
+    console.log('orientation change')
     if (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT') {
-      StatusBar.setHidden(true)
+      // StatusBar.setHidden(true)
       setIsFullScreen(true);
       controlsRef.current.hideSlider();
     } else {
@@ -133,7 +134,7 @@ export default ({
     return () => {
       Orientation.removeOrientationListener(handleOrientation);
     };
-  }, [handleOrientation, Orientation, StatusBar]);
+  }, [handleOrientation, Orientation]);
 
   useEffect(() => {
     // ... (rest of the useEffect hook remains unchanged)
@@ -156,17 +157,17 @@ export default ({
   };
 
 
-  const onToggleFullScreen = useCallback(() => {
+  const onToggleFullScreen = () => {
     if (isFullScreen) {
       Orientation.lockToPortrait();
       // StatusBar.setHidden(false);
       setIsFullScreen(false);
     } else {
       Orientation.lockToLandscape();
-      StatusBar.setHidden(true);
+      // StatusBar.setHidden(true);
       setIsFullScreen(true);
     }
-  }, [isFullScreen, Orientation]);
+  };
 
   const onVideoLoaded = (data: any) => {
     setDuration(data.duration);
@@ -433,7 +434,9 @@ const styles = StyleSheet.create({
   containerLandscape: {
     backgroundColor: 'black',
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
+    height: '100%',
+    width: '100%'
   },
   containerPortrait: {
     backgroundColor: 'black',

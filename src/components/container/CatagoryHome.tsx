@@ -286,8 +286,8 @@ const CatagoryHome = ({
         windowSize={3}
         maxToRenderPerBatch={3}
         renderItem={listItem}
+        contentContainerStyle={{paddingBottom: 100}}
       />
-      <View style={{paddingBottom: 100}} />
     </View>
   );
 };

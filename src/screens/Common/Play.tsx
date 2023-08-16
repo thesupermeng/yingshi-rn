@@ -32,10 +32,7 @@ import QQIcon from '../../../static/images/qq.svg';
 import PYQIcon from '../../../static/images/pyq.svg';
 import MoreArrow from '../../../static/images/more_arrow.svg';
 import Animated, {useSharedValue} from 'react-native-reanimated';
-import Orientation from 'react-native-orientation-locker';
-import {getMaxWidth} from '../../utility/helper';
 
-import {Dimensions} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import VodEpisodeSelectionModal from '../../components/modal/vodEpisodeSelectionModal';
 import FastImage from 'react-native-fast-image';
@@ -105,9 +102,9 @@ export default ({navigation, route}: RootStackScreenProps<'播放'>) => {
   const dispatch = useAppDispatch();
 
   const [dismountPlayer, setDismountPlayer] = useState(false);
-  const [orientation, setOrientation] = useState('PORTRAIT');
-  const EPISODE_RANGE_SIZE = 50;
   const [isOffline, setIsOffline] = useState(false);
+  
+  const EPISODE_RANGE_SIZE = 100;
 
   const showEpisodeRangeStart = useMemo(
     () =>
@@ -185,16 +182,6 @@ export default ({navigation, route}: RootStackScreenProps<'播放'>) => {
   }, []);
 
   useEffect(() => {
-    Dimensions.addEventListener('change', ({window: {width, height}}) => {
-      if (width < height) {
-        setOrientation('PORTRAIT');
-      } else {
-        setOrientation('LANDSCAPE');
-      }
-    });
-  }, []);
-
-  useEffect(() => {
     return () => {
       if (vod) {
         dispatch(addVodToHistory(vod, currentTimeRef.current, currentEpisode));
@@ -252,23 +239,9 @@ export default ({navigation, route}: RootStackScreenProps<'播放'>) => {
       animated: true,
     });
   }, [currentEpisode, episodeRef]);
-  // useEffect(() => {
-  //     const backAction = () => {
-  //         setDismountPlayer(false);
-  //         return true;
-  //     };
-  // }, []);
-
-  // useFocusEffect(
-  //     React.useCallback(() => {
-  //         // Triggered when the user navigates back to the page
-  //         setDismountPlayer(false);
-  //     }, [navigation]),
-  // );
 
   useFocusEffect(
     useCallback(() => {
-      console.log('mount');
       setDismountPlayer(false);
       return () => {
         // Triggered when the user navigates away to the page
@@ -279,7 +252,6 @@ export default ({navigation, route}: RootStackScreenProps<'播放'>) => {
 
   return (
     <ScreenContainer
-      isVideoLandscape={orientation == 'LANDSCAPE'}
       containerStyle={{flex: 1, paddingRight: 0, paddingLeft: 0}}>
       {vod?.vod_play_list?.urls?.find(url => url.nid === currentEpisode)
         ?.url !== undefined &&

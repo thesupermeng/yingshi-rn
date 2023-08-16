@@ -3,13 +3,14 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '@react-navigation/native';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { Dimensions } from 'react-native';
+import Orientation from 'react-native-orientation-locker';
+import { useEffect, useState } from 'react';
 interface Props {
   children?: React.ReactNode;
   scrollView?: boolean;
   footer?: React.ReactNode;
   containerStyle?: ViewStyle;
   header?: React.ReactNode;
-  isVideoLandscape?: boolean;
 }
 export default function ScreenContainer({
   children,
@@ -17,10 +18,10 @@ export default function ScreenContainer({
   footer,
   containerStyle,
   header,
-  isVideoLandscape = false,
 }: Props) {
   const windowHeight = Dimensions.get('window').height;
   let bottomTabHeight = 0;
+  const [isLandscape, setIsLandscape] = useState(false);
 
   try {
     useBottomTabBarHeight();
@@ -33,8 +34,24 @@ export default function ScreenContainer({
 
   const insets = useSafeAreaInsets();
   const { spacing, colors } = useTheme();
+
+  const handleOrientation = (orientation: any) => {
+    if (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT') {
+      setIsLandscape(true);
+    } else {
+      setIsLandscape(false);
+    }
+  };
+
+  useEffect(() => {
+    Orientation.addOrientationListener(handleOrientation);
+    return () => {
+      Orientation.removeOrientationListener(handleOrientation);
+    };
+  }, [handleOrientation, Orientation]);
+
   return (
-    <>
+    <View style={{flex: 1}}>
       <StatusBar backgroundColor={colors.background} barStyle='light-content' />
       {scrollView ? (
         <ScrollView
@@ -68,8 +85,8 @@ export default function ScreenContainer({
             paddingTop: insets.top,
             paddingBottom: insets.bottom,
             // video fullscreen here
-            paddingLeft: isVideoLandscape ? 0 : insets.left,
-            paddingRight: isVideoLandscape ? 0 : insets.right,
+            paddingLeft: isLandscape ? 0 : insets.left,
+            paddingRight: isLandscape ? 0 : insets.right,
             height: displayHeight,
           }}>
           <View
@@ -84,7 +101,7 @@ export default function ScreenContainer({
           {footer}
         </View>
       )}
-    </>
+    </View>
   );
 }
 
