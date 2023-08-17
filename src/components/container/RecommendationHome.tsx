@@ -70,7 +70,11 @@ const RecommendationHome = ({
   const [results, setResults] = useState<Array<VodTopicType>>([]);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const carouselRef = useRef<any>();
-  const {width, height} = Dimensions.get('window');
+  // const {width, height} = Dimensions.get('window');
+  const [width, setWidth] = useState(Dimensions.get('window').width);
+  useEffect(() => {
+    setWidth(Number(Dimensions.get('window').width));
+  }, []);
   // Function to handle the pull-to-refresh action
   const handleRefresh = async () => {
     setIsRefreshing(true);
