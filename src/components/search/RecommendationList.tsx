@@ -23,7 +23,7 @@ export default function RecommendationList({recommendationList}: Props) {
   const dispatch = useAppDispatch();
 
   return (
-    <View style={{gap: spacing.m}}>
+    <View style={{gap: spacing.m, marginBottom: 60}}>
       <Text style={{...textVariants.header}}>热搜总榜</Text>
       {recommendationList.map((item, index) => (
         <View
