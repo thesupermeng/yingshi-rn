@@ -83,7 +83,7 @@ export default function ScreenContainer({
             backgroundColor: colors.background,
             ...styles.viewContainer,
             paddingTop: insets.top,
-            paddingBottom: isVideoLandscape ? 0 : insets.bottom,
+            paddingBottom: isLandscape ? 0 : insets.bottom,
             // video fullscreen here
             paddingLeft: isLandscape ? 0 : insets.left,
             paddingRight: isLandscape ? 0 : insets.right,
