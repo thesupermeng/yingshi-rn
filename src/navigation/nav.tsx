@@ -183,6 +183,7 @@ export default () => {
           initialRouteName="Home"
           screenOptions={({route}) => ({
             headerShown: false,
+            autoHideHomeIndicator: true,
             animation: 'slide_from_right',
           })}>
           <Stack.Screen
