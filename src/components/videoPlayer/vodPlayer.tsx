@@ -11,7 +11,6 @@ import {
 import Video from 'react-native-video';
 import {useTheme, useNavigation} from '@react-navigation/native';
 import {useOrientation} from '../../hooks/useOrientation';
-import PlayFullScreenGesture from '../gestures/vod/PlayFullScreenGesture';
 import {debounce} from 'lodash';
 
 import {Dimensions} from 'react-native';
@@ -21,9 +20,7 @@ import WebView from 'react-native-webview';
 import FastImage from 'react-native-fast-image';
 import FastForwardProgressIcon from '../../../static/images/fastforwardProgress.svg';
 import RewindProgressIcon from '../../../static/images/rewindProgress.svg';
-import ProgressGestureControl from '../gestures/vod/ProgressGestureControl';
-import {Gesture, GestureDetector} from 'react-native-gesture-handler';
-import {runOnJS} from 'react-native-reanimated';
+
 import {
   LiveTVStationItem,
   VodEpisodeListType,
@@ -58,7 +55,7 @@ type RefHandler = {
   toggleControls: () => void;
   isVisible: boolean;
   hideSlider: () => void;
-};
+  };
 
 export default ({
   vod_url,
@@ -80,7 +77,7 @@ export default ({
   streams = [],
   showMoreType = 'none',
   isFetchingRecommendedMovies = false,
-}: Props) => {
+  }: Props) => {
   const videoPlayerRef = React.useRef<Video | null>();
   const {colors, spacing, textVariants, icons} = useTheme();
   const isPotrait = useOrientation();
@@ -118,7 +115,7 @@ export default ({
   useEffect(() => {
     if (!isPotrait) {
       setIsFullScreen(true);
-    } else {
+          } else {
       setIsFullScreen(false);
     }
   }, [isPotrait]);
@@ -286,18 +283,17 @@ export default ({
       style={
         isFullScreen ? styles.containerLandscape : styles.containerPortrait
       }>
-      {isFullScreen ? (
+      {/* {isFullScreen ? (
         <StatusBar hidden={true} />
       ) : (
         <StatusBar
           backgroundColor={colors.background}
           barStyle="light-content"
         />
-      )}
+      )} */}
       <View
         style={{
           ...styles.bofangBox,
-          aspectRatio: isFullScreen ? 926 / 428 : 16 / 9,
         }}>
         {(vod_url !== undefined || vod_source !== undefined) &&
           (useWebview ? (

@@ -13,14 +13,15 @@ type Props = {
     onSingleTap: () => any,
     currentTime: number,
     totalDuration: number,
-    onSeek: (x: number) => any
+    onSeek: (x: number) => any,
+    disableControlsExceptTap?: boolean
 }
 
 type SettingsType = {
     name: 'progress' | 'brightness' | 'volume' | 'none'
     value: number,
 }
-export default ({ vodType, children, enabled = true, onSkipBackwards, onSkipForward, onSingleTap, currentTime = 0, totalDuration = 0.1, onSeek }: Props) => {
+export default ({ vodType, children, enabled = true, onSkipBackwards, onSkipForward, onSingleTap, currentTime = 0, totalDuration = 0.1, onSeek, disableControlsExceptTap=false }: Props) => {
 
     const [start, setStart] = useState({ x: 0, y: 0, gesture: 'none' });
     const [settings, setSettings] = useState<SettingsType>({ name: 'none', value: 0 });
@@ -129,8 +130,8 @@ export default ({ vodType, children, enabled = true, onSkipBackwards, onSkipForw
         })
 
 
-    const taps = vodType === 'live' ? singleTap : Gesture.Exclusive(doubleTap, singleTap)
-    const composed = Gesture.Simultaneous(pan, taps)
+    const taps = vodType === 'live' || disableControlsExceptTap ? singleTap : Gesture.Exclusive(doubleTap, singleTap);
+    const composed = disableControlsExceptTap ? taps : Gesture.Simultaneous(pan, taps);
 
     return (
         <GestureDetector gesture={composed} >

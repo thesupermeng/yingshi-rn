@@ -51,13 +51,20 @@ export default function ScreenContainer({
   }, [handleOrientation, Orientation]);
 
   return (
-    <View style={{flex: 1}}>
-      <StatusBar backgroundColor={colors.background} barStyle='light-content' />
+    <>
+      {/* <StatusBar backgroundColor={colors.background} barStyle='light-content' /> */}
+      {/* {isLandscape ? (
+        <StatusBar hidden={true} />
+      ) : (
+        <StatusBar
+          backgroundColor={colors.background}
+          barStyle="light-content"
+        />
+      )} */}
       {scrollView ? (
         <ScrollView
           style={{
             backgroundColor: colors.background,
-
             paddingTop: insets.top,
             paddingBottom: insets.bottom,
             paddingLeft: insets.left,
@@ -83,32 +90,30 @@ export default function ScreenContainer({
             backgroundColor: colors.background,
             ...styles.viewContainer,
             paddingTop: insets.top,
-            paddingBottom: isLandscape ? insets.bottom : 0,
-            // video fullscreen here
-            paddingLeft: isLandscape ? 0 : insets.left,
-            paddingRight: isLandscape ? 0 : insets.right,
-            height: displayHeight,
+            paddingBottom: insets.bottom,
+            // // video fullscreen here
+            paddingLeft: insets.left,
+            paddingRight: insets.right,
+            // height: displayHeight,
           }}>
           <View
             style={{
               ...styles.innerContainer,
-              paddingLeft: spacing.sideOffset,
-              paddingRight: spacing.sideOffset,
-              ...containerStyle,
+              // paddingLeft: spacing.sideOffset,
+              // paddingRight: spacing.sideOffset,
+              // ...containerStyle,
             }}>
             {children}
           </View>
           {footer}
         </View>
       )}
-    </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
   viewContainer: {
-    paddingTop: 4,
-    flexGrow: 1,
     flex: 1,
   },
   innerContainer: {

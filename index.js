@@ -15,7 +15,6 @@ import { YSConfig } from './ysConfig';
 import Config from './src/Sports/global/env';
 import Api from './src/Sports/middleware/api';
 import { Url } from './src/Sports/middleware/url';
-import Orientation from 'react-native-orientation-locker';
 import 'react-native-gesture-handler';
 import { API_DOMAIN, UMENG_CHANNEL } from './src/utility/constants';
 
