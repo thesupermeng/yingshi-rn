@@ -17,7 +17,6 @@ import { RectButton } from 'react-native-gesture-handler';
 import NextEpisodeIcon from '../../../static/images/nextEpisode.svg';
 import SelectEpisodesIcon from '../../../static/images/selectEpisodes.svg';
 import LockScreenIcon from '../../../static/images/lockScreen.svg';
-import Orientation from 'react-native-orientation-locker';
 import { Slider } from '@rneui/themed';
 
 type Props = {
@@ -70,10 +69,6 @@ export default ({
   const onPressFullScreenBtn = () => {
     onToggleFullScreen();
   };
-
-  const lockScreen = () => {
-    Orientation.lockToLandscape();
-  }
 
   // const thumbImage = require('../../../static/images/white-dot.png');
 
@@ -178,7 +173,6 @@ export default ({
                     ? <MoreMoviesIcon width={30} height={30} />
                     : <SelectEpisodesIcon width={30} height={30} />
                 }
-
               </RectButton>
               {
                 videoType !== 'live' &&

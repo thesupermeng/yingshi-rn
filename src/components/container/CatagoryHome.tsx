@@ -76,7 +76,11 @@ const CatagoryHome = ({
   const data = vodCarouselRes.data;
   const carouselRef = useRef<any>();
   const categoryListRef = useRef<any>();
-  const width = Dimensions.get('window').width;
+  //const width = Dimensions.get('window').width;
+  const [width, setWidth] = useState(Dimensions.get('window').width);
+  useEffect(() => {
+    setWidth(Number(Dimensions.get('window').width));
+  }, []);
   const [isRefreshing, setIsRefreshing] = useState(false);
   // Function to handle the pull-to-refresh action
   const handleRefresh = async () => {
@@ -286,8 +290,8 @@ const CatagoryHome = ({
         windowSize={3}
         maxToRenderPerBatch={3}
         renderItem={listItem}
+        contentContainerStyle={{paddingBottom: 100}}
       />
-      <View style={{paddingBottom: 100}} />
     </View>
   );
 };

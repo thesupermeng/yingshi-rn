@@ -112,8 +112,6 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
       setNavId(id);
       setHideContent(false);
       setShowHomeLoading(false);
-
-      return;
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -257,7 +255,7 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
             }
           </View>
         )}
-        {showHomeLoading && !isOffline && navOptions && (
+        {showHomeLoading && !isOffline && (
           <View
             style={{
               flex: 1,
@@ -266,7 +264,7 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
               backgroundColor: 'rgb(20,22,25)',
             }}>
             <FastImage
-              source={require('../../static/images/home-loading.png')}
+              source={require('../../static/images/home-loading.gif')}
               style={{
                 width: 150,
                 height: 150,
@@ -274,7 +272,7 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
                 bottom: 50,
                 zIndex: -1,
               }}
-              resizeMode="contain"
+              resizeMode={FastImage.resizeMode.contain}
             />
           </View>
         )}

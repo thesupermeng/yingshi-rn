@@ -61,7 +61,7 @@ function CollectionBottomSheet({ changeEpisode, sheetRef, collectionName, collec
     } = useQuery(
         ['collection', collectionId],
         () =>
-        fetch(`${API_DOMAIN_TEST}miniVod/v1/collections/${collectionVideoId}?limit=1000`)
+        fetch(`${API_DOMAIN}miniVod/v1/collections/${collectionVideoId}?limit=1000`)
             .then(response => response.json())
             .then((json: CollectionResponseType) => {
                 return json.data.List
@@ -179,19 +179,13 @@ function CollectionBottomSheet({ changeEpisode, sheetRef, collectionName, collec
                                             <TouchableOpacity key={index} onPress={() => goToCollection(item, index)} style={[ styles.bottomSheetItem, index == selectedIndex ? styles.selectedBottomSheetItem : styles.notSelected ]}>
                                                 <View style={{ flex: 1, flexDirection: 'row' }}>
                                                     <View style={{ flex: 2, backgroundColor: 'black', borderRadius: 6 }}>
-                                                        <Image
-                                                            defaultSource={{
-                                                                uri: 'https://static.wixstatic.com/media/5dca26_0052ca4edcc94049a9115dea94e6616d~mv2.png'
-                                                            }}
+                                                        <FastImage
+                                                            style={{ borderRadius: 6, height: '100%' }}
                                                             source={{
                                                                 uri: imageError == false ? item.mini_video_origin_cover : 'https://static.wixstatic.com/media/5dca26_0052ca4edcc94049a9115dea94e6616d~mv2.png',
                                                             }}
-                                                            onError={(e) => {
-                                                                setImageError(true);
-                                                            }}
-                                                            style={{ borderRadius: 6, height: '100%' }}
-                                                            resizeMode="contain"
-                                                            resizeMethod="auto"
+                                                            onError={() => setImageError(true)}
+                                                            resizeMode={FastImage.resizeMode.contain}
                                                         />
                                                     </View>
                                                     <View style={{ flex: 5, flexDirection: 'column', alignSelf: 'center' }}>

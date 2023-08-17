@@ -3,13 +3,15 @@
 #import <React/RCTBundleURLProvider.h>
 #import "Orientation.h"
 
+#import <UMCommon/UMConfigure.h>
+
 @implementation AppDelegate
-// #import "RNUMConfigure.h"
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  // [UMConfigure setLogEnabled:YES];
+  [UMConfigure setLogEnabled:YES];
   // [RNUMConfigure initWithAppkey:@"64a632e5bd4b621232c9e379" channel:@"App Store"];
+  [UMConfigure initWithAppkey:@"64a632e5bd4b621232c9e379" channel:@"App Store"];
   self.moduleName = @"yingshi";
   // You can add your custom initial props in the dictionary below.
   // They will be passed down to the ViewController used by React Native.

@@ -57,7 +57,7 @@ import {
   SafeAreaProvider,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import {useAppSelector} from '../hooks/hooks';
 import {QueryClient, useQuery} from '@tanstack/react-query';
@@ -86,6 +86,9 @@ export default () => {
         screenOptions={({route}) => ({
           headerShown: false,
           tabBarStyle: hasNotch ? styles.navStyleWithNotch : styles.navStyle,
+          tabBarLabelStyle: {
+            paddingBottom: 6,
+          },
           tabBarIcon: ({focused, color, size}) => {
             let icon: React.ReactNode;
 
@@ -182,10 +185,6 @@ export default () => {
             headerShown: false,
             autoHideHomeIndicator: true,
             animation: 'slide_from_right',
-            contentStyle: {
-              flex: 1,
-            },
-            // style
           })}>
           <Stack.Screen
             name="Home"
@@ -297,9 +296,12 @@ const styles = StyleSheet.create({
     height: 80,
   },
   navStyle: {
-    paddingTop: 6,
-    // paddingBottom: 8,
-    // height: 50,
-    marginBottom: 8, //solve Navigation bar 底部少了空位
+    // flex: 0,
+    // flexGrow: 0
+
+    flex: 0,
+    alignContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
   },
 });

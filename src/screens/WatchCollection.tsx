@@ -19,12 +19,12 @@ import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { MiniVideo } from '../types/ajaxTypes';
 import MiniVideoList from '../components/videoPlayer/miniVodList';
 import { API_DOMAIN, API_DOMAIN_TEST, API_DOMAIN_LOCAL } from '../utility/constants';
-import Orientation from 'react-native-orientation-locker';
 import { StyleSheet } from 'react-native';
 import TitleWithBackButtonHeader from '../components/header/titleWithBackButtonHeader';
 import BackIcon from '../../static/images/back_arrow.svg';
 import {useAppDispatch, useAppSelector} from '../hooks/hooks';
 import { selectMiniVodCollection } from '../redux/actions/vodActions';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 type PlayContextValue = {
     value: string;
@@ -46,6 +46,7 @@ type MiniVideoResponseType = {
 
 export default ({ navigation, route }: RootStackScreenProps<'合集播放'>) => {
     const dispatch = useAppDispatch();
+    const insets = useSafeAreaInsets();
 
     const { colors, spacing, textVariants, icons } = useTheme();
     const [isPaused, setIsPaused] = useState(false);
@@ -69,7 +70,7 @@ export default ({ navigation, route }: RootStackScreenProps<'合集播放'>) => 
     }, [route])
 
     return (
-        <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
+        <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0, paddingBottom: insets.bottom }}>
             <View style={{ position: 'absolute', left: 0, top: 0, zIndex: 100, width: '100%', height: 50 }}>
                 <TouchableOpacity style={{ zIndex: 101 }} onPress={goBack}>
                     <View style={{ left: 0, top: 0, position: 'relative', justifyContent: 'center', alignContent: 'center', alignItems: 'center', width: 40, height: 50 }}>
