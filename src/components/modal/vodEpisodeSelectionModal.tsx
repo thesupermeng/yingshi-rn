@@ -20,6 +20,7 @@ interface Props {
 function VodEpisodeSelectionModal({ onConfirm, onCancel, sheetRef, episodes, activeEpisode = 0, rangeSize = 50 }: Props) {
     const { colors, textVariants, spacing } = useTheme();
     const EPISODE_RANGE_SIZE = rangeSize;
+    const insets = useSafeAreaInsets();
     const [sortBy, setSortBy] = useState('asc');
     const ranges = [...Array(episodes?.url_count === undefined ? 0 : Math.ceil(episodes.url_count / EPISODE_RANGE_SIZE)).keys()]
         .map(
@@ -37,7 +38,7 @@ function VodEpisodeSelectionModal({ onConfirm, onCancel, sheetRef, episodes, act
         const eps = episodes?.urls.slice(showEpisodeRangeStart, showEpisodeRangeEnd);
         if (sortBy === 'desc') {
             eps?.reverse();
-        }   
+        }
         return eps
     }, [showEpisodeRangeStart, showEpisodeRangeEnd, episodes, sortBy])
 
@@ -119,33 +120,33 @@ function VodEpisodeSelectionModal({ onConfirm, onCancel, sheetRef, episodes, act
                         </Text>
                     </TouchableOpacity>
                 </View>
-                <BottomSheetScrollView contentContainerStyle={styles.episodeList}>
+                <BottomSheetScrollView contentContainerStyle={{ ...styles.episodeList, paddingBottom: insets.bottom }}>
                     {
                         displayEpisodes?.map((ep, idx) =>
-                        <TouchableOpacity key={`expand-${idx}`} onPress={() => {
-                            onConfirm(ep.nid);
-                            onCancel();
-                        }} style={{ paddingRight: spacing.s }}>
-                            <View style={{
-                                backgroundColor: ep.nid === activeEpisode ? colors.primary : colors.search,
-                                padding: spacing.s,
-                                minWidth: 70,
-                                marginRight: 'auto',
-                                marginBottom: spacing.s,
-                                borderRadius: 8
-                            }} >
-                                <Text numberOfLines={1}
-                                    style={{
-                                        fontSize: 13,
-                                        textAlign: 'center',
-                                        fontWeight: '500',
-                                        color: ep.nid === activeEpisode ? colors.selected : colors.muted,
-                                    }}>
-                                    {`${ep.name}`}
-                                </Text>
-                            </View>
-                        </TouchableOpacity>
-                    )}
+                            <TouchableOpacity key={`expand-${idx}`} onPress={() => {
+                                onConfirm(ep.nid);
+                                onCancel();
+                            }} style={{ paddingRight: spacing.s }}>
+                                <View style={{
+                                    backgroundColor: ep.nid === activeEpisode ? colors.primary : colors.search,
+                                    padding: spacing.s,
+                                    minWidth: 70,
+                                    marginRight: 'auto',
+                                    marginBottom: spacing.s,
+                                    borderRadius: 8
+                                }} >
+                                    <Text numberOfLines={1}
+                                        style={{
+                                            fontSize: 13,
+                                            textAlign: 'center',
+                                            fontWeight: '500',
+                                            color: ep.nid === activeEpisode ? colors.selected : colors.muted,
+                                        }}>
+                                        {`${ep.name}`}
+                                    </Text>
+                                </View>
+                            </TouchableOpacity>
+                        )}
                 </BottomSheetScrollView>
             </View>
         </BottomSheet>
