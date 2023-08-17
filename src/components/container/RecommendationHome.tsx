@@ -70,7 +70,11 @@ const RecommendationHome = ({
   const [results, setResults] = useState<Array<VodTopicType>>([]);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const carouselRef = useRef<any>();
-  const {width, height} = Dimensions.get('window');
+  // const {width, height} = Dimensions.get('window');
+  const [width, setWidth] = useState(Dimensions.get('window').width);
+  useEffect(() => {
+    setWidth(Number(Dimensions.get('window').width));
+  }, []);
   // Function to handle the pull-to-refresh action
   const handleRefresh = async () => {
     setIsRefreshing(true);
@@ -122,29 +126,17 @@ const RecommendationHome = ({
       },
     },
   );
-  const {data: liveStations} = useQuery({
-    queryKey: ['LiveTVStations'],
-    queryFn: () =>
-      fetch(`${API_DOMAIN}live/v1/livestations`, {})
-        .then(response => response.json())
-        .then((json: LiveTVStationsResponseType) => {
-          return json.data;
-        }),
-  });
 
   useEffect(() => {
-    if (liveStations && liveStations?.length > 0) {
-      onLoad();
-    }
-  }, [liveStations]);
-
+    onLoad();
+  }, []);
   // useEffect(() => {
   //   setActiveIndex(0);
   // }, [refreshProp]);
 
   return (
     <View style={{width: width}}>
-      {liveStations && liveStations?.length > 0 && (
+      {data?.live_station_list && data?.live_station_list.length > 0 && (
         <FlatList
           refreshControl={
             <RefreshControl
@@ -254,12 +246,13 @@ const RecommendationHome = ({
                       paddingLeft: spacing.sideOffset,
                       paddingRight: spacing.sideOffset,
                     }}>
-                    {liveStations && liveStations?.length > 0 ? (
+                    {data?.live_station_list &&
+                    data?.live_station_list.length > 0 ? (
                       <ShowMoreVodButton
                         text="电视台推荐"
                         onPress={() => {
                           navigation.navigate('电视台列表', {
-                            liveStationItemList: liveStations,
+                            liveStationItemList: data?.live_station_list,
                           });
                         }}
                       />
@@ -269,11 +262,12 @@ const RecommendationHome = ({
                       </View>
                     )}
                   </View>
-                  {liveStations && liveStations?.length > 0 ? (
+                  {data?.live_station_list &&
+                  data?.live_station_list.length > 0 ? (
                     <View style={{paddingLeft: spacing.sideOffset}}>
                       <VodLiveStationList
                         vodStyle={styles.vod_live_station}
-                        liveStationList={liveStations.slice(0, 10)}
+                        liveStationList={data?.live_station_list.slice(0, 10)}
                         isRefreshing={isRefreshing}
                       />
                     </View>
@@ -370,13 +364,13 @@ const RecommendationHome = ({
             </View>
           )}
           ListFooterComponent={
-            <View style={{...styles.loading, marginBottom: spacing.xl}}>
+            <View style={{...styles.loading, marginBottom: 100}}>
               {hasNextPage && (
                 <FastImage
                   style={{
                     height: 80,
                     width: 80,
-                    marginBottom: 80,
+
                     flex: 1,
                     justifyContent: 'center',
                     alignItems: 'center',
@@ -386,7 +380,13 @@ const RecommendationHome = ({
                 />
               )}
               {!(isFetchingNextPage || isFetching) && !hasNextPage && (
-                <Text style={{...textVariants.body, color: colors.muted}}>
+                <Text
+                  style={{
+                    ...textVariants.subBody,
+                    color: colors.muted,
+                    paddingTop: 12,
+                    paddingBottom: 20,
+                  }}>
                   没有更多了
                 </Text>
               )}

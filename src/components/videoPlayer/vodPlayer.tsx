@@ -278,6 +278,18 @@ export default ({
     return undefined;
   };
 
+  // here check swipe back event, and paused video
+  navigation.addListener('beforeRemove', (e) => {
+    if (isPaused || isInBackground) {
+      return;
+    }
+    e.preventDefault();
+    setIsPaused(true);
+    setTimeout(() => {
+      navigation.dispatch(e.data.action);
+    }, 100);
+  });
+
   return (
     <View
       style={

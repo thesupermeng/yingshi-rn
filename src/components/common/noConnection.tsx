@@ -5,11 +5,12 @@ import {
   TextStyle,
   TouchableOpacity,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useTheme} from '@react-navigation/native';
 import NoWifi from '../../../static/images/no-wifi.svg';
 import RefreshIcon from '../../../static/images/refresh.svg';
 import YingshiGreyIcon from '../../../static/images/yingshi-grey.svg';
+import {useOrientation} from '../../hooks/useOrientation';
 interface Props {
   onClickRetry?: any;
   isPlay?: boolean;
@@ -21,15 +22,27 @@ export default function NoConnection({
   isPlayBottom = false,
 }: Props) {
   const {textVariants, colors, icons} = useTheme();
+  const isPotrait = useOrientation();
+
+  const getMinHeight = () => {
+    if ((isPlay || isPlayBottom) && !isPotrait) {
+      return '100%';
+    } else if (isPlay || isPlayBottom) {
+      return 200;
+    } else {
+      return 0;
+    }
+  };
+
   return (
     <View
       style={{
         ...styles.container,
         marginBottom: isPlay ? 150 : '50%',
         backgroundColor: isPlay ? '#000000' : colors.background,
-        minHeight: isPlay || isPlayBottom ? 200 : 0,
+        minHeight: getMinHeight(),
       }}>
-      {!isPlay && (
+      {!isPlay && isPotrait && (
         <>
           <NoWifi />
           <Text

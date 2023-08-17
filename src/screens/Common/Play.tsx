@@ -459,7 +459,7 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
                             paddingVertical: 8,
                             paddingHorizontal: 10,
                             minWidth: 70,
-                            marginRight: spacing.s,
+                            marginRight: spacing.xs,
                             ...styles.episodeBtn,
                           }}
                           onPress={() => {
