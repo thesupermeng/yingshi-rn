@@ -243,8 +243,9 @@ export interface VodCarousellResponseType {
     data: {
         carousel: Array<CarouselData>,
         class_list: Array<string>,
-        yunying: Array<VodData>
-        categories: Array<VodData>
+        yunying: Array<VodData>,
+        categories: Array<VodData>,
+        live_station_list: Array<LiveTVStationItem>
     }
 }
 
