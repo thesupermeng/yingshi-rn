@@ -246,7 +246,8 @@ const RecommendationHome = ({
                       paddingLeft: spacing.sideOffset,
                       paddingRight: spacing.sideOffset,
                     }}>
-                    {data?.live_station_list && data?.live_station_list.length > 0 ? (
+                    {data?.live_station_list &&
+                    data?.live_station_list.length > 0 ? (
                       <ShowMoreVodButton
                         text="电视台推荐"
                         onPress={() => {
@@ -261,7 +262,8 @@ const RecommendationHome = ({
                       </View>
                     )}
                   </View>
-                  {data?.live_station_list && data?.live_station_list.length > 0 ? (
+                  {data?.live_station_list &&
+                  data?.live_station_list.length > 0 ? (
                     <View style={{paddingLeft: spacing.sideOffset}}>
                       <VodLiveStationList
                         vodStyle={styles.vod_live_station}
@@ -362,13 +364,13 @@ const RecommendationHome = ({
             </View>
           )}
           ListFooterComponent={
-            <View style={{...styles.loading, marginBottom: spacing.xl}}>
+            <View style={{...styles.loading, marginBottom: 100}}>
               {hasNextPage && (
                 <FastImage
                   style={{
                     height: 80,
                     width: 80,
-                    marginBottom: 80,
+
                     flex: 1,
                     justifyContent: 'center',
                     alignItems: 'center',
@@ -378,7 +380,13 @@ const RecommendationHome = ({
                 />
               )}
               {!(isFetchingNextPage || isFetching) && !hasNextPage && (
-                <Text style={{...textVariants.body, color: colors.muted}}>
+                <Text
+                  style={{
+                    ...textVariants.subBody,
+                    color: colors.muted,
+                    paddingTop: 12,
+                    paddingBottom: 20,
+                  }}>
                   没有更多了
                 </Text>
               )}
