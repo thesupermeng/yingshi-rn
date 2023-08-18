@@ -101,7 +101,21 @@ export default function VodLiveStationListVertical({
   };
   return (
     <>
-      {!isLoading && <View style={styles.container}>{renderItems()}</View>}
+      {!isLoading && (
+        <>
+          <View style={styles.container}>{renderItems()}</View>
+          <View style={{...styles.loading}}>
+            <Text
+              style={{
+                ...textVariants.subBody,
+                color: colors.muted,
+                marginBottom: 20,
+              }}>
+              已经到底了
+            </Text>
+          </View>
+        </>
+      )}
 
       {isLoading && (
         <View style={{...styles.loading, paddingTop: 20}}>
@@ -122,7 +136,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    paddingBottom: 20,
   },
   cardRow: {
     flexDirection: 'row',

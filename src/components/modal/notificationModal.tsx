@@ -42,7 +42,7 @@ export default function NotificationModal({
           style={{
             ...textVariants.subBody,
             ...styles.body,
-            textAlign: 'left',
+            textAlign: 'center',
           }}>
           {subtitle1 && (
             <Text>

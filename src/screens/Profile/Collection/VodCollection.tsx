@@ -37,6 +37,7 @@ export default () => {
       <View>
         {favorites && favorites.length > 0 && (
           <FlatList
+            showsHorizontalScrollIndicator={false}
             data={favorites}
             contentContainerStyle={{paddingBottom: 120}}
             ListFooterComponent={

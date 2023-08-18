@@ -60,6 +60,7 @@ export default function FavoritePlaylist({playlist, navigator}: Props) {
         </Text>
       </TouchableOpacity>
       <FlatList
+        showsHorizontalScrollIndicator={false}
         data={playlist.vod_list}
         horizontal
         renderItem={({item}: FlatListType) => {

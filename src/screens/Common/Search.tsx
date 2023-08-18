@@ -35,6 +35,7 @@ import Animated, {
 import ClearHistoryIcon from '../../../static/images/clear.svg';
 import EmptyList from '../../components/common/emptyList';
 import appsFlyer from 'react-native-appsflyer';
+import ConfirmationModal from '../../components/modal/confirmationModal';
 
 export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
   const [search, setSearch] = useState('');
@@ -55,7 +56,7 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
     ({searchHistoryReducer}: RootState) => searchHistoryReducer,
   );
   const [isFetching, setisFetching] = useState(false);
-
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const {colors, textVariants, spacing, icons} = useTheme();
   const {data: recommendations} = useQuery({
     queryKey: ['recommendationList'],
@@ -206,7 +207,9 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
                       <Text style={{...textVariants.header}}>历史搜索</Text>
                       <TouchableOpacity
                         style={styles.rowApart}
-                        onPress={clearHistory}>
+                        onPress={() => {
+                          setIsDialogOpen(true);
+                        }}>
                         <Text
                           style={{
                             ...textVariants.small,
@@ -281,6 +284,19 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
           />
         </View>
       )}
+
+      <ConfirmationModal
+        onConfirm={() => {
+          clearHistory();
+          setIsDialogOpen(false);
+        }}
+        onCancel={() => {
+          setIsDialogOpen(false);
+        }}
+        isVisible={isDialogOpen}
+        title="清除提示"
+        subtitle="您是否确定清除搜索记录吗？"
+      />
     </ScreenContainer>
   );
 };
