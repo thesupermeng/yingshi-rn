@@ -185,6 +185,8 @@ export default () => {
             headerShown: false,
             autoHideHomeIndicator: true,
             animation: 'slide_from_right',
+            statusBarStyle: 'light',
+            statusBarColor: theme.colors.background,
           })}>
           <Stack.Screen
             name="Home"
@@ -205,7 +207,7 @@ export default () => {
             name="播放"
             component={PlayScreen}
             initialParams={{vod_id: 1}}
-            options={{orientation: 'all', navigationBarColor: 'black'}}
+            options={{orientation: 'all'}}
           />
           <Stack.Screen
             name="播放历史"
@@ -276,7 +278,7 @@ export default () => {
               liveStationItemList: undefined,
               liveStationItem: undefined,
             }}
-            options={{orientation: 'all'}}
+            options={{navigationBarHidden: true}}
           />
           <Stack.Screen
             name="合集播放"
