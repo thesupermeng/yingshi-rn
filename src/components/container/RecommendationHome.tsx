@@ -387,7 +387,7 @@ const RecommendationHome = ({
                     paddingTop: 12,
                     paddingBottom: 20,
                   }}>
-                  没有更多了
+                  已经到底了
                 </Text>
               )}
             </View>
