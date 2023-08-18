@@ -36,8 +36,11 @@ export default function RecommendationList({recommendationList}: Props) {
           <TouchableOpacity
             style={styles.suggestionName}
             onPress={() => {
-              dispatch(playVod(item));
-              dispatch(addSearchHistory(item.vod_name));
+              setTimeout(() => {
+                //prevent show the keyword in screen before navigates
+                dispatch(addSearchHistory(item.vod_name));
+              }, 400),
+                dispatch(playVod(item));
               navigation.navigate('播放', {vod_id: item.vod_id});
             }}>
             <Text
