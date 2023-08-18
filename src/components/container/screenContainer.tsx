@@ -61,6 +61,7 @@ export default function ScreenContainer({
           barStyle="light-content"
         />
       )} */}
+
       {scrollView ? (
         <ScrollView
           style={{
@@ -72,7 +73,11 @@ export default function ScreenContainer({
           }}
           stickyHeaderIndices={[0]}
           contentContainerStyle={{ paddingBottom: 30 }}>
-          <>{header}</>
+          <StatusBar
+            backgroundColor='black'
+            barStyle="light-content"
+          />
+          {header}
           <View
             style={{
               ...styles.innerContainer,
@@ -96,6 +101,10 @@ export default function ScreenContainer({
             paddingRight: insets.right,
             // height: displayHeight,
           }}>
+          <StatusBar
+            backgroundColor='black'
+            barStyle="light-content"
+          />
           <View
             style={{
               ...styles.innerContainer,

@@ -294,14 +294,10 @@ export default ({
       style={
         isFullScreen ? styles.containerLandscape : styles.containerPortrait
       }>
-      {/* {isFullScreen ? (
+      {/* {isFullScreen && (
         <StatusBar hidden={true} />
-      ) : (
-        <StatusBar
-          backgroundColor={colors.background}
-          barStyle="light-content"
-        />
-      )} */}
+      ) 
+      } */}
       <View
         style={{
           ...styles.bofangBox,

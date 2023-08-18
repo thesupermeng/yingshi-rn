@@ -185,9 +185,9 @@ export default () => {
             headerShown: false,
             autoHideHomeIndicator: true,
             animation: 'slide_from_right',
-            statusBarStyle: 'light',
-            statusBarColor: theme.colors.background,
-            navigationBarColor: theme.colors.background,
+            // statusBarStyle: 'light',
+            // statusBarColor: theme.colors.background,
+            navigationBarColor: 'black'
           })}>
           <Stack.Screen
             name="Home"
@@ -208,7 +208,7 @@ export default () => {
             name="播放"
             component={PlayScreen}
             initialParams={{vod_id: 1}}
-            options={{orientation: 'all'}}
+            options={{orientation: 'all', }}
           />
           <Stack.Screen
             name="播放历史"
