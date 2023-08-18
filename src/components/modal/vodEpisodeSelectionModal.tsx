@@ -1,4 +1,4 @@
-import React, { useState, useMemo, RefObject, memo, useCallback } from 'react';
+import React, { useState, useMemo, RefObject, memo, useCallback, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import { VodEpisodeListType, VodEpisodeType } from '../../types/ajaxTypes';
@@ -41,6 +41,11 @@ function VodEpisodeSelectionModal({ onConfirm, onCancel, sheetRef, episodes, act
         }
         return eps
     }, [showEpisodeRangeStart, showEpisodeRangeEnd, episodes, sortBy])
+
+    // set current index to 0 when vod changes
+    useEffect(() => {
+        setCurrentIndex(0);
+    }, [activeEpisode]);
 
     const snapPoints = useMemo(() => ["25%", "50%", "75%"], []);
 
