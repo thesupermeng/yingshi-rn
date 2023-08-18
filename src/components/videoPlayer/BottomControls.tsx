@@ -119,7 +119,7 @@ export default ({
         </View>
       ) : (
         <View style={styles.landscapeContainer} >
-          <View style={{ ...styles.wrapper, paddingLeft: 20 }}>
+          <View style={{ ...styles.wrapper }}>
             {videoType === 'vod' && (
               <>
                 <Slider
@@ -148,7 +148,7 @@ export default ({
               </>
             )}
           </View>
-          <View style={{ ...styles.row, marginHorizontal: 20 }}>
+          <View style={{ ...styles.row }}>
             <View>
               <RectButton
                 disallowInterruption={true}

@@ -5,7 +5,7 @@ import BottomControls from './BottomControls';
 import LinearGradient from 'react-native-linear-gradient';
 import BackButton from '../button/backButton';
 import { useNavigation, useTheme } from '@react-navigation/native';
-import { BaseButton, FlatList, Gesture, GestureDetector, RectButton, TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { BaseButton, FlatList, Gesture, GestureDetector, RectButton, ScrollView, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import VodEpisodeSelection from '../vod/vodEpisodeSelection';
 import { LiveTVStationItem, VodEpisodeListType, VodType } from '../../types/ajaxTypes';
 import VodCombinedGesture from '../gestures/vod/vodCombinedGesture';
@@ -205,7 +205,7 @@ export default forwardRef<RefHandler, Props>(({
       style={{ ...styles.controlsOverlay }}>
       {
         !showControls &&
-        <VodCombinedGesture                                                                                 
+        <VodCombinedGesture
           vodType={videoType}
           enabled={showSlider === 'none'}
           onSkipBackwards={() => handleFastForward(-10)}
@@ -330,7 +330,7 @@ export default forwardRef<RefHandler, Props>(({
                   }
                   {
                     showSlider === 'movies' &&
-                    <View style={{ paddingLeft: spacing.sideOffset + 10, flex: 1 }}>
+                    <View style={{ paddingLeft: spacing.sideOffset + 10, flex: 1, display: 'flex' }}>
                       {
                         isFetchingRecommendedMovies
                           ? <View style={{ ...styles.loading }}>
@@ -340,7 +340,9 @@ export default forwardRef<RefHandler, Props>(({
                               resizeMode={FastImage.resizeMode.contain}
                             />
                           </View>
-                          : <VodListVertical vods={movieList} outerRowPadding={50} />
+                          : <ScrollView>
+                            <VodListVertical vods={movieList} outerRowPadding={20} />
+                          </ScrollView>
                       }
                     </View>
                   }
@@ -444,12 +446,12 @@ export default forwardRef<RefHandler, Props>(({
 const styles = StyleSheet.create({
   controlsOverlay: {
     position: 'absolute',
-    // top: 0,
-    // bottom: 0,
-    // left: 0,
-    // right: 0,
-    width: '100%',
-    height: '100%'
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    // width: '100%',
+    // height: '100%'
     // backgroundColor: '#00000010',
   },
   fullScreenBottom: {

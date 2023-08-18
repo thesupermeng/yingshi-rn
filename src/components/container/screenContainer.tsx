@@ -99,9 +99,9 @@ export default function ScreenContainer({
           <View
             style={{
               ...styles.innerContainer,
-              // paddingLeft: spacing.sideOffset,
-              // paddingRight: spacing.sideOffset,
-              // ...containerStyle,
+              paddingLeft: spacing.sideOffset,
+              paddingRight: spacing.sideOffset,
+              ...containerStyle,
             }}>
             {children}
           </View>

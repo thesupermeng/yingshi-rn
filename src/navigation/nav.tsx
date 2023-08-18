@@ -187,6 +187,7 @@ export default () => {
             animation: 'slide_from_right',
             statusBarStyle: 'light',
             statusBarColor: theme.colors.background,
+            navigationBarColor: theme.colors.background,
           })}>
           <Stack.Screen
             name="Home"
