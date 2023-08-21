@@ -198,7 +198,7 @@ function VodEpisodeSelectionModal({
                   backgroundColor:
                     ep.nid === activeEpisode ? colors.primary : colors.search,
                   padding: spacing.s,
-                  minWidth: 30,
+                  minWidth: 60,
                   marginRight: 'auto',
                   marginBottom: spacing.s,
                   borderRadius: 8,
