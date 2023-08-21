@@ -78,14 +78,14 @@ const RecommendationHome = ({
   // Function to handle the pull-to-refresh action
   const handleRefresh = async () => {
     setIsRefreshing(true);
-    onRefresh(0);
+    await onRefresh(0);
 
     setTimeout(() => {
       setActiveIndex(0);
       if (carouselRef) {
+        setIsRefreshing(false);
         carouselRef?.current?.scrollTo({index: 0, animated: false});
       }
-      setIsRefreshing(false);
     }, 0);
   };
 
@@ -130,8 +130,9 @@ const RecommendationHome = ({
   useEffect(() => {
     onLoad();
   }, []);
+
   // useEffect(() => {
-  //   setActiveIndex(0);
+
   // }, [refreshProp]);
 
   return (

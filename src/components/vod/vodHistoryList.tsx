@@ -39,11 +39,14 @@ export default function VodHistoryList({
   const resetListPositionHandler = () => {
     historyRef?.current?.scrollToIndex({
       index: 0,
+      animated: false,
     });
   };
 
   useEffect(() => {
-    resetListPositionHandler(); //children function of interest
+    if (isRefreshing == false) {
+      resetListPositionHandler(); //children function of interest
+    }
   }, [isRefreshing]);
 
   return (
