@@ -237,7 +237,10 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
                               ...styles.hst,
                             }}
                             onPress={() => {
+                              dispatch(addSearchHistory(hst));
+                              setisFetching(true);
                               updateSearch(hst);
+                              setShowResults(true);
                             }}>
                             <Text
                               style={{
