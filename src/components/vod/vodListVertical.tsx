@@ -53,6 +53,9 @@ function VodListVertical({ vods, numOfRows = 2, outerRowPadding = 0, minNumPerRo
                             height: cardHeight,
                             marginRight: (idx % CARDS_PER_ROW) === CARDS_PER_ROW - 1 ? 0 : BTN_MARGIN_RIGHT,
                         }}
+                        vodCardContainerStyle={{
+                            marginBottom: Math.min(BTN_MARGIN_RIGHT, 14)
+                        }}
                         onPress={() => {
                             dispatch(playVod(vod));
                             navigation.navigate('播放', {
@@ -72,6 +75,6 @@ const styles = StyleSheet.create({
     vodList: {
         display: 'flex',
         flexDirection: 'row',
-        flexWrap: 'wrap'
+        flexWrap: 'wrap',
     }
 })

@@ -1,9 +1,9 @@
-import React, {useEffect} from 'react';
-import {Provider} from 'react-redux';
+import React, { useEffect } from 'react';
+import { Provider } from 'react-redux';
 import Nav from './src/navigation/nav';
-import {store, persistor} from './src/redux/store';
-import {PersistGate} from 'redux-persist/integration/react';
-import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
+import { store, persistor } from './src/redux/store';
+import { PersistGate } from 'redux-persist/integration/react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import {
   API_DOMAIN,
   API_DOMAIN_TEST,
@@ -22,11 +22,12 @@ import {
   VodPlaylistResponseType,
   LiveTVStationsResponseType,
 } from './src/types/ajaxTypes';
-import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import appsFlyer from 'react-native-appsflyer';
 import Api from './src/Sports/middleware/api';
-import {Url} from './src/Sports/middleware/url';
+import { Url } from './src/Sports/middleware/url';
+import { StatusBar } from 'react-native';
 
 export default function App() {
   appsFlyer.initSdk(
@@ -131,7 +132,7 @@ export default function App() {
         return Object.values(json.data.List);
       });
 
-  queryClient.prefetchInfiniteQuery(['vodPlaylist'], ({pageParam = 1}) =>
+  queryClient.prefetchInfiniteQuery(['vodPlaylist'], ({ pageParam = 1 }) =>
     fetchPlaylist(pageParam),
   );
 
@@ -150,7 +151,7 @@ export default function App() {
       List: Array<MiniVideo>;
     };
   };
-  queryClient.prefetchInfiniteQuery(['watchAnytime'], ({pageParam = 1}) =>
+  queryClient.prefetchInfiniteQuery(['watchAnytime'], ({ pageParam = 1 }) =>
     fetchVods(pageParam),
   );
 
@@ -175,7 +176,7 @@ export default function App() {
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <GestureHandlerRootView style={{flex: 1}}>
+          <GestureHandlerRootView style={{ flex: 1 }}>
             <BottomSheetModalProvider>
               <Nav />
             </BottomSheetModalProvider>

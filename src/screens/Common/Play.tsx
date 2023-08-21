@@ -110,7 +110,7 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
     () =>
       Math.floor((currentEpisode ? currentEpisode : 0) / EPISODE_RANGE_SIZE) *
       EPISODE_RANGE_SIZE,
-    [currentEpisode],
+    [currentEpisode, vod],
   );
   const showEpisodeRangeEnd = useMemo(
     () =>
@@ -120,7 +120,7 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
           ? vod.vod_play_list.url_count
           : showEpisodeRangeStart + EPISODE_RANGE_SIZE,
       ),
-    [currentEpisode, showEpisodeRangeStart],
+    [currentEpisode, showEpisodeRangeStart, vod],
   );
   const onShare = async () => {
     try {

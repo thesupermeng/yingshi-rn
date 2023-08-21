@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useCallback, useRef, useMemo} from 'react';
+import React, { useEffect, useState, useCallback, useRef, useMemo } from 'react';
 import {
   View,
   TouchableWithoutFeedback,
@@ -9,11 +9,11 @@ import {
 } from 'react-native';
 
 import Video from 'react-native-video';
-import {useTheme, useNavigation} from '@react-navigation/native';
-import {useOrientation} from '../../hooks/useOrientation';
-import {debounce} from 'lodash';
+import { useTheme, useNavigation } from '@react-navigation/native';
+import { useOrientation } from '../../hooks/useOrientation';
+import { debounce } from 'lodash';
 
-import {Dimensions} from 'react-native';
+import { Dimensions } from 'react-native';
 import VideoControlsOverlay from './VideoControlsOverlay';
 import Orientation from 'react-native-orientation-locker';
 import WebView from 'react-native-webview';
@@ -55,7 +55,7 @@ type RefHandler = {
   toggleControls: () => void;
   isVisible: boolean;
   hideSlider: () => void;
-  };
+};
 
 export default ({
   vod_url,
@@ -71,15 +71,15 @@ export default ({
   rangeSize,
   episodes,
   autoPlayNext = true,
-  onShare = () => {},
+  onShare = () => { },
   movieList = [],
   showGuide = false,
   streams = [],
   showMoreType = 'none',
   isFetchingRecommendedMovies = false,
-  }: Props) => {
+}: Props) => {
   const videoPlayerRef = React.useRef<Video | null>();
-  const {colors, spacing, textVariants, icons} = useTheme();
+  const { colors, spacing, textVariants, icons } = useTheme();
   const isPotrait = useOrientation();
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
@@ -115,7 +115,7 @@ export default ({
   useEffect(() => {
     if (!isPotrait) {
       setIsFullScreen(true);
-          } else {
+    } else {
       setIsFullScreen(false);
     }
   }, [isPotrait]);
@@ -294,14 +294,10 @@ export default ({
       style={
         isFullScreen ? styles.containerLandscape : styles.containerPortrait
       }>
-      {/* {isFullScreen ? (
+      {/* {isFullScreen && (
         <StatusBar hidden={true} />
-      ) : (
-        <StatusBar
-          backgroundColor={colors.background}
-          barStyle="light-content"
-        />
-      )} */}
+      ) 
+      } */}
       <View
         style={{
           ...styles.bofangBox,
@@ -310,7 +306,7 @@ export default ({
           (useWebview ? (
             <WebView
               resizeMode="contain"
-              source={vod_url === undefined ? vod_source : {uri: vod_url}}
+              source={vod_url === undefined ? vod_source : { uri: vod_url }}
               style={
                 !isFullScreen ? styles.videoPotrait : styles.videoLandscape
               }
@@ -337,12 +333,12 @@ export default ({
                 vod_source !== undefined
                   ? vod_source
                   : {
-                      uri: vod_url,
-                      headers: {
-                        origin: 'https://v.kylintv.com',
-                        referer: 'https://v.kylintv.com',
-                      },
-                    }
+                    uri: vod_url,
+                    headers: {
+                      origin: 'https://v.kylintv.com',
+                      referer: 'https://v.kylintv.com',
+                    },
+                  }
               }
               onLoad={onVideoLoaded}
               progressUpdateInterval={1000}
@@ -357,106 +353,106 @@ export default ({
               }
             />
           ))}
-        {(vod_url !== undefined || vod_source !== undefined) && (
-          <VideoControlsOverlay
-            ref={controlsRef}
-            onVideoSeek={onSeek}
-            onSeekGesture={onSeekGesture}
-            currentTime={currentTime}
-            duration={duration}
-            onFastForward={onSkip}
-            paused={isPaused}
-            isFullScreen={isFullScreen}
-            onTogglePlayPause={onTogglePlayPause}
-            headerTitle={vodTitle}
-            onHandleFullScreen={onToggleFullScreen}
-            onHandleGoBack={onGoBack}
-            videoType={videoType}
-            playbackRate={playbackRate}
-            onPlaybackRateChange={(rate: number) => {
-              setPlaybackRate(rate);
-            }}
-            activeEpisode={activeEpisode}
-            episodes={episodes}
-            onEpisodeChange={changeEpisodeAndPlay}
-            rangeSize={rangeSize}
-            onNextEpisode={getNextEpisode()}
-            accumulatedSkip={accumulatedSkip.current}
-            onShare={onShare}
-            movieList={movieList}
-            showGuide={showGuide}
-            showMoreType={showMoreType}
-            streams={streams}
-            isFetchingRecommendedMovies={isFetchingRecommendedMovies}
-          />
-        )}
-        {(isBuffering || seekDirection !== 'none') && (
-          <View
-            style={{
-              ...styles.buffering,
-              top: isFullScreen ? height / 2 - 30 : (width * 9) / 32 - 45,
-            }}>
-            {seekDirection !== 'none' ? (
-              <View
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  backgroundColor: 'rgba(0,0,0,0.4)',
-                  padding: 8,
-                  borderRadius: 8,
-                }}>
-                {seekDirection === 'forward' ? (
-                  <FastForwardProgressIcon height={50} width={50} />
-                ) : (
-                  <RewindProgressIcon height={50} width={50} />
-                )}
-                {duration > 3600 ? (
-                  <Text
-                    style={{
-                      textAlign: 'center',
-                    }}>
-                    <Text
-                      style={{...textVariants.header, color: colors.primary}}>
-                      {new Date(currentTime * 1000)
-                        .toISOString()
-                        .substring(11, 19)}
-                    </Text>
-                    <Text style={{...textVariants.header}}>
-                      {` / ${new Date(duration * 1000)
-                        .toISOString()
-                        .substring(11, 19)}`}
-                    </Text>
-                  </Text>
-                ) : (
-                  <Text
-                    style={{
-                      textAlign: 'center',
-                    }}>
-                    <Text
-                      style={{...textVariants.header, color: colors.primary}}>
-                      {new Date(currentTime * 1000)
-                        .toISOString()
-                        .substring(14, 19)}
-                    </Text>
-                    <Text style={{...textVariants.header}}>
-                      {` / ${new Date(duration * 1000)
-                        .toISOString()
-                        .substring(14, 19)}`}
-                    </Text>
-                  </Text>
-                )}
-              </View>
-            ) : (
-              <FastImage
-                source={require('../../../static/images/videoBufferLoading.gif')}
-                style={{width: 100, height: 100}}
-                resizeMode="contain"
-              />
-            )}
-          </View>
-        )}
       </View>
+      {(vod_url !== undefined || vod_source !== undefined) && (
+        <VideoControlsOverlay
+          ref={controlsRef}
+          onVideoSeek={onSeek}
+          onSeekGesture={onSeekGesture}
+          currentTime={currentTime}
+          duration={duration}
+          onFastForward={onSkip}
+          paused={isPaused}
+          isFullScreen={isFullScreen}
+          onTogglePlayPause={onTogglePlayPause}
+          headerTitle={vodTitle}
+          onHandleFullScreen={onToggleFullScreen}
+          onHandleGoBack={onGoBack}
+          videoType={videoType}
+          playbackRate={playbackRate}
+          onPlaybackRateChange={(rate: number) => {
+            setPlaybackRate(rate);
+          }}
+          activeEpisode={activeEpisode}
+          episodes={episodes}
+          onEpisodeChange={changeEpisodeAndPlay}
+          rangeSize={rangeSize}
+          onNextEpisode={getNextEpisode()}
+          accumulatedSkip={accumulatedSkip.current}
+          onShare={onShare}
+          movieList={movieList}
+          showGuide={showGuide}
+          showMoreType={showMoreType}
+          streams={streams}
+          isFetchingRecommendedMovies={isFetchingRecommendedMovies}
+        />
+      )}
+      {(isBuffering || seekDirection !== 'none') && (
+        <View
+          style={{
+            ...styles.buffering,
+            top: isFullScreen ? height / 2 - 30 : (width * 9) / 32 - 45,
+          }}>
+          {seekDirection !== 'none' ? (
+            <View
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: 'rgba(0,0,0,0.4)',
+                padding: 8,
+                borderRadius: 8,
+              }}>
+              {seekDirection === 'forward' ? (
+                <FastForwardProgressIcon height={50} width={50} />
+              ) : (
+                <RewindProgressIcon height={50} width={50} />
+              )}
+              {duration > 3600 ? (
+                <Text
+                  style={{
+                    textAlign: 'center',
+                  }}>
+                  <Text
+                    style={{ ...textVariants.header, color: colors.primary }}>
+                    {new Date(currentTime * 1000)
+                      .toISOString()
+                      .substring(11, 19)}
+                  </Text>
+                  <Text style={{ ...textVariants.header }}>
+                    {` / ${new Date(duration * 1000)
+                      .toISOString()
+                      .substring(11, 19)}`}
+                  </Text>
+                </Text>
+              ) : (
+                <Text
+                  style={{
+                    textAlign: 'center',
+                  }}>
+                  <Text
+                    style={{ ...textVariants.header, color: colors.primary }}>
+                    {new Date(currentTime * 1000)
+                      .toISOString()
+                      .substring(14, 19)}
+                  </Text>
+                  <Text style={{ ...textVariants.header }}>
+                    {` / ${new Date(duration * 1000)
+                      .toISOString()
+                      .substring(14, 19)}`}
+                  </Text>
+                </Text>
+              )}
+            </View>
+          ) : (
+            <FastImage
+              source={require('../../../static/images/videoBufferLoading.gif')}
+              style={{ width: 100, height: 100 }}
+              resizeMode="contain"
+            />
+          )}
+        </View>
+      )}
     </View>
   );
 };
@@ -492,8 +488,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     display: 'flex',
     alignItems: 'center',
+    width: '100%'
   },
   containerPortrait: {
     backgroundColor: 'black',
+    width: '100%'
   },
 });
