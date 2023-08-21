@@ -381,7 +381,7 @@ export default ({navigation, route}: RootStackScreenProps<'片库'>) => {
           }}
         />
       </Animated.View>
-      <Animated.View style={{paddingBottom: spacing.s}}>
+      <Animated.View style={{paddingBottom: spacing.xxs}}>
         {options && (
           <Animated.View style={contentStyle}>
             <VodTopicFilter
