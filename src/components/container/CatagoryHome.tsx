@@ -293,7 +293,19 @@ const CatagoryHome = ({
         windowSize={3}
         maxToRenderPerBatch={3}
         renderItem={listItem}
-        contentContainerStyle={{paddingBottom: 100}}
+        contentContainerStyle={{paddingBottom: 60}}
+        ListFooterComponent={
+          <View style={{...styles.loading}}>
+            <Text
+              style={{
+                ...textVariants.subBody,
+                color: colors.muted,
+                paddingTop: 12,
+              }}>
+              已经到底了
+            </Text>
+          </View>
+        }
       />
     </View>
   );

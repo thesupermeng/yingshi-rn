@@ -365,7 +365,7 @@ const RecommendationHome = ({
             </View>
           )}
           ListFooterComponent={
-            <View style={{...styles.loading, marginBottom: 100}}>
+            <View style={{...styles.loading, marginBottom: 60}}>
               {hasNextPage && (
                 <FastImage
                   style={{
@@ -386,7 +386,6 @@ const RecommendationHome = ({
                     ...textVariants.subBody,
                     color: colors.muted,
                     paddingTop: 12,
-                    paddingBottom: 20,
                   }}>
                   已经到底了
                 </Text>
