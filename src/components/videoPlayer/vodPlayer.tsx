@@ -107,6 +107,19 @@ export default ({
 
   // New state to keep track of app's background/foreground status
   const [isInBackground, setIsInBackground] = useState(false);
+  // useEffect(() => {
+  //   if (!isPotrait) {
+  //     setIsFullScreen(true);
+  //     navigation.setOptions({
+  //       gestureEnabled: false,
+  //     })
+  //   } else {
+  //     setIsFullScreen(false);
+  //     navigation.setOptions({
+  //       gestureEnabled: true,
+  //     })
+  //   }
+  // }, [isPotrait]);
 
   const handleOrientation = useCallback((orientation: any) => {
     if (!Orientation.isLocked()) {

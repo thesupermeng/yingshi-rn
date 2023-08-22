@@ -103,24 +103,38 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
   const [hideContent, setHideContent] = useState(false);
 
   // Function to handle the pull-to-refresh action
-  const handleRefresh = async (id: number) => {
-    setIsRefreshing(true);
-    setHideContent(true);
+  const handleRefresh = async (id: number, showloading: boolean = false) => {
+    if (showloading) {
+      setIsRefreshing(true);
+
+      setHideContent(true);
+    }
     try {
       await queryClient.invalidateQueries(['HomePage', id]);
+
       setIsRefreshing(false);
       setNavId(id);
       setHideContent(false);
       setShowHomeLoading(false);
+
+      return;
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   };
 
   useEffect(() => {
-    const handleTabPress = () => {
+    const handleTabPress = async () => {
       if (isFocused) {
-        handleRefresh(navId);
+        setIsRefreshing(prevIsRefreshing => {
+          if (prevIsRefreshing) {
+            return prevIsRefreshing; // No need to update, it's already true
+          } else {
+            return true; // Update to true
+          }
+        });
+        await handleRefresh(navId, true);
+        setIsRefreshing(false);
       }
     };
     // Add an event listener to the navigation object for the tab press event

@@ -85,10 +85,14 @@ const CatagoryHome = ({
   // Function to handle the pull-to-refresh action
   const handleRefresh = async () => {
     setIsRefreshing(true);
-    onRefresh(navId);
+    await onRefresh(navId);
 
     setTimeout(() => {
-      categoryListRef?.current?.scrollToIndex({index: 0, viewOffset: 24});
+      categoryListRef?.current?.scrollToIndex({
+        index: 0,
+        viewOffset: 24,
+        animated: false,
+      });
       setActiveIndex(0);
       if (carouselRef) {
         carouselRef?.current?.scrollTo({index: 0, animated: false});
@@ -161,7 +165,6 @@ const CatagoryHome = ({
                   onScrollEnd={index => {
                     setActiveIndex(index);
                   }}
-                  // onSnapToItem={index => console.log('current index:', index)}
                   renderItem={({item, index}) => (
                     <TouchableOpacity
                       key={`slider-${index}`}
@@ -290,7 +293,19 @@ const CatagoryHome = ({
         windowSize={3}
         maxToRenderPerBatch={3}
         renderItem={listItem}
-        contentContainerStyle={{paddingBottom: 100}}
+        contentContainerStyle={{paddingBottom: 60}}
+        ListFooterComponent={
+          <View style={{...styles.loading}}>
+            <Text
+              style={{
+                ...textVariants.subBody,
+                color: colors.muted,
+                paddingTop: 12,
+              }}>
+              已经到底了
+            </Text>
+          </View>
+        }
       />
     </View>
   );

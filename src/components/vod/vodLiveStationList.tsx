@@ -44,11 +44,14 @@ export default function VodLiveStationList(
   const resetListPositionHandler = () => {
     liveRef?.current?.scrollToIndex({
       index: 0,
+      animated: false,
     });
   };
 
   useEffect(() => {
-    resetListPositionHandler(); //children function of interest
+    if (isRefreshing == false) {
+      resetListPositionHandler(); //children function of interest
+    }
   }, [isRefreshing]);
 
   return (
@@ -59,6 +62,9 @@ export default function VodLiveStationList(
       horizontal
       showsHorizontalScrollIndicator={false}
       renderItem={({item}: LiveStationType) => {
+        if(item.live_station_img_url.charAt(0) == '/'){
+          item.live_station_img_url = 'https://yingshi.tv' + item.live_station_img_url;
+        }
         return (
           <VodCard
             showPlayIcon={false}
