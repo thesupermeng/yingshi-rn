@@ -157,7 +157,6 @@ export default ({
   };
 
   useEffect(() => {
-    console.log('Unlocking all')
     Orientation.unlockAllOrientations();
     // ... (rest of the useEffect hook remains unchanged)
     const subscription = AppState.addEventListener(
@@ -194,9 +193,15 @@ export default ({
       if (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT') {
         Orientation.lockToPortrait();
         setIsFullScreen(false);
+        if (useWebview) {
+          StatusBar.setHidden(true);
+        }
       } else {
         Orientation.lockToLandscape();
         setIsFullScreen(true);
+        if (useWebview) {
+          StatusBar.setHidden(false);
+        }
       }
     })
   }, [isFullScreen, Orientation]);

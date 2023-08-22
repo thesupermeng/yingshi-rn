@@ -160,7 +160,7 @@ const LiveVideo = ({ matchID, liveDataState, onLiveEnd, onLoad, streamID, videoS
     // console.log('videoPlayerControl.source', videoSource);
     return (
         <View style={styles.container}>
-            <View style={{height: isFullScreen ? '100%' : 'auto'}}>
+            {/* <View style={{height: isFullScreen ? '100%' : 'auto'}}> */}
                 {/* <View style={styles.videoDiv}> */}
                 {(videoSource !== undefined || streamData?.src) && (
                     <>
@@ -174,7 +174,7 @@ const LiveVideo = ({ matchID, liveDataState, onLiveEnd, onLoad, streamID, videoS
                         }
                     </>
                 )}
-            </View>
+            {/* </View> */}
         </View>
     );
 };
