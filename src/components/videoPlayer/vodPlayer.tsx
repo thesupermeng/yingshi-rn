@@ -10,7 +10,6 @@ import {
 
 import Video from 'react-native-video';
 import { useTheme, useNavigation } from '@react-navigation/native';
-import { useOrientation } from '../../hooks/useOrientation';
 import { debounce } from 'lodash';
 
 import { Dimensions } from 'react-native';
@@ -55,6 +54,8 @@ type RefHandler = {
   toggleControls: () => void;
   isVisible: boolean;
   hideSlider: () => void;
+  isLocked: boolean;
+  toggleLock: () => void;
 };
 
 export default ({
@@ -80,7 +81,6 @@ export default ({
 }: Props) => {
   const videoPlayerRef = React.useRef<Video | null>();
   const { colors, spacing, textVariants, icons } = useTheme();
-  const isPotrait = useOrientation();
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [duration, setDuration] = useState(0);
@@ -96,11 +96,6 @@ export default ({
 
   const height = Dimensions.get('window').height;
   const width = Dimensions.get('window').width;
-
-  const toggleControls = () => {
-    controlsRef.current.toggleControls();
-  };
-
   const navigation = useNavigation();
 
   const onBuffer = (bufferObj: any) => {
@@ -112,46 +107,76 @@ export default ({
 
   // New state to keep track of app's background/foreground status
   const [isInBackground, setIsInBackground] = useState(false);
-  useEffect(() => {
-    if (!isPotrait) {
-      setIsFullScreen(true);
-      navigation.setOptions({
-        gestureEnabled: false,
-      })
-    } else {
-      setIsFullScreen(false);
-      navigation.setOptions({
-        gestureEnabled: true,
-      })
-    }
-  }, [isPotrait]);
+  // useEffect(() => {
+  //   if (!isPotrait) {
+  //     setIsFullScreen(true);
+  //     navigation.setOptions({
+  //       gestureEnabled: false,
+  //     })
+  //   } else {
+  //     setIsFullScreen(false);
+  //     navigation.setOptions({
+  //       gestureEnabled: true,
+  //     })
+  //   }
+  // }, [isPotrait]);
 
-  const handleOrientation = (orientation: any) => {
-    if (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT') {
-      StatusBar.setHidden(true);
-      setIsFullScreen(true);
-      controlsRef.current.hideSlider();
+  const handleOrientation = useCallback((orientation: any) => {
+    if (!Orientation.isLocked()) {
+      if (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT') {
+        setIsFullScreen(true);
+      } else {
+        setIsFullScreen(false);
+      }
+    }
+  }, [setIsFullScreen, Orientation]);
+
+  useEffect(() => {
+    Orientation.addDeviceOrientationListener(handleOrientation);
+    return () => {
+      Orientation.removeDeviceOrientationListener(handleOrientation);
+      Orientation.unlockAllOrientations();
+    };
+  }, [Orientation, handleOrientation]);
+
+
+  const onGoBack = () => {
+    if (onBack !== undefined) {
+      onBack();
     } else {
-      // StatusBar.setHidden(false);
-      setIsFullScreen(false);
+      console.log('BAD')
+      if (isFullScreen) {
+        Orientation.lockToPortrait();
+        // StatusBar.setHidden(false);
+        setIsFullScreen(false);
+      } else {
+        // setTimeout(() => setIsPaused(true))
+        navigation.goBack();
+      }
     }
   };
-  useEffect(() => {
-    Orientation.addOrientationListener(handleOrientation);
-    return () => {
-      Orientation.removeOrientationListener(handleOrientation);
-    };
-  }, [handleOrientation, Orientation, StatusBar]);
 
   useEffect(() => {
+    Orientation.unlockAllOrientations();
     // ... (rest of the useEffect hook remains unchanged)
     const subscription = AppState.addEventListener(
       'change',
       handleAppStateChange,
     );
+
+    // here check swipe back event, and paused video
+    navigation.addListener('beforeRemove', (e) => {
+      e.preventDefault();
+      if (!isPaused) {
+        setIsPaused(true);
+        setTimeout(() => {
+          navigation.dispatch(e.data.action);
+        }, 100);
+      }
+    });
+
     return () => {
       subscription.remove();
-      // AppState.removeEventListener('change', handleAppStateChange);
     };
   }, []);
 
@@ -164,15 +189,21 @@ export default ({
   };
 
   const onToggleFullScreen = useCallback(() => {
-    if (isFullScreen) {
-      Orientation.lockToPortrait();
-      // StatusBar.setHidden(false);
-      setIsFullScreen(false);
-    } else {
-      Orientation.lockToLandscape();
-      StatusBar.setHidden(true);
-      setIsFullScreen(true);
-    }
+    Orientation.getOrientation(orientation => {
+      if (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT') {
+        Orientation.lockToPortrait();
+        setIsFullScreen(false);
+        if (useWebview) {
+          StatusBar.setHidden(true);
+        }
+      } else {
+        Orientation.lockToLandscape();
+        setIsFullScreen(true);
+        if (useWebview) {
+          StatusBar.setHidden(false);
+        }
+      }
+    })
   }, [isFullScreen, Orientation]);
 
   const onVideoLoaded = (data: any) => {
@@ -213,21 +244,13 @@ export default ({
   };
 
   const onSkip = (time: any) => {
-    console.log('time');
-    console.log(time);
     if (videoPlayerRef?.current) {
       if (time > 0 && isLastForward == false) {
-        console.log(1112221);
-
-        console.log(isLastForward);
         setIsLastForward(true);
         accumulatedSkip.current = 0;
       }
 
       if (time < 0 && isLastForward == true) {
-        console.log(1111);
-
-        console.log(isLastForward);
         setIsLastForward(false);
         accumulatedSkip.current = 0;
       }
@@ -250,23 +273,6 @@ export default ({
     [],
   );
 
-  const onGoBack = () => {
-    if (onBack !== undefined) {
-      onBack();
-    } else {
-      if (isFullScreen) {
-        Orientation.lockToPortrait();
-        // StatusBar.setHidden(false);
-        setIsFullScreen(false);
-      } else {
-        setIsPaused(true);
-        setTimeout(() => {
-          navigation.goBack();
-        });
-      }
-    }
-  };
-
   const changeEpisodeAndPlay = (ep: any) => {
     setIsPaused(false);
     onEpisodeChange(ep);
@@ -284,38 +290,15 @@ export default ({
     return undefined;
   };
 
-  // here check swipe back event, and paused video
-  navigation.addListener('beforeRemove', (e) => {
-    if (!isPaused) {
-      e.preventDefault();
-      setIsPaused(true);
-      setTimeout(() => {
-        navigation.dispatch(e.data.action);
-      }, 100);
-    }
-  });
-
   return (
-    <View
-      style={
-        isFullScreen ? styles.containerLandscape : styles.containerPortrait
-      }>
-      {/* {isFullScreen && (
-        <StatusBar hidden={true} />
-      ) 
-      } */}
-      <View
-        style={{
-          ...styles.bofangBox,
-        }}>
+    <View style={styles.container}>
+      <View style={{ ...styles.bofangBox }}>
         {(vod_url !== undefined || vod_source !== undefined) &&
           (useWebview ? (
             <WebView
               resizeMode="contain"
               source={vod_url === undefined ? vod_source : { uri: vod_url }}
-              style={
-                !isFullScreen ? styles.videoPotrait : styles.videoLandscape
-              }
+              style={styles.video}
               onLoad={onVideoLoaded}
             />
           ) : (
@@ -354,9 +337,7 @@ export default ({
                   currentTimeRef.current = data.currentTime;
                 }
               }}
-              style={
-                !isFullScreen ? styles.videoPotrait : styles.videoLandscape
-              }
+              style={styles.video}
             />
           ))}
       </View>
@@ -464,23 +445,15 @@ export default ({
 };
 
 const styles = StyleSheet.create({
-  videoPotrait: {
-    flex: 1,
-    height: '100%',
+  video: {
     width: '100%',
-    backgroundColor: 'black',
-  },
-  videoLandscape: {
-    flex: 1,
-    width: '100%',
-    height: '100%',
-    backgroundColor: 'black',
-    alignSelf: 'center',
+    aspectRatio: 16 / 9,
   },
   bofangBox: {
     aspectRatio: 16 / 9,
     maxHeight: '100%',
-    maxWidth: '100%',
+    width: '100%',
+    maxWidth: '100%'
   },
   buffering: {
     display: 'flex',
@@ -490,14 +463,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: '100%',
   },
-  containerLandscape: {
-    backgroundColor: 'black',
-    display: 'flex',
+  container: {
     alignItems: 'center',
-    width: '100%'
-  },
-  containerPortrait: {
+    width: '100%',
     backgroundColor: 'black',
-    width: '100%'
   },
 });
