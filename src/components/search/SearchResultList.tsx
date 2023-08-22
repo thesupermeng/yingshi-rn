@@ -23,18 +23,24 @@ export default function SearchResultList({
   const dispatch = useAppDispatch();
 
   const highlightText = (text: string, keyword: string) => {
+    if (text === undefined){ 
+      return <Text style={textVariants.body}>{text}</Text>;
+    }
+
     const parts = text.split(new RegExp(`(${keyword})`, 'gi'));
-    return parts.map((part, index) =>
-      part.toLowerCase() === keyword.toLowerCase() ? (
-        <Text key={index} style={{...textVariants.body, color: colors.primary}}>
-          {part}
-        </Text>
-      ) : (
-        <Text key={index} style={textVariants.body}>
-          {part}
-        </Text>
-      ),
-    );
+      return parts.map((part, index) =>
+        part.toLowerCase() === keyword.toLowerCase() ? (
+          <Text key={index} style={{...textVariants.body, color: colors.primary}}>
+            {part}
+          </Text>
+        ) : (
+          <Text key={index} style={textVariants.body}>
+            {part}
+          </Text>
+        ),
+      );
+
+    
   };
 
   return (
