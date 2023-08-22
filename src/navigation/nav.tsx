@@ -18,7 +18,7 @@ import LiveStationPlayScreen from '../screens/Common/LiveStationPlay';
 // import VodCollectionScreen from '../screens/Profile/Collection/VodCollection';
 // import PlaylistCollectionScreen from '../screens/Profile/Collection/PlaylistCollection';
 import FeedbackScreen from '../screens/Profile/Feedback';
-
+import Invite from '../screens/Profile/Invite';
 import MainCollectionScreen from '../screens/Profile/Collection/MainCollection';
 import PlaylistDetailsScreen from '../screens/Playlist/PlaylistDetails';
 import HistoryScreen from '../screens/Profile/History';
@@ -187,7 +187,7 @@ export default () => {
             animation: 'slide_from_right',
             // statusBarStyle: 'light',
             // statusBarColor: theme.colors.background,
-            navigationBarColor: 'black'
+            navigationBarColor: 'black',
           })}>
           <Stack.Screen
             name="Home"
@@ -205,10 +205,15 @@ export default () => {
             options={{orientation: 'portrait'}}
           />
           <Stack.Screen
+            name="邀请"
+            component={Invite}
+            options={{orientation: 'portrait'}}
+          />
+          <Stack.Screen
             name="播放"
             component={PlayScreen}
             initialParams={{vod_id: 1}}
-            options={{orientation: 'all', }}
+            options={{orientation: 'all'}}
           />
           <Stack.Screen
             name="播放历史"

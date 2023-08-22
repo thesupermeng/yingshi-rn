@@ -42,6 +42,7 @@ export type RootStackParamList = {
   合集收藏: undefined;
   播放历史: undefined;
   反馈: undefined;
+  邀请: undefined;
   设置: undefined;
   关于我们: undefined;
   分享App: undefined;

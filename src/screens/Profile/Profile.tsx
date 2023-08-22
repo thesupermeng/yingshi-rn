@@ -113,7 +113,8 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
           style={{
             ...styles.btn,
             backgroundColor: colors.card2,
-          }}>
+          }}
+          onPress={() => navigation.navigate('邀请')}>
           <View style={styles.left}>
             <View style={styles.icon}>
               <VipIcon />
