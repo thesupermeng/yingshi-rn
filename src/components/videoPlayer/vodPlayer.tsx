@@ -115,8 +115,14 @@ export default ({
   useEffect(() => {
     if (!isPotrait) {
       setIsFullScreen(true);
+      navigation.setOptions({
+        gestureEnabled: false,
+      })
     } else {
       setIsFullScreen(false);
+      navigation.setOptions({
+        gestureEnabled: true,
+      })
     }
   }, [isPotrait]);
 
