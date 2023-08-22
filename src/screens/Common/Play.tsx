@@ -48,8 +48,6 @@ import { SettingsReducerState } from '../../redux/reducers/settingsReducer';
 
 import NoConnection from '../../components/common/noConnection';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
-// import UpIcon from './../../../static/images/up_arrow.png';
-// import DownIcon from './../../../static/images/down_arrow.png';
 
 type PlayContextValue = {
   value: string;

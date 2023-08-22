@@ -185,9 +185,8 @@ export default () => {
             headerShown: false,
             autoHideHomeIndicator: true,
             animation: 'slide_from_right',
-            // statusBarStyle: 'light',
             // statusBarColor: theme.colors.background,
-            navigationBarColor: 'black'
+            navigationBarColor: theme.colors.background,
           })}>
           <Stack.Screen
             name="Home"
@@ -208,7 +207,7 @@ export default () => {
             name="播放"
             component={PlayScreen}
             initialParams={{vod_id: 1}}
-            options={{orientation: 'all', }}
+            options={{orientation: 'all', navigationBarHidden: true}}
           />
           <Stack.Screen
             name="播放历史"
@@ -260,7 +259,7 @@ export default () => {
           <Stack.Screen
             name="体育详情"
             component={MatchDetailsScreen}
-            options={{orientation: 'portrait'}}
+            options={{navigationBarHidden: true}}
             initialParams={{
               streamerId: undefined,
               matchId: undefined,

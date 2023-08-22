@@ -65,7 +65,7 @@ const Live = props => {
   useEffect(() => {
     // Orientation.unlockAllOrientations();
     // return () => {
-    Orientation.lockToPortrait();
+    // Orientation.lockToPortrait();
     // };
   }, []);
 
@@ -113,7 +113,7 @@ const FullscreenPlayer = props => {
   useEffect(() => {
     // Orientation.unlockAllOrientations();
     // return () => {
-    Orientation.lockToLandscape();
+    // Orientation.lockToLandscape();
     // };
   }, []);
 
@@ -145,7 +145,7 @@ export default LivePage = ({route, navigation}) => {
 
   const handleNavigate = () => {
     clearInterval(interval);
-    Orientation.lockToPortrait();
+    // Orientation.lockToPortrait();
     navigation.popToTop();
     navigation.navigate('All');
   };

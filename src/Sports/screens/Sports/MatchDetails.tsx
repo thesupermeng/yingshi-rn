@@ -162,9 +162,7 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
     ]);
   }, [liveRoomUpdate, matchLineUp, matchDetails]);
   // console.log(match[0])
-  const onHandleBack = () => {
-    navigation.navigate('体育');
-  };
+
   const onLiveEnd = () => {
     setIsLiveVideoEnd(true);
   };

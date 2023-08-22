@@ -52,7 +52,9 @@ type RefHandler = {
   hideControls: () => void,
   toggleControls: () => void,
   isVisible: boolean,
-  hideSlider: () => void
+  hideSlider: () => void,
+  isLocked: boolean,
+  toggleLock: () => void
 }
 
 export default forwardRef<RefHandler, Props>(({
@@ -165,6 +167,10 @@ export default forwardRef<RefHandler, Props>(({
     isVisible: showControls,
     hideSlider: () => {
       setShowSlider('none')
+    },
+    isLocked: showControls,
+    toggleLock: () => {
+      setIsLocked(!isLocked)
     }
   }))
 
@@ -180,7 +186,6 @@ export default forwardRef<RefHandler, Props>(({
   const delayControls = (delayValue?: boolean) => {
     clearHidingDelay();
     hideControlsTimeout.current = setTimeout(() => {
-      console.log('debouncing', showSlider, 'is paused', paused)
       if (delayValue === undefined) {
         if (showSlider === 'none' && !paused) {
           setShowControls(false)

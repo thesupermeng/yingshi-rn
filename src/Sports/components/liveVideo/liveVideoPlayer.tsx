@@ -173,38 +173,6 @@ const LiveVideo = ({ matchID, liveDataState, onLiveEnd, onLoad, streamID, videoS
 
                         }
                     </>
-                    // <Video
-                    //     ref={playerRef}
-                    //     fullscreen={isFullScreen}
-                    //     // onErrorLog={errorGLog}
-                    //     videoTitle={combinedName}
-                    //     style={isFullScreen ? styles.videoCompFul : styles.videoComp}
-                    //     resizeMode={'contain'}
-                    //     repeat={true}
-                    //     controls={false}
-                    //     autoPlay={true}
-                    //     paused={false}
-                    //     muted={false} //false in default
-                    //     source={{
-                    //         uri: videoSource?.url || streamData?.src,
-                    //     }}
-                    //     controlTimeout={15000}
-                    //     // onLoad={() => {
-                    //     //     console.log('ONLoad');
-                    //     //     setPaused(false);
-                    //     // }}
-                    //     onLoad={onLoad}
-                    //     onBack={() => {
-                    //         onHandleBack();
-                    //     }}
-                    //     onLiveEnd={onLiveEnd}
-                    //     onEnterFullscreen={() => {
-                    //         setIsFullScreen(true)
-                    //     }}
-                    //     onExitFullscreen={() => {
-                    //         setIsFullScreen(false)
-                    //     }}
-                    // />
                 )}
             </View>
         </View>
