@@ -11,6 +11,7 @@ interface Props {
   footer?: React.ReactNode;
   containerStyle?: ViewStyle;
   header?: React.ReactNode;
+  isHome?: boolean;
 }
 export default function ScreenContainer({
   children,
@@ -18,6 +19,7 @@ export default function ScreenContainer({
   footer,
   containerStyle,
   header,
+  isHome = false,
 }: Props) {
   const windowHeight = Dimensions.get('window').height;
   let bottomTabHeight = 0;
@@ -95,7 +97,7 @@ export default function ScreenContainer({
             backgroundColor: colors.background,
             ...styles.viewContainer,
             paddingTop: insets.top,
-            paddingBottom: insets.bottom,
+            paddingBottom: !isHome ? 0 : insets.bottom,
             // // video fullscreen here
             paddingLeft: insets.left,
             paddingRight: insets.right,
