@@ -11,6 +11,15 @@ import AdsIcn from '../../../static/images/invite/ads.svg';
 import DownloadIcn from '../../../static/images/invite/download.svg';
 import CastIcn from '../../../static/images/invite/cast.svg';
 
+import WhatsappIcn from '../../../static/images/invite/whatsapp.svg';
+
+import TelegramIcn from '../../../static/images/invite/telegram.svg';
+import FacebookIcn from '../../../static/images/invite/fb.svg';
+import WechatIcn from '../../../static/images/invite/wechat.svg';
+import TwitterIcn from '../../../static/images/invite/twitter.svg';
+import WeiboIcn from '../../../static/images/invite/weibo.svg';
+import CopyIcn from '../../../static/images/invite/copy.svg';
+
 import {Button, Dialog} from '@rneui/themed';
 import {TouchableOpacity} from '@gorhom/bottom-sheet';
 import FeedbackSuccessIcon from '../../../static/images/feedback_success.svg';
@@ -180,6 +189,43 @@ export default ({navigation}: RootStackScreenProps<'邀请'>) => {
             </Text>
           </View>
         </TouchableOpacity>
+
+        {/* social media share section  */}
+
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            marginRight: 20,
+          }}>
+          <TouchableOpacity>
+            <WhatsappIcn />
+          </TouchableOpacity>
+
+          <TouchableOpacity>
+            <TelegramIcn />
+          </TouchableOpacity>
+
+          <TouchableOpacity>
+            <FacebookIcn />
+          </TouchableOpacity>
+
+          <TouchableOpacity>
+            <WechatIcn />
+          </TouchableOpacity>
+
+          <TouchableOpacity>
+            <TwitterIcn />
+          </TouchableOpacity>
+
+          <TouchableOpacity>
+            <WeiboIcn />
+          </TouchableOpacity>
+
+          <TouchableOpacity>
+            <CopyIcn />
+          </TouchableOpacity>
+        </View>
       </View>
     </ScreenContainer>
   );
