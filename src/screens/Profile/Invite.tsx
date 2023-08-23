@@ -6,9 +6,11 @@ import {useTheme} from '@react-navigation/native';
 import {RootState} from '../../redux/store';
 // import NetInfo from '@react-native-community/netinfo';
 import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
-// import CrownImg from '../../../static/images/crown.png';
+import HotIcn from '../../../static/images/invite/hot.svg';
+import AdsIcn from '../../../static/images/invite/ads.svg';
+import DownloadIcn from '../../../static/images/invite/download.svg';
+import CastIcn from '../../../static/images/invite/cast.svg';
 
-import CrownIcon from '../../../static/images/crown.svg';
 import {Button, Dialog} from '@rneui/themed';
 import {TouchableOpacity} from '@gorhom/bottom-sheet';
 import FeedbackSuccessIcon from '../../../static/images/feedback_success.svg';
@@ -22,9 +24,11 @@ import {
 } from '../../../src/utility/constants';
 import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
 import FastImage from 'react-native-fast-image';
+import LinearGradient from 'react-native-linear-gradient';
 
 export default ({navigation}: RootStackScreenProps<'邀请'>) => {
   const {colors, textVariants, icons, spacing} = useTheme();
+  const locations = [0, 1]; // 10% and 100%
   const highlightText = (
     text: string,
     keyword1: string,
@@ -91,6 +95,7 @@ export default ({navigation}: RootStackScreenProps<'邀请'>) => {
           borderRadius: 15,
           overflow: 'hidden', // Add this line to clip the FastImage
         }}>
+        {/* crown card component  */}
         <View
           style={{
             justifyContent: 'space-between',
@@ -118,9 +123,82 @@ export default ({navigation}: RootStackScreenProps<'邀请'>) => {
 
           {/* <CrownIcon /> */}
         </View>
+
+        {/* benefit  component  */}
+        <LinearGradient
+          colors={['#323638', '#1a1d20']} // An array of gradient colors
+          locations={locations}
+          style={{
+            paddingHorizontal: 20,
+            marginRight: 20,
+            marginBottom: 15,
+            paddingBottom: 15,
+            borderTopLeftRadius: 15,
+            borderTopRightRadius: 15,
+            flexDirection: 'row', // Set flexDirection to 'row'
+            flexWrap: 'wrap', // Allow items to wrap to the next row
+          }}>
+          <View style={styles.featureItem}>
+            <HotIcn style={styles.featureIcn} />
+            <Text style={styles.featureTitle}>热播抢先看</Text>
+          </View>
+
+          <View style={styles.featureItem}>
+            <AdsIcn style={styles.featureIcn} />
+            <Text style={styles.featureTitle}>去广告</Text>
+          </View>
+
+          <View style={styles.featureItem}>
+            <DownloadIcn style={styles.featureIcn} />
+            <View>
+              <Text style={styles.featureTitle}>视频下载</Text>
+              <Text style={styles.featureTitle2}>(敬请期待)</Text>
+            </View>
+          </View>
+          <View style={styles.featureItem}>
+            <CastIcn style={styles.featureIcn} />
+            <View>
+              <Text style={styles.featureTitle}>投屏</Text>
+              <Text style={styles.featureTitle2}>(敬请期待)</Text>
+            </View>
+          </View>
+        </LinearGradient>
+        {/* invite button  component  */}
+        <TouchableOpacity>
+          <View
+            style={{
+              backgroundColor: colors.primary,
+
+              marginRight: 20,
+              justifyContent: 'center',
+              alignItems: 'center',
+              paddingVertical: 8,
+              borderRadius: 8,
+            }}>
+            <Text style={{color: '#000', fontWeight: '600', fontSize: 18}}>
+              立即推荐
+            </Text>
+          </View>
+        </TouchableOpacity>
       </View>
     </ScreenContainer>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  featureItem: {
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: 10,
+    width: '50%', // 50% width for 2 items per row
+    marginBottom: 15, // Add margin to create spacing between rows
+    marginTop: 10,
+  },
+  featureIcn: {
+    width: 32,
+    height: 32,
+  },
+  featureTitle: {fontSize: 14, color: '#ffffff', fontWeight: '400'},
+  featureTitle2: {fontSize: 10, color: '#ffffff', fontWeight: '400'},
+});
