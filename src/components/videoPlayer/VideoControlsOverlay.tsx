@@ -198,10 +198,10 @@ export default forwardRef<RefHandler, Props>(({
 
   const toggleLock = () => {
     if (isLocked) {
-      Orientation.unlockAllOrientations();
+      // Orientation.unlockAllOrientations();
       setIsLocked(false);
     } else {
-      Orientation.lockToLandscape();
+      // Orientation.lockToLandscape();
       setIsLocked(true);
     }
   }

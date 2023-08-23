@@ -96,7 +96,7 @@ export default function ScreenContainer({
             ...styles.viewContainer,
             paddingTop: insets.top,
             paddingBottom: insets.bottom,
-            // // video fullscreen here
+            // video fullscreen here
             paddingLeft: insets.left,
             paddingRight: insets.right,
             // height: displayHeight,

@@ -121,30 +121,29 @@ export default ({
   //   }
   // }, [isPotrait]);
 
-  const handleOrientation = useCallback((orientation: any) => {
-    if (!Orientation.isLocked()) {
-      if (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT') {
-        setIsFullScreen(true);
-      } else {
-        setIsFullScreen(false);
-      }
-    }
-  }, [setIsFullScreen, Orientation]);
+  // const handleOrientation = useCallback((orientation: any) => {
+  //   if (!Orientation.isLocked()) {
+  //     if (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT') {
+  //       setIsFullScreen(true);
+  //     } else {
+  //       setIsFullScreen(false);
+  //     }
+  //   }
+  // }, [setIsFullScreen, Orientation]);
 
-  useEffect(() => {
-    Orientation.addDeviceOrientationListener(handleOrientation);
-    return () => {
-      Orientation.removeDeviceOrientationListener(handleOrientation);
-      Orientation.unlockAllOrientations();
-    };
-  }, [Orientation, handleOrientation]);
+  // useEffect(() => {
+  //   Orientation.addDeviceOrientationListener(handleOrientation);
+  //   return () => {
+  //     Orientation.removeDeviceOrientationListener(handleOrientation);
+  //     Orientation.unlockAllOrientations();
+  //   };
+  // }, [Orientation, handleOrientation]);
 
 
   const onGoBack = () => {
     if (onBack !== undefined) {
       onBack();
     } else {
-      console.log('BAD')
       if (isFullScreen) {
         Orientation.lockToPortrait();
         // StatusBar.setHidden(false);
@@ -193,15 +192,11 @@ export default ({
       if (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT') {
         Orientation.lockToPortrait();
         setIsFullScreen(false);
-        if (useWebview) {
-          StatusBar.setHidden(true);
-        }
+        StatusBar.setHidden(false);
       } else {
         Orientation.lockToLandscape();
         setIsFullScreen(true);
-        if (useWebview) {
-          StatusBar.setHidden(false);
-        }
+        StatusBar.setHidden(true);
       }
     })
   }, [isFullScreen, Orientation]);
