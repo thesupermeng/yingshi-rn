@@ -144,7 +144,7 @@ function CollectionBottomSheet({ changeEpisode, sheetRef, collectionName, collec
                     gap: spacing.m
                 }}
             >
-                <View style={{ paddingTop: 16 }}>
+                <View style={{ paddingTop: 10 }}>
                     <Text style={{ ...textVariants.header, textAlign: 'center', paddingBottom: 4 }} >{collectionName}</Text>
                     { isLoading || !isFetching &&
                         <Text style={{ ...textVariants.subBody, textAlign: 'center', color: colors.sliderDot }} >更新至{totalCollectionEpisodes}集</Text>
@@ -190,7 +190,7 @@ function CollectionBottomSheet({ changeEpisode, sheetRef, collectionName, collec
                                                     </View>
                                                     <View style={{ flex: 5, flexDirection: 'column', alignSelf: 'center' }}>
                                                         <View style={{ paddingLeft: 12 }}>
-                                                            <Text numberOfLines={4} style={{...textVariants.header, paddingBottom: 10}}>{item.mini_video_title}</Text>
+                                                            <Text numberOfLines={4} style={{...textVariants.unselected, paddingBottom: 10}}>{item.mini_video_title}</Text>
                                                             <Text style={{...textVariants.subBody, color: colors.sliderDot}}>{getMinuteSecond(item.mini_video_duration)}</Text>
                                                         </View>
                                                     </View>
@@ -226,7 +226,8 @@ const styles = StyleSheet.create({
     bottomSheetItem: {
         width: '100%',
         marginVertical: 8,
-        padding: 10,
+        padding: 7,
+        // paddingVertical: 8,
         borderRadius: 6,
         flex: 1,
     },
