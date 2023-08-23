@@ -16,10 +16,10 @@ import WhatsappIcn from '../../../static/images/invite/whatsapp.svg';
 import TelegramIcn from '../../../static/images/invite/telegram.svg';
 import FacebookIcn from '../../../static/images/invite/fb.svg';
 import WechatIcn from '../../../static/images/invite/wechat.svg';
-import TwitterIcn from '../../../static/images/invite/twitter.svg';
+// import TwitterIcn from '../../../static/images/invite/twitter.svg';
 import WeiboIcn from '../../../static/images/invite/weibo.svg';
 import CopyIcn from '../../../static/images/invite/copy.svg';
-
+import ProfileIcn from '../../../static/images/invite/profile-icon.svg';
 import {Button, Dialog} from '@rneui/themed';
 import {TouchableOpacity} from '@gorhom/bottom-sheet';
 import FeedbackSuccessIcon from '../../../static/images/feedback_success.svg';
@@ -34,6 +34,7 @@ import {
 import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
 import FastImage from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
+import {ScrollView} from 'react-native-gesture-handler';
 
 export default ({navigation}: RootStackScreenProps<'邀请'>) => {
   const {colors, textVariants, icons, spacing} = useTheme();
@@ -77,156 +78,236 @@ export default ({navigation}: RootStackScreenProps<'邀请'>) => {
   return (
     <ScreenContainer>
       <TitleWithBackButtonHeader title="邀请好友奖励" />
-      {/* top component  */}
-      <View
-        style={{
-          paddingVertical: 15,
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          gap: 6,
-        }}>
-        <Text style={{fontSize: 22, color: colors.primary, fontWeight: '700'}}>
-          双赢奖励
-        </Text>
-
-        <Text>{highlightText('每邀请1位好友 增加30天VIP', '1', '30')}</Text>
-
-        <Text>{highlightText('好友获得15天VIP', '15')}</Text>
-      </View>
-      {/* content card component  */}
-      <View
-        style={{
-          flexDirection: 'column',
-          backgroundColor: '#1a1d20',
-          margin: 10,
-          paddingLeft: 20,
-          borderRadius: 15,
-          overflow: 'hidden', // Add this line to clip the FastImage
-        }}>
-        {/* crown card component  */}
+      <ScrollView style={{paddingBottom: 120}}>
+        {/* top component  */}
         <View
           style={{
-            justifyContent: 'space-between',
-            flexDirection: 'row',
+            paddingVertical: 15,
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: 6,
           }}>
-          <View
-            style={{
-              paddingTop: 45,
-              gap: 10,
-            }}>
-            <Text style={{color: '#ffffff', fontSize: 28, fontWeight: '700'}}>
-              VIP 0天
-            </Text>
-            <Text>当前累计奖励</Text>
-          </View>
+          <Text
+            style={{fontSize: 22, color: colors.primary, fontWeight: '700'}}>
+            双赢奖励
+          </Text>
 
-          <FastImage
-            source={require('../../../static/images/crown.png')}
-            style={{
-              height: 180,
-              width: 240,
-            }}
-            resizeMode={FastImage.resizeMode.contain}
-          />
+          <Text>{highlightText('每邀请1位好友 增加30天VIP', '1', '30')}</Text>
 
-          {/* <CrownIcon /> */}
+          <Text>{highlightText('好友获得15天VIP', '15')}</Text>
         </View>
-
-        {/* benefit  component  */}
-        <LinearGradient
-          colors={['#323638', '#1a1d20']} // An array of gradient colors
-          locations={locations}
+        {/* content card component  */}
+        <View
           style={{
-            paddingHorizontal: 20,
-            marginRight: 20,
-            marginBottom: 15,
-            paddingBottom: 15,
-            borderTopLeftRadius: 15,
-            borderTopRightRadius: 15,
-            flexDirection: 'row', // Set flexDirection to 'row'
-            flexWrap: 'wrap', // Allow items to wrap to the next row
+            flexDirection: 'column',
+            backgroundColor: '#1a1d20',
+            margin: 10,
+            borderRadius: 15,
+            overflow: 'hidden', // Add this line to clip the FastImage
           }}>
-          <View style={styles.featureItem}>
-            <HotIcn style={styles.featureIcn} />
-            <Text style={styles.featureTitle}>热播抢先看</Text>
-          </View>
-
-          <View style={styles.featureItem}>
-            <AdsIcn style={styles.featureIcn} />
-            <Text style={styles.featureTitle}>去广告</Text>
-          </View>
-
-          <View style={styles.featureItem}>
-            <DownloadIcn style={styles.featureIcn} />
-            <View>
-              <Text style={styles.featureTitle}>视频下载</Text>
-              <Text style={styles.featureTitle2}>(敬请期待)</Text>
-            </View>
-          </View>
-          <View style={styles.featureItem}>
-            <CastIcn style={styles.featureIcn} />
-            <View>
-              <Text style={styles.featureTitle}>投屏</Text>
-              <Text style={styles.featureTitle2}>(敬请期待)</Text>
-            </View>
-          </View>
-        </LinearGradient>
-        {/* invite button  component  */}
-        <TouchableOpacity>
+          {/* crown card component  */}
           <View
             style={{
-              backgroundColor: colors.primary,
+              justifyContent: 'space-between',
+              flexDirection: 'row',
+              paddingLeft: 20,
+            }}>
+            <View
+              style={{
+                paddingTop: 45,
+                gap: 10,
+              }}>
+              <Text style={{color: '#ffffff', fontSize: 28, fontWeight: '700'}}>
+                VIP 0天
+              </Text>
+              <Text>当前累计奖励</Text>
+            </View>
 
-              marginRight: 20,
-              justifyContent: 'center',
+            <FastImage
+              source={require('../../../static/images/crown.png')}
+              style={{
+                height: 180,
+                width: 240,
+              }}
+              resizeMode={FastImage.resizeMode.contain}
+            />
+
+            {/* <CrownIcon /> */}
+          </View>
+
+          {/* benefit  component  */}
+          <LinearGradient
+            colors={['#323638', '#1a1d20']} // An array of gradient colors
+            locations={locations}
+            style={{
+              paddingHorizontal: 20,
+              paddingVertical: 10,
+              marginHorizontal: 15,
+              marginBottom: 15,
+              borderTopLeftRadius: 15,
+              borderTopRightRadius: 15,
+              flexDirection: 'row', // Set flexDirection to 'row'
+              flexWrap: 'wrap', // Allow items to wrap to the next row
+            }}>
+            <View style={styles.featureItem}>
+              <HotIcn style={styles.featureIcn} />
+              <Text style={styles.featureTitle}>热播抢先看</Text>
+            </View>
+
+            <View style={styles.featureItem}>
+              <AdsIcn style={styles.featureIcn} />
+              <Text style={styles.featureTitle}>去广告</Text>
+            </View>
+
+            <View style={styles.featureItem}>
+              <DownloadIcn style={styles.featureIcn} />
+              <View>
+                <Text style={styles.featureTitle}>视频下载</Text>
+                <Text style={styles.featureTitle2}>(敬请期待)</Text>
+              </View>
+            </View>
+            <View style={styles.featureItem}>
+              <CastIcn style={styles.featureIcn} />
+              <View>
+                <Text style={styles.featureTitle}>投屏</Text>
+                <Text style={styles.featureTitle2}>(敬请期待)</Text>
+              </View>
+            </View>
+          </LinearGradient>
+          {/* invite button  component  */}
+          <TouchableOpacity>
+            <View
+              style={{
+                backgroundColor: colors.primary,
+                marginHorizontal: 15,
+                justifyContent: 'center',
+                alignItems: 'center',
+                paddingVertical: 8,
+                borderRadius: 8,
+              }}>
+              <Text style={{color: '#000', fontWeight: '600', fontSize: 18}}>
+                立即推荐
+              </Text>
+            </View>
+          </TouchableOpacity>
+          {/* social media share section  */}
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              marginHorizontal: 15,
+              marginVertical: 30,
+            }}>
+            <TouchableOpacity>
+              <WhatsappIcn />
+            </TouchableOpacity>
+
+            <TouchableOpacity>
+              <TelegramIcn />
+            </TouchableOpacity>
+
+            <TouchableOpacity>
+              <FacebookIcn />
+            </TouchableOpacity>
+
+            <TouchableOpacity>
+              <WechatIcn />
+            </TouchableOpacity>
+
+            <TouchableOpacity>
+              <FastImage
+                source={require('../../../static/images/invite/twitter.png')}
+                style={{
+                  height: 40,
+                  width: 40,
+                }}
+                resizeMode={FastImage.resizeMode.contain}
+              />
+            </TouchableOpacity>
+
+            <TouchableOpacity>
+              <WeiboIcn />
+            </TouchableOpacity>
+
+            <TouchableOpacity>
+              <CopyIcn />
+            </TouchableOpacity>
+          </View>
+          {/* stat section  */}
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              backgroundColor: '#222528',
+              paddingHorizontal: 15,
               alignItems: 'center',
-              paddingVertical: 8,
-              borderRadius: 8,
+              paddingVertical: 15,
             }}>
-            <Text style={{color: '#000', fontWeight: '600', fontSize: 18}}>
-              立即推荐
-            </Text>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                gap: 3,
+              }}>
+              <ProfileIcn />
+              <Text style={{fontSize: 10}}>统计邀请：</Text>
+              <Text
+                style={{
+                  fontSize: 14,
+                  color: colors.primary,
+                  fontWeight: '700',
+                }}>
+                0
+              </Text>
+            </View>
+
+            <View
+              style={{
+                alignItems: 'center',
+              }}>
+              <Text style={{fontSize: 10}}>累计奖励明细</Text>
+            </View>
           </View>
-        </TouchableOpacity>
+        </View>
 
-        {/* social media share section  */}
-
+        {/* event section  */}
         <View
           style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            marginRight: 20,
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            paddingVertical: 10,
           }}>
-          <TouchableOpacity>
-            <WhatsappIcn />
-          </TouchableOpacity>
-
-          <TouchableOpacity>
-            <TelegramIcn />
-          </TouchableOpacity>
-
-          <TouchableOpacity>
-            <FacebookIcn />
-          </TouchableOpacity>
-
-          <TouchableOpacity>
-            <WechatIcn />
-          </TouchableOpacity>
-
-          <TouchableOpacity>
-            <TwitterIcn />
-          </TouchableOpacity>
-
-          <TouchableOpacity>
-            <WeiboIcn />
-          </TouchableOpacity>
-
-          <TouchableOpacity>
-            <CopyIcn />
-          </TouchableOpacity>
+          <Text
+            style={{
+              fontSize: 12,
+              textDecorationLine: 'underline',
+              color: '#ffffff',
+            }}>
+            活动规则
+          </Text>
         </View>
-      </View>
+
+        {/* invite section  */}
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            paddingVertical: 10,
+          }}>
+          <Text
+            style={{
+              fontSize: 14,
+
+              color: '#ffffff',
+            }}>
+            如何邀请好友
+          </Text>
+        </View>
+      </ScrollView>
     </ScreenContainer>
   );
 };
@@ -236,7 +317,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     flexDirection: 'row',
-    gap: 10,
+    gap: 8,
     width: '50%', // 50% width for 2 items per row
     marginBottom: 15, // Add margin to create spacing between rows
     marginTop: 10,
