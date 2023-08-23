@@ -382,7 +382,7 @@ function ShortVideoPlayer({
                   <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
                     <View style={{ flex: 1, flexDirection: 'row' }}>
                       <HejiIcon height={24} width={24} />
-                      <Text style={{ paddingLeft: 6, alignSelf: 'center', fontSize: textVariants.bodyBold.fontSize, color: colors.text, fontWeight: 700 }}>{currentVod.mini_video_collection_title}</Text>
+                      <Text style={{ paddingLeft: 6, alignSelf: 'center', fontSize: 14, color: colors.text, fontWeight: 700 }}>{currentVod.mini_video_collection_title}</Text>
                     </View>
                     <View style={{ }}>
                       <ExpandUpIcon height={24} width={24} />
