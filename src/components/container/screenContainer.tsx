@@ -54,16 +54,6 @@ export default function ScreenContainer({
 
   return (
     <>
-      {/* <StatusBar backgroundColor={colors.background} barStyle='light-content' /> */}
-      {/* {isLandscape ? (
-        <StatusBar hidden={true} />
-      ) : (
-        <StatusBar
-          backgroundColor={colors.background}
-          barStyle="light-content"
-        />
-      )} */}
-
       {scrollView ? (
         <ScrollView
           style={{

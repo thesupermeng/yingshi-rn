@@ -107,6 +107,7 @@ export default ({
 
   // New state to keep track of app's background/foreground status
   const [isInBackground, setIsInBackground] = useState(false);
+
   // useEffect(() => {
   //   if (!isPotrait) {
   //     setIsFullScreen(true);
@@ -143,6 +144,8 @@ export default ({
   const onGoBack = () => {
     if (onBack !== undefined) {
       onBack();
+      Orientation.lockToPortrait();
+      setIsFullScreen(false);
     } else {
       if (isFullScreen) {
         Orientation.lockToPortrait();
@@ -192,11 +195,11 @@ export default ({
       if (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT') {
         Orientation.lockToPortrait();
         setIsFullScreen(false);
-        StatusBar.setHidden(false);
+        // StatusBar.setHidden(false);
       } else {
         Orientation.lockToLandscape();
         setIsFullScreen(true);
-        StatusBar.setHidden(true);
+        // StatusBar.setHidden(true);
       }
     })
   }, [isFullScreen, Orientation]);
