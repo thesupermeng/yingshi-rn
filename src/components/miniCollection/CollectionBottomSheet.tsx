@@ -61,7 +61,7 @@ function CollectionBottomSheet({ changeEpisode, sheetRef, collectionName, collec
     } = useQuery(
         ['collection', collectionId],
         () =>
-        fetch(`${API_DOMAIN}miniVod/v1/collections/${collectionVideoId}?limit=1000`)
+        fetch(`${API_DOMAIN}miniVod/v1/collections/${collectionVideoId}?limit=30`)
             .then(response => response.json())
             .then((json: CollectionResponseType) => {
                 return json.data.List
