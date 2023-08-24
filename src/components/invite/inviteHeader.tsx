@@ -50,7 +50,7 @@ export default function InviteStep() {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          gap: 6,
+          gap: 9,
         }}>
         <Text style={{fontSize: 22, color: colors.primary, fontWeight: '700'}}>
           双赢奖励
@@ -64,37 +64,4 @@ export default function InviteStep() {
   );
 }
 
-const styles = StyleSheet.create({
-  inviteTitle: {
-    fontSize: 13,
-    fontStyle: 'italic',
-    marginBottom: 5,
-  },
-  inviteStep: {
-    backgroundColor: '#1c2023',
-    width: '28%',
-    borderRadius: 10,
-    height: 100,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    padding: 10,
-  },
-  inviteContainer: {
-    flex: 1,
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 10,
-    flexDirection: 'row',
-    marginTop: 10,
-    marginBottom: 30,
-  },
-  textDesc: {
-    fontSize: 11,
-    color: '#ffffff',
-  },
-  descContainer: {
-    alignItems: 'center',
-    flex: 1,
-    justifyContent: 'center',
-  },
-});
+const styles = StyleSheet.create({});

@@ -76,6 +76,7 @@ export default function InviteCard() {
             paddingVertical: 10,
             marginHorizontal: 15,
             marginBottom: 15,
+            marginTop: -8,
             borderTopLeftRadius: 15,
             borderTopRightRadius: 15,
             flexDirection: 'row', // Set flexDirection to 'row'
@@ -128,7 +129,7 @@ export default function InviteCard() {
             flexDirection: 'row',
             justifyContent: 'space-between',
             marginHorizontal: 15,
-            marginVertical: 30,
+            marginVertical: 25,
           }}>
           <TouchableOpacity>
             <WhatsappIcn />
