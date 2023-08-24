@@ -12,16 +12,40 @@ import {
 export const GobalModal = (props: any) => {
   const {height} = useWindowDimensions();
   return (
-    <Modal
-      visible={props.show}
-      transparent={props.transparent ?? true}
-      onRequestClose={props.dismiss}
-      animationType={props.animationType ?? 'none'}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={{flex: 1, flexDirection: 'column-reverse'}}
-        keyboardVerticalOffset={props.keyboardOffset}>
+    <>
+      <Modal
+        visible={props.show}
+        transparent={props.transparent ?? true}
+        onRequestClose={props.dismiss}
+        animationType={props.animationType ?? 'slide'}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={{flex: 1, flexDirection: 'column-reverse'}}
+          keyboardVerticalOffset={props.keyboardOffset}>
+          <Pressable
+            onPress={props.dismiss}
+            style={{
+              backgroundColor: 'transparent',
+              width: '100%',
+              height: '200%',
+              position: 'absolute',
+              zIndex: 1,
+            }}
+          />
+          <View
+            style={{
+              ...styles.panel,
+              height: height * props.heightFloat ?? 0.4,
+              zIndex: 2,
+            }}>
+            {props.children}
+            {/* <InputItem /> */}
+          </View>
+        </KeyboardAvoidingView>
+      </Modal>
+      {props.show && (
         <Pressable
+          onRequestClose={props.dismiss}
           onPress={props.dismiss}
           style={{
             backgroundColor: 'rgba(0,0,0,0.4)',
@@ -30,13 +54,8 @@ export const GobalModal = (props: any) => {
             position: 'absolute',
           }}
         />
-        <View
-          style={{...styles.panel, height: height * props.heightFloat ?? 0.4}}>
-          {props.children}
-          {/* <InputItem /> */}
-        </View>
-      </KeyboardAvoidingView>
-    </Modal>
+      )}
+    </>
   );
 };
 
