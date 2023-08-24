@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useCallback, useRef, useMemo } from 'react';
 import {
   View,
-  TouchableWithoutFeedback,
   StyleSheet,
   StatusBar,
   AppState,
@@ -19,6 +18,7 @@ import WebView from 'react-native-webview';
 import FastImage from 'react-native-fast-image';
 import FastForwardProgressIcon from '../../../static/images/fastforwardProgress.svg';
 import RewindProgressIcon from '../../../static/images/rewindProgress.svg';
+import ImmersiveMode from 'react-native-immersive-mode';
 
 import {
   LiveTVStationItem,
@@ -107,7 +107,6 @@ export default ({
 
   // New state to keep track of app's background/foreground status
   const [isInBackground, setIsInBackground] = useState(false);
-
   // useEffect(() => {
   //   if (!isPotrait) {
   //     setIsFullScreen(true);
@@ -195,10 +194,12 @@ export default ({
       if (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT') {
         Orientation.lockToPortrait();
         setIsFullScreen(false);
+        ImmersiveMode.fullLayout(true);
         // StatusBar.setHidden(false);
       } else {
         Orientation.lockToLandscape();
         setIsFullScreen(true);
+        ImmersiveMode.fullLayout(false);
         // StatusBar.setHidden(true);
       }
     })

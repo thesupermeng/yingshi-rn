@@ -96,7 +96,7 @@ export default forwardRef<RefHandler, Props>(({
 
   const width = Dimensions.get('window').width;
   const height = Dimensions.get('window').height;
-
+  const insets = useSafeAreaInsets();
   // Animation function to hide the text after a delay
   const hideText = () => {
     opacity.value = withTiming(0); // Update opacity to 0 (invisible)
@@ -207,7 +207,7 @@ export default forwardRef<RefHandler, Props>(({
   }
   return (
     <Animated.View
-      style={{ ...styles.controlsOverlay }}>
+      style={{ ...styles.controlsOverlay, paddingRight: 10 }}>
       {
         !showControls &&
         <VodCombinedGesture
