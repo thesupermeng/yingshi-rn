@@ -41,7 +41,6 @@ export default function InviteStep() {
             <Text style={styles.textDesc}>向好友发送邀请</Text>
           </View>
         </View>
-
         <ArrowIcn />
         {/* step 2 */}
         <View style={styles.inviteStep}>
@@ -67,9 +66,7 @@ export default function InviteStep() {
             <Text style={styles.textDesc}>且用邀请吗登陆</Text>
           </View>
         </View>
-
         <ArrowIcn />
-
         {/* step 3  */}
         <View style={styles.inviteStep}>
           <Text
