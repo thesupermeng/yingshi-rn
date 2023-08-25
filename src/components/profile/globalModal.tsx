@@ -49,7 +49,7 @@ export const GobalModal = (props: any) => {
           onRequestClose={props.dismiss}
           onPress={props.dismiss}
           style={{
-            backgroundColor: 'rgba(0,0,0,0.2)',
+            backgroundColor: 'rgba(0,0,0,0.3)',
             width: '100%',
             height: '200%',
             position: 'absolute',

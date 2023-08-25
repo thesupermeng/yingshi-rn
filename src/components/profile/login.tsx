@@ -1,5 +1,5 @@
 import {InputItem, Button} from '@ant-design/react-native';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useTheme} from '@react-navigation/native';
 import {useEffect, useState} from 'react';
 import {
   View,
@@ -32,13 +32,15 @@ export const Login = props => {
 };
 
 const LoginCard = props => {
+  const {colors, textVariants, icons, spacing} = useTheme();
+  const navigation = useNavigation();
   return (
     <View style={styles.card}>
-      <Text style={styles.title}>Join or Sign in</Text>
-      <Text style={{textAlign: 'center', width: '100%', paddingTop: 7}}>
+      <Text style={styles.title}>登陆解锁更多精彩内容</Text>
+      {/* <Text style={{textAlign: 'center', width: '100%', paddingTop: 7}}>
         It takes less than a minute to sign up
-      </Text>
-      <Text style={styles.description}>Please enter your email address</Text>
+      </Text> */}
+      {/* <Text style={styles.description}>Please enter your email address</Text> */}
       <View>
         <InputItem
           style={[
@@ -53,7 +55,7 @@ const LoginCard = props => {
           onChange={value => {
             onEmailInputChange(value, props.setEmail);
           }}
-          placeholder="Email Address"
+          placeholder="输入邮箱账号"
           placeholderTextColor="#B6B6B6"
         />
         {props.email !== '' && props.emailValid && (
@@ -66,18 +68,32 @@ const LoginCard = props => {
           <TouchableWithoutFeedback onPress={props.click}>
             <Image
               style={styles.iconStyle}
-              source={require('../../../static/images/profile/cricket_tick.png')}
+              source={require('../../../static/images/profile/cross.png')}
             />
           </TouchableWithoutFeedback>
         )}
       </View>
       <Button
         type="primary"
-        disabled={props.email === '' || !props.emailValid}
-        style={[styles.continueButtonStyle, {backgroundColor: '#EB5339'}]}
-        activeStyle={{backgroundColor: '#EB5339'}}
+        // disabled={props.email === '' || !props.emailValid}
+        style={[
+          styles.continueButtonStyle,
+          props.email === '' || !props.emailValid
+            ? styles.btnInactive
+            : styles.btnActive,
+        ]}
+        activeStyle={[
+          styles.continueButtonStyle,
+          props.email === '' || !props.emailValid
+            ? styles.btnInactive
+            : styles.btnActive,
+        ]}
         //disabled={!props.emailValid}
         onPress={() => {
+          if (props.email === '' || !props.emailValid) {
+            console.log('invalid email');
+            navigation.navigate('OTP');
+          }
           console.log('loginApiCall');
           // loginApiCall({email: props.email});
           // props.dismiss();
@@ -86,34 +102,29 @@ const LoginCard = props => {
         }}>
         <Text
           style={{
-            fontFamily: 'SF Pro Display',
-            fontWeight: '400',
-            color: 'white',
+            //  fontFamily: 'SF Pro Display',
+            fontWeight: '600',
             fontSize: 15,
             letterSpacing: 0.2,
+            color: props.email === '' || !props.emailValid ? 'white' : '#000',
           }}>
-          Continue
+          登陆
         </Text>
       </Button>
       <View style={styles.loginTermPrivacy}>
         <Text style={styles.termPrivacyFont}>
-          By logging in, you agree to CricKong's
           <TouchableWithoutFeedback
             onPress={() => {
               props.dismiss();
               props.navigator.navigate('CricketTerm');
             }}>
-            <Text style={{color: 'yellow'}}> Terms & Conditions </Text>
-          </TouchableWithoutFeedback>
-          and
-          <TouchableWithoutFeedback
-            onPress={() => {
-              props.dismiss();
-              props.navigator.navigate('CricketPrivacy');
-            }}>
-            <Text style={{color: 'yellow'}}> Privacy Policy</Text>
+            <Text style={{color: 'white'}}> 注册 </Text>
           </TouchableWithoutFeedback>
         </Text>
+        <Image
+          style={{width: 20, height: 20}}
+          source={require('../../../static/images/profile/rightArrow.png')}
+        />
       </View>
     </View>
   );
@@ -139,20 +150,22 @@ const styles = StyleSheet.create({
     height: 42,
     borderRadius: 8,
     fontSize: 14,
+    // backgroundColor: '#1d2023',
     // fontFamily: 'SF Pro Display',
   },
-  defaultTextInputStyle: {backgroundColor: '#F4F4F4'},
-  correctTextInputStyle: {backgroundColor: '#FFF6F1'},
+  defaultTextInputStyle: {backgroundColor: '#1d2023'},
+  correctTextInputStyle: {backgroundColor: '#1d2023', color: '#fff'},
   invalidTextInputStyle: {
-    backgroundColor: '#FFEEEE',
+    backgroundColor: '#311818',
     borderWidth: 1,
-    borderColor: '#FF3434',
+    borderColor: '#FF1010',
+    color: '#FF1010',
   },
   iconStyle: {height: 18, width: 18, position: 'absolute', right: 10, top: 20},
   continueButtonStyle: {
     width: '100%',
     height: 42,
-    marginTop: 15,
+    marginTop: 30,
     marginLeft: '-0.5%',
     borderWidth: 0,
   },
@@ -165,9 +178,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   title: {
-    fontWeight: '700',
+    fontWeight: '400',
     fontSize: 16,
     textAlign: 'center',
+    color: '#fff',
+    paddingBottom: 25,
   },
   description: {
     fontWeight: '400',
@@ -184,7 +199,16 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   loginTermPrivacy: {
-    marginTop: 16,
+    marginTop: 50,
     width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  btnActive: {
+    backgroundColor: '#FAC33D',
+    color: '#000',
+  },
+  btnInactive: {
+    backgroundColor: '#1d2023',
   },
 });
