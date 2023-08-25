@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     height: 42,
     borderRadius: 8,
     fontSize: 14,
-    fontFamily: 'SF Pro Display',
+    // fontFamily: 'SF Pro Display',
   },
   defaultTextInputStyle: {backgroundColor: '#F4F4F4'},
   correctTextInputStyle: {backgroundColor: '#FFF6F1'},

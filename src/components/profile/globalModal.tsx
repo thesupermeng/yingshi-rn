@@ -35,7 +35,8 @@ export const GobalModal = (props: any) => {
           <View
             style={{
               ...styles.panel,
-              height: height * props.heightFloat ?? 0.4,
+              height: height * 0.35,
+              //   height: height * props.heightFloat ?? 0.35,
               zIndex: 2,
             }}>
             {props.children}
@@ -48,7 +49,7 @@ export const GobalModal = (props: any) => {
           onRequestClose={props.dismiss}
           onPress={props.dismiss}
           style={{
-            backgroundColor: 'rgba(0,0,0,0.4)',
+            backgroundColor: 'rgba(0,0,0,0.2)',
             width: '100%',
             height: '200%',
             position: 'absolute',
@@ -64,7 +65,7 @@ const styles = StyleSheet.create({
     marginBottom: 0,
     borderTopLeftRadius: 22,
     borderTopRightRadius: 22,
-    backgroundColor: 'white',
+    backgroundColor: '#000',
   },
   modalContent: {
     height: 200,
