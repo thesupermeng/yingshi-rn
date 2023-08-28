@@ -175,7 +175,7 @@ function CollectionBottomSheet({ changeEpisode, sheetRef, collectionName, collec
                             })}
                             showsVerticalScrollIndicator={false}
                             renderItem={({ item, index }: { item: MiniVideoCollectionItem, index: number }) => {
-                                return <View style={{ width: '100%', height: 160}}>
+                                return <View style={{ width: '100%', height: 140}}>
                                             <TouchableOpacity key={index} onPress={() => goToCollection(item, index)} style={[ styles.bottomSheetItem, index == selectedIndex ? styles.selectedBottomSheetItem : styles.notSelected ]}>
                                                 <View style={{ flex: 1, flexDirection: 'row' }}>
                                                     <View style={{ flex: 2, backgroundColor: 'black', borderRadius: 6 }}>
@@ -188,9 +188,9 @@ function CollectionBottomSheet({ changeEpisode, sheetRef, collectionName, collec
                                                             resizeMode={FastImage.resizeMode.contain}
                                                         />
                                                     </View>
-                                                    <View style={{ flex: 5, flexDirection: 'column', alignSelf: 'center' }}>
+                                                    <View style={{ flex: 6, flexDirection: 'column', alignSelf: 'center' }}>
                                                         <View style={{ paddingLeft: 12 }}>
-                                                            <Text numberOfLines={4} style={{...textVariants.unselected, paddingBottom: 10}}>{item.mini_video_title}</Text>
+                                                            <Text numberOfLines={3} style={{...textVariants.selected, paddingBottom: 10}}>{item.mini_video_title}</Text>
                                                             <Text style={{...textVariants.subBody, color: colors.sliderDot}}>{getMinuteSecond(item.mini_video_duration)}</Text>
                                                         </View>
                                                     </View>
