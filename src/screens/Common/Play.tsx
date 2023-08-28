@@ -49,9 +49,9 @@ import { SettingsReducerState } from '../../redux/reducers/settingsReducer';
 import NoConnection from '../../components/common/noConnection';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 
-type PlayContextValue = {
-  value: string;
-  updateValue: (newValue: string) => void;
+type VideoRef = {
+  setPause: (param: boolean) => void,
+  isPaused: boolean
 };
 
 const definedValue = (val: any) => {
@@ -95,8 +95,8 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
   const currentTimeRef = useRef<number>(0);
   const sheetRef = useRef<BottomSheet>(null);
   const episodeRef = useRef<FlatList>(null);
+  const videoPlayerRef = useRef() as React.MutableRefObject<VideoRef>;
 
-  const isExpandEpisodes = useSharedValue(false);
   const dispatch = useAppDispatch();
 
   const [dismountPlayer, setDismountPlayer] = useState(false);
@@ -257,6 +257,7 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
               vod.vod_play_list.urls.find(url => url.nid === currentEpisode)
                 ?.url
             }
+            ref={videoPlayerRef}
             currentTimeRef={currentTimeRef}
             initialStartTime={
               vod.episodeWatched === currentEpisode ? vod.timeWatched : 0
@@ -490,7 +491,10 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
                       isPlayScreen={true}
                       text={`相关${vod?.type_name}`}
                       onPress={() => {
-                        navigation.navigate('片库', { type_id: vod.type_id });
+                        videoPlayerRef.current.setPause(true);                                                                      
+                        setTimeout(() => {
+                          navigation.navigate('片库', { type_id: vod.type_id });
+                        }, 150);
                       }}
                     />
                     <VodListVertical

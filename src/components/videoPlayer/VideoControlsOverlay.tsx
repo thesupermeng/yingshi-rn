@@ -206,7 +206,7 @@ export default forwardRef<RefHandler, Props>(({
   }
   return (
     <Animated.View
-      style={{ ...styles.controlsOverlay, paddingRight: 10 }}>
+      style={{ ...styles.controlsOverlay}}>
       {
         !showControls &&
         <VodCombinedGesture

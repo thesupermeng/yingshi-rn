@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useRef, useMemo } from 'react';
+import React, { useEffect, useState, useCallback, useRef, forwardRef, useImperativeHandle } from 'react';
 import {
   View,
   StyleSheet,
@@ -48,7 +48,7 @@ interface Props {
   isFetchingRecommendedMovies?: boolean;
 }
 
-type RefHandler = {
+type VideoControlsRef = {
   showControls: () => void;
   hideControls: () => void;
   toggleControls: () => void;
@@ -58,7 +58,12 @@ type RefHandler = {
   toggleLock: () => void;
 };
 
-export default ({
+type VideoRef = {
+  setPause: (param: boolean) => void,
+  isPaused: boolean
+};
+
+export default forwardRef<VideoRef, Props>(({
   vod_url,
   currentTimeRef = 0,
   initialStartTime = 0,
@@ -78,7 +83,7 @@ export default ({
   streams = [],
   showMoreType = 'none',
   isFetchingRecommendedMovies = false,
-}: Props) => {
+}: Props, ref) => {
   const videoPlayerRef = React.useRef<Video | null>();
   const { colors, spacing, textVariants, icons } = useTheme();
   const [isFullScreen, setIsFullScreen] = useState(false);
@@ -90,7 +95,7 @@ export default ({
     'backward' | 'none' | 'forward'
   >('none');
   const [playbackRate, setPlaybackRate] = useState<number>(1);
-  const controlsRef = useRef() as React.MutableRefObject<RefHandler>;
+  const controlsRef = useRef() as React.MutableRefObject<VideoControlsRef>;
   const accumulatedSkip = useRef(0);
   const [isLastForward, setIsLastForward] = useState(true);
 
@@ -121,23 +126,12 @@ export default ({
   //   }
   // }, [isPotrait]);
 
-  // const handleOrientation = useCallback((orientation: any) => {
-  //   if (!Orientation.isLocked()) {
-  //     if (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT') {
-  //       setIsFullScreen(true);
-  //     } else {
-  //       setIsFullScreen(false);
-  //     }
-  //   }
-  // }, [setIsFullScreen, Orientation]);
-
-  // useEffect(() => {
-  //   Orientation.addDeviceOrientationListener(handleOrientation);
-  //   return () => {
-  //     Orientation.removeDeviceOrientationListener(handleOrientation);
-  //     Orientation.unlockAllOrientations();
-  //   };
-  // }, [Orientation, handleOrientation]);
+  useImperativeHandle(ref, () => ({
+    setPause: (pauseVideo : boolean) => {
+      setIsPaused(pauseVideo)
+    },
+    isPaused: isPaused
+  }))
 
 
   const onGoBack = () => {
@@ -148,7 +142,7 @@ export default ({
     } else {
       if (isFullScreen) {
         Orientation.lockToPortrait();
-        // StatusBar.setHidden(false);
+        StatusBar.setHidden(false);
         setIsFullScreen(false);
       } else {
         // setTimeout(() => setIsPaused(true))
@@ -168,11 +162,18 @@ export default ({
     // here check swipe back event, and paused video
     navigation.addListener('beforeRemove', (e) => {
       e.preventDefault();
-      if (!isPaused) {
-        setIsPaused(true);
-        setTimeout(() => {
-          navigation.dispatch(e.data.action);
-        }, 100);
+      if (isFullScreen) {
+        Orientation.lockToPortrait();
+        StatusBar.setHidden(false);
+        setIsFullScreen(false);
+      } else {
+        if (!isPaused) {
+          setIsPaused(true);
+          setTimeout(() => {
+            StatusBar.setHidden(false);
+            navigation.dispatch(e.data.action);
+          }, 100);
+        }
       }
     });
 
@@ -195,12 +196,12 @@ export default ({
         Orientation.lockToPortrait();
         setIsFullScreen(false);
         ImmersiveMode.fullLayout(true);
-        // StatusBar.setHidden(false);
+        StatusBar.setHidden(false);
       } else {
         Orientation.lockToLandscape();
         setIsFullScreen(true);
         ImmersiveMode.fullLayout(false);
-        // StatusBar.setHidden(true);
+        StatusBar.setHidden(true);
       }
     })
   }, [isFullScreen, Orientation]);
@@ -377,7 +378,7 @@ export default ({
         <View
           style={{
             ...styles.buffering,
-            top: isFullScreen ? height / 2 - 30 : (width * 9) / 32 - 45,
+            top: isFullScreen ? height / 2 - 45 : (width * 9) / 32 - 45,
           }}>
           {seekDirection !== 'none' ? (
             <View
@@ -441,7 +442,7 @@ export default ({
       )}
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   video: {

@@ -425,7 +425,7 @@ export default ({navigation, route}: RootStackScreenProps<'片库'>) => {
         )}
         <Animated.View
           style={{
-            marginBottom: spacing.m,
+            marginBottom: spacing.xs,
             backgroundColor: colors.background,
             padding: 0,
           }}>
