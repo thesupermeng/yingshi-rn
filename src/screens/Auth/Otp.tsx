@@ -9,8 +9,11 @@ import {
   Text,
   SafeAreaView,
   Keyboard,
+  Image,
 } from 'react-native';
+import {ScreenContainer} from 'react-native-screens';
 import {useDispatch, useSelector} from 'react-redux';
+import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
 
 import {ResendCountDown} from './resendCountDown';
 
@@ -22,6 +25,17 @@ const OtpInputs = props => {
   const [resend, setResend] = useState(false);
   const [isValid, setValid] = useState(0); // 0: have not checked, 1: invalid, 2: valid
   const navigator = useNavigation();
+
+  const [focusedInput, setFocusedInput] = useState(null); // Track the focused input index
+
+  const handleFocus = (index: any) => {
+    console.log(index);
+    setFocusedInput(index);
+  };
+
+  const handleBlur = () => {
+    setFocusedInput(null);
+  };
 
   useEffect(() => {
     otpTextInput[0].focus();
@@ -56,6 +70,8 @@ const OtpInputs = props => {
           email: props.email,
           code: new_otp,
         };
+        setValid(1);
+        return;
         let result = await otpApiCall(
           verfifyPayload,
           dispatch,
@@ -88,27 +104,39 @@ const OtpInputs = props => {
     }
     setValid(0);
   };
+  const {colors, textVariants, icons, spacing} = useTheme();
 
   return (
-    <View style={{backgroundColor: 'black'}}>
+    <View
+      style={{
+        backgroundColor: 'transparent',
+      }}>
       {/* <Text style={styles.OTPtitle}>OTP Verification</Text> */}
+      <Text style={styles.title}>输入邮箱验证码</Text>
+
       <Text style={styles.description}>
-        Enter the OTP that was sent to your email address
+        验证码已发送至{' '}
+        <Text style={[styles.hyperlink, {color: colors.primary}]}>
+          {props.email}
+        </Text>{' '}
       </Text>
-      <Text style={styles.hyperlink}>{props.email}</Text>
+      <Text style={styles.description}>如果没有收到邮件，请检查垃圾邮箱</Text>
       <View style={styles.containerStyle}>
         {[0, 0, 0, 0, 0, 0].map((i, j) => {
           return (
             <TextInput
               key={j}
-              style={
-                isValid === 0 ? styles.inputStyle : styles.inputInvalidStyle
-              }
+              style={[
+                isValid === 0 ? styles.inputStyle : styles.inputInvalidStyle,
+                focusedInput === j ? styles.inputFocused : null,
+              ]}
               keyboardType="numeric"
               onKeyPress={e => focusPrevious(e.nativeEvent.key, j)}
               ref={ref => {
                 otpTextInput[j] = ref;
               }}
+              onBlur={handleBlur}
+              onFocus={() => handleFocus(j)}
               value={otp[j]}
               maxLength={1}
             />
@@ -116,9 +144,21 @@ const OtpInputs = props => {
         })}
       </View>
       {isValid === 1 && (
-        <Text style={styles.danger}>Incorrect OTP. Please try again!</Text>
+        <View
+          style={{
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+            flexDirection: 'row',
+          }}>
+          <Image
+            style={styles.iconStyle}
+            source={require('../../../static/images/invite/danger.png')}
+          />
+
+          <Text style={styles.danger}>验证码不正确，请重试</Text>
+        </View>
       )}
-      <Text style={styles.description}>Didn't receive the code?</Text>
+      {/* <Text>没有收到验证码?</Text> */}
       {!resend && <ResendCountDown resend={resend} setResend={setResend} />}
       {resend && (
         <TouchableWithoutFeedback
@@ -130,22 +170,23 @@ const OtpInputs = props => {
             setOtp('      ');
             setValid(0);
           }}>
-          <View>
-            <Text style={[styles.hyperlink, {marginBottom: 10}]}>
-              Resend OTP
+          <View style={{marginTop: 35}}>
+            <Text
+              style={[
+                styles.hyperlink,
+                {color: colors.primary, textAlign: 'center', fontWeight: '600'},
+              ]}>
+              重新发送验证码
             </Text>
           </View>
         </TouchableWithoutFeedback>
       )}
       {/* <Text style={[styles.description, {marginBottom:10}]}>If you don't receive the OTP within 60 seconds, please click the <Text style={styles.hyperlink}>Resend</Text> button to receive the OTP again.</Text> */}
-      <Text style={styles.description}>
-        If you can't find the OTP code, please check your junk mail.
-      </Text>
     </View>
   );
 };
 
-export default () => {
+export default (props: any) => {
   const [optVarificationState, setOptVarificationState] = useState(2);
   const {colors, textVariants, icons, spacing} = useTheme();
   return (
@@ -153,37 +194,21 @@ export default () => {
       style={{
         height: '100%',
         paddingVertical: '10%',
-        backgroundColor: 'red',
+        backgroundColor: '#000',
       }}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-        <SafeAreaView style={{flex: 1}}>
-          <View style={{...styles.topNav}}>
-            <Text
-              style={{
-                ...textVariants.bigHeader,
-                color: colors.text,
-                fontSize: 22,
-              }}>
-              我的
-            </Text>
-            {/* <TouchableOpacity onPress={() => dispatch(toggleTheme(!themeReducer.theme))}>
-                    {
-                        themeReducer.theme
-                            ? <LightMode color={icons.iconColor} height={26} width={26} />
-                            : <DarkMode color={icons.iconColor}  height={26} width={26} />
+        <>
+          <TitleWithBackButtonHeader title="OTP" />
 
-                    }
-                </TouchableOpacity> */}
-          </View>
           {/* <View style={styles.headerBarShadow}/> */}
-          <View style={{paddingLeft: 20, paddingRight: 20, marginTop: '30%'}}>
+          <View style={{paddingLeft: 20, paddingRight: 20, paddingTop: '20%'}}>
             <OtpInputs
               optVarificationState={optVarificationState}
               setOptVarificationState={setOptVarificationState}
-              email={'props.route.params.email'}
+              email={props.route.params.email}
             />
           </View>
-        </SafeAreaView>
+        </>
       </TouchableWithoutFeedback>
     </View>
   );
@@ -204,57 +229,60 @@ const styles = StyleSheet.create({
   containerStyle: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    paddingTop: 10,
     alignItems: 'center',
     height: 80,
     width: '100%',
   },
   inputStyle: {
     textAlign: 'center',
-    backgroundColor: '#F4F4F4',
-    color: '#2F3434',
+    backgroundColor: '#1D2023',
+    color: '#ffffff',
     width: 48,
     height: 48,
     borderRadius: 6,
+    fontSize: 24,
   },
   inputInvalidStyle: {
     textAlign: 'center',
-    backgroundColor: '#FFEEEE',
-    color: '#FF3434',
-    borderColor: '#FF3434',
-    borderWidth: 1,
+    backgroundColor: '#1D2023',
+    color: '#FF1010',
     width: 48,
     height: 48,
     borderRadius: 6,
+    fontSize: 24,
   },
   OTPtitle: {
     fontWeight: '800',
     fontSize: 40,
-    lineHeight: 48,
     width: '80%',
     textAlign: 'left',
     marginBottom: 20,
   },
   description: {
     fontWeight: '400',
-    fontSize: 14,
-    lineHeight: 18,
-    textAlign: 'left',
+    fontSize: 15,
+    textAlign: 'center',
+    color: '#fff',
+  },
+  title: {
+    fontWeight: '600',
+    fontSize: 26,
+    textAlign: 'center',
+    marginBottom: 20,
+    color: '#fff',
   },
   hyperlink: {
-    fontWeight: '400',
+    fontWeight: '600',
     fontSize: 15,
-    lineHeight: 18,
-    textAlign: 'left',
-    color: 'white',
+    paddingLeft: 10,
   },
   danger: {
     fontWeight: '400',
     fontSize: 15,
-    lineHeight: 18,
     textAlign: 'left',
     color: '#FF3434',
   },
-
   topNav: {
     paddingTop: 8,
     display: 'flex',
@@ -263,5 +291,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     marginBottom: 8,
+  },
+  inputFocused: {
+    borderColor: '#FAC33D',
+    borderWidth: 1,
+  },
+  iconStyle: {
+    height: 22,
+    width: 22,
+    marginRight: 5,
+    position: 'relative',
+    top: 1,
   },
 });

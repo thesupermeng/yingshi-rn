@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-export const Login = props => {
+export const Register = props => {
   const [email, setEmail] = useState('');
   const [emailValid, setEmailValid] = useState(true);
 
@@ -27,7 +27,7 @@ export const Login = props => {
         email={email}
         navigator={navigator}
         dismiss={props.dismiss}
-        goToRegister={props.goToRegister}
+        goToLogin={props.goToLogin}
       />
     </View>
   );
@@ -38,12 +38,12 @@ const LoginCard = props => {
   const navigation = useNavigation();
   return (
     <View style={styles.card}>
-      <Text style={styles.title}>登陆解锁更多精彩内容</Text>
+      <Text style={styles.title}>欢迎注册</Text>
       {/* <Text style={{textAlign: 'center', width: '100%', paddingTop: 7}}>
         It takes less than a minute to sign up
       </Text> */}
       {/* <Text style={styles.description}>Please enter your email address</Text> */}
-      <View>
+      <View style={{marginBottom: 20}}>
         <InputItem
           style={[
             styles.textInpoutCommonStyle,
@@ -60,6 +60,25 @@ const LoginCard = props => {
           placeholder="输入邮箱账号"
           placeholderTextColor="#B6B6B6"
         />
+        <InputItem
+          style={[
+            styles.textInpoutCommonStyle,
+            props.email === ''
+              ? styles.defaultTextInputStyle
+              : props.emailValid
+              ? styles.correctTextInputStyle
+              : styles.invalidTextInputStyle,
+            ,
+            {marginTop: 30},
+          ]}
+          value={props.email}
+          onChange={value => {
+            onEmailInputChange(value, props.setEmail);
+          }}
+          placeholder="邀请码 (选填)"
+          placeholderTextColor="#B6B6B6"
+        />
+
         {props.email !== '' && props.emailValid && (
           <Image
             style={styles.iconStyle}
@@ -120,19 +139,19 @@ const LoginCard = props => {
             letterSpacing: 0.2,
             color: props.email === '' || !props.emailValid ? 'white' : '#000',
           }}>
-          登陆
+          注册
         </Text>
       </Button>
       <TouchableOpacity
         onPress={() => {
           // props.dismiss();
           console.log('   props.goToRegister();');
-          props.goToRegister();
+          props.goToLogin();
           // props.navigator.navigate('CricketTerm');
         }}>
         <View style={styles.loginTermPrivacy}>
           <Text style={styles.termPrivacyFont}>
-            <Text style={{color: 'white'}}> 注册 </Text>
+            <Text style={{color: 'white'}}> 邮箱登陆 </Text>
           </Text>
           <Image
             style={{width: 18, height: 18}}
@@ -184,9 +203,8 @@ const styles = StyleSheet.create({
     borderWidth: 0,
   },
   card: {
-    height: '85%',
+    height: '100%',
     width: '100%',
-    backgroundColor: '#F9F9F9',
     paddingHorizontal: 20,
     paddingTop: 20,
     backgroundColor: 'transparent',
@@ -213,7 +231,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   loginTermPrivacy: {
-    marginTop: 50,
+    marginTop: 30,
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'center',

@@ -78,7 +78,9 @@ export type RootStackParamList = {
     sportType?: '足球' | '篮球';
   };
   合集播放: {};
-  OTP: undefined;
+  OTP: {
+    email?: string;
+  };
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> =

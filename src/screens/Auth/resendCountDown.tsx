@@ -6,10 +6,11 @@ import {
   TextInput,
   TouchableWithoutFeedback,
   Text,
+  Image,
 } from 'react-native';
 
 export const ResendCountDown = props => {
-  const [countDown, setCountDown] = useState(300);
+  const [countDown, setCountDown] = useState(10);
 
   const timerRef = React.useRef(countDown);
   React.useEffect(() => {
@@ -29,25 +30,28 @@ export const ResendCountDown = props => {
   }, [props.resend]);
 
   return (
-    <Text style={[styles.description, {marginBottom: 10}]}>
-      {'Resend OTP in '}
+    <View
+      style={{
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'row',
+        marginTop: 35,
+      }}>
+      <Image
+        style={styles.iconStyle}
+        source={require('../../../static/images/invite/time.png')}
+      />
+
       <Text style={styles.hyperlink}>{timerRef.current} seconds</Text>
-    </Text>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  description: {
-    fontWeight: '400',
-    fontSize: 14,
-    lineHeight: 18,
-    textAlign: 'left',
-  },
   hyperlink: {
     fontWeight: '400',
-    fontSize: 15,
-    lineHeight: 18,
+    fontSize: 18,
     textAlign: 'left',
-    color: 'orange',
   },
+  iconStyle: {height: 26, width: 26, marginRight: 5},
 });

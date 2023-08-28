@@ -35,7 +35,9 @@ export const GobalModal = (props: any) => {
           <View
             style={{
               ...styles.panel,
-              height: height * 0.35,
+              // height: height * 0.35,
+              height:
+                props.actionType === 'login' ? height * 0.35 : height * 0.4,
               //   height: height * props.heightFloat ?? 0.35,
               zIndex: 2,
             }}>
