@@ -1,10 +1,29 @@
-import urls from '../../config/urls';
-import Http from '../../utils/http';
-import {refreshUserToken, updateAnonymous} from '~redux/auth/authSlice';
+import {API_DOMAIN, API_DOMAIN_TEST} from '../utility/constants';
+import axios from 'axios';
+
+//import {refreshUserToken, updateAnonymous} from '~redux/auth/authSlice';
 
 let user_token = '';
 let refresh_token = '';
+// new code
+export const registerUser = async ({email, referral_code, device_id, otp}) => {
+  console.log('registerUser');
 
+  let json = {
+    email: email,
+    referral_code: referral_code,
+    device_id: device_id,
+    otp: otp,
+  };
+  console.log('json');
+  console.log(json);
+  let result = await axios.post(API_DOMAIN_TEST + 'users/v1/register', json);
+  console.log('result');
+  console.log(result);
+  return result;
+};
+
+//old code
 const refreshToken = async (
   refresh_token = refresh_token,
   updateTokenFunction,
@@ -172,27 +191,6 @@ export const getUserInfo = async (
     return 'not login';
   }
 };
-
-// export const submitFeedback = async payload => {
-//   console.log('submit feedback');
-//   if (user_token === '') {
-//     // 1st time log in may not have token
-//     let toeknStatus = await reloadToken();
-//     if (toeknStatus === 'not login') {
-//       return 'not login';
-//     }
-//   }
-//   let result = await Http.post(urls.cricketUserBase + '/feedback', payload, {
-//     user_token: user_token,
-//   });
-//   if (result.code === 0) {
-//     return 'success';
-//   } else if (result.code === 2006) {
-//     //token has expired
-//     await refreshToken();
-//     return await submitFeedback(payload);
-//   }
-// };
 
 export const deleteAccountApiCall = async updateTokenFunction => {
   console.log('delete account');

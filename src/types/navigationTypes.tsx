@@ -79,7 +79,10 @@ export type RootStackParamList = {
   };
   合集播放: {};
   OTP: {
-    email?: string;
+    email: string;
+    action?: string;
+    referralCode?: string;
+    deviceId?: string;
   };
 };
 

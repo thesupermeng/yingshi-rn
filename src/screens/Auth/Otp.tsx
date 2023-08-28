@@ -16,6 +16,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
 
 import {ResendCountDown} from './resendCountDown';
+import {registerUser} from '../../features/user';
 
 const OtpInputs = props => {
   const storeToken = useSelector(state => state.userToken);
@@ -43,6 +44,7 @@ const OtpInputs = props => {
   // to make sure countdown reset before restart the countdown
   const resendOTP = email => {
     setResend(false);
+
     loginApiCall({email: email});
   };
 
@@ -166,6 +168,7 @@ const OtpInputs = props => {
             // otpResendEvent = new OtpResendEvent();
             // otpResendEvent.send();
             resendOTP(props.email);
+
             setOtpTextInput([]);
             setOtp('      ');
             setValid(0);
@@ -198,7 +201,7 @@ export default (props: any) => {
       }}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <>
-          <TitleWithBackButtonHeader title="OTP" />
+          <TitleWithBackButtonHeader title="" />
 
           {/* <View style={styles.headerBarShadow}/> */}
           <View style={{paddingLeft: 20, paddingRight: 20, paddingTop: '20%'}}>

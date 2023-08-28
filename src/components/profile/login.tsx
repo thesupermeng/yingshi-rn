@@ -97,6 +97,7 @@ const LoginCard = props => {
             props.dismiss();
             navigation.navigate('OTP', {
               email: 'demo.com',
+              action: 'login',
             });
             return;
           }

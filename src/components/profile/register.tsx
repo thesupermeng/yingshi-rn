@@ -9,10 +9,16 @@ import {
   TouchableWithoutFeedback,
   TouchableOpacity,
 } from 'react-native';
+import {registerUser} from '../../features/user';
 
 export const Register = props => {
   const [email, setEmail] = useState('');
+  const [referralCode, setReferralCode] = useState('');
+
   const [emailValid, setEmailValid] = useState(true);
+  const [referralCodeValid, setReferralCodeValid] = useState(true);
+
+  const [errMsg, setErrMsg] = useState('');
 
   useEffect(() => {
     ValidateEmail(email, setEmailValid);
@@ -23,8 +29,15 @@ export const Register = props => {
     <View style={{height: '100%'}}>
       <LoginCard
         emailValid={emailValid}
+        referralCodeValid={referralCodeValid}
         setEmail={setEmail}
+        setEmailValid={setEmailValid}
         email={email}
+        setReferralCode={setReferralCode}
+        setReferralCodeValid={setReferralCodeValid}
+        setErrMsg={setErrMsg}
+        errMsg={errMsg}
+        referralCode={referralCode}
         navigator={navigator}
         dismiss={props.dismiss}
         goToLogin={props.goToLogin}
@@ -55,7 +68,7 @@ const LoginCard = props => {
           ]}
           value={props.email}
           onChange={value => {
-            onEmailInputChange(value, props.setEmail);
+            onEmailInputChange(value, props.setEmail, props.setErrMsg);
           }}
           placeholder="输入邮箱账号"
           placeholderTextColor="#B6B6B6"
@@ -65,15 +78,20 @@ const LoginCard = props => {
             styles.textInpoutCommonStyle,
             props.email === ''
               ? styles.defaultTextInputStyle
-              : props.emailValid
+              : props.referralCodeValid
               ? styles.correctTextInputStyle
               : styles.invalidTextInputStyle,
             ,
             {marginTop: 30},
           ]}
-          value={props.email}
+          value={props.referralCode}
           onChange={value => {
-            onEmailInputChange(value, props.setEmail);
+            onReferralInputChange(
+              value,
+              props.setReferralCode,
+              props.setErrMsg,
+              props.setReferralCodeValid,
+            );
           }}
           placeholder="邀请码 (选填)"
           placeholderTextColor="#B6B6B6"
@@ -86,7 +104,10 @@ const LoginCard = props => {
           />
         )}
         {props.email !== '' && !props.emailValid && (
-          <TouchableWithoutFeedback onPress={props.click}>
+          <TouchableWithoutFeedback
+            onPress={() => {
+              props.setEmail('');
+            }}>
             <Image
               style={styles.iconStyle}
               source={require('../../../static/images/profile/cross.png')}
@@ -94,6 +115,28 @@ const LoginCard = props => {
           </TouchableWithoutFeedback>
         )}
       </View>
+
+      {props.errMsg != '' && (
+        <View
+          style={{
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+            flexDirection: 'row',
+          }}>
+          <Image
+            style={{
+              height: 22,
+              width: 22,
+              marginRight: 5,
+              position: 'relative',
+              top: 1,
+            }}
+            source={require('../../../static/images/invite/danger.png')}
+          />
+
+          <Text style={styles.danger}>{props.errMsg} </Text>
+        </View>
+      )}
       <Button
         type="primary"
         // disabled={props.email === '' || !props.emailValid}
@@ -110,21 +153,42 @@ const LoginCard = props => {
             : styles.btnActive,
         ]}
         //disabled={!props.emailValid}
-        onPress={() => {
+        onPress={async () => {
           if (props.email === '' || !props.emailValid) {
             console.log('invalid email');
-            props.dismiss();
-            navigation.navigate('OTP', {
-              email: 'demo.com',
-            });
+            props.setEmailValid(false);
+            props.setErrMsg('请填写邮箱账号');
+            // props.dismiss();
+            // navigation.navigate('OTP', {
+            //   email: 'demo.com',
+            // });
             return;
           }
+
+          try {
+            await registerUser({
+              email: props.email,
+              referral_code: props.referralCasdode,
+              device_id: 'device_id',
+              otp: '',
+            });
+          } catch (err: any) {
+            console.log('err');
+            console.log(err.response.data.message);
+            props.setErrMsg(err.response.data.message);
+            props.setReferralCodeValid(false);
+            return;
+          }
+
           console.log('props.email');
           console.log(props.email == '');
           console.log('loginApiCall');
           props.dismiss();
           navigation.navigate('OTP', {
             email: props.email,
+            action: 'register',
+            referralCode: props.referralCode,
+            deviceId: '',
           });
           // loginApiCall({email: props.email});
 
@@ -163,8 +227,20 @@ const LoginCard = props => {
   );
 };
 
-const onEmailInputChange = (value, setEmail) => {
+const onEmailInputChange = (value, setEmail, setErrMsg) => {
+  setErrMsg('');
   setEmail(value);
+};
+
+const onReferralInputChange = (
+  value,
+  setReferralCode,
+  setErrMsg,
+  setReferralCodeValid,
+) => {
+  setErrMsg('');
+  setReferralCodeValid(true);
+  setReferralCode(value);
 };
 
 function ValidateEmail(mail, setEmailValid) {
@@ -183,6 +259,7 @@ const styles = StyleSheet.create({
     height: 42,
     borderRadius: 8,
     fontSize: 14,
+    color: '#fff',
     // backgroundColor: '#1d2023',
     // fontFamily: 'SF Pro Display',
   },
@@ -242,5 +319,11 @@ const styles = StyleSheet.create({
   },
   btnInactive: {
     backgroundColor: '#1d2023',
+  },
+  danger: {
+    fontWeight: '400',
+    fontSize: 15,
+    textAlign: 'left',
+    color: '#FF3434',
   },
 });
