@@ -199,7 +199,7 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
 
   return (
     <>
-      <ScreenContainer containerStyle={{paddingLeft: 0, paddingRight: 0}}>
+      <ScreenContainer isHome={true} containerStyle={{paddingLeft: 0, paddingRight: 0}}>
         <View
           style={{
             backgroundColor: colors.background,

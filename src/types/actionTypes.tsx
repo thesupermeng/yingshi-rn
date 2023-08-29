@@ -9,6 +9,7 @@ export interface VodActionType {
     payload:  Array<VodType>
     timeWatched?: number,
     episodeWatched?: number
+    fromMiniVodCollectionItemIndex?: number
     miniVodCollectionItemIndex?: number
 }
 
@@ -34,4 +35,12 @@ export interface ClearStorageActionType {
 export interface SettingsActionType {
     type: string,
     payload?: string
+}
+
+export interface MiniVodActionType {
+    type: string,
+    payload?: string
+    fromMiniVodCollectionItemIndex?: number
+    miniVodCollectionItemIndex?: number
+    
 }

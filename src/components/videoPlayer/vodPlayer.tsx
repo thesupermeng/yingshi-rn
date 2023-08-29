@@ -1,7 +1,6 @@
-import React, { useEffect, useState, useCallback, useRef, useMemo } from 'react';
+import React, { useEffect, useState, useCallback, useRef, forwardRef, useImperativeHandle } from 'react';
 import {
   View,
-  TouchableWithoutFeedback,
   StyleSheet,
   StatusBar,
   AppState,
@@ -10,7 +9,6 @@ import {
 
 import Video from 'react-native-video';
 import { useTheme, useNavigation } from '@react-navigation/native';
-import { useOrientation } from '../../hooks/useOrientation';
 import { debounce } from 'lodash';
 
 import { Dimensions } from 'react-native';
@@ -20,6 +18,7 @@ import WebView from 'react-native-webview';
 import FastImage from 'react-native-fast-image';
 import FastForwardProgressIcon from '../../../static/images/fastforwardProgress.svg';
 import RewindProgressIcon from '../../../static/images/rewindProgress.svg';
+import ImmersiveMode from 'react-native-immersive-mode';
 
 import {
   LiveTVStationItem,
@@ -49,15 +48,23 @@ interface Props {
   isFetchingRecommendedMovies?: boolean;
 }
 
-type RefHandler = {
+type VideoControlsRef = {
   showControls: () => void;
   hideControls: () => void;
   toggleControls: () => void;
   isVisible: boolean;
   hideSlider: () => void;
+  isLocked: boolean;
+  toggleLock: () => void;
 };
 
-export default ({
+type VideoRef = {
+  setPause: (param: boolean) => void,
+  isPaused: boolean,
+  setCurrentTime: (time: number) => void
+};
+
+export default forwardRef<VideoRef, Props>(({
   vod_url,
   currentTimeRef = 0,
   initialStartTime = 0,
@@ -77,10 +84,9 @@ export default ({
   streams = [],
   showMoreType = 'none',
   isFetchingRecommendedMovies = false,
-}: Props) => {
+}: Props, ref) => {
   const videoPlayerRef = React.useRef<Video | null>();
   const { colors, spacing, textVariants, icons } = useTheme();
-  const isPotrait = useOrientation();
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [duration, setDuration] = useState(0);
@@ -90,17 +96,12 @@ export default ({
     'backward' | 'none' | 'forward'
   >('none');
   const [playbackRate, setPlaybackRate] = useState<number>(1);
-  const controlsRef = useRef() as React.MutableRefObject<RefHandler>;
+  const controlsRef = useRef() as React.MutableRefObject<VideoControlsRef>;
   const accumulatedSkip = useRef(0);
   const [isLastForward, setIsLastForward] = useState(true);
 
   const height = Dimensions.get('window').height;
   const width = Dimensions.get('window').width;
-
-  const toggleControls = () => {
-    controlsRef.current.toggleControls();
-  };
-
   const navigation = useNavigation();
 
   const onBuffer = (bufferObj: any) => {
@@ -112,46 +113,74 @@ export default ({
 
   // New state to keep track of app's background/foreground status
   const [isInBackground, setIsInBackground] = useState(false);
-  useEffect(() => {
-    if (!isPotrait) {
-      setIsFullScreen(true);
-      navigation.setOptions({
-        gestureEnabled: false,
-      })
-    } else {
-      setIsFullScreen(false);
-      navigation.setOptions({
-        gestureEnabled: true,
-      })
-    }
-  }, [isPotrait]);
+  // useEffect(() => {
+  //   if (!isPotrait) {
+  //     setIsFullScreen(true);
+  //     navigation.setOptions({
+  //       gestureEnabled: false,
+  //     })
+  //   } else {
+  //     setIsFullScreen(false);
+  //     navigation.setOptions({
+  //       gestureEnabled: true,
+  //     })
+  //   }
+  // }, [isPotrait]);
 
-  const handleOrientation = (orientation: any) => {
-    if (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT') {
-      StatusBar.setHidden(true);
-      setIsFullScreen(true);
-      controlsRef.current.hideSlider();
-    } else {
-      // StatusBar.setHidden(false);
+  useImperativeHandle(ref, () => ({
+    setPause: (pauseVideo : boolean) => {
+      setIsPaused(pauseVideo)
+    },
+    isPaused: isPaused,
+    setCurrentTime: (time) => setCurrentTime(time)
+  }))
+
+
+  const onGoBack = () => {
+    if (onBack !== undefined) {
+      onBack();
+      Orientation.lockToPortrait();
       setIsFullScreen(false);
+    } else {
+      if (isFullScreen) {
+        Orientation.lockToPortrait();
+        StatusBar.setHidden(false);
+        setIsFullScreen(false);
+      } else {
+        // setTimeout(() => setIsPaused(true))
+        navigation.goBack();
+      }
     }
   };
-  useEffect(() => {
-    Orientation.addOrientationListener(handleOrientation);
-    return () => {
-      Orientation.removeOrientationListener(handleOrientation);
-    };
-  }, [handleOrientation, Orientation, StatusBar]);
 
   useEffect(() => {
+    Orientation.unlockAllOrientations();
     // ... (rest of the useEffect hook remains unchanged)
     const subscription = AppState.addEventListener(
       'change',
       handleAppStateChange,
     );
+
+    // here check swipe back event, and paused video
+    navigation.addListener('beforeRemove', (e) => {
+      e.preventDefault();
+      if (isFullScreen) {
+        Orientation.lockToPortrait();
+        StatusBar.setHidden(false);
+        setIsFullScreen(false);
+      } else {
+        if (!isPaused) {
+          setIsPaused(true);
+          setTimeout(() => {
+            StatusBar.setHidden(false);
+            navigation.dispatch(e.data.action);
+          }, 100);
+        }
+      }
+    });
+
     return () => {
       subscription.remove();
-      // AppState.removeEventListener('change', handleAppStateChange);
     };
   }, []);
 
@@ -164,15 +193,19 @@ export default ({
   };
 
   const onToggleFullScreen = useCallback(() => {
-    if (isFullScreen) {
-      Orientation.lockToPortrait();
-      // StatusBar.setHidden(false);
-      setIsFullScreen(false);
-    } else {
-      Orientation.lockToLandscape();
-      StatusBar.setHidden(true);
-      setIsFullScreen(true);
-    }
+    Orientation.getOrientation(orientation => {
+      if (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT') {
+        Orientation.lockToPortrait();
+        setIsFullScreen(false);
+        ImmersiveMode.fullLayout(true);
+        StatusBar.setHidden(false);
+      } else {
+        Orientation.lockToLandscape();
+        setIsFullScreen(true);
+        ImmersiveMode.fullLayout(false);
+        StatusBar.setHidden(true);
+      }
+    })
   }, [isFullScreen, Orientation]);
 
   const onVideoLoaded = (data: any) => {
@@ -213,21 +246,13 @@ export default ({
   };
 
   const onSkip = (time: any) => {
-    console.log('time');
-    console.log(time);
     if (videoPlayerRef?.current) {
       if (time > 0 && isLastForward == false) {
-        console.log(1112221);
-
-        console.log(isLastForward);
         setIsLastForward(true);
         accumulatedSkip.current = 0;
       }
 
       if (time < 0 && isLastForward == true) {
-        console.log(1111);
-
-        console.log(isLastForward);
         setIsLastForward(false);
         accumulatedSkip.current = 0;
       }
@@ -250,23 +275,6 @@ export default ({
     [],
   );
 
-  const onGoBack = () => {
-    if (onBack !== undefined) {
-      onBack();
-    } else {
-      if (isFullScreen) {
-        Orientation.lockToPortrait();
-        // StatusBar.setHidden(false);
-        setIsFullScreen(false);
-      } else {
-        setIsPaused(true);
-        setTimeout(() => {
-          navigation.goBack();
-        });
-      }
-    }
-  };
-
   const changeEpisodeAndPlay = (ep: any) => {
     setIsPaused(false);
     onEpisodeChange(ep);
@@ -284,38 +292,15 @@ export default ({
     return undefined;
   };
 
-  // here check swipe back event, and paused video
-  navigation.addListener('beforeRemove', (e) => {
-    if (!isPaused) {
-      e.preventDefault();
-      setIsPaused(true);
-      setTimeout(() => {
-        navigation.dispatch(e.data.action);
-      }, 100);
-    }
-  });
-
   return (
-    <View
-      style={
-        isFullScreen ? styles.containerLandscape : styles.containerPortrait
-      }>
-      {/* {isFullScreen && (
-        <StatusBar hidden={true} />
-      ) 
-      } */}
-      <View
-        style={{
-          ...styles.bofangBox,
-        }}>
+    <View style={styles.container}>
+      <View style={{ ...styles.bofangBox }}>
         {(vod_url !== undefined || vod_source !== undefined) &&
           (useWebview ? (
             <WebView
               resizeMode="contain"
               source={vod_url === undefined ? vod_source : { uri: vod_url }}
-              style={
-                !isFullScreen ? styles.videoPotrait : styles.videoLandscape
-              }
+              style={styles.video}
               onLoad={onVideoLoaded}
             />
           ) : (
@@ -354,9 +339,7 @@ export default ({
                   currentTimeRef.current = data.currentTime;
                 }
               }}
-              style={
-                !isFullScreen ? styles.videoPotrait : styles.videoLandscape
-              }
+              style={styles.video}
             />
           ))}
       </View>
@@ -397,7 +380,7 @@ export default ({
         <View
           style={{
             ...styles.buffering,
-            top: isFullScreen ? height / 2 - 30 : (width * 9) / 32 - 45,
+            top: isFullScreen ? height / 2 - 45 : (width * 9) / 32 - 45,
           }}>
           {seekDirection !== 'none' ? (
             <View
@@ -461,26 +444,18 @@ export default ({
       )}
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
-  videoPotrait: {
-    flex: 1,
-    height: '100%',
+  video: {
     width: '100%',
-    backgroundColor: 'black',
-  },
-  videoLandscape: {
-    flex: 1,
-    width: '100%',
-    height: '100%',
-    backgroundColor: 'black',
-    alignSelf: 'center',
+    aspectRatio: 16 / 9,
   },
   bofangBox: {
     aspectRatio: 16 / 9,
     maxHeight: '100%',
-    maxWidth: '100%',
+    width: '100%',
+    maxWidth: '100%'
   },
   buffering: {
     display: 'flex',
@@ -490,14 +465,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: '100%',
   },
-  containerLandscape: {
-    backgroundColor: 'black',
-    display: 'flex',
+  container: {
     alignItems: 'center',
-    width: '100%'
-  },
-  containerPortrait: {
+    width: '100%',
     backgroundColor: 'black',
-    width: '100%'
   },
 });

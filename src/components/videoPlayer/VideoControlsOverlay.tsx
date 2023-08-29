@@ -52,7 +52,9 @@ type RefHandler = {
   hideControls: () => void,
   toggleControls: () => void,
   isVisible: boolean,
-  hideSlider: () => void
+  hideSlider: () => void,
+  isLocked: boolean,
+  toggleLock: () => void
 }
 
 export default forwardRef<RefHandler, Props>(({
@@ -94,7 +96,6 @@ export default forwardRef<RefHandler, Props>(({
 
   const width = Dimensions.get('window').width;
   const height = Dimensions.get('window').height;
-
   // Animation function to hide the text after a delay
   const hideText = () => {
     opacity.value = withTiming(0); // Update opacity to 0 (invisible)
@@ -114,7 +115,7 @@ export default forwardRef<RefHandler, Props>(({
 
   const handleFastForward = (time: any) => {
     delayControls(false);
-    console.log('skipping', time)
+    // console.log('skipping', time)
     onFastForward(time);
   };
 
@@ -165,6 +166,10 @@ export default forwardRef<RefHandler, Props>(({
     isVisible: showControls,
     hideSlider: () => {
       setShowSlider('none')
+    },
+    isLocked: showControls,
+    toggleLock: () => {
+      setIsLocked(!isLocked)
     }
   }))
 
@@ -180,7 +185,6 @@ export default forwardRef<RefHandler, Props>(({
   const delayControls = (delayValue?: boolean) => {
     clearHidingDelay();
     hideControlsTimeout.current = setTimeout(() => {
-      console.log('debouncing', showSlider, 'is paused', paused)
       if (delayValue === undefined) {
         if (showSlider === 'none' && !paused) {
           setShowControls(false)
@@ -193,10 +197,10 @@ export default forwardRef<RefHandler, Props>(({
 
   const toggleLock = () => {
     if (isLocked) {
-      Orientation.unlockAllOrientations();
+      // Orientation.unlockAllOrientations();
       setIsLocked(false);
     } else {
-      Orientation.lockToLandscape();
+      // Orientation.lockToLandscape();
       setIsLocked(true);
     }
   }
@@ -381,11 +385,13 @@ export default forwardRef<RefHandler, Props>(({
                       {headerTitle}
                     </Text>
                   </View>
-                  <RectButton
-                    disallowInterruption={true}
-                    onPress={onShare}>
-                    <ProjectIcon width={30} height={30} />
-                  </RectButton>
+                  {
+                    videoType === 'vod' && <RectButton
+                      disallowInterruption={true}
+                      onPress={onShare}>
+                      <ProjectIcon width={30} height={30} />
+                    </RectButton>
+                  }
                 </View>
               </LinearGradient>
               {/* Middle Controls */}

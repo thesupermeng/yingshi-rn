@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, BackHandler, AppState, Platform } from 'react-native';
+import { View, BackHandler, AppState, Platform, StatusBar } from 'react-native';
 import styles from './style';
 // import { VideoPlayer } from '../videoPlayer/VideoPlayer';
 import Orientation from 'react-native-orientation-locker';
@@ -55,13 +55,17 @@ const LiveVideo = ({ matchID, liveDataState, onLiveEnd, onLoad, streamID, videoS
     const streamRoomID = streamData?.id;
     //   const streamRoomIdRef = useRef(streamID);
 
-    useEffect(() => {
-        if (isFullScreen) {
-            Orientation.lockToLandscape();
-        } else {
-            Orientation.lockToPortrait();
-        }
-    }, [isFullScreen]);
+    // useEffect(() => {
+    //     if (isFullScreen) {
+    //         Orientation.lockToLandscape();
+    //     } else {
+    //         Orientation.lockToPortrait();
+    //     }
+    // }, [isFullScreen]);
+    const onHandleBack = () => {
+        StatusBar.setHidden(false);
+        setTimeout(() => setVideoSource(VideoLiveType.DETAIL, ''))
+    };
 
     useEffect(() => {
         if (streamsData) {
@@ -140,27 +144,11 @@ const LiveVideo = ({ matchID, liveDataState, onLiveEnd, onLoad, streamID, videoS
     //     totalWatchTime,
     //   );
     // };
-    const onHandleBack = () => {
-        Orientation.lockToPortrait();
-        // deleteGLog();
-        if (isFullScreen) {
-            // setStreamID(streamID);
-            setIsFullScreen(false);
-            // dispatch(hideControlAction());
-        } else {
-            // props?.setStreamID(streamID);
-            setVideoSource(VideoLiveType.DETAIL, '')
-            // navigation.goBack();
-            // navigation.navigate('MatchDetailsPage', {
-            //   route: {params: {streamerId: streamID, matchId: matchID}},
-            // });
-        }
-    };
 
     // console.log('videoPlayerControl.source', videoSource);
     return (
         <View style={styles.container}>
-            <View style={{height: isFullScreen ? '100%' : 'auto'}}>
+            {/* <View style={{height: isFullScreen ? '100%' : 'auto'}}> */}
                 {/* <View style={styles.videoDiv}> */}
                 {(videoSource !== undefined || streamData?.src) && (
                     <>
@@ -173,40 +161,8 @@ const LiveVideo = ({ matchID, liveDataState, onLiveEnd, onLoad, streamID, videoS
 
                         }
                     </>
-                    // <Video
-                    //     ref={playerRef}
-                    //     fullscreen={isFullScreen}
-                    //     // onErrorLog={errorGLog}
-                    //     videoTitle={combinedName}
-                    //     style={isFullScreen ? styles.videoCompFul : styles.videoComp}
-                    //     resizeMode={'contain'}
-                    //     repeat={true}
-                    //     controls={false}
-                    //     autoPlay={true}
-                    //     paused={false}
-                    //     muted={false} //false in default
-                    //     source={{
-                    //         uri: videoSource?.url || streamData?.src,
-                    //     }}
-                    //     controlTimeout={15000}
-                    //     // onLoad={() => {
-                    //     //     console.log('ONLoad');
-                    //     //     setPaused(false);
-                    //     // }}
-                    //     onLoad={onLoad}
-                    //     onBack={() => {
-                    //         onHandleBack();
-                    //     }}
-                    //     onLiveEnd={onLiveEnd}
-                    //     onEnterFullscreen={() => {
-                    //         setIsFullScreen(true)
-                    //     }}
-                    //     onExitFullscreen={() => {
-                    //         setIsFullScreen(false)
-                    //     }}
-                    // />
                 )}
-            </View>
+            {/* </View> */}
         </View>
     );
 };
