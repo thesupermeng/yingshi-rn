@@ -1,6 +1,7 @@
 import { CombinedState, combineReducers } from "redux";
 import themeReducer from './themeReducer';
 import { vodReducer, vodPlaylistReducer, vodFavouritesReducer } from './vodReducer';
+import { miniVodReducer } from './miniVodReducer';
 import { settingsReducer } from './settingsReducer';
 import { searchHistoryReducer } from './searchReducer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -10,6 +11,7 @@ const appReducer = combineReducers({
     themeReducer,
     vodPlaylistReducer,
     vodReducer,
+    miniVodReducer,
     searchHistoryReducer,
     vodFavouritesReducer,
     settingsReducer

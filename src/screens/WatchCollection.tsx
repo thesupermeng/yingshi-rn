@@ -23,8 +23,10 @@ import { StyleSheet } from 'react-native';
 import TitleWithBackButtonHeader from '../components/header/titleWithBackButtonHeader';
 import BackIcon from '../../static/images/back_arrow.svg';
 import {useAppDispatch, useAppSelector} from '../hooks/hooks';
-import { selectMiniVodCollection } from '../redux/actions/vodActions';
+import { selectMiniVodCollection } from '../redux/actions/miniVodActions';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { RootState } from '../redux/store';
+import { MiniVodReducerState } from '../redux/reducers/miniVodReducer';
 
 type PlayContextValue = {
     value: string;
@@ -47,6 +49,10 @@ type MiniVideoResponseType = {
 export default ({ navigation, route }: RootStackScreenProps<'合集播放'>) => {
     const dispatch = useAppDispatch();
     const insets = useSafeAreaInsets();
+    
+    const miniVodReducer: MiniVodReducerState = useAppSelector(
+        ({miniVodReducer}: RootState) => miniVodReducer,
+    );
 
     const { colors, spacing, textVariants, icons } = useTheme();
     const [isPaused, setIsPaused] = useState(false);
@@ -55,7 +61,7 @@ export default ({ navigation, route }: RootStackScreenProps<'合集播放'>) => 
     const [currentEpisode, setCurrentEpisode] = useState(route.params.collection_video_display_position);
 
     const goBack = () => {
-        dispatch(selectMiniVodCollection(0));
+        dispatch(selectMiniVodCollection(miniVodReducer.fromMiniVodCollectionItemIndex));
         navigation.goBack();
     }
 

@@ -19,7 +19,6 @@ export interface VodReducerState {
     favorites: Array<VodRecordType>,
     history: Array<VodRecordType>,
     playVod: PlayVodType,
-    miniVodCollectionItemIndex: number,
 }
 
 const initialState: VodReducerState = {
@@ -29,7 +28,6 @@ const initialState: VodReducerState = {
         vod: null,
         isFavorite: true
     },
-    miniVodCollectionItemIndex: 0,
 }
 
 export function vodReducer(state = initialState, action: VodActionType) {
@@ -69,12 +67,6 @@ export function vodReducer(state = initialState, action: VodActionType) {
             return {
                 ...state,
                 history: state.history.filter(vod => !action.payload.includes(vod))
-            };
-        }
-        case SELECT_MINI_VOD_COLLECTION_ITEM: {
-            return {
-                ...state,
-                miniVodCollectionItemIndex: action.miniVodCollectionItemIndex
             };
         }
         default:

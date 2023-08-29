@@ -1,4 +1,4 @@
-import React, {useEffect, useState, memo, useMemo, useRef} from 'react';
+import React, {useEffect, useState, memo, useMemo, useCallback, useRef} from 'react';
 import {
   View,
   TouchableWithoutFeedback,
@@ -24,6 +24,7 @@ import BottomSheet from '@gorhom/bottom-sheet';
 import CollectionBottomSheet from '../../../src/components/miniCollection/CollectionBottomSheet';
 import HejiIcon from '../../../static/images/heji.svg';
 import ExpandUpIcon from '../../../static/images/expandHeji.svg';
+import { QueryClient } from '@tanstack/react-query';
 
 interface Props {
   vod_url?: string;
@@ -34,6 +35,7 @@ interface Props {
   vod: any;
   inCollectionView?: boolean;
   setCollectionEpisode?: any;
+  openSheet?: any;
 }
 
 function ShortVideoPlayer({
@@ -44,7 +46,8 @@ function ShortVideoPlayer({
   videoTitle,
   displayHeight = 0,
   inCollectionView = false,
-  setCollectionEpisode
+  setCollectionEpisode,
+  openSheet
 }: Props) {
   const maxLength = 10;
 
@@ -103,20 +106,26 @@ function ShortVideoPlayer({
     };
   }, [currentVod]);
 
-  const onBuffer = (bufferObj: any) => {
-    setIsBuffering(bufferObj.isBuffering);
-  };
+  const queryClient = new QueryClient();
 
-  const handleProgress = (progress: OnProgressData) => {
+  const openBottomSheet = useCallback(() => {
+    openSheet();
+  }, [])
+
+  const onBuffer = useCallback((bufferObj: any) => {
+    setIsBuffering(bufferObj.isBuffering);
+  }, []);
+
+  const handleProgress = useCallback((progress: OnProgressData) => {
     setCurrentTime(progress.currentTime);
-  };
+  }, []);
 
   const showControls = () => {
     clearTimeout(timer.current);
     setShowOverlay(true);
     timer.current = setTimeout(() => setShowOverlay(false), 3000);
   };
-  const handleSeek = (value: number) => {
+  const handleSeek = useCallback((value: number) => {
     if (Number.isNaN(value)) {
       value = 0;
     }
@@ -125,7 +134,7 @@ function ShortVideoPlayer({
     if (videoRef.current) {
       videoRef.current.seek(value);
     }
-  };
+  }, []);
 
   const handlePlayPause = () => {
     clearTimeout(iconTimer.current);
@@ -158,13 +167,6 @@ function ShortVideoPlayer({
   const handleViewLayout = (event: any) => {
     const { height } = event.nativeEvent.layout;
     setImageContainerHeight(height);
-  }
-
-  const changeEpisode = (item: any, index: number) => {
-    setVodUrl(item.mini_video_origin_video_url);
-    setVod(item);
-    setCollectionEpisode(index);
-    sheetRef.current?.close();
   }
   
   return (
@@ -377,7 +379,7 @@ function ShortVideoPlayer({
             { currentVod.is_collection?.toLowerCase() == "y" &&
               <View style={{ backgroundColor: '#171717', paddingBottom: 18, paddingTop: 12, paddingLeft: 20, paddingRight: 20 }}>
                 <TouchableOpacity style={{ flex: 1 }} onPress={() => {
-                  sheetRef.current?.snapToIndex(1);
+                  openBottomSheet();
                 }}>
                   <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
                     <View style={{ flex: 1, flexDirection: 'row' }}>
@@ -438,14 +440,6 @@ function ShortVideoPlayer({
             )
           }
         </View>
-        <CollectionBottomSheet 
-          sheetRef={sheetRef}
-          collectionVideoId={currentVod.mini_video_id}
-          collectionId={currentVod.mini_video_heji_id}
-          collectionName={currentVod.mini_video_collection_title}
-          inCollectionView={inCollectionView}
-          changeEpisode={changeEpisode}
-        />
       </View>
     </TouchableWithoutFeedback>
   );

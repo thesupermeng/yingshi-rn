@@ -11,15 +11,13 @@ import SortAscIcon from '../../../static/images/sortAsc.svg';
 import SortDescIcon from '../../../static/images/sortDesc.svg';
 import FastImage from 'react-native-fast-image';
 import { useQuery } from '@tanstack/react-query';
-import { selectMiniVodCollection } from '../../redux/actions/vodActions';
+import { selectMiniVodCollection, setFromMiniVodCollection } from '../../redux/actions/miniVodActions';
 import { API_DOMAIN, API_DOMAIN_TEST, API_DOMAIN_LOCAL } from '../../utility/constants';
 import { CollectionResponseType, MiniVideoCollectionItem } from '../../types/ajaxTypes';
 import { getMinuteSecond } from '../../utility/helper';
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
-import {
-    VodReducerState,
-  } from '../../redux/reducers/vodReducer';
-  import { RootState } from '../../redux/store';
+import { RootState } from '../../redux/store';
+import { MiniVodReducerState } from '../../redux/reducers/miniVodReducer';
 
 interface Props {
     sheetRef?: RefObject<BottomSheetMethods>;
@@ -40,8 +38,8 @@ interface TrimResType {
 
 function CollectionBottomSheet({ changeEpisode, sheetRef, collectionName, collectionVideoId = 0, collectionId, inCollectionView = false, currentVodIndex = 0 } : Props) {
     
-    const vodReducer: VodReducerState = useAppSelector(
-        ({vodReducer}: RootState) => vodReducer,
+    const miniVodReducer: MiniVodReducerState = useAppSelector(
+        ({miniVodReducer}: RootState) => miniVodReducer,
     );
     
     const navigation = useNavigation();
@@ -67,16 +65,25 @@ function CollectionBottomSheet({ changeEpisode, sheetRef, collectionName, collec
                 return json.data.List
             }),
         {
-            enabled: enabledUseQuery
+            enabled: enabledUseQuery,
         }
     );
 
     useEffect(() => {    
         if(collectionData != undefined){
-            const itemIndex = collectionData.findIndex(obj => {
+            let itemIndex = collectionData.findIndex(obj => {
                 return obj.mini_video_id === collectionVideoId;
             });
+            
+            if(itemIndex < 0 || itemIndex == undefined){
+                itemIndex = -1;
+            }
+
             setItemIndex(itemIndex);
+            
+            dispatch(setFromMiniVodCollection(itemIndex));
+            dispatch(selectMiniVodCollection(itemIndex));
+
             setTotalCollectionEpisodes(collectionData.length);
         }
     }, [collectionData])
@@ -116,7 +123,7 @@ function CollectionBottomSheet({ changeEpisode, sheetRef, collectionName, collec
         }
     };
 
-    let selectedIndex = (vodReducer.miniVodCollectionItemIndex == 0) ? itemIndex : vodReducer.miniVodCollectionItemIndex;
+    let selectedIndex = miniVodReducer.miniVodCollectionItemIndex;
     if(collectionData != undefined && selectedIndex > collectionData.length - 1){
         selectedIndex = 0;
     }
