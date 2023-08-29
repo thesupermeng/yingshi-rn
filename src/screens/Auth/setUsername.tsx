@@ -163,7 +163,11 @@ export default (props: any) => {
                   // props.dismiss();
                   console.log('to profile');
                   //  navigator.navigate('Profile');
-                  navigator.navigate('Home');
+
+                  navigator.navigate('Home', {
+                    screen: 'Profile',
+                    showSuccessRegister: true,
+                  });
                 }}>
                 <Text
                   style={{
