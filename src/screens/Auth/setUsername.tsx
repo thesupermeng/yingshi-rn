@@ -92,7 +92,7 @@ export default (props: any) => {
                 onChange={value => {
                   onInputChange(value);
                 }}
-                placeholder="输入邮箱账号"
+                placeholder="输入昵称"
                 placeholderTextColor="#B6B6B6"
                 maxLength={18}
               />
@@ -162,9 +162,8 @@ export default (props: any) => {
                   }
                   // props.dismiss();
                   console.log('to profile');
-                  navigator.navigate('Profile', {
-                    showSuccessRegister: true,
-                  });
+                  //  navigator.navigate('Profile');
+                  navigator.navigate('Home');
                 }}>
                 <Text
                   style={{

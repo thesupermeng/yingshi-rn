@@ -34,11 +34,12 @@ export type WatchAnytimeTabParamList = {
 };
 
 export type RootStackParamList = {
-  //Profile: BottomTabScreenProps<ProfileTabParamList>;
-  Profile: any;
+  Profile: BottomTabScreenProps<ProfileTabParamList>;
+  // Profile: any;
   Playlist: BottomTabScreenProps<PlaylistTabParamList>;
   WatchAnytime: BottomTabScreenProps<WatchAnytimeTabParamList>;
-  Home: BottomTabScreenProps<HomeTabParamList>;
+  // Home: BottomTabScreenProps<HomeTabParamList>;
+  Home: any;
   我的收藏: undefined;
   合集收藏: undefined;
   播放历史: undefined;
