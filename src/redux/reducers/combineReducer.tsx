@@ -11,7 +11,7 @@ import {searchHistoryReducer} from './searchReducer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {CLEAR_STORAGE_MEMORY} from '../../utility/constants';
 import {userReducer} from './userReducer';
-
+import {screenReducer} from './screenReducer';
 const appReducer = combineReducers({
   themeReducer,
   vodPlaylistReducer,
@@ -21,6 +21,7 @@ const appReducer = combineReducers({
   vodFavouritesReducer,
   settingsReducer,
   userReducer,
+  screenReducer,
 });
 
 export default (state: any, action: any) => {

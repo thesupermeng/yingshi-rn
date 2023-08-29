@@ -46,6 +46,8 @@ import {GobalModal} from '../../components/profile/globalModal';
 
 import BottomSheet from '@gorhom/bottom-sheet';
 
+import {removeScreenAction} from '../../redux/actions/screenAction';
+
 export default ({navigation, route}: BottomTabScreenProps<any>) => {
   const sheetRef = useRef<BottomSheet>(null);
   const [signUpOrLogin, setSignUpOrLogin] = useState(false);
@@ -69,6 +71,14 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
       };
     }, []),
   );
+
+  const screenState = useAppSelector(
+    ({screenReducer}: RootState) => screenReducer,
+  );
+  useEffect(() => {
+    console.log('screenState');
+    console.log(screenState);
+  }, []);
 
   useEffect(() => {
     if (pageInitialState?.showSuccessRegister != undefined) {
@@ -290,7 +300,7 @@ const SignUpOrLogin = (props: any) => {
           show={props.show}
           dismiss={props.dismiss}
           actionType={props.actionType}
-          heightFloat={height < 650 ? 0.42 : 0.4}>
+          heightFloat={height < 750 ? 0.82 : 0.8}>
           <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
             <Register dismiss={props.dismiss} goToLogin={props.goToLogin} />

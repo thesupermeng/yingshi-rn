@@ -22,6 +22,7 @@ import {useAppSelector} from '../../hooks/hooks';
 import {RootState} from '../../redux/store';
 import {InputItem, Button} from '@ant-design/react-native';
 import {ProfileTabParamList} from '../../types/navigationTypes';
+import {changeScreenAction} from '../../redux/actions/screenAction';
 
 export default (props: any) => {
   const [optVarificationState, setOptVarificationState] = useState(2);
@@ -34,7 +35,7 @@ export default (props: any) => {
     setUsername(value);
     ValidateUsername(value);
   };
-
+  const dispatch = useDispatch();
   function ValidateUsername(username: string) {
     if (/^[a-zA-Z0-9_.-]{2,18}$/.test(username)) {
       setUsernameValid(true);
@@ -47,7 +48,9 @@ export default (props: any) => {
   //   ValidateUsername(username, setUsername);
   // }, [username]);
 
-  const userState = useAppSelector(({userReducer}: RootState) => userReducer);
+  // const screenState = useAppSelector(
+  //   ({screenReducer}: RootState) => screenReducer,
+  // );
 
   // useEffect(() => {
   //   console.log('userState');
@@ -164,6 +167,9 @@ export default (props: any) => {
                   console.log('to profile');
                   //  navigator.navigate('Profile');
 
+                  await dispatch(
+                    changeScreenAction({screenAction: 'showSuccessLogin'}),
+                  );
                   navigator.navigate('Home', {
                     screen: 'Profile',
                     showSuccessRegister: true,
