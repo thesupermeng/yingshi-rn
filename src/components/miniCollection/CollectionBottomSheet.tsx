@@ -11,15 +11,13 @@ import SortAscIcon from '../../../static/images/sortAsc.svg';
 import SortDescIcon from '../../../static/images/sortDesc.svg';
 import FastImage from 'react-native-fast-image';
 import { useQuery } from '@tanstack/react-query';
-import { selectMiniVodCollection } from '../../redux/actions/vodActions';
+import { selectMiniVodCollection, setFromMiniVodCollection } from '../../redux/actions/miniVodActions';
 import { API_DOMAIN, API_DOMAIN_TEST, API_DOMAIN_LOCAL } from '../../utility/constants';
 import { CollectionResponseType, MiniVideoCollectionItem } from '../../types/ajaxTypes';
 import { getMinuteSecond } from '../../utility/helper';
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
-import {
-    VodReducerState,
-  } from '../../redux/reducers/vodReducer';
-  import { RootState } from '../../redux/store';
+import { RootState } from '../../redux/store';
+import { MiniVodReducerState } from '../../redux/reducers/miniVodReducer';
 
 interface Props {
     sheetRef?: RefObject<BottomSheetMethods>;
@@ -40,8 +38,8 @@ interface TrimResType {
 
 function CollectionBottomSheet({ changeEpisode, sheetRef, collectionName, collectionVideoId = 0, collectionId, inCollectionView = false, currentVodIndex = 0 } : Props) {
     
-    const vodReducer: VodReducerState = useAppSelector(
-        ({vodReducer}: RootState) => vodReducer,
+    const miniVodReducer: MiniVodReducerState = useAppSelector(
+        ({miniVodReducer}: RootState) => miniVodReducer,
     );
     
     const navigation = useNavigation();
@@ -61,22 +59,31 @@ function CollectionBottomSheet({ changeEpisode, sheetRef, collectionName, collec
     } = useQuery(
         ['collection', collectionId],
         () =>
-        fetch(`${API_DOMAIN}miniVod/v1/collections/${collectionVideoId}?limit=1000`)
+        fetch(`${API_DOMAIN}miniVod/v1/collections/${collectionVideoId}?limit=30`)
             .then(response => response.json())
             .then((json: CollectionResponseType) => {
                 return json.data.List
             }),
         {
-            enabled: enabledUseQuery
+            enabled: enabledUseQuery,
         }
     );
 
     useEffect(() => {    
         if(collectionData != undefined){
-            const itemIndex = collectionData.findIndex(obj => {
+            let itemIndex = collectionData.findIndex(obj => {
                 return obj.mini_video_id === collectionVideoId;
             });
+            
+            if(itemIndex < 0 || itemIndex == undefined){
+                itemIndex = -1;
+            }
+
             setItemIndex(itemIndex);
+            
+            dispatch(setFromMiniVodCollection(itemIndex));
+            dispatch(selectMiniVodCollection(itemIndex));
+
             setTotalCollectionEpisodes(collectionData.length);
         }
     }, [collectionData])
@@ -116,7 +123,7 @@ function CollectionBottomSheet({ changeEpisode, sheetRef, collectionName, collec
         }
     };
 
-    let selectedIndex = (vodReducer.miniVodCollectionItemIndex == 0) ? itemIndex : vodReducer.miniVodCollectionItemIndex;
+    let selectedIndex = miniVodReducer.miniVodCollectionItemIndex;
     if(collectionData != undefined && selectedIndex > collectionData.length - 1){
         selectedIndex = 0;
     }
@@ -131,7 +138,8 @@ function CollectionBottomSheet({ changeEpisode, sheetRef, collectionName, collec
                 backgroundColor: '#171717',
             }}
             handleIndicatorStyle={{
-                backgroundColor: colors.text,
+                backgroundColor: '#414040',
+                width: 50
             }}
         >   
             <View
@@ -144,7 +152,7 @@ function CollectionBottomSheet({ changeEpisode, sheetRef, collectionName, collec
                     gap: spacing.m
                 }}
             >
-                <View style={{ paddingTop: 16 }}>
+                <View style={{ paddingTop: 12, paddingBottom: 8 }}>
                     <Text style={{ ...textVariants.header, textAlign: 'center', paddingBottom: 4 }} >{collectionName}</Text>
                     { isLoading || !isFetching &&
                         <Text style={{ ...textVariants.subBody, textAlign: 'center', color: colors.sliderDot }} >更新至{totalCollectionEpisodes}集</Text>
@@ -175,7 +183,7 @@ function CollectionBottomSheet({ changeEpisode, sheetRef, collectionName, collec
                             })}
                             showsVerticalScrollIndicator={false}
                             renderItem={({ item, index }: { item: MiniVideoCollectionItem, index: number }) => {
-                                return <View style={{ width: '100%', height: 160}}>
+                                return <View style={{ width: '100%', height: 130}}>
                                             <TouchableOpacity key={index} onPress={() => goToCollection(item, index)} style={[ styles.bottomSheetItem, index == selectedIndex ? styles.selectedBottomSheetItem : styles.notSelected ]}>
                                                 <View style={{ flex: 1, flexDirection: 'row' }}>
                                                     <View style={{ flex: 2, backgroundColor: 'black', borderRadius: 6 }}>
@@ -188,9 +196,9 @@ function CollectionBottomSheet({ changeEpisode, sheetRef, collectionName, collec
                                                             resizeMode={FastImage.resizeMode.contain}
                                                         />
                                                     </View>
-                                                    <View style={{ flex: 5, flexDirection: 'column', alignSelf: 'center' }}>
+                                                    <View style={{ flex: 6, flexDirection: 'column', alignSelf: 'center' }}>
                                                         <View style={{ paddingLeft: 12 }}>
-                                                            <Text numberOfLines={4} style={{...textVariants.header, paddingBottom: 10}}>{item.mini_video_title}</Text>
+                                                            <Text numberOfLines={3} style={{...textVariants.unselected, paddingBottom: 10}}>{item.mini_video_title}</Text>
                                                             <Text style={{...textVariants.subBody, color: colors.sliderDot}}>{getMinuteSecond(item.mini_video_duration)}</Text>
                                                         </View>
                                                     </View>
@@ -225,8 +233,9 @@ const styles = StyleSheet.create({
     },
     bottomSheetItem: {
         width: '100%',
-        marginVertical: 8,
-        padding: 10,
+        marginVertical: 1,
+        padding: 7,
+        // paddingVertical: 8,
         borderRadius: 6,
         flex: 1,
     },

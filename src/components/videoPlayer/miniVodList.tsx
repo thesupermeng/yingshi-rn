@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { SafeAreaView, View, Text, FlatList, Dimensions, RefreshControl } from 'react-native';
 import { MiniVideo } from '../../types/ajaxTypes';
-import ShortVideoPlayer from '../../components/videoPlayer/shortVodPlayer';
+import ShortVod from '../../components/videoPlayer/shortVod';
 import FastImage from 'react-native-fast-image';
 import { useTheme, useIsFocused } from '@react-navigation/native';
 import { StyleSheet } from 'react-native';
@@ -93,7 +93,7 @@ export default ({ handleRefreshMiniVod, currentVodIndex = 0, videos, initialInde
                 renderItem={({ item, index }: { item: MiniVideo, index: number }) => {
                     return <View style={{ height: displayHeight ? displayHeight : 0 }}>
                         {
-                            current !== null && Math.abs(current - index) <= 2 && <ShortVideoPlayer
+                            current !== null && Math.abs(current - index) <= 2 && <ShortVod
                                 vod={item}
                                 vod_url={item.mini_video_origin_video_url}
                                 isActive={current === index && !isPaused}
@@ -114,7 +114,7 @@ export default ({ handleRefreshMiniVod, currentVodIndex = 0, videos, initialInde
                 onViewableItemsChanged={handleViewableItemsChanged}
                 onEndReached={() => {
                     if (hasNextPage && !isFetchingNextPage && !isFetching) {
-                        console.log('Fetching next page')
+                        // console.log('Fetching next page')
                         fetchNextPage();
                     }
                 }}

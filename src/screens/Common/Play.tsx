@@ -18,7 +18,7 @@ import { useTheme, useFocusEffect } from '@react-navigation/native';
 
 import { RootStackScreenProps } from '../../types/navigationTypes';
 import { SuggestResponseType } from '../../types/ajaxTypes';
-import { addVodToHistory } from '../../redux/actions/vodActions';
+import { addVodToHistory, playVod } from '../../redux/actions/vodActions';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { RootState } from '../../redux/store';
 import {
@@ -48,12 +48,11 @@ import { SettingsReducerState } from '../../redux/reducers/settingsReducer';
 
 import NoConnection from '../../components/common/noConnection';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
-// import UpIcon from './../../../static/images/up_arrow.png';
-// import DownIcon from './../../../static/images/down_arrow.png';
 
-type PlayContextValue = {
-  value: string;
-  updateValue: (newValue: string) => void;
+type VideoRef = {
+  setPause: (param: boolean) => void,
+  isPaused: boolean,
+  setCurrentTime: (time: number) => void
 };
 
 const definedValue = (val: any) => {
@@ -64,7 +63,7 @@ const definedValue = (val: any) => {
 };
 
 export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
-  const insets = useSafeAreaInsets();
+const insets = useSafeAreaInsets();
 
   const { colors, spacing, textVariants, icons } = useTheme();
   const vodReducer: VodReducerState = useAppSelector(
@@ -77,6 +76,7 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
     ({ settingsReducer }: RootState) => settingsReducer,
   );
   const vod = vodReducer.playVod.vod;
+  const [initTime, setInitTime] = useState(0);
   const isFavorite = vodFavouriteReducer.favorites.some(
     x => x.vod_id === vod?.vod_id,
   );
@@ -97,8 +97,8 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
   const currentTimeRef = useRef<number>(0);
   const sheetRef = useRef<BottomSheet>(null);
   const episodeRef = useRef<FlatList>(null);
+  const videoPlayerRef = useRef() as React.MutableRefObject<VideoRef>;
 
-  const isExpandEpisodes = useSharedValue(false);
   const dispatch = useAppDispatch();
 
   const [dismountPlayer, setDismountPlayer] = useState(false);
@@ -178,14 +178,6 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
     );
   }, []);
 
-  useEffect(() => {
-    return () => {
-      if (vod) {
-        dispatch(addVodToHistory(vod, currentTimeRef.current, currentEpisode));
-      }
-    };
-  }, [currentEpisode, vod, currentTimeRef.current]);
-
   const fetchVod = () =>
     fetch(
       `${API_DOMAIN}vod/v1/vod?class=${vod?.vod_class
@@ -220,10 +212,10 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
       let size = 20;
       const name = item.name;
       for (var i = 0; i < name.length; i++) {
-        size += 13;
+        size += 14;
       }
       size = Math.max(70, size);
-      size += spacing.s;
+      size += spacing.xs;
       offset += size;
     }
     return offset;
@@ -241,10 +233,13 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
     useCallback(() => {
       setDismountPlayer(false);
       return () => {
-        // Triggered when the user navigates away to the page
         setDismountPlayer(true);
+        if (vod) {
+          dispatch(addVodToHistory(vod, currentTimeRef.current, currentEpisode));
+          setInitTime(currentTimeRef.current);
+        }
       };
-    }, []),
+    }, [vod, currentTimeRef, currentEpisode, videoPlayerRef]),
   );
 
   return (
@@ -259,9 +254,10 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
               vod.vod_play_list.urls.find(url => url.nid === currentEpisode)
                 ?.url
             }
+            ref={videoPlayerRef}
             currentTimeRef={currentTimeRef}
             initialStartTime={
-              vod.episodeWatched === currentEpisode ? vod.timeWatched : 0
+              initTime
             }
             vodTitle={vod.vod_name}
             videoType="vod"
@@ -277,7 +273,7 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
             movieList={vod.type_id === 2 ? suggestedVods : []}
             showMoreType={vod.type_id === 2 ? 'movies' : 'episodes'}
             isFetchingRecommendedMovies={isFetchingSuggestedVod}
-            // setNavBarOptions={setNavBarOptions}
+          // setNavBarOptions={setNavBarOptions}
           />
         )}
       {!dismountPlayer && isOffline && (
@@ -349,12 +345,12 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
                   </Text>
                   <Text style={{ ...textVariants.subBody, color: colors.muted }}>
                     {`更新：${vod
-                        ? new Date(vod?.vod_time_add * 1000)
-                          .toLocaleDateString('en-GB')
-                          .replace(/\//g, '-')
-                        : new Date()
-                          .toLocaleDateString('en-GB')
-                          .replace(/\//g, '-')
+                      ? new Date(vod?.vod_time_add * 1000)
+                        .toLocaleDateString('en-GB')
+                        .replace(/\//g, '-')
+                      : new Date()
+                        .toLocaleDateString('en-GB')
+                        .replace(/\//g, '-')
                       }`}
                   </Text>
                   <TouchableOpacity onPress={onShare}>
@@ -492,7 +488,10 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
                       isPlayScreen={true}
                       text={`相关${vod?.type_name}`}
                       onPress={() => {
-                        navigation.navigate('片库', { type_id: vod.type_id });
+                        videoPlayerRef.current.setPause(true);
+                        setTimeout(() => {
+                          navigation.navigate('片库', { type_id: vod.type_id });
+                        }, 150);
                       }}
                     />
                     <VodListVertical
