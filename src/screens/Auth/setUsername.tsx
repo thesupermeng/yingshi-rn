@@ -153,15 +153,18 @@ export default (props: any) => {
                   try {
                     await updateUsername({
                       username: username,
+                      bearerToken: userState.userToken,
                     });
                   } catch (err: any) {
                     setErrMsg(err.response.data.message);
                     setUsernameValid(false);
                     return;
                   }
-                  props.dismiss();
-
-                  navigator.navigate('Profile');
+                  // props.dismiss();
+                  console.log('to profile');
+                  navigator.navigate('Profile', {
+                    showSuccessRegister: true,
+                  });
                 }}>
                 <Text
                   style={{
@@ -292,7 +295,7 @@ const styles = StyleSheet.create({
   continueButtonStyle: {
     width: '100%',
     height: 42,
-    marginTop: 100,
+    marginTop: 30,
     marginLeft: '-0.5%',
     borderWidth: 0,
   },

@@ -13,7 +13,7 @@ import {loginUser} from '../../features/user';
 export const Login = props => {
   const [email, setEmail] = useState('');
   const [emailValid, setEmailValid] = useState(true);
-
+  const [errMsg, setErrMsg] = useState('');
   useEffect(() => {
     ValidateEmail(email, setEmailValid);
   }, [email]);
@@ -28,6 +28,8 @@ export const Login = props => {
         navigator={navigator}
         dismiss={props.dismiss}
         goToRegister={props.goToRegister}
+        setErrMsg={setErrMsg}
+        errMsg={errMsg}
       />
     </View>
   );
@@ -55,7 +57,7 @@ const LoginCard = props => {
           ]}
           value={props.email}
           onChange={value => {
-            onEmailInputChange(value, props.setEmail);
+            onEmailInputChange(value, props.setEmail, props.setErrMsg);
           }}
           placeholder="输入邮箱账号"
           placeholderTextColor="#B6B6B6"
@@ -75,6 +77,27 @@ const LoginCard = props => {
           </TouchableWithoutFeedback>
         )}
       </View>
+      {props.errMsg != '' && (
+        <View
+          style={{
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+            flexDirection: 'row',
+          }}>
+          <Image
+            style={{
+              height: 22,
+              width: 22,
+              marginRight: 5,
+              position: 'relative',
+              top: 1,
+            }}
+            source={require('../../../static/images/invite/danger.png')}
+          />
+
+          <Text style={styles.danger}>{props.errMsg} </Text>
+        </View>
+      )}
       <Button
         type="primary"
         // disabled={props.email === '' || !props.emailValid}
@@ -148,7 +171,8 @@ const LoginCard = props => {
   );
 };
 
-const onEmailInputChange = (value, setEmail) => {
+const onEmailInputChange = (value, setEmail, setErrMsg) => {
+  setErrMsg('');
   setEmail(value);
 };
 
@@ -228,5 +252,11 @@ const styles = StyleSheet.create({
   },
   btnInactive: {
     backgroundColor: '#1d2023',
+  },
+  danger: {
+    fontWeight: '400',
+    fontSize: 15,
+    textAlign: 'left',
+    color: '#FF3434',
   },
 });

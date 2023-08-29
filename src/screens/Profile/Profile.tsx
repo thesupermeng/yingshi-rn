@@ -1,4 +1,4 @@
-import React, {useCallback, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {ListItem} from '@rneui/themed';
 import {
   View,
@@ -9,6 +9,7 @@ import {
   Image,
   Platform,
   useWindowDimensions,
+  ScrollView,
 } from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
 import {useTheme, useFocusEffect} from '@react-navigation/native';
@@ -44,7 +45,8 @@ import {Register} from '../../components/profile/register';
 import {GobalModal} from '../../components/profile/globalModal';
 
 import BottomSheet from '@gorhom/bottom-sheet';
-export default ({navigation}: BottomTabScreenProps<any>) => {
+
+export default ({navigation, route}: BottomTabScreenProps<any>) => {
   const sheetRef = useRef<BottomSheet>(null);
   const [signUpOrLogin, setSignUpOrLogin] = useState(false);
   const [actionType, setActionType] = useState('login');
@@ -57,6 +59,8 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
     ({themeReducer}: RootState) => themeReducer,
   );
 
+  const pageInitialState = route.params;
+
   useFocusEffect(
     useCallback(() => {
       Orientation.lockToPortrait();
@@ -65,6 +69,16 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
       };
     }, []),
   );
+
+  useEffect(() => {
+    if (pageInitialState?.showSuccessRegister != undefined) {
+      console.log('show login success');
+    } else if (pageInitialState?.showLogin != undefined) {
+      console.log('showLogin');
+    } else {
+      console.log('show nothing');
+    }
+  }, []);
 
   const highlightText = (text: string, keyword: string) => {
     const parts = text.split(new RegExp(`(${keyword})`, 'gi'));
@@ -141,7 +155,7 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
           </View>
         </TouchableOpacity>
 
-        <View>
+        <ScrollView style={{marginBottom: -30, flex: 3, paddingBottom: 120}}>
           <TouchableOpacity
             style={{
               ...styles.btn,
@@ -224,7 +238,7 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
             />
           </TouchableOpacity>
           {/* <ShowMoreButton text='分享App' disabled={true} leftIcon={<ShareIcon style={{ color: colors.button }} />} /> */}
-        </View>
+        </ScrollView>
       </ScreenContainer>
 
       <SignUpOrLogin

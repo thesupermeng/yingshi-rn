@@ -195,6 +195,7 @@ export default () => {
             component={HomeTabScreen}
             options={{orientation: 'portrait'}}
           />
+
           <Stack.Screen
             name="我的收藏"
             component={MainCollectionScreen}
@@ -300,6 +301,12 @@ export default () => {
           <Stack.Screen
             name="SetUsername"
             component={SetUsername}
+            options={{orientation: 'portrait'}}
+          />
+
+          <Stack.Screen
+            name="Profile"
+            component={ProfileScreen}
             options={{orientation: 'portrait'}}
           />
         </Stack.Navigator>

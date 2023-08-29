@@ -45,10 +45,13 @@ export const loginUser = async ({email, otp}: any) => {
   return result;
 };
 
-export const updateUsername = async ({username}: any) => {
+export const updateUsername = async ({username, bearerToken}: any) => {
   console.log('updateUsername');
-  const userState = useAppSelector(({userReducer}: RootState) => userReducer);
-  const bearerToken = userState.userToken;
+  // const userState = useAppSelector(({userReducer}: RootState) => userReducer);
+  // const bearerToken = userState.userToken;
+
+  console.log('bearerToken');
+  console.log(bearerToken);
 
   // Define your request headers
   const headers = {
