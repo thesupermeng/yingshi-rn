@@ -34,7 +34,7 @@ export type WatchAnytimeTabParamList = {
 };
 
 export type RootStackParamList = {
-  Profile: BottomTabScreenProps<ProfileTabParamList>;
+  Profile: any;
   Playlist: BottomTabScreenProps<PlaylistTabParamList>;
   WatchAnytime: BottomTabScreenProps<WatchAnytimeTabParamList>;
   Home: BottomTabScreenProps<HomeTabParamList>;

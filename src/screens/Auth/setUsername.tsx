@@ -1,5 +1,6 @@
 import {useNavigation, useTheme} from '@react-navigation/native';
 import React, {useState} from 'react';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {useEffect} from 'react';
 import {
   StyleSheet,
@@ -14,22 +15,44 @@ import {
 import {ScreenContainer} from 'react-native-screens';
 import {useDispatch, useSelector} from 'react-redux';
 import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
-
+import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import {ResendCountDown} from './resendCountDown';
-import {registerUser, loginUser} from '../../features/user';
+import {updateUsername} from '../../features/user';
 import {useAppSelector} from '../../hooks/hooks';
 import {RootState} from '../../redux/store';
+import {InputItem, Button} from '@ant-design/react-native';
+import {ProfileTabParamList} from '../../types/navigationTypes';
 
 export default (props: any) => {
   const [optVarificationState, setOptVarificationState] = useState(2);
   const {colors, textVariants, icons, spacing} = useTheme();
+  const [errMsg, setErrMsg] = useState('');
+  const [username, setUsername] = useState('');
+  const [usernameValid, setUsernameValid] = useState(true);
+  const navigator = useNavigation();
+  const onInputChange = (value: any) => {
+    setUsername(value);
+    ValidateUsername(value);
+  };
+
+  function ValidateUsername(username: string) {
+    if (/^[a-zA-Z0-9_.-]{2,18}$/.test(username)) {
+      setUsernameValid(true);
+    } else {
+      setUsernameValid(false);
+    }
+  }
+
+  // useEffect(() => {
+  //   ValidateUsername(username, setUsername);
+  // }, [username]);
 
   const userState = useAppSelector(({userReducer}: RootState) => userReducer);
 
-  useEffect(() => {
-    console.log('userState');
-    console.log(userState);
-  }, []);
+  // useEffect(() => {
+  //   console.log('userState');
+  //   console.log(userState);
+  // }, []);
 
   return (
     <View
@@ -49,19 +72,108 @@ export default (props: any) => {
                 backgroundColor: 'transparent',
               }}>
               {/* <Text style={styles.OTPtitle}>OTP Verification</Text> */}
-              <Text style={styles.title}>
-                输入邮箱验证码 {userState.userToken}
-              </Text>
+              <Text style={styles.title}>输入属于你的昵称</Text>
 
               <Text style={styles.description}>
-                验证码已发送至{' '}
-                <Text style={[styles.hyperlink, {color: colors.primary}]}>
-                  {props.email}
-                </Text>{' '}
+                请输入2-18个字符
+                {/* {userState.userEmail} */}
               </Text>
-              <Text style={styles.description}>
-                如果没有收到邮件，请检查垃圾邮箱
-              </Text>
+
+              <InputItem
+                style={[
+                  styles.textInpoutCommonStyle,
+                  username === ''
+                    ? styles.defaultTextInputStyle
+                    : usernameValid
+                    ? styles.correctTextInputStyle
+                    : styles.invalidTextInputStyle,
+                ]}
+                value={username}
+                onChange={value => {
+                  onInputChange(value);
+                }}
+                placeholder="输入邮箱账号"
+                placeholderTextColor="#B6B6B6"
+                maxLength={18}
+              />
+
+              <View
+                style={{
+                  marginTop: 45,
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                }}>
+                <View
+                  style={{
+                    justifyContent: 'flex-start',
+                    alignItems: 'center',
+                    flexDirection: 'row',
+                  }}>
+                  {errMsg != '' && (
+                    <>
+                      <Image
+                        style={{
+                          height: 22,
+                          width: 22,
+                          marginRight: 5,
+                          position: 'relative',
+                          top: 1,
+                        }}
+                        source={require('../../../static/images/invite/danger.png')}
+                      />
+
+                      <Text style={styles.danger}>{errMsg} </Text>
+                    </>
+                  )}
+                </View>
+
+                <Text>
+                  {username.length}/18
+                  {/* {userState.userEmail} */}
+                </Text>
+              </View>
+
+              <Button
+                type="primary"
+                // disabled={props.email === '' || !props.emailValid}
+                style={[
+                  styles.continueButtonStyle,
+                  username === '' || !usernameValid
+                    ? styles.btnInactive
+                    : styles.btnActive,
+                ]}
+                activeStyle={[
+                  styles.continueButtonStyle,
+                  username === '' || !usernameValid
+                    ? styles.btnInactive
+                    : styles.btnActive,
+                ]}
+                //disabled={!props.emailValid}
+                onPress={async () => {
+                  try {
+                    await updateUsername({
+                      username: username,
+                    });
+                  } catch (err: any) {
+                    setErrMsg(err.response.data.message);
+                    setUsernameValid(false);
+                    return;
+                  }
+                  props.dismiss();
+
+                  navigator.navigate('Profile');
+                }}>
+                <Text
+                  style={{
+                    //  fontFamily: 'SF Pro Display',
+                    fontWeight: '600',
+                    fontSize: 15,
+                    letterSpacing: 0.2,
+                    color: username === '' || !usernameValid ? 'white' : '#000',
+                  }}>
+                  确定
+                </Text>
+              </Button>
             </View>
           </View>
         </>
@@ -71,6 +183,24 @@ export default (props: any) => {
 };
 
 const styles = StyleSheet.create({
+  textInpoutCommonStyle: {
+    marginHorizontal: '-5%',
+    marginTop: 70,
+    paddingLeft: 10,
+    height: 42,
+    borderRadius: 8,
+    fontSize: 14,
+    // backgroundColor: '#1d2023',
+    // fontFamily: 'SF Pro Display',
+  },
+  defaultTextInputStyle: {backgroundColor: '#1d2023'},
+  correctTextInputStyle: {backgroundColor: '#1d2023', color: '#fff'},
+  invalidTextInputStyle: {
+    backgroundColor: '#311818',
+    borderWidth: 1,
+    borderColor: '#FF1010',
+    color: '#FF1010',
+  },
   headerBarShadow: {
     width: '100%',
     marginTop: 12,
@@ -158,5 +288,19 @@ const styles = StyleSheet.create({
     marginRight: 5,
     position: 'relative',
     top: 1,
+  },
+  continueButtonStyle: {
+    width: '100%',
+    height: 42,
+    marginTop: 100,
+    marginLeft: '-0.5%',
+    borderWidth: 0,
+  },
+  btnActive: {
+    backgroundColor: '#FAC33D',
+    color: '#000',
+  },
+  btnInactive: {
+    backgroundColor: '#1d2023',
   },
 });
