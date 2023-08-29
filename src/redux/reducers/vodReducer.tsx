@@ -54,7 +54,6 @@ export function vodReducer(state = initialState, action: VodActionType) {
                 history: []
             };
         case ADD_VOD_TO_HISTORY: {
-            console.log('added to history', firstPayloadItemWithTimestamp.timeWatched)
             const hst = state.history.filter(vod => vod.vod_id !== firstPayloadItemWithTimestamp.vod_id);
             hst.unshift(firstPayloadItemWithTimestamp);
             return {

@@ -114,7 +114,7 @@ export default ({ handleRefreshMiniVod, currentVodIndex = 0, videos, initialInde
                 onViewableItemsChanged={handleViewableItemsChanged}
                 onEndReached={() => {
                     if (hasNextPage && !isFetchingNextPage && !isFetching) {
-                        console.log('Fetching next page')
+                        // console.log('Fetching next page')
                         fetchNextPage();
                     }
                 }}
