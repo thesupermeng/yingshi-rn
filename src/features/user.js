@@ -23,6 +23,21 @@ export const registerUser = async ({email, referral_code, device_id, otp}) => {
   return result;
 };
 
+export const loginUser = async ({email, otp}) => {
+  console.log('registerUser');
+
+  let json = {
+    email: email,
+    otp: otp,
+  };
+  console.log('json');
+  console.log(json);
+  let result = await axios.post(API_DOMAIN_TEST + 'users/v1/login', json);
+  console.log('result');
+  console.log(result);
+  return result;
+};
+
 //old code
 const refreshToken = async (
   refresh_token = refresh_token,

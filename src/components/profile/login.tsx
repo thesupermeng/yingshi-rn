@@ -9,7 +9,7 @@ import {
   TouchableWithoutFeedback,
   TouchableOpacity,
 } from 'react-native';
-
+import {loginUser} from '../../features/user';
 export const Login = props => {
   const [email, setEmail] = useState('');
   const [emailValid, setEmailValid] = useState(true);
@@ -91,27 +91,30 @@ const LoginCard = props => {
             : styles.btnActive,
         ]}
         //disabled={!props.emailValid}
-        onPress={() => {
+        onPress={async () => {
           if (props.email === '' || !props.emailValid) {
             console.log('invalid email');
-            props.dismiss();
-            navigation.navigate('OTP', {
-              email: 'demo.com',
-              action: 'login',
-            });
+            props.setEmailValid(false);
+            props.setErrMsg('请填写邮箱账号');
             return;
           }
-          console.log('props.email');
-          console.log(props.email == '');
-          console.log('loginApiCall');
+
+          try {
+            await loginUser({
+              email: props.email,
+              otp: '',
+            });
+          } catch (err: any) {
+            props.setErrMsg(err.response.data.message);
+            props.setReferralCodeValid(false);
+            return;
+          }
+
           props.dismiss();
           navigation.navigate('OTP', {
             email: props.email,
+            action: 'login',
           });
-          // loginApiCall({email: props.email});
-
-          // props.navigator.navigate('CricketOTP', {email: props.email});
-          // props.navigator.navigate('CricketEdit', {userName:'test nickname'})
         }}>
         <Text
           style={{

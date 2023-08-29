@@ -17,9 +17,7 @@ import TitleWithBackButtonHeader from '../../components/header/titleWithBackButt
 
 import {ResendCountDown} from './resendCountDown';
 import {registerUser, loginUser} from '../../features/user';
-import {addUserAuthState} from '../../redux/actions/userAction';
 
-import {useAppDispatch} from '../../hooks/hooks';
 const OtpInputs = props => {
   const storeToken = useSelector(state => state.userToken);
   const dispatch = useDispatch();
@@ -99,7 +97,7 @@ const OtpInputs = props => {
         //   storeToken.refresh_token,
         // );
         console.log('result');
-        let result: any;
+        let result;
         try {
           if (props.action == 'register') {
             result = await registerUser({
@@ -111,7 +109,7 @@ const OtpInputs = props => {
           }
 
           if (props.action == 'login') {
-            result = await loginUser({
+            result = loginUser({
               email: props.email,
               otp: new_otp,
             });
@@ -124,22 +122,21 @@ const OtpInputs = props => {
           result.state = err.response.data.message;
           //  props.setErrMsg(err.response.data.message);
         }
-        console.log('json for user result');
+
+        console.log('result debug');
         console.log(result);
-
-        let resultData = result.data.data;
-
-        let json = {
-          userToken: resultData.access_token,
-          userId: resultData.user.user_id,
-          userName: resultData.user.user_name,
-          userReferralCode: resultData.user.user_referral_code,
-          userEmail: resultData.user.user_email,
-          userMemberExpired: resultData.user.user_end_time,
-        };
-        dispatch(addUserAuthState(json));
-        console.log('json for user state');
-        console.log(json);
+        return;
+        if (result.state === 'new') {
+          navigator.navigate('CricketNickname', {
+            nickname: result.data.nickname,
+          });
+        } else if (result.state === 'existing') {
+          navigator.navigate('CricketRoute', {nickname: result.data.nickname});
+        } else if (result.state === 'otp Invalid') {
+          setValid(1);
+        } else if (result.state === 'otp expired') {
+          setValid(1);
+        }
         return;
       }
       let new_otp = otp.replace(/./g, (c, i) => (i == index ? key : c));
