@@ -12,21 +12,17 @@ export interface VodRecordType extends VodType {
 }
 interface PlayVodType {
     vod: VodRecordType | null,
-    isFavorite: boolean
 }
 
 export interface VodReducerState {
-    favorites: Array<VodRecordType>,
     history: Array<VodRecordType>,
     playVod: PlayVodType,
 }
 
 const initialState: VodReducerState = {
-    favorites: [],
     history: [],
     playVod: {
         vod: null,
-        isFavorite: true
     },
 }
 
@@ -46,8 +42,7 @@ export function vodReducer(state = initialState, action: VodActionType) {
             return {
                 ...state,
                 playVod: {
-                    vod: play,
-                    isFavorite: state.favorites.some(x => x.vod_id === firstPayloadItemWithTimestamp.vod_id)
+                    vod: play
                 }
             };
         }

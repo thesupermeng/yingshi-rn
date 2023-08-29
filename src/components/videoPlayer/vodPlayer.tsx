@@ -60,7 +60,8 @@ type VideoControlsRef = {
 
 type VideoRef = {
   setPause: (param: boolean) => void,
-  isPaused: boolean
+  isPaused: boolean,
+  setCurrentTime: (time: number) => void
 };
 
 export default forwardRef<VideoRef, Props>(({
@@ -130,7 +131,8 @@ export default forwardRef<VideoRef, Props>(({
     setPause: (pauseVideo : boolean) => {
       setIsPaused(pauseVideo)
     },
-    isPaused: isPaused
+    isPaused: isPaused,
+    setCurrentTime: (time) => setCurrentTime(time)
   }))
 
 

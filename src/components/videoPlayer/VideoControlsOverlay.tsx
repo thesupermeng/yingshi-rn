@@ -115,7 +115,7 @@ export default forwardRef<RefHandler, Props>(({
 
   const handleFastForward = (time: any) => {
     delayControls(false);
-    console.log('skipping', time)
+    // console.log('skipping', time)
     onFastForward(time);
   };
 
@@ -206,7 +206,7 @@ export default forwardRef<RefHandler, Props>(({
   }
   return (
     <Animated.View
-      style={{ ...styles.controlsOverlay}}>
+      style={{ ...styles.controlsOverlay }}>
       {
         !showControls &&
         <VodCombinedGesture
@@ -385,11 +385,13 @@ export default forwardRef<RefHandler, Props>(({
                       {headerTitle}
                     </Text>
                   </View>
-                  <RectButton
-                    disallowInterruption={true}
-                    onPress={onShare}>
-                    <ProjectIcon width={30} height={30} />
-                  </RectButton>
+                  {
+                    videoType === 'vod' && <RectButton
+                      disallowInterruption={true}
+                      onPress={onShare}>
+                      <ProjectIcon width={30} height={30} />
+                    </RectButton>
+                  }
                 </View>
               </LinearGradient>
               {/* Middle Controls */}
