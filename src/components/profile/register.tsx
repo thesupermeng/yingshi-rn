@@ -168,7 +168,7 @@ const LoginCard = props => {
           try {
             await registerUser({
               email: props.email,
-              referral_code: props.referralCasdode,
+              referral_code: props.referralCode,
               device_id: 'device_id',
               otp: '',
             });
@@ -188,7 +188,7 @@ const LoginCard = props => {
             email: props.email,
             action: 'register',
             referralCode: props.referralCode,
-            deviceId: '',
+            deviceId: 'device_id',
           });
           // loginApiCall({email: props.email});
 

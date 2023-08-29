@@ -42,10 +42,29 @@ const OtpInputs = props => {
     otpTextInput[0].focus();
   }, []);
   // to make sure countdown reset before restart the countdown
-  const resendOTP = email => {
+  const resendOTP = async () => {
     setResend(false);
+    console.log('props');
+    console.log(props);
+    if (props.action == 'register') {
+      console.log('resend OTP register');
+      await registerUser({
+        email: props.email,
+        referral_code: props.referral_code,
+        device_id: props.device_id,
+        otp: '',
+      });
+    }
 
-    loginApiCall({email: email});
+    if (props.action == 'login') {
+      await registerUser({
+        email: props.email,
+        referral_code: props.referralCode,
+        device_id: 'device_id',
+        otp: '',
+      });
+    }
+    return;
   };
 
   const focusPrevious = async (key, index) => {
@@ -72,31 +91,43 @@ const OtpInputs = props => {
           email: props.email,
           code: new_otp,
         };
-        setValid(1);
+
+        // let result = await otpApiCall(
+        //   verfifyPayload,
+        //   dispatch,
+        //   storeToken.user_token,
+        //   storeToken.refresh_token,
+        // );
+        console.log('result');
+        let result;
+        try {
+          result = await registerUser({
+            email: props.email,
+            referral_code: props.referralCode,
+            device_id: props.device_id,
+            otp: new_otp,
+          });
+        } catch (err: any) {
+          console.log('err debug');
+          console.log(err.response.data.message);
+          setValid(1);
+          result = {state: ''};
+          result.state = err.response.data.message;
+          //  props.setErrMsg(err.response.data.message);
+        }
+
+        console.log('result debug');
+        console.log(result);
         return;
-        let result = await otpApiCall(
-          verfifyPayload,
-          dispatch,
-          storeToken.user_token,
-          storeToken.refresh_token,
-        );
         if (result.state === 'new') {
-          otpCompleteEvent = new OtpCompleteEvent();
-          otpCompleteEvent.send();
           navigator.navigate('CricketNickname', {
             nickname: result.data.nickname,
           });
         } else if (result.state === 'existing') {
-          otpCompleteEvent = new OtpCompleteEvent();
-          otpCompleteEvent.send();
           navigator.navigate('CricketRoute', {nickname: result.data.nickname});
         } else if (result.state === 'otp Invalid') {
-          otpFailedEvent = new OtpFailedEvent();
-          otpFailedEvent.send();
           setValid(1);
         } else if (result.state === 'otp expired') {
-          otpFailedEvent = new OtpFailedEvent();
-          otpFailedEvent.send();
           setValid(1);
         }
         return;
@@ -164,10 +195,11 @@ const OtpInputs = props => {
       {!resend && <ResendCountDown resend={resend} setResend={setResend} />}
       {resend && (
         <TouchableWithoutFeedback
-          onPress={() => {
+          onPress={async () => {
             // otpResendEvent = new OtpResendEvent();
             // otpResendEvent.send();
-            resendOTP(props.email);
+            console.log('await resendOTP();');
+            await resendOTP();
 
             setOtpTextInput([]);
             setOtp('      ');
@@ -209,6 +241,9 @@ export default (props: any) => {
               optVarificationState={optVarificationState}
               setOptVarificationState={setOptVarificationState}
               email={props.route.params.email}
+              referral_code={props.route.params.referralCode}
+              device_id={props.route.params.deviceId}
+              action={props.route.params.action}
             />
           </View>
         </>
