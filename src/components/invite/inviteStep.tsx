@@ -63,7 +63,7 @@ export default function InviteStep() {
                 影视PRO
               </Text>
             </Text>
-            <Text style={styles.textDesc}>且用邀请吗登录</Text>
+            <Text style={styles.textDesc}>且用邀请吗登陆</Text>
           </View>
         </View>
         <ArrowIcn />

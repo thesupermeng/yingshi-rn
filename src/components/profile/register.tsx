@@ -27,7 +27,7 @@ export const Register = props => {
   const navigator = useNavigation();
   return (
     <View style={{height: '100%'}}>
-      <RegisterCard
+      <LoginCard
         emailValid={emailValid}
         referralCodeValid={referralCodeValid}
         setEmail={setEmail}
@@ -41,14 +41,12 @@ export const Register = props => {
         navigator={navigator}
         dismiss={props.dismiss}
         goToLogin={props.goToLogin}
-        sheetRef={props.sheetRef}
-        backToLogin={props.backToLogin}
       />
     </View>
   );
 };
 
-const RegisterCard = props => {
+const LoginCard = props => {
   const {colors, textVariants, icons, spacing} = useTheme();
   const navigation = useNavigation();
   return (
@@ -211,16 +209,13 @@ const RegisterCard = props => {
       <TouchableOpacity
         onPress={() => {
           // props.dismiss();
-          // console.log('   props.goToRegister();');
-
-          props.backToLogin(true);
-
-          // props.goToLogin();
+          console.log('   props.goToRegister();');
+          props.goToLogin();
           // props.navigator.navigate('CricketTerm');
         }}>
         <View style={styles.loginTermPrivacy}>
           <Text style={styles.termPrivacyFont}>
-            <Text style={{color: 'white'}}> 邮箱登录 </Text>
+            <Text style={{color: 'white'}}> 邮箱登陆 </Text>
           </Text>
           <Image
             style={{width: 18, height: 18}}

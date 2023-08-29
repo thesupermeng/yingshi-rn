@@ -10,8 +10,6 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {loginUser} from '../../features/user';
-import {Register} from './register';
-
 export const Login = props => {
   const [email, setEmail] = useState('');
   const [emailValid, setEmailValid] = useState(true);
@@ -30,7 +28,6 @@ export const Login = props => {
         navigator={navigator}
         dismiss={props.dismiss}
         goToRegister={props.goToRegister}
-        sheetRef={props.sheetRef}
         setErrMsg={setErrMsg}
         errMsg={errMsg}
       />
@@ -41,150 +38,136 @@ export const Login = props => {
 const LoginCard = props => {
   const {colors, textVariants, icons, spacing} = useTheme();
   const navigation = useNavigation();
-
-  const [isLogin, setIsLogin] = useState(true);
-  const backToLogin = (status: boolean) => {
-    setIsLogin(status);
-  }
-
   return (
-    <>
-      {isLogin && (
-        <View style={styles.card}>
-        <Text style={styles.title}>登录解锁更多精彩内容</Text>
-        {/* <Text style={{textAlign: 'center', width: '100%', paddingTop: 7}}>
-          It takes less than a minute to sign up
-        </Text> */}
-        {/* <Text style={styles.description}>Please enter your email address</Text> */}
-        <View>
-          <InputItem
-            style={[
-              styles.textInpoutCommonStyle,
-              props.email === ''
-                ? styles.defaultTextInputStyle
-                : props.emailValid
-                ? styles.correctTextInputStyle
-                : styles.invalidTextInputStyle,
-            ]}
-            value={props.email}
-            onChange={value => {
-              onEmailInputChange(value, props.setEmail, props.setErrMsg);
-            }}
-            placeholder="输入邮箱账号"
-            placeholderTextColor="#B6B6B6"
+    <View style={styles.card}>
+      <Text style={styles.title}>登陆解锁更多精彩内容</Text>
+      {/* <Text style={{textAlign: 'center', width: '100%', paddingTop: 7}}>
+        It takes less than a minute to sign up
+      </Text> */}
+      {/* <Text style={styles.description}>Please enter your email address</Text> */}
+      <View>
+        <InputItem
+          style={[
+            styles.textInpoutCommonStyle,
+            props.email === ''
+              ? styles.defaultTextInputStyle
+              : props.emailValid
+              ? styles.correctTextInputStyle
+              : styles.invalidTextInputStyle,
+          ]}
+          value={props.email}
+          onChange={value => {
+            onEmailInputChange(value, props.setEmail, props.setErrMsg);
+          }}
+          placeholder="输入邮箱账号"
+          placeholderTextColor="#B6B6B6"
+        />
+        {props.email !== '' && props.emailValid && (
+          <Image
+            style={styles.iconStyle}
+            source={require('../../../static/images/profile/cricket_tick.png')}
           />
-          {props.email !== '' && props.emailValid && (
+        )}
+        {props.email !== '' && !props.emailValid && (
+          <TouchableWithoutFeedback onPress={props.click}>
             <Image
               style={styles.iconStyle}
-              source={require('../../../static/images/profile/cricket_tick.png')}
+              source={require('../../../static/images/profile/cross.png')}
             />
-          )}
-          {props.email !== '' && !props.emailValid && (
-            <TouchableWithoutFeedback onPress={props.click}>
-              <Image
-                style={styles.iconStyle}
-                source={require('../../../static/images/profile/cross.png')}
-              />
-            </TouchableWithoutFeedback>
-          )}
-        </View>
-        {props.errMsg != '' && (
-          <View
-            style={{
-              justifyContent: 'flex-start',
-              alignItems: 'center',
-              flexDirection: 'row',
-            }}>
-            <Image
-              style={{
-                height: 22,
-                width: 22,
-                marginRight: 5,
-                position: 'relative',
-                top: 1,
-              }}
-              source={require('../../../static/images/invite/danger.png')}
-            />
-  
-            <Text style={styles.danger}>{props.errMsg} </Text>
-          </View>
+          </TouchableWithoutFeedback>
         )}
-        <Button
-          type="primary"
-          // disabled={props.email === '' || !props.emailValid}
-          style={[
-            styles.continueButtonStyle,
-            props.email === '' || !props.emailValid
-              ? styles.btnInactive
-              : styles.btnActive,
-          ]}
-          activeStyle={[
-            styles.continueButtonStyle,
-            props.email === '' || !props.emailValid
-              ? styles.btnInactive
-              : styles.btnActive,
-          ]}
-          //disabled={!props.emailValid}
-          onPress={async () => {
-            if (props.email === '' || !props.emailValid) {
-              console.log('invalid email');
-              props.setEmailValid(false);
-              props.setErrMsg('请填写邮箱账号');
-              return;
-            }
-  
-            try {
-              await loginUser({
-                email: props.email,
-                otp: '',
-              });
-            } catch (err: any) {
-              props.setErrMsg(err.response.data.message);
-              props.setReferralCodeValid(false);
-              return;
-            }
-  
-            props.dismiss();
-            navigation.navigate('OTP', {
-              email: props.email,
-              action: 'login',
-            });
-          }}>
-          <Text
-            style={{
-              //  fontFamily: 'SF Pro Display',
-              fontWeight: '600',
-              fontSize: 15,
-              letterSpacing: 0.2,
-              color: props.email === '' || !props.emailValid ? 'white' : '#000',
-            }}>
-            登录
-          </Text>
-        </Button>
-        <TouchableOpacity
-          onPress={() => {
-            // // props.dismiss();
-            // console.log('   props.goToRegister();');
-            // props.goToRegister();
-            setIsLogin(!isLogin);
-            // props.navigator.navigate('CricketTerm');
-          }}>
-          <View style={styles.loginTermPrivacy}>
-            <Text style={styles.termPrivacyFont}>
-              <Text style={{color: 'white'}}> 注册 </Text>
-            </Text>
-            <Image
-              style={{width: 18, height: 18}}
-              source={require('../../../static/images/profile/rightArrow.png')}
-            />
-          </View>
-        </TouchableOpacity>
       </View>
+      {props.errMsg != '' && (
+        <View
+          style={{
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+            flexDirection: 'row',
+          }}>
+          <Image
+            style={{
+              height: 22,
+              width: 22,
+              marginRight: 5,
+              position: 'relative',
+              top: 1,
+            }}
+            source={require('../../../static/images/invite/danger.png')}
+          />
+
+          <Text style={styles.danger}>{props.errMsg} </Text>
+        </View>
       )}
-        {!isLogin && (
-        <Register backToLogin={backToLogin}/> 
-      )}
-    </>
+      <Button
+        type="primary"
+        // disabled={props.email === '' || !props.emailValid}
+        style={[
+          styles.continueButtonStyle,
+          props.email === '' || !props.emailValid
+            ? styles.btnInactive
+            : styles.btnActive,
+        ]}
+        activeStyle={[
+          styles.continueButtonStyle,
+          props.email === '' || !props.emailValid
+            ? styles.btnInactive
+            : styles.btnActive,
+        ]}
+        //disabled={!props.emailValid}
+        onPress={async () => {
+          if (props.email === '' || !props.emailValid) {
+            console.log('invalid email');
+            props.setEmailValid(false);
+            props.setErrMsg('请填写邮箱账号');
+            return;
+          }
+
+          try {
+            await loginUser({
+              email: props.email,
+              otp: '',
+            });
+          } catch (err: any) {
+            props.setErrMsg(err.response.data.message);
+            props.setReferralCodeValid(false);
+            return;
+          }
+
+          props.dismiss();
+          navigation.navigate('OTP', {
+            email: props.email,
+            action: 'login',
+          });
+        }}>
+        <Text
+          style={{
+            //  fontFamily: 'SF Pro Display',
+            fontWeight: '600',
+            fontSize: 15,
+            letterSpacing: 0.2,
+            color: props.email === '' || !props.emailValid ? 'white' : '#000',
+          }}>
+          登陆
+        </Text>
+      </Button>
+      <TouchableOpacity
+        onPress={() => {
+          // props.dismiss();
+          console.log('   props.goToRegister();');
+          props.goToRegister();
+          // props.navigator.navigate('CricketTerm');
+        }}>
+        <View style={styles.loginTermPrivacy}>
+          <Text style={styles.termPrivacyFont}>
+            <Text style={{color: 'white'}}> 注册 </Text>
+          </Text>
+          <Image
+            style={{width: 18, height: 18}}
+            source={require('../../../static/images/profile/rightArrow.png')}
+          />
+        </View>
+      </TouchableOpacity>
+    </View>
   );
 };
 

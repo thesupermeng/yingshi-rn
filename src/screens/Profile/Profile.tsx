@@ -45,8 +45,6 @@ import {Register} from '../../components/profile/register';
 import {GobalModal} from '../../components/profile/globalModal';
 
 import BottomSheet from '@gorhom/bottom-sheet';
-import {LoginModal} from '../../components/profile/loginModal';
-import { Portal, Host } from 'react-native-paper-portal'
 
 export default ({navigation, route}: BottomTabScreenProps<any>) => {
   const sheetRef = useRef<BottomSheet>(null);
@@ -99,7 +97,6 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
 
   return (
     <>
-    <Host>
       <ScreenContainer>
         <View style={{...styles.topNav}}>
           <Text
@@ -119,13 +116,12 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
                     }
                 </TouchableOpacity> */}
         </View>
-        {/* 游客登录  component*/}
+        {/* 游客登陆  component*/}
         <TouchableOpacity
           onPress={() => {
-            // console.log('props{');
-            // setActionType('login');
-            // setSignUpOrLogin(true);
-            sheetRef.current?.snapToIndex(1)
+            console.log('props{');
+            setActionType('login');
+            setSignUpOrLogin(true);
           }}>
           <View
             style={{paddingTop: 20, paddingBottom: 10, flexDirection: 'row'}}>
@@ -142,7 +138,7 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
               }}>
               <Text style={{color: '#ffffff', fontSize: 20}}>游客您好！</Text>
               <Text style={{color: '#ffffff', fontSize: 14}}>
-                登录可享跟多服务
+                登陆可享跟多服务
               </Text>
             </View>
             <View
@@ -158,13 +154,6 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
             </View>
           </View>
         </TouchableOpacity>
-
-        <Portal>
-        <LoginModal 
-          sheetRef={sheetRef}
-        />
-        </Portal>
-
 
         <ScrollView style={{marginBottom: -30, flex: 3, paddingBottom: 120}}>
           <TouchableOpacity
@@ -275,7 +264,6 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
         email={email}
         navigator={navigator}
       />
-      </Host>
     </>
   );
 };
