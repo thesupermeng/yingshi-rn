@@ -28,6 +28,7 @@ import PrivacyScreen from '../screens/Profile/Privacy';
 import UserAgreementScreen from '../screens/Profile/UserAgreement';
 import ConfigureScreen from '../screens/Profile/Configure';
 import OtpScreen from '../screens/Auth/Otp';
+import SetUsername from '../screens/Auth/setUsername';
 import HomeTabIcon from '../../static/images/home_tab.svg';
 import HomeActiveTabIcon from '../../static/images/home_tab_active.svg';
 import PlaylistTabIcon from '../../static/images/playlist_tab.svg';
@@ -294,6 +295,11 @@ export default () => {
           <Stack.Screen
             name="OTP"
             component={OtpScreen}
+            options={{orientation: 'portrait'}}
+          />
+          <Stack.Screen
+            name="SetUsername"
+            component={SetUsername}
             options={{orientation: 'portrait'}}
           />
         </Stack.Navigator>

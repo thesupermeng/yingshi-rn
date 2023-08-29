@@ -6,7 +6,7 @@ import {
 
 export interface UserActionType {
   type: string;
-  payload: string;
+  payload: userModel;
 }
 
 export interface userModel {
@@ -28,6 +28,9 @@ const initialState: userModel = {
 };
 
 export function userReducer(state = initialState, action: UserActionType) {
+  console.log('userReducer general');
+  console.log(state);
+  console.log(action);
   switch (action.type) {
     case 'remove_user_auth':
       return {
@@ -39,15 +42,18 @@ export function userReducer(state = initialState, action: UserActionType) {
         userMemberExpired: '',
       };
     case 'add_user_auth':
+      console.log('add_user_auth reducer');
+      console.log(state);
       return {
-        userToken: state.userToken,
-        userId: state.userId,
-        userName: state.userName,
-        userReferralCode: state.userReferralCode,
-        userEmail: state.userEmail,
-        userMemberExpired: state.userMemberExpired,
+        userToken: action.payload.userToken,
+        userId: action.payload.userId,
+        userName: action.payload.userName,
+        userReferralCode: action.payload.userReferralCode,
+        userEmail: action.payload.userEmail,
+        userMemberExpired: action.payload.userMemberExpired,
       };
     default:
+      console.log('default');
       return state;
   }
 }

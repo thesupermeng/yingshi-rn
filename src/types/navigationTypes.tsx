@@ -84,6 +84,7 @@ export type RootStackParamList = {
     referralCode?: string;
     deviceId?: string;
   };
+  SetUsername: undefined;
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> =

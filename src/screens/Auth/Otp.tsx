@@ -30,7 +30,7 @@ const OtpInputs = props => {
   const navigator = useNavigation();
 
   const [focusedInput, setFocusedInput] = useState(null); // Track the focused input index
-
+  const navigation = useNavigation();
   const handleFocus = (index: any) => {
     console.log(index);
     setFocusedInput(index);
@@ -57,7 +57,6 @@ const OtpInputs = props => {
         otp: '',
       });
     }
-
     if (props.action == 'login') {
       await loginUser({
         email: props.email,
@@ -137,9 +136,10 @@ const OtpInputs = props => {
           userEmail: resultData.user.user_email,
           userMemberExpired: resultData.user.user_end_time,
         };
-        dispatch(addUserAuthState(json));
+        await dispatch(addUserAuthState(json));
         console.log('json for user state');
         console.log(json);
+        navigation.navigate('SetUsername');
         return;
       }
       let new_otp = otp.replace(/./g, (c, i) => (i == index ? key : c));
