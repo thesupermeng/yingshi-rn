@@ -62,6 +62,7 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
   );
 
   const pageInitialState = route.params;
+  const userState = useAppSelector(({userReducer}: RootState) => userReducer);
 
   useFocusEffect(
     useCallback(() => {
@@ -146,10 +147,38 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
                 justifyContent: 'center',
                 paddingLeft: 12,
               }}>
-              <Text style={{color: '#ffffff', fontSize: 20}}>游客您好！</Text>
-              <Text style={{color: '#ffffff', fontSize: 14}}>
-                登陆可享跟多服务
-              </Text>
+              {userState.userToken == '' && (
+                <>
+                  <Text style={{color: '#ffffff', fontSize: 20}}>
+                    游客您好！
+                  </Text>
+                  <Text style={{color: '#ffffff', fontSize: 14}}>
+                    登陆可享跟多服务
+                  </Text>
+                </>
+              )}
+              {userState.userToken != '' && (
+                <>
+                  <View View style={{flexDirection: 'row'}}>
+                    <Text style={{color: '#ffffff', fontSize: 20}}>
+                      {userState.userName}
+                    </Text>
+                    <Image
+                      style={styles.iconStyle}
+                      source={require('../../../static/images/profile/vip.png')}
+                    />
+                  </View>
+
+                  {userState.userMemberExpired == '0' && (
+                    <Text style={{fontSize: 14}}>VIP会员已经到期</Text>
+                  )}
+                  {userState.userMemberExpired != '0' && (
+                    <Text style={{color: colors.primary, fontSize: 14}}>
+                      {userState.userMemberExpired}
+                    </Text>
+                  )}
+                </>
+              )}
             </View>
             <View
               style={{
@@ -346,5 +375,12 @@ const styles = StyleSheet.create({
   },
   highlightColor: {
     color: '#FAC33D', // Change this color to your desired highlight color
+  },
+  iconStyle: {
+    height: 22,
+    width: 22,
+    marginLeft: 5,
+    position: 'relative',
+    top: 1,
   },
 });
