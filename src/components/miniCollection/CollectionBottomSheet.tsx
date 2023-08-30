@@ -1,11 +1,11 @@
-import React, { useState, useMemo, RefObject, memo, useCallback, useEffect } from 'react';
+import React, { useState, useMemo, RefObject, memo, useCallback, useEffect, useRef } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Dimensions, ImageBackground, Image } from 'react-native';
 import { useNavigation, useTheme } from '@react-navigation/native';
 import { VodEpisodeListType, VodEpisodeType } from '../../types/ajaxTypes';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import BottomSheet, { BottomSheetBackdrop, BottomSheetFlatList, BottomSheetModalProvider, BottomSheetScrollView, BottomSheetView } from "@gorhom/bottom-sheet";
 import { BottomSheetMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
-import { FlatList, GestureHandlerRootView } from 'react-native-gesture-handler';
+import { GestureHandlerRootView, FlatList } from 'react-native-gesture-handler';
 import { BottomSheetDefaultBackdropProps } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types';
 import SortAscIcon from '../../../static/images/sortAsc.svg';
 import SortDescIcon from '../../../static/images/sortDesc.svg';
@@ -38,6 +38,7 @@ interface TrimResType {
 
 function CollectionBottomSheet({ changeEpisode, sheetRef, collectionName, collectionVideoId = 0, collectionId, inCollectionView = false, currentVodIndex = 0 } : Props) {
     
+    const scrollRef = useRef<any>();
     const miniVodReducer: MiniVodReducerState = useAppSelector(
         ({miniVodReducer}: RootState) => miniVodReducer,
     );
@@ -83,8 +84,10 @@ function CollectionBottomSheet({ changeEpisode, sheetRef, collectionName, collec
             
             dispatch(setFromMiniVodCollection(itemIndex));
             dispatch(selectMiniVodCollection(itemIndex));
-
             setTotalCollectionEpisodes(collectionData.length);
+            if (scrollRef) {
+                scrollRef?.current?.scrollTo({y: (itemIndex) * 130, animated: true});
+            }
         }
     }, [collectionData])
     
@@ -106,7 +109,7 @@ function CollectionBottomSheet({ changeEpisode, sheetRef, collectionName, collec
         }
     }, [sheetRef]);
 
-    const goToCollection = (item: MiniVideoCollectionItem, index: number) => {
+    const goToCollection = useCallback((item: MiniVideoCollectionItem, index: number) => {
         if(collectionData !== undefined){
             dispatch(selectMiniVodCollection(index));
 
@@ -121,7 +124,7 @@ function CollectionBottomSheet({ changeEpisode, sheetRef, collectionName, collec
                 });
             }
         }
-    };
+    }, [collectionData]);
 
     let selectedIndex = miniVodReducer.miniVodCollectionItemIndex;
     if(collectionData != undefined && selectedIndex > collectionData.length - 1){
@@ -159,7 +162,7 @@ function CollectionBottomSheet({ changeEpisode, sheetRef, collectionName, collec
                     }
                 </View>
 
-                { (isLoading || isFetching ) &&
+                { (isLoading || isFetching || !enabledUseQuery) &&
                     <View style={{ flex: 1, alignContent: 'center', alignItems: 'center', justifyContent: 'center' }}>
                         <FastImage
                             style={{ height: 80, width: 80 }}
@@ -168,48 +171,34 @@ function CollectionBottomSheet({ changeEpisode, sheetRef, collectionName, collec
                         />
                     </View>
                 }
-                { !isLoading && !isFetching && collectionData != undefined &&
+                { !isLoading && !isFetching && collectionData != undefined && enabledUseQuery && 
                     <View style={{ flex: 1, marginRight: 8 }}>
-                        <FlatList
-                            data={collectionData}
-                            // initialNumToRender={3}
-                            // maxToRenderPerBatch={3}
-                            // windowSize={5}
-                            initialScrollIndex={selectedIndex}
-                            getItemLayout={(data, index) => ({
-                                length: 160,
-                                offset: 160 * index,
-                                index,
-                            })}
-                            showsVerticalScrollIndicator={false}
-                            renderItem={({ item, index }: { item: MiniVideoCollectionItem, index: number }) => {
-                                return <View style={{ width: '100%', height: 130}}>
-                                            <TouchableOpacity key={index} onPress={() => goToCollection(item, index)} style={[ styles.bottomSheetItem, index == selectedIndex ? styles.selectedBottomSheetItem : styles.notSelected ]}>
-                                                <View style={{ flex: 1, flexDirection: 'row' }}>
-                                                    <View style={{ flex: 2, backgroundColor: 'black', borderRadius: 6 }}>
-                                                        <FastImage
-                                                            style={{ borderRadius: 6, height: '100%' }}
-                                                            source={{
-                                                                uri: imageError == false ? item.mini_video_origin_cover : 'https://static.wixstatic.com/media/5dca26_0052ca4edcc94049a9115dea94e6616d~mv2.png',
-                                                            }}
-                                                            onError={() => setImageError(true)}
-                                                            resizeMode={FastImage.resizeMode.contain}
-                                                        />
-                                                    </View>
-                                                    <View style={{ flex: 6, flexDirection: 'column', alignSelf: 'center' }}>
-                                                        <View style={{ paddingLeft: 12 }}>
-                                                            <Text numberOfLines={3} style={{...textVariants.unselected, paddingBottom: 10}}>{item.mini_video_title}</Text>
-                                                            <Text style={{...textVariants.subBody, color: colors.sliderDot}}>{getMinuteSecond(item.mini_video_duration)}</Text>
-                                                        </View>
-                                                    </View>
+                        <BottomSheetScrollView ref={scrollRef} showsVerticalScrollIndicator={false}>
+                            {collectionData?.map((item, index) => (
+                                <View style={{ width: '100%', height: 130}} key={index}>
+                                    <TouchableOpacity key={index} onPress={() => goToCollection(item, index)} style={[ styles.bottomSheetItem, index == selectedIndex ? styles.selectedBottomSheetItem : styles.notSelected ]}>
+                                        <View style={{ flex: 1, flexDirection: 'row' }}>
+                                            <View style={{ flex: 2, backgroundColor: 'black', borderRadius: 6 }}>
+                                                <FastImage
+                                                    style={{ borderRadius: 6, height: '100%' }}
+                                                    source={{
+                                                        uri: imageError == false ? item.mini_video_origin_cover : 'https://static.wixstatic.com/media/5dca26_0052ca4edcc94049a9115dea94e6616d~mv2.png',
+                                                    }}
+                                                    onError={() => setImageError(true)}
+                                                    resizeMode={FastImage.resizeMode.contain}
+                                                />
+                                            </View>
+                                            <View style={{ flex: 6, flexDirection: 'column', alignSelf: 'center' }}>
+                                                <View style={{ paddingLeft: 12 }}>
+                                                    <Text numberOfLines={3} style={{...textVariants.unselected, paddingBottom: 10}}>{item.mini_video_title}</Text>
+                                                    <Text style={{...textVariants.subBody, color: colors.sliderDot}}>{getMinuteSecond(item.mini_video_duration)}</Text>
                                                 </View>
-                                            </TouchableOpacity>
+                                            </View>
                                         </View>
-                            }}
-                            horizontal={false}
-                            keyExtractor={(item: any, index: any) => item.mini_video_id.toString()}
-                            showsHorizontalScrollIndicator={false}
-                        />
+                                    </TouchableOpacity>
+                                </View>
+                            ))}
+                        </BottomSheetScrollView>
                     </View>
                 }
             </View>

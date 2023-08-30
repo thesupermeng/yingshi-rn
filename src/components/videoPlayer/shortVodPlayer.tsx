@@ -87,6 +87,10 @@ function ShortVideoPlayer({
   const windowWidth = Dimensions.get('window').width;
 
   useEffect(() => {
+    setVod(vod);
+  }, [vod])
+
+  useEffect(() => {
     
     if(currentVod.mini_video_topic?.topic_id != 0){
       setIsBodan(true);
@@ -138,7 +142,6 @@ function ShortVideoPlayer({
 
   const handlePlayPause = () => {
     clearTimeout(iconTimer.current);
-    console.log('--------')
     setShowIcon(true);
     if (paused) {
       iconTimer.current = setTimeout(() => setShowIcon(false), 1000);
@@ -168,7 +171,6 @@ function ShortVideoPlayer({
     const { height } = event.nativeEvent.layout;
     setImageContainerHeight(height);
   }
-  
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -193,7 +195,7 @@ function ShortVideoPlayer({
             resizeMode="contain"
             poster={thumbnail}
             source={{
-              uri: vodUrl,
+              uri: currentVod.mini_video_origin_video_url,
               headers: {
                 'User-Agent':
                   'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
