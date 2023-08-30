@@ -14,10 +14,12 @@ const initialState: screenModel = {
 export function screenReducer(state = initialState, action: screenActionType) {
   switch (action.type) {
     case 'remove_screen_action':
+      console.log('remove_screen_action');
       return {
         screenAction: '',
       };
     case 'change_screen_action':
+      console.log('change_screen_action');
       return {
         screenAction: action.payload.screenAction,
       };

@@ -77,8 +77,8 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
   );
   useEffect(() => {
     console.log('screenState');
-    console.log(screenState);
-  }, []);
+    console.log(screenState.screenAction);
+  }, [screenState.screenAction]);
 
   useEffect(() => {
     if (pageInitialState?.showSuccessRegister != undefined) {
@@ -300,7 +300,7 @@ const SignUpOrLogin = (props: any) => {
           show={props.show}
           dismiss={props.dismiss}
           actionType={props.actionType}
-          heightFloat={height < 750 ? 0.82 : 0.8}>
+          heightFloat={height < 650 ? 0.42 : 0.4}>
           <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
             <Register dismiss={props.dismiss} goToLogin={props.goToLogin} />

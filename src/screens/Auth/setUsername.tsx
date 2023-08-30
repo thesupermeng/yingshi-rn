@@ -52,6 +52,7 @@ export default (props: any) => {
   //   ({screenReducer}: RootState) => screenReducer,
   // );
 
+  const userState = useAppSelector(({userReducer}: RootState) => userReducer);
   // useEffect(() => {
   //   console.log('userState');
   //   console.log(userState);
@@ -159,6 +160,8 @@ export default (props: any) => {
                       bearerToken: userState.userToken,
                     });
                   } catch (err: any) {
+                    console.log('err');
+                    console.log(err.response.data.message);
                     setErrMsg(err.response.data.message);
                     setUsernameValid(false);
                     return;
