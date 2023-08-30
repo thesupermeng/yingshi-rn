@@ -163,7 +163,7 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
               )}
               {userState.userToken != '' && (
                 <>
-                  <View View style={{flexDirection: 'row'}}>
+                  <View style={{flexDirection: 'row'}}>
                     <Text style={{color: '#ffffff', fontSize: 20}}>
                       {userState.userName}
                     </Text>
