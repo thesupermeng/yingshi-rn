@@ -30,6 +30,12 @@ import FastImage from 'react-native-fast-image';
 import {useIsFocused} from '@react-navigation/native';
 import NoConnection from './../components/common/noConnection';
 import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
+import {useAppDispatch, useAppSelector} from '../hooks/hooks';
+import {RootState} from '../redux/store';
+import {Dialog} from '@rneui/themed';
+import {useDispatch, useSelector} from 'react-redux';
+import {removeScreenAction} from '../redux/actions/screenAction';
+import {remove} from 'lodash';
 interface NavType {
   id: number;
   name: string;
@@ -48,6 +54,7 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
   const queryClient = useQueryClient();
   const [isOffline, setIsOffline] = useState(false);
   const [showHomeLoading, setShowHomeLoading] = useState(true);
+  const dispatch = useDispatch();
 
   const {data: navOptions} = useQuery({
     queryKey: ['HomePageNavOptions'],
@@ -97,6 +104,26 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
     );
     return () => removeNetInfoSubscription();
   }, []);
+
+  //screen state
+  const [isDialogOpen, setIsDialogOpen] = React.useState(false);
+  const screenState = useAppSelector(
+    ({screenReducer}: RootState) => screenReducer,
+  );
+  const [gifKey, setGifKey] = useState(0);
+  useEffect(() => {
+    console.log('screenState');
+    console.log(screenState.screenAction);
+
+    if (screenState.screenAction == 'showSuccessLogin') {
+      dispatch(removeScreenAction());
+      setIsDialogOpen(true);
+      setGifKey(prevKey => prevKey + 1);
+      setTimeout(() => {
+        setIsDialogOpen(false);
+      }, 3000);
+    }
+  }, [screenState.screenAction]);
 
   //refresh
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -199,7 +226,9 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
 
   return (
     <>
-      <ScreenContainer isHome={true} containerStyle={{paddingLeft: 0, paddingRight: 0}}>
+      <ScreenContainer
+        isHome={true}
+        containerStyle={{paddingLeft: 0, paddingRight: 0}}>
         <View
           style={{
             backgroundColor: colors.background,
@@ -321,6 +350,32 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
             />
           </View>
         )}
+
+        <Dialog
+          isVisible={isDialogOpen}
+          overlayStyle={{
+            backgroundColor: 'rgba(34, 34, 34, 1)',
+            ...styles.overlay,
+          }}
+          backdropStyle={{backgroundColor: 'rgba(0, 0, 0, 0.8)'}}
+          onBackdropPress={() => setIsDialogOpen(false)}>
+          <FastImage
+            key={gifKey}
+            style={{
+              height: 80,
+              width: 80,
+              marginRight: 5,
+              position: 'relative',
+              top: 1,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+            resizeMode={FastImage.resizeMode.contain}
+            source={require('../../static/images/profile/login-success.gif')}
+          />
+
+          <Text style={textVariants.bigHeader}>登陆成功</Text>
+        </Dialog>
       </ScreenContainer>
 
       {isOffline && <NoConnection onClickRetry={checkConnection} />}
@@ -396,5 +451,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flex: 1,
     height: '100%',
+  },
+  overlay: {
+    borderRadius: 14,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
   },
 });
