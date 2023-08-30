@@ -111,6 +111,7 @@ export default ({ handleRefreshMiniVod, currentVodIndex = 0, videos, initialInde
                 keyExtractor={(item: any, index: any) => item.mini_video_id.toString()}
                 viewabilityConfig={{ viewAreaCoveragePercentThreshold: 100 }}
                 showsHorizontalScrollIndicator={false}
+                showsVerticalScrollIndicator={false}
                 onViewableItemsChanged={handleViewableItemsChanged}
                 onEndReached={() => {
                     if (hasNextPage && !isFetchingNextPage && !isFetching) {
