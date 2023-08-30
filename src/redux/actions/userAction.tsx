@@ -21,3 +21,8 @@ export const addUserAuthState = (user: userModel) => ({
 export const removeUserAuthState = () => ({
   type: 'remove_user_auth',
 });
+
+export const updateUsernameState = (userName: string) => ({
+  type: 'update_user_username',
+  payload: userName,
+});

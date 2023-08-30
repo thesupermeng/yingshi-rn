@@ -52,6 +52,12 @@ export function userReducer(state = initialState, action: UserActionType) {
         userEmail: action.payload.userEmail,
         userMemberExpired: action.payload.userMemberExpired,
       };
+    case 'update_user_username':
+      console.log('update_user_username reducer');
+      return {
+        ...state,
+        userName: action.payload,
+      };
     default:
       console.log('default');
       return state;

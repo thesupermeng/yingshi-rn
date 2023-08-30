@@ -23,7 +23,7 @@ import {RootState} from '../../redux/store';
 import {InputItem, Button} from '@ant-design/react-native';
 import {ProfileTabParamList} from '../../types/navigationTypes';
 import {changeScreenAction} from '../../redux/actions/screenAction';
-
+import {updateUsernameState} from '../../redux/actions/userAction';
 export default (props: any) => {
   const [optVarificationState, setOptVarificationState] = useState(2);
   const {colors, textVariants, icons, spacing} = useTheme();
@@ -169,13 +169,12 @@ export default (props: any) => {
                   // props.dismiss();
                   console.log('to profile');
                   //  navigator.navigate('Profile');
-
+                  await dispatch(updateUsernameState(username));
                   await dispatch(
                     changeScreenAction({screenAction: 'showSuccessLogin'}),
                   );
                   navigator.navigate('Home', {
                     screen: 'Profile',
-                    showSuccessRegister: true,
                   });
                 }}>
                 <Text

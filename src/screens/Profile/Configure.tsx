@@ -130,22 +130,21 @@ export default ({navigation}: RootStackScreenProps<'设置'>) => {
             </View>
           </View>
         </View>
-
-        <View
-          style={{
-            backgroundColor: '#1d2023',
-            width: '100%',
-            height: 50,
-            borderRadius: 8,
-            borderWidth: 0,
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginBottom: 30,
-          }}>
-          <TouchableOpacity onPress={toggleLogoutDialog}>
+        <TouchableOpacity onPress={toggleLogoutDialog}>
+          <View
+            style={{
+              backgroundColor: '#1d2023',
+              width: '100%',
+              height: 50,
+              borderRadius: 8,
+              borderWidth: 0,
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginBottom: 30,
+            }}>
             <Text style={{color: '#FF3C3C'}}>退出登陆</Text>
-          </TouchableOpacity>
-        </View>
+          </View>
+        </TouchableOpacity>
       </View>
     </ScreenContainer>
   );
