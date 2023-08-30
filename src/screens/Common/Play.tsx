@@ -151,6 +151,12 @@ const insets = useSafeAreaInsets();
   };
 
   useEffect(() => {
+    if (vod) {
+      setInitTime(vod?.timeWatched)
+    }
+  }, [vod])
+
+  useEffect(() => {
     const removeNetInfoSubscription = NetInfo.addEventListener(
       (state: NetInfoState) => {
         const offline = !(state.isConnected && state.isInternetReachable);
@@ -265,6 +271,7 @@ const insets = useSafeAreaInsets();
             episodes={vod.type_id !== 2 ? vod?.vod_play_list : undefined}
             onEpisodeChange={(id: number) => {
               setCurrentEpisode(id);
+              currentTimeRef.current = 0;
             }}
             showGuide={settingsReducer.showVodPlayerGuide}
             rangeSize={EPISODE_RANGE_SIZE}
@@ -460,6 +467,7 @@ const insets = useSafeAreaInsets();
                           }}
                           onPress={() => {
                             setCurrentEpisode(item.nid);
+                            currentTimeRef.current = 0;
                           }}>
                           <Text
                             numberOfLines={1}
