@@ -30,7 +30,6 @@ import Orientation from 'react-native-orientation-locker';
 import { API_DOMAIN, API_DOMAIN_TEST, API_DOMAIN_LOCAL } from '../utility/constants';
 import { memoize } from 'lodash';
 import MiniVideoList from '../components/videoPlayer/miniVodList';
-import ShortVideoPlayer from '../components/videoPlayer/shortVodPlayer';
 import {useIsFocused} from '@react-navigation/native';
 import {useQueryClient} from '@tanstack/react-query';
 import NoConnection from './../components/common/noConnection';

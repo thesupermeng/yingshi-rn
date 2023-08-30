@@ -71,10 +71,3 @@ export const clearHistory = () => (
         payload: null
     }
 )
-
-export const selectMiniVodCollection = (index: number = 0) => {
-    return {
-        type: SELECT_MINI_VOD_COLLECTION_ITEM,
-        miniVodCollectionItemIndex: index,
-    }
-}
