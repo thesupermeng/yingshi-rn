@@ -139,7 +139,16 @@ const OtpInputs = props => {
         await dispatch(addUserAuthState(json));
         console.log('json for user state');
         console.log(json);
-        navigation.navigate('SetUsername');
+
+        if (props.action == 'login') {
+          navigator.navigate('Home', {
+            screen: 'Profile',
+          });
+        }
+        if (props.action == 'register') {
+          navigation.navigate('SetUsername');
+        }
+
         return;
       }
       let new_otp = otp.replace(/./g, (c, i) => (i == index ? key : c));

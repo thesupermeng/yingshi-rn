@@ -11,6 +11,7 @@ import {
   SafeAreaView,
   Keyboard,
   Image,
+  Touchable,
 } from 'react-native';
 import {ScreenContainer} from 'react-native-screens';
 import {useDispatch, useSelector} from 'react-redux';
@@ -24,6 +25,7 @@ import {InputItem, Button} from '@ant-design/react-native';
 import {ProfileTabParamList} from '../../types/navigationTypes';
 import {changeScreenAction} from '../../redux/actions/screenAction';
 import {updateUsernameState} from '../../redux/actions/userAction';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 export default (props: any) => {
   const [optVarificationState, setOptVarificationState] = useState(2);
   const {colors, textVariants, icons, spacing} = useTheme();
@@ -32,6 +34,7 @@ export default (props: any) => {
   const [usernameValid, setUsernameValid] = useState(true);
   const navigator = useNavigation();
   const onInputChange = (value: any) => {
+    setErrMsg('');
     setUsername(value);
     ValidateUsername(value);
   };
@@ -43,6 +46,36 @@ export default (props: any) => {
       setUsernameValid(false);
     }
   }
+
+  const updateUsernameHandler = async (isJump = false) => {
+    if (username == '' && !isJump) {
+      setErrMsg('请输入昵称');
+      setUsernameValid(false);
+      return;
+    }
+
+    let res;
+    try {
+      res = await updateUsername({
+        username: username,
+        bearerToken: userState.userToken,
+      });
+    } catch (err: any) {
+      console.log('err');
+      console.log(err.response.data.message);
+      setErrMsg(err.response.data.message);
+      setUsernameValid(false);
+      return;
+    }
+    // props.dismiss();
+    console.log('to profile');
+    //  navigator.navigate('Profile');
+    await dispatch(updateUsernameState(res.data.data));
+    await dispatch(changeScreenAction({screenAction: 'showSuccessLogin'}));
+    navigator.navigate('Home', {
+      screen: 'Profile',
+    });
+  };
 
   // useEffect(() => {
   //   ValidateUsername(username, setUsername);
@@ -61,13 +94,33 @@ export default (props: any) => {
   return (
     <View
       style={{
-        height: '100%',
-        paddingVertical: '10%',
+        flex: 1,
         backgroundColor: '#000',
       }}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <>
-          <TitleWithBackButtonHeader title="" />
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'flex-end',
+              paddingRight: 20,
+              paddingTop: 20,
+            }}>
+            <TouchableOpacity
+              onPress={() => {
+                updateUsernameHandler(true);
+              }}>
+              <Text
+                style={{
+                  fontWeight: '500',
+                  fontSize: 18,
+                  letterSpacing: 0.2,
+                  color: '#fff',
+                }}>
+                跳过
+              </Text>
+            </TouchableOpacity>
+          </View>
 
           {/* <View style={styles.headerBarShadow}/> */}
           <View style={{paddingLeft: 20, paddingRight: 20, paddingTop: '20%'}}>
@@ -106,6 +159,7 @@ export default (props: any) => {
                   marginTop: 45,
                   flexDirection: 'row',
                   justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}>
                 <View
                   style={{
@@ -131,7 +185,7 @@ export default (props: any) => {
                   )}
                 </View>
 
-                <Text>
+                <Text style={{fontWeight: '600', fontSize: 15}}>
                   {username.length}/18
                   {/* {userState.userEmail} */}
                 </Text>
@@ -153,29 +207,8 @@ export default (props: any) => {
                     : styles.btnActive,
                 ]}
                 //disabled={!props.emailValid}
-                onPress={async () => {
-                  try {
-                    await updateUsername({
-                      username: username,
-                      bearerToken: userState.userToken,
-                    });
-                  } catch (err: any) {
-                    console.log('err');
-                    console.log(err.response.data.message);
-                    setErrMsg(err.response.data.message);
-                    setUsernameValid(false);
-                    return;
-                  }
-                  // props.dismiss();
-                  console.log('to profile');
-                  //  navigator.navigate('Profile');
-                  await dispatch(updateUsernameState(username));
-                  await dispatch(
-                    changeScreenAction({screenAction: 'showSuccessLogin'}),
-                  );
-                  navigator.navigate('Home', {
-                    screen: 'Profile',
-                  });
+                onPress={() => {
+                  updateUsernameHandler(false);
                 }}>
                 <Text
                   style={{

@@ -91,7 +91,6 @@ export default ({navigation}: RootStackScreenProps<'设置'>) => {
               await dispatch(removeUserAuthState());
               navigator.navigate('Home', {
                 screen: 'Profile',
-                showSuccessRegister: true,
               });
               toggleLogoutDialog();
             }}
