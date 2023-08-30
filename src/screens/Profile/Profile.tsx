@@ -130,9 +130,13 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
         {/* 游客登陆  component*/}
         <TouchableOpacity
           onPress={() => {
-            console.log('props{');
-            setActionType('login');
-            setSignUpOrLogin(true);
+            if (userState.userToken == '') {
+              console.log('props{');
+              setActionType('login');
+              setSignUpOrLogin(true);
+            } else {
+              navigation.navigate('个人中心');
+            }
           }}>
           <View
             style={{paddingTop: 20, paddingBottom: 10, flexDirection: 'row'}}>
