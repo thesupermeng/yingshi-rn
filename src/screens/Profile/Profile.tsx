@@ -61,8 +61,21 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
     ({themeReducer}: RootState) => themeReducer,
   );
 
+  const [displayedDate, setDisplayedDate] = useState('');
+
   const pageInitialState = route.params;
   const userState = useAppSelector(({userReducer}: RootState) => userReducer);
+
+  useEffect(() => {
+    const date = new Date(userState.userMemberExpired * 1000); // Multiply by 1000 to convert from seconds to milliseconds
+
+    // Extract year, month, and day
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1; // Months are 0-based, so add 1
+    const day = date.getDate();
+
+    setDisplayedDate(`${year}年${month}月${day}日`);
+  }, [userState.userMemberExpired]);
 
   useFocusEffect(
     useCallback(() => {
@@ -178,7 +191,7 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
                   )}
                   {userState.userMemberExpired != '0' && (
                     <Text style={{color: colors.primary, fontSize: 14}}>
-                      {userState.userMemberExpired}
+                      VIP会员有效日期至{displayedDate}
                     </Text>
                   )}
                 </>
