@@ -39,8 +39,13 @@ export interface SettingsActionType {
 
 export interface MiniVodActionType {
     type: string,
-    payload?: string
-    fromMiniVodCollectionItemIndex?: number
+    payload?: string,
+    fromMiniVodCollectionItemIndex?: number,
     miniVodCollectionItemIndex?: number
-    
+}
+
+export interface OneTimeActionActionType {
+    type: string,
+    payload?: string,
+    showFirstLaunchVIPPrompt: boolean
 }

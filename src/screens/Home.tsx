@@ -35,6 +35,7 @@ import {RootState} from '../redux/store';
 import {Dialog} from '@rneui/themed';
 import {useDispatch, useSelector} from 'react-redux';
 import {removeScreenAction} from '../redux/actions/screenAction';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {remove} from 'lodash';
 interface NavType {
   id: number;
@@ -149,6 +150,22 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
       console.error('Error fetching data:', error);
     }
   };
+
+  useEffect(() => {
+    const checkFirstLaunchVipPrompted = async () => {
+      try {
+        const vipPrompted = AsyncStorage.getItem('first-launch-vip-prompted');
+        if(vipPrompted !== null){
+          // prompt VIP
+          // await AsyncStorage.setItem('first-launch-vip-prompted', 'true');
+        }
+      } catch(e) {
+  
+      }
+    }
+
+    checkFirstLaunchVipPrompted();
+  }, [])
 
   useEffect(() => {
     const handleTabPress = async () => {
