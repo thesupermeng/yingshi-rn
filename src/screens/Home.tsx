@@ -1,4 +1,4 @@
-import React, {useMemo, useCallback, useEffect, useRef, useState} from 'react';
+import React, {useMemo, useCallback, useEffect, useRef, useState, memo} from 'react';
 import {
   StyleSheet,
   Text,
@@ -42,7 +42,7 @@ interface NavType {
   name: string;
 }
 
-export default ({navigation}: BottomTabScreenProps<any>) => {
+const Home = ({navigation}: BottomTabScreenProps<any>) => {
   const isFocused = useIsFocused();
   const {colors, textVariants, spacing} = useTheme();
   const [navId, setNavId] = useState(0);
@@ -152,22 +152,6 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
   };
 
   useEffect(() => {
-    const checkFirstLaunchVipPrompted = async () => {
-      try {
-        const vipPrompted = AsyncStorage.getItem('first-launch-vip-prompted');
-        if(vipPrompted !== null){
-          // prompt VIP
-          // await AsyncStorage.setItem('first-launch-vip-prompted', 'true');
-        }
-      } catch(e) {
-  
-      }
-    }
-
-    checkFirstLaunchVipPrompted();
-  }, [])
-
-  useEffect(() => {
     const handleTabPress = async () => {
       if (isFocused) {
         setIsRefreshing(prevIsRefreshing => {
@@ -220,6 +204,11 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
     },
     [],
   );
+
+  useEffect(() => {
+    // console.log('aa')
+    // navigation.navigate('我的');
+  })
 
   const onScrollEnd = useCallback(
     (e: any) => {
@@ -477,3 +466,6 @@ const styles = StyleSheet.create({
     padding: 20,
   },
 });
+
+
+export default memo(Home);
