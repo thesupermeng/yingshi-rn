@@ -21,8 +21,14 @@ import InviteStep from './../../components/invite/inviteStep';
 import InviteCard from './../../components/invite/inviteCard';
 
 import InviteHeader from './../../components/invite/inviteHeader';
+import {useAppSelector} from '../../hooks/hooks';
+import {userModel} from '../../types/userType';
 export default ({navigation}: RootStackScreenProps<'邀请'>) => {
   const {colors, textVariants, icons, spacing} = useTheme();
+
+  const userState: userModel = useAppSelector(
+    ({userReducer}: RootState) => userReducer,
+  );
 
   return (
     <ScreenContainer>
@@ -33,7 +39,7 @@ export default ({navigation}: RootStackScreenProps<'邀请'>) => {
 
         {/* content card component  */}
 
-        <InviteCard />
+        <InviteCard userState={userState} />
 
         {/* event section  */}
         <View

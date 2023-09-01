@@ -1,21 +1,8 @@
-import {
-  ADD_SEARCH_HISTORY,
-  REMOVE_SEARCH_HISTORY,
-  CLEAR_SEARCH_HISTORY,
-} from '../../utility/constants';
+import {userModel} from '../../types/userType';
 
 export interface UserActionType {
   type: string;
   payload: userModel;
-}
-
-export interface userModel {
-  userToken: string;
-  userId: string;
-  userName: string;
-  userReferralCode: string;
-  userEmail: string;
-  userMemberExpired: string;
 }
 
 const initialState: userModel = {
@@ -25,6 +12,11 @@ const initialState: userModel = {
   userReferralCode: '',
   userEmail: '',
   userMemberExpired: '',
+  userEndDaysCount: 0,
+  userTotalInvite: 0,
+  userAccumulateRewardDay: 0,
+  userAllowUpdateReferral: false,
+  userInvitedUserList: [],
 };
 
 export function userReducer(state = initialState, action: UserActionType) {
@@ -40,17 +32,33 @@ export function userReducer(state = initialState, action: UserActionType) {
         userReferralCode: '',
         userEmail: '',
         userMemberExpired: '',
+        userEndDaysCount: 0,
+        userTotalInvite: 0,
+        userAccumulateRewardDay: 0,
+        userAllowUpdateReferral: false,
+        userInvitedUserList: [],
       };
     case 'add_user_auth':
       console.log('add_user_auth reducer');
       console.log(state);
-      return {
+      let json = {
         userToken: action.payload.userToken,
         userId: action.payload.userId,
         userName: action.payload.userName,
         userReferralCode: action.payload.userReferralCode,
         userEmail: action.payload.userEmail,
         userMemberExpired: action.payload.userMemberExpired,
+
+        userEndDaysCount: action.payload.userEndDaysCount,
+        userTotalInvite: action.payload.userTotalInvite,
+        userAccumulateRewardDay: action.payload.userAccumulateRewardDay,
+        userAllowUpdateReferral: action.payload.userAllowUpdateReferral,
+        userInvitedUserList: action.payload.userInvitedUserList,
+      };
+      console.log('stored user state');
+      console.log(json);
+      return {
+        ...json,
       };
     case 'update_user_username':
       console.log('update_user_username reducer');

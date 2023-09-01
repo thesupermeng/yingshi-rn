@@ -71,7 +71,7 @@ export default (props: any) => {
     console.log('to profile');
     //  navigator.navigate('Profile');
     await dispatch(updateUsernameState(res.data.data));
-    await dispatch(changeScreenAction({screenAction: 'showSuccessLogin'}));
+    await dispatch(changeScreenAction('showSuccessLogin'));
     navigator.navigate('Home', {
       screen: 'Profile',
     });

@@ -1,6 +1,6 @@
 export interface screenActionType {
   type: string;
-  payload: screenModel;
+  payload: string;
 }
 
 export interface screenModel {
@@ -21,7 +21,7 @@ export function screenReducer(state = initialState, action: screenActionType) {
     case 'change_screen_action':
       console.log('change_screen_action');
       return {
-        screenAction: action.payload.screenAction,
+        screenAction: action.payload,
       };
     default:
       return state;

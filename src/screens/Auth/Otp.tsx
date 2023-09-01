@@ -20,6 +20,7 @@ import {registerUser, loginUser} from '../../features/user';
 import {addUserAuthState} from '../../redux/actions/userAction';
 
 import {useAppDispatch} from '../../hooks/hooks';
+import {changeScreenAction} from '../../redux/actions/screenAction';
 const OtpInputs = props => {
   const storeToken = useSelector(state => state.userToken);
   const dispatch = useDispatch();
@@ -135,12 +136,19 @@ const OtpInputs = props => {
           userReferralCode: resultData.user.user_referral_code,
           userEmail: resultData.user.user_email,
           userMemberExpired: resultData.user.user_end_time,
+
+          userEndDaysCount: resultData.user.user_end_time_duration_days,
+          userTotalInvite: resultData.user.total_invited_user,
+          userAccumulateRewardDay: resultData.user.accumulated_vip_reward_days,
+          userAllowUpdateReferral: resultData.user.eligible_update_referrer,
+          userInvitedUserList: resultData.user.invited_users,
         };
         await dispatch(addUserAuthState(json));
         console.log('json for user state');
         console.log(json);
 
         if (props.action == 'login') {
+          await dispatch(changeScreenAction('showSuccessLogin'));
           navigator.navigate('Home', {
             screen: 'Profile',
           });

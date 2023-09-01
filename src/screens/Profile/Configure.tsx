@@ -21,6 +21,7 @@ import {clearStorageMemory} from '../../redux/actions/settingsActions';
 import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
 
 import {removeUserAuthState} from '../../redux/actions/userAction';
+import {changeScreenAction} from '../../redux/actions/screenAction';
 
 export default ({navigation}: RootStackScreenProps<'设置'>) => {
   const {colors, textVariants, icons, spacing} = useTheme();
@@ -53,6 +54,11 @@ export default ({navigation}: RootStackScreenProps<'设置'>) => {
 
     return () => removeNetInfoSubscription();
   }, []);
+
+  // useEffect(() => {
+  //   dispatch(changeScreenAction('showSuccessLogin'));
+  // }, []);
+
   return (
     <ScreenContainer>
       <View style={{gap: spacing.m, justifyContent: 'space-between', flex: 1}}>
@@ -93,6 +99,11 @@ export default ({navigation}: RootStackScreenProps<'设置'>) => {
                 screen: 'Profile',
               });
               toggleLogoutDialog();
+
+              // await dispatch(changeScreenAction('showSuccessLogin'));
+              // navigator.navigate('Home', {
+              //   screen: 'Profile',
+              // });
             }}
             onCancel={toggleLogoutDialog}
             isVisible={isLogoutDialogOpen}

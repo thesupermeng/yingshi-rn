@@ -90,9 +90,9 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
     ({screenReducer}: RootState) => screenReducer,
   );
   useEffect(() => {
-    console.log('screenState');
+    console.log('screenState in profile');
     console.log(screenState.screenAction);
-  }, [screenState.screenAction]);
+  }, [screenState]);
 
   useEffect(() => {
     if (pageInitialState?.showSuccessRegister != undefined) {
