@@ -136,7 +136,7 @@ const OtpInputs = props => {
           userReferralCode: resultData.user.user_referral_code,
           userEmail: resultData.user.user_email,
           userMemberExpired: resultData.user.user_end_time,
-
+          userReferrerName: resultData.user.referrer_name,
           userEndDaysCount: resultData.user.user_end_time_duration_days,
           userTotalInvite: resultData.user.total_invited_user,
           userAccumulateRewardDay: resultData.user.accumulated_vip_reward_days,
@@ -148,7 +148,7 @@ const OtpInputs = props => {
         console.log(json);
 
         if (props.action == 'login') {
-          await dispatch(changeScreenAction('showSuccessLogin'));
+          await dispatch(changeScreenAction('登录成功'));
           navigator.navigate('Home', {
             screen: 'Profile',
           });

@@ -71,6 +71,7 @@ import {YSConfig} from '../../ysConfig';
 import {removeScreenAction} from '../redux/actions/screenAction';
 import {Dialog} from '@rneui/themed';
 import FastImage from 'react-native-fast-image';
+import {screenModel} from '../types/screenType';
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -187,13 +188,13 @@ export default () => {
   //screen state
   const dispatch = useDispatch();
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
-  const screenState = useAppSelector(
+  const screenState: screenModel = useAppSelector(
     ({screenReducer}: RootState) => screenReducer,
   );
   const [gifKey, setGifKey] = useState(0);
   useEffect(() => {
     console.log('screenState in nav');
-    if (screenState.screenAction == 'showSuccessLogin') {
+    if (screenState.screenShow != false) {
       dispatch(removeScreenAction());
       setTimeout(() => {
         setIsDialogOpen(true);
@@ -331,7 +332,7 @@ export default () => {
             fontSize: 20,
             fontWeight: '600',
           }}>
-          登录成功
+          {screenState.screenAction}
         </Text>
       </Dialog>
     </SafeAreaProvider>

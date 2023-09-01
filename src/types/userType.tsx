@@ -5,6 +5,7 @@ export interface userModel {
   userReferralCode: string;
   userEmail: string;
   userMemberExpired: string;
+  userReferrerName: string;
   userEndDaysCount: number;
   userTotalInvite: number;
   userAccumulateRewardDay: number;
