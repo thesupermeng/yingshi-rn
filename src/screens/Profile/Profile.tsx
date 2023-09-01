@@ -47,6 +47,7 @@ import {GobalModal} from '../../components/profile/globalModal';
 import BottomSheet from '@gorhom/bottom-sheet';
 
 import {removeScreenAction} from '../../redux/actions/screenAction';
+import {userModel} from '../../types/userType';
 
 export default ({navigation, route}: BottomTabScreenProps<any>) => {
   const sheetRef = useRef<BottomSheet>(null);
@@ -64,10 +65,12 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
   const [displayedDate, setDisplayedDate] = useState('');
 
   const pageInitialState = route.params;
-  const userState = useAppSelector(({userReducer}: RootState) => userReducer);
+  const userState: userModel = useAppSelector(
+    ({userReducer}: RootState) => userReducer,
+  );
 
   useEffect(() => {
-    const date = new Date(userState.userMemberExpired * 1000); // Multiply by 1000 to convert from seconds to milliseconds
+    const date = new Date(Number(userState.userMemberExpired) * 1000); // Multiply by 1000 to convert from seconds to milliseconds
 
     // Extract year, month, and day
     const year = date.getFullYear();
