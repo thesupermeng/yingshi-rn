@@ -13,3 +13,8 @@ export const updateUsernameState = (userName: string) => ({
   type: 'update_user_username',
   payload: userName,
 });
+
+export const updateUserReferral = (referral: string) => ({
+  type: 'update_user_referral',
+  payload: referral,
+});

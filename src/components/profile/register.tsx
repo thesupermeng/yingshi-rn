@@ -175,8 +175,24 @@ const LoginCard = props => {
           } catch (err: any) {
             console.log('err');
             console.log(err.response.data.message);
-            props.setErrMsg(err.response.data.message);
-            props.setReferralCodeValid(false);
+            // props.setErrMsg(err.response.data.message);
+            // props.setReferralCodeValid(false);
+
+            if (err.response.data.errors.referral_code) {
+              // setReferralValid(false);
+              // setErrReferral(err.response.data.errors.referral_code);
+
+              props.setErrMsg(err.response.data.errors.referral_code);
+              props.setReferralCodeValid(false);
+            }
+
+            if (err.response.data.errors.username) {
+              props.setErrMsg(err.response.data.errors.username);
+              props.setReferralCodeValid(false);
+              // setUsernameValid(false);
+              // setErrUsername(err.response.data.errors.username);
+            }
+
             return;
           }
 

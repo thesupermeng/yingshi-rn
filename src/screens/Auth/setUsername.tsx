@@ -61,13 +61,18 @@ export default (props: any) => {
     try {
       res = await updateUsername({
         username: username,
+        // referralCode: null,
         bearerToken: userState.userToken,
       });
     } catch (err: any) {
       console.log('err');
       console.log(err.response.data.message);
-      setErrMsg(err.response.data.message);
-      setUsernameValid(false);
+
+      if (err.response.data.errors.username) {
+        setUsernameValid(false);
+        setErrMsg(err.response.data.errors.username);
+      }
+
       return;
     }
     // props.dismiss();

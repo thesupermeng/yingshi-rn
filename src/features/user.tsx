@@ -45,7 +45,11 @@ export const loginUser = async ({email, otp}: any) => {
   return result;
 };
 
-export const updateUsername = async ({username, bearerToken}: any) => {
+export const updateUsername = async ({
+  username,
+  referralCode,
+  bearerToken,
+}: any) => {
   console.log('updateUsername');
   // const userState = useAppSelector(({userReducer}: RootState) => userReducer);
   // const bearerToken = userState.userToken;
@@ -61,9 +65,24 @@ export const updateUsername = async ({username, bearerToken}: any) => {
 
   let json = {
     username: username,
+    referral_code: referralCode,
   };
 
   let result = await axios.post(API_DOMAIN_TEST + 'users/v1/update', json, {
+    headers: headers,
+  });
+
+  return result;
+};
+
+export const getUserDetails = async ({bearerToken}: any) => {
+  // Define your request headers
+  const headers = {
+    Authorization: `Bearer ${bearerToken}`,
+    'Content-Type': 'application/json', // Set your content type accordingly
+  };
+
+  let result = await axios.get(API_DOMAIN_TEST + 'users/v1/me', {
     headers: headers,
   });
 

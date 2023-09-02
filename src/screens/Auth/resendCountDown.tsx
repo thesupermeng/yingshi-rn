@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 
 export const ResendCountDown = props => {
-  const [countDown, setCountDown] = useState(10);
+  const [countDown, setCountDown] = useState(60);
 
   const timerRef = React.useRef(countDown);
   React.useEffect(() => {

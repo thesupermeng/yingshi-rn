@@ -68,6 +68,11 @@ export function userReducer(state = initialState, action: UserActionType) {
         ...state,
         userName: action.payload,
       };
+    case 'update_user_referral':
+      return {
+        ...state,
+        userReferrerName: action.payload,
+      };
     default:
       console.log('default');
       return state;

@@ -25,6 +25,13 @@ import {useAppSelector} from '../../hooks/hooks';
 import {userModel} from '../../types/userType';
 import {useDispatch} from 'react-redux';
 import {TouchableOpacity} from '@gorhom/bottom-sheet';
+import {changeScreenAction} from '../../redux/actions/screenAction';
+import NotificationModal from '../../components/modal/notificationModal';
+import {getUserDetails, updateUsername} from '../../features/user';
+import {
+  updateUsernameState,
+  updateUserReferral,
+} from '../../redux/actions/userAction';
 export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
   const {colors, textVariants, icons, spacing} = useTheme();
   const dispatch = useDispatch();
@@ -40,6 +47,11 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
   const [referral, setReferral] = useState('');
   const [referralValid, setReferralValid] = useState(true);
 
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const toggleOverlay = () => {
+    setIsDialogOpen(!isDialogOpen);
+  };
   const onUsernameChange = (value: any) => {
     setUsername(value);
     ValidateUsername(value);
@@ -68,7 +80,7 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
   }
   useEffect(() => {
     setUsername(userState.userName);
-    setReferral(userState.userReferrerName);
+    // setReferral(userState.userReferrerName);
   }, []);
 
   return (
@@ -129,56 +141,99 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
             </View>
           </View>
           {/* referral input  */}
-          <View>
-            <InputItem
-              style={[
-                styles.textInpoutCommonStyle,
-                styles.defaultTextInputStyle,
-                referralValid
-                  ? styles.correctTextInputStyle
-                  : styles.invalidTextInputStyle,
-              ]}
-              value={referral}
-              onChange={value => {
-                onReferralChange(value);
-              }}
-              placeholder="补填邀请码 (只能填写一次)"
-              placeholderTextColor="#B6B6B6"
-              maxLength={18}
-            />
+          {userState.userReferrerName == '' && (
+            <View>
+              <InputItem
+                style={[
+                  styles.textInpoutCommonStyle,
+                  styles.defaultTextInputStyle,
+                  referralValid
+                    ? styles.correctTextInputStyle
+                    : styles.invalidTextInputStyle,
+                ]}
+                value={referral}
+                onChange={value => {
+                  onReferralChange(value);
+                }}
+                placeholder="补填邀请码 (只能填写一次)"
+                placeholderTextColor="#B6B6B6"
+                maxLength={18}
+              />
 
-            <View
-              style={{
-                ...styles.dangerWrap,
-              }}>
               <View
                 style={{
-                  justifyContent: 'flex-start',
-                  alignItems: 'center',
-                  flexDirection: 'row',
+                  ...styles.dangerWrap,
                 }}>
-                {errReferral != '' && (
-                  <>
-                    <Image
-                      style={{
-                        height: 22,
-                        width: 22,
-                        marginRight: 5,
-                        position: 'relative',
-                        top: 1,
-                      }}
-                      source={require('../../../static/images/invite/danger.png')}
-                    />
+                <View
+                  style={{
+                    justifyContent: 'flex-start',
+                    alignItems: 'center',
+                    flexDirection: 'row',
+                  }}>
+                  {errReferral != '' && (
+                    <>
+                      <Image
+                        style={{
+                          height: 22,
+                          width: 22,
+                          marginRight: 5,
+                          position: 'relative',
+                          top: 1,
+                        }}
+                        source={require('../../../static/images/invite/danger.png')}
+                      />
 
-                    <Text style={styles.danger}>{errReferral} </Text>
-                  </>
-                )}
+                      <Text style={styles.danger}>{errReferral} </Text>
+                    </>
+                  )}
+                </View>
               </View>
             </View>
-          </View>
+          )}
 
+          {userState.userReferrerName != '' && (
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                backgroundColor: '#1d2023',
+                marginTop: 30,
+                paddingLeft: 18,
+                paddingRight: 13,
+                height: 48,
+                borderRadius: 8,
+              }}>
+              <Text style={{fontSize: 16, color: colors.primary}}>推介人</Text>
+
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <Text style={{fontSize: 14}}>
+                  {' '}
+                  {userState.userReferrerName}
+                </Text>
+                <Image
+                  style={{
+                    height: 27,
+                    width: 27,
+                    position: 'relative',
+                    top: 2,
+                  }}
+                  source={require('../../../static/images/profile/copy.png')}
+                />
+              </View>
+            </View>
+          )}
           {/* copy referral */}
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              console.log('open dialog');
+              setIsDialogOpen(true);
+            }}>
             <View
               style={{
                 flexDirection: 'row',
@@ -214,9 +269,66 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
               </View>
             </View>
           </TouchableOpacity>
+          <NotificationModal
+            onConfirm={toggleOverlay}
+            isVisible={isDialogOpen}
+            title="复制成功"
+            subtitle1=""
+            subtitle2=""
+            subtitle3=""
+          />
         </View>
         {/* bottom button  */}
         <Button
+          onPress={async () => {
+            if (usernameValid == false || referralValid == false) {
+              console.log('err form validation');
+              return;
+            }
+
+            let res;
+            try {
+              res = await updateUsername({
+                username: username,
+                referralCode: referral,
+                bearerToken: userState.userToken,
+              });
+            } catch (err: any) {
+              console.log('err');
+              console.log(err.response.data.message);
+              console.log(err.response.data.errors);
+              if (err.response.data.errors.referral_code) {
+                setReferralValid(false);
+                setErrReferral(err.response.data.errors.referral_code);
+              }
+
+              if (err.response.data.errors.username) {
+                setUsernameValid(false);
+                setErrUsername(err.response.data.errors.username);
+              }
+              // setErrMsg(err.response.data.message);
+              // setUsernameValid(false);
+              return;
+            }
+
+            let result;
+            if (referral != '') {
+              result = await getUserDetails({
+                bearerToken: userState.userToken,
+              });
+
+              let resultData = result.data.data;
+              await dispatch(updateUserReferral(resultData.user.referrer_name));
+              console.log('user details');
+              console.log(resultData);
+            } else {
+              await dispatch(updateUsernameState(username));
+              setUsername(username);
+            }
+
+            Keyboard.dismiss();
+            dispatch(changeScreenAction('修改成功'));
+          }}
           type="primary"
           // disabled={props.email === '' || !props.emailValid}
           style={[styles.confirmButtonStyle, styles.btnInactive]}
