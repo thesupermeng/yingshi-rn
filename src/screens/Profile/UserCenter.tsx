@@ -40,6 +40,7 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
   );
 
   const [errUsername, setErrUsername] = useState('');
+  const [initialUsername, setInitialUsername] = useState('');
   const [username, setUsername] = useState('');
   const [usernameValid, setUsernameValid] = useState(true);
 
@@ -80,6 +81,7 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
   }
   useEffect(() => {
     setUsername(userState.userName);
+    setInitialUsername(userState.userName);
     // setReferral(userState.userReferrerName);
   }, []);
 
@@ -198,13 +200,13 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
                 justifyContent: 'space-between',
                 alignItems: 'center',
                 backgroundColor: '#1d2023',
-                marginTop: 30,
+                marginTop: 20,
                 paddingLeft: 18,
                 paddingRight: 13,
                 height: 48,
                 borderRadius: 8,
               }}>
-              <Text style={{fontSize: 16, color: colors.primary}}>推介人</Text>
+              <Text style={{fontSize: 16}}>推介人</Text>
 
               <View
                 style={{
@@ -216,15 +218,6 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
                   {' '}
                   {userState.userReferrerName}
                 </Text>
-                <Image
-                  style={{
-                    height: 27,
-                    width: 27,
-                    position: 'relative',
-                    top: 2,
-                  }}
-                  source={require('../../../static/images/profile/copy.png')}
-                />
               </View>
             </View>
           )}
@@ -240,7 +233,7 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
                 justifyContent: 'space-between',
                 alignItems: 'center',
                 backgroundColor: '#1d2023',
-                marginTop: 30,
+                marginTop: 20,
                 paddingLeft: 18,
                 paddingRight: 13,
                 height: 48,
@@ -281,11 +274,18 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
         {/* bottom button  */}
         <Button
           onPress={async () => {
-            if (usernameValid == false || referralValid == false) {
+            if (
+              usernameValid == false ||
+              referralValid == false ||
+              !(
+                initialUsername.toLocaleLowerCase() !==
+                  username.toLocaleLowerCase() ||
+                (referral != '' && userState.userReferrerName == '')
+              )
+            ) {
               console.log('err form validation');
               return;
             }
-
             let res;
             try {
               res = await updateUsername({
@@ -294,9 +294,6 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
                 bearerToken: userState.userToken,
               });
             } catch (err: any) {
-              console.log('err');
-              console.log(err.response.data.message);
-              console.log(err.response.data.errors);
               if (err.response.data.errors.referral_code) {
                 setReferralValid(false);
                 setErrReferral(err.response.data.errors.referral_code);
@@ -319,11 +316,15 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
 
               let resultData = result.data.data;
               await dispatch(updateUserReferral(resultData.user.referrer_name));
+              setUsername(resultData.user.user_name);
+              setInitialUsername(resultData.user.user_name);
+
               console.log('user details');
               console.log(resultData);
             } else {
               await dispatch(updateUsernameState(username));
-              setUsername(username);
+              setUsername(username.toUpperCase());
+              setInitialUsername(username.toUpperCase());
             }
 
             Keyboard.dismiss();
@@ -331,13 +332,39 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
           }}
           type="primary"
           // disabled={props.email === '' || !props.emailValid}
-          style={[styles.confirmButtonStyle, styles.btnInactive]}
-          activeStyle={[styles.confirmButtonStyle, styles.btnInactive]}>
+          style={[
+            styles.confirmButtonStyle,
+
+            usernameValid &&
+            referralValid &&
+            (initialUsername.toLocaleLowerCase() !==
+              username.toLocaleLowerCase() ||
+              (referral != '' && userState.userReferrerName == ''))
+              ? styles.btnActive
+              : styles.btnInactive,
+          ]}
+          activeStyle={[
+            styles.confirmButtonStyle,
+
+            usernameValid &&
+            referralValid &&
+            (initialUsername.toLocaleLowerCase() !==
+              username.toLocaleLowerCase() ||
+              (referral != '' && userState.userReferrerName == ''))
+              ? styles.btnActive
+              : styles.btnInactive,
+          ]}>
           <Text
             style={{
               fontWeight: '600',
               fontSize: 15,
               letterSpacing: 0.2,
+              color:
+                initialUsername.toLocaleLowerCase() !==
+                  username.toLocaleLowerCase() ||
+                (referral != '' && userState.userReferrerName == '')
+                  ? '#000'
+                  : 'grey',
             }}>
             修改
           </Text>
@@ -350,7 +377,7 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
 const styles = StyleSheet.create({
   textInpoutCommonStyle: {
     marginHorizontal: '-5%',
-    marginTop: 30,
+    marginTop: 20,
     paddingHorizontal: 18,
     height: 48,
     borderRadius: 8,

@@ -11,10 +11,10 @@ export const removeUserAuthState = () => ({
 
 export const updateUsernameState = (userName: string) => ({
   type: 'update_user_username',
-  payload: userName,
+  payload: userName.toUpperCase(),
 });
 
 export const updateUserReferral = (referral: string) => ({
   type: 'update_user_referral',
-  payload: referral,
+  payload: referral.toUpperCase(),
 });
