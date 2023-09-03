@@ -2,9 +2,9 @@ import {API_DOMAIN, API_DOMAIN_TEST} from '../utility/constants';
 import axios from 'axios';
 import {useAppSelector} from '../hooks/hooks';
 import {RootState} from '../redux/store';
-
+import deviceInfoModule from 'react-native-device-info';
 //import {refreshUserToken, updateAnonymous} from '~redux/auth/authSlice';
-
+import DeviceInfo from 'react-native-device-info';
 let user_token = '';
 let refresh_token = '';
 // new code
@@ -16,10 +16,17 @@ export const registerUser = async ({
 }: any) => {
   console.log('registerUser');
 
+  let deviceId = await DeviceInfo.getUniqueId();
+  //deviceId = device_id;
+  if (typeof deviceId !== 'string') {
+    deviceId = JSON.stringify(deviceId);
+  }
+
   let json = {
     email: email,
     referral_code: referral_code,
-    device_id: device_id,
+    // device_id: deviceInfoModule.getDeviceId(),
+    device_id: deviceId,
     otp: otp,
   };
   console.log('json');
