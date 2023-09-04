@@ -8,8 +8,15 @@ import {
   Text,
   TouchableWithoutFeedback,
   TouchableOpacity,
+  Keyboard,
 } from 'react-native';
 import {loginUser} from '../../features/user';
+import {useAppDispatch} from '../../hooks/hooks';
+import {
+  hideBottomSheetAction,
+  hideLoginAction,
+  hideRegisterAction,
+} from '../../redux/actions/screenAction';
 export const Login = props => {
   const [email, setEmail] = useState('');
   const [emailValid, setEmailValid] = useState(true);
@@ -37,6 +44,7 @@ export const Login = props => {
 
 const LoginCard = props => {
   const {colors, textVariants, icons, spacing} = useTheme();
+  const dispatch = useAppDispatch();
   const navigation = useNavigation();
   return (
     <View style={styles.card}>
@@ -134,6 +142,8 @@ const LoginCard = props => {
           }
 
           props.dismiss();
+          dispatch(hideBottomSheetAction());
+
           navigation.navigate('OTP', {
             email: props.email,
             action: 'login',

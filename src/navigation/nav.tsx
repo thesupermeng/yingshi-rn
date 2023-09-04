@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   NavigationContainer,
   RouteProp,
@@ -47,7 +47,8 @@ import MatchesScreen from '../Sports/screens/Sports/Matches';
 import MatchDetailsScreen from '../Sports/screens/Sports/MatchDetails';
 import WatchCollectionScreen from '../../src/screens/WatchCollection';
 import {useDispatch, useSelector} from 'react-redux';
-import {YingshiDarkTheme, YingshiLightTheme} from '../utility/theme';
+import LoginBottomSheet from '../components/auth/loginBottomSheet';
+import RegisterBottomSheet from '../components/auth/registerBottomSheet';
 import {
   HomeTabParamList,
   PlaylistTabParamList,
@@ -68,10 +69,17 @@ import {QueryClient, useQuery} from '@tanstack/react-query';
 import {API_DOMAIN, UMENG_CHANNEL} from '../../src/utility/constants';
 import {BottomNavTabsResponse} from '../../src/types/ajaxTypes';
 import {YSConfig} from '../../ysConfig';
-import {removeScreenAction} from '../redux/actions/screenAction';
+import {
+  hideLoginAction,
+  hideRegisterAction,
+  removeScreenAction,
+  resetBottomSheetAction,
+} from '../redux/actions/screenAction';
 import {Dialog} from '@rneui/themed';
 import FastImage from 'react-native-fast-image';
 import {screenModel} from '../types/screenType';
+import BottomSheet from '@gorhom/bottom-sheet';
+import {YingshiDarkTheme, YingshiLightTheme} from '../utility/theme';
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -192,6 +200,10 @@ export default () => {
     ({screenReducer}: RootState) => screenReducer,
   );
   const [gifKey, setGifKey] = useState(0);
+
+  //login screen state
+  const sheetRefLogin = useRef<BottomSheet>(null);
+  const sheetRefRegister = useRef<BottomSheet>(null);
   useEffect(() => {
     console.log('screenState in nav');
     if (screenState.screenShow != false) {
@@ -205,7 +217,47 @@ export default () => {
         setIsDialogOpen(false);
       }, 3000);
     }
+
+    if (screenState.loginShow == true) {
+      dispatch(hideLoginAction());
+
+      sheetRefRegister.current?.close();
+      sheetRefLogin.current?.snapToIndex(1);
+    }
+    if (screenState.registerShow == true) {
+      dispatch(hideRegisterAction());
+
+      sheetRefLogin.current?.close();
+      sheetRefRegister.current?.snapToIndex(1);
+    }
+
+    if (screenState.resetBottomSheet == true) {
+      dispatch(resetBottomSheetAction());
+
+      sheetRefLogin.current?.close();
+      sheetRefRegister.current?.close();
+    }
+
+    // if (screenState.registerShow == false) {
+    //   dispatch(hideRegisterAction());
+    // }
+
+    // if (screenState.loginShow == false) {
+    //   dispatch(hideLoginAction());
+    // }
   }, [screenState]);
+
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     console.log('open bottom sheet main');
+  //     sheetRefLogin.current?.snapToIndex(1);
+  //   }, 2000);
+
+  //   setTimeout(() => {
+  //     sheetRefLogin.current?.close();
+  //     sheetRefRegister.current?.snapToIndex(1);
+  //   }, 5000);
+  // }, []);
 
   return (
     <SafeAreaProvider>
@@ -301,6 +353,8 @@ export default () => {
             options={{orientation: 'portrait'}}
           />
         </Stack.Navigator>
+        <LoginBottomSheet sheetRef={sheetRefLogin} />
+        <RegisterBottomSheet sheetRef={sheetRefRegister} />
       </NavigationContainer>
       <Dialog
         isVisible={isDialogOpen}

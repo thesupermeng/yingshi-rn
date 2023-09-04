@@ -46,7 +46,10 @@ import {GobalModal} from '../../components/profile/globalModal';
 
 import BottomSheet from '@gorhom/bottom-sheet';
 
-import {removeScreenAction} from '../../redux/actions/screenAction';
+import {
+  removeScreenAction,
+  showLoginAction,
+} from '../../redux/actions/screenAction';
 import {userModel} from '../../types/userType';
 import NotificationModal from '../../components/modal/notificationModal';
 
@@ -154,9 +157,10 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
         <TouchableOpacity
           onPress={() => {
             if (userState.userToken == '') {
-              console.log('props{');
-              setActionType('login');
-              setSignUpOrLogin(true);
+              dispatch(showLoginAction());
+              // console.log('props{');
+              // setActionType('login');
+              // setSignUpOrLogin(true);
             } else {
               navigation.navigate('个人中心');
             }

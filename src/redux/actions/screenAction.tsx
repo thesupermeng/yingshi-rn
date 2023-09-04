@@ -13,3 +13,26 @@ export const changeScreenAction = (action: string) => ({
 export const removeScreenAction = () => ({
   type: 'remove_screen_action',
 });
+
+export const showLoginAction = () => ({
+  type: 'show_login_action',
+});
+
+export const hideLoginAction = () => ({
+  type: 'hide_login_action',
+});
+
+export const showRegisterAction = () => ({
+  type: 'show_register_action',
+});
+
+export const hideRegisterAction = () => ({
+  type: 'hide_register_action',
+});
+
+export const hideBottomSheetAction = () => ({
+  type: 'hide_bottom_sheet_action',
+});
+export const resetBottomSheetAction = () => ({
+  type: 'reset_bottom_sheet_action',
+});

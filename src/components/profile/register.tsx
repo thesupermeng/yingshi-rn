@@ -10,6 +10,8 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {registerUser} from '../../features/user';
+import {useAppDispatch} from '../../hooks/hooks';
+import {hideBottomSheetAction} from '../../redux/actions/screenAction';
 
 export const Register = (props: any) => {
   const [email, setEmail] = useState('');
@@ -53,6 +55,7 @@ export const Register = (props: any) => {
 const LoginCard = (props: any) => {
   const {colors, textVariants, icons, spacing} = useTheme();
   const navigation = useNavigation();
+  const dispatch = useAppDispatch();
   return (
     <View style={styles.card}>
       <Text style={styles.title}>欢迎注册</Text>
@@ -237,6 +240,7 @@ const LoginCard = (props: any) => {
           console.log(props.email == '');
           console.log('loginApiCall');
           props.dismiss();
+          dispatch(hideBottomSheetAction());
           navigation.navigate('OTP', {
             email: props.email,
             action: 'register',
