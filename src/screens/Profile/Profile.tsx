@@ -179,7 +179,12 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
               )}
               {userState.userToken != '' && (
                 <>
-                  <View style={{flexDirection: 'row'}}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'flex-start',
+                      alignItems: 'center',
+                    }}>
                     <Text style={{color: '#ffffff', fontSize: 20}}>
                       {userState.userName}
                     </Text>
@@ -401,6 +406,6 @@ const styles = StyleSheet.create({
     width: 22,
     marginLeft: 5,
     position: 'relative',
-    top: 1,
+    top: 2,
   },
 });
