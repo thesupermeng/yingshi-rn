@@ -63,13 +63,35 @@ interface Props {
 function LoginBottomSheet({sheetRef, displayMode}: Props) {
   const dispatch = useAppDispatch();
   const scrollRef = useRef<any>();
-  const snapPoints = useMemo(() => ['1%', '56%'], []);
+  const [snapPoints, setSnapPoints] = useState(['1%', '40%']); // Initial snap points
   const renderBackdrop = useCallback(
     (
       props: React.JSX.IntrinsicAttributes & BottomSheetDefaultBackdropProps,
     ) => <BottomSheetBackdrop {...props} />,
     [],
   );
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      () => {
+        setSnapPoints(['1%', '56%']);
+      },
+    );
+
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => {
+        setSnapPoints(['1%', '40%']);
+      },
+    );
+
+    // Return a cleanup function to remove event listeners
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
 
   return (
     <BottomSheet
