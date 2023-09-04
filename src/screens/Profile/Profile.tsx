@@ -48,6 +48,7 @@ import BottomSheet from '@gorhom/bottom-sheet';
 
 import {removeScreenAction} from '../../redux/actions/screenAction';
 import {userModel} from '../../types/userType';
+import NotificationModal from '../../components/modal/notificationModal';
 
 export default ({navigation, route}: BottomTabScreenProps<any>) => {
   const sheetRef = useRef<BottomSheet>(null);
@@ -68,6 +69,12 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
   const userState: userModel = useAppSelector(
     ({userReducer}: RootState) => userReducer,
   );
+
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const toggleOverlay = () => {
+    setIsDialogOpen(!isDialogOpen);
+  };
 
   useEffect(() => {
     const date = new Date(Number(userState.userMemberExpired) * 1000); // Multiply by 1000 to convert from seconds to milliseconds
@@ -254,7 +261,7 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
           <ShowMoreButton
             text="我的下载"
             leftIcon={<DownloadIcon style={{color: colors.button}} />}
-            onPress={() => console.log('我的下载')}
+            onPress={() => setIsDialogOpen(true)}
           />
           <ShowMoreButton
             text="播放历史"
@@ -280,7 +287,8 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
             style={{
               ...styles.btn,
               backgroundColor: '#2b271e',
-            }}>
+            }}
+            onPress={() => setIsDialogOpen(true)}>
             <View style={styles.left}>
               <View style={{...styles.icon, paddingTop: 2}}>
                 <UpgradeIcon />
@@ -303,6 +311,15 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
           </TouchableOpacity>
           {/* <ShowMoreButton text='分享App' disabled={true} leftIcon={<ShareIcon style={{ color: colors.button }} />} /> */}
         </ScrollView>
+
+        <NotificationModal
+          onConfirm={toggleOverlay}
+          isVisible={isDialogOpen}
+          title="功能尚未开放"
+          subtitle1=""
+          subtitle2=""
+          subtitle3=""
+        />
       </ScreenContainer>
 
       <SignUpOrLogin
