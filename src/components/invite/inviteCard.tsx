@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, TextInput, Image} from 'react-native';
-
-import {useTheme} from '@react-navigation/native';
+import {useNavigation, useTheme} from '@react-navigation/native';
 
 import HotIcn from '../../../static/images/invite/hot.svg';
 import AdsIcn from '../../../static/images/invite/ads.svg';
@@ -23,10 +22,15 @@ import {TouchableOpacity} from '@gorhom/bottom-sheet';
 
 import FastImage from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
-
-export default function InviteCard() {
+import {userModel} from '../../types/userType';
+interface Props {
+  userState: userModel;
+}
+export default function InviteCard({userState = {}}: Props) {
   const {colors, textVariants, icons, spacing} = useTheme();
   const locations = [0, 1]; // 10% and 100%
+  const navigation = useNavigation();
+
   return (
     <>
       <View
@@ -50,7 +54,7 @@ export default function InviteCard() {
               gap: 10,
             }}>
             <Text style={{color: '#ffffff', fontSize: 28, fontWeight: '700'}}>
-              VIP 0天
+              VIP {userState.userAccumulateRewardDay}天
             </Text>
             <Text>当前累计奖励</Text>
           </View>
@@ -191,16 +195,21 @@ export default function InviteCard() {
                 color: colors.primary,
                 fontWeight: '700',
               }}>
-              0
+              {userState.userTotalInvite}
             </Text>
           </View>
 
-          <View
-            style={{
-              alignItems: 'center',
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('邀请详情');
             }}>
-            <Text style={{fontSize: 10}}>累计奖励明细</Text>
-          </View>
+            <View
+              style={{
+                alignItems: 'center',
+              }}>
+              <Text style={{fontSize: 10}}>累计奖励明细</Text>
+            </View>
+          </TouchableOpacity>
         </View>
       </View>
     </>

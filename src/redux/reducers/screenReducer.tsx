@@ -1,14 +1,13 @@
 export interface screenActionType {
   type: string;
-  payload: screenModel;
+  payload: string;
 }
 
-export interface screenModel {
-  screenAction: string;
-}
+import {screenModel} from '../../types/screenType';
 
 const initialState: screenModel = {
   screenAction: '',
+  screenShow: false,
 };
 
 export function screenReducer(state = initialState, action: screenActionType) {
@@ -16,13 +15,20 @@ export function screenReducer(state = initialState, action: screenActionType) {
     case 'remove_screen_action':
       console.log('remove_screen_action');
       return {
-        screenAction: '',
+        ...state,
+        screenShow: false,
       };
     case 'change_screen_action':
       console.log('change_screen_action');
       return {
-        screenAction: action.payload.screenAction,
+        screenShow: true,
+        screenAction: action.payload,
       };
+    // case 'show_screen_action':
+    //   console.log('show_screen_action');
+    //   return {
+    //     screenShow: true,
+    //   };
     default:
       return state;
   }

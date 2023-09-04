@@ -1,9 +1,11 @@
 // dont use constants first to prevent conflict in other file
-type screenAction = {
-  screenAction: string;
-};
 
-export const changeScreenAction = (action: screenAction) => ({
+// export const showScreenAction = (action: boolean) => ({
+//   type: 'show_screen_action',
+//   payload: action,
+// });
+
+export const changeScreenAction = (action: string) => ({
   type: 'change_screen_action',
   payload: action,
 });

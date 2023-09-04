@@ -2,9 +2,9 @@ import {API_DOMAIN, API_DOMAIN_TEST} from '../utility/constants';
 import axios from 'axios';
 import {useAppSelector} from '../hooks/hooks';
 import {RootState} from '../redux/store';
-
+import deviceInfoModule from 'react-native-device-info';
 //import {refreshUserToken, updateAnonymous} from '~redux/auth/authSlice';
-
+import DeviceInfo from 'react-native-device-info';
 let user_token = '';
 let refresh_token = '';
 // new code
@@ -16,10 +16,17 @@ export const registerUser = async ({
 }: any) => {
   console.log('registerUser');
 
+  let deviceId = await DeviceInfo.getUniqueId();
+  //deviceId = device_id;
+  if (typeof deviceId !== 'string') {
+    deviceId = JSON.stringify(deviceId);
+  }
+
   let json = {
     email: email,
     referral_code: referral_code,
-    device_id: device_id,
+    // device_id: deviceInfoModule.getDeviceId(),
+    device_id: deviceId,
     otp: otp,
   };
   console.log('json');
@@ -45,7 +52,11 @@ export const loginUser = async ({email, otp}: any) => {
   return result;
 };
 
-export const updateUsername = async ({username, bearerToken}: any) => {
+export const updateUsername = async ({
+  username,
+  referralCode,
+  bearerToken,
+}: any) => {
   console.log('updateUsername');
   // const userState = useAppSelector(({userReducer}: RootState) => userReducer);
   // const bearerToken = userState.userToken;
@@ -61,9 +72,24 @@ export const updateUsername = async ({username, bearerToken}: any) => {
 
   let json = {
     username: username,
+    referral_code: referralCode,
   };
 
   let result = await axios.post(API_DOMAIN_TEST + 'users/v1/update', json, {
+    headers: headers,
+  });
+
+  return result;
+};
+
+export const getUserDetails = async ({bearerToken}: any) => {
+  // Define your request headers
+  const headers = {
+    Authorization: `Bearer ${bearerToken}`,
+    'Content-Type': 'application/json', // Set your content type accordingly
+  };
+
+  let result = await axios.get(API_DOMAIN_TEST + 'users/v1/me', {
     headers: headers,
   });
 

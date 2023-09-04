@@ -16,11 +16,14 @@ import ShowMoreButton from '../../components/button/showMoreButton';
 import NotificationModal from '../../components/modal/notificationModal';
 import MoreArrow from '../../../static/images/more_arrow.svg';
 import ConfirmationModal from '../../components/modal/confirmationModal';
-import {useAppDispatch} from '../../hooks/hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
 import {clearStorageMemory} from '../../redux/actions/settingsActions';
 import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
 
 import {removeUserAuthState} from '../../redux/actions/userAction';
+import {changeScreenAction} from '../../redux/actions/screenAction';
+import {RootState} from '../../redux/store';
+import {userModel} from '../../types/userType';
 
 export default ({navigation}: RootStackScreenProps<'设置'>) => {
   const {colors, textVariants, icons, spacing} = useTheme();
@@ -53,6 +56,13 @@ export default ({navigation}: RootStackScreenProps<'设置'>) => {
 
     return () => removeNetInfoSubscription();
   }, []);
+
+  // useEffect(() => {
+  //   dispatch(changeScreenAction('showSuccessLogin'));
+  // }, []);
+  const userState: userModel = useAppSelector(
+    ({userReducer}: RootState) => userReducer,
+  );
   return (
     <ScreenContainer>
       <View style={{gap: spacing.m, justifyContent: 'space-between', flex: 1}}>
@@ -93,6 +103,11 @@ export default ({navigation}: RootStackScreenProps<'设置'>) => {
                 screen: 'Profile',
               });
               toggleLogoutDialog();
+
+              // await dispatch(changeScreenAction('showSuccessLogin'));
+              // navigator.navigate('Home', {
+              //   screen: 'Profile',
+              // });
             }}
             onCancel={toggleLogoutDialog}
             isVisible={isLogoutDialogOpen}
@@ -129,21 +144,23 @@ export default ({navigation}: RootStackScreenProps<'设置'>) => {
             </View>
           </View>
         </View>
-        <TouchableOpacity onPress={toggleLogoutDialog}>
-          <View
-            style={{
-              backgroundColor: '#1d2023',
-              width: '100%',
-              height: 50,
-              borderRadius: 8,
-              borderWidth: 0,
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginBottom: 30,
-            }}>
-            <Text style={{color: '#FF3C3C'}}>退出登陆</Text>
-          </View>
-        </TouchableOpacity>
+        {userState.userToken != '' && (
+          <TouchableOpacity onPress={toggleLogoutDialog}>
+            <View
+              style={{
+                backgroundColor: '#1d2023',
+                width: '100%',
+                height: 50,
+                borderRadius: 8,
+                borderWidth: 0,
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginBottom: 30,
+              }}>
+              <Text style={{color: '#FF3C3C'}}>退出登录</Text>
+            </View>
+          </TouchableOpacity>
+        )}
       </View>
     </ScreenContainer>
   );

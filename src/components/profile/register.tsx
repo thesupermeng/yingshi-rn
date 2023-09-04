@@ -11,14 +11,16 @@ import {
 } from 'react-native';
 import {registerUser} from '../../features/user';
 
-export const Register = props => {
+export const Register = (props: any) => {
   const [email, setEmail] = useState('');
   const [referralCode, setReferralCode] = useState('');
 
   const [emailValid, setEmailValid] = useState(true);
   const [referralCodeValid, setReferralCodeValid] = useState(true);
 
-  const [errMsg, setErrMsg] = useState('');
+  const [errEmail, setErrEmail] = useState('');
+
+  const [errReferral, setErrReferral] = useState('');
 
   useEffect(() => {
     ValidateEmail(email, setEmailValid);
@@ -35,8 +37,10 @@ export const Register = props => {
         email={email}
         setReferralCode={setReferralCode}
         setReferralCodeValid={setReferralCodeValid}
-        setErrMsg={setErrMsg}
-        errMsg={errMsg}
+        setErrEmail={setErrEmail}
+        errEmail={errEmail}
+        setErrReferral={setErrReferral}
+        errReferral={errReferral}
         referralCode={referralCode}
         navigator={navigator}
         dismiss={props.dismiss}
@@ -46,7 +50,7 @@ export const Register = props => {
   );
 };
 
-const LoginCard = props => {
+const LoginCard = (props: any) => {
   const {colors, textVariants, icons, spacing} = useTheme();
   const navigation = useNavigation();
   return (
@@ -68,32 +72,9 @@ const LoginCard = props => {
           ]}
           value={props.email}
           onChange={value => {
-            onEmailInputChange(value, props.setEmail, props.setErrMsg);
+            onEmailInputChange(value, props.setEmail, props.setErrEmail);
           }}
           placeholder="输入邮箱账号"
-          placeholderTextColor="#B6B6B6"
-        />
-        <InputItem
-          style={[
-            styles.textInpoutCommonStyle,
-            props.email === ''
-              ? styles.defaultTextInputStyle
-              : props.referralCodeValid
-              ? styles.correctTextInputStyle
-              : styles.invalidTextInputStyle,
-            ,
-            {marginTop: 30},
-          ]}
-          value={props.referralCode}
-          onChange={value => {
-            onReferralInputChange(
-              value,
-              props.setReferralCode,
-              props.setErrMsg,
-              props.setReferralCodeValid,
-            );
-          }}
-          placeholder="邀请码 (选填)"
           placeholderTextColor="#B6B6B6"
         />
 
@@ -114,9 +95,65 @@ const LoginCard = props => {
             />
           </TouchableWithoutFeedback>
         )}
-      </View>
+        {props.errEmail != '' && (
+          <View
+            style={{
+              justifyContent: 'flex-start',
+              alignItems: 'center',
+              flexDirection: 'row',
+              marginTop: 12,
+            }}>
+            <Image
+              style={{
+                height: 22,
+                width: 22,
+                marginRight: 5,
+                position: 'relative',
+                top: 1,
+              }}
+              source={require('../../../static/images/invite/danger.png')}
+            />
 
-      {props.errMsg != '' && (
+            <Text style={styles.danger}>{props.errEmail} </Text>
+          </View>
+        )}
+
+        <InputItem
+          style={[
+            styles.textInpoutCommonStyle,
+            props.email === ''
+              ? styles.defaultTextInputStyle
+              : props.referralCodeValid
+              ? styles.correctTextInputStyle
+              : styles.invalidTextInputStyle,
+            ,
+            {marginTop: 30},
+          ]}
+          value={props.referralCode}
+          onChange={value => {
+            onReferralInputChange(
+              value,
+              props.setReferralCode,
+              props.setErrReferral,
+              props.setReferralCodeValid,
+            );
+          }}
+          placeholder="邀请码 (选填)"
+          placeholderTextColor="#B6B6B6"
+        />
+      </View>
+      {!props.setReferralCodeValid && (
+        <TouchableWithoutFeedback
+          onPress={() => {
+            props.setReferral('');
+          }}>
+          <Image
+            style={styles.iconStyle}
+            source={require('../../../static/images/profile/cross.png')}
+          />
+        </TouchableWithoutFeedback>
+      )}
+      {props.errReferral != '' && (
         <View
           style={{
             justifyContent: 'flex-start',
@@ -134,7 +171,7 @@ const LoginCard = props => {
             source={require('../../../static/images/invite/danger.png')}
           />
 
-          <Text style={styles.danger}>{props.errMsg} </Text>
+          <Text style={styles.danger}>{props.errReferral} </Text>
         </View>
       )}
       <Button
@@ -175,8 +212,24 @@ const LoginCard = props => {
           } catch (err: any) {
             console.log('err');
             console.log(err.response.data.message);
-            props.setErrMsg(err.response.data.message);
-            props.setReferralCodeValid(false);
+            // props.setErrMsg(err.response.data.message);
+            // props.setReferralCodeValid(false);
+
+            if (err.response.data.errors.referral_code) {
+              // setReferralValid(false);
+              // setErrReferral(err.response.data.errors.referral_code);
+
+              props.setErrReferral(err.response.data.errors.referral_code);
+              props.setReferralCodeValid(false);
+            }
+
+            if (err.response.data.errors.email) {
+              props.setErrEmail(err.response.data.errors.email);
+              props.setEmailValid(false);
+              // setUsernameValid(false);
+              // setErrUsername(err.response.data.errors.username);
+            }
+
             return;
           }
 
@@ -227,23 +280,23 @@ const LoginCard = props => {
   );
 };
 
-const onEmailInputChange = (value, setEmail, setErrMsg) => {
-  setErrMsg('');
+const onEmailInputChange = (value: any, setEmail: any, setErrEmail: any) => {
+  setErrEmail('');
   setEmail(value);
 };
 
 const onReferralInputChange = (
-  value,
-  setReferralCode,
-  setErrMsg,
-  setReferralCodeValid,
+  value: any,
+  setReferralCode: any,
+  setErrReferral: any,
+  setReferralCodeValid: any,
 ) => {
-  setErrMsg('');
+  setErrReferral('');
   setReferralCodeValid(true);
   setReferralCode(value);
 };
 
-function ValidateEmail(mail, setEmailValid) {
+function ValidateEmail(mail: any, setEmailValid: any) {
   if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/.test(mail)) {
     setEmailValid(true);
   } else {

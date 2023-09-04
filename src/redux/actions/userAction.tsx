@@ -1,17 +1,4 @@
-// dont use constants first to prevent conflict
-
-// import {
-//     ADD_USER_AUTH, REMOVE_USER_AUTH
-// } from "../../utility/constants";
-
-type userModel = {
-  userToken: string;
-  userId: string;
-  userName: string;
-  userReferralCode: string;
-  userEmail: string;
-  userMemberExpired: string;
-};
+import {userModel} from '../../types/userType';
 
 export const addUserAuthState = (user: userModel) => ({
   type: 'add_user_auth',
@@ -24,5 +11,10 @@ export const removeUserAuthState = () => ({
 
 export const updateUsernameState = (userName: string) => ({
   type: 'update_user_username',
-  payload: userName,
+  payload: userName.toUpperCase(),
+});
+
+export const updateUserReferral = (referral: string) => ({
+  type: 'update_user_referral',
+  payload: referral.toUpperCase(),
 });

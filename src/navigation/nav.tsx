@@ -3,6 +3,7 @@ import {
   NavigationContainer,
   RouteProp,
   getFocusedRouteNameFromRoute,
+  useTheme,
 } from '@react-navigation/native';
 
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -19,6 +20,7 @@ import LiveStationPlayScreen from '../screens/Common/LiveStationPlay';
 // import PlaylistCollectionScreen from '../screens/Profile/Collection/PlaylistCollection';
 import FeedbackScreen from '../screens/Profile/Feedback';
 import Invite from '../screens/Profile/Invite';
+import InviteDetails from '../screens/Profile/InviteDetails';
 import UserCenter from '../screens/Profile/UserCenter';
 import MainCollectionScreen from '../screens/Profile/Collection/MainCollection';
 import PlaylistDetailsScreen from '../screens/Playlist/PlaylistDetails';
@@ -44,7 +46,7 @@ import SportsIcon from '../../static/images/sports.svg';
 import MatchesScreen from '../Sports/screens/Sports/Matches';
 import MatchDetailsScreen from '../Sports/screens/Sports/MatchDetails';
 import WatchCollectionScreen from '../../src/screens/WatchCollection';
-
+import {useDispatch, useSelector} from 'react-redux';
 import {YingshiDarkTheme, YingshiLightTheme} from '../utility/theme';
 import {
   HomeTabParamList,
@@ -59,18 +61,22 @@ import {
   SafeAreaProvider,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import DeviceInfo from 'react-native-device-info';
-import {useAppSelector} from '../hooks/hooks';
+import {useAppSelector, useAppDispatch} from '../hooks/hooks';
 import {QueryClient, useQuery} from '@tanstack/react-query';
 import {API_DOMAIN, UMENG_CHANNEL} from '../../src/utility/constants';
 import {BottomNavTabsResponse} from '../../src/types/ajaxTypes';
 import {YSConfig} from '../../ysConfig';
+import {removeScreenAction} from '../redux/actions/screenAction';
+import {Dialog} from '@rneui/themed';
+import FastImage from 'react-native-fast-image';
+import {screenModel} from '../types/screenType';
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
   const HomeTab = createBottomTabNavigator<HomeTabParamList>();
-
+  const {colors, textVariants, spacing} = useTheme();
   const themeReducer = useAppSelector(
     ({themeReducer}: RootState) => themeReducer,
   );
@@ -178,6 +184,29 @@ export default () => {
     );
   }
 
+  //screen state
+  //screen state
+  const dispatch = useDispatch();
+  const [isDialogOpen, setIsDialogOpen] = React.useState(false);
+  const screenState: screenModel = useAppSelector(
+    ({screenReducer}: RootState) => screenReducer,
+  );
+  const [gifKey, setGifKey] = useState(0);
+  useEffect(() => {
+    console.log('screenState in nav');
+    if (screenState.screenShow != false) {
+      dispatch(removeScreenAction());
+      setTimeout(() => {
+        setIsDialogOpen(true);
+      }, 50);
+
+      setGifKey(prevKey => prevKey + 1);
+      setTimeout(() => {
+        setIsDialogOpen(false);
+      }, 3000);
+    }
+  }, [screenState]);
+
   return (
     <SafeAreaProvider>
       <NavigationContainer theme={theme} onReady={() => RNBootSplash.hide()}>
@@ -196,6 +225,11 @@ export default () => {
           <Stack.Screen
             name="邀请"
             component={Invite}
+            options={{orientation: 'portrait'}}
+          />
+          <Stack.Screen
+            name="邀请详情"
+            component={InviteDetails}
             options={{orientation: 'portrait'}}
           />
           <Stack.Screen
@@ -268,6 +302,39 @@ export default () => {
           />
         </Stack.Navigator>
       </NavigationContainer>
+      <Dialog
+        isVisible={isDialogOpen}
+        overlayStyle={{
+          backgroundColor: 'rgba(34, 34, 34, 1)',
+          ...styles.overlay,
+        }}
+        backdropStyle={{backgroundColor: 'rgba(0, 0, 0, 0.8)'}}
+        onBackdropPress={() => setIsDialogOpen(false)}>
+        <FastImage
+          key={gifKey}
+          style={{
+            height: 80,
+            width: 80,
+            marginRight: 5,
+            position: 'relative',
+            top: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+          resizeMode={FastImage.resizeMode.contain}
+          source={require('../../static/images/profile/login-success.gif')}
+        />
+
+        <Text
+          style={{
+            color: '#fff',
+            fontFamily: 'PingFang SC',
+            fontSize: 20,
+            fontWeight: '600',
+          }}>
+          {screenState.screenAction}
+        </Text>
+      </Dialog>
     </SafeAreaProvider>
   );
 };
@@ -286,5 +353,12 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
+  },
+  overlay: {
+    borderRadius: 14,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
   },
 });

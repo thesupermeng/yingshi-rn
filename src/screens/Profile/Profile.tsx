@@ -47,6 +47,8 @@ import {GobalModal} from '../../components/profile/globalModal';
 import BottomSheet from '@gorhom/bottom-sheet';
 
 import {removeScreenAction} from '../../redux/actions/screenAction';
+import {userModel} from '../../types/userType';
+import NotificationModal from '../../components/modal/notificationModal';
 
 export default ({navigation, route}: BottomTabScreenProps<any>) => {
   const sheetRef = useRef<BottomSheet>(null);
@@ -64,10 +66,18 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
   const [displayedDate, setDisplayedDate] = useState('');
 
   const pageInitialState = route.params;
-  const userState = useAppSelector(({userReducer}: RootState) => userReducer);
+  const userState: userModel = useAppSelector(
+    ({userReducer}: RootState) => userReducer,
+  );
+
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const toggleOverlay = () => {
+    setIsDialogOpen(!isDialogOpen);
+  };
 
   useEffect(() => {
-    const date = new Date(userState.userMemberExpired * 1000); // Multiply by 1000 to convert from seconds to milliseconds
+    const date = new Date(Number(userState.userMemberExpired) * 1000); // Multiply by 1000 to convert from seconds to milliseconds
 
     // Extract year, month, and day
     const year = date.getFullYear();
@@ -90,9 +100,9 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
     ({screenReducer}: RootState) => screenReducer,
   );
   useEffect(() => {
-    console.log('screenState');
+    console.log('screenState in profile');
     console.log(screenState.screenAction);
-  }, [screenState.screenAction]);
+  }, [screenState]);
 
   useEffect(() => {
     if (pageInitialState?.showSuccessRegister != undefined) {
@@ -176,7 +186,12 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
               )}
               {userState.userToken != '' && (
                 <>
-                  <View style={{flexDirection: 'row'}}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'flex-start',
+                      alignItems: 'center',
+                    }}>
                     <Text style={{color: '#ffffff', fontSize: 20}}>
                       {userState.userName}
                     </Text>
@@ -246,7 +261,7 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
           <ShowMoreButton
             text="我的下载"
             leftIcon={<DownloadIcon style={{color: colors.button}} />}
-            onPress={() => console.log('我的下载')}
+            onPress={() => setIsDialogOpen(true)}
           />
           <ShowMoreButton
             text="播放历史"
@@ -272,7 +287,8 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
             style={{
               ...styles.btn,
               backgroundColor: '#2b271e',
-            }}>
+            }}
+            onPress={() => setIsDialogOpen(true)}>
             <View style={styles.left}>
               <View style={{...styles.icon, paddingTop: 2}}>
                 <UpgradeIcon />
@@ -295,6 +311,15 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
           </TouchableOpacity>
           {/* <ShowMoreButton text='分享App' disabled={true} leftIcon={<ShareIcon style={{ color: colors.button }} />} /> */}
         </ScrollView>
+
+        <NotificationModal
+          onConfirm={toggleOverlay}
+          isVisible={isDialogOpen}
+          title="功能尚未开放"
+          subtitle1=""
+          subtitle2=""
+          subtitle3=""
+        />
       </ScreenContainer>
 
       <SignUpOrLogin
@@ -398,6 +423,6 @@ const styles = StyleSheet.create({
     width: 22,
     marginLeft: 5,
     position: 'relative',
-    top: 1,
+    top: 2,
   },
 });

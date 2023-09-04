@@ -26,6 +26,7 @@ import {ProfileTabParamList} from '../../types/navigationTypes';
 import {changeScreenAction} from '../../redux/actions/screenAction';
 import {updateUsernameState} from '../../redux/actions/userAction';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import {userModel} from '../../types/userType';
 export default (props: any) => {
   const [optVarificationState, setOptVarificationState] = useState(2);
   const {colors, textVariants, icons, spacing} = useTheme();
@@ -34,16 +35,18 @@ export default (props: any) => {
   const [usernameValid, setUsernameValid] = useState(true);
   const navigator = useNavigation();
   const onInputChange = (value: any) => {
-    setErrMsg('');
+    // setErrMsg('');
     setUsername(value);
     ValidateUsername(value);
   };
   const dispatch = useDispatch();
   function ValidateUsername(username: string) {
-    if (/^[a-zA-Z0-9_.-]{2,18}$/.test(username)) {
-      setUsernameValid(true);
-    } else {
+    if (username.length < 2) {
+      setErrMsg('昵称必须介于2-18个字');
       setUsernameValid(false);
+    } else {
+      setErrMsg('');
+      setUsernameValid(true);
     }
   }
 
@@ -58,20 +61,25 @@ export default (props: any) => {
     try {
       res = await updateUsername({
         username: username,
+        // referralCode: null,
         bearerToken: userState.userToken,
       });
     } catch (err: any) {
       console.log('err');
       console.log(err.response.data.message);
-      setErrMsg(err.response.data.message);
-      setUsernameValid(false);
+
+      if (err.response.data.errors.username) {
+        setUsernameValid(false);
+        setErrMsg(err.response.data.errors.username);
+      }
+
       return;
     }
     // props.dismiss();
     console.log('to profile');
     //  navigator.navigate('Profile');
     await dispatch(updateUsernameState(res.data.data));
-    await dispatch(changeScreenAction({screenAction: 'showSuccessLogin'}));
+    await dispatch(changeScreenAction('登录成功'));
     navigator.navigate('Home', {
       screen: 'Profile',
     });
@@ -85,7 +93,9 @@ export default (props: any) => {
   //   ({screenReducer}: RootState) => screenReducer,
   // );
 
-  const userState = useAppSelector(({userReducer}: RootState) => userReducer);
+  const userState: userModel = useAppSelector(
+    ({userReducer}: RootState) => userReducer,
+  );
   // useEffect(() => {
   //   console.log('userState');
   //   console.log(userState);
@@ -139,9 +149,8 @@ export default (props: any) => {
               <InputItem
                 style={[
                   styles.textInpoutCommonStyle,
-                  username === ''
-                    ? styles.defaultTextInputStyle
-                    : usernameValid
+                  styles.defaultTextInputStyle,
+                  usernameValid
                     ? styles.correctTextInputStyle
                     : styles.invalidTextInputStyle,
                 ]}

@@ -1,4 +1,11 @@
-import React, {useMemo, useCallback, useEffect, useRef, useState, memo} from 'react';
+import React, {
+  useMemo,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  memo,
+} from 'react';
 import {
   StyleSheet,
   Text,
@@ -106,26 +113,6 @@ const Home = ({navigation}: BottomTabScreenProps<any>) => {
     return () => removeNetInfoSubscription();
   }, []);
 
-  //screen state
-  const [isDialogOpen, setIsDialogOpen] = React.useState(false);
-  const screenState = useAppSelector(
-    ({screenReducer}: RootState) => screenReducer,
-  );
-  const [gifKey, setGifKey] = useState(0);
-  useEffect(() => {
-    console.log('screenState');
-    console.log(screenState.screenAction);
-
-    if (screenState.screenAction == 'showSuccessLogin') {
-      dispatch(removeScreenAction());
-      setIsDialogOpen(true);
-      setGifKey(prevKey => prevKey + 1);
-      setTimeout(() => {
-        setIsDialogOpen(false);
-      }, 3000);
-    }
-  }, [screenState.screenAction]);
-
   //refresh
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [hideContent, setHideContent] = useState(false);
@@ -134,12 +121,10 @@ const Home = ({navigation}: BottomTabScreenProps<any>) => {
   const handleRefresh = async (id: number, showloading: boolean = false) => {
     if (showloading) {
       setIsRefreshing(true);
-
       setHideContent(true);
     }
     try {
       await queryClient.invalidateQueries(['HomePage', id]);
-
       setIsRefreshing(false);
       setNavId(id);
       setHideContent(false);
@@ -208,7 +193,7 @@ const Home = ({navigation}: BottomTabScreenProps<any>) => {
   useEffect(() => {
     // console.log('aa')
     // navigation.navigate('我的');
-  })
+  });
 
   const onScrollEnd = useCallback(
     (e: any) => {
@@ -356,32 +341,6 @@ const Home = ({navigation}: BottomTabScreenProps<any>) => {
             />
           </View>
         )}
-
-        <Dialog
-          isVisible={isDialogOpen}
-          overlayStyle={{
-            backgroundColor: 'rgba(34, 34, 34, 1)',
-            ...styles.overlay,
-          }}
-          backdropStyle={{backgroundColor: 'rgba(0, 0, 0, 0.8)'}}
-          onBackdropPress={() => setIsDialogOpen(false)}>
-          <FastImage
-            key={gifKey}
-            style={{
-              height: 80,
-              width: 80,
-              marginRight: 5,
-              position: 'relative',
-              top: 1,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-            resizeMode={FastImage.resizeMode.contain}
-            source={require('../../static/images/profile/login-success.gif')}
-          />
-
-          <Text style={textVariants.bigHeader}>登陆成功</Text>
-        </Dialog>
       </ScreenContainer>
 
       {isOffline && <NoConnection onClickRetry={checkConnection} />}
@@ -466,6 +425,5 @@ const styles = StyleSheet.create({
     padding: 20,
   },
 });
-
 
 export default memo(Home);
