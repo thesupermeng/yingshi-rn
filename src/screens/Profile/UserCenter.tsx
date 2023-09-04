@@ -1,5 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, TextInput, Image} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  Image,
+  Clipboard,
+} from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
 import {RootStackScreenProps} from '../../types/navigationTypes';
 import {useTheme} from '@react-navigation/native';
@@ -225,6 +232,8 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
           <TouchableOpacity
             onPress={() => {
               console.log('open dialog');
+
+              Clipboard.setString(userState.userReferralCode);
               setIsDialogOpen(true);
             }}>
             <View
@@ -360,9 +369,11 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
               fontSize: 15,
               letterSpacing: 0.2,
               color:
-                initialUsername.toLocaleLowerCase() !==
+                usernameValid &&
+                referralValid &&
+                (initialUsername.toLocaleLowerCase() !==
                   username.toLocaleLowerCase() ||
-                (referral != '' && userState.userReferrerName == '')
+                  (referral != '' && userState.userReferrerName == ''))
                   ? '#000'
                   : 'grey',
             }}>
