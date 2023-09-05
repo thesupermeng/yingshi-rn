@@ -179,5 +179,6 @@ const styles = StyleSheet.create({
   subTitle: {
     fontSize: 16,
     fontWeight: '400',
+    color: '#9C9C9C',
   },
 });
