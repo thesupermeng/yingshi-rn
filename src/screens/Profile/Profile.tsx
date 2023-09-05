@@ -185,7 +185,7 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
                     游客您好！
                   </Text>
                   <Text style={{color: '#ffffff', fontSize: 14}}>
-                    登陆可享跟多服务
+                    登录可享更多服务
                   </Text>
                 </>
               )}
