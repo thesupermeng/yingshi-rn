@@ -13,7 +13,7 @@ export default function InviteStep() {
           flex: 1,
           justifyContent: 'center',
           alignItems: 'center',
-          paddingTop: 15,
+          paddingTop: 20,
         }}>
         <Text
           style={{
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   inviteTitle: {
     fontSize: 13,
     fontStyle: 'italic',
-    marginBottom: 5,
+    marginBottom: 3,
   },
   inviteStep: {
     backgroundColor: '#1c2023',

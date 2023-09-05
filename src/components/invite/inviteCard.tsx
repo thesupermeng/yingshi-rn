@@ -25,6 +25,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import {userModel} from '../../types/userType';
 import {useAppDispatch} from '../../hooks/hooks';
 import {showLoginAction} from '../../redux/actions/screenAction';
+
 interface Props {
   userState: userModel;
 }

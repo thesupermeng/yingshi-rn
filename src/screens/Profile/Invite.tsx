@@ -42,7 +42,7 @@ export default ({navigation}: RootStackScreenProps<'邀请'>) => {
         <InviteCard userState={userState} />
 
         {/* event section  */}
-        <View
+        {/* <View
           style={{
             flex: 1,
             justifyContent: 'center',
@@ -57,7 +57,7 @@ export default ({navigation}: RootStackScreenProps<'邀请'>) => {
             }}>
             活动规则
           </Text>
-        </View>
+        </View> */}
 
         {/* invite step  */}
         <InviteStep />
