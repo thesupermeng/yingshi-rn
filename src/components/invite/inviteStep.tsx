@@ -20,7 +20,7 @@ export default function InviteStep() {
             fontSize: 14,
             color: '#ffffff',
           }}>
-          如何邀请好友
+          如何邀请好友?
         </Text>
       </View>
       <View
