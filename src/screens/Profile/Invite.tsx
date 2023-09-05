@@ -31,9 +31,9 @@ export default ({navigation}: RootStackScreenProps<'邀请'>) => {
   );
 
   return (
-    <ScreenContainer>
+    <View>
       <TitleWithBackButtonHeader title="邀请好友奖励" />
-      <ScrollView>
+      <ScrollView style={{paddingHorizontal: 10}}>
         {/* top component  */}
         <InviteHeader />
 
@@ -62,7 +62,7 @@ export default ({navigation}: RootStackScreenProps<'邀请'>) => {
         {/* invite step  */}
         <InviteStep />
       </ScrollView>
-    </ScreenContainer>
+    </View>
   );
 };
 

@@ -83,7 +83,7 @@ export default function InviteCard({userState = {}}: Props) {
             paddingVertical: 10,
             marginHorizontal: 15,
             marginBottom: 15,
-            marginTop: -8,
+            marginTop: -10,
             borderTopLeftRadius: 15,
             borderTopRightRadius: 15,
             flexDirection: 'row', // Set flexDirection to 'row'
