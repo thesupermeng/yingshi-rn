@@ -52,6 +52,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     fontSize: 18,
     textAlign: 'left',
+    color: '#9C9C9C',
   },
   iconStyle: {height: 26, width: 26, marginRight: 5},
 });
