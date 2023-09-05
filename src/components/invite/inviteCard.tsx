@@ -23,6 +23,8 @@ import {TouchableOpacity} from '@gorhom/bottom-sheet';
 import FastImage from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
 import {userModel} from '../../types/userType';
+import {useAppDispatch} from '../../hooks/hooks';
+import {showLoginAction} from '../../redux/actions/screenAction';
 interface Props {
   userState: userModel;
 }
@@ -30,7 +32,7 @@ export default function InviteCard({userState = {}}: Props) {
   const {colors, textVariants, icons, spacing} = useTheme();
   const locations = [0, 1]; // 10% and 100%
   const navigation = useNavigation();
-
+  const dispatch = useAppDispatch();
   return (
     <>
       <View
@@ -112,7 +114,17 @@ export default function InviteCard({userState = {}}: Props) {
           </View>
         </LinearGradient>
         {/* invite button  component  */}
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            if (userState.userToken == '') {
+              dispatch(showLoginAction());
+              // console.log('props{');
+              // setActionType('login');
+              // setSignUpOrLogin(true);
+            } else {
+              console.log('立即推荐 action');
+            }
+          }}>
           <View
             style={{
               backgroundColor: colors.primary,
@@ -201,7 +213,14 @@ export default function InviteCard({userState = {}}: Props) {
 
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('邀请详情');
+              if (userState.userToken == '') {
+                dispatch(showLoginAction());
+                // console.log('props{');
+                // setActionType('login');
+                // setSignUpOrLogin(true);
+              } else {
+                navigation.navigate('邀请详情');
+              }
             }}>
             <View
               style={{

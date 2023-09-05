@@ -287,7 +287,7 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
             leftIcon={<InfoIcon style={{color: colors.button}} />}
             onPress={() => navigation.navigate('关于我们')}
           />
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={{
               ...styles.btn,
               backgroundColor: '#2b271e',
@@ -312,7 +312,7 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
               height={icons.sizes.l}
               color={colors.muted}
             />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           {/* <ShowMoreButton text='分享App' disabled={true} leftIcon={<ShareIcon style={{ color: colors.button }} />} /> */}
         </ScrollView>
 
