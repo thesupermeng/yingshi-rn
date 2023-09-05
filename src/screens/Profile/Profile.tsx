@@ -48,6 +48,7 @@ import {GobalModal} from '../../components/profile/globalModal';
 import BottomSheet from '@gorhom/bottom-sheet';
 
 import {
+  hideBottomSheetAction,
   removeScreenAction,
   showLoginAction,
 } from '../../redux/actions/screenAction';
@@ -79,6 +80,14 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
   const toggleOverlay = () => {
     setIsDialogOpen(!isDialogOpen);
   };
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('blur', () => {
+      // when the user leaves the screen, close bottom sheet
+      dispatch(hideBottomSheetAction());
+    });
+    return unsubscribe;
+  }, [navigator]);
 
   useEffect(() => {
     const date = new Date(Number(userState.userMemberExpired) * 1000); // Multiply by 1000 to convert from seconds to milliseconds
