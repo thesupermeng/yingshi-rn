@@ -18,26 +18,26 @@ import {
   hideRegisterAction,
 } from '../../redux/actions/screenAction';
 export const Login = props => {
-  const [email, setEmail] = useState('');
   const [emailValid, setEmailValid] = useState(true);
   const [errMsg, setErrMsg] = useState('');
   useEffect(() => {
-    ValidateEmail(email, setEmailValid);
-  }, [email]);
+    ValidateEmail(props.email, setEmailValid);
+  }, [props.email]);
 
   const navigator = useNavigation();
   return (
     <View style={{height: '100%'}}>
       <LoginCard
         emailValid={emailValid}
-        setEmail={setEmail}
+        setEmail={props.setEmail}
+        email={props.email}
         setEmailValid={setEmailValid}
-        email={email}
         navigator={navigator}
         dismiss={props.dismiss}
         goToRegister={props.goToRegister}
         setErrMsg={setErrMsg}
         errMsg={errMsg}
+        bottomSheetRef={props.bottomSheetRef}
       />
     </View>
   );
@@ -47,6 +47,7 @@ const LoginCard = props => {
   const {colors, textVariants, icons, spacing} = useTheme();
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
+
   return (
     <View style={styles.card}>
       <Text style={styles.title}>登陆解锁更多精彩内容</Text>

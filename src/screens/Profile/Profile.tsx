@@ -33,6 +33,7 @@ import Orientation from 'react-native-orientation-locker';
 import ProfileIcon from '../../../static/images/profile.svg';
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import MoreArrow from '../../../static/images/more_arrow.svg';
+import EditIcn from './../../../static/images/profile/edit.svg';
 
 import VipIcon from '../../../static/images/vip-icon.svg';
 import VipArrow from '../../../static/images/vip-arrow.svg';
@@ -216,16 +217,27 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
                 </>
               )}
             </View>
+
             <View
               style={{
                 justifyContent: 'center',
                 paddingRight: 15,
               }}>
-              <MoreArrow
-                width={icons.sizes.l}
-                height={icons.sizes.l}
-                color={colors.muted}
-              />
+              {userState.userToken == '' && (
+                <MoreArrow
+                  width={icons.sizes.l}
+                  height={icons.sizes.l}
+                  color={colors.muted}
+                />
+              )}
+
+              {userState.userToken != '' && (
+                <EditIcn
+                  width={icons.sizes.l}
+                  height={icons.sizes.l}
+                  color={colors.muted}
+                />
+              )}
             </View>
           </View>
         </TouchableOpacity>

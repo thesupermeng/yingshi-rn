@@ -93,6 +93,9 @@ function LoginBottomSheet({sheetRef, displayMode}: Props) {
     };
   }, []);
 
+  //state for child
+  const [email, setEmail] = useState('');
+
   return (
     <BottomSheet
       ref={sheetRef}
@@ -108,11 +111,16 @@ function LoginBottomSheet({sheetRef, displayMode}: Props) {
       handleIndicatorStyle={{
         backgroundColor: '#414040',
         width: 50,
+      }}
+      onClose={() => {
+        setEmail('');
       }}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={{flex: 1, flexDirection: 'column-reverse'}}>
         <Login
+          setEmail={setEmail}
+          email={email}
           dismiss={() => {}}
           goToRegister={() => {
             dispatch(showRegisterAction());

@@ -98,6 +98,9 @@ function RegisterBottomSheet({sheetRef, displayMode}: Props) {
     };
   }, []);
 
+  //child state
+  const [email, setEmail] = useState('');
+  const [referralCode, setReferralCode] = useState('');
   return (
     <BottomSheet
       ref={sheetRef}
@@ -113,11 +116,19 @@ function RegisterBottomSheet({sheetRef, displayMode}: Props) {
       handleIndicatorStyle={{
         backgroundColor: '#414040',
         width: 50,
+      }}
+      onClose={() => {
+        setReferralCode('');
+        setEmail('');
       }}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={{flex: 1, flexDirection: 'column-reverse'}}>
         <Register
+          email={email}
+          referralCode={referralCode}
+          setEmail={setEmail}
+          setReferralCode={setReferralCode}
           dismiss={() => {}}
           goToLogin={() => {
             dispatch(showLoginAction());

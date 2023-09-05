@@ -14,36 +14,31 @@ import {useAppDispatch} from '../../hooks/hooks';
 import {hideBottomSheetAction} from '../../redux/actions/screenAction';
 
 export const Register = (props: any) => {
-  const [email, setEmail] = useState('');
-  const [referralCode, setReferralCode] = useState('');
-
   const [emailValid, setEmailValid] = useState(true);
   const [referralCodeValid, setReferralCodeValid] = useState(true);
-
   const [errEmail, setErrEmail] = useState('');
-
   const [errReferral, setErrReferral] = useState('');
 
   useEffect(() => {
-    ValidateEmail(email, setEmailValid);
-  }, [email]);
+    ValidateEmail(props.email, setEmailValid);
+  }, [props.email]);
 
   const navigator = useNavigation();
   return (
     <View style={{height: '100%'}}>
       <LoginCard
+        email={props.email}
+        referralCode={props.referralCode}
+        setEmail={props.setEmail}
+        setReferralCode={props.setReferralCode}
         emailValid={emailValid}
         referralCodeValid={referralCodeValid}
-        setEmail={setEmail}
         setEmailValid={setEmailValid}
-        email={email}
-        setReferralCode={setReferralCode}
         setReferralCodeValid={setReferralCodeValid}
         setErrEmail={setErrEmail}
         errEmail={errEmail}
         setErrReferral={setErrReferral}
         errReferral={errReferral}
-        referralCode={referralCode}
         navigator={navigator}
         dismiss={props.dismiss}
         goToLogin={props.goToLogin}
