@@ -54,7 +54,6 @@ const OtpInputs = props => {
       await registerUser({
         email: props.email,
         referral_code: props.referral_code,
-        device_id: props.device_id,
         otp: '',
       });
     }
@@ -105,7 +104,6 @@ const OtpInputs = props => {
             result = await registerUser({
               email: props.email,
               referral_code: props.referral_code,
-              device_id: props.device_id,
               otp: new_otp,
             });
           }
@@ -267,7 +265,6 @@ export default (props: any) => {
               setOptVarificationState={setOptVarificationState}
               email={props.route.params.email}
               referral_code={props.route.params.referralCode}
-              device_id={props.route.params.deviceId}
               action={props.route.params.action}
             />
           </View>

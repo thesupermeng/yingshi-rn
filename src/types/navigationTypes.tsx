@@ -86,7 +86,7 @@ export type RootStackParamList = {
     email: string;
     action?: string;
     referralCode?: string;
-    deviceId?: string;
+    // deviceId?: string;
   };
   SetUsername: undefined;
 };

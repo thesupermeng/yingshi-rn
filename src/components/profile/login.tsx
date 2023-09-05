@@ -102,8 +102,8 @@ const LoginCard = props => {
           }}>
           <Image
             style={{
-              height: 22,
-              width: 22,
+              height: 20,
+              width: 20,
               marginRight: 5,
               position: 'relative',
               top: 1,
@@ -161,7 +161,7 @@ const LoginCard = props => {
           style={{
             //  fontFamily: 'SF Pro Display',
             fontWeight: '600',
-            fontSize: 15,
+            fontSize: 14,
             letterSpacing: 0.2,
             color: props.email === '' || !props.emailValid ? 'white' : '#000',
           }}>
@@ -263,7 +263,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   loginTermPrivacy: {
-    marginTop: 50,
+    marginTop: 40,
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'center',
@@ -277,7 +277,7 @@ const styles = StyleSheet.create({
   },
   danger: {
     fontWeight: '400',
-    fontSize: 15,
+    fontSize: 14,
     textAlign: 'left',
     color: '#FF3434',
   },

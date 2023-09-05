@@ -8,16 +8,10 @@ import DeviceInfo from 'react-native-device-info';
 let user_token = '';
 let refresh_token = '';
 // new code
-export const registerUser = async ({
-  email,
-  referral_code,
-  device_id,
-  otp,
-}: any) => {
+export const registerUser = async ({email, referral_code, otp}: any) => {
   console.log('registerUser');
 
   let deviceId = await DeviceInfo.getUniqueId();
-  //deviceId = device_id;
   if (typeof deviceId !== 'string') {
     deviceId = JSON.stringify(deviceId);
   }

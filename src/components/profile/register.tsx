@@ -57,7 +57,6 @@ const LoginCard = (props: any) => {
       {/* <Text style={{textAlign: 'center', width: '100%', paddingTop: 7}}>
         It takes less than a minute to sign up
       </Text> */}
-      {/* <Text style={styles.description}>Please enter your email address</Text> */}
       <View style={{marginBottom: 20}}>
         <InputItem
           style={[
@@ -86,6 +85,8 @@ const LoginCard = (props: any) => {
           <TouchableWithoutFeedback
             onPress={() => {
               props.setEmail('');
+              props.setErrEmail('');
+              props.setEmailValid(true);
             }}>
             <Image
               style={styles.iconStyle}
@@ -103,8 +104,8 @@ const LoginCard = (props: any) => {
             }}>
             <Image
               style={{
-                height: 22,
-                width: 22,
+                height: 20,
+                width: 20,
                 marginRight: 5,
                 position: 'relative',
                 top: 1,
@@ -143,7 +144,9 @@ const LoginCard = (props: any) => {
       {!props.setReferralCodeValid && (
         <TouchableWithoutFeedback
           onPress={() => {
-            props.setReferral('');
+            props.setReferralCode('');
+            props.setErrReferral('');
+            props.setReferralCodeValid(true);
           }}>
           <Image
             style={styles.iconStyle}
@@ -160,8 +163,8 @@ const LoginCard = (props: any) => {
           }}>
           <Image
             style={{
-              height: 22,
-              width: 22,
+              height: 20,
+              width: 20,
               marginRight: 5,
               position: 'relative',
               top: 1,
@@ -204,7 +207,6 @@ const LoginCard = (props: any) => {
             await registerUser({
               email: props.email,
               referral_code: props.referralCode,
-              device_id: 'device_id',
               otp: '',
             });
           } catch (err: any) {
@@ -241,7 +243,6 @@ const LoginCard = (props: any) => {
             email: props.email,
             action: 'register',
             referralCode: props.referralCode,
-            deviceId: 'device_id',
           });
           // loginApiCall({email: props.email});
 
@@ -252,7 +253,7 @@ const LoginCard = (props: any) => {
           style={{
             //  fontFamily: 'SF Pro Display',
             fontWeight: '600',
-            fontSize: 15,
+            fontSize: 14,
             letterSpacing: 0.2,
             color: props.email === '' || !props.emailValid ? 'white' : '#000',
           }}>
@@ -352,13 +353,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     paddingBottom: 25,
   },
-  description: {
-    fontWeight: '400',
-    fontSize: 15,
-    lineHeight: 20,
-    textAlign: 'left',
-    marginTop: 20,
-  },
+
   termPrivacyFont: {
     fontStyle: 'normal',
     fontWeight: '400',
@@ -381,7 +376,7 @@ const styles = StyleSheet.create({
   },
   danger: {
     fontWeight: '400',
-    fontSize: 15,
+    fontSize: 14,
     textAlign: 'left',
     color: '#FF3434',
   },
