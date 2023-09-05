@@ -104,7 +104,7 @@ const OtpInputs = props => {
           if (props.action == 'register') {
             result = await registerUser({
               email: props.email,
-              referral_code: props.referralCode,
+              referral_code: props.referral_code,
               device_id: props.device_id,
               otp: new_otp,
             });
