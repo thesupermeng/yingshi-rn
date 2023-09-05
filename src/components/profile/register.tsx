@@ -192,16 +192,13 @@ const LoginCard = (props: any) => {
         ]}
         //disabled={!props.emailValid}
         onPress={async () => {
-          if (props.email === '' || !props.emailValid) {
-            console.log('invalid email');
-            props.setEmailValid(false);
-            props.setErrMsg('请填写邮箱账号');
-            // props.dismiss();
-            // navigation.navigate('OTP', {
-            //   email: 'demo.com',
-            // });
-            return;
-          }
+          // if (props.email === '' || !props.emailValid) {
+          //   console.log('invalid email');
+          //   props.setEmailValid(false);
+          //   props.setErrMsg('请填写邮箱账号');
+
+          //   return;
+          // }
 
           try {
             await registerUser({
