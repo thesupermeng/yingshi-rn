@@ -255,8 +255,6 @@ export default (props: any) => {
     <View
       style={{
         height: '100%',
-        paddingVertical: '10%',
-        backgroundColor: '#000',
       }}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <>
