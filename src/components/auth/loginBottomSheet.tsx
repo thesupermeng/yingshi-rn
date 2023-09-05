@@ -63,7 +63,7 @@ interface Props {
 function LoginBottomSheet({sheetRef, displayMode}: Props) {
   const dispatch = useAppDispatch();
   const scrollRef = useRef<any>();
-  const [snapPoints, setSnapPoints] = useState(['1%', '43%']); // Initial snap points
+  const [snapPoints, setSnapPoints] = useState([1, 315]); // Initial snap points
   const renderBackdrop = useCallback(
     (
       props: React.JSX.IntrinsicAttributes & BottomSheetDefaultBackdropProps,
@@ -71,27 +71,26 @@ function LoginBottomSheet({sheetRef, displayMode}: Props) {
     [],
   );
 
-  useEffect(() => {
-    const keyboardDidShowListener = Keyboard.addListener(
-      'keyboardDidShow',
-      () => {
-        setSnapPoints(['1%', '64%']);
-      },
-    );
+  // useEffect(() => {
+  //   const keyboardDidShowListener = Keyboard.addListener(
+  //     'keyboardDidShow',
+  //     () => {
+  //       setSnapPoints([1, 350]);
+  //     },
+  //   );
 
-    const keyboardDidHideListener = Keyboard.addListener(
-      'keyboardDidHide',
-      () => {
-        setSnapPoints(['1%', '43%']);
-      },
-    );
+  //   const keyboardDidHideListener = Keyboard.addListener(
+  //     'keyboardDidHide',
+  //     () => {
+  //       setSnapPoints([1, 350]);
+  //     },
+  //   );
 
-    // Return a cleanup function to remove event listeners
-    return () => {
-      keyboardDidShowListener.remove();
-      keyboardDidHideListener.remove();
-    };
-  }, []);
+  //   return () => {
+  //     keyboardDidShowListener.remove();
+  //     keyboardDidHideListener.remove();
+  //   };
+  // }, []);
 
   //state for child
   const [email, setEmail] = useState('');

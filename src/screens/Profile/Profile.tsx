@@ -156,6 +156,7 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
         </View>
         {/* 游客登录  component*/}
         <TouchableOpacity
+          activeOpacity={1}
           onPress={() => {
             if (userState.userToken == '') {
               dispatch(showLoginAction());
