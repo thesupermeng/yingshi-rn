@@ -68,7 +68,7 @@ interface Props {
 function RegisterBottomSheet({sheetRef, displayMode}: Props) {
   const dispatch = useAppDispatch();
   const scrollRef = useRef<any>();
-  const [snapPoints, setSnapPoints] = useState([1, 355]); // Initial snap points
+  const [snapPoints, setSnapPoints] = useState([1, 380]); // Initial snap points
   const renderBackdrop = useCallback(
     (
       props: React.JSX.IntrinsicAttributes & BottomSheetDefaultBackdropProps,

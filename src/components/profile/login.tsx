@@ -79,7 +79,12 @@ const LoginCard = props => {
           />
         )}
         {props.email !== '' && !props.emailValid && (
-          <TouchableWithoutFeedback onPress={props.click}>
+          <TouchableWithoutFeedback
+            onPress={() => {
+              props.setEmail('');
+              props.setErrMsg('');
+              props.setEmailValid(true);
+            }}>
             <Image
               style={styles.iconStyle}
               source={require('../../../static/images/profile/cross.png')}
@@ -167,6 +172,10 @@ const LoginCard = props => {
         onPress={() => {
           // props.dismiss();
           console.log('   props.goToRegister();');
+
+          props.setEmail('');
+          props.setErrMsg('');
+          props.setEmailValid(true);
           props.goToRegister();
           // props.navigator.navigate('CricketTerm');
         }}>

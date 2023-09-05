@@ -236,6 +236,7 @@ const LoginCard = (props: any) => {
           console.log('loginApiCall');
           props.dismiss();
           dispatch(hideBottomSheetAction());
+
           navigation.navigate('OTP', {
             email: props.email,
             action: 'register',
@@ -264,6 +265,10 @@ const LoginCard = (props: any) => {
         onPress={() => {
           // props.dismiss();
           console.log('   props.goToRegister();');
+
+          props.setErrReferral('');
+          props.setErrEmail('');
+
           props.goToLogin();
           // props.navigator.navigate('CricketTerm');
         }}>
