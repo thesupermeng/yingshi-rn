@@ -154,7 +154,7 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
                     }
                 </TouchableOpacity> */}
         </View>
-        {/* 游客登陆  component*/}
+        {/* 游客登录  component*/}
         <TouchableOpacity
           onPress={() => {
             if (userState.userToken == '') {

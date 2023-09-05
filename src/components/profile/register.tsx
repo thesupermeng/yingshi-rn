@@ -269,7 +269,7 @@ const LoginCard = (props: any) => {
         }}>
         <View style={styles.loginTermPrivacy}>
           <Text style={styles.termPrivacyFont}>
-            <Text style={{color: 'white'}}> 邮箱登陆 </Text>
+            <Text style={{color: 'white'}}> 邮箱登录 </Text>
           </Text>
           <Image
             style={{width: 18, height: 18}}

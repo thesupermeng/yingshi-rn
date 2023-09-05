@@ -50,7 +50,7 @@ const LoginCard = props => {
 
   return (
     <View style={styles.card}>
-      <Text style={styles.title}>登陆解锁更多精彩内容</Text>
+      <Text style={styles.title}>登录解锁更多精彩内容</Text>
       {/* <Text style={{textAlign: 'center', width: '100%', paddingTop: 7}}>
         It takes less than a minute to sign up
       </Text> */}
@@ -160,7 +160,7 @@ const LoginCard = props => {
             letterSpacing: 0.2,
             color: props.email === '' || !props.emailValid ? 'white' : '#000',
           }}>
-          登陆
+          登录
         </Text>
       </Button>
       <TouchableOpacity
