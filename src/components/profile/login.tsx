@@ -31,6 +31,7 @@ export const Login = props => {
       <LoginCard
         emailValid={emailValid}
         setEmail={setEmail}
+        setEmailValid={setEmailValid}
         email={email}
         navigator={navigator}
         dismiss={props.dismiss}
@@ -91,6 +92,7 @@ const LoginCard = props => {
             justifyContent: 'flex-start',
             alignItems: 'center',
             flexDirection: 'row',
+            marginTop: 10,
           }}>
           <Image
             style={{
@@ -102,7 +104,6 @@ const LoginCard = props => {
             }}
             source={require('../../../static/images/invite/danger.png')}
           />
-
           <Text style={styles.danger}>{props.errMsg} </Text>
         </View>
       )}
@@ -123,7 +124,7 @@ const LoginCard = props => {
         ]}
         //disabled={!props.emailValid}
         onPress={async () => {
-          if (props.email === '' || !props.emailValid) {
+          if (props.email === '') {
             console.log('invalid email');
             props.setEmailValid(false);
             props.setErrMsg('请填写邮箱账号');
@@ -136,6 +137,7 @@ const LoginCard = props => {
               otp: '',
             });
           } catch (err: any) {
+            props.setEmailValid(false);
             props.setErrMsg(err.response.data.message);
             props.setReferralCodeValid(false);
             return;
