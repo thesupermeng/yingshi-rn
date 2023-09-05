@@ -232,11 +232,7 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
               )}
 
               {userState.userToken != '' && (
-                <EditIcn
-                  width={icons.sizes.l}
-                  height={icons.sizes.l}
-                  color={colors.muted}
-                />
+                <EditIcn width={29} height={29} color={colors.muted} />
               )}
             </View>
           </View>

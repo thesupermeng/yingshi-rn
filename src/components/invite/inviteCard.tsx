@@ -58,7 +58,7 @@ export default function InviteCard({userState = {}}: Props) {
             <Text style={{color: '#ffffff', fontSize: 28, fontWeight: '700'}}>
               VIP {userState.userAccumulateRewardDay}天
             </Text>
-            <Text>当前累计奖励</Text>
+            <Text style={{color: '#9C9C9C'}}>当前累计奖励</Text>
           </View>
 
           <FastImage
@@ -200,7 +200,7 @@ export default function InviteCard({userState = {}}: Props) {
               gap: 3,
             }}>
             <ProfileIcn />
-            <Text style={{fontSize: 10}}>统计邀请：</Text>
+            <Text style={{fontSize: 10, color: '#9C9C9C'}}>统计邀请：</Text>
             <Text
               style={{
                 fontSize: 14,
@@ -226,7 +226,7 @@ export default function InviteCard({userState = {}}: Props) {
               style={{
                 alignItems: 'center',
               }}>
-              <Text style={{fontSize: 10}}>累计奖励明细</Text>
+              <Text style={{fontSize: 10, color: '#9C9C9C'}}>累计奖励明细</Text>
             </View>
           </TouchableOpacity>
         </View>

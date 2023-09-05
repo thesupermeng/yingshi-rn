@@ -88,7 +88,7 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
   }
   useEffect(() => {
     setUsername(userState.userName);
-    setInitialUsername(userState.userName);
+    setInitialUsername(userState.userName.toLocaleUpperCase());
     // setReferral(userState.userReferrerName);
   }, []);
 
@@ -143,7 +143,7 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
                 )}
               </View>
 
-              <Text style={{fontWeight: '600', fontSize: 15}}>
+              <Text style={{fontWeight: '600', fontSize: 15, color: '#9C9C9C'}}>
                 {username.length}/18
                 {/* {userState.userEmail} */}
               </Text>
@@ -213,7 +213,7 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
                 height: 48,
                 borderRadius: 8,
               }}>
-              <Text style={{fontSize: 16}}>推介人</Text>
+              <Text style={{fontSize: 16, color: '#9C9C9C'}}>推介人</Text>
 
               <View
                 style={{
@@ -258,7 +258,7 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}>
-                <Text style={{fontSize: 14}}>复制邀请码</Text>
+                <Text style={{fontSize: 14, color: '#9C9C9C'}}>复制邀请码</Text>
                 <Image
                   style={{
                     height: 27,
@@ -332,7 +332,7 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
               console.log(resultData);
             } else {
               await dispatch(updateUsernameState(username));
-              setUsername(username.toUpperCase());
+              setUsername(username);
               setInitialUsername(username.toUpperCase());
             }
 

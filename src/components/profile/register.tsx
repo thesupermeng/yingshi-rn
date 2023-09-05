@@ -258,6 +258,8 @@ const LoginCard = (props: any) => {
           注册
         </Text>
       </Button>
+      <View />
+
       <TouchableOpacity
         onPress={() => {
           // props.dismiss();
@@ -327,7 +329,7 @@ const styles = StyleSheet.create({
   continueButtonStyle: {
     width: '100%',
     height: 42,
-    marginTop: 30,
+    marginTop: 20,
     marginLeft: '-0.5%',
     borderWidth: 0,
   },
