@@ -62,10 +62,7 @@ export default function InviteCard({userState = {}}: Props) {
     let encodedAuth = new Buffer(inviteParam).toString('base64');
     setShareOptions({
       ...shareOptions,
-      message:
-        '现在加入影视TV,一起赚VIP,免费看高清影视 ' +
-        INVITE_DOMAIN +
-        inviteParam,
+      message: '现在加入影视TV,一起赚VIP,免费看高清影视',
       url: INVITE_DOMAIN + inviteParam,
     });
   }, []);

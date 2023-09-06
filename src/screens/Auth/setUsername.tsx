@@ -12,6 +12,8 @@ import {
   Keyboard,
   Image,
   Touchable,
+  Alert,
+  BackHandler,
 } from 'react-native';
 import {ScreenContainer} from 'react-native-screens';
 import {useDispatch, useSelector} from 'react-redux';
@@ -34,6 +36,35 @@ export default (props: any) => {
   const [username, setUsername] = useState('');
   const [usernameValid, setUsernameValid] = useState(true);
   const navigator = useNavigation();
+  useEffect(() => {
+    // Add an event listener for the hardware back button press
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      () => {
+        // Show an alert to inform the user
+        Alert.alert(
+          '',
+          '请输入昵称。',
+          [
+            {
+              text: 'OK',
+              onPress: () => {
+                // Handle the OK button press (if needed)
+              },
+            },
+          ],
+          {cancelable: false}, // Prevent dismissing the alert by tapping outside
+        );
+
+        // Prevent the default behavior (navigating back)
+        return true; // Returning true will prevent the default behavior
+      },
+    );
+
+    // Remove the event listener when the component unmounts
+    return () => backHandler.remove();
+  }, []);
+
   const onInputChange = (value: any) => {
     // setErrMsg('');
     setUsername(value);

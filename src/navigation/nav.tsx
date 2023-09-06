@@ -80,6 +80,7 @@ import FastImage from 'react-native-fast-image';
 import {screenModel} from '../types/screenType';
 import BottomSheet from '@gorhom/bottom-sheet';
 import {YingshiDarkTheme, YingshiLightTheme} from '../utility/theme';
+import {userModel} from '../types/userType';
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -96,6 +97,10 @@ export default () => {
   if (hasNotch) {
     iconWidth = 22;
   }
+
+  const userState: userModel = useAppSelector(
+    ({userReducer}: RootState) => userReducer,
+  );
   function HomeTabScreen() {
     return (
       <HomeTab.Navigator
@@ -172,7 +177,7 @@ export default () => {
             return icon;
           },
         })}>
-        {YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5 ? (
+        {/* {YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5 ? (
           <>
             <HomeTab.Screen name="首页" component={HomeScreen} />
             <HomeTab.Screen name="随心看" component={WatchAnytime} />
@@ -184,6 +189,25 @@ export default () => {
           <>
             <HomeTab.Screen name="首页" component={HomeScreen} />
             <HomeTab.Screen name="随心看" component={WatchAnytime} />
+            <HomeTab.Screen name="播单" component={PlaylistScreen} />
+            <HomeTab.Screen name="我的" component={ProfileScreen} />
+          </>
+        )} */}
+        {userState.userToken != '' && (
+          <>
+            <HomeTab.Screen name="首页" component={HomeScreen} />
+            <HomeTab.Screen name="随心看" component={WatchAnytime} />
+            <HomeTab.Screen name="体育" component={MatchesScreen} />
+            <HomeTab.Screen name="播单" component={PlaylistScreen} />
+            <HomeTab.Screen name="我的" component={ProfileScreen} />
+          </>
+        )}
+
+        {userState.userToken == '' && (
+          <>
+            <HomeTab.Screen name="首页" component={HomeScreen} />
+            <HomeTab.Screen name="随心看" component={WatchAnytime} />
+
             <HomeTab.Screen name="播单" component={PlaylistScreen} />
             <HomeTab.Screen name="我的" component={ProfileScreen} />
           </>
