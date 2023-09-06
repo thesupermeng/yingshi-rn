@@ -65,4 +65,4 @@ function ShortVod({
 
 }
 
-export default ShortVod
+export default memo(ShortVod)

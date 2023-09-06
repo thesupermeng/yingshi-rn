@@ -16,6 +16,7 @@ import {Button} from '@rneui/themed';
 import ShowMoreButton from '../../components/button/showMoreButton';
 import Logo2 from '../../../static/images/logo2.svg';
 import NotificationModal from '../../components/modal/notificationModal';
+import { APP_VERSION } from '../../../src/utility/constants';
 
 export default ({navigation}: RootStackScreenProps<'关于我们'>) => {
   const {colors, textVariants, icons, spacing} = useTheme();
@@ -42,7 +43,7 @@ export default ({navigation}: RootStackScreenProps<'关于我们'>) => {
         <View style={styles.logo}>
           <Logo2 height={icons.sizes.xxl} width={icons.sizes.xxl} />
         </View>
-        <Text style={{textAlign: 'center', ...textVariants.body}}>v1.3.0</Text>
+        <Text style={{textAlign: 'center', ...textVariants.body}}>{APP_VERSION}</Text>
         <NotificationModal
           onConfirm={toggleOverlay}
           isVisible={isDialogOpen}

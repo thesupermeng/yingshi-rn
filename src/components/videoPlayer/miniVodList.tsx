@@ -78,6 +78,23 @@ export default ({ handleRefreshMiniVod, currentVodIndex = 0, videos, initialInde
         
         return <></>
     }
+
+    const renderItem = useCallback(({ item, index }: { item: MiniVideo, index: number }) => (
+        <View style={{ height: displayHeight ? displayHeight : 0 }}>
+            {current !== null && Math.abs(current - index) <= 2 && (
+                <ShortVod
+                    vod={item}
+                    vod_url={item.mini_video_origin_video_url}
+                    isActive={current === index && !isPaused}
+                    thumbnail={item.mini_video_origin_cover}
+                    videoTitle={item.mini_video_title}
+                    displayHeight={displayHeight ? displayHeight : 0}
+                    inCollectionView={inCollectionView}
+                    setCollectionEpisode={setCollectionEpisodeToTitle}
+                />
+            )}
+        </View>
+    ), [current, displayHeight, isPaused, inCollectionView]);
     
     return (
         <View style={{ flex: 1 }} onLayout={(event: any) => {
@@ -90,22 +107,7 @@ export default ({ handleRefreshMiniVod, currentVodIndex = 0, videos, initialInde
                 maxToRenderPerBatch={3}
                 windowSize={5}
                 refreshControl={refreshComponent()}
-                renderItem={({ item, index }: { item: MiniVideo, index: number }) => {
-                    return <View style={{ height: displayHeight ? displayHeight : 0 }}>
-                        {
-                            current !== null && Math.abs(current - index) <= 2 && <ShortVod
-                                vod={item}
-                                vod_url={item.mini_video_origin_video_url}
-                                isActive={current === index && !isPaused}
-                                thumbnail={item.mini_video_origin_cover}
-                                videoTitle={item.mini_video_title}
-                                displayHeight={displayHeight ? displayHeight : 0}
-                                inCollectionView={inCollectionView}
-                                setCollectionEpisode={setCollectionEpisodeToTitle}
-                            />
-                        }
-                    </View>
-                }}
+                renderItem={renderItem}
                 horizontal={false}
                 pagingEnabled={true}
                 keyExtractor={(item: any, index: any) => item.mini_video_id.toString()}

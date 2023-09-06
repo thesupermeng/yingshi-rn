@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, TextInput} from 'react-native';
+import {View, Text, StyleSheet, TextInput, Platform} from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
 import {RootStackScreenProps} from '../../types/navigationTypes';
 import {useTheme} from '@react-navigation/native';
@@ -16,6 +16,7 @@ import {
   API_DOMAIN,
   API_DOMAIN_TEST,
   API_DOMAIN_LOCAL,
+  UMENG_CHANNEL,
 } from '../../../src/utility/constants';
 import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
 
@@ -27,6 +28,8 @@ export default ({navigation}: RootStackScreenProps<'反馈'>) => {
   const [dialogText, setDialogText] = React.useState('反馈提交成功');
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
 
+  const [platformId, setPlatformId] = React.useState(0);
+
   const [isOffline, setIsOffline] = useState(false);
   useEffect(() => {
     const removeNetInfoSubscription = NetInfo.addEventListener(
@@ -35,6 +38,20 @@ export default ({navigation}: RootStackScreenProps<'反馈'>) => {
         setIsOffline(offline);
       },
     );
+
+    if(Platform.OS === 'ios'){
+      if(UMENG_CHANNEL == 'APP_STORE'){
+        setPlatformId(3);
+      }else{
+        setPlatformId(4);
+      }
+    }else{
+      if(UMENG_CHANNEL == 'GOOGLE_PLAY'){
+        setPlatformId(5);
+      }else{
+        setPlatformId(6);
+      }
+    }
 
     return () => removeNetInfoSubscription();
   }, []);
@@ -62,6 +79,7 @@ export default ({navigation}: RootStackScreenProps<'反馈'>) => {
       email: email,
       feedback_category: feedbackCategory,
       feedback: text,
+      platform_id: platformId
     };
 
     submitFeedback(body);
