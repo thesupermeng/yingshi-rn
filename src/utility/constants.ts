@@ -37,6 +37,7 @@ export const APPSFLYER_DEVKEY = 'wrxTHihLJNWrrusXtgRJZa';
 export const UMENG_CHANNEL = 'DEFAULT';
 // export const UMENG_CHANNEL = 'DEFAULT';
 // export const UMENG_CHANNEL = 'WEB';
+// export const UMENG_CHANNEL = 'APP_STORE';
 // export const UMENG_CHANNEL = 'GOOGLE_PLAY';
 // export const UMENG_CHANNEL = 'HUAWEI_APP_GALLERY_OVERSEAS';
 // export const UMENG_CHANNEL = 'OPPO_APP_MARKET';
