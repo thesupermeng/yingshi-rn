@@ -58,7 +58,7 @@ export default function InviteStep() {
 
         <Text>{highlightText('每邀请1位好友 增加30天VIP', '1', '30')}</Text>
 
-        <Text>{highlightText('好友获得15天VIP', '15')}</Text>
+        <Text>{highlightText('好友获得30天VIP', '30')}</Text>
       </View>
     </>
   );

@@ -1,5 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, TextInput, Image} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  Image,
+  Clipboard,
+} from 'react-native';
 import {useNavigation, useTheme} from '@react-navigation/native';
 
 import HotIcn from '../../../static/images/invite/hot.svg';
@@ -25,7 +32,10 @@ import LinearGradient from 'react-native-linear-gradient';
 import {userModel} from '../../types/userType';
 import {useAppDispatch} from '../../hooks/hooks';
 import {showLoginAction} from '../../redux/actions/screenAction';
-
+import Share from 'react-native-share';
+import WXShare from 'react-native-wx';
+import {INVITE_DOMAIN} from '../../utility/constants';
+import NotificationModal from '../modal/notificationModal';
 interface Props {
   userState: userModel;
 }
@@ -34,6 +44,100 @@ export default function InviteCard({userState = {}}: Props) {
   const locations = [0, 1]; // 10% and 100%
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
+  const [shareOptions, setShareOptions] = useState({
+    message: '现在加入影视TV,一起赚VIP,免费看高清影视',
+    url: '',
+  });
+
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const toggleOverlay = () => {
+    setIsDialogOpen(!isDialogOpen);
+  };
+
+  useEffect(() => {
+    const inviteParam = userState.userReferralCode + userState.userName;
+
+    const Buffer = require('buffer').Buffer;
+    let encodedAuth = new Buffer(inviteParam).toString('base64');
+    setShareOptions({
+      ...shareOptions,
+      message:
+        '现在加入影视TV,一起赚VIP,免费看高清影视 ' +
+        INVITE_DOMAIN +
+        inviteParam,
+      url: INVITE_DOMAIN + inviteParam,
+    });
+  }, []);
+
+  const shareToWhatsApp = async () => {
+    try {
+      await Share.shareSingle({
+        ...options,
+        social: Share.Social.WHATSAPP,
+        // Specify the package name of WhatsApp
+        //  packageName: 'com.whatsapp',
+      });
+    } catch (error) {
+      console.error('Error sharing link', error);
+    }
+  };
+
+  const shareToTelegram = async () => {
+    try {
+      await Share.shareSingle({
+        ...options,
+        social: Share.Social.TELEGRAM,
+        // Specify the package name of WhatsApp
+        //  packageName: 'com.whatsapp',
+      });
+    } catch (error) {
+      console.error('Error sharing link', error);
+    }
+  };
+
+  const shareToFacebook = async () => {
+    try {
+      await Share.shareSingle({
+        ...options,
+        social: Share.Social.FACEBOOK,
+        // Specify the package name of WhatsApp
+        //  packageName: 'com.whatsapp',
+      });
+    } catch (error) {
+      console.error('Error sharing link', error);
+    }
+  };
+
+  const shareToTwitter = async () => {
+    try {
+      await Share.shareSingle({
+        ...options,
+        social: Share.Social.TWITTER,
+        // Specify the package name of WhatsApp
+        //  packageName: 'com.whatsapp',
+      });
+    } catch (error) {
+      console.error('Error sharing link', error);
+    }
+  };
+
+  const toggleShare = async () => {
+    try {
+      const options = {
+        title: 'Title of the link',
+        message: 'Check out this link I found:',
+        url: 'https://www.example.com', // Replace with your link
+      };
+
+      await Share.open(options);
+
+      console.log('Link shared successfully to Weibo');
+    } catch (error) {
+      console.error('Error sharing link to Weibo:', error);
+    }
+  };
+
   return (
     <>
       <View
@@ -123,7 +227,7 @@ export default function InviteCard({userState = {}}: Props) {
               // setActionType('login');
               // setSignUpOrLogin(true);
             } else {
-              console.log('立即推荐 action');
+              toggleShare();
             }
           }}>
           <View
@@ -148,23 +252,22 @@ export default function InviteCard({userState = {}}: Props) {
             marginHorizontal: 15,
             marginVertical: 25,
           }}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={shareToWhatsApp}>
             <WhatsappIcn />
           </TouchableOpacity>
 
-          <TouchableOpacity>
+          <TouchableOpacity onPress={shareToTelegram}>
             <TelegramIcn />
           </TouchableOpacity>
-
-          <TouchableOpacity>
+          <TouchableOpacity onPress={shareToFacebook}>
             <FacebookIcn />
           </TouchableOpacity>
 
-          <TouchableOpacity>
+          <TouchableOpacity onPress={toggleShare}>
             <WechatIcn />
           </TouchableOpacity>
 
-          <TouchableOpacity>
+          <TouchableOpacity onPress={shareToTwitter}>
             <FastImage
               source={require('../../../static/images/invite/twitter.png')}
               style={{
@@ -175,13 +278,26 @@ export default function InviteCard({userState = {}}: Props) {
             />
           </TouchableOpacity>
 
-          <TouchableOpacity>
+          <TouchableOpacity onPress={shareToWhatsApp}>
             <WeiboIcn />
           </TouchableOpacity>
 
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              Clipboard.setString(shareOptions.message);
+              setIsDialogOpen(true);
+            }}>
             <CopyIcn />
           </TouchableOpacity>
+
+          <NotificationModal
+            onConfirm={toggleOverlay}
+            isVisible={isDialogOpen}
+            title="复制成功"
+            subtitle1=""
+            subtitle2=""
+            subtitle3=""
+          />
         </View>
         {/* stat section  */}
         <View
