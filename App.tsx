@@ -1,11 +1,11 @@
-import React, { Suspense, useCallback, useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { Provider } from 'react-redux';
+import React, {Suspense, useCallback, useEffect, useState} from 'react';
+import {View, Text, TouchableOpacity} from 'react-native';
+import {Provider} from 'react-redux';
 import Nav from './src/navigation/nav';
-import { store, persistor } from './src/redux/store';
-import { PersistGate } from 'redux-persist/integration/react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useNavigation, useTheme } from '@react-navigation/native';
+import {store, persistor} from './src/redux/store';
+import {PersistGate} from 'redux-persist/integration/react';
+import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
+import {useNavigation, useTheme} from '@react-navigation/native';
 import VipOverlay from './src/components/modal/vipOverlay';
 import {
   API_DOMAIN,
@@ -25,15 +25,14 @@ import {
   VodPlaylistResponseType,
   LiveTVStationsResponseType,
 } from './src/types/ajaxTypes';
-import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import appsFlyer from 'react-native-appsflyer';
 import Api from './src/Sports/middleware/api';
-import { Url } from './src/Sports/middleware/url';
-import { StatusBar } from 'react-native';
+import {Url} from './src/Sports/middleware/url';
+import {StatusBar} from 'react-native';
 
 export default function App() {
-
   const [showVIPOverlay, setShowVIPOverlay] = useState(true);
   // const navigation = useNavigation();
 
@@ -87,7 +86,7 @@ export default function App() {
             return json.data.List;
           }),
     });
-  
+
     queryClient.prefetchQuery({
       queryKey: ['HomePage', 0],
       queryFn: () =>
@@ -97,7 +96,7 @@ export default function App() {
             return json;
           }),
     });
-  
+
     queryClient.prefetchQuery({
       queryKey: ['filterOptions'],
       queryFn: () =>
@@ -110,7 +109,7 @@ export default function App() {
           }),
       staleTime: Infinity,
     });
-  
+
     queryClient.prefetchQuery({
       queryKey: ['HomePageNavOptions'],
       queryFn: () =>
@@ -121,7 +120,7 @@ export default function App() {
           }),
       staleTime: Infinity,
     });
-  
+
     queryClient.prefetchQuery({
       queryKey: ['LiveTVStations'],
       queryFn: () =>
@@ -132,37 +131,38 @@ export default function App() {
           }),
       staleTime: Infinity,
     });
-  
+
     const fetchPlaylist = (page: number) =>
       fetch(`${API_DOMAIN}topic/v1/topic?page=${page}`)
         .then(response => response.json())
         .then((json: VodPlaylistResponseType) => {
           return Object.values(json.data.List);
         });
-  
-    queryClient.prefetchInfiniteQuery(['vodPlaylist'], ({ pageParam = 1 }) =>
+
+    queryClient.prefetchInfiniteQuery(['vodPlaylist'], ({pageParam = 1}) =>
       fetchPlaylist(pageParam),
     );
-  
-    queryClient.prefetchInfiniteQuery(['vodPlaylist'], ({ pageParam = 1 }) => fetchPlaylist(pageParam));
-  
-    const fetchVods = (page: number) => fetch(
-      `${API_DOMAIN}miniVod/v1/miniVod?page=${page}&limit=100`,
-    )
-      .then(response => response.json())
-      .then((json: MiniVideoResponseType) => {
-        return json.data.List
-      })
-  
+
+    queryClient.prefetchInfiniteQuery(['vodPlaylist'], ({pageParam = 1}) =>
+      fetchPlaylist(pageParam),
+    );
+
+    const fetchVods = (page: number) =>
+      fetch(`${API_DOMAIN}miniVod/v1/miniVod?page=${page}&limit=100`)
+        .then(response => response.json())
+        .then((json: MiniVideoResponseType) => {
+          return json.data.List;
+        });
+
     type MiniVideoResponseType = {
       data: {
         List: Array<MiniVideo>;
       };
     };
-    queryClient.prefetchInfiniteQuery(['watchAnytime'], ({ pageParam = 1 }) =>
+    queryClient.prefetchInfiniteQuery(['watchAnytime'], ({pageParam = 1}) =>
       fetchVods(pageParam),
     );
-  
+
     queryClient.prefetchQuery({
       queryKey: ['matchesNavOptions'],
       queryFn: () =>
@@ -179,7 +179,7 @@ export default function App() {
         ),
       staleTime: Infinity,
     });
-  }, [])
+  }, []);
 
   return (
     <>
@@ -187,16 +187,16 @@ export default function App() {
         <QueryClientProvider client={queryClient}>
           <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>
-              <GestureHandlerRootView style={{ flex: 1 }}>
+              <GestureHandlerRootView style={{flex: 1}}>
                 <BottomSheetModalProvider>
                   <Nav />
                 </BottomSheetModalProvider>
               </GestureHandlerRootView>
             </PersistGate>
+            <VipOverlay />
           </Provider>
         </QueryClientProvider>
       </Suspense>
-      <VipOverlay />
     </>
   );
 }

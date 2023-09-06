@@ -3,6 +3,8 @@ import {View, Text, TouchableOpacity} from 'react-native';
 import VipModal from './vipModal';
 import {useNavigation, useTheme} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useAppDispatch} from '../../hooks/hooks';
+import {showLoginAction} from '../../redux/actions/screenAction';
 
 interface Props {}
 
@@ -12,6 +14,8 @@ export default function VipOverlay({}: Props) {
   const hideVipPrompt = useCallback(async () => {
     setShowVIPOverlay(false);
   }, []);
+
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const checkFirstLaunchVipPrompted = async () => {
@@ -81,9 +85,12 @@ export default function VipOverlay({}: Props) {
                 </Text>
                 <View style={{paddingTop: 22, alignItems: 'center'}}>
                   <TouchableOpacity
-                    onPress={() => hideVipPrompt()}
+                    onPress={() => {
+                      hideVipPrompt();
+                      dispatch(showLoginAction());
+                    }}
                     style={{
-                      backgroundColor: colors.primary,
+                      backgroundColor: '#FAC33D',
                       paddingVertical: 12,
                       paddingHorizontal: 38,
                       borderRadius: 8,
