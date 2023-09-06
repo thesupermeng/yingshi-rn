@@ -25,6 +25,7 @@ import {changeScreenAction} from '../../redux/actions/screenAction';
 import {RootState} from '../../redux/store';
 import {userModel} from '../../types/userType';
 
+import { APP_VERSION } from '../../utility/constants';
 export default ({navigation}: RootStackScreenProps<'设置'>) => {
   const {colors, textVariants, icons, spacing} = useTheme();
   const [isVersionDialogOpen, setIsVersionDialogOpen] = useState(false);
@@ -32,6 +33,7 @@ export default ({navigation}: RootStackScreenProps<'设置'>) => {
 
   const [isLogoutDialogOpen, setIsLogoutDialogOpen] = useState(false);
 
+  const [subtitle1, setSubtitle1] = useState('当前已是最新版本' + APP_VERSION);
   const dispatch = useAppDispatch();
 
   const toggleLogoutDialog = () => {
@@ -73,7 +75,7 @@ export default ({navigation}: RootStackScreenProps<'设置'>) => {
             onConfirm={toggleVersionDialog}
             isVisible={isVersionDialogOpen && !isOffline}
             title="检查更新"
-            subtitle1="当前已是最新版本1.3.0"
+            subtitle1={subtitle1}
             confirmationText="我知道了"
           />
 
@@ -131,7 +133,7 @@ export default ({navigation}: RootStackScreenProps<'设置'>) => {
                         paddingBottom: 3,
                         color: colors.muted,
                       }}>
-                      当前版本1.3.0
+                      当前版本{ APP_VERSION }
                     </Text>
                     <MoreArrow
                       width={icons.sizes.l}

@@ -341,7 +341,8 @@ export interface BottomNavTabs {
 export interface SubmitFeedbackRequest {
     email: string,
     feedback_category: number,
-    feedback: string
+    feedback: string,
+    platform_id: number
 }
 
 export interface CollectionResponseType {
