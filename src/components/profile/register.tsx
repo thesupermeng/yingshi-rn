@@ -59,6 +59,7 @@ const LoginCard = (props: any) => {
       </Text> */}
       <View style={{marginBottom: 20}}>
         <InputItem
+          autoCapitalize="none"
           style={[
             styles.textInpoutCommonStyle,
             props.email === ''
@@ -118,6 +119,7 @@ const LoginCard = (props: any) => {
         )}
 
         <InputItem
+          autoCapitalize="none"
           style={[
             styles.textInpoutCommonStyle,
             props.email === ''

@@ -100,6 +100,7 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
         <View style={{marginTop: 30}}>
           <View>
             <InputItem
+              autoCapitalize="none"
               style={[
                 styles.textInpoutCommonStyle,
                 styles.defaultTextInputStyle,
@@ -153,6 +154,7 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
           {userState.userReferrerName == '' && (
             <View>
               <InputItem
+                autoCapitalize="none"
                 style={[
                   styles.textInpoutCommonStyle,
                   styles.defaultTextInputStyle,

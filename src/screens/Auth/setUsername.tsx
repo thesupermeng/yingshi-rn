@@ -57,6 +57,10 @@ export default (props: any) => {
       return;
     }
 
+    if (username.length < 2 && !isJump) {
+      return;
+    }
+
     let res;
     try {
       res = await updateUsername({
@@ -147,6 +151,7 @@ export default (props: any) => {
               </Text>
 
               <InputItem
+                autoCapitalize="none"
                 style={[
                   styles.textInpoutCommonStyle,
                   styles.defaultTextInputStyle,

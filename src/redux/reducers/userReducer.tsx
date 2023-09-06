@@ -55,7 +55,9 @@ export function userReducer(state = initialState, action: UserActionType) {
         userTotalInvite: action.payload.userTotalInvite,
         userAccumulateRewardDay: action.payload.userAccumulateRewardDay,
         userAllowUpdateReferral: action.payload.userAllowUpdateReferral,
-        userInvitedUserList: action.payload.userInvitedUserList,
+        userInvitedUserList: action.payload.userInvitedUserList
+          ? action.payload.userInvitedUserList
+          : [],
       };
       console.log('stored user state');
       console.log(json);

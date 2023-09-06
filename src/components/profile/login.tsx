@@ -57,6 +57,7 @@ const LoginCard = props => {
       {/* <Text style={styles.description}>Please enter your email address</Text> */}
       <View>
         <InputItem
+          autoCapitalize="none"
           style={[
             styles.textInpoutCommonStyle,
             props.email === ''
