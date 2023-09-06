@@ -83,7 +83,7 @@ export default function InviteCard({userState = {}}: Props) {
         //  packageName: 'com.whatsapp',
       });
     } catch (error) {
-      console.error('Error sharing link', error);
+      console.log('Error sharing link', error);
     }
   };
 
@@ -100,7 +100,7 @@ export default function InviteCard({userState = {}}: Props) {
         //  packageName: 'com.whatsapp',
       });
     } catch (error) {
-      console.error('Error sharing link', error);
+      console.log('Error sharing link', error);
     }
   };
 
@@ -134,7 +134,7 @@ export default function InviteCard({userState = {}}: Props) {
         //  packageName: 'com.whatsapp',
       });
     } catch (error) {
-      console.error('Error sharing link', error);
+      console.log('Error sharing link', error);
     }
   };
 
@@ -152,7 +152,7 @@ export default function InviteCard({userState = {}}: Props) {
       await Share.open(options);
       // console.log('Link shared successfully ');
     } catch (error) {
-      console.error('Error sharing link :', error);
+      console.log('Error sharing link :', error);
     }
   };
 

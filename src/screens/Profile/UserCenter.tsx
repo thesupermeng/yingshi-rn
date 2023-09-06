@@ -93,9 +93,14 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
   }, []);
 
   return (
-    <ScreenContainer>
+    <View style={{flex: 1, paddingHorizontal: 5}}>
       <TitleWithBackButtonHeader title="个人中心" />
-      <View style={{justifyContent: 'space-between', flex: 1}}>
+      <View
+        style={{
+          justifyContent: 'space-between',
+          flex: 1,
+          paddingHorizontal: 10,
+        }}>
         {/* username input  */}
         <View style={{marginTop: 30}}>
           <View>
@@ -383,7 +388,7 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
           </Text>
         </Button>
       </View>
-    </ScreenContainer>
+    </View>
   );
 };
 
