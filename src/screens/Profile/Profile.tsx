@@ -216,9 +216,9 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
                     />
                   </View>
 
-                  {userState.userMemberExpired == '0' && (
+                  {/* {userState.userMemberExpired == '0' && (
                     <Text style={{fontSize: 14}}>VIP会员已经到期</Text>
-                  )}
+                  )} */}
                   {userState.userMemberExpired != '0' && (
                     <Text style={{color: colors.primary, fontSize: 14}}>
                       VIP会员有效日期至{displayedDate}

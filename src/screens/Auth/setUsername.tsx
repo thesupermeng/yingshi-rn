@@ -64,7 +64,7 @@ export default (props: any) => {
     let res;
     try {
       res = await updateUsername({
-        username: username,
+        username: isJump ? '' : username,
         // referralCode: null,
         bearerToken: userState.userToken,
       });
