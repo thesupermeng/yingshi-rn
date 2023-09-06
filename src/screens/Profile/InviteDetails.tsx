@@ -108,7 +108,7 @@ export default ({navigation}: RootStackScreenProps<'邀请'>) => {
                     <Text style={{fontSize: 16, color: '#fff'}}>
                       {item.user_name} 接受了您的邀请
                     </Text>
-                    <Text>{item.created_at}</Text>
+                    <Text style={{color: '#9c9c9c'}}>{item.created_at}</Text>
                   </View>
 
                   <View
