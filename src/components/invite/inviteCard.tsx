@@ -71,9 +71,13 @@ export default function InviteCard({userState = {}}: Props) {
   }, []);
 
   const shareToWhatsApp = async () => {
+    if (userState.userToken == '') {
+      dispatch(showLoginAction());
+      return;
+    }
     try {
       await Share.shareSingle({
-        ...options,
+        ...shareOptions,
         social: Share.Social.WHATSAPP,
         // Specify the package name of WhatsApp
         //  packageName: 'com.whatsapp',
@@ -84,9 +88,13 @@ export default function InviteCard({userState = {}}: Props) {
   };
 
   const shareToTelegram = async () => {
+    if (userState.userToken == '') {
+      dispatch(showLoginAction());
+      return;
+    }
     try {
       await Share.shareSingle({
-        ...options,
+        ...shareOptions,
         social: Share.Social.TELEGRAM,
         // Specify the package name of WhatsApp
         //  packageName: 'com.whatsapp',
@@ -97,9 +105,13 @@ export default function InviteCard({userState = {}}: Props) {
   };
 
   const shareToFacebook = async () => {
+    if (userState.userToken == '') {
+      dispatch(showLoginAction());
+      return;
+    }
     try {
       await Share.shareSingle({
-        ...options,
+        ...shareOptions,
         social: Share.Social.FACEBOOK,
         // Specify the package name of WhatsApp
         //  packageName: 'com.whatsapp',
@@ -110,9 +122,13 @@ export default function InviteCard({userState = {}}: Props) {
   };
 
   const shareToTwitter = async () => {
+    if (userState.userToken == '') {
+      dispatch(showLoginAction());
+      return;
+    }
     try {
       await Share.shareSingle({
-        ...options,
+        ...shareOptions,
         social: Share.Social.TWITTER,
         // Specify the package name of WhatsApp
         //  packageName: 'com.whatsapp',
@@ -123,18 +139,20 @@ export default function InviteCard({userState = {}}: Props) {
   };
 
   const toggleShare = async () => {
+    if (userState.userToken == '') {
+      dispatch(showLoginAction());
+      return;
+    }
     try {
       const options = {
-        title: 'Title of the link',
-        message: 'Check out this link I found:',
-        url: 'https://www.example.com', // Replace with your link
+        title: '分享',
+        message: shareOptions.message,
+        url: shareOptions.url,
       };
-
       await Share.open(options);
-
-      console.log('Link shared successfully to Weibo');
+      // console.log('Link shared successfully ');
     } catch (error) {
-      console.error('Error sharing link to Weibo:', error);
+      console.error('Error sharing link :', error);
     }
   };
 

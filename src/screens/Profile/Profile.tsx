@@ -210,10 +210,12 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
                     <Text style={{color: '#ffffff', fontSize: 20}}>
                       {userState.userName}
                     </Text>
-                    <Image
-                      style={styles.iconStyle}
-                      source={require('../../../static/images/profile/vip.png')}
-                    />
+                    {userState.userMemberExpired != '0' && (
+                      <Image
+                        style={styles.iconStyle}
+                        source={require('../../../static/images/profile/vip.png')}
+                      />
+                    )}
                   </View>
 
                   {/* {userState.userMemberExpired == '0' && (
@@ -280,11 +282,11 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
             leftIcon={<CollectionIcon style={{color: colors.button}} />}
             onPress={() => navigation.navigate('我的收藏')}
           />
-          <ShowMoreButton
+          {/* <ShowMoreButton
             text="我的下载"
             leftIcon={<DownloadIcon style={{color: colors.button}} />}
             onPress={() => setIsDialogOpen(true)}
-          />
+          /> */}
           <ShowMoreButton
             text="播放历史"
             leftIcon={<HistoryIcon style={{color: colors.button}} />}
@@ -444,7 +446,5 @@ const styles = StyleSheet.create({
     height: 22,
     width: 22,
     marginLeft: 5,
-    position: 'relative',
-    top: 2,
   },
 });
