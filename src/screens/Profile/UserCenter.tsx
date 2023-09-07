@@ -86,7 +86,18 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
       setUsernameValid(true);
     }
   }
+  const refreshUserState = async () => {
+    let result;
+    result = await getUserDetails({
+      bearerToken: userState.userToken,
+    });
+    let resultData = result.data.data;
+    await dispatch(updateUserReferral(resultData.user.referrer_name));
+
+    return;
+  };
   useEffect(() => {
+    refreshUserState();
     setUsername(userState.userName);
     setInitialUsername(userState.userName.toLocaleUpperCase());
     // setReferral(userState.userReferrerName);

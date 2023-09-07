@@ -48,4 +48,4 @@ export const UMENG_CHANNEL = 'DEFAULT';
 // export const UMENG_CHANNEL = 'VIVO_APP_STORE';
 // export const UMENG_CHANNEL = 'MI_GETAPPS';
 
-export const APP_VERSION = '1.3.0';
+export const APP_VERSION = '1.4.0';

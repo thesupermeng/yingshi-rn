@@ -10,6 +10,7 @@ import {
   Platform,
   useWindowDimensions,
   ScrollView,
+  RefreshControl,
 } from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
 import {useTheme, useFocusEffect} from '@react-navigation/native';
@@ -50,6 +51,8 @@ import {
 } from '../../redux/actions/screenAction';
 import {userModel} from '../../types/userType';
 import NotificationModal from '../../components/modal/notificationModal';
+import {getUserDetails} from '../../features/user';
+import {updateUserReferral} from '../../redux/actions/userAction';
 
 export default ({navigation, route}: BottomTabScreenProps<any>) => {
   const sheetRef = useRef<BottomSheet>(null);
@@ -63,10 +66,9 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
   const themeReducer = useAppSelector(
     ({themeReducer}: RootState) => themeReducer,
   );
-
+  const [refreshing, setRefreshing] = useState(false);
   const [displayedDate, setDisplayedDate] = useState('');
 
-  const pageInitialState = route.params;
   const userState: userModel = useAppSelector(
     ({userReducer}: RootState) => userReducer,
   );
@@ -75,6 +77,23 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
 
   const toggleOverlay = () => {
     setIsDialogOpen(!isDialogOpen);
+  };
+
+  const refreshUserState = async () => {
+    let result;
+    result = await getUserDetails({
+      bearerToken: userState.userToken,
+    });
+    let resultData = result.data.data;
+    await dispatch(updateUserReferral(resultData.user.referrer_name));
+
+    return;
+  };
+
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    await refreshUserState();
+    setRefreshing(false);
   };
 
   useEffect(() => {
@@ -87,7 +106,6 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
 
   useEffect(() => {
     const date = new Date(Number(userState.userMemberExpired) * 1000); // Multiply by 1000 to convert from seconds to milliseconds
-
     // Extract year, month, and day
     const year = date.getFullYear();
     const month = date.getMonth() + 1; // Months are 0-based, so add 1
@@ -95,6 +113,10 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
 
     setDisplayedDate(`${year}年${month}月${day}日`);
   }, [userState.userMemberExpired]);
+
+  // useEffect(() => {
+  //   refreshUserState();
+  // }, []);
 
   useFocusEffect(
     useCallback(() => {
@@ -104,24 +126,6 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
       };
     }, []),
   );
-
-  const screenState = useAppSelector(
-    ({screenReducer}: RootState) => screenReducer,
-  );
-  useEffect(() => {
-    console.log('screenState in profile');
-    console.log(screenState.screenAction);
-  }, [screenState]);
-
-  useEffect(() => {
-    if (pageInitialState?.showSuccessRegister != undefined) {
-      console.log('show login success');
-    } else if (pageInitialState?.showLogin != undefined) {
-      console.log('showLogin');
-    } else {
-      console.log('show nothing');
-    }
-  }, []);
 
   const highlightText = (text: string, keyword: string) => {
     const parts = text.split(new RegExp(`(${keyword})`, 'gi'));
@@ -140,7 +144,11 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
 
   return (
     <>
-      <ScreenContainer>
+      <ScrollView
+        style={{paddingHorizontal: 15}}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+        }>
         <View style={{...styles.topNav}}>
           <Text
             style={{
@@ -246,13 +254,15 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
           </View>
         </TouchableOpacity>
 
-        <ScrollView style={{marginBottom: -30, flex: 3, paddingBottom: 120}}>
+        <View style={{marginBottom: -30, flex: 3, paddingBottom: 120}}>
           <TouchableOpacity
             style={{
               ...styles.btn,
               backgroundColor: '#2d2e30',
             }}
-            onPress={() => navigation.navigate('邀请')}>
+            onPress={() => {
+              navigation.navigate('邀请');
+            }}>
             <View style={styles.left}>
               <View style={styles.icon}>
                 <VipIcon />
@@ -330,7 +340,7 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
             />
           </TouchableOpacity> */}
           {/* <ShowMoreButton text='分享App' disabled={true} leftIcon={<ShareIcon style={{ color: colors.button }} />} /> */}
-        </ScrollView>
+        </View>
 
         <NotificationModal
           onConfirm={toggleOverlay}
@@ -340,7 +350,7 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
           subtitle2=""
           subtitle3=""
         />
-      </ScreenContainer>
+      </ScrollView>
     </>
   );
 };

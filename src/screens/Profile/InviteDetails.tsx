@@ -32,15 +32,29 @@ import FastImage from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
 import {userModel} from '../../types/userType';
 import {useAppSelector} from '../../hooks/hooks';
+import {getUserDetails} from '../../features/user';
+import {updateUserReferral} from '../../redux/actions/userAction';
+import {useDispatch} from 'react-redux';
 export default ({navigation}: RootStackScreenProps<'邀请'>) => {
   const {colors, textVariants, icons, spacing} = useTheme();
 
   const userState: userModel = useAppSelector(
     ({userReducer}: RootState) => userReducer,
   );
+  const dispatch = useDispatch();
+  const refreshUserState = async () => {
+    let result;
+    result = await getUserDetails({
+      bearerToken: userState.userToken,
+    });
+    let resultData = result.data.data;
+    await dispatch(updateUserReferral(resultData.user.referrer_name));
+
+    return;
+  };
 
   useEffect(() => {
-    console.log(userState);
+    refreshUserState();
   }, []);
   return (
     <ScreenContainer>

@@ -230,7 +230,8 @@ export default (props: any) => {
                   )}
                 </View>
 
-                <Text style={{fontWeight: '600', fontSize: 15}}>
+                <Text
+                  style={{fontWeight: '600', fontSize: 15, color: '#9C9C9C'}}>
                   {username.length}/18
                   {/* {userState.userEmail} */}
                 </Text>
