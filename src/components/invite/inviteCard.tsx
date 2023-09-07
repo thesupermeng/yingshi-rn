@@ -379,6 +379,10 @@ export default function InviteCard({userState = {}}: Props) {
 
           <TouchableOpacity
             onPress={() => {
+              if (userState.userToken == '') {
+                dispatch(showLoginAction());
+                return;
+              }
               Clipboard.setString(
                 shareOptions.message + ' ' + shareOptions.url,
               );
