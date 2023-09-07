@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, TextInput, Platform} from 'react-native';
+import {View, Text, StyleSheet, TextInput, Platform, Alert} from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
 import {RootStackScreenProps} from '../../types/navigationTypes';
 import {useTheme} from '@react-navigation/native';
@@ -39,16 +39,16 @@ export default ({navigation}: RootStackScreenProps<'反馈'>) => {
       },
     );
 
-    if(Platform.OS === 'ios'){
-      if(UMENG_CHANNEL == 'APP_STORE'){
+    if (Platform.OS === 'ios') {
+      if (UMENG_CHANNEL == 'APP_STORE') {
         setPlatformId(3);
-      }else{
+      } else {
         setPlatformId(4);
       }
-    }else{
-      if(UMENG_CHANNEL == 'GOOGLE_PLAY'){
+    } else {
+      if (UMENG_CHANNEL == 'GOOGLE_PLAY') {
         setPlatformId(5);
-      }else{
+      } else {
         setPlatformId(6);
       }
     }
@@ -79,8 +79,25 @@ export default ({navigation}: RootStackScreenProps<'反馈'>) => {
       email: email,
       feedback_category: feedbackCategory,
       feedback: text,
-      platform_id: platformId
+      platform_id: platformId,
     };
+
+    if (text == '') {
+      Alert.alert(
+        '',
+        '请输入反馈。',
+        [
+          {
+            text: 'OK',
+            onPress: () => {
+              // Handle the OK button press (if needed)
+            },
+          },
+        ],
+        {cancelable: false}, // Prevent dismissing the alert by tapping outside
+      );
+      return;
+    }
 
     submitFeedback(body);
   }
