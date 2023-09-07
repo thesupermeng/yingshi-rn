@@ -91,6 +91,9 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
     result = await getUserDetails({
       bearerToken: userState.userToken,
     });
+    if (result == null) {
+      return;
+    }
     let resultData = result.data.data;
     await dispatch(updateUserReferral(resultData.user.referrer_name));
 
@@ -339,20 +342,19 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
               result = await getUserDetails({
                 bearerToken: userState.userToken,
               });
+              if (result == null) {
+                return;
+              }
 
               let resultData = result.data.data;
               await dispatch(updateUserReferral(resultData.user.referrer_name));
               setUsername(resultData.user.user_name);
               setInitialUsername(resultData.user.user_name);
-
-              console.log('user details');
-              console.log(resultData);
             } else {
               await dispatch(updateUsernameState(username));
               setUsername(username);
               setInitialUsername(username.toUpperCase());
             }
-
             Keyboard.dismiss();
             dispatch(changeScreenAction('修改成功'));
           }}
@@ -360,7 +362,6 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
           // disabled={props.email === '' || !props.emailValid}
           style={[
             styles.confirmButtonStyle,
-
             usernameValid &&
             referralValid &&
             (initialUsername.toLocaleLowerCase() !==
@@ -371,7 +372,6 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
           ]}
           activeStyle={[
             styles.confirmButtonStyle,
-
             usernameValid &&
             referralValid &&
             (initialUsername.toLocaleLowerCase() !==

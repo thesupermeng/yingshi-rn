@@ -232,10 +232,6 @@ const LoginCard = (props: any) => {
             return;
           }
 
-          console.log('props.email');
-          console.log(props.email == '');
-          console.log('loginApiCall');
-          props.dismiss();
           dispatch(hideBottomSheetAction());
 
           navigation.navigate('OTP', {
@@ -263,7 +259,6 @@ const LoginCard = (props: any) => {
 
       <TouchableOpacity
         onPress={() => {
-          // props.dismiss();
           console.log('   props.goToRegister();');
 
           props.setErrReferral('');

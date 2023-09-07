@@ -96,13 +96,9 @@ export default (props: any) => {
     try {
       res = await updateUsername({
         username: isJump ? '' : username,
-        // referralCode: null,
         bearerToken: userState.userToken,
       });
     } catch (err: any) {
-      console.log('err');
-      console.log(err.response.data.message);
-
       if (err.response.data.errors.username) {
         setUsernameValid(false);
         setErrMsg(err.response.data.errors.username);
@@ -110,9 +106,7 @@ export default (props: any) => {
 
       return;
     }
-    // props.dismiss();
-    console.log('to profile');
-    //  navigator.navigate('Profile');
+
     await dispatch(updateUsernameState(res.data.data));
     await dispatch(changeScreenAction('登录成功'));
     navigator.navigate('Home', {
@@ -120,21 +114,9 @@ export default (props: any) => {
     });
   };
 
-  // useEffect(() => {
-  //   ValidateUsername(username, setUsername);
-  // }, [username]);
-
-  // const screenState = useAppSelector(
-  //   ({screenReducer}: RootState) => screenReducer,
-  // );
-
   const userState: userModel = useAppSelector(
     ({userReducer}: RootState) => userReducer,
   );
-  // useEffect(() => {
-  //   console.log('userState');
-  //   console.log(userState);
-  // }, []);
 
   return (
     <View

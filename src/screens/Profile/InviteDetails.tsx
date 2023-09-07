@@ -47,6 +47,9 @@ export default ({navigation}: RootStackScreenProps<'邀请'>) => {
     result = await getUserDetails({
       bearerToken: userState.userToken,
     });
+    if (result == null) {
+      return;
+    }
     let resultData = result.data.data;
     await dispatch(updateUserReferral(resultData.user.referrer_name));
 

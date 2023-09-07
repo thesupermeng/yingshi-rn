@@ -81,6 +81,8 @@ import {screenModel} from '../types/screenType';
 import BottomSheet from '@gorhom/bottom-sheet';
 import {YingshiDarkTheme, YingshiLightTheme} from '../utility/theme';
 import {userModel} from '../types/userType';
+import {getUserDetails} from '../features/user';
+import {updateUserReferral} from '../redux/actions/userAction';
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -216,6 +218,21 @@ export default () => {
     );
   }
 
+  const refreshUserState = async () => {
+    let result;
+    result = await getUserDetails({
+      bearerToken: userState.userToken,
+    });
+    if (result == null) {
+      return;
+    }
+
+    let resultData = result.data.data;
+    await dispatch(updateUserReferral(resultData.user.referrer_name));
+
+    return;
+  };
+
   //screen state
   //screen state
   const dispatch = useDispatch();
@@ -271,17 +288,10 @@ export default () => {
     // }
   }, [screenState]);
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     console.log('open bottom sheet main');
-  //     sheetRefLogin.current?.snapToIndex(1);
-  //   }, 2000);
-
-  //   setTimeout(() => {
-  //     sheetRefLogin.current?.close();
-  //     sheetRefRegister.current?.snapToIndex(1);
-  //   }, 5000);
-  // }, []);
+  useEffect(() => {
+    console.log('refreshUserState upon enter');
+    refreshUserState();
+  }, []);
 
   return (
     <SafeAreaProvider>

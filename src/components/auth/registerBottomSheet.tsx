@@ -128,7 +128,6 @@ function RegisterBottomSheet({sheetRef, displayMode}: Props) {
           referralCode={referralCode}
           setEmail={setEmail}
           setReferralCode={setReferralCode}
-          dismiss={() => {}}
           goToLogin={() => {
             dispatch(showLoginAction());
           }}

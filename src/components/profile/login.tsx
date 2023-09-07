@@ -33,7 +33,6 @@ export const Login = props => {
         email={props.email}
         setEmailValid={setEmailValid}
         navigator={navigator}
-        dismiss={props.dismiss}
         goToRegister={props.goToRegister}
         setErrMsg={setErrMsg}
         errMsg={errMsg}
@@ -146,7 +145,6 @@ const LoginCard = props => {
             return;
           }
 
-          props.dismiss();
           dispatch(hideBottomSheetAction());
 
           navigation.navigate('OTP', {
@@ -167,7 +165,6 @@ const LoginCard = props => {
       </Button>
       <TouchableOpacity
         onPress={() => {
-          // props.dismiss();
           console.log('   props.goToRegister();');
 
           props.setEmail('');

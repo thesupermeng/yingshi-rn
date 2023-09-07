@@ -51,13 +51,6 @@ export const updateUsername = async ({
   referralCode,
   bearerToken,
 }: any) => {
-  console.log('updateUsername');
-  // const userState = useAppSelector(({userReducer}: RootState) => userReducer);
-  // const bearerToken = userState.userToken;
-
-  console.log('bearerToken');
-  console.log(bearerToken);
-
   // Define your request headers
   const headers = {
     Authorization: `Bearer ${bearerToken}`,
@@ -77,6 +70,9 @@ export const updateUsername = async ({
 };
 
 export const getUserDetails = async ({bearerToken}: any) => {
+  if (bearerToken == '') {
+    return null;
+  }
   // Define your request headers
   const headers = {
     Authorization: `Bearer ${bearerToken}`,
