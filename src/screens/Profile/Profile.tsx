@@ -41,10 +41,6 @@ import VipArrow from '../../../static/images/vip-arrow.svg';
 import UpgradeIcon from '../../../static/images/upgrade.svg';
 import RightArrow from '../../../static/images/right-arrow-yellow.svg';
 
-import {Login} from '../../components/profile/login';
-import {Register} from '../../components/profile/register';
-import {GobalModal} from '../../components/profile/globalModal';
-
 import BottomSheet from '@gorhom/bottom-sheet';
 
 import {
@@ -345,63 +341,6 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
           subtitle3=""
         />
       </ScreenContainer>
-
-      <SignUpOrLogin
-        show={signUpOrLogin}
-        actionType={actionType}
-        dismiss={() => {
-          setSignUpOrLogin(false);
-        }}
-        goToRegister={() => {
-          console.log('goToRegister');
-          setSignUpOrLogin(false);
-          setActionType('register');
-          setSignUpOrLogin(true);
-        }}
-        goToLogin={() => {
-          console.log('go to login');
-          setSignUpOrLogin(false);
-          setActionType('login');
-          setSignUpOrLogin(true);
-        }}
-        emailValid={emailValid}
-        setEmail={setEmail}
-        email={email}
-        navigator={navigator}
-      />
-    </>
-  );
-};
-
-const SignUpOrLogin = (props: any) => {
-  const {height} = useWindowDimensions();
-
-  return (
-    <>
-      {props.actionType == 'login' && (
-        <GobalModal
-          show={props.show}
-          dismiss={props.dismiss}
-          actionType={props.actionType}
-          heightFloat={height < 650 ? 0.42 : 0.4}>
-          <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-            <Login dismiss={props.dismiss} goToRegister={props.goToRegister} />
-          </KeyboardAvoidingView>
-        </GobalModal>
-      )}
-      {props.actionType == 'register' && (
-        <GobalModal
-          show={props.show}
-          dismiss={props.dismiss}
-          actionType={props.actionType}
-          heightFloat={height < 650 ? 0.42 : 0.4}>
-          <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-            <Register dismiss={props.dismiss} goToLogin={props.goToLogin} />
-          </KeyboardAvoidingView>
-        </GobalModal>
-      )}
     </>
   );
 };

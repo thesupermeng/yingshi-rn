@@ -228,8 +228,7 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}>
-                <Text style={{fontSize: 14}}>
-                  {' '}
+                <Text style={{fontSize: 14, color: '#9C9C9C'}}>
                   {userState.userReferrerName}
                 </Text>
               </View>
