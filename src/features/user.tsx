@@ -9,8 +9,6 @@ let user_token = '';
 let refresh_token = '';
 // new code
 export const registerUser = async ({email, referral_code, otp}: any) => {
-  console.log('registerUser');
-
   let deviceId = await DeviceInfo.getUniqueId();
   if (typeof deviceId !== 'string') {
     deviceId = JSON.stringify(deviceId);
@@ -32,17 +30,12 @@ export const registerUser = async ({email, referral_code, otp}: any) => {
 };
 
 export const loginUser = async ({email, otp}: any) => {
-  console.log('registerUser');
-
   let json = {
     email: email,
     otp: otp,
   };
-  console.log('json');
-  console.log(json);
+
   let result = await axios.post(API_DOMAIN_TEST + 'users/v1/login', json);
-  console.log('result');
-  console.log(result);
   return result;
 };
 

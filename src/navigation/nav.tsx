@@ -246,7 +246,6 @@ export default () => {
   const sheetRefLogin = useRef<BottomSheet>(null);
   const sheetRefRegister = useRef<BottomSheet>(null);
   useEffect(() => {
-    console.log('screenState in nav');
     if (screenState.screenShow != false) {
       dispatch(removeScreenAction());
       setTimeout(() => {
@@ -281,7 +280,7 @@ export default () => {
 
   // vip remaining day dialog
   const [showVIPOverlay, setShowVIPOverlay] = useState(false);
-  const [vipRemainingDay, setVipRemainingDay] = useState(-1);
+  const [vipRemainingDay, setVipRemainingDay] = useState(0);
   useEffect(() => {
     // Assuming you have the two timestamps
     const date1Timestamp = userState.userCurrentTimestamp;
@@ -307,10 +306,17 @@ export default () => {
     setVipRemainingDay(result);
 
     if (
-      vipRemainingDay <= 3 &&
-      vipRemainingDay >= 0 &&
+      result <= 3 &&
+      roundedTimeDifferenceDays >= 0 &&
       userState.userToken != ''
     ) {
+      console.log('debug');
+      console.log(vipRemainingDay);
+      console.log(date1Timestamp);
+      console.log(date2Timestamp);
+      console.log(roundedTimeDifferenceDays);
+      console.log(userState.userToken);
+
       setShowVIPOverlay(true);
     }
   }, [userState]);
