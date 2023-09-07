@@ -36,6 +36,7 @@ import {changeScreenAction} from '../../redux/actions/screenAction';
 import NotificationModal from '../../components/modal/notificationModal';
 import {getUserDetails, updateUsername} from '../../features/user';
 import {
+  updateUserAuth,
   updateUsernameState,
   updateUserReferral,
 } from '../../redux/actions/userAction';
@@ -95,7 +96,7 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
       return;
     }
     let resultData = result.data.data;
-    await dispatch(updateUserReferral(resultData.user.referrer_name));
+    await dispatch(updateUserAuth(resultData));
 
     return;
   };
@@ -347,7 +348,7 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
               }
 
               let resultData = result.data.data;
-              await dispatch(updateUserReferral(resultData.user.referrer_name));
+              await dispatch(updateUserAuth(resultData));
               setUsername(resultData.user.user_name);
               setInitialUsername(resultData.user.user_name);
             } else {

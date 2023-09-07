@@ -139,6 +139,7 @@ const OtpInputs = props => {
           userTotalInvite: resultData.user.total_invited_user,
           userAccumulateRewardDay: resultData.user.accumulated_vip_reward_days,
           userAllowUpdateReferral: resultData.user.eligible_update_referrer,
+          userCurrentTimestamp: resultData.user.current_timestamp,
           userInvitedUserList: resultData.user.invited_users,
         };
         await dispatch(addUserAuthState(json));

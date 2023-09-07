@@ -82,7 +82,8 @@ import BottomSheet from '@gorhom/bottom-sheet';
 import {YingshiDarkTheme, YingshiLightTheme} from '../utility/theme';
 import {userModel} from '../types/userType';
 import {getUserDetails} from '../features/user';
-import {updateUserReferral} from '../redux/actions/userAction';
+import {updateUserAuth, updateUserReferral} from '../redux/actions/userAction';
+import ExpiredOverlay from '../components/modal/expiredOverlay';
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -228,8 +229,7 @@ export default () => {
     }
 
     let resultData = result.data.data;
-    await dispatch(updateUserReferral(resultData.user.referrer_name));
-
+    await dispatch(updateUserAuth(resultData));
     return;
   };
 
@@ -252,7 +252,6 @@ export default () => {
       setTimeout(() => {
         setIsDialogOpen(true);
       }, 50);
-
       setGifKey(prevKey => prevKey + 1);
       setTimeout(() => {
         setIsDialogOpen(false);
@@ -261,37 +260,60 @@ export default () => {
 
     if (screenState.loginShow == true) {
       dispatch(hideLoginAction());
-
       sheetRefRegister.current?.close();
       sheetRefLogin.current?.snapToIndex(1);
     }
     if (screenState.registerShow == true) {
       dispatch(hideRegisterAction());
-
       sheetRefLogin.current?.close();
       sheetRefRegister.current?.snapToIndex(1);
     }
-
     if (screenState.resetBottomSheet == true) {
       dispatch(resetBottomSheetAction());
-
       sheetRefLogin.current?.close();
       sheetRefRegister.current?.close();
     }
-
-    // if (screenState.registerShow == false) {
-    //   dispatch(hideRegisterAction());
-    // }
-
-    // if (screenState.loginShow == false) {
-    //   dispatch(hideLoginAction());
-    // }
   }, [screenState]);
 
   useEffect(() => {
-    console.log('refreshUserState upon enter');
     refreshUserState();
   }, []);
+
+  // vip remaining day dialog
+  const [showVIPOverlay, setShowVIPOverlay] = useState(false);
+  const [vipRemainingDay, setVipRemainingDay] = useState(-1);
+  useEffect(() => {
+    // Assuming you have the two timestamps
+    const date1Timestamp = userState.userCurrentTimestamp;
+    const date2Timestamp = userState.userMemberExpired;
+
+    // Convert Unix timestamps to milliseconds (multiply by 1000)
+    const date1Milliseconds = Number(date1Timestamp) * 1000;
+    const date2Milliseconds = Number(date2Timestamp) * 1000;
+
+    // Calculate the time difference in milliseconds
+    const timeDifferenceMilliseconds = date2Milliseconds - date1Milliseconds;
+
+    // Calculate the time difference in days
+    const timeDifferenceDays =
+      timeDifferenceMilliseconds / (1000 * 60 * 60 * 24);
+
+    // Round the time difference to the nearest whole number
+    const roundedTimeDifferenceDays = Math.round(timeDifferenceDays);
+
+    // If the rounded difference is less than 0, set it to 0; otherwise, keep the rounded difference
+    const result =
+      roundedTimeDifferenceDays < 0 ? 0 : roundedTimeDifferenceDays;
+    setVipRemainingDay(result);
+
+    if (
+      vipRemainingDay <= 3 &&
+      vipRemainingDay >= 0 &&
+      userState.userToken != ''
+    ) {
+      setShowVIPOverlay(true);
+    }
+  }, [userState]);
 
   return (
     <SafeAreaProvider>
@@ -389,6 +411,11 @@ export default () => {
         </Stack.Navigator>
         <LoginBottomSheet sheetRef={sheetRefLogin} />
         <RegisterBottomSheet sheetRef={sheetRefRegister} />
+        <ExpiredOverlay
+          remainingDay={vipRemainingDay}
+          showVIPOverlay={showVIPOverlay}
+          setShowVIPOverlay={setShowVIPOverlay}
+        />
       </NavigationContainer>
       <Dialog
         isVisible={isDialogOpen}

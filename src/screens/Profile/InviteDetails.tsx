@@ -33,7 +33,10 @@ import LinearGradient from 'react-native-linear-gradient';
 import {userModel} from '../../types/userType';
 import {useAppSelector} from '../../hooks/hooks';
 import {getUserDetails} from '../../features/user';
-import {updateUserReferral} from '../../redux/actions/userAction';
+import {
+  updateUserAuth,
+  updateUserReferral,
+} from '../../redux/actions/userAction';
 import {useDispatch} from 'react-redux';
 export default ({navigation}: RootStackScreenProps<'邀请'>) => {
   const {colors, textVariants, icons, spacing} = useTheme();
@@ -51,7 +54,7 @@ export default ({navigation}: RootStackScreenProps<'邀请'>) => {
       return;
     }
     let resultData = result.data.data;
-    await dispatch(updateUserReferral(resultData.user.referrer_name));
+    await dispatch(updateUserAuth(resultData));
 
     return;
   };

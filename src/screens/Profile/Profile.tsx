@@ -52,7 +52,11 @@ import {
 import {userModel} from '../../types/userType';
 import NotificationModal from '../../components/modal/notificationModal';
 import {getUserDetails} from '../../features/user';
-import {updateUserReferral} from '../../redux/actions/userAction';
+import {
+  updateUserAuth,
+  updateUserReferral,
+} from '../../redux/actions/userAction';
+import ExpiredOverlay from '../../components/modal/expiredOverlay';
 
 export default ({navigation, route}: BottomTabScreenProps<any>) => {
   const sheetRef = useRef<BottomSheet>(null);
@@ -88,7 +92,7 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
       return;
     }
     let resultData = result.data.data;
-    await dispatch(updateUserReferral(resultData.user.referrer_name));
+    await dispatch(updateUserAuth(resultData));
 
     return;
   };

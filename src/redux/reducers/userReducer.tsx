@@ -1,9 +1,9 @@
 import {userModel} from '../../types/userType';
 
-export interface UserActionType {
-  type: string;
-  payload: userModel;
-}
+// export interface UserActionType {
+//   type: string;
+//   payload: userModel;
+// }
 
 const initialState: userModel = {
   userToken: '',
@@ -18,12 +18,10 @@ const initialState: userModel = {
   userAccumulateRewardDay: 0,
   userAllowUpdateReferral: false,
   userInvitedUserList: [],
+  userCurrentTimestamp: '',
 };
 
-export function userReducer(state = initialState, action: UserActionType) {
-  console.log('userReducer general');
-  console.log(state);
-  console.log(action);
+export function userReducer(state = initialState, action: any) {
   switch (action.type) {
     case 'remove_user_auth':
       return {
@@ -39,10 +37,12 @@ export function userReducer(state = initialState, action: UserActionType) {
         userAccumulateRewardDay: 0,
         userAllowUpdateReferral: false,
         userInvitedUserList: [],
+        userCurrentTimestamp: '',
       };
     case 'add_user_auth':
       console.log('add_user_auth reducer');
       console.log(state);
+
       let json = {
         userToken: action.payload.userToken,
         userId: action.payload.userId,
@@ -55,15 +55,39 @@ export function userReducer(state = initialState, action: UserActionType) {
         userTotalInvite: action.payload.userTotalInvite,
         userAccumulateRewardDay: action.payload.userAccumulateRewardDay,
         userAllowUpdateReferral: action.payload.userAllowUpdateReferral,
+        userCurrentTimestamp: action.payload.userCurrentTimestamp,
         userInvitedUserList: action.payload.userInvitedUserList
           ? action.payload.userInvitedUserList
           : [],
       };
-      console.log('stored user state');
-      console.log(json);
+
       return {
         ...json,
       };
+    case 'update_user_auth':
+      console.log('update_user_auth');
+      // console.log(state);
+      // console.log(action.payload);
+      let updatedState = {
+        userName: action.payload.user.user_name,
+        userReferralCode: action.payload.user.user_referral_code,
+        userEmail: action.payload.user.user_email,
+        userMemberExpired: action.payload.user.user_end_time,
+        userReferrerName: action.payload.user.referrer_name,
+        userEndDaysCount: action.payload.user.user_end_time_duration_days,
+        userTotalInvite: action.payload.user.total_invited_user,
+        userAccumulateRewardDay:
+          action.payload.user.accumulated_vip_reward_days,
+        userAllowUpdateReferral: action.payload.user.eligible_update_referrer,
+        userCurrentTimestamp: action.payload.user.current_timestamp,
+        userInvitedUserList: action.payload.user.invited_users,
+      };
+
+      return {
+        ...state,
+        ...updatedState,
+      };
+
     case 'update_user_username':
       console.log('update_user_username reducer');
       return {
@@ -76,7 +100,6 @@ export function userReducer(state = initialState, action: UserActionType) {
         userReferrerName: action.payload,
       };
     default:
-      console.log('default');
       return state;
   }
 }

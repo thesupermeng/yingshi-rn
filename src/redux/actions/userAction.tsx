@@ -18,3 +18,8 @@ export const updateUserReferral = (referral: string) => ({
   type: 'update_user_referral',
   payload: referral,
 });
+
+export const updateUserAuth = (updatedState: any) => ({
+  type: 'update_user_auth',
+  payload: updatedState,
+});

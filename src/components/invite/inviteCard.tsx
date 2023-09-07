@@ -57,23 +57,29 @@ export default function InviteCard({userState = {}}: Props) {
 
   const [vipRemainingDay, setVipRemainingDay] = useState(0);
   useEffect(() => {
-    // Assuming userState.userMemberExpired is in seconds
-    const userMemberExpiredInSeconds = Number(userState.userMemberExpired);
-    const userMemberExpiredDate = new Date(userMemberExpiredInSeconds * 1000);
+    // Assuming you have the two timestamps
+    const date1Timestamp = userState.userCurrentTimestamp;
+    const date2Timestamp = userState.userMemberExpired;
 
-    // Get today's date
-    const currentDate = new Date();
-    // currentDate.setDate(currentDate.getDate() + 1);
-    // Calculate the difference in milliseconds
-    const timeDifference =
-      userMemberExpiredDate.getTime() - currentDate.getTime();
+    // Convert Unix timestamps to milliseconds (multiply by 1000)
+    const date1Milliseconds = Number(date1Timestamp) * 1000;
+    const date2Milliseconds = Number(date2Timestamp) * 1000;
 
-    // Calculate the difference in days, ensuring it's not smaller than 0
-    const daysDifference = Math.max(
-      Math.ceil(timeDifference / (1000 * 60 * 60 * 24)),
-      0,
-    );
-    setVipRemainingDay(daysDifference);
+    // Calculate the time difference in milliseconds
+    const timeDifferenceMilliseconds = date2Milliseconds - date1Milliseconds;
+
+    // Calculate the time difference in days
+    const timeDifferenceDays =
+      timeDifferenceMilliseconds / (1000 * 60 * 60 * 24);
+
+    // Round the time difference to the nearest whole number
+    const roundedTimeDifferenceDays = Math.round(timeDifferenceDays);
+
+    // If the rounded difference is less than 0, set it to 0; otherwise, keep the rounded difference
+    const result =
+      roundedTimeDifferenceDays < 0 ? 0 : roundedTimeDifferenceDays;
+
+    setVipRemainingDay(result);
   }, []);
 
   useEffect(() => {
@@ -310,6 +316,7 @@ export default function InviteCard({userState = {}}: Props) {
         <TouchableOpacity
           onPress={() => {
             if (userState.userToken == '') {
+              console.log('toggle login');
               dispatch(showLoginAction());
               // console.log('props{');
               // setActionType('login');
@@ -421,6 +428,7 @@ export default function InviteCard({userState = {}}: Props) {
           <TouchableOpacity
             onPress={() => {
               if (userState.userToken == '') {
+                console.log('toggle login');
                 dispatch(showLoginAction());
                 // console.log('props{');
                 // setActionType('login');
