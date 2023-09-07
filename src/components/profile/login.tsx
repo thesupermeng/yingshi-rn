@@ -119,15 +119,11 @@ const LoginCard = props => {
         // disabled={props.email === '' || !props.emailValid}
         style={[
           styles.continueButtonStyle,
-          props.email === '' || !props.emailValid
-            ? styles.btnInactive
-            : styles.btnActive,
+          props.email === '' ? styles.btnInactive : styles.btnActive,
         ]}
         activeStyle={[
           styles.continueButtonStyle,
-          props.email === '' || !props.emailValid
-            ? styles.btnInactive
-            : styles.btnActive,
+          props.email === '' ? styles.btnInactive : styles.btnActive,
         ]}
         //disabled={!props.emailValid}
         onPress={async () => {
@@ -164,7 +160,7 @@ const LoginCard = props => {
             fontWeight: '600',
             fontSize: 14,
             letterSpacing: 0.2,
-            color: props.email === '' || !props.emailValid ? 'white' : '#000',
+            color: props.email === '' ? 'white' : '#000',
           }}>
           登录
         </Text>

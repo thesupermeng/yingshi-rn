@@ -6,6 +6,7 @@ import {
   TextInput,
   Image,
   Clipboard,
+  Linking,
 } from 'react-native';
 import {useNavigation, useTheme} from '@react-navigation/native';
 
@@ -33,7 +34,6 @@ import {userModel} from '../../types/userType';
 import {useAppDispatch} from '../../hooks/hooks';
 import {showLoginAction} from '../../redux/actions/screenAction';
 import Share from 'react-native-share';
-import WXShare from 'react-native-wx';
 import {INVITE_DOMAIN} from '../../utility/constants';
 import NotificationModal from '../modal/notificationModal';
 interface Props {
@@ -72,16 +72,22 @@ export default function InviteCard({userState = {}}: Props) {
       dispatch(showLoginAction());
       return;
     }
-    try {
-      await Share.shareSingle({
-        ...shareOptions,
-        social: Share.Social.WHATSAPP,
-        // Specify the package name of WhatsApp
-        //  packageName: 'com.whatsapp',
+    const url =
+      'https://wa.me/?text=' +
+      shareOptions.message +
+      '%0D%0A' +
+      shareOptions.url; // Replace with your desired URL
+    Linking.openURL(url)
+      .then(supported => {
+        if (!supported) {
+          console.error(`Cannot open URL: ${url}`);
+        } else {
+          console.log(`Opened URL: ${url}`);
+        }
+      })
+      .catch(error => {
+        console.error('Error opening URL:', error);
       });
-    } catch (error) {
-      console.log('Error sharing link', error);
-    }
   };
 
   const shareToTelegram = async () => {
@@ -89,16 +95,63 @@ export default function InviteCard({userState = {}}: Props) {
       dispatch(showLoginAction());
       return;
     }
-    try {
-      await Share.shareSingle({
-        ...shareOptions,
-        social: Share.Social.TELEGRAM,
-        // Specify the package name of WhatsApp
-        //  packageName: 'com.whatsapp',
+    const message = shareOptions.message + '%0D%0A' + shareOptions.url;
+    const appURL = `tg://msg?text=${message}`;
+    const webURL = `https://t.me/share/url?url=${message}`;
+
+    Linking.canOpenURL(webURL)
+      .then(supported => {
+        if (supported) {
+          console.log('supported telegram web');
+          // Open the Telegram app
+          Linking.openURL(webURL);
+        } else {
+          console.log('not supported telegram web');
+          // Fallback to the web link
+          Linking.openURL(appURL);
+        }
+      })
+      .catch(error => {
+        console.error('Error checking app URL:', error);
       });
-    } catch (error) {
-      console.log('Error sharing link', error);
+  };
+
+  const shareToWeixin = async () => {
+    if (userState.userToken === '') {
+      dispatch(showLoginAction());
+      return;
     }
+    const message = encodeURIComponent(
+      shareOptions.message + '\n' + shareOptions.url,
+    );
+    const appURL = `weixin://send?text=${message}`;
+
+    Linking.canOpenURL(appURL)
+      .then(supported => {
+        if (supported) {
+          // Open the WeChat app
+          Linking.openURL(appURL);
+        } else {
+          console.log('WeChat app not installed.');
+          //  toggleShare();
+        }
+      })
+      .catch(error => {
+        console.log('Error checking app URL:', error);
+      });
+  };
+
+  const shareToWeibo = async () => {
+    if (userState.userToken === '') {
+      dispatch(showLoginAction());
+      return;
+    }
+    const message = encodeURIComponent(
+      shareOptions.message + '\n' + shareOptions.url,
+    );
+    const appURL = `http://service.weibo.com/share/share.php?url=${message}`;
+
+    Linking.openURL(appURL);
   };
 
   const shareToFacebook = async () => {
@@ -110,9 +163,10 @@ export default function InviteCard({userState = {}}: Props) {
       await Share.shareSingle({
         ...shareOptions,
         social: Share.Social.FACEBOOK,
-        // Specify the package name of WhatsApp
-        //  packageName: 'com.whatsapp',
       });
+      // Linking.openURL(
+      //   'https://www.facebook.com/sharer/sharer.php?u=' + '' + shareOptions.url,
+      // );
     } catch (error) {
       console.error('Error sharing link', error);
     }
@@ -127,8 +181,6 @@ export default function InviteCard({userState = {}}: Props) {
       await Share.shareSingle({
         ...shareOptions,
         social: Share.Social.TWITTER,
-        // Specify the package name of WhatsApp
-        //  packageName: 'com.whatsapp',
       });
     } catch (error) {
       console.log('Error sharing link', error);
@@ -278,7 +330,7 @@ export default function InviteCard({userState = {}}: Props) {
             <FacebookIcn />
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={toggleShare}>
+          <TouchableOpacity onPress={shareToWeixin}>
             <WechatIcn />
           </TouchableOpacity>
 
@@ -293,7 +345,7 @@ export default function InviteCard({userState = {}}: Props) {
             />
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={shareToWhatsApp}>
+          <TouchableOpacity onPress={shareToWeibo}>
             <WeiboIcn />
           </TouchableOpacity>
 
