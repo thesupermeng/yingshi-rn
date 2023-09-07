@@ -41,7 +41,6 @@ export function screenReducer(state = initialState, action: screenActionType) {
         loginShow: false,
       };
     case 'show_register_action':
-      console.log('show_register_action');
       return {
         ...state,
         registerShow: true,
