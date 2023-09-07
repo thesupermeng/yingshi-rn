@@ -125,7 +125,7 @@ export default function InviteCard({userState = {}}: Props) {
       shareOptions.message + '\n' + shareOptions.url,
     );
     const appURL = `weixin://send?text=${message}`;
-
+    //https://stackoverflow.com/questions/45005036/is-there-any-method-to-share-text-from-mobile-web-to-wechat-by-sharing-button
     Linking.canOpenURL(appURL)
       .then(supported => {
         if (supported) {
@@ -133,7 +133,7 @@ export default function InviteCard({userState = {}}: Props) {
           Linking.openURL(appURL);
         } else {
           console.log('WeChat app not installed.');
-          //  toggleShare();
+          toggleShare();
         }
       })
       .catch(error => {
