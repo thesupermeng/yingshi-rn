@@ -74,7 +74,19 @@ const RecommendationHome = ({
   const [width, setWidth] = useState(Dimensions.get('window').width);
   useEffect(() => {
     setWidth(Number(Dimensions.get('window').width));
+    setTimeout(() => {
+      setWidth(Number(Dimensions.get('window').width));
+    }, 1000);
   }, []);
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      // when the user leaves the screen, close bottom sheet
+      setWidth(Number(Dimensions.get('window').width));
+    });
+    return unsubscribe;
+  }, [navigation]);
+
   // Function to handle the pull-to-refresh action
   const handleRefresh = async () => {
     setIsRefreshing(true);
