@@ -102,7 +102,7 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
   useEffect(() => {
     refreshUserState();
     setUsername(userState.userName);
-    setInitialUsername(userState.userName.toLocaleUpperCase());
+    setInitialUsername(userState.userName);
     // setReferral(userState.userReferrerName);
   }, []);
 
@@ -353,7 +353,9 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
             } else {
               await dispatch(updateUsernameState(username));
               setUsername(username);
-              setInitialUsername(username.toUpperCase());
+              setInitialUsername(username);
+              console.log('userState');
+              console.log(userState);
             }
             Keyboard.dismiss();
             dispatch(changeScreenAction('修改成功'));
