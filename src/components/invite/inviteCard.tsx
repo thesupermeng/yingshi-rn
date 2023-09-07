@@ -63,7 +63,7 @@ export default function InviteCard({userState = {}}: Props) {
     setShareOptions({
       ...shareOptions,
       message: '现在加入影视TV,一起赚VIP,免费看高清影视',
-      url: INVITE_DOMAIN + inviteParam,
+      url: INVITE_DOMAIN + encodedAuth,
     });
   }, []);
 
@@ -351,7 +351,9 @@ export default function InviteCard({userState = {}}: Props) {
 
           <TouchableOpacity
             onPress={() => {
-              Clipboard.setString(shareOptions.message);
+              Clipboard.setString(
+                shareOptions.message + ' ' + shareOptions.url,
+              );
               setIsDialogOpen(true);
             }}>
             <CopyIcn />
