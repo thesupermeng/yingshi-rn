@@ -26,8 +26,17 @@ const appReducer = combineReducers({
 
 export default (state: any, action: any) => {
   if (action.type === CLEAR_STORAGE_MEMORY) {
+    // Define the reducers you want to keep in the new state
+    const {screenReducer, userReducer} = state;
+
+    // Create a new state object with only the desired reducers
+    state = {
+      screenReducer,
+      userReducer,
+    };
+
+    // Remove the data from AsyncStorage
     AsyncStorage.removeItem('persist:root');
-    return appReducer(undefined, action);
   }
   return appReducer(state, action);
 };

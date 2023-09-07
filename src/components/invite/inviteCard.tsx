@@ -55,6 +55,27 @@ export default function InviteCard({userState = {}}: Props) {
     setIsDialogOpen(!isDialogOpen);
   };
 
+  const [vipRemainingDay, setVipRemainingDay] = useState(0);
+  useEffect(() => {
+    // Assuming userState.userMemberExpired is in seconds
+    const userMemberExpiredInSeconds = Number(userState.userMemberExpired);
+    const userMemberExpiredDate = new Date(userMemberExpiredInSeconds * 1000);
+
+    // Get today's date
+    const currentDate = new Date();
+    // currentDate.setDate(currentDate.getDate() + 1);
+    // Calculate the difference in milliseconds
+    const timeDifference =
+      userMemberExpiredDate.getTime() - currentDate.getTime();
+
+    // Calculate the difference in days, ensuring it's not smaller than 0
+    const daysDifference = Math.max(
+      Math.ceil(timeDifference / (1000 * 60 * 60 * 24)),
+      0,
+    );
+    setVipRemainingDay(daysDifference);
+  }, []);
+
   useEffect(() => {
     const inviteParam = userState.userReferralCode + userState.userName;
 
@@ -228,9 +249,9 @@ export default function InviteCard({userState = {}}: Props) {
               gap: 10,
             }}>
             <Text style={{color: '#ffffff', fontSize: 28, fontWeight: '700'}}>
-              VIP {userState.userAccumulateRewardDay}天
+              VIP {vipRemainingDay}天
             </Text>
-            <Text style={{color: '#9C9C9C'}}>当前累计奖励</Text>
+            <Text style={{color: '#9C9C9C'}}>当前剩余天数</Text>
           </View>
 
           <FastImage
