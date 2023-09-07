@@ -81,7 +81,7 @@ const RecommendationHome = ({
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
-      // when the user leaves the screen, close bottom sheet
+      // when open App in landscape view
       setWidth(Number(Dimensions.get('window').width));
     });
     return unsubscribe;
