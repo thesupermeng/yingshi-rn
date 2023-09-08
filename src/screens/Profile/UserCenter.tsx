@@ -145,6 +145,7 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
                   justifyContent: 'flex-start',
                   alignItems: 'center',
                   flexDirection: 'row',
+                  paddingRight: 40,
                 }}>
                 {errUsername != '' && (
                   <>

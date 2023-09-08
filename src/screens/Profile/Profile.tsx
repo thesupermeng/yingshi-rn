@@ -111,20 +111,6 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
     return unsubscribe;
   }, [navigator]);
 
-  useEffect(() => {
-    const date = new Date(Number(userState.userMemberExpired) * 1000); // Multiply by 1000 to convert from seconds to milliseconds
-    // Extract year, month, and day
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1; // Months are 0-based, so add 1
-    const day = date.getDate();
-
-    setDisplayedDate(`${year}年${month}月${day}日`);
-  }, [userState.userMemberExpired]);
-
-  // useEffect(() => {
-  //   refreshUserState();
-  // }, []);
-
   useFocusEffect(
     useCallback(() => {
       Orientation.lockToPortrait();
@@ -153,6 +139,20 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
     );
   };
 
+  useEffect(() => {
+    const date = new Date(Number(userState.userMemberExpired) * 1000); // Multiply by 1000 to convert from seconds to milliseconds
+    //Extract year, month, and day
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1; // Months are 0-based, so add 1
+    const day = date.getDate();
+
+    setDisplayedDate(`${year}年${month}月${day}日`);
+  }, [userState.userMemberExpired]);
+
+  // useEffect(() => {
+  //   console.log('asd');
+  //   refreshUserState();
+  // }, []);
   return (
     <>
       <ScrollView
@@ -222,7 +222,10 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
                       justifyContent: 'flex-start',
                       alignItems: 'center',
                     }}>
-                    <Text style={{color: '#ffffff', fontSize: 20}}>
+                    <Text
+                      style={{color: '#ffffff', fontSize: 20}}
+                      numberOfLines={1}
+                      ellipsizeMode="tail">
                       {userState.userName}
                     </Text>
                     {userState.userMemberExpired != '0' && (

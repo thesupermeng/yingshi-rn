@@ -124,8 +124,11 @@ export default ({navigation}: RootStackScreenProps<'邀请'>) => {
                     paddingHorizontal: 20,
                     paddingVertical: 15,
                   }}>
-                  <View>
-                    <Text style={{fontSize: 16, color: '#fff'}}>
+                  <View style={{flex: 1, paddingRight: 10}}>
+                    <Text
+                      style={{fontSize: 16, color: '#fff'}}
+                      numberOfLines={1}
+                      ellipsizeMode="tail">
                       {item.user_name} 接受了您的邀请
                     </Text>
                     <Text style={{color: '#9c9c9c'}}>{item.created_at}</Text>
@@ -136,7 +139,12 @@ export default ({navigation}: RootStackScreenProps<'邀请'>) => {
                       justifyContent: 'center',
                       alignContent: 'center',
                     }}>
-                    <Text style={{color: colors.primary, fontSize: 16}}>
+                    <Text
+                      style={{
+                        color: colors.primary,
+                        fontSize: 16,
+                        flex: 1,
+                      }}>
                       +{item.invited_vip_reward_day}天
                     </Text>
                   </View>
