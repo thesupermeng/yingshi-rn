@@ -31,17 +31,15 @@ export const CLEAR_STORAGE_MEMORY = 'clear_storage_memory';
 
 export const APPSFLYER_DEVKEY = 'wrxTHihLJNWrrusXtgRJZa';
 
-// export const UMENG_CHANNEL = '10001';
-// export const UMENG_CHANNEL = '10002';
-// export const UMENG_CHANNEL = '10003';
-export const UMENG_CHANNEL = 'DEFAULT';
-// export const UMENG_CHANNEL = 'DEFAULT';
-// export const UMENG_CHANNEL = 'WEB';
-// export const UMENG_CHANNEL = 'APP_STORE';
-// export const UMENG_CHANNEL = 'GOOGLE_PLAY';
-// export const UMENG_CHANNEL = 'HUAWEI_APP_GALLERY_OVERSEAS';
-// export const UMENG_CHANNEL = 'OPPO_APP_MARKET';
-// export const UMENG_CHANNEL = 'VIVO_APP_STORE';
-// export const UMENG_CHANNEL = 'MI_GETAPPS';
+// const ALL_UMENG_CHANNELS = {
+//     'WEB': 'WEB',
+//     'GOOGLE_PLAY': 'GOOGLE_PLAY',
+//     'HUAWEI_APP_GALLERY_OVERSEAS': 'HUAWEI_APP_GALLERY_OVERSEAS',
+//     'OPPO_APP_MARKET': 'OPPO_APP_MARKET',
+//     'VIVO_APP_STORE': 'VIVO_APP_STORE',
+//     'MI_GETAPPS': 'MI_GETAPPS',
+// }
 
-export const APP_VERSION = '1.3.0';
+export const UMENG_CHANNEL = "HUAWEI_APP_GALLERY_OVERSEAS";
+
+export const APP_VERSION = "1.3.0";

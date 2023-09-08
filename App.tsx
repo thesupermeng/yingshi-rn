@@ -29,7 +29,7 @@ import Api from './src/Sports/middleware/api';
 import { Url } from './src/Sports/middleware/url';
 import { StatusBar } from 'react-native';
 
-export default function App() {
+const App = () => {
   appsFlyer.initSdk(
     {
       devKey: APPSFLYER_DEVKEY,
@@ -186,3 +186,5 @@ export default function App() {
     </QueryClientProvider>
   );
 }
+
+export default App;

@@ -1,5 +1,6 @@
 apply plugin: "com.android.application"
 apply plugin: "com.facebook.react"
+apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
 
 import com.android.build.OutputFile
 
@@ -99,16 +100,16 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 5
-        versionName "1.3.0"
-        resValue "string", "UMENG_APPKEY", '648ec50987568a379b587f39'
-        resValue "string", "UMENG_CHANNEL", 'DEFAULT'
-        resValue "string", "UMENG_CHANNEL_GENERAL", 'DEFAULT'
-        resValue "string", "UMENG_CHANNEL_YINGSHI_WEB", 'WEB'
-        resValue "string", "UMENG_CHANNEL_GOOGLE_PLAY", 'GOOGLE_PLAY'
-        resValue "string", "UMENG_CHANNEL_HUAWEI_APP_GALLERY_OVERSEAS", 'HUAWEI_APP_GALLERY_OVERSEAS'
-        resValue "string", "UMENG_CHANNEL_OPPO_APP_MARKET", 'OPPO_APP_MARKET'
-        resValue "string", "UMENG_CHANNEL_VIVO_APP_STORE", 'VIVO_APP_STORE'
-        resValue "string", "UMENG_CHANNEL_MI_GETAPPS", 'MI_GETAPPS'
+        versionName "HUAWEI_APP_GALLERY_OVERSEAS-1.3.0"
+        resValue "string", "UMENG_APPKEY", "648ec50987568a379b587f39"
+        resValue "string", "UMENG_CHANNEL", "HUAWEI_APP_GALLERY_OVERSEAS"
+        resValue "string", "UMENG_CHANNEL_GENERAL", "DEFAULT"
+        resValue "string", "UMENG_CHANNEL_YINGSHI_WEB", "WEB"
+        resValue "string", "UMENG_CHANNEL_GOOGLE_PLAY", "GOOGLE_PLAY"
+        resValue "string", "UMENG_CHANNEL_HUAWEI_APP_GALLERY_OVERSEAS", "HUAWEI_APP_GALLERY_OVERSEAS"
+        resValue "string", "UMENG_CHANNEL_OPPO_APP_MARKET", "OPPO_APP_MARKET"
+        resValue "string", "UMENG_CHANNEL_VIVO_APP_STORE", "VIVO_APP_STORE"
+        resValue "string", "UMENG_CHANNEL_MI_GETAPPS", "MI_GETAPPS"
     }
 
     splits {
@@ -161,8 +162,22 @@ android {
                         defaultConfig.versionCode * 1000 + versionCodes.get(abi)
             }
 
+            // def umengChannel = android.defaultConfig.resValue.UMENG_CHANNEL
+
+            // output.outputFile = new File(
+            //     output.outputFile.parent,
+            //     output.outputFile.name.replace(".apk", "-${variant.versionName}.apk"))
+        }
+        variant.outputs.all {
+            outputFileName = "yingshi-${variant.versionName}.apk"
         }
     }
+}
+
+task moveApk(type: Copy) {
+    from 'build/outputs/apk/debug/'
+    into 'all-apk-versions/'
+    include '**/*.apk'
 }
 
 repositories{
