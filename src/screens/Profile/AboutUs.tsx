@@ -16,7 +16,7 @@ import {Button} from '@rneui/themed';
 import ShowMoreButton from '../../components/button/showMoreButton';
 import Logo2 from '../../../static/images/logo2.svg';
 import NotificationModal from '../../components/modal/notificationModal';
-import { APP_VERSION } from '../../../src/utility/constants';
+import {APP_VERSION} from '../../../src/utility/constants';
 
 export default ({navigation}: RootStackScreenProps<'关于我们'>) => {
   const {colors, textVariants, icons, spacing} = useTheme();
@@ -43,7 +43,9 @@ export default ({navigation}: RootStackScreenProps<'关于我们'>) => {
         <View style={styles.logo}>
           <Logo2 height={icons.sizes.xxl} width={icons.sizes.xxl} />
         </View>
-        <Text style={{textAlign: 'center', ...textVariants.body}}>{APP_VERSION}</Text>
+        <Text style={{textAlign: 'center', ...textVariants.body}}>
+          {APP_VERSION}
+        </Text>
         <NotificationModal
           onConfirm={toggleOverlay}
           isVisible={isDialogOpen}
@@ -53,8 +55,14 @@ export default ({navigation}: RootStackScreenProps<'关于我们'>) => {
           subtitle3="contactus@yingshi.tv"
         />
         <View>
-          {/* <ShowMoreButton text='隐私政策' onPress={() => navigation.navigate('用户协议')} />
-                    <ShowMoreButton text='用户协议' onPress={() => navigation.navigate('隐私政策')} /> */}
+          <ShowMoreButton
+            text="隐私政策"
+            onPress={() => navigation.navigate('隐私政策')}
+          />
+          <ShowMoreButton
+            text="用户协议"
+            onPress={() => navigation.navigate('用户协议')}
+          />
           <ShowMoreButton
             text="版权声明"
             onPress={() => setIsDialogOpen(!isDialogOpen)}

@@ -140,11 +140,20 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
   };
 
   useEffect(() => {
-    const date = new Date(Number(userState.userMemberExpired) * 1000); // Multiply by 1000 to convert from seconds to milliseconds
+    let date = new Date(Number(userState.userMemberExpired) * 1000); // Multiply by 1000 to convert from seconds to milliseconds
     //Extract year, month, and day
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1; // Months are 0-based, so add 1
-    const day = date.getDate();
+    let year = date.getFullYear();
+    let month = date.getMonth() + 1; // Months are 0-based, so add 1
+    let day = date.getDate();
+
+    console.log(`${year}年${month}月${day}日`);
+
+    date = new Date(Number(userState.userCurrentTimestamp) * 1000); // Multiply by 1000 to convert from seconds to milliseconds
+    //Extract year, month, and day
+    year = date.getFullYear();
+    month = date.getMonth() + 1; // Months are 0-based, so add 1
+    day = date.getDate();
+    console.log(`${year}年${month}月${day}日`);
 
     setDisplayedDate(`${year}年${month}月${day}日`);
   }, [userState.userMemberExpired]);
@@ -228,7 +237,8 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
                       ellipsizeMode="tail">
                       {userState.userName}
                     </Text>
-                    {userState.userMemberExpired != '0' && (
+                    {userState.userMemberExpired >=
+                      userState.userCurrentTimestamp && (
                       <Image
                         style={styles.iconStyle}
                         source={require('../../../static/images/profile/vip.png')}
@@ -239,7 +249,8 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
                   {/* {userState.userMemberExpired == '0' && (
                     <Text style={{fontSize: 14}}>VIP会员已经到期</Text>
                   )} */}
-                  {userState.userMemberExpired != '0' && (
+                  {userState.userMemberExpired >=
+                    userState.userCurrentTimestamp && (
                     <Text style={{color: colors.primary, fontSize: 14}}>
                       VIP会员有效日期至{displayedDate}
                     </Text>
