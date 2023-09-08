@@ -172,56 +172,57 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
             </View>
           </View>
           {/* referral input  */}
-          {userState.userReferrerName == '' && (
-            <View>
-              <InputItem
-                autoCapitalize="none"
-                style={[
-                  styles.textInpoutCommonStyle,
-                  styles.defaultTextInputStyle,
-                  referralValid
-                    ? styles.correctTextInputStyle
-                    : styles.invalidTextInputStyle,
-                ]}
-                value={referral}
-                onChange={value => {
-                  onReferralChange(value);
-                }}
-                placeholder="补填邀请码 (只能填写一次)"
-                placeholderTextColor="#B6B6B6"
-                maxLength={18}
-              />
+          {userState.userReferrerName == '' &&
+            userState.userAllowUpdateReferral == true && (
+              <View>
+                <InputItem
+                  autoCapitalize="none"
+                  style={[
+                    styles.textInpoutCommonStyle,
+                    styles.defaultTextInputStyle,
+                    referralValid
+                      ? styles.correctTextInputStyle
+                      : styles.invalidTextInputStyle,
+                  ]}
+                  value={referral}
+                  onChange={value => {
+                    onReferralChange(value);
+                  }}
+                  placeholder="补填邀请码 (只能填写一次)"
+                  placeholderTextColor="#B6B6B6"
+                  maxLength={18}
+                />
 
-              <View
-                style={{
-                  ...styles.dangerWrap,
-                }}>
                 <View
                   style={{
-                    justifyContent: 'flex-start',
-                    alignItems: 'center',
-                    flexDirection: 'row',
+                    ...styles.dangerWrap,
                   }}>
-                  {errReferral != '' && (
-                    <>
-                      <Image
-                        style={{
-                          height: 22,
-                          width: 22,
-                          marginRight: 5,
-                          position: 'relative',
-                          top: 1,
-                        }}
-                        source={require('../../../static/images/invite/danger.png')}
-                      />
+                  <View
+                    style={{
+                      justifyContent: 'flex-start',
+                      alignItems: 'center',
+                      flexDirection: 'row',
+                    }}>
+                    {errReferral != '' && (
+                      <>
+                        <Image
+                          style={{
+                            height: 22,
+                            width: 22,
+                            marginRight: 5,
+                            position: 'relative',
+                            top: 1,
+                          }}
+                          source={require('../../../static/images/invite/danger.png')}
+                        />
 
-                      <Text style={styles.danger}>{errReferral} </Text>
-                    </>
-                  )}
+                        <Text style={styles.danger}>{errReferral} </Text>
+                      </>
+                    )}
+                  </View>
                 </View>
               </View>
-            </View>
-          )}
+            )}
 
           {userState.userReferrerName != '' && (
             <View
