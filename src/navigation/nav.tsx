@@ -196,7 +196,9 @@ export default () => {
             <HomeTab.Screen name="我的" component={ProfileScreen} />
           </>
         )} */}
-        {userState.userToken != '' && (
+        {userState.userToken !== '' &&
+        userState.userMemberExpired >= userState.userCurrentTimestamp ? (
+          // Render this content if the condition is true
           <>
             <HomeTab.Screen name="首页" component={HomeScreen} />
             <HomeTab.Screen name="随心看" component={WatchAnytime} />
@@ -204,13 +206,11 @@ export default () => {
             <HomeTab.Screen name="播单" component={PlaylistScreen} />
             <HomeTab.Screen name="我的" component={ProfileScreen} />
           </>
-        )}
-
-        {userState.userToken == '' && (
+        ) : (
+          // Render this content if the condition is false (the "else" part)
           <>
             <HomeTab.Screen name="首页" component={HomeScreen} />
             <HomeTab.Screen name="随心看" component={WatchAnytime} />
-
             <HomeTab.Screen name="播单" component={PlaylistScreen} />
             <HomeTab.Screen name="我的" component={ProfileScreen} />
           </>
