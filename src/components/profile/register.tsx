@@ -1,4 +1,4 @@
-import {InputItem, Button} from '@ant-design/react-native';
+import {InputItem, Button, Radio} from '@ant-design/react-native';
 import {useNavigation, useTheme} from '@react-navigation/native';
 import {useEffect, useState} from 'react';
 import {
@@ -12,7 +12,7 @@ import {
 import {registerUser} from '../../features/user';
 import {useAppDispatch} from '../../hooks/hooks';
 import {hideBottomSheetAction} from '../../redux/actions/screenAction';
-
+import {RadioButton} from 'react-native-paper';
 export const Register = (props: any) => {
   const [emailValid, setEmailValid] = useState(true);
   const [referralCodeValid, setReferralCodeValid] = useState(true);
@@ -51,6 +51,15 @@ const LoginCard = (props: any) => {
   const {colors, textVariants, icons, spacing} = useTheme();
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
+  const [radioValue, setRadioValue] = useState('false');
+
+  const radioHandler = () => {
+    if (radioValue == 'false') {
+      setRadioValue('true');
+    } else {
+      setRadioValue('false');
+    }
+  };
   return (
     <View style={styles.card}>
       <Text style={styles.title}>欢迎注册</Text>
@@ -182,13 +191,13 @@ const LoginCard = (props: any) => {
         // disabled={props.email === '' || !props.emailValid}
         style={[
           styles.continueButtonStyle,
-          props.email === '' || !props.emailValid
+          props.email === '' || !props.emailValid || radioValue == 'false'
             ? styles.btnInactive
             : styles.btnActive,
         ]}
         activeStyle={[
           styles.continueButtonStyle,
-          props.email === '' || !props.emailValid
+          props.email === '' || !props.emailValid || radioValue == 'false'
             ? styles.btnInactive
             : styles.btnActive,
         ]}
@@ -201,6 +210,10 @@ const LoginCard = (props: any) => {
 
           //   return;
           // }
+
+          if (radioValue == 'false') {
+            return;
+          }
 
           try {
             await registerUser({
@@ -250,12 +263,30 @@ const LoginCard = (props: any) => {
             fontWeight: '600',
             fontSize: 14,
             letterSpacing: 0.2,
-            color: props.email === '' || !props.emailValid ? 'white' : '#000',
+            color:
+              props.email === '' || !props.emailValid || radioValue == 'false'
+                ? 'white'
+                : '#000',
           }}>
           注册
         </Text>
       </Button>
       <View />
+      {/* radio button section */}
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <RadioButton.Group onValueChange={radioHandler} value={radioValue}>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <RadioButton value="true" color="#FAC33D" />
+
+            <Text>First Option</Text>
+          </View>
+        </RadioButton.Group>
+      </View>
 
       <TouchableOpacity
         onPress={() => {
