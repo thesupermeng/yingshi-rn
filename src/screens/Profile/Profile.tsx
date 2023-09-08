@@ -138,11 +138,15 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
     const parts = text.split(new RegExp(`(${keyword})`, 'gi'));
     return parts.map((part, index) =>
       part.toLowerCase() === keyword.toLowerCase() ? (
-        <Text key={index} style={{...textVariants.body, color: colors.primary}}>
+        <Text
+          key={index}
+          style={{...textVariants.body, color: colors.primary, fontSize: 15}}>
           {part}
         </Text>
       ) : (
-        <Text key={index} style={{...textVariants.body, color: '#FFF0CA'}}>
+        <Text
+          key={index}
+          style={{...textVariants.body, color: '#FFF0CA', fontSize: 15}}>
           {part}
         </Text>
       ),
@@ -272,7 +276,7 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
             }}>
             <View style={styles.left}>
               <View style={styles.icon}>
-                <VipIcon />
+                <VipIcon width={icons.sizes.l} height={icons.sizes.l} />
               </View>
 
               <Text
