@@ -9,10 +9,13 @@ import {
   TouchableWithoutFeedback,
   TouchableOpacity,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons'; // You can use any icon library you prefer
+
 import {registerUser} from '../../features/user';
 import {useAppDispatch} from '../../hooks/hooks';
 import {hideBottomSheetAction} from '../../redux/actions/screenAction';
 import {RadioButton} from 'react-native-paper';
+import FastImage from 'react-native-fast-image';
 export const Register = (props: any) => {
   const [emailValid, setEmailValid] = useState(true);
   const [referralCodeValid, setReferralCodeValid] = useState(true);
@@ -51,15 +54,12 @@ const LoginCard = (props: any) => {
   const {colors, textVariants, icons, spacing} = useTheme();
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
-  const [radioValue, setRadioValue] = useState('false');
+  const [radioValue, setRadioValue] = useState(false);
 
   const radioHandler = () => {
-    if (radioValue == 'false') {
-      setRadioValue('true');
-    } else {
-      setRadioValue('false');
-    }
+    setRadioValue(!radioValue);
   };
+
   return (
     <View style={styles.card}>
       <Text style={styles.title}>欢迎注册</Text>
@@ -191,13 +191,13 @@ const LoginCard = (props: any) => {
         // disabled={props.email === '' || !props.emailValid}
         style={[
           styles.continueButtonStyle,
-          props.email === '' || !props.emailValid || radioValue == 'false'
+          props.email === '' || !props.emailValid || radioValue == false
             ? styles.btnInactive
             : styles.btnActive,
         ]}
         activeStyle={[
           styles.continueButtonStyle,
-          props.email === '' || !props.emailValid || radioValue == 'false'
+          props.email === '' || !props.emailValid || radioValue == false
             ? styles.btnInactive
             : styles.btnActive,
         ]}
@@ -211,7 +211,7 @@ const LoginCard = (props: any) => {
           //   return;
           // }
 
-          if (radioValue == 'false') {
+          if (radioValue == false) {
             return;
           }
 
@@ -253,7 +253,6 @@ const LoginCard = (props: any) => {
             referralCode: props.referralCode,
           });
           // loginApiCall({email: props.email});
-
           // props.navigator.navigate('CricketOTP', {email: props.email});
           // props.navigator.navigate('CricketEdit', {userName:'test nickname'})
         }}>
@@ -264,7 +263,7 @@ const LoginCard = (props: any) => {
             fontSize: 14,
             letterSpacing: 0.2,
             color:
-              props.email === '' || !props.emailValid || radioValue == 'false'
+              props.email === '' || !props.emailValid || radioValue == false
                 ? 'white'
                 : '#000',
           }}>
@@ -273,19 +272,49 @@ const LoginCard = (props: any) => {
       </Button>
       <View />
       {/* radio button section */}
+
       <View
         style={{
           flexDirection: 'row',
           justifyContent: 'center',
           alignItems: 'center',
+          marginTop: 12,
         }}>
-        <RadioButton.Group onValueChange={radioHandler} value={radioValue}>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <RadioButton value="true" color="#FAC33D" />
+        <TouchableOpacity onPress={radioHandler}>
+          {radioValue && (
+            <FastImage
+              source={require('../../../static/images/profile/ticked.png')}
+              style={{
+                height: 16,
+                width: 16,
+                position: 'relative',
+                top: 1,
+              }}
+              resizeMode={FastImage.resizeMode.contain}
+            />
+          )}
 
-            <Text>First Option</Text>
-          </View>
-        </RadioButton.Group>
+          {!radioValue && (
+            <FastImage
+              source={require('../../../static/images/profile/untick.png')}
+              style={{
+                height: 16,
+                width: 16,
+                position: 'relative',
+                top: 1,
+              }}
+              resizeMode={FastImage.resizeMode.contain}
+            />
+          )}
+        </TouchableOpacity>
+        <Text style={{marginLeft: 5}}>我已阅读并同意</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('用户协议')}>
+          <Text style={{color: colors.primary}}>用户协议</Text>
+        </TouchableOpacity>
+        <Text>和</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('隐私政策')}>
+          <Text style={{color: colors.primary}}>隐私协议</Text>
+        </TouchableOpacity>
       </View>
 
       <TouchableOpacity
