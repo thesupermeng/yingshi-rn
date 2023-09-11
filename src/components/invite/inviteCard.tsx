@@ -80,7 +80,7 @@ export default function InviteCard({userState = {}}: Props) {
       roundedTimeDifferenceDays < 0 ? 0 : roundedTimeDifferenceDays;
 
     setVipRemainingDay(result);
-  }, []);
+  }, [userState.userCurrentTimestamp]);
 
   useEffect(() => {
     const inviteParam = userState.userReferralCode + userState.userName;
