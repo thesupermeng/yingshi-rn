@@ -309,15 +309,15 @@ export default () => {
     if (
       result <= 3 &&
       roundedTimeDifferenceDays >= 0 &&
+      date2Timestamp > date1Timestamp &&
       userState.userToken != ''
     ) {
-      console.log('debug');
-      console.log(vipRemainingDay);
-      console.log(date1Timestamp);
-      console.log(date2Timestamp);
-      console.log(roundedTimeDifferenceDays);
-      console.log(userState.userToken);
-
+      // console.log('debug');
+      // console.log(vipRemainingDay);
+      // console.log(date1Timestamp);
+      // console.log(date2Timestamp);
+      // console.log(roundedTimeDifferenceDays);
+      // console.log(userState.userToken);
       setShowVIPOverlay(true);
     }
   }, [userState]);

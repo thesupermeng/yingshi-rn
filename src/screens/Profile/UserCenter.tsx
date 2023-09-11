@@ -6,6 +6,7 @@ import {
   TextInput,
   Image,
   Clipboard,
+  RefreshControl,
 } from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
 import {RootStackScreenProps} from '../../types/navigationTypes';
@@ -57,6 +58,13 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
   const [referralValid, setReferralValid] = useState(true);
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    await refreshUserState();
+    setRefreshing(false);
+  };
 
   const toggleOverlay = () => {
     setIsDialogOpen(!isDialogOpen);
@@ -101,7 +109,7 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
     return;
   };
   useEffect(() => {
-    refreshUserState();
+    //  refreshUserState();
     setUsername(userState.userName);
     setInitialUsername(userState.userName);
     // setReferral(userState.userReferrerName);

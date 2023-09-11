@@ -92,8 +92,8 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
       return;
     }
     let resultData = result.data.data;
+    console.log(resultData);
     await dispatch(updateUserAuth(resultData));
-
     return;
   };
 
@@ -148,12 +148,11 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
 
     console.log(`${year}年${month}月${day}日`);
 
-    date = new Date(Number(userState.userCurrentTimestamp) * 1000); // Multiply by 1000 to convert from seconds to milliseconds
-    //Extract year, month, and day
-    year = date.getFullYear();
-    month = date.getMonth() + 1; // Months are 0-based, so add 1
-    day = date.getDate();
-    console.log(`${year}年${month}月${day}日`);
+    // date = new Date(Number(userState.userCurrentTimestamp) * 1000);
+    // year = date.getFullYear();
+    // month = date.getMonth() + 1;
+    // day = date.getDate();
+    // console.log(`${year}年${month}月${day}日`);
 
     setDisplayedDate(`${year}年${month}月${day}日`);
   }, [userState.userMemberExpired]);
