@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     padding: 10,
     flexDirection: 'row',
     marginTop: 10,
-    marginBottom: 100,
+    marginBottom: 50,
   },
   textDesc: {
     fontSize: 11,

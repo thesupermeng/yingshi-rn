@@ -401,54 +401,54 @@ export default function InviteCard({userState = {}}: Props) {
           />
         </View>
         {/* stat section  */}
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            backgroundColor: '#222528',
-            paddingHorizontal: 15,
-            alignItems: 'center',
-            paddingVertical: 15,
+        <TouchableOpacity
+          onPress={() => {
+            if (userState.userToken == '') {
+              console.log('toggle login');
+              dispatch(showLoginAction());
+              // console.log('props{');
+              // setActionType('login');
+              // setSignUpOrLogin(true);
+            } else {
+              navigation.navigate('邀请详情');
+            }
           }}>
           <View
             style={{
               flexDirection: 'row',
               justifyContent: 'space-between',
+              backgroundColor: '#222528',
+              paddingHorizontal: 15,
               alignItems: 'center',
-              gap: 3,
+              paddingVertical: 15,
             }}>
-            <ProfileIcn />
-            <Text style={{fontSize: 10, color: '#9C9C9C'}}>统计邀请：</Text>
-            <Text
+            <View
               style={{
-                fontSize: 14,
-                color: colors.primary,
-                fontWeight: '700',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                gap: 3,
               }}>
-              {userState.userTotalInvite}
-            </Text>
-          </View>
+              <ProfileIcn />
+              <Text style={{fontSize: 10, color: '#9C9C9C'}}>统计邀请：</Text>
+              <Text
+                style={{
+                  fontSize: 14,
+                  color: colors.primary,
+                  fontWeight: '700',
+                }}>
+                {userState.userTotalInvite}
+              </Text>
+            </View>
 
-          <TouchableOpacity
-            onPress={() => {
-              if (userState.userToken == '') {
-                console.log('toggle login');
-                dispatch(showLoginAction());
-                // console.log('props{');
-                // setActionType('login');
-                // setSignUpOrLogin(true);
-              } else {
-                navigation.navigate('邀请详情');
-              }
-            }}>
             <View
               style={{
                 alignItems: 'center',
               }}>
               <Text style={{fontSize: 10, color: '#9C9C9C'}}>累计奖励明细</Text>
             </View>
-          </TouchableOpacity>
-        </View>
+          </View>
+        </TouchableOpacity>
       </View>
     </>
   );

@@ -6,6 +6,8 @@ import {
   TextInput,
   Image,
   ImageBackground,
+  ScrollView,
+  RefreshControl,
 } from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
 import {RootStackScreenProps} from '../../types/navigationTypes';
@@ -21,8 +23,6 @@ import {
   API_DOMAIN_LOCAL,
 } from '../../utility/constants';
 import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
-
-import {ScrollView} from 'react-native-gesture-handler';
 
 import InviteStep from '../../components/invite/inviteStep';
 import InviteCard from '../../components/invite/inviteCard';
@@ -45,6 +45,14 @@ export default ({navigation}: RootStackScreenProps<'邀请详情'>) => {
     ({userReducer}: RootState) => userReducer,
   );
   const dispatch = useDispatch();
+
+  const [refreshing, setRefreshing] = useState(false);
+
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    await refreshUserState();
+    setRefreshing(false);
+  };
   const refreshUserState = async () => {
     let result;
     result = await getUserDetails({
@@ -59,13 +67,18 @@ export default ({navigation}: RootStackScreenProps<'邀请详情'>) => {
     return;
   };
 
-  useEffect(() => {
-    refreshUserState();
-  }, []);
+  // useEffect(() => {
+  //   refreshUserState();
+  // }, []);
+
   return (
     <ScreenContainer>
       <TitleWithBackButtonHeader title="累计奖励明细" />
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+        }>
         {/* top card  */}
         <LinearGradient
           colors={['#323638', '#1a1d20']} // An array of gradient colors
