@@ -27,7 +27,7 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
-import {API_DOMAIN} from '../../utility/constants';
+import {API_DOMAIN, API_DOMAIN_TEST} from '../../utility/constants';
 import VodTopicFilter from '../../components/vod/vodTopicFilter';
 import VodCard from '../../components/vod/vodCard';
 import DownArrow from '../../../static/images/arrow_down_yellow.svg';
@@ -201,7 +201,7 @@ export default ({navigation, route}: RootStackScreenProps<'片库'>) => {
 
   const fetchVods = useCallback(
     (page: number) => {
-      let url = `${API_DOMAIN}vod/v1/vod?limit=${LIMIT_PER_PAGE}`;
+      let url = `${API_DOMAIN_TEST}vod/v2/vod?limit=${LIMIT_PER_PAGE}`;
       url += `&tid=${currentTopicId}`;
       if (topicClass.value !== '全部类型') {
         url += `&class=${topicClass.value}`;

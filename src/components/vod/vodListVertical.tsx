@@ -58,6 +58,9 @@ function VodListVertical({ vods, numOfRows = 2, outerRowPadding = 0, minNumPerRo
                         }}
                         onPress={() => {
                             dispatch(playVod(vod));
+                            console.log('??');
+                            console.log(vod);
+                            console.log(vod?.vod_id);
                             navigation.navigate('播放', {
                                 vod_id: vod?.vod_id,
                             });

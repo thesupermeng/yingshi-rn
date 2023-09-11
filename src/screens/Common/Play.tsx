@@ -17,7 +17,7 @@ import ScreenContainer from '../../components/container/screenContainer';
 import { useTheme, useFocusEffect } from '@react-navigation/native';
 
 import { RootStackScreenProps } from '../../types/navigationTypes';
-import { SuggestResponseType } from '../../types/ajaxTypes';
+import { SuggestResponseType, VodDetailsResponseType } from '../../types/ajaxTypes';
 import { addVodToHistory, playVod } from '../../redux/actions/vodActions';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { RootState } from '../../redux/store';
@@ -36,7 +36,7 @@ import Animated, { useSharedValue } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import VodEpisodeSelectionModal from '../../components/modal/vodEpisodeSelectionModal';
 import FastImage from 'react-native-fast-image';
-import { API_DOMAIN } from '../../utility/constants';
+import { API_DOMAIN, API_DOMAIN_TEST } from '../../utility/constants';
 import { useQuery } from '@tanstack/react-query';
 import ShowMoreVodButton from '../../components/button/showMoreVodButton';
 import VodListVertical from '../../components/vod/vodListVertical';
@@ -76,6 +76,7 @@ const insets = useSafeAreaInsets();
     ({ settingsReducer }: RootState) => settingsReducer,
   );
   const vod = vodReducer.playVod.vod;
+  // const [vod, setVod] = useState(vodReducer.playVod.vod);
   const [initTime, setInitTime] = useState(0);
   const isFavorite = vodFavouriteReducer.favorites.some(
     x => x.vod_id === vod?.vod_id,
@@ -183,6 +184,36 @@ const insets = useSafeAreaInsets();
       },
     );
   }, []);
+
+  const fetchVodDetails = () =>
+    fetch(
+      `${API_DOMAIN_TEST}vod/v1/vod/detail?id=${vod?.vod_id}`,
+    )
+      .then(response => response.json())
+      .then((json: VodDetailsResponseType) => {
+        console.log('HEHE');
+        console.log(json.data[0]);
+        return json.data[0];
+      });
+
+  const { data: vodDetails, isFetching: isFetchingVodDetails } = useQuery({
+    queryKey: ['vodDetails', vod?.vod_id],
+    queryFn: () => fetchVodDetails(),
+  });
+
+  useEffect(() => {
+    console.log('&&**');
+    console.log('&&**');
+    console.log('&&**');
+    console.log('&&**');
+    console.log(vodDetails);
+    if(vod !== undefined && vod !== null && vodDetails !== undefined){
+      vod.vod_play_list = vodDetails.vod_play_list
+      vod.vod_play_url = vodDetails.vod_play_url
+      // setVod(vod);
+      dispatch(playVod(vod));
+    }
+  }, [vodDetails])
 
   const fetchVod = () =>
     fetch(

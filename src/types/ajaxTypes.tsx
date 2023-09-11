@@ -372,3 +372,8 @@ export interface MiniVideoCollectionItem {
     current_episode: number;
     mini_video_collection_title: string;
 }
+
+export interface VodDetailsResponseType {
+    code: number
+    data: VodType[]
+}

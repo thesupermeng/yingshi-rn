@@ -21,7 +21,7 @@ import {
   LiveTVStationsResponseType,
 } from '../types/ajaxTypes';
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
-import {API_DOMAIN} from '../utility/constants';
+import {API_DOMAIN, API_DOMAIN_TEST} from '../utility/constants';
 import CatagoryHome from '../components/container/CatagoryHome';
 import RecommendationHome from '../components/container/RecommendationHome';
 import HomeHeader from '../components/header/homeHeader';
@@ -60,7 +60,7 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
   });
 
   const fetchData = useCallback((id: number) => {
-    return fetch(`${API_DOMAIN}page/v1/typepage?id=${id}`)
+    return fetch(`${API_DOMAIN_TEST}page/v1/typepage?id=${id}`)
       .then(response => response.json())
       .then((json: VodCarousellResponseType) => {
         return json;
