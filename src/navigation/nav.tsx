@@ -283,44 +283,26 @@ export default () => {
   const [showVIPOverlay, setShowVIPOverlay] = useState(false);
   const [vipRemainingDay, setVipRemainingDay] = useState(0);
   useEffect(() => {
-    // Assuming you have the two timestamps
     const date1Timestamp = userState.userCurrentTimestamp;
     const date2Timestamp = userState.userMemberExpired;
-
-    // Convert Unix timestamps to milliseconds (multiply by 1000)
     const date1Milliseconds = Number(date1Timestamp) * 1000;
     const date2Milliseconds = Number(date2Timestamp) * 1000;
-
-    // Calculate the time difference in milliseconds
     const timeDifferenceMilliseconds = date2Milliseconds - date1Milliseconds;
-
-    // Calculate the time difference in days
     const timeDifferenceDays =
       timeDifferenceMilliseconds / (1000 * 60 * 60 * 24);
-
-    // Round the time difference to the nearest whole number
     const roundedTimeDifferenceDays = Math.round(timeDifferenceDays);
-
-    // If the rounded difference is less than 0, set it to 0; otherwise, keep the rounded difference
     const result =
       roundedTimeDifferenceDays < 0 ? 0 : roundedTimeDifferenceDays;
     setVipRemainingDay(result);
-
     if (
       result <= 3 &&
       roundedTimeDifferenceDays >= 0 &&
       date2Timestamp > date1Timestamp &&
       userState.userToken != ''
     ) {
-      // console.log('debug');
-      // console.log(vipRemainingDay);
-      // console.log(date1Timestamp);
-      // console.log(date2Timestamp);
-      // console.log(roundedTimeDifferenceDays);
-      // console.log(userState.userToken);
       setShowVIPOverlay(true);
     }
-  }, [userState]);
+  }, [userState.userMemberExpired]);
 
   return (
     <SafeAreaProvider>
@@ -475,7 +457,6 @@ const styles = StyleSheet.create({
   navStyle: {
     // flex: 0,
     // flexGrow: 0
-
     flex: 0,
     alignContent: 'center',
     alignItems: 'center',

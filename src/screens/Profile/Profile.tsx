@@ -59,20 +59,11 @@ import {
 import ExpiredOverlay from '../../components/modal/expiredOverlay';
 
 export default ({navigation, route}: BottomTabScreenProps<any>) => {
-  const sheetRef = useRef<BottomSheet>(null);
-  const [signUpOrLogin, setSignUpOrLogin] = useState(false);
-  const [actionType, setActionType] = useState('login');
-  const [email, setEmail] = useState('');
-  const [emailValid, setEmailValid] = useState(true);
   const navigator = useNavigation();
   const {colors, textVariants, icons, spacing} = useTheme();
   const dispatch = useAppDispatch();
-  const themeReducer = useAppSelector(
-    ({themeReducer}: RootState) => themeReducer,
-  );
   const [refreshing, setRefreshing] = useState(false);
   const [displayedDate, setDisplayedDate] = useState('');
-
   const userState: userModel = useAppSelector(
     ({userReducer}: RootState) => userReducer,
   );
@@ -92,7 +83,7 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
       return;
     }
     let resultData = result.data.data;
-    console.log(resultData);
+
     await dispatch(updateUserAuth(resultData));
     return;
   };
@@ -120,6 +111,11 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
     }, []),
   );
 
+  // useEffect(() => {
+  //   console.log('asd');
+  //   refreshUserState();
+  // }, []);
+
   const highlightText = (text: string, keyword: string) => {
     const parts = text.split(new RegExp(`(${keyword})`, 'gi'));
     return parts.map((part, index) =>
@@ -145,22 +141,9 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
     let year = date.getFullYear();
     let month = date.getMonth() + 1; // Months are 0-based, so add 1
     let day = date.getDate();
-
-    console.log(`${year}年${month}月${day}日`);
-
-    // date = new Date(Number(userState.userCurrentTimestamp) * 1000);
-    // year = date.getFullYear();
-    // month = date.getMonth() + 1;
-    // day = date.getDate();
-    // console.log(`${year}年${month}月${day}日`);
-
     setDisplayedDate(`${year}年${month}月${day}日`);
   }, [userState.userMemberExpired]);
 
-  // useEffect(() => {
-  //   console.log('asd');
-  //   refreshUserState();
-  // }, []);
   return (
     <>
       <ScrollView

@@ -322,11 +322,12 @@ const LoginCard = (props: any) => {
             />
           )}
         </TouchableOpacity>
-        <Text style={{marginLeft: 5}}>我已阅读并同意</Text>
+
+        <Text style={{marginLeft: 5, color: '#9c9c9c'}}>我已阅读并同意</Text>
         <TouchableOpacity onPress={() => navigation.navigate('用户协议')}>
           <Text style={{color: colors.primary}}>用户协议</Text>
         </TouchableOpacity>
-        <Text>和</Text>
+        <Text style={{color: '#9c9c9c'}}>和</Text>
         <TouchableOpacity onPress={() => navigation.navigate('隐私政策')}>
           <Text style={{color: colors.primary}}>隐私协议</Text>
         </TouchableOpacity>

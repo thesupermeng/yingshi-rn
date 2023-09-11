@@ -13,7 +13,7 @@ import TitleWithBackButtonHeader from '../../components/header/titleWithBackButt
 import {useTheme} from '@react-navigation/native';
 import {ScrollView} from 'react-native-gesture-handler';
 
-export default ({navigation}: RootStackScreenProps<'用户协议'>) => {
+export default ({navigation}: RootStackScreenProps<'隐私政策'>) => {
   const {colors, textVariants, icons, spacing} = useTheme();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
