@@ -18,6 +18,7 @@ import {RadioButton} from 'react-native-paper';
 import FastImage from 'react-native-fast-image';
 import {screenModel} from '../../types/screenType';
 import {RootState} from '../../redux/store';
+import SpinnerOverlay from '../modal/SpinnerOverlay';
 export const Register = (props: any) => {
   const [emailValid, setEmailValid] = useState(true);
   const [referralCodeValid, setReferralCodeValid] = useState(true);
@@ -26,6 +27,12 @@ export const Register = (props: any) => {
   const screenState: screenModel = useAppSelector(
     ({screenReducer}: RootState) => screenReducer,
   );
+  const [isLoading, setIsloading] = useState(false);
+  const [radioValue, setRadioValue] = useState(false);
+
+  const radioHandler = () => {
+    setRadioValue(!radioValue);
+  };
   useEffect(() => {
     ValidateEmail(props.email, setEmailValid);
   }, [props.email]);
@@ -36,6 +43,7 @@ export const Register = (props: any) => {
       setReferralCodeValid(true);
       setErrEmail('');
       setErrReferral('');
+      setRadioValue(false);
     }
     // if (screenState.registerShow == true) {
     // }
@@ -44,7 +52,12 @@ export const Register = (props: any) => {
   const navigator = useNavigation();
   return (
     <View style={{height: '100%'}}>
-      <LoginCard
+      <SpinnerOverlay visible={isLoading} />
+      <RegisterCard
+        radioHandler={radioHandler}
+        setRadioValue={setRadioValue}
+        radioValue={radioValue}
+        setIsloading={setIsloading}
         email={props.email}
         referralCode={props.referralCode}
         setEmail={props.setEmail}
@@ -65,15 +78,10 @@ export const Register = (props: any) => {
   );
 };
 
-const LoginCard = (props: any) => {
+const RegisterCard = (props: any) => {
   const {colors, textVariants, icons, spacing} = useTheme();
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
-  const [radioValue, setRadioValue] = useState(false);
-
-  const radioHandler = () => {
-    setRadioValue(!radioValue);
-  };
 
   return (
     <View style={styles.card}>
@@ -206,13 +214,13 @@ const LoginCard = (props: any) => {
         // disabled={props.email === '' || !props.emailValid}
         style={[
           styles.continueButtonStyle,
-          props.email === '' || !props.emailValid || radioValue == false
+          props.email === '' || !props.emailValid || props.radioValue == false
             ? styles.btnInactive
             : styles.btnActive,
         ]}
         activeStyle={[
           styles.continueButtonStyle,
-          props.email === '' || !props.emailValid || radioValue == false
+          props.email === '' || !props.emailValid || props.radioValue == false
             ? styles.btnInactive
             : styles.btnActive,
         ]}
@@ -226,21 +234,27 @@ const LoginCard = (props: any) => {
           //   return;
           // }
 
-          if (radioValue == false) {
+          if (props.radioValue == false) {
             return;
           }
 
           try {
+            props.setIsloading(true);
             await registerUser({
               email: props.email,
               referral_code: props.referralCode,
               otp: '',
             });
           } catch (err: any) {
+            props.setIsloading(false);
             console.log('err');
             console.log(err.response.data.message);
             // props.setErrMsg(err.response.data.message);
             // props.setReferralCodeValid(false);
+
+            if (err.response.data.message != 'Validation Error') {
+              props.setErrEmail(err.response.data.message);
+            }
 
             if (err.response.data.errors.referral_code) {
               // setReferralValid(false);
@@ -261,15 +275,14 @@ const LoginCard = (props: any) => {
           }
 
           dispatch(hideBottomSheetAction());
-
-          navigation.navigate('OTP', {
-            email: props.email,
-            action: 'register',
-            referralCode: props.referralCode,
-          });
-          // loginApiCall({email: props.email});
-          // props.navigator.navigate('CricketOTP', {email: props.email});
-          // props.navigator.navigate('CricketEdit', {userName:'test nickname'})
+          setTimeout(() => {
+            props.setIsloading(false);
+            navigation.navigate('OTP', {
+              email: props.email,
+              action: 'register',
+              referralCode: props.referralCode,
+            });
+          }, 300);
         }}>
         <Text
           style={{
@@ -278,7 +291,9 @@ const LoginCard = (props: any) => {
             fontSize: 14,
             letterSpacing: 0.2,
             color:
-              props.email === '' || !props.emailValid || radioValue == false
+              props.email === '' ||
+              !props.emailValid ||
+              props.radioValue == false
                 ? 'white'
                 : '#000',
           }}>
@@ -295,8 +310,8 @@ const LoginCard = (props: any) => {
           alignItems: 'center',
           marginTop: 12,
         }}>
-        <TouchableOpacity onPress={radioHandler}>
-          {radioValue && (
+        <TouchableOpacity onPress={props.radioHandler}>
+          {props.radioValue && (
             <FastImage
               source={require('../../../static/images/profile/ticked.png')}
               style={{
@@ -309,7 +324,7 @@ const LoginCard = (props: any) => {
             />
           )}
 
-          {!radioValue && (
+          {!props.radioValue && (
             <FastImage
               source={require('../../../static/images/profile/untick.png')}
               style={{

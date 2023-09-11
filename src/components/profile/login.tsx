@@ -21,9 +21,11 @@ import {
 } from '../../redux/actions/screenAction';
 import {RootState} from '../../redux/store';
 import {screenModel} from '../../types/screenType';
+import SpinnerOverlay from '../modal/SpinnerOverlay';
 export const Login = (props: any) => {
   const [emailValid, setEmailValid] = useState(true);
   const [errMsg, setErrMsg] = useState('');
+  const [isLoading, setIsloading] = useState(false);
   const dispatch = useDispatch();
   const screenState: screenModel = useAppSelector(
     ({screenReducer}: RootState) => screenReducer,
@@ -44,7 +46,9 @@ export const Login = (props: any) => {
   const navigator = useNavigation();
   return (
     <View style={{height: '100%'}}>
+      <SpinnerOverlay visible={isLoading} />
       <LoginCard
+        setIsloading={setIsloading}
         emailValid={emailValid}
         setEmail={props.setEmail}
         email={props.email}
@@ -156,11 +160,13 @@ const LoginCard = props => {
           }
 
           try {
+            props.setIsloading(true);
             await loginUser({
               email: props.email,
               otp: '',
             });
           } catch (err: any) {
+            props.setIsloading(false);
             props.setEmailValid(false);
             props.setErrMsg(err.response.data.message);
             props.setReferralCodeValid(false);
@@ -168,11 +174,13 @@ const LoginCard = props => {
           }
 
           dispatch(hideBottomSheetAction());
-
-          navigation.navigate('OTP', {
-            email: props.email,
-            action: 'login',
-          });
+          setTimeout(() => {
+            props.setIsloading(false);
+            navigation.navigate('OTP', {
+              email: props.email,
+              action: 'login',
+            });
+          }, 300);
         }}>
         <Text
           style={{

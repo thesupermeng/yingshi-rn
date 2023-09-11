@@ -11,6 +11,8 @@ import {
   useWindowDimensions,
   ScrollView,
   RefreshControl,
+  Modal,
+  ActivityIndicator,
 } from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
 import {useTheme, useFocusEffect} from '@react-navigation/native';
@@ -212,9 +214,13 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
                       flexDirection: 'row',
                       justifyContent: 'flex-start',
                       alignItems: 'center',
+                      paddingRight: 110,
                     }}>
                     <Text
-                      style={{color: '#ffffff', fontSize: 20}}
+                      style={{
+                        color: '#ffffff',
+                        fontSize: 20,
+                      }}
                       numberOfLines={1}
                       ellipsizeMode="tail">
                       {userState.userName}

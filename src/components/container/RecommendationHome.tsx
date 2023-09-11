@@ -35,6 +35,7 @@ import Carousel from 'react-native-reanimated-carousel';
 
 import CarouselPagination from './CarouselPagination';
 import LoadingIcon from './../../../static/images/MutedVolume.svg';
+import Orientation from 'react-native-orientation-locker';
 interface NavType {
   id: number;
   name: string;
