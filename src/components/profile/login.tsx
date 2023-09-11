@@ -10,19 +10,36 @@ import {
   TouchableOpacity,
   Keyboard,
 } from 'react-native';
+import {useDispatch} from 'react-redux';
 import {loginUser} from '../../features/user';
-import {useAppDispatch} from '../../hooks/hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
 import {
   hideBottomSheetAction,
   hideLoginAction,
   hideRegisterAction,
+  initialBottomSheetForm,
 } from '../../redux/actions/screenAction';
-export const Login = props => {
+import {RootState} from '../../redux/store';
+import {screenModel} from '../../types/screenType';
+export const Login = (props: any) => {
   const [emailValid, setEmailValid] = useState(true);
   const [errMsg, setErrMsg] = useState('');
+  const dispatch = useDispatch();
+  const screenState: screenModel = useAppSelector(
+    ({screenReducer}: RootState) => screenReducer,
+  );
+
   useEffect(() => {
     ValidateEmail(props.email, setEmailValid);
   }, [props.email]);
+
+  useEffect(() => {
+    if (screenState.resetInputForm == true) {
+      dispatch(initialBottomSheetForm());
+      setEmailValid(true);
+      setErrMsg('');
+    }
+  }, [screenState]);
 
   const navigator = useNavigation();
   return (

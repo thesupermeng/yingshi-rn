@@ -11,6 +11,7 @@ const initialState: screenModel = {
   loginShow: false,
   registerShow: false,
   resetBottomSheet: false,
+  resetInputForm: false,
 };
 
 export function screenReducer(state = initialState, action: screenActionType) {
@@ -62,6 +63,19 @@ export function screenReducer(state = initialState, action: screenActionType) {
       return {
         ...state,
         resetBottomSheet: false,
+      };
+
+    case 'initial_bottom_sheet_from':
+      console.log('reset_bottom_sheet_action');
+      return {
+        ...state,
+        resetInputForm: false,
+      };
+    case 'reset_bottom_sheet_form':
+      console.log('reset_bottom_sheet_form');
+      return {
+        ...state,
+        resetInputForm: true,
       };
 
     default:

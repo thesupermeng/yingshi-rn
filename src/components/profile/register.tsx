@@ -12,19 +12,34 @@ import {
 import Icon from 'react-native-vector-icons/MaterialIcons'; // You can use any icon library you prefer
 
 import {registerUser} from '../../features/user';
-import {useAppDispatch} from '../../hooks/hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
 import {hideBottomSheetAction} from '../../redux/actions/screenAction';
 import {RadioButton} from 'react-native-paper';
 import FastImage from 'react-native-fast-image';
+import {screenModel} from '../../types/screenType';
+import {RootState} from '../../redux/store';
 export const Register = (props: any) => {
   const [emailValid, setEmailValid] = useState(true);
   const [referralCodeValid, setReferralCodeValid] = useState(true);
   const [errEmail, setErrEmail] = useState('');
   const [errReferral, setErrReferral] = useState('');
-
+  const screenState: screenModel = useAppSelector(
+    ({screenReducer}: RootState) => screenReducer,
+  );
   useEffect(() => {
     ValidateEmail(props.email, setEmailValid);
   }, [props.email]);
+
+  useEffect(() => {
+    if (screenState.resetInputForm == true) {
+      setEmailValid(true);
+      setReferralCodeValid(true);
+      setErrEmail('');
+      setErrReferral('');
+    }
+    // if (screenState.registerShow == true) {
+    // }
+  }, [screenState]);
 
   const navigator = useNavigation();
   return (

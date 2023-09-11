@@ -55,6 +55,7 @@ import {RootState} from '../../redux/store';
 import {MiniVodReducerState} from '../../redux/reducers/miniVodReducer';
 import {Login} from '../profile/login';
 import {
+  resetBottomSheetForm,
   showLoginAction,
   showRegisterAction,
 } from '../../redux/actions/screenAction';
@@ -105,7 +106,10 @@ function RegisterBottomSheet({sheetRef, displayMode}: Props) {
       ref={sheetRef}
       index={-1}
       snapPoints={snapPoints}
-      onChange={() => {
+      onChange={index => {
+        if (index) {
+          dispatch(resetBottomSheetForm());
+        }
         Keyboard.dismiss();
       }}
       backdropComponent={renderBackdrop}

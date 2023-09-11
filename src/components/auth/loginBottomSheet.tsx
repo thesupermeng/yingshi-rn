@@ -54,7 +54,10 @@ import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
 import {RootState} from '../../redux/store';
 import {MiniVodReducerState} from '../../redux/reducers/miniVodReducer';
 import {Login} from '../profile/login';
-import {showRegisterAction} from '../../redux/actions/screenAction';
+import {
+  resetBottomSheetForm,
+  showRegisterAction,
+} from '../../redux/actions/screenAction';
 interface Props {
   sheetRef?: RefObject<BottomSheetMethods>;
   displayMode?: string;
@@ -71,27 +74,6 @@ function LoginBottomSheet({sheetRef, displayMode}: Props) {
     [],
   );
 
-  // useEffect(() => {
-  //   const keyboardDidShowListener = Keyboard.addListener(
-  //     'keyboardDidShow',
-  //     () => {
-  //       setSnapPoints([1, 350]);
-  //     },
-  //   );
-
-  //   const keyboardDidHideListener = Keyboard.addListener(
-  //     'keyboardDidHide',
-  //     () => {
-  //       setSnapPoints([1, 350]);
-  //     },
-  //   );
-
-  //   return () => {
-  //     keyboardDidShowListener.remove();
-  //     keyboardDidHideListener.remove();
-  //   };
-  // }, []);
-
   //state for child
   const [email, setEmail] = useState('');
 
@@ -100,7 +82,10 @@ function LoginBottomSheet({sheetRef, displayMode}: Props) {
       ref={sheetRef}
       index={-1}
       snapPoints={snapPoints}
-      onChange={() => {
+      onChange={index => {
+        if (index) {
+          dispatch(resetBottomSheetForm());
+        }
         Keyboard.dismiss();
       }}
       backdropComponent={renderBackdrop}

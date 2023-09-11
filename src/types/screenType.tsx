@@ -4,4 +4,5 @@ export interface screenModel {
   loginShow: boolean;
   registerShow: boolean;
   resetBottomSheet: boolean;
+  resetInputForm: boolean;
 }

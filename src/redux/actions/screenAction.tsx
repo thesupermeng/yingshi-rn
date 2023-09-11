@@ -36,3 +36,10 @@ export const hideBottomSheetAction = () => ({
 export const resetBottomSheetAction = () => ({
   type: 'reset_bottom_sheet_action',
 });
+
+export const resetBottomSheetForm = () => ({
+  type: 'reset_bottom_sheet_form',
+});
+export const initialBottomSheetForm = () => ({
+  type: 'initial_bottom_sheet_from',
+});
