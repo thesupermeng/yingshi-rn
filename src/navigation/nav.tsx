@@ -302,7 +302,7 @@ export default () => {
     ) {
       setShowVIPOverlay(true);
     }
-  }, [userState.userMemberExpired]);
+  }, [userState.userCurrentTimestamp]);
 
   return (
     <SafeAreaProvider>
