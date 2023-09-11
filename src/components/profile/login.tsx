@@ -89,25 +89,37 @@ const LoginCard = props => {
           placeholder="输入邮箱账号"
           placeholderTextColor="#B6B6B6"
         />
+
+        {props.email !== '' &&
+          !props.emailValid &&
+          props.errMsg.includes('请勿频繁请求') && (
+            <Image
+              style={styles.iconStyle}
+              source={require('../../../static/images/profile/ticked2.png')}
+            />
+          )}
+
         {props.email !== '' && props.emailValid && (
           <Image
             style={styles.iconStyle}
             source={require('../../../static/images/profile/cricket_tick.png')}
           />
         )}
-        {props.email !== '' && !props.emailValid && (
-          <TouchableWithoutFeedback
-            onPress={() => {
-              props.setEmail('');
-              props.setErrMsg('');
-              props.setEmailValid(true);
-            }}>
-            <Image
-              style={styles.iconStyle}
-              source={require('../../../static/images/profile/cross.png')}
-            />
-          </TouchableWithoutFeedback>
-        )}
+        {props.email !== '' &&
+          !props.emailValid &&
+          !props.errMsg.includes('请勿频繁请求') && (
+            <TouchableWithoutFeedback
+              onPress={() => {
+                props.setEmail('');
+                props.setErrMsg('');
+                props.setEmailValid(true);
+              }}>
+              <Image
+                style={styles.iconStyle}
+                source={require('../../../static/images/profile/cross.png')}
+              />
+            </TouchableWithoutFeedback>
+          )}
       </View>
       {props.errMsg != '' && (
         <View

@@ -72,9 +72,9 @@ export function userReducer(state = initialState, action: any) {
         userName: action.payload.user.user_name,
         userReferralCode: action.payload.user.user_referral_code,
         userEmail: action.payload.user.user_email,
-        userMemberExpired: action.payload.user.user_end_time,
+        userMemberExpired: action.payload.user.vip_end_time,
         userReferrerName: action.payload.user.referrer_name,
-        userEndDaysCount: action.payload.user.user_end_time_duration_days,
+        userEndDaysCount: action.payload.user.user_vip_time_duration_days,
         userTotalInvite: action.payload.user.total_invited_user,
         userAccumulateRewardDay:
           action.payload.user.accumulated_vip_reward_days,

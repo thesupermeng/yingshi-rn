@@ -27,10 +27,10 @@ export default ({navigation}: RootStackScreenProps<'活动规则'>) => {
         <TitleWithBackButtonHeader title="活动规则" />
 
         <ScrollView
-          style={{marginBottom: 100, paddingHorizontal: 20}}
+          style={{marginBottom: 100, paddingLeft: 20, paddingRight: 25}}
           showsVerticalScrollIndicator={false}>
           <Text style={{...textVariants.small, fontSize: 14, lineHeight: 22}}>
-            每推荐成功1位好友，即可增加VIP会员30天，好友获得15天VIP会员
+            每推荐成功1位好友，即可增加VIP会员30天，好友获得30天VIP会员
           </Text>
 
           {/* step 1 */}
