@@ -78,7 +78,7 @@ const LoginCard = props => {
             styles.textInpoutCommonStyle,
             props.email === ''
               ? styles.defaultTextInputStyle
-              : props.emailValid
+              : props.emailValid || props.errMsg.includes('请勿频繁请求')
               ? styles.correctTextInputStyle
               : styles.invalidTextInputStyle,
           ]}
@@ -128,6 +128,7 @@ const LoginCard = props => {
             alignItems: 'center',
             flexDirection: 'row',
             marginTop: 10,
+            paddingRight: 20,
           }}>
           <Image
             style={{
@@ -139,7 +140,7 @@ const LoginCard = props => {
             }}
             source={require('../../../static/images/invite/danger.png')}
           />
-          <Text style={styles.danger}>{props.errMsg} </Text>
+          <Text style={styles.danger}>{props.errMsg}</Text>
         </View>
       )}
       <Button
