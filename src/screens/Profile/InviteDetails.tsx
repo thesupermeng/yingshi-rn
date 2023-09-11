@@ -38,7 +38,7 @@ import {
   updateUserReferral,
 } from '../../redux/actions/userAction';
 import {useDispatch} from 'react-redux';
-export default ({navigation}: RootStackScreenProps<'邀请'>) => {
+export default ({navigation}: RootStackScreenProps<'邀请详情'>) => {
   const {colors, textVariants, icons, spacing} = useTheme();
 
   const userState: userModel = useAppSelector(

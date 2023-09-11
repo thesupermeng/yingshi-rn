@@ -23,6 +23,7 @@ import InviteCard from './../../components/invite/inviteCard';
 import InviteHeader from './../../components/invite/inviteHeader';
 import {useAppSelector} from '../../hooks/hooks';
 import {userModel} from '../../types/userType';
+import {TouchableOpacity} from '@gorhom/bottom-sheet';
 export default ({navigation}: RootStackScreenProps<'邀请'>) => {
   const {colors, textVariants, icons, spacing} = useTheme();
 
@@ -36,29 +37,31 @@ export default ({navigation}: RootStackScreenProps<'邀请'>) => {
       <ScrollView style={{paddingHorizontal: 10}}>
         {/* top component  */}
         <InviteHeader />
-
         {/* content card component  */}
-
         <InviteCard userState={userState} />
-
         {/* event section  */}
-        {/* <View
-          style={{
-            flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-            paddingVertical: 10,
-          }}>
-          <Text
-            style={{
-              fontSize: 12,
-              textDecorationLine: 'underline',
-              color: '#ffffff',
-            }}>
-            活动规则
-          </Text>
-        </View> */}
 
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('活动规则');
+          }}>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+              alignItems: 'center',
+              paddingVertical: 10,
+            }}>
+            <Text
+              style={{
+                fontSize: 12,
+                textDecorationLine: 'underline',
+                color: '#ffffff',
+              }}>
+              活动规则
+            </Text>
+          </View>
+        </TouchableOpacity>
         {/* invite step  */}
         <InviteStep />
       </ScrollView>

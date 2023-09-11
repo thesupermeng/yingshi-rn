@@ -89,6 +89,7 @@ export type RootStackParamList = {
     // deviceId?: string;
   };
   SetUsername: undefined;
+  活动规则: undefined;
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> =

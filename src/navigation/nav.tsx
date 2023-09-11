@@ -84,6 +84,7 @@ import {userModel} from '../types/userType';
 import {getUserDetails} from '../features/user';
 import {updateUserAuth, updateUserReferral} from '../redux/actions/userAction';
 import ExpiredOverlay from '../components/modal/expiredOverlay';
+import EventRules from '../screens/Profile/EventRules';
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -344,6 +345,11 @@ export default () => {
           <Stack.Screen
             name="邀请详情"
             component={InviteDetails}
+            options={{orientation: 'portrait'}}
+          />
+          <Stack.Screen
+            name="活动规则"
+            component={EventRules}
             options={{orientation: 'portrait'}}
           />
           <Stack.Screen
