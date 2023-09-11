@@ -59,7 +59,7 @@ export default ({navigation}: RootStackScreenProps<'反馈'>) => {
   const submitFeedback = async (data: SubmitFeedbackRequest) => {
     if (!isOffline) {
       const {data: response} = await axios.post(
-        `${API_DOMAIN}feedback/v1/submit`,
+        `${API_DOMAIN_TEST}feedback/v1/submit`,
         data,
       );
       setDialogText('反馈提交成功');
