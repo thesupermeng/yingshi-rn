@@ -90,21 +90,13 @@ const LoginCard = props => {
           placeholderTextColor="#B6B6B6"
         />
 
-        {props.email !== '' &&
-          !props.emailValid &&
-          props.errMsg.includes('请勿频繁请求') && (
+        {(props.email !== '' && props.emailValid) ||
+          (props.errMsg.includes('请勿频繁请求') && (
             <Image
               style={styles.iconStyle}
-              source={require('../../../static/images/profile/ticked2.png')}
+              source={require('../../../static/images/profile/cricket_tick.png')}
             />
-          )}
-
-        {props.email !== '' && props.emailValid && (
-          <Image
-            style={styles.iconStyle}
-            source={require('../../../static/images/profile/cricket_tick.png')}
-          />
-        )}
+          ))}
         {props.email !== '' &&
           !props.emailValid &&
           !props.errMsg.includes('请勿频繁请求') && (
