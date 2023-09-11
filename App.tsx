@@ -31,10 +31,14 @@ import appsFlyer from 'react-native-appsflyer';
 import Api from './src/Sports/middleware/api';
 import {Url} from './src/Sports/middleware/url';
 import {StatusBar} from 'react-native';
+import Orientation from 'react-native-orientation-locker';
 
 export default function App() {
   const [showVIPOverlay, setShowVIPOverlay] = useState(true);
   // const navigation = useNavigation();
+  useEffect(() => {
+    Orientation.lockToPortrait(); // Lock the screen to portrait mode
+  }, []);
 
   appsFlyer.initSdk(
     {
