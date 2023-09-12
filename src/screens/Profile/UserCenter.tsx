@@ -393,7 +393,12 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
               console.log(userState);
             }
             Keyboard.dismiss();
+
             dispatch(changeScreenAction('修改成功'));
+
+            navigation.navigate('Home', {
+              screen: 'Profile',
+            });
           }}
           type="primary"
           // disabled={props.email === '' || !props.emailValid}
