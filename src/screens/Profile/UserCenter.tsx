@@ -173,7 +173,13 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
                 )}
               </View>
 
-              <Text style={{fontWeight: '600', fontSize: 15, color: '#9C9C9C'}}>
+              <Text
+                style={{
+                  fontWeight: '600',
+                  fontSize: 15,
+                  color: '#9C9C9C',
+                  paddingRight: 10,
+                }}>
                 {username.length}/18
                 {/* {userState.userEmail} */}
               </Text>
