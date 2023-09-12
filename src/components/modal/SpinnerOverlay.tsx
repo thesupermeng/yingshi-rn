@@ -1,32 +1,28 @@
-// SpinnerOverlay.js
 import React from 'react';
-import {Modal, ActivityIndicator, View, Platform} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context'; // Import SafeAreaView
+import {View, ActivityIndicator, StyleSheet} from 'react-native';
 
 const SpinnerOverlay = ({visible}) => {
+  if (!visible) {
+    return null; // Don't render the overlay when it's not visible
+  }
+
   return (
-    <Modal
-      transparent={true}
-      animationType="fade"
-      visible={visible}
-      onRequestClose={() => {}} // To prevent closing by tapping outside
-    >
-      <SafeAreaView
-        style={{
-          flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
-          backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent background
-          ...Platform.select({
-            ios: {
-              paddingBottom: 0, // Prevent iOS SafeAreaView from pushing content up
-            },
-          }),
-        }}>
-        <ActivityIndicator size="large" color="#FAC33D" />
-      </SafeAreaView>
-    </Modal>
+    <View style={styles.overlay}>
+      <ActivityIndicator size="large" color="#FAC33D" />
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  overlay: {
+    ...StyleSheet.absoluteFillObject, // Cover the entire screen
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.55)', // Semi-transparent background
+    flex: 1,
+    zIndex: 999,
+    position: 'absolute',
+  },
+});
 
 export default SpinnerOverlay;
