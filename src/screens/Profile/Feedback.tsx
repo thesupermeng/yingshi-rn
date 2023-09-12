@@ -19,6 +19,8 @@ import {
   UMENG_CHANNEL,
 } from '../../../src/utility/constants';
 import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
+import {userModel} from '../../types/userType';
+import {useAppSelector} from '../../hooks/hooks';
 
 export default ({navigation}: RootStackScreenProps<'反馈'>) => {
   const {colors, textVariants, icons} = useTheme();
@@ -29,6 +31,10 @@ export default ({navigation}: RootStackScreenProps<'反馈'>) => {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
 
   const [platformId, setPlatformId] = React.useState(0);
+
+  const userState: userModel = useAppSelector(
+    ({userReducer}: RootState) => userReducer,
+  );
 
   const [isOffline, setIsOffline] = useState(false);
   useEffect(() => {
@@ -76,8 +82,7 @@ export default ({navigation}: RootStackScreenProps<'反馈'>) => {
 
   function sendFeedbackHandler() {
     const body: SubmitFeedbackRequest = {
-      email: email,
-      feedback_category: feedbackCategory,
+      email: userState.userEmail,
       feedback: text,
       platform_id: platformId,
     };
