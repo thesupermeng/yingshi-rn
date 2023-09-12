@@ -348,26 +348,25 @@ const RegisterCard = (props: any) => {
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity
-        onPress={() => {
-          console.log('   props.goToRegister();');
-
-          props.setErrReferral('');
-          props.setErrEmail('');
-
-          props.goToLogin();
-          // props.navigator.navigate('CricketTerm');
-        }}>
-        <View style={styles.loginTermPrivacy}>
-          <Text style={styles.termPrivacyFont}>
-            <Text style={{color: 'white'}}> 邮箱登录 </Text>
-          </Text>
-          <Image
-            style={{width: 18, height: 18}}
-            source={require('../../../static/images/profile/rightArrow.png')}
-          />
-        </View>
-      </TouchableOpacity>
+      <View style={{marginTop: 30}}>
+        <TouchableOpacity
+          onPress={() => {
+            props.setErrReferral('');
+            props.setErrEmail('');
+            props.goToLogin();
+            // props.navigator.navigate('CricketTerm');
+          }}>
+          <View style={styles.loginTermPrivacy}>
+            <Text style={styles.termPrivacyFont}>
+              <Text style={{color: 'white'}}> 邮箱登录 </Text>
+            </Text>
+            <Image
+              style={{width: 18, height: 18}}
+              source={require('../../../static/images/profile/rightArrow.png')}
+            />
+          </View>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -405,8 +404,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     fontSize: 14,
     color: '#fff',
-    // backgroundColor: '#1d2023',
-    // fontFamily: 'SF Pro Display',
   },
   defaultTextInputStyle: {backgroundColor: '#1d2023'},
   correctTextInputStyle: {backgroundColor: '#1d2023', color: '#fff'},
@@ -447,7 +444,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   loginTermPrivacy: {
-    marginTop: 30,
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'center',
