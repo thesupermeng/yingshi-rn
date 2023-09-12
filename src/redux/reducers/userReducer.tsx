@@ -18,6 +18,7 @@ const initialState: userModel = {
   userAccumulateRewardDay: 0,
   userAllowUpdateReferral: false,
   userInvitedUserList: [],
+  userUpline: {},
   userCurrentTimestamp: '',
 };
 
@@ -37,6 +38,7 @@ export function userReducer(state = initialState, action: any) {
         userAccumulateRewardDay: 0,
         userAllowUpdateReferral: false,
         userInvitedUserList: [],
+        userUpline: {},
         userCurrentTimestamp: '',
       };
     case 'add_user_auth':
@@ -56,9 +58,11 @@ export function userReducer(state = initialState, action: any) {
         userAccumulateRewardDay: action.payload.userAccumulateRewardDay,
         userAllowUpdateReferral: action.payload.userAllowUpdateReferral,
         userCurrentTimestamp: action.payload.userCurrentTimestamp,
+
         userInvitedUserList: action.payload.userInvitedUserList
           ? action.payload.userInvitedUserList
           : [],
+        userUpline: action.payload.userUpline,
       };
 
       return {
@@ -81,6 +85,7 @@ export function userReducer(state = initialState, action: any) {
         userAllowUpdateReferral: action.payload.user.eligible_update_referrer,
         userCurrentTimestamp: action.payload.user.current_timestamp,
         userInvitedUserList: action.payload.user.invited_users,
+        userUpline: action.payload.user.upline_user,
       };
 
       return {

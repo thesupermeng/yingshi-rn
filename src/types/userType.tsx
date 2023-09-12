@@ -11,5 +11,6 @@ export interface userModel {
   userAccumulateRewardDay: number;
   userAllowUpdateReferral: boolean;
   userInvitedUserList: any;
+  userUpline: any;
   userCurrentTimestamp: string;
 }

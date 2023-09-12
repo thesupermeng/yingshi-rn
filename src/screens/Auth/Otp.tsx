@@ -141,6 +141,7 @@ const OtpInputs = props => {
           userAllowUpdateReferral: resultData.user.eligible_update_referrer,
           userCurrentTimestamp: resultData.user.current_timestamp,
           userInvitedUserList: resultData.user.invited_users,
+          userUpline: resultData.user.upline_user,
         };
         await dispatch(addUserAuthState(json));
         console.log('json for user state');

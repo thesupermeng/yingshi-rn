@@ -47,6 +47,7 @@ export default ({navigation}: RootStackScreenProps<'邀请详情'>) => {
   const dispatch = useDispatch();
 
   const [refreshing, setRefreshing] = useState(false);
+  const [inviteList, setInviteList] = useState([]);
 
   const handleRefresh = async () => {
     setRefreshing(true);
@@ -67,9 +68,36 @@ export default ({navigation}: RootStackScreenProps<'邀请详情'>) => {
     return;
   };
 
-  // useEffect(() => {
-  //   refreshUserState();
-  // }, []);
+  useEffect(() => {
+    // Merge the two arrays
+    let mergedArray = userState.userInvitedUserList.concat(
+      userState.userUpline,
+    );
+
+    mergedArray.sort((a: any, b: any) => {
+      let dateA: any;
+      dateA = new Date(a.created_at);
+      let dateB: any;
+
+      dateB = new Date(b.created_at);
+      return dateB - dateA;
+    });
+
+    mergedArray = mergedArray.map((item: any) => {
+      let displayText = '';
+      if (item.text) {
+        displayText = item.text;
+        item.invited_vip_reward_day = 30;
+      } else {
+        displayText = item.user_name + '接受了您的邀请';
+      }
+
+      return {...item, displayText: displayText};
+    });
+    console.log('mergedArray');
+    console.log(mergedArray);
+    setInviteList(mergedArray);
+  }, []);
 
   return (
     <ScreenContainer>
@@ -117,7 +145,7 @@ export default ({navigation}: RootStackScreenProps<'邀请详情'>) => {
             邀请记录
           </Text>
 
-          {userState.userInvitedUserList.length > 0 && (
+          {inviteList.length > 0 && (
             <View
               style={{
                 marginTop: 20,
@@ -127,9 +155,9 @@ export default ({navigation}: RootStackScreenProps<'邀请详情'>) => {
                 overflow: 'hidden',
                 width: '100%',
               }}>
-              {userState.userInvitedUserList.map(item => (
+              {inviteList.map(item => (
                 <View
-                  key={item.downline_user_id}
+                  key={item.displayText}
                   style={{
                     flexDirection: 'row',
                     justifyContent: 'space-between',
@@ -142,7 +170,7 @@ export default ({navigation}: RootStackScreenProps<'邀请详情'>) => {
                       style={{fontSize: 16, color: '#fff'}}
                       numberOfLines={1}
                       ellipsizeMode="tail">
-                      {item.user_name} 接受了您的邀请
+                      {item.displayText}
                     </Text>
                     <Text style={{color: '#9c9c9c'}}>{item.created_at}</Text>
                   </View>
@@ -166,7 +194,7 @@ export default ({navigation}: RootStackScreenProps<'邀请详情'>) => {
             </View>
           )}
 
-          {userState.userInvitedUserList.length == 0 && (
+          {inviteList.length == 0 && (
             <View
               style={{
                 marginTop: 20,
