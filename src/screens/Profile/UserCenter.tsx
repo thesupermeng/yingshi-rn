@@ -185,6 +185,24 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
               </Text>
             </View>
           </View>
+
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              backgroundColor: '#1d2023',
+              marginVertical: 20,
+              paddingLeft: 18,
+              paddingRight: 13,
+              height: 48,
+              borderRadius: 8,
+            }}>
+            <Text style={{fontSize: 16, color: '#9C9C9C'}}>
+              {userState.userEmail}
+            </Text>
+          </View>
+
           {/* referral input  */}
           {userState.userReferrerName == '' &&
             userState.userAllowUpdateReferral == true && (
