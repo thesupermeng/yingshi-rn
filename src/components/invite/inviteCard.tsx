@@ -10,11 +10,6 @@ import {
 } from 'react-native';
 import {useNavigation, useTheme} from '@react-navigation/native';
 
-import HotIcn from '../../../static/images/invite/hot.svg';
-import AdsIcn from '../../../static/images/invite/ads.svg';
-import DownloadIcn from '../../../static/images/invite/download.svg';
-import CastIcn from '../../../static/images/invite/cast.svg';
-
 import WhatsappIcn from '../../../static/images/invite/whatsapp.svg';
 
 import TelegramIcn from '../../../static/images/invite/telegram.svg';
@@ -288,24 +283,49 @@ export default function InviteCard({userState = {}}: Props) {
             flexWrap: 'wrap', // Allow items to wrap to the next row
           }}>
           <View style={styles.featureItem}>
-            <HotIcn style={styles.featureIcn} />
+            <View style={styles.imgContainer}>
+              <FastImage
+                source={require('../../../static/images/invite/hot.png')}
+                style={styles.featureIcn}
+                resizeMode={FastImage.resizeMode.contain}
+              />
+            </View>
             <Text style={styles.featureTitle}>热播抢先看</Text>
           </View>
 
           <View style={styles.featureItem}>
-            <AdsIcn style={styles.featureIcn} />
+            <View style={styles.imgContainer}>
+              <FastImage
+                source={require('../../../static/images/invite/ads.png')}
+                style={styles.featureIcn}
+                resizeMode={FastImage.resizeMode.contain}
+              />
+            </View>
             <Text style={styles.featureTitle}>去广告</Text>
           </View>
 
           <View style={styles.featureItem}>
-            <DownloadIcn style={styles.featureIcn} />
+            <View style={styles.imgContainer}>
+              <FastImage
+                source={require('../../../static/images/invite/download.png')}
+                style={styles.featureIcn}
+                resizeMode={FastImage.resizeMode.contain}
+              />
+            </View>
             <View>
               <Text style={styles.featureTitle}>视频下载</Text>
               <Text style={styles.featureTitle2}>(敬请期待)</Text>
             </View>
           </View>
+
           <View style={styles.featureItem}>
-            <CastIcn style={styles.featureIcn} />
+            <View style={styles.imgContainer}>
+              <FastImage
+                source={require('../../../static/images/invite/cast.png')}
+                style={styles.featureIcn}
+                resizeMode={FastImage.resizeMode.contain}
+              />
+            </View>
             <View>
               <Text style={styles.featureTitle}>投屏</Text>
               <Text style={styles.featureTitle2}>(敬请期待)</Text>
@@ -334,7 +354,7 @@ export default function InviteCard({userState = {}}: Props) {
               paddingVertical: 8,
               borderRadius: 8,
             }}>
-            <Text style={{color: '#000', fontWeight: '600', fontSize: 18}}>
+            <Text style={{color: '#000', fontWeight: '600', fontSize: 16}}>
               立即推荐
             </Text>
           </View>
@@ -344,11 +364,11 @@ export default function InviteCard({userState = {}}: Props) {
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
-            marginHorizontal: 15,
+            marginHorizontal: 10,
             marginVertical: 25,
           }}>
           <TouchableOpacity onPress={shareToWhatsApp}>
-            <WhatsappIcn />
+            <WhatsappIcn style={{width: 18, height: 18}} />
           </TouchableOpacity>
 
           <TouchableOpacity onPress={shareToTelegram}>
@@ -460,14 +480,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     gap: 8,
-    width: '50%', // 50% width for 2 items per row
+    width: '47%', // 50% width for 2 items per row
     marginBottom: 15, // Add margin to create spacing between rows
     marginTop: 10,
+    marginLeft: '3%',
   },
-  featureIcn: {
-    width: 32,
-    height: 32,
-  },
+
   featureTitle: {fontSize: 14, color: '#ffffff', fontWeight: '400'},
   featureTitle2: {fontSize: 10, color: '#ffffff', fontWeight: '400'},
+  imgContainer: {
+    backgroundColor: '#3b3e40',
+    width: 34,
+    height: 34,
+    borderRadius: 19,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  featureIcn: {
+    flex: 1,
+    width: 18,
+  },
 });
