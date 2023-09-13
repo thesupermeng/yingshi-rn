@@ -80,8 +80,6 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
     )
         .then(response => response.json())
         .then((json: MiniVideoResponseType) => {
-            console.log('HAA!');
-            console.log(json.data)
             return json.data.List
         })
 
@@ -96,8 +94,6 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
                 return nextPage;
             },
             onSuccess: (data) => {
-                console.log('HAA! DATA');
-                console.log(data)
             }
         });
         

@@ -286,37 +286,23 @@ const insets = useSafeAreaInsets();
         ?.url !== undefined &&
         !dismountPlayer &&
         !isOffline ? (
-          <VodPlayer
-            vod_url={
-              vod.vod_play_list.urls.find(url => url.nid === currentEpisode)
-                ?.url
-            }
-            ref={videoPlayerRef}
-            currentTimeRef={currentTimeRef}
-            initialStartTime={
-              initTime
-            }
-            vodTitle={vod.vod_name}
-            videoType="vod"
-            activeEpisode={currentEpisode}
-            episodes={vod.type_id !== 2 ? vod?.vod_play_list : undefined}
-            onEpisodeChange={(id: number) => {
-              setCurrentEpisode(id);
-              currentTimeRef.current = 0;
-            }}
-            showGuide={settingsReducer.showVodPlayerGuide}
-            rangeSize={EPISODE_RANGE_SIZE}
-            autoPlayNext={vod.type_id !== 2}
-            onShare={onShare}
-            movieList={vod.type_id === 2 ? suggestedVods : []}
-            showMoreType={vod.type_id === 2 ? 'movies' : 'episodes'}
-            isFetchingRecommendedMovies={isFetchingSuggestedVod}
-          // setNavBarOptions={setNavBarOptions}
-          />
+          <View style={{ width: '100%', aspectRatio: 16/9, backgroundColor: 'yellow', display: 'flex' }}>
+            <FastImage
+              style={{ height: 80, width: 80 }}
+              source={require('../../../static/images/loading-spinner.gif')}
+              resizeMode={FastImage.resizeMode.contain}
+            />
+          </View>
         )
         :
         (
-          <View style={{ width: '100%', aspectRatio: 16/9 }}></View>
+          <View style={{ width: '100%', aspectRatio: 16/9, backgroundColor: 'yellow' }}>
+            <FastImage
+              style={{ height: 80, width: 80 }}
+              source={require('../../../static/images/loading-spinner.gif')}
+              resizeMode={FastImage.resizeMode.contain}
+            />
+          </View>
         )
       }
       {!dismountPlayer && isOffline && (
