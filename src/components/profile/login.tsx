@@ -94,13 +94,20 @@ const LoginCard = props => {
           placeholderTextColor="#B6B6B6"
         />
 
-        {(props.email !== '' && props.emailValid) ||
-          (props.errMsg.includes('稍后') && (
-            <Image
-              style={styles.iconStyle}
-              source={require('../../../static/images/profile/cricket_tick.png')}
-            />
-          ))}
+        {props.email != '' && props.emailValid && (
+          <Image
+            style={styles.iconStyle}
+            source={require('../../../static/images/profile/cricket_tick.png')}
+          />
+        )}
+
+        {props.errMsg.includes('稍后') && (
+          <Image
+            style={styles.iconStyle}
+            source={require('../../../static/images/profile/cricket_tick.png')}
+          />
+        )}
+
         {props.email !== '' &&
           !props.emailValid &&
           !props.errMsg.includes('稍后') && (
