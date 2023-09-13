@@ -82,7 +82,7 @@ const LoginCard = props => {
             styles.textInpoutCommonStyle,
             props.email === ''
               ? styles.defaultTextInputStyle
-              : props.emailValid || props.errMsg.includes('请勿频繁请求')
+              : props.emailValid || props.errMsg.includes('稍后')
               ? styles.correctTextInputStyle
               : styles.invalidTextInputStyle,
           ]}
@@ -95,7 +95,7 @@ const LoginCard = props => {
         />
 
         {(props.email !== '' && props.emailValid) ||
-          (props.errMsg.includes('请勿频繁请求') && (
+          (props.errMsg.includes('稍后') && (
             <Image
               style={styles.iconStyle}
               source={require('../../../static/images/profile/cricket_tick.png')}
@@ -103,7 +103,7 @@ const LoginCard = props => {
           ))}
         {props.email !== '' &&
           !props.emailValid &&
-          !props.errMsg.includes('请勿频繁请求') && (
+          !props.errMsg.includes('稍后') && (
             <TouchableWithoutFeedback
               onPress={() => {
                 props.setEmail('');
@@ -126,16 +126,22 @@ const LoginCard = props => {
             marginTop: 10,
             paddingRight: 20,
           }}>
-          <Image
+          <View
             style={{
-              height: 20,
-              width: 20,
-              marginRight: 5,
-              position: 'relative',
-              top: 1,
-            }}
-            source={require('../../../static/images/invite/danger.png')}
-          />
+              marginTop: 1,
+              alignSelf: 'flex-start',
+            }}>
+            <Image
+              style={{
+                height: 20,
+                width: 20,
+                marginRight: 5,
+                position: 'relative',
+                top: 1,
+              }}
+              source={require('../../../static/images/invite/danger.png')}
+            />
+          </View>
           <Text style={styles.danger}>{props.errMsg}</Text>
         </View>
       )}
