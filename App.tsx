@@ -83,7 +83,7 @@ const App = () => {
   queryClient.prefetchQuery({
     queryKey: ['HomePage', 0],
     queryFn: () =>
-      fetch(`${API_DOMAIN_TEST}page/v1/typepage?id=0`)
+      fetch(`${API_DOMAIN}page/v2/typepage?id=0`)
         .then(response => response.json())
         .then((json: VodCarousellResponseType) => {
           return json;
@@ -139,7 +139,7 @@ const App = () => {
   queryClient.prefetchInfiniteQuery(['vodPlaylist'], ({ pageParam = 1 }) => fetchPlaylist(pageParam));
 
   const fetchVods = (page: number) => fetch(
-    `${API_DOMAIN}miniVod/v1/miniVod?page=${page}&limit=100`,
+    `${API_DOMAIN}miniVod/v2/miniVod?page=${page}&limit=100`,
   )
     .then(response => response.json())
     .then((json: MiniVideoResponseType) => {

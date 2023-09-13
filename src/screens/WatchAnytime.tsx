@@ -76,10 +76,12 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
     const [isPaused, setIsPaused] = useState(false);
     const LIMIT = 100;
     const fetchVods = (page: number) => fetch(
-        `${API_DOMAIN}miniVod/v1/miniVod?page=${page}&limit=${LIMIT}`,
+        `${API_DOMAIN}miniVod/v2/miniVod?page=${page}&limit=${LIMIT}`,
     )
         .then(response => response.json())
         .then((json: MiniVideoResponseType) => {
+            console.log('HAA!');
+            console.log(json.data)
             return json.data.List
         })
 
@@ -94,6 +96,8 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
                 return nextPage;
             },
             onSuccess: (data) => {
+                console.log('HAA! DATA');
+                console.log(data)
             }
         });
         

@@ -291,7 +291,8 @@ export default forwardRef<VideoRef, Props>(({
     }
     return undefined;
   };
-
+  console.log('HUHHADAA');
+  console.log(vod_url);
   return (
     <View style={styles.container}>
       <View style={{ ...styles.bofangBox }}>

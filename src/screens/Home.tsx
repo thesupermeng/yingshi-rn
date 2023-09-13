@@ -60,7 +60,7 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
   });
 
   const fetchData = useCallback((id: number) => {
-    return fetch(`${API_DOMAIN_TEST}page/v1/typepage?id=${id}`)
+    return fetch(`${API_DOMAIN}page/v2/typepage?id=${id}`)
       .then(response => response.json())
       .then((json: VodCarousellResponseType) => {
         return json;

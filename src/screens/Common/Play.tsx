@@ -187,7 +187,7 @@ const insets = useSafeAreaInsets();
 
   const fetchVodDetails = () =>
     fetch(
-      `${API_DOMAIN_TEST}vod/v1/vod/detail?id=${vod?.vod_id}`,
+      `${API_DOMAIN}vod/v1/vod/detail?id=${vod?.vod_id}`,
     )
       .then(response => response.json())
       .then((json: VodDetailsResponseType) => {
@@ -285,7 +285,7 @@ const insets = useSafeAreaInsets();
       {vod?.vod_play_list?.urls?.find(url => url.nid === currentEpisode)
         ?.url !== undefined &&
         !dismountPlayer &&
-        !isOffline && (
+        !isOffline ? (
           <VodPlayer
             vod_url={
               vod.vod_play_list.urls.find(url => url.nid === currentEpisode)
@@ -313,7 +313,12 @@ const insets = useSafeAreaInsets();
             isFetchingRecommendedMovies={isFetchingSuggestedVod}
           // setNavBarOptions={setNavBarOptions}
           />
-        )}
+        )
+        :
+        (
+          <View style={{ width: '100%', aspectRatio: 16/9 }}></View>
+        )
+      }
       {!dismountPlayer && isOffline && (
         <NoConnection onClickRetry={checkConnection} isPlay={true} />
       )}
@@ -453,7 +458,7 @@ const insets = useSafeAreaInsets();
               </View>
               {/* show 选集播放 section when avaiable episode more thn 1 */}
               {vod?.vod_play_list !== undefined &&
-                vod?.vod_play_list.urls.length > 1 && (
+                vod?.vod_play_list.urls?.length > 1 && (
                   <>
                     <View style={{ ...styles.spaceApart, gap: spacing.l }}>
                       <Text style={textVariants.body}>选集播放</Text>

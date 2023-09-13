@@ -201,7 +201,7 @@ export default ({navigation, route}: RootStackScreenProps<'片库'>) => {
 
   const fetchVods = useCallback(
     (page: number) => {
-      let url = `${API_DOMAIN_TEST}vod/v2/vod?limit=${LIMIT_PER_PAGE}`;
+      let url = `${API_DOMAIN}vod/v2/vod?limit=${LIMIT_PER_PAGE}`;
       url += `&tid=${currentTopicId}`;
       if (topicClass.value !== '全部类型') {
         url += `&class=${topicClass.value}`;
