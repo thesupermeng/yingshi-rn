@@ -22,7 +22,12 @@ export default function HomeSearchBar({
           backgroundColor: colors.search,
           ...styles.inputContainerStyle,
         }}
-        inputStyle={{...textVariants.subBody, position: 'relative', right: 10}}
+        inputStyle={{
+          ...textVariants.subBody,
+          position: 'relative',
+          right: 10,
+          top: 1,
+        }}
         placeholder="输入搜索关键词"
         placeholderTextColor={colors.text}
         round

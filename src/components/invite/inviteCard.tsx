@@ -68,7 +68,9 @@ export default function InviteCard({userState = {}}: Props) {
       timeDifferenceMilliseconds / (1000 * 60 * 60 * 24);
 
     // Round the time difference to the nearest whole number
-    const roundedTimeDifferenceDays = Math.round(timeDifferenceDays);
+    //const roundedTimeDifferenceDays = Math.round(timeDifferenceDays);
+    // Round up the time difference to the nearest whole number
+    const roundedTimeDifferenceDays = Math.ceil(timeDifferenceDays);
 
     // If the rounded difference is less than 0, set it to 0; otherwise, keep the rounded difference
     const result =

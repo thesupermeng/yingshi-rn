@@ -153,7 +153,12 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
           }}
           leftIconContainerStyle={{}}
           rightIconContainerStyle={{}}
-          inputStyle={{...textVariants.small, position: 'relative', right: 10}}
+          inputStyle={{
+            ...textVariants.small,
+            position: 'relative',
+            right: 10,
+            top: 1,
+          }}
           loadingProps={{}}
           onChangeText={(newVal: string) => {
             setShowResults(false);

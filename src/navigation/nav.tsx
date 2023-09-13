@@ -290,7 +290,8 @@ export default () => {
     const timeDifferenceMilliseconds = date2Milliseconds - date1Milliseconds;
     const timeDifferenceDays =
       timeDifferenceMilliseconds / (1000 * 60 * 60 * 24);
-    const roundedTimeDifferenceDays = Math.round(timeDifferenceDays);
+    // Round up the time difference to the nearest whole number
+    const roundedTimeDifferenceDays = Math.ceil(timeDifferenceDays);
     const result =
       roundedTimeDifferenceDays < 0 ? 0 : roundedTimeDifferenceDays;
     setVipRemainingDay(result);

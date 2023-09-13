@@ -360,14 +360,25 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
                 bearerToken: userState.userToken,
               });
             } catch (err: any) {
-              if (err.response.data.errors.referral_code) {
+              if (
+                err.response.data.errors &&
+                err.response.data.errors.referral_code
+              ) {
                 setReferralValid(false);
                 setErrReferral(err.response.data.errors.referral_code);
               }
 
-              if (err.response.data.errors.username) {
+              if (
+                err.response.data.errors &&
+                err.response.data.errors.username
+              ) {
                 setUsernameValid(false);
                 setErrUsername(err.response.data.errors.username);
+              }
+
+              if (!err.response.data.errors && err.response.data.message) {
+                setUsernameValid(false);
+                setErrUsername(err.response.data.message);
               }
               // setErrMsg(err.response.data.message);
               // setUsernameValid(false);
