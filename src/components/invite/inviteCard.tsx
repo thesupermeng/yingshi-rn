@@ -364,8 +364,11 @@ export default function InviteCard({userState = {}}: Props) {
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
-            marginHorizontal: 10,
+            marginHorizontal: 30,
             marginVertical: 25,
+            marginTop: 15,
+            // position: 'relative',
+            // bottom: 5,
           }}>
           <TouchableOpacity onPress={shareToWhatsApp}>
             <WhatsappIcn style={{width: 18, height: 18}} />
@@ -378,9 +381,9 @@ export default function InviteCard({userState = {}}: Props) {
             <FacebookIcn />
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={shareToWeixin}>
+          {/* <TouchableOpacity onPress={shareToWeixin}>
             <WechatIcn />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
           <TouchableOpacity onPress={shareToTwitter}>
             <FastImage
@@ -393,9 +396,9 @@ export default function InviteCard({userState = {}}: Props) {
             />
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={shareToWeibo}>
+          {/* <TouchableOpacity onPress={shareToWeibo}>
             <WeiboIcn />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
           <TouchableOpacity
             onPress={() => {
