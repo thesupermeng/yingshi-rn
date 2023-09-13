@@ -70,8 +70,10 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
     setIsDialogOpen(!isDialogOpen);
   };
   const onUsernameChange = (value: any) => {
-    setUsername(value);
-    ValidateUsername(value);
+    const cleanedValue = value.replace(/\s+/g, '');
+
+    setUsername(cleanedValue);
+    ValidateUsername(cleanedValue);
   };
 
   const onReferralChange = (value: any) => {

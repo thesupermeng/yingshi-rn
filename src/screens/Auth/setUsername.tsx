@@ -67,8 +67,11 @@ export default (props: any) => {
 
   const onInputChange = (value: any) => {
     // setErrMsg('');
-    setUsername(value);
-    ValidateUsername(value);
+
+    const cleanedValue = value.replace(/\s+/g, '');
+
+    setUsername(cleanedValue);
+    ValidateUsername(cleanedValue);
   };
   const dispatch = useDispatch();
   function ValidateUsername(username: string) {
@@ -196,17 +199,18 @@ export default (props: any) => {
                   }}>
                   {errMsg != '' && (
                     <>
-                      <Image
-                        style={{
-                          height: 22,
-                          width: 22,
-                          marginRight: 5,
-                          position: 'relative',
-                          top: 1,
-                        }}
-                        source={require('../../../static/images/invite/danger.png')}
-                      />
-
+                      <View style={{alignSelf: 'flex-start'}}>
+                        <Image
+                          style={{
+                            height: 22,
+                            width: 22,
+                            marginRight: 5,
+                            position: 'relative',
+                            top: 1,
+                          }}
+                          source={require('../../../static/images/invite/danger.png')}
+                        />
+                      </View>
                       <Text style={styles.danger}>{errMsg} </Text>
                     </>
                   )}
@@ -343,6 +347,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     textAlign: 'left',
     color: '#FF3434',
+    paddingRight: 35,
   },
   topNav: {
     paddingTop: 8,
