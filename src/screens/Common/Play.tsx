@@ -465,93 +465,113 @@ const insets = useSafeAreaInsets();
                 </TouchableOpacity>
               </View>
               {/* show 选集播放 section when avaiable episode more thn 1 */}
-              {vod?.vod_play_list !== undefined &&
-                vod?.vod_play_list.urls?.length > 1 && (
-                  <>
-                    <View style={{ ...styles.spaceApart, gap: spacing.l }}>
-                      <Text style={textVariants.body}>选集播放</Text>
-                      <TouchableOpacity
-                        style={styles.share}
-                        onPress={() => sheetRef.current?.snapToIndex(1)}>
-                        <Text
-                          style={{
-                            color: colors.muted,
-                            fontSize: 15,
-                          }}>{`${showEpisodeRangeStart + 1
-                            }-${showEpisodeRangeEnd}集`}</Text>
-                        <MoreArrow
-                          style={{ color: colors.muted }}
-                          height={icons.sizes.m}
-                          width={icons.sizes.m}
+              <>
+                { isFetchingVodDetails ?
+                  (
+                    <>
+                      <View style={{ width: '100%', aspectRatio: 16/9, display: 'flex', justifyContent: 'center', alignItems: 'center', alignSelf: 'center' }}>
+                        <FastImage
+                          style={{ height: 80, width: 80 }}
+                          source={require('../../../static/images/loading-spinner.gif')}
+                          resizeMode={FastImage.resizeMode.contain}
                         />
-                      </TouchableOpacity>
-                    </View>
-                    <FlatList
-                      horizontal={true}
-                      showsHorizontalScrollIndicator={false}
-                      initialNumToRender={10}
-                      onScrollToIndexFailed={() => { }}
-                      ref={episodeRef}
-                      data={vod?.vod_play_list.urls.slice(
-                        showEpisodeRangeStart,
-                        showEpisodeRangeEnd,
-                      )}
-                      renderItem={({ item }) => (
-                        <TouchableOpacity
-                          style={{
-                            backgroundColor:
-                              currentEpisode === item.nid
-                                ? colors.primary
-                                : colors.search,
-                            paddingVertical: 8,
-                            paddingHorizontal: 10,
-                            minWidth: 70,
-                            marginRight: spacing.xs,
-                            ...styles.episodeBtn,
-                          }}
-                          onPress={() => {
-                            setCurrentEpisode(item.nid);
-                            currentTimeRef.current = 0;
-                          }}>
-                          <Text
-                            numberOfLines={1}
-                            style={{
-                              fontSize: 13,
-                              textAlign: 'center',
-                              fontWeight: '500',
-                              color:
-                                currentEpisode === item.nid
-                                  ? colors.selected
-                                  : colors.muted,
-                            }}>
-                            {item.name}
-                          </Text>
-                        </TouchableOpacity>
-                      )}
-                    />
-                    <View />
-                  </>
-                )}
-              {vod &&
-                suggestedVods !== undefined &&
-                suggestedVods?.length > 0 && (
-                  <View style={{ gap: spacing.l }}>
-                    <ShowMoreVodButton
-                      isPlayScreen={true}
-                      text={`相关${vod?.type_name}`}
-                      onPress={() => {
-                        videoPlayerRef.current.setPause(true);
-                        setTimeout(() => {
-                          navigation.navigate('片库', { type_id: vod.type_id });
-                        }, 150);
-                      }}
-                    />
-                    <VodListVertical
-                      vods={suggestedVods}
-                      outerRowPadding={2 * (20 - spacing.sideOffset)}
-                    />
-                  </View>
-                )}
+                      </View>
+                    </>
+                  )
+                  :
+                  (
+                    <>
+                      {vod?.vod_play_list !== undefined &&
+                        vod?.vod_play_list.urls?.length > 1 && (
+                          <>
+                            <View style={{ ...styles.spaceApart, gap: spacing.l }}>
+                              <Text style={textVariants.body}>选集播放</Text>
+                              <TouchableOpacity
+                                style={styles.share}
+                                onPress={() => sheetRef.current?.snapToIndex(1)}>
+                                <Text
+                                  style={{
+                                    color: colors.muted,
+                                    fontSize: 15,
+                                  }}>{`${showEpisodeRangeStart + 1
+                                    }-${showEpisodeRangeEnd}集`}</Text>
+                                <MoreArrow
+                                  style={{ color: colors.muted }}
+                                  height={icons.sizes.m}
+                                  width={icons.sizes.m}
+                                />
+                              </TouchableOpacity>
+                            </View>
+                            <FlatList
+                              horizontal={true}
+                              showsHorizontalScrollIndicator={false}
+                              initialNumToRender={10}
+                              onScrollToIndexFailed={() => { }}
+                              ref={episodeRef}
+                              data={vod?.vod_play_list.urls.slice(
+                                showEpisodeRangeStart,
+                                showEpisodeRangeEnd,
+                              )}
+                              renderItem={({ item }) => (
+                                <TouchableOpacity
+                                  style={{
+                                    backgroundColor:
+                                      currentEpisode === item.nid
+                                        ? colors.primary
+                                        : colors.search,
+                                    paddingVertical: 8,
+                                    paddingHorizontal: 10,
+                                    minWidth: 70,
+                                    marginRight: spacing.xs,
+                                    ...styles.episodeBtn,
+                                  }}
+                                  onPress={() => {
+                                    setCurrentEpisode(item.nid);
+                                    currentTimeRef.current = 0;
+                                  }}>
+                                  <Text
+                                    numberOfLines={1}
+                                    style={{
+                                      fontSize: 13,
+                                      textAlign: 'center',
+                                      fontWeight: '500',
+                                      color:
+                                        currentEpisode === item.nid
+                                          ? colors.selected
+                                          : colors.muted,
+                                    }}>
+                                    {item.name}
+                                  </Text>
+                                </TouchableOpacity>
+                              )}
+                            />
+                            <View />
+                          </>
+                        )}
+                      {vod &&
+                        suggestedVods !== undefined &&
+                        suggestedVods?.length > 0 && (
+                          <View style={{ gap: spacing.l }}>
+                            <ShowMoreVodButton
+                              isPlayScreen={true}
+                              text={`相关${vod?.type_name}`}
+                              onPress={() => {
+                                videoPlayerRef.current.setPause(true);
+                                setTimeout(() => {
+                                  navigation.navigate('片库', { type_id: vod.type_id });
+                                }, 150);
+                              }}
+                            />
+                            <VodListVertical
+                              vods={suggestedVods}
+                              outerRowPadding={2 * (20 - spacing.sideOffset)}
+                            />
+                          </View>
+                        )}
+                    </>
+                  )
+                }
+              </>
             </View>
           </ScrollView>
           <VodEpisodeSelectionModal
