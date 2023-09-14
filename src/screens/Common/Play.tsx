@@ -183,7 +183,7 @@ const insets = useSafeAreaInsets();
       eventName,
       eventValues,
       res => {
-        console.log(res);
+        // console.log(res);
       },
       err => {
         console.error(err);
@@ -197,8 +197,6 @@ const insets = useSafeAreaInsets();
     )
       .then(response => response.json())
       .then((json: VodDetailsResponseType) => {
-        console.log('HEHE');
-        console.log(json.data[0]);
         return json.data[0];
       });
 
@@ -279,6 +277,39 @@ const insets = useSafeAreaInsets();
       };
     }, [vod, currentTimeRef, currentEpisode, videoPlayerRef]),
   );
+
+  const renderEpisodes = useCallback(({ item }) => (
+    <TouchableOpacity
+      style={{
+        backgroundColor:
+          currentEpisode === item.nid
+            ? colors.primary
+            : colors.search,
+        paddingVertical: 8,
+        paddingHorizontal: 10,
+        minWidth: 70,
+        marginRight: spacing.xs,
+        ...styles.episodeBtn,
+      }}
+      onPress={() => {
+        setCurrentEpisode(item.nid);
+        currentTimeRef.current = 0;
+      }}>
+      <Text
+        numberOfLines={1}
+        style={{
+          fontSize: 13,
+          textAlign: 'center',
+          fontWeight: '500',
+          color:
+            currentEpisode === item.nid
+              ? colors.selected
+              : colors.muted,
+        }}>
+        {item.name}
+      </Text>
+    </TouchableOpacity>
+  ), []);
 
   return (
     <ScreenContainer
@@ -512,38 +543,7 @@ const insets = useSafeAreaInsets();
                                 showEpisodeRangeStart,
                                 showEpisodeRangeEnd,
                               )}
-                              renderItem={({ item }) => (
-                                <TouchableOpacity
-                                  style={{
-                                    backgroundColor:
-                                      currentEpisode === item.nid
-                                        ? colors.primary
-                                        : colors.search,
-                                    paddingVertical: 8,
-                                    paddingHorizontal: 10,
-                                    minWidth: 70,
-                                    marginRight: spacing.xs,
-                                    ...styles.episodeBtn,
-                                  }}
-                                  onPress={() => {
-                                    setCurrentEpisode(item.nid);
-                                    currentTimeRef.current = 0;
-                                  }}>
-                                  <Text
-                                    numberOfLines={1}
-                                    style={{
-                                      fontSize: 13,
-                                      textAlign: 'center',
-                                      fontWeight: '500',
-                                      color:
-                                        currentEpisode === item.nid
-                                          ? colors.selected
-                                          : colors.muted,
-                                    }}>
-                                    {item.name}
-                                  </Text>
-                                </TouchableOpacity>
-                              )}
+                              renderItem={renderEpisodes}
                             />
                             <View />
                           </>

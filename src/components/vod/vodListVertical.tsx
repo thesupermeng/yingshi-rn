@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo, useEffect, useState, useMemo } from 'react';
 import { View, Text, StyleSheet, Dimensions, FlatList, Image } from 'react-native';
 import { useNavigation, useTheme } from '@react-navigation/native';
 
@@ -23,26 +23,42 @@ function VodListVertical({ vods, numOfRows = 2, outerRowPadding = 0, minNumPerRo
     const navigation = useNavigation();
     const dispatch = useAppDispatch();
 
-    const width = Math.min(Dimensions.get('window').width, Dimensions.get('window').height)
-   
-    const PADDING = 8;
-    const windowDim = width - insets.left - insets.right - outerRowPadding - (2.1 * spacing.sideOffset); // usable space
-    const maxWidth = (windowDim / minNumPerRow) - PADDING;
-    let cardWidth = Math.min(160, Math.floor(maxWidth));
-    const cardHeight = heightToWidthRatio * cardWidth;
-    const CARDS_PER_ROW = Math.floor(windowDim / cardWidth);
-    let BTN_MARGIN_RIGHT = (windowDim - (CARDS_PER_ROW * cardWidth)) / (CARDS_PER_ROW - 1);
-    if (BTN_MARGIN_RIGHT > 16) {
-        const excess = (BTN_MARGIN_RIGHT - 16) * (CARDS_PER_ROW - 1);
-        BTN_MARGIN_RIGHT = 16;
-        cardWidth += Math.floor(excess / CARDS_PER_ROW)  
-    }
+    const [cardsPerRow, setCardsPerRow] = useState(3);
+    const [marginRight, setMarginRight] = useState(5);
+    const [cardWidth, setCardWidth] = useState(3);
+    const [cardHeight, setCardHeight] = useState(5);
+
+    const width = Math.min(Dimensions.get('window').width, Dimensions.get('window').height);
+
+    useEffect(() => {
+        calculateDimensions;
+    }, []);
+
+    const calculateDimensions = useMemo(() => {
+        const PADDING = 8;
+        const windowDim = width - insets.left - insets.right - outerRowPadding - (2.1 * spacing.sideOffset); // usable space
+        const maxWidth = (windowDim / minNumPerRow) - PADDING;
+        let cardWidth = Math.min(160, Math.floor(maxWidth));
+        const cardHeight = heightToWidthRatio * cardWidth;
+        const CARDS_PER_ROW = Math.floor(windowDim / cardWidth);
+        let BTN_MARGIN_RIGHT = (windowDim - (CARDS_PER_ROW * cardWidth)) / (CARDS_PER_ROW - 1);
+        if (BTN_MARGIN_RIGHT > 16) {
+            const excess = (BTN_MARGIN_RIGHT - 16) * (CARDS_PER_ROW - 1);
+            BTN_MARGIN_RIGHT = 16;
+            cardWidth += Math.floor(excess / CARDS_PER_ROW)  
+        }
+
+        setCardsPerRow(CARDS_PER_ROW);
+        setMarginRight(BTN_MARGIN_RIGHT);
+        setCardWidth(cardWidth);
+        setCardHeight(cardHeight);
+    }, []);
     
     return (
         <View style={styles.vodList}>
             {
                 vods &&
-                vods.slice(0, numOfRows * CARDS_PER_ROW).map((vod, idx) => (
+                vods.slice(0, numOfRows * cardsPerRow).map((vod, idx) => (
                     <VodCard
                         key={`${vod.vod_id}`}
                         vod_name={vod?.vod_name}
@@ -51,16 +67,13 @@ function VodListVertical({ vods, numOfRows = 2, outerRowPadding = 0, minNumPerRo
                         vodImageStyle={{
                             width: cardWidth,
                             height: cardHeight,
-                            marginRight: (idx % CARDS_PER_ROW) === CARDS_PER_ROW - 1 ? 0 : BTN_MARGIN_RIGHT,
+                            marginRight: (idx % cardsPerRow) === cardsPerRow - 1 ? 0 : marginRight,
                         }}
                         vodCardContainerStyle={{
-                            marginBottom: Math.min(BTN_MARGIN_RIGHT, 14)
+                            marginBottom: Math.min(marginRight, 14)
                         }}
                         onPress={() => {
                             dispatch(playVod(vod));
-                            console.log('??');
-                            console.log(vod);
-                            console.log(vod?.vod_id);
                             navigation.navigate('播放', {
                                 vod_id: vod?.vod_id,
                             });
@@ -72,7 +85,7 @@ function VodListVertical({ vods, numOfRows = 2, outerRowPadding = 0, minNumPerRo
     )
 }
 
-export default VodListVertical;
+export default memo(VodListVertical);
 
 const styles = StyleSheet.create({
     vodList: {

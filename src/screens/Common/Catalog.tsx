@@ -341,6 +341,68 @@ export default ({navigation, route}: RootStackScreenProps<'片库'>) => {
     );
   }, []);
 
+  const renderNavItems = useCallback(({item}: {item: NavType}) => {
+    return (
+      <TouchableOpacity
+        style={{...styles.btn}}
+        onPress={() => {
+          reset();
+          setCurrentTopicId(item.id);
+        }}>
+        <Text
+          style={{
+            textAlign: 'center',
+            fontSize:
+              currentTopicId === item.id
+                ? textVariants.body.fontSize
+                : textVariants.subBody.fontSize,
+            color:
+              currentTopicId === item.id
+                ? colors.primary
+                : colors.muted,
+            fontWeight: currentTopicId === item.id ? '600' : '400',
+          }}>
+          {item.name}
+        </Text>
+        <View style={underlineStyle(item.id)} />
+      </TouchableOpacity>
+    );
+  }, []);
+
+  const renderVods = useCallback(({
+    item,
+    index,
+  }: {
+    item: SuggestedVodType;
+    index: number;
+  }) => {
+    return (
+      <View
+        style={{
+          marginBottom: spacing.s,
+          marginRight:
+            index % CARDS_PER_ROW === CARDS_PER_ROW - 1
+              ? 0
+              : MARGIN_RIGHT,
+        }}>
+        <VodCard
+          vod_pic={item?.vod_pic}
+          vod_name={item?.vod_name}
+          vodImageStyle={{
+            width: cardWidth,
+            height: cardHeight,
+          }}
+          onPress={() => {
+            dispatch(playVod(item));
+            navigation.navigate('播放', {
+              vod_id: item?.vod_id,
+            });
+          }}
+        />
+      </View>
+    );
+  }, []);
+
   return (
     <ScreenContainer>
       <TitleWithBackButtonHeader
@@ -352,33 +414,7 @@ export default ({navigation, route}: RootStackScreenProps<'片库'>) => {
           data={topicOptions}
           horizontal
           showsHorizontalScrollIndicator={false}
-          renderItem={({item}: {item: NavType}) => {
-            return (
-              <TouchableOpacity
-                style={{...styles.btn}}
-                onPress={() => {
-                  reset();
-                  setCurrentTopicId(item.id);
-                }}>
-                <Text
-                  style={{
-                    textAlign: 'center',
-                    fontSize:
-                      currentTopicId === item.id
-                        ? textVariants.body.fontSize
-                        : textVariants.subBody.fontSize,
-                    color:
-                      currentTopicId === item.id
-                        ? colors.primary
-                        : colors.muted,
-                    fontWeight: currentTopicId === item.id ? '600' : '400',
-                  }}>
-                  {item.name}
-                </Text>
-                <View style={underlineStyle(item.id)} />
-              </TouchableOpacity>
-            );
-          }}
+          renderItem={renderNavItems}
         />
       </Animated.View>
       <Animated.View style={{paddingBottom: spacing.xxs}}>
@@ -521,40 +557,7 @@ export default ({navigation, route}: RootStackScreenProps<'片库'>) => {
             </View>
           }
           numColumns={CARDS_PER_ROW}
-          renderItem={({
-            item,
-            index,
-          }: {
-            item: SuggestedVodType;
-            index: number;
-          }) => {
-            return (
-              <View
-                style={{
-                  marginBottom: spacing.s,
-                  marginRight:
-                    index % CARDS_PER_ROW === CARDS_PER_ROW - 1
-                      ? 0
-                      : MARGIN_RIGHT,
-                }}>
-                <VodCard
-                  vod_pic={item?.vod_pic}
-                  vod_name={item?.vod_name}
-                  vodImageStyle={{
-                    width: cardWidth,
-                    height: cardHeight,
-                  }}
-                  onPress={() => {
-                    dispatch(playVod(item));
-                    navigation.navigate('播放', {
-                      vod_id: item?.vod_id,
-                    });
-                  }}
-                />
-              </View>
-            );
-            // return <View style={{height: 200, width: 200, backgroundColor: 'red'}}></View>
-          }}
+          renderItem={renderVods}
         />
       )}
     </ScreenContainer>
