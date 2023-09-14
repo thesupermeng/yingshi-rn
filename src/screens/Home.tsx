@@ -1,4 +1,4 @@
-import React, {useMemo, useCallback, useEffect, useRef, useState} from 'react';
+import React, {useMemo, useCallback, useEffect, useRef, useState, memo} from 'react';
 import {
   StyleSheet,
   Text,
@@ -21,7 +21,7 @@ import {
   LiveTVStationsResponseType,
 } from '../types/ajaxTypes';
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
-import {API_DOMAIN} from '../utility/constants';
+import {API_DOMAIN, API_DOMAIN_TEST} from '../utility/constants';
 import CatagoryHome from '../components/container/CatagoryHome';
 import RecommendationHome from '../components/container/RecommendationHome';
 import HomeHeader from '../components/header/homeHeader';
@@ -35,7 +35,7 @@ interface NavType {
   name: string;
 }
 
-export default ({navigation}: BottomTabScreenProps<any>) => {
+function Home ({navigation}: BottomTabScreenProps<any>) {
   const isFocused = useIsFocused();
   const {colors, textVariants, spacing} = useTheme();
   const [navId, setNavId] = useState(0);
@@ -60,7 +60,7 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
   });
 
   const fetchData = useCallback((id: number) => {
-    return fetch(`${API_DOMAIN}page/v1/typepage?id=${id}`)
+    return fetch(`${API_DOMAIN}page/v2/typepage?id=${id}`)
       .then(response => response.json())
       .then((json: VodCarousellResponseType) => {
         return json;
@@ -163,13 +163,15 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
                 refreshProp={isRefreshing}
               />
             ) : (
-              <CatagoryHome
-                vodCarouselRes={item.data}
-                navId={index}
-                setScrollEnabled={setScrollEnabled}
-                onRefresh={handleRefresh}
-                refreshProp={isRefreshing}
-              />
+              <>
+                <CatagoryHome
+                  vodCarouselRes={item.data}
+                  navId={index}
+                  setScrollEnabled={setScrollEnabled}
+                  onRefresh={handleRefresh}
+                  refreshProp={isRefreshing}
+                />
+              </>
             ))}
         </>
       );
@@ -327,6 +329,8 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
     </>
   );
 };
+
+export default Home;
 
 const styles = StyleSheet.create({
   wrapper: {

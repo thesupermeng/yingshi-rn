@@ -81,7 +81,7 @@ function VodEpisodeSelectionModal({
     [episodes, showEpisodeRangeStart],
   );
   const displayEpisodes = useMemo(() => {
-    const eps = episodes?.urls.slice(
+    const eps = episodes?.urls?.slice(
       showEpisodeRangeStart,
       showEpisodeRangeEnd,
     );

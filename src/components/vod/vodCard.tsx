@@ -1,3 +1,4 @@
+import React from 'react';
 import { StyleSheet, TouchableOpacity, Text, ScrollView, Image, View, ViewStyle } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import VodImageCard from './vodImageCard';
@@ -40,7 +41,7 @@ function VodCard({ vod_name, vod_pic, vodImageStyle = {}, onPress, showInfo, sho
     );
 }
 
-export default(memo(VodCard))
+export default memo(VodCard);
 
 const styles = StyleSheet.create({
     card: {

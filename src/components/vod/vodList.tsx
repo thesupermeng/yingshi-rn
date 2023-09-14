@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { StyleSheet, TouchableOpacity, Text, FlatList, Image, ViewStyle } from 'react-native';
 import { useNavigation, useTheme } from '@react-navigation/native';
 import { useQuery } from '@tanstack/react-query';
@@ -47,23 +47,25 @@ export default function VodList({ query_url, initial_page = 0, vodStyle, horizon
         initialData: vodList, enabled: query_url !== undefined
     });
 
+    const renderItem = useCallback(({ item } : FlatListType ) => {
+        return <VodCard showPlayIcon={showPlayIcon} vodImageStyle={vodStyle}
+        vod_name={item.vod_name} vod_pic={item.vod_pic}
+        showInfo={
+            showInfo === 'none'
+                ? ''
+                : item.vod_remarks
+        }
+        onPress={() => {
+            dispatch(playVod(item));
+            navigation.navigate('播放', { vod_id: item.vod_id })
+        }} />
+    }, []);
+
     return (
         <FlatList
             data={data}
             horizontal
-            renderItem={({ item }: FlatListType) => {
-                return <VodCard showPlayIcon={showPlayIcon} vodImageStyle={vodStyle}
-                    vod_name={item.vod_name} vod_pic={item.vod_pic}
-                    showInfo={
-                        showInfo === 'none'
-                            ? ''
-                            : item.vod_remarks
-                    }
-                    onPress={() => {
-                        dispatch(playVod(item));
-                        navigation.navigate('播放', { vod_id: item.vod_id })
-                    }} />
-            }}
+            renderItem={renderItem}
         />
     );
 }

@@ -1,3 +1,4 @@
+import React, { memo } from 'react';
 import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import FastImage, { ImageStyle } from 'react-native-fast-image';

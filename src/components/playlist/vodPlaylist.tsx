@@ -1,12 +1,12 @@
-import React, {useEffect, useState, useCallback, useMemo, memo} from 'react';
-import {useNavigation, useTheme} from '@react-navigation/native';
-import {VodTopicType, VodType} from '../../types/ajaxTypes';
-import {playVod, viewPlaylistDetails} from '../../redux/actions/vodActions';
-import {View, StyleSheet, Text, TouchableOpacity, FlatList} from 'react-native';
+import React, { useEffect, useState, useCallback, useMemo, memo } from 'react';
+import { useNavigation, useTheme } from '@react-navigation/native';
+import { VodTopicType, VodType } from '../../types/ajaxTypes';
+import { playVod, viewPlaylistDetails } from '../../redux/actions/vodActions';
+import { View, StyleSheet, Text, TouchableOpacity, FlatList } from 'react-native';
 import RightIcon from '../../../static/images/more_arrow.svg';
 import VodCard from '../vod/vodCard';
-import {useAppDispatch} from '../../hooks/hooks';
-import {TextStyle} from 'react-native';
+import { useAppDispatch } from '../../hooks/hooks';
+import { TextStyle } from 'react-native';
 import appsFlyer from 'react-native-appsflyer';
 
 interface Props {
@@ -19,13 +19,13 @@ type FlatListType = {
   index: number;
 };
 
-export default function VodPlaylist({playlist, titleStyle}: Props) {
-  const {textVariants, spacing, colors, icons} = useTheme();
+function VodPlaylist({ playlist, titleStyle }: Props) {
+  const { textVariants, spacing, colors, icons } = useTheme();
   const navigator = useNavigation();
   const dispatch = useAppDispatch();
   const viewMore = () => {
     dispatch(viewPlaylistDetails(playlist));
-    navigator.navigate('PlaylistDetail', {topic_id: playlist.topic_id});
+    navigator.navigate('PlaylistDetail', { topic_id: playlist.topic_id });
   };
 
   useEffect(() => {
@@ -46,8 +46,22 @@ export default function VodPlaylist({playlist, titleStyle}: Props) {
     );
   }, []);
 
+  const renderItem = useCallback(({ item, index }: FlatListType) => (
+    <VodCard
+      vod_name={item.vod_name}
+      vodImageStyle={{ width: 120, height: 180 }}
+      vod_pic={item.vod_pic}
+      onPress={() => {
+        dispatch(playVod(item));
+        navigator.navigate('播放', {
+          vod_id: item.vod_id,
+        });
+      }}
+    />
+  ), []);
+
   return (
-    <View style={{...styles.playlist, gap: spacing.m}}>
+    <View style={{ ...styles.playlist, gap: spacing.m }}>
       <TouchableOpacity onPress={viewMore}>
         <View
           style={{
@@ -56,7 +70,7 @@ export default function VodPlaylist({playlist, titleStyle}: Props) {
             gap: spacing.s,
           }}>
           <View style={styles.header}>
-            <Text style={{...textVariants.bigHeader, ...titleStyle}}>
+            <Text style={{ ...textVariants.bigHeader, ...titleStyle }}>
               {playlist.topic_name}
             </Text>
 
@@ -68,36 +82,27 @@ export default function VodPlaylist({playlist, titleStyle}: Props) {
           </View>
           <Text
             numberOfLines={3}
-            style={{...textVariants.small, color: colors.text, flex: 1}}>
+            style={{ ...textVariants.small, color: colors.text, flex: 1 }}>
             {playlist.topic_blurb}
           </Text>
         </View>
       </TouchableOpacity>
-      <View style={{paddingLeft: spacing.sideOffset}}>
+      <View style={{ paddingLeft: spacing.sideOffset }}>
         <FlatList
+          initialNumToRender={3}
+          maxToRenderPerBatch={3}
+          windowSize={5}
           data={playlist?.vod_list}
           horizontal
           showsHorizontalScrollIndicator={false}
-          renderItem={({item, index}: FlatListType) => {
-            return (
-              <VodCard
-                vod_name={item.vod_name}
-                vodImageStyle={{width: 120, height: 180}}
-                vod_pic={item.vod_pic}
-                onPress={() => {
-                  dispatch(playVod(item));
-                  navigator.navigate('播放', {
-                    vod_id: item.vod_id,
-                  });
-                }}
-              />
-            );
-          }}
+          renderItem={renderItem}
         />
       </View>
     </View>
   );
 }
+
+export default memo(VodPlaylist);
 
 const styles = StyleSheet.create({
   playlist: {

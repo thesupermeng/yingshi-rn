@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { View, FlatList, Text, StyleSheet } from 'react-native';
 import ScreenContainer from '../../../components/container/screenContainer';
 import { useTheme } from '@react-navigation/native';
@@ -24,6 +24,18 @@ export default ({ navigation }: RootStackScreenProps<'合集收藏'>) => {
     const dispatch = useAppDispatch();
     const favs: FavoriteVodReducerState = useAppSelector(({ vodFavouritesReducer }: RootState) => vodFavouritesReducer);
     const favorites = favs.favorites;
+
+    const renderItem = useCallback(({ item }: FlatListType) => {
+        return (
+            <FavoriteVodCard vod={item} onPress={() => {
+                dispatch(playVod(item));
+                navigation.navigate('播放', {
+                    vod_id: item.vod_id
+                });
+            }} />
+        )
+    }, [])
+
     return (
         <ScreenContainer>
             <TitleWithBackButtonHeader title='我的收藏' />
@@ -35,18 +47,13 @@ export default ({ navigation }: RootStackScreenProps<'合集收藏'>) => {
                         data={favorites}
                         contentContainerStyle={{ paddingBottom: 120 }}
                         ListFooterComponent={<Text style={{ ...textVariants.body, color: colors.muted, ...styles.noMore }}>没有更多了</Text>}
-                        renderItem={({ item }: FlatListType) => <FavoriteVodCard vod={item} onPress={() => {
-                            dispatch(playVod(item));
-                            navigation.navigate('播放', {
-                                vod_id: item.vod_id
-                            });
-                        }} />}
+                        renderItem={renderItem}
                     />
                 }
             </View>
             {
                 favorites && favorites.length === 0 &&
-                <EmptyList description='暂无合集收藏'/>
+                <EmptyList description='暂无合集收藏' />
             }
         </ScreenContainer >
     )
