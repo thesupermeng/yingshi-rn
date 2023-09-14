@@ -291,7 +291,6 @@ export default forwardRef<VideoRef, Props>(({
     }
     return undefined;
   };
-
   return (
     <View style={styles.container}>
       <View style={{ ...styles.bofangBox }}>

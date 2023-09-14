@@ -1,4 +1,4 @@
-import React, {memo, useState, useRef, useCallback, useEffect} from 'react';
+import React, { memo, useState, useRef, useCallback, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -9,8 +9,8 @@ import {
   Dimensions,
   FlatList,
 } from 'react-native';
-import {FlatList as FlatListSecondary} from 'react-native-gesture-handler';
-import {useNavigation, useTheme} from '@react-navigation/native';
+import { FlatList as FlatListSecondary } from 'react-native-gesture-handler';
+import { useNavigation, useTheme } from '@react-navigation/native';
 import Swiper from 'react-native-swiper';
 import ShowMoreVodButton from '../button/showMoreVodButton';
 import {
@@ -22,15 +22,15 @@ import {
   VodData,
 } from '../../types/ajaxTypes';
 import FastImage from 'react-native-fast-image';
-import {VodReducerState} from '../../redux/reducers/vodReducer';
-import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
-import {RootState} from '../../redux/store';
+import { VodReducerState } from '../../redux/reducers/vodReducer';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
+import { RootState } from '../../redux/store';
 import VodHistoryList from '../vod/vodHistoryList';
 import VodLiveStationList from '../vod/vodLiveStationList';
-import {API_DOMAIN, API_DOMAIN_TEST} from '../../utility/constants';
+import { API_DOMAIN, API_DOMAIN_TEST } from '../../utility/constants';
 import VodListVertical from '../vod/vodListVertical';
-import {playVod, viewPlaylistDetails} from '../../redux/actions/vodActions';
-import {useQuery, useInfiniteQuery} from '@tanstack/react-query';
+import { playVod, viewPlaylistDetails } from '../../redux/actions/vodActions';
+import { useQuery, useInfiniteQuery } from '@tanstack/react-query';
 import LinearGradient from 'react-native-linear-gradient';
 import Carousel from 'react-native-reanimated-carousel';
 import CarouselPagination from './CarouselPagination';
@@ -69,7 +69,7 @@ const CatagoryHome = ({
   onRefresh,
   refreshProp,
 }: Props) => {
-  const {colors, textVariants, spacing} = useTheme();
+  const { colors, textVariants, spacing } = useTheme();
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const [activeIndex, setActiveIndex] = useState(0);
@@ -95,14 +95,14 @@ const CatagoryHome = ({
       });
       setActiveIndex(0);
       if (carouselRef) {
-        carouselRef?.current?.scrollTo({index: 0, animated: false});
+        carouselRef?.current?.scrollTo({ index: 0, animated: false });
       }
       setIsRefreshing(false);
     }, 0);
   };
 
   const listItem = useCallback(
-    ({item, index}: {item: VodData; index: number}) => (
+    ({ item, index }: { item: VodData; index: number }) => (
       <View
         key={`${item.type_name}-${index}`}
         style={{
@@ -125,12 +125,90 @@ const CatagoryHome = ({
     [],
   );
 
+  const renderCarousel = useCallback(({ item, index }: { item: any, index: number }) => {
+    return (
+      <TouchableOpacity
+        key={`slider-${index}`}
+        onPress={() => {
+          dispatch(playVod(item.vod));
+          navigation.navigate('播放', {
+            vod_id: item.carousel_content_id,
+          });
+        }}>
+        <FastImage
+          style={styles.image}
+          source={{
+            uri: item.carousel_pic_mobile,
+            priority: FastImage.priority.normal,
+          }}
+          resizeMode={FastImage.resizeMode.contain}
+        />
+        <LinearGradient
+          colors={['transparent', 'black']}
+          start={{ x: 0.8, y: 0 }}
+          end={{ x: 0.8, y: 0.9 }}
+          style={styles.bottomBlur}
+        />
+        <Text
+          style={{
+            ...textVariants.bodyBold,
+            ...styles.carouselTag,
+            color: 'white',
+          }}
+          numberOfLines={1}>
+          {item.carousel_name}
+        </Text>
+      </TouchableOpacity>
+    )
+  }, []);
+
+  const renderContent = useCallback(({
+    item,
+    index,
+  }: {
+    item: string;
+    index: number;
+  }) => {
+    return (
+      <TouchableOpacity
+        style={{
+          marginRight: spacing.m,
+          justifyContent: 'center',
+          display: 'flex',
+          backgroundColor:
+            BTN_COLORS[index % BTN_COLORS.length],
+          paddingLeft: spacing.s,
+          paddingRight: spacing.s,
+          paddingTop: spacing.s - 4,
+          paddingBottom: spacing.s - 1,
+          borderRadius: spacing.xs,
+          opacity: 0.9,
+        }}
+        onPress={() =>
+          navigation.navigate('片库', {
+            type_id: navId,
+            class: item,
+          })
+        }>
+        <Text
+          style={{
+            textAlign: 'center',
+            ...textVariants.body,
+            fontWeight: '700',
+            opacity: 0.9,
+          }}>
+          {item}
+        </Text>
+      </TouchableOpacity>
+    );
+  }, []);
+
   // useEffect(() => {
   //   setActiveIndex(0);
   // }, [refreshProp]);
 
   return (
-    <View style={{width: width}}>
+    <View style={{ width: width }}>
       <FlatList
         refreshControl={
           <RefreshControl
@@ -165,40 +243,7 @@ const CatagoryHome = ({
                   onScrollEnd={index => {
                     setActiveIndex(index);
                   }}
-                  renderItem={({item, index}) => (
-                    <TouchableOpacity
-                      key={`slider-${index}`}
-                      onPress={() => {
-                        dispatch(playVod(item.vod));
-                        navigation.navigate('播放', {
-                          vod_id: item.carousel_content_id,
-                        });
-                      }}>
-                      <FastImage
-                        style={styles.image}
-                        source={{
-                          uri: item.carousel_pic_mobile,
-                          priority: FastImage.priority.normal,
-                        }}
-                        resizeMode={FastImage.resizeMode.contain}
-                      />
-                      <LinearGradient
-                        colors={['transparent', 'black']}
-                        start={{x: 0.8, y: 0}}
-                        end={{x: 0.8, y: 0.9}}
-                        style={styles.bottomBlur}
-                      />
-                      <Text
-                        style={{
-                          ...textVariants.bodyBold,
-                          ...styles.carouselTag,
-                          color: 'white',
-                        }}
-                        numberOfLines={1}>
-                        {item.carousel_name}
-                      </Text>
-                    </TouchableOpacity>
-                  )}
+                  renderItem={renderCarousel}
                 />
                 <CarouselPagination
                   data={data.carousel}
@@ -220,46 +265,7 @@ const CatagoryHome = ({
                     paddingLeft: spacing.sideOffset,
                     paddingRight: spacing.sideOffset,
                   }}
-                  renderItem={({
-                    item,
-                    index,
-                  }: {
-                    item: string;
-                    index: number;
-                  }) => {
-                    return (
-                      <TouchableOpacity
-                        style={{
-                          marginRight: spacing.m,
-                          justifyContent: 'center',
-                          display: 'flex',
-                          backgroundColor:
-                            BTN_COLORS[index % BTN_COLORS.length],
-                          paddingLeft: spacing.s,
-                          paddingRight: spacing.s,
-                          paddingTop: spacing.s - 4,
-                          paddingBottom: spacing.s - 1,
-                          borderRadius: spacing.xs,
-                          opacity: 0.9,
-                        }}
-                        onPress={() =>
-                          navigation.navigate('片库', {
-                            type_id: navId,
-                            class: item,
-                          })
-                        }>
-                        <Text
-                          style={{
-                            textAlign: 'center',
-                            ...textVariants.body,
-                            fontWeight: '700',
-                            opacity: 0.9,
-                          }}>
-                          {item}
-                        </Text>
-                      </TouchableOpacity>
-                    );
-                  }}
+                  renderItem={renderContent}
                 />
               )}
               {data?.yunying &&
@@ -293,9 +299,9 @@ const CatagoryHome = ({
         windowSize={3}
         maxToRenderPerBatch={3}
         renderItem={listItem}
-        contentContainerStyle={{paddingBottom: 60}}
+        contentContainerStyle={{ paddingBottom: 60 }}
         ListFooterComponent={
-          <View style={{...styles.loading}}>
+          <View style={{ ...styles.loading }}>
             <Text
               style={{
                 ...textVariants.subBody,
@@ -311,7 +317,7 @@ const CatagoryHome = ({
   );
 };
 
-export default CatagoryHome;
+export default memo(CatagoryHome);
 
 const styles = StyleSheet.create({
   wrapper: {

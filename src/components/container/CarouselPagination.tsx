@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import {View, StyleSheet} from 'react-native';
 
 interface Props {
@@ -45,4 +45,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CarouselPagination;
+export default memo(CarouselPagination);

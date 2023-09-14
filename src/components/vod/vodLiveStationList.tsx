@@ -1,9 +1,10 @@
-import {
+import React, {
   useRef,
   useState,
   forwardRef,
   useImperativeHandle,
   useEffect,
+  useCallback,
 } from 'react';
 import {StyleSheet, TouchableOpacity, Image, ViewStyle} from 'react-native';
 import {useNavigation, useTheme} from '@react-navigation/native';
@@ -54,6 +55,30 @@ export default function VodLiveStationList(
     }
   }, [isRefreshing]);
 
+  const renderTvStations = useCallback(({item}: LiveStationType) => {
+    if(item.live_station_img_url.charAt(0) == '/'){
+      item.live_station_img_url = 'https://yingshi.tv' + item.live_station_img_url;
+    }
+    return (
+      <VodCard
+        showPlayIcon={false}
+        vodImageStyle={vodStyle}
+        shadowBottom={true}
+        key={item.id}
+        vod_name={item.live_station_name}
+        vod_pic={item.live_station_img_url}
+        showInfo={''}
+        onPress={() => {
+          // console.log('PRESSED ' + item.live_station_name)
+          navigation.navigate('电视台播放', {
+            liveStationItemList: liveStationList,
+            liveStationItem: item,
+          });
+        }}
+      />
+    );
+  }, []);
+
   return (
     <FlatList
       ref={liveRef}
@@ -61,29 +86,7 @@ export default function VodLiveStationList(
       initialScrollIndex={0}
       horizontal
       showsHorizontalScrollIndicator={false}
-      renderItem={({item}: LiveStationType) => {
-        if(item.live_station_img_url.charAt(0) == '/'){
-          item.live_station_img_url = 'https://yingshi.tv' + item.live_station_img_url;
-        }
-        return (
-          <VodCard
-            showPlayIcon={false}
-            vodImageStyle={vodStyle}
-            shadowBottom={true}
-            key={item.id}
-            vod_name={item.live_station_name}
-            vod_pic={item.live_station_img_url}
-            showInfo={''}
-            onPress={() => {
-              // console.log('PRESSED ' + item.live_station_name)
-              navigation.navigate('电视台播放', {
-                liveStationItemList: liveStationList,
-                liveStationItem: item,
-              });
-            }}
-          />
-        );
-      }}
+      renderItem={renderTvStations}
     />
   );
 }

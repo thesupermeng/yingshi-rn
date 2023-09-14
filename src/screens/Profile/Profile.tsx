@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, memo} from 'react';
 import {ListItem} from '@rneui/themed';
 import {View, TouchableOpacity, Text, StyleSheet} from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
@@ -19,7 +19,7 @@ import DarkMode from '../../../static/images/dark_mode.svg';
 import Orientation from 'react-native-orientation-locker';
 
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
-export default ({navigation}: BottomTabScreenProps<any>) => {
+function Profile ({navigation}: BottomTabScreenProps<any>) {
   const {colors, textVariants, icons, spacing} = useTheme();
   const dispatch = useAppDispatch();
   const themeReducer = useAppSelector(
@@ -82,6 +82,8 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
     </ScreenContainer>
   );
 };
+
+export default memo(Profile);
 
 const styles = StyleSheet.create({
   topNav: {
