@@ -70,9 +70,14 @@ export default ({navigation}: RootStackScreenProps<'邀请详情'>) => {
 
   useEffect(() => {
     // Merge the two arrays
-    let mergedArray = userState.userInvitedUserList.concat(
-      userState.userUpline,
-    );
+
+    let mergedArray;
+
+    if (userState.userUpline.created_at != '') {
+      mergedArray = userState.userInvitedUserList.concat(userState.userUpline);
+    } else {
+      mergedArray = userState.userInvitedUserList;
+    }
 
     mergedArray.sort((a: any, b: any) => {
       let dateA: any;
