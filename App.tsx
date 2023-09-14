@@ -70,105 +70,107 @@ const App = () => {
     },
   });
 
-  queryClient.prefetchQuery({
-    queryKey: ['recommendationList'],
-    queryFn: () =>
-      fetch(`${API_DOMAIN}vod/v2/vod?by=hits_day`)
+  useEffect(() => {
+    queryClient.prefetchQuery({
+      queryKey: ['recommendationList'],
+      queryFn: () =>
+        fetch(`${API_DOMAIN}vod/v1/vod?by=hits_day`)
+          .then(response => response.json())
+          .then((json: SuggestResponseType) => {
+            return json.data.List;
+          }),
+    });
+
+    queryClient.prefetchQuery({
+      queryKey: ['HomePage', 0],
+      queryFn: () =>
+        fetch(`${API_DOMAIN}page/v2/typepage?id=0`)
+          .then(response => response.json())
+          .then((json: VodCarousellResponseType) => {
+            return json;
+          }),
+    });
+
+    queryClient.prefetchQuery({
+      queryKey: ['filterOptions'],
+      queryFn: () =>
+        fetch(`${API_DOMAIN}type/v1/type`)
+          .then(response => {
+            return response.json();
+          })
+          .then((json: FilterOptionsResponseType) => {
+            return json.data;
+          }),
+      staleTime: Infinity,
+    });
+
+    queryClient.prefetchQuery({
+      queryKey: ['HomePageNavOptions'],
+      queryFn: () =>
+        fetch(`${API_DOMAIN}nav/v1/navItems`, {})
+          .then(response => response.json())
+          .then((json: NavOptionsResponseType) => {
+            return json.data;
+          }),
+      staleTime: Infinity,
+    });
+
+    queryClient.prefetchQuery({
+      queryKey: ['LiveTVStations'],
+      queryFn: () =>
+        fetch(`${API_DOMAIN}live/v1/livestations`, {})
+          .then(response => response.json())
+          .then((json: LiveTVStationsResponseType) => {
+            return json.data;
+          }),
+      staleTime: Infinity,
+    });
+
+    const fetchPlaylist = (page: number) =>
+      fetch(`${API_DOMAIN}topic/v1/topic?page=${page}`)
         .then(response => response.json())
-        .then((json: SuggestResponseType) => {
-          return json.data.List;
-        }),
-  });
+        .then((json: VodPlaylistResponseType) => {
+          return Object.values(json.data.List);
+        });
 
-  queryClient.prefetchQuery({
-    queryKey: ['HomePage', 0],
-    queryFn: () =>
-      fetch(`${API_DOMAIN}page/v2/typepage?id=0`)
-        .then(response => response.json())
-        .then((json: VodCarousellResponseType) => {
-          return json;
-        }),
-  });
+    queryClient.prefetchInfiniteQuery(['vodPlaylist'], ({ pageParam = 1 }) =>
+      fetchPlaylist(pageParam),
+    );
 
-  queryClient.prefetchQuery({
-    queryKey: ['filterOptions'],
-    queryFn: () =>
-      fetch(`${API_DOMAIN}type/v1/type`)
-        .then(response => {
-          return response.json();
-        })
-        .then((json: FilterOptionsResponseType) => {
-          return json.data;
-        }),
-    staleTime: Infinity,
-  });
-
-  queryClient.prefetchQuery({
-    queryKey: ['HomePageNavOptions'],
-    queryFn: () =>
-      fetch(`${API_DOMAIN}nav/v1/navItems`, {})
-        .then(response => response.json())
-        .then((json: NavOptionsResponseType) => {
-          return json.data;
-        }),
-    staleTime: Infinity,
-  });
-
-  queryClient.prefetchQuery({
-    queryKey: ['LiveTVStations'],
-    queryFn: () =>
-      fetch(`${API_DOMAIN}live/v1/livestations`, {})
-        .then(response => response.json())
-        .then((json: LiveTVStationsResponseType) => {
-          return json.data;
-        }),
-    staleTime: Infinity,
-  });
-
-  const fetchPlaylist = (page: number) =>
-    fetch(`${API_DOMAIN}topic/v1/topic?page=${page}`)
-      .then(response => response.json())
-      .then((json: VodPlaylistResponseType) => {
-        return Object.values(json.data.List);
-      });
-
-  queryClient.prefetchInfiniteQuery(['vodPlaylist'], ({ pageParam = 1 }) =>
-    fetchPlaylist(pageParam),
-  );
-
-  const fetchVods = (page: number) => fetch(
-    `${API_DOMAIN}miniVod/v2/miniVod?page=${page}&limit=100`,
-  )
+    const fetchVods = (page: number) => fetch(
+      `${API_DOMAIN}miniVod/v2/miniVod?page=${page}&limit=100`,
+    )
     .then(response => response.json())
     .then((json: MiniVideoResponseType) => {
       return json.data.List
     })
 
-  type MiniVideoResponseType = {
-    data: {
-      List: Array<MiniVideo>;
+    type MiniVideoResponseType = {
+      data: {
+        List: Array<MiniVideo>;
+      };
     };
-  };
-  queryClient.prefetchInfiniteQuery(['watchAnytime'], ({ pageParam = 1 }) =>
-    fetchVods(pageParam),
-  );
+    queryClient.prefetchInfiniteQuery(['watchAnytime'], ({pageParam = 1}) =>
+      fetchVods(pageParam),
+    );
 
-  queryClient.prefetchQuery({
-    queryKey: ['matchesNavOptions'],
-    queryFn: () =>
-      Api.call(Url.sportTypes, {}, 'GET').then(
-        (
-          res,
-        ): {
-          has_submenu: boolean;
-          ids: Array<number>;
-          type: string;
-        }[] => {
-          return res.data;
-        },
-      ),
-    staleTime: Infinity,
-  });
+    queryClient.prefetchQuery({
+      queryKey: ['matchesNavOptions'],
+      queryFn: () =>
+        Api.call(Url.sportTypes, {}, 'GET').then(
+          (
+            res,
+          ): {
+            has_submenu: boolean;
+            ids: Array<number>;
+            type: string;
+          }[] => {
+            return res.data;
+          },
+        ),
+      staleTime: Infinity,
+    });
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
