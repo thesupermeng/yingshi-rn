@@ -73,7 +73,7 @@ const App = () => {
   queryClient.prefetchQuery({
     queryKey: ['recommendationList'],
     queryFn: () =>
-      fetch(`${API_DOMAIN}vod/v1/vod?by=hits_day`)
+      fetch(`${API_DOMAIN}vod/v2/vod?by=hits_day`)
         .then(response => response.json())
         .then((json: SuggestResponseType) => {
           return json.data.List;
@@ -135,8 +135,6 @@ const App = () => {
   queryClient.prefetchInfiniteQuery(['vodPlaylist'], ({ pageParam = 1 }) =>
     fetchPlaylist(pageParam),
   );
-
-  queryClient.prefetchInfiniteQuery(['vodPlaylist'], ({ pageParam = 1 }) => fetchPlaylist(pageParam));
 
   const fetchVods = (page: number) => fetch(
     `${API_DOMAIN}miniVod/v2/miniVod?page=${page}&limit=100`,
