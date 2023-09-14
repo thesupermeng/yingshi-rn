@@ -224,8 +224,6 @@ const MatchScheduleList = ({matchTypeID, status = -1}: Props) => {
         <TouchableOpacity
           style={styles.refresh}
           onPress={() => {
-            console.log('asdasd');
-            return;
             latestListDate.current = undefined;
             setMatches({
               headers: [],
