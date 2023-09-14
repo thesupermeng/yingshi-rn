@@ -8,6 +8,7 @@ import {
   RefreshControl,
   Dimensions,
   FlatList,
+  PanResponder,
 } from 'react-native';
 // import {FlatList, PanGestureHandler} from 'react-native-gesture-handler';
 import {useNavigation, useTheme} from '@react-navigation/native';
@@ -169,6 +170,7 @@ const RecommendationHome = ({
                     alignItems: 'center',
                     borderRadius: 17,
                     zIndex: 9999,
+                    position: 'relative',
                   }}>
                   <Carousel
                     ref={carouselRef}
@@ -177,8 +179,11 @@ const RecommendationHome = ({
                     height={width / 2}
                     autoPlay={true}
                     data={data.carousel}
-                    scrollAnimationDuration={500}
+                    scrollAnimationDuration={220}
                     autoPlayInterval={2300}
+                    // onScrollBegin={() => {
+                    //   console.log(carouselRef.current.getCurrentIndex());
+                    // }}
                     onSnapToItem={index => {
                       setActiveIndex(index);
                     }}
