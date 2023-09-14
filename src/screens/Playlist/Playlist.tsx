@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState, memo} from 'react';
 import {StyleSheet, View, Text, RefreshControl, FlatList} from 'react-native';
 import {useQueryClient} from '@tanstack/react-query';
 import ScreenContainer from '../../components/container/screenContainer';
@@ -19,7 +19,7 @@ type FlatListType = {
   index: number;
 };
 
-export default ({navigation}: BottomTabScreenProps<any>) => {
+function Playlist ({navigation}: BottomTabScreenProps<any>) {
   // const BTN_COLORS = ['#FFCC12', '#F1377A', '#ED7445', '#7E9CEE', '#30AA55',];
   const {textVariants, colors, spacing} = useTheme();
   const LIMIT_PER_PAGE = 10;
@@ -35,14 +35,14 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
     }
   };
 
-  const checkConnection = async () => {
+  const checkConnection = useCallback(async () => {
     const state = await NetInfo.fetch();
     const offline = !(state.isConnected && state.isInternetReachable);
     setIsOffline(offline);
     if (!offline) {
       handleRefresh();
     }
-  };
+  }, []);
 
   useEffect(() => {
     const removeNetInfoSubscription = NetInfo.addEventListener(
@@ -62,13 +62,13 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
     return () => unsubscribe();
   }, [navigation, isFocused]);
 
-  const fetchPlaylist = (page: number) =>
-    fetch(`${API_DOMAIN}topic/v1/topic?page=${page}`)
-      .then(response => response.json())
-      .then((json: VodPlaylistResponseType) => {
-        setTotalPage(Number(json.data.TotalPageCount));
-        return Object.values(json.data.List);
-      });
+  const fetchPlaylist = useCallback((page: number) =>
+  fetch(`${API_DOMAIN}topic/v1/topic?page=${page}`)
+    .then(response => response.json())
+    .then((json: VodPlaylistResponseType) => {
+      setTotalPage(Number(json.data.TotalPageCount));
+      return Object.values(json.data.List);
+    }), []);
 
   const {
     data: playlists,
@@ -203,6 +203,8 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
     </>
   );
 };
+
+export default memo(Playlist);
 
 const styles = StyleSheet.create({
   header: {

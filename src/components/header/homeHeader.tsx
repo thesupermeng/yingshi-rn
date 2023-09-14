@@ -1,3 +1,4 @@
+import React, { memo } from 'react';
 import SearchBar from './searchbar';
 import { View, TouchableOpacity, StyleSheet, ViewStyle } from 'react-native';
 import Logo from '../../../static/images/logo.svg';
@@ -13,7 +14,7 @@ interface Props {
     navigator: any,
     headerStyle?: ViewStyle,
 }
-export default function MainHeader({ logo, navigator, headerStyle }: Props) {
+function MainHeader({ logo, navigator, headerStyle }: Props) {
     const { icons } = useTheme();
 
     const { data: recommendations } = useQuery({
@@ -49,6 +50,8 @@ export default function MainHeader({ logo, navigator, headerStyle }: Props) {
         </View>
     );
 }
+
+export default memo(MainHeader);
 
 const styles = StyleSheet.create({
     container: {

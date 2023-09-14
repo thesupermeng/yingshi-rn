@@ -45,8 +45,8 @@ export default ({navigation}: RootStackScreenProps<'反馈'>) => {
       },
     );
 
-    if (Platform.OS === 'ios') {
-      if (UMENG_CHANNEL == 'APP_STORE') {
+    if(Platform.OS === 'ios'){
+      if(UMENG_CHANNEL == 'APPLE_STORE'){
         setPlatformId(3);
       } else {
         setPlatformId(4);

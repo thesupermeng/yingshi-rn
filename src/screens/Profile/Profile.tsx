@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState, memo} from 'react';
 import {ListItem} from '@rneui/themed';
 import {
   View,
@@ -60,7 +60,7 @@ import {
 } from '../../redux/actions/userAction';
 import ExpiredOverlay from '../../components/modal/expiredOverlay';
 
-export default ({navigation, route}: BottomTabScreenProps<any>) => {
+function Profile ({navigation, route}: BottomTabScreenProps<any>) {
   const navigator = useNavigation();
   const {colors, textVariants, icons, spacing} = useTheme();
   const dispatch = useAppDispatch();
@@ -367,6 +367,8 @@ export default ({navigation, route}: BottomTabScreenProps<any>) => {
     </>
   );
 };
+
+export default memo(Profile);
 
 const styles = StyleSheet.create({
   topNav: {

@@ -33,13 +33,12 @@ import {Url} from './src/Sports/middleware/url';
 import {StatusBar} from 'react-native';
 import Orientation from 'react-native-orientation-locker';
 
-export default function App() {
+const App = () => {
   const [showVIPOverlay, setShowVIPOverlay] = useState(true);
   // const navigation = useNavigation();
   useEffect(() => {
     Orientation.lockToPortrait(); // Lock the screen to portrait mode
   }, []);
-
   appsFlyer.initSdk(
     {
       devKey: APPSFLYER_DEVKEY,
@@ -94,7 +93,7 @@ export default function App() {
     queryClient.prefetchQuery({
       queryKey: ['HomePage', 0],
       queryFn: () =>
-        fetch(`${API_DOMAIN}page/v1/typepage?id=0`)
+        fetch(`${API_DOMAIN}page/v2/typepage?id=0`)
           .then(response => response.json())
           .then((json: VodCarousellResponseType) => {
             return json;
@@ -143,20 +142,17 @@ export default function App() {
           return Object.values(json.data.List);
         });
 
-    queryClient.prefetchInfiniteQuery(['vodPlaylist'], ({pageParam = 1}) =>
+    queryClient.prefetchInfiniteQuery(['vodPlaylist'], ({ pageParam = 1 }) =>
       fetchPlaylist(pageParam),
     );
 
-    queryClient.prefetchInfiniteQuery(['vodPlaylist'], ({pageParam = 1}) =>
-      fetchPlaylist(pageParam),
-    );
-
-    const fetchVods = (page: number) =>
-      fetch(`${API_DOMAIN}miniVod/v1/miniVod?page=${page}&limit=100`)
-        .then(response => response.json())
-        .then((json: MiniVideoResponseType) => {
-          return json.data.List;
-        });
+    const fetchVods = (page: number) => fetch(
+      `${API_DOMAIN}miniVod/v2/miniVod?page=${page}&limit=100`,
+    )
+    .then(response => response.json())
+    .then((json: MiniVideoResponseType) => {
+      return json.data.List
+    })
 
     type MiniVideoResponseType = {
       data: {
@@ -204,3 +200,5 @@ export default function App() {
     </>
   );
 }
+
+export default App;

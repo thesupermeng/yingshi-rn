@@ -28,7 +28,7 @@ import {
   LiveTVStationsResponseType,
 } from '../types/ajaxTypes';
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
-import {API_DOMAIN} from '../utility/constants';
+import {API_DOMAIN, API_DOMAIN_TEST} from '../utility/constants';
 import CatagoryHome from '../components/container/CatagoryHome';
 import RecommendationHome from '../components/container/RecommendationHome';
 import HomeHeader from '../components/header/homeHeader';
@@ -49,7 +49,7 @@ interface NavType {
   name: string;
 }
 
-const Home = ({navigation}: BottomTabScreenProps<any>) => {
+function Home ({navigation}: BottomTabScreenProps<any>) {
   const isFocused = useIsFocused();
   const {colors, textVariants, spacing} = useTheme();
   const [navId, setNavId] = useState(0);
@@ -75,7 +75,7 @@ const Home = ({navigation}: BottomTabScreenProps<any>) => {
   });
 
   const fetchData = useCallback((id: number) => {
-    return fetch(`${API_DOMAIN}page/v1/typepage?id=${id}`)
+    return fetch(`${API_DOMAIN}page/v2/typepage?id=${id}`)
       .then(response => response.json())
       .then((json: VodCarousellResponseType) => {
         return json;
@@ -176,13 +176,15 @@ const Home = ({navigation}: BottomTabScreenProps<any>) => {
                 refreshProp={isRefreshing}
               />
             ) : (
-              <CatagoryHome
-                vodCarouselRes={item.data}
-                navId={index}
-                setScrollEnabled={setScrollEnabled}
-                onRefresh={handleRefresh}
-                refreshProp={isRefreshing}
-              />
+              <>
+                <CatagoryHome
+                  vodCarouselRes={item.data}
+                  navId={index}
+                  setScrollEnabled={setScrollEnabled}
+                  onRefresh={handleRefresh}
+                  refreshProp={isRefreshing}
+                />
+              </>
             ))}
         </>
       );
