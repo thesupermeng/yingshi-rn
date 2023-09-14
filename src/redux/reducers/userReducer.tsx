@@ -26,6 +26,7 @@ export function userReducer(state = initialState, action: any) {
   switch (action.type) {
     case 'remove_user_auth':
       return {
+        ...state,
         userToken: '',
         userId: '',
         userName: '',

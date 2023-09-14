@@ -287,12 +287,12 @@ export default function InviteCard({userState = {}}: Props) {
           <View style={styles.featureItem}>
             <View style={styles.imgContainer}>
               <FastImage
-                source={require('../../../static/images/invite/hot.png')}
+                source={require('../../../static/images/invite/sport.png')}
                 style={styles.featureIcn}
                 resizeMode={FastImage.resizeMode.contain}
               />
             </View>
-            <Text style={styles.featureTitle}>热播抢先看</Text>
+            <Text style={styles.featureTitle}>体育频道</Text>
           </View>
 
           <View style={styles.featureItem}>
@@ -303,7 +303,10 @@ export default function InviteCard({userState = {}}: Props) {
                 resizeMode={FastImage.resizeMode.contain}
               />
             </View>
-            <Text style={styles.featureTitle}>去广告</Text>
+            <View>
+              <Text style={styles.featureTitle}>去广告</Text>
+              <Text style={styles.featureTitle2}>(敬请期待)</Text>
+            </View>
           </View>
 
           <View style={styles.featureItem}>
@@ -366,7 +369,7 @@ export default function InviteCard({userState = {}}: Props) {
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
-            marginHorizontal: 30,
+            marginHorizontal: 33,
             marginVertical: 25,
             marginTop: 15,
             // position: 'relative',

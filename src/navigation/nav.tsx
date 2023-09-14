@@ -73,6 +73,7 @@ import {
   hideLoginAction,
   hideRegisterAction,
   removeScreenAction,
+  resetBecomeVip,
   resetBottomSheetAction,
 } from '../redux/actions/screenAction';
 import {Dialog} from '@rneui/themed';
@@ -85,6 +86,7 @@ import {getUserDetails} from '../features/user';
 import {updateUserAuth, updateUserReferral} from '../redux/actions/userAction';
 import ExpiredOverlay from '../components/modal/expiredOverlay';
 import EventRules from '../screens/Profile/EventRules';
+import BecomeVipOverlay from '../components/modal/becomeVipOverlay';
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -197,9 +199,9 @@ export default () => {
             <HomeTab.Screen name="我的" component={ProfileScreen} />
           </>
         )} */}
-        {userState.userToken !== '' &&
+
+        {/* {userState.userToken !== '' &&
         userState.userMemberExpired >= userState.userCurrentTimestamp ? (
-          // Render this content if the condition is true
           <>
             <HomeTab.Screen name="首页" component={HomeScreen} />
             <HomeTab.Screen name="随心看" component={WatchAnytime} />
@@ -208,14 +210,21 @@ export default () => {
             <HomeTab.Screen name="我的" component={ProfileScreen} />
           </>
         ) : (
-          // Render this content if the condition is false (the "else" part)
           <>
             <HomeTab.Screen name="首页" component={HomeScreen} />
             <HomeTab.Screen name="随心看" component={WatchAnytime} />
             <HomeTab.Screen name="播单" component={PlaylistScreen} />
             <HomeTab.Screen name="我的" component={ProfileScreen} />
           </>
-        )}
+        )} */}
+
+        <>
+          <HomeTab.Screen name="首页" component={HomeScreen} />
+          <HomeTab.Screen name="随心看" component={WatchAnytime} />
+          <HomeTab.Screen name="体育" component={MatchesScreen} />
+          <HomeTab.Screen name="播单" component={PlaylistScreen} />
+          <HomeTab.Screen name="我的" component={ProfileScreen} />
+        </>
       </HomeTab.Navigator>
     );
   }
@@ -233,6 +242,34 @@ export default () => {
     await dispatch(updateUserAuth(resultData));
     return;
   };
+
+  // vip remaining day dialog
+  const [showVIPOverlay, setShowVIPOverlay] = useState(false);
+  const [showBecomeVIPOverlay, setShowBecomeVIPOverlay] = useState(false);
+
+  const [vipRemainingDay, setVipRemainingDay] = useState(0);
+  useEffect(() => {
+    const date1Timestamp = userState.userCurrentTimestamp;
+    const date2Timestamp = userState.userMemberExpired;
+    const date1Milliseconds = Number(date1Timestamp) * 1000;
+    const date2Milliseconds = Number(date2Timestamp) * 1000;
+    const timeDifferenceMilliseconds = date2Milliseconds - date1Milliseconds;
+    const timeDifferenceDays =
+      timeDifferenceMilliseconds / (1000 * 60 * 60 * 24);
+    // Round up the time difference to the nearest whole number
+    const roundedTimeDifferenceDays = Math.ceil(timeDifferenceDays);
+    const result =
+      roundedTimeDifferenceDays < 0 ? 0 : roundedTimeDifferenceDays;
+    setVipRemainingDay(result);
+    if (
+      result <= 3 &&
+      roundedTimeDifferenceDays >= 0 &&
+      date2Timestamp > date1Timestamp &&
+      userState.userToken != ''
+    ) {
+      setShowVIPOverlay(true);
+    }
+  }, [userState.userCurrentTimestamp]);
 
   //screen state
   //screen state
@@ -273,37 +310,20 @@ export default () => {
       sheetRefLogin.current?.close();
       sheetRefRegister.current?.close();
     }
+
+    if (screenState.becomeVipShow == true) {
+      console.log('debug');
+      setShowBecomeVIPOverlay(true);
+    }
+    if (screenState.becomeVipShow == false) {
+      console.log('debug');
+      setShowBecomeVIPOverlay(false);
+    }
   }, [screenState]);
 
   useEffect(() => {
     refreshUserState();
   }, []);
-
-  // vip remaining day dialog
-  const [showVIPOverlay, setShowVIPOverlay] = useState(false);
-  const [vipRemainingDay, setVipRemainingDay] = useState(0);
-  useEffect(() => {
-    const date1Timestamp = userState.userCurrentTimestamp;
-    const date2Timestamp = userState.userMemberExpired;
-    const date1Milliseconds = Number(date1Timestamp) * 1000;
-    const date2Milliseconds = Number(date2Timestamp) * 1000;
-    const timeDifferenceMilliseconds = date2Milliseconds - date1Milliseconds;
-    const timeDifferenceDays =
-      timeDifferenceMilliseconds / (1000 * 60 * 60 * 24);
-    // Round up the time difference to the nearest whole number
-    const roundedTimeDifferenceDays = Math.ceil(timeDifferenceDays);
-    const result =
-      roundedTimeDifferenceDays < 0 ? 0 : roundedTimeDifferenceDays;
-    setVipRemainingDay(result);
-    if (
-      result <= 3 &&
-      roundedTimeDifferenceDays >= 0 &&
-      date2Timestamp > date1Timestamp &&
-      userState.userToken != ''
-    ) {
-      setShowVIPOverlay(true);
-    }
-  }, [userState.userCurrentTimestamp]);
 
   return (
     <SafeAreaProvider>
@@ -411,6 +431,8 @@ export default () => {
           showVIPOverlay={showVIPOverlay}
           setShowVIPOverlay={setShowVIPOverlay}
         />
+
+        <BecomeVipOverlay showBecomeVIPOverlay={showBecomeVIPOverlay} />
       </NavigationContainer>
       <Dialog
         isVisible={isDialogOpen}
