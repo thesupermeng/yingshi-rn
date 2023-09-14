@@ -49,6 +49,10 @@ import { SettingsReducerState } from '../../redux/reducers/settingsReducer';
 import NoConnection from '../../components/common/noConnection';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 
+// import {
+//   ATRNSDK
+// } from './AnyThinkAds/ATReactNativeSDK';
+
 type VideoRef = {
   setPause: (param: boolean) => void,
   isPaused: boolean,
@@ -84,6 +88,8 @@ const insets = useSafeAreaInsets();
   const [currentEpisode, setCurrentEpisode] = useState(
     vod?.episodeWatched === undefined ? 0 : vod.episodeWatched,
   );
+
+  // ATRNSDK.setLogDebug(true);
 
   const [isCollapsed, setIsCollapsed] = useState(true);
 
@@ -202,11 +208,6 @@ const insets = useSafeAreaInsets();
   });
 
   useEffect(() => {
-    console.log('&&**');
-    console.log('&&**');
-    console.log('&&**');
-    console.log('&&**');
-    console.log(vodDetails);
     if(vod !== undefined && vod !== null && vodDetails !== undefined){
       vod.vod_play_list = vodDetails.vod_play_list
       vod.vod_play_url = vodDetails.vod_play_url
@@ -286,17 +287,38 @@ const insets = useSafeAreaInsets();
         ?.url !== undefined &&
         !dismountPlayer &&
         !isOffline ? (
-          <View style={{ width: '100%', aspectRatio: 16/9, backgroundColor: 'yellow', display: 'flex' }}>
-            <FastImage
-              style={{ height: 80, width: 80 }}
-              source={require('../../../static/images/loading-spinner.gif')}
-              resizeMode={FastImage.resizeMode.contain}
-            />
-          </View>
+
+          <VodPlayer
+            vod_url={
+              vod.vod_play_list.urls.find(url => url.nid === currentEpisode)
+                ?.url
+            }
+            ref={videoPlayerRef}
+            currentTimeRef={currentTimeRef}
+            initialStartTime={
+              initTime
+            }
+            vodTitle={vod.vod_name}
+            videoType="vod"
+            activeEpisode={currentEpisode}
+            episodes={vod.type_id !== 2 ? vod?.vod_play_list : undefined}
+            onEpisodeChange={(id: number) => {
+              setCurrentEpisode(id);
+              currentTimeRef.current = 0;
+            }}
+            showGuide={settingsReducer.showVodPlayerGuide}
+            rangeSize={EPISODE_RANGE_SIZE}
+            autoPlayNext={vod.type_id !== 2}
+            onShare={onShare}
+            movieList={vod.type_id === 2 ? suggestedVods : []}
+            showMoreType={vod.type_id === 2 ? 'movies' : 'episodes'}
+            isFetchingRecommendedMovies={isFetchingSuggestedVod}
+          // setNavBarOptions={setNavBarOptions}
+          />
         )
         :
         (
-          <View style={{ width: '100%', aspectRatio: 16/9, backgroundColor: 'yellow' }}>
+          <View style={{ width: '100%', aspectRatio: 16/9, display: 'flex', justifyContent: 'center', alignItems: 'center', alignSelf: 'center' }}>
             <FastImage
               style={{ height: 80, width: 80 }}
               source={require('../../../static/images/loading-spinner.gif')}
