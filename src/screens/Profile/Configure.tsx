@@ -25,7 +25,7 @@ import {changeScreenAction} from '../../redux/actions/screenAction';
 import {RootState} from '../../redux/store';
 import {userModel} from '../../types/userType';
 
-import { APP_VERSION } from '../../utility/constants';
+import {APP_VERSION} from '../../utility/constants';
 export default ({navigation}: RootStackScreenProps<'设置'>) => {
   const {colors, textVariants, icons, spacing} = useTheme();
   const [isVersionDialogOpen, setIsVersionDialogOpen] = useState(false);
@@ -93,7 +93,7 @@ export default ({navigation}: RootStackScreenProps<'设置'>) => {
             onCancel={toggleClearDialog}
             isVisible={isClearDialogOpen}
             title="空间清理"
-            subtitle="清除缓存不会影响播放历史和我的收藏"
+            subtitle="清除所有的缓存"
             confirmationText="清除"
           />
 
@@ -133,7 +133,7 @@ export default ({navigation}: RootStackScreenProps<'设置'>) => {
                         paddingBottom: 3,
                         color: colors.muted,
                       }}>
-                      当前版本{ APP_VERSION }
+                      当前版本{APP_VERSION}
                     </Text>
                     <MoreArrow
                       width={icons.sizes.l}
