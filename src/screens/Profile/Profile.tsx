@@ -60,7 +60,7 @@ import {
 } from '../../redux/actions/userAction';
 import ExpiredOverlay from '../../components/modal/expiredOverlay';
 
-function Profile ({navigation, route}: BottomTabScreenProps<any>) {
+function Profile({navigation, route}: BottomTabScreenProps<any>) {
   const navigator = useNavigation();
   const {colors, textVariants, icons, spacing} = useTheme();
   const dispatch = useAppDispatch();
@@ -117,9 +117,13 @@ function Profile ({navigation, route}: BottomTabScreenProps<any>) {
   //   console.log('asd');
   //   refreshUserState();
   // }, []);
-
+  const escapeRegExp = (string: string) => {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  };
   const highlightText = (text: string, keyword: string) => {
-    const parts = text.split(new RegExp(`(${keyword})`, 'gi'));
+    // Escape the keyword for use in the regular expression
+    const escapedKeyword = escapeRegExp(keyword);
+    const parts = text.split(new RegExp(`(${escapedKeyword})`, 'gi'));
     return parts.map((part, index) =>
       part.toLowerCase() === keyword.toLowerCase() ? (
         <Text
@@ -366,7 +370,7 @@ function Profile ({navigation, route}: BottomTabScreenProps<any>) {
       </ScrollView>
     </>
   );
-};
+}
 
 export default memo(Profile);
 

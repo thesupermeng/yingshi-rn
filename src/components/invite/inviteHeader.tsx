@@ -6,12 +6,21 @@ import ArrowIcn from '../../../static/images/invite/double-arrow.svg';
 export default function InviteStep() {
   const {colors, textVariants, icons, spacing} = useTheme();
 
+  const escapeRegExp = (string: string) => {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  };
   const highlightText = (
     text: string,
     keyword1: string,
     keyword2: string = '',
   ) => {
-    const parts = text.split(new RegExp(`(${keyword1}|${keyword2})`, 'gi'));
+    const escapedKeyword1 = escapeRegExp(keyword1);
+    const escapedKeyword2 = escapeRegExp(keyword2);
+
+    const parts = text.split(
+      new RegExp(`(${escapedKeyword1}|${escapedKeyword2})`, 'gi'),
+    );
+
     return parts.map((part, index) => {
       if (
         part.toLowerCase() === keyword1.toLowerCase() ||
