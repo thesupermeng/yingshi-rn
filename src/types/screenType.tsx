@@ -5,5 +5,4 @@ export interface screenModel {
   registerShow: boolean;
   resetBottomSheet: boolean;
   resetInputForm: boolean;
-  becomeVipShow: boolean;
 }

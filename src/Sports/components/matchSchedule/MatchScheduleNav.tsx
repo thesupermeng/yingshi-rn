@@ -29,9 +29,14 @@ const Tab = createMaterialTopTabNavigator();
 interface Props {
   streamId?: number;
   tabList?: {title: string; id: number; name: string}[];
+  setShowBecomeVIPOverlay: any;
 }
 
-export default function MatchScheduleNav({tabList, streamId}: Props) {
+export default function MatchScheduleNav({
+  tabList,
+  streamId,
+  setShowBecomeVIPOverlay,
+}: Props) {
   const {colors, textVariants, spacing} = useTheme();
   const width = Dimensions.get('window').width;
   return (
@@ -103,7 +108,13 @@ export default function MatchScheduleNav({tabList, streamId}: Props) {
                 </Text>
               ),
           })}
-          children={() => <MatchScheduleList matchTypeID={-1} status={-1} />}
+          children={() => (
+            <MatchScheduleList
+              setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
+              matchTypeID={-1}
+              status={-1}
+            />
+          )}
         />
         {tabList != undefined &&
           tabList.map((tab, index) => {
@@ -171,21 +182,33 @@ export default function MatchScheduleNav({tabList, streamId}: Props) {
                       key={`inner-${index}-1`}
                       name="进行中"
                       children={() => (
-                        <MatchScheduleList matchTypeID={tab.id} status={1} />
+                        <MatchScheduleList
+                          setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
+                          matchTypeID={tab.id}
+                          status={1}
+                        />
                       )}
                     />
                     <Tab.Screen
                       key={`inner-${index}-2`}
                       name="赛程"
                       children={() => (
-                        <MatchScheduleList matchTypeID={tab.id} status={2} />
+                        <MatchScheduleList
+                          setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
+                          matchTypeID={tab.id}
+                          status={2}
+                        />
                       )}
                     />
                     <Tab.Screen
                       key={`inner-${index}-3`}
                       name="赛果"
                       children={() => (
-                        <MatchScheduleList matchTypeID={tab.id} status={3} />
+                        <MatchScheduleList
+                          setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
+                          matchTypeID={tab.id}
+                          status={3}
+                        />
                       )}
                     />
                   </Tab.Navigator>

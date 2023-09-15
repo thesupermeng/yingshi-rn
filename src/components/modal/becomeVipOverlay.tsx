@@ -11,16 +11,15 @@ import {
 
 interface Props {
   showBecomeVIPOverlay: boolean;
+  setShowBecomeVIPOverlay: any;
 }
 
-export default function ExpiredOverlay({showBecomeVIPOverlay = false}: Props) {
+export default function ExpiredOverlay({
+  showBecomeVIPOverlay = false,
+  setShowBecomeVIPOverlay,
+}: Props) {
   const navigator = useNavigation();
   const dispatch = useAppDispatch();
-  const hideVipPrompt = useCallback(async () => {
-    //setShowVIPOverlay(false);
-
-    dispatch(resetBecomeVip());
-  }, []);
 
   // useEffect(() => {
   //   setShowVIPOverlay(true);
@@ -81,7 +80,7 @@ export default function ExpiredOverlay({showBecomeVIPOverlay = false}: Props) {
                 <View style={{paddingTop: 22, alignItems: 'center'}}>
                   <TouchableOpacity
                     onPress={() => {
-                      hideVipPrompt();
+                      setShowBecomeVIPOverlay(false);
                       navigator.navigate('邀请');
                     }}
                     style={{
@@ -100,7 +99,7 @@ export default function ExpiredOverlay({showBecomeVIPOverlay = false}: Props) {
                     </Text>
                   </TouchableOpacity>
                   <TouchableOpacity
-                    onPress={() => hideVipPrompt()}
+                    onPress={() => setShowBecomeVIPOverlay(false)}
                     style={{paddingTop: 16}}>
                     <Text style={{color: '#9C9C9C', fontSize: 16}}>取消</Text>
                   </TouchableOpacity>

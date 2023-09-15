@@ -26,12 +26,14 @@ interface Props {
   onPress?: () => any;
   followMatchIds?: Array<number>;
   isMatchPage?: boolean;
+  setShowBecomeVIPOverlay: any;
 }
 
 const MatchSchedule = ({
   matchSche,
   onPress = () => {},
   isMatchPage = true,
+  setShowBecomeVIPOverlay,
 }: Props) => {
   const navigation = useNavigation();
   const {colors, textVariants, spacing} = useTheme();
@@ -61,7 +63,7 @@ const MatchSchedule = ({
       Number(userState.userMemberExpired) <
         Number(userState.userCurrentTimestamp)
     ) {
-      dispatch(showBecomeVip());
+      setShowBecomeVIPOverlay(true);
     } else {
       navigation.navigate('体育详情', {
         matchId: matchSche?.id === null ? undefined : matchSche.id,

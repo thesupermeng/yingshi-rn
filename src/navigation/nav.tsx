@@ -86,7 +86,6 @@ import {getUserDetails} from '../features/user';
 import {updateUserAuth, updateUserReferral} from '../redux/actions/userAction';
 import ExpiredOverlay from '../components/modal/expiredOverlay';
 import EventRules from '../screens/Profile/EventRules';
-import BecomeVipOverlay from '../components/modal/becomeVipOverlay';
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -245,7 +244,6 @@ export default () => {
 
   // vip remaining day dialog
   const [showVIPOverlay, setShowVIPOverlay] = useState(false);
-  const [showBecomeVIPOverlay, setShowBecomeVIPOverlay] = useState(false);
 
   const [vipRemainingDay, setVipRemainingDay] = useState(0);
   useEffect(() => {
@@ -309,15 +307,6 @@ export default () => {
       dispatch(resetBottomSheetAction());
       sheetRefLogin.current?.close();
       sheetRefRegister.current?.close();
-    }
-
-    if (screenState.becomeVipShow == true) {
-      console.log('debug');
-      setShowBecomeVIPOverlay(true);
-    }
-    if (screenState.becomeVipShow == false) {
-      console.log('debug');
-      setShowBecomeVIPOverlay(false);
     }
   }, [screenState]);
 
@@ -431,8 +420,6 @@ export default () => {
           showVIPOverlay={showVIPOverlay}
           setShowVIPOverlay={setShowVIPOverlay}
         />
-
-        <BecomeVipOverlay showBecomeVIPOverlay={showBecomeVIPOverlay} />
       </NavigationContainer>
       <Dialog
         isVisible={isDialogOpen}

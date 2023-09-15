@@ -12,7 +12,7 @@ import {useTheme} from '@react-navigation/native';
 import styles from './style';
 import {TouchableOpacity, TouchableWithoutFeedback} from 'react-native';
 import {formatMatchDate} from '../../utility/utils';
-import store from '../../../redux/store';
+import store, {RootState} from '../../../redux/store';
 // import FollowMatchAction from '../../redux/actions/followMatchAction';
 import {MatchDetailsType} from '../../types/matchTypes';
 // import {showToast} from '../../utility/toast';
@@ -22,10 +22,13 @@ import Api from '../../middleware/api';
 import MatchSchedule from './MatchSchedule';
 import EmptyList from '../../../components/common/emptyList';
 import FastImage from 'react-native-fast-image';
+import {screenModel} from '../../../types/screenType';
+import {useAppSelector} from '../../../hooks/hooks';
 
 interface Props {
   matchTypeID: number;
   status?: number;
+  setShowBecomeVIPOverlay: any;
 }
 
 type FlatListType = {
@@ -43,11 +46,19 @@ type Matches = {
   data: MatchType[];
 };
 
-const MatchScheduleList = ({matchTypeID, status = -1}: Props) => {
+const MatchScheduleList = ({
+  matchTypeID,
+  status = -1,
+  setShowBecomeVIPOverlay,
+}: Props) => {
   const {colors, textVariants, spacing} = useTheme();
   const width = Dimensions.get('window').width;
   const height = Dimensions.get('window').height;
   const latestListDate = useRef<Date | undefined>();
+
+  const screenState: screenModel = useAppSelector(
+    ({screenReducer}: RootState) => screenReducer,
+  );
 
   const [matches, setMatches] = useState<Matches>({
     headers: [],
@@ -158,7 +169,11 @@ const MatchScheduleList = ({matchTypeID, status = -1}: Props) => {
           </View>
         ) : (
           item?.data !== undefined && (
-            <MatchSchedule key={index} matchSche={item?.data} />
+            <MatchSchedule
+              setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
+              key={index}
+              matchSche={item?.data}
+            />
           )
         )}
       </View>
@@ -167,9 +182,7 @@ const MatchScheduleList = ({matchTypeID, status = -1}: Props) => {
 
   return (
     <View style={{flex: 1}}>
-      {matches?.data !== undefined &&
-      matches.data.length > 0 &&
-      !isRefetching ? (
+      {matches?.data !== undefined && matches.data.length > 0 ? (
         <FlatList
           data={matches.data}
           windowSize={3}
@@ -183,62 +196,25 @@ const MatchScheduleList = ({matchTypeID, status = -1}: Props) => {
           }}
           onEndReachedThreshold={0.9}
           stickyHeaderIndices={matches.headers}
-          ListFooterComponent={
-            <View style={{...styles.loading, marginBottom: spacing.xl}}>
-              {hasNextPage && (
-                <FastImage
-                  source={require('../../../../static/images/loading-spinner.gif')}
-                  style={{width: 80, height: 80}}
-                  resizeMode="contain"
-                />
-              )}
-              {!(isFetchingNextPage || isFetching) && !hasNextPage && (
-                <Text
-                  style={{
-                    ...textVariants.body,
-                    color: colors.muted,
-                    marginVertical: spacing.m,
-                  }}>
-                  没有更多了
-                </Text>
-              )}
-            </View>
-          }
         />
       ) : (
         <View style={{height: height}}>
-          {isFetching || isRefetching ? (
-            <View style={styles.buffering}>
-              <FastImage
-                source={require('../../../../static/images/loading-spinner.gif')}
-                style={{width: 100, height: 100}}
-                resizeMode="contain"
-              />
-            </View>
-          ) : (
-            <EmptyList description="暂无比赛" />
-          )}
+          <View style={styles.buffering} />
         </View>
       )}
-      {!isFetching && !isRefetching && (
-        <TouchableOpacity
-          style={styles.refresh}
-          onPress={() => {
-            latestListDate.current = undefined;
-            setMatches({
-              headers: [],
-              data: [],
-            });
-            refetch();
-          }}>
-          <FastImage
-            source={require('../../assets/images/IconRefresh.png')}
-            style={{width: 25, height: 25}}
-            resizeMode="contain"
-          />
-          <Text style={styles.refreshFont}>刷新</Text>
-        </TouchableOpacity>
-      )}
+
+      <TouchableOpacity
+        style={styles.refresh}
+        onPress={() => {
+          refetch();
+        }}>
+        <FastImage
+          source={require('../../assets/images/IconRefresh.png')}
+          style={{width: 25, height: 25}}
+          resizeMode="contain"
+        />
+        <Text style={styles.refreshFont}>刷新</Text>
+      </TouchableOpacity>
     </View>
   );
 };

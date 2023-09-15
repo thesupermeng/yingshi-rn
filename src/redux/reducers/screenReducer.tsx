@@ -12,7 +12,6 @@ const initialState: screenModel = {
   registerShow: false,
   resetBottomSheet: false,
   resetInputForm: false,
-  becomeVipShow: false,
 };
 
 export function screenReducer(state = initialState, action: screenActionType) {
@@ -78,20 +77,6 @@ export function screenReducer(state = initialState, action: screenActionType) {
         ...state,
         resetInputForm: true,
       };
-
-    case 'show_become_vip':
-      console.log('show_become_vip');
-      return {
-        ...state,
-        becomeVipShow: true,
-      };
-    case 'reset_become_vip':
-      console.log('reset_become_vip');
-      return {
-        ...state,
-        becomeVipShow: false,
-      };
-
     default:
       return state;
   }

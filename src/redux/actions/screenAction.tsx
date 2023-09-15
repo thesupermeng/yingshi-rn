@@ -43,10 +43,3 @@ export const resetBottomSheetForm = () => ({
 export const initialBottomSheetForm = () => ({
   type: 'initial_bottom_sheet_from',
 });
-
-export const showBecomeVip = () => ({
-  type: 'show_become_vip',
-});
-export const resetBecomeVip = () => ({
-  type: 'reset_become_vip',
-});

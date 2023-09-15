@@ -32,6 +32,7 @@ import {useAppSelector} from '../../../hooks/hooks';
 import {RootState} from '../../../redux/store';
 import {useDispatch} from 'react-redux';
 import {showBecomeVip} from '../../../redux/actions/screenAction';
+import BecomeVipOverlay from '../../../components/modal/becomeVipOverlay';
 interface NavType {
   has_submenu: boolean;
   ids: Array<number>;
@@ -42,7 +43,7 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
   const {textVariants, colors, spacing} = useTheme();
   const [isOffline, setIsOffline] = useState(false);
   const dispatch = useDispatch();
-
+  const [showBecomeVIPOverlay, setShowBecomeVIPOverlay] = useState(false);
   const userState: userModel = useAppSelector(
     ({userReducer}: RootState) => userReducer,
   );
@@ -87,35 +88,26 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
 
   const [vipRemainingDay, setVipRemainingDay] = useState(0);
   useEffect(() => {
-    // Assuming you have the two timestamps
     const date1Timestamp = userState.userCurrentTimestamp;
     const date2Timestamp = userState.userMemberExpired;
-
-    // Convert Unix timestamps to milliseconds (multiply by 1000)
     const date1Milliseconds = Number(date1Timestamp) * 1000;
     const date2Milliseconds = Number(date2Timestamp) * 1000;
-
-    // Calculate the time difference in milliseconds
     const timeDifferenceMilliseconds = date2Milliseconds - date1Milliseconds;
-
-    // Calculate the time difference in days
     const timeDifferenceDays =
       timeDifferenceMilliseconds / (1000 * 60 * 60 * 24);
-
-    // Round the time difference to the nearest whole number
-    //const roundedTimeDifferenceDays = Math.round(timeDifferenceDays);
-    // Round up the time difference to the nearest whole number
     const roundedTimeDifferenceDays = Math.ceil(timeDifferenceDays);
-
-    // If the rounded difference is less than 0, set it to 0; otherwise, keep the rounded difference
     const result =
       roundedTimeDifferenceDays < 0 ? 0 : roundedTimeDifferenceDays;
-
     setVipRemainingDay(result);
   }, [userState.userCurrentTimestamp]);
 
   return (
     <ScreenContainer containerStyle={{paddingLeft: 0, paddingRight: 0}}>
+      <BecomeVipOverlay
+        setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
+        showBecomeVIPOverlay={showBecomeVIPOverlay}
+      />
+
       <View
         style={{
           backgroundColor: colors.background,
@@ -150,7 +142,7 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
                 Number(userState.userCurrentTimestamp) ||
               userState.userToken === ''
             ) {
-              dispatch(showBecomeVip());
+              setShowBecomeVIPOverlay(true);
             }
           }}>
           <View
@@ -194,7 +186,10 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
       </View>
 
       {matchTabs && matchTabs.length > 0 && !isOffline && (
-        <MatchScheduleNav tabList={matchTabs} />
+        <MatchScheduleNav
+          setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
+          tabList={matchTabs}
+        />
       )}
 
       {isOffline && <NoConnection onClickRetry={checkConnection} />}
