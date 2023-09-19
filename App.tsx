@@ -28,8 +28,13 @@ import appsFlyer from 'react-native-appsflyer';
 import Api from './src/Sports/middleware/api';
 import { Url } from './src/Sports/middleware/url';
 import { StatusBar } from 'react-native';
+import CodePush from "react-native-code-push";
 
-const App = () => {
+
+
+
+
+let App = () => {
   appsFlyer.initSdk(
     {
       devKey: APPSFLYER_DEVKEY,
@@ -186,5 +191,10 @@ const App = () => {
     </QueryClientProvider>
   );
 }
+
+let codePushOptions = { checkFrequency: CodePush.CheckFrequency.ON_APP_RESUME };
+
+App = CodePush(codePushOptions)(App);
+
 
 export default App;
