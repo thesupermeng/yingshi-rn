@@ -66,6 +66,7 @@ import { BottomNavTabsResponse } from '../../src/types/ajaxTypes';
 import { YSConfig } from '../../ysConfig';
 
 export default () => {
+
   const Stack = createNativeStackNavigator<RootStackParamList>();
   const HomeTab = createBottomTabNavigator<HomeTabParamList>();
 
@@ -116,30 +117,30 @@ export default () => {
                   color={theme.icons.inactiveNavIconColor}
                 />
               );
-            } else if (route.name === '我的') {
-              icon = focused ? (
-                <ProfileActiveTabIcon
-                  width={iconWidth}
-                  color={theme.icons.activeNavIconColor}
-                />
-              ) : (
-                <ProfileTabIcon
-                  width={iconWidth}
-                  color={theme.icons.inactiveNavIconColor}
-                />
-              );
-            } else if (route.name === '随心看') {
-              icon = focused ? (
-                <WatchAnytimeActiveTabIcon
-                  width={iconWidth}
-                  color={theme.icons.activeNavIconColor}
-                />
-              ) : (
-                <WatchAnytimeTabIcon
-                  width={iconWidth}
-                  color={theme.icons.inactiveNavIconColor}
-                />
-              );
+            // } else if (route.name === '我的') {
+            //   icon = focused ? (
+            //     <ProfileActiveTabIcon
+            //       width={iconWidth}
+            //       color={theme.icons.activeNavIconColor}
+            //     />
+            //   ) : (
+            //     <ProfileTabIcon
+            //       width={iconWidth}
+            //       color={theme.icons.inactiveNavIconColor}
+            //     />
+            //   );
+            // } else if (route.name === '随心看') {
+            //   icon = focused ? (
+            //     <WatchAnytimeActiveTabIcon
+            //       width={iconWidth}
+            //       color={theme.icons.activeNavIconColor}
+            //     />
+            //   ) : (
+            //     <WatchAnytimeTabIcon
+            //       width={iconWidth}
+            //       color={theme.icons.inactiveNavIconColor}
+            //     />
+            //   );
             } else if (route.name === '体育') {
               icon = focused ? (
                 <SportsIcon
@@ -159,17 +160,17 @@ export default () => {
         {YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5 ? (
           <>
             <HomeTab.Screen name="首页" component={HomeScreen} />
-            <HomeTab.Screen name="随心看" component={WatchAnytime} />
+            {/* <HomeTab.Screen name="随心看" component={WatchAnytime} /> */}
             <HomeTab.Screen name="体育" component={MatchesScreen} />
             <HomeTab.Screen name="播单" component={PlaylistScreen} />
-            <HomeTab.Screen name="我的" component={ProfileScreen} />
+            {/* <HomeTab.Screen name="我的" component={ProfileScreen} /> */}
           </>
         ) : (
           <>
             <HomeTab.Screen name="首页" component={HomeScreen} />
-            <HomeTab.Screen name="随心看" component={WatchAnytime} />
+            {/* <HomeTab.Screen name="随心看" component={WatchAnytime} /> */}
             <HomeTab.Screen name="播单" component={PlaylistScreen} />
-            <HomeTab.Screen name="我的" component={ProfileScreen} />
+            {/* <HomeTab.Screen name="我的" component={ProfileScreen} /> */}
           </>
         )}
       </HomeTab.Navigator>
@@ -254,7 +255,7 @@ export default () => {
             name="电视台列表"
             component={LiveStationsScreen}
             initialParams={{ liveStationItemList: undefined }}
-          />
+          /> 
           <Stack.Screen
             name="电视台播放"
             component={LiveStationPlayScreen}
