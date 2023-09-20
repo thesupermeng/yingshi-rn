@@ -349,11 +349,12 @@ const insets = useSafeAreaInsets();
                     style={{
                       ...textVariants.header,
                       color: colors.text,
+                      marginBottom:12
                     }}>
                     {vod?.vod_name}
                   </Text>
                   <Text
-                    style={{ ...textVariants.subBody, color: colors.muted }}
+                    style={{ ...textVariants.subBody, color: colors.muted, marginBottom: 7 }}
                     numberOfLines={2}>
                     {`${definedValue(vod?.vod_year)}`}
                     {`${definedValue(vod?.vod_area)}`}
@@ -506,8 +507,8 @@ const styles = StyleSheet.create({
   descriptionContainer: {
     flex: 5,
     flexDirection: 'column',
-    justifyContent: 'space-evenly',
     paddingLeft: 10,
+    paddingTop: 10
   },
   descriptionContainerText: {
     fontSize: 17,
