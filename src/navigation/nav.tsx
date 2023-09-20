@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   NavigationContainer,
   RouteProp,
   getFocusedRouteNameFromRoute,
 } from '@react-navigation/native';
 
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import HomeScreen from '../screens/Home';
 import PlaylistScreen from '../screens/Playlist/Playlist';
@@ -39,11 +39,10 @@ import WatchAnytimeActiveTabIcon from '../../static/images/video_tab_active.svg'
 import CatalogScreen from '../screens/Common/Catalog';
 import ShortVodCollectionScreen from '../screens/Profile/Collection/shortVodCollection';
 import SportsIcon from '../../static/images/sports.svg';
-import MatchesScreen from '../Sports/screens/Sports/Matches';
-import MatchDetailsScreen from '../Sports/screens/Sports/MatchDetails';
+
 import WatchCollectionScreen from '../../src/screens/WatchCollection';
 
-import { YingshiDarkTheme, YingshiLightTheme } from '../utility/theme';
+import {YingshiDarkTheme, YingshiLightTheme} from '../utility/theme';
 import {
   HomeTabParamList,
   PlaylistTabParamList,
@@ -52,26 +51,25 @@ import {
   WatchAnytimeTabParamList,
 } from '../types/navigationTypes';
 import RNBootSplash from 'react-native-bootsplash';
-import { RootState } from '../redux/store';
+import {RootState} from '../redux/store';
 import {
   SafeAreaProvider,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
-import { StyleSheet, View } from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import DeviceInfo from 'react-native-device-info';
-import { useAppSelector } from '../hooks/hooks';
-import { QueryClient, useQuery } from '@tanstack/react-query';
-import { API_DOMAIN, UMENG_CHANNEL } from '../../src/utility/constants';
-import { BottomNavTabsResponse } from '../../src/types/ajaxTypes';
-import { YSConfig } from '../../ysConfig';
+import {useAppSelector} from '../hooks/hooks';
+import {QueryClient, useQuery} from '@tanstack/react-query';
+import {API_DOMAIN, UMENG_CHANNEL} from '../../src/utility/constants';
+import {BottomNavTabsResponse} from '../../src/types/ajaxTypes';
+import {YSConfig} from '../../ysConfig';
 
 export default () => {
-
   const Stack = createNativeStackNavigator<RootStackParamList>();
   const HomeTab = createBottomTabNavigator<HomeTabParamList>();
 
   const themeReducer = useAppSelector(
-    ({ themeReducer }: RootState) => themeReducer,
+    ({themeReducer}: RootState) => themeReducer,
   );
   const theme = themeReducer.theme ? YingshiDarkTheme : YingshiLightTheme;
 
@@ -84,13 +82,13 @@ export default () => {
   function HomeTabScreen() {
     return (
       <HomeTab.Navigator
-        screenOptions={({ route }) => ({
+        screenOptions={({route}) => ({
           headerShown: false,
           tabBarStyle: hasNotch ? styles.navStyleWithNotch : styles.navStyle,
           tabBarLabelStyle: {
             paddingBottom: 6,
           },
-          tabBarIcon: ({ focused, color, size }) => {
+          tabBarIcon: ({focused, color, size}) => {
             let icon: React.ReactNode;
 
             if (route.name === '首页') {
@@ -117,30 +115,30 @@ export default () => {
                   color={theme.icons.inactiveNavIconColor}
                 />
               );
-            // } else if (route.name === '我的') {
-            //   icon = focused ? (
-            //     <ProfileActiveTabIcon
-            //       width={iconWidth}
-            //       color={theme.icons.activeNavIconColor}
-            //     />
-            //   ) : (
-            //     <ProfileTabIcon
-            //       width={iconWidth}
-            //       color={theme.icons.inactiveNavIconColor}
-            //     />
-            //   );
-            // } else if (route.name === '随心看') {
-            //   icon = focused ? (
-            //     <WatchAnytimeActiveTabIcon
-            //       width={iconWidth}
-            //       color={theme.icons.activeNavIconColor}
-            //     />
-            //   ) : (
-            //     <WatchAnytimeTabIcon
-            //       width={iconWidth}
-            //       color={theme.icons.inactiveNavIconColor}
-            //     />
-            //   );
+              // } else if (route.name === '我的') {
+              //   icon = focused ? (
+              //     <ProfileActiveTabIcon
+              //       width={iconWidth}
+              //       color={theme.icons.activeNavIconColor}
+              //     />
+              //   ) : (
+              //     <ProfileTabIcon
+              //       width={iconWidth}
+              //       color={theme.icons.inactiveNavIconColor}
+              //     />
+              //   );
+              // } else if (route.name === '随心看') {
+              //   icon = focused ? (
+              //     <WatchAnytimeActiveTabIcon
+              //       width={iconWidth}
+              //       color={theme.icons.activeNavIconColor}
+              //     />
+              //   ) : (
+              //     <WatchAnytimeTabIcon
+              //       width={iconWidth}
+              //       color={theme.icons.inactiveNavIconColor}
+              //     />
+              //   );
             } else if (route.name === '体育') {
               icon = focused ? (
                 <SportsIcon
@@ -161,7 +159,7 @@ export default () => {
           <>
             <HomeTab.Screen name="首页" component={HomeScreen} />
             {/* <HomeTab.Screen name="随心看" component={WatchAnytime} /> */}
-            <HomeTab.Screen name="体育" component={MatchesScreen} />
+
             <HomeTab.Screen name="播单" component={PlaylistScreen} />
             {/* <HomeTab.Screen name="我的" component={ProfileScreen} /> */}
           </>
@@ -182,80 +180,46 @@ export default () => {
       <NavigationContainer theme={theme} onReady={() => RNBootSplash.hide()}>
         <Stack.Navigator
           initialRouteName="Home"
-          screenOptions={({ route }) => ({
+          screenOptions={({route}) => ({
             headerShown: false,
             autoHideHomeIndicator: true,
             animation: 'slide_from_right',
             orientation: 'portrait',
           })}>
-          <Stack.Screen
-            name="Home"
-            component={HomeTabScreen}
-          />
-          <Stack.Screen
-            name="我的收藏"
-            component={MainCollectionScreen}
-          />
-          <Stack.Screen
-            name="反馈"
-            component={FeedbackScreen}
-          />
+          <Stack.Screen name="Home" component={HomeTabScreen} />
+          <Stack.Screen name="我的收藏" component={MainCollectionScreen} />
+          <Stack.Screen name="反馈" component={FeedbackScreen} />
           <Stack.Screen
             name="播放"
             component={PlayScreen}
-            initialParams={{ vod_id: 1 }}
+            initialParams={{vod_id: 1}}
           />
-          <Stack.Screen
-            name="播放历史"
-            component={HistoryScreen}
-          />
-          <Stack.Screen
-            name="关于我们"
-            component={AboutUsScreen}
-          />
+          <Stack.Screen name="播放历史" component={HistoryScreen} />
+          <Stack.Screen name="关于我们" component={AboutUsScreen} />
           <Stack.Screen
             name="搜索"
             component={SearchScreen}
-            initialParams={{ initial: '' }}
+            initialParams={{initial: ''}}
           />
           <Stack.Screen
             name="PlaylistDetail"
             component={PlaylistDetailsScreen}
           />
-          <Stack.Screen
-            name="隐私政策"
-            component={PrivacyScreen}
-          />
-          <Stack.Screen
-            name="用户协议"
-            component={UserAgreementScreen}
-          />
+          <Stack.Screen name="隐私政策" component={PrivacyScreen} />
+          <Stack.Screen name="用户协议" component={UserAgreementScreen} />
           <Stack.Screen
             name="片库"
             component={CatalogScreen}
-            initialParams={{ type_id: 1 }}
+            initialParams={{type_id: 1}}
           />
-          <Stack.Screen
-            name="设置"
-            component={ConfigureScreen}
-          />
-          <Stack.Screen
-            name="合集收藏"
-            component={ShortVodCollectionScreen}
-          />
-          <Stack.Screen
-            name="体育详情"
-            component={MatchDetailsScreen}
-            initialParams={{
-              streamerId: undefined,
-              matchId: undefined,
-            }}
-          />
+          <Stack.Screen name="设置" component={ConfigureScreen} />
+          <Stack.Screen name="合集收藏" component={ShortVodCollectionScreen} />
+
           <Stack.Screen
             name="电视台列表"
             component={LiveStationsScreen}
-            initialParams={{ liveStationItemList: undefined }}
-          /> 
+            initialParams={{liveStationItemList: undefined}}
+          />
           <Stack.Screen
             name="电视台播放"
             component={LiveStationPlayScreen}
@@ -264,10 +228,7 @@ export default () => {
               liveStationItem: undefined,
             }}
           />
-          <Stack.Screen
-            name="合集播放"
-            component={WatchCollectionScreen}
-          />
+          <Stack.Screen name="合集播放" component={WatchCollectionScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
