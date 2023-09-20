@@ -43,6 +43,7 @@ import { SettingsReducerState } from '../../redux/reducers/settingsReducer';
 
 import NoConnection from '../../components/common/noConnection';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
+import BingSearch from '../../components/container/bingSearchContainer';
 
 // import {
 //   ATRNSDK
@@ -309,38 +310,10 @@ const insets = useSafeAreaInsets();
   return (
     <ScreenContainer
       containerStyle={{ paddingRight: 0, paddingLeft: 0 }}>
-      {vod?.vod_play_list?.urls?.find(url => url.nid === currentEpisode)
-        ?.url !== undefined &&
-        !dismountPlayer &&
+      {vod &&
         !isOffline ? (
 
-          <VodPlayer
-            vod_url={
-              vod.vod_play_list.urls.find(url => url.nid === currentEpisode)
-                ?.url
-            }
-            ref={videoPlayerRef}
-            currentTimeRef={currentTimeRef}
-            initialStartTime={
-              initTime
-            }
-            vodTitle={vod.vod_name}
-            videoType="vod"
-            activeEpisode={currentEpisode}
-            episodes={vod.type_id !== 2 ? vod?.vod_play_list : undefined}
-            onEpisodeChange={(id: number) => {
-              setCurrentEpisode(id);
-              currentTimeRef.current = 0;
-            }}
-            showGuide={settingsReducer.showVodPlayerGuide}
-            rangeSize={EPISODE_RANGE_SIZE}
-            autoPlayNext={vod.type_id !== 2}
-            onShare={onShare}
-            movieList={vod.type_id === 2 ? suggestedVods : []}
-            showMoreType={vod.type_id === 2 ? 'movies' : 'episodes'}
-            isFetchingRecommendedMovies={isFetchingSuggestedVod}
-          // setNavBarOptions={setNavBarOptions}
-          />
+          <BingSearch vod={vod} />
         )
         :
         (
