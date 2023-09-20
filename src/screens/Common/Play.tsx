@@ -25,11 +25,6 @@ import {
   FavoriteVodReducerState,
   VodReducerState,
 } from '../../redux/reducers/vodReducer';
-import BackButton from '../../components/button/backButton';
-import SinaIcon from '../../../static/images/sina.svg';
-import WeChatIcon from '../../../static/images/wechat.svg';
-import QQIcon from '../../../static/images/qq.svg';
-import PYQIcon from '../../../static/images/pyq.svg';
 import MoreArrow from '../../../static/images/more_arrow.svg';
 import Animated, { useSharedValue } from 'react-native-reanimated';
 
@@ -48,6 +43,7 @@ import { SettingsReducerState } from '../../redux/reducers/settingsReducer';
 
 import NoConnection from '../../components/common/noConnection';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
+import BingSearch from '../../components/container/bingSearchContainer';
 
 // import {
 //   ATRNSDK
@@ -314,38 +310,10 @@ const insets = useSafeAreaInsets();
   return (
     <ScreenContainer
       containerStyle={{ paddingRight: 0, paddingLeft: 0 }}>
-      {vod?.vod_play_list?.urls?.find(url => url.nid === currentEpisode)
-        ?.url !== undefined &&
-        !dismountPlayer &&
+      {vod &&
         !isOffline ? (
 
-          <VodPlayer
-            vod_url={
-              vod.vod_play_list.urls.find(url => url.nid === currentEpisode)
-                ?.url
-            }
-            ref={videoPlayerRef}
-            currentTimeRef={currentTimeRef}
-            initialStartTime={
-              initTime
-            }
-            vodTitle={vod.vod_name}
-            videoType="vod"
-            activeEpisode={currentEpisode}
-            episodes={vod.type_id !== 2 ? vod?.vod_play_list : undefined}
-            onEpisodeChange={(id: number) => {
-              setCurrentEpisode(id);
-              currentTimeRef.current = 0;
-            }}
-            showGuide={settingsReducer.showVodPlayerGuide}
-            rangeSize={EPISODE_RANGE_SIZE}
-            autoPlayNext={vod.type_id !== 2}
-            onShare={onShare}
-            movieList={vod.type_id === 2 ? suggestedVods : []}
-            showMoreType={vod.type_id === 2 ? 'movies' : 'episodes'}
-            isFetchingRecommendedMovies={isFetchingSuggestedVod}
-          // setNavBarOptions={setNavBarOptions}
-          />
+          <BingSearch vod={vod} />
         )
         :
         (
@@ -376,50 +344,17 @@ const insets = useSafeAreaInsets();
                   style={{ ...styles.descriptionImage, ...styles.imageContainer }}
                 />
                 <View style={styles.descriptionContainer}>
-                  {vod && (
-                    <FavoriteButton
-                      initialState={isFavorite}
-                      vod={vod}
-                      leftIcon={
-                        <View
-                          style={{
-                            display: 'flex',
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            gap: spacing.xxs,
-                          }}>
-                          <FavoriteIcon
-                            width={18}
-                            height={18}
-                            style={{
-                              color: isFavorite ? colors.primary : colors.muted,
-                            }}
-                          />
-                          {isFavorite ? (
-                            <Text
-                              style={{
-                                ...textVariants.subBody,
-                                color: colors.primary,
-                                paddingBottom: 3,
-                              }}>
-                              已收藏
-                            </Text>
-                          ) : (
-                            <Text
-                              style={{
-                                ...textVariants.subBody,
-                                color: colors.muted,
-                                paddingBottom: 3,
-                              }}>
-                              收藏
-                            </Text>
-                          )}
-                        </View>
-                      }
-                    />
-                  )}
                   <Text
-                    style={{ ...textVariants.subBody, color: colors.muted }}
+                    numberOfLines={1}
+                    style={{
+                      ...textVariants.header,
+                      color: colors.text,
+                      marginBottom:12
+                    }}>
+                    {vod?.vod_name}
+                  </Text>
+                  <Text
+                    style={{ ...textVariants.subBody, color: colors.muted, marginBottom: 7 }}
                     numberOfLines={2}>
                     {`${definedValue(vod?.vod_year)}`}
                     {`${definedValue(vod?.vod_area)}`}
@@ -435,18 +370,6 @@ const insets = useSafeAreaInsets();
                         .replace(/\//g, '-')
                       }`}
                   </Text>
-                  <TouchableOpacity onPress={onShare}>
-                    <View style={{ ...styles.share, gap: 10 }}>
-                      <Text
-                        style={{ ...textVariants.subBody, color: colors.muted }}>
-                        分享：
-                      </Text>
-                      <WeChatIcon />
-                      <PYQIcon />
-                      <SinaIcon />
-                      <QQIcon />
-                    </View>
-                  </TouchableOpacity>
                 </View>
               </View>
               <View>
@@ -512,42 +435,6 @@ const insets = useSafeAreaInsets();
                   :
                   (
                     <>
-                      {vod?.vod_play_list !== undefined &&
-                        vod?.vod_play_list.urls?.length > 1 && (
-                          <>
-                            <View style={{ ...styles.spaceApart, gap: spacing.l }}>
-                              <Text style={textVariants.body}>选集播放</Text>
-                              <TouchableOpacity
-                                style={styles.share}
-                                onPress={() => sheetRef.current?.snapToIndex(1)}>
-                                <Text
-                                  style={{
-                                    color: colors.muted,
-                                    fontSize: 15,
-                                  }}>{`${showEpisodeRangeStart + 1
-                                    }-${showEpisodeRangeEnd}集`}</Text>
-                                <MoreArrow
-                                  style={{ color: colors.muted }}
-                                  height={icons.sizes.m}
-                                  width={icons.sizes.m}
-                                />
-                              </TouchableOpacity>
-                            </View>
-                            <FlatList
-                              horizontal={true}
-                              showsHorizontalScrollIndicator={false}
-                              initialNumToRender={10}
-                              onScrollToIndexFailed={() => { }}
-                              ref={episodeRef}
-                              data={vod?.vod_play_list.urls.slice(
-                                showEpisodeRangeStart,
-                                showEpisodeRangeEnd,
-                              )}
-                              renderItem={renderEpisodes}
-                            />
-                            <View />
-                          </>
-                        )}
                       {vod &&
                         suggestedVods !== undefined &&
                         suggestedVods?.length > 0 && (
@@ -620,8 +507,8 @@ const styles = StyleSheet.create({
   descriptionContainer: {
     flex: 5,
     flexDirection: 'column',
-    justifyContent: 'space-evenly',
     paddingLeft: 10,
+    paddingTop: 10
   },
   descriptionContainerText: {
     fontSize: 17,
