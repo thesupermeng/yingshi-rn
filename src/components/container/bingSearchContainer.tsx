@@ -29,7 +29,10 @@ export default function BingSearch({vod}: Props) {
           angle={180}
           locations={[-0.32, 0.35, 1]}>
           <View style={styles.container}>
-            <BackButton btnStyle={styles.backBtn} />
+            <View style={styles.backBtnContainer}>
+              <BackButton btnStyle={styles.backBtn} />
+
+            </View>
             <BingIcon style={styles.bingLogo} />
             <BingSearchButton vodTitle={vod.vod_name} />
           </View>
@@ -49,9 +52,19 @@ const styles = StyleSheet.create({
   bingLogo: {
     marginBottom: 14,
   },
-  backBtn: {
+  backBtn: {  
+    display: 'flex', 
+    alignItems: 'center',
+    justifyContent: 'center', 
+    height: "100%",
+    padding: 0
+  },
+
+  backBtnContainer:{
     position: 'absolute',
     top: 14,
     left: 10,
-  },
+    width:30, 
+    height: 30,
+  }
 });
