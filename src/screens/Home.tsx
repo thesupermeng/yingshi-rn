@@ -1,4 +1,11 @@
-import React, {useMemo, useCallback, useEffect, useRef, useState, memo} from 'react';
+import React, {
+  useMemo,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  memo,
+} from 'react';
 import {
   StyleSheet,
   Text,
@@ -32,16 +39,16 @@ import {useIsFocused} from '@react-navigation/native';
 import NoConnection from './../components/common/noConnection';
 import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
 import PrivacyPolicyDialog from '../components/modal/privacyPolicyModel';
-import { useAppSelector, useAppDispatch } from '../hooks/hooks';
-import { RootState } from '../redux/store';
-import { SettingsReducerState } from '../redux/reducers/settingsReducer';
-import { acceptPrivacyPolicy } from '../redux/actions/settingsActions';
+import {useAppSelector, useAppDispatch} from '../hooks/hooks';
+import {RootState} from '../redux/store';
+import {SettingsReducerState} from '../redux/reducers/settingsReducer';
+import {acceptPrivacyPolicy} from '../redux/actions/settingsActions';
 interface NavType {
   id: number;
   name: string;
 }
 
-function Home ({navigation}: BottomTabScreenProps<any>) {
+function Home({navigation}: BottomTabScreenProps<any>) {
   const isFocused = useIsFocused();
   const {colors, textVariants, spacing} = useTheme();
   const [navId, setNavId] = useState(0);
@@ -54,8 +61,10 @@ function Home ({navigation}: BottomTabScreenProps<any>) {
   const queryClient = useQueryClient();
   const [isOffline, setIsOffline] = useState(false);
   const [showHomeLoading, setShowHomeLoading] = useState(true);
-  const [isOpenDialog, setOpenDialog] = useState(false)
-  const settingsReducer: SettingsReducerState = useAppSelector(({settingsReducer}: RootState) => settingsReducer);
+  const [isOpenDialog, setOpenDialog] = useState(false);
+  const settingsReducer: SettingsReducerState = useAppSelector(
+    ({settingsReducer}: RootState) => settingsReducer,
+  );
   const dispatch = useAppDispatch();
 
   const {data: navOptions} = useQuery({
@@ -133,7 +142,7 @@ function Home ({navigation}: BottomTabScreenProps<any>) {
   };
 
   useEffect(() => {
-    if(isFocused && !settingsReducer.isAcceptPrivacyPolicy){
+    if (isFocused && !settingsReducer.isAcceptPrivacyPolicy) {
       openPrivacyDialog();
     }
 
@@ -211,30 +220,30 @@ function Home ({navigation}: BottomTabScreenProps<any>) {
     },
     [data, width, onEndReachedCalledDuringMomentum, navRef, navId],
   );
-  
-  
 
   const openPrivacyDialog = () => {
     setOpenDialog(true);
-  }
+  };
 
   const onReadPrivacy = () => {
     setOpenDialog(false);
     navigation.navigate('隐私政策');
-  }
+  };
 
   const onAcceptPrivacy = () => {
     setOpenDialog(false);
     dispatch(acceptPrivacyPolicy());
-  }
+  };
 
   const onRejectPrivacy = () => {
     BackHandler.exitApp();
-  }
+  };
 
   return (
     <>
-      <ScreenContainer isHome={true} containerStyle={{paddingLeft: 0, paddingRight: 0}}>
+      <ScreenContainer
+        isHome={true}
+        containerStyle={{paddingLeft: 0, paddingRight: 0}}>
         <View
           style={{
             backgroundColor: colors.background,
@@ -357,14 +366,15 @@ function Home ({navigation}: BottomTabScreenProps<any>) {
           </View>
         )}
       </ScreenContainer>
-      
+
       <PrivacyPolicyDialog
         isVisible={isOpenDialog}
-        title='服务协议和隐私政策'
+        title="服务协议和隐私政策"
         description={
           <>
             <Text>
-              请你务必xx阅读, 充分理解“服务协议”和“隐私政策”各条款，包括但不限于：为了更好的向你提供服务，我们需要收集你的设备标识，操作日常等信息用于分析，优化应用性能。你可阅读
+              请你务必审慎阅读,
+              充分理解“服务协议”和“隐私政策”各条款，包括但不限于：为了更好的向你提供服务，我们需要收集你的设备标识，操作日常等信息用于分析，优化应用性能。你可阅读
             </Text>
             <TouchableOpacity onPress={onReadPrivacy}>
               <Text style={{color: colors.primary}}>《服务协议》</Text>
@@ -373,7 +383,9 @@ function Home ({navigation}: BottomTabScreenProps<any>) {
             <TouchableOpacity onPress={onReadPrivacy}>
               <Text style={{color: colors.primary}}>《隐私政策》</Text>
             </TouchableOpacity>
-            <Text>了解详细信息。如果你同意，请点击下面按钮开始接受我们的服务。</Text>
+            <Text>
+              了解详细信息。如果你同意，请点击下面按钮开始接受我们的服务。
+            </Text>
           </>
         }
         onAccept={onAcceptPrivacy}
@@ -383,7 +395,7 @@ function Home ({navigation}: BottomTabScreenProps<any>) {
       {isOffline && <NoConnection onClickRetry={checkConnection} />}
     </>
   );
-};
+}
 
 export default Home;
 
