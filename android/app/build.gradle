@@ -93,9 +93,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.yingshi"
+    namespace "com.yingshipin"
     defaultConfig {
-        applicationId "com.yingshi"
+        applicationId "com.yingshipin"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 5

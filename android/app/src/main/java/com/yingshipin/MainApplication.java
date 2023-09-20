@@ -1,4 +1,4 @@
-package com.yingshi;
+package com.yingshipin;
 
 import android.app.Application;
 import com.facebook.react.PackageList;
@@ -9,8 +9,8 @@ import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
 import com.facebook.react.defaults.DefaultReactNativeHost;
 import com.facebook.soloader.SoLoader;
 import java.util.List;
-import com.yingshi.DplusReactPackage;
-// import com.yingshi.ATReactNativeBridgePackage;
+import com.yingshipin.DplusReactPackage;
+// import com.yingshipin.ATReactNativeBridgePackage;
 import com.anythink.reactnativejs.ATReactNativeBridgePackage;
 import com.rnimmersivemode.RNImmersiveModePackage;	
 import com.microsoft.codepush.react.CodePush;

@@ -35,37 +35,37 @@ import CodePush from "react-native-code-push";
 
 
 let App = () => {
-  appsFlyer.initSdk(
-    {
-      devKey: APPSFLYER_DEVKEY,
-      isDebug: false,
-      //appId: '41*****44',
-      onInstallConversionDataListener: true,
-      onDeepLinkListener: true,
-      timeToWaitForATTUserAuthorization: 10,
-    },
-    result => {
-      // console.log(result);
-      const eventName = 'open_app';
-      const eventValues = {
-        ip: '1',
-      };
+  // appsFlyer.initSdk(
+  //   {
+  //     devKey: APPSFLYER_DEVKEY,
+  //     isDebug: false,
+  //     //appId: '41*****44',
+  //     onInstallConversionDataListener: true,
+  //     onDeepLinkListener: true,
+  //     timeToWaitForATTUserAuthorization: 10,
+  //   },
+  //   result => {
+  //     // console.log(result);
+  //     const eventName = 'open_app';
+  //     const eventValues = {
+  //       ip: '1',
+  //     };
 
-      appsFlyer.logEvent(
-        eventName,
-        eventValues,
-        res => {
-          // console.log(res);
-        },
-        err => {
-          console.error(err);
-        },
-      );
-    },
-    error => {
-      console.error(error);
-    },
-  );
+  //     appsFlyer.logEvent(
+  //       eventName,
+  //       eventValues,
+  //       res => {
+  //         // console.log(res);
+  //       },
+  //       err => {
+  //         console.error(err);
+  //       },
+  //     );
+  //   },
+  //   error => {
+  //     console.error(error);
+  //   },
+  // );
 
   const queryClient = new QueryClient({
     defaultOptions: {
