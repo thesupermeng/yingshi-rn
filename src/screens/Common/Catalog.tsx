@@ -329,16 +329,16 @@ export default ({navigation, route}: RootStackScreenProps<'片库'>) => {
       pianku: 'pianku',
     };
 
-    appsFlyer.logEvent(
-      eventName,
-      eventValues,
-      res => {
-        console.log(res);
-      },
-      err => {
-        console.error(err);
-      },
-    );
+    // appsFlyer.logEvent(
+    //   eventName,
+    //   eventValues,
+    //   res => {
+    //     console.log(res);
+    //   },
+    //   err => {
+    //     console.error(err);
+    //   },
+    // );
   }, []);
 
   const renderNavItems = useCallback(({item}: {item: NavType}) => {

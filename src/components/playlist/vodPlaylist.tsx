@@ -34,16 +34,16 @@ function VodPlaylist({ playlist, titleStyle }: Props) {
       topic_name: playlist.topic_name,
     };
 
-    appsFlyer.logEvent(
-      eventName,
-      eventValues,
-      res => {
-        // console.log(res);
-      },
-      err => {
-        console.error(err);
-      },
-    );
+    // appsFlyer.logEvent(
+    //   eventName,
+    //   eventValues,
+    //   res => {
+    //     // console.log(res);
+    //   },
+    //   err => {
+    //     console.error(err);
+    //   },
+    // );
   }, []);
 
   const renderItem = useCallback(({ item, index }: FlatListType) => (
