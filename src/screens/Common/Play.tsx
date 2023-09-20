@@ -434,42 +434,6 @@ const insets = useSafeAreaInsets();
                   :
                   (
                     <>
-                      {vod?.vod_play_list !== undefined &&
-                        vod?.vod_play_list.urls?.length > 1 && (
-                          <>
-                            <View style={{ ...styles.spaceApart, gap: spacing.l }}>
-                              <Text style={textVariants.body}>选集播放</Text>
-                              <TouchableOpacity
-                                style={styles.share}
-                                onPress={() => sheetRef.current?.snapToIndex(1)}>
-                                <Text
-                                  style={{
-                                    color: colors.muted,
-                                    fontSize: 15,
-                                  }}>{`${showEpisodeRangeStart + 1
-                                    }-${showEpisodeRangeEnd}集`}</Text>
-                                <MoreArrow
-                                  style={{ color: colors.muted }}
-                                  height={icons.sizes.m}
-                                  width={icons.sizes.m}
-                                />
-                              </TouchableOpacity>
-                            </View>
-                            <FlatList
-                              horizontal={true}
-                              showsHorizontalScrollIndicator={false}
-                              initialNumToRender={10}
-                              onScrollToIndexFailed={() => { }}
-                              ref={episodeRef}
-                              data={vod?.vod_play_list.urls.slice(
-                                showEpisodeRangeStart,
-                                showEpisodeRangeEnd,
-                              )}
-                              renderItem={renderEpisodes}
-                            />
-                            <View />
-                          </>
-                        )}
                       {vod &&
                         suggestedVods !== undefined &&
                         suggestedVods?.length > 0 && (
