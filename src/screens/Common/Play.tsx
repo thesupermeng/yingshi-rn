@@ -179,16 +179,16 @@ const insets = useSafeAreaInsets();
       vod_name: vod?.vod_name,
     };
 
-    appsFlyer.logEvent(
-      eventName,
-      eventValues,
-      res => {
-        // console.log(res);
-      },
-      err => {
-        console.error(err);
-      },
-    );
+    // appsFlyer.logEvent(
+    //   eventName,
+    //   eventValues,
+    //   res => {
+    //     // console.log(res);
+    //   },
+    //   err => {
+    //     console.error(err);
+    //   },
+    // );
   }, []);
 
   const fetchVodDetails = () =>
