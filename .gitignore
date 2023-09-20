@@ -42,7 +42,7 @@ node_modules/
 npm-debug.log
 yarn-error.log
 
-*/app/src/main/*
+*/app/src/main/res
 
 # fastlane
 #
