@@ -39,8 +39,6 @@ import WatchAnytimeActiveTabIcon from '../../static/images/video_tab_active.svg'
 import CatalogScreen from '../screens/Common/Catalog';
 import ShortVodCollectionScreen from '../screens/Profile/Collection/shortVodCollection';
 import SportsIcon from '../../static/images/sports.svg';
-import MatchesScreen from '../Sports/screens/Sports/Matches';
-import MatchDetailsScreen from '../Sports/screens/Sports/MatchDetails';
 import WatchCollectionScreen from '../../src/screens/WatchCollection';
 
 import { YingshiDarkTheme, YingshiLightTheme } from '../utility/theme';
@@ -156,22 +154,10 @@ export default () => {
             return icon;
           },
         })}>
-        {YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5 ? (
-          <>
-            <HomeTab.Screen name="首页" component={HomeScreen} />
-            <HomeTab.Screen name="随心看" component={WatchAnytime} />
-            <HomeTab.Screen name="体育" component={MatchesScreen} />
-            <HomeTab.Screen name="播单" component={PlaylistScreen} />
-            <HomeTab.Screen name="我的" component={ProfileScreen} />
-          </>
-        ) : (
-          <>
-            <HomeTab.Screen name="首页" component={HomeScreen} />
-            <HomeTab.Screen name="随心看" component={WatchAnytime} />
-            <HomeTab.Screen name="播单" component={PlaylistScreen} />
-            <HomeTab.Screen name="我的" component={ProfileScreen} />
-          </>
-        )}
+        <>
+          <HomeTab.Screen name="首页" component={HomeScreen} />
+          <HomeTab.Screen name="播单" component={PlaylistScreen} />
+        </>
       </HomeTab.Navigator>
     );
   }
@@ -241,14 +227,6 @@ export default () => {
           <Stack.Screen
             name="合集收藏"
             component={ShortVodCollectionScreen}
-          />
-          <Stack.Screen
-            name="体育详情"
-            component={MatchDetailsScreen}
-            initialParams={{
-              streamerId: undefined,
-              matchId: undefined,
-            }}
           />
           <Stack.Screen
             name="电视台列表"
