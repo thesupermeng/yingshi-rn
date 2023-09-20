@@ -16,7 +16,7 @@ import {Button} from '@rneui/themed';
 import ShowMoreButton from '../../components/button/showMoreButton';
 import Logo2 from '../../../static/images/logo2.svg';
 import NotificationModal from '../../components/modal/notificationModal';
-import { APP_VERSION } from '../../../src/utility/constants';
+import {APP_VERSION} from '../../../src/utility/constants';
 
 export default ({navigation}: RootStackScreenProps<'关于我们'>) => {
   const {colors, textVariants, icons, spacing} = useTheme();
@@ -43,12 +43,14 @@ export default ({navigation}: RootStackScreenProps<'关于我们'>) => {
         <View style={styles.logo}>
           <Logo2 height={icons.sizes.xxl} width={icons.sizes.xxl} />
         </View>
-        <Text style={{textAlign: 'center', ...textVariants.body}}>{APP_VERSION}</Text>
+        <Text style={{textAlign: 'center', ...textVariants.body}}>
+          {APP_VERSION}
+        </Text>
         <NotificationModal
           onConfirm={toggleOverlay}
           isVisible={isDialogOpen}
           title="版权声明"
-          subtitle1="如果影视TV提供内容侵犯了您的版权, 请发送电子邮件说明, 影视TV将立即删除内容, 保护版权所有者的权益。"
+          subtitle1="如果萤视频提供内容侵犯了您的版权, 请发送电子邮件说明, 萤视频将立即删除内容, 保护版权所有者的权益。"
           subtitle2="联系邮箱:"
           subtitle3="contactus@yingshi.tv"
         />
