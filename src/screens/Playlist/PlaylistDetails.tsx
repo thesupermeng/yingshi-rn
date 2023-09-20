@@ -34,7 +34,7 @@ export default ({navigation}: RootStackScreenProps<'PlaylistDetail'>) => {
               }}>
               {playlist?.topic_blurb}
             </Text>
-            <FavoritePlaylistButton playlist={playlist} />
+            {/* <FavoritePlaylistButton playlist={playlist} /> */}
           </View>
           <Text
             style={{
