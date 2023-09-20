@@ -25,11 +25,6 @@ import {
   FavoriteVodReducerState,
   VodReducerState,
 } from '../../redux/reducers/vodReducer';
-import BackButton from '../../components/button/backButton';
-import SinaIcon from '../../../static/images/sina.svg';
-import WeChatIcon from '../../../static/images/wechat.svg';
-import QQIcon from '../../../static/images/qq.svg';
-import PYQIcon from '../../../static/images/pyq.svg';
 import MoreArrow from '../../../static/images/more_arrow.svg';
 import Animated, { useSharedValue } from 'react-native-reanimated';
 
@@ -376,48 +371,14 @@ const insets = useSafeAreaInsets();
                   style={{ ...styles.descriptionImage, ...styles.imageContainer }}
                 />
                 <View style={styles.descriptionContainer}>
-                  {vod && (
-                    <FavoriteButton
-                      initialState={isFavorite}
-                      vod={vod}
-                      leftIcon={
-                        <View
-                          style={{
-                            display: 'flex',
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            gap: spacing.xxs,
-                          }}>
-                          <FavoriteIcon
-                            width={18}
-                            height={18}
-                            style={{
-                              color: isFavorite ? colors.primary : colors.muted,
-                            }}
-                          />
-                          {isFavorite ? (
-                            <Text
-                              style={{
-                                ...textVariants.subBody,
-                                color: colors.primary,
-                                paddingBottom: 3,
-                              }}>
-                              已收藏
-                            </Text>
-                          ) : (
-                            <Text
-                              style={{
-                                ...textVariants.subBody,
-                                color: colors.muted,
-                                paddingBottom: 3,
-                              }}>
-                              收藏
-                            </Text>
-                          )}
-                        </View>
-                      }
-                    />
-                  )}
+                  <Text
+                    numberOfLines={1}
+                    style={{
+                      ...textVariants.header,
+                      color: colors.text,
+                    }}>
+                    {vod?.vod_name}
+                  </Text>
                   <Text
                     style={{ ...textVariants.subBody, color: colors.muted }}
                     numberOfLines={2}>
@@ -435,18 +396,6 @@ const insets = useSafeAreaInsets();
                         .replace(/\//g, '-')
                       }`}
                   </Text>
-                  <TouchableOpacity onPress={onShare}>
-                    <View style={{ ...styles.share, gap: 10 }}>
-                      <Text
-                        style={{ ...textVariants.subBody, color: colors.muted }}>
-                        分享：
-                      </Text>
-                      <WeChatIcon />
-                      <PYQIcon />
-                      <SinaIcon />
-                      <QQIcon />
-                    </View>
-                  </TouchableOpacity>
                 </View>
               </View>
               <View>
