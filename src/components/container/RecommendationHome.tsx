@@ -241,7 +241,7 @@ const RecommendationHome = ({
               )}
               <View>
                 {/* previous style={{ gap: spacing.m }} */}
-                {/* {data?.carousel[0] && history.length > 0 && (
+                {data?.carousel[0] && history.length > 0 && (
                   <View>
                     <View
                       style={{
@@ -265,9 +265,9 @@ const RecommendationHome = ({
                       />
                     </View>
                   </View>
-                )} */}
+                )}
 
-                {/* <View style={{ gap: spacing.m }}>
+                <View style={{ gap: spacing.m }}>
                   <View
                     style={{
                       paddingLeft: spacing.sideOffset,
@@ -303,7 +303,7 @@ const RecommendationHome = ({
                       style={{ paddingLeft: spacing.sideOffset, height: 134 }}
                     />
                   )}
-                </View> */}
+                </View>
                 {data?.yunying &&
                   data.yunying.length > 0 &&
                   data.yunying.map((item, index) => (

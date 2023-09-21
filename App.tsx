@@ -1,9 +1,9 @@
-import React, {useEffect} from 'react';
-import {Provider} from 'react-redux';
+import React, { useEffect } from 'react';
+import { Provider } from 'react-redux';
 import Nav from './src/navigation/nav';
-import {store, persistor} from './src/redux/store';
-import {PersistGate} from 'redux-persist/integration/react';
-import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
+import { store, persistor } from './src/redux/store';
+import { PersistGate } from 'redux-persist/integration/react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import {
   API_DOMAIN,
   API_DOMAIN_TEST,
@@ -22,13 +22,17 @@ import {
   VodPlaylistResponseType,
   LiveTVStationsResponseType,
 } from './src/types/ajaxTypes';
-import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import appsFlyer from 'react-native-appsflyer';
-// import Api from './src/Sports/middleware/api';
-// import { Url } from './src/Sports/middleware/url';
-import {StatusBar} from 'react-native';
-import CodePush from 'react-native-code-push';
+import Api from './src/Sports/middleware/api';
+import { Url } from './src/Sports/middleware/url';
+import { StatusBar } from 'react-native';
+import CodePush from "react-native-code-push";
+
+
+
+
 
 let App = () => {
   // appsFlyer.initSdk(
@@ -134,16 +138,17 @@ let App = () => {
           return Object.values(json.data.List);
         });
 
-    queryClient.prefetchInfiniteQuery(['vodPlaylist'], ({pageParam = 1}) =>
+    queryClient.prefetchInfiniteQuery(['vodPlaylist'], ({ pageParam = 1 }) =>
       fetchPlaylist(pageParam),
     );
 
-    const fetchVods = (page: number) =>
-      fetch(`${API_DOMAIN}miniVod/v2/miniVod?page=${page}&limit=100`)
-        .then(response => response.json())
-        .then((json: MiniVideoResponseType) => {
-          return json.data.List;
-        });
+    const fetchVods = (page: number) => fetch(
+      `${API_DOMAIN}miniVod/v2/miniVod?page=${page}&limit=100`,
+    )
+    .then(response => response.json())
+    .then((json: MiniVideoResponseType) => {
+      return json.data.List
+    })
 
     type MiniVideoResponseType = {
       data: {
@@ -154,29 +159,29 @@ let App = () => {
       fetchVods(pageParam),
     );
 
-    // queryClient.prefetchQuery({
-    //   queryKey: ['matchesNavOptions'],
-    //   queryFn: () =>
-    //     Api.call(Url.sportTypes, {}, 'GET').then(
-    //       (
-    //         res,
-    //       ): {
-    //         has_submenu: boolean;
-    //         ids: Array<number>;
-    //         type: string;
-    //       }[] => {
-    //         return res.data;
-    //       },
-    //     ),
-    //   staleTime: Infinity,
-    // });
+    queryClient.prefetchQuery({
+      queryKey: ['matchesNavOptions'],
+      queryFn: () =>
+        Api.call(Url.sportTypes, {}, 'GET').then(
+          (
+            res,
+          ): {
+            has_submenu: boolean;
+            ids: Array<number>;
+            type: string;
+          }[] => {
+            return res.data;
+          },
+        ),
+      staleTime: Infinity,
+    });
   }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <GestureHandlerRootView style={{flex: 1}}>
+          <GestureHandlerRootView style={{ flex: 1 }}>
             <BottomSheetModalProvider>
               <Nav />
             </BottomSheetModalProvider>
@@ -185,10 +190,11 @@ let App = () => {
       </Provider>
     </QueryClientProvider>
   );
-};
+}
 
-let codePushOptions = {checkFrequency: CodePush.CheckFrequency.ON_APP_RESUME};
+let codePushOptions = { checkFrequency: CodePush.CheckFrequency.ON_APP_RESUME };
 
 App = CodePush(codePushOptions)(App);
+
 
 export default App;

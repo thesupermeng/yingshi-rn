@@ -41,12 +41,12 @@ function MainHeader({ logo, navigator, headerStyle }: Props) {
                     : <Logo width={110} />
             }
             <SearchBar onPress={() => navigator.navigate('搜索', { initial: randomVod?.vod_name })} defaultValue={randomVod !== undefined ? randomVod.vod_name : ''} />
-            {/* <TouchableOpacity onPress={() => navigator.navigate('播放历史')}>
+            <TouchableOpacity onPress={() => navigator.navigate('播放历史')}>
                 {
                     icons.iconColor !== undefined &&
                     <History height={26} width={26} color={icons.iconColor} />
                 }
-            </TouchableOpacity> */}
+            </TouchableOpacity>
         </View>
     );
 }
