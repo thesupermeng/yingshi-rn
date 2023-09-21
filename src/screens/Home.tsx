@@ -230,6 +230,11 @@ function Home({navigation}: BottomTabScreenProps<any>) {
     navigation.navigate('隐私政策');
   };
 
+  const onReadTerms = () => {
+    setOpenDialog(false);
+    navigation.navigate('用户协议');
+  };
+
   const onAcceptPrivacy = () => {
     setOpenDialog(false);
     dispatch(acceptPrivacyPolicy());
@@ -376,13 +381,13 @@ function Home({navigation}: BottomTabScreenProps<any>) {
               请你务必审慎阅读,
               充分理解“服务协议”和“隐私政策”各条款，包括但不限于：为了更好的向你提供服务，我们需要收集你的设备标识，操作日常等信息用于分析，优化应用性能。你可阅读
             </Text>
-            <TouchableOpacity onPress={onReadPrivacy}>
+            <Text onPress={onReadTerms}>
               <Text style={{color: colors.primary}}>《服务协议》</Text>
-            </TouchableOpacity>
+            </Text>
             <Text>和</Text>
-            <TouchableOpacity onPress={onReadPrivacy}>
+            <Text onPress={onReadPrivacy}>
               <Text style={{color: colors.primary}}>《隐私政策》</Text>
-            </TouchableOpacity>
+            </Text>
             <Text>
               了解详细信息。如果你同意，请点击下面按钮开始接受我们的服务。
             </Text>
