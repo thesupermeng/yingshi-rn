@@ -55,8 +55,14 @@ export default ({navigation}: RootStackScreenProps<'关于我们'>) => {
           subtitle3="yingshipin.contactus@gmail.com"
         />
         <View>
-          {/* <ShowMoreButton text='隐私政策' onPress={() => navigation.navigate('用户协议')} />
-                    <ShowMoreButton text='用户协议' onPress={() => navigation.navigate('隐私政策')} /> */}
+          <ShowMoreButton
+            text="隐私政策"
+            onPress={() => navigation.navigate('隐私政策')}
+          />
+          <ShowMoreButton
+            text="用户协议"
+            onPress={() => navigation.navigate('用户协议')}
+          />
           <ShowMoreButton
             text="版权声明"
             onPress={() => setIsDialogOpen(!isDialogOpen)}

@@ -18,16 +18,16 @@ export default ({ navigation }: RootStackScreenProps<'用户协议'>) => {
         <ScreenContainer scrollView={true}>
             <View style={{ gap: spacing.m }}>
                 <TitleWithBackButtonHeader title='用户协议' />
-                <Text style={{ ...textVariants.header, textAlign: 'center' }}>影视TV用户协议</Text>
+                <Text style={{ ...textVariants.header, textAlign: 'center' }}>萤视频用户协议</Text>
                 <Text style={textVariants.body}>
                     一、关于我们{"\n"}
-                    萤视TV是一站式线上视频服务社区。本 协议中的"您''与"用户"指任何使用和/或访问本服 务的个人。
+                    萤视频是一站式线上视频服务社区。本 协议中的"您''与"用户"指任何使用和/或访问本服 务的个人。
                 </Text>
                 <Text style={textVariants.body}>
                     二、协议目的{"\n"}
                     本用户协议、隐私政策及本服务发布的其他 政策（以下合称"本协议"）是我们为您提供本服务 以供使用及访问所依据的条款。
                     通过本协议，您将 了解幸福影视向您提供本服务的方式、本服务所允 许或禁止的活动、
-                    应用问题及其他重要信息，以及 相关方的权利义务内容。请您仔细阅读本协议，若 您使用本服务, 则视为您已经与萤视TV达成具有 法律约束力的协议。若您不接受本协议，请勿使用 本服务。
+                    应用问题及其他重要信息，以及 相关方的权利义务内容。请您仔细阅读本协议，若 您使用本服务, 则视为您已经与萤视频达成具有 法律约束力的协议。若您不接受本协议，请勿使用 本服务。
                 </Text>
                 <Text style={textVariants.body}>
                     三、使用资格{"\n"}

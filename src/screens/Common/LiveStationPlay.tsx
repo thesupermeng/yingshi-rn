@@ -147,6 +147,7 @@ export default ({navigation, route}: RootStackScreenProps<'电视台播放'>) =>
           <VodLiveStationListVertical
             itemList={liveStationItemList}
             selectedItem={liveStationItem}
+            numOfRows={100}
           />
         </View>
       </ScrollView>
