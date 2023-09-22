@@ -354,6 +354,7 @@ function Home ({navigation}: BottomTabScreenProps<any>) {
                 offset: width * index,
                 index,
               })}
+              // will not trigger when scroll again at the scrolling process
               onMomentumScrollBegin={() => {
                 onEndReachedCalledDuringMomentum.current = false;
               }}
