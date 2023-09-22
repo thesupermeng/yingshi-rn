@@ -354,7 +354,9 @@ export default forwardRef<RefHandler, Props>(({
                     showSlider === 'streams' &&
                     <View style={{ paddingLeft: spacing.sideOffset + 10 }}>
                       <View style={{ alignItems: 'center' }}>
-                        <VodLiveStationListVertical itemList={streams} numOfRows={3} />
+                        <ScrollView>
+                          <VodLiveStationListVertical itemList={streams} numOfRows={100} />
+                        </ScrollView>
                       </View>
                     </View>
                   }
