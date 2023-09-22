@@ -565,6 +565,11 @@ const insets = useSafeAreaInsets();
                             <VodListVertical
                               vods={suggestedVods}
                               outerRowPadding={2 * (20 - spacing.sideOffset)}
+                              onPress={() => {
+                                if(!isCollapsed){
+                                  setIsCollapsed(true);
+                                }
+                              }}
                             />
                           </View>
                         )}
