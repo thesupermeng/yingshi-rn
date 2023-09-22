@@ -92,6 +92,11 @@ function Playlist ({navigation}: BottomTabScreenProps<any>) {
         }
         return nextPage;
       },
+      onSettled: (data, error) => {
+        if(isRefreshing && data && !error){
+          setIsRefreshing(false);
+        }
+      },
       // onSuccess: (data) => {
       //     if (data && data?.pages) {
       //         setResults([...results, ...data.pages[data.pages.length - 1].flat()])
@@ -103,7 +108,7 @@ function Playlist ({navigation}: BottomTabScreenProps<any>) {
   const renderItem = ({item}: FlatListType) => (
     <VodPlaylist playlist={item} titleStyle={{color: colors.text}} />
   );
-
+    
   const [isRefreshing, setIsRefreshing] = useState(false);
   const queryClient = useQueryClient();
   // Function to reset variables and refresh data
@@ -117,7 +122,7 @@ function Playlist ({navigation}: BottomTabScreenProps<any>) {
     // Reset the playlists by clearing the cache and refetching data
     await queryClient.resetQueries(['vodPlaylist']); // Pass the query key as an array of strings
 
-    return setIsRefreshing(false);
+    // return setIsRefreshing(false);
   }, []);
 
   return (

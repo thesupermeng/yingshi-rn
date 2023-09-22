@@ -21,6 +21,7 @@ interface Props {
   vodStyle?: ViewStyle;
   horizontal?: boolean;
   liveStationList?: Array<LiveTVStationItem>;
+  onlyShow?: null | number;
   showInfo?: 'none' | 'watch_progress';
   isRefreshing?: boolean;
 }
@@ -33,6 +34,7 @@ export default function VodLiveStationList(
     vodStyle,
     horizontal = true,
     liveStationList = [],
+    onlyShow = null,
     showInfo = 'none',
     isRefreshing = false,
   }: Props,
@@ -82,7 +84,7 @@ export default function VodLiveStationList(
   return (
     <FlatList
       ref={liveRef}
-      data={liveStationList}
+      data={onlyShow ? liveStationList.slice(0, onlyShow) : liveStationList}
       initialScrollIndex={0}
       horizontal
       showsHorizontalScrollIndicator={false}
