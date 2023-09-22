@@ -21,26 +21,30 @@ export default function SearchResultList({
   const {spacing, textVariants, colors} = useTheme();
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
-
+  const escapeRegExp = (string: string) => {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  };
   const highlightText = (text: string, keyword: string) => {
-    if (text === undefined){ 
-      return <Text style={textVariants.body}>{text}</Text>;
+    if (text == null) {
+      return <Text style={textVariants.body} />;
     }
 
-    const parts = text.split(new RegExp(`(${keyword})`, 'gi'));
-      return parts.map((part, index) =>
-        part.toLowerCase() === keyword.toLowerCase() ? (
-          <Text key={index} style={{...textVariants.body, color: colors.primary}}>
-            {part}
-          </Text>
-        ) : (
-          <Text key={index} style={textVariants.body}>
-            {part}
-          </Text>
-        ),
-      );
+    // Escape the keyword for use in the regular expression
+    const escapedKeyword = escapeRegExp(keyword);
 
-    
+    const parts = text.split(new RegExp(`(${escapedKeyword})`, 'gi'));
+    return parts.map((part, index) =>
+      // Check if the current part is a match (ignoring case)
+      new RegExp(escapedKeyword, 'i').test(part) ? (
+        <Text key={index} style={{...textVariants.body, color: colors.primary}}>
+          {part}
+        </Text>
+      ) : (
+        <Text key={index} style={textVariants.body}>
+          {part}
+        </Text>
+      ),
+    );
   };
 
   return (
