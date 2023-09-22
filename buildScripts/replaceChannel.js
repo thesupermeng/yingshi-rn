@@ -3,7 +3,7 @@ const fs = require('fs');
 
 const constantsFilePath = '../src/utility/constants.ts';
 
-let versionNum = "1.3.0";
+let versionNum = "1.0.0";
 
 fs.readFile(constantsFilePath, 'utf8', (err, data) => {
     if (err) {

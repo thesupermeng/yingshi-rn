@@ -42,4 +42,4 @@ export const APPSFLYER_DEVKEY = 'wrxTHihLJNWrrusXtgRJZa';
 
 export const UMENG_CHANNEL = "HUAWEI_APP_GALLERY_OVERSEAS";
 
-export const APP_VERSION = "1.3.0";
+export const APP_VERSION = "1.0.0";
