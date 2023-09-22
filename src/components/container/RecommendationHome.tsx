@@ -294,7 +294,8 @@ const RecommendationHome = ({
                     <View style={{ paddingLeft: spacing.sideOffset }}>
                       <VodLiveStationList
                         vodStyle={styles.vod_live_station}
-                        liveStationList={data?.live_station_list.slice(0, 10)}
+                        liveStationList={data?.live_station_list}
+                        onlyShow={10}
                         isRefreshing={isRefreshing}
                       />
                     </View>
