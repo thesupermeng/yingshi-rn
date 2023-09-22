@@ -192,7 +192,11 @@ let App = () => {
   );
 }
 
-let codePushOptions = { checkFrequency: CodePush.CheckFrequency.ON_APP_RESUME };
+let codePushOptions = { 
+  checkFrequency: CodePush.CheckFrequency.ON_APP_RESUME, // 检查更新的频率: ON_APP_START(启动时检查) ON_APP_RESUME(恢复到前台时检查) MANUAL(手动检查)
+  installMode: CodePush.InstallMode.IMMEDIATE,  // 安装模式: IMMEDIATE(立即安装) ON_NEXT_RESTART(下次启动时安装) ON_NEXT_RESUME(下次恢复到前台时安装) ON_NEXT_SUSPEND(下次挂起时安装)
+  minimumBackgroundDuration: 60 * 2, // 在后台静默更新的最小时间: 0(立即更新) 60(后台静默更新的最小时间为60秒)
+};
 
 App = CodePush(codePushOptions)(App);
 
