@@ -35,6 +35,7 @@ import Carousel from 'react-native-reanimated-carousel';
 
 import CarouselPagination from './CarouselPagination';
 import LoadingIcon from './../../../static/images/MutedVolume.svg';
+import { Image } from 'react-native';
 interface NavType {
   id: number;
   name: string;
@@ -72,8 +73,15 @@ const RecommendationHome = ({
   const carouselRef = useRef<any>();
   // const {width, height} = Dimensions.get('window');
   const [width, setWidth] = useState(Dimensions.get('window').width);
+  const [imgRatio, setImgRatio] = useState(1.5);
   useEffect(() => {
     setWidth(Number(Dimensions.get('window').width));
+
+    if(data.carousel.length > 0){
+      Image.getSize(data.carousel[0].carousel_pic_mobile, (w, h) => {
+        setImgRatio(w / h);
+      });
+    }
   }, []);
   // Function to handle the pull-to-refresh action
   const handleRefresh = async () => {
@@ -220,7 +228,7 @@ const RecommendationHome = ({
                     ref={carouselRef}
                     loop
                     width={width - spacing.sideOffset - spacing.sideOffset}
-                    height={width / 2}
+                    height={(width - spacing.sideOffset - spacing.sideOffset) / imgRatio}
                     autoPlay={true}
                     data={data.carousel}
                     scrollAnimationDuration={500}
@@ -413,6 +421,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     borderRadius: 17,
+    // backgroundColor: 'orange'
   },
   text: {
     color: '#fff',
