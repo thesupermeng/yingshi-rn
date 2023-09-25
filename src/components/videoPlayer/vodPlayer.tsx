@@ -5,6 +5,7 @@ import {
   StatusBar,
   AppState,
   Text,
+  BackHandler,
 } from 'react-native';
 
 import Video from 'react-native-video';
@@ -207,6 +208,21 @@ export default forwardRef<VideoRef, Props>(({
       }
     })
   }, [isFullScreen, Orientation]);
+
+  useEffect(() => {
+    const removeBackPressListener = BackHandler.addEventListener('hardwareBackPress', () => {
+
+      if(isFullScreen){
+        Orientation.lockToPortrait();
+        StatusBar.setHidden(false);
+        setIsFullScreen(false);
+        return true;
+      }
+      return false;
+    });
+
+    return () => removeBackPressListener.remove();
+  }, [isFullScreen]);
 
   const onVideoLoaded = (data: any) => {
     setDuration(data.duration);

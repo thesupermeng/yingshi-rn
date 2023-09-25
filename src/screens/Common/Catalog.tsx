@@ -175,6 +175,8 @@ export default ({navigation, route}: RootStackScreenProps<'片库'>) => {
   const lastContentOffset = useSharedValue(0);
   const isScrolling = useSharedValue(false);
   const isFilterCollapse = useSharedValue(false);
+  // this variable to handle scrollY value +- 50 status is cause by collapse 
+  const isCollapseEffect = useSharedValue(false);
 
   const [results, setResults] = useState<Array<SuggestedVodType>>([]);
 
@@ -300,20 +302,30 @@ export default ({navigation, route}: RootStackScreenProps<'片库'>) => {
   const scrollHandler = useAnimatedScrollHandler({
     onScroll: event => {
       const st = event.contentOffset.y;
-      if (st < lastContentOffset.value) {
-        // if (isScrolling.value) {
-        //     console.log("UP");
-        // }
-        lastContentOffset.value = event.contentOffset.y;
-      } else if (st > lastContentOffset.value + SCROLL_THRESHOLD) {
-        // if (isScrolling.value) {
-        //     console.log("DOWN");
-        // }
-        if (!isFilterCollapse.value) {
+
+      // if scroll down & y > 50
+      if(st > lastContentOffset.value && st > SCROLL_THRESHOLD){
+        if(isCollapseEffect.value){
+          isCollapseEffect.value = false;
+
+        }else if(!isFilterCollapse.value && !isCollapseEffect.value){
+          isCollapseEffect.value = true;
           isFilterCollapse.value = true;
         }
-        lastContentOffset.value = event.contentOffset.y;
       }
+      
+      // if scroll up & y <= 50
+      if(st < lastContentOffset.value && st <= SCROLL_THRESHOLD){
+        if(isCollapseEffect.value){
+          isCollapseEffect.value = false;
+
+        }else if(isFilterCollapse.value && !isCollapseEffect.value){
+          isCollapseEffect.value = true;
+          isFilterCollapse.value = false;
+        }
+      }
+
+      lastContentOffset.value = st;
     },
     onBeginDrag: e => {
       isScrolling.value = true;

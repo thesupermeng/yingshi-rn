@@ -155,6 +155,7 @@ const insets = useSafeAreaInsets();
     const state = await NetInfo.fetch();
     const offline = !(state.isConnected && state.isInternetReachable);
     setIsOffline(offline);
+    setDismountPlayer(true); //dismount player when offline 
   };
 
   useEffect(() => {
@@ -317,7 +318,7 @@ const insets = useSafeAreaInsets();
       {vod?.vod_play_list?.urls?.find(url => url.nid === currentEpisode)
         ?.url !== undefined &&
         !dismountPlayer &&
-        !isOffline ? (
+        !isOffline && (
 
           <VodPlayer
             vod_url={
@@ -347,7 +348,9 @@ const insets = useSafeAreaInsets();
           // setNavBarOptions={setNavBarOptions}
           />
         )
-        :
+      }
+      {
+        isOffline && dismountPlayer &&
         (
           <View style={{ width: '100%', aspectRatio: 16/9, display: 'flex', justifyContent: 'center', alignItems: 'center', alignSelf: 'center' }}>
             <FastImage
@@ -565,6 +568,11 @@ const insets = useSafeAreaInsets();
                             <VodListVertical
                               vods={suggestedVods}
                               outerRowPadding={2 * (20 - spacing.sideOffset)}
+                              onPress={() => {
+                                if(!isCollapsed){
+                                  setIsCollapsed(true);
+                                }
+                              }}
                             />
                           </View>
                         )}

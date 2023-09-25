@@ -57,4 +57,43 @@ brew install --cask cocoapods
 Refer: https://stackoverflow.com/questions/72130276/invalid-podfile-file-unexpected-template-eos
 
 
+Code Push Command:
 
+Build android apk:
+npm run android-apk-debug
+
+---------------------------------------------
+Add new app to code push app center:
+code-push app add <appName> <os> <platform>
+
+example:
+- code-push app add yingshi-ios ios react-native
+- code-push app add yingshi-android Android react-native
+---------------------------------------------
+
+List all apps:
+code-push app ls
+---------------------------------------------
+
+Check deployment keys:
+code-push deployment ls <appName> -k
+---------------------------------------------
+
+Check deployment history:
+code-push deployment history <appName> <deploymentName>
+example:
+code-push deployment history yingshi-android Staging
+---------------------------------------------
+
+Release new version:
+appcenter codepush release-react -a <developerName>/<appName> -d <deploymentName> --description "<description>" --mandatory <true/false>
+
+example:
+- appcenter codepush release-react -a developeryingshi/yingshi-ios -d Production --description "fix bugs" --mandatory true
+- appcenter codepush release-react -a developeryingshi/yingshi-android -d Staging --description "add new feature" --mandatory true
+---------------------------------------------
+
+Rollback to previous version:
+code-push rollback <appName> <deploymentName>
+example:
+- code-push rollback yingshi-ios Production
