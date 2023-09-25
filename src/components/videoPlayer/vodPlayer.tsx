@@ -209,7 +209,7 @@ export default forwardRef<VideoRef, Props>(({
     })
   }, [isFullScreen, Orientation]);
 
-  const onBackPressHandle = useEffect(() => {
+  useEffect(() => {
     const removeBackPressListener = BackHandler.addEventListener('hardwareBackPress', () => {
 
       if(isFullScreen){
