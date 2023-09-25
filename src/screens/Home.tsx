@@ -354,10 +354,16 @@ function Home ({navigation}: BottomTabScreenProps<any>) {
                 offset: width * index,
                 index,
               })}
-              // will not trigger when scroll again at the scrolling process
-              onMomentumScrollBegin={() => {
-                onEndReachedCalledDuringMomentum.current = false;
+              // change use from "onMomentumScrollBegin" to "onScroll" because "onMomentumScrollBegin" just call the begin.
+              // if scroll again when scrolling process "onMomentumScrollBegin" will not trigger
+              onScroll={() => {
+                if(onEndReachedCalledDuringMomentum.current){
+                  onEndReachedCalledDuringMomentum.current = false;
+                }
               }}
+              // onMomentumScrollBegin={() => {
+              //   onEndReachedCalledDuringMomentum.current = false;
+              // }}
               onMomentumScrollEnd={onScrollEnd}
               renderItem={getContent}
             />
