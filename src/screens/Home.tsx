@@ -20,7 +20,7 @@ import {
   VodType,
   LiveTVStationsResponseType,
 } from '../types/ajaxTypes';
-import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
+import {BottomTabScreenProps, useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 import {API_DOMAIN, API_DOMAIN_TEST} from '../utility/constants';
 import CatagoryHome from '../components/container/CatagoryHome';
 import RecommendationHome from '../components/container/RecommendationHome';
@@ -60,6 +60,7 @@ function Home ({navigation}: BottomTabScreenProps<any>) {
     ({settingsReducer}: RootState) => settingsReducer,
   );
   const dispatch = useAppDispatch();
+  const bottomTabHeight = useBottomTabBarHeight();
 
   const {data: navOptions} = useQuery({
     queryKey: ['HomePageNavOptions'],
@@ -336,6 +337,7 @@ function Home ({navigation}: BottomTabScreenProps<any>) {
             style={{
               opacity: hideContent ? 0 : 1,
               position: showHomeLoading ? 'absolute' : 'relative',
+              paddingBottom: bottomTabHeight + 10, 
             }}>
             <FlatList
               ref={ref}
