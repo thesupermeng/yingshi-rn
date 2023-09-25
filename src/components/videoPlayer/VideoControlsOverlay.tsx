@@ -373,7 +373,7 @@ export default forwardRef<RefHandler, Props>(({
               >
                 <View style={{ ...styles.videoHeader, marginRight: isFullScreen ? 20 : 0 }}>
                   <View style={{ flexDirection: 'row', alignItems: 'center', flexShrink: 1, paddingRight: 10 }}>
-                    <BackButton onPress={() => goBack()} />
+                    <BackButton onPress={() => goBack()} btnStyle={styles.backBtn} />
                     <Text
                       style={{
                         ...textVariants.body,
@@ -508,4 +508,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: 300
   },
+  backBtn: {
+    padding: 20
+  }
 });
