@@ -14,10 +14,11 @@ interface Props {
     numOfRows?: number,
     outerRowPadding?: number,
     minNumPerRow?: number,
-    heightToWidthRatio?: number
+    heightToWidthRatio?: number,
+    onPress?: () => any,
 }
 
-function VodListVertical({ vods, numOfRows = 2, outerRowPadding = 0, minNumPerRow = 3, heightToWidthRatio = 1.414 }: Props) {
+function VodListVertical({ vods, numOfRows = 2, outerRowPadding = 0, minNumPerRow = 3, heightToWidthRatio = 1.414, onPress }: Props) {
     const { textVariants, colors, spacing, icons } = useTheme();
     const insets = useSafeAreaInsets();
     const navigation = useNavigation();
@@ -73,6 +74,9 @@ function VodListVertical({ vods, numOfRows = 2, outerRowPadding = 0, minNumPerRo
                             marginBottom: Math.min(marginRight, 14)
                         }}
                         onPress={() => {
+                            if(onPress){
+                                onPress();
+                            }
                             dispatch(playVod(vod));
                             navigation.navigate('播放', {
                                 vod_id: vod?.vod_id,
