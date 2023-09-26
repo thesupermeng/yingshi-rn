@@ -146,23 +146,23 @@ export default ({
                   thumbTintColor={'#FFFFFF'}
                   // thumbImage={Platform.OS === 'ios' ? thumbImage : undefined}
                   thumbStyle={{ height: 15, width: 15 }}
-                  thumbProps={{
-                    // children: showSliderPreview && <View style={{
-                    children: <View style={{
-                      ...styles.videoPreviewContainer,
-                      width: width * 0.24,
-                      height: (width * 0.24 / 1.78) + 30, // use 16:9 ratio
-                      left: -width * 0.12 + 7.5, // -(previewWidth / 2) + (thumbStyleWidth / 2)
-                    }}>
-                      <View style={styles.videoPreview}>
-                        <Image 
-                          style={{width: '100%', height: '100%'}}
-                          source={{ uri: 'https://upload.wikimedia.org/wikipedia/en/a/a6/Pokémon_Pikachu_art.png' }}
-                          resizeMode='contain'
-                        />
-                      </View>
-                    </View>
-                  }}
+                  // thumbProps={{
+                  //   // children: showSliderPreview && <View style={{
+                  //   children: <View style={{
+                  //     ...styles.videoPreviewContainer,
+                  //     width: width * 0.24,
+                  //     height: (width * 0.24 / 1.78) + 30, // use 16:9 ratio
+                  //     left: -width * 0.12 + 7.5, // -(previewWidth / 2) + (thumbStyleWidth / 2)
+                  //   }}>
+                  //     <View style={styles.videoPreview}>
+                  //       <Image 
+                  //         style={{width: '100%', height: '100%'}}
+                  //         source={{ uri: 'https://upload.wikimedia.org/wikipedia/en/a/a6/Pokémon_Pikachu_art.png' }}
+                  //         resizeMode='contain'
+                  //       />
+                  //     </View>
+                  //   </View>
+                  // }}
                   style={{ flex: 16, marginTop: 2 }}
                 />
                 <View style={{...styles.timeWrapperLandscape}}>
