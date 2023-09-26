@@ -7,6 +7,7 @@ import {
   Text,
   Pressable,
   Platform,
+  Image,
 } from 'react-native';
 import FullScreen from '../../../static/images/fullScreen.svg';
 import MoreMoviesIcon from '../../../static/images/moreMovies.svg';
@@ -149,16 +150,17 @@ export default ({
                     // children: showSliderPreview && <View style={{
                     children: <View style={{
                       ...styles.videoPreviewContainer,
-                      width: width * 0.2,
-                      height: (width * 0.2 / 1.78) + 30, // use 16:9 ratio
-                      left: -width * 0.1 + 7.5, // -(previewWidth / 2) + (thumbStyleWidth / 2)
+                      width: width * 0.24,
+                      height: (width * 0.24 / 1.78) + 30, // use 16:9 ratio
+                      left: -width * 0.12 + 7.5, // -(previewWidth / 2) + (thumbStyleWidth / 2)
                     }}>
                       <View style={styles.videoPreview}>
-                        
+                        <Image 
+                          style={{width: '100%', height: '100%'}}
+                          source={{ uri: 'https://upload.wikimedia.org/wikipedia/en/a/a6/Pokémon_Pikachu_art.png' }}
+                          resizeMode='contain'
+                        />
                       </View>
-                      <Text style={{textAlign: 'center', color: 'white'}}>
-                        {new Date(currentTime * 1000).toISOString().substring(11, 19)}
-                      </Text>
                     </View>
                   }}
                   style={{ flex: 16, marginTop: 2 }}
@@ -289,14 +291,15 @@ const styles = StyleSheet.create({
   },
   videoPreviewContainer: {
     position: 'absolute',
-    bottom: 30,
+    bottom: 20,
     justifyContent: 'space-between',
   },
   videoPreview: {
     backgroundColor: 'black', 
-    borderColor: 'white', 
+    borderColor: '#2F2F2F',
+    borderRadius: 10,
     borderWidth: 2,
     width: '100%', 
-    aspectRatio: 1.78 // 16:9
+    aspectRatio: 1.78, // 16:9
   }
 });
