@@ -34,6 +34,7 @@ type Props = {
   onNextEpisode?: () => any,
   onLock: () => any,
   showMoreType?: 'episodes' | 'streams' | 'movies' | 'none',
+  showSliderPreview: boolean,
 };
 
 export default ({
@@ -50,11 +51,14 @@ export default ({
   onEpisodeSelection,
   onNextEpisode,
   onLock,
-  showMoreType = 'episodes'
+  showMoreType = 'episodes',
+  showSliderPreview = false,
 }: Props) => {
+  const width = Dimensions.get('window').width;
+
   useEffect(() => { }, []);
-  const { textVariants, colors } = useTheme();
-  const getMinutesFromSeconds = (time: number) => {
+    const { textVariants, colors } = useTheme();
+    const getMinutesFromSeconds = (time: number) => {
     const minutes = time >= 60 ? Math.floor(time / 60) : 0;
     const seconds = Math.floor(time - minutes * 60);
 
@@ -63,6 +67,7 @@ export default ({
   };
 
   const onSlideProgressBar = (time: any) => {
+    console.log('time:', time)
     onSlideCapture(time);
   };
 
@@ -93,6 +98,11 @@ export default ({
                 maximumTrackTintColor='rgba(255,255,255,0.2)'
                 thumbTintColor={'#FFFFFF'}
                 thumbStyle={{ height: 15, width: 15 }}
+                thumbProps={{
+                  children: <View style={{backgroundColor: 'rgba(200,200,200,0.5)', width: 40, height: 20}}>
+
+                  </View>
+                }}
                 // thumbTouchSize={{}}
                 // thumbImage={Platform.OS === 'ios' ? thumbImage : undefined}
                 style={{
@@ -135,6 +145,22 @@ export default ({
                   thumbTintColor={'#FFFFFF'}
                   // thumbImage={Platform.OS === 'ios' ? thumbImage : undefined}
                   thumbStyle={{ height: 15, width: 15 }}
+                  thumbProps={{
+                    // children: showSliderPreview && <View style={{
+                    children: <View style={{
+                      ...styles.videoPreviewContainer,
+                      width: width * 0.2,
+                      height: (width * 0.2 / 1.78) + 30, // use 16:9 ratio
+                      left: -width * 0.1 + 7.5, // -(previewWidth / 2) + (thumbStyleWidth / 2)
+                    }}>
+                      <View style={styles.videoPreview}>
+                        
+                      </View>
+                      <Text style={{textAlign: 'center', color: 'white'}}>
+                        {new Date(currentTime * 1000).toISOString().substring(11, 19)}
+                      </Text>
+                    </View>
+                  }}
                   style={{ flex: 16, marginTop: 2 }}
                 />
                 <View style={{...styles.timeWrapperLandscape}}>
@@ -260,5 +286,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  videoPreviewContainer: {
+    position: 'absolute',
+    bottom: 30,
+    justifyContent: 'space-between',
+  },
+  videoPreview: {
+    backgroundColor: 'black', 
+    borderColor: 'white', 
+    borderWidth: 2,
+    width: '100%', 
+    aspectRatio: 1.78 // 16:9
   }
 });

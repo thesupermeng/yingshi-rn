@@ -361,6 +361,7 @@ export default forwardRef<VideoRef, Props>(({
       {(vod_url !== undefined || vod_source !== undefined) && (
         <VideoControlsOverlay
           ref={controlsRef}
+          videoUrl={vod_url ?? ''}
           onVideoSeek={onSeek}
           onSeekGesture={onSeekGesture}
           currentTime={currentTime}

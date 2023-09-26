@@ -19,6 +19,7 @@ import VodLiveStationListVertical from '../vod/vodLiveStationListVertical';
 import FastImage from 'react-native-fast-image';
 
 type Props = {
+  videoUrl: string;
   currentTime: number;
   duration: number;
   onVideoSeek: (params: any) => any;
@@ -58,6 +59,7 @@ type RefHandler = {
 }
 
 export default forwardRef<RefHandler, Props>(({
+  videoUrl,
   currentTime,
   duration,
   onVideoSeek,
@@ -93,6 +95,7 @@ export default forwardRef<RefHandler, Props>(({
   const opacity = useSharedValue(1);
   const timeout = useRef(-1);
   const [isLocked, setIsLocked] = useState(false);
+  const [showSliderPreview, setShowSliderPreview] = useState(false);
 
   const width = Dimensions.get('window').width;
   const height = Dimensions.get('window').height;
@@ -120,6 +123,7 @@ export default forwardRef<RefHandler, Props>(({
   };
 
   const handlePlayPause = () => {
+    setShowSliderPreview(!showSliderPreview);
     delayControls(!paused);
     onTogglePlayPause();
   };
@@ -442,6 +446,7 @@ export default forwardRef<RefHandler, Props>(({
                   onNextEpisode={onNextEpisode}
                   onLock={toggleLock}
                   showMoreType={showMoreType}
+                  showSliderPreview={showSliderPreview}
                 />
               </LinearGradient>
             </View>
