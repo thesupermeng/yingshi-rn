@@ -45,3 +45,24 @@ export const APPSFLYER_DEVKEY = 'wrxTHihLJNWrrusXtgRJZa';
 export const UMENG_CHANNEL = "HUAWEI_APP_GALLERY_OVERSEAS";
 
 export const APP_VERSION = "1.0.0";
+
+export const TOPON_ANDROID_APP_ID = "a65096b9d21e23";
+export const TOPON_ANDROID_APP_KEY = "0b1cab850e5de6fdc1fe0e114a0256eb";
+
+export const TOPON_IOS_APP_ID = "a650a6ca02b6a6";
+export const TOPON_IOS_APP_KEY = "0b1cab850e5de6fdc1fe0e114a0256eb";
+
+// topon 横幅广告
+export const ANDROID_HOME_PAGE_BANNER_ADS = "b650d3170ea90f";
+export const ANDROID_PLAY_DETAILS_BANNER_ADS = "b650d31a42cdd2";
+export const ANDROID_TOPIC_DETAILS_BANNER_ADS = "b650d31c80eeba";
+export const ANDROID_TOPIC_TAB_BANNER_ADS = "b650d31d72638b";
+
+export const IOS_HOME_PAGE_BANNER_ADS = "b651128a815aab";
+export const IOS_PLAY_DETAILS_BANNER_ADS = "b6511289ba4aa6";
+export const IOS_TOPIC_DETAILS_BANNER_ADS = "b6511288d75039";
+export const IOS_TOPIC_TAB_BANNER_ADS = "b65112877206d7";
+
+// topon 插屏广告
+export const IOS_PLAY_DETAILS_INSERT_ADS = "b651128c8079b6";
+export const IOS_HOME_PAGE_INSERT_ADS = "b651128b440d9a";
