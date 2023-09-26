@@ -38,7 +38,7 @@ function MainHeader({ logo, navigator, headerStyle }: Props) {
             {
                 logo
                     ? logo
-                    : <Logo width={110} />
+                    : <Logo height={36} />
             }
             <SearchBar onPress={() => navigator.navigate('搜索', { initial: randomVod?.vod_name })} defaultValue={randomVod !== undefined ? randomVod.vod_name : ''} />
             <TouchableOpacity onPress={() => navigator.navigate('播放历史')}>
@@ -55,11 +55,12 @@ export default memo(MainHeader);
 
 const styles = StyleSheet.create({
     container: {
-        paddingTop: 8,
+        marginTop: 15,
+        padding: 2,
         display: 'flex',
         flexDirection: 'row',
         width: '100%',
         alignItems: 'center',
-        marginBottom: 8,
+        marginBottom: 15,
     },
 });
