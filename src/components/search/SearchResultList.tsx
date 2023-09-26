@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     flex: 1,
+    paddingLeft: 20,
   },
   highlightColor: {
     color: '#FAC33D', // Change this color to your desired highlight color

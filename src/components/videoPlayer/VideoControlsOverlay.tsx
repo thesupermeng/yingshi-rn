@@ -354,7 +354,9 @@ export default forwardRef<RefHandler, Props>(({
                     showSlider === 'streams' &&
                     <View style={{ paddingLeft: spacing.sideOffset + 10 }}>
                       <View style={{ alignItems: 'center' }}>
-                        <VodLiveStationListVertical itemList={streams} numOfRows={3} />
+                        <ScrollView>
+                          <VodLiveStationListVertical itemList={streams} numOfRows={100} />
+                        </ScrollView>
                       </View>
                     </View>
                   }
@@ -371,7 +373,7 @@ export default forwardRef<RefHandler, Props>(({
               >
                 <View style={{ ...styles.videoHeader, marginRight: isFullScreen ? 20 : 0 }}>
                   <View style={{ flexDirection: 'row', alignItems: 'center', flexShrink: 1, paddingRight: 10 }}>
-                    <BackButton onPress={() => goBack()} />
+                    <BackButton onPress={() => goBack()} btnStyle={styles.backBtn} />
                     <Text
                       style={{
                         ...textVariants.body,
@@ -506,4 +508,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: 300
   },
+  backBtn: {
+    padding: 20
+  }
 });

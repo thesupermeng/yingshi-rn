@@ -22,6 +22,5 @@ export default function BackButton({ children, onPress, btnStyle, ...params }: P
 
 const styles = StyleSheet.create({
     btn: {
-        padding: 20,
     }
 });

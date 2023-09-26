@@ -143,7 +143,9 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
   return (
     <ScreenContainer>
       <View style={styles.nav}>
-        <BackButton onPress={() => navigation.goBack()} />
+        <View style={styles.backContainer}>
+          <BackButton onPress={() => navigation.goBack()} />
+        </View>
         <SearchBar
           platform="default"
           containerStyle={styles.containerStyle}
@@ -367,4 +369,12 @@ const styles = StyleSheet.create({
     marginBottom: 4,
     marginRight: 10,
   },
+  backContainer: {
+    width: 30, 
+    height: 30, 
+    display: 'flex', 
+    alignItems: 'center', 
+    justifyContent: 'center',
+    marginRight: 15,
+  }
 });

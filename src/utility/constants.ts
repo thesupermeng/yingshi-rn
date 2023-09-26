@@ -17,8 +17,10 @@ export const TOGGLE_PLAYLIST_FAVORITES = 'toggle_playlist_fav';
 export const VIEW_PLAYLIST = 'view_playlist';
 
 export const HIDE_VOD_PLAYER_GUIDE = 'hide_vod_helper_guide';
+export const ACCEPT_PRIVACY_POLICY = 'accept_privacy_policy';
 
-export const API_DOMAIN = 'https://api.yingshi.tv/'
+// export const API_DOMAIN = 'https://api.yingshi.tv/'
+export const API_DOMAIN = 'https://api.gxhongdeli168.com/'
 export const API_DOMAIN_TEST = 'https://testapi.yingshi.tv/'
 export const API_DOMAIN_LOCAL = 'http://localhost:3000/'
 export const MATCH_API_DOMAIN = 'https://api.ggsimida.com/';
@@ -42,4 +44,4 @@ export const APPSFLYER_DEVKEY = 'wrxTHihLJNWrrusXtgRJZa';
 
 export const UMENG_CHANNEL = "HUAWEI_APP_GALLERY_OVERSEAS";
 
-export const APP_VERSION = "1.3.0";
+export const APP_VERSION = "1.0.0";

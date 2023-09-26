@@ -176,6 +176,8 @@ export default ({navigation, route}: RootStackScreenProps<'片库'>) => {
   const lastScrolledOffset = useSharedValue(0)
   const isScrolling = useSharedValue(false);
   const isFilterCollapse = useSharedValue(false);
+  // this variable to handle scrollY value +- 50 status is cause by collapse 
+  const isCollapseEffect = useSharedValue(false);
 
   const [results, setResults] = useState<Array<SuggestedVodType>>([]);
 
@@ -301,6 +303,7 @@ export default ({navigation, route}: RootStackScreenProps<'片库'>) => {
   const scrollHandler = useAnimatedScrollHandler({
     onScroll: event => {
       const st = event.contentOffset.y;
+<<<<<<< HEAD
       console.log(lastScrolledOffset.value, st)
       if (st < lastScrolledOffset.value && isFilterCollapse.value && st < SCROLL_THRESHOLD) {
         isFilterCollapse.value = false;
@@ -325,6 +328,32 @@ export default ({navigation, route}: RootStackScreenProps<'片库'>) => {
       }
 
       lastScrolledOffset.value = event.contentOffset.y;
+=======
+
+      // if scroll down & y > 50
+      if(st > lastContentOffset.value && st > SCROLL_THRESHOLD){
+        if(isCollapseEffect.value){
+          isCollapseEffect.value = false;
+
+        }else if(!isFilterCollapse.value && !isCollapseEffect.value){
+          isCollapseEffect.value = true;
+          isFilterCollapse.value = true;
+        }
+      }
+      
+      // if scroll up & y <= 50
+      if(st < lastContentOffset.value && st <= SCROLL_THRESHOLD){
+        if(isCollapseEffect.value){
+          isCollapseEffect.value = false;
+
+        }else if(isFilterCollapse.value && !isCollapseEffect.value){
+          isCollapseEffect.value = true;
+          isFilterCollapse.value = false;
+        }
+      }
+
+      lastContentOffset.value = st;
+>>>>>>> yingshi-cn-dev-b-screen
     },
     onBeginDrag: e => {
       isScrolling.value = true;
