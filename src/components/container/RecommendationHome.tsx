@@ -86,7 +86,7 @@ const RecommendationHome = ({
   // Function to handle the pull-to-refresh action
   const handleRefresh = async () => {
     setIsRefreshing(true);
-    await onRefresh(0);
+    await onRefresh(0, true);
 
     setTimeout(() => {
       setActiveIndex(0);
