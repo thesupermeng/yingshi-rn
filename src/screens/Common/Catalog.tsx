@@ -173,6 +173,7 @@ export default ({navigation, route}: RootStackScreenProps<'片库'>) => {
 
   // For scroll animation - reanimated 3
   const lastContentOffset = useSharedValue(0);
+  const lastScrolledOffset = useSharedValue(0)
   const isScrolling = useSharedValue(false);
   const isFilterCollapse = useSharedValue(false);
   // this variable to handle scrollY value +- 50 status is cause by collapse 
@@ -182,7 +183,7 @@ export default ({navigation, route}: RootStackScreenProps<'片库'>) => {
 
   const contentStyle = useAnimatedStyle(() => {
     return {
-      display: isFilterCollapse.value ? 'none' : 'flex',
+      display: isFilterCollapse.value ? 'none' : 'flex', 
     };
   }, []);
 
@@ -302,6 +303,32 @@ export default ({navigation, route}: RootStackScreenProps<'片库'>) => {
   const scrollHandler = useAnimatedScrollHandler({
     onScroll: event => {
       const st = event.contentOffset.y;
+<<<<<<< HEAD
+      console.log(lastScrolledOffset.value, st)
+      if (st < lastScrolledOffset.value && isFilterCollapse.value && st < SCROLL_THRESHOLD) {
+        isFilterCollapse.value = false;
+      }
+      if (st < lastContentOffset.value) {
+        console.log(st, lastContentOffset.value)
+        // if (isScrolling.value) {
+        //     console.log("UP");
+        // }
+       
+        lastContentOffset.value = event.contentOffset.y;
+      } 
+      else if (st > lastContentOffset.value + SCROLL_THRESHOLD) {
+        
+        // if (isScrolling.value) {
+        //     console.log("DOWN");
+        // }
+        if (!isFilterCollapse.value) {
+          isFilterCollapse.value = true;
+        }
+        lastContentOffset.value = st;
+      }
+
+      lastScrolledOffset.value = event.contentOffset.y;
+=======
 
       // if scroll down & y > 50
       if(st > lastContentOffset.value && st > SCROLL_THRESHOLD){
@@ -326,6 +353,7 @@ export default ({navigation, route}: RootStackScreenProps<'片库'>) => {
       }
 
       lastContentOffset.value = st;
+>>>>>>> yingshi-cn-dev-b-screen
     },
     onBeginDrag: e => {
       isScrolling.value = true;
