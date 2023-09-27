@@ -99,11 +99,11 @@ export default ({
                 maximumTrackTintColor='rgba(255,255,255,0.2)'
                 thumbTintColor={'#FFFFFF'}
                 thumbStyle={{ height: 15, width: 15 }}
-                thumbProps={{
-                  children: <View style={{backgroundColor: 'rgba(200,200,200,0.5)', width: 40, height: 20}}>
+                // thumbProps={{
+                //   children: <View style={{backgroundColor: 'rgba(200,200,200,0.5)', width: 40, height: 20}}>
 
-                  </View>
-                }}
+                //   </View>
+                // }}
                 // thumbTouchSize={{}}
                 // thumbImage={Platform.OS === 'ios' ? thumbImage : undefined}
                 style={{
