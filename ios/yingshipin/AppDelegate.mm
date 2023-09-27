@@ -2,20 +2,56 @@
 #import <AVFoundation/AVFoundation.h>
 #import <React/RCTBundleURLProvider.h>
 #import "Orientation.h"
+#import <React/RCTBridge.h>
+#import <React/RCTBundleURLProvider.h>
+#import <React/RCTRootView.h>
+#import <CodePush/CodePush.h>
 
-#import <UMCommon/UMConfigure.h>
+#import <AppCenterReactNative.h>
+#import <AppCenterReactNativeAnalytics.h>
+#import <AppCenterReactNativeCrashes.h>
+
+//#import <UMCommon/UMConfigure.h>
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  [UMConfigure setLogEnabled:YES];
+//  [UMConfigure setLogEnabled:YES];
   // [RNUMConfigure initWithAppkey:@"64a632e5bd4b621232c9e379" channel:@"App Store"];
-  [UMConfigure initWithAppkey:@"64a632e5bd4b621232c9e379" channel:@"App Store"];
-  self.moduleName = @"yingshi";
+//  [UMConfigure initWithAppkey:@"64a632e5bd4b621232c9e379" channel:@"App Store"];
+  self.moduleName = @"yingshipin";
   // You can add your custom initial props in the dictionary below.
   // They will be passed down to the ViewController used by React Native.
   self.initialProps = @{};
+  
+  [AppCenterReactNative register];
+  [AppCenterReactNativeAnalytics registerWithInitiallyEnabled:true];
+  [AppCenterReactNativeCrashes registerWithAutomaticProcessing];
+  
+//  UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"AnimationViewStoryboard" bundle:[NSBundle mainBundle]];
+//    // this code just run when storyboard have default ViewController
+//  //  UIViewController *vc =[storyboard instantiateInitialViewController];
+//
+//  UIViewController *vc =[storyboard instantiateViewControllerWithIdentifier:@"myAnimationViewController"];
+//
+//  RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
+//  RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
+//                                               moduleName:@"yingshipin"
+//                                        initialProperties:nil];
+//
+//  rootView.backgroundColor = [UIColor blueColor];
+//
+//  UIViewController *rootViewController = [UIViewController new];
+//  rootViewController.view = rootView;
+//
+//  self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+//  self.window.rootViewController = vc;
+//  [self.window makeKeyAndVisible];
+
+//  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//    self.window.rootViewController = rootViewController;
+//  });
   
   [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
 //  AVAudioSession *audioSession = [AVAudioSession sharedInstance];
@@ -38,7 +74,7 @@
 #if DEBUG
   return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index"];
 #else
-  return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+  return [CodePush bundleURL];
 #endif
 }
 
