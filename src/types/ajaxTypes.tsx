@@ -377,3 +377,21 @@ export interface VodDetailsResponseType {
     code: number
     data: VodType[]
 }
+
+export interface CheckVersionResponseType {
+    code: number
+    data: CheckVersionResponseDataType
+}
+
+export interface CheckVersionResponseDataType {
+    version: string
+}
+
+export interface CheckVersionRequest {
+    ip_address: string,
+    channel_id: string,
+    version_number: string,
+    product: string,
+    mobile_os: string,
+    mobile_model: string,
+}
