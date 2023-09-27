@@ -10,6 +10,8 @@ import com.umeng.analytics.MobclickAgent;
 import com.zoontek.rnbootsplash.RNBootSplash;
 import com.umeng.commonsdk.UMConfigure;
 import android.util.Log;
+import com.anythink.core.api.ATSDK;
+import com.anythink.splashad.api.ATSplashAd;
 
 public class MainActivity extends ReactActivity {
 
@@ -30,6 +32,19 @@ public class MainActivity extends ReactActivity {
     String channel = getResources().getString(R.string.UMENG_CHANNEL);
     RNUMConfigure.init(this, appKey, channel, UMConfigure.DEVICE_TYPE_PHONE, "");
     MobclickAgent.setSessionContinueMillis(1000*40);
+
+    // ATSDK.setNetworkLogDebug(true);//SDK日志功能，集成测试阶段建议开启，上线前必须关闭
+
+    // Log.i("HHHOIIOK", "TopOn SDK version: " + ATSDK.getSDKVersionName());//SDK版本
+
+    // ATSDK.integrationChecking(getApplicationContext());//检查广告平台的集成状态，提交审核时需注释此API
+    // //(v5.7.77新增) 打印当前设备的设备信息(IMEI、OAID、GAID、AndroidID等)
+    // ATSDK.testModeDeviceInfo(this, new DeviceInfoCallback() {
+    //     @Override
+    //     public void deviceInfo(String deviceInfo) {
+    //         Log.i(TAG, "deviceInfo: " + deviceInfo);
+    //     }
+    // });
   }
 
   @Override    
