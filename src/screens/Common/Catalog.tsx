@@ -219,7 +219,7 @@ export default ({navigation, route}: RootStackScreenProps<'片库'>) => {
       }
       url += `&by=${orderBy.value}&order=desc`;
       url += `&page=${page}`;
-
+      console.log(url)
       return fetch(url)
         .then(response => response.json())
         .then((json: SuggestResponseType) => {
@@ -275,11 +275,11 @@ export default ({navigation, route}: RootStackScreenProps<'片库'>) => {
     // refetch();
   }, [area, year, lang, topicClass, currentTopicId, orderBy]);
 
-  useFocusEffect(
-    useCallback(() => {
-      queryClient.removeQueries(['filteredVods']);
-    }, [queryClient]),
-  );
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     queryClient.removeQueries(['filteredVods']);
+  //   }, [queryClient]),
+  // );
 
   const topicOptions: Array<NavType> = useMemo(() => {
     if (navOptions) {

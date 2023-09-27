@@ -48,7 +48,6 @@ function Home ({navigation}: BottomTabScreenProps<any>) {
   const [navId, setNavId] = useState(0);
   const width = Dimensions.get('window').width;
   const ref = useRef<any>();
-  const onEndReachedCalledDuringMomentum = useRef(true);
   const BTN_COLORS = ['#30AA55', '#7E9CEE', '#F1377A', '#FFCC12', '#ED7445'];
   const [scrollEnabled, setScrollEnabled] = useState(true);
   const navRef = useRef<any>();
@@ -56,6 +55,8 @@ function Home ({navigation}: BottomTabScreenProps<any>) {
   const [isOffline, setIsOffline] = useState(false);
   const [showHomeLoading, setShowHomeLoading] = useState(true);
   const [isOpenDialog, setOpenDialog] = useState(false);
+  const isScrollByTab = useRef(false);
+  const isScrollByManual = useRef(false);
   const settingsReducer: SettingsReducerState = useAppSelector(
     ({settingsReducer}: RootState) => settingsReducer,
   );
@@ -198,7 +199,7 @@ function Home ({navigation}: BottomTabScreenProps<any>) {
 
   const onScrollEnd = useCallback(
     (e: any) => {
-      if (!onEndReachedCalledDuringMomentum.current) {
+      if (isScrollByManual.current) {
         const pageNumber = Math.min(
           Math.max(Math.floor(e.nativeEvent.contentOffset.x / width + 0.5), 0),
           data.length,
@@ -210,10 +211,9 @@ function Home ({navigation}: BottomTabScreenProps<any>) {
             viewOffset: 24,
           });
         }
-        onEndReachedCalledDuringMomentum.current = true;
       }
     },
-    [data, width, onEndReachedCalledDuringMomentum, navRef, navId],
+    [data, width, navRef, navId],
   );
 
   const openPrivacyDialog = () => {
@@ -265,6 +265,7 @@ function Home ({navigation}: BottomTabScreenProps<any>) {
                   }}
                   onPress={() => {
                     if (data.length > 0) {
+                      isScrollByTab.current = true;
                       setNavId(index);
                       ref?.current?.scrollToIndex({
                         index: index,
@@ -343,9 +344,7 @@ function Home ({navigation}: BottomTabScreenProps<any>) {
               ref={ref}
               data={data}
               pagingEnabled={true}
-              scrollEnabled={
-                scrollEnabled && onEndReachedCalledDuringMomentum.current
-              }
+              scrollEnabled={scrollEnabled}
               horizontal={true}
               windowSize={3}
               maxToRenderPerBatch={2}
@@ -356,12 +355,25 @@ function Home ({navigation}: BottomTabScreenProps<any>) {
                 offset: width * index,
                 index,
               })}
-              onScrollBeginDrag={() => {
-                if(onEndReachedCalledDuringMomentum.current){
-                  onEndReachedCalledDuringMomentum.current = false;
+              onScroll={(e) => {
+                if(!isScrollByTab.current){
+                  if(!isScrollByManual.current){
+                    isScrollByManual.current = true;
+                  }
+                  onScrollEnd(e);
                 }
               }}
-              onScrollEndDrag={onScrollEnd}
+              onScrollBeginDrag={() => {
+                if (!isScrollByManual.current) {
+                  isScrollByManual.current = true;
+                  isScrollByTab.current = false;
+                }
+              }}
+              onMomentumScrollEnd={(e) => {
+                if (isScrollByManual) {
+                  isScrollByManual.current = false;
+                }
+              }}
               renderItem={getContent}
             />
           </View>
