@@ -19,6 +19,7 @@ import NextEpisodeIcon from '../../../static/images/nextEpisode.svg';
 import SelectEpisodesIcon from '../../../static/images/selectEpisodes.svg';
 import LockScreenIcon from '../../../static/images/lockScreen.svg';
 import { Slider } from '@rneui/themed';
+import VideoThumbnail from './VideoThumbnail';
 
 type Props = {
   currentTime: number;
@@ -35,7 +36,7 @@ type Props = {
   onNextEpisode?: () => any,
   onLock: () => any,
   showMoreType?: 'episodes' | 'streams' | 'movies' | 'none',
-  showSliderPreview: boolean,
+  showSliderThumbnail: boolean,
 };
 
 export default ({
@@ -53,10 +54,8 @@ export default ({
   onNextEpisode,
   onLock,
   showMoreType = 'episodes',
-  showSliderPreview = false,
+  showSliderThumbnail = false,
 }: Props) => {
-  const width = Dimensions.get('window').width;
-
   useEffect(() => { }, []);
     const { textVariants, colors } = useTheme();
     const getMinutesFromSeconds = (time: number) => {
@@ -100,9 +99,7 @@ export default ({
                 thumbTintColor={'#FFFFFF'}
                 thumbStyle={{ height: 15, width: 15 }}
                 // thumbProps={{
-                //   children: <View style={{backgroundColor: 'rgba(200,200,200,0.5)', width: 40, height: 20}}>
-
-                //   </View>
+                //   children: showSliderThumbnail && <VideoThumbnail url='https://upload.wikimedia.org/wikipedia/en/a/a6/Pokémon_Pikachu_art.png' />
                 // }}
                 // thumbTouchSize={{}}
                 // thumbImage={Platform.OS === 'ios' ? thumbImage : undefined}
@@ -147,21 +144,8 @@ export default ({
                   // thumbImage={Platform.OS === 'ios' ? thumbImage : undefined}
                   thumbStyle={{ height: 15, width: 15 }}
                   // thumbProps={{
-                  //   // children: showSliderPreview && <View style={{
-                  //   children: <View style={{
-                  //     ...styles.videoPreviewContainer,
-                  //     width: width * 0.24,
-                  //     height: (width * 0.24 / 1.78) + 30, // use 16:9 ratio
-                  //     left: -width * 0.12 + 7.5, // -(previewWidth / 2) + (thumbStyleWidth / 2)
-                  //   }}>
-                  //     <View style={styles.videoPreview}>
-                  //       <Image 
-                  //         style={{width: '100%', height: '100%'}}
-                  //         source={{ uri: 'https://upload.wikimedia.org/wikipedia/en/a/a6/Pokémon_Pikachu_art.png' }}
-                  //         resizeMode='contain'
-                  //       />
-                  //     </View>
-                  //   </View>
+                    // children: showSliderThumbnail && <View style={{
+                  //   children: <VideoThumbnail url='https://upload.wikimedia.org/wikipedia/en/a/a6/Pokémon_Pikachu_art.png' />
                   // }}
                   style={{ flex: 16, marginTop: 2 }}
                 />
@@ -289,17 +273,4 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  videoPreviewContainer: {
-    position: 'absolute',
-    bottom: 20,
-    justifyContent: 'space-between',
-  },
-  videoPreview: {
-    backgroundColor: 'black', 
-    borderColor: '#2F2F2F',
-    borderRadius: 10,
-    borderWidth: 2,
-    width: '100%', 
-    aspectRatio: 1.78, // 16:9
-  }
 });

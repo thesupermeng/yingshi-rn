@@ -95,7 +95,7 @@ export default forwardRef<RefHandler, Props>(({
   const opacity = useSharedValue(1);
   const timeout = useRef(-1);
   const [isLocked, setIsLocked] = useState(false);
-  const [showSliderPreview, setShowSliderPreview] = useState(false);
+  const [showSliderThumbnail, setShowSliderThumbnail] = useState(false);
 
   const width = Dimensions.get('window').width;
   const height = Dimensions.get('window').height;
@@ -123,7 +123,7 @@ export default forwardRef<RefHandler, Props>(({
   };
 
   const handlePlayPause = () => {
-    setShowSliderPreview(!showSliderPreview);
+    setShowSliderThumbnail(!showSliderThumbnail);
     delayControls(!paused);
     onTogglePlayPause();
   };
@@ -446,7 +446,7 @@ export default forwardRef<RefHandler, Props>(({
                   onNextEpisode={onNextEpisode}
                   onLock={toggleLock}
                   showMoreType={showMoreType}
-                  showSliderPreview={showSliderPreview}
+                  showSliderThumbnail={showSliderThumbnail}
                 />
               </LinearGradient>
             </View>
