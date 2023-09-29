@@ -1,4 +1,6 @@
-import React, {useCallback, useEffect, useMemo, useState} from 'react';
+// import React, {useCallback, useEffect, useMemo, useState} from 'react';
+import {useCallback, useEffect, useMemo, useState} from 'react';
+import * as React from 'react';
 import {
   View,
   TouchableOpacity,
@@ -41,6 +43,9 @@ import {FlatListProps} from 'react-native/Libraries/Lists/FlatList';
 import FastImage from 'react-native-fast-image';
 import appsFlyer from 'react-native-appsflyer';
 import EmptyList from '../../components/common/emptyList';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {TabItem} from '@rneui/base/dist/Tab/Tab.Item';
+
 
 interface NavType {
   id: number;
@@ -175,7 +180,7 @@ export default ({navigation, route}: RootStackScreenProps<'片库'>) => {
   const lastContentOffset = useSharedValue(0);
   const isScrolling = useSharedValue(false);
   const isFilterCollapse = useSharedValue(false);
-  // this variable to handle scrollY value +- 50 status is cause by collapse 
+  // this variable to handle scrollY value +- 50 status is cause by collapse
   const isCollapseEffect = useSharedValue(false);
 
   const [results, setResults] = useState<Array<SuggestedVodType>>([]);
@@ -219,7 +224,7 @@ export default ({navigation, route}: RootStackScreenProps<'片库'>) => {
       }
       url += `&by=${orderBy.value}&order=desc`;
       url += `&page=${page}`;
-      console.log(url)
+
       return fetch(url)
         .then(response => response.json())
         .then((json: SuggestResponseType) => {
@@ -266,7 +271,7 @@ export default ({navigation, route}: RootStackScreenProps<'片库'>) => {
         }
       },
       cacheTime: 0,
-      staleTime: 0
+      staleTime: 0,
     },
   );
 
@@ -292,7 +297,9 @@ export default ({navigation, route}: RootStackScreenProps<'片库'>) => {
   }, [navOptions]);
 
   const options = navOptions?.find(x => x.type_id === currentTopicId);
+  // function underlineStyle (option: number) {
   const underlineStyle = (option: number) => {
+    // console.log(option, currentTopicId)
     if (option === currentTopicId) {
       return {backgroundColor: colors.primary, ...styles.underline};
     }
@@ -304,22 +311,20 @@ export default ({navigation, route}: RootStackScreenProps<'片库'>) => {
       const st = event.contentOffset.y;
 
       // if scroll down & y > 50
-      if(st > lastContentOffset.value && st > SCROLL_THRESHOLD){
-        if(isCollapseEffect.value){
+      if (st > lastContentOffset.value && st > SCROLL_THRESHOLD) {
+        if (isCollapseEffect.value) {
           isCollapseEffect.value = false;
-
-        }else if(!isFilterCollapse.value && !isCollapseEffect.value){
+        } else if (!isFilterCollapse.value && !isCollapseEffect.value) {
           isCollapseEffect.value = true;
           isFilterCollapse.value = true;
         }
       }
-      
-      // if scroll up & y <= 50
-      if(st < lastContentOffset.value && st <= SCROLL_THRESHOLD){
-        if(isCollapseEffect.value){
-          isCollapseEffect.value = false;
 
-        }else if(isFilterCollapse.value && !isCollapseEffect.value){
+      // if scroll up & y <= 50
+      if (st < lastContentOffset.value && st <= SCROLL_THRESHOLD) {
+        if (isCollapseEffect.value) {
+          isCollapseEffect.value = false;
+        } else if (isFilterCollapse.value && !isCollapseEffect.value) {
           isCollapseEffect.value = true;
           isFilterCollapse.value = false;
         }
@@ -353,226 +358,224 @@ export default ({navigation, route}: RootStackScreenProps<'片库'>) => {
     // );
   }, []);
 
-  const renderNavItems = useCallback(({item}: {item: NavType}) => {
-    return (
-      <TouchableOpacity
-        style={{...styles.btn}}
-        onPress={() => {
-          reset();
-          setCurrentTopicId(item.id);
-        }}>
-        <Text
-          style={{
-            textAlign: 'center',
-            fontSize:
-              currentTopicId === item.id
-                ? textVariants.body.fontSize
-                : textVariants.subBody.fontSize,
-            color:
-              currentTopicId === item.id
-                ? colors.primary
-                : colors.muted,
-            fontWeight: currentTopicId === item.id ? '600' : '400',
-          }}>
-          {item.name}
-        </Text>
-        <View style={underlineStyle(item.id)} />
-      </TouchableOpacity>
-    );
-  }, []);
-
-  const renderVods = useCallback(({
-    item,
-    index,
-  }: {
-    item: SuggestedVodType;
-    index: number;
-  }) => {
-    return (
-      <View
-        style={{
-          marginBottom: spacing.s,
-          marginRight:
-            index % CARDS_PER_ROW === CARDS_PER_ROW - 1
-              ? 0
-              : MARGIN_RIGHT,
-        }}>
-        <VodCard
-          vod_pic={item?.vod_pic}
-          vod_name={item?.vod_name}
-          vodImageStyle={{
-            width: cardWidth,
-            height: cardHeight,
-          }}
+  const renderNavItems = useCallback(
+    ({item}: {item: NavType}) => {
+      return (
+        <TouchableOpacity
+          style={{...styles.btn}}
           onPress={() => {
-            dispatch(playVod(item));
-            navigation.navigate('播放', {
-              vod_id: item?.vod_id,
-            });
-          }}
-        />
-      </View>
-    );
-  }, []);
+            reset();
+            setCurrentTopicId(item.id);
+            console.log(item.id, currentTopicId);
+          }}>
+          <Text
+            style={{
+              textAlign: 'center',
+              fontSize:
+                currentTopicId === item.id
+                  ? textVariants.body.fontSize
+                  : textVariants.subBody.fontSize,
+              color: currentTopicId === item.id ? colors.primary : colors.muted,
+              fontWeight: currentTopicId === item.id ? '600' : '400',
+            }}>
+            {item.name}
+          </Text>
+          <View style={underlineStyle(item.id)} />
+        </TouchableOpacity>
+      );
+    },
+    [currentTopicId],
+  );
+
+  const renderVods = useCallback(
+    ({item, index}: {item: SuggestedVodType; index: number}) => {
+      return (
+        <View
+          style={{
+            marginBottom: spacing.s,
+            marginRight:
+              index % CARDS_PER_ROW === CARDS_PER_ROW - 1 ? 0 : MARGIN_RIGHT,
+          }}>
+          <VodCard
+            vod_pic={item?.vod_pic}
+            vod_name={item?.vod_name}
+            vodImageStyle={{
+              width: cardWidth,
+              height: cardHeight,
+            }}
+            onPress={() => {
+              dispatch(playVod(item));
+              navigation.navigate('播放', {
+                vod_id: item?.vod_id,
+              });
+            }}
+          />
+        </View>
+      );
+    },
+    [],
+  );
 
   return (
-    <ScreenContainer>
-      <TitleWithBackButtonHeader
-        title="片库"
-        headerStyle={{marginBottom: spacing.s}}
-      />
-      <Animated.View>
-        <FlatList
-          data={topicOptions}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          renderItem={renderNavItems}
+    <>
+      <ScreenContainer>
+        <TitleWithBackButtonHeader
+          title="片库"
+          headerStyle={{marginBottom: spacing.s}}
         />
-      </Animated.View>
-      <Animated.View style={{paddingBottom: spacing.xxs}}>
-        {options && (
-          <Animated.View style={contentStyle}>
-            <VodTopicFilter
-              callback={setOrderBy}
-              init={orderBy}
-              options={ORDER_BY_OPTIONS}
-            />
-            <VodTopicFilter
-              callback={setTopicClass}
-              init={topicClass}
-              options={[
-                '全部类型',
-                ...options.type_extend_obj.class.split(','),
-              ].map(x => sameTextAndValueObj(x))}
-            />
-            <VodTopicFilter
-              callback={setArea}
-              init={area}
-              options={[
-                '全部地区',
-                ...options.type_extend_obj.area.split(','),
-              ].map(x => sameTextAndValueObj(x))}
-            />
-            <VodTopicFilter
-              callback={setLang}
-              init={lang}
-              options={[
-                '全部语言',
-                ...options.type_extend_obj.lang.split(','),
-              ].map(x => sameTextAndValueObj(x))}
-            />
-            <VodTopicFilter
-              callback={setYear}
-              init={year}
-              options={[
-                '全部时间',
-                ...options.type_extend_obj.year.split(','),
-              ].map(x => sameTextAndValueObj(x))}
-            />
-          </Animated.View>
-        )}
-        <Animated.View
-          style={{
-            marginBottom: spacing.xs,
-            backgroundColor: colors.background,
-            padding: 0,
-          }}>
+        <Animated.View>
+          <FlatList
+            data={topicOptions}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            renderItem={renderNavItems}
+          />
+        </Animated.View>
+        <Animated.View style={{paddingBottom: spacing.xxs}}>
           {options && (
-            <Animated.View style={contentSummaryStyle}>
-              <View
-                style={{
-                  marginTop: spacing.s,
-                  ...styles.collapedSummary,
-                  justifyContent: 'space-between',
-                }}>
-                <View style={{...styles.collapedSummary, gap: 4}}>
-                  <Text style={{...textVariants.small, color: colors.muted}}>
-                    {topicClass.text}
-                  </Text>
-                  <View
-                    style={{
-                      ...styles.dot,
-                      backgroundColor: colors.primary,
-                    }}
-                  />
-                  <Text style={{...textVariants.small, color: colors.muted}}>
-                    {area.text}
-                  </Text>
-                  <View
-                    style={{
-                      ...styles.dot,
-                      backgroundColor: colors.primary,
-                    }}
-                  />
-                  <Text style={{...textVariants.small, color: colors.muted}}>
-                    {lang.text}
-                  </Text>
-                  <View
-                    style={{
-                      ...styles.dot,
-                      backgroundColor: colors.primary,
-                    }}
-                  />
-                  <Text style={{...textVariants.small, color: colors.muted}}>
-                    {year.text}
-                  </Text>
-                </View>
-                <TouchableOpacity
-                  onPress={() => {
-                    // lastContentOffset.value = event.contentOffset.y;
-                    isFilterCollapse.value = false;
-                  }}>
-                  <DownArrow height={icons.sizes.l} width={icons.sizes.l} />
-                </TouchableOpacity>
-              </View>
+            <Animated.View style={contentStyle}>
+              <VodTopicFilter
+                callback={setOrderBy}
+                init={orderBy}
+                options={ORDER_BY_OPTIONS}
+              />
+              <VodTopicFilter
+                callback={setTopicClass}
+                init={topicClass}
+                options={[
+                  '全部类型',
+                  ...options.type_extend_obj.class.split(','),
+                ].map(x => sameTextAndValueObj(x))}
+              />
+              <VodTopicFilter
+                callback={setArea}
+                init={area}
+                options={[
+                  '全部地区',
+                  ...options.type_extend_obj.area.split(','),
+                ].map(x => sameTextAndValueObj(x))}
+              />
+              <VodTopicFilter
+                callback={setLang}
+                init={lang}
+                options={[
+                  '全部语言',
+                  ...options.type_extend_obj.lang.split(','),
+                ].map(x => sameTextAndValueObj(x))}
+              />
+              <VodTopicFilter
+                callback={setYear}
+                init={year}
+                options={[
+                  '全部时间',
+                  ...options.type_extend_obj.year.split(','),
+                ].map(x => sameTextAndValueObj(x))}
+              />
             </Animated.View>
           )}
-        </Animated.View>
-      </Animated.View>
-      {vods && (
-        <Animated.FlatList
-          data={results}
-          onScroll={scrollHandler}
-          keyExtractor={(item: SuggestedVodType, index: number) => {
-            return `#-${item?.vod_id}-${index}`;
-          }}
-          onEndReached={() => {
-            if (hasNextPage) {
-              fetchNextPage();
-            }
-          }}
-          onEndReachedThreshold={0.4}
-          columnWrapperStyle={{}}
-          ListFooterComponent={
-            <View style={{...styles.loading, marginBottom: spacing.xl}}>
-              {hasNextPage && (
-                <FastImage
-                  style={{height: 80, width: 80}}
-                  source={require('../../../static/images/loading-spinner.gif')}
-                  resizeMode={FastImage.resizeMode.contain}
-                />
-              )}
-              {!(isFetchingNextPage || isFetching) &&
-                !hasNextPage &&
-                results.length > 0 && (
-                  <Text style={{...textVariants.body, color: colors.muted}}>
-                    没有更多了
-                  </Text>
-                )}
-              {!(isFetchingNextPage || isFetching) &&
-                !hasNextPage &&
-                results.length == 0 && (
-                  <View style={{marginTop: 10}}>
-                    <EmptyList description={'暂无数据'} />
+          <Animated.View
+            style={{
+              marginBottom: spacing.xs,
+              backgroundColor: colors.background,
+              padding: 0,
+            }}>
+            {options && (
+              <Animated.View style={contentSummaryStyle}>
+                <View
+                  style={{
+                    marginTop: spacing.s,
+                    ...styles.collapedSummary,
+                    justifyContent: 'space-between',
+                  }}>
+                  <View style={{...styles.collapedSummary, gap: 4}}>
+                    <Text style={{...textVariants.small, color: colors.muted}}>
+                      {topicClass.text}
+                    </Text>
+                    <View
+                      style={{
+                        ...styles.dot,
+                        backgroundColor: colors.primary,
+                      }}
+                    />
+                    <Text style={{...textVariants.small, color: colors.muted}}>
+                      {area.text}
+                    </Text>
+                    <View
+                      style={{
+                        ...styles.dot,
+                        backgroundColor: colors.primary,
+                      }}
+                    />
+                    <Text style={{...textVariants.small, color: colors.muted}}>
+                      {lang.text}
+                    </Text>
+                    <View
+                      style={{
+                        ...styles.dot,
+                        backgroundColor: colors.primary,
+                      }}
+                    />
+                    <Text style={{...textVariants.small, color: colors.muted}}>
+                      {year.text}
+                    </Text>
                   </View>
+                  <TouchableOpacity
+                    onPress={() => {
+                      // lastContentOffset.value = event.contentOffset.y;
+                      isFilterCollapse.value = false;
+                    }}>
+                    <DownArrow height={icons.sizes.l} width={icons.sizes.l} />
+                  </TouchableOpacity>
+                </View>
+              </Animated.View>
+            )}
+          </Animated.View>
+        </Animated.View>
+        {vods && (
+          <Animated.FlatList
+            data={results}
+            onScroll={scrollHandler}
+            keyExtractor={(item: SuggestedVodType, index: number) => {
+              return `#-${item?.vod_id}-${index}`;
+            }}
+            onEndReached={() => {
+              if (hasNextPage) {
+                fetchNextPage();
+              }
+            }}
+            onEndReachedThreshold={0.4}
+            columnWrapperStyle={{}}
+            ListFooterComponent={
+              <View style={{...styles.loading, marginBottom: spacing.xl}}>
+                {hasNextPage && (
+                  <FastImage
+                    style={{height: 80, width: 80}}
+                    source={require('../../../static/images/loading-spinner.gif')}
+                    resizeMode={FastImage.resizeMode.contain}
+                  />
                 )}
-            </View>
-          }
-          numColumns={CARDS_PER_ROW}
-          renderItem={renderVods}
-        />
-      )}
-    </ScreenContainer>
+                {!(isFetchingNextPage || isFetching) &&
+                  !hasNextPage &&
+                  results.length > 0 && (
+                    <Text style={{...textVariants.body, color: colors.muted}}>
+                      没有更多了
+                    </Text>
+                  )}
+                {!(isFetchingNextPage || isFetching) &&
+                  !hasNextPage &&
+                  results.length == 0 && (
+                    <View style={{marginTop: 10}}>
+                      <EmptyList description={'暂无数据'} />
+                    </View>
+                  )}
+              </View>
+            }
+            numColumns={CARDS_PER_ROW}
+            renderItem={renderVods}
+          />
+        )}
+      </ScreenContainer>
+    </>
   );
 };
 

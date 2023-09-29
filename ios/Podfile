@@ -21,7 +21,7 @@ if linkage != nil
   use_frameworks! :linkage => linkage.to_sym
 end
 
-target 'yingshi' do
+target 'yingshipin' do
   config = use_native_modules!
 
   # Flags change depending on the env values.
@@ -43,22 +43,23 @@ target 'yingshi' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  target 'yingshiTests' do
+  target 'yingshipinTests' do
     inherit! :complete
     # Pods for testing
   end
 
-  # UMPlusDemo为工程target名
-  pod 'UMCommon'   
-  pod 'UMDevice'
+  # # UMPlusDemo为工程target名
+  # pod 'UMCommon'   
+  # pod 'UMDevice'
 
-  # pod <友盟+SDK名> 按需复制相应SDK名称代码
+  # # pod <友盟+SDK名> 按需复制相应SDK名称代码
 
-  # 依赖库
+  # # 依赖库
 
-  pod 'UMCCommonLog'
-  # 必选，APM组件，原错误分析升级为独立产品U-APM
-  pod 'UMAPM' 	
+  # pod 'UMCCommonLog'
+  # # 必选，APM组件，原错误分析升级为独立产品U-APM
+  # pod 'UMAPM' 	
+  pod 'AppCenter'
 
   post_install do |installer|
     react_native_post_install(

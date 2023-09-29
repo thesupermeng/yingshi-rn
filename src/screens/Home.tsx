@@ -124,7 +124,7 @@ function Home ({navigation}: BottomTabScreenProps<any>) {
       setHideContent(true);
     }
     try {
-      await queryClient.invalidateQueries(['HomePage', id]);
+      await queryClient.resetQueries(['HomePage', id]);
 
       setIsRefreshing(false);
       setNavId(id);
@@ -143,7 +143,7 @@ function Home ({navigation}: BottomTabScreenProps<any>) {
     }
 
     const handleTabPress = async () => {
-      if (isFocused) {
+      if (isFocused && !isRefreshing) {
         setIsRefreshing(prevIsRefreshing => {
           if (prevIsRefreshing) {
             return prevIsRefreshing; // No need to update, it's already true

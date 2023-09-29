@@ -85,7 +85,7 @@ const CatagoryHome = ({
   // Function to handle the pull-to-refresh action
   const handleRefresh = async () => {
     setIsRefreshing(true);
-    await onRefresh(navId);
+    await onRefresh(navId, true);
 
     setTimeout(() => {
       categoryListRef?.current?.scrollToIndex({
