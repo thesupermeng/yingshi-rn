@@ -131,11 +131,9 @@ const insets = useSafeAreaInsets();
   );
   const onShare = async () => {
     try {
+      const shareMessage = "https://yingshi.tv/download/yingshipin 萤视频-您每一天的影视平台"
       const result = await Share.share({
-        message: `《${vod?.vod_name
-          }》高清播放${'\n'}https://yingshi.tv/index.php/vod/play/id/${vod?.vod_id
-          }/sid/1/nid/${currentEpisode + 1
-          }.html${'\n'}影视TV-海量高清视频在线观看`,
+        message: shareMessage,
       });
       if (result.action === Share.sharedAction) {
         if (result.activityType) {
