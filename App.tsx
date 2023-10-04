@@ -12,7 +12,15 @@ import {
   API_DOMAIN_LOCAL,
   APPSFLYER_DEVKEY,
   UMENG_CHANNEL,
-  APP_VERSION
+  APP_VERSION,
+  TOPON_ANDROID_APP_KEY,
+  TOPON_ANDROID_APP_ID,
+  ANDROID_HOME_PAGE_BANNER_ADS,
+  TOPON_IOS_APP_ID,
+  TOPON_IOS_APP_KEY,
+  IOS_HOME_PAGE_BANNER_ADS,
+  TOPON_BANNER_WIDTH,
+  TOPON_BANNER_HEIGHT
 } from './src/utility/constants';
 import {
   BottomNavTabs,
@@ -32,11 +40,13 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import appsFlyer from 'react-native-appsflyer';
 import Api from './src/Sports/middleware/api';
 import { Url } from './src/Sports/middleware/url';
-import { StatusBar } from 'react-native';
+import { Dimensions, Platform } from 'react-native';
 import CodePush from "react-native-code-push";
 
-
-
+import {
+  ATRNSDK,
+  ATBannerRNSDK
+} from './AnyThinkAds/ATReactNativeSDK';
 
 
 let App = () => {
@@ -215,7 +225,132 @@ let App = () => {
         ),
       staleTime: Infinity,
     });
+
+    let appId, appKey, bannerPlacementId;
+
+    if (Platform.OS === 'android') {
+      appId = TOPON_ANDROID_APP_ID;
+      appKey = TOPON_ANDROID_APP_KEY;
+      bannerPlacementId = ANDROID_HOME_PAGE_BANNER_ADS;
+    }
+    else if (Platform.OS === 'ios') {
+      appId = TOPON_IOS_APP_ID;
+      appKey = TOPON_IOS_APP_KEY;
+      bannerPlacementId = IOS_HOME_PAGE_BANNER_ADS;
+    }
+
+    initTopOnSDK(appId, appKey);
+  
   }, []);
+
+  function initTopOnSDK(appId, appKey) {
+    ATRNSDK.setLogDebug(true);
+
+       ATRNSDK.getSDKVersionName().then(versionName => {
+           console.log('TopOn SDK version name: ' + versionName);
+       });
+
+       var customMap = {
+           "appCustomKey1": "appCustomValue1",
+           "appCustomKey2" : "appCustomValue2"
+       };
+       ATRNSDK.initCustomMap(customMap);
+
+       var placementCustomMap = {
+           "placementCustomKey1": "placementCustomValue1",
+           "placementCustomKey2" : "placementCustomValue2"
+       };
+
+       ATRNSDK.setGDPRLevel(ATRNSDK.PERSONALIZED);
+
+       ATRNSDK.getUserLocation().then(userLocation => {
+            console.log('userLocation: ' + userLocation);
+            if (userLocation == ATRNSDK.kATUserLocationInEU) {
+                console.log('userLocation: in EU');
+                ATRNSDK.getGDPRLevel().then((level) => {
+                   console.log('gdpr level: ' + level);
+                   if (level == ATRNSDK.UNKNOWN) {
+                        ATRNSDK.showGDPRAuth();
+                   }
+                })
+            } else {
+                console.log('userLocation: not in EU');
+            }
+       })
+
+       console.log('TopOn SDK init ....')
+       ATRNSDK.initSDK(appId, appKey);
+
+       initAdListener();
+  }
+
+  function initAdListener() {
+    initBannerAdListener()
+  }
+
+  const initBannerAdListener = () => {
+    ATBannerRNSDK.setAdListener(ATBannerRNSDK.onBannerLoaded, (event) => {
+      console.log('ATBannerLoaded: ' + event.placementId);
+    });
+
+    ATBannerRNSDK.setAdListener(ATBannerRNSDK.onBannerFail, (event) => {
+      console.warn('ATBannerLoadFail: ' + event.placementId + ', errorMsg: ' + event.errorMsg);
+    });
+
+    ATBannerRNSDK.setAdListener(ATBannerRNSDK.onBannerShow, (event) => {
+      console.log('ATBannerShow: ' + event.placementId + ', adCallbackInfo: ' + event.adCallbackInfo);
+    });
+
+    ATBannerRNSDK.setAdListener(ATBannerRNSDK.onBannerCloseButtonTapped, (event) => {
+      console.log('ATBannerCloseButtonTapped: ' + event.placementId + ', adCallbackInfo: ' + event.adCallbackInfo);
+    });
+
+    ATBannerRNSDK.setAdListener(ATBannerRNSDK.onBannerClick, (event) => {
+      console.log('ATBannerClick: ' + event.placementId + ', adCallbackInfo: ' + event.adCallbackInfo);
+    });
+
+    ATBannerRNSDK.setAdListener(ATBannerRNSDK.onBannerRefresh, (event) => {
+      console.log('ATBannerRefresh: ' + event.placementId + ', errorMsg: ' + event.errorMsg + ', adCallbackInfo: ' + event.adCallbackInfo);
+    });
+
+    ATBannerRNSDK.setAdListener(ATBannerRNSDK.onBannerRefreshFail, (event) => {
+      console.log('ATBannerRefreshFail: ' + event.placementId + ', adCallbackInfo: ' + event.adCallbackInfo);
+    });
+  }
+
+  const loadBanner = (bannerPlacementId) => {
+    console.log('loadBanner ....');
+
+    var settings = {};
+    if (Platform.OS === 'android') {
+      const deviceWidthInPixel = Dimensions.get('window').width * Dimensions.get('window').scale;
+
+      settings[ATBannerRNSDK.kATBannerAdLoadingExtraBannerAdSizeStruct] = ATBannerRNSDK.createLoadAdSize(deviceWidthInPixel, TOPON_BANNER_HEIGHT);
+      
+      settings[ATBannerRNSDK.kATBannerAdAdaptiveWidth] = deviceWidthInPixel;
+      settings[ATBannerRNSDK.kATBannerAdAdaptiveOrientation] = ATBannerRNSDK.kATBannerAdAdaptiveOrientationCurrent;
+//    settings[ATBannerRNSDK.kATBannerAdAdaptiveOrientation] = ATBannerRNSDK.kATBannerAdAdaptiveOrientationPortrait;
+//    settings[ATBannerRNSDK.kATBannerAdAdaptiveOrientation] = ATBannerRNSDK.kATBannerAdAdaptiveOrientationLandscape;
+    } 
+    else if (Platform.OS === 'ios') {
+      settings[ATBannerRNSDK.kATBannerAdLoadingExtraBannerAdSizeStruct] = ATBannerRNSDK.createLoadAdSize(TOPON_BANNER_WIDTH, TOPON_BANNER_HEIGHT);
+      
+      settings[ATBannerRNSDK.kATBannerAdAdaptiveWidth] = TOPON_BANNER_WIDTH;
+      settings[ATBannerRNSDK.kATBannerAdAdaptiveOrientation] = ATBannerRNSDK.kATBannerAdAdaptiveOrientationCurrent;
+//    settings[ATBannerRNSDK.kATBannerAdAdaptiveOrientation] = ATBannerRNSDK.kATBannerAdAdaptiveOrientationPortrait;
+//    settings[ATBannerRNSDK.kATBannerAdAdaptiveOrientation] = ATBannerRNSDK.kATBannerAdAdaptiveOrientationLandscape;
+    }
+
+    ATBannerRNSDK.loadAd(bannerPlacementId, settings);
+  };
+
+  
+  if (Platform.OS === 'android') {
+    loadBanner(ANDROID_HOME_PAGE_BANNER_ADS);
+  } 
+  else if (Platform.OS === 'ios') {
+    loadBanner(IOS_HOME_PAGE_BANNER_ADS);
+  }
 
   return (
     <QueryClientProvider client={queryClient}>

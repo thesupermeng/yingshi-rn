@@ -66,3 +66,8 @@ export const IOS_TOPIC_TAB_BANNER_ADS = "b65112877206d7";
 // topon 插屏广告
 export const IOS_PLAY_DETAILS_INSERT_ADS = "b651128c8079b6";
 export const IOS_HOME_PAGE_INSERT_ADS = "b651128b440d9a";
+
+// topon banner
+export const TOPON_BANNER_WIDTH = 415;
+export const TOPON_BANNER_HEIGHT = 50;
+export const TOPON_BANNER_RATIO = TOPON_BANNER_HEIGHT/TOPON_BANNER_WIDTH;
