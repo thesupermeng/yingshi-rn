@@ -82,7 +82,9 @@ let App = () => {
 
   const getIP = () => {
     NetworkInfo.getIPAddress().then(ipAddress => {
-      checkVersion(ipAddress);
+      if(ipAddress != null){
+        checkVersion(ipAddress);
+      }
     });
   }
 
