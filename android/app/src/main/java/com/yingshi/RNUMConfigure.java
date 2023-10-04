@@ -1,4 +1,4 @@
-package com.yingshipin;
+package com.yingshi;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

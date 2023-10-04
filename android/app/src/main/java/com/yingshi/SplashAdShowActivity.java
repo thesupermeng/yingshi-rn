@@ -5,7 +5,7 @@
  * https://github.com/toponteam/TopOn-Android-SDK/blob/master/LICENSE
  */
 
-package com.yingshipin;
+package com.yingshi;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,10 +16,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.anythink.core.api.ATSDK;
@@ -28,14 +26,11 @@ import com.anythink.core.api.ATAdInfo;
 import com.anythink.core.api.ATAdSourceStatusListener;
 import com.anythink.core.api.ATNetworkConfirmInfo;
 import com.anythink.core.api.AdError;
-import com.anythink.network.gdt.GDTDownloadFirmInfo;
 import com.anythink.splashad.api.ATSplashAd;
 import com.anythink.splashad.api.ATSplashAdExtraInfo;
 import com.anythink.splashad.api.ATSplashExListener;
-import com.anythink.splashad.api.ATSplashSkipAdListener;
-import com.anythink.splashad.api.ATSplashSkipInfo;
-import com.yingshipin.zoomout.SplashEyeAdHolder;
-import com.yingshipin.zoomout.SplashZoomOutManager;
+import com.yingshi.zoomout.SplashEyeAdHolder;
+import com.yingshi.zoomout.SplashZoomOutManager;
 
 import java.util.HashMap;
 import java.util.Map;

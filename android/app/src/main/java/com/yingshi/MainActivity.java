@@ -1,4 +1,4 @@
-package com.yingshipin;
+package com.yingshi;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
@@ -9,9 +9,6 @@ import android.os.Bundle;
 import com.umeng.analytics.MobclickAgent;
 import com.zoontek.rnbootsplash.RNBootSplash;
 import com.umeng.commonsdk.UMConfigure;
-import android.util.Log;
-import com.anythink.core.api.ATSDK;
-import com.anythink.splashad.api.ATSplashAd;
 
 public class MainActivity extends ReactActivity {
 
@@ -21,7 +18,7 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "yingshipin";
+    return "yingshi";
   }
   @Override
   protected void onCreate(Bundle savedInstanceState) {

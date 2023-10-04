@@ -1,4 +1,4 @@
-package com.yingshipin.zoomout;
+package com.yingshi.zoomout;
 
 import android.view.View;
 import android.view.ViewGroup;

@@ -1,4 +1,4 @@
-package com.yingshipin;
+package com.yingshi;
 
 import java.util.ArrayList;
 import java.util.HashMap;
