@@ -101,16 +101,51 @@ let App = () => {
     console.log(checkVersionReq);
 
     const {data: response} = await axios.post(
-      `${API_DOMAIN_TEST}version/v1/check`,
+      `${API_DOMAIN}version/v1/check`,
       checkVersionReq,
     );
 
     const res = response.data.version;
     const v1 = parseInt(APP_VERSION.replace(/\./g, ''), 10);
     const v2 = parseInt(res.replace(/\./g, ''), 10);
-    
+
     if(v2 > v1){
-      CodePush.sync({ installMode: CodePush.InstallMode.IMMEDIATE });
+      CodePush.sync({ 
+        installMode: CodePush.InstallMode.IMMEDIATE,
+        updateDialog: {
+          optionalIgnoreButtonLabel: "取消",
+          optionalInstallButtonLabel: "更新",
+          optionalUpdateMessage: "发现新版本，要现在更新吗？",
+        }
+      },
+      (syncStatus) => {
+        switch(syncStatus) {
+          case CodePush.SyncStatus.CHECKING_FOR_UPDATE:
+            console.log('CODEPUSH STATUS : Checking for updates');
+            break;
+  
+          case CodePush.SyncStatus.DOWNLOADING_PACKAGE:
+            console.log('CODEPUSH STATUS : Downloading package');
+            break;
+  
+          case CodePush.SyncStatus.INSTALLING_UPDATE:
+            console.log('CODEPUSH STATUS : Installing update');
+            break;
+  
+          case CodePush.SyncStatus.UP_TO_DATE:
+            console.log('CODEPUSH STATUS : Up to date');
+            break;
+            
+          case CodePush.SyncStatus.UPDATE_INSTALLED:
+            console.log('CODEPUSH STATUS : Done installing');
+            // restart
+            break;
+  
+          case CodePush.SyncStatus.UNKNOWN_ERROR:
+            console.log('CODEPUSH STATUS : Error');
+            break;
+        }
+      });
     }
     
     return response;
