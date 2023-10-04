@@ -20,7 +20,7 @@
 //  [UMConfigure setLogEnabled:YES];
   // [RNUMConfigure initWithAppkey:@"64a632e5bd4b621232c9e379" channel:@"App Store"];
 //  [UMConfigure initWithAppkey:@"64a632e5bd4b621232c9e379" channel:@"App Store"];
-  self.moduleName = @"yingshipin";
+  self.moduleName = @"yingshi";
   // You can add your custom initial props in the dictionary below.
   // They will be passed down to the ViewController used by React Native.
   self.initialProps = @{};
@@ -37,7 +37,7 @@
 //
 //  RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
 //  RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
-//                                               moduleName:@"yingshipin"
+//                                               moduleName:@"yingshi"
 //                                        initialProperties:nil];
 //
 //  rootView.backgroundColor = [UIColor blueColor];

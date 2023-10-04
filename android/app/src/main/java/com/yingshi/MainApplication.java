@@ -9,7 +9,7 @@ import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
 import com.facebook.react.defaults.DefaultReactNativeHost;
 import com.facebook.soloader.SoLoader;
 import java.util.List;
-// import com.yingshipin.ATReactNativeBridgePackage;
+// import com.yingshi.ATReactNativeBridgePackage;
 import com.anythink.reactnativejs.ATReactNativeBridgePackage;
 import com.microsoft.codepush.react.CodePush;
 
