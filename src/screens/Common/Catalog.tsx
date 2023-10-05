@@ -45,7 +45,7 @@ import appsFlyer from 'react-native-appsflyer';
 import EmptyList from '../../components/common/emptyList';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {TabItem} from '@rneui/base/dist/Tab/Tab.Item';
-
+import AdsBanner from '../../ads/adsBanner';
 
 interface NavType {
   id: number;
@@ -418,6 +418,7 @@ export default ({navigation, route}: RootStackScreenProps<'片库'>) => {
 
   return (
     <>
+      <AdsBanner bottomTabHeight={0} />
       <ScreenContainer>
         <TitleWithBackButtonHeader
           title="片库"

@@ -7,13 +7,14 @@ import {useTheme} from '@react-navigation/native';
 import {useInfiniteQuery} from '@tanstack/react-query';
 import {VodPlaylistResponseType, VodTopicType} from '../../types/ajaxTypes';
 import VodPlaylist from '../../components/playlist/vodPlaylist';
-import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
+import {BottomTabScreenProps, useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 import {API_DOMAIN} from '../../utility/constants';
 import FastImage from 'react-native-fast-image';
 import {useIsFocused} from '@react-navigation/native';
 // import {FlatList, PanGestureHandler} from 'react-native-gesture-handler';
 import NoConnection from './../../components/common/noConnection';
 import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
+import AdsBanner from "../../ads/adsBanner";
 type FlatListType = {
   item: VodTopicType;
   index: number;
@@ -125,8 +126,13 @@ function Playlist ({navigation}: BottomTabScreenProps<any>) {
     // return setIsRefreshing(false);
   }, []);
 
+  //ads
+  const bottomTabBarHeight = useBottomTabBarHeight();
+  const [bottomTabHeight, setBottomTabHeight] = useState(60);
+  
   return (
     <>
+      <AdsBanner bottomTabHeight={bottomTabHeight} />
       <ScreenContainer containerStyle={{paddingLeft: 0, paddingRight: 0}}>
         <MainHeader
           headerStyle={{

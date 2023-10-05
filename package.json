@@ -98,7 +98,8 @@
     "redux": "^4.2.1",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.2",
-    "replace-in-file": "^7.0.1"
+    "replace-in-file": "^7.0.1",
+    "react-native-android-navbar-height": "git+https://github.com/ConnectyCube/react-native-android-navbar-height.git#main"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
