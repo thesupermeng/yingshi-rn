@@ -35,6 +35,11 @@
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
 			</dict>
+			<key>codepush.appcenter.ms</key>
+        	<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
@@ -53,11 +58,13 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<!-- CodePush YINGSHI Global Deployment Key - oG_XSZX8zQ1QBw_VznDtxHNqkNONW6kuTOCIP (Staging) -->
+	<!-- CodePush YINGSHI Global Deployment Key - KsO7FCf3Rz-gOUFeCbRFOndw87cCa6KC9wuSp (Production) -->
 	<key>CodePushDeploymentKey</key>
-	<string>Co6_wW6GltwV9LnbaNcrROnEgbHa8GAhlhCPn</string>
-	<key>CodePushPublicKey</key>
+	<string>KsO7FCf3Rz-gOUFeCbRFOndw87cCa6KC9wuSp</string>
+	<!-- <key>CodePushPublicKey</key>
         <string>-----BEGIN PUBLIC KEY-----
 MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBANkWYydPuyOumR/sn2agNBVDnzyRpM16NAUpYPGxNgjSEp0etkDNgzzdzyvyl+OsAGBYF3jCxYOXozum+uV5hQECAwEAAQ==
------END PUBLIC KEY-----</string>
+-----END PUBLIC KEY-----</string> -->
 </dict>
 </plist>
