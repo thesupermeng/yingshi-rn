@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
 import { Provider } from 'react-redux';
 import Nav from './src/navigation/nav';
+import NavA from './srcA/navigation/nav';
 import { store, persistor } from './src/redux/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import {NetworkInfo} from 'react-native-network-info';
+import { Platform } from 'react-native';
 import axios from 'axios';
 import {
   API_DOMAIN,
@@ -34,10 +36,7 @@ import Api from './src/Sports/middleware/api';
 import { Url } from './src/Sports/middleware/url';
 import { StatusBar } from 'react-native';
 import CodePush from "react-native-code-push";
-
-
-
-
+import { YSConfig } from './ysConfig';
 
 let App = () => {
   // appsFlyer.initSdk(
@@ -94,8 +93,8 @@ let App = () => {
       ip_address: ipAddress,
       channel_id: UMENG_CHANNEL,
       version_number: APP_VERSION,
-      product: "萤视频",
-      mobile_os: "Android",
+      product: "影视TV-ANDROID",
+      mobile_os: Platform.OS,
       mobile_model: "HUAWEIP20",
     };
     console.log(checkVersionReq);
@@ -260,7 +259,13 @@ let App = () => {
         <PersistGate loading={null} persistor={persistor}>
           <GestureHandlerRootView style={{ flex: 1 }}>
             <BottomSheetModalProvider>
+            {YSConfig.instance.areaConfig != null && YSConfig.instance.areaConfig == true ? (
+              // B面的B面
               <Nav />
+            ) : (
+              // B面里的A面
+              <NavA />
+            )}
             </BottomSheetModalProvider>
           </GestureHandlerRootView>
         </PersistGate>
