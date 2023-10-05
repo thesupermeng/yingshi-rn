@@ -21,7 +21,7 @@ if linkage != nil
   use_frameworks! :linkage => linkage.to_sym
 end
 
-target 'yingshipin' do
+target 'yingshi' do
   config = use_native_modules!
 
   # Flags change depending on the env values.
@@ -43,7 +43,7 @@ target 'yingshipin' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  target 'yingshipinTests' do
+  target 'yingshiTests' do
     inherit! :complete
     # Pods for testing
   end
