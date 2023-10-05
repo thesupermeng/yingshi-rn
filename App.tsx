@@ -6,7 +6,7 @@ import { store, persistor } from "./src/redux/store";
 import { PersistGate } from "redux-persist/integration/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { NetworkInfo } from "react-native-network-info";
-import { Platform } from "react-native";
+
 import axios from "axios";
 import {
   API_DOMAIN,
