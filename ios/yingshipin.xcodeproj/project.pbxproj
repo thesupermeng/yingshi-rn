@@ -11,11 +11,16 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		38EB5E072ACDB24500F913BB /* ATSplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EB5DF52ACDB24500F913BB /* ATSplashViewController.m */; };
+		38EB5E082ACDB24500F913BB /* ATRewardedVideoRNSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EB5DF82ACDB24500F913BB /* ATRewardedVideoRNSDK.m */; };
+		38EB5E092ACDB24500F913BB /* ATInterstitialRNSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EB5DFB2ACDB24500F913BB /* ATInterstitialRNSDK.m */; };
+		38EB5E0A2ACDB24500F913BB /* ATBannerRNSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EB5DFE2ACDB24500F913BB /* ATBannerRNSDK.m */; };
+		38EB5E0B2ACDB24500F913BB /* NSJSONSerialization+String.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EB5E012ACDB24500F913BB /* NSJSONSerialization+String.m */; };
+		38EB5E0C2ACDB24500F913BB /* NSDictionary+String.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EB5E022ACDB24500F913BB /* NSDictionary+String.m */; };
+		38EB5E0D2ACDB24500F913BB /* ATRNSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EB5E062ACDB24500F913BB /* ATRNSDK.m */; };
 		6F597F2F9718DA4950AF3EF2 /* libPods-yingshipin-yingshipinTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A21EFCCF81280E37F049D870 /* libPods-yingshipin-yingshipinTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8E1A5A292AC2B31000EBA460 /* libRNExitApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E1A5A282AC2B31000EBA460 /* libRNExitApp.a */; };
-		9A218E9A2AC3D04A00F6B98C /* myAnimationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A218E992AC3D04A00F6B98C /* myAnimationViewController.m */; };
-		9A218E9C2AC3D64C00F6B98C /* AnimationViewStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A218E9B2AC3D64C00F6B98C /* AnimationViewStoryboard.storyboard */; };
 		9A218EB72AC413D600F6B98C /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A218EB62AC413D600F6B98C /* libz.tbd */; };
 		9A218EB92AC414D600F6B98C /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9A218EB82AC414D600F6B98C /* AppCenter-Config.plist */; };
 		EC6F851505D269DCF29F2A20 /* libPods-yingshipin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 84259E062AB19EB67A501C04 /* libPods-yingshipin.a */; };
@@ -56,6 +61,20 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = yingshipin/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = yingshipin/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = yingshipin/main.m; sourceTree = "<group>"; };
+		38EB5DF42ACDB24500F913BB /* ATSplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATSplashViewController.h; sourceTree = "<group>"; };
+		38EB5DF52ACDB24500F913BB /* ATSplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATSplashViewController.m; sourceTree = "<group>"; };
+		38EB5DF72ACDB24500F913BB /* ATRewardedVideoRNSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATRewardedVideoRNSDK.h; sourceTree = "<group>"; };
+		38EB5DF82ACDB24500F913BB /* ATRewardedVideoRNSDK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATRewardedVideoRNSDK.m; sourceTree = "<group>"; };
+		38EB5DFA2ACDB24500F913BB /* ATInterstitialRNSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATInterstitialRNSDK.h; sourceTree = "<group>"; };
+		38EB5DFB2ACDB24500F913BB /* ATInterstitialRNSDK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATInterstitialRNSDK.m; sourceTree = "<group>"; };
+		38EB5DFD2ACDB24500F913BB /* ATBannerRNSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATBannerRNSDK.h; sourceTree = "<group>"; };
+		38EB5DFE2ACDB24500F913BB /* ATBannerRNSDK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATBannerRNSDK.m; sourceTree = "<group>"; };
+		38EB5E002ACDB24500F913BB /* NSDictionary+String.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+String.h"; sourceTree = "<group>"; };
+		38EB5E012ACDB24500F913BB /* NSJSONSerialization+String.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSJSONSerialization+String.m"; sourceTree = "<group>"; };
+		38EB5E022ACDB24500F913BB /* NSDictionary+String.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+String.m"; sourceTree = "<group>"; };
+		38EB5E032ACDB24500F913BB /* NSJSONSerialization+String.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSJSONSerialization+String.h"; sourceTree = "<group>"; };
+		38EB5E052ACDB24500F913BB /* ATRNSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATRNSDK.h; sourceTree = "<group>"; };
+		38EB5E062ACDB24500F913BB /* ATRNSDK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATRNSDK.m; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-yingshi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yingshi.debug.xcconfig"; path = "Target Support Files/Pods-yingshipin/Pods-yingshi.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-yingshi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yingshi.release.xcconfig"; path = "Target Support Files/Pods-yingshipin/Pods-yingshi.release.xcconfig"; sourceTree = "<group>"; };
 		5915656E748566C4763BE360 /* Pods-yingshipin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yingshipin.release.xcconfig"; path = "Target Support Files/Pods-yingshipin/Pods-yingshipin.release.xcconfig"; sourceTree = "<group>"; };
@@ -64,9 +83,6 @@
 		84259E062AB19EB67A501C04 /* libPods-yingshipin.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-yingshipin.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-yingshi-yingshiTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yingshi-yingshiTests.release.xcconfig"; path = "Target Support Files/Pods-yingshi-yingshiTests/Pods-yingshi-yingshiTests.release.xcconfig"; sourceTree = "<group>"; };
 		8E1A5A282AC2B31000EBA460 /* libRNExitApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNExitApp.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		9A218E982AC3D04A00F6B98C /* myAnimationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = myAnimationViewController.h; sourceTree = "<group>"; };
-		9A218E992AC3D04A00F6B98C /* myAnimationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = myAnimationViewController.m; sourceTree = "<group>"; };
-		9A218E9B2AC3D64C00F6B98C /* AnimationViewStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AnimationViewStoryboard.storyboard; sourceTree = "<group>"; };
 		9A218EB62AC413D600F6B98C /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		9A218EB82AC414D600F6B98C /* AppCenter-Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "AppCenter-Config.plist"; sourceTree = "<group>"; };
 		9A218F882AC42D1400F6B98C /* CodePush.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CodePush.xcodeproj; path = "../node_modules/react-native-code-push/ios/CodePush.xcodeproj"; sourceTree = "<group>"; };
@@ -118,15 +134,13 @@
 		13B07FAE1A68108700A75B9A /* yingshipin */ = {
 			isa = PBXGroup;
 			children = (
+				38EB5DED2ACDB1D700F913BB /* iOSReactNativeBridge */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
-				9A218E982AC3D04A00F6B98C /* myAnimationViewController.h */,
-				9A218E992AC3D04A00F6B98C /* myAnimationViewController.m */,
-				9A218E9B2AC3D64C00F6B98C /* AnimationViewStoryboard.storyboard */,
 			);
 			name = yingshipin;
 			sourceTree = "<group>";
@@ -141,6 +155,75 @@
 				A21EFCCF81280E37F049D870 /* libPods-yingshipin-yingshipinTests.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		38EB5DED2ACDB1D700F913BB /* iOSReactNativeBridge */ = {
+			isa = PBXGroup;
+			children = (
+				38EB5DFC2ACDB24500F913BB /* Banner */,
+				38EB5DFF2ACDB24500F913BB /* Categories */,
+				38EB5E042ACDB24500F913BB /* Core */,
+				38EB5DF92ACDB24500F913BB /* Interstitial */,
+				38EB5DF62ACDB24500F913BB /* RewardedVideo */,
+				38EB5DF32ACDB24500F913BB /* Splash */,
+			);
+			path = iOSReactNativeBridge;
+			sourceTree = "<group>";
+		};
+		38EB5DF32ACDB24500F913BB /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				38EB5DF42ACDB24500F913BB /* ATSplashViewController.h */,
+				38EB5DF52ACDB24500F913BB /* ATSplashViewController.m */,
+			);
+			path = Splash;
+			sourceTree = "<group>";
+		};
+		38EB5DF62ACDB24500F913BB /* RewardedVideo */ = {
+			isa = PBXGroup;
+			children = (
+				38EB5DF72ACDB24500F913BB /* ATRewardedVideoRNSDK.h */,
+				38EB5DF82ACDB24500F913BB /* ATRewardedVideoRNSDK.m */,
+			);
+			path = RewardedVideo;
+			sourceTree = "<group>";
+		};
+		38EB5DF92ACDB24500F913BB /* Interstitial */ = {
+			isa = PBXGroup;
+			children = (
+				38EB5DFA2ACDB24500F913BB /* ATInterstitialRNSDK.h */,
+				38EB5DFB2ACDB24500F913BB /* ATInterstitialRNSDK.m */,
+			);
+			path = Interstitial;
+			sourceTree = "<group>";
+		};
+		38EB5DFC2ACDB24500F913BB /* Banner */ = {
+			isa = PBXGroup;
+			children = (
+				38EB5DFD2ACDB24500F913BB /* ATBannerRNSDK.h */,
+				38EB5DFE2ACDB24500F913BB /* ATBannerRNSDK.m */,
+			);
+			path = Banner;
+			sourceTree = "<group>";
+		};
+		38EB5DFF2ACDB24500F913BB /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				38EB5E002ACDB24500F913BB /* NSDictionary+String.h */,
+				38EB5E012ACDB24500F913BB /* NSJSONSerialization+String.m */,
+				38EB5E022ACDB24500F913BB /* NSDictionary+String.m */,
+				38EB5E032ACDB24500F913BB /* NSJSONSerialization+String.h */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		38EB5E042ACDB24500F913BB /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				38EB5E052ACDB24500F913BB /* ATRNSDK.h */,
+				38EB5E062ACDB24500F913BB /* ATRNSDK.m */,
+			);
+			path = Core;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -319,7 +402,6 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				9A218EB92AC414D600F6B98C /* AppCenter-Config.plist in Resources */,
-				9A218E9C2AC3D64C00F6B98C /* AnimationViewStoryboard.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -489,8 +571,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38EB5E0D2ACDB24500F913BB /* ATRNSDK.m in Sources */,
+				38EB5E092ACDB24500F913BB /* ATInterstitialRNSDK.m in Sources */,
+				38EB5E0C2ACDB24500F913BB /* NSDictionary+String.m in Sources */,
+				38EB5E0A2ACDB24500F913BB /* ATBannerRNSDK.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
-				9A218E9A2AC3D04A00F6B98C /* myAnimationViewController.m in Sources */,
+				38EB5E082ACDB24500F913BB /* ATRewardedVideoRNSDK.m in Sources */,
+				38EB5E072ACDB24500F913BB /* ATSplashViewController.m in Sources */,
+				38EB5E0B2ACDB24500F913BB /* NSJSONSerialization+String.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

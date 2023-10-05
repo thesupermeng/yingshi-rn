@@ -36,6 +36,7 @@ import {RootState} from '../redux/store';
 import {SettingsReducerState} from '../redux/reducers/settingsReducer';
 import {acceptPrivacyPolicy} from '../redux/actions/settingsActions';
 import RNExitApp from 'react-native-exit-app';
+import AdsBanner from '../ads/adsBanner';
 
 interface NavType {
   id: number;
@@ -242,6 +243,7 @@ function Home ({navigation}: BottomTabScreenProps<any>) {
   return (
     <>
       <ScreenContainer isHome={true} containerStyle={{paddingLeft: 0, paddingRight: 0}}>
+        <AdsBanner bottomTabHeight={bottomTabHeight} />
         <View
           style={{
             backgroundColor: colors.background,

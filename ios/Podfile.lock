@@ -1,4 +1,94 @@
 PODS:
+  - Ads-CN (5.6.0.4):
+    - Ads-CN/BUAdSDK (= 5.6.0.4)
+  - Ads-CN/BUAdSDK (5.6.0.4):
+    - BURelyFoundation/CSJ (= 0.3.0.4)
+  - AFNetworking (4.0.1):
+    - AFNetworking/NSURLSession (= 4.0.1)
+    - AFNetworking/Reachability (= 4.0.1)
+    - AFNetworking/Security (= 4.0.1)
+    - AFNetworking/Serialization (= 4.0.1)
+    - AFNetworking/UIKit (= 4.0.1)
+  - AFNetworking/NSURLSession (4.0.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (4.0.1)
+  - AFNetworking/Security (4.0.1)
+  - AFNetworking/Serialization (4.0.1)
+  - AFNetworking/UIKit (4.0.1):
+    - AFNetworking/NSURLSession
+  - AnyThinkBaiduAdapter (6.2.66.1):
+    - AnyThinkiOS (= 6.2.66)
+    - BaiduMobAdSDK (= 5.321)
+  - AnyThinkiOS (6.2.66):
+    - AnyThinkiOS/AnyThinkSDK (= 6.2.66)
+  - AnyThinkiOS/AnyThinkAdmobAdapter (6.2.66):
+    - AnyThinkiOS/AnyThinkSDK
+    - Google-Mobile-Ads-SDK (= 10.8.0)
+  - AnyThinkiOS/AnyThinkApplovinAdapter (6.2.66):
+    - AnyThinkiOS/AnyThinkSDK
+    - AppLovinSDK (= 11.10.1)
+  - AnyThinkiOS/AnyThinkBigoAdapter (6.2.66):
+    - AnyThinkiOS/AnyThinkSDK
+    - BigoADS (= 4.0.3)
+  - AnyThinkiOS/AnyThinkFyberAdapter (6.2.66):
+    - AnyThinkiOS/AnyThinkSDK
+    - Fyber_Marketplace_SDK (= 8.2.2)
+  - AnyThinkiOS/AnyThinkGDTAdapter (6.2.66):
+    - AnyThinkiOS/AnyThinkSDK
+    - GDTMobSDK (= 4.14.42)
+  - AnyThinkiOS/AnyThinkIronSourceAdapter (6.2.66):
+    - AnyThinkiOS/AnyThinkSDK
+    - IronSourceSDK (= 7.3.1.0)
+  - AnyThinkiOS/AnyThinkKidozAdapter (6.2.66):
+    - AnyThinkiOS/AnyThinkSDK
+    - AnyThinkKidozSDK (= 8.9.3)
+  - AnyThinkiOS/AnyThinkKlevinAdapter (6.2.66):
+    - AnyThinkiOS/AnyThinkSDK
+    - KlevinAdSDK (= 2.11.0.215)
+  - AnyThinkiOS/AnyThinkKuaiShouAdapter (6.2.66):
+    - AFNetworking
+    - AnyThinkiOS/AnyThinkSDK
+    - KSAdSDK (= 3.3.51.1)
+    - MJExtension
+    - SDWebImage
+  - AnyThinkiOS/AnyThinkMaioAdapter (6.2.66):
+    - AnyThinkiOS/AnyThinkSDK
+    - MaioSDK (= 1.6.2)
+  - AnyThinkiOS/AnyThinkMintegralAdapter (6.2.66):
+    - AnyThinkiOS/AnyThinkSDK
+    - MintegralAdSDK/All (= 7.4.4)
+  - AnyThinkiOS/AnyThinkMyTargetAdapter (6.2.66):
+    - AnyThinkiOS/AnyThinkSDK
+    - myTargetSDK (= 5.15.2)
+  - AnyThinkiOS/AnyThinkNendAdapter (6.2.66):
+    - AnyThinkiOS/AnyThinkSDK
+    - NendSDK_iOS (= 7.3.0)
+  - AnyThinkiOS/AnyThinkOguryAdapter (6.2.66):
+    - AnyThinkiOS/AnyThinkSDK
+    - OguryAds (= 2.4.1)
+  - AnyThinkiOS/AnyThinkSDK (6.2.66)
+  - AnyThinkiOS/AnyThinkSigmobAdapter (6.2.66):
+    - AnyThinkiOS/AnyThinkSDK
+    - SigmobAd-iOS (= 4.9.1)
+  - AnyThinkiOS/AnyThinkStartAppAdapter (6.2.66):
+    - AnyThinkiOS/AnyThinkSDK
+    - StartAppSDK (= 4.9.0)
+  - AnyThinkiOS/AnyThinkTapjoyAdapter (6.2.66):
+    - AnyThinkiOS/AnyThinkSDK
+    - TapjoySDK (= 12.11.0)
+  - AnyThinkiOS/AnyThinkTTAdapter (6.2.66):
+    - Ads-CN (= 5.6.0.4)
+    - AnyThinkiOS/AnyThinkSDK
+  - AnyThinkiOS/AnyThinkUnityAdsAdapter (6.2.66):
+    - AnyThinkiOS/AnyThinkSDK
+    - UnityAds (= 4.8.0)
+  - AnyThinkiOS/AnyThinkYandexAdapter (6.2.66):
+    - AnyThinkiOS/AnyThinkSDK
+    - YandexMobileAds (= 5.8.0)
+    - YandexMobileAdsInstream (= 0.18.0)
+  - AnyThinkKidozSDK (8.9.3)
   - AppCenter (5.0.3):
     - AppCenter/Analytics (= 5.0.3)
     - AppCenter/Crashes (= 5.0.3)
@@ -20,11 +110,23 @@ PODS:
     - AppCenter/Core
   - AppCenterReactNativeShared (5.0.0):
     - AppCenter/Core (= 5.0.3)
+  - AppLovinSDK (11.10.1)
   - AppsFlyerFramework (6.10.1):
     - AppsFlyerFramework/Main (= 6.10.1)
   - AppsFlyerFramework/Main (6.10.1)
+  - BaiduMobAdSDK (5.321)
   - Base64 (1.1.2)
+  - BigoADS (4.0.3)
   - boost (1.76.0)
+  - BURelyFoundation/AFNetworking (0.3.0.4)
+  - BURelyFoundation/BURelyFoundation (0.3.0.4)
+  - BURelyFoundation/CSJ (0.3.0.4):
+    - BURelyFoundation/BURelyFoundation
+    - BURelyFoundation/HM
+    - BURelyFoundation/NETWork
+  - BURelyFoundation/HM (0.3.0.4)
+  - BURelyFoundation/NETWork (0.3.0.4):
+    - BURelyFoundation/AFNetworking
   - BVLinearGradient (2.7.2):
     - React-Core
   - CocoaAsyncSocket (7.6.5)
@@ -33,6 +135,37 @@ PODS:
     - JWT (~> 3.0.0-beta.12)
     - React-Core
     - SSZipArchive (~> 2.2.2)
+  - DivKit (24.2.0):
+    - DivKit_Base (= 24.2.0)
+    - DivKit_BaseTiny (= 24.2.0)
+    - DivKit_BaseUI (= 24.2.0)
+    - DivKit_CommonCore (= 24.2.0)
+    - DivKit_LayoutKit (= 24.2.0)
+    - DivKit_LayoutKitInterface (= 24.2.0)
+    - DivKit_Networking (= 24.2.0)
+    - DivKit_Serialization (= 24.2.0)
+  - DivKit_Base (24.2.0):
+    - DivKit_BaseTiny (= 24.2.0)
+    - DivKit_BaseUI (= 24.2.0)
+  - DivKit_BaseTiny (24.2.0)
+  - DivKit_BaseUI (24.2.0):
+    - DivKit_BaseTiny (= 24.2.0)
+  - DivKit_CommonCore (24.2.0):
+    - DivKit_Base (= 24.2.0)
+    - DivKit_BaseTiny (= 24.2.0)
+  - DivKit_LayoutKit (24.2.0):
+    - DivKit_BaseTiny (= 24.2.0)
+    - DivKit_BaseUI (= 24.2.0)
+    - DivKit_CommonCore (= 24.2.0)
+    - DivKit_LayoutKitInterface (= 24.2.0)
+  - DivKit_LayoutKitInterface (24.2.0):
+    - DivKit_Base (= 24.2.0)
+    - DivKit_BaseTiny (= 24.2.0)
+    - DivKit_BaseUI (= 24.2.0)
+  - DivKit_Networking (24.2.0):
+    - DivKit_Base (= 24.2.0)
+  - DivKit_Serialization (24.2.0):
+    - DivKit_CommonCore (= 24.2.0)
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.71.8)
   - FBReactNativeSpec (0.71.8):
@@ -104,12 +237,60 @@ PODS:
     - FlipperKit/Core
     - FlipperKit/FlipperKitNetworkPlugin
   - fmt (6.2.1)
+  - Fyber_Marketplace_SDK (8.2.2)
+  - GDTMobSDK (4.14.42):
+    - GDTMobSDK/GDTMobSDK (= 4.14.42)
+  - GDTMobSDK/GDTMobSDK (4.14.42)
   - glog (0.3.5)
+  - Google-Mobile-Ads-SDK (10.8.0):
+    - GoogleAppMeasurement (< 11.0, >= 7.0)
+    - GoogleUserMessagingPlatform (>= 1.1)
+  - GoogleAppMeasurement (10.16.0):
+    - GoogleAppMeasurement/AdIdSupport (= 10.16.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.11)
+    - GoogleUtilities/MethodSwizzler (~> 7.11)
+    - GoogleUtilities/Network (~> 7.11)
+    - "GoogleUtilities/NSData+zlib (~> 7.11)"
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+  - GoogleAppMeasurement/AdIdSupport (10.16.0):
+    - GoogleAppMeasurement/WithoutAdIdSupport (= 10.16.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.11)
+    - GoogleUtilities/MethodSwizzler (~> 7.11)
+    - GoogleUtilities/Network (~> 7.11)
+    - "GoogleUtilities/NSData+zlib (~> 7.11)"
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+  - GoogleAppMeasurement/WithoutAdIdSupport (10.16.0):
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.11)
+    - GoogleUtilities/MethodSwizzler (~> 7.11)
+    - GoogleUtilities/Network (~> 7.11)
+    - "GoogleUtilities/NSData+zlib (~> 7.11)"
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+  - GoogleUserMessagingPlatform (2.1.0)
+  - GoogleUtilities/AppDelegateSwizzler (7.11.5):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Network
+  - GoogleUtilities/Environment (7.11.5):
+    - PromisesObjC (< 3.0, >= 1.2)
+  - GoogleUtilities/Logger (7.11.5):
+    - GoogleUtilities/Environment
+  - GoogleUtilities/MethodSwizzler (7.11.5):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/Network (7.11.5):
+    - GoogleUtilities/Logger
+    - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/Reachability
+  - "GoogleUtilities/NSData+zlib (7.11.5)"
+  - GoogleUtilities/Reachability (7.11.5):
+    - GoogleUtilities/Logger
   - hermes-engine (0.71.8):
     - hermes-engine/Pre-built (= 0.71.8)
   - hermes-engine/Pre-built (0.71.8)
+  - IronSourceSDK (7.3.1.0)
   - JWT (3.0.0-beta.14):
     - Base64 (~> 1.1.2)
+  - KlevinAdSDK (2.11.0.215)
+  - KSAdSDK (3.3.51.1)
   - libevent (2.1.12)
   - libwebp (1.3.2):
     - libwebp/demux (= 1.3.2)
@@ -123,6 +304,48 @@ PODS:
   - libwebp/sharpyuv (1.3.2)
   - libwebp/webp (1.3.2):
     - libwebp/sharpyuv
+  - MaioSDK (1.6.2)
+  - MintegralAdSDK/All (7.4.4):
+    - MintegralAdSDK/BannerAd
+    - MintegralAdSDK/BidNativeAd
+    - MintegralAdSDK/InterstitialAd
+    - MintegralAdSDK/InterstitialVideoAd
+    - MintegralAdSDK/NativeAd
+    - MintegralAdSDK/NativeAdvancedAd
+    - MintegralAdSDK/NewInterstitialAd
+    - MintegralAdSDK/RewardVideoAd
+    - MintegralAdSDK/SplashAd
+  - MintegralAdSDK/BannerAd (7.4.4):
+    - MintegralAdSDK/NativeAd
+  - MintegralAdSDK/BidNativeAd (7.4.4):
+    - MintegralAdSDK/NativeAd
+  - MintegralAdSDK/InterstitialAd (7.4.4):
+    - MintegralAdSDK/NativeAd
+  - MintegralAdSDK/InterstitialVideoAd (7.4.4):
+    - MintegralAdSDK/NativeAd
+  - MintegralAdSDK/NativeAd (7.4.4)
+  - MintegralAdSDK/NativeAdvancedAd (7.4.4):
+    - MintegralAdSDK/NativeAd
+  - MintegralAdSDK/NewInterstitialAd (7.4.4):
+    - MintegralAdSDK/InterstitialVideoAd
+    - MintegralAdSDK/NativeAd
+  - MintegralAdSDK/RewardVideoAd (7.4.4):
+    - MintegralAdSDK/NativeAd
+  - MintegralAdSDK/SplashAd (7.4.4):
+    - MintegralAdSDK/NativeAd
+  - MJExtension (3.4.1)
+  - myTargetSDK (5.15.2):
+    - myTrackerSDK (~> 3.0.3)
+  - myTrackerSDK (3.0.8)
+  - nanopb (2.30909.0):
+    - nanopb/decode (= 2.30909.0)
+    - nanopb/encode (= 2.30909.0)
+  - nanopb/decode (2.30909.0)
+  - nanopb/encode (2.30909.0)
+  - NendSDK_iOS (7.3.0)
+  - OguryAds (2.4.1):
+    - OguryAds/OMID (= 2.4.1)
+  - OguryAds/OMID (2.4.1)
   - OpenSSL-Universal (1.1.1100)
   - PromisesObjC (2.3.1)
   - PromisesSwift (2.3.1):
@@ -380,6 +603,8 @@ PODS:
   - React-jsinspector (0.71.8)
   - React-logger (0.71.8):
     - glog
+  - react-native-android-navbar-height (1.0.0):
+    - React-Core
   - react-native-appsflyer (6.10.3):
     - AppsFlyerFramework (= 6.10.1)
     - React
@@ -560,14 +785,58 @@ PODS:
   - SDWebImageWebPCoder (0.8.5):
     - libwebp (~> 1.0)
     - SDWebImage/Core (~> 5.10)
+  - SigmobAd-iOS (4.9.1):
+    - SigmobAd-iOS/WindSDK (= 4.9.1)
+  - SigmobAd-iOS/WindSDK (4.9.1)
   - SocketRocket (0.6.1)
   - SSZipArchive (2.2.3)
+  - StartAppSDK (4.9.0)
+  - TapjoySDK (12.11.0)
   - Toast (4.0.0)
+  - UnityAds (4.8.0)
+  - YandexMobileAds (5.8.0):
+    - DivKit (~> 24.2)
+    - YandexMobileAds/Static (= 5.8.0)
+  - YandexMobileAds/Static (5.8.0):
+    - DivKit (~> 24.2)
+    - YandexMobileMetrica (< 5.0.0, >= 4.0.0)
+  - YandexMobileAdsInstream (0.18.0):
+    - YandexMobileAds (~> 5.8.0)
+  - YandexMobileMetrica (4.5.2):
+    - YandexMobileMetrica/Static (= 4.5.2)
+  - YandexMobileMetrica/Static (4.5.2):
+    - YandexMobileMetrica/Static/Core (= 4.5.2)
+    - YandexMobileMetrica/Static/Crashes (= 4.5.2)
+  - YandexMobileMetrica/Static/Core (4.5.2)
+  - YandexMobileMetrica/Static/Crashes (4.5.2):
+    - YandexMobileMetrica/Static/Core
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
     - Yoga (~> 1.14)
 
 DEPENDENCIES:
+  - AnyThinkBaiduAdapter (= 6.2.66.1)
+  - AnyThinkiOS (= 6.2.66)
+  - AnyThinkiOS/AnyThinkAdmobAdapter (= 6.2.66)
+  - AnyThinkiOS/AnyThinkApplovinAdapter (= 6.2.66)
+  - AnyThinkiOS/AnyThinkBigoAdapter (= 6.2.66)
+  - AnyThinkiOS/AnyThinkFyberAdapter (= 6.2.66)
+  - AnyThinkiOS/AnyThinkGDTAdapter (= 6.2.66)
+  - AnyThinkiOS/AnyThinkIronSourceAdapter (= 6.2.66)
+  - AnyThinkiOS/AnyThinkKidozAdapter (= 6.2.66)
+  - AnyThinkiOS/AnyThinkKlevinAdapter (= 6.2.66)
+  - AnyThinkiOS/AnyThinkKuaiShouAdapter (= 6.2.66)
+  - AnyThinkiOS/AnyThinkMaioAdapter (= 6.2.66)
+  - AnyThinkiOS/AnyThinkMintegralAdapter (= 6.2.66)
+  - AnyThinkiOS/AnyThinkMyTargetAdapter (= 6.2.66)
+  - AnyThinkiOS/AnyThinkNendAdapter (= 6.2.66)
+  - AnyThinkiOS/AnyThinkOguryAdapter (= 6.2.66)
+  - AnyThinkiOS/AnyThinkSigmobAdapter (= 6.2.66)
+  - AnyThinkiOS/AnyThinkStartAppAdapter (= 6.2.66)
+  - AnyThinkiOS/AnyThinkTapjoyAdapter (= 6.2.66)
+  - AnyThinkiOS/AnyThinkTTAdapter (= 6.2.66)
+  - AnyThinkiOS/AnyThinkUnityAdsAdapter (= 6.2.66)
+  - AnyThinkiOS/AnyThinkYandexAdapter (= 6.2.66)
   - AppCenter
   - appcenter-analytics (from `../node_modules/appcenter-analytics`)
   - appcenter-core (from `../node_modules/appcenter`)
@@ -620,6 +889,7 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
+  - react-native-android-navbar-height (from `../node_modules/react-native-android-navbar-height`)
   - react-native-appsflyer (from `../node_modules/react-native-appsflyer`)
   - "react-native-blur (from `../node_modules/@react-native-community/blur`)"
   - react-native-color-matrix-image-filters (from `../node_modules/react-native-color-matrix-image-filters`)
@@ -663,11 +933,29 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - Ads-CN
+    - AFNetworking
+    - AnyThinkBaiduAdapter
+    - AnyThinkiOS
+    - AnyThinkKidozSDK
     - AppCenter
     - AppCenterReactNativeShared
+    - AppLovinSDK
     - AppsFlyerFramework
+    - BaiduMobAdSDK
     - Base64
+    - BigoADS
+    - BURelyFoundation
     - CocoaAsyncSocket
+    - DivKit
+    - DivKit_Base
+    - DivKit_BaseTiny
+    - DivKit_BaseUI
+    - DivKit_CommonCore
+    - DivKit_LayoutKit
+    - DivKit_LayoutKitInterface
+    - DivKit_Networking
+    - DivKit_Serialization
     - Flipper
     - Flipper-Boost-iOSX
     - Flipper-DoubleConversion
@@ -678,17 +966,41 @@ SPEC REPOS:
     - Flipper-RSocket
     - FlipperKit
     - fmt
+    - Fyber_Marketplace_SDK
+    - GDTMobSDK
+    - Google-Mobile-Ads-SDK
+    - GoogleAppMeasurement
+    - GoogleUserMessagingPlatform
+    - GoogleUtilities
+    - IronSourceSDK
     - JWT
+    - KlevinAdSDK
+    - KSAdSDK
     - libevent
     - libwebp
+    - MaioSDK
+    - MintegralAdSDK
+    - MJExtension
+    - myTargetSDK
+    - myTrackerSDK
+    - nanopb
+    - NendSDK_iOS
+    - OguryAds
     - OpenSSL-Universal
     - PromisesObjC
     - PromisesSwift
     - SDWebImage
     - SDWebImageWebPCoder
+    - SigmobAd-iOS
     - SocketRocket
     - SSZipArchive
+    - StartAppSDK
+    - TapjoySDK
     - Toast
+    - UnityAds
+    - YandexMobileAds
+    - YandexMobileAdsInstream
+    - YandexMobileMetrica
     - YogaKit
 
 EXTERNAL SOURCES:
@@ -744,6 +1056,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   React-logger:
     :path: "../node_modules/react-native/ReactCommon/logger"
+  react-native-android-navbar-height:
+    :path: "../node_modules/react-native-android-navbar-height"
   react-native-appsflyer:
     :path: "../node_modules/react-native-appsflyer"
   react-native-blur:
@@ -826,17 +1140,35 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
+  Ads-CN: cf758f2916244536708ef78cd3b2b7e521b7b75a
+  AFNetworking: 3bd23d814e976cd148d7d44c3ab78017b744cd58
+  AnyThinkBaiduAdapter: 71d8aa534ba4ce188b934291990ffb988e401850
+  AnyThinkiOS: 09a52ce0bc7e7b8eab7782bdfbc392718772e51a
+  AnyThinkKidozSDK: 5c3e08babac895077c886fc902aa00e40f8b2e76
   AppCenter: a4070ec3d4418b5539067a51f57155012e486ebd
   appcenter-analytics: fbeef54afe6fa91d3803dfd31499817baa81fec0
   appcenter-core: e192ea8b373bebd3e44998882b43311078bd7dda
   appcenter-crashes: 266063788bcebd553e621344a54286395a8e2010
   AppCenterReactNativeShared: 01df23849b1c3c6eb8c4049f54322635650e98f0
+  AppLovinSDK: a76e8ec3d34fb172c7a32c15efe6805e070c918a
   AppsFlyerFramework: 88a6eed37ad52bcee4ad74232efa8e22809d06c9
+  BaiduMobAdSDK: edac4d0249a532805f82c889ec10a3e948ee35cd
   Base64: cecfb41a004124895a7bcee567a89bae5a89d49b
+  BigoADS: a856b5caa01411d76ca79ad1d12632a72e04fc46
   boost: 57d2868c099736d80fcd648bf211b4431e51a558
+  BURelyFoundation: f6dc8547c858e7f97c1a0ec31a0c81b62f657892
   BVLinearGradient: 252e4a39d23d69d2d89b55b165c8900f7caf93fc
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   CodePush: 255d7607f428dcbec39085f81a206b170e01d012
+  DivKit: f2151bd0bfc67e0b4ad949e8cd1caa7379253bef
+  DivKit_Base: 263499ebc77c217314d4bee1b374781c3643c8a9
+  DivKit_BaseTiny: 42535fa725058957129f231b4b52d394ed4d7ea9
+  DivKit_BaseUI: cb86da6096de4a3bb670b4196ddeed0334acd671
+  DivKit_CommonCore: dd26a3f7dcc9010ec3a4ed3c5c3718e7a882536a
+  DivKit_LayoutKit: cdcfa56dd6a88495703350bb63f410dde426435c
+  DivKit_LayoutKitInterface: f0dae7b2e7a024d0340914490b1c06c0e6a926ae
+  DivKit_Networking: cd028559a160baa76c43fda52174f2f83c87b747
+  DivKit_Serialization: b4d8a4672de9134889c5f92f5f7e04e04112e660
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
   FBLazyVector: f637f31eacba90d4fdeff3fa41608b8f361c173b
   FBReactNativeSpec: 0d9a4f4de7ab614c49e98c00aedfd3bfbda33d59
@@ -850,11 +1182,28 @@ SPEC CHECKSUMS:
   Flipper-RSocket: d9d9ade67cbecf6ac10730304bf5607266dd2541
   FlipperKit: cbdee19bdd4e7f05472a66ce290f1b729ba3cb86
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
+  Fyber_Marketplace_SDK: 3ae82ee5e638148569296d254a5211f26c4d6180
+  GDTMobSDK: a7f14366e0fcd7c8802b25573dfe0cf8707c90b7
   glog: 04b94705f318337d7ead9e6d17c019bd9b1f6b1b
+  Google-Mobile-Ads-SDK: 69daa7fb42061b425340706e382e87fab3e666a3
+  GoogleAppMeasurement: 079d7632810e9d9704a99932547ba1554acc4342
+  GoogleUserMessagingPlatform: dce302b8f1b84d6e945812ee7a15c3f65a102cbf
+  GoogleUtilities: 13e2c67ede716b8741c7989e26893d151b2b2084
   hermes-engine: 47986d26692ae75ee7a17ab049caee8864f855de
+  IronSourceSDK: eb6d95e3528d2163343d79ec70ec7d065e808864
   JWT: ef71dfb03e1f842081e64dc42eef0e164f35d251
+  KlevinAdSDK: 2c6ffc91dae6d82868d2ebde2eb63464235cbacb
+  KSAdSDK: 8c36fad105da8f7e1c9842ac2cf1afeb0f88008a
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   libwebp: 1786c9f4ff8a279e4dac1e8f385004d5fc253009
+  MaioSDK: 674022c6f61693de0601e110da2564ca121df37d
+  MintegralAdSDK: 25e723feacf999dd026093c4eca1c7ee400a6d73
+  MJExtension: 21c5f6f8c4d5d8844b7ae8fbae08fed0b501f961
+  myTargetSDK: e79ecceb7ce283f274202ff8e8b64b854ac8edad
+  myTrackerSDK: df675bf18db63d9a426bd00d6c3dec4ba4bea57e
+  nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
+  NendSDK_iOS: 50f9cfdeeb14ee0379cb4c715b09b60c8d2a4173
+  OguryAds: ede25803e572b5eee27a832f6ef5f3a171c20ef1
   OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
   PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
   PromisesSwift: 28dca69a9c40779916ac2d6985a0192a5cb4a265
@@ -873,6 +1222,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 747911ab5921641b4ed7e4900065896597142125
   React-jsinspector: c712f9e3bb9ba4122d6b82b4f906448b8a281580
   React-logger: 342f358b8decfbf8f272367f4eacf4b6154061be
+  react-native-android-navbar-height: 74d4c08f925ccf4be6b589ccffbe82c78be03772
   react-native-appsflyer: 153e96b97ecc0c26b14fc79911675e51cfd35b36
   react-native-blur: cfdad7b3c01d725ab62a8a729f42ea463998afa2
   react-native-color-matrix-image-filters: c945260077dabac82d8e25af937c18fff4021707
@@ -914,12 +1264,19 @@ SPEC CHECKSUMS:
   RNVectorIcons: fcc2f6cb32f5735b586e66d14103a74ce6ad61f8
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SDWebImageWebPCoder: 908b83b6adda48effe7667cd2b7f78c897e5111d
+  SigmobAd-iOS: db0134251062be57497412c08fc4996517249315
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   SSZipArchive: 62d4947b08730e4cda640473b0066d209ff033c9
+  StartAppSDK: aa04c171bea50f470df1c78e09815af6a2ef86f7
+  TapjoySDK: 63d964a731313ac2db700b67623376db7c3c120c
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
+  UnityAds: 390144b2029ac9ce2ec81c3cfd0007686b59236a
+  YandexMobileAds: 13ea70019f08fca7430a529aca4460050c5ffa80
+  YandexMobileAdsInstream: e8ab59c22f02f83ca17f6c694ceedec1bd4885c6
+  YandexMobileMetrica: f5368ee93f286c793d73b58da00929babfc897c1
   Yoga: 065f0b74dba4832d6e328238de46eb72c5de9556
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 4aed1d6d87990a3ae44043135ddc9b739b5948d7
+PODFILE CHECKSUM: 57c8a7d7cdb1a6da6112639415a16dd4b9fe9fa4
 
 COCOAPODS: 1.12.1
