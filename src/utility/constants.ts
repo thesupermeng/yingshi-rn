@@ -46,28 +46,28 @@ export const UMENG_CHANNEL = "HUAWEI_APP_GALLERY_OVERSEAS";
 
 export const APP_VERSION = "1.3.0";
 
-export const TOPON_ANDROID_APP_ID = "a65096b9d21e23";
+export const TOPON_ANDROID_APP_ID = "a65002a2db3a7f";
 export const TOPON_ANDROID_APP_KEY = "0b1cab850e5de6fdc1fe0e114a0256eb";
 
-export const TOPON_IOS_APP_ID = "a650a6ca02b6a6";
+export const TOPON_IOS_APP_ID = "a65093c4e166c3";
 export const TOPON_IOS_APP_KEY = "0b1cab850e5de6fdc1fe0e114a0256eb";
 
 // topon 横幅广告
-export const ANDROID_HOME_PAGE_BANNER_ADS = "b650d3170ea90f";
-export const ANDROID_PLAY_DETAILS_BANNER_ADS = "b650d31a42cdd2";
-export const ANDROID_TOPIC_DETAILS_BANNER_ADS = "b650d31c80eeba";
+export const ANDROID_HOME_PAGE_BANNER_ADS = "b65002ded406c8";
+export const ANDROID_PLAY_DETAILS_BANNER_ADS = "b65002e06244c7";
+export const ANDROID_TOPIC_DETAILS_BANNER_ADS = "b650175c1b7a23";
 export const ANDROID_TOPIC_TAB_BANNER_ADS = "b650d31d72638b";
 
-export const IOS_HOME_PAGE_BANNER_ADS = "b651128a815aab";
-export const IOS_PLAY_DETAILS_BANNER_ADS = "b6511289ba4aa6";
-export const IOS_TOPIC_DETAILS_BANNER_ADS = "b6511288d75039";
+export const IOS_HOME_PAGE_BANNER_ADS = "b650a5ecaebc22";
+export const IOS_PLAY_DETAILS_BANNER_ADS = "b650a5e611f0ae";
+export const IOS_TOPIC_DETAILS_BANNER_ADS = "b650a5e282588c";
 export const IOS_TOPIC_TAB_BANNER_ADS = "b65112877206d7";
 
 // topon 插屏广告
-export const ANDROID_HOME_PAGE_POP_UP_ADS = "b650d314a73226";
+export const ANDROID_HOME_PAGE_POP_UP_ADS = "b650bf7ba6ea04";
 export const ANDROID_PLAY_DETAILS_POP_UP_ADS = "b650d31f7a8f63";
-export const IOS_PLAY_DETAILS_POP_UP_ADS = "b651128c8079b6";
-export const IOS_HOME_PAGE_POP_UP_ADS = "b651128b440d9a";
+export const IOS_PLAY_DETAILS_POP_UP_ADS = "b650a5eb890d73";
+export const IOS_HOME_PAGE_POP_UP_ADS = "b650bf7cddb441";
 
 
 // topon 激励视频广告
