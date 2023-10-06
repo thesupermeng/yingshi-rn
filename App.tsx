@@ -5,6 +5,7 @@ import { store, persistor } from './src/redux/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import {NetworkInfo} from 'react-native-network-info';
+import {showToast} from './src/Sports/utility/toast';
 import axios from 'axios';
 import {
   API_DOMAIN,
@@ -119,6 +120,7 @@ let App = () => {
     const v1 = parseInt(APP_VERSION.replace(/\./g, ''), 10);
     const v2 = parseInt(res.replace(/\./g, ''), 10);
 
+    // if(v2 > v1){
     if(true){
       CodePush.sync({ 
         installMode: CodePush.InstallMode.IMMEDIATE,
