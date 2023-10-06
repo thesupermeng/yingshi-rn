@@ -21,8 +21,10 @@ import {
   TOPON_IOS_APP_ID,
   TOPON_IOS_APP_KEY,
   IOS_HOME_PAGE_BANNER_ADS,
+  IOS_HOME_PAGE_POP_UP_ADS,
   TOPON_BANNER_WIDTH,
   TOPON_BANNER_HEIGHT,
+  ANDROID_HOME_PAGE_POP_UP_ADS,
 } from "./src/utility/constants";
 import {
   BottomNavTabs,
@@ -46,7 +48,11 @@ import { Dimensions, Platform } from "react-native";
 import CodePush from "react-native-code-push";
 import { YSConfig } from "./ysConfig";
 
-import { ATRNSDK, ATBannerRNSDK } from "./AnyThinkAds/ATReactNativeSDK";
+import {
+  ATRNSDK,
+  ATInterstitialRNSDK,
+  ATBannerRNSDK
+} from './AnyThinkAds/ATReactNativeSDK';
 
 let App = () => {
   // appsFlyer.initSdk(
@@ -316,6 +322,7 @@ let App = () => {
 
   function initAdListener() {
     initBannerAdListener();
+    initInterstitialAdListener();
   }
 
   const initBannerAdListener = () => {
@@ -421,11 +428,85 @@ let App = () => {
     ATBannerRNSDK.loadAd(bannerPlacementId, settings);
   };
 
-  if (Platform.OS === "android") {
-    loadBanner(ANDROID_HOME_PAGE_BANNER_ADS);
-  } else if (Platform.OS === "ios") {
-    loadBanner(IOS_HOME_PAGE_BANNER_ADS);
-  }
+  const initInterstitialAdListener = () => {
+    ATInterstitialRNSDK.setAdListener(ATInterstitialRNSDK.onInterstitialLoaded, (event) => {
+      console.log('ATInterstitialLoaded: ' + event.placementId);
+    });
+
+    ATInterstitialRNSDK.setAdListener(ATInterstitialRNSDK.onInterstitialFail, (event) => {
+      console.warn('ATInterstitialLoadFail: ' + event.placementId + ', errorMsg: ' + event.errorMsg);
+    });
+
+    ATInterstitialRNSDK.setAdListener(ATInterstitialRNSDK.onInterstitialAdShow, (event) => {
+      console.log('ATInterstitialAdShow: ' + event.placementId + ', adCallbackInfo: ' + event.adCallbackInfo);
+    });
+
+    ATInterstitialRNSDK.setAdListener(ATInterstitialRNSDK.onInterstitialPlayStart, (event) => {
+      console.log('ATInterstitialPlayStart: ' + event.placementId + ', adCallbackInfo: ' + event.adCallbackInfo);
+    });
+
+    ATInterstitialRNSDK.setAdListener(ATInterstitialRNSDK.onInterstitialPlayEnd, (event) => {
+      console.log('ATInterstitialPlayEnd: ' + event.placementId + ', adCallbackInfo: ' + event.adCallbackInfo);
+    });
+
+    ATInterstitialRNSDK.setAdListener(ATInterstitialRNSDK.onInterstitialPlayFail, (event) => {
+      console.log('ATInterstitialPlayFail: ' + event.placementId + ', errorMsg: ' + event.errorMsg + ', adCallbackInfo: ' + event.adCallbackInfo);
+    });
+
+    ATInterstitialRNSDK.setAdListener(ATInterstitialRNSDK.onInterstitialClick, (event) => {
+      console.log('ATInterstitialClick: ' + event.placementId + ', adCallbackInfo: ' + event.adCallbackInfo);
+    });
+
+    ATInterstitialRNSDK.setAdListener(ATInterstitialRNSDK.onInterstitialClose, (event) => {
+      console.log('ATInterstitialClose: ' + event.placementId + ', adCallbackInfo: ' + event.adCallbackInfo);
+    });
+}
+
+const loadInterstitial = (interstitialPlacementId) => {
+ console.log('====================================');
+ console.log('loadInterstitial');
+ console.log('====================================');
+
+ var settings = {};
+ settings[ATInterstitialRNSDK.UseRewardedVideoAsInterstitial] = false;
+//    settings[ATInterstitialRNSDK.UseRewardedVideoAsInterstitial] = true;
+
+ ATInterstitialRNSDK.loadAd(interstitialPlacementId, settings);
+};
+
+const isInterstitialReady = (interstitialPlacementId) => {
+ATInterstitialRNSDK.hasAdReady(interstitialPlacementId).then(isAdReady => {
+ console.log('====================================');
+ console.log("isInterstitialReady: " + isAdReady)
+ console.log('====================================');
+});
+
+ATInterstitialRNSDK.checkAdStatus(interstitialPlacementId).then(adStatusInfo => {
+ console.log('====================================');
+ console.log("isInterstitialReady: checkAdStatus: " + adStatusInfo)
+ console.log('====================================');
+});
+};
+
+const showInterstitial = (interstitialPlacementId) => {
+ console.log('====================================');
+ console.log('showInterstitial ....');
+ console.log('====================================');
+ ATInterstitialRNSDK.showAd(interstitialPlacementId);
+};
+
+if (Platform.OS === 'android') {
+ loadBanner(ANDROID_HOME_PAGE_BANNER_ADS);
+ loadInterstitial(ANDROID_HOME_PAGE_POP_UP_ADS);
+ isInterstitialReady(ANDROID_HOME_PAGE_POP_UP_ADS)
+ showInterstitial(ANDROID_HOME_PAGE_POP_UP_ADS)
+} 
+else if (Platform.OS === 'ios') {
+ loadBanner(IOS_HOME_PAGE_BANNER_ADS);
+ loadInterstitial(IOS_HOME_PAGE_POP_UP_ADS);
+ isInterstitialReady(IOS_HOME_PAGE_POP_UP_ADS)
+ showInterstitial(IOS_HOME_PAGE_POP_UP_ADS)
+}
 
   return (
     <QueryClientProvider client={queryClient}>

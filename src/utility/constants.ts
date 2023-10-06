@@ -64,8 +64,14 @@ export const IOS_TOPIC_DETAILS_BANNER_ADS = "b6511288d75039";
 export const IOS_TOPIC_TAB_BANNER_ADS = "b65112877206d7";
 
 // topon 插屏广告
-export const IOS_PLAY_DETAILS_INSERT_ADS = "b651128c8079b6";
-export const IOS_HOME_PAGE_INSERT_ADS = "b651128b440d9a";
+export const ANDROID_HOME_PAGE_POP_UP_ADS = "b650d314a73226";
+export const ANDROID_PLAY_DETAILS_POP_UP_ADS = "b650d31f7a8f63";
+export const IOS_PLAY_DETAILS_POP_UP_ADS = "b651128c8079b6";
+export const IOS_HOME_PAGE_POP_UP_ADS = "b651128b440d9a";
+
+
+// topon 激励视频广告
+export const ANDROID_HOME_REWARD_ADS = "b651e77ae56eda";
 
 // topon banner
 export const TOPON_BANNER_WIDTH = 415;
