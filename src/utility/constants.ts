@@ -44,7 +44,7 @@ export const APPSFLYER_DEVKEY = 'wrxTHihLJNWrrusXtgRJZa';
 
 export const UMENG_CHANNEL = "HUAWEI_APP_GALLERY_OVERSEAS";
 
-export const APP_VERSION = "1.0.0";
+export const APP_VERSION = "1.3.0";
 
 export const TOPON_ANDROID_APP_ID = "a65096b9d21e23";
 export const TOPON_ANDROID_APP_KEY = "0b1cab850e5de6fdc1fe0e114a0256eb";

@@ -1,13 +1,12 @@
-import React, { useEffect } from "react";
-import { Provider } from "react-redux";
-import Nav from "./src/navigation/nav";
-import NavA from "./srcA/navigation/nav";
-import { store, persistor } from "./src/redux/store";
-import { PersistGate } from "redux-persist/integration/react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { NetworkInfo } from "react-native-network-info";
-
-import axios from "axios";
+import React, { useEffect } from 'react';
+import { Provider } from 'react-redux';
+import Nav from './src/navigation/nav';
+import { store, persistor } from './src/redux/store';
+import { PersistGate } from 'redux-persist/integration/react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import {NetworkInfo} from 'react-native-network-info';
+import {showToast} from './src/Sports/utility/toast';
+import axios from 'axios';
 import {
   API_DOMAIN,
   API_DOMAIN_TEST,

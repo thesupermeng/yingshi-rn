@@ -93,9 +93,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.yingshipin"
+    namespace "com.yingshi"
     defaultConfig {
-        applicationId "com.yingshipin"
+        applicationId "com.yingshi"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 5
@@ -109,6 +109,8 @@ android {
         resValue "string", "UMENG_CHANNEL_OPPO_APP_MARKET", "OPPO_APP_MARKET"
         resValue "string", "UMENG_CHANNEL_VIVO_APP_STORE", "VIVO_APP_STORE"
         resValue "string", "UMENG_CHANNEL_MI_GETAPPS", "MI_GETAPPS"
+        resValue "string", "UMENG_CHANNEL_SAMSUNG_GALAXY_STORE", "SAMSUNG_GALAXY_STORE"
+        resValue 'string', "CODE_PUSH_APK_BUILD_TIME", String.format("\"%d\"", System.currentTimeMillis())
         ndk {
            abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86_64', 'x86'
         }
