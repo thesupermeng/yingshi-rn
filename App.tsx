@@ -139,24 +139,24 @@ let App = () => {
               break;
 
             case CodePush.SyncStatus.DOWNLOADING_PACKAGE:
-              console.log("CODEPUSH STATUS : Downloading package");
+              showToast("正在下载新资源。。。");
               break;
 
             case CodePush.SyncStatus.INSTALLING_UPDATE:
-              console.log("CODEPUSH STATUS : Installing update");
+              showToast("正在安装新资源。。。");
               break;
 
             case CodePush.SyncStatus.UP_TO_DATE:
-              console.log("CODEPUSH STATUS : Up to date");
+              showToast("CODEPUSH STATUS : Up to date");
               break;
 
             case CodePush.SyncStatus.UPDATE_INSTALLED:
-              console.log("CODEPUSH STATUS : Done installing");
+              showToast("安装完成");
               // restart
               break;
 
             case CodePush.SyncStatus.UNKNOWN_ERROR:
-              console.log("CODEPUSH STATUS : Error");
+              showToast("安装失败");
               break;
           }
         }
