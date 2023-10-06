@@ -32,7 +32,7 @@ target 'yingshi' do
     # Hermes is now enabled by default. Disable by setting this flag to false.
     # Upcoming versions of React Native may rely on get_default_flags(), but
     # we make it explicit here to aid in the React Native upgrade process.
-    :hermes_enabled => flags[:hermes_enabled],
+    :hermes_enabled => false,
     :fabric_enabled => flags[:fabric_enabled],
     # Enables Flipper.
     #
@@ -60,7 +60,40 @@ target 'yingshi' do
   # # 必选，APM组件，原错误分析升级为独立产品U-APM
   # pod 'UMAPM' 	
   pod 'AppCenter'
+  
+  pod 'AnyThinkiOS','6.2.66'
+  pod 'AnyThinkiOS/AnyThinkMaioAdapter','6.2.66'
+  pod 'AnyThinkiOS/AnyThinkStartAppAdapter','6.2.66'
+  pod 'AnyThinkBaiduAdapter','6.2.66.1'
+  pod 'AnyThinkiOS/AnyThinkNendAdapter','6.2.66'
+  pod 'AnyThinkiOS/AnyThinkKuaiShouAdapter','6.2.66'
+  pod 'AnyThinkiOS/AnyThinkSigmobAdapter','6.2.66'
+  # pod 'AnyThinkiOS/AnyThinkVungleAdapter','6.2.66'
+  pod 'AnyThinkiOS/AnyThinkUnityAdsAdapter','6.2.66'
+  pod 'AnyThinkiOS/AnyThinkIronSourceAdapter','6.2.66'
+  pod 'AnyThinkiOS/AnyThinkTapjoyAdapter','6.2.66'
+  pod 'AnyThinkiOS/AnyThinkTTAdapter','6.2.66'
+  # pod 'AnyThinkiOS/AnyThinkAdColonyAdapter','6.2.66'
+  pod 'AnyThinkiOS/AnyThinkKlevinAdapter','6.2.66'
+  pod 'AnyThinkiOS/AnyThinkKidozAdapter','6.2.66'
+  pod 'AnyThinkiOS/AnyThinkAdmobAdapter','6.2.66'
+  #  pod 'AnyThinkiOS/AnyThinkInmobiAdapter','6.2.66'
+  pod 'AnyThinkiOS/AnyThinkApplovinAdapter','6.2.66'
+  pod 'AnyThinkiOS/AnyThinkMintegralAdapter','6.2.66'
+  pod 'AnyThinkiOS/AnyThinkGDTAdapter','6.2.66'
+  #  pod 'AnyThinkiOS/AnyThinkChartboostAdapter','6.2.66'
+  pod 'AnyThinkiOS/AnyThinkMyTargetAdapter','6.2.66'
+  pod 'AnyThinkiOS/AnyThinkFyberAdapter','6.2.66'
+  pod 'AnyThinkiOS/AnyThinkOguryAdapter','6.2.66'
 
+  pod 'AnyThinkiOS/AnyThinkBigoAdapter','6.2.66'
+  pod 'AnyThinkiOS/AnyThinkYandexAdapter','6.2.66'
+  
+  # not support china
+  # pod 'AnyThinkiOS/AnyThinkPangleAdapter','6.2.66'
+  # pod 'AnyThinkiOS/AnyThinkFacebookAdapter','6.2.66'
+  # pod 'AnyThinkiOS/AnyThinkMintegralAdapter','6.2.66'
+  
   post_install do |installer|
     react_native_post_install(
       installer,
@@ -68,6 +101,9 @@ target 'yingshi' do
       # necessary for Mac Catalyst builds
       :mac_catalyst_enabled => false
     )
+    installer.pods_project.build_configurations.each do |config|
+      config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"
+    end
     __apply_Xcode_12_5_M1_post_install_workaround(installer)
   end
 end

@@ -6,12 +6,23 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import <CodePush/CodePush.h>
+#import <React/RCTAppSetupUtils.h>
 
 #import <AppCenterReactNative.h>
 #import <AppCenterReactNativeAnalytics.h>
 #import <AppCenterReactNativeCrashes.h>
 
 //#import <UMCommon/UMConfigure.h>
+
+#import <AnyThinkSDK/AnyThinkSDK.h>
+#import <AnyThinkGDTAdapter/ATGDTConfigure.h>
+// #import <AnyThinkPangleAdapter/ATPangleConfigure.h>
+// #import <AnyThinkVungleAdapter/ATVungleConfigure.h>
+// #import <AnyThinkAdColonyAdapter/ATAdColonyConfigure.h>
+#import <AnyThinkMyTargetAdapter/ATMyTargetConfigure.h>
+// #import <AnyThinkFacebookAdapter/ATFacebookConfigure.h>
+// #import <AnyThinkFacebookAdapter/ATFacebookConfigure.h>
+#import "ATSplashViewController.h"
 
 @implementation AppDelegate
 
@@ -20,39 +31,47 @@
 //  [UMConfigure setLogEnabled:YES];
   // [RNUMConfigure initWithAppkey:@"64a632e5bd4b621232c9e379" channel:@"App Store"];
 //  [UMConfigure initWithAppkey:@"64a632e5bd4b621232c9e379" channel:@"App Store"];
-  self.moduleName = @"yingshi";
+//  self.moduleName = @"yingshi";
   // You can add your custom initial props in the dictionary below.
   // They will be passed down to the ViewController used by React Native.
-  self.initialProps = @{};
+//  self.initialProps = @{};
   
-  [AppCenterReactNative register];
-  [AppCenterReactNativeAnalytics registerWithInitiallyEnabled:true];
-  [AppCenterReactNativeCrashes registerWithAutomaticProcessing];
-  
-//  UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"AnimationViewStoryboard" bundle:[NSBundle mainBundle]];
-//    // this code just run when storyboard have default ViewController
-//  //  UIViewController *vc =[storyboard instantiateInitialViewController];
-//
-//  UIViewController *vc =[storyboard instantiateViewControllerWithIdentifier:@"myAnimationViewController"];
-//
-//  RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
-//  RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
-//                                               moduleName:@"yingshi"
-//                                        initialProperties:nil];
-//
-//  rootView.backgroundColor = [UIColor blueColor];
-//
-//  UIViewController *rootViewController = [UIViewController new];
-//  rootViewController.view = rootView;
-//
-//  self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-//  self.window.rootViewController = vc;
-//  [self.window makeKeyAndVisible];
+  [ATAPI setLogEnabled:NO]; // Turn on debug logs
 
-//  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//    self.window.rootViewController = rootViewController;
-//  });
+  //  ATMintegralConfigure *mtgConfigure = [[ATMintegralConfigure alloc] initWithAppid:@"a650a6ca02b6a6" appkey:@"0b1cab850e5de6fdc1fe0e114a0256eb"];
+    ATGDTConfigure *gdtConfigure = [[ATGDTConfigure alloc] initWithAppid:@"a650a6ca02b6a6"];
+  //  ATPangleConfigure *pangleConfigure = [[ATPangleConfigure alloc] initWithAppid:@"a650a6ca02b6a6"];
+  //  ATVungleConfigure *vungleConfigure = [[ATVungleConfigure alloc] initWithAppid:@"a650a6ca02b6a6"];
+  //  ATAdColonyConfigure *adcolonyConfigure = [[ATAdColonyConfigure alloc] initWithAppid:@"a650a6ca02b6a6" zoneIds:@[zoneIds]];
+    ATMyTargetConfigure *mytargetConfigure = [[ATMyTargetConfigure alloc] init];
+  //  ATFacebookConfigure *facebookConfigure = [[ATFacebookConfigure alloc] init];
+
+    ATSDKConfiguration *configuration = [[ATSDKConfiguration alloc] init];
+    configuration.preInitArray = @[
+  //    mtgConfigure,
+     gdtConfigure,
+  //    pangleConfigure,
+  //    vungleConfigure,
+  //    adcolonyConfigure,
+      mytargetConfigure,
+  //    facebookConfigure
+    ];
+
+  [[ATAPI sharedInstance] startWithAppID:@"a650a6ca02b6a6" appKey:@"0b1cab850e5de6fdc1fe0e114a0256eb" sdkConfigures:configuration error:nil];
+  [[ATAPI sharedInstance] setPresetPlacementConfigPathBundle:[NSBundle mainBundle]];
   
+  self.launchOptions = launchOptions;
+  self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+  
+  ATSplashViewController *splashViewController = [[ATSplashViewController alloc] init];
+  splashViewController.delegate = self;
+  self.window.rootViewController = splashViewController;
+  [self.window makeKeyAndVisible];
+  
+//  [AppCenterReactNative register];
+//  [AppCenterReactNativeAnalytics registerWithInitiallyEnabled:true];
+//  [AppCenterReactNativeCrashes registerWithAutomaticProcessing];
+
   [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
 //  AVAudioSession *audioSession = [AVAudioSession sharedInstance];
 //    NSError *setCategoryError = nil;
@@ -60,13 +79,14 @@
 //                        error:&setCategoryError];
 
   // return [super application:application didFinishLaunchingWithOptions:launchOptions];
-  BOOL success = [super application:application didFinishLaunchingWithOptions:launchOptions];
-  if (success) {
-    // Modify as needed to match the main color of your splash.
-    // [MobClick setScenarioType:E_UM_NORMAL];
-    // [MobClick setScenarioType:E_UM_E_UM_GAME|E_UM_DPLUS];
-  }
-  return success;
+//  BOOL success = [super application:application didFinishLaunchingWithOptions:launchOptions];
+//  if (success) {
+//    // Modify as needed to match the main color of your splash.
+//    // [MobClick setScenarioType:E_UM_NORMAL];
+//    // [MobClick setScenarioType:E_UM_E_UM_GAME|E_UM_DPLUS];
+//  }
+//  return success;
+  return YES;
 }
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
@@ -92,4 +112,28 @@
   return [Orientation getOrientation];
 }
 
+- (NSDictionary *)prepareInitialProps
+{
+  NSMutableDictionary *initProps = [NSMutableDictionary new];
+  
+#ifdef RCT_NEW_ARCH_ENABLED
+  initProps[kRNConcurrentRoot] = @([self concurrentRootEnabled]);
+#endif
+  
+  return initProps;
+}
+
+- (void)nativeViewControllerDidFinish {
+  RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:self.launchOptions];
+  NSDictionary *initProps = [self prepareInitialProps];
+  UIView *rootView = RCTAppSetupDefaultRootView(bridge, @"yingshi", initProps, true);
+  if (@available(iOS 13.0, *)) {
+    rootView.backgroundColor = [UIColor systemBackgroundColor];
+  } else {
+    rootView.backgroundColor = [UIColor whiteColor];
+  }
+//  UIViewController *rootViewController = [UIViewController new];
+//  rootViewController.view = rootView;
+  self.window.rootViewController.view = rootView;
+}
 @end
