@@ -109,7 +109,7 @@ let App = () => {
     const v1 = parseInt(APP_VERSION.replace(/\./g, ''), 10);
     const v2 = parseInt(res.replace(/\./g, ''), 10);
 
-    if(v2 > v1){
+    if(true){
       CodePush.sync({ 
         installMode: CodePush.InstallMode.IMMEDIATE,
         updateDialog: {
