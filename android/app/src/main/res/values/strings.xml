@@ -2,5 +2,5 @@
     <string name="app_name">影视TV</string>
     <string name="appCenterCrashes_whenToSendCrashes" moduleConfig="true" translatable="false">DO_NOT_ASK_JAVASCRIPT</string>
     <string name="appCenterAnalytics_whenToEnableAnalytics" moduleConfig="true" translatable="false">ALWAYS_SEND</string>
-    <string moduleConfig="true" name="CodePushDeploymentKey">SVDKNhmyEZXHTxX14U0uxQwSOAwc9me-xnj7U</string>
+    <string moduleConfig="true" name="CodePushDeploymentKey">o-gu4vgW0ne79pMzU8HNVjZzJjTcBFUnXqx1I</string>
 </resources>

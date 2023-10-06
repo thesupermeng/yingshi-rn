@@ -130,7 +130,7 @@
 	<!-- CodePush YINGSHI Global Deployment Key - oG_XSZX8zQ1QBw_VznDtxHNqkNONW6kuTOCIP (Staging) -->
 	<!-- CodePush YINGSHI Global Deployment Key - KsO7FCf3Rz-gOUFeCbRFOndw87cCa6KC9wuSp (Production) -->
 	<key>CodePushDeploymentKey</key>
-	<string>oG_XSZX8zQ1QBw_VznDtxHNqkNONW6kuTOCIP</string>
+	<string>2rgC7ID8OcD3S6GLVTxX6iHUTPcEmbzFrkYY3</string>
 	<!-- <key>CodePushPublicKey</key>
         <string>-----BEGIN PUBLIC KEY-----
 MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBANkWYydPuyOumR/sn2agNBVDnzyRpM16NAUpYPGxNgjSEp0etkDNgzzdzyvyl+OsAGBYF3jCxYOXozum+uV5hQECAwEAAQ==
