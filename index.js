@@ -2,7 +2,7 @@
  * @format
  */
 
-// import {AppRegistry} from 'react-native';
+import { Platform } from 'react-native';
 import App from './App';
 import { ATRNSDK } from './AnyThinkAds/ATReactNativeSDK';
 // import {name as appName} from './app.json';
@@ -17,7 +17,8 @@ import Config from './src/Sports/global/env';
 import Api from './src/Sports/middleware/api';
 import { Url } from './src/Sports/middleware/url';
 import 'react-native-gesture-handler';
-import { API_DOMAIN, UMENG_CHANNEL } from './src/utility/constants';
+import { NetworkInfo } from 'react-native-network-info';
+import { API_DOMAIN, UMENG_CHANNEL, APP_VERSION, API_DOMAIN_TEST } from './src/utility/constants';
 
 AppRegistry.registerRunnable(appName, async initialProps => {
 
@@ -44,6 +45,36 @@ AppRegistry.registerRunnable(appName, async initialProps => {
     
             if(tabData != undefined && tabData != null){
                 YSConfig.instance.setTabConfig(tabData.data);
+            }
+        }
+
+        const ipAddress = await NetworkInfo.getIPAddress();
+        const locationBody = {
+            ip_address: ipAddress,
+            channel_id: UMENG_CHANNEL,
+            version_number: APP_VERSION,
+            mobile_os: Platform.OS,
+            product: "影视TV-ANDROID",
+            mobile_model: "HUAWEIP20",
+        }
+
+        const locationResponse = await fetch(`${API_DOMAIN_TEST}location/v1/info`, {
+            method: "POST",
+            mode: "cors",
+            cache: "no-cache",
+            credentials: "same-origin",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            redirect: "follow",
+            referrerPolicy: "no-referrer",
+            body: JSON.stringify(locationBody)
+        })
+        if (locationResponse.ok) {
+            const locationResp = await locationResponse.json();
+
+            if(tabData != undefined && tabData != null){
+                YSConfig.instance.setAreaConfig(locationResp.data.status);
             }
         }
 
