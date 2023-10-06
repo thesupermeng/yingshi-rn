@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Provider } from 'react-redux';
 import Nav from './src/navigation/nav';
+import NavA from './srcA/navigation/nav';
 import { store, persistor } from './src/redux/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
