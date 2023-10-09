@@ -19,6 +19,7 @@ import DarkMode from '../../../static/images/dark_mode.svg';
 import Orientation from 'react-native-orientation-locker';
 
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
+import AdsBanner from '../../ads/adsBanner';
 function Profile ({navigation}: BottomTabScreenProps<any>) {
   const {colors, textVariants, icons, spacing} = useTheme();
   const dispatch = useAppDispatch();
@@ -37,6 +38,7 @@ function Profile ({navigation}: BottomTabScreenProps<any>) {
 
   return (
     <ScreenContainer>
+      <AdsBanner bottomTabHeight={0}/>
       <View style={{...styles.topNav}}>
         <Text
           style={{...textVariants.bigHeader, color: colors.text, fontSize: 22}}>

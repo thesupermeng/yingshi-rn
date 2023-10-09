@@ -50,7 +50,7 @@ function AdsBanner({bottomTabHeight = 0}: Props){
   const [navBarHeightInPixel, setNavBarHeightInPixel] = useState(0)
 
 
-  const pageWithNavbar = ["首页", "播单"]
+  const pageWithNavbar = ["首页", "播单", "体育"]
   const pageNoNavbar = ["播放", "PlaylistDetail"]
 
   try {
@@ -152,22 +152,24 @@ function AdsBanner({bottomTabHeight = 0}: Props){
   useEffect(()=>{
     const currentRouteName = route.name
     console.log('route changed to ', currentRouteName)
-
-    if (currentRouteName == "播放") { // video player page
+    if (!isFocused){
+      console.log('ignore')
+    }
+    else if (currentRouteName == "播放") { // video player page
       if (Platform.OS === "android") {
         setBannerPlacementId(ANDROID_PLAY_DETAILS_BANNER_ADS)
       } else if (Platform.OS === "ios") {
         setBannerPlacementId(IOS_PLAY_DETAILS_BANNER_ADS)
       }
     } 
-    if (currentRouteName == "PlaylistDetail") { // playlist detail 
+    else if (currentRouteName == "PlaylistDetail" || currentRouteName == "体育详情") { // playlist detail 
       if (Platform.OS === "android") {
         setBannerPlacementId(ANDROID_TOPIC_DETAILS_BANNER_ADS)
       } else if (Platform.OS === "ios") {
         setBannerPlacementId(IOS_TOPIC_DETAILS_BANNER_ADS)
       }
     }
-    if (currentRouteName == "Home" || currentRouteName == "首页") { //home page 
+    else if (currentRouteName == "Home" || currentRouteName == "首页") { //home page 
       if (Platform.OS === "android") {
         setBannerPlacementId(ANDROID_HOME_PAGE_BANNER_ADS)
       } else if (Platform.OS === "ios") {
@@ -175,20 +177,21 @@ function AdsBanner({bottomTabHeight = 0}: Props){
       }
     }
     //播单
-    if (currentRouteName == "播单") { // playlist
+    else if (currentRouteName == "播单" || currentRouteName == "体育") { // playlist
       if (Platform.OS === "android") {
         setBannerPlacementId(ANDROID_TOPIC_TAB_BANNER_ADS)
       } else if (Platform.OS === "ios") {
         setBannerPlacementId(IOS_TOPIC_TAB_BANNER_ADS)
       }
     }
-    if (!pageWithNavbar.includes(currentRouteName) && !pageNoNavbar.includes(currentRouteName)){
+    else if (!pageWithNavbar.includes(currentRouteName) && !pageNoNavbar.includes(currentRouteName)){
+      console.log('page not included in requirement')
       // no banner 
       setBannerPlacementId('')
       hideBannerExcept('')
     }
     
-  }, [route])
+  }, [route, isFocused])
 
   useEffect(()=>{
     if (isFocused){

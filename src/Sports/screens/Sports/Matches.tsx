@@ -13,7 +13,7 @@ import {useTheme} from '@react-navigation/native';
 import {useInfiniteQuery, useQuery} from '@tanstack/react-query';
 import {VodPlaylistResponseType, VodTopicType} from '../../../types/ajaxTypes';
 import VodPlaylist from '../../../components/playlist/vodPlaylist';
-import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
+import {BottomTabScreenProps, useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 import {API_DOMAIN, MATCH_API_DOMAIN} from '../../../utility/constants';
 import Animated from 'react-native-reanimated';
 import FastImage from 'react-native-fast-image';
@@ -27,6 +27,7 @@ import MatchScheduleNav from '../../components/matchSchedule/MatchScheduleNav';
 import NoConnection from './../../../components/common/noConnection';
 
 import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
+import AdsBanner from '../../../ads/adsBanner';
 interface NavType {
   has_submenu: boolean;
   ids: Array<number>;
@@ -43,6 +44,7 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
         return res.data;
       }),
   });
+  const bottomTabHeight = useBottomTabBarHeight();
 
   const matchTabs = useMemo(
     () =>
@@ -75,6 +77,7 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
 
   return (
     <ScreenContainer containerStyle={{paddingLeft: 0, paddingRight: 0}}>
+      <AdsBanner bottomTabHeight={bottomTabHeight} />
       <View
         style={{
           backgroundColor: colors.background,
