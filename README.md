@@ -7,8 +7,8 @@ this project using gradle version 7.5, so need to download the suitable java ver
 ## Android:
 
 * What went wrong:
-A problem occurred configuring root project 'yingshipinpin'.
-> Could not open proj generic class cache for build file '/Projects/yingshipinpin-react-native/android/build.gradle' (/.gradle/caches/7.5.1/scripts/4zt8x5knz4cpjdicliaiiizr0).
+A problem occurred configuring root project 'yingshipin'.
+> Could not open proj generic class cache for build file '/Projects/yingshipin-react-native/android/build.gradle' (/.gradle/caches/7.5.1/scripts/4zt8x5knz4cpjdicliaiiizr0).
    > BUG! exception in phase 'semantic analysis' in source unit '_BuildScript_' Unsupported class file major version 64
 
 
@@ -19,7 +19,7 @@ https://stackoverflow.com/questions/18487406/how-do-i-tell-gradle-to-use-specifi
 
 * What went wrong:
 Could not determine the dependencies of task ':app:compileDebugJavaWithJavac'.
-> SDK location not found. Define a valid SDK location with an ANDROID_HOME environment variable or by setting the sdk.dir path in your project's local properties file at '/Projects/yingshipinpin-react-native/android/local.properties'.
+> SDK location not found. Define a valid SDK location with an ANDROID_HOME environment variable or by setting the sdk.dir path in your project's local properties file at '/Projects/yingshipin-react-native/android/local.properties'.
 
 
 Refer:
@@ -67,8 +67,8 @@ Add new app to code push app center:
 code-push app add <appName> <os> <platform>
 
 example:
-- code-push app add yingshipinpin-ios ios react-native
-- code-push app add yingshipinpin-android Android react-native
+- code-push app add yingshipin-ios ios react-native
+- code-push app add yingshipin-android Android react-native
 ---------------------------------------------
 
 List all apps:
