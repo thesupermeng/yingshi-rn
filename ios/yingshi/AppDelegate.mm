@@ -39,7 +39,7 @@
   [ATAPI setLogEnabled:NO]; // Turn on debug logs
 
   //  ATMintegralConfigure *mtgConfigure = [[ATMintegralConfigure alloc] initWithAppid:@"a650a6ca02b6a6" appkey:@"0b1cab850e5de6fdc1fe0e114a0256eb"];
-    ATGDTConfigure *gdtConfigure = [[ATGDTConfigure alloc] initWithAppid:@"a650a6ca02b6a6"];
+    ATGDTConfigure *gdtConfigure = [[ATGDTConfigure alloc] initWithAppid:@"a65093c4e166c3"];
   //  ATPangleConfigure *pangleConfigure = [[ATPangleConfigure alloc] initWithAppid:@"a650a6ca02b6a6"];
   //  ATVungleConfigure *vungleConfigure = [[ATVungleConfigure alloc] initWithAppid:@"a650a6ca02b6a6"];
   //  ATAdColonyConfigure *adcolonyConfigure = [[ATAdColonyConfigure alloc] initWithAppid:@"a650a6ca02b6a6" zoneIds:@[zoneIds]];
@@ -57,7 +57,7 @@
   //    facebookConfigure
     ];
 
-  [[ATAPI sharedInstance] startWithAppID:@"a650a6ca02b6a6" appKey:@"0b1cab850e5de6fdc1fe0e114a0256eb" sdkConfigures:configuration error:nil];
+  [[ATAPI sharedInstance] startWithAppID:@"a65093c4e166c3" appKey:@"0b1cab850e5de6fdc1fe0e114a0256eb" sdkConfigures:configuration error:nil];
   [[ATAPI sharedInstance] setPresetPlacementConfigPathBundle:[NSBundle mainBundle]];
   
   self.launchOptions = launchOptions;
