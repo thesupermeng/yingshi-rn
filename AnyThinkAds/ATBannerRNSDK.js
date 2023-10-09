@@ -116,8 +116,11 @@ module.exports = {
 
   loadAd,
   hasAdReady: (placementId) =>  ATBannerRNSDK.hasAdReady(placementId),
+  checkAdStatus: (placementId) =>  ATBannerRNSDK.checkAdStatus(placementId),
   showAdInPosition: (placementId, position) =>  ATBannerRNSDK.showAdInPosition(placementId, position),
   showAdInRectangle: (placementId, showAdRect) =>  ATBannerRNSDK.showAdInRectangle(placementId, JSON.stringify(showAdRect)),
+  showAdInPositionAndScenario: (placementId, position, scenario) =>  ATBannerRNSDK.showAdInPositionAndScenario(placementId, position, scenario),
+  showAdInRectangleAndScenario: (placementId, showAdRect, scenario) =>  ATBannerRNSDK.showAdInRectangleAndScenario(placementId, showAdRect, scenario),
   hideAd: (placementId) =>  ATBannerRNSDK.hideAd(placementId),
   reShowAd: (placementId) =>  ATBannerRNSDK.reShowAd(placementId),
   removeAd: (placementId) =>  ATBannerRNSDK.removeAd(placementId),
