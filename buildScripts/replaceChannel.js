@@ -24,18 +24,18 @@ if (packageName == "yingshipin") {
     umengKey = "648ec50987568a379b587f39"
 }
 
-fs.readFile(constantsFilePath, 'utf8', (err, data) => {
-    if (err) {
-        console.error(`Error reading file: ${err.message}`);
-        return;
-    }
+// fs.readFile(constantsFilePath, 'utf8', (err, data) => {
+//     if (err) {
+//         console.error(`Error reading file: ${err.message}`);
+//         return;
+//     }
 
-    const foundConst = data.match(/export const APP_VERSION = "([^"]+)"/);
+//     const foundConst = data.match(/export const APP_VERSION = "([^"]+)"/);
 
-    if (foundConst) {
-        versionNum = foundConst[1];
-    }
-});
+//     if (foundConst) {
+//         versionNum = foundConst[1];
+//     }
+// });
 
 fs.readFile(androidKeyFile, 'utf8', (err, data) => {
     if (err) {
@@ -96,7 +96,7 @@ try {
     console.log('UMENG CHANNEL updated in Android: ', androidResults);
 
     replaceToChannelAndroid.from = /versionName "([^"]+)"/g;
-    replaceToChannelAndroid.to = 'versionName "' + channel + "-" + versionNum + '"';
+    replaceToChannelAndroid.to = 'versionName "' + versionNum + '"';
     console.log(replaceToChannelAndroid.to);
     const androidVersionNumberResults = replace.sync(replaceToChannelAndroid);
     console.log('Version number updated in Android: ', androidVersionNumberResults);
