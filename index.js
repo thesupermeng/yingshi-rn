@@ -54,7 +54,7 @@ AppRegistry.registerRunnable(appName, async initialProps => {
             channel_id: UMENG_CHANNEL,
             version_number: APP_VERSION,
             mobile_os: Platform.OS,
-            product: "影视TV-ANDROID",
+            product: "萤视频-ANDROID",
             mobile_model: "HUAWEIP20",
         }
 
