@@ -1,4 +1,4 @@
-package com.yingshi;
+package com.yingshipin;
 
 import android.app.Application;
 import com.facebook.react.PackageList;

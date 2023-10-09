@@ -1,4 +1,4 @@
-package com.yingshi.zoomout;
+package com.yingshipin.zoomout;
 
 import android.animation.Animator;
 import android.content.Context;

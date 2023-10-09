@@ -1,4 +1,4 @@
-package com.yingshi;
+package com.yingshipin;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
