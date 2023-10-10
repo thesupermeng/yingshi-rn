@@ -201,6 +201,7 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
           style={styles.searchResult}
           contentContainerStyle={{flexGrow: 1}}
           showsVerticalScrollIndicator={false} // Hide the vertical scroll bar
+          keyboardDismissMode='on-drag'
         >
           <View style={{marginLeft: 10}}>
             {search !== undefined &&
