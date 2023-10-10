@@ -80,10 +80,16 @@ function AdsBanner({bottomTabHeight = 0}: Props){
     statusBarHeightInPixel -
     navBarHeightInPixel -
     bottomTabHeightInPixel;
+
+  console.log('screen height', screenHeightInPixel)
+  console.log('status bar heeight', statusBarHeightInPixel)
+  console.log('bottom tab height', bottomTabHeightInPixel)
+  console.log('ads on top ', adsTopInPixel)
   
   const deviceBrand = DeviceInfo.getBrand();
   let offSet = 0;
   if (deviceBrand === "HUAWEI") {
+    console.log('is huawei device')
     // This is a Huawei device
     let deviceHeight = Dimensions.get("screen").height;
     let windowHeight = Dimensions.get("window").height;
@@ -118,14 +124,11 @@ function AdsBanner({bottomTabHeight = 0}: Props){
     } else if (pageWithNavbar.includes(currentRouteName)){
       //show banner above nav
 
-      const specialOffset = (currentRouteName === "播单" && deviceBrand !== "HUAWEI") ? 28 : 0
-
       ATBannerRNSDK.showAdInRectangle(
         bannerId,
         ATBannerRNSDK.createShowAdRect(
           0,
-          adsTopInPixel -
-            TOPON_BANNER_HEIGHT * Dimensions.get("screen").scale + offSet + specialOffset,
+          adsTopInPixel - TOPON_BANNER_HEIGHT * Dimensions.get("screen").scale + offSet,
           screenWidthInPixel ,
           TOPON_BANNER_HEIGHT * Dimensions.get("screen").scale
         )
