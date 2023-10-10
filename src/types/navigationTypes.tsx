@@ -35,13 +35,18 @@ export type WatchAnytimeTabParamList = {
 
 export type RootStackParamList = {
   Profile: BottomTabScreenProps<ProfileTabParamList>;
+  // Profile: any;
   Playlist: BottomTabScreenProps<PlaylistTabParamList>;
   WatchAnytime: BottomTabScreenProps<WatchAnytimeTabParamList>;
-  Home: BottomTabScreenProps<HomeTabParamList>;
+  // Home: BottomTabScreenProps<HomeTabParamList>;
+  Home: any;
   我的收藏: undefined;
   合集收藏: undefined;
   播放历史: undefined;
   反馈: undefined;
+  邀请: undefined;
+  邀请详情: undefined;
+  个人中心: undefined;
   设置: undefined;
   关于我们: undefined;
   分享App: undefined;
@@ -77,6 +82,14 @@ export type RootStackParamList = {
     sportType?: '足球' | '篮球';
   };
   合集播放: {};
+  OTP: {
+    email: string;
+    action?: string;
+    referralCode?: string;
+    // deviceId?: string;
+  };
+  SetUsername: undefined;
+  活动规则: undefined;
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> =
