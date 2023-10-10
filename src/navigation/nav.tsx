@@ -203,6 +203,7 @@ export default () => {
             name="播放"
             component={PlayScreen}
             initialParams={{ vod_id: 1 }}
+            options = {{orientation : 'all'}}
           />
           <Stack.Screen
             name="播放历史"
@@ -262,6 +263,7 @@ export default () => {
               liveStationItemList: undefined,
               liveStationItem: undefined,
             }}
+            options = {{orientation : 'all'}}
           />
           <Stack.Screen
             name="合集播放"
