@@ -20,7 +20,7 @@
     "android-apk-vivo-debug": "export APK_CHANNEL=VIVO_APP_STORE&& cd buildScripts && node replaceChannel.js && cd .. && npm run android-apk-debug",
     "android-apk-mi-debug": "export APK_CHANNEL=MI_GETAPPS&& cd buildScripts && node replaceChannel.js && cd .. && npm run android-apk-debug",
     "android-apk-all-debug": "npm run android-apk-web-debug && npm run android-apk-googleplay-debug && npm run android-apk-oppo-debug && npm run android-apk-huawei-debug && npm run android-apk-vivo-debug && npm run android-apk-mi-debug",
-    "android-apk-web-release": "export APK_CHANNEL=OPPO_APP_MARKET&& cd buildScripts && node replaceChannel.js && cd .. && npm run android-apk-release",
+    "android-apk-web-release": "export APK_CHANNEL=WEB&& cd buildScripts && node replaceChannel.js && cd .. && npm run android-apk-release",
     "android-apk-googleplay-release": "export APK_CHANNEL=GOOGLE_PLAY&& cd buildScripts && node replaceChannel.js && cd .. && npm run android-apk-release",
     "android-apk-oppo-release": "export APK_CHANNEL=OPPO_APP_MARKET&& cd buildScripts && node replaceChannel.js && cd .. && npm run android-apk-release",
     "android-apk-huawei-release": "export APK_CHANNEL=HUAWEI_APP_GALLERY_OVERSEAS&& cd buildScripts && node replaceChannel.js && cd .. && npm run android-apk-release",
