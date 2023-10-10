@@ -34,6 +34,7 @@ import {useIsFocused} from '@react-navigation/native';
 import {useQueryClient} from '@tanstack/react-query';
 import NoConnection from './../components/common/noConnection';
 import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
+import AdsBanner from '../ads/adsBanner';
 
 type MiniVideoResponseType = {
   data: {
@@ -137,6 +138,7 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
 
     return (
         <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
+            <AdsBanner bottomTabHeight={0}/>
             <View style={{ position: 'absolute', top: 0, left: 0, padding: 20, zIndex: 50, width: '100%', flexDirection: 'row', alignItems: 'center' }}>
                 <Text style={{ color: '#FFF', fontSize: 20 }}>随心看</Text>
             </View>

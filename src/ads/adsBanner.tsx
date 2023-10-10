@@ -50,8 +50,8 @@ function AdsBanner({bottomTabHeight = 0}: Props){
   const [navBarHeightInPixel, setNavBarHeightInPixel] = useState(0)
 
 
-  const pageWithNavbar = ["首页", "播单"]
-  const pageNoNavbar = ["播放", "PlaylistDetail"]
+  const pageWithNavbar = ["首页", "播单", "体育"]
+  const pageNoNavbar = ["播放", "PlaylistDetail", "体育详情"]
 
   try {
     getNavigationBarHeight().then((height) => {
@@ -80,10 +80,16 @@ function AdsBanner({bottomTabHeight = 0}: Props){
     statusBarHeightInPixel -
     navBarHeightInPixel -
     bottomTabHeightInPixel;
+
+  console.log('screen height', screenHeightInPixel)
+  console.log('status bar heeight', statusBarHeightInPixel)
+  console.log('bottom tab height', bottomTabHeightInPixel)
+  console.log('ads on top ', adsTopInPixel)
   
   const deviceBrand = DeviceInfo.getBrand();
   let offSet = 0;
   if (deviceBrand === "HUAWEI") {
+    console.log('is huawei device')
     // This is a Huawei device
     let deviceHeight = Dimensions.get("screen").height;
     let windowHeight = Dimensions.get("window").height;
@@ -112,39 +118,19 @@ function AdsBanner({bottomTabHeight = 0}: Props){
     const currentRouteName = route.name;
     console.log('current route', currentRouteName)
 
-    let x, y, width, height
-    if(Platform.OS === "ios") {
-      x = 0
-      y = 750
-      width = screenWidthInPixel
-      height = TOPON_BANNER_HEIGHT
-    } else if(Platform.OS === "android") {
-      x = 0
-      y = 2450
-      width = screenWidthInPixel
-      height = TOPON_BANNER_HEIGHT * Dimensions.get("screen").scale
-    } else{
-      x = 0
-      y = 100
-      width = screenWidthInPixel
-      height = TOPON_BANNER_HEIGHT * Dimensions.get("screen").scale
-    }
-
     if (!pageWithNavbar.includes(currentRouteName) && !pageNoNavbar.includes(currentRouteName)){
       ATBannerRNSDK.hideAd(bannerPlacementId); //hide ad if not these 4 page 
       console.log('no banner')
     } else if (pageWithNavbar.includes(currentRouteName)){
       //show banner above nav
 
-      const specialOffset = (currentRouteName === "播单" && deviceBrand !== "HUAWEI") ? 28 : 0
-
       ATBannerRNSDK.showAdInRectangle(
         bannerId,
         ATBannerRNSDK.createShowAdRect(
-          x,
-          y,
-          width,
-          height
+          0,
+          adsTopInPixel - TOPON_BANNER_HEIGHT * Dimensions.get("screen").scale + offSet,
+          screenWidthInPixel ,
+          TOPON_BANNER_HEIGHT * Dimensions.get("screen").scale
         )
       ); 
 
@@ -152,10 +138,10 @@ function AdsBanner({bottomTabHeight = 0}: Props){
       ATBannerRNSDK.showAdInRectangle(
         bannerId,
         ATBannerRNSDK.createShowAdRect(
-          x,
-          y,
+          0,
+          adsTopInPixel - (TOPON_BANNER_HEIGHT * Dimensions.get("screen").scale) + offSet,
           screenWidthInPixel ,
-          height
+          TOPON_BANNER_HEIGHT * Dimensions.get("screen").scale
         )
       );  
 
@@ -169,22 +155,24 @@ function AdsBanner({bottomTabHeight = 0}: Props){
   useEffect(()=>{
     const currentRouteName = route.name
     console.log('route changed to ', currentRouteName)
-
-    if (currentRouteName == "播放") { // video player page
+    if (!isFocused){
+      console.log('ignore')
+    }
+    else if (currentRouteName == "播放") { // video player page
       if (Platform.OS === "android") {
         setBannerPlacementId(ANDROID_PLAY_DETAILS_BANNER_ADS)
       } else if (Platform.OS === "ios") {
         setBannerPlacementId(IOS_PLAY_DETAILS_BANNER_ADS)
       }
     } 
-    if (currentRouteName == "PlaylistDetail") { // playlist detail 
+    else if (currentRouteName == "PlaylistDetail" || currentRouteName == "体育详情") { // playlist detail 
       if (Platform.OS === "android") {
         setBannerPlacementId(ANDROID_TOPIC_DETAILS_BANNER_ADS)
       } else if (Platform.OS === "ios") {
         setBannerPlacementId(IOS_TOPIC_DETAILS_BANNER_ADS)
       }
     }
-    if (currentRouteName == "Home" || currentRouteName == "首页") { //home page 
+    else if (currentRouteName == "Home" || currentRouteName == "首页") { //home page 
       if (Platform.OS === "android") {
         setBannerPlacementId(ANDROID_HOME_PAGE_BANNER_ADS)
       } else if (Platform.OS === "ios") {
@@ -192,20 +180,21 @@ function AdsBanner({bottomTabHeight = 0}: Props){
       }
     }
     //播单
-    if (currentRouteName == "播单") { // playlist
+    else if (currentRouteName == "播单" || currentRouteName == "体育") { // playlist
       if (Platform.OS === "android") {
         setBannerPlacementId(ANDROID_TOPIC_TAB_BANNER_ADS)
       } else if (Platform.OS === "ios") {
         setBannerPlacementId(IOS_TOPIC_TAB_BANNER_ADS)
       }
     }
-    if (!pageWithNavbar.includes(currentRouteName) && !pageNoNavbar.includes(currentRouteName)){
+    else if (!pageWithNavbar.includes(currentRouteName) && !pageNoNavbar.includes(currentRouteName)){
+      console.log('page not included in requirement')
       // no banner 
       setBannerPlacementId('')
       hideBannerExcept('')
     }
     
-  }, [route])
+  }, [route, isFocused])
 
   useEffect(()=>{
     if (isFocused){
@@ -223,22 +212,12 @@ function AdsBanner({bottomTabHeight = 0}: Props){
     if (Platform.OS === 'android'){
       // @ts-ignore
       settings[ATBannerRNSDK.kATBannerAdLoadingExtraBannerAdSizeStruct] = ATBannerRNSDK.createLoadAdSize(this.deviceWidthInPixel, this.deviceWidthInPixel * 50/320);
-      // load all ad first 
-      ATBannerRNSDK.loadAd(ANDROID_HOME_PAGE_BANNER_ADS, settings);
-      ATBannerRNSDK.loadAd(ANDROID_PLAY_DETAILS_BANNER_ADS, settings);
-      ATBannerRNSDK.loadAd(ANDROID_TOPIC_DETAILS_BANNER_ADS, settings);
-      ATBannerRNSDK.loadAd(ANDROID_TOPIC_TAB_BANNER_ADS, settings);
     }
-    if (Platform.OS === 'ios'){
-      // @ts-ignore
-      settings[ATBannerRNSDK.kATBannerAdLoadingExtraBannerAdSizeStruct] = ATBannerRNSDK.createLoadAdSize(320, 50);
-
-      ATBannerRNSDK.loadAd(IOS_HOME_PAGE_BANNER_ADS,settings);
-      ATBannerRNSDK.loadAd(IOS_PLAY_DETAILS_BANNER_ADS,settings);
-      ATBannerRNSDK.loadAd(IOS_TOPIC_DETAILS_BANNER_ADS,settings);
-      ATBannerRNSDK.loadAd(IOS_TOPIC_TAB_BANNER_ADS,settings);
-    }
-
+    // load all ad first 
+    ATBannerRNSDK.loadAd(ANDROID_HOME_PAGE_BANNER_ADS, settings);
+    ATBannerRNSDK.loadAd(ANDROID_PLAY_DETAILS_BANNER_ADS, settings);
+    ATBannerRNSDK.loadAd(ANDROID_TOPIC_DETAILS_BANNER_ADS, settings);
+    ATBannerRNSDK.loadAd(ANDROID_TOPIC_TAB_BANNER_ADS, settings);
   }, [])
 
 
