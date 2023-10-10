@@ -148,7 +148,7 @@ let App = () => {
               break;
 
             case CodePush.SyncStatus.UP_TO_DATE:
-              showToast("CODEPUSH STATUS : Up to date");
+              console.log("CODEPUSH STATUS : Up to date");
               break;
 
             case CodePush.SyncStatus.UPDATE_INSTALLED:
