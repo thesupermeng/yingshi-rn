@@ -236,7 +236,7 @@ const styles = StyleSheet.create({
   refresh: {
     backgroundColor: '#FAC33D',
     position: 'absolute',
-    bottom: 15,
+    bottom: 75,
     right: 20,
     display: 'flex',
     flexDirection: 'row',

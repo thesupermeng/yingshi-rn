@@ -104,6 +104,13 @@ try {
     console.error('Error occurred:', error);
 }
 
+try {
+    let umengKeyResults = replace.sync(replaceToUmengAppKey);
+    console.log('UMENG Key updated in Android: ', umengKeyResults);
+} catch (error) {
+    console.error('Error occurred:', error);
+}
+
 // const ALL_UMENG_CHANNELS = {
 //     'WEB': 'WEB',
 //     'GOOGLE_PLAY': 'GOOGLE_PLAY',

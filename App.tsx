@@ -1,12 +1,14 @@
-import React, { useEffect } from 'react';
-import { Provider } from 'react-redux';
-import Nav from './src/navigation/nav';
-import { store, persistor } from './src/redux/store';
-import { PersistGate } from 'redux-persist/integration/react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import {NetworkInfo} from 'react-native-network-info';
-import {showToast} from './src/Sports/utility/toast';
-import axios from 'axios';
+import React, { useEffect } from "react";
+import { Provider } from "react-redux";
+import Nav from "./src/navigation/nav";
+import NavA from "./srcA/navigation/nav";
+import { store, persistor } from "./src/redux/store";
+import { PersistGate } from "redux-persist/integration/react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { NetworkInfo } from "react-native-network-info";
+import { showToast } from "./src/Sports/utility/toast";
+import VipOverlay from "./src/components/modal/vipOverlay";
+import axios from "axios";
 import {
   API_DOMAIN,
   API_DOMAIN_TEST,
@@ -50,8 +52,8 @@ import { YSConfig } from "./ysConfig";
 import {
   ATRNSDK,
   ATInterstitialRNSDK,
-  ATBannerRNSDK
-} from './AnyThinkAds/ATReactNativeSDK';
+  ATBannerRNSDK,
+} from "./AnyThinkAds/ATReactNativeSDK";
 
 let App = () => {
   // appsFlyer.initSdk(
@@ -147,7 +149,7 @@ let App = () => {
               break;
 
             case CodePush.SyncStatus.UP_TO_DATE:
-              showToast("CODEPUSH STATUS : Up to date");
+              console.log("CODEPUSH STATUS : Up to date");
               break;
 
             case CodePush.SyncStatus.UPDATE_INSTALLED:
@@ -428,84 +430,148 @@ let App = () => {
   };
 
   const initInterstitialAdListener = () => {
-    ATInterstitialRNSDK.setAdListener(ATInterstitialRNSDK.onInterstitialLoaded, (event) => {
-      console.log('ATInterstitialLoaded: ' + event.placementId);
-    });
+    ATInterstitialRNSDK.setAdListener(
+      ATInterstitialRNSDK.onInterstitialLoaded,
+      (event) => {
+        console.log("ATInterstitialLoaded: " + event.placementId);
+      }
+    );
 
-    ATInterstitialRNSDK.setAdListener(ATInterstitialRNSDK.onInterstitialFail, (event) => {
-      console.warn('ATInterstitialLoadFail: ' + event.placementId + ', errorMsg: ' + event.errorMsg);
-    });
+    ATInterstitialRNSDK.setAdListener(
+      ATInterstitialRNSDK.onInterstitialFail,
+      (event) => {
+        console.warn(
+          "ATInterstitialLoadFail: " +
+            event.placementId +
+            ", errorMsg: " +
+            event.errorMsg
+        );
+      }
+    );
 
-    ATInterstitialRNSDK.setAdListener(ATInterstitialRNSDK.onInterstitialAdShow, (event) => {
-      console.log('ATInterstitialAdShow: ' + event.placementId + ', adCallbackInfo: ' + event.adCallbackInfo);
-    });
+    ATInterstitialRNSDK.setAdListener(
+      ATInterstitialRNSDK.onInterstitialAdShow,
+      (event) => {
+        console.log(
+          "ATInterstitialAdShow: " +
+            event.placementId +
+            ", adCallbackInfo: " +
+            event.adCallbackInfo
+        );
+      }
+    );
 
-    ATInterstitialRNSDK.setAdListener(ATInterstitialRNSDK.onInterstitialPlayStart, (event) => {
-      console.log('ATInterstitialPlayStart: ' + event.placementId + ', adCallbackInfo: ' + event.adCallbackInfo);
-    });
+    ATInterstitialRNSDK.setAdListener(
+      ATInterstitialRNSDK.onInterstitialPlayStart,
+      (event) => {
+        console.log(
+          "ATInterstitialPlayStart: " +
+            event.placementId +
+            ", adCallbackInfo: " +
+            event.adCallbackInfo
+        );
+      }
+    );
 
-    ATInterstitialRNSDK.setAdListener(ATInterstitialRNSDK.onInterstitialPlayEnd, (event) => {
-      console.log('ATInterstitialPlayEnd: ' + event.placementId + ', adCallbackInfo: ' + event.adCallbackInfo);
-    });
+    ATInterstitialRNSDK.setAdListener(
+      ATInterstitialRNSDK.onInterstitialPlayEnd,
+      (event) => {
+        console.log(
+          "ATInterstitialPlayEnd: " +
+            event.placementId +
+            ", adCallbackInfo: " +
+            event.adCallbackInfo
+        );
+      }
+    );
 
-    ATInterstitialRNSDK.setAdListener(ATInterstitialRNSDK.onInterstitialPlayFail, (event) => {
-      console.log('ATInterstitialPlayFail: ' + event.placementId + ', errorMsg: ' + event.errorMsg + ', adCallbackInfo: ' + event.adCallbackInfo);
-    });
+    ATInterstitialRNSDK.setAdListener(
+      ATInterstitialRNSDK.onInterstitialPlayFail,
+      (event) => {
+        console.log(
+          "ATInterstitialPlayFail: " +
+            event.placementId +
+            ", errorMsg: " +
+            event.errorMsg +
+            ", adCallbackInfo: " +
+            event.adCallbackInfo
+        );
+      }
+    );
 
-    ATInterstitialRNSDK.setAdListener(ATInterstitialRNSDK.onInterstitialClick, (event) => {
-      console.log('ATInterstitialClick: ' + event.placementId + ', adCallbackInfo: ' + event.adCallbackInfo);
-    });
+    ATInterstitialRNSDK.setAdListener(
+      ATInterstitialRNSDK.onInterstitialClick,
+      (event) => {
+        console.log(
+          "ATInterstitialClick: " +
+            event.placementId +
+            ", adCallbackInfo: " +
+            event.adCallbackInfo
+        );
+      }
+    );
 
-    ATInterstitialRNSDK.setAdListener(ATInterstitialRNSDK.onInterstitialClose, (event) => {
-      console.log('ATInterstitialClose: ' + event.placementId + ', adCallbackInfo: ' + event.adCallbackInfo);
-    });
-}
+    ATInterstitialRNSDK.setAdListener(
+      ATInterstitialRNSDK.onInterstitialClose,
+      (event) => {
+        console.log(
+          "ATInterstitialClose: " +
+            event.placementId +
+            ", adCallbackInfo: " +
+            event.adCallbackInfo
+        );
+      }
+    );
+  };
 
-const loadInterstitial = (interstitialPlacementId) => {
- console.log('====================================');
- console.log('loadInterstitial');
- console.log('====================================');
+  const loadInterstitial = (interstitialPlacementId) => {
+    console.log("====================================");
+    console.log("loadInterstitial");
+    console.log("====================================");
 
- var settings = {};
- settings[ATInterstitialRNSDK.UseRewardedVideoAsInterstitial] = false;
-//    settings[ATInterstitialRNSDK.UseRewardedVideoAsInterstitial] = true;
+    var settings = {};
+    settings[ATInterstitialRNSDK.UseRewardedVideoAsInterstitial] = false;
+    //    settings[ATInterstitialRNSDK.UseRewardedVideoAsInterstitial] = true;
 
- ATInterstitialRNSDK.loadAd(interstitialPlacementId, settings);
-};
+    ATInterstitialRNSDK.loadAd(interstitialPlacementId, settings);
+  };
 
-const isInterstitialReady = (interstitialPlacementId) => {
-ATInterstitialRNSDK.hasAdReady(interstitialPlacementId).then(isAdReady => {
- console.log('====================================');
- console.log("isInterstitialReady: " + isAdReady)
- console.log('====================================');
-});
+  const isInterstitialReady = (interstitialPlacementId) => {
+    ATInterstitialRNSDK.hasAdReady(interstitialPlacementId).then(
+      (isAdReady) => {
+        console.log("====================================");
+        console.log("isInterstitialReady: " + isAdReady);
+        console.log("====================================");
+      }
+    );
 
-ATInterstitialRNSDK.checkAdStatus(interstitialPlacementId).then(adStatusInfo => {
- console.log('====================================');
- console.log("isInterstitialReady: checkAdStatus: " + adStatusInfo)
- console.log('====================================');
-});
-};
+    ATInterstitialRNSDK.checkAdStatus(interstitialPlacementId).then(
+      (adStatusInfo) => {
+        console.log("====================================");
+        console.log("isInterstitialReady: checkAdStatus: " + adStatusInfo);
+        console.log("====================================");
+      }
+    );
+  };
 
-const showInterstitial = (interstitialPlacementId) => {
- console.log('====================================');
- console.log('showInterstitial ....');
- console.log('====================================');
- ATInterstitialRNSDK.showAd(interstitialPlacementId);
-};
+  const showInterstitial = (interstitialPlacementId) => {
+    console.log("====================================");
+    console.log("showInterstitial ....");
+    console.log("====================================");
+    ATInterstitialRNSDK.showAd(interstitialPlacementId);
+  };
 
-if (Platform.OS === 'android') {
- loadBanner(ANDROID_HOME_PAGE_BANNER_ADS);
- loadInterstitial(ANDROID_HOME_PAGE_POP_UP_ADS);
- isInterstitialReady(ANDROID_HOME_PAGE_POP_UP_ADS)
- showInterstitial(ANDROID_HOME_PAGE_POP_UP_ADS)
-} 
-else if (Platform.OS === 'ios') {
- loadBanner(IOS_HOME_PAGE_BANNER_ADS);
- loadInterstitial(IOS_HOME_PAGE_POP_UP_ADS);
- isInterstitialReady(IOS_HOME_PAGE_POP_UP_ADS)
- showInterstitial(IOS_HOME_PAGE_POP_UP_ADS)
-}
+  if (Platform.OS === "android") {
+    loadBanner(ANDROID_HOME_PAGE_BANNER_ADS);
+    loadInterstitial(ANDROID_HOME_PAGE_POP_UP_ADS);
+    isInterstitialReady(ANDROID_HOME_PAGE_POP_UP_ADS);
+    showInterstitial(ANDROID_HOME_PAGE_POP_UP_ADS);
+  } else if (Platform.OS === "ios") {
+    loadBanner(IOS_HOME_PAGE_BANNER_ADS);
+    loadInterstitial(IOS_HOME_PAGE_POP_UP_ADS);
+    isInterstitialReady(IOS_HOME_PAGE_POP_UP_ADS);
+    showInterstitial(IOS_HOME_PAGE_POP_UP_ADS);
+  }
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -524,6 +590,7 @@ else if (Platform.OS === 'ios') {
             </BottomSheetModalProvider>
           </GestureHandlerRootView>
         </PersistGate>
+        <VipOverlay />
       </Provider>
     </QueryClientProvider>
   );
@@ -537,6 +604,10 @@ else if (Platform.OS === 'ios') {
 
 let codePushOptions = {
   checkFrequency: CodePush.CheckFrequency.MANUAL, // 检查更新的频率: ON_APP_START(启动时检查) ON_APP_RESUME(恢复到前台时检查) MANUAL(手动检查)
+  rollbackRetryOptions: {
+    delayInHours: 6,
+    maxRetryAttempts: 1,
+  },
 };
 
 App = CodePush(codePushOptions)(App);
