@@ -43,174 +43,185 @@ interface Props {
   bottomTabHeight: number;
 }
 
-function AdsBanner({ bottomTabHeight = 0 }: Props) {
-  const route = useRoute();
+function AdsBanner({bottomTabHeight = 0}: Props){
+  const route = useRoute(); 
+  const [bannerPlacementId, setBannerPlacementId] = useState('');
+  const isFocused = useIsFocused();
+  const [navBarHeightInPixel, setNavBarHeightInPixel] = useState(0)
 
-  const isBannerReady = () => {
-    let bannerPlacementId;
-    if (Platform.OS === "android") {
-      bannerPlacementId = ANDROID_HOME_PAGE_BANNER_ADS;
-    } else if (Platform.OS === "ios") {
-      bannerPlacementId = IOS_HOME_PAGE_BANNER_ADS;
-    }
-    ATBannerRNSDK.hasAdReady(bannerPlacementId).then((isAdReady) => {
-      console.log("isBannerReady: " + isAdReady);
-    });
-  };
 
-  const showBanner = async () => {
-    const currentRouteName = route.name;
-    let navBarHeightInPixel = 0;
+  const pageWithNavbar = ["首页", "播单", "体育"]
+  const pageNoNavbar = ["播放", "PlaylistDetail", "体育详情"]
 
-    try {
-      navBarHeightInPixel = await getNavigationBarHeight();
-    } catch (e) {
-      // navBarHeightInPixel = 0;
-    }
+  try {
+    getNavigationBarHeight().then((height) => {
+      console.debug(height)
+      setNavBarHeightInPixel(height)
+    })
+  } catch (e) {
+    // navBarHeightInPixel = 0;
+  }
 
-    let screenWidthInPixel =
-      Dimensions.get("screen").width * Dimensions.get("screen").scale;
-    let screenHeightInPixel =
-      Dimensions.get("screen").height * Dimensions.get("screen").scale;
 
-    let statusBarHeightInPixel =
-      (StatusBar.currentHeight ?? 0) * Dimensions.get("screen").scale;
+  let screenWidthInPixel =
+  Dimensions.get("screen").width * Dimensions.get("screen").scale;
+  let screenHeightInPixel =
+    Dimensions.get("screen").height * Dimensions.get("screen").scale;
 
-    let bottomTabHeightInPixel =
-      (bottomTabHeight != 0 ? bottomTabHeight - 1 : 0) *
-      Dimensions.get("screen").scale;
+  let statusBarHeightInPixel =
+    (StatusBar.currentHeight ?? 0) * Dimensions.get("screen").scale;
 
-    let adsTopInPixel =
-      screenHeightInPixel -
-      statusBarHeightInPixel -
-      navBarHeightInPixel -
-      bottomTabHeightInPixel;
-    let bannerPlacementId;
+  let bottomTabHeightInPixel =
+    (bottomTabHeight != 0 ? bottomTabHeight - 1 : 0) *
+    Dimensions.get("screen").scale;
 
-    if (currentRouteName == "播放" || currentRouteName == "PlaylistDetail") {
-      if (currentRouteName == "播放") {
-        if (Platform.OS === "android") {
-          bannerPlacementId = ANDROID_PLAY_DETAILS_BANNER_ADS;
-        } else if (Platform.OS === "ios") {
-          bannerPlacementId = IOS_PLAY_DETAILS_BANNER_ADS;
-        }
-      } else if (currentRouteName == "PlaylistDetail") {
-        if (Platform.OS === "android") {
-          bannerPlacementId = ANDROID_TOPIC_DETAILS_BANNER_ADS;
-        } else if (Platform.OS === "ios") {
-          bannerPlacementId = IOS_TOPIC_DETAILS_BANNER_ADS;
-        }
-      }
+  let adsTopInPixel =
+    screenHeightInPixel -
+    statusBarHeightInPixel -
+    navBarHeightInPixel -
+    bottomTabHeightInPixel;
 
-      ATBannerRNSDK.showAdInPosition(
-        bannerPlacementId,
-        ATBannerRNSDK.kATBannerAdShowingPositionBottom
-      );
+  console.log('screen height', screenHeightInPixel)
+  console.log('status bar heeight', statusBarHeightInPixel)
+  console.log('bottom tab height', bottomTabHeightInPixel)
+  console.log('ads on top ', adsTopInPixel)
+  
+  const deviceBrand = DeviceInfo.getBrand();
+  let offSet = 0;
+  if (deviceBrand === "HUAWEI") {
+    console.log('is huawei device')
+    // This is a Huawei device
+    let deviceHeight = Dimensions.get("screen").height;
+    let windowHeight = Dimensions.get("window").height;
+    let sH = StatusBar.currentHeight || 0;
+    let bottomNavBarHeight = deviceHeight - windowHeight - sH;
+    if (bottomNavBarHeight > 0) {
+      console.log(" onscreen navbar");
+      offSet = -95;
     } else {
-      if (currentRouteName == "Home" || currentRouteName == "首页") {
-        if (Platform.OS === "android") {
-          bannerPlacementId = ANDROID_HOME_PAGE_BANNER_ADS;
-        } else if (Platform.OS === "ios") {
-          bannerPlacementId = IOS_HOME_PAGE_BANNER_ADS;
-        }
-      }
+      console.log(" not onscreen navbar");
+      offSet = 75;
+    }
+  }
 
-      //播单
-      if (currentRouteName == "Playlist") {
-        if (Platform.OS === "android") {
-          bannerPlacementId = ANDROID_TOPIC_TAB_BANNER_ADS;
-        } else if (Platform.OS === "ios") {
-          bannerPlacementId = IOS_TOPIC_TAB_BANNER_ADS;
-        }
-      }
+  const hideBannerExcept = (bannerId:string) => {
+    const androidIds = [ANDROID_HOME_PAGE_BANNER_ADS, ANDROID_PLAY_DETAILS_BANNER_ADS, ANDROID_TOPIC_DETAILS_BANNER_ADS, ANDROID_TOPIC_TAB_BANNER_ADS]
+    androidIds
+    .filter(id => bannerId !== id)
+    .forEach(element => {
+      ATBannerRNSDK.hideAd(element);
+      console.debug('hide', element)
+    });
+  }
 
-      const deviceBrand = DeviceInfo.getBrand();
-      let offSet = 0;
-      if (deviceBrand === "HUAWEI") {
-        // This is a Huawei device
-        let deviceHeight = Dimensions.get("screen").height;
-        let windowHeight = Dimensions.get("window").height;
-        let sH = StatusBar.currentHeight || 0;
-        let bottomNavBarHeight = deviceHeight - windowHeight - sH;
-        if (bottomNavBarHeight > 0) {
-          console.log(" onscreen navbar");
-          offSet = -95;
-        } else {
-          console.log(" not onscreen navbar");
-          offSet = 75;
-        }
-      }
+  const showBanner = (bannerId:string) => {
+    const currentRouteName = route.name;
+    console.log('current route', currentRouteName)
+
+    if (!pageWithNavbar.includes(currentRouteName) && !pageNoNavbar.includes(currentRouteName)){
+      ATBannerRNSDK.hideAd(bannerPlacementId); //hide ad if not these 4 page 
+      console.log('no banner')
+    } else if (pageWithNavbar.includes(currentRouteName)){
+      //show banner above nav
 
       ATBannerRNSDK.showAdInRectangle(
-        bannerPlacementId,
+        bannerId,
         ATBannerRNSDK.createShowAdRect(
           0,
-          adsTopInPixel -
-            TOPON_BANNER_HEIGHT * Dimensions.get("screen").scale +
-            offSet,
-          screenWidthInPixel,
+          adsTopInPixel - TOPON_BANNER_HEIGHT * Dimensions.get("screen").scale + offSet,
+          screenWidthInPixel ,
           TOPON_BANNER_HEIGHT * Dimensions.get("screen").scale
         )
-      );
+      ); 
+
+    } else if (pageNoNavbar.includes(currentRouteName)){
+      ATBannerRNSDK.showAdInRectangle(
+        bannerId,
+        ATBannerRNSDK.createShowAdRect(
+          0,
+          adsTopInPixel - (TOPON_BANNER_HEIGHT * Dimensions.get("screen").scale) + offSet,
+          screenWidthInPixel ,
+          TOPON_BANNER_HEIGHT * Dimensions.get("screen").scale
+        )
+      );  
+
+
+    } else {
+      // for future expansion 
     }
-  };
-  const isFocused = useIsFocused();
+
+  }
+
+  useEffect(()=>{
+    const currentRouteName = route.name
+    console.log('route changed to ', currentRouteName)
+    if (!isFocused){
+      console.log('ignore')
+    }
+    else if (currentRouteName == "播放") { // video player page
+      if (Platform.OS === "android") {
+        setBannerPlacementId(ANDROID_PLAY_DETAILS_BANNER_ADS)
+      } else if (Platform.OS === "ios") {
+        setBannerPlacementId(IOS_PLAY_DETAILS_BANNER_ADS)
+      }
+    } 
+    else if (currentRouteName == "PlaylistDetail" || currentRouteName == "体育详情") { // playlist detail 
+      if (Platform.OS === "android") {
+        setBannerPlacementId(ANDROID_TOPIC_DETAILS_BANNER_ADS)
+      } else if (Platform.OS === "ios") {
+        setBannerPlacementId(IOS_TOPIC_DETAILS_BANNER_ADS)
+      }
+    }
+    else if (currentRouteName == "Home" || currentRouteName == "首页") { //home page 
+      if (Platform.OS === "android") {
+        setBannerPlacementId(ANDROID_HOME_PAGE_BANNER_ADS)
+      } else if (Platform.OS === "ios") {
+        setBannerPlacementId(IOS_HOME_PAGE_BANNER_ADS)
+      }
+    }
+    //播单
+    else if (currentRouteName == "播单" || currentRouteName == "体育") { // playlist
+      if (Platform.OS === "android") {
+        setBannerPlacementId(ANDROID_TOPIC_TAB_BANNER_ADS)
+      } else if (Platform.OS === "ios") {
+        setBannerPlacementId(IOS_TOPIC_TAB_BANNER_ADS)
+      }
+    }
+    else if (!pageWithNavbar.includes(currentRouteName) && !pageNoNavbar.includes(currentRouteName)){
+      console.log('page not included in requirement')
+      // no banner 
+      setBannerPlacementId('')
+      hideBannerExcept('')
+    }
+    
+  }, [route, isFocused])
+
+  useEffect(()=>{
+    if (isFocused){
+      if (bannerPlacementId !== ''){
+        console.log('show banner in ', bannerPlacementId, ' ', route.name)
+        hideBannerExcept(bannerPlacementId)
+        ATBannerRNSDK.reShowAd(bannerPlacementId)
+        showBanner(bannerPlacementId)
+      }
+    } 
+  }, [isFocused, bannerPlacementId, navBarHeightInPixel, bottomTabHeight])
 
   useEffect(() => {
-    // This code will run whenever the screen gains focus
-    if (isFocused) {
-      showBanner();
-      // Your event or logic when the user navigates back
+    const settings = {}
+    if (Platform.OS === 'android'){
+      // @ts-ignore
+      settings[ATBannerRNSDK.kATBannerAdLoadingExtraBannerAdSizeStruct] = ATBannerRNSDK.createLoadAdSize(this.deviceWidthInPixel, this.deviceWidthInPixel * 50/320);
     }
-  }, [isFocused]);
+    // load all ad first 
+    ATBannerRNSDK.loadAd(ANDROID_HOME_PAGE_BANNER_ADS, settings);
+    ATBannerRNSDK.loadAd(ANDROID_PLAY_DETAILS_BANNER_ADS, settings);
+    ATBannerRNSDK.loadAd(ANDROID_TOPIC_DETAILS_BANNER_ADS, settings);
+    ATBannerRNSDK.loadAd(ANDROID_TOPIC_TAB_BANNER_ADS, settings);
+  }, [])
 
-  useEffect(() => {
-    // Access the current route name
-
-    isBannerReady();
-
-    showBanner();
-  }, [bottomTabHeight]); // Listen to changes in navigation and screen focus
-
-  const [navigationMode, setNavigationMode] = useState("");
-
-  // useEffect(() => {
-
-  //   console.log('debug')
-  //   let deviceHeight = Dimensions.get('screen').height;
-  //   let windowHeight = Dimensions.get('window').height;
-  //   let sH = StatusBar.currentHeight || 0;
-  //   let bottomNavBarHeight = deviceHeight - windowHeight - sH;
-
-  //   if (bottomNavBarHeight > 0) {
-  //       console.log(' onscreen navbar')
-  //       console.log(bottomNavBarHeight)
-  //       console.log('statusBarHeight: ', StatusBar.currentHeight)
-  //   } else {
-  //       // not onscreen navbar
-  //       console.log('not onscreen navbar')
-  //       console.log(bottomNavBarHeight)
-  //   }
-  // }, []);
-
-  // useFocusEffect(
-  //   React.useCallback(() => {
-  //     // This function will be called when Screen1 gains focus
-  //     // Get the current route name
-  //     const currentRouteName = route.name;
-  //     console.log(currentRouteName + "ads gained focus");
-
-  //     // You can perform actions when the user leaves the screen here
-  //     return () => {
-  //       // This function will be called when Screen1 loses focus
-  //       console.log(currentRouteName + "ads lost focus");
-  //     };
-  //   }, [])
-  // );
 
   return <></>;
+
 }
-
-const styles = StyleSheet.create({});
-
 export default memo(AdsBanner);

@@ -70,6 +70,7 @@ CGRect parseRectJsonStr(NSString* jsonStr) {
     CGRect rect = CGRectZero;
     if (jsonStr != nil) {
         NSDictionary *rectDict = [NSJSONSerialization at_JSONObjectWithString:jsonStr options:NSJSONReadingAllowFragments error:nil];
+        NSLog(@"showAdInRectangle:parseRectJsonStr:%@",rectDict);
         if ([rectDict isKindOfClass:[NSDictionary class]]) {
             CGFloat scale = [rectDict[@"usesPixel"] boolValue] ? UIScreen.mainScreen.nativeScale : 1.0f;
             rect = CGRectMake([rectDict[@"x"] doubleValue] / scale, [rectDict[@"y"] doubleValue] / scale, [rectDict[@"width"] doubleValue] / scale, [rectDict[@"height"] doubleValue] / scale);
@@ -110,7 +111,7 @@ NSDictionary *parseExtraJsonStr(NSString* jsonStr) {
             }
         }
         if (extra[kATAdLoadingExtraBannerAdSizeKey] == nil) {
-            extra[kATAdLoadingExtraBannerAdSizeKey] = [NSValue valueWithCGSize:CGSizeMake(415.0f, 50.0f)];
+            extra[kATAdLoadingExtraBannerAdSizeKey] = [NSValue valueWithCGSize:CGSizeMake(320.0f, 50.0f)];
         }
     }
     return extra;
@@ -140,6 +141,16 @@ RCT_EXPORT_METHOD(loadAd: (NSString *)placementId setting: (NSString *)setting) 
 RCT_EXPORT_METHOD(hasAdReady: (NSString *)placementId promise: (RCTPromiseResolveBlock)promise rejector:(RCTPromiseRejectBlock)reject) {
   BOOL ready = [[ATAdManager sharedManager] bannerAdReadyForPlacementID: placementId];
   promise(@(ready));
+}
+
+RCT_EXPORT_METHOD(checkAdStatus: (NSString *)placementId promise: (RCTPromiseResolveBlock)promise rejector:(RCTPromiseRejectBlock)reject) {
+  ATCheckLoadModel *checkLoadModel = [[ATAdManager sharedManager] checkBannerLoadStatusForPlacementID:placementId];
+  NSMutableDictionary *statusDict = [NSMutableDictionary dictionary];
+  statusDict[@"isLoading"] = @(checkLoadModel.isLoading);
+  statusDict[@"isReady"] = @(checkLoadModel.isReady);
+  statusDict[@"adInfo"] = checkLoadModel.adOfferInfo;
+  NSLog(@"ATRewardedVideoRNSDK::statusDict = %@", statusDict);
+  promise(statusDict.at_AdInfojsonString);
 }
 
 RCT_EXPORT_METHOD(showAdInPosition: (NSString *)placementId position: (NSString *)position) {

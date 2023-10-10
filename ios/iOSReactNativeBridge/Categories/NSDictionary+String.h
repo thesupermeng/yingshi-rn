@@ -15,5 +15,7 @@ extern NSString *const atErrMsgKey;
 
 - (NSString *)at_jsonString;
 
+- (NSString *)at_AdInfojsonString;
+
 @end
 

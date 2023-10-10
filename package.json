@@ -1,5 +1,5 @@
 {
-  "name": "yingshi",
+  "name": "yingshipin",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -26,6 +26,7 @@
     "android-apk-huawei-release": "export APK_CHANNEL=HUAWEI_APP_GALLERY_OVERSEAS&& cd buildScripts && node replaceChannel.js && cd .. && npm run android-apk-release",
     "android-apk-vivo-release": "export APK_CHANNEL=VIVO_APP_STORE&& cd buildScripts && node replaceChannel.js && cd .. && npm run android-apk-release",
     "android-apk-mi-release": "export APK_CHANNEL=MI_GETAPPS&& cd buildScripts && node replaceChannel.js && cd .. && npm run android-apk-release",
+    "android-apk-samsung-release": "export APK_CHANNEL=SAMSUNG_GALAXY_STORE&& cd buildScripts && node replaceChannel.js && cd .. && npm run android-apk-release",
     "android-apk-all-release": "npm run android-apk-web-release && npm run android-apk-googleplay-release && npm run android-apk-oppo-release && npm run android-apk-huawei-release && npm run android-apk-vivo-release && npm run android-apk-mi-release"
   },
   "dependencies": {

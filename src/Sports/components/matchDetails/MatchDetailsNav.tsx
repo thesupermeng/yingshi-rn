@@ -16,7 +16,7 @@ export default function MatchDetailsNav({ tabList, streamId }: Props) {
     // console.log('MATCH DETAILSS');
 
     return (
-        <SafeAreaView style={{ flex: 1 }}>
+        <SafeAreaView style={{ flex: 1, marginBottom: 50 }}>
             <Tab.Navigator
                 initialRouteName={"Live"}
                 keyboardDismissMode="none"
