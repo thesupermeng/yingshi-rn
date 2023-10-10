@@ -6,6 +6,7 @@ import {
   AppState,
   Text,
   BackHandler,
+  Platform,
 } from 'react-native';
 
 import Video from 'react-native-video';
@@ -261,7 +262,9 @@ export default forwardRef<VideoRef, Props>(({
   const onVideoProgessing = (data: any) => {
     setCurrentTime(data.currentTime);
     currentTimeRef.current = data.currentTime;
-    bufferRef.current = false;
+    if(Platform.OS === 'ios') {
+      bufferRef.current = false;
+    }
   };
 
   const onSkip = (time: any) => {
