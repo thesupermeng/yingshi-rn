@@ -537,6 +537,10 @@ else if (Platform.OS === 'ios') {
 
 let codePushOptions = {
   checkFrequency: CodePush.CheckFrequency.MANUAL, // 检查更新的频率: ON_APP_START(启动时检查) ON_APP_RESUME(恢复到前台时检查) MANUAL(手动检查)
+  rollbackRetryOptions: {
+    delayInHours: 6,
+    maxRetryAttempts: 1
+  }
 };
 
 App = CodePush(codePushOptions)(App);
