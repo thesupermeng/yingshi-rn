@@ -132,7 +132,7 @@ function Playlist ({navigation}: BottomTabScreenProps<any>) {
   
   return (
     <>
-      <AdsBanner bottomTabHeight={bottomTabHeight} />
+      <AdsBanner bottomTabHeight={bottomTabBarHeight} />
       <ScreenContainer containerStyle={{paddingLeft: 0, paddingRight: 0}}>
         <MainHeader
           headerStyle={{
