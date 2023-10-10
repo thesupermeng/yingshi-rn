@@ -84,7 +84,7 @@ RCT_EXPORT_METHOD(checkAdStatus: (NSString *)placementId promise: (RCTPromiseRes
   statusDict[@"isReady"] = @(checkLoadModel.isReady);
   statusDict[@"adInfo"] = checkLoadModel.adOfferInfo;
   NSLog(@"ATInterstitialRNSDK::statusDict = %@", statusDict);
-  promise(statusDict.at_jsonString);
+  promise(statusDict.at_AdInfojsonString);
 }
 
 RCT_EXPORT_METHOD(showAd: (NSString *)placementId) {
