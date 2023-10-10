@@ -51,7 +51,7 @@ function AdsBanner({bottomTabHeight = 0}: Props){
 
 
   const pageWithNavbar = ["首页", "播单", "体育"]
-  const pageNoNavbar = ["播放", "PlaylistDetail"]
+  const pageNoNavbar = ["播放", "PlaylistDetail", "体育详情"]
 
   try {
     getNavigationBarHeight().then((height) => {
