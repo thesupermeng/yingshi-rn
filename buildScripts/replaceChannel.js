@@ -66,6 +66,12 @@ const replaceToChannelRN = {
     to: 'export const UMENG_CHANNEL = "WEB"',
 };
 
+const replaceToAppVersionRN = {
+    files: [constantsFilePath],
+    from: /export const APP_VERSION = "([^"]+)"/g,
+    to: 'export const APP_VERSION = "1.1.1"',
+};
+
 const replaceToChannelAndroid = {
     files: ['../android/app/build.gradle'],
     from: /resValue "string", "UMENG_CHANNEL", "([^"]+)"/g,
@@ -79,6 +85,7 @@ const replaceToUmengAppKey = {
 };
 
 replaceToChannelRN.to = 'export const UMENG_CHANNEL = "' + channel + '"';
+replaceToAppVersionRN.to = 'export const APP_VERSION = "' + versionNum + '"';
 replaceToChannelAndroid.to = 'resValue "string", "UMENG_CHANNEL", "' + channel + '"';
 replaceToUmengAppKey.to = 'resValue "string", "UMENG_APPKEY", "' + umengKey + '"';
 
@@ -87,6 +94,8 @@ console.log(replaceToChannelRN.to);
 try {
     const rnResults = replace.sync(replaceToChannelRN);
     console.log('UMENG CHANNEL updated in React Native: ', rnResults);
+    const vnResults = replace.sync(replaceToAppVersionRN);
+    console.log('APP_VERSION updated in React Native: ', vnResults);
 } catch (error) {
     console.error('Error occurred:', error);
 }
