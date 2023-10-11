@@ -13,21 +13,16 @@
     "android-apk-release": "npx react-native build-android --mode=release",
     "ios-ipa-debug": "",
     "ios-ipa-release": "react-native bundle --dev false --entry-file index.ios.js --bundle-output ios/main.jsbundle --platform ios",
-    "android-apk-web-debug": "export APK_CHANNEL=WEB&& cd buildScripts && node replaceChannel.js && cd .. && npm run android-apk-debug",
-    "android-apk-googleplay-debug": "export APK_CHANNEL=GOOGLE_PLAY&& cd buildScripts && node replaceChannel.js && cd .. && npm run android-apk-debug",
-    "android-apk-oppo-debug": "export APK_CHANNEL=OPPO_APP_MARKET&& cd buildScripts && node replaceChannel.js && cd .. && npm run android-apk-debug",
-    "android-apk-huawei-debug": "export APK_CHANNEL=HUAWEI_APP_GALLERY_OVERSEAS&& cd buildScripts && node replaceChannel.js && cd .. && npm run android-apk-debug",
-    "android-apk-vivo-debug": "export APK_CHANNEL=VIVO_APP_STORE&& cd buildScripts && node replaceChannel.js && cd .. && npm run android-apk-debug",
-    "android-apk-mi-debug": "export APK_CHANNEL=MI_GETAPPS&& cd buildScripts && node replaceChannel.js && cd .. && npm run android-apk-debug",
-    "android-apk-all-debug": "npm run android-apk-web-debug && npm run android-apk-googleplay-debug && npm run android-apk-oppo-debug && npm run android-apk-huawei-debug && npm run android-apk-vivo-debug && npm run android-apk-mi-debug",
-    "android-apk-web-release": "export APK_CHANNEL=WEB&& cd buildScripts && node replaceChannel.js && cd .. && npm run android-apk-release",
-    "android-apk-googleplay-release": "export APK_CHANNEL=GOOGLE_PLAY&& cd buildScripts && node replaceChannel.js && cd .. && npm run android-apk-release",
-    "android-apk-oppo-release": "export APK_CHANNEL=OPPO_APP_MARKET&& cd buildScripts && node replaceChannel.js && cd .. && npm run android-apk-release",
-    "android-apk-huawei-release": "export APK_CHANNEL=HUAWEI_APP_GALLERY_OVERSEAS&& cd buildScripts && node replaceChannel.js && cd .. && npm run android-apk-release",
-    "android-apk-vivo-release": "export APK_CHANNEL=VIVO_APP_STORE&& cd buildScripts && node replaceChannel.js && cd .. && npm run android-apk-release",
-    "android-apk-mi-release": "export APK_CHANNEL=MI_GETAPPS&& cd buildScripts && node replaceChannel.js && cd .. && npm run android-apk-release",
-    "android-apk-samsung-release": "export APK_CHANNEL=SAMSUNG_GALAXY_STORE&& cd buildScripts && node replaceChannel.js && cd .. && npm run android-apk-release",
-    "android-apk-all-release": "npm run android-apk-web-release && npm run android-apk-googleplay-release && npm run android-apk-oppo-release && npm run android-apk-huawei-release && npm run android-apk-vivo-release && npm run android-apk-mi-release"
+
+    "build-release": "cd buildScripts && node replaceChannel.js && cd .. && npm run android-apk-release",
+    
+    "android-apk-web-release": "export APK_CHANNEL=WEB&& npm run build-release",
+    "android-apk-googleplay-release": "export APK_CHANNEL=GOOGLE_PLAY&& npm run build-release",
+    "android-apk-oppo-release": "export APK_CHANNEL=OPPO_APP_MARKET&& npm run build-release",
+    "android-apk-huawei-release": "export APK_CHANNEL=HUAWEI_APP_GALLERY_OVERSEAS&& npm run build-release",
+    "android-apk-vivo-release": "export APK_CHANNEL=VIVO_APP_STORE&& npm run build-release",
+    "android-apk-mi-release": "export APK_CHANNEL=MI_GETAPPS&& npm run build-release",
+    "android-apk-samsung-release": "export APK_CHANNEL=SAMSUNG_GALAXY_STORE&& npm run build-release"
   },
   "dependencies": {
     "@ant-design/react-native": "^5.0.4",
