@@ -63,7 +63,8 @@ const styles = StyleSheet.create({
   },
   percentText: {
     color: 'white',
-    fontSize: 12,
+    // fontSize: 12,
+    fontSize: 11,
     width: '15%',
   },
   icon: {

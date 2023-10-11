@@ -64,6 +64,7 @@ export default ({ navigation }: RootStackScreenProps<"邀请">) => {
   };
 
   return (
+    <ScreenContainer>
     <>
       <AdsBanner bottomTabHeight={0} />
       <ScrollView
@@ -108,6 +109,7 @@ export default ({ navigation }: RootStackScreenProps<"邀请">) => {
         <InviteStep />
       </ScrollView>
     </>
+    </ScreenContainer>
   );
 };
 

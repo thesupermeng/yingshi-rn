@@ -11,7 +11,7 @@ import {
   Keyboard,
   Image,
 } from 'react-native';
-import {ScreenContainer} from 'react-native-screens';
+import ScreenContainer from '../../components/container/screenContainer';
 import {useDispatch, useSelector} from 'react-redux';
 import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
 
@@ -252,6 +252,7 @@ export default (props: any) => {
   const [optVarificationState, setOptVarificationState] = useState(2);
   const {colors, textVariants, icons, spacing} = useTheme();
   return (
+    <ScreenContainer>
     <View
       style={{
         height: '100%',
@@ -273,6 +274,7 @@ export default (props: any) => {
         </>
       </TouchableWithoutFeedback>
     </View>
+    </ScreenContainer>
   );
 };
 
