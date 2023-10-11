@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, TextInput, Platform} from 'react-native';
+import {View, Text, StyleSheet, TextInput, Platform, Alert} from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
 import {RootStackScreenProps} from '../../types/navigationTypes';
 import {useTheme} from '@react-navigation/native';
@@ -19,6 +19,8 @@ import {
   UMENG_CHANNEL,
 } from '../../../src/utility/constants';
 import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
+import {userModel} from '../../types/userType';
+import {useAppSelector} from '../../hooks/hooks';
 
 export default ({navigation}: RootStackScreenProps<'反馈'>) => {
   const {colors, textVariants, icons} = useTheme();
@@ -29,6 +31,10 @@ export default ({navigation}: RootStackScreenProps<'反馈'>) => {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
 
   const [platformId, setPlatformId] = React.useState(0);
+
+  const userState: userModel = useAppSelector(
+    ({userReducer}: RootState) => userReducer,
+  );
 
   const [isOffline, setIsOffline] = useState(false);
   useEffect(() => {
@@ -42,13 +48,13 @@ export default ({navigation}: RootStackScreenProps<'反馈'>) => {
     if(Platform.OS === 'ios'){
       if(UMENG_CHANNEL == 'APPLE_STORE'){
         setPlatformId(3);
-      }else{
+      } else {
         setPlatformId(4);
       }
-    }else{
-      if(UMENG_CHANNEL == 'GOOGLE_PLAY'){
+    } else {
+      if (UMENG_CHANNEL == 'GOOGLE_PLAY') {
         setPlatformId(5);
-      }else{
+      } else {
         setPlatformId(6);
       }
     }
@@ -59,7 +65,7 @@ export default ({navigation}: RootStackScreenProps<'反馈'>) => {
   const submitFeedback = async (data: SubmitFeedbackRequest) => {
     if (!isOffline) {
       const {data: response} = await axios.post(
-        `${API_DOMAIN}feedback/v1/submit`,
+        `${API_DOMAIN_TEST}feedback/v1/submit`,
         data,
       );
       setDialogText('反馈提交成功');
@@ -76,11 +82,27 @@ export default ({navigation}: RootStackScreenProps<'反馈'>) => {
 
   function sendFeedbackHandler() {
     const body: SubmitFeedbackRequest = {
-      email: email,
-      feedback_category: feedbackCategory,
+      email: userState.userEmail,
       feedback: text,
-      platform_id: platformId
+      platform_id: platformId,
     };
+
+    if (text == '') {
+      Alert.alert(
+        '',
+        '请输入反馈。',
+        [
+          {
+            text: 'OK',
+            onPress: () => {
+              // Handle the OK button press (if needed)
+            },
+          },
+        ],
+        {cancelable: false}, // Prevent dismissing the alert by tapping outside
+      );
+      return;
+    }
 
     submitFeedback(body);
   }

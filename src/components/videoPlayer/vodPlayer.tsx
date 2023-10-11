@@ -6,6 +6,7 @@ import {
   AppState,
   Text,
   BackHandler,
+  Platform,
 } from 'react-native';
 
 import Video from 'react-native-video';
@@ -105,11 +106,13 @@ export default forwardRef<VideoRef, Props>(({
   const width = Dimensions.get('window').width;
   const navigation = useNavigation();
 
+  const bufferRef = useRef(false);
   const onBuffer = (bufferObj: any) => {
     if (!bufferObj.isBuffering) {
       accumulatedSkip.current = 0;
     }
     setIsBuffering(bufferObj.isBuffering);
+    bufferRef.current = bufferObj.isBuffering;
   };
 
   // New state to keep track of app's background/foreground status
@@ -259,6 +262,9 @@ export default forwardRef<VideoRef, Props>(({
   const onVideoProgessing = (data: any) => {
     setCurrentTime(data.currentTime);
     currentTimeRef.current = data.currentTime;
+    if(Platform.OS === 'ios') {
+      bufferRef.current = false;
+    }
   };
 
   const onSkip = (time: any) => {
@@ -392,7 +398,7 @@ export default forwardRef<VideoRef, Props>(({
           isFetchingRecommendedMovies={isFetchingRecommendedMovies}
         />
       )}
-      {(isBuffering || seekDirection !== 'none') && (
+      {(bufferRef.current || seekDirection !== 'none') && (
         <View
           style={{
             ...styles.buffering,

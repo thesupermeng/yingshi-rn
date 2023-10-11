@@ -132,8 +132,8 @@
   } else {
     rootView.backgroundColor = [UIColor whiteColor];
   }
-//  UIViewController *rootViewController = [UIViewController new];
-//  rootViewController.view = rootView;
-  self.window.rootViewController.view = rootView;
+  UIViewController *rootViewController = [UIViewController new];
+  rootViewController.view = rootView;
+  self.window.rootViewController = rootViewController;
 }
 @end

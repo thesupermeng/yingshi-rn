@@ -470,7 +470,7 @@ const insets = useSafeAreaInsets();
                       </Text>
                     </View>
                     <View style={{ paddingBottom: 0 }}>
-                      {isCollapsed && actualNumberOfLines >= 3 && (
+                      {isCollapsed && actualNumberOfLines >= 2 && (
                         <FastImage
                           style={{
                             flex: 1,
@@ -482,7 +482,7 @@ const insets = useSafeAreaInsets();
                           resizeMode={FastImage.resizeMode.contain}
                         />
                       )}
-                      {!isCollapsed && actualNumberOfLines >= 3 && (
+                      {!isCollapsed && actualNumberOfLines >= 2 && (
                         <FastImage
                           style={{
                             flex: 1,
