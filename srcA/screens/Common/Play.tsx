@@ -405,7 +405,7 @@ export default ({navigation, route}: RootStackScreenProps<'播放'>) => {
                       </Text>
                     </View>
                     <View style={{paddingBottom: 0}}>
-                      {isCollapsed && actualNumberOfLines >= 3 && (
+                      {isCollapsed && actualNumberOfLines >= 2 && (
                         <FastImage
                           style={{
                             flex: 1,
@@ -417,7 +417,7 @@ export default ({navigation, route}: RootStackScreenProps<'播放'>) => {
                           resizeMode={FastImage.resizeMode.contain}
                         />
                       )}
-                      {!isCollapsed && actualNumberOfLines >= 3 && (
+                      {!isCollapsed && actualNumberOfLines >= 2 && (
                         <FastImage
                           style={{
                             flex: 1,
