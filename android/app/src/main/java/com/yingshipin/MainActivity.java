@@ -31,12 +31,13 @@ public class MainActivity extends ReactActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState); // or super.onCreate(null) with react-native-screens
     // super.onCreate(null);
-    showSplashScreenAd();
+
 
     String appKey = getResources().getString(R.string.UMENG_APPKEY);
     String channel = getResources().getString(R.string.UMENG_CHANNEL);
     RNUMConfigure.init(this, appKey, channel, UMConfigure.DEVICE_TYPE_PHONE, "");
     MobclickAgent.setSessionContinueMillis(1000*40);
+    showSplashScreenAd();
 
     // ATSDK.setNetworkLogDebug(true);//SDK日志功能，集成测试阶段建议开启，上线前必须关闭
 
