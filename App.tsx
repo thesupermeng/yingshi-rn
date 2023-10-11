@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Provider } from "react-redux";
 import Nav from "./src/navigation/nav";
 import NavA from "./srcA/navigation/nav";
@@ -48,6 +48,7 @@ import { Url } from "./src/Sports/middleware/url";
 import { Dimensions, Platform } from "react-native";
 import CodePush from "react-native-code-push";
 import { YSConfig } from "./ysConfig";
+import RegengOverlay from "./src/components/modal/regengOverlay";
 
 import {
   ATRNSDK,
@@ -88,6 +89,8 @@ let App = () => {
   //   },
   // );
 
+  const [showRegengOverlay, setShowRegengOverlay] = useState(false);
+
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -124,45 +127,20 @@ let App = () => {
     const v1 = parseInt(APP_VERSION.replace(/\./g, ""), 10);
     const v2 = parseInt(res.replace(/\./g, ""), 10);
 
+    console.log('ADAAAGGG')
     if (v2 > v1) {
-      CodePush.sync(
-        {
-          installMode: CodePush.InstallMode.IMMEDIATE,
-          updateDialog: {
-            optionalIgnoreButtonLabel: "取消",
-            optionalInstallButtonLabel: "更新",
-            optionalUpdateMessage: "发现新版本，要现在更新吗？",
-          },
-        },
-        (syncStatus) => {
-          switch (syncStatus) {
-            case CodePush.SyncStatus.CHECKING_FOR_UPDATE:
-              console.log("CODEPUSH STATUS : Checking for updates");
-              break;
-
-            case CodePush.SyncStatus.DOWNLOADING_PACKAGE:
-              showToast("正在下载新资源。。。");
-              break;
-
-            case CodePush.SyncStatus.INSTALLING_UPDATE:
-              showToast("正在安装新资源。。。");
-              break;
-
-            case CodePush.SyncStatus.UP_TO_DATE:
-              console.log("CODEPUSH STATUS : Up to date");
-              break;
-
-            case CodePush.SyncStatus.UPDATE_INSTALLED:
-              showToast("安装完成");
-              // restart
-              break;
-
-            case CodePush.SyncStatus.UNKNOWN_ERROR:
-              showToast("安装失败");
-              break;
-          }
+      console.log('??')
+      CodePush.checkForUpdate()
+      .then((update) => {
+        // console.log('----+---')
+        // console.log(update + "UUUUU")
+        if(update){
+          console.log(update + "AZZZZ?!");
+          setShowRegengOverlay(true);
+        }else{
+          console.log('EHH?');
         }
-      );
+      });
     }
 
     return response;
@@ -591,6 +569,7 @@ let App = () => {
           </GestureHandlerRootView>
         </PersistGate>
         <VipOverlay />
+        {showRegengOverlay && <RegengOverlay />}
       </Provider>
     </QueryClientProvider>
   );
