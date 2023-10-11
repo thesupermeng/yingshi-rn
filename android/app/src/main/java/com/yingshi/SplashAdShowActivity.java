@@ -34,6 +34,8 @@ import com.yingshi.zoomout.SplashZoomOutManager;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class SplashAdShowActivity extends Activity implements ATSplashExListener {
 
@@ -231,7 +233,15 @@ public class SplashAdShowActivity extends Activity implements ATSplashExListener
     @Override
     public void onNoAdError(AdError adError) {
         Log.i(TAG, "onNoAdError---------:" + adError.getFullErrorInfo());
-        jumpToMainActivity();
+        Timer timer = new Timer();
+        // artificial timer to prevent black screen when loading main activity
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Log.d(TAG, "waited 4 secs, jumptomainactivity");
+                jumpToMainActivity();
+            }
+        }, 4000);
     }
 
     @Override
@@ -281,9 +291,10 @@ public class SplashAdShowActivity extends Activity implements ATSplashExListener
             }
             // Toast.makeText(this, "start your MainActivity.", Toast.LENGTH_SHORT).show();
 
-            Intent intent = new Intent(SplashAdShowActivity.this, MainActivity.class);
-            startActivity(intent);
-            // finish();
+//            Intent intent = new Intent(SplashAdShowActivity.this, MainActivity.class);
+//            startActivity(intent);
+            Log.d(TAG, "jumpToMainActivity: jumping to main");
+             finish();
         }
 
     }
