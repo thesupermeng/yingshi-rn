@@ -60,7 +60,7 @@ export default function InviteStep() {
                   fontSize: 10,
                   color: colors.primary,
                 }}>
-                影视TV
+                萤视频
                 {/* 影视PRO */}
               </Text>
             </Text>
