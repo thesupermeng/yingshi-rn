@@ -16,7 +16,7 @@
       android:roundIcon="@mipmap/ic_launcher_round"
       android:allowBackup="false"
       android:networkSecurityConfig="@xml/network_security_config"
-      android:theme="@style/BootTheme">
+      android:theme="@style/AppTheme">
       <activity
         android:name="com.yingshipin.SplashAdShowActivity"
         android:theme="@style/Theme.AppCompat.NoActionBar"
@@ -27,17 +27,9 @@
         android:windowSoftInputMode="adjustResize"
         android:noHistory="true"
         android:exported="true">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-
-        <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="um.648ec50987568a379b587f39" />
-        </intent-filter>
+          <intent-filter>
+          <action android:name="android.intent.action.MAIN" />
+          </intent-filter>
       </activity>
       <activity
         android:name="com.yingshipin.MainActivity"
@@ -46,10 +38,17 @@
         android:launchMode="singleTask"
         android:windowSoftInputMode="adjustResize"
         android:exported="true">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-        </intent-filter>
+          <intent-filter>
+              <action android:name="android.intent.action.MAIN" />
+              <category android:name="android.intent.category.LAUNCHER" />
+          </intent-filter>
+
+          <intent-filter>
+              <action android:name="android.intent.action.VIEW" />
+              <category android:name="android.intent.category.DEFAULT" />
+              <category android:name="android.intent.category.BROWSABLE" />
+              <data android:scheme="um.648ec50987568a379b587f39" />
+          </intent-filter>
       </activity>
       <meta-data
             android:name="UMENG_APPKEY"

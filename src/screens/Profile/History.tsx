@@ -22,6 +22,7 @@ import {VodType} from '../../types/ajaxTypes';
 import {Button} from '@rneui/themed';
 import ConfirmationModal from '../../components/modal/confirmationModal';
 import EmptyList from '../../components/common/emptyList';
+import AdsBanner from '../../ads/adsBanner';
 
 type FlatListType = {
   item: VodRecordType;
@@ -78,6 +79,7 @@ export default ({navigation}: RootStackScreenProps<'播放历史'>) => {
   console.log(customHistoryEarly);
   return (
     <ScreenContainer>
+      <AdsBanner bottomTabHeight={0} />
       <TitleWithBackButtonHeader
         title="播放历史"
         right={
