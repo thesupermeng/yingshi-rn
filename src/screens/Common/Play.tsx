@@ -132,7 +132,7 @@ const insets = useSafeAreaInsets();
         message: `《${vod?.vod_name
         }》高清播放${'\n'}https://yingshi.tv/index.php/vod/play/id/${vod?.vod_id
         }/sid/1/nid/${currentEpisode + 1
-        }.html${'\n'}影视TV-海量高清视频在线观看`,
+        }.html${'\n'}萤视频-海量高清视频在线观看`,
       });
       if (result.action === Share.sharedAction) {
         if (result.activityType) {

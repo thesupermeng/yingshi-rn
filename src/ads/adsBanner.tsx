@@ -81,10 +81,10 @@ function AdsBanner({bottomTabHeight = 0}: Props){
     navBarHeightInPixel -
     bottomTabHeightInPixel;
 
-  console.log('screen height', screenHeightInPixel)
-  console.log('status bar heeight', statusBarHeightInPixel)
-  console.log('bottom tab height', bottomTabHeightInPixel)
-  console.log('ads on top ', adsTopInPixel)
+  // console.log('screen height', screenHeightInPixel)
+  // console.log('status bar heeight', statusBarHeightInPixel)
+  // console.log('bottom tab height', bottomTabHeightInPixel)
+  // console.log('ads on top ', adsTopInPixel)
   
   const deviceBrand = DeviceInfo.getBrand();
   let offSet = 0;
@@ -110,13 +110,13 @@ function AdsBanner({bottomTabHeight = 0}: Props){
     .filter(id => bannerId !== id)
     .forEach(element => {
       ATBannerRNSDK.hideAd(element);
-      console.debug('hide', element)
+      // console.debug('hide', element)
     });
   }
 
   const showBanner = (bannerId:string) => {
     const currentRouteName = route.name;
-    console.log('current route', currentRouteName)
+    // console.log('current route', currentRouteName)
 
     if (!pageWithNavbar.includes(currentRouteName) && !pageNoNavbar.includes(currentRouteName)){
       ATBannerRNSDK.hideAd(bannerPlacementId); //hide ad if not these 4 page 
@@ -154,7 +154,7 @@ function AdsBanner({bottomTabHeight = 0}: Props){
 
   useEffect(()=>{
     const currentRouteName = route.name
-    console.log('route changed to ', currentRouteName)
+    // console.log('route changed to ', currentRouteName)
     if (!isFocused){
       console.log('ignore')
     }
@@ -199,7 +199,7 @@ function AdsBanner({bottomTabHeight = 0}: Props){
   useEffect(()=>{
     if (isFocused){
       if (bannerPlacementId !== ''){
-        console.log('show banner in ', bannerPlacementId, ' ', route.name)
+        // console.log('show banner in ', bannerPlacementId, ' ', route.name)
         hideBannerExcept(bannerPlacementId)
         ATBannerRNSDK.reShowAd(bannerPlacementId)
         showBanner(bannerPlacementId)
