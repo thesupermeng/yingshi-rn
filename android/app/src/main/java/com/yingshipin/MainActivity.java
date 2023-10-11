@@ -4,11 +4,13 @@ import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
 import com.facebook.react.defaults.DefaultReactActivityDelegate;
+
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.umeng.analytics.MobclickAgent;
-//import com.zoontek.rnbootsplash.RNBootSplash;
 import com.umeng.commonsdk.UMConfigure;
+
 
 public class MainActivity extends ReactActivity {
 
@@ -20,10 +22,17 @@ public class MainActivity extends ReactActivity {
   protected String getMainComponentName() {
     return "yingshi";
   }
+  
+  private void showSplashScreenAd() {
+    Intent intent = new Intent(getApplicationContext(), SplashAdShowActivity.class);
+    startActivity(intent);
+  }
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState); // or super.onCreate(null) with react-native-screens
     // super.onCreate(null);
+    showSplashScreenAd();
+
     String appKey = getResources().getString(R.string.UMENG_APPKEY);
     String channel = getResources().getString(R.string.UMENG_CHANNEL);
     RNUMConfigure.init(this, appKey, channel, UMConfigure.DEVICE_TYPE_PHONE, "");
@@ -46,15 +55,15 @@ public class MainActivity extends ReactActivity {
   @Override    
   public void onResume() {   
     // 友盟统计初始化        
-    super.onResume();        
-    MobclickAgent.onResume(this);   
+    super.onResume();
+    MobclickAgent.onResume(this);
   }    
 
   @Override    
-  protected void onPause() { 
-    //友盟统计初始化        
-    super.onPause();        
-    MobclickAgent.onPause(this);    
+  protected void onPause() {
+    //友盟统计初始化
+    super.onPause();
+    MobclickAgent.onPause(this);
   }
 
   /**
