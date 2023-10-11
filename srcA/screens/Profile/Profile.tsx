@@ -1,6 +1,6 @@
 import React, {useCallback, memo} from 'react';
 import {ListItem} from '@rneui/themed';
-import {View, TouchableOpacity, Text, StyleSheet} from 'react-native';
+import {View, TouchableOpacity, Text, StyleSheet, ScrollView} from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
 import {useTheme, useFocusEffect} from '@react-navigation/native';
 import {toggleTheme} from '../../redux/actions/themeAction';
@@ -36,7 +36,7 @@ function Profile ({navigation}: BottomTabScreenProps<any>) {
   );
 
   return (
-    <ScreenContainer>
+    <ScrollView>
       <View style={{...styles.topNav}}>
         <Text
           style={{...textVariants.bigHeader, color: colors.text, fontSize: 22}}>
@@ -79,7 +79,7 @@ function Profile ({navigation}: BottomTabScreenProps<any>) {
         />
         {/* <ShowMoreButton text='分享App' disabled={true} leftIcon={<ShareIcon style={{ color: colors.button }} />} /> */}
       </View>
-    </ScreenContainer>
+    </Scroll>
   );
 };
 

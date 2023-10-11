@@ -173,13 +173,13 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
             我的
           </Text>
           {/* <TouchableOpacity onPress={() => dispatch(toggleTheme(!themeReducer.theme))}>
-                    {
-                        themeReducer.theme
-                            ? <LightMode color={icons.iconColor} height={26} width={26} />
-                            : <DarkMode color={icons.iconColor}  height={26} width={26} />
+                      {
+                          themeReducer.theme
+                              ? <LightMode color={icons.iconColor} height={26} width={26} />
+                              : <DarkMode color={icons.iconColor}  height={26} width={26} />
 
-                    }
-                </TouchableOpacity> */}
+                      }
+                  </TouchableOpacity> */}
         </View>
         {/* 游客登录  component*/}
         <TouchableOpacity
@@ -250,8 +250,8 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                   </View>
 
                   {/* {userState.userMemberExpired == '0' && (
-                    <Text style={{fontSize: 14}}>VIP会员已经到期</Text>
-                  )} */}
+                      <Text style={{fontSize: 14}}>VIP会员已经到期</Text>
+                    )} */}
                   {userState.userMemberExpired >=
                     userState.userCurrentTimestamp && (
                     <Text style={{ color: colors.primary, fontSize: 14 }}>
@@ -320,10 +320,10 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
             onPress={() => navigation.navigate("我的收藏")}
           />
           {/* <ShowMoreButton
-            text="我的下载"
-            leftIcon={<DownloadIcon style={{color: colors.button}} />}
-            onPress={() => setIsDialogOpen(true)}
-          /> */}
+              text="我的下载"
+              leftIcon={<DownloadIcon style={{color: colors.button}} />}
+              onPress={() => setIsDialogOpen(true)}
+            /> */}
           <ShowMoreButton
             text="播放历史"
             leftIcon={<HistoryIcon style={{ color: colors.button }} />}
@@ -345,31 +345,31 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
             onPress={() => navigation.navigate("关于我们")}
           />
           {/* <TouchableOpacity
-            style={{
-              ...styles.btn,
-              backgroundColor: '#2b271e',
-            }}
-            onPress={() => setIsDialogOpen(true)}>
-            <View style={styles.left}>
-              <View style={{...styles.icon, paddingTop: 2}}>
-                <UpgradeIcon />
+              style={{
+                ...styles.btn,
+                backgroundColor: '#2b271e',
+              }}
+              onPress={() => setIsDialogOpen(true)}>
+              <View style={styles.left}>
+                <View style={{...styles.icon, paddingTop: 2}}>
+                  <UpgradeIcon />
+                </View>
+
+                <Text
+                  style={{
+                    ...textVariants.body,
+                    color: colors.primary,
+                  }}>
+                  一键升级至影视TV Pro
+                </Text>
               </View>
 
-              <Text
-                style={{
-                  ...textVariants.body,
-                  color: colors.primary,
-                }}>
-                一键升级至影视TV Pro
-              </Text>
-            </View>
-
-            <RightArrow
-              width={icons.sizes.l}
-              height={icons.sizes.l}
-              color={colors.muted}
-            />
-          </TouchableOpacity> */}
+              <RightArrow
+                width={icons.sizes.l}
+                height={icons.sizes.l}
+                color={colors.muted}
+              />
+            </TouchableOpacity> */}
           {/* <ShowMoreButton text='分享App' disabled={true} leftIcon={<ShareIcon style={{ color: colors.button }} />} /> */}
         </View>
 
