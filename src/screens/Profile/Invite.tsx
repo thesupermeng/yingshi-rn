@@ -71,6 +71,7 @@ export default ({ navigation }: RootStackScreenProps<"邀请">) => {
           <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
         }
       >
+        <ScreenContainer>
         <TitleWithBackButtonHeader title="邀请好友奖励" />
         <View style={{ paddingHorizontal: 10 }}>
           {/* top component  */}
@@ -105,6 +106,7 @@ export default ({ navigation }: RootStackScreenProps<"邀请">) => {
           </TouchableOpacity>
           {/* invite step  */}
         </View>
+        </ScreenContainer>
         <InviteStep />
       </ScrollView>
     </>
