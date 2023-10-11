@@ -7,7 +7,7 @@ import com.facebook.react.defaults.DefaultReactActivityDelegate;
 import android.os.Bundle;
 
 import com.umeng.analytics.MobclickAgent;
-import com.zoontek.rnbootsplash.RNBootSplash;
+//import com.zoontek.rnbootsplash.RNBootSplash;
 import com.umeng.commonsdk.UMConfigure;
 
 public class MainActivity extends ReactActivity {
@@ -22,7 +22,6 @@ public class MainActivity extends ReactActivity {
   }
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    RNBootSplash.init(this); // ⬅️ initialize the splash screen
     super.onCreate(savedInstanceState); // or super.onCreate(null) with react-native-screens
     // super.onCreate(null);
     String appKey = getResources().getString(R.string.UMENG_APPKEY);
