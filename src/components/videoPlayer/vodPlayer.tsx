@@ -183,6 +183,22 @@ export default forwardRef<VideoRef, Props>(({
     //   }
     // });
 
+    const onBeforeRemove = (e: any) => {
+      if (isFullScreen) {
+        Orientation.lockToPortrait();
+        StatusBar.setHidden(false);
+        setIsFullScreen(false);
+      } else {
+        if (!isPaused) {
+          setIsPaused(true);
+          navigation.dispatch(e.data.action);
+        }
+      }
+    };
+
+    navigation.addListener('beforeRemove', onBeforeRemove);
+
+
     return () => {
       subscription.remove();
     };
