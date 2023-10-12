@@ -8,7 +8,8 @@ type Props = {
     onTouchScreen: () => any
 }
 
-const steps = 10;
+// const steps = 10;
+const steps = 1
 
 export default ({ onChangeBrightness, onTouchScreen }: Props) => {
 
@@ -24,14 +25,15 @@ export default ({ onChangeBrightness, onTouchScreen }: Props) => {
         val = val > 0 ? currVolume + 1 / steps : currVolume - 1 / steps;
         val = Math.min(1, Math.max(0, val));
 
-        onChangeBrightness(val);
+        // onChangeBrightness(val);
+        onChangeBrightness(parseFloat(val.toFixed(2)));
 
         SystemSetting.setAppBrightness(val);
         return;
     }
 
     return (
-        <PanHandler step={10} onTouch={onScreenTouched} onChange={onBrightnessChanged} />
+        <PanHandler step={1} onTouch={onScreenTouched} onChange={onBrightnessChanged} />
     )
 }
 

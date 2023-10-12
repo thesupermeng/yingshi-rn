@@ -298,7 +298,7 @@ let App = () => {
     console.log("TopOn SDK init ....");
     ATRNSDK.initSDK(appId, appKey);
 
-    initAdListener();
+    //  initAdListener();
   }
 
   function initAdListener() {
