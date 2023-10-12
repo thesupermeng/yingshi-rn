@@ -12,7 +12,8 @@ export const BrightnessControl = ({onChange}) => {
     newVal = Math.max(0, newVal);
     newVal = Math.min(1, newVal);
     onChange(newVal);
-    await SystemSetting.setAppBrightness(newVal);
+    // await SystemSetting.setAppBrightness(newVal);
+    SystemSetting.setAppBrightness(newVal);
     return;
   };
   return (
