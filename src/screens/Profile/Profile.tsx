@@ -156,23 +156,24 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
   return (
     <>
       <AdsBanner bottomTabHeight={0} />
-      <ScrollView
-        style={{ paddingHorizontal: 15 }}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
-        }
-      >
-        <View style={{ ...styles.topNav }}>
-          <Text
-            style={{
-              ...textVariants.bigHeader,
-              color: colors.text,
-              fontSize: 22,
-            }}
-          >
-            我的
-          </Text>
-          {/* <TouchableOpacity onPress={() => dispatch(toggleTheme(!themeReducer.theme))}>
+      <ScreenContainer>
+        <ScrollView
+          style={{ paddingHorizontal: 15 }}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+          }
+        >
+          <View style={{ ...styles.topNav }}>
+            <Text
+              style={{
+                ...textVariants.bigHeader,
+                color: colors.text,
+                fontSize: 22,
+              }}
+            >
+              我的
+            </Text>
+            {/* <TouchableOpacity onPress={() => dispatch(toggleTheme(!themeReducer.theme))}>
                       {
                           themeReducer.theme
                               ? <LightMode color={icons.iconColor} height={26} width={26} />
@@ -180,171 +181,170 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
 
                       }
                   </TouchableOpacity> */}
-        </View>
-        {/* 游客登录  component*/}
-        <TouchableOpacity
-          activeOpacity={1}
-          onPress={() => {
-            if (userState.userToken == "") {
-              dispatch(showLoginAction());
-              // console.log('props{');
-              // setActionType('login');
-              // setSignUpOrLogin(true);
-            } else {
-              navigation.navigate("个人中心");
-            }
-          }}
-        >
-          <View
-            style={{ paddingTop: 20, paddingBottom: 10, flexDirection: "row" }}
-          >
-            <ProfileIcon
-              style={{ color: colors.button, width: 18, height: 18 }}
-            />
-            <View
-              style={{
-                flexDirection: "column",
-                flexGrow: 1,
-                gap: 5,
-                justifyContent: "center",
-                paddingLeft: 12,
-              }}
-            >
-              {userState.userToken == "" && (
-                <>
-                  <Text style={{ color: "#ffffff", fontSize: 20 }}>
-                    游客您好！
-                  </Text>
-                  <Text style={{ color: "#ffffff", fontSize: 14 }}>
-                    登录可享更多服务
-                  </Text>
-                </>
-              )}
-              {userState.userToken != "" && (
-                <>
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      justifyContent: "flex-start",
-                      alignItems: "center",
-                      paddingRight: 110,
-                    }}
-                  >
-                    <Text
-                      style={{
-                        color: "#ffffff",
-                        fontSize: 20,
-                      }}
-                      numberOfLines={1}
-                      ellipsizeMode="tail"
-                    >
-                      {userState.userName}
-                    </Text>
-                    {userState.userMemberExpired >=
-                      userState.userCurrentTimestamp && (
-                      <Image
-                        style={styles.iconStyle}
-                        source={require("../../../static/images/profile/vip.png")}
-                      />
-                    )}
-                  </View>
-
-                  {/* {userState.userMemberExpired == '0' && (
-                      <Text style={{fontSize: 14}}>VIP会员已经到期</Text>
-                    )} */}
-                  {userState.userMemberExpired >=
-                    userState.userCurrentTimestamp && (
-                    <Text style={{ color: colors.primary, fontSize: 14 }}>
-                      VIP会员有效日期至{displayedDate}
-                    </Text>
-                  )}
-                </>
-              )}
-            </View>
-
-            <View
-              style={{
-                justifyContent: "center",
-                paddingRight: 15,
-              }}
-            >
-              {userState.userToken == "" && (
-                <MoreArrow
-                  width={icons.sizes.l}
-                  height={icons.sizes.l}
-                  color={colors.muted}
-                />
-              )}
-
-              {userState.userToken != "" && (
-                <EditIcn width={29} height={29} color={colors.muted} />
-              )}
-            </View>
           </View>
-        </TouchableOpacity>
-
-        <View style={{ marginBottom: -30, flex: 3, paddingBottom: 120 }}>
+          {/* 游客登录  component*/}
           <TouchableOpacity
-            style={{
-              ...styles.btn,
-              backgroundColor: "#2d2e30",
-            }}
+            activeOpacity={1}
             onPress={() => {
-              navigation.navigate("邀请");
+              if (userState.userToken == "") {
+                dispatch(showLoginAction());
+                // console.log('props{');
+                // setActionType('login');
+                // setSignUpOrLogin(true);
+              } else {
+                navigation.navigate("个人中心");
+              }
             }}
           >
-            <View style={styles.left}>
-              <View style={styles.icon}>
-                <VipIcon width={icons.sizes.l} height={icons.sizes.l} />
-              </View>
-
-              <Text
+            <View
+              style={{ paddingTop: 20, paddingBottom: 10, flexDirection: "row" }}
+            >
+              <ProfileIcon
+                style={{ color: colors.button, width: 18, height: 18 }}
+              />
+              <View
                 style={{
-                  ...textVariants.body,
+                  flexDirection: "column",
+                  flex: 1,
+                  gap: 5,
+                  justifyContent: "center",
+                  paddingLeft: 12,
                 }}
               >
-                {highlightText("邀请好友获得VIP奖励，享更多权益", "VIP")}
-              </Text>
-            </View>
+                {userState.userToken == "" && (
+                  <>
+                    <Text style={{ color: "#ffffff", fontSize: 20 }}>
+                      游客您好！
+                    </Text>
+                    <Text style={{ color: "#ffffff", fontSize: 14 }}>
+                      登录可享更多服务
+                    </Text>
+                  </>
+                )}
+                {userState.userToken != "" && (
+                  <>
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        justifyContent: "flex-start",
+                        alignItems: "center",
+                        paddingRight: 30,
+                      }}
+                    >
+                      <Text
+                        style={{
+                          color: "#ffffff",
+                          fontSize: 20,
+                        }}
+                        numberOfLines={1}
+                        ellipsizeMode="tail"
+                      >
+                        {userState.userName}
+                      </Text>
+                      {userState.userMemberExpired >=
+                        userState.userCurrentTimestamp && (
+                        <Image
+                          style={styles.iconStyle}
+                          source={require("../../../static/images/profile/vip.png")}
+                        />
+                      )}
+                    </View>
 
-            <VipArrow
-              width={icons.sizes.l}
-              height={icons.sizes.l}
-              color={colors.muted}
-            />
+                    {/* {userState.userMemberExpired == '0' && (
+                      <Text style={{fontSize: 14}}>VIP会员已经到期</Text>
+                    )} */}
+                    {userState.userMemberExpired >=
+                      userState.userCurrentTimestamp && (
+                      <Text style={{ color: colors.primary, fontSize: 14 }}>
+                        VIP会员有效日期至{displayedDate}
+                      </Text>
+                    )}
+                  </>
+                )}
+              </View>
+
+              <View
+                style={{
+                  justifyContent: "center",
+                }}
+              >
+                {userState.userToken == "" && (
+                  <MoreArrow
+                    width={icons.sizes.l}
+                    height={icons.sizes.l}
+                    color={colors.muted}
+                  />
+                )}
+
+                {userState.userToken != "" && (
+                  <EditIcn width={29} height={29} color={colors.muted} />
+                )}
+              </View>
+            </View>
           </TouchableOpacity>
 
-          <ShowMoreButton
-            text="我的收藏"
-            leftIcon={<CollectionIcon style={{ color: colors.button }} />}
-            onPress={() => navigation.navigate("我的收藏")}
-          />
-          {/* <ShowMoreButton
+          <View style={{ marginBottom: -30, flex: 3, paddingBottom: 120 }}>
+            <TouchableOpacity
+              style={{
+                ...styles.btn,
+                backgroundColor: "#2d2e30",
+              }}
+              onPress={() => {
+                navigation.navigate("邀请");
+              }}
+            >
+              <View style={styles.left}>
+                <View style={styles.icon}>
+                  <VipIcon width={icons.sizes.l} height={icons.sizes.l} />
+                </View>
+
+                <Text
+                  style={{
+                    ...textVariants.body,
+                  }}
+                >
+                  {highlightText("邀请好友获得VIP奖励，享更多权益", "VIP")}
+                </Text>
+              </View>
+
+              <VipArrow
+                width={icons.sizes.l}
+                height={icons.sizes.l}
+                color={colors.muted}
+              />
+            </TouchableOpacity>
+
+            <ShowMoreButton
+              text="我的收藏"
+              leftIcon={<CollectionIcon style={{ color: colors.button }} />}
+              onPress={() => navigation.navigate("我的收藏")}
+            />
+            {/* <ShowMoreButton
               text="我的下载"
               leftIcon={<DownloadIcon style={{color: colors.button}} />}
               onPress={() => setIsDialogOpen(true)}
             /> */}
-          <ShowMoreButton
-            text="播放历史"
-            leftIcon={<HistoryIcon style={{ color: colors.button }} />}
-            onPress={() => navigation.navigate("播放历史")}
-          />
-          <ShowMoreButton
-            text="我要反馈"
-            leftIcon={<FeedbackIcon style={{ color: colors.button }} />}
-            onPress={() => navigation.navigate("反馈")}
-          />
-          <ShowMoreButton
-            text="设置"
-            leftIcon={<SettingsIcon style={{ color: colors.button }} />}
-            onPress={() => navigation.navigate("设置")}
-          />
-          <ShowMoreButton
-            text="关于我们"
-            leftIcon={<InfoIcon style={{ color: colors.button }} />}
-            onPress={() => navigation.navigate("关于我们")}
-          />
-          {/* <TouchableOpacity
+            <ShowMoreButton
+              text="播放历史"
+              leftIcon={<HistoryIcon style={{ color: colors.button }} />}
+              onPress={() => navigation.navigate("播放历史")}
+            />
+            <ShowMoreButton
+              text="我要反馈"
+              leftIcon={<FeedbackIcon style={{ color: colors.button }} />}
+              onPress={() => navigation.navigate("反馈")}
+            />
+            <ShowMoreButton
+              text="设置"
+              leftIcon={<SettingsIcon style={{ color: colors.button }} />}
+              onPress={() => navigation.navigate("设置")}
+            />
+            <ShowMoreButton
+              text="关于我们"
+              leftIcon={<InfoIcon style={{ color: colors.button }} />}
+              onPress={() => navigation.navigate("关于我们")}
+            />
+            {/* <TouchableOpacity
               style={{
                 ...styles.btn,
                 backgroundColor: '#2b271e',
@@ -370,18 +370,20 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                 color={colors.muted}
               />
             </TouchableOpacity> */}
-          {/* <ShowMoreButton text='分享App' disabled={true} leftIcon={<ShareIcon style={{ color: colors.button }} />} /> */}
-        </View>
+            {/* <ShowMoreButton text='分享App' disabled={true} leftIcon={<ShareIcon style={{ color: colors.button }} />} /> */}
+          </View>
 
-        <NotificationModal
-          onConfirm={toggleOverlay}
-          isVisible={isDialogOpen}
-          title="功能尚未开放"
-          subtitle1=""
-          subtitle2=""
-          subtitle3=""
-        />
-      </ScrollView>
+          <NotificationModal
+            onConfirm={toggleOverlay}
+            isVisible={isDialogOpen}
+            title="功能尚未开放"
+            subtitle1=""
+            subtitle2=""
+            subtitle3=""
+          />
+        </ScrollView>
+      </ScreenContainer>
+      
     </>
   );
 }

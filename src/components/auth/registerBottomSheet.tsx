@@ -77,30 +77,34 @@ function RegisterBottomSheet({sheetRef, displayMode}: Props) {
     [],
   );
 
-  // useEffect(() => {
-  //   const keyboardDidShowListener = Keyboard.addListener(
-  //     'keyboardDidShow',
-  //     () => {
-  //       setSnapPoints(['1%', '69%']);
-  //     },
-  //   );
-
-  //   const keyboardDidHideListener = Keyboard.addListener(
-  //     'keyboardDidHide',
-  //     () => {
-  //       setSnapPoints(['1%', '45%']);
-  //     },
-  //   );
-
-  //   return () => {
-  //     keyboardDidShowListener.remove();
-  //     keyboardDidHideListener.remove();
-  //   };
-  // }, []);
-
   //child state
   const [email, setEmail] = useState('');
   const [referralCode, setReferralCode] = useState('');
+
+  useEffect(() => {
+    if (Platform.OS === 'ios'){
+      const keyboardDidShowListener = Keyboard.addListener(
+        'keyboardDidShow',
+        () => {
+          setSnapPoints(['1%', '85%']);
+        },
+      );
+
+      const keyboardDidHideListener = Keyboard.addListener(
+        'keyboardDidHide',
+        () => {
+          setSnapPoints([1, 400]);
+        },
+      );
+
+      // Return a cleanup function to remove event listeners
+      return () => {
+        keyboardDidShowListener.remove();
+        keyboardDidHideListener.remove();
+      };
+    }
+  }, []);
+
   return (
     <BottomSheet
       ref={sheetRef}

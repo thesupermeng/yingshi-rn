@@ -102,7 +102,7 @@ const insets = useSafeAreaInsets();
   const sheetRef = useRef<BottomSheet>(null);
   const episodeRef = useRef<FlatList>(null);
   const videoPlayerRef = useRef() as React.MutableRefObject<VideoRef>;
-
+  const currentEpisodeRef = useRef<number>();
   const dispatch = useAppDispatch();
 
   const [dismountPlayer, setDismountPlayer] = useState(false);
@@ -224,6 +224,7 @@ const insets = useSafeAreaInsets();
       });
 
   useEffect(() => {
+    currentEpisodeRef.current = vod?.episodeWatched;
     setCurrentEpisode(
       vod?.episodeWatched === undefined ? 0 : vod.episodeWatched,
     );
@@ -257,8 +258,12 @@ const insets = useSafeAreaInsets();
 
   useEffect(() => {
     setIsCollapsed(true);
-    episodeRef?.current?.scrollToOffset({
-      offset: getOffSet(currentEpisode),
+    // episodeRef?.current?.scrollToOffset({
+    //   offset: getOffSet(currentEpisode),
+    //   animated: true,
+    // });
+    episodeRef?.current?.scrollToIndex({
+      index: currentEpisode,
       animated: true,
     });
   }, [currentEpisode, episodeRef]);
@@ -269,7 +274,7 @@ const insets = useSafeAreaInsets();
       return () => {
         setDismountPlayer(true);
         if (vod) {
-          dispatch(addVodToHistory(vod, currentTimeRef.current, currentEpisode));
+          dispatch(addVodToHistory(vod, currentTimeRef.current, currentEpisodeRef.current));
           setInitTime(currentTimeRef.current);
         }
       };
@@ -291,6 +296,7 @@ const insets = useSafeAreaInsets();
       }}
       onPress={() => {
         setCurrentEpisode(item.nid);
+        currentEpisodeRef.current = item.nid;
         currentTimeRef.current = 0;
       }}>
       <Text
@@ -307,7 +313,16 @@ const insets = useSafeAreaInsets();
         {item.name}
       </Text>
     </TouchableOpacity>
-  ), []);
+  ), [currentEpisode]);
+
+  const onContentSizeChange = () => {
+    if (episodeRef.current) {
+      episodeRef.current.scrollToIndex({
+        index: currentEpisode,
+        animated: true,
+      });
+    }
+  };
 
   return (
     <>
@@ -546,6 +561,10 @@ const insets = useSafeAreaInsets();
                                   showEpisodeRangeEnd,
                                 )}
                                 renderItem={renderEpisodes}
+                                onContentSizeChange={onContentSizeChange}
+                                ListFooterComponent={
+                                  <View style={{paddingHorizontal: 20}}/>
+                                }
                               />
                               <View />
                             </>
