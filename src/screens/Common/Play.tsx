@@ -102,7 +102,7 @@ const insets = useSafeAreaInsets();
   const sheetRef = useRef<BottomSheet>(null);
   const episodeRef = useRef<FlatList>(null);
   const videoPlayerRef = useRef() as React.MutableRefObject<VideoRef>;
-
+  const currentEpisodeRef = useRef<number>();
   const dispatch = useAppDispatch();
 
   const [dismountPlayer, setDismountPlayer] = useState(false);
@@ -224,6 +224,7 @@ const insets = useSafeAreaInsets();
       });
 
   useEffect(() => {
+    currentEpisodeRef.current = vod?.episodeWatched;
     setCurrentEpisode(
       vod?.episodeWatched === undefined ? 0 : vod.episodeWatched,
     );
@@ -273,7 +274,7 @@ const insets = useSafeAreaInsets();
       return () => {
         setDismountPlayer(true);
         if (vod) {
-          dispatch(addVodToHistory(vod, currentTimeRef.current, currentEpisode));
+          dispatch(addVodToHistory(vod, currentTimeRef.current, currentEpisodeRef.current));
           setInitTime(currentTimeRef.current);
         }
       };
@@ -295,6 +296,7 @@ const insets = useSafeAreaInsets();
       }}
       onPress={() => {
         setCurrentEpisode(item.nid);
+        currentEpisodeRef.current = item.nid;
         currentTimeRef.current = 0;
       }}>
       <Text
@@ -560,6 +562,9 @@ const insets = useSafeAreaInsets();
                                 )}
                                 renderItem={renderEpisodes}
                                 onContentSizeChange={onContentSizeChange}
+                                ListFooterComponent={
+                                  <View style={{paddingHorizontal: 20}}/>
+                                }
                               />
                               <View />
                             </>
