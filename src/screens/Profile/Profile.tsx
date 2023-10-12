@@ -205,7 +205,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
               <View
                 style={{
                   flexDirection: "column",
-                  flexGrow: 1,
+                  flex: 1,
                   gap: 5,
                   justifyContent: "center",
                   paddingLeft: 12,
@@ -228,7 +228,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                         flexDirection: "row",
                         justifyContent: "flex-start",
                         alignItems: "center",
-                        paddingRight: 110,
+                        paddingRight: 30,
                       }}
                     >
                       <Text
@@ -266,7 +266,6 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
               <View
                 style={{
                   justifyContent: "center",
-                  paddingRight: 15,
                 }}
               >
                 {userState.userToken == "" && (
