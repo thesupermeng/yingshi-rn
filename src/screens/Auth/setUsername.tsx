@@ -15,7 +15,8 @@ import {
   Alert,
   BackHandler,
 } from 'react-native';
-import {ScreenContainer} from 'react-native-screens';
+// import {ScreenContainer} from 'react-native-screens';
+import ScreenContainer from '../../components/container/screenContainer';
 import {useDispatch, useSelector} from 'react-redux';
 import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
@@ -122,6 +123,7 @@ export default (props: any) => {
   );
 
   return (
+    <ScreenContainer>
     <View
       style={{
         flex: 1,
@@ -258,6 +260,7 @@ export default (props: any) => {
         </>
       </TouchableWithoutFeedback>
     </View>
+    </ScreenContainer>
   );
 };
 
