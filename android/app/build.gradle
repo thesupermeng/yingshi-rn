@@ -99,7 +99,7 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 5
-        versionName "1.3.0"
+        versionName "1.4.0"
         resValue "string", "UMENG_APPKEY", "648ec50987568a379b587f39"
         resValue "string", "UMENG_CHANNEL", "HUAWEI_APP_GALLERY_OVERSEAS"
         resValue "string", "UMENG_CHANNEL_GENERAL", "DEFAULT"
