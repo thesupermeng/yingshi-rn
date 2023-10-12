@@ -1,6 +1,6 @@
 {
   "name": "yingshi",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "private": true,
   "scripts": {
     "android": "source ~/.bash_profile && react-native run-android",
@@ -15,14 +15,17 @@
     "ios-ipa-release": "react-native bundle --dev false --entry-file index.ios.js --bundle-output ios/main.jsbundle --platform ios",
 
     "build-release": "cd buildScripts && node replaceChannel.js && cd .. && npm run android-apk-release",
-    
+  
     "android-apk-web-release": "export APK_CHANNEL=WEB&& npm run build-release",
     "android-apk-googleplay-release": "export APK_CHANNEL=GOOGLE_PLAY&& npm run build-release",
     "android-apk-oppo-release": "export APK_CHANNEL=OPPO_APP_MARKET&& npm run build-release",
     "android-apk-huawei-release": "export APK_CHANNEL=HUAWEI_APP_GALLERY_OVERSEAS&& npm run build-release",
     "android-apk-vivo-release": "export APK_CHANNEL=VIVO_APP_STORE&& npm run build-release",
     "android-apk-mi-release": "export APK_CHANNEL=MI_GETAPPS&& npm run build-release",
-    "android-apk-samsung-release": "export APK_CHANNEL=SAMSUNG_GALAXY_STORE&& npm run build-release"
+    "android-apk-samsung-release": "export APK_CHANNEL=SAMSUNG_GALAXY_STORE&& npm run build-release",
+
+
+    "android-apk-apkpure-release": "export APK_CHANNEL=APK_PURE&& npm run build-release"
   },
   "dependencies": {
     "@ant-design/react-native": "^5.0.4",
