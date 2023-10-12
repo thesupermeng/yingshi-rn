@@ -8,7 +8,7 @@ type Props = {
     onTouchScreen: () => any
 }
 
-const steps = 10;
+const steps = 1;
 
 export default ({ onChangeVolume, onTouchScreen }: Props) => {
 
@@ -31,7 +31,7 @@ export default ({ onChangeVolume, onTouchScreen }: Props) => {
     }
 
     return (
-        <PanHandler step={10} onTouch={onScreenTouched} onChange={onVolumeChanged} />
+        <PanHandler step={1} onTouch={onScreenTouched} onChange={onVolumeChanged} />
     )
 }
 
