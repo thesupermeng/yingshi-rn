@@ -111,7 +111,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const sheetRef = useRef<BottomSheet>(null);
   const episodeRef = useRef<FlatList>(null);
   const videoPlayerRef = useRef() as React.MutableRefObject<VideoRef>;
-  const currentEpisodeRef = useRef<number>();
+
   const dispatch = useAppDispatch();
 
   const [dismountPlayer, setDismountPlayer] = useState(false);
@@ -144,7 +144,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
           vod?.vod_id
         }/sid/1/nid/${
           currentEpisode + 1
-        }.html${"\n"}影视TV-海量高清视频在线观看`,
+        }.html${"\n"}萤视频-海量高清视频在线观看`,
       });
       if (result.action === Share.sharedAction) {
         if (result.activityType) {
@@ -234,7 +234,6 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
       });
 
   useEffect(() => {
-    currentEpisodeRef.current = vod?.episodeWatched;
     setCurrentEpisode(
       vod?.episodeWatched === undefined ? 0 : vod.episodeWatched
     );
@@ -268,12 +267,8 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   useEffect(() => {
     setIsCollapsed(true);
-    // episodeRef?.current?.scrollToOffset({
-    //   offset: getOffSet(currentEpisode),
-    //   animated: true,
-    // });
-    episodeRef?.current?.scrollToIndex({
-      index: currentEpisode,
+    episodeRef?.current?.scrollToOffset({
+      offset: getOffSet(currentEpisode),
       animated: true,
     });
   }, [currentEpisode, episodeRef]);
@@ -285,11 +280,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
         setDismountPlayer(true);
         if (vod) {
           dispatch(
-            addVodToHistory(
-              vod,
-              currentTimeRef.current,
-              currentEpisodeRef.current
-            )
+            addVodToHistory(vod, currentTimeRef.current, currentEpisode)
           );
           setInitTime(currentTimeRef.current);
         }
@@ -311,7 +302,6 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
         }}
         onPress={() => {
           setCurrentEpisode(item.nid);
-          currentEpisodeRef.current = item.nid;
           currentTimeRef.current = 0;
         }}
       >
@@ -328,17 +318,8 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
         </Text>
       </TouchableOpacity>
     ),
-    [currentEpisode]
+    []
   );
-
-  const onContentSizeChange = () => {
-    if (episodeRef.current) {
-      episodeRef.current.scrollToIndex({
-        index: currentEpisode,
-        animated: true,
-      });
-    }
-  };
 
   return (
     <>
@@ -608,10 +589,6 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                                 showEpisodeRangeEnd
                               )}
                               renderItem={renderEpisodes}
-                              onContentSizeChange={onContentSizeChange}
-                              ListFooterComponent={
-                                <View style={{ paddingHorizontal: 20 }} />
-                              }
                             />
                             <View />
                           </>
