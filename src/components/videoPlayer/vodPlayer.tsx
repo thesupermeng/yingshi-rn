@@ -166,8 +166,24 @@ export default forwardRef<VideoRef, Props>(({
     );
 
     // here check swipe back event, and paused video
-    navigation.addListener('beforeRemove', (e) => {
-      e.preventDefault();
+    // navigation.addListener('beforeRemove', (e) => {
+    //   e.preventDefault();
+    //   if (isFullScreen) {
+    //     Orientation.lockToPortrait();
+    //     StatusBar.setHidden(false);
+    //     setIsFullScreen(false);
+    //   } else {
+    //     if (!isPaused) {
+    //       setIsPaused(true);
+    //       setTimeout(() => {
+    //         StatusBar.setHidden(false);
+    //         navigation.dispatch(e.data.action);
+    //       }, 100);
+    //     }
+    //   }
+    // });
+
+    const onBeforeRemove = (e: any) => {
       if (isFullScreen) {
         Orientation.lockToPortrait();
         StatusBar.setHidden(false);
@@ -175,13 +191,13 @@ export default forwardRef<VideoRef, Props>(({
       } else {
         if (!isPaused) {
           setIsPaused(true);
-          setTimeout(() => {
-            StatusBar.setHidden(false);
-            navigation.dispatch(e.data.action);
-          }, 100);
+          navigation.dispatch(e.data.action);
         }
       }
-    });
+    };
+
+    navigation.addListener('beforeRemove', onBeforeRemove);
+
 
     return () => {
       subscription.remove();
