@@ -44,28 +44,26 @@ interface Props {
   bottomTabHeight: number;
 }
 
-function AdsBanner({bottomTabHeight = 0}: Props){
-  const route = useRoute(); 
-  const [bannerPlacementId, setBannerPlacementId] = useState('');
+function AdsBanner({ bottomTabHeight = 0 }: Props) {
+  const route = useRoute();
+  const [bannerPlacementId, setBannerPlacementId] = useState("");
   const isFocused = useIsFocused();
-  const [navBarHeightInPixel, setNavBarHeightInPixel] = useState(0)
+  const [navBarHeightInPixel, setNavBarHeightInPixel] = useState(0);
 
-
-  const pageWithNavbar = ["首页", "播单", "体育"]
-  const pageNoNavbar = ["播放", "PlaylistDetail", "体育详情"]
+  const pageWithNavbar = ["首页", "播单", "体育"];
+  const pageNoNavbar = ["播放", "PlaylistDetail", "体育详情", "电视台播放"];
 
   try {
     getNavigationBarHeight().then((height) => {
-      console.debug(height)
-      setNavBarHeightInPixel(height)
-    })
+      console.debug(height);
+      setNavBarHeightInPixel(height);
+    });
   } catch (e) {
     // navBarHeightInPixel = 0;
   }
 
-
   let screenWidthInPixel =
-  Dimensions.get("screen").width * Dimensions.get("screen").scale;
+    Dimensions.get("screen").width * Dimensions.get("screen").scale;
   let screenHeightInPixel =
     Dimensions.get("screen").height * Dimensions.get("screen").scale;
 
@@ -99,162 +97,176 @@ function AdsBanner({bottomTabHeight = 0}: Props){
     }
   }
 
-  const hideBannerExcept = (bannerId:string) => {
-    const androidIds = [ANDROID_HOME_PAGE_BANNER_ADS, ANDROID_PLAY_DETAILS_BANNER_ADS, ANDROID_TOPIC_DETAILS_BANNER_ADS, ANDROID_TOPIC_TAB_BANNER_ADS]
-    const iosIds = [IOS_HOME_PAGE_BANNER_ADS, IOS_PLAY_DETAILS_BANNER_ADS, IOS_TOPIC_DETAILS_BANNER_ADS, IOS_TOPIC_TAB_BANNER_ADS]
-    if (Platform.OS === 'android'){
+  const hideBannerExcept = (bannerId: string) => {
+    const androidIds = [
+      ANDROID_HOME_PAGE_BANNER_ADS,
+      ANDROID_PLAY_DETAILS_BANNER_ADS,
+      ANDROID_TOPIC_DETAILS_BANNER_ADS,
+      ANDROID_TOPIC_TAB_BANNER_ADS,
+    ];
+    const iosIds = [
+      IOS_HOME_PAGE_BANNER_ADS,
+      IOS_PLAY_DETAILS_BANNER_ADS,
+      IOS_TOPIC_DETAILS_BANNER_ADS,
+      IOS_TOPIC_TAB_BANNER_ADS,
+    ];
+    if (Platform.OS === "android") {
       androidIds
-      .filter(id => bannerId !== id)
-      .forEach(element => {
-        ATBannerRNSDK.hideAd(element);
-        console.debug('hide', element)
-      });
-    }
-    if (Platform.OS === 'ios'){
-      iosIds
-        .filter(id => bannerId !== id)
-        .forEach(element => {
+        .filter((id) => bannerId !== id)
+        .forEach((element) => {
           ATBannerRNSDK.hideAd(element);
-          console.debug('hide', element)
+          console.debug("hide", element);
         });
     }
-  }
+    if (Platform.OS === "ios") {
+      iosIds
+        .filter((id) => bannerId !== id)
+        .forEach((element) => {
+          ATBannerRNSDK.hideAd(element);
+          console.debug("hide", element);
+        });
+    }
+  };
 
-  const showBanner = (bannerId:string) => {
+  const showBanner = (bannerId: string) => {
     const currentRouteName = route.name;
-    console.log('current route', currentRouteName)
+    console.log("current route", currentRouteName);
 
-    // IOS uses pt, android uses px 
-    const bannerHeightOnScreen = adsTopInPixel - TOPON_BANNER_HEIGHT * Dimensions.get("screen").scale + offSet
+    // IOS uses pt, android uses px
+    const bannerHeightOnScreen =
+      adsTopInPixel -
+      TOPON_BANNER_HEIGHT * Dimensions.get("screen").scale +
+      offSet;
 
-    let x, y, width, height; 
-    x = 0 
-    if (Platform.OS === 'android'){
-      const scale = Dimensions.get('screen').scale
-      y = bannerHeightOnScreen
-      width = screenWidthInPixel
-      height = TOPON_BANNER_HEIGHT * scale
-    } else if (Platform.OS === 'ios'){
-      const scale = Dimensions.get('screen').scale
-      y = bannerHeightOnScreen / scale
-      width = screenWidthInPixel / scale
-      height = TOPON_BANNER_HEIGHT
+    let x, y, width, height;
+    x = 0;
+    if (Platform.OS === "android") {
+      const scale = Dimensions.get("screen").scale;
+      y = bannerHeightOnScreen;
+      width = screenWidthInPixel;
+      height = TOPON_BANNER_HEIGHT * scale;
+    } else if (Platform.OS === "ios") {
+      const scale = Dimensions.get("screen").scale;
+      y = bannerHeightOnScreen / scale;
+      width = screenWidthInPixel / scale;
+      height = TOPON_BANNER_HEIGHT;
     }
 
-    if (!pageWithNavbar.includes(currentRouteName) && !pageNoNavbar.includes(currentRouteName)){
-      ATBannerRNSDK.hideAd(bannerPlacementId); //hide ad if not these 4 page 
-      console.log('no banner')
-    } else if (pageWithNavbar.includes(currentRouteName)){
+    if (
+      !pageWithNavbar.includes(currentRouteName) &&
+      !pageNoNavbar.includes(currentRouteName)
+    ) {
+      ATBannerRNSDK.hideAd(bannerPlacementId); //hide ad if not these 4 page
+      console.log("no banner");
+    } else if (pageWithNavbar.includes(currentRouteName)) {
       //show banner above nav
 
       ATBannerRNSDK.showAdInRectangle(
         bannerId,
-        ATBannerRNSDK.createShowAdRect(
-          x,
-          y,
-          width, 
-          height
-        )
-      ); 
-
-    } else if (pageNoNavbar.includes(currentRouteName)){
+        ATBannerRNSDK.createShowAdRect(x, y, width, height)
+      );
+    } else if (pageNoNavbar.includes(currentRouteName)) {
       ATBannerRNSDK.showAdInRectangle(
         bannerId,
-        ATBannerRNSDK.createShowAdRect(
-          x,
-          y,
-          width,
-          height
-        )
-      );  
-
-
+        ATBannerRNSDK.createShowAdRect(x, y, width, height)
+      );
     } else {
-      // for future expansion 
+      // for future expansion
     }
+  };
 
-  }
-
-  useEffect(()=>{
-    const currentRouteName = route.name
-    console.log('route changed to ', currentRouteName)
-    if (!isFocused){
-      console.log('ignore')
-    }
-    else if (currentRouteName == "播放") { // video player page
+  useEffect(() => {
+    const currentRouteName = route.name;
+    console.log("route changed to ", currentRouteName);
+    if (!isFocused) {
+      console.log("ignore");
+    } else if (currentRouteName == "播放" || currentRouteName == "电视台播放") {
+      // video player page
       if (Platform.OS === "android") {
-        setBannerPlacementId(ANDROID_PLAY_DETAILS_BANNER_ADS)
+        setBannerPlacementId(ANDROID_PLAY_DETAILS_BANNER_ADS);
       } else if (Platform.OS === "ios") {
-        setBannerPlacementId(IOS_PLAY_DETAILS_BANNER_ADS)
+        setBannerPlacementId(IOS_PLAY_DETAILS_BANNER_ADS);
       }
-    } 
-    else if (currentRouteName == "PlaylistDetail" || currentRouteName == "体育详情") { // playlist detail 
+    } else if (
+      currentRouteName == "PlaylistDetail" ||
+      currentRouteName == "体育详情"
+    ) {
+      // playlist detail
       if (Platform.OS === "android") {
-        setBannerPlacementId(ANDROID_TOPIC_DETAILS_BANNER_ADS)
+        setBannerPlacementId(ANDROID_TOPIC_DETAILS_BANNER_ADS);
       } else if (Platform.OS === "ios") {
-        setBannerPlacementId(IOS_TOPIC_DETAILS_BANNER_ADS)
+        setBannerPlacementId(IOS_TOPIC_DETAILS_BANNER_ADS);
       }
-    }
-    else if (currentRouteName == "Home" || currentRouteName == "首页") { //home page 
+    } else if (currentRouteName == "Home" || currentRouteName == "首页") {
+      //home page
       if (Platform.OS === "android") {
-        setBannerPlacementId(ANDROID_HOME_PAGE_BANNER_ADS)
+        setBannerPlacementId(ANDROID_HOME_PAGE_BANNER_ADS);
       } else if (Platform.OS === "ios") {
-        setBannerPlacementId(IOS_HOME_PAGE_BANNER_ADS)
+        setBannerPlacementId(IOS_HOME_PAGE_BANNER_ADS);
       }
     }
     //播单
-    else if (currentRouteName == "播单" || currentRouteName == "体育") { // playlist
+    else if (currentRouteName == "播单" || currentRouteName == "体育") {
+      // playlist
       if (Platform.OS === "android") {
-        setBannerPlacementId(ANDROID_TOPIC_TAB_BANNER_ADS)
+        setBannerPlacementId(ANDROID_TOPIC_TAB_BANNER_ADS);
       } else if (Platform.OS === "ios") {
-        setBannerPlacementId(IOS_TOPIC_TAB_BANNER_ADS)
+        setBannerPlacementId(IOS_TOPIC_TAB_BANNER_ADS);
       }
+    } else if (
+      !pageWithNavbar.includes(currentRouteName) &&
+      !pageNoNavbar.includes(currentRouteName)
+    ) {
+      console.log("page not included in requirement");
+      // no banner
+      setBannerPlacementId("");
+      hideBannerExcept("");
     }
-    else if (!pageWithNavbar.includes(currentRouteName) && !pageNoNavbar.includes(currentRouteName)){
-      console.log('page not included in requirement')
-      // no banner 
-      setBannerPlacementId('')
-      hideBannerExcept('')
-    }
-    
-  }, [route, isFocused])
-
-  useEffect(()=>{
-    if (isFocused){
-      if (bannerPlacementId !== ''){
-        console.log('show banner in ', bannerPlacementId, ' ', route.name)
-        hideBannerExcept(bannerPlacementId)
-        ATBannerRNSDK.reShowAd(bannerPlacementId)
-        showBanner(bannerPlacementId)
-      }
-    } 
-  }, [isFocused, bannerPlacementId, navBarHeightInPixel, bottomTabHeight])
+  }, [route, isFocused]);
 
   useEffect(() => {
-    const settings = {}
-    if (Platform.OS === 'android'){
+    if (isFocused) {
+      if (bannerPlacementId !== "") {
+        console.log("show banner in ", bannerPlacementId, " ", route.name);
+        hideBannerExcept(bannerPlacementId);
+        ATBannerRNSDK.reShowAd(bannerPlacementId);
+        showBanner(bannerPlacementId);
+      }
+    }
+  }, [isFocused, bannerPlacementId, navBarHeightInPixel, bottomTabHeight]);
+
+  useEffect(() => {
+    const settings = {};
+    if (Platform.OS === "android") {
       // @ts-ignore
-      settings[ATBannerRNSDK.kATBannerAdLoadingExtraBannerAdSizeStruct] = ATBannerRNSDK.createLoadAdSize(screenWidthInPixel, TOPON_BANNER_HEIGHT * Dimensions.get('screen').scale * 50/320);
-      // load all ad first 
+      settings[
+        ATBannerRNSDK.kATBannerAdLoadingExtraBannerAdSizeStruct
+      ] = ATBannerRNSDK.createLoadAdSize(
+        screenWidthInPixel,
+        (TOPON_BANNER_HEIGHT * Dimensions.get("screen").scale * 50) / 320
+      );
+      // load all ad first
       ATBannerRNSDK.loadAd(ANDROID_HOME_PAGE_BANNER_ADS, settings);
       ATBannerRNSDK.loadAd(ANDROID_PLAY_DETAILS_BANNER_ADS, settings);
       ATBannerRNSDK.loadAd(ANDROID_TOPIC_DETAILS_BANNER_ADS, settings);
       ATBannerRNSDK.loadAd(ANDROID_TOPIC_TAB_BANNER_ADS, settings);
     }
-    if (Platform.OS === 'ios'){
+    if (Platform.OS === "ios") {
       // @ts-ignore
-      settings[ATBannerRNSDK.kATBannerAdLoadingExtraBannerAdSizeStruct] = ATBannerRNSDK.createLoadAdSize(Dimensions.get('screen').width, TOPON_BANNER_HEIGHT);
+      settings[
+        ATBannerRNSDK.kATBannerAdLoadingExtraBannerAdSizeStruct
+      ] = ATBannerRNSDK.createLoadAdSize(
+        Dimensions.get("screen").width,
+        TOPON_BANNER_HEIGHT
+      );
 
-      ATBannerRNSDK.loadAd(IOS_HOME_PAGE_BANNER_ADS,settings);
-      ATBannerRNSDK.loadAd(IOS_PLAY_DETAILS_BANNER_ADS,settings);
-      ATBannerRNSDK.loadAd(IOS_TOPIC_DETAILS_BANNER_ADS,settings);
-      ATBannerRNSDK.loadAd(IOS_TOPIC_TAB_BANNER_ADS,settings);
+      ATBannerRNSDK.loadAd(IOS_HOME_PAGE_BANNER_ADS, settings);
+      ATBannerRNSDK.loadAd(IOS_PLAY_DETAILS_BANNER_ADS, settings);
+      ATBannerRNSDK.loadAd(IOS_TOPIC_DETAILS_BANNER_ADS, settings);
+      ATBannerRNSDK.loadAd(IOS_TOPIC_TAB_BANNER_ADS, settings);
     }
-
-  }, [])
-
+  }, []);
 
   return <></>;
-
 }
 export default memo(AdsBanner);
