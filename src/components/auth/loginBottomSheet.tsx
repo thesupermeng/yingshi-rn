@@ -77,6 +77,30 @@ function LoginBottomSheet({sheetRef, displayMode}: Props) {
   //state for child
   const [email, setEmail] = useState('');
 
+  useEffect(() => {
+    if (Platform.OS === 'ios'){
+      const keyboardDidShowListener = Keyboard.addListener(
+        'keyboardDidShow',
+        () => {
+          setSnapPoints(['1%', '80%']);
+        },
+      );
+
+      const keyboardDidHideListener = Keyboard.addListener(
+        'keyboardDidHide',
+        () => {
+          setSnapPoints([1, 330]);
+        },
+      );
+
+      // Return a cleanup function to remove event listeners
+      return () => {
+        keyboardDidShowListener.remove();
+        keyboardDidHideListener.remove();
+      };
+    }
+  }, []);
+
   return (
     <BottomSheet
       ref={sheetRef}
@@ -100,7 +124,7 @@ function LoginBottomSheet({sheetRef, displayMode}: Props) {
         setEmail('');
       }}>
       <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        behavior={Platform.OS === 'ios' ? 'height' : 'height'}
         style={{flex: 1, flexDirection: 'column-reverse'}}>
         <Login
           setEmail={setEmail}
