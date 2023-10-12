@@ -70,33 +70,34 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
     setIsDialogOpen(!isDialogOpen);
   };
   const onUsernameChange = (value: any) => {
-    const cleanedValue = value.replace(/\s+/g, '');
-
-    setUsername(cleanedValue);
-    ValidateUsername(cleanedValue);
+    setUsername(value);
+    validateUsername(value.replace(/\s+/g, ''));
   };
 
   const onReferralChange = (value: any) => {
     setReferral(value);
-    ValidateReferral(value);
+    validateReferral(value);
   };
 
-  function ValidateReferral(username: string) {
+  function validateReferral(username: string) {
     setErrReferral('');
     setReferralValid(true);
   }
 
-  function ValidateUsername(username: string) {
-    const regex = /^.{2,18}$/;
-    console.log(regex.test(username));
-    if (username.length < 2) {
-      setErrUsername('昵称必须介于2-18个字');
-      setUsernameValid(false);
-    } else {
+  function validateUsername(username: string): boolean {
+    console.log('username:', username)
+
+    if(2 <= username.length && username.length <= 18){
       setErrUsername('');
       setUsernameValid(true);
+      return true;
+    } else {
+      setErrUsername('昵称必须介于2-18个字');
+      setUsernameValid(false);
+      return false;
     }
   }
+
   const refreshUserState = async () => {
     let result;
     result = await getUserDetails({
@@ -116,6 +117,88 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
     setInitialUsername(userState.userName);
     // setReferral(userState.userReferrerName);
   }, []);
+
+  const onEditBtnPress = async () => {
+    if(/\s+/g.test(username)){
+      setErrUsername('昵称必须介于2-18个字, 且没有空格');
+      setUsernameValid(false);
+      return;
+    }
+
+    if (
+      usernameValid == false ||
+      referralValid == false ||
+      !(
+        initialUsername.toLocaleLowerCase() !==
+        username.toLocaleLowerCase() ||
+        (referral != '' && userState.userReferrerName == '')
+      )
+    ) {
+      console.log('err form validation');
+      return;
+    }
+
+    let res;
+    try {
+      res = await updateUsername({
+        username: username,
+        referralCode: referral,
+        bearerToken: userState.userToken,
+      });
+    } catch (err: any) {
+      if (
+        err.response.data.errors &&
+        err.response.data.errors.referral_code
+      ) {
+        setReferralValid(false);
+        setErrReferral(err.response.data.errors.referral_code);
+      }
+
+      if (
+        err.response.data.errors &&
+        err.response.data.errors.username
+      ) {
+        setUsernameValid(false);
+        setErrUsername(err.response.data.errors.username);
+      }
+
+      if (!err.response.data.errors && err.response.data.message) {
+        setUsernameValid(false);
+        setErrUsername(err.response.data.message);
+      }
+      // setErrMsg(err.response.data.message);
+      // setUsernameValid(false);
+      return;
+    }
+
+    let result;
+    if (referral != '') {
+      result = await getUserDetails({
+        bearerToken: userState.userToken,
+      });
+      if (result == null) {
+        return;
+      }
+
+      let resultData = result.data.data;
+      await dispatch(updateUserAuth(resultData));
+      setUsername(resultData.user.user_name);
+      setInitialUsername(resultData.user.user_name);
+    } else {
+      await dispatch(updateUsernameState(username));
+      setUsername(username);
+      setInitialUsername(username);
+      console.log('userState');
+      console.log(userState);
+    }
+    Keyboard.dismiss();
+
+    dispatch(changeScreenAction('修改成功'));
+
+    navigation.navigate('Home', {
+      screen: 'Profile',
+    });
+  }
 
   return (
     <View style={{flex: 1, paddingHorizontal: 5}}>
@@ -144,7 +227,7 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
               }}
               placeholder="输入昵称"
               placeholderTextColor="#B6B6B6"
-              maxLength={18}
+              // maxLength={18} // no use because 汉语拼音 maximum can have 6 character, eg: zhuang, shuang, chuang)
             />
             <View
               style={{
@@ -182,7 +265,7 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
                   color: '#9C9C9C',
                   paddingRight: 10,
                 }}>
-                {username.length}/18
+                {username.replace(/\s+/g, '').length}/18
                 {/* {userState.userEmail} */}
               </Text>
             </View>
@@ -339,80 +422,7 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
         </View>
         {/* bottom button  */}
         <Button
-          onPress={async () => {
-            if (
-              usernameValid == false ||
-              referralValid == false ||
-              !(
-                initialUsername.toLocaleLowerCase() !==
-                  username.toLocaleLowerCase() ||
-                (referral != '' && userState.userReferrerName == '')
-              )
-            ) {
-              console.log('err form validation');
-              return;
-            }
-            let res;
-            try {
-              res = await updateUsername({
-                username: username,
-                referralCode: referral,
-                bearerToken: userState.userToken,
-              });
-            } catch (err: any) {
-              if (
-                err.response.data.errors &&
-                err.response.data.errors.referral_code
-              ) {
-                setReferralValid(false);
-                setErrReferral(err.response.data.errors.referral_code);
-              }
-
-              if (
-                err.response.data.errors &&
-                err.response.data.errors.username
-              ) {
-                setUsernameValid(false);
-                setErrUsername(err.response.data.errors.username);
-              }
-
-              if (!err.response.data.errors && err.response.data.message) {
-                setUsernameValid(false);
-                setErrUsername(err.response.data.message);
-              }
-              // setErrMsg(err.response.data.message);
-              // setUsernameValid(false);
-              return;
-            }
-
-            let result;
-            if (referral != '') {
-              result = await getUserDetails({
-                bearerToken: userState.userToken,
-              });
-              if (result == null) {
-                return;
-              }
-
-              let resultData = result.data.data;
-              await dispatch(updateUserAuth(resultData));
-              setUsername(resultData.user.user_name);
-              setInitialUsername(resultData.user.user_name);
-            } else {
-              await dispatch(updateUsernameState(username));
-              setUsername(username);
-              setInitialUsername(username);
-              console.log('userState');
-              console.log(userState);
-            }
-            Keyboard.dismiss();
-
-            dispatch(changeScreenAction('修改成功'));
-
-            navigation.navigate('Home', {
-              screen: 'Profile',
-            });
-          }}
+          onPress={onEditBtnPress}
           type="primary"
           // disabled={props.email === '' || !props.emailValid}
           style={[
