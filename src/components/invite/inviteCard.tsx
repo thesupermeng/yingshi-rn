@@ -40,7 +40,7 @@ export default function InviteCard({userState = {}}: Props) {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const [shareOptions, setShareOptions] = useState({
-    message: '现在加入影视TV,一起赚VIP,免费看高清影视',
+    message: '现在加入萤视频,一起赚VIP,免费看高清影视',
     url: '',
   });
 
@@ -86,7 +86,7 @@ export default function InviteCard({userState = {}}: Props) {
     let encodedAuth = new Buffer(inviteParam).toString('base64');
     setShareOptions({
       ...shareOptions,
-      message: '现在加入影视TV,一起赚VIP,免费看高清影视',
+      message: '现在加入萤视频,一起赚VIP,免费看高清影视',
       url: INVITE_DOMAIN + encodedAuth,
     });
   }, []);
@@ -222,6 +222,7 @@ export default function InviteCard({userState = {}}: Props) {
         message: shareOptions.message,
         url: shareOptions.url,
       };
+      console.log('options:', options);
       await Share.open(options);
       // console.log('Link shared successfully ');
     } catch (error) {

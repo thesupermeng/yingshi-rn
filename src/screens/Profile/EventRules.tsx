@@ -62,7 +62,7 @@ export default ({navigation}: RootStackScreenProps<'活动规则'>) => {
             }}>
             <View style={styles.bullet} />
             <Text style={{...textVariants.small, fontSize: 14, lineHeight: 22}}>
-              好友下载影视TV APP
+              好友下载萤视频 APP
             </Text>
           </View>
 
@@ -73,7 +73,7 @@ export default ({navigation}: RootStackScreenProps<'活动规则'>) => {
             }}>
             <View style={styles.bullet} />
             <Text style={{...textVariants.small, fontSize: 14, lineHeight: 22}}>
-              好友注册影视TV APP（需填写邀请码）
+              好友注册萤视频 APP（需填写邀请码）
             </Text>
           </View>
 
