@@ -257,8 +257,12 @@ const insets = useSafeAreaInsets();
 
   useEffect(() => {
     setIsCollapsed(true);
-    episodeRef?.current?.scrollToOffset({
-      offset: getOffSet(currentEpisode),
+    // episodeRef?.current?.scrollToOffset({
+    //   offset: getOffSet(currentEpisode),
+    //   animated: true,
+    // });
+    episodeRef?.current?.scrollToIndex({
+      index: currentEpisode,
       animated: true,
     });
   }, [currentEpisode, episodeRef]);
@@ -307,7 +311,16 @@ const insets = useSafeAreaInsets();
         {item.name}
       </Text>
     </TouchableOpacity>
-  ), []);
+  ), [currentEpisode]);
+
+  const onContentSizeChange = () => {
+    if (episodeRef.current) {
+      episodeRef.current.scrollToIndex({
+        index: currentEpisode,
+        animated: true,
+      });
+    }
+  };
 
   return (
     <>
@@ -546,6 +559,7 @@ const insets = useSafeAreaInsets();
                                   showEpisodeRangeEnd,
                                 )}
                                 renderItem={renderEpisodes}
+                                onContentSizeChange={onContentSizeChange}
                               />
                               <View />
                             </>
