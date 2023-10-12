@@ -20,6 +20,7 @@ export const registerUser = async ({email, referral_code, otp}: any) => {
     // device_id: deviceInfoModule.getDeviceId(),
     device_id: deviceId,
     otp: otp,
+    product: 1, // 1: 影视TV, 2: 萤视频
   };
   console.log('json');
   console.log(json);
@@ -33,6 +34,7 @@ export const loginUser = async ({email, otp}: any) => {
   let json = {
     email: email,
     otp: otp,
+    product: 1, // 1: 影视TV, 2: 萤视频
   };
 
   let result = await axios.post(API_DOMAIN_TEST + 'users/v1/login', json);
