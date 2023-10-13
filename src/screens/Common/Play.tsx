@@ -158,6 +158,7 @@ const insets = useSafeAreaInsets();
   useEffect(() => {
     if (vod) {
       setInitTime(vod?.timeWatched)
+      currentTimeRef.current = vod.timeWatched;
     }
   }, [vod])
 
