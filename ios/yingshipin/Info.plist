@@ -128,7 +128,10 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+
+	<!-- CodePush YINGSHIPIN Deployment Key - 2rgC7ID8OcD3S6GLVTxX6iHUTPcEmbzFrkYY3 (Staging) -->
+	<!-- CodePush YINGSHIPIN Deployment Key - Co6_wW6GltwV9LnbaNcrROnEgbHa8GAhlhCPn (Production) -->
 	<key>CodePushDeploymentKey</key>
-	<string>$(CODEPUSH_KEY)</string>
+	<string>2rgC7ID8OcD3S6GLVTxX6iHUTPcEmbzFrkYY3</string>
 </dict>
 </plist>
