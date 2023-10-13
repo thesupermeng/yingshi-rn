@@ -101,7 +101,7 @@ android {
         applicationId "com.yingshi"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 11
+        versionCode 12
         versionName "1.4.0"
         resValue "string", "UMENG_APPKEY", "648ec50987568a379b587f39"
         resValue "string", "UMENG_CHANNEL", "GOOGLE_PLAY"
