@@ -127,11 +127,8 @@
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:self.launchOptions];
   NSDictionary *initProps = [self prepareInitialProps];
   UIView *rootView = RCTAppSetupDefaultRootView(bridge, @"yingshi", initProps, true);
-  if (@available(iOS 13.0, *)) {
-    rootView.backgroundColor = [UIColor systemBackgroundColor];
-  } else {
-    rootView.backgroundColor = [UIColor whiteColor];
-  }
+  rootView.backgroundColor = [UIColor blackColor];
+
   UIViewController *rootViewController = [UIViewController new];
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
