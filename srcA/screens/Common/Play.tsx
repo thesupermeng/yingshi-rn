@@ -521,7 +521,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                       </Text>
                     </View>
                     <View style={{ paddingBottom: 0 }}>
-                      {isCollapsed && actualNumberOfLines >= 2 && (
+                      {isCollapsed && actualNumberOfLines >= 3 && (
                         <FastImage
                           style={{
                             flex: 1,
@@ -533,7 +533,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                           resizeMode={FastImage.resizeMode.contain}
                         />
                       )}
-                      {!isCollapsed && actualNumberOfLines >= 2 && (
+                      {!isCollapsed && actualNumberOfLines >= 3 && (
                         <FastImage
                           style={{
                             flex: 1,
@@ -619,7 +619,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                       {vod &&
                         suggestedVods !== undefined &&
                         suggestedVods?.length > 0 && (
-                          <View style={{ gap: spacing.l, marginBottom: 60 }}>
+                          <View style={{ gap: spacing.l, paddingBottom: 80 }}>
                             <ShowMoreVodButton
                               isPlayScreen={true}
                               text={`相关${vod?.type_name}`}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, SafeAreaView, FlatList, Image } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 
@@ -17,16 +17,46 @@ interface Props {
     options?: Array<Option>
 }
 
+
 export default ({ init, callback, options = [] }: Props) => {
     const { textVariants, colors, spacing } = useTheme();
+        // const flatListRef = useRef<FlatListType | null>(null);
+        const flatListRef = useRef<FlatListType>();
+        // const flatListRef = useRef<FlatList>();
+        const [selectedItem, setSelectedItem] = useState<Option>();
+    
+        useEffect(() => {
+            if (selectedItem !== null && flatListRef.current) {
+            const index = options.findIndex(option => option.text === init.text)
+            if (index !== -1) {
+                const itemHeight = options.length /* Calculate the length of options */;
+                const offset = index * itemHeight;
+            if (index >= 10) {
+            flatListRef.current.scrollToItem({ animated: false, item: options[index], viewPosition: -0.5 })
+            } else {
+            flatListRef.current.scrollToOffset({ animated: false, offset });
+            }
+              }
+            }
+          }, [selectedItem, options]);
+    
+          const getItemLayout = (_data: any, index: number) => ({
+            length: spacing.m, // Specify the item's height here
+            offset: spacing.m * index,
+            index,
+          });
+    
     return (
         <View style={{marginTop: spacing.m}}>
             <FlatList
+                ref = {flatListRef}
                 data={options}
                 horizontal
                 showsHorizontalScrollIndicator={false}
                 renderItem={({ item }: FlatListType) => {
-                    return <TouchableOpacity style={{ marginRight: spacing.m, justifyContent: 'center', display: 'flex' }} onPress={() => callback(item)}>
+                    return <TouchableOpacity style={{ marginRight: spacing.m, justifyContent: 'center', display: 'flex' }} 
+                    // onPress={() => callback(item)}>
+                    onPress={() => {setSelectedItem(item); callback && callback(item)}}>
                         <Text style={{
                             textAlign: 'center',
                             fontSize: textVariants.subBody.fontSize,
@@ -34,6 +64,8 @@ export default ({ init, callback, options = [] }: Props) => {
                         }}>{item.text}</Text>
                     </TouchableOpacity>
                 }}
+            getItemLayout = {getItemLayout}
+
             />
         </View>
     )
