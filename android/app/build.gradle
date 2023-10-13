@@ -114,6 +114,7 @@ android {
         resValue "string", "UMENG_CHANNEL_MI_GETAPPS", "MI_GETAPPS"
         resValue "string", "UMENG_CHANNEL_SAMSUNG_GALAXY_STORE", "SAMSUNG_GALAXY_STORE"
         resValue 'string', "CODE_PUSH_APK_BUILD_TIME", String.format("\"%d\"", System.currentTimeMillis())
+        resValue "string", "ADMOB_APP_ID", "ca-app-pub-6143222543441738~9468533238"
         ndk {
            abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86_64', 'x86'
         }

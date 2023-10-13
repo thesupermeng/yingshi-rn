@@ -54,6 +54,7 @@
 		00E356EE1AD99517003FC87E /* yingshiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = yingshiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* yingshiTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = yingshiTests.m; sourceTree = "<group>"; };
+		0CEA3D82770C2531888E3220 /* Pods-yingshi-yingshiTests.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yingshi-yingshiTests.staging.xcconfig"; path = "Target Support Files/Pods-yingshi-yingshiTests/Pods-yingshi-yingshiTests.staging.xcconfig"; sourceTree = "<group>"; };
 		114908D1D2A8E79ADB536352 /* Pods-yingshi-yingshiTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yingshi-yingshiTests.debug.xcconfig"; path = "Target Support Files/Pods-yingshi-yingshiTests/Pods-yingshi-yingshiTests.debug.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* yingshi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = yingshi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = yingshi/AppDelegate.h; sourceTree = "<group>"; };
@@ -76,6 +77,7 @@
 		38EB5E052ACDB24500F913BB /* ATRNSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATRNSDK.h; sourceTree = "<group>"; };
 		38EB5E062ACDB24500F913BB /* ATRNSDK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATRNSDK.m; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-yingshi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yingshi.debug.xcconfig"; path = "Target Support Files/Pods-yingshi/Pods-yingshi.debug.xcconfig"; sourceTree = "<group>"; };
+		3E0C75BE103A23D705E9B539 /* Pods-yingshi.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yingshi.staging.xcconfig"; path = "Target Support Files/Pods-yingshi/Pods-yingshi.staging.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-yingshi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yingshi.release.xcconfig"; path = "Target Support Files/Pods-yingshi/Pods-yingshi.release.xcconfig"; sourceTree = "<group>"; };
 		5915656E748566C4763BE360 /* Pods-yingshi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yingshi.release.xcconfig"; path = "Target Support Files/Pods-yingshi/Pods-yingshi.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-yingshi-yingshiTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yingshi-yingshiTests.debug.xcconfig"; path = "Target Support Files/Pods-yingshi-yingshiTests/Pods-yingshi-yingshiTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -279,6 +281,8 @@
 				5915656E748566C4763BE360 /* Pods-yingshi.release.xcconfig */,
 				114908D1D2A8E79ADB536352 /* Pods-yingshi-yingshiTests.debug.xcconfig */,
 				CCF3A10C1FF32C41A0E5856B /* Pods-yingshi-yingshiTests.release.xcconfig */,
+				3E0C75BE103A23D705E9B539 /* Pods-yingshi.staging.xcconfig */,
+				0CEA3D82770C2531888E3220 /* Pods-yingshi-yingshiTests.staging.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -929,7 +933,7 @@
 		};
 		9A152EA62AD3F0AC00ECBD56 /* Staging */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5915656E748566C4763BE360 /* Pods-yingshi.release.xcconfig */;
+			baseConfigurationReference = 3E0C75BE103A23D705E9B539 /* Pods-yingshi.staging.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
@@ -965,7 +969,7 @@
 		};
 		9A152EA72AD3F0AC00ECBD56 /* Staging */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CCF3A10C1FF32C41A0E5856B /* Pods-yingshi-yingshiTests.release.xcconfig */;
+			baseConfigurationReference = 0CEA3D82770C2531888E3220 /* Pods-yingshi-yingshiTests.staging.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
