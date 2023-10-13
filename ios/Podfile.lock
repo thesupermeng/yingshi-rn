@@ -1,4 +1,5 @@
 PODS:
+  - AdColony (4.9.0)
   - Ads-CN (5.6.0.4):
     - Ads-CN/BUAdSDK (= 5.6.0.4)
   - Ads-CN/BUAdSDK (5.6.0.4):
@@ -23,6 +24,9 @@ PODS:
     - BaiduMobAdSDK (= 5.321)
   - AnyThinkiOS (6.2.66):
     - AnyThinkiOS/AnyThinkSDK (= 6.2.66)
+  - AnyThinkiOS/AnyThinkAdColonyAdapter (6.2.66):
+    - AdColony (= 4.9.0)
+    - AnyThinkiOS/AnyThinkSDK
   - AnyThinkiOS/AnyThinkAdmobAdapter (6.2.66):
     - AnyThinkiOS/AnyThinkSDK
     - Google-Mobile-Ads-SDK (= 10.8.0)
@@ -32,12 +36,22 @@ PODS:
   - AnyThinkiOS/AnyThinkBigoAdapter (6.2.66):
     - AnyThinkiOS/AnyThinkSDK
     - BigoADS (= 4.0.3)
+  - AnyThinkiOS/AnyThinkChartboostAdapter (6.2.66):
+    - AnyThinkiOS/AnyThinkSDK
+    - ChartboostMediationSDK (= 4.3.0)
+    - ChartboostSDK (= 9.4.0)
+  - AnyThinkiOS/AnyThinkFacebookAdapter (6.2.66):
+    - AnyThinkiOS/AnyThinkSDK
+    - FBAudienceNetwork (= 6.14.0)
   - AnyThinkiOS/AnyThinkFyberAdapter (6.2.66):
     - AnyThinkiOS/AnyThinkSDK
     - Fyber_Marketplace_SDK (= 8.2.2)
   - AnyThinkiOS/AnyThinkGDTAdapter (6.2.66):
     - AnyThinkiOS/AnyThinkSDK
     - GDTMobSDK (= 4.14.42)
+  - AnyThinkiOS/AnyThinkInmobiAdapter (6.2.66):
+    - AnyThinkiOS/AnyThinkSDK
+    - InMobiSDK (= 10.5.6)
   - AnyThinkiOS/AnyThinkIronSourceAdapter (6.2.66):
     - AnyThinkiOS/AnyThinkSDK
     - IronSourceSDK (= 7.3.1.0)
@@ -68,6 +82,9 @@ PODS:
   - AnyThinkiOS/AnyThinkOguryAdapter (6.2.66):
     - AnyThinkiOS/AnyThinkSDK
     - OguryAds (= 2.4.1)
+  - AnyThinkiOS/AnyThinkPubNativeAdapter (6.2.66):
+    - AnyThinkiOS/AnyThinkSDK
+    - HyBid (= 2.16.1)
   - AnyThinkiOS/AnyThinkSDK (6.2.66)
   - AnyThinkiOS/AnyThinkSigmobAdapter (6.2.66):
     - AnyThinkiOS/AnyThinkSDK
@@ -84,6 +101,9 @@ PODS:
   - AnyThinkiOS/AnyThinkUnityAdsAdapter (6.2.66):
     - AnyThinkiOS/AnyThinkSDK
     - UnityAds (= 4.8.0)
+  - AnyThinkiOS/AnyThinkVungleAdapter (6.2.66):
+    - AnyThinkiOS/AnyThinkSDK
+    - VungleAds (= 7.0.1)
   - AnyThinkiOS/AnyThinkYandexAdapter (6.2.66):
     - AnyThinkiOS/AnyThinkSDK
     - YandexMobileAds (= 5.8.0)
@@ -129,6 +149,8 @@ PODS:
     - BURelyFoundation/AFNetworking
   - BVLinearGradient (2.7.2):
     - React-Core
+  - ChartboostMediationSDK (4.3.0)
+  - ChartboostSDK (9.4.0)
   - CocoaAsyncSocket (7.6.5)
   - CodePush (8.1.0):
     - Base64 (~> 1.1)
@@ -167,6 +189,7 @@ PODS:
   - DivKit_Serialization (24.2.0):
     - DivKit_CommonCore (= 24.2.0)
   - DoubleConversion (1.1.6)
+  - FBAudienceNetwork (6.14.0)
   - FBLazyVector (0.71.8)
   - FBReactNativeSpec (0.71.8):
     - RCT-Folly (= 2021.07.22.00)
@@ -245,21 +268,21 @@ PODS:
   - Google-Mobile-Ads-SDK (10.8.0):
     - GoogleAppMeasurement (< 11.0, >= 7.0)
     - GoogleUserMessagingPlatform (>= 1.1)
-  - GoogleAppMeasurement (10.15.0):
-    - GoogleAppMeasurement/AdIdSupport (= 10.15.0)
+  - GoogleAppMeasurement (10.16.0):
+    - GoogleAppMeasurement/AdIdSupport (= 10.16.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.11)
     - GoogleUtilities/MethodSwizzler (~> 7.11)
     - GoogleUtilities/Network (~> 7.11)
     - "GoogleUtilities/NSData+zlib (~> 7.11)"
     - nanopb (< 2.30910.0, >= 2.30908.0)
-  - GoogleAppMeasurement/AdIdSupport (10.15.0):
-    - GoogleAppMeasurement/WithoutAdIdSupport (= 10.15.0)
+  - GoogleAppMeasurement/AdIdSupport (10.16.0):
+    - GoogleAppMeasurement/WithoutAdIdSupport (= 10.16.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.11)
     - GoogleUtilities/MethodSwizzler (~> 7.11)
     - GoogleUtilities/Network (~> 7.11)
     - "GoogleUtilities/NSData+zlib (~> 7.11)"
     - nanopb (< 2.30910.0, >= 2.30908.0)
-  - GoogleAppMeasurement/WithoutAdIdSupport (10.15.0):
+  - GoogleAppMeasurement/WithoutAdIdSupport (10.16.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 7.11)
     - GoogleUtilities/MethodSwizzler (~> 7.11)
     - GoogleUtilities/Network (~> 7.11)
@@ -283,6 +306,22 @@ PODS:
   - "GoogleUtilities/NSData+zlib (7.11.5)"
   - GoogleUtilities/Reachability (7.11.5):
     - GoogleUtilities/Logger
+  - HyBid (2.16.1):
+    - HyBid/Banner (= 2.16.1)
+    - HyBid/Core (= 2.16.1)
+    - HyBid/FullScreen (= 2.16.1)
+    - HyBid/Native (= 2.16.1)
+    - HyBid/RewardedVideo (= 2.16.1)
+  - HyBid/Banner (2.16.1):
+    - HyBid/Core
+  - HyBid/Core (2.16.1)
+  - HyBid/FullScreen (2.16.1):
+    - HyBid/Core
+  - HyBid/Native (2.16.1):
+    - HyBid/Core
+  - HyBid/RewardedVideo (2.16.1):
+    - HyBid/Core
+  - InMobiSDK (10.5.6)
   - IronSourceSDK (7.3.1.0)
   - JWT (3.0.0-beta.14):
     - Base64 (~> 1.1.2)
@@ -759,6 +798,7 @@ PODS:
   - TapjoySDK (12.11.0)
   - Toast (4.0.0)
   - UnityAds (4.8.0)
+  - VungleAds (7.0.1)
   - YandexMobileAds (5.8.0):
     - DivKit (~> 24.2)
     - YandexMobileAds/Static (= 5.8.0)
@@ -782,11 +822,15 @@ PODS:
 DEPENDENCIES:
   - AnyThinkBaiduAdapter (= 6.2.66.1)
   - AnyThinkiOS (= 6.2.66)
+  - AnyThinkiOS/AnyThinkAdColonyAdapter (= 6.2.66)
   - AnyThinkiOS/AnyThinkAdmobAdapter (= 6.2.66)
   - AnyThinkiOS/AnyThinkApplovinAdapter (= 6.2.66)
   - AnyThinkiOS/AnyThinkBigoAdapter (= 6.2.66)
+  - AnyThinkiOS/AnyThinkChartboostAdapter (= 6.2.66)
+  - AnyThinkiOS/AnyThinkFacebookAdapter (= 6.2.66)
   - AnyThinkiOS/AnyThinkFyberAdapter (= 6.2.66)
   - AnyThinkiOS/AnyThinkGDTAdapter (= 6.2.66)
+  - AnyThinkiOS/AnyThinkInmobiAdapter (= 6.2.66)
   - AnyThinkiOS/AnyThinkIronSourceAdapter (= 6.2.66)
   - AnyThinkiOS/AnyThinkKidozAdapter (= 6.2.66)
   - AnyThinkiOS/AnyThinkKlevinAdapter (= 6.2.66)
@@ -796,11 +840,13 @@ DEPENDENCIES:
   - AnyThinkiOS/AnyThinkMyTargetAdapter (= 6.2.66)
   - AnyThinkiOS/AnyThinkNendAdapter (= 6.2.66)
   - AnyThinkiOS/AnyThinkOguryAdapter (= 6.2.66)
+  - AnyThinkiOS/AnyThinkPubNativeAdapter (= 6.2.66)
   - AnyThinkiOS/AnyThinkSigmobAdapter (= 6.2.66)
   - AnyThinkiOS/AnyThinkStartAppAdapter (= 6.2.66)
   - AnyThinkiOS/AnyThinkTapjoyAdapter (= 6.2.66)
   - AnyThinkiOS/AnyThinkTTAdapter (= 6.2.66)
   - AnyThinkiOS/AnyThinkUnityAdsAdapter (= 6.2.66)
+  - AnyThinkiOS/AnyThinkVungleAdapter (= 6.2.66)
   - AnyThinkiOS/AnyThinkYandexAdapter (= 6.2.66)
   - AppCenter
   - appcenter-analytics (from `../node_modules/appcenter-analytics`)
@@ -896,6 +942,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - AdColony
     - Ads-CN
     - AFNetworking
     - AnyThinkBaiduAdapter
@@ -909,6 +956,8 @@ SPEC REPOS:
     - Base64
     - BigoADS
     - BURelyFoundation
+    - ChartboostMediationSDK
+    - ChartboostSDK
     - CocoaAsyncSocket
     - DivKit
     - DivKit_Base
@@ -919,6 +968,7 @@ SPEC REPOS:
     - DivKit_LayoutKitInterface
     - DivKit_Networking
     - DivKit_Serialization
+    - FBAudienceNetwork
     - Flipper
     - Flipper-Boost-iOSX
     - Flipper-DoubleConversion
@@ -935,6 +985,8 @@ SPEC REPOS:
     - GoogleAppMeasurement
     - GoogleUserMessagingPlatform
     - GoogleUtilities
+    - HyBid
+    - InMobiSDK
     - IronSourceSDK
     - JWT
     - KlevinAdSDK
@@ -961,6 +1013,7 @@ SPEC REPOS:
     - TapjoySDK
     - Toast
     - UnityAds
+    - VungleAds
     - YandexMobileAds
     - YandexMobileAdsInstream
     - YandexMobileMetrica
@@ -1101,6 +1154,7 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
+  AdColony: 4f3738dc633d7aaa8ec60729df973076cc8e97ed
   Ads-CN: cf758f2916244536708ef78cd3b2b7e521b7b75a
   AFNetworking: 3bd23d814e976cd148d7d44c3ab78017b744cd58
   AnyThinkBaiduAdapter: 71d8aa534ba4ce188b934291990ffb988e401850
@@ -1119,6 +1173,8 @@ SPEC CHECKSUMS:
   boost: 57d2868c099736d80fcd648bf211b4431e51a558
   BURelyFoundation: f6dc8547c858e7f97c1a0ec31a0c81b62f657892
   BVLinearGradient: 252e4a39d23d69d2d89b55b165c8900f7caf93fc
+  ChartboostMediationSDK: a866fdecb7e2722a4402a4478b58eb060af23cef
+  ChartboostSDK: 53079774b4cd6aefd0805ec54a74f1ffd75b1317
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   CodePush: 255d7607f428dcbec39085f81a206b170e01d012
   DivKit: f2151bd0bfc67e0b4ad949e8cd1caa7379253bef
@@ -1131,6 +1187,7 @@ SPEC CHECKSUMS:
   DivKit_Networking: cd028559a160baa76c43fda52174f2f83c87b747
   DivKit_Serialization: b4d8a4672de9134889c5f92f5f7e04e04112e660
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
+  FBAudienceNetwork: 4d6223a9a88a22e9dca8c9e6c1829a8745b86228
   FBLazyVector: f637f31eacba90d4fdeff3fa41608b8f361c173b
   FBReactNativeSpec: 0d9a4f4de7ab614c49e98c00aedfd3bfbda33d59
   Flipper: 26fc4b7382499f1281eb8cb921e5c3ad6de91fe0
@@ -1147,9 +1204,11 @@ SPEC CHECKSUMS:
   GDTMobSDK: a7f14366e0fcd7c8802b25573dfe0cf8707c90b7
   glog: 04b94705f318337d7ead9e6d17c019bd9b1f6b1b
   Google-Mobile-Ads-SDK: 69daa7fb42061b425340706e382e87fab3e666a3
-  GoogleAppMeasurement: 722db6550d1e6d552b08398b69a975ac61039338
+  GoogleAppMeasurement: 079d7632810e9d9704a99932547ba1554acc4342
   GoogleUserMessagingPlatform: dce302b8f1b84d6e945812ee7a15c3f65a102cbf
   GoogleUtilities: 13e2c67ede716b8741c7989e26893d151b2b2084
+  HyBid: e5ad176fc16ddad00fdfcc1b0e5986f2bd17e1d2
+  InMobiSDK: fe8dae9fa1c4c8549fe91b9ff5c6945fe840a691
   IronSourceSDK: eb6d95e3528d2163343d79ec70ec7d065e808864
   JWT: ef71dfb03e1f842081e64dc42eef0e164f35d251
   KlevinAdSDK: 2c6ffc91dae6d82868d2ebde2eb63464235cbacb
@@ -1231,12 +1290,13 @@ SPEC CHECKSUMS:
   TapjoySDK: 63d964a731313ac2db700b67623376db7c3c120c
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   UnityAds: 390144b2029ac9ce2ec81c3cfd0007686b59236a
+  VungleAds: 49e2cbb981c1efa0086029d2dcec8a7322105809
   YandexMobileAds: 13ea70019f08fca7430a529aca4460050c5ffa80
   YandexMobileAdsInstream: e8ab59c22f02f83ca17f6c694ceedec1bd4885c6
   YandexMobileMetrica: f5368ee93f286c793d73b58da00929babfc897c1
   Yoga: 065f0b74dba4832d6e328238de46eb72c5de9556
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 9640ed475baa9ed051834c65f7ef5eb0b2d93a3b
+PODFILE CHECKSUM: 31e277610b4024757c5b51a76921bf99550f6ac0
 
 COCOAPODS: 1.12.1
