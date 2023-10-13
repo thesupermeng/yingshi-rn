@@ -597,7 +597,6 @@ let App = () => {
             </BottomSheetModalProvider>
           </GestureHandlerRootView>
         </PersistGate>
-        <VipOverlay />
         {showRegengOverlay && <RegengOverlay />}
       </Provider>
     </QueryClientProvider>
