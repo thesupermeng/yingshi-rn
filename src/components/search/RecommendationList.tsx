@@ -76,7 +76,8 @@ const styles = StyleSheet.create({
     flexShrink: 1,
   },
   suggestionIndex: {
-    marginRight: 10,
+    marginRight: 20,
+    fontWeight: "900",
   },
   suggestion: {
     display: 'flex',
