@@ -59,7 +59,9 @@ export default function SearchResultList({
               onItemSelect(item.vod_name);
             }
           }}>
-          {highlightText(item.vod_name, keyword)}
+          <Text style={{...textVariants.body, width: '100%'} } numberOfLines={1} ellipsizeMode="tail">
+              {highlightText(item.vod_name, keyword)}
+          </Text>
         </TouchableOpacity>
       ))}
     </View>
@@ -78,7 +80,7 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     flex: 1,
-    paddingLeft: 20,
+    // paddingLeft: 20,
   },
   highlightColor: {
     color: '#FAC33D', // Change this color to your desired highlight color
