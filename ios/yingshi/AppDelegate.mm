@@ -16,12 +16,13 @@
 
 #import <AnyThinkSDK/AnyThinkSDK.h>
 #import <AnyThinkGDTAdapter/ATGDTConfigure.h>
-// #import <AnyThinkPangleAdapter/ATPangleConfigure.h>
-// #import <AnyThinkVungleAdapter/ATVungleConfigure.h>
-// #import <AnyThinkAdColonyAdapter/ATAdColonyConfigure.h>
+//#import <AnyThinkPangleAdapter/ATPangleConfigure.h>
+//#import <AnyThinkVungleAdapter/ATVungleConfigure.h>
+#import <AnyThinkAdColonyAdapter/ATAdColonyConfigure.h>
 #import <AnyThinkMyTargetAdapter/ATMyTargetConfigure.h>
-// #import <AnyThinkFacebookAdapter/ATFacebookConfigure.h>
-// #import <AnyThinkFacebookAdapter/ATFacebookConfigure.h>
+#import <AnyThinkFacebookAdapter/ATFacebookConfigure.h>
+#import <AnyThinkMintegralAdapter/ATMintegralConfigure.h>
+
 #import "ATSplashViewController.h"
 
 @implementation AppDelegate
@@ -38,24 +39,25 @@
   
   [ATAPI setLogEnabled:NO]; // Turn on debug logs
 
-  //  ATMintegralConfigure *mtgConfigure = [[ATMintegralConfigure alloc] initWithAppid:@"a650a6ca02b6a6" appkey:@"0b1cab850e5de6fdc1fe0e114a0256eb"];
-    ATGDTConfigure *gdtConfigure = [[ATGDTConfigure alloc] initWithAppid:@"a65093c4e166c3"];
-  //  ATPangleConfigure *pangleConfigure = [[ATPangleConfigure alloc] initWithAppid:@"a650a6ca02b6a6"];
-  //  ATVungleConfigure *vungleConfigure = [[ATVungleConfigure alloc] initWithAppid:@"a650a6ca02b6a6"];
-  //  ATAdColonyConfigure *adcolonyConfigure = [[ATAdColonyConfigure alloc] initWithAppid:@"a650a6ca02b6a6" zoneIds:@[zoneIds]];
-    ATMyTargetConfigure *mytargetConfigure = [[ATMyTargetConfigure alloc] init];
-  //  ATFacebookConfigure *facebookConfigure = [[ATFacebookConfigure alloc] init];
+  ATMintegralConfigure *mtgConfigure = [[ATMintegralConfigure alloc] initWithAppid:@"a650a6ca02b6a6" appkey:@"0b1cab850e5de6fdc1fe0e114a0256eb"];
+  ATGDTConfigure *gdtConfigure = [[ATGDTConfigure alloc] initWithAppid:@"a65093c4e166c3"];
+//  ATPangleConfigure *pangleConfigure = [[ATPangleConfigure alloc] initWithAppid:@"a650a6ca02b6a6"];
+//  ATVungleConfigure *vungleConfigure = [[ATVungleConfigure alloc] initWithAppid:@"a650a6ca02b6a6"];
+  ATAdColonyConfigure *adcolonyConfigure = [[ATAdColonyConfigure alloc] initWithAppid:@"a650a6ca02b6a6" zoneIds:@[]];
+  ATMyTargetConfigure *mytargetConfigure = [[ATMyTargetConfigure alloc] init];
+  ATFacebookConfigure *facebookConfigure = [[ATFacebookConfigure alloc] init];
 
-    ATSDKConfiguration *configuration = [[ATSDKConfiguration alloc] init];
-    configuration.preInitArray = @[
-  //    mtgConfigure,
-     gdtConfigure,
-  //    pangleConfigure,
-  //    vungleConfigure,
-  //    adcolonyConfigure,
-      mytargetConfigure,
-  //    facebookConfigure
-    ];
+
+  ATSDKConfiguration *configuration = [[ATSDKConfiguration alloc] init];
+  configuration.preInitArray = @[
+    mtgConfigure,
+    gdtConfigure,
+//    pangleConfigure,
+//    vungleConfigure,
+    adcolonyConfigure,
+    mytargetConfigure,
+    facebookConfigure
+  ];
 
   [[ATAPI sharedInstance] startWithAppID:@"a65093c4e166c3" appKey:@"0b1cab850e5de6fdc1fe0e114a0256eb" sdkConfigures:configuration error:nil];
   [[ATAPI sharedInstance] setPresetPlacementConfigPathBundle:[NSBundle mainBundle]];
