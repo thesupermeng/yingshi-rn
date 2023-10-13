@@ -42,7 +42,7 @@ export const ResendCountDown = props => {
         source={require('../../../static/images/invite/time.png')}
       />
 
-      <Text style={styles.hyperlink}>{timerRef.current} seconds</Text>
+      <Text style={styles.hyperlink}>{timerRef.current} 秒</Text>
     </View>
   );
 };
