@@ -13,6 +13,7 @@ import {
   RefreshControl,
   Modal,
   ActivityIndicator,
+  SafeAreaView,
 } from "react-native";
 import ScreenContainer from "../../components/container/screenContainer";
 import { useTheme, useFocusEffect } from "@react-navigation/native";
@@ -156,7 +157,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
   return (
     <>
       <AdsBanner bottomTabHeight={0} />
-      <ScreenContainer>
+      <SafeAreaView>
         <ScrollView
           style={{ paddingHorizontal: 15 }}
           refreshControl={
@@ -382,8 +383,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
             subtitle3=""
           />
         </ScrollView>
-      </ScreenContainer>
-      
+      </SafeAreaView>
     </>
   );
 }

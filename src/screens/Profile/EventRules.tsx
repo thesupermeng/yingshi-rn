@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  SafeAreaView,
 } from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
 import {RootStackScreenProps} from '../../types/navigationTypes';
@@ -22,7 +23,7 @@ export default ({navigation}: RootStackScreenProps<'活动规则'>) => {
   };
 
   return (
-    <ScreenContainer>
+    <SafeAreaView>
       <View style={{gap: spacing.m}}>
         <TitleWithBackButtonHeader title="活动规则" />
 
@@ -151,7 +152,7 @@ export default ({navigation}: RootStackScreenProps<'活动规则'>) => {
           </View>
         </View>
       </View>
-    </ScreenContainer>
+    </SafeAreaView>
   );
 };
 
