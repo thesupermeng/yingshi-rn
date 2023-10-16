@@ -230,6 +230,8 @@ export default forwardRef<RefHandler, Props>(({
       {
         accumulatedSkip < 0 &&
         <Animated.View entering={FadeInDown} style={{
+          flexDirection: 'row',
+          alignItems: 'center',
           opacity: opacity.value,
           position: 'absolute',
           top: isFullScreen ? (height / 2) - 25 : (width * 9 / 32) - 25,
@@ -238,12 +240,22 @@ export default forwardRef<RefHandler, Props>(({
           padding: 10,
           borderRadius: 8
         }}>
-          <Text style={textVariants.header}>{`${accumulatedSkip}s`}</Text>
+          <Text style={{...textVariants.header, marginRight: 5}}>{`${accumulatedSkip}s`}</Text>
+          <FastImage
+            source={require('../../../static/images/backward.png')}
+            style={{
+              height: icons.sizes.l,
+              width: icons.sizes.l,
+            }}
+            resizeMode={FastImage.resizeMode.contain}
+          />
         </Animated.View>
       }
       {
         accumulatedSkip > 0 &&
         <Animated.View entering={FadeInDown} style={{
+          flexDirection: 'row',
+          alignItems: 'center',
           opacity: opacity.value,
           position: 'absolute',
           right: isFullScreen ? '15%' : '4%',
@@ -252,7 +264,15 @@ export default forwardRef<RefHandler, Props>(({
           padding: 10,
           borderRadius: 8
         }}>
-          <Text style={textVariants.header}>{`+${accumulatedSkip}s`}</Text>
+          <FastImage
+            source={require('../../../static/images/forward.png')}
+            style={{
+              height: icons.sizes.l,
+              width: icons.sizes.l,
+            }}
+            resizeMode={FastImage.resizeMode.contain}
+          />
+          <Text style={{...textVariants.header, marginRight: 5}}>{`+${accumulatedSkip}s`}</Text>
         </Animated.View>
       }
       {
