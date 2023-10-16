@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-nativ
 import ScreenContainer from '../../components/container/screenContainer';
 import { RootStackScreenProps } from '../../types/navigationTypes';
 import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
+import PrivacyBackButtonHeader from '../../components/header/privacyBackButtonHeader';
 
 import { useTheme } from '@react-navigation/native';
 
@@ -17,7 +18,8 @@ export default ({ navigation }: RootStackScreenProps<'用户协议'>) => {
     return (
         <ScreenContainer scrollView={true}>
             <View style={{ gap: spacing.m }}>
-                <TitleWithBackButtonHeader title='用户协议' />
+                {/* <TitleWithBackButtonHeader title='用户协议' /> */}
+                <PrivacyBackButtonHeader title='用户协议' />
                 <Text style={{ ...textVariants.header, textAlign: 'center' }}>萤视频用户协议</Text>
                 <Text style={textVariants.body}>
                     {
