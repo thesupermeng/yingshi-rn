@@ -117,19 +117,6 @@ export default forwardRef<VideoRef, Props>(({
 
   // New state to keep track of app's background/foreground status
   const [isInBackground, setIsInBackground] = useState(false);
-  // useEffect(() => {
-  //   if (!isPotrait) {
-  //     setIsFullScreen(true);
-  //     navigation.setOptions({
-  //       gestureEnabled: false,
-  //     })
-  //   } else {
-  //     setIsFullScreen(false);
-  //     navigation.setOptions({
-  //       gestureEnabled: true,
-  //     })
-  //   }
-  // }, [isPotrait]);
 
   useImperativeHandle(ref, () => ({
     setPause: (pauseVideo : boolean) => {
@@ -146,44 +133,37 @@ export default forwardRef<VideoRef, Props>(({
       Orientation.lockToPortrait();
       setIsFullScreen(false);
     } else {
-      if (isFullScreen) {
-        Orientation.lockToPortrait();
-        StatusBar.setHidden(false);
-        setIsFullScreen(false);
-      } else {
-        // setTimeout(() => setIsPaused(true))
-        navigation.goBack();
-      }
+      // just direct go back (go back the event will handle by beforeRemove)
+      navigation.goBack();
     }
   };
 
   useEffect(() => {
-    Orientation.unlockAllOrientations();
+    // default lock to protrait
+    Orientation.lockToPortrait();
     // ... (rest of the useEffect hook remains unchanged)
     const subscription = AppState.addEventListener(
       'change',
       handleAppStateChange,
     );
 
-    // here check swipe back event, and paused video
-    // navigation.addListener('beforeRemove', (e) => {
-    //   e.preventDefault();
-    //   if (isFullScreen) {
-    //     Orientation.lockToPortrait();
-    //     StatusBar.setHidden(false);
-    //     setIsFullScreen(false);
-    //   } else {
-    //     if (!isPaused) {
-    //       setIsPaused(true);
-    //       setTimeout(() => {
-    //         StatusBar.setHidden(false);
-    //         navigation.dispatch(e.data.action);
-    //       }, 100);
-    //     }
-    //   }
-    // });
+    return () => {
+      subscription.remove();
+    };
+  }, []);
 
-    const onBeforeRemove = (e: any) => {
+
+  useEffect(() => {
+    const removeBackPressListener = BackHandler.addEventListener('hardwareBackPress', () => {
+      // just direct go back (go back the event will handle by beforeRemove)
+      navigation.goBack();
+      return true;
+    });
+
+    // handle go back event (except IOS swipe back)
+    const onBeforeRemoveListener = navigation.addListener('beforeRemove', (e: any) => {
+      e.preventDefault();
+
       if (isFullScreen) {
         Orientation.lockToPortrait();
         StatusBar.setHidden(false);
@@ -191,18 +171,28 @@ export default forwardRef<VideoRef, Props>(({
       } else {
         if (!isPaused) {
           setIsPaused(true);
-          navigation.dispatch(e.data.action);
+          // use setTimeout to prevent video non pause before pop the screen
+          setTimeout(() => {
+            navigation.dispatch(e.data.action);
+          }, 100);
         }
       }
-    };
-
-    navigation.addListener('beforeRemove', onBeforeRemove);
-
+    });
 
     return () => {
-      subscription.remove();
+      removeBackPressListener.remove();
+      onBeforeRemoveListener();
     };
-  }, []);
+  }, [navigation, isFullScreen, isPaused])
+
+  useEffect(() => {
+    // if full screen disable ios swipe back function
+    if(isFullScreen){
+      navigation.setOptions({ gestureEnabled: false })
+    }else{
+      navigation.setOptions({ gestureEnabled: true })
+    }
+  }, [isFullScreen]);
 
   // Handle app's background/foreground status
   const handleAppStateChange = (nextAppState: any) => {
@@ -227,21 +217,6 @@ export default forwardRef<VideoRef, Props>(({
       }
     })
   }, [isFullScreen, Orientation]);
-
-  useEffect(() => {
-    const removeBackPressListener = BackHandler.addEventListener('hardwareBackPress', () => {
-
-      if(isFullScreen){
-        Orientation.lockToPortrait();
-        StatusBar.setHidden(false);
-        setIsFullScreen(false);
-        return true;
-      }
-      return false;
-    });
-
-    return () => removeBackPressListener.remove();
-  }, [isFullScreen]);
 
   const onVideoLoaded = (data: any) => {
     setDuration(data.duration);
