@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -7,41 +7,41 @@ import {
   Image,
   Clipboard,
   Linking,
-} from 'react-native';
-import {useNavigation, useTheme} from '@react-navigation/native';
+} from "react-native";
+import { useNavigation, useTheme } from "@react-navigation/native";
 
-import WhatsappIcn from '../../../static/images/invite/whatsapp.svg';
+import WhatsappIcn from "../../../static/images/invite/whatsapp.svg";
 
-import TelegramIcn from '../../../static/images/invite/telegram.svg';
-import FacebookIcn from '../../../static/images/invite/fb.svg';
-import WechatIcn from '../../../static/images/invite/wechat.svg';
+import TelegramIcn from "../../../static/images/invite/telegram.svg";
+import FacebookIcn from "../../../static/images/invite/fb.svg";
+import WechatIcn from "../../../static/images/invite/wechat.svg";
 
 // import TwitterIcn from '../../../static/images/invite/twitter.svg';
-import WeiboIcn from '../../../static/images/invite/weibo.svg';
-import CopyIcn from '../../../static/images/invite/copy.svg';
-import ProfileIcn from '../../../static/images/invite/profile-icon.svg';
+import WeiboIcn from "../../../static/images/invite/weibo.svg";
+import CopyIcn from "../../../static/images/invite/copy.svg";
+import ProfileIcn from "../../../static/images/invite/profile-icon.svg";
 
-import {TouchableOpacity} from '@gorhom/bottom-sheet';
+import { TouchableOpacity } from "@gorhom/bottom-sheet";
 
-import FastImage from 'react-native-fast-image';
-import LinearGradient from 'react-native-linear-gradient';
-import {userModel} from '../../types/userType';
-import {useAppDispatch} from '../../hooks/hooks';
-import {showLoginAction} from '../../redux/actions/screenAction';
-import Share from 'react-native-share';
-import {INVITE_DOMAIN} from '../../utility/constants';
-import NotificationModal from '../modal/notificationModal';
+import FastImage from "react-native-fast-image";
+import LinearGradient from "react-native-linear-gradient";
+import { userModel } from "../../types/userType";
+import { useAppDispatch } from "../../hooks/hooks";
+import { showLoginAction } from "../../redux/actions/screenAction";
+import Share from "react-native-share";
+import { INVITE_DOMAIN } from "../../utility/constants";
+import NotificationModal from "../modal/notificationModal";
 interface Props {
   userState: userModel;
 }
-export default function InviteCard({userState = {}}: Props) {
-  const {colors, textVariants, icons, spacing} = useTheme();
+export default function InviteCard({ userState = {} }: Props) {
+  const { colors, textVariants, icons, spacing } = useTheme();
   const locations = [0, 1]; // 10% and 100%
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const [shareOptions, setShareOptions] = useState({
-    message: '现在加入萤视频,一起赚VIP,免费看高清影视',
-    url: '',
+    message: "现在加入影视TV,一起赚VIP,免费看高清影视",
+    url: "",
   });
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -82,96 +82,96 @@ export default function InviteCard({userState = {}}: Props) {
   useEffect(() => {
     const inviteParam = userState.userReferralCode + userState.userName;
 
-    const Buffer = require('buffer').Buffer;
-    let encodedAuth = new Buffer(inviteParam).toString('base64');
+    const Buffer = require("buffer").Buffer;
+    let encodedAuth = new Buffer(inviteParam).toString("base64");
     setShareOptions({
       ...shareOptions,
-      message: '现在加入萤视频,一起赚VIP,免费看高清影视',
+      message: "现在加入影视TV,一起赚VIP,免费看高清影视",
       url: INVITE_DOMAIN + encodedAuth,
     });
   }, []);
 
   const shareToWhatsApp = async () => {
-    if (userState.userToken == '') {
+    if (userState.userToken == "") {
       dispatch(showLoginAction());
       return;
     }
     const url =
-      'https://wa.me/?text=' +
+      "https://wa.me/?text=" +
       shareOptions.message +
-      '%0D%0A' +
+      "%0D%0A" +
       shareOptions.url; // Replace with your desired URL
     Linking.openURL(url)
-      .then(supported => {
+      .then((supported) => {
         if (!supported) {
           console.error(`Cannot open URL: ${url}`);
         } else {
           console.log(`Opened URL: ${url}`);
         }
       })
-      .catch(error => {
-        console.error('Error opening URL:', error);
+      .catch((error) => {
+        console.error("Error opening URL:", error);
       });
   };
 
   const shareToTelegram = async () => {
-    if (userState.userToken == '') {
+    if (userState.userToken == "") {
       dispatch(showLoginAction());
       return;
     }
-    const message = shareOptions.message + '%0D%0A' + shareOptions.url;
+    const message = shareOptions.message + "%0D%0A" + shareOptions.url;
     const appURL = `tg://msg?text=${message}`;
     const webURL = `https://t.me/share/url?url=${message}`;
 
     Linking.canOpenURL(webURL)
-      .then(supported => {
+      .then((supported) => {
         if (supported) {
-          console.log('supported telegram web');
+          console.log("supported telegram web");
           // Open the Telegram app
           Linking.openURL(webURL);
         } else {
-          console.log('not supported telegram web');
+          console.log("not supported telegram web");
           // Fallback to the web link
           Linking.openURL(appURL);
         }
       })
-      .catch(error => {
-        console.error('Error checking app URL:', error);
+      .catch((error) => {
+        console.error("Error checking app URL:", error);
       });
   };
 
   const shareToWeixin = async () => {
-    if (userState.userToken === '') {
+    if (userState.userToken === "") {
       dispatch(showLoginAction());
       return;
     }
     const message = encodeURIComponent(
-      shareOptions.message + '\n' + shareOptions.url,
+      shareOptions.message + "\n" + shareOptions.url
     );
     const appURL = `weixin://send?text=${message}`;
     //https://stackoverflow.com/questions/45005036/is-there-any-method-to-share-text-from-mobile-web-to-wechat-by-sharing-button
     Linking.canOpenURL(appURL)
-      .then(supported => {
+      .then((supported) => {
         if (supported) {
           // Open the WeChat app
           Linking.openURL(appURL);
         } else {
-          console.log('WeChat app not installed.');
+          console.log("WeChat app not installed.");
           toggleShare();
         }
       })
-      .catch(error => {
-        console.log('Error checking app URL:', error);
+      .catch((error) => {
+        console.log("Error checking app URL:", error);
       });
   };
 
   const shareToWeibo = async () => {
-    if (userState.userToken === '') {
+    if (userState.userToken === "") {
       dispatch(showLoginAction());
       return;
     }
     const message = encodeURIComponent(
-      shareOptions.message + '\n' + shareOptions.url,
+      shareOptions.message + "\n" + shareOptions.url
     );
     const appURL = `http://service.weibo.com/share/share.php?url=${message}`;
 
@@ -179,7 +179,7 @@ export default function InviteCard({userState = {}}: Props) {
   };
 
   const shareToFacebook = async () => {
-    if (userState.userToken == '') {
+    if (userState.userToken == "") {
       dispatch(showLoginAction());
       return;
     }
@@ -192,12 +192,12 @@ export default function InviteCard({userState = {}}: Props) {
       //   'https://www.facebook.com/sharer/sharer.php?u=' + '' + shareOptions.url,
       // );
     } catch (error) {
-      console.error('Error sharing link', error);
+      console.error("Error sharing link", error);
     }
   };
 
   const shareToTwitter = async () => {
-    if (userState.userToken == '') {
+    if (userState.userToken == "") {
       dispatch(showLoginAction());
       return;
     }
@@ -207,26 +207,26 @@ export default function InviteCard({userState = {}}: Props) {
         social: Share.Social.TWITTER,
       });
     } catch (error) {
-      console.log('Error sharing link', error);
+      console.log("Error sharing link", error);
     }
   };
 
   const toggleShare = async () => {
-    if (userState.userToken == '') {
+    if (userState.userToken == "") {
       dispatch(showLoginAction());
       return;
     }
     try {
       const options = {
-        title: '分享',
+        title: "分享",
         message: shareOptions.message,
         url: shareOptions.url,
       };
-      console.log('options:', options);
+      console.log("options:", options);
       await Share.open(options);
       // console.log('Link shared successfully ');
     } catch (error) {
-      console.log('Error sharing link :', error);
+      console.log("Error sharing link :", error);
     }
   };
 
@@ -234,32 +234,35 @@ export default function InviteCard({userState = {}}: Props) {
     <>
       <View
         style={{
-          flexDirection: 'column',
-          backgroundColor: '#1a1d20',
+          flexDirection: "column",
+          backgroundColor: "#1a1d20",
           margin: 10,
           borderRadius: 15,
-          overflow: 'hidden', // Add this line to clip the FastImage
-        }}>
+          overflow: "hidden", // Add this line to clip the FastImage
+        }}
+      >
         {/* crown card component  */}
         <View
           style={{
-            justifyContent: 'space-between',
-            flexDirection: 'row',
+            justifyContent: "space-between",
+            flexDirection: "row",
             paddingLeft: 20,
-          }}>
+          }}
+        >
           <View
             style={{
               paddingTop: 45,
               gap: 10,
-            }}>
-            <Text style={{color: '#ffffff', fontSize: 28, fontWeight: '700'}}>
+            }}
+          >
+            <Text style={{ color: "#ffffff", fontSize: 28, fontWeight: "700" }}>
               VIP {vipRemainingDay.toLocaleString()}天
             </Text>
-            <Text style={{color: '#9C9C9C'}}>当前剩余天数</Text>
+            <Text style={{ color: "#9C9C9C" }}>当前剩余天数</Text>
           </View>
 
           <FastImage
-            source={require('../../../static/images/crown.png')}
+            source={require("../../../static/images/crown.png")}
             style={{
               height: 180,
               width: 240,
@@ -272,7 +275,7 @@ export default function InviteCard({userState = {}}: Props) {
 
         {/* benefit  component  */}
         <LinearGradient
-          colors={['#323638', '#1a1d20']} // An array of gradient colors
+          colors={["#323638", "#1a1d20"]} // An array of gradient colors
           locations={locations}
           style={{
             paddingHorizontal: 20,
@@ -282,13 +285,14 @@ export default function InviteCard({userState = {}}: Props) {
             marginTop: -10,
             borderTopLeftRadius: 15,
             borderTopRightRadius: 15,
-            flexDirection: 'row', // Set flexDirection to 'row'
-            flexWrap: 'wrap', // Allow items to wrap to the next row
-          }}>
+            flexDirection: "row", // Set flexDirection to 'row'
+            flexWrap: "wrap", // Allow items to wrap to the next row
+          }}
+        >
           <View style={styles.featureItem}>
             <View style={styles.imgContainer}>
               <FastImage
-                source={require('../../../static/images/invite/sport.png')}
+                source={require("../../../static/images/invite/sport.png")}
                 style={styles.featureIcn}
                 resizeMode={FastImage.resizeMode.contain}
               />
@@ -299,7 +303,7 @@ export default function InviteCard({userState = {}}: Props) {
           <View style={styles.featureItem}>
             <View style={styles.imgContainer}>
               <FastImage
-                source={require('../../../static/images/invite/ads.png')}
+                source={require("../../../static/images/invite/ads.png")}
                 style={styles.featureIcn}
                 resizeMode={FastImage.resizeMode.contain}
               />
@@ -313,7 +317,7 @@ export default function InviteCard({userState = {}}: Props) {
           <View style={styles.featureItem}>
             <View style={styles.imgContainer}>
               <FastImage
-                source={require('../../../static/images/invite/download.png')}
+                source={require("../../../static/images/invite/download.png")}
                 style={styles.featureIcn}
                 resizeMode={FastImage.resizeMode.contain}
               />
@@ -327,7 +331,7 @@ export default function InviteCard({userState = {}}: Props) {
           <View style={styles.featureItem}>
             <View style={styles.imgContainer}>
               <FastImage
-                source={require('../../../static/images/invite/cast.png')}
+                source={require("../../../static/images/invite/cast.png")}
                 style={styles.featureIcn}
                 resizeMode={FastImage.resizeMode.contain}
               />
@@ -341,8 +345,8 @@ export default function InviteCard({userState = {}}: Props) {
         {/* invite button  component  */}
         <TouchableOpacity
           onPress={() => {
-            if (userState.userToken == '') {
-              console.log('toggle login');
+            if (userState.userToken == "") {
+              console.log("toggle login");
               dispatch(showLoginAction());
               // console.log('props{');
               // setActionType('login');
@@ -350,17 +354,19 @@ export default function InviteCard({userState = {}}: Props) {
             } else {
               toggleShare();
             }
-          }}>
+          }}
+        >
           <View
             style={{
               backgroundColor: colors.primary,
               marginHorizontal: 15,
-              justifyContent: 'center',
-              alignItems: 'center',
+              justifyContent: "center",
+              alignItems: "center",
               paddingVertical: 8,
               borderRadius: 8,
-            }}>
-            <Text style={{color: '#000', fontWeight: '600', fontSize: 16}}>
+            }}
+          >
+            <Text style={{ color: "#000", fontWeight: "600", fontSize: 16 }}>
               立即推荐
             </Text>
           </View>
@@ -368,16 +374,17 @@ export default function InviteCard({userState = {}}: Props) {
         {/* social media share section  */}
         <View
           style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
+            flexDirection: "row",
+            justifyContent: "space-between",
             marginHorizontal: 33,
             marginVertical: 25,
             marginTop: 15,
             // position: 'relative',
             // bottom: 5,
-          }}>
+          }}
+        >
           <TouchableOpacity onPress={shareToWhatsApp}>
-            <WhatsappIcn style={{width: 18, height: 18}} />
+            <WhatsappIcn style={{ width: 18, height: 18 }} />
           </TouchableOpacity>
 
           <TouchableOpacity onPress={shareToTelegram}>
@@ -393,7 +400,7 @@ export default function InviteCard({userState = {}}: Props) {
 
           <TouchableOpacity onPress={shareToTwitter}>
             <FastImage
-              source={require('../../../static/images/invite/twitter.png')}
+              source={require("../../../static/images/invite/twitter.png")}
               style={{
                 height: 40,
                 width: 40,
@@ -408,15 +415,16 @@ export default function InviteCard({userState = {}}: Props) {
 
           <TouchableOpacity
             onPress={() => {
-              if (userState.userToken == '') {
+              if (userState.userToken == "") {
                 dispatch(showLoginAction());
                 return;
               }
               Clipboard.setString(
-                shareOptions.message + ' ' + shareOptions.url,
+                shareOptions.message + " " + shareOptions.url
               );
               setIsDialogOpen(true);
-            }}>
+            }}
+          >
             <CopyIcn />
           </TouchableOpacity>
 
@@ -432,49 +440,56 @@ export default function InviteCard({userState = {}}: Props) {
         {/* stat section  */}
         <TouchableOpacity
           onPress={() => {
-            if (userState.userToken == '') {
-              console.log('toggle login');
+            if (userState.userToken == "") {
+              console.log("toggle login");
               dispatch(showLoginAction());
               // console.log('props{');
               // setActionType('login');
               // setSignUpOrLogin(true);
             } else {
-              navigation.navigate('邀请详情');
+              navigation.navigate("邀请详情");
             }
-          }}>
+          }}
+        >
           <View
             style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              backgroundColor: '#222528',
+              flexDirection: "row",
+              justifyContent: "space-between",
+              backgroundColor: "#222528",
               paddingHorizontal: 15,
-              alignItems: 'center',
+              alignItems: "center",
               paddingVertical: 15,
-            }}>
+            }}
+          >
             <View
               style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
                 gap: 3,
-              }}>
+              }}
+            >
               <ProfileIcn />
-              <Text style={{fontSize: 10, color: '#9C9C9C'}}>统计邀请：</Text>
+              <Text style={{ fontSize: 10, color: "#9C9C9C" }}>统计邀请：</Text>
               <Text
                 style={{
                   fontSize: 14,
                   color: colors.primary,
-                  fontWeight: '700',
-                }}>
+                  fontWeight: "700",
+                }}
+              >
                 {userState.userTotalInvite.toLocaleString()}
               </Text>
             </View>
 
             <View
               style={{
-                alignItems: 'center',
-              }}>
-              <Text style={{fontSize: 10, color: '#9C9C9C'}}>累计奖励明细</Text>
+                alignItems: "center",
+              }}
+            >
+              <Text style={{ fontSize: 10, color: "#9C9C9C" }}>
+                累计奖励明细
+              </Text>
             </View>
           </View>
         </TouchableOpacity>
@@ -485,25 +500,25 @@ export default function InviteCard({userState = {}}: Props) {
 
 const styles = StyleSheet.create({
   featureItem: {
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    flexDirection: 'row',
+    justifyContent: "flex-start",
+    alignItems: "center",
+    flexDirection: "row",
     gap: 8,
-    width: '47%', // 50% width for 2 items per row
+    width: "47%", // 50% width for 2 items per row
     marginBottom: 15, // Add margin to create spacing between rows
     marginTop: 10,
-    marginLeft: '3%',
+    marginLeft: "3%",
   },
 
-  featureTitle: {fontSize: 14, color: '#ffffff', fontWeight: '400'},
-  featureTitle2: {fontSize: 10, color: '#ffffff', fontWeight: '400'},
+  featureTitle: { fontSize: 14, color: "#ffffff", fontWeight: "400" },
+  featureTitle2: { fontSize: 10, color: "#ffffff", fontWeight: "400" },
   imgContainer: {
-    backgroundColor: '#3b3e40',
+    backgroundColor: "#3b3e40",
     width: 34,
     height: 34,
     borderRadius: 19,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   featureIcn: {
     flex: 1,
