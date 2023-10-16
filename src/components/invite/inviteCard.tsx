@@ -253,7 +253,7 @@ export default function InviteCard({userState = {}}: Props) {
               gap: 10,
             }}>
             <Text style={{color: '#ffffff', fontSize: 28, fontWeight: '700'}}>
-              VIP {vipRemainingDay}天
+              VIP {vipRemainingDay.toLocaleString()}天
             </Text>
             <Text style={{color: '#9C9C9C'}}>当前剩余天数</Text>
           </View>
@@ -466,7 +466,7 @@ export default function InviteCard({userState = {}}: Props) {
                   color: colors.primary,
                   fontWeight: '700',
                 }}>
-                {userState.userTotalInvite}
+                {userState.userTotalInvite.toLocaleString()}
               </Text>
             </View>
 
