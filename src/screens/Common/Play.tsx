@@ -31,7 +31,7 @@ import WeChatIcon from '../../../static/images/wechat.svg';
 import QQIcon from '../../../static/images/qq.svg';
 import PYQIcon from '../../../static/images/pyq.svg';
 import MoreArrow from '../../../static/images/more_arrow.svg';
-import Animated, { useSharedValue } from 'react-native-reanimated';
+import Animated, { log, useSharedValue } from 'react-native-reanimated';
 
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import VodEpisodeSelectionModal from '../../components/modal/vodEpisodeSelectionModal';
@@ -49,6 +49,7 @@ import { SettingsReducerState } from '../../redux/reducers/settingsReducer';
 import NoConnection from '../../components/common/noConnection';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 import AdsBanner from '../../ads/adsBanner';
+import Orientation from 'react-native-orientation-locker';
 
 type VideoRef = {
   setPause: (param: boolean) => void,
@@ -65,6 +66,17 @@ const definedValue = (val: any) => {
 
 export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
 const insets = useSafeAreaInsets();
+
+  const [isFullscreen, setIsFullscreen] = useState(false)
+
+  useEffect(() => {
+    const listener = Orientation.addOrientationListener((orientation) => {
+      console.debug('orientation', orientation)
+      setIsFullscreen((orientation ===  'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT'))
+    })
+
+    return () => Orientation.removeAllListeners() 
+}, [])
 
   const { colors, spacing, textVariants, icons } = useTheme();
   const vodReducer: VodReducerState = useAppSelector(
@@ -107,6 +119,7 @@ const insets = useSafeAreaInsets();
 
   const [dismountPlayer, setDismountPlayer] = useState(false);
   const [isOffline, setIsOffline] = useState(false);
+  const [showEpisodeList, setShowEpisodeList] = useState(false);
 
   const EPISODE_RANGE_SIZE = 100;
 
@@ -324,6 +337,10 @@ const insets = useSafeAreaInsets();
     }
   };
 
+  const handleModalClose = useCallback(() => {
+    setShowEpisodeList(false)
+  }, [])
+
   return (
     <>
       <AdsBanner bottomTabHeight={0} />
@@ -536,7 +553,10 @@ const insets = useSafeAreaInsets();
                                 <Text style={textVariants.body}>选集播放</Text>
                                 <TouchableOpacity
                                   style={styles.share}
-                                  onPress={() => sheetRef.current?.snapToIndex(1)}>
+                                  onPress={() => {
+                                  sheetRef.current?.snapToIndex(1)
+                                  setShowEpisodeList(true) // render list only when modal is up
+                                  }}>
                                   <Text
                                     style={{
                                       color: colors.muted,
@@ -600,16 +620,25 @@ const insets = useSafeAreaInsets();
                 </>
               </View>
             </ScrollView>
-            <VodEpisodeSelectionModal
-              activeEpisode={currentEpisode}
-              episodes={vod?.vod_play_list}
-              sheetRef={sheetRef}
-              onCancel={() => sheetRef.current?.close()}
-              onConfirm={(id: number) => {
-                setCurrentEpisode(id);
-              }}
-              rangeSize={EPISODE_RANGE_SIZE}
-            />
+            {
+              (!isFullscreen && vod?.vod_play_list !== undefined && vod?.vod_play_list.urls?.length > 1) && // only show if portrait
+              <VodEpisodeSelectionModal
+                showEpisodeList={showEpisodeList}
+                handleClose={handleModalClose}
+                activeEpisode={currentEpisode}
+                episodes={vod?.vod_play_list}
+                sheetRef={sheetRef}
+                onCancel={() => {
+                  sheetRef.current?.close()
+                }}
+                onConfirm={(id: number) => {
+                  setCurrentEpisode(id);
+                  handleModalClose()
+                }}
+                rangeSize={EPISODE_RANGE_SIZE}
+              />
+
+            }
           </>
         )}
         {isOffline && (
