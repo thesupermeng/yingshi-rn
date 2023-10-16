@@ -46,15 +46,15 @@ export const INVITE_DOMAIN = 'https://yingshi.tv/invite/pro/?invite=';
 //     'MI_GETAPPS': 'MI_GETAPPS',
 // }
 
-export const UMENG_CHANNEL = "HUAWEI_APP_GALLERY_OVERSEAS";
+export const UMENG_CHANNEL = 'HUAWEI_APP_GALLERY_OVERSEAS';
 
-export const APP_VERSION = "1.0.0";
+export const APP_VERSION = '1.0.0';
 
 export const TOPON_ANDROID_APP_ID = 'a65096b9d21e23';
 export const TOPON_ANDROID_APP_KEY = '0b1cab850e5de6fdc1fe0e114a0256eb';
 
 export const TOPON_IOS_APP_ID = 'a650a6ca02b6a6';
-export const TOPON_IOS_APP_KEY = '0b1cab850e5de6fdc1fe0e114a0256eb';
+export const TOPON_IOS_APP_KEY = 'a1d5a4e8e7e2bb06880eb2cda108716ed';
 
 // topon 横幅广告
 export const ANDROID_HOME_PAGE_BANNER_ADS = 'b650d3170ea90f';
