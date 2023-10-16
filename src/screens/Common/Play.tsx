@@ -71,7 +71,6 @@ const insets = useSafeAreaInsets();
 
   useEffect(() => {
     const listener = Orientation.addOrientationListener((orientation) => {
-      console.debug('orientation', orientation)
       setIsFullscreen((orientation ===  'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT'))
     })
 
