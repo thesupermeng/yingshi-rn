@@ -26,6 +26,8 @@
 
 @implementation AppDelegate
 
+UIView *rootView;
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 //  [UMConfigure setLogEnabled:YES];
@@ -36,6 +38,7 @@
   // They will be passed down to the ViewController used by React Native.
 //  self.initialProps = @{};
   
+  [self initRootController];
   [ATAPI setLogEnabled:NO]; // Turn on debug logs
 
   //  ATMintegralConfigure *mtgConfigure = [[ATMintegralConfigure alloc] initWithAppid:@"a650a6ca02b6a6" appkey:@"a1d5a4e8e7e2bb06880eb2cda108716ed"];
@@ -123,12 +126,14 @@
   return initProps;
 }
 
-- (void)nativeViewControllerDidFinish {
+- (void)initRootController {
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:self.launchOptions];
   NSDictionary *initProps = [self prepareInitialProps];
-  UIView *rootView = RCTAppSetupDefaultRootView(bridge, @"yingshi", initProps, true);
+  rootView = RCTAppSetupDefaultRootView(bridge, @"yingshi", initProps, true);
   rootView.backgroundColor = [UIColor blackColor];
+}
 
+- (void)nativeViewControllerDidFinish {
   UIViewController *rootViewController = [UIViewController new];
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
