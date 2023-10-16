@@ -123,12 +123,13 @@ export default (props: any) => {
   );
 
   return (
-    <ScreenContainer>
     <View
       style={{
         flex: 1,
         backgroundColor: '#000',
       }}>
+      <ScreenContainer>
+      {/* <SafeAreaView> */}
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <>
           <View
@@ -259,8 +260,9 @@ export default (props: any) => {
           </View>
         </>
       </TouchableWithoutFeedback>
+      {/* </SafeAreaView> */}
+      </ScreenContainer>
     </View>
-    </ScreenContainer>
   );
 };
 
