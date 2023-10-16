@@ -298,8 +298,8 @@
     } else {
 //        do else
     }
-    
-    [self.delegate nativeViewControllerDidFinish];
+  
+  
 }
 
 
@@ -315,6 +315,7 @@
 
 - (void)didFailToLoadADSourceWithPlacementID:(NSString*)placementID extra:(NSDictionary*)extra error:(NSError*)error{
     NSLog(@"广告源--AD--失败--ATSplashViewController::didFailToLoadADSourceWithPlacementID:%@---error:%@", placementID,error);
+//    [self.delegate nativeViewControllerDidFinish];
 }
 
 // bidding
@@ -328,6 +329,7 @@
 
 - (void)didFailBiddingADSourceWithPlacementID:(NSString*)placementID extra:(NSDictionary*)extra error:(NSError*)error{
     NSLog(@"广告源--bid--失败--ATSplashViewController::didFailBiddingADSourceWithPlacementID:%@--error:%@", placementID,error);
+//    [self.delegate nativeViewControllerDidFinish];
 }
 
 - (void)didFinishLoadingSplashADWithPlacementID:(NSString *)placementID isTimeout:(BOOL)isTimeout {
@@ -367,6 +369,7 @@
 - (void)splashDidCloseForPlacementID:(NSString *)placementID extra:(NSDictionary *)extra {
     NSLog(@"开屏ATSplashViewController::splashDidCloseForPlacementID:%@ extra:%@",placementID,extra);
     [self showLog:[NSString stringWithFormat:@"splashDidCloseForPlacementID:%@ ",placementID]];
+    [self.delegate nativeViewControllerDidFinish];
 }
 
 - (void)splashDidShowForPlacementID:(NSString *)placementID extra:(NSDictionary *)extra {
@@ -392,6 +395,7 @@
 - (void)splashDidShowFailedForPlacementID:(NSString*)placementID error:(NSError *)error extra:(NSDictionary *) extra {
     NSLog(@"开屏ATSplashViewController::splashDidShowFailedForPlacementID:%@",placementID);
     [self showLog:[NSString stringWithFormat:@"splashDidShowFailedForPlacementID:%@ error:%@ ",placementID,error]];
+    [self.delegate nativeViewControllerDidFinish];
 }
 
 - (void)splashCountdownTime:(NSInteger)countdown forPlacementID:(NSString *)placementID extra:(NSDictionary *)extra {
