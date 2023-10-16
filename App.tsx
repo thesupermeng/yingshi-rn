@@ -145,8 +145,10 @@ let App = () => {
     return response;
   };
 
-  let tryToloadCount = 0;
+  let tryToLoadCount = 0;
   let adsReadyFlag = false;
+  let tryToLoadCountBanner = 0;
+  let adsReadyFlagBanner = false;
 
   useEffect(() => {
     getIP();
@@ -371,7 +373,7 @@ let App = () => {
     });
   };
 
-  const loadBanner = (bannerPlacementId) => {
+  const loadBanner = async (bannerPlacementId) => {
     console.log("loadBanner ....");
 
     var settings = {};
@@ -406,7 +408,27 @@ let App = () => {
       //    settings[ATBannerRNSDK.kATBannerAdAdaptiveOrientation] = ATBannerRNSDK.kATBannerAdAdaptiveOrientationLandscape;
     }
 
-    ATBannerRNSDK.loadAd(bannerPlacementId, settings);
+    await ATBannerRNSDK.loadAd(bannerPlacementId, settings);
+
+    isBannerReady(bannerPlacementId);
+  };
+
+  const isBannerReady = (bannerPlacementId) => {
+    ATBannerRNSDK.hasAdReady(bannerPlacementId).then((isAdReady) => {
+      console.log("isBannerReady: " + isAdReady);
+      console.log(bannerPlacementId);
+      if (isAdReady) {
+        adsReadyFlagBanner = true;
+      } else {
+        if (tryToLoadCountBanner > 100 || adsReadyFlagBanner == true) {
+          return;
+        }
+        tryToLoadCountBanner += 1;
+        setTimeout(() => {
+          loadBanner(bannerPlacementId);
+        }, 500);
+      }
+    });
   };
 
   const initInterstitialAdListener = () => {
@@ -541,10 +563,10 @@ let App = () => {
             showInterstitial(IOS_HOME_PAGE_POP_UP_ADS);
           }
         } else {
-          if (tryToloadCount > 100 || adsReadyFlag == true) {
+          if (tryToLoadCount > 100 || adsReadyFlag == true) {
             return;
           }
-          tryToloadCount += 1;
+          tryToLoadCount += 1;
           setTimeout(() => {
             if (Platform.OS === "android") {
               loadInterstitial(ANDROID_HOME_PAGE_POP_UP_ADS);
