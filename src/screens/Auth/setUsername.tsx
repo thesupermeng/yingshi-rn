@@ -30,6 +30,7 @@ import {changeScreenAction} from '../../redux/actions/screenAction';
 import {updateUsernameState} from '../../redux/actions/userAction';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {userModel} from '../../types/userType';
+import BackButton from '../../components/button/backButton';
 export default (props: any) => {
   const [optVarificationState, setOptVarificationState] = useState(2);
   const {colors, textVariants, icons, spacing} = useTheme();
@@ -123,21 +124,24 @@ export default (props: any) => {
   );
 
   return (
-    <ScreenContainer>
     <View
       style={{
         flex: 1,
         backgroundColor: '#000',
       }}>
+      <ScreenContainer>
+      {/* <SafeAreaView> */}
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <>
           <View
             style={{
               flexDirection: 'row',
-              justifyContent: 'flex-end',
+              justifyContent: 'space-between',
+              paddingLeft: 20,
               paddingRight: 20,
               paddingTop: 20,
             }}>
+            <BackButton />
             <TouchableOpacity
               onPress={() => {
                 updateUsernameHandler(true);
@@ -259,8 +263,9 @@ export default (props: any) => {
           </View>
         </>
       </TouchableWithoutFeedback>
+      {/* </SafeAreaView> */}
+      </ScreenContainer>
     </View>
-    </ScreenContainer>
   );
 };
 
