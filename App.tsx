@@ -127,24 +127,28 @@ let App = () => {
     const v1 = parseInt(APP_VERSION.replace(/\./g, ""), 10);
     const v2 = parseInt(res.replace(/\./g, ""), 10);
 
-    console.log('ADAAAGGG')
+    console.log("ADAAAGGG");
     if (v2 > v1) {
-      console.log('??')
-      CodePush.checkForUpdate()
-      .then((update) => {
+      console.log("??");
+      CodePush.checkForUpdate().then((update) => {
         // console.log('----+---')
         // console.log(update + "UUUUU")
-        if(update){
+        if (update) {
           console.log(update + "AZZZZ?!");
           setShowRegengOverlay(true);
-        }else{
-          console.log('EHH?');
+        } else {
+          console.log("EHH?");
         }
       });
     }
 
     return response;
   };
+
+  let tryToLoadCount = 0;
+  let adsReadyFlag = false;
+  let tryToLoadCountBanner = 0;
+  let adsReadyFlagBanner = false;
 
   useEffect(() => {
     getIP();
@@ -369,7 +373,7 @@ let App = () => {
     });
   };
 
-  const loadBanner = (bannerPlacementId) => {
+  const loadBanner = async (bannerPlacementId) => {
     console.log("loadBanner ....");
 
     var settings = {};
@@ -404,7 +408,27 @@ let App = () => {
       //    settings[ATBannerRNSDK.kATBannerAdAdaptiveOrientation] = ATBannerRNSDK.kATBannerAdAdaptiveOrientationLandscape;
     }
 
-    ATBannerRNSDK.loadAd(bannerPlacementId, settings);
+    await ATBannerRNSDK.loadAd(bannerPlacementId, settings);
+
+    isBannerReady(bannerPlacementId);
+  };
+
+  const isBannerReady = (bannerPlacementId) => {
+    ATBannerRNSDK.hasAdReady(bannerPlacementId).then((isAdReady) => {
+      console.log("isBannerReady: " + isAdReady);
+      console.log(bannerPlacementId);
+      if (isAdReady) {
+        adsReadyFlagBanner = true;
+      } else {
+        if (tryToLoadCountBanner > 100 || adsReadyFlagBanner == true) {
+          return;
+        }
+        tryToLoadCountBanner += 1;
+        setTimeout(() => {
+          loadBanner(bannerPlacementId);
+        }, 500);
+      }
+    });
   };
 
   const initInterstitialAdListener = () => {
@@ -424,6 +448,10 @@ let App = () => {
             ", errorMsg: " +
             event.errorMsg
         );
+
+        if (event.errorMsg == "") {
+          loadInterstitial(IOS_HOME_PAGE_POP_UP_ADS);
+        }
       }
     );
 
@@ -502,32 +530,59 @@ let App = () => {
     );
   };
 
-  const loadInterstitial = (interstitialPlacementId) => {
-    console.log("====================================");
+  const loadInterstitial = async (interstitialPlacementId) => {
+    // console.log("====================================");
     console.log("loadInterstitial");
-    console.log("====================================");
+    // console.log("====================================");
 
     var settings = {};
     settings[ATInterstitialRNSDK.UseRewardedVideoAsInterstitial] = false;
     //    settings[ATInterstitialRNSDK.UseRewardedVideoAsInterstitial] = true;
 
-    ATInterstitialRNSDK.loadAd(interstitialPlacementId, settings);
+    await ATInterstitialRNSDK.loadAd(interstitialPlacementId, settings);
+
+    if (Platform.OS === "android") {
+      isInterstitialReady(ANDROID_HOME_PAGE_POP_UP_ADS);
+    } else if (Platform.OS === "ios") {
+      isInterstitialReady(IOS_HOME_PAGE_POP_UP_ADS);
+    }
   };
 
   const isInterstitialReady = (interstitialPlacementId) => {
     ATInterstitialRNSDK.hasAdReady(interstitialPlacementId).then(
       (isAdReady) => {
-        console.log("====================================");
-        console.log("isInterstitialReady: " + isAdReady);
-        console.log("====================================");
+        // console.log("====================================");
+        // console.log("isInterstitialReady: " + isAdReady);
+        // console.log("====================================");
+
+        if (isAdReady) {
+          adsReadyFlag = true;
+          if (Platform.OS === "android") {
+            showInterstitial(ANDROID_HOME_PAGE_POP_UP_ADS);
+          } else if (Platform.OS === "ios") {
+            showInterstitial(IOS_HOME_PAGE_POP_UP_ADS);
+          }
+        } else {
+          if (tryToLoadCount > 100 || adsReadyFlag == true) {
+            return;
+          }
+          tryToLoadCount += 1;
+          setTimeout(() => {
+            if (Platform.OS === "android") {
+              loadInterstitial(ANDROID_HOME_PAGE_POP_UP_ADS);
+            } else if (Platform.OS === "ios") {
+              loadInterstitial(IOS_HOME_PAGE_POP_UP_ADS);
+            }
+          }, 500);
+        }
       }
     );
 
     ATInterstitialRNSDK.checkAdStatus(interstitialPlacementId).then(
       (adStatusInfo) => {
-        console.log("====================================");
-        console.log("isInterstitialReady: checkAdStatus: " + adStatusInfo);
-        console.log("====================================");
+        // console.log("====================================");
+        // console.log("isInterstitialReady: checkAdStatus: " + adStatusInfo);
+        // console.log("====================================");
       }
     );
   };
@@ -542,13 +597,9 @@ let App = () => {
   if (Platform.OS === "android") {
     loadBanner(ANDROID_HOME_PAGE_BANNER_ADS);
     loadInterstitial(ANDROID_HOME_PAGE_POP_UP_ADS);
-    isInterstitialReady(ANDROID_HOME_PAGE_POP_UP_ADS);
-    showInterstitial(ANDROID_HOME_PAGE_POP_UP_ADS);
   } else if (Platform.OS === "ios") {
     loadBanner(IOS_HOME_PAGE_BANNER_ADS);
     loadInterstitial(IOS_HOME_PAGE_POP_UP_ADS);
-    isInterstitialReady(IOS_HOME_PAGE_POP_UP_ADS);
-    showInterstitial(IOS_HOME_PAGE_POP_UP_ADS);
   }
 
   return (
@@ -568,7 +619,6 @@ let App = () => {
             </BottomSheetModalProvider>
           </GestureHandlerRootView>
         </PersistGate>
-        <VipOverlay />
         {showRegengOverlay && <RegengOverlay />}
       </Provider>
     </QueryClientProvider>
