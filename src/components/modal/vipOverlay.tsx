@@ -90,7 +90,9 @@ export default function VipOverlay({}: Props) {
                   <TouchableOpacity
                     onPress={() => {
                       hideVipPrompt();
-                      dispatch(showRegisterAction());
+                      setTimeout(() => { // delay to ensure modal is hidden first 
+                        dispatch(showRegisterAction());
+                      }, 50);
                     }}
                     style={{
                       backgroundColor: '#FAC33D',
