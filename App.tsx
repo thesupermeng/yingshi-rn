@@ -300,7 +300,7 @@ let App = () => {
     console.log("TopOn SDK init ....");
     ATRNSDK.initSDK(appId, appKey);
 
-    //  initAdListener();
+    initAdListener();
   }
 
   function initAdListener() {
@@ -308,18 +308,22 @@ let App = () => {
     initInterstitialAdListener();
   }
 
+  let latestMSg = "";
   const initBannerAdListener = () => {
     ATBannerRNSDK.setAdListener(ATBannerRNSDK.onBannerLoaded, (event) => {
       console.log("ATBannerLoaded: " + event.placementId);
     });
 
     ATBannerRNSDK.setAdListener(ATBannerRNSDK.onBannerFail, (event) => {
-      console.warn(
-        "ATBannerLoadFail: " +
-          event.placementId +
-          ", errorMsg: " +
-          event.errorMsg
-      );
+      if (latestMSg != event.errorMsg) {
+        latestMSg = event.errorMsg;
+        console.warn(
+          "ATBannerLoadFail: " +
+            event.placementId +
+            ", errorMsg: " +
+            event.errorMsg
+        );
+      }
     });
 
     ATBannerRNSDK.setAdListener(ATBannerRNSDK.onBannerShow, (event) => {
@@ -415,8 +419,8 @@ let App = () => {
 
   const isBannerReady = (bannerPlacementId) => {
     ATBannerRNSDK.hasAdReady(bannerPlacementId).then((isAdReady) => {
-      console.log("isBannerReady: " + isAdReady);
-      console.log(bannerPlacementId);
+      // console.log("isBannerReady: " + isAdReady);
+      // console.log(bannerPlacementId);
       if (isAdReady) {
         adsReadyFlagBanner = true;
       } else {
