@@ -13,7 +13,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons'; // You can use any i
 
 import {registerUser} from '../../features/user';
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
-import {hideBottomSheetAction} from '../../redux/actions/screenAction';
+import {hideBottomSheetAction, navigateToProfileScreen} from '../../redux/actions/screenAction';
 import {RadioButton} from 'react-native-paper';
 import FastImage from 'react-native-fast-image';
 import {screenModel} from '../../types/screenType';
@@ -339,11 +339,11 @@ const RegisterCard = (props: any) => {
         </TouchableOpacity>
 
         <Text style={{marginLeft: 5, color: '#9c9c9c'}}>我已阅读并同意</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('用户协议')}>
+        <TouchableOpacity onPress={() => {dispatch(navigateToProfileScreen()); navigation.navigate('用户协议')}}>
           <Text style={{color: colors.primary}}>用户协议</Text>
         </TouchableOpacity>
         <Text style={{color: '#9c9c9c'}}>和</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('隐私政策')}>
+        <TouchableOpacity onPress={() => {dispatch(navigateToProfileScreen()); navigation.navigate('隐私政策')}}>
           <Text style={{color: colors.primary}}>隐私协议</Text>
         </TouchableOpacity>
       </View>

@@ -2,44 +2,53 @@ import React, { useEffect } from "react";
 import { View, TouchableOpacity, StyleSheet, Text, ViewStyle } from 'react-native';
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
-import { useTheme } from '@react-navigation/native';
+import { useTheme, useRoute } from '@react-navigation/native';
 import BackButton from '../button/backButton';
+import { RootStackParamList, RootStackScreenProps } from "../../types/navigationTypes";
 import {
     showLoginAction,
     showRegisterAction,
+    navigateToProfileScreen
   } from "../../redux/actions/screenAction";
+import { screenReducer } from "../../redux/reducers/screenReducer";
+import { screenModel } from "../../types/screenType";
+import { RootState } from "../../redux/store";
+import { Route } from "react-native-tab-view";
 
 interface Props {
     title?: string,
     onBack?: any,
     headerStyle?: ViewStyle,
-    right?: React.ReactNode
+    right?: React.ReactNode,
+    destination: keyof RootStackParamList, 
 }
 
 
 
-export default function PrivacyBackButtonHeader({ title, headerStyle, right }: Props) {
+export default function PrivacyBackButtonHeader({ title, headerStyle, right, destination }: Props) {
     const { textVariants } = useTheme()
     const dispatch = useAppDispatch();
     const navigation = useNavigation();
+    const route = useRoute();
+    const screenReducer: screenModel = useAppSelector(
+        ({ screenReducer }: RootState) => screenReducer
+      );
 
-    const onBackPress = () => {
-        // Perform your action when the user presses the back button
-        // For example, show the login screen:
-        dispatch(showRegisterAction());
-        return true; // Prevent default back behavior (optional)
-    };
-
-    useEffect(() => {
+      useEffect(() => {
         const unsubscribe = navigation.addListener('beforeRemove', (e) => {
-            // If the back button was pressed, trigger your custom action
-            if (e.data.action.type === 'GO_BACK') {
-                onBackPress();
+            // if (e.data.action.type === 'GO_BACK' && screenReducer.navigateToProfile) {
+                if (screenReducer.navigateToProfile === true) {
+                console.log(screenReducer.navigateToProfile)
+                // Check if the previous route was "RegistrationPage" and the destination is "ProfileScreen"
+                // If yes, trigger your custom action
+                dispatch(showRegisterAction());
+            }else {
+                return
             }
         });
 
         return unsubscribe;
-    }, [navigation]);
+    }, [navigation, route]);
 
 
     return (
