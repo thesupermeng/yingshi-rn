@@ -152,7 +152,7 @@ function Playlist ({navigation}: BottomTabScreenProps<any>) {
           }
           navigator={navigation}
         />
-        {isRefreshing && !isOffline && (
+        {/* {isRefreshing && !isOffline && (
           <View
             style={{
               ...styles.loading,
@@ -168,8 +168,8 @@ function Playlist ({navigation}: BottomTabScreenProps<any>) {
               />
             }
           </View>
-        )}
-        {!isRefreshing && !isOffline && (
+        )} */}
+        {!isOffline && (
           <>
             <FlatList
               showsVerticalScrollIndicator={false}

@@ -152,6 +152,7 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
                     isPaused={isPaused}
                     setCollectionEpisode={(index: number) => {}}
                     handleRefreshMiniVod={handleRefresh}
+                    isRefreshing={isRefreshing}
                 />
             }
             {isOffline && <NoConnection onClickRetry={checkConnection} />}
