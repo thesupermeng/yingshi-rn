@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Provider } from "react-redux";
 import Nav from "./src/navigation/nav";
 import NavA from "./srcA/navigation/nav";
@@ -56,6 +56,10 @@ import {
   ATBannerRNSDK,
 } from "./AnyThinkAds/ATReactNativeSDK";
 
+import { TermsNavigateContext, TermsNavigateContextProvider } from "./src/contexts/TermsNavigateContext";
+import PrivacyPolicyDialog from "./src/components/modal/privacyPolicyModel";
+import { TermsAcceptContextProvider } from "./src/contexts/TermsAcceptedContext";
+
 let App = () => {
   // appsFlyer.initSdk(
   //   {
@@ -90,6 +94,8 @@ let App = () => {
   // );
 
   const [showRegengOverlay, setShowRegengOverlay] = useState(false);
+ 
+  
 
   const queryClient = new QueryClient({
     defaultOptions: {
@@ -304,8 +310,8 @@ let App = () => {
   }
 
   function initAdListener() {
-    initBannerAdListener();
-    initInterstitialAdListener();
+    // initBannerAdListener();
+    // initInterstitialAdListener();
   }
 
   const initBannerAdListener = () => {
@@ -374,7 +380,7 @@ let App = () => {
   };
 
   const loadBanner = async (bannerPlacementId) => {
-    console.log("loadBanner ....");
+    // console.log("loadBanner ....");
 
     var settings = {};
     if (Platform.OS === "android") {
@@ -415,8 +421,8 @@ let App = () => {
 
   const isBannerReady = (bannerPlacementId) => {
     ATBannerRNSDK.hasAdReady(bannerPlacementId).then((isAdReady) => {
-      console.log("isBannerReady: " + isAdReady);
-      console.log(bannerPlacementId);
+      // console.log("isBannerReady: " + isAdReady);
+      // console.log(bannerPlacementId);
       if (isAdReady) {
         adsReadyFlagBanner = true;
       } else {
@@ -532,7 +538,7 @@ let App = () => {
 
   const loadInterstitial = async (interstitialPlacementId) => {
     // console.log("====================================");
-    console.log("loadInterstitial");
+    // console.log("loadInterstitial");
     // console.log("====================================");
 
     var settings = {};
@@ -603,25 +609,27 @@ let App = () => {
   }
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <GestureHandlerRootView style={{ flex: 1 }}>
-            <BottomSheetModalProvider>
-              {YSConfig.instance.areaConfig != null &&
-              YSConfig.instance.areaConfig == true ? (
-                // B面的B面
-                <Nav />
-              ) : (
-                // B面里的A面
-                <NavA />
-              )}
-            </BottomSheetModalProvider>
-          </GestureHandlerRootView>
-        </PersistGate>
-        {showRegengOverlay && <RegengOverlay />}
-      </Provider>
-    </QueryClientProvider>
+    <TermsAcceptContextProvider>
+      <QueryClientProvider client={queryClient}>
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+            <GestureHandlerRootView style={{flex: 1}}>
+              <BottomSheetModalProvider>
+                {YSConfig.instance.areaConfig != null &&
+                YSConfig.instance.areaConfig == true ? (
+                  // B面的B面
+                  <Nav />
+                ) : (
+                  // B面里的A面
+                  <NavA />
+                )}
+              </BottomSheetModalProvider>
+            </GestureHandlerRootView>
+          </PersistGate>
+          {showRegengOverlay && <RegengOverlay />}
+        </Provider>
+      </QueryClientProvider>
+    </TermsAcceptContextProvider>
   );
 };
 
