@@ -424,7 +424,7 @@ let App = () => {
       if (isAdReady) {
         adsReadyFlagBanner = true;
       } else {
-        if (tryToLoadCountBanner > 100 || adsReadyFlagBanner == true) {
+        if (tryToLoadCountBanner > 5 || adsReadyFlagBanner == true) {
           return;
         }
         tryToLoadCountBanner += 1;

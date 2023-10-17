@@ -47,11 +47,7 @@ import { SettingsReducerState } from "../redux/reducers/settingsReducer";
 import { acceptPrivacyPolicy } from "../redux/actions/settingsActions";
 import RNExitApp from "react-native-exit-app";
 import AdsBanner from "../ads/adsBanner";
-
-interface NavType {
-  id: number;
-  name: string;
-}
+import HomeNav from "../components/tabNavigate/homeNav";
 
 function Home({ navigation }: BottomTabScreenProps<any>) {
   const isFocused = useIsFocused();
@@ -61,7 +57,6 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   const ref = useRef<any>();
   const BTN_COLORS = ["#30AA55", "#7E9CEE", "#F1377A", "#FFCC12", "#ED7445"];
   const [scrollEnabled, setScrollEnabled] = useState(true);
-  const navRef = useRef<any>();
   const queryClient = useQueryClient();
   const [isOffline, setIsOffline] = useState(false);
   const [showHomeLoading, setShowHomeLoading] = useState(true);
@@ -208,25 +203,6 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
     []
   );
 
-  const onScrollEnd = useCallback(
-    (e: any) => {
-      if (isScrollByManual.current) {
-        const pageNumber = Math.min(
-          Math.max(Math.floor(e.nativeEvent.contentOffset.x / width + 0.5), 0),
-          data.length
-        );
-        if (pageNumber !== navId) {
-          setNavId(pageNumber);
-          navRef?.current?.scrollToIndex({
-            index: pageNumber,
-            viewOffset: 24,
-          });
-        }
-      }
-    },
-    [data, width, navRef, navId]
-  );
-
   const openPrivacyDialog = () => {
     setOpenDialog(true);
   };
@@ -265,140 +241,62 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
           }}
         >
           <HomeHeader navigator={navigation} />
-          <FlatList
-            data={navOptions ? navOptions : []}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            ref={navRef}
-            contentContainerStyle={styles.nav}
-            renderItem={({ item, index }: { item: NavType; index: number }) => {
-              return (
-                <TouchableOpacity
+        </View>
+        <HomeNav
+          hideContent={hideContent}
+          tabList={navOptions?.map(e => ({
+            id: e.id,
+            title: e.name,
+            name: e.name,
+          })) ?? []}
+          tabChildren={(tab, i) => <>
+              {(!data || isRefreshing || hideContent) && (
+                <View
                   style={{
-                    marginRight: spacing.m,
+                    ...styles.loading,
+                    flex: 1,
+                    alignItems: "center",
                     justifyContent: "center",
-                    display: "flex",
-                  }}
-                  onPress={() => {
-                    if (data.length > 0) {
-                      isScrollByTab.current = true;
-                      setNavId(index);
-                      ref?.current?.scrollToIndex({
-                        index: index,
-                      });
-                    }
+                    position: "absolute",
+                    left: "50%",
+                    marginLeft: -40, // Half of the element's width
                   }}
                 >
-                  <Text
-                    style={{
-                      textAlign: "center",
-                      fontSize:
-                        navId === index
-                          ? textVariants.selected.fontSize
-                          : textVariants.unselected.fontSize,
-                      fontWeight:
-                        navId === index
-                          ? textVariants.selected.fontWeight
-                          : textVariants.unselected.fontWeight,
-                      color: navId === index ? colors.primary : colors.muted,
-                    }}
-                  >
-                    {item.name}
-                  </Text>
-                </TouchableOpacity>
-              );
-            }}
-          />
-        </View>
-        {(!data || isRefreshing || hideContent) && (
-          <View
-            style={{
-              ...styles.loading,
-              flex: 1,
-              alignItems: "center",
-              justifyContent: "center",
-              position: "absolute",
-              left: "50%",
-              marginLeft: -40, // Half of the element's width
-            }}
-          >
-            {
-              <FastImage
-                style={{ height: 80, width: 80 }}
-                source={require("../../static/images/loading-spinner.gif")}
-                resizeMode={FastImage.resizeMode.contain}
-              />
-            }
-          </View>
-        )}
-        {showHomeLoading && !isOffline && (
-          <View
-            style={{
-              flex: 1,
-              justifyContent: "center",
-              alignItems: "center",
-              backgroundColor: "rgb(20,22,25)",
-            }}
-          >
-            <FastImage
-              source={require("../../static/images/home-loading.gif")}
-              style={{
-                width: 150,
-                height: 150,
-                position: "relative",
-                bottom: 50,
-                zIndex: -1,
-              }}
-              resizeMode={FastImage.resizeMode.contain}
-            />
-          </View>
-        )}
-        {data && !isOffline && (
-          <View
-            style={{
-              opacity: hideContent ? 0 : 1,
-              position: showHomeLoading ? "absolute" : "relative",
-              paddingBottom: bottomTabHeight + 10,
-            }}
-          >
-            <FlatList
-              ref={ref}
-              data={data}
-              pagingEnabled={true}
-              scrollEnabled={scrollEnabled}
-              horizontal={true}
-              windowSize={3}
-              maxToRenderPerBatch={2}
-              initialNumToRender={1}
-              nestedScrollEnabled={true}
-              getItemLayout={(data, index) => ({
-                length: width,
-                offset: width * index,
-                index,
-              })}
-              onScroll={(e) => {
-                if (!isScrollByTab.current) {
-                  if (!isScrollByManual.current) {
-                    isScrollByManual.current = true;
+                  {
+                    <FastImage
+                      style={{ height: 80, width: 80 }}
+                      source={require("../../static/images/loading-spinner.gif")}
+                      resizeMode={FastImage.resizeMode.contain}
+                    />
                   }
-                  onScrollEnd(e);
-                }
-              }}
-              onScrollBeginDrag={() => {
-                if (!isScrollByManual.current) {
-                  isScrollByManual.current = true;
-                  isScrollByTab.current = false;
-                }
-              }}
-              onMomentumScrollEnd={(e) => {
-                if (isScrollByManual) {
-                  isScrollByManual.current = false;
-                }
-              }}
-              renderItem={getContent}
-            />
-          </View>
-        )}
+                </View>
+              )}
+              {showHomeLoading && !isOffline && (
+                <View
+                  style={{
+                    flex: 1,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    backgroundColor: "rgb(20,22,25)",
+                  }}
+                >
+                  <FastImage
+                    source={require("../../static/images/home-loading.gif")}
+                    style={{
+                      width: 150,
+                      height: 150,
+                      position: "relative",
+                      bottom: 50,
+                      zIndex: -1,
+                    }}
+                    resizeMode={FastImage.resizeMode.contain}
+                  />
+                </View>
+              )}
+              {data && !isOffline && getContent({item: data[i], index: i})}
+            </>
+          }
+        />
       </ScreenContainer>
 
       <PrivacyPolicyDialog
