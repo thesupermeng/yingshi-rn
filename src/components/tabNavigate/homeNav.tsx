@@ -8,7 +8,7 @@ const Tab = createMaterialTopTabNavigator();
 interface Props {
   tabList: {title: string; id: number; name: string}[];
   tabChildren: (tab: {title: string; id: number; name: string}, index: number) => React.ReactNode,
-  hideContent: boolean,
+  hideContent?: boolean,
 }
 
 
