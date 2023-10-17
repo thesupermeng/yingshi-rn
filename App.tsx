@@ -426,12 +426,12 @@ let App = () => {
 
   const isBannerReady = (bannerPlacementId) => {
     ATBannerRNSDK.hasAdReady(bannerPlacementId).then((isAdReady) => {
-      // console.log("isBannerReady: " + isAdReady);
-      // console.log(bannerPlacementId);
+      console.log("isBannerReady: " + isAdReady);
+      console.log(bannerPlacementId);
       if (isAdReady) {
         adsReadyFlagBanner = true;
       } else {
-        if (tryToLoadCountBanner > 50 || adsReadyFlagBanner == true) {
+        if (tryToLoadCountBanner > -1 || adsReadyFlagBanner == true) {
           return;
         }
         tryToLoadCountBanner += 1;
@@ -460,9 +460,9 @@ let App = () => {
             event.errorMsg
         );
 
-        if (event.errorMsg == "") {
-          loadInterstitial(IOS_HOME_PAGE_POP_UP_ADS);
-        }
+        // if (event.errorMsg == "") {
+        //   loadInterstitial(IOS_HOME_PAGE_POP_UP_ADS);
+        // }
       }
     );
 
@@ -566,13 +566,15 @@ let App = () => {
         // console.log("isInterstitialReady: " + isAdReady);
         // console.log("====================================");
 
-        if (isAdReady && adsReadyFlag != true) {
+        if (isAdReady) {
           adsReadyFlag = true;
-          if (Platform.OS === "android") {
-            showInterstitial(ANDROID_HOME_PAGE_POP_UP_ADS);
-          } else if (Platform.OS === "ios") {
-            showInterstitial(IOS_HOME_PAGE_POP_UP_ADS);
-          }
+          setTimeout(() => {
+            if (Platform.OS === "android") {
+              showInterstitial(ANDROID_HOME_PAGE_POP_UP_ADS);
+            } else if (Platform.OS === "ios") {
+              showInterstitial(IOS_HOME_PAGE_POP_UP_ADS);
+            }
+          }, 1000);
         } else {
           if (tryToLoadCount >= 1 || adsReadyFlag == true) {
             return;
@@ -584,7 +586,7 @@ let App = () => {
             } else if (Platform.OS === "ios") {
               loadInterstitial(IOS_HOME_PAGE_POP_UP_ADS);
             }
-          }, 1500);
+          }, 1000);
         }
       }
     );
@@ -605,13 +607,15 @@ let App = () => {
     ATInterstitialRNSDK.showAd(interstitialPlacementId);
   };
 
-  if (Platform.OS === "android") {
-    loadBanner(ANDROID_HOME_PAGE_BANNER_ADS);
-    loadInterstitial(ANDROID_HOME_PAGE_POP_UP_ADS);
-  } else if (Platform.OS === "ios") {
-    loadBanner(IOS_HOME_PAGE_BANNER_ADS);
-    loadInterstitial(IOS_HOME_PAGE_POP_UP_ADS);
-  }
+  useEffect(() => {
+    if (Platform.OS === "android") {
+      loadBanner(ANDROID_HOME_PAGE_BANNER_ADS);
+      loadInterstitial(ANDROID_HOME_PAGE_POP_UP_ADS);
+    } else if (Platform.OS === "ios") {
+      loadBanner(IOS_HOME_PAGE_BANNER_ADS);
+      loadInterstitial(IOS_HOME_PAGE_POP_UP_ADS);
+    }
+  }, []);
 
   // const loadInterstitialParam = () => {
   //   console.log("loadInterstitialParam");
