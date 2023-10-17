@@ -7,11 +7,24 @@ import deviceInfoModule from 'react-native-device-info';
 import DeviceInfo from 'react-native-device-info';
 let user_token = '';
 let refresh_token = '';
+import { Platform } from "react-native";
+import {
+  YING_SHI_PIN_ANDROID,
+  YING_SHI_PIN_IOS,
+} from '../utility/constants';
+
 // new code
 export const registerUser = async ({email, referral_code, otp}: any) => {
+  let platform_id;
   let deviceId = await DeviceInfo.getUniqueId();
   if (typeof deviceId !== 'string') {
     deviceId = JSON.stringify(deviceId);
+  }
+
+  if (Platform.OS === 'android') {
+    platform_id = YING_SHI_PIN_ANDROID;
+  } else {
+    platform_id = YING_SHI_PIN_IOS;
   }
 
   let json = {
@@ -20,7 +33,8 @@ export const registerUser = async ({email, referral_code, otp}: any) => {
     // device_id: deviceInfoModule.getDeviceId(),
     device_id: deviceId,
     otp: otp,
-    product: 2, // 1: 影视TV, 2: 萤视频
+    product: platform_id,
+    platform_id: platform_id,
   };
   console.log('json');
   console.log(json);
@@ -31,10 +45,17 @@ export const registerUser = async ({email, referral_code, otp}: any) => {
 };
 
 export const loginUser = async ({email, otp}: any) => {
+  let platform_id;
+  if (Platform.OS === 'android') {
+    platform_id = YING_SHI_PIN_ANDROID;
+  } else {
+    platform_id = YING_SHI_PIN_IOS;
+  }
+
   let json = {
     email: email,
     otp: otp,
-    product: 2, // 1: 影视TV, 2: 萤视频
+    product: platform_id,
   };
 
   let result = await axios.post(API_DOMAIN_TEST + 'users/v1/login', json);
