@@ -566,7 +566,7 @@ let App = () => {
         // console.log("isInterstitialReady: " + isAdReady);
         // console.log("====================================");
 
-        if (isAdReady) {
+        if (isAdReady && adsReadyFlag != true) {
           adsReadyFlag = true;
           if (Platform.OS === "android") {
             showInterstitial(ANDROID_HOME_PAGE_POP_UP_ADS);
