@@ -574,7 +574,7 @@ let App = () => {
             showInterstitial(IOS_HOME_PAGE_POP_UP_ADS);
           }
         } else {
-          if (tryToLoadCount > 1 || adsReadyFlag == true) {
+          if (tryToLoadCount >= 1 || adsReadyFlag == true) {
             return;
           }
           tryToLoadCount += 1;
