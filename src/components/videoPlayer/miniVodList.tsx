@@ -28,11 +28,12 @@ interface Props {
     setCollectionEpisode?: any,
     currentVodIndex?: number,
     handleRefreshMiniVod?: any,
+    isRefreshing: boolean,
 }
 
 const ITEM_HEIGHT = Dimensions.get('window').height;
 
-export default ({ handleRefreshMiniVod, currentVodIndex = 0, videos, initialIndex = 0, setParentCurrent = null, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching, isPaused, inCollectionView = false, collection_ori_all_videos, enterPosition = 0, setCollectionEpisode} : Props) => {
+export default ({ handleRefreshMiniVod, currentVodIndex = 0, videos, initialIndex = 0, setParentCurrent = null, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching, isPaused, inCollectionView = false, collection_ori_all_videos, enterPosition = 0, setCollectionEpisode, isRefreshing = false} : Props) => {
 
     const { spacing } = useTheme();
 
@@ -41,7 +42,6 @@ export default ({ handleRefreshMiniVod, currentVodIndex = 0, videos, initialInde
     const [collectionPartialVideos, setCollectionPartialVideos] = useState(videos);
     const queryClient = useQueryClient();
     const isFocused = useIsFocused();
-    const [isRefreshing, setIsRefreshing] = useState(false);
     const handleViewableItemsChanged = useCallback(({ viewableItems }: { viewableItems: any }) => {
         if (viewableItems.length == 1 && typeof viewableItems[0] != 'undefined') {
             const curr = viewableItems[0].index;
@@ -73,6 +73,7 @@ export default ({ handleRefreshMiniVod, currentVodIndex = 0, videos, initialInde
             return <RefreshControl
                         refreshing={isRefreshing}
                         onRefresh={handleRefreshMiniVod}
+                        tintColor="#FAC33D"
                     />
         }
         
@@ -109,7 +110,9 @@ export default ({ handleRefreshMiniVod, currentVodIndex = 0, videos, initialInde
                 refreshControl={refreshComponent()}
                 renderItem={renderItem}
                 horizontal={false}
-                pagingEnabled={true}
+                // isRefreshing will change disable (because if pagingEnabled=true, refresh loading will not working)
+                pagingEnabled={isRefreshing ? false : true}
+                scrollEnabled={isRefreshing ? false : true}
                 keyExtractor={(item: any, index: any) => item.mini_video_id.toString()}
                 viewabilityConfig={{ viewAreaCoveragePercentThreshold: 100 }}
                 showsHorizontalScrollIndicator={false}
@@ -117,7 +120,6 @@ export default ({ handleRefreshMiniVod, currentVodIndex = 0, videos, initialInde
                 onViewableItemsChanged={handleViewableItemsChanged}
                 onEndReached={() => {
                     if (hasNextPage && !isFetchingNextPage && !isFetching) {
-                        // console.log('Fetching next page')
                         fetchNextPage();
                     }
                 }}

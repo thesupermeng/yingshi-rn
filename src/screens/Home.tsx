@@ -5,6 +5,7 @@ import React, {
   useRef,
   useState,
   memo,
+  useContext,
 } from "react";
 import {
   StyleSheet,
@@ -53,16 +54,12 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   const isFocused = useIsFocused();
   const { colors, textVariants, spacing } = useTheme();
   const [navId, setNavId] = useState(0);
-  const width = Dimensions.get("window").width;
-  const ref = useRef<any>();
   const BTN_COLORS = ["#30AA55", "#7E9CEE", "#F1377A", "#FFCC12", "#ED7445"];
   const [scrollEnabled, setScrollEnabled] = useState(true);
   const queryClient = useQueryClient();
   const [isOffline, setIsOffline] = useState(false);
   const [showHomeLoading, setShowHomeLoading] = useState(true);
   const [isOpenDialog, setOpenDialog] = useState(false);
-  const isScrollByTab = useRef(false);
-  const isScrollByManual = useRef(false);
   const settingsReducer: SettingsReducerState = useAppSelector(
     ({ settingsReducer }: RootState) => settingsReducer
   );
@@ -120,21 +117,17 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
 
   //refresh
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const [hideContent, setHideContent] = useState(false);
 
   // Function to handle the pull-to-refresh action
   const handleRefresh = async (id: number, showloading: boolean = false) => {
     if (showloading) {
       setIsRefreshing(true);
-
-      setHideContent(true);
     }
     try {
       await queryClient.resetQueries(["HomePage", id]);
 
       setIsRefreshing(false);
       setNavId(id);
-      setHideContent(false);
       setShowHomeLoading(false);
 
       return;
@@ -207,25 +200,6 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
     setOpenDialog(true);
   };
 
-  const onReadPrivacy = () => {
-    setOpenDialog(false);
-    navigation.navigate("隐私政策");
-  };
-
-  const onReadTerms = () => {
-    setOpenDialog(false);
-    navigation.navigate("用户协议");
-  };
-
-  const onAcceptPrivacy = () => {
-    setOpenDialog(false);
-    dispatch(acceptPrivacyPolicy());
-  };
-
-  const onRejectPrivacy = () => {
-    RNExitApp.exitApp();
-  };
-
   return (
     <>
       <ScreenContainer
@@ -243,14 +217,14 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
           <HomeHeader navigator={navigation} />
         </View>
         <HomeNav
-          hideContent={hideContent}
+          // hideContent={hideContent}
           tabList={navOptions?.map(e => ({
             id: e.id,
             title: e.name,
             name: e.name,
           })) ?? []}
           tabChildren={(tab, i) => <>
-              {(!data || isRefreshing || hideContent) && (
+              {(!data || isRefreshing) && (
                 <View
                   style={{
                     ...styles.loading,
@@ -299,30 +273,8 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
         />
       </ScreenContainer>
 
-      <PrivacyPolicyDialog
-        isVisible={isOpenDialog}
-        title="服务协议和隐私政策"
-        description={
-          <>
-            <Text>
-              请你务必审慎阅读,
-              充分理解“服务协议”和“隐私政策”各条款，包括但不限于：为了更好的向你提供服务，我们需要收集你的设备标识，操作日常等信息用于分析，优化应用性能。你可阅读
-            </Text>
-            <Text onPress={onReadTerms}>
-              <Text style={{ color: colors.primary }}>《服务协议》</Text>
-            </Text>
-            <Text>和</Text>
-            <Text onPress={onReadPrivacy}>
-              <Text style={{ color: colors.primary }}>《隐私政策》</Text>
-            </Text>
-            <Text>
-              了解详细信息。如果你同意，请点击下面按钮开始接受我们的服务。
-            </Text>
-          </>
-        }
-        onAccept={onAcceptPrivacy}
-        onReject={onRejectPrivacy}
-      />
+      <PrivacyPolicyDialog />
+
 
       {isOffline && <NoConnection onClickRetry={checkConnection} />}
     </>

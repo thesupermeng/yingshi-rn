@@ -35,12 +35,16 @@ interface Props {
   activeEpisode?: number;
   sheetRef?: RefObject<BottomSheetMethods>;
   rangeSize?: number;
+  showEpisodeList: boolean; 
+  handleClose: any;
 }
 function VodEpisodeSelectionModal({
   onConfirm,
   onCancel,
   sheetRef,
   episodes,
+  showEpisodeList,
+  handleClose, 
   activeEpisode = 0,
   rangeSize = 50,
 }: Props) {
@@ -128,6 +132,7 @@ function VodEpisodeSelectionModal({
       index={-1}
       snapPoints={snapPoints}
       onChange={handleSheetChanges}
+      onClose={handleClose}
       backdropComponent={renderBackdrop}
       backgroundStyle={{
         backgroundColor: colors.card,
@@ -144,28 +149,13 @@ function VodEpisodeSelectionModal({
           gap: spacing.m,
         }}>
         <View style={styles.episodeList}>
-          <FlatList
-            horizontal
-            data={ranges}
-            renderItem={({item, index}: {item: string; index: number}) => {
-              return (
-                <TouchableOpacity
-                  style={styles.btn}
-                  onPress={() => setCurrentIndex(index)}>
-                  <Text
-                    style={{
-                      textAlign: 'center',
-                      ...textVariants.header,
-                      color:
-                        index === currentIndex ? colors.text : colors.muted,
-                      fontSize: index === currentIndex ? 18 : 15,
-                    }}>
-                    {`${item}集`}
-                  </Text>
-                </TouchableOpacity>
-              );
-            }}
-          />
+        <Text
+          style={{
+            ...styles.btn,
+            ...textVariants.header
+          }}>
+          {`${showEpisodeRangeStart+1}-${showEpisodeRangeEnd} 集`}
+        </Text>
           <TouchableOpacity style={styles.sortBtn} onPress={sort}>
             <View style={{paddingTop: 4}}>
               {sortBy === 'asc' ? <SortAscIcon /> : <SortDescIcon />}
@@ -181,6 +171,7 @@ function VodEpisodeSelectionModal({
             </Text>
           </TouchableOpacity>
         </View>
+        {(displayEpisodes && showEpisodeList) &&
         <BottomSheetScrollView
           contentContainerStyle={{
             ...styles.episodeList,
@@ -218,6 +209,7 @@ function VodEpisodeSelectionModal({
             </TouchableOpacity>
           ))}
         </BottomSheetScrollView>
+        }
       </View>
     </BottomSheet>
   );

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import {
   NavigationContainer,
   RouteProp,
@@ -109,7 +109,8 @@ export default () => {
   const userState: userModel = useAppSelector(
     ({ userReducer }: RootState) => userReducer
   );
-  function HomeTabScreen() {
+  
+  const HomeTabScreen = useCallback(() => {
     return (
       <HomeTab.Navigator
         screenOptions={({ route }) => ({
@@ -230,7 +231,7 @@ export default () => {
         </>
       </HomeTab.Navigator>
     );
-  }
+  }, [])
 
   const refreshUserState = async () => {
     let result;

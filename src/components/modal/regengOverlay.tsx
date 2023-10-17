@@ -1,4 +1,4 @@
-import React, { Suspense, useCallback, useEffect, useState } from 'react';
+import React, { Suspense, useCallback, useContext, useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import RegengModal from './regengModal';
 import { useNavigation, useTheme } from '@react-navigation/native';
@@ -11,10 +11,16 @@ import {
 import FastImage from 'react-native-fast-image';
 import CodePush from "react-native-code-push";
 import { showToast } from "../../Sports/utility/toast";
+import {TermsAcceptContext} from '../../contexts/TermsAcceptedContext';
 
 interface Props { }
 
 export default function RegengOverlay({  }: Props) {
+    const {accepted} = useContext(TermsAcceptContext)
+
+    useEffect(()=>{
+        console.debug('accepted', accepted)
+    }, [accepted])
 
     const {colors, textVariants, spacing, icons} = useTheme();
 
@@ -67,7 +73,7 @@ export default function RegengOverlay({  }: Props) {
 
     return (
         <>
-            {!isCancelledShowRegengOverlay &&
+            {!isCancelledShowRegengOverlay && accepted &&
                 <View
                     style={{
                         height: '100%',

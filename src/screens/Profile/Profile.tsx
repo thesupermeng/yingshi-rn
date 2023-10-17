@@ -161,7 +161,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
         <ScrollView
           style={{ paddingHorizontal: 15 }}
           refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+            <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} tintColor="#FAC33D" />
           }
         >
           <View style={{ ...styles.topNav }}>

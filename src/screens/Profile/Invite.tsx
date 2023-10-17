@@ -58,7 +58,7 @@ export default ({ navigation }: RootStackScreenProps<"邀请">) => {
       return;
     }
     let resultData = result.data.data;
-    console.log(resultData);
+
     await dispatch(updateUserAuth(resultData));
     return;
   };
@@ -68,7 +68,7 @@ export default ({ navigation }: RootStackScreenProps<"邀请">) => {
       <AdsBanner bottomTabHeight={0} />
       <ScrollView
         refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+          <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} tintColor="#FAC33D" />
         }
       >
         <ScrollView>

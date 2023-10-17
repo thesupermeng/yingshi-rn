@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Provider } from "react-redux";
 import Nav from "./src/navigation/nav";
 import NavA from "./srcA/navigation/nav";
@@ -56,6 +56,13 @@ import {
   ATBannerRNSDK,
 } from "./AnyThinkAds/ATReactNativeSDK";
 
+import {
+  TermsNavigateContext,
+  TermsNavigateContextProvider,
+} from "./src/contexts/TermsNavigateContext";
+import PrivacyPolicyDialog from "./src/components/modal/privacyPolicyModel";
+import { TermsAcceptContextProvider } from "./src/contexts/TermsAcceptedContext";
+
 let App = () => {
   // appsFlyer.initSdk(
   //   {
@@ -112,7 +119,7 @@ let App = () => {
       ip_address: ipAddress,
       channel_id: UMENG_CHANNEL,
       version_number: APP_VERSION,
-      product: "影视TV-ANDROID",
+      product: "萤视频-ANDROID",
       mobile_os: Platform.OS,
       mobile_model: "HUAWEIP20",
     };
@@ -308,15 +315,15 @@ let App = () => {
     initInterstitialAdListener();
   }
 
-  let latestMSg = "";
   const initBannerAdListener = () => {
     ATBannerRNSDK.setAdListener(ATBannerRNSDK.onBannerLoaded, (event) => {
       console.log("ATBannerLoaded: " + event.placementId);
     });
 
+    let latestMsg = "";
     ATBannerRNSDK.setAdListener(ATBannerRNSDK.onBannerFail, (event) => {
-      if (latestMSg != event.errorMsg) {
-        latestMSg = event.errorMsg;
+      if (latestMsg != event.errorMsg) {
+        latestMsg = event.errorMsg;
         console.warn(
           "ATBannerLoadFail: " +
             event.placementId +
@@ -378,7 +385,7 @@ let App = () => {
   };
 
   const loadBanner = async (bannerPlacementId) => {
-    console.log("loadBanner ....");
+    // console.log("loadBanner ....");
 
     var settings = {};
     if (Platform.OS === "android") {
@@ -424,7 +431,7 @@ let App = () => {
       if (isAdReady) {
         adsReadyFlagBanner = true;
       } else {
-        if (tryToLoadCountBanner > 5 || adsReadyFlagBanner == true) {
+        if (tryToLoadCountBanner > 50 || adsReadyFlagBanner == true) {
           return;
         }
         tryToLoadCountBanner += 1;
@@ -536,7 +543,7 @@ let App = () => {
 
   const loadInterstitial = async (interstitialPlacementId) => {
     // console.log("====================================");
-    console.log("loadInterstitial");
+    // console.log("loadInterstitial");
     // console.log("====================================");
 
     var settings = {};
@@ -567,7 +574,7 @@ let App = () => {
             showInterstitial(IOS_HOME_PAGE_POP_UP_ADS);
           }
         } else {
-          if (tryToLoadCount > 100 || adsReadyFlag == true) {
+          if (tryToLoadCount > 20 || adsReadyFlag == true) {
             return;
           }
           tryToLoadCount += 1;
@@ -606,26 +613,38 @@ let App = () => {
     loadInterstitial(IOS_HOME_PAGE_POP_UP_ADS);
   }
 
+  // const loadInterstitialParam = () => {
+  //   console.log("loadInterstitialParam");
+  //   if (Platform.OS === "android") {
+  //     loadInterstitial(ANDROID_HOME_PAGE_POP_UP_ADS);
+  //   } else if (Platform.OS === "ios") {
+  //     loadInterstitial(IOS_HOME_PAGE_POP_UP_ADS);
+  //   }
+  // };
+
+  // loadInterstitialParam();
   return (
-    <QueryClientProvider client={queryClient}>
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <GestureHandlerRootView style={{ flex: 1 }}>
-            <BottomSheetModalProvider>
-              {YSConfig.instance.areaConfig != null &&
-              YSConfig.instance.areaConfig == true ? (
-                // B面的B面
-                <Nav />
-              ) : (
-                // B面里的A面
-                <NavA />
-              )}
-            </BottomSheetModalProvider>
-          </GestureHandlerRootView>
-        </PersistGate>
-        {showRegengOverlay && <RegengOverlay />}
-      </Provider>
-    </QueryClientProvider>
+    <TermsAcceptContextProvider>
+      <QueryClientProvider client={queryClient}>
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+            <GestureHandlerRootView style={{ flex: 1 }}>
+              <BottomSheetModalProvider>
+                {YSConfig.instance.areaConfig != null &&
+                YSConfig.instance.areaConfig == true ? (
+                  // B面的B面
+                  <Nav />
+                ) : (
+                  // B面里的A面
+                  <NavA />
+                )}
+              </BottomSheetModalProvider>
+            </GestureHandlerRootView>
+          </PersistGate>
+          {showRegengOverlay && <RegengOverlay />}
+        </Provider>
+      </QueryClientProvider>
+    </TermsAcceptContextProvider>
   );
 };
 
