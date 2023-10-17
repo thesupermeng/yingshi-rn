@@ -311,8 +311,8 @@ let App = () => {
   }
 
   function initAdListener() {
-    // initBannerAdListener();
-    // initInterstitialAdListener();
+    initBannerAdListener();
+    initInterstitialAdListener();
   }
 
   const initBannerAdListener = () => {
@@ -320,13 +320,17 @@ let App = () => {
       console.log("ATBannerLoaded: " + event.placementId);
     });
 
+    let latestMsg = "";
     ATBannerRNSDK.setAdListener(ATBannerRNSDK.onBannerFail, (event) => {
-      console.warn(
-        "ATBannerLoadFail: " +
-          event.placementId +
-          ", errorMsg: " +
-          event.errorMsg
-      );
+      if (latestMsg != event.errorMsg) {
+        latestMsg = event.errorMsg;
+        console.warn(
+          "ATBannerLoadFail: " +
+            event.placementId +
+            ", errorMsg: " +
+            event.errorMsg
+        );
+      }
     });
 
     ATBannerRNSDK.setAdListener(ATBannerRNSDK.onBannerShow, (event) => {
@@ -427,7 +431,7 @@ let App = () => {
       if (isAdReady) {
         adsReadyFlagBanner = true;
       } else {
-        if (tryToLoadCountBanner > 100 || adsReadyFlagBanner == true) {
+        if (tryToLoadCountBanner > 50 || adsReadyFlagBanner == true) {
           return;
         }
         tryToLoadCountBanner += 1;
@@ -570,7 +574,7 @@ let App = () => {
             showInterstitial(IOS_HOME_PAGE_POP_UP_ADS);
           }
         } else {
-          if (tryToLoadCount > 100 || adsReadyFlag == true) {
+          if (tryToLoadCount > 20 || adsReadyFlag == true) {
             return;
           }
           tryToLoadCount += 1;
@@ -609,6 +613,16 @@ let App = () => {
     loadInterstitial(IOS_HOME_PAGE_POP_UP_ADS);
   }
 
+  // const loadInterstitialParam = () => {
+  //   console.log("loadInterstitialParam");
+  //   if (Platform.OS === "android") {
+  //     loadInterstitial(ANDROID_HOME_PAGE_POP_UP_ADS);
+  //   } else if (Platform.OS === "ios") {
+  //     loadInterstitial(IOS_HOME_PAGE_POP_UP_ADS);
+  //   }
+  // };
+
+  // loadInterstitialParam();
   return (
     <TermsAcceptContextProvider>
       <QueryClientProvider client={queryClient}>
