@@ -98,13 +98,13 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
     setRefreshing(false);
   };
 
-  useEffect(() => {
-    const unsubscribe = navigation.addListener("blur", () => {
-      // when the user leaves the screen, close bottom sheet
-      dispatch(hideBottomSheetAction());
-    });
-    return unsubscribe;
-  }, [navigator]);
+  // useEffect(() => {
+  //   const unsubscribe = navigation.addListener("blur", () => {
+  //     // when the user leaves the screen, close bottom sheet
+  //     dispatch(hideBottomSheetAction());
+  //   });
+  //   return unsubscribe;
+  // }, [navigator]);
 
   useFocusEffect(
     useCallback(() => {
@@ -161,7 +161,11 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
         <ScrollView
           style={{ paddingHorizontal: 15 }}
           refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} tintColor="#FAC33D" />
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={handleRefresh}
+              tintColor="#FAC33D"
+            />
           }
         >
           <View style={{ ...styles.topNav }}>
@@ -198,7 +202,11 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
             }}
           >
             <View
-              style={{ paddingTop: 20, paddingBottom: 10, flexDirection: "row" }}
+              style={{
+                paddingTop: 20,
+                paddingBottom: 10,
+                flexDirection: "row",
+              }}
             >
               <ProfileIcon
                 style={{ color: colors.button, width: 18, height: 18 }}
