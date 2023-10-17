@@ -574,7 +574,7 @@ let App = () => {
             showInterstitial(IOS_HOME_PAGE_POP_UP_ADS);
           }
         } else {
-          if (tryToLoadCount > 20 || adsReadyFlag == true) {
+          if (tryToLoadCount > 1 || adsReadyFlag == true) {
             return;
           }
           tryToLoadCount += 1;
@@ -584,7 +584,7 @@ let App = () => {
             } else if (Platform.OS === "ios") {
               loadInterstitial(IOS_HOME_PAGE_POP_UP_ADS);
             }
-          }, 500);
+          }, 1500);
         }
       }
     );
