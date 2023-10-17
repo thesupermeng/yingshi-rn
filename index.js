@@ -58,7 +58,7 @@ AppRegistry.registerRunnable(appName, async initialProps => {
             mobile_model: "HUAWEIP20",
         }
 
-        const locationResponse = await fetch(`${API_DOMAIN_TEST}location/v1/info`, {
+        const locationResponse = await fetch(`${API_DOMAIN}location/v1/info`, {
             method: "POST",
             mode: "cors",
             cache: "no-cache",
