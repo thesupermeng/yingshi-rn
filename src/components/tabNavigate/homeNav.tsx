@@ -24,7 +24,6 @@ export default function HomeNav({
       { tabList.length > 0 && !hideContent &&
         <Tab.Navigator
           keyboardDismissMode="none"
-          style={{backgroundColor: 'green'}}
           screenOptions={({route}) => ({
             tabBarScrollEnabled: true,
             tabBarIndicatorStyle: {
