@@ -313,13 +313,17 @@ let App = () => {
       console.log("ATBannerLoaded: " + event.placementId);
     });
 
+    let lastestMSg = "";
     ATBannerRNSDK.setAdListener(ATBannerRNSDK.onBannerFail, (event) => {
-      console.warn(
-        "ATBannerLoadFail: " +
-          event.placementId +
-          ", errorMsg: " +
-          event.errorMsg
-      );
+      if (lastestMSg != event.errorMsg) {
+        lastestMSg = event.errorMsg;
+        console.warn(
+          "ATBannerLoadFail: " +
+            event.placementId +
+            ", errorMsg: " +
+            event.errorMsg
+        );
+      }
     });
 
     ATBannerRNSDK.setAdListener(ATBannerRNSDK.onBannerShow, (event) => {
@@ -416,11 +420,11 @@ let App = () => {
   const isBannerReady = (bannerPlacementId) => {
     ATBannerRNSDK.hasAdReady(bannerPlacementId).then((isAdReady) => {
       console.log("isBannerReady: " + isAdReady);
-      console.log(bannerPlacementId);
+      // console.log(bannerPlacementId);
       if (isAdReady) {
         adsReadyFlagBanner = true;
       } else {
-        if (tryToLoadCountBanner > 100 || adsReadyFlagBanner == true) {
+        if (tryToLoadCountBanner > 5 || adsReadyFlagBanner == true) {
           return;
         }
         tryToLoadCountBanner += 1;
