@@ -209,7 +209,7 @@ export default forwardRef<RefHandler, Props>(({
     }
   }
   return (
-    <Animated.View
+    <View
       style={{ ...styles.controlsOverlay }}>
       {
         !showControls &&
@@ -229,7 +229,7 @@ export default forwardRef<RefHandler, Props>(({
       }
       {
         accumulatedSkip < 0 &&
-        <Animated.View entering={FadeInDown} style={{
+        <View entering={FadeInDown} style={{
           flexDirection: 'row',
           alignItems: 'center',
           opacity: opacity.value,
@@ -249,11 +249,11 @@ export default forwardRef<RefHandler, Props>(({
             }}
             resizeMode={FastImage.resizeMode.contain}
           />
-        </Animated.View>
+        </View>
       }
       {
         accumulatedSkip > 0 &&
-        <Animated.View entering={FadeInDown} style={{
+        <View entering={FadeInDown} style={{
           flexDirection: 'row',
           alignItems: 'center',
           opacity: opacity.value,
@@ -273,7 +273,7 @@ export default forwardRef<RefHandler, Props>(({
             resizeMode={FastImage.resizeMode.contain}
           />
           <Text style={{...textVariants.header, marginRight: 5}}>{`+${accumulatedSkip}s`}</Text>
-        </Animated.View>
+        </View>
       }
       {
         showControls && isLocked &&
@@ -299,7 +299,7 @@ export default forwardRef<RefHandler, Props>(({
                 }}
                 disallowInterruption={true}
                 style={{ flex: 1, width: 'auto' }}></BaseButton>
-              <Animated.View style={styles.sidePanel} entering={SlideInRight}>
+              <View style={styles.sidePanel} entering={SlideInRight}>
                 <LinearGradient
                   colors={['transparent', 'black']}
                   start={{ x: 0, y: 0 }}
@@ -385,7 +385,7 @@ export default forwardRef<RefHandler, Props>(({
                     </View>
                   }
                 </View>
-              </Animated.View>
+              </View>
             </View>
             : <View style={{ height: '100%', flex: 1 }}>
               {/* Top Controls */}
@@ -472,7 +472,7 @@ export default forwardRef<RefHandler, Props>(({
             </View>
         )
       }
-    </Animated.View>
+    </View>
   );
 });
 
