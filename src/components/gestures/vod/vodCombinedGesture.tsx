@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef, ReactNode, useMemo, useCallback } from 'react';
-import { View, PanResponder, StyleSheet, Dimensions, ViewStyle, Settings } from 'react-native';
+import { View, PanResponder, StyleSheet, Dimensions, ViewStyle, Settings, Button } from 'react-native';
 import { Gesture, GestureDetector, PanGestureHandler } from 'react-native-gesture-handler';
-import { runOnJS } from 'react-native-reanimated';
+import { runOnJS, useSharedValue } from 'react-native-reanimated';
 import SystemSetting from 'react-native-system-setting';
 import BrightnessVolumeSlider from './BrightnessVolumeSlider';
 type Props = {
@@ -22,8 +22,11 @@ type SettingsType = {
     value: number,
 }
 export default ({ vodType, children, enabled = true, onSkipBackwards, onSkipForward, onSingleTap, currentTime = 0, totalDuration = 0.1, onSeek, disableControlsExceptTap=false }: Props) => {
+    const panCooldown = useSharedValue(3);
 
-    const [start, setStart] = useState({ x: 0, y: 0, gesture: 'none' });
+    const previousPanPosition = useSharedValue({ x: 0, y: 0, gesture: 'none' });
+    const brightShare = useSharedValue(0.0);
+    const volumeShare = useSharedValue(0.0);
     const [settings, setSettings] = useState<SettingsType>({ name: 'none', value: 0 });
     const [showSlider, setShowSlider] = useState(false);
 
@@ -39,28 +42,51 @@ export default ({ vodType, children, enabled = true, onSkipBackwards, onSkipForw
         }, 1500);
     }
 
-    const onBrightnessChanged = async (val: number) => {
-        showControls();
-        const curr = await SystemSetting.getAppBrightness();
-        let newBrightness = (start.y - val) / height + curr
-        newBrightness = Math.min(1, Math.max(0, newBrightness));
-        setSettings({ name: 'brightness', value: newBrightness })
-        SystemSetting.setAppBrightness(newBrightness);
+    const setBrightVolumeShare = async () => {
+        brightShare.value = await SystemSetting.getAppBrightness();
+        volumeShare.value = await SystemSetting.getVolume();
     }
 
-    const onVolumeChanged = async (val: number) => {
+    const onBrightnessChanged = (newVal: number, prevVal: number) => {
         showControls();
-        const curr = await SystemSetting.getVolume();
-        let newVol = (start.y - val) / height + curr
-        newVol = Math.min(1, Math.max(0, newVol));
-        setSettings({ name: 'volume', value: newVol })
+        let different = ((prevVal - newVal) / height) * 2.5; // set 2.5 magnification
+        let newVol = different + brightShare.value; 
+
+        if((0 > newVol && brightShare.value === 0) || (1 < newVol && brightShare.value === 1)) return;
+
+        if(0 >= newVol && brightShare.value !== 0){
+            newVol = 0;
+        }else if(1 <= newVol && brightShare.value !== 1){
+            newVol = 1;
+        }
+
+        brightShare.value = newVol;
+        setSettings({ name: 'brightness', value: newVol });
+        SystemSetting.setAppBrightness(newVol);
+    }
+
+    const onVolumeChanged = (newVal: number, prevVal: number) => {
+        showControls();
+        let different = ((prevVal - newVal) / height) * 2.5; // set 2.5 magnification
+        let newVol = different + volumeShare.value; 
+
+        if((0 > newVol && volumeShare.value === 0) || (1 < newVol && volumeShare.value === 1)) return;
+
+        if(0 >= newVol && volumeShare.value !== 0){
+            newVol = 0;
+        }else if(1 <= newVol && volumeShare.value !== 1){
+            newVol = 1;
+        }
+
+        volumeShare.value = newVol;
+        setSettings({ name: 'volume', value: newVol });
         SystemSetting.setVolume(newVol);
     }
 
     const onProgressChange = (translation: number) => {
         if (translation > 0) {
             const bias = currentTime;
-            const delX = width - start.x;
+            const delX = width - previousPanPosition.value.x;
             const delY = totalDuration;
             // Linear 
             // const runtime = currentTime + (translation/delX) * delY
@@ -71,7 +97,7 @@ export default ({ vodType, children, enabled = true, onSkipBackwards, onSkipForw
             onSeek(runtime);
         } else {
             const bias = currentTime;
-            const delX = start.x;
+            const delX = previousPanPosition.value.x;
             // Quadratic function -- y = -(bias / delX^2) * translation^2 + bias
             const runtime = (-bias / Math.pow(delX, 2)) * Math.pow(translation, 2) + bias;
             runOnJS(onSeek)(runtime);
@@ -85,28 +111,38 @@ export default ({ vodType, children, enabled = true, onSkipBackwards, onSkipForw
     const pan = useMemo(() => Gesture.Pan()
         .enabled(enabled)
         .onStart((nativeEvent) => {
-            runOnJS(setStart)({ x: nativeEvent.x, y: nativeEvent.y, gesture: 'none' })
+            runOnJS(setBrightVolumeShare)();
+            previousPanPosition.value = { x: nativeEvent.x, y: nativeEvent.y, gesture: 'none' }
         })
         .onUpdate((nativeEvent) => {
-            const dx = nativeEvent.velocityX;
-            const dy = nativeEvent.velocityY;
+            if(panCooldown.value > 0) {
+                panCooldown.value--;
+                return;
+            } else panCooldown.value = 3;
+
+            const dx = nativeEvent.x - previousPanPosition.value.x;
+            const dy = nativeEvent.y - previousPanPosition.value.y;
             const dydx = dy / dx;
             const absDyDx = Math.abs(dydx);
+
             // vertical
             if (absDyDx > 10) {
                 const leftX = Math.floor(width / 2 - 20);
                 const rightX = Math.ceil(width / 2 + 20);
                 if (nativeEvent.x <= leftX && (settings.name === 'none' || settings.name === 'brightness')) {
-                    runOnJS(onBrightnessChanged)(nativeEvent.y)
+                    runOnJS(onBrightnessChanged)(nativeEvent.y, previousPanPosition.value.y)
                 } else if (nativeEvent.x >= rightX && (settings.name === 'none' || settings.name === 'volume')) {
-                    runOnJS(onVolumeChanged)(nativeEvent.y)
+                    runOnJS(onVolumeChanged)(nativeEvent.y, previousPanPosition.value.y)
                 }
             } else if (absDyDx < 0.05 && vodType !== 'live' && (settings.name === 'none' || settings.name === 'progress')) {
                 runOnJS(onProgressChange)(nativeEvent.translationX);
             }
+
+            // set previous value after action
+            previousPanPosition.value = { x: nativeEvent.x, y: nativeEvent.y, gesture: 'none' }
         })
         .onEnd(() => runOnJS(resetSettings)()),
-        [start, enabled, settings])
+        [previousPanPosition.value, enabled, settings])
 
     const doubleTap = useMemo(() =>
         Gesture.Tap()
@@ -121,7 +157,7 @@ export default ({ vodType, children, enabled = true, onSkipBackwards, onSkipForw
                     runOnJS(onSkipForward)();
                 }
             })
-        , [start, enabled]);
+        , [enabled]);
 
     const singleTap = Gesture.Tap()
         .maxDuration(200)
