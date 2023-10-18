@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {View, FlatList, Text, StyleSheet} from 'react-native';
 import {useNavigation, useTheme} from '@react-navigation/native';
 
@@ -19,39 +19,50 @@ export default ({vodList}: Props) => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const {spacing, textVariants, colors} = useTheme();
-  return (
-    <View>
-      {vodList.length > 0 && (
-        <FlatList
-          data={vodList}
-          contentContainerStyle={{paddingBottom: 200}}
-          renderItem={({item}: FlatListType) => (
-            <FavoriteVodCard
-              hideFavoriteButton={true}
-              vod={item}
-              onPress={() => {
-                dispatch(playVod(item));
-                navigation.navigate('播放', {vod_id: item.vod_id});
-              }}
-            />
-          )}
-          ListFooterComponent={
-            <View style={{...styles.loading, marginBottom: 100}}>
-              <Text
-                style={{
-                  ...textVariants.subBody,
-                  color: colors.muted,
-                  paddingTop: 12,
-                  paddingBottom: 20,
-                }}>
-                没有更多了
-              </Text>
-            </View>
-          }
-        />
-      )}
-    </View>
-  );
+
+  const renderItem = useCallback( // optimisation as per documentation
+    ({item}: FlatListType) => (
+      <FavoriteVodCard
+        hideFavoriteButton={true}
+        vod={item}
+        onPress={() => {
+          dispatch(playVod(item));
+          navigation.navigate('播放', {vod_id: item.vod_id});
+        }}
+      />
+    ), []
+  )
+
+  if (vodList.length > 0) { // under normal condition, render the flatlist
+    return (
+      <View>
+          <FlatList
+            data={vodList}
+            contentContainerStyle={{paddingBottom: 200}}
+            renderItem={renderItem}
+            ListFooterComponent={
+              <View style={{...styles.loading, marginBottom: 100}}>
+                <Text
+                  style={{
+                    ...textVariants.subBody,
+                    color: colors.muted,
+                    paddingTop: 12,
+                    paddingBottom: 20,
+                  }}>
+                  没有更多了
+                </Text>
+              </View>
+            }
+            keyExtractor={(item, index)=>index.toString()} // optimisation as per documentation
+            initialNumToRender={5} // optimisation as per documentation
+            removeClippedSubviews={true} // optimisation as per documentation
+          />
+      </View>
+    );
+  } else { // else dont render anything at all
+    return <></>
+  }
+
 };
 
 const styles = StyleSheet.create({
