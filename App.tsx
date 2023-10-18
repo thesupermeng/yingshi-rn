@@ -571,17 +571,17 @@ let App = () => {
         // console.log("====================================");
         // console.log("isInterstitialReady: " + isAdReady);
         // console.log("====================================");
-        if (isAdReady) {
+        if (isAdReady && adsReadyFlag == false) {
           adsReadyFlag = true;
           showInterstitial(interstitialPlacementId);
         } else {
-          if (tryToLoadCount > 10 || adsReadyFlag == true) {
+          if (tryToLoadCount > 1 || adsReadyFlag == true) {
             return;
           }
           tryToLoadCount += 1;
           setTimeout(() => {
-            isInterstitialReady(interstitialPlacementId);
-          }, 500);
+            loadInterstitial(interstitialPlacementId);
+          }, 1000);
         }
       }
     );
