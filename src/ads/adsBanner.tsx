@@ -52,6 +52,8 @@ function AdsBanner({ bottomTabHeight = 0 }: Props) {
   const pageWithNavbar = ["首页", "播单", "体育"];
   const pageNoNavbar = ["播放", "PlaylistDetail", "体育详情", "电视台播放"];
 
+  let tryToLoadCountBanner = 0;
+  let adsReadyFlagBanner = false;
   try {
     getNavigationBarHeight().then((height) => {
       console.debug(height);
@@ -207,13 +209,55 @@ function AdsBanner({ bottomTabHeight = 0 }: Props) {
     }
   }, [route, isFocused]);
 
+  const isBannerReady = (bannerPlacementId: any) => {
+    ATBannerRNSDK.hasAdReady(bannerPlacementId).then((isAdReady: any) => {
+      // console.log("isBannerReady: " + isAdReady);
+      // console.log(bannerPlacementId);
+      if (isAdReady) {
+        adsReadyFlagBanner = true;
+        showBanner(bannerPlacementId);
+      } else {
+        if (tryToLoadCountBanner > 2 || adsReadyFlagBanner == true) {
+          return;
+        }
+        tryToLoadCountBanner += 1;
+        setTimeout(() => {
+          if (Platform.OS === "android") {
+            const settings = {};
+            // @ts-ignore
+            settings[
+              ATBannerRNSDK.kATBannerAdLoadingExtraBannerAdSizeStruct
+            ] = ATBannerRNSDK.createLoadAdSize(
+              screenWidthInPixel,
+              (TOPON_BANNER_HEIGHT * Dimensions.get("screen").scale * 50) / 320
+            );
+            ATBannerRNSDK.loadAd(bannerPlacementId, settings);
+          }
+          if (Platform.OS === "ios") {
+            const settings = {};
+            // @ts-ignore
+            settings[
+              ATBannerRNSDK.kATBannerAdLoadingExtraBannerAdSizeStruct
+            ] = ATBannerRNSDK.createLoadAdSize(
+              Dimensions.get("screen").width,
+              TOPON_BANNER_HEIGHT
+            );
+
+            ATBannerRNSDK.loadAd(bannerPlacementId, settings);
+          }
+          isBannerReady(bannerPlacementId);
+        }, 15000);
+      }
+    });
+  };
+
   useEffect(() => {
     if (isFocused) {
       if (bannerPlacementId !== "") {
-        // console.log('show banner in ', bannerPlacementId, ' ', route.name)
+        console.log("show banner in ", bannerPlacementId, " ", route.name);
         hideBannerExcept(bannerPlacementId);
         ATBannerRNSDK.reShowAd(bannerPlacementId);
-        showBanner(bannerPlacementId);
+        isBannerReady(bannerPlacementId);
       }
     }
   }, [isFocused, bannerPlacementId, navBarHeightInPixel, bottomTabHeight]);
@@ -225,15 +269,29 @@ function AdsBanner({ bottomTabHeight = 0 }: Props) {
       settings[
         ATBannerRNSDK.kATBannerAdLoadingExtraBannerAdSizeStruct
       ] = ATBannerRNSDK.createLoadAdSize(
-        this.deviceWidthInPixel,
-        (this.deviceWidthInPixel * 50) / 320
+        screenWidthInPixel,
+        (TOPON_BANNER_HEIGHT * Dimensions.get("screen").scale * 50) / 320
       );
+      // load all ad first
+      ATBannerRNSDK.loadAd(ANDROID_HOME_PAGE_BANNER_ADS, settings);
+      ATBannerRNSDK.loadAd(ANDROID_PLAY_DETAILS_BANNER_ADS, settings);
+      ATBannerRNSDK.loadAd(ANDROID_TOPIC_DETAILS_BANNER_ADS, settings);
+      ATBannerRNSDK.loadAd(ANDROID_TOPIC_TAB_BANNER_ADS, settings);
     }
-    // load all ad first
-    ATBannerRNSDK.loadAd(ANDROID_HOME_PAGE_BANNER_ADS, settings);
-    ATBannerRNSDK.loadAd(ANDROID_PLAY_DETAILS_BANNER_ADS, settings);
-    ATBannerRNSDK.loadAd(ANDROID_TOPIC_DETAILS_BANNER_ADS, settings);
-    ATBannerRNSDK.loadAd(ANDROID_TOPIC_TAB_BANNER_ADS, settings);
+    if (Platform.OS === "ios") {
+      // @ts-ignore
+      settings[
+        ATBannerRNSDK.kATBannerAdLoadingExtraBannerAdSizeStruct
+      ] = ATBannerRNSDK.createLoadAdSize(
+        Dimensions.get("screen").width,
+        TOPON_BANNER_HEIGHT
+      );
+
+      ATBannerRNSDK.loadAd(IOS_HOME_PAGE_BANNER_ADS, settings);
+      ATBannerRNSDK.loadAd(IOS_PLAY_DETAILS_BANNER_ADS, settings);
+      ATBannerRNSDK.loadAd(IOS_TOPIC_DETAILS_BANNER_ADS, settings);
+      ATBannerRNSDK.loadAd(IOS_TOPIC_TAB_BANNER_ADS, settings);
+    }
   }, []);
 
   return <></>;
