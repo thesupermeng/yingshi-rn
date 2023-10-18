@@ -299,7 +299,7 @@ export default forwardRef<RefHandler, Props>(({
                 }}
                 disallowInterruption={true}
                 style={{ flex: 1, width: 'auto' }}></BaseButton>
-              <View style={styles.sidePanel}>
+              <View style={styles.sidePanel} >
                 <LinearGradient
                   colors={['transparent', 'black']}
                   start={{ x: 0, y: 0 }}

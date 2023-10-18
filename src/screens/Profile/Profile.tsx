@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState, memo } from "react";
+import React, { useCallback, useEffect, useRef, useState, memo, useMemo } from "react";
 import { ListItem } from "@rneui/themed";
 import {
   View,
@@ -14,6 +14,7 @@ import {
   Modal,
   ActivityIndicator,
   SafeAreaView,
+  FlatList
 } from "react-native";
 import ScreenContainer from "../../components/container/screenContainer";
 import { useTheme, useFocusEffect } from "@react-navigation/native";
@@ -61,6 +62,7 @@ import {
 } from "../../redux/actions/userAction";
 import ExpiredOverlay from "../../components/modal/expiredOverlay";
 import AdsBanner from "../../ads/adsBanner";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 function Profile({ navigation, route }: BottomTabScreenProps<any>) {
   const navigator = useNavigation();
@@ -71,7 +73,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
   const userState: userModel = useAppSelector(
     ({ userReducer }: RootState) => userReducer
   );
-
+  // console.log("Profile")
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const toggleOverlay = () => {
@@ -98,13 +100,15 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
     setRefreshing(false);
   };
 
-  // useEffect(() => {
-  //   const unsubscribe = navigation.addListener("blur", () => {
-  //     // when the user leaves the screen, close bottom sheet
-  //     dispatch(hideBottomSheetAction());
-  //   });
-  //   return unsubscribe;
-  // }, [navigator]);
+  const insets = useSafeAreaInsets();
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener("blur", () => {
+      // when the user leaves the screen, close bottom sheet
+      dispatch(hideBottomSheetAction());
+    });
+    return unsubscribe;
+  }, [navigator]);
 
   useFocusEffect(
     useCallback(() => {
@@ -154,18 +158,17 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
     setDisplayedDate(`${year}年${month}月${day}日`);
   }, [userState.userMemberExpired]);
 
+
   return (
     <>
       <AdsBanner bottomTabHeight={0} />
-      <SafeAreaView>
+      <View style={{paddingTop: insets.top}}>
+      {/* <ScreenContainer> */}
+      {/* <SafeAreaView> */}
         <ScrollView
           style={{ paddingHorizontal: 15 }}
           refreshControl={
-            <RefreshControl
-              refreshing={refreshing}
-              onRefresh={handleRefresh}
-              tintColor="#FAC33D"
-            />
+            <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} tintColor="#FAC33D" />
           }
         >
           <View style={{ ...styles.topNav }}>
@@ -202,11 +205,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
             }}
           >
             <View
-              style={{
-                paddingTop: 20,
-                paddingBottom: 10,
-                flexDirection: "row",
-              }}
+              style={{ paddingTop: 20, paddingBottom: 10, flexDirection: "row" }}
             >
               <ProfileIcon
                 style={{ color: colors.button, width: 18, height: 18 }}
@@ -391,7 +390,9 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
             subtitle3=""
           />
         </ScrollView>
-      </SafeAreaView>
+      {/* </SafeAreaView> */}
+      {/* </ScreenContainer> */}
+      </View>
     </>
   );
 }
