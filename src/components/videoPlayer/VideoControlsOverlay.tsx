@@ -229,7 +229,7 @@ export default forwardRef<RefHandler, Props>(({
       }
       {
         accumulatedSkip < 0 &&
-        <View entering={FadeInDown} style={{
+        <View style={{
           flexDirection: 'row',
           alignItems: 'center',
           opacity: opacity.value,
@@ -253,7 +253,7 @@ export default forwardRef<RefHandler, Props>(({
       }
       {
         accumulatedSkip > 0 &&
-        <View entering={FadeInDown} style={{
+        <View style={{
           flexDirection: 'row',
           alignItems: 'center',
           opacity: opacity.value,
@@ -299,7 +299,7 @@ export default forwardRef<RefHandler, Props>(({
                 }}
                 disallowInterruption={true}
                 style={{ flex: 1, width: 'auto' }}></BaseButton>
-              <View style={styles.sidePanel} entering={SlideInRight}>
+              <View style={styles.sidePanel}>
                 <LinearGradient
                   colors={['transparent', 'black']}
                   start={{ x: 0, y: 0 }}
