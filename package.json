@@ -14,6 +14,7 @@
     "ios-ipa-debug": "",
     "ios-ipa-release": "react-native bundle --dev false --entry-file index.ios.js --bundle-output ios/main.jsbundle --platform ios",
     "build-release": "cd buildScripts && node replaceChannel.js && cd .. && npm run android-apk-release",
+    "replace-constants-codepush": "export APK_CHANNEL=0&& npm run build-release",
     "android-apk-web-release": "export APK_CHANNEL=WEB&& npm run build-release",
     "android-apk-googleplay-release": "export APK_CHANNEL=GOOGLE_PLAY&& npm run build-release",
     "android-apk-oppo-release": "export APK_CHANNEL=OPPO_APP_MARKET&& npm run build-release",
