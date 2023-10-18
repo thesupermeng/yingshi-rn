@@ -160,8 +160,6 @@ let App = () => {
 
   let tryToLoadCount = 0;
   let adsReadyFlag = false;
-  let tryToLoadCountBanner = 0;
-  let adsReadyFlagBanner = false;
 
   useEffect(() => {
     getIP();
@@ -434,17 +432,6 @@ let App = () => {
     ATBannerRNSDK.hasAdReady(bannerPlacementId).then((isAdReady) => {
       console.log("isBannerReady: " + isAdReady);
       console.log(bannerPlacementId);
-      // if (isAdReady) {
-      //   adsReadyFlagBanner = true;
-      // } else {
-      //   if (tryToLoadCountBanner > 40 || adsReadyFlagBanner == true) {
-      //     return;
-      //   }
-      //   tryToLoadCountBanner += 1;
-      //   setTimeout(() => {
-      //     isBannerReady(bannerPlacementId);
-      //   }, 500);
-      // }
     });
   };
 
