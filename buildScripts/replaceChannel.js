@@ -5,24 +5,16 @@ const constantsFilePath = '../src/utility/constants.ts';
 const androidKeyFile = '../android/app/src/main/res/values/strings.xml';
 const package = require('../package.json');
 const versionNum = package.version;
-const packageName = package.name;
+// const packageName = package.name;
 
 let codePushDeploymentKey = "";
 let umengKey = "";
 
-if (packageName == "yingshipin") {
-    // yingshipin Staging Key
-    // codePushDeploymentKey = "o-gu4vgW0ne79pMzU8HNVjZzJjTcBFUnXqx1I"
-    // yingshipin Production Key
-    codePushDeploymentKey = "SVDKNhmyEZXHTxX14U0uxQwSOAwc9me-xnj7U"
-    umengKey = "650938dcb2f6fa00ba556645"
-} else {
-    // yingshi Staging Key
-    // codePushDeploymentKey = "TJMfhAG-GnqKD6ygv0iOCXPvwwraf7MT-89Tm"
-    // yingshi Production Key
-    codePushDeploymentKey = "6AU3ZnXjdVagR29vAWza6a0rNeXC_372DupHn"
-    umengKey = "648ec50987568a379b587f39"
-}
+// yingshipin Staging Key
+// codePushDeploymentKey = "o-gu4vgW0ne79pMzU8HNVjZzJjTcBFUnXqx1I"
+// yingshipin Production Key
+codePushDeploymentKey = "SVDKNhmyEZXHTxX14U0uxQwSOAwc9me-xnj7U"
+umengKey = "650938dcb2f6fa00ba556645"
 
 // fs.readFile(constantsFilePath, 'utf8', (err, data) => {
 //     if (err) {
@@ -92,8 +84,10 @@ replaceToUmengAppKey.to = 'resValue "string", "UMENG_APPKEY", "' + umengKey + '"
 console.log(replaceToChannelRN.to);
 
 try {
-    const rnResults = replace.sync(replaceToChannelRN);
-    console.log('UMENG CHANNEL updated in React Native: ', rnResults);
+    if(channel != "0" && channel != 0){
+        const rnResults = replace.sync(replaceToChannelRN);
+        console.log('UMENG CHANNEL updated in React Native: ', rnResults);
+    }
     const vnResults = replace.sync(replaceToAppVersionRN);
     console.log('APP_VERSION updated in React Native: ', vnResults);
 } catch (error) {
@@ -101,8 +95,10 @@ try {
 }
 
 try {
-    let androidResults = replace.sync(replaceToChannelAndroid);
-    console.log('UMENG CHANNEL updated in Android: ', androidResults);
+    if(channel != "0" && channel != 0){
+        let androidResults = replace.sync(replaceToChannelAndroid);
+        console.log('UMENG CHANNEL updated in Android: ', androidResults);
+    }
 
     replaceToChannelAndroid.from = /versionName "([^"]+)"/g;
     replaceToChannelAndroid.to = 'versionName "' + versionNum + '"';
@@ -112,7 +108,6 @@ try {
 } catch (error) {
     console.error('Error occurred:', error);
 }
-
 try {
     let umengKeyResults = replace.sync(replaceToUmengAppKey);
     console.log('UMENG Key updated in Android: ', umengKeyResults);
