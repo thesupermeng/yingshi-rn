@@ -1,6 +1,6 @@
 {
   "name": "yingshipin",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "private": true,
   "scripts": {
     "android": "source ~/.bash_profile && react-native run-android",
@@ -20,7 +20,23 @@
     "android-apk-huawei-release": "export APK_CHANNEL=HUAWEI_APP_GALLERY_OVERSEAS&& npm run build-release",
     "android-apk-vivo-release": "export APK_CHANNEL=VIVO_APP_STORE&& npm run build-release",
     "android-apk-mi-release": "export APK_CHANNEL=MI_GETAPPS&& npm run build-release",
-    "android-apk-samsung-release": "export APK_CHANNEL=SAMSUNG_GALAXY_STORE&& npm run build-release"
+    "android-apk-samsung-release": "export APK_CHANNEL=SAMSUNG_GALAXY_STORE&& npm run build-release",
+
+    "android-apk-apkpure-release": "export APK_CHANNEL=APK_PURE&& npm run build-release",
+    "android-apk-androidout-release": "export APK_CHANNEL=ANDROID_OUT&& npm run build-release",
+    "android-apk-apkgk-release": "export APK_CHANNEL=APK_GK&& npm run build-release",
+    "android-apk-apksupport-release": "export APK_CHANNEL=APK_SUPPORT&& npm run build-release",
+    "android-apk-tengniuwang-release": "export APK_CHANNEL=TENG_NIU_WANG&& npm run build-release",
+    "android-apk-xiaozhongruanjian-release": "export APK_CHANNEL=XIAO_ZHONG_RUAN_JIAN&& npm run build-release",
+    "android-apk-ruanjianhui-release": "export APK_CHANNEL=RUAN_JIAN_HUI&& npm run build-release",
+    "android-apk-lvruan-release": "export APK_CHANNEL=LV_RUAN&& npm run build-release",
+    "android-apk-tianji-release": "export APK_CHANNEL=TIAN_JI&& npm run build-release",
+    "android-apk-tiankong-release": "export APK_CHANNEL=TIAN_KONG&& npm run build-release",
+    "android-apk-vxat-release": "export APK_CHANNEL=VXAT&& npm run build-release",
+    "android-apk-yeyulingfeng-release": "export APK_CHANNEL=YE_YU_LING_FENG&& npm run build-release",
+    "android-apk-heiyujidi-release": "export APK_CHANNEL=HEI_YU_JI_DI&& npm run build-release",
+    "android-apk-423-release": "export APK_CHANNEL=XIAZAI423&& npm run build-release",
+    "android-apk-xiaomi-yuzhuang-release": "export APK_CHANNEL=XIAOMI_YUZHUANG&& npm run build-release"
   },
   "dependencies": {
     "@ant-design/react-native": "^5.0.4",
