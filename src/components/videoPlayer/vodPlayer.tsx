@@ -139,19 +139,21 @@ export default forwardRef<VideoRef, Props>(({
   };
 
   useEffect(() => {
-    // default lock to protrait
-    Orientation.lockToPortrait();
     // ... (rest of the useEffect hook remains unchanged)
     const subscription = AppState.addEventListener(
       'change',
       handleAppStateChange,
     );
+    
+    // handle on init this screen
+    deviceOrientationHandle();
+    Orientation.addDeviceOrientationListener(deviceOrientationHandle);
 
     return () => {
       subscription.remove();
+      Orientation.removeDeviceOrientationListener(deviceOrientationHandle);
     };
   }, []);
-
 
   useEffect(() => {
     const removeBackPressListener = BackHandler.addEventListener('hardwareBackPress', () => {
@@ -201,6 +203,27 @@ export default forwardRef<VideoRef, Props>(({
       setIsPaused(false); // Resume video when app becomes active (foreground)
     }
   };
+
+  const deviceOrientationHandle = () => {
+    Orientation.getDeviceOrientation(orientation => {
+      console.log('orientation:', orientation)
+      Orientation.unlockAllOrientations();
+      if (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT') {
+        setIsFullScreen(true);
+        ImmersiveMode.fullLayout(false);
+        StatusBar.setHidden(true);
+      } else {
+        setIsFullScreen(false);
+        ImmersiveMode.fullLayout(true);
+        StatusBar.setHidden(false);
+      }
+
+      // lockToPortrait because "PORTRAIT-UPSIDEDOWN" will not change back portrait
+      if(orientation === 'PORTRAIT-UPSIDEDOWN'){
+        Orientation.lockToPortrait();
+      }
+    })
+  }
 
   const onToggleFullScreen = useCallback(() => {
     Orientation.getOrientation(orientation => {
