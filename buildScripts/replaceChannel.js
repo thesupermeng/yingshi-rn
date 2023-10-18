@@ -84,8 +84,10 @@ replaceToUmengAppKey.to = 'resValue "string", "UMENG_APPKEY", "' + umengKey + '"
 console.log(replaceToChannelRN.to);
 
 try {
-    const rnResults = replace.sync(replaceToChannelRN);
-    console.log('UMENG CHANNEL updated in React Native: ', rnResults);
+    if(channel != "0" && channel != 0){
+        const rnResults = replace.sync(replaceToChannelRN);
+        console.log('UMENG CHANNEL updated in React Native: ', rnResults);
+    }
     const vnResults = replace.sync(replaceToAppVersionRN);
     console.log('APP_VERSION updated in React Native: ', vnResults);
 } catch (error) {
@@ -93,8 +95,10 @@ try {
 }
 
 try {
-    let androidResults = replace.sync(replaceToChannelAndroid);
-    console.log('UMENG CHANNEL updated in Android: ', androidResults);
+    if(channel != "0" && channel != 0){
+        let androidResults = replace.sync(replaceToChannelAndroid);
+        console.log('UMENG CHANNEL updated in Android: ', androidResults);
+    }
 
     replaceToChannelAndroid.from = /versionName "([^"]+)"/g;
     replaceToChannelAndroid.to = 'versionName "' + versionNum + '"';
