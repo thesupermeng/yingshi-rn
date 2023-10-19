@@ -5,6 +5,7 @@ import React, {
   useRef,
   useState,
   memo,
+  useContext,
 } from "react";
 import {
   StyleSheet,
@@ -52,6 +53,8 @@ import { RootState } from "../redux/store";
 import { SettingsReducerState } from "../redux/reducers/settingsReducer";
 import { acceptPrivacyPolicy } from "../redux/actions/settingsActions";
 import RNExitApp from "react-native-exit-app";
+import AdsBanner from "../ads/adsBanner";
+import HomeNav from "../components/tabNavigate/homeNav";
 
 import {
   ATRNSDK,
@@ -59,26 +62,16 @@ import {
   ATBannerRNSDK,
 } from "./../../AnyThinkAds/ATReactNativeSDK";
 
-interface NavType {
-  id: number;
-  name: string;
-}
-
 function Home({ navigation }: BottomTabScreenProps<any>) {
   const isFocused = useIsFocused();
   const { colors, textVariants, spacing } = useTheme();
   const [navId, setNavId] = useState(0);
-  const width = Dimensions.get("window").width;
-  const ref = useRef<any>();
   const BTN_COLORS = ["#30AA55", "#7E9CEE", "#F1377A", "#FFCC12", "#ED7445"];
   const [scrollEnabled, setScrollEnabled] = useState(true);
-  const navRef = useRef<any>();
   const queryClient = useQueryClient();
   const [isOffline, setIsOffline] = useState(false);
   const [showHomeLoading, setShowHomeLoading] = useState(true);
   const [isOpenDialog, setOpenDialog] = useState(false);
-  const isScrollByTab = useRef(false);
-  const isScrollByManual = useRef(false);
   const settingsReducer: SettingsReducerState = useAppSelector(
     ({ settingsReducer }: RootState) => settingsReducer
   );
@@ -136,21 +129,17 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
 
   //refresh
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const [hideContent, setHideContent] = useState(false);
 
   // Function to handle the pull-to-refresh action
   const handleRefresh = async (id: number, showloading: boolean = false) => {
     if (showloading) {
       setIsRefreshing(true);
-
-      setHideContent(true);
     }
     try {
       await queryClient.resetQueries(["HomePage", id]);
 
       setIsRefreshing(false);
       setNavId(id);
-      setHideContent(false);
       setShowHomeLoading(false);
 
       return;
@@ -219,51 +208,12 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
     []
   );
 
-  const onScrollEnd = useCallback(
-    (e: any) => {
-      if (isScrollByManual.current) {
-        const pageNumber = Math.min(
-          Math.max(Math.floor(e.nativeEvent.contentOffset.x / width + 0.5), 0),
-          data.length
-        );
-        if (pageNumber !== navId) {
-          setNavId(pageNumber);
-          navRef?.current?.scrollToIndex({
-            index: pageNumber,
-            viewOffset: 24,
-          });
-        }
-      }
-    },
-    [data, width, navRef, navId]
-  );
-
   const openPrivacyDialog = () => {
     setOpenDialog(true);
   };
 
-  const onReadPrivacy = () => {
-    setOpenDialog(false);
-    navigation.navigate("隐私政策");
-  };
-
-  const onReadTerms = () => {
-    setOpenDialog(false);
-    navigation.navigate("用户协议");
-  };
-
-  const onAcceptPrivacy = () => {
-    setOpenDialog(false);
-    dispatch(acceptPrivacyPolicy());
-  };
-
-  const onRejectPrivacy = () => {
-    RNExitApp.exitApp();
-  };
-
   let tryToLoadCount = 0;
   let adsReadyFlag = false;
-
   const loadInterstitial = async (interstitialPlacementId) => {
     // console.log("====================================");
     // console.log("loadInterstitial");
@@ -289,10 +239,9 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
         // console.log("isInterstitialReady: " + isAdReady);
         // console.log("====================================");
         if (isAdReady && adsReadyFlag == false) {
-          adsReadyFlag = true;
           showInterstitial(interstitialPlacementId);
         } else {
-          if (tryToLoadCount > 10 || adsReadyFlag == true) {
+          if (tryToLoadCount > 100 || adsReadyFlag == true) {
             return;
           }
           tryToLoadCount += 1;
@@ -313,16 +262,21 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   };
 
   const showInterstitial = (interstitialPlacementId) => {
-    console.log("====================================");
-    console.log("showInterstitial ....");
-    console.log("====================================");
-    ATInterstitialRNSDK.showAd(interstitialPlacementId);
+    if (adsReadyFlag == false) {
+      adsReadyFlag = true;
+      console.log("====================================");
+      console.log("showInterstitial ....");
+      console.log("====================================");
+
+      ATInterstitialRNSDK.showAd(interstitialPlacementId);
+    }
   };
 
   useEffect(() => {
-    console.log("=======================");
+    console.log("======================");
     console.log("show ads here");
-    console.log("=======================");
+    console.log("======================");
+
     if (Platform.OS === "android") {
       // loadBanner(ANDROID_HOME_PAGE_BANNER_ADS);
       // loadBanner(ANDROID_PLAY_DETAILS_BANNER_ADS);
@@ -344,6 +298,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
         isHome={true}
         containerStyle={{ paddingLeft: 0, paddingRight: 0 }}
       >
+        <AdsBanner bottomTabHeight={bottomTabHeight} />
         <View
           style={{
             backgroundColor: colors.background,
@@ -352,173 +307,75 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
           }}
         >
           <HomeHeader navigator={navigation} />
-          <FlatList
-            data={navOptions ? navOptions : []}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            ref={navRef}
-            contentContainerStyle={styles.nav}
-            renderItem={({ item, index }: { item: NavType; index: number }) => {
-              return (
-                <TouchableOpacity
+        </View>
+        <HomeNav
+          // hideContent={hideContent}
+          tabList={
+            navOptions?.map((e) => ({
+              id: e.id,
+              title: e.name,
+              name: e.name,
+            })) ?? []
+          }
+          tabChildren={(tab, i) => (
+            <>
+              {(!data || isRefreshing) && (
+                <View
                   style={{
-                    marginRight: spacing.m,
+                    ...styles.loading,
+                    flex: 1,
+                    alignItems: "center",
                     justifyContent: "center",
-                    display: "flex",
-                  }}
-                  onPress={() => {
-                    if (data.length > 0) {
-                      isScrollByTab.current = true;
-                      setNavId(index);
-                      ref?.current?.scrollToIndex({
-                        index: index,
-                      });
-                    }
+                    position: "absolute",
+                    left: "50%",
+                    marginLeft: -40, // Half of the element's width
                   }}
                 >
-                  <Text
-                    style={{
-                      textAlign: "center",
-                      fontSize:
-                        navId === index
-                          ? textVariants.selected.fontSize
-                          : textVariants.unselected.fontSize,
-                      fontWeight:
-                        navId === index
-                          ? textVariants.selected.fontWeight
-                          : textVariants.unselected.fontWeight,
-                      color: navId === index ? colors.primary : colors.muted,
-                    }}
-                  >
-                    {item.name}
-                  </Text>
-                </TouchableOpacity>
-              );
-            }}
-          />
-        </View>
-        {(!data || isRefreshing || hideContent) && (
-          <View
-            style={{
-              ...styles.loading,
-              flex: 1,
-              alignItems: "center",
-              justifyContent: "center",
-              position: "absolute",
-              left: "50%",
-              marginLeft: -40, // Half of the element's width
-            }}
-          >
-            {
-              <FastImage
-                style={{ height: 80, width: 80 }}
-                source={require("../../static/images/loading-spinner.gif")}
-                resizeMode={FastImage.resizeMode.contain}
-              />
-            }
-          </View>
-        )}
-        {showHomeLoading && !isOffline && (
-          <View
-            style={{
-              flex: 1,
-              justifyContent: "center",
-              alignItems: "center",
-              backgroundColor: "rgb(20,22,25)",
-            }}
-          >
-            <FastImage
-              source={require("../../static/images/home-loading.gif")}
-              style={{
-                width: 150,
-                height: 150,
-                position: "relative",
-                bottom: 50,
-                zIndex: -1,
-              }}
-              resizeMode={FastImage.resizeMode.contain}
-            />
-          </View>
-        )}
-        {data && !isOffline && (
-          <View
-            style={{
-              opacity: hideContent ? 0 : 1,
-              position: showHomeLoading ? "absolute" : "relative",
-              paddingBottom: bottomTabHeight + 10,
-            }}
-          >
-            <FlatList
-              ref={ref}
-              data={data}
-              pagingEnabled={true}
-              scrollEnabled={scrollEnabled}
-              horizontal={true}
-              windowSize={3}
-              maxToRenderPerBatch={2}
-              initialNumToRender={1}
-              nestedScrollEnabled={true}
-              getItemLayout={(data, index) => ({
-                length: width,
-                offset: width * index,
-                index,
-              })}
-              onScroll={(e) => {
-                if (!isScrollByTab.current) {
-                  if (!isScrollByManual.current) {
-                    isScrollByManual.current = true;
+                  {
+                    <FastImage
+                      style={{ height: 80, width: 80 }}
+                      source={require("../../static/images/loading-spinner.gif")}
+                      resizeMode={FastImage.resizeMode.contain}
+                    />
                   }
-                  onScrollEnd(e);
-                }
-              }}
-              onScrollBeginDrag={() => {
-                if (!isScrollByManual.current) {
-                  isScrollByManual.current = true;
-                  isScrollByTab.current = false;
-                }
-              }}
-              onMomentumScrollEnd={(e) => {
-                if (isScrollByManual) {
-                  isScrollByManual.current = false;
-                }
-              }}
-              renderItem={getContent}
-            />
-          </View>
-        )}
+                </View>
+              )}
+              {showHomeLoading && !isOffline && (
+                <View
+                  style={{
+                    flex: 1,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    backgroundColor: "rgb(20,22,25)",
+                  }}
+                >
+                  <FastImage
+                    source={require("../../static/images/home-loading.gif")}
+                    style={{
+                      width: 150,
+                      height: 150,
+                      position: "relative",
+                      bottom: 50,
+                      zIndex: -1,
+                    }}
+                    resizeMode={FastImage.resizeMode.contain}
+                  />
+                </View>
+              )}
+              {data && !isOffline && getContent({ item: data[i], index: i })}
+            </>
+          )}
+        />
       </ScreenContainer>
 
-      <PrivacyPolicyDialog
-        isVisible={isOpenDialog}
-        title="服务协议和隐私政策"
-        description={
-          <>
-            <Text>
-              请你务必审慎阅读,
-              充分理解“服务协议”和“隐私政策”各条款，包括但不限于：为了更好的向你提供服务，我们需要收集你的设备标识，操作日常等信息用于分析，优化应用性能。你可阅读
-            </Text>
-            <Text onPress={onReadTerms}>
-              <Text style={{ color: colors.primary }}>《服务协议》</Text>
-            </Text>
-            <Text>和</Text>
-            <Text onPress={onReadPrivacy}>
-              <Text style={{ color: colors.primary }}>《隐私政策》</Text>
-            </Text>
-            <Text>
-              了解详细信息。如果你同意，请点击下面按钮开始接受我们的服务。
-            </Text>
-          </>
-        }
-        onAccept={onAcceptPrivacy}
-        onReject={onRejectPrivacy}
-      />
+      <PrivacyPolicyDialog />
 
       {isOffline && <NoConnection onClickRetry={checkConnection} />}
     </>
   );
 }
 
-export default Home;
+export default memo(Home);
 
 const styles = StyleSheet.create({
   wrapper: {
