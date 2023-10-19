@@ -1,13 +1,5 @@
-import React, {
-  useCallback,
-  useEffect,
-  useState,
-  memo,
-} from "react";
-import {
-  StyleSheet,
-  View,
-} from "react-native";
+import React, { useCallback, useEffect, useState, memo } from "react";
+import { Platform, StyleSheet, View } from "react-native";
 import ScreenContainer from "../components/container/screenContainer";
 import { useTheme } from "@react-navigation/native";
 import { useQuery, useQueries, UseQueryResult } from "@tanstack/react-query";
@@ -20,7 +12,11 @@ import {
   BottomTabScreenProps,
   useBottomTabBarHeight,
 } from "@react-navigation/bottom-tabs";
-import { API_DOMAIN } from "../utility/constants";
+import {
+  ANDROID_HOME_PAGE_POP_UP_ADS,
+  API_DOMAIN,
+  IOS_HOME_PAGE_POP_UP_ADS,
+} from "../utility/constants";
 import CatagoryHome from "../components/container/CatagoryHome";
 import RecommendationHome from "../components/container/RecommendationHome";
 import HomeHeader from "../components/header/homeHeader";
@@ -34,6 +30,12 @@ import { RootState } from "../redux/store";
 import { SettingsReducerState } from "../redux/reducers/settingsReducer";
 import AdsBanner from "../ads/adsBanner";
 import HomeNav from "../components/tabNavigate/homeNav";
+
+import {
+  ATRNSDK,
+  ATInterstitialRNSDK,
+  ATBannerRNSDK,
+} from "./../../AnyThinkAds/ATReactNativeSDK";
 
 function Home({ navigation }: BottomTabScreenProps<any>) {
   const isFocused = useIsFocused();
@@ -172,6 +174,80 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
     []
   );
 
+  let tryToLoadCount = 0;
+  let adsReadyFlag = false;
+
+  const loadInterstitial = async (interstitialPlacementId) => {
+    // console.log("====================================");
+    // console.log("loadInterstitial");
+    // console.log("====================================");
+
+    var settings = {};
+    settings[ATInterstitialRNSDK.UseRewardedVideoAsInterstitial] = false;
+    //    settings[ATInterstitialRNSDK.UseRewardedVideoAsInterstitial] = true;
+
+    await ATInterstitialRNSDK.loadAd(interstitialPlacementId, settings);
+
+    if (Platform.OS === "android") {
+      isInterstitialReady(ANDROID_HOME_PAGE_POP_UP_ADS);
+    } else if (Platform.OS === "ios") {
+      isInterstitialReady(IOS_HOME_PAGE_POP_UP_ADS);
+    }
+  };
+
+  const isInterstitialReady = (interstitialPlacementId) => {
+    ATInterstitialRNSDK.hasAdReady(interstitialPlacementId).then(
+      (isAdReady) => {
+        // console.log("====================================");
+        // console.log("isInterstitialReady: " + isAdReady);
+        // console.log("====================================");
+        if (isAdReady && adsReadyFlag == false) {
+          adsReadyFlag = true;
+          showInterstitial(interstitialPlacementId);
+        } else {
+          if (tryToLoadCount > 5 || adsReadyFlag == true) {
+            return;
+          }
+          tryToLoadCount += 1;
+          setTimeout(() => {
+            loadInterstitial(interstitialPlacementId);
+          }, 1000);
+        }
+      }
+    );
+
+    ATInterstitialRNSDK.checkAdStatus(interstitialPlacementId).then(
+      (adStatusInfo) => {
+        // console.log("====================================");
+        // console.log("isInterstitialReady: checkAdStatus: " + adStatusInfo);
+        // console.log("====================================");
+      }
+    );
+  };
+
+  const showInterstitial = (interstitialPlacementId) => {
+    console.log("====================================");
+    console.log("showInterstitial ....");
+    console.log("====================================");
+    ATInterstitialRNSDK.showAd(interstitialPlacementId);
+  };
+
+  useEffect(() => {
+    if (Platform.OS === "android") {
+      // loadBanner(ANDROID_HOME_PAGE_BANNER_ADS);
+      // loadBanner(ANDROID_PLAY_DETAILS_BANNER_ADS);
+      // loadBanner(ANDROID_TOPIC_DETAILS_BANNER_ADS);
+      // loadBanner(ANDROID_TOPIC_TAB_BANNER_ADS);
+      loadInterstitial(ANDROID_HOME_PAGE_POP_UP_ADS);
+    } else if (Platform.OS === "ios") {
+      // loadBanner(IOS_HOME_PAGE_BANNER_ADS);
+      // loadBanner(IOS_PLAY_DETAILS_BANNER_ADS);
+      // loadBanner(IOS_TOPIC_DETAILS_BANNER_ADS);
+      // loadBanner(IOS_TOPIC_TAB_BANNER_ADS);
+      loadInterstitial(IOS_HOME_PAGE_POP_UP_ADS);
+    }
+  }, []);
+
   return (
     <>
       <ScreenContainer
@@ -190,12 +266,15 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
         </View>
         <HomeNav
           // hideContent={hideContent}
-          tabList={navOptions?.map(e => ({
-            id: e.id,
-            title: e.name,
-            name: e.name,
-          })) ?? []}
-          tabChildren={(tab, i) => <>
+          tabList={
+            navOptions?.map((e) => ({
+              id: e.id,
+              title: e.name,
+              name: e.name,
+            })) ?? []
+          }
+          tabChildren={(tab, i) => (
+            <>
               {(!data || isRefreshing) && (
                 <View
                   style={{
@@ -239,9 +318,9 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
                   />
                 </View>
               )}
-              {data && !isOffline && getContent({item: data[i], index: i})}
+              {data && !isOffline && getContent({ item: data[i], index: i })}
             </>
-          }
+          )}
         />
       </ScreenContainer>
       {isOffline && <NoConnection onClickRetry={checkConnection} />}
