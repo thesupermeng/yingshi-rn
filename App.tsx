@@ -594,13 +594,13 @@ let App = () => {
     // loadBanner(ANDROID_PLAY_DETAILS_BANNER_ADS);
     // loadBanner(ANDROID_TOPIC_DETAILS_BANNER_ADS);
     // loadBanner(ANDROID_TOPIC_TAB_BANNER_ADS);
-    loadInterstitial(ANDROID_HOME_PAGE_POP_UP_ADS);
+    // loadInterstitial(ANDROID_HOME_PAGE_POP_UP_ADS);
   } else if (Platform.OS === "ios") {
     // loadBanner(IOS_HOME_PAGE_BANNER_ADS);
     // loadBanner(IOS_PLAY_DETAILS_BANNER_ADS);
     // loadBanner(IOS_TOPIC_DETAILS_BANNER_ADS);
     // loadBanner(IOS_TOPIC_TAB_BANNER_ADS);
-    loadInterstitial(IOS_HOME_PAGE_POP_UP_ADS);
+    // loadInterstitial(IOS_HOME_PAGE_POP_UP_ADS);
   }
 
   return (
