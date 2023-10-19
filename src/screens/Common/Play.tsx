@@ -50,6 +50,7 @@ import NoConnection from '../../components/common/noConnection';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 import AdsBanner from '../../ads/adsBanner';
 import Orientation from 'react-native-orientation-locker';
+import BingSearch from '../../components/container/bingSearchContainer';
 
 type VideoRef = {
   setPause: (param: boolean) => void,
@@ -96,6 +97,8 @@ const insets = useSafeAreaInsets();
   const [currentEpisode, setCurrentEpisode] = useState(
     vod?.episodeWatched === undefined ? 0 : vod.episodeWatched,
   );
+
+  const [isVodRestricted, setVodRestricted] = useState(false);
 
   // ATRNSDK.setLogDebug(true);
 
@@ -240,6 +243,8 @@ const insets = useSafeAreaInsets();
     setCurrentEpisode(
       vod?.episodeWatched === undefined ? 0 : vod.episodeWatched,
     );
+
+    setVodRestricted(vod?.vod_restricted === 1);
   }, [vod]);
 
   const { data: suggestedVods, isFetching: isFetchingSuggestedVod } = useQuery({
@@ -345,7 +350,13 @@ const insets = useSafeAreaInsets();
       <AdsBanner bottomTabHeight={0} />
       <ScreenContainer
         containerStyle={{ paddingRight: 0, paddingLeft: 0 }}>
-        {vod?.vod_play_list?.urls?.find(url => url.nid === currentEpisode)
+          
+        {/* if isVodRestricted, show bing search */}
+        {isVodRestricted && vod && !isOffline && (
+          <BingSearch vod={vod} />
+        )}
+
+        {!isVodRestricted && vod?.vod_play_list?.urls?.find(url => url.nid === currentEpisode)
           ?.url !== undefined &&
           !dismountPlayer &&
           !isOffline && (
