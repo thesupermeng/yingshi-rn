@@ -345,7 +345,7 @@ export default forwardRef<VideoRef, Props>(({
               rate={playbackRate}
               ignoreSilentSwitch="ignore"
               ref={ref => (videoPlayerRef.current = ref)}
-              fullscreen={isFullScreen}
+              fullscreen={false}    // make it false to prevent duplicate fullscreen function 
               onBuffer={onBuffer}
               paused={isPaused || isInBackground} // Pause video when app is in the background
               resizeMode="contain"
