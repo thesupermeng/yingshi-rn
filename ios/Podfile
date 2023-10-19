@@ -49,16 +49,16 @@ target 'yingshi' do
   end
 
   # # UMPlusDemo为工程target名
-  # pod 'UMCommon'   
-  # pod 'UMDevice'
+  pod 'UMCommon'   
+  pod 'UMDevice'
 
   # # pod <友盟+SDK名> 按需复制相应SDK名称代码
 
   # # 依赖库
 
-  # pod 'UMCCommonLog'
+  pod 'UMCCommonLog'
   # # 必选，APM组件，原错误分析升级为独立产品U-APM
-  # pod 'UMAPM' 	
+  pod 'UMAPM' 	
   pod 'AppCenter'
   
   pod 'AnyThinkiOS','6.2.66'

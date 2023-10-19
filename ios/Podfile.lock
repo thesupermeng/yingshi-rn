@@ -617,6 +617,8 @@ PODS:
     - React
   - react-native-blur (4.3.2):
     - React-Core
+  - react-native-cameraroll (5.10.0):
+    - React-Core
   - react-native-color-matrix-image-filters (6.0.3):
     - React-Core
   - react-native-netinfo (9.4.1):
@@ -633,6 +635,8 @@ PODS:
     - RCTTypeSafety
     - React-Core
     - ReactCommon/turbomodule/core
+  - react-native-segmented-control (2.2.2):
+    - React-Core
   - react-native-simple-toast (1.1.4):
     - React-Core
     - Toast (~> 4.0.0)
@@ -733,6 +737,8 @@ PODS:
     - React-Core
   - RNCMaskedView (0.1.11):
     - React
+  - RNCPicker (2.5.1):
+    - React-Core
   - RNDeviceInfo (10.7.0):
     - React-Core
   - RNExitApp (2.0.0):
@@ -797,6 +803,11 @@ PODS:
   - StartAppSDK (4.9.0)
   - TapjoySDK (12.11.0)
   - Toast (4.0.0)
+  - UMAPM (1.8.4)
+  - UMCCommonLog (2.0.2)
+  - UMCommon (7.4.2):
+    - UMDevice
+  - UMDevice (3.2.0)
   - UnityAds (4.8.0)
   - VungleAds (7.0.1)
   - YandexMobileAds (5.8.0):
@@ -901,12 +912,14 @@ DEPENDENCIES:
   - react-native-android-navbar-height (from `../node_modules/react-native-android-navbar-height`)
   - react-native-appsflyer (from `../node_modules/react-native-appsflyer`)
   - "react-native-blur (from `../node_modules/@react-native-community/blur`)"
+  - "react-native-cameraroll (from `../node_modules/@react-native-camera-roll/camera-roll`)"
   - react-native-color-matrix-image-filters (from `../node_modules/react-native-color-matrix-image-filters`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - react-native-network-info (from `../node_modules/react-native-network-info`)
   - react-native-orientation-locker (from `../node_modules/react-native-orientation-locker`)
   - react-native-pager-view (from `../node_modules/react-native-pager-view`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
+  - "react-native-segmented-control (from `../node_modules/@react-native-community/segmented-control`)"
   - react-native-simple-toast (from `../node_modules/react-native-simple-toast`)
   - "react-native-slider (from `../node_modules/@react-native-community/slider`)"
   - react-native-video (from `../node_modules/react-native-video`)
@@ -927,6 +940,7 @@ DEPENDENCIES:
   - RNBootSplash (from `../node_modules/react-native-bootsplash`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
+  - "RNCPicker (from `../node_modules/@react-native-picker/picker`)"
   - RNDeviceInfo (from `../node_modules/react-native-device-info`)
   - RNExitApp (from `../node_modules/react-native-exit-app`)
   - RNFastImage (from `../node_modules/react-native-fast-image`)
@@ -938,6 +952,10 @@ DEPENDENCIES:
   - RNShare (from `../node_modules/react-native-share`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
+  - UMAPM
+  - UMCCommonLog
+  - UMCommon
+  - UMDevice
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -1012,6 +1030,10 @@ SPEC REPOS:
     - StartAppSDK
     - TapjoySDK
     - Toast
+    - UMAPM
+    - UMCCommonLog
+    - UMCommon
+    - UMDevice
     - UnityAds
     - VungleAds
     - YandexMobileAds
@@ -1076,6 +1098,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-appsflyer"
   react-native-blur:
     :path: "../node_modules/@react-native-community/blur"
+  react-native-cameraroll:
+    :path: "../node_modules/@react-native-camera-roll/camera-roll"
   react-native-color-matrix-image-filters:
     :path: "../node_modules/react-native-color-matrix-image-filters"
   react-native-netinfo:
@@ -1088,6 +1112,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-pager-view"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
+  react-native-segmented-control:
+    :path: "../node_modules/@react-native-community/segmented-control"
   react-native-simple-toast:
     :path: "../node_modules/react-native-simple-toast"
   react-native-slider:
@@ -1128,6 +1154,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-async-storage/async-storage"
   RNCMaskedView:
     :path: "../node_modules/@react-native-community/masked-view"
+  RNCPicker:
+    :path: "../node_modules/@react-native-picker/picker"
   RNDeviceInfo:
     :path: "../node_modules/react-native-device-info"
   RNExitApp:
@@ -1244,12 +1272,14 @@ SPEC CHECKSUMS:
   react-native-android-navbar-height: 74d4c08f925ccf4be6b589ccffbe82c78be03772
   react-native-appsflyer: 153e96b97ecc0c26b14fc79911675e51cfd35b36
   react-native-blur: cfdad7b3c01d725ab62a8a729f42ea463998afa2
+  react-native-cameraroll: 4701ae7c3dbcd3f5e9e150ca17f250a276154b35
   react-native-color-matrix-image-filters: c945260077dabac82d8e25af937c18fff4021707
   react-native-netinfo: fefd4e98d75cbdd6e85fc530f7111a8afdf2b0c5
   react-native-network-info: d1290ffc0bd0709e11436f5b8d7f605dcc5c4530
   react-native-orientation-locker: 851f6510d8046ea2f14aa169b1e01fcd309a94ba
   react-native-pager-view: 0ccb8bf60e2ebd38b1f3669fa3650ecce81db2df
   react-native-safe-area-context: b8979f5eda6ed5903d4dbc885be3846ea3daa753
+  react-native-segmented-control: 65df6cd0619b780b3843d574a72d4c7cec396097
   react-native-simple-toast: 8ee5d23f0b92b935ab7434cdb65159ce12dfb4b7
   react-native-slider: 33b8d190b59d4f67a541061bb91775d53d617d9d
   react-native-video: fee89269ad07556d960721f3b62e39be6ace3c90
@@ -1270,6 +1300,7 @@ SPEC CHECKSUMS:
   RNBootSplash: 3f3f7f82efe2addbfe7ddeda20877ff4d579cd81
   RNCAsyncStorage: ddc4ee162bfd41b0d2c68bf2d95acd81dd7f1f93
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
+  RNCPicker: 529d564911e93598cc399b56cc0769ce3675f8c8
   RNDeviceInfo: 25d818c85db769cc0e7083d39efaa01a6f450df3
   RNExitApp: 00036cabe7bacbb413d276d5520bf74ba39afa6a
   RNFastImage: 5c9c9fed9c076e521b3f509fe79e790418a544e8
@@ -1289,6 +1320,10 @@ SPEC CHECKSUMS:
   StartAppSDK: aa04c171bea50f470df1c78e09815af6a2ef86f7
   TapjoySDK: 63d964a731313ac2db700b67623376db7c3c120c
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
+  UMAPM: f3d56b9a9c445af10a74f0cdbf5417045d2ab4f2
+  UMCCommonLog: bea707e50c85cef4b0eb47cc5c7226bb843245ca
+  UMCommon: 35b28c82a3a3be892f895628261edce11b6a9e3e
+  UMDevice: b08f6cc32f26798dbac58bd0e91fea1f008bd2b7
   UnityAds: 390144b2029ac9ce2ec81c3cfd0007686b59236a
   VungleAds: 49e2cbb981c1efa0086029d2dcec8a7322105809
   YandexMobileAds: 13ea70019f08fca7430a529aca4460050c5ffa80
@@ -1297,6 +1332,6 @@ SPEC CHECKSUMS:
   Yoga: 065f0b74dba4832d6e328238de46eb72c5de9556
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 31e277610b4024757c5b51a76921bf99550f6ac0
+PODFILE CHECKSUM: bd2337fa66c1979f48b471c9125c63c30c4cffa2
 
 COCOAPODS: 1.12.1

@@ -12,7 +12,7 @@
 #import <AppCenterReactNativeAnalytics.h>
 #import <AppCenterReactNativeCrashes.h>
 
-//#import <UMCommon/UMConfigure.h>
+#import <UMCommon/UMConfigure.h>
 
 #import <AnyThinkSDK/AnyThinkSDK.h>
 #import <AnyThinkGDTAdapter/ATGDTConfigure.h>
@@ -31,9 +31,8 @@ UIView *rootView;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-//  [UMConfigure setLogEnabled:YES];
-  // [RNUMConfigure initWithAppkey:@"64a632e5bd4b621232c9e379" channel:@"App Store"];
-//  [UMConfigure initWithAppkey:@"64a632e5bd4b621232c9e379" channel:@"App Store"];
+  [UMConfigure setLogEnabled:YES];
+  [UMConfigure initWithAppkey:@"64a632e5bd4b621232c9e379" channel:@"App Store"];
 //  self.moduleName = @"yingshi";
   // You can add your custom initial props in the dictionary below.
   // They will be passed down to the ViewController used by React Native.
