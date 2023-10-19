@@ -89,6 +89,7 @@ import {
 } from "../redux/actions/userAction";
 import ExpiredOverlay from "../components/modal/expiredOverlay";
 import EventRules from "../screens/Profile/EventRules";
+import PrivacyPolicyOverlay from "../components/modal/privacyPolicyOverlay";
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -231,7 +232,7 @@ export default () => {
         </>
       </HomeTab.Navigator>
     );
-  }, [])
+  }, []);
 
   const refreshUserState = async () => {
     let result;
@@ -246,6 +247,8 @@ export default () => {
     await dispatch(updateUserAuth(resultData));
     return;
   };
+  // privacy & policy overlay
+  const [showPrivacyOverlay, setShowPrivacyOverlay] = useState(false);
 
   // vip remaining day dialog
   const [showVIPOverlay, setShowVIPOverlay] = useState(false);
@@ -423,6 +426,10 @@ export default () => {
         </Stack.Navigator>
         <LoginBottomSheet sheetRef={sheetRefLogin} />
         <RegisterBottomSheet sheetRef={sheetRefRegister} />
+        <PrivacyPolicyOverlay
+          isVisible={showPrivacyOverlay}
+          setIsVisible={setShowPrivacyOverlay}
+        />
         <ExpiredOverlay
           remainingDay={vipRemainingDay}
           showVIPOverlay={showVIPOverlay}

@@ -18,10 +18,6 @@ interface Props { }
 export default function RegengOverlay({  }: Props) {
     const {accepted} = useContext(TermsAcceptContext)
 
-    useEffect(()=>{
-        console.debug('accepted', accepted)
-    }, [accepted])
-
     const {colors, textVariants, spacing, icons} = useTheme();
 
     const [isCancelledShowRegengOverlay, setIsCancelledShowRegengOverlay] = useState(false);
