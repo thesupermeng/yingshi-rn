@@ -1,20 +1,12 @@
 import React, {
-  useMemo,
   useCallback,
   useEffect,
-  useRef,
   useState,
   memo,
-  useContext,
 } from "react";
 import {
   StyleSheet,
-  Text,
   View,
-  TouchableOpacity,
-  FlatList,
-  Dimensions,
-  RefreshControl,
 } from "react-native";
 import ScreenContainer from "../components/container/screenContainer";
 import { useTheme } from "@react-navigation/native";
@@ -23,16 +15,12 @@ import { useQueryClient } from "@tanstack/react-query";
 import {
   NavOptionsResponseType,
   VodCarousellResponseType,
-  VodPlaylistResponseType,
-  VodTopicType,
-  VodType,
-  LiveTVStationsResponseType,
 } from "../types/ajaxTypes";
 import {
   BottomTabScreenProps,
   useBottomTabBarHeight,
 } from "@react-navigation/bottom-tabs";
-import { API_DOMAIN, API_DOMAIN_TEST } from "../utility/constants";
+import { API_DOMAIN } from "../utility/constants";
 import CatagoryHome from "../components/container/CatagoryHome";
 import RecommendationHome from "../components/container/RecommendationHome";
 import HomeHeader from "../components/header/homeHeader";
@@ -41,25 +29,19 @@ import FastImage from "react-native-fast-image";
 import { useIsFocused } from "@react-navigation/native";
 import NoConnection from "./../components/common/noConnection";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
-import PrivacyPolicyDialog from "../components/modal/privacyPolicyModel";
 import { useAppSelector, useAppDispatch } from "../hooks/hooks";
 import { RootState } from "../redux/store";
 import { SettingsReducerState } from "../redux/reducers/settingsReducer";
-import { acceptPrivacyPolicy } from "../redux/actions/settingsActions";
-import RNExitApp from "react-native-exit-app";
 import AdsBanner from "../ads/adsBanner";
 import HomeNav from "../components/tabNavigate/homeNav";
 
 function Home({ navigation }: BottomTabScreenProps<any>) {
   const isFocused = useIsFocused();
-  const { colors, textVariants, spacing } = useTheme();
+  const { colors, spacing } = useTheme();
   const [navId, setNavId] = useState(0);
-  const BTN_COLORS = ["#30AA55", "#7E9CEE", "#F1377A", "#FFCC12", "#ED7445"];
-  const [scrollEnabled, setScrollEnabled] = useState(true);
   const queryClient = useQueryClient();
   const [isOffline, setIsOffline] = useState(false);
   const [showHomeLoading, setShowHomeLoading] = useState(true);
-  const [isOpenDialog, setOpenDialog] = useState(false);
   const settingsReducer: SettingsReducerState = useAppSelector(
     ({ settingsReducer }: RootState) => settingsReducer
   );
@@ -137,10 +119,6 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   };
 
   useEffect(() => {
-    if (isFocused && !settingsReducer.isAcceptPrivacyPolicy) {
-      openPrivacyDialog();
-    }
-
     const handleTabPress = async () => {
       if (isFocused && !isRefreshing) {
         setIsRefreshing((prevIsRefreshing) => {
@@ -174,7 +152,6 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
             (index === 0 ? (
               <RecommendationHome
                 vodCarouselRes={item.data}
-                setScrollEnabled={setScrollEnabled}
                 onRefresh={handleRefresh}
                 onLoad={handleShowLoading}
                 refreshProp={isRefreshing}
@@ -184,7 +161,6 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
                 <CatagoryHome
                   vodCarouselRes={item.data}
                   navId={index}
-                  setScrollEnabled={setScrollEnabled}
                   onRefresh={handleRefresh}
                   refreshProp={isRefreshing}
                 />
@@ -195,10 +171,6 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
     },
     []
   );
-
-  const openPrivacyDialog = () => {
-    setOpenDialog(true);
-  };
 
   return (
     <>
@@ -272,10 +244,6 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
           }
         />
       </ScreenContainer>
-
-      <PrivacyPolicyDialog />
-
-
       {isOffline && <NoConnection onClickRetry={checkConnection} />}
     </>
   );
