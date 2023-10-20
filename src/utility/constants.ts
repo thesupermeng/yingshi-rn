@@ -21,6 +21,10 @@ export const VIEW_PLAYLIST = 'view_playlist';
 export const HIDE_VOD_PLAYER_GUIDE = 'hide_vod_helper_guide';
 export const ACCEPT_PRIVACY_POLICY = 'accept_privacy_policy';
 
+export const HANDLE_APP_ORIENTATION = 'handle_app_orientation';
+export const HANDLE_DEVICES_ORIENTATION = 'handle_devices_orientation';
+export const LOCK_ORIENTATION = 'lock_orientation';
+
 // export const API_DOMAIN = 'https://api.yingshi.tv/'
 export const API_DOMAIN = 'https://api.gxhongdeli168.com/';
 export const API_DOMAIN_TEST = 'https://testapi.yingshi.tv/';
