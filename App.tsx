@@ -124,7 +124,7 @@ let App = () => {
       ip_address: ipAddress,
       channel_id: UMENG_CHANNEL,
       version_number: APP_VERSION,
-      product: "萤视频-ANDROID",
+      product: "影视TV-" + Platform.OS.toUpperCase(),
       mobile_os: Platform.OS,
       mobile_model: "HUAWEIP20",
     };
