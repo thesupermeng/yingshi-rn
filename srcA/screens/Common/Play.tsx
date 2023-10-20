@@ -203,7 +203,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   }, []);
 
   const fetchVodDetails = () =>
-    fetch(`${API_DOMAIN}vod/v1/vod/detail?id=${vod?.vod_id}&appName=萤视频&platform=` + Platform.OS.toUpperCase() + `&channelId=` + UMENG_CHANNEL)
+    fetch(`${API_DOMAIN}vod/v1/vod/detail?id=${vod?.vod_id}&appName=影视TV&platform=` + Platform.OS.toUpperCase() + `&channelId=` + UMENG_CHANNEL)
       .then((response) => response.json())
       .then((json: VodDetailsResponseType) => {
         return json.data[0];
