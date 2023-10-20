@@ -213,22 +213,26 @@ export default forwardRef<VideoRef, Props>(({
 
   const deviceOrientationHandle = () => {
     Orientation.unlockAllOrientations();
-    handleOrientation(devicesOrientation);
+    
 
     if(devicesOrientation === 'LANDSCAPE-LEFT' || devicesOrientation === 'LANDSCAPE-RIGHT'){
       setIsFullScreen(true);
       ImmersiveMode.fullLayout(false);
       StatusBar.setHidden(true);
-    }else{
+
+      handleOrientation(devicesOrientation);
+    }else if(devicesOrientation === 'PORTRAIT'){
       setIsFullScreen(false);
       ImmersiveMode.fullLayout(true);
       StatusBar.setHidden(false);
+
+      handleOrientation(devicesOrientation);
     }
 
-    // lockToPortrait because "PORTRAIT-UPSIDEDOWN" will not change back portrait
-    if(devicesOrientation === 'PORTRAIT-UPSIDEDOWN'){
-      lockOrientation('PORTRAIT');
-    }
+    // // lockToPortrait because "PORTRAIT-UPSIDEDOWN" will not change back portrait
+    // if(devicesOrientation === 'PORTRAIT-UPSIDEDOWN'){
+    //   lockOrientation('PORTRAIT');
+    // }
   }
 
   const onToggleFullScreen = useCallback(() => {
