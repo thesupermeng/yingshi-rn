@@ -189,17 +189,13 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
 
 
   const localIp = YSConfig.instance.ip;
-  const fetchVodDetails = () => {
-    let vodDetailsApi = `${API_DOMAIN}vod/v1/vod/detail?id=${vod?.vod_id}&appName=萤视频&platform=` + Platform.OS.toUpperCase() + `&channelId=` + UMENG_CHANNEL + `&ip=` + localIp;
-    if (localIp != undefined && localIp != null && localIp != '') {
-      fetch(vodDetailsApi)
-        .then(response => response.json())
-        .then((json: VodDetailsResponseType) => {
-          setVodRestricted(json.data[0].vod_restricted === 1);
-          return json.data[0];
-        });
-    }
-  }
+  const fetchVodDetails = () =>
+  fetch(`${API_DOMAIN}vod/v1/vod/detail?id=${vod?.vod_id}&appName=萤视频&platform=` + Platform.OS.toUpperCase() + `&channelId=` + UMENG_CHANNEL + `&ip=${localIp}`)
+    .then(response => response.json())
+    .then((json: VodDetailsResponseType) => {
+      setVodRestricted(json.data[0]?.vod_restricted === 1);
+      return json.data[0];
+    });
 
   const { data: vodDetails, isFetching: isFetchingVodDetails } = useQuery({
     queryKey: ['vodDetails', vod?.vod_id],
