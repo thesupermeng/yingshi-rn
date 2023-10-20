@@ -48,6 +48,10 @@ interface Props {
   showMoreType?: 'episodes' | 'streams' | 'movies' | 'none';
   streams?: LiveTVStationItem[];
   isFetchingRecommendedMovies?: boolean;
+  appOrientation: string,
+  devicesOrientation: string,
+  handleOrientation: (orientation: string) => void,
+  lockOrientation: (orientation: string) => void,
 }
 
 type VideoControlsRef = {
@@ -86,6 +90,10 @@ export default forwardRef<VideoRef, Props>(({
   streams = [],
   showMoreType = 'none',
   isFetchingRecommendedMovies = false,
+  appOrientation,
+  devicesOrientation,
+  handleOrientation,
+  lockOrientation,
 }: Props, ref) => {
   const videoPlayerRef = React.useRef<Video | null>();
   const { colors, spacing, textVariants, icons } = useTheme();
@@ -130,7 +138,7 @@ export default forwardRef<VideoRef, Props>(({
   const onGoBack = () => {
     if (onBack !== undefined) {
       onBack();
-      Orientation.lockToPortrait();
+      lockOrientation('PORTRAIT');
       setIsFullScreen(false);
     } else {
       // just direct go back (go back the event will handle by beforeRemove)
@@ -144,16 +152,15 @@ export default forwardRef<VideoRef, Props>(({
       'change',
       handleAppStateChange,
     );
-    
-    // handle on init this screen
-    deviceOrientationHandle();
-    Orientation.addDeviceOrientationListener(deviceOrientationHandle);
 
     return () => {
       subscription.remove();
-      Orientation.removeDeviceOrientationListener(deviceOrientationHandle);
     };
   }, []);
+
+  useEffect(() => {
+    deviceOrientationHandle();
+  }, [devicesOrientation])
 
   useEffect(() => {
     const removeBackPressListener = BackHandler.addEventListener('hardwareBackPress', () => {
@@ -167,7 +174,7 @@ export default forwardRef<VideoRef, Props>(({
       e.preventDefault();
 
       if (isFullScreen) {
-        Orientation.lockToPortrait();
+        lockOrientation('PORTRAIT');
         StatusBar.setHidden(false);
         setIsFullScreen(false);
       } else {
@@ -205,41 +212,42 @@ export default forwardRef<VideoRef, Props>(({
   };
 
   const deviceOrientationHandle = () => {
-    Orientation.getDeviceOrientation(orientation => {
-      console.log('orientation:', orientation)
-      Orientation.unlockAllOrientations();
-      if (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT') {
-        setIsFullScreen(true);
-        ImmersiveMode.fullLayout(false);
-        StatusBar.setHidden(true);
-      } else {
-        setIsFullScreen(false);
-        ImmersiveMode.fullLayout(true);
-        StatusBar.setHidden(false);
-      }
+    Orientation.unlockAllOrientations();
+    
 
-      // lockToPortrait because "PORTRAIT-UPSIDEDOWN" will not change back portrait
-      if(orientation === 'PORTRAIT-UPSIDEDOWN'){
-        Orientation.lockToPortrait();
-      }
-    })
+    if(devicesOrientation === 'LANDSCAPE-LEFT' || devicesOrientation === 'LANDSCAPE-RIGHT'){
+      setIsFullScreen(true);
+      ImmersiveMode.fullLayout(false);
+      StatusBar.setHidden(true);
+
+      handleOrientation(devicesOrientation);
+    }else if(devicesOrientation === 'PORTRAIT'){
+      setIsFullScreen(false);
+      ImmersiveMode.fullLayout(true);
+      StatusBar.setHidden(false);
+
+      handleOrientation(devicesOrientation);
+    }
+
+    // // lockToPortrait because "PORTRAIT-UPSIDEDOWN" will not change back portrait
+    // if(devicesOrientation === 'PORTRAIT-UPSIDEDOWN'){
+    //   lockOrientation('PORTRAIT');
+    // }
   }
 
   const onToggleFullScreen = useCallback(() => {
-    Orientation.getOrientation(orientation => {
-      if (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT') {
-        Orientation.lockToPortrait();
-        setIsFullScreen(false);
-        ImmersiveMode.fullLayout(true);
-        StatusBar.setHidden(false);
-      } else {
-        Orientation.lockToLandscape();
-        setIsFullScreen(true);
-        ImmersiveMode.fullLayout(false);
-        StatusBar.setHidden(true);
-      }
-    })
-  }, [isFullScreen, Orientation]);
+    if(appOrientation === 'LANDSCAPE-LEFT' || appOrientation === 'LANDSCAPE-RIGHT'){
+      lockOrientation('PORTRAIT');
+      setIsFullScreen(false);
+      ImmersiveMode.fullLayout(true);
+      StatusBar.setHidden(false);
+    }else{
+      lockOrientation('LANDSCAPE-LEFT');
+      setIsFullScreen(true);
+      ImmersiveMode.fullLayout(false);
+      StatusBar.setHidden(true);
+    }
+  }, [isFullScreen, appOrientation]);
 
   const onVideoLoaded = (data: any) => {
     setDuration(data.duration);
@@ -345,7 +353,7 @@ export default forwardRef<VideoRef, Props>(({
               rate={playbackRate}
               ignoreSilentSwitch="ignore"
               ref={ref => (videoPlayerRef.current = ref)}
-              fullscreen={isFullScreen}
+              fullscreen={false}  // make it false to prevent duplicate fullscreen function 
               onBuffer={onBuffer}
               paused={isPaused || isInBackground} // Pause video when app is in the background
               resizeMode="contain"

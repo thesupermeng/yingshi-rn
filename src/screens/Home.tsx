@@ -1,21 +1,5 @@
-import React, {
-  useMemo,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-  memo,
-  useContext,
-} from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  FlatList,
-  Dimensions,
-  RefreshControl,
-} from "react-native";
+import React, { useCallback, useEffect, useState, memo } from "react";
+import { Platform, StyleSheet, View } from "react-native";
 import ScreenContainer from "../components/container/screenContainer";
 import { useTheme } from "@react-navigation/native";
 import { useQuery, useQueries, UseQueryResult } from "@tanstack/react-query";
@@ -23,16 +7,16 @@ import { useQueryClient } from "@tanstack/react-query";
 import {
   NavOptionsResponseType,
   VodCarousellResponseType,
-  VodPlaylistResponseType,
-  VodTopicType,
-  VodType,
-  LiveTVStationsResponseType,
 } from "../types/ajaxTypes";
 import {
   BottomTabScreenProps,
   useBottomTabBarHeight,
 } from "@react-navigation/bottom-tabs";
-import { API_DOMAIN, API_DOMAIN_TEST } from "../utility/constants";
+import {
+  ANDROID_HOME_PAGE_POP_UP_ADS,
+  API_DOMAIN,
+  IOS_HOME_PAGE_POP_UP_ADS,
+} from "../utility/constants";
 import CatagoryHome from "../components/container/CatagoryHome";
 import RecommendationHome from "../components/container/RecommendationHome";
 import HomeHeader from "../components/header/homeHeader";
@@ -41,25 +25,25 @@ import FastImage from "react-native-fast-image";
 import { useIsFocused } from "@react-navigation/native";
 import NoConnection from "./../components/common/noConnection";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
-import PrivacyPolicyDialog from "../components/modal/privacyPolicyModel";
 import { useAppSelector, useAppDispatch } from "../hooks/hooks";
 import { RootState } from "../redux/store";
 import { SettingsReducerState } from "../redux/reducers/settingsReducer";
-import { acceptPrivacyPolicy } from "../redux/actions/settingsActions";
-import RNExitApp from "react-native-exit-app";
 import AdsBanner from "../ads/adsBanner";
 import HomeNav from "../components/tabNavigate/homeNav";
 
+import {
+  ATRNSDK,
+  ATInterstitialRNSDK,
+  ATBannerRNSDK,
+} from "./../../AnyThinkAds/ATReactNativeSDK";
+
 function Home({ navigation }: BottomTabScreenProps<any>) {
   const isFocused = useIsFocused();
-  const { colors, textVariants, spacing } = useTheme();
+  const { colors, spacing } = useTheme();
   const [navId, setNavId] = useState(0);
-  const BTN_COLORS = ["#30AA55", "#7E9CEE", "#F1377A", "#FFCC12", "#ED7445"];
-  const [scrollEnabled, setScrollEnabled] = useState(true);
   const queryClient = useQueryClient();
   const [isOffline, setIsOffline] = useState(false);
   const [showHomeLoading, setShowHomeLoading] = useState(true);
-  const [isOpenDialog, setOpenDialog] = useState(false);
   const settingsReducer: SettingsReducerState = useAppSelector(
     ({ settingsReducer }: RootState) => settingsReducer
   );
@@ -137,10 +121,6 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   };
 
   useEffect(() => {
-    if (isFocused && !settingsReducer.isAcceptPrivacyPolicy) {
-      openPrivacyDialog();
-    }
-
     const handleTabPress = async () => {
       if (isFocused && !isRefreshing) {
         setIsRefreshing((prevIsRefreshing) => {
@@ -174,7 +154,6 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
             (index === 0 ? (
               <RecommendationHome
                 vodCarouselRes={item.data}
-                setScrollEnabled={setScrollEnabled}
                 onRefresh={handleRefresh}
                 onLoad={handleShowLoading}
                 refreshProp={isRefreshing}
@@ -184,7 +163,6 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
                 <CatagoryHome
                   vodCarouselRes={item.data}
                   navId={index}
-                  setScrollEnabled={setScrollEnabled}
                   onRefresh={handleRefresh}
                   refreshProp={isRefreshing}
                 />
@@ -196,9 +174,79 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
     []
   );
 
-  const openPrivacyDialog = () => {
-    setOpenDialog(true);
+  let tryToLoadCount = 0;
+  let adsReadyFlag = false;
+
+  const loadInterstitial = async (interstitialPlacementId) => {
+    // console.log("====================================");
+    // console.log("loadInterstitial");
+    // console.log("====================================");
+
+    var settings = {};
+    settings[ATInterstitialRNSDK.UseRewardedVideoAsInterstitial] = false;
+    //    settings[ATInterstitialRNSDK.UseRewardedVideoAsInterstitial] = true;
+
+    await ATInterstitialRNSDK.loadAd(interstitialPlacementId, settings);
+
+    if (Platform.OS === "android") {
+      isInterstitialReady(ANDROID_HOME_PAGE_POP_UP_ADS);
+    } else if (Platform.OS === "ios") {
+      isInterstitialReady(IOS_HOME_PAGE_POP_UP_ADS);
+    }
   };
+
+  const isInterstitialReady = (interstitialPlacementId) => {
+    ATInterstitialRNSDK.hasAdReady(interstitialPlacementId).then(
+      (isAdReady) => {
+        // console.log("====================================");
+        // console.log("isInterstitialReady: " + isAdReady);
+        // console.log("====================================");
+        if (isAdReady && adsReadyFlag == false) {
+          adsReadyFlag = true;
+          showInterstitial(interstitialPlacementId);
+        } else {
+          if (tryToLoadCount > 5 || adsReadyFlag == true) {
+            return;
+          }
+          tryToLoadCount += 1;
+          setTimeout(() => {
+            loadInterstitial(interstitialPlacementId);
+          }, 1000);
+        }
+      }
+    );
+
+    ATInterstitialRNSDK.checkAdStatus(interstitialPlacementId).then(
+      (adStatusInfo) => {
+        // console.log("====================================");
+        // console.log("isInterstitialReady: checkAdStatus: " + adStatusInfo);
+        // console.log("====================================");
+      }
+    );
+  };
+
+  const showInterstitial = (interstitialPlacementId) => {
+    console.log("====================================");
+    console.log("showInterstitial ....");
+    console.log("====================================");
+    ATInterstitialRNSDK.showAd(interstitialPlacementId);
+  };
+
+  useEffect(() => {
+    if (Platform.OS === "android") {
+      // loadBanner(ANDROID_HOME_PAGE_BANNER_ADS);
+      // loadBanner(ANDROID_PLAY_DETAILS_BANNER_ADS);
+      // loadBanner(ANDROID_TOPIC_DETAILS_BANNER_ADS);
+      // loadBanner(ANDROID_TOPIC_TAB_BANNER_ADS);
+      loadInterstitial(ANDROID_HOME_PAGE_POP_UP_ADS);
+    } else if (Platform.OS === "ios") {
+      // loadBanner(IOS_HOME_PAGE_BANNER_ADS);
+      // loadBanner(IOS_PLAY_DETAILS_BANNER_ADS);
+      // loadBanner(IOS_TOPIC_DETAILS_BANNER_ADS);
+      // loadBanner(IOS_TOPIC_TAB_BANNER_ADS);
+      loadInterstitial(IOS_HOME_PAGE_POP_UP_ADS);
+    }
+  }, []);
 
   return (
     <>
@@ -218,12 +266,15 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
         </View>
         <HomeNav
           // hideContent={hideContent}
-          tabList={navOptions?.map(e => ({
-            id: e.id,
-            title: e.name,
-            name: e.name,
-          })) ?? []}
-          tabChildren={(tab, i) => <>
+          tabList={
+            navOptions?.map((e) => ({
+              id: e.id,
+              title: e.name,
+              name: e.name,
+            })) ?? []
+          }
+          tabChildren={(tab, i) => (
+            <>
               {(!data || isRefreshing) && (
                 <View
                   style={{
@@ -267,15 +318,11 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
                   />
                 </View>
               )}
-              {data && !isOffline && getContent({item: data[i], index: i})}
+              {data && !isOffline && getContent({ item: data[i], index: i })}
             </>
-          }
+          )}
         />
       </ScreenContainer>
-
-      <PrivacyPolicyDialog />
-
-
       {isOffline && <NoConnection onClickRetry={checkConnection} />}
     </>
   );

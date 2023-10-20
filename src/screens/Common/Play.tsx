@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useMemo, useRef, useCallback } from 'react';
-import { BackHandler, Platform } from 'react-native';
 import {
   View,
   TouchableOpacity,
@@ -8,9 +7,7 @@ import {
   StyleSheet,
   Alert,
   ScrollView,
-  Image,
 } from 'react-native';
-import Video from 'react-native-video';
 import FavoriteButton from '../../components/button/favoriteVodButton';
 import FavoriteIcon from '../../../static/images/favorite.svg';
 import ScreenContainer from '../../components/container/screenContainer';
@@ -25,15 +22,11 @@ import {
   FavoriteVodReducerState,
   VodReducerState,
 } from '../../redux/reducers/vodReducer';
-import BackButton from '../../components/button/backButton';
 import SinaIcon from '../../../static/images/sina.svg';
 import WeChatIcon from '../../../static/images/wechat.svg';
 import QQIcon from '../../../static/images/qq.svg';
 import PYQIcon from '../../../static/images/pyq.svg';
 import MoreArrow from '../../../static/images/more_arrow.svg';
-import Animated, { log, useSharedValue } from 'react-native-reanimated';
-
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import VodEpisodeSelectionModal from '../../components/modal/vodEpisodeSelectionModal';
 import FastImage from 'react-native-fast-image';
 import { API_DOMAIN, API_DOMAIN_TEST, UMENG_CHANNEL } from '../../utility/constants';
@@ -42,14 +35,14 @@ import ShowMoreVodButton from '../../components/button/showMoreVodButton';
 import VodListVertical from '../../components/vod/vodListVertical';
 import VodPlayer from '../../components/videoPlayer/vodPlayer';
 import BottomSheet from '@gorhom/bottom-sheet';
-import appsFlyer from 'react-native-appsflyer';
 import { FlatList } from 'react-native-gesture-handler';
 import { SettingsReducerState } from '../../redux/reducers/settingsReducer';
+import BingSearch from '../../components/container/bingSearchContainer';
 
 import NoConnection from '../../components/common/noConnection';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 import AdsBanner from '../../ads/adsBanner';
-import Orientation from 'react-native-orientation-locker';
+import { handleAppOrientation, lockAppOrientation } from '../../redux/actions/settingsActions';
 
 type VideoRef = {
   setPause: (param: boolean) => void,
@@ -65,17 +58,6 @@ const definedValue = (val: any) => {
 };
 
 export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
-const insets = useSafeAreaInsets();
-
-  const [isFullscreen, setIsFullscreen] = useState(false)
-
-  useEffect(() => {
-    const listener = Orientation.addOrientationListener((orientation) => {
-      setIsFullscreen((orientation ===  'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT'))
-    })
-
-    return () => Orientation.removeAllListeners() 
-}, [])
 
   const { colors, spacing, textVariants, icons } = useTheme();
   const vodReducer: VodReducerState = useAppSelector(
@@ -98,6 +80,8 @@ const insets = useSafeAreaInsets();
   );
 
   // ATRNSDK.setLogDebug(true);
+
+  const [isVodRestricted, setVodRestricted] = useState(false);
 
   const [isCollapsed, setIsCollapsed] = useState(true);
 
@@ -237,6 +221,8 @@ const insets = useSafeAreaInsets();
     setCurrentEpisode(
       vod?.episodeWatched === undefined ? 0 : vod.episodeWatched,
     );
+
+    setVodRestricted(vod?.vod_restricted === 1);
   }, [vod]);
 
   const { data: suggestedVods, isFetching: isFetchingSuggestedVod } = useQuery({
@@ -337,16 +323,29 @@ const insets = useSafeAreaInsets();
     setShowEpisodeList(false)
   }, [])
 
+  const handleOrientation = (orientation: string) => {
+    dispatch(handleAppOrientation(orientation));
+  }
+  
+  const lockOrientation = (orientation: string) => {
+    dispatch(lockAppOrientation(orientation));
+  }
+
   return (
     <>
       <AdsBanner bottomTabHeight={0} />
       <ScreenContainer
         containerStyle={{ paddingRight: 0, paddingLeft: 0 }}>
-        {vod?.vod_play_list?.urls?.find(url => url.nid === currentEpisode)
+
+        {/* if isVodRestricted, show bing search */}
+        {isVodRestricted && vod && !isOffline && (
+          <BingSearch vod={vod} />
+        )}
+        
+        {!isVodRestricted && vod?.vod_play_list?.urls?.find(url => url.nid === currentEpisode)
           ?.url !== undefined &&
           !dismountPlayer &&
           !isOffline && (
-
             <VodPlayer
               vod_url={
                 vod.vod_play_list.urls.find(url => url.nid === currentEpisode)
@@ -372,6 +371,10 @@ const insets = useSafeAreaInsets();
               movieList={vod.type_id === 2 ? suggestedVods : []}
               showMoreType={vod.type_id === 2 ? 'movies' : 'episodes'}
               isFetchingRecommendedMovies={isFetchingSuggestedVod}
+              appOrientation={settingsReducer.appOrientation}
+              devicesOrientation={settingsReducer.devicesOrientation}
+              handleOrientation={handleOrientation}
+              lockOrientation={lockOrientation}
             // setNavBarOptions={setNavBarOptions}
             />
           )
@@ -617,7 +620,7 @@ const insets = useSafeAreaInsets();
               </View>
             </ScrollView>
             {
-              (!isFullscreen && vod?.vod_play_list !== undefined && vod?.vod_play_list.urls?.length > 1) && // only show if portrait
+              (settingsReducer.appOrientation === 'PORTRAIT' || settingsReducer.appOrientation === 'PORTRAIT-UPSIDEDOWN') && settingsReducer.isAppOrientationChanged && // only show if portrait
               <VodEpisodeSelectionModal
                 showEpisodeList={showEpisodeList}
                 handleClose={handleModalClose}
@@ -633,7 +636,6 @@ const insets = useSafeAreaInsets();
                 }}
                 rangeSize={EPISODE_RANGE_SIZE}
               />
-
             }
           </>
         )}
