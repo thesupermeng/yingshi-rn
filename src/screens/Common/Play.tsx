@@ -13,6 +13,7 @@ import FavoriteButton from '../../components/button/favoriteVodButton';
 import FavoriteIcon from '../../../static/images/favorite.svg';
 import ScreenContainer from '../../components/container/screenContainer';
 import { useTheme, useFocusEffect } from '@react-navigation/native';
+import { YSConfig } from "../../../ysConfig";
 
 import { RootStackScreenProps } from '../../types/navigationTypes';
 import { SuggestResponseType, VodDetailsResponseType } from '../../types/ajaxTypes';
@@ -186,12 +187,14 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
     // );
   }, []);
 
+  const localIp = YSConfig.instance.ip;
   const fetchVodDetails = () =>
-    fetch(`${API_DOMAIN}vod/v1/vod/detail?id=${vod?.vod_id}&appName=影视TV&platform=` + Platform.OS.toUpperCase() + `&channelId=` + UMENG_CHANNEL)
-      .then(response => response.json())
-      .then((json: VodDetailsResponseType) => {
-        return json.data[0];
-      });
+  fetch(`${API_DOMAIN}vod/v1/vod/detail?id=${vod?.vod_id}&appName=影视TV&platform=` + Platform.OS.toUpperCase() + `&channelId=` + UMENG_CHANNEL + `&ip=${localIp}`)
+    .then(response => response.json())
+    .then((json: VodDetailsResponseType) => {
+      setVodRestricted(json.data[0]?.vod_restricted === 1);
+      return json.data[0];
+    });
 
   const { data: vodDetails, isFetching: isFetchingVodDetails } = useQuery({
     queryKey: ['vodDetails', vod?.vod_id],
@@ -224,7 +227,6 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
       vod?.episodeWatched === undefined ? 0 : vod.episodeWatched,
     );
 
-    setVodRestricted(vod?.vod_restricted === 1);
   }, [vod]);
 
   const { data: suggestedVods, isFetching: isFetchingSuggestedVod } = useQuery({
