@@ -36,7 +36,7 @@ import Animated, { log, useSharedValue } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import VodEpisodeSelectionModal from '../../components/modal/vodEpisodeSelectionModal';
 import FastImage from 'react-native-fast-image';
-import { API_DOMAIN, API_DOMAIN_TEST } from '../../utility/constants';
+import { API_DOMAIN, API_DOMAIN_TEST, UMENG_CHANNEL } from '../../utility/constants';
 import { useQuery } from '@tanstack/react-query';
 import ShowMoreVodButton from '../../components/button/showMoreVodButton';
 import VodListVertical from '../../components/vod/vodListVertical';
@@ -200,11 +200,8 @@ const insets = useSafeAreaInsets();
     //   },
     // );
   }, []);
-
   const fetchVodDetails = () =>
-    fetch(
-      `${API_DOMAIN}vod/v1/vod/detail?id=${vod?.vod_id}`,
-    )
+    fetch(`${API_DOMAIN}vod/v1/vod/detail?id=${vod?.vod_id}&appName=萤视频&platform=` + Platform.OS.toUpperCase() + `&channelId=` + UMENG_CHANNEL)
       .then(response => response.json())
       .then((json: VodDetailsResponseType) => {
         return json.data[0];

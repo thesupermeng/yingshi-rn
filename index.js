@@ -19,6 +19,10 @@ import { Url } from './src/Sports/middleware/url';
 import 'react-native-gesture-handler';
 import { NetworkInfo } from 'react-native-network-info';
 import { API_DOMAIN, UMENG_CHANNEL, APP_VERSION, API_DOMAIN_TEST } from './src/utility/constants';
+import {
+    YING_SHI_PIN_ANDROID,
+    YING_SHI_PIN_IOS,
+} from '../utility/constants';
 
 AppRegistry.registerRunnable(appName, async initialProps => {
 
@@ -54,11 +58,11 @@ AppRegistry.registerRunnable(appName, async initialProps => {
             channel_id: UMENG_CHANNEL,
             version_number: APP_VERSION,
             mobile_os: Platform.OS,
-            product: "萤视频-ANDROID",
+            product: "萤视频-" + Platform.OS.toUpperCase(),
             mobile_model: "HUAWEIP20",
         }
 
-        const locationResponse = await fetch(`${API_DOMAIN_TEST}location/v1/info`, {
+        const locationResponse = await fetch(`${API_DOMAIN}location/v1/info`, {
             method: "POST",
             mode: "cors",
             cache: "no-cache",
