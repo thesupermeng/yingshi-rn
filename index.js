@@ -53,6 +53,8 @@ AppRegistry.registerRunnable(appName, async initialProps => {
         }
 
         const ipAddress = await NetworkInfo.getIPAddress();
+        YSConfig.instance.setNetworkIp(ipAddress);
+
         const locationBody = {
             ip_address: ipAddress,
             channel_id: UMENG_CHANNEL,
