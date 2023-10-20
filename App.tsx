@@ -66,7 +66,6 @@ import {
   TermsNavigateContext,
   TermsNavigateContextProvider,
 } from "./src/contexts/TermsNavigateContext";
-import PrivacyPolicyDialog from "./src/components/modal/privacyPolicyModel";
 import { TermsAcceptContextProvider } from "./src/contexts/TermsAcceptedContext";
 
 let App = () => {

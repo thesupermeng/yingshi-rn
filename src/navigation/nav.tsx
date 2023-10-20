@@ -89,11 +89,18 @@ import {
 } from "../redux/actions/userAction";
 import ExpiredOverlay from "../components/modal/expiredOverlay";
 import EventRules from "../screens/Profile/EventRules";
+import PrivacyPolicyOverlay from "../components/modal/privacyPolicyOverlay";
+import Orientation from "react-native-orientation-locker";
+import { handleAppOrientation, handleDevicesOrientation } from "../redux/actions/settingsActions";
+import { SettingsReducerState } from "../redux/reducers/settingsReducer";
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
   const HomeTab = createBottomTabNavigator<HomeTabParamList>();
   const { colors, textVariants, spacing } = useTheme();
+  const settingsReducer: SettingsReducerState = useAppSelector(
+    ({ settingsReducer }: RootState) => settingsReducer,
+  );
   const themeReducer = useAppSelector(
     ({ themeReducer }: RootState) => themeReducer
   );
@@ -231,7 +238,7 @@ export default () => {
         </>
       </HomeTab.Navigator>
     );
-  }, [])
+  }, []);
 
   const refreshUserState = async () => {
     let result;
@@ -246,6 +253,8 @@ export default () => {
     await dispatch(updateUserAuth(resultData));
     return;
   };
+  // privacy & policy overlay
+  const [showPrivacyOverlay, setShowPrivacyOverlay] = useState(false);
 
   // vip remaining day dialog
   const [showVIPOverlay, setShowVIPOverlay] = useState(false);
@@ -317,6 +326,29 @@ export default () => {
 
   useEffect(() => {
     refreshUserState();
+
+    // init orientation by current
+    Orientation.getOrientation(orientation => {
+      dispatch(handleAppOrientation(orientation));
+    });
+    Orientation.getDeviceOrientation(orientation => {
+      dispatch(handleDevicesOrientation(orientation));
+    });
+
+    const appOrientationListener = (orientation: string) => {
+      dispatch(handleAppOrientation(orientation));
+    }
+    const deviceOrientationListener = (orientation: string) => {
+      dispatch(handleDevicesOrientation(orientation));
+    }
+
+    Orientation.addOrientationListener(appOrientationListener);
+    Orientation.addDeviceOrientationListener(deviceOrientationListener);
+
+    return () => {
+      Orientation.removeOrientationListener(appOrientationListener);
+      Orientation.removeDeviceOrientationListener(deviceOrientationListener);
+    }
   }, []);
 
   return (
@@ -421,8 +453,16 @@ export default () => {
             options={{ orientation: "portrait" }}
           />
         </Stack.Navigator>
-        <LoginBottomSheet sheetRef={sheetRefLogin} />
-        <RegisterBottomSheet sheetRef={sheetRefRegister} />
+        { (settingsReducer.appOrientation === 'PORTRAIT' || settingsReducer.appOrientation === 'PORTRAIT-UPSIDEDOWN') && settingsReducer.isAppOrientationChanged && // only show if portrait
+          <>
+            <LoginBottomSheet sheetRef={sheetRefLogin} />
+            <RegisterBottomSheet sheetRef={sheetRefRegister} />
+          </>
+        }
+        <PrivacyPolicyOverlay
+          isVisible={showPrivacyOverlay}
+          setIsVisible={setShowPrivacyOverlay}
+        />
         <ExpiredOverlay
           remainingDay={vipRemainingDay}
           showVIPOverlay={showVIPOverlay}

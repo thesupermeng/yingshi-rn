@@ -23,7 +23,6 @@ export default function ScreenContainer({
 }: Props) {
   const windowHeight = Dimensions.get('window').height;
   let bottomTabHeight = 0;
-  const [isLandscape, setIsLandscape] = useState(false);
 
   try {
     useBottomTabBarHeight();
@@ -36,21 +35,6 @@ export default function ScreenContainer({
 
   const insets = useSafeAreaInsets();
   const { spacing, colors } = useTheme();
-
-  const handleOrientation = (orientation: any) => {
-    if (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT') {
-      setIsLandscape(true);
-    } else {
-      setIsLandscape(false);
-    }
-  };
-
-  useEffect(() => {
-    Orientation.addOrientationListener(handleOrientation);
-    return () => {
-      Orientation.removeOrientationListener(handleOrientation);
-    };
-  }, [handleOrientation, Orientation]);
 
   return (
     <>

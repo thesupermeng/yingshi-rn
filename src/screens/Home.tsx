@@ -1,22 +1,5 @@
-import React, {
-  useMemo,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-  memo,
-  useContext,
-} from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  FlatList,
-  Dimensions,
-  RefreshControl,
-  Platform,
-} from "react-native";
+import React, { useCallback, useEffect, useState, memo } from "react";
+import { Platform, StyleSheet, View } from "react-native";
 import ScreenContainer from "../components/container/screenContainer";
 import { useTheme } from "@react-navigation/native";
 import { useQuery, useQueries, UseQueryResult } from "@tanstack/react-query";
@@ -24,10 +7,6 @@ import { useQueryClient } from "@tanstack/react-query";
 import {
   NavOptionsResponseType,
   VodCarousellResponseType,
-  VodPlaylistResponseType,
-  VodTopicType,
-  VodType,
-  LiveTVStationsResponseType,
 } from "../types/ajaxTypes";
 import {
   BottomTabScreenProps,
@@ -36,7 +15,6 @@ import {
 import {
   ANDROID_HOME_PAGE_POP_UP_ADS,
   API_DOMAIN,
-  API_DOMAIN_TEST,
   IOS_HOME_PAGE_POP_UP_ADS,
 } from "../utility/constants";
 import CatagoryHome from "../components/container/CatagoryHome";
@@ -47,12 +25,9 @@ import FastImage from "react-native-fast-image";
 import { useIsFocused } from "@react-navigation/native";
 import NoConnection from "./../components/common/noConnection";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
-import PrivacyPolicyDialog from "../components/modal/privacyPolicyModel";
 import { useAppSelector, useAppDispatch } from "../hooks/hooks";
 import { RootState } from "../redux/store";
 import { SettingsReducerState } from "../redux/reducers/settingsReducer";
-import { acceptPrivacyPolicy } from "../redux/actions/settingsActions";
-import RNExitApp from "react-native-exit-app";
 import AdsBanner from "../ads/adsBanner";
 import HomeNav from "../components/tabNavigate/homeNav";
 
@@ -64,14 +39,11 @@ import {
 
 function Home({ navigation }: BottomTabScreenProps<any>) {
   const isFocused = useIsFocused();
-  const { colors, textVariants, spacing } = useTheme();
+  const { colors, spacing } = useTheme();
   const [navId, setNavId] = useState(0);
-  const BTN_COLORS = ["#30AA55", "#7E9CEE", "#F1377A", "#FFCC12", "#ED7445"];
-  const [scrollEnabled, setScrollEnabled] = useState(true);
   const queryClient = useQueryClient();
   const [isOffline, setIsOffline] = useState(false);
   const [showHomeLoading, setShowHomeLoading] = useState(true);
-  const [isOpenDialog, setOpenDialog] = useState(false);
   const settingsReducer: SettingsReducerState = useAppSelector(
     ({ settingsReducer }: RootState) => settingsReducer
   );
@@ -149,10 +121,6 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   };
 
   useEffect(() => {
-    if (isFocused && !settingsReducer.isAcceptPrivacyPolicy) {
-      openPrivacyDialog();
-    }
-
     const handleTabPress = async () => {
       if (isFocused && !isRefreshing) {
         setIsRefreshing((prevIsRefreshing) => {
@@ -186,7 +154,6 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
             (index === 0 ? (
               <RecommendationHome
                 vodCarouselRes={item.data}
-                setScrollEnabled={setScrollEnabled}
                 onRefresh={handleRefresh}
                 onLoad={handleShowLoading}
                 refreshProp={isRefreshing}
@@ -196,7 +163,6 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
                 <CatagoryHome
                   vodCarouselRes={item.data}
                   navId={index}
-                  setScrollEnabled={setScrollEnabled}
                   onRefresh={handleRefresh}
                   refreshProp={isRefreshing}
                 />
@@ -207,10 +173,6 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
     },
     []
   );
-
-  const openPrivacyDialog = () => {
-    setOpenDialog(true);
-  };
 
   let tryToLoadCount = 0;
   let adsReadyFlag = false;
@@ -243,7 +205,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
           adsReadyFlag = true;
           showInterstitial(interstitialPlacementId);
         } else {
-          if (tryToLoadCount > 10 || adsReadyFlag == true) {
+          if (tryToLoadCount > 5 || adsReadyFlag == true) {
             return;
           }
           tryToLoadCount += 1;
@@ -271,9 +233,6 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   };
 
   useEffect(() => {
-    console.log("=======================");
-    console.log("show ads here");
-    console.log("=======================");
     if (Platform.OS === "android") {
       // loadBanner(ANDROID_HOME_PAGE_BANNER_ADS);
       // loadBanner(ANDROID_PLAY_DETAILS_BANNER_ADS);
@@ -364,9 +323,6 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
           )}
         />
       </ScreenContainer>
-
-      <PrivacyPolicyDialog />
-
       {isOffline && <NoConnection onClickRetry={checkConnection} />}
     </>
   );

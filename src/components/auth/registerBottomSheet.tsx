@@ -1,65 +1,25 @@
 import React, {
   useState,
-  useMemo,
   RefObject,
   memo,
-  useCallback,
   useEffect,
   useRef,
+  useCallback,
 } from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Dimensions,
-  ImageBackground,
-  Image,
   Keyboard,
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
-import {useNavigation, useTheme} from '@react-navigation/native';
-import {VodEpisodeListType, VodEpisodeType} from '../../types/ajaxTypes';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import BottomSheet, {
-  BottomSheetBackdrop,
-  BottomSheetFlatList,
-  BottomSheetModalProvider,
-  BottomSheetScrollView,
-  BottomSheetView,
-} from '@gorhom/bottom-sheet';
 import {BottomSheetMethods} from '@gorhom/bottom-sheet/lib/typescript/types';
-import {GestureHandlerRootView, FlatList} from 'react-native-gesture-handler';
-import {BottomSheetDefaultBackdropProps} from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types';
-import SortAscIcon from '../../static/images/sortAsc.svg';
-import SortDescIcon from '../../static/images/sortDesc.svg';
-import FastImage from 'react-native-fast-image';
-import {useQuery} from '@tanstack/react-query';
-import {
-  selectMiniVodCollection,
-  setFromMiniVodCollection,
-} from '../../redux/actions/miniVodActions';
-import {
-  API_DOMAIN,
-  API_DOMAIN_TEST,
-  API_DOMAIN_LOCAL,
-} from '../../utility/constants';
-import {
-  CollectionResponseType,
-  MiniVideoCollectionItem,
-} from '../../types/ajaxTypes';
-import {getMinuteSecond} from '../../utility/helper';
-import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
-import {RootState} from '../../redux/store';
-import {MiniVodReducerState} from '../../redux/reducers/miniVodReducer';
-import {Login} from '../profile/login';
+import {useAppDispatch} from '../../hooks/hooks';
 import {
   resetBottomSheetForm,
   showLoginAction,
-  showRegisterAction,
 } from '../../redux/actions/screenAction';
 import {Register} from '../profile/register';
+import { BottomSheetDefaultBackdropProps } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types';
+import BottomSheet, { BottomSheetBackdrop } from '@gorhom/bottom-sheet';
 
 interface Props {
   sheetRef?: RefObject<BottomSheetMethods>;
@@ -68,8 +28,7 @@ interface Props {
 
 function RegisterBottomSheet({sheetRef, displayMode}: Props) {
   const dispatch = useAppDispatch();
-  const scrollRef = useRef<any>();
-  const [snapPoints, setSnapPoints] = useState([1, 400]); // Initial snap points
+  const [snapPoints, setSnapPoints] = useState<string[] | number[]>([1, 400]); // Initial snap points
   const renderBackdrop = useCallback(
     (
       props: React.JSX.IntrinsicAttributes & BottomSheetDefaultBackdropProps,
@@ -144,33 +103,5 @@ function RegisterBottomSheet({sheetRef, displayMode}: Props) {
     </BottomSheet>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
-    flex: 1,
-    height: '100%',
-  },
-  episodeList: {
-    display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    // alignItems: 'flex-start',
-    paddingLeft: 10,
-  },
-  bottomSheetItem: {
-    width: '100%',
-    marginVertical: 1,
-    padding: 7,
-    // paddingVertical: 8,
-    borderRadius: 6,
-    flex: 1,
-  },
-  selectedBottomSheetItem: {
-    backgroundColor: '#303030',
-  },
-  notSelected: {},
-});
 
 export default memo(RegisterBottomSheet);

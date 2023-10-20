@@ -83,6 +83,7 @@ function ShortVideoPlayer({
   const [imageLoaded, setImageLoaded] = useState(false);
   const [vodUrl, setVodUrl] = useState(vod_url);
   const sheetRef = useRef<BottomSheet>(null);
+  const overlayRef = useRef(false);
 
   const windowWidth = Dimensions.get('window').width;
 
@@ -127,6 +128,7 @@ function ShortVideoPlayer({
   const showControls = () => {
     clearTimeout(timer.current);
     setShowOverlay(true);
+    overlayRef.current = true
     timer.current = setTimeout(() => setShowOverlay(false), 3000);
   };
   const handleSeek = useCallback((value: number) => {
@@ -175,7 +177,7 @@ function ShortVideoPlayer({
     <TouchableWithoutFeedback
       onPress={() => {
         showControls();
-        if (showOverlay) {
+        if (overlayRef.current) {
           handlePlayPause();
         }
       }}>
