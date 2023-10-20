@@ -37,6 +37,7 @@ import VodPlayer from '../../components/videoPlayer/vodPlayer';
 import BottomSheet from '@gorhom/bottom-sheet';
 import { FlatList } from 'react-native-gesture-handler';
 import { SettingsReducerState } from '../../redux/reducers/settingsReducer';
+import BingSearch from '../../components/container/bingSearchContainer';
 
 import NoConnection from '../../components/common/noConnection';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
@@ -79,6 +80,8 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
   );
 
   // ATRNSDK.setLogDebug(true);
+
+  const [isVodRestricted, setVodRestricted] = useState(false);
 
   const [isCollapsed, setIsCollapsed] = useState(true);
 
@@ -221,6 +224,8 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
     setCurrentEpisode(
       vod?.episodeWatched === undefined ? 0 : vod.episodeWatched,
     );
+
+    setVodRestricted(vod?.vod_restricted === 1);
   }, [vod]);
 
   const { data: suggestedVods, isFetching: isFetchingSuggestedVod } = useQuery({
@@ -334,7 +339,13 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
       <AdsBanner bottomTabHeight={0} />
       <ScreenContainer
         containerStyle={{ paddingRight: 0, paddingLeft: 0 }}>
-        {vod?.vod_play_list?.urls?.find(url => url.nid === currentEpisode)
+
+        {/* if isVodRestricted, show bing search */}
+        {isVodRestricted && vod && !isOffline && (
+          <BingSearch vod={vod} />
+        )}
+        
+        {!isVodRestricted && vod?.vod_play_list?.urls?.find(url => url.nid === currentEpisode)
           ?.url !== undefined &&
           !dismountPlayer &&
           !isOffline && (
