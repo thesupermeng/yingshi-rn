@@ -2,7 +2,7 @@ import React, { useEffect, useState, useMemo, useRef, useCallback } from 'react'
 import {
   View,
   TouchableOpacity,
-  Share,
+Share,
   Text,
   StyleSheet,
   Alert,
@@ -31,12 +31,15 @@ import PYQIcon from '../../../static/images/pyq.svg';
 import MoreArrow from '../../../static/images/more_arrow.svg';
 import VodEpisodeSelectionModal from '../../components/modal/vodEpisodeSelectionModal';
 import FastImage from 'react-native-fast-image';
+<<<<<<< HEAD
 import { API_DOMAIN, UMENG_CHANNEL } from '../../utility/constants';
+=======
+import { API_DOMAIN, API_DOMAIN_TEST, UMENG_CHANNEL } from '../../utility/constants';
+>>>>>>> yingshi-cn-dev-b-screen
 import { useQuery } from '@tanstack/react-query';
 import ShowMoreVodButton from '../../components/button/showMoreVodButton';
 import VodListVertical from '../../components/vod/vodListVertical';
 import VodPlayer from '../../components/videoPlayer/vodPlayer';
-import BottomSheet from '@gorhom/bottom-sheet';
 import { FlatList } from 'react-native-gesture-handler';
 import { SettingsReducerState } from '../../redux/reducers/settingsReducer';
 import BingSearch from '../../components/container/bingSearchContainer';
@@ -96,7 +99,6 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
   };
 
   const currentTimeRef = useRef<number>(0);
-  const sheetRef = useRef<BottomSheet>(null);
   const episodeRef = useRef<FlatList>(null);
   const videoPlayerRef = useRef() as React.MutableRefObject<VideoRef>;
   const currentEpisodeRef = useRef<number>();
@@ -104,7 +106,7 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
 
   const [dismountPlayer, setDismountPlayer] = useState(false);
   const [isOffline, setIsOffline] = useState(false);
-  const [showEpisodeList, setShowEpisodeList] = useState(false);
+  const [isShowSheet, setShowSheet] = useState(false);
 
   const EPISODE_RANGE_SIZE = 100;
 
@@ -187,9 +189,16 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
     // );
   }, []);
 
+<<<<<<< HEAD
   const localIp = YSConfig.instance.ip;
   const fetchVodDetails = () =>
   fetch(`${API_DOMAIN}vod/v1/vod/detail?id=${vod?.vod_id}&appName=影视TV&platform=` + Platform.OS.toUpperCase() + `&channelId=` + UMENG_CHANNEL + `&ip=${localIp}`)
+=======
+
+  const localIp = YSConfig.instance.ip;
+  const fetchVodDetails = () =>
+  fetch(`${API_DOMAIN}vod/v1/vod/detail?id=${vod?.vod_id}&appName=萤视频&platform=` + Platform.OS.toUpperCase() + `&channelId=` + UMENG_CHANNEL + `&ip=${localIp}`)
+>>>>>>> yingshi-cn-dev-b-screen
     .then(response => response.json())
     .then((json: VodDetailsResponseType) => {
       setVodRestricted(json.data[0]?.vod_restricted === 1);
@@ -324,7 +333,7 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
   };
 
   const handleModalClose = useCallback(() => {
-    setShowEpisodeList(false)
+    setShowSheet(false)
   }, [])
 
   const handleOrientation = (orientation: string) => {
@@ -557,8 +566,7 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
                                 <TouchableOpacity
                                   style={styles.share}
                                   onPress={() => {
-                                  sheetRef.current?.snapToIndex(1)
-                                  setShowEpisodeList(true) // render list only when modal is up
+                                    setShowSheet(true) // render list only when modal is up
                                   }}>
                                   <Text
                                     style={{
@@ -624,15 +632,14 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
               </View>
             </ScrollView>
             {
-              (settingsReducer.appOrientation === 'PORTRAIT' || settingsReducer.appOrientation === 'PORTRAIT-UPSIDEDOWN') && settingsReducer.isAppOrientationChanged && // only show if portrait
+              (settingsReducer.appOrientation === 'PORTRAIT') && settingsReducer.isAppOrientationChanged && // only show if portrait
               <VodEpisodeSelectionModal
-                showEpisodeList={showEpisodeList}
+                isVisible={isShowSheet}
                 handleClose={handleModalClose}
                 activeEpisode={currentEpisode}
                 episodes={vod?.vod_play_list}
-                sheetRef={sheetRef}
                 onCancel={() => {
-                  sheetRef.current?.close()
+                  setShowSheet(false);
                 }}
                 onConfirm={(id: number) => {
                   setCurrentEpisode(id);

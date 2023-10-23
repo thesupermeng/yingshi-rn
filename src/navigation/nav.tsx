@@ -73,13 +73,11 @@ import {
   hideLoginAction,
   hideRegisterAction,
   removeScreenAction,
-  resetBecomeVip,
   resetBottomSheetAction,
 } from "../redux/actions/screenAction";
 import { Dialog } from "@rneui/themed";
 import FastImage from "react-native-fast-image";
 import { screenModel } from "../types/screenType";
-import BottomSheet from "@gorhom/bottom-sheet";
 import { YingshiDarkTheme, YingshiLightTheme } from "../utility/theme";
 import { userModel } from "../types/userType";
 import { getUserDetails } from "../features/user";
@@ -91,7 +89,7 @@ import ExpiredOverlay from "../components/modal/expiredOverlay";
 import EventRules from "../screens/Profile/EventRules";
 import PrivacyPolicyOverlay from "../components/modal/privacyPolicyOverlay";
 import Orientation from "react-native-orientation-locker";
-import { handleAppOrientation, handleDevicesOrientation } from "../redux/actions/settingsActions";
+import { handleAppOrientation, handleDevicesOrientation, lockAppOrientation } from "../redux/actions/settingsActions";
 import { SettingsReducerState } from "../redux/reducers/settingsReducer";
 
 export default () => {
@@ -292,9 +290,9 @@ export default () => {
   );
   const [gifKey, setGifKey] = useState(0);
 
-  //login screen state
-  const sheetRefLogin = useRef<BottomSheet>(null);
-  const sheetRefRegister = useRef<BottomSheet>(null);
+  const [isShowLogin, setShowLogin] = useState(false);
+  const [isShowRegister, setShowRegister] = useState(false);
+
   useEffect(() => {
     if (screenState.screenShow != false) {
       dispatch(removeScreenAction());
@@ -309,18 +307,18 @@ export default () => {
 
     if (screenState.loginShow == true) {
       dispatch(hideLoginAction());
-      sheetRefRegister.current?.close();
-      sheetRefLogin.current?.snapToIndex(1);
+      setShowRegister(false);
+      setShowLogin(true);
     }
     if (screenState.registerShow == true) {
       dispatch(hideRegisterAction());
-      sheetRefLogin.current?.close();
-      sheetRefRegister.current?.snapToIndex(1);
+      setShowLogin(false);
+      setShowRegister(true);
     }
     if (screenState.resetBottomSheet == true) {
       dispatch(resetBottomSheetAction());
-      sheetRefLogin.current?.close();
-      sheetRefRegister.current?.close();
+      setShowLogin(false);
+      setShowRegister(false);
     }
   }, [screenState]);
 
@@ -333,6 +331,8 @@ export default () => {
     });
     Orientation.getDeviceOrientation(orientation => {
       dispatch(handleDevicesOrientation(orientation));
+      // defalut set portrait
+      dispatch(lockAppOrientation('PORTRAIT'));
     });
 
     const appOrientationListener = (orientation: string) => {
@@ -453,10 +453,10 @@ export default () => {
             options={{ orientation: "portrait" }}
           />
         </Stack.Navigator>
-        { (settingsReducer.appOrientation === 'PORTRAIT' || settingsReducer.appOrientation === 'PORTRAIT-UPSIDEDOWN') && settingsReducer.isAppOrientationChanged && // only show if portrait
+        { (settingsReducer.appOrientation === 'PORTRAIT') && settingsReducer.isAppOrientationChanged && // only show if portrait
           <>
-            <LoginBottomSheet sheetRef={sheetRefLogin} />
-            <RegisterBottomSheet sheetRef={sheetRefRegister} />
+            <LoginBottomSheet isVisible={isShowLogin} handleClose={() => setShowLogin(false)} />
+            <RegisterBottomSheet isVisible={isShowRegister} handleClose={() => setShowRegister(false)} />
           </>
         }
         <PrivacyPolicyOverlay

@@ -1,26 +1,20 @@
-import React, { useState, useMemo, RefObject, memo, useCallback, useEffect, useRef } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Dimensions, ImageBackground, Image } from 'react-native';
+import React, { useState, memo, useCallback, useEffect, useRef } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { useNavigation, useTheme } from '@react-navigation/native';
-import { VodEpisodeListType, VodEpisodeType } from '../../types/ajaxTypes';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import BottomSheet, { BottomSheetBackdrop, BottomSheetFlatList, BottomSheetModalProvider, BottomSheetScrollView, BottomSheetView } from "@gorhom/bottom-sheet";
-import { BottomSheetMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
-import { GestureHandlerRootView, FlatList } from 'react-native-gesture-handler';
-import { BottomSheetDefaultBackdropProps } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types';
-import SortAscIcon from '../../../static/images/sortAsc.svg';
-import SortDescIcon from '../../../static/images/sortDesc.svg';
 import FastImage from 'react-native-fast-image';
 import { useQuery } from '@tanstack/react-query';
 import { selectMiniVodCollection, setFromMiniVodCollection } from '../../redux/actions/miniVodActions';
-import { API_DOMAIN, API_DOMAIN_TEST, API_DOMAIN_LOCAL } from '../../utility/constants';
+import { API_DOMAIN } from '../../utility/constants';
 import { CollectionResponseType, MiniVideoCollectionItem } from '../../types/ajaxTypes';
 import { getMinuteSecond } from '../../utility/helper';
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
 import { RootState } from '../../redux/store';
 import { MiniVodReducerState } from '../../redux/reducers/miniVodReducer';
+import BottomSheet from '../bottomSheet/bottomSheet';
 
 interface Props {
-    sheetRef?: RefObject<BottomSheetMethods>;
+    isVisible?: boolean;
+    handleClose?: () => any;
     collectionId: number;
     collectionVideoList?: any;
     collectionVideoId?: number;
@@ -31,12 +25,7 @@ interface Props {
     changeCurrentVodIndex?: any;
 }
 
-interface TrimResType {
-    toPlayPosition: number;
-    trimmedItems: MiniVideoCollectionItem[];
-}
-
-function CollectionBottomSheet({ changeEpisode, sheetRef, collectionName, collectionVideoId = 0, collectionId, inCollectionView = false, currentVodIndex = 0 } : Props) {
+function CollectionBottomSheet({ isVisible = false, handleClose, collectionName, collectionVideoId = 0, collectionId, inCollectionView = false, changeEpisode, currentVodIndex = 0 } : Props) {
     
     const scrollRef = useRef<any>();
     const miniVodReducer: MiniVodReducerState = useAppSelector(
@@ -49,6 +38,14 @@ function CollectionBottomSheet({ changeEpisode, sheetRef, collectionName, collec
     const [totalCollectionEpisodes, setTotalCollectionEpisodes] = useState(0);
     const [itemIndex, setItemIndex] = useState(0);
     const [imageError, setImageError] = useState(false);
+    
+    useEffect(() => {
+        if(isVisible){
+            setEnabledUseQuery(true);
+        }else{
+            setEnabledUseQuery(false);
+        }
+    }, [isVisible]);
 
     const {
         isLoading,
@@ -92,22 +89,10 @@ function CollectionBottomSheet({ changeEpisode, sheetRef, collectionName, collec
     }, [collectionData])
     
     const { colors, textVariants, spacing } = useTheme();
-    const snapPoints = useMemo(() => ["25%", "80%"], []);
-    const renderBackdrop = useCallback(
-        (props: React.JSX.IntrinsicAttributes & BottomSheetDefaultBackdropProps) => <BottomSheetBackdrop {...props} />,
-        []);
 
-    const handleSheetChanges = useCallback((index: number) => {
-        if (index === 0 && sheetRef?.current) {
-            sheetRef?.current.close();
-        }
-
-        if(index == 1){
-            setEnabledUseQuery(true);
-        }else{
-            setEnabledUseQuery(false);
-        }
-    }, [sheetRef]);
+    const handleSheetChanges = () => {
+        if(handleClose !== undefined) handleClose();
+    };
 
     const goToCollection = useCallback((item: MiniVideoCollectionItem, index: number) => {
         if(collectionData !== undefined){
@@ -130,19 +115,13 @@ function CollectionBottomSheet({ changeEpisode, sheetRef, collectionName, collec
     if(collectionData != undefined && selectedIndex > collectionData.length - 1){
         selectedIndex = 0;
     }
+
     return (
         <BottomSheet
-            ref={sheetRef}
-            index={-1}
-            snapPoints={snapPoints}
-            onChange={handleSheetChanges}
-            backdropComponent={renderBackdrop}
-            backgroundStyle={{
-                backgroundColor: '#171717',
-            }}
-            handleIndicatorStyle={{
-                backgroundColor: '#414040',
-                width: 50
+            isVisible={isVisible}
+            onBackdropPress={handleSheetChanges}
+            containerStyle={{
+                height: '60%',
             }}
         >   
             <View
@@ -152,6 +131,7 @@ function CollectionBottomSheet({ changeEpisode, sheetRef, collectionName, collec
                     backgroundColor: '#171717',
                     paddingLeft: spacing.sideOffset,
                     paddingRight: spacing.sideOffset,
+                    paddingBottom: 50,
                     gap: spacing.m
                 }}
             >
@@ -164,28 +144,28 @@ function CollectionBottomSheet({ changeEpisode, sheetRef, collectionName, collec
 
                 { (isLoading || isFetching || !enabledUseQuery) &&
                     <View style={{ flex: 1, alignContent: 'center', alignItems: 'center', justifyContent: 'center' }}>
-                        <FastImage
+                        <Image
                             style={{ height: 80, width: 80 }}
                             source={require('../../../static/images/loading-spinner.gif')}
-                            resizeMode={FastImage.resizeMode.contain}
+                            resizeMode={'contain'}
                         />
                     </View>
                 }
                 { !isLoading && !isFetching && collectionData != undefined && enabledUseQuery && 
                     <View style={{ flex: 1, marginRight: 8 }}>
-                        <BottomSheetScrollView ref={scrollRef} showsVerticalScrollIndicator={false}>
+                        <ScrollView ref={scrollRef} showsVerticalScrollIndicator={false}>
                             {collectionData?.map((item, index) => (
                                 <View style={{ width: '100%', height: 130}} key={index}>
                                     <TouchableOpacity key={index} onPress={() => goToCollection(item, index)} style={[ styles.bottomSheetItem, index == selectedIndex ? styles.selectedBottomSheetItem : styles.notSelected ]}>
                                         <View style={{ flex: 1, flexDirection: 'row' }}>
                                             <View style={{ flex: 2, backgroundColor: 'black', borderRadius: 6 }}>
-                                                <FastImage
-                                                    style={{ borderRadius: 6, height: '100%' }}
+                                                <Image
+                                                    style={{ height: '100%' }}
                                                     source={{
                                                         uri: imageError == false ? item.mini_video_origin_cover : 'https://static.wixstatic.com/media/5dca26_0052ca4edcc94049a9115dea94e6616d~mv2.png',
                                                     }}
                                                     onError={() => setImageError(true)}
-                                                    resizeMode={FastImage.resizeMode.contain}
+                                                    resizeMode={'contain'}
                                                 />
                                             </View>
                                             <View style={{ flex: 6, flexDirection: 'column', alignSelf: 'center' }}>
@@ -198,7 +178,7 @@ function CollectionBottomSheet({ changeEpisode, sheetRef, collectionName, collec
                                     </TouchableOpacity>
                                 </View>
                             ))}
-                        </BottomSheetScrollView>
+                        </ScrollView>
                     </View>
                 }
             </View>

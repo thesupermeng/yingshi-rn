@@ -1,7 +1,6 @@
-import React, {useEffect, useState, memo, useMemo, useRef, useCallback} from 'react';
+import React, {useState, memo, useCallback} from 'react';
 import ShortVideoPlayer from '../../components/videoPlayer/shortVodPlayer';
 import CollectionBottomSheet from '../../../src/components/miniCollection/CollectionBottomSheet';
-import BottomSheet from '@gorhom/bottom-sheet';
 
 interface Props {
     vod_url?: string;
@@ -24,7 +23,7 @@ function ShortVod({
     inCollectionView = false,
     setCollectionEpisode
 }: Props) {
-    const sheetRef = useRef<BottomSheet>(null);
+    const [isShowBottomSheet, setShowBottomSheet] = useState(false);
     const [vodUrl, setVodUrl] = useState(vod_url);
     const [currentVod, setVod] = useState(vod);
 
@@ -32,11 +31,11 @@ function ShortVod({
         setVodUrl(item.mini_video_origin_video_url);
         setVod(item);
         setCollectionEpisode(index);
-        sheetRef.current?.close();
+        setShowBottomSheet(false);
     }, []);
 
     const openSheet = () => {
-        sheetRef.current?.snapToIndex(1);
+        setShowBottomSheet(true);
     }
 
     return(
@@ -53,7 +52,8 @@ function ShortVod({
                 openSheet={openSheet}
             />
             <CollectionBottomSheet 
-                sheetRef={sheetRef}
+                isVisible={isShowBottomSheet}
+                handleClose={() => setShowBottomSheet(false)}
                 collectionVideoId={currentVod.mini_video_id}
                 collectionId={currentVod.mini_video_heji_id}
                 collectionName={currentVod.mini_video_collection_title}

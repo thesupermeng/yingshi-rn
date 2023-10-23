@@ -1,24 +1,14 @@
-import React, { useCallback, useEffect, useRef, useState, memo, useMemo } from "react";
-import { ListItem } from "@rneui/themed";
+import React, { useCallback, useEffect, useState, memo } from "react";
 import {
   View,
   TouchableOpacity,
   Text,
   StyleSheet,
-  KeyboardAvoidingView,
   Image,
-  Platform,
-  useWindowDimensions,
   ScrollView,
   RefreshControl,
-  Modal,
-  ActivityIndicator,
-  SafeAreaView,
-  FlatList
 } from "react-native";
-import ScreenContainer from "../../components/container/screenContainer";
 import { useTheme, useFocusEffect } from "@react-navigation/native";
-import { toggleTheme } from "../../redux/actions/themeAction";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { RootState } from "../../redux/store";
 import ShowMoreButton from "../../components/button/showMoreButton";
@@ -28,12 +18,8 @@ import HistoryIcon from "../../../static/images/history.svg";
 import FeedbackIcon from "../../../static/images/feedback.svg";
 import SettingsIcon from "../../../static/images/settings.svg";
 import InfoIcon from "../../../static/images/info.svg";
-import DownloadIcon from "../../../static/images/download.svg";
 import { useNavigation } from "@react-navigation/native";
-import ShareIcon from "../../../static/images/share.svg";
 
-import LightMode from "../../../static/images/light_mode.svg";
-import DarkMode from "../../../static/images/dark_mode.svg";
 import Orientation from "react-native-orientation-locker";
 import ProfileIcon from "../../../static/images/profile.svg";
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
@@ -42,11 +28,6 @@ import EditIcn from "./../../../static/images/profile/edit.svg";
 
 import VipIcon from "../../../static/images/vip-icon.svg";
 import VipArrow from "../../../static/images/vip-arrow.svg";
-
-import UpgradeIcon from "../../../static/images/upgrade.svg";
-import RightArrow from "../../../static/images/right-arrow-yellow.svg";
-
-import BottomSheet from "@gorhom/bottom-sheet";
 
 import {
   hideBottomSheetAction,

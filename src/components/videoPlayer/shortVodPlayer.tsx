@@ -1,4 +1,4 @@
-import React, {useEffect, useState, memo, useMemo, useCallback, useRef} from 'react';
+import React, {useEffect, useState, memo, useCallback, useRef} from 'react';
 import {
   View,
   TouchableWithoutFeedback,
@@ -8,20 +8,16 @@ import {
   Dimensions,
 } from 'react-native';
 import Video, {OnProgressData} from 'react-native-video';
-import {debounce, throttle} from 'lodash';
 import PlayIcon from '../../../static/images/blackPlay.svg';
 import PauseIcon from '../../../static/images/pause.svg';
 import PlayZhengPianIcon from '../../../static/images/play-zhengpian1.svg';
 import PlayBoDanIcon from '../../../static/images/play-bodan.svg';
 
-import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 import FastImage from 'react-native-fast-image';
 import { Slider } from '@rneui/themed';
 import { useAppDispatch } from '../../hooks/hooks';
 import { useNavigation, useTheme } from '@react-navigation/native';
 import { playVod, viewPlaylistDetails } from '../../redux/actions/vodActions';
-import BottomSheet from '@gorhom/bottom-sheet';
-import CollectionBottomSheet from '../../../src/components/miniCollection/CollectionBottomSheet';
 import HejiIcon from '../../../static/images/heji.svg';
 import ExpandUpIcon from '../../../static/images/expandHeji.svg';
 import { QueryClient } from '@tanstack/react-query';
@@ -82,7 +78,6 @@ function ShortVideoPlayer({
   const [watchText, setWatchText] = useState('看正片');
   const [imageLoaded, setImageLoaded] = useState(false);
   const [vodUrl, setVodUrl] = useState(vod_url);
-  const sheetRef = useRef<BottomSheet>(null);
   const overlayRef = useRef(false);
 
   const windowWidth = Dimensions.get('window').width;
