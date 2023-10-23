@@ -75,6 +75,7 @@ import {
   removeScreenAction,
   resetBecomeVip,
   resetBottomSheetAction,
+  resetProfileScreen,
 } from "../redux/actions/screenAction";
 import { Dialog } from "@rneui/themed";
 import FastImage from "react-native-fast-image";
@@ -321,6 +322,9 @@ export default () => {
       dispatch(resetBottomSheetAction());
       sheetRefLogin.current?.close();
       sheetRefRegister.current?.close();
+    }
+    if (screenState.navigateToProfile == true) {
+      dispatch(resetProfileScreen());
     }
   }, [screenState]);
 
