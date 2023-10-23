@@ -207,6 +207,8 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
       // setVod(vod);
       dispatch(playVod(vod));
     }
+
+    setVodRestricted(vodDetails?.vod_restricted === 1);
   }, [vodDetails])
 
   const fetchVod = () =>
