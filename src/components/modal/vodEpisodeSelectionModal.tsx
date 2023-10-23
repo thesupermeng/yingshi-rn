@@ -1,9 +1,7 @@
 import React, {
   useState,
   useMemo,
-  RefObject,
   memo,
-  useCallback,
   useEffect,
 } from 'react';
 import {
@@ -11,34 +9,29 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native';
 import {useTheme} from '@react-navigation/native';
-import {VodEpisodeListType, VodEpisodeType} from '../../types/ajaxTypes';
+import {VodEpisodeListType} from '../../types/ajaxTypes';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import BottomSheet, {
-  BottomSheetBackdrop,
-  BottomSheetScrollView,
-} from '@gorhom/bottom-sheet';
-import {BottomSheetMethods} from '@gorhom/bottom-sheet/lib/typescript/types';
-import {BottomSheetDefaultBackdropProps} from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types';
 import SortAscIcon from '../../../static/images/sortAsc.svg';
 import SortDescIcon from '../../../static/images/sortDesc.svg';
+import BottomSheet from '../bottomSheet/bottomSheet';
+
 interface Props {
   onConfirm: any;
   onCancel: any;
   episodes?: VodEpisodeListType;
   activeEpisode?: number;
-  sheetRef?: RefObject<BottomSheetMethods>;
   rangeSize?: number;
-  showEpisodeList: boolean; 
+  isVisible: boolean; 
   handleClose: any;
 }
 function VodEpisodeSelectionModal({
   onConfirm,
   onCancel,
-  sheetRef,
   episodes,
-  showEpisodeList,
+  isVisible,
   handleClose, 
   activeEpisode = 0,
   rangeSize = 50,
@@ -47,21 +40,6 @@ function VodEpisodeSelectionModal({
   const EPISODE_RANGE_SIZE = rangeSize;
   const insets = useSafeAreaInsets();
   const [sortBy, setSortBy] = useState('asc');
-  const ranges = [
-    ...Array(
-      episodes?.url_count === undefined
-        ? 0
-        : Math.ceil(episodes.url_count / EPISODE_RANGE_SIZE),
-    ).keys(),
-  ].map(
-    x =>
-      `${x * EPISODE_RANGE_SIZE + 1}-${Math.min(
-        (x + 1) * EPISODE_RANGE_SIZE,
-        episodes?.url_count === undefined
-          ? (x + 1) * EPISODE_RANGE_SIZE - 1
-          : episodes?.url_count,
-      )}`,
-  );
   const [currentIndex, setCurrentIndex] = useState(
     Math.floor(activeEpisode / EPISODE_RANGE_SIZE),
   );
@@ -95,24 +73,6 @@ function VodEpisodeSelectionModal({
     setCurrentIndex(0);
   }, [activeEpisode]);
 
-  const snapPoints = useMemo(() => ['25%', '50%', '75%'], []);
-
-  const renderBackdrop = useCallback(
-    (
-      props: React.JSX.IntrinsicAttributes & BottomSheetDefaultBackdropProps,
-    ) => <BottomSheetBackdrop {...props} />,
-    [],
-  );
-
-  const handleSheetChanges = useCallback(
-    (index: number) => {
-      if (index === 0 && sheetRef?.current) {
-        sheetRef?.current.close();
-      }
-    },
-    [sheetRef],
-  );
-
   const sort = () => {
     if (sortBy === 'asc') {
       setSortBy('desc');
@@ -122,28 +82,18 @@ function VodEpisodeSelectionModal({
   };
 
   return (
-    <BottomSheet
-      ref={sheetRef}
-      index={-1}
-      snapPoints={snapPoints}
-      onChange={handleSheetChanges}
-      onClose={handleClose}
-      backdropComponent={renderBackdrop}
-      backgroundStyle={{
-        backgroundColor: colors.card,
+    <BottomSheet 
+      isVisible={isVisible}
+      onBackdropPress={handleClose}
+      containerStyle={{
+        paddingLeft: spacing.sideOffset,
+        paddingRight: spacing.sideOffset,
+        gap: spacing.m,
+        alignItems: 'center',
       }}
-      handleIndicatorStyle={{
-        backgroundColor: colors.text,
-      }}>
-      <View
-        style={{
-          ...styles.container,
-          backgroundColor: colors.card,
-          paddingLeft: spacing.sideOffset,
-          paddingRight: spacing.sideOffset,
-          gap: spacing.m,
-        }}>
-        <View style={styles.episodeList}>
+      height='50%'
+    >
+      <View style={styles.episodeList}>
         <Text
           style={{
             ...styles.btn,
@@ -151,61 +101,60 @@ function VodEpisodeSelectionModal({
           }}>
           {`${showEpisodeRangeStart+1}-${showEpisodeRangeEnd} 集`}
         </Text>
-          <TouchableOpacity style={styles.sortBtn} onPress={sort}>
-            <View style={{paddingTop: 4}}>
-              {sortBy === 'asc' ? <SortAscIcon /> : <SortDescIcon />}
-            </View>
-            <Text
-              style={{
-                textAlign: 'center',
-                ...textVariants.header,
-                color: colors.muted,
-                fontSize: 15,
-              }}>
-              顺序
-            </Text>
-          </TouchableOpacity>
-        </View>
-        {(displayEpisodes && showEpisodeList) &&
-        <BottomSheetScrollView
-          contentContainerStyle={{
-            ...styles.episodeList,
-            paddingBottom: insets.bottom,
-          }}>
-          {displayEpisodes?.map((ep, idx) => (
-            <TouchableOpacity
-              key={`expand-${idx}`}
-              onPress={() => {
-                onConfirm(ep.nid);
-                onCancel();
-              }}>
-              <View
-                style={{
-                  backgroundColor:
-                    ep.nid === activeEpisode ? colors.primary : colors.search,
-                  padding: spacing.s,
-                  minWidth: 60,
-                  marginRight: 'auto',
-                  marginBottom: spacing.s,
-                  borderRadius: 8,
-                }}>
-                <Text
-                  numberOfLines={1}
-                  style={{
-                    fontSize: 13,
-                    textAlign: 'center',
-                    fontWeight: '500',
-                    color:
-                      ep.nid === activeEpisode ? colors.selected : colors.muted,
-                  }}>
-                  {`${ep.name}`}
-                </Text>
-              </View>
-            </TouchableOpacity>
-          ))}
-        </BottomSheetScrollView>
-        }
+        <TouchableOpacity style={styles.sortBtn} onPress={sort}>
+          <View style={{paddingTop: 4}}>
+            {sortBy === 'asc' ? <SortAscIcon /> : <SortDescIcon />}
+          </View>
+          <Text
+            style={{
+              textAlign: 'center',
+              ...textVariants.header,
+              color: colors.muted,
+              fontSize: 15,
+            }}>
+            顺序
+          </Text>
+        </TouchableOpacity>
       </View>
+      {(displayEpisodes && isVisible) &&
+      <ScrollView
+        contentContainerStyle={{
+          ...styles.episodeList,
+          paddingBottom: insets.bottom,
+        }}>
+        {displayEpisodes?.map((ep, idx) => (
+          <TouchableOpacity
+            key={`expand-${idx}`}
+            onPress={() => {
+              onConfirm(ep.nid);
+              onCancel();
+            }}>
+            <View
+              style={{
+                backgroundColor:
+                  ep.nid === activeEpisode ? colors.primary : colors.search,
+                padding: spacing.s,
+                minWidth: 60,
+                marginRight: 'auto',
+                marginBottom: spacing.s,
+                borderRadius: 8,
+              }}>
+              <Text
+                numberOfLines={1}
+                style={{
+                  fontSize: 13,
+                  textAlign: 'center',
+                  fontWeight: '500',
+                  color:
+                    ep.nid === activeEpisode ? colors.selected : colors.muted,
+                }}>
+                {`${ep.name}`}
+              </Text>
+            </View>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
+      }
     </BottomSheet>
   );
 }
@@ -217,8 +166,6 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     flex: 1,
-    // paddingBottom: 10,
-    // paddingTop: 30,
   },
   text: {
     color: 'white',
@@ -239,8 +186,8 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     gap: 8,
     justifyContent: 'flex-start',
-    // alignItems: 'flex-start',
     paddingLeft: 8,
+    marginBottom: 14,
   },
   sortBtn: {
     display: 'flex',
