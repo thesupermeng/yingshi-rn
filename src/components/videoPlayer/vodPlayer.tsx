@@ -16,7 +16,7 @@ import { debounce } from 'lodash';
 import { Dimensions } from 'react-native';
 import VideoControlsOverlay from './VideoControlsOverlay';
 import Orientation from 'react-native-orientation-locker';
-import WebView from 'react-native-webview';
+// import WebView from 'react-native-webview';
 import FastImage from 'react-native-fast-image';
 import FastForwardProgressIcon from '../../../static/images/fastforwardProgress.svg';
 import RewindProgressIcon from '../../../static/images/rewindProgress.svg';
@@ -36,7 +36,7 @@ interface Props {
   videoType?: string;
   vod_source?: any;
   onBack?: () => any;
-  useWebview?: boolean;
+  // useWebview?: boolean;
   onEpisodeChange?: any;
   episodes?: VodEpisodeListType;
   activeEpisode?: number;
@@ -78,7 +78,7 @@ export default forwardRef<VideoRef, Props>(({
   videoType = 'vod',
   vod_source,
   onBack,
-  useWebview = false,
+  // useWebview = false,
   activeEpisode,
   onEpisodeChange,
   rangeSize,
@@ -339,15 +339,16 @@ export default forwardRef<VideoRef, Props>(({
     <View style={styles.container}>
       <View style={{ ...styles.bofangBox }}>
         {(vod_url !== undefined || vod_source !== undefined) &&
-          (useWebview ? (
-            <WebView
-              resizeMode="contain"
-              source={vod_url === undefined ? vod_source : { uri: vod_url }}
-              style={styles.video}
-              onLoad={onVideoLoaded}
-            />
-          ) : (
-            <Video
+          // !useWebview && 
+        //   (useWebview ? (
+        //     <WebView
+        //     resizeMode="contain"
+        //     source={vod_url === undefined ? vod_source : { uri: vod_url }}
+        //     style={styles.video}
+        //     onLoad={onVideoLoaded}
+        //   />
+        // ) :
+          ( <Video
               mixWithOthers="mix"
               disableFocus
               rate={playbackRate}
@@ -384,7 +385,7 @@ export default forwardRef<VideoRef, Props>(({
               }}
               style={styles.video}
             />
-          ))}
+          )}
       </View>
       {(vod_url !== undefined || vod_source !== undefined) && (
         <VideoControlsOverlay
