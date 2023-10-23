@@ -5,6 +5,7 @@ export class YSConfig {
     len = 0;
     
     areaConfig = true;
+    ip = '';
   
     setTabConfig(tabConfig) {
         this.tabConfig = tabConfig;
@@ -13,6 +14,10 @@ export class YSConfig {
 
     setAreaConfig(areaConfig) {
         this.areaConfig = areaConfig;
+    }
+
+    setNetworkIp(ip) {
+        this.ip = ip;
     }
   }
   

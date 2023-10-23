@@ -2,16 +2,18 @@ import React, { useEffect, useState, useMemo, useRef, useCallback } from 'react'
 import {
   View,
   TouchableOpacity,
-  Share,
+Share,
   Text,
   StyleSheet,
   Alert,
   ScrollView,
+  Platform,
 } from 'react-native';
 import FavoriteButton from '../../components/button/favoriteVodButton';
 import FavoriteIcon from '../../../static/images/favorite.svg';
 import ScreenContainer from '../../components/container/screenContainer';
 import { useTheme, useFocusEffect } from '@react-navigation/native';
+import { YSConfig } from "../../../ysConfig";
 
 import { RootStackScreenProps } from '../../types/navigationTypes';
 import { SuggestResponseType, VodDetailsResponseType } from '../../types/ajaxTypes';
@@ -29,7 +31,7 @@ import PYQIcon from '../../../static/images/pyq.svg';
 import MoreArrow from '../../../static/images/more_arrow.svg';
 import VodEpisodeSelectionModal from '../../components/modal/vodEpisodeSelectionModal';
 import FastImage from 'react-native-fast-image';
-import { API_DOMAIN } from '../../utility/constants';
+import { API_DOMAIN, API_DOMAIN_TEST, UMENG_CHANNEL } from '../../utility/constants';
 import { useQuery } from '@tanstack/react-query';
 import ShowMoreVodButton from '../../components/button/showMoreVodButton';
 import VodListVertical from '../../components/vod/vodListVertical';
@@ -183,14 +185,15 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
     // );
   }, []);
 
+
+  const localIp = YSConfig.instance.ip;
   const fetchVodDetails = () =>
-    fetch(
-      `${API_DOMAIN}vod/v1/vod/detail?id=${vod?.vod_id}`,
-    )
-      .then(response => response.json())
-      .then((json: VodDetailsResponseType) => {
-        return json.data[0];
-      });
+  fetch(`${API_DOMAIN}vod/v1/vod/detail?id=${vod?.vod_id}&appName=萤视频&platform=` + Platform.OS.toUpperCase() + `&channelId=` + UMENG_CHANNEL + `&ip=${localIp}`)
+    .then(response => response.json())
+    .then((json: VodDetailsResponseType) => {
+      setVodRestricted(json.data[0]?.vod_restricted === 1);
+      return json.data[0];
+    });
 
   const { data: vodDetails, isFetching: isFetchingVodDetails } = useQuery({
     queryKey: ['vodDetails', vod?.vod_id],
@@ -223,7 +226,6 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
       vod?.episodeWatched === undefined ? 0 : vod.episodeWatched,
     );
 
-    setVodRestricted(vod?.vod_restricted === 1);
   }, [vod]);
 
   const { data: suggestedVods, isFetching: isFetchingSuggestedVod } = useQuery({
