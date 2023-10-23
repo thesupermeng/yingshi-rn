@@ -43,7 +43,7 @@ import BingSearch from '../../components/container/bingSearchContainer';
 import NoConnection from '../../components/common/noConnection';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 import AdsBanner from '../../ads/adsBanner';
-import { handleAppOrientation, lockAppOrientation } from '../../redux/actions/settingsActions';
+import { lockAppOrientation } from '../../redux/actions/settingsActions';
 
 type VideoRef = {
   setPause: (param: boolean) => void,
@@ -328,10 +328,6 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
     setShowSheet(false)
   }, [])
 
-  const handleOrientation = (orientation: string) => {
-    dispatch(handleAppOrientation(orientation));
-  }
-  
   const lockOrientation = (orientation: string) => {
     dispatch(lockAppOrientation(orientation));
   }
@@ -378,7 +374,6 @@ export default ({ navigation, route }: RootStackScreenProps<'播放'>) => {
               isFetchingRecommendedMovies={isFetchingSuggestedVod}
               appOrientation={settingsReducer.appOrientation}
               devicesOrientation={settingsReducer.devicesOrientation}
-              handleOrientation={handleOrientation}
               lockOrientation={lockOrientation}
             // setNavBarOptions={setNavBarOptions}
             />
