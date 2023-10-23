@@ -1,4 +1,4 @@
-import {Linking, StyleSheet} from 'react-native';
+import {Linking, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {Button} from '@rneui/themed';
 
@@ -13,20 +13,15 @@ const handleBingSearch = (movieTitle: string) => {
 
 export default function BingSearchButton({vodTitle}: Props) {
   return (
-    <Button
-      ViewComponent={LinearGradient}
-      title="搜索片源"
-      titleStyle={styles.title}
-      buttonStyle={styles.button}
-      onPress={() => {
-        handleBingSearch(vodTitle);
-      }}
-      linearGradientProps={{
-        colors: ['#54CCFB', '#1D52DF'],
-        angle: 180,
-        locations: [-1.6, 1],
-      }}
-    />
+    <TouchableOpacity onPress={() => handleBingSearch(vodTitle)}>
+      <LinearGradient
+        colors={['#54CCFB', '#1D52DF']}
+        angle={180}
+        style={styles.button}
+      >
+        <Text style={styles.title}>搜索片源</Text>
+      </LinearGradient>
+    </TouchableOpacity>
   );
 }
 
@@ -38,5 +33,6 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 12,
+    color: 'white',
   }
 });
