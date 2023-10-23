@@ -164,10 +164,10 @@ function CollectionBottomSheet({ changeEpisode, sheetRef, collectionName, collec
 
                 { (isLoading || isFetching || !enabledUseQuery) &&
                     <View style={{ flex: 1, alignContent: 'center', alignItems: 'center', justifyContent: 'center' }}>
-                        <FastImage
+                        <Image
                             style={{ height: 80, width: 80 }}
                             source={require('../../../static/images/loading-spinner.gif')}
-                            resizeMode={FastImage.resizeMode.contain}
+                            resizeMode={'contain'}
                         />
                     </View>
                 }
@@ -179,13 +179,13 @@ function CollectionBottomSheet({ changeEpisode, sheetRef, collectionName, collec
                                     <TouchableOpacity key={index} onPress={() => goToCollection(item, index)} style={[ styles.bottomSheetItem, index == selectedIndex ? styles.selectedBottomSheetItem : styles.notSelected ]}>
                                         <View style={{ flex: 1, flexDirection: 'row' }}>
                                             <View style={{ flex: 2, backgroundColor: 'black', borderRadius: 6 }}>
-                                                <FastImage
+                                                <Image
                                                     style={{ borderRadius: 6, height: '100%' }}
                                                     source={{
                                                         uri: imageError == false ? item.mini_video_origin_cover : 'https://static.wixstatic.com/media/5dca26_0052ca4edcc94049a9115dea94e6616d~mv2.png',
                                                     }}
                                                     onError={() => setImageError(true)}
-                                                    resizeMode={FastImage.resizeMode.contain}
+                                                    resizeMode={'contain'}
                                                 />
                                             </View>
                                             <View style={{ flex: 6, flexDirection: 'column', alignSelf: 'center' }}>
