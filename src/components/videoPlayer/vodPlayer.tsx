@@ -50,7 +50,6 @@ interface Props {
   isFetchingRecommendedMovies?: boolean;
   appOrientation: string,
   devicesOrientation: string,
-  handleOrientation: (orientation: string) => void,
   lockOrientation: (orientation: string) => void,
 }
 
@@ -92,7 +91,6 @@ export default forwardRef<VideoRef, Props>(({
   isFetchingRecommendedMovies = false,
   appOrientation,
   devicesOrientation,
-  handleOrientation,
   lockOrientation,
 }: Props, ref) => {
   const videoPlayerRef = React.useRef<Video | null>();
@@ -152,9 +150,11 @@ export default forwardRef<VideoRef, Props>(({
       'change',
       handleAppStateChange,
     );
+    ImmersiveMode.fullLayout(false);
 
     return () => {
       subscription.remove();
+      ImmersiveMode.fullLayout(true);
     };
   }, []);
 
@@ -215,13 +215,13 @@ export default forwardRef<VideoRef, Props>(({
     // no handle for PORTRAIT-UPSIDEDOWN
     if(devicesOrientation === 'LANDSCAPE-LEFT' || devicesOrientation === 'LANDSCAPE-RIGHT'){
       setIsFullScreen(true);
-      ImmersiveMode.fullLayout(false);
+      // ImmersiveMode.fullLayout(false);
       StatusBar.setHidden(true);
 
       lockOrientation(devicesOrientation);
     }else if(devicesOrientation === 'PORTRAIT'){
       setIsFullScreen(false);
-      ImmersiveMode.fullLayout(true);
+      // ImmersiveMode.fullLayout(true);
       StatusBar.setHidden(false);
 
       lockOrientation(devicesOrientation);
@@ -232,12 +232,12 @@ export default forwardRef<VideoRef, Props>(({
     if(appOrientation === 'LANDSCAPE-LEFT' || appOrientation === 'LANDSCAPE-RIGHT'){
       lockOrientation('PORTRAIT');
       setIsFullScreen(false);
-      ImmersiveMode.fullLayout(true);
+      // ImmersiveMode.fullLayout(true);
       StatusBar.setHidden(false);
     }else{
-      lockOrientation('LANDSCAPE-LEFT');
+      lockOrientation('LANDSCAPE');
       setIsFullScreen(true);
-      ImmersiveMode.fullLayout(false);
+      // ImmersiveMode.fullLayout(false);
       StatusBar.setHidden(true);
     }
   }, [isFullScreen, appOrientation]);
