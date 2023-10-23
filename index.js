@@ -47,12 +47,9 @@ AppRegistry.registerRunnable(appName, async initialProps => {
                 YSConfig.instance.setTabConfig(tabData.data);
             }
         }
-
-        const ipAddress = await NetworkInfo.getIPAddress();
-        YSConfig.instance.setNetworkIp(ipAddress);
         
         const locationBody = {
-            ip_address: ipAddress,
+            ip_address: YSConfig.instance.ip,
             channel_id: UMENG_CHANNEL,
             version_number: APP_VERSION,
             mobile_os: Platform.OS,

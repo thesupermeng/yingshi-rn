@@ -111,12 +111,13 @@ let App = () => {
     },
   });
 
-  const getIP = () => {
-    NetworkInfo.getIPAddress().then((ipAddress) => {
-      if (ipAddress != null) {
-        checkVersion(ipAddress);
-      }
-    });
+  const getIP = async () => {
+    const res = await axios.get('https://geolocation-db.com/json/')
+    const ipAddress = res.data.IPv4;
+    if(ipAddress != null && ipAddress != undefined){
+      YSConfig.instance.setNetworkIp(ipAddress);
+      checkVersion(ipAddress);
+    }
   };
 
   const checkVersion = async (ipAddress: string) => {
