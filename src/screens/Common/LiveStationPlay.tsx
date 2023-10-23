@@ -17,18 +17,14 @@ import ScreenContainer from '../../components/container/screenContainer';
 import {useTheme, useFocusEffect} from '@react-navigation/native';
 
 import {RootStackScreenProps} from '../../types/navigationTypes';
-import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
+import {useAppDispatch} from '../../hooks/hooks';
 import Orientation from 'react-native-orientation-locker';
 
 import {Dimensions} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import VodEpisodeSelectionModal from '../../components/modal/vodEpisodeSelectionModal';
 import FastImage from 'react-native-fast-image';
-import {useQuery} from '@tanstack/react-query';
-import ShowMoreVodButton from '../../components/button/showMoreVodButton';
 import VodLiveStationListVertical from '../../components/vod/vodLiveStationListVertical';
 import VodPlayer from '../../components/videoPlayer/vodPlayer';
-import BottomSheet from '@gorhom/bottom-sheet';
 
 type PlayContextValue = {
   value: string;
