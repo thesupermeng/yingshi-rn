@@ -1,22 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { View, BackHandler, AppState, Platform, StatusBar } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View } from 'react-native';
 import styles from './style';
-// import { VideoPlayer } from '../videoPlayer/VideoPlayer';
-import Orientation from 'react-native-orientation-locker';
-
-//redux
-// import LiveRoomAction, {
-//   hideControlAction,
-//   setVideoFullScreen,
-//   setVideoSource,
-// } from '../../pages/matchDetails/action';
-import { useDispatch, useSelector } from 'react-redux';
 import { VideoLiveType } from '../../global/const';
-// import {videoPlayerControl} from '../../pages/matchDetails/reducer';
-import systemSetting from 'react-native-system-setting';
 import { MatchDetailsType, Stream } from '../../types/matchTypes';
-import Video from 'react-native-video';
 import VodPlayer from '../../../components/videoPlayer/vodPlayer';
+import { lockAppOrientation } from '../../../redux/actions/settingsActions';
+import { RootState } from '../../../redux/store';
+import { SettingsReducerState } from '../../../redux/reducers/settingsReducer';
+import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
 
 interface Props {
     matchID?: number,
@@ -32,15 +23,15 @@ interface Props {
 }
 
 const LiveVideo = ({ matchID, liveDataState, onLiveEnd, onLoad, streamID, videoSource, setVideoSource }: Props) => {
-
-    const matchIdRef = useRef(matchID);
-    const playerRef = React.useRef<Video>(null);
     const homeName = liveDataState?.home?.name;
     const awayName = liveDataState?.away?.name;
     const combinedName = `${homeName} vs ${awayName}`;
-    const beginWatch = useRef(new Date());
-    const [isFullScreen, setIsFullScreen] = useState(false);
-    const [isLocked, setIsLocked] = useState(false);
+    
+    const dispatch = useAppDispatch();
+    
+    const settingsReducer: SettingsReducerState = useAppSelector(
+        ({ settingsReducer }: RootState) => settingsReducer
+    );
 
     // const {
     //   source: videoSource,
@@ -55,15 +46,7 @@ const LiveVideo = ({ matchID, liveDataState, onLiveEnd, onLoad, streamID, videoS
     const streamRoomID = streamData?.id;
     //   const streamRoomIdRef = useRef(streamID);
 
-    // useEffect(() => {
-    //     if (isFullScreen) {
-    //         Orientation.lockToLandscape();
-    //     } else {
-    //         Orientation.lockToPortrait();
-    //     }
-    // }, [isFullScreen]);
     const onHandleBack = () => {
-        StatusBar.setHidden(false);
         setTimeout(() => setVideoSource(VideoLiveType.DETAIL, ''))
     };
 
@@ -80,22 +63,7 @@ const LiveVideo = ({ matchID, liveDataState, onLiveEnd, onLoad, streamID, videoS
                 };
             });
         }
-
-        const backHandler = BackHandler.addEventListener(
-            'hardwareBackPress',
-            () => {
-                if (isLocked) {
-                    return true;
-                }
-                onHandleBack();
-                return true;
-            },
-        );
-
-        return () => {
-            backHandler.remove();
-        };
-    }, [streamsData, isFullScreen]);
+    }, [streamsData]);
 
 
     // useEffect(() => {
@@ -145,7 +113,12 @@ const LiveVideo = ({ matchID, liveDataState, onLiveEnd, onLoad, streamID, videoS
     //   );
     // };
 
-    // console.log('videoPlayerControl.source', videoSource);
+    const lockOrientation = (orientation: string) => {
+        dispatch(lockAppOrientation(orientation));
+    };
+    console.log('111', videoSource?.url !== undefined)
+    console.log('222', videoSource?.type === VideoLiveType.LIVE)
+    console.log('333', videoSource?.type)
     return (
         <View style={styles.container}>
             {/* <View style={{height: isFullScreen ? '100%' : 'auto'}}> */}
@@ -155,8 +128,25 @@ const LiveVideo = ({ matchID, liveDataState, onLiveEnd, onLoad, streamID, videoS
                         {
                             videoSource?.url !== undefined && (
                                 videoSource.type === VideoLiveType.LIVE
-                                    ? <VodPlayer onBack={onHandleBack} vod_source={videoSource.url} videoType='live' vodTitle={combinedName} />
-                                    : <VodPlayer onBack={onHandleBack} vod_url={videoSource.url} videoType='live' vodTitle={combinedName} useWebview={true} />
+                                    ? <VodPlayer 
+                                        onBack={onHandleBack}
+                                        vod_source={videoSource.url}
+                                        videoType='live'
+                                        vodTitle={combinedName} 
+                                        appOrientation={settingsReducer.appOrientation}
+                                        devicesOrientation={settingsReducer.devicesOrientation}
+                                        lockOrientation={lockOrientation}
+                                    />
+                                    : <VodPlayer 
+                                        onBack={onHandleBack}
+                                        vod_url={videoSource.url}
+                                        videoType='live'
+                                        vodTitle={combinedName}
+                                        appOrientation={settingsReducer.appOrientation}
+                                        devicesOrientation={settingsReducer.devicesOrientation}
+                                        lockOrientation={lockOrientation}
+                                        useWebview={true}
+                                    />
                             )
 
                         }

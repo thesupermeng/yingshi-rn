@@ -82,7 +82,7 @@ export default ({ handleRefreshMiniVod, currentVodIndex = 0, videos, initialInde
 
     const renderItem = useCallback(({ item, index }: { item: MiniVideo, index: number }) => (
         <View style={{ height: displayHeight ? displayHeight : 0 }}>
-            {current !== null && Math.abs(current - index) <= 2 && (
+            {current !== null && Math.abs(current - index) <= 5 && (
                 <ShortVod
                     vod={item}
                     vod_url={item.mini_video_origin_video_url}
@@ -105,7 +105,7 @@ export default ({ handleRefreshMiniVod, currentVodIndex = 0, videos, initialInde
             <FlatList
                 data={collectionPartialVideos}
                 initialNumToRender={3}
-                maxToRenderPerBatch={3}
+                maxToRenderPerBatch={5}
                 windowSize={5}
                 refreshControl={refreshComponent()}
                 renderItem={renderItem}

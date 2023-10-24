@@ -112,7 +112,7 @@ export default ({navigation}: BottomTabScreenProps<any>) => {
             Orientation.lockToPortrait();
             return () => {
                 setIsPaused(true);
-                Orientation.unlockAllOrientations();
+                // Orientation.unlockAllOrientations();
             };
         }, [])
     )

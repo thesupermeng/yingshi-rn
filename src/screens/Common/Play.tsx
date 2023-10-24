@@ -43,6 +43,7 @@ import FastImage from "react-native-fast-image";
 import {
   API_DOMAIN,
   API_DOMAIN_TEST,
+  APP_NAME_CONST,
   UMENG_CHANNEL,
 } from "../../utility/constants";
 import { useQuery } from "@tanstack/react-query";
@@ -143,7 +144,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
           vod?.vod_id
         }/sid/1/nid/${
           currentEpisode + 1
-        }.html${"\n"}萤视频-海量高清视频在线观看`,
+        }.html${"\n"}${APP_NAME_CONST}-海量高清视频在线观看`,
       });
       if (result.action === Share.sharedAction) {
         if (result.activityType) {
@@ -203,7 +204,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const localIp = YSConfig.instance.ip;
   const fetchVodDetails = () =>
     fetch(
-      `${API_DOMAIN}vod/v1/vod/detail?id=${vod?.vod_id}&appName=影视TV&platform=` +
+      `${API_DOMAIN}vod/v1/vod/detail?id=${vod?.vod_id}&appName=萤视频&platform=` +
         Platform.OS.toUpperCase() +
         `&channelId=` +
         UMENG_CHANNEL +
@@ -645,7 +646,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                       {vod &&
                         suggestedVods !== undefined &&
                         suggestedVods?.length > 0 && (
-                          <View style={{ gap: spacing.l }}>
+                          <View style={{ gap: spacing.l, marginBottom: 60 }}>
                             <ShowMoreVodButton
                               isPlayScreen={true}
                               text={`相关${vod?.type_name}`}
@@ -674,23 +675,22 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                 </>
               </View>
             </ScrollView>
-            {settingsReducer.appOrientation === "PORTRAIT" &&
-            settingsReducer.isAppOrientationChanged && ( // only show if portrait
-                <VodEpisodeSelectionModal
-                  isVisible={isShowSheet}
-                  handleClose={handleModalClose}
-                  activeEpisode={currentEpisode}
-                  episodes={vod?.vod_play_list}
-                  onCancel={() => {
-                    setShowSheet(false);
-                  }}
-                  onConfirm={(id: number) => {
-                    setCurrentEpisode(id);
-                    handleModalClose();
-                  }}
-                  rangeSize={EPISODE_RANGE_SIZE}
-                />
-              )}
+            {settingsReducer.appOrientation === "PORTRAIT" && ( // only show if portrait
+              <VodEpisodeSelectionModal
+                isVisible={isShowSheet}
+                handleClose={handleModalClose}
+                activeEpisode={currentEpisode}
+                episodes={vod?.vod_play_list}
+                onCancel={() => {
+                  setShowSheet(false);
+                }}
+                onConfirm={(id: number) => {
+                  setCurrentEpisode(id);
+                  handleModalClose();
+                }}
+                rangeSize={EPISODE_RANGE_SIZE}
+              />
+            )}
           </>
         )}
         {isOffline && (

@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   View,
   Text,
@@ -100,6 +101,7 @@ export default ({navigation}: RootStackScreenProps<'设置'>) => {
           <ConfirmationModal
             onConfirm={async () => {
               //    user logout
+              await AsyncStorage.removeItem("showAds");
               await dispatch(removeUserAuthState());
               navigator.navigate('Home', {
                 screen: 'Profile',

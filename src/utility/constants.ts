@@ -50,9 +50,9 @@ export const INVITE_DOMAIN = 'https://yingshi.tv/invite/pro/?invite=';
 //     'MI_GETAPPS': 'MI_GETAPPS',
 // }
 
-export const UMENG_CHANNEL = "GOOGLE_PLAY";
+export const UMENG_CHANNEL = 'GOOGLE_PLAY';
 
-export const APP_VERSION = "1.4.0";
+export const APP_VERSION = '1.4.0';
 
 export const TOPON_ANDROID_APP_ID = 'a65002a2db3a7f';
 export const TOPON_ANDROID_APP_KEY = '0b1cab850e5de6fdc1fe0e114a0256eb';
@@ -90,3 +90,5 @@ export const YING_SHI_PIN_ANDROID = 1;
 export const YING_SHI_PIN_IOS = 2;
 export const YING_SHI_TV_ANDROID = 3;
 export const YING_SHI_TV_IOS = 4;
+
+export const APP_NAME_CONST = '影视TV';

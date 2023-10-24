@@ -5,7 +5,6 @@ import React, {
   useRef,
   useCallback,
 } from "react";
-import { BackHandler, Platform } from "react-native";
 import {
   View,
   TouchableOpacity,
@@ -14,13 +13,13 @@ import {
   StyleSheet,
   Alert,
   ScrollView,
-  Image,
+  Platform,
 } from "react-native";
-import Video from "react-native-video";
 import FavoriteButton from "../../components/button/favoriteVodButton";
 import FavoriteIcon from "../../../static/images/favorite.svg";
 import ScreenContainer from "../../components/container/screenContainer";
 import { useTheme, useFocusEffect } from "@react-navigation/native";
+import { YSConfig } from "../../../ysConfig";
 
 import { RootStackScreenProps } from "../../types/navigationTypes";
 import {
@@ -34,31 +33,31 @@ import {
   FavoriteVodReducerState,
   VodReducerState,
 } from "../../redux/reducers/vodReducer";
-import BackButton from "../../components/button/backButton";
 import SinaIcon from "../../../static/images/sina.svg";
 import WeChatIcon from "../../../static/images/wechat.svg";
 import QQIcon from "../../../static/images/qq.svg";
 import PYQIcon from "../../../static/images/pyq.svg";
 import MoreArrow from "../../../static/images/more_arrow.svg";
-import Animated, { useSharedValue } from "react-native-reanimated";
-
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import VodEpisodeSelectionModal from "../../components/modal/vodEpisodeSelectionModal";
 import FastImage from "react-native-fast-image";
-import { API_DOMAIN, API_DOMAIN_TEST, UMENG_CHANNEL } from "../../utility/constants";
+import {
+  API_DOMAIN,
+  API_DOMAIN_TEST,
+  UMENG_CHANNEL,
+} from "../../utility/constants";
 import { useQuery } from "@tanstack/react-query";
 import ShowMoreVodButton from "../../components/button/showMoreVodButton";
 import VodListVertical from "../../components/vod/vodListVertical";
 import VodPlayer from "../../components/videoPlayer/vodPlayer";
-import BottomSheet from "@gorhom/bottom-sheet";
-import appsFlyer from "react-native-appsflyer";
 import { FlatList } from "react-native-gesture-handler";
 import { SettingsReducerState } from "../../redux/reducers/settingsReducer";
+import BingSearch from "../../components/container/bingSearchContainer";
 
 import NoConnection from "../../components/common/noConnection";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
-import BingSearch from '../../components/container/bingSearchContainer';
 import AdsBanner from "../../ads/adsBanner";
+import { lockAppOrientation } from "../../redux/actions/settingsActions";
+import { APP_NAME_CONST } from "../../../src/utility/constants";
 
 type VideoRef = {
   setPause: (param: boolean) => void;
@@ -74,8 +73,6 @@ const definedValue = (val: any) => {
 };
 
 export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
-  const insets = useSafeAreaInsets();
-
   const { colors, spacing, textVariants, icons } = useTheme();
   const vodReducer: VodReducerState = useAppSelector(
     ({ vodReducer }: RootState) => vodReducer
@@ -98,6 +95,8 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   // ATRNSDK.setLogDebug(true);
 
+  const [isVodRestricted, setVodRestricted] = useState(false);
+
   const [isCollapsed, setIsCollapsed] = useState(true);
 
   const [actualNumberOfLines, setActualNumberOfLines] = useState(0);
@@ -109,7 +108,6 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   };
 
   const currentTimeRef = useRef<number>(0);
-  const sheetRef = useRef<BottomSheet>(null);
   const episodeRef = useRef<FlatList>(null);
   const videoPlayerRef = useRef() as React.MutableRefObject<VideoRef>;
   const currentEpisodeRef = useRef<number>();
@@ -117,6 +115,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   const [dismountPlayer, setDismountPlayer] = useState(false);
   const [isOffline, setIsOffline] = useState(false);
+  const [isShowSheet, setShowSheet] = useState(false);
 
   const EPISODE_RANGE_SIZE = 100;
 
@@ -145,7 +144,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
           vod?.vod_id
         }/sid/1/nid/${
           currentEpisode + 1
-        }.html${"\n"}影视TV-海量高清视频在线观看`,
+        }.html${"\n"}${APP_NAME_CONST}-海量高清视频在线观看`,
       });
       if (result.action === Share.sharedAction) {
         if (result.activityType) {
@@ -202,10 +201,18 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
     // );
   }, []);
 
+  const localIp = YSConfig.instance.ip;
   const fetchVodDetails = () =>
-    fetch(`${API_DOMAIN}vod/v1/vod/detail?id=${vod?.vod_id}&appName=影视TV&platform=` + Platform.OS.toUpperCase() + `&channelId=` + UMENG_CHANNEL)
+    fetch(
+      `${API_DOMAIN}vod/v1/vod/detail?id=${vod?.vod_id}&appName=萤视频&platform=` +
+        Platform.OS.toUpperCase() +
+        `&channelId=` +
+        UMENG_CHANNEL +
+        `&ip=${localIp}`
+    )
       .then((response) => response.json())
       .then((json: VodDetailsResponseType) => {
+        setVodRestricted(json.data[0]?.vod_restricted === 1);
         return json.data[0];
       });
 
@@ -221,6 +228,8 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
       // setVod(vod);
       dispatch(playVod(vod));
     }
+
+    setVodRestricted(vodDetails?.vod_restricted === 1);
   }, [vodDetails]);
 
   const fetchVod = () =>
@@ -341,13 +350,55 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
     }
   };
 
+  const handleModalClose = useCallback(() => {
+    setShowSheet(false);
+  }, []);
+
+  const lockOrientation = (orientation: string) => {
+    dispatch(lockAppOrientation(orientation));
+  };
+
   return (
     <>
       <AdsBanner bottomTabHeight={0} />
       <ScreenContainer containerStyle={{ paddingRight: 0, paddingLeft: 0 }}>
-        {vod && !isOffline && (
-          <BingSearch vod={vod} />
-        )}
+        {/* if isVodRestricted, show bing search */}
+        {isVodRestricted && vod && !isOffline && <BingSearch vod={vod} />}
+
+        {!isVodRestricted &&
+          vod?.vod_play_list?.urls?.find((url) => url.nid === currentEpisode)
+            ?.url !== undefined &&
+          !dismountPlayer &&
+          !isOffline && (
+            <VodPlayer
+              vod_url={
+                vod.vod_play_list.urls.find((url) => url.nid === currentEpisode)
+                  ?.url
+              }
+              ref={videoPlayerRef}
+              currentTimeRef={currentTimeRef}
+              initialStartTime={initTime}
+              vodTitle={vod.vod_name}
+              videoType="vod"
+              activeEpisode={currentEpisode}
+              episodes={vod.type_id !== 2 ? vod?.vod_play_list : undefined}
+              onEpisodeChange={(id: number) => {
+                setCurrentEpisode(id);
+                currentTimeRef.current = 0;
+              }}
+              showGuide={settingsReducer.showVodPlayerGuide}
+              rangeSize={EPISODE_RANGE_SIZE}
+              autoPlayNext={vod.type_id !== 2}
+              onShare={onShare}
+              movieList={vod.type_id === 2 ? suggestedVods : []}
+              showMoreType={vod.type_id === 2 ? "movies" : "episodes"}
+              isFetchingRecommendedMovies={isFetchingSuggestedVod}
+              appOrientation={settingsReducer.appOrientation}
+              devicesOrientation={settingsReducer.devicesOrientation}
+              lockOrientation={lockOrientation}
+              // setNavBarOptions={setNavBarOptions}
+            />
+          )}
         {isOffline && dismountPlayer && (
           <View
             style={{
@@ -554,7 +605,9 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                               <Text style={textVariants.body}>选集播放</Text>
                               <TouchableOpacity
                                 style={styles.share}
-                                onPress={() => sheetRef.current?.snapToIndex(1)}
+                                onPress={() => {
+                                  setShowSheet(true); // render list only when modal is up
+                                }}
                               >
                                 <Text
                                   style={{
@@ -593,7 +646,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                       {vod &&
                         suggestedVods !== undefined &&
                         suggestedVods?.length > 0 && (
-                          <View style={{ gap: spacing.l, paddingBottom: 80 }}>
+                          <View style={{ gap: spacing.l, marginBottom: 60 }}>
                             <ShowMoreVodButton
                               isPlayScreen={true}
                               text={`相关${vod?.type_name}`}
@@ -622,16 +675,23 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                 </>
               </View>
             </ScrollView>
-            <VodEpisodeSelectionModal
-              activeEpisode={currentEpisode}
-              episodes={vod?.vod_play_list}
-              sheetRef={sheetRef}
-              onCancel={() => sheetRef.current?.close()}
-              onConfirm={(id: number) => {
-                setCurrentEpisode(id);
-              }}
-              rangeSize={EPISODE_RANGE_SIZE}
-            />
+            {settingsReducer.appOrientation === "PORTRAIT" &&
+            settingsReducer.isAppOrientationChanged && ( // only show if portrait
+                <VodEpisodeSelectionModal
+                  isVisible={isShowSheet}
+                  handleClose={handleModalClose}
+                  activeEpisode={currentEpisode}
+                  episodes={vod?.vod_play_list}
+                  onCancel={() => {
+                    setShowSheet(false);
+                  }}
+                  onConfirm={(id: number) => {
+                    setCurrentEpisode(id);
+                    handleModalClose();
+                  }}
+                  rangeSize={EPISODE_RANGE_SIZE}
+                />
+              )}
           </>
         )}
         {isOffline && (

@@ -95,7 +95,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
     useCallback(() => {
       Orientation.lockToPortrait();
       return () => {
-        Orientation.unlockAllOrientations();
+        // Orientation.unlockAllOrientations();
       };
     }, [])
   );
