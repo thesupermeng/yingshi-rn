@@ -2,8 +2,6 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   NavigationContainer,
-  RouteProp,
-  getFocusedRouteNameFromRoute,
   useTheme,
 } from "@react-navigation/native";
 
@@ -464,8 +462,7 @@ export default () => {
             options={{ orientation: "portrait" }}
           />
         </Stack.Navigator>
-        {settingsReducer.appOrientation === "PORTRAIT" &&
-        settingsReducer.isAppOrientationChanged && ( // only show if portrait
+        {settingsReducer.appOrientation === "PORTRAIT" && ( // only show if portrait
             <>
               <LoginBottomSheet
                 isVisible={isShowLogin}

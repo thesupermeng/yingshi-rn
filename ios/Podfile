@@ -95,6 +95,8 @@ target 'yingshi' do
   pod 'AnyThinkiOS/AnyThinkPubNativeAdapter','6.2.66'
 
   
+  pod 'RCTSystemSetting', :path => '../node_modules/react-native-system-setting'
+
   post_install do |installer|
     react_native_post_install(
       installer,

@@ -23,12 +23,12 @@ export default function BottomSheet({
     const [bottomPosition, setBottomPosition] = useState(0);
 
     useEffect(() => {
-        const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', (e) => {
-            setBottomPosition(e.endCoordinates.height);
+        const keyboardDidShowListener = Keyboard.addListener('keyboardWillShow', (e) => {
+            if(Platform.OS === 'ios') setBottomPosition(e.endCoordinates.height);
         });
-    
+
         const keyboardDidHideListener = Keyboard.addListener('keyboardWillHide', () => {
-            setBottomPosition(0);
+            if(Platform.OS === 'ios') setBottomPosition(0);
         });
 
         return () => {
