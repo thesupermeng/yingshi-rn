@@ -251,7 +251,6 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   return (
     <>
       <ScreenContainer
-        isHome={true}
         containerStyle={{ paddingLeft: 0, paddingRight: 0 }}
       >
         <AdsBanner bottomTabHeight={bottomTabHeight} />
