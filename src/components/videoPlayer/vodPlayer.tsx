@@ -138,7 +138,7 @@ export default forwardRef<VideoRef, Props>(({
       setIsFullScreen(false);
     } else {
       // just direct go back (go back the event will handle by beforeRemove)
-      navigation.goBack();
+      navigation.navigate('Home');
     }
   };
 
