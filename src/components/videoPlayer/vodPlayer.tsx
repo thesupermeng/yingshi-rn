@@ -171,21 +171,22 @@ export default forwardRef<VideoRef, Props>(({
 
     // handle go back event (except IOS swipe back)
     const onBeforeRemoveListener = navigation.addListener('beforeRemove', (e: any) => {
-      // comment because this will working in IOS swipe back
-      // e.preventDefault();
+      if(Platform.OS === 'android'){
+        // this will working in IOS swipe back and will have error
+        // ios use "gestureEnabled: false" to close swipe back function 
+        e.preventDefault();
+      }
 
       if (isFullScreen) {
         lockOrientation('PORTRAIT');
         StatusBar.setHidden(false);
         setIsFullScreen(false);
       } else {
-        if (!isPaused) {
-          setIsPaused(true);
-          // use setTimeout to prevent video non pause before pop the screen
-          setTimeout(() => {
-            navigation.dispatch(e.data.action);
-          }, 100);
-        }
+        setIsPaused(true);
+        // use setTimeout to prevent video non pause before pop the screen
+        setTimeout(() => {
+          navigation.dispatch(e.data.action);
+        }, 100);
       }
     });
 
