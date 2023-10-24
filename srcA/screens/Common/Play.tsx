@@ -57,6 +57,7 @@ import NoConnection from "../../components/common/noConnection";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 import AdsBanner from "../../ads/adsBanner";
 import { lockAppOrientation } from "../../redux/actions/settingsActions";
+import { APP_NAME_CONST } from "../../../src/utility/constants";
 
 type VideoRef = {
   setPause: (param: boolean) => void;
@@ -143,7 +144,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
           vod?.vod_id
         }/sid/1/nid/${
           currentEpisode + 1
-        }.html${"\n"}萤视频-海量高清视频在线观看`,
+        }.html${"\n"}${APP_NAME_CONST}-海量高清视频在线观看`,
       });
       if (result.action === Share.sharedAction) {
         if (result.activityType) {

@@ -85,9 +85,10 @@ export const TOPON_BANNER_WIDTH = 415;
 export const TOPON_BANNER_HEIGHT = 50;
 export const TOPON_BANNER_RATIO = TOPON_BANNER_HEIGHT / TOPON_BANNER_WIDTH;
 
-
 // app platform
 export const YING_SHI_PIN_ANDROID = 1;
 export const YING_SHI_PIN_IOS = 2;
 export const YING_SHI_TV_ANDROID = 3;
 export const YING_SHI_TV_IOS = 4;
+
+export const APP_NAME_CONST = '萤视频';
