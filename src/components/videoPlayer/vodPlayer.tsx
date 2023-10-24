@@ -15,12 +15,10 @@ import { debounce } from 'lodash';
 
 import { Dimensions } from 'react-native';
 import VideoControlsOverlay from './VideoControlsOverlay';
-import Orientation from 'react-native-orientation-locker';
 // import WebView from 'react-native-webview';
 import FastImage from 'react-native-fast-image';
 import FastForwardProgressIcon from '../../../static/images/fastforwardProgress.svg';
 import RewindProgressIcon from '../../../static/images/rewindProgress.svg';
-import ImmersiveMode from 'react-native-immersive-mode';
 
 import {
   LiveTVStationItem,
@@ -150,11 +148,9 @@ export default forwardRef<VideoRef, Props>(({
       'change',
       handleAppStateChange,
     );
-    ImmersiveMode.fullLayout(false);
 
     return () => {
       subscription.remove();
-      ImmersiveMode.fullLayout(true);
     };
   }, []);
 
