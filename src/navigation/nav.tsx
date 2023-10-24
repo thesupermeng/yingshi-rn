@@ -89,7 +89,11 @@ import ExpiredOverlay from "../components/modal/expiredOverlay";
 import EventRules from "../screens/Profile/EventRules";
 import PrivacyPolicyOverlay from "../components/modal/privacyPolicyOverlay";
 import Orientation from "react-native-orientation-locker";
-import { handleAppOrientation, handleDevicesOrientation, lockAppOrientation } from "../redux/actions/settingsActions";
+import {
+  handleAppOrientation,
+  handleDevicesOrientation,
+  lockAppOrientation,
+} from "../redux/actions/settingsActions";
 import { SettingsReducerState } from "../redux/reducers/settingsReducer";
 
 export default () => {
@@ -97,7 +101,7 @@ export default () => {
   const HomeTab = createBottomTabNavigator<HomeTabParamList>();
   const { colors, textVariants, spacing } = useTheme();
   const settingsReducer: SettingsReducerState = useAppSelector(
-    ({ settingsReducer }: RootState) => settingsReducer,
+    ({ settingsReducer }: RootState) => settingsReducer
   );
   const themeReducer = useAppSelector(
     ({ themeReducer }: RootState) => themeReducer
@@ -114,7 +118,7 @@ export default () => {
   const userState: userModel = useAppSelector(
     ({ userReducer }: RootState) => userReducer
   );
-  
+
   const HomeTabScreen = useCallback(() => {
     return (
       <HomeTab.Navigator
@@ -326,21 +330,21 @@ export default () => {
     refreshUserState();
 
     // init orientation by current
-    Orientation.getOrientation(orientation => {
+    Orientation.getOrientation((orientation) => {
       dispatch(handleAppOrientation(orientation));
     });
-    Orientation.getDeviceOrientation(orientation => {
+    Orientation.getDeviceOrientation((orientation) => {
       dispatch(handleDevicesOrientation(orientation));
       // defalut set portrait
-      dispatch(lockAppOrientation('PORTRAIT'));
+      dispatch(lockAppOrientation("PORTRAIT"));
     });
 
     const appOrientationListener = (orientation: string) => {
       dispatch(handleAppOrientation(orientation));
-    }
+    };
     const deviceOrientationListener = (orientation: string) => {
       dispatch(handleDevicesOrientation(orientation));
-    }
+    };
 
     Orientation.addOrientationListener(appOrientationListener);
     Orientation.addDeviceOrientationListener(deviceOrientationListener);
@@ -348,7 +352,7 @@ export default () => {
     return () => {
       Orientation.removeOrientationListener(appOrientationListener);
       Orientation.removeDeviceOrientationListener(deviceOrientationListener);
-    }
+    };
   }, []);
 
   return (
@@ -453,12 +457,19 @@ export default () => {
             options={{ orientation: "portrait" }}
           />
         </Stack.Navigator>
-        { (settingsReducer.appOrientation === 'PORTRAIT') && settingsReducer.isAppOrientationChanged && // only show if portrait
-          <>
-            <LoginBottomSheet isVisible={isShowLogin} handleClose={() => setShowLogin(false)} />
-            <RegisterBottomSheet isVisible={isShowRegister} handleClose={() => setShowRegister(false)} />
-          </>
-        }
+        {settingsReducer.appOrientation === "PORTRAIT" &&
+        settingsReducer.isAppOrientationChanged && ( // only show if portrait
+            <>
+              <LoginBottomSheet
+                isVisible={isShowLogin}
+                handleClose={() => setShowLogin(false)}
+              />
+              <RegisterBottomSheet
+                isVisible={isShowRegister}
+                handleClose={() => setShowRegister(false)}
+              />
+            </>
+          )}
         <PrivacyPolicyOverlay
           isVisible={showPrivacyOverlay}
           setIsVisible={setShowPrivacyOverlay}
@@ -510,9 +521,11 @@ export default () => {
 
 const styles = StyleSheet.create({
   navStyleWithNotch: {
-    paddingTop: 10,
-    paddingBottom: 25,
-    height: 80,
+    paddingTop: 0,
+    paddingBottom: 5,
+    height: 50,
+    position: "relative",
+    bottom: 25,
   },
   navStyle: {
     // flex: 0,
