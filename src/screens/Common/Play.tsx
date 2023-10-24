@@ -674,8 +674,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                 </>
               </View>
             </ScrollView>
-            {settingsReducer.appOrientation === "PORTRAIT" &&
-            settingsReducer.isAppOrientationChanged && ( // only show if portrait
+            {settingsReducer.appOrientation === "PORTRAIT" && ( // only show if portrait
                 <VodEpisodeSelectionModal
                   isVisible={isShowSheet}
                   handleClose={handleModalClose}
