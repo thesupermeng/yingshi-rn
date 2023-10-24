@@ -25,28 +25,47 @@ export default function TitleWithBackButtonHeader({
   const { textVariants } = useTheme();
 
   return (
-    <View style={{ ...styles.container, ...headerStyle }}>
+    <View style={{ ...styles.container }}>
       <View
         style={{
           ...styles.backStyle,
           position: "absolute",
-          left: 20,
+          left: 15,
         }}
       >
         <BackButton
           onPress={onBack}
           btnStyle={{
             position: "absolute",
-            paddingTop: Platform.OS == "ios" ? 0 : 5,
+            bottom: Platform.OS == "ios" ? -2 : -7,
+            //   paddingTop: Platform.OS == "ios" ? 0 : 5,
             width: 30,
           }}
         />
       </View>
-      <Text style={{ ...textVariants.header, fontSize: 16 }} numberOfLines={1}>
-        {title}
-      </Text>
+      <View style={{ ...headerStyle }}>
+        <Text
+          style={{
+            ...textVariants.header,
+            fontSize: 16,
+          }}
+          numberOfLines={1}
+        >
+          {title}
+        </Text>
+      </View>
+
       {right ? (
-        right
+        <View
+          style={{
+            ...styles.backStyle,
+            position: "absolute",
+            right: 15,
+            bottom: 8,
+          }}
+        >
+          {right}
+        </View>
       ) : (
         <View style={{ opacity: 0, pointerEvents: "none" }}>
           <BackButton onPress={onBack} />
@@ -58,13 +77,12 @@ export default function TitleWithBackButtonHeader({
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 4,
+    paddingTop: 10,
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
     width: "100%",
     alignItems: "center",
-    marginTop: 5,
   },
   backStyle: {
     display: "flex",
