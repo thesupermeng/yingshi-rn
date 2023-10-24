@@ -59,6 +59,11 @@ import NoConnection from "../../components/common/noConnection";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 import BingSearch from '../../components/container/bingSearchContainer';
 import AdsBanner from "../../ads/adsBanner";
+import {
+  YING_SHI_PIN_ANDROID,
+  YING_SHI_PIN_IOS,
+} from '../../utility/constants';
+import { UMENG_CHANNEL } from "../../../src/utility/constants";
 
 type VideoRef = {
   setPause: (param: boolean) => void;
@@ -203,7 +208,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   }, []);
 
   const fetchVodDetails = () =>
-    fetch(`${API_DOMAIN}vod/v1/vod/detail?id=${vod?.vod_id}`)
+    fetch(`${API_DOMAIN}vod/v1/vod/detail?id=${vod?.vod_id}&appName=萤视频&platform=` + Platform.OS.toUpperCase() + `&channelId=` + UMENG_CHANNEL)
       .then((response) => response.json())
       .then((json: VodDetailsResponseType) => {
         return json.data[0];
@@ -495,7 +500,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                       </Text>
                     </View>
                     <View style={{ paddingBottom: 0 }}>
-                      {isCollapsed && actualNumberOfLines >= 3 && (
+                      {isCollapsed && actualNumberOfLines >= 2 && (
                         <FastImage
                           style={{
                             flex: 1,
@@ -507,7 +512,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                           resizeMode={FastImage.resizeMode.contain}
                         />
                       )}
-                      {!isCollapsed && actualNumberOfLines >= 3 && (
+                      {!isCollapsed && actualNumberOfLines >= 2 && (
                         <FastImage
                           style={{
                             flex: 1,

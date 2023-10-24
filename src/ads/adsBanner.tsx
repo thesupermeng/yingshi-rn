@@ -52,8 +52,6 @@ function AdsBanner({ bottomTabHeight = 0 }: Props) {
   const pageWithNavbar = ["首页", "播单", "体育"];
   const pageNoNavbar = ["播放", "PlaylistDetail", "体育详情", "电视台播放"];
 
-  let tryToLoadCountBanner = 0;
-  let adsReadyFlagBanner = false;
   try {
     getNavigationBarHeight().then((height) => {
       console.debug(height);
@@ -209,55 +207,13 @@ function AdsBanner({ bottomTabHeight = 0 }: Props) {
     }
   }, [route, isFocused]);
 
-  const isBannerReady = (bannerPlacementId: any) => {
-    ATBannerRNSDK.hasAdReady(bannerPlacementId).then((isAdReady: any) => {
-      // console.log("isBannerReady: " + isAdReady);
-      // console.log(bannerPlacementId);
-      if (isAdReady) {
-        adsReadyFlagBanner = true;
-        showBanner(bannerPlacementId);
-      } else {
-        if (tryToLoadCountBanner > 2 || adsReadyFlagBanner == true) {
-          return;
-        }
-        tryToLoadCountBanner += 1;
-        setTimeout(() => {
-          if (Platform.OS === "android") {
-            const settings = {};
-            // @ts-ignore
-            settings[
-              ATBannerRNSDK.kATBannerAdLoadingExtraBannerAdSizeStruct
-            ] = ATBannerRNSDK.createLoadAdSize(
-              screenWidthInPixel,
-              (TOPON_BANNER_HEIGHT * Dimensions.get("screen").scale * 50) / 320
-            );
-            ATBannerRNSDK.loadAd(bannerPlacementId, settings);
-          }
-          if (Platform.OS === "ios") {
-            const settings = {};
-            // @ts-ignore
-            settings[
-              ATBannerRNSDK.kATBannerAdLoadingExtraBannerAdSizeStruct
-            ] = ATBannerRNSDK.createLoadAdSize(
-              Dimensions.get("screen").width,
-              TOPON_BANNER_HEIGHT
-            );
-
-            ATBannerRNSDK.loadAd(bannerPlacementId, settings);
-          }
-          isBannerReady(bannerPlacementId);
-        }, 15000);
-      }
-    });
-  };
-
   useEffect(() => {
     if (isFocused) {
       if (bannerPlacementId !== "") {
-        console.log("show banner in ", bannerPlacementId, " ", route.name);
+        // console.log('show banner in ', bannerPlacementId, ' ', route.name)
         hideBannerExcept(bannerPlacementId);
         ATBannerRNSDK.reShowAd(bannerPlacementId);
-        isBannerReady(bannerPlacementId);
+        showBanner(bannerPlacementId);
       }
     }
   }, [isFocused, bannerPlacementId, navBarHeightInPixel, bottomTabHeight]);

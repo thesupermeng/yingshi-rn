@@ -22,6 +22,7 @@ export type ExtendedTheme = {
     highlight: string;
     selected: string;
     sportsSecondary: string;
+    bottomSheet: string;
   };
   textVariants: {
     bigHeader: {
@@ -153,6 +154,7 @@ export const YingshiDarkTheme: ExtendedTheme = {
     highlight: palette.yello_translucent,
     selected: palette.dark2,
     sportsSecondary: palette.orange_sports,
+    bottomSheet: palette.dark,
   },
   textVariants: {
     bigHeader: {
@@ -256,6 +258,7 @@ export const YingshiLightTheme: ExtendedTheme = {
     highlight: palette.yello_translucent,
     selected: palette.dark2,
     sportsSecondary: palette.orange_sports,
+    bottomSheet: palette.off_white,
   },
   textVariants: {
     bigHeader: {

@@ -46,16 +46,33 @@ export function settingsReducer(state = initialState, action: SettingsActionType
         case LOCK_ORIENTATION:
             let orientation: string = state.appOrientation;
 
-            if(action.payload === 'PORTRAIT' || action.payload === "PORTRAIT-UPSIDEDOWN"){
-                orientation = action.payload;
-                Orientation.lockToPortrait();
-            }else if(action.payload === "LANDSCAPE-LEFT" || action.payload === "LANDSCAPE-RIGHT"){
-                orientation = action.payload;
-                Orientation.lockToLandscape();
+            orientation = action.payload!;
+            
+            switch(action.payload){
+                case 'PORTRAIT':
+                case 'PORTRAIT-UPSIDEDOWN':
+                    Orientation.lockToPortrait();
+                    break;
+                case 'LANDSCAPE-LEFT':
+                    Orientation.lockToLandscapeLeft();
+                    break;
+                case 'LANDSCAPE-RIGHT':
+                    Orientation.lockToLandscapeRight();
+                    break;
+                case 'LANDSCAPE':
+                    if(state.devicesOrientation === 'LANDSCAPE-RIGHT'){
+                        Orientation.lockToLandscapeRight();
+                        orientation = 'LANDSCAPE-RIGHT'
+                    }else{
+                        Orientation.lockToLandscapeLeft();
+                        orientation = 'LANDSCAPE-LEFT'
+                    }
+                    break;
             }
 
             return {
                 ...state,
+                isAppOrientationChanged: true,
                 appOrientation: orientation,
             }
         default:

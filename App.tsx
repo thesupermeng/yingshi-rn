@@ -111,12 +111,13 @@ let App = () => {
     },
   });
 
-  const getIP = () => {
-    NetworkInfo.getIPAddress().then((ipAddress) => {
-      if (ipAddress != null) {
-        checkVersion(ipAddress);
-      }
-    });
+  const getIP = async () => {
+    const res = await axios.get('https://geolocation-db.com/json/')
+    const ipAddress = res.data.IPv4;
+    if(ipAddress != null && ipAddress != undefined){
+      YSConfig.instance.setNetworkIp(ipAddress);
+      checkVersion(ipAddress);
+    }
   };
 
   const checkVersion = async (ipAddress: string) => {
@@ -124,7 +125,7 @@ let App = () => {
       ip_address: ipAddress,
       channel_id: UMENG_CHANNEL,
       version_number: APP_VERSION,
-      product: "萤视频-ANDROID",
+      product: "影视TV-" + Platform.OS.toUpperCase(),
       mobile_os: Platform.OS,
       mobile_model: "HUAWEIP20",
     };

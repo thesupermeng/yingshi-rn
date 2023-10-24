@@ -15,12 +15,10 @@ import { debounce } from 'lodash';
 
 import { Dimensions } from 'react-native';
 import VideoControlsOverlay from './VideoControlsOverlay';
-import Orientation from 'react-native-orientation-locker';
-import WebView from 'react-native-webview';
+// import WebView from 'react-native-webview';
 import FastImage from 'react-native-fast-image';
 import FastForwardProgressIcon from '../../../static/images/fastforwardProgress.svg';
 import RewindProgressIcon from '../../../static/images/rewindProgress.svg';
-import ImmersiveMode from 'react-native-immersive-mode';
 
 import {
   LiveTVStationItem,
@@ -36,7 +34,7 @@ interface Props {
   videoType?: string;
   vod_source?: any;
   onBack?: () => any;
-  useWebview?: boolean;
+  // useWebview?: boolean;
   onEpisodeChange?: any;
   episodes?: VodEpisodeListType;
   activeEpisode?: number;
@@ -50,7 +48,6 @@ interface Props {
   isFetchingRecommendedMovies?: boolean;
   appOrientation: string,
   devicesOrientation: string,
-  handleOrientation: (orientation: string) => void,
   lockOrientation: (orientation: string) => void,
 }
 
@@ -78,7 +75,7 @@ export default forwardRef<VideoRef, Props>(({
   videoType = 'vod',
   vod_source,
   onBack,
-  useWebview = false,
+  // useWebview = false,
   activeEpisode,
   onEpisodeChange,
   rangeSize,
@@ -92,7 +89,6 @@ export default forwardRef<VideoRef, Props>(({
   isFetchingRecommendedMovies = false,
   appOrientation,
   devicesOrientation,
-  handleOrientation,
   lockOrientation,
 }: Props, ref) => {
   const videoPlayerRef = React.useRef<Video | null>();
@@ -171,20 +167,22 @@ export default forwardRef<VideoRef, Props>(({
 
     // handle go back event (except IOS swipe back)
     const onBeforeRemoveListener = navigation.addListener('beforeRemove', (e: any) => {
-      e.preventDefault();
+      if(Platform.OS === 'android'){
+        // this will working in IOS swipe back and will have error
+        // ios use "gestureEnabled: false" to close swipe back function 
+        e.preventDefault();
+      }
 
       if (isFullScreen) {
         lockOrientation('PORTRAIT');
         StatusBar.setHidden(false);
         setIsFullScreen(false);
       } else {
-        if (!isPaused) {
-          setIsPaused(true);
-          // use setTimeout to prevent video non pause before pop the screen
-          setTimeout(() => {
-            navigation.dispatch(e.data.action);
-          }, 100);
-        }
+        setIsPaused(true);
+        // use setTimeout to prevent video non pause before pop the screen
+        setTimeout(() => {
+          navigation.dispatch(e.data.action);
+        }, 100);
       }
     });
 
@@ -212,39 +210,32 @@ export default forwardRef<VideoRef, Props>(({
   };
 
   const deviceOrientationHandle = () => {
-    Orientation.unlockAllOrientations();
-    
-
+    // no handle for PORTRAIT-UPSIDEDOWN
     if(devicesOrientation === 'LANDSCAPE-LEFT' || devicesOrientation === 'LANDSCAPE-RIGHT'){
       setIsFullScreen(true);
-      ImmersiveMode.fullLayout(false);
+      // ImmersiveMode.fullLayout(false);
       StatusBar.setHidden(true);
 
-      handleOrientation(devicesOrientation);
+      lockOrientation(devicesOrientation);
     }else if(devicesOrientation === 'PORTRAIT'){
       setIsFullScreen(false);
-      ImmersiveMode.fullLayout(true);
+      // ImmersiveMode.fullLayout(true);
       StatusBar.setHidden(false);
 
-      handleOrientation(devicesOrientation);
+      lockOrientation(devicesOrientation);
     }
-
-    // // lockToPortrait because "PORTRAIT-UPSIDEDOWN" will not change back portrait
-    // if(devicesOrientation === 'PORTRAIT-UPSIDEDOWN'){
-    //   lockOrientation('PORTRAIT');
-    // }
   }
 
   const onToggleFullScreen = useCallback(() => {
     if(appOrientation === 'LANDSCAPE-LEFT' || appOrientation === 'LANDSCAPE-RIGHT'){
       lockOrientation('PORTRAIT');
       setIsFullScreen(false);
-      ImmersiveMode.fullLayout(true);
+      // ImmersiveMode.fullLayout(true);
       StatusBar.setHidden(false);
     }else{
-      lockOrientation('LANDSCAPE-LEFT');
+      lockOrientation('LANDSCAPE');
       setIsFullScreen(true);
-      ImmersiveMode.fullLayout(false);
+      // ImmersiveMode.fullLayout(false);
       StatusBar.setHidden(true);
     }
   }, [isFullScreen, appOrientation]);
@@ -339,15 +330,16 @@ export default forwardRef<VideoRef, Props>(({
     <View style={styles.container}>
       <View style={{ ...styles.bofangBox }}>
         {(vod_url !== undefined || vod_source !== undefined) &&
-          (useWebview ? (
-            <WebView
-              resizeMode="contain"
-              source={vod_url === undefined ? vod_source : { uri: vod_url }}
-              style={styles.video}
-              onLoad={onVideoLoaded}
-            />
-          ) : (
-            <Video
+          // !useWebview && 
+        //   (useWebview ? (
+        //     <WebView
+        //     resizeMode="contain"
+        //     source={vod_url === undefined ? vod_source : { uri: vod_url }}
+        //     style={styles.video}
+        //     onLoad={onVideoLoaded}
+        //   />
+        // ) :
+          ( <Video
               mixWithOthers="mix"
               disableFocus
               rate={playbackRate}
@@ -384,7 +376,7 @@ export default forwardRef<VideoRef, Props>(({
               }}
               style={styles.video}
             />
-          ))}
+          )}
       </View>
       {(vod_url !== undefined || vod_source !== undefined) && (
         <VideoControlsOverlay
