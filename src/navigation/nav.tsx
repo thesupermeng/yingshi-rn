@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   NavigationContainer,
   RouteProp,
@@ -248,10 +249,16 @@ export default () => {
       bearerToken: userState.userToken,
     });
     if (result == null) {
+      await AsyncStorage.removeItem("showAds");
       return;
     }
 
     let resultData = result.data.data;
+    if (resultData.user.current_timestamp > resultData.user.vip_end_time){
+      await AsyncStorage.setItem("showAds", "false");
+    } else {
+      await AsyncStorage.setItem("showAds", "true");
+    }
     await dispatch(updateUserAuth(resultData));
     return;
   };
