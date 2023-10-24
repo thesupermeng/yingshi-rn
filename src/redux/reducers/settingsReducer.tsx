@@ -59,6 +59,15 @@ export function settingsReducer(state = initialState, action: SettingsActionType
                 case 'LANDSCAPE-RIGHT':
                     Orientation.lockToLandscapeRight();
                     break;
+                case 'LANDSCAPE':
+                    if(state.devicesOrientation === 'LANDSCAPE-RIGHT'){
+                        Orientation.lockToLandscapeRight();
+                        orientation = 'LANDSCAPE-RIGHT'
+                    }else{
+                        Orientation.lockToLandscapeLeft();
+                        orientation = 'LANDSCAPE-LEFT'
+                    }
+                    break;
             }
 
             return {
