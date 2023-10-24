@@ -24,6 +24,19 @@ export default function TitleWithBackButtonHeader({
 }: Props) {
   const { textVariants } = useTheme();
 
+  let leftIconBottomVal;
+
+  if (right) {
+    console.log("right");
+    console.log(right);
+    leftIconBottomVal = Platform.OS == "ios" ? -4 : -7;
+  } else {
+    console.log("right");
+    console.log(right);
+    leftIconBottomVal = Platform.OS == "ios" ? -14 : -12;
+  }
+  console.log("leftIconBottomVal");
+  console.log(leftIconBottomVal);
   return (
     <View style={{ ...styles.container }}>
       <View
@@ -37,7 +50,7 @@ export default function TitleWithBackButtonHeader({
           onPress={onBack}
           btnStyle={{
             position: "absolute",
-            bottom: Platform.OS == "ios" ? -2 : -7,
+            bottom: leftIconBottomVal,
             //   paddingTop: Platform.OS == "ios" ? 0 : 5,
             width: 30,
           }}
