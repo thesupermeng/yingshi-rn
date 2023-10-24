@@ -119,8 +119,8 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
   }, []);
 
   return (
-    <ScreenContainer style={{flex: 1, paddingHorizontal: 5}}>
-
+    // <ScreenContainer style={{flex: 1, paddingHorizontal: 5}}>
+      <ScreenContainer>
         <TitleWithBackButtonHeader title="个人中心" />
         <View
           style={{
