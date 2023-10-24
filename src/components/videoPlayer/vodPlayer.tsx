@@ -171,7 +171,8 @@ export default forwardRef<VideoRef, Props>(({
 
     // handle go back event (except IOS swipe back)
     const onBeforeRemoveListener = navigation.addListener('beforeRemove', (e: any) => {
-      e.preventDefault();
+      // comment because this will working in IOS swipe back
+      // e.preventDefault();
 
       if (isFullScreen) {
         lockOrientation('PORTRAIT');
