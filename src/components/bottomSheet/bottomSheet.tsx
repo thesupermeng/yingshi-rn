@@ -38,7 +38,7 @@ export default function BottomSheet({
             keyboardDidHideListener.remove();
         };
     }, []);
-    console.log('bottomPosition:', bottomPosition);
+
     return (
         <ReactBottomSheet 
             isVisible={isVisible}
