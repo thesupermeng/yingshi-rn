@@ -1,4 +1,5 @@
 import {useNavigation, useTheme} from '@react-navigation/native';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, {useState} from 'react';
 import {useEffect} from 'react';
 import {
@@ -148,6 +149,11 @@ const OtpInputs = props => {
         console.log(json);
 
         if (props.action == 'login') {
+          if(json.userCurrentTimestamp > json.userMemberExpired){
+            await AsyncStorage.setItem("showAds", "false");
+          } else {
+            await AsyncStorage.setItem("showAds", "true");
+          }
           await dispatch(changeScreenAction('登录成功'));
           navigator.navigate('Home', {
             screen: 'Profile',

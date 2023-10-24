@@ -59,17 +59,45 @@ UIView *rootView;
       mytargetConfigure,
   //    facebookConfigure
     ];
+  
+  NSString *showAds = @"true";
+  
+  NSString *RCTStorageDirectory = @"RCTAsyncLocalStorage_V1";
+  NSString *RCTManifestFileName = @"manifest.json";
+
+  NSFileManager *fileManager = [NSFileManager defaultManager];
+  NSURL *appSupportDirectory = [[NSFileManager defaultManager] URLForDirectory:NSApplicationSupportDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
+  NSURL *mySupportDirectory = [appSupportDirectory URLByAppendingPathComponent:[[NSBundle mainBundle] bundleIdentifier]];
+  NSURL *storageDirectory = [mySupportDirectory URLByAppendingPathComponent:RCTStorageDirectory];
+  NSURL *storageFile = [storageDirectory URLByAppendingPathComponent:RCTManifestFileName];
+
+  if ([fileManager fileExistsAtPath:storageFile.path]) {
+    NSError *error;
+    NSString *stringFromFile = [NSString stringWithContentsOfURL:storageFile encoding:NSUTF8StringEncoding error:&error];
+    if (!error) {
+      NSData *data = [stringFromFile dataUsingEncoding:NSUTF8StringEncoding];
+      NSError *jsonError;
+      NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&jsonError];
+      if (!jsonError && json[@"showAds"]) {
+        showAds = json[@"showAds"];
+      }
+    }
+  }
 
   [[ATAPI sharedInstance] startWithAppID:@"a650a6ca02b6a6" appKey:@"a1d5a4e8e7e2bb06880eb2cda108716ed" sdkConfigures:configuration error:nil];
   [[ATAPI sharedInstance] setPresetPlacementConfigPathBundle:[NSBundle mainBundle]];
   
-  self.launchOptions = launchOptions;
-  self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-  
-  ATSplashViewController *splashViewController = [[ATSplashViewController alloc] init];
-  splashViewController.delegate = self;
-  self.window.rootViewController = splashViewController;
-  [self.window makeKeyAndVisible];
+  if([showAds isEqualToString:@"true"]){
+    self.launchOptions = launchOptions;
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    
+    ATSplashViewController *splashViewController = [[ATSplashViewController alloc] init];
+    splashViewController.delegate = self;
+    self.window.rootViewController = splashViewController;
+    [self.window makeKeyAndVisible];
+  }
+
+  // TODO: Add new page in ELSE for logo-only splashscreen
   
 //  [AppCenterReactNative register];
 //  [AppCenterReactNativeAnalytics registerWithInitiallyEnabled:true];
