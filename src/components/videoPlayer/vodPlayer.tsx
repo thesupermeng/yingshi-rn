@@ -167,9 +167,9 @@ export default forwardRef<VideoRef, Props>(({
 
     // handle go back event (except IOS swipe back)
     const onBeforeRemoveListener = navigation.addListener('beforeRemove', (e: any) => {
-      if(Platform.OS === 'android'){
-        // this will working in IOS swipe back and will have error
-        // ios use "gestureEnabled: false" to close swipe back function 
+      if(!(Platform.OS === 'ios' && e.data.action.type.toLocaleLowerCase() === 'pop')){
+        // preventDefault cannot working in IOS swipe back and will have error
+        // use "gestureEnabled: false" to handle ios swipe back function 
         e.preventDefault();
       }
 

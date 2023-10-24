@@ -24,13 +24,11 @@ export default function BottomSheet({
 
     useEffect(() => {
         const keyboardDidShowListener = Keyboard.addListener('keyboardWillShow', (e) => {
-            if(Platform.OS === 'ios'){
-                setBottomPosition(e.endCoordinates.height);
-            }
+            if(Platform.OS === 'ios') setBottomPosition(e.endCoordinates.height);
         });
 
         const keyboardDidHideListener = Keyboard.addListener('keyboardWillHide', () => {
-            setBottomPosition(0);
+            if(Platform.OS === 'ios') setBottomPosition(0);
         });
 
         return () => {
