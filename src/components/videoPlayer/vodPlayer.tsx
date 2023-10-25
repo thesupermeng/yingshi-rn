@@ -331,17 +331,16 @@ export default forwardRef<VideoRef, Props>(({
   return (
     <View style={styles.container}>
       <View style={{ ...styles.bofangBox }}>
-        {(vod_url !== undefined || vod_source !== undefined) &&
-          useWebview ? (
-          <WebView
-            resizeMode="contain"
-            source={vod_url === undefined ? vod_source : { uri: vod_url }}
-            style={styles.video}
-            onLoad={onVideoLoaded}
-          />
-        ) :
-          (
-            <VideoWithControls
+        {!(vod_url !== undefined || vod_source !== undefined)
+          ? <View style={{ width: '100%', aspectRatio: 16 / 9, backgroundColor: 'black' }} />
+          : (useWebview
+            ? <WebView
+              resizeMode="contain"
+              source={vod_url === undefined ? vod_source : { uri: vod_url }}
+              style={styles.video}
+              onLoad={onVideoLoaded}
+            />
+            : <VideoWithControls
               playbackRate={playbackRate}
               videoPlayerRef={videoPlayerRef}
               isPaused={isPaused || isInBackground} // Pause video when app is in the background
@@ -377,7 +376,8 @@ export default forwardRef<VideoRef, Props>(({
               changeEpisodeAndPlay={changeEpisodeAndPlay}
               onShare={onShare}
             />
-          )}
+          )
+        }
       </View>
       {(bufferRef.current || seekDirection !== 'none') && (
         <View

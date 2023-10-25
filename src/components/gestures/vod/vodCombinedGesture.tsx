@@ -174,7 +174,6 @@ export default ({ vodType, children, enabled = true, onSkipBackwards, onSkipForw
 
     const singleTap = useCallback(
         debounce(() => {
-            console.log('111')
             if (!isDoubleTap.value) {
                 onSingleTap(isDoubleTap.value);
             }
