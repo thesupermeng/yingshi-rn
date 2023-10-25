@@ -28,6 +28,7 @@ import EditIcn from "./../../../static/images/profile/edit.svg";
 
 import VipIcon from "../../../static/images/vip-icon.svg";
 import VipArrow from "../../../static/images/vip-arrow.svg";
+import AddIcon from "../../../static/images/vip/add.svg";
 
 import {
   hideBottomSheetAction,
@@ -273,36 +274,116 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
           </TouchableOpacity>
 
           <View style={{ marginBottom: -30, flex: 3, paddingBottom: 120 }}>
-            <TouchableOpacity
-              style={{
-                ...styles.btn,
-                backgroundColor: "#2d2e30",
-              }}
-              onPress={() => {
-                navigation.navigate("邀请");
-              }}
-            >
-              <View style={styles.left}>
-                <View style={styles.icon}>
-                  <VipIcon width={icons.sizes.l} height={icons.sizes.l} />
+            {userState.userToken == "" ? (
+              <TouchableOpacity
+                style={{
+                  ...styles.btn,
+                  backgroundColor: "#2d2e30",
+                }}
+                onPress={() => {
+                  navigation.navigate("邀请");
+                }}
+              >
+                <View style={styles.left}>
+                  <View style={styles.icon}>
+                    <VipIcon width={icons.sizes.l} height={icons.sizes.l} />
+                  </View>
+
+                  <Text
+                    style={{
+                      ...textVariants.body,
+                    }}
+                  >
+                    {highlightText("邀请好友获得VIP奖励，享更多权益", "VIP")}
+                  </Text>
                 </View>
 
-                <Text
+                <VipArrow
+                  width={icons.sizes.l}
+                  height={icons.sizes.l}
+                  color={colors.muted}
+                />
+              </TouchableOpacity>
+            ):(
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-evenly',
+                  gap: 10,
+                }}>
+                <TouchableOpacity
                   style={{
-                    ...textVariants.body,
+                    ...styles.btn,
+                    backgroundColor: "#2d2e30",
+                    flex: 1,
+                  }}
+                  onPress={() => {
+                    navigation.navigate("付费VIP");
                   }}
                 >
-                  {highlightText("邀请好友获得VIP奖励，享更多权益", "VIP")}
-                </Text>
+                  <View style={styles.left}>
+                    <View style={styles.icon}>
+                      <VipIcon width={icons.sizes.l} height={icons.sizes.l} />
+                    </View>
+                    <View
+                      style={{gap:5}}>
+                      <Text
+                        style={{
+                          ...textVariants.body,
+                        }}
+                      >
+                        {highlightText("付费VIP", "")}
+                      </Text>
+                      <Text
+                        style={{
+                          ...textVariants.small,
+                          color: colors.button
+                        }}
+                      >
+                        去广告 看体育直播
+                      </Text>
+                    </View>
+                    
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={{
+                    ...styles.btn,
+                    backgroundColor: "#2d2e30",
+                    flex: 1,
+                  }}
+                  onPress={() => {
+                    navigation.navigate("邀请");
+                  }}
+                >
+                  <View style={styles.left}>
+                    <View style={styles.icon}>
+                      <AddIcon width={icons.sizes.l} height={icons.sizes.l} />
+                    </View>
+                    <View
+                      style={{gap:5}}>
+                      <Text
+                        style={{
+                          ...textVariants.body,
+                        }}
+                      >
+                        {highlightText("邀请好友", "")}
+                      </Text>
+                      <Text
+                        style={{
+                          ...textVariants.small,
+                          color: colors.button,
+                        }}
+                      >
+                        VIP奖励 享更多权益
+                      </Text>
+                    </View>
+                    
+                  </View>
+                </TouchableOpacity>
               </View>
-
-              <VipArrow
-                width={icons.sizes.l}
-                height={icons.sizes.l}
-                color={colors.muted}
-              />
-            </TouchableOpacity>
-
+            )}
+            
             <ShowMoreButton
               text="我的收藏"
               leftIcon={<CollectionIcon style={{ color: colors.button }} />}

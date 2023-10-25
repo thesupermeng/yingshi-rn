@@ -19,6 +19,7 @@ import LiveStationPlayScreen from "../screens/Common/LiveStationPlay";
 // import VodCollectionScreen from '../screens/Profile/Collection/VodCollection';
 // import PlaylistCollectionScreen from '../screens/Profile/Collection/PlaylistCollection';
 import FeedbackScreen from "../screens/Profile/Feedback";
+import VIP from "../screens/Profile/VIP";
 import Invite from "../screens/Profile/Invite";
 import InviteDetails from "../screens/Profile/InviteDetails";
 import UserCenter from "../screens/Profile/UserCenter";
@@ -96,6 +97,7 @@ import {
   lockAppOrientation,
 } from "../redux/actions/settingsActions";
 import { SettingsReducerState } from "../redux/reducers/settingsReducer";
+import { withIAPContext } from "react-native-iap";
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -459,6 +461,12 @@ export default () => {
             name="Profile"
             component={ProfileScreen}
             options={{ orientation: "portrait" }}
+          />
+
+          <Stack.Screen 
+            name="付费VIP"
+            component={withIAPContext(VIP)}
+            options={{orientation: "portrait"}}
           />
         </Stack.Navigator>
         {settingsReducer.appOrientation === "PORTRAIT" &&

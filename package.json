@@ -22,7 +22,6 @@
     "android-apk-vivo-release": "export APK_CHANNEL=VIVO_APP_STORE&& npm run build-release",
     "android-apk-mi-release": "export APK_CHANNEL=MI_GETAPPS&& npm run build-release",
     "android-apk-samsung-release": "export APK_CHANNEL=SAMSUNG_GALAXY_STORE&& npm run build-release",
-
     "android-apk-apkpure-release": "export APK_CHANNEL=APK_PURE&& npm run build-release",
     "android-apk-androidout-release": "export APK_CHANNEL=ANDROID_OUT&& npm run build-release",
     "android-apk-apkgk-release": "export APK_CHANNEL=APK_GK&& npm run build-release",
@@ -90,6 +89,7 @@
     "react-native-fs": "^2.20.0",
     "react-native-gesture-handler": "^2.12.0",
     "react-native-heroicons": "^3.2.0",
+    "react-native-iap": "^12.10.8",
     "react-native-immersive-mode": "^2.0.1",
     "react-native-linear-gradient": "^2.7.2",
     "react-native-localize": "^3.0.2",
