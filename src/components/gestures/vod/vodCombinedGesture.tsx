@@ -167,7 +167,7 @@ export default ({ vodType, children, enabled = true, onSkipBackwards, onSkipForw
 
 
     const taps = vodType === 'live' || disableControlsExceptTap ? singleTap : Gesture.Exclusive(doubleTap, singleTap);
-    const composed = disableControlsExceptTap ? taps : Gesture.Simultaneous(pan, taps);
+    const composed = disableControlsExceptTap ? taps : Gesture.Simultaneous(pan, doubleTap);
 
     return (
         <GestureDetector gesture={composed} >
