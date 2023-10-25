@@ -53,7 +53,7 @@ export default function PrivacyBackButtonHeader({ title, headerStyle, right, des
 
     return (
         <View style={{ ...styles.container, ...headerStyle }}>
-            <View style={{ paddingTop: 4, ...styles.backStyle }}>
+            <View style={{ paddingTop: 10, ...styles.backStyle }}>
                 <BackButton onPress={() => navigation.goBack()} />
             </View>
             <Text style={{ ...textVariants.header, fontSize: 16 }} numberOfLines={1}>{title}</Text>
@@ -70,7 +70,7 @@ export default function PrivacyBackButtonHeader({ title, headerStyle, right, des
 
 const styles = StyleSheet.create({
     container: {
-        paddingTop: 4,
+        paddingTop: 10,
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',

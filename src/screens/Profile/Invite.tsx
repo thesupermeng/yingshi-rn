@@ -66,47 +66,46 @@ export default ({ navigation }: RootStackScreenProps<"邀请">) => {
   return (
     <ScreenContainer>
       <AdsBanner bottomTabHeight={0} />
+      <TitleWithBackButtonHeader title="邀请好友奖励" />
       <ScrollView
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} tintColor="#FAC33D" />
         }
       >
-        <ScrollView>
-          <TitleWithBackButtonHeader title="邀请好友奖励" />
-          <View style={{ paddingHorizontal: 10 }}>
-            {/* top component  */}
-            <InviteHeader />
-            {/* content card component  */}
-            <InviteCard userState={userState} />
-            {/* event section  */}
+        {/* <TitleWithBackButtonHeader title="邀请好友奖励" /> */}
+        <View style={{ paddingHorizontal: 10 }}>
+          {/* top component  */}
+          <InviteHeader />
+          {/* content card component  */}
+          <InviteCard userState={userState} />
+          {/* event section  */}
 
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate("活动规则");
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("活动规则");
+            }}
+          >
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+                paddingVertical: 10,
               }}
             >
-              <View
+              <Text
                 style={{
-                  flex: 1,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  paddingVertical: 10,
+                  fontSize: 12,
+                  textDecorationLine: "underline",
+                  color: "#ffffff",
                 }}
               >
-                <Text
-                  style={{
-                    fontSize: 12,
-                    textDecorationLine: "underline",
-                    color: "#ffffff",
-                  }}
-                >
-                  活动规则
-                </Text>
-              </View>
-            </TouchableOpacity>
-            {/* invite step  */}
-          </View>
-        </ScrollView>
+                活动规则
+              </Text>
+            </View>
+          </TouchableOpacity>
+          {/* invite step  */}
+        </View>
         <InviteStep />
       </ScrollView>
     </ScreenContainer>
