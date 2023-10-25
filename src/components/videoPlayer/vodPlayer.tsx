@@ -378,13 +378,11 @@ export default forwardRef<VideoRef, Props>(({
             />
           )
         }
+
       </View>
       {(bufferRef.current || seekDirection !== 'none') && (
         <View
-          style={{
-            ...styles.buffering,
-            top: isFullScreen ? height / 2 - 45 : (width * 9) / 32 - 45,
-          }}>
+          style={styles.buffering}>
           {seekDirection !== 'none' ? (
             <View
               style={{
@@ -466,6 +464,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     color: 'yellow',
     position: 'absolute',
+    height: '100%',
     width: '100%',
   },
   container: {
