@@ -1,4 +1,4 @@
-import { StyleSheet, TouchableOpacity, ViewStyle } from "react-native";
+import { StyleSheet, TouchableOpacity, ViewStyle, Platform } from "react-native";
 import BackIcon from "../../../static/images/back_arrow.svg";
 import { useTheme } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
@@ -31,5 +31,7 @@ export default function BackButton({
 }
 
 const styles = StyleSheet.create({
-  btn: {},
+  btn: {
+    paddingTop: (Platform.OS === 'android') ? 10 : 0,
+  },
 });

@@ -51,7 +51,7 @@ export default function TitleWithBackButtonHeader({
           btnStyle={{
             position: "absolute",
             bottom: leftIconBottomVal,
-            //   paddingTop: Platform.OS == "ios" ? 0 : 5,
+            // paddingTop: Platform.OS == "android" ? 30 : 5,
             width: 30,
           }}
         />
