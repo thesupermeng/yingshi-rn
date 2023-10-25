@@ -25,6 +25,7 @@ import {
   VodEpisodeListType,
   VodType,
 } from '../../types/ajaxTypes';
+import VideoWithControls from './videoWithControls';
 
 interface Props {
   vod_url?: string;
@@ -123,7 +124,7 @@ export default forwardRef<VideoRef, Props>(({
   const [isInBackground, setIsInBackground] = useState(false);
 
   useImperativeHandle(ref, () => ({
-    setPause: (pauseVideo : boolean) => {
+    setPause: (pauseVideo: boolean) => {
       setIsPaused(pauseVideo)
     },
     isPaused: isPaused,
@@ -167,7 +168,7 @@ export default forwardRef<VideoRef, Props>(({
 
     // handle go back event (except IOS swipe back)
     const onBeforeRemoveListener = navigation.addListener('beforeRemove', (e: any) => {
-      if(!(Platform.OS === 'ios' && e.data.action.type.toLocaleLowerCase() === 'pop')){
+      if (!(Platform.OS === 'ios' && e.data.action.type.toLocaleLowerCase() === 'pop')) {
         // preventDefault cannot working in IOS swipe back and will have error
         // use "gestureEnabled: false" to handle ios swipe back function 
         e.preventDefault();
@@ -194,9 +195,9 @@ export default forwardRef<VideoRef, Props>(({
 
   useEffect(() => {
     // if full screen disable ios swipe back function
-    if(isFullScreen){
+    if (isFullScreen) {
       navigation.setOptions({ gestureEnabled: false })
-    }else{
+    } else {
       navigation.setOptions({ gestureEnabled: true })
     }
   }, [isFullScreen]);
@@ -211,13 +212,13 @@ export default forwardRef<VideoRef, Props>(({
 
   const deviceOrientationHandle = () => {
     // no handle for PORTRAIT-UPSIDEDOWN
-    if(devicesOrientation === 'LANDSCAPE-LEFT' || devicesOrientation === 'LANDSCAPE-RIGHT'){
+    if (devicesOrientation === 'LANDSCAPE-LEFT' || devicesOrientation === 'LANDSCAPE-RIGHT') {
       setIsFullScreen(true);
       // ImmersiveMode.fullLayout(false);
       StatusBar.setHidden(true);
 
       lockOrientation(devicesOrientation);
-    }else if(devicesOrientation === 'PORTRAIT'){
+    } else if (devicesOrientation === 'PORTRAIT') {
       setIsFullScreen(false);
       // ImmersiveMode.fullLayout(true);
       StatusBar.setHidden(false);
@@ -227,12 +228,12 @@ export default forwardRef<VideoRef, Props>(({
   }
 
   const onToggleFullScreen = useCallback(() => {
-    if(appOrientation === 'LANDSCAPE-LEFT' || appOrientation === 'LANDSCAPE-RIGHT'){
+    if (appOrientation === 'LANDSCAPE-LEFT' || appOrientation === 'LANDSCAPE-RIGHT') {
       lockOrientation('PORTRAIT');
       setIsFullScreen(false);
       // ImmersiveMode.fullLayout(true);
       StatusBar.setHidden(false);
-    }else{
+    } else {
       lockOrientation('LANDSCAPE');
       setIsFullScreen(true);
       // ImmersiveMode.fullLayout(false);
@@ -275,7 +276,7 @@ export default forwardRef<VideoRef, Props>(({
   const onVideoProgessing = (data: any) => {
     setCurrentTime(data.currentTime);
     currentTimeRef.current = data.currentTime;
-    if(Platform.OS === 'ios') {
+    if (Platform.OS === 'ios') {
       bufferRef.current = false;
     }
   };
@@ -326,97 +327,62 @@ export default forwardRef<VideoRef, Props>(({
     }
     return undefined;
   };
+
   return (
     <View style={styles.container}>
       <View style={{ ...styles.bofangBox }}>
-        {(vod_url !== undefined || vod_source !== undefined) &&
-          useWebview ? (
-            <WebView
-            resizeMode="contain"
-            source={vod_url === undefined ? vod_source : { uri: vod_url }}
-            style={styles.video}
-            onLoad={onVideoLoaded}
-          />
-        ) :
-          ( <Video
-              mixWithOthers="mix"
-              disableFocus
-              rate={playbackRate}
-              ignoreSilentSwitch="ignore"
-              ref={ref => (videoPlayerRef.current = ref)}
-              fullscreen={false}  // make it false to prevent duplicate fullscreen function 
-              onBuffer={onBuffer}
-              paused={isPaused || isInBackground} // Pause video when app is in the background
+        {!(vod_url !== undefined || vod_source !== undefined)
+          ? <View style={{ width: '100%', aspectRatio: 16 / 9, backgroundColor: 'black' }} />
+          : (useWebview
+            ? <WebView
               resizeMode="contain"
-              onEnd={() => {
-                const nextEpi = getNextEpisode();
-                if (nextEpi !== undefined) {
-                  nextEpi();
-                }
-              }}
-              source={
-                vod_source !== undefined
-                  ? vod_source
-                  : {
-                    uri: vod_url,
-                    headers: {
-                      origin: 'https://v.kylintv.com',
-                      referer: 'https://v.kylintv.com',
-                    },
-                  }
-              }
-              onLoad={onVideoLoaded}
-              progressUpdateInterval={1000}
-              onProgress={onVideoProgessing}
-              onSeek={data => {
-                if (currentTimeRef) {
-                  currentTimeRef.current = data.currentTime;
-                }
-              }}
+              source={vod_url === undefined ? vod_source : { uri: vod_url }}
               style={styles.video}
+              onLoad={onVideoLoaded}
             />
-          )}
+            : <VideoWithControls
+              playbackRate={playbackRate}
+              videoPlayerRef={videoPlayerRef}
+              isPaused={isPaused || isInBackground} // Pause video when app is in the background
+              vod_source={vod_source}
+              vod_url={vod_url}
+              currentTimeRef={currentTimeRef}
+              controlsRef={controlsRef}
+              currentTime={currentTime}
+              duration={duration}
+              isFullScreen={isFullScreen}
+              vodTitle={vodTitle}
+              videoType={videoType}
+              activeEpisode={activeEpisode}
+              episodes={episodes}
+              rangeSize={rangeSize}
+              accumulatedSkip={accumulatedSkip.current}
+              movieList={movieList}
+              showGuide={showGuide}
+              showMoreType={showMoreType}
+              streams={streams}
+              isFetchingRecommendedMovies={isFetchingRecommendedMovies}
+              onBuffer={onBuffer}
+              getNextEpisode={getNextEpisode}
+              onVideoLoaded={onVideoLoaded}
+              onVideoProgessing={onVideoProgessing}
+              onSeek={onSeek}
+              onSeekGesture={onSeekGesture}
+              onSkip={onSkip}
+              onTogglePlayPause={onTogglePlayPause}
+              onToggleFullScreen={onToggleFullScreen}
+              onGoBack={onGoBack}
+              setPlaybackRate={setPlaybackRate}
+              changeEpisodeAndPlay={changeEpisodeAndPlay}
+              onShare={onShare}
+            />
+          )
+        }
+
       </View>
-      {(vod_url !== undefined || vod_source !== undefined) && (
-        <VideoControlsOverlay
-          ref={controlsRef}
-          videoUrl={vod_url ?? ''}
-          onVideoSeek={onSeek}
-          onSeekGesture={onSeekGesture}
-          currentTime={currentTime}
-          duration={duration}
-          onFastForward={onSkip}
-          paused={isPaused}
-          isFullScreen={isFullScreen}
-          onTogglePlayPause={onTogglePlayPause}
-          headerTitle={vodTitle}
-          onHandleFullScreen={onToggleFullScreen}
-          onHandleGoBack={onGoBack}
-          videoType={videoType}
-          playbackRate={playbackRate}
-          onPlaybackRateChange={(rate: number) => {
-            setPlaybackRate(rate);
-          }}
-          activeEpisode={activeEpisode}
-          episodes={episodes}
-          onEpisodeChange={changeEpisodeAndPlay}
-          rangeSize={rangeSize}
-          onNextEpisode={getNextEpisode()}
-          accumulatedSkip={accumulatedSkip.current}
-          onShare={onShare}
-          movieList={movieList}
-          showGuide={showGuide}
-          showMoreType={showMoreType}
-          streams={streams}
-          isFetchingRecommendedMovies={isFetchingRecommendedMovies}
-        />
-      )}
       {(bufferRef.current || seekDirection !== 'none') && (
         <View
-          style={{
-            ...styles.buffering,
-            top: isFullScreen ? height / 2 - 45 : (width * 9) / 32 - 45,
-          }}>
+          style={styles.buffering}>
           {seekDirection !== 'none' ? (
             <View
               style={{
@@ -498,6 +464,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     color: 'yellow',
     position: 'absolute',
+    height: '100%',
     width: '100%',
   },
   container: {

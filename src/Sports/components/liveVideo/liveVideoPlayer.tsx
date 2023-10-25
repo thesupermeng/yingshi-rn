@@ -116,9 +116,7 @@ const LiveVideo = ({ matchID, liveDataState, onLiveEnd, onLoad, streamID, videoS
     const lockOrientation = (orientation: string) => {
         dispatch(lockAppOrientation(orientation));
     };
-    console.log('111', videoSource?.url !== undefined)
-    console.log('222', videoSource?.type === VideoLiveType.LIVE)
-    console.log('333', videoSource?.type)
+
     return (
         <View style={styles.container}>
             {/* <View style={{height: isFullScreen ? '100%' : 'auto'}}> */}

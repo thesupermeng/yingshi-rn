@@ -223,9 +223,7 @@ export default forwardRef<RefHandler, Props>(({
           totalDuration={duration}
           onSeek={onSeekGesture}
           disableControlsExceptTap={isLocked}
-        >
-          <View style={{ flex: 1, zIndex: 50 }}></View>
-        </VodCombinedGesture>
+        />
       }
       {
         accumulatedSkip < 0 &&
@@ -240,7 +238,7 @@ export default forwardRef<RefHandler, Props>(({
           padding: 10,
           borderRadius: 8
         }}>
-          <Text style={{...textVariants.header, marginRight: 5}}>{`${accumulatedSkip}s`}</Text>
+          <Text style={{ ...textVariants.header, marginRight: 5 }}>{`${accumulatedSkip}s`}</Text>
           <FastImage
             source={require('../../../static/images/backward.png')}
             style={{
@@ -272,7 +270,7 @@ export default forwardRef<RefHandler, Props>(({
             }}
             resizeMode={FastImage.resizeMode.contain}
           />
-          <Text style={{...textVariants.header, marginRight: 5}}>{`+${accumulatedSkip}s`}</Text>
+          <Text style={{ ...textVariants.header, marginRight: 5 }}>{`+${accumulatedSkip}s`}</Text>
         </View>
       }
       {
@@ -430,6 +428,7 @@ export default forwardRef<RefHandler, Props>(({
                 currentTime={currentTime}
                 totalDuration={duration}
                 onSeek={onSeekGesture}
+                disableControlsExceptTap={isLocked}
               >
                 <MiddleControls
                   fastForward={handleFastForward}
