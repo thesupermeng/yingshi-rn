@@ -23,7 +23,8 @@ export default ({navigation}: RootStackScreenProps<'活动规则'>) => {
   };
 
   return (
-    <SafeAreaView>
+    // <SafeAreaView>
+    <ScreenContainer>
       <View style={{gap: spacing.m}}>
         <TitleWithBackButtonHeader title="活动规则" />
 
@@ -152,7 +153,8 @@ export default ({navigation}: RootStackScreenProps<'活动规则'>) => {
           </View>
         </View>
       </View>
-    </SafeAreaView>
+      </ScreenContainer>
+    // </SafeAreaView>
   );
 };
 
