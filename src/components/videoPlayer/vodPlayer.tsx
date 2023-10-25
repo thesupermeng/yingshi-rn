@@ -377,7 +377,7 @@ export default forwardRef<VideoRef, Props>(({
             />
           )}
       </View>
-      {(vod_url !== undefined || vod_source !== undefined) && (
+      {(vod_url !== undefined || vod_source !== undefined) && !useWebview && (
         <VideoControlsOverlay
           ref={controlsRef}
           videoUrl={vod_url ?? ''}
