@@ -6,6 +6,7 @@ import TitleWithBackButtonHeader from '../../components/header/titleWithBackButt
 import PrivacyBackButtonHeader from '../../components/header/privacyBackButtonHeader';
 
 import { useTheme } from '@react-navigation/native';
+import { FlatList, ScrollView } from 'react-native-gesture-handler';
 
 export default ({ navigation }: RootStackScreenProps<'用户协议'>) => {
     const { colors, textVariants, icons, spacing } = useTheme();
@@ -15,12 +16,15 @@ export default ({ navigation }: RootStackScreenProps<'用户协议'>) => {
         setIsDialogOpen(!isDialogOpen);
     };
 
+    
     return (
-        <ScreenContainer scrollView={true}>
+        // <ScreenContainer scrollView={true}>
+        <ScreenContainer>
             <View style={{ gap: spacing.m }}>
                 {/* <TitleWithBackButtonHeader title='用户协议' /> */}
-                <PrivacyBackButtonHeader title='用户协议' />
-                <Text style={{ ...textVariants.header, textAlign: 'center' }}>萤视频用户协议</Text>
+                <PrivacyBackButtonHeader title='用户协议'/>
+                <ScrollView>
+                <Text style={{ ...textVariants.header, textAlign: 'center', paddingBottom: 10 }}>萤视频用户协议</Text>
                 <Text style={textVariants.body}>
                     {
                       `《萤视频用户服务协议》\n` +
@@ -136,6 +140,7 @@ export default ({ navigation }: RootStackScreenProps<'用户协议'>) => {
                       `4. 在任何情况下，本协议中包含的任何一个或多个条款被认为无效、非法或不可执行，不影响其余条款的有效性、合法性和可执行性。\n`
                     }
                 </Text>
+                </ScrollView>
             </View>
         </ScreenContainer >
     )

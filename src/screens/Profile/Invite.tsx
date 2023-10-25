@@ -66,12 +66,13 @@ export default ({ navigation }: RootStackScreenProps<"邀请">) => {
   return (
     <ScreenContainer>
       <AdsBanner bottomTabHeight={0} />
+      <TitleWithBackButtonHeader title="邀请好友奖励" />
       <ScrollView
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} tintColor="#FAC33D" />
         }
       >
-        <TitleWithBackButtonHeader title="邀请好友奖励" />
+        {/* <TitleWithBackButtonHeader title="邀请好友奖励" /> */}
         <View style={{ paddingHorizontal: 10 }}>
           {/* top component  */}
           <InviteHeader />

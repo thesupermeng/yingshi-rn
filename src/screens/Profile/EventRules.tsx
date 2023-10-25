@@ -26,7 +26,9 @@ export default ({navigation}: RootStackScreenProps<'活动规则'>) => {
     // <SafeAreaView>
     <ScreenContainer>
       <View style={{gap: spacing.m}}>
-        <TitleWithBackButtonHeader title="活动规则" />
+        <TitleWithBackButtonHeader title="活动规则" 
+        headerStyle={{marginBottom: spacing.m}}
+        />
 
         <View style={{marginBottom: 100, paddingLeft: 20, paddingRight: 35}}>
           <Text style={{...textVariants.small, fontSize: 14, lineHeight: 22}}>

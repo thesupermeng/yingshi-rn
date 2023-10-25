@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  SafeAreaView,
 } from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
 import {RootStackScreenProps} from '../../types/navigationTypes';

@@ -7,6 +7,7 @@ import { showRegisterAction } from '../../redux/actions/screenAction';
 import PrivacyBackButtonHeader from '../../components/header/privacyBackButtonHeader';
 
 import { useTheme } from '@react-navigation/native';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default ({ navigation }: RootStackScreenProps<'隐私政策'>) => {
     const { colors, textVariants, icons, spacing } = useTheme();
@@ -17,11 +18,13 @@ export default ({ navigation }: RootStackScreenProps<'隐私政策'>) => {
     };
 
     return (
-        <ScreenContainer scrollView={true}>
+        // <ScreenContainer scrollView={true}>
+        <ScreenContainer>
             <View style={{ gap: spacing.m }}>
                 {/* <TitleWithBackButtonHeader title='隐私政策' /> */}
                 <PrivacyBackButtonHeader title='隐私政策' />
-                <Text style={{ ...textVariants.header, textAlign: 'center' }}>萤视频隐私协议</Text>
+                <ScrollView>
+                <Text style={{ ...textVariants.header, textAlign: 'center', paddingBottom: 10}}>萤视频隐私协议</Text>
                 <Text style={textVariants.body}>
                     {
                        `《萤视频隐私协议》目录\n` +
@@ -184,6 +187,7 @@ export default ({ navigation }: RootStackScreenProps<'隐私政策'>) => {
                        `2. 本隐私协议的标题仅为方便及阅读而设，并不影响正文其中任何规定的含义或解释。`
                     }
                 </Text>
+                </ScrollView>
             </View>
         </ScreenContainer >
     )
