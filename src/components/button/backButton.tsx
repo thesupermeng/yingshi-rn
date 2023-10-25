@@ -32,6 +32,6 @@ export default function BackButton({
 
 const styles = StyleSheet.create({
   btn: {
-    paddingTop: (Platform.OS === 'android') ? 30 : 0,
+    paddingTop: (Platform.OS === 'android') ? 10 : 0,
   },
 });
