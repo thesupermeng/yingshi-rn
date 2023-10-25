@@ -1,16 +1,17 @@
-import React, { useEffect, useState, useRef, ReactNode, useMemo, useCallback } from 'react';
-import { View, PanResponder, StyleSheet, Dimensions, ViewStyle, Settings, Button } from 'react-native';
-import { Gesture, GestureDetector, PanGestureHandler } from 'react-native-gesture-handler';
+import React, { useState, useRef, ReactNode, useMemo, useCallback } from 'react';
+import { View, Dimensions, TouchableWithoutFeedback } from 'react-native';
+import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import { runOnJS, useSharedValue } from 'react-native-reanimated';
 import SystemSetting from 'react-native-system-setting';
 import BrightnessVolumeSlider from './BrightnessVolumeSlider';
+import { debounce } from 'lodash';
 type Props = {
     vodType: string,
-    children: ReactNode,
+    children?: ReactNode,
     enabled?: boolean,
     onSkipForward: () => any,
     onSkipBackwards: () => any,
-    onSingleTap: () => any,
+    onSingleTap: (forceClose: boolean) => any,
     currentTime: number,
     totalDuration: number,
     onSeek: (x: number) => any,
@@ -21,7 +22,7 @@ type SettingsType = {
     name: 'progress' | 'brightness' | 'volume' | 'none'
     value: number,
 }
-export default ({ vodType, children, enabled = true, onSkipBackwards, onSkipForward, onSingleTap, currentTime = 0, totalDuration = 0.1, onSeek, disableControlsExceptTap=false }: Props) => {
+export default ({ vodType, children, enabled = true, onSkipBackwards, onSkipForward, onSingleTap, currentTime = 0, totalDuration = 0.1, onSeek, disableControlsExceptTap = false }: Props) => {
     const panCooldown = useSharedValue(3);
 
     const previousPanPosition = useSharedValue({ x: 0, y: 0, gesture: 'none' });
@@ -29,6 +30,8 @@ export default ({ vodType, children, enabled = true, onSkipBackwards, onSkipForw
     const volumeShare = useSharedValue(0.0);
     const [settings, setSettings] = useState<SettingsType>({ name: 'none', value: 0 });
     const [showSlider, setShowSlider] = useState(false);
+
+    const isDoubleTap = useSharedValue(false);
 
     const sliderTimeout = useRef(0);
     const height = Dimensions.get('window').height
@@ -50,13 +53,13 @@ export default ({ vodType, children, enabled = true, onSkipBackwards, onSkipForw
     const onBrightnessChanged = (newVal: number, prevVal: number) => {
         showControls();
         let different = ((prevVal - newVal) / height) * 2.5; // set 2.5 magnification
-        let newVol = different + brightShare.value; 
+        let newVol = different + brightShare.value;
 
-        if((0 > newVol && brightShare.value === 0) || (1 < newVol && brightShare.value === 1)) return;
+        if ((0 > newVol && brightShare.value === 0) || (1 < newVol && brightShare.value === 1)) return;
 
-        if(0 >= newVol && brightShare.value !== 0){
+        if (0 >= newVol && brightShare.value !== 0) {
             newVol = 0;
-        }else if(1 <= newVol && brightShare.value !== 1){
+        } else if (1 <= newVol && brightShare.value !== 1) {
             newVol = 1;
         }
 
@@ -68,13 +71,13 @@ export default ({ vodType, children, enabled = true, onSkipBackwards, onSkipForw
     const onVolumeChanged = (newVal: number, prevVal: number) => {
         showControls();
         let different = ((prevVal - newVal) / height) * 2.5; // set 2.5 magnification
-        let newVol = different + volumeShare.value; 
+        let newVol = different + volumeShare.value;
 
-        if((0 > newVol && volumeShare.value === 0) || (1 < newVol && volumeShare.value === 1)) return;
+        if ((0 > newVol && volumeShare.value === 0) || (1 < newVol && volumeShare.value === 1)) return;
 
-        if(0 >= newVol && volumeShare.value !== 0){
+        if (0 >= newVol && volumeShare.value !== 0) {
             newVol = 0;
-        }else if(1 <= newVol && volumeShare.value !== 1){
+        } else if (1 <= newVol && volumeShare.value !== 1) {
             newVol = 1;
         }
 
@@ -115,7 +118,7 @@ export default ({ vodType, children, enabled = true, onSkipBackwards, onSkipForw
             previousPanPosition.value = { x: nativeEvent.x, y: nativeEvent.y, gesture: 'none' }
         })
         .onUpdate((nativeEvent) => {
-            if(panCooldown.value > 0) {
+            if (panCooldown.value > 0) {
                 panCooldown.value--;
                 return;
             } else panCooldown.value = 3;
@@ -149,6 +152,8 @@ export default ({ vodType, children, enabled = true, onSkipBackwards, onSkipForw
             .numberOfTaps(2)
             .enabled(enabled)
             .onStart((nativeEvent) => {
+                isDoubleTap.value = true;
+
                 const leftX = Math.floor(width / 2 - 20);
                 const rightX = Math.ceil(width / 2 + 20);
                 if (nativeEvent.x <= leftX) {
@@ -159,39 +164,63 @@ export default ({ vodType, children, enabled = true, onSkipBackwards, onSkipForw
             })
         , [enabled]);
 
-    const singleTap = Gesture.Tap()
-        .maxDuration(200)
-        .onStart(() => {
-            runOnJS(onSingleTap)();
-        })
+    // // single tap will cause lagging (hang)
+    // const singleTap = Gesture.Tap()
+    //     // .maxDuration(200)
+    //     .numberOfTaps(1)
+    //     .onStart(() => {
+    //         runOnJS(onSingleTap)();
+    //     })
 
+    const singleTap = useCallback(
+        debounce(() => {
+            console.log('111')
+            if (!isDoubleTap.value) {
+                onSingleTap(isDoubleTap.value);
+            }
 
-    const taps = vodType === 'live' || disableControlsExceptTap ? singleTap : Gesture.Exclusive(doubleTap, singleTap);
-    const composed = disableControlsExceptTap ? taps : Gesture.Simultaneous(pan, taps);
+            isDoubleTap.value = false;
+        }, 200),
+        [onSingleTap]
+    );
+
+    const composed = disableControlsExceptTap ? null : vodType === 'live' ? pan : Gesture.Simultaneous(pan, doubleTap);
 
     return (
-        <GestureDetector gesture={composed} >
-            <View style={{ flex: 1 }}>
-                {children}
-                {
-                    showSlider && settings.name === 'brightness' &&
-                    <BrightnessVolumeSlider percent={settings.value * 100}
-                        icon={settings.value === 0 ? 'Moon' : 'Sun'} />
-                }
-                {
-                    showSlider && settings.name === 'volume' &&
-                    <BrightnessVolumeSlider percent={settings.value * 100}
-                        icon={settings.value === 0 ? 'MutedVolume' : 'Volume'} />
+        <TouchableWithoutFeedback onPress={singleTap}>
+            <View style={{ position: 'absolute', height: '100%', width: '100%' }}>
+                {composed ?
+                    <GestureDetector gesture={composed}>
+                        <View style={{ flex: 1 }}>
+                            {children}
+                            {
+                                showSlider && settings.name === 'brightness' &&
+                                <BrightnessVolumeSlider percent={settings.value * 100}
+                                    icon={settings.value === 0 ? 'Moon' : 'Sun'} />
+                            }
+                            {
+                                showSlider && settings.name === 'volume' &&
+                                <BrightnessVolumeSlider percent={settings.value * 100}
+                                    icon={settings.value === 0 ? 'MutedVolume' : 'Volume'} />
+                            }
+                        </View>
+                    </GestureDetector>
+                    :
+                    <View style={{ flex: 1 }}>
+                        {children}
+                        {
+                            showSlider && settings.name === 'brightness' &&
+                            <BrightnessVolumeSlider percent={settings.value * 100}
+                                icon={settings.value === 0 ? 'Moon' : 'Sun'} />
+                        }
+                        {
+                            showSlider && settings.name === 'volume' &&
+                            <BrightnessVolumeSlider percent={settings.value * 100}
+                                icon={settings.value === 0 ? 'MutedVolume' : 'Volume'} />
+                        }
+                    </View>
                 }
             </View>
-        </GestureDetector>
+        </TouchableWithoutFeedback>
     )
 }
-
-const styles = StyleSheet.create({
-    panView: {
-        flex: 1,
-        width: '100%',
-        height: '100%'
-    }
-});
