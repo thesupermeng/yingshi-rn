@@ -178,12 +178,17 @@ export default ({ vodType, children, enabled = true, onSkipBackwards, onSkipForw
                 onSingleTap(isDoubleTap.value);
             }
 
+<<<<<<< HEAD
             isDoubleTap.value = false;
         }, 200),
         [onSingleTap]
     );
 
     const composed = disableControlsExceptTap ? null : vodType === 'live' ? pan : Gesture.Simultaneous(pan, doubleTap);
+=======
+    const taps = vodType === 'live' || disableControlsExceptTap ? singleTap : Gesture.Exclusive(doubleTap, singleTap);
+    const composed = disableControlsExceptTap ? taps : Gesture.Simultaneous(pan, doubleTap);
+>>>>>>> carl/yingshi-cn-dev-b-screen-bug-fix
 
     return (
         <TouchableWithoutFeedback onPress={singleTap}>
