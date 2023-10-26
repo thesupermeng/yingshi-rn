@@ -204,7 +204,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const localIp = YSConfig.instance.ip;
   const fetchVodDetails = () =>
     fetch(
-      `${API_DOMAIN}vod/v1/vod/detail?id=${vod?.vod_id}&appName=萤视频&platform=` +
+      `${API_DOMAIN}vod/v1/vod/detail?id=${vod?.vod_id}&appName=${APP_NAME_CONST}&platform=` +
         Platform.OS.toUpperCase() +
         `&channelId=` +
         UMENG_CHANNEL +
@@ -365,40 +365,36 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
         {/* if isVodRestricted, show bing search */}
         {isVodRestricted && vod && !isOffline && <BingSearch vod={vod} />}
 
-        {!isVodRestricted &&
-          vod?.vod_play_list?.urls?.find((url) => url.nid === currentEpisode)
-            ?.url !== undefined &&
-          !dismountPlayer &&
-          !isOffline && (
-            <VodPlayer
-              vod_url={
-                vod.vod_play_list.urls.find((url) => url.nid === currentEpisode)
-                  ?.url
-              }
-              ref={videoPlayerRef}
-              currentTimeRef={currentTimeRef}
-              initialStartTime={initTime}
-              vodTitle={vod.vod_name}
-              videoType="vod"
-              activeEpisode={currentEpisode}
-              episodes={vod.type_id !== 2 ? vod?.vod_play_list : undefined}
-              onEpisodeChange={(id: number) => {
-                setCurrentEpisode(id);
-                currentTimeRef.current = 0;
-              }}
-              showGuide={settingsReducer.showVodPlayerGuide}
-              rangeSize={EPISODE_RANGE_SIZE}
-              autoPlayNext={vod.type_id !== 2}
-              onShare={onShare}
-              movieList={vod.type_id === 2 ? suggestedVods : []}
-              showMoreType={vod.type_id === 2 ? "movies" : "episodes"}
-              isFetchingRecommendedMovies={isFetchingSuggestedVod}
-              appOrientation={settingsReducer.appOrientation}
-              devicesOrientation={settingsReducer.devicesOrientation}
-              lockOrientation={lockOrientation}
-              // setNavBarOptions={setNavBarOptions}
-            />
-          )}
+        {!isVodRestricted && !dismountPlayer && !isOffline && (
+          <VodPlayer
+            vod_url={
+              vod?.vod_play_list.urls?.find((url) => url.nid === currentEpisode)
+                ?.url
+            }
+            ref={videoPlayerRef}
+            currentTimeRef={currentTimeRef}
+            initialStartTime={initTime}
+            vodTitle={vod?.vod_name}
+            videoType="vod"
+            activeEpisode={currentEpisode}
+            episodes={vod?.type_id !== 2 ? vod?.vod_play_list : undefined}
+            onEpisodeChange={(id: number) => {
+              setCurrentEpisode(id);
+              currentTimeRef.current = 0;
+            }}
+            showGuide={settingsReducer.showVodPlayerGuide}
+            rangeSize={EPISODE_RANGE_SIZE}
+            autoPlayNext={vod?.type_id !== 2}
+            onShare={onShare}
+            movieList={vod?.type_id === 2 ? suggestedVods : []}
+            showMoreType={vod?.type_id === 2 ? "movies" : "episodes"}
+            isFetchingRecommendedMovies={isFetchingSuggestedVod}
+            appOrientation={settingsReducer.appOrientation}
+            devicesOrientation={settingsReducer.devicesOrientation}
+            lockOrientation={lockOrientation}
+            // setNavBarOptions={setNavBarOptions}
+          />
+        )}
         {isOffline && dismountPlayer && (
           <View
             style={{
@@ -630,7 +626,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                               initialNumToRender={10}
                               onScrollToIndexFailed={() => {}}
                               ref={episodeRef}
-                              data={vod?.vod_play_list.urls.slice(
+                              data={vod?.vod_play_list.urls?.slice(
                                 showEpisodeRangeStart,
                                 showEpisodeRangeEnd
                               )}
