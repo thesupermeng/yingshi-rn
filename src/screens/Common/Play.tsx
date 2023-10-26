@@ -43,7 +43,6 @@ import FastImage from "react-native-fast-image";
 import {
   API_DOMAIN,
   API_DOMAIN_TEST,
-  APP_NAME_CONST,
   UMENG_CHANNEL,
 } from "../../utility/constants";
 import { useQuery } from "@tanstack/react-query";
@@ -144,7 +143,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
           vod?.vod_id
         }/sid/1/nid/${
           currentEpisode + 1
-        }.html${"\n"}${APP_NAME_CONST}-海量高清视频在线观看`,
+        }.html${"\n"}萤视频-海量高清视频在线观看`,
       });
       if (result.action === Share.sharedAction) {
         if (result.activityType) {
@@ -676,21 +675,21 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
               </View>
             </ScrollView>
             {settingsReducer.appOrientation === "PORTRAIT" && ( // only show if portrait
-              <VodEpisodeSelectionModal
-                isVisible={isShowSheet}
-                handleClose={handleModalClose}
-                activeEpisode={currentEpisode}
-                episodes={vod?.vod_play_list}
-                onCancel={() => {
-                  setShowSheet(false);
-                }}
-                onConfirm={(id: number) => {
-                  setCurrentEpisode(id);
-                  handleModalClose();
-                }}
-                rangeSize={EPISODE_RANGE_SIZE}
-              />
-            )}
+                <VodEpisodeSelectionModal
+                  isVisible={isShowSheet}
+                  handleClose={handleModalClose}
+                  activeEpisode={currentEpisode}
+                  episodes={vod?.vod_play_list}
+                  onCancel={() => {
+                    setShowSheet(false);
+                  }}
+                  onConfirm={(id: number) => {
+                    setCurrentEpisode(id);
+                    handleModalClose();
+                  }}
+                  rangeSize={EPISODE_RANGE_SIZE}
+                />
+              )}
           </>
         )}
         {isOffline && (
