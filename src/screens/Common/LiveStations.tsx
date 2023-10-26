@@ -18,7 +18,6 @@ import ConfirmationModal from '../../components/modal/confirmationModal';
 import VodLiveStationListVertical from '../../components/vod/vodLiveStationListVertical';
 import EmptyList from '../../components/common/emptyList';
 import {ScrollView} from 'react-native-gesture-handler';
-import AdsBanner from '../../ads/adsBanner';
 
 type FlatListType = {
   item: VodRecordType;
@@ -49,7 +48,6 @@ export default ({navigation, route}: RootStackScreenProps<'电视台列表'>) =>
   };
   return (
     <ScreenContainer>
-      <AdsBanner bottomTabHeight={0} />
       <TitleWithBackButtonHeader
         title="电视台"
         headerStyle={{marginBottom: spacing.m}}

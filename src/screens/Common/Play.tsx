@@ -4,6 +4,7 @@ import React, {
   useMemo,
   useRef,
   useCallback,
+  useContext,
 } from "react";
 import {
   View,
@@ -18,7 +19,7 @@ import {
 import FavoriteButton from "../../components/button/favoriteVodButton";
 import FavoriteIcon from "../../../static/images/favorite.svg";
 import ScreenContainer from "../../components/container/screenContainer";
-import { useTheme, useFocusEffect } from "@react-navigation/native";
+import { useTheme, useFocusEffect, useRoute } from "@react-navigation/native";
 import { YSConfig } from "../../../ysConfig";
 
 import { RootStackScreenProps } from "../../types/navigationTypes";
@@ -56,8 +57,8 @@ import BingSearch from "../../components/container/bingSearchContainer";
 
 import NoConnection from "../../components/common/noConnection";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
-import AdsBanner from "../../ads/adsBanner";
 import { lockAppOrientation } from "../../redux/actions/settingsActions";
+import { AdsBannerContext } from "../../contexts/AdsBannerContext";
 
 type VideoRef = {
   setPause: (param: boolean) => void;
@@ -73,6 +74,11 @@ const definedValue = (val: any) => {
 };
 
 export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
+  const {setRoute:setAdsRoute } = useContext(AdsBannerContext)
+  useFocusEffect(() => { // for banner ads
+    setAdsRoute(route.name)
+  })
+
   const { colors, spacing, textVariants, icons } = useTheme();
   const vodReducer: VodReducerState = useAppSelector(
     ({ vodReducer }: RootState) => vodReducer
@@ -360,7 +366,6 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   return (
     <>
-      <AdsBanner bottomTabHeight={0} />
       <ScreenContainer containerStyle={{ paddingRight: 0, paddingLeft: 0 }}>
         {/* if isVodRestricted, show bing search */}
         {isVodRestricted && vod && !isOffline && <BingSearch vod={vod} />}

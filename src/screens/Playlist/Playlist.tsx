@@ -14,7 +14,6 @@ import {useIsFocused} from '@react-navigation/native';
 // import {FlatList, PanGestureHandler} from 'react-native-gesture-handler';
 import NoConnection from './../../components/common/noConnection';
 import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
-import AdsBanner from "../../ads/adsBanner";
 type FlatListType = {
   item: VodTopicType;
   index: number;
@@ -132,7 +131,6 @@ function Playlist ({navigation}: BottomTabScreenProps<any>) {
   
   return (
     <>
-      <AdsBanner bottomTabHeight={bottomTabBarHeight} />
       <ScreenContainer containerStyle={{paddingLeft: 0, paddingRight: 0}}>
         <MainHeader
           headerStyle={{

@@ -40,7 +40,6 @@ import MatchScheduleNav from "../../components/matchSchedule/MatchScheduleNav";
 import NoConnection from "./../../../components/common/noConnection";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 
-import AdsBanner from "../../../ads/adsBanner";
 
 import { userModel } from "../../../types/userType";
 import { useAppSelector } from "../../../hooks/hooks";
@@ -119,7 +118,6 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
 
   return (
     <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
-      <AdsBanner bottomTabHeight={bottomTabHeight} />
 
       <BecomeVipOverlay
         setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState, memo } from "react";
+import React, { useCallback, useEffect, useState, memo, useContext } from "react";
 import { Platform, StyleSheet, View } from "react-native";
 import ScreenContainer from "../components/container/screenContainer";
 import { useTheme } from "@react-navigation/native";
@@ -36,6 +36,7 @@ import {
   ATInterstitialRNSDK,
   ATBannerRNSDK,
 } from "./../../AnyThinkAds/ATReactNativeSDK";
+import { AdsBannerContext } from "../contexts/AdsBannerContext";
 
 function Home({ navigation }: BottomTabScreenProps<any>) {
   const isFocused = useIsFocused();
@@ -248,12 +249,17 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
     }
   }, []);
 
+  const {setNavbarHeight} = useContext(AdsBannerContext)
+  
+  useEffect(() => {
+    setNavbarHeight(bottomTabHeight)
+  }, [])
+
   return (
     <>
       <ScreenContainer
         containerStyle={{ paddingLeft: 0, paddingRight: 0 }}
       >
-        <AdsBanner bottomTabHeight={bottomTabHeight} />
         <View
           style={{
             backgroundColor: colors.background,

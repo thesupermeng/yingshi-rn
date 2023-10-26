@@ -32,7 +32,6 @@ import { userModel } from "../../types/userType";
 import { TouchableOpacity } from "@gorhom/bottom-sheet";
 import { updateUserAuth } from "../../redux/actions/userAction";
 import { getUserDetails } from "../../features/user";
-import AdsBanner from "../../ads/adsBanner";
 export default ({ navigation }: RootStackScreenProps<"邀请">) => {
   const { colors, textVariants, icons, spacing } = useTheme();
 
@@ -65,7 +64,6 @@ export default ({ navigation }: RootStackScreenProps<"邀请">) => {
 
   return (
     <ScreenContainer>
-      <AdsBanner bottomTabHeight={0} />
       <TitleWithBackButtonHeader title="邀请好友奖励" />
       <ScrollView
         refreshControl={
