@@ -62,11 +62,8 @@ import {
   ATBannerRNSDK,
 } from "./AnyThinkAds/ATReactNativeSDK";
 
-import {
-  TermsNavigateContext,
-  TermsNavigateContextProvider,
-} from "./src/contexts/TermsNavigateContext";
 import { TermsAcceptContextProvider } from "./src/contexts/TermsAcceptedContext";
+import { AdsBannerContextProvider } from "./src/contexts/AdsBannerContext";
 
 let App = () => {
   // appsFlyer.initSdk(
@@ -605,25 +602,27 @@ let App = () => {
 
   return (
     <TermsAcceptContextProvider>
-      <QueryClientProvider client={queryClient}>
-        <Provider store={store}>
-          <PersistGate loading={null} persistor={persistor}>
-            <GestureHandlerRootView style={{ flex: 1 }}>
-              <BottomSheetModalProvider>
-                {YSConfig.instance.areaConfig != null &&
-                YSConfig.instance.areaConfig == true ? (
-                  // B面的B面
-                  <Nav />
-                ) : (
-                  // B面里的A面
-                  <NavA />
-                )}
-              </BottomSheetModalProvider>
-            </GestureHandlerRootView>
-          </PersistGate>
-          {showRegengOverlay && <RegengOverlay />}
-        </Provider>
-      </QueryClientProvider>
+      <AdsBannerContextProvider>
+        <QueryClientProvider client={queryClient}>
+          <Provider store={store}>
+            <PersistGate loading={null} persistor={persistor}>
+              <GestureHandlerRootView style={{ flex: 1 }}>
+                <BottomSheetModalProvider>
+                  {YSConfig.instance.areaConfig != null &&
+                  YSConfig.instance.areaConfig == true ? (
+                    // B面的B面
+                    <Nav />
+                  ) : (
+                    // B面里的A面
+                    <NavA />
+                  )}
+                </BottomSheetModalProvider>
+              </GestureHandlerRootView>
+            </PersistGate>
+            {showRegengOverlay && <RegengOverlay />}
+          </Provider>
+        </QueryClientProvider>
+      </AdsBannerContextProvider>
     </TermsAcceptContextProvider>
   );
 };

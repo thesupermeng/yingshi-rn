@@ -46,7 +46,6 @@ import BeforeLive from '../../components/beforeLive';
 import StatisticPage from '../../components/matchDetails/statisticPage';
 import { LineUpType } from '../../types/lineUpTypes';
 import LineUpPage from '../../components/matchDetails/lineUpPage';
-import AdsBanner from '../../../ads/adsBanner';
 
 type FlatListType = {
   item: MatchDetailsType;
@@ -182,7 +181,6 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
   const isFullyLoaded = !f1 && !f2 && !f3;
   return (
     <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
-      <AdsBanner bottomTabHeight={0}/>
       {videoSource.url &&
         ((videoSource.type === VideoLiveType.LIVE &&
           match?.streams?.some(streamer => streamer.status == 3)) ||

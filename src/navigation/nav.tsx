@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef, useCallback, useContext } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   NavigationContainer,
+  NavigationState,
   useTheme,
 } from "@react-navigation/native";
 
@@ -94,6 +95,7 @@ import {
   lockAppOrientation,
 } from "../redux/actions/settingsActions";
 import { SettingsReducerState } from "../redux/reducers/settingsReducer";
+import { AdsBannerContext } from "../contexts/AdsBannerContext";
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -360,9 +362,31 @@ export default () => {
     };
   }, []);
 
+  const {setRoute:setAdsRoute } = useContext(AdsBannerContext)
+
+
+  const handleStateChange = (state: Readonly<NavigationState>|undefined) => {
+    // for banner ads 
+    if (!state) return 
+    const currentRoute = state.routes[state.routes.length - 1] // last item in stack 
+    
+    if (currentRoute.name !== "Home"){
+      setAdsRoute(currentRoute.name)
+    } else {
+      const homeState = currentRoute.state
+      if (!homeState || homeState.routeNames == undefined || homeState.index == undefined) return
+      const currentTabName = homeState.routeNames[homeState.index]
+      setAdsRoute(currentTabName)
+    }
+    // ============= end for banner ads
+
+  }
+
   return (
     <SafeAreaProvider>
-      <NavigationContainer theme={theme} onReady={() => RNBootSplash.hide()}>
+      <NavigationContainer theme={theme} onReady={() => RNBootSplash.hide()}
+        onStateChange={handleStateChange}
+        >
         <Stack.Navigator
           initialRouteName="Home"
           screenOptions={({ route }) => ({

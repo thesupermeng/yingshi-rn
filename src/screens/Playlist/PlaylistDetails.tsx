@@ -8,7 +8,6 @@ import TitleWithBackButtonHeader from '../../components/header/titleWithBackButt
 import FavoritePlaylistButton from '../../components/button/favoritePlaylistButton';
 import {RootStackScreenProps} from '../../types/navigationTypes';
 import VodWithDescriptionList from '../../components/vod/vodWithDescriptionList';
-import AdsBanner from '../../ads/adsBanner';
 
 export default ({navigation}: RootStackScreenProps<'PlaylistDetail'>) => {
   const {textVariants, colors, spacing} = useTheme();
@@ -18,7 +17,6 @@ export default ({navigation}: RootStackScreenProps<'PlaylistDetail'>) => {
   const playlist = playlistReducer?.playlistDetails?.playlist;
   return (
     <>
-      <AdsBanner bottomTabHeight={0} />
       <ScreenContainer>
         <TitleWithBackButtonHeader
           title={playlist?.topic_name}

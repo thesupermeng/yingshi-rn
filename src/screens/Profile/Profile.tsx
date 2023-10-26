@@ -42,7 +42,6 @@ import {
   updateUserReferral,
 } from "../../redux/actions/userAction";
 import ExpiredOverlay from "../../components/modal/expiredOverlay";
-import AdsBanner from "../../ads/adsBanner";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 function Profile({ navigation, route }: BottomTabScreenProps<any>) {
@@ -142,7 +141,6 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
 
   return (
     <>
-      <AdsBanner bottomTabHeight={0} />
       <View style={{paddingTop: insets.top}}>
       {/* <ScreenContainer> */}
       {/* <SafeAreaView> */}
