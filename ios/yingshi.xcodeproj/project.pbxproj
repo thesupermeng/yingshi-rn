@@ -113,7 +113,6 @@
 				9A218EB72AC413D600F6B98C /* libz.tbd in Frameworks */,
 				8E1A5A292AC2B31000EBA460 /* libRNExitApp.a in Frameworks */,
 				EC6F851505D269DCF29F2A20 /* libPods-yingshi.a in Frameworks */,
-				96191E27E3CA68CEDF3720C8 /* libPods-yingshipin.a in Frameworks */,
 				F32676582AE794EB00484C18 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
