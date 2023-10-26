@@ -24,6 +24,7 @@
 		9A218EB72AC413D600F6B98C /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A218EB62AC413D600F6B98C /* libz.tbd */; };
 		9A218EB92AC414D600F6B98C /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9A218EB82AC414D600F6B98C /* AppCenter-Config.plist */; };
 		EC6F851505D269DCF29F2A20 /* libPods-yingshi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 84259E062AB19EB67A501C04 /* libPods-yingshi.a */; };
+		F32676582AE794EB00484C18 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F32676572AE794EB00484C18 /* StoreKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +93,8 @@
 		B560994F3DF7C014D0A3445A /* Pods-yingshi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yingshi.debug.xcconfig"; path = "Target Support Files/Pods-yingshi/Pods-yingshi.debug.xcconfig"; sourceTree = "<group>"; };
 		CCF3A10C1FF32C41A0E5856B /* Pods-yingshi-yingshiTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yingshi-yingshiTests.release.xcconfig"; path = "Target Support Files/Pods-yingshi-yingshiTests/Pods-yingshi-yingshiTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		F32676572AE794EB00484C18 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		F395A1212AE7BC2100B64265 /* yingshi.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = yingshi.storekit; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +113,8 @@
 				9A218EB72AC413D600F6B98C /* libz.tbd in Frameworks */,
 				8E1A5A292AC2B31000EBA460 /* libRNExitApp.a in Frameworks */,
 				EC6F851505D269DCF29F2A20 /* libPods-yingshi.a in Frameworks */,
+				96191E27E3CA68CEDF3720C8 /* libPods-yingshipin.a in Frameworks */,
+				F32676582AE794EB00484C18 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,6 +155,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F32676572AE794EB00484C18 /* StoreKit.framework */,
 				9A218EB62AC413D600F6B98C /* libz.tbd */,
 				8E1A5A282AC2B31000EBA460 /* libRNExitApp.a */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
@@ -239,6 +245,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				F395A1212AE7BC2100B64265 /* yingshi.storekit */,
 				9A218EB82AC414D600F6B98C /* AppCenter-Config.plist */,
 				13B07FAE1A68108700A75B9A /* yingshi */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,

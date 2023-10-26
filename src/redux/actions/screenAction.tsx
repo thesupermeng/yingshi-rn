@@ -47,3 +47,7 @@ export const initialBottomSheetForm = () => ({
 export const navigateToProfileScreen = () => ({
   type: 'navigate_to_profile_screen',
 });
+
+export const resetProfileScreen = () => ({
+  type: 'reset_profile_screen',
+});

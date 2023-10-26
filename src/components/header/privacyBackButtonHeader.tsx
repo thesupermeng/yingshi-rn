@@ -36,9 +36,7 @@ export default function PrivacyBackButtonHeader({ title, headerStyle, right, des
 
       useEffect(() => {
         const unsubscribe = navigation.addListener('beforeRemove', (e) => {
-            // if (e.data.action.type === 'GO_BACK' && screenReducer.navigateToProfile) {
-                if (screenReducer.navigateToProfile === true) {
-                console.log(screenReducer.navigateToProfile)
+            if (screenReducer.navigateToProfile === true) {
                 // Check if the previous route was "RegistrationPage" and the destination is "ProfileScreen"
                 // If yes, trigger your custom action
                 dispatch(showRegisterAction());
