@@ -378,7 +378,6 @@ export default forwardRef<VideoRef, Props>(({
             />
           )
         }
-
       </View>
       {(bufferRef.current || seekDirection !== 'none') && (
         <View
@@ -464,11 +463,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     color: 'yellow',
     position: 'absolute',
-    height: '100%',
-    width: '100%',
+    height: 'auto',
+    width: 'auto',
   },
   container: {
     alignItems: 'center',
+    justifyContent: 'center',
     width: '100%',
     backgroundColor: 'black',
   },
