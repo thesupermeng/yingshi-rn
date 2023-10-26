@@ -1,4 +1,4 @@
-import {Image, ImageBackground, Text, View} from 'react-native';
+import {Image, ImageBackground, Text, View, Platform} from 'react-native';
 import {
   Assist,
   Goal,
@@ -12,6 +12,7 @@ import {
   YellowToRedCard,
   HomePlayer,
   AwayPlayer,
+  PlayerShirt,
 } from '../../../assets';
 import {Colors} from '../../../global/colors';
 import {round} from '../../../utility/utils';
@@ -29,7 +30,14 @@ const Player = props => {
       : {backgroundColor: '#8C8C8C'};
   };
   const {incidents} = player;
-
+  const imgSource =   Platform.OS === 'android'
+  ? team === 'home'
+    ? PlayerShirt
+    : AwayPlayer
+  : team === 'home'
+  ? HomePlayer
+  : AwayPlayer;
+  
   // 换人事件
   const subComponent = (incidents, playerId) => {
     return incidents.map(incident => {
@@ -210,14 +218,16 @@ const Player = props => {
                 : team === 'home'
                 ? HomePlayer
                 : AwayPlayer,
-            }}></Image>
+            }}
+            ></Image>
         ) : (
           <ImageBackground
             style={[
               styles.imagePlayer,
               {justifyContent: 'center', alignContent: 'center'},
             ]}
-            source={team === 'home' ? HomePlayer : AwayPlayer}
+            // source={team === 'home' ? HomePlayer : AwayPlayer}
+            source={imgSource}
             resizeMode="center">
             <Text
               style={{
