@@ -5,7 +5,7 @@ import ShortVod from '../../components/videoPlayer/shortVod';
 import FastImage from 'react-native-fast-image';
 import { useTheme, useIsFocused } from '@react-navigation/native';
 import { StyleSheet } from 'react-native';
-import {useQueryClient} from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 
 type MiniVideoResponseType = {
     data: {
@@ -14,10 +14,11 @@ type MiniVideoResponseType = {
 }
 
 interface Props {
+    miniVodListRef: any,
     videos: any,
     hasNextPage: boolean | undefined,
     fetchNextPage: any,
-    isFetchingNextPage: any, 
+    isFetchingNextPage: any,
     isFetching: boolean,
     isPaused: boolean,
     inCollectionView?: boolean,
@@ -33,7 +34,7 @@ interface Props {
 
 const ITEM_HEIGHT = Dimensions.get('window').height;
 
-export default ({ handleRefreshMiniVod, currentVodIndex = 0, videos, initialIndex = 0, setParentCurrent = null, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching, isPaused, inCollectionView = false, collection_ori_all_videos, enterPosition = 0, setCollectionEpisode, isRefreshing = false} : Props) => {
+export default ({ miniVodListRef, handleRefreshMiniVod, currentVodIndex = 0, videos, initialIndex = 0, setParentCurrent = null, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching, isPaused, inCollectionView = false, collection_ori_all_videos, enterPosition = 0, setCollectionEpisode, isRefreshing = false }: Props) => {
 
     const { spacing } = useTheme();
 
@@ -46,7 +47,7 @@ export default ({ handleRefreshMiniVod, currentVodIndex = 0, videos, initialInde
         if (viewableItems.length == 1 && typeof viewableItems[0] != 'undefined') {
             const curr = viewableItems[0].index;
             setCurrent(curr);
-            if(setParentCurrent != null){
+            if (setParentCurrent != null) {
                 setParentCurrent(curr);
             }
         }
@@ -58,8 +59,8 @@ export default ({ handleRefreshMiniVod, currentVodIndex = 0, videos, initialInde
 
     useEffect(() => {
         setCollectionPartialVideos(videos);
-        
-        if(inCollectionView == true){
+
+        if (inCollectionView == true) {
         }
 
     }, [videos]);
@@ -69,15 +70,15 @@ export default ({ handleRefreshMiniVod, currentVodIndex = 0, videos, initialInde
     }
 
     const refreshComponent = () => {
-        if(inCollectionView == false){
-            return <RefreshControl
-                        refreshing={isRefreshing}
-                        onRefresh={handleRefreshMiniVod}
-                        tintColor="#FAC33D"
-                    />
-        }
-        
-        return <></>
+        return <>
+            {!inCollectionView &&
+                <RefreshControl
+                    refreshing={isRefreshing}
+                    onRefresh={handleRefreshMiniVod}
+                    tintColor="#FAC33D"
+                />
+            }
+        </>
     }
 
     const renderItem = useCallback(({ item, index }: { item: MiniVideo, index: number }) => (
@@ -96,13 +97,14 @@ export default ({ handleRefreshMiniVod, currentVodIndex = 0, videos, initialInde
             )}
         </View>
     ), [current, displayHeight, isPaused, inCollectionView]);
-    
+
     return (
         <View style={{ flex: 1 }} onLayout={(event: any) => {
             var { x, y, width, height } = event.nativeEvent.layout;
             setDisplayHeight(height)
         }}>
             <FlatList
+                ref={miniVodListRef}
                 data={collectionPartialVideos}
                 initialNumToRender={3}
                 maxToRenderPerBatch={5}

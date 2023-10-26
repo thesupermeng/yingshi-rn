@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import styles from './style';
 import { VideoLiveType } from '../../global/const';
 import { MatchDetailsType, Stream } from '../../types/matchTypes';
@@ -8,6 +8,9 @@ import { lockAppOrientation } from '../../../redux/actions/settingsActions';
 import { RootState } from '../../../redux/store';
 import { SettingsReducerState } from '../../../redux/reducers/settingsReducer';
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
+import WebView from 'react-native-webview';
+import BackIcon from "../../../../static/images/back_arrow.svg";
+import { useTheme } from '@react-navigation/native';
 
 interface Props {
     matchID?: number,
@@ -23,12 +26,14 @@ interface Props {
 }
 
 const LiveVideo = ({ matchID, liveDataState, onLiveEnd, onLoad, streamID, videoSource, setVideoSource }: Props) => {
+    const { colors } = useTheme();
+
     const homeName = liveDataState?.home?.name;
     const awayName = liveDataState?.away?.name;
     const combinedName = `${homeName} vs ${awayName}`;
-    
+
     const dispatch = useAppDispatch();
-    
+
     const settingsReducer: SettingsReducerState = useAppSelector(
         ({ settingsReducer }: RootState) => settingsReducer
     );
@@ -120,36 +125,47 @@ const LiveVideo = ({ matchID, liveDataState, onLiveEnd, onLoad, streamID, videoS
     return (
         <View style={styles.container}>
             {/* <View style={{height: isFullScreen ? '100%' : 'auto'}}> */}
-                {/* <View style={styles.videoDiv}> */}
-                {(videoSource !== undefined || streamData?.src) && (
-                    <>
-                        {
-                            videoSource?.url !== undefined && (
-                                videoSource.type === VideoLiveType.LIVE
-                                    ? <VodPlayer 
-                                        onBack={onHandleBack}
-                                        vod_source={videoSource.url}
-                                        videoType='live'
-                                        vodTitle={combinedName} 
-                                        appOrientation={settingsReducer.appOrientation}
-                                        devicesOrientation={settingsReducer.devicesOrientation}
-                                        lockOrientation={lockOrientation}
+            {/* <View style={styles.videoDiv}> */}
+            {(videoSource !== undefined || streamData?.src) && (
+                <>
+                    {
+                        videoSource?.url !== undefined && (
+                            videoSource.type === VideoLiveType.LIVE
+                                ? <VodPlayer
+                                    onBack={onHandleBack}
+                                    vod_source={videoSource.url}
+                                    videoType='live'
+                                    vodTitle={combinedName}
+                                    appOrientation={settingsReducer.appOrientation}
+                                    devicesOrientation={settingsReducer.devicesOrientation}
+                                    lockOrientation={lockOrientation}
+                                />
+                                : <View
+                                    style={{
+                                        width: '100%',
+                                        aspectRatio: 16 / 9,
+                                    }}
+                                >
+                                    <WebView
+                                        resizeMode="contain"
+                                        source={{ uri: videoSource.url }}
                                     />
-                                    : <VodPlayer 
-                                        onBack={onHandleBack}
-                                        vod_url={videoSource.url}
-                                        videoType='live'
-                                        vodTitle={combinedName}
-                                        appOrientation={settingsReducer.appOrientation}
-                                        devicesOrientation={settingsReducer.devicesOrientation}
-                                        lockOrientation={lockOrientation}
-                                        useWebview={true}
-                                    />
-                            )
+                                    <TouchableOpacity
+                                        onPress={onHandleBack}
+                                        style={{ position: 'absolute', padding: 20 }}
+                                    >
+                                        <BackIcon
+                                            style={{
+                                                color: colors.text,
+                                            }}
+                                        ></BackIcon>
+                                    </TouchableOpacity>
+                                </View>
+                        )
 
-                        }
-                    </>
-                )}
+                    }
+                </>
+            )}
             {/* </View> */}
         </View>
     );
