@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useMemo, memo } from 'react';
+import React, { useEffect, useState, useCallback, useMemo, memo, useRef } from 'react';
 import {
     View,
     Image,
@@ -49,6 +49,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     const [isRefreshing, setIsRefreshing] = useState(false);
     const queryClient = useQueryClient();
     const [isOffline, setIsOffline] = useState(false);
+    const miniVodListRef = useRef<any>();
 
     // Add an event listener to the navigation object for the tab press event
     useEffect(() => {
@@ -136,6 +137,15 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
         return () => removeNetInfoSubscription();
     }, []);
 
+    useEffect(() => {
+        if (isRefreshing) {
+            miniVodListRef.current?.scrollToIndex({
+                index: 0,
+                animated: true,
+            });
+        }
+    }, [isRefreshing]);
+
     return (
         <ScreenContainer isHome={true} containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
             <AdsBanner bottomTabHeight={0} />
@@ -144,6 +154,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
             </View>
             {!isOffline &&
                 <MiniVideoList
+                    miniVodListRef={miniVodListRef}
                     videos={flattenedVideos}
                     fetchNextPage={fetchNextPage}
                     hasNextPage={hasNextPage}
