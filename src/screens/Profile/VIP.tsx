@@ -3,13 +3,9 @@ import {
   View,
   Text,
   StyleSheet,
-  TextInput,
-  Image,
   RefreshControl,
   ScrollView,
   Platform,
-  Dimensions,
-  Button
 } from "react-native";
 import {
     isIosStorekit2,
@@ -27,21 +23,18 @@ import TitleWithBackButtonHeader from "../../components/header/titleWithBackButt
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { userModel } from "../../types/userType";
-import { SCREEN_HEIGHT, SCREEN_WIDTH, TouchableOpacity } from "@gorhom/bottom-sheet";
 import { updateUserAuth } from "../../redux/actions/userAction";
 import { getUserDetails } from "../../features/user";
 import AdsBanner from "../../ads/adsBanner";
-import FastImage from 'react-native-fast-image';
-import LinearGradient from 'react-native-linear-gradient';
-import VipCard from "../../components/vip/vipCard";
+import { VipCard } from "../../components/vip/vipCard";
+import { TouchableOpacity } from "react-native";
+import { membershipModel } from "../../types/membershipType";
 
 const subscriptionSkus = Platform.select({
     ios: ['yingshi_vip_month'],
   });
 
 export default ({ navigation }: RootStackScreenProps<'付费VIP'>) => {
-  const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
-  const scale = screenWidth / 393 //responsive based on window screen width
   const {
     connected,
     subscriptions,
@@ -52,7 +45,6 @@ export default ({ navigation }: RootStackScreenProps<'付费VIP'>) => {
     finishTransaction,
   } = useIAP();
   const { colors, textVariants, icons, spacing } = useTheme();
-  const locations = [0, 1];
 
   const userState: userModel = useAppSelector(
     ({ userReducer }: RootState) => userReducer
@@ -102,10 +94,18 @@ export default ({ navigation }: RootStackScreenProps<'付费VIP'>) => {
   //   console.log(JSON.stringify(subscriptions))
   // }, [getProducts]);
 
-  const [memberSelected, setMemberSelected] = useState('')
+  // for testing purpose, will change to product get from iap
+  const membershipProduct: membershipModel[] = [
+    {productId: '1month', title: '1个月', localizedPrice: '$ 3.88', description: 'VIP会员30天'},
+    {productId: '6month', title: '6个月', localizedPrice: '$ 18.88', description: 'VIP会员180天，节省$4.40'},
+    {productId: '12month', title: '12个月', localizedPrice: '$ 36.88', description: 'VIP会员360天，节省$9.68'}
+    ]
+
+  const membershipProductEmpty: membershipModel[] = []
+  const [membershipSelected, setSelectedMembership] = useState<membershipModel>(membershipProductEmpty[0]);
 
   return (
-    <ScreenContainer>
+    <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
       <AdsBanner bottomTabHeight={0} />
       <ScrollView
         refreshControl={
@@ -113,148 +113,84 @@ export default ({ navigation }: RootStackScreenProps<'付费VIP'>) => {
         }
       >
         <TitleWithBackButtonHeader title="付费VIP" />
-        <Text style={{color:'white'}}>{memberSelected}</Text>
-        
-        <VipCard locations={locations} setMemberSelected={setMemberSelected} memberSelected={memberSelected}/>
-        {/* <View
-          style={{
-            flexDirection: 'column',
-            backgroundColor: '#1a1d20',
-            margin: 5,
-            borderRadius: 15,
-            overflow: 'hidden',
-          }}>
-          <View
-            style={{
-              width: screenWidth,
-              borderWidth: 3,
-              borderColor: '#ffffff',
-              justifyContent: 'space-evenly'
-            }}>
-            <View
-              style={{
-                paddingTop: 45,
-                gap: 10,
-                paddingLeft: 20,
-                paddingBottom: 40,
-                flex: 1,
-              }}>
-              <Text style={{...textVariants.bigHeader}}>
-                VIP 0天
-              </Text>
-              <Text style={{color: '#9C9C9C', letterSpacing: -1}}>您还不是会员,开通VIP享受权益</Text>
-            </View>
-            <FastImage
-                  source={require('../../../static/images/crown_vip.png')}
-                  style={{
-                    height: '100%',
-                    width: '100%',
-                    flex:1,
-                    position: 'absolute', right: 0, bottom: 0,
-
-                  }}
-                  resizeMode={FastImage.resizeMode.contain}
-                />
-          </View>  
-        </View> */}
-
-        {/* <LinearGradient
-          colors={['#323638', '#1a1d20']} // An array of gradient colors
-          locations={locations}
-          style={{
-            paddingHorizontal: 20,
-            paddingVertical: 10,
-            marginHorizontal: 15,
-            marginBottom: 15,
-            marginTop: 15,
-            borderTopLeftRadius: 15,
-            borderTopRightRadius: 15,
-            flexDirection: 'row', // Set flexDirection to 'row'
-            flexWrap: 'wrap', // Allow items to wrap to the next row
-          }}>
-          <View style={styles.featureItem}>
-            <View style={styles.imgContainer}>
-              <FastImage
-                source={require('../../../static/images/invite/sport.png')}
-                style={styles.featureIcn}
-                resizeMode={FastImage.resizeMode.contain}
-              />
-            </View>
-            <Text style={styles.featureTitle}>体育频道</Text>
-          </View>
-
-          <View style={styles.featureItem}>
-            <View style={styles.imgContainer}>
-              <FastImage
-                source={require('../../../static/images/invite/ads.png')}
-                style={styles.featureIcn}
-                resizeMode={FastImage.resizeMode.contain}
-              />
-            </View>
-            <View>
-              <Text style={styles.featureTitle}>去广告</Text>
-              <Text style={styles.featureTitle2}>(敬请期待)</Text>
-            </View>
-          </View>
-
-          <View style={styles.featureItem}>
-            <View style={styles.imgContainer}>
-              <FastImage
-                source={require('../../../static/images/invite/download.png')}
-                style={styles.featureIcn}
-                resizeMode={FastImage.resizeMode.contain}
-              />
-            </View>
-            <View>
-              <Text style={styles.featureTitle}>视频下载</Text>
-              <Text style={styles.featureTitle2}>(敬请期待)</Text>
-            </View>
-          </View>
-
-          <View style={styles.featureItem}>
-            <View style={styles.imgContainer}>
-              <FastImage
-                source={require('../../../static/images/invite/cast.png')}
-                style={styles.featureIcn}
-                resizeMode={FastImage.resizeMode.contain}
-              />
-            </View>
-            <View>
-              <Text style={styles.featureTitle}>投屏</Text>
-              <Text style={styles.featureTitle2}>(敬请期待)</Text>
-            </View>
-          </View>
-        </LinearGradient> */}
+        <VipCard 
+          userState={userState}
+          membershipProduct={membershipProduct} 
+          selectedMembership={membershipSelected}
+          onMembershipSelect={setSelectedMembership} />
+        <View
+          style={{...styles.footerWithBackgroundContainer}}>
+          <Text style={{...textVariants.small}}>
+            有关购买查询，请联系contactus@yingshi.tv
+          </Text>
+        </View>
+        <View
+          style={{...styles.footerContainer}}>
+          <Text style={{...textVariants.small}}>
+            活动由影视TV公司提供 与苹果公司Apple.Inc 无关
+          </Text>
+        </View>
       </ScrollView>
 
+      {membershipSelected && 
+        <View
+          style={{...styles.summaryContainer}}>
+          <View
+            style={{...styles.summaryLabel}}>
+            <Text style={{...textVariants.small}}>
+              {membershipSelected.title}
+            </Text>
+            <Text style={{...textVariants.body, color: colors.title}}>
+              {membershipSelected.localizedPrice}
+            </Text>
+          </View>
+          <TouchableOpacity
+            style={{
+              width: '60%',
+              padding: 10,
+              margin: 10,
+              alignItems: 'center',
+              borderRadius: 10,
+              backgroundColor: colors.primary,
+            }}>
+              <Text style={{...styles.btnText}}>
+                立即开通
+              </Text>
+          </TouchableOpacity>
+        </View>
+      }
     </ScreenContainer>
   );
 };
 
 const styles = StyleSheet.create({
-    featureItem: {
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        flexDirection: 'row',
-        gap: 8,
-        width: '47%', // 50% width for 2 items per row
-        marginBottom: 15, // Add margin to create spacing between rows
-        marginTop: 10,
-        marginLeft: '3%',
-      },
-    
-      featureTitle: {fontSize: 14, color: '#ffffff', fontWeight: '400'},
-      featureTitle2: {fontSize: 10, color: '#ffffff', fontWeight: '400'},
-      imgContainer: {
-        backgroundColor: '#3b3e40',
-        width: 34,
-        height: 34,
-        borderRadius: 19,
-        justifyContent: 'center',
-        alignItems: 'center',
-      },
-      featureIcn: {
-        flex: 1,
-        width: 18,
-      },
+  btnText: {
+    fontFamily: 'PingFang SC',
+    fontSize: 14,
+    fontWeight: '700',
+    color: 'black'
+  },
+  summaryLabel: {
+    flex: 1,
+    alignItems: 'center'
+  },
+  summaryContainer: {
+    width: '100%',
+    padding: 15,
+    position: "relative",
+    flexDirection: 'row',
+    backgroundColor: '#1D2023',
+    alignItems: 'center'
+  },
+  footerContainer: {
+    alignItems: 'center',
+    marginBottom: 15,
+  },
+  footerWithBackgroundContainer: {
+    backgroundColor: '#1F2224',
+    margin: 15,
+    borderRadius: 10,
+    padding: 10,
+    alignItems: 'center',
+  }
 });

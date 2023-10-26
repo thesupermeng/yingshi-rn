@@ -3,18 +3,15 @@ import { StyleSheet, Text, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
 
-interface Props {
-  locations: number[];
-}
-
-export const VipBenefit = ({ locations }: Props) => {
+export const VipBenefit = () => {
   const { textVariants } = useTheme();
+  const locations = [0, 1];
   return (
     <LinearGradient
       colors={['#323638', '#1a1d20']} // An array of gradient colors
       locations={locations}
       style={{
-        paddingHorizontal: 20,
+        paddingHorizontal: 30,
         paddingVertical: 10,
         marginHorizontal: 15,
         marginTop: -20,

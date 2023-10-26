@@ -1,22 +1,23 @@
 import { Text, TouchableOpacity, View } from "react-native"
 import { useTheme } from '@react-navigation/native';
 import LinearGradient from "react-native-linear-gradient";
-import { membershipModel } from "../../types/membershipType";
+import { useState } from "react";
 
 interface Props {
-  membershipPlan : membershipModel;
-  isSelected: boolean | null;
-  onSelect: (selected: membershipModel) => void;
+  paymentOption: string,
+  icon?: React.ReactNode,
+  // setPaymentSelected: (selected: string) => void;
 }
 
-export const VipMember = ({
-  membershipPlan,
-  isSelected,
-  onSelect,
-}:Props) => {
+export const VipPayment = ({
+  paymentOption,
+  icon,
+  // setPaymentSelected
+}: Props) => {
   const { textVariants, colors } = useTheme();
+  const [isSelected, setIsSeleceted] = useState(false);
   const handleClick = () => {
-    onSelect(membershipPlan);
+    setIsSeleceted(!isSelected)
   }
 
   return (
@@ -27,7 +28,7 @@ export const VipMember = ({
         colors={isSelected ? ['#1D2023', '#2E3134'] : ['#1F2224', '#1F2224']}
         style={{
           paddingHorizontal: 20,
-          paddingVertical: 15,
+          paddingVertical: 10,
           marginHorizontal: 15,
           marginTop: 10,
           borderRadius: 10,
@@ -39,23 +40,24 @@ export const VipMember = ({
         }}>
         <View
           style={{
-            gap: 5,
+            gap: 10,
             flex: 1,
+            flexDirection: 'row',
+            alignItems: 'center',
           }}>
+          {icon && 
+            <View 
+              style={{
+                backgroundColor: '#ffffff', 
+                paddingLeft: 5, 
+                paddingRight: 5,
+                borderRadius: 5
+              }}>
+              {icon}
+            </View>}
           <Text
             style={{...textVariants.bodyBold}}>
-            {/* {title} */}
-            {membershipPlan.title}
-          </Text>
-          <Text
-            style={{...textVariants.fine}}>
-            {membershipPlan.description}
-          </Text>
-        </View>
-        <View>
-          <Text
-            style={{...textVariants.bodyBold, alignSelf: 'flex-end', color: colors.title}}>
-            {membershipPlan.localizedPrice}
+            {paymentOption}
           </Text>
         </View>
       </LinearGradient>
