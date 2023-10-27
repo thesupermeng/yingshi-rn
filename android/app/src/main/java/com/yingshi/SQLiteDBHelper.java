@@ -25,4 +25,10 @@ public class SQLiteDBHelper extends SQLiteOpenHelper {
         ");";
         db.execSQL(createTableQuery);
     }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        // Upgrade the database, if needed
+        // You can drop and recreate tables or add new columns here
+    }
 }
