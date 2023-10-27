@@ -146,16 +146,16 @@ export const AdsBannerContextProvider = ({children}: Props) => {
       if (!route) return 
       if (Platform.OS === 'android'){
         const screenWidthInPixel = Dimensions.get('screen').width * scale;
-        console.log("🚀 ~ file: AdsBannerContext.tsx:148 ~ useEffect ~ screenWidthInPixel:", screenWidthInPixel)
+        // console.log("🚀 ~ file: AdsBannerContext.tsx:148 ~ useEffect ~ screenWidthInPixel:", screenWidthInPixel)
         const screenHeightInPixel = Dimensions.get('screen').height * scale;
-        console.log("🚀 ~ file: AdsBannerContext.tsx:150 ~ useEffect ~ screenHeightInPixel:", screenHeightInPixel)
+        // console.log("🚀 ~ file: AdsBannerContext.tsx:150 ~ useEffect ~ screenHeightInPixel:", screenHeightInPixel)
         const statusBarHeightInPixel = (StatusBar.currentHeight ?? 0) * scale;
-        console.log("🚀 ~ file: AdsBannerContext.tsx:152 ~ useEffect ~ statusBarHeightInPixel:", statusBarHeightInPixel)
+        // console.log("🚀 ~ file: AdsBannerContext.tsx:152 ~ useEffect ~ statusBarHeightInPixel:", statusBarHeightInPixel)
         const navbarHeightInPixel = (navbarHeight != 0 ? navbarHeight - 1 : 0) * scale;
-        console.log("🚀 ~ file: AdsBannerContext.tsx:154 ~ useEffect ~ navbarHeightInPixel:", navbarHeightInPixel)
+        // console.log("🚀 ~ file: AdsBannerContext.tsx:154 ~ useEffect ~ navbarHeightInPixel:", navbarHeightInPixel)
 
         setSystemNavHeight((await getNavigationBarHeight()))
-        console.log("🚀 ~ file: AdsBannerContext.tsx:143 ~ AdsBannerContextProvider ~ systemNavHeight:", systemNavHeight)
+        // console.log("🚀 ~ file: AdsBannerContext.tsx:143 ~ AdsBannerContextProvider ~ systemNavHeight:", systemNavHeight)
         
 
         const adsTopInPixel =
@@ -163,7 +163,7 @@ export const AdsBannerContextProvider = ({children}: Props) => {
         statusBarHeightInPixel -
         navbarHeightInPixel -
         systemNavHeight
-        console.log("🚀 ~ file: AdsBannerContext.tsx:166 ~ useEffect ~ adsTopInPixel:", adsTopInPixel)
+        // console.log("🚀 ~ file: AdsBannerContext.tsx:166 ~ useEffect ~ adsTopInPixel:", adsTopInPixel)
 
         let huaweiOffset = 0; 
         if (deviceBrand === "HUAWEI") {
@@ -186,24 +186,24 @@ export const AdsBannerContextProvider = ({children}: Props) => {
         y = bannerHeightOnScreen
         width = screenWidthInPixel
         height = TOPON_BANNER_HEIGHT * scale
-        console.debug(x, y, width, height)
+        // console.debug(x, y, width, height)
 
         showBanner(route, x, y, width, height)
       } else if (Platform.OS === 'ios'){
         const screenWidth = Dimensions.get('screen').width
-        console.log("🚀 ~ file: AdsBannerContext.tsx:192 ~ useEffect ~ screenWidth:", screenWidth)
+        // console.log("🚀 ~ file: AdsBannerContext.tsx:192 ~ useEffect ~ screenWidth:", screenWidth)
         const screenHeight = Dimensions.get('screen').height
-        console.log("🚀 ~ file: AdsBannerContext.tsx:194 ~ useEffect ~ screenHeight:", screenHeight)
+        // console.log("🚀 ~ file: AdsBannerContext.tsx:194 ~ useEffect ~ screenHeight:", screenHeight)
         const statusBarHeight = StatusBar.currentHeight ?? 0
-        console.log("🚀 ~ file: AdsBannerContext.tsx:196 ~ useEffect ~ statusBarHeight:", statusBarHeight)
+        // console.log("🚀 ~ file: AdsBannerContext.tsx:196 ~ useEffect ~ statusBarHeight:", statusBarHeight)
         const navHeight = navbarHeight != 0 ? navbarHeight - 1 : 0 
-        console.log("🚀 ~ file: AdsBannerContext.tsx:198 ~ useEffect ~ navHeight:", navHeight)
+        // console.log("🚀 ~ file: AdsBannerContext.tsx:198 ~ useEffect ~ navHeight:", navHeight)
 
         const adsTopInPixel = 
         screenHeight - 
         statusBarHeight - 
         navbarHeight
-        console.log("🚀 ~ file: AdsBannerContext.tsx:201 ~ useEffect ~ adsTopInPixel:", adsTopInPixel)
+        // console.log("🚀 ~ file: AdsBannerContext.tsx:201 ~ useEffect ~ adsTopInPixel:", adsTopInPixel)
 
         let x, y, width, height; 
         x = 0 
@@ -212,7 +212,7 @@ export const AdsBannerContextProvider = ({children}: Props) => {
         y = bannerHeightOnScreen
         width = screenWidth
         height = TOPON_BANNER_HEIGHT
-        console.debug(x, y, width, height)
+        // console.debug(x, y, width, height)
 
         showBanner(route, x, y, width, height)
     }
