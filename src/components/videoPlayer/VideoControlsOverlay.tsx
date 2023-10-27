@@ -479,7 +479,6 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     zIndex: 99,
-    backgroundColor: 'rgba(0,0,255,0.5)'
   },
   topBlur: {
     position: 'absolute',
@@ -487,7 +486,6 @@ const styles = StyleSheet.create({
     right: 0,
     top: 0,
     zIndex: 99,
-    backgroundColor: 'rgba(0,0,255,0.5)'
   },
   videoHeader: {
     display: 'flex',
