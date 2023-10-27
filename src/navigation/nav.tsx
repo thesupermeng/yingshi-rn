@@ -1,8 +1,14 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  useContext,
+} from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   NavigationContainer,
-  RouteProp,
-  getFocusedRouteNameFromRoute,
+  NavigationState,
   useTheme,
 } from "@react-navigation/native";
 
@@ -19,7 +25,6 @@ import LiveStationPlayScreen from "../screens/Common/LiveStationPlay";
 // import VodCollectionScreen from '../screens/Profile/Collection/VodCollection';
 // import PlaylistCollectionScreen from '../screens/Profile/Collection/PlaylistCollection';
 import FeedbackScreen from "../screens/Profile/Feedback";
-import VIP from "../screens/Profile/VIP";
 import Invite from "../screens/Profile/Invite";
 import InviteDetails from "../screens/Profile/InviteDetails";
 import UserCenter from "../screens/Profile/UserCenter";
@@ -75,7 +80,6 @@ import {
   hideRegisterAction,
   removeScreenAction,
   resetBottomSheetAction,
-  resetProfileScreen,
 } from "../redux/actions/screenAction";
 import { Dialog } from "@rneui/themed";
 import FastImage from "react-native-fast-image";
@@ -97,7 +101,7 @@ import {
   lockAppOrientation,
 } from "../redux/actions/settingsActions";
 import { SettingsReducerState } from "../redux/reducers/settingsReducer";
-import { withIAPContext } from "react-native-iap";
+import { AdsBannerContext } from "../contexts/AdsBannerContext";
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -251,10 +255,16 @@ export default () => {
       bearerToken: userState.userToken,
     });
     if (result == null) {
+      await AsyncStorage.removeItem("showAds");
       return;
     }
 
     let resultData = result.data.data;
+    if (resultData.user.current_timestamp > resultData.user.vip_end_time) {
+      await AsyncStorage.setItem("showAds", "false");
+    } else {
+      await AsyncStorage.setItem("showAds", "true");
+    }
     await dispatch(updateUserAuth(resultData));
     return;
   };
@@ -327,9 +337,6 @@ export default () => {
       setShowLogin(false);
       setShowRegister(false);
     }
-    if (screenState.navigateToProfile == true) {
-      dispatch(resetProfileScreen());
-    }
   }, [screenState]);
 
   useEffect(() => {
@@ -361,9 +368,36 @@ export default () => {
     };
   }, []);
 
+  const { setRoute: setAdsRoute } = useContext(AdsBannerContext);
+
+  const handleStateChange = (state: Readonly<NavigationState> | undefined) => {
+    // for banner ads
+    if (!state) return;
+    const currentRoute = state.routes[state.routes.length - 1]; // last item in stack
+
+    if (currentRoute.name !== "Home") {
+      setAdsRoute(currentRoute.name);
+    } else {
+      const homeState = currentRoute.state;
+      if (
+        !homeState ||
+        homeState.routeNames == undefined ||
+        homeState.index == undefined
+      )
+        return;
+      const currentTabName = homeState.routeNames[homeState.index];
+      setAdsRoute(currentTabName);
+    }
+    // ============= end for banner ads
+  };
+
   return (
     <SafeAreaProvider>
-      <NavigationContainer theme={theme} onReady={() => RNBootSplash.hide()}>
+      <NavigationContainer
+        theme={theme}
+        onReady={() => RNBootSplash.hide()}
+        onStateChange={handleStateChange}
+      >
         <Stack.Navigator
           initialRouteName="Home"
           screenOptions={({ route }) => ({
@@ -462,26 +496,19 @@ export default () => {
             component={ProfileScreen}
             options={{ orientation: "portrait" }}
           />
-
-          <Stack.Screen 
-            name="付费VIP"
-            component={withIAPContext(VIP)}
-            options={{orientation: "portrait"}}
-          />
         </Stack.Navigator>
-        {settingsReducer.appOrientation === "PORTRAIT" &&
-        settingsReducer.isAppOrientationChanged && ( // only show if portrait
-            <>
-              <LoginBottomSheet
-                isVisible={isShowLogin}
-                handleClose={() => setShowLogin(false)}
-              />
-              <RegisterBottomSheet
-                isVisible={isShowRegister}
-                handleClose={() => setShowRegister(false)}
-              />
-            </>
-          )}
+        {settingsReducer.appOrientation === "PORTRAIT" && ( // only show if portrait
+          <>
+            <LoginBottomSheet
+              isVisible={isShowLogin}
+              handleClose={() => setShowLogin(false)}
+            />
+            <RegisterBottomSheet
+              isVisible={isShowRegister}
+              handleClose={() => setShowRegister(false)}
+            />
+          </>
+        )}
         <PrivacyPolicyOverlay
           isVisible={showPrivacyOverlay}
           setIsVisible={setShowPrivacyOverlay}
@@ -534,7 +561,7 @@ export default () => {
 const styles = StyleSheet.create({
   navStyleWithNotch: {
     paddingTop: 0,
-    paddingBottom: 5,
+    paddingBottom: 10,
     height: 65,
     position: "relative",
     // bottom: 25,
