@@ -178,6 +178,10 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
 
   const {setNavbarHeight} = useContext(AdsBannerContext)
 
+  useEffect(() => {
+    setNavbarHeight(bottomTabHeight)
+  }, [bottomTabHeight])
+
   useInterstitialAds(Platform.OS === 'ios' ? IOS_HOME_PAGE_POP_UP_ADS : ANDROID_HOME_PAGE_POP_UP_ADS);
   
   return (
