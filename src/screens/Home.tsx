@@ -253,7 +253,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   
   useEffect(() => {
     setNavbarHeight(bottomTabHeight)
-  }, [])
+  }, [bottomTabHeight])
 
   return (
     <>
