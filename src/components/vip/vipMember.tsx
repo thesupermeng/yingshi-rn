@@ -5,7 +5,7 @@ import { membershipModel } from "../../types/membershipType";
 
 interface Props {
   membershipPlan : membershipModel;
-  isSelected: boolean | null;
+  isSelected: boolean;
   onSelect: (selected: membershipModel) => void;
 }
 

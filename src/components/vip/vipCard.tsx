@@ -15,6 +15,8 @@ interface Props {
   membershipProduct: Array<membershipModel>;
   selectedMembership: membershipModel;
   onMembershipSelect: (selected: membershipModel) => void;
+  selectedPayment: string;
+  onPaymentSelect: (payment: string) => void;
 }
 
 export const VipCard = ({
@@ -22,6 +24,8 @@ export const VipCard = ({
   membershipProduct,
   selectedMembership,
   onMembershipSelect,
+  selectedPayment,
+  onPaymentSelect,
 }: Props) => {
   const { textVariants} = useTheme();
   const [vipRemainingDay, setVipRemainingDay] = useState(0);
@@ -127,13 +131,17 @@ export const VipCard = ({
         {Platform.OS === "android" && 
           <VipPayment
             paymentOption='Google Pay'
-            icon={<GPayIcon width={30} height={30}/>} />
+            icon={<GPayIcon width={30} height={30} />}
+            isSelected={ selectedPayment === 'Google Pay'}
+            onPaymentSelect={onPaymentSelect}/>
         }
 
         {Platform.OS === "ios" &&
           <VipPayment
             paymentOption='Apple Pay'
-            icon={<ApplePayIcon width={30} height={30} />} />
+            icon={<ApplePayIcon width={30} height={30} />}
+            isSelected={ selectedPayment === 'Apple Pay'}
+            onPaymentSelect={onPaymentSelect}  />
         }
       </View>
     </View>
