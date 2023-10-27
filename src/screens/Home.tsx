@@ -253,12 +253,13 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   
   useEffect(() => {
     setNavbarHeight(bottomTabHeight)
-  }, [])
+  }, [bottomTabHeight])
 
   return (
     <>
       <ScreenContainer
         containerStyle={{ paddingLeft: 0, paddingRight: 0 }}
+        isHome={false} // solve home tab tabsize different issue
       >
         <View
           style={{
