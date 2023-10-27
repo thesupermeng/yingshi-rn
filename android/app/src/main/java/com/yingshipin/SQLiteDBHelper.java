@@ -19,7 +19,11 @@ public class SQLiteDBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         // Create your database tables here
-        db.execSQL("CREATE TABLE IF NOT EXISTS my_table (id INTEGER PRIMARY KEY, name TEXT);");
+        String createTableQuery = "CREATE TABLE IF NOT EXISTS " + TABLE_CATALYST + " (" +
+            KEY_COLUMN + " TEXT PRIMARY KEY, " +
+            VALUE_COLUMN + " TEXT" +
+        ");";
+        db.execSQL(createTableQuery);
     }
 
     @Override
@@ -27,4 +31,5 @@ public class SQLiteDBHelper extends SQLiteOpenHelper {
         // Upgrade the database, if needed
         // You can drop and recreate tables or add new columns here
     }
+
 }
