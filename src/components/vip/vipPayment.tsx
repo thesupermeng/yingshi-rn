@@ -6,18 +6,19 @@ import { useState } from "react";
 interface Props {
   paymentOption: string,
   icon?: React.ReactNode,
-  // setPaymentSelected: (selected: string) => void;
+  isSelected: boolean;
+  onPaymentSelect: (payment: string) => void;
 }
 
 export const VipPayment = ({
   paymentOption,
   icon,
-  // setPaymentSelected
+  isSelected,
+  onPaymentSelect,
 }: Props) => {
   const { textVariants, colors } = useTheme();
-  const [isSelected, setIsSeleceted] = useState(false);
   const handleClick = () => {
-    setIsSeleceted(!isSelected)
+    onPaymentSelect(paymentOption);
   }
 
   return (
