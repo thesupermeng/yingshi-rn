@@ -31,4 +31,5 @@ public class SQLiteDBHelper extends SQLiteOpenHelper {
         // Upgrade the database, if needed
         // You can drop and recreate tables or add new columns here
     }
+
 }

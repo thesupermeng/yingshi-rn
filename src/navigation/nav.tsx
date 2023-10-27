@@ -115,7 +115,7 @@ export default () => {
 
   let iconWidth = 22;
   if (hasNotch) {
-    iconWidth = 22;
+    iconWidth = 25;
   }
 
   const userState: userModel = useAppSelector(
@@ -535,9 +535,9 @@ const styles = StyleSheet.create({
   navStyleWithNotch: {
     paddingTop: 0,
     paddingBottom: 5,
-    height: 50,
+    height: 65,
     position: "relative",
-    bottom: 25,
+    // bottom: 25,
   },
   navStyle: {
     // flex: 0,
