@@ -553,7 +553,7 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
     height: 50,
     position: "relative",
-    bottom: 25,
+    // bottom: 25,
   },
   navStyle: {
     // flex: 0,

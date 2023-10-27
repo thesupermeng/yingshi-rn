@@ -259,6 +259,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
     <>
       <ScreenContainer
         containerStyle={{ paddingLeft: 0, paddingRight: 0 }}
+        isHome={false} // solve home tab tabsize different issue
       >
         <View
           style={{
