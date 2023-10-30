@@ -90,6 +90,7 @@ export type RootStackParamList = {
   };
   SetUsername: undefined;
   活动规则: undefined;
+  付费VIP: undefined;
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> =

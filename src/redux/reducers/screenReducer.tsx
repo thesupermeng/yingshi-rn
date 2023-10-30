@@ -69,11 +69,16 @@ export function screenReducer(state = initialState, action: screenActionType) {
         ...state,
         resetInputForm: true,
       };
-      case 'navigate_to_profile_screen':
-        return {
-          ...state,
-          navigateToProfile: true,
-        }
+    case 'navigate_to_profile_screen':
+      return {
+        ...state,
+        navigateToProfile: true,
+      };
+    case 'reset_profile_screen':
+      return {
+        ...state,
+        navigateToProfile: false,
+      };
     default:
       return state;
   }

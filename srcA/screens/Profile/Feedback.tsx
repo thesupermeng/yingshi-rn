@@ -17,8 +17,8 @@ import {
   API_DOMAIN_TEST,
   API_DOMAIN_LOCAL,
   UMENG_CHANNEL,
-  YING_SHI_PIN_ANDROID,
-  YING_SHI_PIN_IOS,
+  YING_SHI_TV_ANDROID,
+  YING_SHI_TV_IOS,
 } from '../../../src/utility/constants';
 import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
 
@@ -42,9 +42,9 @@ export default ({navigation}: RootStackScreenProps<'反馈'>) => {
     );
 
     if(Platform.OS === 'ios'){
-      setPlatformId(YING_SHI_PIN_IOS);
+      setPlatformId(YING_SHI_TV_IOS);
     } else {
-      setPlatformId(YING_SHI_PIN_ANDROID);
+      setPlatformId(YING_SHI_TV_ANDROID);
     }
 
     return () => removeNetInfoSubscription();
