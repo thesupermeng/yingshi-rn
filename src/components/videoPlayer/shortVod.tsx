@@ -1,4 +1,4 @@
-import React, {useState, memo, useCallback} from 'react';
+import React, { useState, memo, useCallback } from 'react';
 import ShortVideoPlayer from '../../components/videoPlayer/shortVodPlayer';
 import CollectionBottomSheet from '../../../src/components/miniCollection/CollectionBottomSheet';
 
@@ -11,6 +11,7 @@ interface Props {
     vod: any;
     inCollectionView?: boolean;
     setCollectionEpisode?: any;
+    isScrolling: boolean;
 }
 
 function ShortVod({
@@ -21,7 +22,8 @@ function ShortVod({
     videoTitle,
     displayHeight = 0,
     inCollectionView = false,
-    setCollectionEpisode
+    setCollectionEpisode,
+    isScrolling = false,
 }: Props) {
     const [isShowBottomSheet, setShowBottomSheet] = useState(false);
     const [vodUrl, setVodUrl] = useState(vod_url);
@@ -38,7 +40,7 @@ function ShortVod({
         setShowBottomSheet(true);
     }
 
-    return(
+    return (
         <>
             <ShortVideoPlayer
                 vod={currentVod}
@@ -50,8 +52,9 @@ function ShortVod({
                 inCollectionView={inCollectionView}
                 setCollectionEpisode={setCollectionEpisode}
                 openSheet={openSheet}
+                isScrolling={isScrolling}
             />
-            <CollectionBottomSheet 
+            <CollectionBottomSheet
                 isVisible={isShowBottomSheet}
                 handleClose={() => setShowBottomSheet(false)}
                 collectionVideoId={currentVod.mini_video_id}
