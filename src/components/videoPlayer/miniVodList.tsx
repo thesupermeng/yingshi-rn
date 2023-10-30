@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { SafeAreaView, View, Text, FlatList, Dimensions, RefreshControl } from 'react-native';
+import { SafeAreaView, View, Text, FlatList, Dimensions, RefreshControl, Platform } from 'react-native';
 import { MiniVideo } from '../../types/ajaxTypes';
 import ShortVod from '../../components/videoPlayer/shortVod';
 import FastImage from 'react-native-fast-image';
@@ -108,8 +108,8 @@ export default ({ miniVodListRef, handleRefreshMiniVod, currentVodIndex = 0, vid
             <FlatList
                 ref={miniVodListRef}
                 data={collectionPartialVideos}
-                initialNumToRender={3}
-                maxToRenderPerBatch={5}
+                initialNumToRender={Platform.OS === 'ios' ? collectionPartialVideos.length : 5}
+                // maxToRenderPerBatch={5}
                 windowSize={5}
                 refreshControl={refreshComponent()}
                 renderItem={renderItem}
