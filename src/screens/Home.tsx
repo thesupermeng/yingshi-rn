@@ -182,7 +182,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
     setNavbarHeight(bottomTabHeight)
   }, [bottomTabHeight])
 
-  useInterstitialAds(Platform.OS === 'ios' ? IOS_HOME_PAGE_POP_UP_ADS : ANDROID_HOME_PAGE_POP_UP_ADS);
+  useInterstitialAds();
   
   return (
     <>
