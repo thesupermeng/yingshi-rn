@@ -57,7 +57,7 @@ export const UMENG_CHANNEL = 'GOOGLE_PLAY';
 export const APP_VERSION = '1.4.0';
 
 export const TOPON_ANDROID_APP_ID = 'a65002a2db3a7f';
-export const TOPON_ANDROID_APP_KEY = '0b1cab850e5de6fdc1fe0e114a0256eb';
+export const TOPON_ANDROID_APP_KEY = 'aad683307ed540dfc11b094206e8a15b1';
 
 export const TOPON_IOS_APP_ID = 'a65093c4e166c3';
 export const TOPON_IOS_APP_KEY = 'ac16f5a19bcbae7438b36f0f7160fbac3';
