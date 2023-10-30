@@ -55,7 +55,7 @@ const useInterstitialAds = () =>{
   };
 
   const prepareInterstitial = async (interstitialPlacementId: PlacementId) => {
-    for (let i=0; i<5; i++){
+    for (let i=0; i<1; i++){
       await isInterstitialReady(interstitialPlacementId)
       console.log('try count', i)
       if (i > 5 || adsReadyFlag){
@@ -87,7 +87,7 @@ const useInterstitialAds = () =>{
   }, [adsReadyFlag, currentRoute])
 
   useEffect(() => {
-    const REPEAT = false// note : if you want the page included in the "repeatRoute" to keep showing interstitial whenever the user re-visits the page, set to true. 
+    const REPEAT = true// note : if you want the page included in the "repeatRoute" to keep showing interstitial whenever the user re-visits the page, set to true. 
     // current implementation only work for one page can repeat. if multiple page needs to repeat, additional logic need to be implemented. 
     const repeatRoute = '首页'
     if (REPEAT){
