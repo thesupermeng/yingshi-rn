@@ -1,4 +1,4 @@
-import React, { useEffect, useState, memo, useCallback, useRef } from 'react';
+import React, {useEffect, useState, memo, useCallback, useRef} from 'react';
 import {
   View,
   TouchableWithoutFeedback,
@@ -7,7 +7,7 @@ import {
   Text,
   Dimensions,
 } from 'react-native';
-import Video, { OnProgressData } from 'react-native-video';
+import Video, {OnProgressData} from 'react-native-video';
 import PlayIcon from '../../../static/images/blackPlay.svg';
 import PauseIcon from '../../../static/images/pause.svg';
 import PlayZhengPianIcon from '../../../static/images/play-zhengpian1.svg';
@@ -32,7 +32,6 @@ interface Props {
   inCollectionView?: boolean;
   setCollectionEpisode?: any;
   openSheet?: any;
-  isScrolling: boolean;
 }
 
 function ShortVideoPlayer({
@@ -44,17 +43,16 @@ function ShortVideoPlayer({
   displayHeight = 0,
   inCollectionView = false,
   setCollectionEpisode,
-  openSheet,
-  isScrolling = false,
+  openSheet
 }: Props) {
   const maxLength = 10;
 
   const [currentVod, setVod] = useState(vod);
 
-  if (currentVod?.mini_video_original_video_name == undefined) {
+  if(currentVod?.mini_video_original_video_name == undefined){
     currentVod.mini_video_original_video_name = '';
   }
-
+  
   let vodName =
     currentVod?.mini_video_original_video_name.length > maxLength
       ? currentVod?.mini_video_original_video_name.substring(0, maxLength) + '...'
@@ -64,7 +62,7 @@ function ShortVideoPlayer({
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
 
-  const { colors, textVariants } = useTheme();
+  const {colors, textVariants} = useTheme();
 
   const [isBuffering, setIsBuffering] = useState(false);
   const videoRef = useRef<Video>(null);
@@ -89,11 +87,11 @@ function ShortVideoPlayer({
   }, [vod])
 
   useEffect(() => {
-
-    if (currentVod.mini_video_topic?.topic_id != 0) {
+    
+    if(currentVod.mini_video_topic?.topic_id != 0){
       setIsBodan(true);
       setWatchText('看播单');
-    } else {
+    }else{
       setIsBodan(false);
       setWatchText('看正片');
     }
@@ -153,12 +151,12 @@ function ShortVideoPlayer({
   };
 
   const redirectVod = () => {
-    if (isBodan) {
+    if(isBodan){
       dispatch(viewPlaylistDetails(currentVod.mini_video_topic));
       navigation.navigate('PlaylistDetail', {
         topic_id: currentVod.mini_video_topic.topic_id,
       });
-    } else {
+    }else{
       dispatch(playVod(currentVod.mini_video_vod));
       navigation.navigate('播放', {
         vod_id: currentVod.vod?.vod_id,
@@ -189,30 +187,27 @@ function ShortVideoPlayer({
               />
             </View>
           )}
-          {!isScrolling &&
-            <Video
-              ref={videoRef}
-              resizeMode="contain"
-              poster={thumbnail}
-              source={{
-                uri: currentVod.mini_video_origin_video_url,
-                headers: {
-                  'User-Agent':
-                    'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
-                },
-              }}
-              onBuffer={onBuffer}
-              repeat={true}
-              style={styles.video}
-              // onVideoSeek={}
-              // ignoreSilentSwitch={"ignore"}
-              paused={!isActive || paused}
-              onLoad={handleLoad}
-              onProgress={handleProgress}
-              progressUpdateInterval={400}
-            />
-          }
-
+          <Video
+            ref={videoRef}
+            resizeMode="contain"
+            poster={thumbnail}
+            source={{
+              uri: currentVod.mini_video_origin_video_url,
+              headers: {
+                'User-Agent':
+                  'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+              },
+            }}
+            onBuffer={onBuffer}
+            repeat={true}
+            style={styles.video}
+            // onVideoSeek={}
+            // ignoreSilentSwitch={"ignore"}
+            paused={!isActive || paused}
+            onLoad={handleLoad}
+            onProgress={handleProgress}
+            progressUpdateInterval={400}
+          />
           <View
             style={{
               position: 'absolute',
@@ -244,7 +239,7 @@ function ShortVideoPlayer({
                         borderRadius: 8,
                         backgroundColor: 'rgba(106, 106, 106, 0.25)',
                       }}>
-                      {!isBodan &&
+                      { !isBodan && 
                         <View
                           style={{
                             width: 45,
@@ -263,7 +258,7 @@ function ShortVideoPlayer({
                           </TouchableOpacity>
                         </View>
                       }
-                      {isBodan &&
+                      { isBodan &&
                         <View
                           style={{
                             width: 45,
@@ -286,7 +281,7 @@ function ShortVideoPlayer({
                                 setImageLoaded(true)
                               }}
                             />
-                            {imageLoaded && isBodan &&
+                            { imageLoaded && isBodan &&
                               <View>
                                 <FastImage
                                   style={{ flex: 1, borderRadius: 6, transform: 'translate(4px, 0px)', position: 'absolute', width: '100%', height: imageContainerHeight - 6, zIndex: 2, top: 5.8 }}
@@ -336,7 +331,7 @@ function ShortVideoPlayer({
                             </View>
                             <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
                               <View style={{ flexWrap: 'wrap' }}>
-                                {isBodan ?
+                                { isBodan ?
                                   <PlayBoDanIcon width={20} height={20} />
                                   :
                                   <PlayZhengPianIcon width={20} height={20} />
@@ -380,7 +375,7 @@ function ShortVideoPlayer({
               </View>
             </View>
 
-            {currentVod.is_collection?.toLowerCase() == "y" &&
+            { currentVod.is_collection?.toLowerCase() == "y" &&
               <View style={{ backgroundColor: '#171717', paddingBottom: 18, paddingTop: 12, paddingLeft: 20, paddingRight: 20 }}>
                 <TouchableOpacity style={{ flex: 1 }} onPress={() => {
                   openBottomSheet();
@@ -390,7 +385,7 @@ function ShortVideoPlayer({
                       <HejiIcon height={24} width={24} />
                       <Text style={{ paddingLeft: 6, alignSelf: 'center', fontSize: 14, color: colors.text, fontWeight: 700 }}>{currentVod.mini_video_collection_title}</Text>
                     </View>
-                    <View style={{}}>
+                    <View style={{ }}>
                       <ExpandUpIcon height={24} width={24} />
                     </View>
                   </View>
@@ -422,25 +417,25 @@ function ShortVideoPlayer({
             (
               duration < 3600
                 ? <Text style={{
-                  position: 'absolute',
-                  bottom: 12,
-                  backgroundColor: '#000',
-                  borderRadius: 4,
-                  paddingVertical: 6,
-                  paddingHorizontal: 10,
-                  left: Math.min(Math.max(0, (currentTime / duration) * windowWidth - 44), windowWidth - 76)
-                }}>
-                  <Text style={textVariants.small}>{new Date(currentTime * 1000).toISOString().substring(14, 19)}</Text>
-                  <Text style={{ ...textVariants.small, color: colors.muted }}>{` / ${new Date(duration * 1000).toISOString().substring(14, 19)}`}</Text>
-                </Text>
+                    position: 'absolute',
+                    bottom: 12,
+                    backgroundColor: '#000',
+                    borderRadius: 4,
+                    paddingVertical: 6,
+                    paddingHorizontal: 10,
+                    left: Math.min(Math.max(0, (currentTime / duration) * windowWidth - 44), windowWidth - 76)
+                  }}>
+                    <Text style={textVariants.small}>{new Date(currentTime * 1000).toISOString().substring(14, 19)}</Text>
+                    <Text style={{ ...textVariants.small, color: colors.muted }}>{` / ${new Date(duration * 1000).toISOString().substring(14, 19)}`}</Text>
+                  </Text>
                 : <Text style={{
-                  position: 'absolute',
-                  bottom: 20,
-                  left: Math.min(Math.max(0, (currentTime / duration) * windowWidth - 34), windowWidth - 76)
-                }}>
-                  <Text style={textVariants.small}>{new Date(currentTime * 1000).toISOString().substring(11, 19)}</Text>
-                  <Text style={{ ...textVariants.small, color: colors.muted }}>{` / ${new Date(duration * 1000).toISOString().substring(11, 19)}`}</Text>
-                </Text>
+                    position: 'absolute',
+                    bottom: 20,
+                    left: Math.min(Math.max(0, (currentTime / duration) * windowWidth - 34), windowWidth - 76)
+                  }}>
+                    <Text style={textVariants.small}>{new Date(currentTime * 1000).toISOString().substring(11, 19)}</Text>
+                    <Text style={{ ...textVariants.small, color: colors.muted }}>{` / ${new Date(duration * 1000).toISOString().substring(11, 19)}`}</Text>
+                  </Text>
             )
           }
         </View>

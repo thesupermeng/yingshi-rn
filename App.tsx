@@ -534,11 +534,11 @@ let App = () => {
 
   return (
     <TermsAcceptContextProvider>
-      <AdsBannerContextProvider>
-        <QueryClientProvider client={queryClient}>
-          <Provider store={store}>
-            <PersistGate loading={null} persistor={persistor}>
-              <GestureHandlerRootView style={{ flex: 1 }}>
+      <QueryClientProvider client={queryClient}>
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+            <AdsBannerContextProvider>
+              <GestureHandlerRootView style={{flex: 1}}>
                 <BottomSheetModalProvider>
                   {YSConfig.instance.areaConfig != null &&
                   YSConfig.instance.areaConfig == true ? (
@@ -550,11 +550,11 @@ let App = () => {
                   )}
                 </BottomSheetModalProvider>
               </GestureHandlerRootView>
-            </PersistGate>
-            {showRegengOverlay && <RegengOverlay />}
-          </Provider>
-        </QueryClientProvider>
-      </AdsBannerContextProvider>
+            </AdsBannerContextProvider>
+          </PersistGate>
+          {showRegengOverlay && <RegengOverlay />}
+        </Provider>
+      </QueryClientProvider>
     </TermsAcceptContextProvider>
   );
 };
