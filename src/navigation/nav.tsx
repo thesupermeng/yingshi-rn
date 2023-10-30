@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  useCallback,
-  useContext,
-} from "react";
+import React, { useState, useEffect, useRef, useCallback, useContext } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   NavigationContainer,
@@ -260,7 +254,7 @@ export default () => {
     }
 
     let resultData = result.data.data;
-    if (resultData.user.current_timestamp > resultData.user.vip_end_time) {
+    if (resultData.user.current_timestamp > resultData.user.vip_end_time){
       await AsyncStorage.setItem("showAds", "false");
     } else {
       await AsyncStorage.setItem("showAds", "true");
@@ -368,36 +362,31 @@ export default () => {
     };
   }, []);
 
-  const { setRoute: setAdsRoute } = useContext(AdsBannerContext);
+  const {setRoute:setAdsRoute } = useContext(AdsBannerContext)
 
-  const handleStateChange = (state: Readonly<NavigationState> | undefined) => {
-    // for banner ads
-    if (!state) return;
-    const currentRoute = state.routes[state.routes.length - 1]; // last item in stack
 
-    if (currentRoute.name !== "Home") {
-      setAdsRoute(currentRoute.name);
+  const handleStateChange = (state: Readonly<NavigationState>|undefined) => {
+    // for banner ads 
+    if (!state) return 
+    const currentRoute = state.routes[state.routes.length - 1] // last item in stack 
+    
+    if (currentRoute.name !== "Home"){
+      setAdsRoute(currentRoute.name)
     } else {
-      const homeState = currentRoute.state;
-      if (
-        !homeState ||
-        homeState.routeNames == undefined ||
-        homeState.index == undefined
-      )
-        return;
-      const currentTabName = homeState.routeNames[homeState.index];
-      setAdsRoute(currentTabName);
+      const homeState = currentRoute.state
+      if (!homeState || homeState.routeNames == undefined || homeState.index == undefined) return
+      const currentTabName = homeState.routeNames[homeState.index]
+      setAdsRoute(currentTabName)
     }
     // ============= end for banner ads
-  };
+
+  }
 
   return (
     <SafeAreaProvider>
-      <NavigationContainer
-        theme={theme}
-        onReady={() => RNBootSplash.hide()}
+      <NavigationContainer theme={theme} onReady={() => RNBootSplash.hide()}
         onStateChange={handleStateChange}
-      >
+        >
         <Stack.Navigator
           initialRouteName="Home"
           screenOptions={({ route }) => ({
@@ -498,17 +487,17 @@ export default () => {
           />
         </Stack.Navigator>
         {settingsReducer.appOrientation === "PORTRAIT" && ( // only show if portrait
-          <>
-            <LoginBottomSheet
-              isVisible={isShowLogin}
-              handleClose={() => setShowLogin(false)}
-            />
-            <RegisterBottomSheet
-              isVisible={isShowRegister}
-              handleClose={() => setShowRegister(false)}
-            />
-          </>
-        )}
+            <>
+              <LoginBottomSheet
+                isVisible={isShowLogin}
+                handleClose={() => setShowLogin(false)}
+              />
+              <RegisterBottomSheet
+                isVisible={isShowRegister}
+                handleClose={() => setShowRegister(false)}
+              />
+            </>
+          )}
         <PrivacyPolicyOverlay
           isVisible={showPrivacyOverlay}
           setIsVisible={setShowPrivacyOverlay}
@@ -561,7 +550,7 @@ export default () => {
 const styles = StyleSheet.create({
   navStyleWithNotch: {
     paddingTop: 0,
-    paddingBottom: 10,
+    paddingBottom: 5,
     height: 65,
     position: "relative",
     // bottom: 25,
