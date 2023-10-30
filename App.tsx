@@ -531,82 +531,14 @@ let App = () => {
     );
   };
 
-  const loadInterstitial = async (interstitialPlacementId) => {
-    // console.log("====================================");
-    // console.log("loadInterstitial");
-    // console.log("====================================");
-
-    var settings = {};
-    settings[ATInterstitialRNSDK.UseRewardedVideoAsInterstitial] = false;
-    //    settings[ATInterstitialRNSDK.UseRewardedVideoAsInterstitial] = true;
-
-    await ATInterstitialRNSDK.loadAd(interstitialPlacementId, settings);
-
-    if (Platform.OS === "android") {
-      isInterstitialReady(ANDROID_HOME_PAGE_POP_UP_ADS);
-    } else if (Platform.OS === "ios") {
-      isInterstitialReady(IOS_HOME_PAGE_POP_UP_ADS);
-    }
-  };
-
-  const isInterstitialReady = (interstitialPlacementId) => {
-    ATInterstitialRNSDK.hasAdReady(interstitialPlacementId).then(
-      (isAdReady) => {
-        // console.log("====================================");
-        // console.log("isInterstitialReady: " + isAdReady);
-        // console.log("====================================");
-        if (isAdReady && adsReadyFlag == false) {
-          adsReadyFlag = true;
-          showInterstitial(interstitialPlacementId);
-        } else {
-          if (tryToLoadCount > 1 || adsReadyFlag == true) {
-            return;
-          }
-          tryToLoadCount += 1;
-          setTimeout(() => {
-            loadInterstitial(interstitialPlacementId);
-          }, 1000);
-        }
-      }
-    );
-
-    ATInterstitialRNSDK.checkAdStatus(interstitialPlacementId).then(
-      (adStatusInfo) => {
-        // console.log("====================================");
-        // console.log("isInterstitialReady: checkAdStatus: " + adStatusInfo);
-        // console.log("====================================");
-      }
-    );
-  };
-
-  const showInterstitial = (interstitialPlacementId) => {
-    console.log("====================================");
-    console.log("showInterstitial ....");
-    console.log("====================================");
-    ATInterstitialRNSDK.showAd(interstitialPlacementId);
-  };
-
-  if (Platform.OS === "android") {
-    // loadBanner(ANDROID_HOME_PAGE_BANNER_ADS);
-    // loadBanner(ANDROID_PLAY_DETAILS_BANNER_ADS);
-    // loadBanner(ANDROID_TOPIC_DETAILS_BANNER_ADS);
-    // loadBanner(ANDROID_TOPIC_TAB_BANNER_ADS);
-    // loadInterstitial(ANDROID_HOME_PAGE_POP_UP_ADS);
-  } else if (Platform.OS === "ios") {
-    // loadBanner(IOS_HOME_PAGE_BANNER_ADS);
-    // loadBanner(IOS_PLAY_DETAILS_BANNER_ADS);
-    // loadBanner(IOS_TOPIC_DETAILS_BANNER_ADS);
-    // loadBanner(IOS_TOPIC_TAB_BANNER_ADS);
-    // loadInterstitial(IOS_HOME_PAGE_POP_UP_ADS);
-  }
 
   return (
     <TermsAcceptContextProvider>
-      <AdsBannerContextProvider>
-        <QueryClientProvider client={queryClient}>
-          <Provider store={store}>
-            <PersistGate loading={null} persistor={persistor}>
-              <GestureHandlerRootView style={{ flex: 1 }}>
+      <QueryClientProvider client={queryClient}>
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+            <AdsBannerContextProvider>
+              <GestureHandlerRootView style={{flex: 1}}>
                 <BottomSheetModalProvider>
                   {YSConfig.instance.areaConfig != null &&
                   YSConfig.instance.areaConfig == true ? (
@@ -618,11 +550,11 @@ let App = () => {
                   )}
                 </BottomSheetModalProvider>
               </GestureHandlerRootView>
-            </PersistGate>
-            {showRegengOverlay && <RegengOverlay />}
-          </Provider>
-        </QueryClientProvider>
-      </AdsBannerContextProvider>
+            </AdsBannerContextProvider>
+          </PersistGate>
+          {showRegengOverlay && <RegengOverlay />}
+        </Provider>
+      </QueryClientProvider>
     </TermsAcceptContextProvider>
   );
 };

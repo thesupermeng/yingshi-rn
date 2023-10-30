@@ -211,20 +211,17 @@ export default forwardRef<RefHandler, Props>(({
   return (
     <View
       style={{ ...styles.controlsOverlay }}>
-      {
-        !showControls &&
-        <VodCombinedGesture
-          vodType={videoType}
-          enabled={showSlider === 'none'}
-          onSkipBackwards={() => handleFastForward(-10)}
-          onSkipForward={() => handleFastForward(10)}
-          onSingleTap={changeControlsState}
-          currentTime={currentTime}
-          totalDuration={duration}
-          onSeek={onSeekGesture}
-          disableControlsExceptTap={isLocked}
-        />
-      }
+      <VodCombinedGesture
+        vodType={videoType}
+        enabled={showSlider === 'none'}
+        onSkipBackwards={() => handleFastForward(-10)}
+        onSkipForward={() => handleFastForward(10)}
+        onSingleTap={changeControlsState}
+        currentTime={currentTime}
+        totalDuration={duration}
+        onSeek={onSeekGesture}
+        disableControlsExceptTap={isLocked}
+      />
       {
         accumulatedSkip < 0 &&
         <View style={{
@@ -385,7 +382,7 @@ export default forwardRef<RefHandler, Props>(({
                 </View>
               </View>
             </View>
-            : <View style={{ height: '100%', flex: 1 }}>
+            : <>
               {/* Top Controls */}
               <LinearGradient
                 colors={['transparent', 'black']}
@@ -419,24 +416,12 @@ export default forwardRef<RefHandler, Props>(({
                 </View>
               </LinearGradient>
               {/* Middle Controls */}
-              <VodCombinedGesture
-                vodType={videoType}
-                enabled={showSlider === 'none'}
-                onSkipBackwards={() => handleFastForward(-10)}
-                onSkipForward={() => handleFastForward(10)}
-                onSingleTap={changeControlsState}
-                currentTime={currentTime}
-                totalDuration={duration}
-                onSeek={onSeekGesture}
-                disableControlsExceptTap={isLocked}
-              >
-                <MiddleControls
-                  fastForward={handleFastForward}
-                  togglePlayPause={handlePlayPause}
-                  videoType={videoType}
-                  paused={paused}
-                />
-              </VodCombinedGesture>
+              <MiddleControls
+                fastForward={handleFastForward}
+                togglePlayPause={handlePlayPause}
+                videoType={videoType}
+                paused={paused}
+              />
               {/* Bottom Controls */}
               <LinearGradient
                 colors={['transparent', 'black']}
@@ -468,7 +453,7 @@ export default forwardRef<RefHandler, Props>(({
                   showSliderThumbnail={showSliderThumbnail}
                 />
               </LinearGradient>
-            </View>
+            </>
         )
       }
     </View>
@@ -482,9 +467,8 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    // width: '100%',
-    // height: '100%'
-    // backgroundColor: '#00000010',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   fullScreenBottom: {
     paddingBottom: 60,
@@ -494,14 +478,14 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    zIndex: 99
+    zIndex: 99,
   },
   topBlur: {
     position: 'absolute',
     left: 0,
     right: 0,
     top: 0,
-    zIndex: 99
+    zIndex: 99,
   },
   videoHeader: {
     display: 'flex',
@@ -512,8 +496,7 @@ const styles = StyleSheet.create({
     height: '100%',
     width: 'auto',
     maxWidth: 400,
-    minWidth: 200
-    // flex: 1
+    minWidth: 200,
   },
   rateButtons: {
     marginBottom: 10,

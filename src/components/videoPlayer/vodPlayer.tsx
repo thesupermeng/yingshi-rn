@@ -91,7 +91,7 @@ export default forwardRef<VideoRef, Props>(
       rangeSize,
       episodes,
       autoPlayNext = true,
-      onShare = () => {},
+      onShare = () => { },
       movieList = [],
       showGuide = false,
       streams = [],
@@ -412,41 +412,6 @@ export default forwardRef<VideoRef, Props>(
             />
           )}
         </View>
-
-        {(vod_url !== undefined || vod_source !== undefined) && !useWebview && (
-          <VideoControlsOverlay
-            ref={controlsRef}
-            videoUrl={vod_url ?? ""}
-            onVideoSeek={onSeek}
-            onSeekGesture={onSeekGesture}
-            currentTime={currentTime}
-            duration={duration}
-            onFastForward={onSkip}
-            paused={isPaused}
-            isFullScreen={isFullScreen}
-            onTogglePlayPause={onTogglePlayPause}
-            headerTitle={vodTitle}
-            onHandleFullScreen={onToggleFullScreen}
-            onHandleGoBack={onGoBack}
-            videoType={videoType}
-            playbackRate={playbackRate}
-            onPlaybackRateChange={(rate: number) => {
-              setPlaybackRate(rate);
-            }}
-            activeEpisode={activeEpisode}
-            episodes={episodes}
-            onEpisodeChange={changeEpisodeAndPlay}
-            rangeSize={rangeSize}
-            onNextEpisode={getNextEpisode()}
-            accumulatedSkip={accumulatedSkip.current}
-            onShare={onShare}
-            movieList={movieList}
-            showGuide={showGuide}
-            showMoreType={showMoreType}
-            streams={streams}
-            isFetchingRecommendedMovies={isFetchingRecommendedMovies}
-          />
-        )}
 
         {(bufferRef.current || seekDirection !== "none") && (
           <View style={styles.buffering}>

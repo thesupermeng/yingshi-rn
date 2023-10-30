@@ -6,7 +6,7 @@ import {
     ATBannerRNSDK,
   } from "../../AnyThinkAds/ATReactNativeSDK";
 import DeviceInfo from "react-native-device-info";
-import { Dimensions, Platform, StatusBar } from "react-native";
+import { Dimensions, LogBox, Platform, StatusBar } from "react-native";
 import {
     ANDROID_HOME_PAGE_BANNER_ADS,
     ANDROID_PLAY_DETAILS_BANNER_ADS,
@@ -19,8 +19,11 @@ import {
     TOPON_BANNER_HEIGHT,
   } from "../utility/constants";
 import { getNavigationBarHeight } from "react-native-android-navbar-height";
+import { userModel } from "../types/userType";
+import { RootState } from "../redux/store";
+import { useAppSelector } from "../hooks/hooks";
 
-
+LogBox.ignoreAllLogs();
 
 interface Props{
     children: ReactNode; 
@@ -109,38 +112,65 @@ const hideAllBanner = () => {
     }
 }
 
+const showBanner = (routeName: string | null, x: number, y: number, width: number, height: number) => {
+  // console.debug('SHOW BANNER IN ', routeName)
+  hideAllBanner();
+
+  const bannerId = getBannerPlacementId(routeName);
+
+  if (!routeName) return;
+
+  // console.debug(x, y, width, height)
+  //show banner
+  ATBannerRNSDK.showAdInRectangle(
+    bannerId,
+    ATBannerRNSDK.createShowAdRect(
+      x,
+      y,
+      width, 
+      height
+    ),
+  );
+
+
+  ATBannerRNSDK.reShowAd(bannerId)
+};
+
+const scale = Dimensions.get('screen').scale
+
+
 export const AdsBannerContextProvider = ({children}: Props) => {
     const [route, setRoute] = useState<string|null>(null);
     const [navbarHeight, setNavbarHeight] = useState(0)
     const [systemNavHeight, setSystemNavHeight] = useState(0)
+    const userState: userModel = useAppSelector(
+      ({ userReducer }: RootState) => userReducer
+    );
 
-    useEffect(()=>{
-        const screenWidthInPixel = Dimensions.get('screen').width * Dimensions.get('screen').scale;
-        const screenHeightInPixel = Dimensions.get('screen').height * Dimensions.get('screen').scale;
-        const statusBarHeightInPixel = (StatusBar.currentHeight ?? 0) * Dimensions.get('screen').scale;
-        const navbarHeightInPixel = (navbarHeight != 0 ? navbarHeight - 1 : 0) * Dimensions.get("screen").scale;
 
-        try {
-          getNavigationBarHeight().then((height) => {
-            // console.debug(height);
-            setSystemNavHeight(height);
-          });
-        } catch (e) {
-          // navBarHeightInPixel = 0;
-        }
+    const showBannerInPosition = async () => {
+      if (!route) return 
+      if (Platform.OS === 'android'){
+        const screenWidthInPixel = Dimensions.get('screen').width * scale;
+        // console.log("🚀 ~ file: AdsBannerContext.tsx:148 ~ useEffect ~ screenWidthInPixel:", screenWidthInPixel)
+        const screenHeightInPixel = Dimensions.get('screen').height * scale;
+        // console.log("🚀 ~ file: AdsBannerContext.tsx:150 ~ useEffect ~ screenHeightInPixel:", screenHeightInPixel)
+        const statusBarHeightInPixel = (StatusBar.currentHeight ?? 0) * scale;
+        // console.log("🚀 ~ file: AdsBannerContext.tsx:152 ~ useEffect ~ statusBarHeightInPixel:", statusBarHeightInPixel)
+        const navbarHeightInPixel = (navbarHeight != 0 ? navbarHeight - 1 : 0) * scale;
+        // console.log("🚀 ~ file: AdsBannerContext.tsx:154 ~ useEffect ~ navbarHeightInPixel:", navbarHeightInPixel)
 
-        console.debug('screenwidth', screenWidthInPixel)
-        console.debug('screenheight', screenHeightInPixel)
-        console.debug('statusbar', statusBarHeightInPixel)
-        console.debug('navbar', navbarHeightInPixel)
-        console.debug('systemnav', systemNavHeight)
+        setSystemNavHeight((await getNavigationBarHeight()))
+        // console.log("🚀 ~ file: AdsBannerContext.tsx:143 ~ AdsBannerContextProvider ~ systemNavHeight:", systemNavHeight)
+        
 
         const adsTopInPixel =
-            screenHeightInPixel -
-            statusBarHeightInPixel -
-            navbarHeightInPixel - 
-            systemNavHeight; 
-        
+        screenHeightInPixel -
+        statusBarHeightInPixel -
+        navbarHeightInPixel -
+        systemNavHeight
+        // console.log("🚀 ~ file: AdsBannerContext.tsx:166 ~ useEffect ~ adsTopInPixel:", adsTopInPixel)
+
         let huaweiOffset = 0; 
         if (deviceBrand === "HUAWEI") {
             // This is a Huawei device
@@ -155,53 +185,52 @@ export const AdsBannerContextProvider = ({children}: Props) => {
             }
           }
 
-        const showBanner = (routeName: string | null) => {
-          // console.debug('SHOW BANNER IN ', routeName)
-          hideAllBanner();
+        let x, y, width, height; 
+        x=0
+        let bannerHeightOnScreen = adsTopInPixel - TOPON_BANNER_HEIGHT*scale + huaweiOffset
+        if (pageNoNavbar.includes(route)) bannerHeightOnScreen += navbarHeightInPixel
+        y = bannerHeightOnScreen
+        width = screenWidthInPixel
+        height = TOPON_BANNER_HEIGHT * scale
+        // console.debug(x, y, width, height)
 
-          const bannerId = getBannerPlacementId(routeName);
+        showBanner(route, x, y, width, height)
+      } else if (Platform.OS === 'ios'){
+        const screenWidth = Dimensions.get('screen').width
+        // console.log("🚀 ~ file: AdsBannerContext.tsx:192 ~ useEffect ~ screenWidth:", screenWidth)
+        const screenHeight = Dimensions.get('screen').height
+        // console.log("🚀 ~ file: AdsBannerContext.tsx:194 ~ useEffect ~ screenHeight:", screenHeight)
+        const statusBarHeight = StatusBar.currentHeight ?? 0
+        // console.log("🚀 ~ file: AdsBannerContext.tsx:196 ~ useEffect ~ statusBarHeight:", statusBarHeight)
+        const navHeight = navbarHeight != 0 ? navbarHeight - 1 : 0 
+        // console.log("🚀 ~ file: AdsBannerContext.tsx:198 ~ useEffect ~ navHeight:", navHeight)
 
-          if (!routeName) return;
+        const adsTopInPixel = 
+        screenHeight - 
+        statusBarHeight - 
+        navbarHeight
+        // console.log("🚀 ~ file: AdsBannerContext.tsx:201 ~ useEffect ~ adsTopInPixel:", adsTopInPixel)
 
-          let x, y, width, height; 
-          x=0
-          let bannerHeightOnScreen = adsTopInPixel - TOPON_BANNER_HEIGHT * Dimensions.get('screen').scale + huaweiOffset
-          if (pageNoNavbar.includes(routeName)) bannerHeightOnScreen += navbarHeightInPixel
-          
-          if (Platform.OS === 'android'){
-            const scale = Dimensions.get('screen').scale
-            y = bannerHeightOnScreen
-            width = screenWidthInPixel
-            height = TOPON_BANNER_HEIGHT * scale
-          } else if (Platform.OS === 'ios'){ // for ios divide back the scale coz using pt not px 
-            const scale = Dimensions.get('screen').scale
-            y = bannerHeightOnScreen / scale
-            width = screenWidthInPixel / scale
-            height = TOPON_BANNER_HEIGHT
-          }
-          console.debug(x, y, width, height)
-          //show banner
-          ATBannerRNSDK.showAdInRectangle(
-            bannerId,
-            ATBannerRNSDK.createShowAdRect(
-              x,
-              y,
-              width, 
-              height
-            ),
-          );
-        
+        let x, y, width, height; 
+        x = 0 
+        let bannerHeightOnScreen = adsTopInPixel - TOPON_BANNER_HEIGHT
+        if (pageNoNavbar.includes(route)) bannerHeightOnScreen += navHeight
+        y = bannerHeightOnScreen
+        width = screenWidth
+        height = TOPON_BANNER_HEIGHT
+        // console.debug(x, y, width, height)
 
-          ATBannerRNSDK.reShowAd(bannerId)
-        };
+        showBanner(route, x, y, width, height)
+    }
+  }
 
-        showBanner(route)
-
-        // console.log('banner in ', route)
-        // console.log('bottom tab', navbarHeight)
-
-
-    },[route, navbarHeight])
+    useEffect(()=>{ // show banner logic 
+      if (Number(userState.userMemberExpired) <= Number(userState.userCurrentTimestamp) || userState.userToken === ""){
+        // not member, then show banner
+        // console.debug('not member')
+        showBannerInPosition().then()
+      } 
+    },[route, navbarHeight, systemNavHeight])
 
     useEffect(() => { // init banner 
       const settings = {};
