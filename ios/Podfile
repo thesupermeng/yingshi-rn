@@ -21,7 +21,7 @@ if linkage != nil
   use_frameworks! :linkage => linkage.to_sym
 end
 
-target 'yingshi' do
+target 'yingshipin' do
   config = use_native_modules!
 
   # Flags change depending on the env values.
@@ -43,22 +43,22 @@ target 'yingshi' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  target 'yingshiTests' do
+  target 'yingshipinTests' do
     inherit! :complete
     # Pods for testing
   end
 
   # # UMPlusDemo为工程target名
-  pod 'UMCommon'   
-  pod 'UMDevice'
+  # pod 'UMCommon'   
+  # pod 'UMDevice'
 
   # # pod <友盟+SDK名> 按需复制相应SDK名称代码
 
   # # 依赖库
 
-  pod 'UMCCommonLog'
+  # pod 'UMCCommonLog'
   # # 必选，APM组件，原错误分析升级为独立产品U-APM
-  pod 'UMAPM' 	
+  # pod 'UMAPM' 	
   pod 'AppCenter'
   
   pod 'AnyThinkiOS','6.2.66'
@@ -68,32 +68,31 @@ target 'yingshi' do
   pod 'AnyThinkiOS/AnyThinkNendAdapter','6.2.66'
   pod 'AnyThinkiOS/AnyThinkKuaiShouAdapter','6.2.66'
   pod 'AnyThinkiOS/AnyThinkSigmobAdapter','6.2.66'
-  pod 'AnyThinkiOS/AnyThinkVungleAdapter','6.2.66'
+  # pod 'AnyThinkiOS/AnyThinkVungleAdapter','6.2.66'
   pod 'AnyThinkiOS/AnyThinkUnityAdsAdapter','6.2.66'
   pod 'AnyThinkiOS/AnyThinkIronSourceAdapter','6.2.66'
   pod 'AnyThinkiOS/AnyThinkTapjoyAdapter','6.2.66'
   pod 'AnyThinkiOS/AnyThinkTTAdapter','6.2.66'
-  pod 'AnyThinkiOS/AnyThinkAdColonyAdapter','6.2.66'
+  # pod 'AnyThinkiOS/AnyThinkAdColonyAdapter','6.2.66'
   pod 'AnyThinkiOS/AnyThinkKlevinAdapter','6.2.66'
   pod 'AnyThinkiOS/AnyThinkKidozAdapter','6.2.66'
   pod 'AnyThinkiOS/AnyThinkAdmobAdapter','6.2.66'
-  pod 'AnyThinkiOS/AnyThinkInmobiAdapter','6.2.66'
+  #  pod 'AnyThinkiOS/AnyThinkInmobiAdapter','6.2.66'
   pod 'AnyThinkiOS/AnyThinkApplovinAdapter','6.2.66'
   pod 'AnyThinkiOS/AnyThinkMintegralAdapter','6.2.66'
   pod 'AnyThinkiOS/AnyThinkGDTAdapter','6.2.66'
-  pod 'AnyThinkiOS/AnyThinkChartboostAdapter','6.2.66'
+  #  pod 'AnyThinkiOS/AnyThinkChartboostAdapter','6.2.66'
   pod 'AnyThinkiOS/AnyThinkMyTargetAdapter','6.2.66'
   pod 'AnyThinkiOS/AnyThinkFyberAdapter','6.2.66'
   pod 'AnyThinkiOS/AnyThinkOguryAdapter','6.2.66'
+
   pod 'AnyThinkiOS/AnyThinkBigoAdapter','6.2.66'
   pod 'AnyThinkiOS/AnyThinkYandexAdapter','6.2.66'
   
-  # not support in china
+  # not support china
   # pod 'AnyThinkiOS/AnyThinkPangleAdapter','6.2.66'
-  pod 'AnyThinkiOS/AnyThinkFacebookAdapter','6.2.66'
-  pod 'AnyThinkiOS/AnyThinkMintegralAdapter','6.2.66'
-  pod 'AnyThinkiOS/AnyThinkPubNativeAdapter','6.2.66'
-
+  # pod 'AnyThinkiOS/AnyThinkFacebookAdapter','6.2.66'
+  # pod 'AnyThinkiOS/AnyThinkMintegralAdapter','6.2.66'
   
   pod 'RCTSystemSetting', :path => '../node_modules/react-native-system-setting'
 
