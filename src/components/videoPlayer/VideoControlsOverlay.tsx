@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo, Ref, forwardRef, useImperativeHandle, useCallback, useRef } from 'react';
-import { View, PanResponder, StyleSheet, Dimensions, Text } from 'react-native';
+import { View, PanResponder, StyleSheet, Dimensions, Text, TouchableOpacity } from 'react-native';
 import MiddleControls from './MiddleControls';
 import BottomControls from './BottomControls';
 import LinearGradient from 'react-native-linear-gradient';
@@ -391,8 +391,8 @@ export default forwardRef<RefHandler, Props>(({
                 style={styles.topBlur}
               >
                 <View style={{ ...styles.videoHeader, marginRight: isFullScreen ? 20 : 0 }}>
-                  <View style={{ flexDirection: 'row', alignItems: 'center', flexShrink: 1, paddingRight: 10 }}>
-                    <BackButton onPress={() => goBack()} btnStyle={styles.backBtn} />
+                  <TouchableOpacity onPress={() => goBack()} style={{ flexDirection: 'row', alignItems: 'center', flexShrink: 1, paddingRight: 10, }}>
+                    <BackButton btnStyle={styles.backBtn} />
                     <Text
                       style={{
                         ...textVariants.body,
@@ -405,7 +405,7 @@ export default forwardRef<RefHandler, Props>(({
                       numberOfLines={1}>
                       {headerTitle}
                     </Text>
-                  </View>
+                  </TouchableOpacity>
                   {
                     videoType === 'vod' && <RectButton
                       disallowInterruption={true}
