@@ -1,3 +1,5 @@
+import {Platform} from 'react-native';
+
 export const DARK_THEME = 'DARK_THEME';
 export const LIGHT_THEME = 'LIGHT_THEME';
 
@@ -55,7 +57,7 @@ export const UMENG_CHANNEL = 'GOOGLE_PLAY';
 export const APP_VERSION = '1.4.0';
 
 export const TOPON_ANDROID_APP_ID = 'a65002a2db3a7f';
-export const TOPON_ANDROID_APP_KEY = '0b1cab850e5de6fdc1fe0e114a0256eb';
+export const TOPON_ANDROID_APP_KEY = 'aad683307ed540dfc11b094206e8a15b1';
 
 export const TOPON_IOS_APP_ID = 'a65093c4e166c3';
 export const TOPON_IOS_APP_KEY = 'ac16f5a19bcbae7438b36f0f7160fbac3';
@@ -90,5 +92,8 @@ export const YING_SHI_PIN_ANDROID = 1;
 export const YING_SHI_PIN_IOS = 2;
 export const YING_SHI_TV_ANDROID = 3;
 export const YING_SHI_TV_IOS = 4;
+
+export const IS_IOS = Platform.OS === 'ios';
+export const IS_ANDROID = Platform.OS === 'android';
 
 export const APP_NAME_CONST = '影视TV';
