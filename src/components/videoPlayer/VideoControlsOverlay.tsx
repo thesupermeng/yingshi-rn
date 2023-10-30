@@ -392,7 +392,7 @@ export default forwardRef<RefHandler, Props>(({
               >
                 <View style={{ ...styles.videoHeader, marginRight: isFullScreen ? 20 : 0 }}>
                   <TouchableOpacity onPress={() => goBack()} style={{ flexDirection: 'row', alignItems: 'center', flexShrink: 1, paddingRight: 10, }}>
-                    <BackButton onPress={() => { }} btnStyle={styles.backBtn} />
+                    <BackButton btnStyle={styles.backBtn} />
                     <Text
                       style={{
                         ...textVariants.body,
