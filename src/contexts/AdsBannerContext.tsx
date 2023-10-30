@@ -19,6 +19,9 @@ import {
     TOPON_BANNER_HEIGHT,
   } from "../utility/constants";
 import { getNavigationBarHeight } from "react-native-android-navbar-height";
+import { userModel } from "../types/userType";
+import { RootState } from "../redux/store";
+import { useAppSelector } from "../hooks/hooks";
 
 LogBox.ignoreAllLogs();
 
@@ -140,6 +143,9 @@ export const AdsBannerContextProvider = ({children}: Props) => {
     const [route, setRoute] = useState<string|null>(null);
     const [navbarHeight, setNavbarHeight] = useState(0)
     const [systemNavHeight, setSystemNavHeight] = useState(0)
+    const userState: userModel = useAppSelector(
+      ({ userReducer }: RootState) => userReducer
+    );
 
 
     const showBannerInPosition = async () => {
@@ -219,7 +225,11 @@ export const AdsBannerContextProvider = ({children}: Props) => {
   }
 
     useEffect(()=>{ // show banner logic 
-      showBannerInPosition().then()
+      if (Number(userState.userMemberExpired) <= Number(userState.userCurrentTimestamp) || userState.userToken === ""){
+        // not member, then show banner
+        // console.debug('not member')
+        showBannerInPosition().then()
+      } 
     },[route, navbarHeight, systemNavHeight])
 
     useEffect(() => { // init banner 

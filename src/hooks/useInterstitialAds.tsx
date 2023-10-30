@@ -10,11 +10,17 @@ import {
   ANDROID_HOME_PAGE_POP_UP_ADS,
   IOS_HOME_PAGE_POP_UP_ADS,
 } from "../utility/constants";
+import { userModel } from "../types/userType";
+import { RootState } from "../redux/store";
+import { useAppSelector } from "./hooks";
 
 type PlacementId = typeof ANDROID_HOME_PAGE_POP_UP_ADS | typeof IOS_HOME_PAGE_POP_UP_ADS;
 
 const useInterstitialAds = (interstitialPlacementId: PlacementId) =>{
   const [adsReadyFlag, setAdsReadyFlag]= useState(false)
+  const userState: userModel = useAppSelector(
+    ({ userReducer }: RootState) => userReducer
+  );
 
 
   ATInterstitialRNSDK.setAdListener(
@@ -59,7 +65,10 @@ const useInterstitialAds = (interstitialPlacementId: PlacementId) =>{
   }
 
   useEffect(() => {
-    prepareInterstitial()
+    if (Number(userState.userMemberExpired) <= Number(userState.userCurrentTimestamp) || userState.userToken === ""){
+      // not member, load and show interstitial. 
+      prepareInterstitial()
+    }
   }, [])
 
   useEffect(() => {
