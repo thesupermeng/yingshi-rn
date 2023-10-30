@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Text,
   Dimensions,
+  Platform,
 } from 'react-native';
 import Video, { OnProgressData } from 'react-native-video';
 import PlayIcon from '../../../static/images/blackPlay.svg';
@@ -170,6 +171,7 @@ function ShortVideoPlayer({
     const { height } = event.nativeEvent.layout;
     setImageContainerHeight(height);
   }
+
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -189,7 +191,7 @@ function ShortVideoPlayer({
               />
             </View>
           )}
-          {!isScrolling &&
+          {((Platform.OS === 'ios' && !isScrolling) || Platform.OS === 'android') &&
             <Video
               ref={videoRef}
               resizeMode="contain"
