@@ -87,11 +87,11 @@ const useInterstitialAds = () =>{
   }, [adsReadyFlag, currentRoute])
 
   useEffect(() => {
-    const REPEAT = true// note : if you want the page included in the "repeatRoute" to keep showing interstitial whenever the user re-visits the page, set to true. 
+    const REPEAT = false// note : if you want the page included in the "repeatRoute" to keep showing interstitial whenever the user re-visits the page, set to true. 
     // current implementation only work for one page can repeat. if multiple page needs to repeat, additional logic need to be implemented. 
     const repeatRoute = '首页'
     if (REPEAT){
-      if (currentRoute === repeatRoute){
+      if (currentRoute !== repeatRoute){
         setAdsReadyFlag(false)
       }
     }
