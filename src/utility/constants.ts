@@ -96,3 +96,5 @@ export const YING_SHI_TV_IOS = 4;
 
 export const IS_IOS = Platform.OS === 'ios';
 export const IS_ANDROID = Platform.OS === 'android';
+
+export const APP_NAME = '影视TV';
