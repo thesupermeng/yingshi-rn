@@ -4,29 +4,31 @@ import {
   StyleSheet,
   TextStyle,
   TouchableOpacity,
-} from 'react-native';
-import React, {useEffect} from 'react';
-import {useTheme} from '@react-navigation/native';
-import NoWifi from '../../../static/images/no-wifi.svg';
-import RefreshIcon from '../../../static/images/refresh.svg';
-import YingshiGreyIcon from '../../../static/images/yingshi-grey.svg';
-import {useOrientation} from '../../hooks/useOrientation';
+} from "react-native";
+import React, { useEffect } from "react";
+import { useTheme } from "@react-navigation/native";
+import NoWifi from "../../../static/images/no-wifi.svg";
+import RefreshIcon from "../../../static/images/refresh.svg";
+import YingshiGreyIcon from "../../../static/images/yingshi-grey.svg";
+import { useOrientation } from "../../hooks/useOrientation";
 interface Props {
   onClickRetry?: any;
   isPlay?: boolean;
   isPlayBottom?: boolean;
 }
+
+//todo IOS initial dont show no connection
 export default function NoConnection({
   onClickRetry,
   isPlay = false,
   isPlayBottom = false,
 }: Props) {
-  const {textVariants, colors, icons} = useTheme();
+  const { textVariants, colors, icons } = useTheme();
   const isPotrait = useOrientation();
 
   const getMinHeight = () => {
     if ((isPlay || isPlayBottom) && !isPotrait) {
-      return '100%';
+      return "100%";
     } else if (isPlay || isPlayBottom) {
       return 200;
     } else {
@@ -38,10 +40,11 @@ export default function NoConnection({
     <View
       style={{
         ...styles.container,
-        marginBottom: isPlay ? 150 : '50%',
-        backgroundColor: isPlay ? '#000000' : colors.background,
+        marginBottom: isPlay ? 150 : "50%",
+        backgroundColor: isPlay ? "#000000" : colors.background,
         minHeight: getMinHeight(),
-      }}>
+      }}
+    >
       {!isPlay && isPotrait && (
         <>
           <NoWifi />
@@ -49,18 +52,20 @@ export default function NoConnection({
             style={{
               ...textVariants.subBody,
               color: colors.text,
-              textAlign: 'center',
+              textAlign: "center",
               paddingTop: 10,
-            }}>
+            }}
+          >
             无网络
           </Text>
           <Text
             style={{
               ...textVariants.subBody,
               color: colors.muted,
-              textAlign: 'center',
+              textAlign: "center",
               paddingTop: 12,
-            }}>
+            }}
+          >
             网络连接失败，请刷新重试
           </Text>
           <TouchableOpacity activeOpacity={0.7} onPress={onClickRetry}>
@@ -68,15 +73,17 @@ export default function NoConnection({
               style={{
                 ...styles.refreshBtn,
                 backgroundColor: colors.title,
-              }}>
-              <View style={{position: 'relative', top: 2, paddingRight: 3}}>
+              }}
+            >
+              <View style={{ position: "relative", top: 2, paddingRight: 3 }}>
                 <RefreshIcon />
               </View>
               <Text
                 style={{
                   ...styles.head,
                   color: colors.background,
-                }}>
+                }}
+              >
                 点击重试
               </Text>
             </View>
@@ -92,9 +99,10 @@ export default function NoConnection({
             style={{
               ...textVariants.subBody,
               color: colors.muted,
-              textAlign: 'center',
+              textAlign: "center",
               paddingTop: 12,
-            }}>
+            }}
+          >
             无网络或断网，请刷新视频
           </Text>
           <TouchableOpacity activeOpacity={0.7} onPress={onClickRetry}>
@@ -102,15 +110,17 @@ export default function NoConnection({
               style={{
                 ...styles.refreshBtn,
                 backgroundColor: colors.title,
-              }}>
-              <View style={{position: 'relative', top: 2, paddingRight: 3}}>
+              }}
+            >
+              <View style={{ position: "relative", top: 2, paddingRight: 3 }}>
                 <RefreshIcon />
               </View>
               <Text
                 style={{
                   ...styles.head,
                   color: colors.background,
-                }}>
+                }}
+              >
                 刷新
               </Text>
             </View>
@@ -123,33 +133,33 @@ export default function NoConnection({
 
 const styles = StyleSheet.create({
   container: {
-    display: 'flex',
+    display: "flex",
     flexGrow: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   btns: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
   },
   btn: {
     flex: 1,
   },
   head: {
-    color: 'white',
-    textAlign: 'center',
+    color: "white",
+    textAlign: "center",
   },
   refreshBtn: {
     marginTop: 20,
     borderRadius: 30,
-    display: 'flex',
-    flexDirection: 'row',
+    display: "flex",
+    flexDirection: "row",
     paddingVertical: 8,
     paddingHorizontal: 15,
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontWeight: 'bold',
+    alignItems: "center",
+    justifyContent: "center",
+    fontWeight: "bold",
   },
 });
