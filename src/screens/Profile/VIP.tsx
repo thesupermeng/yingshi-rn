@@ -8,12 +8,12 @@ import {
   Platform,
 } from "react-native";
 import {
-    isIosStorekit2,
-    PurchaseError,
-    requestPurchase,
-    useIAP,
-    validateReceiptIos,
-  } from 'react-native-iap'
+  isIosStorekit2,
+  PurchaseError,
+  requestPurchase,
+  useIAP,
+  validateReceiptIos,
+} from "react-native-iap";
 import ScreenContainer from "../../components/container/screenContainer";
 import { RootStackScreenProps } from "../../types/navigationTypes";
 import { useTheme } from "@react-navigation/native";
@@ -25,20 +25,23 @@ import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { userModel } from "../../types/userType";
 import { updateUserAuth } from "../../redux/actions/userAction";
 import { getUserDetails } from "../../features/user";
-import AdsBanner from "../../ads/adsBanner";
 import { VipCard } from "../../components/vip/vipCard";
 import { TouchableOpacity } from "react-native";
 import { membershipModel } from "../../types/membershipType";
 import NoConnection from "../../components/common/noConnection";
 import { Dialog } from "@rneui/themed";
 import FastImage from "react-native-fast-image";
-import {YING_SHI_PIN_ANDROID, YING_SHI_PIN_IOS, IS_IOS} from '../../utility/constants';
+import {
+  YING_SHI_PIN_ANDROID,
+  YING_SHI_PIN_IOS,
+  IS_IOS,
+} from "../../utility/constants";
 
 const subscriptionSkus = Platform.select({
-  ios: ['yingshi_vip_month', 'yingshi_vip_6months', 'monthly_subscription'],
+  ios: ["yingshi_vip_month", "yingshi_vip_6months", "monthly_subscription"],
 });
 
-export default ({ navigation }: RootStackScreenProps<'付费VIP'>) => {
+export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const {
     connected,
     products,
@@ -51,8 +54,10 @@ export default ({ navigation }: RootStackScreenProps<'付费VIP'>) => {
     getPurchaseHistory,
     availablePurchases,
   } = useIAP();
-  const [membershipSelected, setSelectedMembership] = useState<membershipModel>(products[0]);
-  const [paymentSelected, setSelectedPayment] = useState('');
+  const [membershipSelected, setSelectedMembership] = useState<membershipModel>(
+    products[0]
+  );
+  const [paymentSelected, setSelectedPayment] = useState("");
   const [isOffline, setIsOffline] = useState(false);
   const { colors, textVariants } = useTheme();
   const userState: userModel = useAppSelector(
@@ -62,7 +67,7 @@ export default ({ navigation }: RootStackScreenProps<'付费VIP'>) => {
   const [refreshing, setRefreshing] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const dispatch = useAppDispatch();
-  
+
   const handleRefresh = async () => {
     setRefreshing(true);
     await refreshUserState();
@@ -86,7 +91,7 @@ export default ({ navigation }: RootStackScreenProps<'付费VIP'>) => {
   const checkConnection = async () => {
     const state = await NetInfo.fetch();
     const offline = !(state.isConnected && state.isInternetReachable);
-    setIsOffline(offline)
+    setIsOffline(offline);
     if (!offline) {
       handleRefresh();
     }
@@ -96,19 +101,19 @@ export default ({ navigation }: RootStackScreenProps<'付费VIP'>) => {
     try {
       await getProducts({ skus: subscriptionSkus });
     } catch (error) {
-      console.error('error occured: ' + error)
+      console.error("error occured: " + error);
     }
   };
 
   useEffect(() => {
-    console.log(connected)
-    if(connected) {
+    console.log(connected);
+    if (connected) {
       handleGetProduct();
     }
   }, [connected]);
 
   useEffect(() => {
-    if(products) {
+    if (products) {
       let membershipProducts: membershipModel[];
       membershipProducts = products.map((product) => {
         return {
@@ -116,43 +121,43 @@ export default ({ navigation }: RootStackScreenProps<'付费VIP'>) => {
           title: product.title,
           price: product.price,
           localizedPrice: product.localizedPrice,
-          description: product.description
+          description: product.description,
         };
       });
 
-      const defaultMembership = membershipProducts.find((product) => product.title === "6个月");
-      if(defaultMembership) {
+      const defaultMembership = membershipProducts.find(
+        (product) => product.title === "6个月"
+      );
+      if (defaultMembership) {
         setSelectedMembership(defaultMembership);
-        setSelectedPayment(IS_IOS ? 'Apple Pay' : 'Google Pay');
+        setSelectedPayment(IS_IOS ? "Apple Pay" : "Google Pay");
       }
     }
   }, [products]);
 
   const handlePurchase = async () => {
     try {
-      await requestPurchase({sku: membershipSelected.productId});
+      await requestPurchase({ sku: membershipSelected.productId });
     } catch (e) {
       if (e instanceof PurchaseError) {
-        console.error('purchasing error: ' + e);
+        console.error("purchasing error: " + e);
       } else {
-        console.error('handle purchase error: ' + e);
+        console.error("handle purchase error: " + e);
       }
     }
   };
 
   const getSubscriptionDate = () => {
-    if(membershipSelected) {
-      return (
-        parseInt(membershipSelected.title.substring(0,1))*30);
+    if (membershipSelected) {
+      return parseInt(membershipSelected.title.substring(0, 1)) * 30;
     }
   };
 
   const saveTransRecord = () => {
     let platform_id;
-    if(IS_IOS){
+    if (IS_IOS) {
       platform_id = YING_SHI_PIN_IOS;
-    }
-    else{
+    } else {
       platform_id = YING_SHI_PIN_ANDROID;
     }
 
@@ -165,20 +170,22 @@ export default ({ navigation }: RootStackScreenProps<'付费VIP'>) => {
       productLocalizedPrice: membershipSelected.localizedPrice,
       subscriptionDays: getSubscriptionDate(),
       paymentChannel: paymentSelected,
-      userId: userState.userId
-    }
-    console.log('passsing to db', json);
+      userId: userState.userId,
+    };
+    console.log("passsing to db", json);
   };
 
   useEffect(() => {
     const checkCurrentPurchase = async () => {
-      if(currentPurchase) {
-        console.log('-------------------');
+      if (currentPurchase) {
+        console.log("-------------------");
         console.log(currentPurchase);
 
         try {
-          if ((isIosStorekit2() && currentPurchase?.transactionId) ||
-            currentPurchase?.transactionReceipt) {
+          if (
+            (isIosStorekit2() && currentPurchase?.transactionId) ||
+            currentPurchase?.transactionReceipt
+          ) {
             saveTransRecord(); //save record to database
             await finishTransaction({
               purchase: currentPurchase,
@@ -188,9 +195,9 @@ export default ({ navigation }: RootStackScreenProps<'付费VIP'>) => {
           }
         } catch (error) {
           if (error instanceof PurchaseError) {
-            console.error('purchasing error: ' + error);
+            console.error("purchasing error: " + error);
           } else {
-            console.error('current purchase error: ' + error);
+            console.error("current purchase error: " + error);
           }
         }
       }
@@ -209,41 +216,42 @@ export default ({ navigation }: RootStackScreenProps<'付费VIP'>) => {
       <ScreenContainer
         footer={
           <>
-          {membershipSelected && 
-            <View
-              style={{...styles.summaryContainer}}>
-              <View
-                style={{...styles.summaryLabel}}>
-                <Text style={{...textVariants.small}}>
-                  {membershipSelected.title}
-                </Text>
-                <Text style={{...textVariants.body, color: colors.title}}>
-                  {membershipSelected.localizedPrice}
-                </Text>
-              </View>
-              <TouchableOpacity
-                style={{
-                  width: '60%',
-                  padding: 10,
-                  margin: 10,
-                  alignItems: 'center',
-                  borderRadius: 10,
-                  backgroundColor: paymentSelected ? colors.primary : colors.highlight,
-                }}
-                onPress={handlePurchase}
-                disabled={paymentSelected ? false : true}>
-                  <Text style={{...styles.btnText}}>
-                    立即开通
+            {membershipSelected && (
+              <View style={{ ...styles.summaryContainer }}>
+                <View style={{ ...styles.summaryLabel }}>
+                  <Text style={{ ...textVariants.small }}>
+                    {membershipSelected.title}
                   </Text>
-              </TouchableOpacity>
-            </View>}
-          </> 
-        }>
+                  <Text style={{ ...textVariants.body, color: colors.title }}>
+                    {membershipSelected.localizedPrice}
+                  </Text>
+                </View>
+                <TouchableOpacity
+                  style={{
+                    width: "60%",
+                    padding: 10,
+                    margin: 10,
+                    alignItems: "center",
+                    borderRadius: 10,
+                    backgroundColor: paymentSelected
+                      ? colors.primary
+                      : colors.highlight,
+                  }}
+                  onPress={handlePurchase}
+                  disabled={paymentSelected ? false : true}
+                >
+                  <Text style={{ ...styles.btnText }}>立即开通</Text>
+                </TouchableOpacity>
+              </View>
+            )}
+          </>
+        }
+      >
         <Dialog
           isVisible={isDialogOpen}
           overlayStyle={{
             backgroundColor: "rgba(34, 34, 34, 1)",
-            gap:10,
+            gap: 10,
             ...styles.overlay,
           }}
           backdropStyle={{ backgroundColor: "rgba(0, 0, 0, 0.8)" }}
@@ -259,71 +267,70 @@ export default ({ navigation }: RootStackScreenProps<'付费VIP'>) => {
               alignItems: "center",
             }}
             resizeMode={FastImage.resizeMode.contain}
-            source={require("../../../static/images/profile/login-success.gif")} />
+            source={require("../../../static/images/profile/login-success.gif")}
+          />
           <View
             style={{
-              alignItems:'center'
+              alignItems: "center",
             }}
           >
-            <Text style={{...styles.dialogText}}>
-              付款成功
-            </Text>
-            <Text style={{...styles.dialogText}}>
-              你已成为VIP用户
-            </Text>
+            <Text style={{ ...styles.dialogText }}>付款成功</Text>
+            <Text style={{ ...styles.dialogText }}>你已成为VIP用户</Text>
           </View>
-          
+
           <TouchableOpacity
             style={{
-              width: '80%',
+              width: "80%",
               padding: 10,
               margin: 10,
-              alignItems: 'center',
+              alignItems: "center",
               borderRadius: 10,
-              backgroundColor: paymentSelected ? colors.primary : colors.highlight,
+              backgroundColor: paymentSelected
+                ? colors.primary
+                : colors.highlight,
             }}
-            onPress={handleConfirm}  
-            >
-              <Text style={{...styles.btnText}}>
-                确定
-              </Text>
+            onPress={handleConfirm}
+          >
+            <Text style={{ ...styles.btnText }}>确定</Text>
           </TouchableOpacity>
         </Dialog>
 
-        <AdsBanner bottomTabHeight={0} />
         <TitleWithBackButtonHeader title="付费VIP" />
         <ScrollView
           refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} tintColor="#FAC33D" />
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={handleRefresh}
+              tintColor="#FAC33D"
+            />
           }
         >
-          {(initConnectionError ) && 
-            <View style={{ height: '100%'}}>
-              <NoConnection onClickRetry={checkConnection}/>
+          {initConnectionError && (
+            <View style={{ height: "100%" }}>
+              <NoConnection onClickRetry={checkConnection} />
             </View>
-          }
-          
+          )}
+
           {connected && (
             <>
-              <VipCard 
+              <VipCard
                 userState={userState}
-                membershipProduct={products.sort((item1, item2) => 
-                  +item1.price - +item2.price
-                )} 
+                membershipProduct={products.sort(
+                  (item1, item2) => +item1.price - +item2.price
+                )}
                 selectedMembership={membershipSelected}
                 onMembershipSelect={setSelectedMembership}
                 selectedPayment={paymentSelected}
-                onPaymentSelect={setSelectedPayment} />
+                onPaymentSelect={setSelectedPayment}
+              />
 
-              <View
-                style={{...styles.footerWithBackgroundContainer}}>
-                <Text style={{...textVariants.small}}>
+              <View style={{ ...styles.footerWithBackgroundContainer }}>
+                <Text style={{ ...textVariants.small }}>
                   有关购买查询，请联系contactus@yingshi.tv
                 </Text>
               </View>
-              <View
-                style={{...styles.footerContainer}}>
-                <Text style={{...textVariants.small}}>
+              <View style={{ ...styles.footerContainer }}>
+                <Text style={{ ...textVariants.small }}>
                   活动由影视TV公司提供 与苹果公司Apple.Inc 无关
                 </Text>
               </View>
@@ -337,33 +344,33 @@ export default ({ navigation }: RootStackScreenProps<'付费VIP'>) => {
 
 const styles = StyleSheet.create({
   btnText: {
-    fontFamily: 'PingFang SC',
+    fontFamily: "PingFang SC",
     fontSize: 14,
-    fontWeight: '700',
-    color: 'black'
+    fontWeight: "700",
+    color: "black",
   },
   summaryLabel: {
     flex: 1,
-    alignItems: 'center'
+    alignItems: "center",
   },
   summaryContainer: {
-    width: '100%',
+    width: "100%",
     padding: 15,
     position: "relative",
-    flexDirection: 'row',
-    backgroundColor: '#1D2023',
-    alignItems: 'center'
+    flexDirection: "row",
+    backgroundColor: "#1D2023",
+    alignItems: "center",
   },
   footerContainer: {
-    alignItems: 'center',
+    alignItems: "center",
     marginBottom: 15,
   },
   footerWithBackgroundContainer: {
-    backgroundColor: '#1F2224',
+    backgroundColor: "#1F2224",
     margin: 15,
     borderRadius: 10,
     padding: 10,
-    alignItems: 'center',
+    alignItems: "center",
   },
   overlay: {
     borderRadius: 14,
@@ -377,5 +384,5 @@ const styles = StyleSheet.create({
     fontFamily: "PingFang SC",
     fontSize: 16,
     fontWeight: "400",
-  }
+  },
 });
