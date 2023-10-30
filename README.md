@@ -7,8 +7,8 @@ this project using gradle version 7.5, so need to download the suitable java ver
 ## Android:
 
 * What went wrong:
-A problem occurred configuring root project 'yingshipin'.
-> Could not open proj generic class cache for build file '/Projects/yingshipin-react-native/android/build.gradle' (/.gradle/caches/7.5.1/scripts/4zt8x5knz4cpjdicliaiiizr0).
+A problem occurred configuring root project 'yingshi'.
+> Could not open proj generic class cache for build file '/Projects/yingshi-react-native/android/build.gradle' (/.gradle/caches/7.5.1/scripts/4zt8x5knz4cpjdicliaiiizr0).
    > BUG! exception in phase 'semantic analysis' in source unit '_BuildScript_' Unsupported class file major version 64
 
 
@@ -19,7 +19,7 @@ https://stackoverflow.com/questions/18487406/how-do-i-tell-gradle-to-use-specifi
 
 * What went wrong:
 Could not determine the dependencies of task ':app:compileDebugJavaWithJavac'.
-> SDK location not found. Define a valid SDK location with an ANDROID_HOME environment variable or by setting the sdk.dir path in your project's local properties file at '/Projects/yingshipin-react-native/android/local.properties'.
+> SDK location not found. Define a valid SDK location with an ANDROID_HOME environment variable or by setting the sdk.dir path in your project's local properties file at '/Projects/yingshi-react-native/android/local.properties'.
 
 
 Refer:
@@ -67,8 +67,8 @@ Add new app to code push app center:
 code-push app add <appName> <os> <platform>
 
 example:
-- code-push app add yingshipin-ios ios react-native
-- code-push app add yingshipin-android Android react-native
+- code-push app add yingshi-ios ios react-native
+- code-push app add yingshi-android Android react-native
 ---------------------------------------------
 
 List all apps:
@@ -82,18 +82,18 @@ code-push deployment ls <appName> -k
 Check deployment history:
 code-push deployment history <appName> <deploymentName>
 example:
-code-push deployment history yingshipin-android Staging
+code-push deployment history yingshi-android Staging
 ---------------------------------------------
 
 Release new version:
 appcenter codepush release-react -a <developerName>/<appName> -d <deploymentName> --description "<description>" --mandatory <true/false>
 
 example:
-- appcenter codepush release-react -a developeryingshipin/yingshipin-ios -d Production --description "fix bugs" --mandatory true
-- appcenter codepush release-react -a developeryingshipin/yingshipin-android -d Staging --description "add new feature" --mandatory true
+- appcenter codepush release-react -a developeryingshi/yingshi-ios -d Production --description "fix bugs" --mandatory true
+- appcenter codepush release-react -a developeryingshi/yingshi-android -d Staging --description "add new feature" --mandatory true
 ---------------------------------------------
 
 Rollback to previous version:
 code-push rollback <appName> <deploymentName>
 example:
-- code-push rollback yingshipin-ios Production
+- code-push rollback yingshi-ios Production

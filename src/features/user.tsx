@@ -1,30 +1,27 @@
-import {API_DOMAIN, API_DOMAIN_TEST} from '../utility/constants';
-import axios from 'axios';
-import {useAppSelector} from '../hooks/hooks';
-import {RootState} from '../redux/store';
-import deviceInfoModule from 'react-native-device-info';
+import { API_DOMAIN } from "../utility/constants";
+import axios from "axios";
+import { useAppSelector } from "../hooks/hooks";
+import { RootState } from "../redux/store";
+import deviceInfoModule from "react-native-device-info";
 //import {refreshUserToken, updateAnonymous} from '~redux/auth/authSlice';
-import DeviceInfo from 'react-native-device-info';
-let user_token = '';
-let refresh_token = '';
+import DeviceInfo from "react-native-device-info";
+let user_token = "";
+let refresh_token = "";
 import { Platform } from "react-native";
-import {
-  YING_SHI_PIN_ANDROID,
-  YING_SHI_PIN_IOS,
-} from '../utility/constants';
+import { YING_SHI_TV_ANDROID, YING_SHI_TV_IOS } from "../utility/constants";
 
 // new code
-export const registerUser = async ({email, referral_code, otp}: any) => {
+export const registerUser = async ({ email, referral_code, otp }: any) => {
   let platform_id;
   let deviceId = await DeviceInfo.getUniqueId();
-  if (typeof deviceId !== 'string') {
+  if (typeof deviceId !== "string") {
     deviceId = JSON.stringify(deviceId);
   }
 
-  if (Platform.OS === 'android') {
-    platform_id = YING_SHI_PIN_ANDROID;
+  if (Platform.OS === "android") {
+    platform_id = YING_SHI_TV_ANDROID;
   } else {
-    platform_id = YING_SHI_PIN_IOS;
+    platform_id = YING_SHI_TV_IOS;
   }
 
   let json = {
@@ -36,20 +33,20 @@ export const registerUser = async ({email, referral_code, otp}: any) => {
     product: platform_id,
     platform_id: platform_id,
   };
-  console.log('json');
+  console.log("json");
   console.log(json);
-  let result = await axios.post(API_DOMAIN_TEST + 'users/v1/register', json);
-  console.log('result');
+  let result = await axios.post(API_DOMAIN + "users/v1/register", json);
+  console.log("result");
   console.log(result);
   return result;
 };
 
-export const loginUser = async ({email, otp}: any) => {
+export const loginUser = async ({ email, otp }: any) => {
   let platform_id;
-  if (Platform.OS === 'android') {
-    platform_id = YING_SHI_PIN_ANDROID;
+  if (Platform.OS === "android") {
+    platform_id = YING_SHI_TV_ANDROID;
   } else {
-    platform_id = YING_SHI_PIN_IOS;
+    platform_id = YING_SHI_TV_IOS;
   }
 
   let json = {
@@ -58,7 +55,7 @@ export const loginUser = async ({email, otp}: any) => {
     product: platform_id,
   };
 
-  let result = await axios.post(API_DOMAIN_TEST + 'users/v1/login', json);
+  let result = await axios.post(API_DOMAIN + "users/v1/login", json);
   return result;
 };
 
@@ -70,7 +67,7 @@ export const updateUsername = async ({
   // Define your request headers
   const headers = {
     Authorization: `Bearer ${bearerToken}`,
-    'Content-Type': 'application/json', // Set your content type accordingly
+    "Content-Type": "application/json", // Set your content type accordingly
   };
 
   let json = {
@@ -78,24 +75,24 @@ export const updateUsername = async ({
     referral_code: referralCode,
   };
 
-  let result = await axios.post(API_DOMAIN_TEST + 'users/v1/update', json, {
+  let result = await axios.post(API_DOMAIN + "users/v1/update", json, {
     headers: headers,
   });
 
   return result;
 };
 
-export const getUserDetails = async ({bearerToken}: any) => {
-  if (bearerToken == '') {
+export const getUserDetails = async ({ bearerToken }: any) => {
+  if (bearerToken == "") {
     return null;
   }
   // Define your request headers
   const headers = {
     Authorization: `Bearer ${bearerToken}`,
-    'Content-Type': 'application/json', // Set your content type accordingly
+    "Content-Type": "application/json", // Set your content type accordingly
   };
 
-  let result = await axios.get(API_DOMAIN_TEST + 'users/v1/me', {
+  let result = await axios.get(API_DOMAIN + "users/v1/me", {
     headers: headers,
   });
 
