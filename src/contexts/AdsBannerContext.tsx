@@ -29,9 +29,10 @@ interface Props{
     children: ReactNode; 
 }
 
-export const AdsBannerContext = createContext<{setRoute: any, setNavbarHeight: any}>({
+export const AdsBannerContext = createContext<{setRoute: any, setNavbarHeight: any, currentRoute: string|null}>({
     setRoute: () => {}, 
-    setNavbarHeight: 0
+    setNavbarHeight: 0, 
+    currentRoute: ''
 
 })
 
@@ -266,7 +267,7 @@ export const AdsBannerContextProvider = ({children}: Props) => {
     }, []);
 
     return (
-        <AdsBannerContext.Provider value={{setRoute, setNavbarHeight}} >
+        <AdsBannerContext.Provider value={{setRoute, setNavbarHeight, currentRoute: route}} >
             {children}
         </AdsBannerContext.Provider>
     )

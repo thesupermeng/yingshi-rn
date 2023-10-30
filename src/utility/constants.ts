@@ -97,3 +97,4 @@ export const IS_IOS = Platform.OS === 'ios';
 export const IS_ANDROID = Platform.OS === 'android';
 
 export const APP_NAME_CONST = '影视TV';
+export const APP_EMAIL_CONST = 'contactus@yingshi.tv';
