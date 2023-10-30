@@ -17,8 +17,8 @@ import {
   API_DOMAIN_TEST,
   API_DOMAIN_LOCAL,
   UMENG_CHANNEL,
-  YING_SHI_PIN_ANDROID,
-  YING_SHI_PIN_IOS,
+  YING_SHI_TV_ANDROID,
+  YING_SHI_TV_IOS,
 } from '../../../src/utility/constants';
 import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
 import {userModel} from '../../types/userType';
@@ -48,9 +48,9 @@ export default ({navigation}: RootStackScreenProps<'反馈'>) => {
     );
 
     if(Platform.OS === 'ios'){
-      setPlatformId(YING_SHI_PIN_IOS);
+      setPlatformId(YING_SHI_TV_IOS);
     } else {
-      setPlatformId(YING_SHI_PIN_ANDROID);
+      setPlatformId(YING_SHI_TV_ANDROID);
     }
 
     return () => removeNetInfoSubscription();
@@ -59,7 +59,7 @@ export default ({navigation}: RootStackScreenProps<'反馈'>) => {
   const submitFeedback = async (data: SubmitFeedbackRequest) => {
     if (!isOffline) {
       const {data: response} = await axios.post(
-        `${API_DOMAIN_TEST}feedback/v1/submit`,
+        `${API_DOMAIN}feedback/v1/submit`,
         data,
       );
       setDialogText('反馈提交成功');

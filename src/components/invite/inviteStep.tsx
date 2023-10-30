@@ -1,39 +1,43 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, TextInput, Image} from 'react-native';
+import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet, TextInput, Image } from "react-native";
 
-import {useTheme} from '@react-navigation/native';
-import ArrowIcn from '../../../static/images/invite/double-arrow.svg';
+import { useTheme } from "@react-navigation/native";
+import ArrowIcn from "../../../static/images/invite/double-arrow.svg";
 export default function InviteStep() {
-  const {colors, textVariants, icons, spacing} = useTheme();
+  const { colors, textVariants, icons, spacing } = useTheme();
   return (
     <>
       {/* invite section  */}
       <View
         style={{
           flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
+          justifyContent: "center",
+          alignItems: "center",
           paddingTop: 20,
-        }}>
+        }}
+      >
         <Text
           style={{
             fontSize: 14,
-            color: '#ffffff',
-          }}>
+            color: "#ffffff",
+          }}
+        >
           如何邀请好友?
         </Text>
       </View>
       <View
         style={{
           ...styles.inviteContainer,
-        }}>
+        }}
+      >
         {/* step 1  */}
         <View style={styles.inviteStep}>
           <Text
             style={{
               ...styles.inviteTitle,
               color: colors.primary,
-            }}>
+            }}
+          >
             步骤 1
           </Text>
           <View style={styles.descContainer}>
@@ -48,7 +52,8 @@ export default function InviteStep() {
             style={{
               ...styles.inviteTitle,
               color: colors.primary,
-            }}>
+            }}
+          >
             步骤 2
           </Text>
           <View style={styles.descContainer}>
@@ -59,8 +64,9 @@ export default function InviteStep() {
                 style={{
                   fontSize: 10,
                   color: colors.primary,
-                }}>
-                萤视频
+                }}
+              >
+                影视TV
                 {/* 影视PRO */}
               </Text>
             </Text>
@@ -74,7 +80,8 @@ export default function InviteStep() {
             style={{
               ...styles.inviteTitle,
               color: colors.primary,
-            }}>
+            }}
+          >
             步骤 3
           </Text>
           <View style={styles.descContainer}>
@@ -91,34 +98,34 @@ export default function InviteStep() {
 const styles = StyleSheet.create({
   inviteTitle: {
     fontSize: 13,
-    fontStyle: 'italic',
+    fontStyle: "italic",
     marginBottom: 5,
   },
   inviteStep: {
-    backgroundColor: '#1c2023',
-    width: '29%',
+    backgroundColor: "#1c2023",
+    width: "29%",
     borderRadius: 10,
     height: 100,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
+    justifyContent: "flex-start",
+    alignItems: "center",
     paddingVertical: 10,
   },
   inviteContainer: {
     flex: 1,
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    justifyContent: "space-between",
+    alignItems: "center",
     padding: 10,
-    flexDirection: 'row',
+    flexDirection: "row",
     marginTop: 10,
     marginBottom: 50,
   },
   textDesc: {
     fontSize: 11,
-    color: '#ffffff',
+    color: "#ffffff",
   },
   descContainer: {
-    alignItems: 'center',
+    alignItems: "center",
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
 });
