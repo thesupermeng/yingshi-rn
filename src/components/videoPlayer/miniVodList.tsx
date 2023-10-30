@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { SafeAreaView, View, Text, FlatList, Dimensions, RefreshControl } from 'react-native';
+import { SafeAreaView, View, Text, FlatList, Dimensions, RefreshControl, Platform } from 'react-native';
 import { MiniVideo } from '../../types/ajaxTypes';
 import ShortVod from '../../components/videoPlayer/shortVod';
 import FastImage from 'react-native-fast-image';
@@ -41,6 +41,7 @@ export default ({ miniVodListRef, handleRefreshMiniVod, currentVodIndex = 0, vid
     const [displayHeight, setDisplayHeight] = useState<number | null>(0);
     const [current, setCurrent] = useState<number | null>(0);
     const [collectionPartialVideos, setCollectionPartialVideos] = useState(videos);
+    const [isScrolling, setIsScrolling] = useState(false);
     const queryClient = useQueryClient();
     const isFocused = useIsFocused();
     const handleViewableItemsChanged = useCallback(({ viewableItems }: { viewableItems: any }) => {
@@ -93,10 +94,11 @@ export default ({ miniVodListRef, handleRefreshMiniVod, currentVodIndex = 0, vid
                     displayHeight={displayHeight ? displayHeight : 0}
                     inCollectionView={inCollectionView}
                     setCollectionEpisode={setCollectionEpisodeToTitle}
+                    isScrolling={isScrolling}
                 />
             )}
         </View>
-    ), [current, displayHeight, isPaused, inCollectionView]);
+    ), [current, displayHeight, isPaused, inCollectionView, isScrolling]);
 
     return (
         <View style={{ flex: 1 }} onLayout={(event: any) => {
@@ -106,8 +108,8 @@ export default ({ miniVodListRef, handleRefreshMiniVod, currentVodIndex = 0, vid
             <FlatList
                 ref={miniVodListRef}
                 data={collectionPartialVideos}
-                initialNumToRender={3}
-                maxToRenderPerBatch={5}
+                initialNumToRender={Platform.OS === 'ios' ? collectionPartialVideos.length : 5}
+                // maxToRenderPerBatch={5}
                 windowSize={5}
                 refreshControl={refreshComponent()}
                 renderItem={renderItem}
@@ -137,6 +139,12 @@ export default ({ miniVodListRef, handleRefreshMiniVod, currentVodIndex = 0, vid
                         }
                     </View>
                 }
+                onScroll={() => {
+                    if (!isScrolling) setIsScrolling(true);
+                }}
+                onMomentumScrollEnd={() => {
+                    setIsScrolling(false);
+                }}
             />
         </View>
     )
