@@ -92,3 +92,4 @@ export const YING_SHI_TV_ANDROID = 3;
 export const YING_SHI_TV_IOS = 4;
 
 export const APP_NAME_CONST = '萤视频';
+export const APP_EMAIL_CONST = 'yingshipin.contactus@gmail.com';
