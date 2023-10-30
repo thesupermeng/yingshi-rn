@@ -23,6 +23,7 @@ const useInterstitialAds = () =>{
     ({ userReducer }: RootState) => userReducer
   );
   const {currentRoute} = useContext(AdsBannerContext);
+  const [visitCount, setVisitCount] = useState<Record<string, number>>({})
 
   ATInterstitialRNSDK.setAdListener(
     ATInterstitialRNSDK.onInterstitialLoaded,
@@ -55,7 +56,7 @@ const useInterstitialAds = () =>{
   };
 
   const prepareInterstitial = async (interstitialPlacementId: PlacementId) => {
-    for (let i=0; i<5; i++){
+    for (let i=0; i<1; i++){
       await isInterstitialReady(interstitialPlacementId)
       console.log('try count', i)
       if (i > 5 || adsReadyFlag){
@@ -67,8 +68,8 @@ const useInterstitialAds = () =>{
     }
   }
 
-  const renderInterstitial = () =>{
-    if (currentRoute === '首页'){
+  const renderInterstitial = (route: string) =>{
+    if (route === '首页'){
       if (adsReadyFlag){
         showInterstitial(Platform.OS === 'android' ? ANDROID_HOME_PAGE_POP_UP_ADS : IOS_HOME_PAGE_POP_UP_ADS)
       }
@@ -81,19 +82,27 @@ const useInterstitialAds = () =>{
   useEffect(() => {
     if (Number(userState.userMemberExpired) <= Number(userState.userCurrentTimestamp) || userState.userToken === ""){
       // not member, then render
-      renderInterstitial();
+      renderInterstitial(currentRoute ?? '');
     }
     
   }, [adsReadyFlag, currentRoute])
 
   useEffect(() => {
-    const REPEAT = true// note : if you want the page included in the "repeatRoute" to keep showing interstitial whenever the user re-visits the page, set to true. 
-    // current implementation only work for one page can repeat. if multiple page needs to repeat, additional logic need to be implemented. 
-    const repeatRoute = '首页'
-    if (REPEAT){
-      if (currentRoute === repeatRoute){
-        setAdsReadyFlag(false)
+    if (currentRoute){
+      if (!visitCount[currentRoute]){
+        visitCount[currentRoute] = 0
+        setVisitCount({...visitCount})
       }
+      visitCount[currentRoute] += 1; 
+      setVisitCount({...visitCount})
+
+      // // repeat this line for each page to customize their repeat logic... 
+      // if (currentRoute === '首页'){ 
+      //   if (visitCount[currentRoute] > 1){
+      //     setAdsReadyFlag(false)
+      //   }
+      // }
+
     }
   }, [currentRoute])
 
