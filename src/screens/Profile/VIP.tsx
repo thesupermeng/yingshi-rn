@@ -32,10 +32,12 @@ import NoConnection from "../../components/common/noConnection";
 import { Dialog } from "@rneui/themed";
 import FastImage from "react-native-fast-image";
 import {
-  YING_SHI_PIN_ANDROID,
-  YING_SHI_PIN_IOS,
   IS_IOS,
+  API_DOMAIN_TEST,
+  APP_NAME,
+  API_DOMAIN,
 } from "../../utility/constants";
+import axios from "axios";
 
 const subscriptionSkus = Platform.select({
   ios: ["yingshi_vip_month", "yingshi_vip_6months", "monthly_subscription"],
@@ -54,18 +56,25 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     getPurchaseHistory,
     availablePurchases,
   } = useIAP();
+  const [membershipProducts, setMembershipProducts] = useState<
+    membershipModel[]
+  >([]);
   const [membershipSelected, setSelectedMembership] = useState<membershipModel>(
-    products[0]
+    membershipProducts[0]
   );
-  const [paymentSelected, setSelectedPayment] = useState("");
+  const [paymentSelected, setSelectedPayment] = useState(
+    IS_IOS ? "Apple Pay" : "Google Pay"
+  );
   const [isOffline, setIsOffline] = useState(false);
   const { colors, textVariants } = useTheme();
   const userState: userModel = useAppSelector(
     ({ userReducer }: RootState) => userReducer
   );
 
+  const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const dispatch = useAppDispatch();
 
   const handleRefresh = async () => {
@@ -97,101 +106,124 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     }
   };
 
-  const handleGetProduct = async () => {
+  const handleGetPurchaseHistory = async () => {
     try {
       await getProducts({ skus: subscriptionSkus });
+      console.log("purchase successfullllll");
     } catch (error) {
-      console.error("error occured: " + error);
+      console.error("get purchase history: " + error);
     }
   };
 
   useEffect(() => {
-    console.log(connected);
-    if (connected) {
-      handleGetProduct();
-    }
+    handleGetPurchaseHistory();
   }, [connected]);
 
   useEffect(() => {
-    if (products) {
-      let membershipProducts: membershipModel[];
-      membershipProducts = products.map((product) => {
+    console.log(JSON.stringify(products));
+  }, [products]);
+
+  const fetchData = async () => {
+    const response = await axios.get(
+      `https://api.yingshi.tv/products/v1/products`
+    );
+    const data = await response.data.data;
+    let products: Array<membershipModel>;
+    if (response) {
+      products = data.map((product: any) => {
         return {
-          productId: product.productId,
-          title: product.title,
-          price: product.price,
-          localizedPrice: product.localizedPrice,
-          description: product.description,
+          productId: product.product_id,
+          productSKU: product.product_ios_product_id,
+          title: product.product_name,
+          price: product.product_price,
+          localizedPrice:
+            product.currency.currency_symbol + " " + product.product_price,
+          description: product.product_desc,
+          subscriptionDays: product.product_value,
         };
       });
 
+      setMembershipProducts(products);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (membershipProducts) {
       const defaultMembership = membershipProducts.find(
         (product) => product.title === "6个月"
       );
       if (defaultMembership) {
         setSelectedMembership(defaultMembership);
-        setSelectedPayment(IS_IOS ? "Apple Pay" : "Google Pay");
       }
     }
-  }, [products]);
+  }, [membershipProducts]);
 
   const handlePurchase = async () => {
     try {
-      await requestPurchase({ sku: membershipSelected.productId });
+      if (paymentSelected === "Apple Pay") {
+        console.log("apple pay payment");
+        console.log(initConnectionError);
+        await getProducts({ skus: [membershipSelected.productSKU] });
+        await requestPurchase({ sku: membershipSelected.productSKU });
+      } else {
+        console.log("others payment method");
+      }
     } catch (e) {
       if (e instanceof PurchaseError) {
         console.error("purchasing error: " + e);
       } else {
         console.error("handle purchase error: " + e);
       }
+      setIsDialogOpen(true);
     }
   };
 
-  const getSubscriptionDate = () => {
-    if (membershipSelected) {
-      return parseInt(membershipSelected.title.substring(0, 1)) * 30;
-    }
-  };
-
-  const saveTransRecord = () => {
-    let platform_id;
-    if (IS_IOS) {
-      platform_id = YING_SHI_PIN_IOS;
-    } else {
-      platform_id = YING_SHI_PIN_ANDROID;
-    }
-
+  const saveTransRecord = async () => {
     const json = {
-      ...currentPurchase,
-      platformId: platform_id,
-      productName: membershipSelected.title,
-      productDescription: membershipSelected.description,
-      productPrice: membershipSelected.price,
-      productLocalizedPrice: membershipSelected.localizedPrice,
-      subscriptionDays: getSubscriptionDate(),
-      paymentChannel: paymentSelected,
-      userId: userState.userId,
+      user_id: userState.userId,
+      product_id: membershipSelected.productId,
+      product_name: membershipSelected.title,
+      product_price: parseFloat(membershipSelected.price),
+      subscription_days: membershipSelected.subscriptionDays,
+      transaction_type: "SUBSCRIBE_VIP",
+      payment_channel: paymentSelected.toUpperCase(),
+      channel_transaction_id: currentPurchase?.transactionId,
+      transaction_receipt: currentPurchase?.transactionReceipt,
+      platform: APP_NAME + "-" + Platform.OS.toUpperCase(),
     };
     console.log("passsing to db", json);
+    const result = await axios.post(
+      "https://testapi.yingshi.tv/payment/v1/transaction",
+      json
+    );
+    console.log("transaction result");
+    console.log(result);
   };
 
   useEffect(() => {
     const checkCurrentPurchase = async () => {
+      console.log("current purchase runnnnnnnn");
       if (currentPurchase) {
-        console.log("-------------------");
+        console.log("-------Current Purchase------------");
         console.log(currentPurchase);
 
         try {
           if (
-            (isIosStorekit2() && currentPurchase?.transactionId) ||
-            currentPurchase?.transactionReceipt
+            (isIosStorekit2() && currentPurchase.transactionId) ||
+            currentPurchase.transactionReceipt
           ) {
             saveTransRecord(); //save record to database
             await finishTransaction({
               purchase: currentPurchase,
-              isConsumable: true,
+              isConsumable: false,
             });
             setIsDialogOpen(true);
+            setIsSuccess(true);
           }
         } catch (error) {
           if (error instanceof PurchaseError) {
@@ -210,6 +242,12 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     setIsDialogOpen(false);
     handleRefresh();
   };
+
+  // useEffect(() => {
+  //   console.log('--------------------------')
+  //   console.log(availablePurchases);
+  //   console.log(purchaseHistory)
+  // }, [purchaseHistory, availablePurchases])
 
   return (
     <>
@@ -267,15 +305,25 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
               alignItems: "center",
             }}
             resizeMode={FastImage.resizeMode.contain}
-            source={require("../../../static/images/profile/login-success.gif")}
+            source={
+              isSuccess
+                ? require("../../../static/images/profile/login-success.gif")
+                : require("../../../static/images/profile/cross.png")
+            }
           />
           <View
             style={{
               alignItems: "center",
             }}
           >
-            <Text style={{ ...styles.dialogText }}>付款成功</Text>
-            <Text style={{ ...styles.dialogText }}>你已成为VIP用户</Text>
+            {isSuccess ? (
+              <>
+                <Text style={{ ...styles.dialogText }}>付款成功</Text>
+                <Text style={{ ...styles.dialogText }}>你已成为VIP用户</Text>
+              </>
+            ) : (
+              <Text style={{ ...styles.dialogText }}>付款失败</Text>
+            )}
           </View>
 
           <TouchableOpacity
@@ -296,47 +344,67 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         </Dialog>
 
         <TitleWithBackButtonHeader title="付费VIP" />
-        <ScrollView
-          refreshControl={
-            <RefreshControl
-              refreshing={refreshing}
-              onRefresh={handleRefresh}
-              tintColor="#FAC33D"
+        {(initConnectionError || isOffline) && (
+          <View style={{ height: "100%" }}>
+            <NoConnection onClickRetry={checkConnection} />
+          </View>
+        )}
+
+        {loading && !isOffline && (
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: "rgb(20,22,25)",
+            }}
+          >
+            <FastImage
+              source={require("../../../static/images/home-loading.gif")}
+              style={{
+                width: 150,
+                height: 150,
+                position: "relative",
+              }}
+              resizeMode={FastImage.resizeMode.contain}
             />
-          }
-        >
-          {initConnectionError && (
-            <View style={{ height: "100%" }}>
-              <NoConnection onClickRetry={checkConnection} />
-            </View>
-          )}
+          </View>
+        )}
 
-          {connected && (
-            <>
-              <VipCard
-                userState={userState}
-                membershipProduct={products.sort(
-                  (item1, item2) => +item1.price - +item2.price
-                )}
-                selectedMembership={membershipSelected}
-                onMembershipSelect={setSelectedMembership}
-                selectedPayment={paymentSelected}
-                onPaymentSelect={setSelectedPayment}
+        {!loading && !isOffline && (
+          <ScrollView
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={handleRefresh}
+                tintColor="#FAC33D"
               />
+            }
+          >
+            <VipCard
+              userState={userState}
+              // membershipProduct={products.sort((item1, item2) =>
+              //   +item1.price - +item2.price
+              // )}
+              membershipProduct={membershipProducts}
+              selectedMembership={membershipSelected}
+              onMembershipSelect={setSelectedMembership}
+              selectedPayment={paymentSelected}
+              onPaymentSelect={setSelectedPayment}
+            />
 
-              <View style={{ ...styles.footerWithBackgroundContainer }}>
-                <Text style={{ ...textVariants.small }}>
-                  有关购买查询，请联系contactus@yingshi.tv
-                </Text>
-              </View>
-              <View style={{ ...styles.footerContainer }}>
-                <Text style={{ ...textVariants.small }}>
-                  活动由影视TV公司提供 与苹果公司Apple.Inc 无关
-                </Text>
-              </View>
-            </>
-          )}
-        </ScrollView>
+            <View style={{ ...styles.footerWithBackgroundContainer }}>
+              <Text style={{ ...textVariants.small }}>
+                有关购买查询，请联系contactus@yingshi.tv
+              </Text>
+            </View>
+            <View style={{ ...styles.footerContainer }}>
+              <Text style={{ ...textVariants.small }}>
+                活动由影视TV公司提供 与苹果公司Apple.Inc 无关
+              </Text>
+            </View>
+          </ScrollView>
+        )}
       </ScreenContainer>
     </>
   );

@@ -1,4 +1,4 @@
-import {Platform} from 'react-native';
+import { Platform } from "react-native";
 
 export const DARK_THEME = 'DARK_THEME';
 export const LIGHT_THEME = 'LIGHT_THEME';
@@ -52,32 +52,32 @@ export const INVITE_DOMAIN = 'https://yingshi.tv/invite/pro/?invite=';
 //     'MI_GETAPPS': 'MI_GETAPPS',
 // }
 
-export const UMENG_CHANNEL = 'GOOGLE_PLAY';
+export const UMENG_CHANNEL = 'HUAWEI_APP_GALLERY_OVERSEAS';
 
-export const APP_VERSION = '1.4.0';
+export const APP_VERSION = '1.0.0';
 
-export const TOPON_ANDROID_APP_ID = 'a65002a2db3a7f';
-export const TOPON_ANDROID_APP_KEY = 'aad683307ed540dfc11b094206e8a15b1';
+export const TOPON_ANDROID_APP_ID = 'a65096b9d21e23';
+export const TOPON_ANDROID_APP_KEY = '0b1cab850e5de6fdc1fe0e114a0256eb';
 
-export const TOPON_IOS_APP_ID = 'a65093c4e166c3';
-export const TOPON_IOS_APP_KEY = 'ac16f5a19bcbae7438b36f0f7160fbac3';
+export const TOPON_IOS_APP_ID = 'a650a6ca02b6a6';
+export const TOPON_IOS_APP_KEY = 'a1d5a4e8e7e2bb06880eb2cda108716ed';
 
 // topon 横幅广告
-export const ANDROID_HOME_PAGE_BANNER_ADS = 'b65002ded406c8';
-export const ANDROID_PLAY_DETAILS_BANNER_ADS = 'b65017594babf8';
-export const ANDROID_TOPIC_DETAILS_BANNER_ADS = 'b650175c1b7a23';
-export const ANDROID_TOPIC_TAB_BANNER_ADS = 'b6523b931be70d';
+export const ANDROID_HOME_PAGE_BANNER_ADS = 'b650d3170ea90f';
+export const ANDROID_PLAY_DETAILS_BANNER_ADS = 'b650d31a42cdd2';
+export const ANDROID_TOPIC_DETAILS_BANNER_ADS = 'b650d31c80eeba';
+export const ANDROID_TOPIC_TAB_BANNER_ADS = 'b650d31d72638b';
 
-export const IOS_HOME_PAGE_BANNER_ADS = 'b650a5ecaebc22';
-export const IOS_PLAY_DETAILS_BANNER_ADS = 'b650a5e611f0ae';
-export const IOS_TOPIC_DETAILS_BANNER_ADS = 'b650a5e282588c';
-export const IOS_TOPIC_TAB_BANNER_ADS = 'b650a5e282588c';
+export const IOS_HOME_PAGE_BANNER_ADS = 'b651128a815aab';
+export const IOS_PLAY_DETAILS_BANNER_ADS = 'b6511289ba4aa6';
+export const IOS_TOPIC_DETAILS_BANNER_ADS = 'b6511288d75039';
+export const IOS_TOPIC_TAB_BANNER_ADS = 'b65112877206d7';
 
 // topon 插屏广告
-export const ANDROID_HOME_PAGE_POP_UP_ADS = 'b650bf7ba6ea04';
-export const ANDROID_PLAY_DETAILS_POP_UP_ADS = 'b65002e06244c7';
-export const IOS_PLAY_DETAILS_POP_UP_ADS = 'b650a5eb890d73';
-export const IOS_HOME_PAGE_POP_UP_ADS = 'b650bf7cddb441';
+export const ANDROID_HOME_PAGE_POP_UP_ADS = 'b650d314a73226';
+export const ANDROID_PLAY_DETAILS_POP_UP_ADS = 'b650d31f7a8f63';
+export const IOS_PLAY_DETAILS_POP_UP_ADS = 'b651128c8079b6';
+export const IOS_HOME_PAGE_POP_UP_ADS = 'b651128b440d9a';
 
 // topon 激励视频广告
 export const ANDROID_HOME_REWARD_ADS = 'b651e77ae56eda';
@@ -86,6 +86,7 @@ export const ANDROID_HOME_REWARD_ADS = 'b651e77ae56eda';
 export const TOPON_BANNER_WIDTH = 415;
 export const TOPON_BANNER_HEIGHT = 50;
 export const TOPON_BANNER_RATIO = TOPON_BANNER_HEIGHT / TOPON_BANNER_WIDTH;
+
 
 // app platform
 export const YING_SHI_PIN_ANDROID = 1;
@@ -96,5 +97,4 @@ export const YING_SHI_TV_IOS = 4;
 export const IS_IOS = Platform.OS === 'ios';
 export const IS_ANDROID = Platform.OS === 'android';
 
-export const APP_NAME_CONST = '影视TV';
-export const APP_EMAIL_CONST = 'contactus@yingshi.tv';
+export const APP_NAME = '影视TV';
