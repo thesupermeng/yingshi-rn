@@ -182,6 +182,7 @@ function Playlist ({navigation}: BottomTabScreenProps<any>) {
               windowSize={5}
               maxToRenderPerBatch={5}
               renderItem={renderItem}
+              initialNumToRender={5}
               ListFooterComponent={
                 <View style={{...styles.loading, marginBottom: spacing.xl}}>
                   {hasNextPage && (

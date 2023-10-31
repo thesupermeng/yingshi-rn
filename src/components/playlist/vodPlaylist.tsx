@@ -57,6 +57,7 @@ function VodPlaylist({ playlist, titleStyle }: Props) {
           vod_id: item.vod_id,
         });
       }}
+      index={index}
     />
   ), []);
 
