@@ -34,8 +34,8 @@ import FastImage from "react-native-fast-image";
 import {
   IS_IOS,
   API_DOMAIN_TEST,
-  APP_NAME,
   API_DOMAIN,
+  APP_NAME_CONST,
 } from "../../utility/constants";
 import axios from "axios";
 
@@ -194,7 +194,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
       payment_channel: paymentSelected.toUpperCase(),
       channel_transaction_id: currentPurchase?.transactionId,
       transaction_receipt: currentPurchase?.transactionReceipt,
-      platform: APP_NAME + "-" + Platform.OS.toUpperCase(),
+      platform: APP_NAME_CONST + "-" + Platform.OS.toUpperCase(),
     };
     console.log("passsing to db", json);
     const result = await axios.post(
