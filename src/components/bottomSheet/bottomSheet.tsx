@@ -10,6 +10,7 @@ interface Props {
     onBackdropPress: () => void,
     containerStyle?: ViewStyle,
     height?: string,
+    supportedOrientations?: string[]
 }
 
 export default function BottomSheet({
@@ -18,17 +19,18 @@ export default function BottomSheet({
     onBackdropPress,
     containerStyle,
     height = 'auto',
+    supportedOrientations = ['portrait', 'landscape'],
 }: Props) {
-    const {colors} = useTheme();
+    const { colors } = useTheme();
     const [bottomPosition, setBottomPosition] = useState(0);
 
     useEffect(() => {
         const keyboardDidShowListener = Keyboard.addListener('keyboardWillShow', (e) => {
-            if(Platform.OS === 'ios') setBottomPosition(e.endCoordinates.height);
+            if (Platform.OS === 'ios') setBottomPosition(e.endCoordinates.height);
         });
 
         const keyboardDidHideListener = Keyboard.addListener('keyboardWillHide', () => {
-            if(Platform.OS === 'ios') setBottomPosition(0);
+            if (Platform.OS === 'ios') setBottomPosition(0);
         });
 
         return () => {
@@ -38,7 +40,7 @@ export default function BottomSheet({
     }, []);
 
     return (
-        <ReactBottomSheet 
+        <ReactBottomSheet
             isVisible={isVisible}
             onBackdropPress={onBackdropPress}
             backdropStyle={{
@@ -54,11 +56,14 @@ export default function BottomSheet({
                 backgroundColor: colors.bottomSheet,
                 ...containerStyle,
             }}
+            modalProps={{
+                supportedOrientations: supportedOrientations,
+            }}
         >
-            <View style={{width: '100%', height: 14, alignItems: 'center', marginTop: 10}}>
+            <View style={{ width: '100%', height: 14, alignItems: 'center', marginTop: 10 }}>
                 <View style={{
-                    backgroundColor: 'white', 
-                    width: 40, 
+                    backgroundColor: 'white',
+                    width: 40,
                     height: 5,
                     borderRadius: 10,
                 }} />
