@@ -10,7 +10,7 @@ interface Props {
     onBackdropPress: () => void,
     containerStyle?: ViewStyle,
     height?: string,
-    supportedOrientations?: string[]
+    supportedOrientations?: ('portrait' | 'landscape')[]
 }
 
 export default function BottomSheet({
