@@ -69,3 +69,6 @@ yarn-error.log
 .metro-health-check*
 app.json
 android/app/src/main/res/values/strings.xml
+
+package-lock.json
+Podfile.lock
