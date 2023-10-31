@@ -325,7 +325,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
           <View style={{ height: '100%' }}>
             <NoConnection onClickRetry={checkConnection} />
           </View>
-        )}
+        }
 
         {loading && !isOffline && (
           <View
