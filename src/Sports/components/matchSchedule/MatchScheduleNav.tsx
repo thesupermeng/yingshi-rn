@@ -39,8 +39,35 @@ export default function MatchScheduleNav({
 }: Props) {
   const {colors, textVariants, spacing} = useTheme();
   const width = Dimensions.get('window').width;
+
+  const [showLoading, setShowLoading] = useState(true);
+
+  useEffect(() =>{
+    // fake loading to ensure all assets are loaded 
+    setTimeout(() => {
+      setShowLoading(false)
+    }, 1000);
+  }, [])
+
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={{flex: 1}}> 
+      {showLoading && <View 
+        style={{
+          width: '100%', 
+          height: '100%', 
+          position: 'absolute', 
+          zIndex: 1000, 
+          backgroundColor: 'rgb(20,22,25)',
+          justifyContent: 'center', 
+          alignItems: 'center'
+        }}
+      >
+        <FastImage
+          style={{ height: 150, width: 150 }}
+          source={require("../../../../static/images/home-loading.gif")}
+          resizeMode={"contain"}
+        />
+      </View>}
       <Tab.Navigator
         keyboardDismissMode="none"
         screenOptions={({route}) => ({
