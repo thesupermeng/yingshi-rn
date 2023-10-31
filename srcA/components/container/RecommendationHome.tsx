@@ -155,7 +155,7 @@ const RecommendationHome = ({
             uri: item.carousel_pic_mobile,
             priority: FastImage.priority.normal,
           }}
-          resizeMode={FastImage.resizeMode.contain}
+          resizeMode={"contain"}
         />
         <LinearGradient
           colors={['transparent', 'black']}
@@ -388,7 +388,7 @@ const RecommendationHome = ({
                     alignItems: 'center',
                   }}
                   source={require('../../../static/images/loading-spinner.gif')}
-                  resizeMode={FastImage.resizeMode.contain}
+                  resizeMode={"contain"}
                 />
               )}
               {!(isFetchingNextPage || isFetching) && !hasNextPage && (

@@ -551,7 +551,7 @@ export default ({navigation, route}: RootStackScreenProps<'片库'>) => {
                   <FastImage
                     style={{height: 80, width: 80}}
                     source={require('../../../static/images/loading-spinner.gif')}
-                    resizeMode={FastImage.resizeMode.contain}
+                    resizeMode={"contain"}
                   />
                 )}
                 {!(isFetchingNextPage || isFetching) &&

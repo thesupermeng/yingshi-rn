@@ -539,7 +539,7 @@ export default () => {
             justifyContent: "center",
             alignItems: "center",
           }}
-          resizeMode={FastImage.resizeMode.contain}
+          resizeMode={"contain"}
           source={require("../../static/images/profile/login-success.gif")}
         />
 

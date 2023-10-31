@@ -14,7 +14,8 @@ import PauseIcon from '../../../static/images/pause.svg';
 import PlayZhengPianIcon from '../../../static/images/play-zhengpian1.svg';
 import PlayBoDanIcon from '../../../static/images/play-bodan.svg';
 
-import FastImage from 'react-native-fast-image';
+// import FastImage from 'react-native-fast-image';
+import FastImage from '../common/customFastImage';
 import { Slider } from '@rneui/themed';
 import { useAppDispatch } from '../../hooks/hooks';
 import { useNavigation, useTheme } from '@react-navigation/native';
@@ -256,7 +257,7 @@ function ShortVideoPlayer({
                               style={{ flex: 1, borderRadius: 6 }}
                               source={{
                                 uri: currentVod.mini_video_original_img_url,
-                                priority: FastImage.priority.high,
+                                priority: "high",
                               }}
                             />
                           </TouchableOpacity>
@@ -276,7 +277,7 @@ function ShortVideoPlayer({
                               style={{ flex: 1, borderRadius: 6, transform: 'translate(0px, 0px)', position: 'absolute', width: '100%', height: '100%', zIndex: 3 }}
                               source={{
                                 uri: currentVod.mini_video_original_img_url,
-                                priority: FastImage.priority.high,
+                                priority: "high",
                               }}
                               onProgress={(e) => {
                                 setImageLoaded(false)

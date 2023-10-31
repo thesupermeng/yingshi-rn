@@ -8,7 +8,8 @@ import {
     showLoginAction,
     showRegisterAction,
 } from '../../redux/actions/screenAction';
-import FastImage from 'react-native-fast-image';
+// import FastImage from 'react-native-fast-image';
+import FastImage from '../common/customFastImage';
 import CodePush from "react-native-code-push";
 import { showToast } from "../../Sports/utility/toast";
 import {TermsAcceptContext} from '../../contexts/TermsAcceptedContext';

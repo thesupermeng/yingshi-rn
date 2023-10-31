@@ -128,7 +128,7 @@ export default ({ handleRefreshMiniVod, currentVodIndex = 0, videos, initialInde
                             hasNextPage && <FastImage
                                 style={{ height: 80, width: 80 }}
                                 source={require('../../../static/images/loading-spinner.gif')}
-                                resizeMode={FastImage.resizeMode.contain}
+                                resizeMode={"contain"}
                             />
                         }
                     </View>

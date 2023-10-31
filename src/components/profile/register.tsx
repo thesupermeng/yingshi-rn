@@ -15,7 +15,8 @@ import {registerUser} from '../../features/user';
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
 import {hideBottomSheetAction, navigateToProfileScreen} from '../../redux/actions/screenAction';
 import {RadioButton} from 'react-native-paper';
-import FastImage from 'react-native-fast-image';
+// import FastImage from 'react-native-fast-image';
+import FastImage from '../common/customFastImage';
 import {screenModel} from '../../types/screenType';
 import {RootState} from '../../redux/store';
 import SpinnerOverlay from '../modal/SpinnerOverlay';
@@ -320,7 +321,7 @@ const RegisterCard = (props: any) => {
                 position: 'relative',
                 top: 1,
               }}
-              resizeMode={FastImage.resizeMode.contain}
+              resizeMode={"contain"}
             />
           )}
 
@@ -333,7 +334,7 @@ const RegisterCard = (props: any) => {
                 position: 'relative',
                 top: 1,
               }}
-              resizeMode={FastImage.resizeMode.contain}
+              resizeMode={"contain"}
             />
           )}
         </TouchableOpacity>

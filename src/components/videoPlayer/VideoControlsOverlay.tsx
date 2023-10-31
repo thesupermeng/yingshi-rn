@@ -242,7 +242,7 @@ export default forwardRef<RefHandler, Props>(({
               height: icons.sizes.l,
               width: icons.sizes.l,
             }}
-            resizeMode={FastImage.resizeMode.contain}
+            resizeMode={"contain"}
           />
         </View>
       }
@@ -265,7 +265,7 @@ export default forwardRef<RefHandler, Props>(({
               height: icons.sizes.l,
               width: icons.sizes.l,
             }}
-            resizeMode={FastImage.resizeMode.contain}
+            resizeMode={"contain"}
           />
           <Text style={{ ...textVariants.header, marginRight: 5 }}>{`+${accumulatedSkip}s`}</Text>
         </View>
@@ -360,7 +360,7 @@ export default forwardRef<RefHandler, Props>(({
                             <FastImage
                               style={{ height: 80, width: 80 }}
                               source={require('../../../static/images/loading-spinner.gif')}
-                              resizeMode={FastImage.resizeMode.contain}
+                              resizeMode={"contain"}
                             />
                           </View>
                           : <ScrollView>

@@ -1,6 +1,7 @@
 import React, { memo } from 'react';
 import { View, Text, ImageBackground } from 'react-native';
-import FastImage from 'react-native-fast-image';
+// import FastImage from 'react-native-fast-image';
+import FastImage from '../../../components/common/customFastImage';
 import { useTheme } from '@react-navigation/native';
 import styles from './style';
 import { IconViewerGif } from '../../assets';

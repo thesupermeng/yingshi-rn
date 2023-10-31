@@ -141,7 +141,7 @@ const CatagoryHome = ({
             uri: item.carousel_pic_mobile,
             priority: FastImage.priority.normal,
           }}
-          resizeMode={FastImage.resizeMode.contain}
+          resizeMode={"contain"}
         />
         <LinearGradient
           colors={['transparent', 'black']}

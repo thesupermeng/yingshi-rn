@@ -23,7 +23,8 @@ import ProfileIcn from "../../../static/images/invite/profile-icon.svg";
 
 import { TouchableOpacity } from "@gorhom/bottom-sheet";
 
-import FastImage from "react-native-fast-image";
+// import FastImage from "react-native-fast-image";
+import FastImage from "../common/customFastImage";
 import LinearGradient from "react-native-linear-gradient";
 import { userModel } from "../../types/userType";
 import { useAppDispatch } from "../../hooks/hooks";
@@ -267,7 +268,7 @@ export default function InviteCard({ userState = {} }: Props) {
               height: 180,
               width: 240,
             }}
-            resizeMode={FastImage.resizeMode.contain}
+            resizeMode={"contain"}
           />
 
           {/* <CrownIcon /> */}
@@ -294,7 +295,7 @@ export default function InviteCard({ userState = {} }: Props) {
               <FastImage
                 source={require("../../../static/images/invite/sport.png")}
                 style={styles.featureIcn}
-                resizeMode={FastImage.resizeMode.contain}
+                resizeMode={"contain"}
               />
             </View>
             <Text style={styles.featureTitle}>体育频道</Text>
@@ -305,7 +306,7 @@ export default function InviteCard({ userState = {} }: Props) {
               <FastImage
                 source={require("../../../static/images/invite/ads.png")}
                 style={styles.featureIcn}
-                resizeMode={FastImage.resizeMode.contain}
+                resizeMode={"contain"}
               />
             </View>
             <View>
@@ -319,7 +320,7 @@ export default function InviteCard({ userState = {} }: Props) {
               <FastImage
                 source={require("../../../static/images/invite/download.png")}
                 style={styles.featureIcn}
-                resizeMode={FastImage.resizeMode.contain}
+                resizeMode={"contain"}
               />
             </View>
             <View>
@@ -333,7 +334,7 @@ export default function InviteCard({ userState = {} }: Props) {
               <FastImage
                 source={require("../../../static/images/invite/cast.png")}
                 style={styles.featureIcn}
-                resizeMode={FastImage.resizeMode.contain}
+                resizeMode={"contain"}
               />
             </View>
             <View>
@@ -405,7 +406,7 @@ export default function InviteCard({ userState = {} }: Props) {
                 height: 40,
                 width: 40,
               }}
-              resizeMode={FastImage.resizeMode.contain}
+              resizeMode={"contain"}
             />
           </TouchableOpacity>
 

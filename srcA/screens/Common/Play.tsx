@@ -409,7 +409,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
             <FastImage
               style={{ height: 80, width: 80 }}
               source={require("../../../static/images/loading-spinner.gif")}
-              resizeMode={FastImage.resizeMode.contain}
+              resizeMode={"contain"}
             />
           </View>
         )}
@@ -551,7 +551,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                             alignSelf: "center",
                           }}
                           source={require("../../../static/images/down_arrow.png")}
-                          resizeMode={FastImage.resizeMode.contain}
+                          resizeMode={"contain"}
                         />
                       )}
                       {!isCollapsed && actualNumberOfLines >= 2 && (
@@ -563,7 +563,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                             alignSelf: "center",
                           }}
                           source={require("../../../static/images/up_arrow.png")}
-                          resizeMode={FastImage.resizeMode.contain}
+                          resizeMode={"contain"}
                         />
                       )}
                     </View>
@@ -586,7 +586,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                         <FastImage
                           style={{ height: 80, width: 80 }}
                           source={require("../../../static/images/loading-spinner.gif")}
-                          resizeMode={FastImage.resizeMode.contain}
+                          resizeMode={"contain"}
                         />
                       </View>
                     </>

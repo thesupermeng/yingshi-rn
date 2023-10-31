@@ -167,7 +167,7 @@ function CollectionBottomSheet({ changeEpisode, sheetRef, collectionName, collec
                         <FastImage
                             style={{ height: 80, width: 80 }}
                             source={require('../../../static/images/loading-spinner.gif')}
-                            resizeMode={FastImage.resizeMode.contain}
+                            resizeMode={"contain"}
                         />
                     </View>
                 }
@@ -185,7 +185,7 @@ function CollectionBottomSheet({ changeEpisode, sheetRef, collectionName, collec
                                                         uri: imageError == false ? item.mini_video_origin_cover : 'https://static.wixstatic.com/media/5dca26_0052ca4edcc94049a9115dea94e6616d~mv2.png',
                                                     }}
                                                     onError={() => setImageError(true)}
-                                                    resizeMode={FastImage.resizeMode.contain}
+                                                    resizeMode={"contain"}
                                                 />
                                             </View>
                                             <View style={{ flex: 6, flexDirection: 'column', alignSelf: 'center' }}>

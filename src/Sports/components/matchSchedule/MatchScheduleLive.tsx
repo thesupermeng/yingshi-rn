@@ -1,6 +1,7 @@
 import React, { memo, useMemo, useState } from 'react';
 import { View, Text, ImageBackground } from 'react-native';
-import FastImage from 'react-native-fast-image';
+// import FastImage from 'react-native-fast-image';
+import FastImage from '../../../components/common/customFastImage';
 import { Link, useTheme } from '@react-navigation/native';
 import styles from './style';
 import { IsSub, Sub, Views, IconViewerGif, Live, VideoLiveWhite, AnimationLiveWhite } from '../../assets';
