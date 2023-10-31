@@ -74,15 +74,16 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   const data = useQueries({
     queries: navOptions
       ? navOptions?.map((x: any) => ({
-          queryKey: ["HomePage", x.id],
-          queryFn: () => fetchData(x.id),
-        }))
+        queryKey: ["HomePage", x.id],
+        queryFn: () => fetchData(x.id),
+      }))
       : [],
   });
 
   const checkConnection = async () => {
     const state = await NetInfo.fetch();
-    const offline = !(state.isConnected && state.isInternetReachable);
+    // state.isInternetReachable === null set true is for default value
+    const offline = !(state.isConnected && ((state.isInternetReachable === true || state.isInternetReachable === null) ? true : false));
     setIsOffline(offline);
     if (!offline) {
       handleRefresh(navId);
@@ -95,7 +96,8 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   useEffect(() => {
     const removeNetInfoSubscription = NetInfo.addEventListener(
       (state: NetInfoState) => {
-        const offline = !(state.isConnected && state.isInternetReachable);
+        // state.isInternetReachable === null set true is for default value
+        const offline = !(state.isConnected && ((state.isInternetReachable === true || state.isInternetReachable === null) ? true : false));
         setIsOffline(offline);
       }
     );
@@ -177,14 +179,14 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
     []
   );
 
-  const {setNavbarHeight} = useContext(AdsBannerContext)
+  const { setNavbarHeight } = useContext(AdsBannerContext)
 
   useEffect(() => {
     setNavbarHeight(bottomTabHeight)
   }, [bottomTabHeight])
 
   useInterstitialAds();
-  
+
   return (
     <>
       <ScreenContainer
