@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Platform } from "react-native";
 import {
   ATRNSDK,
@@ -10,12 +10,20 @@ import {
   ANDROID_HOME_PAGE_POP_UP_ADS,
   IOS_HOME_PAGE_POP_UP_ADS,
 } from "../utility/constants";
+import { userModel } from "../types/userType";
+import { RootState } from "../redux/store";
+import { useAppSelector } from "./hooks";
+import { AdsBannerContext } from "../contexts/AdsBannerContext";
 
 type PlacementId = typeof ANDROID_HOME_PAGE_POP_UP_ADS | typeof IOS_HOME_PAGE_POP_UP_ADS;
 
-const useInterstitialAds = (interstitialPlacementId: PlacementId) =>{
+const useInterstitialAds = () =>{
   const [adsReadyFlag, setAdsReadyFlag]= useState(false)
-
+  const userState: userModel = useAppSelector(
+    ({ userReducer }: RootState) => userReducer
+  );
+  const {currentRoute} = useContext(AdsBannerContext);
+  const [visitCount, setVisitCount] = useState<Record<string, number>>({})
 
   ATInterstitialRNSDK.setAdListener(
     ATInterstitialRNSDK.onInterstitialLoaded,
@@ -24,7 +32,7 @@ const useInterstitialAds = (interstitialPlacementId: PlacementId) =>{
     }
   );
 
-  const loadInterstitial = () => {
+  const loadInterstitial = (interstitialPlacementId: PlacementId) => {
     var settings = {};
     //@ts-ignore
     settings[ATInterstitialRNSDK.UseRewardedVideoAsInterstitial] = false;
@@ -34,12 +42,12 @@ const useInterstitialAds = (interstitialPlacementId: PlacementId) =>{
 
   };
 
-  const isInterstitialReady = async () => {
+  const isInterstitialReady = async (interstitialPlacementId: PlacementId) => {
     const ready = await ATInterstitialRNSDK.hasAdReady(interstitialPlacementId)
     setAdsReadyFlag(ready)
   };
 
-  const showInterstitial = async () => {
+  const showInterstitial = async (interstitialPlacementId: PlacementId) => {
     if (adsReadyFlag){
       ATInterstitialRNSDK.showAd(interstitialPlacementId);
     } else {
@@ -47,27 +55,56 @@ const useInterstitialAds = (interstitialPlacementId: PlacementId) =>{
     }
   };
 
-  const prepareInterstitial = async () => {
-    for (let i=0; i<5; i++){
-      await isInterstitialReady()
+  const prepareInterstitial = async (interstitialPlacementId: PlacementId) => {
+    for (let i=0; i<1; i++){
+      await isInterstitialReady(interstitialPlacementId)
       console.log('try count', i)
       if (i > 5 || adsReadyFlag){
         break;
       }
-      await loadInterstitial()
+      await loadInterstitial(interstitialPlacementId)
+      await new Promise(r => setTimeout(r, 1000));
+
+    }
+  }
+
+  const renderInterstitial = (route: string) =>{
+    if (route === '首页'){
+      if (adsReadyFlag){
+        showInterstitial(Platform.OS === 'android' ? ANDROID_HOME_PAGE_POP_UP_ADS : IOS_HOME_PAGE_POP_UP_ADS)
+      }
+      else {
+        prepareInterstitial(Platform.OS === 'android' ? ANDROID_HOME_PAGE_POP_UP_ADS : IOS_HOME_PAGE_POP_UP_ADS)
+      } 
     }
   }
 
   useEffect(() => {
-    prepareInterstitial()
-  }, [])
+    if (Number(userState.userMemberExpired) <= Number(userState.userCurrentTimestamp) || userState.userToken === ""){
+      // not member, then render
+      renderInterstitial(currentRoute ?? '');
+    }
+    
+  }, [adsReadyFlag, currentRoute])
 
   useEffect(() => {
-    
-    if (adsReadyFlag){
-      showInterstitial()
+    if (currentRoute){
+      if (!visitCount[currentRoute]){
+        visitCount[currentRoute] = 0
+        setVisitCount({...visitCount})
+      }
+      visitCount[currentRoute] += 1; 
+      setVisitCount({...visitCount})
+
+      // // repeat this line for each page to customize their repeat logic... 
+      // if (currentRoute === '首页'){ 
+      //   if (visitCount[currentRoute] > 1){
+      //     setAdsReadyFlag(false)
+      //   }
+      // }
+
     }
-  }, [adsReadyFlag])
+  }, [currentRoute])
 
   return; 
 

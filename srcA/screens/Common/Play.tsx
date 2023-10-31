@@ -4,6 +4,7 @@ import React, {
   useMemo,
   useRef,
   useCallback,
+  useContext,
 } from "react";
 import {
   View,
@@ -18,7 +19,7 @@ import {
 import FavoriteButton from "../../components/button/favoriteVodButton";
 import FavoriteIcon from "../../../static/images/favorite.svg";
 import ScreenContainer from "../../components/container/screenContainer";
-import { useTheme, useFocusEffect } from "@react-navigation/native";
+import { useTheme, useFocusEffect, useRoute } from "@react-navigation/native";
 import { YSConfig } from "../../../ysConfig";
 
 import { RootStackScreenProps } from "../../types/navigationTypes";
@@ -43,6 +44,7 @@ import FastImage from "react-native-fast-image";
 import {
   API_DOMAIN,
   API_DOMAIN_TEST,
+  APP_NAME_CONST,
   UMENG_CHANNEL,
 } from "../../utility/constants";
 import { useQuery } from "@tanstack/react-query";
@@ -55,9 +57,8 @@ import BingSearch from "../../components/container/bingSearchContainer";
 
 import NoConnection from "../../components/common/noConnection";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
-import AdsBanner from "../../ads/adsBanner";
 import { lockAppOrientation } from "../../redux/actions/settingsActions";
-import { APP_NAME_CONST } from "../../../src/utility/constants";
+import { AdsBannerContext } from "../../contexts/AdsBannerContext";
 
 type VideoRef = {
   setPause: (param: boolean) => void;
@@ -73,6 +74,12 @@ const definedValue = (val: any) => {
 };
 
 export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
+  const { setRoute: setAdsRoute } = useContext(AdsBannerContext);
+  useFocusEffect(() => {
+    // for banner ads
+    setAdsRoute(route.name);
+  });
+
   const { colors, spacing, textVariants, icons } = useTheme();
   const vodReducer: VodReducerState = useAppSelector(
     ({ vodReducer }: RootState) => vodReducer
@@ -360,7 +367,6 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   return (
     <>
-      <AdsBanner bottomTabHeight={0} />
       <ScreenContainer containerStyle={{ paddingRight: 0, paddingLeft: 0 }}>
         {/* if isVodRestricted, show bing search */}
         {isVodRestricted && vod && !isOffline && <BingSearch vod={vod} />}
@@ -368,26 +374,26 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
         {!isVodRestricted && !dismountPlayer && !isOffline && (
           <VodPlayer
             vod_url={
-              vod.vod_play_list.urls.find((url) => url.nid === currentEpisode)
+              vod?.vod_play_list.urls?.find((url) => url.nid === currentEpisode)
                 ?.url
             }
             ref={videoPlayerRef}
             currentTimeRef={currentTimeRef}
             initialStartTime={initTime}
-            vodTitle={vod.vod_name}
+            vodTitle={vod?.vod_name}
             videoType="vod"
             activeEpisode={currentEpisode}
-            episodes={vod.type_id !== 2 ? vod?.vod_play_list : undefined}
+            episodes={vod?.type_id !== 2 ? vod?.vod_play_list : undefined}
             onEpisodeChange={(id: number) => {
               setCurrentEpisode(id);
               currentTimeRef.current = 0;
             }}
             showGuide={settingsReducer.showVodPlayerGuide}
             rangeSize={EPISODE_RANGE_SIZE}
-            autoPlayNext={vod.type_id !== 2}
+            autoPlayNext={vod?.type_id !== 2}
             onShare={onShare}
-            movieList={vod.type_id === 2 ? suggestedVods : []}
-            showMoreType={vod.type_id === 2 ? "movies" : "episodes"}
+            movieList={vod?.type_id === 2 ? suggestedVods : []}
+            showMoreType={vod?.type_id === 2 ? "movies" : "episodes"}
             isFetchingRecommendedMovies={isFetchingSuggestedVod}
             appOrientation={settingsReducer.appOrientation}
             devicesOrientation={settingsReducer.devicesOrientation}
@@ -626,7 +632,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                               initialNumToRender={10}
                               onScrollToIndexFailed={() => {}}
                               ref={episodeRef}
-                              data={vod?.vod_play_list.urls.slice(
+                              data={vod?.vod_play_list.urls?.slice(
                                 showEpisodeRangeStart,
                                 showEpisodeRangeEnd
                               )}
@@ -671,23 +677,22 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                 </>
               </View>
             </ScrollView>
-            {settingsReducer.appOrientation === "PORTRAIT" &&
-            settingsReducer.isAppOrientationChanged && ( // only show if portrait
-                <VodEpisodeSelectionModal
-                  isVisible={isShowSheet}
-                  handleClose={handleModalClose}
-                  activeEpisode={currentEpisode}
-                  episodes={vod?.vod_play_list}
-                  onCancel={() => {
-                    setShowSheet(false);
-                  }}
-                  onConfirm={(id: number) => {
-                    setCurrentEpisode(id);
-                    handleModalClose();
-                  }}
-                  rangeSize={EPISODE_RANGE_SIZE}
-                />
-              )}
+            {settingsReducer.appOrientation === "PORTRAIT" && ( // only show if portrait
+              <VodEpisodeSelectionModal
+                isVisible={isShowSheet}
+                handleClose={handleModalClose}
+                activeEpisode={currentEpisode}
+                episodes={vod?.vod_play_list}
+                onCancel={() => {
+                  setShowSheet(false);
+                }}
+                onConfirm={(id: number) => {
+                  setCurrentEpisode(id);
+                  handleModalClose();
+                }}
+                rangeSize={EPISODE_RANGE_SIZE}
+              />
+            )}
           </>
         )}
         {isOffline && (

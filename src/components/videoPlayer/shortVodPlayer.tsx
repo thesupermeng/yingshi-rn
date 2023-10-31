@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Text,
   Dimensions,
+  Platform,
 } from 'react-native';
 import Video, { OnProgressData } from 'react-native-video';
 import PlayIcon from '../../../static/images/blackPlay.svg';
@@ -170,6 +171,7 @@ function ShortVideoPlayer({
     const { height } = event.nativeEvent.layout;
     setImageContainerHeight(height);
   }
+
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -189,30 +191,27 @@ function ShortVideoPlayer({
               />
             </View>
           )}
-          {!isScrolling &&
-            <Video
-              ref={videoRef}
-              resizeMode="contain"
-              poster={thumbnail}
-              source={{
-                uri: currentVod.mini_video_origin_video_url,
-                headers: {
-                  'User-Agent':
-                    'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
-                },
-              }}
-              onBuffer={onBuffer}
-              repeat={true}
-              style={styles.video}
-              // onVideoSeek={}
-              // ignoreSilentSwitch={"ignore"}
-              paused={!isActive || paused}
-              onLoad={handleLoad}
-              onProgress={handleProgress}
-              progressUpdateInterval={400}
-            />
-          }
-
+          <Video
+            ref={videoRef}
+            resizeMode="contain"
+            poster={thumbnail}
+            source={{
+              uri: currentVod.mini_video_origin_video_url,
+              headers: {
+                'User-Agent':
+                  'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+              },
+            }}
+            onBuffer={onBuffer}
+            repeat={true}
+            style={styles.video}
+            // onVideoSeek={}
+            // ignoreSilentSwitch={"ignore"}
+            paused={!isActive || paused || isScrolling}
+            onLoad={handleLoad}
+            onProgress={handleProgress}
+            progressUpdateInterval={400}
+          />
           <View
             style={{
               position: 'absolute',

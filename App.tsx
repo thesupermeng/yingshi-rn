@@ -32,6 +32,7 @@ import {
   IOS_PLAY_DETAILS_BANNER_ADS,
   IOS_TOPIC_DETAILS_BANNER_ADS,
   IOS_TOPIC_TAB_BANNER_ADS,
+  APP_NAME_CONST,
 } from "./src/utility/constants";
 import {
   BottomNavTabs,
@@ -109,9 +110,9 @@ let App = () => {
   });
 
   const getIP = async () => {
-    const res = await axios.get('https://geolocation-db.com/json/')
+    const res = await axios.get("https://geolocation-db.com/json/");
     const ipAddress = res.data.IPv4;
-    if(ipAddress != null && ipAddress != undefined){
+    if (ipAddress != null && ipAddress != undefined) {
       YSConfig.instance.setNetworkIp(ipAddress);
       checkVersion(ipAddress);
     }
@@ -122,7 +123,7 @@ let App = () => {
       ip_address: ipAddress,
       channel_id: UMENG_CHANNEL,
       version_number: APP_VERSION,
-      product: "影视TV-" + Platform.OS.toUpperCase(),
+      product: APP_NAME_CONST + "-" + Platform.OS.toUpperCase(),
       mobile_os: Platform.OS,
       mobile_model: "HUAWEIP20",
     };
@@ -531,13 +532,12 @@ let App = () => {
     );
   };
 
-
   return (
     <TermsAcceptContextProvider>
-      <AdsBannerContextProvider>
-        <QueryClientProvider client={queryClient}>
-          <Provider store={store}>
-            <PersistGate loading={null} persistor={persistor}>
+      <QueryClientProvider client={queryClient}>
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+            <AdsBannerContextProvider>
               <GestureHandlerRootView style={{ flex: 1 }}>
                 <BottomSheetModalProvider>
                   {YSConfig.instance.areaConfig != null &&
@@ -550,11 +550,11 @@ let App = () => {
                   )}
                 </BottomSheetModalProvider>
               </GestureHandlerRootView>
-            </PersistGate>
-            {showRegengOverlay && <RegengOverlay />}
-          </Provider>
-        </QueryClientProvider>
-      </AdsBannerContextProvider>
+            </AdsBannerContextProvider>
+          </PersistGate>
+          {showRegengOverlay && <RegengOverlay />}
+        </Provider>
+      </QueryClientProvider>
     </TermsAcceptContextProvider>
   );
 };

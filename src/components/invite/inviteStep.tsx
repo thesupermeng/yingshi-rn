@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TextInput, Image } from "react-native";
 
 import { useTheme } from "@react-navigation/native";
 import ArrowIcn from "../../../static/images/invite/double-arrow.svg";
+import { APP_NAME_CONST } from "../../utility/constants";
 export default function InviteStep() {
   const { colors, textVariants, icons, spacing } = useTheme();
   return (
@@ -66,7 +67,7 @@ export default function InviteStep() {
                   color: colors.primary,
                 }}
               >
-                影视TV
+                {APP_NAME_CONST}
                 {/* 影视PRO */}
               </Text>
             </Text>

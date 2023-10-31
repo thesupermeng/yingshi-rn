@@ -13,7 +13,7 @@ import {
   requestPurchase,
   useIAP,
   validateReceiptIos,
-} from 'react-native-iap'
+} from "react-native-iap";
 import ScreenContainer from "../../components/container/screenContainer";
 import { RootStackScreenProps } from "../../types/navigationTypes";
 import { useTheme } from "@react-navigation/native";
@@ -25,21 +25,25 @@ import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { userModel } from "../../types/userType";
 import { updateUserAuth } from "../../redux/actions/userAction";
 import { getUserDetails } from "../../features/user";
-import AdsBanner from "../../ads/adsBanner";
 import { VipCard } from "../../components/vip/vipCard";
 import { TouchableOpacity } from "react-native";
 import { membershipModel } from "../../types/membershipType";
 import NoConnection from "../../components/common/noConnection";
 import { Dialog } from "@rneui/themed";
 import FastImage from "react-native-fast-image";
-import { IS_IOS, API_DOMAIN_TEST, APP_NAME, API_DOMAIN } from '../../utility/constants';
+import {
+  IS_IOS,
+  API_DOMAIN_TEST,
+  APP_NAME,
+  API_DOMAIN,
+} from "../../utility/constants";
 import axios from "axios";
 
 const subscriptionSkus = Platform.select({
-  ios: ['yingshi_vip_month', 'yingshi_vip_6months', 'monthly_subscription'],
+  ios: ["yingshi_vip_month", "yingshi_vip_6months", "monthly_subscription"],
 });
 
-export default ({ navigation }: RootStackScreenProps<'付费VIP'>) => {
+export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const {
     connected,
     products,
@@ -52,9 +56,15 @@ export default ({ navigation }: RootStackScreenProps<'付费VIP'>) => {
     getPurchaseHistory,
     availablePurchases,
   } = useIAP();
-  const [membershipProducts, setMembershipProducts] = useState<membershipModel[]>([]);
-  const [membershipSelected, setSelectedMembership] = useState<membershipModel>(membershipProducts[0]);
-  const [paymentSelected, setSelectedPayment] = useState(IS_IOS ? 'Apple Pay' : 'Google Pay');
+  const [membershipProducts, setMembershipProducts] = useState<
+    membershipModel[]
+  >([]);
+  const [membershipSelected, setSelectedMembership] = useState<membershipModel>(
+    membershipProducts[0]
+  );
+  const [paymentSelected, setSelectedPayment] = useState(
+    IS_IOS ? "Apple Pay" : "Google Pay"
+  );
   const [isOffline, setIsOffline] = useState(false);
   const { colors, textVariants } = useTheme();
   const userState: userModel = useAppSelector(
@@ -90,14 +100,16 @@ export default ({ navigation }: RootStackScreenProps<'付费VIP'>) => {
   const checkConnection = async () => {
     const state = await NetInfo.fetch();
     const offline = !(state.isConnected && state.isInternetReachable);
-    setIsOffline(offline)
+    setIsOffline(offline);
     if (!offline) {
       handleRefresh();
     }
   };
 
   const fetchData = async () => {
-    const response = await axios.get(`https://api.yingshi.tv/products/v1/products`);
+    const response = await axios.get(
+      `https://api.yingshi.tv/products/v1/products`
+    );
     const data = await response.data.data;
     let products: Array<membershipModel>;
     if (response) {
@@ -139,13 +151,13 @@ export default ({ navigation }: RootStackScreenProps<'付费VIP'>) => {
         await getProducts({ skus: [membershipSelected.productSKU] });
         await requestPurchase({ sku: membershipSelected.productSKU });
       } else {
-        console.log('others payment method')
+        console.log("others payment method");
       }
     } catch (e) {
       if (e instanceof PurchaseError) {
-        console.error('purchasing error: ' + e);
+        console.error("purchasing error: " + e);
       } else {
-        console.error('handle purchase error: ' + e);
+        console.error("handle purchase error: " + e);
       }
       setIsDialogOpen(true);
     }
@@ -158,7 +170,7 @@ export default ({ navigation }: RootStackScreenProps<'付费VIP'>) => {
       product_name: membershipSelected.title,
       product_price: parseFloat(membershipSelected.price),
       subscription_days: membershipSelected.subscriptionDays,
-      transaction_type: 'SUBSCRIBE_VIP',
+      transaction_type: "SUBSCRIBE_VIP",
       payment_channel: paymentSelected.toUpperCase(),
       channel_transaction_id: currentPurchase?.transactionId,
       transaction_receipt: currentPurchase?.transactionReceipt,
@@ -178,8 +190,10 @@ export default ({ navigation }: RootStackScreenProps<'付费VIP'>) => {
         console.log(currentPurchase);
 
         try {
-          if ((isIosStorekit2() && currentPurchase.transactionId) ||
-            currentPurchase.transactionReceipt) {
+          if (
+            (isIosStorekit2() && currentPurchase.transactionId) ||
+            currentPurchase.transactionReceipt
+          ) {
             saveTransRecord(); //save record to database
             await finishTransaction({
               purchase: currentPurchase,
@@ -190,9 +204,9 @@ export default ({ navigation }: RootStackScreenProps<'付费VIP'>) => {
           }
         } catch (error) {
           if (error instanceof PurchaseError) {
-            console.error('purchasing error: ' + error);
+            console.error("purchasing error: " + error);
           } else {
-            console.error('current purchase error: ' + error);
+            console.error("current purchase error: " + error);
           }
         }
       }
@@ -285,17 +299,18 @@ export default ({ navigation }: RootStackScreenProps<'付费VIP'>) => {
                 付款失败
               </Text>
             )}
-
           </View>
 
           <TouchableOpacity
             style={{
-              width: '80%',
+              width: "80%",
               padding: 10,
               margin: 10,
-              alignItems: 'center',
+              alignItems: "center",
               borderRadius: 10,
-              backgroundColor: paymentSelected ? colors.primary : colors.highlight,
+              backgroundColor: paymentSelected
+                ? colors.primary
+                : colors.highlight,
             }}
             onPress={handleConfirm}
           >
@@ -305,13 +320,12 @@ export default ({ navigation }: RootStackScreenProps<'付费VIP'>) => {
           </TouchableOpacity>
         </Dialog>
 
-        <AdsBanner bottomTabHeight={0} />
         <TitleWithBackButtonHeader title="付费VIP" />
         {isOffline &&
           <View style={{ height: '100%' }}>
             <NoConnection onClickRetry={checkConnection} />
           </View>
-        }
+        )}
 
         {loading && !isOffline && (
           <View
@@ -337,19 +351,24 @@ export default ({ navigation }: RootStackScreenProps<'付费VIP'>) => {
         {!loading && !isOffline && (
           <ScrollView
             refreshControl={
-              <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} tintColor="#FAC33D" />
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={handleRefresh}
+                tintColor="#FAC33D"
+              />
             }
           >
             <VipCard
               userState={userState}
-              // membershipProduct={products.sort((item1, item2) => 
+              // membershipProduct={products.sort((item1, item2) =>
               //   +item1.price - +item2.price
-              // )} 
+              // )}
               membershipProduct={membershipProducts}
               selectedMembership={membershipSelected}
               onMembershipSelect={setSelectedMembership}
               selectedPayment={paymentSelected}
-              onPaymentSelect={setSelectedPayment} />
+              onPaymentSelect={setSelectedPayment}
+            />
 
             <View
               style={{ ...styles.footerWithBackgroundContainer }}>
@@ -372,33 +391,33 @@ export default ({ navigation }: RootStackScreenProps<'付费VIP'>) => {
 
 const styles = StyleSheet.create({
   btnText: {
-    fontFamily: 'PingFang SC',
+    fontFamily: "PingFang SC",
     fontSize: 14,
-    fontWeight: '700',
-    color: 'black'
+    fontWeight: "700",
+    color: "black",
   },
   summaryLabel: {
     flex: 1,
-    alignItems: 'center'
+    alignItems: "center",
   },
   summaryContainer: {
-    width: '100%',
+    width: "100%",
     padding: 15,
     position: "relative",
-    flexDirection: 'row',
-    backgroundColor: '#1D2023',
-    alignItems: 'center'
+    flexDirection: "row",
+    backgroundColor: "#1D2023",
+    alignItems: "center",
   },
   footerContainer: {
-    alignItems: 'center',
+    alignItems: "center",
     marginBottom: 15,
   },
   footerWithBackgroundContainer: {
-    backgroundColor: '#1F2224',
+    backgroundColor: "#1F2224",
     margin: 15,
     borderRadius: 10,
     padding: 10,
-    alignItems: 'center',
+    alignItems: "center",
   },
   overlay: {
     borderRadius: 14,
@@ -412,5 +431,5 @@ const styles = StyleSheet.create({
     fontFamily: "PingFang SC",
     fontSize: 16,
     fontWeight: "400",
-  }
+  },
 });

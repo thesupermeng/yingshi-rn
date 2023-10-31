@@ -11,7 +11,7 @@ interface Props {
     vod: any;
     inCollectionView?: boolean;
     setCollectionEpisode?: any;
-    isScrolling: boolean,
+    isScrolling: boolean;
 }
 
 function ShortVod({
