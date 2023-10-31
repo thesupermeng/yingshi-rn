@@ -16,7 +16,8 @@ import ProjectIcon from '../../../static/images/project.svg'
 import VodListVertical from '../vod/vodListVertical';
 import GesturesGuide from '../gestures/vod/GesturesGuide';
 import VodLiveStationListVertical from '../vod/vodLiveStationListVertical';
-import FastImage from 'react-native-fast-image';
+// import FastImage from 'react-native-fast-image';
+import FastImage from '../common/customFastImage';
 
 type Props = {
   videoUrl: string;
@@ -242,7 +243,7 @@ export default forwardRef<RefHandler, Props>(({
               height: icons.sizes.l,
               width: icons.sizes.l,
             }}
-            resizeMode={FastImage.resizeMode.contain}
+            resizeMode={"contain"}
           />
         </View>
       }
@@ -265,7 +266,7 @@ export default forwardRef<RefHandler, Props>(({
               height: icons.sizes.l,
               width: icons.sizes.l,
             }}
-            resizeMode={FastImage.resizeMode.contain}
+            resizeMode={"contain"}
           />
           <Text style={{ ...textVariants.header, marginRight: 5 }}>{`+${accumulatedSkip}s`}</Text>
         </View>
@@ -360,7 +361,7 @@ export default forwardRef<RefHandler, Props>(({
                             <FastImage
                               style={{ height: 80, width: 80 }}
                               source={require('../../../static/images/loading-spinner.gif')}
-                              resizeMode={FastImage.resizeMode.contain}
+                              resizeMode={"contain"}
                             />
                           </View>
                           : <ScrollView>

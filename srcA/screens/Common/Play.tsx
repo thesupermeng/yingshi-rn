@@ -40,7 +40,8 @@ import QQIcon from "../../../static/images/qq.svg";
 import PYQIcon from "../../../static/images/pyq.svg";
 import MoreArrow from "../../../static/images/more_arrow.svg";
 import VodEpisodeSelectionModal from "../../components/modal/vodEpisodeSelectionModal";
-import FastImage from "react-native-fast-image";
+// import FastImage from "react-native-fast-image";
+import FastImage from "../../components/common/customFastImage";
 import {
   API_DOMAIN,
   API_DOMAIN_TEST,
@@ -415,7 +416,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
             <FastImage
               style={{ height: 80, width: 80 }}
               source={require("../../../static/images/loading-spinner.gif")}
-              resizeMode={FastImage.resizeMode.contain}
+              resizeMode={"contain"}
             />
           </View>
         )}
@@ -557,7 +558,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                             alignSelf: "center",
                           }}
                           source={require("../../../static/images/down_arrow.png")}
-                          resizeMode={FastImage.resizeMode.contain}
+                          resizeMode={"contain"}
                         />
                       )}
                       {!isCollapsed && actualNumberOfLines >= 2 && (
@@ -569,7 +570,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                             alignSelf: "center",
                           }}
                           source={require("../../../static/images/up_arrow.png")}
-                          resizeMode={FastImage.resizeMode.contain}
+                          resizeMode={"contain"}
                         />
                       )}
                     </View>
@@ -592,7 +593,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                         <FastImage
                           style={{ height: 80, width: 80 }}
                           source={require("../../../static/images/loading-spinner.gif")}
-                          resizeMode={FastImage.resizeMode.contain}
+                          resizeMode={"contain"}
                         />
                       </View>
                     </>

@@ -7,7 +7,8 @@ import { WhistleOrange, OrangeClock } from '../../assets';
 //style
 import styles from './style';
 import { MatchUpdatesType } from '../../types/matchUpdatesType';
-import FastImage from 'react-native-fast-image';
+// import FastImage from 'react-native-fast-image';
+import FastImage from '../../../components/common/customFastImage';
 
 
 interface Props {

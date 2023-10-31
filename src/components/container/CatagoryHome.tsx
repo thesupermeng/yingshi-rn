@@ -21,7 +21,8 @@ import {
   LiveTVStationsResponseType,
   VodData,
 } from '../../types/ajaxTypes';
-import FastImage from 'react-native-fast-image';
+// import FastImage from 'react-native-fast-image';
+import FastImage from "../common/customFastImage";
 import { VodReducerState } from '../../redux/reducers/vodReducer';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { RootState } from '../../redux/store';
@@ -139,9 +140,9 @@ const CatagoryHome = ({
           style={styles.image}
           source={{
             uri: item.carousel_pic_mobile,
-            priority: FastImage.priority.normal,
+            priority: "normal",
           }}
-          resizeMode={FastImage.resizeMode.contain}
+          resizeMode={"contain"}
         />
         <LinearGradient
           colors={['transparent', 'black']}

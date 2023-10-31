@@ -20,7 +20,8 @@ import {
 import CatagoryHome from "../components/container/CatagoryHome";
 import RecommendationHome from "../components/container/RecommendationHome";
 import HomeHeader from "../components/header/homeHeader";
-import FastImage from "react-native-fast-image";
+// import FastImage from "react-native-fast-image";
+import FastImage from "../components/common/customFastImage";
 // import { FlatList } from 'react-native-gesture-handler';
 import { useIsFocused } from "@react-navigation/native";
 import NoConnection from "./../components/common/noConnection";
@@ -226,7 +227,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
                     <FastImage
                       style={{ height: 80, width: 80 }}
                       source={require("../../static/images/loading-spinner.gif")}
-                      resizeMode={FastImage.resizeMode.contain}
+                      resizeMode={"contain"}
                     />
                   }
                 </View>
@@ -249,7 +250,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
                       bottom: 50,
                       zIndex: -1,
                     }}
-                    resizeMode={FastImage.resizeMode.contain}
+                    resizeMode={"contain"}
                   />
                 </View>
               )}

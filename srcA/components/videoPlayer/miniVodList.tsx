@@ -2,7 +2,8 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { SafeAreaView, View, Text, FlatList, Dimensions, RefreshControl } from 'react-native';
 import { MiniVideo } from '../../types/ajaxTypes';
 import ShortVod from '../../components/videoPlayer/shortVod';
-import FastImage from 'react-native-fast-image';
+// import FastImage from 'react-native-fast-image';
+import FastImage from '../common/customFastImage';
 import { useTheme, useIsFocused } from '@react-navigation/native';
 import { StyleSheet } from 'react-native';
 import {useQueryClient} from '@tanstack/react-query';
@@ -128,7 +129,7 @@ export default ({ handleRefreshMiniVod, currentVodIndex = 0, videos, initialInde
                             hasNextPage && <FastImage
                                 style={{ height: 80, width: 80 }}
                                 source={require('../../../static/images/loading-spinner.gif')}
-                                resizeMode={FastImage.resizeMode.contain}
+                                resizeMode={"contain"}
                             />
                         }
                     </View>
