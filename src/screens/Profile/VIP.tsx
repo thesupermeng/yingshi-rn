@@ -34,8 +34,8 @@ import FastImage from "react-native-fast-image";
 import {
   IS_IOS,
   API_DOMAIN_TEST,
-  APP_NAME,
   API_DOMAIN,
+  APP_NAME_CONST,
 } from "../../utility/constants";
 import axios from "axios";
 
@@ -106,6 +106,23 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     }
   };
 
+  const handleGetPurchaseHistory = async () => {
+    try {
+      await getProducts({ skus: subscriptionSkus });
+      console.log("purchase successfullllll");
+    } catch (error) {
+      console.error("get purchase history: " + error);
+    }
+  };
+
+  useEffect(() => {
+    handleGetPurchaseHistory();
+  }, [connected]);
+
+  useEffect(() => {
+    console.log(JSON.stringify(products));
+  }, [products]);
+
   const fetchData = async () => {
     const response = await axios.get(
       `https://api.yingshi.tv/products/v1/products`
@@ -119,7 +136,8 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
           productSKU: product.product_ios_product_id,
           title: product.product_name,
           price: product.product_price,
-          localizedPrice: product.currency.currency_symbol + ' ' + product.product_price,
+          localizedPrice:
+            product.currency.currency_symbol + " " + product.product_price,
           description: product.product_desc,
           subscriptionDays: product.product_value,
         };
@@ -136,7 +154,9 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
 
   useEffect(() => {
     if (membershipProducts) {
-      const defaultMembership = membershipProducts.find((product) => product.title === "6个月");
+      const defaultMembership = membershipProducts.find(
+        (product) => product.title === "6个月"
+      );
       if (defaultMembership) {
         setSelectedMembership(defaultMembership);
       }
@@ -145,9 +165,9 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
 
   const handlePurchase = async () => {
     try {
-      if (paymentSelected === 'Apple Pay') {
-        console.log('apple pay payment')
-        console.log(initConnectionError)
+      if (paymentSelected === "Apple Pay") {
+        console.log("apple pay payment");
+        console.log(initConnectionError);
         await getProducts({ skus: [membershipSelected.productSKU] });
         await requestPurchase({ sku: membershipSelected.productSKU });
       } else {
@@ -174,19 +194,22 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
       payment_channel: paymentSelected.toUpperCase(),
       channel_transaction_id: currentPurchase?.transactionId,
       transaction_receipt: currentPurchase?.transactionReceipt,
-      platform: APP_NAME + '-' + Platform.OS.toUpperCase(),
-    }
-    console.log('passsing to db', json);
-    const result = await axios.post(`${API_DOMAIN}payment/v1/transaction`, json);
-    console.log('transaction result');
-    console.log(result.data)
+      platform: APP_NAME_CONST + "-" + Platform.OS.toUpperCase(),
+    };
+    console.log("passsing to db", json);
+    const result = await axios.post(
+      "https://testapi.yingshi.tv/payment/v1/transaction",
+      json
+    );
+    console.log("transaction result");
+    console.log(result);
   };
 
   useEffect(() => {
     const checkCurrentPurchase = async () => {
-      console.log('current purchase runnnnnnnn')
+      console.log("current purchase runnnnnnnn");
       if (currentPurchase) {
-        console.log('-------Current Purchase------------');
+        console.log("-------Current Purchase------------");
         console.log(currentPurchase);
 
         try {
@@ -197,7 +220,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
             saveTransRecord(); //save record to database
             await finishTransaction({
               purchase: currentPurchase,
-              isConsumable: true,
+              isConsumable: false,
             });
             setIsDialogOpen(true);
             setIsSuccess(true);
@@ -220,17 +243,20 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     handleRefresh();
   };
 
+  // useEffect(() => {
+  //   console.log('--------------------------')
+  //   console.log(availablePurchases);
+  //   console.log(purchaseHistory)
+  // }, [purchaseHistory, availablePurchases])
 
   return (
     <>
       <ScreenContainer
         footer={
           <>
-            {membershipSelected &&
-              <View
-                style={{ ...styles.summaryContainer }}>
-                <View
-                  style={{ ...styles.summaryLabel }}>
+            {membershipSelected && (
+              <View style={{ ...styles.summaryContainer }}>
+                <View style={{ ...styles.summaryLabel }}>
                   <Text style={{ ...textVariants.small }}>
                     {membershipSelected.title}
                   </Text>
@@ -240,23 +266,25 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                 </View>
                 <TouchableOpacity
                   style={{
-                    width: '60%',
+                    width: "60%",
                     padding: 10,
                     margin: 10,
-                    alignItems: 'center',
+                    alignItems: "center",
                     borderRadius: 10,
-                    backgroundColor: paymentSelected ? colors.primary : colors.highlight,
+                    backgroundColor: paymentSelected
+                      ? colors.primary
+                      : colors.highlight,
                   }}
                   onPress={handlePurchase}
-                  disabled={paymentSelected ? false : true}>
-                  <Text style={{ ...styles.btnText }}>
-                    立即开通
-                  </Text>
+                  disabled={paymentSelected ? false : true}
+                >
+                  <Text style={{ ...styles.btnText }}>立即开通</Text>
                 </TouchableOpacity>
               </View>
-            }
+            )}
           </>
-        }>
+        }
+      >
         <Dialog
           isVisible={isDialogOpen}
           overlayStyle={{
@@ -277,27 +305,24 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
               alignItems: "center",
             }}
             resizeMode={FastImage.resizeMode.contain}
-            source={isSuccess ?
-              require("../../../static/images/profile/login-success.gif") :
-              require("../../../static/images/profile/cross.png")} />
+            source={
+              isSuccess
+                ? require("../../../static/images/profile/login-success.gif")
+                : require("../../../static/images/profile/cross.png")
+            }
+          />
           <View
             style={{
-              alignItems: 'center'
+              alignItems: "center",
             }}
           >
             {isSuccess ? (
               <>
-                <Text style={{ ...styles.dialogText }}>
-                  付款成功
-                </Text>
-                <Text style={{ ...styles.dialogText }}>
-                  你已成为VIP用户
-                </Text>
+                <Text style={{ ...styles.dialogText }}>付款成功</Text>
+                <Text style={{ ...styles.dialogText }}>你已成为VIP用户</Text>
               </>
             ) : (
-              <Text style={{ ...styles.dialogText }}>
-                付款失败
-              </Text>
+              <Text style={{ ...styles.dialogText }}>付款失败</Text>
             )}
           </View>
 
@@ -314,18 +339,16 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
             }}
             onPress={handleConfirm}
           >
-            <Text style={{ ...styles.btnText }}>
-              确定
-            </Text>
+            <Text style={{ ...styles.btnText }}>确定</Text>
           </TouchableOpacity>
         </Dialog>
 
         <TitleWithBackButtonHeader title="付费VIP" />
-        {isOffline &&
-          <View style={{ height: '100%' }}>
+        {(initConnectionError || isOffline) && (
+          <View style={{ height: "100%" }}>
             <NoConnection onClickRetry={checkConnection} />
           </View>
-        }
+        )}
 
         {loading && !isOffline && (
           <View
@@ -370,14 +393,12 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
               onPaymentSelect={setSelectedPayment}
             />
 
-            <View
-              style={{ ...styles.footerWithBackgroundContainer }}>
+            <View style={{ ...styles.footerWithBackgroundContainer }}>
               <Text style={{ ...textVariants.small }}>
                 有关购买查询，请联系contactus@yingshi.tv
               </Text>
             </View>
-            <View
-              style={{ ...styles.footerContainer }}>
+            <View style={{ ...styles.footerContainer }}>
               <Text style={{ ...textVariants.small }}>
                 活动由影视TV公司提供 与苹果公司Apple.Inc 无关
               </Text>

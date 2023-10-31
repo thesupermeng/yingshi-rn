@@ -40,7 +40,8 @@ import Animated, {
   useAnimatedStyle,
 } from 'react-native-reanimated';
 import {FlatListProps} from 'react-native/Libraries/Lists/FlatList';
-import FastImage from 'react-native-fast-image';
+// import FastImage from 'react-native-fast-image';
+import FastImage from '../../components/common/customFastImage';
 import appsFlyer from 'react-native-appsflyer';
 import EmptyList from '../../components/common/emptyList';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
@@ -550,7 +551,7 @@ export default ({navigation, route}: RootStackScreenProps<'片库'>) => {
                   <FastImage
                     style={{height: 80, width: 80}}
                     source={require('../../../static/images/loading-spinner.gif')}
-                    resizeMode={FastImage.resizeMode.contain}
+                    resizeMode={'contain'}
                   />
                 )}
                 {!(isFetchingNextPage || isFetching) &&

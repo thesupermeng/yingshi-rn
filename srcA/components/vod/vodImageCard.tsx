@@ -1,7 +1,8 @@
 import React, { memo } from 'react';
 import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
 import { useTheme } from '@react-navigation/native';
-import FastImage, { ImageStyle } from 'react-native-fast-image';
+import { ImageStyle } from 'react-native-fast-image';
+import FastImage from '../common/customFastImage';
 import PlayIcon from '../../../static/images/play.svg';
 import LinearGradient from 'react-native-linear-gradient'
 interface Props {
@@ -27,7 +28,7 @@ export default function VodImageCard({ vod_img, vodStyle, onPress, showInfo = ''
                 style={{ ...styles.image, ...vodStyle }}
                 source={{
                     uri: vod_img,
-                    priority: FastImage.priority.normal,
+                    priority: 'normal',
                 }}
             />
             {

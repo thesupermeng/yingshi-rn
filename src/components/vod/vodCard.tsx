@@ -14,9 +14,10 @@ interface Props {
     showPlayIcon?: boolean
     showInfo?: string
     shadowBottom?: boolean
+    index? : number
 }
 
-function VodCard({ vod_name, vod_pic, vodImageStyle = {}, onPress, showInfo, showPlayIcon = false, shadowBottom = false, vodCardContainerStyle={} }: Props) {
+function VodCard({ vod_name, vod_pic, vodImageStyle = {}, onPress, showInfo, showPlayIcon = false, shadowBottom = false, vodCardContainerStyle={}, index }: Props) {
     const { colors, textVariants, spacing } = useTheme();
     return (
         <View style={{ marginRight: vodImageStyle?.marginRight !== undefined ? vodImageStyle.marginRight : spacing.m }}>
@@ -30,7 +31,7 @@ function VodCard({ vod_name, vod_pic, vodImageStyle = {}, onPress, showInfo, sho
                         marginBottom : 14, 
                         ...vodCardContainerStyle
                     }}>
-                        <VodImageCard vod_img={vod_pic} shadowBottom={shadowBottom} vodStyle={{ ...styles.card, ...vodImageStyle }} onPress={onPress} showPlayIcon={showPlayIcon} showInfo={showInfo} />
+                        <VodImageCard vod_img={vod_pic} shadowBottom={shadowBottom} vodStyle={{ ...styles.card, ...vodImageStyle }} onPress={onPress} showPlayIcon={showPlayIcon} showInfo={showInfo} index={index} />
                         <Text style={{
                             ...styles.text,
                             ...textVariants.small,

@@ -28,7 +28,8 @@ import InviteStep from '../../components/invite/inviteStep';
 import InviteCard from '../../components/invite/inviteCard';
 
 import InviteHeader from '../../components/invite/inviteHeader';
-import FastImage from 'react-native-fast-image';
+// import FastImage from 'react-native-fast-image';
+import FastImage from '../../components/common/customFastImage';
 import LinearGradient from 'react-native-linear-gradient';
 import {userModel} from '../../types/userType';
 import {useAppSelector} from '../../hooks/hooks';

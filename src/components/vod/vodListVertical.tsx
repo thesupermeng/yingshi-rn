@@ -82,6 +82,7 @@ function VodListVertical({ vods, numOfRows = 2, outerRowPadding = 0, minNumPerRo
                                 vod_id: vod?.vod_id,
                             });
                         }}
+                        index={idx}
                     />
                 ))
             }

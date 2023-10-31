@@ -9,7 +9,8 @@ import {VodPlaylistResponseType, VodTopicType} from '../../types/ajaxTypes';
 import VodPlaylist from '../../components/playlist/vodPlaylist';
 import {BottomTabScreenProps, useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 import {API_DOMAIN} from '../../utility/constants';
-import FastImage from 'react-native-fast-image';
+// import FastImage from 'react-native-fast-image';
+import FastImage from "../../components/common/customFastImage"
 import {useIsFocused} from '@react-navigation/native';
 // import {FlatList, PanGestureHandler} from 'react-native-gesture-handler';
 import NoConnection from './../../components/common/noConnection';
@@ -162,7 +163,7 @@ function Playlist ({navigation}: BottomTabScreenProps<any>) {
               <FastImage
                 style={{height: 80, width: 80}}
                 source={require('../../../static/images/loading-spinner.gif')}
-                resizeMode={FastImage.resizeMode.contain}
+                resizeMode={"contain"}
               />
             }
           </View>
@@ -181,13 +182,14 @@ function Playlist ({navigation}: BottomTabScreenProps<any>) {
               windowSize={5}
               maxToRenderPerBatch={5}
               renderItem={renderItem}
+              initialNumToRender={5}
               ListFooterComponent={
                 <View style={{...styles.loading, marginBottom: spacing.xl}}>
                   {hasNextPage && (
                     <FastImage
                       style={{height: 80, width: 80}}
                       source={require('../../../static/images/loading-spinner.gif')}
-                      resizeMode={FastImage.resizeMode.contain}
+                      resizeMode={"contain"}
                     />
                   )}
                   {!(isFetchingNextPage || isFetching) && !hasNextPage && (
