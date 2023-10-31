@@ -21,7 +21,8 @@ import {useInfiniteQuery, useQuery} from '@tanstack/react-query';
 import Api from '../../middleware/api';
 import MatchSchedule from './MatchSchedule';
 import EmptyList from '../../../components/common/emptyList';
-import FastImage from 'react-native-fast-image';
+// import FastImage from 'react-native-fast-image';
+import FastImage from '../../../components/common/customFastImage';
 import {screenModel} from '../../../types/screenType';
 import {useAppSelector} from '../../../hooks/hooks';
 

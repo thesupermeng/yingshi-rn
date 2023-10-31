@@ -255,7 +255,7 @@ function ShortVideoPlayer({
                               style={{ flex: 1, borderRadius: 6 }}
                               source={{
                                 uri: currentVod.mini_video_original_img_url,
-                                priority: FastImage.priority.high,
+                                priority: "high",
                               }}
                             />
                           </TouchableOpacity>
@@ -275,7 +275,7 @@ function ShortVideoPlayer({
                               style={{ flex: 1, borderRadius: 6, transform: 'translate(0px, 0px)', position: 'absolute', width: '100%', height: '100%', zIndex: 3 }}
                               source={{
                                 uri: currentVod.mini_video_original_img_url,
-                                priority: FastImage.priority.high,
+                                priority: "high",
                               }}
                               onProgress={(e) => {
                                 setImageLoaded(false)

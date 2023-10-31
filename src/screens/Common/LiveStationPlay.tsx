@@ -13,7 +13,8 @@ import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
 
 import {Dimensions} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import FastImage from 'react-native-fast-image';
+// import FastImage from 'react-native-fast-image';
+import FastImage from '../../components/common/customFastImage';
 import VodLiveStationListVertical from '../../components/vod/vodLiveStationListVertical';
 import VodPlayer from '../../components/videoPlayer/vodPlayer';
 import { SettingsReducerState } from '../../redux/reducers/settingsReducer';

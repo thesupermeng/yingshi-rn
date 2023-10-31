@@ -82,7 +82,8 @@ import {
   resetBottomSheetAction,
 } from "../redux/actions/screenAction";
 import { Dialog } from "@rneui/themed";
-import FastImage from "react-native-fast-image";
+// import FastImage from "react-native-fast-image";
+import FastImage from "../components/common/customFastImage";
 import { screenModel } from "../types/screenType";
 import { YingshiDarkTheme, YingshiLightTheme } from "../utility/theme";
 import { userModel } from "../types/userType";
@@ -539,7 +540,7 @@ export default () => {
             justifyContent: "center",
             alignItems: "center",
           }}
-          resizeMode={FastImage.resizeMode.contain}
+          resizeMode={"contain"}
           source={require("../../static/images/profile/login-success.gif")}
         />
 

@@ -20,7 +20,8 @@ import {
 import CatagoryHome from "../components/container/CatagoryHome";
 import RecommendationHome from "../components/container/RecommendationHome";
 import HomeHeader from "../components/header/homeHeader";
-import FastImage from "react-native-fast-image";
+// import FastImage from "react-native-fast-image";
+import FastImage from "../components/common/customFastImage";
 // import { FlatList } from 'react-native-gesture-handler';
 import { useIsFocused } from "@react-navigation/native";
 import NoConnection from "./../components/common/noConnection";
@@ -73,15 +74,16 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   const data = useQueries({
     queries: navOptions
       ? navOptions?.map((x: any) => ({
-          queryKey: ["HomePage", x.id],
-          queryFn: () => fetchData(x.id),
-        }))
+        queryKey: ["HomePage", x.id],
+        queryFn: () => fetchData(x.id),
+      }))
       : [],
   });
 
   const checkConnection = async () => {
     const state = await NetInfo.fetch();
-    const offline = !(state.isConnected && state.isInternetReachable);
+    // state.isInternetReachable === null set true is for default value
+    const offline = !(state.isConnected && ((state.isInternetReachable === true || state.isInternetReachable === null) ? true : false));
     setIsOffline(offline);
     if (!offline) {
       handleRefresh(navId);
@@ -94,7 +96,8 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   useEffect(() => {
     const removeNetInfoSubscription = NetInfo.addEventListener(
       (state: NetInfoState) => {
-        const offline = !(state.isConnected && state.isInternetReachable);
+        // state.isInternetReachable === null set true is for default value
+        const offline = !(state.isConnected && ((state.isInternetReachable === true || state.isInternetReachable === null) ? true : false));
         setIsOffline(offline);
       }
     );
@@ -176,14 +179,14 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
     []
   );
 
-  const {setNavbarHeight} = useContext(AdsBannerContext)
+  const { setNavbarHeight } = useContext(AdsBannerContext)
 
   useEffect(() => {
     setNavbarHeight(bottomTabHeight)
   }, [bottomTabHeight])
 
   useInterstitialAds();
-  
+
   return (
     <>
       <ScreenContainer
@@ -226,7 +229,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
                     <FastImage
                       style={{ height: 80, width: 80 }}
                       source={require("../../static/images/loading-spinner.gif")}
-                      resizeMode={FastImage.resizeMode.contain}
+                      resizeMode={"contain"}
                     />
                   }
                 </View>
@@ -249,7 +252,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
                       bottom: 50,
                       zIndex: -1,
                     }}
-                    resizeMode={FastImage.resizeMode.contain}
+                    resizeMode={"contain"}
                   />
                 </View>
               )}
