@@ -37,7 +37,8 @@ import Animated, {
   useAnimatedStyle,
 } from 'react-native-reanimated';
 import {FlatListProps} from 'react-native/Libraries/Lists/FlatList';
-import FastImage from 'react-native-fast-image';
+// import FastImage from 'react-native-fast-image';
+import FastImage from '../common/customFastImage';
 import {LiveTVStationItem} from '../../types/ajaxTypes';
 
 interface Props {
@@ -88,7 +89,7 @@ export default function VodLiveStationListVertical({
                 style={{flex: 1, borderRadius: 10}}
                 source={{
                   uri: item.live_station_img_url.charAt(0) == '/' ? 'https://yingshi.tv' + item.live_station_img_url : item.live_station_img_url,
-                  priority: FastImage.priority.normal,
+                  priority: 'normal',
                 }}
               />
             </TouchableOpacity>

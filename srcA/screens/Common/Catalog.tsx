@@ -40,7 +40,8 @@ import Animated, {
   useAnimatedStyle,
 } from 'react-native-reanimated';
 import {FlatListProps} from 'react-native/Libraries/Lists/FlatList';
-import FastImage from 'react-native-fast-image';
+// import FastImage from 'react-native-fast-image';
+import FastImage from '../../components/common/customFastImage';
 import appsFlyer from 'react-native-appsflyer';
 import EmptyList from '../../components/common/emptyList';
 import {Colors} from 'react-native/Libraries/NewAppScreen';

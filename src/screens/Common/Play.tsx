@@ -40,7 +40,8 @@ import QQIcon from "../../../static/images/qq.svg";
 import PYQIcon from "../../../static/images/pyq.svg";
 import MoreArrow from "../../../static/images/more_arrow.svg";
 import VodEpisodeSelectionModal from "../../components/modal/vodEpisodeSelectionModal";
-import FastImage from "react-native-fast-image";
+// import FastImage from "react-native-fast-image";
+import FastImage from "../../components/common/customFastImage";
 import {
   API_DOMAIN,
   API_DOMAIN_TEST,
