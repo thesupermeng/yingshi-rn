@@ -1,42 +1,36 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, TextInput, Platform, Alert} from 'react-native';
-import ScreenContainer from '../../components/container/screenContainer';
-import {RootStackScreenProps} from '../../types/navigationTypes';
-import {useTheme} from '@react-navigation/native';
-import {RootState} from '../../redux/store';
+import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet, TextInput, Platform } from "react-native";
+import ScreenContainer from "../../components/container/screenContainer";
+import { RootStackScreenProps } from "../../types/navigationTypes";
+import { useTheme } from "@react-navigation/native";
+import { RootState } from "../../redux/store";
 // import NetInfo from '@react-native-community/netinfo';
-import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
-import {Button, Dialog} from '@rneui/themed';
-import {TouchableOpacity} from '@gorhom/bottom-sheet';
-import FeedbackSuccessIcon from '../../../static/images/feedback_success.svg';
-import axios from 'axios';
-import {SubmitFeedbackRequest} from '../../../src/types/ajaxTypes';
-import {Keyboard} from 'react-native';
+import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
+import { Button, Dialog } from "@rneui/themed";
+import { TouchableOpacity } from "@gorhom/bottom-sheet";
+import FeedbackSuccessIcon from "../../../static/images/feedback_success.svg";
+import axios from "axios";
+import { SubmitFeedbackRequest } from "../../../src/types/ajaxTypes";
+import { Keyboard } from "react-native";
 import {
   API_DOMAIN,
   API_DOMAIN_TEST,
   API_DOMAIN_LOCAL,
   UMENG_CHANNEL,
-  YING_SHI_TV_ANDROID,
-  YING_SHI_TV_IOS,
-} from '../../../src/utility/constants';
-import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
-import {userModel} from '../../types/userType';
-import {useAppSelector} from '../../hooks/hooks';
+  YING_SHI_PRODUCT_IOS,
+  YING_SHI_PRODUCT_ANDROID,
+} from "../../../src/utility/constants";
+import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 
-export default ({navigation}: RootStackScreenProps<'反馈'>) => {
-  const {colors, textVariants, icons} = useTheme();
-  const [text, setTextInput] = React.useState('');
+export default ({ navigation }: RootStackScreenProps<"反馈">) => {
+  const { colors, textVariants, icons } = useTheme();
+  const [text, setTextInput] = React.useState("");
   const [feedbackCategory, setFeedbackCategory] = React.useState(0);
-  const [email, setEmail] = React.useState('');
-  const [dialogText, setDialogText] = React.useState('反馈提交成功');
+  const [email, setEmail] = React.useState("");
+  const [dialogText, setDialogText] = React.useState("反馈提交成功");
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
 
   const [platformId, setPlatformId] = React.useState(0);
-
-  const userState: userModel = useAppSelector(
-    ({userReducer}: RootState) => userReducer,
-  );
 
   const [isOffline, setIsOffline] = useState(false);
   useEffect(() => {
@@ -44,13 +38,13 @@ export default ({navigation}: RootStackScreenProps<'反馈'>) => {
       (state: NetInfoState) => {
         const offline = !(state.isConnected && state.isInternetReachable);
         setIsOffline(offline);
-      },
+      }
     );
 
-    if(Platform.OS === 'ios'){
-      setPlatformId(YING_SHI_TV_IOS);
+    if (Platform.OS === "ios") {
+      setPlatformId(YING_SHI_PRODUCT_IOS);
     } else {
-      setPlatformId(YING_SHI_TV_ANDROID);
+      setPlatformId(YING_SHI_PRODUCT_ANDROID);
     }
 
     return () => removeNetInfoSubscription();
@@ -58,17 +52,17 @@ export default ({navigation}: RootStackScreenProps<'反馈'>) => {
 
   const submitFeedback = async (data: SubmitFeedbackRequest) => {
     if (!isOffline) {
-      const {data: response} = await axios.post(
+      const { data: response } = await axios.post(
         `${API_DOMAIN}feedback/v1/submit`,
-        data,
+        data
       );
-      setDialogText('反馈提交成功');
+      setDialogText("反馈提交成功");
       Keyboard.dismiss();
       setIsDialogOpen(true);
 
       return response.data;
     } else {
-      setDialogText('无法检测网络， 请稍后再试');
+      setDialogText("无法检测网络， 请稍后再试");
       Keyboard.dismiss();
       setIsDialogOpen(true);
     }
@@ -76,27 +70,11 @@ export default ({navigation}: RootStackScreenProps<'反馈'>) => {
 
   function sendFeedbackHandler() {
     const body: SubmitFeedbackRequest = {
-      email: userState.userEmail,
+      email: email,
+      feedback_category: feedbackCategory,
       feedback: text,
       platform_id: platformId,
     };
-
-    if (text == '') {
-      Alert.alert(
-        '',
-        '请输入反馈。',
-        [
-          {
-            text: 'OK',
-            onPress: () => {
-              // Handle the OK button press (if needed)
-            },
-          },
-        ],
-        {cancelable: false}, // Prevent dismissing the alert by tapping outside
-      );
-      return;
-    }
 
     submitFeedback(body);
   }
@@ -104,8 +82,8 @@ export default ({navigation}: RootStackScreenProps<'反馈'>) => {
   return (
     <ScreenContainer>
       <TitleWithBackButtonHeader title="我要反馈" />
-      <View style={{marginTop: 30, marginBottom: 20}}>
-        <Text style={{...textVariants.header, marginBottom: 20}}>
+      <View style={{ marginTop: 30, marginBottom: 20 }}>
+        <Text style={{ ...textVariants.header, marginBottom: 20 }}>
           问题反馈:
         </Text>
         <TextInput
@@ -128,20 +106,23 @@ export default ({navigation}: RootStackScreenProps<'反馈'>) => {
       </View>
       <TouchableOpacity
         onPress={() => {
-          setTextInput('');
+          setTextInput("");
           sendFeedbackHandler();
-        }}>
+        }}
+      >
         <View
           style={{
             ...styles.submitBtn,
             backgroundColor: text ? colors.primary : colors.card2,
-          }}>
+          }}
+        >
           <Text
             style={{
               ...textVariants.body,
-              fontWeight: '600',
+              fontWeight: "600",
               color: text ? colors.background : colors.muted,
-            }}>
+            }}
+          >
             提交
           </Text>
         </View>
@@ -149,11 +130,12 @@ export default ({navigation}: RootStackScreenProps<'反馈'>) => {
       <Dialog
         isVisible={isDialogOpen}
         overlayStyle={{
-          backgroundColor: 'rgba(34, 34, 34, 1)',
+          backgroundColor: "rgba(34, 34, 34, 1)",
           ...styles.overlay,
         }}
-        backdropStyle={{backgroundColor: 'rgba(0, 0, 0, 0.8)'}}
-        onBackdropPress={() => setIsDialogOpen(false)}>
+        backdropStyle={{ backgroundColor: "rgba(0, 0, 0, 0.8)" }}
+        onBackdropPress={() => setIsDialogOpen(false)}
+      >
         {!isOffline && <FeedbackSuccessIcon />}
 
         <Text style={textVariants.bigHeader}>{dialogText}</Text>
@@ -167,11 +149,11 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingLeft: 10,
     paddingRight: 10,
-    display: 'flex',
-    flexDirection: 'row',
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    display: "flex",
+    flexDirection: "row",
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   input: {
     // borderBottomWidth: 1,
@@ -184,18 +166,18 @@ const styles = StyleSheet.create({
   },
   submitBtn: {
     borderRadius: 10,
-    display: 'flex',
-    flexDirection: 'row',
+    display: "flex",
+    flexDirection: "row",
     flexGrow: 1,
     padding: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   overlay: {
     borderRadius: 14,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
     padding: 20,
   },
 });
