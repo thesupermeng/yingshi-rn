@@ -27,6 +27,7 @@ interface Props {
 }
 type LiveStationType = {
   item: LiveTVStationItem;
+  index: number; 
 };
 
 export default function VodLiveStationList(
@@ -57,7 +58,7 @@ export default function VodLiveStationList(
     }
   }, [isRefreshing]);
 
-  const renderTvStations = useCallback(({item}: LiveStationType) => {
+  const renderTvStations = useCallback(({item, index}: LiveStationType) => {
     if(item.live_station_img_url.charAt(0) == '/'){
       item.live_station_img_url = 'https://yingshi.tv' + item.live_station_img_url;
     }
@@ -77,6 +78,7 @@ export default function VodLiveStationList(
             liveStationItem: item,
           });
         }}
+        index={index}
       />
     );
   }, []);

@@ -159,6 +159,7 @@ const RecommendationHome = ({
               priority: "normal",
             }}
             resizeMode={"contain"}
+            useFastImage={true}
           />
           <LinearGradient
             colors={["transparent", "black"]}

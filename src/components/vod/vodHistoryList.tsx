@@ -55,7 +55,7 @@ export default function VodHistoryList({
       data={vodList}
       horizontal
       showsHorizontalScrollIndicator={false}
-      renderItem={({item}: FlatListType) => {
+      renderItem={({item, index}: FlatListType) => {
         return (
           <VodCard
             showPlayIcon={true}
@@ -74,6 +74,7 @@ export default function VodHistoryList({
               dispatch(playVod(item));
               navigation.navigate('播放', {vod_id: item.vod_id});
             }}
+            index={index}
           />
         );
       }}
