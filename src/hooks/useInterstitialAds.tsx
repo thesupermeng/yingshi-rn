@@ -68,23 +68,23 @@ const useInterstitialAds = () =>{
     }
   }
 
-  const renderInterstitial = (route: string) =>{
-    if (route === '首页'){
-      if (adsReadyFlag){
-        showInterstitial(Platform.OS === 'android' ? ANDROID_HOME_PAGE_POP_UP_ADS : IOS_HOME_PAGE_POP_UP_ADS)
+  const renderInterstitial = (route: string) =>{ 
+    if (Number(userState.userMemberExpired) <= Number(userState.userCurrentTimestamp) || userState.userToken === ""){
+      // check is moved here to prevent user from seeing ads after subscribing to vip (same session)
+      // if not member, only run 
+      if (route === '首页'){
+        if (adsReadyFlag){
+          showInterstitial(Platform.OS === 'android' ? ANDROID_HOME_PAGE_POP_UP_ADS : IOS_HOME_PAGE_POP_UP_ADS)
+        }
+        else {
+          prepareInterstitial(Platform.OS === 'android' ? ANDROID_HOME_PAGE_POP_UP_ADS : IOS_HOME_PAGE_POP_UP_ADS)
+        } 
       }
-      else {
-        prepareInterstitial(Platform.OS === 'android' ? ANDROID_HOME_PAGE_POP_UP_ADS : IOS_HOME_PAGE_POP_UP_ADS)
-      } 
-    }
+  }
   }
 
   useEffect(() => {
-    if (Number(userState.userMemberExpired) <= Number(userState.userCurrentTimestamp) || userState.userToken === ""){
-      // not member, then render
       renderInterstitial(currentRoute ?? '');
-    }
-    
   }, [adsReadyFlag, currentRoute])
 
   useEffect(() => {
