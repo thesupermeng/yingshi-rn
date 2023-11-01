@@ -227,12 +227,17 @@ public class SplashAdShowActivity extends Activity implements ATSplashExListener
     public void onAdLoadTimeout() {
         Log.i(TAG, "onAdLoadTimeout---------");
         Toast.makeText(getApplicationContext(), "onAdLoadTimeout", Toast.LENGTH_SHORT).show();
+        delayRedirectToMainActivity(3000);
     }
 
 
     @Override
     public void onNoAdError(AdError adError) {
         Log.i(TAG, "onNoAdError---------:" + adError.getFullErrorInfo());
+        delayRedirectToMainActivity(3000);
+    }
+
+    public void delayRedirectToMainActivity(int ms) {
         Timer timer = new Timer();
         // artificial timer to prevent black screen when loading main activity
         timer.schedule(new TimerTask() {
@@ -241,7 +246,7 @@ public class SplashAdShowActivity extends Activity implements ATSplashExListener
                 Log.d(TAG, "waited 4 secs, jumptomainactivity");
                 jumpToMainActivity();
             }
-        }, 4000);
+        }, ms);
     }
 
     @Override
