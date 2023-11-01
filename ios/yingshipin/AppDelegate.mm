@@ -87,7 +87,7 @@ UIView *rootView;
   [[ATAPI sharedInstance] startWithAppID:@"a650a6ca02b6a6" appKey:@"a1d5a4e8e7e2bb06880eb2cda108716ed" sdkConfigures:configuration error:nil];
   [[ATAPI sharedInstance] setPresetPlacementConfigPathBundle:[NSBundle mainBundle]];
   
-  if([showAds isEqualToString:@"true"]){
+    if([showAds isEqualToString:@"true"]){
     self.launchOptions = launchOptions;
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
@@ -95,9 +95,12 @@ UIView *rootView;
     splashViewController.delegate = self;
     self.window.rootViewController = splashViewController;
     [self.window makeKeyAndVisible];
-  }
+  }else{
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
 
-  // TODO: Add new page in ELSE for logo-only splashscreen
+    [self nativeViewControllerDidFinish];
+    [self.window makeKeyAndVisible];
+  }
   
 //  [AppCenterReactNative register];
 //  [AppCenterReactNativeAnalytics registerWithInitiallyEnabled:true];
