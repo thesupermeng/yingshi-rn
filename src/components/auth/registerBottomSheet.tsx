@@ -1,17 +1,13 @@
-import React, {
-  useState,
-  memo,
-} from 'react';
-import {
-  Keyboard,
-} from 'react-native';
-import {useAppDispatch} from '../../hooks/hooks';
+import React, { useState, memo, useEffect } from "react";
+import { Keyboard } from "react-native";
+import { useAppDispatch } from "../../hooks/hooks";
 import {
   resetBottomSheetForm,
   showLoginAction,
-} from '../../redux/actions/screenAction';
-import {Register} from '../profile/register';
-import BottomSheet from '../bottomSheet/bottomSheet';
+} from "../../redux/actions/screenAction";
+import { Register } from "../profile/register";
+import BottomSheet from "../bottomSheet/bottomSheet";
+import DeviceInfo from "react-native-device-info";
 
 interface Props {
   isVisible?: boolean;
@@ -19,26 +15,57 @@ interface Props {
   displayMode?: string;
 }
 
-function RegisterBottomSheet({isVisible = false, handleClose, displayMode}: Props) {
+function RegisterBottomSheet({
+  isVisible = false,
+  handleClose,
+  displayMode,
+}: Props) {
   const dispatch = useAppDispatch();
 
   //child state
-  const [email, setEmail] = useState('');
-  const [referralCode, setReferralCode] = useState('');
+  const [email, setEmail] = useState("");
+  const [referralCode, setReferralCode] = useState("");
+  const deviceBrand = DeviceInfo.getBrand();
+  const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+  const [endCoordinates, setEndCoordinates] = useState(0);
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      (e) => {
+        setEndCoordinates(e.endCoordinates.height);
+        setKeyboardVisible(true); // or some other action
+      }
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      () => {
+        setEndCoordinates(0);
+        setKeyboardVisible(false); // or some other action
+      }
+    );
+    return () => {
+      keyboardDidHideListener.remove();
+      keyboardDidShowListener.remove();
+    };
+  }, []);
+  useEffect(() => {
+    console.log(endCoordinates);
+  }, [endCoordinates]);
 
   return (
     <BottomSheet
       isVisible={isVisible}
       containerStyle={{
-        paddingBottom: 50,
+        paddingBottom: deviceBrand == "HUAWEI" && isKeyboardVisible ? 300 : 50,
       }}
       onBackdropPress={() => {
-        if(handleClose) handleClose();
+        if (handleClose) handleClose();
 
         dispatch(resetBottomSheetForm());
         Keyboard.dismiss();
-        setReferralCode('');
-        setEmail('');
+        setReferralCode("");
+        setEmail("");
       }}
     >
       <Register
