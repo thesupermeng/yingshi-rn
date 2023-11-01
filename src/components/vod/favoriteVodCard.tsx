@@ -12,6 +12,7 @@ interface Props {
   btnStyle?: typeof StyleSheet;
   hideFavoriteButton?: boolean;
   initialFavoriteState?: boolean;
+  index: number;
 }
 export default function FavoriteVodCard({
   vod,
@@ -19,6 +20,7 @@ export default function FavoriteVodCard({
   btnStyle,
   hideFavoriteButton = false,
   initialFavoriteState = false,
+  index, 
   ...params
 }: Props) {
   const {colors, spacing, textVariants} = useTheme();
@@ -29,6 +31,7 @@ export default function FavoriteVodCard({
         vodStyle={styles.image}
         onPress={onPress}
         showInfo={vod.vod_remarks}
+        index={index}
       />
       <TouchableOpacity
         activeOpacity={1}

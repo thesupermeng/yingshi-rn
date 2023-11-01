@@ -13,6 +13,7 @@ interface Props {
 
 type FlatListType = {
   item: VodType;
+  index: number; 
 };
 
 export default ({vodList}: Props) => {
@@ -21,7 +22,7 @@ export default ({vodList}: Props) => {
   const {spacing, textVariants, colors} = useTheme();
 
   const renderItem = useCallback( // optimisation as per documentation
-    ({item}: FlatListType) => (
+    ({item, index}: FlatListType) => (
       <FavoriteVodCard
         hideFavoriteButton={true}
         vod={item}
@@ -29,6 +30,7 @@ export default ({vodList}: Props) => {
           dispatch(playVod(item));
           navigation.navigate('播放', {vod_id: item.vod_id});
         }}
+        index={index}
       />
     ), []
   )
