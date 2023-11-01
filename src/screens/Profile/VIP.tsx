@@ -75,6 +75,8 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const [refreshing, setRefreshing] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isBtnEnable, setIsBtnEnable] = useState(true);
+  const [currentTransID, setCurrentTransID] = useState('');
   const dispatch = useAppDispatch();
 
   const handleRefresh = async () => {
@@ -106,22 +108,22 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     }
   };
 
-  const handleGetPurchaseHistory = async () => {
-    try {
-      await getProducts({ skus: subscriptionSkus });
-      console.log("purchase successfullllll");
-    } catch (error) {
-      console.error("get purchase history: " + error);
-    }
-  };
+  // const handleGetPurchaseHistory = async () => {
+  //   try {
+  //     await getProducts({ skus: subscriptionSkus });
+  //     console.log("purchase successfullllll");
+  //   } catch (error) {
+  //     console.error("get purchase history: " + error);
+  //   }
+  // };
 
-  useEffect(() => {
-    handleGetPurchaseHistory();
-  }, [connected]);
+  // useEffect(() => {
+  //   handleGetPurchaseHistory();
+  // }, [connected]);
 
-  useEffect(() => {
-    console.log(JSON.stringify(products));
-  }, [products]);
+  // useEffect(() => {
+  //   console.log(JSON.stringify(products));
+  // }, [products]);
 
   const fetchData = async () => {
     const response = await axios.get(
@@ -164,26 +166,34 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   }, [membershipProducts]);
 
   const handlePurchase = async () => {
-    try {
-      if (paymentSelected === "Apple Pay") {
-        console.log("apple pay payment");
-        console.log(initConnectionError);
-        await getProducts({ skus: [membershipSelected.productSKU] });
-        await requestPurchase({ sku: membershipSelected.productSKU });
-      } else {
-        console.log("others payment method");
+    const continueTrans = await initialTransRecord();
+    setIsBtnEnable(false);
+    setCurrentTransID(continueTrans.data);
+    if (continueTrans.data >= 1) {
+      try {
+        if (paymentSelected === "Apple Pay") {
+          console.log("apple pay payment");
+          console.log(initConnectionError);
+          await getProducts({ skus: [membershipSelected.productSKU] });
+          await requestPurchase({ sku: membershipSelected.productSKU });
+        } else {
+          console.log("others payment method");
+        }
+      } catch (error) {
+        if (error instanceof PurchaseError) {
+          console.error("purchasing error: " + error);
+        } else {
+          console.error("handle purchase error: " + error);
+        }
+        saveFinishTrans('2', continueTrans.data, error);
+        setIsDialogOpen(true);
       }
-    } catch (e) {
-      if (e instanceof PurchaseError) {
-        console.error("purchasing error: " + e);
-      } else {
-        console.error("handle purchase error: " + e);
-      }
+    } else {
       setIsDialogOpen(true);
     }
   };
 
-  const saveTransRecord = async () => {
+  const initialTransRecord = async () => {
     const json = {
       user_id: userState.userId,
       product_id: membershipSelected.productId,
@@ -192,22 +202,36 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
       subscription_days: membershipSelected.subscriptionDays,
       transaction_type: "SUBSCRIBE_VIP",
       payment_channel: paymentSelected.toUpperCase(),
-      channel_transaction_id: currentPurchase?.transactionId,
-      transaction_receipt: currentPurchase?.transactionReceipt,
       platform: APP_NAME_CONST + "-" + Platform.OS.toUpperCase(),
     };
     console.log("passsing to db", json);
     const result = await axios.post(
-      "https://testapi.yingshi.tv/payment/v1/transaction",
+      `${API_DOMAIN}payment/v1/transaction`,
       json
     );
     console.log("transaction result");
-    console.log(result);
+    console.log(result.data);
+    return result.data;
+  };
+
+  const saveFinishTrans = async (transStatus: string, transID: string, error: any) => {
+    const trans = {
+      transaction_id: parseInt(transID),
+      channel_transaction_id: currentPurchase?.transactionId,
+      transaction_receipt: currentPurchase ? currentPurchase.transactionReceipt: error.toString(),
+      transaction_status: parseInt(transStatus)
+    };
+    console.log('complete trans: ', trans);
+    const result = await axios.post(
+      `${API_DOMAIN}payment/v1/completetransaction`,
+      trans
+    );
+    console.log("complete transaction result");
+    console.log(result.data);
   };
 
   useEffect(() => {
     const checkCurrentPurchase = async () => {
-      console.log("current purchase runnnnnnnn");
       if (currentPurchase) {
         console.log("-------Current Purchase------------");
         console.log(currentPurchase);
@@ -217,10 +241,10 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
             (isIosStorekit2() && currentPurchase.transactionId) ||
             currentPurchase.transactionReceipt
           ) {
-            saveTransRecord(); //save record to database
+            saveFinishTrans('1', currentTransID, ''); //save record to database
             await finishTransaction({
               purchase: currentPurchase,
-              isConsumable: false,
+              isConsumable: true,
             });
             setIsDialogOpen(true);
             setIsSuccess(true);
@@ -242,12 +266,6 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     setIsDialogOpen(false);
     handleRefresh();
   };
-
-  // useEffect(() => {
-  //   console.log('--------------------------')
-  //   console.log(availablePurchases);
-  //   console.log(purchaseHistory)
-  // }, [purchaseHistory, availablePurchases])
 
   return (
     <>
@@ -271,12 +289,12 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                     margin: 10,
                     alignItems: "center",
                     borderRadius: 10,
-                    backgroundColor: paymentSelected
+                    backgroundColor: isBtnEnable
                       ? colors.primary
                       : colors.highlight,
                   }}
                   onPress={handlePurchase}
-                  disabled={paymentSelected ? false : true}
+                  disabled={isBtnEnable ? false : true}
                 >
                   <Text style={{ ...styles.btnText }}>立即开通</Text>
                 </TouchableOpacity>
@@ -383,9 +401,6 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
           >
             <VipCard
               userState={userState}
-              // membershipProduct={products.sort((item1, item2) =>
-              //   +item1.price - +item2.price
-              // )}
               membershipProduct={membershipProducts}
               selectedMembership={membershipSelected}
               onMembershipSelect={setSelectedMembership}
