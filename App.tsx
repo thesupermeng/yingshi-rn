@@ -313,78 +313,10 @@ let App = () => {
   }
 
   function initAdListener() {
-    initBannerAdListener();
     initInterstitialAdListener();
   }
 
-  const initBannerAdListener = () => {
-    ATBannerRNSDK.setAdListener(ATBannerRNSDK.onBannerLoaded, (event) => {
-      console.log("ATBannerLoaded: " + event.placementId);
-    });
-
-    let latestMsg = "";
-    ATBannerRNSDK.setAdListener(ATBannerRNSDK.onBannerFail, (event) => {
-      if (latestMsg != event.errorMsg) {
-        latestMsg = event.errorMsg;
-        console.warn(
-          "ATBannerLoadFail: " +
-            event.placementId +
-            ", errorMsg: " +
-            event.errorMsg
-        );
-      }
-    });
-
-    ATBannerRNSDK.setAdListener(ATBannerRNSDK.onBannerShow, (event) => {
-      console.log(
-        "ATBannerShow: " +
-          event.placementId +
-          ", adCallbackInfo: " +
-          event.adCallbackInfo
-      );
-    });
-
-    ATBannerRNSDK.setAdListener(
-      ATBannerRNSDK.onBannerCloseButtonTapped,
-      (event) => {
-        console.log(
-          "ATBannerCloseButtonTapped: " +
-            event.placementId +
-            ", adCallbackInfo: " +
-            event.adCallbackInfo
-        );
-      }
-    );
-
-    ATBannerRNSDK.setAdListener(ATBannerRNSDK.onBannerClick, (event) => {
-      console.log(
-        "ATBannerClick: " +
-          event.placementId +
-          ", adCallbackInfo: " +
-          event.adCallbackInfo
-      );
-    });
-
-    ATBannerRNSDK.setAdListener(ATBannerRNSDK.onBannerRefresh, (event) => {
-      console.log(
-        "ATBannerRefresh: " +
-          event.placementId +
-          ", errorMsg: " +
-          event.errorMsg +
-          ", adCallbackInfo: " +
-          event.adCallbackInfo
-      );
-    });
-
-    ATBannerRNSDK.setAdListener(ATBannerRNSDK.onBannerRefreshFail, (event) => {
-      console.log(
-        "ATBannerRefreshFail: " +
-          event.placementId +
-          ", adCallbackInfo: " +
-          event.adCallbackInfo
-      );
-    });
-  };
+  
 
   const loadBanner = async (bannerPlacementId) => {
     // console.log("loadBanner ....");
