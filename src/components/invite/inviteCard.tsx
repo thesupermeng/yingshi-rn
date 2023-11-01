@@ -237,7 +237,7 @@ export default function InviteCard({ userState = {} }: Props) {
         style={{
           flexDirection: "column",
           backgroundColor: "#1a1d20",
-          margin: 10,
+          // margin: 10,
           borderRadius: 15,
           overflow: "hidden", // Add this line to clip the FastImage
         }}
