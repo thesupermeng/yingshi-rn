@@ -112,7 +112,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
       timeDifferenceMilliseconds / (1000 * 60 * 60 * 24);
     const roundedTimeDifferenceDays = Math.ceil(timeDifferenceDays);
     const result =
-      roundedTimeDifferenceDays < 0 ? 0 : roundedTimeDifferenceDays;
+      roundedTimeDifferenceDays <= 0 ? 0 : roundedTimeDifferenceDays;
     setVipRemainingDay(result);
   }, [userState.userCurrentTimestamp]);
 

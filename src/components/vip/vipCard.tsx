@@ -52,7 +52,7 @@ export const VipCard = ({
 
     // If the rounded difference is less than 0, set it to 0; otherwise, keep the rounded difference
     const result =
-      roundedTimeDifferenceDays < 0 ? 0 : roundedTimeDifferenceDays;
+      roundedTimeDifferenceDays <= 0 ? 0 : roundedTimeDifferenceDays;
 
     setVipRemainingDay(result);
   }, [userState.userCurrentTimestamp]);
