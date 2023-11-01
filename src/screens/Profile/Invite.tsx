@@ -71,7 +71,7 @@ export default ({ navigation }: RootStackScreenProps<"邀请">) => {
         }
       >
         {/* <TitleWithBackButtonHeader title="邀请好友奖励" /> */}
-        <View style={{ paddingHorizontal: 10 }}>
+        <View style={{ paddingHorizontal: 0 }}>
           {/* top component  */}
           <InviteHeader />
           {/* content card component  */}
