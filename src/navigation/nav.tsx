@@ -287,7 +287,7 @@ export default () => {
     // Round up the time difference to the nearest whole number
     const roundedTimeDifferenceDays = Math.ceil(timeDifferenceDays);
     const result =
-      roundedTimeDifferenceDays < 0 ? 0 : roundedTimeDifferenceDays;
+      roundedTimeDifferenceDays <= 0 ? 0 : roundedTimeDifferenceDays;
     setVipRemainingDay(result);
     if (
       result <= 3 &&
