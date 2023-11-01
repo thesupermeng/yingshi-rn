@@ -98,10 +98,12 @@ UIView *rootView;
     splashViewController.delegate = self;
     self.window.rootViewController = splashViewController;
     [self.window makeKeyAndVisible];
+  }else{
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+
+    [self nativeViewControllerDidFinish];
+    [self.window makeKeyAndVisible];
   }
-
-  // TODO: Add new page in ELSE for logo-only splashscreen
-
   
 //  [AppCenterReactNative register];
 //  [AppCenterReactNativeAnalytics registerWithInitiallyEnabled:true];
