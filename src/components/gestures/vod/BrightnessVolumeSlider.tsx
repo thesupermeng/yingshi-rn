@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react';
-import {View, StyleSheet, Image, Text} from 'react-native';
+import React, { useEffect } from 'react';
+import { View, StyleSheet, Image, Text } from 'react-native';
 import Moon from '../../../../static/images/Moon.svg';
 import Sun from '../../../../static/images/Sun.svg';
 import MutedVolume from '../../../../static/images/MutedVolume.svg';
@@ -10,7 +10,7 @@ type Props = {
   icon: any;
 };
 
-export default ({percent, icon}: Props) => {
+export default ({ percent, icon }: Props) => {
   return (
     <View style={styles.smallContainer}>
       {icon == 'Moon' && <Moon width={24} height={24} style={styles.icon} />}
@@ -38,7 +38,7 @@ export default ({percent, icon}: Props) => {
 
 const styles = StyleSheet.create({
   smallContainer: {
-    width: '50%',
+    width: '60%',
     height: 32,
     borderRadius: 10,
     backgroundColor: 'rgba(0, 0, 0, 0.6)',
