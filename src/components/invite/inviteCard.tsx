@@ -23,8 +23,7 @@ import ProfileIcn from "../../../static/images/invite/profile-icon.svg";
 
 import { TouchableOpacity } from "@gorhom/bottom-sheet";
 
-// import FastImage from "react-native-fast-image";
-import FastImage from "../common/customFastImage";
+import FastImage from "react-native-fast-image";
 import LinearGradient from "react-native-linear-gradient";
 import { userModel } from "../../types/userType";
 import { useAppDispatch } from "../../hooks/hooks";
@@ -268,7 +267,7 @@ export default function InviteCard({ userState = {} }: Props) {
               height: 180,
               width: 240,
             }}
-            resizeMode={"contain"}
+            resizeMode={FastImage.resizeMode.contain}
           />
 
           {/* <CrownIcon /> */}
@@ -287,15 +286,28 @@ export default function InviteCard({ userState = {} }: Props) {
             borderTopLeftRadius: 15,
             borderTopRightRadius: 15,
             flexDirection: "row", // Set flexDirection to 'row'
-            flexWrap: "wrap", // Allow items to wrap to the next row
+            justifyContent: "space-evenly",
+            // flexWrap: 'wrap', // Allow items to wrap to the next row
           }}
         >
           <View style={styles.featureItem}>
             <View style={styles.imgContainer}>
               <FastImage
+                source={require("../../../static/images/vip/vip_logo.png")}
+                style={styles.featureIcn}
+                resizeMode={FastImage.resizeMode.contain}
+              />
+            </View>
+            <View>
+              <Text style={styles.featureTitle}>VIP尊贵标识</Text>
+            </View>
+          </View>
+          <View style={styles.featureItem}>
+            <View style={styles.imgContainer}>
+              <FastImage
                 source={require("../../../static/images/invite/sport.png")}
                 style={styles.featureIcn}
-                resizeMode={"contain"}
+                resizeMode={FastImage.resizeMode.contain}
               />
             </View>
             <Text style={styles.featureTitle}>体育频道</Text>
@@ -306,40 +318,11 @@ export default function InviteCard({ userState = {} }: Props) {
               <FastImage
                 source={require("../../../static/images/invite/ads.png")}
                 style={styles.featureIcn}
-                resizeMode={"contain"}
+                resizeMode={FastImage.resizeMode.contain}
               />
             </View>
             <View>
               <Text style={styles.featureTitle}>去广告</Text>
-              <Text style={styles.featureTitle2}>(敬请期待)</Text>
-            </View>
-          </View>
-
-          <View style={styles.featureItem}>
-            <View style={styles.imgContainer}>
-              <FastImage
-                source={require("../../../static/images/invite/download.png")}
-                style={styles.featureIcn}
-                resizeMode={"contain"}
-              />
-            </View>
-            <View>
-              <Text style={styles.featureTitle}>视频下载</Text>
-              <Text style={styles.featureTitle2}>(敬请期待)</Text>
-            </View>
-          </View>
-
-          <View style={styles.featureItem}>
-            <View style={styles.imgContainer}>
-              <FastImage
-                source={require("../../../static/images/invite/cast.png")}
-                style={styles.featureIcn}
-                resizeMode={"contain"}
-              />
-            </View>
-            <View>
-              <Text style={styles.featureTitle}>投屏</Text>
-              <Text style={styles.featureTitle2}>(敬请期待)</Text>
             </View>
           </View>
         </LinearGradient>
@@ -406,7 +389,7 @@ export default function InviteCard({ userState = {} }: Props) {
                 height: 40,
                 width: 40,
               }}
-              resizeMode={"contain"}
+              resizeMode={FastImage.resizeMode.contain}
             />
           </TouchableOpacity>
 
@@ -503,7 +486,6 @@ const styles = StyleSheet.create({
   featureItem: {
     justifyContent: "flex-start",
     alignItems: "center",
-    flexDirection: "row",
     gap: 8,
     width: "47%", // 50% width for 2 items per row
     marginBottom: 15, // Add margin to create spacing between rows
@@ -512,7 +494,6 @@ const styles = StyleSheet.create({
   },
 
   featureTitle: { fontSize: 14, color: "#ffffff", fontWeight: "400" },
-  featureTitle2: { fontSize: 10, color: "#ffffff", fontWeight: "400" },
   imgContainer: {
     backgroundColor: "#3b3e40",
     width: 34,
