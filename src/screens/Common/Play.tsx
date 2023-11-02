@@ -75,10 +75,11 @@ const definedValue = (val: any) => {
 };
 
 export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
-  const { setRoute: setAdsRoute } = useContext(AdsBannerContext)
-  useFocusEffect(() => { // for banner ads
-    setAdsRoute(route.name)
-  })
+  const { setRoute: setAdsRoute } = useContext(AdsBannerContext);
+  useFocusEffect(() => {
+    // for banner ads
+    setAdsRoute(route.name);
+  });
 
   const { colors, spacing, textVariants, icons } = useTheme();
   const vodReducer: VodReducerState = useAppSelector(
@@ -145,10 +146,13 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const onShare = async () => {
     try {
       const result = await Share.share({
-        message: `《${vod?.vod_name
-          }》高清播放${"\n"}https://yingshi.tv/index.php/vod/play/id/${vod?.vod_id
-          }/sid/1/nid/${currentEpisode + 1
-          }.html${"\n"}${APP_NAME_CONST}-海量高清视频在线观看`,
+        message: `《${
+          vod?.vod_name
+        }》高清播放${"\n"}https://yingshi.tv/index.php/vod/play/id/${
+          vod?.vod_id
+        }/sid/1/nid/${
+          currentEpisode + 1
+        }.html${"\n"}${APP_NAME_CONST}-海量高清视频在线观看`,
       });
       if (result.action === Share.sharedAction) {
         if (result.activityType) {
@@ -206,27 +210,29 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   }, []);
 
   const localIp = YSConfig.instance.ip;
+
+  // to hide Vod Restricted function for this release
   const fetchVodDetails = () =>
     fetch(
       `${API_DOMAIN}vod/v1/vod/detail?id=${vod?.vod_id}&appName=${APP_NAME_CONST}&platform=` +
-      Platform.OS.toUpperCase() +
-      `&channelId=` +
-      UMENG_CHANNEL +
-      `&ip=${localIp}`
+        Platform.OS.toUpperCase() +
+        `&channelId=` +
+        UMENG_CHANNEL +
+        `&ip=${localIp}`
     )
       .then((response) => response.json())
       .then((json: VodDetailsResponseType) => {
+        // to hide Vod Restricted function for this release
         const isRestricted = json.data[0]?.vod_restricted === 1;
-
-        if (isRestricted) {
-          videoPlayerRef.current.setPause(true);
-          // use setTimeout to prevent video non pause before unmount the screen
-          setTimeout(() => {
-            setVodRestricted(isRestricted);
-          }, 100);
-        } else {
-          setVodRestricted(isRestricted);
-        }
+        // if (isRestricted) {
+        //   videoPlayerRef.current.setPause(true);
+        //   // use setTimeout to prevent video non pause before unmount the screen
+        //   setTimeout(() => {
+        //     setVodRestricted(isRestricted);
+        //   }, 100);
+        // } else {
+        //   setVodRestricted(isRestricted);
+        // }
 
         return json.data[0];
       });
@@ -243,18 +249,18 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
       // setVod(vod);
       dispatch(playVod(vod));
     }
-
+    // to hide Vod Restricted function for this release
     const isRestricted = vodDetails?.vod_restricted === 1;
 
-    if (isRestricted) {
-      videoPlayerRef.current.setPause(true);
-      // use setTimeout to prevent video non pause before unmount the screen
-      setTimeout(() => {
-        setVodRestricted(isRestricted);
-      }, 100);
-    } else {
-      setVodRestricted(isRestricted);
-    }
+    // if (isRestricted) {
+    //   videoPlayerRef.current.setPause(true);
+    //   use setTimeout to prevent video non pause before unmount the screen
+    //   setTimeout(() => {
+    //     setVodRestricted(isRestricted);
+    //   }, 100);
+    // } else {
+    //   setVodRestricted(isRestricted);
+    // }
   }, [vodDetails]);
 
   const fetchVod = () =>
@@ -416,7 +422,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
             appOrientation={settingsReducer.appOrientation}
             devicesOrientation={settingsReducer.devicesOrientation}
             lockOrientation={lockOrientation}
-          // setNavBarOptions={setNavBarOptions}
+            // setNavBarOptions={setNavBarOptions}
           />
         )}
         {isOffline && dismountPlayer && (
@@ -517,14 +523,15 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                     <Text
                       style={{ ...textVariants.subBody, color: colors.muted }}
                     >
-                      {`更新：${vod
-                        ? new Date(vod?.vod_time_add * 1000)
-                          .toLocaleDateString("en-GB")
-                          .replace(/\//g, "-")
-                        : new Date()
-                          .toLocaleDateString("en-GB")
-                          .replace(/\//g, "-")
-                        }`}
+                      {`更新：${
+                        vod
+                          ? new Date(vod?.vod_time_add * 1000)
+                              .toLocaleDateString("en-GB")
+                              .replace(/\//g, "-")
+                          : new Date()
+                              .toLocaleDateString("en-GB")
+                              .replace(/\//g, "-")
+                      }`}
                     </Text>
                     <TouchableOpacity onPress={onShare}>
                       <View style={{ ...styles.share, gap: 10 }}>
@@ -633,8 +640,9 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                                     color: colors.muted,
                                     fontSize: 15,
                                   }}
-                                >{`${showEpisodeRangeStart + 1
-                                  }-${showEpisodeRangeEnd}集`}</Text>
+                                >{`${
+                                  showEpisodeRangeStart + 1
+                                }-${showEpisodeRangeEnd}集`}</Text>
                                 <MoreArrow
                                   style={{ color: colors.muted }}
                                   height={icons.sizes.m}
@@ -646,7 +654,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                               horizontal={true}
                               showsHorizontalScrollIndicator={false}
                               initialNumToRender={10}
-                              onScrollToIndexFailed={() => { }}
+                              onScrollToIndexFailed={() => {}}
                               ref={episodeRef}
                               data={vod?.vod_play_list.urls?.slice(
                                 showEpisodeRangeStart,
