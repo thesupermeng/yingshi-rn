@@ -68,7 +68,7 @@ import {
   SafeAreaProvider,
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
-import { StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 import DeviceInfo from "react-native-device-info";
 import { useAppSelector, useAppDispatch } from "../hooks/hooks";
 import { QueryClient, useQuery } from "@tanstack/react-query";
@@ -529,7 +529,7 @@ export default () => {
         backdropStyle={{ backgroundColor: "rgba(0, 0, 0, 0.8)" }}
         onBackdropPress={() => setIsDialogOpen(false)}
       >
-        <FastImage
+        <Image
           key={gifKey}
           style={{
             height: 80,
@@ -540,7 +540,7 @@ export default () => {
             justifyContent: "center",
             alignItems: "center",
           }}
-          resizeMode={"contain"}
+          resizeMode="contain"
           source={require("../../static/images/profile/login-success.gif")}
         />
 
