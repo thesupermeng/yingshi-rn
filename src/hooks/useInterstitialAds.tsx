@@ -49,67 +49,101 @@ const useInterstitialAds = () => {
   const isInterstitialReady = async (interstitialPlacementId: PlacementId) => {
     const ready = await ATInterstitialRNSDK.hasAdReady(interstitialPlacementId);
     setAdsReadyFlag(ready);
-  };
-
-  const showInterstitial = async (interstitialPlacementId: PlacementId) => {
-    if (reTryLoad > 3 || isAdsShown == true) {
-      return;
-    }
-
-    if (adsReadyFlag) {
+    if (ready) {
       isAdsShown = true;
       ATInterstitialRNSDK.showAd(interstitialPlacementId);
     } else {
-      console.log("interstitial not ready bruh");
-      reTryLoad += 1;
-      loadInterstitial(interstitialPlacementId);
-      await new Promise((r) => setTimeout(r, 500));
+      setTimeout(() => {
+        showInterstitial(interstitialPlacementId);
+      }, 500);
+    }
+  };
+
+  const showInterstitial = async (interstitialPlacementId: PlacementId) => {
+    if (reTryLoad > 5 || isAdsShown == true) {
+      return;
+    }
+
+    loadInterstitial(interstitialPlacementId);
+    setTimeout(() => {
       isInterstitialReady(interstitialPlacementId);
-      await new Promise((r) => setTimeout(r, 200));
-      showInterstitial(interstitialPlacementId);
-    }
+    }, 500);
   };
 
-  const prepareInterstitial = async (interstitialPlacementId: PlacementId) => {
-    for (let i = 0; i < 1; i++) {
-      await isInterstitialReady(interstitialPlacementId);
-      console.log("try count", i);
-      if (i > 5 || adsReadyFlag) {
-        break;
-      }
-      await loadInterstitial(interstitialPlacementId);
-      await new Promise((r) => setTimeout(r, 1000));
-    }
-  };
+  // const prepareInterstitial = async (interstitialPlacementId: PlacementId) => {
+  //   for (let i = 0; i < 1; i++) {
+  //     await isInterstitialReady(interstitialPlacementId);
+  //     console.log("try count", i);
+  //     if (i > 20 || adsReadyFlag) {
+  //       break;
+  //     }
+  //     loadInterstitial(interstitialPlacementId);
+  //     await new Promise((r) => setTimeout(r, 500));
+  //   }
 
-  const renderInterstitial = (route: string) => {
-    if (route === "首页") {
-      if (adsReadyFlag) {
-        showInterstitial(
-          Platform.OS === "android"
-            ? ANDROID_HOME_PAGE_POP_UP_ADS
-            : IOS_HOME_PAGE_POP_UP_ADS
-        );
-      } else {
-        // prepareInterstitial(
-        //   Platform.OS === "android"
-        //     ? ANDROID_HOME_PAGE_POP_UP_ADS
-        //     : IOS_HOME_PAGE_POP_UP_ADS
-        // );
-      }
-    }
-  };
+  //   if (
+  //     Number(userState.userMemberExpired) <=
+  //       Number(userState.userCurrentTimestamp) ||
+  //     userState.userToken === ""
+  //   ) {
+  //     // not member, then render
+  //     isAdsShown = true;
+  //     renderInterstitial(currentRoute ?? "");
+  //   } else {
+  //     console.log("you are vip");
+  //     isAdsShown = true;
+  //     renderInterstitial(currentRoute ?? "");
+  //   }
+  // };
+
+  // const renderInterstitial = (route: string) => {
+  //   console.log("renderInterstitial");
+  //   if (route === "首页") {
+  //     if (adsReadyFlag) {
+  //       showInterstitial(
+  //         Platform.OS === "android"
+  //           ? ANDROID_HOME_PAGE_POP_UP_ADS
+  //           : IOS_HOME_PAGE_POP_UP_ADS
+  //       );
+  //     } else {
+  //       console.log("else");
+
+  //       // prepareInterstitial(
+  //       //   Platform.OS === "android"
+  //       //     ? ANDROID_HOME_PAGE_POP_UP_ADS
+  //       //     : IOS_HOME_PAGE_POP_UP_ADS
+  //       // );
+  //     }
+  //   }
+  // };
 
   useEffect(() => {
-    if (
-      Number(userState.userMemberExpired) <=
-        Number(userState.userCurrentTimestamp) ||
-      userState.userToken === ""
-    ) {
-      // not member, then render
-      renderInterstitial(currentRoute ?? "");
-    }
-  }, [adsReadyFlag, currentRoute]);
+    reTryLoad += 1;
+    loadInterstitial(
+      Platform.OS === "android"
+        ? ANDROID_HOME_PAGE_POP_UP_ADS
+        : IOS_HOME_PAGE_POP_UP_ADS
+    );
+
+    setTimeout(() => {
+      showInterstitial(
+        Platform.OS === "android"
+          ? ANDROID_HOME_PAGE_POP_UP_ADS
+          : IOS_HOME_PAGE_POP_UP_ADS
+      );
+    }, 400);
+
+    //   if (
+    //     Number(userState.userMemberExpired) <=
+    //       Number(userState.userCurrentTimestamp) ||
+    //     userState.userToken === ""
+    //   ) {
+    //     // not member, then render
+    //     renderInterstitial(currentRoute ?? "");
+    //   }
+
+    //}, [adsReadyFlag, currentRoute]);
+  }, []);
 
   // useEffect(() => {
   //   if (currentRoute){
