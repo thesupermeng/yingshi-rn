@@ -25,7 +25,6 @@ import { useAppSelector } from "../hooks/hooks";
 import { SettingsReducerState } from "../redux/reducers/settingsReducer";
 
 LogBox.ignoreAllLogs();
-
 interface Props {
   children: ReactNode;
 }
@@ -113,40 +112,40 @@ const initBannerAdListener = () => {
   });
 };
 
-const initBanner = () => { 
-// init banner
-const settings = {};
-const screenWidthInPixel =
-  Dimensions.get("screen").width * Dimensions.get("screen").scale;
-if (Platform.OS === "android") {
-  // @ts-ignore
-  settings[
-    ATBannerRNSDK.kATBannerAdLoadingExtraBannerAdSizeStruct
-  ] = ATBannerRNSDK.createLoadAdSize(
-    screenWidthInPixel,
-    (TOPON_BANNER_HEIGHT * Dimensions.get("screen").scale * 50) / 320
-  );
-  // load all ad first
-  ATBannerRNSDK.loadAd(ANDROID_HOME_PAGE_BANNER_ADS, settings);
-  ATBannerRNSDK.loadAd(ANDROID_PLAY_DETAILS_BANNER_ADS, settings);
-  ATBannerRNSDK.loadAd(ANDROID_TOPIC_DETAILS_BANNER_ADS, settings);
-  ATBannerRNSDK.loadAd(ANDROID_TOPIC_TAB_BANNER_ADS, settings);
-}
-if (Platform.OS === "ios") {
-  // @ts-ignore
-  settings[
-    ATBannerRNSDK.kATBannerAdLoadingExtraBannerAdSizeStruct
-  ] = ATBannerRNSDK.createLoadAdSize(
-    Dimensions.get("screen").width,
-    TOPON_BANNER_HEIGHT
-  );
+const initBanner = () => {
+  // init banner
+  const settings = {};
+  const screenWidthInPixel =
+    Dimensions.get("screen").width * Dimensions.get("screen").scale;
+  if (Platform.OS === "android") {
+    // @ts-ignore
+    settings[
+      ATBannerRNSDK.kATBannerAdLoadingExtraBannerAdSizeStruct
+    ] = ATBannerRNSDK.createLoadAdSize(
+      screenWidthInPixel,
+      (TOPON_BANNER_HEIGHT * Dimensions.get("screen").scale * 50) / 320
+    );
+    // load all ad first
+    ATBannerRNSDK.loadAd(ANDROID_HOME_PAGE_BANNER_ADS, settings);
+    ATBannerRNSDK.loadAd(ANDROID_PLAY_DETAILS_BANNER_ADS, settings);
+    ATBannerRNSDK.loadAd(ANDROID_TOPIC_DETAILS_BANNER_ADS, settings);
+    ATBannerRNSDK.loadAd(ANDROID_TOPIC_TAB_BANNER_ADS, settings);
+  }
+  if (Platform.OS === "ios") {
+    // @ts-ignore
+    settings[
+      ATBannerRNSDK.kATBannerAdLoadingExtraBannerAdSizeStruct
+    ] = ATBannerRNSDK.createLoadAdSize(
+      Dimensions.get("screen").width,
+      TOPON_BANNER_HEIGHT
+    );
 
-  ATBannerRNSDK.loadAd(IOS_HOME_PAGE_BANNER_ADS, settings);
-  ATBannerRNSDK.loadAd(IOS_PLAY_DETAILS_BANNER_ADS, settings);
-  ATBannerRNSDK.loadAd(IOS_TOPIC_DETAILS_BANNER_ADS, settings);
-  ATBannerRNSDK.loadAd(IOS_TOPIC_TAB_BANNER_ADS, settings);
-}
-}
+    ATBannerRNSDK.loadAd(IOS_HOME_PAGE_BANNER_ADS, settings);
+    ATBannerRNSDK.loadAd(IOS_PLAY_DETAILS_BANNER_ADS, settings);
+    ATBannerRNSDK.loadAd(IOS_TOPIC_DETAILS_BANNER_ADS, settings);
+    ATBannerRNSDK.loadAd(IOS_TOPIC_TAB_BANNER_ADS, settings);
+  }
+};
 
 const getBannerPlacementId = (routeName: string | null) => {
   if (routeName == "播放" || routeName == "电视台播放") {
@@ -227,15 +226,90 @@ const showBanner = (
   const bannerId = getBannerPlacementId(routeName);
 
   if (!routeName) return;
-
+  // console.log("showBanner");
+  // console.log("routeName");
+  // console.log(routeName);
+  console.log("bannerId");
+  console.log(bannerId);
   // console.debug(x, y, width, height)
-  //show banner
-  ATBannerRNSDK.showAdInRectangle(
-    bannerId,
-    ATBannerRNSDK.createShowAdRect(x, y, width, height)
-  );
+  if (bannerId == null) {
+    return;
+  }
+  const settings = {};
+  const screenWidthInPixel =
+    Dimensions.get("screen").width * Dimensions.get("screen").scale;
+  if (Platform.OS === "android") {
+    // @ts-ignore
+    settings[
+      ATBannerRNSDK.kATBannerAdLoadingExtraBannerAdSizeStruct
+    ] = ATBannerRNSDK.createLoadAdSize(
+      screenWidthInPixel,
+      (TOPON_BANNER_HEIGHT * Dimensions.get("screen").scale * 50) / 320
+    );
+    // load all ad first
+    ATBannerRNSDK.hasAdReady(bannerId).then((isAdReady) => {
+      console.log("isAdReady");
+      console.log(isAdReady);
+      if (!isAdReady) {
+        ATBannerRNSDK.loadAd(bannerId, settings);
+        setTimeout(() => {
+          //show banner
+          ATBannerRNSDK.showAdInRectangle(
+            bannerId,
+            ATBannerRNSDK.createShowAdRect(x, y, width, height)
+          );
 
-  ATBannerRNSDK.reShowAd(bannerId);
+          ATBannerRNSDK.reShowAd(bannerId);
+        }, 1000);
+      } else {
+        setTimeout(() => {
+          //show banner
+          ATBannerRNSDK.showAdInRectangle(
+            bannerId,
+            ATBannerRNSDK.createShowAdRect(x, y, width, height)
+          );
+
+          ATBannerRNSDK.reShowAd(bannerId);
+        }, 500);
+      }
+    });
+  }
+  if (Platform.OS === "ios") {
+    // @ts-ignore
+    settings[
+      ATBannerRNSDK.kATBannerAdLoadingExtraBannerAdSizeStruct
+    ] = ATBannerRNSDK.createLoadAdSize(
+      Dimensions.get("screen").width,
+      TOPON_BANNER_HEIGHT
+    );
+
+    ATBannerRNSDK.hasAdReady(bannerId).then((isAdReady) => {
+      console.log("isAdReady");
+      console.log(isAdReady);
+      if (!isAdReady) {
+        ATBannerRNSDK.loadAd(bannerId, settings);
+        setTimeout(() => {
+          //show banner
+          ATBannerRNSDK.showAdInRectangle(
+            bannerId,
+            ATBannerRNSDK.createShowAdRect(x, y, width, height)
+          );
+
+          ATBannerRNSDK.reShowAd(bannerId);
+        }, 1000);
+      } else {
+        setTimeout(() => {
+          //show banner
+          ATBannerRNSDK.showAdInRectangle(
+            bannerId,
+            ATBannerRNSDK.createShowAdRect(x, y, width, height)
+          );
+
+          ATBannerRNSDK.reShowAd(bannerId);
+        }, 500);
+      }
+    });
+  }
 };
 
 const scale = Dimensions.get("screen").scale;
@@ -249,8 +323,8 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
   );
   const settingState: SettingsReducerState = useAppSelector(
     ({ settingsReducer }: RootState) => settingsReducer
-  )
-  // const [orientation, _] = 
+  );
+  // const [orientation, _] =
 
   const showBannerInPosition = async () => {
     if (!route) return;
@@ -329,7 +403,7 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
 
   useEffect(() => {
     // show banner logic
-    if (settingState.appOrientation === 'PORTRAIT'){
+    if (settingState.appOrientation === "PORTRAIT") {
       if (
         Number(userState.userMemberExpired) <=
           Number(userState.userCurrentTimestamp) ||
@@ -337,18 +411,21 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
       ) {
         // not member, then show banner
         // console.debug('not member')
-        showBannerInPosition().then();
+        setTimeout(() => {
+          showBannerInPosition().then();
+        }, 10);
       }
     } else {
+      console.log("hide banner");
       hideAllBanner();
     }
   }, [route, navbarHeight, systemNavHeight, settingState.appOrientation]);
 
   useEffect(() => {
-    initBannerAdListener(); 
-    initBanner(); 
+    initBannerAdListener();
+    initBanner();
 
-    return () => ATBannerRNSDK.removeAllListeners()
+    return () => ATBannerRNSDK.removeAllListeners();
   }, []);
 
   return (
