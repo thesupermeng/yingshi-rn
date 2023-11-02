@@ -108,23 +108,6 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     }
   };
 
-  const handleGetPurchaseHistory = async () => {
-    try {
-      await getProducts({ skus: subscriptionSkus });
-      console.log("purchase successfullllll");
-    } catch (error) {
-      console.error("get purchase history: " + error);
-    }
-  };
-
-  useEffect(() => {
-    handleGetPurchaseHistory();
-  }, [connected]);
-
-  useEffect(() => {
-    console.log(JSON.stringify(products));
-  }, [products]);
-
   const fetchData = async () => {
     const response = await axios.get(
       `https://api.yingshi.tv/products/v1/products`
