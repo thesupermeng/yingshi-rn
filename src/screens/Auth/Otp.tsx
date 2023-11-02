@@ -149,7 +149,7 @@ const OtpInputs = props => {
         console.log(json);
 
         if (props.action == 'login') {
-          if(json.userCurrentTimestamp > json.userMemberExpired){
+          if(json.userCurrentTimestamp < json.userMemberExpired){
             await AsyncStorage.setItem("showAds", "false");
           } else {
             await AsyncStorage.setItem("showAds", "true");
