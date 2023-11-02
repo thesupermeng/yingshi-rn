@@ -13,10 +13,7 @@ import android.os.Bundle;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
 
-import android.database.Cursor;
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 public class MainActivity extends ReactActivity {
@@ -45,27 +42,7 @@ public class MainActivity extends ReactActivity {
     RNUMConfigure.init(this, appKey, channel, UMConfigure.DEVICE_TYPE_PHONE, "");
     MobclickAgent.setSessionContinueMillis(1000*40);
 
-    SQLiteDBHelper dbHelper = new SQLiteDBHelper(getApplicationContext());
-    SQLiteDatabase readableDatabase = dbHelper.getReadableDatabase();
-    Cursor cursor = readableDatabase.query("catalystLocalStorage", null, null, null, null, null, null);
-
-    String isShowAds = "true";
-
-    try {
-      while (cursor.moveToNext()) {
-        if(cursor.getString(0).equals("showAds")){
-          isShowAds = cursor.getString(1);
-          Log.d("DatabaseValues", "isShowAds : " + cursor.getString(1));
-        }
-      }
-    } finally {
-      cursor.close();
-      readableDatabase.close();
-    }
-
-    if(isShowAds.equals("true")){
-      showSplashScreenAd();
-    }
+    showSplashScreenAd();
 
     // ATSDK.setNetworkLogDebug(true);//SDK日志功能，集成测试阶段建议开启，上线前必须关闭
 
