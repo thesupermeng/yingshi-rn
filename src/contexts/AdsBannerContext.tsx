@@ -22,6 +22,7 @@ import { getNavigationBarHeight } from "react-native-android-navbar-height";
 import { userModel } from "../types/userType";
 import { RootState } from "../redux/store";
 import { useAppSelector } from "../hooks/hooks";
+import { SettingsReducerState } from "../redux/reducers/settingsReducer";
 
 LogBox.ignoreAllLogs();
 
@@ -246,6 +247,10 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
   const userState: userModel = useAppSelector(
     ({ userReducer }: RootState) => userReducer
   );
+  const settingState: SettingsReducerState = useAppSelector(
+    ({ settingsReducer }: RootState) => settingsReducer
+  )
+  // const [orientation, _] = 
 
   const showBannerInPosition = async () => {
     if (!route) return;
@@ -324,16 +329,20 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
 
   useEffect(() => {
     // show banner logic
-    if (
-      Number(userState.userMemberExpired) <=
-        Number(userState.userCurrentTimestamp) ||
-      userState.userToken === ""
-    ) {
-      // not member, then show banner
-      // console.debug('not member')
-      showBannerInPosition().then();
+    if (settingState.appOrientation === 'PORTRAIT'){
+      if (
+        Number(userState.userMemberExpired) <=
+          Number(userState.userCurrentTimestamp) ||
+        userState.userToken === ""
+      ) {
+        // not member, then show banner
+        // console.debug('not member')
+        showBannerInPosition().then();
+      }
+    } else {
+      hideAllBanner();
     }
-  }, [route, navbarHeight, systemNavHeight]);
+  }, [route, navbarHeight, systemNavHeight, settingState.appOrientation]);
 
   useEffect(() => {
     initBannerAdListener(); 
