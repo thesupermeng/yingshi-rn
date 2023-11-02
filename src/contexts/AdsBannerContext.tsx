@@ -113,40 +113,40 @@ const initBannerAdListener = () => {
   });
 };
 
-const initBanner = () => { 
-// init banner
-const settings = {};
-const screenWidthInPixel =
-  Dimensions.get("screen").width * Dimensions.get("screen").scale;
-if (Platform.OS === "android") {
-  // @ts-ignore
-  settings[
-    ATBannerRNSDK.kATBannerAdLoadingExtraBannerAdSizeStruct
-  ] = ATBannerRNSDK.createLoadAdSize(
-    screenWidthInPixel,
-    (TOPON_BANNER_HEIGHT * Dimensions.get("screen").scale * 50) / 320
-  );
-  // load all ad first
-  ATBannerRNSDK.loadAd(ANDROID_HOME_PAGE_BANNER_ADS, settings);
-  ATBannerRNSDK.loadAd(ANDROID_PLAY_DETAILS_BANNER_ADS, settings);
-  ATBannerRNSDK.loadAd(ANDROID_TOPIC_DETAILS_BANNER_ADS, settings);
-  ATBannerRNSDK.loadAd(ANDROID_TOPIC_TAB_BANNER_ADS, settings);
-}
-if (Platform.OS === "ios") {
-  // @ts-ignore
-  settings[
-    ATBannerRNSDK.kATBannerAdLoadingExtraBannerAdSizeStruct
-  ] = ATBannerRNSDK.createLoadAdSize(
-    Dimensions.get("screen").width,
-    TOPON_BANNER_HEIGHT
-  );
+const initBanner = () => {
+  // init banner
+  const settings = {};
+  const screenWidthInPixel =
+    Dimensions.get("screen").width * Dimensions.get("screen").scale;
+  if (Platform.OS === "android") {
+    // @ts-ignore
+    settings[
+      ATBannerRNSDK.kATBannerAdLoadingExtraBannerAdSizeStruct
+    ] = ATBannerRNSDK.createLoadAdSize(
+      screenWidthInPixel,
+      (TOPON_BANNER_HEIGHT * Dimensions.get("screen").scale * 50) / 320
+    );
+    // load all ad first
+    ATBannerRNSDK.loadAd(ANDROID_HOME_PAGE_BANNER_ADS, settings);
+    ATBannerRNSDK.loadAd(ANDROID_PLAY_DETAILS_BANNER_ADS, settings);
+    ATBannerRNSDK.loadAd(ANDROID_TOPIC_DETAILS_BANNER_ADS, settings);
+    ATBannerRNSDK.loadAd(ANDROID_TOPIC_TAB_BANNER_ADS, settings);
+  }
+  if (Platform.OS === "ios") {
+    // @ts-ignore
+    settings[
+      ATBannerRNSDK.kATBannerAdLoadingExtraBannerAdSizeStruct
+    ] = ATBannerRNSDK.createLoadAdSize(
+      Dimensions.get("screen").width,
+      TOPON_BANNER_HEIGHT
+    );
 
-  ATBannerRNSDK.loadAd(IOS_HOME_PAGE_BANNER_ADS, settings);
-  ATBannerRNSDK.loadAd(IOS_PLAY_DETAILS_BANNER_ADS, settings);
-  ATBannerRNSDK.loadAd(IOS_TOPIC_DETAILS_BANNER_ADS, settings);
-  ATBannerRNSDK.loadAd(IOS_TOPIC_TAB_BANNER_ADS, settings);
-}
-}
+    ATBannerRNSDK.loadAd(IOS_HOME_PAGE_BANNER_ADS, settings);
+    ATBannerRNSDK.loadAd(IOS_PLAY_DETAILS_BANNER_ADS, settings);
+    ATBannerRNSDK.loadAd(IOS_TOPIC_DETAILS_BANNER_ADS, settings);
+    ATBannerRNSDK.loadAd(IOS_TOPIC_TAB_BANNER_ADS, settings);
+  }
+};
 
 const getBannerPlacementId = (routeName: string | null) => {
   if (routeName == "播放" || routeName == "电视台播放") {
@@ -249,8 +249,8 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
   );
   const settingState: SettingsReducerState = useAppSelector(
     ({ settingsReducer }: RootState) => settingsReducer
-  )
-  // const [orientation, _] = 
+  );
+  // const [orientation, _] =
 
   const showBannerInPosition = async () => {
     if (!route) return;
@@ -329,7 +329,7 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
 
   useEffect(() => {
     // show banner logic
-    if (settingState.appOrientation === 'PORTRAIT'){
+    if (settingState.appOrientation === "PORTRAIT") {
       if (
         Number(userState.userMemberExpired) <=
           Number(userState.userCurrentTimestamp) ||
@@ -337,7 +337,9 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
       ) {
         // not member, then show banner
         // console.debug('not member')
-        showBannerInPosition().then();
+        setTimeout(() => {
+          showBannerInPosition().then();
+        }, 300);
       }
     } else {
       hideAllBanner();
@@ -345,10 +347,10 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
   }, [route, navbarHeight, systemNavHeight, settingState.appOrientation]);
 
   useEffect(() => {
-    initBannerAdListener(); 
-    initBanner(); 
+    initBannerAdListener();
+    initBanner();
 
-    return () => ATBannerRNSDK.removeAllListeners()
+    return () => ATBannerRNSDK.removeAllListeners();
   }, []);
 
   return (
