@@ -210,8 +210,6 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   }, []);
 
   const localIp = YSConfig.instance.ip;
-
-  // to hide Vod Restricted function for this release
   const fetchVodDetails = () =>
     fetch(
       `${API_DOMAIN}vod/v1/vod/detail?id=${vod?.vod_id}&appName=${APP_NAME_CONST}&platform=` +
@@ -222,17 +220,17 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
     )
       .then((response) => response.json())
       .then((json: VodDetailsResponseType) => {
-        // to hide Vod Restricted function for this release
         const isRestricted = json.data[0]?.vod_restricted === 1;
-        // if (isRestricted) {
-        //   videoPlayerRef.current.setPause(true);
-        //   // use setTimeout to prevent video non pause before unmount the screen
-        //   setTimeout(() => {
-        //     setVodRestricted(isRestricted);
-        //   }, 100);
-        // } else {
-        //   setVodRestricted(isRestricted);
-        // }
+
+        if (isRestricted) {
+          videoPlayerRef.current.setPause(true);
+          // use setTimeout to prevent video non pause before unmount the screen
+          setTimeout(() => {
+            setVodRestricted(isRestricted);
+          }, 100);
+        } else {
+          setVodRestricted(isRestricted);
+        }
 
         return json.data[0];
       });
@@ -249,18 +247,18 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
       // setVod(vod);
       dispatch(playVod(vod));
     }
-    // to hide Vod Restricted function for this release
+
     const isRestricted = vodDetails?.vod_restricted === 1;
 
-    // if (isRestricted) {
-    //   videoPlayerRef.current.setPause(true);
-    //   use setTimeout to prevent video non pause before unmount the screen
-    //   setTimeout(() => {
-    //     setVodRestricted(isRestricted);
-    //   }, 100);
-    // } else {
-    //   setVodRestricted(isRestricted);
-    // }
+    if (isRestricted) {
+      videoPlayerRef.current.setPause(true);
+      // use setTimeout to prevent video non pause before unmount the screen
+      setTimeout(() => {
+        setVodRestricted(isRestricted);
+      }, 100);
+    } else {
+      setVodRestricted(isRestricted);
+    }
   }, [vodDetails]);
 
   const fetchVod = () =>
