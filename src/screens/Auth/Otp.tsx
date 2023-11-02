@@ -143,6 +143,8 @@ const OtpInputs = props => {
           userCurrentTimestamp: resultData.user.current_timestamp,
           userInvitedUserList: resultData.user.invited_users,
           userUpline: resultData.user.upline_user,
+          userAccumulateVipRewardDay: resultData.user.accumulated_paid_vip_reward_days,
+          userPaidVipList: resultData.user.paid_vip_response,
         };
         await dispatch(addUserAuthState(json));
         console.log('json for user state');

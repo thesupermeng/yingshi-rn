@@ -20,6 +20,8 @@ const initialState: userModel = {
   userInvitedUserList: [],
   userUpline: {},
   userCurrentTimestamp: '',
+  userAccumulateVipRewardDay: 0,
+  userPaidVipList: {},
 };
 
 export function userReducer(state = initialState, action: any) {
@@ -41,6 +43,8 @@ export function userReducer(state = initialState, action: any) {
         userInvitedUserList: [],
         userUpline: {},
         userCurrentTimestamp: '',
+        userAccumulateVipRewardDay: 0,
+        userPaidVipList: {},
       };
     case 'add_user_auth':
       console.log('add_user_auth reducer');
@@ -64,6 +68,8 @@ export function userReducer(state = initialState, action: any) {
           ? action.payload.userInvitedUserList
           : [],
         userUpline: action.payload.userUpline,
+        userAccumulateVipRewardDay: action.payload.userAccumulateVipRewardDay,
+        userPaidVipList: action.payload.userPaidVipList,
       };
 
       return {
@@ -87,6 +93,8 @@ export function userReducer(state = initialState, action: any) {
         userCurrentTimestamp: action.payload.user.current_timestamp,
         userInvitedUserList: action.payload.user.invited_users,
         userUpline: action.payload.user.upline_user,
+        userAccumulateVipRewardDay: action.payload.user.accumulated_paid_vip_reward_days,
+        userPaidVipList: action.payload.user.paid_vip_response,
       };
 
       return {
