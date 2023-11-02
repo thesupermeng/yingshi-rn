@@ -261,7 +261,7 @@ export default () => {
     }
 
     let resultData = result.data.data;
-    if (resultData.user.current_timestamp > resultData.user.vip_end_time) {
+    if (resultData.user.current_timestamp < resultData.user.vip_end_time) {
       await AsyncStorage.setItem("showAds", "false");
     } else {
       await AsyncStorage.setItem("showAds", "true");
