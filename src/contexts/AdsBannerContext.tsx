@@ -338,9 +338,8 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
         // not member, then show banner
         // console.debug('not member')
         setTimeout(() => {
-          // delay to ensure modal is hidden first
           showBannerInPosition().then();
-        }, 500);
+        }, 300);
       }
     } else {
       hideAllBanner();
