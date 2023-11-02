@@ -64,10 +64,19 @@ const useInterstitialAds = () => {
       return;
     }
 
-    loadInterstitial(interstitialPlacementId);
-    setTimeout(() => {
-      isInterstitialReady(interstitialPlacementId);
-    }, 500);
+    // not vip
+    if (
+      Number(userState.userMemberExpired) <=
+        Number(userState.userCurrentTimestamp) ||
+      userState.userToken === ""
+    ) {
+      loadInterstitial(interstitialPlacementId);
+      setTimeout(() => {
+        isInterstitialReady(interstitialPlacementId);
+      }, 500);
+    } else {
+      console.log("VIP no ads");
+    }
   };
 
   // const prepareInterstitial = async (interstitialPlacementId: PlacementId) => {

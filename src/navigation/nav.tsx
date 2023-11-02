@@ -538,6 +538,7 @@ export default () => {
         onBackdropPress={() => setIsDialogOpen(false)}
       >
         <FastImage
+          useFastImage={true}
           key={gifKey}
           style={{
             height: 80,
