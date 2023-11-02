@@ -24,7 +24,7 @@ import { RootState } from "../redux/store";
 import { useAppSelector } from "../hooks/hooks";
 import { SettingsReducerState } from "../redux/reducers/settingsReducer";
 
-//LogBox.ignoreAllLogs();
+LogBox.ignoreAllLogs();
 interface Props {
   children: ReactNode;
 }
