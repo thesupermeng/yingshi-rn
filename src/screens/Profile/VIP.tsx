@@ -76,7 +76,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isBtnEnable, setIsBtnEnable] = useState(true);
-  const [currentTransID, setCurrentTransID] = useState('');
+  const [currentTransID, setCurrentTransID] = useState("");
   const dispatch = useAppDispatch();
 
   const handleRefresh = async () => {
@@ -109,9 +109,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   };
 
   const fetchData = async () => {
-    const response = await axios.get(
-      `https://api.yingshi.tv/products/v1/products`
-    );
+    const response = await axios.get(`${API_DOMAIN_TEST}products/v1/products`);
     const data = await response.data.data;
     let products: Array<membershipModel>;
     if (response) {
@@ -168,7 +166,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         } else {
           console.error("handle purchase error: " + error);
         }
-        saveFinishTrans('2', continueTrans.data, error);
+        saveFinishTrans("2", continueTrans.data, error);
         setIsDialogOpen(true);
       }
     } else {
@@ -197,14 +195,20 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     return result.data;
   };
 
-  const saveFinishTrans = async (transStatus: string, transID: string, error: any) => {
+  const saveFinishTrans = async (
+    transStatus: string,
+    transID: string,
+    error: any
+  ) => {
     const trans = {
       transaction_id: parseInt(transID),
       channel_transaction_id: currentPurchase?.transactionId,
-      transaction_receipt: currentPurchase ? currentPurchase.transactionReceipt: error.toString(),
-      transaction_status: parseInt(transStatus)
+      transaction_receipt: currentPurchase
+        ? currentPurchase.transactionReceipt
+        : error.toString(),
+      transaction_status: parseInt(transStatus),
     };
-    console.log('complete trans: ', trans);
+    console.log("complete trans: ", trans);
     const result = await axios.post(
       `${API_DOMAIN}payment/v1/completetransaction`,
       trans
@@ -224,7 +228,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
             (isIosStorekit2() && currentPurchase.transactionId) ||
             currentPurchase.transactionReceipt
           ) {
-            saveFinishTrans('1', currentTransID, ''); //save record to database
+            saveFinishTrans("1", currentTransID, ""); //save record to database
             await finishTransaction({
               purchase: currentPurchase,
               isConsumable: true,
@@ -344,13 +348,12 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
           </TouchableOpacity>
         </Dialog>
 
-        <TitleWithBackButtonHeader 
+        <TitleWithBackButtonHeader
           title="付费VIP"
           right={
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate('VIP明细', 
-                {userState: userState});
+                navigation.navigate("VIP明细", { userState: userState });
               }}
             >
               <Text
@@ -364,7 +367,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
               </Text>
             </TouchableOpacity>
           }
-          headerStyle={{ marginBottom: spacing.m }} 
+          headerStyle={{ marginBottom: spacing.m }}
         />
 
         {isOffline && (
