@@ -7,3 +7,9 @@ export interface membershipModel {
   description: string;
   subscriptionDays: string;
 }
+
+export interface vipHistoryResponseType {
+  displayText: string;
+  createdDate: string;
+  vipDays: number;
+}

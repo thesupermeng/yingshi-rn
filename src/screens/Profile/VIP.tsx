@@ -66,7 +66,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     IS_IOS ? "Apple Pay" : "Google Pay"
   );
   const [isOffline, setIsOffline] = useState(false);
-  const { colors, textVariants } = useTheme();
+  const { colors, textVariants, spacing } = useTheme();
   const userState: userModel = useAppSelector(
     ({ userReducer }: RootState) => userReducer
   );
@@ -107,23 +107,6 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
       handleRefresh();
     }
   };
-
-  // const handleGetPurchaseHistory = async () => {
-  //   try {
-  //     await getProducts({ skus: subscriptionSkus });
-  //     console.log("purchase successfullllll");
-  //   } catch (error) {
-  //     console.error("get purchase history: " + error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   handleGetPurchaseHistory();
-  // }, [connected]);
-
-  // useEffect(() => {
-  //   console.log(JSON.stringify(products));
-  // }, [products]);
 
   const fetchData = async () => {
     const response = await axios.get(
@@ -361,8 +344,30 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
           </TouchableOpacity>
         </Dialog>
 
-        <TitleWithBackButtonHeader title="付费VIP" />
-        {(initConnectionError || isOffline) && (
+        <TitleWithBackButtonHeader 
+          title="付费VIP"
+          right={
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('VIP明细', 
+                {userState: userState});
+              }}
+            >
+              <Text
+                style={{
+                  ...textVariants.subBody,
+                  padding: 8,
+                  opacity: true ? 100 : 0,
+                }}
+              >
+                VIP明细
+              </Text>
+            </TouchableOpacity>
+          }
+          headerStyle={{ marginBottom: spacing.m }} 
+        />
+
+        {isOffline && (
           <View style={{ height: "100%" }}>
             <NoConnection onClickRetry={checkConnection} />
           </View>

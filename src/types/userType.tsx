@@ -13,4 +13,6 @@ export interface userModel {
   userInvitedUserList: any;
   userUpline: any;
   userCurrentTimestamp: string;
+  userAccumulateVipRewardDay: number;
+  userPaidVipList: any;
 }

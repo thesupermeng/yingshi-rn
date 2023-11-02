@@ -2,6 +2,7 @@ import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import type {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {VodType, VodTopicType, LiveTVStationItem} from './ajaxTypes';
+import { userModel } from './userType';
 
 // https://reactnavigation.org/docs/typescript/
 export type HomeTabParamList = {
@@ -91,6 +92,9 @@ export type RootStackParamList = {
   SetUsername: undefined;
   活动规则: undefined;
   付费VIP: undefined;
+  VIP明细: {
+    userState: userModel;
+  };
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> =

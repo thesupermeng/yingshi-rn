@@ -105,6 +105,7 @@ import { SettingsReducerState } from "../redux/reducers/settingsReducer";
 import { AdsBannerContext } from "../contexts/AdsBannerContext";
 import VIP from "../screens/Profile/VIP";
 import { withIAPContext } from "react-native-iap";
+import { VipDetails } from "../components/vip/vipDetails";
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -503,6 +504,12 @@ export default () => {
           <Stack.Screen
             name="付费VIP"
             component={withIAPContext(VIP)}
+            options={{ orientation: "portrait" }}
+          />
+
+          <Stack.Screen
+            name="VIP明细"
+            component={VipDetails}
             options={{ orientation: "portrait" }}
           />
         </Stack.Navigator>
