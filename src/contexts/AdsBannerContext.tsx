@@ -24,8 +24,7 @@ import { RootState } from "../redux/store";
 import { useAppSelector } from "../hooks/hooks";
 import { SettingsReducerState } from "../redux/reducers/settingsReducer";
 
-LogBox.ignoreAllLogs();
-
+//LogBox.ignoreAllLogs();
 interface Props {
   children: ReactNode;
 }
@@ -227,15 +226,90 @@ const showBanner = (
   const bannerId = getBannerPlacementId(routeName);
 
   if (!routeName) return;
-
+  // console.log("showBanner");
+  // console.log("routeName");
+  // console.log(routeName);
+  console.log("bannerId");
+  console.log(bannerId);
   // console.debug(x, y, width, height)
-  //show banner
-  ATBannerRNSDK.showAdInRectangle(
-    bannerId,
-    ATBannerRNSDK.createShowAdRect(x, y, width, height)
-  );
+  if (bannerId == null) {
+    return;
+  }
+  const settings = {};
+  const screenWidthInPixel =
+    Dimensions.get("screen").width * Dimensions.get("screen").scale;
+  if (Platform.OS === "android") {
+    // @ts-ignore
+    settings[
+      ATBannerRNSDK.kATBannerAdLoadingExtraBannerAdSizeStruct
+    ] = ATBannerRNSDK.createLoadAdSize(
+      screenWidthInPixel,
+      (TOPON_BANNER_HEIGHT * Dimensions.get("screen").scale * 50) / 320
+    );
+    // load all ad first
+    ATBannerRNSDK.hasAdReady(bannerId).then((isAdReady) => {
+      console.log("isAdReady");
+      console.log(isAdReady);
+      if (!isAdReady) {
+        ATBannerRNSDK.loadAd(bannerId, settings);
+        setTimeout(() => {
+          //show banner
+          ATBannerRNSDK.showAdInRectangle(
+            bannerId,
+            ATBannerRNSDK.createShowAdRect(x, y, width, height)
+          );
 
-  ATBannerRNSDK.reShowAd(bannerId);
+          ATBannerRNSDK.reShowAd(bannerId);
+        }, 1000);
+      } else {
+        setTimeout(() => {
+          //show banner
+          ATBannerRNSDK.showAdInRectangle(
+            bannerId,
+            ATBannerRNSDK.createShowAdRect(x, y, width, height)
+          );
+
+          ATBannerRNSDK.reShowAd(bannerId);
+        }, 500);
+      }
+    });
+  }
+  if (Platform.OS === "ios") {
+    // @ts-ignore
+    settings[
+      ATBannerRNSDK.kATBannerAdLoadingExtraBannerAdSizeStruct
+    ] = ATBannerRNSDK.createLoadAdSize(
+      Dimensions.get("screen").width,
+      TOPON_BANNER_HEIGHT
+    );
+
+    ATBannerRNSDK.hasAdReady(bannerId).then((isAdReady) => {
+      console.log("isAdReady");
+      console.log(isAdReady);
+      if (!isAdReady) {
+        ATBannerRNSDK.loadAd(bannerId, settings);
+        setTimeout(() => {
+          //show banner
+          ATBannerRNSDK.showAdInRectangle(
+            bannerId,
+            ATBannerRNSDK.createShowAdRect(x, y, width, height)
+          );
+
+          ATBannerRNSDK.reShowAd(bannerId);
+        }, 1000);
+      } else {
+        setTimeout(() => {
+          //show banner
+          ATBannerRNSDK.showAdInRectangle(
+            bannerId,
+            ATBannerRNSDK.createShowAdRect(x, y, width, height)
+          );
+
+          ATBannerRNSDK.reShowAd(bannerId);
+        }, 500);
+      }
+    });
+  }
 };
 
 const scale = Dimensions.get("screen").scale;
@@ -339,9 +413,10 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
         // console.debug('not member')
         setTimeout(() => {
           showBannerInPosition().then();
-        }, 300);
+        }, 10);
       }
     } else {
+      console.log("hide banner");
       hideAllBanner();
     }
   }, [route, navbarHeight, systemNavHeight, settingState.appOrientation]);
