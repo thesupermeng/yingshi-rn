@@ -31,6 +31,9 @@ import com.anythink.splashad.api.ATSplashAdExtraInfo;
 import com.anythink.splashad.api.ATSplashExListener;
 import com.yingshi.zoomout.SplashEyeAdHolder;
 import com.yingshi.zoomout.SplashZoomOutManager;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.database.Cursor;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -142,22 +145,42 @@ public class SplashAdShowActivity extends Activity implements ATSplashExListener
             }
         });
 
-        if (splashAd.isAdReady()) {
-            Log.i(TAG, "SplashAd is ready to show.");
-            mHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    splashAd.show(SplashAdShowActivity.this, container);
-                    // showAdWithCustomSkipView();//show with customSkipView
-                    splashAd.show(SplashAdShowActivity.this, container, "f628c7999265cd");
-                }
-            }, 10);
+        SQLiteDBHelper dbHelper = new SQLiteDBHelper(getApplicationContext());
+        SQLiteDatabase readableDatabase = dbHelper.getReadableDatabase();
+        Cursor cursor = readableDatabase.query("catalystLocalStorage", null, null, null, null, null, null);
 
-        } else {
-            Log.i(TAG, "SplashAd isn't ready to show, start to request.");
-            splashAd.loadAd();
+        String isShowAds = "true";
+
+        try {
+        while (cursor.moveToNext()) {
+            if(cursor.getString(0).equals("showAds")){
+                isShowAds = cursor.getString(1);
+            }
+        }
+        } finally {
+            cursor.close();
+            readableDatabase.close();
         }
 
+        if(isShowAds.equals("true")){
+            if (splashAd.isAdReady()) {
+                Log.i(TAG, "SplashAd is ready to show.");
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        splashAd.show(SplashAdShowActivity.this, container);
+                        // showAdWithCustomSkipView();//show with customSkipView
+                        // splashAd.show(SplashAdShowActivity.this, container, "f628c7999265cd");
+                    }
+                }, 10);
+
+            } else {
+                Log.i(TAG, "SplashAd isn't ready to show, start to request.");
+                splashAd.loadAd();
+            }
+        }else{
+            delayRedirectToMainActivity(4000);
+        }
     }
 
     @Override
@@ -220,21 +243,21 @@ public class SplashAdShowActivity extends Activity implements ATSplashExListener
 
         splashAd.show(this, container);
         // showAdWithCustomSkipView();//show with customSkipView
-        splashAd.show(this, container, "f628c7999265cd");
+        // splashAd.show(this, container, "f628c7999265cd");
     }
 
     @Override
     public void onAdLoadTimeout() {
         Log.i(TAG, "onAdLoadTimeout---------");
         Toast.makeText(getApplicationContext(), "onAdLoadTimeout", Toast.LENGTH_SHORT).show();
-        delayRedirectToMainActivity(3000);
+        delayRedirectToMainActivity(4000);
     }
 
 
     @Override
     public void onNoAdError(AdError adError) {
         Log.i(TAG, "onNoAdError---------:" + adError.getFullErrorInfo());
-        delayRedirectToMainActivity(3000);
+        delayRedirectToMainActivity(4000);
     }
 
     public void delayRedirectToMainActivity(int ms) {
