@@ -68,7 +68,7 @@ import {
   SafeAreaProvider,
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
-import { StyleSheet, Text, View } from "react-native";
+import { Platform, StyleSheet, Text, View } from "react-native";
 import DeviceInfo from "react-native-device-info";
 import { useAppSelector, useAppDispatch } from "../hooks/hooks";
 import { QueryClient, useQuery } from "@tanstack/react-query";
@@ -103,6 +103,9 @@ import {
 } from "../redux/actions/settingsActions";
 import { SettingsReducerState } from "../redux/reducers/settingsReducer";
 import { AdsBannerContext } from "../contexts/AdsBannerContext";
+import VIP from "../screens/Profile/VIP";
+import { withIAPContext } from "react-native-iap";
+import { VipDetails } from "../components/vip/vipDetails";
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -132,7 +135,10 @@ export default () => {
       <HomeTab.Navigator
         screenOptions={({ route }) => ({
           headerShown: false,
-          tabBarStyle: hasNotch ? styles.navStyleWithNotch : styles.navStyle,
+          tabBarStyle:
+            hasNotch || Platform.OS === "android"
+              ? styles.navStyleWithNotch
+              : styles.navStyle,
           tabBarLabelStyle: {
             paddingBottom: 6,
           },
@@ -497,6 +503,18 @@ export default () => {
             component={ProfileScreen}
             options={{ orientation: "portrait" }}
           />
+
+          <Stack.Screen
+            name="付费VIP"
+            component={withIAPContext(VIP)}
+            options={{ orientation: "portrait" }}
+          />
+
+          <Stack.Screen
+            name="VIP明细"
+            component={VipDetails}
+            options={{ orientation: "portrait" }}
+          />
         </Stack.Navigator>
         {settingsReducer.appOrientation === "PORTRAIT" && ( // only show if portrait
           <>
@@ -530,6 +548,7 @@ export default () => {
         onBackdropPress={() => setIsDialogOpen(false)}
       >
         <FastImage
+          useFastImage={true}
           key={gifKey}
           style={{
             height: 80,
@@ -562,7 +581,7 @@ export default () => {
 const styles = StyleSheet.create({
   navStyleWithNotch: {
     paddingTop: 0,
-    paddingBottom: 5,
+    paddingBottom: 12,
     height: 65,
     position: "relative",
     // bottom: 25,
