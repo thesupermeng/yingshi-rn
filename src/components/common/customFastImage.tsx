@@ -12,7 +12,11 @@ const customFastImage = ({useFastImage = false, ...imageProp}: Prop) => {
   if (useFastImage === true){
     return <FastImage {...imageProp as FastImageProps}/>
   } else {
-    return <Image {...imageProp as MyImageProp} source={{...(imageProp.source as ImageURISource), uri: !!(imageProp as MyImageProp).source.uri ? (imageProp as MyImageProp).source.uri : undefined}}/>
+    if (typeof imageProp.source == 'number'){ // if source={require(...)}
+      return <Image {...imageProp as MyImageProp}/>
+    } else { // if source={{uri:...}}
+      return <Image {...imageProp as MyImageProp} source={{...(imageProp.source as ImageURISource), uri: !!(imageProp as MyImageProp).source.uri ? (imageProp as MyImageProp).source.uri : undefined}}/>
+    }
   }
 }
 
