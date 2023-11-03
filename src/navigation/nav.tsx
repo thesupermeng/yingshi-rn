@@ -68,7 +68,7 @@ import {
   SafeAreaProvider,
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
-import { StyleSheet, Text, View } from "react-native";
+import { Platform, StyleSheet, Text, View } from "react-native";
 import DeviceInfo from "react-native-device-info";
 import { useAppSelector, useAppDispatch } from "../hooks/hooks";
 import { QueryClient, useQuery } from "@tanstack/react-query";
@@ -135,7 +135,10 @@ export default () => {
       <HomeTab.Navigator
         screenOptions={({ route }) => ({
           headerShown: false,
-          tabBarStyle: hasNotch ? styles.navStyleWithNotch : styles.navStyle,
+          tabBarStyle:
+            hasNotch || Platform.OS === "android"
+              ? styles.navStyleWithNotch
+              : styles.navStyle,
           tabBarLabelStyle: {
             paddingBottom: 6,
           },
