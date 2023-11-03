@@ -413,7 +413,7 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
         // console.debug('not member')
         setTimeout(() => {
           showBannerInPosition().then();
-        }, 10);
+        }, 300);
       }
     } else {
       console.log("hide banner");
