@@ -425,7 +425,7 @@ export default () => {
           />
           <Stack.Screen
             name="邀请详情"
-            component={InviteDetails}
+            component={VipDetails}
             options={{ orientation: "portrait" }}
           />
           <Stack.Screen

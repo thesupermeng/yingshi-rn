@@ -38,6 +38,7 @@ import {
   APP_NAME_CONST,
 } from "../../utility/constants";
 import axios from "axios";
+import { showToast } from "../../Sports/utility/toast";
 
 const subscriptionSkus = Platform.select({
   ios: ["yingshi_vip_month", "yingshi_vip_6months", "monthly_subscription"],
@@ -156,6 +157,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
           console.log("apple pay payment");
           console.log(initConnectionError);
           await getProducts({ skus: [membershipSelected.productSKU] });
+
           await requestPurchase({ sku: membershipSelected.productSKU });
         } else {
           console.log("others payment method");
@@ -166,6 +168,12 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         } else {
           console.error("handle purchase error: " + error);
         }
+        showToast(
+          error?.code.toString() +
+            "  error message : " +
+            error.message.toString()
+        );
+
         saveFinishTrans("2", continueTrans.data, error);
         if (error && error?.code == "E_USER_CANCELLED") {
           console.log("user cancel purchase");
