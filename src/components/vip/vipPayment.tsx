@@ -1,7 +1,6 @@
-import { Text, TouchableOpacity, View } from "react-native"
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { useTheme } from '@react-navigation/native';
 import LinearGradient from "react-native-linear-gradient";
-import { useState } from "react";
 
 interface Props {
   paymentOption: string,
@@ -61,7 +60,29 @@ export const VipPayment = ({
             {paymentOption}
           </Text>
         </View>
+        {isSelected ?
+          <View style={{...styles.outerBorder, borderColor: colors.primary}}>
+            <View style={{...styles.innerCircle, backgroundColor: colors.primary}}/>
+          </View> : null
+        }
       </LinearGradient>
     </TouchableOpacity>
   )
 }
+
+const styles = StyleSheet.create({
+  outerBorder: {
+    height: 18,
+    width: 18,
+    borderRadius: 10,
+    borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  innerCircle: {
+    height: 10,
+    width: 10,
+    borderRadius: 6,
+  }
+})

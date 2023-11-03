@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity, View } from "react-native"
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { useTheme } from '@react-navigation/native';
 import LinearGradient from "react-native-linear-gradient";
 import { membershipModel } from "../../types/membershipType";
@@ -37,6 +37,12 @@ export const VipMember = ({
           borderWidth: isSelected ? 2 : 0, // Add border when selected
           borderColor: colors.primary, // Set your desired border color
         }}>
+        {membershipPlan.title === '12个月' && isSelected &&
+          <View style={{...styles.legend}}>
+            <Text style={{...textVariants.fine, fontWeight: '500'}}>超值会员</Text>
+          </View>
+        }
+        
         <View
           style={{
             gap: 5,
@@ -62,3 +68,17 @@ export const VipMember = ({
     </TouchableOpacity>
   )
 }
+
+const styles = StyleSheet.create({  
+  legend: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    paddingVertical: 2,
+    paddingHorizontal: 5,
+    backgroundColor: '#FA3D3D',
+    borderBottomLeftRadius: 8,
+    borderTopRightRadius: 8,
+    overflow: 'hidden'
+  }
+})
