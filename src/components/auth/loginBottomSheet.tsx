@@ -26,6 +26,7 @@ function LoginBottomSheet({
   const [email, setEmail] = useState("");
   const deviceBrand = DeviceInfo.getBrand();
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+  const [bottomOffset, setBottomOffset] = useState(0);
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
@@ -46,15 +47,22 @@ function LoginBottomSheet({
     };
   }, []);
 
+  useEffect(() => {
+    if (deviceBrand == "HUAWEI" && isKeyboardVisible) {
+      setBottomOffset(180);
+    } else {
+      setBottomOffset(50);
+    }
+  }, [isKeyboardVisible]);
+
   return (
     <BottomSheet
+      isKeyboardVisible={isKeyboardVisible}
       isVisible={isVisible}
-      containerStyle={{
-        paddingBottom: deviceBrand == "HUAWEI" && isKeyboardVisible ? 200 : 50,
-      }}
+      bottomOffset={bottomOffset}
+      containerStyle={{}}
       onBackdropPress={() => {
         if (handleClose) handleClose();
-
         dispatch(resetBottomSheetForm());
         Keyboard.dismiss();
         setEmail("");
