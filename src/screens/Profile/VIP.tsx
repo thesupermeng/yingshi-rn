@@ -167,7 +167,12 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
           console.error("handle purchase error: " + error);
         }
         saveFinishTrans("2", continueTrans.data, error);
-        setIsDialogOpen(true);
+        if (error && error?.code == "E_USER_CANCELLED") {
+          console.log("user cancel purchase");
+          setIsBtnEnable(true);
+        } else {
+          setIsDialogOpen(true);
+        }
       }
     } else {
       setIsDialogOpen(true);
