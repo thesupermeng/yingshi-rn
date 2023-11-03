@@ -166,7 +166,17 @@ export default forwardRef<VideoRef, Props>(
     }, []);
 
     useEffect(() => {
-      deviceOrientationHandle();
+      // for auto rotate video player
+      const isNeedAutoRotate = false;
+
+      if (isNeedAutoRotate) {
+        deviceOrientationHandle();
+      } else {
+        // set orientation: "portrait" because if set all android will auto rotate
+        if (Platform.OS === 'android') {
+          navigation.setOptions({ orientation: "portrait" });
+        }
+      }
     }, [devicesOrientation]);
 
     useEffect(() => {
