@@ -56,10 +56,8 @@ function RegisterBottomSheet({
 
   useEffect(() => {
     if (deviceBrand == "HUAWEI" && isKeyboardVisible) {
-      console.log("111111");
       setBottomOffset(180);
     } else {
-      console.log("33333");
       setBottomOffset(50);
     }
   }, [isKeyboardVisible]);
