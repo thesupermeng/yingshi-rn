@@ -423,11 +423,11 @@ export default () => {
             component={Invite}
             options={{ orientation: "portrait" }}
           />
-          <Stack.Screen
+          {/* <Stack.Screen
             name="邀请详情"
             component={VipDetails}
             options={{ orientation: "portrait" }}
-          />
+          /> */}
           <Stack.Screen
             name="活动规则"
             component={EventRules}
