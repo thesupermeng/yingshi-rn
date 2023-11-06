@@ -233,6 +233,15 @@ const showBanner = (
   console.log(bannerId);
   // console.debug(x, y, width, height)
   if (bannerId == null) {
+    setTimeout(() => {
+      hideAllBanner();
+    }, 200);
+    setTimeout(() => {
+      hideAllBanner();
+    }, 600);
+    setTimeout(() => {
+      hideAllBanner();
+    }, 1200);
     return;
   }
   const settings = {};
@@ -253,6 +262,7 @@ const showBanner = (
       if (!isAdReady) {
         ATBannerRNSDK.loadAd(bannerId, settings);
         setTimeout(() => {
+          console.log("show banner");
           //show banner
           ATBannerRNSDK.showAdInRectangle(
             bannerId,
@@ -260,9 +270,10 @@ const showBanner = (
           );
 
           ATBannerRNSDK.reShowAd(bannerId);
-        }, 1000);
+        }, 200);
       } else {
         setTimeout(() => {
+          console.log("show 222222");
           //show banner
           ATBannerRNSDK.showAdInRectangle(
             bannerId,
@@ -270,7 +281,7 @@ const showBanner = (
           );
 
           ATBannerRNSDK.reShowAd(bannerId);
-        }, 500);
+        }, 100);
       }
     });
   }
@@ -402,6 +413,8 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
   };
 
   useEffect(() => {
+    console.log("route");
+    console.log(route);
     // show banner logic
     if (settingState.appOrientation === "PORTRAIT") {
       if (
