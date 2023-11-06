@@ -51,3 +51,7 @@ export const navigateToProfileScreen = () => ({
 export const resetProfileScreen = () => ({
   type: 'reset_profile_screen',
 });
+
+export const incrementSportWatchTime = () => ({
+  type: 'increment_sport_watch_time'
+})

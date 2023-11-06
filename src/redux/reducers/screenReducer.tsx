@@ -13,6 +13,7 @@ const initialState: screenModel = {
   resetBottomSheet: false,
   resetInputForm: false,
   navigateToProfile: false,
+  sportWatchTime: 0,
 };
 
 export function screenReducer(state = initialState, action: screenActionType) {
@@ -79,6 +80,12 @@ export function screenReducer(state = initialState, action: screenActionType) {
         ...state,
         navigateToProfile: false,
       };
+    case 'increment_sport_watch_time': 
+      console.log('incrementing');
+      return {
+        ...state,
+        sportWatchTime: state.sportWatchTime + 1, 
+      }
     default:
       return state;
   }
