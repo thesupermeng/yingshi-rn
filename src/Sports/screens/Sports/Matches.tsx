@@ -126,7 +126,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
         style={{
           backgroundColor: colors.background,
           paddingLeft: spacing.sideOffset,
-          paddingRight: spacing.sideOffset + 90,
+          paddingRight: spacing.sideOffset + 105,
           flexDirection: "row",
           justifyContent: "space-between",
           alignItems: "center",

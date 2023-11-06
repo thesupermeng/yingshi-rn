@@ -30,14 +30,15 @@ const Player = props => {
       : {backgroundColor: '#8C8C8C'};
   };
   const {incidents} = player;
-  const imgSource =   Platform.OS === 'android'
-  ? team === 'home'
-    ? PlayerShirt
-    : AwayPlayer
-  : team === 'home'
-  ? HomePlayer
-  : AwayPlayer;
-  
+  const imgSource =
+    Platform.OS === 'android'
+      ? team === 'home'
+        ? PlayerShirt
+        : AwayPlayer
+      : team === 'home'
+      ? HomePlayer
+      : AwayPlayer;
+
   // 换人事件
   const subComponent = (incidents, playerId) => {
     return incidents.map(incident => {
@@ -88,9 +89,16 @@ const Player = props => {
     let totalPenatlyGoal = incidents.filter(incident => {
       if (incident.type === 8) return true;
     }).length;
-    let totalGoal = incidents.filter(incident => {
-      if (incident.type === 1 && incident.player.id === playerId) return true;
-    }).length;
+
+    let totalGoal;
+    try {
+      totalGoal = incidents.filter(incident => {
+        if (incident.type === 1 && incident.player.id === playerId) return true;
+      }).length;
+    } catch (error) {
+      totalGoal = 0;
+    }
+
     // 17 - 乌龙球
     if (totalOwnGoal > 0 && type === 17) {
       return (
@@ -218,8 +226,7 @@ const Player = props => {
                 : team === 'home'
                 ? HomePlayer
                 : AwayPlayer,
-            }}
-            ></Image>
+            }}></Image>
         ) : (
           <ImageBackground
             style={[
