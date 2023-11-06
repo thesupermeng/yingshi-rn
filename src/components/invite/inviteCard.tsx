@@ -493,14 +493,14 @@ const styles = StyleSheet.create({
   featureTitle: { fontSize: 14, color: "#ffffff", fontWeight: "400" },
   imgContainer: {
     backgroundColor: "#3b3e40",
-    width: 34,
-    height: 34,
-    borderRadius: 19,
+    width: 45,
+    height: 45,
+    borderRadius: 23,
     justifyContent: "center",
     alignItems: "center",
   },
   featureIcn: {
     flex: 1,
-    width: 18,
+    width: 22,
   },
 });
