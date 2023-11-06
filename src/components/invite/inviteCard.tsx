@@ -97,10 +97,7 @@ export default function InviteCard({ userState = {} }: Props) {
       return;
     }
     const url =
-      "https://wa.me/?text=" +
-      shareOptions.message +
-      "%0D%0A" +
-      shareOptions.url; // Replace with your desired URL
+      "https://wa.me/?text=" + shareOptions.message + " " + shareOptions.url; // Replace with your desired URL
     Linking.openURL(url)
       .then((supported) => {
         if (!supported) {
@@ -119,7 +116,7 @@ export default function InviteCard({ userState = {} }: Props) {
       dispatch(showLoginAction());
       return;
     }
-    const message = shareOptions.message + "%0D%0A" + shareOptions.url;
+    const message = shareOptions.message + " " + shareOptions.url;
     const appURL = `tg://msg?text=${message}`;
     const webURL = `https://t.me/share/url?url=${message}`;
 
