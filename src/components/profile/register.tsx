@@ -369,26 +369,24 @@ const RegisterCard = (props: any) => {
         </TouchableOpacity>
       </View>
 
-      <View style={{ marginTop: 30 }}>
-        <TouchableOpacity
-          onPress={() => {
-            props.setErrReferral("");
-            props.setErrEmail("");
-            props.goToLogin();
-            // props.navigator.navigate('CricketTerm');
-          }}
-        >
-          <View style={styles.loginTermPrivacy}>
-            <Text style={styles.termPrivacyFont}>
-              <Text style={{ color: "white" }}> 邮箱登录 </Text>
-            </Text>
-            <Image
-              style={{ width: 18, height: 18 }}
-              source={require("../../../static/images/profile/rightArrow.png")}
-            />
-          </View>
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity
+        onPress={() => {
+          props.setErrReferral("");
+          props.setErrEmail("");
+          props.goToLogin();
+          // props.navigator.navigate('CricketTerm');
+        }}
+      >
+        <View style={styles.loginTermPrivacy}>
+          <Text style={styles.termPrivacyFont}>
+            <Text style={{ color: "white" }}> 邮箱登录 </Text>
+          </Text>
+          <Image
+            style={{ width: 18, height: 18 }}
+            source={require("../../../static/images/profile/rightArrow.png")}
+          />
+        </View>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -472,6 +470,10 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   loginTermPrivacy: {
+    paddingTop: 30,
+    paddingLeft: 80,
+    paddingRight: 80,
+    paddingBottom: 50,
     width: "100%",
     flexDirection: "row",
     justifyContent: "center",

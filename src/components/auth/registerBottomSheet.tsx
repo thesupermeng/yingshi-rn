@@ -28,6 +28,7 @@ function RegisterBottomSheet({
   const deviceBrand = DeviceInfo.getBrand();
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
   const [endCoordinates, setEndCoordinates] = useState(0);
+  const [bottomOffset, setBottomOffset] = useState(0);
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
@@ -53,12 +54,19 @@ function RegisterBottomSheet({
     console.log(endCoordinates);
   }, [endCoordinates]);
 
+  useEffect(() => {
+    if (deviceBrand == "HUAWEI" && isKeyboardVisible) {
+      setBottomOffset(180);
+    } else {
+      setBottomOffset(50);
+    }
+  }, [isKeyboardVisible]);
+
   return (
     <BottomSheet
+      isKeyboardVisible={isKeyboardVisible}
       isVisible={isVisible}
-      containerStyle={{
-        paddingBottom: deviceBrand == "HUAWEI" && isKeyboardVisible ? 300 : 50,
-      }}
+      bottomOffset={bottomOffset}
       onBackdropPress={() => {
         if (handleClose) handleClose();
 

@@ -423,11 +423,11 @@ export default () => {
             component={Invite}
             options={{ orientation: "portrait" }}
           />
-          <Stack.Screen
+          {/* <Stack.Screen
             name="邀请详情"
-            component={InviteDetails}
+            component={VipDetails}
             options={{ orientation: "portrait" }}
-          />
+          /> */}
           <Stack.Screen
             name="活动规则"
             component={EventRules}
@@ -581,7 +581,7 @@ export default () => {
 const styles = StyleSheet.create({
   navStyleWithNotch: {
     paddingTop: 0,
-    paddingBottom: 5,
+    paddingBottom: 12,
     height: 65,
     position: "relative",
     // bottom: 25,

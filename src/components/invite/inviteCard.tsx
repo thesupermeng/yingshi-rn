@@ -431,7 +431,7 @@ export default function InviteCard({ userState = {} }: Props) {
               // setActionType('login');
               // setSignUpOrLogin(true);
             } else {
-              navigation.navigate("邀请详情");
+              navigation.navigate("VIP明细", { userState: userState });
             }
           }}
         >
