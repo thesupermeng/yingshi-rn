@@ -80,6 +80,7 @@ import {
   hideRegisterAction,
   removeScreenAction,
   resetBottomSheetAction,
+  resetSportWatchTime,
 } from "../redux/actions/screenAction";
 import { Dialog } from "@rneui/themed";
 // import FastImage from "react-native-fast-image";
@@ -397,6 +398,10 @@ export default () => {
     }
     // ============= end for banner ads
   };
+
+  useEffect(() =>{
+    dispatch(resetSportWatchTime());
+  }, [])
 
   return (
     <SafeAreaProvider>

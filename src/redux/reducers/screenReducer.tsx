@@ -81,10 +81,14 @@ export function screenReducer(state = initialState, action: screenActionType) {
         navigateToProfile: false,
       };
     case 'increment_sport_watch_time': 
-      console.log('incrementing');
       return {
         ...state,
         sportWatchTime: state.sportWatchTime + 1, 
+      }
+    case 'reset_sport_watch_time': 
+      return{
+        ...state, 
+        sportWatchTime: 0, 
       }
     default:
       return state;

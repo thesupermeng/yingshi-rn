@@ -55,3 +55,7 @@ export const resetProfileScreen = () => ({
 export const incrementSportWatchTime = () => ({
   type: 'increment_sport_watch_time'
 })
+
+export const resetSportWatchTime = () => ({
+  type: 'reset_sport_watch_time'
+})
