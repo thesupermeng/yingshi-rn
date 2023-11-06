@@ -8,6 +8,7 @@ import {
   RefreshControl,
   Dimensions,
   FlatList,
+  Linking,
 } from 'react-native';
 import { FlatList as FlatListSecondary } from 'react-native-gesture-handler';
 import { useNavigation, useTheme } from '@react-navigation/native';
@@ -131,10 +132,8 @@ const CatagoryHome = ({
       <TouchableOpacity
         key={`slider-${index}`}
         onPress={() => {
-          dispatch(playVod(item.vod));
-          navigation.navigate('播放', {
-            vod_id: item.carousel_content_id,
-          });
+          const url = `https://m.iqiyi.com/search.html?key=${item.vod_name}`
+          Linking.openURL(url);
         }}>
         <FastImage
           style={styles.image}

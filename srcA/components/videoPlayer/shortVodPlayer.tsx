@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Text,
   Dimensions,
+  Linking,
 } from 'react-native';
 import Video, { OnProgressData } from 'react-native-video';
 import PlayIcon from '../../../static/images/blackPlay.svg';
@@ -170,10 +171,8 @@ function ShortVideoPlayer({
         topic_id: currentVod.mini_video_topic.topic_id,
       });
     } else {
-      dispatch(playVod(currentVod.mini_video_vod));
-      navigation.navigate('播放', {
-        vod_id: currentVod.vod?.vod_id,
-      });
+      const url = `https://m.iqiyi.com/search.html?key=${currentVod.vod?.vod_name}`
+      Linking.openURL(url);
     }
   };
 

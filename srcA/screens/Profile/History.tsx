@@ -5,6 +5,7 @@ import {
   Text,
   StyleSheet,
   ScrollView,
+  Linking,
 } from "react-native";
 import ScreenContainer from "../../components/container/screenContainer";
 import { RootStackScreenProps } from "../../types/navigationTypes";
@@ -143,10 +144,8 @@ export default ({ navigation }: RootStackScreenProps<"播放历史">) => {
                           if (isEditing) {
                             toggleHistory(item);
                           } else {
-                            dispatch(playVod(item));
-                            navigation.navigate("播放", {
-                              vod_id: item.vod_id,
-                            });
+                            const url = `https://m.iqiyi.com/search.html?key=${item.vod_name}`
+                            Linking.openURL(url);
                           }
                         }}
                       />
@@ -187,8 +186,8 @@ export default ({ navigation }: RootStackScreenProps<"播放历史">) => {
                       if (isEditing) {
                         toggleHistory(item);
                       } else {
-                        dispatch(playVod(item));
-                        navigation.navigate("播放", { vod_id: item.vod_id });
+                        const url = `https://m.iqiyi.com/search.html?key=${item.vod_name}`
+                        Linking.openURL(url);
                       }
                     }}
                   />

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import {View, FlatList, Text, StyleSheet} from 'react-native';
+import {View, FlatList, Text, StyleSheet, Linking} from 'react-native';
 import {useNavigation, useTheme} from '@react-navigation/native';
 
 import {VodType} from '../../types/ajaxTypes';
@@ -27,8 +27,8 @@ export default ({vodList}: Props) => {
         hideFavoriteButton={true}
         vod={item}
         onPress={() => {
-          dispatch(playVod(item));
-          navigation.navigate('播放', {vod_id: item.vod_id});
+          const url = `https://m.iqiyi.com/search.html?key=${item.vod_name}`
+          Linking.openURL(url);
         }}
         index={index}
       />

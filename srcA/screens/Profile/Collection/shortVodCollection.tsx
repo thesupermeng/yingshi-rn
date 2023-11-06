@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { View, FlatList, Text, StyleSheet } from 'react-native';
+import { View, FlatList, Text, StyleSheet, Linking } from 'react-native';
 import ScreenContainer from '../../../components/container/screenContainer';
 import { useTheme } from '@react-navigation/native';
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
@@ -28,10 +28,8 @@ export default ({ navigation }: RootStackScreenProps<'合集收藏'>) => {
     const renderItem = useCallback(({ item }: FlatListType) => {
         return (
             <FavoriteVodCard vod={item} onPress={() => {
-                dispatch(playVod(item));
-                navigation.navigate('播放', {
-                    vod_id: item.vod_id
-                });
+                const url = `https://m.iqiyi.com/search.html?key=${item.vod_name}`
+                Linking.openURL(url);
             }} />
         )
     }, [])

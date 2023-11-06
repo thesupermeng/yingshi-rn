@@ -1,5 +1,5 @@
 import React, { memo, useEffect, useState, useMemo } from 'react';
-import { View, Text, StyleSheet, Dimensions, FlatList, Image } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, FlatList, Image, Linking } from 'react-native';
 import { useNavigation, useTheme } from '@react-navigation/native';
 
 import { playVod } from '../../redux/actions/vodActions';
@@ -77,10 +77,8 @@ function VodListVertical({ vods, numOfRows = 2, outerRowPadding = 0, minNumPerRo
                             if(onPress){
                                 onPress();
                             }
-                            dispatch(playVod(vod));
-                            navigation.navigate('播放', {
-                                vod_id: vod?.vod_id,
-                            });
+                            const url = `https://m.iqiyi.com/search.html?key=${vod?.vod_name}`
+                            Linking.openURL(url);
                         }}
                         index={idx}
                     />

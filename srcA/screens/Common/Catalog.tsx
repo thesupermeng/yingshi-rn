@@ -9,6 +9,7 @@ import {
   Dimensions,
   FlatList,
   Image,
+  Linking,
 } from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
 import {useFocusEffect, useTheme} from '@react-navigation/native';
@@ -404,10 +405,8 @@ export default ({navigation, route}: RootStackScreenProps<'片库'>) => {
               height: cardHeight,
             }}
             onPress={() => {
-              dispatch(playVod(item));
-              navigation.navigate('播放', {
-                vod_id: item?.vod_id,
-              });
+              const url = `https://m.iqiyi.com/search.html?key=${item.vod_name}`
+              Linking.openURL(url);
             }}
           />
         </View>
