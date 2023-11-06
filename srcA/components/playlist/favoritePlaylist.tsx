@@ -6,7 +6,7 @@ import {
   togglePlaylistFavorites,
   viewPlaylistDetails,
 } from '../../redux/actions/vodActions';
-import {View, StyleSheet, Text, TouchableOpacity, FlatList} from 'react-native';
+import {View, StyleSheet, Text, TouchableOpacity, FlatList, Linking} from 'react-native';
 import RightIcon from '../../../static/images/more_arrow.svg';
 import VodCard from '../vod/vodCard';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
@@ -71,10 +71,8 @@ export default function FavoritePlaylist({playlist, navigator}: Props) {
               vod_pic={item.vod_pic}
               vodImageStyle={{width: 120, height: 180}}
               onPress={() => {
-                dispatch(playVod(item));
-                navigator.navigate('播放', {
-                  vod_id: item.vod_id,
-                });
+                const url = `https://m.iqiyi.com/search.html?key=${item.vod_name}`
+                Linking.openURL(url);
               }}
             />
           );

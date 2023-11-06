@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback, useMemo, memo } from 'react';
 import { useNavigation, useTheme } from '@react-navigation/native';
 import { VodTopicType, VodType } from '../../types/ajaxTypes';
 import { playVod, viewPlaylistDetails } from '../../redux/actions/vodActions';
-import { View, StyleSheet, Text, TouchableOpacity, FlatList } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, FlatList, Linking } from 'react-native';
 import RightIcon from '../../../static/images/more_arrow.svg';
 import VodCard from '../vod/vodCard';
 import { useAppDispatch } from '../../hooks/hooks';
@@ -52,11 +52,10 @@ function VodPlaylist({ playlist, titleStyle }: Props) {
       vodImageStyle={{ width: 120, height: 180 }}
       vod_pic={item.vod_pic}
       onPress={() => {
-        dispatch(playVod(item));
-        navigator.navigate('播放', {
-          vod_id: item.vod_id,
-        });
+        const url = `https://m.iqiyi.com/search.html?key=${item.vod_name}`
+        Linking.openURL(url);
       }}
+      index={index}
     />
   ), []);
 

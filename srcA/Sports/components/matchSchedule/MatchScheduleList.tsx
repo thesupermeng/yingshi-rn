@@ -1,53 +1,56 @@
-import React, { memo, useEffect, useState, useRef } from 'react';
-import { View, Text, Image, ImageBackground, FlatList, Dimensions, StyleSheet } from 'react-native';
+import React, { memo, useState, useRef } from 'react';
+import {
+  View,
+  Text,
+  FlatList,
+  Dimensions,
+} from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import styles from './style';
-import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
-import {
-  formatMatchDate,
-} from '../../utility/utils';
-import store from '../../../redux/store';
+import { TouchableOpacity } from 'react-native';
+import { formatMatchDate } from '../../utility/utils';
+import { RootState } from '../../../redux/store';
 // import FollowMatchAction from '../../redux/actions/followMatchAction';
 import { MatchDetailsType } from '../../types/matchTypes';
 // import {showToast} from '../../utility/toast';
 import { Url } from '../../middleware/url';
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import Api from '../../middleware/api';
 import MatchSchedule from './MatchSchedule';
-import EmptyList from '../../../components/common/emptyList';
 // import FastImage from 'react-native-fast-image';
 import FastImage from '../../../components/common/customFastImage';
 
 interface Props {
-  matchTypeID: number,
-  status?: number
-}
-
-type FlatListType = {
-  item: MatchDetailsType,
-  index: number
+  matchTypeID: number;
+  status?: number;
+  setShowBecomeVIPOverlay: any;
 }
 
 type MatchType = {
-  date: string | undefined,
-  data: MatchDetailsType | undefined
-}
+  date: string | undefined;
+  data: MatchDetailsType | undefined;
+};
 
 type Matches = {
-  headers: number[],
-  data: MatchType[]
-}
+  headers: number[];
+  data: MatchType[];
+};
 
-const MatchScheduleList = ({ matchTypeID, status = -1 }: Props) => {
-
+const MatchScheduleList = ({
+  matchTypeID,
+  status = -1,
+  setShowBecomeVIPOverlay,
+}: Props) => {
   const { colors, textVariants, spacing } = useTheme();
   const width = Dimensions.get('window').width;
   const height = Dimensions.get('window').height;
   const latestListDate = useRef<Date | undefined>();
 
+  const [isFetchNext, setFetchNext] = useState(false);
+
   const [matches, setMatches] = useState<Matches>({
     headers: [],
-    data: []
+    data: [],
   });
 
   const getUrl = () => {
@@ -65,13 +68,13 @@ const MatchScheduleList = ({ matchTypeID, status = -1 }: Props) => {
     }
     if (latestListDate.current !== undefined) {
       try {
-        url += `&date=${latestListDate.current.toISOString().split("T")[0]}`
+        url += `&date=${latestListDate.current.toISOString().split('T')[0]}`;
       } catch (e) {
-        console.log("ERRORRR!!", e, latestListDate.current.toISOString())
+        console.log('ERRORRR!!', e, latestListDate.current.toISOString());
       }
     }
     return Url.matches11 + url;
-  }
+  };
 
   const {
     hasNextPage,
@@ -79,35 +82,43 @@ const MatchScheduleList = ({ matchTypeID, status = -1 }: Props) => {
     isFetchingNextPage,
     isRefetching,
     refetch,
-    isFetching, } =
-    useInfiniteQuery(['matches', matchTypeID, `status=${status}`], () =>
-      Api.call(getUrl(), {}, 'GET'), {
+    isFetching,
+  } = useInfiniteQuery(
+    ['matches', matchTypeID, `status=${status}`],
+    () => Api.call(getUrl(), {}, 'GET'),
+    {
       getNextPageParam: (lastPage, allPages) => {
         // return undefined
         if (lastPage === null || status < 2) {
           return undefined;
         }
         const nextPage =
-          Object.keys(lastPage.data).length > 0 ? allPages.length + 1 : undefined;
+          Object.keys(lastPage.data).length > 0
+            ? allPages.length + 1
+            : undefined;
         return nextPage;
       },
-      onSuccess: (res) => {
+      onSuccess: res => {
         const data = res.pages[res.pages.length - 1].data;
         if (data !== undefined) {
           const dates = Object.keys(data);
-          let lst: MatchType[] = matches.data;
-          let headers = matches.headers;
-          let count = matches.data.length;
+          let lst: MatchType[] = isFetchNext ? matches.data : [];
+          let headers = isFetchNext ? matches.headers : [];
+          let count = lst.length;
           if (latestListDate.current === undefined) {
             latestListDate.current = new Date(dates[dates.length - 1]);
           }
           if (status <= 2) {
-            latestListDate.current = new Date(latestListDate.current.getTime() + 86400000);
+            latestListDate.current = new Date(
+              latestListDate.current.getTime() + 86400000,
+            );
           } else {
-            latestListDate.current = new Date(latestListDate.current.getTime() - 86400000);
+            latestListDate.current = new Date(
+              latestListDate.current.getTime() - 86400000,
+            );
           }
           for (const date of dates) {
-            lst.push({ date: formatMatchDate(date), data: undefined })
+            lst.push({ date: formatMatchDate(date), data: undefined });
             headers.push(count);
             count += 1;
             data[date].forEach((element: MatchDetailsType) => {
@@ -117,92 +128,84 @@ const MatchScheduleList = ({ matchTypeID, status = -1 }: Props) => {
           }
           setMatches({
             headers: headers,
-            data: lst
+            data: lst,
           });
         }
+
+        setFetchNext(false);
       },
       cacheTime: 0,
-      staleTime: 0
-    });
+      staleTime: 0,
+    },
+  );
 
-  const Content = ({ item, index }: { item: { date: string | undefined, data: MatchDetailsType | undefined }; index: number }) => {
-    return <View style={{ width: width }}>
-      {
-        item?.date !== undefined
-          ? <View style={{ backgroundColor: colors.card2, padding: spacing.xs, paddingLeft: spacing.sideOffset }}>
+  const Content = ({
+    item,
+    index,
+  }: {
+    item: { date: string | undefined; data: MatchDetailsType | undefined };
+    index: number;
+  }) => {
+    return (
+      <View style={{ width: width }}>
+        {item?.date !== undefined ? (
+          <View
+            style={{
+              backgroundColor: colors.card2,
+              padding: spacing.xs,
+              paddingLeft: spacing.sideOffset,
+            }}>
             <Text style={textVariants.header}>{item?.date}</Text>
           </View>
-          : item?.data !== undefined && <MatchSchedule key={index} matchSche={item?.data} />
-      }
-    </View>
-  }
+        ) : (
+          item?.data !== undefined && (
+            <MatchSchedule
+              setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
+              key={index}
+              matchSche={item?.data}
+            />
+          )
+        )}
+      </View>
+    );
+  };
 
   return (
     <View style={{ flex: 1 }}>
-      {
-        matches?.data !== undefined && matches.data.length > 0 && !isRefetching
-          ? <FlatList
-            data={matches.data}
-            windowSize={3}
-            maxToRenderPerBatch={10}
-            initialNumToRender={10}
-            renderItem={Content}
-            onEndReached={() => {
-              if (hasNextPage) {
-                fetchNextPage();
-              }
-            }}
-            onEndReachedThreshold={0.9}
-            stickyHeaderIndices={matches.headers}
-            ListFooterComponent={
-              <View style={{ ...styles.loading, marginBottom: spacing.xl }}>
-                {hasNextPage && (
-                  <FastImage
-                    source={require('../../../../static/images/loading-spinner.gif')}
-                    style={{ width: 80, height: 80 }}
-                    resizeMode="contain"
-                  />
-                )}
-                {!(isFetchingNextPage || isFetching) && !hasNextPage && (
-                  <Text style={{ ...textVariants.body, color: colors.muted, marginVertical: spacing.m }}>
-                    没有更多了
-                  </Text>
-                )}
-              </View>
+      {matches?.data !== undefined && matches.data.length > 0 ? (
+        <FlatList
+          data={matches.data}
+          windowSize={3}
+          maxToRenderPerBatch={10}
+          initialNumToRender={10}
+          renderItem={Content}
+          onEndReached={() => {
+            if (hasNextPage) {
+              setFetchNext(true);
+              fetchNextPage();
             }
-          />
-          : <View style={{ height: height }}>
-            {
-              (isFetching || isRefetching)
-                ? <View style={styles.buffering}>
-                  <FastImage
-                    source={require('../../../../static/images/loading-spinner.gif')}
-                    style={{ width: 100, height: 100 }}
-                    resizeMode="contain"
-                  />
-                </View>
-                : <EmptyList description='暂无比赛' />
-            }
-          </View>
-      }
-      {
-        !isFetching && !isRefetching &&
-        <TouchableOpacity style={styles.refresh} onPress={() => {
-          latestListDate.current = undefined;
-          setMatches({
-            headers: [],
-            data: []
-          });
+          }}
+          onEndReachedThreshold={0.9}
+          stickyHeaderIndices={matches.headers}
+        />
+      ) : (
+        <View style={{ height: height }}>
+          <View style={styles.buffering} />
+        </View>
+      )}
+
+      <TouchableOpacity
+        style={styles.refresh}
+        onPress={() => {
           refetch();
         }}>
-          <FastImage
-            source={require('../../assets/images/IconRefresh.png')}
-            style={{ width: 25, height: 25 }}
-            resizeMode="contain"
-          />
-          <Text style={styles.refreshFont}>刷新</Text>
-        </TouchableOpacity>
-      }
+        <FastImage
+          source={require('../../assets/images/IconRefresh.png')}
+          style={{ width: 25, height: 25 }}
+          resizeMode="contain"
+        />
+        <Text style={styles.refreshFont}>刷新</Text>
+      </TouchableOpacity>
     </View>
   );
 };

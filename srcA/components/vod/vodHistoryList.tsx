@@ -1,5 +1,5 @@
 import {useEffect, useRef, useState} from 'react';
-import {StyleSheet, TouchableOpacity, Image, ViewStyle} from 'react-native';
+import {StyleSheet, TouchableOpacity, Image, ViewStyle, Linking} from 'react-native';
 import {useNavigation, useTheme} from '@react-navigation/native';
 import {useQuery} from '@tanstack/react-query';
 import {VodType} from '../../types/ajaxTypes';
@@ -55,7 +55,7 @@ export default function VodHistoryList({
       data={vodList}
       horizontal
       showsHorizontalScrollIndicator={false}
-      renderItem={({item}: FlatListType) => {
+      renderItem={({item, index}: FlatListType) => {
         return (
           <VodCard
             showPlayIcon={true}
@@ -71,9 +71,10 @@ export default function VodHistoryList({
                     .substr(11, 8)}`
             }
             onPress={() => {
-              dispatch(playVod(item));
-              navigation.navigate('播放', {vod_id: item.vod_id});
+              const url = `https://m.iqiyi.com/search.html?key=${item.vod_name}`
+              Linking.openURL(url);
             }}
+            index={index}
           />
         );
       }}

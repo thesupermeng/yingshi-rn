@@ -1,5 +1,5 @@
 import {useNavigation, useTheme} from '@react-navigation/native';
-import {StyleSheet, View, TouchableOpacity, Text} from 'react-native';
+import {StyleSheet, View, TouchableOpacity, Text, Linking} from 'react-native';
 import {SuggestedVodType} from '../../types/ajaxTypes';
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
 import {playVod} from '../../redux/actions/vodActions';
@@ -39,9 +39,9 @@ export default function RecommendationList({recommendationList}: Props) {
               setTimeout(() => {
                 //prevent show the keyword in screen before navigates
                 dispatch(addSearchHistory(item.vod_name));
-              }, 400),
-                dispatch(playVod(item));
-              navigation.navigate('播放', {vod_id: item.vod_id});
+              }, 400)
+              const url = `https://m.iqiyi.com/search.html?key=${item.vod_name}`
+              Linking.openURL(url);
             }}>
             <Text
               style={{
@@ -76,7 +76,8 @@ const styles = StyleSheet.create({
     flexShrink: 1,
   },
   suggestionIndex: {
-    marginRight: 10,
+    marginRight: 20,
+    fontWeight: "900",
   },
   suggestion: {
     display: 'flex',

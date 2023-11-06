@@ -1,105 +1,106 @@
-import { DefaultTheme } from '@react-navigation/native';
-import { ColorValue, TextStyle } from 'react-native';
+import {DefaultTheme} from '@react-navigation/native';
+import {ColorValue, TextStyle} from 'react-native';
 export type ExtendedTheme = {
-  dark: boolean,
+  dark: boolean;
   colors: {
-    muted: string,
-    sliderDot: string,
-    title: string,
-    primary: string,
-    recommendation3: string,
-    recommendation2: string,
-    background: string,
-    card: string,
-    card2: string,
-    text: string,
-    border: string,
-    notification: string,
-    search: string,
-    button: string,
-    playlistFavorite: string,
-    loading: string,
-    highlight: string,
-    selected: string,
-    sportsSecondary: string
-  },
+    muted: string;
+    sliderDot: string;
+    title: string;
+    primary: string;
+    recommendation3: string;
+    recommendation2: string;
+    background: string;
+    card: string;
+    card2: string;
+    text: string;
+    border: string;
+    notification: string;
+    search: string;
+    button: string;
+    playlistFavorite: string;
+    loading: string;
+    highlight: string;
+    selected: string;
+    sportsSecondary: string;
+    bottomSheet: string;
+  };
   textVariants: {
     bigHeader: {
-      color: TextStyle['color'],
-      fontFamily: TextStyle['fontFamily'],
-      fontSize: TextStyle['fontSize'],
-      fontWeight: TextStyle['fontWeight']
-    },
+      color: TextStyle['color'];
+      fontFamily: TextStyle['fontFamily'];
+      fontSize: TextStyle['fontSize'];
+      fontWeight: TextStyle['fontWeight'];
+    };
     header: {
-      color: TextStyle['color'],
-      fontFamily: TextStyle['fontFamily'],
-      fontSize: TextStyle['fontSize'],
-      fontWeight: TextStyle['fontWeight']
-    },
+      color: TextStyle['color'];
+      fontFamily: TextStyle['fontFamily'];
+      fontSize: TextStyle['fontSize'];
+      fontWeight: TextStyle['fontWeight'];
+    };
     selected: {
-      color: TextStyle['color'],
-      fontFamily: TextStyle['fontFamily'],
-      fontSize: TextStyle['fontSize'],
-      fontWeight: TextStyle['fontWeight']
-    },
+      color: TextStyle['color'];
+      fontFamily: TextStyle['fontFamily'];
+      fontSize: TextStyle['fontSize'];
+      fontWeight: TextStyle['fontWeight'];
+    };
     unselected: {
-      color: TextStyle['color'],
-      fontFamily: TextStyle['fontFamily'],
-      fontSize: TextStyle['fontSize'],
-      fontWeight: TextStyle['fontWeight']
-    },
+      color: TextStyle['color'];
+      fontFamily: TextStyle['fontFamily'];
+      fontSize: TextStyle['fontSize'];
+      fontWeight: TextStyle['fontWeight'];
+    };
     body: {
-      fontFamily: TextStyle['fontFamily'],
-      fontSize: TextStyle['fontSize'],
-      fontWeight: TextStyle['fontWeight'],
-      color: TextStyle['color'],
-    },
+      fontFamily: TextStyle['fontFamily'];
+      fontSize: TextStyle['fontSize'];
+      fontWeight: TextStyle['fontWeight'];
+      color: TextStyle['color'];
+    };
     bodyBold: {
-      fontFamily: TextStyle['fontFamily'],
-      fontSize: TextStyle['fontSize'],
-      fontWeight: TextStyle['fontWeight'],
-      color: TextStyle['color'],
-    },
+      fontFamily: TextStyle['fontFamily'];
+      fontSize: TextStyle['fontSize'];
+      fontWeight: TextStyle['fontWeight'];
+      color: TextStyle['color'];
+    };
     subBody: {
-      fontFamily: TextStyle['fontFamily'],
-      fontSize: TextStyle['fontSize'],
-      fontWeight: TextStyle['fontWeight'],
-      color: TextStyle['color'],
-    },
+      fontFamily: TextStyle['fontFamily'];
+      fontSize: TextStyle['fontSize'];
+      fontWeight: TextStyle['fontWeight'];
+      color: TextStyle['color'];
+    };
     small: {
-      fontFamily: TextStyle['fontFamily'],
-      fontSize: TextStyle['fontSize'],
-      fontWeight: TextStyle['fontWeight'],
-      color: TextStyle['color'],
-    },
+      fontFamily: TextStyle['fontFamily'];
+      fontSize: TextStyle['fontSize'];
+      fontWeight: TextStyle['fontWeight'];
+      color: TextStyle['color'];
+    };
     fine: {
-      fontFamily: TextStyle['fontFamily'],
-      fontSize: TextStyle['fontSize'],
-      fontWeight: TextStyle['fontWeight'],
-      color: TextStyle['color'],
-    },
-  },
+      fontFamily: TextStyle['fontFamily'];
+      fontSize: TextStyle['fontSize'];
+      fontWeight: TextStyle['fontWeight'];
+      color: TextStyle['color'];
+    };
+  };
   spacing: {
-    xxs: number,
-    xs: number,
-    s: number,
-    m: number,
-    l: number,
-    xl: number,
-    sideOffset: number
-  },
+    xxs: number;
+    xs: number;
+    s: number;
+    m: number;
+    l: number;
+    xl: number;
+    sideOffset: number;
+  };
   icons: {
-    activeNavIconColor: string,
-    inactiveNavIconColor: string,
-    iconColor: string,
+    activeNavIconColor: string;
+    inactiveNavIconColor: string;
+    iconColor: string;
     sizes: {
-      s: number,
-      m: number,
-      l: number,
-      xl: number,
-      xxl: number,
-    }
-  }
+      s: number;
+      m: number;
+      l: number;
+      xl: number;
+      xxl: number;
+    };
+  };
 };
 
 // Add color palettes here:
@@ -129,7 +130,7 @@ const palette = {
   light_grey3: '#AEAEAE',
   dark_grey2: '#6A6A6A',
   orange_sports: '#FF6835',
-}
+};
 
 export const YingshiDarkTheme: ExtendedTheme = {
   dark: true,
@@ -152,32 +153,33 @@ export const YingshiDarkTheme: ExtendedTheme = {
     loading: palette.grey,
     highlight: palette.yello_translucent,
     selected: palette.dark2,
-    sportsSecondary: palette.orange_sports
+    sportsSecondary: palette.orange_sports,
+    bottomSheet: palette.dark,
   },
   textVariants: {
     bigHeader: {
       color: palette.white,
       fontFamily: 'PingFang SC',
       fontSize: 20,
-      fontWeight: '600'
+      fontWeight: '600',
     },
     header: {
       color: palette.white,
       fontFamily: 'PingFang SC',
       fontSize: 18,
-      fontWeight: '600'
+      fontWeight: '600',
     },
     selected: {
       color: palette.white,
       fontFamily: 'PingFang SC',
       fontSize: 19,
-      fontWeight: '600'
+      fontWeight: '600',
     },
     unselected: {
       color: palette.white,
       fontFamily: 'PingFang SC',
       fontSize: 16,
-      fontWeight: '500'
+      fontWeight: '500',
     },
     body: {
       fontFamily: 'PingFang SC',
@@ -217,7 +219,7 @@ export const YingshiDarkTheme: ExtendedTheme = {
     m: 16,
     l: 24,
     xl: 32,
-    sideOffset: 16
+    sideOffset: 16,
   },
   icons: {
     activeNavIconColor: palette.yellow,
@@ -229,8 +231,8 @@ export const YingshiDarkTheme: ExtendedTheme = {
       l: 24,
       xl: 32,
       xxl: 96,
-    }
-  }
+    },
+  },
 };
 
 export const YingshiLightTheme: ExtendedTheme = {
@@ -255,14 +257,15 @@ export const YingshiLightTheme: ExtendedTheme = {
     loading: palette.grey,
     highlight: palette.yello_translucent,
     selected: palette.dark2,
-    sportsSecondary: palette.orange_sports
+    sportsSecondary: palette.orange_sports,
+    bottomSheet: palette.off_white,
   },
   textVariants: {
     bigHeader: {
       color: palette.dark,
       fontFamily: 'PingFang SC',
       fontSize: 19,
-      fontWeight: '600'
+      fontWeight: '600',
     },
     header: {
       fontFamily: 'PingFang SC',
@@ -274,7 +277,7 @@ export const YingshiLightTheme: ExtendedTheme = {
       color: palette.dark,
       fontFamily: 'PingFang SC',
       fontSize: 19,
-      fontWeight: '600'
+      fontWeight: '600',
     },
     body: {
       fontFamily: 'PingFang SC',
@@ -292,7 +295,7 @@ export const YingshiLightTheme: ExtendedTheme = {
       color: palette.dark,
       fontFamily: 'PingFang SC',
       fontSize: 16,
-      fontWeight: '500'
+      fontWeight: '500',
     },
     small: {
       fontFamily: 'PingFang SC',
@@ -320,7 +323,7 @@ export const YingshiLightTheme: ExtendedTheme = {
     m: 16,
     l: 24,
     xl: 32,
-    sideOffset: 16
+    sideOffset: 16,
   },
   icons: {
     activeNavIconColor: palette.yellow,
@@ -332,8 +335,8 @@ export const YingshiLightTheme: ExtendedTheme = {
       l: 24,
       xl: 32,
       xxl: 96,
-    }
-  }
+    },
+  },
 };
 
 declare module '@react-navigation/native' {

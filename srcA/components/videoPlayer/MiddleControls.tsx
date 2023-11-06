@@ -1,11 +1,11 @@
-import React, {useEffect, useState, useContext, useRef, memo} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import React, { useRef, memo } from 'react';
+import { View, StyleSheet } from 'react-native';
 import Play from '../../../static/images/blackPlay.svg';
 import Pause from '../../../static/images/pause.svg';
 import Rewind from '../../../static/images/rewind.svg';
 import Fastforward from '../../../static/images/fastforward.svg';
-import {BaseButton, RectButton} from 'react-native-gesture-handler';
-import {useTheme} from '@react-navigation/native';
+import { RectButton } from 'react-native-gesture-handler';
+import { useTheme } from '@react-navigation/native';
 
 type Props = {
   fastForward: (params: any) => any;
@@ -20,9 +20,6 @@ const MiddleControls = ({
   paused,
   videoType,
 }: Props) => {
-  const animationTimeout = useRef(-1);
-  const {textVariants} = useTheme();
-
   const onSkip = (seconds: number) => {
     fastForward(seconds);
   };
@@ -70,23 +67,17 @@ export default memo(MiddleControls);
 
 const styles = StyleSheet.create({
   middleControls: {
-    paddingHorizontal: 1,
     flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 3,
   },
   sideButtons: {
     paddingLeft: 46,
     paddingRight: 46,
   },
   leftButton: {
-    flex: 1,
     alignItems: 'flex-end',
     paddingRight: 23,
   },
   rightButton: {
-    flex: 1,
     alignItems: 'flex-start',
     paddingLeft: 23,
   },

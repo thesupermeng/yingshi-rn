@@ -7,10 +7,10 @@ import {useTheme} from '@react-navigation/native';
 import {useInfiniteQuery} from '@tanstack/react-query';
 import {VodPlaylistResponseType, VodTopicType} from '../../types/ajaxTypes';
 import VodPlaylist from '../../components/playlist/vodPlaylist';
-import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
+import {BottomTabScreenProps, useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 import {API_DOMAIN} from '../../utility/constants';
 // import FastImage from 'react-native-fast-image';
-import FastImage from '../../components/common/customFastImage';
+import FastImage from "../../components/common/customFastImage"
 import {useIsFocused} from '@react-navigation/native';
 // import {FlatList, PanGestureHandler} from 'react-native-gesture-handler';
 import NoConnection from './../../components/common/noConnection';
@@ -126,6 +126,10 @@ function Playlist ({navigation}: BottomTabScreenProps<any>) {
     // return setIsRefreshing(false);
   }, []);
 
+  //ads
+  const bottomTabBarHeight = useBottomTabBarHeight();
+  const [bottomTabHeight, setBottomTabHeight] = useState(60);
+  
   return (
     <>
       <ScreenContainer containerStyle={{paddingLeft: 0, paddingRight: 0}}>
@@ -147,7 +151,7 @@ function Playlist ({navigation}: BottomTabScreenProps<any>) {
           }
           navigator={navigation}
         />
-        {isRefreshing && !isOffline && (
+        {/* {isRefreshing && !isOffline && (
           <View
             style={{
               ...styles.loading,
@@ -163,8 +167,8 @@ function Playlist ({navigation}: BottomTabScreenProps<any>) {
               />
             }
           </View>
-        )}
-        {!isRefreshing && !isOffline && (
+        )} */}
+        {!isOffline && (
           <>
             <FlatList
               showsVerticalScrollIndicator={false}
@@ -178,6 +182,7 @@ function Playlist ({navigation}: BottomTabScreenProps<any>) {
               windowSize={5}
               maxToRenderPerBatch={5}
               renderItem={renderItem}
+              initialNumToRender={5}
               ListFooterComponent={
                 <View style={{...styles.loading, marginBottom: spacing.xl}}>
                   {hasNextPage && (

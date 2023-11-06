@@ -1,7 +1,8 @@
-import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import type {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {VodType, VodTopicType, LiveTVStationItem} from './ajaxTypes';
+import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import type { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { VodType, VodTopicType, LiveTVStationItem } from "./ajaxTypes";
+import { userModel } from "./userType";
 
 // https://reactnavigation.org/docs/typescript/
 export type HomeTabParamList = {
@@ -35,24 +36,29 @@ export type WatchAnytimeTabParamList = {
 
 export type RootStackParamList = {
   Profile: BottomTabScreenProps<ProfileTabParamList>;
+  // Profile: any;
   Playlist: BottomTabScreenProps<PlaylistTabParamList>;
   WatchAnytime: BottomTabScreenProps<WatchAnytimeTabParamList>;
-  Home: BottomTabScreenProps<HomeTabParamList>;
+  // Home: BottomTabScreenProps<HomeTabParamList>;
+  Home: any;
   我的收藏: undefined;
   合集收藏: undefined;
   播放历史: undefined;
   反馈: undefined;
+  邀请: undefined;
+  // 邀请详情: undefined;
+  个人中心: undefined;
   设置: undefined;
   关于我们: undefined;
   分享App: undefined;
   播放: {
-    vod_id: VodType['vod_id'];
+    vod_id: VodType["vod_id"];
   };
   搜索: {
     initial: string;
   };
   PlaylistDetail: {
-    topic_id: VodTopicType['topic_id'];
+    topic_id: VodTopicType["topic_id"];
   };
   隐私政策: undefined;
   用户协议: undefined;
@@ -74,22 +80,38 @@ export type RootStackParamList = {
   体育详情: {
     matchId?: number;
     streamerId?: number;
-    sportType?: '足球' | '篮球';
+    sportType?: "足球" | "篮球";
   };
   合集播放: {};
+  OTP: {
+    email: string;
+    action?: string;
+    referralCode?: string;
+    // deviceId?: string;
+  };
+  SetUsername: undefined;
+  活动规则: undefined;
+  付费VIP: undefined;
+  VIP明细: {
+    userState: userModel;
+  };
 };
 
-export type RootStackScreenProps<T extends keyof RootStackParamList> =
-  NativeStackScreenProps<RootStackParamList, T>;
+export type RootStackScreenProps<
+  T extends keyof RootStackParamList
+> = NativeStackScreenProps<RootStackParamList, T>;
 
-export type HomeTabScreenProps<T extends keyof HomeTabParamList> =
-  BottomTabScreenProps<HomeTabParamList, T>;
-export type ProfileTabScreenProps<T extends keyof ProfileTabParamList> =
-  BottomTabScreenProps<ProfileTabParamList, T>;
-export type PlaylistTabScreenProps<T extends keyof PlaylistTabParamList> =
-  BottomTabScreenProps<PlaylistTabParamList, T>;
+export type HomeTabScreenProps<
+  T extends keyof HomeTabParamList
+> = BottomTabScreenProps<HomeTabParamList, T>;
+export type ProfileTabScreenProps<
+  T extends keyof ProfileTabParamList
+> = BottomTabScreenProps<ProfileTabParamList, T>;
+export type PlaylistTabScreenProps<
+  T extends keyof PlaylistTabParamList
+> = BottomTabScreenProps<PlaylistTabParamList, T>;
 export type WatchAnytimeTabScreenProps<
-  T extends keyof WatchAnytimeTabParamList,
+  T extends keyof WatchAnytimeTabParamList
 > = BottomTabScreenProps<WatchAnytimeTabParamList, T>;
 
 declare global {

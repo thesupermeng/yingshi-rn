@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { StyleSheet, TouchableOpacity, Text, FlatList, Image, ViewStyle } from 'react-native';
+import { StyleSheet, TouchableOpacity, Text, FlatList, Image, ViewStyle, Linking } from 'react-native';
 import { useNavigation, useTheme } from '@react-navigation/native';
 import { useQuery } from '@tanstack/react-query';
 import { VodType } from '../../types/ajaxTypes';
@@ -56,8 +56,8 @@ export default function VodList({ query_url, initial_page = 0, vodStyle, horizon
                 : item.vod_remarks
         }
         onPress={() => {
-            dispatch(playVod(item));
-            navigation.navigate('播放', { vod_id: item.vod_id })
+            const url = `https://m.iqiyi.com/search.html?key=${item.vod_name}`
+            Linking.openURL(url);
         }} />
     }, []);
 

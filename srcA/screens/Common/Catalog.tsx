@@ -9,6 +9,7 @@ import {
   Dimensions,
   FlatList,
   Image,
+  Linking,
 } from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
 import {useFocusEffect, useTheme} from '@react-navigation/native';
@@ -46,7 +47,6 @@ import appsFlyer from 'react-native-appsflyer';
 import EmptyList from '../../components/common/emptyList';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {TabItem} from '@rneui/base/dist/Tab/Tab.Item';
-
 
 interface NavType {
   id: number;
@@ -405,10 +405,8 @@ export default ({navigation, route}: RootStackScreenProps<'片库'>) => {
               height: cardHeight,
             }}
             onPress={() => {
-              dispatch(playVod(item));
-              navigation.navigate('播放', {
-                vod_id: item?.vod_id,
-              });
+              const url = `https://m.iqiyi.com/search.html?key=${item.vod_name}`
+              Linking.openURL(url);
             }}
           />
         </View>
@@ -552,7 +550,7 @@ export default ({navigation, route}: RootStackScreenProps<'片库'>) => {
                   <FastImage
                     style={{height: 80, width: 80}}
                     source={require('../../../static/images/loading-spinner.gif')}
-                    resizeMode={"contain"}
+                    resizeMode={'contain'}
                   />
                 )}
                 {!(isFetchingNextPage || isFetching) &&

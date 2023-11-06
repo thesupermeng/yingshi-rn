@@ -16,34 +16,36 @@ export default ({navigation}: RootStackScreenProps<'PlaylistDetail'>) => {
   );
   const playlist = playlistReducer?.playlistDetails?.playlist;
   return (
-    <ScreenContainer>
-      <TitleWithBackButtonHeader
-        title={playlist?.topic_name}
-        headerStyle={{marginBottom: spacing.s}}
-      />
-      {playlist && (
-        <View style={{gap: spacing.s, paddingBottom: 50}}>
-          <View style={styles.header}>
+    <>
+      <ScreenContainer>
+        <TitleWithBackButtonHeader
+          title={playlist?.topic_name}
+          headerStyle={{marginBottom: spacing.s}}
+        />
+        {playlist && (
+          <View style={{gap: spacing.s, paddingBottom: 50}}>
+            <View style={styles.header}>
+              <Text
+                numberOfLines={3}
+                style={{
+                  ...textVariants.small,
+                  color: colors.text,
+                  flex: 1,
+                  marginRight: spacing.l,
+                }}>
+                {playlist?.topic_blurb}
+              </Text>
+              <FavoritePlaylistButton playlist={playlist} />
+            </View>
             <Text
-              numberOfLines={3}
               style={{
                 ...textVariants.small,
-                color: colors.text,
-                flex: 1,
-                marginRight: spacing.l,
-              }}>
-              {playlist?.topic_blurb}
-            </Text>
-            <FavoritePlaylistButton playlist={playlist} />
+              }}>{`(共${playlist.vod_list.length}部)`}</Text>
+            <VodWithDescriptionList vodList={playlist.vod_list} />
           </View>
-          <Text
-            style={{
-              ...textVariants.small,
-            }}>{`(共${playlist.vod_list.length}部)`}</Text>
-          <VodWithDescriptionList vodList={playlist.vod_list} />
-        </View>
-      )}
-    </ScreenContainer>
+        )}
+      </ScreenContainer>
+    </>
   );
 };
 
