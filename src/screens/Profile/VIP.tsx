@@ -149,9 +149,9 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   }, [membershipProducts]);
 
   const handlePurchase = async () => {
-    if (userState.userToken == ""){
+    if (userState.userToken == "") {
       dispatch(showLoginAction());
-      console.log('show login')
+      console.log("show login");
       return; //early return
     }
 
@@ -175,11 +175,11 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         } else {
           console.error("handle purchase error: " + error);
         }
-        showToast(
-          error?.code.toString() +
-            "  error message : " +
-            error.message.toString()
-        );
+        // showToast(
+        //   error?.code.toString() +
+        //     "  error message : " +
+        //     error.message.toString()
+        // );
 
         saveFinishTrans("2", continueTrans.data, error);
         if (error && error?.code == "E_USER_CANCELLED") {
@@ -375,15 +375,22 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
               onPress={() => {
                 navigation.navigate("VIP明细", { userState: userState });
               }}
-              disabled={!(userState.userPaidVipList.total_purchased_days > 0 || 
-                userState.userAccumulateRewardDay > 0)}
+              disabled={
+                !(
+                  userState.userPaidVipList.total_purchased_days > 0 ||
+                  userState.userAccumulateRewardDay > 0
+                )
+              }
             >
               <Text
                 style={{
                   ...textVariants.subBody,
                   padding: 8,
-                  opacity: (userState.userPaidVipList.total_purchased_days > 0 || 
-                    userState.userAccumulateRewardDay > 0) ? 100 : 0,
+                  opacity:
+                    userState.userPaidVipList.total_purchased_days > 0 ||
+                    userState.userAccumulateRewardDay > 0
+                      ? 100
+                      : 0,
                 }}
               >
                 VIP明细
