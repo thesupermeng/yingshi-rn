@@ -23,10 +23,26 @@ interface Props {
     currentVodIndex?: number,
     handleRefreshMiniVod?: any,
     isRefreshing: boolean,
+    isPressTabScroll: boolean,
 }
 
 
-export default ({ miniVodListRef, handleRefreshMiniVod, videos, initialIndex = 0, setParentCurrent = null, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching, isActive, inCollectionView = false, setCollectionEpisode, isRefreshing = false }: Props) => {
+export default ({
+    miniVodListRef,
+    handleRefreshMiniVod,
+    videos,
+    initialIndex = 0,
+    setParentCurrent = null,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isFetching,
+    isActive,
+    inCollectionView = false,
+    setCollectionEpisode,
+    isRefreshing = false,
+    isPressTabScroll = false,
+}: Props) => {
 
     const { spacing } = useTheme();
 
@@ -106,13 +122,13 @@ export default ({ miniVodListRef, handleRefreshMiniVod, videos, initialIndex = 0
                     onManualPause={(current) => {
                         setPause(!current);
                     }}
-                    isShowVideo={current === index && !isScrolling}
+                    isShowVideo={current === index && !isScrolling && !isPressTabScroll}
                     currentDuration={videoCurrentDurations[index]}
                     updateVideoDuration={(duration) => updateVideoDuration(index, duration)}
                 />
             )}
         </View>
-    ), [current, isPause, isScrolling, inCollectionView, displayHeight, videoCurrentDurations]);
+    ), [current, isPause, isScrolling, inCollectionView, displayHeight, videoCurrentDurations, isPressTabScroll]);
 
     return (
         <View style={{ flex: 1 }} onLayout={(event: any) => {
