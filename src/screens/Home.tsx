@@ -253,6 +253,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
                       zIndex: -1,
                     }}
                     resizeMode={"contain"}
+                    useFastImage={true}
                   />
                 </View>
               )}
