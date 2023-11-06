@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Platform} from 'react-native';
 import {Colors} from '../../../global/colors';
 
 const styles = StyleSheet.create({
@@ -137,9 +137,12 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   imagePlayer: {
-    width: 30,
-    height: 30,
-    borderRadius: 30 / 2,
+    // width: 30,
+    // height: 30,
+    // borderRadius: 30 / 2,
+    width: (Platform.OS === 'ios' ? 48 : 36),
+    height: (Platform.OS === 'ios' ? 48 : 36),
+    borderRadius: 50 / 2,
     backgroundColor: '#FFFFFF',
   },
   playerRate: {

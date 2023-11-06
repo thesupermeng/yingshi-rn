@@ -140,7 +140,7 @@ const CatagoryHome = ({
           style={styles.image}
           source={{
             uri: item.carousel_pic_mobile,
-            priority: 'normal',
+            priority: "normal",
           }}
           resizeMode={"contain"}
         />
@@ -236,8 +236,9 @@ const CatagoryHome = ({
                   height={width / 2}
                   autoPlay={true}
                   data={data.carousel}
-                  scrollAnimationDuration={500}
+                  scrollAnimationDuration={220}
                   autoPlayInterval={2300}
+                  onScrollBegin={() => {}}
                   onSnapToItem={index => {
                     setActiveIndex(index);
                   }}

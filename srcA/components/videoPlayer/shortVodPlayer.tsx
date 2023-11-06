@@ -1,4 +1,4 @@
-import React, {useEffect, useState, memo, useMemo, useCallback, useRef} from 'react';
+import React, { useEffect, useState, memo, useCallback, useRef } from 'react';
 import {
   View,
   TouchableWithoutFeedback,
@@ -7,56 +7,56 @@ import {
   Text,
   Dimensions,
 } from 'react-native';
-import Video, {OnProgressData} from 'react-native-video';
-import {debounce, throttle} from 'lodash';
+import Video, { OnProgressData } from 'react-native-video';
 import PlayIcon from '../../../static/images/blackPlay.svg';
 import PauseIcon from '../../../static/images/pause.svg';
 import PlayZhengPianIcon from '../../../static/images/play-zhengpian1.svg';
 import PlayBoDanIcon from '../../../static/images/play-bodan.svg';
 
-import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
-import FastImage from 'react-native-fast-image';
+import FastImage from '../common/customFastImage';
 import { Slider } from '@rneui/themed';
 import { useAppDispatch } from '../../hooks/hooks';
 import { useNavigation, useTheme } from '@react-navigation/native';
 import { playVod, viewPlaylistDetails } from '../../redux/actions/vodActions';
-import BottomSheet from '@gorhom/bottom-sheet';
-import CollectionBottomSheet from '../../../src/components/miniCollection/CollectionBottomSheet';
 import HejiIcon from '../../../static/images/heji.svg';
 import ExpandUpIcon from '../../../static/images/expandHeji.svg';
 import { QueryClient } from '@tanstack/react-query';
 
 interface Props {
-  vod_url?: string;
   thumbnail?: string;
-  isActive?: boolean;
-  videoTitle?: string;
   displayHeight: number;
   vod: any;
   inCollectionView?: boolean;
   setCollectionEpisode?: any;
   openSheet?: any;
+  isPause: boolean;
+  onManualPause: (value: boolean) => void;
+  isShowVideo: boolean,
+  currentDuration: number,
+  updateVideoDuration: (duration: number) => any,
 }
 
 function ShortVideoPlayer({
   vod,
-  vod_url,
-  isActive,
   thumbnail,
-  videoTitle,
   displayHeight = 0,
   inCollectionView = false,
   setCollectionEpisode,
-  openSheet
+  openSheet,
+  isPause = false,
+  onManualPause,
+  isShowVideo,
+  currentDuration,
+  updateVideoDuration,
 }: Props) {
   const maxLength = 10;
 
   const [currentVod, setVod] = useState(vod);
 
-  if(currentVod?.mini_video_original_video_name == undefined){
+  if (currentVod?.mini_video_original_video_name == undefined) {
     currentVod.mini_video_original_video_name = '';
   }
-  
+
   let vodName =
     currentVod?.mini_video_original_video_name.length > maxLength
       ? currentVod?.mini_video_original_video_name.substring(0, maxLength) + '...'
@@ -66,12 +66,10 @@ function ShortVideoPlayer({
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
 
-  const {colors, textVariants} = useTheme();
+  const { colors, textVariants } = useTheme();
 
   const [isBuffering, setIsBuffering] = useState(false);
   const videoRef = useRef<Video>(null);
-  const [paused, setPaused] = useState(false);
-  const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [showOverlay, setShowOverlay] = useState(false);
   const timer = useRef<number>(0);
@@ -81,8 +79,8 @@ function ShortVideoPlayer({
   const [isBodan, setIsBodan] = useState(true);
   const [watchText, setWatchText] = useState('看正片');
   const [imageLoaded, setImageLoaded] = useState(false);
-  const [vodUrl, setVodUrl] = useState(vod_url);
-  const sheetRef = useRef<BottomSheet>(null);
+  const overlayRef = useRef(false);
+  const [isVideoReady, setVideoReady] = useState(false);
 
   const windowWidth = Dimensions.get('window').width;
 
@@ -91,20 +89,23 @@ function ShortVideoPlayer({
   }, [vod])
 
   useEffect(() => {
-    
-    if(currentVod.mini_video_topic?.topic_id != 0){
+    if (!isShowVideo) setVideoReady(false);
+  }, [isShowVideo])
+
+  useEffect(() => {
+
+    if (currentVod.mini_video_topic?.topic_id != 0) {
       setIsBodan(true);
       setWatchText('看播单');
-    }else{
+    } else {
       setIsBodan(false);
       setWatchText('看正片');
     }
 
     return () => {
-      setPaused(false);
       setShowOverlay(false);
       setShowIcon(false);
-      setCurrentTime(0);
+      updateVideoDuration(0);
       setIsBodan(false);
       setWatchText('看正片');
     };
@@ -121,32 +122,41 @@ function ShortVideoPlayer({
   }, []);
 
   const handleProgress = useCallback((progress: OnProgressData) => {
-    setCurrentTime(progress.currentTime);
+    updateVideoDuration(progress.currentTime)
   }, []);
 
   const showControls = () => {
     clearTimeout(timer.current);
     setShowOverlay(true);
+    overlayRef.current = true
     timer.current = setTimeout(() => setShowOverlay(false), 3000);
   };
   const handleSeek = useCallback((value: number) => {
+    if (!isVideoReady) return;
+
     if (Number.isNaN(value)) {
       value = 0;
     }
     showControls();
-    setCurrentTime(value);
+    updateVideoDuration(value);
     if (videoRef.current) {
       videoRef.current.seek(value);
     }
-  }, []);
+  }, [isVideoReady]);
 
   const handlePlayPause = () => {
     clearTimeout(iconTimer.current);
     setShowIcon(true);
-    if (paused) {
+    if (isPause) {
       iconTimer.current = setTimeout(() => setShowIcon(false), 1000);
     }
-    setPaused(!paused);
+    onManualPause(isPause);
+  };
+
+  const handleLoadStart = () => {
+    if (videoRef.current) {
+      videoRef.current.seek(currentDuration);
+    }
   };
 
   const handleLoad = (meta: any) => {
@@ -154,12 +164,12 @@ function ShortVideoPlayer({
   };
 
   const redirectVod = () => {
-    if(isBodan){
+    if (isBodan) {
       dispatch(viewPlaylistDetails(currentVod.mini_video_topic));
       navigation.navigate('PlaylistDetail', {
         topic_id: currentVod.mini_video_topic.topic_id,
       });
-    }else{
+    } else {
       dispatch(playVod(currentVod.mini_video_vod));
       navigation.navigate('播放', {
         vod_id: currentVod.vod?.vod_id,
@@ -171,46 +181,63 @@ function ShortVideoPlayer({
     const { height } = event.nativeEvent.layout;
     setImageContainerHeight(height);
   }
+
   return (
     <TouchableWithoutFeedback
       onPress={() => {
         showControls();
-        if (showOverlay) {
+        if (overlayRef.current) {
           handlePlayPause();
         }
       }}>
       <View>
         <View style={[styles.container, { height: displayHeight }]}>
-          {isBuffering && (
+          {(isBuffering || !isVideoReady) && isShowVideo && (
             <View style={styles.buffering}>
               <FastImage
                 source={require('../../../static/images/videoBufferLoading.gif')}
-                style={{ width: 100, height: 100 }}
+                style={{ width: 100, height: 100, }}
                 resizeMode="contain"
+                useFastImage={true}
               />
             </View>
           )}
-          <Video
-            ref={videoRef}
-            resizeMode="contain"
-            poster={thumbnail}
-            source={{
-              uri: currentVod.mini_video_origin_video_url,
-              headers: {
-                'User-Agent':
-                  'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
-              },
-            }}
-            onBuffer={onBuffer}
-            repeat={true}
-            style={styles.video}
-            // onVideoSeek={}
-            // ignoreSilentSwitch={"ignore"}
-            paused={!isActive || paused}
-            onLoad={handleLoad}
-            onProgress={handleProgress}
-            progressUpdateInterval={400}
-          />
+          {!isVideoReady && thumbnail &&
+            <FastImage
+              source={{ uri: thumbnail }}
+              style={styles.video}
+              resizeMode="contain"
+              useFastImage={true}
+            />
+          }
+          {isShowVideo &&
+            <Video
+              ref={videoRef}
+              resizeMode="contain"
+              // poster={thumbnail}
+              source={{
+                uri: currentVod.mini_video_origin_video_url,
+                headers: {
+                  'User-Agent':
+                    'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+                },
+              }}
+              onReadyForDisplay={() => setVideoReady(true)}
+              onBuffer={onBuffer}
+              repeat={true}
+              style={{
+                ...styles.video,
+                display: isVideoReady ? 'flex' : 'none',
+              }}
+              // onVideoSeek={}
+              // ignoreSilentSwitch={"ignore"}
+              paused={isPause || !isVideoReady}
+              onLoad={handleLoad}
+              onLoadStart={handleLoadStart}
+              onProgress={handleProgress}
+              progressUpdateInterval={400}
+            />
+          }
           <View
             style={{
               position: 'absolute',
@@ -218,7 +245,7 @@ function ShortVideoPlayer({
               top: (Dimensions.get('window').height - 130) / 2,
               zIndex: 999,
             }}>
-            {showIcon && (paused ? <PlayIcon /> : <PauseIcon />)}
+            {showIcon && (isPause ? <PlayIcon /> : <PauseIcon />)}
           </View>
           <View
             style={{
@@ -242,7 +269,7 @@ function ShortVideoPlayer({
                         borderRadius: 8,
                         backgroundColor: 'rgba(106, 106, 106, 0.25)',
                       }}>
-                      { !isBodan && 
+                      {!isBodan &&
                         <View
                           style={{
                             width: 45,
@@ -261,7 +288,7 @@ function ShortVideoPlayer({
                           </TouchableOpacity>
                         </View>
                       }
-                      { isBodan &&
+                      {isBodan &&
                         <View
                           style={{
                             width: 45,
@@ -272,7 +299,7 @@ function ShortVideoPlayer({
                           onLayout={handleViewLayout}>
                           <TouchableOpacity style={{ flex: 1, position: 'relative' }} onPress={redirectVod}>
                             <FastImage
-                              style={{ flex: 1, borderRadius: 6, transform: 'translate(0px, 0px)', position: 'absolute', width: '100%', height: '100%', zIndex: 3 }}
+                              style={{ flex: 1, borderRadius: 6, position: 'absolute', width: '100%', height: '100%', zIndex: 3 }}
                               source={{
                                 uri: currentVod.mini_video_original_img_url,
                                 priority: "high",
@@ -284,14 +311,14 @@ function ShortVideoPlayer({
                                 setImageLoaded(true)
                               }}
                             />
-                            { imageLoaded && isBodan &&
+                            {imageLoaded && isBodan &&
                               <View>
                                 <FastImage
-                                  style={{ flex: 1, borderRadius: 6, transform: 'translate(4px, 0px)', position: 'absolute', width: '100%', height: imageContainerHeight - 6, zIndex: 2, top: 5.8 }}
+                                  style={{ flex: 1, borderRadius: 6, position: 'absolute', width: '100%', height: imageContainerHeight - 6, zIndex: 2, top: 5.8 }}
                                   source={require('../../../static/images/bodan2.jpeg')}
                                 />
                                 <FastImage
-                                  style={{ flex: 1, borderRadius: 6, transform: 'translate(8px, 0px)', position: 'absolute', width: '100%', height: imageContainerHeight - 12, top: 11.8 }}
+                                  style={{ flex: 1, borderRadius: 6, position: 'absolute', width: '100%', height: imageContainerHeight - 12, top: 11.8 }}
                                   source={require('../../../static/images/bodan3.jpg')}
                                 />
                               </View>
@@ -334,7 +361,7 @@ function ShortVideoPlayer({
                             </View>
                             <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
                               <View style={{ flexWrap: 'wrap' }}>
-                                { isBodan ?
+                                {isBodan ?
                                   <PlayBoDanIcon width={20} height={20} />
                                   :
                                   <PlayZhengPianIcon width={20} height={20} />
@@ -378,7 +405,7 @@ function ShortVideoPlayer({
               </View>
             </View>
 
-            { currentVod.is_collection?.toLowerCase() == "y" &&
+            {currentVod.is_collection?.toLowerCase() == "y" &&
               <View style={{ backgroundColor: '#171717', paddingBottom: 18, paddingTop: 12, paddingLeft: 20, paddingRight: 20 }}>
                 <TouchableOpacity style={{ flex: 1 }} onPress={() => {
                   openBottomSheet();
@@ -386,9 +413,9 @@ function ShortVideoPlayer({
                   <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
                     <View style={{ flex: 1, flexDirection: 'row' }}>
                       <HejiIcon height={24} width={24} />
-                      <Text style={{ paddingLeft: 6, alignSelf: 'center', fontSize: 14, color: colors.text, fontWeight: 700 }}>{currentVod.mini_video_collection_title}</Text>
+                      <Text style={{ paddingLeft: 6, alignSelf: 'center', fontSize: 14, color: colors.text, fontWeight: '700' }}>{currentVod.mini_video_collection_title}</Text>
                     </View>
-                    <View style={{ }}>
+                    <View style={{}}>
                       <ExpandUpIcon height={24} width={24} />
                     </View>
                   </View>
@@ -407,7 +434,7 @@ function ShortVideoPlayer({
               height: showOverlay ? 8 : 1,
               width: showOverlay ? 8 : 1,
             }}
-            value={currentTime}
+            value={currentDuration}
             onValueChange={handleSeek}
             onSlidingComplete={handleSeek}
             minimumTrackTintColor={'#ffffff80'}
@@ -416,29 +443,29 @@ function ShortVideoPlayer({
             trackStyle={{ height: 2, opacity: 1 }}
           />
           {
-            duration > 0 && showOverlay && currentTime >= 0 &&
+            duration > 0 && showOverlay && currentDuration >= 0 &&
             (
               duration < 3600
                 ? <Text style={{
-                    position: 'absolute',
-                    bottom: 12,
-                    backgroundColor: '#000',
-                    borderRadius: 4,
-                    paddingVertical: 6,
-                    paddingHorizontal: 10,
-                    left: Math.min(Math.max(0, (currentTime / duration) * windowWidth - 44), windowWidth - 76)
-                  }}>
-                    <Text style={textVariants.small}>{new Date(currentTime * 1000).toISOString().substring(14, 19)}</Text>
-                    <Text style={{ ...textVariants.small, color: colors.muted }}>{` / ${new Date(duration * 1000).toISOString().substring(14, 19)}`}</Text>
-                  </Text>
+                  position: 'absolute',
+                  bottom: 12,
+                  backgroundColor: '#000',
+                  borderRadius: 4,
+                  paddingVertical: 6,
+                  paddingHorizontal: 10,
+                  left: Math.min(Math.max(0, (currentDuration / duration) * windowWidth - 44), windowWidth - 76)
+                }}>
+                  <Text style={textVariants.small}>{new Date(currentDuration * 1000).toISOString().substring(14, 19)}</Text>
+                  <Text style={{ ...textVariants.small, color: colors.muted }}>{` / ${new Date(duration * 1000).toISOString().substring(14, 19)}`}</Text>
+                </Text>
                 : <Text style={{
-                    position: 'absolute',
-                    bottom: 20,
-                    left: Math.min(Math.max(0, (currentTime / duration) * windowWidth - 34), windowWidth - 76)
-                  }}>
-                    <Text style={textVariants.small}>{new Date(currentTime * 1000).toISOString().substring(11, 19)}</Text>
-                    <Text style={{ ...textVariants.small, color: colors.muted }}>{` / ${new Date(duration * 1000).toISOString().substring(11, 19)}`}</Text>
-                  </Text>
+                  position: 'absolute',
+                  bottom: 20,
+                  left: Math.min(Math.max(0, (currentDuration / duration) * windowWidth - 34), windowWidth - 76)
+                }}>
+                  <Text style={textVariants.small}>{new Date(currentDuration * 1000).toISOString().substring(11, 19)}</Text>
+                  <Text style={{ ...textVariants.small, color: colors.muted }}>{` / ${new Date(duration * 1000).toISOString().substring(11, 19)}`}</Text>
+                </Text>
             )
           }
         </View>
@@ -548,7 +575,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: '40%',
     left: '36%',
-    zIndex: 100,
+    zIndex: 999,
   },
   slider: {
     position: 'absolute',

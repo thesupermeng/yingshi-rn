@@ -13,9 +13,10 @@ interface Props {
     showPlayIcon?: boolean
     shadowBottom?: boolean
     isDisabled?: boolean
+    index?: number
 }
 
-export default function VodImageCard({ vod_img, vodStyle, onPress, showInfo = '', showPlayIcon = false, shadowBottom = false, isDisabled }: Props) {
+export default function VodImageCard({ vod_img, vodStyle, onPress, showInfo = '', showPlayIcon = false, shadowBottom = false, isDisabled, index = -1 }: Props) {
     const { colors, textVariants, spacing } = useTheme();
     const iconSize = 0.3 * parseInt(vodStyle?.height === undefined ? '180' : `${vodStyle.height}`)
     return (
@@ -30,6 +31,7 @@ export default function VodImageCard({ vod_img, vodStyle, onPress, showInfo = ''
                     uri: vod_img,
                     priority: 'normal',
                 }}
+                useFastImage={index >= 0 && index < 3}
             />
             {
                 shadowBottom && <LinearGradient

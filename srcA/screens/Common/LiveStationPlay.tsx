@@ -1,50 +1,27 @@
-import React, {useEffect, useState, useMemo, useRef, useCallback} from 'react';
+import React, {useState, useCallback} from 'react';
 import {
   View,
-  TouchableOpacity,
-  Share,
   Text,
   StyleSheet,
-  Alert,
   ScrollView,
-  Image,
 } from 'react-native';
-import Video from 'react-native-video';
-import FavoriteButton from '../../components/button/favoriteVodButton';
-import FavoriteIcon from '../../../static/images/favorite.svg';
-import VodCard from '../../components/vod/vodCard';
 import ScreenContainer from '../../components/container/screenContainer';
 import {useTheme, useFocusEffect} from '@react-navigation/native';
 
 import {RootStackScreenProps} from '../../types/navigationTypes';
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
-import Orientation from 'react-native-orientation-locker';
 
 import {Dimensions} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import VodEpisodeSelectionModal from '../../components/modal/vodEpisodeSelectionModal';
-import FastImage from 'react-native-fast-image';
-import {useQuery} from '@tanstack/react-query';
-import ShowMoreVodButton from '../../components/button/showMoreVodButton';
+// import FastImage from 'react-native-fast-image';
+import FastImage from '../../components/common/customFastImage';
 import VodLiveStationListVertical from '../../components/vod/vodLiveStationListVertical';
 import VodPlayer from '../../components/videoPlayer/vodPlayer';
-import BottomSheet from '@gorhom/bottom-sheet';
-
-type PlayContextValue = {
-  value: string;
-  updateValue: (newValue: string) => void;
-};
-
-const definedValue = (val: any) => {
-  if (val === undefined || val === null) {
-    return '';
-  }
-  return val + ' ';
-};
+import { SettingsReducerState } from '../../redux/reducers/settingsReducer';
+import { RootState } from '../../redux/store';
+import { lockAppOrientation } from '../../redux/actions/settingsActions';
 
 export default ({navigation, route}: RootStackScreenProps<'电视台播放'>) => {
-  // console.log('电视台播放');
-  // console.log(route);
   const {liveStationItemList, liveStationItem} = route.params;
   const insets = useSafeAreaInsets();
 
@@ -52,6 +29,10 @@ export default ({navigation, route}: RootStackScreenProps<'电视台播放'>) =>
   const dispatch = useAppDispatch();
 
   const [dismountPlayer, setDismountPlayer] = useState(false);
+
+  const settingsReducer: SettingsReducerState = useAppSelector(
+    ({ settingsReducer }: RootState) => settingsReducer
+  );
 
   const outerRowPadding = 0;
   const minNumPerRow = 2;
@@ -74,10 +55,15 @@ export default ({navigation, route}: RootStackScreenProps<'电视台播放'>) =>
     useCallback(() => {
       return () => {
         setDismountPlayer(true);
-        Orientation.unlockAllOrientations();
+        // Orientation.unlockAllOrientations();
       };
     }, []),
   );
+  
+  const lockOrientation = (orientation: string) => {
+    dispatch(lockAppOrientation(orientation));
+  };
+  
   return (
     <ScreenContainer
       containerStyle={{flex: 1, paddingRight: 0, paddingLeft: 0}}>
@@ -87,7 +73,10 @@ export default ({navigation, route}: RootStackScreenProps<'电视台播放'>) =>
           vodTitle={liveStationItem.live_station_name}
           videoType={'live'}
           streams={liveStationItemList}
-          showMoreType="streams"
+          showMoreType="streams" 
+          appOrientation={settingsReducer.appOrientation} 
+          devicesOrientation={settingsReducer.devicesOrientation} 
+          lockOrientation={lockOrientation}        
         />
       )}
       <ScrollView

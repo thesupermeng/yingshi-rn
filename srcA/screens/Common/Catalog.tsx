@@ -47,7 +47,6 @@ import EmptyList from '../../components/common/emptyList';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {TabItem} from '@rneui/base/dist/Tab/Tab.Item';
 
-
 interface NavType {
   id: number;
   name: string;
@@ -552,7 +551,7 @@ export default ({navigation, route}: RootStackScreenProps<'片库'>) => {
                   <FastImage
                     style={{height: 80, width: 80}}
                     source={require('../../../static/images/loading-spinner.gif')}
-                    resizeMode={"contain"}
+                    resizeMode={'contain'}
                   />
                 )}
                 {!(isFetchingNextPage || isFetching) &&

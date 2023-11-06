@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo, Ref, forwardRef, useImperativeHandle, useCallback, useRef } from 'react';
-import { View, PanResponder, StyleSheet, Dimensions, Text } from 'react-native';
+import { View, PanResponder, StyleSheet, Dimensions, Text, TouchableOpacity } from 'react-native';
 import MiddleControls from './MiddleControls';
 import BottomControls from './BottomControls';
 import LinearGradient from 'react-native-linear-gradient';
@@ -210,27 +210,24 @@ export default forwardRef<RefHandler, Props>(({
     }
   }
   return (
-    <Animated.View
+    <View
       style={{ ...styles.controlsOverlay }}>
-      {
-        !showControls &&
-        <VodCombinedGesture
-          vodType={videoType}
-          enabled={showSlider === 'none'}
-          onSkipBackwards={() => handleFastForward(-10)}
-          onSkipForward={() => handleFastForward(10)}
-          onSingleTap={changeControlsState}
-          currentTime={currentTime}
-          totalDuration={duration}
-          onSeek={onSeekGesture}
-          disableControlsExceptTap={isLocked}
-        >
-          <View style={{ flex: 1, zIndex: 50 }}></View>
-        </VodCombinedGesture>
-      }
+      <VodCombinedGesture
+        vodType={videoType}
+        enabled={showSlider === 'none'}
+        onSkipBackwards={() => handleFastForward(-10)}
+        onSkipForward={() => handleFastForward(10)}
+        onSingleTap={changeControlsState}
+        currentTime={currentTime}
+        totalDuration={duration}
+        onSeek={onSeekGesture}
+        disableControlsExceptTap={isLocked}
+      />
       {
         accumulatedSkip < 0 &&
-        <Animated.View entering={FadeInDown} style={{
+        <View style={{
+          flexDirection: 'row',
+          alignItems: 'center',
           opacity: opacity.value,
           position: 'absolute',
           top: isFullScreen ? (height / 2) - 25 : (width * 9 / 32) - 25,
@@ -239,12 +236,22 @@ export default forwardRef<RefHandler, Props>(({
           padding: 10,
           borderRadius: 8
         }}>
-          <Text style={textVariants.header}>{`${accumulatedSkip}s`}</Text>
-        </Animated.View>
+          <Text style={{ ...textVariants.header, marginRight: 5 }}>{`${accumulatedSkip}s`}</Text>
+          <FastImage
+            source={require('../../../static/images/backward.png')}
+            style={{
+              height: icons.sizes.l,
+              width: icons.sizes.l,
+            }}
+            resizeMode={"contain"}
+          />
+        </View>
       }
       {
         accumulatedSkip > 0 &&
-        <Animated.View entering={FadeInDown} style={{
+        <View style={{
+          flexDirection: 'row',
+          alignItems: 'center',
           opacity: opacity.value,
           position: 'absolute',
           right: isFullScreen ? '15%' : '4%',
@@ -253,8 +260,16 @@ export default forwardRef<RefHandler, Props>(({
           padding: 10,
           borderRadius: 8
         }}>
-          <Text style={textVariants.header}>{`+${accumulatedSkip}s`}</Text>
-        </Animated.View>
+          <FastImage
+            source={require('../../../static/images/forward.png')}
+            style={{
+              height: icons.sizes.l,
+              width: icons.sizes.l,
+            }}
+            resizeMode={"contain"}
+          />
+          <Text style={{ ...textVariants.header, marginRight: 5 }}>{`+${accumulatedSkip}s`}</Text>
+        </View>
       }
       {
         showControls && isLocked &&
@@ -280,7 +295,7 @@ export default forwardRef<RefHandler, Props>(({
                 }}
                 disallowInterruption={true}
                 style={{ flex: 1, width: 'auto' }}></BaseButton>
-              <Animated.View style={styles.sidePanel} entering={SlideInRight}>
+              <View style={styles.sidePanel} >
                 <LinearGradient
                   colors={['transparent', 'black']}
                   start={{ x: 0, y: 0 }}
@@ -366,9 +381,9 @@ export default forwardRef<RefHandler, Props>(({
                     </View>
                   }
                 </View>
-              </Animated.View>
+              </View>
             </View>
-            : <View style={{ height: '100%', flex: 1 }}>
+            : <>
               {/* Top Controls */}
               <LinearGradient
                 colors={['transparent', 'black']}
@@ -377,8 +392,8 @@ export default forwardRef<RefHandler, Props>(({
                 style={styles.topBlur}
               >
                 <View style={{ ...styles.videoHeader, marginRight: isFullScreen ? 20 : 0 }}>
-                  <View style={{ flexDirection: 'row', alignItems: 'center', flexShrink: 1, paddingRight: 10 }}>
-                    <BackButton onPress={() => goBack()} btnStyle={styles.backBtn} />
+                  <TouchableOpacity onPress={() => goBack()} style={{ flexDirection: 'row', alignItems: 'center', flexShrink: 1, paddingRight: 10, }}>
+                    <BackButton btnStyle={styles.backBtn} />
                     <Text
                       style={{
                         ...textVariants.body,
@@ -391,7 +406,7 @@ export default forwardRef<RefHandler, Props>(({
                       numberOfLines={1}>
                       {headerTitle}
                     </Text>
-                  </View>
+                  </TouchableOpacity>
                   {
                     videoType === 'vod' && <RectButton
                       disallowInterruption={true}
@@ -402,23 +417,12 @@ export default forwardRef<RefHandler, Props>(({
                 </View>
               </LinearGradient>
               {/* Middle Controls */}
-              <VodCombinedGesture
-                vodType={videoType}
-                enabled={showSlider === 'none'}
-                onSkipBackwards={() => handleFastForward(-10)}
-                onSkipForward={() => handleFastForward(10)}
-                onSingleTap={changeControlsState}
-                currentTime={currentTime}
-                totalDuration={duration}
-                onSeek={onSeekGesture}
-              >
-                <MiddleControls
-                  fastForward={handleFastForward}
-                  togglePlayPause={handlePlayPause}
-                  videoType={videoType}
-                  paused={paused}
-                />
-              </VodCombinedGesture>
+              <MiddleControls
+                fastForward={handleFastForward}
+                togglePlayPause={handlePlayPause}
+                videoType={videoType}
+                paused={paused}
+              />
               {/* Bottom Controls */}
               <LinearGradient
                 colors={['transparent', 'black']}
@@ -450,10 +454,10 @@ export default forwardRef<RefHandler, Props>(({
                   showSliderThumbnail={showSliderThumbnail}
                 />
               </LinearGradient>
-            </View>
+            </>
         )
       }
-    </Animated.View>
+    </View>
   );
 });
 
@@ -464,9 +468,8 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    // width: '100%',
-    // height: '100%'
-    // backgroundColor: '#00000010',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   fullScreenBottom: {
     paddingBottom: 60,
@@ -476,14 +479,14 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    zIndex: 99
+    zIndex: 99,
   },
   topBlur: {
     position: 'absolute',
     left: 0,
     right: 0,
     top: 0,
-    zIndex: 99
+    zIndex: 99,
   },
   videoHeader: {
     display: 'flex',
@@ -494,8 +497,7 @@ const styles = StyleSheet.create({
     height: '100%',
     width: 'auto',
     maxWidth: 400,
-    minWidth: 200
-    // flex: 1
+    minWidth: 200,
   },
   rateButtons: {
     marginBottom: 10,
@@ -515,6 +517,6 @@ const styles = StyleSheet.create({
     width: 300
   },
   backBtn: {
-    padding: 20
+    padding: 20,
   }
 });

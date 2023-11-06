@@ -90,7 +90,13 @@ export default ({ navigation }: RootStackScreenProps<"播放历史">) => {
               setRemoveHistory([]);
             }}
           >
-            <Text style={{ ...textVariants.body, padding: 8 }}>
+            <Text
+              style={{
+                ...textVariants.body,
+                padding: 8,
+                opacity: history && history.length > 0 ? 100 : 0,
+              }}
+            >
               {isEditing ? "取消" : "编辑"}
             </Text>
           </TouchableOpacity>

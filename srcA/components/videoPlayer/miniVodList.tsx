@@ -1,26 +1,19 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { SafeAreaView, View, Text, FlatList, Dimensions, RefreshControl } from 'react-native';
+import { View, FlatList, RefreshControl, Text } from 'react-native';
 import { MiniVideo } from '../../types/ajaxTypes';
 import ShortVod from '../../components/videoPlayer/shortVod';
-// import FastImage from 'react-native-fast-image';
-import FastImage from '../common/customFastImage';
-import { useTheme, useIsFocused } from '@react-navigation/native';
+import FastImage from "../common/customFastImage";
+import { useTheme } from '@react-navigation/native';
 import { StyleSheet } from 'react-native';
-import {useQueryClient} from '@tanstack/react-query';
-
-type MiniVideoResponseType = {
-    data: {
-        List: Array<MiniVideo>
-    }
-}
 
 interface Props {
+    miniVodListRef: any,
     videos: any,
     hasNextPage: boolean | undefined,
     fetchNextPage: any,
-    isFetchingNextPage: any, 
+    isFetchingNextPage: any,
     isFetching: boolean,
-    isPaused: boolean,
+    isActive: boolean,
     inCollectionView?: boolean,
     setParentCurrent?: any,
     initialIndex?: number,
@@ -29,29 +22,34 @@ interface Props {
     setCollectionEpisode?: any,
     currentVodIndex?: number,
     handleRefreshMiniVod?: any,
+    isRefreshing: boolean,
 }
 
-const ITEM_HEIGHT = Dimensions.get('window').height;
 
-export default ({ handleRefreshMiniVod, currentVodIndex = 0, videos, initialIndex = 0, setParentCurrent = null, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching, isPaused, inCollectionView = false, collection_ori_all_videos, enterPosition = 0, setCollectionEpisode} : Props) => {
+export default ({ miniVodListRef, handleRefreshMiniVod, videos, initialIndex = 0, setParentCurrent = null, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching, isActive, inCollectionView = false, setCollectionEpisode, isRefreshing = false }: Props) => {
 
     const { spacing } = useTheme();
 
-    const [displayHeight, setDisplayHeight] = useState<number | null>(0);
-    const [current, setCurrent] = useState<number | null>(0);
+    const [isInitFetching, setInitFetching] = useState(true);
+    const [displayHeight, setDisplayHeight] = useState<number>(0);
+    const [current, setCurrent] = useState<number>(0);
     const [collectionPartialVideos, setCollectionPartialVideos] = useState(videos);
-    const queryClient = useQueryClient();
-    const isFocused = useIsFocused();
-    const [isRefreshing, setIsRefreshing] = useState(false);
-    const handleViewableItemsChanged = useCallback(({ viewableItems }: { viewableItems: any }) => {
-        if (viewableItems.length == 1 && typeof viewableItems[0] != 'undefined') {
-            const curr = viewableItems[0].index;
-            setCurrent(curr);
-            if(setParentCurrent != null){
-                setParentCurrent(curr);
-            }
+    const [isPause, setPause] = useState(true);
+    const [isScrolling, setIsScrolling] = useState(false);
+    const [videoCurrentDurations, setVideoCurrentDurations] = useState<number[]>([]);
+
+    const handleOnScroll = useCallback((e: any) => {
+        const positionY = parseFloat(e.nativeEvent.contentOffset.y.toFixed(5));
+        const index = Math.floor(positionY / displayHeight);
+
+        if (index >= 0 && displayHeight > 0 && index != current) {
+            setCurrent(index);
         }
-    }, []);
+    }, [displayHeight, current]);
+
+    useEffect(() => {
+        if (isInitFetching && !isFetching) setInitFetching(false);
+    }, [isFetching, isInitFetching]);
 
     useEffect(() => {
         setCurrent(initialIndex)
@@ -59,82 +57,135 @@ export default ({ handleRefreshMiniVod, currentVodIndex = 0, videos, initialInde
 
     useEffect(() => {
         setCollectionPartialVideos(videos);
-        
-        if(inCollectionView == true){
+
+        // set default 0 for all video duration
+        setVideoCurrentDurations(videos.map(() => 0));
+
+        if (inCollectionView == true) {
         }
 
     }, [videos]);
+
+    useEffect(() => {
+        setPause(isFetching || isRefreshing || !isActive || isScrolling);
+    }, [isFetching, isRefreshing, isActive, isScrolling])
 
     const setCollectionEpisodeToTitle = (index: number) => {
         setCollectionEpisode(index);
     }
 
-    const refreshComponent = () => {
-        if(inCollectionView == false){
-            return <RefreshControl
-                        refreshing={isRefreshing}
-                        onRefresh={handleRefreshMiniVod}
-                    />
-        }
-        
-        return <></>
+    const refreshComponent = useCallback(() => {
+        return <>
+            <RefreshControl
+                refreshing={isRefreshing}
+                onRefresh={handleRefreshMiniVod}
+                tintColor="#FAC33D"
+            />
+        </>
+    }, [isRefreshing]);
+
+    const updateVideoDuration = (index: number, newDuration: number) => {
+        // use map function for generate new list for update state
+        setVideoCurrentDurations(videoCurrentDurations.map((duration, i) => {
+            if (index === i) return newDuration;
+
+            return duration;
+        }));
     }
 
     const renderItem = useCallback(({ item, index }: { item: MiniVideo, index: number }) => (
         <View style={{ height: displayHeight ? displayHeight : 0 }}>
-            {current !== null && Math.abs(current - index) <= 2 && (
+            {displayHeight != 0 && Math.abs(current - index) <= 2 && (
                 <ShortVod
                     vod={item}
-                    vod_url={item.mini_video_origin_video_url}
-                    isActive={current === index && !isPaused}
                     thumbnail={item.mini_video_origin_cover}
-                    videoTitle={item.mini_video_title}
                     displayHeight={displayHeight ? displayHeight : 0}
                     inCollectionView={inCollectionView}
                     setCollectionEpisode={setCollectionEpisodeToTitle}
+                    isPause={isPause || current !== index}
+                    onManualPause={(current) => {
+                        setPause(!current);
+                    }}
+                    isShowVideo={current === index && !isScrolling}
+                    currentDuration={videoCurrentDurations[index]}
+                    updateVideoDuration={(duration) => updateVideoDuration(index, duration)}
                 />
             )}
         </View>
-    ), [current, displayHeight, isPaused, inCollectionView]);
-    
+    ), [current, isPause, isScrolling, inCollectionView, displayHeight, videoCurrentDurations]);
+
     return (
         <View style={{ flex: 1 }} onLayout={(event: any) => {
-            var { x, y, width, height } = event.nativeEvent.layout;
-            setDisplayHeight(height)
+            var { height } = event.nativeEvent.layout;
+            const heightStr: string = height.toFixed(5);
+
+            // use substring to prevent rounding
+            setDisplayHeight(parseFloat(heightStr.substring(0, heightStr.length - 1)))
         }}>
-            <FlatList
-                data={collectionPartialVideos}
-                initialNumToRender={3}
-                maxToRenderPerBatch={3}
-                windowSize={5}
-                refreshControl={refreshComponent()}
-                renderItem={renderItem}
-                horizontal={false}
-                pagingEnabled={true}
-                keyExtractor={(item: any, index: any) => item.mini_video_id.toString()}
-                viewabilityConfig={{ viewAreaCoveragePercentThreshold: 100 }}
-                showsHorizontalScrollIndicator={false}
-                showsVerticalScrollIndicator={false}
-                onViewableItemsChanged={handleViewableItemsChanged}
-                onEndReached={() => {
-                    if (hasNextPage && !isFetchingNextPage && !isFetching) {
-                        // console.log('Fetching next page')
-                        fetchNextPage();
-                    }
-                }}
-                onEndReachedThreshold={0.8}
-                ListFooterComponent={
-                    <View style={{ ...styles.loading, marginBottom: spacing.xl }}>
-                        {
-                            hasNextPage && <FastImage
-                                style={{ height: 80, width: 80 }}
-                                source={require('../../../static/images/loading-spinner.gif')}
-                                resizeMode={"contain"}
-                            />
+            {isInitFetching ?
+                <View
+                    style={{
+                        flex: 1,
+                        width: '100%',
+                        height: '100%',
+                        justifyContent: "center",
+                        alignItems: "center",
+                    }}
+                >
+                    <FastImage
+                        source={require("../../../static/images/home-loading.gif")}
+                        style={{
+                            width: 150,
+                            height: 150,
+                            bottom: 50,
+                            zIndex: 1,
+                        }}
+                        resizeMode={"contain"}
+                        useFastImage={true}
+                    />
+                </View>
+                : <FlatList
+                    ref={miniVodListRef}
+                    data={collectionPartialVideos}
+                    initialNumToRender={collectionPartialVideos.length}
+                    // maxToRenderPerBatch={5}
+                    windowSize={5}
+                    refreshControl={refreshComponent()}
+                    renderItem={renderItem}
+                    horizontal={false}
+                    // isRefreshing will change disable (because if pagingEnabled=true, refresh loading will not working)
+                    pagingEnabled={isRefreshing ? false : true}
+                    scrollEnabled={isRefreshing ? false : true}
+                    keyExtractor={(item: any, index: any) => item.mini_video_id.toString()}
+                    viewabilityConfig={{ viewAreaCoveragePercentThreshold: 100 }}
+                    showsHorizontalScrollIndicator={false}
+                    showsVerticalScrollIndicator={false}
+                    onEndReached={() => {
+                        if (hasNextPage && !isFetchingNextPage && !isFetching) {
+                            fetchNextPage();
                         }
-                    </View>
-                }
-            />
+                    }}
+                    onEndReachedThreshold={0.8}
+                    ListFooterComponent={
+                        <View style={{ ...styles.loading, marginBottom: spacing.xl }}>
+                            {
+                                hasNextPage && <FastImage
+                                    style={{ height: 80, width: 80 }}
+                                    source={require('../../../static/images/loading-spinner.gif')}
+                                    resizeMode={'contain'}
+                                />
+                            }
+                        </View>
+                    }
+                    onScroll={handleOnScroll}
+                    onScrollBeginDrag={(e) => {
+                        if (!isScrolling) setIsScrolling(true);
+                    }}
+                    onMomentumScrollEnd={() => {
+                        setIsScrolling(false);
+                    }}
+                />
+            }
         </View>
     )
 }

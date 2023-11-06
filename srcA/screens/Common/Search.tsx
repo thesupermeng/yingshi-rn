@@ -22,7 +22,8 @@ import {API_DOMAIN} from '../../utility/constants';
 import VodWithDescriptionList from '../../components/vod/vodWithDescriptionList';
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
 import {RootState} from '../../redux/store';
-import FastImage from 'react-native-fast-image';
+// import FastImage from 'react-native-fast-image';
+import FastImage from '../../components/common/customFastImage';
 import {
   addSearchHistory,
   clearSearchHistory,
@@ -201,6 +202,7 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
           style={styles.searchResult}
           contentContainerStyle={{flexGrow: 1}}
           showsVerticalScrollIndicator={false} // Hide the vertical scroll bar
+          keyboardDismissMode='on-drag'
         >
           <View style={{marginLeft: 10}}>
             {search !== undefined &&

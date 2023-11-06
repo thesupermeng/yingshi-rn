@@ -81,6 +81,7 @@ export interface VodType {
     vod_plot_detail: string,
     type_name: string,
     vod_play_list: VodEpisodeListType,
+    vod_restricted: number,
 }
 
 export interface SuggestResponseType {

@@ -60,6 +60,7 @@ import NoConnection from "../../components/common/noConnection";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 import { lockAppOrientation } from "../../redux/actions/settingsActions";
 import { AdsBannerContext } from "../../contexts/AdsBannerContext";
+import useInterstitialAds from "../../hooks/useInterstitialAds";
 
 type VideoRef = {
   setPause: (param: boolean) => void;
@@ -220,7 +221,18 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
     )
       .then((response) => response.json())
       .then((json: VodDetailsResponseType) => {
-        setVodRestricted(json.data[0]?.vod_restricted === 1);
+        const isRestricted = json.data[0]?.vod_restricted === 1;
+
+        if (isRestricted) {
+          videoPlayerRef.current.setPause(true);
+          // use setTimeout to prevent video non pause before unmount the screen
+          setTimeout(() => {
+            setVodRestricted(isRestricted);
+          }, 100);
+        } else {
+          setVodRestricted(isRestricted);
+        }
+
         return json.data[0];
       });
 
@@ -237,7 +249,17 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
       dispatch(playVod(vod));
     }
 
-    setVodRestricted(vodDetails?.vod_restricted === 1);
+    const isRestricted = vodDetails?.vod_restricted === 1;
+
+    if (isRestricted) {
+      videoPlayerRef.current.setPause(true);
+      // use setTimeout to prevent video non pause before unmount the screen
+      setTimeout(() => {
+        setVodRestricted(isRestricted);
+      }, 100);
+    } else {
+      setVodRestricted(isRestricted);
+    }
   }, [vodDetails]);
 
   const fetchVod = () =>
@@ -365,6 +387,8 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const lockOrientation = (orientation: string) => {
     dispatch(lockAppOrientation(orientation));
   };
+
+  useInterstitialAds();
 
   return (
     <>
