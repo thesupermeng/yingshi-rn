@@ -31,7 +31,7 @@ export const VipDetails = ({ route, navigation }: RootStackScreenProps<"VIP明�
         style={styles.card}>
         <View style={styles.featureItem}>
           <Text style={{ ...textVariants.bigHeader }}>
-            {accumulatedVipDays ? accumulatedVipDays : '-'} 天
+            {accumulatedVipDays ? `${accumulatedVipDays}天` : '-'} 
           </Text>
           <Text style={{ ...textVariants.small, color: colors.muted }}>累计VIP天数</Text>
         </View>
@@ -45,7 +45,7 @@ export const VipDetails = ({ route, navigation }: RootStackScreenProps<"VIP明�
 
         <View style={styles.featureItem}>
           <Text style={{ ...textVariants.bigHeader }}>
-            {userState.userPaidVipList ? userState.userPaidVipList.total_purchased_amount : '-'}
+            {userState.userPaidVipList.total_purchased_amount ? userState.userPaidVipList.total_purchased_amount : '-'}
           </Text>
           <Text style={{ ...textVariants.small, color: colors.muted }}>购买总额 （USD）</Text>
         </View>

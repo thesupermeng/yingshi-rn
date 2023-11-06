@@ -39,6 +39,7 @@ import {
 } from "../../utility/constants";
 import axios from "axios";
 import { showToast } from "../../Sports/utility/toast";
+import { showLoginAction } from "../../redux/actions/screenAction";
 
 const subscriptionSkus = Platform.select({
   ios: ["yingshi_vip_month", "yingshi_vip_6months", "monthly_subscription"],
@@ -148,6 +149,12 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   }, [membershipProducts]);
 
   const handlePurchase = async () => {
+    if (userState.userToken == ""){
+      dispatch(showLoginAction());
+      console.log('show login')
+      return; //early return
+    }
+
     const continueTrans = await initialTransRecord();
     setIsBtnEnable(false);
     setCurrentTransID(continueTrans.data);
@@ -368,12 +375,15 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
               onPress={() => {
                 navigation.navigate("VIP明细", { userState: userState });
               }}
+              disabled={!(userState.userPaidVipList.total_purchased_days > 0 || 
+                userState.userAccumulateRewardDay > 0)}
             >
               <Text
                 style={{
                   ...textVariants.subBody,
                   padding: 8,
-                  opacity: true ? 100 : 0,
+                  opacity: (userState.userPaidVipList.total_purchased_days > 0 || 
+                    userState.userAccumulateRewardDay > 0) ? 100 : 0,
                 }}
               >
                 VIP明细
