@@ -39,8 +39,8 @@ export default ({ miniVodListRef, handleRefreshMiniVod, videos, initialIndex = 0
     const [videoCurrentDurations, setVideoCurrentDurations] = useState<number[]>([]);
 
     const handleOnScroll = useCallback((e: any) => {
-        const position = e.nativeEvent.contentOffset;
-        const index = Math.floor(position.y / displayHeight);
+        const positionY = parseFloat(e.nativeEvent.contentOffset.y.toFixed(5));
+        const index = Math.floor(positionY / displayHeight);
 
         if (index >= 0 && displayHeight > 0 && index != current) {
             setCurrent(index);
@@ -117,7 +117,10 @@ export default ({ miniVodListRef, handleRefreshMiniVod, videos, initialIndex = 0
     return (
         <View style={{ flex: 1 }} onLayout={(event: any) => {
             var { height } = event.nativeEvent.layout;
-            setDisplayHeight(height)
+            const heightStr: string = height.toFixed(5);
+
+            // use substring to prevent rounding
+            setDisplayHeight(parseFloat(heightStr.substring(0, heightStr.length - 1)))
         }}>
             {isInitFetching ?
                 <View
