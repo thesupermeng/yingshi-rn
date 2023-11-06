@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   Text,
   Dimensions,
-  Platform,
 } from 'react-native';
 import Video, { OnProgressData } from 'react-native-video';
 import PlayIcon from '../../../static/images/blackPlay.svg';
@@ -14,7 +13,6 @@ import PauseIcon from '../../../static/images/pause.svg';
 import PlayZhengPianIcon from '../../../static/images/play-zhengpian1.svg';
 import PlayBoDanIcon from '../../../static/images/play-bodan.svg';
 
-// import FastImage from 'react-native-fast-image';
 import FastImage from '../common/customFastImage';
 import { Slider } from '@rneui/themed';
 import { useAppDispatch } from '../../hooks/hooks';
@@ -25,29 +23,31 @@ import ExpandUpIcon from '../../../static/images/expandHeji.svg';
 import { QueryClient } from '@tanstack/react-query';
 
 interface Props {
-  vod_url?: string;
   thumbnail?: string;
-  isActive?: boolean;
-  videoTitle?: string;
   displayHeight: number;
   vod: any;
   inCollectionView?: boolean;
   setCollectionEpisode?: any;
   openSheet?: any;
-  isScrolling: boolean;
+  isPause: boolean;
+  onManualPause: (value: boolean) => void;
+  isShowVideo: boolean,
+  currentDuration: number,
+  updateVideoDuration: (duration: number) => any,
 }
 
 function ShortVideoPlayer({
   vod,
-  vod_url,
-  isActive,
   thumbnail,
-  videoTitle,
   displayHeight = 0,
   inCollectionView = false,
   setCollectionEpisode,
   openSheet,
-  isScrolling = false,
+  isPause = false,
+  onManualPause,
+  isShowVideo,
+  currentDuration,
+  updateVideoDuration,
 }: Props) {
   const maxLength = 10;
 
@@ -70,8 +70,6 @@ function ShortVideoPlayer({
 
   const [isBuffering, setIsBuffering] = useState(false);
   const videoRef = useRef<Video>(null);
-  const [paused, setPaused] = useState(false);
-  const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [showOverlay, setShowOverlay] = useState(false);
   const timer = useRef<number>(0);
@@ -81,14 +79,18 @@ function ShortVideoPlayer({
   const [isBodan, setIsBodan] = useState(true);
   const [watchText, setWatchText] = useState('看正片');
   const [imageLoaded, setImageLoaded] = useState(false);
-  const [vodUrl, setVodUrl] = useState(vod_url);
   const overlayRef = useRef(false);
+  const [isVideoReady, setVideoReady] = useState(false);
 
   const windowWidth = Dimensions.get('window').width;
 
   useEffect(() => {
     setVod(vod);
   }, [vod])
+
+  useEffect(() => {
+    if (!isShowVideo) setVideoReady(false);
+  }, [isShowVideo])
 
   useEffect(() => {
 
@@ -101,10 +103,9 @@ function ShortVideoPlayer({
     }
 
     return () => {
-      setPaused(false);
       setShowOverlay(false);
       setShowIcon(false);
-      setCurrentTime(0);
+      updateVideoDuration(0);
       setIsBodan(false);
       setWatchText('看正片');
     };
@@ -121,7 +122,7 @@ function ShortVideoPlayer({
   }, []);
 
   const handleProgress = useCallback((progress: OnProgressData) => {
-    setCurrentTime(progress.currentTime);
+    updateVideoDuration(progress.currentTime)
   }, []);
 
   const showControls = () => {
@@ -131,23 +132,31 @@ function ShortVideoPlayer({
     timer.current = setTimeout(() => setShowOverlay(false), 3000);
   };
   const handleSeek = useCallback((value: number) => {
+    if (!isVideoReady) return;
+
     if (Number.isNaN(value)) {
       value = 0;
     }
     showControls();
-    setCurrentTime(value);
+    updateVideoDuration(value);
     if (videoRef.current) {
       videoRef.current.seek(value);
     }
-  }, []);
+  }, [isVideoReady]);
 
   const handlePlayPause = () => {
     clearTimeout(iconTimer.current);
     setShowIcon(true);
-    if (paused) {
+    if (isPause) {
       iconTimer.current = setTimeout(() => setShowIcon(false), 1000);
     }
-    setPaused(!paused);
+    onManualPause(isPause);
+  };
+
+  const handleLoadStart = () => {
+    if (videoRef.current) {
+      videoRef.current.seek(currentDuration);
+    }
   };
 
   const handleLoad = (meta: any) => {
@@ -183,36 +192,52 @@ function ShortVideoPlayer({
       }}>
       <View>
         <View style={[styles.container, { height: displayHeight }]}>
-          {isBuffering && (
+          {(isBuffering || !isVideoReady) && isShowVideo && (
             <View style={styles.buffering}>
               <FastImage
                 source={require('../../../static/images/videoBufferLoading.gif')}
-                style={{ width: 100, height: 100 }}
+                style={{ width: 100, height: 100, }}
                 resizeMode="contain"
+                useFastImage={true}
               />
             </View>
           )}
-          <Video
-            ref={videoRef}
-            resizeMode="contain"
-            poster={thumbnail}
-            source={{
-              uri: currentVod.mini_video_origin_video_url,
-              headers: {
-                'User-Agent':
-                  'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
-              },
-            }}
-            onBuffer={onBuffer}
-            repeat={true}
-            style={styles.video}
-            // onVideoSeek={}
-            // ignoreSilentSwitch={"ignore"}
-            paused={!isActive || paused || isScrolling}
-            onLoad={handleLoad}
-            onProgress={handleProgress}
-            progressUpdateInterval={400}
-          />
+          {!isVideoReady && thumbnail &&
+            <FastImage
+              source={{ uri: thumbnail }}
+              style={styles.video}
+              resizeMode="contain"
+              useFastImage={true}
+            />
+          }
+          {isShowVideo &&
+            <Video
+              ref={videoRef}
+              resizeMode="contain"
+              // poster={thumbnail}
+              source={{
+                uri: currentVod.mini_video_origin_video_url,
+                headers: {
+                  'User-Agent':
+                    'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+                },
+              }}
+              onReadyForDisplay={() => setVideoReady(true)}
+              onBuffer={onBuffer}
+              repeat={true}
+              style={{
+                ...styles.video,
+                display: isVideoReady ? 'flex' : 'none',
+              }}
+              // onVideoSeek={}
+              // ignoreSilentSwitch={"ignore"}
+              paused={isPause || !isVideoReady}
+              onLoad={handleLoad}
+              onLoadStart={handleLoadStart}
+              onProgress={handleProgress}
+              progressUpdateInterval={400}
+            />
+          }
           <View
             style={{
               position: 'absolute',
@@ -220,7 +245,7 @@ function ShortVideoPlayer({
               top: (Dimensions.get('window').height - 130) / 2,
               zIndex: 999,
             }}>
-            {showIcon && (paused ? <PlayIcon /> : <PauseIcon />)}
+            {showIcon && (isPause ? <PlayIcon /> : <PauseIcon />)}
           </View>
           <View
             style={{
@@ -274,7 +299,7 @@ function ShortVideoPlayer({
                           onLayout={handleViewLayout}>
                           <TouchableOpacity style={{ flex: 1, position: 'relative' }} onPress={redirectVod}>
                             <FastImage
-                              style={{ flex: 1, borderRadius: 6, transform: 'translate(0px, 0px)', position: 'absolute', width: '100%', height: '100%', zIndex: 3 }}
+                              style={{ flex: 1, borderRadius: 6, position: 'absolute', width: '100%', height: '100%', zIndex: 3 }}
                               source={{
                                 uri: currentVod.mini_video_original_img_url,
                                 priority: "high",
@@ -289,11 +314,11 @@ function ShortVideoPlayer({
                             {imageLoaded && isBodan &&
                               <View>
                                 <FastImage
-                                  style={{ flex: 1, borderRadius: 6, transform: 'translate(4px, 0px)', position: 'absolute', width: '100%', height: imageContainerHeight - 6, zIndex: 2, top: 5.8 }}
+                                  style={{ flex: 1, borderRadius: 6, position: 'absolute', width: '100%', height: imageContainerHeight - 6, zIndex: 2, top: 5.8 }}
                                   source={require('../../../static/images/bodan2.jpeg')}
                                 />
                                 <FastImage
-                                  style={{ flex: 1, borderRadius: 6, transform: 'translate(8px, 0px)', position: 'absolute', width: '100%', height: imageContainerHeight - 12, top: 11.8 }}
+                                  style={{ flex: 1, borderRadius: 6, position: 'absolute', width: '100%', height: imageContainerHeight - 12, top: 11.8 }}
                                   source={require('../../../static/images/bodan3.jpg')}
                                 />
                               </View>
@@ -388,7 +413,7 @@ function ShortVideoPlayer({
                   <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
                     <View style={{ flex: 1, flexDirection: 'row' }}>
                       <HejiIcon height={24} width={24} />
-                      <Text style={{ paddingLeft: 6, alignSelf: 'center', fontSize: 14, color: colors.text, fontWeight: 700 }}>{currentVod.mini_video_collection_title}</Text>
+                      <Text style={{ paddingLeft: 6, alignSelf: 'center', fontSize: 14, color: colors.text, fontWeight: '700' }}>{currentVod.mini_video_collection_title}</Text>
                     </View>
                     <View style={{}}>
                       <ExpandUpIcon height={24} width={24} />
@@ -409,7 +434,7 @@ function ShortVideoPlayer({
               height: showOverlay ? 8 : 1,
               width: showOverlay ? 8 : 1,
             }}
-            value={currentTime}
+            value={currentDuration}
             onValueChange={handleSeek}
             onSlidingComplete={handleSeek}
             minimumTrackTintColor={'#ffffff80'}
@@ -418,7 +443,7 @@ function ShortVideoPlayer({
             trackStyle={{ height: 2, opacity: 1 }}
           />
           {
-            duration > 0 && showOverlay && currentTime >= 0 &&
+            duration > 0 && showOverlay && currentDuration >= 0 &&
             (
               duration < 3600
                 ? <Text style={{
@@ -428,17 +453,17 @@ function ShortVideoPlayer({
                   borderRadius: 4,
                   paddingVertical: 6,
                   paddingHorizontal: 10,
-                  left: Math.min(Math.max(0, (currentTime / duration) * windowWidth - 44), windowWidth - 76)
+                  left: Math.min(Math.max(0, (currentDuration / duration) * windowWidth - 44), windowWidth - 76)
                 }}>
-                  <Text style={textVariants.small}>{new Date(currentTime * 1000).toISOString().substring(14, 19)}</Text>
+                  <Text style={textVariants.small}>{new Date(currentDuration * 1000).toISOString().substring(14, 19)}</Text>
                   <Text style={{ ...textVariants.small, color: colors.muted }}>{` / ${new Date(duration * 1000).toISOString().substring(14, 19)}`}</Text>
                 </Text>
                 : <Text style={{
                   position: 'absolute',
                   bottom: 20,
-                  left: Math.min(Math.max(0, (currentTime / duration) * windowWidth - 34), windowWidth - 76)
+                  left: Math.min(Math.max(0, (currentDuration / duration) * windowWidth - 34), windowWidth - 76)
                 }}>
-                  <Text style={textVariants.small}>{new Date(currentTime * 1000).toISOString().substring(11, 19)}</Text>
+                  <Text style={textVariants.small}>{new Date(currentDuration * 1000).toISOString().substring(11, 19)}</Text>
                   <Text style={{ ...textVariants.small, color: colors.muted }}>{` / ${new Date(duration * 1000).toISOString().substring(11, 19)}`}</Text>
                 </Text>
             )
@@ -550,7 +575,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: '40%',
     left: '36%',
-    zIndex: 100,
+    zIndex: 999,
   },
   slider: {
     position: 'absolute',

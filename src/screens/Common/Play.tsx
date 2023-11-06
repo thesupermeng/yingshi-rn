@@ -60,6 +60,7 @@ import NoConnection from "../../components/common/noConnection";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 import { lockAppOrientation } from "../../redux/actions/settingsActions";
 import { AdsBannerContext } from "../../contexts/AdsBannerContext";
+import useInterstitialAds from "../../hooks/useInterstitialAds";
 
 type VideoRef = {
   setPause: (param: boolean) => void;
@@ -386,6 +387,8 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const lockOrientation = (orientation: string) => {
     dispatch(lockAppOrientation(orientation));
   };
+
+  useInterstitialAds();
 
   return (
     <>

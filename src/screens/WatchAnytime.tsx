@@ -1,37 +1,17 @@
-import React, { useEffect, useState, useCallback, useMemo, memo, useRef } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import {
     View,
-    Image,
-    TouchableOpacity,
-    TouchableWithoutFeedback,
-    FlatList,
-    ViewToken,
-    Dimensions,
-    SafeAreaView,
     Text,
-    RefreshControl,
+    AppState,
 } from 'react-native';
 import ScreenContainer from '../components/container/screenContainer';
-import { useTheme, useFocusEffect } from '@react-navigation/native';
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
-import Video from 'react-native-video';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { StyleSheet } from 'react-native';
 import { MiniVideo } from '../types/ajaxTypes';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
-import Wechat from '../../static/images/wechat.svg';
-import PYQ from '../../static/images/pyq.svg';
-import Weibo from '../../static/images/weibo.svg';
-import QQ from '../../static/images/qq.svg';
-import Search from '../../static/images/search.svg';
-import Play from '../../static/images/blackPlay.svg';
-import FastImage from 'react-native-fast-image';
-import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
-import Orientation from 'react-native-orientation-locker';
-import { API_DOMAIN, API_DOMAIN_TEST, API_DOMAIN_LOCAL } from '../utility/constants';
-import { memoize } from 'lodash';
+import { API_DOMAIN } from '../utility/constants';
 import MiniVideoList from '../components/videoPlayer/miniVodList';
 import { useIsFocused } from '@react-navigation/native';
-import { useQueryClient } from '@tanstack/react-query';
 import NoConnection from './../components/common/noConnection';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 
@@ -42,19 +22,23 @@ type MiniVideoResponseType = {
 };
 
 export default ({ navigation }: BottomTabScreenProps<any>) => {
-    const { spacing } = useTheme();
-
     const isFocused = useIsFocused();
+    // New state to keep track of app's background/foreground status
+    const [isInBackground, setIsInBackground] = useState(false);
     const [isRefreshing, setIsRefreshing] = useState(false);
-    const queryClient = useQueryClient();
     const [isOffline, setIsOffline] = useState(false);
     const miniVodListRef = useRef<any>();
 
     // Add an event listener to the navigation object for the tab press event
     useEffect(() => {
         const handleTabPress = () => {
-            if (isFocused) {
+            if (isFocused && !isRefreshing) {
                 handleRefresh();
+
+                miniVodListRef.current?.scrollToIndex({
+                    index: 0,
+                    animated: true,
+                });
             }
         };
         const unsubscribe = navigation.addListener('tabPress', handleTabPress);
@@ -72,9 +56,6 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     }, []);
 
     const [flattenedVideos, setFlattenedVideos] = useState(Array<MiniVideo>);
-    const [displayHeight, setDisplayHeight] = useState<number | null>(0);
-    const [current, setCurrent] = useState<number | null>(0);
-    const [isPaused, setIsPaused] = useState(false);
     const LIMIT = 100;
     const fetchVods = (page: number) => fetch(
         `${API_DOMAIN}miniVod/v2/miniVod?page=${page}&limit=${LIMIT}`,
@@ -104,19 +85,6 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
         }
     }, [videos])
 
-    const navBarHeight = useBottomTabBarHeight();
-
-    useFocusEffect(
-        useCallback(() => {
-            setIsPaused(false);
-            Orientation.lockToPortrait();
-            return () => {
-                setIsPaused(true);
-                // Orientation.unlockAllOrientations();
-            };
-        }, [])
-    )
-
     const checkConnection = useCallback(async () => {
         const state = await NetInfo.fetch();
         const offline = !(state.isConnected && state.isInternetReachable);
@@ -137,16 +105,25 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     }, []);
 
     useEffect(() => {
-        if (isRefreshing) {
-            miniVodListRef.current?.scrollToIndex({
-                index: 0,
-                animated: true,
-            });
-        }
-    }, [isRefreshing]);
+        // ... (rest of the useEffect hook remains unchanged)
+        const subscription = AppState.addEventListener(
+            "change",
+            handleAppStateChange
+        );
+
+        return () => {
+            subscription.remove();
+        };
+
+    }, [])
+
+    // Handle app's background/foreground status
+    const handleAppStateChange = (nextAppState: any) => {
+        setIsInBackground(nextAppState !== "active");
+    };
 
     return (
-        <ScreenContainer isHome={true} containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
+        <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0, paddingBottom: 10 }}>
             <View style={{ position: 'absolute', top: 0, left: 0, padding: 20, zIndex: 50, width: '100%', flexDirection: 'row', alignItems: 'center' }}>
                 <Text style={{ color: '#FFF', fontSize: 20 }}>随心看</Text>
             </View>
@@ -158,7 +135,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                     hasNextPage={hasNextPage}
                     isFetching={isFetching}
                     isFetchingNextPage={isFetchingNextPage}
-                    isPaused={isPaused}
+                    isActive={isFocused && !isInBackground}
                     setCollectionEpisode={(index: number) => { }}
                     handleRefreshMiniVod={handleRefresh}
                     isRefreshing={isRefreshing}

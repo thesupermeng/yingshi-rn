@@ -120,20 +120,20 @@ function CollectionBottomSheet({
       if (collectionData !== undefined) {
         dispatch(selectMiniVodCollection(index));
 
-        if (inCollectionView == true) {
-          changeEpisode(item, index);
-        } else {
-          navigation.navigate("合集播放", {
-            collection_title: item.mini_video_collection_title + "合集",
-            collection_videos:
-              collectionData == undefined
-                ? collectionData
-                : [collectionData[index]],
-            collection_video_display_position: index + 1,
-            collection_video_total_items:
-              collectionData == undefined ? 0 : collectionData.length,
-          });
-        }
+        // if (inCollectionView == true) {
+        changeEpisode(item, index);
+        // } else {
+        //   navigation.navigate("合集播放", {
+        //     collection_title: item.mini_video_collection_title + "合集",
+        //     collection_videos:
+        //       collectionData == undefined
+        //         ? collectionData
+        //         : [collectionData[index]],
+        //     collection_video_display_position: index + 1,
+        //     collection_video_total_items:
+        //       collectionData == undefined ? 0 : collectionData.length,
+        //   });
+        // }
       }
     },
     [collectionData]
