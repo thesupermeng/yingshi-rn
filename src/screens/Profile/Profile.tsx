@@ -285,11 +285,8 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                   flex: 1,
                 }}
                 onPress={() => {
-                  if (userState.userToken == "") {
-                    dispatch(showLoginAction());
-                  } else {
-                    navigation.navigate("付费VIP");
-                  }
+                  navigation.navigate("付费VIP");
+                  // dispatch(showLoginAction());
                 }}
               >
                 <View style={styles.left}>

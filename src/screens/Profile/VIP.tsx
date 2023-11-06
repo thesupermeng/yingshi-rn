@@ -39,6 +39,7 @@ import {
 } from "../../utility/constants";
 import axios from "axios";
 import { showToast } from "../../Sports/utility/toast";
+import { showLoginAction } from "../../redux/actions/screenAction";
 
 const subscriptionSkus = Platform.select({
   ios: ["yingshi_vip_month", "yingshi_vip_6months", "monthly_subscription"],
@@ -148,6 +149,12 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   }, [membershipProducts]);
 
   const handlePurchase = async () => {
+    if (userState.userToken == ""){
+      dispatch(showLoginAction());
+      console.log('show login')
+      return; //early return
+    }
+
     const continueTrans = await initialTransRecord();
     setIsBtnEnable(false);
     setCurrentTransID(continueTrans.data);
