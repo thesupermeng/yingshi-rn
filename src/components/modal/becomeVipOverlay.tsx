@@ -1,7 +1,7 @@
 import React, {Suspense, useCallback, useEffect, useState} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import VipModal from './vipModal';
-import {useNavigation, useTheme} from '@react-navigation/native';
+import {useNavigation, useRoute, useTheme} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useAppDispatch} from '../../hooks/hooks';
 import {
@@ -21,6 +21,7 @@ export default function ExpiredOverlay({
 }: Props) {
   const navigator = useNavigation();
   const dispatch = useAppDispatch();
+  const route = useRoute(); 
 
   // useEffect(() => {
   //   setShowVIPOverlay(true);
@@ -39,7 +40,7 @@ export default function ExpiredOverlay({
             position: 'absolute',
             zIndex: 1000,
           }}>
-          <VipModal>        
+          <VipModal>
             <View
               style={{
                 backgroundColor: 'rgba(34, 34, 34, 0.9)',
@@ -49,8 +50,13 @@ export default function ExpiredOverlay({
                 paddingBottom: 26,
                 paddingHorizontal: 28,
               }}>
-              <TouchableOpacity 
-                onPress={() => setShowBecomeVIPOverlay(false)} >
+              <TouchableOpacity
+                onPress={() => {
+                  setShowBecomeVIPOverlay(false);
+                  if (route.name === '体育详情') {
+                    navigator.goBack();
+                  }
+                }}>
                 <FastImage
                   source={require('../../Sports/assets/images/close.png')}
                   style={styles.closeBtnContainer}

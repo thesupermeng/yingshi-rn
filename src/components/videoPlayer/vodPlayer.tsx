@@ -17,7 +17,7 @@ import {
 } from "react-native";
 
 import Video from "react-native-video";
-import { useTheme, useNavigation } from "@react-navigation/native";
+import { useTheme, useNavigation, useRoute } from "@react-navigation/native";
 import { debounce } from "lodash";
 
 import { Dimensions } from "react-native";
@@ -33,6 +33,9 @@ import {
   VodType,
 } from "../../types/ajaxTypes";
 import VideoWithControls from "./videoWithControls";
+import { useDispatch } from "react-redux";
+import { useAppSelector } from "../../hooks/hooks";
+import { screenModel } from "../../types/screenType";
 
 interface Props {
   vod_url?: string;
@@ -121,6 +124,11 @@ export default forwardRef<VideoRef, Props>(
     const height = Dimensions.get("window").height;
     const width = Dimensions.get("window").width;
     const navigation = useNavigation();
+    const route = useRoute();
+    const dispatch = useDispatch(); 
+    const screenState: screenModel = useAppSelector(
+      ({screenReducer}) => screenReducer
+    )
 
     const bufferRef = useRef(false);
     const onBuffer = (bufferObj: any) => {
@@ -364,6 +372,12 @@ export default forwardRef<VideoRef, Props>(
       }
       return undefined;
     };
+
+    useEffect(() => { // if is sports stream, if watch time > 300s, pause vid
+      if (route.name === '体育详情' && screenState.sportWatchTime > 300){
+        videoPlayerRef.current.pause();
+      }
+    }, [screenState.sportWatchTime])
 
     return (
       <View style={styles.container}>

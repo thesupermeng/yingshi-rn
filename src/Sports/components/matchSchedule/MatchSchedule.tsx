@@ -21,6 +21,7 @@ import {userModel} from '../../../types/userType';
 import {useAppSelector} from '../../../hooks/hooks';
 import {showBecomeVip} from '../../../redux/actions/screenAction';
 import {useDispatch} from 'react-redux';
+import { screenModel } from '../../../types/screenType';
 
 interface Props {
   matchSche: MatchDetailsType;
@@ -59,17 +60,9 @@ const MatchSchedule = ({
   );
 
   const matchClicked = () => {
-    if (
-      userState.userToken == '' ||
-      Number(userState.userMemberExpired) <
-        Number(userState.userCurrentTimestamp)
-    ) {
-      setShowBecomeVIPOverlay(true);
-    } else {
-      navigation.navigate('体育详情', {
-        matchId: matchSche?.id === null ? undefined : matchSche.id,
-      });
-    }
+    navigation.navigate('体育详情', {
+      matchId: matchSche?.id === null ? undefined : matchSche.id,
+    });
   };
 
   // const streamerClicked = (streamerId, streamerStatus) => {
