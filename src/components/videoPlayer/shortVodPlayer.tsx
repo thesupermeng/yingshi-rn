@@ -142,7 +142,7 @@ function ShortVideoPlayer({
     if (videoRef.current) {
       videoRef.current.seek(value);
     }
-  }, []);
+  }, [isVideoReady]);
 
   const handlePlayPause = () => {
     clearTimeout(iconTimer.current);
