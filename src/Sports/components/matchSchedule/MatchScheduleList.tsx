@@ -1,41 +1,30 @@
-import React, {memo, useEffect, useState, useRef} from 'react';
+import React, { memo, useState, useRef } from 'react';
 import {
   View,
   Text,
-  Image,
-  ImageBackground,
   FlatList,
   Dimensions,
-  StyleSheet,
 } from 'react-native';
-import {useTheme} from '@react-navigation/native';
+import { useTheme } from '@react-navigation/native';
 import styles from './style';
-import {TouchableOpacity, TouchableWithoutFeedback} from 'react-native';
-import {formatMatchDate} from '../../utility/utils';
-import store, {RootState} from '../../../redux/store';
+import { TouchableOpacity } from 'react-native';
+import { formatMatchDate } from '../../utility/utils';
+import { RootState } from '../../../redux/store';
 // import FollowMatchAction from '../../redux/actions/followMatchAction';
-import {MatchDetailsType} from '../../types/matchTypes';
+import { MatchDetailsType } from '../../types/matchTypes';
 // import {showToast} from '../../utility/toast';
-import {Url} from '../../middleware/url';
-import {useInfiniteQuery, useQuery} from '@tanstack/react-query';
+import { Url } from '../../middleware/url';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import Api from '../../middleware/api';
 import MatchSchedule from './MatchSchedule';
-import EmptyList from '../../../components/common/emptyList';
 // import FastImage from 'react-native-fast-image';
 import FastImage from '../../../components/common/customFastImage';
-import {screenModel} from '../../../types/screenType';
-import {useAppSelector} from '../../../hooks/hooks';
 
 interface Props {
   matchTypeID: number;
   status?: number;
   setShowBecomeVIPOverlay: any;
 }
-
-type FlatListType = {
-  item: MatchDetailsType;
-  index: number;
-};
 
 type MatchType = {
   date: string | undefined;
@@ -52,14 +41,12 @@ const MatchScheduleList = ({
   status = -1,
   setShowBecomeVIPOverlay,
 }: Props) => {
-  const {colors, textVariants, spacing} = useTheme();
+  const { colors, textVariants, spacing } = useTheme();
   const width = Dimensions.get('window').width;
   const height = Dimensions.get('window').height;
   const latestListDate = useRef<Date | undefined>();
 
-  const screenState: screenModel = useAppSelector(
-    ({screenReducer}: RootState) => screenReducer,
-  );
+  const [isFetchNext, setFetchNext] = useState(false);
 
   const [matches, setMatches] = useState<Matches>({
     headers: [],
@@ -115,9 +102,9 @@ const MatchScheduleList = ({
         const data = res.pages[res.pages.length - 1].data;
         if (data !== undefined) {
           const dates = Object.keys(data);
-          let lst: MatchType[] = matches.data;
-          let headers = matches.headers;
-          let count = matches.data.length;
+          let lst: MatchType[] = isFetchNext ? matches.data : [];
+          let headers = isFetchNext ? matches.headers : [];
+          let count = lst.length;
           if (latestListDate.current === undefined) {
             latestListDate.current = new Date(dates[dates.length - 1]);
           }
@@ -131,11 +118,11 @@ const MatchScheduleList = ({
             );
           }
           for (const date of dates) {
-            lst.push({date: formatMatchDate(date), data: undefined});
+            lst.push({ date: formatMatchDate(date), data: undefined });
             headers.push(count);
             count += 1;
             data[date].forEach((element: MatchDetailsType) => {
-              lst.push({date: undefined, data: element});
+              lst.push({ date: undefined, data: element });
               count += 1;
             });
           }
@@ -144,6 +131,8 @@ const MatchScheduleList = ({
             data: lst,
           });
         }
+
+        setFetchNext(false);
       },
       cacheTime: 0,
       staleTime: 0,
@@ -154,11 +143,11 @@ const MatchScheduleList = ({
     item,
     index,
   }: {
-    item: {date: string | undefined; data: MatchDetailsType | undefined};
+    item: { date: string | undefined; data: MatchDetailsType | undefined };
     index: number;
   }) => {
     return (
-      <View style={{width: width}}>
+      <View style={{ width: width }}>
         {item?.date !== undefined ? (
           <View
             style={{
@@ -182,7 +171,7 @@ const MatchScheduleList = ({
   };
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       {matches?.data !== undefined && matches.data.length > 0 ? (
         <FlatList
           data={matches.data}
@@ -192,6 +181,7 @@ const MatchScheduleList = ({
           renderItem={Content}
           onEndReached={() => {
             if (hasNextPage) {
+              setFetchNext(true);
               fetchNextPage();
             }
           }}
@@ -199,7 +189,7 @@ const MatchScheduleList = ({
           stickyHeaderIndices={matches.headers}
         />
       ) : (
-        <View style={{height: height}}>
+        <View style={{ height: height }}>
           <View style={styles.buffering} />
         </View>
       )}
@@ -211,7 +201,7 @@ const MatchScheduleList = ({
         }}>
         <FastImage
           source={require('../../assets/images/IconRefresh.png')}
-          style={{width: 25, height: 25}}
+          style={{ width: 25, height: 25 }}
           resizeMode="contain"
         />
         <Text style={styles.refreshFont}>刷新</Text>
