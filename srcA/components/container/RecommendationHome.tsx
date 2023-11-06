@@ -260,72 +260,8 @@ const RecommendationHome = ({
                 </View>
               )}
               <View>
-                {/* previous style={{ gap: spacing.m }} */}
-                {data?.carousel[0] && history.length > 0 && (
-                  <View>
-                    <View
-                      style={{
-                        paddingLeft: spacing.sideOffset,
-                        paddingRight: spacing.sideOffset,
-                        paddingBottom: 5,
-                      }}
-                    >
-                      <ShowMoreVodButton
-                        text="继续看"
-                        onPress={() => {
-                          navigation.navigate("播放历史");
-                        }}
-                      />
-                    </View>
-                    <View style={{ paddingLeft: spacing.sideOffset }}>
-                      <VodHistoryList
-                        vodStyle={styles.vod_hotlist}
-                        vodList={history.slice(0, 10)}
-                        showInfo="watch_progress"
-                        isRefreshing={isRefreshing}
-                      />
-                    </View>
-                  </View>
-                )}
-
                 <View style={{ gap: spacing.m }}>
-                  <View
-                    style={{
-                      paddingLeft: spacing.sideOffset,
-                      paddingRight: spacing.sideOffset,
-                    }}
-                  >
-                    {data?.live_station_list &&
-                    data?.live_station_list.length > 0 ? (
-                      <ShowMoreVodButton
-                        text="电视台推荐"
-                        onPress={() => {
-                          navigation.navigate("电视台列表", {
-                            liveStationItemList: data?.live_station_list,
-                          });
-                        }}
-                      />
-                    ) : (
-                      <View style={styles.banner}>
-                        <Text style={textVariants.header}>电视台推荐</Text>
-                      </View>
-                    )}
-                  </View>
-                  {data?.live_station_list &&
-                  data?.live_station_list.length > 0 ? (
-                    <View style={{ paddingLeft: spacing.sideOffset }}>
-                      <VodLiveStationList
-                        vodStyle={styles.vod_live_station}
-                        liveStationList={data?.live_station_list}
-                        onlyShow={10}
-                        isRefreshing={isRefreshing}
-                      />
-                    </View>
-                  ) : (
-                    <View
-                      style={{ paddingLeft: spacing.sideOffset, height: 134 }}
-                    />
-                  )}
+                  
                 </View>
                 {data?.yunying &&
                   data.yunying.length > 0 &&
