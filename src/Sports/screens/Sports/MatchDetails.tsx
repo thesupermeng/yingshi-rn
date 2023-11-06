@@ -51,6 +51,8 @@ import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../../../hooks/hooks';
 import { screenModel } from '../../../types/screenType';
 import { incrementSportWatchTime } from '../../../redux/actions/screenAction';
+import BecomeVipOverlay from "../../../components/modal/becomeVipOverlay";
+
 
 type FlatListType = {
   item: MatchDetailsType;
@@ -92,6 +94,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
       ),
     staleTime: 1000,
   });
+  const [showBecomeVIPOverlay, setShowBecomeVIPOverlay] = useState(false);
 
   const { data: matchDetails, isFetching: f1 } = useQuery({
     queryKey: ['matchDetails', matchID, streamID],
@@ -196,12 +199,20 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
   }, [])
 
   useEffect(() =>{
-    console.log('sport watch time', screenState.sportWatchTime)
+    if (screenState.sportWatchTime > 300){
+      setShowBecomeVIPOverlay(true);
+    }
+
   }, [screenState.sportWatchTime])
+  
 
   const isFullyLoaded = !f1 && !f2 && !f3;
   return (
     <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
+      <BecomeVipOverlay
+        setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
+        showBecomeVIPOverlay={showBecomeVIPOverlay}
+      />
       {videoSource.url &&
         ((videoSource.type === VideoLiveType.LIVE &&
           match?.streams?.some(streamer => streamer.status == 3)) ||

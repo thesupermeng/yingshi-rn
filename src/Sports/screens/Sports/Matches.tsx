@@ -117,10 +117,10 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
 
   return (
     <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
-      <BecomeVipOverlay
+      {/* <BecomeVipOverlay
         setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
         showBecomeVIPOverlay={showBecomeVIPOverlay}
-      />
+      /> */}
 
       <View
         style={{
