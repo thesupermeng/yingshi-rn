@@ -1,5 +1,5 @@
 import React, {Suspense, useCallback, useEffect, useState} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import VipModal from './vipModal';
 import {useNavigation, useTheme} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -8,6 +8,7 @@ import {
   resetBecomeVip,
   showLoginAction,
 } from '../../redux/actions/screenAction';
+import FastImage from 'react-native-fast-image';
 
 interface Props {
   showBecomeVIPOverlay: boolean;
@@ -38,7 +39,7 @@ export default function ExpiredOverlay({
             position: 'absolute',
             zIndex: 1000,
           }}>
-          <VipModal>
+          <VipModal>        
             <View
               style={{
                 backgroundColor: 'rgba(34, 34, 34, 0.9)',
@@ -48,6 +49,14 @@ export default function ExpiredOverlay({
                 paddingBottom: 26,
                 paddingHorizontal: 28,
               }}>
+              <TouchableOpacity 
+                onPress={() => setShowBecomeVIPOverlay(false)} >
+                <FastImage
+                  source={require('../../Sports/assets/images/close.png')}
+                  style={styles.closeBtnContainer}
+                  resizeMode={FastImage.resizeMode.cover}
+                />
+              </TouchableOpacity>
               <View style={{alignItems: 'center', justifyContent: 'center'}}>
                 <Text
                   style={{
@@ -57,7 +66,7 @@ export default function ExpiredOverlay({
                     paddingTop: 20,
                     paddingVertical: 12,
                   }}>
-                  获取VIP升级权益
+                  VIP升级权益
                 </Text>
                 <Text
                   style={{
@@ -66,7 +75,7 @@ export default function ExpiredOverlay({
                     fontSize: 16,
                     fontWeight: '300',
                   }}>
-                  邀请好友即可获取30天VIP
+                  立即升级VIP，无广告观影
                 </Text>
                 <Text
                   style={{
@@ -75,33 +84,38 @@ export default function ExpiredOverlay({
                     fontSize: 16,
                     fontWeight: '300',
                   }}>
-                  畅享体育权益
+                  尊享体育频道
                 </Text>
-                <View style={{paddingTop: 22, alignItems: 'center'}}>
+                <View style={styles.btnContainer}>
                   <TouchableOpacity
                     onPress={() => {
                       setShowBecomeVIPOverlay(false);
-                      navigator.navigate('邀请');
+                      navigator.navigate('付费VIP');
                     }}
-                    style={{
-                      backgroundColor: '#FAC33D',
-                      paddingVertical: 12,
-                      paddingHorizontal: 38,
-                      borderRadius: 8,
-                    }}>
+                    style={styles.btn}>
                     <Text
                       style={{
                         color: '#000',
                         fontWeight: '600',
                         fontSize: 16,
                       }}>
-                      立即邀请
+                      购买VIP
                     </Text>
                   </TouchableOpacity>
                   <TouchableOpacity
-                    onPress={() => setShowBecomeVIPOverlay(false)}
-                    style={{paddingTop: 16}}>
-                    <Text style={{color: '#9C9C9C', fontSize: 16}}>取消</Text>
+                    onPress={() => {
+                      setShowBecomeVIPOverlay(false);
+                      navigator.navigate('邀请');
+                    }}
+                    style={styles.btn}>
+                    <Text
+                      style={{
+                        color: '#000',
+                        fontWeight: '600',
+                        fontSize: 16,
+                      }}>
+                      邀请好友
+                    </Text>
                   </TouchableOpacity>
                 </View>
               </View>
@@ -112,3 +126,31 @@ export default function ExpiredOverlay({
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  closeBtnContainer: {
+    height: 20,
+    width: 20,
+    marginTop: -20,
+    marginRight: -10,
+    borderRadius: 10,
+    alignSelf: 'flex-end',
+    backgroundColor: 'rgba(201, 201, 201, 0.3)',
+  },
+
+  btnContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    gap: 10,
+    paddingTop: 25,
+    paddingBottom: 10,
+  },
+
+  btn: {
+    backgroundColor: '#FAC33D',
+    paddingVertical: 10,
+    alignItems: 'center',
+    borderRadius: 10,
+    flex: 1,
+  }
+})
