@@ -32,7 +32,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     // Add an event listener to the navigation object for the tab press event
     useEffect(() => {
         const handleTabPress = () => {
-            if (isFocused) {
+            if (isFocused && !isRefreshing) {
                 handleRefresh();
 
                 miniVodListRef.current?.scrollToIndex({
