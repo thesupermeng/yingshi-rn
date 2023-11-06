@@ -511,7 +511,7 @@ export default () => {
 
           <Stack.Screen
             name="付费VIP"
-            component={withIAPContext(VIP)}
+            component={useCallback(withIAPContext(VIP), [])}
             options={{ orientation: "portrait" }}
           />
 
