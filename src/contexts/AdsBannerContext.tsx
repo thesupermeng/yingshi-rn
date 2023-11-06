@@ -262,6 +262,7 @@ const showBanner = (
       if (!isAdReady) {
         ATBannerRNSDK.loadAd(bannerId, settings);
         setTimeout(() => {
+          hideAllBanner();
           console.log("show banner");
           //show banner
           ATBannerRNSDK.showAdInRectangle(
@@ -274,6 +275,7 @@ const showBanner = (
       } else {
         setTimeout(() => {
           console.log("show 222222");
+          hideAllBanner();
           //show banner
           ATBannerRNSDK.showAdInRectangle(
             bannerId,
@@ -307,7 +309,7 @@ const showBanner = (
           );
 
           ATBannerRNSDK.reShowAd(bannerId);
-        }, 1000);
+        }, 500);
       } else {
         setTimeout(() => {
           //show banner
@@ -317,7 +319,7 @@ const showBanner = (
           );
 
           ATBannerRNSDK.reShowAd(bannerId);
-        }, 500);
+        }, 100);
       }
     });
   }
