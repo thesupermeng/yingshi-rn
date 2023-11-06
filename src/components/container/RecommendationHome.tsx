@@ -393,6 +393,7 @@ const RecommendationHome = ({
           initialNumToRender={0}
           onEndReachedThreshold={0.5}
           renderItem={renderContent}
+          disableVirtualization={true}
           ListFooterComponent={
             <View style={{ ...styles.loading, marginBottom: 60 }}>
               {hasNextPage && (
