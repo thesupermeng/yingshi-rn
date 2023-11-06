@@ -360,12 +360,15 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
               onPress={() => {
                 navigation.navigate("VIP明细", { userState: userState });
               }}
+              disabled={!(userState.userPaidVipList.total_purchased_days > 0 || 
+                userState.userAccumulateRewardDay > 0)}
             >
               <Text
                 style={{
                   ...textVariants.subBody,
                   padding: 8,
-                  opacity: true ? 100 : 0,
+                  opacity: (userState.userPaidVipList.total_purchased_days > 0 || 
+                    userState.userAccumulateRewardDay > 0) ? 100 : 0,
                 }}
               >
                 VIP明细
