@@ -52,6 +52,7 @@ import { useAppSelector } from '../../../hooks/hooks';
 import { screenModel } from '../../../types/screenType';
 import { incrementSportWatchTime } from '../../../redux/actions/screenAction';
 import BecomeVipOverlay from "../../../components/modal/becomeVipOverlay";
+import { NON_VIP_STREAM_TIME_SECONDS } from '../../../utility/constants';
 
 
 type FlatListType = {
@@ -199,7 +200,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
   }, [])
 
   useEffect(() =>{
-    if (screenState.sportWatchTime > 300){
+    if (screenState.sportWatchTime > NON_VIP_STREAM_TIME_SECONDS){
       setShowBecomeVIPOverlay(true);
     }
 

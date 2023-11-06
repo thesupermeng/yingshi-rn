@@ -36,6 +36,7 @@ import VideoWithControls from "./videoWithControls";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../../hooks/hooks";
 import { screenModel } from "../../types/screenType";
+import { NON_VIP_STREAM_TIME_SECONDS } from "../../utility/constants";
 
 interface Props {
   vod_url?: string;
@@ -94,7 +95,7 @@ export default forwardRef<VideoRef, Props>(
       rangeSize,
       episodes,
       autoPlayNext = true,
-      onShare = () => { },
+      onShare = () => {},
       movieList = [],
       showGuide = false,
       streams = [],
@@ -125,10 +126,10 @@ export default forwardRef<VideoRef, Props>(
     const width = Dimensions.get("window").width;
     const navigation = useNavigation();
     const route = useRoute();
-    const dispatch = useDispatch(); 
+    const dispatch = useDispatch();
     const screenState: screenModel = useAppSelector(
-      ({screenReducer}) => screenReducer
-    )
+      ({ screenReducer }) => screenReducer
+    );
 
     const bufferRef = useRef(false);
     const onBuffer = (bufferObj: any) => {
@@ -181,7 +182,7 @@ export default forwardRef<VideoRef, Props>(
         deviceOrientationHandle();
       } else {
         // set orientation: "portrait" because if set all android will auto rotate
-        if (Platform.OS === 'android') {
+        if (Platform.OS === "android") {
           navigation.setOptions({ orientation: "portrait" });
         }
       }
@@ -373,11 +374,15 @@ export default forwardRef<VideoRef, Props>(
       return undefined;
     };
 
-    useEffect(() => { // if is sports stream, if watch time > 300s, pause vid
-      if (route.name === '体育详情' && screenState.sportWatchTime > 300){
+    useEffect(() => {
+      // if is sports stream, if watch time > 300s, pause vid
+      if (
+        route.name === "体育详情" &&
+        screenState.sportWatchTime > NON_VIP_STREAM_TIME_SECONDS
+      ) {
         videoPlayerRef.current.pause();
       }
-    }, [screenState.sportWatchTime])
+    }, [screenState.sportWatchTime]);
 
     return (
       <View style={styles.container}>

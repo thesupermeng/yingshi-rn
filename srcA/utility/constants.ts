@@ -30,7 +30,7 @@ export const LOCK_ORIENTATION = 'lock_orientation';
 // export const API_DOMAIN = 'https://api.yingshi.tv/'
 export const API_DOMAIN = 'https://api.gxhongdeli168.com/';
 // export const API_DOMAIN_TEST = 'https://testapi.yingshi.tv/';
-export const API_DOMAIN_TEST = 'https://api.yingshi.tv/'
+export const API_DOMAIN_TEST = 'https://api.yingshi.tv/';
 export const API_DOMAIN_LOCAL = 'http://localhost:3000/';
 export const MATCH_API_DOMAIN = 'https://api.ggsimida.com/';
 
@@ -53,9 +53,9 @@ export const INVITE_DOMAIN = 'https://yingshi.tv/invite/pro/?invite=';
 //     'MI_GETAPPS': 'MI_GETAPPS',
 // }
 
-export const UMENG_CHANNEL = "GOOGLE_PLAY";
+export const UMENG_CHANNEL = 'GOOGLE_PLAY';
 
-export const APP_VERSION = "1.4.0";
+export const APP_VERSION = '1.4.0';
 
 export const TOPON_ANDROID_APP_ID = 'a65002a2db3a7f';
 export const TOPON_ANDROID_APP_KEY = 'aad683307ed540dfc11b094206e8a15b1';
@@ -102,3 +102,5 @@ export const IS_ANDROID = Platform.OS === 'android';
 
 export const APP_NAME_CONST = '影视TV';
 export const APP_EMAIL_CONST = 'contactus@yingshi.tv';
+
+export const NON_VIP_STREAM_TIME_SECONDS = 300;
