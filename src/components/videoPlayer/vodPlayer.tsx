@@ -299,6 +299,7 @@ export default forwardRef<VideoRef, Props>(
     }, [isFullScreen, appOrientation]);
 
     const onVideoLoaded = (data: any) => {
+      console.log("asdasdsadasds");
       setDuration(data.duration);
       if (currentTimeRef) {
         currentTimeRef.current = data.currentTime;
@@ -332,7 +333,13 @@ export default forwardRef<VideoRef, Props>(
 
     const onVideoProgessing = (data: any) => {
       setCurrentTime(data.currentTime);
-      currentTimeRef.current = data.currentTime;
+
+      try {
+        currentTimeRef.current = data.currentTime;
+      } catch (err) {
+        console.error("crash here");
+      }
+
       if (Platform.OS === "ios") {
         bufferRef.current = false;
       }
@@ -396,6 +403,23 @@ export default forwardRef<VideoRef, Props>(
     //     }
     //   }
     // }, [screenState.sportWatchTime]);
+    useEffect(() => {
+      // if is sports stream, if watch time > 300s, pause vid
+      if (
+        screenState.interstitialShow == true &&
+        route.name != "体育详情" &&
+        route.name != "电视台播放"
+      ) {
+        console.log("paused");
+        console.log(route.name);
+        setIsPaused(true);
+      } else {
+        console.log("not paused");
+        console.log(route.name);
+        setIsPaused(false);
+      }
+    }, [screenState.interstitialShow]);
+
     useEffect(() => {
       // if is sports stream, if watch time > 300s, pause vid
       if (screenState.interstitialShow == true) {
