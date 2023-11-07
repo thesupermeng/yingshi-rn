@@ -13,7 +13,6 @@ export class YSConfig {
   }
 
   setAreaConfig(areaConfig) {
-    console.log('============= setAreaConfig(areaConfig) =============');
     this.areaConfig = areaConfig;
   }
 

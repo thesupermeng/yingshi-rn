@@ -80,7 +80,6 @@ AppRegistry.registerRunnable(appName, async initialProps => {
       const locationResp = await locationResponse.json();
 
       if (locationResp != undefined && locationResp != null) {
-        console.log('================================');
         YSConfig.instance.setAreaConfig(locationResp.data.status);
       }
     }
