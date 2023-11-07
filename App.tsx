@@ -64,7 +64,9 @@ import {
 } from "./AnyThinkAds/ATReactNativeSDK";
 
 import { TermsAcceptContextProvider } from "./src/contexts/TermsAcceptedContext";
+import { TermsAcceptContextProvider as TermsAcceptContextProviderA } from "./srcA/contexts/TermsAcceptedContext";
 import { AdsBannerContextProvider } from "./src/contexts/AdsBannerContext";
+import { AdsBannerContextProvider as AdsBannerContextProviderA } from "./srcA/contexts/AdsBannerContext";
 
 let App = () => {
   // appsFlyer.initSdk(
@@ -465,29 +467,33 @@ let App = () => {
   };
 
   return (
-    <TermsAcceptContextProvider>
-      <QueryClientProvider client={queryClient}>
-        <Provider store={store}>
-          <PersistGate loading={null} persistor={persistor}>
-            <AdsBannerContextProvider>
-              <GestureHandlerRootView style={{ flex: 1 }}>
-                <BottomSheetModalProvider>
-                  {YSConfig.instance.areaConfig != null &&
-                  YSConfig.instance.areaConfig == true ? (
-                    // B面的B面
-                    <Nav />
-                  ) : (
-                    // B面里的A面
-                    <NavA />
-                  )}
-                </BottomSheetModalProvider>
-              </GestureHandlerRootView>
-            </AdsBannerContextProvider>
+    <TermsAcceptContextProviderA>
+      <TermsAcceptContextProvider>
+        <QueryClientProvider client={queryClient}>
+          <Provider store={store}>
+            <PersistGate loading={null} persistor={persistor}>
+              <AdsBannerContextProviderA>
+                <AdsBannerContextProvider>
+                  <GestureHandlerRootView style={{ flex: 1 }}>
+                    <BottomSheetModalProvider>
+                    {YSConfig.instance.areaConfig != null &&
+                    YSConfig.instance.areaConfig == true ? (
+                      // B面的B面
+                      <Nav />
+                    ) : (
+                      // B面里的A面
+                      <NavA />
+                    )}
+                  </BottomSheetModalProvider>
+                </GestureHandlerRootView>
+              </AdsBannerContextProvider>
+            </AdsBannerContextProviderA>
           </PersistGate>
           {showRegengOverlay && <RegengOverlay />}
         </Provider>
       </QueryClientProvider>
     </TermsAcceptContextProvider>
+    </TermsAcceptContextProviderA>
   );
 };
 
