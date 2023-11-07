@@ -312,11 +312,14 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
     //   offset: getOffSet(currentEpisode),
     //   animated: true,
     // });
-    episodeRef?.current?.scrollToIndex({
-      index: currentEpisode,
-      animated: true,
-    });
-  }, [currentEpisode, episodeRef]);
+    setTimeout(() => {
+      episodeRef?.current?.scrollToIndex({
+        index: currentEpisode,
+        animated: true,
+      });
+      
+    }, 500);
+  }, [currentEpisode, episodeRef, isFetchingVodDetails]);
 
   useFocusEffect(
     useCallback(() => {
@@ -662,7 +665,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                                 showEpisodeRangeEnd
                               )}
                               renderItem={renderEpisodes}
-                              onContentSizeChange={onContentSizeChange}
+                              // onContentSizeChange={onContentSizeChange}
                               ListFooterComponent={
                                 <View style={{ paddingHorizontal: 20 }} />
                               }
