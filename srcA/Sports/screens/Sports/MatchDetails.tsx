@@ -192,7 +192,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
   useEffect(() => {
     if (match != undefined && match.streams != undefined) {
       const videoUrl = parseVideoURL(match?.streams[0].src);
-      setVideoSource({ type: VideoLiveType.LIVE, url: videoUrl });
+      // setVideoSource({ type: VideoLiveType.LIVE, url: videoUrl });
     }
   }, [match]);
 
