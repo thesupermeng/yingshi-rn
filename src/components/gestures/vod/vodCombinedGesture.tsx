@@ -242,7 +242,7 @@ export default ({
     [onSingleTap]
   );
 
-  const composed = disableControlsExceptTap ? null : vodType === 'live' ? pan : Gesture.Simultaneous(pan, doubleTap);
+  const composed = disableControlsExceptTap || vodType === 'live' ? null : Gesture.Simultaneous(pan, doubleTap);
 
   return (
     <TouchableWithoutFeedback onPress={singleTap}>
