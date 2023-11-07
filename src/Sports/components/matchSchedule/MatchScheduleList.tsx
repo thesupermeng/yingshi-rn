@@ -203,10 +203,9 @@ const MatchScheduleList = ({
         }}>
         <FastImage
           source={require('../../assets/images/IconRefresh.png')}
-          style={{ width: 25, height: 25 }}
+          style={{ width: 35, height: 35 }}
           resizeMode="contain"
         />
-        <Text style={styles.refreshFont}>刷新</Text>
       </TouchableOpacity>
     </View>
   );
