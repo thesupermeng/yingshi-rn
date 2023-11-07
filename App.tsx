@@ -318,8 +318,6 @@ let App = () => {
     initInterstitialAdListener();
   }
 
-  
-
   const loadBanner = async (bannerPlacementId) => {
     // console.log("loadBanner ....");
 
@@ -465,6 +463,9 @@ let App = () => {
       }
     );
   };
+  console.log("YSConfig.instance.areaConfig");
+
+  console.log(YSConfig.instance.areaConfig);
 
   return (
     <TermsAcceptContextProviderA>
@@ -476,23 +477,23 @@ let App = () => {
                 <AdsBannerContextProvider>
                   <GestureHandlerRootView style={{ flex: 1 }}>
                     <BottomSheetModalProvider>
-                    {YSConfig.instance.areaConfig != null &&
-                    YSConfig.instance.areaConfig == true ? (
-                      // B面的B面
-                      <Nav />
-                    ) : (
-                      // B面里的A面
-                      <NavA />
-                    )}
-                  </BottomSheetModalProvider>
-                </GestureHandlerRootView>
-              </AdsBannerContextProvider>
-            </AdsBannerContextProviderA>
-          </PersistGate>
-          {showRegengOverlay && <RegengOverlay />}
-        </Provider>
-      </QueryClientProvider>
-    </TermsAcceptContextProvider>
+                      {YSConfig.instance.areaConfig != null &&
+                      YSConfig.instance.areaConfig == true ? (
+                        // B面的B面
+                        <Nav />
+                      ) : (
+                        // B面里的A面
+                        <NavA />
+                      )}
+                    </BottomSheetModalProvider>
+                  </GestureHandlerRootView>
+                </AdsBannerContextProvider>
+              </AdsBannerContextProviderA>
+            </PersistGate>
+            {showRegengOverlay && <RegengOverlay />}
+          </Provider>
+        </QueryClientProvider>
+      </TermsAcceptContextProvider>
     </TermsAcceptContextProviderA>
   );
 };
