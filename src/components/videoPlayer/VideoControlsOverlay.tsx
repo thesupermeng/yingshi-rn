@@ -172,7 +172,7 @@ export default forwardRef<RefHandler, Props>(({
     hideSlider: () => {
       setShowSlider('none')
     },
-    isLocked: showControls,
+    isLocked: isLocked,
     toggleLock: () => {
       setIsLocked(!isLocked)
     }
