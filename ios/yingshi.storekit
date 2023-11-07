@@ -5,24 +5,9 @@
   ],
   "products" : [
     {
-      "displayPrice" : "18.99",
+      "displayPrice" : "3.99",
       "familyShareable" : false,
-      "internalID" : "6470424493",
-      "localizations" : [
-        {
-          "description" : "VIP会员180天，节省$4.40",
-          "displayName" : "6个月",
-          "locale" : "zh_CN"
-        }
-      ],
-      "productID" : "yingshi_vip_6months",
-      "referenceName" : "yingshi vip (6 months)",
-      "type" : "Consumable"
-    },
-    {
-      "displayPrice" : "3.89",
-      "familyShareable" : false,
-      "internalID" : "6470270956",
+      "internalID" : "6471457387",
       "localizations" : [
         {
           "description" : "VIP会员30天",
@@ -30,14 +15,14 @@
           "locale" : "zh_CN"
         }
       ],
-      "productID" : "yingshi_vip_month",
-      "referenceName" : "yingshi vip (monthly)",
+      "productID" : "yingshi_tv_1_month",
+      "referenceName" : "yingshi vip (1 months)",
       "type" : "Consumable"
     },
     {
       "displayPrice" : "36.99",
       "familyShareable" : false,
-      "internalID" : "6470270255",
+      "internalID" : "6471456486",
       "localizations" : [
         {
           "description" : "VIP会员360天，节省$9.68",
@@ -45,8 +30,23 @@
           "locale" : "zh_CN"
         }
       ],
-      "productID" : "monthly_subscription",
-      "referenceName" : "yingshipremium",
+      "productID" : "yingshi_vip_12_months",
+      "referenceName" : "yingshi vip (12 months)",
+      "type" : "Consumable"
+    },
+    {
+      "displayPrice" : "18.99",
+      "familyShareable" : false,
+      "internalID" : "6471459172",
+      "localizations" : [
+        {
+          "description" : "VIP会员180天，节省$4.40",
+          "displayName" : "6个月",
+          "locale" : "zh_CN"
+        }
+      ],
+      "productID" : "yingshi_vip_6_months",
+      "referenceName" : "yingshi vip (6 months)",
       "type" : "Consumable"
     }
   ],
