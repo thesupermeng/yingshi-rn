@@ -54,6 +54,7 @@ import { incrementSportWatchTime } from '../../../redux/actions/screenAction';
 import BecomeVipOverlay from "../../../components/modal/becomeVipOverlay";
 import { NON_VIP_STREAM_TIME_SECONDS } from '../../../utility/constants';
 import { userModel } from '../../../types/userType';
+import useInterstitialAds from '../../../hooks/useInterstitialAds';
 
 
 type FlatListType = {
@@ -212,6 +213,9 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
   
 
   const isFullyLoaded = !f1 && !f2 && !f3;
+
+  useInterstitialAds();
+  
   return (
     <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
       <BecomeVipOverlay

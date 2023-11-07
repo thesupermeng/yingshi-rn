@@ -68,7 +68,11 @@ const useInterstitialAds = () => {
           Platform.OS === "android"
             ? ANDROID_HOME_PAGE_POP_UP_ADS
             : IOS_HOME_PAGE_POP_UP_ADS;
-      } else if (currentRoute == "播放") {
+      } else if (
+        currentRoute == "播放" ||
+        currentRoute == "体育详情" ||
+        currentRoute == "电视台播放"
+      ) {
         adsID =
           Platform.OS === "android"
             ? ANDROID_PLAY_DETAILS_POP_UP_ADS
@@ -181,7 +185,11 @@ const useInterstitialAds = () => {
         Platform.OS === "android"
           ? ANDROID_HOME_PAGE_POP_UP_ADS
           : IOS_HOME_PAGE_POP_UP_ADS;
-    } else if (currentRoute == "播放") {
+    } else if (
+      currentRoute == "播放" ||
+      currentRoute == "体育详情" ||
+      currentRoute == "电视台播放"
+    ) {
       adsID =
         Platform.OS === "android"
           ? ANDROID_PLAY_DETAILS_POP_UP_ADS
