@@ -232,6 +232,11 @@ export default forwardRef<VideoRef, Props>(
       }
     }, [isFullScreen]);
 
+    useEffect(() => {
+      // when url change will reset play time (for 相关电视剧)
+      setCurrentTime(0);
+    }, [vod_url]);
+
     // Handle app's background/foreground status
     const handleAppStateChange = (nextAppState: any) => {
       setIsInBackground(nextAppState !== "active");
