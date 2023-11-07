@@ -33,8 +33,8 @@ public class MainActivity extends ReactActivity {
   }
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState); // or super.onCreate(null) with react-native-screens
-    // super.onCreate(null);
+    // super.onCreate(savedInstanceState); // or super.onCreate(null) with react-native-screens
+    super.onCreate(null);
 
 
     String appKey = getResources().getString(R.string.UMENG_APPKEY);
