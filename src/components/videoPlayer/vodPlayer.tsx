@@ -106,7 +106,7 @@ export default forwardRef<VideoRef, Props>(
       appOrientation,
       devicesOrientation,
       lockOrientation,
-      handleSaveVod,
+      handleSaveVod = () => {},
     }: Props,
     ref
   ) => {
