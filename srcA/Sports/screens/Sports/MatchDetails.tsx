@@ -53,6 +53,7 @@ import { screenModel } from '../../../types/screenType';
 import { incrementSportWatchTime } from '../../../redux/actions/screenAction';
 import BecomeVipOverlay from "../../../components/modal/becomeVipOverlay";
 import { NON_VIP_STREAM_TIME_SECONDS } from '../../../utility/constants';
+import { userModel } from '../../../types/userType';
 import useInterstitialAds from '../../../hooks/useInterstitialAds';
 
 
@@ -76,6 +77,9 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
   const dispatch = useDispatch();
   const screenState: screenModel = useAppSelector(
     ({screenReducer}) => screenReducer
+  )
+  const userState: userModel = useAppSelector(
+    ({userReducer}) => userReducer
   )
   const { textVariants, colors, spacing } = useTheme();
   const [isLiveVideoEnd, setIsLiveVideoEnd] = useState(false);
@@ -188,7 +192,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
   useEffect(() => {
     if (match != undefined && match.streams != undefined) {
       const videoUrl = parseVideoURL(match?.streams[0].src);
-      // setVideoSource({ type: VideoLiveType.LIVE, url: videoUrl });
+      setVideoSource({ type: VideoLiveType.LIVE, url: videoUrl });
     }
   }, [match]);
 
@@ -201,7 +205,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
   }, [])
 
   useEffect(() =>{
-    if (screenState.sportWatchTime > NON_VIP_STREAM_TIME_SECONDS){
+    if (screenState.sportWatchTime > NON_VIP_STREAM_TIME_SECONDS && (Number(userState.userMemberExpired) <= Number(userState.userCurrentTimestamp) || userState.userToken === "")){
       setShowBecomeVIPOverlay(true);
     }
 
@@ -211,7 +215,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
   const isFullyLoaded = !f1 && !f2 && !f3;
 
   useInterstitialAds();
-
+  
   return (
     <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
       <BecomeVipOverlay
@@ -241,10 +245,10 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
               const { streamer_id, src } = match?.streams[0];
               setStreamID(streamer_id);
               setIsLiveVideoEnd(false);
-              // setVideoSource({
-              //   type: VideoLiveType.LIVE,
-              //   url: parseVideoURL(src),
-              // });
+              setVideoSource({
+                type: VideoLiveType.LIVE,
+                url: parseVideoURL(src),
+              });
             }
           }}
           onOpenAnimation={(url: string) => {
