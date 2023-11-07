@@ -37,6 +37,7 @@ import { useDispatch } from "react-redux";
 import { useAppSelector } from "../../hooks/hooks";
 import { screenModel } from "../../types/screenType";
 import { NON_VIP_STREAM_TIME_SECONDS } from "../../utility/constants";
+import { userModel } from "../../types/userType";
 
 interface Props {
   vod_url?: string;
@@ -95,7 +96,7 @@ export default forwardRef<VideoRef, Props>(
       rangeSize,
       episodes,
       autoPlayNext = true,
-      onShare = () => {},
+      onShare = () => { },
       movieList = [],
       showGuide = false,
       streams = [],
@@ -129,7 +130,7 @@ export default forwardRef<VideoRef, Props>(
       ({ screenReducer }) => screenReducer
     );
     const userState: userModel = useAppSelector(
-      ({userReducer}) => userReducer
+      ({ userReducer }) => userReducer
     )
     const bufferRef = useRef(false);
     const onBuffer = (bufferObj: any) => {
@@ -391,9 +392,9 @@ export default forwardRef<VideoRef, Props>(
     //     }
     //   }
     // }, [screenState.sportWatchTime]);
-    const pauseSportVideo = (route.name === "体育详情" && 
-    screenState.sportWatchTime > NON_VIP_STREAM_TIME_SECONDS && 
-    (Number(userState.userMemberExpired) <= Number(userState.userCurrentTimestamp) || userState.userToken === ""));
+    const pauseSportVideo = (route.name === "体育详情" &&
+      screenState.sportWatchTime > NON_VIP_STREAM_TIME_SECONDS &&
+      (Number(userState.userMemberExpired) <= Number(userState.userCurrentTimestamp) || userState.userToken === ""));
 
     return (
       <View style={styles.container}>
@@ -449,6 +450,7 @@ export default forwardRef<VideoRef, Props>(
               setPlaybackRate={setPlaybackRate}
               changeEpisodeAndPlay={changeEpisodeAndPlay}
               onShare={onShare}
+              isInBackground={isInBackground}
             />
           )}
         </View>
