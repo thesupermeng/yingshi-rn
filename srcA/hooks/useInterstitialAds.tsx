@@ -11,11 +11,13 @@ import {
   ANDROID_PLAY_DETAILS_POP_UP_ADS,
   IOS_HOME_PAGE_POP_UP_ADS,
   IOS_PLAY_DETAILS_POP_UP_ADS,
+  NON_VIP_STREAM_TIME_SECONDS,
 } from "../utility/constants";
 import { userModel } from "../types/userType";
 import { RootState } from "../redux/store";
 import { useAppSelector } from "./hooks";
 import { AdsBannerContext } from "../contexts/AdsBannerContext";
+import { screenModel } from "../types/screenType";
 
 type PlacementId =
   | typeof ANDROID_HOME_PAGE_POP_UP_ADS
@@ -29,6 +31,10 @@ const useInterstitialAds = () => {
   const [adsReadyFlag, setAdsReadyFlag] = useState(false);
   const userState: userModel = useAppSelector(
     ({ userReducer }: RootState) => userReducer
+  );
+
+  const screenState: screenModel = useAppSelector(
+    ({ screenReducer }) => screenReducer
   );
   const { currentRoute } = useContext(AdsBannerContext);
   const [visitCount, setVisitCount] = useState<Record<string, number>>({});
@@ -86,7 +92,21 @@ const useInterstitialAds = () => {
           console.log(homePageShown);
         }
 
-        ATInterstitialRNSDK.showAd(adsID);
+        console.log("asdasdsadas=============");
+        console.log(currentRoute);
+        console.log(screenState.sportWatchTime);
+        console.log(NON_VIP_STREAM_TIME_SECONDS);
+        if (
+          screenState.sportWatchTime > NON_VIP_STREAM_TIME_SECONDS &&
+          currentRoute == "体育详情"
+        ) {
+          // asd
+          console.log("not showing pop up ads, prevent blocking modal action");
+        } else {
+          ATInterstitialRNSDK.showAd(adsID);
+        }
+
+        //
       }
     } else {
       setTimeout(() => {
