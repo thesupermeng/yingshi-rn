@@ -97,7 +97,7 @@ export default forwardRef<VideoRef, Props>(
       rangeSize,
       episodes,
       autoPlayNext = true,
-      onShare = () => { },
+      onShare = () => {},
       movieList = [],
       showGuide = false,
       streams = [],
@@ -106,7 +106,7 @@ export default forwardRef<VideoRef, Props>(
       appOrientation,
       devicesOrientation,
       lockOrientation,
-      handleSaveVod
+      handleSaveVod,
     }: Props,
     ref
   ) => {
@@ -133,7 +133,7 @@ export default forwardRef<VideoRef, Props>(
     );
     const userState: userModel = useAppSelector(
       ({ userReducer }) => userReducer
-    )
+    );
     const bufferRef = useRef(false);
     const onBuffer = (bufferObj: any) => {
       if (!bufferObj.isBuffering) {
@@ -396,9 +396,21 @@ export default forwardRef<VideoRef, Props>(
     //     }
     //   }
     // }, [screenState.sportWatchTime]);
-    const pauseSportVideo = (route.name === "体育详情" &&
+    useEffect(() => {
+      // if is sports stream, if watch time > 300s, pause vid
+      if (screenState.interstitialShow == true) {
+        setIsPaused(true);
+      } else {
+        setIsPaused(false);
+      }
+    }, [screenState.interstitialShow]);
+
+    const pauseSportVideo =
+      route.name === "体育详情" &&
       screenState.sportWatchTime > NON_VIP_STREAM_TIME_SECONDS &&
-      (Number(userState.userMemberExpired) <= Number(userState.userCurrentTimestamp) || userState.userToken === ""));
+      (Number(userState.userMemberExpired) <=
+        Number(userState.userCurrentTimestamp) ||
+        userState.userToken === "");
 
     return (
       <View style={styles.container}>
