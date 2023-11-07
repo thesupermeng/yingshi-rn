@@ -157,9 +157,7 @@ const OtpInputs = props => {
             await AsyncStorage.setItem("showAds", "true");
           }
           await dispatch(changeScreenAction('登录成功'));
-          navigator.navigate('Home', {
-            screen: 'Profile',
-          });
+          navigator.goBack();
         }
         if (props.action == 'register') {
           navigation.navigate('SetUsername');
