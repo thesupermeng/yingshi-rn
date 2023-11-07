@@ -78,6 +78,8 @@ import { YSConfig } from "../../ysConfig";
 import {
   hideLoginAction,
   hideRegisterAction,
+  interstitialClose,
+  interstitialShow,
   removeScreenAction,
   resetBottomSheetAction,
   resetSportWatchTime,
@@ -107,6 +109,8 @@ import { AdsBannerContext } from "../contexts/AdsBannerContext";
 import VIP from "../screens/Profile/VIP";
 import { withIAPContext } from "react-native-iap";
 import { VipDetails } from "../components/vip/vipDetails";
+
+import { ATInterstitialRNSDK } from "./../../AnyThinkAds/ATReactNativeSDK";
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -283,6 +287,7 @@ export default () => {
   const [showVIPOverlay, setShowVIPOverlay] = useState(false);
 
   const [vipRemainingDay, setVipRemainingDay] = useState(0);
+
   useEffect(() => {
     const date1Timestamp = userState.userCurrentTimestamp;
     const date2Timestamp = userState.userMemberExpired;
@@ -399,9 +404,108 @@ export default () => {
     // ============= end for banner ads
   };
 
-  useEffect(() =>{
+  useEffect(() => {
     dispatch(resetSportWatchTime());
-  }, [])
+  }, []);
+
+  const initInterstitialAdListener = () => {
+    ATInterstitialRNSDK.setAdListener(
+      ATInterstitialRNSDK.onInterstitialLoaded,
+      (event: any) => {
+        console.log("ATInterstitialLoaded: " + event.placementId);
+      }
+    );
+
+    ATInterstitialRNSDK.setAdListener(
+      ATInterstitialRNSDK.onInterstitialFail,
+      (event: any) => {
+        console.warn(
+          "ATInterstitialLoadFail: " +
+            event.placementId +
+            ", errorMsg: " +
+            event.errorMsg
+        );
+      }
+    );
+
+    ATInterstitialRNSDK.setAdListener(
+      ATInterstitialRNSDK.onInterstitialAdShow,
+      (event: any) => {
+        dispatch(interstitialShow());
+        console.log(
+          "ATInterstitialAdShow: " +
+            event.placementId +
+            ", adCallbackInfo: " +
+            event.adCallbackInfo
+        );
+      }
+    );
+
+    ATInterstitialRNSDK.setAdListener(
+      ATInterstitialRNSDK.onInterstitialPlayStart,
+      (event: any) => {
+        console.log(
+          "ATInterstitialPlayStart: " +
+            event.placementId +
+            ", adCallbackInfo: " +
+            event.adCallbackInfo
+        );
+      }
+    );
+
+    ATInterstitialRNSDK.setAdListener(
+      ATInterstitialRNSDK.onInterstitialPlayEnd,
+      (event: any) => {
+        console.log(
+          "ATInterstitialPlayEnd: " +
+            event.placementId +
+            ", adCallbackInfo: " +
+            event.adCallbackInfo
+        );
+      }
+    );
+
+    ATInterstitialRNSDK.setAdListener(
+      ATInterstitialRNSDK.onInterstitialPlayFail,
+      (event: any) => {
+        console.log(
+          "ATInterstitialPlayFail: " +
+            event.placementId +
+            ", errorMsg: " +
+            event.errorMsg +
+            ", adCallbackInfo: " +
+            event.adCallbackInfo
+        );
+      }
+    );
+
+    ATInterstitialRNSDK.setAdListener(
+      ATInterstitialRNSDK.onInterstitialClick,
+      (event: any) => {
+        console.log(
+          "ATInterstitialClick: " +
+            event.placementId +
+            ", adCallbackInfo: " +
+            event.adCallbackInfo
+        );
+      }
+    );
+
+    ATInterstitialRNSDK.setAdListener(
+      ATInterstitialRNSDK.onInterstitialClose,
+      (event: any) => {
+        dispatch(interstitialClose());
+        console.log(
+          "ATInterstitialClose: " +
+            event.placementId +
+            ", adCallbackInfo: " +
+            event.adCallbackInfo
+        );
+      }
+    );
+  };
+
+  initInterstitialAdListener();
 
   return (
     <SafeAreaProvider>

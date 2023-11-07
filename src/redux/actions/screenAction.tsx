@@ -6,56 +6,64 @@
 // });
 
 export const changeScreenAction = (action: string) => ({
-  type: 'change_screen_action',
+  type: "change_screen_action",
   payload: action,
 });
 
 export const removeScreenAction = () => ({
-  type: 'remove_screen_action',
+  type: "remove_screen_action",
 });
 
 export const showLoginAction = () => ({
-  type: 'show_login_action',
+  type: "show_login_action",
 });
 
 export const hideLoginAction = () => ({
-  type: 'hide_login_action',
+  type: "hide_login_action",
 });
 
 export const showRegisterAction = () => ({
-  type: 'show_register_action',
+  type: "show_register_action",
 });
 
 export const hideRegisterAction = () => ({
-  type: 'hide_register_action',
+  type: "hide_register_action",
 });
 
 export const hideBottomSheetAction = () => ({
-  type: 'hide_bottom_sheet_action',
+  type: "hide_bottom_sheet_action",
 });
 export const resetBottomSheetAction = () => ({
-  type: 'reset_bottom_sheet_action',
+  type: "reset_bottom_sheet_action",
 });
 
 export const resetBottomSheetForm = () => ({
-  type: 'reset_bottom_sheet_form',
+  type: "reset_bottom_sheet_form",
 });
 export const initialBottomSheetForm = () => ({
-  type: 'initial_bottom_sheet_from',
+  type: "initial_bottom_sheet_from",
 });
 
 export const navigateToProfileScreen = () => ({
-  type: 'navigate_to_profile_screen',
+  type: "navigate_to_profile_screen",
 });
 
 export const resetProfileScreen = () => ({
-  type: 'reset_profile_screen',
+  type: "reset_profile_screen",
 });
 
 export const incrementSportWatchTime = () => ({
-  type: 'increment_sport_watch_time'
-})
+  type: "increment_sport_watch_time",
+});
 
 export const resetSportWatchTime = () => ({
-  type: 'reset_sport_watch_time'
-})
+  type: "reset_sport_watch_time",
+});
+
+export const interstitialShow = () => ({
+  type: "interstitial_show",
+});
+
+export const interstitialClose = () => ({
+  type: "interstitial_close",
+});
