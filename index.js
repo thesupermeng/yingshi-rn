@@ -45,16 +45,15 @@ AppRegistry.registerRunnable(appName, async initialProps => {
       AppConfig.instance.setConfig(res.data);
     }
 
-    const response = await fetch(
-      `${API_DOMAIN}nav/v1/bottomtabs?channelId=` + UMENG_CHANNEL,
-    );
-    if (response.ok) {
-      const tabData = await response.json();
-
-      if (tabData != undefined && tabData != null) {
-        YSConfig.instance.setTabConfig(tabData.data);
-      }
-    }
+    // const response = await fetch(
+    //   `${API_DOMAIN}nav/v1/bottomtabs?channelId=` + UMENG_CHANNEL,
+    // );
+    // if (response.ok) {
+    //   const tabData = await response.json();
+    //   if (tabData != undefined && tabData != null) {
+    //     YSConfig.instance.setTabConfig(tabData.data);
+    //   }
+    // }
 
     const locationBody = {
       ip_address: YSConfig.instance.ip,
@@ -80,7 +79,7 @@ AppRegistry.registerRunnable(appName, async initialProps => {
     if (locationResponse.ok) {
       const locationResp = await locationResponse.json();
 
-      if (tabData != undefined && tabData != null) {
+      if (locationResp != undefined && locationResp != null) {
         YSConfig.instance.setAreaConfig(locationResp.data.status);
       }
     }
