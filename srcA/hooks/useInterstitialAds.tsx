@@ -8,7 +8,9 @@ import {
 
 import {
   ANDROID_HOME_PAGE_POP_UP_ADS,
+  ANDROID_PLAY_DETAILS_POP_UP_ADS,
   IOS_HOME_PAGE_POP_UP_ADS,
+  IOS_PLAY_DETAILS_POP_UP_ADS,
 } from "../utility/constants";
 import { userModel } from "../types/userType";
 import { RootState } from "../redux/store";
@@ -17,8 +19,12 @@ import { AdsBannerContext } from "../contexts/AdsBannerContext";
 
 type PlacementId =
   | typeof ANDROID_HOME_PAGE_POP_UP_ADS
-  | typeof IOS_HOME_PAGE_POP_UP_ADS;
+  | typeof IOS_HOME_PAGE_POP_UP_ADS
+  | typeof ANDROID_PLAY_DETAILS_POP_UP_ADS
+  | typeof IOS_PLAY_DETAILS_POP_UP_ADS
+  | null;
 
+let homePageShown = false;
 const useInterstitialAds = () => {
   const [adsReadyFlag, setAdsReadyFlag] = useState(false);
   const userState: userModel = useAppSelector(
@@ -51,7 +57,37 @@ const useInterstitialAds = () => {
     setAdsReadyFlag(ready);
     if (ready) {
       isAdsShown = true;
-      ATInterstitialRNSDK.showAd(interstitialPlacementId);
+
+      console.log("====== show banner ======");
+      console.log(currentRoute);
+
+      let adsID: PlacementId;
+      adsID = null;
+      if (currentRoute == "首页") {
+        adsID =
+          Platform.OS === "android"
+            ? ANDROID_HOME_PAGE_POP_UP_ADS
+            : IOS_HOME_PAGE_POP_UP_ADS;
+      } else if (
+        currentRoute == "播放" ||
+        currentRoute == "体育详情" ||
+        currentRoute == "电视台播放"
+      ) {
+        adsID =
+          Platform.OS === "android"
+            ? ANDROID_PLAY_DETAILS_POP_UP_ADS
+            : IOS_PLAY_DETAILS_POP_UP_ADS;
+      }
+
+      if (adsID != null) {
+        if (currentRoute == "首页") {
+          homePageShown = true;
+          console.log("homePageShown");
+          console.log(homePageShown);
+        }
+
+        ATInterstitialRNSDK.showAd(adsID);
+      }
     } else {
       setTimeout(() => {
         showInterstitial(interstitialPlacementId);
@@ -128,19 +164,46 @@ const useInterstitialAds = () => {
 
   useEffect(() => {
     reTryLoad += 1;
+    console.log("====== currentRoute ======");
+    console.log(currentRoute);
     loadInterstitial(
       Platform.OS === "android"
         ? ANDROID_HOME_PAGE_POP_UP_ADS
         : IOS_HOME_PAGE_POP_UP_ADS
     );
 
-    setTimeout(() => {
-      showInterstitial(
+    loadInterstitial(
+      Platform.OS === "android"
+        ? ANDROID_PLAY_DETAILS_POP_UP_ADS
+        : IOS_PLAY_DETAILS_POP_UP_ADS
+    );
+
+    let adsID: PlacementId;
+    adsID = null;
+    if (currentRoute == "首页" && homePageShown == false) {
+      adsID =
         Platform.OS === "android"
           ? ANDROID_HOME_PAGE_POP_UP_ADS
-          : IOS_HOME_PAGE_POP_UP_ADS
-      );
-    }, 400);
+          : IOS_HOME_PAGE_POP_UP_ADS;
+    } else if (
+      currentRoute == "播放" ||
+      currentRoute == "体育详情" ||
+      currentRoute == "电视台播放"
+    ) {
+      adsID =
+        Platform.OS === "android"
+          ? ANDROID_PLAY_DETAILS_POP_UP_ADS
+          : IOS_PLAY_DETAILS_POP_UP_ADS;
+    }
+
+    console.log("homePageShown");
+    console.log(homePageShown);
+
+    if (adsID != null) {
+      setTimeout(() => {
+        showInterstitial(adsID);
+      }, 100);
+    }
 
     //   if (
     //     Number(userState.userMemberExpired) <=
@@ -152,7 +215,7 @@ const useInterstitialAds = () => {
     //   }
 
     //}, [adsReadyFlag, currentRoute]);
-  }, []);
+  }, [currentRoute]);
 
   // useEffect(() => {
   //   if (currentRoute){
