@@ -306,6 +306,16 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
     return offset;
   };
 
+  const saveVodToHistory = (vod: any) => {
+    dispatch(
+      addVodToHistory(
+        vod,
+        currentTimeRef.current,
+        currentEpisodeRef.current
+      )
+    );
+  }
+
   useEffect(() => {
     setIsCollapsed(true);
     // episodeRef?.current?.scrollToOffset({
@@ -327,13 +337,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
       return () => {
         setDismountPlayer(true);
         if (vod) {
-          dispatch(
-            addVodToHistory(
-              vod,
-              currentTimeRef.current,
-              currentEpisodeRef.current
-            )
-          );
+          saveVodToHistory(vod);
           setInitTime(currentTimeRef.current);
         }
       };
@@ -426,6 +430,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
             appOrientation={settingsReducer.appOrientation}
             devicesOrientation={settingsReducer.devicesOrientation}
             lockOrientation={lockOrientation}
+            handleSaveVod={()=>saveVodToHistory(vod)}
             // setNavBarOptions={setNavBarOptions}
           />
         )}

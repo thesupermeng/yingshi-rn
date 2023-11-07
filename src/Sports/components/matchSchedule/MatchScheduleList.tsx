@@ -19,6 +19,7 @@ import Api from '../../middleware/api';
 import MatchSchedule from './MatchSchedule';
 // import FastImage from 'react-native-fast-image';
 import FastImage from '../../../components/common/customFastImage';
+import { TOPON_BANNER_HEIGHT } from '../../../utility/constants';
 
 interface Props {
   matchTypeID: number;
@@ -187,6 +188,7 @@ const MatchScheduleList = ({
           }}
           onEndReachedThreshold={0.9}
           stickyHeaderIndices={matches.headers}
+          ListFooterComponent={<View style={{paddingTop: TOPON_BANNER_HEIGHT + 20}}/>}
         />
       ) : (
         <View style={{ height: height }}>

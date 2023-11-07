@@ -62,6 +62,7 @@ interface Props {
   appOrientation: string;
   devicesOrientation: string;
   lockOrientation: (orientation: string) => void;
+  handleSaveVod: any;
 }
 
 type VideoControlsRef = {
@@ -105,6 +106,7 @@ export default forwardRef<VideoRef, Props>(
       appOrientation,
       devicesOrientation,
       lockOrientation,
+      handleSaveVod
     }: Props,
     ref
   ) => {
@@ -254,6 +256,8 @@ export default forwardRef<VideoRef, Props>(
       setIsInBackground(nextAppState !== "active");
       if (nextAppState === "active") {
         setIsPaused(false); // Resume video when app becomes active (foreground)
+      } else {
+        handleSaveVod();
       }
     };
 
