@@ -187,7 +187,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
   useEffect(() => {
     if (match != undefined && match.streams != undefined) {
       const videoUrl = parseVideoURL(match?.streams[0].src);
-      setVideoSource({ type: VideoLiveType.LIVE, url: videoUrl });
+      // setVideoSource({ type: VideoLiveType.LIVE, url: videoUrl });
     }
   }, [match]);
 
@@ -237,10 +237,10 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
               const { streamer_id, src } = match?.streams[0];
               setStreamID(streamer_id);
               setIsLiveVideoEnd(false);
-              setVideoSource({
-                type: VideoLiveType.LIVE,
-                url: parseVideoURL(src),
-              });
+              // setVideoSource({
+              //   type: VideoLiveType.LIVE,
+              //   url: parseVideoURL(src),
+              // });
             }
           }}
           onOpenAnimation={(url: string) => {

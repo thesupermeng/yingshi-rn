@@ -447,7 +447,7 @@ const BeforeLive = ({ liveDataState, listLiveDetails, setVideoSource, listLiveMa
           </View>
         </TouchableOpacity> */}
         <View style={styles.bottomButtonContainer}>
-          {dataLive !== undefined && dataLive.length > 0 && dataLive.some(streamer => streamer.status == 3) && (
+          {/* {dataLive !== undefined && dataLive.length > 0 && dataLive.some(streamer => streamer.status == 3) && (
             <TouchableOpacity onPress={liveVideo} style={styles.liveButton}>
               <Image
                 resizeMode="contain"
@@ -455,7 +455,7 @@ const BeforeLive = ({ liveDataState, listLiveDetails, setVideoSource, listLiveMa
                 source={VideoLive}></Image>
               <Text style={styles.bookingTitleName}>视频直播</Text>
             </TouchableOpacity>
-          )}
+          )} */}
           {(animationStream2D || animationStream3D) && (
             <TouchableOpacity
               onPress={liveAnimationVideo}

@@ -350,21 +350,21 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
               </TouchableOpacity>
             </View>
             
-            <ShowMoreButton
+            {/* <ShowMoreButton
               text="我的收藏"
               leftIcon={<CollectionIcon style={{ color: colors.button }} />}
               onPress={() => navigation.navigate("我的收藏")}
-            />
+            /> */}
             {/* <ShowMoreButton
               text="我的下载"
               leftIcon={<DownloadIcon style={{color: colors.button}} />}
               onPress={() => setIsDialogOpen(true)}
             /> */}
-            <ShowMoreButton
+            {/* <ShowMoreButton
               text="播放历史"
               leftIcon={<HistoryIcon style={{ color: colors.button }} />}
               onPress={() => navigation.navigate("播放历史")}
-            />
+            /> */}
             <ShowMoreButton
               text="我要反馈"
               leftIcon={<FeedbackIcon style={{ color: colors.button }} />}
