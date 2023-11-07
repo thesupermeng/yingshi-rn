@@ -108,7 +108,7 @@ export default forwardRef<VideoRef, Props>(
     ref
   ) => {
     const videoPlayerRef = React.useRef<Video | null>();
-    const { colors, spacing, textVariants, icons } = useTheme();
+    const { colors, textVariants } = useTheme();
     const [isFullScreen, setIsFullScreen] = useState(false);
     const [isPaused, setIsPaused] = useState(false);
     const [duration, setDuration] = useState(0);
@@ -122,8 +122,6 @@ export default forwardRef<VideoRef, Props>(
     const accumulatedSkip = useRef(0);
     const [isLastForward, setIsLastForward] = useState(true);
 
-    const height = Dimensions.get("window").height;
-    const width = Dimensions.get("window").width;
     const navigation = useNavigation();
     const route = useRoute();
     const dispatch = useDispatch();
@@ -177,8 +175,9 @@ export default forwardRef<VideoRef, Props>(
     useEffect(() => {
       // for auto rotate video player
       const isNeedAutoRotate = false;
+      const isLocked = controlsRef?.current?.isLocked ?? false;
 
-      if (isNeedAutoRotate) {
+      if (isNeedAutoRotate && !isLocked) {
         deviceOrientationHandle();
       } else {
         // set orientation: "portrait" because if set all android will auto rotate
@@ -241,6 +240,11 @@ export default forwardRef<VideoRef, Props>(
         navigation.setOptions({ gestureEnabled: true });
       }
     }, [isFullScreen]);
+
+    useEffect(() => {
+      // when url change will reset play time (for 相关电视剧)
+      setCurrentTime(0);
+    }, [vod_url]);
 
     // Handle app's background/foreground status
     const handleAppStateChange = (nextAppState: any) => {
