@@ -237,15 +237,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#FAC33D',
     position: 'absolute',
     bottom: 75,
-    right: 20,
+    right: 30,
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 22,
-    paddingLeft: 6,
-    paddingRight: 11,
-    paddingTop: 3,
-    paddingBottom: 3,
+    borderRadius: 25,
+    padding: 6,
     zIndex: 1
   },
   refreshFont: {

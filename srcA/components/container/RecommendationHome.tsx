@@ -147,7 +147,7 @@ const RecommendationHome = ({
         <TouchableOpacity
           key={`slider-${index}`}
           onPress={() => {
-            const url = `https://m.iqiyi.com/search.html?key=${item.vod_name}`
+            const url = `https://m.iqiyi.com/search.html?key=${item.carousel_name}`
             Linking.openURL(url);
           }}
         >

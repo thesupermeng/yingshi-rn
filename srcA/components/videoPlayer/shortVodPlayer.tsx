@@ -171,7 +171,7 @@ function ShortVideoPlayer({
         topic_id: currentVod.mini_video_topic.topic_id,
       });
     } else {
-      const url = `https://m.iqiyi.com/search.html?key=${currentVod.vod?.vod_name}`
+      const url = `https://m.iqiyi.com/search.html?key=${currentVod.mini_video_original_video_name}`
       Linking.openURL(url);
     }
   };
