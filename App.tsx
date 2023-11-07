@@ -315,7 +315,7 @@ let App = () => {
   }
 
   function initAdListener() {
-    initInterstitialAdListener();
+    // initInterstitialAdListener();
   }
 
   const loadBanner = async (bannerPlacementId) => {
