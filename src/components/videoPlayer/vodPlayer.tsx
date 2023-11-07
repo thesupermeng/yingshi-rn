@@ -378,15 +378,18 @@ export default forwardRef<VideoRef, Props>(
       return undefined;
     };
 
-    useEffect(() => {
-      // if is sports stream, if watch time > 300s, pause vid
-      if (
-        route.name === "体育详情" &&
-        screenState.sportWatchTime > NON_VIP_STREAM_TIME_SECONDS
-      ) {
-        videoPlayerRef.current.pause();
-      }
-    }, [screenState.sportWatchTime]);
+    // useEffect(() => {
+    //   // if is sports stream, if watch time > 300s, pause vid
+    //   if (
+    //     route.name === "体育详情" &&
+    //     screenState.sportWatchTime > NON_VIP_STREAM_TIME_SECONDS
+    //   ) {
+    //     if (videoPlayerRef.current){
+    //       videoPlayerRef.current.pause();
+    //     }
+    //   }
+    // }, [screenState.sportWatchTime]);
+    const pauseSportVideo = (route.name === "体育详情" && screenState.sportWatchTime > NON_VIP_STREAM_TIME_SECONDS);
 
     return (
       <View style={styles.container}>
@@ -410,7 +413,7 @@ export default forwardRef<VideoRef, Props>(
             <VideoWithControls
               playbackRate={playbackRate}
               videoPlayerRef={videoPlayerRef}
-              isPaused={isPaused || isInBackground} // Pause video when app is in the background
+              isPaused={isPaused || isInBackground || pauseSportVideo} // Pause video when app is in the background or when sport timer is up
               vod_source={vod_source}
               vod_url={vod_url}
               currentTimeRef={currentTimeRef}
