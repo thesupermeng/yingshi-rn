@@ -122,13 +122,13 @@ export default ({
                     onManualPause={(current) => {
                         setPause(!current);
                     }}
-                    isShowVideo={current === index && !isScrolling && !isPressTabScroll}
+                    isShowVideo={current === index && !isScrolling && !isPressTabScroll && isActive}
                     currentDuration={videoCurrentDurations[index]}
                     updateVideoDuration={(duration) => updateVideoDuration(index, duration)}
                 />
             )}
         </View>
-    ), [current, isPause, isScrolling, inCollectionView, displayHeight, videoCurrentDurations, isPressTabScroll]);
+    ), [current, isActive, isPause, isScrolling, inCollectionView, displayHeight, videoCurrentDurations, isPressTabScroll]);
 
     return (
         <View style={{ flex: 1 }} onLayout={(event: any) => {
