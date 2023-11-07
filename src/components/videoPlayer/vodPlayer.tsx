@@ -128,7 +128,9 @@ export default forwardRef<VideoRef, Props>(
     const screenState: screenModel = useAppSelector(
       ({ screenReducer }) => screenReducer
     );
-
+    const userState: userModel = useAppSelector(
+      ({userReducer}) => userReducer
+    )
     const bufferRef = useRef(false);
     const onBuffer = (bufferObj: any) => {
       if (!bufferObj.isBuffering) {
@@ -389,7 +391,9 @@ export default forwardRef<VideoRef, Props>(
     //     }
     //   }
     // }, [screenState.sportWatchTime]);
-    const pauseSportVideo = (route.name === "体育详情" && screenState.sportWatchTime > NON_VIP_STREAM_TIME_SECONDS);
+    const pauseSportVideo = (route.name === "体育详情" && 
+    screenState.sportWatchTime > NON_VIP_STREAM_TIME_SECONDS && 
+    (Number(userState.userMemberExpired) <= Number(userState.userCurrentTimestamp) || userState.userToken === ""));
 
     return (
       <View style={styles.container}>

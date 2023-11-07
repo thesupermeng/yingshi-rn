@@ -53,6 +53,7 @@ import { screenModel } from '../../../types/screenType';
 import { incrementSportWatchTime } from '../../../redux/actions/screenAction';
 import BecomeVipOverlay from "../../../components/modal/becomeVipOverlay";
 import { NON_VIP_STREAM_TIME_SECONDS } from '../../../utility/constants';
+import { userModel } from '../../../types/userType';
 
 
 type FlatListType = {
@@ -75,6 +76,9 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
   const dispatch = useDispatch();
   const screenState: screenModel = useAppSelector(
     ({screenReducer}) => screenReducer
+  )
+  const userState: userModel = useAppSelector(
+    ({userReducer}) => userReducer
   )
   const { textVariants, colors, spacing } = useTheme();
   const [isLiveVideoEnd, setIsLiveVideoEnd] = useState(false);
@@ -200,7 +204,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
   }, [])
 
   useEffect(() =>{
-    if (screenState.sportWatchTime > NON_VIP_STREAM_TIME_SECONDS){
+    if (screenState.sportWatchTime > NON_VIP_STREAM_TIME_SECONDS && (Number(userState.userMemberExpired) <= Number(userState.userCurrentTimestamp) || userState.userToken === "")){
       setShowBecomeVIPOverlay(true);
     }
 
