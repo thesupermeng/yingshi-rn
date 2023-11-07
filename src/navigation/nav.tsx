@@ -471,6 +471,7 @@ export default () => {
               streamerId: undefined,
               matchId: undefined,
             }}
+            options={{ orientation: "all" }}
           />
           <Stack.Screen
             name="电视台列表"
