@@ -40,6 +40,7 @@ import {
 import axios from "axios";
 import { showToast } from "../../Sports/utility/toast";
 import { showLoginAction } from "../../redux/actions/screenAction";
+import SpinnerOverlay from "../../components/modal/SpinnerOverlay";
 
 const subscriptionSkus = Platform.select({
   ios: ["yingshi_vip_month", "yingshi_vip_6months", "monthly_subscription"],
@@ -74,6 +75,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   );
 
   const [loading, setLoading] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -109,6 +111,16 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
       handleRefresh();
     }
   };
+
+  useEffect(() => {
+    const removeNetInfoSubscription = NetInfo.addEventListener(
+      (state: NetInfoState) => {
+        const offline = !(state.isConnected && ((state.isInternetReachable === true || state.isInternetReachable === null) ? true : false));
+        setIsOffline(offline);
+      }
+    );
+    return () => removeNetInfoSubscription();
+  }, []);
 
   const fetchData = async () => {
     const response = await axios.get(`${API_DOMAIN_TEST}products/v1/products`);
@@ -163,6 +175,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         if (paymentSelected === "Apple Pay") {
           console.log("apple pay payment");
           console.log(initConnectionError);
+          setIsVisible(true);
           await getProducts({ skus: [membershipSelected.productSKU] });
 
           await requestPurchase({ sku: membershipSelected.productSKU });
@@ -170,10 +183,11 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
           console.log("others payment method");
         }
       } catch (error) {
+        setIsVisible(false);
         if (error instanceof PurchaseError) {
           console.error("purchasing error: " + error);
         } else {
-          console.error("handle purchase error: " + error);
+          console.error("handle purchase error: ", error);
         }
         // showToast(
         //   error?.code.toString() +
@@ -253,6 +267,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
               purchase: currentPurchase,
               isConsumable: true,
             });
+            setIsVisible(false);
             setIsDialogOpen(true);
             setIsSuccess(true);
           }
@@ -272,6 +287,8 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const handleConfirm = () => {
     setIsDialogOpen(false);
     handleRefresh();
+    setIsBtnEnable(true);
+    setIsSuccess(false);
   };
 
   return (
@@ -426,6 +443,8 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
             />
           </View>
         )}
+
+        <SpinnerOverlay visible={isVisible} />
 
         {!loading && !isOffline && (
           <ScrollView
