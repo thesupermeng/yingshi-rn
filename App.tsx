@@ -253,9 +253,7 @@ let App = () => {
           ids: Array<number>;
           type: string;
         }[] => {
-          let bla = [];
-          bla.push(res.data[3])
-          return bla;
+          return res.data;
         }),
       staleTime: Infinity,
     });
