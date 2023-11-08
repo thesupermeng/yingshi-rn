@@ -41,6 +41,7 @@ import axios from "axios";
 import { showToast } from "../../Sports/utility/toast";
 import { showLoginAction } from "../../redux/actions/screenAction";
 import SpinnerOverlay from "../../components/modal/SpinnerOverlay";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const subscriptionSkus = Platform.select({
   ios: ["yingshi_vip_month", "yingshi_vip_6months", "monthly_subscription"],
@@ -190,8 +191,6 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
       //     "  error message : " +
       //     error.message.toString()
       // );
-
-      saveFinishTrans("2", error);
       if (error && error?.code == "E_USER_CANCELLED") {
         console.log("user cancel purchase");
         setIsBtnEnable(true);
@@ -225,9 +224,10 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     );
     console.log("complete transaction result");
     console.log(result.data);
-    return result.data.data;
+    return result.data.data.data;
   };
 
+  const receiptBuffer = new Map();
   useEffect(() => {
     const checkCurrentPurchase = async () => {
       if (currentPurchase) {
@@ -239,23 +239,37 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
             (isIosStorekit2() && currentPurchase.transactionId) ||
             currentPurchase.transactionReceipt
           ) {
-            const success = await saveFinishTrans("1", ""); //validate receipt with server
-            if(success) {
+            const key = currentPurchase.transactionId?.concat('true');
+
+            if (receiptBuffer.has(key)) {
+              console.log('duplicate transaction id: ', currentPurchase.transactionId);
               await finishTransaction({
                 purchase: currentPurchase,
                 isConsumable: true,
               });
               setIsVisible(false);
-              setIsDialogOpen(true);
-              setIsSuccess(true);
+              return;
             } else {
-              await finishTransaction({
-                purchase: currentPurchase,
-                isConsumable: true,
-              });
-              setIsVisible(false);
-              setIsDialogOpen(true);
-              setIsSuccess(false);
+              const success = await saveFinishTrans("1", ""); //validate receipt with server
+              receiptBuffer.set(currentPurchase.transactionId?.concat(success), success);
+              
+              if(success) {
+                await finishTransaction({
+                  purchase: currentPurchase,
+                  isConsumable: true,
+                });
+                setIsVisible(false);
+                setIsDialogOpen(true);
+                setIsSuccess(true);
+              } else {
+                await finishTransaction({
+                  purchase: currentPurchase,
+                  isConsumable: true,
+                });
+                setIsVisible(false);
+                setIsDialogOpen(true);
+                setIsSuccess(false);
+              }
             }
           }
         } catch (error) {
