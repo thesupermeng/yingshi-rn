@@ -332,27 +332,36 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
               setIsVisible(false);
               return;
             } else {
-              setTimeout(() => setIsVisible(false), 10000);
+              // setTimeout(() => setIsVisible(false), 10000);
+              
+              await finishTransaction({
+                purchase: currentPurchase,
+                isConsumable: true,
+              });
+              setIsVisible(false);
+              setIsDialogOpen(true);
+              setIsSuccess(true);
+
               const success = await saveFinishTrans("1", ""); //validate receipt with server
               receiptBuffer.set(currentPurchase.transactionId?.concat(success), success);
               
-              if(success) {
-                await finishTransaction({
-                  purchase: currentPurchase,
-                  isConsumable: true,
-                });
-                setIsVisible(false);
-                setIsDialogOpen(true);
-                setIsSuccess(true);
-              } else {
-                await finishTransaction({
-                  purchase: currentPurchase,
-                  isConsumable: true,
-                });
-                setIsVisible(false);
-                setIsDialogOpen(true);
-                setIsSuccess(false);
-              }
+              // if(success) {
+              //   await finishTransaction({
+              //     purchase: currentPurchase,
+              //     isConsumable: true,
+              //   });
+              //   setIsVisible(false);
+              //   setIsDialogOpen(true);
+              //   setIsSuccess(true);
+              // } else {
+              //   await finishTransaction({
+              //     purchase: currentPurchase,
+              //     isConsumable: true,
+              //   });
+              //   setIsVisible(false);
+              //   setIsDialogOpen(true);
+              //   setIsSuccess(false);
+              // }
             }
           }
         } catch (error) {
