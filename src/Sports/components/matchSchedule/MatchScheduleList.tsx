@@ -48,6 +48,7 @@ const MatchScheduleList = ({
   const latestListDate = useRef<Date | undefined>();
 
   const [isFetchNext, setFetchNext] = useState(false);
+  const [showLoading, setShowLoading] = useState(false);
 
   const [matches, setMatches] = useState<Matches>({
     headers: [],
@@ -178,6 +179,13 @@ const MatchScheduleList = ({
     );
   };
 
+  const handleRefresh = () => {
+    setShowLoading(true)
+    setTimeout(() => {
+      setShowLoading(false)
+    }, 1000)
+  }
+
   return (
     <View style={{ flex: 1 }}>
       {matches?.data !== undefined && matches.data.length > 0 ? (
@@ -203,10 +211,27 @@ const MatchScheduleList = ({
         </View>
       )}
 
+      {showLoading && <View style={{
+        position: 'absolute', 
+        backgroundColor: colors.background, 
+        zIndex: 1, 
+        width: '100%', 
+        height: '100%', 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+      }}>
+        <FastImage
+          source={require('../../../../static/images/loading-spinner.gif')}
+          style={{ width: 100, height: 100 }}
+          resizeMode="contain"
+        />
+      </View>}
+
       <TouchableOpacity
         style={styles.refresh}
         onPress={() => {
           refetch();
+          handleRefresh(); 
         }}>
         <FastImage
           source={require('../../assets/images/IconRefresh.png')}
