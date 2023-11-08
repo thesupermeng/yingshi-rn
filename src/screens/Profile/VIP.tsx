@@ -218,6 +218,8 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
       is_sb: 1
     };
     console.log("complete trans: ", trans);
+
+    addLocalTrans(trans);
     const result = await axios.post(
       `${API_DOMAIN}validate/v1/iosreceipt`,
       trans
@@ -226,6 +228,79 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     console.log(result.data);
     return result.data.data.data;
   };
+
+  const getLocalTrans = async () => {
+    try {
+      const data = await AsyncStorage.getItem("transRecords");
+      console.log('trans data stored in local storage');
+      console.log(data);
+
+      if (data !== null) {
+        return JSON.parse(data);
+      }
+      return [];
+    }catch (error) {
+      console.log('error when retrieving local trans records: ', error);
+      return [];
+    }
+  };
+
+  const addLocalTrans = async (trans: any) => {
+    try {
+      const existingData = await getLocalTrans();
+      existingData.push(trans);
+      await AsyncStorage.setItem("transRecords", JSON.stringify(existingData));
+
+      const existingData2 = await getLocalTrans();
+      console.log('current trans stored in local: ', existingData2);
+    } catch (error) {
+      console.log('error when storing the trans into local storage: ', error);
+    }
+  };
+
+  const processLocalTrans = async () => {
+    try {
+      const existingData = await getLocalTrans();
+      console.warn('processData');
+      let dataLength = existingData.length;
+
+      while(dataLength--){
+        let popItem = existingData.shift();
+        console.warn('pop item');
+        console.log(popItem);
+
+        const result = await axios.post(
+          `${API_DOMAIN}payment/v1/completetransaction`,
+          popItem
+        );
+        console.log("response get back");
+        console.log(result.data);
+
+        if(result.status !== 200){
+          console.log('push back the unsuccess trans: ', popItem);
+          existingData.push(popItem);
+        }
+      }
+      console.warn('after data');
+      console.log(existingData);
+      await AsyncStorage.setItem("transRecords", JSON.stringify(existingData));
+    } catch (error) {
+      console.error('error saving local data to database: ', error);
+    }
+  };
+
+  useEffect(() => {
+    console.log('check if offline')
+    if(!isOffline) {
+      processLocalTrans();
+      // if(currentPurchase) {
+      //   finishTransaction({
+      //     purchase: currentPurchase,
+      //     isConsumable: true,
+      //   });
+      // }
+    }
+  }, [isOffline]);
 
   const receiptBuffer = new Map();
   useEffect(() => {
