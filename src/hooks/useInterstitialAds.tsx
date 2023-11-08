@@ -83,11 +83,6 @@ const useInterstitialAds = () => {
       }
 
       if (adsID != null) {
-        if (currentRoute == "首页") {
-          homePageShown = true;
-          console.log("homePageShown");
-          console.log(homePageShown);
-        }
         if (
           screenState.sportWatchTime > NON_VIP_STREAM_TIME_SECONDS &&
           currentRoute == "体育详情"
@@ -95,9 +90,13 @@ const useInterstitialAds = () => {
           // asd
           console.log("not showing pop up ads, prevent blocking modal action");
         } else {
+          if (currentRoute == "首页") {
+            console.log("homePageShown");
+            console.log(homePageShown);
+            homePageShown = true;
+          }
           ATInterstitialRNSDK.showAd(adsID);
         }
-
         //
       }
     } else {
