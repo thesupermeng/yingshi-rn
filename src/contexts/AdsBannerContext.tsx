@@ -228,6 +228,9 @@ const showBanner = (
   // console.log("showBanner");
   // console.log("routeName");
   // console.log(routeName);
+  console.log("======== banner init ======");
+  console.log("routeName");
+  console.log(routeName);
   console.log("bannerId");
   console.log(bannerId);
   // console.debug(x, y, width, height)
@@ -235,7 +238,6 @@ const showBanner = (
     setTimeout(() => {
       hideAllBanner();
     }, 80);
-
     return;
   }
   const settings = {};
@@ -409,8 +411,15 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
   };
 
   useEffect(() => {
-    console.log("route");
-    console.log(route);
+    console.log("======== banner init ======");
+
+    initBannerAdListener();
+    initBanner();
+
+    return () => ATBannerRNSDK.removeAllListeners();
+  }, []);
+
+  useEffect(() => {
     // show banner logic
     if (settingState.appOrientation === "PORTRAIT") {
       if (
@@ -430,14 +439,6 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
     }
   }, [route, navbarHeight, systemNavHeight, settingState.appOrientation]);
 
-  useEffect(() => {
-    console.log("======== banner init ======");
-
-    initBannerAdListener();
-    initBanner();
-
-    return () => ATBannerRNSDK.removeAllListeners();
-  }, []);
   return (
     <AdsBannerContext.Provider
       value={{ setRoute, setNavbarHeight, currentRoute: route }}

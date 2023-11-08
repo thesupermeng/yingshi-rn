@@ -64,9 +64,6 @@ const useInterstitialAds = () => {
     if (ready) {
       isAdsShown = true;
 
-      console.log("====== show banner ======");
-      console.log(currentRoute);
-
       let adsID: PlacementId;
       adsID = null;
       if (currentRoute == "首页") {
