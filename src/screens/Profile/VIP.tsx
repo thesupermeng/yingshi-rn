@@ -167,88 +167,65 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
       return; //early return
     }
 
-    const continueTrans = await initialTransRecord();
-    setIsBtnEnable(false);
-    setCurrentTransID(continueTrans.data);
-    if (continueTrans.data >= 1) {
-      try {
-        if (paymentSelected === "Apple Pay") {
-          console.log("apple pay payment");
-          console.log(initConnectionError);
-          setIsVisible(true);
-          await getProducts({ skus: [membershipSelected.productSKU] });
+    try {
+      if (paymentSelected === "Apple Pay") {
+        console.log("apple pay payment");
+        console.log(initConnectionError);
+        setIsVisible(true);
+        await getProducts({ skus: [membershipSelected.productSKU] });
 
-          await requestPurchase({ sku: membershipSelected.productSKU });
-        } else {
-          console.log("others payment method");
-        }
-      } catch (error) {
-        setIsVisible(false);
-        if (error instanceof PurchaseError) {
-          console.error("purchasing error: " + error);
-        } else {
-          console.error("handle purchase error: ", error);
-        }
-        // showToast(
-        //   error?.code.toString() +
-        //     "  error message : " +
-        //     error.message.toString()
-        // );
-
-        saveFinishTrans("2", continueTrans.data, error);
-        if (error && error?.code == "E_USER_CANCELLED") {
-          console.log("user cancel purchase");
-          setIsBtnEnable(true);
-        } else {
-          setIsDialogOpen(true);
-        }
+        await requestPurchase({ sku: membershipSelected.productSKU });
+      } else {
+        console.log("others payment method");
       }
-    } else {
-      setIsDialogOpen(true);
-    }
-  };
+    } catch (error) {
+      setIsVisible(false);
+      if (error instanceof PurchaseError) {
+        console.error("purchasing error: " + error);
+      } else {
+        console.error("handle purchase error: ", error);
+      }
+      // showToast(
+      //   error?.code.toString() +
+      //     "  error message : " +
+      //     error.message.toString()
+      // );
 
-  const initialTransRecord = async () => {
-    const json = {
-      user_id: userState.userId,
-      product_id: membershipSelected.productId,
-      product_name: membershipSelected.title,
-      product_price: parseFloat(membershipSelected.price),
-      subscription_days: membershipSelected.subscriptionDays,
-      transaction_type: "SUBSCRIBE_VIP",
-      payment_channel: paymentSelected.toUpperCase(),
-      platform: APP_NAME_CONST + "-" + Platform.OS.toUpperCase(),
-    };
-    console.log("passsing to db", json);
-    const result = await axios.post(
-      `${API_DOMAIN}payment/v1/transaction`,
-      json
-    );
-    console.log("transaction result");
-    console.log(result.data);
-    return result.data;
+      saveFinishTrans("2", error);
+      if (error && error?.code == "E_USER_CANCELLED") {
+        console.log("user cancel purchase");
+        setIsBtnEnable(true);
+      } else {
+        setIsDialogOpen(true);
+      }
+    }
   };
 
   const saveFinishTrans = async (
     transStatus: string,
-    transID: string,
     error: any
   ) => {
     const trans = {
-      transaction_id: parseInt(transID),
+      user_id: userState.userId,
+      product_id: membershipSelected.productId,
+      transaction_type: "SUBSCRIBE_VIP",
+      payment_channel: paymentSelected.toUpperCase(),
+      platform: APP_NAME_CONST + "-" + Platform.OS.toUpperCase(),
       channel_transaction_id: currentPurchase?.transactionId,
       transaction_receipt: currentPurchase
         ? currentPurchase.transactionReceipt
         : error.toString(),
       transaction_status: parseInt(transStatus),
+      is_sb: 1
     };
     console.log("complete trans: ", trans);
     const result = await axios.post(
-      `${API_DOMAIN}payment/v1/completetransaction`,
+      `${API_DOMAIN}validate/v1/iosreceipt`,
       trans
     );
     console.log("complete transaction result");
     console.log(result.data);
+    return result.data.data;
   };
 
   useEffect(() => {
@@ -262,14 +239,24 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
             (isIosStorekit2() && currentPurchase.transactionId) ||
             currentPurchase.transactionReceipt
           ) {
-            saveFinishTrans("1", currentTransID, ""); //save record to database
-            await finishTransaction({
-              purchase: currentPurchase,
-              isConsumable: true,
-            });
-            setIsVisible(false);
-            setIsDialogOpen(true);
-            setIsSuccess(true);
+            const success = await saveFinishTrans("1", ""); //validate receipt with server
+            if(success) {
+              await finishTransaction({
+                purchase: currentPurchase,
+                isConsumable: true,
+              });
+              setIsVisible(false);
+              setIsDialogOpen(true);
+              setIsSuccess(true);
+            } else {
+              await finishTransaction({
+                purchase: currentPurchase,
+                isConsumable: true,
+              });
+              setIsVisible(false);
+              setIsDialogOpen(true);
+              setIsSuccess(false);
+            }
           }
         } catch (error) {
           if (error instanceof PurchaseError) {
@@ -328,7 +315,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         }
       >
         <Dialog
-          isVisible={isDialogOpen}
+          isVisible={isDialogOpen && !isOffline}
           overlayStyle={{
             backgroundColor: "rgba(34, 34, 34, 1)",
             gap: 10,
