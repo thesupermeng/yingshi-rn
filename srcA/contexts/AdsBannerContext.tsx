@@ -23,7 +23,7 @@ import { userModel } from "../types/userType";
 import { RootState } from "../redux/store";
 import { useAppSelector } from "../hooks/hooks";
 import { SettingsReducerState } from "../redux/reducers/settingsReducer";
-
+LogBox.ignoreAllLogs();
 interface Props {
   children: ReactNode;
 }

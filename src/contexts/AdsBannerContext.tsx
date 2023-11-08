@@ -23,7 +23,7 @@ import { userModel } from "../types/userType";
 import { RootState } from "../redux/store";
 import { useAppSelector } from "../hooks/hooks";
 import { SettingsReducerState } from "../redux/reducers/settingsReducer";
-
+LogBox.ignoreAllLogs();
 interface Props {
   children: ReactNode;
 }
@@ -431,12 +431,13 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
   }, [route, navbarHeight, systemNavHeight, settingState.appOrientation]);
 
   useEffect(() => {
+    console.log("======== banner init ======");
+
     initBannerAdListener();
     initBanner();
 
     return () => ATBannerRNSDK.removeAllListeners();
   }, []);
-
   return (
     <AdsBannerContext.Provider
       value={{ setRoute, setNavbarHeight, currentRoute: route }}
