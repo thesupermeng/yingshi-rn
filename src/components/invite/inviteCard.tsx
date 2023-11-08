@@ -89,7 +89,7 @@ export default function InviteCard({ userState = {} }: Props) {
       message: `现在加入${APP_NAME_CONST},一起赚VIP,免费看高清影视`,
       url: INVITE_DOMAIN + encodedAuth,
     });
-  }, []);
+  }, [userState]);
 
   const shareToWhatsApp = async () => {
     if (userState.userToken == "") {
