@@ -64,7 +64,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     }, []);
 
     const [flattenedVideos, setFlattenedVideos] = useState(Array<MiniVideo>);
-    const LIMIT = 100;
+    const LIMIT = 300;
     const fetchVods = (page: number) => fetch(
         `${API_DOMAIN}miniVod/v2/miniVod?page=${page}&limit=${LIMIT}`,
     )
