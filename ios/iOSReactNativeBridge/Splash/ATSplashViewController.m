@@ -89,25 +89,35 @@ bool isAdClosed = NO;
     [clearBtn addTarget:self action:@selector(clearLog) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *btnItem = [[UIBarButtonItem alloc] initWithCustomView:clearBtn];
     self.navigationItem.rightBarButtonItem = btnItem;
-
-    self.splashImageView.frame = CGRectMake(106, 320, 180, 52);
     
-    [self.view addSubview:self.splashImageView];
-    [self.view addSubview:self.modelBackView];
-    [self.view addSubview:self.textView];
-    
-    // Apply Auto Layout constraints to fit the image view to the top and bottom of its superview
-//    NSLayoutConstraint *topConstraint = [self.splashImageView.topAnchor constraintEqualToAnchor:self.view.topAnchor];
-//    NSLayoutConstraint *bottomConstraint = [self.splashImageView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor];
-//    NSLayoutConstraint *leadingConstraint = [self.splashImageView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor];
-//    NSLayoutConstraint *trailingConstraint = [self.splashImageView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor];
+    // Load the storyboard
+     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"LaunchScreen" bundle:nil];
 
-//    [topConstraint setActive:YES];
-//    [bottomConstraint setActive:YES];
-//    [leadingConstraint setActive:YES];
-//    [trailingConstraint setActive:YES];
-  
-    [self loadAd];
+     // Instantiate the view controller from the storyboard
+     UIViewController *yourViewController = [mainStoryboard instantiateInitialViewController];
+
+     // Add the view controller's view as a subview
+     [self.view addSubview:yourViewController.view];
+
+     // Optional: If you want the subview to follow the autoresizing mask constraints
+     yourViewController.view.frame = self.view.bounds;
+     yourViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+
+      [self.view addSubview:self.splashImageView];
+      [self.view addSubview:self.modelBackView];
+      [self.view addSubview:self.textView];
+
+  //    NSLayoutConstraint *leftConstraint = [self.splashImageView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor];
+  //    NSLayoutConstraint *rightConstraint = [self.splashImageView.rightAnchor constraintEqualToAnchor:self.view.rightAnchor];
+  //    NSLayoutConstraint *leadingConstraint = [self.splashImageView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor];
+  //    NSLayoutConstraint *trailingConstraint = [self.splashImageView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor];
+
+//      [topConstraint setActive:YES];
+//      [bottomConstraint setActive:YES];
+//      [widthConstraint setActive:YES];
+//      [heightConstraint setActive:YES];
+
+      [self loadAd];
       
 //    [self.modelBackView mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.centerX.equalTo(self.view.mas_centerX);
@@ -490,7 +500,7 @@ bool isAdClosed = NO;
 - (UIImageView *)splashImageView {
   if (!_splashImageView) {
     _splashImageView = [[UIImageView alloc] init];
-    _splashImageView.image = [UIImage imageNamed:@"BootSplashLogo"];
+    _splashImageView.image = [UIImage imageNamed:@"SplashScreen"];
     _splashImageView.contentMode = UIViewContentModeScaleAspectFit;
     _splashImageView.translatesAutoresizingMaskIntoConstraints = NO;
   }
