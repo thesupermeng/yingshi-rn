@@ -24,7 +24,6 @@ import { RootState } from "../redux/store";
 import { useAppSelector } from "../hooks/hooks";
 import { SettingsReducerState } from "../redux/reducers/settingsReducer";
 
-LogBox.ignoreAllLogs();
 interface Props {
   children: ReactNode;
 }
@@ -35,7 +34,7 @@ export const AdsBannerContext = createContext<{
   currentRoute: string | null;
 }>({
   setRoute: () => {},
-  setNavbarHeight: () => {},
+  setNavbarHeight: 0,
   currentRoute: "",
 });
 
@@ -233,6 +232,10 @@ const showBanner = (
   console.log(bannerId);
   // console.debug(x, y, width, height)
   if (bannerId == null) {
+    setTimeout(() => {
+      hideAllBanner();
+    }, 80);
+
     return;
   }
   const settings = {};
@@ -253,6 +256,8 @@ const showBanner = (
       if (!isAdReady) {
         ATBannerRNSDK.loadAd(bannerId, settings);
         setTimeout(() => {
+          hideAllBanner();
+          console.log("show banner");
           //show banner
           ATBannerRNSDK.showAdInRectangle(
             bannerId,
@@ -260,9 +265,11 @@ const showBanner = (
           );
 
           ATBannerRNSDK.reShowAd(bannerId);
-        }, 1000);
+        }, 200);
       } else {
         setTimeout(() => {
+          console.log("show 222222");
+          hideAllBanner();
           //show banner
           ATBannerRNSDK.showAdInRectangle(
             bannerId,
@@ -270,7 +277,7 @@ const showBanner = (
           );
 
           ATBannerRNSDK.reShowAd(bannerId);
-        }, 500);
+        }, 100);
       }
     });
   }
@@ -296,7 +303,7 @@ const showBanner = (
           );
 
           ATBannerRNSDK.reShowAd(bannerId);
-        }, 1000);
+        }, 200);
       } else {
         setTimeout(() => {
           //show banner
@@ -306,7 +313,7 @@ const showBanner = (
           );
 
           ATBannerRNSDK.reShowAd(bannerId);
-        }, 500);
+        }, 100);
       }
     });
   }
@@ -402,6 +409,8 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
   };
 
   useEffect(() => {
+    console.log("route");
+    console.log(route);
     // show banner logic
     if (settingState.appOrientation === "PORTRAIT") {
       if (
