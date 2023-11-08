@@ -228,14 +228,16 @@ const showBanner = (
   // console.log("showBanner");
   // console.log("routeName");
   // console.log(routeName);
+  console.log("======== banner init ======");
+  console.log("routeName");
+  console.log(routeName);
   console.log("bannerId");
   console.log(bannerId);
   // console.debug(x, y, width, height)
   if (bannerId == null) {
     setTimeout(() => {
       hideAllBanner();
-    }, 80);
-
+    }, 50);
     return;
   }
   const settings = {};
@@ -265,7 +267,7 @@ const showBanner = (
           );
 
           ATBannerRNSDK.reShowAd(bannerId);
-        }, 200);
+        }, 50);
       } else {
         setTimeout(() => {
           console.log("show 222222");
@@ -277,7 +279,7 @@ const showBanner = (
           );
 
           ATBannerRNSDK.reShowAd(bannerId);
-        }, 100);
+        }, 10);
       }
     });
   }
@@ -303,7 +305,7 @@ const showBanner = (
           );
 
           ATBannerRNSDK.reShowAd(bannerId);
-        }, 200);
+        }, 50);
       } else {
         setTimeout(() => {
           //show banner
@@ -313,7 +315,7 @@ const showBanner = (
           );
 
           ATBannerRNSDK.reShowAd(bannerId);
-        }, 100);
+        }, 10);
       }
     });
   }
@@ -409,8 +411,15 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
   };
 
   useEffect(() => {
-    console.log("route");
-    console.log(route);
+    console.log("======== banner init ======");
+
+    initBannerAdListener();
+    initBanner();
+
+    return () => ATBannerRNSDK.removeAllListeners();
+  }, []);
+
+  useEffect(() => {
     // show banner logic
     if (settingState.appOrientation === "PORTRAIT") {
       if (
@@ -429,13 +438,6 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
       hideAllBanner();
     }
   }, [route, navbarHeight, systemNavHeight, settingState.appOrientation]);
-
-  useEffect(() => {
-    initBannerAdListener();
-    initBanner();
-
-    return () => ATBannerRNSDK.removeAllListeners();
-  }, []);
 
   return (
     <AdsBannerContext.Provider

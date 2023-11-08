@@ -237,7 +237,7 @@ const showBanner = (
   if (bannerId == null) {
     setTimeout(() => {
       hideAllBanner();
-    }, 80);
+    }, 50);
     return;
   }
   const settings = {};
@@ -267,7 +267,7 @@ const showBanner = (
           );
 
           ATBannerRNSDK.reShowAd(bannerId);
-        }, 200);
+        }, 50);
       } else {
         setTimeout(() => {
           console.log("show 222222");
@@ -279,7 +279,7 @@ const showBanner = (
           );
 
           ATBannerRNSDK.reShowAd(bannerId);
-        }, 100);
+        }, 10);
       }
     });
   }
@@ -305,7 +305,7 @@ const showBanner = (
           );
 
           ATBannerRNSDK.reShowAd(bannerId);
-        }, 200);
+        }, 50);
       } else {
         setTimeout(() => {
           //show banner
@@ -315,7 +315,7 @@ const showBanner = (
           );
 
           ATBannerRNSDK.reShowAd(bannerId);
-        }, 100);
+        }, 10);
       }
     });
   }
