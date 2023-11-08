@@ -67,13 +67,13 @@ const MatchScheduleList = ({
     } else {
       url += `&is_live=${true}`;
     }
-    if (latestListDate.current !== undefined) {
-      try {
-        url += `&date=${latestListDate.current.toISOString().split('T')[0]}`;
-      } catch (e) {
-        console.log('ERRORRR!!', e, latestListDate.current.toISOString());
-      }
-    }
+    // if (latestListDate.current !== undefined) {
+    //   try {
+    //     url += `&date=${latestListDate.current.toISOString().split('T')[0]}`;
+    //   } catch (e) {
+    //     console.log('ERRORRR!!', e, latestListDate.current.toISOString());
+    //   }
+    // }
     return Url.matches11 + url;
   };
 
@@ -180,12 +180,12 @@ const MatchScheduleList = ({
           maxToRenderPerBatch={10}
           initialNumToRender={10}
           renderItem={Content}
-          onEndReached={() => {
-            if (hasNextPage) {
-              setFetchNext(true);
-              fetchNextPage();
-            }
-          }}
+          // onEndReached={() => {
+          //   if (hasNextPage) {
+          //     setFetchNext(true);
+          //     fetchNextPage();
+          //   }
+          // }}
           onEndReachedThreshold={0.9}
           stickyHeaderIndices={matches.headers}
           ListFooterComponent={<View style={{paddingTop: TOPON_BANNER_HEIGHT + 20}}/>}
