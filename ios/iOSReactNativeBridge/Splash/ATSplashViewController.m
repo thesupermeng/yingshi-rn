@@ -306,7 +306,7 @@ bool isAdClosed = NO;
                                                          extra:mutableDict
                                                       delegate:self];
       
-      dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+      dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         NSLog(@"[Splash] close timout start");
         if(isAdClosed == NO){
           NSLog(@"[Splash] manual close ad");
