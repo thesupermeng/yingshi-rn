@@ -48,6 +48,7 @@ const MatchScheduleList = ({
   const latestListDate = useRef<Date | undefined>();
 
   const [isFetchNext, setFetchNext] = useState(false);
+  const [showLoading, setShowLoading] = useState(false);
 
   const [matches, setMatches] = useState<Matches>({
     headers: [],
@@ -67,13 +68,13 @@ const MatchScheduleList = ({
     } else {
       url += `&is_live=${true}`;
     }
-    if (latestListDate.current !== undefined) {
-      try {
-        url += `&date=${latestListDate.current.toISOString().split('T')[0]}`;
-      } catch (e) {
-        console.log('ERRORRR!!', e, latestListDate.current.toISOString());
-      }
-    }
+    // if (latestListDate.current !== undefined) {
+    //   try {
+    //     url += `&date=${latestListDate.current.toISOString().split('T')[0]}`;
+    //   } catch (e) {
+    //     console.log('ERRORRR!!', e, latestListDate.current.toISOString());
+    //   }
+    // }
     return Url.matches11 + url;
   };
 
@@ -119,6 +120,13 @@ const MatchScheduleList = ({
             );
           }
           for (const date of dates) {
+            const dateDate = new Date(date)
+            const now = new Date()
+            const sevenDaysBefore = new Date(now.valueOf() - 7 * 24 * 60 * 60 * 1000)
+            const sevenDaysAfter = new Date(now.valueOf() + 7 * 24 * 60 * 60 * 1000)
+
+            if (dateDate < sevenDaysBefore || dateDate > sevenDaysAfter) continue
+
             lst.push({ date: formatMatchDate(date), data: undefined });
             headers.push(count);
             count += 1;
@@ -171,6 +179,13 @@ const MatchScheduleList = ({
     );
   };
 
+  const handleRefresh = () => {
+    setShowLoading(true)
+    setTimeout(() => {
+      setShowLoading(false)
+    }, 1000)
+  }
+
   return (
     <View style={{ flex: 1 }}>
       {matches?.data !== undefined && matches.data.length > 0 ? (
@@ -180,12 +195,12 @@ const MatchScheduleList = ({
           maxToRenderPerBatch={10}
           initialNumToRender={10}
           renderItem={Content}
-          onEndReached={() => {
-            if (hasNextPage) {
-              setFetchNext(true);
-              fetchNextPage();
-            }
-          }}
+          // onEndReached={() => {
+          //   if (hasNextPage) {
+          //     setFetchNext(true);
+          //     fetchNextPage();
+          //   }
+          // }}
           onEndReachedThreshold={0.9}
           stickyHeaderIndices={matches.headers}
           ListFooterComponent={<View style={{paddingTop: TOPON_BANNER_HEIGHT + 20}}/>}
@@ -196,10 +211,27 @@ const MatchScheduleList = ({
         </View>
       )}
 
+      {showLoading && <View style={{
+        position: 'absolute', 
+        backgroundColor: colors.background, 
+        zIndex: 1, 
+        width: '100%', 
+        height: '100%', 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+      }}>
+        <FastImage
+          source={require('../../../../static/images/loading-spinner.gif')}
+          style={{ width: 100, height: 100 }}
+          resizeMode="contain"
+        />
+      </View>}
+
       <TouchableOpacity
         style={styles.refresh}
         onPress={() => {
           refetch();
+          handleRefresh(); 
         }}>
         <FastImage
           source={require('../../assets/images/IconRefresh.png')}
