@@ -119,6 +119,13 @@ const MatchScheduleList = ({
             );
           }
           for (const date of dates) {
+            const dateDate = new Date(date)
+            const now = new Date()
+            const sevenDaysBefore = new Date(now.valueOf() - 7 * 24 * 60 * 60 * 1000)
+            const sevenDaysAfter = new Date(now.valueOf() + 7 * 24 * 60 * 60 * 1000)
+
+            if (dateDate < sevenDaysBefore || dateDate > sevenDaysAfter) continue
+
             lst.push({ date: formatMatchDate(date), data: undefined });
             headers.push(count);
             count += 1;
