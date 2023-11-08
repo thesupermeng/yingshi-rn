@@ -46,6 +46,7 @@ const MatchScheduleList = ({
   const width = Dimensions.get('window').width;
   const height = Dimensions.get('window').height;
   const latestListDate = useRef<Date | undefined>();
+  let flatlistRef = useRef();
 
   const [isFetchNext, setFetchNext] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
@@ -181,6 +182,7 @@ const MatchScheduleList = ({
 
   const handleRefresh = () => {
     setShowLoading(true)
+    flatlistRef?.current?.scrollToOffset({animated:false, offset:0})
     setTimeout(() => {
       setShowLoading(false)
     }, 1000)
@@ -190,6 +192,7 @@ const MatchScheduleList = ({
     <View style={{ flex: 1 }}>
       {matches?.data !== undefined && matches.data.length > 0 ? (
         <FlatList
+          ref={flatlistRef}
           data={matches.data}
           windowSize={3}
           maxToRenderPerBatch={10}
