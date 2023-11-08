@@ -170,7 +170,8 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
     const state = await NetInfo.fetch();
     const offline = !(state.isConnected && state.isInternetReachable);
     setIsOffline(offline);
-    setDismountPlayer(true); //dismount player when offline
+    setDismountPlayer(false); //dismount player when offline
+    // console.log("player is dismounted")
   };
 
   useEffect(() => {
