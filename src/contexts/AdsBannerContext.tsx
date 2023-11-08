@@ -24,7 +24,6 @@ import { RootState } from "../redux/store";
 import { useAppSelector } from "../hooks/hooks";
 import { SettingsReducerState } from "../redux/reducers/settingsReducer";
 
-LogBox.ignoreAllLogs();
 interface Props {
   children: ReactNode;
 }
@@ -235,13 +234,8 @@ const showBanner = (
   if (bannerId == null) {
     setTimeout(() => {
       hideAllBanner();
-    }, 200);
-    setTimeout(() => {
-      hideAllBanner();
-    }, 600);
-    setTimeout(() => {
-      hideAllBanner();
-    }, 1200);
+    }, 80);
+
     return;
   }
   const settings = {};
@@ -309,7 +303,7 @@ const showBanner = (
           );
 
           ATBannerRNSDK.reShowAd(bannerId);
-        }, 500);
+        }, 200);
       } else {
         setTimeout(() => {
           //show banner
