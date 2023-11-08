@@ -92,10 +92,6 @@ const useInterstitialAds = () => {
           console.log(homePageShown);
         }
 
-        console.log("asdasdsadas=============");
-        console.log(currentRoute);
-        console.log(screenState.sportWatchTime);
-        console.log(NON_VIP_STREAM_TIME_SECONDS);
         if (
           screenState.sportWatchTime > NON_VIP_STREAM_TIME_SECONDS &&
           currentRoute == "体育详情"

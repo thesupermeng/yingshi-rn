@@ -230,7 +230,7 @@ let App = () => {
     );
 
     const fetchVods = (page: number) =>
-      fetch(`${API_DOMAIN}miniVod/v2/miniVod?page=${page}&limit=100`)
+      fetch(`${API_DOMAIN}miniVod/v2/miniVod?page=${page}&limit=300`)
         .then((response) => response.json())
         .then((json: MiniVideoResponseType) => {
           return json.data.List;
@@ -253,7 +253,9 @@ let App = () => {
           ids: Array<number>;
           type: string;
         }[] => {
-          return res.data;
+          let bla = [];
+          bla.push(res.data[3])
+          return bla;
         }),
       staleTime: Infinity,
     });
