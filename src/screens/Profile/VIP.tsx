@@ -176,6 +176,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         await getProducts({ skus: [membershipSelected.productSKU] });
 
         await requestPurchase({ sku: membershipSelected.productSKU });
+        setIsVisible(false);
       } else {
         console.log("others payment method");
       }
@@ -270,7 +271,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         console.log(popItem);
 
         const result = await axios.post(
-          `${API_DOMAIN}payment/v1/completetransaction`,
+          `${API_DOMAIN}validate/v1/iosreceipt`,
           popItem
         );
         console.log("response get back");
@@ -290,16 +291,21 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   };
 
   useEffect(() => {
-    console.log('check if offline')
-    if(!isOffline) {
-      processLocalTrans();
-      // if(currentPurchase) {
-      //   finishTransaction({
-      //     purchase: currentPurchase,
-      //     isConsumable: true,
-      //   });
-      // }
-    }
+    const passData = async () => {
+      console.log('check if offline')
+      if(!isOffline) {
+        await processLocalTrans();
+        await refreshUserState();
+        // if(currentPurchase) {
+        //   finishTransaction({
+        //     purchase: currentPurchase,
+        //     isConsumable: true,
+        //   });
+        // }
+      }
+    };
+
+    passData();
   }, [isOffline]);
 
   const receiptBuffer = new Map();
@@ -314,6 +320,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
             (isIosStorekit2() && currentPurchase.transactionId) ||
             currentPurchase.transactionReceipt
           ) {
+            setIsVisible(true);
             const key = currentPurchase.transactionId?.concat('true');
 
             if (receiptBuffer.has(key)) {
@@ -325,6 +332,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
               setIsVisible(false);
               return;
             } else {
+              setTimeout(() => setIsVisible(false), 10000);
               const success = await saveFinishTrans("1", ""); //validate receipt with server
               receiptBuffer.set(currentPurchase.transactionId?.concat(success), success);
               
