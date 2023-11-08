@@ -23,7 +23,7 @@ import { userModel } from "../types/userType";
 import { RootState } from "../redux/store";
 import { useAppSelector } from "../hooks/hooks";
 import { SettingsReducerState } from "../redux/reducers/settingsReducer";
-LogBox.ignoreAllLogs();
+// LogBox.ignoreAllLogs();
 interface Props {
   children: ReactNode;
 }
@@ -229,10 +229,6 @@ const showBanner = (
   // console.log("routeName");
   // console.log(routeName);
   console.log("======== banner init ======");
-  console.log("routeName");
-  console.log(routeName);
-  console.log("bannerId");
-  console.log(bannerId);
   // console.debug(x, y, width, height)
   if (bannerId == null) {
     setTimeout(() => {
@@ -251,9 +247,9 @@ const showBanner = (
       screenWidthInPixel,
       (TOPON_BANNER_HEIGHT * Dimensions.get("screen").scale * 50) / 320
     );
-    // load all ad first
+    // load all ad first (android)
     ATBannerRNSDK.hasAdReady(bannerId).then((isAdReady) => {
-      console.log("isAdReady");
+      console.log("isAdReady for " + routeName + " (android)");
       console.log(isAdReady);
       if (!isAdReady) {
         ATBannerRNSDK.loadAd(bannerId, settings);
@@ -291,9 +287,9 @@ const showBanner = (
       Dimensions.get("screen").width,
       TOPON_BANNER_HEIGHT
     );
-
+    //  (IOS)
     ATBannerRNSDK.hasAdReady(bannerId).then((isAdReady) => {
-      console.log("isAdReady");
+      console.log("isAdReady for " + routeName + " (IOS)");
       console.log(isAdReady);
       if (!isAdReady) {
         ATBannerRNSDK.loadAd(bannerId, settings);
@@ -431,7 +427,7 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
         // console.debug('not member')
         setTimeout(() => {
           showBannerInPosition().then();
-        }, 300);
+        }, 100);
       }
     } else {
       console.log("hide banner");
