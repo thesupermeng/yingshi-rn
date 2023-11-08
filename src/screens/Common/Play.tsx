@@ -312,6 +312,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
       )
     );
     setInitTime(currentTimeRef.current)
+    // setInitTime(currentTimeRef.current = 0)
   }
 
   useEffect(() => {
@@ -337,6 +338,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
         if (vod) {
           saveVodToHistory(vod);
           setInitTime(currentTimeRef.current);
+          // setInitTime(currentTimeRef.current=0);
         }
       };
     }, [vod, currentTimeRef, currentEpisode, videoPlayerRef])
@@ -388,6 +390,12 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const handleModalClose = useCallback(() => {
     setShowSheet(false);
   }, []);
+
+  const onConfirmEpisodeSelection = (selectedEpisodeId: number) => {
+    setCurrentEpisode(selectedEpisodeId);
+    currentTimeRef.current = 0; // Reset the current time to 0
+    handleModalClose();
+  };
 
   const lockOrientation = (orientation: string) => {
     dispatch(lockAppOrientation(orientation));
@@ -715,10 +723,11 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                 onCancel={() => {
                   setShowSheet(false);
                 }}
-                onConfirm={(id: number) => {
-                  setCurrentEpisode(id);
-                  handleModalClose();
-                }}
+                // onConfirm={(id: number) => {
+                //   setCurrentEpisode(id);
+                //   handleModalClose();
+                // }}
+                onConfirm={onConfirmEpisodeSelection}
                 rangeSize={EPISODE_RANGE_SIZE}
               />
             )}
