@@ -40,6 +40,8 @@ import {
 import axios from "axios";
 import { showToast } from "../../Sports/utility/toast";
 import { showLoginAction } from "../../redux/actions/screenAction";
+import SpinnerOverlay from "../../components/modal/SpinnerOverlay";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const subscriptionSkus = Platform.select({
   ios: ["yingshi_vip_month", "yingshi_vip_6months", "monthly_subscription"],
@@ -74,6 +76,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   );
 
   const [loading, setLoading] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -109,6 +112,22 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
       handleRefresh();
     }
   };
+
+  useEffect(() => {
+    const removeNetInfoSubscription = NetInfo.addEventListener(
+      (state: NetInfoState) => {
+        const offline = !(
+          state.isConnected &&
+          (state.isInternetReachable === true ||
+          state.isInternetReachable === null
+            ? true
+            : false)
+        );
+        setIsOffline(offline);
+      }
+    );
+    return () => removeNetInfoSubscription();
+  }, []);
 
   const fetchData = async () => {
     const response = await axios.get(`${API_DOMAIN_TEST}products/v1/products`);
@@ -155,88 +174,144 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
       return; //early return
     }
 
-    const continueTrans = await initialTransRecord();
-    setIsBtnEnable(false);
-    setCurrentTransID(continueTrans.data);
-    if (continueTrans.data >= 1) {
-      try {
-        if (paymentSelected === "Apple Pay") {
-          console.log("apple pay payment");
-          console.log(initConnectionError);
-          await getProducts({ skus: [membershipSelected.productSKU] });
+    try {
+      if (paymentSelected === "Apple Pay") {
+        console.log("apple pay payment");
+        console.log(initConnectionError);
+        setIsVisible(true);
+        await getProducts({ skus: [membershipSelected.productSKU] });
 
-          await requestPurchase({ sku: membershipSelected.productSKU });
-        } else {
-          console.log("others payment method");
-        }
-      } catch (error) {
-        if (error instanceof PurchaseError) {
-          console.error("purchasing error: " + error);
-        } else {
-          console.error("handle purchase error: " + error);
-        }
-        // showToast(
-        //   error?.code.toString() +
-        //     "  error message : " +
-        //     error.message.toString()
-        // );
-
-        saveFinishTrans("2", continueTrans.data, error);
-        if (error && error?.code == "E_USER_CANCELLED") {
-          console.log("user cancel purchase");
-          setIsBtnEnable(true);
-        } else {
-          setIsDialogOpen(true);
-        }
+        await requestPurchase({ sku: membershipSelected.productSKU });
+        setIsVisible(false);
+      } else {
+        console.log("others payment method");
       }
-    } else {
-      setIsDialogOpen(true);
+    } catch (error) {
+      setIsVisible(false);
+      if (error instanceof PurchaseError) {
+        console.error("purchasing error: " + error);
+      } else {
+        console.error("handle purchase error: ", error);
+      }
+      // showToast(
+      //   error?.code.toString() +
+      //     "  error message : " +
+      //     error.message.toString()
+      // );
+      if (error && error?.code == "E_USER_CANCELLED") {
+        console.log("user cancel purchase");
+        setIsBtnEnable(true);
+      } else {
+        setIsDialogOpen(true);
+      }
     }
   };
 
-  const initialTransRecord = async () => {
-    const json = {
+  const saveFinishTrans = async (transStatus: string, error: any) => {
+    const trans = {
       user_id: userState.userId,
       product_id: membershipSelected.productId,
-      product_name: membershipSelected.title,
-      product_price: parseFloat(membershipSelected.price),
-      subscription_days: membershipSelected.subscriptionDays,
       transaction_type: "SUBSCRIBE_VIP",
       payment_channel: paymentSelected.toUpperCase(),
       platform: APP_NAME_CONST + "-" + Platform.OS.toUpperCase(),
-    };
-    console.log("passsing to db", json);
-    const result = await axios.post(
-      `${API_DOMAIN}payment/v1/transaction`,
-      json
-    );
-    console.log("transaction result");
-    console.log(result.data);
-    return result.data;
-  };
-
-  const saveFinishTrans = async (
-    transStatus: string,
-    transID: string,
-    error: any
-  ) => {
-    const trans = {
-      transaction_id: parseInt(transID),
       channel_transaction_id: currentPurchase?.transactionId,
       transaction_receipt: currentPurchase
         ? currentPurchase.transactionReceipt
         : error.toString(),
       transaction_status: parseInt(transStatus),
+      is_sb: 1,
     };
     console.log("complete trans: ", trans);
+
+    addLocalTrans(trans);
     const result = await axios.post(
-      `${API_DOMAIN}payment/v1/completetransaction`,
+      `${API_DOMAIN}validate/v1/iosreceipt`,
       trans
     );
     console.log("complete transaction result");
     console.log(result.data);
+    return result.data.data.data;
   };
 
+  const getLocalTrans = async () => {
+    try {
+      const data = await AsyncStorage.getItem("transRecords");
+      console.log("trans data stored in local storage");
+      console.log(data);
+
+      if (data !== null) {
+        return JSON.parse(data);
+      }
+      return [];
+    } catch (error) {
+      console.log("error when retrieving local trans records: ", error);
+      return [];
+    }
+  };
+
+  const addLocalTrans = async (trans: any) => {
+    try {
+      const existingData = await getLocalTrans();
+      existingData.push(trans);
+      await AsyncStorage.setItem("transRecords", JSON.stringify(existingData));
+
+      const existingData2 = await getLocalTrans();
+      console.log("current trans stored in local: ", existingData2);
+    } catch (error) {
+      console.log("error when storing the trans into local storage: ", error);
+    }
+  };
+
+  const processLocalTrans = async () => {
+    try {
+      const existingData = await getLocalTrans();
+      console.warn("processData");
+      let dataLength = existingData.length;
+
+      while (dataLength--) {
+        let popItem = existingData.shift();
+        console.warn("pop item");
+        console.log(popItem);
+
+        const result = await axios.post(
+          `${API_DOMAIN}validate/v1/iosreceipt`,
+          popItem
+        );
+        console.log("response get back");
+        console.log(result.data);
+
+        if (result.status !== 200) {
+          console.log("push back the unsuccess trans: ", popItem);
+          existingData.push(popItem);
+        }
+      }
+      console.warn("after data");
+      console.log(existingData);
+      await AsyncStorage.setItem("transRecords", JSON.stringify(existingData));
+    } catch (error) {
+      console.error("error saving local data to database: ", error);
+    }
+  };
+
+  useEffect(() => {
+    const passData = async () => {
+      console.log("check if offline");
+      if (!isOffline) {
+        await processLocalTrans();
+        await refreshUserState();
+        // if(currentPurchase) {
+        //   finishTransaction({
+        //     purchase: currentPurchase,
+        //     isConsumable: true,
+        //   });
+        // }
+      }
+    };
+
+    passData();
+  }, [isOffline]);
+
+  const receiptBuffer = new Map();
   useEffect(() => {
     const checkCurrentPurchase = async () => {
       if (currentPurchase) {
@@ -248,13 +323,55 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
             (isIosStorekit2() && currentPurchase.transactionId) ||
             currentPurchase.transactionReceipt
           ) {
-            saveFinishTrans("1", currentTransID, ""); //save record to database
-            await finishTransaction({
-              purchase: currentPurchase,
-              isConsumable: true,
-            });
-            setIsDialogOpen(true);
-            setIsSuccess(true);
+            setIsVisible(true);
+            const key = currentPurchase.transactionId?.concat("true");
+
+            if (receiptBuffer.has(key)) {
+              console.log(
+                "duplicate transaction id: ",
+                currentPurchase.transactionId
+              );
+              await finishTransaction({
+                purchase: currentPurchase,
+                isConsumable: true,
+              });
+              setIsVisible(false);
+              return;
+            } else {
+              // setTimeout(() => setIsVisible(false), 10000);
+
+              await finishTransaction({
+                purchase: currentPurchase,
+                isConsumable: true,
+              });
+              setIsVisible(false);
+              setIsDialogOpen(true);
+              setIsSuccess(true);
+
+              const success = await saveFinishTrans("1", ""); //validate receipt with server
+              receiptBuffer.set(
+                currentPurchase.transactionId?.concat(success),
+                success
+              );
+
+              // if(success) {
+              //   await finishTransaction({
+              //     purchase: currentPurchase,
+              //     isConsumable: true,
+              //   });
+              //   setIsVisible(false);
+              //   setIsDialogOpen(true);
+              //   setIsSuccess(true);
+              // } else {
+              //   await finishTransaction({
+              //     purchase: currentPurchase,
+              //     isConsumable: true,
+              //   });
+              //   setIsVisible(false);
+              //   setIsDialogOpen(true);
+              //   setIsSuccess(false);
+              // }
+            }
           }
         } catch (error) {
           if (error instanceof PurchaseError) {
@@ -272,6 +389,8 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const handleConfirm = () => {
     setIsDialogOpen(false);
     handleRefresh();
+    setIsBtnEnable(true);
+    setIsSuccess(false);
   };
 
   return (
@@ -311,7 +430,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         }
       >
         <Dialog
-          isVisible={isDialogOpen}
+          isVisible={isDialogOpen && !isOffline}
           overlayStyle={{
             backgroundColor: "rgba(34, 34, 34, 1)",
             gap: 10,
@@ -426,6 +545,8 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
             />
           </View>
         )}
+
+        <SpinnerOverlay visible={isVisible} />
 
         {!loading && !isOffline && (
           <ScrollView
