@@ -30,6 +30,7 @@
 @implementation ATSplashViewController
 
 bool isBackgroundBefore = NO;
+bool isAdClosed = NO;
 
 -(instancetype)init{
     self = [super init];
@@ -304,22 +305,30 @@ bool isBackgroundBefore = NO;
                                                         window:mainWindow
                                                          extra:mutableDict
                                                       delegate:self];
+      
+      dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        NSLog(@"[Splash] close timout start");
+        if(isAdClosed == NO){
+          NSLog(@"[Splash] manual close ad");
+          [self.delegate nativeViewControllerDidFinish];
+        }
+      });
+
     } else {
 //        do else
     }
-  
-  
 }
 
 - (void)appMovedToBackground:(NSNotification *) notification  {
-//  NSLog(@"[Splash] App Moved To Background");
+  NSLog(@"[Splash] App Moved To Background");
   isBackgroundBefore = YES;
 }
 
 - (void)appBecomeActive:(NSNotification *) notification {
-//  NSLog(@"[Splash] App Moved To Active");
+  NSLog(@"[Splash] App Moved To Active");
   if(isBackgroundBefore){
-    [self showAd];
+    NSLog(@"[Splash] resume show ad");
+//    [self showAd];
   }
 }
 
@@ -400,6 +409,7 @@ bool isBackgroundBefore = NO;
     NSLog(@"开屏ATSplashViewController::splashDidCloseForPlacementID:%@ extra:%@",placementID,extra);
     [self showLog:[NSString stringWithFormat:@"splashDidCloseForPlacementID:%@ ",placementID]];
     [self.delegate nativeViewControllerDidFinish];
+    isAdClosed = YES;
 }
 
 - (void)splashDidShowForPlacementID:(NSString *)placementID extra:(NSDictionary *)extra {
