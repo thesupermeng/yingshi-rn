@@ -89,21 +89,23 @@ bool isAdClosed = NO;
     [clearBtn addTarget:self action:@selector(clearLog) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *btnItem = [[UIBarButtonItem alloc] initWithCustomView:clearBtn];
     self.navigationItem.rightBarButtonItem = btnItem;
+
+    self.splashImageView.frame = CGRectMake(106, 320, 180, 52);
     
     [self.view addSubview:self.splashImageView];
     [self.view addSubview:self.modelBackView];
     [self.view addSubview:self.textView];
     
     // Apply Auto Layout constraints to fit the image view to the top and bottom of its superview
-    NSLayoutConstraint *topConstraint = [self.splashImageView.topAnchor constraintEqualToAnchor:self.view.topAnchor];
-    NSLayoutConstraint *bottomConstraint = [self.splashImageView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor];
-    NSLayoutConstraint *leadingConstraint = [self.splashImageView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor];
-    NSLayoutConstraint *trailingConstraint = [self.splashImageView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor];
+//    NSLayoutConstraint *topConstraint = [self.splashImageView.topAnchor constraintEqualToAnchor:self.view.topAnchor];
+//    NSLayoutConstraint *bottomConstraint = [self.splashImageView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor];
+//    NSLayoutConstraint *leadingConstraint = [self.splashImageView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor];
+//    NSLayoutConstraint *trailingConstraint = [self.splashImageView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor];
 
-    [topConstraint setActive:YES];
-    [bottomConstraint setActive:YES];
-    [leadingConstraint setActive:YES];
-    [trailingConstraint setActive:YES];
+//    [topConstraint setActive:YES];
+//    [bottomConstraint setActive:YES];
+//    [leadingConstraint setActive:YES];
+//    [trailingConstraint setActive:YES];
   
     [self loadAd];
       
@@ -306,7 +308,7 @@ bool isAdClosed = NO;
                                                          extra:mutableDict
                                                       delegate:self];
       
-      dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+      dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((isBackgroundBefore ? 2 : 5) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         NSLog(@"[Splash] close timout start");
         if(isAdClosed == NO){
           NSLog(@"[Splash] manual close ad");
@@ -488,8 +490,8 @@ bool isAdClosed = NO;
 - (UIImageView *)splashImageView {
   if (!_splashImageView) {
     _splashImageView = [[UIImageView alloc] init];
-    _splashImageView.image = [UIImage imageNamed:@"SplashScreen"];
-//    _splashImageView.contentMode = UIViewContentModeScaleAspectFit;
+    _splashImageView.image = [UIImage imageNamed:@"BootSplashLogo"];
+    _splashImageView.contentMode = UIViewContentModeScaleAspectFit;
     _splashImageView.translatesAutoresizingMaskIntoConstraints = NO;
   }
   return _splashImageView;
