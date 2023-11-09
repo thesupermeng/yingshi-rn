@@ -156,6 +156,10 @@ bool isAdClosed = NO;
 //    }];
 }
 
+ -(UIInterfaceOrientationMask)supportedInterfaceOrientations {
+     return UIInterfaceOrientationMaskPortrait;
+ }
+
 - (UIWindow *)getKeyWindowMethodOne {
     if (@available(iOS 13.0, *)) {
         for (UIWindowScene* windowScene in [UIApplication sharedApplication].connectedScenes) {
