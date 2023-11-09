@@ -178,6 +178,13 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
 
         await requestPurchase({ sku: membershipSelected.productSKU });
         setIsVisible(false);
+      } else if (paymentSelected === "Google Pay") {
+        console.log("google pay method");
+        setIsVisible(true);
+        await getProducts({ skus: [membershipSelected.productSKU] });
+
+        await requestPurchase({ skus: [membershipSelected.productSKU] });
+        setIsVisible(false);
       } else {
         console.log("others payment method");
       }
@@ -208,7 +215,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   ) => {
     const trans = {
       user_id: userState.userId,
-      product_id: membershipSelected.productId,
+      product_id: currentPurchase?.productId,
       transaction_type: "SUBSCRIBE_VIP",
       payment_channel: paymentSelected.toUpperCase(),
       platform: APP_NAME_CONST + "-" + Platform.OS.toUpperCase(),
