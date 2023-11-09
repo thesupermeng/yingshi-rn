@@ -46,6 +46,11 @@ export const registerUser = async ({ email, referral_code, otp }: any) => {
 
 export const loginUser = async ({ email, otp }: any) => {
   let platform_id;
+  let deviceId = await DeviceInfo.getUniqueId();
+  if (typeof deviceId !== "string") {
+    deviceId = JSON.stringify(deviceId);
+  }
+
   if (Platform.OS === "android") {
     platform_id = YING_SHI_PRODUCT_ANDROID;
   } else {
@@ -56,6 +61,7 @@ export const loginUser = async ({ email, otp }: any) => {
     email: email,
     otp: otp,
     product: platform_id,
+    device_id: deviceId,
   };
 
   let result = await axios.post(API_DOMAIN_TEST + "users/v1/login", json);
