@@ -112,15 +112,6 @@ let App = () => {
     },
   });
 
-  const getIP = async () => {
-    const res = await axios.get("https://geolocation-db.com/json/");
-    const ipAddress = res.data.IPv4;
-    if (ipAddress != null && ipAddress != undefined) {
-      YSConfig.instance.setNetworkIp(ipAddress);
-      checkVersion(ipAddress);
-    }
-  };
-
   const checkVersion = async (ipAddress: string) => {
     const checkVersionReq: CheckVersionRequest = {
       ip_address: ipAddress,
@@ -159,16 +150,14 @@ let App = () => {
     return response;
   };
 
-  let tryToLoadCount = 0;
-  let adsReadyFlag = false;
-
   useEffect(() => {
     NetInfo.configure({
       // this is huawei url
-      reachabilityUrl: 'http://connectivitycheck.platform.hicloud.com/generate_204',
+      reachabilityUrl:
+        "http://connectivitycheck.platform.hicloud.com/generate_204",
     });
 
-    getIP();
+    checkVersion(YSConfig.instance.ip);
     queryClient.prefetchQuery({
       queryKey: ["recommendationList"],
       queryFn: () =>
@@ -384,9 +373,9 @@ let App = () => {
       (event) => {
         console.warn(
           "ATInterstitialLoadFail: " +
-          event.placementId +
-          ", errorMsg: " +
-          event.errorMsg
+            event.placementId +
+            ", errorMsg: " +
+            event.errorMsg
         );
 
         // if (event.errorMsg == "") {
@@ -400,9 +389,9 @@ let App = () => {
       (event) => {
         console.log(
           "ATInterstitialAdShow: " +
-          event.placementId +
-          ", adCallbackInfo: " +
-          event.adCallbackInfo
+            event.placementId +
+            ", adCallbackInfo: " +
+            event.adCallbackInfo
         );
       }
     );
@@ -412,9 +401,9 @@ let App = () => {
       (event) => {
         console.log(
           "ATInterstitialPlayStart: " +
-          event.placementId +
-          ", adCallbackInfo: " +
-          event.adCallbackInfo
+            event.placementId +
+            ", adCallbackInfo: " +
+            event.adCallbackInfo
         );
       }
     );
@@ -424,9 +413,9 @@ let App = () => {
       (event) => {
         console.log(
           "ATInterstitialPlayEnd: " +
-          event.placementId +
-          ", adCallbackInfo: " +
-          event.adCallbackInfo
+            event.placementId +
+            ", adCallbackInfo: " +
+            event.adCallbackInfo
         );
       }
     );
@@ -436,11 +425,11 @@ let App = () => {
       (event) => {
         console.log(
           "ATInterstitialPlayFail: " +
-          event.placementId +
-          ", errorMsg: " +
-          event.errorMsg +
-          ", adCallbackInfo: " +
-          event.adCallbackInfo
+            event.placementId +
+            ", errorMsg: " +
+            event.errorMsg +
+            ", adCallbackInfo: " +
+            event.adCallbackInfo
         );
       }
     );
@@ -450,9 +439,9 @@ let App = () => {
       (event) => {
         console.log(
           "ATInterstitialClick: " +
-          event.placementId +
-          ", adCallbackInfo: " +
-          event.adCallbackInfo
+            event.placementId +
+            ", adCallbackInfo: " +
+            event.adCallbackInfo
         );
       }
     );
@@ -462,9 +451,9 @@ let App = () => {
       (event) => {
         console.log(
           "ATInterstitialClose: " +
-          event.placementId +
-          ", adCallbackInfo: " +
-          event.adCallbackInfo
+            event.placementId +
+            ", adCallbackInfo: " +
+            event.adCallbackInfo
         );
       }
     );
@@ -484,7 +473,7 @@ let App = () => {
                   <GestureHandlerRootView style={{ flex: 1 }}>
                     <BottomSheetModalProvider>
                       {YSConfig.instance.areaConfig != null &&
-                        YSConfig.instance.areaConfig == true ? (
+                      YSConfig.instance.areaConfig == true ? (
                         // B面的B面
                         <Nav />
                       ) : (

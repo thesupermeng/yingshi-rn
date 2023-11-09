@@ -6,7 +6,7 @@ import {Platform} from 'react-native';
 import App from './App';
 import {ATRNSDK} from './AnyThinkAds/ATReactNativeSDK';
 // import {name as appName} from './app.json';
-
+import axios from 'axios';
 // AppRegistry.registerComponent(appName, () => App);
 
 import {AppRegistry} from 'react-native';
@@ -55,6 +55,13 @@ AppRegistry.registerRunnable(appName, async initialProps => {
     //   }
     // }
 
+    const resTemp = await axios.get('https://geolocation-db.com/json/');
+
+    const ipAddress = resTemp.data.IPv4;
+
+    if (ipAddress != null && ipAddress != undefined) {
+      YSConfig.instance.setNetworkIp(ipAddress);
+    }
     const locationBody = {
       ip_address: YSConfig.instance.ip,
       channel_id: UMENG_CHANNEL,
@@ -84,11 +91,13 @@ AppRegistry.registerRunnable(appName, async initialProps => {
       }
     }
 
-    AppRegistry.registerComponent(appName, () => App);
+    AppRegistry.registerComponent(appName, () => () => <App />);
     AppRegistry.runApplication(appName, initialProps);
   } catch (err) {
+    console.log('============ error on index js ============');
     console.log(err);
-    AppRegistry.registerComponent(appName, () => App);
+
+    AppRegistry.registerComponent(appName, () => () => <App />);
     AppRegistry.runApplication(appName, initialProps);
   }
 });
