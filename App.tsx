@@ -67,6 +67,7 @@ import { TermsAcceptContextProvider } from "./src/contexts/TermsAcceptedContext"
 import { TermsAcceptContextProvider as TermsAcceptContextProviderA } from "./srcA/contexts/TermsAcceptedContext";
 import { AdsBannerContextProvider } from "./src/contexts/AdsBannerContext";
 import { AdsBannerContextProvider as AdsBannerContextProviderA } from "./srcA/contexts/AdsBannerContext";
+import NetInfo from "@react-native-community/netinfo";
 
 let App = () => {
   // appsFlyer.initSdk(
@@ -162,6 +163,11 @@ let App = () => {
   let adsReadyFlag = false;
 
   useEffect(() => {
+    NetInfo.configure({
+      // this is huawei url
+      reachabilityUrl: 'http://connectivitycheck.platform.hicloud.com/generate_204',
+    });
+
     getIP();
     queryClient.prefetchQuery({
       queryKey: ["recommendationList"],
@@ -380,9 +386,9 @@ let App = () => {
       (event) => {
         console.warn(
           "ATInterstitialLoadFail: " +
-            event.placementId +
-            ", errorMsg: " +
-            event.errorMsg
+          event.placementId +
+          ", errorMsg: " +
+          event.errorMsg
         );
 
         // if (event.errorMsg == "") {
@@ -396,9 +402,9 @@ let App = () => {
       (event) => {
         console.log(
           "ATInterstitialAdShow: " +
-            event.placementId +
-            ", adCallbackInfo: " +
-            event.adCallbackInfo
+          event.placementId +
+          ", adCallbackInfo: " +
+          event.adCallbackInfo
         );
       }
     );
@@ -408,9 +414,9 @@ let App = () => {
       (event) => {
         console.log(
           "ATInterstitialPlayStart: " +
-            event.placementId +
-            ", adCallbackInfo: " +
-            event.adCallbackInfo
+          event.placementId +
+          ", adCallbackInfo: " +
+          event.adCallbackInfo
         );
       }
     );
@@ -420,9 +426,9 @@ let App = () => {
       (event) => {
         console.log(
           "ATInterstitialPlayEnd: " +
-            event.placementId +
-            ", adCallbackInfo: " +
-            event.adCallbackInfo
+          event.placementId +
+          ", adCallbackInfo: " +
+          event.adCallbackInfo
         );
       }
     );
@@ -432,11 +438,11 @@ let App = () => {
       (event) => {
         console.log(
           "ATInterstitialPlayFail: " +
-            event.placementId +
-            ", errorMsg: " +
-            event.errorMsg +
-            ", adCallbackInfo: " +
-            event.adCallbackInfo
+          event.placementId +
+          ", errorMsg: " +
+          event.errorMsg +
+          ", adCallbackInfo: " +
+          event.adCallbackInfo
         );
       }
     );
@@ -446,9 +452,9 @@ let App = () => {
       (event) => {
         console.log(
           "ATInterstitialClick: " +
-            event.placementId +
-            ", adCallbackInfo: " +
-            event.adCallbackInfo
+          event.placementId +
+          ", adCallbackInfo: " +
+          event.adCallbackInfo
         );
       }
     );
@@ -458,9 +464,9 @@ let App = () => {
       (event) => {
         console.log(
           "ATInterstitialClose: " +
-            event.placementId +
-            ", adCallbackInfo: " +
-            event.adCallbackInfo
+          event.placementId +
+          ", adCallbackInfo: " +
+          event.adCallbackInfo
         );
       }
     );
@@ -480,7 +486,7 @@ let App = () => {
                   <GestureHandlerRootView style={{ flex: 1 }}>
                     <BottomSheetModalProvider>
                       {YSConfig.instance.areaConfig != null &&
-                      YSConfig.instance.areaConfig == true ? (
+                        YSConfig.instance.areaConfig == true ? (
                         // B面的B面
                         <Nav />
                       ) : (
