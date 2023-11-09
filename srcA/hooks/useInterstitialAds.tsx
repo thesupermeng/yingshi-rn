@@ -136,17 +136,6 @@ const useInterstitialAds = () => {
   useEffect(() => {
     console.log("====== currentRoute ======");
     console.log(currentRoute);
-    loadInterstitial(
-      Platform.OS === "android"
-        ? ANDROID_HOME_PAGE_POP_UP_ADS
-        : IOS_HOME_PAGE_POP_UP_ADS
-    );
-
-    loadInterstitial(
-      Platform.OS === "android"
-        ? ANDROID_PLAY_DETAILS_POP_UP_ADS
-        : IOS_PLAY_DETAILS_POP_UP_ADS
-    );
 
     let adsID: PlacementId;
     adsID = null;
@@ -176,6 +165,28 @@ const useInterstitialAds = () => {
       }, 100);
     }
   }, [currentRoute]);
+
+  useEffect(() => {
+    loadInterstitial(
+      Platform.OS === "android"
+        ? ANDROID_HOME_PAGE_POP_UP_ADS
+        : IOS_HOME_PAGE_POP_UP_ADS
+    );
+
+    loadInterstitial(
+      Platform.OS === "android"
+        ? ANDROID_PLAY_DETAILS_POP_UP_ADS
+        : IOS_PLAY_DETAILS_POP_UP_ADS
+    );
+
+    setTimeout(() => {
+      showInterstitial(
+        Platform.OS === "android"
+          ? ANDROID_HOME_PAGE_POP_UP_ADS
+          : IOS_HOME_PAGE_POP_UP_ADS
+      );
+    }, 100);
+  }, []);
 
   return;
 };
