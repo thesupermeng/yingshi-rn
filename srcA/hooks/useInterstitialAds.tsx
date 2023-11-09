@@ -58,7 +58,6 @@ const useInterstitialAds = () => {
   const isInterstitialReady = async (interstitialPlacementId: PlacementId) => {
     const ready = await ATInterstitialRNSDK.hasAdReady(interstitialPlacementId);
     setAdsReadyFlag(ready);
-    console.log("====== 111111111 =======");
     if (ready) {
       console.log("====== ready =======");
 
@@ -79,10 +78,8 @@ const useInterstitialAds = () => {
             ? ANDROID_PLAY_DETAILS_POP_UP_ADS
             : IOS_PLAY_DETAILS_POP_UP_ADS;
       }
-      console.log("adsID");
-      console.log(adsID);
+
       if (adsID == null && homePageShown == false) {
-        console.log("===== debug  ======");
         homePageShown = true;
         adsID =
           Platform.OS === "android"
@@ -98,10 +95,7 @@ const useInterstitialAds = () => {
           // asd
           console.log("not showing pop up ads, prevent blocking modal action");
         } else {
-          console.log("homePageShown");
-          console.log(homePageShown);
           homePageShown = true;
-
           console.log("====== show pop out =======");
           ATInterstitialRNSDK.showAd(adsID);
         }
