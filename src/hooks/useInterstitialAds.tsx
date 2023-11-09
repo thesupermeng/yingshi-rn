@@ -98,11 +98,10 @@ const useInterstitialAds = () => {
           // asd
           console.log("not showing pop up ads, prevent blocking modal action");
         } else {
-          if (currentRoute == "首页") {
-            console.log("homePageShown");
-            console.log(homePageShown);
-            homePageShown = true;
-          }
+          console.log("homePageShown");
+          console.log(homePageShown);
+          homePageShown = true;
+
           console.log("====== show pop out =======");
           ATInterstitialRNSDK.showAd(adsID);
         }
