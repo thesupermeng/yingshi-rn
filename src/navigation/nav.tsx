@@ -404,10 +404,6 @@ export default () => {
     // ============= end for banner ads
   };
 
-  useEffect(() => {
-    dispatch(resetSportWatchTime());
-  }, []);
-
   const initInterstitialAdListener = () => {
     ATInterstitialRNSDK.setAdListener(
       ATInterstitialRNSDK.onInterstitialLoaded,
@@ -505,7 +501,10 @@ export default () => {
     );
   };
 
-  initInterstitialAdListener();
+  useEffect(() => {
+    dispatch(resetSportWatchTime());
+    initInterstitialAdListener();
+  }, []);
 
   return (
     <SafeAreaProvider>
