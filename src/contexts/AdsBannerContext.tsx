@@ -147,14 +147,18 @@ const initBanner = () => {
 };
 
 const getBannerPlacementId = (routeName: string | null) => {
-  if (routeName == "播放" || routeName == "电视台播放") {
+  if (
+    routeName == "播放" ||
+    routeName == "电视台播放" ||
+    routeName == "体育详情"
+  ) {
     // video player page
     if (Platform.OS === "android") {
       return ANDROID_PLAY_DETAILS_BANNER_ADS;
     } else if (Platform.OS === "ios") {
       return IOS_PLAY_DETAILS_BANNER_ADS;
     }
-  } else if (routeName == "PlaylistDetail" || routeName == "体育详情") {
+  } else if (routeName == "PlaylistDetail") {
     // playlist detail
     if (Platform.OS === "android") {
       return ANDROID_TOPIC_DETAILS_BANNER_ADS;
