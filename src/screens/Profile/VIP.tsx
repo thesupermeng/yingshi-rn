@@ -168,6 +168,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
       return; //early return
     }
 
+    setIsBtnEnable(false);
     try {
       if (paymentSelected === "Apple Pay") {
         console.log("apple pay payment");
