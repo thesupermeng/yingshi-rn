@@ -94,7 +94,7 @@ const useInterstitialAds = () => {
           console.log("not showing pop up ads, prevent blocking modal action");
         } else {
           homePageShown = true;
-          //   ATInterstitialRNSDK.showAd(adsID);
+          ATInterstitialRNSDK.showAd(adsID);
         }
         //
       }
