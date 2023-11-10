@@ -41,6 +41,12 @@ export const AdsBannerContext = createContext<{
 const pageWithNavbar = ["首页", "播单", "体育"];
 const pageNoNavbar = ["播放", "PlaylistDetail", "体育详情", "电视台播放"];
 const deviceBrand = DeviceInfo.getBrand();
+let deviceName = "";
+
+DeviceInfo.getDeviceName().then((d) => {
+  deviceName = d;
+  console.log(deviceName);
+});
 
 const initBannerAdListener = () => {
   ATBannerRNSDK.setAdListener(ATBannerRNSDK.onBannerLoaded, (event) => {
@@ -359,6 +365,14 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
       // console.log("🚀 ~ file: AdsBannerContext.tsx:166 ~ useEffect ~ adsTopInPixel:", adsTopInPixel)
 
       let huaweiOffset = 0;
+
+      // console.log("deviceBrand");
+      // console.log(deviceBrand);
+      // console.log("deviceName");
+      // console.log(deviceName);
+      let isHuaweiNova = deviceName.toLowerCase().includes("nova");
+      // console.log("isHuaweiNova");
+      // console.log(isHuaweiNova);
       if (deviceBrand === "HUAWEI") {
         // This is a Huawei device
         let deviceHeight = Dimensions.get("screen").height;
@@ -370,18 +384,31 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
         } else {
           huaweiOffset = 75;
         }
+
+        if (isHuaweiNova) {
+          huaweiOffset = 0;
+        }
       }
 
       let x, y, width, height;
       x = 0;
       let bannerHeightOnScreen =
         adsTopInPixel - TOPON_BANNER_HEIGHT * scale + huaweiOffset;
-      if (pageNoNavbar.includes(route))
+      if (pageNoNavbar.includes(route)) {
         bannerHeightOnScreen += navbarHeightInPixel;
+        // if (isHuaweiNova) {
+        //   bannerHeightOnScreen -= 5;
+        // }
+      }
+
       y = bannerHeightOnScreen;
       width = screenWidthInPixel;
       height = TOPON_BANNER_HEIGHT * scale;
       // console.debug(x, y, width, height)
+
+      // if (isHuaweiNova) {
+      //   height += 20;
+      // }
 
       showBanner(route, x, y, width, height);
     } else if (Platform.OS === "ios") {

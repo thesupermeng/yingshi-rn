@@ -59,8 +59,6 @@ const useInterstitialAds = () => {
     const ready = await ATInterstitialRNSDK.hasAdReady(interstitialPlacementId);
     setAdsReadyFlag(ready);
     if (ready) {
-      console.log("====== ready =======");
-
       let adsID: PlacementId;
       adsID = null;
       if (currentRoute == "首页") {
@@ -96,8 +94,7 @@ const useInterstitialAds = () => {
           console.log("not showing pop up ads, prevent blocking modal action");
         } else {
           homePageShown = true;
-          console.log("====== show pop out =======");
-          ATInterstitialRNSDK.showAd(adsID);
+          //   ATInterstitialRNSDK.showAd(adsID);
         }
         //
       }
@@ -116,7 +113,7 @@ const useInterstitialAds = () => {
         Number(userState.userCurrentTimestamp) ||
       userState.userToken === ""
     ) {
-      console.log("======= 00000 not vip ======");
+      console.log("=======  not vip ======");
       loadInterstitial(interstitialPlacementId);
       setTimeout(() => {
         isInterstitialReady(interstitialPlacementId);
@@ -127,15 +124,9 @@ const useInterstitialAds = () => {
   };
 
   useEffect(() => {
-    console.log("====== currentRoute ======");
-    console.log(currentRoute);
-
     let adsID: PlacementId;
     adsID = null;
 
-    console.log("cont");
-    console.log(currentRoute);
-    console.log(homePageShown);
     if (currentRoute == "首页" && homePageShown == false) {
       adsID =
         Platform.OS === "android"
@@ -151,10 +142,7 @@ const useInterstitialAds = () => {
           ? ANDROID_PLAY_DETAILS_POP_UP_ADS
           : IOS_PLAY_DETAILS_POP_UP_ADS;
     }
-    console.log(adsID);
 
-    console.log(3333333333);
-    console.log(44444444);
     if (adsID != null) {
       setTimeout(() => {
         showInterstitial(adsID);
