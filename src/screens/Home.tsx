@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState, memo, useContext } from "react";
 import { Platform, StyleSheet, View } from "react-native";
 import ScreenContainer from "../components/container/screenContainer";
-import { useTheme } from "@react-navigation/native";
+import { useFocusEffect, useTheme } from "@react-navigation/native";
 import { useQuery, useQueries, UseQueryResult } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
 import {
@@ -25,7 +25,7 @@ import FastImage from "../components/common/customFastImage";
 // import { FlatList } from 'react-native-gesture-handler';
 import { useIsFocused } from "@react-navigation/native";
 import NoConnection from "./../components/common/noConnection";
-import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
+import NetInfo from "@react-native-community/netinfo";
 import { useAppSelector, useAppDispatch } from "../hooks/hooks";
 import { RootState } from "../redux/store";
 import { SettingsReducerState } from "../redux/reducers/settingsReducer";
@@ -50,10 +50,9 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   const settingsReducer: SettingsReducerState = useAppSelector(
     ({ settingsReducer }: RootState) => settingsReducer
   );
-  const dispatch = useAppDispatch();
   const bottomTabHeight = useBottomTabBarHeight();
 
-  const { data: navOptions } = useQuery({
+  const { data: navOptions, refetch } = useQuery({
     queryKey: ["HomePageNavOptions"],
     queryFn: () =>
       fetch(`${API_DOMAIN}nav/v1/navItems`, {})
@@ -94,15 +93,21 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   };
 
   useEffect(() => {
-    const removeNetInfoSubscription = NetInfo.addEventListener(
-      (state: NetInfoState) => {
-        // state.isInternetReachable === null set true is for default value
-        const offline = !(state.isConnected && ((state.isInternetReachable === true || state.isInternetReachable === null) ? true : false));
-        setIsOffline(offline);
-      }
-    );
-    return () => removeNetInfoSubscription();
+    setIsOffline(settingsReducer.isOffline);
   }, []);
+
+  useFocusEffect(useCallback(() => {
+    if (!settingsReducer.isOffline && settingsReducer.isOffline !== isOffline) {
+      setIsOffline(settingsReducer.isOffline);
+      setShowHomeLoading(true);
+      refetch();
+      handleRefresh(navId, true);
+    } else if (settingsReducer.isOffline) {
+      return () => {
+        setIsOffline(settingsReducer.isOffline);
+      }
+    }
+  }, [settingsReducer.isOffline]));
 
   //refresh
   const [isRefreshing, setIsRefreshing] = useState(false);

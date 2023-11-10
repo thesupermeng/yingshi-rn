@@ -57,7 +57,7 @@ import { SettingsReducerState } from "../../redux/reducers/settingsReducer";
 import BingSearch from "../../components/container/bingSearchContainer";
 
 import NoConnection from "../../components/common/noConnection";
-import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
+import NetInfo from "@react-native-community/netinfo";
 import { lockAppOrientation } from "../../redux/actions/settingsActions";
 import { AdsBannerContext } from "../../contexts/AdsBannerContext";
 import useInterstitialAds from "../../hooks/useInterstitialAds";
@@ -180,17 +180,20 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
     }
   }, [vod]);
 
-  useEffect(() => {
-    const removeNetInfoSubscription = NetInfo.addEventListener(
-      (state: NetInfoState) => {
-        const offline = !(state.isConnected && state.isInternetReachable);
-        setIsOffline(offline);
+  useFocusEffect(useCallback(() => {
+    if (!settingsReducer.isOffline) {
+      setIsOffline(settingsReducer.isOffline);
+      handleRefresh();
+    } else {
+      return () => {
+        setIsOffline(settingsReducer.isOffline);
+        setDismountPlayer(false);
       }
-    );
-    return () => removeNetInfoSubscription();
-  }, []);
+    }
+  }, [settingsReducer.isOffline]));
 
   useEffect(() => {
+    setIsOffline(settingsReducer.isOffline);
     const eventName = "watch_video";
     const eventValues = {
       vod_name: vod?.vod_name,
@@ -278,31 +281,17 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
     );
   }, [vod]);
 
-  const { data: suggestedVods, isFetching: isFetchingSuggestedVod } = useQuery({
+  const { data: suggestedVods, isFetching: isFetchingSuggestedVod, refetch } = useQuery({
     queryKey: ["relatedVods", vod],
     queryFn: () => fetchVod(),
   });
 
-  const getOffSet = (id: number) => {
-    if (vod?.vod_play_list.urls === undefined) {
-      return 0;
-    }
-    let offset = 0;
-    for (const item of vod?.vod_play_list?.urls.slice(
-      showEpisodeRangeStart,
-      id
-    )) {
-      let size = 20;
-      const name = item.name;
-      for (var i = 0; i < name.length; i++) {
-        size += 14;
-      }
-      size = Math.max(70, size);
-      size += spacing.xs;
-      offset += size;
-    }
-    return offset;
-  };
+  const handleRefresh = useCallback(async () => {
+    // setIsRefreshing(true);
+    await refetch();
+    // setIsRefreshing(false);
+    return;
+  }, []);
 
   const saveVodToHistory = (vod: any) => {
     dispatch(

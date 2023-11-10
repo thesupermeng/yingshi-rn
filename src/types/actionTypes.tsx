@@ -6,7 +6,7 @@ export interface ThemeActionType {
 
 export interface VodActionType {
     type: string,
-    payload:  Array<VodType>
+    payload: Array<VodType>
     timeWatched?: number,
     episodeWatched?: number
     fromMiniVodCollectionItemIndex?: number
@@ -15,12 +15,12 @@ export interface VodActionType {
 
 export interface FavoriteVodActionType {
     type: string,
-    payload:  VodType
+    payload: VodType
 }
 
 export interface VodPlaylistActionType {
     type: string,
-    payload: VodTopicType 
+    payload: VodTopicType
 }
 
 export interface SearchHistoryActionType {
@@ -34,7 +34,7 @@ export interface ClearStorageActionType {
 
 export interface SettingsActionType {
     type: string,
-    payload?: string
+    payload?: any
 }
 
 export interface MiniVodActionType {

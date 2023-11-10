@@ -11,14 +11,21 @@ import { MiniVideo } from '../types/ajaxTypes';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { API_DOMAIN } from '../utility/constants';
 import MiniVideoList from '../components/videoPlayer/miniVodList';
-import { useIsFocused } from '@react-navigation/native';
+import { useFocusEffect, useIsFocused } from '@react-navigation/native';
 import NoConnection from './../components/common/noConnection';
-import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
+import NetInfo from '@react-native-community/netinfo';
+import { SettingsReducerState } from '../redux/reducers/settingsReducer';
+import { useAppSelector } from '../hooks/hooks';
+import { RootState } from '../redux/store';
 
 type MiniVideoResponseType = {
     data: {
         List: Array<MiniVideo>;
     };
+};
+
+type MiniVodRef = {
+    setPause: (pause: boolean) => void;
 };
 
 export default ({ navigation }: BottomTabScreenProps<any>) => {
@@ -27,8 +34,13 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     const [isInBackground, setIsInBackground] = useState(false);
     const [isRefreshing, setIsRefreshing] = useState(false);
     const [isOffline, setIsOffline] = useState(false);
+    const miniVodRef = useRef() as React.MutableRefObject<MiniVodRef>
     const miniVodListRef = useRef<any>();
     const [isPressTabScroll, setPressTabScroll] = useState(false);
+
+    const settingsReducer: SettingsReducerState = useAppSelector(
+        ({ settingsReducer }: RootState) => settingsReducer
+    );
 
     // Add an event listener to the navigation object for the tab press event
     useEffect(() => {
@@ -102,17 +114,20 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
         }
     }, []);
 
-    useEffect(() => {
-        const removeNetInfoSubscription = NetInfo.addEventListener(
-            (state: NetInfoState) => {
-                const offline = !(state.isConnected && state.isInternetReachable);
-                setIsOffline(offline);
-            },
-        );
-        return () => removeNetInfoSubscription();
-    }, []);
+    useFocusEffect(useCallback(() => {
+        if (!settingsReducer.isOffline && settingsReducer.isOffline !== isOffline) {
+            setIsOffline(settingsReducer.isOffline);
+            handleRefresh();
+        } else if (settingsReducer.isOffline) {
+            return () => {
+                miniVodRef.current?.setPause(true);
+                setIsOffline(settingsReducer.isOffline);
+            }
+        }
+    }, [settingsReducer.isOffline]));
 
     useEffect(() => {
+        setIsOffline(settingsReducer.isOffline);
         // ... (rest of the useEffect hook remains unchanged)
         const subscription = AppState.addEventListener(
             "change",
@@ -137,6 +152,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
             </View>
             {!isOffline &&
                 <MiniVideoList
+                    ref={miniVodRef}
                     miniVodListRef={miniVodListRef}
                     videos={flattenedVideos}
                     fetchNextPage={fetchNextPage}

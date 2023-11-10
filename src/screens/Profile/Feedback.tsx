@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { View, Text, StyleSheet, TextInput, Platform } from "react-native";
 import ScreenContainer from "../../components/container/screenContainer";
 import { RootStackScreenProps } from "../../types/navigationTypes";
-import { useTheme } from "@react-navigation/native";
+import { useFocusEffect, useTheme } from "@react-navigation/native";
 import { RootState } from "../../redux/store";
 // import NetInfo from '@react-native-community/netinfo';
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
@@ -21,6 +21,8 @@ import {
   YING_SHI_PRODUCT_ANDROID,
 } from "../../../src/utility/constants";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
+import { SettingsReducerState } from "../../redux/reducers/settingsReducer";
+import { useAppSelector } from "../../hooks/hooks";
 
 export default ({ navigation }: RootStackScreenProps<"反馈">) => {
   const { colors, textVariants, icons } = useTheme();
@@ -33,22 +35,30 @@ export default ({ navigation }: RootStackScreenProps<"反馈">) => {
   const [platformId, setPlatformId] = React.useState(0);
 
   const [isOffline, setIsOffline] = useState(false);
+
+  const settingsReducer: SettingsReducerState = useAppSelector(
+    ({ settingsReducer }: RootState) => settingsReducer
+  );
+
   useEffect(() => {
-    const removeNetInfoSubscription = NetInfo.addEventListener(
-      (state: NetInfoState) => {
-        const offline = !(state.isConnected && state.isInternetReachable);
-        setIsOffline(offline);
-      }
-    );
+    setIsOffline(settingsReducer.isOffline);
 
     if (Platform.OS === "ios") {
       setPlatformId(YING_SHI_PRODUCT_IOS);
     } else {
       setPlatformId(YING_SHI_PRODUCT_ANDROID);
     }
-
-    return () => removeNetInfoSubscription();
   }, []);
+
+  useFocusEffect(useCallback(() => {
+    if (!settingsReducer.isOffline) {
+      setIsOffline(settingsReducer.isOffline);
+    } else {
+      return () => {
+        setIsOffline(settingsReducer.isOffline);
+      }
+    }
+  }, [settingsReducer.isOffline]));
 
   const submitFeedback = async (data: SubmitFeedbackRequest) => {
     if (!isOffline) {

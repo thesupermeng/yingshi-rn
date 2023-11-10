@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   View,
@@ -9,33 +9,40 @@ import {
   SafeAreaView,
 } from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
-import {RootStackScreenProps} from '../../types/navigationTypes';
-import {useNavigation, useTheme} from '@react-navigation/native';
+import { RootStackScreenProps } from '../../types/navigationTypes';
+import { useFocusEffect, useNavigation, useTheme } from '@react-navigation/native';
 
 import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
-import {Button, Dialog} from '@rneui/themed';
+import { Button, Dialog } from '@rneui/themed';
 import ShowMoreButton from '../../components/button/showMoreButton';
 import NotificationModal from '../../components/modal/notificationModal';
 import MoreArrow from '../../../static/images/more_arrow.svg';
 import ConfirmationModal from '../../components/modal/confirmationModal';
-import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
-import {clearStorageMemory} from '../../redux/actions/settingsActions';
-import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
+import { clearStorageMemory } from '../../redux/actions/settingsActions';
+import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 
-import {removeUserAuthState} from '../../redux/actions/userAction';
-import {changeScreenAction} from '../../redux/actions/screenAction';
-import {RootState} from '../../redux/store';
-import {userModel} from '../../types/userType';
+import { removeUserAuthState } from '../../redux/actions/userAction';
+import { changeScreenAction } from '../../redux/actions/screenAction';
+import { RootState } from '../../redux/store';
+import { userModel } from '../../types/userType';
 
-import {APP_VERSION} from '../../utility/constants';
-export default ({navigation}: RootStackScreenProps<'设置'>) => {
-  const {colors, textVariants, icons, spacing} = useTheme();
+import { APP_VERSION } from '../../utility/constants';
+import { SettingsReducerState } from '../../redux/reducers/settingsReducer';
+
+export default ({ navigation }: RootStackScreenProps<'设置'>) => {
+  const { colors, textVariants, icons, spacing } = useTheme();
   const [isVersionDialogOpen, setIsVersionDialogOpen] = useState(false);
   const [isClearDialogOpen, setIsClearDialogOpen] = useState(false);
 
   const [isLogoutDialogOpen, setIsLogoutDialogOpen] = useState(false);
 
   const [subtitle1, setSubtitle1] = useState('当前已是最新版本' + APP_VERSION);
+
+  const settingsReducer: SettingsReducerState = useAppSelector(
+    ({ settingsReducer }: RootState) => settingsReducer
+  );
+
   const dispatch = useAppDispatch();
 
   const toggleLogoutDialog = () => {
@@ -50,26 +57,30 @@ export default ({navigation}: RootStackScreenProps<'设置'>) => {
   };
   const navigator = useNavigation();
   const [isOffline, setIsOffline] = useState(false);
-  useEffect(() => {
-    const removeNetInfoSubscription = NetInfo.addEventListener(
-      (state: NetInfoState) => {
-        const offline = !(state.isConnected && state.isInternetReachable);
-        setIsOffline(offline);
-      },
-    );
 
-    return () => removeNetInfoSubscription();
+  useEffect(() => {
+    setIsOffline(settingsReducer.isOffline);
   }, []);
+
+  useFocusEffect(useCallback(() => {
+    if (!settingsReducer.isOffline) {
+      setIsOffline(settingsReducer.isOffline);
+    } else {
+      return () => {
+        setIsOffline(settingsReducer.isOffline);
+      }
+    }
+  }, [settingsReducer.isOffline]));
 
   // useEffect(() => {
   //   dispatch(changeScreenAction('showSuccessLogin'));
   // }, []);
   const userState: userModel = useAppSelector(
-    ({userReducer}: RootState) => userReducer,
+    ({ userReducer }: RootState) => userReducer,
   );
   return (
     <ScreenContainer>
-      <View style={{gap: spacing.m, justifyContent: 'space-between', flex: 1}}>
+      <View style={{ gap: spacing.m, justifyContent: 'space-between', flex: 1 }}>
         <View>
           <TitleWithBackButtonHeader title="设置" />
 
@@ -162,7 +173,7 @@ export default ({navigation}: RootStackScreenProps<'设置'>) => {
                 alignItems: 'center',
                 marginBottom: 30,
               }}>
-              <Text style={{color: '#FF3C3C'}}>退出登录</Text>
+              <Text style={{ color: '#FF3C3C' }}>退出登录</Text>
             </View>
           </TouchableOpacity>
         )}

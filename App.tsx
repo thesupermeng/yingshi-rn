@@ -70,6 +70,38 @@ import { AdsBannerContextProvider as AdsBannerContextProviderA } from "./srcA/co
 import NetInfo from "@react-native-community/netinfo";
 
 let App = () => {
+  // appsFlyer.initSdk(
+  //   {
+  //     devKey: APPSFLYER_DEVKEY,
+  //     isDebug: false,
+  //     //appId: '41*****44',
+  //     onInstallConversionDataListener: true,
+  //     onDeepLinkListener: true,
+  //     timeToWaitForATTUserAuthorization: 10,
+  //   },
+  //   result => {
+  //     // console.log(result);
+  //     const eventName = 'open_app';
+  //     const eventValues = {
+  //       ip: '1',
+  //     };
+
+  //     appsFlyer.logEvent(
+  //       eventName,
+  //       eventValues,
+  //       res => {
+  //         // console.log(res);
+  //       },
+  //       err => {
+  //         console.error(err);
+  //       },
+  //     );
+  //   },
+  //   error => {
+  //     console.error(error);
+  //   },
+  // );
+
   const [showRegengOverlay, setShowRegengOverlay] = useState(false);
 
   const queryClient = new QueryClient({
@@ -79,6 +111,15 @@ let App = () => {
       },
     },
   });
+
+  const getIP = async () => {
+    const res = await axios.get("https://geolocation-db.com/json/");
+    const ipAddress = res.data.IPv4;
+    if (ipAddress != null && ipAddress != undefined) {
+      YSConfig.instance.setNetworkIp(ipAddress);
+      checkVersion(ipAddress);
+    }
+  };
 
   const checkVersion = async (ipAddress: string) => {
     const checkVersionReq: CheckVersionRequest = {
@@ -118,14 +159,11 @@ let App = () => {
     return response;
   };
 
-  useEffect(() => {
-    NetInfo.configure({
-      // this is huawei url
-      reachabilityUrl:
-        "http://connectivitycheck.platform.hicloud.com/generate_204",
-    });
+  let tryToLoadCount = 0;
+  let adsReadyFlag = false;
 
-    checkVersion(YSConfig.instance.ip);
+  useEffect(() => {
+    getIP();
     queryClient.prefetchQuery({
       queryKey: ["recommendationList"],
       queryFn: () =>
@@ -216,7 +254,9 @@ let App = () => {
           ids: Array<number>;
           type: string;
         }[] => {
-          return res.data;
+          let bla = [];
+          bla.push(res.data[3])
+          return bla;
         }),
       staleTime: Infinity,
     });
@@ -273,7 +313,162 @@ let App = () => {
 
     console.log("TopOn SDK init ....");
     ATRNSDK.initSDK(appId, appKey);
+
+    initAdListener();
   }
+
+  function initAdListener() {
+    // initInterstitialAdListener();
+  }
+
+  const loadBanner = async (bannerPlacementId) => {
+    // console.log("loadBanner ....");
+
+    var settings = {};
+    if (Platform.OS === "android") {
+      const deviceWidthInPixel =
+        Dimensions.get("window").width * Dimensions.get("window").scale;
+
+      settings[
+        ATBannerRNSDK.kATBannerAdLoadingExtraBannerAdSizeStruct
+      ] = ATBannerRNSDK.createLoadAdSize(
+        deviceWidthInPixel,
+        TOPON_BANNER_HEIGHT
+      );
+
+      settings[ATBannerRNSDK.kATBannerAdAdaptiveWidth] = deviceWidthInPixel;
+      settings[ATBannerRNSDK.kATBannerAdAdaptiveOrientation] =
+        ATBannerRNSDK.kATBannerAdAdaptiveOrientationCurrent;
+      //    settings[ATBannerRNSDK.kATBannerAdAdaptiveOrientation] = ATBannerRNSDK.kATBannerAdAdaptiveOrientationPortrait;
+      //    settings[ATBannerRNSDK.kATBannerAdAdaptiveOrientation] = ATBannerRNSDK.kATBannerAdAdaptiveOrientationLandscape;
+    } else if (Platform.OS === "ios") {
+      settings[
+        ATBannerRNSDK.kATBannerAdLoadingExtraBannerAdSizeStruct
+      ] = ATBannerRNSDK.createLoadAdSize(
+        TOPON_BANNER_WIDTH,
+        TOPON_BANNER_HEIGHT
+      );
+
+      settings[ATBannerRNSDK.kATBannerAdAdaptiveWidth] = TOPON_BANNER_WIDTH;
+      settings[ATBannerRNSDK.kATBannerAdAdaptiveOrientation] =
+        ATBannerRNSDK.kATBannerAdAdaptiveOrientationCurrent;
+      //    settings[ATBannerRNSDK.kATBannerAdAdaptiveOrientation] = ATBannerRNSDK.kATBannerAdAdaptiveOrientationPortrait;
+      //    settings[ATBannerRNSDK.kATBannerAdAdaptiveOrientation] = ATBannerRNSDK.kATBannerAdAdaptiveOrientationLandscape;
+    }
+
+    await ATBannerRNSDK.loadAd(bannerPlacementId, settings);
+
+    isBannerReady(bannerPlacementId);
+  };
+
+  const isBannerReady = (bannerPlacementId) => {
+    ATBannerRNSDK.hasAdReady(bannerPlacementId).then((isAdReady) => {
+      console.log("isBannerReady: " + isAdReady);
+      console.log(bannerPlacementId);
+    });
+  };
+
+  const initInterstitialAdListener = () => {
+    ATInterstitialRNSDK.setAdListener(
+      ATInterstitialRNSDK.onInterstitialLoaded,
+      (event) => {
+        console.log("ATInterstitialLoaded: " + event.placementId);
+      }
+    );
+
+    ATInterstitialRNSDK.setAdListener(
+      ATInterstitialRNSDK.onInterstitialFail,
+      (event) => {
+        console.warn(
+          "ATInterstitialLoadFail: " +
+          event.placementId +
+          ", errorMsg: " +
+          event.errorMsg
+        );
+
+        // if (event.errorMsg == "") {
+        //   loadInterstitial(IOS_HOME_PAGE_POP_UP_ADS);
+        // }
+      }
+    );
+
+    ATInterstitialRNSDK.setAdListener(
+      ATInterstitialRNSDK.onInterstitialAdShow,
+      (event) => {
+        console.log(
+          "ATInterstitialAdShow: " +
+          event.placementId +
+          ", adCallbackInfo: " +
+          event.adCallbackInfo
+        );
+      }
+    );
+
+    ATInterstitialRNSDK.setAdListener(
+      ATInterstitialRNSDK.onInterstitialPlayStart,
+      (event) => {
+        console.log(
+          "ATInterstitialPlayStart: " +
+          event.placementId +
+          ", adCallbackInfo: " +
+          event.adCallbackInfo
+        );
+      }
+    );
+
+    ATInterstitialRNSDK.setAdListener(
+      ATInterstitialRNSDK.onInterstitialPlayEnd,
+      (event) => {
+        console.log(
+          "ATInterstitialPlayEnd: " +
+          event.placementId +
+          ", adCallbackInfo: " +
+          event.adCallbackInfo
+        );
+      }
+    );
+
+    ATInterstitialRNSDK.setAdListener(
+      ATInterstitialRNSDK.onInterstitialPlayFail,
+      (event) => {
+        console.log(
+          "ATInterstitialPlayFail: " +
+          event.placementId +
+          ", errorMsg: " +
+          event.errorMsg +
+          ", adCallbackInfo: " +
+          event.adCallbackInfo
+        );
+      }
+    );
+
+    ATInterstitialRNSDK.setAdListener(
+      ATInterstitialRNSDK.onInterstitialClick,
+      (event) => {
+        console.log(
+          "ATInterstitialClick: " +
+          event.placementId +
+          ", adCallbackInfo: " +
+          event.adCallbackInfo
+        );
+      }
+    );
+
+    ATInterstitialRNSDK.setAdListener(
+      ATInterstitialRNSDK.onInterstitialClose,
+      (event) => {
+        console.log(
+          "ATInterstitialClose: " +
+          event.placementId +
+          ", adCallbackInfo: " +
+          event.adCallbackInfo
+        );
+      }
+    );
+  };
+  console.log("YSConfig.instance.areaConfig");
+
+  console.log(YSConfig.instance.areaConfig);
 
   return (
     <TermsAcceptContextProviderA>
@@ -286,7 +481,7 @@ let App = () => {
                   <GestureHandlerRootView style={{ flex: 1 }}>
                     <BottomSheetModalProvider>
                       {YSConfig.instance.areaConfig != null &&
-                      YSConfig.instance.areaConfig == true ? (
+                        YSConfig.instance.areaConfig == true ? (
                         // B面的B面
                         <Nav />
                       ) : (
