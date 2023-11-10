@@ -41,12 +41,6 @@ export const AdsBannerContext = createContext<{
 const pageWithNavbar = ["首页", "播单", "体育"];
 const pageNoNavbar = ["播放", "PlaylistDetail", "体育详情", "电视台播放"];
 const deviceBrand = DeviceInfo.getBrand();
-let deviceName = "";
-
-DeviceInfo.getDeviceName().then((d) => {
-  deviceName = d;
-  console.log(deviceName);
-});
 
 const initBannerAdListener = () => {
   ATBannerRNSDK.setAdListener(ATBannerRNSDK.onBannerLoaded, (event) => {
@@ -370,10 +364,12 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
       // console.log(deviceBrand);
       // console.log("deviceName");
       // console.log(deviceName);
-      let isHuaweiNova = deviceName.toLowerCase().includes("nova");
+
       // console.log("isHuaweiNova");
       // console.log(isHuaweiNova);
-      if (deviceBrand === "HUAWEI") {
+
+      let deviceName = await DeviceInfo.getDeviceName();
+      if (deviceBrand === "HUAWEI" && /p\d+/i.test(deviceName)) {
         // This is a Huawei device
         let deviceHeight = Dimensions.get("screen").height;
         let windowHeight = Dimensions.get("window").height;
@@ -383,10 +379,6 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
           huaweiOffset = -95;
         } else {
           huaweiOffset = 75;
-        }
-
-        if (isHuaweiNova) {
-          huaweiOffset = 0;
         }
       }
 

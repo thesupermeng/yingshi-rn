@@ -28,6 +28,9 @@ function LoginBottomSheet({
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
   const [bottomOffset, setBottomOffset] = useState(0);
 
+  const [deviceName, setDeviceName] = useState("");
+  DeviceInfo.getDeviceName().then((d) => {});
+
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
       "keyboardDidShow",
@@ -48,7 +51,11 @@ function LoginBottomSheet({
   }, []);
 
   useEffect(() => {
-    if (deviceBrand == "HUAWEI" && isKeyboardVisible) {
+    if (
+      deviceBrand == "HUAWEI" &&
+      isKeyboardVisible &&
+      /p\d+/i.test(deviceName)
+    ) {
       setBottomOffset(180);
     } else {
       setBottomOffset(50);
