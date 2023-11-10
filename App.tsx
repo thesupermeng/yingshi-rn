@@ -285,7 +285,14 @@ let App = () => {
                 <AdsBannerContextProvider>
                   <GestureHandlerRootView style={{ flex: 1 }}>
                     <BottomSheetModalProvider>
-                      <Nav />
+                      {YSConfig.instance.areaConfig != null &&
+                      YSConfig.instance.areaConfig == true ? (
+                        // B面的B面
+                        <Nav />
+                      ) : (
+                        // B面里的A面
+                        <NavA />
+                      )}
                     </BottomSheetModalProvider>
                   </GestureHandlerRootView>
                 </AdsBannerContextProvider>

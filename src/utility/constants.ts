@@ -64,7 +64,7 @@ export const TOPON_IOS_APP_ID = 'a65093c4e166c3';
 export const TOPON_IOS_APP_KEY = 'ac16f5a19bcbae7438b36f0f7160fbac3';
 
 // topon 横幅广告
-export const ANDROID_HOME_PAGE_BANNER_ADS = 'b650175c1b7a23';
+export const ANDROID_HOME_PAGE_BANNER_ADS = 'b65002ded406c8';
 export const ANDROID_PLAY_DETAILS_BANNER_ADS = 'b65017594babf8';
 export const ANDROID_TOPIC_DETAILS_BANNER_ADS = 'b650175c1b7a23';
 export const ANDROID_TOPIC_TAB_BANNER_ADS = 'b6523b931be70d';
