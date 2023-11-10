@@ -464,7 +464,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   useEffect(()=>{
     const vodUrl: string = vod?.vod_play_list.urls?.find((url) => url.nid === currentEpisode)?.url
-    setVodUri(vodUrl)
+    // setVodUri(vodUrl)
     if (!!vodUrl){
       getNoAdsUri('https://vip.lz-cdn10.com/20230722/15353_c9cd8517/index.m3u8').then(uri => {
         console.debug(`file://${uri}`)
