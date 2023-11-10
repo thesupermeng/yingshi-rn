@@ -29,7 +29,9 @@ function LoginBottomSheet({
   const [bottomOffset, setBottomOffset] = useState(0);
 
   const [deviceName, setDeviceName] = useState("");
-  DeviceInfo.getDeviceName().then((d) => {});
+  DeviceInfo.getDeviceName().then((d) => {
+    setDeviceName(d);
+  });
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
