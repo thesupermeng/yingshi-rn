@@ -61,6 +61,8 @@ import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 import { lockAppOrientation } from "../../redux/actions/settingsActions";
 import { AdsBannerContext } from "../../contexts/AdsBannerContext";
 import useInterstitialAds from "../../hooks/useInterstitialAds";
+import {URL} from 'react-native-url-polyfill'
+import RNFetchBlob from "rn-fetch-blob";
 
 type VideoRef = {
   setPause: (param: boolean) => void;
@@ -402,7 +404,66 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
     dispatch(lockAppOrientation(orientation));
   };
 
-  useInterstitialAds();
+  // useInterstitialAds();
+
+  useEffect(()=>{
+    const vodUrl: string = vod?.vod_play_list.urls?.find((url) => url.nid === currentEpisode)?.url
+    if (!!vodUrl){
+      getNoAdsUri(vodUrl).then()
+    }
+
+  }, [vod])
+
+  const getNoAdsUri = async (url) =>{
+    const parentUrl = new URL(url).host
+
+
+    const filePath = RNFetchBlob.fs.dirs.DocumentDir + '/' + url
+    const fileExists = await RNFetchBlob.fs.exists(filePath);
+    
+    if (fileExists) return // early return 
+
+    const index = await RNFetchBlob.fetch("GET", url)
+    const masterPlaylistUrl = 'https://' + parentUrl + index.text().toString().split('\n').filter(txt => txt.includes('.m3u8')).at(-1)
+    console.log(masterPlaylistUrl)
+    const playlistContent = (await RNFetchBlob
+      .fetch("GET", masterPlaylistUrl))
+      .text().toString()
+      .split('\n')
+      .map((line)=>{
+        if (line.endsWith('.ts')){
+          return 'https://' + parentUrl + line
+        }
+        return line
+      })
+    
+    let fragCounter = 0; 
+    const fragMap = playlistContent
+      .map((line, index) => {
+        // return [indexInPlaylistContent, indexFrag, indexTs]
+        if (line.endsWith('.ts')){
+          const indexTs = line.split('/').at(-1).split('.ts')[0]
+          const indexTsInt = parseInt(indexTs.substring(indexTs.length - (index.toString().length)))
+          fragCounter ++; 
+          return [index, fragCounter, indexTsInt]
+        }
+        return [-1, null, null]
+      })
+      .filter(frag => {
+        return frag[0] != -1 
+      })
+
+    for (const frag of fragMap) {
+      if (frag[1] == frag[2]){
+        continue
+      }
+      playlistContent[frag[0]] = ''
+      playlistContent[frag[0] - 1] = ''
+    }
+
+    console.log('final', fragMap)
+    return filePath
+}
 
   return (
     <>
