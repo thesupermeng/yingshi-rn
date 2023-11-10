@@ -221,7 +221,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
       platform: APP_NAME_CONST + "-" + Platform.OS.toUpperCase(),
       channel_transaction_id: currentPurchase?.transactionId,
       transaction_receipt: currentPurchase
-        ? currentPurchase.transactionReceipt
+        ? JSON.stringify(currentPurchase.transactionReceipt)
         : error.toString(),
       transaction_status: parseInt(transStatus),
       is_sb: 1
