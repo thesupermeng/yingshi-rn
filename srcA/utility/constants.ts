@@ -1,4 +1,4 @@
-import {Platform} from 'react-native';
+import { Platform } from 'react-native';
 
 export const DARK_THEME = 'DARK_THEME';
 export const LIGHT_THEME = 'LIGHT_THEME';
@@ -26,6 +26,8 @@ export const ACCEPT_PRIVACY_POLICY = 'accept_privacy_policy';
 export const HANDLE_APP_ORIENTATION = 'handle_app_orientation';
 export const HANDLE_DEVICES_ORIENTATION = 'handle_devices_orientation';
 export const LOCK_ORIENTATION = 'lock_orientation';
+
+export const UPDATE_NETWORK_INFO = 'update_network_info';
 
 // export const API_DOMAIN = 'https://api.yingshi.tv/'
 export const API_DOMAIN = 'https://api.gxhongdeli168.com/';

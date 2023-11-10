@@ -34,7 +34,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     const [isInBackground, setIsInBackground] = useState(false);
     const [isRefreshing, setIsRefreshing] = useState(false);
     const [isOffline, setIsOffline] = useState(false);
-    const miniVodRef = useRef() as React.MutableRefObject<MiniVodRef>
+    const miniVodRef = useRef() as React.MutableRefObject<MiniVodRef>;
     const miniVodListRef = useRef<any>();
     const [isPressTabScroll, setPressTabScroll] = useState(false);
 

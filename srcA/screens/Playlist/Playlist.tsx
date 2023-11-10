@@ -1,34 +1,42 @@
-import React, {useCallback, useEffect, useState, memo} from 'react';
-import {StyleSheet, View, Text, RefreshControl, FlatList} from 'react-native';
-import {useQueryClient} from '@tanstack/react-query';
+import React, { useCallback, useEffect, useState, memo } from 'react';
+import { StyleSheet, View, Text, RefreshControl, FlatList } from 'react-native';
+import { useQueryClient } from '@tanstack/react-query';
 import ScreenContainer from '../../components/container/screenContainer';
 import MainHeader from '../../components/header/homeHeader';
-import {useTheme} from '@react-navigation/native';
-import {useInfiniteQuery} from '@tanstack/react-query';
-import {VodPlaylistResponseType, VodTopicType} from '../../types/ajaxTypes';
+import { useFocusEffect, useTheme } from '@react-navigation/native';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import { VodPlaylistResponseType, VodTopicType } from '../../types/ajaxTypes';
 import VodPlaylist from '../../components/playlist/vodPlaylist';
-import {BottomTabScreenProps, useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
-import {API_DOMAIN} from '../../utility/constants';
+import { BottomTabScreenProps, useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
+import { API_DOMAIN } from '../../utility/constants';
 // import FastImage from 'react-native-fast-image';
 import FastImage from "../../components/common/customFastImage"
-import {useIsFocused} from '@react-navigation/native';
+import { useIsFocused } from '@react-navigation/native';
 // import {FlatList, PanGestureHandler} from 'react-native-gesture-handler';
 import NoConnection from './../../components/common/noConnection';
-import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
+import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
+import { SettingsReducerState } from '../../redux/reducers/settingsReducer';
+import { RootState } from '../../redux/store';
+import { useAppSelector } from '../../hooks/hooks';
 type FlatListType = {
   item: VodTopicType;
   index: number;
 };
 
-function Playlist ({navigation}: BottomTabScreenProps<any>) {
+function Playlist({ navigation }: BottomTabScreenProps<any>) {
   // const BTN_COLORS = ['#FFCC12', '#F1377A', '#ED7445', '#7E9CEE', '#30AA55',];
-  const {textVariants, colors, spacing} = useTheme();
+  const { textVariants, colors, spacing } = useTheme();
   const LIMIT_PER_PAGE = 10;
   // const [results, setResults] = useState<Array<VodTopicType>>([])
   const [totalPage, setTotalPage] = useState(0);
 
   const isFocused = useIsFocused();
   const [isOffline, setIsOffline] = useState(false);
+
+  const settingsReducer: SettingsReducerState = useAppSelector(
+    ({ settingsReducer }: RootState) => settingsReducer
+  );
+
   // Function to handle the refresh action
   const handleTabPress = () => {
     if (isFocused) {
@@ -46,14 +54,19 @@ function Playlist ({navigation}: BottomTabScreenProps<any>) {
   }, []);
 
   useEffect(() => {
-    const removeNetInfoSubscription = NetInfo.addEventListener(
-      (state: NetInfoState) => {
-        const offline = !(state.isConnected && state.isInternetReachable);
-        setIsOffline(offline);
-      },
-    );
-    return () => removeNetInfoSubscription();
+    setIsOffline(settingsReducer.isOffline);
   }, []);
+
+  useFocusEffect(useCallback(() => {
+    if (!settingsReducer.isOffline && settingsReducer.isOffline !== isOffline) {
+      setIsOffline(settingsReducer.isOffline);
+      handleRefresh();
+    } else if (settingsReducer.isOffline) {
+      return () => {
+        setIsOffline(settingsReducer.isOffline);
+      }
+    }
+  }, [settingsReducer.isOffline]));
 
   // Add an event listener to the navigation object for the tab press event
   useEffect(() => {
@@ -64,12 +77,12 @@ function Playlist ({navigation}: BottomTabScreenProps<any>) {
   }, [navigation, isFocused]);
 
   const fetchPlaylist = useCallback((page: number) =>
-  fetch(`${API_DOMAIN}topic/v1/topic?page=${page}`)
-    .then(response => response.json())
-    .then((json: VodPlaylistResponseType) => {
-      setTotalPage(Number(json.data.TotalPageCount));
-      return Object.values(json.data.List);
-    }), []);
+    fetch(`${API_DOMAIN}topic/v1/topic?page=${page}`)
+      .then(response => response.json())
+      .then((json: VodPlaylistResponseType) => {
+        setTotalPage(Number(json.data.TotalPageCount));
+        return Object.values(json.data.List);
+      }), []);
 
   const {
     data: playlists,
@@ -80,7 +93,7 @@ function Playlist ({navigation}: BottomTabScreenProps<any>) {
     isFetching,
   } = useInfiniteQuery(
     ['vodPlaylist'],
-    ({pageParam = 1}) => fetchPlaylist(pageParam),
+    ({ pageParam = 1 }) => fetchPlaylist(pageParam),
     {
       getNextPageParam: (lastPage, allPages) => {
         if (lastPage === null) {
@@ -94,7 +107,7 @@ function Playlist ({navigation}: BottomTabScreenProps<any>) {
         return nextPage;
       },
       onSettled: (data, error) => {
-        if(isRefreshing && data && !error){
+        if (isRefreshing && data && !error) {
           setIsRefreshing(false);
         }
       },
@@ -106,10 +119,10 @@ function Playlist ({navigation}: BottomTabScreenProps<any>) {
     },
   );
 
-  const renderItem = ({item}: FlatListType) => (
-    <VodPlaylist playlist={item} titleStyle={{color: colors.text}} />
+  const renderItem = ({ item }: FlatListType) => (
+    <VodPlaylist playlist={item} titleStyle={{ color: colors.text }} />
   );
-    
+
   const [isRefreshing, setIsRefreshing] = useState(false);
   const queryClient = useQueryClient();
   // Function to reset variables and refresh data
@@ -129,10 +142,10 @@ function Playlist ({navigation}: BottomTabScreenProps<any>) {
   //ads
   const bottomTabBarHeight = useBottomTabBarHeight();
   const [bottomTabHeight, setBottomTabHeight] = useState(60);
-  
+
   return (
     <>
-      <ScreenContainer containerStyle={{paddingLeft: 0, paddingRight: 0}}>
+      <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
         <MainHeader
           headerStyle={{
             marginBottom: spacing.m,
@@ -184,16 +197,16 @@ function Playlist ({navigation}: BottomTabScreenProps<any>) {
               renderItem={renderItem}
               initialNumToRender={5}
               ListFooterComponent={
-                <View style={{...styles.loading, marginBottom: spacing.xl}}>
+                <View style={{ ...styles.loading, marginBottom: spacing.xl }}>
                   {hasNextPage && (
                     <FastImage
-                      style={{height: 80, width: 80}}
+                      style={{ height: 80, width: 80 }}
                       source={require('../../../static/images/loading-spinner.gif')}
                       resizeMode={"contain"}
                     />
                   )}
                   {!(isFetchingNextPage || isFetching) && !hasNextPage && (
-                    <Text style={{...textVariants.body, color: colors.muted}}>
+                    <Text style={{ ...textVariants.body, color: colors.muted }}>
                       没有更多了
                     </Text>
                   )}

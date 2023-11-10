@@ -1,5 +1,5 @@
 import {
-    CLEAR_STORAGE_MEMORY, HIDE_VOD_PLAYER_GUIDE, ACCEPT_PRIVACY_POLICY, HANDLE_APP_ORIENTATION, HANDLE_DEVICES_ORIENTATION, LOCK_ORIENTATION
+    CLEAR_STORAGE_MEMORY, HIDE_VOD_PLAYER_GUIDE, ACCEPT_PRIVACY_POLICY, HANDLE_APP_ORIENTATION, HANDLE_DEVICES_ORIENTATION, LOCK_ORIENTATION, UPDATE_NETWORK_INFO
 } from "../../utility/constants";
 
 export const clearStorageMemory = () => (
@@ -38,5 +38,12 @@ export const lockAppOrientation = (orientation: string) => (
     {
         type: LOCK_ORIENTATION,
         payload: orientation,
+    }
+)
+
+export const updateNetworkInfo = (state: any) => (
+    {
+        type: UPDATE_NETWORK_INFO,
+        payload: state,
     }
 )

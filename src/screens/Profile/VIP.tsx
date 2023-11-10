@@ -41,6 +41,7 @@ import axios from "axios";
 import { showToast } from "../../Sports/utility/toast";
 import { showLoginAction } from "../../redux/actions/screenAction";
 import SpinnerOverlay from "../../components/modal/SpinnerOverlay";
+import { SettingsReducerState } from "../../redux/reducers/settingsReducer";
 
 const subscriptionSkus = Platform.select({
   ios: ["yingshi_vip_month", "yingshi_vip_6months", "monthly_subscription"],

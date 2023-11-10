@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -16,7 +16,7 @@ import {
 } from "react-native-iap";
 import ScreenContainer from "../../components/container/screenContainer";
 import { RootStackScreenProps } from "../../types/navigationTypes";
-import { useTheme } from "@react-navigation/native";
+import { useFocusEffect, useTheme } from "@react-navigation/native";
 import { RootState } from "../../redux/store";
 
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
@@ -42,6 +42,7 @@ import { showToast } from "../../Sports/utility/toast";
 import { showLoginAction } from "../../redux/actions/screenAction";
 import SpinnerOverlay from "../../components/modal/SpinnerOverlay";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { SettingsReducerState } from "../../redux/reducers/settingsReducer";
 
 const subscriptionSkus = Platform.select({
   ios: ["yingshi_vip_month", "yingshi_vip_6months", "monthly_subscription"],
@@ -74,7 +75,9 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const userState: userModel = useAppSelector(
     ({ userReducer }: RootState) => userReducer
   );
-
+  const settingsReducer: SettingsReducerState = useAppSelector(
+    ({ settingsReducer }: RootState) => settingsReducer
+  );
   const [loading, setLoading] = useState(true);
   const [isVisible, setIsVisible] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
@@ -113,21 +116,16 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     }
   };
 
-  useEffect(() => {
-    const removeNetInfoSubscription = NetInfo.addEventListener(
-      (state: NetInfoState) => {
-        const offline = !(
-          state.isConnected &&
-          (state.isInternetReachable === true ||
-          state.isInternetReachable === null
-            ? true
-            : false)
-        );
-        setIsOffline(offline);
+  useFocusEffect(useCallback(() => {
+    if (!settingsReducer.isOffline) {
+      setIsOffline(settingsReducer.isOffline);
+      handleRefresh();
+    } else {
+      return () => {
+        setIsOffline(settingsReducer.isOffline);
       }
-    );
-    return () => removeNetInfoSubscription();
-  }, []);
+    }
+  }, [settingsReducer.isOffline]));
 
   const fetchData = async () => {
     const response = await axios.get(`${API_DOMAIN_TEST}products/v1/products`);
@@ -153,6 +151,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   };
 
   useEffect(() => {
+    setIsOffline(settingsReducer.isOffline);
     fetchData();
   }, []);
 
@@ -507,7 +506,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                   padding: 8,
                   opacity:
                     userState.userPaidVipList.total_purchased_days > 0 ||
-                    userState.userAccumulateRewardDay > 0
+                      userState.userAccumulateRewardDay > 0
                       ? 100
                       : 0,
                 }}

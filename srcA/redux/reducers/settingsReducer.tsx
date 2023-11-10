@@ -1,6 +1,5 @@
-import { HIDE_VOD_PLAYER_GUIDE, ACCEPT_PRIVACY_POLICY, HANDLE_APP_ORIENTATION, HANDLE_DEVICES_ORIENTATION, LOCK_ORIENTATION } from "../../utility/constants"
-import { SearchHistoryActionType, SettingsActionType } from "../../types/actionTypes"
-import { VodTopicType, VodType } from "../../types/ajaxTypes"
+import { HIDE_VOD_PLAYER_GUIDE, ACCEPT_PRIVACY_POLICY, HANDLE_APP_ORIENTATION, HANDLE_DEVICES_ORIENTATION, LOCK_ORIENTATION, UPDATE_NETWORK_INFO } from "../../utility/constants"
+import { SettingsActionType } from "../../types/actionTypes"
 import Orientation, { OrientationType } from "react-native-orientation-locker";
 
 export interface SettingsReducerState {
@@ -8,7 +7,8 @@ export interface SettingsReducerState {
     isAcceptPrivacyPolicy: boolean,
     appOrientation: OrientationType,
     devicesOrientation: OrientationType,
-    isAppOrientationChanged: boolean, 
+    isAppOrientationChanged: boolean,
+    isOffline: boolean,
 }
 
 const initialState: SettingsReducerState = {
@@ -17,6 +17,7 @@ const initialState: SettingsReducerState = {
     appOrientation: OrientationType.PORTRAIT,
     devicesOrientation: OrientationType.PORTRAIT,
     isAppOrientationChanged: false,
+    isOffline: false,
 }
 
 export function settingsReducer(state = initialState, action: SettingsActionType) {
@@ -47,8 +48,8 @@ export function settingsReducer(state = initialState, action: SettingsActionType
             let orientation: string = state.appOrientation;
 
             orientation = action.payload!;
-            
-            switch(action.payload){
+
+            switch (action.payload) {
                 case 'PORTRAIT':
                 case 'PORTRAIT-UPSIDEDOWN':
                     Orientation.lockToPortrait();
@@ -60,10 +61,10 @@ export function settingsReducer(state = initialState, action: SettingsActionType
                     Orientation.lockToLandscapeRight();
                     break;
                 case 'LANDSCAPE':
-                    if(state.devicesOrientation === 'LANDSCAPE-RIGHT'){
+                    if (state.devicesOrientation === 'LANDSCAPE-RIGHT') {
                         Orientation.lockToLandscapeRight();
                         orientation = 'LANDSCAPE-RIGHT'
-                    }else{
+                    } else {
                         Orientation.lockToLandscapeLeft();
                         orientation = 'LANDSCAPE-LEFT'
                     }
@@ -74,6 +75,11 @@ export function settingsReducer(state = initialState, action: SettingsActionType
                 ...state,
                 isAppOrientationChanged: true,
                 appOrientation: orientation,
+            }
+        case UPDATE_NETWORK_INFO:
+            return {
+                ...state,
+                isOffline: !(action.payload?.isConnected && ((action.payload?.isInternetReachable === true || action.payload?.isInternetReachable === null) ? true : false)),
             }
         default:
             return state

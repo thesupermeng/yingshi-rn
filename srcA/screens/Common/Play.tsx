@@ -183,17 +183,20 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   //   }
   // }, [vod]);
 
-  // useEffect(() => {
-  //   const removeNetInfoSubscription = NetInfo.addEventListener(
-  //     (state: NetInfoState) => {
-  //       const offline = !(state.isConnected && state.isInternetReachable);
-  //       setIsOffline(offline);
+  // useFocusEffect(useCallback(() => {
+  //   if (!settingsReducer.isOffline) {
+  //     setIsOffline(settingsReducer.isOffline);
+  //     handleRefresh();
+  //   } else {
+  //     return () => {
+  //       setIsOffline(settingsReducer.isOffline);
+  //       setDismountPlayer(false);
   //     }
-  //   );
-  //   return () => removeNetInfoSubscription();
-  // }, []);
+  //   }
+  // }, [settingsReducer.isOffline]));
 
   // useEffect(() => {
+  // setIsOffline(settingsReducer.isOffline);
   //   const eventName = "watch_video";
   //   const eventValues = {
   //     vod_name: vod?.vod_name,
@@ -281,10 +284,17 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   //   );
   // }, [vod]);
 
-  // const { data: suggestedVods, isFetching: isFetchingSuggestedVod } = useQuery({
+  // const { data: suggestedVods, isFetching: isFetchingSuggestedVod, refetch } = useQuery({
   //   queryKey: ["relatedVods", vod],
   //   queryFn: () => fetchVod(),
   // });
+
+  // const handleRefresh = useCallback(async () => {
+  //   // setIsRefreshing(true);
+  //   await refetch();
+  //   // setIsRefreshing(false);
+  //   return;
+  // }, []);
 
   // const getOffSet = (id: number) => {
   //   if (vod?.vod_play_list.urls === undefined) {
