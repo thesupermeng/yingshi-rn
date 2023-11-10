@@ -152,6 +152,9 @@ const useInterstitialAds = () => {
           : IOS_PLAY_DETAILS_POP_UP_ADS;
     }
     console.log(adsID);
+
+    console.log(3333333333);
+    console.log(44444444);
     if (adsID != null) {
       setTimeout(() => {
         showInterstitial(adsID);
@@ -172,13 +175,15 @@ const useInterstitialAds = () => {
         : IOS_PLAY_DETAILS_POP_UP_ADS
     );
 
-    setTimeout(() => {
-      showInterstitial(
-        Platform.OS === "android"
-          ? ANDROID_HOME_PAGE_POP_UP_ADS
-          : IOS_HOME_PAGE_POP_UP_ADS
-      );
-    }, 100);
+    if (Platform.OS === "ios") {
+      setTimeout(() => {
+        showInterstitial(
+          Platform.OS === "android"
+            ? ANDROID_HOME_PAGE_POP_UP_ADS
+            : IOS_HOME_PAGE_POP_UP_ADS
+        );
+      }, 100);
+    }
   }, []);
 
   return;
