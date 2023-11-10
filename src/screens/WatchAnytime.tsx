@@ -115,10 +115,10 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     }, []);
 
     useFocusEffect(useCallback(() => {
-        if (!settingsReducer.isOffline) {
+        if (!settingsReducer.isOffline && settingsReducer.isOffline !== isOffline) {
             setIsOffline(settingsReducer.isOffline);
             handleRefresh();
-        } else {
+        } else if (settingsReducer.isOffline) {
             return () => {
                 miniVodRef.current?.setPause(true);
                 setIsOffline(settingsReducer.isOffline);

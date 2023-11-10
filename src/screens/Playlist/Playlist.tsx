@@ -59,10 +59,10 @@ function Playlist({ navigation }: BottomTabScreenProps<any>) {
   }, []);
 
   useFocusEffect(useCallback(() => {
-    if (!settingsReducer.isOffline) {
+    if (!settingsReducer.isOffline && settingsReducer.isOffline !== isOffline) {
       setIsOffline(settingsReducer.isOffline);
       handleRefresh();
-    } else {
+    } else if (settingsReducer.isOffline) {
       return () => {
         setIsOffline(settingsReducer.isOffline);
       }

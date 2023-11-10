@@ -97,7 +97,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   }, []);
 
   useFocusEffect(useCallback(() => {
-    if (!settingsReducer.isOffline && isOffline) {
+    if (!settingsReducer.isOffline && settingsReducer.isOffline !== isOffline) {
       setIsOffline(settingsReducer.isOffline);
       setShowHomeLoading(true);
       refetch();
