@@ -325,7 +325,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
       setDismountPlayer(false);
       return () => {
         setDismountPlayer(true);
-        if (vod) {
+        if (vod && vod?.vod_play_list.urls?.find((url) => url.nid === currentEpisode)?.url) {
           saveVodToHistory(vod);
           setInitTime(currentTimeRef.current);
           // setInitTime(currentTimeRef.current=0);
