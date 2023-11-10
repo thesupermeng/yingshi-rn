@@ -77,6 +77,60 @@ const definedValue = (val: any) => {
   return val + " ";
 };
 
+const getNoAdsUri = async (url:string) =>{
+  // console.time('getNoAdsUri')
+  const startTime = new Date().valueOf()
+  const parentUrl = url.split('/').filter(part => !part.includes('.m3u8')).join('/')
+  console.log('parent url ', parentUrl)
+
+
+  const filePath = RNFetchBlob.fs.dirs.DocumentDir + '/' + url.replace(':', '').replace('/', '_').replace(/^\s+|\s+$/gm, '')
+  const fileExists = await RNFetchBlob.fs.exists(filePath);
+  
+  // if (fileExists) return // early return 
+
+  const index = await RNFetchBlob.fetch("GET", url)
+  const masterPlaylistRelativeUrl = index.text().toString().split('\n').filter(txt => txt.includes('.m3u8')).at(-1)
+  const masterPlaylistUrl = parentUrl + '/' + masterPlaylistRelativeUrl
+  const playlistFolder = masterPlaylistRelativeUrl.split('/').slice(0, -1).join('/')
+  console.log(masterPlaylistUrl)
+  const playlistContent = (await RNFetchBlob
+    .fetch("GET", masterPlaylistUrl))
+    .text().toString()
+    .split('\n')
+    .map((line)=>{
+      if (line.endsWith('.ts')){
+        return parentUrl + '/' + playlistFolder + '/' + line
+      }
+      return line
+    })
+  
+  let fragCounter = 0;
+  let adsLine = []; 
+
+  playlistContent.forEach((line, index) => {
+    if (line.endsWith('.ts')){
+      const indexTs = line.split('/').at(-1).split('.ts')[0]
+      const indexTsInt = parseInt(indexTs.substring(indexTs.length - (index.toString().length)))
+      if (indexTsInt === fragCounter){
+        fragCounter ++
+      } else {
+        adsLine.push(index - 1)
+        adsLine.push(index)
+      }
+    }
+  })
+
+  const noAdsPlaylistContent = playlistContent.filter((_, index) => !adsLine.includes(index))
+
+  console.log(playlistContent.length, noAdsPlaylistContent.length)
+
+  await RNFetchBlob.fs.writeFile(filePath, noAdsPlaylistContent.join('\n'), 'utf8')
+
+  console.log('time used', (new Date().valueOf() - startTime)/1000, 's')
+  return filePath
+}
+
 export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const { setRoute: setAdsRoute } = useContext(AdsBannerContext);
   useFocusEffect(() => {
@@ -406,62 +460,23 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   // useInterstitialAds();
 
+  const [vodUri, setVodUri] = useState('')
+
   useEffect(()=>{
     const vodUrl: string = vod?.vod_play_list.urls?.find((url) => url.nid === currentEpisode)?.url
+    setVodUri(vodUrl)
     if (!!vodUrl){
-      getNoAdsUri('https://vip.lz-cdn10.com/20230722/15353_c9cd8517/index.m3u8').then()
+      getNoAdsUri('https://vip.lz-cdn10.com/20230722/15353_c9cd8517/index.m3u8').then(uri => {
+        console.debug(`file://${uri}`)
+        setVodUri(`file://${uri}`)
+      })
+      .catch(()=> {
+        setVodUri(vodUrl)
+        console.error('something went wrong')
+      })
     }
 
   }, [vod])
-
-  const getNoAdsUri = async (url:string) =>{
-    const parentUrl = url.split('/').filter(part => !part.includes('.m3u8')).join('/')
-    console.log('parent url ', parentUrl)
-
-
-    const filePath = RNFetchBlob.fs.dirs.DocumentDir + '/' + url
-    const fileExists = await RNFetchBlob.fs.exists(filePath);
-    
-    if (fileExists) return // early return 
-
-    const index = await RNFetchBlob.fetch("GET", url)
-    const masterPlaylistUrl = parentUrl + '/' + index.text().toString().split('\n').filter(txt => txt.includes('.m3u8')).at(-1)
-    console.log(masterPlaylistUrl)
-    const playlistContent = (await RNFetchBlob
-      .fetch("GET", masterPlaylistUrl))
-      .text().toString()
-      .split('\n')
-      .map((line)=>{
-        if (line.endsWith('.ts')){
-          return 'https://' + parentUrl + line
-        }
-        return line
-      })
-    
-    let fragCounter = 0;
-    let adsLine = []; 
-
-    playlistContent.forEach((line, index) => {
-      if (line.endsWith('.ts')){
-        const indexTs = line.split('/').at(-1).split('.ts')[0]
-        const indexTsInt = parseInt(indexTs.substring(indexTs.length - (index.toString().length)))
-        if (indexTsInt === fragCounter){
-          fragCounter ++
-        } else {
-          adsLine.push(index - 1)
-          adsLine.push(index)
-        }
-      }
-    })
-
-    const noAdsPlaylistContent = playlistContent.filter((_, index) => !adsLine.includes(index))
-
-    console.log(playlistContent.length, noAdsPlaylistContent.length)
-
-    await RNFetchBlob.fs.createFile(filePath, noAdsPlaylistContent.join('\n'), 'utf8')
-  
-    return filePath
-}
 
   return (
     <>
@@ -471,10 +486,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
         {!isVodRestricted && !dismountPlayer && !isOffline && (
           <VodPlayer
-            vod_url={
-              vod?.vod_play_list.urls?.find((url) => url.nid === currentEpisode)
-                ?.url
-            }
+            vod_url={encodeURI(vodUri)}
             ref={videoPlayerRef}
             currentTimeRef={currentTimeRef}
             initialStartTime={initTime}
