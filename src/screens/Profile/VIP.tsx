@@ -215,7 +215,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   ) => {
     const trans = {
       user_id: userState.userId,
-      product_id: currentPurchase?.productId,
+      product_id: membershipSelected?.productId,
       transaction_type: "SUBSCRIBE_VIP",
       payment_channel: paymentSelected.toUpperCase(),
       platform: APP_NAME_CONST + "-" + Platform.OS.toUpperCase(),
@@ -229,10 +229,14 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     console.log("complete trans: ", trans);
 
     addLocalTrans(trans);
+    
+    const receiptApi = IS_IOS ? `${API_DOMAIN}validate/v1/iosreceipt` : `${API_DOMAIN}validate/v1/androidreceipt`;
+    console.log('receipt api: ', receiptApi);
     const result = await axios.post(
-      `${API_DOMAIN}validate/v1/iosreceipt`,
+      receiptApi,
       trans
     );
+    
     console.log("complete transaction result");
     console.log(result.data);
     return result.data.data.data;
@@ -278,8 +282,9 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         console.warn('pop item');
         console.log(popItem);
 
+        const receiptApi = IS_IOS ? `${API_DOMAIN}validate/v1/iosreceipt` : `${API_DOMAIN}validate/v1/androidreceipt`;
         const result = await axios.post(
-          `${API_DOMAIN}validate/v1/iosreceipt`,
+          receiptApi,
           popItem
         );
         console.log("response get back");
@@ -340,36 +345,36 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
               setIsVisible(false);
               return;
             } else {
-              // setTimeout(() => setIsVisible(false), 10000);
+              setTimeout(() => setIsVisible(false), 10000);
               
-              await finishTransaction({
-                purchase: currentPurchase,
-                isConsumable: true,
-              });
-              setIsVisible(false);
-              setIsDialogOpen(true);
-              setIsSuccess(true);
+              // await finishTransaction({
+              //   purchase: currentPurchase,
+              //   isConsumable: true,
+              // });
+              // setIsVisible(false);
+              // setIsDialogOpen(true);
+              // setIsSuccess(true);
 
               const success = await saveFinishTrans("1", ""); //validate receipt with server
               receiptBuffer.set(currentPurchase.transactionId?.concat(success), success);
               
-              // if(success) {
-              //   await finishTransaction({
-              //     purchase: currentPurchase,
-              //     isConsumable: true,
-              //   });
-              //   setIsVisible(false);
-              //   setIsDialogOpen(true);
-              //   setIsSuccess(true);
-              // } else {
-              //   await finishTransaction({
-              //     purchase: currentPurchase,
-              //     isConsumable: true,
-              //   });
-              //   setIsVisible(false);
-              //   setIsDialogOpen(true);
-              //   setIsSuccess(false);
-              // }
+              if(success) {
+                await finishTransaction({
+                  purchase: currentPurchase,
+                  isConsumable: true,
+                });
+                setIsVisible(false);
+                setIsDialogOpen(true);
+                setIsSuccess(true);
+              } else {
+                await finishTransaction({
+                  purchase: currentPurchase,
+                  isConsumable: true,
+                });
+                setIsVisible(false);
+                setIsDialogOpen(true);
+                setIsSuccess(false);
+              }
             }
           }
         } catch (error) {
