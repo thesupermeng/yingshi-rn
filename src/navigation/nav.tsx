@@ -103,6 +103,7 @@ import {
   handleAppOrientation,
   handleDevicesOrientation,
   lockAppOrientation,
+  updateNetworkInfo,
 } from "../redux/actions/settingsActions";
 import { SettingsReducerState } from "../redux/reducers/settingsReducer";
 import { AdsBannerContext } from "../contexts/AdsBannerContext";
@@ -111,6 +112,7 @@ import { withIAPContext } from "react-native-iap";
 import { VipDetails } from "../components/vip/vipDetails";
 
 import { ATInterstitialRNSDK } from "./../../AnyThinkAds/ATReactNativeSDK";
+import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -375,9 +377,19 @@ export default () => {
     Orientation.addOrientationListener(appOrientationListener);
     Orientation.addDeviceOrientationListener(deviceOrientationListener);
 
+    NetInfo.configure({
+      // this is huawei url
+      reachabilityUrl: 'http://connectivitycheck.platform.hicloud.com/generate_204',
+    });
+
+    const removeNetInfoListener = NetInfo.addEventListener(
+      (state: NetInfoState) => dispatch(updateNetworkInfo(state))
+    );
+
     return () => {
       Orientation.removeOrientationListener(appOrientationListener);
       Orientation.removeDeviceOrientationListener(deviceOrientationListener);
+      removeNetInfoListener();
     };
   }, []);
 
@@ -421,9 +433,9 @@ export default () => {
       (event: any) => {
         console.warn(
           "ATInterstitialLoadFail: " +
-            event.placementId +
-            ", errorMsg: " +
-            event.errorMsg
+          event.placementId +
+          ", errorMsg: " +
+          event.errorMsg
         );
       }
     );
@@ -434,9 +446,9 @@ export default () => {
         dispatch(interstitialShow());
         console.log(
           "ATInterstitialAdShow: " +
-            event.placementId +
-            ", adCallbackInfo: " +
-            event.adCallbackInfo
+          event.placementId +
+          ", adCallbackInfo: " +
+          event.adCallbackInfo
         );
       }
     );
@@ -446,9 +458,9 @@ export default () => {
       (event: any) => {
         console.log(
           "ATInterstitialPlayStart: " +
-            event.placementId +
-            ", adCallbackInfo: " +
-            event.adCallbackInfo
+          event.placementId +
+          ", adCallbackInfo: " +
+          event.adCallbackInfo
         );
       }
     );
@@ -458,9 +470,9 @@ export default () => {
       (event: any) => {
         console.log(
           "ATInterstitialPlayEnd: " +
-            event.placementId +
-            ", adCallbackInfo: " +
-            event.adCallbackInfo
+          event.placementId +
+          ", adCallbackInfo: " +
+          event.adCallbackInfo
         );
       }
     );
@@ -470,11 +482,11 @@ export default () => {
       (event: any) => {
         console.log(
           "ATInterstitialPlayFail: " +
-            event.placementId +
-            ", errorMsg: " +
-            event.errorMsg +
-            ", adCallbackInfo: " +
-            event.adCallbackInfo
+          event.placementId +
+          ", errorMsg: " +
+          event.errorMsg +
+          ", adCallbackInfo: " +
+          event.adCallbackInfo
         );
       }
     );
@@ -484,9 +496,9 @@ export default () => {
       (event: any) => {
         console.log(
           "ATInterstitialClick: " +
-            event.placementId +
-            ", adCallbackInfo: " +
-            event.adCallbackInfo
+          event.placementId +
+          ", adCallbackInfo: " +
+          event.adCallbackInfo
         );
       }
     );
@@ -497,9 +509,9 @@ export default () => {
         dispatch(interstitialClose());
         console.log(
           "ATInterstitialClose: " +
-            event.placementId +
-            ", adCallbackInfo: " +
-            event.adCallbackInfo
+          event.placementId +
+          ", adCallbackInfo: " +
+          event.adCallbackInfo
         );
       }
     );

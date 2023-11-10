@@ -16,7 +16,7 @@ import {
 } from "react-native";
 import ScreenContainer from "../../../components/container/screenContainer";
 import MainHeader from "../../../components/header/homeHeader";
-import { useTheme } from "@react-navigation/native";
+import { useFocusEffect, useTheme } from "@react-navigation/native";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import {
   VodPlaylistResponseType,
@@ -45,6 +45,7 @@ import { useAppSelector } from "../../../hooks/hooks";
 import { RootState } from "../../../redux/store";
 import { useDispatch } from "react-redux";
 import BecomeVipOverlay from "../../../components/modal/becomeVipOverlay";
+import { SettingsReducerState } from "../../../redux/reducers/settingsReducer";
 
 interface NavType {
   has_submenu: boolean;
@@ -55,13 +56,17 @@ interface NavType {
 export default ({ navigation }: BottomTabScreenProps<any>) => {
   const { textVariants, colors, spacing } = useTheme();
   const [isOffline, setIsOffline] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const dispatch = useDispatch();
   const [showBecomeVIPOverlay, setShowBecomeVIPOverlay] = useState(false);
   const userState: userModel = useAppSelector(
     ({ userReducer }: RootState) => userReducer
   );
+  const settingsReducer: SettingsReducerState = useAppSelector(
+    ({ settingsReducer }: RootState) => settingsReducer
+  );
 
-  const { data: navOptions } = useQuery({
+  const { data: navOptions, refetch } = useQuery({
     queryKey: ["matchesNavOptions"],
     queryFn: () =>
       Api.call(Url.sportTypes, {}, "GET").then((res): NavType[] => {
@@ -84,21 +89,24 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     const state = await NetInfo.fetch();
     const offline = !(state.isConnected && state.isInternetReachable);
     setIsOffline(offline);
-    // if (!offline) {
-    //   handleRefresh();
-    // }
+    if (!offline) {
+      handleRefresh();
+    }
   };
-
   useEffect(() => {
-    const removeNetInfoSubscription = NetInfo.addEventListener(
-      (state: NetInfoState) => {
-        const offline = !(state.isConnected && state.isInternetReachable);
-        setIsOffline(offline);
-      }
-    );
-
-    return () => removeNetInfoSubscription();
+    setIsOffline(settingsReducer.isOffline);
   }, []);
+
+  useFocusEffect(useCallback(() => {
+    if (!settingsReducer.isOffline) {
+      setIsOffline(settingsReducer.isOffline);
+      handleRefresh();
+    } else {
+      return () => {
+        setIsOffline(settingsReducer.isOffline);
+      }
+    }
+  }, [settingsReducer.isOffline]));
 
   const [vipRemainingDay, setVipRemainingDay] = useState(0);
   useEffect(() => {
@@ -114,6 +122,14 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
       roundedTimeDifferenceDays <= 0 ? 0 : roundedTimeDifferenceDays;
     setVipRemainingDay(result);
   }, [userState.userCurrentTimestamp]);
+
+  const handleRefresh = useCallback(async () => {
+    setIsRefreshing(true);
+    // await queryClient.resetQueries(['watchAnytime']); // Pass the query key as an array of strings
+    await refetch();
+    setIsRefreshing(false);
+    return;
+  }, []);
 
   return (
     <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
@@ -148,14 +164,14 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
           activeOpacity={
             Number(userState.userMemberExpired) <=
               Number(userState.userCurrentTimestamp) ||
-            userState.userToken === ""
+              userState.userToken === ""
               ? 0.5
               : 1
           }
           onPress={() => {
             if (
               Number(userState.userMemberExpired) <=
-                Number(userState.userCurrentTimestamp) ||
+              Number(userState.userCurrentTimestamp) ||
               userState.userToken === ""
             ) {
               setShowBecomeVIPOverlay(true);
@@ -182,7 +198,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
 
             {Number(userState.userMemberExpired) <=
               Number(userState.userCurrentTimestamp) ||
-            userState.userToken === "" ? (
+              userState.userToken === "" ? (
               <Text
                 style={{
                   color: colors.text,

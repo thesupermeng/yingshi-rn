@@ -163,11 +163,6 @@ let App = () => {
   let adsReadyFlag = false;
 
   useEffect(() => {
-    NetInfo.configure({
-      // this is huawei url
-      reachabilityUrl: 'http://connectivitycheck.platform.hicloud.com/generate_204',
-    });
-
     getIP();
     queryClient.prefetchQuery({
       queryKey: ["recommendationList"],
