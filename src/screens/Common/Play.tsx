@@ -46,6 +46,7 @@ import {
   API_DOMAIN,
   API_DOMAIN_TEST,
   APP_NAME_CONST,
+  PLAY_HTTP_SERVER_PORT,
   UMENG_CHANNEL,
 } from "../../utility/constants";
 import { useQuery } from "@tanstack/react-query";
@@ -64,6 +65,7 @@ import useInterstitialAds from "../../hooks/useInterstitialAds";
 import {URL} from 'react-native-url-polyfill'
 import RNFetchBlob from "rn-fetch-blob";
 import { userModel } from "../../types/userType";
+import {BridgeServer} from 'react-native-http-bridge-refurbished'
 
 type VideoRef = {
   setPause: (param: boolean) => void;
@@ -78,36 +80,47 @@ const definedValue = (val: any) => {
   return val + " ";
 };
 
+const server = new BridgeServer('http_service', true) // http server for hosting no-ads m3u8
+
 const getNoAdsUri = async (url:string) =>{
-  // console.time('getNoAdsUri')
   const startTime = new Date().valueOf()
-  const parentUrl = url.split('/').filter(part => !part.includes('.m3u8')).join('/')
-  console.log('parent url ', parentUrl)
+  const parentUrl = url.split('/').filter(part => !part.includes('.m3u8')).join('/') // get https://domain/subfolder/subfolder
+  // console.log('parent url ', parentUrl)
 
 
-  const filePath = RNFetchBlob.fs.dirs.DocumentDir + '/' + parentUrl.replaceAll(':', '').replaceAll('//', '').replaceAll(/^\s+|\s+$/gm, '').replaceAll('.', '') + "/index.m3u8"
-  const fileExists = await RNFetchBlob.fs.exists(filePath);
-
-  // if (fileExists) return // early return 
+  // const filePath =
+  //   RNFetchBlob.fs.dirs.DocumentDir +
+  //   '/' +
+  //   parentUrl
+  //     .replaceAll(':', '')
+  //     .replaceAll('//', '')
+  //     .replaceAll(/^\s+|\s+$/gm, '')
+  //     .replaceAll('.', '') +
+  //   '/index.m3u8';
 
   const index = await RNFetchBlob.fetch("GET", url)
-  const masterPlaylistRelativeUrl = index.text().toString().split('\n').filter(txt => txt.includes('.m3u8')).at(-1)
+  const masterPlaylistRelativeUrl = index
+    .text()
+    .toString()
+    .split('\n')
+    .filter(txt => txt.includes('.m3u8'))
+    .at(-1); // get subfolder/subfolder/mixed.m3u8
   const masterPlaylistUrl = parentUrl + '/' + masterPlaylistRelativeUrl
-  const playlistFolder = masterPlaylistRelativeUrl.split('/').slice(0, -1).join('/')
-  // console.log(masterPlaylistUrl)
+
+  const playlistFolder = masterPlaylistRelativeUrl.split('/').slice(0, -1).join('/') // get /subfolder/subfolder/
+
   const playlistContent = (await RNFetchBlob
     .fetch("GET", masterPlaylistUrl))
     .text().toString()
-  if (playlistContent.includes('file not found')) throw new Error("Error: master playlist content not found");
+
+  if (playlistContent.includes('file not found')) throw new Error("Error: master playlist content not found"); // if file not found, throw err
   
-  const playlist = playlistContent
-    .split('\n')
-    .map((line)=>{
-      if (line.endsWith('.ts')){
-        return parentUrl + '/' + playlistFolder + '/' + line
-      }
-      return line
-    })
+  const playlist = playlistContent.split('\n').map(line => {
+    if (line.endsWith('.ts')) {
+      return parentUrl + '/' + playlistFolder + '/' + line;
+    }
+    return line;
+  });
   
   let fragCounter = 0;
   let adsLine: number[] = []; 
@@ -127,13 +140,16 @@ const getNoAdsUri = async (url:string) =>{
 
   const noAdsPlaylistContent = playlist.filter((_, index) => !adsLine.includes(index))
 
-  console.log(playlistContent.length, noAdsPlaylistContent.length)
+  // console.log(playlistContent.length, noAdsPlaylistContent.length)
 
-  await RNFetchBlob.fs.writeFile(filePath, noAdsPlaylistContent.join('\n'), 'utf8')
+  server.get('/index.m3u8', async(req, res) => {
+    res.send(200, 'application/vnd.apple.mpegurl', noAdsPlaylistContent.join('\n'))
+  })
 
-  console.log('time used', (new Date().valueOf() - startTime)/1000, 's')
-  console.log('file path', filePath)
-  return filePath
+  server.listen(PLAY_HTTP_SERVER_PORT)
+  console.debug('processing took ' , (new Date().valueOf() - startTime) / 1000,'s')
+
+  return `http://localhost:${PLAY_HTTP_SERVER_PORT}/index.m3u8`
 }
 
 export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
@@ -470,11 +486,11 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   const [vodUri, setVodUri] = useState('')
 
-  useEffect(() => {
-    const vodUrl: string = vod?.vod_play_list.urls?.find(
-      url => url.nid === currentEpisode,
-    )?.url;
+  const vodUrl: string = vod?.vod_play_list.urls?.find(
+    url => url.nid === currentEpisode,
+  )?.url;
 
+  useEffect(() => {
     if (!!vodUrl) {
       if ( // not vip, just set as default url 
         Number(userState.userMemberExpired) <=
@@ -484,18 +500,23 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
         setVodUri(vodUrl);
       } 
       else { // is vip, remove in-video ads 
-        getNoAdsUri(vodUrl)
+        getNoAdsUri("https://vip.lz-cdn10.com/20230722/15353_c9cd8517/index.m3u8")
           .then(uri => {
-            // console.debug(`file://${uri}`)
-            setVodUri(`${uri}`);
+            setVodUri(uri);
           })
-          .catch(() => {
+          .catch((err) => {
             setVodUri(vodUrl);
-            console.error('something went wrong');
+            console.error('something went wrong', err);
           });
       }
     }
-  }, [vod]);
+
+    return () => {
+      server.stop(); // stop server when unmount
+    }
+
+
+  }, [vodUrl]);
 
   return (
     <>
