@@ -86,7 +86,7 @@ const getNoAdsUri = async (url:string) =>{
 
   const filePath = RNFetchBlob.fs.dirs.DocumentDir + '/' + parentUrl.replaceAll(':', '').replaceAll('//', '').replaceAll(/^\s+|\s+$/gm, '').replaceAll('.', '') + "/index.m3u8"
   const fileExists = await RNFetchBlob.fs.exists(filePath);
-  
+
   // if (fileExists) return // early return 
 
   const index = await RNFetchBlob.fetch("GET", url)
@@ -97,6 +97,9 @@ const getNoAdsUri = async (url:string) =>{
   const playlistContent = (await RNFetchBlob
     .fetch("GET", masterPlaylistUrl))
     .text().toString()
+  if (playlistContent.includes('file not found')) throw new Error("Error: master playlist content not found");
+  
+  const playlist = playlistContent
     .split('\n')
     .map((line)=>{
       if (line.endsWith('.ts')){
@@ -108,7 +111,7 @@ const getNoAdsUri = async (url:string) =>{
   let fragCounter = 0;
   let adsLine: number[] = []; 
 
-  playlistContent.forEach((line, index) => {
+  playlist.forEach((line, index) => {
     if (line.endsWith('.ts')){
       const indexTs = line.split('/').at(-1).split('.ts')[0]
       const indexTsInt = parseInt(indexTs.substring(indexTs.length - (index.toString().length)))
@@ -128,6 +131,7 @@ const getNoAdsUri = async (url:string) =>{
   await RNFetchBlob.fs.writeFile(filePath, noAdsPlaylistContent.join('\n'), 'utf8')
 
   console.log('time used', (new Date().valueOf() - startTime)/1000, 's')
+  console.log('file path', filePath)
   return filePath
 }
 
@@ -464,9 +468,10 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   useEffect(()=>{
     const vodUrl: string = vod?.vod_play_list.urls?.find((url) => url.nid === currentEpisode)?.url
+    console.debug(vodUrl)
     // setVodUri(vodUrl)
     if (!!vodUrl){
-      getNoAdsUri('https://vip.lz-cdn10.com/20230722/15353_c9cd8517/index.m3u8').then(uri => {
+      getNoAdsUri(vodUrl).then(uri => {
         // console.debug(`file://${uri}`)
         setVodUri(`${uri}`)
       })
