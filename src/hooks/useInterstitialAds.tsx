@@ -122,7 +122,11 @@ const useInterstitialAds = () => {
         isInterstitialReady(interstitialPlacementId);
       }, 500);
     } else {
-      console.log("VIP no ads");
+      if (retryCount >= 3) {
+        console.log("exceed retry limit");
+      } else {
+        console.log("VIP no ads");
+      }
     }
   };
 

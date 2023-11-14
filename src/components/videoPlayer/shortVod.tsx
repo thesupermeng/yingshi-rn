@@ -13,6 +13,7 @@ interface Props {
     isShowVideo: boolean,
     currentDuration: number,
     updateVideoDuration: (duration: number) => any,
+    isActive: boolean,
 }
 
 function ShortVod({
@@ -26,6 +27,7 @@ function ShortVod({
     isShowVideo,
     currentDuration,
     updateVideoDuration,
+    isActive,
 }: Props) {
     const [isShowBottomSheet, setShowBottomSheet] = useState(false);
     const [currentVod, setVod] = useState(vod);
@@ -54,6 +56,7 @@ function ShortVod({
                 isShowVideo={isShowVideo}
                 currentDuration={currentDuration}
                 updateVideoDuration={updateVideoDuration}
+                isActive={isActive}
             />
             <CollectionBottomSheet
                 isVisible={isShowBottomSheet}

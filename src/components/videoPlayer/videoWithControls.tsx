@@ -40,7 +40,6 @@ interface Props {
     setPlaybackRate: (value: number) => void,
     changeEpisodeAndPlay: (ep: any) => void,
     onShare: () => any,
-    isInBackground: boolean,
 }
 
 const VideoWithControls = ({
@@ -78,50 +77,47 @@ const VideoWithControls = ({
     setPlaybackRate,
     changeEpisodeAndPlay,
     onShare,
-    isInBackground,
 }: Props) => {
 
     return (
         <>
-            {!isInBackground &&
-                <Video
-                    mixWithOthers="mix"
-                    disableFocus
-                    rate={playbackRate}
-                    ignoreSilentSwitch="ignore"
-                    ref={ref => (videoPlayerRef.current = ref)}
-                    fullscreen={false}  // make it false to prevent duplicate fullscreen function 
-                    onBuffer={onBuffer}
-                    paused={isPaused} // Pause video when app is in the background
-                    resizeMode="contain"
-                    onEnd={() => {
-                        const nextEpi = getNextEpisode();
-                        if (nextEpi !== undefined) {
-                            nextEpi();
-                        }
-                    }}
-                    source={
-                        vod_source !== undefined
-                            ? vod_source
-                            : {
-                                uri: vod_url,
-                                headers: {
-                                    origin: 'https://v.kylintv.com',
-                                    referer: 'https://v.kylintv.com',
-                                },
-                            }
+            <Video
+                mixWithOthers="mix"
+                disableFocus
+                rate={playbackRate}
+                ignoreSilentSwitch="ignore"
+                ref={ref => (videoPlayerRef.current = ref)}
+                fullscreen={false}  // make it false to prevent duplicate fullscreen function 
+                onBuffer={onBuffer}
+                paused={isPaused} // Pause video when app is in the background
+                resizeMode="contain"
+                onEnd={() => {
+                    const nextEpi = getNextEpisode();
+                    if (nextEpi !== undefined) {
+                        nextEpi();
                     }
-                    onLoad={onVideoLoaded}
-                    progressUpdateInterval={1000}
-                    onProgress={onVideoProgessing}
-                    onSeek={data => {
-                        if (currentTimeRef) {
-                            currentTimeRef.current = data.currentTime;
+                }}
+                source={
+                    vod_source !== undefined
+                        ? vod_source
+                        : {
+                            uri: vod_url,
+                            headers: {
+                                origin: 'https://v.kylintv.com',
+                                referer: 'https://v.kylintv.com',
+                            },
                         }
-                    }}
-                    style={styles.video}
-                />
-            }
+                }
+                onLoad={onVideoLoaded}
+                progressUpdateInterval={1000}
+                onProgress={onVideoProgessing}
+                onSeek={data => {
+                    if (currentTimeRef) {
+                        currentTimeRef.current = data.currentTime;
+                    }
+                }}
+                style={styles.video}
+            />
             <VideoControlsOverlay
                 ref={controlsRef}
                 videoUrl={vod_url ?? ''}

@@ -97,7 +97,7 @@ export default forwardRef<VideoRef, Props>(
       rangeSize,
       episodes,
       autoPlayNext = true,
-      onShare = () => {},
+      onShare = () => { },
       movieList = [],
       showGuide = false,
       streams = [],
@@ -106,7 +106,7 @@ export default forwardRef<VideoRef, Props>(
       appOrientation,
       devicesOrientation,
       lockOrientation,
-      handleSaveVod = () => {},
+      handleSaveVod = () => { },
     }: Props,
     ref
   ) => {
@@ -490,7 +490,6 @@ export default forwardRef<VideoRef, Props>(
               setPlaybackRate={setPlaybackRate}
               changeEpisodeAndPlay={changeEpisodeAndPlay}
               onShare={onShare}
-              isInBackground={isInBackground}
             />
           )}
         </View>
