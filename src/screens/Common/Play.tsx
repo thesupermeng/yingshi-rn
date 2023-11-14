@@ -84,7 +84,7 @@ const getNoAdsUri = async (url:string) =>{
   console.log('parent url ', parentUrl)
 
 
-  const filePath = RNFetchBlob.fs.dirs.DocumentDir + '/' + url.replace(':', '').replace('/', '_').replace(/^\s+|\s+$/gm, '')
+  const filePath = RNFetchBlob.fs.dirs.DocumentDir + '/' + parentUrl.replaceAll(':', '').replaceAll('//', '').replaceAll(/^\s+|\s+$/gm, '').replaceAll('.', '') + "/index.m3u8"
   const fileExists = await RNFetchBlob.fs.exists(filePath);
   
   // if (fileExists) return // early return 
@@ -93,7 +93,7 @@ const getNoAdsUri = async (url:string) =>{
   const masterPlaylistRelativeUrl = index.text().toString().split('\n').filter(txt => txt.includes('.m3u8')).at(-1)
   const masterPlaylistUrl = parentUrl + '/' + masterPlaylistRelativeUrl
   const playlistFolder = masterPlaylistRelativeUrl.split('/').slice(0, -1).join('/')
-  console.log(masterPlaylistUrl)
+  // console.log(masterPlaylistUrl)
   const playlistContent = (await RNFetchBlob
     .fetch("GET", masterPlaylistUrl))
     .text().toString()
@@ -106,7 +106,7 @@ const getNoAdsUri = async (url:string) =>{
     })
   
   let fragCounter = 0;
-  let adsLine = []; 
+  let adsLine: number[] = []; 
 
   playlistContent.forEach((line, index) => {
     if (line.endsWith('.ts')){
@@ -467,8 +467,8 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
     // setVodUri(vodUrl)
     if (!!vodUrl){
       getNoAdsUri('https://vip.lz-cdn10.com/20230722/15353_c9cd8517/index.m3u8').then(uri => {
-        console.debug(`file://${uri}`)
-        setVodUri(`file://${uri}`)
+        // console.debug(`file://${uri}`)
+        setVodUri(`${uri}`)
       })
       .catch(()=> {
         setVodUri(vodUrl)
@@ -486,7 +486,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
         {!isVodRestricted && !dismountPlayer && !isOffline && (
           <VodPlayer
-            vod_url={encodeURI(vodUri)}
+            vod_url={vodUri}
             ref={videoPlayerRef}
             currentTimeRef={currentTimeRef}
             initialStartTime={initTime}
