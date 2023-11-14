@@ -500,7 +500,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
         setVodUri(vodUrl);
       } 
       else { // is vip, remove in-video ads 
-        getNoAdsUri("https://vip.lz-cdn10.com/20230722/15353_c9cd8517/index.m3u8")
+        getNoAdsUri(vodUrl)
           .then(uri => {
             setVodUri(uri);
           })
