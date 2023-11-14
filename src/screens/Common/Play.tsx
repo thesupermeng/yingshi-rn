@@ -63,6 +63,7 @@ import { AdsBannerContext } from "../../contexts/AdsBannerContext";
 import useInterstitialAds from "../../hooks/useInterstitialAds";
 import {URL} from 'react-native-url-polyfill'
 import RNFetchBlob from "rn-fetch-blob";
+import { userModel } from "../../types/userType";
 
 type VideoRef = {
   setPause: (param: boolean) => void;
@@ -124,7 +125,7 @@ const getNoAdsUri = async (url:string) =>{
     }
   })
 
-  const noAdsPlaylistContent = playlistContent.filter((_, index) => !adsLine.includes(index))
+  const noAdsPlaylistContent = playlist.filter((_, index) => !adsLine.includes(index))
 
   console.log(playlistContent.length, noAdsPlaylistContent.length)
 
@@ -151,6 +152,9 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   );
   const settingsReducer: SettingsReducerState = useAppSelector(
     ({ settingsReducer }: RootState) => settingsReducer
+  );
+  const userState: userModel = useAppSelector(
+    ({ userReducer }: RootState) => userReducer
   );
   const vod = vodReducer.playVod.vod;
   // const [vod, setVod] = useState(vodReducer.playVod.vod);
@@ -466,22 +470,32 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   const [vodUri, setVodUri] = useState('')
 
-  useEffect(()=>{
-    const vodUrl: string = vod?.vod_play_list.urls?.find((url) => url.nid === currentEpisode)?.url
-    console.debug(vodUrl)
-    // setVodUri(vodUrl)
-    if (!!vodUrl){
-      getNoAdsUri(vodUrl).then(uri => {
-        // console.debug(`file://${uri}`)
-        setVodUri(`${uri}`)
-      })
-      .catch(()=> {
-        setVodUri(vodUrl)
-        console.error('something went wrong')
-      })
-    }
+  useEffect(() => {
+    const vodUrl: string = vod?.vod_play_list.urls?.find(
+      url => url.nid === currentEpisode,
+    )?.url;
 
-  }, [vod])
+    if (!!vodUrl) {
+      if ( // not vip, just set as default url 
+        Number(userState.userMemberExpired) <=
+          Number(userState.userCurrentTimestamp) ||
+        userState.userToken === ''
+      ) {
+        setVodUri(vodUrl);
+      } 
+      else { // is vip, remove in-video ads 
+        getNoAdsUri(vodUrl)
+          .then(uri => {
+            // console.debug(`file://${uri}`)
+            setVodUri(`${uri}`);
+          })
+          .catch(() => {
+            setVodUri(vodUrl);
+            console.error('something went wrong');
+          });
+      }
+    }
+  }, [vod]);
 
   return (
     <>
