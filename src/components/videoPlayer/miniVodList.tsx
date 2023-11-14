@@ -137,6 +137,7 @@ export default forwardRef<MiniVodRef, Props>(
                         isShowVideo={current === index && !isScrolling && !isPressTabScroll && isActive}
                         currentDuration={videoCurrentDurations[index]}
                         updateVideoDuration={(duration) => updateVideoDuration(index, duration)}
+                        isActive={isActive}
                     />
                 )}
             </View>

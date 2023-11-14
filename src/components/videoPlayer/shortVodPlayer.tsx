@@ -34,6 +34,7 @@ interface Props {
   isShowVideo: boolean,
   currentDuration: number,
   updateVideoDuration: (duration: number) => any,
+  isActive: boolean,
 }
 
 function ShortVideoPlayer({
@@ -48,6 +49,7 @@ function ShortVideoPlayer({
   isShowVideo,
   currentDuration,
   updateVideoDuration,
+  isActive,
 }: Props) {
   const maxLength = 10;
 
@@ -111,6 +113,12 @@ function ShortVideoPlayer({
     };
   }, [currentVod]);
 
+  useEffect(() => {
+    if (!isActive && showIcon) {
+      setShowIcon(false);
+    }
+  }, [isActive]);
+
   const queryClient = new QueryClient();
 
   const openBottomSheet = useCallback(() => {
@@ -131,6 +139,7 @@ function ShortVideoPlayer({
     overlayRef.current = true
     timer.current = setTimeout(() => setShowOverlay(false), 3000);
   };
+
   const handleSeek = useCallback((value: number) => {
     if (!isVideoReady) return;
 
