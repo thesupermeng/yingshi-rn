@@ -68,6 +68,12 @@ import { TermsAcceptContextProvider as TermsAcceptContextProviderA } from "./src
 import { AdsBannerContextProvider } from "./src/contexts/AdsBannerContext";
 import { AdsBannerContextProvider as AdsBannerContextProviderA } from "./srcA/contexts/AdsBannerContext";
 import NetInfo from "@react-native-community/netinfo";
+import * as Sentry from '@sentry/react-native';
+
+Sentry.init({
+  dsn: 'https://2239481cf50fd768a7d45bcd7e537462@o4506222962999296.ingest.sentry.io/4506222964965376',
+  tracesSampleRate: 1.0,
+});
 
 let App = () => {
   // appsFlyer.initSdk(
@@ -515,6 +521,6 @@ let codePushOptions = {
   },
 };
 
-App = CodePush(codePushOptions)(App);
+// App = CodePush(codePushOptions)(App);
 
-export default App;
+export default Sentry.wrap(App);
