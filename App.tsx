@@ -73,6 +73,11 @@ import * as Sentry from '@sentry/react-native';
 Sentry.init({
   dsn: 'https://2239481cf50fd768a7d45bcd7e537462@o4506222962999296.ingest.sentry.io/4506222964965376',
   tracesSampleRate: 1.0,
+  _experiments: {
+    // profilesSampleRate is relative to tracesSampleRate.
+    // Here, we'll capture profiles for 100% of transactions.
+    profilesSampleRate: 1.0,
+  },
 });
 
 let App = () => {
