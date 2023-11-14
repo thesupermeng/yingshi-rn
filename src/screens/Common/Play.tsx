@@ -46,6 +46,7 @@ import {
   API_DOMAIN,
   API_DOMAIN_TEST,
   APP_NAME_CONST,
+  PLAY_HTTP_SERVER_PORT,
   UMENG_CHANNEL,
 } from "../../utility/constants";
 import { useQuery } from "@tanstack/react-query";
@@ -61,6 +62,10 @@ import NetInfo from "@react-native-community/netinfo";
 import { lockAppOrientation } from "../../redux/actions/settingsActions";
 import { AdsBannerContext } from "../../contexts/AdsBannerContext";
 import useInterstitialAds from "../../hooks/useInterstitialAds";
+import {URL} from 'react-native-url-polyfill'
+import RNFetchBlob from "rn-fetch-blob";
+import { userModel } from "../../types/userType";
+import {BridgeServer} from 'react-native-http-bridge-refurbished'
 
 type VideoRef = {
   setPause: (param: boolean) => void;
@@ -74,6 +79,78 @@ const definedValue = (val: any) => {
   }
   return val + " ";
 };
+
+const server = new BridgeServer('http_service', true) // http server for hosting no-ads m3u8
+
+const getNoAdsUri = async (url:string) =>{
+  const startTime = new Date().valueOf()
+  const parentUrl = url.split('/').filter(part => !part.includes('.m3u8')).join('/') // get https://domain/subfolder/subfolder
+  // console.log('parent url ', parentUrl)
+
+
+  // const filePath =
+  //   RNFetchBlob.fs.dirs.DocumentDir +
+  //   '/' +
+  //   parentUrl
+  //     .replaceAll(':', '')
+  //     .replaceAll('//', '')
+  //     .replaceAll(/^\s+|\s+$/gm, '')
+  //     .replaceAll('.', '') +
+  //   '/index.m3u8';
+
+  const index = await RNFetchBlob.fetch("GET", url)
+  const masterPlaylistRelativeUrl = index
+    .text()
+    .toString()
+    .split('\n')
+    .filter(txt => txt.includes('.m3u8'))
+    .at(-1); // get subfolder/subfolder/mixed.m3u8
+  const masterPlaylistUrl = parentUrl + '/' + masterPlaylistRelativeUrl
+
+  const playlistFolder = masterPlaylistRelativeUrl.split('/').slice(0, -1).join('/') // get /subfolder/subfolder/
+
+  const playlistContent = (await RNFetchBlob
+    .fetch("GET", masterPlaylistUrl))
+    .text().toString()
+
+  if (playlistContent.includes('file not found')) throw new Error("Error: master playlist content not found"); // if file not found, throw err
+  
+  const playlist = playlistContent.split('\n').map(line => {
+    if (line.endsWith('.ts')) {
+      return parentUrl + '/' + playlistFolder + '/' + line;
+    }
+    return line;
+  });
+  
+  let fragCounter = 0;
+  let adsLine: number[] = []; 
+
+  playlist.forEach((line, index) => {
+    if (line.endsWith('.ts')){
+      const indexTs = line.split('/').at(-1).split('.ts')[0]
+      const indexTsInt = parseInt(indexTs.substring(indexTs.length - (index.toString().length)))
+      if (indexTsInt === fragCounter){
+        fragCounter ++
+      } else {
+        adsLine.push(index - 1)
+        adsLine.push(index)
+      }
+    }
+  })
+
+  const noAdsPlaylistContent = playlist.filter((_, index) => !adsLine.includes(index))
+
+  // console.log(playlistContent.length, noAdsPlaylistContent.length)
+
+  server.get('/index.m3u8', async(req, res) => {
+    res.send(200, 'application/vnd.apple.mpegurl', noAdsPlaylistContent.join('\n'))
+  })
+
+  server.listen(PLAY_HTTP_SERVER_PORT)
+  console.debug('processing took ' , (new Date().valueOf() - startTime) / 1000,'s')
+
+  return `http://localhost:${PLAY_HTTP_SERVER_PORT}/index.m3u8`
+}
 
 export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const { setRoute: setAdsRoute } = useContext(AdsBannerContext);
@@ -91,6 +168,9 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   );
   const settingsReducer: SettingsReducerState = useAppSelector(
     ({ settingsReducer }: RootState) => settingsReducer
+  );
+  const userState: userModel = useAppSelector(
+    ({ userReducer }: RootState) => userReducer
   );
   const vod = vodReducer.playVod.vod;
   // const [vod, setVod] = useState(vodReducer.playVod.vod);
@@ -391,7 +471,41 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
     dispatch(lockAppOrientation(orientation));
   };
 
-  useInterstitialAds();
+  // useInterstitialAds();
+
+  const [vodUri, setVodUri] = useState('')
+
+  const vodUrl: string = vod?.vod_play_list.urls?.find(
+    url => url.nid === currentEpisode,
+  )?.url;
+
+  useEffect(() => {
+    if (!!vodUrl) {
+      if ( // not vip, just set as default url 
+        Number(userState.userMemberExpired) <=
+          Number(userState.userCurrentTimestamp) ||
+        userState.userToken === ''
+      ) {
+        setVodUri(vodUrl);
+      } 
+      else { // is vip, remove in-video ads 
+        getNoAdsUri(vodUrl)
+          .then(uri => {
+            setVodUri(uri);
+          })
+          .catch((err) => {
+            setVodUri(vodUrl);
+            console.error('something went wrong', err);
+          });
+      }
+    }
+
+    return () => {
+      server.stop(); // stop server when unmount
+    }
+
+
+  }, [vodUrl]);
 
   return (
     <>
@@ -401,10 +515,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
         {!isVodRestricted && !dismountPlayer && !isOffline && (
           <VodPlayer
-            vod_url={
-              vod?.vod_play_list.urls?.find((url) => url.nid === currentEpisode)
-                ?.url
-            }
+            vod_url={vodUri}
             ref={videoPlayerRef}
             currentTimeRef={currentTimeRef}
             initialStartTime={initTime}
