@@ -108,7 +108,7 @@
     "react-native-system-setting": "^1.7.6",
     "react-native-tab-view": "^3.5.2",
     "react-native-vector-icons": "^9.2.0",
-    "react-native-video": "^6.0.0-alpha.8",
+    "react-native-video": "^6.0.0-alpha.10",
     "react-native-webview": "^11.23.1",
     "react-redux": "^8.0.7",
     "redux": "^4.2.1",
