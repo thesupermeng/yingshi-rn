@@ -27,6 +27,7 @@ type PlacementId =
   | null;
 
 let homePageShown = false;
+let retryCount = 0;
 const useInterstitialAds = () => {
   const [adsReadyFlag, setAdsReadyFlag] = useState(false);
   const userState: userModel = useAppSelector(
@@ -109,10 +110,12 @@ const useInterstitialAds = () => {
   const showInterstitial = async (interstitialPlacementId: PlacementId) => {
     // not vip
     if (
-      Number(userState.userMemberExpired) <=
+      (Number(userState.userMemberExpired) <=
         Number(userState.userCurrentTimestamp) ||
-      userState.userToken === ""
+        userState.userToken === "") &&
+      retryCount < 3
     ) {
+      retryCount += 1;
       console.log("=======  not vip ======");
       loadInterstitial(interstitialPlacementId);
       setTimeout(() => {
@@ -124,6 +127,7 @@ const useInterstitialAds = () => {
   };
 
   useEffect(() => {
+    retryCount = 0;
     let adsID: PlacementId;
     adsID = null;
 
@@ -151,6 +155,7 @@ const useInterstitialAds = () => {
   }, [currentRoute]);
 
   useEffect(() => {
+    retryCount = 0;
     loadInterstitial(
       Platform.OS === "android"
         ? ANDROID_HOME_PAGE_POP_UP_ADS
