@@ -134,7 +134,7 @@ export default forwardRef<MiniVodRef, Props>(
                         onManualPause={(current) => {
                             setPause(!current);
                         }}
-                        isShowVideo={current === index && !isScrolling && !isPressTabScroll && isActive}
+                        isShowVideo={current === index && !isScrolling && !isPressTabScroll}
                         currentDuration={videoCurrentDurations[index]}
                         updateVideoDuration={(duration) => updateVideoDuration(index, duration)}
                         isActive={isActive}

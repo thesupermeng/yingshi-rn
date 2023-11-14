@@ -490,8 +490,6 @@ export default forwardRef<VideoRef, Props>(
               setPlaybackRate={setPlaybackRate}
               changeEpisodeAndPlay={changeEpisodeAndPlay}
               onShare={onShare}
-              isInBackground={false}
-            // isInBackground={isInBackground}
             />
           )}
         </View>
