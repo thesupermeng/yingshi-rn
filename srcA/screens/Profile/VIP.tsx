@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -16,7 +16,7 @@ import {
 } from "react-native-iap";
 import ScreenContainer from "../../components/container/screenContainer";
 import { RootStackScreenProps } from "../../types/navigationTypes";
-import { useFocusEffect, useTheme } from "@react-navigation/native";
+import { useTheme } from "@react-navigation/native";
 import { RootState } from "../../redux/store";
 
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
@@ -42,7 +42,6 @@ import { showToast } from "../../Sports/utility/toast";
 import { showLoginAction } from "../../redux/actions/screenAction";
 import SpinnerOverlay from "../../components/modal/SpinnerOverlay";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { SettingsReducerState } from "../../redux/reducers/settingsReducer";
 
 const subscriptionSkus = Platform.select({
   ios: ["yingshi_vip_month", "yingshi_vip_6months", "monthly_subscription"],
@@ -75,9 +74,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const userState: userModel = useAppSelector(
     ({ userReducer }: RootState) => userReducer
   );
-  const settingsReducer: SettingsReducerState = useAppSelector(
-    ({ settingsReducer }: RootState) => settingsReducer
-  );
+
   const [loading, setLoading] = useState(true);
   const [isVisible, setIsVisible] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
@@ -116,16 +113,21 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     }
   };
 
-  useFocusEffect(useCallback(() => {
-    if (!settingsReducer.isOffline) {
-      setIsOffline(settingsReducer.isOffline);
-      handleRefresh();
-    } else {
-      return () => {
-        setIsOffline(settingsReducer.isOffline);
+  useEffect(() => {
+    const removeNetInfoSubscription = NetInfo.addEventListener(
+      (state: NetInfoState) => {
+        const offline = !(
+          state.isConnected &&
+          (state.isInternetReachable === true ||
+          state.isInternetReachable === null
+            ? true
+            : false)
+        );
+        setIsOffline(offline);
       }
-    }
-  }, [settingsReducer.isOffline]));
+    );
+    return () => removeNetInfoSubscription();
+  }, []);
 
   const fetchData = async () => {
     const response = await axios.get(`${API_DOMAIN_TEST}products/v1/products`);
@@ -151,7 +153,6 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   };
 
   useEffect(() => {
-    setIsOffline(settingsReducer.isOffline);
     fetchData();
   }, []);
 
@@ -173,6 +174,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
       return; //early return
     }
 
+    setIsBtnEnable(false);
     try {
       if (paymentSelected === "Apple Pay") {
         console.log("apple pay payment");
@@ -181,6 +183,13 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         await getProducts({ skus: [membershipSelected.productSKU] });
 
         await requestPurchase({ sku: membershipSelected.productSKU });
+        setIsVisible(false);
+      } else if (paymentSelected === "Google Pay") {
+        console.log("google pay method");
+        setIsVisible(true);
+        await getProducts({ skus: [membershipSelected.productSKU] });
+
+        await requestPurchase({ skus: [membershipSelected.productSKU] });
         setIsVisible(false);
       } else {
         console.log("others payment method");
@@ -209,13 +218,13 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const saveFinishTrans = async (transStatus: string, error: any) => {
     const trans = {
       user_id: userState.userId,
-      product_id: membershipSelected.productId,
+      product_id: membershipSelected?.productId,
       transaction_type: "SUBSCRIBE_VIP",
       payment_channel: paymentSelected.toUpperCase(),
       platform: APP_NAME_CONST + "-" + Platform.OS.toUpperCase(),
       channel_transaction_id: currentPurchase?.transactionId,
       transaction_receipt: currentPurchase
-        ? currentPurchase.transactionReceipt
+        ? JSON.stringify(currentPurchase.transactionReceipt)
         : error.toString(),
       transaction_status: parseInt(transStatus),
       is_sb: 1,
@@ -223,10 +232,13 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     console.log("complete trans: ", trans);
 
     addLocalTrans(trans);
-    const result = await axios.post(
-      `${API_DOMAIN}validate/v1/iosreceipt`,
-      trans
-    );
+
+    const receiptApi = IS_IOS
+      ? `${API_DOMAIN}validate/v1/iosreceipt`
+      : `${API_DOMAIN}validate/v1/androidreceipt`;
+    console.log("receipt api: ", receiptApi);
+    const result = await axios.post(receiptApi, trans);
+
     console.log("complete transaction result");
     console.log(result.data);
     return result.data.data.data;
@@ -272,10 +284,10 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         console.warn("pop item");
         console.log(popItem);
 
-        const result = await axios.post(
-          `${API_DOMAIN}validate/v1/iosreceipt`,
-          popItem
-        );
+        const receiptApi = IS_IOS
+          ? `${API_DOMAIN}validate/v1/iosreceipt`
+          : `${API_DOMAIN}validate/v1/androidreceipt`;
+        const result = await axios.post(receiptApi, popItem);
         console.log("response get back");
         console.log(result.data);
 
@@ -337,15 +349,15 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
               setIsVisible(false);
               return;
             } else {
-              // setTimeout(() => setIsVisible(false), 10000);
+              setTimeout(() => setIsVisible(false), 10000);
 
-              await finishTransaction({
-                purchase: currentPurchase,
-                isConsumable: true,
-              });
-              setIsVisible(false);
-              setIsDialogOpen(true);
-              setIsSuccess(true);
+              // await finishTransaction({
+              //   purchase: currentPurchase,
+              //   isConsumable: true,
+              // });
+              // setIsVisible(false);
+              // setIsDialogOpen(true);
+              // setIsSuccess(true);
 
               const success = await saveFinishTrans("1", ""); //validate receipt with server
               receiptBuffer.set(
@@ -353,23 +365,23 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                 success
               );
 
-              // if(success) {
-              //   await finishTransaction({
-              //     purchase: currentPurchase,
-              //     isConsumable: true,
-              //   });
-              //   setIsVisible(false);
-              //   setIsDialogOpen(true);
-              //   setIsSuccess(true);
-              // } else {
-              //   await finishTransaction({
-              //     purchase: currentPurchase,
-              //     isConsumable: true,
-              //   });
-              //   setIsVisible(false);
-              //   setIsDialogOpen(true);
-              //   setIsSuccess(false);
-              // }
+              if (success) {
+                await finishTransaction({
+                  purchase: currentPurchase,
+                  isConsumable: true,
+                });
+                setIsVisible(false);
+                setIsDialogOpen(true);
+                setIsSuccess(true);
+              } else {
+                await finishTransaction({
+                  purchase: currentPurchase,
+                  isConsumable: true,
+                });
+                setIsVisible(false);
+                setIsDialogOpen(true);
+                setIsSuccess(false);
+              }
             }
           }
         } catch (error) {
@@ -506,7 +518,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                   padding: 8,
                   opacity:
                     userState.userPaidVipList.total_purchased_days > 0 ||
-                      userState.userAccumulateRewardDay > 0
+                    userState.userAccumulateRewardDay > 0
                       ? 100
                       : 0,
                 }}
