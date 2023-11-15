@@ -202,19 +202,19 @@ bool isAdClosed = NO;
     self.textView.text = @"";
 }
 
-- (void)showLog:(NSString *)logStr {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        NSString *logS = self.textView.text;
-        NSString *log = nil;
-        if (![logS isEqualToString:@""]) {
-            log = [NSString stringWithFormat:@"%@\n%@", logS, logStr];
-        } else {
-            log = [NSString stringWithFormat:@"%@", logStr];
-        }
-        self.textView.text = log;
-        [self.textView scrollRangeToVisible:NSMakeRange(self.textView.text.length, 1)];
-    });
-}
+// - (void)showLog:(NSString *)logStr {
+//     dispatch_async(dispatch_get_main_queue(), ^{
+//         NSString *logS = self.textView.text;
+//         NSString *log = nil;
+//         if (![logS isEqualToString:@""]) {
+//             log = [NSString stringWithFormat:@"%@\n%@", logS, logStr];
+//         } else {
+//             log = [NSString stringWithFormat:@"%@", logStr];
+//         }
+//         self.textView.text = log;
+//         [self.textView scrollRangeToVisible:NSMakeRange(self.textView.text.length, 1)];
+//     });
+// }
 
 #pragma mark - Action
 // 加载广告
@@ -321,11 +321,11 @@ bool isAdClosed = NO;
                                                         window:mainWindow
                                                          extra:mutableDict
                                                       delegate:self];
-      
+
       dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((isBackgroundBefore ? 2 : 5) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        NSLog(@"[Splash] close timout start");
+        NSLog(@"[Splash] Close timout start");
         if(isAdClosed == NO){
-          NSLog(@"[Splash] manual close ad");
+          NSLog(@"[Splash] Manual close ad");
           [self.delegate nativeViewControllerDidFinish];
         }
       });
@@ -336,14 +336,14 @@ bool isAdClosed = NO;
 }
 
 - (void)appMovedToBackground:(NSNotification *) notification  {
-  NSLog(@"[Splash] App Moved To Background");
+  NSLog(@"[Splash] App Is Background");
   isBackgroundBefore = YES;
 }
 
 - (void)appBecomeActive:(NSNotification *) notification {
-  NSLog(@"[Splash] App Moved To Active");
+  NSLog(@"[Splash] App Is Active");
   if(isBackgroundBefore){
-    NSLog(@"[Splash] resume show ad");
+    NSLog(@"[Splash] Sesume show ad");
 //    [self showAd];
   }
 }
@@ -358,105 +358,105 @@ bool isAdClosed = NO;
 
 // bidding
 - (void)didStartBiddingADSourceWithPlacementID:(NSString *)placementID extra:(NSDictionary*)extra{
-    NSLog(@"广告源--bid--开始--StartBidding:%@", placementID);
+    NSLog(@"[Splash] StartBidding:%@", placementID);
 }
 
 - (void)didFinishBiddingADSourceWithPlacementID:(NSString *)placementID extra:(NSDictionary*)extra{
-    NSLog(@"广告源--bid--完成--FinishBidding:%@", placementID);
+    NSLog(@"[Splash] FinishBidding:%@", placementID);
 }
 
 - (void)didFailBiddingADSourceWithPlacementID:(NSString*)placementID extra:(NSDictionary*)extra error:(NSError*)error{
-    NSLog(@"广告源--bid--失败--FailBidding:%@--error:%@", placementID,error);
+    NSLog(@"[Splash] FailBidding:%@, error:%@", placementID,error);
 //    [self.delegate nativeViewControllerDidFinish];
 }
 
-// loading
+// loading ad source
 - (void)didStartLoadingADSourceWithPlacementID:(NSString *)placementID extra:(NSDictionary*)extra{
-    NSLog(@"广告源--AD--开始--StartLoading:%@", placementID);
+    NSLog(@"[Splash] StartLoadingADSource:%@", placementID);
 }
 
 - (void)didFinishLoadingADSourceWithPlacementID:(NSString *)placementID extra:(NSDictionary*)extra{
-    NSLog(@"广告源--AD--完成--FinishLoading:%@", placementID);
+    NSLog(@"[Splash] FinishLoadingADSource:%@", placementID);
 }
-
-
-
-- (void)didFinishLoadingADWithPlacementID:(NSString *)placementID {
-    NSLog(@"开屏 FinishLoading:%@", placementID);
-    [self showLog:[NSString stringWithFormat:@"开屏加载成功:%@",placementID]];
-}
-
-- (void)didFinishLoadingSplashADWithPlacementID:(NSString *)placementID isTimeout:(BOOL)isTimeout {
-    NSLog(@"开屏成功:%@----是否超时:%d",placementID,isTimeout);
-    NSLog(@"开屏 FinishLoadingSplash:%@", placementID);
-    [self showLog:[NSString stringWithFormat:@"开屏成功:%@----是否超时:%d",placementID,isTimeout]];
-    [self showAd];
-}
-
 
 - (void)didFailToLoadADSourceWithPlacementID:(NSString*)placementID extra:(NSDictionary*)extra error:(NSError*)error{
-    NSLog(@"广告源--AD--失败--ATSplashViewController::didFailToLoadADSourceWithPlacementID:%@---error:%@", placementID,error);
+    NSLog(@"[Splash] FailToLoadADSource:%@, error:%@", placementID,error);
 //    [self.delegate nativeViewControllerDidFinish];
 }
 
-- (void)didTimeoutLoadingSplashADWithPlacementID:(NSString *)placementID {
-    NSLog(@"开屏超时:%@",placementID);
-    NSLog(@"开屏didTimeoutLoadingSplashADWithPlacementID:");
-    [self showLog:[NSString stringWithFormat:@"开屏超时:%@",placementID]];
+// loading ad
+- (void)didFinishLoadingADWithPlacementID:(NSString *)placementID {
+    NSLog(@"[Splash] FinishLoadingAD:%@", placementID);
+    // [self showLog:[NSString stringWithFormat:@"开屏加载成功:%@",placementID]];
 }
 
 - (void)didFailToLoadADWithPlacementID:(NSString *)placementID error:(NSError *)error {
-    NSLog(@"开屏ATSplashViewController:: didFailToLoadADWithPlacementID");
-    [self showLog:[NSString stringWithFormat:@"开屏加载失败:%@--%@",placementID,error]];
+    NSLog(@"[Splash] FailToLoadAD:%@", placementID);
+    // [self showLog:[NSString stringWithFormat:@"开屏加载失败:%@--%@",placementID,error]];
     [self.delegate nativeViewControllerDidFinish];
 }
 
-- (void)splashDeepLinkOrJumpForPlacementID:(NSString *)placementID extra:(NSDictionary *)extra result:(BOOL)success {
-    NSLog(@"开屏ATSplashViewController:: splashDeepLinkOrJumpForPlacementID:placementID:%@", placementID);
-    [self showLog:[NSString stringWithFormat:@"splashDeepLinkOrJumpForPlacementID:placementID:%@ ", placementID]];
+// loading splash
+- (void)didFinishLoadingSplashADWithPlacementID:(NSString *)placementID isTimeout:(BOOL)isTimeout {
+    NSLog(@"[Splash] FinishLoadingSplash:%@", placementID);
+    NSLog(@"[Splash] 开屏成功:%@, 是否超时:%d",placementID,isTimeout);
+    // [self showLog:[NSString stringWithFormat:@"开屏成功:%@----是否超时:%d",placementID,isTimeout]];
+    [self showAd];
 }
 
-- (void)splashDidClickForPlacementID:(NSString *)placementID extra:(NSDictionary *)extra {
-    NSLog(@"开屏ATSplashViewController::splashDidClickForPlacementID:%@",placementID);
-    [self showLog:[NSString stringWithFormat:@"splashDidClickForPlacementID:%@",placementID]];
+- (void)didTimeoutLoadingSplashADWithPlacementID:(NSString *)placementID {
+    NSLog(@"[Splash] TimeoutLoadingSplashAD:%@", placementID);
+    // [self showLog:[NSString stringWithFormat:@"开屏超时:%@",placementID]];
+}
+
+// splash
+- (void)splashDidShowForPlacementID:(NSString *)placementID extra:(NSDictionary *)extra {
+    NSLog(@"[Splash] splashDidShow:%@",placementID);
+    // [self showLog:[NSString stringWithFormat:@"splashDidShowForPlacementID:%@ ",placementID]];
+}
+
+- (void)splashDidShowFailedForPlacementID:(NSString*)placementID error:(NSError *)error extra:(NSDictionary *) extra {
+    NSLog(@"[Splash] splashDidShowFailed:%@, error:%@",placementID, error);
+    // [self showLog:[NSString stringWithFormat:@"splashDidShowFailedForPlacementID:%@ error:%@ ",placementID,error]];
+    [self.delegate nativeViewControllerDidFinish];
 }
 
 - (void)splashDidCloseForPlacementID:(NSString *)placementID extra:(NSDictionary *)extra {
-    NSLog(@"开屏ATSplashViewController::splashDidCloseForPlacementID:%@ extra:%@",placementID,extra);
-    [self showLog:[NSString stringWithFormat:@"splashDidCloseForPlacementID:%@ ",placementID]];
+    NSLog(@"[Splash] splashDidClose:%@ extra:%@",placementID,extra);
+    // [self showLog:[NSString stringWithFormat:@"splashDidCloseForPlacementID:%@ ",placementID]];
     [self.delegate nativeViewControllerDidFinish];
     isAdClosed = YES;
 }
 
-- (void)splashDidShowForPlacementID:(NSString *)placementID extra:(NSDictionary *)extra {
-    NSLog(@"开屏ATSplashViewController::splashDidShowForPlacementID:%@",placementID);
-    [self showLog:[NSString stringWithFormat:@"splashDidShowForPlacementID:%@ ",placementID]];
+// splash action & others
+- (void)splashDeepLinkOrJumpForPlacementID:(NSString *)placementID extra:(NSDictionary *)extra result:(BOOL)success {
+    NSLog(@"[Splash]开屏ATSplashViewController:: splashDeepLinkOrJumpForPlacementID:placementID:%@", placementID);
+    // [self showLog:[NSString stringWithFormat:@"splashDeepLinkOrJumpForPlacementID:placementID:%@ ", placementID]];
+}
+
+- (void)splashDidClickForPlacementID:(NSString *)placementID extra:(NSDictionary *)extra {
+    NSLog(@"[Splash]开屏ATSplashViewController::splashDidClickForPlacementID:%@",placementID);
+    // [self showLog:[NSString stringWithFormat:@"splashDidClickForPlacementID:%@",placementID]];
 }
 
 -(void)splashZoomOutViewDidClickForPlacementID:(NSString*)placementID extra:(NSDictionary *) extra {
-    NSLog(@"开屏ATSplashViewController::splashZoomOutViewDidClickForPlacementID:%@",placementID);
-    [self showLog:[NSString stringWithFormat:@"splashZoomOutViewDidClickForPlacementID:%@ ",placementID]];
+    NSLog(@"[Splash]开屏ATSplashViewController::splashZoomOutViewDidClickForPlacementID:%@",placementID);
+    // [self showLog:[NSString stringWithFormat:@"splashZoomOutViewDidClickForPlacementID:%@ ",placementID]];
 }
 
 -(void)splashZoomOutViewDidCloseForPlacementID:(NSString*)placementID extra:(NSDictionary *) extra {
-    NSLog(@"开屏ATSplashViewController::splashZoomOutViewDidCloseForPlacementID:%@",placementID);
-    [self showLog:[NSString stringWithFormat:@"splashZoomOutViewDidCloseForPlacementID:%@ ",placementID]];
+    NSLog(@"[Splash]开屏ATSplashViewController::splashZoomOutViewDidCloseForPlacementID:%@",placementID);
+    // [self showLog:[NSString stringWithFormat:@"splashZoomOutViewDidCloseForPlacementID:%@ ",placementID]];
 }
 
 - (void)splashDetailDidClosedForPlacementID:(NSString*)placementID extra:(NSDictionary *) extra {
-    NSLog(@"开屏ATSplashViewController::splashDetailDidClosedForPlacementID:%@",placementID);
-    [self showLog:[NSString stringWithFormat:@"splashDetailDidClosedForPlacementID:%@ ",placementID]];
-}
-
-- (void)splashDidShowFailedForPlacementID:(NSString*)placementID error:(NSError *)error extra:(NSDictionary *) extra {
-    NSLog(@"开屏ATSplashViewController::splashDidShowFailedForPlacementID:%@",placementID);
-    [self showLog:[NSString stringWithFormat:@"splashDidShowFailedForPlacementID:%@ error:%@ ",placementID,error]];
-    [self.delegate nativeViewControllerDidFinish];
+    NSLog(@"[Splash]开屏ATSplashViewController::splashDetailDidClosedForPlacementID:%@",placementID);
+    // [self showLog:[NSString stringWithFormat:@"splashDetailDidClosedForPlacementID:%@ ",placementID]];
 }
 
 - (void)splashCountdownTime:(NSInteger)countdown forPlacementID:(NSString *)placementID extra:(NSDictionary *)extra {
-    NSLog(@"开屏ATSplashViewController::splashCountdownTime:%ld forPlacementID:%@",countdown,placementID);
-    [self showLog:[NSString stringWithFormat:@"splashCountdownTime:%ld forPlacementID:%@",countdown,placementID]];
+    NSLog(@"[Splash]开屏ATSplashViewController::splashCountdownTime:%ld forPlacementID:%@",countdown,placementID);
+    // [self showLog:[NSString stringWithFormat:@"splashCountdownTime:%ld forPlacementID:%@",countdown,placementID]];
     
     // 自定义倒计时回调，需要自行处理按钮文本显示
     dispatch_async(dispatch_get_main_queue(), ^{
