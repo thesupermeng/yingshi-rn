@@ -66,6 +66,7 @@ import {URL} from 'react-native-url-polyfill'
 import RNFetchBlob from "rn-fetch-blob";
 import { userModel } from "../../types/userType";
 import {BridgeServer} from 'react-native-http-bridge-refurbished'
+import { debounce } from "lodash";
 
 type VideoRef = {
   setPause: (param: boolean) => void;
@@ -85,6 +86,7 @@ const server = new BridgeServer('http_service', true) // http server for hosting
 const getNoAdsUri = async (url:string) =>{
   const startTime = new Date().valueOf()
   const parentUrl = url.split('/').filter(part => !part.includes('.m3u8')).join('/') // get https://domain/subfolder/subfolder
+  const videoSubfolder = parentUrl.replace('https://', '').replace('http://', '')
   // console.log('parent url ', parentUrl)
 
 
@@ -137,19 +139,18 @@ const getNoAdsUri = async (url:string) =>{
       }
     }
   })
-
+  // console.log('ads line', adsLine)
   const noAdsPlaylistContent = playlist.filter((_, index) => !adsLine.includes(index))
 
   // console.log(playlistContent.length, noAdsPlaylistContent.length)
 
-  server.get('/index.m3u8', async(req, res) => {
+  server.get(`/${videoSubfolder}/index.m3u8`, async(req, res) => {
     res.send(200, 'application/vnd.apple.mpegurl', noAdsPlaylistContent.join('\n'))
   })
 
-  server.listen(PLAY_HTTP_SERVER_PORT)
   console.debug('processing took ' , (new Date().valueOf() - startTime) / 1000,'s')
 
-  return `http://localhost:${PLAY_HTTP_SERVER_PORT}/index.m3u8`
+  return `http://localhost:${PLAY_HTTP_SERVER_PORT}/${videoSubfolder}/index.m3u8`
 }
 
 export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
@@ -475,37 +476,42 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   const [vodUri, setVodUri] = useState('')
 
+  const debounceSetVodUri = useCallback(debounce((uri) => setVodUri(uri), 1000), [])
+
   const vodUrl: string = vod?.vod_play_list.urls?.find(
     url => url.nid === currentEpisode,
   )?.url;
 
   useEffect(() => {
     if (!!vodUrl) {
-      if ( // not vip, just set as default url 
-        Number(userState.userMemberExpired) <=
-          Number(userState.userCurrentTimestamp) ||
-        userState.userToken === ''
-      ) {
-        setVodUri(vodUrl);
-      } 
-      else { // is vip, remove in-video ads 
-        getNoAdsUri(vodUrl)
+      // console.debug('vod url is', vodUrl)
+      getNoAdsUri(vodUrl)
           .then(uri => {
-            setVodUri(uri);
+            console.debug('successfully modified playlist content', uri)
+            debounceSetVodUri(uri);
           })
           .catch((err) => {
             setVodUri(vodUrl);
             console.error('something went wrong', err);
           });
       }
-    }
 
     return () => {
-      server.stop(); // stop server when unmount
+      // console.log('stop server')
+      debounceSetVodUri('')
     }
 
 
   }, [vodUrl]);
+
+  useEffect(() => {
+    if (vodUri){
+      server.listen(PLAY_HTTP_SERVER_PORT)
+    }
+    return () => {
+      server.stop(); // stop server when unmount
+    }
+  }, [vodUri])
 
   return (
     <>
