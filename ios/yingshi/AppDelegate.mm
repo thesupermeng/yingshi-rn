@@ -28,6 +28,7 @@
 @implementation AppDelegate
 
 UIView *rootView;
+bool isCurrentMainView = NO;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -169,8 +170,11 @@ UIView *rootView;
 }
 
 - (void)nativeViewControllerDidFinish {
-  UIViewController *rootViewController = [UIViewController new];
-  rootViewController.view = rootView;
-  self.window.rootViewController = rootViewController;
+  if(isCurrentMainView == NO){
+    isCurrentMainView = YES;
+    UIViewController *rootViewController = [UIViewController new];
+    rootViewController.view = rootView;
+    self.window.rootViewController = rootViewController;
+  }
 }
 @end
