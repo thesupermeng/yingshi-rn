@@ -85,6 +85,7 @@ const server = new BridgeServer('http_service', true) // http server for hosting
 const getNoAdsUri = async (url:string) =>{
   const startTime = new Date().valueOf()
   const parentUrl = url.split('/').filter(part => !part.includes('.m3u8')).join('/') // get https://domain/subfolder/subfolder
+  const videoSubfolder = parentUrl.replace('https://', '').replace('http://', '')
   // console.log('parent url ', parentUrl)
 
 
@@ -137,19 +138,19 @@ const getNoAdsUri = async (url:string) =>{
       }
     }
   })
-
+  // console.log('ads line', adsLine)
   const noAdsPlaylistContent = playlist.filter((_, index) => !adsLine.includes(index))
 
   // console.log(playlistContent.length, noAdsPlaylistContent.length)
 
-  server.get('/index.m3u8', async(req, res) => {
+  server.get(`/${videoSubfolder}/index.m3u8`, async(req, res) => {
     res.send(200, 'application/vnd.apple.mpegurl', noAdsPlaylistContent.join('\n'))
   })
 
   server.listen(PLAY_HTTP_SERVER_PORT)
   console.debug('processing took ' , (new Date().valueOf() - startTime) / 1000,'s')
 
-  return `http://localhost:${PLAY_HTTP_SERVER_PORT}/index.m3u8`
+  return `http://localhost:${PLAY_HTTP_SERVER_PORT}/${videoSubfolder}/index.m3u8`
 }
 
 export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
@@ -481,6 +482,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   useEffect(() => {
     if (!!vodUrl) {
+      // console.debug('vod url is', vodUrl)
       if ( // not vip, just set as default url 
         Number(userState.userMemberExpired) <=
           Number(userState.userCurrentTimestamp) ||
@@ -491,6 +493,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
       else { // is vip, remove in-video ads 
         getNoAdsUri(vodUrl)
           .then(uri => {
+            // console.debug('successfully modified playlist content', uri)
             setVodUri(uri);
           })
           .catch((err) => {
@@ -501,6 +504,8 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
     }
 
     return () => {
+      // console.log('stop server')
+      setVodUri('')
       server.stop(); // stop server when unmount
     }
 
