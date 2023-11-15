@@ -66,6 +66,7 @@ import {URL} from 'react-native-url-polyfill'
 import RNFetchBlob from "rn-fetch-blob";
 import { userModel } from "../../types/userType";
 import {BridgeServer} from 'react-native-http-bridge-refurbished'
+import { debounce } from "lodash";
 
 type VideoRef = {
   setPause: (param: boolean) => void;
@@ -147,7 +148,6 @@ const getNoAdsUri = async (url:string) =>{
     res.send(200, 'application/vnd.apple.mpegurl', noAdsPlaylistContent.join('\n'))
   })
 
-  server.listen(PLAY_HTTP_SERVER_PORT)
   console.debug('processing took ' , (new Date().valueOf() - startTime) / 1000,'s')
 
   return `http://localhost:${PLAY_HTTP_SERVER_PORT}/${videoSubfolder}/index.m3u8`
@@ -476,6 +476,8 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   const [vodUri, setVodUri] = useState('')
 
+  const debounceSetVodUri = useCallback(debounce((uri) => setVodUri(uri), 1000), [])
+
   const vodUrl: string = vod?.vod_play_list.urls?.find(
     url => url.nid === currentEpisode,
   )?.url;
@@ -485,8 +487,8 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
       // console.debug('vod url is', vodUrl)
       getNoAdsUri(vodUrl)
           .then(uri => {
-            // console.debug('successfully modified playlist content', uri)
-            setVodUri(uri);
+            console.debug('successfully modified playlist content', uri)
+            debounceSetVodUri(uri);
           })
           .catch((err) => {
             setVodUri(vodUrl);
@@ -496,12 +498,20 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
     return () => {
       // console.log('stop server')
-      setVodUri('')
-      server.stop(); // stop server when unmount
+      debounceSetVodUri('')
     }
 
 
   }, [vodUrl]);
+
+  useEffect(() => {
+    if (vodUri){
+      server.listen(PLAY_HTTP_SERVER_PORT)
+    }
+    return () => {
+      server.stop(); // stop server when unmount
+    }
+  }, [vodUri])
 
   return (
     <>
