@@ -483,15 +483,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   useEffect(() => {
     if (!!vodUrl) {
       // console.debug('vod url is', vodUrl)
-      if ( // not vip, just set as default url 
-        Number(userState.userMemberExpired) <=
-          Number(userState.userCurrentTimestamp) ||
-        userState.userToken === ''
-      ) {
-        setVodUri(vodUrl);
-      } 
-      else { // is vip, remove in-video ads 
-        getNoAdsUri(vodUrl)
+      getNoAdsUri(vodUrl)
           .then(uri => {
             // console.debug('successfully modified playlist content', uri)
             setVodUri(uri);
@@ -501,7 +493,6 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
             console.error('something went wrong', err);
           });
       }
-    }
 
     return () => {
       // console.log('stop server')
