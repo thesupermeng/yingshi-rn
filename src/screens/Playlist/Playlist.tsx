@@ -120,9 +120,9 @@ function Playlist({ navigation }: BottomTabScreenProps<any>) {
     },
   );
 
-  const renderItem = ({ item }: FlatListType) => (
+  const renderItem = useCallback(({ item }: FlatListType) => (
     <VodPlaylist playlist={item} titleStyle={{ color: colors.text }} />
-  );
+  ), []);
 
   const [isRefreshing, setIsRefreshing] = useState(false);
   const queryClient = useQueryClient();
@@ -192,6 +192,7 @@ function Playlist({ navigation }: BottomTabScreenProps<any>) {
                   fetchNextPage();
                 }
               }}
+              removeClippedSubviews={true}
               onEndReachedThreshold={0.3}
               windowSize={5}
               maxToRenderPerBatch={5}

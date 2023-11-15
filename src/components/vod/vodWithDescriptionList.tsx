@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, memo } from 'react';
 import {View, FlatList, Text, StyleSheet} from 'react-native';
 import {useNavigation, useTheme} from '@react-navigation/native';
 
@@ -16,7 +16,7 @@ type FlatListType = {
   index: number; 
 };
 
-export default ({vodList}: Props) => {
+function VodWithDescriptionList ({vodList}: Props) {
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const {spacing, textVariants, colors} = useTheme();
@@ -66,6 +66,8 @@ export default ({vodList}: Props) => {
   }
 
 };
+
+export default memo(VodWithDescriptionList);
 
 const styles = StyleSheet.create({
   noMore: {

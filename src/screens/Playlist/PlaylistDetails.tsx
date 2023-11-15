@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
 import {useTheme} from '@react-navigation/native';
@@ -9,7 +9,7 @@ import FavoritePlaylistButton from '../../components/button/favoritePlaylistButt
 import {RootStackScreenProps} from '../../types/navigationTypes';
 import VodWithDescriptionList from '../../components/vod/vodWithDescriptionList';
 
-export default ({navigation}: RootStackScreenProps<'PlaylistDetail'>) => {
+function PlaylistDetail ({navigation}: RootStackScreenProps<'PlaylistDetail'>) {
   const {textVariants, colors, spacing} = useTheme();
   const playlistReducer = useAppSelector(
     ({vodPlaylistReducer}: RootState) => vodPlaylistReducer,
@@ -48,6 +48,8 @@ export default ({navigation}: RootStackScreenProps<'PlaylistDetail'>) => {
     </>
   );
 };
+
+export default memo(PlaylistDetail);
 
 const styles = StyleSheet.create({
   header: {

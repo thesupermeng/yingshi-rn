@@ -280,6 +280,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
       vod_name: vod?.vod_name,
     };
 
+    console.log('HELLLOOO===================')
     // appsFlyer.logEvent(
     //   eventName,
     //   eventValues,
