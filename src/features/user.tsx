@@ -95,12 +95,17 @@ export const getUserDetails = async ({ bearerToken }: any) => {
   if (bearerToken == "") {
     return null;
   }
+  let deviceId = await DeviceInfo.getUniqueId();
+  if (typeof deviceId !== "string") {
+    deviceId = JSON.stringify(deviceId);
+  }
   // Define your request headers
   const headers = {
     Authorization: `Bearer ${bearerToken}`,
     "Content-Type": "application/json", // Set your content type accordingly
+    "Device-Id": deviceId
   };
-
+  
   let result = await axios.get(API_DOMAIN_TEST + "users/v1/me", {
     headers: headers,
   });
