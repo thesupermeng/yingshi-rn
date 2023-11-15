@@ -319,6 +319,7 @@ const RegisterCard = (props: any) => {
           justifyContent: "center",
           alignItems: "center",
           marginTop: 12,
+          marginBottom: 30,
         }}
       >
         <TouchableOpacity onPress={props.radioHandler}>
@@ -350,6 +351,7 @@ const RegisterCard = (props: any) => {
         </TouchableOpacity>
 
         <Text style={{ marginLeft: 5, color: "#9c9c9c" }}>我已阅读并同意</Text>
+
         <TouchableOpacity
           onPress={() => {
             dispatch(navigateToProfileScreen());
@@ -368,7 +370,6 @@ const RegisterCard = (props: any) => {
           <Text style={{ color: colors.primary }}>隐私协议</Text>
         </TouchableOpacity>
       </View>
-
       <TouchableOpacity
         onPress={() => {
           props.setErrReferral("");
@@ -470,7 +471,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   loginTermPrivacy: {
-    paddingTop: 30,
+    paddingTop: 0,
     paddingLeft: 80,
     paddingRight: 80,
     paddingBottom: 50,
