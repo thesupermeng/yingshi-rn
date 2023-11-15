@@ -573,8 +573,22 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
               onPaymentSelect={setSelectedPayment}
             />
 
-            <View style={{ ...styles.tncContainer}}>
-              <Text style={{ ...textVariants.small, textAlign: 'center' }} numberOfLines={2}>
+            <View
+              style={{
+                ...styles.tncContainer,
+                backgroundColor: "transparent",
+                paddingTop: 0,
+              }}
+            >
+              <Text
+                style={{
+                  ...textVariants.small,
+                  textAlign: "center",
+                  color: "#a6a6a6",
+                  fontStyle: "italic",
+                }}
+                numberOfLines={2}
+              >
                 因不同地区税收政策不同/汇率波动，实际支付价格与会员显示价格存在少量偏差
               </Text>
             </View>
@@ -584,14 +598,13 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                 有关购买查询，请联系contactus@yingshi.tv
               </Text>
             </View>
-            {IS_IOS ?
+            {IS_IOS ? (
               <View style={{ ...styles.footerContainer }}>
                 <Text style={{ ...textVariants.small }}>
                   活动由影视TV公司提供 与苹果公司Apple.Inc 无关
                 </Text>
-              </View> : null
-            }
-            
+              </View>
+            ) : null}
           </ScrollView>
         )}
       </ScreenContainer>
