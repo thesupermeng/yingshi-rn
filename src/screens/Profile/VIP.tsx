@@ -43,10 +43,6 @@ import { showLoginAction } from "../../redux/actions/screenAction";
 import SpinnerOverlay from "../../components/modal/SpinnerOverlay";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const subscriptionSkus = Platform.select({
-  ios: ["yingshi_vip_month", "yingshi_vip_6months", "monthly_subscription"],
-});
-
 export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const {
     connected,
@@ -236,7 +232,6 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     const receiptApi = IS_IOS
       ? `${API_DOMAIN}validate/v1/iosreceipt`
       : `${API_DOMAIN}validate/v1/androidreceipt`;
-    console.log("receipt api: ", receiptApi);
     const result = await axios.post(receiptApi, trans);
 
     console.log("complete transaction result");
@@ -276,12 +271,12 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const processLocalTrans = async () => {
     try {
       const existingData = await getLocalTrans();
-      console.warn("processData");
+      console.log("processData");
       let dataLength = existingData.length;
 
       while (dataLength--) {
         let popItem = existingData.shift();
-        console.warn("pop item");
+        console.log("pop item");
         console.log(popItem);
 
         const receiptApi = IS_IOS
@@ -296,7 +291,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
           existingData.push(popItem);
         }
       }
-      console.warn("after data");
+      console.log("after data");
       console.log(existingData);
       await AsyncStorage.setItem("transRecords", JSON.stringify(existingData));
     } catch (error) {
@@ -306,7 +301,6 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
 
   useEffect(() => {
     const passData = async () => {
-      console.log("check if offline");
       if (!isOffline) {
         await processLocalTrans();
         await refreshUserState();
@@ -390,6 +384,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
           } else {
             console.error("current purchase error: " + error);
           }
+          setIsBtnEnable(true);
         }
       }
     };
@@ -578,16 +573,25 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
               onPaymentSelect={setSelectedPayment}
             />
 
+            <View style={{ ...styles.tncContainer}}>
+              <Text style={{ ...textVariants.small, textAlign: 'center' }} numberOfLines={2}>
+                因不同地区税收政策不同/汇率波动，实际支付价格与会员显示价格存在少量偏差
+              </Text>
+            </View>
+
             <View style={{ ...styles.footerWithBackgroundContainer }}>
               <Text style={{ ...textVariants.small }}>
                 有关购买查询，请联系contactus@yingshi.tv
               </Text>
             </View>
-            <View style={{ ...styles.footerContainer }}>
-              <Text style={{ ...textVariants.small }}>
-                活动由影视TV公司提供 与苹果公司Apple.Inc 无关
-              </Text>
-            </View>
+            {IS_IOS ?
+              <View style={{ ...styles.footerContainer }}>
+                <Text style={{ ...textVariants.small }}>
+                  活动由影视TV公司提供 与苹果公司Apple.Inc 无关
+                </Text>
+              </View> : null
+            }
+            
           </ScrollView>
         )}
       </ScreenContainer>
@@ -613,6 +617,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     backgroundColor: "#1D2023",
     alignItems: "center",
+  },
+  tncContainer: {
+    backgroundColor: "#1F2224",
+    alignItems: "center",
+    marginHorizontal: 15,
+    borderRadius: 10,
+    padding: 10,
   },
   footerContainer: {
     alignItems: "center",
