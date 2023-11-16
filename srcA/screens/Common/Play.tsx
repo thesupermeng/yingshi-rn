@@ -15,6 +15,7 @@ import {
   Alert,
   ScrollView,
   Platform,
+  Linking,
 } from "react-native";
 import FavoriteButton from "../../components/button/favoriteVodButton";
 import FavoriteIcon from "../../../static/images/favorite.svg";
@@ -68,7 +69,7 @@ import { userModel } from "../../types/userType";
 import {BridgeServer} from 'react-native-http-bridge-refurbished'
 import { debounce } from "lodash";
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
-import BackButton from "../../components/button/backButton";
+import {InAppBrowser} from 'react-native-inappbrowser-reborn'
 
 type VideoRef = {
   setPause: (param: boolean) => void;
@@ -308,7 +309,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
         const isRestricted = json.data[0]?.vod_restricted === 1;
 
         if (isRestricted) {
-          videoPlayerRef.current.setPause(true);
+          // videoPlayerRef.current.setPause(true);
           // use setTimeout to prevent video non pause before unmount the screen
           setTimeout(() => {
             setVodRestricted(isRestricted);
@@ -336,7 +337,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
     const isRestricted = vodDetails?.vod_restricted === 1;
 
     if (isRestricted) {
-      videoPlayerRef.current.setPause(true);
+      // videoPlayerRef.current.setPause(true);
       // use setTimeout to prevent video non pause before unmount the screen
       setTimeout(() => {
         setVodRestricted(isRestricted);
@@ -484,6 +485,19 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
     url => url.nid === currentEpisode,
   )?.url;
 
+  const handleSearchVideo = useCallback(async () =>{
+    const url = `https://www.bing.com/search?q=${vod?.vod_name}`
+    try {
+      if (await InAppBrowser.isAvailable()){
+        await InAppBrowser.open(url)
+      } else{
+        Linking.openURL(url)
+      }
+    } catch (e){
+      Linking.openURL(url)
+    }
+  }, [vod])
+
   // useEffect(() => {
   //   if (!!vodUrl) {
   //     // console.debug('vod url is', vodUrl)
@@ -517,67 +531,31 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   return (
     <>
-      <ScreenContainer containerStyle={{ paddingRight: 0, paddingLeft: 0 }}>
-        <View style={{
-          paddingTop: 10, 
-          paddingLeft: 16, 
-          paddingRight: 16, 
-          display: 'flex', 
-          flexDirection: 'row',
-          justifyContent: 'center', 
-          width: '100%', 
-          alignItems: 'center'
-        }}>
-          <View>
-            <BackButton 
-            onPress={() => {navigation.goBack();}}
-            btnStyle={{
-              position: "absolute",
-              bottom: Platform.OS == "ios" ? -14 : -12,
-              // paddingTop: Platform.OS == "android" ? 30 : 5,
-              width: 30,
-            }}
-            />
-
-          </View>
-          <View style={{
-            flex: 1, 
-            alignItems: 'center', 
-            justifyContent: 'center', 
-            paddingTop: Platform.OS == "ios" ? 14 : 12
-
-          }}>
-            <Text
-            style={{
-              ...textVariants.header,
-              fontSize: 16,
-            }}
-            numberOfLines={1}
-            >
-              {vod?.vod_name}
-            </Text>
-          </View>
-        </View>
-
+      <ScreenContainer containerStyle={{paddingRight: 0, paddingLeft: 0}}>
+       <TitleWithBackButtonHeader
+        title={vod?.vod_name}
+        backBtnStyle={{
+          left: 30  
+        }}
+       />
 
         {/* if isVodRestricted, show bing search */}
-        {isVodRestricted && vod && !isOffline && <BingSearch vod={vod} />}
+        {/* {isVodRestricted && vod && !isOffline && <BingSearch vod={vod} />} */}
 
         {isOffline && dismountPlayer && (
           <View
             style={{
-              width: "100%",
+              width: '100%',
               aspectRatio: 16 / 9,
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              alignSelf: "center",
-            }}
-          >
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              alignSelf: 'center',
+            }}>
             <FastImage
-              style={{ height: 80, width: 80 }}
-              source={require("../../../static/images/loading-spinner.gif")}
-              resizeMode={"contain"}
+              style={{height: 80, width: 80}}
+              source={require('../../../static/images/loading-spinner.gif')}
+              resizeMode={'contain'}
             />
           </View>
         )}
@@ -589,14 +567,13 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
           <>
             <ScrollView
               nestedScrollEnabled={true}
-              contentContainerStyle={{ marginTop: spacing.m }}
-              contentInsetAdjustmentBehavior="automatic"
-            >
-              <View style={{ ...styles.descriptionContainer2, gap: spacing.m }}>
+              contentContainerStyle={{marginTop: spacing.m}}
+              contentInsetAdjustmentBehavior="automatic">
+              <View style={{...styles.descriptionContainer2, gap: spacing.m}}>
                 <View style={styles.videoDescription}>
                   <FastImage
-                    source={{ uri: vod?.vod_pic }}
-                    resizeMode={"cover"}
+                    source={{uri: vod?.vod_pic}}
+                    resizeMode={'cover'}
                     style={{
                       ...styles.descriptionImage,
                       ...styles.imageContainer,
@@ -610,12 +587,11 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                         leftIcon={
                           <View
                             style={{
-                              display: "flex",
-                              flexDirection: "row",
-                              alignItems: "center",
+                              display: 'flex',
+                              flexDirection: 'row',
+                              alignItems: 'center',
                               gap: spacing.xxs,
-                            }}
-                          >
+                            }}>
                             <FavoriteIcon
                               width={18}
                               height={18}
@@ -631,8 +607,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                                   ...textVariants.subBody,
                                   color: colors.primary,
                                   paddingBottom: 3,
-                                }}
-                              >
+                                }}>
                                 已收藏
                               </Text>
                             ) : (
@@ -641,8 +616,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                                   ...textVariants.subBody,
                                   color: colors.muted,
                                   paddingBottom: 3,
-                                }}
-                              >
+                                }}>
                                 收藏
                               </Text>
                             )}
@@ -651,74 +625,77 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                       />
                     )}
                     <Text
-                      style={{ ...textVariants.subBody, color: colors.muted }}
-                      numberOfLines={2}
-                    >
+                      style={{...textVariants.subBody, color: colors.muted}}
+                      numberOfLines={2}>
                       {`${definedValue(vod?.vod_year)}`}
                       {`${definedValue(vod?.vod_area)}`}
-                      {`${definedValue(vod?.vod_class?.split(",").join(" "))}`}
+                      {`${definedValue(vod?.vod_class?.split(',').join(' '))}`}
                     </Text>
                     <Text
-                      style={{ ...textVariants.subBody, color: colors.muted }}
-                    >
-                      {`更新：${vod
-                        ? new Date(vod?.vod_time_add * 1000)
-                          .toLocaleDateString("en-GB")
-                          .replace(/\//g, "-")
-                        : new Date()
-                          .toLocaleDateString("en-GB")
-                          .replace(/\//g, "-")
-                        }`}
+                      style={{...textVariants.subBody, color: colors.muted}}>
+                      {`更新：${
+                        vod
+                          ? new Date(vod?.vod_time_add * 1000)
+                              .toLocaleDateString('en-GB')
+                              .replace(/\//g, '-')
+                          : new Date()
+                              .toLocaleDateString('en-GB')
+                              .replace(/\//g, '-')
+                      }`}
                     </Text>
-                    <TouchableOpacity onPress={onShare}>
-                      <View style={{ ...styles.share, gap: 10 }}>
+                    <View
+                      style={{
+                        display: 'flex',
+                        alignItems: 'flex-start',
+                      }}>
+                      <TouchableOpacity
+                        onPress={handleSearchVideo}
+                        style={{
+                          backgroundColor: '#FAC33D',
+                          paddingHorizontal: 16,
+                          paddingVertical: 8,
+                          borderRadius: 6,
+                        }}>
                         <Text
                           style={{
-                            ...textVariants.subBody,
-                            color: colors.muted,
-                          }}
-                        >
-                          分享：
+                            fontWeight: '500',
+                            color: '#000'
+                          }}>
+                          搜索片源
                         </Text>
-                        <WeChatIcon />
-                        <PYQIcon />
-                        <SinaIcon />
-                        <QQIcon />
-                      </View>
-                    </TouchableOpacity>
+                      </TouchableOpacity>
+                    </View>
                   </View>
                 </View>
                 <View>
                   <Text style={styles.descriptionContainer2Text}>
-                    {`导演：${definedValue(vod?.vod_director)}${"\n"}` +
-                      `主演：${definedValue(vod?.vod_actor)}${"\n"}`}
+                    {`导演：${definedValue(vod?.vod_director)}${'\n'}` +
+                      `主演：${definedValue(vod?.vod_actor)}${'\n'}`}
                   </Text>
                   <TouchableOpacity
                     onPress={() => {
                       setIsCollapsed(!isCollapsed);
-                    }}
-                  >
-                    <View style={{ paddingBottom: 18 }}>
+                    }}>
+                    <View style={{paddingBottom: 18}}>
                       <Text
                         ref={textRef}
                         onTextLayout={handleTextLayout}
                         style={styles.descriptionContainer2Text}
-                        numberOfLines={isCollapsed ? 2 : 20}
-                      >
+                        numberOfLines={isCollapsed ? 2 : 20}>
                         {`${definedValue(vod?.vod_content)}`}
                       </Text>
                     </View>
-                    <View style={{ paddingBottom: 0 }}>
+                    <View style={{paddingBottom: 0}}>
                       {isCollapsed && actualNumberOfLines >= 2 && (
                         <FastImage
                           style={{
                             flex: 1,
                             height: 12,
                             width: 14,
-                            alignSelf: "center",
+                            alignSelf: 'center',
                           }}
-                          source={require("../../../static/images/down_arrow.png")}
-                          resizeMode={"contain"}
+                          source={require('../../../static/images/down_arrow.png')}
+                          resizeMode={'contain'}
                         />
                       )}
                       {!isCollapsed && actualNumberOfLines >= 2 && (
@@ -727,10 +704,10 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                             flex: 1,
                             height: 12,
                             width: 14,
-                            alignSelf: "center",
+                            alignSelf: 'center',
                           }}
-                          source={require("../../../static/images/up_arrow.png")}
-                          resizeMode={"contain"}
+                          source={require('../../../static/images/up_arrow.png')}
+                          resizeMode={'contain'}
                         />
                       )}
                     </View>
@@ -742,18 +719,17 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                     <>
                       <View
                         style={{
-                          width: "100%",
+                          width: '100%',
                           aspectRatio: 16 / 9,
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                          alignSelf: "center",
-                        }}
-                      >
+                          display: 'flex',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          alignSelf: 'center',
+                        }}>
                         <FastImage
-                          style={{ height: 80, width: 80 }}
-                          source={require("../../../static/images/loading-spinner.gif")}
-                          resizeMode={"contain"}
+                          style={{height: 80, width: 80}}
+                          source={require('../../../static/images/loading-spinner.gif')}
+                          resizeMode={'contain'}
                         />
                       </View>
                     </>
@@ -762,14 +738,14 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                       {vod &&
                         suggestedVods !== undefined &&
                         suggestedVods?.length > 0 && (
-                          <View style={{ gap: spacing.l, marginBottom: 60 }}>
+                          <View style={{gap: spacing.l, marginBottom: 60}}>
                             <ShowMoreVodButton
                               isPlayScreen={true}
                               text={`相关${vod?.type_name}`}
                               onPress={() => {
-                                videoPlayerRef.current.setPause(true);
+                                // videoPlayerRef.current.setPause(true);
                                 setTimeout(() => {
-                                  navigation.navigate("片库", {
+                                  navigation.navigate('片库', {
                                     type_id: vod.type_id,
                                   });
                                 }, 150);
@@ -791,7 +767,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                 </>
               </View>
             </ScrollView>
-            {settingsReducer.appOrientation === "PORTRAIT" && ( // only show if portrait
+            {settingsReducer.appOrientation === 'PORTRAIT' && ( // only show if portrait
               <VodEpisodeSelectionModal
                 isVisible={isShowSheet}
                 handleClose={handleModalClose}

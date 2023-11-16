@@ -14,6 +14,7 @@ interface Props {
   onBack?: any;
   headerStyle?: ViewStyle;
   right?: React.ReactNode;
+  backBtnStyle?: ViewStyle; 
 }
 
 export default function TitleWithBackButtonHeader({
@@ -21,6 +22,7 @@ export default function TitleWithBackButtonHeader({
   onBack,
   headerStyle,
   right,
+  backBtnStyle
 }: Props) {
   const { textVariants } = useTheme();
 
@@ -38,12 +40,13 @@ export default function TitleWithBackButtonHeader({
   console.log("leftIconBottomVal");
   console.log(leftIconBottomVal);
   return (
-    <View style={{ ...styles.container }}>
+    <View style={{ ...styles.container}}>
       <View
         style={{
           ...styles.backStyle,
           position: "absolute",
           left: 15,
+          ...backBtnStyle
         }}
       >
         <BackButton
