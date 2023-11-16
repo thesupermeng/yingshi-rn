@@ -1,4 +1,4 @@
-import React, { memo, useState, useRef } from 'react';
+import React, { memo, useState, useRef, useEffect, useCallback } from 'react';
 import {
   View,
   Text,
@@ -79,75 +79,55 @@ const MatchScheduleList = ({
     return Url.matches11 + url;
   };
 
-  const {
-    hasNextPage,
-    fetchNextPage,
-    isFetchingNextPage,
-    isRefetching,
-    refetch,
-    isFetching,
-  } = useInfiniteQuery(
-    ['matches', matchTypeID, `status=${status}`],
-    () => Api.call(getUrl(), {}, 'GET'),
-    {
-      getNextPageParam: (lastPage, allPages) => {
-        // return undefined
-        if (lastPage === null || status < 2) {
-          return undefined;
-        }
-        const nextPage =
-          Object.keys(lastPage.data).length > 0
-            ? allPages.length + 1
-            : undefined;
-        return nextPage;
-      },
-      onSuccess: res => {
-        const data = res.pages[res.pages.length - 1].data;
-        if (data !== undefined) {
-          const dates = Object.keys(data);
-          let lst: MatchType[] = isFetchNext ? matches.data : [];
-          let headers = isFetchNext ? matches.headers : [];
-          let count = lst.length;
-          if (latestListDate.current === undefined) {
-            latestListDate.current = new Date(dates[dates.length - 1]);
-          }
-          if (status <= 2) {
-            latestListDate.current = new Date(
-              latestListDate.current.getTime() + 86400000,
-            );
-          } else {
-            latestListDate.current = new Date(
-              latestListDate.current.getTime() - 86400000,
-            );
-          }
-          for (const date of dates) {
-            const dateDate = new Date(date)
-            const now = new Date()
-            const sevenDaysBefore = new Date(now.valueOf() - 7 * 24 * 60 * 60 * 1000)
-            const sevenDaysAfter = new Date(now.valueOf() + 7 * 24 * 60 * 60 * 1000)
+  const url = getUrl(); 
 
-            if (dateDate < sevenDaysBefore || dateDate > sevenDaysAfter) continue
+  const fetchData = useCallback(async () => {
+    const data = (await Api.call(url, {}, 'GET')).data
+    
+    if (data !== undefined) {
+      const dates = Object.keys(data);
+      let lst: MatchType[] = isFetchNext ? matches.data : [];
+      let headers = isFetchNext ? matches.headers : [];
+      let count = lst.length;
+      if (latestListDate.current === undefined) {
+        latestListDate.current = new Date(dates[dates.length - 1]);
+      }
+      if (status <= 2) {
+        latestListDate.current = new Date(
+          latestListDate.current.getTime() + 86400000,
+        );
+      } else {
+        latestListDate.current = new Date(
+          latestListDate.current.getTime() - 86400000,
+        );
+      }
+      for (const date of dates) {
+        const dateDate = new Date(date)
+        const now = new Date()
+        const sevenDaysBefore = new Date(now.valueOf() - 7 * 24 * 60 * 60 * 1000)
+        const sevenDaysAfter = new Date(now.valueOf() + 7 * 24 * 60 * 60 * 1000)
 
-            lst.push({ date: formatMatchDate(date), data: undefined });
-            headers.push(count);
-            count += 1;
-            data[date].forEach((element: MatchDetailsType) => {
-              lst.push({ date: undefined, data: element });
-              count += 1;
-            });
-          }
-          setMatches({
-            headers: headers,
-            data: lst,
-          });
-        }
+        if (dateDate < sevenDaysBefore || dateDate > sevenDaysAfter) continue
 
-        setFetchNext(false);
-      },
-      cacheTime: 0,
-      staleTime: 0,
-    },
-  );
+        lst.push({ date: formatMatchDate(date), data: undefined });
+        headers.push(count);
+        count += 1;
+        data[date].forEach((element: MatchDetailsType) => {
+          lst.push({ date: undefined, data: element });
+          count += 1;
+        });
+      }
+      setMatches({
+        headers: headers,
+        data: lst,
+      });
+    }
+
+  }, [])
+
+  useEffect(() => {
+    fetchData().then()
+  }, [])
 
   const Content = ({
     item,
@@ -233,7 +213,7 @@ const MatchScheduleList = ({
       <TouchableOpacity
         style={styles.refresh}
         onPress={() => {
-          refetch();
+          fetchData();
           handleRefresh(); 
         }}>
         <FastImage
