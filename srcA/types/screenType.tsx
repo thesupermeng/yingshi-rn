@@ -7,4 +7,6 @@ export interface screenModel {
   resetInputForm: boolean;
   navigateToProfile: boolean;
   sportWatchTime: number; // number of seconds user watched sports
+  interstitialShow: boolean;
+  isPlayerFullScreen: boolean;
 }

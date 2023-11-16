@@ -67,3 +67,8 @@ export const interstitialShow = () => ({
 export const interstitialClose = () => ({
   type: "interstitial_close",
 });
+
+export const setFullscreenState = (action: boolean) => ({
+  type: "set_player_fullscreen",
+  payload: action,
+});

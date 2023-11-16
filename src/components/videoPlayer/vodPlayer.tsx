@@ -27,6 +27,8 @@ import FastImage from "react-native-fast-image";
 import FastForwardProgressIcon from "../../../static/images/fastforwardProgress.svg";
 import RewindProgressIcon from "../../../static/images/rewindProgress.svg";
 
+import { setFullscreenState } from "../../redux/actions/screenAction";
+
 import {
   LiveTVStationItem,
   VodEpisodeListType,
@@ -238,6 +240,7 @@ export default forwardRef<VideoRef, Props>(
     }, [navigation, isFullScreen, isPaused]);
 
     useEffect(() => {
+      dispatch(setFullscreenState(isFullScreen));
       // if full screen disable ios swipe back function
       if (isFullScreen) {
         navigation.setOptions({ gestureEnabled: false });
@@ -259,11 +262,6 @@ export default forwardRef<VideoRef, Props>(
       // } else {
       //   handleSaveVod();
       // }
-
-      console.log("currentTimeRef.current");
-      console.log(currentTimeRef.current);
-      console.log("nextAppState");
-      console.log(nextAppState);
       try {
         if (currentTimeRef.current != 0 && nextAppState !== "active") {
           console.log("save vod");
@@ -430,7 +428,6 @@ export default forwardRef<VideoRef, Props>(
     }, [screenState.interstitialShow]);
 
     useEffect(() => {
-      // if is sports stream, if watch time > 300s, pause vid
       if (screenState.interstitialShow == true) {
         setIsPaused(true);
       } else {
