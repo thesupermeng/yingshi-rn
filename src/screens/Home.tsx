@@ -100,7 +100,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
     if (!settingsReducer.isOffline && settingsReducer.isOffline !== isOffline) {
       setIsOffline(settingsReducer.isOffline);
       setShowHomeLoading(true);
-      refetch();
+      // refetch();
       handleRefresh(navId, true);
     } else if (settingsReducer.isOffline) {
       return () => {

@@ -36,7 +36,8 @@
     "android-apk-yeyulingfeng-release": "export APK_CHANNEL=YE_YU_LING_FENG&& npm run build-release",
     "android-apk-heiyujidi-release": "export APK_CHANNEL=HEI_YU_JI_DI&& npm run build-release",
     "android-apk-423-release": "export APK_CHANNEL=XIAZAI423&& npm run build-release",
-    "android-apk-xiaomi-yuzhuang-release": "export APK_CHANNEL=XIAOMI_YUZHUANG&& npm run build-release"
+    "android-apk-xiaomi-yuzhuang-release": "export APK_CHANNEL=XIAOMI_YUZHUANG&& npm run build-release",
+    "devtools": "react-devtools"
   },
   "dependencies": {
     "@ant-design/react-native": "^5.0.4",

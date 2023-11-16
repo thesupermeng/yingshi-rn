@@ -44,6 +44,19 @@ function VodEpisodeSelection({ onConfirm, onCancel, episodes, activeEpisode = 0,
         }
     }
 
+    const renderItem = useCallback(({ item, index }: { item: string, index: number }) => {
+        return <TouchableOpacity style={styles.btn} onPress={() => setCurrentIndex(index)}>
+            <Text
+                style={{
+                    textAlign: 'center', ...textVariants.header,
+                    color: index === currentIndex ? colors.text : colors.muted,
+                    fontSize: index === currentIndex ? 18 : 15
+                }}>
+                {`${item}集`}
+            </Text>
+        </TouchableOpacity>
+    }, []);
+
     return (
         <View
             style={{
@@ -57,18 +70,7 @@ function VodEpisodeSelection({ onConfirm, onCancel, episodes, activeEpisode = 0,
                 <FlatList
                     horizontal
                     data={ranges}
-                    renderItem={({ item, index }: { item: string, index: number }) => {
-                        return <TouchableOpacity style={styles.btn} onPress={() => setCurrentIndex(index)}>
-                            <Text
-                                style={{
-                                    textAlign: 'center', ...textVariants.header,
-                                    color: index === currentIndex ? colors.text : colors.muted,
-                                    fontSize: index === currentIndex ? 18 : 15
-                                }}>
-                                {`${item}集`}
-                            </Text>
-                        </TouchableOpacity>
-                    }}
+                    renderItem={renderItem}
                 />
                 {/* <TouchableOpacity style={styles.sortBtn} onPress={sort}>
                     <View style={{ paddingTop: 4 }}>

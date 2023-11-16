@@ -128,62 +128,61 @@ let App = () => {
     const ipAddress = res.data.IPv4;
     if (ipAddress != null && ipAddress != undefined) {
       YSConfig.instance.setNetworkIp(ipAddress);
-      checkVersion(ipAddress);
+      // checkVersion(ipAddress);
     }
   };
 
-  const checkVersion = async (ipAddress: string) => {
-    const checkVersionReq: CheckVersionRequest = {
-      ip_address: ipAddress,
-      channel_id: UMENG_CHANNEL,
-      version_number: APP_VERSION,
-      product: APP_NAME_CONST + "-" + Platform.OS.toUpperCase(),
-      mobile_os: Platform.OS,
-      mobile_model: "HUAWEIP20",
-    };
-    console.log(checkVersionReq);
+  // const checkVersion = async (ipAddress: string) => {
+  //   const checkVersionReq: CheckVersionRequest = {
+  //     ip_address: ipAddress,
+  //     channel_id: UMENG_CHANNEL,
+  //     version_number: APP_VERSION,
+  //     product: APP_NAME_CONST + "-" + Platform.OS.toUpperCase(),
+  //     mobile_os: Platform.OS,
+  //     mobile_model: "HUAWEIP20",
+  //   };
 
-    const { data: response } = await axios.post(
-      `${API_DOMAIN}version/v1/check`,
-      checkVersionReq
-    );
+  //   const { data: response } = await axios.post(
+  //     `${API_DOMAIN}version/v1/check`,
+  //     checkVersionReq
+  //   );
 
-    const res = response.data.version;
-    const v1 = parseInt(APP_VERSION.replace(/\./g, ""), 10);
-    const v2 = parseInt(res.replace(/\./g, ""), 10);
+  //   const res = response.data.version;
+  //   const v1 = parseInt(APP_VERSION.replace(/\./g, ""), 10);
+  //   const v2 = parseInt(res.replace(/\./g, ""), 10);
 
-    console.log("ADAAAGGG");
-    if (v2 > v1) {
-      console.log("??");
-      CodePush.checkForUpdate().then((update) => {
-        // console.log('----+---')
-        // console.log(update + "UUUUU")
-        if (update) {
-          console.log(update + "AZZZZ?!");
-          setShowRegengOverlay(true);
-        } else {
-          console.log("EHH?");
-        }
-      });
-    }
+  //   console.log("ADAAAGGG");
+  //   if (v2 > v1) {
+  //     console.log("??");
+  //     CodePush.checkForUpdate().then((update) => {
+  //       // console.log('----+---')
+  //       // console.log(update + "UUUUU")
+  //       if (update) {
+  //         console.log(update + "AZZZZ?!");
+  //         setShowRegengOverlay(true);
+  //       } else {
+  //         console.log("EHH?");
+  //       }
+  //     });
+  //   }
 
-    return response;
-  };
+  //   return response;
+  // };
 
   let tryToLoadCount = 0;
   let adsReadyFlag = false;
 
   useEffect(() => {
     getIP();
-    queryClient.prefetchQuery({
-      queryKey: ["recommendationList"],
-      queryFn: () =>
-        fetch(`${API_DOMAIN}vod/v1/vod?by=hits_day`)
-          .then((response) => response.json())
-          .then((json: SuggestResponseType) => {
-            return json.data.List;
-          }),
-    });
+    // queryClient.prefetchQuery({
+    //   queryKey: ["recommendationList"],
+    //   queryFn: () =>
+    //     fetch(`${API_DOMAIN}vod/v1/vod?by=hits_day`)
+    //       .then((response) => response.json())
+    //       .then((json: SuggestResponseType) => {
+    //         return json.data.List;
+    //       }),
+    // });
 
     queryClient.prefetchQuery({
       queryKey: ["HomePage", 0],
@@ -195,51 +194,40 @@ let App = () => {
           }),
     });
 
-    queryClient.prefetchQuery({
-      queryKey: ["filterOptions"],
-      queryFn: () =>
-        fetch(`${API_DOMAIN}type/v1/type`)
-          .then((response) => {
-            return response.json();
-          })
-          .then((json: FilterOptionsResponseType) => {
-            return json.data;
-          }),
-      staleTime: Infinity,
-    });
+    // queryClient.prefetchQuery({
+    //   queryKey: ["filterOptions"],
+    //   queryFn: () =>
+    //     fetch(`${API_DOMAIN}type/v1/type`)
+    //       .then((response) => {
+    //         return response.json();
+    //       })
+    //       .then((json: FilterOptionsResponseType) => {
+    //         return json.data;
+    //       }),
+    //   staleTime: Infinity,
+    // });
 
-    queryClient.prefetchQuery({
-      queryKey: ["HomePageNavOptions"],
-      queryFn: () =>
-        fetch(`${API_DOMAIN}nav/v1/navItems`, {})
-          .then((response) => response.json())
-          .then((json: NavOptionsResponseType) => {
-            return json.data;
-          }),
-      staleTime: Infinity,
-    });
+    // queryClient.prefetchQuery({
+    //   queryKey: ["HomePageNavOptions"],
+    //   queryFn: () =>
+    //     fetch(`${API_DOMAIN}nav/v1/navItems`, {})
+    //       .then((response) => response.json())
+    //       .then((json: NavOptionsResponseType) => {
+    //         return json.data;
+    //       }),
+    //   staleTime: Infinity,
+    // });
 
-    queryClient.prefetchQuery({
-      queryKey: ["LiveTVStations"],
-      queryFn: () =>
-        fetch(`${API_DOMAIN}live/v1/livestations`, {})
-          .then((response) => response.json())
-          .then((json: LiveTVStationsResponseType) => {
-            return json.data;
-          }),
-      staleTime: Infinity,
-    });
+    // const fetchPlaylist = (page: number) =>
+    //   fetch(`${API_DOMAIN}topic/v1/topic?page=${page}`)
+    //     .then((response) => response.json())
+    //     .then((json: VodPlaylistResponseType) => {
+    //       return Object.values(json.data.List);
+    //     });
 
-    const fetchPlaylist = (page: number) =>
-      fetch(`${API_DOMAIN}topic/v1/topic?page=${page}`)
-        .then((response) => response.json())
-        .then((json: VodPlaylistResponseType) => {
-          return Object.values(json.data.List);
-        });
-
-    queryClient.prefetchInfiniteQuery(["vodPlaylist"], ({ pageParam = 1 }) =>
-      fetchPlaylist(pageParam)
-    );
+    // queryClient.prefetchInfiniteQuery(["vodPlaylist"], ({ pageParam = 1 }) =>
+    //   fetchPlaylist(pageParam)
+    // );
 
     const fetchVods = (page: number) =>
       fetch(`${API_DOMAIN}miniVod/v2/miniVod?page=${page}&limit=300`)
@@ -257,20 +245,18 @@ let App = () => {
       fetchVods(pageParam)
     );
 
-    queryClient.prefetchQuery({
-      queryKey: ["matchesNavOptions"],
-      queryFn: () =>
-        Api.call(Url.sportTypes, {}, "GET").then((res): {
-          has_submenu: boolean;
-          ids: Array<number>;
-          type: string;
-        }[] => {
-          let bla = [];
-          bla.push(res.data[3])
-          return bla;
-        }),
-      staleTime: Infinity,
-    });
+    // queryClient.prefetchQuery({
+    //   queryKey: ["matchesNavOptions"],
+    //   queryFn: () =>
+    //     Api.call(Url.sportTypes, {}, "GET").then((res): {
+    //       has_submenu: boolean;
+    //       ids: Array<number>;
+    //       type: string;
+    //     }[] => {
+    //       return res?.data;
+    //     }),
+    //   staleTime: Infinity,
+    // });
 
     let appId, appKey, bannerPlacementId;
 
@@ -332,151 +318,6 @@ let App = () => {
     // initInterstitialAdListener();
   }
 
-  const loadBanner = async (bannerPlacementId) => {
-    // console.log("loadBanner ....");
-
-    var settings = {};
-    if (Platform.OS === "android") {
-      const deviceWidthInPixel =
-        Dimensions.get("window").width * Dimensions.get("window").scale;
-
-      settings[
-        ATBannerRNSDK.kATBannerAdLoadingExtraBannerAdSizeStruct
-      ] = ATBannerRNSDK.createLoadAdSize(
-        deviceWidthInPixel,
-        TOPON_BANNER_HEIGHT
-      );
-
-      settings[ATBannerRNSDK.kATBannerAdAdaptiveWidth] = deviceWidthInPixel;
-      settings[ATBannerRNSDK.kATBannerAdAdaptiveOrientation] =
-        ATBannerRNSDK.kATBannerAdAdaptiveOrientationCurrent;
-      //    settings[ATBannerRNSDK.kATBannerAdAdaptiveOrientation] = ATBannerRNSDK.kATBannerAdAdaptiveOrientationPortrait;
-      //    settings[ATBannerRNSDK.kATBannerAdAdaptiveOrientation] = ATBannerRNSDK.kATBannerAdAdaptiveOrientationLandscape;
-    } else if (Platform.OS === "ios") {
-      settings[
-        ATBannerRNSDK.kATBannerAdLoadingExtraBannerAdSizeStruct
-      ] = ATBannerRNSDK.createLoadAdSize(
-        TOPON_BANNER_WIDTH,
-        TOPON_BANNER_HEIGHT
-      );
-
-      settings[ATBannerRNSDK.kATBannerAdAdaptiveWidth] = TOPON_BANNER_WIDTH;
-      settings[ATBannerRNSDK.kATBannerAdAdaptiveOrientation] =
-        ATBannerRNSDK.kATBannerAdAdaptiveOrientationCurrent;
-      //    settings[ATBannerRNSDK.kATBannerAdAdaptiveOrientation] = ATBannerRNSDK.kATBannerAdAdaptiveOrientationPortrait;
-      //    settings[ATBannerRNSDK.kATBannerAdAdaptiveOrientation] = ATBannerRNSDK.kATBannerAdAdaptiveOrientationLandscape;
-    }
-
-    await ATBannerRNSDK.loadAd(bannerPlacementId, settings);
-
-    isBannerReady(bannerPlacementId);
-  };
-
-  const isBannerReady = (bannerPlacementId) => {
-    ATBannerRNSDK.hasAdReady(bannerPlacementId).then((isAdReady) => {
-      console.log("isBannerReady: " + isAdReady);
-      console.log(bannerPlacementId);
-    });
-  };
-
-  const initInterstitialAdListener = () => {
-    ATInterstitialRNSDK.setAdListener(
-      ATInterstitialRNSDK.onInterstitialLoaded,
-      (event) => {
-        console.log("ATInterstitialLoaded: " + event.placementId);
-      }
-    );
-
-    ATInterstitialRNSDK.setAdListener(
-      ATInterstitialRNSDK.onInterstitialFail,
-      (event) => {
-        console.warn(
-          "ATInterstitialLoadFail: " +
-          event.placementId +
-          ", errorMsg: " +
-          event.errorMsg
-        );
-
-        // if (event.errorMsg == "") {
-        //   loadInterstitial(IOS_HOME_PAGE_POP_UP_ADS);
-        // }
-      }
-    );
-
-    ATInterstitialRNSDK.setAdListener(
-      ATInterstitialRNSDK.onInterstitialAdShow,
-      (event) => {
-        console.log(
-          "ATInterstitialAdShow: " +
-          event.placementId +
-          ", adCallbackInfo: " +
-          event.adCallbackInfo
-        );
-      }
-    );
-
-    ATInterstitialRNSDK.setAdListener(
-      ATInterstitialRNSDK.onInterstitialPlayStart,
-      (event) => {
-        console.log(
-          "ATInterstitialPlayStart: " +
-          event.placementId +
-          ", adCallbackInfo: " +
-          event.adCallbackInfo
-        );
-      }
-    );
-
-    ATInterstitialRNSDK.setAdListener(
-      ATInterstitialRNSDK.onInterstitialPlayEnd,
-      (event) => {
-        console.log(
-          "ATInterstitialPlayEnd: " +
-          event.placementId +
-          ", adCallbackInfo: " +
-          event.adCallbackInfo
-        );
-      }
-    );
-
-    ATInterstitialRNSDK.setAdListener(
-      ATInterstitialRNSDK.onInterstitialPlayFail,
-      (event) => {
-        console.log(
-          "ATInterstitialPlayFail: " +
-          event.placementId +
-          ", errorMsg: " +
-          event.errorMsg +
-          ", adCallbackInfo: " +
-          event.adCallbackInfo
-        );
-      }
-    );
-
-    ATInterstitialRNSDK.setAdListener(
-      ATInterstitialRNSDK.onInterstitialClick,
-      (event) => {
-        console.log(
-          "ATInterstitialClick: " +
-          event.placementId +
-          ", adCallbackInfo: " +
-          event.adCallbackInfo
-        );
-      }
-    );
-
-    ATInterstitialRNSDK.setAdListener(
-      ATInterstitialRNSDK.onInterstitialClose,
-      (event) => {
-        console.log(
-          "ATInterstitialClose: " +
-          event.placementId +
-          ", adCallbackInfo: " +
-          event.adCallbackInfo
-        );
-      }
-    );
-  };
   console.log("YSConfig.instance.areaConfig");
 
   console.log(YSConfig.instance.areaConfig);

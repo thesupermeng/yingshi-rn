@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useRef } from 'react';
+import React, { useEffect, useState, useCallback, useRef, memo } from 'react';
 import {
     View,
     Text,
@@ -11,7 +11,7 @@ import { MiniVideo } from '../types/ajaxTypes';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { API_DOMAIN } from '../utility/constants';
 import MiniVideoList from '../components/videoPlayer/miniVodList';
-import { useFocusEffect, useIsFocused } from '@react-navigation/native';
+import { useFocusEffect, useIsFocused, withNavigationFocus } from '@react-navigation/native';
 import NoConnection from './../components/common/noConnection';
 import NetInfo from '@react-native-community/netinfo';
 import { SettingsReducerState } from '../redux/reducers/settingsReducer';
@@ -28,7 +28,7 @@ type MiniVodRef = {
     setPause: (pause: boolean) => void;
 };
 
-export default ({ navigation }: BottomTabScreenProps<any>) => {
+function WatchAnytime ({ navigation }: BottomTabScreenProps<any>) {
     const isFocused = useIsFocused();
     // New state to keep track of app's background/foreground status
    // const [isInBackground, setIsInBackground] = useState(false);
@@ -170,6 +170,8 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
         </ScreenContainer>
     )
 }
+
+export default memo(WatchAnytime);
 
 const styles = StyleSheet.create({
 

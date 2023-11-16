@@ -302,6 +302,7 @@ const CatagoryHome = ({
         maxToRenderPerBatch={3}
         renderItem={listItem}
         contentContainerStyle={{ paddingBottom: 60 }}
+        removeClippedSubviews={true}
         ListFooterComponent={
           <View style={{ ...styles.loading }}>
             <Text

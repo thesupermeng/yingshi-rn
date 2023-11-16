@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import {StyleSheet, TouchableOpacity, View, Text} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {VodType} from '../../types/ajaxTypes';
@@ -14,7 +15,7 @@ interface Props {
   initialFavoriteState?: boolean;
   index: number;
 }
-export default function FavoriteVodCard({
+function FavoriteVodCard({
   vod,
   onPress,
   btnStyle,
@@ -65,6 +66,8 @@ export default function FavoriteVodCard({
     </View>
   );
 }
+
+export default memo(FavoriteVodCard);
 
 const styles = StyleSheet.create({
   card: {

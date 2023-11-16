@@ -222,6 +222,7 @@ const RecommendationHome = ({
               tintColor="#FAC33D"
             />
           }
+          removeClippedSubviews={true}
           ListHeaderComponent={
             <>
               {data?.carousel[0] && !refreshProp && (
