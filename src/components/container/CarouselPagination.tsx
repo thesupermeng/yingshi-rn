@@ -7,17 +7,20 @@ interface Props {
 }
 
 const CarouselPagination = ({data, activeIndex}: Props) => {
+
+  const currentItem = (item: any, index: number) => (
+    <View
+      key={index}
+      style={[
+        styles.paginationDot,
+        index === activeIndex && styles.paginationDotActive,
+      ]}
+    />
+  )
+
   return (
     <View style={styles.paginationContainer}>
-      {data.map((item: any, index: number) => (
-        <View
-          key={index}
-          style={[
-            styles.paginationDot,
-            index === activeIndex && styles.paginationDotActive,
-          ]}
-        />
-      ))}
+      {data.map(currentItem)}
     </View>
   );
 };

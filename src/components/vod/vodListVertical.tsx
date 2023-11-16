@@ -54,37 +54,39 @@ function VodListVertical({ vods, numOfRows = 2, outerRowPadding = 0, minNumPerRo
         setCardWidth(cardWidth);
         setCardHeight(cardHeight);
     }, []);
+
+    const vodMapItem = (vod: any, idx: any) => (
+        <VodCard
+            key={`${vod.vod_id}`}
+            vod_name={vod?.vod_name}
+            vod_pic={vod?.vod_pic}
+            showInfo={vod?.vod_remarks}
+            vodImageStyle={{
+                width: cardWidth,
+                height: cardHeight,
+                marginRight: (idx % cardsPerRow) === cardsPerRow - 1 ? 0 : marginRight,
+            }}
+            vodCardContainerStyle={{
+                marginBottom: Math.min(marginRight, 14)
+            }}
+            onPress={() => {
+                if(onPress){
+                    onPress();
+                }
+                dispatch(playVod(vod));
+                navigation.navigate('播放', {
+                    vod_id: vod?.vod_id,
+                });
+            }}
+            index={idx}
+        />
+    )
     
     return (
         <View style={styles.vodList}>
             {
                 vods &&
-                vods.slice(0, numOfRows * cardsPerRow).map((vod, idx) => (
-                    <VodCard
-                        key={`${vod.vod_id}`}
-                        vod_name={vod?.vod_name}
-                        vod_pic={vod?.vod_pic}
-                        showInfo={vod?.vod_remarks}
-                        vodImageStyle={{
-                            width: cardWidth,
-                            height: cardHeight,
-                            marginRight: (idx % cardsPerRow) === cardsPerRow - 1 ? 0 : marginRight,
-                        }}
-                        vodCardContainerStyle={{
-                            marginBottom: Math.min(marginRight, 14)
-                        }}
-                        onPress={() => {
-                            if(onPress){
-                                onPress();
-                            }
-                            dispatch(playVod(vod));
-                            navigation.navigate('播放', {
-                                vod_id: vod?.vod_id,
-                            });
-                        }}
-                        index={idx}
-                    />
-                ))
+                vods.slice(0, numOfRows * cardsPerRow).map(vodMapItem)
             }
         </View>
     )
