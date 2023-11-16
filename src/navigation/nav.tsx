@@ -379,7 +379,8 @@ export default () => {
 
     NetInfo.configure({
       // this is huawei url
-      reachabilityUrl: 'http://connectivitycheck.platform.hicloud.com/generate_204',
+      reachabilityUrl:
+        "http://connectivitycheck.platform.hicloud.com/generate_204",
     });
 
     const removeNetInfoListener = NetInfo.addEventListener(
@@ -429,9 +430,9 @@ export default () => {
       (event: any) => {
         console.warn(
           "ATInterstitialLoadFail: " +
-          event.placementId +
-          ", errorMsg: " +
-          event.errorMsg
+            event.placementId +
+            ", errorMsg: " +
+            event.errorMsg
         );
       }
     );
@@ -440,12 +441,13 @@ export default () => {
       ATInterstitialRNSDK.onInterstitialAdShow,
       (event: any) => {
         dispatch(interstitialShow());
-        console.log(
-          "ATInterstitialAdShow: " +
-          event.placementId +
-          ", adCallbackInfo: " +
-          event.adCallbackInfo
-        );
+        // console.log(
+        //   "ATInterstitialAdShow: " +
+        //     event.placementId +
+        //     ", adCallbackInfo: " +
+        //     event.adCallbackInfo
+        // );
+        console.log("ATInterstitialAdShow: " + event.placementId);
       }
     );
 
@@ -454,9 +456,9 @@ export default () => {
       (event: any) => {
         console.log(
           "ATInterstitialPlayStart: " +
-          event.placementId +
-          ", adCallbackInfo: " +
-          event.adCallbackInfo
+            event.placementId +
+            ", adCallbackInfo: " +
+            event.adCallbackInfo
         );
       }
     );
@@ -466,9 +468,9 @@ export default () => {
       (event: any) => {
         console.log(
           "ATInterstitialPlayEnd: " +
-          event.placementId +
-          ", adCallbackInfo: " +
-          event.adCallbackInfo
+            event.placementId +
+            ", adCallbackInfo: " +
+            event.adCallbackInfo
         );
       }
     );
@@ -478,11 +480,11 @@ export default () => {
       (event: any) => {
         console.log(
           "ATInterstitialPlayFail: " +
-          event.placementId +
-          ", errorMsg: " +
-          event.errorMsg +
-          ", adCallbackInfo: " +
-          event.adCallbackInfo
+            event.placementId +
+            ", errorMsg: " +
+            event.errorMsg +
+            ", adCallbackInfo: " +
+            event.adCallbackInfo
         );
       }
     );
@@ -492,9 +494,9 @@ export default () => {
       (event: any) => {
         console.log(
           "ATInterstitialClick: " +
-          event.placementId +
-          ", adCallbackInfo: " +
-          event.adCallbackInfo
+            event.placementId +
+            ", adCallbackInfo: " +
+            event.adCallbackInfo
         );
       }
     );
@@ -503,12 +505,13 @@ export default () => {
       ATInterstitialRNSDK.onInterstitialClose,
       (event: any) => {
         dispatch(interstitialClose());
-        console.log(
-          "ATInterstitialClose: " +
-          event.placementId +
-          ", adCallbackInfo: " +
-          event.adCallbackInfo
-        );
+        // console.log(
+        //   "ATInterstitialClose: " +
+        //     event.placementId +
+        //     ", adCallbackInfo: " +
+        //     event.adCallbackInfo
+        // );
+        console.log("ATInterstitialClose: " + event.placementId);
       }
     );
   };
