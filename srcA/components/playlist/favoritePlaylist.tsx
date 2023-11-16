@@ -71,8 +71,10 @@ export default function FavoritePlaylist({playlist, navigator}: Props) {
               vod_pic={item.vod_pic}
               vodImageStyle={{width: 120, height: 180}}
               onPress={() => {
-                const url = `https://m.iqiyi.com/search.html?key=${item.vod_name}`
-                Linking.openURL(url);
+                dispatch(playVod(item));
+                navigator.navigate('播放', {
+                  vod_id: item.vod_id,
+                });
               }}
             />
           );
