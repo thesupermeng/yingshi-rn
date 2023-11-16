@@ -416,6 +416,12 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
     }, [vod, currentTimeRef, currentEpisode, videoPlayerRef])
   );
 
+  const onPressEpisode = useCallback((itemId : any) => {
+    setCurrentEpisode(itemId);
+    currentEpisodeRef.current = itemId;
+    currentTimeRef.current = 0;
+  }, []);
+
   const renderEpisodes = useCallback(
     ({ item }) => (
       <TouchableOpacity
@@ -428,11 +434,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
           marginRight: spacing.xs,
           ...styles.episodeBtn,
         }}
-        onPress={() => {
-          setCurrentEpisode(item.nid);
-          currentEpisodeRef.current = item.nid;
-          currentTimeRef.current = 0;
-        }}
+        onPress={() => onPressEpisode(item.nid)}
       >
         <Text
           numberOfLines={1}
@@ -786,6 +788,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                               ListFooterComponent={
                                 <View style={{ paddingHorizontal: 20 }} />
                               }
+                              keyExtractor={(item, index)=>index.toString()}
                             />
                             <View />
                           </>

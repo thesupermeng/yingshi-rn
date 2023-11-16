@@ -95,10 +95,10 @@ function VodEpisodeSelectionModal({
     >
       <View style={styles.episodeList}>
         <Text
-          style={{
-            ...styles.btn,
-            ...textVariants.header
-          }}>
+          style={[
+            styles.btn,
+            textVariants.header
+          ]}>
           {`${showEpisodeRangeStart+1}-${showEpisodeRangeEnd} 集`}
         </Text>
         <TouchableOpacity style={styles.sortBtn} onPress={sort}>

@@ -1,3 +1,4 @@
+import React, {memo} from "react";
 import {StyleSheet, TouchableOpacity, Text, View} from 'react-native';
 import MoreArrow from '../../../static/images/more_arrow.svg';
 import {useTheme} from '@react-navigation/native';
@@ -7,7 +8,7 @@ interface Props {
   params?: any[];
   isPlayScreen?: boolean;
 }
-export default function ShowMoreVodButton({
+function ShowMoreVodButton({
   text,
   onPress,
   isPlayScreen = false,
@@ -37,6 +38,8 @@ export default function ShowMoreVodButton({
     </View>
   );
 }
+
+export default memo(ShowMoreVodButton);
 
 const styles = StyleSheet.create({
   banner: {

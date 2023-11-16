@@ -211,6 +211,56 @@ const RecommendationHome = ({
     []
   );
 
+  const yunyingMap = (item: any, index: any) => (
+    <View
+      key={item.type_name}
+      style={{
+        paddingLeft: spacing.sideOffset,
+        paddingRight: spacing.sideOffset,
+        gap: spacing.xxs,
+      }}
+    >
+      <View>
+        <ShowMoreVodButton
+          text={item.type_name}
+          onPress={() => {
+            navigation.navigate("片库", {
+              type_id: item.vod_list[0].type_id,
+            });
+          }}
+        />
+      </View>
+      <VodListVertical vods={item.vod_list} />
+    </View>
+  );
+
+  const categoriesMap = (category: any, index: any) => (
+    <View
+      key={`category-${index}`}
+      style={{
+        paddingLeft: spacing.sideOffset,
+        paddingRight: spacing.sideOffset,
+        paddingTop: 5,
+      }}
+    >
+      <View
+        style={{
+          paddingBottom: 5,
+        }}
+      >
+        <ShowMoreVodButton
+          text={category.type_name}
+          onPress={() => {
+            navigation.navigate("片库", {
+              type_id: category.type_id,
+            });
+          }}
+        />
+      </View>
+      <VodListVertical vods={category.vod_list} />
+    </View>
+  )
+
   return (
     <View style={{ width: width }}>
       {data?.live_station_list && data?.live_station_list.length > 0 && (
@@ -331,57 +381,11 @@ const RecommendationHome = ({
                 </View>
                 {data?.yunying &&
                   data.yunying.length > 0 &&
-                  data.yunying.map((item, index) => (
-                    <View
-                      key={item.type_name}
-                      style={{
-                        paddingLeft: spacing.sideOffset,
-                        paddingRight: spacing.sideOffset,
-                        gap: spacing.xxs,
-                      }}
-                    >
-                      <View>
-                        <ShowMoreVodButton
-                          text={item.type_name}
-                          onPress={() => {
-                            navigation.navigate("片库", {
-                              type_id: item.vod_list[0].type_id,
-                            });
-                          }}
-                        />
-                      </View>
-                      <VodListVertical vods={item.vod_list} />
-                    </View>
-                  ))}
+                  data.yunying.map(yunyingMap)}
 
                 {data?.categories &&
                   data.categories.length > 0 &&
-                  data.categories.map((category, index) => (
-                    <View
-                      key={`category-${index}`}
-                      style={{
-                        paddingLeft: spacing.sideOffset,
-                        paddingRight: spacing.sideOffset,
-                        paddingTop: 5,
-                      }}
-                    >
-                      <View
-                        style={{
-                          paddingBottom: 5,
-                        }}
-                      >
-                        <ShowMoreVodButton
-                          text={category.type_name}
-                          onPress={() => {
-                            navigation.navigate("片库", {
-                              type_id: category.type_id,
-                            });
-                          }}
-                        />
-                      </View>
-                      <VodListVertical vods={category.vod_list} />
-                    </View>
-                  ))}
+                  data.categories.map(categoriesMap)}
               </View>
             </>
           }
