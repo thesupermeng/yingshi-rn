@@ -37,6 +37,7 @@ import { useDispatch } from "react-redux";
 import { useAppSelector } from "../../hooks/hooks";
 import { screenModel } from "../../types/screenType";
 import { NON_VIP_STREAM_TIME_SECONDS } from "../../utility/constants";
+import { userModel } from "../../types/userType";
 
 interface Props {
   vod_url?: string;
@@ -61,6 +62,7 @@ interface Props {
   appOrientation: string;
   devicesOrientation: string;
   lockOrientation: (orientation: string) => void;
+  handleSaveVod: any;
 }
 
 type VideoControlsRef = {
@@ -104,11 +106,12 @@ export default forwardRef<VideoRef, Props>(
       appOrientation,
       devicesOrientation,
       lockOrientation,
+      handleSaveVod = () => {},
     }: Props,
     ref
   ) => {
     const videoPlayerRef = React.useRef<Video | null>();
-    const { colors, spacing, textVariants, icons } = useTheme();
+    const { colors, textVariants } = useTheme();
     const [isFullScreen, setIsFullScreen] = useState(false);
     const [isPaused, setIsPaused] = useState(false);
     const [duration, setDuration] = useState(0);
@@ -122,15 +125,15 @@ export default forwardRef<VideoRef, Props>(
     const accumulatedSkip = useRef(0);
     const [isLastForward, setIsLastForward] = useState(true);
 
-    const height = Dimensions.get("window").height;
-    const width = Dimensions.get("window").width;
     const navigation = useNavigation();
     const route = useRoute();
     const dispatch = useDispatch();
     const screenState: screenModel = useAppSelector(
       ({ screenReducer }) => screenReducer
     );
-
+    const userState: userModel = useAppSelector(
+      ({ userReducer }) => userReducer
+    );
     const bufferRef = useRef(false);
     const onBuffer = (bufferObj: any) => {
       if (!bufferObj.isBuffering) {
@@ -177,8 +180,9 @@ export default forwardRef<VideoRef, Props>(
     useEffect(() => {
       // for auto rotate video player
       const isNeedAutoRotate = false;
+      const isLocked = controlsRef?.current?.isLocked ?? false;
 
-      if (isNeedAutoRotate) {
+      if (isNeedAutoRotate && !isLocked) {
         deviceOrientationHandle();
       } else {
         // set orientation: "portrait" because if set all android will auto rotate
@@ -242,11 +246,23 @@ export default forwardRef<VideoRef, Props>(
       }
     }, [isFullScreen]);
 
+    useEffect(() => {
+      // when url change will reset play time (for 相关电视剧)
+      setCurrentTime(0);
+    }, [vod_url]);
+
     // Handle app's background/foreground status
     const handleAppStateChange = (nextAppState: any) => {
-      setIsInBackground(nextAppState !== "active");
-      if (nextAppState === "active") {
-        setIsPaused(false); // Resume video when app becomes active (foreground)
+      // setIsInBackground(nextAppState !== "active");
+      // if (nextAppState === "active") {
+      //   // setIsPaused(false); // Resume video when app becomes active (foreground)
+      // } else {
+      //   handleSaveVod();
+      // }
+
+      if (nextAppState !== "active") {
+        console.log("save vod");
+        handleSaveVod();
       }
     };
 
@@ -321,7 +337,13 @@ export default forwardRef<VideoRef, Props>(
 
     const onVideoProgessing = (data: any) => {
       setCurrentTime(data.currentTime);
-      currentTimeRef.current = data.currentTime;
+
+      try {
+        currentTimeRef.current = data.currentTime;
+      } catch (err) {
+        console.error("crash here");
+      }
+
       if (Platform.OS === "ios") {
         bufferRef.current = false;
       }
@@ -374,15 +396,45 @@ export default forwardRef<VideoRef, Props>(
       return undefined;
     };
 
+    // useEffect(() => {
+    //   // if is sports stream, if watch time > 300s, pause vid
+    //   if (
+    //     route.name === "体育详情" &&
+    //     screenState.sportWatchTime > NON_VIP_STREAM_TIME_SECONDS
+    //   ) {
+    //     if (videoPlayerRef.current){
+    //       videoPlayerRef.current.pause();
+    //     }
+    //   }
+    // }, [screenState.sportWatchTime]);
     useEffect(() => {
       // if is sports stream, if watch time > 300s, pause vid
       if (
-        route.name === "体育详情" &&
-        screenState.sportWatchTime > NON_VIP_STREAM_TIME_SECONDS
+        screenState.interstitialShow == true &&
+        route.name != "体育详情" &&
+        route.name != "电视台播放"
       ) {
-        videoPlayerRef.current.pause();
+        setIsPaused(true);
+      } else {
+        setIsPaused(false);
       }
-    }, [screenState.sportWatchTime]);
+    }, [screenState.interstitialShow]);
+
+    useEffect(() => {
+      // if is sports stream, if watch time > 300s, pause vid
+      if (screenState.interstitialShow == true) {
+        setIsPaused(true);
+      } else {
+        setIsPaused(false);
+      }
+    }, [screenState.interstitialShow]);
+
+    const pauseSportVideo =
+      route.name === "体育详情" &&
+      screenState.sportWatchTime > NON_VIP_STREAM_TIME_SECONDS &&
+      (Number(userState.userMemberExpired) <=
+        Number(userState.userCurrentTimestamp) ||
+        userState.userToken === "");
 
     return (
       <View style={styles.container}>
@@ -406,7 +458,7 @@ export default forwardRef<VideoRef, Props>(
             <VideoWithControls
               playbackRate={playbackRate}
               videoPlayerRef={videoPlayerRef}
-              isPaused={isPaused || isInBackground} // Pause video when app is in the background
+              isPaused={isPaused || pauseSportVideo} // Pause video  when sport timer is up
               vod_source={vod_source}
               vod_url={vod_url}
               currentTimeRef={currentTimeRef}

@@ -31,7 +31,7 @@ type MiniVodRef = {
 export default ({ navigation }: BottomTabScreenProps<any>) => {
     const isFocused = useIsFocused();
     // New state to keep track of app's background/foreground status
-    const [isInBackground, setIsInBackground] = useState(false);
+   // const [isInBackground, setIsInBackground] = useState(false);
     const [isRefreshing, setIsRefreshing] = useState(false);
     const [isOffline, setIsOffline] = useState(false);
     const miniVodRef = useRef() as React.MutableRefObject<MiniVodRef>;
@@ -141,9 +141,9 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     }, [])
 
     // Handle app's background/foreground status
-    const handleAppStateChange = (nextAppState: any) => {
-        setIsInBackground(nextAppState !== "active");
-    };
+    // const handleAppStateChange = (nextAppState: any) => {
+    //     setIsInBackground(nextAppState !== "active");
+    // };
 
     return (
         <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0, paddingBottom: 10 }}>
@@ -159,7 +159,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                     hasNextPage={hasNextPage}
                     isFetching={isFetching}
                     isFetchingNextPage={isFetchingNextPage}
-                    isActive={isFocused && !isInBackground}
+                    isActive={isFocused}
                     setCollectionEpisode={(index: number) => { }}
                     handleRefreshMiniVod={handleRefresh}
                     isRefreshing={isRefreshing}

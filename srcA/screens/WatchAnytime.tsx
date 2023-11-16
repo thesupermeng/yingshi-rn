@@ -13,7 +13,7 @@ import { API_DOMAIN } from '../utility/constants';
 import MiniVideoList from '../components/videoPlayer/miniVodList';
 import { useFocusEffect, useIsFocused } from '@react-navigation/native';
 import NoConnection from './../components/common/noConnection';
-import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
+import NetInfo from '@react-native-community/netinfo';
 import { SettingsReducerState } from '../redux/reducers/settingsReducer';
 import { useAppSelector } from '../hooks/hooks';
 import { RootState } from '../redux/store';
@@ -31,11 +31,12 @@ type MiniVodRef = {
 export default ({ navigation }: BottomTabScreenProps<any>) => {
     const isFocused = useIsFocused();
     // New state to keep track of app's background/foreground status
-    const [isInBackground, setIsInBackground] = useState(false);
+   // const [isInBackground, setIsInBackground] = useState(false);
     const [isRefreshing, setIsRefreshing] = useState(false);
     const [isOffline, setIsOffline] = useState(false);
     const miniVodRef = useRef() as React.MutableRefObject<MiniVodRef>;
     const miniVodListRef = useRef<any>();
+    const [isPressTabScroll, setPressTabScroll] = useState(false);
 
     const settingsReducer: SettingsReducerState = useAppSelector(
         ({ settingsReducer }: RootState) => settingsReducer
@@ -47,16 +48,23 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
             if (isFocused && !isRefreshing) {
                 handleRefresh();
 
+                setPressTabScroll(true);
+
                 miniVodListRef.current?.scrollToIndex({
                     index: 0,
                     animated: true,
                 });
+
+                // 0.5 second for scroll animation, hide all video
+                setTimeout(() => {
+                    setPressTabScroll(false);
+                }, 500)
             }
         };
         const unsubscribe = navigation.addListener('tabPress', handleTabPress);
         // Clean up the event listener when the component unmounts
         return () => unsubscribe();
-    }, [navigation, isFocused]);
+    }, [navigation, isFocused, isRefreshing]);
 
 
     const handleRefresh = useCallback(async () => {
@@ -133,9 +141,9 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     }, [])
 
     // Handle app's background/foreground status
-    const handleAppStateChange = (nextAppState: any) => {
-        setIsInBackground(nextAppState !== "active");
-    };
+    // const handleAppStateChange = (nextAppState: any) => {
+    //     setIsInBackground(nextAppState !== "active");
+    // };
 
     return (
         <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0, paddingBottom: 10 }}>
@@ -151,10 +159,11 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                     hasNextPage={hasNextPage}
                     isFetching={isFetching}
                     isFetchingNextPage={isFetchingNextPage}
-                    isActive={isFocused && !isInBackground}
+                    isActive={isFocused}
                     setCollectionEpisode={(index: number) => { }}
                     handleRefreshMiniVod={handleRefresh}
                     isRefreshing={isRefreshing}
+                    isPressTabScroll={isPressTabScroll}
                 />
             }
             {isOffline && <NoConnection onClickRetry={checkConnection} />}

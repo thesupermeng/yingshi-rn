@@ -97,7 +97,7 @@ export default forwardRef<VideoRef, Props>(
       rangeSize,
       episodes,
       autoPlayNext = true,
-      onShare = () => { },
+      onShare = () => {},
       movieList = [],
       showGuide = false,
       streams = [],
@@ -106,7 +106,7 @@ export default forwardRef<VideoRef, Props>(
       appOrientation,
       devicesOrientation,
       lockOrientation,
-      handleSaveVod = () => { },
+      handleSaveVod = () => {},
     }: Props,
     ref
   ) => {
@@ -253,10 +253,15 @@ export default forwardRef<VideoRef, Props>(
 
     // Handle app's background/foreground status
     const handleAppStateChange = (nextAppState: any) => {
-      setIsInBackground(nextAppState !== "active");
-      if (nextAppState === "active") {
-        setIsPaused(false); // Resume video when app becomes active (foreground)
-      } else {
+      // setIsInBackground(nextAppState !== "active");
+      // if (nextAppState === "active") {
+      //   // setIsPaused(false); // Resume video when app becomes active (foreground)
+      // } else {
+      //   handleSaveVod();
+      // }
+
+      if (nextAppState !== "active") {
+        console.log("save vod");
         handleSaveVod();
       }
     };
@@ -299,7 +304,6 @@ export default forwardRef<VideoRef, Props>(
     }, [isFullScreen, appOrientation]);
 
     const onVideoLoaded = (data: any) => {
-      console.log("asdasdsadasds");
       setDuration(data.duration);
       if (currentTimeRef) {
         currentTimeRef.current = data.currentTime;
@@ -410,12 +414,8 @@ export default forwardRef<VideoRef, Props>(
         route.name != "体育详情" &&
         route.name != "电视台播放"
       ) {
-        console.log("paused");
-        console.log(route.name);
         setIsPaused(true);
       } else {
-        console.log("not paused");
-        console.log(route.name);
         setIsPaused(false);
       }
     }, [screenState.interstitialShow]);
@@ -458,7 +458,7 @@ export default forwardRef<VideoRef, Props>(
             <VideoWithControls
               playbackRate={playbackRate}
               videoPlayerRef={videoPlayerRef}
-              isPaused={isPaused || isInBackground || pauseSportVideo} // Pause video when app is in the background or when sport timer is up
+              isPaused={isPaused || pauseSportVideo} // Pause video  when sport timer is up
               vod_source={vod_source}
               vod_url={vod_url}
               currentTimeRef={currentTimeRef}
