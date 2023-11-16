@@ -466,12 +466,13 @@ export default () => {
     ATInterstitialRNSDK.setAdListener(
       ATInterstitialRNSDK.onInterstitialPlayEnd,
       (event: any) => {
-        console.log(
-          "ATInterstitialPlayEnd: " +
-            event.placementId +
-            ", adCallbackInfo: " +
-            event.adCallbackInfo
-        );
+        // console.log(
+        //   "ATInterstitialPlayEnd: " +
+        //     event.placementId +
+        //     ", adCallbackInfo: " +
+        //     event.adCallbackInfo
+        // );
+        console.log("ATInterstitialPlayEnd");
       }
     );
 
