@@ -71,8 +71,8 @@ export default function VodHistoryList({
                     .substr(11, 8)}`
             }
             onPress={() => {
-              const url = `https://m.iqiyi.com/search.html?key=${item.vod_name}`
-              Linking.openURL(url);
+              dispatch(playVod(item));
+              navigation.navigate('播放', {vod_id: item.vod_id});
             }}
             index={index}
           />

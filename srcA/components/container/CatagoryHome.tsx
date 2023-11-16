@@ -132,8 +132,10 @@ const CatagoryHome = ({
       <TouchableOpacity
         key={`slider-${index}`}
         onPress={() => {
-          const url = `https://m.iqiyi.com/search.html?key=${item.vod_name}`
-          Linking.openURL(url);
+          dispatch(playVod(item.vod));
+          navigation.navigate('播放', {
+            vod_id: item.carousel_content_id,
+          });
         }}>
         <FastImage
           style={styles.image}

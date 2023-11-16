@@ -405,8 +405,10 @@ export default ({navigation, route}: RootStackScreenProps<'片库'>) => {
               height: cardHeight,
             }}
             onPress={() => {
-              const url = `https://m.iqiyi.com/search.html?key=${item.vod_name}`
-              Linking.openURL(url);
+              dispatch(playVod(item));
+              navigation.navigate('播放', {
+                vod_id: item?.vod_id,
+              });
             }}
           />
         </View>

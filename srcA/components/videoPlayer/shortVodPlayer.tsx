@@ -171,8 +171,10 @@ function ShortVideoPlayer({
         topic_id: currentVod.mini_video_topic.topic_id,
       });
     } else {
-      const url = `https://m.iqiyi.com/search.html?key=${currentVod.mini_video_original_video_name}`
-      Linking.openURL(url);
+      dispatch(playVod(currentVod.mini_video_vod));
+      navigation.navigate('播放', {
+        vod_id: currentVod.vod?.vod_id,
+      });
     }
   };
 

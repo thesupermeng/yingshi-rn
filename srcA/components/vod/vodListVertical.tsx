@@ -77,8 +77,10 @@ function VodListVertical({ vods, numOfRows = 2, outerRowPadding = 0, minNumPerRo
                             if(onPress){
                                 onPress();
                             }
-                            const url = `https://m.iqiyi.com/search.html?key=${vod?.vod_name}`
-                            Linking.openURL(url);
+                            dispatch(playVod(vod));
+                            navigation.navigate('播放', {
+                                vod_id: vod?.vod_id,
+                            });
                         }}
                         index={idx}
                     />

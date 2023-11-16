@@ -115,7 +115,7 @@ const getNoAdsUri = async (url:string) =>{
     .fetch("GET", masterPlaylistUrl))
     .text().toString()
 
-  if (playlistContent.includes('file not found')) throw new Error("Error: master playlist content not found"); // if file not found, throw err
+  if (playlistContent.includes('file not found')) return url; // if file not found, return original url 
   
   const playlist = playlistContent.split('\n').map(line => {
     if (line.endsWith('.ts')) {
