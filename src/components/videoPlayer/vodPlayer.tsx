@@ -259,8 +259,14 @@ export default forwardRef<VideoRef, Props>(
       // } else {
       //   handleSaveVod();
       // }
+
+      console.log("currentTimeRef.current");
+      console.log(currentTimeRef.current);
+      console.log("nextAppState");
+      console.log(nextAppState);
       try {
         if (currentTimeRef.current != 0 && nextAppState !== "active") {
+          console.log("save vod");
           handleSaveVod();
         }
       } catch (err) {
