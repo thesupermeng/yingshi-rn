@@ -414,21 +414,20 @@ export default forwardRef<VideoRef, Props>(
     //     }
     //   }
     // }, [screenState.sportWatchTime]);
-    useEffect(() => {
-      // if is sports stream, if watch time > 300s, pause vid
-      if (
-        screenState.interstitialShow == true &&
-        route.name != "体育详情" &&
-        route.name != "电视台播放"
-      ) {
-        setIsPaused(true);
-      } else {
-        setIsPaused(false);
-      }
-    }, [screenState.interstitialShow]);
+    // useEffect(() => {
+    //   if (
+    //     screenState.interstitialShow == true &&
+    //     route.name != "体育详情" &&
+    //     route.name != "电视台播放"
+    //   ) {
+    //     setIsPaused(true);
+    //   } else {
+    //     setIsPaused(false);
+    //   }
+    // }, [screenState.interstitialShow]);
 
     useEffect(() => {
-      if (screenState.interstitialShow == true) {
+      if (screenState.interstitialShow == true && Platform.OS === "ios") {
         setIsPaused(true);
       } else {
         setIsPaused(false);
