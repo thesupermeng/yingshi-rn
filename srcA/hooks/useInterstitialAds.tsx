@@ -116,14 +116,14 @@ const useInterstitialAds = () => {
       retryCount < 3
     ) {
       retryCount += 1;
-      console.log("=======  not vip ======");
+      // console.log("=======  not vip ======");
       loadInterstitial(interstitialPlacementId);
       setTimeout(() => {
         isInterstitialReady(interstitialPlacementId);
       }, 500);
     } else {
       if (retryCount >= 3) {
-        console.log("exceed retry limit");
+        //console.log("exceed retry limit");
       } else {
         console.log("VIP no ads");
       }

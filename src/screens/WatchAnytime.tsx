@@ -128,7 +128,7 @@ function WatchAnytime ({ navigation }: BottomTabScreenProps<any>) {
 
     // useEffect(() => {
     //     setIsOffline(settingsReducer.isOffline);
-    //     // ... (rest of the useEffect hook remains unchanged)
+    //     ... (rest of the useEffect hook remains unchanged)
     //     const subscription = AppState.addEventListener(
     //         "change",
     //         handleAppStateChange

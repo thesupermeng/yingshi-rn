@@ -15,6 +15,7 @@ const initialState: screenModel = {
   navigateToProfile: false,
   sportWatchTime: 0,
   interstitialShow: false,
+  isPlayerFullScreen: false,
 };
 
 export function screenReducer(state = initialState, action: screenActionType) {
@@ -100,6 +101,11 @@ export function screenReducer(state = initialState, action: screenActionType) {
       return {
         ...state,
         interstitialShow: false,
+      };
+    case "set_player_fullscreen":
+      return {
+        ...state,
+        isPlayerFullScreen: action.payload,
       };
     default:
       return state;

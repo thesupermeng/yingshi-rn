@@ -126,19 +126,19 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
         }
     }, [settingsReducer.isOffline]));
 
-    useEffect(() => {
-        setIsOffline(settingsReducer.isOffline);
-        // ... (rest of the useEffect hook remains unchanged)
-        const subscription = AppState.addEventListener(
-            "change",
-            handleAppStateChange
-        );
+    // useEffect(() => {
+    //     setIsOffline(settingsReducer.isOffline);
+    //     ... (rest of the useEffect hook remains unchanged)
+    //     const subscription = AppState.addEventListener(
+    //         "change",
+    //         handleAppStateChange
+    //     );
 
-        return () => {
-            subscription.remove();
-        };
+    //     return () => {
+    //         subscription.remove();
+    //     };
 
-    }, [])
+    // }, [])
 
     // Handle app's background/foreground status
     // const handleAppStateChange = (nextAppState: any) => {

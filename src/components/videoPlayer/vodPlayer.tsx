@@ -27,6 +27,8 @@ import FastImage from "react-native-fast-image";
 import FastForwardProgressIcon from "../../../static/images/fastforwardProgress.svg";
 import RewindProgressIcon from "../../../static/images/rewindProgress.svg";
 
+import { setFullscreenState } from "../../redux/actions/screenAction";
+
 import {
   LiveTVStationItem,
   VodEpisodeListType,
@@ -238,6 +240,7 @@ export default forwardRef<VideoRef, Props>(
     }, [navigation, isFullScreen, isPaused]);
 
     useEffect(() => {
+      dispatch(setFullscreenState(isFullScreen));
       // if full screen disable ios swipe back function
       if (isFullScreen) {
         navigation.setOptions({ gestureEnabled: false });
@@ -261,6 +264,7 @@ export default forwardRef<VideoRef, Props>(
       // }
       try {
         if (currentTimeRef.current != 0 && nextAppState !== "active") {
+          console.log("save vod");
           handleSaveVod();
         }
       } catch (err) {
@@ -410,22 +414,20 @@ export default forwardRef<VideoRef, Props>(
     //     }
     //   }
     // }, [screenState.sportWatchTime]);
-    useEffect(() => {
-      // if is sports stream, if watch time > 300s, pause vid
-      if (
-        screenState.interstitialShow == true &&
-        route.name != "体育详情" &&
-        route.name != "电视台播放"
-      ) {
-        setIsPaused(true);
-      } else {
-        setIsPaused(false);
-      }
-    }, [screenState.interstitialShow]);
+    // useEffect(() => {
+    //   if (
+    //     screenState.interstitialShow == true &&
+    //     route.name != "体育详情" &&
+    //     route.name != "电视台播放"
+    //   ) {
+    //     setIsPaused(true);
+    //   } else {
+    //     setIsPaused(false);
+    //   }
+    // }, [screenState.interstitialShow]);
 
     useEffect(() => {
-      // if is sports stream, if watch time > 300s, pause vid
-      if (screenState.interstitialShow == true) {
+      if (screenState.interstitialShow == true && Platform.OS === "ios") {
         setIsPaused(true);
       } else {
         setIsPaused(false);
