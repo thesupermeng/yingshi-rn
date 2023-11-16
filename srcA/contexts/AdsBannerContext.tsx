@@ -61,12 +61,13 @@ const initBannerAdListener = () => {
   });
 
   ATBannerRNSDK.setAdListener(ATBannerRNSDK.onBannerShow, (event) => {
-    console.log(
-      "ATBannerShow: " +
-        event.placementId +
-        ", adCallbackInfo: " +
-        event.adCallbackInfo
-    );
+    // console.log(
+    //   "ATBannerShow: " +
+    //     event.placementId +
+    //     ", adCallbackInfo: " +
+    //     event.adCallbackInfo
+    // );
+    console.log("ATBannerShow: " + event.placementId);
   });
 
   ATBannerRNSDK.setAdListener(
@@ -91,14 +92,15 @@ const initBannerAdListener = () => {
   });
 
   ATBannerRNSDK.setAdListener(ATBannerRNSDK.onBannerRefresh, (event) => {
-    console.log(
-      "ATBannerRefresh: " +
-        event.placementId +
-        ", errorMsg: " +
-        event.errorMsg +
-        ", adCallbackInfo: " +
-        event.adCallbackInfo
-    );
+    // console.log(
+    //   "ATBannerRefresh: " +
+    //     event.placementId +
+    //     ", errorMsg: " +
+    //     event.errorMsg +
+    //     ", adCallbackInfo: " +
+    //     event.adCallbackInfo
+    // );
+    console.log("ATBannerRefresh: " + event.placementId);
   });
 
   ATBannerRNSDK.setAdListener(ATBannerRNSDK.onBannerRefreshFail, (event) => {
@@ -232,7 +234,7 @@ const showBanner = (
   // console.log("showBanner");
   // console.log("routeName");
   // console.log(routeName);
-  console.log("======== banner init ======");
+  //console.log("======== banner init ======");
   // console.debug(x, y, width, height)
   if (bannerId == null) {
     setTimeout(() => {
@@ -430,7 +432,7 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
   };
 
   useEffect(() => {
-    console.log("======== banner init ======");
+    //console.log("======== banner init ======");
 
     initBannerAdListener();
     initBanner();
