@@ -50,13 +50,13 @@ const pageNoNavbar = ["播放", "PlaylistDetail", "体育详情", "电视台播�
 const deviceBrand = DeviceInfo.getBrand();
 
 const scale = Dimensions.get("screen").scale;
-const windowWidth = useWindowDimensions().width;
-const windowHeight = useWindowDimensions().height;
 
 export const AdsBannerContextProvider = ({ children }: Props) => {
   const [route, setRoute] = useState<string | null>(null);
   const [navbarHeight, setNavbarHeight] = useState(0);
   const [systemNavHeight, setSystemNavHeight] = useState(0);
+  const windowWidth2 = useWindowDimensions().width;
+  // const windowHeight2 = useWindowDimensions().height;
   const userState: userModel = useAppSelector(
     ({ userReducer }: RootState) => userReducer
   );
@@ -288,13 +288,10 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
           ATBannerRNSDK.loadAd(bannerId, settings);
           setTimeout(() => {
             hideAllBanner();
-
-            console.log(settingState.appOrientation);
-            console.log(screenState.isPlayerFullScreen);
             if (screenState.isPlayerFullScreen) {
               return;
             }
-            console.log("show banner 111111 here");
+            // console.log("show banner here");
             //show banner
             ATBannerRNSDK.showAdInRectangle(
               bannerId,
@@ -308,7 +305,7 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
             if (screenState.isPlayerFullScreen) {
               return;
             }
-            console.log("show 222222");
+            //console.log("show");
 
             // if (settingState.appOrientation !== "PORTRAIT") {
             // return;
@@ -476,8 +473,8 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
   // }, [screenState.isPlayerFullScreen]);
 
   useEffect(() => {
-    console.log("settingState.appOrientation");
-    console.log(settingState.appOrientation);
+    // console.log("settingState.appOrientation");
+    // console.log(settingState.appOrientation);
 
     // show banner logic
     if (settingState.appOrientation === "PORTRAIT") {
@@ -502,8 +499,7 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
     systemNavHeight,
     settingState.appOrientation,
     screenState.isPlayerFullScreen,
-    windowWidth,
-    windowHeight,
+    windowWidth2,
   ]);
 
   return (
