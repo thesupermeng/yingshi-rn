@@ -103,7 +103,7 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 15
-        versionName "1.4.0"
+        versionName "1.5.0"
         resValue "string", "UMENG_APPKEY", "648ec50987568a379b587f39"
         resValue "string", "UMENG_CHANNEL", "GOOGLE_PLAY"
         resValue "string", "UMENG_CHANNEL_GENERAL", "DEFAULT"
