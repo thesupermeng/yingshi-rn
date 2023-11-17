@@ -241,7 +241,7 @@ function ShortVideoPlayer({
               repeat={true}
               style={{
                 ...styles.video,
-                display: (Platform.OS === 'ios' ? isVideoReadyIos : isVideoReadyAndroid) ? 'flex' : 'none',
+                opacity: (Platform.OS === 'ios' ? isVideoReadyIos : isVideoReadyAndroid) ? 1 : 0,
               }}
               // onVideoSeek={}
               // ignoreSilentSwitch={"ignore"}
