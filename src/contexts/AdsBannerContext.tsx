@@ -6,7 +6,13 @@ import {
   ATBannerRNSDK,
 } from "../../AnyThinkAds/ATReactNativeSDK";
 import DeviceInfo from "react-native-device-info";
-import { Dimensions, LogBox, Platform, StatusBar } from "react-native";
+import {
+  Dimensions,
+  LogBox,
+  Platform,
+  StatusBar,
+  useWindowDimensions,
+} from "react-native";
 import {
   ANDROID_HOME_PAGE_BANNER_ADS,
   ANDROID_PLAY_DETAILS_BANNER_ADS,
@@ -44,6 +50,8 @@ const pageNoNavbar = ["播放", "PlaylistDetail", "体育详情", "电视台播�
 const deviceBrand = DeviceInfo.getBrand();
 
 const scale = Dimensions.get("screen").scale;
+const windowWidth = useWindowDimensions().width;
+const windowHeight = useWindowDimensions().height;
 
 export const AdsBannerContextProvider = ({ children }: Props) => {
   const [route, setRoute] = useState<string | null>(null);
@@ -494,6 +502,8 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
     systemNavHeight,
     settingState.appOrientation,
     screenState.isPlayerFullScreen,
+    windowWidth,
+    windowHeight,
   ]);
 
   return (
