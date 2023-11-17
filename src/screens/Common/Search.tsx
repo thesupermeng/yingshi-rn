@@ -71,7 +71,7 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
 
   async function fetchData(text: string) {
     setisFetching(true);
-    fetch(`${API_DOMAIN}vod/v1/vod?wd=${text}`)
+    fetch(`${API_DOMAIN}vod/v2/vod?wd=${text}&limit=50`)
       .then(response => response.json())
       .then((json: SuggestResponseType) => {
         setSearchTimer(0);
