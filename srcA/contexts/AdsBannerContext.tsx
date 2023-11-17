@@ -475,7 +475,7 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
   useEffect(() => {
     // console.log("settingState.appOrientation");
     // console.log(settingState.appOrientation);
-
+    hideAllBanner();
     // show banner logic
     if (settingState.appOrientation === "PORTRAIT") {
       if (
