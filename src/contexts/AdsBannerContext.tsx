@@ -345,7 +345,7 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
             );
 
             ATBannerRNSDK.reShowAd(bannerId);
-          }, 50);
+          }, 500);
         } else {
           setTimeout(() => {
             //show banner
@@ -355,7 +355,7 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
             );
 
             ATBannerRNSDK.reShowAd(bannerId);
-          }, 10);
+          }, 100);
         }
       });
     }
