@@ -129,7 +129,7 @@ const MatchScheduleList = ({
     fetchData().then()
   }, [])
 
-  const Content = ({
+  const Content = useCallback(({
     item,
     index,
   }: {
@@ -158,7 +158,7 @@ const MatchScheduleList = ({
         )}
       </View>
     );
-  };
+  }, []);
 
   const handleRefresh = () => {
     setShowLoading(true)

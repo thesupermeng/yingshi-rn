@@ -1,4 +1,4 @@
-import React, {memo, useState} from 'react';
+import React, {memo, useState, useCallback} from 'react';
 import {View, Text, ImageBackground} from 'react-native';
 // import FastImage from 'react-native-fast-image';
 import FastImage from '../../../components/common/customFastImage'
@@ -41,9 +41,10 @@ const MatchSchedule = ({
   const {colors, textVariants, spacing} = useTheme();
   const dispatch = useDispatch();
   let totalViews = 0;
-  const calTotalViews = () => {
+  const calTotalViews = useCallback(() => {
+    let totalViews = 0;
     if (matchSche?.streams != undefined && matchSche?.streams.length > 0) {
-      matchSche?.streams.map(e => (totalViews += e.view_num));
+      matchSche?.streams.forEach((e) => (totalViews += e.view_num));
     }
 
     let dividedTotalViews = 0;
@@ -53,17 +54,17 @@ const MatchSchedule = ({
     }
 
     return totalViews;
-  };
+  }, [matchSche]);
 
   const userState: userModel = useAppSelector(
     ({userReducer}: RootState) => userReducer,
   );
 
-  const matchClicked = () => {
+  const matchClicked = useCallback(() => {
     navigation.navigate('体育详情', {
       matchId: matchSche?.id === null ? undefined : matchSche.id,
     });
-  };
+  }, [navigation, matchSche]);
 
   // const streamerClicked = (streamerId, streamerStatus) => {
   //   return () => {
@@ -113,203 +114,216 @@ const MatchSchedule = ({
   //     return null;
   //   }
   // };
+
+  const MatchScheduleHeader = memo(() => {
+    return (
+      <View style={styles.matchScheduleHeader}>
+        <View style={styles.matchInfo}>
+          <Text style={{...styles.spaceBetween, color: colors.muted}}>
+            {matchSche?.competition?.name_short}
+          </Text>
+          <Text
+            style={{
+              ...textVariants.small,
+              color: colors.muted,
+              paddingTop: 2,
+            }}>
+            {/* {('0' + new Date(matchSche?.match_time).getHours()).slice(-2) +
+            ':' +
+            ('0' + new Date(matchSche?.match_time).getMinutes()).slice(-2)} */}
+            {new Date(matchSche?.match_time_ts * 1000).toLocaleTimeString(
+              'en-GB',
+              {hour: '2-digit', minute: '2-digit'},
+            )}
+          </Text>
+        </View>
+        <View style={styles.matchStatus}>
+          {matchSche?.streams != undefined &&
+          matchSche?.streams?.length > 0 &&
+          matchSche?.streams?.some(streamer => streamer.status == 3) ? (
+            <View style={{flexDirection: 'row'}}>
+              <View style={styles.liveIcon} />
+              <Text style={{...styles.liveStatus}}>直播中</Text>
+            </View>
+          ) : (
+            <Text style={textVariants.small}>
+              {getMatchStatus(
+                matchSche?.state,
+                matchSche?.status,
+                matchSche?.sports_type,
+              )}
+            </Text>
+          )}
+        </View>
+        <View style={styles.liveType}>
+          {isMatchPage === true &&
+            matchSche?.streams != undefined &&
+            matchSche?.streams.length > 0 &&
+            matchSche?.streams?.some(streamer => streamer.status == 3) && (
+              <FastImage
+                resizeMode="contain"
+                style={styles.liveTypeImage}
+                source={VideoLive}
+              />
+            )}
+          {isMatchPage === true && matchSche?.mlive == 1 && (
+            <FastImage
+              resizeMode="contain"
+              style={styles.liveTypeImage}
+              source={AnimationLive}
+            />
+          )}
+        </View>
+        {/* {matchSche?.streams != undefined && matchSche?.streams.length > 0 && (
+        <View style={styles.onlineViews}>
+          <FastImage style={styles.viewImage} source={Views} />
+          <Text style={textVariants.small}>{calTotalViews()}</Text>
+        </View>
+      )} */}
+      </View>
+    )
+  })
+
+  const MatchScheduleContent = memo(() => {
+    return (
+      <View style={styles.matchScheduleContent}>
+        <View style={styles.teamContentA}>
+          <Text
+            style={{...textVariants.small, flexShrink: 1}}
+            numberOfLines={1}
+            ellipsizeMode={'tail'}>
+            {matchSche.home?.name}
+          </Text>
+          {matchSche?.home?.icon != undefined &&
+          matchSche?.home?.icon.length > 0 ? (
+            <FastImage
+              style={styles.teamImage}
+              source={{uri: matchSche?.home?.icon}}
+            />
+          ) : (
+            <ImageBackground style={styles.teamImage} source={HomeIcon}>
+              <Text style={styles.teamLogoText}>
+                {matchSche?.home?.name.charAt(0)}
+              </Text>
+            </ImageBackground>
+          )}
+        </View>
+        {matchSche?.status == -2 ? (
+          <View style={styles.liveScore}>
+            <Text style={styles.scoreFont} />
+            <Text style={styles.scoreFont}>-</Text>
+            <Text style={styles.scoreFont} />
+          </View>
+        ) : matchSche?.status == 1 || matchSche?.status == -1 ? (
+          <View style={styles.liveScore}>
+            <View>
+              <View
+                style={{flexDirection: 'row', justifyContent: 'center'}}>
+                <Text
+                  style={
+                    calculateScore(
+                      matchSche?.home_score,
+                      matchSche?.sports_type,
+                    ) >
+                    calculateScore(
+                      matchSche?.away_score,
+                      matchSche?.sports_type,
+                    )
+                      ? {...styles.highScoreFont, color: colors.primary}
+                      : styles.scoreFont
+                  }>
+                  {calculateScore(
+                    matchSche?.home_score,
+                    matchSche?.sports_type,
+                  )}
+                </Text>
+                <Text style={styles.scoreFont}>-</Text>
+                <Text
+                  style={
+                    calculateScore(
+                      matchSche?.away_score,
+                      matchSche?.sports_type,
+                    ) >
+                    calculateScore(
+                      matchSche?.home_score,
+                      matchSche?.sports_type,
+                    )
+                      ? {...styles.highScoreFont, color: colors.primary}
+                      : styles.scoreFont
+                  }>
+                  {calculateScore(
+                    matchSche?.away_score,
+                    matchSche?.sports_type,
+                  )}
+                </Text>
+              </View>
+              {matchSche?.sports_type == 1 &&
+                (matchSche?.away_score[6] > 0 ||
+                  matchSche?.home_score[6] > 0) && (
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'center',
+                    }}>
+                    <Text style={styles.penaltyScore}>点球 </Text>
+                    <Text
+                      style={
+                        matchSche?.home_score[6] > matchSche?.away_score[6]
+                          ? styles.penaltyWinScore
+                          : styles.penaltyScore
+                      }>
+                      {matchSche?.home_score[6]}
+                    </Text>
+                    <Text style={styles.penaltyScore}> - </Text>
+                    <Text
+                      style={
+                        matchSche?.away_score[6] > matchSche?.home_score[6]
+                          ? styles.penaltyWinScore
+                          : styles.penaltyScore
+                      }>
+                      {matchSche?.away_score[6]}
+                    </Text>
+                  </View>
+                )}
+            </View>
+          </View>
+        ) : (
+          <View style={styles.subscribeBtn}>
+            <Text style={{...textVariants.header, color: colors.primary}}>
+              VS
+            </Text>
+          </View>
+        )}
+        <View style={styles.teamContentB}>
+          {matchSche?.away?.icon != undefined &&
+          matchSche?.away?.icon.length > 0 ? (
+            <FastImage
+              style={styles.teamImage}
+              source={{uri: matchSche?.away?.icon}}
+            />
+          ) : (
+            <ImageBackground style={styles.teamImage} source={AwayIcon}>
+              <Text style={styles.teamLogoText}>
+                {matchSche?.away?.name.charAt(0)}
+              </Text>
+            </ImageBackground>
+          )}
+          <Text
+            style={{...textVariants.small, flexShrink: 1}}
+            numberOfLines={1}>
+            {matchSche?.away?.name}
+          </Text>
+        </View>
+      </View>
+    )
+  })
+
   return (
     <>
       <TouchableOpacity onPress={matchClicked}>
         <View style={styles.border}>
-          <View style={styles.matchScheduleHeader}>
-            <View style={styles.matchInfo}>
-              <Text style={{...styles.spaceBetween, color: colors.muted}}>
-                {matchSche?.competition?.name_short}
-              </Text>
-              <Text
-                style={{
-                  ...textVariants.small,
-                  color: colors.muted,
-                  paddingTop: 2,
-                }}>
-                {/* {('0' + new Date(matchSche?.match_time).getHours()).slice(-2) +
-                ':' +
-                ('0' + new Date(matchSche?.match_time).getMinutes()).slice(-2)} */}
-                {new Date(matchSche?.match_time_ts * 1000).toLocaleTimeString(
-                  'en-GB',
-                  {hour: '2-digit', minute: '2-digit'},
-                )}
-              </Text>
-            </View>
-            <View style={styles.matchStatus}>
-              {matchSche?.streams != undefined &&
-              matchSche?.streams?.length > 0 &&
-              matchSche?.streams?.some(streamer => streamer.status == 3) ? (
-                <View style={{flexDirection: 'row'}}>
-                  <View style={styles.liveIcon} />
-                  <Text style={{...styles.liveStatus}}>直播中</Text>
-                </View>
-              ) : (
-                <Text style={textVariants.small}>
-                  {getMatchStatus(
-                    matchSche?.state,
-                    matchSche?.status,
-                    matchSche?.sports_type,
-                  )}
-                </Text>
-              )}
-            </View>
-            <View style={styles.liveType}>
-              {isMatchPage === true &&
-                matchSche?.streams != undefined &&
-                matchSche?.streams.length > 0 &&
-                matchSche?.streams?.some(streamer => streamer.status == 3) && (
-                  <FastImage
-                    resizeMode="contain"
-                    style={styles.liveTypeImage}
-                    source={VideoLive}
-                  />
-                )}
-              {isMatchPage === true && matchSche?.mlive == 1 && (
-                <FastImage
-                  resizeMode="contain"
-                  style={styles.liveTypeImage}
-                  source={AnimationLive}
-                />
-              )}
-            </View>
-            {/* {matchSche?.streams != undefined && matchSche?.streams.length > 0 && (
-            <View style={styles.onlineViews}>
-              <FastImage style={styles.viewImage} source={Views} />
-              <Text style={textVariants.small}>{calTotalViews()}</Text>
-            </View>
-          )} */}
-          </View>
-          <View style={styles.matchScheduleContent}>
-            <View style={styles.teamContentA}>
-              <Text
-                style={{...textVariants.small, flexShrink: 1}}
-                numberOfLines={1}
-                ellipsizeMode={'tail'}>
-                {matchSche.home?.name}
-              </Text>
-              {matchSche?.home?.icon != undefined &&
-              matchSche?.home?.icon.length > 0 ? (
-                <FastImage
-                  style={styles.teamImage}
-                  source={{uri: matchSche?.home?.icon}}
-                />
-              ) : (
-                <ImageBackground style={styles.teamImage} source={HomeIcon}>
-                  <Text style={styles.teamLogoText}>
-                    {matchSche?.home?.name.charAt(0)}
-                  </Text>
-                </ImageBackground>
-              )}
-            </View>
-            {matchSche?.status == -2 ? (
-              <View style={styles.liveScore}>
-                <Text style={styles.scoreFont} />
-                <Text style={styles.scoreFont}>-</Text>
-                <Text style={styles.scoreFont} />
-              </View>
-            ) : matchSche?.status == 1 || matchSche?.status == -1 ? (
-              <View style={styles.liveScore}>
-                <View>
-                  <View
-                    style={{flexDirection: 'row', justifyContent: 'center'}}>
-                    <Text
-                      style={
-                        calculateScore(
-                          matchSche?.home_score,
-                          matchSche?.sports_type,
-                        ) >
-                        calculateScore(
-                          matchSche?.away_score,
-                          matchSche?.sports_type,
-                        )
-                          ? {...styles.highScoreFont, color: colors.primary}
-                          : styles.scoreFont
-                      }>
-                      {calculateScore(
-                        matchSche?.home_score,
-                        matchSche?.sports_type,
-                      )}
-                    </Text>
-                    <Text style={styles.scoreFont}>-</Text>
-                    <Text
-                      style={
-                        calculateScore(
-                          matchSche?.away_score,
-                          matchSche?.sports_type,
-                        ) >
-                        calculateScore(
-                          matchSche?.home_score,
-                          matchSche?.sports_type,
-                        )
-                          ? {...styles.highScoreFont, color: colors.primary}
-                          : styles.scoreFont
-                      }>
-                      {calculateScore(
-                        matchSche?.away_score,
-                        matchSche?.sports_type,
-                      )}
-                    </Text>
-                  </View>
-                  {matchSche?.sports_type == 1 &&
-                    (matchSche?.away_score[6] > 0 ||
-                      matchSche?.home_score[6] > 0) && (
-                      <View
-                        style={{
-                          flexDirection: 'row',
-                          justifyContent: 'center',
-                        }}>
-                        <Text style={styles.penaltyScore}>点球 </Text>
-                        <Text
-                          style={
-                            matchSche?.home_score[6] > matchSche?.away_score[6]
-                              ? styles.penaltyWinScore
-                              : styles.penaltyScore
-                          }>
-                          {matchSche?.home_score[6]}
-                        </Text>
-                        <Text style={styles.penaltyScore}> - </Text>
-                        <Text
-                          style={
-                            matchSche?.away_score[6] > matchSche?.home_score[6]
-                              ? styles.penaltyWinScore
-                              : styles.penaltyScore
-                          }>
-                          {matchSche?.away_score[6]}
-                        </Text>
-                      </View>
-                    )}
-                </View>
-              </View>
-            ) : (
-              <View style={styles.subscribeBtn}>
-                <Text style={{...textVariants.header, color: colors.primary}}>
-                  VS
-                </Text>
-              </View>
-            )}
-            <View style={styles.teamContentB}>
-              {matchSche?.away?.icon != undefined &&
-              matchSche?.away?.icon.length > 0 ? (
-                <FastImage
-                  style={styles.teamImage}
-                  source={{uri: matchSche?.away?.icon}}
-                />
-              ) : (
-                <ImageBackground style={styles.teamImage} source={AwayIcon}>
-                  <Text style={styles.teamLogoText}>
-                    {matchSche?.away?.name.charAt(0)}
-                  </Text>
-                </ImageBackground>
-              )}
-              <Text
-                style={{...textVariants.small, flexShrink: 1}}
-                numberOfLines={1}>
-                {matchSche?.away?.name}
-              </Text>
-            </View>
-          </View>
+          <MatchScheduleHeader/>
+          <MatchScheduleContent/>
           {isMatchPage === true &&
             matchSche?.streams != undefined &&
             matchSche?.streams.length > 0 &&

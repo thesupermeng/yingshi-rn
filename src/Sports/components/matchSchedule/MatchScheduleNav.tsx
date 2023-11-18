@@ -49,6 +49,97 @@ export default function MatchScheduleNav({
     }, 1000);
   }, [])
 
+  const renderTabs = (tab: any, index: any) => {
+
+    const tabScreenChild = (i: number) => (
+      <MatchScheduleList
+        setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
+        matchTypeID={tab.id}
+        status={i}
+      />
+    )
+
+    return (
+      <Tab.Screen
+        key={index}
+        name={tab.name}
+        options={({route}) => ({
+          tabBarLabel: ({focused, color}) =>
+            focused ? (
+              <Text
+                style={{
+                  fontSize: textVariants.selected.fontSize,
+                  color: colors.primary,
+                  height: 30,
+                  width: 40,
+                  textAlignVertical: 'bottom',
+                  fontWeight: textVariants.selected.fontWeight,
+                }}>
+                {tab.name}
+              </Text>
+            ) : (
+              <Text
+                style={{
+                  fontSize: textVariants.unselected.fontSize,
+                  color: colors.muted,
+                  height: 30,
+                  width: 40,
+                  textAlignVertical: 'bottom',
+                  fontWeight: textVariants.unselected.fontWeight,
+                }}>
+                {tab.name}
+              </Text>
+            ),
+        })}
+        children={() => (
+          <Tab.Navigator
+            screenOptions={{
+              tabBarScrollEnabled: false,
+              tabBarIndicatorStyle: {
+                height: 4,
+                width: 4,
+                left: (width / 6 + 12) / 2,
+                backgroundColor: colors.primary,
+                borderRadius: 10,
+                bottom: 5,
+              },
+              tabBarItemStyle: {
+                width: width / 6,
+                padding: 0,
+              },
+              tabBarActiveTintColor: colors.primary,
+              tabBarInactiveTintColor: colors.muted,
+              tabBarLabelStyle: {
+                fontFamily: textVariants.unselected.fontFamily,
+                fontWeight: textVariants.unselected.fontWeight,
+                fontSize: textVariants.unselected.fontSize,
+              },
+              tabBarStyle: {
+                paddingLeft: 8,
+                marginTop: -8,
+              },
+            }}>
+            <Tab.Screen
+              key={`inner-${index}-1`}
+              name="进行中"
+              children={() => tabScreenChild(1)}
+            />
+            <Tab.Screen
+              key={`inner-${index}-2`}
+              name="赛程"
+              children={() => tabScreenChild(2)}
+            />
+            <Tab.Screen
+              key={`inner-${index}-3`}
+              name="赛果"
+              children={() => tabScreenChild(3)}
+            />
+          </Tab.Navigator>
+        )}
+      />
+    )
+  }
+
   return (
     <SafeAreaView style={{flex: 1}}> 
       {showLoading && <View 
@@ -144,105 +235,7 @@ export default function MatchScheduleNav({
           )}
         />
         {tabList != undefined &&
-          tabList.map((tab, index) => {
-            return (
-              <Tab.Screen
-                key={index}
-                name={tab.name}
-                options={({route}) => ({
-                  tabBarLabel: ({focused, color}) =>
-                    focused ? (
-                      <Text
-                        style={{
-                          fontSize: textVariants.selected.fontSize,
-                          color: colors.primary,
-                          height: 30,
-                          width: 40,
-                          textAlignVertical: 'bottom',
-                          fontWeight: textVariants.selected.fontWeight,
-                        }}>
-                        {tab.name}
-                      </Text>
-                    ) : (
-                      <Text
-                        style={{
-                          fontSize: textVariants.unselected.fontSize,
-                          color: colors.muted,
-                          height: 30,
-                          width: 40,
-                          textAlignVertical: 'bottom',
-                          fontWeight: textVariants.unselected.fontWeight,
-                        }}>
-                        {tab.name}
-                      </Text>
-                    ),
-                })}
-                children={() => (
-                  <Tab.Navigator
-                    screenOptions={{
-                      tabBarScrollEnabled: false,
-                      tabBarIndicatorStyle: {
-                        height: 4,
-                        width: 4,
-                        left: (width / 6 + 12) / 2,
-                        backgroundColor: colors.primary,
-                        borderRadius: 10,
-                        bottom: 5,
-                      },
-                      tabBarItemStyle: {
-                        width: width / 6,
-                        padding: 0,
-                      },
-                      tabBarActiveTintColor: colors.primary,
-                      tabBarInactiveTintColor: colors.muted,
-                      tabBarLabelStyle: {
-                        fontFamily: textVariants.unselected.fontFamily,
-                        fontWeight: textVariants.unselected.fontWeight,
-                        fontSize: textVariants.unselected.fontSize,
-                      },
-                      tabBarStyle: {
-                        paddingLeft: 8,
-                        marginTop: -8,
-                      },
-                    }}>
-                    <Tab.Screen
-                      key={`inner-${index}-1`}
-                      name="进行中"
-                      children={() => (
-                        <MatchScheduleList
-                          setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
-                          matchTypeID={tab.id}
-                          status={1}
-                        />
-                      )}
-                    />
-                    <Tab.Screen
-                      key={`inner-${index}-2`}
-                      name="赛程"
-                      children={() => (
-                        <MatchScheduleList
-                          setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
-                          matchTypeID={tab.id}
-                          status={2}
-                        />
-                      )}
-                    />
-                    <Tab.Screen
-                      key={`inner-${index}-3`}
-                      name="赛果"
-                      children={() => (
-                        <MatchScheduleList
-                          setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
-                          matchTypeID={tab.id}
-                          status={3}
-                        />
-                      )}
-                    />
-                  </Tab.Navigator>
-                )}
-              />
-            );
-          })}
+          tabList.map(renderTabs)}
       </Tab.Navigator>
     </SafeAreaView>
   );
