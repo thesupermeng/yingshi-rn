@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useState, memo, useContext } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useState,
+  memo,
+  useContext,
+} from "react";
 import { Platform, StyleSheet, View } from "react-native";
 import ScreenContainer from "../components/container/screenContainer";
 import { useFocusEffect, useTheme } from "@react-navigation/native";
@@ -16,6 +22,7 @@ import {
   ANDROID_HOME_PAGE_POP_UP_ADS,
   API_DOMAIN,
   IOS_HOME_PAGE_POP_UP_ADS,
+  UMENG_CHANNEL,
 } from "../utility/constants";
 import CatagoryHome from "../components/container/CatagoryHome";
 import RecommendationHome from "../components/container/RecommendationHome";
@@ -38,7 +45,7 @@ import {
 } from "./../../AnyThinkAds/ATReactNativeSDK";
 import { AdsBannerContext } from "../contexts/AdsBannerContext";
 
-import useInterstitialAds from "../hooks/useInterstitialAds"
+import useInterstitialAds from "../hooks/useInterstitialAds";
 
 function Home({ navigation }: BottomTabScreenProps<any>) {
   const isFocused = useIsFocused();
@@ -55,7 +62,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   const { data: navOptions, refetch } = useQuery({
     queryKey: ["HomePageNavOptions"],
     queryFn: () =>
-      fetch(`${API_DOMAIN}nav/v1/navItems`, {})
+      fetch(`${API_DOMAIN}nav/v1/navItems?channelId=` + UMENG_CHANNEL, {})
         .then((response) => response.json())
         .then((json: NavOptionsResponseType) => {
           return json.data;
@@ -73,16 +80,21 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   const data = useQueries({
     queries: navOptions
       ? navOptions?.map((x: any) => ({
-        queryKey: ["HomePage", x.id],
-        queryFn: () => fetchData(x.id),
-      }))
+          queryKey: ["HomePage", x.id],
+          queryFn: () => fetchData(x.id),
+        }))
       : [],
   });
 
   const checkConnection = async () => {
     const state = await NetInfo.fetch();
     // state.isInternetReachable === null set true is for default value
-    const offline = !(state.isConnected && ((state.isInternetReachable === true || state.isInternetReachable === null) ? true : false));
+    const offline = !(
+      state.isConnected &&
+      (state.isInternetReachable === true || state.isInternetReachable === null
+        ? true
+        : false)
+    );
     setIsOffline(offline);
     if (!offline) {
       handleRefresh(navId);
@@ -96,18 +108,23 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
     setIsOffline(settingsReducer.isOffline);
   }, []);
 
-  useFocusEffect(useCallback(() => {
-    if (!settingsReducer.isOffline && settingsReducer.isOffline !== isOffline) {
-      setIsOffline(settingsReducer.isOffline);
-      setShowHomeLoading(true);
-      refetch();
-      handleRefresh(navId, true);
-    } else if (settingsReducer.isOffline) {
-      return () => {
+  useFocusEffect(
+    useCallback(() => {
+      if (
+        !settingsReducer.isOffline &&
+        settingsReducer.isOffline !== isOffline
+      ) {
         setIsOffline(settingsReducer.isOffline);
+        setShowHomeLoading(true);
+        refetch();
+        handleRefresh(navId, true);
+      } else if (settingsReducer.isOffline) {
+        return () => {
+          setIsOffline(settingsReducer.isOffline);
+        };
       }
-    }
-  }, [settingsReducer.isOffline]));
+    }, [settingsReducer.isOffline])
+  );
 
   //refresh
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -184,11 +201,11 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
     []
   );
 
-  const { setNavbarHeight } = useContext(AdsBannerContext)
+  const { setNavbarHeight } = useContext(AdsBannerContext);
 
   useEffect(() => {
-    setNavbarHeight(bottomTabHeight)
-  }, [bottomTabHeight])
+    setNavbarHeight(bottomTabHeight);
+  }, [bottomTabHeight]);
 
   useInterstitialAds();
 
