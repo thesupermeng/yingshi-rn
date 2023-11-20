@@ -3,15 +3,17 @@ import { View, TouchableOpacity, Text, TextStyle, ViewStyle } from "react-native
 
 const VipIndicator = () => {
   return (
-    <TouchableOpacity style={styles.timerIndicatorContainer}>
+    <View style={styles.timerIndicatorContainer}>
       <Text numberOfLines={1} style={{...styles.indicatorText, color: '#FFFFFF'}}>
         试看01:00后结束
       </Text>
       <Divider color="#FFFFFF33" orientation="vertical" width={1} />
-      <Text numberOfLines={1} style={{...styles.indicatorText, color: '#FAC33D'}}>
-        开通VIP畅享无限内容
-      </Text>
-    </TouchableOpacity>
+      <TouchableOpacity>
+        <Text numberOfLines={1} style={{...styles.indicatorText, color: '#FAC33D'}}>
+          开通VIP畅享无限内容
+        </Text>
+      </TouchableOpacity>
+    </View>
   )
 }
 
