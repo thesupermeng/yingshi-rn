@@ -174,7 +174,9 @@ let App = () => {
   let adsReadyFlag = false;
 
   useEffect(() => {
-    getIP();
+    // console.log("YSConfig.instance.ip");
+    // console.log(YSConfig.instance.ip);
+    //  getIP();
     // queryClient.prefetchQuery({
     //   queryKey: ["recommendationList"],
     //   queryFn: () =>
