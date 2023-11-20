@@ -151,9 +151,7 @@ function CollectionBottomSheet({
     <BottomSheet
       isVisible={isVisible}
       onBackdropPress={handleSheetChanges}
-      containerStyle={{
-        height: "60%",
-      }}
+      height="60%"
     >
       <View
         style={{
