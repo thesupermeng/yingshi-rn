@@ -107,7 +107,7 @@ export default function BottomSheet({
       >
         <View
           style={{
-            backgroundColor: "white",
+            backgroundColor: "#414040",
             width: 40,
             height: 5,
             borderRadius: 10,
