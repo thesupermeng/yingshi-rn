@@ -282,8 +282,8 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
       );
       // load all ad first (android)
       ATBannerRNSDK.hasAdReady(bannerId).then((isAdReady) => {
-        console.log("isAdReady for " + routeName + " (android)");
-        console.log(isAdReady);
+        // console.log("isAdReady for " + routeName + " (android)");
+        // console.log(isAdReady);
         if (!isAdReady) {
           ATBannerRNSDK.loadAd(bannerId, settings);
           setTimeout(() => {
@@ -336,7 +336,7 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
         console.log("isAdReady for " + routeName + " (IOS)");
         console.log(isAdReady);
         if (isAdReady == false) {
-          // console.log(1111);
+          //   console.log(1111);
           ATBannerRNSDK.loadAd(bannerId, settings);
           setTimeout(() => {
             hideAllBanner();
@@ -348,7 +348,7 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
             ATBannerRNSDK.reShowAd(bannerId);
           }, 100);
         } else {
-          // console.log(2222);
+          //  console.log(2222);
           setTimeout(() => {
             hideAllBanner();
             //show banner
