@@ -335,9 +335,8 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
       ATBannerRNSDK.hasAdReady(bannerId).then((isAdReady: boolean) => {
         console.log("isAdReady for " + routeName + " (IOS)");
         console.log(isAdReady);
-        hideAllBanner();
         if (isAdReady == false) {
-          //console.log(1111);
+          console.log(1111);
           ATBannerRNSDK.loadAd(bannerId, settings);
           setTimeout(() => {
             hideAllBanner();
@@ -346,11 +345,10 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
               bannerId,
               ATBannerRNSDK.createShowAdRect(x, y, width, height)
             );
-
-            //  ATBannerRNSDK.reShowAd(bannerId);
-          }, 500);
+            ATBannerRNSDK.reShowAd(bannerId);
+          }, 100);
         } else {
-          //  console.log(2222);
+          console.log(2222);
           setTimeout(() => {
             hideAllBanner();
             //show banner
