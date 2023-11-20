@@ -333,8 +333,8 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
       );
       //  (IOS)
       ATBannerRNSDK.hasAdReady(bannerId).then((isAdReady: boolean) => {
-        console.log("isAdReady for " + routeName + " (IOS)");
-        console.log(isAdReady);
+        // console.log("isAdReady for " + routeName + " (IOS)");
+        // console.log(isAdReady);
         if (isAdReady == false) {
           //   console.log(1111);
           ATBannerRNSDK.loadAd(bannerId, settings);
