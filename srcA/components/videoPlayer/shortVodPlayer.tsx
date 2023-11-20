@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   Text,
   Dimensions,
-  Linking,
+  Platform,
 } from 'react-native';
 import Video, { OnProgressData } from 'react-native-video';
 import PlayIcon from '../../../static/images/blackPlay.svg';
@@ -22,6 +22,7 @@ import { playVod, viewPlaylistDetails } from '../../redux/actions/vodActions';
 import HejiIcon from '../../../static/images/heji.svg';
 import ExpandUpIcon from '../../../static/images/expandHeji.svg';
 import { QueryClient } from '@tanstack/react-query';
+import { debounce } from 'lodash';
 
 interface Props {
   thumbnail?: string;
@@ -35,6 +36,7 @@ interface Props {
   isShowVideo: boolean,
   currentDuration: number,
   updateVideoDuration: (duration: number) => any,
+  isActive: boolean,
 }
 
 function ShortVideoPlayer({
@@ -49,6 +51,7 @@ function ShortVideoPlayer({
   isShowVideo,
   currentDuration,
   updateVideoDuration,
+  isActive,
 }: Props) {
   const maxLength = 10;
 
@@ -81,7 +84,9 @@ function ShortVideoPlayer({
   const [watchText, setWatchText] = useState('看正片');
   const [imageLoaded, setImageLoaded] = useState(false);
   const overlayRef = useRef(false);
-  const [isVideoReady, setVideoReady] = useState(false);
+  const [isVideoReadyIos, setVideoReadyIos] = useState(false);
+  const [isVideoReadyAndroid, setVideoReadyAndroid] = useState(false);
+  const [onSliding, setOnSliding] = useState(false);
 
   const windowWidth = Dimensions.get('window').width;
 
@@ -90,7 +95,8 @@ function ShortVideoPlayer({
   }, [vod])
 
   useEffect(() => {
-    if (!isShowVideo) setVideoReady(false);
+    if (!isShowVideo && Platform.OS === 'ios') setVideoReadyIos(false);
+    if (!isShowVideo && Platform.OS === 'android') setVideoReadyAndroid(false);
   }, [isShowVideo])
 
   useEffect(() => {
@@ -112,6 +118,12 @@ function ShortVideoPlayer({
     };
   }, [currentVod]);
 
+  useEffect(() => {
+    if (!isActive && showIcon) {
+      setShowIcon(false);
+    }
+  }, [isActive]);
+
   const queryClient = new QueryClient();
 
   const openBottomSheet = useCallback(() => {
@@ -123,8 +135,9 @@ function ShortVideoPlayer({
   }, []);
 
   const handleProgress = useCallback((progress: OnProgressData) => {
-    updateVideoDuration(progress.currentTime)
-  }, []);
+    if (progress.currentTime !== currentDuration && !isVideoReadyAndroid && Platform.OS === 'android') setVideoReadyAndroid(true);
+    if (!onSliding) updateVideoDuration(progress.currentTime)
+  }, [currentDuration, onSliding, isVideoReadyAndroid]);
 
   const showControls = () => {
     clearTimeout(timer.current);
@@ -132,18 +145,32 @@ function ShortVideoPlayer({
     overlayRef.current = true
     timer.current = setTimeout(() => setShowOverlay(false), 3000);
   };
+
   const handleSeek = useCallback((value: number) => {
-    if (!isVideoReady) return;
+    if (!isVideoReadyIos && Platform.OS === 'ios') return;
+    if (!isVideoReadyAndroid && Platform.OS === 'android') return;
 
     if (Number.isNaN(value)) {
       value = 0;
     }
+
+    if (!onSliding) setOnSliding(true);
+
     showControls();
     updateVideoDuration(value);
-    if (videoRef.current) {
-      videoRef.current.seek(value);
-    }
-  }, [isVideoReady]);
+    seekVideo(value);
+  }, [isVideoReadyIos, isVideoReadyAndroid, onSliding]);
+
+  const seekVideo = useCallback(
+    debounce((value) => {
+
+      if (videoRef.current) {
+        videoRef.current.seek(value);
+        setOnSliding(false);
+      }
+    }, 1000),
+    [videoRef.current]
+  );
 
   const handlePlayPause = () => {
     clearTimeout(iconTimer.current);
@@ -193,7 +220,7 @@ function ShortVideoPlayer({
       }}>
       <View>
         <View style={[styles.container, { height: displayHeight }]}>
-          {(isBuffering || !isVideoReady) && isShowVideo && (
+          {(isBuffering || (Platform.OS === 'ios' ? !isVideoReadyIos : !isVideoReadyAndroid)) && isShowVideo && (
             <View style={styles.buffering}>
               <FastImage
                 source={require('../../../static/images/videoBufferLoading.gif')}
@@ -203,7 +230,7 @@ function ShortVideoPlayer({
               />
             </View>
           )}
-          {!isVideoReady && thumbnail &&
+          {(Platform.OS === 'ios' ? !isVideoReadyIos : !isVideoReadyAndroid) && thumbnail &&
             <FastImage
               source={{ uri: thumbnail }}
               style={styles.video}
@@ -223,16 +250,16 @@ function ShortVideoPlayer({
                     'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
                 },
               }}
-              onReadyForDisplay={() => setVideoReady(true)}
+              onReadyForDisplay={() => setVideoReadyIos(true)}
               onBuffer={onBuffer}
               repeat={true}
               style={{
                 ...styles.video,
-                display: isVideoReady ? 'flex' : 'none',
+                opacity: (Platform.OS === 'ios' ? isVideoReadyIos : isVideoReadyAndroid) ? 1 : 0,
               }}
               // onVideoSeek={}
               // ignoreSilentSwitch={"ignore"}
-              paused={isPause || !isVideoReady}
+              paused={isPause || onSliding || (Platform.OS === 'ios' && !isVideoReadyIos)}
               onLoad={handleLoad}
               onLoadStart={handleLoadStart}
               onProgress={handleProgress}
