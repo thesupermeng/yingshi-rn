@@ -286,46 +286,40 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
         console.log(isAdReady);
         if (!isAdReady) {
           ATBannerRNSDK.loadAd(bannerId, settings);
-          setTimeout(
-            () => {
-              hideAllBanner();
-              if (screenState.isPlayerFullScreen) {
-                return;
-              }
-              // console.log("show banner here");
-              //show banner
-              ATBannerRNSDK.showAdInRectangle(
-                bannerId,
-                ATBannerRNSDK.createShowAdRect(x, y, width, height)
-              );
+          setTimeout(() => {
+            hideAllBanner();
+            if (screenState.isPlayerFullScreen) {
+              return;
+            }
+            // console.log("show banner here");
+            //show banner
+            ATBannerRNSDK.showAdInRectangle(
+              bannerId,
+              ATBannerRNSDK.createShowAdRect(x, y, width, height)
+            );
 
-              ATBannerRNSDK.reShowAd(bannerId);
-            },
-            routeName == "播放" ? 500 : 50
-          );
+            ATBannerRNSDK.reShowAd(bannerId);
+          }, 50);
         } else {
-          setTimeout(
-            () => {
-              if (screenState.isPlayerFullScreen) {
-                return;
-              }
-              //console.log("show");
+          setTimeout(() => {
+            if (screenState.isPlayerFullScreen) {
+              return;
+            }
+            //console.log("show");
 
-              // if (settingState.appOrientation !== "PORTRAIT") {
-              // return;
+            // if (settingState.appOrientation !== "PORTRAIT") {
+            // return;
 
-              // }
-              hideAllBanner();
-              //show banner
-              ATBannerRNSDK.showAdInRectangle(
-                bannerId,
-                ATBannerRNSDK.createShowAdRect(x, y, width, height)
-              );
+            // }
+            hideAllBanner();
+            //show banner
+            ATBannerRNSDK.showAdInRectangle(
+              bannerId,
+              ATBannerRNSDK.createShowAdRect(x, y, width, height)
+            );
 
-              ATBannerRNSDK.reShowAd(bannerId);
-            },
-            routeName == "播放" ? 100 : 10
-          );
+            ATBannerRNSDK.reShowAd(bannerId);
+          }, 10);
         }
       });
     }
@@ -338,22 +332,27 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
         TOPON_BANNER_HEIGHT
       );
       //  (IOS)
-      ATBannerRNSDK.hasAdReady(bannerId).then((isAdReady) => {
+      ATBannerRNSDK.hasAdReady(bannerId).then((isAdReady: boolean) => {
         console.log("isAdReady for " + routeName + " (IOS)");
         console.log(isAdReady);
-        if (!isAdReady) {
+        hideAllBanner();
+        if (isAdReady == false) {
+          //console.log(1111);
           ATBannerRNSDK.loadAd(bannerId, settings);
           setTimeout(() => {
+            hideAllBanner();
             //show banner
             ATBannerRNSDK.showAdInRectangle(
               bannerId,
               ATBannerRNSDK.createShowAdRect(x, y, width, height)
             );
 
-            ATBannerRNSDK.reShowAd(bannerId);
-          }, 50);
+            //  ATBannerRNSDK.reShowAd(bannerId);
+          }, 500);
         } else {
+          //  console.log(2222);
           setTimeout(() => {
+            hideAllBanner();
             //show banner
             ATBannerRNSDK.showAdInRectangle(
               bannerId,
