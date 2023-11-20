@@ -139,16 +139,19 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
     setDisplayedDate(`${year}年${month}月${day}日`);
   }, [userState.userMemberExpired]);
 
-
   return (
     <>
-      <View style={{paddingTop: insets.top}}>
-      {/* <ScreenContainer> */}
-      {/* <SafeAreaView> */}
+      <View style={{ paddingTop: insets.top }}>
+        {/* <ScreenContainer> */}
+        {/* <SafeAreaView> */}
         <ScrollView
           style={{ paddingHorizontal: 15 }}
           refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} tintColor="#FAC33D" />
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={handleRefresh}
+              tintColor="#FAC33D"
+            />
           }
         >
           <View style={{ ...styles.topNav }}>
@@ -185,7 +188,11 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
             }}
           >
             <View
-              style={{ paddingTop: 20, paddingBottom: 10, flexDirection: "row" }}
+              style={{
+                paddingTop: 20,
+                paddingBottom: 10,
+                flexDirection: "row",
+              }}
             >
               <ProfileIcon
                 style={{ color: colors.button, width: 18, height: 18 }}
@@ -274,10 +281,11 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
           <View style={{ marginBottom: -30, flex: 3, paddingBottom: 120 }}>
             <View
               style={{
-                flexDirection: 'row',
-                justifyContent: 'space-evenly',
+                flexDirection: "row",
+                justifyContent: "space-evenly",
                 gap: 10,
-              }}>
+              }}
+            >
               <TouchableOpacity
                 style={{
                   ...styles.btn,
@@ -293,8 +301,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                   <View style={styles.icon}>
                     <VipIcon width={icons.sizes.l} height={icons.sizes.l} />
                   </View>
-                  <View
-                    style={{gap:5}}>
+                  <View style={{ gap: 5 }}>
                     <Text
                       style={{
                         ...textVariants.body,
@@ -305,13 +312,12 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                     <Text
                       style={{
                         ...textVariants.small,
-                        color: colors.button
+                        color: colors.button,
                       }}
                     >
                       去广告 看体育直播
                     </Text>
                   </View>
-                  
                 </View>
               </TouchableOpacity>
               <TouchableOpacity
@@ -328,8 +334,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                   <View style={styles.icon}>
                     <AddIcon width={icons.sizes.l} height={icons.sizes.l} />
                   </View>
-                  <View
-                    style={{gap:5}}>
+                  <View style={{ gap: 5 }}>
                     <Text
                       style={{
                         ...textVariants.body,
@@ -349,12 +354,12 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                 </View>
               </TouchableOpacity>
             </View>
-            
-            {/* <ShowMoreButton
+
+            <ShowMoreButton
               text="我的收藏"
               leftIcon={<CollectionIcon style={{ color: colors.button }} />}
               onPress={() => navigation.navigate("我的收藏")}
-            /> */}
+            />
             {/* <ShowMoreButton
               text="我的下载"
               leftIcon={<DownloadIcon style={{color: colors.button}} />}
@@ -418,8 +423,8 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
             subtitle3=""
           />
         </ScrollView>
-      {/* </SafeAreaView> */}
-      {/* </ScreenContainer> */}
+        {/* </SafeAreaView> */}
+        {/* </ScreenContainer> */}
       </View>
     </>
   );

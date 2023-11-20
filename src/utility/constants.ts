@@ -73,7 +73,7 @@ export const ANDROID_TOPIC_TAB_BANNER_ADS = 'b6523b931be70d';
 
 export const IOS_HOME_PAGE_BANNER_ADS = 'b650a5ecaebc22';
 export const IOS_PLAY_DETAILS_BANNER_ADS = 'b650a5e611f0ae';
-export const IOS_TOPIC_DETAILS_BANNER_ADS = 'b650a5e282588c';
+export const IOS_TOPIC_DETAILS_BANNER_ADS = 'b655aba884a693';
 export const IOS_TOPIC_TAB_BANNER_ADS = 'b650a5e282588c';
 
 // topon 插屏广告

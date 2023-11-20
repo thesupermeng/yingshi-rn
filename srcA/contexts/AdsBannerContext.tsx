@@ -332,22 +332,25 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
         TOPON_BANNER_HEIGHT
       );
       //  (IOS)
-      ATBannerRNSDK.hasAdReady(bannerId).then((isAdReady) => {
+      ATBannerRNSDK.hasAdReady(bannerId).then((isAdReady: boolean) => {
         console.log("isAdReady for " + routeName + " (IOS)");
         console.log(isAdReady);
-        if (!isAdReady) {
+        if (isAdReady == false) {
+          // console.log(1111);
           ATBannerRNSDK.loadAd(bannerId, settings);
           setTimeout(() => {
+            hideAllBanner();
             //show banner
             ATBannerRNSDK.showAdInRectangle(
               bannerId,
               ATBannerRNSDK.createShowAdRect(x, y, width, height)
             );
-
             ATBannerRNSDK.reShowAd(bannerId);
-          }, 50);
+          }, 100);
         } else {
+          // console.log(2222);
           setTimeout(() => {
+            hideAllBanner();
             //show banner
             ATBannerRNSDK.showAdInRectangle(
               bannerId,
