@@ -67,6 +67,11 @@ import RNFetchBlob from "rn-fetch-blob";
 import { userModel } from "../../types/userType";
 import { BridgeServer } from "react-native-http-bridge-refurbished";
 import { debounce } from "lodash";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { screenModel } from "../../types/screenType";
+
+let insetsTop = 0;
+let insetsBottom = 0;
 
 type VideoRef = {
   setPause: (param: boolean) => void;
@@ -543,10 +548,25 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
       server.stop(); // stop server when unmount
     };
   }, [vodUri]);
+  const insets = useSafeAreaInsets();
+  const screenState: screenModel = useAppSelector(
+    ({ screenReducer }: RootState) => screenReducer
+  );
+
+  insetsTop = insetsTop == 0 ? insets.top : insetsTop;
+  insetsBottom = insetsBottom == 0 ? insets.bottom : insets.bottom;
 
   return (
     <>
-      <ScreenContainer containerStyle={{ paddingRight: 0, paddingLeft: 0 }}>
+      <ScreenContainer
+        isPlay={true}
+        containerStyle={{
+          paddingTop: screenState.isPlayerFullScreen ? 0 : insetsTop,
+          paddingBottom: screenState.isPlayerFullScreen ? 0 : insetsBottom,
+          paddingLeft: 0,
+          paddingRight: 0,
+        }}
+      >
         {/* if isVodRestricted, show bing search */}
         {isVodRestricted && vod && !isOffline && <BingSearch vod={vod} />}
 
