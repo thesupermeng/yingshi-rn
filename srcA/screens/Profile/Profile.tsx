@@ -44,6 +44,7 @@ import {
 } from "../../redux/actions/userAction";
 import ExpiredOverlay from "../../components/modal/expiredOverlay";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { YSConfig } from "../../../ysConfig";
 
 function Profile({ navigation, route }: BottomTabScreenProps<any>) {
   const navigator = useNavigation();
@@ -309,14 +310,26 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                     >
                       {highlightText("付费VIP", "")}
                     </Text>
-                    <Text
-                      style={{
-                        ...textVariants.small,
-                        color: colors.button,
-                      }}
-                    >
-                      去广告 看体育直播
-                    </Text>
+
+                    {YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5 ? (
+                      <Text
+                        style={{
+                          ...textVariants.small,
+                          color: colors.button
+                        }}
+                      >
+                        去广告 看体育直播
+                      </Text>
+                    ) : (
+                      <Text
+                        style={{
+                          ...textVariants.small,
+                          color: colors.button
+                        }}
+                      >
+                        去广告
+                      </Text>
+                    )}
                   </View>
                 </View>
               </TouchableOpacity>

@@ -30,6 +30,7 @@ import { useAppDispatch } from "../../hooks/hooks";
 import { showLoginAction } from "../../redux/actions/screenAction";
 import Share from "react-native-share";
 import { APP_NAME_CONST, INVITE_DOMAIN } from "../../utility/constants";
+import { YSConfig } from "../../../ysConfig";
 import NotificationModal from "../modal/notificationModal";
 interface Props {
   userState: userModel;
@@ -299,16 +300,21 @@ export default function InviteCard({ userState = {} }: Props) {
               <Text style={styles.featureTitle}>VIP尊贵标识</Text>
             </View>
           </View>
-          <View style={styles.featureItem}>
-            <View style={styles.imgContainer}>
-              <FastImage
-                source={require("../../../static/images/invite/sport.png")}
-                style={styles.featureIcn}
-                resizeMode={FastImage.resizeMode.contain}
-              />
+          
+          {YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5 ? (
+            <View style={styles.featureItem}>
+              <View style={styles.imgContainer}>
+                <FastImage
+                  source={require("../../../static/images/invite/sport.png")}
+                  style={styles.featureIcn}
+                  resizeMode={FastImage.resizeMode.contain}
+                />
+              </View>
+              <Text style={styles.featureTitle}>体育频道</Text>
             </View>
-            <Text style={styles.featureTitle}>体育频道</Text>
-          </View>
+          ) : (
+            <></>
+          )}
 
           <View style={styles.featureItem}>
             <View style={styles.imgContainer}>

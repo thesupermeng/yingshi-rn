@@ -29,6 +29,7 @@ import EditIcn from "./../../../static/images/profile/edit.svg";
 import VipIcon from "../../../static/images/vip-icon.svg";
 import VipArrow from "../../../static/images/vip-arrow.svg";
 import AddIcon from "../../../static/images/vip/add.svg";
+import { YSConfig } from "../../../ysConfig";
 
 import {
   hideBottomSheetAction,
@@ -302,14 +303,25 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                     >
                       {highlightText("付费VIP", "")}
                     </Text>
-                    <Text
-                      style={{
-                        ...textVariants.small,
-                        color: colors.button
-                      }}
-                    >
-                      去广告 看体育直播
-                    </Text>
+                    {YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5 ? (
+                      <Text
+                        style={{
+                          ...textVariants.small,
+                          color: colors.button
+                        }}
+                      >
+                        去广告 看体育直播
+                      </Text>
+                    ) : (
+                      <Text
+                        style={{
+                          ...textVariants.small,
+                          color: colors.button
+                        }}
+                      >
+                        去广告
+                      </Text>
+                    )}
                   </View>
                   
                 </View>
