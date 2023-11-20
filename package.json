@@ -109,6 +109,7 @@
     "react-native-simple-toast": "1.1.4",
     "react-native-svg": "^13.9.0",
     "react-native-swiper": "^1.6.0",
+    "react-native-switch": "^1.5.1",
     "react-native-system-setting": "^1.7.6",
     "react-native-tab-view": "^3.5.2",
     "react-native-url-polyfill": "^2.0.0",

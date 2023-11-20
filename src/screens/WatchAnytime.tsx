@@ -17,6 +17,7 @@ import NetInfo from '@react-native-community/netinfo';
 import { SettingsReducerState } from '../redux/reducers/settingsReducer';
 import { useAppSelector } from '../hooks/hooks';
 import { RootState } from '../redux/store';
+import EighteenPlusControls from '../components/watchAnytime/eighteenPlusControls';
 
 type MiniVideoResponseType = {
     data: {
@@ -147,9 +148,10 @@ function WatchAnytime ({ navigation }: BottomTabScreenProps<any>) {
 
     return (
         <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0, paddingBottom: 10 }}>
-            <View style={{ position: 'absolute', top: 0, left: 0, padding: 20, zIndex: 50, width: '100%', flexDirection: 'row', alignItems: 'center' }}>
+            <View style={{ position: 'absolute', top: 0, left: 0, padding: 20, zIndex: 50, width: '100%', flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'space-between' }}>
                 <Text style={{ color: '#FFF', fontSize: 20 }}>随心看</Text>
             </View>
+            <EighteenPlusControls/>
             {!isOffline &&
                 <MiniVideoList
                     ref={miniVodRef}
