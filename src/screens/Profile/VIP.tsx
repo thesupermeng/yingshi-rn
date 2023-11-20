@@ -563,6 +563,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                 tintColor="#FAC33D"
               />
             }
+            showsVerticalScrollIndicator={false}
           >
             <VipCard
               userState={userState}

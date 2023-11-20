@@ -69,6 +69,7 @@ export default ({ navigation }: RootStackScreenProps<"邀请">) => {
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} tintColor="#FAC33D" />
         }
+        showsVerticalScrollIndicator={false}
       >
         {/* <TitleWithBackButtonHeader title="邀请好友奖励" /> */}
         <View style={{ paddingHorizontal: 0 }}>
