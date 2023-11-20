@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   View,
   Text,
@@ -79,11 +79,13 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const [isBtnEnable, setIsBtnEnable] = useState(true);
   const [currentTransID, setCurrentTransID] = useState("");
   const dispatch = useAppDispatch();
+  const scrollRef = useRef<any>();
 
   const handleRefresh = async () => {
     setRefreshing(true);
     await refreshUserState();
     setRefreshing(false);
+    scrollRef.current.scrollTo({ index: 0, animated: false });
   };
 
   const refreshUserState = async () => {
@@ -179,14 +181,12 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         await getProducts({ skus: [membershipSelected.productSKU] });
 
         await requestPurchase({ sku: membershipSelected.productSKU });
-        setIsVisible(false);
       } else if (paymentSelected === "Google Pay") {
         console.log("google pay method");
         setIsVisible(true);
         await getProducts({ skus: [membershipSelected.productSKU] });
 
         await requestPurchase({ skus: [membershipSelected.productSKU] });
-        setIsVisible(false);
       } else {
         console.log("others payment method");
       }
@@ -328,7 +328,6 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
             (isIosStorekit2() && currentPurchase.transactionId) ||
             currentPurchase.transactionReceipt
           ) {
-            setIsVisible(true);
             const key = currentPurchase.transactionId?.concat("true");
 
             if (receiptBuffer.has(key)) {
@@ -364,7 +363,6 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                   purchase: currentPurchase,
                   isConsumable: true,
                 });
-                setIsVisible(false);
                 setIsDialogOpen(true);
                 setIsSuccess(true);
               } else {
@@ -372,7 +370,6 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                   purchase: currentPurchase,
                   isConsumable: true,
                 });
-                setIsVisible(false);
                 setIsDialogOpen(true);
                 setIsSuccess(false);
               }
@@ -384,6 +381,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
           } else {
             console.error("current purchase error: " + error);
           }
+          setIsVisible(false);
           setIsBtnEnable(true);
         }
       }
@@ -394,6 +392,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
 
   const handleConfirm = () => {
     setIsDialogOpen(false);
+    setIsVisible(false);
     handleRefresh();
     setIsBtnEnable(true);
     setIsSuccess(false);
@@ -563,6 +562,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                 tintColor="#FAC33D"
               />
             }
+            ref={scrollRef}
             showsVerticalScrollIndicator={false}
           >
             <VipCard

@@ -282,8 +282,6 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
               <TouchableOpacity
                 style={{
                   ...styles.btn,
-                  backgroundColor: "#2d2e30",
-                  flex: 1,
                 }}
                 onPress={() => {
                   navigation.navigate("付费VIP");
@@ -329,8 +327,6 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
               <TouchableOpacity
                 style={{
                   ...styles.btn,
-                  backgroundColor: "#2d2e30",
-                  flex: 1,
                 }}
                 onPress={() => {
                   navigation.navigate("邀请");
@@ -471,6 +467,8 @@ const styles = StyleSheet.create({
     width: "100%",
     borderRadius: 10,
     marginTop: 20,
+    backgroundColor: "#1A1E21",
+    flex: 1,
   },
   highlightColor: {
     color: "#FAC33D", // Change this color to your desired highlight color

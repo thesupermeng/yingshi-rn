@@ -73,7 +73,7 @@ export const VipDetails = ({ route, navigation }: RootStackScreenProps<"VIPæ˜Žç»
 
 const styles = StyleSheet.create({
   card: {
-    paddingHorizontal: 20,
+    paddingLeft: 20,
     paddingVertical: 15,
     marginHorizontal: 5,
     marginTop: 30,
@@ -83,10 +83,10 @@ const styles = StyleSheet.create({
   },
 
   featureItem: {
-    flex: 1,
     alignItems: 'flex-start',
     gap: 5,
     marginBottom: 10,
     marginTop: 10,
+    width: "35%",
   },
 });
