@@ -563,6 +563,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
               />
             }
             ref={scrollRef}
+            showsVerticalScrollIndicator={false}
           >
             <VipCard
               userState={userState}
