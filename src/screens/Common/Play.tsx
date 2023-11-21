@@ -62,12 +62,17 @@ import NetInfo from "@react-native-community/netinfo";
 import { lockAppOrientation } from "../../redux/actions/settingsActions";
 import { AdsBannerContext } from "../../contexts/AdsBannerContext";
 import useInterstitialAds from "../../hooks/useInterstitialAds";
-import { URL } from 'react-native-url-polyfill'
+import { URL } from "react-native-url-polyfill";
 import RNFetchBlob from "rn-fetch-blob";
 import { userModel } from "../../types/userType";
-import { BridgeServer } from 'react-native-http-bridge-refurbished'
+import { BridgeServer } from "react-native-http-bridge-refurbished";
 import { debounce } from "lodash";
 import useAnalytics from "../../hooks/useAnalytics";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { screenModel } from "../../types/screenType";
+
+let insetsTop = 0;
+let insetsBottom = 0;
 
 type VideoRef = {
   setPause: (param: boolean) => void;
@@ -82,14 +87,18 @@ const definedValue = (val: any) => {
   return val + " ";
 };
 
-const server = new BridgeServer('http_service', true) // http server for hosting no-ads m3u8
+const server = new BridgeServer("http_service", true); // http server for hosting no-ads m3u8
 
 const getNoAdsUri = async (url: string) => {
-  const startTime = new Date().valueOf()
-  const parentUrl = url.split('/').filter(part => !part.includes('.m3u8')).join('/') // get https://domain/subfolder/subfolder
-  const videoSubfolder = parentUrl.replace('https://', '').replace('http://', '')
+  const startTime = new Date().valueOf();
+  const parentUrl = url
+    .split("/")
+    .filter((part) => !part.includes(".m3u8"))
+    .join("/"); // get https://domain/subfolder/subfolder
+  const videoSubfolder = parentUrl
+    .replace("https://", "")
+    .replace("http://", "");
   // console.log('parent url ', parentUrl)
-
 
   // const filePath =
   //   RNFetchBlob.fs.dirs.DocumentDir +
@@ -101,26 +110,29 @@ const getNoAdsUri = async (url: string) => {
   //     .replaceAll('.', '') +
   //   '/index.m3u8';
 
-  const index = await RNFetchBlob.fetch("GET", url)
+  const index = await RNFetchBlob.fetch("GET", url);
   const masterPlaylistRelativeUrl = index
     .text()
     .toString()
-    .split('\n')
-    .filter(txt => txt.includes('.m3u8'))
+    .split("\n")
+    .filter((txt) => txt.includes(".m3u8"))
     .at(-1); // get subfolder/subfolder/mixed.m3u8
-  const masterPlaylistUrl = parentUrl + '/' + masterPlaylistRelativeUrl
+  const masterPlaylistUrl = parentUrl + "/" + masterPlaylistRelativeUrl;
 
-  const playlistFolder = masterPlaylistRelativeUrl.split('/').slice(0, -1).join('/') // get /subfolder/subfolder/
+  const playlistFolder = masterPlaylistRelativeUrl
+    .split("/")
+    .slice(0, -1)
+    .join("/"); // get /subfolder/subfolder/
 
-  const playlistContent = (await RNFetchBlob
-    .fetch("GET", masterPlaylistUrl))
-    .text().toString()
+  const playlistContent = (await RNFetchBlob.fetch("GET", masterPlaylistUrl))
+    .text()
+    .toString();
 
-  if (playlistContent.includes('file not found')) return url; // if file not found, return original url 
+  if (playlistContent.includes("file not found")) return url; // if file not found, return original url
 
-  const playlist = playlistContent.split('\n').map(line => {
-    if (line.endsWith('.ts')) {
-      return parentUrl + '/' + playlistFolder + '/' + line;
+  const playlist = playlistContent.split("\n").map((line) => {
+    if (line.endsWith(".ts")) {
+      return parentUrl + "/" + playlistFolder + "/" + line;
     }
     return line;
   });
@@ -129,30 +141,42 @@ const getNoAdsUri = async (url: string) => {
   let adsLine: number[] = [];
 
   playlist.forEach((line, index) => {
-    if (line.endsWith('.ts')) {
-      const indexTs = line.split('/').at(-1).split('.ts')[0]
-      const indexTsInt = parseInt(indexTs.substring(indexTs.length - (index.toString().length)))
+    if (line.endsWith(".ts")) {
+      const indexTs = line.split("/").at(-1).split(".ts")[0];
+      const indexTsInt = parseInt(
+        indexTs.substring(indexTs.length - index.toString().length)
+      );
       if (indexTsInt === fragCounter) {
-        fragCounter++
+        fragCounter++;
       } else {
-        adsLine.push(index - 1)
-        adsLine.push(index)
+        adsLine.push(index - 1);
+        adsLine.push(index);
       }
     }
-  })
+  });
   // console.log('ads line', adsLine)
-  const noAdsPlaylistContent = playlist.filter((_, index) => !adsLine.includes(index))
+  const noAdsPlaylistContent = playlist.filter(
+    (_, index) => !adsLine.includes(index)
+  );
 
   // console.log(playlistContent.length, noAdsPlaylistContent.length)
 
   server.get(`/${videoSubfolder}/index.m3u8`, async (req, res) => {
-    res.send(200, 'application/vnd.apple.mpegurl', noAdsPlaylistContent.join('\n'))
-  })
+    res.send(
+      200,
+      "application/vnd.apple.mpegurl",
+      noAdsPlaylistContent.join("\n")
+    );
+  });
 
-  console.debug('processing took ', (new Date().valueOf() - startTime) / 1000, 's')
+  console.debug(
+    "processing took ",
+    (new Date().valueOf() - startTime) / 1000,
+    "s"
+  );
 
-  return `http://localhost:${PLAY_HTTP_SERVER_PORT}/${videoSubfolder}/index.m3u8`
-}
+  return `http://localhost:${PLAY_HTTP_SERVER_PORT}/${videoSubfolder}/index.m3u8`;
+};
 
 export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const { setRoute: setAdsRoute } = useContext(AdsBannerContext);
@@ -208,7 +232,11 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const [isOffline, setIsOffline] = useState(false);
   const [isShowSheet, setShowSheet] = useState(false);
 
-  const { playsViewsAnalytics, playsPlaysTimesAnalytics, playsShareClicksAnalytics } = useAnalytics();
+  const {
+    playsViewsAnalytics,
+    playsPlaysTimesAnalytics,
+    playsShareClicksAnalytics,
+  } = useAnalytics();
   const [isReadyPlay, setReadyPlay] = useState(false);
 
   const EPISODE_RANGE_SIZE = 100;
@@ -236,10 +264,13 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
       // ========== for analytics - end ==========
 
       const result = await Share.share({
-        message: `《${vod?.vod_name
-          }》高清播放${"\n"}https://yingshi.tv/index.php/vod/play/id/${vod?.vod_id
-          }/sid/1/nid/${currentEpisode + 1
-          }.html${"\n"}${APP_NAME_CONST}-海量高清视频在线观看`,
+        message: `《${
+          vod?.vod_name
+        }》高清播放${"\n"}https://yingshi.tv/index.php/vod/play/id/${
+          vod?.vod_id
+        }/sid/1/nid/${
+          currentEpisode + 1
+        }.html${"\n"}${APP_NAME_CONST}-海量高清视频在线观看`,
       });
       if (result.action === Share.sharedAction) {
         if (result.activityType) {
@@ -277,17 +308,19 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
     }
   }, [vod]);
 
-  useFocusEffect(useCallback(() => {
-    if (!settingsReducer.isOffline) {
-      setIsOffline(settingsReducer.isOffline);
-      handleRefresh();
-    } else {
-      return () => {
+  useFocusEffect(
+    useCallback(() => {
+      if (!settingsReducer.isOffline) {
         setIsOffline(settingsReducer.isOffline);
-        setDismountPlayer(false);
+        handleRefresh();
+      } else {
+        return () => {
+          setIsOffline(settingsReducer.isOffline);
+          setDismountPlayer(false);
+        };
       }
-    }
-  }, [settingsReducer.isOffline]));
+    }, [settingsReducer.isOffline])
+  );
 
   useEffect(() => {
     setIsOffline(settingsReducer.isOffline);
@@ -296,7 +329,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
       vod_name: vod?.vod_name,
     };
 
-    console.log('HELLLOOO===================')
+    console.log("HELLLOOO===================");
     // appsFlyer.logEvent(
     //   eventName,
     //   eventValues,
@@ -313,10 +346,10 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const fetchVodDetails = () =>
     fetch(
       `${API_DOMAIN}vod/v1/vod/detail?id=${vod?.vod_id}&appName=${APP_NAME_CONST}&platform=` +
-      Platform.OS.toUpperCase() +
-      `&channelId=` +
-      UMENG_CHANNEL +
-      `&ip=${localIp}`
+        Platform.OS.toUpperCase() +
+        `&channelId=` +
+        UMENG_CHANNEL +
+        `&ip=${localIp}`
     )
       .then((response) => response.json())
       .then((json: VodDetailsResponseType) => {
@@ -379,7 +412,11 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
     );
   }, [vod]);
 
-  const { data: suggestedVods, isFetching: isFetchingSuggestedVod, refetch } = useQuery({
+  const {
+    data: suggestedVods,
+    isFetching: isFetchingSuggestedVod,
+    refetch,
+  } = useQuery({
     queryKey: ["relatedVods", vod],
     queryFn: () => fetchVod(),
   });
@@ -393,15 +430,11 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   const saveVodToHistory = (vod: any) => {
     dispatch(
-      addVodToHistory(
-        vod,
-        currentTimeRef.current,
-        currentEpisodeRef.current
-      )
+      addVodToHistory(vod, currentTimeRef.current, currentEpisodeRef.current)
     );
-    setInitTime(currentTimeRef.current)
+    setInitTime(currentTimeRef.current);
     // setInitTime(currentTimeRef.current = 0)
-  }
+  };
 
   useEffect(() => {
     setIsCollapsed(true);
@@ -414,7 +447,6 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
         index: currentEpisode,
         animated: true,
       });
-
     }, 500);
   }, [currentEpisode, episodeRef, isFetchingVodDetails]);
 
@@ -423,7 +455,11 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
       setDismountPlayer(false);
       return () => {
         setDismountPlayer(true);
-        if (vod && vod?.vod_play_list.urls?.find((url) => url.nid === currentEpisode)?.url) {
+        if (
+          vod &&
+          vod?.vod_play_list.urls?.find((url) => url.nid === currentEpisode)
+            ?.url
+        ) {
           saveVodToHistory(vod);
           setInitTime(currentTimeRef.current);
           // setInitTime(currentTimeRef.current=0);
@@ -493,44 +529,45 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   // useInterstitialAds();
 
-  const [vodUri, setVodUri] = useState('')
+  const [vodUri, setVodUri] = useState("");
 
-  const debounceSetVodUri = useCallback(debounce((uri) => setVodUri(uri), 1000), [])
+  const debounceSetVodUri = useCallback(
+    debounce((uri) => setVodUri(uri), 1000),
+    []
+  );
 
   const vodUrl: string = vod?.vod_play_list.urls?.find(
-    url => url.nid === currentEpisode,
+    (url) => url.nid === currentEpisode
   )?.url;
 
   useEffect(() => {
     if (!!vodUrl) {
       // console.debug('vod url is', vodUrl)
       getNoAdsUri(vodUrl)
-        .then(uri => {
-          console.debug('successfully modified playlist content', uri)
+        .then((uri) => {
+          console.debug("successfully modified playlist content", uri);
           debounceSetVodUri(uri);
         })
         .catch((err) => {
           setVodUri(vodUrl);
-          console.error('something went wrong', err);
+          console.error("something went wrong", err);
         });
     }
 
     return () => {
       // console.log('stop server')
-      debounceSetVodUri('')
-    }
-
-
+      debounceSetVodUri("");
+    };
   }, [vodUrl]);
 
   useEffect(() => {
     if (vodUri) {
-      server.listen(PLAY_HTTP_SERVER_PORT)
+      server.listen(PLAY_HTTP_SERVER_PORT);
     }
     return () => {
       server.stop(); // stop server when unmount
-    }
-  }, [vodUri])
+    };
+  }, [vodUri]);
 
   // ========== for analytics - start ==========
   const onReadyForDisplay = () => {
@@ -542,12 +579,26 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
     }
 
     setReadyPlay(true);
-  }
+  };
   // ========== for analytics - end ==========
+  const insets = useSafeAreaInsets();
+  const screenState: screenModel = useAppSelector(
+    ({ screenReducer }: RootState) => screenReducer
+  );
 
+  insetsTop = insetsTop == 0 ? insets.top : insetsTop;
+  insetsBottom = insetsBottom == 0 ? insets.bottom : insets.bottom;
   return (
     <>
-      <ScreenContainer containerStyle={{ paddingRight: 0, paddingLeft: 0 }}>
+      <ScreenContainer
+        isPlay={true}
+        containerStyle={{
+          paddingTop: screenState.isPlayerFullScreen ? 0 : insetsTop,
+          paddingBottom: screenState.isPlayerFullScreen ? 0 : insetsBottom,
+          paddingLeft: 0,
+          paddingRight: 0,
+        }}
+      >
         {/* if isVodRestricted, show bing search */}
         {isVodRestricted && vod && !isOffline && <BingSearch vod={vod} />}
 
@@ -678,14 +729,15 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                     <Text
                       style={{ ...textVariants.subBody, color: colors.muted }}
                     >
-                      {`更新：${vod
-                        ? new Date(vod?.vod_time_add * 1000)
-                          .toLocaleDateString("en-GB")
-                          .replace(/\//g, "-")
-                        : new Date()
-                          .toLocaleDateString("en-GB")
-                          .replace(/\//g, "-")
-                        }`}
+                      {`更新：${
+                        vod
+                          ? new Date(vod?.vod_time_add * 1000)
+                              .toLocaleDateString("en-GB")
+                              .replace(/\//g, "-")
+                          : new Date()
+                              .toLocaleDateString("en-GB")
+                              .replace(/\//g, "-")
+                      }`}
                     </Text>
                     <TouchableOpacity onPress={onShare}>
                       <View style={{ ...styles.share, gap: 10 }}>
@@ -794,8 +846,9 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                                     color: colors.muted,
                                     fontSize: 15,
                                   }}
-                                >{`${showEpisodeRangeStart + 1
-                                  }-${showEpisodeRangeEnd}集`}</Text>
+                                >{`${
+                                  showEpisodeRangeStart + 1
+                                }-${showEpisodeRangeEnd}集`}</Text>
                                 <MoreArrow
                                   style={{ color: colors.muted }}
                                   height={icons.sizes.m}
@@ -807,7 +860,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                               horizontal={true}
                               showsHorizontalScrollIndicator={false}
                               initialNumToRender={10}
-                              onScrollToIndexFailed={() => { }}
+                              onScrollToIndexFailed={() => {}}
                               ref={episodeRef}
                               data={vod?.vod_play_list.urls?.slice(
                                 showEpisodeRangeStart,

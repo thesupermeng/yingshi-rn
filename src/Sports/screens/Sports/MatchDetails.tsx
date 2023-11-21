@@ -56,7 +56,11 @@ import { NON_VIP_STREAM_TIME_SECONDS } from '../../../utility/constants';
 import { userModel } from '../../../types/userType';
 import useInterstitialAds from '../../../hooks/useInterstitialAds';
 import useAnalytics from '../../../hooks/useAnalytics';
+import { RootState } from '../../../redux/store';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+let insetsTop = 0;
+let insetsBottom = 0;
 
 type FlatListType = {
   item: MatchDetailsType;
@@ -228,9 +232,23 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
   const isFullyLoaded = !f1 && !f2 && !f3;
 
   useInterstitialAds();
+  
+  const insets = useSafeAreaInsets();
+
+  insetsTop = insetsTop == 0 ? insets.top : insetsTop;
+  insetsBottom = insetsBottom == 0 ? insets.bottom : insets.bottom;
 
   return (
-    <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
+    <ScreenContainer
+      isPlay={true}
+      containerStyle={{
+        flex: 1,
+        paddingRight: 0,
+        paddingLeft: 0,
+        paddingTop: screenState.isPlayerFullScreen ? 0 : insetsTop,
+        paddingBottom: screenState.isPlayerFullScreen ? 0 : insetsBottom,
+      }}
+    >
       <BecomeVipOverlay
         setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
         showBecomeVIPOverlay={showBecomeVIPOverlay}
