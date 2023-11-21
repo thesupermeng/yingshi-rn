@@ -36,31 +36,6 @@ AppRegistry.registerRunnable(appName, async initialProps => {
   }
 
   try {
-    const res = await Api.call(
-      Url.getConfig,
-      {channel: Config.channelId},
-      'GET',
-    );
-    if (res.success) {
-      AppConfig.instance.setConfig(res.data);
-    }
-
-    const responsePromise = fetch(
-      `${API_DOMAIN}nav/v1/bottomtabs?channelId=` + UMENG_CHANNEL + `&mobileOS=` + Platform.OS.toUpperCase(),
-    );
-    
-    const [response] = await Promise.all([
-      responsePromise,
-    ]);
-
-    if (response.ok) {
-      console.log(`${API_DOMAIN}nav/v1/bottomtabs?channelId=` + UMENG_CHANNEL + `&mobileOS=` + Platform.OS);
-      const tabData = await response.json();
-      if (tabData != undefined && tabData != null) {
-        YSConfig.instance.setTabConfig(tabData.data);
-      }
-    }
-
     AppRegistry.registerComponent(appName, () => () => <App />);
     AppRegistry.runApplication(appName, initialProps);
   } catch (err) {

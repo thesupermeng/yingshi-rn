@@ -6,7 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { NetworkInfo } from "react-native-network-info";
 import Nav from "../../src/navigation/nav";
 import NavA from "../../srcA/navigation/nav";
-import axios from "axios";import {
+import axios from "axios"; import {
     API_DOMAIN,
     API_DOMAIN_TEST,
     API_DOMAIN_LOCAL,
@@ -30,9 +30,13 @@ import axios from "axios";import {
     IOS_TOPIC_DETAILS_BANNER_ADS,
     IOS_TOPIC_TAB_BANNER_ADS,
     APP_NAME_CONST,
-  } from "../../src/utility/constants";
+} from "../../src/utility/constants";
 import { YSConfig } from "../../ysConfig";
 import { Dimensions, Platform } from "react-native";
+import Api from '../../src/Sports/middleware/api';
+import {Url} from '../../src/Sports/middleware/url';
+import Config from '../../src/Sports/global/env';
+import {AppConfig} from '../../src/Sports/global/appConfig';
 
 export default () => {
 
@@ -40,7 +44,33 @@ export default () => {
     const [areaNavConfig, setAreaNavConfig] = useState(false);
 
     const getNav = async () => {
-        const resTemp = await axios.get('https://geolocation-db.com/json/');
+        const res = await Api.call(
+            Url.getConfig,
+            { channel: Config.channelId },
+            'GET',
+        );
+        if (res.success) {
+            AppConfig.instance.setConfig(res.data);
+        }
+
+        const responsePromise = fetch(
+            `${API_DOMAIN}nav/v1/bottomtabs?channelId=` + UMENG_CHANNEL + `&mobileOS=` + Platform.OS.toUpperCase(),
+        );
+
+        const resPromise = axios.get('https://geolocation-db.com/json/');
+
+        const [response, resTemp] = await Promise.all([
+            responsePromise,
+            resPromise,
+        ]);
+
+        if (response.ok) {
+            const tabData = await response.json();
+            if (tabData != undefined && tabData != null) {
+                YSConfig.instance.setTabConfig(tabData.data);
+            }
+        }
+
 
         const ipAddress = resTemp.data.IPv4;
 
@@ -69,21 +99,21 @@ export default () => {
             const locationResp = await locationResponse.json();
 
             if (locationResp != undefined && locationResp != null) {
-                if(locationResp.data == undefined || locationResp.data == null){
+                if (locationResp.data == undefined || locationResp.data == null) {
                     YSConfig.instance.setAreaConfig(false);
                     setAreaNavConfig(false);
                     setLoadedAPI(true);
-                }else{
+                } else {
                     YSConfig.instance.setAreaConfig(locationResp.data.status);
                     setAreaNavConfig(locationResp.data.status);
                     setLoadedAPI(true);
                 }
-            }else{
+            } else {
                 YSConfig.instance.setAreaConfig(false);
                 setAreaNavConfig(false);
                 setLoadedAPI(true);
             }
-        }else{
+        } else {
             YSConfig.instance.setAreaConfig(false);
             setAreaNavConfig(false);
             setLoadedAPI(true);
