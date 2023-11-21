@@ -223,7 +223,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         ? JSON.stringify(currentPurchase.transactionReceipt)
         : error.toString(),
       transaction_status: parseInt(transStatus),
-      is_sb: 1,
+      is_sb: __DEV__ ? 1 : 0,
     };
     console.log("complete trans: ", trans);
 
