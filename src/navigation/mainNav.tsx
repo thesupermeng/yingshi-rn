@@ -6,7 +6,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { NetworkInfo } from "react-native-network-info";
 import Nav from "../../src/navigation/nav";
 import NavA from "../../srcA/navigation/nav";
-import { showToast } from "../../src/Sports/utility/toast";
 import axios from "axios";import {
     API_DOMAIN,
     API_DOMAIN_TEST,
@@ -44,7 +43,6 @@ export default () => {
         const resTemp = await axios.get('https://geolocation-db.com/json/');
 
         const ipAddress = resTemp.data.IPv4;
-        showToast(ipAddress);
 
         if (ipAddress != null && ipAddress != undefined) {
             YSConfig.instance.setNetworkIp(ipAddress);
@@ -67,13 +65,11 @@ export default () => {
             },
             body: JSON.stringify(locationBody),
         });
-        showToast(JSON.stringify(locationBody));
         if (locationResponse.ok) {
             const locationResp = await locationResponse.json();
-            showToast("INSIDE RESP : " + JSON.stringify(locationResp));
 
             if (locationResp != undefined && locationResp != null) {
-                if(locationResp.data == undefined || locationResp.data != null){
+                if(locationResp.data == undefined || locationResp.data == null){
                     YSConfig.instance.setAreaConfig(false);
                     setAreaNavConfig(false);
                     setLoadedAPI(true);
@@ -82,9 +78,7 @@ export default () => {
                     setAreaNavConfig(locationResp.data.status);
                     setLoadedAPI(true);
                 }
-                showToast("NOT NULL UNDEFINED : " + JSON.stringify(locationResp));
             }else{
-                showToast("ISSSS NULL UNDEFINED : " + JSON.stringify(locationResp));
                 YSConfig.instance.setAreaConfig(false);
                 setAreaNavConfig(false);
                 setLoadedAPI(true);
