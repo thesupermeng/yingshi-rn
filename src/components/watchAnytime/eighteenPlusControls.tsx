@@ -23,26 +23,25 @@ const EighteenPlusText = () =>
   >18+</Text>
 
 const eighteenPlusControls = ({}: Props) => {
-  const {showVipModal, adultMode, toggleAdultMode, countdownTimer, toggleShowVipModal} = useVip();
-  const [promptDisclaimer, setPromptDisclaimer] = useState(false);
+  const {showVipModal, adultMode, toggleAdultMode, showDisclaimer, toggleShowDisclaimer} = useVip();
 
 
   const handleToggle = useCallback((e:boolean) => {
     if (e){ //if swtiching to true
-      setPromptDisclaimer(true)
+      toggleShowDisclaimer(true)
     } else {
       toggleAdultMode(false)
     }
   }, [])
 
   return (
-    <View style={{...styles.container, height: (showVipModal || promptDisclaimer ? '100%' : 'auto')}}>
+    <View style={{...styles.container, height: (showVipModal || showDisclaimer ? '100%' : 'auto')}}>
       {showVipModal &&
         <WatchAnytimeVipModal/>    
       }
       <View style={styles.switch}>
         <Switch
-          value={adultMode && !promptDisclaimer}
+          value={adultMode && !showDisclaimer}
           onValueChange={handleToggle}
           backgroundInactive="transparent"
           activeText=""
@@ -70,17 +69,17 @@ const eighteenPlusControls = ({}: Props) => {
           flex: 1
         }}
       />
-      {promptDisclaimer && 
+      {showDisclaimer && 
         <EighteenPlusOverlay
           handleAccept={() => {
             console.debug('accepted 18+')
-            setPromptDisclaimer(false)
+            toggleShowDisclaimer(false)
             toggleAdultMode(true)
             }}
           handleReject={() => {
             console.debug('rejected 18+')
             toggleAdultMode(false)
-            setPromptDisclaimer(false)
+            toggleShowDisclaimer(false)
           }}
         />
       }

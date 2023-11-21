@@ -5,6 +5,7 @@ import ShortVod from '../../components/videoPlayer/shortVod';
 import FastImage from "../common/customFastImage";
 import { useTheme } from '@react-navigation/native';
 import { StyleSheet } from 'react-native';
+import { useVip } from '../watchAnytime/VipContext';
 
 interface Props {
     miniVodListRef: any,
@@ -59,6 +60,17 @@ export default forwardRef<MiniVodRef, Props>(
         const [isPause, setPause] = useState(true);
         const [isScrolling, setIsScrolling] = useState(false);
         const [videoCurrentDurations, setVideoCurrentDurations] = useState<number[]>([]);
+
+        const {showDisclaimer, showVipModal} = useVip();
+
+        useEffect(() => {
+            if (showDisclaimer || showVipModal){
+                setPause(true)
+            }
+            if (!(showDisclaimer || showVipModal)){
+                setPause(false)
+            }
+        }, [showDisclaimer, showVipModal])
 
         const handleOnScroll = useCallback((e: any) => {
             const positionY = parseFloat(e.nativeEvent.contentOffset.y.toFixed(5));

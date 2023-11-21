@@ -4,6 +4,8 @@ import { ADULT_MODE_PREVIEW_DURATION } from "../../utility/constants";
 interface Props {
   showVipModal: boolean
   toggleShowVipModal: (show: boolean) => void
+  showDisclaimer: boolean
+  toggleShowDisclaimer: (show: boolean) => void
   adultMode: boolean
   toggleAdultMode: (mode:boolean) => void
   countdownTimer: number
@@ -12,21 +14,27 @@ interface Props {
 const WatchAnytimeContext = createContext<Props>({
   showVipModal: false,
   toggleShowVipModal: () => {},
+  showDisclaimer: false, 
+  toggleShowDisclaimer: () => {},
   adultMode: false,
   toggleAdultMode: () => {}, 
-countdownTimer: 0
+  countdownTimer: 0
 });
 
 export const WatchAnytimeContextProvider  = ({children} : {children: ReactNode}) => {
   const [showVipModal, setShowVipModal] = useState(false)
   const [countdownTimer, setCountdownTimer] = useState(ADULT_MODE_PREVIEW_DURATION);
   const [adultMode, setAdultMode] = useState(false);
+  const [showDisclaimer, setShowDisclaimer] = useState(false);
   const interval = useRef<any>()
   const toggleAdultMode = useCallback((mode:boolean) => {
     setAdultMode(mode)
   }, [])
   const toggleShowVipModal = useCallback((show: boolean) => {
     setShowVipModal(show)
+  }, [])
+  const toggleShowDisclaimer = useCallback((show:boolean) =>{
+    setShowDisclaimer(show)
   }, [])
 
   useEffect(() => {
@@ -45,7 +53,7 @@ export const WatchAnytimeContextProvider  = ({children} : {children: ReactNode})
   }, [countdownTimer])
 
   return (
-    <WatchAnytimeContext.Provider value={{showVipModal, toggleShowVipModal, adultMode, toggleAdultMode, countdownTimer}}>
+    <WatchAnytimeContext.Provider value={{showVipModal, toggleShowVipModal, adultMode, toggleAdultMode, countdownTimer, showDisclaimer, toggleShowDisclaimer}}>
       {children}
     </WatchAnytimeContext.Provider>
   )
