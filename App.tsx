@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
+import { View } from "react-native";
 import { Provider } from "react-redux";
 import Nav from "./src/navigation/nav";
 import NavA from "./srcA/navigation/nav";
@@ -123,53 +124,6 @@ let App = () => {
       },
     },
   });
-
-  const getNav = async () => {
-    
-    const resTempPromise = axios.get('https://api64.ipify.org?format=json');
-
-    const [resTemp] = await Promise.all([
-      resTempPromise
-    ]);
-    const ipAddress = resTemp.data.ip;
-
-    if (ipAddress != null && ipAddress != undefined) {
-      YSConfig.instance.setNetworkIp(ipAddress);
-    }
-    const locationBody = {
-      ip_address: YSConfig.instance.ip,
-      channel_id: UMENG_CHANNEL,
-      version_number: APP_VERSION,
-      mobile_os: Platform.OS,
-      product: APP_NAME_CONST + '-' + Platform.OS.toUpperCase(),
-      mobile_model: 'HUAWEIP20',
-    };
-
-    const locationResponse = await fetch(`${API_DOMAIN}location/v1/info`, {
-      method: 'POST',
-      mode: 'cors',
-      cache: 'no-cache',
-      credentials: 'same-origin',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      redirect: 'follow',
-      referrerPolicy: 'no-referrer',
-      body: JSON.stringify(locationBody),
-    });
-    if (locationResponse.ok) {
-      const locationResp = await locationResponse.json();
-
-      if (locationResp != undefined && locationResp != null) {
-        YSConfig.instance.setAreaConfig(locationResp.data.status);
-      }
-    }
-    console.log('DOOAIIAOO');
-  }
-
-  useEffect(() => {
-    getNav();
-  })
 
   const getIP = async () => {
     const res = await axios.get("https://geolocation-db.com/json/");
@@ -373,33 +327,35 @@ let App = () => {
   console.log(YSConfig.instance.areaConfig);
 
   return (
-    <TermsAcceptContextProviderA>
-      <TermsAcceptContextProvider>
-        <QueryClientProvider client={queryClient}>
-          <Provider store={store}>
-            <PersistGate loading={null} persistor={persistor}>
-              <AdsBannerContextProviderA>
-                <AdsBannerContextProvider>
-                  <GestureHandlerRootView style={{ flex: 1 }}>
-                    <BottomSheetModalProvider>
-                      {YSConfig.instance.areaConfig != null &&
-                      YSConfig.instance.areaConfig == true ? (
-                        // B面的B面
-                        <Nav />
-                      ) : (
-                        // B面里的A面
-                        <NavA />
-                      )}
-                    </BottomSheetModalProvider>
-                  </GestureHandlerRootView>
-                </AdsBannerContextProvider>
-              </AdsBannerContextProviderA>
-            </PersistGate>
-            {showRegengOverlay && <RegengOverlay />}
-          </Provider>
-        </QueryClientProvider>
-      </TermsAcceptContextProvider>
-    </TermsAcceptContextProviderA>
+    <View style={{ flex: 1, backgroundColor: '#161616' }}>
+      <TermsAcceptContextProviderA>
+        <TermsAcceptContextProvider>
+          <QueryClientProvider client={queryClient}>
+            <Provider store={store}>
+              <PersistGate loading={null} persistor={persistor}>
+                <AdsBannerContextProviderA>
+                  <AdsBannerContextProvider>
+                    <GestureHandlerRootView style={{ flex: 1 }}>
+                      <BottomSheetModalProvider>
+                        {YSConfig.instance.areaConfig != null &&
+                        YSConfig.instance.areaConfig == true ? (
+                          // B面的B面
+                          <Nav />
+                        ) : (
+                          // B面里的A面
+                          <NavA />
+                        )}
+                      </BottomSheetModalProvider>
+                    </GestureHandlerRootView>
+                  </AdsBannerContextProvider>
+                </AdsBannerContextProviderA>
+              </PersistGate>
+              {showRegengOverlay && <RegengOverlay />}
+            </Provider>
+          </QueryClientProvider>
+        </TermsAcceptContextProvider>
+      </TermsAcceptContextProviderA>
+    </View>
   );
 };
 
