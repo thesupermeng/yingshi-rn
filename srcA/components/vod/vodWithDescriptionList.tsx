@@ -9,7 +9,8 @@ import { playVod } from '../../redux/actions/vodActions';
 
 interface Props {
   vodList: Array<VodType>;
-  onViewSearchResult?: () => void;
+  onClickSearchResult?: () => void;
+  onClickCatalogVideo?: () => void;
 }
 
 type FlatListType = {
@@ -17,7 +18,7 @@ type FlatListType = {
   index: number;
 };
 
-export default ({ vodList, onViewSearchResult }: Props) => {
+export default ({ vodList, onClickSearchResult, onClickCatalogVideo }: Props) => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const { spacing, textVariants, colors } = useTheme();
@@ -31,7 +32,8 @@ export default ({ vodList, onViewSearchResult }: Props) => {
           dispatch(playVod(item));
           navigation.navigate('播放', { vod_id: item.vod_id });
 
-          if (onViewSearchResult !== undefined) onViewSearchResult();
+          if (onClickSearchResult !== undefined) onClickSearchResult();
+          if (onClickCatalogVideo !== undefined) onClickCatalogVideo();
         }}
         index={index}
       />

@@ -154,7 +154,7 @@ export default ({ navigation, route }: RootStackScreenProps<'搜索'>) => {
   }, []);
 
   // ========== for analytics - start ==========
-  const onViewSearchResult = useCallback(() => {
+  const onClickSearchResult = useCallback(() => {
     searchResultClicksAnalytics();
   }, []);
   // ========== for analytics - end ==========
@@ -213,7 +213,7 @@ export default ({ navigation, route }: RootStackScreenProps<'搜索'>) => {
 
       {showResults ? (
         <View style={styles.searchResult}>
-          <VodWithDescriptionList vodList={searchResults} onViewSearchResult={onViewSearchResult} />
+          <VodWithDescriptionList vodList={searchResults} onClickSearchResult={onClickSearchResult} />
         </View>
       ) : (
         <ScrollView

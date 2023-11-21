@@ -6,11 +6,11 @@ import { VodType } from '../../types/ajaxTypes';
 import { useAppDispatch } from '../../hooks/hooks';
 import FavoriteVodCard from './favoriteVodCard';
 import { playVod } from '../../redux/actions/vodActions';
-import useAnalytics from '../../hooks/useAnalytics';
 
 interface Props {
   vodList: Array<VodType>;
-  onViewSearchResult?: () => void;
+  onClickSearchResult?: () => void;
+  onClickCatalogVideo?: () => void;
 }
 
 type FlatListType = {
@@ -18,7 +18,7 @@ type FlatListType = {
   index: number;
 };
 
-function VodWithDescriptionList({ vodList, onViewSearchResult }: Props) {
+function VodWithDescriptionList({ vodList, onClickSearchResult, onClickCatalogVideo }: Props) {
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const { spacing, textVariants, colors } = useTheme();
@@ -32,7 +32,8 @@ function VodWithDescriptionList({ vodList, onViewSearchResult }: Props) {
           dispatch(playVod(item));
           navigation.navigate('播放', { vod_id: item.vod_id });
 
-          if (onViewSearchResult !== undefined) onViewSearchResult();
+          if (onClickSearchResult !== undefined) onClickSearchResult();
+          if (onClickCatalogVideo !== undefined) onClickCatalogVideo();
         }}
         index={index}
       />

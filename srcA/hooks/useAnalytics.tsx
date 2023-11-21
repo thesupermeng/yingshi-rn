@@ -114,8 +114,11 @@ const useAnalytics = ({ showLog }: { showLog: boolean } = { showLog: true }) => 
         AnalyticsUtil.onEventWithMap(EventId.Playlist_views, {});
     }
 
-    const playlistClickAnalytics = () => {
-        AnalyticsUtil.onEventWithMap(EventId.Playlist_clicks, {});
+    const playlistClickAnalytics = ({ topic_id, topic_name }: { topic_id: string, topic_name: string }) => {
+        AnalyticsUtil.onEventWithMap(EventId.Playlist_clicks, {
+            'topic_id': topic_id,
+            'topic_name': topic_name,
+        });
     }
 
     const playlistTopicsViewsAnalytics = ({ topic_id, topic_name }: { topic_id: string, topic_name: string }) => {
@@ -125,8 +128,11 @@ const useAnalytics = ({ showLog }: { showLog: boolean } = { showLog: true }) => 
         });
     }
 
-    const playlistTopicsClickAnalytics = () => {
-        AnalyticsUtil.onEventWithMap(EventId.Playlist_topics_clicks, {});
+    const playlistTopicsClickAnalytics = ({ topic_id, topic_name }: { topic_id: string, topic_name: string }) => {
+        AnalyticsUtil.onEventWithMap(EventId.Playlist_topics_clicks, {
+            'topic_id': topic_id,
+            'topic_name': topic_name,
+        });
     }
 
 
