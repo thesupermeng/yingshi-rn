@@ -50,15 +50,17 @@ enum EventId {
 const useAnalytics = ({ showLog }: { showLog: boolean } = { showLog: true }) => {
 
     // ============================== Home ==============================
-    const homeTabViewsAnalytics = (tabName: string) => {
+    const homeTabViewsAnalytics = ({ tab_id, tab_name }: { tab_id: string, tab_name: string }) => {
         AnalyticsUtil.onEventWithMap(EventId.Home_views, {
-            'category': tabName,
+            'tab_id': tab_id,
+            'tab_name': tab_name,
         });
     }
 
-    const homeTabClicksAnalytics = (tabName: string) => {
+    const homeTabClicksAnalytics = ({ tab_id, tab_name }: { tab_id: string, tab_name: string }) => {
         AnalyticsUtil.onEventWithMap(EventId.Home_clicks, {
-            'category': tabName,
+            'tab_id': tab_id,
+            'tab_name': tab_name,
         });
     }
 
@@ -150,7 +152,7 @@ const useAnalytics = ({ showLog }: { showLog: boolean } = { showLog: true }) => 
     }
 
     const userCenterVipInviteViewsAnalytics = () => {
-        AnalyticsUtil.onEventWithMap(EventId.UserCenter_invites_vip_views);
+        AnalyticsUtil.onEventWithMap(EventId.UserCenter_invites_vip_views, {});
     }
 
 

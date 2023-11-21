@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import styles from './style';
 import { VideoLiveType } from '../../global/const';
@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
 import WebView from 'react-native-webview';
 import BackIcon from "../../../../static/images/back_arrow.svg";
 import { useTheme } from '@react-navigation/native';
+import useAnalytics from '../../../hooks/useAnalytics';
 
 interface Props {
     matchID?: number,
@@ -34,6 +35,7 @@ const LiveVideo = ({ matchID, liveDataState, onLiveEnd, onLoad, streamID, videoS
 
     const dispatch = useAppDispatch();
 
+    const [isReadyPlay, setReadyPlay] = useState(false);
     const settingsReducer: SettingsReducerState = useAppSelector(
         ({ settingsReducer }: RootState) => settingsReducer
     );
@@ -122,6 +124,17 @@ const LiveVideo = ({ matchID, liveDataState, onLiveEnd, onLoad, streamID, videoS
         dispatch(lockAppOrientation(orientation));
     };
 
+    // ========== for analytics - start ==========
+    const { sportDetailsPlaysTimesAnalytics } = useAnalytics();
+
+    const onReadyForDisplay = useCallback(() => {
+        if (!isReadyPlay && videoSource !== undefined) {
+            setReadyPlay(true);
+            sportDetailsPlaysTimesAnalytics(videoSource.type === VideoLiveType.LIVE ? 'live' : 'animation');
+        }
+    }, [isReadyPlay, videoSource]);
+    // ========== for analytics - end ==========
+
     return (
         <View style={styles.container}>
             {/* <View style={{height: isFullScreen ? '100%' : 'auto'}}> */}
@@ -139,6 +152,7 @@ const LiveVideo = ({ matchID, liveDataState, onLiveEnd, onLoad, streamID, videoS
                                     appOrientation={settingsReducer.appOrientation}
                                     devicesOrientation={settingsReducer.devicesOrientation}
                                     lockOrientation={lockOrientation}
+                                    onReadyForDisplay={onReadyForDisplay}
                                 />
                                 : <View
                                     style={{
