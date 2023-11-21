@@ -9,6 +9,7 @@ import WatchAnytimeVipModal from "./watchAnytimeVipModal";
 import { useVip } from "./VipContext";
 import EighteenPlusOverlay from "../modal/overEighteenOverlay";
 import CountdownIndicator from "../button/countdownIndicator";
+import AdultModeCountdownIndicator from "./adultModeCountdownIndicator";
 interface Props {
   
 }
@@ -61,20 +62,14 @@ const eighteenPlusControls = ({}: Props) => {
           circleSize={20}
         />
       </View>
-      {adultMode &&
-        <CountdownIndicator
-          timer={countdownTimer}
-          onClickVip={() => toggleShowVipModal(true)}
-          vipButtonText="开通VIP畅享无限内容"
-          containerStyle={{
-            position: 'absolute', 
-            top: 70, 
-            right: 20, 
-            flex: 1
-          }}
-        />
-
-      }
+      <AdultModeCountdownIndicator
+        containerStyle={{
+          position: 'absolute', 
+          top: 70, 
+          right: 20, 
+          flex: 1
+        }}
+      />
       {promptDisclaimer && 
         <EighteenPlusOverlay
           handleAccept={() => {
