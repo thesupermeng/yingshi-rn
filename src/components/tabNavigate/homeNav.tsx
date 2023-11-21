@@ -41,6 +41,7 @@ export default function HomeNav({
                 fontSize: textVariants.unselected.fontSize,
                 color: colors.muted,
                 fontWeight: textVariants.unselected.fontWeight,
+                paddingTop: 2,
               }}>
               {tab.name}
             </Text>
@@ -64,7 +65,7 @@ export default function HomeNav({
               alignItems: 'center',
               display: 'flex',
               flexDirection: 'row-reverse',
-              width: 70,
+              width: 'auto',
               paddingTop: 0,
               paddingBottom: 0,
             },
@@ -93,6 +94,6 @@ const styles = StyleSheet.create({
     height: 30,
     width: 60,
     textAlign: 'center',
-    textAlignVertical: 'center',
+    textAlignVertical: 'center'
   }
 });

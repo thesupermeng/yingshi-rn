@@ -68,18 +68,18 @@ import { TermsAcceptContextProvider as TermsAcceptContextProviderA } from "./src
 import { AdsBannerContextProvider } from "./src/contexts/AdsBannerContext";
 import { AdsBannerContextProvider as AdsBannerContextProviderA } from "./srcA/contexts/AdsBannerContext";
 import NetInfo from "@react-native-community/netinfo";
-import * as Sentry from "@sentry/react-native";
+// import * as Sentry from "@sentry/react-native";
 
-Sentry.init({
-  dsn:
-    "https://2239481cf50fd768a7d45bcd7e537462@o4506222962999296.ingest.sentry.io/4506222964965376",
-  tracesSampleRate: 1.0,
-  _experiments: {
-    // profilesSampleRate is relative to tracesSampleRate.
-    // Here, we'll capture profiles for 100% of transactions.
-    profilesSampleRate: 1.0,
-  },
-});
+// Sentry.init({
+//   dsn:
+//     "https://2239481cf50fd768a7d45bcd7e537462@o4506222962999296.ingest.sentry.io/4506222964965376",
+//   tracesSampleRate: 1.0,
+//   _experiments: {
+//     // profilesSampleRate is relative to tracesSampleRate.
+//     // Here, we'll capture profiles for 100% of transactions.
+//     profilesSampleRate: 1.0,
+//   },
+// });
 
 let App = () => {
   // appsFlyer.initSdk(
@@ -123,6 +123,53 @@ let App = () => {
       },
     },
   });
+
+  const getNav = async () => {
+    
+    const resTempPromise = axios.get('https://api64.ipify.org?format=json');
+
+    const [resTemp] = await Promise.all([
+      resTempPromise
+    ]);
+    const ipAddress = resTemp.data.ip;
+
+    if (ipAddress != null && ipAddress != undefined) {
+      YSConfig.instance.setNetworkIp(ipAddress);
+    }
+    const locationBody = {
+      ip_address: YSConfig.instance.ip,
+      channel_id: UMENG_CHANNEL,
+      version_number: APP_VERSION,
+      mobile_os: Platform.OS,
+      product: APP_NAME_CONST + '-' + Platform.OS.toUpperCase(),
+      mobile_model: 'HUAWEIP20',
+    };
+
+    const locationResponse = await fetch(`${API_DOMAIN}location/v1/info`, {
+      method: 'POST',
+      mode: 'cors',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+      body: JSON.stringify(locationBody),
+    });
+    if (locationResponse.ok) {
+      const locationResp = await locationResponse.json();
+
+      if (locationResp != undefined && locationResp != null) {
+        YSConfig.instance.setAreaConfig(locationResp.data.status);
+      }
+    }
+    console.log('DOOAIIAOO');
+  }
+
+  useEffect(() => {
+    getNav();
+  })
 
   const getIP = async () => {
     const res = await axios.get("https://geolocation-db.com/json/");
@@ -371,5 +418,5 @@ let codePushOptions = {
 };
 
 // App = CodePush(codePushOptions)(App);
-export default Sentry.wrap(App);
-//export default App;
+// export default Sentry.wrap(App);
+export default App;

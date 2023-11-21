@@ -49,11 +49,11 @@ AppRegistry.registerRunnable(appName, async initialProps => {
       `${API_DOMAIN}nav/v1/bottomtabs?channelId=` + UMENG_CHANNEL + `&mobileOS=` + Platform.OS.toUpperCase(),
     );
 
-    const resTempPromise = axios.get('https://api64.ipify.org?format=json');
+    // const resTempPromise = axios.get('https://api64.ipify.org?format=json');
 
     const [response, resTemp] = await Promise.all([
       responsePromise,
-      resTempPromise
+      // resTempPromise
     ]);
 
     if (response.ok) {
@@ -64,39 +64,39 @@ AppRegistry.registerRunnable(appName, async initialProps => {
       }
     }
 
-    const ipAddress = resTemp.data.ip;
+    // const ipAddress = resTemp.data.ip;
 
-    if (ipAddress != null && ipAddress != undefined) {
-      YSConfig.instance.setNetworkIp(ipAddress);
-    }
-    const locationBody = {
-      ip_address: YSConfig.instance.ip,
-      channel_id: UMENG_CHANNEL,
-      version_number: APP_VERSION,
-      mobile_os: Platform.OS,
-      product: APP_NAME_CONST + '-' + Platform.OS.toUpperCase(),
-      mobile_model: 'HUAWEIP20',
-    };
+    // if (ipAddress != null && ipAddress != undefined) {
+    //   YSConfig.instance.setNetworkIp(ipAddress);
+    // }
+    // const locationBody = {
+    //   ip_address: YSConfig.instance.ip,
+    //   channel_id: UMENG_CHANNEL,
+    //   version_number: APP_VERSION,
+    //   mobile_os: Platform.OS,
+    //   product: APP_NAME_CONST + '-' + Platform.OS.toUpperCase(),
+    //   mobile_model: 'HUAWEIP20',
+    // };
 
-    const locationResponse = await fetch(`${API_DOMAIN}location/v1/info`, {
-      method: 'POST',
-      mode: 'cors',
-      cache: 'no-cache',
-      credentials: 'same-origin',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      redirect: 'follow',
-      referrerPolicy: 'no-referrer',
-      body: JSON.stringify(locationBody),
-    });
-    if (locationResponse.ok) {
-      const locationResp = await locationResponse.json();
+    // const locationResponse = await fetch(`${API_DOMAIN}location/v1/info`, {
+    //   method: 'POST',
+    //   mode: 'cors',
+    //   cache: 'no-cache',
+    //   credentials: 'same-origin',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   redirect: 'follow',
+    //   referrerPolicy: 'no-referrer',
+    //   body: JSON.stringify(locationBody),
+    // });
+    // if (locationResponse.ok) {
+    //   const locationResp = await locationResponse.json();
 
-      if (locationResp != undefined && locationResp != null) {
-        YSConfig.instance.setAreaConfig(locationResp.data.status);
-      }
-    }
+    //   if (locationResp != undefined && locationResp != null) {
+    //     YSConfig.instance.setAreaConfig(locationResp.data.status);
+    //   }
+    // }
 
     AppRegistry.registerComponent(appName, () => () => <App />);
     AppRegistry.runApplication(appName, initialProps);
