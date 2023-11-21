@@ -2,27 +2,31 @@ import { ReactNode, createContext, useCallback, useContext, useEffect, useReduce
 import { ADULT_MODE_PREVIEW_DURATION } from "../../utility/constants";
 
 interface Props {
-  showModal: boolean
+  showVipModal: boolean
+  toggleShowVipModal: (show: boolean) => void
   adultMode: boolean
   toggleAdultMode: (mode:boolean) => void
   countdownTimer: number
 }
 
 const WatchAnytimeContext = createContext<Props>({
-  showModal: false,
+  showVipModal: false,
+  toggleShowVipModal: () => {},
   adultMode: false,
   toggleAdultMode: () => {}, 
 countdownTimer: 0
 });
 
 export const WatchAnytimeContextProvider  = ({children} : {children: ReactNode}) => {
-  const showModal = false
-
+  const [showVipModal, setShowVipModal] = useState(false)
   const [countdownTimer, setCountdownTimer] = useState(ADULT_MODE_PREVIEW_DURATION);
   const [adultMode, setAdultMode] = useState(false);
   const interval = useRef<any>()
   const toggleAdultMode = useCallback((mode:boolean) => {
     setAdultMode(mode)
+  }, [])
+  const toggleShowVipModal = useCallback((show: boolean) => {
+    setShowVipModal(show)
   }, [])
 
   useEffect(() => {
@@ -35,11 +39,13 @@ export const WatchAnytimeContextProvider  = ({children} : {children: ReactNode})
   }, [adultMode])
 
   useEffect(() => {
-    console.debug('countdown timer', countdownTimer)
+    if (countdownTimer < 0){
+      toggleShowVipModal(true)
+    }
   }, [countdownTimer])
 
   return (
-    <WatchAnytimeContext.Provider value={{showModal, adultMode, toggleAdultMode, countdownTimer}}>
+    <WatchAnytimeContext.Provider value={{showVipModal, toggleShowVipModal, adultMode, toggleAdultMode, countdownTimer}}>
       {children}
     </WatchAnytimeContext.Provider>
   )

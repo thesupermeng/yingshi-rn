@@ -5,7 +5,6 @@ import { StyleProp, Text, TextStyle, View, ViewStyle } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { ViewProps } from "react-native-svg/lib/typescript/fabric/utils";
 import { Switch } from "react-native-switch"
-import VipIndicator from "./vipIndicator";
 import WatchAnytimeVipModal from "./watchAnytimeVipModal";
 import { useVip } from "./VipContext";
 import EighteenPlusOverlay from "../modal/overEighteenOverlay";
@@ -23,7 +22,7 @@ const EighteenPlusText = () =>
   >18+</Text>
 
 const eighteenPlusControls = ({}: Props) => {
-  const {showModal, adultMode, toggleAdultMode, countdownTimer} = useVip();
+  const {showVipModal, adultMode, toggleAdultMode, countdownTimer, toggleShowVipModal} = useVip();
   const [promptDisclaimer, setPromptDisclaimer] = useState(false);
 
 
@@ -36,8 +35,8 @@ const eighteenPlusControls = ({}: Props) => {
   }, [])
 
   return (
-    <View style={{...styles.container, height: (showModal || promptDisclaimer ? '100%' : 'auto')}}>
-      {showModal &&
+    <View style={{...styles.container, height: (showVipModal || promptDisclaimer ? '100%' : 'auto')}}>
+      {showVipModal &&
         <WatchAnytimeVipModal/>    
       }
       <View style={styles.switch}>
@@ -62,17 +61,20 @@ const eighteenPlusControls = ({}: Props) => {
           circleSize={20}
         />
       </View>
-      <CountdownIndicator
-        timer={countdownTimer}
-        onClickVip={() => {}}
-        vipButtonText="开通VIP畅享无限内容"
-        containerStyle={{
-          position: 'absolute', 
-          top: 70, 
-          right: 20, 
-          flex: 1
-        }}
-      />
+      {adultMode &&
+        <CountdownIndicator
+          timer={countdownTimer}
+          onClickVip={() => toggleShowVipModal(true)}
+          vipButtonText="开通VIP畅享无限内容"
+          containerStyle={{
+            position: 'absolute', 
+            top: 70, 
+            right: 20, 
+            flex: 1
+          }}
+        />
+
+      }
       {promptDisclaimer && 
         <EighteenPlusOverlay
           handleAccept={() => {

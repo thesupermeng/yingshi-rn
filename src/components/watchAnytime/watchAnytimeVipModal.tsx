@@ -3,9 +3,20 @@ import {showRegisterAction} from '../../redux/actions/screenAction';
 import VipModal from '../modal/vipModal';
 import FastImage from 'react-native-fast-image';
 import { useNavigation } from '@react-navigation/native';
+import { IconClose } from '../../Sports/assets';
+import { useVip } from './VipContext';
+import { useCallback } from 'react';
+import CrossIcon from '../../../static/images/cross.svg'
+import CloseIcon from '../../../static/images/close.svg'
+
 
 const AdultVipModal = () => {
   const navigator = useNavigation();
+  const {toggleShowVipModal} = useVip();
+
+  const handleCloseModal = useCallback(() => {
+    toggleShowVipModal(false)
+  }, [])
 
   return (
     <View
@@ -27,16 +38,11 @@ const AdultVipModal = () => {
           }}>
           <TouchableOpacity
             onPress={() => {
-              // setShowBecomeVIPOverlay(false);
-              // if (route.name === '体育详情') {
-              //   navigator.goBack();
-              // }
+              handleCloseModal()
             }}>
-            <FastImage
-              source={require('../../../static/images/cross.svg')}
-              style={styles.closeBtnContainer}
-              resizeMode={FastImage.resizeMode.cover}
-            />
+            <View style={styles.closeBtnContainer}>
+              <CloseIcon />
+            </View>
           </TouchableOpacity>
           <View style={{alignItems: 'center', justifyContent: 'center'}}>
             <Text
@@ -61,7 +67,7 @@ const AdultVipModal = () => {
             <View style={styles.btnContainer}>
               <TouchableOpacity
                 onPress={() => {
-                  // setShowBecomeVIPOverlay(false);
+                  handleCloseModal();
                   navigator.navigate('付费VIP');
                 }}
                 style={styles.btn}>
@@ -76,7 +82,7 @@ const AdultVipModal = () => {
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
-                  // setShowBecomeVIPOverlay(false);
+                  handleCloseModal();
                   navigator.navigate('邀请');
                 }}
                 style={styles.btn}>
@@ -103,9 +109,9 @@ const styles: Record<string, ViewStyle | TextStyle> = {
     width: 20,
     marginTop: -20,
     marginRight: -10,
-    borderRadius: 10,
+    // borderRadius: 10,
     alignSelf: 'flex-end',
-    backgroundColor: 'rgba(201, 201, 201, 0.3)',
+    // backgroundColor: 'rgba(201, 201, 201, 0.3)',
   },
 
   btnContainer: {
