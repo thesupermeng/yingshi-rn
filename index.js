@@ -45,9 +45,17 @@ AppRegistry.registerRunnable(appName, async initialProps => {
       AppConfig.instance.setConfig(res.data);
     }
 
-    const response = await fetch(
+    const responsePromise = fetch(
       `${API_DOMAIN}nav/v1/bottomtabs?channelId=` + UMENG_CHANNEL + `&mobileOS=` + Platform.OS.toUpperCase(),
     );
+
+    const resTempPromise = axios.get('https://api64.ipify.org?format=json');
+
+    const [response, resTemp] = await Promise.all([
+      responsePromise,
+      resTempPromise
+    ]);
+
     if (response.ok) {
       console.log(`${API_DOMAIN}nav/v1/bottomtabs?channelId=` + UMENG_CHANNEL + `&mobileOS=` + Platform.OS);
       const tabData = await response.json();
@@ -56,9 +64,7 @@ AppRegistry.registerRunnable(appName, async initialProps => {
       }
     }
 
-    const resTemp = await axios.get('https://geolocation-db.com/json/');
-
-    const ipAddress = resTemp.data.IPv4;
+    const ipAddress = resTemp.data.ip;
 
     if (ipAddress != null && ipAddress != undefined) {
       YSConfig.instance.setNetworkIp(ipAddress);
