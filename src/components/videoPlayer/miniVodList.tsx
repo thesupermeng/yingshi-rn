@@ -82,7 +82,6 @@ export default forwardRef<MiniVodRef, Props>(
 
             // for analytics used
             if ((index + 1) > curTolVideoViews) {
-                console.log('index:', index)
                 setPreTolVideoViews(curTolVideoViews);
                 setCurTolVideoViews(index + 1);
             }
@@ -176,13 +175,6 @@ export default forwardRef<MiniVodRef, Props>(
             </View>
         ), [current, isActive, isPause, isScrolling, inCollectionView, displayHeight, videoCurrentDurations, isPressTabScroll]);
 
-        console.log(`
-        render - minivod
-        ==========
-        current: ${current}
-        curTolVideoViews: ${curTolVideoViews}
-        preTolVideoViews: ${preTolVideoViews}
-        `)
         return (
             <View style={{ flex: 1 }} onLayout={(event: any) => {
                 var { height } = event.nativeEvent.layout;

@@ -48,7 +48,7 @@ enum EventId {
     Plays_share_clicks = 'Play-share_clicks',
 }
 
-const useAnalytics = ({ showLog }: { showLog: boolean } = { showLog: true }) => {
+const useAnalytics = ({ showLog }: { showLog: boolean } = { showLog: false }) => {
 
     // ============================== Home ==============================
     const homeTabViewsAnalytics = ({ tab_id, tab_name }: { tab_id: string, tab_name: string }) => {
@@ -56,6 +56,8 @@ const useAnalytics = ({ showLog }: { showLog: boolean } = { showLog: true }) => 
             'tab_id': tab_id,
             'tab_name': tab_name,
         });
+
+        if (showLog) console.log('trigger event id:', EventId.Home_views);
     }
 
     const homeTabClicksAnalytics = ({ tab_id, tab_name }: { tab_id: string, tab_name: string }) => {
@@ -63,12 +65,16 @@ const useAnalytics = ({ showLog }: { showLog: boolean } = { showLog: true }) => 
             'tab_id': tab_id,
             'tab_name': tab_name,
         });
+
+        if (showLog) console.log('trigger event id:', EventId.Home_clicks);
     }
 
 
     // ============================== WatchAnytime ==============================
     const watchAnytimeViewsAnalytics = () => {
         AnalyticsUtil.onEventWithMap(EventId.WatchAnytime_views, {});
+
+        if (showLog) console.log('trigger event id:', EventId.WatchAnytime_views);
     }
 
     const watchAnytimeVideoViewTimesAnalytics = ({ userId, tolVideoViews }: { userId: string, tolVideoViews: number }) => {
@@ -77,52 +83,72 @@ const useAnalytics = ({ showLog }: { showLog: boolean } = { showLog: true }) => 
         AnalyticsUtil.onEventWithMap(EventId.WatchAnytime_video_view_times, {
             [userId]: tolVideoViews,
         });
+
+        if (showLog) console.log('trigger event id:', EventId.WatchAnytime_video_view_times);
     }
 
     const watchAnytimeVideoClicksAnalytics = () => {
         AnalyticsUtil.onEventWithMap(EventId.WatchAnytime_video_clicks, {});
+
+        if (showLog) console.log('trigger event id:', EventId.WatchAnytime_video_clicks);
     }
 
     const watchAnytimePlaylistClicksAnalytics = () => {
         AnalyticsUtil.onEventWithMap(EventId.WatchAnytime_playlist_clicks, {});
+
+        if (showLog) console.log('trigger event id:', EventId.WatchAnytime_playlist_clicks);
     }
 
 
     // ============================== Sport ==============================
     const sportViewsAnalytics = () => {
         AnalyticsUtil.onEventWithMap(EventId.Sport_views, {});
+
+        if (showLog) console.log('trigger event id:', EventId.Sport_views);
     }
 
     const sportClicksAnalytics = () => {
         AnalyticsUtil.onEventWithMap(EventId.Sport_clicks, {});
+
+        if (showLog) console.log('trigger event id:', EventId.Sport_clicks);
     }
 
 
     // ============================== Sport Details ==============================
     const sportDetailsViewsAnalytics = () => {
         AnalyticsUtil.onEventWithMap(EventId.SportDetails_views, {});
+
+        if (showLog) console.log('trigger event id:', EventId.SportDetails_views);
     }
 
     const sportDetailsPlaysTimesAnalytics = (category: 'live' | 'animation') => {
         AnalyticsUtil.onEventWithMap(EventId.SportDetails_plays_times, {
             'live_category': category === 'live' ? '视频直播' : '动画直播',
         });
+
+        if (showLog) console.log('trigger event id:', EventId.SportDetails_plays_times);
     }
 
     const sportDetailsVipPopupTimesAnalytics = () => {
         AnalyticsUtil.onEventWithMap(EventId.SportDetails_vip_popup_times, {});
+
+        if (showLog) console.log('trigger event id:', EventId.SportDetails_vip_popup_times);
     }
 
     const sportDetailsVipPopupClicksAnalytics = (category: 'pay' | 'invite') => {
         AnalyticsUtil.onEventWithMap(EventId.SportDetails_vip_clicks, {
             'click_category': category === 'pay' ? '购买' : '邀请',
         });
+
+        if (showLog) console.log('trigger event id:', EventId.SportDetails_vip_clicks);
     }
 
 
     // ============================== Playlist ==============================
     const playlistViewsAnalytics = () => {
         AnalyticsUtil.onEventWithMap(EventId.Playlist_views, {});
+
+        if (showLog) console.log('trigger event id:', EventId.Playlist_views);
     }
 
     const playlistClickAnalytics = ({ topic_id, topic_name }: { topic_id: string, topic_name: string }) => {
@@ -130,6 +156,8 @@ const useAnalytics = ({ showLog }: { showLog: boolean } = { showLog: true }) => 
             'topic_id': topic_id,
             'topic_name': topic_name,
         });
+
+        if (showLog) console.log('trigger event id:', EventId.Playlist_clicks);
     }
 
     const playlistTopicsViewsAnalytics = ({ topic_id, topic_name }: { topic_id: string, topic_name: string }) => {
@@ -137,6 +165,8 @@ const useAnalytics = ({ showLog }: { showLog: boolean } = { showLog: true }) => 
             'topic_id': topic_id,
             'topic_name': topic_name,
         });
+
+        if (showLog) console.log('trigger event id:', EventId.Playlist_topics_views);
     }
 
     const playlistTopicsClickAnalytics = ({ topic_id, topic_name }: { topic_id: string, topic_name: string }) => {
@@ -144,40 +174,56 @@ const useAnalytics = ({ showLog }: { showLog: boolean } = { showLog: true }) => 
             'topic_id': topic_id,
             'topic_name': topic_name,
         });
+
+        if (showLog) console.log('trigger event id:', EventId.Playlist_topics_clicks);
     }
 
 
     // ============================== User Center ==============================
     const userCenterLoginSuccessTimesAnalytics = () => {
         AnalyticsUtil.onEventWithMap(EventId.UserCenter_login_success_times, {});
+
+        if (showLog) console.log('trigger event id:', EventId.UserCenter_login_success_times);
     }
 
     const userCenterVipLoginSuccessTimesAnalytics = () => {
         AnalyticsUtil.onEventWithMap(EventId.UserCenter_vip_login_success_times, {});
+
+        if (showLog) console.log('trigger event id:', EventId.UserCenter_vip_login_success_times);
     }
 
     const userCenterVipPayViewsAnalytics = () => {
         AnalyticsUtil.onEventWithMap(EventId.UserCenter_pay_vip_views, {});
+
+        if (showLog) console.log('trigger event id:', EventId.UserCenter_pay_vip_views);
     }
 
     const userCenterVipInviteViewsAnalytics = () => {
         AnalyticsUtil.onEventWithMap(EventId.UserCenter_invites_vip_views, {});
+
+        if (showLog) console.log('trigger event id:', EventId.UserCenter_invites_vip_views);
     }
 
 
     // ============================== Search ==============================
     const searchResultViewsAnalytics = () => {
         AnalyticsUtil.onEventWithMap(EventId.Search_result_views, {});
+
+        if (showLog) console.log('trigger event id:', EventId.Search_result_views);
     }
 
     const searchResultClicksAnalytics = () => {
         AnalyticsUtil.onEventWithMap(EventId.Search_result_clicks, {});
+
+        if (showLog) console.log('trigger event id:', EventId.Search_result_clicks);
     }
 
     const searchKeywordAnalytics = (keyword: string) => {
         AnalyticsUtil.onEventWithMap(EventId.Search_keyword, {
             'keyword': keyword,
         });
+
+        if (showLog) console.log('trigger event id:', EventId.Search_keyword);
     }
 
 
@@ -187,6 +233,8 @@ const useAnalytics = ({ showLog }: { showLog: boolean } = { showLog: true }) => 
             'category_id': category_id,
             'category_name': category_name,
         });
+
+        if (showLog) console.log('trigger event id:', EventId.Catalog_views);
     }
 
     const catalogClicksAnalytics = ({ category_id, category_name }: { category_id: string, category_name: string }) => {
@@ -194,6 +242,8 @@ const useAnalytics = ({ showLog }: { showLog: boolean } = { showLog: true }) => 
             'category_id': category_id,
             'category_name': category_name,
         });
+
+        if (showLog) console.log('trigger event id:', EventId.Catalog_clicks);
     }
 
 
@@ -203,6 +253,8 @@ const useAnalytics = ({ showLog }: { showLog: boolean } = { showLog: true }) => 
             'vod_id': vod_id,
             'vod_name': vod_name,
         });
+
+        if (showLog) console.log('trigger event id:', EventId.Plays_views);
     }
 
     const playsPlaysTimesAnalytics = ({ vod_id, vod_name }: { vod_id: string, vod_name: string }) => {
@@ -210,10 +262,14 @@ const useAnalytics = ({ showLog }: { showLog: boolean } = { showLog: true }) => 
             'vod_id': vod_id,
             'vod_name': vod_name,
         });
+
+        if (showLog) console.log('trigger event id:', EventId.Plays_plays_times);
     }
 
     const playsShareClicksAnalytics = () => {
         AnalyticsUtil.onEventWithMap(EventId.Plays_share_clicks, {});
+
+        if (showLog) console.log('trigger event id:', EventId.Plays_share_clicks);
     }
 
 

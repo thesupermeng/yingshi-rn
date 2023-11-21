@@ -389,8 +389,12 @@ export default forwardRef<VideoRef, Props>(
     );
 
     const changeEpisodeAndPlay = (ep: any) => {
-      setIsPaused(false);
+      setIsPaused(true);
       onEpisodeChange(ep);
+
+      setTimeout(() => {
+        setIsPaused(false);
+      }, 1000);
     };
 
     const getNextEpisode = () => {

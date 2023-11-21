@@ -80,7 +80,6 @@ export default forwardRef<MiniVodRef, Props>(
 
             // for analytics used
             if ((index + 1) > curTolVideoViews) {
-                console.log('index:', index)
                 setPreTolVideoViews(curTolVideoViews);
                 setCurTolVideoViews(index + 1);
             }
