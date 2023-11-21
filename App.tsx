@@ -1,8 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { View } from "react-native";
 import { Provider } from "react-redux";
-import Nav from "./src/navigation/nav";
-import NavA from "./srcA/navigation/nav";
+import MainNav from "./src/navigation/mainNav";
 import { store, persistor } from "./src/redux/store";
 import { PersistGate } from "redux-persist/integration/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -337,14 +336,7 @@ let App = () => {
                   <AdsBannerContextProvider>
                     <GestureHandlerRootView style={{ flex: 1 }}>
                       <BottomSheetModalProvider>
-                        {YSConfig.instance.areaConfig != null &&
-                        YSConfig.instance.areaConfig == true ? (
-                          // B面的B面
-                          <Nav />
-                        ) : (
-                          // B面里的A面
-                          <NavA />
-                        )}
+                        <MainNav />
                       </BottomSheetModalProvider>
                     </GestureHandlerRootView>
                   </AdsBannerContextProvider>
