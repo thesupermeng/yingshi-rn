@@ -63,13 +63,14 @@ import NetInfo from "@react-native-community/netinfo";
 import { lockAppOrientation } from "../../redux/actions/settingsActions";
 import { AdsBannerContext } from "../../contexts/AdsBannerContext";
 import useInterstitialAds from "../../hooks/useInterstitialAds";
-import {URL} from 'react-native-url-polyfill'
+import { URL } from 'react-native-url-polyfill'
 import RNFetchBlob from "rn-fetch-blob";
 import { userModel } from "../../types/userType";
-import {BridgeServer} from 'react-native-http-bridge-refurbished'
+import { BridgeServer } from 'react-native-http-bridge-refurbished'
 import { debounce } from "lodash";
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
-import {InAppBrowser} from 'react-native-inappbrowser-reborn'
+import { InAppBrowser } from 'react-native-inappbrowser-reborn'
+import useAnalytics from "../../hooks/useAnalytics";
 
 type VideoRef = {
   setPause: (param: boolean) => void;
@@ -86,7 +87,7 @@ const definedValue = (val: any) => {
 
 const server = new BridgeServer('http_service', true) // http server for hosting no-ads m3u8
 
-const getNoAdsUri = async (url:string) =>{
+const getNoAdsUri = async (url: string) => {
   const startTime = new Date().valueOf()
   const parentUrl = url.split('/').filter(part => !part.includes('.m3u8')).join('/') // get https://domain/subfolder/subfolder
   const videoSubfolder = parentUrl.replace('https://', '').replace('http://', '')
@@ -119,23 +120,23 @@ const getNoAdsUri = async (url:string) =>{
     .text().toString()
 
   if (playlistContent.includes('file not found')) throw new Error("Error: master playlist content not found"); // if file not found, throw err
-  
+
   const playlist = playlistContent.split('\n').map(line => {
     if (line.endsWith('.ts')) {
       return parentUrl + '/' + playlistFolder + '/' + line;
     }
     return line;
   });
-  
+
   let fragCounter = 0;
-  let adsLine: number[] = []; 
+  let adsLine: number[] = [];
 
   playlist.forEach((line, index) => {
-    if (line.endsWith('.ts')){
+    if (line.endsWith('.ts')) {
       const indexTs = line.split('/').at(-1).split('.ts')[0]
       const indexTsInt = parseInt(indexTs.substring(indexTs.length - (index.toString().length)))
-      if (indexTsInt === fragCounter){
-        fragCounter ++
+      if (indexTsInt === fragCounter) {
+        fragCounter++
       } else {
         adsLine.push(index - 1)
         adsLine.push(index)
@@ -147,11 +148,11 @@ const getNoAdsUri = async (url:string) =>{
 
   // console.log(playlistContent.length, noAdsPlaylistContent.length)
 
-  server.get(`/${videoSubfolder}/index.m3u8`, async(req, res) => {
+  server.get(`/${videoSubfolder}/index.m3u8`, async (req, res) => {
     res.send(200, 'application/vnd.apple.mpegurl', noAdsPlaylistContent.join('\n'))
   })
 
-  console.debug('processing took ' , (new Date().valueOf() - startTime) / 1000,'s')
+  console.debug('processing took ', (new Date().valueOf() - startTime) / 1000, 's')
 
   return `http://localhost:${PLAY_HTTP_SERVER_PORT}/${videoSubfolder}/index.m3u8`
 }
@@ -210,6 +211,9 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const [isOffline, setIsOffline] = useState(false);
   const [isShowSheet, setShowSheet] = useState(false);
 
+  const { playsViewsAnalytics, playsPlaysTimesAnalytics, playsShareClicksAnalytics } = useAnalytics();
+  const [isReadyPlay, setReadyPlay] = useState(false);
+
   const EPISODE_RANGE_SIZE = 100;
 
   const showEpisodeRangeStart = useMemo(
@@ -230,6 +234,10 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   );
   const onShare = async () => {
     try {
+      // ========== for analytics - start ==========
+      playsShareClicksAnalytics();
+      // ========== for analytics - end ==========
+
       const result = await Share.share({
         message: `《${vod?.vod_name
           }》高清播放${"\n"}https://yingshi.tv/index.php/vod/play/id/${vod?.vod_id
@@ -261,6 +269,14 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   useEffect(() => {
     if (vod) {
       setInitTime(vod?.timeWatched);
+      setReadyPlay(false);
+
+      // ========== for analytics - start ==========
+      playsViewsAnalytics({
+        vod_id: vod.vod_id.toString(),
+        vod_name: vod.vod_name,
+      });
+      // ========== for analytics - end ==========
     }
   }, [vod]);
 
@@ -485,15 +501,15 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
     url => url.nid === currentEpisode,
   )?.url;
 
-  const handleSearchVideo = useCallback(async () =>{
+  const handleSearchVideo = useCallback(async () => {
     const url = `https://www.bing.com/search?q=${vod?.vod_name}`
     try {
-      if (await InAppBrowser.isAvailable()){
+      if (await InAppBrowser.isAvailable()) {
         await InAppBrowser.open(url)
-      } else{
+      } else {
         Linking.openURL(url)
       }
-    } catch (e){
+    } catch (e) {
       Linking.openURL(url)
     }
   }, [vod])
@@ -529,15 +545,28 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   //   }
   // }, [vodUri])
 
+  // // ========== for analytics - start ==========
+  // const onReadyForDisplay = () => {
+  //   if (vod && !isReadyPlay) {
+  //     playsPlaysTimesAnalytics({
+  //       vod_id: vod.vod_id.toString(),
+  //       vod_name: vod.vod_name,
+  //     });
+  //   }
+
+  //   setReadyPlay(true);
+  // }
+  // // ========== for analytics - end ==========
+
   return (
     <>
-      <ScreenContainer containerStyle={{paddingRight: 0, paddingLeft: 0}}>
-       <TitleWithBackButtonHeader
-        title={vod?.vod_name}
-        backBtnStyle={{
-          left: 30  
-        }}
-       />
+      <ScreenContainer containerStyle={{ paddingRight: 0, paddingLeft: 0 }}>
+        <TitleWithBackButtonHeader
+          title={vod?.vod_name}
+          backBtnStyle={{
+            left: 30
+          }}
+        />
 
         {/* if isVodRestricted, show bing search */}
         {/* {isVodRestricted && vod && !isOffline && <BingSearch vod={vod} />} */}
@@ -553,7 +582,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
               alignSelf: 'center',
             }}>
             <FastImage
-              style={{height: 80, width: 80}}
+              style={{ height: 80, width: 80 }}
               source={require('../../../static/images/loading-spinner.gif')}
               resizeMode={'contain'}
             />
@@ -567,12 +596,12 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
           <>
             <ScrollView
               nestedScrollEnabled={true}
-              contentContainerStyle={{marginTop: spacing.m}}
+              contentContainerStyle={{ marginTop: spacing.m }}
               contentInsetAdjustmentBehavior="automatic">
-              <View style={{...styles.descriptionContainer2, gap: spacing.m}}>
+              <View style={{ ...styles.descriptionContainer2, gap: spacing.m }}>
                 <View style={styles.videoDescription}>
                   <FastImage
-                    source={{uri: vod?.vod_pic}}
+                    source={{ uri: vod?.vod_pic }}
                     resizeMode={'cover'}
                     style={{
                       ...styles.descriptionImage,
@@ -625,23 +654,22 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                       />
                     )}
                     <Text
-                      style={{...textVariants.subBody, color: colors.muted}}
+                      style={{ ...textVariants.subBody, color: colors.muted }}
                       numberOfLines={2}>
                       {`${definedValue(vod?.vod_year)}`}
                       {`${definedValue(vod?.vod_area)}`}
                       {`${definedValue(vod?.vod_class?.split(',').join(' '))}`}
                     </Text>
                     <Text
-                      style={{...textVariants.subBody, color: colors.muted}}>
-                      {`更新：${
-                        vod
-                          ? new Date(vod?.vod_time_add * 1000)
-                              .toLocaleDateString('en-GB')
-                              .replace(/\//g, '-')
-                          : new Date()
-                              .toLocaleDateString('en-GB')
-                              .replace(/\//g, '-')
-                      }`}
+                      style={{ ...textVariants.subBody, color: colors.muted }}>
+                      {`更新：${vod
+                        ? new Date(vod?.vod_time_add * 1000)
+                          .toLocaleDateString('en-GB')
+                          .replace(/\//g, '-')
+                        : new Date()
+                          .toLocaleDateString('en-GB')
+                          .replace(/\//g, '-')
+                        }`}
                     </Text>
                     <View
                       style={{
@@ -676,7 +704,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                     onPress={() => {
                       setIsCollapsed(!isCollapsed);
                     }}>
-                    <View style={{paddingBottom: 18}}>
+                    <View style={{ paddingBottom: 18 }}>
                       <Text
                         ref={textRef}
                         onTextLayout={handleTextLayout}
@@ -685,7 +713,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                         {`${definedValue(vod?.vod_content)}`}
                       </Text>
                     </View>
-                    <View style={{paddingBottom: 0}}>
+                    <View style={{ paddingBottom: 0 }}>
                       {isCollapsed && actualNumberOfLines >= 2 && (
                         <FastImage
                           style={{
@@ -727,7 +755,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                           alignSelf: 'center',
                         }}>
                         <FastImage
-                          style={{height: 80, width: 80}}
+                          style={{ height: 80, width: 80 }}
                           source={require('../../../static/images/loading-spinner.gif')}
                           resizeMode={'contain'}
                         />
@@ -738,7 +766,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                       {vod &&
                         suggestedVods !== undefined &&
                         suggestedVods?.length > 0 && (
-                          <View style={{gap: spacing.l, marginBottom: 60}}>
+                          <View style={{ gap: spacing.l, marginBottom: 60 }}>
                             <ShowMoreVodButton
                               isPlayScreen={true}
                               text={`相关${vod?.type_name}`}
