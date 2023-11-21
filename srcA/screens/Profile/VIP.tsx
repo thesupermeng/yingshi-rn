@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   View,
   Text,
@@ -44,10 +44,6 @@ import SpinnerOverlay from "../../components/modal/SpinnerOverlay";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import useAnalytics from "../../hooks/useAnalytics";
 
-const subscriptionSkus = Platform.select({
-  ios: ["yingshi_vip_month", "yingshi_vip_6months", "monthly_subscription"],
-});
-
 export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const {
     connected,
@@ -84,6 +80,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const [isBtnEnable, setIsBtnEnable] = useState(true);
   const [currentTransID, setCurrentTransID] = useState("");
   const dispatch = useAppDispatch();
+  const scrollRef = useRef<any>();
 
   // ========== for analytics - start ==========
   const { userCenterVipPayViewsAnalytics } = useAnalytics();
@@ -97,6 +94,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     setRefreshing(true);
     await refreshUserState();
     setRefreshing(false);
+    scrollRef.current.scrollTo({ index: 0, animated: false });
   };
 
   const refreshUserState = async () => {
@@ -128,7 +126,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         const offline = !(
           state.isConnected &&
           (state.isInternetReachable === true ||
-            state.isInternetReachable === null
+          state.isInternetReachable === null
             ? true
             : false)
         );
@@ -192,14 +190,12 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         await getProducts({ skus: [membershipSelected.productSKU] });
 
         await requestPurchase({ sku: membershipSelected.productSKU });
-        setIsVisible(false);
       } else if (paymentSelected === "Google Pay") {
         console.log("google pay method");
         setIsVisible(true);
         await getProducts({ skus: [membershipSelected.productSKU] });
 
         await requestPurchase({ skus: [membershipSelected.productSKU] });
-        setIsVisible(false);
       } else {
         console.log("others payment method");
       }
@@ -245,7 +241,6 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     const receiptApi = IS_IOS
       ? `${API_DOMAIN}validate/v1/iosreceipt`
       : `${API_DOMAIN}validate/v1/androidreceipt`;
-    console.log("receipt api: ", receiptApi);
     const result = await axios.post(receiptApi, trans);
 
     console.log("complete transaction result");
@@ -285,12 +280,12 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const processLocalTrans = async () => {
     try {
       const existingData = await getLocalTrans();
-      console.warn("processData");
+      console.log("processData");
       let dataLength = existingData.length;
 
       while (dataLength--) {
         let popItem = existingData.shift();
-        console.warn("pop item");
+        console.log("pop item");
         console.log(popItem);
 
         const receiptApi = IS_IOS
@@ -305,7 +300,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
           existingData.push(popItem);
         }
       }
-      console.warn("after data");
+      console.log("after data");
       console.log(existingData);
       await AsyncStorage.setItem("transRecords", JSON.stringify(existingData));
     } catch (error) {
@@ -315,7 +310,6 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
 
   useEffect(() => {
     const passData = async () => {
-      console.log("check if offline");
       if (!isOffline) {
         await processLocalTrans();
         await refreshUserState();
@@ -343,7 +337,6 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
             (isIosStorekit2() && currentPurchase.transactionId) ||
             currentPurchase.transactionReceipt
           ) {
-            setIsVisible(true);
             const key = currentPurchase.transactionId?.concat("true");
 
             if (receiptBuffer.has(key)) {
@@ -379,7 +372,6 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                   purchase: currentPurchase,
                   isConsumable: true,
                 });
-                setIsVisible(false);
                 setIsDialogOpen(true);
                 setIsSuccess(true);
               } else {
@@ -387,7 +379,6 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                   purchase: currentPurchase,
                   isConsumable: true,
                 });
-                setIsVisible(false);
                 setIsDialogOpen(true);
                 setIsSuccess(false);
               }
@@ -399,6 +390,8 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
           } else {
             console.error("current purchase error: " + error);
           }
+          setIsVisible(false);
+          setIsBtnEnable(true);
         }
       }
     };
@@ -408,6 +401,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
 
   const handleConfirm = () => {
     setIsDialogOpen(false);
+    setIsVisible(false);
     handleRefresh();
     setIsBtnEnable(true);
     setIsSuccess(false);
@@ -527,7 +521,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                   padding: 8,
                   opacity:
                     userState.userPaidVipList.total_purchased_days > 0 ||
-                      userState.userAccumulateRewardDay > 0
+                    userState.userAccumulateRewardDay > 0
                       ? 100
                       : 0,
                 }}
@@ -577,8 +571,13 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                 tintColor="#FAC33D"
               />
             }
+            ref={scrollRef}
+            showsVerticalScrollIndicator={false}
           >
             <VipCard
+              containerStyle={{
+                marginHorizontal: 0,
+              }}
               userState={userState}
               membershipProduct={membershipProducts}
               selectedMembership={membershipSelected}
@@ -587,16 +586,38 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
               onPaymentSelect={setSelectedPayment}
             />
 
+            <View
+              style={{
+                ...styles.tncContainer,
+                backgroundColor: "transparent",
+                paddingTop: 0,
+              }}
+            >
+              <Text
+                style={{
+                  ...textVariants.small,
+                  textAlign: "center",
+                  color: "#a6a6a6",
+                  fontStyle: "italic",
+                }}
+                numberOfLines={2}
+              >
+                因不同地区税收政策不同/汇率波动，实际支付价格与会员显示价格存在少量偏差
+              </Text>
+            </View>
+
             <View style={{ ...styles.footerWithBackgroundContainer }}>
               <Text style={{ ...textVariants.small }}>
                 有关购买查询，请联系contactus@yingshi.tv
               </Text>
             </View>
-            <View style={{ ...styles.footerContainer }}>
-              <Text style={{ ...textVariants.small }}>
-                活动由影视TV公司提供 与苹果公司Apple.Inc 无关
-              </Text>
-            </View>
+            {IS_IOS ? (
+              <View style={{ ...styles.footerContainer }}>
+                <Text style={{ ...textVariants.small }}>
+                  活动由影视TV公司提供 与苹果公司Apple.Inc 无关
+                </Text>
+              </View>
+            ) : null}
           </ScrollView>
         )}
       </ScreenContainer>
@@ -622,6 +643,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     backgroundColor: "#1D2023",
     alignItems: "center",
+  },
+  tncContainer: {
+    backgroundColor: "#1F2224",
+    alignItems: "center",
+    marginHorizontal: 15,
+    borderRadius: 10,
+    padding: 10,
   },
   footerContainer: {
     alignItems: "center",
