@@ -41,13 +41,9 @@ export default () => {
     const [areaNavConfig, setAreaNavConfig] = useState(false);
 
     const getNav = async () => {
-        const resTempPromise = axios.get('https://api64.ipify.org?format=json');
-        
-        const [resTemp] = await Promise.all([
-            resTempPromise
-        ]);
+        const resTemp = await axios.get('https://geolocation-db.com/json/');
 
-        const ipAddress = resTemp.data.ip;
+        const ipAddress = resTemp.data.IPv4;
         showToast(ipAddress);
 
         if (ipAddress != null && ipAddress != undefined) {
