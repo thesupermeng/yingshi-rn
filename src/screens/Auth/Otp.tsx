@@ -1,7 +1,7 @@
-import {useNavigation, useTheme} from '@react-navigation/native';
+import { useNavigation, useTheme } from '@react-navigation/native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, {useState} from 'react';
-import {useEffect} from 'react';
+import React, { useState } from 'react';
+import { useEffect } from 'react';
 import {
   StyleSheet,
   View,
@@ -13,15 +13,18 @@ import {
   Image,
 } from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
 
-import {ResendCountDown} from './resendCountDown';
-import {registerUser, loginUser} from '../../features/user';
-import {addUserAuthState} from '../../redux/actions/userAction';
+import { ResendCountDown } from './resendCountDown';
+import { registerUser, loginUser } from '../../features/user';
+import { addUserAuthState } from '../../redux/actions/userAction';
 
-import {useAppDispatch} from '../../hooks/hooks';
-import {changeScreenAction} from '../../redux/actions/screenAction';
+import { useAppDispatch } from '../../hooks/hooks';
+import { changeScreenAction } from '../../redux/actions/screenAction';
+import useAnalytics from '../../hooks/useAnalytics';
+
+
 const OtpInputs = props => {
   const storeToken = useSelector(state => state.userToken);
   const dispatch = useDispatch();
@@ -30,6 +33,7 @@ const OtpInputs = props => {
   const [resend, setResend] = useState(false);
   const [isValid, setValid] = useState(0); // 0: have not checked, 1: invalid, 2: valid
   const navigator = useNavigation();
+  const { userCenterLoginSuccessTimesAnalytics, userCenterVipLoginSuccessTimesAnalytics } = useAnalytics();
 
   const [focusedInput, setFocusedInput] = useState(null); // Track the focused input index
   const navigation = useNavigation();
@@ -119,7 +123,7 @@ const OtpInputs = props => {
           console.log('err debug');
           console.log(err.response.data.message);
           setValid(1);
-          result = {state: ''};
+          result = { state: '' };
           result.state = err.response.data.message;
           //  props.setErrMsg(err.response.data.message);
         }
@@ -151,13 +155,22 @@ const OtpInputs = props => {
         console.log(json);
 
         if (props.action == 'login') {
-          if(json.userCurrentTimestamp < json.userMemberExpired){
+          if (json.userCurrentTimestamp < json.userMemberExpired) {
             await AsyncStorage.setItem("showAds", "false");
           } else {
             await AsyncStorage.setItem("showAds", "true");
           }
           await dispatch(changeScreenAction('登录成功'));
           navigator.goBack();
+
+          // ========== for analytics - start ==========
+          userCenterLoginSuccessTimesAnalytics();
+
+          if (json.userMemberExpired >= json.userCurrentTimestamp) {
+            userCenterVipLoginSuccessTimesAnalytics();
+          }
+          // ========== for analytics - end ==========
+
         }
         if (props.action == 'register') {
           navigation.navigate('SetUsername');
@@ -170,7 +183,7 @@ const OtpInputs = props => {
     }
     setValid(0);
   };
-  const {colors, textVariants, icons, spacing} = useTheme();
+  const { colors, textVariants, icons, spacing } = useTheme();
 
   return (
     <View
@@ -182,7 +195,7 @@ const OtpInputs = props => {
 
       <Text style={styles.description}>
         验证码已发送至{' '}
-        <Text style={[styles.hyperlink, {color: colors.primary}]}>
+        <Text style={[styles.hyperlink, { color: colors.primary }]}>
           {props.email}
         </Text>{' '}
       </Text>
@@ -238,11 +251,11 @@ const OtpInputs = props => {
             setOtp('      ');
             setValid(0);
           }}>
-          <View style={{marginTop: 35}}>
+          <View style={{ marginTop: 35 }}>
             <Text
               style={[
                 styles.hyperlink,
-                {color: colors.primary, textAlign: 'center', fontWeight: '600'},
+                { color: colors.primary, textAlign: 'center', fontWeight: '600' },
               ]}>
               重新发送验证码
             </Text>
@@ -256,30 +269,30 @@ const OtpInputs = props => {
 
 export default (props: any) => {
   const [optVarificationState, setOptVarificationState] = useState(2);
-  const {colors, textVariants, icons, spacing} = useTheme();
+  const { colors, textVariants, icons, spacing } = useTheme();
   return (
     <ScreenContainer>
-    <View
-      style={{
-        height: '100%',
-      }}>
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-        <>
-          <TitleWithBackButtonHeader title="" />
+      <View
+        style={{
+          height: '100%',
+        }}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+          <>
+            <TitleWithBackButtonHeader title="" />
 
-          {/* <View style={styles.headerBarShadow}/> */}
-          <View style={{paddingLeft: 20, paddingRight: 20, paddingTop: '20%'}}>
-            <OtpInputs
-              optVarificationState={optVarificationState}
-              setOptVarificationState={setOptVarificationState}
-              email={props.route.params.email}
-              referral_code={props.route.params.referralCode}
-              action={props.route.params.action}
-            />
-          </View>
-        </>
-      </TouchableWithoutFeedback>
-    </View>
+            {/* <View style={styles.headerBarShadow}/> */}
+            <View style={{ paddingLeft: 20, paddingRight: 20, paddingTop: '20%' }}>
+              <OtpInputs
+                optVarificationState={optVarificationState}
+                setOptVarificationState={setOptVarificationState}
+                email={props.route.params.email}
+                referral_code={props.route.params.referralCode}
+                action={props.route.params.action}
+              />
+            </View>
+          </>
+        </TouchableWithoutFeedback>
+      </View>
     </ScreenContainer>
   );
 };
@@ -290,7 +303,7 @@ const styles = StyleSheet.create({
     marginTop: 12,
     height: 4,
     shadowColor: 'rgba(0, 0, 0, 0.05)',
-    shadowOffset: {width: 0, height: 4},
+    shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.8,
     elevation: 5,
     shadowRadius: 3,
