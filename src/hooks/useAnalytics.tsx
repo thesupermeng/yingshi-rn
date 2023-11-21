@@ -7,6 +7,7 @@ enum EventId {
 
     // WatchAnytime
     WatchAnytime_views = 'WatchAnytime-Views',
+    WatchAnytime_video_view_times = 'WatchAnytime-video_view_times',
     WatchAnytime_playlist_clicks = 'WatchAnytime-playlist_clicks',
     WatchAnytime_video_clicks = 'WatchAnytime-video_clicks',
 
