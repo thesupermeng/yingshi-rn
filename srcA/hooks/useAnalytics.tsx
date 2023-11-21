@@ -165,15 +165,17 @@ const useAnalytics = ({ showLog }: { showLog: boolean } = { showLog: true }) => 
 
 
     // ============================== Catalog ==============================
-    const catalogViewsAnalytics = (category: string) => {
+    const catalogViewsAnalytics = ({ category_id, category_name }: { category_id: string, category_name: string }) => {
         AnalyticsUtil.onEventWithMap(EventId.Catalog_views, {
-            'category': category,
+            'category_id': category_id,
+            'category_name': category_name,
         });
     }
 
-    const catalogClicksAnalytics = (category: string) => {
+    const catalogClicksAnalytics = ({ category_id, category_name }: { category_id: string, category_name: string }) => {
         AnalyticsUtil.onEventWithMap(EventId.Catalog_clicks, {
-            'category': category,
+            'category_id': category_id,
+            'category_name': category_name,
         });
     }
 
