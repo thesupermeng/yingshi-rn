@@ -95,6 +95,7 @@ export type RootStackParamList = {
   VIP明细: {
     userState: userModel;
   };
+  午夜场剧情: undefined
 };
 
 export type RootStackScreenProps<

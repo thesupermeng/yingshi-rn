@@ -113,6 +113,7 @@ import { VipDetails } from "../components/vip/vipDetails";
 
 import { ATInterstitialRNSDK } from "./../../AnyThinkAds/ATReactNativeSDK";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
+import AdultVideoList from "../screens/Playlist/AdultVideoList";
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -639,6 +640,11 @@ export default () => {
             name="VIP明细"
             component={VipDetails}
             options={{ orientation: "portrait" }}
+          />
+          <Stack.Screen
+            name="午夜场剧情"
+            component={AdultVideoList}
+            options={{ orientation: 'portrait' }}
           />
         </Stack.Navigator>
         {settingsReducer.appOrientation === "PORTRAIT" && ( // only show if portrait
