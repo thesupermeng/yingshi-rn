@@ -27,7 +27,7 @@ import FastImage from "react-native-fast-image";
 import FastForwardProgressIcon from "../../../static/images/fastforwardProgress.svg";
 import RewindProgressIcon from "../../../static/images/rewindProgress.svg";
 
-import { setFullscreenState } from "../../redux/actions/screenAction";
+import { incrementSportWatchTime, setFullscreenState } from "../../redux/actions/screenAction";
 
 import {
   LiveTVStationItem,
@@ -433,6 +433,16 @@ export default forwardRef<VideoRef, Props>(
         setIsPaused(false);
       }
     }, [screenState.interstitialShow]);
+
+    useEffect(() =>{
+      if (route.name == '体育详情') {
+        const unsub = setInterval(() => {
+          dispatch(incrementSportWatchTime());
+        }, 1000);
+
+        return () => clearInterval(unsub);
+      }
+    }, [route.name])
 
     const pauseSportVideo =
       route.name === "体育详情" &&

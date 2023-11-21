@@ -196,14 +196,6 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
     }
   }, [match]);
 
-  useEffect(()=>{
-    const unsub = setInterval(() => {
-      dispatch(incrementSportWatchTime()); 
-    }, 1000)
-
-    return () => clearInterval(unsub)
-  }, [])
-
   useEffect(() =>{
     if (screenState.sportWatchTime > NON_VIP_STREAM_TIME_SECONDS && (Number(userState.userMemberExpired) <= Number(userState.userCurrentTimestamp) || userState.userToken === "")){
       setShowBecomeVIPOverlay(true);
