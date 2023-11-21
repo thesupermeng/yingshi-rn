@@ -9,6 +9,7 @@ import VipIndicator from "./vipIndicator";
 import WatchAnytimeVipModal from "./watchAnytimeVipModal";
 import { useVip } from "./VipContext";
 import EighteenPlusOverlay from "../modal/overEighteenOverlay";
+import CountdownIndicator from "../button/countdownIndicator";
 interface Props {
   
 }
@@ -22,8 +23,7 @@ const EighteenPlusText = () =>
   >18+</Text>
 
 const eighteenPlusControls = ({}: Props) => {
-  const [test, setTest] = useState(false)
-  const {showModal, adultMode, toggleAdultMode} = useVip();
+  const {showModal, adultMode, toggleAdultMode, countdownTimer} = useVip();
   const [promptDisclaimer, setPromptDisclaimer] = useState(false);
 
 
@@ -33,10 +33,10 @@ const eighteenPlusControls = ({}: Props) => {
     } else {
       toggleAdultMode(false)
     }
-  }, [showModal, promptDisclaimer])
+  }, [])
 
   return (
-    <View style={styles.container}>
+    <View style={{...styles.container, height: (showModal || promptDisclaimer ? '100%' : 'auto')}}>
       {showModal &&
         <WatchAnytimeVipModal/>    
       }
@@ -51,7 +51,7 @@ const eighteenPlusControls = ({}: Props) => {
           renderInsideCircle={() => <EighteenPlusText />}
           containerStyle={{
             borderWidth: 2,
-            borderColor: !test ? 'white' : '#0000009E',
+            borderColor: !adultMode ? 'white' : '#0000009E',
           }}
           barHeight={27}
           switchLeftPx={5}
@@ -62,7 +62,17 @@ const eighteenPlusControls = ({}: Props) => {
           circleSize={20}
         />
       </View>
-      <VipIndicator/>
+      <CountdownIndicator
+        timer={countdownTimer}
+        onClickVip={() => {}}
+        vipButtonText="开通VIP畅享无限内容"
+        containerStyle={{
+          position: 'absolute', 
+          top: 70, 
+          right: 20, 
+          flex: 1
+        }}
+      />
       {promptDisclaimer && 
         <EighteenPlusOverlay
           handleAccept={() => {
@@ -85,7 +95,6 @@ const eighteenPlusControls = ({}: Props) => {
 const styles: Record<string, ViewStyle|TextStyle> = {
   container: {
     zIndex: 100, 
-    height: '100%', 
     width: '100%',
     position: 'absolute'
   }, 
