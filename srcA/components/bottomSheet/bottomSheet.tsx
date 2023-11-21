@@ -1,7 +1,7 @@
 import { useTheme } from "@react-navigation/native";
 import { BottomSheet as ReactBottomSheet } from "@rneui/base";
 import { useEffect, useState } from "react";
-import { Keyboard, Platform, ScrollView, View, ViewStyle } from "react-native";
+import { Keyboard, Platform, View, ViewStyle } from "react-native";
 import DeviceInfo from "react-native-device-info";
 
 interface Props {
@@ -9,7 +9,6 @@ interface Props {
   isVisible: boolean;
   isKeyboardVisible?: boolean;
   onBackdropPress: () => void;
-  style?: ViewStyle;
   containerStyle?: ViewStyle;
   height?: string;
   bottomOffset?: number;
@@ -20,7 +19,6 @@ export default function BottomSheet({
   children,
   isVisible,
   onBackdropPress,
-  style,
   containerStyle,
   isKeyboardVisible = false,
   height = "auto",
@@ -31,8 +29,6 @@ export default function BottomSheet({
   const [bottomPosition, setBottomPosition] = useState(0);
   const deviceBrand = DeviceInfo.getBrand();
   const [deviceName, setDeviceName] = useState("");
-  const [containHeight, setContainHeight] = useState(0);
-
   DeviceInfo.getDeviceName().then((d) => {
     setDeviceName(d);
   });
@@ -65,58 +61,43 @@ export default function BottomSheet({
       backdropStyle={{
         backgroundColor: "#000000aa",
       }}
+      containerStyle={{
+        position: "absolute",
+        // paddingBottom: deviceBrand == "HUAWEI" && isKeyboardVisible ? 200 : 50,
+        bottom: bottomPosition,
+        width: "100%",
+        height: height,
+        borderTopLeftRadius: 30,
+        borderTopRightRadius: 30,
+        backgroundColor: colors.bottomSheet,
+        paddingBottom:
+          deviceBrand == "HUAWEI" && /p\d+/i.test(deviceName)
+            ? bottomOffset + 100
+            : 0,
+        ...containerStyle,
+      }}
       modalProps={{
         supportedOrientations: supportedOrientations,
-        style: {
-          justifyContent: 'flex-end',
-        }
-      }}
-      scrollViewProps={{
-        scrollEnabled: false,
-        nestedScrollEnabled: true,
-        style: {
-          borderTopLeftRadius: 30,
-          borderTopRightRadius: 30,
-          backgroundColor: colors.bottomSheet,
-          width: "100%",
-          height: height,
-          paddingBottom:
-            deviceBrand == "HUAWEI" && /p\d+/i.test(deviceName)
-              ? bottomOffset + 100
-              : 0,
-          ...style,
-        },
-        onLayout: (event) => {
-          var { height } = event.nativeEvent.layout;
-          setContainHeight(height)
-        }
       }}
     >
       <View
         style={{
-          backgroundColor: colors.bottomSheet,
-          justifyContent: 'center',
+          width: "100%",
+          height: 14,
           alignItems: "center",
-          position: 'absolute',
-          height: 30,
-          top: 0,
-          left: 0,
-          right: 0,
-          zIndex: 10,
+          marginTop: 10,
         }}
       >
         <View
           style={{
-            backgroundColor: "#414040",
+            backgroundColor: "white",
             width: 40,
             height: 5,
             borderRadius: 10,
           }}
         />
       </View>
-      <ScrollView style={{ marginTop: 20, height: containHeight, ...containerStyle }}>
-        {children}
-      </ScrollView>
+      {children}
     </ReactBottomSheet>
   );
 }
