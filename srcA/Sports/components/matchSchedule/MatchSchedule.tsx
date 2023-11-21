@@ -1,27 +1,28 @@
-import React, {memo, useState} from 'react';
-import {View, Text, ImageBackground} from 'react-native';
+import React, { memo, useState } from 'react';
+import { View, Text, ImageBackground } from 'react-native';
 // import FastImage from 'react-native-fast-image';
 import FastImage from '../../../components/common/customFastImage'
-import {useTheme} from '@react-navigation/native';
+import { useTheme } from '@react-navigation/native';
 import styles from './style';
-import {IconViewerGif} from '../../assets';
-import {TouchableOpacity} from 'react-native';
-import {HomeIcon, AwayIcon, AnimationLive, VideoLive} from '../../assets';
+import { IconViewerGif } from '../../assets';
+import { TouchableOpacity } from 'react-native';
+import { HomeIcon, AwayIcon, AnimationLive, VideoLive } from '../../assets';
 import {
   calculateScore,
   getMatchStatus,
   liveRoomName,
 } from '../../utility/utils';
-import store, {RootState} from '../../../redux/store';
+import store, { RootState } from '../../../redux/store';
 // import FollowMatchAction from '../../redux/actions/followMatchAction';
-import {useNavigation} from '@react-navigation/native';
-import {MatchDetailsType} from '../../types/matchTypes';
+import { useNavigation } from '@react-navigation/native';
+import { MatchDetailsType } from '../../types/matchTypes';
 import BecomeVipOverlay from '../../../components/modal/becomeVipOverlay';
-import {userModel} from '../../../types/userType';
-import {useAppSelector} from '../../../hooks/hooks';
-import {showBecomeVip} from '../../../redux/actions/screenAction';
-import {useDispatch} from 'react-redux';
+import { userModel } from '../../../types/userType';
+import { useAppSelector } from '../../../hooks/hooks';
+import { showBecomeVip } from '../../../redux/actions/screenAction';
+import { useDispatch } from 'react-redux';
 import { screenModel } from '../../../types/screenType';
+import useAnalytics from '../../../hooks/useAnalytics';
 
 interface Props {
   matchSche: MatchDetailsType;
@@ -33,14 +34,16 @@ interface Props {
 
 const MatchSchedule = ({
   matchSche,
-  onPress = () => {},
+  onPress = () => { },
   isMatchPage = true,
   setShowBecomeVIPOverlay,
 }: Props) => {
   const navigation = useNavigation();
-  const {colors, textVariants, spacing} = useTheme();
+  const { colors, textVariants, spacing } = useTheme();
   const dispatch = useDispatch();
   let totalViews = 0;
+  const { sportClicksAnalytics } = useAnalytics();
+
   const calTotalViews = () => {
     if (matchSche?.streams != undefined && matchSche?.streams.length > 0) {
       matchSche?.streams.map(e => (totalViews += e.view_num));
@@ -56,13 +59,17 @@ const MatchSchedule = ({
   };
 
   const userState: userModel = useAppSelector(
-    ({userReducer}: RootState) => userReducer,
+    ({ userReducer }: RootState) => userReducer,
   );
 
   const matchClicked = () => {
     navigation.navigate('体育详情', {
       matchId: matchSche?.id === null ? undefined : matchSche.id,
     });
+
+    // ========== for analytics - start ==========
+    sportClicksAnalytics();
+    // ========== for analytics - end ==========
   };
 
   // const streamerClicked = (streamerId, streamerStatus) => {
@@ -119,7 +126,7 @@ const MatchSchedule = ({
         <View style={styles.border}>
           <View style={styles.matchScheduleHeader}>
             <View style={styles.matchInfo}>
-              <Text style={{...styles.spaceBetween, color: colors.muted}}>
+              <Text style={{ ...styles.spaceBetween, color: colors.muted }}>
                 {matchSche?.competition?.name_short}
               </Text>
               <Text
@@ -133,17 +140,17 @@ const MatchSchedule = ({
                 ('0' + new Date(matchSche?.match_time).getMinutes()).slice(-2)} */}
                 {new Date(matchSche?.match_time_ts * 1000).toLocaleTimeString(
                   'en-GB',
-                  {hour: '2-digit', minute: '2-digit'},
+                  { hour: '2-digit', minute: '2-digit' },
                 )}
               </Text>
             </View>
             <View style={styles.matchStatus}>
               {matchSche?.streams != undefined &&
-              matchSche?.streams?.length > 0 &&
-              matchSche?.streams?.some(streamer => streamer.status == 3) ? (
-                <View style={{flexDirection: 'row'}}>
+                matchSche?.streams?.length > 0 &&
+                matchSche?.streams?.some(streamer => streamer.status == 3) ? (
+                <View style={{ flexDirection: 'row' }}>
                   <View style={styles.liveIcon} />
-                  <Text style={{...styles.liveStatus}}>直播中</Text>
+                  <Text style={{ ...styles.liveStatus }}>直播中</Text>
                 </View>
               ) : (
                 <Text style={textVariants.small}>
@@ -184,16 +191,16 @@ const MatchSchedule = ({
           <View style={styles.matchScheduleContent}>
             <View style={styles.teamContentA}>
               <Text
-                style={{...textVariants.small, flexShrink: 1}}
+                style={{ ...textVariants.small, flexShrink: 1 }}
                 numberOfLines={1}
                 ellipsizeMode={'tail'}>
                 {matchSche.home?.name}
               </Text>
               {matchSche?.home?.icon != undefined &&
-              matchSche?.home?.icon.length > 0 ? (
+                matchSche?.home?.icon.length > 0 ? (
                 <FastImage
                   style={styles.teamImage}
-                  source={{uri: matchSche?.home?.icon}}
+                  source={{ uri: matchSche?.home?.icon }}
                 />
               ) : (
                 <ImageBackground style={styles.teamImage} source={HomeIcon}>
@@ -213,18 +220,18 @@ const MatchSchedule = ({
               <View style={styles.liveScore}>
                 <View>
                   <View
-                    style={{flexDirection: 'row', justifyContent: 'center'}}>
+                    style={{ flexDirection: 'row', justifyContent: 'center' }}>
                     <Text
                       style={
                         calculateScore(
                           matchSche?.home_score,
                           matchSche?.sports_type,
                         ) >
-                        calculateScore(
-                          matchSche?.away_score,
-                          matchSche?.sports_type,
-                        )
-                          ? {...styles.highScoreFont, color: colors.primary}
+                          calculateScore(
+                            matchSche?.away_score,
+                            matchSche?.sports_type,
+                          )
+                          ? { ...styles.highScoreFont, color: colors.primary }
                           : styles.scoreFont
                       }>
                       {calculateScore(
@@ -239,11 +246,11 @@ const MatchSchedule = ({
                           matchSche?.away_score,
                           matchSche?.sports_type,
                         ) >
-                        calculateScore(
-                          matchSche?.home_score,
-                          matchSche?.sports_type,
-                        )
-                          ? {...styles.highScoreFont, color: colors.primary}
+                          calculateScore(
+                            matchSche?.home_score,
+                            matchSche?.sports_type,
+                          )
+                          ? { ...styles.highScoreFont, color: colors.primary }
                           : styles.scoreFont
                       }>
                       {calculateScore(
@@ -284,17 +291,17 @@ const MatchSchedule = ({
               </View>
             ) : (
               <View style={styles.subscribeBtn}>
-                <Text style={{...textVariants.header, color: colors.primary}}>
+                <Text style={{ ...textVariants.header, color: colors.primary }}>
                   VS
                 </Text>
               </View>
             )}
             <View style={styles.teamContentB}>
               {matchSche?.away?.icon != undefined &&
-              matchSche?.away?.icon.length > 0 ? (
+                matchSche?.away?.icon.length > 0 ? (
                 <FastImage
                   style={styles.teamImage}
-                  source={{uri: matchSche?.away?.icon}}
+                  source={{ uri: matchSche?.away?.icon }}
                 />
               ) : (
                 <ImageBackground style={styles.teamImage} source={AwayIcon}>
@@ -304,7 +311,7 @@ const MatchSchedule = ({
                 </ImageBackground>
               )}
               <Text
-                style={{...textVariants.small, flexShrink: 1}}
+                style={{ ...textVariants.small, flexShrink: 1 }}
                 numberOfLines={1}>
                 {matchSche?.away?.name}
               </Text>

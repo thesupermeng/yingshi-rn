@@ -1,14 +1,15 @@
-import React, {Suspense, useCallback, useEffect, useState} from 'react';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import React, { Suspense, useCallback, useEffect, useState } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import VipModal from './vipModal';
-import {useNavigation, useRoute, useTheme} from '@react-navigation/native';
+import { useNavigation, useRoute, useTheme } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useAppDispatch} from '../../hooks/hooks';
+import { useAppDispatch } from '../../hooks/hooks';
 import {
   resetBecomeVip,
   showLoginAction,
 } from '../../redux/actions/screenAction';
 import FastImage from 'react-native-fast-image';
+import useAnalytics from '../../hooks/useAnalytics';
 
 interface Props {
   showBecomeVIPOverlay: boolean;
@@ -21,13 +22,14 @@ export default function ExpiredOverlay({
 }: Props) {
   const navigator = useNavigation();
   const dispatch = useAppDispatch();
-  const route = useRoute(); 
+  const route = useRoute();
 
   // useEffect(() => {
   //   setShowVIPOverlay(true);
   // }, []);
 
-  const {colors, textVariants, spacing, icons} = useTheme();
+  const { colors, textVariants, spacing, icons } = useTheme();
+  const { sportDetailsVipPopupClicksAnalytics } = useAnalytics();
 
   return (
     <>
@@ -63,7 +65,7 @@ export default function ExpiredOverlay({
                   resizeMode={FastImage.resizeMode.cover}
                 />
               </TouchableOpacity>
-              <View style={{alignItems: 'center', justifyContent: 'center'}}>
+              <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                 <Text
                   style={{
                     fontSize: 20,
@@ -97,6 +99,10 @@ export default function ExpiredOverlay({
                     onPress={() => {
                       setShowBecomeVIPOverlay(false);
                       navigator.navigate('付费VIP');
+
+                      // ========== for analytics - start ==========
+                      sportDetailsVipPopupClicksAnalytics('pay');
+                      // ========== for analytics - end ==========
                     }}
                     style={styles.btn}>
                     <Text
@@ -112,6 +118,10 @@ export default function ExpiredOverlay({
                     onPress={() => {
                       setShowBecomeVIPOverlay(false);
                       navigator.navigate('邀请');
+
+                      // ========== for analytics - start ==========
+                      sportDetailsVipPopupClicksAnalytics('invite');
+                      // ========== for analytics - end ==========
                     }}
                     style={styles.btn}>
                     <Text

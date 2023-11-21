@@ -64,7 +64,8 @@ interface Props {
   appOrientation: string;
   devicesOrientation: string;
   lockOrientation: (orientation: string) => void;
-  handleSaveVod: any;
+  handleSaveVod?: any;
+  onReadyForDisplay?: () => void;
 }
 
 type VideoControlsRef = {
@@ -99,7 +100,7 @@ export default forwardRef<VideoRef, Props>(
       rangeSize,
       episodes,
       autoPlayNext = true,
-      onShare = () => {},
+      onShare = () => { },
       movieList = [],
       showGuide = false,
       streams = [],
@@ -108,7 +109,8 @@ export default forwardRef<VideoRef, Props>(
       appOrientation,
       devicesOrientation,
       lockOrientation,
-      handleSaveVod = () => {},
+      handleSaveVod = () => { },
+      onReadyForDisplay,
     }: Props,
     ref
   ) => {
@@ -265,7 +267,7 @@ export default forwardRef<VideoRef, Props>(
       try {
         if (currentTimeRef.current != 0 && nextAppState !== "active") {
           console.log("save vod");
-          handleSaveVod();
+          if (handleSaveVod) handleSaveVod();
         }
       } catch (err) {
         console.log("err save vod!");
@@ -387,8 +389,12 @@ export default forwardRef<VideoRef, Props>(
     );
 
     const changeEpisodeAndPlay = (ep: any) => {
-      setIsPaused(false);
+      setIsPaused(true);
       onEpisodeChange(ep);
+
+      setTimeout(() => {
+        setIsPaused(false);
+      }, 1000);
     };
 
     const getNextEpisode = () => {
@@ -505,6 +511,7 @@ export default forwardRef<VideoRef, Props>(
               setPlaybackRate={setPlaybackRate}
               changeEpisodeAndPlay={changeEpisodeAndPlay}
               onShare={onShare}
+              onReadyForDisplay={onReadyForDisplay}
             />
           )}
         </View>

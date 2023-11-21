@@ -46,6 +46,7 @@ import { RootState } from "../../../redux/store";
 import { useDispatch } from "react-redux";
 import BecomeVipOverlay from "../../../components/modal/becomeVipOverlay";
 import { SettingsReducerState } from "../../../redux/reducers/settingsReducer";
+import useAnalytics from "../../../hooks/useAnalytics";
 
 interface NavType {
   has_submenu: boolean;
@@ -65,6 +66,14 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
   const settingsReducer: SettingsReducerState = useAppSelector(
     ({ settingsReducer }: RootState) => settingsReducer
   );
+
+  // ========== for analytics - start ==========
+  const { sportViewsAnalytics } = useAnalytics();
+
+  useEffect(() => {
+    sportViewsAnalytics();
+  }, []);
+  // ========== for analytics - end ==========
 
   const { data: navOptions, refetch } = useQuery({
     queryKey: ["matchesNavOptions"],

@@ -7,9 +7,10 @@ import FastImage from "react-native-fast-image";
 const Tab = createMaterialTopTabNavigator();
 
 interface Props {
-  tabList: {title: string; id: number; name: string}[];
-  tabChildren: (tab: {title: string; id: number; name: string}, index: number) => React.ReactNode,
+  tabList: { title: string; id: number; name: string }[];
+  tabChildren: (tab: { title: string; id: number; name: string }, index: number) => React.ReactNode,
   hideContent?: boolean,
+  onTabPress: (target?: string) => void,
 }
 
 
@@ -17,18 +18,23 @@ export default function HomeNav({
   tabList,
   tabChildren,
   hideContent = false,
+  onTabPress,
 }: Props) {
-  const {colors, textVariants} = useTheme();
+  const { colors, textVariants } = useTheme();
 
   const renderTab = useCallback((tab: any, i: any) => (
-    <Tab.Screen 
+    <Tab.Screen
       key={tab.id}
       name={tab.name}
+      listeners={{
+        tabPress: e => onTabPress(e.target),
+      }}
       options={() => ({
-        tabBarLabel: ({focused, color}) =>
+        tabBarLabel: ({ focused, color }) =>
           focused ? (
             <Text
-              style={{ ...styles.textStyles,
+              style={{
+                ...styles.textStyles,
                 fontSize: textVariants.selected.fontSize,
                 color: colors.primary,
                 fontWeight: textVariants.selected.fontWeight,
@@ -37,7 +43,8 @@ export default function HomeNav({
             </Text>
           ) : (
             <Text
-              style={{ ...styles.textStyles,
+              style={{
+                ...styles.textStyles,
                 fontSize: textVariants.unselected.fontSize,
                 color: colors.muted,
                 fontWeight: textVariants.unselected.fontWeight,
@@ -47,13 +54,13 @@ export default function HomeNav({
             </Text>
           ),
       })}
-      children={() => tabChildren(tab, i)} 
+      children={() => tabChildren(tab, i)}
     />
   ), [tabChildren])
 
   return (
     <>
-      { tabList.length > 0 && !hideContent &&
+      {tabList.length > 0 && !hideContent &&
         <Tab.Navigator
           keyboardDismissMode="none"
           screenOptions={() => ({

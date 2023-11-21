@@ -1,10 +1,14 @@
 import React, { useState, useCallback, useEffect, forwardRef, useImperativeHandle } from 'react';
-import { View, FlatList, RefreshControl, Text } from 'react-native';
+import { View, FlatList, RefreshControl } from 'react-native';
 import { MiniVideo } from '../../types/ajaxTypes';
 import ShortVod from '../../components/videoPlayer/shortVod';
 import FastImage from "../common/customFastImage";
 import { useTheme } from '@react-navigation/native';
 import { StyleSheet } from 'react-native';
+import useAnalytics from '../../hooks/useAnalytics';
+import { userModel } from '../../types/userType';
+import { RootState } from '../../redux/store';
+import { useAppSelector } from '../../hooks/hooks';
 
 interface Props {
     miniVodListRef: any,
@@ -58,6 +62,14 @@ export default forwardRef<MiniVodRef, Props>(
         const [isScrolling, setIsScrolling] = useState(false);
         const [videoCurrentDurations, setVideoCurrentDurations] = useState<number[]>([]);
 
+        // for analytics used
+        const [preTolVideoViews, setPreTolVideoViews] = useState(0); // previous
+        const [curTolVideoViews, setCurTolVideoViews] = useState(1); // current
+
+        const userState: userModel = useAppSelector(
+            ({ userReducer }: RootState) => userReducer
+        );
+
         const handleOnScroll = useCallback((e: any) => {
             const positionY = parseFloat(e.nativeEvent.contentOffset.y.toFixed(5));
             const index = Math.floor(positionY / displayHeight);
@@ -65,7 +77,27 @@ export default forwardRef<MiniVodRef, Props>(
             if (index >= 0 && displayHeight > 0 && index != current) {
                 setCurrent(index);
             }
-        }, [displayHeight, current]);
+
+            // for analytics used
+            if ((index + 1) > curTolVideoViews) {
+                setPreTolVideoViews(curTolVideoViews);
+                setCurTolVideoViews(index + 1);
+            }
+        }, [displayHeight, current, curTolVideoViews]);
+
+        // ========== for analytics - start ==========
+        const { watchAnytimeVideoViewTimesAnalytics } = useAnalytics();
+
+        useEffect(() => {
+            if (!isActive && curTolVideoViews > preTolVideoViews) {
+                watchAnytimeVideoViewTimesAnalytics({
+                    userId: userState.userId,
+                    tolVideoViews: curTolVideoViews,
+                });
+            }
+        }, [isActive, preTolVideoViews, curTolVideoViews]);
+
+        // ========== for analytics - end ==========
 
         useImperativeHandle(ref, () => ({
             setPause: (pause: boolean) => {

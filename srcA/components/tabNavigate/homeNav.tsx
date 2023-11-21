@@ -6,9 +6,10 @@ import FastImage from "react-native-fast-image";
 const Tab = createMaterialTopTabNavigator();
 
 interface Props {
-  tabList: {title: string; id: number; name: string}[];
-  tabChildren: (tab: {title: string; id: number; name: string}, index: number) => React.ReactNode,
+  tabList: { title: string; id: number; name: string }[];
+  tabChildren: (tab: { title: string; id: number; name: string }, index: number) => React.ReactNode,
   hideContent?: boolean,
+  onTabPress: (target?: string) => void,
 }
 
 
@@ -16,15 +17,16 @@ export default function HomeNav({
   tabList,
   tabChildren,
   hideContent = false,
+  onTabPress,
 }: Props) {
-  const {colors, textVariants} = useTheme();
+  const { colors, textVariants } = useTheme();
 
   return (
     <>
-      { tabList.length > 0 && !hideContent &&
+      {tabList.length > 0 && !hideContent &&
         <Tab.Navigator
           keyboardDismissMode="none"
-          screenOptions={({route}) => ({
+          screenOptions={({ route }) => ({
             tabBarScrollEnabled: true,
             tabBarIndicatorStyle: {
               opacity: 0,
@@ -50,11 +52,14 @@ export default function HomeNav({
         >
           {
             tabList.map((tab, i) => (
-              <Tab.Screen 
+              <Tab.Screen
                 key={tab.id}
                 name={tab.name}
-                options={({route}) => ({
-                  tabBarLabel: ({focused, color}) =>
+                listeners={{
+                  tabPress: e => onTabPress(e.target),
+                }}
+                options={({ route }) => ({
+                  tabBarLabel: ({ focused, color }) =>
                     focused ? (
                       <Text
                         style={{
@@ -83,7 +88,7 @@ export default function HomeNav({
                       </Text>
                     ),
                 })}
-                children={() => tabChildren(tab, i)} 
+                children={() => tabChildren(tab, i)}
               />
             ))
           }

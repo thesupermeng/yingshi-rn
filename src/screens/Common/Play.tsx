@@ -67,6 +67,7 @@ import RNFetchBlob from "rn-fetch-blob";
 import { userModel } from "../../types/userType";
 import { BridgeServer } from "react-native-http-bridge-refurbished";
 import { debounce } from "lodash";
+import useAnalytics from "../../hooks/useAnalytics";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { screenModel } from "../../types/screenType";
 
@@ -231,6 +232,13 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const [isOffline, setIsOffline] = useState(false);
   const [isShowSheet, setShowSheet] = useState(false);
 
+  const {
+    playsViewsAnalytics,
+    playsPlaysTimesAnalytics,
+    playsShareClicksAnalytics,
+  } = useAnalytics();
+  const [isReadyPlay, setReadyPlay] = useState(false);
+
   const EPISODE_RANGE_SIZE = 100;
 
   const showEpisodeRangeStart = useMemo(
@@ -251,6 +259,10 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   );
   const onShare = async () => {
     try {
+      // ========== for analytics - start ==========
+      playsShareClicksAnalytics();
+      // ========== for analytics - end ==========
+
       const result = await Share.share({
         message: `《${
           vod?.vod_name
@@ -285,6 +297,14 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   useEffect(() => {
     if (vod) {
       setInitTime(vod?.timeWatched);
+      setReadyPlay(false);
+
+      // ========== for analytics - start ==========
+      playsViewsAnalytics({
+        vod_id: vod.vod_id.toString(),
+        vod_name: vod.vod_name,
+      });
+      // ========== for analytics - end ==========
     }
   }, [vod]);
 
@@ -548,6 +568,19 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
       server.stop(); // stop server when unmount
     };
   }, [vodUri]);
+
+  // ========== for analytics - start ==========
+  const onReadyForDisplay = () => {
+    if (vod && !isReadyPlay) {
+      playsPlaysTimesAnalytics({
+        vod_id: vod.vod_id.toString(),
+        vod_name: vod.vod_name,
+      });
+    }
+
+    setReadyPlay(true);
+  };
+  // ========== for analytics - end ==========
   const insets = useSafeAreaInsets();
   const screenState: screenModel = useAppSelector(
     ({ screenReducer }: RootState) => screenReducer
@@ -555,7 +588,6 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   insetsTop = insetsTop == 0 ? insets.top : insetsTop;
   insetsBottom = insetsBottom == 0 ? insets.bottom : insets.bottom;
-
   return (
     <>
       <ScreenContainer
@@ -596,6 +628,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
             lockOrientation={lockOrientation}
             handleSaveVod={() => saveVodToHistory(vod)}
             // setNavBarOptions={setNavBarOptions}
+            onReadyForDisplay={onReadyForDisplay}
           />
         )}
         {isOffline && dismountPlayer && (
@@ -851,7 +884,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                               isPlayScreen={true}
                               text={`相关${vod?.type_name}`}
                               onPress={() => {
-                                //  videoPlayerRef.current.setPause(true);
+                                videoPlayerRef.current.setPause(true);
                                 setTimeout(() => {
                                   navigation.navigate("片库", {
                                     type_id: vod.type_id,

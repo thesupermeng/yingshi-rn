@@ -23,6 +23,7 @@ import HejiIcon from '../../../static/images/heji.svg';
 import ExpandUpIcon from '../../../static/images/expandHeji.svg';
 import { QueryClient } from '@tanstack/react-query';
 import { debounce } from 'lodash';
+import useAnalytics from '../../hooks/useAnalytics';
 
 interface Props {
   thumbnail?: string;
@@ -89,6 +90,8 @@ function ShortVideoPlayer({
   const [onSliding, setOnSliding] = useState(false);
 
   const windowWidth = Dimensions.get('window').width;
+
+  const { watchAnytimeVideoClicksAnalytics, watchAnytimePlaylistClicksAnalytics } = useAnalytics();
 
   useEffect(() => {
     setVod(vod);
@@ -197,11 +200,19 @@ function ShortVideoPlayer({
       navigation.navigate('PlaylistDetail', {
         topic_id: currentVod.mini_video_topic.topic_id,
       });
+
+      // ========== for analytics - start ==========
+      watchAnytimePlaylistClicksAnalytics();
+      // ========== for analytics - end ==========
     } else {
       dispatch(playVod(currentVod.mini_video_vod));
       navigation.navigate('播放', {
         vod_id: currentVod.vod?.vod_id,
       });
+
+      // ========== for analytics - start ==========
+      watchAnytimeVideoClicksAnalytics();
+      // ========== for analytics - end ==========
     }
   };
 

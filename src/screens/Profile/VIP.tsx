@@ -42,6 +42,7 @@ import { showToast } from "../../Sports/utility/toast";
 import { showLoginAction } from "../../redux/actions/screenAction";
 import SpinnerOverlay from "../../components/modal/SpinnerOverlay";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import useAnalytics from "../../hooks/useAnalytics";
 
 export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const {
@@ -80,6 +81,14 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const [currentTransID, setCurrentTransID] = useState("");
   const dispatch = useAppDispatch();
   const scrollRef = useRef<any>();
+
+  // ========== for analytics - start ==========
+  const { userCenterVipPayViewsAnalytics } = useAnalytics();
+
+  useEffect(() => {
+    userCenterVipPayViewsAnalytics();
+  }, []);
+  // ========== for analytics - end ==========
 
   const handleRefresh = async () => {
     setRefreshing(true);
@@ -566,6 +575,9 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
             showsVerticalScrollIndicator={false}
           >
             <VipCard
+              containerStyle={{
+                marginHorizontal: 0,
+              }}
               userState={userState}
               membershipProduct={membershipProducts}
               selectedMembership={membershipSelected}

@@ -17,6 +17,7 @@ import NetInfo from '@react-native-community/netinfo';
 import { SettingsReducerState } from '../redux/reducers/settingsReducer';
 import { useAppSelector } from '../hooks/hooks';
 import { RootState } from '../redux/store';
+import useAnalytics from '../hooks/useAnalytics';
 
 type MiniVideoResponseType = {
     data: {
@@ -28,10 +29,10 @@ type MiniVodRef = {
     setPause: (pause: boolean) => void;
 };
 
-function WatchAnytime ({ navigation }: BottomTabScreenProps<any>) {
+function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
     const isFocused = useIsFocused();
     // New state to keep track of app's background/foreground status
-   // const [isInBackground, setIsInBackground] = useState(false);
+    const [isInBackground, setIsInBackground] = useState(false);
     const [isRefreshing, setIsRefreshing] = useState(false);
     const [isOffline, setIsOffline] = useState(false);
     const miniVodRef = useRef() as React.MutableRefObject<MiniVodRef>;
@@ -41,6 +42,14 @@ function WatchAnytime ({ navigation }: BottomTabScreenProps<any>) {
     const settingsReducer: SettingsReducerState = useAppSelector(
         ({ settingsReducer }: RootState) => settingsReducer
     );
+
+    // ========== for analytics - start ==========
+    const { watchAnytimeViewsAnalytics } = useAnalytics();
+
+    useEffect(() => {
+        watchAnytimeViewsAnalytics();
+    }, [])
+    // ========== for analytics - end ==========
 
     // Add an event listener to the navigation object for the tab press event
     useEffect(() => {
@@ -126,24 +135,21 @@ function WatchAnytime ({ navigation }: BottomTabScreenProps<any>) {
         }
     }, [settingsReducer.isOffline]));
 
-    // useEffect(() => {
-    //     setIsOffline(settingsReducer.isOffline);
-    //     ... (rest of the useEffect hook remains unchanged)
-    //     const subscription = AppState.addEventListener(
-    //         "change",
-    //         handleAppStateChange
-    //     );
+    useEffect(() => {
+        const subscription = AppState.addEventListener(
+            "change",
+            handleAppStateChange
+        );
 
-    //     return () => {
-    //         subscription.remove();
-    //     };
-
-    // }, [])
+        return () => {
+            subscription.remove();
+        };
+    }, [])
 
     // Handle app's background/foreground status
-    // const handleAppStateChange = (nextAppState: any) => {
-    //     setIsInBackground(nextAppState !== "active");
-    // };
+    const handleAppStateChange = (nextAppState: any) => {
+        setIsInBackground(nextAppState !== "active");
+    };
 
     return (
         <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0, paddingBottom: 10 }}>
@@ -159,7 +165,7 @@ function WatchAnytime ({ navigation }: BottomTabScreenProps<any>) {
                     hasNextPage={hasNextPage}
                     isFetching={isFetching}
                     isFetchingNextPage={isFetchingNextPage}
-                    isActive={isFocused}
+                    isActive={isFocused && !isInBackground}
                     setCollectionEpisode={(index: number) => { }}
                     handleRefreshMiniVod={handleRefresh}
                     isRefreshing={isRefreshing}
