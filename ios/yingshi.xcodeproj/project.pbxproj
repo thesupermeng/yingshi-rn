@@ -11,6 +11,8 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		3896D1842B0C48F70082748B /* RNUMConfigure.m in Sources */ = {isa = PBXBuildFile; fileRef = 3896D1812B0C48F70082748B /* RNUMConfigure.m */; };
+		3896D1852B0C48F70082748B /* UMAnalyticsModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 3896D1822B0C48F70082748B /* UMAnalyticsModule.m */; };
 		38EB5E072ACDB24500F913BB /* ATSplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EB5DF52ACDB24500F913BB /* ATSplashViewController.m */; };
 		38EB5E082ACDB24500F913BB /* ATRewardedVideoRNSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EB5DF82ACDB24500F913BB /* ATRewardedVideoRNSDK.m */; };
 		38EB5E092ACDB24500F913BB /* ATInterstitialRNSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EB5DFB2ACDB24500F913BB /* ATInterstitialRNSDK.m */; };
@@ -63,6 +65,10 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = yingshi/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = yingshi/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = yingshi/main.m; sourceTree = "<group>"; };
+		3896D1802B0C48F70082748B /* UMAnalyticsModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMAnalyticsModule.h; sourceTree = "<group>"; };
+		3896D1812B0C48F70082748B /* RNUMConfigure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNUMConfigure.m; sourceTree = "<group>"; };
+		3896D1822B0C48F70082748B /* UMAnalyticsModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMAnalyticsModule.m; sourceTree = "<group>"; };
+		3896D1832B0C48F70082748B /* RNUMConfigure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNUMConfigure.h; sourceTree = "<group>"; };
 		38EB5DF42ACDB24500F913BB /* ATSplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATSplashViewController.h; sourceTree = "<group>"; };
 		38EB5DF52ACDB24500F913BB /* ATSplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATSplashViewController.m; sourceTree = "<group>"; };
 		38EB5DF72ACDB24500F913BB /* ATRewardedVideoRNSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATRewardedVideoRNSDK.h; sourceTree = "<group>"; };
@@ -140,6 +146,7 @@
 		13B07FAE1A68108700A75B9A /* yingshi */ = {
 			isa = PBXGroup;
 			children = (
+				3896D17F2B0C48F70082748B /* UMReactBridge */,
 				38EB5DED2ACDB1D700F913BB /* iOSReactNativeBridge */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
@@ -162,6 +169,17 @@
 				A21EFCCF81280E37F049D870 /* libPods-yingshi-yingshiTests.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3896D17F2B0C48F70082748B /* UMReactBridge */ = {
+			isa = PBXGroup;
+			children = (
+				3896D1802B0C48F70082748B /* UMAnalyticsModule.h */,
+				3896D1812B0C48F70082748B /* RNUMConfigure.m */,
+				3896D1822B0C48F70082748B /* UMAnalyticsModule.m */,
+				3896D1832B0C48F70082748B /* RNUMConfigure.h */,
+			);
+			path = UMReactBridge;
 			sourceTree = "<group>";
 		};
 		38EB5DED2ACDB1D700F913BB /* iOSReactNativeBridge */ = {
@@ -598,6 +616,8 @@
 			files = (
 				38EB5E0D2ACDB24500F913BB /* ATRNSDK.m in Sources */,
 				38EB5E092ACDB24500F913BB /* ATInterstitialRNSDK.m in Sources */,
+				3896D1842B0C48F70082748B /* RNUMConfigure.m in Sources */,
+				3896D1852B0C48F70082748B /* UMAnalyticsModule.m in Sources */,
 				38EB5E0C2ACDB24500F913BB /* NSDictionary+String.m in Sources */,
 				38EB5E0A2ACDB24500F913BB /* ATBannerRNSDK.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,

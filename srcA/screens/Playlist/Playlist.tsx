@@ -18,6 +18,8 @@ import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 import { SettingsReducerState } from '../../redux/reducers/settingsReducer';
 import { RootState } from '../../redux/store';
 import { useAppSelector } from '../../hooks/hooks';
+import useAnalytics from '../../hooks/useAnalytics';
+
 type FlatListType = {
   item: VodTopicType;
   index: number;
@@ -36,6 +38,14 @@ function Playlist({ navigation }: BottomTabScreenProps<any>) {
   const settingsReducer: SettingsReducerState = useAppSelector(
     ({ settingsReducer }: RootState) => settingsReducer
   );
+
+  // ========== for analytics - start ==========
+  const { playlistViewsAnalytics } = useAnalytics();
+
+  useEffect(() => {
+    playlistViewsAnalytics();
+  }, []);
+  // ========== for analytics - end ==========
 
   // Function to handle the refresh action
   const handleTabPress = () => {

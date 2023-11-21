@@ -42,6 +42,7 @@ import { showToast } from "../../Sports/utility/toast";
 import { showLoginAction } from "../../redux/actions/screenAction";
 import SpinnerOverlay from "../../components/modal/SpinnerOverlay";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import useAnalytics from "../../hooks/useAnalytics";
 
 const subscriptionSkus = Platform.select({
   ios: ["yingshi_vip_month", "yingshi_vip_6months", "monthly_subscription"],
@@ -84,6 +85,14 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const [currentTransID, setCurrentTransID] = useState("");
   const dispatch = useAppDispatch();
 
+  // ========== for analytics - start ==========
+  const { userCenterVipPayViewsAnalytics } = useAnalytics();
+
+  useEffect(() => {
+    userCenterVipPayViewsAnalytics();
+  }, []);
+  // ========== for analytics - end ==========
+
   const handleRefresh = async () => {
     setRefreshing(true);
     await refreshUserState();
@@ -119,7 +128,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         const offline = !(
           state.isConnected &&
           (state.isInternetReachable === true ||
-          state.isInternetReachable === null
+            state.isInternetReachable === null
             ? true
             : false)
         );
@@ -518,7 +527,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                   padding: 8,
                   opacity:
                     userState.userPaidVipList.total_purchased_days > 0 ||
-                    userState.userAccumulateRewardDay > 0
+                      userState.userAccumulateRewardDay > 0
                       ? 100
                       : 0,
                 }}
