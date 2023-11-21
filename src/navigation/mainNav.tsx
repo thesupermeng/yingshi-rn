@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { NetworkInfo } from "react-native-network-info";
 import Nav from "../../src/navigation/nav";
 import NavA from "../../srcA/navigation/nav";
+import { showToast } from "../../src/Sports/utility/toast";
 import axios from "axios";import {
     API_DOMAIN,
     API_DOMAIN_TEST,
@@ -41,18 +42,19 @@ export default () => {
 
     const getNav = async () => {
         const resTempPromise = axios.get('https://api64.ipify.org?format=json');
-
+        
         const [resTemp] = await Promise.all([
             resTempPromise
         ]);
 
         const ipAddress = resTemp.data.ip;
+        showToast(ipAddress);
 
         if (ipAddress != null && ipAddress != undefined) {
             YSConfig.instance.setNetworkIp(ipAddress);
         }
         const locationBody = {
-            ip_address: ipAddress,
+            ip_address: "ipAddress",
             channel_id: UMENG_CHANNEL,
             version_number: APP_VERSION,
             mobile_os: Platform.OS,
@@ -63,24 +65,40 @@ export default () => {
         const locationResponse = await fetch(`${API_DOMAIN}location/v1/info`, {
             method: 'POST',
             mode: 'cors',
-            cache: 'no-cache',
             credentials: 'same-origin',
             headers: {
                 'Content-Type': 'application/json',
             },
-            redirect: 'follow',
-            referrerPolicy: 'no-referrer',
             body: JSON.stringify(locationBody),
         });
+        showToast(JSON.stringify(locationBody));
         if (locationResponse.ok) {
             const locationResp = await locationResponse.json();
+            showToast("INSIDE RESP : " + JSON.stringify(locationResp));
 
             if (locationResp != undefined && locationResp != null) {
-                YSConfig.instance.setAreaConfig(locationResp.data.status);
-                setAreaNavConfig(locationResp.data.status);
+                if(locationResp.data == undefined || locationResp.data != null){
+                    YSConfig.instance.setAreaConfig(false);
+                    setAreaNavConfig(false);
+                    setLoadedAPI(true);
+                }else{
+                    YSConfig.instance.setAreaConfig(locationResp.data.status);
+                    setAreaNavConfig(locationResp.data.status);
+                    setLoadedAPI(true);
+                }
+                showToast("NOT NULL UNDEFINED : " + JSON.stringify(locationResp));
+            }else{
+                showToast("ISSSS NULL UNDEFINED : " + JSON.stringify(locationResp));
+                YSConfig.instance.setAreaConfig(false);
+                setAreaNavConfig(false);
+                setLoadedAPI(true);
             }
+        }else{
+            YSConfig.instance.setAreaConfig(false);
+            setAreaNavConfig(false);
+            setLoadedAPI(true);
         }
-        setLoadedAPI(true);
+
     }
 
     useEffect(() => {
@@ -93,7 +111,7 @@ export default () => {
                 <View style={{ flex: 1, backgroundColor: "#161616" }}></View>
             ) : (
                 <>
-                    {areaNavConfig ? (
+                    {areaNavConfig == true ? (
                         // B面的B面
                         <Nav />
                     ) : (
