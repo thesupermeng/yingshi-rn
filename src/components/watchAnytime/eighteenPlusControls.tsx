@@ -1,7 +1,7 @@
 
 import { Divider } from "@rneui/base";
 import { ReactNode, useCallback, useState } from "react";
-import { StyleProp, Text, TextStyle, View, ViewStyle } from "react-native";
+import { StyleProp, StyleSheet, Text, TextStyle, View, ViewStyle } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { ViewProps } from "react-native-svg/lib/typescript/fabric/utils";
 import { Switch } from "react-native-switch"
@@ -10,6 +10,7 @@ import { useVip } from "./VipContext";
 import EighteenPlusOverlay from "../modal/overEighteenOverlay";
 import CountdownIndicator from "../button/countdownIndicator";
 import AdultModeCountdownIndicator from "./adultModeCountdownIndicator";
+import AdultModeSwitch from "./adultModeSwitch";
 interface Props {
   
 }
@@ -23,7 +24,7 @@ const EighteenPlusText = () =>
   >18+</Text>
 
 const eighteenPlusControls = ({}: Props) => {
-  const {showVipModal, adultMode, toggleAdultMode, showDisclaimer, toggleShowDisclaimer} = useVip();
+  const {showVipModal, adultMode, toggleAdultMode, showDisclaimer, toggleShowDisclaimer, toggleShowVipModal} = useVip();
 
 
   const handleToggle = useCallback((e:boolean) => {
@@ -31,36 +32,17 @@ const eighteenPlusControls = ({}: Props) => {
       toggleShowDisclaimer(true)
     } else {
       toggleAdultMode(false)
+      toggleShowVipModal(false)
     }
   }, [])
 
   return (
     <View style={{...styles.container, height: (showVipModal || showDisclaimer ? '100%' : 'auto')}}>
-      {showVipModal &&
-        <WatchAnytimeVipModal/>    
-      }
-      <View style={styles.switch}>
-        <Switch
-          value={adultMode && !showDisclaimer}
-          onValueChange={handleToggle}
-          backgroundInactive="transparent"
-          activeText=""
-          inActiveText=""
-          switchBorderRadius={20}
-          renderInsideCircle={() => <EighteenPlusText />}
-          containerStyle={{
-            borderWidth: 2,
-            borderColor: !adultMode ? 'white' : '#0000009E',
-          }}
-          barHeight={27}
-          switchLeftPx={5}
-          switchRightPx={5}
-          backgroundActive="#0000009E"
-          circleActiveColor="#FAC33D"
-          circleBorderWidth={0}
-          circleSize={20}
-        />
-      </View>
+
+      <WatchAnytimeVipModal/>    
+      <AdultModeSwitch 
+      switchStyle={styles.switch}        
+      />
       <AdultModeCountdownIndicator
         containerStyle={{
           position: 'absolute', 
@@ -69,26 +51,24 @@ const eighteenPlusControls = ({}: Props) => {
           flex: 1
         }}
       />
-      {showDisclaimer && 
-        <EighteenPlusOverlay
-          handleAccept={() => {
-            console.debug('accepted 18+')
-            toggleShowDisclaimer(false)
-            toggleAdultMode(true)
-            }}
-          handleReject={() => {
-            console.debug('rejected 18+')
-            toggleAdultMode(false)
-            toggleShowDisclaimer(false)
+      <EighteenPlusOverlay
+        handleAccept={() => {
+          console.debug('accepted 18+')
+          toggleShowDisclaimer(false)
+          toggleAdultMode(true)
           }}
-        />
-      }
+        handleReject={() => {
+          console.debug('rejected 18+')
+          toggleAdultMode(false)
+          toggleShowDisclaimer(false)
+        }}
+      />
     </View>
   );
 
 }
 
-const styles: Record<string, ViewStyle|TextStyle> = {
+const styles= StyleSheet.create({
   container: {
     zIndex: 100, 
     width: '100%',
@@ -99,6 +79,6 @@ const styles: Record<string, ViewStyle|TextStyle> = {
     top: 25, 
     right: 20
   }
-}
+})
 
 export default eighteenPlusControls; 

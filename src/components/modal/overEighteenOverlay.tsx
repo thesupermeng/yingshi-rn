@@ -1,6 +1,7 @@
 import React, { useEffect, ReactNode } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import EighteenPlusIcon from '../../../static/images/eighteen-plus-icon.svg';
+import { useVip } from '../watchAnytime/VipContext';
 
 interface Props {
     handleAccept: any
@@ -8,6 +9,9 @@ interface Props {
 }
 
 export default function EighteenPlusOverlay({ handleAccept, handleReject }: Props) {
+  const {showDisclaimer} = useVip(); 
+
+  if (showDisclaimer)
     return (
       <View style={{height: '100%', width: '100%', position: 'absolute', backgroundColor: 'rgba(0, 0, 0, 0.8)',}}>
         <View style={{ flex: 1, position: 'relative', alignItems: 'center', justifyContent: 'center', alignSelf: 'center', alignContent: 'center', marginBottom: '18%' }}>
