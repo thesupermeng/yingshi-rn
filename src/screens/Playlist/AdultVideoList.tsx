@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {View, TouchableOpacity, Text, StyleSheet, FlatList} from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
 import {RootStackScreenProps} from '../../types/navigationTypes';
@@ -20,20 +20,17 @@ import EmptyList from '../../components/common/emptyList';
 import {ScrollView} from 'react-native-gesture-handler';
 import FastImage from '../../components/common/customFastImage'
 
-type FlatListType = {
-  item: VodRecordType;
-};
-
 type AdultVodReturnType = {
   data: {
-    List: Array<AdultVodType>
-  }
+    List: Array<AdultVodType>;
+    TotalPageCount: number;
+  }, 
 }
 
 const fetchVod = async (page: number) => {
   const data: AdultVodReturnType = await (await fetch('https://testapi.yingshi.tv/svod/v1/vod?' + new URLSearchParams({
     page: page.toString(), 
-    limit: '50'
+    limit: '10'
   }))).json()
   return data.data
 }
@@ -42,6 +39,25 @@ export default ({navigation, route}: RootStackScreenProps<'午夜场剧情'>) =>
   const [adultVodData, setAdultVodData] = useState<AdultVodType[]>([])
   const {colors, textVariants, spacing, icons} = useTheme();
   const [page, setPage] = useState(1)
+  const totalPageCount = useRef<number>(0)
+  const [hasNextPage, setHasNextPage] = useState(true)
+  const [isFetching, setIsFetching] = useState(false)
+
+  const fetchNextPage = async () => {
+    if (page > totalPageCount.current) {
+      setHasNextPage(false)
+      return
+    } else {
+      setHasNextPage(true)
+    }
+    setIsFetching(true)
+    const vodData = (await fetchVod(page))
+    const data = vodData.List
+    setIsFetching(false)
+
+    setAdultVodData(curr => [...curr, ...data])
+    setPage(page => page + 1)
+  }
 
   const renderItem = ({item, index}: {item:AdultVodType, index: number}) => (
     <View
@@ -81,15 +97,13 @@ export default ({navigation, route}: RootStackScreenProps<'午夜场剧情'>) =>
 
   )
 
-
   useEffect(() => {
-    fetchVod(page)
-      .then((data) => {
-        setAdultVodData([...adultVodData, ...data.List])
-        setPage(page => page + 1)
-      })
+    fetchVod(page).then((data) => {
+      totalPageCount.current = data.TotalPageCount
+      setAdultVodData(curr => [...curr, ...data.List])
+      setPage(page => page + 1)
+    })
   }, [])
-
   
   return (
     <ScreenContainer>
@@ -103,6 +117,36 @@ export default ({navigation, route}: RootStackScreenProps<'午夜场剧情'>) =>
           renderItem={renderItem}
           numColumns={2}
           contentContainerStyle={{justifyContent:'space-evenly'}}
+          onEndReached={fetchNextPage}
+          ListFooterComponent={
+            <View style={{ ...styles.loading, marginBottom: 60 }}>
+              {hasNextPage && (
+                <FastImage
+                  style={{
+                    height: 80,
+                    width: 80,
+
+                    flex: 1,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                  source={require("../../../static/images/loading-spinner.gif")}
+                  resizeMode={"contain"}
+                />
+              )}
+              {!(isFetching) && !hasNextPage && (
+                <Text
+                  style={{
+                    ...textVariants.subBody,
+                    color: colors.muted,
+                    paddingTop: 12,
+                  }}
+                >
+                  已经到底了
+                </Text>
+              )}
+            </View>
+          }
         />
 
       </View>
