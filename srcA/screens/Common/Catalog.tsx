@@ -47,6 +47,7 @@ import appsFlyer from 'react-native-appsflyer';
 import EmptyList from '../../components/common/emptyList';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { TabItem } from '@rneui/base/dist/Tab/Tab.Item';
+import useAnalytics from '../../hooks/useAnalytics';
 
 interface NavType {
   id: number;
