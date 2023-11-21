@@ -32,7 +32,7 @@ type MiniVodRef = {
 function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
     const isFocused = useIsFocused();
     // New state to keep track of app's background/foreground status
-    // const [isInBackground, setIsInBackground] = useState(false);
+    const [isInBackground, setIsInBackground] = useState(false);
     const [isRefreshing, setIsRefreshing] = useState(false);
     const [isOffline, setIsOffline] = useState(false);
     const miniVodRef = useRef() as React.MutableRefObject<MiniVodRef>;
@@ -135,24 +135,21 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
         }
     }, [settingsReducer.isOffline]));
 
-    // useEffect(() => {
-    //     setIsOffline(settingsReducer.isOffline);
-    //     ... (rest of the useEffect hook remains unchanged)
-    //     const subscription = AppState.addEventListener(
-    //         "change",
-    //         handleAppStateChange
-    //     );
+    useEffect(() => {
+        const subscription = AppState.addEventListener(
+            "change",
+            handleAppStateChange
+        );
 
-    //     return () => {
-    //         subscription.remove();
-    //     };
-
-    // }, [])
+        return () => {
+            subscription.remove();
+        };
+    }, [])
 
     // Handle app's background/foreground status
-    // const handleAppStateChange = (nextAppState: any) => {
-    //     setIsInBackground(nextAppState !== "active");
-    // };
+    const handleAppStateChange = (nextAppState: any) => {
+        setIsInBackground(nextAppState !== "active");
+    };
 
     return (
         <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0, paddingBottom: 10 }}>
@@ -168,7 +165,7 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
                     hasNextPage={hasNextPage}
                     isFetching={isFetching}
                     isFetchingNextPage={isFetchingNextPage}
-                    isActive={isFocused}
+                    isActive={isFocused && !isInBackground}
                     setCollectionEpisode={(index: number) => { }}
                     handleRefreshMiniVod={handleRefresh}
                     isRefreshing={isRefreshing}

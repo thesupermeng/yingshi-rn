@@ -71,6 +71,14 @@ const useAnalytics = ({ showLog }: { showLog: boolean } = { showLog: true }) => 
         AnalyticsUtil.onEventWithMap(EventId.WatchAnytime_views, {});
     }
 
+    const watchAnytimeVideoViewTimesAnalytics = ({ userId, tolVideoViews }: { userId: string, tolVideoViews: number }) => {
+        // add prefix
+        userId = 'userId-' + userId;
+        AnalyticsUtil.onEventWithMap(EventId.WatchAnytime_video_view_times, {
+            [userId]: tolVideoViews,
+        });
+    }
+
     const watchAnytimeVideoClicksAnalytics = () => {
         AnalyticsUtil.onEventWithMap(EventId.WatchAnytime_video_clicks, {});
     }
@@ -215,6 +223,7 @@ const useAnalytics = ({ showLog }: { showLog: boolean } = { showLog: true }) => 
         homeTabClicksAnalytics,
         // WatchAnytime
         watchAnytimeViewsAnalytics,
+        watchAnytimeVideoViewTimesAnalytics,
         watchAnytimeVideoClicksAnalytics,
         watchAnytimePlaylistClicksAnalytics,
         // Sport
