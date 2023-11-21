@@ -39,6 +39,7 @@ import {
 import { AdsBannerContext } from "../contexts/AdsBannerContext";
 
 import useInterstitialAds from "../hooks/useInterstitialAds"
+import useAnalytics from "../hooks/useAnalytics";
 
 function Home({ navigation }: BottomTabScreenProps<any>) {
   const isFocused = useIsFocused();
@@ -190,6 +191,34 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
     setNavbarHeight(bottomTabHeight)
   }, [bottomTabHeight])
 
+  // ========== for analytics - start ==========
+  const { homeTabViewsAnalytics, homeTabClicksAnalytics } = useAnalytics();
+
+  useEffect(() => {
+    if (navOptions !== undefined && navOptions.length > 0) {
+      homeTabViewsAnalytics({
+        tab_id: navOptions[0].id.toString(),
+        tab_name: navOptions[0].name,
+      });
+    }
+  }, [navOptions])
+  // ========== for analytics - end ==========
+
+  const onTabPress = (target?: string) => {
+    const targetStr = target?.substring(0, target.indexOf('-'));
+
+    if (navOptions !== undefined) {
+      const found = navOptions?.findIndex((e) => e.name === targetStr);
+      setNavId(found);
+
+      // ========== for analytics - start ==========
+      homeTabClicksAnalytics({
+        tab_id: navOptions[found].id.toString(),
+        tab_name: navOptions[found].name,
+      });
+      // ========== for analytics - end ==========
+    }
+  }
   useInterstitialAds();
 
   return (
@@ -209,6 +238,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
         </View>
         <HomeNav
           // hideContent={hideContent}
+          onTabPress={onTabPress}
           tabList={
             navOptions?.map((e) => ({
               id: e.id,
