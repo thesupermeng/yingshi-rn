@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
     aspectRatio: 130 / 80,
     borderRadius: 10,
     // overflow: 'hidden', // Ensure content stays within borders
-    backgroundColor: 'green',
+    // backgroundColor: 'green',
   },
   loading: {
     flexDirection: 'row',

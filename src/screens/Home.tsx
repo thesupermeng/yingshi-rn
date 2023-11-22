@@ -21,6 +21,7 @@ import {
 import {
   ANDROID_HOME_PAGE_POP_UP_ADS,
   API_DOMAIN,
+  API_DOMAIN_TEST,
   IOS_HOME_PAGE_POP_UP_ADS,
   UMENG_CHANNEL,
 } from "../utility/constants";
@@ -62,7 +63,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   const { data: navOptions, refetch } = useQuery({
     queryKey: ["HomePageNavOptions"],
     queryFn: () =>
-      fetch(`${API_DOMAIN}nav/v1/navItems?channelId=` + UMENG_CHANNEL, {})
+      fetch(`${API_DOMAIN_TEST}nav/v1/navItems?channelId=WEB`, {}) //  removed  '+ UMENG_CHANNEL' in url
         .then((response) => response.json())
         .then((json: NavOptionsResponseType) => {
           return json.data;
@@ -70,7 +71,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   });
 
   const fetchData = useCallback((id: number) => {
-    return fetch(`${API_DOMAIN}page/v2/typepage?id=${id}`)
+    return fetch(`${API_DOMAIN_TEST}page/v2/typepage?id=${id}`)
       .then((response) => response.json())
       .then((json: VodCarousellResponseType) => {
         return json;
@@ -279,7 +280,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
                   />
                 </View>
               )}
-              {data && !isOffline && getContent({ item: data[i], index: i })}
+              {data && !isOffline && getContent({ item: data[i], index: tab.id })}
             </>
           )}
         />

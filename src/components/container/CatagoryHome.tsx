@@ -114,10 +114,14 @@ const CatagoryHome = ({
         <ShowMoreVodButton
           text={item.type_name}
           onPress={() => {
-            navigation.navigate('片库', {
-              type_id: item.type_id,
-              class: item.type_name,
-            });
+            console.debug('navid', navId)
+            if (navId != 99) {
+              navigation.navigate('片库', {
+                type_id: item.vod_list[0].type_id,
+              });
+            } else {
+              navigation.navigate('午夜场剧情');
+            }
           }}
         />
         {item?.vod_list && <VodListVertical vods={item?.vod_list} />}
@@ -209,7 +213,7 @@ const CatagoryHome = ({
   // }, [refreshProp]);
 
   return (
-    <View style={{ width: width }}>
+    <View style={{width: width}}>
       <FlatList
         refreshControl={
           <RefreshControl
@@ -220,7 +224,7 @@ const CatagoryHome = ({
         }
         ListHeaderComponent={
           <>
-            {data?.carousel[0] && !refreshProp && (
+            {!!data?.carousel && data?.carousel[0] && !refreshProp && (
               <View
                 style={{
                   flex: 1,
@@ -284,9 +288,14 @@ const CatagoryHome = ({
                       <ShowMoreVodButton
                         text={item.type_name}
                         onPress={() => {
-                          navigation.navigate('片库', {
-                            type_id: item.vod_list[0].type_id,
-                          });
+                          console.debug('navid', navId)
+                          if (navId != 99) {
+                            navigation.navigate('片库', {
+                              type_id: item.vod_list[0].type_id,
+                            });
+                          } else {
+                            navigation.navigate('午夜场剧情');
+                          }
                         }}
                       />
                     </View>
@@ -301,10 +310,10 @@ const CatagoryHome = ({
         windowSize={3}
         maxToRenderPerBatch={3}
         renderItem={listItem}
-        contentContainerStyle={{ paddingBottom: 60 }}
+        contentContainerStyle={{paddingBottom: 60}}
         removeClippedSubviews={true}
         ListFooterComponent={
-          <View style={{ ...styles.loading }}>
+          <View style={{...styles.loading}}>
             <Text
               style={{
                 ...textVariants.subBody,
