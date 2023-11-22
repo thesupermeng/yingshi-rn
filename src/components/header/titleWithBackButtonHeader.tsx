@@ -29,11 +29,11 @@ export default function TitleWithBackButtonHeader({
   if (right) {
     console.log("right");
     console.log(right);
-    leftIconBottomVal = Platform.OS == "ios" ? -4 : -7;
+    leftIconBottomVal = Platform.OS == "ios" ? -12 : -15;
   } else {
     console.log("right");
     console.log(right);
-    leftIconBottomVal = Platform.OS == "ios" ? -14 : -12;
+    leftIconBottomVal = Platform.OS == "ios" ? -22 : -20;
   }
   console.log("leftIconBottomVal");
   console.log(leftIconBottomVal);
@@ -52,7 +52,9 @@ export default function TitleWithBackButtonHeader({
             position: "absolute",
             bottom: leftIconBottomVal,
             // paddingTop: Platform.OS == "android" ? 30 : 5,
-            width: 30,
+            paddingVertical: 8,
+            paddingLeft: 5,
+            width: 40,
           }}
         />
       </View>

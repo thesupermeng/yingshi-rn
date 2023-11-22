@@ -7,7 +7,7 @@
     {
       "displayPrice" : "3.99",
       "familyShareable" : false,
-      "internalID" : "6471457387",
+      "internalID" : "6472758101",
       "localizations" : [
         {
           "description" : "VIP会员30天",
@@ -15,7 +15,7 @@
           "locale" : "zh_CN"
         }
       ],
-      "productID" : "yingshi_tv_1_month",
+      "productID" : "yingshi_vip_1_month",
       "referenceName" : "yingshi vip (1 months)",
       "type" : "Consumable"
     },
@@ -54,7 +54,7 @@
     "_applicationInternalID" : "6450925732",
     "_developerTeamID" : "LWW7U93SJ5",
     "_failTransactionsEnabled" : false,
-    "_lastSynchronizedDate" : 720086901.57803094,
+    "_lastSynchronizedDate" : 722315236.22206104,
     "_locale" : "en_US",
     "_storefront" : "USA",
     "_storeKitErrors" : [
