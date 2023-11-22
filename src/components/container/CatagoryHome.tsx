@@ -112,7 +112,7 @@ const CatagoryHome = ({
           paddingRight: spacing.sideOffset,
         }}>
         <ShowMoreVodButton
-          text={item.type_name}
+          text={item.type_name.trim()}
           onPress={() => {
             console.debug('navid', navId)
             if (navId != 99) {
@@ -125,8 +125,13 @@ const CatagoryHome = ({
               });
             }
           }}
-        />
-        {item?.vod_list && <VodListVertical vods={item?.vod_list} />}
+        /> 
+        { navId == 99 
+          ? // is 午夜场剧情
+          item?.vod_list && <VodListVertical vods={item?.vod_list} minNumPerRow={2} heightToWidthRatio={1/1.414} />
+          : 
+          item?.vod_list && <VodListVertical vods={item?.vod_list}/>
+        }
       </View>
     ),
     [],
