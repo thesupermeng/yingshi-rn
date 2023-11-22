@@ -343,7 +343,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const localIp = YSConfig.instance.ip;
   const fetchVodDetails = () =>
     fetch(
-      `${API_DOMAIN}vod/v2/vod/detail?id=${vod?.vod_id}&appName=${APP_NAME_CONST}&platform=` +
+      `${API_DOMAIN}vod/v1/vod/detail?id=${vod?.vod_id}&appName=${APP_NAME_CONST}&platform=` +
         Platform.OS.toUpperCase() +
         `&channelId=` +
         UMENG_CHANNEL +
@@ -394,7 +394,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   const fetchVod = () =>
     fetch(
-      `${API_DOMAIN}vod/v2/vod?class=${vod?.vod_class
+      `${API_DOMAIN}vod/v1/vod?class=${vod?.vod_class
         ?.split(",")
         .shift()}&tid=${vod?.type_id}&limit=6`
     )
