@@ -229,21 +229,30 @@ let App = () => {
     // queryClient.prefetchInfiniteQuery(["vodPlaylist"], ({ pageParam = 1 }) =>
     //   fetchPlaylist(pageParam)
     // );
-
-    const fetchVods = (page: number) =>
-      fetch(`${API_DOMAIN}miniVod/v2/miniVod?page=${page}&limit=300`)
-        .then((response) => response.json())
-        .then((json: MiniVideoResponseType) => {
-          return json.data.List;
-        });
-
     type MiniVideoResponseType = {
       data: {
         List: Array<MiniVideo>;
       };
     };
-    queryClient.prefetchInfiniteQuery(["watchAnytime"], ({ pageParam = 1 }) =>
+    
+    const fetchVods = (page: number) =>
+      fetch(`${API_DOMAIN_TEST}miniVod/v2/miniVod?page=${page}&limit=300`)
+        .then((response) => response.json())
+        .then((json: MiniVideoResponseType) => {
+          return json.data.List;
+        });
+    const fetchAdultVods = (page: number) =>
+    fetch(`${API_DOMAIN_TEST}miniSVod/v1/miniSVod?page=${page}&limit=300`)
+      .then((response) => response.json())
+      .then((json: MiniVideoResponseType) => {
+        return json.data.List;
+      });
+
+    queryClient.prefetchInfiniteQuery(["watchAnytime", "normal"], ({ pageParam = 1 }) =>
       fetchVods(pageParam)
+    );
+    queryClient.prefetchInfiniteQuery(["watchAnytime", "adult"], ({ pageParam = 1 }) =>
+      fetchAdultVods(pageParam)
     );
 
     // queryClient.prefetchQuery({
@@ -333,14 +342,7 @@ let App = () => {
                 <AdsBannerContextProvider>
                   <GestureHandlerRootView style={{ flex: 1 }}>
                     <BottomSheetModalProvider>
-                      {YSConfig.instance.areaConfig != null &&
-                      YSConfig.instance.areaConfig == true ? (
-                        // B面的B面
-                        <Nav />
-                      ) : (
-                        // B面里的A面
-                        <NavA />
-                      )}
+                      <Nav/>
                     </BottomSheetModalProvider>
                   </GestureHandlerRootView>
                 </AdsBannerContextProvider>
