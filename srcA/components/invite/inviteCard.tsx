@@ -41,7 +41,7 @@ export default function InviteCard({ userState = {} }: Props) {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const [shareOptions, setShareOptions] = useState({
-    message: `现在加入${APP_NAME_CONST},一起赚VIP,免费看高清影视`,
+    message: `下载${APP_NAME_CONST},免费领取VIP会员,免费看海量高清影视`,
     url: "",
   });
 
@@ -87,7 +87,7 @@ export default function InviteCard({ userState = {} }: Props) {
     let encodedAuth = new Buffer(inviteParam).toString("base64");
     setShareOptions({
       ...shareOptions,
-      message: `现在加入${APP_NAME_CONST},一起赚VIP,免费看高清影视`,
+      message: `下载${APP_NAME_CONST},免费领取VIP会员,免费看海量高清影视`,
       url: INVITE_DOMAIN + encodedAuth,
     });
   }, []);
@@ -300,7 +300,7 @@ export default function InviteCard({ userState = {} }: Props) {
               <Text style={styles.featureTitle}>VIP尊贵标识</Text>
             </View>
           </View>
-          
+
           {YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5 ? (
             <View style={styles.featureItem}>
               <View style={styles.imgContainer}>
