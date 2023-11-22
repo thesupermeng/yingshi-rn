@@ -56,6 +56,8 @@ import { NON_VIP_STREAM_TIME_SECONDS } from '../../../utility/constants';
 import { userModel } from '../../../types/userType';
 import useInterstitialAds from '../../../hooks/useInterstitialAds';
 import useAnalytics from '../../../hooks/useAnalytics';
+import { SettingsReducerState } from '../../../redux/reducers/settingsReducer';
+import { RootState } from '../../../redux/store';
 
 
 type FlatListType = {
@@ -79,6 +81,9 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
   const screenState: screenModel = useAppSelector(
     ({ screenReducer }) => screenReducer
   )
+  const settingsReducer: SettingsReducerState = useAppSelector(
+    ({ settingsReducer }: RootState) => settingsReducer
+  );
   const userState: userModel = useAppSelector(
     ({ userReducer }) => userReducer
   )
@@ -276,17 +281,19 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
           listLiveMatchDetailsUpdates={liveRoomUpdate}
         />
       )}
-      {isFullyLoaded && tabList.length > 0 ? (
-        <MatchDetailsNav streamId={10001} tabList={tabList} />
-      ) : (
-        <View style={styles.fetching}>
-          <FastImage
-            source={require('../../../../static/images/loading-spinner.gif')}
-            style={{ width: 100, height: 80, marginBottom: -20 }}
-            resizeMode="contain"
-          />
-          {/* <Text style={{ ...textVariants.body, color: colors.muted, textAlign: 'center' }}>加载中。。。</Text> */}
-        </View>
+      {settingsReducer.appOrientation === 'PORTRAIT' && (
+        isFullyLoaded && tabList.length > 0 ? (
+          <MatchDetailsNav streamId={10001} tabList={tabList} />
+        ) : (
+          <View style={styles.fetching}>
+            <FastImage
+              source={require('../../../../static/images/loading-spinner.gif')}
+              style={{ width: 100, height: 80, marginBottom: -20 }}
+              resizeMode="contain"
+            />
+            {/* <Text style={{ ...textVariants.body, color: colors.muted, textAlign: 'center' }}>加载中。。。</Text> */}
+          </View>
+        )
       )}
     </ScreenContainer>
   );
