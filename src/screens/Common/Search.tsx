@@ -69,7 +69,7 @@ export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
   const { data: recommendations } = useQuery({
     queryKey: ["recommendationList"],
     queryFn: () =>
-      fetch(`${API_DOMAIN}vod/v1/vod?by=hits_day`)
+      fetch(`${API_DOMAIN}vod/v2/vod?by=hits_day`)
         .then((response) => response.json())
         .then((json: SuggestResponseType) => {
           return json.data.List;
