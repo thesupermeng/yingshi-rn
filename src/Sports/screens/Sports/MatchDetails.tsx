@@ -232,7 +232,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
   const isFullyLoaded = !f1 && !f2 && !f3;
 
   useInterstitialAds();
-  
+
   const insets = useSafeAreaInsets();
 
   insetsTop = insetsTop == 0 ? insets.top : insetsTop;
@@ -266,6 +266,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
           onLiveEnd={onLiveEnd}
           onLoad={onLiveLoad}
           videoSource={videoSource}
+          onGoBack={navigation.goBack}
         />
       ) : (
         <BeforeLive

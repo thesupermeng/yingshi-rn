@@ -248,6 +248,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
           onLiveEnd={onLiveEnd}
           onLoad={onLiveLoad}
           videoSource={videoSource}
+          onGoBack={navigation.goBack}
         />
       ) : (
         <BeforeLive
