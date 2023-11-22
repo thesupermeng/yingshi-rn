@@ -52,10 +52,10 @@ function VodWithDescriptionList({
       <View>
         <FlatList
           data={vodList}
-          contentContainerStyle={{ paddingBottom: 130 }}
+          contentContainerStyle={{ paddingBottom: 30 }}
           renderItem={renderItem}
           ListFooterComponent={
-            <View style={{ ...styles.loading, marginBottom: 100 }}>
+            <View style={{ ...styles.loading, marginBottom: 30 }}>
               <Text
                 style={{
                   ...textVariants.subBody,

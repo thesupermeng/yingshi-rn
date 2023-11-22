@@ -21,7 +21,7 @@ const LineUpPage = ({ liveRoomLineup, liveRoomMatchDetails }: Props) => {
   return (
     <View>
       {liveRoomLineup?.sports_type !== 1 && <EmptyDataPage />}
-      <ScrollView>
+      <ScrollView style={{ backgroundColor: '#14161A' }}>
         {/* {ads && <AdsComp item={ads} />} */}
         {liveRoomLineup?.sports_type === 1 && (
           <View>
