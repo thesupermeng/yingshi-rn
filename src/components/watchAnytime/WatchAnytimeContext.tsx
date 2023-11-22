@@ -63,3 +63,14 @@ export const useWatchAnytime = () => {
   const vip = useContext(WatchAnytimeContext)
   return vip
 }
+
+export function withWatchAnytimeContext <T>(Component: React.ComponentType<T>) {
+  return function Wrapper(props: T){
+    return (
+      <WatchAnytimeContextProvider>
+        {/* @ts-ignore */}
+        <Component {...props}/>
+      </WatchAnytimeContextProvider>
+      )
+  }
+}
