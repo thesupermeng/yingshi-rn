@@ -318,9 +318,11 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   }, []);
 
   const localIp = YSConfig.instance.ip;
+
+  const apiEndpoint = route.params.player_mode == 'adult' ? `${API_DOMAIN_TEST}svod/v1/vod/detail` : `${API_DOMAIN_TEST}vod/v1/vod/detail`
   const fetchVodDetails = () =>
     fetch(
-      `${API_DOMAIN}vod/v1/vod/detail?id=${vod?.vod_id}&appName=${APP_NAME_CONST}&platform=` +
+      `${apiEndpoint}?id=${vod?.vod_id}&appName=${APP_NAME_CONST}&platform=` +
         Platform.OS.toUpperCase() +
         `&channelId=` +
         UMENG_CHANNEL +
@@ -342,7 +344,11 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
         return json.data[0];
       });
-
+      console.debug(`${apiEndpoint}?id=${vod?.vod_id}&appName=${APP_NAME_CONST}&platform=` +
+      Platform.OS.toUpperCase() +
+      `&channelId=` +
+      UMENG_CHANNEL +
+      `&ip=${localIp}`)
   const { data: vodDetails, isFetching: isFetchingVodDetails } = useQuery({
     queryKey: ["vodDetails", vod?.vod_id],
     queryFn: () => fetchVodDetails(),

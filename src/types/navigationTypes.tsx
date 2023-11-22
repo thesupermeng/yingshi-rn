@@ -53,6 +53,7 @@ export type RootStackParamList = {
   分享App: undefined;
   播放: {
     vod_id: VodType["vod_id"];
+    player_mode?: "adult" | 'normal';
   };
   搜索: {
     initial: string;

@@ -145,6 +145,7 @@ const CatagoryHome = ({
           dispatch(playVod(item.vod));
           navigation.navigate('播放', {
             vod_id: item.carousel_content_id,
+            player_mode: navId == 99 ? 'adult' : 'normal'
           });
         }}>
         <FastImage

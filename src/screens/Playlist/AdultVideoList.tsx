@@ -37,7 +37,7 @@ export default ({navigation, route}: RootStackScreenProps<'午夜场剧情'>) =>
   const totalPageCount = useRef<number>(0);
   const [hasNextPage, setHasNextPage] = useState(true);
   const [isFetching, setIsFetching] = useState(false);
-
+  const dispatch = useAppDispatch()
 
   const fetchVod = async (page: number) => {
     const data: AdultVodReturnType = await (
@@ -81,6 +81,11 @@ export default ({navigation, route}: RootStackScreenProps<'午夜场剧情'>) =>
         style={styles.cardItem}
         onPress={() => {
           console.debug('vod pressed', item.vod_name);
+          dispatch(playVod(item));
+          navigation.navigate('播放', {
+              vod_id: item?.vod_id,
+              player_mode: 'adult'
+          });
         }}>
         <FastImage
           style={{flex: 1, borderRadius: 10}}
@@ -186,3 +191,4 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+

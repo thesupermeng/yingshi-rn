@@ -567,7 +567,7 @@ export default () => {
           <Stack.Screen
             name="播放"
             component={PlayScreen}
-            initialParams={{ vod_id: 1 }}
+            initialParams={{ vod_id: 1, player_mode: 'normal' }}
             options={{ orientation: "all" }}
           />
           <Stack.Screen name="播放历史" component={HistoryScreen} />
