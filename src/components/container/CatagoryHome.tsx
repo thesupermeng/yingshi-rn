@@ -120,7 +120,9 @@ const CatagoryHome = ({
                 type_id: item.vod_list[0].type_id,
               });
             } else {
-              navigation.navigate('午夜场剧情');
+              navigation.navigate('午夜场剧情', {
+                class: item.vod_list[0].vod_class
+              });
             }
           }}
         />
@@ -224,7 +226,7 @@ const CatagoryHome = ({
         }
         ListHeaderComponent={
           <>
-            {!!data?.carousel && data?.carousel[0] && !refreshProp && (
+            {navId != 99 && data?.carousel[0] && !refreshProp && (
               <View
                 style={{
                   flex: 1,
@@ -258,7 +260,7 @@ const CatagoryHome = ({
               </View>
             )}
             <View>
-              {data && data.class_list && data.class_list.length > 0 && (
+              {navId != 99 && data && data.class_list && data.class_list.length > 0 && (
                 <FlatListSecondary
                   ref={categoryListRef}
                   data={['全部剧集', ...data.class_list]}
@@ -294,12 +296,14 @@ const CatagoryHome = ({
                               type_id: item.vod_list[0].type_id,
                             });
                           } else {
-                            navigation.navigate('午夜场剧情');
+                            navigation.navigate('午夜场剧情', {
+                              class: item.vod_list[0].vod_class
+                            });
                           }
                         }}
                       />
                     </View>
-                    <VodListVertical vods={item.vod_list} />
+                    <VodListVertical vods={item.vod_list} heightToWidthRatio={1/1.414} />
                   </View>
                 ))}
             </View>

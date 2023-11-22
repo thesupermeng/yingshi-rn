@@ -28,18 +28,7 @@ type AdultVodReturnType = {
   };
 };
 
-const fetchVod = async (page: number) => {
-  const data: AdultVodReturnType = await (
-    await fetch(
-      `${API_DOMAIN_TEST}svod/v1/vod?` +
-        new URLSearchParams({
-          page: page.toString(),
-          limit: '10',
-        }),
-    )
-  ).json();
-  return data.data;
-};
+
 
 export default ({navigation, route}: RootStackScreenProps<'午夜场剧情'>) => {
   const [adultVodData, setAdultVodData] = useState<AdultVodType[]>([]);
@@ -48,6 +37,21 @@ export default ({navigation, route}: RootStackScreenProps<'午夜场剧情'>) =>
   const totalPageCount = useRef<number>(0);
   const [hasNextPage, setHasNextPage] = useState(true);
   const [isFetching, setIsFetching] = useState(false);
+
+
+  const fetchVod = async (page: number) => {
+    const data: AdultVodReturnType = await (
+      await fetch(
+        `${API_DOMAIN_TEST}svod/v1/vod?` +
+          new URLSearchParams({
+            page: page.toString(),
+            limit: '10',
+            class: route.params.class
+          }),
+      )
+    ).json();
+    return data.data;
+  };
 
   const fetchNextPage = async () => {
     if (page >= totalPageCount.current) {
@@ -81,7 +85,7 @@ export default ({navigation, route}: RootStackScreenProps<'午夜场剧情'>) =>
         <FastImage
           style={{flex: 1, borderRadius: 10}}
           source={{
-            uri: item.vod_pic_thumb,
+            uri: item.vod_pic,
           }}
         />
       </TouchableOpacity>
@@ -107,7 +111,7 @@ export default ({navigation, route}: RootStackScreenProps<'午夜场剧情'>) =>
   return (
     <ScreenContainer>
       <TitleWithBackButtonHeader
-        title="午夜场剧情"
+        title={route.params.class}
         headerStyle={{marginBottom: spacing.m}}
       />
       <View>
