@@ -153,7 +153,7 @@ export default forwardRef<MiniVodRef, Props>(
 
         const renderItem = useCallback(({ item, index }: { item: MiniVideo, index: number }) => (
             <View style={{ height: displayHeight ? displayHeight : 0 }}>
-                {displayHeight != 0 && Math.abs(current - index) <= 2 && (
+                {displayHeight != 0 && (
                     <ShortVod
                         vod={item}
                         thumbnail={item.mini_video_origin_cover}
@@ -205,8 +205,8 @@ export default forwardRef<MiniVodRef, Props>(
                     : <FlatList
                         ref={miniVodListRef}
                         data={collectionPartialVideos}
-                        initialNumToRender={collectionPartialVideos.length}
-                        // maxToRenderPerBatch={5}
+                        initialNumToRender={10}
+                        maxToRenderPerBatch={5}
                         windowSize={5}
                         refreshControl={refreshComponent()}
                         renderItem={renderItem}
