@@ -256,10 +256,10 @@ export default () => {
 
         <>
           <HomeTab.Screen name="首页" component={HomeScreen} />
-          <HomeTab.Screen name="随心看" component={withWatchAnytimeContext(WatchAnytime)} />
+          <HomeTab.Screen name="随心看" component={useCallback(withWatchAnytimeContext(WatchAnytime), [])} />
           <HomeTab.Screen name="体育" component={MatchesScreen} />
           <HomeTab.Screen name="播单" component={PlaylistScreen} />
-          <HomeTab.Screen name="我的" component={ProfileScreen} />
+          <HomeTab.Screen name="我的" component={ProfileScreen} /> 
         </>
       </HomeTab.Navigator>
     );

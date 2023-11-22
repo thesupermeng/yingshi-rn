@@ -22,6 +22,7 @@ import { playVod, viewPlaylistDetails } from '../../redux/actions/vodActions';
 import HejiIcon from '../../../static/images/heji.svg';
 import ExpandUpIcon from '../../../static/images/expandHeji.svg';
 import { QueryClient } from '@tanstack/react-query';
+import { useWatchAnytime } from '../watchAnytime/WatchAnytimeContext';
 
 interface Props {
   thumbnail?: string;
@@ -38,6 +39,12 @@ interface Props {
   isActive: boolean,
 }
 
+const maxLength = 10;
+
+const truncateVodName = (vodName:string) => {
+  return vodName?.length > maxLength ? vodName.substring(0, maxLength) + '...' : vodName
+}
+
 function ShortVideoPlayer({
   vod,
   thumbnail,
@@ -52,18 +59,17 @@ function ShortVideoPlayer({
   updateVideoDuration,
   isActive,
 }: Props) {
-  const maxLength = 10;
 
   const [currentVod, setVod] = useState(vod);
+  const {adultMode} = useWatchAnytime();
 
   if (currentVod?.mini_video_original_video_name == undefined) {
     currentVod.mini_video_original_video_name = '';
   }
 
-  let vodName =
-    currentVod?.mini_video_original_video_name.length > maxLength
-      ? currentVod?.mini_video_original_video_name.substring(0, maxLength) + '...'
-      : currentVod?.mini_video_original_video_name;
+  let vodName = !adultMode ?
+      truncateVodName(currentVod?.mini_video_original_video_name)
+      : truncateVodName(currentVod?.mini_video_vod?.vod_name)
   // let vodName = "我的"
 
   const dispatch = useAppDispatch();
