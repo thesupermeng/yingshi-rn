@@ -6,7 +6,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { ViewProps } from "react-native-svg/lib/typescript/fabric/utils";
 import { Switch } from "react-native-switch"
 import WatchAnytimeVipModal from "./watchAnytimeVipModal";
-import { useVip } from "./VipContext";
+import { useWatchAnytime } from "./WatchAnytimeContext";
 import EighteenPlusOverlay from "../modal/overEighteenOverlay";
 import CountdownIndicator from "../button/countdownIndicator";
 import AdultModeCountdownIndicator from "./adultModeCountdownIndicator";
@@ -24,7 +24,7 @@ const EighteenPlusText = () =>
   >18+</Text>
 
 const eighteenPlusControls = ({}: Props) => {
-  const {showVipModal, adultMode, toggleAdultMode, showDisclaimer, toggleShowDisclaimer, toggleShowVipModal} = useVip();
+  const {showVipModal, adultMode, toggleAdultMode, showDisclaimer, toggleShowDisclaimer, toggleShowVipModal} = useWatchAnytime();
 
 
   const handleToggle = useCallback((e:boolean) => {

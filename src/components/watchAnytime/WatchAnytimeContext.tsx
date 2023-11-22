@@ -59,7 +59,7 @@ export const WatchAnytimeContextProvider  = ({children} : {children: ReactNode})
   )
 }
 
-export const useVip = () => {
+export const useWatchAnytime = () => {
   const vip = useContext(WatchAnytimeContext)
   return vip
 }

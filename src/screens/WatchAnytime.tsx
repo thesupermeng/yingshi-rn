@@ -18,7 +18,7 @@ import { SettingsReducerState } from '../redux/reducers/settingsReducer';
 import { useAppSelector } from '../hooks/hooks';
 import { RootState } from '../redux/store';
 import EighteenPlusControls from '../components/watchAnytime/eighteenPlusControls';
-import { WatchAnytimeContextProvider } from '../components/watchAnytime/VipContext';
+import { WatchAnytimeContextProvider } from '../components/watchAnytime/WatchAnytimeContext';
 
 type MiniVideoResponseType = {
     data: {

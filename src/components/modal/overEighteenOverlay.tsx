@@ -1,7 +1,7 @@
 import React, { useEffect, ReactNode } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import EighteenPlusIcon from '../../../static/images/eighteen-plus-icon.svg';
-import { useVip } from '../watchAnytime/VipContext';
+import { useWatchAnytime } from '../watchAnytime/WatchAnytimeContext';
 
 interface Props {
     handleAccept: any
@@ -9,7 +9,7 @@ interface Props {
 }
 
 export default function EighteenPlusOverlay({ handleAccept, handleReject }: Props) {
-  const {showDisclaimer} = useVip(); 
+  const {showDisclaimer} = useWatchAnytime(); 
 
   if (showDisclaimer)
     return (
