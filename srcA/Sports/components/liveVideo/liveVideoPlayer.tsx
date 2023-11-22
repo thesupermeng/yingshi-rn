@@ -23,10 +23,11 @@ interface Props {
         type: number,
         url: any
     },
-    setVideoSource?: any
+    setVideoSource?: any,
+    onGoBack: () => void,
 }
 
-const LiveVideo = ({ matchID, liveDataState, onLiveEnd, onLoad, streamID, videoSource, setVideoSource }: Props) => {
+const LiveVideo = ({ matchID, liveDataState, onLiveEnd, onLoad, streamID, videoSource, setVideoSource, onGoBack }: Props) => {
     const { colors } = useTheme();
 
     const homeName = liveDataState?.home?.name;
@@ -54,7 +55,11 @@ const LiveVideo = ({ matchID, liveDataState, onLiveEnd, onLoad, streamID, videoS
     //   const streamRoomIdRef = useRef(streamID);
 
     const onHandleBack = () => {
-        setTimeout(() => setVideoSource(VideoLiveType.DETAIL, ''))
+        if (settingsReducer.appOrientation === 'PORTRAIT' || settingsReducer.appOrientation === 'PORTRAIT-UPSIDEDOWN') {
+            setTimeout(() => setVideoSource(VideoLiveType.DETAIL, ''))
+        } else {
+            onGoBack();
+        }
     };
 
     useEffect(() => {
