@@ -3,6 +3,7 @@ import { View } from "react-native";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import FastImage from "../components/common/customFastImage";
 import { NetworkInfo } from "react-native-network-info";
 import Nav from "../../src/navigation/nav";
 import NavA from "../../srcA/navigation/nav";
@@ -34,9 +35,9 @@ import axios from "axios"; import {
 import { YSConfig } from "../../ysConfig";
 import { Dimensions, Platform } from "react-native";
 import Api from '../../src/Sports/middleware/api';
-import {Url} from '../../src/Sports/middleware/url';
+import { Url } from '../../src/Sports/middleware/url';
 import Config from '../../src/Sports/global/env';
-import {AppConfig} from '../../src/Sports/global/appConfig';
+import { AppConfig } from '../../src/Sports/global/appConfig';
 
 export default () => {
 
@@ -128,7 +129,27 @@ export default () => {
     return (
         <>
             {loadedAPI == false ? (
-                <View style={{ flex: 1, backgroundColor: "#161616" }}></View>
+                <View
+                    style={{
+                        flex: 1,
+                        justifyContent: "center",
+                        alignItems: "center",
+                        backgroundColor: "#161616",
+                    }}
+                >
+                    <FastImage
+                        source={require("../../static/images/home-loading.gif")}
+                        style={{
+                            width: 150,
+                            height: 150,
+                            position: "relative",
+                            bottom: 50,
+                            zIndex: -1,
+                        }}
+                        resizeMode={"contain"}
+                        useFastImage={true}
+                    />
+                </View>
             ) : (
                 <>
                     {areaNavConfig == true ? (
