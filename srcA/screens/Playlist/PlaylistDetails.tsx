@@ -50,7 +50,7 @@ export default ({ navigation }: RootStackScreenProps<"PlaylistDetail">) => {
           headerStyle={{ marginBottom: spacing.s }}
         />
         {playlist && (
-          <View style={{ gap: spacing.s, paddingBottom: 50 }}>
+          <View style={{ gap: spacing.s, paddingBottom: 230 }}>
             <View style={styles.header}>
               <Text
                 numberOfLines={3}
