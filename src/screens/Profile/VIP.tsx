@@ -78,6 +78,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const [isSuccess, setIsSuccess] = useState(false);
   const [isBtnEnable, setIsBtnEnable] = useState(true);
   const [currentTransID, setCurrentTransID] = useState("");
+  const [receiptBuffer, setReceiptBuffer] = useState(new Map());
   const dispatch = useAppDispatch();
   const scrollRef = useRef<any>();
 
@@ -316,7 +317,6 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     passData();
   }, [isOffline]);
 
-  const receiptBuffer = new Map();
   useEffect(() => {
     const checkCurrentPurchase = async () => {
       if (currentPurchase) {
@@ -340,6 +340,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                 isConsumable: true,
               });
               setIsVisible(false);
+              setIsBtnEnable(true);
               return;
             } else {
               setTimeout(() => setIsVisible(false), 10000);
@@ -353,10 +354,12 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
               // setIsSuccess(true);
 
               const success = await saveFinishTrans("1", ""); //validate receipt with server
-              receiptBuffer.set(
-                currentPurchase.transactionId?.concat(success),
-                success
-              );
+              
+              setReceiptBuffer((prev) => {
+                const receipt = new Map(prev);
+                receipt.set(currentPurchase.transactionId?.concat(success), success);
+                return receipt;
+              });
 
               if (success) {
                 await finishTransaction({
