@@ -669,6 +669,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                       ...styles.descriptionImage,
                       ...styles.imageContainer,
                     }}
+                    useFastImage={(Platform.OS === 'android')}
                   />
                   <View style={styles.descriptionContainer}>
                     {vod && (
