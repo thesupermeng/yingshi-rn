@@ -759,7 +759,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                   </View>
                 </View>
                 <View>
-                  {!isAdultMode &&
+                  {!adultMode &&
                     <Text style={styles.descriptionContainer2Text}>
                       {`导演：${definedValue(vod?.vod_director)}${"\n"}` +
                         `主演：${definedValue(vod?.vod_actor)}${"\n"}`}
