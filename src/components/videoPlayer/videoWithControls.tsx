@@ -1,8 +1,9 @@
 import { MutableRefObject, memo } from "react"
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import Video from "react-native-video";
 import VideoControlsOverlay from "./VideoControlsOverlay";
 import { LiveTVStationItem, VodEpisodeListType, VodType } from "../../types/ajaxTypes";
+import AdultModeCountdownIndicator from "../adultVideo/adultModeCountdownIndicator";
 
 
 interface Props {
@@ -80,7 +81,11 @@ const VideoWithControls = ({
 }: Props) => {
 
     return (
-        <>
+        <View
+            style={{
+                position: 'absolute'
+            }}
+        >
             <Video
                 mixWithOthers="mix"
                 disableFocus
@@ -150,7 +155,14 @@ const VideoWithControls = ({
                 streams={streams}
                 isFetchingRecommendedMovies={isFetchingRecommendedMovies}
             />
-        </>
+            <AdultModeCountdownIndicator
+                containerStyle={{
+                    position: 'absolute', 
+                    top: 50, 
+                    right: 20
+                }}
+            />
+        </View>
     );
 }
 
