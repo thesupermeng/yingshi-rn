@@ -61,16 +61,27 @@ export default forwardRef<MiniVodRef, Props>(
         const [isScrolling, setIsScrolling] = useState(false);
         const [videoCurrentDurations, setVideoCurrentDurations] = useState<number[]>([]);
 
-        const {showDisclaimer, showVipModal} = useAdultVideoContext();
+        // for controller change mode (adult)
+        const [isChangeNewVideo, setChangeNewVideo] = useState(false);
+
+        const { showDisclaimer, showVipModal, adultMode } = useAdultVideoContext();
 
         useEffect(() => {
-            if (showDisclaimer || showVipModal){
+            if (showDisclaimer || showVipModal) {
                 setPause(true)
             }
-            if (!(showDisclaimer || showVipModal)){
+            if (!(showDisclaimer || showVipModal) && isChangeNewVideo) {
                 setPause(false)
+                setChangeNewVideo(false);
             }
-        }, [showDisclaimer, showVipModal])
+        }, [showDisclaimer, showVipModal, isChangeNewVideo])
+
+        // add this because when url change the component only can play when the state from pause change to play
+        useEffect(() => {
+            if (collectionPartialVideos.length > 0) {
+                setChangeNewVideo(true);
+            }
+        }, [collectionPartialVideos]);
 
         const handleOnScroll = useCallback((e: any) => {
             const positionY = parseFloat(e.nativeEvent.contentOffset.y.toFixed(5));
@@ -144,6 +155,7 @@ export default forwardRef<MiniVodRef, Props>(
                         setCollectionEpisode={setCollectionEpisodeToTitle}
                         isPause={isPause || current !== index}
                         onManualPause={(current) => {
+                            console.log('click pause');
                             setPause(!current);
                         }}
                         isShowVideo={current === index && !isScrolling && !isPressTabScroll}
