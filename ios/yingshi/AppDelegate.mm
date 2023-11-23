@@ -7,6 +7,7 @@
 #import <React/RCTRootView.h>
 #import <CodePush/CodePush.h>
 #import <React/RCTAppSetupUtils.h>
+#import <React/RCTLinkingManager.h>
 
 #import <AppCenterReactNative.h>
 #import <AppCenterReactNativeAnalytics.h>
@@ -177,4 +178,12 @@ bool isCurrentMainView = NO;
     self.window.rootViewController = rootViewController;
   }
 }
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+  return [RCTLinkingManager application:application openURL:url
+                      sourceApplication:sourceApplication annotation:annotation];
+}
+
 @end

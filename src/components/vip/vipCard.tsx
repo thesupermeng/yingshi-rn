@@ -6,7 +6,10 @@ import { VipMember } from './vipMember';
 import { membershipModel } from '../../types/membershipType';
 import { VipPayment } from './vipPayment';
 import GPayIcon from "../../../static/images/vip/gpay.svg";
-import ApplePayIcon from "../../../static/images/vip/apple_pay.svg"
+import ApplePayIcon from "../../../static/images/vip/apple_pay.svg";
+import AlipayIcon from "../../../static/images/vip/alipay.svg";
+import WechatPayIcon from "../../../static/images/vip/wechat_pay.svg";
+import PaypalIcon from "../../../static/images/vip/paypal.svg";
 import { useEffect, useState } from 'react';
 import { userModel } from '../../types/userType';
 
@@ -128,10 +131,22 @@ export const VipCard = ({
           style={{...textVariants.bodyBold, fontSize: 15, marginLeft: 25}}>
             支付方式
         </Text>
+        <VipPayment
+          paymentOption='支付宝'
+          icon={<AlipayIcon />}
+          isSelected={ selectedPayment === '支付宝'}
+          onPaymentSelect={onPaymentSelect}  />
+
+        <VipPayment
+          paymentOption='微信支付'
+          icon={<WechatPayIcon />}
+          isSelected={ selectedPayment === '微信支付'}
+          onPaymentSelect={onPaymentSelect}  />
+
         {Platform.OS === "android" && 
           <VipPayment
             paymentOption='Google Pay'
-            icon={<GPayIcon width={30} height={30} />}
+            icon={<GPayIcon />}
             isSelected={ selectedPayment === 'Google Pay'}
             onPaymentSelect={onPaymentSelect}/>
         }
@@ -139,10 +154,16 @@ export const VipCard = ({
         {Platform.OS === "ios" &&
           <VipPayment
             paymentOption='Apple Pay'
-            icon={<ApplePayIcon width={30} height={30} />}
+            icon={<ApplePayIcon />}
             isSelected={ selectedPayment === 'Apple Pay'}
             onPaymentSelect={onPaymentSelect}  />
         }
+
+        <VipPayment
+          paymentOption='PayPal'
+          icon={<PaypalIcon />}
+          isSelected={ selectedPayment === 'PayPal'}
+          onPaymentSelect={onPaymentSelect}  />
       </View>
     </View>
   );
