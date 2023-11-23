@@ -264,6 +264,7 @@ export default forwardRef<VideoRef, Props>(
       // } else {
       //   handleSaveVod();
       // }
+
       try {
         if (currentTimeRef.current != 0 && nextAppState !== "active") {
           console.log("save vod");
@@ -304,11 +305,19 @@ export default forwardRef<VideoRef, Props>(
         setIsFullScreen(false);
         // ImmersiveMode.fullLayout(true);
         StatusBar.setHidden(false);
+
+        if (Platform.OS === "android") {
+          navigation.setOptions({ orientation: "portrait" });
+        }
       } else {
         lockOrientation("LANDSCAPE");
         setIsFullScreen(true);
         // ImmersiveMode.fullLayout(false);
         StatusBar.setHidden(true);
+
+        if (Platform.OS === "android") {
+          navigation.setOptions({ orientation: "landscape" });
+        }
       }
     }, [isFullScreen, appOrientation]);
 
@@ -440,7 +449,7 @@ export default forwardRef<VideoRef, Props>(
       }
     }, [screenState.interstitialShow]);
 
-    useEffect(() =>{
+    useEffect(() => {
       if (route.name == '体育详情') {
         const unsub = setInterval(() => {
           dispatch(incrementSportWatchTime());
