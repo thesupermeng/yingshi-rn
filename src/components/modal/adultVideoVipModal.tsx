@@ -1,6 +1,6 @@
 import {View, Text, TouchableOpacity, ViewStyle, TextStyle, StyleSheet} from 'react-native';
 import {showRegisterAction} from '../../redux/actions/screenAction';
-import VipModal from '../modal/vipModal';
+import VipModal from './vipModal';
 import FastImage from 'react-native-fast-image';
 import { useNavigation } from '@react-navigation/native';
 import { IconClose } from '../../Sports/assets';
@@ -10,7 +10,7 @@ import CrossIcon from '../../../static/images/cross.svg'
 import CloseIcon from '../../../static/images/close.svg'
 
 
-const AdultVipModal = () => {
+const AdultVideoVipModal = () => {
   const navigator = useNavigation();
   const {toggleShowVipModal, showVipModal} = useAdultVideoContext();
 
@@ -132,4 +132,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default AdultVipModal;
+export default AdultVideoVipModal;

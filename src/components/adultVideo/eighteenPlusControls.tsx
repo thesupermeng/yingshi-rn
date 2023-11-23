@@ -5,7 +5,7 @@ import { StyleProp, StyleSheet, Text, TextStyle, View, ViewStyle } from "react-n
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { ViewProps } from "react-native-svg/lib/typescript/fabric/utils";
 import { Switch } from "react-native-switch"
-import WatchAnytimeVipModal from "./watchAnytimeVipModal";
+import WatchAnytimeVipModal from "../modal/adultVideoVipModal";
 import { useAdultVideoContext } from "../../contexts/AdultVideoContext";
 import EighteenPlusOverlay from "../modal/overEighteenOverlay";
 import CountdownIndicator from "../button/countdownIndicator";
