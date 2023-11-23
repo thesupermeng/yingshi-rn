@@ -8,6 +8,7 @@ import { VipNav } from "../tabNavigate/vipNav";
 import { useEffect, useState } from "react";
 import { VipPurchaseHistory } from "./vipPurchaseHistory";
 import { VipInviteHistory } from "./vipInviteHistory";
+import { SHOW_PAYMENT_CONST } from "../../utility/constants";
 
 export const VipDetails = ({
   route,
@@ -15,10 +16,15 @@ export const VipDetails = ({
 }: RootStackScreenProps<"VIP明细">) => {
   const { textVariants, colors } = useTheme();
   const locations = [0, 1];
-  const navOptions = [
+
+  let navOptions = [
     { id: 0, name: "邀请记录" },
     { id: 1, name: "购买记录" },
   ];
+  if (SHOW_PAYMENT_CONST == false) {
+    navOptions = [{ id: 0, name: "邀请记录" }];
+  }
+
   const { userState } = route.params;
   const [accumulatedVipDays, setAccumulatedVipDays] = useState(0);
 
@@ -56,16 +62,18 @@ export const VipDetails = ({
           </Text>
         </View>
 
-        <View style={styles.featureItem}>
-          <Text style={{ ...textVariants.bigHeader }}>
-            {userState.userPaidVipList.total_purchased_amount
-              ? userState.userPaidVipList.total_purchased_amount
-              : "-"}
-          </Text>
-          <Text style={{ ...textVariants.small, color: colors.muted }}>
-            购买总额 （USD）
-          </Text>
-        </View>
+        {SHOW_PAYMENT_CONST && (
+          <View style={styles.featureItem}>
+            <Text style={{ ...textVariants.bigHeader }}>
+              {userState.userPaidVipList.total_purchased_amount
+                ? userState.userPaidVipList.total_purchased_amount
+                : "-"}
+            </Text>
+            <Text style={{ ...textVariants.small, color: colors.muted }}>
+              购买总额 （USD）
+            </Text>
+          </View>
+        )}
       </LinearGradient>
       <VipNav
         tabList={navOptions.map((e) => ({

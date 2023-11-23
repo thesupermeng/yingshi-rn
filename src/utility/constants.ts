@@ -108,3 +108,5 @@ export const APP_EMAIL_CONST = 'contactus@yingshi.tv';
 export const NON_VIP_STREAM_TIME_SECONDS = 300;
 
 export const PLAY_HTTP_SERVER_PORT = 8085;
+
+export const SHOW_PAYMENT_CONST = false;
