@@ -48,10 +48,18 @@ function WatchAnytime ({ navigation }: BottomTabScreenProps<any>) {
 
     const fetchMode = adultMode ? "adult" : "normal"
     const apiEndpoint = adultMode ? `${API_DOMAIN_TEST}miniSVod/v1/miniSVod` : `${API_DOMAIN_TEST}miniVod/v2/miniVod`
+    const afterInitialLoad = useRef(false);
 
     useEffect(() => {
-        remove(); // remove cached video data on change... 
-        refetch();
+        if (!afterInitialLoad.current){
+            // if first time loading from home, dont refetch, use prefetched data
+            afterInitialLoad.current = true
+        }
+        else{ //
+            remove(); // remove cached video data on change... 
+            refetch();
+        } 
+
     }, [adultMode])
 
     // Add an event listener to the navigation object for the tab press event
