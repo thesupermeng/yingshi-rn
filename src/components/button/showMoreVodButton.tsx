@@ -7,11 +7,13 @@ interface Props {
   text: string;
   params?: any[];
   isPlayScreen?: boolean;
+  showMoreButton?: boolean;
 }
 function ShowMoreVodButton({
   text,
   onPress,
   isPlayScreen = false,
+  showMoreButton = false,
   ...params
 }: Props) {
   const {colors, textVariants, icons} = useTheme();
@@ -21,20 +23,22 @@ function ShowMoreVodButton({
         {text}
       </Text>
 
-      <TouchableOpacity onPress={onPress} style={{...styles.banner}}>
-        <Text
-          style={{
-            color: colors.muted,
-            fontSize: isPlayScreen ? 15 : textVariants.small.fontSize,
-          }}>
-          更多
-        </Text>
-        <MoreArrow
-          style={{color: colors.muted}}
-          height={icons.sizes.m}
-          width={icons.sizes.m}
-        />
-      </TouchableOpacity>
+      {showMoreButton == true &&
+        <TouchableOpacity onPress={onPress} style={{...styles.banner}}>
+          <Text
+            style={{
+              color: colors.muted,
+              fontSize: isPlayScreen ? 15 : textVariants.small.fontSize,
+            }}>
+            更多
+          </Text>
+          <MoreArrow
+            style={{color: colors.muted}}
+            height={icons.sizes.m}
+            width={icons.sizes.m}
+          />
+        </TouchableOpacity>
+      }
     </View>
   );
 }
