@@ -401,6 +401,24 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
     queryKey: ["relatedVods", vod],
     queryFn: () => fetchVod(),
   });
+  
+  const fetchSVod = () =>
+    fetch(
+      `${API_DOMAIN}svod/v1/vod?class=${vod?.vod_class}&limit=6`
+    )
+      .then((response) => response.json())
+      .then((json: SuggestResponseType) => {
+        return json.data.List;
+      });
+
+  const {
+    data: suggestedSVods,
+    isFetching: isFetchingSuggestedSVod,
+    refetchSvod,
+  } = useQuery({
+    queryKey: ["relatedSVods", vod],
+    queryFn: () => fetchSVod(),
+  });
 
   const handleRefresh = useCallback(async () => {
     // setIsRefreshing(true);
@@ -829,33 +847,70 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                             <View />
                           </>
                         )}
-                      {vod &&
-                        suggestedVods !== undefined &&
-                        suggestedVods?.length > 0 && (
-                          <View style={{ gap: spacing.l, marginBottom: 60 }}>
-                            <ShowMoreVodButton
-                              isPlayScreen={true}
-                              text={`相关${vod?.type_name}`}
-                              onPress={() => {
-                                //  videoPlayerRef.current.setPause(true);
-                                setTimeout(() => {
-                                  navigation.navigate("片库", {
-                                    type_id: vod.type_id,
-                                  });
-                                }, 150);
-                              }}
-                            />
-                            <VodListVertical
-                              vods={suggestedVods}
-                              outerRowPadding={2 * (20 - spacing.sideOffset)}
-                              onPress={() => {
-                                if (!isCollapsed) {
-                                  setIsCollapsed(true);
-                                }
-                              }}
-                            />
-                          </View>
-                        )}
+                      {route.params.player_mode == 'adult' ? (
+                          <>
+                           {vod &&
+                             suggestedSVods !== undefined &&
+                             suggestedSVods?.length > 0 && (
+                               <View style={{ gap: spacing.l, marginBottom: 60 }}>
+                                 <ShowMoreVodButton
+                                   isPlayScreen={true}
+                                   text={`相关${vod?.vod_class}`}
+                                   showMoreButton={false}
+                                   onPress={() => {
+                                     //  videoPlayerRef.current.setPause(true);
+                                     setTimeout(() => {
+                                       navigation.navigate("片库", {
+                                         type_id: vod.type_id,
+                                       });
+                                     }, 150);
+                                   }}
+                                 />
+                                 <VodListVertical
+                                   vods={suggestedSVods}
+                                   outerRowPadding={2 * (20 - spacing.sideOffset)}
+                                   onPress={() => {
+                                     if (!isCollapsed) {
+                                       setIsCollapsed(true);
+                                     }
+                                   }}
+                                 />
+                               </View>
+                             )}
+                         </>
+                        ) : (
+                          <>
+                              {vod &&
+                                suggestedVods !== undefined &&
+                                suggestedVods?.length > 0 && (
+                                  <View style={{ gap: spacing.l, marginBottom: 60 }}>
+                                    <ShowMoreVodButton
+                                      isPlayScreen={true}
+                                      text={`相关${vod?.type_name}`}
+                                      onPress={() => {
+                                        //  videoPlayerRef.current.setPause(true);
+                                        setTimeout(() => {
+                                          navigation.navigate("片库", {
+                                            type_id: vod.type_id,
+                                          });
+                                        }, 150);
+                                      }}
+                                    />
+                                    <VodListVertical
+                                      vods={suggestedVods}
+                                      outerRowPadding={2 * (20 - spacing.sideOffset)}
+                                      onPress={() => {
+                                        if (!isCollapsed) {
+                                          setIsCollapsed(true);
+                                        }
+                                      }}
+                                    />
+                                  </View>
+                                )}
+                            </>
+                        )
+                      }
+                      
                     </>
                   )}
                 </>
