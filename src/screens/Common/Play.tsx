@@ -794,10 +794,12 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                   </View>
                 </View>
                 <View>
-                  <Text style={styles.descriptionContainer2Text}>
-                    {`导演：${definedValue(vod?.vod_director)}${"\n"}` +
-                      `主演：${definedValue(vod?.vod_actor)}${"\n"}`}
-                  </Text>
+                  {!isAdultMode &&
+                    <Text style={styles.descriptionContainer2Text}>
+                      {`导演：${definedValue(vod?.vod_director)}${"\n"}` +
+                        `主演：${definedValue(vod?.vod_actor)}${"\n"}`}
+                    </Text>
+                  }
                   <TouchableOpacity
                     onPress={() => {
                       setIsCollapsed(!isCollapsed);
@@ -933,7 +935,11 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                                  />
                                  <VodListVertical
                                    vods={suggestedSVods}
+                                   minNumPerRow={2}
+                                   numOfRows={3}
                                    outerRowPadding={2 * (20 - spacing.sideOffset)}
+                                   heightToWidthRatio={1/1.414}
+                                   playerMode='adult'
                                    onPress={() => {
                                      if (!isCollapsed) {
                                        setIsCollapsed(true);

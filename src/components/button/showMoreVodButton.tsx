@@ -13,7 +13,7 @@ function ShowMoreVodButton({
   text,
   onPress,
   isPlayScreen = false,
-  showMoreButton = false,
+  showMoreButton = true,
   ...params
 }: Props) {
   const {colors, textVariants, icons} = useTheme();
