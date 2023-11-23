@@ -18,7 +18,7 @@ import { SettingsReducerState } from '../redux/reducers/settingsReducer';
 import { useAppSelector } from '../hooks/hooks';
 import { RootState } from '../redux/store';
 import EighteenPlusControls from '../components/watchAnytime/eighteenPlusControls';
-import { useWatchAnytime } from '../components/watchAnytime/WatchAnytimeContext';
+import { useAdultVideoContext } from '../contexts/AdultVideoContext';
 
 type MiniVideoResponseType = {
     data: {
@@ -44,7 +44,7 @@ function WatchAnytime ({ navigation }: BottomTabScreenProps<any>) {
         ({ settingsReducer }: RootState) => settingsReducer
     );
 
-    const {adultMode} = useWatchAnytime(); 
+    const {adultMode} = useAdultVideoContext(); 
 
     const fetchMode = adultMode ? "adult" : "normal"
     const apiEndpoint = adultMode ? `${API_DOMAIN_TEST}miniSVod/v1/miniSVod` : `${API_DOMAIN_TEST}miniVod/v2/miniVod`

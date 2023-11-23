@@ -4,7 +4,7 @@ import VipModal from '../modal/vipModal';
 import FastImage from 'react-native-fast-image';
 import { useNavigation } from '@react-navigation/native';
 import { IconClose } from '../../Sports/assets';
-import { useWatchAnytime } from './WatchAnytimeContext';
+import { useAdultVideoContext } from '../../contexts/AdultVideoContext';
 import { useCallback } from 'react';
 import CrossIcon from '../../../static/images/cross.svg'
 import CloseIcon from '../../../static/images/close.svg'
@@ -12,7 +12,7 @@ import CloseIcon from '../../../static/images/close.svg'
 
 const AdultVipModal = () => {
   const navigator = useNavigation();
-  const {toggleShowVipModal, showVipModal} = useWatchAnytime();
+  const {toggleShowVipModal, showVipModal} = useAdultVideoContext();
 
   const handleCloseModal = useCallback(() => {
     toggleShowVipModal(false)

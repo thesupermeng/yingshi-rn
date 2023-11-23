@@ -1,13 +1,13 @@
 import { ViewStyle } from "react-native";
 import CountdownIndicator from "../button/countdownIndicator";
-import { useWatchAnytime } from "./WatchAnytimeContext";
+import { useAdultVideoContext } from "../../contexts/AdultVideoContext";
 
 interface Props {
   containerStyle: ViewStyle;
 }
 
 const AdultModeCountdownIndicator = ({containerStyle}: Props) => {
-  const {countdownTimer, toggleShowVipModal, adultMode} = useWatchAnytime();
+  const {countdownTimer, toggleShowVipModal, adultMode} = useAdultVideoContext();
 
   if (adultMode)
     return (

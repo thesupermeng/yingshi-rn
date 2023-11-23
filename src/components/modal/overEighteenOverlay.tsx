@@ -1,7 +1,7 @@
 import React, { useEffect, ReactNode } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import EighteenPlusIcon from '../../../static/images/eighteen-plus-icon.svg';
-import { useWatchAnytime } from '../watchAnytime/WatchAnytimeContext';
+import { useAdultVideoContext } from '../../contexts/AdultVideoContext';
 
 interface Props {
     handleAccept: any
@@ -9,7 +9,7 @@ interface Props {
 }
 
 export default function EighteenPlusOverlay({ handleAccept, handleReject }: Props) {
-  const {showDisclaimer} = useWatchAnytime(); 
+  const {showDisclaimer} = useAdultVideoContext(); 
 
   if (showDisclaimer)
     return (

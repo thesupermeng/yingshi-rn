@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import { Text, View, ViewStyle } from "react-native";
-import { useWatchAnytime } from "./WatchAnytimeContext";
+import { useAdultVideoContext } from "../../contexts/AdultVideoContext";
 import { Switch } from "react-native-switch"
 
 interface Props{
@@ -16,7 +16,7 @@ const EighteenPlusText = () =>
   >18+</Text>
 
 const AdultModeSwitch = ({switchStyle}: Props) => {
-  const {adultMode, toggleAdultMode, toggleShowVipModal, showDisclaimer, toggleShowDisclaimer} = useWatchAnytime();
+  const {adultMode, toggleAdultMode, toggleShowVipModal, showDisclaimer, toggleShowDisclaimer} = useAdultVideoContext();
 
   const handleToggle = useCallback((e:boolean) => {
     if (e){ //if swtiching to true

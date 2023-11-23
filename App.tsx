@@ -68,6 +68,7 @@ import { TermsAcceptContextProvider as TermsAcceptContextProviderA } from "./src
 import { AdsBannerContextProvider } from "./src/contexts/AdsBannerContext";
 import { AdsBannerContextProvider as AdsBannerContextProviderA } from "./srcA/contexts/AdsBannerContext";
 import NetInfo from "@react-native-community/netinfo";
+import { AdultVideoContextProvider } from "./src/contexts/AdultVideoContext";
 // import * as Sentry from "@sentry/react-native";
 
 // Sentry.init({
@@ -340,11 +341,13 @@ let App = () => {
             <PersistGate loading={null} persistor={persistor}>
               <AdsBannerContextProviderA>
                 <AdsBannerContextProvider>
-                  <GestureHandlerRootView style={{ flex: 1 }}>
-                    <BottomSheetModalProvider>
-                      <Nav/>
-                    </BottomSheetModalProvider>
-                  </GestureHandlerRootView>
+                  <AdultVideoContextProvider>
+                    <GestureHandlerRootView style={{ flex: 1 }}>
+                      <BottomSheetModalProvider>
+                        <Nav/>
+                      </BottomSheetModalProvider>
+                    </GestureHandlerRootView>
+                  </AdultVideoContextProvider>
                 </AdsBannerContextProvider>
               </AdsBannerContextProviderA>
             </PersistGate>

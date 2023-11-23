@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useCallback, useContext, useEffect, useReducer, useRef, useState } from "react";
-import { ADULT_MODE_PREVIEW_DURATION } from "../../utility/constants";
+import { ADULT_MODE_PREVIEW_DURATION } from "../utility/constants";
 
 interface Props {
   showVipModal: boolean
@@ -11,7 +11,7 @@ interface Props {
   countdownTimer: number
 }
 
-const WatchAnytimeContext = createContext<Props>({
+const AdultVideoContext = createContext<Props>({
   showVipModal: false,
   toggleShowVipModal: () => {},
   showDisclaimer: false, 
@@ -21,7 +21,7 @@ const WatchAnytimeContext = createContext<Props>({
   countdownTimer: 0
 });
 
-export const WatchAnytimeContextProvider  = ({children} : {children: ReactNode}) => {
+export const AdultVideoContextProvider  = ({children} : {children: ReactNode}) => {
   const [showVipModal, setShowVipModal] = useState(false)
   const [countdownTimer, setCountdownTimer] = useState(ADULT_MODE_PREVIEW_DURATION);
   const [adultMode, setAdultMode] = useState(false);
@@ -53,24 +53,13 @@ export const WatchAnytimeContextProvider  = ({children} : {children: ReactNode})
   }, [countdownTimer])
 
   return (
-    <WatchAnytimeContext.Provider value={{showVipModal, toggleShowVipModal, adultMode, toggleAdultMode, countdownTimer, showDisclaimer, toggleShowDisclaimer}}>
+    <AdultVideoContext.Provider value={{showVipModal, toggleShowVipModal, adultMode, toggleAdultMode, countdownTimer, showDisclaimer, toggleShowDisclaimer}}>
       {children}
-    </WatchAnytimeContext.Provider>
+    </AdultVideoContext.Provider>
   )
 }
 
-export const useWatchAnytime = () => {
-  const vip = useContext(WatchAnytimeContext)
+export const useAdultVideoContext = () => {
+  const vip = useContext(AdultVideoContext)
   return vip
-}
-
-export function withWatchAnytimeContext <T>(Component: React.ComponentType<T>) {
-  return function Wrapper(props: T){
-    return (
-      <WatchAnytimeContextProvider>
-        {/* @ts-ignore */}
-        <Component {...props}/>
-      </WatchAnytimeContextProvider>
-      )
-  }
 }

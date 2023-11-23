@@ -114,7 +114,6 @@ import { VipDetails } from "../components/vip/vipDetails";
 import { ATInterstitialRNSDK } from "./../../AnyThinkAds/ATReactNativeSDK";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 import AdultVideoList from "../screens/Playlist/AdultVideoList";
-import { withWatchAnytimeContext } from "../components/watchAnytime/WatchAnytimeContext";
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -256,7 +255,7 @@ export default () => {
 
         <>
           <HomeTab.Screen name="首页" component={HomeScreen} />
-          <HomeTab.Screen name="随心看" component={useCallback(withWatchAnytimeContext(WatchAnytime), [])} />
+          <HomeTab.Screen name="随心看" component={WatchAnytime} />
           <HomeTab.Screen name="体育" component={MatchesScreen} />
           <HomeTab.Screen name="播单" component={PlaylistScreen} />
           <HomeTab.Screen name="我的" component={ProfileScreen} /> 

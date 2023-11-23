@@ -22,7 +22,7 @@ import { playVod, viewPlaylistDetails } from '../../redux/actions/vodActions';
 import HejiIcon from '../../../static/images/heji.svg';
 import ExpandUpIcon from '../../../static/images/expandHeji.svg';
 import { QueryClient } from '@tanstack/react-query';
-import { useWatchAnytime } from '../watchAnytime/WatchAnytimeContext';
+import { useAdultVideoContext } from '../../contexts/AdultVideoContext';
 
 interface Props {
   thumbnail?: string;
@@ -61,7 +61,7 @@ function ShortVideoPlayer({
 }: Props) {
 
   const [currentVod, setVod] = useState(vod);
-  const {adultMode} = useWatchAnytime();
+  const {adultMode} = useAdultVideoContext();
 
   if (currentVod?.mini_video_original_video_name == undefined) {
     currentVod.mini_video_original_video_name = '';
