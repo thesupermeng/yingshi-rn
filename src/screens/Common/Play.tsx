@@ -180,6 +180,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
     // for banner ads
     setAdsRoute(route.name);
   });
+  const isAdultMode = route.params.player_mode === 'adult'
 
   const { colors, spacing, textVariants, icons } = useTheme();
   const vodReducer: VodReducerState = useAppSelector(
@@ -321,7 +322,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   const localIp = YSConfig.instance.ip;
 
-  const apiEndpoint = route.params.player_mode == 'adult' ? `${API_DOMAIN_TEST}svod/v1/vod/detail` : `${API_DOMAIN_TEST}vod/v1/vod/detail`
+  const apiEndpoint = isAdultMode ? `${API_DOMAIN_TEST}svod/v1/vod/detail` : `${API_DOMAIN_TEST}vod/v1/vod/detail`
   const fetchVodDetails = () =>
     fetch(
       `${apiEndpoint}?id=${vod?.vod_id}&appName=${APP_NAME_CONST}&platform=` +
@@ -430,6 +431,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   }, []);
 
   const saveVodToHistory = (vod: any) => {
+    if (isAdultMode) return
     dispatch(
       addVodToHistory(vod, currentTimeRef.current, currentEpisodeRef.current)
     );
@@ -628,7 +630,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
         {!isOffline && (
           <>
-            {route.params.player_mode === 'adult' && <LinearGradient
+            {isAdultMode && <LinearGradient
               colors={['#191F25', '#222528']}
               start={{x: 0.12, y: 0.12}}
               end={{x: 0.9, y: 0.9}}
@@ -684,7 +686,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
             >
               <View style={{ ...styles.descriptionContainer2, gap: spacing.m }}>
                 <View style={styles.videoDescription}>
-                  {route.params.player_mode === 'adult' ? 
+                  {isAdultMode ? 
                   <FastImage
                     source={{ uri: vod?.vod_pic }}
                     resizeMode={"cover"}
@@ -773,7 +775,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                               .replace(/\//g, "-")
                       }`}
                     </Text>
-                    {!(route.params.player_mode === 'adult') && <TouchableOpacity onPress={onShare}>
+                    {!(isAdultMode) && <TouchableOpacity onPress={onShare}>
                       <View style={{ ...styles.share, gap: 10 }}>
                         <Text
                           style={{
@@ -910,7 +912,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                             <View />
                           </>
                         )}
-                      {route.params.player_mode == 'adult' ? (
+                      {isAdultMode ? (
                           <>
                            {vod &&
                              suggestedSVods !== undefined &&
