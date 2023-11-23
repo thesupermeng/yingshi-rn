@@ -153,7 +153,13 @@ export default () => {
         </View>
       ) : (
         <>
-          <NavA />
+          {areaNavConfig == true ? (
+            // B面的B面
+            <Nav />
+          ) : (
+            // B面里的A面
+            <NavA />
+          )}
         </>
       )}
     </>
