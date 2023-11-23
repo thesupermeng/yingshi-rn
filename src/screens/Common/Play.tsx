@@ -69,6 +69,8 @@ import { BridgeServer } from "react-native-http-bridge-refurbished";
 import { debounce } from "lodash";
 import LinearGradient from "react-native-linear-gradient";
 import VipIcon from '../../../static/images/vip-icon.svg'
+import AdultVideoVipModal from "../../components/modal/adultVideoVipModal";
+import VipRegisterBar from "../../components/adultVideo/vipRegisterBar";
 
 type VideoRef = {
   setPause: (param: boolean) => void;
@@ -630,55 +632,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
         {!isOffline && (
           <>
-            {isAdultMode && <LinearGradient
-              colors={['#191F25', '#222528']}
-              start={{x: 0.12, y: 0.12}}
-              end={{x: 0.9, y: 0.9}}
-              angle={269}
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between', 
-                alignItems: 'center',
-                paddingHorizontal: 15,
-                paddingVertical: 11,
-              }}>
-              <View style={{flexDirection: 'row', gap: 8, alignItems: 'center'}}>
-                <VipIcon width={24} height={24}/>
-                <View>
-                  <Text style={{color: '#FFE6A5', textShadowColor: 'rgba(0, 0, 0, 0.15)', fontWeight: '600', fontSize: 14, textShadowOffset: {height:0, width: 4}, textShadowRadius: 4 }}>开通VIP会员，畅享尊贵特权</Text>
-                  <Text style={{color: '#FFF', textShadowColor: 'rgba(0, 0, 0, 0.15)', fontWeight: '600', fontSize: 12, textShadowOffset: {height:0, width: 4}, textShadowRadius: 4 }}>$18.88/VIP会员180天</Text>
-                </View>
-              </View>
-              <TouchableOpacity>
-                <LinearGradient
-                  colors={['#FAC33D', '#ECA700']}
-                  start={{x: 0.05, y: 0.05}}
-                  end={{x: 1, y: 1}}
-                  angle={126}
-                  style={{
-                    paddingHorizontal: 10, 
-                    paddingVertical: 6,
-                    borderRadius: 100, 
-                    flexDirection: 'row', 
-                    justifyContent: 'flex-start'
-
-                  }}
-                >
-                  <Text
-                    style={{
-                      fontWeight: '600', 
-                      fontSize: 12, 
-                      color: '#1D2023', 
-                      paddingRight: 4
-                    }}
-                  >
-                    立刻开通
-                  </Text>
-                  <MoreArrow color="#1D2023" width={8} />
-                </LinearGradient>
-              </TouchableOpacity>
-            </LinearGradient>}
+            {isAdultMode && <VipRegisterBar/>}
             <ScrollView
               nestedScrollEnabled={true}
               contentContainerStyle={{ marginTop: spacing.m }}
@@ -1003,6 +957,9 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
         {isOffline && (
           <NoConnection onClickRetry={checkConnection} isPlayBottom={true} />
         )}
+        {isAdultMode &&
+          <AdultVideoVipModal/>
+        }
       </ScreenContainer>
     </>
   );
