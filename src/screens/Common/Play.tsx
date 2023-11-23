@@ -666,6 +666,16 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
             >
               <View style={{ ...styles.descriptionContainer2, gap: spacing.m }}>
                 <View style={styles.videoDescription}>
+                  {route.params.player_mode === 'adult' ? 
+                  <FastImage
+                    source={{ uri: vod?.vod_pic }}
+                    resizeMode={"cover"}
+                    style={{
+                      ...styles.descriptionImageHorizontal,
+                      ...styles.imageContainer,
+                    }}
+                  /> 
+                  : 
                   <FastImage
                     source={{ uri: vod?.vod_pic }}
                     resizeMode={"cover"}
@@ -673,7 +683,9 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                       ...styles.descriptionImage,
                       ...styles.imageContainer,
                     }}
-                  />
+                  /> 
+                
+                }
                   <View style={styles.descriptionContainer}>
                     {vod && (
                       <FavoriteButton
@@ -743,7 +755,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                               .replace(/\//g, "-")
                       }`}
                     </Text>
-                    <TouchableOpacity onPress={onShare}>
+                    {!(route.params.player_mode === 'adult') && <TouchableOpacity onPress={onShare}>
                       <View style={{ ...styles.share, gap: 10 }}>
                         <Text
                           style={{
@@ -758,7 +770,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                         <SinaIcon />
                         <QQIcon />
                       </View>
-                    </TouchableOpacity>
+                    </TouchableOpacity>}
                   </View>
                 </View>
                 <View>
@@ -961,6 +973,11 @@ const styles = StyleSheet.create({
   descriptionImage: {
     width: "100%",
     aspectRatio: 93 / 139,
+    borderRadius: 10,
+  },
+  descriptionImageHorizontal: {
+    width: "100%",
+    aspectRatio: 300 / 168,
     borderRadius: 10,
   },
   descriptionContainer: {
