@@ -69,7 +69,7 @@ import { AdsBannerContextProvider } from "./src/contexts/AdsBannerContext";
 import { AdsBannerContextProvider as AdsBannerContextProviderA } from "./srcA/contexts/AdsBannerContext";
 import NetInfo from "@react-native-community/netinfo";
 
-const topon_channel = "WEB";;
+const topon_channel = "WEB";
 // import * as Sentry from "@sentry/react-native";
 
 // Sentry.init({

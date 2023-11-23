@@ -82,7 +82,7 @@ const replaceToUmengAppKey = {
 const replaceAppToponConf = {
   files: [appPath],
   from: /const topon_channel = "([^"]+)"/g,
-  to: 'const topon_channel = "web"',
+  to: 'const topon_channel = "DEFAULT"',
 };
 
 replaceToChannelRN.to = 'export const UMENG_CHANNEL = "' + channel + '"';
@@ -91,7 +91,7 @@ replaceToChannelAndroid.to =
   'resValue "string", "UMENG_CHANNEL", "' + channel + '"';
 replaceToUmengAppKey.to =
   'resValue "string", "UMENG_APPKEY", "' + umengKey + '"';
-replaceAppToponConf.to = 'const topon_channel = "' + channel + '";';
+replaceAppToponConf.to = 'const topon_channel = "' + channel + '"';
 console.log(replaceToChannelRN.to);
 
 try {
