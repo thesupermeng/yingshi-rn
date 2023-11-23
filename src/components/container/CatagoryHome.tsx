@@ -128,7 +128,7 @@ const CatagoryHome = ({
         /> 
         { navId == 99 
           ? // is 午夜场剧情
-          item?.vod_list && <VodListVertical vods={item?.vod_list} minNumPerRow={2} heightToWidthRatio={1/1.414} />
+          item?.vod_list && <VodListVertical vods={item?.vod_list} minNumPerRow={2} heightToWidthRatio={1/1.414} playerMode='adult' />
           : 
           item?.vod_list && <VodListVertical vods={item?.vod_list}/>
         }
@@ -142,6 +142,7 @@ const CatagoryHome = ({
       <TouchableOpacity
         key={`slider-${index}`}
         onPress={() => {
+          console.debug('pllaying mode', navId)
           dispatch(playVod(item.vod));
           navigation.navigate('播放', {
             vod_id: item.carousel_content_id,
