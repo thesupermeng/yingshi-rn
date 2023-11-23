@@ -396,7 +396,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   const fetchVod = () =>
     fetch(
-      `${API_DOMAIN}vod/v1/vod?class=${vod?.vod_class
+      `${API_DOMAIN}vod/v2/vod?class=${vod?.vod_class
         ?.split(",")
         .shift()}&tid=${vod?.type_id}&limit=6`
     )
@@ -669,6 +669,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                       ...styles.descriptionImage,
                       ...styles.imageContainer,
                     }}
+                    useFastImage={(Platform.OS === 'android')}
                   />
                   <View style={styles.descriptionContainer}>
                     {vod && (

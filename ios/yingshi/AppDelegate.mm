@@ -24,6 +24,7 @@
 #import <AnyThinkMintegralAdapter/ATMintegralConfigure.h>
 
 #import "ATSplashViewController.h"
+#import "RNViewController.h"
 
 @implementation AppDelegate
 
@@ -90,18 +91,16 @@ bool isCurrentMainView = NO;
 
   [[ATAPI sharedInstance] startWithAppID:@"a65093c4e166c3" appKey:@"ac16f5a19bcbae7438b36f0f7160fbac3" sdkConfigures:configuration error:nil];
   [[ATAPI sharedInstance] setPresetPlacementConfigPathBundle:[NSBundle mainBundle]];
+  
+  self.launchOptions = launchOptions;
+  self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
 
   if([showAds isEqualToString:@"true"]){
-    self.launchOptions = launchOptions;
-    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    
     ATSplashViewController *splashViewController = [[ATSplashViewController alloc] init];
     splashViewController.delegate = self;
     self.window.rootViewController = splashViewController;
     [self.window makeKeyAndVisible];
   }else{
-    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-
     [self nativeViewControllerDidFinish];
     [self.window makeKeyAndVisible];
   }
@@ -166,15 +165,13 @@ bool isCurrentMainView = NO;
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:self.launchOptions];
   NSDictionary *initProps = [self prepareInitialProps];
   rootView = RCTAppSetupDefaultRootView(bridge, @"yingshi", initProps, true);
-  rootView.backgroundColor = [UIColor blackColor];
 }
 
 - (void)nativeViewControllerDidFinish {
   if(isCurrentMainView == NO){
     isCurrentMainView = YES;
-    UIViewController *rootViewController = [UIViewController new];
-    rootViewController.view = rootView;
-    self.window.rootViewController = rootViewController;
+    RNViewController *rnViewController = [[RNViewController alloc] init:rootView];
+    self.window.rootViewController = rnViewController;
   }
 }
 @end
