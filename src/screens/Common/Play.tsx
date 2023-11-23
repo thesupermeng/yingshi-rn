@@ -71,6 +71,7 @@ import LinearGradient from "react-native-linear-gradient";
 import VipIcon from '../../../static/images/vip-icon.svg'
 import AdultVideoVipModal from "../../components/modal/adultVideoVipModal";
 import VipRegisterBar from "../../components/adultVideo/vipRegisterBar";
+import { useAdultVideoContext } from "../../contexts/AdultVideoContext";
 
 type VideoRef = {
   setPause: (param: boolean) => void;
@@ -182,7 +183,9 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
     // for banner ads
     setAdsRoute(route.name);
   });
-  const isAdultMode = route.params.player_mode === 'adult'
+  const {toggleAdultMode, adultMode} = useAdultVideoContext();
+
+  toggleAdultMode(route.params.player_mode === 'adult')
 
   const { colors, spacing, textVariants, icons } = useTheme();
   const vodReducer: VodReducerState = useAppSelector(
@@ -283,6 +286,14 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   };
 
   useEffect(() => {
+    // cleanup for svod 
+
+    return () => {
+      toggleAdultMode(false)
+    }
+  }, [])
+
+  useEffect(() => {
     if (vod) {
       setInitTime(vod?.timeWatched);
     }
@@ -324,7 +335,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   const localIp = YSConfig.instance.ip;
 
-  const apiEndpoint = isAdultMode ? `${API_DOMAIN_TEST}svod/v1/vod/detail` : `${API_DOMAIN_TEST}vod/v1/vod/detail`
+  const apiEndpoint = adultMode ? `${API_DOMAIN_TEST}svod/v1/vod/detail` : `${API_DOMAIN_TEST}vod/v1/vod/detail`
   const fetchVodDetails = () =>
     fetch(
       `${apiEndpoint}?id=${vod?.vod_id}&appName=${APP_NAME_CONST}&platform=` +
@@ -433,7 +444,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   }, []);
 
   const saveVodToHistory = (vod: any) => {
-    if (isAdultMode) return
+    if (adultMode) return
     dispatch(
       addVodToHistory(vod, currentTimeRef.current, currentEpisodeRef.current)
     );
@@ -632,7 +643,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
         {!isOffline && (
           <>
-            {isAdultMode && <VipRegisterBar/>}
+            {adultMode && <VipRegisterBar/>}
             <ScrollView
               nestedScrollEnabled={true}
               contentContainerStyle={{ marginTop: spacing.m }}
@@ -640,7 +651,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
             >
               <View style={{ ...styles.descriptionContainer2, gap: spacing.m }}>
                 <View style={styles.videoDescription}>
-                  {isAdultMode ? 
+                  {adultMode ? 
                   <FastImage
                     source={{ uri: vod?.vod_pic }}
                     resizeMode={"cover"}
@@ -729,7 +740,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                               .replace(/\//g, "-")
                       }`}
                     </Text>
-                    {!(isAdultMode) && <TouchableOpacity onPress={onShare}>
+                    {!(adultMode) && <TouchableOpacity onPress={onShare}>
                       <View style={{ ...styles.share, gap: 10 }}>
                         <Text
                           style={{
@@ -866,7 +877,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                             <View />
                           </>
                         )}
-                      {isAdultMode ? (
+                      {adultMode ? (
                           <>
                            {vod &&
                              suggestedSVods !== undefined &&
@@ -957,7 +968,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
         {isOffline && (
           <NoConnection onClickRetry={checkConnection} isPlayBottom={true} />
         )}
-        {isAdultMode &&
+        {adultMode &&
           <AdultVideoVipModal/>
         }
       </ScreenContainer>
