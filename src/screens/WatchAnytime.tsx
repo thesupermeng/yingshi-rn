@@ -17,7 +17,7 @@ import NetInfo from '@react-native-community/netinfo';
 import { SettingsReducerState } from '../redux/reducers/settingsReducer';
 import { useAppSelector } from '../hooks/hooks';
 import { RootState } from '../redux/store';
-import EighteenPlusControls from '../components/watchAnytime/eighteenPlusControls';
+import EighteenPlusControls from '../components/adultVideo/eighteenPlusControls';
 import { useAdultVideoContext } from '../contexts/AdultVideoContext';
 
 type MiniVideoResponseType = {
