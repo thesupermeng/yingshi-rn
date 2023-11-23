@@ -45,14 +45,14 @@ export const AdultVideoContextProvider  = ({children} : {children: ReactNode}) =
     setShowDisclaimer(show)
   }, [])
 
-  useEffect(() => {
-    if (!!interval.current) clearInterval(interval.current)
-    if (adultMode && !isVip){
-      interval.current = setInterval(() => {
-        setCountdownTimer(val => val - 1)
-      }, 1000)
-    }
-  }, [adultMode])
+  // useEffect(() => {
+  //   if (!!interval.current) clearInterval(interval.current)
+  //   if (adultMode && !isVip){
+  //     interval.current = setInterval(() => {
+  //       setCountdownTimer(val => val - 1)
+  //     }, 1000)
+  //   }
+  // }, [adultMode])
 
   useEffect(() => {
     if (countdownTimer < 0){

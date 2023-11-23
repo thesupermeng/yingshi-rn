@@ -17,7 +17,8 @@ const AdultModeCountdownIndicator = ({containerStyle}: Props) => {
                   Number(userState.userCurrentTimestamp) ||
                   userState.userToken === "")
 
-  if (adultMode && !isVip)
+  // if (adultMode && !isVip)
+  if (false)
     return (
       <CountdownIndicator
         timer={countdownTimer}
