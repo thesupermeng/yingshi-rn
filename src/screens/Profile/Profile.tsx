@@ -282,91 +282,92 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
           </TouchableOpacity>
 
           <View style={{ marginBottom: -30, flex: 3, paddingBottom: 120 }}>
-            {Platform.OS === "ios" && SHOW_PAYMENT_CONST && (
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-evenly",
-                  gap: 10,
-                }}
-              >
-                <TouchableOpacity
+            {Platform.OS === "ios" ||
+              (SHOW_PAYMENT_CONST && (
+                <View
                   style={{
-                    ...styles.btn,
-                  }}
-                  onPress={() => {
-                    navigation.navigate("付费VIP");
-                    // dispatch(showLoginAction());
+                    flexDirection: "row",
+                    justifyContent: "space-evenly",
+                    gap: 10,
                   }}
                 >
-                  <View style={styles.left}>
-                    <View style={styles.icon}>
-                      <VipIcon width={icons.sizes.l} height={icons.sizes.l} />
+                  <TouchableOpacity
+                    style={{
+                      ...styles.btn,
+                    }}
+                    onPress={() => {
+                      navigation.navigate("付费VIP");
+                      // dispatch(showLoginAction());
+                    }}
+                  >
+                    <View style={styles.left}>
+                      <View style={styles.icon}>
+                        <VipIcon width={icons.sizes.l} height={icons.sizes.l} />
+                      </View>
+                      <View style={{ gap: 5 }}>
+                        <Text
+                          style={{
+                            ...textVariants.body,
+                          }}
+                        >
+                          {highlightText("付费VIP", "")}
+                        </Text>
+                        {YSConfig.instance.tabConfig != null &&
+                        YSConfig.instance.len == 5 ? (
+                          <Text
+                            style={{
+                              ...textVariants.small,
+                              color: colors.button,
+                            }}
+                          >
+                            去广告 看体育直播
+                          </Text>
+                        ) : (
+                          <Text
+                            style={{
+                              ...textVariants.small,
+                              color: colors.button,
+                            }}
+                          >
+                            去广告
+                          </Text>
+                        )}
+                      </View>
                     </View>
-                    <View style={{ gap: 5 }}>
-                      <Text
-                        style={{
-                          ...textVariants.body,
-                        }}
-                      >
-                        {highlightText("付费VIP", "")}
-                      </Text>
-                      {YSConfig.instance.tabConfig != null &&
-                      YSConfig.instance.len == 5 ? (
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={{
+                      ...styles.btn,
+                    }}
+                    onPress={() => {
+                      navigation.navigate("邀请");
+                    }}
+                  >
+                    <View style={styles.left}>
+                      <View style={styles.icon}>
+                        <AddIcon width={icons.sizes.l} height={icons.sizes.l} />
+                      </View>
+                      <View style={{ gap: 5 }}>
+                        <Text
+                          style={{
+                            ...textVariants.body,
+                          }}
+                        >
+                          {highlightText("邀请好友", "")}
+                        </Text>
                         <Text
                           style={{
                             ...textVariants.small,
                             color: colors.button,
                           }}
                         >
-                          去广告 看体育直播
+                          VIP奖励 享更多权益
                         </Text>
-                      ) : (
-                        <Text
-                          style={{
-                            ...textVariants.small,
-                            color: colors.button,
-                          }}
-                        >
-                          去广告
-                        </Text>
-                      )}
+                      </View>
                     </View>
-                  </View>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={{
-                    ...styles.btn,
-                  }}
-                  onPress={() => {
-                    navigation.navigate("邀请");
-                  }}
-                >
-                  <View style={styles.left}>
-                    <View style={styles.icon}>
-                      <AddIcon width={icons.sizes.l} height={icons.sizes.l} />
-                    </View>
-                    <View style={{ gap: 5 }}>
-                      <Text
-                        style={{
-                          ...textVariants.body,
-                        }}
-                      >
-                        {highlightText("邀请好友", "")}
-                      </Text>
-                      <Text
-                        style={{
-                          ...textVariants.small,
-                          color: colors.button,
-                        }}
-                      >
-                        VIP奖励 享更多权益
-                      </Text>
-                    </View>
-                  </View>
-                </TouchableOpacity>
-              </View>
-            )}
+                  </TouchableOpacity>
+                </View>
+              ))}
 
             {Platform.OS === "android" && !SHOW_PAYMENT_CONST && (
               <TouchableOpacity
