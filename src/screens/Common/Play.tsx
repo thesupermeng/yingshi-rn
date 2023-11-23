@@ -185,8 +185,6 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   });
   const {toggleAdultMode, adultMode} = useAdultVideoContext();
 
-  toggleAdultMode(route.params.player_mode === 'adult')
-
   const { colors, spacing, textVariants, icons } = useTheme();
   const vodReducer: VodReducerState = useAppSelector(
     ({ vodReducer }: RootState) => vodReducer

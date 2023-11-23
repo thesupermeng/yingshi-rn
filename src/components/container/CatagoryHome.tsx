@@ -47,6 +47,7 @@ import Animated, {
   withDelay,
   withTiming,
 } from 'react-native-reanimated';
+import { useAdultVideoContext } from '../../contexts/AdultVideoContext';
 // import {FlatList, PanGestureHandler} from 'react-native-gesture-handler';
 
 interface NavType {
@@ -70,6 +71,7 @@ const CatagoryHome = ({
   onRefresh,
   refreshProp,
 }: Props) => {
+  const {toggleAdultMode} = useAdultVideoContext();
   const { colors, textVariants, spacing } = useTheme();
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
@@ -148,6 +150,7 @@ const CatagoryHome = ({
             vod_id: item.carousel_content_id,
             player_mode: navId == 99 ? 'adult' : 'normal'
           });
+          if (navId == 99) toggleAdultMode(true)
         }}>
         <FastImage
           style={styles.image}
@@ -310,7 +313,7 @@ const CatagoryHome = ({
                         }}
                       />
                     </View>
-                    <VodListVertical vods={item.vod_list} heightToWidthRatio={1/1.414} />
+                    <VodListVertical vods={item.vod_list} heightToWidthRatio={1/1.414}/>
                   </View>
                 ))}
             </View>
