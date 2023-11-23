@@ -8,17 +8,26 @@ import { useAdultVideoContext } from '../../contexts/AdultVideoContext';
 import { useCallback } from 'react';
 import CrossIcon from '../../../static/images/cross.svg'
 import CloseIcon from '../../../static/images/close.svg'
+import { useAppSelector } from '../../hooks/hooks';
+import { userModel } from '../../types/userType';
 
 
 const AdultVideoVipModal = () => {
   const navigator = useNavigation();
   const {toggleShowVipModal, showVipModal} = useAdultVideoContext();
+  const userState: userModel = useAppSelector(
+    ({ userReducer }) => userReducer
+  );
+
+  const isVip = !(Number(userState.userMemberExpired) <=
+                  Number(userState.userCurrentTimestamp) ||
+                  userState.userToken === "")
 
   const handleCloseModal = useCallback(() => {
     toggleShowVipModal(false)
   }, [])
 
-  if (showVipModal)
+  if (showVipModal && isVip)
     return (
       <View
         style={{
