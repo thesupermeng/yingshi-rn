@@ -68,6 +68,8 @@ import { TermsAcceptContextProvider as TermsAcceptContextProviderA } from "./src
 import { AdsBannerContextProvider } from "./src/contexts/AdsBannerContext";
 import { AdsBannerContextProvider as AdsBannerContextProviderA } from "./srcA/contexts/AdsBannerContext";
 import NetInfo from "@react-native-community/netinfo";
+
+const topon_channel = "WEB";;
 // import * as Sentry from "@sentry/react-native";
 
 // Sentry.init({
@@ -284,6 +286,7 @@ let App = () => {
     });
 
     var customMap = {
+      channel: topon_channel,
       appCustomKey1: "appCustomValue1",
       appCustomKey2: "appCustomValue2",
     };
@@ -326,7 +329,7 @@ let App = () => {
   console.log(YSConfig.instance.areaConfig);
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#161616' }}>
+    <View style={{ flex: 1, backgroundColor: "#161616" }}>
       <TermsAcceptContextProviderA>
         <TermsAcceptContextProvider>
           <QueryClientProvider client={queryClient}>
