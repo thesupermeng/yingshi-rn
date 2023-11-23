@@ -437,9 +437,11 @@ export default forwardRef<VideoRef, Props>(
       }
     }, [screenState.interstitialShow]);
 
-    // useEffect(() => { // ! might have a conflict with the previous use effect ^^^^^^^
-    //   setIsPaused(showAdultVipModal)
-    // }, [showAdultVipModal])
+    useEffect(() => { // ! might have a conflict with the previous use effect ^^^^^^^
+      if (!isPaused){
+        setIsPaused(true)
+      }
+    }, [showAdultVipModal])
 
     const pauseSportVideo =
       route.name === "体育详情" &&

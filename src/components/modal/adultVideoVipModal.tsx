@@ -27,7 +27,7 @@ const AdultVideoVipModal = () => {
     toggleShowVipModal(false)
   }, [])
 
-  if (showVipModal && isVip)
+  if (showVipModal && !isVip)
     return (
       <View
         style={{
