@@ -7,7 +7,7 @@ import { useAppDispatch } from '../../hooks/hooks';
 import VodCard from '../../components/vod/vodCard';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { VodType } from '../../types/ajaxTypes';
-import { useAdultVideoContext } from '../../contexts/AdultVideoContext';
+import { enableAdultMode } from '../../redux/actions/screenAction';
 
 
 interface Props {
@@ -32,8 +32,6 @@ function VodListVertical({ vods, numOfRows = 2, outerRowPadding = 0, minNumPerRo
     const [cardHeight, setCardHeight] = useState(5);
 
     const width = Math.min(Dimensions.get('window').width, Dimensions.get('window').height);
-
-    const {toggleAdultMode} = useAdultVideoContext();
 
     useEffect(() => {
         calculateDimensions;
@@ -82,7 +80,7 @@ function VodListVertical({ vods, numOfRows = 2, outerRowPadding = 0, minNumPerRo
                     vod_id: vod?.vod_id,
                     player_mode: playerMode
                 });
-                if (playerMode == 'adult') toggleAdultMode(true)
+                if (playerMode == 'adult') {dispatch(enableAdultMode())}
             }}
             index={idx}
         />

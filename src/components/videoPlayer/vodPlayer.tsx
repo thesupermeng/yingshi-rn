@@ -40,7 +40,6 @@ import { useAppSelector } from "../../hooks/hooks";
 import { screenModel } from "../../types/screenType";
 import { NON_VIP_STREAM_TIME_SECONDS } from "../../utility/constants";
 import { userModel } from "../../types/userType";
-import { useAdultVideoContext } from "../../contexts/AdultVideoContext";
 
 interface Props {
   vod_url?: string;
@@ -148,8 +147,7 @@ export default forwardRef<VideoRef, Props>(
 
     // New state to keep track of app's background/foreground status
     const [isInBackground, setIsInBackground] = useState(false);
-
-    const {showVipModal: showAdultVipModal} = useAdultVideoContext()
+    
 
     useImperativeHandle(ref, () => ({
       setPause: (pauseVideo: boolean) => {
@@ -441,7 +439,7 @@ export default forwardRef<VideoRef, Props>(
       if (!isPaused){
         setIsPaused(true)
       }
-    }, [showAdultVipModal])
+    }, [screenState.adultModeVipShow])
 
     const pauseSportVideo =
       route.name === "体育详情" &&

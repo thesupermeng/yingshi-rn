@@ -71,8 +71,7 @@ import LinearGradient from "react-native-linear-gradient";
 import VipIcon from '../../../static/images/vip-icon.svg'
 import AdultVideoVipModal from "../../components/modal/adultVideoVipModal";
 import VipRegisterBar from "../../components/adultVideo/vipRegisterBar";
-import { useAdultVideoContext } from "../../contexts/AdultVideoContext";
-import { incrementAdultVideoWatchTime } from "../../redux/actions/screenAction";
+import { disableAdultMode, incrementAdultVideoWatchTime } from "../../redux/actions/screenAction";
 
 type VideoRef = {
   setPause: (param: boolean) => void;
@@ -184,7 +183,6 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
     // for banner ads
     setAdsRoute(route.name);
   });
-  const {toggleAdultMode, adultMode} = useAdultVideoContext();
 
   const { colors, spacing, textVariants, icons } = useTheme();
   const vodReducer: VodReducerState = useAppSelector(
@@ -288,7 +286,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
     // cleanup for svod 
 
     return () => {
-      toggleAdultMode(false)
+      dispatch(disableAdultMode())
     }
   }, [])
 

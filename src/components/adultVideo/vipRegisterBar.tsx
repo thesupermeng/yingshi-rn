@@ -3,15 +3,15 @@ import { View, Text, TouchableOpacity } from "react-native"
 import LinearGradient from "react-native-linear-gradient"
 import VipIcon from '../../../static/images/vip-icon.svg'
 import MoreArrow from '../../../static/images/more_arrow.svg'
-import { useAdultVideoContext } from "../../contexts/AdultVideoContext"
-import { useAppSelector } from "../../hooks/hooks"
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks"
 import { userModel } from "../../types/userType"
+import { showAdultModeVip } from "../../redux/actions/screenAction"
 
 
 const VipRegisterBar = () => {
-  const {toggleShowVipModal} = useAdultVideoContext();
+  const dispatch = useAppDispatch()
   const handleOnPress = useCallback(() => {
-    toggleShowVipModal(true)
+    dispatch(showAdultModeVip())
   }, [])
   const userState: userModel = useAppSelector(
     ({ userReducer }) => userReducer

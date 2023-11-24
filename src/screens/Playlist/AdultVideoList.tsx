@@ -20,7 +20,7 @@ import EmptyList from '../../components/common/emptyList';
 import {ScrollView} from 'react-native-gesture-handler';
 import FastImage from '../../components/common/customFastImage';
 import {API_DOMAIN_TEST} from '../../utility/constants';
-import { useAdultVideoContext } from '../../contexts/AdultVideoContext';
+import { enableAdultMode } from '../../redux/actions/screenAction';
 
 type AdultVodReturnType = {
   data: {
@@ -39,7 +39,6 @@ export default ({navigation, route}: RootStackScreenProps<'午夜场剧情'>) =>
   const [hasNextPage, setHasNextPage] = useState(true);
   const [isFetching, setIsFetching] = useState(false);
   const dispatch = useAppDispatch()
-  const {toggleAdultMode} = useAdultVideoContext();
 
   const fetchVod = async (page: number) => {
     const data: AdultVodReturnType = await (
@@ -88,7 +87,7 @@ export default ({navigation, route}: RootStackScreenProps<'午夜场剧情'>) =>
               vod_id: item?.vod_id,
               player_mode: 'adult'
           });
-          toggleAdultMode(true)
+          dispatch(enableAdultMode())
         }}>
         <FastImage
           style={{flex: 1, borderRadius: 10}}

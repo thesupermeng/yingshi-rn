@@ -16,13 +16,13 @@ import PlayBoDanIcon from '../../../static/images/play-bodan.svg';
 
 import FastImage from '../common/customFastImage';
 import { Slider } from '@rneui/themed';
-import { useAppDispatch } from '../../hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { useNavigation, useTheme } from '@react-navigation/native';
 import { playVod, viewPlaylistDetails } from '../../redux/actions/vodActions';
 import HejiIcon from '../../../static/images/heji.svg';
 import ExpandUpIcon from '../../../static/images/expandHeji.svg';
 import { QueryClient } from '@tanstack/react-query';
-import { useAdultVideoContext } from '../../contexts/AdultVideoContext';
+import { screenModel } from '../../types/screenType';
 
 interface Props {
   thumbnail?: string;
@@ -61,8 +61,10 @@ function ShortVideoPlayer({
 }: Props) {
 
   const [currentVod, setVod] = useState(vod);
-  const {adultMode} = useAdultVideoContext();
-
+  const screenState: screenModel = useAppSelector(
+    ({screenReducer}) => screenReducer
+  )
+  const {adultMode} = screenState
   if (currentVod?.mini_video_original_video_name == undefined) {
     currentVod.mini_video_original_video_name = '';
   }

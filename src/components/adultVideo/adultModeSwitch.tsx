@@ -1,6 +1,5 @@
 import React, { useCallback } from "react";
 import { Text, View, ViewStyle } from "react-native";
-import { useAdultVideoContext } from "../../contexts/AdultVideoContext";
 import { Switch } from "react-native-switch"
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { screenModel } from "../../types/screenType";

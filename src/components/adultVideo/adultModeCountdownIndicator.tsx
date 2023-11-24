@@ -1,10 +1,10 @@
 import { ViewStyle } from "react-native";
 import CountdownIndicator from "../button/countdownIndicator";
-import { useAdultVideoContext } from "../../contexts/AdultVideoContext";
 import { userModel } from "../../types/userType";
-import { useAppSelector } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { screenModel } from "../../types/screenType";
 import { ADULT_MODE_PREVIEW_DURATION } from "../../utility/constants";
+import { showAdultModeVip } from "../../redux/actions/screenAction";
 
 interface Props {
   containerStyle: ViewStyle;
@@ -17,9 +17,9 @@ const AdultModeCountdownIndicator = ({containerStyle}: Props) => {
   const screenState: screenModel = useAppSelector(
     ({screenReducer}) => screenReducer
   )
+  const dispatch = useAppDispatch()
 
-  const {adultVideoWatchTime} = screenState
-  const {toggleShowVipModal, adultMode} = useAdultVideoContext();
+  const {adultVideoWatchTime, adultMode} = screenState
   const isVip = !(Number(userState.userMemberExpired) <=
                   Number(userState.userCurrentTimestamp) ||
                   userState.userToken === "")
@@ -29,7 +29,7 @@ const AdultModeCountdownIndicator = ({containerStyle}: Props) => {
     return (
       <CountdownIndicator
         timer={countdownTimer}
-        onClickVip={() => toggleShowVipModal(true)}
+        onClickVip={() => {dispatch(showAdultModeVip())}}
         vipButtonText="开通VIP畅享无限内容"
         containerStyle={containerStyle}
       />

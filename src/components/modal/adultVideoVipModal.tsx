@@ -1,33 +1,37 @@
 import {View, Text, TouchableOpacity, ViewStyle, TextStyle, StyleSheet} from 'react-native';
-import {showRegisterAction} from '../../redux/actions/screenAction';
+import {hideAdultModeVip, showRegisterAction} from '../../redux/actions/screenAction';
 import VipModal from './vipModal';
 import FastImage from 'react-native-fast-image';
 import { useNavigation } from '@react-navigation/native';
 import { IconClose } from '../../Sports/assets';
-import { useAdultVideoContext } from '../../contexts/AdultVideoContext';
 import { useCallback } from 'react';
 import CrossIcon from '../../../static/images/cross.svg'
 import CloseIcon from '../../../static/images/close.svg'
-import { useAppSelector } from '../../hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { userModel } from '../../types/userType';
+import { screenModel } from '../../types/screenType';
 
 
 const AdultVideoVipModal = () => {
   const navigator = useNavigation();
-  const {toggleShowVipModal, showVipModal} = useAdultVideoContext();
   const userState: userModel = useAppSelector(
     ({ userReducer }) => userReducer
   );
+  const screenState: screenModel = useAppSelector(
+    ({screenReducer}) => screenReducer
+  )
+  const {adultModeVipShow} = screenState
+  const dispatch = useAppDispatch()
 
   const isVip = !(Number(userState.userMemberExpired) <=
                   Number(userState.userCurrentTimestamp) ||
                   userState.userToken === "")
 
   const handleCloseModal = useCallback(() => {
-    toggleShowVipModal(false)
+    dispatch(hideAdultModeVip())
   }, [])
 
-  if (showVipModal && !isVip)
+  if (adultModeVipShow && !isVip)
     return (
       <View
         style={{

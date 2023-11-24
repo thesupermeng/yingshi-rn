@@ -5,7 +5,8 @@ import ShortVod from '../../components/videoPlayer/shortVod';
 import FastImage from "../common/customFastImage";
 import { useTheme } from '@react-navigation/native';
 import { StyleSheet } from 'react-native';
-import { useAdultVideoContext } from '../../contexts/AdultVideoContext';
+import { screenModel } from '../../types/screenType';
+import { useAppSelector } from '../../hooks/hooks';
 
 interface Props {
     miniVodListRef: any,
@@ -64,17 +65,21 @@ export default forwardRef<MiniVodRef, Props>(
         // for controller change mode (adult)
         const [isChangeNewVideo, setChangeNewVideo] = useState(false);
 
-        const { showDisclaimer, showVipModal, adultMode } = useAdultVideoContext();
+        const screenState: screenModel = useAppSelector(
+            ({screenReducer}) => screenReducer
+          )
+
+        const {adultModeDisclaimerShow, adultModeVipShow} = screenState
 
         useEffect(() => {
-            if (showDisclaimer || showVipModal) {
+            if (adultModeDisclaimerShow || adultModeVipShow) {
                 setPause(true)
             }
-            if (!(showDisclaimer || showVipModal) && isChangeNewVideo) {
+            if (!(adultModeDisclaimerShow || adultModeVipShow) && isChangeNewVideo) {
                 setPause(false)
                 setChangeNewVideo(false);
             }
-        }, [showDisclaimer, showVipModal, isChangeNewVideo])
+        }, [adultModeDisclaimerShow, adultModeVipShow, isChangeNewVideo])
 
         // add this because when url change the component only can play when the state from pause change to play
         useEffect(() => {
