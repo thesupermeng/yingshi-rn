@@ -4,7 +4,7 @@ import { useCallback, useRef } from "react";
 import { Dimensions, StyleSheet, Text, View } from "react-native";
 import FastImage from "react-native-fast-image";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { showAdultModeDisclaimer, updateLastSeenNavName } from "../../redux/actions/screenAction";
+import { hideAdultModeDisclaimer, showAdultModeDisclaimer, updateLastSeenNavName } from "../../redux/actions/screenAction";
 import { screenModel } from "../../types/screenType";
 
 const Tab = createMaterialTopTabNavigator();
@@ -60,6 +60,7 @@ export default function HomeNav({
         focus: e => {
           if (tab.id != 99){
             dispatch(updateLastSeenNavName(tab.name))
+            dispatch(hideAdultModeDisclaimer())
           }
         }
       }}
