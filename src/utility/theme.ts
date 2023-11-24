@@ -172,7 +172,7 @@ export const YingshiDarkTheme: ExtendedTheme = {
     selected: {
       color: palette.white,
       fontFamily: 'PingFang SC',
-      fontSize: 19,
+      fontSize: 18,
       fontWeight: '600',
     },
     unselected: {
