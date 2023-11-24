@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import EighteenPlusIcon from '../../../static/images/eighteen-plus-icon.svg';
 import { screenModel } from '../../types/screenType';
 import { useAppSelector } from '../../hooks/hooks';
+import { BlurView } from '@react-native-community/blur';
 
 interface Props {
     handleAccept: any
@@ -17,7 +18,17 @@ export default function EighteenPlusOverlay({ handleAccept, handleReject }: Prop
 
   if (adultModeDisclaimerShow)
     return (
-      <View style={{height: '100%', width: '100%', position: 'absolute', backgroundColor: 'rgba(0, 0, 0, 0.8)',}}>
+      <View style={{height: '100%', width: '100%', position: 'absolute'}}>
+        <BlurView
+          blurType='dark'
+          blurAmount={15}
+          style={{
+            flex: 1, 
+            position: 'absolute', 
+            width: '100%',
+            height: '100%'
+          }}
+        ></BlurView>
         <View style={{ flex: 1, position: 'relative', alignItems: 'center', justifyContent: 'center', alignSelf: 'center', alignContent: 'center', marginBottom: '18%' }}>
           <View style={{ position: 'relative', alignItems: 'center' }}>
             <EighteenPlusIcon style={{ position: 'absolute', zIndex: 100, top: 0 }}></EighteenPlusIcon>
