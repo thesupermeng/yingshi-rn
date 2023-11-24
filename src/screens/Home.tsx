@@ -229,7 +229,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
     }
   }
 
-  const onTabSwipe = useCallback((index: number) => {
+  const onTabSwipe = useCallback((index: number, tab: any) => {
     setNavId(index);
   }, []);
 
