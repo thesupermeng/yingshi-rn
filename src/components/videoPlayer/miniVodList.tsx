@@ -6,7 +6,9 @@ import FastImage from "../common/customFastImage";
 import { useTheme } from '@react-navigation/native';
 import { StyleSheet } from 'react-native';
 import { screenModel } from '../../types/screenType';
-import { useAppSelector } from '../../hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
+import { ADULT_MODE_PREVIEW_DURATION } from '../../utility/constants';
+import { showAdultModeVip } from '../../redux/actions/screenAction';
 
 interface Props {
     miniVodListRef: any,
@@ -61,7 +63,6 @@ export default forwardRef<MiniVodRef, Props>(
         const [isPause, setPause] = useState(true);
         const [isScrolling, setIsScrolling] = useState(false);
         const [videoCurrentDurations, setVideoCurrentDurations] = useState<number[]>([]);
-
         // for controller change mode (adult)
         const [isChangeNewVideo, setChangeNewVideo] = useState(false);
 
@@ -69,7 +70,17 @@ export default forwardRef<MiniVodRef, Props>(
             ({screenReducer}) => screenReducer
           )
 
-        const {adultModeDisclaimerShow, adultModeVipShow} = screenState
+        const {adultModeDisclaimerShow, adultModeVipShow, adultVideoWatchTime, adultMode} = screenState
+        const dispatch = useAppDispatch()
+        useEffect(() => {
+            if (adultVideoWatchTime > ADULT_MODE_PREVIEW_DURATION && adultMode){
+                dispatch(showAdultModeVip())
+                setPause(true)
+            }
+            
+
+
+        }, [videoCurrentDurations[current]])
 
         useEffect(() => {
             if (adultModeDisclaimerShow || adultModeVipShow) {
