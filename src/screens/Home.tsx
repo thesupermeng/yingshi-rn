@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import { Platform, StyleSheet, View } from "react-native";
 import ScreenContainer from "../components/container/screenContainer";
-import { useFocusEffect, useTheme } from "@react-navigation/native";
+import { useFocusEffect, useRoute, useTheme } from "@react-navigation/native";
 import { useQuery, useQueries, UseQueryResult } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
 import {
@@ -47,8 +47,11 @@ import {
 import { AdsBannerContext } from "../contexts/AdsBannerContext";
 
 import useInterstitialAds from "../hooks/useInterstitialAds";
+import EighteenPlusOverlay from "../components/modal/overEighteenOverlay";
+import { hideAdultModeDisclaimer } from "../redux/actions/screenAction";
 
 function Home({ navigation }: BottomTabScreenProps<any>) {
+  const dispatch = useAppDispatch();
   const isFocused = useIsFocused();
   const { colors, spacing } = useTheme();
   const [navId, setNavId] = useState(0);
@@ -286,6 +289,17 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
         />
       </ScreenContainer>
       {isOffline && <NoConnection onClickRetry={checkConnection} />}
+      <EighteenPlusOverlay
+        handleAccept={() => {
+          dispatch(hideAdultModeDisclaimer())
+          navigation.navigate("首页", {
+            screen: '午夜场'
+          })
+        }}
+        handleReject={() => {
+          dispatch(hideAdultModeDisclaimer())
+        }}
+      />
     </>
   );
 }

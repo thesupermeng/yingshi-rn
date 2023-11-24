@@ -3,6 +3,8 @@ import { useTheme } from "@react-navigation/native";
 import { useCallback } from "react";
 import { Dimensions, StyleSheet, Text, View } from "react-native";
 import FastImage from "react-native-fast-image";
+import { useAppDispatch } from "../../hooks/hooks";
+import { showAdultModeDisclaimer } from "../../redux/actions/screenAction";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -19,6 +21,7 @@ export default function HomeNav({
   hideContent = false,
 }: Props) {
   const {colors, textVariants} = useTheme();
+  const dispatch = useAppDispatch();
 
   const renderTab = useCallback((tab: any, i: any) => (
     <Tab.Screen 
@@ -78,6 +81,14 @@ export default function HomeNav({
               paddingLeft: 12,
             },
           })}
+          screenListeners={{
+            tabPress: e => {
+              if (e.target?.includes('午夜场')){
+                dispatch(showAdultModeDisclaimer())
+                e.preventDefault()
+              }
+            }
+          }}
         >
           {
             tabList.map(renderTab)
