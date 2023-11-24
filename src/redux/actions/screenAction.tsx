@@ -77,6 +77,10 @@ export const incrementAdultVideoWatchTime = () => ({
   type: "increment_adult_video_watch_time"
 })
 
+export const resetAdultVideoWatchTime = () => ({
+  type: "reset_adult_video_watch_time"
+})
+
 export const showAdultModeDisclaimer = () => ({
   type: "show_adult_mode_disclaimer"
 })

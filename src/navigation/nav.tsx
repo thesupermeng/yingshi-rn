@@ -76,11 +76,13 @@ import { API_DOMAIN, UMENG_CHANNEL } from "../../src/utility/constants";
 import { BottomNavTabsResponse } from "../../src/types/ajaxTypes";
 import { YSConfig } from "../../ysConfig";
 import {
+  disableAdultMode,
   hideLoginAction,
   hideRegisterAction,
   interstitialClose,
   interstitialShow,
   removeScreenAction,
+  resetAdultVideoWatchTime,
   resetBottomSheetAction,
   resetSportWatchTime,
 } from "../redux/actions/screenAction";
@@ -521,6 +523,8 @@ export default () => {
   useEffect(() => {
     dispatch(resetSportWatchTime());
     initInterstitialAdListener();
+    dispatch(resetAdultVideoWatchTime())
+    dispatch(disableAdultMode())
   }, []);
 
   return (

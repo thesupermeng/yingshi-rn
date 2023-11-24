@@ -22,16 +22,18 @@ const eighteenPlusControls = ({}: Props) => {
   const screenState: screenModel = useAppSelector(
     ({screenReducer}) => screenReducer
   )
-  const {adultModeVipShow, adultModeDisclaimerShow} = screenState
+  const {adultModeVipShow, adultModeDisclaimerShow, adultMode} = screenState
   const dispatch = useAppDispatch()
 
   useEffect(() => {
     let interval: any;
+    if (adultMode){
       interval = setInterval(() => {
         dispatch(incrementAdultVideoWatchTime())
       }, 1000)
+    }
     return () => clearInterval(interval)
-  }, [])
+  }, [adultMode])
 
   return (
     <View style={{...styles.container, height: (adultModeVipShow || adultModeDisclaimerShow ? '100%' : 'auto')}}>
