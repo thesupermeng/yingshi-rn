@@ -77,6 +77,7 @@ import { BottomNavTabsResponse } from "../../src/types/ajaxTypes";
 import { YSConfig } from "../../ysConfig";
 import {
   disableAdultMode,
+  hideAdultModeDisclaimer,
   hideLoginAction,
   hideRegisterAction,
   interstitialClose,
@@ -143,6 +144,13 @@ export default () => {
   const HomeTabScreen = useCallback(() => {
     return (
       <HomeTab.Navigator
+        screenListeners={{
+          tabPress: e => {
+            if (e.target?.includes('随心看')){
+              dispatch(hideAdultModeDisclaimer())
+            }
+          }
+        }}
         screenOptions={({ route }) => ({
           headerShown: false,
           tabBarStyle:

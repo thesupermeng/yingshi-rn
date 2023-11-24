@@ -59,8 +59,9 @@ export default function HomeNav({
         }, 
         focus: e => {
           if (tab.id != 99){
+            dispatch(showAdultModeDisclaimer())
             dispatch(updateLastSeenNavName(tab.name))
-            dispatch(hideAdultModeDisclaimer())
+            // dispatch(hideAdultModeDisclaimer())
           }
         }
       }}
