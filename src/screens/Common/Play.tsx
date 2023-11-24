@@ -72,6 +72,7 @@ import VipIcon from '../../../static/images/vip-icon.svg'
 import AdultVideoVipModal from "../../components/modal/adultVideoVipModal";
 import VipRegisterBar from "../../components/adultVideo/vipRegisterBar";
 import { useAdultVideoContext } from "../../contexts/AdultVideoContext";
+import { incrementAdultVideoWatchTime } from "../../redux/actions/screenAction";
 
 type VideoRef = {
   setPause: (param: boolean) => void;
@@ -290,6 +291,16 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
       toggleAdultMode(false)
     }
   }, [])
+
+  useEffect(() => {
+    let interval: any;
+    if (adultMode){
+      interval = setInterval(() => {
+        dispatch(incrementAdultVideoWatchTime())
+      }, 1000)
+    }
+    return () => clearInterval(interval)
+  }, [adultMode])
 
   useEffect(() => {
     if (vod) {
