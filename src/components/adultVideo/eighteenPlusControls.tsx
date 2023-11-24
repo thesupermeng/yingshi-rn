@@ -1,6 +1,6 @@
 
 import { Divider } from "@rneui/base";
-import { ReactNode, useCallback, useState } from "react";
+import { ReactNode, useCallback, useEffect, useState } from "react";
 import { StyleProp, StyleSheet, Text, TextStyle, View, ViewStyle } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { ViewProps } from "react-native-svg/lib/typescript/fabric/utils";
@@ -11,29 +11,25 @@ import EighteenPlusOverlay from "../modal/overEighteenOverlay";
 import CountdownIndicator from "../button/countdownIndicator";
 import AdultModeCountdownIndicator from "./adultModeCountdownIndicator";
 import AdultModeSwitch from "./adultModeSwitch";
+import { screenModel } from "../../types/screenType";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { RootState } from "../../redux/store";
+import { useDispatch } from "react-redux";
+import { incrementAdultVideoWatchTime } from "../../redux/actions/screenAction";
 interface Props {
   
 }
 
-const EighteenPlusText = () => 
-  <Text
-    style={{
-      fontWeight: '900', 
-      fontSize: 10
-    }}
-  >18+</Text>
-
 const eighteenPlusControls = ({}: Props) => {
   const {showVipModal, adultMode, toggleAdultMode, showDisclaimer, toggleShowDisclaimer, toggleShowVipModal} = useAdultVideoContext();
+  const dispatch = useDispatch()
 
-
-  const handleToggle = useCallback((e:boolean) => {
-    if (e){ //if swtiching to true
-      toggleShowDisclaimer(true)
-    } else {
-      toggleAdultMode(false)
-      toggleShowVipModal(false)
-    }
+  useEffect(() => {
+    let interval: any;
+      interval = setInterval(() => {
+        dispatch(incrementAdultVideoWatchTime())
+      }, 1000)
+    return () => clearInterval(interval)
   }, [])
 
   return (
