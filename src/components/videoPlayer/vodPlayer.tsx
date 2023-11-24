@@ -441,6 +441,10 @@ export default forwardRef<VideoRef, Props>(
       }
     }, [screenState.adultModeVipShow])
 
+    const isVip = !(Number(userState.userMemberExpired) <=
+                    Number(userState.userCurrentTimestamp) ||
+                    userState.userToken === "")
+
     const pauseSportVideo =
       route.name === "体育详情" &&
       screenState.sportWatchTime > NON_VIP_STREAM_TIME_SECONDS &&
@@ -448,11 +452,13 @@ export default forwardRef<VideoRef, Props>(
         Number(userState.userCurrentTimestamp) ||
         userState.userToken === "");
 
-      useEffect(() => {
-        if (screenState.adultVideoWatchTime > ADULT_MODE_PREVIEW_DURATION && screenState.adultMode){
-            dispatch(showAdultModeVip())
-            setIsPaused(true)
-        }
+
+
+    useEffect(() => {
+      if (screenState.adultVideoWatchTime > ADULT_MODE_PREVIEW_DURATION && screenState.adultMode && !isVip){
+          dispatch(showAdultModeVip())
+          setIsPaused(true)
+      }
     }, [currentTime])
 
     return (

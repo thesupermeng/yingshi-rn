@@ -9,6 +9,7 @@ import { screenModel } from '../../types/screenType';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { ADULT_MODE_PREVIEW_DURATION } from '../../utility/constants';
 import { showAdultModeVip } from '../../redux/actions/screenAction';
+import { userModel } from '../../types/userType';
 
 interface Props {
     miniVodListRef: any,
@@ -69,11 +70,17 @@ export default forwardRef<MiniVodRef, Props>(
         const screenState: screenModel = useAppSelector(
             ({screenReducer}) => screenReducer
           )
+        const userState: userModel = useAppSelector(
+            ({userReducer}) => userReducer
+        )
 
         const {adultModeDisclaimerShow, adultModeVipShow, adultVideoWatchTime, adultMode} = screenState
+        const isVip = (Number(userState.userMemberExpired) <=
+                        Number(userState.userCurrentTimestamp) ||
+                        userState.userToken === "")
         const dispatch = useAppDispatch()
         useEffect(() => {
-            if (adultVideoWatchTime > ADULT_MODE_PREVIEW_DURATION && adultMode){
+            if (adultVideoWatchTime > ADULT_MODE_PREVIEW_DURATION && adultMode && isVip){
                 dispatch(showAdultModeVip())
                 setPause(true)
             }
