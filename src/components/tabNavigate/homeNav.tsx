@@ -1,10 +1,11 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { useTheme } from "@react-navigation/native";
-import { useCallback } from "react";
+import { useCallback, useRef } from "react";
 import { Dimensions, StyleSheet, Text, View } from "react-native";
 import FastImage from "react-native-fast-image";
-import { useAppDispatch } from "../../hooks/hooks";
-import { showAdultModeDisclaimer } from "../../redux/actions/screenAction";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { showAdultModeDisclaimer, updateLastSeenNavName } from "../../redux/actions/screenAction";
+import { screenModel } from "../../types/screenType";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -50,6 +51,18 @@ export default function HomeNav({
           ),
       })}
       children={() => tabChildren(tab, i)} 
+      listeners={{
+        swipeEnd: e => {
+          if (tab.id == 99){
+            dispatch(showAdultModeDisclaimer())
+          }
+        }, 
+        focus: e => {
+          if (tab.id != 99){
+            dispatch(updateLastSeenNavName(tab.name))
+          }
+        }
+      }}
     />
   ), [tabChildren])
 
@@ -85,9 +98,9 @@ export default function HomeNav({
             tabPress: e => {
               if (e.target?.includes('午夜场')){
                 dispatch(showAdultModeDisclaimer())
-                e.preventDefault()
               }
-            }
+            },
+
           }}
         >
           {

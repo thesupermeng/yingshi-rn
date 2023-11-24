@@ -104,3 +104,8 @@ export const enableAdultMode = () => ({
 export const disableAdultMode = () => ({
   type: "disable_adult_mode"
 })
+
+export const updateLastSeenNavName = (action: string) => ({
+  type: 'set_last_seen_nav_name', 
+  payload: action
+})

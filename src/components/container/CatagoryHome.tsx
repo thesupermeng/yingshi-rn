@@ -47,7 +47,9 @@ import Animated, {
   withDelay,
   withTiming,
 } from 'react-native-reanimated';
-import { enableAdultMode } from '../../redux/actions/screenAction';
+import { enableAdultMode, hideAdultModeDisclaimer } from '../../redux/actions/screenAction';
+import EighteenPlusOverlay from '../modal/overEighteenOverlay';
+import { screenModel } from '../../types/screenType';
 // import {FlatList, PanGestureHandler} from 'react-native-gesture-handler';
 
 interface NavType {
@@ -71,6 +73,9 @@ const CatagoryHome = ({
   onRefresh,
   refreshProp,
 }: Props) => {
+  const screenState: screenModel = useAppSelector(
+    ({screenReducer}) => screenReducer
+  )
   const { colors, textVariants, spacing } = useTheme();
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
@@ -224,6 +229,7 @@ const CatagoryHome = ({
   // }, [refreshProp]);
 
   return (
+    <>
     <View style={{width: width}}>
       <FlatList
         refreshControl={
@@ -344,6 +350,20 @@ const CatagoryHome = ({
         }
       />
     </View>
+    {navId == 99 &&
+      <EighteenPlusOverlay
+          handleAccept={() => {
+            dispatch(hideAdultModeDisclaimer())
+          }}
+          handleReject={() => {
+            navigation.navigate('首页', {
+              screen: screenState.lastSeenNavName
+            })
+          }}
+        />
+    
+    }
+    </>
   );
 };
 

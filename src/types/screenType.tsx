@@ -12,5 +12,6 @@ export interface screenModel {
   adultVideoWatchTime: number; // number of seconds user watch AV 
   adultModeDisclaimerShow: boolean; 
   adultModeVipShow: boolean; 
-  adultMode: boolean
+  adultMode: boolean; 
+  lastSeenNavName: string; 
 }

@@ -17,6 +17,7 @@ const initialState: screenModel = {
   interstitialShow: false,
   isPlayerFullScreen: false,
   adultVideoWatchTime: 0,
+  lastSeenNavName: '推荐'
 };
 
 export function screenReducer(state = initialState, action: screenActionType) {
@@ -145,11 +146,15 @@ export function screenReducer(state = initialState, action: screenActionType) {
         adultMode: true
       }
     case "disable_adult_mode": 
-    return {
-      ...state, 
-      adultMode: false
-    }
-  
+      return {
+        ...state, 
+        adultMode: false
+      }
+    case "set_last_seen_nav_name": 
+      return {
+        ...state, 
+        lastSeenNavName: action.payload
+      }
     default:
       return state;
   }

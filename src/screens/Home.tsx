@@ -289,17 +289,6 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
         />
       </ScreenContainer>
       {isOffline && <NoConnection onClickRetry={checkConnection} />}
-      <EighteenPlusOverlay
-        handleAccept={() => {
-          dispatch(hideAdultModeDisclaimer())
-          navigation.navigate("首页", {
-            screen: '午夜场'
-          })
-        }}
-        handleReject={() => {
-          dispatch(hideAdultModeDisclaimer())
-        }}
-      />
     </>
   );
 }
