@@ -118,6 +118,26 @@ export function screenReducer(state = initialState, action: screenActionType) {
         ...state,
         adultVideoWatchTime: 0,
       };
+    case "show_adult_mode_disclaimer": 
+      return {
+        ...state, 
+        adultModeDisclaimerShow: true
+      }
+    case "hide_adult_mode_disclaimer": 
+      return {
+        ...state, 
+        adultModeDisclaimerShow: false
+      }
+    case "show_adult_mode_vip": 
+      return {
+        ...state, 
+        adultModeVipShow: true
+      }
+    case "hide_adult_mode_vip": 
+      return {
+        ...state, 
+        adultModeVipShow: false
+      }
     default:
       return state;
   }

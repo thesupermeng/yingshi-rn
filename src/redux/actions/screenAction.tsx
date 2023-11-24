@@ -76,3 +76,19 @@ export const setFullscreenState = (action: boolean) => ({
 export const incrementAdultVideoWatchTime = () => ({
   type: "increment_adult_video_watch_time"
 })
+
+export const showAdultModeDisclaimer = () => ({
+  type: "show_adult_mode_disclaimer"
+})
+
+export const hideAdultModeDisclaimer = () => ({
+  type: "hide_adult_mode_disclaimer"
+})
+
+export const showAdultModeVip = () => ({
+  type: "show_adult_mode_vip"
+})
+
+export const hideAdultModeVip = () => ({
+  type: "hide_adult_mode_vip"
+})

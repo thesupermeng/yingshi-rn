@@ -10,4 +10,6 @@ export interface screenModel {
   interstitialShow: boolean;
   isPlayerFullScreen: boolean;
   adultVideoWatchTime: number; // number of seconds user watch AV 
+  adultModeDisclaimerShow: boolean; 
+  adultModeVipShow: boolean; 
 }
