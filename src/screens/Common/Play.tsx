@@ -264,13 +264,10 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
       // ========== for analytics - end ==========
 
       const result = await Share.share({
-        message: `《${
-          vod?.vod_name
-        }》高清播放${"\n"}https://yingshi.tv/index.php/vod/play/id/${
-          vod?.vod_id
-        }/sid/1/nid/${
-          currentEpisode + 1
-        }.html${"\n"}${APP_NAME_CONST}-海量高清视频在线观看`,
+        message: `《${vod?.vod_name
+          }》高清播放${"\n"}https://yingshi.tv/index.php/vod/play/id/${vod?.vod_id
+          }/sid/1/nid/${currentEpisode + 1
+          }.html${"\n"}${APP_NAME_CONST}-海量高清视频在线观看`,
       });
       if (result.action === Share.sharedAction) {
         if (result.activityType) {
@@ -346,10 +343,10 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const fetchVodDetails = () =>
     fetch(
       `${API_DOMAIN}vod/v1/vod/detail?id=${vod?.vod_id}&appName=${APP_NAME_CONST}&platform=` +
-        Platform.OS.toUpperCase() +
-        `&channelId=` +
-        UMENG_CHANNEL +
-        `&ip=${localIp}`
+      Platform.OS.toUpperCase() +
+      `&channelId=` +
+      UMENG_CHANNEL +
+      `&ip=${localIp}`
     )
       .then((response) => response.json())
       .then((json: VodDetailsResponseType) => {
@@ -586,8 +583,15 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
     ({ screenReducer }: RootState) => screenReducer
   );
 
-  insetsTop = insetsTop == 0 ? insets.top : insetsTop;
-  insetsBottom = insetsBottom == 0 ? insets.bottom : insets.bottom;
+  if (Platform.OS === 'android') {
+    insetsTop = insets.top;
+    insetsBottom = insets.bottom;
+  } else {
+    insetsTop = insetsTop == 0 ? insets.top : insetsTop;
+    insetsBottom = insetsBottom == 0 ? insets.bottom : insets.bottom;
+  }
+
+
   return (
     <>
       <ScreenContainer
@@ -730,15 +734,14 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                     <Text
                       style={{ ...textVariants.subBody, color: colors.muted }}
                     >
-                      {`更新：${
-                        vod
-                          ? new Date(vod?.vod_time_add * 1000)
-                              .toLocaleDateString("en-GB")
-                              .replace(/\//g, "-")
-                          : new Date()
-                              .toLocaleDateString("en-GB")
-                              .replace(/\//g, "-")
-                      }`}
+                      {`更新：${vod
+                        ? new Date(vod?.vod_time_add * 1000)
+                          .toLocaleDateString("en-GB")
+                          .replace(/\//g, "-")
+                        : new Date()
+                          .toLocaleDateString("en-GB")
+                          .replace(/\//g, "-")
+                        }`}
                     </Text>
                     <TouchableOpacity onPress={onShare}>
                       <View style={{ ...styles.share, gap: 10 }}>
@@ -847,9 +850,8 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                                     color: colors.muted,
                                     fontSize: 15,
                                   }}
-                                >{`${
-                                  showEpisodeRangeStart + 1
-                                }-${showEpisodeRangeEnd}集`}</Text>
+                                >{`${showEpisodeRangeStart + 1
+                                  }-${showEpisodeRangeEnd}集`}</Text>
                                 <MoreArrow
                                   style={{ color: colors.muted }}
                                   height={icons.sizes.m}
@@ -861,7 +863,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                               horizontal={true}
                               showsHorizontalScrollIndicator={false}
                               initialNumToRender={10}
-                              onScrollToIndexFailed={() => {}}
+                              onScrollToIndexFailed={() => { }}
                               ref={episodeRef}
                               data={vod?.vod_play_list.urls?.slice(
                                 showEpisodeRangeStart,

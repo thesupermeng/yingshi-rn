@@ -202,6 +202,15 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
       });
     }
   }, [navOptions])
+
+  useEffect(() => {
+    if (navOptions !== undefined && navOptions.length > 0) {
+      homeTabViewsAnalytics({
+        tab_id: navOptions[navId].id.toString(),
+        tab_name: navOptions[navId].name,
+      });
+    }
+  }, [navId])
   // ========== for analytics - end ==========
 
   const onTabPress = (target?: string) => {
@@ -219,6 +228,11 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
       // ========== for analytics - end ==========
     }
   }
+
+  const onTabSwipe = useCallback((index: number, tab: any) => {
+    setNavId(index);
+  }, []);
+
   useInterstitialAds();
 
   return (
@@ -239,6 +253,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
         <HomeNav
           // hideContent={hideContent}
           onTabPress={onTabPress}
+          onTabSwipe={onTabSwipe}
           tabList={
             navOptions?.map((e) => ({
               id: e.id,
