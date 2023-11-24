@@ -14,15 +14,18 @@ import AdultModeSwitch from "./adultModeSwitch";
 import { screenModel } from "../../types/screenType";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { RootState } from "../../redux/store";
-import { useDispatch } from "react-redux";
-import { incrementAdultVideoWatchTime } from "../../redux/actions/screenAction";
+import { disableAdultMode, enableAdultMode, hideAdultModeDisclaimer, incrementAdultVideoWatchTime } from "../../redux/actions/screenAction";
 interface Props {
   
 }
 
 const eighteenPlusControls = ({}: Props) => {
-  const {showVipModal, adultMode, toggleAdultMode, showDisclaimer, toggleShowDisclaimer, toggleShowVipModal} = useAdultVideoContext();
-  const dispatch = useDispatch()
+  // const {showVipModal, adultMode, toggleAdultMode, showDisclaimer /, toggeShowDisclaimer, toggleShowVipModal} = useAdultVideoContext();
+  const screenState: screenModel = useAppSelector(
+    ({screenReducer}) => screenReducer
+  )
+  const {adultModeVipShow, adultModeDisclaimerShow} = screenState
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     let interval: any;
@@ -33,7 +36,7 @@ const eighteenPlusControls = ({}: Props) => {
   }, [])
 
   return (
-    <View style={{...styles.container, height: (showVipModal || showDisclaimer ? '100%' : 'auto')}}>
+    <View style={{...styles.container, height: (adultModeVipShow || adultModeDisclaimerShow ? '100%' : 'auto')}}>
 
       <WatchAnytimeVipModal/>    
       <AdultModeSwitch 
@@ -50,13 +53,13 @@ const eighteenPlusControls = ({}: Props) => {
       <EighteenPlusOverlay
         handleAccept={() => {
           console.debug('accepted 18+')
-          toggleShowDisclaimer(false)
-          toggleAdultMode(true)
+          dispatch(hideAdultModeDisclaimer())
+          dispatch(enableAdultMode())
           }}
         handleReject={() => {
           console.debug('rejected 18+')
-          toggleAdultMode(false)
-          toggleShowDisclaimer(false)
+          dispatch(disableAdultMode())
+          dispatch(hideAdultModeDisclaimer())
         }}
       />
     </View>

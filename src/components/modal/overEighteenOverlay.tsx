@@ -1,7 +1,8 @@
 import React, { useEffect, ReactNode } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import EighteenPlusIcon from '../../../static/images/eighteen-plus-icon.svg';
-import { useAdultVideoContext } from '../../contexts/AdultVideoContext';
+import { screenModel } from '../../types/screenType';
+import { useAppSelector } from '../../hooks/hooks';
 
 interface Props {
     handleAccept: any
@@ -9,9 +10,12 @@ interface Props {
 }
 
 export default function EighteenPlusOverlay({ handleAccept, handleReject }: Props) {
-  const {showDisclaimer} = useAdultVideoContext(); 
+  const screenState: screenModel = useAppSelector(
+    ({screenReducer}) => screenReducer
+  )
+  const {adultModeDisclaimerShow} = screenState
 
-  if (showDisclaimer)
+  if (adultModeDisclaimerShow)
     return (
       <View style={{height: '100%', width: '100%', position: 'absolute', backgroundColor: 'rgba(0, 0, 0, 0.8)',}}>
         <View style={{ flex: 1, position: 'relative', alignItems: 'center', justifyContent: 'center', alignSelf: 'center', alignContent: 'center', marginBottom: '18%' }}>
