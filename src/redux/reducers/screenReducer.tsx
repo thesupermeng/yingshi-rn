@@ -16,6 +16,7 @@ const initialState: screenModel = {
   sportWatchTime: 0,
   interstitialShow: false,
   isPlayerFullScreen: false,
+  adultVideoWatchTime: 0,
 };
 
 export function screenReducer(state = initialState, action: screenActionType) {
@@ -106,6 +107,16 @@ export function screenReducer(state = initialState, action: screenActionType) {
       return {
         ...state,
         isPlayerFullScreen: action.payload,
+      };
+    case "increment_adult_video_watch_time":
+      return {
+        ...state,
+        adultVideoWatchTime: state.adultVideoWatchTime + 1,
+      };
+    case "reset_adult_video_watch_time":
+      return {
+        ...state,
+        adultVideoWatchTime: 0,
       };
     default:
       return state;

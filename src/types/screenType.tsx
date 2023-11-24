@@ -9,4 +9,5 @@ export interface screenModel {
   sportWatchTime: number; // number of seconds user watched sports
   interstitialShow: boolean;
   isPlayerFullScreen: boolean;
+  adultVideoWatchTime: number; // number of seconds user watch AV 
 }

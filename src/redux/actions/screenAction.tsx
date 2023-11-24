@@ -72,3 +72,7 @@ export const setFullscreenState = (action: boolean) => ({
   type: "set_player_fullscreen",
   payload: action,
 });
+
+export const incrementAdultVideoWatchTime = () => ({
+  type: "increment_adult_video_watch_time"
+})
