@@ -12,6 +12,7 @@ interface Props {
   hideContent?: boolean,
   onTabPress: (target?: string) => void,
   onTabSwipe: (index: number, tab: any) => void,
+  navId:number
 }
 
 
@@ -21,6 +22,7 @@ export default function HomeNav({
   hideContent = false,
   onTabPress,
   onTabSwipe,
+  navId,
 }: Props) {
   const { colors, textVariants } = useTheme();
 
@@ -34,7 +36,7 @@ export default function HomeNav({
       }}
       options={() => ({
         tabBarLabel: ({ focused, color }) =>
-          focused ? (
+        tab.id  == navId ?  (
             <Text
               style={{
                 ...styles.textStyles,

@@ -252,6 +252,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
         </View>
         <HomeNav
           // hideContent={hideContent}
+          navId={navId}
           onTabPress={onTabPress}
           onTabSwipe={onTabSwipe}
           tabList={
