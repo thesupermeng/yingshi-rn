@@ -435,11 +435,11 @@ export default forwardRef<VideoRef, Props>(
       }
     }, [screenState.interstitialShow]);
 
-    useEffect(() => { // ! might have a conflict with the previous use effect ^^^^^^^
-      if (!isPaused){
-        setIsPaused(true)
-      }
-    }, [screenState.adultModeVipShow])
+    // useEffect(() => { // ! might have a conflict with the previous use effect ^^^^^^^
+    //   if (!isPaused){
+    //     setIsPaused(true)
+    //   }
+    // }, [screenState.adultModeVipShow])
 
     const isVip = !(Number(userState.userMemberExpired) <=
                     Number(userState.userCurrentTimestamp) ||
