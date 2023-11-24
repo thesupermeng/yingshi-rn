@@ -108,6 +108,7 @@ export function screenReducer(state = initialState, action: screenActionType) {
         ...state,
         isPlayerFullScreen: action.payload,
       };
+      
     case "increment_adult_video_watch_time":
       return {
         ...state,
@@ -138,6 +139,17 @@ export function screenReducer(state = initialState, action: screenActionType) {
         ...state, 
         adultModeVipShow: false
       }
+    case "enable_adult_mode": 
+      return {
+        ...state, 
+        adultMode: true
+      }
+    case "disable_adult_mode": 
+    return {
+      ...state, 
+      adultMode: false
+    }
+  
     default:
       return state;
   }

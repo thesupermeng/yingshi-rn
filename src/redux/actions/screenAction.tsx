@@ -92,3 +92,11 @@ export const showAdultModeVip = () => ({
 export const hideAdultModeVip = () => ({
   type: "hide_adult_mode_vip"
 })
+
+export const enableAdultMode = () => ({
+  type: "enable_adult_mode"
+})
+
+export const disableAdultMode = () => ({
+  type: "disable_adult_mode"
+})
