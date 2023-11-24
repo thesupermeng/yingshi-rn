@@ -197,6 +197,10 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const userState: userModel = useAppSelector(
     ({ userReducer }: RootState) => userReducer
   );
+  const screenState: screenModel = useAppSelector(
+    ({screenReducer}) => screenReducer
+  )
+  const {adultMode} = screenState
   const vod = vodReducer.playVod.vod;
   // const [vod, setVod] = useState(vodReducer.playVod.vod);
   const [initTime, setInitTime] = useState(0);

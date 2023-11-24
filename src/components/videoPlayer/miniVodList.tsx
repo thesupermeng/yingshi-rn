@@ -77,9 +77,6 @@ export default forwardRef<MiniVodRef, Props>(
                 dispatch(showAdultModeVip())
                 setPause(true)
             }
-            
-
-
         }, [videoCurrentDurations[current]])
 
         useEffect(() => {

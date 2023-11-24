@@ -27,7 +27,7 @@ import FastImage from "react-native-fast-image";
 import FastForwardProgressIcon from "../../../static/images/fastforwardProgress.svg";
 import RewindProgressIcon from "../../../static/images/rewindProgress.svg";
 
-import { setFullscreenState } from "../../redux/actions/screenAction";
+import { setFullscreenState, showAdultModeVip } from "../../redux/actions/screenAction";
 
 import {
   LiveTVStationItem,
@@ -38,7 +38,7 @@ import VideoWithControls from "./videoWithControls";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../../hooks/hooks";
 import { screenModel } from "../../types/screenType";
-import { NON_VIP_STREAM_TIME_SECONDS } from "../../utility/constants";
+import { ADULT_MODE_PREVIEW_DURATION, NON_VIP_STREAM_TIME_SECONDS } from "../../utility/constants";
 import { userModel } from "../../types/userType";
 
 interface Props {
@@ -447,6 +447,13 @@ export default forwardRef<VideoRef, Props>(
       (Number(userState.userMemberExpired) <=
         Number(userState.userCurrentTimestamp) ||
         userState.userToken === "");
+
+      useEffect(() => {
+        if (screenState.adultVideoWatchTime > ADULT_MODE_PREVIEW_DURATION && screenState.adultMode){
+            dispatch(showAdultModeVip())
+            setIsPaused(true)
+        }
+    }, [currentTime])
 
     return (
       <View style={styles.container}>
