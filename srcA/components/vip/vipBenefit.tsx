@@ -33,7 +33,6 @@ export const VipBenefit = () => {
           <Text style={{...textVariants.small}}>VIP尊贵标识</Text>
         </View>
       </View>
-
       {YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5 ? (
         <View style={styles.featureItem}>
           <View style={styles.imgContainer}>
