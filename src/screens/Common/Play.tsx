@@ -5,6 +5,7 @@ import React, {
   useRef,
   useCallback,
   useContext,
+  memo,
 } from "react";
 import {
   View,
@@ -186,7 +187,7 @@ const getNoAdsUri = async (url: string) => {
   return `http://localhost:${PLAY_HTTP_SERVER_PORT}/${videoSubfolder}/index.m3u8`;
 };
 
-export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
+const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const { setRoute: setAdsRoute } = useContext(AdsBannerContext);
   useFocusEffect(() => {
     // for banner ads
@@ -305,7 +306,6 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
     setDismountPlayer(false); //dismount player when offline
     // console.log("player is dismounted")
   };
-
   useEffect(() => {
     // cleanup for svod 
 
@@ -323,15 +323,15 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
     }
   }, [])
 
-  useEffect(() => {
-    let interval: any;
-    if (adultMode && !isVip) {
-      interval = setInterval(() => {
-        dispatch(incrementAdultVideoWatchTime())
-      }, 1000)
-    }
-    return () => clearInterval(interval)
-  }, [adultMode])
+  // useEffect(() => {
+  //   let interval: any;
+  //   if (adultMode && !isVip) {
+  //     interval = setInterval(() => {
+  //       dispatch(incrementAdultVideoWatchTime())
+  //     }, 1000)
+  //   }
+  //   return () => clearInterval(interval)
+  // }, [adultMode])
 
   useEffect(() => {
     if (vod) {
@@ -1167,3 +1167,6 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
   },
 });
+
+
+export default memo(Play)

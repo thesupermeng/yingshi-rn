@@ -28,19 +28,19 @@ const eighteenPlusControls = ({}: Props) => {
   )
   const {adultModeVipShow, adultModeDisclaimerShow, adultMode} = screenState
   const dispatch = useAppDispatch()
-  const isVip = !(Number(userState.userMemberExpired) <=
-                  Number(userState.userCurrentTimestamp) ||
-                  userState.userToken === "")
+  // const isVip = !(Number(userState.userMemberExpired) <=
+  //                 Number(userState.userCurrentTimestamp) ||
+  //                 userState.userToken === "")
 
-  useEffect(() => {
-    let interval: any;
-    if (adultMode && !isVip){
-      interval = setInterval(() => {
-        dispatch(incrementAdultVideoWatchTime())
-      }, 1000)
-    }
-    return () => clearInterval(interval)
-  }, [adultMode])
+  // useEffect(() => {
+  //   let interval: any;
+  //   if (adultMode && !isVip){
+  //     interval = setInterval(() => {
+  //       dispatch(incrementAdultVideoWatchTime())
+  //     }, 1000)
+  //   }
+  //   return () => clearInterval(interval)
+  // }, [adultMode])
 
   return (
     <View style={{...styles.container, height: (adultModeVipShow || adultModeDisclaimerShow ? '100%' : 'auto')}}>

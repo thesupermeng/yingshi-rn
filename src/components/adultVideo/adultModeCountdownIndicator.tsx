@@ -4,7 +4,8 @@ import { userModel } from "../../types/userType";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { screenModel } from "../../types/screenType";
 import { ADULT_MODE_PREVIEW_DURATION } from "../../utility/constants";
-import { showAdultModeVip } from "../../redux/actions/screenAction";
+import { incrementAdultVideoWatchTime, showAdultModeVip } from "../../redux/actions/screenAction";
+import { memo, useEffect } from "react";
 
 interface Props {
   containerStyle: ViewStyle;
@@ -23,6 +24,17 @@ const AdultModeCountdownIndicator = ({containerStyle}: Props) => {
   const isVip = !(Number(userState.userMemberExpired) <=
                   Number(userState.userCurrentTimestamp) ||
                   userState.userToken === "")
+  
+  useEffect(() => {
+    let interval: any;
+    if (adultMode && !isVip) {
+      interval = setInterval(() => {
+        dispatch(incrementAdultVideoWatchTime())
+      }, 1000)
+    }
+    return () => clearInterval(interval)
+  }, [adultMode])
+
   const countdownTimer = ADULT_MODE_PREVIEW_DURATION - adultVideoWatchTime
 
   if (adultMode && !isVip)
@@ -37,4 +49,4 @@ const AdultModeCountdownIndicator = ({containerStyle}: Props) => {
   else return <></>
 }
 
-export default AdultModeCountdownIndicator;
+export default memo(AdultModeCountdownIndicator);
