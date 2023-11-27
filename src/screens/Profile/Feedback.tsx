@@ -23,6 +23,7 @@ import {
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 import { SettingsReducerState } from "../../redux/reducers/settingsReducer";
 import { useAppSelector } from "../../hooks/hooks";
+import { YSConfig } from "../../../ysConfig";
 
 export default ({ navigation }: RootStackScreenProps<"反馈">) => {
   const { colors, textVariants, icons } = useTheme();
@@ -84,6 +85,7 @@ export default ({ navigation }: RootStackScreenProps<"反馈">) => {
       feedback_category: feedbackCategory,
       feedback: text,
       platform_id: platformId,
+      ip_address: YSConfig.instance.ip
     };
 
     submitFeedback(body);

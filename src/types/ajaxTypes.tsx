@@ -343,7 +343,8 @@ export interface SubmitFeedbackRequest {
     email: string,
     feedback_category: number,
     feedback: string,
-    platform_id: number
+    platform_id: number,
+    ip_address: string
 }
 
 export interface CollectionResponseType {

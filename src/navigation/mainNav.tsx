@@ -81,7 +81,7 @@ export default () => {
       YSConfig.instance.setNetworkIp(ipAddress);
     }
     const locationBody = {
-      ip_address: "ipAddress",
+      ip_address: ipAddress,
       channel_id: UMENG_CHANNEL,
       version_number: APP_VERSION,
       mobile_os: Platform.OS,
