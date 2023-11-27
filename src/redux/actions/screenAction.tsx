@@ -109,3 +109,11 @@ export const updateLastSeenNavName = (action: string) => ({
   type: 'set_last_seen_nav_name', 
   payload: action
 })
+
+export const acceptOverEighteen = () => ({
+  type: "accept_over_eighteen"
+})
+
+export const resetOverEighteen = () => ({
+  type: 'reset_over_eighteen'
+})

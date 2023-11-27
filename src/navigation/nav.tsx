@@ -85,7 +85,9 @@ import {
   removeScreenAction,
   resetAdultVideoWatchTime,
   resetBottomSheetAction,
+  resetOverEighteen,
   resetSportWatchTime,
+  showAdultModeDisclaimer,
 } from "../redux/actions/screenAction";
 import { Dialog } from "@rneui/themed";
 // import FastImage from "react-native-fast-image";
@@ -148,6 +150,9 @@ export default () => {
           tabPress: e => {
             if (e.target?.includes('随心看')){
               dispatch(hideAdultModeDisclaimer())
+            }
+            if (e.target?.includes('首页')){
+              dispatch(showAdultModeDisclaimer())
             }
           }
         }}
@@ -533,6 +538,7 @@ export default () => {
     initInterstitialAdListener();
     dispatch(resetAdultVideoWatchTime())
     dispatch(disableAdultMode())
+    dispatch(resetOverEighteen())
   }, []);
 
   return (

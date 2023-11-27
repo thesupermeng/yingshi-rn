@@ -47,7 +47,7 @@ import Animated, {
   withDelay,
   withTiming,
 } from 'react-native-reanimated';
-import { enableAdultMode, hideAdultModeDisclaimer } from '../../redux/actions/screenAction';
+import { acceptOverEighteen, enableAdultMode, hideAdultModeDisclaimer } from '../../redux/actions/screenAction';
 import EighteenPlusOverlay from '../modal/overEighteenOverlay';
 import { screenModel } from '../../types/screenType';
 // import {FlatList, PanGestureHandler} from 'react-native-gesture-handler';
@@ -353,7 +353,7 @@ const CatagoryHome = ({
     {navId == 99 &&
       <EighteenPlusOverlay
           handleAccept={() => {
-            dispatch(hideAdultModeDisclaimer())
+            dispatch(acceptOverEighteen())
           }}
           handleReject={() => {
             navigation.navigate('首页', {

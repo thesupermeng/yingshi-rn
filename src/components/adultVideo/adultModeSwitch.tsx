@@ -3,7 +3,7 @@ import { Text, View, ViewStyle } from "react-native";
 import { Switch } from "react-native-switch"
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { screenModel } from "../../types/screenType";
-import { disableAdultMode, enableAdultMode, hideAdultModeVip, showAdultModeDisclaimer, showAdultModeVip } from "../../redux/actions/screenAction";
+import { acceptOverEighteen, disableAdultMode, enableAdultMode, hideAdultModeVip, showAdultModeDisclaimer, showAdultModeVip } from "../../redux/actions/screenAction";
 
 interface Props{
   switchStyle: ViewStyle;
@@ -32,14 +32,13 @@ const AdultModeSwitch = ({switchStyle}: Props) => {
 
     } else {
       dispatch(disableAdultMode())
-      dispatch(hideAdultModeVip())
     }
   }, [])
 
   return (
     <View style={switchStyle}>
       <Switch
-            value={adultMode && !adultModeDisclaimerShow}
+            value={adultMode}
             onValueChange={handleToggle}
             backgroundInactive={"transparent"}
             activeText=""

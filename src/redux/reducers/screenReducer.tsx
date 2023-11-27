@@ -17,7 +17,10 @@ const initialState: screenModel = {
   interstitialShow: false,
   isPlayerFullScreen: false,
   adultVideoWatchTime: 0,
-  lastSeenNavName: '推荐'
+  lastSeenNavName: '推荐', 
+  adultMode: false, 
+  adultModeDisclaimerShow: false, 
+  adultModeVipShow: false
 };
 
 export function screenReducer(state = initialState, action: screenActionType) {
@@ -154,6 +157,16 @@ export function screenReducer(state = initialState, action: screenActionType) {
       return {
         ...state, 
         lastSeenNavName: action.payload
+      }
+    case "accept_over_eighteen": 
+      return {
+        ...state, 
+        isOverEighteenAccepted: true
+      }
+    case "reset_over_eighteen":
+      return {
+        ...state, 
+        isOverEighteenAccepted: false
       }
     default:
       return state;

@@ -14,9 +14,9 @@ export default function EighteenPlusOverlay({ handleAccept, handleReject }: Prop
   const screenState: screenModel = useAppSelector(
     ({screenReducer}) => screenReducer
   )
-  const {adultModeDisclaimerShow} = screenState
+  const {adultModeDisclaimerShow, isOverEighteenAccepted} = screenState
 
-  if (adultModeDisclaimerShow)
+  if (adultModeDisclaimerShow && !isOverEighteenAccepted)
     return (
       <View style={{height: '100%', width: '100%', position: 'absolute'}}>
         <BlurView
