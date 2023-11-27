@@ -13,7 +13,8 @@ const EighteenPlusText = () =>
   <Text
     style={{
       fontWeight: '900', 
-      fontSize: 10
+      fontSize: 10, 
+      color: 'black'
     }}
   >18+</Text>
 
