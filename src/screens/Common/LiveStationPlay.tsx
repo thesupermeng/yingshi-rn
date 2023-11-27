@@ -16,6 +16,10 @@ import { SettingsReducerState } from "../../redux/reducers/settingsReducer";
 import { RootState } from "../../redux/store";
 import { lockAppOrientation } from "../../redux/actions/settingsActions";
 import useInterstitialAds from "../../hooks/useInterstitialAds";
+import { screenModel } from "../../types/screenType";
+
+let insetsTop = 0;
+let insetsBottom = 0;
 
 export default ({ navigation, route }: RootStackScreenProps<"电视台播放">) => {
   const { liveStationItemList, liveStationItem } = route.params;
@@ -60,9 +64,33 @@ export default ({ navigation, route }: RootStackScreenProps<"电视台播放">) 
     dispatch(lockAppOrientation(orientation));
   };
   useInterstitialAds();
+
+  const screenState: screenModel = useAppSelector(
+    ({ screenReducer }: RootState) => screenReducer
+  );
+
+  insetsTop = insetsTop == 0 ? insets.top : insetsTop;
+  insetsBottom = insetsBottom == 0 ? insets.bottom : insets.bottom;
+
   return (
+    // <ScreenContainer
+    //   isPlay={true}
+    //   containerStyle={{
+    //     flex: 1,
+    //     paddingTop: screenState.isPlayerFullScreen ? 0 : insetsTop,
+    //     paddingBottom: screenState.isPlayerFullScreen ? 0 : insetsBottom,
+    //   }}
+    // >
+
     <ScreenContainer
-      containerStyle={{ flex: 1, paddingRight: 0, paddingLeft: 0 }}
+      isPlay={true}
+      containerStyle={{
+        flex: 1,
+        paddingRight: 0,
+        paddingLeft: 0,
+        paddingTop: screenState.isPlayerFullScreen ? 0 : insetsTop,
+        paddingBottom: screenState.isPlayerFullScreen ? 0 : insetsBottom,
+      }}
     >
       {liveStationItem !== undefined && !dismountPlayer && (
         <VodPlayer

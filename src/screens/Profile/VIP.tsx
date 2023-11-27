@@ -6,13 +6,13 @@ import {
   RefreshControl,
   ScrollView,
   Platform,
+  Linking,
 } from "react-native";
 import {
   isIosStorekit2,
   PurchaseError,
   requestPurchase,
   useIAP,
-  validateReceiptIos,
 } from "react-native-iap";
 import ScreenContainer from "../../components/container/screenContainer";
 import { RootStackScreenProps } from "../../types/navigationTypes";
@@ -42,6 +42,8 @@ import { showToast } from "../../Sports/utility/toast";
 import { showLoginAction } from "../../redux/actions/screenAction";
 import SpinnerOverlay from "../../components/modal/SpinnerOverlay";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { InAppBrowser } from "react-native-inappbrowser-reborn";
+import { VipDialog } from "../../components/vip/vipDialog";
 
 export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const {
@@ -77,9 +79,21 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isBtnEnable, setIsBtnEnable] = useState(true);
-  const [currentTransID, setCurrentTransID] = useState("");
+  const [receiptBuffer, setReceiptBuffer] = useState(new Map());
   const dispatch = useAppDispatch();
   const scrollRef = useRef<any>();
+  const pendingTimeoutRef = useRef<NodeJS.Timeout>();
+
+  const successDialogText = ['付款成功', '你已成为VIP用户'];
+  const failedDialogText = ['付款失败'];
+  const axiosErrorText = ['系统繁忙，请稍后再试']
+  const tryAgainDialogText = ['支付系统正在忙碌，请稍后手动刷新后前往VIP明细检查购买记录，检查前请勿重复支付'];
+  const [dialogText, setDialogText] = useState([''])
+
+  const headers = {
+    Authorization: `Bearer ${userState.userToken}`,
+    "Content-Type": "application/json",
+  };
 
   const handleRefresh = async () => {
     setRefreshing(true);
@@ -117,7 +131,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         const offline = !(
           state.isConnected &&
           (state.isInternetReachable === true ||
-          state.isInternetReachable === null
+            state.isInternetReachable === null
             ? true
             : false)
         );
@@ -174,21 +188,21 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
 
     setIsBtnEnable(false);
     try {
+      setIsVisible(true);
       if (paymentSelected === "Apple Pay") {
         console.log("apple pay payment");
         console.log(initConnectionError);
-        setIsVisible(true);
         await getProducts({ skus: [membershipSelected.productSKU] });
 
         await requestPurchase({ sku: membershipSelected.productSKU });
       } else if (paymentSelected === "Google Pay") {
         console.log("google pay method");
-        setIsVisible(true);
         await getProducts({ skus: [membershipSelected.productSKU] });
 
         await requestPurchase({ skus: [membershipSelected.productSKU] });
       } else {
         console.log("others payment method");
+        handlePaymentGateway();
       }
     } catch (error) {
       setIsVisible(false);
@@ -206,8 +220,109 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         console.log("user cancel purchase");
         setIsBtnEnable(true);
       } else {
+        setDialogText(failedDialogText);
         setIsDialogOpen(true);
       }
+    }
+  };
+
+  const handlePaymentGateway = async () => {
+    const orderJson = {
+      product_id: parseInt(membershipSelected.productId),
+      payment_type: 'GCASH_NATIVE',
+      platform: APP_NAME_CONST + "-" + Platform.OS.toUpperCase(),
+    };
+    console.log('order json: ', orderJson);
+
+    try {
+      const result = await axios.post(`${API_DOMAIN_TEST}finpay/v1/order`, orderJson, { headers: headers });
+
+      console.log("returned order data: ", result.data);
+      openLink(result.data.data.paymentData, result.data.data.transaction_id);
+    } catch (error) {
+      console.log('error catch: ', error);
+      setDialogText(axiosErrorText);
+      setIsDialogOpen(true);
+    };
+  };
+
+  const getDeepLink = (path = '') => {
+    const scheme = 'yingshiapp';
+    const prefix =
+      Platform.OS === 'android' ? `${scheme}://yingshi/` : `${scheme}://`;
+    return prefix + path;
+  };
+
+  const openLink = async (url: string, transID: string) => {
+    const redirectUrl = getDeepLink();
+
+    try {
+      if (await InAppBrowser.isAvailable()) {
+        InAppBrowser.openAuth(url, redirectUrl, {
+          // IOS properties
+          dismissButtonStyle: 'cancel',
+          readerMode: false,
+          animated: true,
+          modalPresentationStyle: 'fullScreen',
+          modalTransitionStyle: 'coverVertical',
+          modalEnabled: true,
+          enableBarCollapsing: false,
+          // Android properties
+          showTitle: false,
+          enableUrlBarHiding: true,
+          enableDefaultShare: false,
+          forceCloseOnRedirection: false,
+          animations: {
+            startEnter: 'slide_in_left',
+            startExit: 'slide_out_right',
+            endEnter: 'slide_in_left',
+            endExit: 'slide_out_right',
+          },
+          hasBackButton: true,
+          browserPackage: undefined,
+          showInRecents: true,
+          includeReferrer: true,
+        }).then((response) => {
+          console.log('response: ', JSON.stringify(response));
+          if (response.type === "success" && response.url) {
+            Linking.openURL(response.url);
+            pendingTimeoutRef.current = setTimeout(() => {
+              setDialogText(tryAgainDialogText);
+              setIsDialogOpen(true);
+            }, 15000);
+            getPaymentStatus(transID);
+          } else {
+            setIsVisible(false);
+            setIsBtnEnable(true);
+          }
+        })
+      } else {
+        console.log('in app browser not supported');
+        Linking.openURL(url);
+      }
+    } catch (error) {
+      console.log('error when open link: ', error)
+    }
+  };
+
+  const getPaymentStatus = async (transID: string) => {
+    const statusAPI = `${API_DOMAIN_TEST}finpay/v1/transactions?transaction_id=${transID}`;
+    const status = await axios.get(statusAPI, {headers: headers});
+
+    console.log('order: ', statusAPI);
+    console.log('order status: ', status.data);
+
+    if (status.data.data.transaction_status_string === 'COMPLETED') {
+      setIsSuccess(true);
+      setDialogText(successDialogText);
+      setIsDialogOpen(true);
+      clearTimeout(pendingTimeoutRef.current);
+    } else if (status.data.data.transaction_status_string === 'FAILED') {
+      setDialogText(failedDialogText);
+      setIsDialogOpen(true);
+      clearTimeout(pendingTimeoutRef.current);
+    } else {
+      console.log('order still in progress');
     }
   };
 
@@ -223,7 +338,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         ? JSON.stringify(currentPurchase.transactionReceipt)
         : error.toString(),
       transaction_status: parseInt(transStatus),
-      is_sb: 1,
+      is_sb: __DEV__ ? 1 : 0,
     };
     console.log("complete trans: ", trans);
 
@@ -316,7 +431,6 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     passData();
   }, [isOffline]);
 
-  const receiptBuffer = new Map();
   useEffect(() => {
     const checkCurrentPurchase = async () => {
       if (currentPurchase) {
@@ -340,6 +454,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                 isConsumable: true,
               });
               setIsVisible(false);
+              setIsBtnEnable(true);
               return;
             } else {
               setTimeout(() => setIsVisible(false), 10000);
@@ -353,16 +468,19 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
               // setIsSuccess(true);
 
               const success = await saveFinishTrans("1", ""); //validate receipt with server
-              receiptBuffer.set(
-                currentPurchase.transactionId?.concat(success),
-                success
-              );
+              
+              setReceiptBuffer((prev) => {
+                const receipt = new Map(prev);
+                receipt.set(currentPurchase.transactionId?.concat(success), success);
+                return receipt;
+              });
 
               if (success) {
                 await finishTransaction({
                   purchase: currentPurchase,
                   isConsumable: true,
                 });
+                setDialogText(successDialogText)
                 setIsDialogOpen(true);
                 setIsSuccess(true);
               } else {
@@ -370,6 +488,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                   purchase: currentPurchase,
                   isConsumable: true,
                 });
+                setDialogText(failedDialogText)
                 setIsDialogOpen(true);
                 setIsSuccess(false);
               }
@@ -434,63 +553,12 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
           </>
         }
       >
-        <Dialog
-          isVisible={isDialogOpen && !isOffline}
-          overlayStyle={{
-            backgroundColor: "rgba(34, 34, 34, 1)",
-            gap: 10,
-            ...styles.overlay,
-          }}
-          backdropStyle={{ backgroundColor: "rgba(0, 0, 0, 0.8)" }}
-        >
-          <FastImage
-            style={{
-              height: 80,
-              width: 80,
-              marginRight: 5,
-              position: "relative",
-              top: 1,
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-            resizeMode={FastImage.resizeMode.contain}
-            source={
-              isSuccess
-                ? require("../../../static/images/profile/login-success.gif")
-                : require("../../../static/images/profile/cross.png")
-            }
-          />
-          <View
-            style={{
-              alignItems: "center",
-            }}
-          >
-            {isSuccess ? (
-              <>
-                <Text style={{ ...styles.dialogText }}>付款成功</Text>
-                <Text style={{ ...styles.dialogText }}>你已成为VIP用户</Text>
-              </>
-            ) : (
-              <Text style={{ ...styles.dialogText }}>付款失败</Text>
-            )}
-          </View>
-
-          <TouchableOpacity
-            style={{
-              width: "80%",
-              padding: 10,
-              margin: 10,
-              alignItems: "center",
-              borderRadius: 10,
-              backgroundColor: paymentSelected
-                ? colors.primary
-                : colors.highlight,
-            }}
-            onPress={handleConfirm}
-          >
-            <Text style={{ ...styles.btnText }}>确定</Text>
-          </TouchableOpacity>
-        </Dialog>
+        <VipDialog isDialogOpen={isDialogOpen}
+          isOffline={isOffline}
+          isSuccess={isSuccess}
+          handleConfirm={handleConfirm}
+          dialogText={dialogText}
+        />
 
         <TitleWithBackButtonHeader
           title="付费VIP"
@@ -563,6 +631,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
               />
             }
             ref={scrollRef}
+            showsVerticalScrollIndicator={false}
           >
             <VipCard
               userState={userState}
@@ -648,18 +717,5 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
     alignItems: "center",
-  },
-  overlay: {
-    borderRadius: 14,
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 20,
-  },
-  dialogText: {
-    color: "#fff",
-    fontFamily: "PingFang SC",
-    fontSize: 16,
-    fontWeight: "400",
   },
 });

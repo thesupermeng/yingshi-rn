@@ -40,6 +40,7 @@ interface Props {
     setPlaybackRate: (value: number) => void,
     changeEpisodeAndPlay: (ep: any) => void,
     onShare: () => any,
+    onReadyForDisplay?: () => void,
 }
 
 const VideoWithControls = ({
@@ -77,6 +78,7 @@ const VideoWithControls = ({
     setPlaybackRate,
     changeEpisodeAndPlay,
     onShare,
+    onReadyForDisplay,
 }: Props) => {
 
     return (
@@ -116,6 +118,7 @@ const VideoWithControls = ({
                         currentTimeRef.current = data.currentTime;
                     }
                 }}
+                onReadyForDisplay={onReadyForDisplay}
                 style={styles.video}
             />
             <VideoControlsOverlay

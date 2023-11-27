@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
+import { View } from "react-native";
 import { Provider } from "react-redux";
-import Nav from "./src/navigation/nav";
-import NavA from "./srcA/navigation/nav";
+import MainNav from "./src/navigation/mainNav";
 import { store, persistor } from "./src/redux/store";
 import { PersistGate } from "redux-persist/integration/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -59,8 +59,7 @@ import RegengOverlay from "./src/components/modal/regengOverlay";
 
 import {
   ATRNSDK,
-  ATInterstitialRNSDK,
-  ATBannerRNSDK,
+
 } from "./AnyThinkAds/ATReactNativeSDK";
 
 import { TermsAcceptContextProvider } from "./src/contexts/TermsAcceptedContext";
@@ -68,7 +67,12 @@ import { TermsAcceptContextProvider as TermsAcceptContextProviderA } from "./src
 import { AdsBannerContextProvider } from "./src/contexts/AdsBannerContext";
 import { AdsBannerContextProvider as AdsBannerContextProviderA } from "./srcA/contexts/AdsBannerContext";
 import NetInfo from "@react-native-community/netinfo";
+
 import { AdultVideoContextProvider } from "./src/contexts/AdultVideoContext";
+
+
+const topon_channel = "WEB";
+
 // import * as Sentry from "@sentry/react-native";
 
 // Sentry.init({
@@ -175,7 +179,9 @@ let App = () => {
   let adsReadyFlag = false;
 
   useEffect(() => {
-    getIP();
+    // console.log("YSConfig.instance.ip");
+    // console.log(YSConfig.instance.ip);
+    //  getIP();
     // queryClient.prefetchQuery({
     //   queryKey: ["recommendationList"],
     //   queryFn: () =>
@@ -292,6 +298,7 @@ let App = () => {
     });
 
     var customMap = {
+      channel: topon_channel,
       appCustomKey1: "appCustomValue1",
       appCustomKey2: "appCustomValue2",
     };
@@ -334,6 +341,7 @@ let App = () => {
   console.log(YSConfig.instance.areaConfig);
 
   return (
+    <View style={{ flex: 1, backgroundColor: "#161616" }}>
     <TermsAcceptContextProviderA>
       <TermsAcceptContextProvider>
         <QueryClientProvider client={queryClient}>
@@ -344,7 +352,7 @@ let App = () => {
                   <AdultVideoContextProvider>
                     <GestureHandlerRootView style={{ flex: 1 }}>
                       <BottomSheetModalProvider>
-                        <Nav/>
+                      <MainNav />
                       </BottomSheetModalProvider>
                     </GestureHandlerRootView>
                   </AdultVideoContextProvider>
@@ -356,6 +364,9 @@ let App = () => {
         </QueryClientProvider>
       </TermsAcceptContextProvider>
     </TermsAcceptContextProviderA>
+
+    </View>
+
   );
 };
 

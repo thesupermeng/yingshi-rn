@@ -7,6 +7,7 @@ import {
   Image,
   ScrollView,
   RefreshControl,
+  Platform,
 } from "react-native";
 import { useTheme, useFocusEffect } from "@react-navigation/native";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
@@ -29,6 +30,7 @@ import EditIcn from "./../../../static/images/profile/edit.svg";
 import VipIcon from "../../../static/images/vip-icon.svg";
 import VipArrow from "../../../static/images/vip-arrow.svg";
 import AddIcon from "../../../static/images/vip/add.svg";
+import { YSConfig } from "../../../ysConfig";
 
 import {
   hideBottomSheetAction,
@@ -44,6 +46,7 @@ import {
 } from "../../redux/actions/userAction";
 import ExpiredOverlay from "../../components/modal/expiredOverlay";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { SHOW_PAYMENT_CONST } from "../../utility/constants";
 
 function Profile({ navigation, route }: BottomTabScreenProps<any>) {
   const navigator = useNavigation();
@@ -139,16 +142,19 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
     setDisplayedDate(`${year}年${month}月${day}日`);
   }, [userState.userMemberExpired]);
 
-
   return (
     <>
-      <View style={{paddingTop: insets.top}}>
-      {/* <ScreenContainer> */}
-      {/* <SafeAreaView> */}
+      <View style={{ paddingTop: insets.top }}>
+        {/* <ScreenContainer> */}
+        {/* <SafeAreaView> */}
         <ScrollView
           style={{ paddingHorizontal: 15 }}
           refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} tintColor="#FAC33D" />
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={handleRefresh}
+              tintColor="#FAC33D"
+            />
           }
         >
           <View style={{ ...styles.topNav }}>
@@ -185,7 +191,11 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
             }}
           >
             <View
-              style={{ paddingTop: 20, paddingBottom: 10, flexDirection: "row" }}
+              style={{
+                paddingTop: 20,
+                paddingBottom: 10,
+                flexDirection: "row",
+              }}
             >
               <ProfileIcon
                 style={{ color: colors.button, width: 18, height: 18 }}
@@ -272,53 +282,98 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
           </TouchableOpacity>
 
           <View style={{ marginBottom: -30, flex: 3, paddingBottom: 120 }}>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-evenly',
-                gap: 10,
-              }}>
-              <TouchableOpacity
-                style={{
-                  ...styles.btn,
-                  backgroundColor: "#2d2e30",
-                  flex: 1,
-                }}
-                onPress={() => {
-                  navigation.navigate("付费VIP");
-                  // dispatch(showLoginAction());
-                }}
-              >
-                <View style={styles.left}>
-                  <View style={styles.icon}>
-                    <VipIcon width={icons.sizes.l} height={icons.sizes.l} />
-                  </View>
-                  <View
-                    style={{gap:5}}>
-                    <Text
-                      style={{
-                        ...textVariants.body,
-                      }}
-                    >
-                      {highlightText("付费VIP", "")}
-                    </Text>
-                    <Text
-                      style={{
-                        ...textVariants.small,
-                        color: colors.button
-                      }}
-                    >
-                      去广告 看体育直播
-                    </Text>
-                  </View>
-                  
+            {Platform.OS === "ios" ||
+              (SHOW_PAYMENT_CONST && (
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-evenly",
+                    gap: 10,
+                  }}
+                >
+                  <TouchableOpacity
+                    style={{
+                      ...styles.btn,
+                    }}
+                    onPress={() => {
+                      navigation.navigate("付费VIP");
+                      // dispatch(showLoginAction());
+                    }}
+                  >
+                    <View style={styles.left}>
+                      <View style={styles.icon}>
+                        <VipIcon width={icons.sizes.l} height={icons.sizes.l} />
+                      </View>
+                      <View style={{ gap: 5 }}>
+                        <Text
+                          style={{
+                            ...textVariants.body,
+                          }}
+                        >
+                          {highlightText("付费VIP", "")}
+                        </Text>
+                        {YSConfig.instance.tabConfig != null &&
+                        YSConfig.instance.len == 5 ? (
+                          <Text
+                            style={{
+                              ...textVariants.small,
+                              color: colors.button,
+                            }}
+                          >
+                            去广告 看体育直播
+                          </Text>
+                        ) : (
+                          <Text
+                            style={{
+                              ...textVariants.small,
+                              color: colors.button,
+                            }}
+                          >
+                            去广告
+                          </Text>
+                        )}
+                      </View>
+                    </View>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={{
+                      ...styles.btn,
+                    }}
+                    onPress={() => {
+                      navigation.navigate("邀请");
+                    }}
+                  >
+                    <View style={styles.left}>
+                      <View style={styles.icon}>
+                        <AddIcon width={icons.sizes.l} height={icons.sizes.l} />
+                      </View>
+                      <View style={{ gap: 5 }}>
+                        <Text
+                          style={{
+                            ...textVariants.body,
+                          }}
+                        >
+                          {highlightText("邀请好友", "")}
+                        </Text>
+                        <Text
+                          style={{
+                            ...textVariants.small,
+                            color: colors.button,
+                          }}
+                        >
+                          VIP奖励 享更多权益
+                        </Text>
+                      </View>
+                    </View>
+                  </TouchableOpacity>
                 </View>
-              </TouchableOpacity>
+              ))}
+
+            {Platform.OS === "android" && !SHOW_PAYMENT_CONST && (
               <TouchableOpacity
                 style={{
                   ...styles.btn,
                   backgroundColor: "#2d2e30",
-                  flex: 1,
                 }}
                 onPress={() => {
                   navigation.navigate("邀请");
@@ -326,30 +381,26 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
               >
                 <View style={styles.left}>
                   <View style={styles.icon}>
-                    <AddIcon width={icons.sizes.l} height={icons.sizes.l} />
+                    <VipIcon width={icons.sizes.l} height={icons.sizes.l} />
                   </View>
-                  <View
-                    style={{gap:5}}>
-                    <Text
-                      style={{
-                        ...textVariants.body,
-                      }}
-                    >
-                      {highlightText("邀请好友", "")}
-                    </Text>
-                    <Text
-                      style={{
-                        ...textVariants.small,
-                        color: colors.button,
-                      }}
-                    >
-                      VIP奖励 享更多权益
-                    </Text>
-                  </View>
+
+                  <Text
+                    style={{
+                      ...textVariants.body,
+                    }}
+                  >
+                    {highlightText("邀请好友获得VIP奖励，享更多权益", "VIP")}
+                  </Text>
                 </View>
+
+                <VipArrow
+                  width={icons.sizes.l}
+                  height={icons.sizes.l}
+                  color={colors.muted}
+                />
               </TouchableOpacity>
-            </View>
-            
+            )}
+
             <ShowMoreButton
               text="我的收藏"
               leftIcon={<CollectionIcon style={{ color: colors.button }} />}
@@ -418,8 +469,8 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
             subtitle3=""
           />
         </ScrollView>
-      {/* </SafeAreaView> */}
-      {/* </ScreenContainer> */}
+        {/* </SafeAreaView> */}
+        {/* </ScreenContainer> */}
       </View>
     </>
   );
@@ -459,6 +510,8 @@ const styles = StyleSheet.create({
     width: "100%",
     borderRadius: 10,
     marginTop: 20,
+    backgroundColor: "#1A1E21",
+    flex: 1,
   },
   highlightColor: {
     color: "#FAC33D", // Change this color to your desired highlight color

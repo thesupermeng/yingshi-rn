@@ -75,6 +75,9 @@ function RegisterBottomSheet({
       isKeyboardVisible={isKeyboardVisible}
       isVisible={isVisible}
       bottomOffset={bottomOffset}
+      containerStyle={{
+        height: 'auto',
+      }}
       onBackdropPress={() => {
         if (handleClose) handleClose();
 

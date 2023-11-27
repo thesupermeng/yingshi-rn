@@ -1,5 +1,5 @@
 import React, { useMemo, memo } from 'react';
-import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, Text, View, Platform } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import { ImageStyle } from 'react-native-fast-image';
 import FastImage from '../common/customFastImage';
@@ -31,7 +31,7 @@ function VodImageCard({ vod_img, vodStyle, onPress, showInfo = '', showPlayIcon 
                     uri: vod_img,
                     priority: 'normal',
                 }}
-                useFastImage={index >= 0 && index < 3}
+                useFastImage={(index >= 0 && index < 3) || Platform.OS === 'android'}
             />
             {
                 shadowBottom && <LinearGradient

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, memo, useCallback, useRef, useMemo } from 'react';
+import React, { useEffect, useState, memo, useCallback, useRef } from 'react';
 import {
   View,
   TouchableWithoutFeedback,
@@ -23,6 +23,9 @@ import HejiIcon from '../../../static/images/heji.svg';
 import ExpandUpIcon from '../../../static/images/expandHeji.svg';
 import { QueryClient } from '@tanstack/react-query';
 import { screenModel } from '../../types/screenType';
+import { debounce } from 'lodash';
+import useAnalytics from '../../hooks/useAnalytics';
+
 
 interface Props {
   thumbnail?: string;
@@ -93,8 +96,11 @@ function ShortVideoPlayer({
   const overlayRef = useRef(false);
   const [isVideoReadyIos, setVideoReadyIos] = useState(false);
   const [isVideoReadyAndroid, setVideoReadyAndroid] = useState(false);
+  const [onSliding, setOnSliding] = useState(false);
 
   const windowWidth = Dimensions.get('window').width;
+
+  const { watchAnytimeVideoClicksAnalytics, watchAnytimePlaylistClicksAnalytics } = useAnalytics();
 
   useEffect(() => {
     setVod(vod);
@@ -142,8 +148,8 @@ function ShortVideoPlayer({
 
   const handleProgress = useCallback((progress: OnProgressData) => {
     if (progress.currentTime !== currentDuration && !isVideoReadyAndroid && Platform.OS === 'android') setVideoReadyAndroid(true);
-    updateVideoDuration(progress.currentTime)
-  }, [currentDuration, isVideoReadyAndroid]);
+    if (!onSliding) updateVideoDuration(progress.currentTime)
+  }, [currentDuration, onSliding, isVideoReadyAndroid]);
 
   const showControls = () => {
     clearTimeout(timer.current);
@@ -159,12 +165,24 @@ function ShortVideoPlayer({
     if (Number.isNaN(value)) {
       value = 0;
     }
+
+    if (!onSliding) setOnSliding(true);
+
     showControls();
     updateVideoDuration(value);
-    if (videoRef.current) {
-      videoRef.current.seek(value);
-    }
-  }, [isVideoReadyIos, isVideoReadyAndroid]);
+    seekVideo(value);
+  }, [isVideoReadyIos, isVideoReadyAndroid, onSliding]);
+
+  const seekVideo = useCallback(
+    debounce((value) => {
+
+      if (videoRef.current) {
+        videoRef.current.seek(value);
+        setOnSliding(false);
+      }
+    }, 1000),
+    [videoRef.current]
+  );
 
   const handlePlayPause = () => {
     clearTimeout(iconTimer.current);
@@ -191,11 +209,19 @@ function ShortVideoPlayer({
       navigation.navigate('PlaylistDetail', {
         topic_id: currentVod.mini_video_topic.topic_id,
       });
+
+      // ========== for analytics - start ==========
+      watchAnytimePlaylistClicksAnalytics();
+      // ========== for analytics - end ==========
     } else {
       dispatch(playVod(currentVod.mini_video_vod));
       navigation.navigate('播放', {
         vod_id: currentVod.vod?.vod_id,
       });
+
+      // ========== for analytics - start ==========
+      watchAnytimeVideoClicksAnalytics();
+      // ========== for analytics - end ==========
     }
   };
 
@@ -253,7 +279,7 @@ function ShortVideoPlayer({
               }}
               // onVideoSeek={}
               // ignoreSilentSwitch={"ignore"}
-              paused={isPause || (Platform.OS === 'ios' && !isVideoReadyIos)}
+              paused={isPause || onSliding || (Platform.OS === 'ios' && !isVideoReadyIos)}
               onLoad={handleLoad}
               onLoadStart={handleLoadStart}
               onProgress={handleProgress}

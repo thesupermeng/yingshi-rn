@@ -32,7 +32,7 @@ export const UPDATE_NETWORK_INFO = 'update_network_info';
 // export const API_DOMAIN = 'https://api.yingshi.tv/'
 export const API_DOMAIN = 'https://api.gxhongdeli168.com/';
 // export const API_DOMAIN_TEST = 'https://testapi.yingshi.tv/';
-export const API_DOMAIN_TEST = 'https://api.yingshi.tv/';
+export const API_DOMAIN_TEST = 'https://api.gxhongdeli168.com/';
 export const API_DOMAIN_LOCAL = 'http://localhost:3000/';
 export const MATCH_API_DOMAIN = 'https://api.ggsimida.com/';
 
@@ -109,4 +109,7 @@ export const NON_VIP_STREAM_TIME_SECONDS = 300;
 
 export const PLAY_HTTP_SERVER_PORT = 8085;
 
+export const SHOW_PAYMENT_CONST = true;
+
 export const ADULT_MODE_PREVIEW_DURATION = 60; // number of seconds 
+
