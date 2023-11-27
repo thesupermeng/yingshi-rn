@@ -11,6 +11,8 @@ interface Props {
   tabChildren: (tab: { title: string; id: number; name: string }, index: number) => React.ReactNode,
   hideContent?: boolean,
   onTabPress: (target?: string) => void,
+  onTabSwipe: (index: number, tab: any) => void,
+  navId:number
 }
 
 
@@ -19,6 +21,8 @@ export default function HomeNav({
   tabChildren,
   hideContent = false,
   onTabPress,
+  onTabSwipe,
+  navId,
 }: Props) {
   const { colors, textVariants } = useTheme();
 
@@ -28,10 +32,11 @@ export default function HomeNav({
       name={tab.name}
       listeners={{
         tabPress: e => onTabPress(e.target),
+        swipeEnd: _ => onTabSwipe(i, tab),
       }}
       options={() => ({
         tabBarLabel: ({ focused, color }) =>
-          focused ? (
+        tab.id  == navId ?  (
             <Text
               style={{
                 ...styles.textStyles,
