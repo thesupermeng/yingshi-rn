@@ -17,6 +17,7 @@ import NetInfo from '@react-native-community/netinfo';
 import { SettingsReducerState } from '../redux/reducers/settingsReducer';
 import { useAppSelector } from '../hooks/hooks';
 import { RootState } from '../redux/store';
+import EighteenPlusControls from '../components/adultVideo/eighteenPlusControls';
 
 type MiniVideoResponseType = {
     data: {
@@ -41,6 +42,29 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
     const settingsReducer: SettingsReducerState = useAppSelector(
         ({ settingsReducer }: RootState) => settingsReducer
     );
+
+    const screenState: screenModel = useAppSelector(
+        ({screenReducer}) => screenReducer
+      )
+
+    const {adultMode} = screenState; 
+
+    const fetchMode = adultMode ? "adult" : "normal"
+    const apiEndpoint = adultMode ? `${API_DOMAIN_TEST}miniSVod/v1/miniSVod` : `${API_DOMAIN_TEST}miniVod/v2/miniVod`
+    const afterInitialLoad = useRef(false);
+
+    useEffect(() => {
+        if (!afterInitialLoad.current){
+            // if first time loading from home, dont refetch, use prefetched data
+            afterInitialLoad.current = true
+        }
+        else{ //
+            remove(); // remove cached video data on change... 
+            refetch();
+        } 
+
+    }, [adultMode])
+
 
     // Add an event listener to the navigation object for the tab press event
     useEffect(() => {
@@ -147,6 +171,7 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
             <View style={{ position: 'absolute', top: 0, left: 0, padding: 20, zIndex: 50, width: '100%', flexDirection: 'row', alignItems: 'center' }}>
                 <Text style={{ color: '#FFF', fontSize: 20 }}>随心看</Text>
             </View>
+            <EighteenPlusControls/>
             {!isOffline &&
                 <MiniVideoList
                     ref={miniVodRef}

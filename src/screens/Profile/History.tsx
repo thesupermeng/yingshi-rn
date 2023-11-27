@@ -25,6 +25,7 @@ import { VodType } from "../../types/ajaxTypes";
 import { Button } from "@rneui/themed";
 import ConfirmationModal from "../../components/modal/confirmationModal";
 import EmptyList from "../../components/common/emptyList";
+import { disableAdultMode, enableAdultMode } from "../../redux/actions/screenAction";
 
 type FlatListType = {
   item: VodRecordType;
@@ -74,11 +75,11 @@ export default ({ navigation }: RootStackScreenProps<"播放历史">) => {
     }
   });
 
-  console.log("customHistoryToday");
-  console.log(customHistoryToday);
+  // console.log("customHistoryToday");
+  // console.log(customHistoryToday);
 
-  console.log("customHistoryEarly");
-  console.log(customHistoryEarly);
+  // console.log("customHistoryEarly");
+  // console.log(customHistoryEarly);
   return (
     <ScreenContainer>
       <TitleWithBackButtonHeader
@@ -143,10 +144,21 @@ export default ({ navigation }: RootStackScreenProps<"播放历史">) => {
                           if (isEditing) {
                             toggleHistory(item);
                           } else {
-                            dispatch(playVod(item));
-                            navigation.navigate("播放", {
-                              vod_id: item.vod_id,
-                            });
+                            if (item.isAdultVideo){
+                              dispatch(playVod(item));
+                              navigation.navigate("播放", {
+                                vod_id: item.vod_id,
+                                player_mode: 'adult'
+                              });
+                              dispatch(enableAdultMode())
+                            }
+                            else {
+                              dispatch(playVod(item));
+                              navigation.navigate("播放", {
+                                vod_id: item.vod_id,
+                              });
+                              dispatch(disableAdultMode())
+                            }
                           }
                         }}
                       />
@@ -187,8 +199,21 @@ export default ({ navigation }: RootStackScreenProps<"播放历史">) => {
                       if (isEditing) {
                         toggleHistory(item);
                       } else {
-                        dispatch(playVod(item));
-                        navigation.navigate("播放", { vod_id: item.vod_id });
+                        if (item.isAdultVideo){
+                          dispatch(playVod(item));
+                          navigation.navigate("播放", {
+                            vod_id: item.vod_id,
+                            player_mode: 'adult'
+                          });
+                          dispatch(enableAdultMode())
+                        }
+                        else {
+                          dispatch(playVod(item));
+                          navigation.navigate("播放", {
+                            vod_id: item.vod_id,
+                          });
+                          dispatch(disableAdultMode())
+                        }
                       }
                     }}
                   />
