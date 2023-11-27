@@ -36,7 +36,7 @@ export default function HomeNav({
       }}
       options={() => ({
         tabBarLabel: ({ focused, color }) =>
-        i  == navId ?  (
+        tab.id  == navId ?  (
             <Text
               style={{
                 ...styles.textStyles,
