@@ -70,6 +70,7 @@ import { BridgeServer } from "react-native-http-bridge-refurbished";
 import { debounce } from "lodash";
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
 import { InAppBrowser } from "react-native-inappbrowser-reborn";
+import useAnalytics from "../../hooks/useAnalytics";
 
 type VideoRef = {
   setPause: (param: boolean) => void;
@@ -230,6 +231,13 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const [isOffline, setIsOffline] = useState(false);
   const [isShowSheet, setShowSheet] = useState(false);
 
+  const {
+    playsViewsAnalytics,
+    playsPlaysTimesAnalytics,
+    playsShareClicksAnalytics,
+  } = useAnalytics();
+  const [isReadyPlay, setReadyPlay] = useState(false);
+
   const EPISODE_RANGE_SIZE = 100;
 
   const showEpisodeRangeStart = useMemo(
@@ -250,6 +258,10 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   );
   const onShare = async () => {
     try {
+      // ========== for analytics - start ==========
+      playsShareClicksAnalytics();
+      // ========== for analytics - end ==========
+
       const result = await Share.share({
         message: `《${
           vod?.vod_name
@@ -284,6 +296,14 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   useEffect(() => {
     if (vod) {
       setInitTime(vod?.timeWatched);
+      setReadyPlay(false);
+
+      // ========== for analytics - start ==========
+      playsViewsAnalytics({
+        vod_id: vod.vod_id.toString(),
+        vod_name: vod.vod_name,
+      });
+      // ========== for analytics - end ==========
     }
   }, [vod]);
 
@@ -374,7 +394,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   const fetchVod = () =>
     fetch(
-      `${API_DOMAIN}vod/v1/vod?class=${vod?.vod_class
+      `${API_DOMAIN}vod/v2/vod?class=${vod?.vod_class
         ?.split(",")
         .shift()}&tid=${vod?.type_id}&limit=6`
     )
@@ -561,6 +581,19 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   //     server.stop(); // stop server when unmount
   //   }
   // }, [vodUri])
+
+  // // ========== for analytics - start ==========
+  // const onReadyForDisplay = () => {
+  //   if (vod && !isReadyPlay) {
+  //     playsPlaysTimesAnalytics({
+  //       vod_id: vod.vod_id.toString(),
+  //       vod_name: vod.vod_name,
+  //     });
+  //   }
+
+  //   setReadyPlay(true);
+  // }
+  // // ========== for analytics - end ==========
 
   return (
     <>

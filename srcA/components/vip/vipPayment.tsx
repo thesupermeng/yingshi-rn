@@ -48,10 +48,7 @@ export const VipPayment = ({
           {icon && 
             <View 
               style={{
-                backgroundColor: '#ffffff', 
-                paddingLeft: 5, 
-                paddingRight: 5,
-                borderRadius: 5
+                borderRadius: 7
               }}>
               {icon}
             </View>}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import styles from './style';
 import { VideoLiveType } from '../../global/const';
@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
 import WebView from 'react-native-webview';
 import BackIcon from "../../../../static/images/back_arrow.svg";
 import { useTheme } from '@react-navigation/native';
+import useAnalytics from '../../../hooks/useAnalytics';
 
 interface Props {
     matchID?: number,
@@ -22,10 +23,11 @@ interface Props {
         type: number,
         url: any
     },
-    setVideoSource?: any
+    setVideoSource?: any,
+    onGoBack: () => void,
 }
 
-const LiveVideo = ({ matchID, liveDataState, onLiveEnd, onLoad, streamID, videoSource, setVideoSource }: Props) => {
+const LiveVideo = ({ matchID, liveDataState, onLiveEnd, onLoad, streamID, videoSource, setVideoSource, onGoBack }: Props) => {
     const { colors } = useTheme();
 
     const homeName = liveDataState?.home?.name;
@@ -34,6 +36,7 @@ const LiveVideo = ({ matchID, liveDataState, onLiveEnd, onLoad, streamID, videoS
 
     const dispatch = useAppDispatch();
 
+    const [isReadyPlay, setReadyPlay] = useState(false);
     const settingsReducer: SettingsReducerState = useAppSelector(
         ({ settingsReducer }: RootState) => settingsReducer
     );
@@ -52,7 +55,11 @@ const LiveVideo = ({ matchID, liveDataState, onLiveEnd, onLoad, streamID, videoS
     //   const streamRoomIdRef = useRef(streamID);
 
     const onHandleBack = () => {
-        setTimeout(() => setVideoSource(VideoLiveType.DETAIL, ''))
+        if (settingsReducer.appOrientation === 'PORTRAIT' || settingsReducer.appOrientation === 'PORTRAIT-UPSIDEDOWN') {
+            setTimeout(() => setVideoSource(VideoLiveType.DETAIL, ''))
+        } else {
+            onGoBack();
+        }
     };
 
     useEffect(() => {
@@ -122,6 +129,17 @@ const LiveVideo = ({ matchID, liveDataState, onLiveEnd, onLoad, streamID, videoS
         dispatch(lockAppOrientation(orientation));
     };
 
+    // ========== for analytics - start ==========
+    const { sportDetailsPlaysTimesAnalytics } = useAnalytics();
+
+    const onReadyForDisplay = useCallback(() => {
+        if (!isReadyPlay && videoSource !== undefined) {
+            setReadyPlay(true);
+            sportDetailsPlaysTimesAnalytics(videoSource.type === VideoLiveType.LIVE ? 'live' : 'animation');
+        }
+    }, [isReadyPlay, videoSource]);
+    // ========== for analytics - end ==========
+
     return (
         <View style={styles.container}>
             {/* <View style={{height: isFullScreen ? '100%' : 'auto'}}> */}
@@ -139,6 +157,7 @@ const LiveVideo = ({ matchID, liveDataState, onLiveEnd, onLoad, streamID, videoS
                                     appOrientation={settingsReducer.appOrientation}
                                     devicesOrientation={settingsReducer.devicesOrientation}
                                     lockOrientation={lockOrientation}
+                                    onReadyForDisplay={onReadyForDisplay}
                                 />
                                 : <View
                                     style={{

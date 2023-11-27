@@ -32,6 +32,9 @@ import { userModel } from "../../types/userType";
 import { TouchableOpacity } from "@gorhom/bottom-sheet";
 import { updateUserAuth } from "../../redux/actions/userAction";
 import { getUserDetails } from "../../features/user";
+import useAnalytics from '../../hooks/useAnalytics';
+
+
 export default ({ navigation }: RootStackScreenProps<"邀请">) => {
   const { colors, textVariants, icons, spacing } = useTheme();
 
@@ -41,6 +44,14 @@ export default ({ navigation }: RootStackScreenProps<"邀请">) => {
 
   const [refreshing, setRefreshing] = useState(false);
   const dispatch = useAppDispatch();
+
+  // ========== for analytics - start ==========
+  const { userCenterVipInviteViewsAnalytics } = useAnalytics();
+
+  useEffect(() => {
+    userCenterVipInviteViewsAnalytics();
+  }, []);
+  // ========== for analytics - end ==========
 
   const handleRefresh = async () => {
     setRefreshing(true);
@@ -69,6 +80,7 @@ export default ({ navigation }: RootStackScreenProps<"邀请">) => {
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} tintColor="#FAC33D" />
         }
+        showsVerticalScrollIndicator={false}
       >
         {/* <TitleWithBackButtonHeader title="邀请好友奖励" /> */}
         <View style={{ paddingHorizontal: 0 }}>

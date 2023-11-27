@@ -1,15 +1,19 @@
 import React, { useState, useCallback, useEffect, forwardRef, useImperativeHandle } from 'react';
-import { View, FlatList, RefreshControl, Text } from 'react-native';
+import { View, FlatList, RefreshControl } from 'react-native';
 import { MiniVideo } from '../../types/ajaxTypes';
 import ShortVod from '../../components/videoPlayer/shortVod';
 import FastImage from "../common/customFastImage";
 import { useTheme } from '@react-navigation/native';
 import { StyleSheet } from 'react-native';
+
 import { screenModel } from '../../types/screenType';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { ADULT_MODE_PREVIEW_DURATION } from '../../utility/constants';
 import { showAdultModeVip } from '../../redux/actions/screenAction';
 import { userModel } from '../../types/userType';
+import useAnalytics from '../../hooks/useAnalytics';
+import { RootState } from '../../redux/store';
+
 
 interface Props {
     miniVodListRef: any,
@@ -103,6 +107,10 @@ export default forwardRef<MiniVodRef, Props>(
             }
         }, [collectionPartialVideos]);
 
+        // for analytics used
+        const [preTolVideoViews, setPreTolVideoViews] = useState(0); // previous
+        const [curTolVideoViews, setCurTolVideoViews] = useState(1); // current
+
         const handleOnScroll = useCallback((e: any) => {
             const positionY = parseFloat(e.nativeEvent.contentOffset.y.toFixed(5));
             const index = Math.floor(positionY / displayHeight);
@@ -110,7 +118,27 @@ export default forwardRef<MiniVodRef, Props>(
             if (index >= 0 && displayHeight > 0 && index != current) {
                 setCurrent(index);
             }
-        }, [displayHeight, current]);
+
+            // for analytics used
+            if ((index + 1) > curTolVideoViews) {
+                setPreTolVideoViews(curTolVideoViews);
+                setCurTolVideoViews(index + 1);
+            }
+        }, [displayHeight, current, curTolVideoViews]);
+
+        // ========== for analytics - start ==========
+        const { watchAnytimeVideoViewTimesAnalytics } = useAnalytics();
+
+        useEffect(() => {
+            if (!isActive && curTolVideoViews > preTolVideoViews) {
+                watchAnytimeVideoViewTimesAnalytics({
+                    userId: userState.userId,
+                    tolVideoViews: curTolVideoViews,
+                });
+            }
+        }, [isActive, preTolVideoViews, curTolVideoViews]);
+
+        // ========== for analytics - end ==========
 
         useImperativeHandle(ref, () => ({
             setPause: (pause: boolean) => {
@@ -166,7 +194,7 @@ export default forwardRef<MiniVodRef, Props>(
 
         const renderItem = useCallback(({ item, index }: { item: MiniVideo, index: number }) => (
             <View style={{ height: displayHeight ? displayHeight : 0 }}>
-                {displayHeight != 0 && Math.abs(current - index) <= 2 && (
+                {displayHeight != 0 && (
                     <ShortVod
                         vod={item}
                         thumbnail={item.mini_video_origin_cover}
@@ -220,8 +248,8 @@ export default forwardRef<MiniVodRef, Props>(
                     : <FlatList
                         ref={miniVodListRef}
                         data={collectionPartialVideos}
-                        initialNumToRender={collectionPartialVideos.length}
-                        // maxToRenderPerBatch={5}
+                        initialNumToRender={10}
+                        maxToRenderPerBatch={5}
                         windowSize={5}
                         refreshControl={refreshComponent()}
                         renderItem={renderItem}
