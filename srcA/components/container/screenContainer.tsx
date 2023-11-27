@@ -1,10 +1,19 @@
-import { ScrollView, StyleSheet, View, ViewStyle, StatusBar } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useTheme } from '@react-navigation/native';
-import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
-import { Dimensions } from 'react-native';
-import Orientation from 'react-native-orientation-locker';
-import { useEffect, useState } from 'react';
+import {
+  ScrollView,
+  StyleSheet,
+  View,
+  ViewStyle,
+  StatusBar,
+} from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useTheme } from "@react-navigation/native";
+import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
+import { Dimensions } from "react-native";
+import Orientation from "react-native-orientation-locker";
+import { useEffect, useState } from "react";
+import { screenModel } from "../../types/screenType";
+import { RootState } from "../../redux/store";
+import { useAppSelector } from "../../hooks/hooks";
 interface Props {
   children?: React.ReactNode;
   scrollView?: boolean;
@@ -12,6 +21,7 @@ interface Props {
   containerStyle?: ViewStyle;
   header?: React.ReactNode;
   isHome?: boolean;
+  isPlay?: boolean;
 }
 export default function ScreenContainer({
   children,
@@ -20,8 +30,9 @@ export default function ScreenContainer({
   containerStyle,
   header,
   isHome = false,
+  isPlay = false,
 }: Props) {
-  const windowHeight = Dimensions.get('window').height;
+  const windowHeight = Dimensions.get("window").height;
   let bottomTabHeight = 0;
 
   try {
@@ -36,6 +47,10 @@ export default function ScreenContainer({
   const insets = useSafeAreaInsets();
   const { spacing, colors } = useTheme();
 
+  // const screenState: screenModel = useAppSelector(
+  //   ({ screenReducer }: RootState) => screenReducer
+  // );
+
   return (
     <>
       {scrollView ? (
@@ -48,11 +63,9 @@ export default function ScreenContainer({
             paddingRight: insets.right,
           }}
           stickyHeaderIndices={[0]}
-          contentContainerStyle={{ paddingBottom: 30 }}>
-          <StatusBar
-            backgroundColor='black'
-            barStyle="light-content"
-          />
+          contentContainerStyle={{ paddingBottom: 30 }}
+        >
+          <StatusBar backgroundColor="black" barStyle="light-content" />
           {header}
           <View
             style={{
@@ -60,7 +73,8 @@ export default function ScreenContainer({
               paddingLeft: spacing.sideOffset,
               paddingRight: spacing.sideOffset,
               ...containerStyle,
-            }}>
+            }}
+          >
             {children}
           </View>
           {footer}
@@ -70,24 +84,23 @@ export default function ScreenContainer({
           style={{
             backgroundColor: colors.background,
             ...styles.viewContainer,
-            paddingTop: insets.top,
-            paddingBottom: !isHome ? 0 : insets.bottom,
+            paddingTop: isPlay ? 0 : insets.top,
+            paddingBottom: !isHome || isPlay ? 0 : insets.bottom,
             // // video fullscreen here
-            paddingLeft: insets.left,
-            paddingRight: insets.right,
+            paddingLeft: isPlay ? 0 : insets.left,
+            paddingRight: isPlay ? 0 : insets.right,
             // height: displayHeight,
-          }}>
-          <StatusBar
-            backgroundColor='black'
-            barStyle="light-content"
-          />
+          }}
+        >
+          <StatusBar backgroundColor="black" barStyle="light-content" />
           <View
             style={{
               ...styles.innerContainer,
               paddingLeft: spacing.sideOffset,
               paddingRight: spacing.sideOffset,
               ...containerStyle,
-            }}>
+            }}
+          >
             {children}
           </View>
           {footer}

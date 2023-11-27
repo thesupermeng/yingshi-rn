@@ -69,7 +69,9 @@ function LoginBottomSheet({
       isKeyboardVisible={isKeyboardVisible}
       isVisible={isVisible}
       bottomOffset={bottomOffset}
-      containerStyle={{}}
+      containerStyle={{
+        height: 'auto',
+      }}
       onBackdropPress={() => {
         if (handleClose) handleClose();
         dispatch(resetBottomSheetForm());
@@ -80,7 +82,7 @@ function LoginBottomSheet({
       <Login
         setEmail={setEmail}
         email={email}
-        dismiss={() => {}}
+        dismiss={() => { }}
         goToRegister={() => {
           console.log("showRegisterAction");
           dispatch(resetBottomSheetForm());

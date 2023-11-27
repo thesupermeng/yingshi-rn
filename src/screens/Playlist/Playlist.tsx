@@ -18,6 +18,7 @@ import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 import { SettingsReducerState } from '../../redux/reducers/settingsReducer';
 import { useAppSelector } from '../../hooks/hooks';
 import { RootState } from '../../redux/store';
+import useAnalytics from '../../hooks/useAnalytics';
 
 type FlatListType = {
   item: VodTopicType;
@@ -37,6 +38,14 @@ function Playlist({ navigation }: BottomTabScreenProps<any>) {
   const settingsReducer: SettingsReducerState = useAppSelector(
     ({ settingsReducer }: RootState) => settingsReducer
   );
+
+  // ========== for analytics - start ==========
+  const { playlistViewsAnalytics } = useAnalytics();
+
+  useEffect(() => {
+    playlistViewsAnalytics();
+  }, []);
+  // ========== for analytics - end ==========
 
   // Function to handle the refresh action
   const handleTabPress = () => {
@@ -111,6 +120,10 @@ function Playlist({ navigation }: BottomTabScreenProps<any>) {
         if (isRefreshing && data && !error) {
           setIsRefreshing(false);
         }
+
+        if (isSwipeRefreshing && data && !error) {
+          setIsSwipeRefreshing(false);
+        }
       },
       // onSuccess: (data) => {
       //     if (data && data?.pages) {
@@ -125,12 +138,16 @@ function Playlist({ navigation }: BottomTabScreenProps<any>) {
   ), []);
 
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [isSwipeRefreshing, setIsSwipeRefreshing] = useState(false);
   const queryClient = useQueryClient();
   // Function to reset variables and refresh data
 
-  const handleRefresh = useCallback(async () => {
-    setIsRefreshing(true);
-
+  const handleRefresh = useCallback(async (isSwipe: boolean = false) => {
+    if (isSwipe) {
+      setIsSwipeRefreshing(true);
+    } else {
+      setIsRefreshing(true);
+    }
     // Reset your variables here (e.g., setTotalPage(0))
     // You may also need to reset other states related to data fetching.
 
@@ -165,7 +182,7 @@ function Playlist({ navigation }: BottomTabScreenProps<any>) {
           }
           navigator={navigation}
         />
-        {/* {isRefreshing && !isOffline && (
+        {isRefreshing && !isOffline && (
           <View
             style={{
               ...styles.loading,
@@ -175,13 +192,13 @@ function Playlist({ navigation }: BottomTabScreenProps<any>) {
             }}>
             {
               <FastImage
-                style={{height: 80, width: 80}}
+                style={{ height: 80, width: 80 }}
                 source={require('../../../static/images/loading-spinner.gif')}
                 resizeMode={"contain"}
               />
             }
           </View>
-        )} */}
+        )}
         {!isOffline && (
           <>
             <FlatList
@@ -216,8 +233,8 @@ function Playlist({ navigation }: BottomTabScreenProps<any>) {
               }
               refreshControl={
                 <RefreshControl
-                  refreshing={isRefreshing}
-                  onRefresh={handleRefresh}
+                  refreshing={isSwipeRefreshing}
+                  onRefresh={() => handleRefresh(true)}
                   tintColor="#FAC33D" // Customize the color of the loading spinner
                 />
               }

@@ -17,8 +17,6 @@ import NetInfo from '@react-native-community/netinfo';
 import { SettingsReducerState } from '../redux/reducers/settingsReducer';
 import { useAppSelector } from '../hooks/hooks';
 import { RootState } from '../redux/store';
-import EighteenPlusControls from '../components/adultVideo/eighteenPlusControls';
-import { screenModel } from '../types/screenType';
 
 type MiniVideoResponseType = {
     data: {
@@ -30,10 +28,10 @@ type MiniVodRef = {
     setPause: (pause: boolean) => void;
 };
 
-function WatchAnytime ({ navigation }: BottomTabScreenProps<any>) {
+function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
     const isFocused = useIsFocused();
     // New state to keep track of app's background/foreground status
-   // const [isInBackground, setIsInBackground] = useState(false);
+    const [isInBackground, setIsInBackground] = useState(false);
     const [isRefreshing, setIsRefreshing] = useState(false);
     const [isOffline, setIsOffline] = useState(false);
     const miniVodRef = useRef() as React.MutableRefObject<MiniVodRef>;
@@ -43,27 +41,6 @@ function WatchAnytime ({ navigation }: BottomTabScreenProps<any>) {
     const settingsReducer: SettingsReducerState = useAppSelector(
         ({ settingsReducer }: RootState) => settingsReducer
     );
-    const screenState: screenModel = useAppSelector(
-        ({screenReducer}) => screenReducer
-      )
-
-    const {adultMode} = screenState; 
-
-    const fetchMode = adultMode ? "adult" : "normal"
-    const apiEndpoint = adultMode ? `${API_DOMAIN_TEST}miniSVod/v1/miniSVod` : `${API_DOMAIN_TEST}miniVod/v2/miniVod`
-    const afterInitialLoad = useRef(false);
-
-    useEffect(() => {
-        if (!afterInitialLoad.current){
-            // if first time loading from home, dont refetch, use prefetched data
-            afterInitialLoad.current = true
-        }
-        else{ //
-            remove(); // remove cached video data on change... 
-            refetch();
-        } 
-
-    }, [adultMode])
 
     // Add an event listener to the navigation object for the tab press event
     useEffect(() => {
@@ -149,48 +126,44 @@ function WatchAnytime ({ navigation }: BottomTabScreenProps<any>) {
         }
     }, [settingsReducer.isOffline]));
 
-    // useEffect(() => {
-    //     setIsOffline(settingsReducer.isOffline);
-    //     ... (rest of the useEffect hook remains unchanged)
-    //     const subscription = AppState.addEventListener(
-    //         "change",
-    //         handleAppStateChange
-    //     );
+    useEffect(() => {
+        const subscription = AppState.addEventListener(
+            "change",
+            handleAppStateChange
+        );
 
-    //     return () => {
-    //         subscription.remove();
-    //     };
-
-    // }, [])
+        return () => {
+            subscription.remove();
+        };
+    }, [])
 
     // Handle app's background/foreground status
-    // const handleAppStateChange = (nextAppState: any) => {
-    //     setIsInBackground(nextAppState !== "active");
-    // };
+    const handleAppStateChange = (nextAppState: any) => {
+        setIsInBackground(nextAppState !== "active");
+    };
 
     return (
         <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0, paddingBottom: 10 }}>
-                <View style={{ position: 'absolute', top: 0, left: 0, padding: 20, zIndex: 50, width: '100%', flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'space-between' }}>
-                    <Text style={{ color: '#FFF', fontSize: 20 }}>随心看</Text>
-                </View>
-                <EighteenPlusControls/>
-                {!isOffline &&
-                    <MiniVideoList
-                        ref={miniVodRef}
-                        miniVodListRef={miniVodListRef}
-                        videos={flattenedVideos}
-                        fetchNextPage={fetchNextPage}
-                        hasNextPage={hasNextPage}
-                        isFetching={isFetching}
-                        isFetchingNextPage={isFetchingNextPage}
-                        isActive={isFocused}
-                        setCollectionEpisode={(index: number) => { }}
-                        handleRefreshMiniVod={handleRefresh}
-                        isRefreshing={isRefreshing}
-                        isPressTabScroll={isPressTabScroll}
-                    />
-                }
-                {isOffline && <NoConnection onClickRetry={checkConnection} />}
+            <View style={{ position: 'absolute', top: 0, left: 0, padding: 20, zIndex: 50, width: '100%', flexDirection: 'row', alignItems: 'center' }}>
+                <Text style={{ color: '#FFF', fontSize: 20 }}>随心看</Text>
+            </View>
+            {!isOffline &&
+                <MiniVideoList
+                    ref={miniVodRef}
+                    miniVodListRef={miniVodListRef}
+                    videos={flattenedVideos}
+                    fetchNextPage={fetchNextPage}
+                    hasNextPage={hasNextPage}
+                    isFetching={isFetching}
+                    isFetchingNextPage={isFetchingNextPage}
+                    isActive={isFocused && !isInBackground}
+                    setCollectionEpisode={(index: number) => { }}
+                    handleRefreshMiniVod={handleRefresh}
+                    isRefreshing={isRefreshing}
+                    isPressTabScroll={isPressTabScroll}
+                />
+            }
+            {isOffline && <NoConnection onClickRetry={checkConnection} />}
         </ScreenContainer>
     )
 }

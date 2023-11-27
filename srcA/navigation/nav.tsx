@@ -217,7 +217,7 @@ export default () => {
           },
         })}
       >
-        {/* {YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5 ? (
+        {YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5 ? (
           <>
             <HomeTab.Screen name="首页" component={HomeScreen} />
             <HomeTab.Screen name="随心看" component={WatchAnytime} />
@@ -232,7 +232,7 @@ export default () => {
             <HomeTab.Screen name="播单" component={PlaylistScreen} />
             <HomeTab.Screen name="我的" component={ProfileScreen} />
           </>
-        )} */}
+        )}
 
         {/* {userState.userToken !== '' &&
         userState.userMemberExpired >= userState.userCurrentTimestamp ? (
@@ -252,13 +252,13 @@ export default () => {
           </>
         )} */}
 
-        <>
+        {/* <>
           <HomeTab.Screen name="首页" component={HomeScreen} />
           <HomeTab.Screen name="随心看" component={WatchAnytime} />
           <HomeTab.Screen name="体育" component={MatchesScreen} />
           <HomeTab.Screen name="播单" component={PlaylistScreen} />
           <HomeTab.Screen name="我的" component={ProfileScreen} />
-        </>
+        </> */}
       </HomeTab.Navigator>
     );
   }, []);

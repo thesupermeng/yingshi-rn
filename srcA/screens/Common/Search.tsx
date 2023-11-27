@@ -1,78 +1,90 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, { useCallback, useEffect, useState } from "react";
 import {
   View,
   TouchableOpacity,
   StyleSheet,
   Text,
   ScrollView,
-} from 'react-native';
-import {SearchBar} from '@rneui/base';
-import {useTheme} from '@react-navigation/native';
-import OrderedSearchResultsList from '../../components/search/RecommendationList';
-import SearchResultList from '../../components/search/SearchResultList';
-import ScreenContainer from '../../components/container/screenContainer';
-import BackButton from '../../components/button/backButton';
-import SearchIcon from '../../../static/images/search.svg';
-import ClearIcon from '../../../static/images/cross.svg';
-import {useQuery} from '@tanstack/react-query';
+} from "react-native";
+import { SearchBar } from "@rneui/base";
+import { useTheme } from "@react-navigation/native";
+import OrderedSearchResultsList from "../../components/search/RecommendationList";
+import SearchResultList from "../../components/search/SearchResultList";
+import ScreenContainer from "../../components/container/screenContainer";
+import BackButton from "../../components/button/backButton";
+import SearchIcon from "../../../static/images/search.svg";
+import ClearIcon from "../../../static/images/cross.svg";
+import { useQuery } from "@tanstack/react-query";
 
-import {SuggestResponseType, SuggestedVodType} from '../../types/ajaxTypes';
-import {RootStackScreenProps} from '../../types/navigationTypes';
-import {API_DOMAIN} from '../../utility/constants';
-import VodWithDescriptionList from '../../components/vod/vodWithDescriptionList';
-import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
-import {RootState} from '../../redux/store';
+import { SuggestResponseType, SuggestedVodType } from "../../types/ajaxTypes";
+import { RootStackScreenProps } from "../../types/navigationTypes";
+import { API_DOMAIN } from "../../utility/constants";
+import VodWithDescriptionList from "../../components/vod/vodWithDescriptionList";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { RootState } from "../../redux/store";
 // import FastImage from 'react-native-fast-image';
-import FastImage from '../../components/common/customFastImage';
+import FastImage from "../../components/common/customFastImage";
 import {
   addSearchHistory,
   clearSearchHistory,
-} from '../../redux/actions/searchActions';
+} from "../../redux/actions/searchActions";
 import Animated, {
   FadeInUp,
   FadeOutUp,
   useAnimatedStyle,
-} from 'react-native-reanimated';
-import ClearHistoryIcon from '../../../static/images/clear.svg';
-import EmptyList from '../../components/common/emptyList';
-import appsFlyer from 'react-native-appsflyer';
-import ConfirmationModal from '../../components/modal/confirmationModal';
+} from "react-native-reanimated";
+import ClearHistoryIcon from "../../../static/images/clear.svg";
+import EmptyList from "../../components/common/emptyList";
+import appsFlyer from "react-native-appsflyer";
+import ConfirmationModal from "../../components/modal/confirmationModal";
+import useAnalytics from "../../hooks/useAnalytics";
 
-export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
-  const [search, setSearch] = useState('');
+export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
+  const [search, setSearch] = useState("");
   const [placeholderSearch, setPlaceHolderSearch] = useState(
-    route.params.initial,
+    route.params.initial
   );
 
   const [searchTimer, setSearchTimer] = useState<ReturnType<
     typeof setTimeout
   > | null>(null);
   const [searchResults, setSearchResults] = useState<Array<SuggestedVodType>>(
-    [],
+    []
   );
   const [showResults, setShowResults] = useState(false);
 
   const dispatch = useAppDispatch();
   const searchHistory = useAppSelector(
-    ({searchHistoryReducer}: RootState) => searchHistoryReducer,
+    ({ searchHistoryReducer }: RootState) => searchHistoryReducer
   );
   const [isFetching, setisFetching] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const {colors, textVariants, spacing, icons} = useTheme();
-  const {data: recommendations} = useQuery({
-    queryKey: ['recommendationList'],
+  const { colors, textVariants, spacing, icons } = useTheme();
+  const {
+    searchKeywordAnalytics,
+    searchResultViewsAnalytics,
+    searchResultClicksAnalytics,
+  } = useAnalytics();
+
+  const { data: recommendations } = useQuery({
+    queryKey: ["recommendationList"],
     queryFn: () =>
-      fetch(`${API_DOMAIN}vod/v1/vod?by=hits_day`)
-        .then(response => response.json())
+      fetch(`${API_DOMAIN}vod/v2/vod?by=hits_day`)
+        .then((response) => response.json())
         .then((json: SuggestResponseType) => {
           return json.data.List;
         }),
   });
 
-  async function fetchData(text: string) {
+  async function fetchData(text: string, userSearch: boolean = false) {
     setisFetching(true);
+
+    // ========== for analytics - start ==========
+    if (userSearch && text.length > 0) searchKeywordAnalytics(text);
+    // ========== for analytics - end ==========
+
     fetch(`${API_DOMAIN}vod/v2/vod?wd=${text}&limit=50`)
-      .then(response => response.json())
+      .then((response) => response.json())
       .then((json: SuggestResponseType) => {
         setSearchTimer(0);
 
@@ -80,9 +92,13 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
           setSearchResults([]);
         } else {
           setSearchResults(json.data.List);
+
+          // ========== for analytics - start ==========
+          if (userSearch) searchResultViewsAnalytics();
+          // ========== for analytics - end ==========
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       })
       .finally(() => {
@@ -91,7 +107,7 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
   }
 
   useEffect(() => {
-    if (route.params.initial !== '') {
+    if (route.params.initial !== "") {
       fetchData(route.params.initial);
     }
   }, []);
@@ -104,19 +120,19 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
     }
     setSearchTimer(
       setTimeout(() => {
-        fetchData(input);
-      }, 100),
+        fetchData(input, true);
+      }, 100)
     );
   };
 
   const onSubmit = () => {
     let searchKeyword = placeholderSearch;
 
-    if (search != '') {
+    if (search != "") {
       searchKeyword = search;
     }
 
-    const eventName = 'search_keyword';
+    const eventName = "search_keyword";
     const eventValues = {
       keyword: searchKeyword,
     };
@@ -124,15 +140,15 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
     appsFlyer.logEvent(
       eventName,
       eventValues,
-      res => {
+      (res) => {
         console.log(res);
       },
-      err => {
+      (err) => {
         console.error(err);
-      },
+      }
     );
 
-    fetchData(searchKeyword);
+    fetchData(searchKeyword, true);
     dispatch(addSearchHistory(searchKeyword));
     setShowResults(!showResults);
   };
@@ -140,6 +156,12 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
   const clearHistory = useCallback(() => {
     dispatch(clearSearchHistory());
   }, []);
+
+  // ========== for analytics - start ==========
+  const onClickSearchResult = useCallback(() => {
+    searchResultClicksAnalytics();
+  }, []);
+  // ========== for analytics - end ==========
 
   return (
     <ScreenContainer>
@@ -158,7 +180,7 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
           rightIconContainerStyle={{}}
           inputStyle={{
             ...textVariants.small,
-            position: 'relative',
+            position: "relative",
             right: 10,
             top: 1,
           }}
@@ -181,9 +203,10 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
               <TouchableOpacity
                 onPress={() => {
                   setSearchResults([]);
-                  setSearch('');
+                  setSearch("");
                   setShowResults(false);
-                }}>
+                }}
+              >
                 <ClearIcon height={12} width={12} />
               </TouchableOpacity>
             ) : (
@@ -195,36 +218,41 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
 
       {showResults ? (
         <View style={styles.searchResult}>
-          <VodWithDescriptionList vodList={searchResults} />
+          <VodWithDescriptionList
+            vodList={searchResults}
+            onClickSearchResult={onClickSearchResult}
+          />
         </View>
       ) : (
         <ScrollView
           style={styles.searchResult}
-          contentContainerStyle={{flexGrow: 1}}
+          contentContainerStyle={{ flexGrow: 1 }}
           showsVerticalScrollIndicator={false} // Hide the vertical scroll bar
-          keyboardDismissMode='on-drag'
+          keyboardDismissMode="on-drag"
         >
-          <View style={{marginLeft: 10}}>
+          <View style={{ marginLeft: 10 }}>
             {search !== undefined &&
             search !== null &&
             search.length === 0 &&
             recommendations ? (
-              <View style={{gap: spacing.m}}>
+              <View style={{ gap: spacing.m }}>
                 {searchHistory.history.length > 0 && (
-                  <Animated.View style={{gap: spacing.m}} entering={FadeInUp}>
+                  <Animated.View style={{ gap: spacing.m }} entering={FadeInUp}>
                     <View style={styles.rowApart}>
-                      <Text style={{...textVariants.header}}>历史搜索</Text>
+                      <Text style={{ ...textVariants.header }}>历史搜索</Text>
                       <TouchableOpacity
                         style={styles.rowApart}
                         onPress={() => {
                           setIsDialogOpen(true);
-                        }}>
+                        }}
+                      >
                         <Text
                           style={{
                             ...textVariants.small,
                             marginRight: 5,
                             color: colors.muted,
-                          }}>
+                          }}
+                        >
                           清除
                         </Text>
                         <ClearHistoryIcon
@@ -250,12 +278,14 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
                               setisFetching(true);
                               updateSearch(hst);
                               setShowResults(true);
-                            }}>
+                            }}
+                          >
                             <Text
                               style={{
                                 ...textVariants.body,
                                 color: colors.muted,
-                              }}>
+                              }}
+                            >
                               {hst}
                             </Text>
                           </TouchableOpacity>
@@ -266,7 +296,7 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
                 )}
                 <OrderedSearchResultsList
                   recommendationList={recommendations}
-                  style={{flex: 1, maxHeight: '100%'}} // Adjust the styles here to make it scrollable
+                  style={{ flex: 1, maxHeight: "100%" }} // Adjust the styles here to make it scrollable
                 />
               </View>
             ) : (
@@ -290,8 +320,8 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
       {showResults && searchResults.length === 0 && isFetching && (
         <View style={styles.buffering}>
           <FastImage
-            source={require('../../../static/images/videoBufferLoading.gif')}
-            style={{width: 100, height: 100}}
+            source={require("../../../static/images/videoBufferLoading.gif")}
+            style={{ width: 100, height: 100 }}
             resizeMode="contain"
           />
         </View>
@@ -315,16 +345,16 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
 
 const styles = StyleSheet.create({
   nav: {
-    display: 'flex',
-    flexDirection: 'row',
-    width: '100%',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "row",
+    width: "100%",
+    alignItems: "center",
     marginTop: 5,
   },
   containerStyle: {
     paddingLeft: 10,
-    backgroundColor: 'transparent',
-    textAlign: 'left',
+    backgroundColor: "transparent",
+    textAlign: "left",
     flexGrow: 1,
     borderRadius: 100,
     borderTopWidth: 0,
@@ -340,26 +370,26 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   rowApart: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   searchContainer: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    flexDirection: 'row',
+    display: "flex",
+    flexWrap: "wrap",
+    flexDirection: "row",
   },
   buffering: {
     paddingHorizontal: 5,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     flex: 3,
-    color: 'yellow',
-    position: 'absolute',
-    top: '40%',
-    left: '36%',
+    color: "yellow",
+    position: "absolute",
+    top: "40%",
+    left: "36%",
     zIndex: 100,
   },
   hst: {
@@ -372,11 +402,11 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   backContainer: {
-    width: 30, 
-    height: 30, 
-    display: 'flex', 
-    alignItems: 'center', 
-    justifyContent: 'center',
+    width: 30,
+    height: 30,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
     marginRight: 15,
-  }
+  },
 });

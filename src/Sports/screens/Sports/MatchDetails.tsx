@@ -55,7 +55,13 @@ import BecomeVipOverlay from "../../../components/modal/becomeVipOverlay";
 import { NON_VIP_STREAM_TIME_SECONDS } from '../../../utility/constants';
 import { userModel } from '../../../types/userType';
 import useInterstitialAds from '../../../hooks/useInterstitialAds';
+import useAnalytics from '../../../hooks/useAnalytics';
+import { RootState } from '../../../redux/store';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { SettingsReducerState } from '../../../redux/reducers/settingsReducer';
 
+let insetsTop = 0;
+let insetsBottom = 0;
 
 type FlatListType = {
   item: MatchDetailsType;
@@ -76,10 +82,13 @@ type VideoSource = {
 export default ({ navigation, route }: BottomTabScreenProps<any>) => {
   const dispatch = useDispatch();
   const screenState: screenModel = useAppSelector(
-    ({screenReducer}) => screenReducer
+    ({ screenReducer }) => screenReducer
   )
+  const settingsReducer: SettingsReducerState = useAppSelector(
+    ({ settingsReducer }: RootState) => settingsReducer
+  );
   const userState: userModel = useAppSelector(
-    ({userReducer}) => userReducer
+    ({ userReducer }) => userReducer
   )
   const { textVariants, colors, spacing } = useTheme();
   const [isLiveVideoEnd, setIsLiveVideoEnd] = useState(false);
@@ -90,6 +99,14 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
     type: 0,
     url: undefined,
   });
+  // ========== for analytics - start ==========
+  const { sportDetailsViewsAnalytics, sportDetailsVipPopupTimesAnalytics } = useAnalytics();
+
+  useEffect(() => {
+    sportDetailsViewsAnalytics();
+  }, [])
+  // ========== for analytics - end ==========
+
   const { data: match } = useQuery({
     queryKey: ['liveRoomDetails', matchID],
     queryFn: () =>
@@ -196,28 +213,45 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
     }
   }, [match]);
 
-  useEffect(()=>{
-    const unsub = setInterval(() => {
-      dispatch(incrementSportWatchTime()); 
-    }, 1000)
+  // useEffect(() => {
+  //   const unsub = setInterval(() => {
+  //     dispatch(incrementSportWatchTime());
+  //   }, 1000)
 
-    return () => clearInterval(unsub)
-  }, [])
+  //   return () => clearInterval(unsub)
+  // }, [])
 
-  useEffect(() =>{
-    if (screenState.sportWatchTime > NON_VIP_STREAM_TIME_SECONDS && (Number(userState.userMemberExpired) <= Number(userState.userCurrentTimestamp) || userState.userToken === "")){
+  useEffect(() => {
+    if (!showBecomeVIPOverlay && screenState.sportWatchTime > NON_VIP_STREAM_TIME_SECONDS && (Number(userState.userMemberExpired) <= Number(userState.userCurrentTimestamp) || userState.userToken === "")) {
       setShowBecomeVIPOverlay(true);
+
+      // ========== for analytics - start ==========
+      sportDetailsVipPopupTimesAnalytics();
+      // ========== for analytics - end ==========
     }
 
-  }, [screenState.sportWatchTime])
-  
+  }, [screenState.sportWatchTime, showBecomeVIPOverlay])
 
   const isFullyLoaded = !f1 && !f2 && !f3;
 
   useInterstitialAds();
-  
+
+  const insets = useSafeAreaInsets();
+
+  insetsTop = insetsTop == 0 ? insets.top : insetsTop;
+  insetsBottom = insetsBottom == 0 ? insets.bottom : insets.bottom;
+
   return (
-    <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
+    <ScreenContainer
+      isPlay={true}
+      containerStyle={{
+        flex: 1,
+        paddingRight: 0,
+        paddingLeft: 0,
+        paddingTop: screenState.isPlayerFullScreen ? 0 : insetsTop,
+        paddingBottom: screenState.isPlayerFullScreen ? 0 : insetsBottom,
+      }}
+    >
       <BecomeVipOverlay
         setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
         showBecomeVIPOverlay={showBecomeVIPOverlay}
@@ -235,6 +269,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
           onLiveEnd={onLiveEnd}
           onLoad={onLiveLoad}
           videoSource={videoSource}
+          onGoBack={navigation.goBack}
         />
       ) : (
         <BeforeLive
@@ -262,17 +297,19 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
           listLiveMatchDetailsUpdates={liveRoomUpdate}
         />
       )}
-      {isFullyLoaded && tabList.length > 0 ? (
-        <MatchDetailsNav streamId={10001} tabList={tabList} />
-      ) : (
-        <View style={styles.fetching}>
-          <FastImage
-            source={require('../../../../static/images/loading-spinner.gif')}
-            style={{ width: 100, height: 80, marginBottom: -20 }}
-            resizeMode="contain"
-          />
-          {/* <Text style={{ ...textVariants.body, color: colors.muted, textAlign: 'center' }}>加载中。。。</Text> */}
-        </View>
+      {settingsReducer.appOrientation === 'PORTRAIT' && (
+        isFullyLoaded && tabList.length > 0 ? (
+          <MatchDetailsNav streamId={10001} tabList={tabList} />
+        ) : (
+          <View style={styles.fetching}>
+            <FastImage
+              source={require('../../../../static/images/loading-spinner.gif')}
+              style={{ width: 100, height: 80, marginBottom: -20 }}
+              resizeMode="contain"
+            />
+            {/* <Text style={{ ...textVariants.body, color: colors.muted, textAlign: 'center' }}>加载中。。。</Text> */}
+          </View>
+        )
       )}
     </ScreenContainer>
   );

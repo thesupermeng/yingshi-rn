@@ -67,11 +67,20 @@ import RNFetchBlob from "rn-fetch-blob";
 import { userModel } from "../../types/userType";
 import { BridgeServer } from "react-native-http-bridge-refurbished";
 import { debounce } from "lodash";
+
 import LinearGradient from "react-native-linear-gradient";
 import VipIcon from '../../../static/images/vip-icon.svg'
 import AdultVideoVipModal from "../../components/modal/adultVideoVipModal";
 import VipRegisterBar from "../../components/adultVideo/vipRegisterBar";
 import { disableAdultMode, incrementAdultVideoWatchTime } from "../../redux/actions/screenAction";
+
+import useAnalytics from "../../hooks/useAnalytics";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { screenModel } from "../../types/screenType";
+
+let insetsTop = 0;
+let insetsBottom = 0;
+
 
 type VideoRef = {
   setPause: (param: boolean) => void;
@@ -235,6 +244,13 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const [isOffline, setIsOffline] = useState(false);
   const [isShowSheet, setShowSheet] = useState(false);
 
+  const {
+    playsViewsAnalytics,
+    playsPlaysTimesAnalytics,
+    playsShareClicksAnalytics,
+  } = useAnalytics();
+  const [isReadyPlay, setReadyPlay] = useState(false);
+
   const EPISODE_RANGE_SIZE = 100;
 
   const showEpisodeRangeStart = useMemo(
@@ -255,6 +271,10 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   );
   const onShare = async () => {
     try {
+      // ========== for analytics - start ==========
+      playsShareClicksAnalytics();
+      // ========== for analytics - end ==========
+
       const result = await Share.share({
         message: `《${vod?.vod_name
           }》高清播放${"\n"}https://yingshi.tv/index.php/vod/play/id/${vod?.vod_id
@@ -313,6 +333,14 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   useEffect(() => {
     if (vod) {
       setInitTime(vod?.timeWatched);
+      setReadyPlay(false);
+
+      // ========== for analytics - start ==========
+      playsViewsAnalytics({
+        vod_id: vod.vod_id.toString(),
+        vod_name: vod.vod_name,
+      });
+      // ========== for analytics - end ==========
     }
   }, [vod]);
 
@@ -355,7 +383,10 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const apiEndpoint = adultMode ? `${API_DOMAIN_TEST}svod/v1/vod/detail` : `${API_DOMAIN_TEST}vod/v1/vod/detail`
   const fetchVodDetails = useCallback(() =>
     fetch(
+
       `${apiEndpoint}?id=${vod?.vod_id}&appName=${APP_NAME_CONST}&platform=` +
+
+
       Platform.OS.toUpperCase() +
       `&channelId=` +
       UMENG_CHANNEL +
@@ -410,7 +441,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   const fetchVod = () =>
     fetch(
-      `${API_DOMAIN}vod/v1/vod?class=${vod?.vod_class
+      `${API_DOMAIN}vod/v2/vod?class=${vod?.vod_class
         ?.split(",")
         .shift()}&tid=${vod?.type_id}&limit=6`
     )
@@ -461,9 +492,8 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   }, []);
 
   const saveVodToHistory = (vod: any) => {
-    if (adultMode) return
     dispatch(
-      addVodToHistory(vod, currentTimeRef.current, currentEpisodeRef.current)
+      addVodToHistory(vod, currentTimeRef.current, currentEpisodeRef.current, adultMode)
     );
     setInitTime(currentTimeRef.current);
     // setInitTime(currentTimeRef.current = 0)
@@ -602,9 +632,40 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
     };
   }, [vodUri]);
 
+  // ========== for analytics - start ==========
+  const onReadyForDisplay = () => {
+    if (vod && !isReadyPlay) {
+      playsPlaysTimesAnalytics({
+        vod_id: vod.vod_id.toString(),
+        vod_name: vod.vod_name,
+      });
+    }
+
+    setReadyPlay(true);
+  };
+  // ========== for analytics - end ==========
+  const insets = useSafeAreaInsets();
+
+  if (Platform.OS === 'android') {
+    insetsTop = insets.top;
+    insetsBottom = insets.bottom;
+  } else {
+    insetsTop = insetsTop == 0 ? insets.top : insetsTop;
+    insetsBottom = insetsBottom == 0 ? insets.bottom : insets.bottom;
+  }
+
+
   return (
     <>
-      <ScreenContainer containerStyle={{ paddingRight: 0, paddingLeft: 0 }}>
+      <ScreenContainer
+        isPlay={true}
+        containerStyle={{
+          paddingTop: screenState.isPlayerFullScreen ? 0 : insetsTop,
+          paddingBottom: screenState.isPlayerFullScreen ? 0 : insetsBottom,
+          paddingLeft: 0,
+          paddingRight: 0,
+        }}
+      >
         {/* if isVodRestricted, show bing search */}
         {isVodRestricted && vod && !isOffline && <BingSearch vod={vod} />}
 
@@ -633,7 +694,9 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
             devicesOrientation={settingsReducer.devicesOrientation}
             lockOrientation={lockOrientation}
             handleSaveVod={() => saveVodToHistory(vod)}
-          // setNavBarOptions={setNavBarOptions}
+            // setNavBarOptions={setNavBarOptions}
+            onReadyForDisplay={onReadyForDisplay}
+
           />
         )}
         {isOffline && dismountPlayer && (
@@ -668,6 +731,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
             >
               <View style={{ ...styles.descriptionContainer2, gap: spacing.m }}>
                 <View style={styles.videoDescription}>
+
                   {adultMode ?
                     <FastImage
                       source={{ uri: vod?.vod_pic }}
@@ -676,6 +740,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                         ...styles.descriptionImageHorizontal,
                         ...styles.imageContainer,
                       }}
+                      useFastImage={(Platform.OS === 'android')}
                     />
                     :
                     <FastImage
@@ -685,9 +750,13 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                         ...styles.descriptionImage,
                         ...styles.imageContainer,
                       }}
+                      useFastImage={(Platform.OS === 'android')}
                     />
 
                   }
+
+                 
+
                   <View style={styles.descriptionContainer}>
                     {vod && (
                       <FavoriteButton
@@ -894,6 +963,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                             <View />
                           </>
                         )}
+
                       {adultMode ? (
                         <>
                           {vod &&
@@ -961,6 +1031,35 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                         </>
                       )
                       }
+
+
+                      {vod &&
+                        suggestedVods !== undefined &&
+                        suggestedVods?.length > 0 && (
+                          <View style={{ gap: spacing.l, marginBottom: 60 }}>
+                            <ShowMoreVodButton
+                              isPlayScreen={true}
+                              text={`相关${vod?.type_name}`}
+                              onPress={() => {
+                                videoPlayerRef.current.setPause(true);
+                                setTimeout(() => {
+                                  navigation.navigate("片库", {
+                                    type_id: vod.type_id,
+                                  });
+                                }, 150);
+                              }}
+                            />
+                            <VodListVertical
+                              vods={suggestedVods}
+                              outerRowPadding={2 * (20 - spacing.sideOffset)}
+                              onPress={() => {
+                                if (!isCollapsed) {
+                                  setIsCollapsed(true);
+                                }
+                              }}
+                            />
+                          </View>
+                        )}
 
                     </>
                   )}

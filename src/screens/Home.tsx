@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useState,
-  memo,
-  useContext,
-} from "react";
+import React, { useCallback, useEffect, useState, memo, useContext } from "react";
 import { Platform, StyleSheet, View } from "react-native";
 import ScreenContainer from "../components/container/screenContainer";
 import { useFocusEffect, useRoute, useTheme } from "@react-navigation/native";
@@ -23,7 +17,6 @@ import {
   API_DOMAIN,
   API_DOMAIN_TEST,
   IOS_HOME_PAGE_POP_UP_ADS,
-  UMENG_CHANNEL,
 } from "../utility/constants";
 import CatagoryHome from "../components/container/CatagoryHome";
 import RecommendationHome from "../components/container/RecommendationHome";
@@ -46,9 +39,14 @@ import {
 } from "./../../AnyThinkAds/ATReactNativeSDK";
 import { AdsBannerContext } from "../contexts/AdsBannerContext";
 
+
 import useInterstitialAds from "../hooks/useInterstitialAds";
 import EighteenPlusOverlay from "../components/modal/overEighteenOverlay";
 import { hideAdultModeDisclaimer } from "../redux/actions/screenAction";
+
+
+import useAnalytics from "../hooks/useAnalytics";
+
 
 function Home({ navigation }: BottomTabScreenProps<any>) {
   const dispatch = useAppDispatch();
@@ -66,7 +64,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   const { data: navOptions, refetch } = useQuery({
     queryKey: ["HomePageNavOptions"],
     queryFn: () =>
-      fetch(`${API_DOMAIN_TEST}nav/v1/navItems?channelId=WEB`, {}) //  removed  '+ UMENG_CHANNEL' in url
+      fetch(`${API_DOMAIN}nav/v1/navItems?channelId=WEB`, {}) //  removed  '+ UMENG_CHANNEL' in url
         .then((response) => response.json())
         .then((json: NavOptionsResponseType) => {
           return json.data;
@@ -84,21 +82,16 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   const data = useQueries({
     queries: navOptions
       ? navOptions?.map((x: any) => ({
-          queryKey: ["HomePage", x.id],
-          queryFn: () => fetchData(x.id),
-        }))
+        queryKey: ["HomePage", x.id],
+        queryFn: () => fetchData(x.id),
+      }))
       : [],
   });
 
   const checkConnection = async () => {
     const state = await NetInfo.fetch();
     // state.isInternetReachable === null set true is for default value
-    const offline = !(
-      state.isConnected &&
-      (state.isInternetReachable === true || state.isInternetReachable === null
-        ? true
-        : false)
-    );
+    const offline = !(state.isConnected && ((state.isInternetReachable === true || state.isInternetReachable === null) ? true : false));
     setIsOffline(offline);
     if (!offline) {
       handleRefresh(navId);
@@ -112,23 +105,18 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
     setIsOffline(settingsReducer.isOffline);
   }, []);
 
-  useFocusEffect(
-    useCallback(() => {
-      if (
-        !settingsReducer.isOffline &&
-        settingsReducer.isOffline !== isOffline
-      ) {
+  useFocusEffect(useCallback(() => {
+    if (!settingsReducer.isOffline && settingsReducer.isOffline !== isOffline) {
+      setIsOffline(settingsReducer.isOffline);
+      setShowHomeLoading(true);
+      // refetch();
+      handleRefresh(navId, true);
+    } else if (settingsReducer.isOffline) {
+      return () => {
         setIsOffline(settingsReducer.isOffline);
-        setShowHomeLoading(true);
-        // refetch();
-        handleRefresh(navId, true);
-      } else if (settingsReducer.isOffline) {
-        return () => {
-          setIsOffline(settingsReducer.isOffline);
-        };
       }
-    }, [settingsReducer.isOffline])
-  );
+    }
+  }, [settingsReducer.isOffline]));
 
   //refresh
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -205,11 +193,53 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
     []
   );
 
-  const { setNavbarHeight } = useContext(AdsBannerContext);
+  const { setNavbarHeight } = useContext(AdsBannerContext)
 
   useEffect(() => {
-    setNavbarHeight(bottomTabHeight);
-  }, [bottomTabHeight]);
+    setNavbarHeight(bottomTabHeight)
+  }, [bottomTabHeight])
+
+  // ========== for analytics - start ==========
+  const { homeTabViewsAnalytics, homeTabClicksAnalytics } = useAnalytics();
+
+  useEffect(() => {
+    if (navOptions !== undefined && navOptions.length > 0) {
+      homeTabViewsAnalytics({
+        tab_id: navOptions[0].id.toString(),
+        tab_name: navOptions[0].name,
+      });
+    }
+  }, [navOptions])
+
+  useEffect(() => {
+    if (navOptions !== undefined && navOptions.length > 0) {
+      homeTabViewsAnalytics({
+        tab_id: navOptions[navId].id.toString(),
+        tab_name: navOptions[navId].name,
+      });
+    }
+  }, [navId])
+  // ========== for analytics - end ==========
+
+  const onTabPress = (target?: string) => {
+    const targetStr = target?.substring(0, target.indexOf('-'));
+
+    if (navOptions !== undefined) {
+      const found = navOptions?.findIndex((e) => e.name === targetStr);
+      setNavId(found);
+
+      // ========== for analytics - start ==========
+      homeTabClicksAnalytics({
+        tab_id: navOptions[found].id.toString(),
+        tab_name: navOptions[found].name,
+      });
+      // ========== for analytics - end ==========
+    }
+  }
+
+  const onTabSwipe = useCallback((index: number, tab: any) => {
+    setNavId(index);
+  }, []);
 
   useInterstitialAds();
 
@@ -230,6 +260,9 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
         </View>
         <HomeNav
           // hideContent={hideContent}
+          navId={navId}
+          onTabPress={onTabPress}
+          onTabSwipe={onTabSwipe}
           tabList={
             navOptions?.map((e) => ({
               id: e.id,

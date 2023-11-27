@@ -63,7 +63,7 @@ const RecommendationHome = ({
   const vodReducer: VodReducerState = useAppSelector(
     ({ vodReducer }: RootState) => vodReducer
   );
-  const history = vodReducer.history;
+  const history = vodReducer.history.filter((e) => !e.isAdultVideo);
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const data = vodCarouselRes.data;

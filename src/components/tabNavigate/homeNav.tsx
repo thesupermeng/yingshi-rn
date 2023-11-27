@@ -10,29 +10,36 @@ import { screenModel } from "../../types/screenType";
 const Tab = createMaterialTopTabNavigator();
 
 interface Props {
-  tabList: {title: string; id: number; name: string}[];
-  tabChildren: (tab: {title: string; id: number; name: string}, index: number) => React.ReactNode,
+  tabList: { title: string; id: number; name: string }[];
+  tabChildren: (tab: { title: string; id: number; name: string }, index: number) => React.ReactNode,
   hideContent?: boolean,
+  onTabPress: (target?: string) => void,
+  onTabSwipe: (index: number, tab: any) => void,
+  navId:number
 }
-
 
 export default function HomeNav({
   tabList,
   tabChildren,
   hideContent = false,
+  onTabPress,
+  onTabSwipe,
+  navId,
 }: Props) {
+
   const {colors, textVariants} = useTheme();
   const dispatch = useAppDispatch();
 
   const renderTab = useCallback((tab: any, i: any) => (
-    <Tab.Screen 
+    <Tab.Screen
       key={tab.id}
       name={tab.name}
       options={() => ({
-        tabBarLabel: ({focused, color}) =>
-          focused ? (
+        tabBarLabel: ({ focused, color }) =>
+        tab.id  == navId ?  (
             <Text
-              style={{ ...styles.textStyles,
+              style={{
+                ...styles.textStyles,
                 fontSize: textVariants.selected.fontSize,
                 color: colors.primary,
                 fontWeight: textVariants.selected.fontWeight,
@@ -41,18 +48,24 @@ export default function HomeNav({
             </Text>
           ) : (
             <Text
-              style={{ ...styles.textStyles,
+              style={{
+                ...styles.textStyles,
                 fontSize: textVariants.unselected.fontSize,
                 color: colors.muted,
                 fontWeight: textVariants.unselected.fontWeight,
+                paddingTop: 2,
               }}>
               {tab.name}
             </Text>
           ),
       })}
+
       children={() => tabChildren(tab, i)} 
       listeners={{
+        tabPress: e => onTabPress(e.target),
+ 
         swipeEnd: e => {
+          onTabSwipe(i, tab); 
           if (tab.id == 99){
             dispatch(showAdultModeDisclaimer())
           }
@@ -70,7 +83,7 @@ export default function HomeNav({
 
   return (
     <>
-      { tabList.length > 0 && !hideContent &&
+      {tabList.length > 0 && !hideContent &&
         <Tab.Navigator
           keyboardDismissMode="none"
           screenOptions={() => ({
@@ -82,7 +95,7 @@ export default function HomeNav({
               alignItems: 'center',
               display: 'flex',
               flexDirection: 'row-reverse',
-              width: 70,
+              width: 'auto',
               paddingTop: 0,
               paddingBottom: 0,
             },
@@ -119,6 +132,6 @@ const styles = StyleSheet.create({
     height: 30,
     width: 60,
     textAlign: 'center',
-    textAlignVertical: 'center',
+    textAlignVertical: 'center'
   }
 });

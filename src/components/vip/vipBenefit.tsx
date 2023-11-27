@@ -2,6 +2,7 @@ import { useTheme } from '@react-navigation/native';
 import { StyleSheet, Text, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
+import { YSConfig } from "../../../ysConfig";
 
 export const VipBenefit = () => {
   const { textVariants } = useTheme();
@@ -32,17 +33,20 @@ export const VipBenefit = () => {
           <Text style={{...textVariants.small}}>VIP尊贵标识</Text>
         </View>
       </View>
-
-      <View style={styles.featureItem}>
-        <View style={styles.imgContainer}>
-          <FastImage
-            source={require('../../../static/images/vip/vip_sport.png')}
-            style={styles.featureIcn}
-            resizeMode={FastImage.resizeMode.contain}
-          />
+      {YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5 ? (
+        <View style={styles.featureItem}>
+          <View style={styles.imgContainer}>
+            <FastImage
+              source={require('../../../static/images/vip/vip_sport.png')}
+              style={styles.featureIcn}
+              resizeMode={FastImage.resizeMode.contain}
+            />
+          </View>
+          <Text style={{...textVariants.small}}>体育频道</Text>
         </View>
-        <Text style={{...textVariants.small}}>体育频道</Text>
-      </View>
+      ) : (
+        <></>
+      )}
 
       <View style={styles.featureItem}>
         <View style={styles.imgContainer}>
