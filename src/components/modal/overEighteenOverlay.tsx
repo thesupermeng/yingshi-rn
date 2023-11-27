@@ -101,6 +101,8 @@ export default function EighteenPlusOverlay({ handleAccept, handleReject }: Prop
       </View>
 
     )
+
+    return <></>
 }
 
 const styles = {

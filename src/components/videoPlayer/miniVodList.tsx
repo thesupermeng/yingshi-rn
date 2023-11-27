@@ -64,8 +64,7 @@ export default forwardRef<MiniVodRef, Props>(
         const [isPause, setPause] = useState(true);
         const [isScrolling, setIsScrolling] = useState(false);
         const [videoCurrentDurations, setVideoCurrentDurations] = useState<number[]>([]);
-        // for controller change mode (adult)
-        const [isChangeNewVideo, setChangeNewVideo] = useState(false);
+        const [isChangingSource, setChangingSource] = useState(false);
 
         const screenState: screenModel = useAppSelector(
             ({screenReducer}) => screenReducer
@@ -90,18 +89,19 @@ export default forwardRef<MiniVodRef, Props>(
             if (adultModeDisclaimerShow || adultModeVipShow) {
                 setPause(true)
             }
-            if (!(adultModeDisclaimerShow || adultModeVipShow) && isChangeNewVideo) {
-                setPause(false)
-                setChangeNewVideo(false);
-            }
-        }, [adultModeDisclaimerShow, adultModeVipShow, isChangeNewVideo])
+        }, [adultModeDisclaimerShow, adultModeVipShow])
 
-        // add this because when url change the component only can play when the state from pause change to play
         useEffect(() => {
-            if (collectionPartialVideos.length > 0) {
-                setChangeNewVideo(true);
+            setChangingSource(true);
+            setPause(true);
+        }, [adultMode]);
+
+        useEffect(() => {
+            if (videos.length > 0 && isChangingSource) {
+                setChangingSource(false);
+                setPause(false);
             }
-        }, [collectionPartialVideos]);
+        }, [videos, isChangingSource]);
 
         const handleOnScroll = useCallback((e: any) => {
             const positionY = parseFloat(e.nativeEvent.contentOffset.y.toFixed(5));
