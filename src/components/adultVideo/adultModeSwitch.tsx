@@ -30,14 +30,16 @@ const AdultModeSwitch = ({switchStyle}: Props) => {
     if (e){ //if swtiching to true
       if (isOverEighteenAccepted){
         dispatch(enableAdultMode())
+        dispatch(hideAdultModeVip())
       } else {
         dispatch(showAdultModeDisclaimer())
       }
 
     } else {
       dispatch(disableAdultMode())
+      dispatch(hideAdultModeVip())
     }
-  }, [])
+  }, [isOverEighteenAccepted])
 
   return (
     <View style={switchStyle}>
