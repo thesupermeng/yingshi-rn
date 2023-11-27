@@ -128,7 +128,6 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
     }
     try {
       await queryClient.resetQueries(["HomePage", id]);
-
       setIsRefreshing(false);
       setNavId(id);
       setShowHomeLoading(false);
@@ -213,32 +212,32 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
 
   useEffect(() => {
     if (navOptions !== undefined && navOptions.length > 0) {
-      homeTabViewsAnalytics({
-        tab_id: navOptions[navId].id.toString(),
-        tab_name: navOptions[navId].name,
-      });
+
+      const idx = navOptions?.findIndex((e) => e.id === navId);
+homeTabViewsAnalytics({
+  tab_id: navOptions[idx].id.toString(),
+  tab_name: navOptions[idx].name,
+});
     }
   }, [navId])
   // ========== for analytics - end ==========
 
   const onTabPress = (target?: string) => {
     const targetStr = target?.substring(0, target.indexOf('-'));
-
     if (navOptions !== undefined) {
-      const found = navOptions?.findIndex((e) => e.name === targetStr);
-      setNavId(found);
-
-      // ========== for analytics - start ==========
-      homeTabClicksAnalytics({
-        tab_id: navOptions[found].id.toString(),
-        tab_name: navOptions[found].name,
-      });
+        const found = navOptions?.findIndex((e) => e.name === targetStr);
+        setNavId(navOptions[found].id);
+        // ========== for analytics - start ==========
+        homeTabClicksAnalytics({
+          tab_id: navOptions[found].id.toString(),
+          tab_name: navOptions[found].name,
+        });
       // ========== for analytics - end ==========
     }
   }
 
   const onTabSwipe = useCallback((index: number, tab: any) => {
-    setNavId(index);
+    setNavId(tab.id);
   }, []);
 
   useInterstitialAds();
