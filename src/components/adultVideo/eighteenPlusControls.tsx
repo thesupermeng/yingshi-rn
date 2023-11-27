@@ -55,6 +55,7 @@ const eighteenPlusControls = ({}: Props) => {
           console.debug('accepted 18+')
           dispatch(acceptOverEighteen())
           dispatch(enableAdultMode())
+          dispatch(hideAdultModeDisclaimer())
           }}
         handleReject={() => {
           console.debug('rejected 18+')
