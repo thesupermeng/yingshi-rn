@@ -538,7 +538,7 @@ export default () => {
     initInterstitialAdListener();
     dispatch(resetAdultVideoWatchTime())
     dispatch(disableAdultMode())
-    dispatch(resetOverEighteen())
+    // dispatch(resetOverEighteen())
   }, []);
 
   return (
