@@ -24,11 +24,15 @@ const AdultModeSwitch = ({switchStyle}: Props) => {
   )
   const dispatch = useAppDispatch()
 
-  const {adultMode, adultModeDisclaimerShow} = screenState
+  const {adultMode, adultModeDisclaimerShow, isOverEighteenAccepted} = screenState
 
   const handleToggle = useCallback((e:boolean) => {
     if (e){ //if swtiching to true
-      dispatch(showAdultModeDisclaimer())
+      if (isOverEighteenAccepted){
+        dispatch(enableAdultMode())
+      } else {
+        dispatch(showAdultModeDisclaimer())
+      }
 
     } else {
       dispatch(disableAdultMode())
