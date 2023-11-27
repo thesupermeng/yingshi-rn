@@ -8,7 +8,7 @@ interface Props {
 
 export default function VipModal({ children }: Props) {
     return (
-        <View style={{ flex: 1, position: 'relative', alignItems: 'center', justifyContent: 'center', alignSelf: 'center', alignContent: 'center', marginBottom: '18%' }}>
+        <View style={{ flex: 1, position: 'relative', alignItems: 'center', justifyContent: 'center', alignSelf: 'center', alignContent: 'center', marginBottom: '5%' }}>
           <View style={{ position: 'relative', alignItems: 'center' }}>
             <VIPIcon style={{ position: 'absolute', zIndex: 100, top: 0 }}></VIPIcon>
             {children}
