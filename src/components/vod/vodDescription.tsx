@@ -24,7 +24,8 @@ export default function VodDescription({vod, vodStyle}: Props) {
           {vod.vod_class}
         </Text>
       </View>
-      <View style={{...styles.des, gap: spacing.s}}>
+      {vod?.playMode != 'adult' &&
+        <View style={{...styles.des, gap: spacing.s}}>
         <Text style={{...textVariants.subBody, color: colors.muted}}>
           主演:
         </Text>
@@ -34,7 +35,8 @@ export default function VodDescription({vod, vodStyle}: Props) {
           {vod.vod_actor}
         </Text>
       </View>
-      <View style={styles.des}>
+      }
+      {/* <View style={styles.des}>
         <Text
           numberOfLines={2}
           style={{...textVariants.subBody, flex: 1, color: colors.muted}}>
@@ -42,7 +44,7 @@ export default function VodDescription({vod, vodStyle}: Props) {
             vod.vod_blurb?.trim()
           }
         </Text>
-      </View>
+      </View> */}
     </View>
   );
 }

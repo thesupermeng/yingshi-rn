@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     flexShrink: 1,
   },
   image: {
-    width: 120,
-    height: 180,
+    width: 154,
+    height: 87,
   },
 });
