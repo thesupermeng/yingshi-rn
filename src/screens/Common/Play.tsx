@@ -903,12 +903,12 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                                 <ShowMoreVodButton
                                   isPlayScreen={true}
                                   text={`相关${vod?.vod_class}`}
-                                  showMoreButton={false}
                                   onPress={() => {
                                     //  videoPlayerRef.current.setPause(true);
                                     setTimeout(() => {
-                                      navigation.navigate("片库", {
-                                        type_id: vod.type_id,
+                                      navigation.navigate('午夜场剧情', {
+                                        // class: item.vod_list[0].vod_class
+                                        class: vod?.vod_class
                                       });
                                     }, 150);
                                   }}
