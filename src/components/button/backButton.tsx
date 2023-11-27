@@ -20,6 +20,7 @@ export default function BackButton({
     <TouchableOpacity
       onPress={onPress ? onPress : () => navigation.goBack()}
       style={{ ...styles.btn, ...btnStyle }}
+      hitSlop={{top: 20, bottom: 20, left: 20, right: 20}}
     >
       <BackIcon
         style={{

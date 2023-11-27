@@ -20,7 +20,7 @@ function PlaylistDetail ({navigation}: RootStackScreenProps<'PlaylistDetail'>) {
       <ScreenContainer>
         <TitleWithBackButtonHeader
           title={playlist?.topic_name}
-          headerStyle={{marginBottom: spacing.s}}
+          // headerStyle={{marginBottom: spacing.s}}
         />
         {playlist && (
           <View style={{gap: spacing.s, paddingBottom: 50}}>

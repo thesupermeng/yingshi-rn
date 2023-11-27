@@ -421,7 +421,7 @@ export default ({navigation, route}: RootStackScreenProps<'片库'>) => {
       <ScreenContainer>
         <TitleWithBackButtonHeader
           title="片库"
-          headerStyle={{marginBottom: spacing.s}}
+          // headerStyle={{marginBottom: spacing.s}}
         />
         <Animated.View>
           <FlatList
