@@ -243,6 +243,9 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const [dismountPlayer, setDismountPlayer] = useState(false);
   const [isOffline, setIsOffline] = useState(false);
   const [isShowSheet, setShowSheet] = useState(false);
+  const isVip = !(Number(userState.userMemberExpired) <=
+                  Number(userState.userCurrentTimestamp) ||
+                  userState.userToken === "")
 
   const {
     playsViewsAnalytics,
@@ -322,7 +325,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   useEffect(() => {
     let interval: any;
-    if (adultMode) {
+    if (adultMode && !isVip) {
       interval = setInterval(() => {
         dispatch(incrementAdultVideoWatchTime())
       }, 1000)

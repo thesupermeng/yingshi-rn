@@ -14,6 +14,7 @@ import { screenModel } from "../../types/screenType";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { RootState } from "../../redux/store";
 import { acceptOverEighteen, disableAdultMode, enableAdultMode, hideAdultModeDisclaimer, incrementAdultVideoWatchTime } from "../../redux/actions/screenAction";
+import { userModel } from "../../types/userType";
 interface Props {
   
 }
@@ -22,12 +23,18 @@ const eighteenPlusControls = ({}: Props) => {
   const screenState: screenModel = useAppSelector(
     ({screenReducer}) => screenReducer
   )
+  const userState: userModel = useAppSelector(
+    ({userReducer}) => userReducer
+  )
   const {adultModeVipShow, adultModeDisclaimerShow, adultMode} = screenState
   const dispatch = useAppDispatch()
+  const isVip = !(Number(userState.userMemberExpired) <=
+                  Number(userState.userCurrentTimestamp) ||
+                  userState.userToken === "")
 
   useEffect(() => {
     let interval: any;
-    if (adultMode){
+    if (adultMode && !isVip){
       interval = setInterval(() => {
         dispatch(incrementAdultVideoWatchTime())
       }, 1000)

@@ -20,7 +20,8 @@ const initialState: screenModel = {
   lastSeenNavName: '推荐', 
   adultMode: false, 
   adultModeDisclaimerShow: false, 
-  adultModeVipShow: false
+  adultModeVipShow: false, 
+  isOverEighteenAccepted: false
 };
 
 export function screenReducer(state = initialState, action: screenActionType) {
