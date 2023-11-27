@@ -335,13 +335,63 @@ export default forwardRef<VideoRef, Props>(
       }
     };
 
+    // const smoothSeekTo = (targetTime: number) => {
+    //   const FPS = 60; // Frames per second for smoother seek
+    //   const duration = 0.5; // Duration in seconds for the seek operation
+    //   const steps = duration * FPS;
+    //   const timeDiff = targetTime - currentTime;
+    //   const timeIncrement = timeDiff / steps;
+    
+    //   for (let i = 0; i < steps; i++) {
+    //     setTimeout(() => {
+    //       const newTime = currentTime + timeIncrement;
+    //       setCurrentTime(newTime);
+    //       if (videoPlayerRef.current && !isNaN(newTime)) {
+    //         videoPlayerRef.current.seek(newTime);
+    //       }
+    //     }, (i + 1) * (100 / FPS));
+    //   }
+    // };
+
     const onSeekGesture = (time: number) => {
       if (currentTime < time) {
         setSeekDirection("forward");
       } else {
         setSeekDirection("backward");
       }
-      onSeek(time);
+      // onSeek(time);
+      directSeekTo(time)
+    };
+
+
+    const directSeekTo = (targetTime: number) => {
+      hideSeekProgress()
+      // Calculate the direction of seeking based on the current and target times
+    // const direction = targetTime > currentTime ? 'forward' : 'backward';
+
+    //   // Calculate the seek amount based on the difference between target and current time
+    // const seekAmount = Math.abs(targetTime - currentTime);
+
+    // // Optionally, you can adjust the seek amount based on the direction to fine-tune seeking
+    // // For example, seek a shorter duration when seeking backward
+    // const adjustedSeekAmount = direction === 'backward' ? seekAmount * 0.8 : seekAmount;
+
+    // // Determine the new seek time based on the direction and adjusted seek amount
+    // const newTime = direction === 'forward' ? currentTime + adjustedSeekAmount : currentTime - adjustedSeekAmount;
+
+    // // Ensure the seek time stays within video duration boundaries
+    // const boundedTime = Math.min(Math.max(newTime, 0), duration);
+
+    // // Update the current time and seek in the video player
+    // setCurrentTime(boundedTime);
+    // if (videoPlayerRef.current && !isNaN(boundedTime)) {
+    //   videoPlayerRef.current.seek(boundedTime);
+    // }
+      const newTime = Math.min(Math.max(targetTime, 0), duration); // Ensure the seek time stays within video duration boundaries
+      setCurrentTime(newTime);
+      if (videoPlayerRef.current && !isNaN(newTime)) {
+        videoPlayerRef.current.seek(newTime);
+      }
     };
 
     const onVideoProgessing = (data: any) => {
