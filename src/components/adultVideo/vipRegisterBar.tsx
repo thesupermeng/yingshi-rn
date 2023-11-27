@@ -6,12 +6,14 @@ import MoreArrow from '../../../static/images/more_arrow.svg'
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks"
 import { userModel } from "../../types/userType"
 import { showAdultModeVip } from "../../redux/actions/screenAction"
+import { useNavigation } from "@react-navigation/native"
 
 
 const VipRegisterBar = () => {
   const dispatch = useAppDispatch()
+  const navigator = useNavigation()
   const handleOnPress = useCallback(() => {
-    dispatch(showAdultModeVip())
+    navigator.navigate('付费VIP');
   }, [])
   const userState: userModel = useAppSelector(
     ({ userReducer }) => userReducer
@@ -38,7 +40,7 @@ const VipRegisterBar = () => {
           <VipIcon width={24} height={24}/>
           <View>
             <Text style={{color: '#FFE6A5', textShadowColor: 'rgba(0, 0, 0, 0.15)', fontWeight: '600', fontSize: 14, textShadowOffset: {height:0, width: 4}, textShadowRadius: 4 }}>开通VIP会员，畅享尊贵特权</Text>
-            <Text style={{color: '#FFF', textShadowColor: 'rgba(0, 0, 0, 0.15)', fontWeight: '600', fontSize: 12, textShadowOffset: {height:0, width: 4}, textShadowRadius: 4 }}>$18.88/VIP会员180天</Text>
+            {/* <Text style={{color: '#FFF', textShadowColor: 'rgba(0, 0, 0, 0.15)', fontWeight: '600', fontSize: 12, textShadowOffset: {height:0, width: 4}, textShadowRadius: 4 }}>$18.88/VIP会员180天</Text> */}
           </View>
         </View>
         <TouchableOpacity
