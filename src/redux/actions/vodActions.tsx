@@ -52,12 +52,13 @@ export const viewPlaylistDetails = (playlist: VodTopicType) => (
     }
 )
 
-export const addVodToHistory = (vod: VodType, timeWatched: number, episodeWatched: number = 0) => {
+export const addVodToHistory = (vod: VodType, timeWatched: number, episodeWatched: number = 0, isAdultMode = false,) => {
     return {
         type: ADD_VOD_TO_HISTORY,
         payload: [vod],
         timeWatched: timeWatched,
-        episodeWatched: episodeWatched
+        episodeWatched: episodeWatched,
+        isAdultVideo: isAdultMode,
     }
 }
 

@@ -47,7 +47,7 @@ export default function EighteenPlusOverlay({ handleAccept, handleReject }: Prop
                     color: 'white',
                     padding: 2,
                     fontSize: 16,
-                    fontWeight: '300',
+                    fontWeight: '400',
                   }}>
                   未成年请勿观看视频
                 </Text>
@@ -56,7 +56,7 @@ export default function EighteenPlusOverlay({ handleAccept, handleReject }: Prop
                     color: 'white',
                     padding: 2,
                     fontSize: 16,
-                    fontWeight: '300',
+                    fontWeight: '400',
                   }}>
                   我们遵守当地法律实施内容分级规定
 
@@ -66,7 +66,7 @@ export default function EighteenPlusOverlay({ handleAccept, handleReject }: Prop
                     color: 'white',
                     padding: 2,
                     fontSize: 16,
-                    fontWeight: '300',
+                    fontWeight: '400',
                   }}>
                   观看视频者必须年满18周岁
                 </Text>
@@ -82,8 +82,9 @@ export default function EighteenPlusOverlay({ handleAccept, handleReject }: Prop
                     <Text
                       style={{
                         // color: colors.text,
-                        fontWeight: '600',
+                        fontWeight: '500',
                         fontSize: 16,
+                        color: '#1D2023'
                       }}>
                       我已年满18岁
                     </Text>
@@ -91,7 +92,7 @@ export default function EighteenPlusOverlay({ handleAccept, handleReject }: Prop
                   <TouchableOpacity
                     onPress={handleReject}
                     style={{paddingTop: 16}}>
-                    <Text style={{color: '#9C9C9C', fontSize: 16}}>否</Text>
+                    <Text style={{color: '#9C9C9C', fontSize: 16, fontWeight: '500'}}>否</Text>
                   </TouchableOpacity>
                 </View>
               </View>

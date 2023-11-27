@@ -492,9 +492,8 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   }, []);
 
   const saveVodToHistory = (vod: any) => {
-    if (adultMode) return
     dispatch(
-      addVodToHistory(vod, currentTimeRef.current, currentEpisodeRef.current)
+      addVodToHistory(vod, currentTimeRef.current, currentEpisodeRef.current, adultMode)
     );
     setInitTime(currentTimeRef.current);
     // setInitTime(currentTimeRef.current = 0)

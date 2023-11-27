@@ -9,6 +9,7 @@ export interface VodRecordType extends VodType {
     timeWatched: number,
     recordedAt: Date,
     episodeWatched: number,
+    isAdultVideo?: boolean,
 }
 interface PlayVodType {
     vod: VodRecordType | null,
@@ -31,14 +32,18 @@ export function vodReducer(state = initialState, action: VodActionType) {
         ...action.payload?.[0],
         recordedAt: new Date(),
         timeWatched: action.timeWatched === undefined ? 0 : action.timeWatched,
-        episodeWatched: action.episodeWatched === undefined ? 0 : action.episodeWatched
+        episodeWatched: action.episodeWatched === undefined ? 0 : action.episodeWatched,
     };
+
     switch (action.type) {
         case PLAY_VOD: {
             let play = state.history.find(vod => vod.vod_id === firstPayloadItemWithTimestamp.vod_id);
             if (play === undefined) {
                 play = firstPayloadItemWithTimestamp;
             }
+
+            delete play.isAdultVideo;
+
             return {
                 ...state,
                 playVod: {
@@ -52,6 +57,8 @@ export function vodReducer(state = initialState, action: VodActionType) {
                 history: []
             };
         case ADD_VOD_TO_HISTORY: {
+            firstPayloadItemWithTimestamp.isAdultVideo = action.isAdultVideo === undefined ? false : action.isAdultVideo;
+ 
             const hst = state.history.filter(vod => vod.vod_id !== firstPayloadItemWithTimestamp.vod_id);
             hst.unshift(firstPayloadItemWithTimestamp);
             return {
