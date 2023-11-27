@@ -69,8 +69,12 @@ export function vodReducer(state = initialState, action: VodActionType) {
     }
 }
 
+type FavouriteVodType = {
+    playMode?: 'adult' | 'normal'
+} & VodType
+
 export interface FavoriteVodReducerState {
-    favorites: Array<VodType>,
+    favorites: Array<FavouriteVodType>,
 }
 
 const initialFavoriteState: FavoriteVodReducerState = {

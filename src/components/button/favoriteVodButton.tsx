@@ -7,13 +7,14 @@ import {
 } from 'react-native';
 import FavoriteIcon from '../../../static/images/favorite.svg';
 import { useTheme } from '@react-navigation/native';
-import { useAppDispatch } from '../../hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { RootState } from '../../redux/store';
 import {
   addVodToFavorites,
   removeVodFromFavorites,
 } from '../../redux/actions/vodActions';
 import { VodType } from '../../types/ajaxTypes';
+import { screenModel } from '../../types/screenType';
 interface Props {
   vod: VodType;
   onPress?: any;
@@ -33,6 +34,10 @@ export default function FavoriteVodButton({
   ...params
 }: Props) {
   const { colors, textVariants, spacing, icons } = useTheme();
+  const screenState: screenModel = useAppSelector(
+    ({screenReducer}) => screenReducer
+  )
+  const {adultMode} = screenState
   const dispatch = useAppDispatch();
   return (
     <View style={styles.btn}>
@@ -50,7 +55,8 @@ export default function FavoriteVodButton({
           if (initialState) {
             dispatch(removeVodFromFavorites(vod));
           } else {
-            dispatch(addVodToFavorites(vod));
+            const playMode = adultMode? 'adult' : 'normal'
+            dispatch(addVodToFavorites(vod, playMode));
           }
         }}
         style={{ marginLeft: spacing.xs }}>

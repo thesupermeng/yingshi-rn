@@ -5,13 +5,16 @@ import {
 import { VodActionType } from "../../types/actionTypes";
 import { VodTopicType, VodType } from "../../types/ajaxTypes";
 
-export const addVodToFavorites = (vod: VodType) => (
+export const addVodToFavorites = (vod: VodType, playMode: 'adult'|'normal'='normal') => {
+    console.debug('playmode added', playMode)
+    return (
     {
         type: ADD_VOD_TO_FAVORITES,
-        payload: vod
+        payload: {...vod, playMode: playMode}, 
+        playMode: playMode
     }
 )
-
+}
 export const removeVodFromFavorites = (vod: VodType) => (
     {
         type: REMOVE_VOD_FROM_FAVORITES,
