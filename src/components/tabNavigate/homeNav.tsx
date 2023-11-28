@@ -111,7 +111,7 @@ export default function HomeNav({
           })}
           screenListeners={{
             tabPress: e => {
-              if (e.target?.includes('午夜场')){
+              if (e.target?.includes('夜色')){
                 dispatch(showAdultModeDisclaimer())
               }
             },

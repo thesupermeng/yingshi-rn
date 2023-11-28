@@ -161,8 +161,8 @@ const VideoWithControls = ({
             <AdultModeCountdownIndicator
                 containerStyle={{
                     position: 'absolute', 
-                    top: 50, 
-                    right: 20
+                    bottom: '20%', 
+                    left: 0
                 }}
             />
         </View>
