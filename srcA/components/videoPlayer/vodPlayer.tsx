@@ -170,6 +170,11 @@ export default forwardRef<VideoRef, Props>(
     };
 
     useEffect(() => {
+      // set orientation: "portrait" because if set all android will auto rotate
+      if (Platform.OS === "android") {
+        navigation.setOptions({ orientation: "portrait" });
+      }
+
       // ... (rest of the useEffect hook remains unchanged)
       const subscription = AppState.addEventListener(
         "change",
@@ -188,11 +193,6 @@ export default forwardRef<VideoRef, Props>(
 
       if (isNeedAutoRotate && !isLocked) {
         deviceOrientationHandle();
-      } else {
-        // set orientation: "portrait" because if set all android will auto rotate
-        if (Platform.OS === "android") {
-          navigation.setOptions({ orientation: "portrait" });
-        }
       }
     }, [devicesOrientation]);
 
