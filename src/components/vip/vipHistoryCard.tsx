@@ -1,6 +1,5 @@
 import { useTheme } from "@react-navigation/native";
 import { StyleSheet, Text, View } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import { vipHistoryResponseType } from "../../types/membershipType";
 
 interface Props {
@@ -34,10 +33,16 @@ export const VipHistoryCard = ({ historyItem }: Props) => {
       </View>
       <View
         style={{flex: 1, alignSelf: 'center'}}>
-        <Text
-          style={{...textVariants.subBody, color: colors.primary, alignSelf: 'flex-end'}}>
-          +{historyItem.vipDays}天
-        </Text>
+        {historyItem.status === 2 ? 
+          <Text
+            style={{...textVariants.subBody, color: '#FF8A00', alignSelf: 'flex-end'}}>
+            处理中
+          </Text> : 
+          <Text
+            style={{...textVariants.subBody, color: historyItem.status === 1 ? colors.primary : colors.muted , alignSelf: 'flex-end'}}>
+            {historyItem.status === 1 ? '+' : '' }{historyItem.vipDays}天
+          </Text>
+        }
       </View>
     </View>
   );
