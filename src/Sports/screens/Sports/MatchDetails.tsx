@@ -99,6 +99,10 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
     type: 0,
     url: undefined,
   });
+  const [isLiveVideoFullScreen, setIsLiveVideoFullScreen] = useState(false);
+  const [shouldShowComponents, setShouldShowComponents] = useState(true);
+  const [isNavVisible, setIsNavVisible] = useState(true);
+
   // ========== for analytics - start ==========
   const { sportDetailsViewsAnalytics, sportDetailsVipPopupTimesAnalytics } = useAnalytics();
 
@@ -213,6 +217,34 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
     }
   }, [match]);
 
+  const handleFullscreenChange = (isFullscreen: boolean) => {
+    if (isFullscreen) {
+      // If exiting fullscreen, hide MatchDetailsNav after a delay
+      setIsNavVisible(false);
+
+      // After 3 seconds, set isNavVisible back to true to show the component
+      setTimeout(() => {
+        setIsNavVisible(true);
+      }, 3000); // Adjust the delay duration (in milliseconds) as needed
+    }
+  };
+
+  useEffect(() => {
+    handleFullscreenChange(screenState.isPlayerFullScreen);
+  }, [screenState.isPlayerFullScreen, handleFullscreenChange]);
+  //   const hideNavInterval = setInterval(() => {
+  //     // Hide the MatchDetailsNav for a few seconds
+  //     setIsNavVisible(false);
+
+  //     // After 3 seconds, set isNavVisible back to true to show the component
+  //     setTimeout(() => {
+  //       setIsNavVisible(true);
+  //     }, 3000); // Adjust the delay duration (in milliseconds) as needed
+  //   }, 3000); // Adjust the interval duration (in milliseconds) as needed
+
+  //   return () => clearInterval(hideNavInterval);
+  // }, []); // Run this effect only once on component mount
+
   // useEffect(() => {
   //   const unsub = setInterval(() => {
   //     dispatch(incrementSportWatchTime());
@@ -241,6 +273,8 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
   insetsTop = insetsTop == 0 ? insets.top : insetsTop;
   insetsBottom = insetsBottom == 0 ? insets.bottom : insets.bottom;
 
+
+
   return (
     <ScreenContainer
       isPlay={true}
@@ -248,6 +282,8 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
         flex: 1,
         paddingRight: 0,
         paddingLeft: 0,
+        // paddingTop: isLiveVideoFullScreen ? 0 : insetsTop,
+        // paddingBottom: isLiveVideoFullScreen ? 0 : insetsBottom,
         paddingTop: screenState.isPlayerFullScreen ? 0 : insetsTop,
         paddingBottom: screenState.isPlayerFullScreen ? 0 : insetsBottom,
       }}
@@ -270,6 +306,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
           onLoad={onLiveLoad}
           videoSource={videoSource}
           onGoBack={navigation.goBack}
+          // onFullscreenChangeCallback={isFullscreen}
         />
       ) : (
         <BeforeLive
@@ -297,8 +334,8 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
           listLiveMatchDetailsUpdates={liveRoomUpdate}
         />
       )}
-      {settingsReducer.appOrientation === 'PORTRAIT' && (
-        isFullyLoaded && tabList.length > 0 ? (
+      {settingsReducer.appOrientation === 'PORTRAIT' && ( (isNavVisible &&
+        isFullyLoaded && tabList.length > 0) ? (
           <MatchDetailsNav streamId={10001} tabList={tabList} />
         ) : (
           <View style={styles.fetching}>

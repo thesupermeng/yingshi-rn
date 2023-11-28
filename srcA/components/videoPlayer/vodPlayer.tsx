@@ -174,7 +174,7 @@ export default forwardRef<VideoRef, Props>(
       if (Platform.OS === "android") {
         navigation.setOptions({ orientation: "portrait" });
       }
-      
+
       // ... (rest of the useEffect hook remains unchanged)
       const subscription = AppState.addEventListener(
         "change",
