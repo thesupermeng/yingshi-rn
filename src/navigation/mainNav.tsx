@@ -7,6 +7,7 @@ import FastImage from "../components/common/customFastImage";
 import { NetworkInfo } from "react-native-network-info";
 import Nav from "../../src/navigation/nav";
 import NavA from "../../srcA/navigation/nav";
+import NavIos from "../../srcIos/navigation/nav";
 import axios from "axios";
 import {
   API_DOMAIN,
@@ -87,7 +88,7 @@ export default () => {
       mobile_os: Platform.OS,
       product: APP_NAME_CONST + "-" + Platform.OS.toUpperCase(),
       mobile_model: "HUAWEIP20",
-      ab_switch: true
+      ab_switch: true,
     };
 
     const locationResponse = await fetch(`${API_DOMAIN}location/v1/info`, {
@@ -159,8 +160,14 @@ export default () => {
             <Nav />
           ) : (
             // B面里的A面
-            <NavA />
+            <>
+              {Platform.OS === "ios" && <NavIos />}
+
+              {Platform.OS === "android" && <NavA />}
+            </>
           )}
+
+          
         </>
       )}
     </>
