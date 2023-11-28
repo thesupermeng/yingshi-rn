@@ -16,6 +16,7 @@ const initialState: screenModel = {
   sportWatchTime: 0,
   interstitialShow: false,
   isPlayerFullScreen: false,
+  fromWhereToProfile: undefined,
 };
 
 export function screenReducer(state = initialState, action: screenActionType) {
@@ -76,6 +77,7 @@ export function screenReducer(state = initialState, action: screenActionType) {
       return {
         ...state,
         navigateToProfile: true,
+        fromWhereToProfile: action.payload,
       };
     case "reset_profile_screen":
       return {

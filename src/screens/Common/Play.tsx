@@ -736,10 +736,10 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                     >
                       {`更新：${vod
                         ? new Date(vod?.vod_time_add * 1000)
-                          .toLocaleDateString("en-GB")
+                          .toISOString().slice(0, 10)
                           .replace(/\//g, "-")
                         : new Date()
-                          .toLocaleDateString("en-GB")
+                          .toISOString().slice(0, 10)
                           .replace(/\//g, "-")
                         }`}
                     </Text>

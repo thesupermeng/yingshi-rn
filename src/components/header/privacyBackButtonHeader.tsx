@@ -9,7 +9,7 @@ import {
     showLoginAction,
     showRegisterAction,
     navigateToProfileScreen
-  } from "../../redux/actions/screenAction";
+} from "../../redux/actions/screenAction";
 import { screenReducer } from "../../redux/reducers/screenReducer";
 import { screenModel } from "../../types/screenType";
 import { RootState } from "../../redux/store";
@@ -20,7 +20,7 @@ interface Props {
     onBack?: any,
     headerStyle?: ViewStyle,
     right?: React.ReactNode,
-    destination: keyof RootStackParamList, 
+    destination: keyof RootStackParamList,
 }
 
 
@@ -32,15 +32,20 @@ export default function PrivacyBackButtonHeader({ title, headerStyle, right, des
     const route = useRoute();
     const screenReducer: screenModel = useAppSelector(
         ({ screenReducer }: RootState) => screenReducer
-      );
+    );
 
-      useEffect(() => {
+    useEffect(() => {
         const unsubscribe = navigation.addListener('beforeRemove', (e) => {
-            if (screenReducer.navigateToProfile === true) {
+            if (screenReducer.navigateToProfile === true && screenReducer.fromWhereToProfile !== undefined) {
                 // Check if the previous route was "RegistrationPage" and the destination is "ProfileScreen"
                 // If yes, trigger your custom action
-                dispatch(showRegisterAction());
-            }else {
+                if (screenReducer.fromWhereToProfile === 'login') {
+                    dispatch(showLoginAction());
+                }
+                if (screenReducer.fromWhereToProfile === 'register') {
+                    dispatch(showRegisterAction());
+                }
+            } else {
                 return
             }
         });
@@ -74,13 +79,13 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         width: '100%',
         alignItems: 'center',
-        marginTop: 5, 
+        marginTop: 5,
     },
     backStyle: {
-        width: 30, 
-        height: 30, 
-        display: 'flex', 
-        alignItems: 'center', 
+        width: 30,
+        height: 30,
+        display: 'flex',
+        alignItems: 'center',
         justifyContent: 'center',
     }
 });

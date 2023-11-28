@@ -41,8 +41,7 @@ import {
   updateUsernameState,
   updateUserReferral,
 } from '../../redux/actions/userAction';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { BottomSheetModalInternalContextType } from '@gorhom/bottom-sheet/lib/typescript/contexts';
+
 export default ({ navigation }: RootStackScreenProps<'个人中心'>) => {
   const { colors, textVariants, icons, spacing } = useTheme();
   const dispatch = useDispatch();
