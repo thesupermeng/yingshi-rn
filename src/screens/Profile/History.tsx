@@ -102,7 +102,7 @@ export default ({ navigation }: RootStackScreenProps<"播放历史">) => {
             </Text>
           </TouchableOpacity>
         }
-        headerStyle={{ marginBottom: spacing.m }}
+        // headerStyle={{ marginBottom: spacing.m }}
       />
       {history && history.length > 0 ? (
         <ScrollView

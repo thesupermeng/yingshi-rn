@@ -50,7 +50,7 @@ export default ({navigation, route}: RootStackScreenProps<'电视台列表'>) =>
     <ScreenContainer>
       <TitleWithBackButtonHeader
         title="电视台"
-        headerStyle={{marginBottom: spacing.m}}
+        // headerStyle={{marginBottom: spacing.m}}
       />
       <ScrollView style={{marginBottom: spacing.xl}}>
         {liveStationItemList != undefined && liveStationItemList.length > 0 && (
