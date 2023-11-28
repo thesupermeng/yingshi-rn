@@ -68,7 +68,6 @@ import { AdsBannerContextProvider } from "./src/contexts/AdsBannerContext";
 import { AdsBannerContextProvider as AdsBannerContextProviderA } from "./srcA/contexts/AdsBannerContext";
 import NetInfo from "@react-native-community/netinfo";
 
-import { AdultVideoContextProvider } from "./src/contexts/AdultVideoContext";
 
 
 const topon_channel = "WEB";
@@ -349,13 +348,11 @@ let App = () => {
             <PersistGate loading={null} persistor={persistor}>
               <AdsBannerContextProviderA>
                 <AdsBannerContextProvider>
-                  <AdultVideoContextProvider>
-                    <GestureHandlerRootView style={{ flex: 1 }}>
-                      <BottomSheetModalProvider>
-                      <MainNav />
-                      </BottomSheetModalProvider>
-                    </GestureHandlerRootView>
-                  </AdultVideoContextProvider>
+                  <GestureHandlerRootView style={{ flex: 1 }}>
+                    <BottomSheetModalProvider>
+                    <MainNav />
+                    </BottomSheetModalProvider>
+                  </GestureHandlerRootView>
                 </AdsBannerContextProvider>
               </AdsBannerContextProviderA>
             </PersistGate>
