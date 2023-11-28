@@ -30,7 +30,7 @@ export default ({ navigation }: RootStackScreenProps<"反馈">) => {
   const [text, setTextInput] = React.useState("");
   const [feedbackCategory, setFeedbackCategory] = React.useState(0);
   const [email, setEmail] = React.useState("");
-  const [dialogText, setDialogText] = React.useState("反馈提交成功");
+  const [dialogText, setDialogText] = React.useState("反馈成功，我们会在 24 小时内处理你的反馈！");
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
 
   const [platformId, setPlatformId] = React.useState(0);
@@ -67,7 +67,7 @@ export default ({ navigation }: RootStackScreenProps<"反馈">) => {
         `${API_DOMAIN}feedback/v1/submit`,
         data
       );
-      setDialogText("反馈提交成功");
+      setDialogText("反馈成功，我们会在 24 小时内处理你的反馈！");
       Keyboard.dismiss();
       setIsDialogOpen(true);
 
@@ -150,7 +150,7 @@ export default ({ navigation }: RootStackScreenProps<"反馈">) => {
       >
         {!isOffline && <FeedbackSuccessIcon />}
 
-        <Text style={textVariants.bigHeader}>{dialogText}</Text>
+        <Text style={{ ...textVariants.bigHeader, textAlign: 'center' }}>{dialogText}</Text>
       </Dialog>
     </ScreenContainer>
   );
