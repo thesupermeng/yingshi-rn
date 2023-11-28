@@ -101,8 +101,8 @@ const RegisterCard = (props: any) => {
             props.email === ""
               ? styles.defaultTextInputStyle
               : props.emailValid
-              ? styles.correctTextInputStyle
-              : styles.invalidTextInputStyle,
+                ? styles.correctTextInputStyle
+                : styles.invalidTextInputStyle,
           ]}
           value={props.email}
           onChange={(value) => {
@@ -163,8 +163,8 @@ const RegisterCard = (props: any) => {
             props.email === ""
               ? styles.defaultTextInputStyle
               : props.referralCodeValid
-              ? styles.correctTextInputStyle
-              : styles.invalidTextInputStyle,
+                ? styles.correctTextInputStyle
+                : styles.invalidTextInputStyle,
             ,
             { marginTop: 30 },
           ]}
@@ -301,8 +301,8 @@ const RegisterCard = (props: any) => {
             letterSpacing: 0.2,
             color:
               props.email === "" ||
-              !props.emailValid ||
-              props.radioValue == false
+                !props.emailValid ||
+                props.radioValue == false
                 ? "white"
                 : "#000",
           }}
@@ -354,7 +354,7 @@ const RegisterCard = (props: any) => {
 
         <TouchableOpacity
           onPress={() => {
-            dispatch(navigateToProfileScreen());
+            dispatch(navigateToProfileScreen('register'));
             navigation.navigate("用户协议");
           }}
         >
@@ -363,7 +363,7 @@ const RegisterCard = (props: any) => {
         <Text style={{ color: "#9c9c9c" }}>和</Text>
         <TouchableOpacity
           onPress={() => {
-            dispatch(navigateToProfileScreen());
+            dispatch(navigateToProfileScreen('register'));
             navigation.navigate("隐私政策");
           }}
         >
