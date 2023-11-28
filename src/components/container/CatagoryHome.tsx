@@ -348,6 +348,7 @@ const CatagoryHome = ({
             </Text>
           </View>
         }
+        onEndReachedThreshold={0.5}
       />
     </View>
     {navId == 99 &&
