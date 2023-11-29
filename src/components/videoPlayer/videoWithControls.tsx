@@ -158,7 +158,13 @@ const VideoWithControls = ({
                 streams={streams}
                 isFetchingRecommendedMovies={isFetchingRecommendedMovies}
             />
-            
+            <AdultModeCountdownIndicator
+                containerStyle={{
+                    position: 'absolute', 
+                    bottom: '20%', 
+                    left: 0
+                }}
+            />
         </View>
     );
 }

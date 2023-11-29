@@ -18,9 +18,6 @@ import GesturesGuide from '../gestures/vod/GesturesGuide';
 import VodLiveStationListVertical from '../vod/vodLiveStationListVertical';
 // import FastImage from 'react-native-fast-image';
 import FastImage from '../common/customFastImage';
-import AdultModeCountdownIndicator from '../adultVideo/adultModeCountdownIndicator';
-import { screenModel } from '../../types/screenType';
-import { useAppSelector } from '../../hooks/hooks';
 
 type Props = {
   videoUrl: string;
@@ -464,14 +461,6 @@ export default forwardRef<RefHandler, Props>(({
             </>
         )
       }
-      <AdultModeCountdownIndicator
-        containerStyle={{
-            position: 'absolute', 
-            bottom: '20%', 
-            left: 0, 
-            opacity: showControls ? 1 : 0
-        }}
-    />
     </View>
   );
 });
