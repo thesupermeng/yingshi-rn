@@ -83,11 +83,11 @@ export default forwardRef<MiniVodRef, Props>(
                         userState.userToken === "")
         const dispatch = useAppDispatch()
         useEffect(() => {
-            if (adultVideoWatchTime > ADULT_MODE_PREVIEW_DURATION && adultMode && isVip){
+            if (adultVideoWatchTime >= ADULT_MODE_PREVIEW_DURATION && adultMode && isVip){
                 dispatch(showAdultModeVip())
                 setPause(true)
             }
-        }, [videoCurrentDurations[current]])
+        }, [videoCurrentDurations[current], isPause])
 
         useEffect(() => {
             if (adultModeDisclaimerShow || adultModeVipShow) {
