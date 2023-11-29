@@ -16,6 +16,9 @@ import {
   ScrollView,
   Platform,
   Linking,
+  TextInput,
+  KeyboardAvoidingView,
+  Keyboard,
 } from "react-native";
 import FavoriteButton from "../../components/button/favoriteVodButton";
 import FavoriteIcon from "../../../static/images/favorite.svg";
@@ -27,6 +30,8 @@ import { RootStackScreenProps } from "../../types/navigationTypes";
 import {
   SuggestResponseType,
   VodDetailsResponseType,
+  commentsResponseType,
+  commentsType,
 } from "../../types/ajaxTypes";
 import { addVodToHistory, playVod } from "../../redux/actions/vodActions";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
@@ -57,6 +62,8 @@ import VodPlayer from "../../components/videoPlayer/vodPlayer";
 import { FlatList } from "react-native-gesture-handler";
 import { SettingsReducerState } from "../../redux/reducers/settingsReducer";
 import BingSearch from "../../components/container/bingSearchContainer";
+import { CommentCard } from "../../components/videoPlayer/commentCard";
+import SubmitBtn from "../../../static/images/submitBtn.svg"
 
 import NoConnection from "../../components/common/noConnection";
 import NetInfo from "@react-native-community/netinfo";
@@ -71,6 +78,8 @@ import { debounce } from "lodash";
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
 import { InAppBrowser } from "react-native-inappbrowser-reborn";
 import useAnalytics from "../../hooks/useAnalytics";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { showLoginAction } from "../../redux/actions/screenAction";
 
 type VideoRef = {
   setPause: (param: boolean) => void;
@@ -230,6 +239,9 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const [dismountPlayer, setDismountPlayer] = useState(false);
   const [isOffline, setIsOffline] = useState(false);
   const [isShowSheet, setShowSheet] = useState(false);
+  const [comment, setComment] = useState('');
+  const [isUpdated, setIsUpdated] = useState(false);
+  const [allComment, setAllComment] = useState<commentsType[] | undefined>([]);
 
   const {
     playsViewsAnalytics,
@@ -592,9 +604,135 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   // }
   // // ========== for analytics - end ==========
 
+  const fetchComments = () =>
+    fetch(
+      `${API_DOMAIN}vod/v1/vod/reviewdetail?douban_id=${vod?.vod_douban_id}&limit=6`)
+      .then((response) => response.json())
+      .then((json: commentsResponseType) => {
+        return json.data.douban_reviews;
+      });
+
+  const {
+    data: onlineComments,
+    isFetching: isFetchingComments,
+  } = useQuery({
+    queryKey: ["relatedComments", vod?.vod_douban_id],
+    queryFn: () => fetchComments(),
+  });
+
+  useEffect(() => {
+    const mergeAllComments = async () => {
+      let mergedArray;
+      const locComments = await getLocalComments();
+  
+      if (onlineComments) {
+        mergedArray = locComments.concat(onlineComments);
+      } else {
+        mergedArray = onlineComments;
+      }
+      
+      console.log('merged comments');
+      console.log(mergedArray);
+      setAllComment(mergedArray);
+    }
+
+    if(!isFetchingComments) {
+      mergeAllComments();
+    }
+  }, [isFetchingComments, isUpdated]);
+
+  const locCommentId = "userComment" + vod?.vod_douban_id;
+  const getLocalComments = async () => {
+    try {
+      const comments = await AsyncStorage.getItem(locCommentId);
+      console.log("comments stored in local storage ", locCommentId);
+      console.log(comments);
+
+      if (comments !== null) {
+        return JSON.parse(comments);
+      }
+      return [];
+    } catch (error) {
+      console.log("error when retrieving local comments: ", error);
+      return [];
+    }
+  };
+
+  const storeUserComments = async () => {
+    if(!comment) {
+      return;
+    }
+
+    console.log('user comment', comment);
+    try {
+      const existingComments = await getLocalComments();
+      const commmentObj = {
+        douban_reviews_id: existingComments.length + 1,
+        user_name: userState.userName,
+        user_review: comment,
+      }
+      existingComments.push(commmentObj);
+      await AsyncStorage.setItem(locCommentId, JSON.stringify(existingComments));
+      await getLocalComments();
+      setIsUpdated(!isUpdated);
+      Keyboard.dismiss();
+    } catch (error) {
+      console.log("error when storing the comment into local storage: ", error);
+    }
+  };
+
   return (
     <>
-      <ScreenContainer containerStyle={{ paddingRight: 0, paddingLeft: 0 }}>
+    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{flex:1}}>
+      <ScreenContainer 
+        containerStyle={{ paddingRight: 0, paddingLeft: 0 }}
+        footer={
+          <>
+            {!isOffline && (
+              <View style={{ ...styles.commentContainer, backgroundColor: '#1D2023' }}>
+                <TextInput
+                  style={{
+                    ...styles.input,
+                    backgroundColor: '#FFFFFF1A',
+                    ...textVariants.body,
+                  }}
+                  onChangeText={setComment}
+                  placeholder={userState.userToken !== '' ? "请评论" : "请登录才进行评论"}
+                  editable={userState.userToken !== ''}
+                  placeholderTextColor={colors.muted}
+                  value={comment}
+                  maxLength={200}
+                  blurOnSubmit
+                />
+
+                {userState.userToken !== '' ? (
+                  <>
+                    <Text style={{ ...textVariants.body, color: comment.length === 200 ? colors.primary : colors.muted }}>
+                      {comment.length}/200
+                    </Text>
+                    <TouchableOpacity
+                      onPress={() => {
+                        setComment('');
+                        storeUserComments();
+                      }}
+                    >
+                      <SubmitBtn fill={comment.length ? "#FAC33D" : "#3A3A3A"} />
+                    </TouchableOpacity>
+                  </>
+                ) : (
+                  <TouchableOpacity
+                    onPress={() => dispatch(showLoginAction())}
+                  >
+                    <Text style={{ ...textVariants.body, color: colors.primary }}>
+                      立即登录
+                    </Text>
+                  </TouchableOpacity>                  
+                )}
+              </View>
+            )}
+          </>
+        }
+      >
         <TitleWithBackButtonHeader
           title={vod?.vod_name}
           backBtnStyle={{
@@ -789,7 +927,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                 </View>
                 {/* show 选集播放 section when avaiable episode more thn 1 */}
                 <>
-                  {isFetchingVodDetails ? (
+                  {isFetchingVodDetails && isFetchingComments ? (
                     <>
                       <View
                         style={{
@@ -810,6 +948,40 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                     </>
                   ) : (
                     <>
+                      {vod && allComment && allComment.length > 0 && (
+                        <View>
+                          <Text style={{...textVariants.body}}>
+                            影评 ({allComment.length})
+                          </Text>
+
+                          {allComment.slice(0,3).map((comment) => (
+                            <CommentCard 
+                              key={comment.douban_reviews_id}
+                              commentItem={comment}/>
+                          ))}
+
+                          {allComment.length > 3 && (
+                            <TouchableOpacity
+                              onPress={() => {
+                                navigation.navigate('全部评论', {
+                                  vod_douban_id: vod.vod_douban_id,
+                                  vod_name: vod.vod_name,
+                                  commentItems: allComment,
+                                });
+                              }}
+                            >
+                              <View style={{ paddingVertical: 18, alignItems: 'center' }}>
+                                <Text
+                                  style={{...textVariants.small, color: colors.primary}}
+                                >
+                                  查看全部
+                                </Text>
+                              </View>
+                            </TouchableOpacity>
+                          )}
+                        </View>
+                      )}
+                        
                       {vod &&
                         suggestedVods !== undefined &&
                         suggestedVods?.length > 0 && (
@@ -865,6 +1037,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
           <NoConnection onClickRetry={checkConnection} isPlayBottom={true} />
         )}
       </ScreenContainer>
+    </KeyboardAvoidingView> 
     </>
   );
 };
@@ -931,4 +1104,20 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     alignItems: "flex-start",
   },
+  commentContainer: {
+    paddingHorizontal: 20,
+    paddingTop: 15,
+    paddingBottom: 25,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 15,
+  },
+  input: {
+    paddingHorizontal: 10,
+    paddingTop: 12,
+    paddingBottom: 12,
+    borderRadius: 10,
+    flex: 3,
+  },
+
 });

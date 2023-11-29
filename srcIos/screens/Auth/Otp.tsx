@@ -161,9 +161,10 @@ const OtpInputs = props => {
             await AsyncStorage.setItem("showAds", "true");
           }
           await dispatch(changeScreenAction('登录成功'));
-          navigator.navigate('Home', {
-            screen: 'Profile',
-          });
+          // navigator.navigate('Home', {
+          //   screen: 'Profile',
+          // });
+          navigator.goBack();
 
           // ========== for analytics - start ==========
           userCenterLoginSuccessTimesAnalytics();
