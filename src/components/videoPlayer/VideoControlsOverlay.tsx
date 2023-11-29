@@ -18,6 +18,8 @@ import GesturesGuide from '../gestures/vod/GesturesGuide';
 import VodLiveStationListVertical from '../vod/vodLiveStationListVertical';
 // import FastImage from 'react-native-fast-image';
 import FastImage from '../common/customFastImage';
+import { screenModel } from '../../types/screenType';
+import { useAppSelector } from '../../hooks/hooks';
 
 type Props = {
   videoUrl: string;
