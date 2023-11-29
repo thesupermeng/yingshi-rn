@@ -78,6 +78,7 @@ import { YSConfig } from "../../ysConfig";
 import {
   disableAdultMode,
   hideAdultModeDisclaimer,
+  hideAdultModeVip,
   hideLoginAction,
   hideRegisterAction,
   interstitialClose,
@@ -543,6 +544,7 @@ export default () => {
     initInterstitialAdListener();
     dispatch(resetAdultVideoWatchTime())
     dispatch(disableAdultMode())
+    dispatch(hideAdultModeVip()) 
     // dispatch(resetOverEighteen())
   }, []);
 
