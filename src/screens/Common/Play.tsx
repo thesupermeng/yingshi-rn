@@ -1125,7 +1125,7 @@ const styles = StyleSheet.create({
   },
   descriptionImageHorizontal: {
     width: "100%",
-    aspectRatio: 300 / 168,
+    aspectRatio: 120 / 72.5,
     borderRadius: 10,
   },
   descriptionContainer: {
