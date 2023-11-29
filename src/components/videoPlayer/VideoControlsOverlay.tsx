@@ -19,6 +19,8 @@ import VodLiveStationListVertical from '../vod/vodLiveStationListVertical';
 // import FastImage from 'react-native-fast-image';
 import FastImage from '../common/customFastImage';
 import AdultModeCountdownIndicator from '../adultVideo/adultModeCountdownIndicator';
+import { screenModel } from '../../types/screenType';
+import { useAppSelector } from '../../hooks/hooks';
 
 type Props = {
   videoUrl: string;
@@ -98,6 +100,10 @@ export default forwardRef<RefHandler, Props>(({
   const timeout = useRef(-1);
   const [isLocked, setIsLocked] = useState(false);
   const [showSliderThumbnail, setShowSliderThumbnail] = useState(false);
+  const screenState: screenModel = useAppSelector(
+    ({screenReducer}) => screenReducer
+  )
+  const {adultMode} = screenState
 
   const width = Dimensions.get('window').width;
   const height = Dimensions.get('window').height;
@@ -409,7 +415,7 @@ export default forwardRef<RefHandler, Props>(({
                     </Text>
                   </TouchableOpacity>
                   {
-                    videoType === 'vod' && <RectButton
+                    videoType === 'vod' && !adultMode && <RectButton
                       disallowInterruption={true}
                       onPress={onShare}>
                       <ProjectIcon width={30} height={30} />
