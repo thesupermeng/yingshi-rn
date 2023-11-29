@@ -41,8 +41,9 @@ import {
   updateUsernameState,
   updateUserReferral,
 } from '../../redux/actions/userAction';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { BottomSheetModalInternalContextType } from '@gorhom/bottom-sheet/lib/typescript/contexts';
+import DefaultProfileIcon from "../../../static/images/default_profile.svg";
+import { showToast } from '../../Sports/utility/toast';
+
 export default ({ navigation }: RootStackScreenProps<'个人中心'>) => {
   const { colors, textVariants, icons, spacing } = useTheme();
   const dispatch = useDispatch();
@@ -212,6 +213,30 @@ export default ({ navigation }: RootStackScreenProps<'个人中心'>) => {
         }}>
         {/* username input  */}
         <View style={{ marginTop: 30 }}>
+          <TouchableOpacity
+            onPress={() => {
+              showToast("目前暂不支持更改头像，敬请期待");
+            }}
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              backgroundColor: '#1d2023',
+              marginVertical: 20,
+              paddingLeft: 18,
+              paddingRight: 13,
+              height: 48,
+              borderRadius: 8,
+            }}>
+            <Text style={{ fontSize: 16, color: '#9C9C9C' }}>
+              头像
+            </Text>
+            <DefaultProfileIcon
+              style={{ color: colors.button }}
+              width={34}
+              height={34}
+            />
+          </TouchableOpacity>
           <View>
             <InputItem
               autoCapitalize="none"

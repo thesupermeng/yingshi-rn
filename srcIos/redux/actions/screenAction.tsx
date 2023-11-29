@@ -44,8 +44,9 @@ export const initialBottomSheetForm = () => ({
   type: "initial_bottom_sheet_from",
 });
 
-export const navigateToProfileScreen = () => ({
+export const navigateToProfileScreen = (from: 'login' | 'register') => ({
   type: "navigate_to_profile_screen",
+  payload: from,
 });
 
 export const resetProfileScreen = () => ({

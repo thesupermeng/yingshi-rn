@@ -18,6 +18,7 @@ import {
   hideLoginAction,
   hideRegisterAction,
   initialBottomSheetForm,
+  navigateToProfileScreen,
 } from "../../redux/actions/screenAction";
 import { RootState } from "../../redux/store";
 import { screenModel } from "../../types/screenType";
@@ -30,7 +31,11 @@ export const Login = (props: any) => {
   const screenState: screenModel = useAppSelector(
     ({ screenReducer }: RootState) => screenReducer
   );
+  const [radioValue, setRadioValue] = useState(false);
 
+  const radioHandler = () => {
+    setRadioValue(!radioValue);
+  };
   useEffect(() => {
     ValidateEmail(props.email, setEmailValid);
   }, [props.email]);
@@ -40,6 +45,7 @@ export const Login = (props: any) => {
       dispatch(initialBottomSheetForm());
       setEmailValid(true);
       setErrMsg("");
+      setRadioValue(false);
     }
   }, [screenState]);
 
@@ -48,6 +54,9 @@ export const Login = (props: any) => {
     <View style={{ height: "100%" }}>
       <SpinnerOverlay visible={isLoading} />
       <LoginCard
+        radioHandler={radioHandler}
+        setRadioValue={setRadioValue}
+        radioValue={radioValue}
         setIsloading={setIsloading}
         emailValid={emailValid}
         setEmail={props.setEmail}
@@ -83,8 +92,8 @@ const LoginCard = (props) => {
             props.email === ""
               ? styles.defaultTextInputStyle
               : props.emailValid || props.errMsg.includes("稍后")
-              ? styles.correctTextInputStyle
-              : styles.invalidTextInputStyle,
+                ? styles.correctTextInputStyle
+                : styles.invalidTextInputStyle,
           ]}
           value={props.email}
           onChange={(value) => {
@@ -160,14 +169,18 @@ const LoginCard = (props) => {
         // disabled={props.email === '' || !props.emailValid}
         style={[
           styles.continueButtonStyle,
-          props.email === "" ? styles.btnInactive : styles.btnActive,
+          props.email === "" || props.radioValue == false ? styles.btnInactive : styles.btnActive,
         ]}
         activeStyle={[
           styles.continueButtonStyle,
-          props.email === "" ? styles.btnInactive : styles.btnActive,
+          props.email === "" || props.radioValue == false ? styles.btnInactive : styles.btnActive,
         ]}
         //disabled={!props.emailValid}
         onPress={async () => {
+          if (props.radioValue == false) {
+            return;
+          }
+
           if (props.email === "") {
             console.log("invalid email");
             props.setEmailValid(false);
@@ -205,12 +218,69 @@ const LoginCard = (props) => {
             fontWeight: "600",
             fontSize: 14,
             letterSpacing: 0.2,
-            color: props.email === "" ? "white" : "#000",
+            color: props.email === "" || props.radioValue == false ? "white" : "#000",
           }}
         >
           登录
         </Text>
       </Button>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: 12,
+          marginBottom: 30,
+        }}
+      >
+        <TouchableOpacity onPress={props.radioHandler}>
+          {props.radioValue && (
+            <Image
+              source={require("../../../static/images/profile/ticked.png")}
+              style={{
+                height: 16,
+                width: 16,
+                position: "relative",
+                top: 1,
+              }}
+              resizeMode="contain"
+            />
+          )}
+
+          {!props.radioValue && (
+            <Image
+              source={require("../../../static/images/profile/untick.png")}
+              style={{
+                height: 16,
+                width: 16,
+                position: "relative",
+                top: 1,
+              }}
+              resizeMode="contain"
+            />
+          )}
+        </TouchableOpacity>
+
+        <Text style={{ marginLeft: 5, color: "#9c9c9c" }}>我已阅读并同意</Text>
+
+        <TouchableOpacity
+          onPress={() => {
+            dispatch(navigateToProfileScreen('login'));
+            navigation.navigate("用户协议");
+          }}
+        >
+          <Text style={{ color: colors.primary }}>用户协议</Text>
+        </TouchableOpacity>
+        <Text style={{ color: "#9c9c9c" }}>和</Text>
+        <TouchableOpacity
+          onPress={() => {
+            dispatch(navigateToProfileScreen('login'));
+            navigation.navigate("隐私政策");
+          }}
+        >
+          <Text style={{ color: colors.primary }}>隐私协议</Text>
+        </TouchableOpacity>
+      </View>
       <TouchableOpacity
         onPress={() => {
           console.log("   props.goToRegister();");
@@ -312,7 +382,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   loginTermPrivacy: {
-    paddingTop: 40,
+    paddingTop: 0,
     paddingLeft: 80,
     paddingRight: 80,
     paddingBottom: 50,

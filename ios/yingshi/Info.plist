@@ -2,15 +2,19 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>是否允许影视TV跟踪您在其他公司的App和网站上的活动</string>
+	<!-- <key>NSPhotoLibraryUsageDescription</key>
+	<string>是否允许影视TV向您发送通知</string> -->
 	<key>CFBundleURLTypes</key>
-    <array>
-        <dict>
-            <key>CFBundleURLSchemes</key>
-            <array>
-                <string>yingshiapp</string>
-            </array>
-        </dict>
-    </array>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>yingshiapp</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CodePushDeploymentKey</key>
@@ -79,10 +83,8 @@
 		<string>com.baidu.BaiduMobile</string>
 		<string>com.dianping.dpscope</string>
 	</array>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>获取您的地区，为你推荐身边的更多优惠信息</string>
-	<!-- <key>NSUserTrackingUsageDescription</key>
-	<string>该标识符将用于向您投放个性化广告。</string> -->
+<!--	<key>NSLocationWhenInUseUsageDescription</key>-->
+<!--	<string>获取您的地区，为你推荐身边的更多优惠信息</string>-->
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
