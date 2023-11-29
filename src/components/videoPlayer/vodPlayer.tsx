@@ -534,7 +534,7 @@ export default forwardRef<VideoRef, Props>(
           dispatch(showAdultModeVip())
           setIsPaused(true)
       }
-    }, [currentTime])
+    }, [currentTime, isPaused])
 
     return (
       <View style={styles.container}>
