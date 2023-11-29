@@ -117,10 +117,15 @@ export default ({navigation, route}: RootStackScreenProps<'午夜场剧情'>) =>
 
   return (
     <ScreenContainer>
-      <TitleWithBackButtonHeader
-        title={route.params.class}
-        headerStyle={{marginBottom: spacing.m}}
-      />
+      <View
+        style={{
+          marginVertical: spacing.s
+        }}
+      >
+        <TitleWithBackButtonHeader
+          title={route.params.class}
+        />
+      </View>
       <View>
         <FlatList
           data={adultVodData}
