@@ -95,7 +95,7 @@ export default function HomeNav({
               alignItems: 'center',
               display: 'flex',
               flexDirection: 'row-reverse',
-              width: 'auto',
+              width: 75,
               paddingTop: 0,
               paddingBottom: 0,
             },

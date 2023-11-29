@@ -1,5 +1,5 @@
 // import React, {useCallback, useEffect, useMemo, useState} from 'react';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import {useCallback, useEffect, useMemo, useState} from 'react';
 import * as React from 'react';
 import {
   View,
@@ -11,9 +11,9 @@ import {
   Image,
 } from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
-import { useFocusEffect, useTheme } from '@react-navigation/native';
+import {useFocusEffect, useTheme} from '@react-navigation/native';
 
-import { RootStackScreenProps } from '../../types/navigationTypes';
+import {RootStackScreenProps} from '../../types/navigationTypes';
 import {
   FilterOptionsResponseType,
   FilterOptionsTypeExtendObj,
@@ -21,32 +21,31 @@ import {
   SuggestedVodType,
   VodType,
 } from '../../types/ajaxTypes';
-import { playVod } from '../../redux/actions/vodActions';
-import { useAppDispatch } from '../../hooks/hooks';
+import {playVod} from '../../redux/actions/vodActions';
+import {useAppDispatch} from '../../hooks/hooks';
 import {
   useInfiniteQuery,
   useQuery,
   useQueryClient,
 } from '@tanstack/react-query';
 import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
-import { API_DOMAIN, API_DOMAIN_TEST } from '../../utility/constants';
+import {API_DOMAIN, API_DOMAIN_TEST} from '../../utility/constants';
 import VodTopicFilter from '../../components/vod/vodTopicFilter';
 import VodCard from '../../components/vod/vodCard';
 import DownArrow from '../../../static/images/arrow_down_yellow.svg';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Animated, {
   useSharedValue,
   useAnimatedScrollHandler,
   useAnimatedStyle,
 } from 'react-native-reanimated';
-import { FlatListProps } from 'react-native/Libraries/Lists/FlatList';
+import {FlatListProps} from 'react-native/Libraries/Lists/FlatList';
 // import FastImage from 'react-native-fast-image';
 import FastImage from '../../components/common/customFastImage';
 import appsFlyer from 'react-native-appsflyer';
 import EmptyList from '../../components/common/emptyList';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
-import { TabItem } from '@rneui/base/dist/Tab/Tab.Item';
-import useAnalytics from '../../hooks/useAnalytics';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {TabItem} from '@rneui/base/dist/Tab/Tab.Item';
 
 interface NavType {
   id: number;
@@ -90,13 +89,13 @@ const ORDER_BY_OPTIONS: Array<Option> = [
     value: 'score',
   },
 ];
-export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
-  const { textVariants, colors, spacing, icons } = useTheme();
+export default ({navigation, route}: RootStackScreenProps<'片库'>) => {
+  const {textVariants, colors, spacing, icons} = useTheme();
   const insets = useSafeAreaInsets();
   const queryClient = useQueryClient();
   const SCROLL_THRESHOLD = 50;
   const dispatch = useAppDispatch();
-  const { data: navOptions } = useQuery({
+  const {data: navOptions} = useQuery({
     queryKey: ['filterOptions'],
     queryFn: () =>
       fetch(`${API_DOMAIN}type/v1/type`)
@@ -134,13 +133,13 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
   const [orderBy, setOrderBy] = useState(
     route.params.order_by === undefined
       ? {
-        text: '热播榜',
-        value: 'hits_day',
-      }
+          text: '热播榜',
+          value: 'hits_day',
+        }
       : {
-        text: translateToCN(route.params.order_by),
-        value: route.params.order_by,
-      },
+          text: translateToCN(route.params.order_by),
+          value: route.params.order_by,
+        },
   );
 
   // For calculating the margin and width for displaying the vods for different viewports.
@@ -245,7 +244,7 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
     // refetch,
   } = useInfiniteQuery(
     ['filteredVods', area, year, lang, topicClass, currentTopicId, orderBy],
-    ({ pageParam = 1 }) => fetchVods(pageParam),
+    ({pageParam = 1}) => fetchVods(pageParam),
     {
       getNextPageParam: (lastPage, allPages) => {
         if (lastPage === null) {
@@ -302,7 +301,7 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
   const underlineStyle = (option: number) => {
     // console.log(option, currentTopicId)
     if (option === currentTopicId) {
-      return { backgroundColor: colors.primary, ...styles.underline };
+      return {backgroundColor: colors.primary, ...styles.underline};
     }
     return {};
   };
@@ -341,23 +340,6 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
     },
   });
 
-  // ========== for analytics - start ==========
-  const { catalogViewsAnalytics, catalogClicksAnalytics } = useAnalytics();
-
-  useEffect(() => {
-    if (topicOptions.length > 0) {
-      const currentTopicName = topicOptions.find((topic) => topic.id === currentTopicId);
-
-      if (currentTopicName) {
-        catalogViewsAnalytics({
-          category_id: currentTopicId.toString(),
-          category_name: currentTopicName.name,
-        });
-      }
-    }
-  }, [currentTopicId, topicOptions]);
-  // ========== for analytics - end ==========
-
   useEffect(() => {
     const eventName = 'catalog';
     const eventValues = {
@@ -377,10 +359,10 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
   }, []);
 
   const renderNavItems = useCallback(
-    ({ item }: { item: NavType }) => {
+    ({item}: {item: NavType}) => {
       return (
         <TouchableOpacity
-          style={{ ...styles.btn }}
+          style={{...styles.btn}}
           onPress={() => {
             reset();
             setCurrentTopicId(item.id);
@@ -406,7 +388,7 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
   );
 
   const renderVods = useCallback(
-    ({ item, index }: { item: SuggestedVodType; index: number }) => {
+    ({item, index}: {item: SuggestedVodType; index: number}) => {
       return (
         <View
           style={{
@@ -426,17 +408,6 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
               navigation.navigate('播放', {
                 vod_id: item?.vod_id,
               });
-
-              // ========== for analytics - start ==========
-              const currentTopicName = topicOptions.find((topic) => topic.id === currentTopicId);
-
-              if (currentTopicName) {
-                catalogClicksAnalytics({
-                  category_id: currentTopicId.toString(),
-                  category_name: currentTopicName.name,
-                });
-              }
-              // ========== for analytics - end ==========
             }}
           />
         </View>
@@ -450,7 +421,7 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
       <ScreenContainer>
         <TitleWithBackButtonHeader
           title="片库"
-          headerStyle={{ marginBottom: spacing.s }}
+          // headerStyle={{marginBottom: spacing.s}}
         />
         <Animated.View>
           <FlatList
@@ -460,7 +431,7 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
             renderItem={renderNavItems}
           />
         </Animated.View>
-        <Animated.View style={{ paddingBottom: spacing.xxs }}>
+        <Animated.View style={{paddingBottom: spacing.xxs}}>
           {options && (
             <Animated.View style={contentStyle}>
               <VodTopicFilter
@@ -516,8 +487,8 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
                     ...styles.collapedSummary,
                     justifyContent: 'space-between',
                   }}>
-                  <View style={{ ...styles.collapedSummary, gap: 4 }}>
-                    <Text style={{ ...textVariants.small, color: colors.muted }}>
+                  <View style={{...styles.collapedSummary, gap: 4}}>
+                    <Text style={{...textVariants.small, color: colors.muted}}>
                       {topicClass.text}
                     </Text>
                     <View
@@ -526,7 +497,7 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
                         backgroundColor: colors.primary,
                       }}
                     />
-                    <Text style={{ ...textVariants.small, color: colors.muted }}>
+                    <Text style={{...textVariants.small, color: colors.muted}}>
                       {area.text}
                     </Text>
                     <View
@@ -535,7 +506,7 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
                         backgroundColor: colors.primary,
                       }}
                     />
-                    <Text style={{ ...textVariants.small, color: colors.muted }}>
+                    <Text style={{...textVariants.small, color: colors.muted}}>
                       {lang.text}
                     </Text>
                     <View
@@ -544,7 +515,7 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
                         backgroundColor: colors.primary,
                       }}
                     />
-                    <Text style={{ ...textVariants.small, color: colors.muted }}>
+                    <Text style={{...textVariants.small, color: colors.muted}}>
                       {year.text}
                     </Text>
                   </View>
@@ -575,10 +546,10 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
             onEndReachedThreshold={0.4}
             columnWrapperStyle={{}}
             ListFooterComponent={
-              <View style={{ ...styles.loading, marginBottom: spacing.xl }}>
+              <View style={{...styles.loading, marginBottom: spacing.xl}}>
                 {hasNextPage && (
                   <FastImage
-                    style={{ height: 80, width: 80 }}
+                    style={{height: 80, width: 80}}
                     source={require('../../../static/images/loading-spinner.gif')}
                     resizeMode={'contain'}
                   />
@@ -586,14 +557,14 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
                 {!(isFetchingNextPage || isFetching) &&
                   !hasNextPage &&
                   results.length > 0 && (
-                    <Text style={{ ...textVariants.body, color: colors.muted }}>
+                    <Text style={{...textVariants.body, color: colors.muted}}>
                       没有更多了
                     </Text>
                   )}
                 {!(isFetchingNextPage || isFetching) &&
                   !hasNextPage &&
                   results.length == 0 && (
-                    <View style={{ marginTop: 10 }}>
+                    <View style={{marginTop: 10}}>
                       <EmptyList description={'暂无数据'} />
                     </View>
                   )}

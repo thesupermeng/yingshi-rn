@@ -29,7 +29,7 @@ export default ({ navigation }: RootStackScreenProps<"活动规则">) => {
       <View style={{ gap: spacing.m }}>
         <TitleWithBackButtonHeader
           title="活动规则"
-          headerStyle={{ marginBottom: spacing.m }}
+          // headerStyle={{ marginBottom: spacing.m }}
         />
 
         <View style={{ marginBottom: 100, paddingLeft: 20, paddingRight: 35 }}>
