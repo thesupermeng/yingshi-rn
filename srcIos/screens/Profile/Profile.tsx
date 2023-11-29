@@ -23,6 +23,7 @@ import { useNavigation } from "@react-navigation/native";
 
 import Orientation from "react-native-orientation-locker";
 import ProfileIcon from "../../../static/images/profile.svg";
+import DefaultProfileIcon from "../../../static/images/default_profile.svg";
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import MoreArrow from "../../../static/images/more_arrow.svg";
 import EditIcn from "./../../../static/images/profile/edit.svg";
@@ -197,9 +198,14 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                 flexDirection: "row",
               }}
             >
-              <ProfileIcon
-                style={{ color: colors.button, width: 18, height: 18 }}
-              />
+              {userState.userToken == "" ?
+                <ProfileIcon
+                  style={{ color: colors.button, width: 18, height: 18 }}
+                />
+                : <DefaultProfileIcon
+                  style={{ color: colors.button, width: 18, height: 18 }}
+                />
+              }
               <View
                 style={{
                   flexDirection: "column",
@@ -241,11 +247,11 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                       </Text>
                       {userState.userMemberExpired >=
                         userState.userCurrentTimestamp && (
-                        <Image
-                          style={styles.iconStyle}
-                          source={require("../../../static/images/profile/vip.png")}
-                        />
-                      )}
+                          <Image
+                            style={styles.iconStyle}
+                            source={require("../../../static/images/profile/vip.png")}
+                          />
+                        )}
                     </View>
 
                     {/* {userState.userMemberExpired == '0' && (
@@ -253,10 +259,10 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                     )} */}
                     {userState.userMemberExpired >=
                       userState.userCurrentTimestamp && (
-                      <Text style={{ color: colors.primary, fontSize: 14 }}>
-                        VIP会员有效日期至{displayedDate}
-                      </Text>
-                    )}
+                        <Text style={{ color: colors.primary, fontSize: 14 }}>
+                          VIP会员有效日期至{displayedDate}
+                        </Text>
+                      )}
                   </>
                 )}
               </View>
@@ -316,7 +322,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                         </Text>
 
                         {YSConfig.instance.tabConfig != null &&
-                        YSConfig.instance.len == 5 ? (
+                          YSConfig.instance.len == 5 ? (
                           <Text
                             style={{
                               ...textVariants.small,
