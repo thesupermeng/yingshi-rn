@@ -628,8 +628,6 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
       let mergedArray;
       const locComments = await getLocalComments();
   
-      AsyncStorage.removeItem('userComment');
-      AsyncStorage.removeItem(locCommentId);
       if (onlineComments) {
         mergedArray = locComments.concat(onlineComments);
       } else {
@@ -954,7 +952,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                     </>
                   ) : (
                     <>
-                      {allComment && allComment.length > 0 && (
+                      {vod && allComment && allComment.length > 0 && (
                         <View>
                           <Text style={{...textVariants.body}}>
                             影评 ({allComment.length})
@@ -969,7 +967,11 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                           {allComment.length > 3 && (
                             <TouchableOpacity
                               onPress={() => {
-                                setIsCollapsed(!isCollapsed);
+                                navigation.navigate('全部评论', {
+                                  vod_douban_id: vod.vod_douban_id,
+                                  vod_name: vod.vod_name,
+                                  commentItems: allComment,
+                                });
                               }}
                             >
                               <View style={{ paddingVertical: 18, alignItems: 'center' }}>

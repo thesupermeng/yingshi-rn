@@ -21,6 +21,7 @@ import ProfileScreen from "../screens/Profile/Profile";
 import WatchAnytime from "../screens/WatchAnytime";
 import SearchScreen from "../screens/Common/Search";
 import PlayScreen from "../screens/Common/Play";
+import { AllCommentScreen } from "../screens/allComment";
 import LiveStationPlayScreen from "../screens/Common/LiveStationPlay";
 // import VodCollectionScreen from '../screens/Profile/Collection/VodCollection';
 // import PlaylistCollectionScreen from '../screens/Profile/Collection/PlaylistCollection';
@@ -567,6 +568,15 @@ export default () => {
             component={PlayScreen}
             initialParams={{ vod_id: 1 }}
             options={{ orientation: "all" }}
+          />
+          <Stack.Screen 
+            name="全部评论"
+            component={AllCommentScreen}
+            initialParams={{
+              vod_douban_id: 0,
+              vod_name: "",
+              commentItems: undefined
+            }}
           />
           <Stack.Screen name="播放历史" component={HistoryScreen} />
           <Stack.Screen name="关于我们" component={AboutUsScreen} />
