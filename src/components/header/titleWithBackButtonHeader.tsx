@@ -54,7 +54,8 @@ export default function TitleWithBackButtonHeader({
             // paddingTop: Platform.OS == "android" ? 30 : 5,
             paddingVertical: 8,
             paddingLeft: 5,
-            width: 40,
+            width: 30,
+            height: 30
           }}
         />
       </View>
