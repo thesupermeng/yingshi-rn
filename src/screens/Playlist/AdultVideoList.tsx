@@ -46,7 +46,7 @@ export default ({navigation, route}: RootStackScreenProps<'午夜场剧情'>) =>
         `${API_DOMAIN_TEST}svod/v1/vod?` +
           new URLSearchParams({
             page: page.toString(),
-            limit: '10',
+            limit: '150',
             class: route.params.class
           }),
       )
