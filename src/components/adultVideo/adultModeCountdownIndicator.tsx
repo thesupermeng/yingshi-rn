@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { screenModel } from "../../types/screenType";
 import { ADULT_MODE_PREVIEW_DURATION } from "../../utility/constants";
 import { incrementAdultVideoWatchTime, showAdultModeVip } from "../../redux/actions/screenAction";
-import { memo, useEffect } from "react";
+import { memo, useCallback, useEffect } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 
 interface Props {
@@ -26,15 +26,17 @@ const AdultModeCountdownIndicator = ({containerStyle}: Props) => {
                   Number(userState.userCurrentTimestamp) ||
                   userState.userToken === "")
                   
-  useFocusEffect(() => {
-    let interval: any;
-    if (adultMode && !isVip) {
-      interval = setInterval(() => {
-        dispatch(incrementAdultVideoWatchTime())
-      }, 1000)
-    }
-    return () => clearInterval(interval)
-  })
+  useFocusEffect(
+    useCallback(() => {
+      let interval: any;
+      if (adultMode && !isVip) {
+        interval = setInterval(() => {
+          dispatch(incrementAdultVideoWatchTime());
+        }, 1000);
+      }
+      return () => clearInterval(interval);
+    }, [adultMode, isVip]),
+  );
 
   const countdownTimer = ADULT_MODE_PREVIEW_DURATION - adultVideoWatchTime
 
