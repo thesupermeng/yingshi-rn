@@ -105,7 +105,7 @@ android {
         versionCode 15
         versionName "1.5.0"
         resValue "string", "UMENG_APPKEY", "648ec50987568a379b587f39"
-        resValue "string", "UMENG_CHANNEL", "GOOGLE_PLAY"
+        resValue "string", "UMENG_CHANNEL", "WEB"
         resValue "string", "UMENG_CHANNEL_GENERAL", "DEFAULT"
         resValue "string", "UMENG_CHANNEL_YINGSHI_WEB", "WEB"
         resValue "string", "UMENG_CHANNEL_GOOGLE_PLAY", "GOOGLE_PLAY"
