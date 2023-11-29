@@ -396,3 +396,19 @@ export interface CheckVersionRequest {
     mobile_os: string,
     mobile_model: string,
 }
+
+export interface commentsResponseType {
+    code: number,
+    data: commentsResponseDataType,
+}
+
+export interface commentsResponseDataType {
+    douban_reviews: commentsType[],
+    total_review: number,
+}
+
+export interface commentsType {
+    douban_reviews_id: number,
+    user_name: string,
+    user_review: string,
+}
