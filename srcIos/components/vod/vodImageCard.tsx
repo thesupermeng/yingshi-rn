@@ -46,14 +46,14 @@ export default function VodImageCard({ vod_img, vodStyle, onPress, showInfo = ''
                     <PlayIcon height={iconSize} width={iconSize} />
                 </View>
             }
-            {
+            {/* {
                 showInfo !== '' && <View style={{ backgroundColor: shadowBottom ? 'transparent' : 'rgba(0, 0, 0, 0.6)', ...styles.tag }}>
                     <Text style={{
                         ...textVariants.small,
                         color: 'white'
                     }} numberOfLines={1}>{showInfo}</Text>
                 </View>
-            }
+            } */}
         </TouchableOpacity>
     );
 }

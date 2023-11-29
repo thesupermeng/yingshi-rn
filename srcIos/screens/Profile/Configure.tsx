@@ -29,9 +29,11 @@ import { userModel } from '../../types/userType';
 
 import { APP_VERSION } from '../../utility/constants';
 import { SettingsReducerState } from '../../redux/reducers/settingsReducer';
+import { showToast } from '../../Sports/utility/toast';
 export default ({ navigation }: RootStackScreenProps<'设置'>) => {
   const { colors, textVariants, icons, spacing } = useTheme();
   const [isVersionDialogOpen, setIsVersionDialogOpen] = useState(false);
+  const [isRemoveDialogOpen, setIsRemoveDialogOpen] = useState(false);
   const [isClearDialogOpen, setIsClearDialogOpen] = useState(false);
 
   const [isLogoutDialogOpen, setIsLogoutDialogOpen] = useState(false);
@@ -54,6 +56,15 @@ export default ({ navigation }: RootStackScreenProps<'设置'>) => {
   const toggleClearDialog = () => {
     setIsClearDialogOpen(!isClearDialogOpen);
   };
+  const toggleRemoveAccountDialog = () => {
+    setIsRemoveDialogOpen(!isRemoveDialogOpen);
+  }
+  const onRemoveAccount = () => {
+    setTimeout(() => {
+      showToast('我们将在3个工作日内处理您注销请求，请注意您的邮箱，在此期间您可以继续登录');
+    }, 500);
+  }
+
   const navigator = useNavigation();
   const [isOffline, setIsOffline] = useState(false);
 
@@ -110,6 +121,18 @@ export default ({ navigation }: RootStackScreenProps<'设置'>) => {
           />
 
           <ConfirmationModal
+            onConfirm={() => {
+              onRemoveAccount();
+              toggleRemoveAccountDialog();
+            }}
+            onCancel={toggleRemoveAccountDialog}
+            isVisible={isRemoveDialogOpen}
+            title="确定注销“影视TV”账号"
+            subtitle="确认删除帐户后，您的所有帐户数据将被永久删除"
+            confirmationText="确定"
+          />
+
+          <ConfirmationModal
             onConfirm={async () => {
               //    user logout
               await AsyncStorage.removeItem("showAds");
@@ -156,6 +179,7 @@ export default ({ navigation }: RootStackScreenProps<'设置'>) => {
                   </View>
                 }
               />
+              <ShowMoreButton text="注销账号" onPress={toggleRemoveAccountDialog} />
             </View>
           </View>
         </View>

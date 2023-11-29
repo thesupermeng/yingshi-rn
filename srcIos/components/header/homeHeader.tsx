@@ -40,7 +40,7 @@ function MainHeader({ logo, navigator, headerStyle }: Props) {
                     ? logo
                     : <Logo height={36} />
             }
-            <SearchBar onPress={() => navigator.navigate('搜索', { initial: randomVod?.vod_name })} defaultValue={randomVod !== undefined ? randomVod.vod_name : ''} />
+            {/* <SearchBar onPress={() => navigator.navigate('搜索', { initial: randomVod?.vod_name })} defaultValue={randomVod !== undefined ? randomVod.vod_name : ''} /> */}
             {/* <TouchableOpacity onPress={() => navigator.navigate('播放历史')}>
                 {
                     icons.iconColor !== undefined &&

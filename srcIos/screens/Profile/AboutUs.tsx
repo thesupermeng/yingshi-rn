@@ -67,10 +67,10 @@ export default ({ navigation }: RootStackScreenProps<"关于我们">) => {
             text="用户协议"
             onPress={() => navigation.navigate("用户协议")}
           />
-          <ShowMoreButton
+          {/* <ShowMoreButton
             text="版权声明"
             onPress={() => setIsDialogOpen(!isDialogOpen)}
-          />
+          /> */}
         </View>
       </View>
     </ScreenContainer>
