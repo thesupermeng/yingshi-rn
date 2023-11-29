@@ -20,6 +20,7 @@ import VodLiveStationListVertical from '../vod/vodLiveStationListVertical';
 import FastImage from '../common/customFastImage';
 import { screenModel } from '../../types/screenType';
 import { useAppSelector } from '../../hooks/hooks';
+import AdultModeCountdownIndicator from '../adultVideo/adultModeCountdownIndicator';
 
 type Props = {
   videoUrl: string;
@@ -463,6 +464,13 @@ export default forwardRef<RefHandler, Props>(({
             </>
         )
       }
+      <AdultModeCountdownIndicator
+        containerStyle={{
+          position: 'absolute', 
+          bottom: showControls ? '20%' : 0, 
+          left: 0
+        }}
+      />
     </View>
   );
 });
