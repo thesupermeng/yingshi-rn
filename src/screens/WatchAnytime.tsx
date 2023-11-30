@@ -18,6 +18,7 @@ import { SettingsReducerState } from '../redux/reducers/settingsReducer';
 import { useAppSelector } from '../hooks/hooks';
 import { RootState } from '../redux/store';
 import EighteenPlusControls from '../components/adultVideo/eighteenPlusControls';
+import useAnalytics from '../hooks/useAnalytics';
 
 type MiniVideoResponseType = {
     data: {
@@ -53,7 +54,23 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
     const apiEndpoint = adultMode ? `${API_DOMAIN_TEST}miniSVod/v1/miniSVod` : `${API_DOMAIN_TEST}miniVod/v2/miniVod`
     const afterInitialLoad = useRef(false);
 
+    // ========== for analytics - start ==========
+    const { watchAnytimeViewsAnalytics } = useAnalytics();
+
     useEffect(() => {
+        watchAnytimeViewsAnalytics({
+            isXmode: adultMode,
+        });
+    }, [])
+    // ========== for analytics - end ==========
+    
+    useEffect(() => {
+        // ========== for analytics - start ==========
+        watchAnytimeViewsAnalytics({
+            isXmode: adultMode,
+        });
+        // ========== for analytics - end ==========
+
         if (!afterInitialLoad.current){
             // if first time loading from home, dont refetch, use prefetched data
             afterInitialLoad.current = true
