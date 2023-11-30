@@ -64,6 +64,7 @@ export default () => {
                   if (item.playMode === 'adult') {dispatch(enableAdultMode())}
                   else {dispatch(disableAdultMode())}
                 }}
+                imgOrientation='horizontal'
               />
             )}
           />
