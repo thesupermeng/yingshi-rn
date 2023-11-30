@@ -308,22 +308,22 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     setDismountPlayer(false); //dismount player when offline
     // console.log("player is dismounted")
   };
-  useEffect(() => {
-    // cleanup for svod 
+  // useEffect(() => {
+  //   // cleanup for svod 
 
 
-    // check previous screen is watchanytime or not
-    const previousPage = navigation.getState().routes[navigation.getState().routes.length - 2];
-    // tab index 1 is '随心看'
-    const isFromWatchAnytime = previousPage.name === 'Home' && previousPage.state?.index === 1;
+  //   // check previous screen is watchanytime or not
+  //   const previousPage = navigation.getState().routes[navigation.getState().routes.length - 2];
+  //   // tab index 1 is '随心看'
+  //   const isFromWatchAnytime = previousPage.name === 'Home' && previousPage.state?.index === 1;
 
-    return () => {
-      // is not from '随心看' disable
-      if (!isFromWatchAnytime) {
-        dispatch(disableAdultMode())
-      }
-    }
-  }, [])
+  //   return () => {
+  //     // is not from '随心看' disable
+  //     if (!isFromWatchAnytime) {
+  //       dispatch(disableAdultMode())
+  //     }
+  //   }
+  // }, [])
 
   // useEffect(() => {
   //   let interval: any;

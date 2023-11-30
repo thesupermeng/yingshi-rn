@@ -117,3 +117,11 @@ export const acceptOverEighteen = () => ({
 export const resetOverEighteen = () => ({
   type: 'reset_over_eighteen'
 })
+
+export const enableWatchAnytimeAdultMode = () => ({
+  type: 'enable_watch_anytime_adult_mode'
+})
+
+export const disableWatchAnytimeAdultMode = () => ({
+  type: 'disable_watch_anytime_adult_mode'
+})
