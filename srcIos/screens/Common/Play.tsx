@@ -855,6 +855,8 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                       style={{
                         display: "flex",
                         alignItems: "flex-start",
+                        flexDirection: 'row',
+                        gap: 8,
                       }}
                     >
                       <TouchableOpacity
@@ -875,6 +877,9 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                           搜索片源
                         </Text>
                       </TouchableOpacity>
+                      <Text style={{...textVariants.small, alignSelf: 'flex-end'}}>
+                        *点击跳转bing搜索片源
+                      </Text>
                     </View>
                   </View>
                 </View>
