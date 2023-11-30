@@ -77,7 +77,7 @@ export default function TitleWithBackButtonHeader({
             ...styles.backStyle,
             position: "absolute",
             right: 15,
-            bottom: 8,
+            top: 8,
           }}
         >
           {right}
