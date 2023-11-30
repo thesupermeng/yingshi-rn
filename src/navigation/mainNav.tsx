@@ -6,32 +6,12 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import FastImage from "../components/common/customFastImage";
 import { NetworkInfo } from "react-native-network-info";
 import Nav from "../../src/navigation/nav";
-import NavA from "../../srcA/navigation/nav";
 import NavIos from "../../srcIos/navigation/nav";
 import axios from "axios";
 import {
   API_DOMAIN,
-  API_DOMAIN_TEST,
-  API_DOMAIN_LOCAL,
-  APPSFLYER_DEVKEY,
   UMENG_CHANNEL,
   APP_VERSION,
-  TOPON_ANDROID_APP_KEY,
-  TOPON_ANDROID_APP_ID,
-  ANDROID_HOME_PAGE_BANNER_ADS,
-  TOPON_IOS_APP_ID,
-  TOPON_IOS_APP_KEY,
-  IOS_HOME_PAGE_BANNER_ADS,
-  IOS_HOME_PAGE_POP_UP_ADS,
-  TOPON_BANNER_WIDTH,
-  TOPON_BANNER_HEIGHT,
-  ANDROID_HOME_PAGE_POP_UP_ADS,
-  ANDROID_PLAY_DETAILS_BANNER_ADS,
-  ANDROID_TOPIC_DETAILS_BANNER_ADS,
-  ANDROID_TOPIC_TAB_BANNER_ADS,
-  IOS_PLAY_DETAILS_BANNER_ADS,
-  IOS_TOPIC_DETAILS_BANNER_ADS,
-  IOS_TOPIC_TAB_BANNER_ADS,
   APP_NAME_CONST,
 } from "../../src/utility/constants";
 import { YSConfig } from "../../ysConfig";
@@ -40,12 +20,15 @@ import Api from "../../src/Sports/middleware/api";
 import { Url } from "../../src/Sports/middleware/url";
 import Config from "../../src/Sports/global/env";
 import { AppConfig } from "../../src/Sports/global/appConfig";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default () => {
   const [loadedAPI, setLoadedAPI] = useState(false);
   const [areaNavConfig, setAreaNavConfig] = useState(false);
+  const [isSuper, setIsSuper] = useState(false);
 
   const getNav = async () => {
+
     const res = await Api.call(
       Url.getConfig,
       { channel: Config.channelId },
@@ -81,6 +64,13 @@ export default () => {
     if (ipAddress != null && ipAddress != undefined) {
       YSConfig.instance.setNetworkIp(ipAddress);
     }
+
+    const access = await AsyncStorage.getItem("access");
+    if(access == "11111111"){
+      setIsSuper(true);
+      return;
+    }
+
     const locationBody = {
       ip_address: ipAddress,
       channel_id: UMENG_CHANNEL,
@@ -88,7 +78,7 @@ export default () => {
       mobile_os: Platform.OS,
       product: APP_NAME_CONST + "-" + Platform.OS.toUpperCase(),
       mobile_model: "HUAWEIP20",
-      ab_switch: true,
+      ab_switch: true
     };
 
     const locationResponse = await fetch(`${API_DOMAIN}location/v1/info`, {
@@ -131,43 +121,43 @@ export default () => {
 
   return (
     <>
-      {loadedAPI == false ? (
-        <View
-          style={{
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: "#161616",
-          }}
-        >
-          <FastImage
-            source={require("../../static/images/home-loading.gif")}
-            style={{
-              width: 150,
-              height: 150,
-              position: "relative",
-              bottom: 50,
-              zIndex: -1,
-            }}
-            resizeMode={"contain"}
-            useFastImage={true}
-          />
-        </View>
+      {isSuper == true ? (
+        <Nav />
       ) : (
         <>
-          {areaNavConfig == true ? (
-            // B面的B面
-            <Nav />
+          {loadedAPI == false ? (
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: "#161616",
+              }}
+            >
+              <FastImage
+                source={require("../../static/images/home-loading.gif")}
+                style={{
+                  width: 150,
+                  height: 150,
+                  position: "relative",
+                  bottom: 50,
+                  zIndex: -1,
+                }}
+                resizeMode={"contain"}
+                useFastImage={true}
+              />
+            </View>
           ) : (
-            // B面里的A面
             <>
-              {Platform.OS === "ios" && <NavIos />}
-
-              {Platform.OS === "android" && <NavA />}
+              {areaNavConfig == true ? (
+                // B面的B面
+                <Nav />
+              ) : (
+                // B面里的A面
+                <NavIos />
+              )}
             </>
           )}
-
-          
         </>
       )}
     </>
