@@ -344,6 +344,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       playsViewsAnalytics({
         vod_id: vod.vod_id.toString(),
         vod_name: vod.vod_name,
+        isXmode: adultMode,
       });
       // ========== for analytics - end ==========
     }
@@ -643,6 +644,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       playsPlaysTimesAnalytics({
         vod_id: vod.vod_id.toString(),
         vod_name: vod.vod_name,
+        isXmode: adultMode,
       });
     }
 
