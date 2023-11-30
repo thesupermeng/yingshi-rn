@@ -217,6 +217,7 @@ function ShortVideoPlayer({
       dispatch(playVod(currentVod.mini_video_vod));
       navigation.navigate('播放', {
         vod_id: currentVod.vod?.vod_id,
+        player_mode: adultMode ? 'adult' : 'normal'
       });
 
       // ========== for analytics - start ==========

@@ -94,7 +94,7 @@ export default ({ navigation }: RootStackScreenProps<"播放历史">) => {
             <Text
               style={{
                 ...textVariants.body,
-                padding: 8,
+                // padding: 8,
                 opacity: history && history.length > 0 ? 100 : 0,
               }}
             >

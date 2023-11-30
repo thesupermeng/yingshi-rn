@@ -7,7 +7,7 @@ import { useAppDispatch } from '../../hooks/hooks';
 import VodCard from '../../components/vod/vodCard';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { VodType } from '../../types/ajaxTypes';
-import { enableAdultMode } from '../../redux/actions/screenAction';
+import { disableAdultMode, enableAdultMode } from '../../redux/actions/screenAction';
 
 
 interface Props {
@@ -81,6 +81,7 @@ function VodListVertical({ vods, numOfRows = 2, outerRowPadding = 0, minNumPerRo
                     player_mode: playerMode
                 });
                 if (playerMode == 'adult') {dispatch(enableAdultMode())}
+                else {dispatch(disableAdultMode())}
             }}
             index={idx}
         />

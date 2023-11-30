@@ -14,6 +14,7 @@ interface Props {
   hideFavoriteButton?: boolean;
   initialFavoriteState?: boolean;
   index: number;
+  imgOrientation?: 'horizontal' | 'vertical'
 }
 function FavoriteVodCard({
   vod,
@@ -22,6 +23,7 @@ function FavoriteVodCard({
   hideFavoriteButton = false,
   initialFavoriteState = false,
   index, 
+  imgOrientation,
   ...params
 }: Props) {
   const {colors, spacing, textVariants} = useTheme();
@@ -29,7 +31,7 @@ function FavoriteVodCard({
     <View style={{...styles.card, gap: spacing.s}}>
       <VodImageCard
         vod_img={vod.vod_pic}
-        vodStyle={styles.image}
+        vodStyle={ imgOrientation === 'horizontal' ? styles.imageHorizontal : styles.image}
         onPress={onPress}
         showInfo={vod.vod_remarks}
         index={index}
@@ -83,7 +85,11 @@ const styles = StyleSheet.create({
     flexShrink: 1,
   },
   image: {
+   width: 120, 
+   height: 180,
+  },
+  imageHorizontal: {
     width: 154,
     height: 87,
-  },
+  }
 });
