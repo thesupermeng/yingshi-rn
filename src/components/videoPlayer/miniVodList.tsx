@@ -3,7 +3,7 @@ import { View, FlatList, RefreshControl } from 'react-native';
 import { MiniVideo } from '../../types/ajaxTypes';
 import ShortVod from '../../components/videoPlayer/shortVod';
 import FastImage from "../common/customFastImage";
-import { useTheme } from '@react-navigation/native';
+import { useFocusEffect, useTheme } from '@react-navigation/native';
 import { StyleSheet } from 'react-native';
 
 import { screenModel } from '../../types/screenType';
@@ -100,12 +100,14 @@ export default forwardRef<MiniVodRef, Props>(
             setPause(true);
         }, [adultMode]);
 
-        useEffect(() => {
-            if (videos.length > 0 && isChangingSource) {
-                setChangingSource(false);
-                setPause(false);
-            }
-        }, [videos, isChangingSource]);
+        useFocusEffect(
+            useCallback(() => {
+                if (videos.length > 0 && isChangingSource) {
+                    setChangingSource(false);
+                    setPause(false);
+                }
+            }, [isChangingSource, videos])
+        )
 
         // for analytics used
         const [preTolVideoViews, setPreTolVideoViews] = useState(0); // previous
