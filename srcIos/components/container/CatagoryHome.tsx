@@ -255,22 +255,6 @@ const CatagoryHome = ({
               </View>
             )}
             <View>
-              {data && data.class_list && data.class_list.length > 0 && (
-                <FlatListSecondary
-                  ref={categoryListRef}
-                  data={['全部剧集', ...data.class_list]}
-                  horizontal
-                  showsHorizontalScrollIndicator={false}
-                  initialNumToRender={5}
-                  contentContainerStyle={{
-                    ...styles.catalogNav,
-                    marginBottom: spacing.m,
-                    paddingLeft: spacing.sideOffset,
-                    paddingRight: spacing.sideOffset,
-                  }}
-                  renderItem={renderContent}
-                />
-              )}
               {data?.yunying &&
                 data.yunying.length > 0 &&
                 data.yunying.map((item, index) => (

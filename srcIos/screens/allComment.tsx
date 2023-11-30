@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { FlatList, Keyboard, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { RootStackScreenProps } from "../types/navigationTypes";
-import { CommentCard } from "../components/videoPlayer/commentCard";
+import { CommentCard } from "../components/vodComment/commentCard";
 import { commentsType } from "../types/ajaxTypes";
 import ScreenContainer from "../components/container/screenContainer";
 import TitleWithBackButtonHeader from "../components/header/titleWithBackButtonHeader";

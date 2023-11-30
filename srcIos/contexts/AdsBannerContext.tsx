@@ -52,6 +52,7 @@ const deviceBrand = DeviceInfo.getBrand();
 const scale = Dimensions.get("screen").scale;
 
 export const AdsBannerContextProvider = ({ children }: Props) => {
+  
   const [route, setRoute] = useState<string | null>(null);
   const [navbarHeight, setNavbarHeight] = useState(0);
   const [systemNavHeight, setSystemNavHeight] = useState(0);

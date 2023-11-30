@@ -64,7 +64,7 @@ import {
 } from "./AnyThinkAds/ATReactNativeSDK";
 
 import { TermsAcceptContextProvider } from "./src/contexts/TermsAcceptedContext";
-import { TermsAcceptContextProvider as TermsAcceptContextProviderA } from "./srcA/contexts/TermsAcceptedContext";
+import { TermsAcceptContextProvider as TermsAcceptContextProviderA } from "./srcIos/contexts/TermsAcceptedContext";
 import { AdsBannerContextProvider } from "./src/contexts/AdsBannerContext";
 import { AdsBannerContextProvider as AdsBannerContextProviderA } from "./srcA/contexts/AdsBannerContext";
 import NetInfo from "@react-native-community/netinfo";
