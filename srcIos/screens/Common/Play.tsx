@@ -642,7 +642,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
     if(!isFetchingComments && locCommentId) {
       mergeAllComments();
     }
-  }, [isFetchingComments, localComment]);
+  }, [isFetchingComments, localComment, locCommentId]);
 
   const getLocalComments = async () => {
     try {
