@@ -128,6 +128,7 @@ export default ({navigation, route}: RootStackScreenProps<'午夜场剧情'>) =>
           contentContainerStyle={{justifyContent: 'space-evenly'}}
           onEndReached={fetchNextPage}
           showsVerticalScrollIndicator={false}
+          onEndReachedThreshold={0.5}
           ListFooterComponent={
             <View style={{...styles.loading, marginBottom: 100}}>
               {hasNextPage && (
