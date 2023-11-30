@@ -38,6 +38,8 @@ import Carousel from "react-native-reanimated-carousel";
 import CarouselPagination from "./CarouselPagination";
 import LoadingIcon from "./../../../static/images/MutedVolume.svg";
 import { Image } from "react-native";
+import { YingPingContainer } from "../container/yingPingContainer";
+
 interface NavType {
   id: number;
   name: string;
@@ -139,6 +141,22 @@ const RecommendationHome = ({
       },
     }
   );
+
+  const fetchYingPing = () =>
+    fetch(
+      `${API_DOMAIN}page/v2/typepage?id=1000`)
+      .then((response) => response.json())
+      .then((json: VodCarousellResponseType) => {
+        return json.data.yingping_list;
+      });
+
+  const {
+    data: yingPingList,
+    isFetching: isFetchingYingPing,
+  } = useQuery({
+    queryKey: ["yingPingList"],
+    queryFn: () => fetchYingPing(),
+  });
 
   useEffect(() => {
     onLoad();
@@ -268,6 +286,30 @@ const RecommendationHome = ({
                 <View style={{ gap: spacing.m }}>
 
                 </View>
+                
+                {yingPingList && yingPingList.vod_list.length > 0 && (
+                  <View
+                    style={{
+                      paddingLeft: spacing.sideOffset,
+                      paddingRight: spacing.sideOffset,
+                      gap: spacing.xxs,
+                    }}
+                  >
+                    <ShowMoreVodButton
+                      text={yingPingList.type_name}
+                    />
+                    {yingPingList.vod_list.map((item, index) => (
+                      <YingPingContainer 
+                        key={item.vod_id}
+                        vod={item}
+                        width={width}
+                        imgRatio={imgRatio}
+                        isSlide={index%2 !== 0}
+                      />
+                    ))}
+                  </View>
+                )}
+
                 {data?.yunying &&
                   data.yunying.length > 0 &&
                   data.yunying.map((item, index) => (
