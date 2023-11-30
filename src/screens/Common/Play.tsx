@@ -73,7 +73,7 @@ import LinearGradient from "react-native-linear-gradient";
 import VipIcon from '../../../static/images/vip-icon.svg'
 import AdultVideoVipModal from "../../components/modal/adultVideoVipModal";
 import VipRegisterBar from "../../components/adultVideo/vipRegisterBar";
-import { disableAdultMode, incrementAdultVideoWatchTime } from "../../redux/actions/screenAction";
+import { disableAdultMode, enableAdultMode, incrementAdultVideoWatchTime } from "../../redux/actions/screenAction";
 
 import useAnalytics from "../../hooks/useAnalytics";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -195,6 +195,8 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   });
 
   const { colors, spacing, textVariants, icons } = useTheme();
+  const dispatch = useAppDispatch();
+
   const vodReducer: VodReducerState = useAppSelector(
     ({ vodReducer }: RootState) => vodReducer
   );
@@ -210,7 +212,8 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const screenState: screenModel = useAppSelector(
     ({ screenReducer }) => screenReducer
   )
-  const { adultMode } = screenState
+  const adultMode = route.params.player_mode === 'adult' ? true : false
+
   const vod = vodReducer.playVod.vod;
   // const [vod, setVod] = useState(vodReducer.playVod.vod);
   const [initTime, setInitTime] = useState(0);
@@ -239,7 +242,6 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const episodeRef = useRef<FlatList>(null);
   const videoPlayerRef = useRef() as React.MutableRefObject<VideoRef>;
   const currentEpisodeRef = useRef<number>();
-  const dispatch = useAppDispatch();
 
   const [dismountPlayer, setDismountPlayer] = useState(false);
   const [isOffline, setIsOffline] = useState(false);
@@ -657,6 +659,14 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     insetsBottom = insetsBottom == 0 ? insets.bottom : insets.bottom;
   }
 
+
+  useEffect(() => {
+    if (adultMode){
+      dispatch(enableAdultMode())
+    } else {
+      dispatch(disableAdultMode())
+    }
+  }, [adultMode])
 
   return (
     <>
