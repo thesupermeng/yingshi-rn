@@ -109,14 +109,6 @@ export default function HomeNav({
               paddingLeft: 12,
             },
           })}
-          screenListeners={{
-            tabPress: e => {
-              if (e.target?.includes('夜色')){
-                dispatch(showAdultModeDisclaimer())
-              }
-            },
-
-          }}
         >
           {
             tabList.map(renderTab)

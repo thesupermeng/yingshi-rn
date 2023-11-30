@@ -10,7 +10,7 @@ import {
   FlatList,
 } from 'react-native';
 import { FlatList as FlatListSecondary } from 'react-native-gesture-handler';
-import { useNavigation, useTheme } from '@react-navigation/native';
+import { useFocusEffect, useNavigation, useTheme } from '@react-navigation/native';
 import Swiper from 'react-native-swiper';
 import ShowMoreVodButton from '../button/showMoreVodButton';
 import {
@@ -47,7 +47,7 @@ import Animated, {
   withDelay,
   withTiming,
 } from 'react-native-reanimated';
-import { acceptOverEighteen, enableAdultMode, hideAdultModeDisclaimer } from '../../redux/actions/screenAction';
+import { acceptOverEighteen, enableAdultMode, hideAdultModeDisclaimer, showAdultModeDisclaimer } from '../../redux/actions/screenAction';
 import EighteenPlusOverlay from '../modal/overEighteenOverlay';
 import { screenModel } from '../../types/screenType';
 // import {FlatList, PanGestureHandler} from 'react-native-gesture-handler';
@@ -227,6 +227,14 @@ const CatagoryHome = ({
   // useEffect(() => {
   //   setActiveIndex(0);
   // }, [refreshProp]);
+
+  useFocusEffect(
+    useCallback(() => {
+      if (navId == 99){
+        dispatch(showAdultModeDisclaimer())
+      }
+    }, [navId])
+  )
 
   return (
     <>
