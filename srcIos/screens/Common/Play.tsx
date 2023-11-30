@@ -242,6 +242,8 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const [comment, setComment] = useState('');
   const [isUpdated, setIsUpdated] = useState(false);
   const [allComment, setAllComment] = useState<commentsType[] | undefined>([]);
+  const [showLoading, setShowLoading] = useState(true);
+
 
   const {
     playsViewsAnalytics,
@@ -632,11 +634,17 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
       }
 
       setAllComment(mergedArray);
+      setShowLoading(isFetchingComments)
+      console.log('done')
     }
 
     if (!isFetchingComments) {
       mergeAllComments();
     }
+
+  
+
+
   }, [isFetchingComments, isUpdated]);
 
   const locCommentId = "userComment" + vod?.vod_douban_id;
@@ -930,7 +938,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                   </View>
                   {/* show 选集播放 section when avaiable episode more thn 1 */}
                   <>
-                    {isFetchingVodDetails && isFetchingComments ? (
+                    {isFetchingVodDetails || isFetchingComments || showLoading ? (
                       <>
                         <View
                           style={{
@@ -951,7 +959,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                       </>
                     ) : (
                       <>
-                        {vod && allComment &&
+                        {vod && allComment && !showLoading &&
                           <VodCommentBox
                             comments={allComment ?? []}
                             onCommentTap={() => {

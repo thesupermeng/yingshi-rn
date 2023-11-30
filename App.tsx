@@ -199,6 +199,17 @@ let App = () => {
           }),
     });
 
+
+    queryClient.prefetchQuery({
+      queryKey: ["HomePage", 1000],
+      queryFn: () =>
+        fetch(`${API_DOMAIN}page/v2/typepage?id=1000`)
+          .then((response) => response.json())
+          .then((json: any) => {
+            return json.data.yingping_list;
+          }),
+    });
+
     // queryClient.prefetchQuery({
     //   queryKey: ["filterOptions"],
     //   queryFn: () =>

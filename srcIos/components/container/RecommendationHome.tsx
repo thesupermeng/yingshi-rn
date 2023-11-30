@@ -22,7 +22,7 @@ import {
   LiveTVStationsResponseType,
 } from "../../types/ajaxTypes";
 // import FastImage from "react-native-fast-image";
-import FastImage from "../common/customFastImage"
+import FastImage from "../common/customFastImage";
 import { VodReducerState } from "../../redux/reducers/vodReducer";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { RootState } from "../../redux/store";
@@ -60,7 +60,7 @@ const RecommendationHome = ({
   setScrollEnabled,
   onRefresh,
   refreshProp = false,
-  onLoad = () => { },
+  onLoad = () => {},
 }: Props) => {
   const { colors, textVariants, spacing } = useTheme();
   const vodReducer: VodReducerState = useAppSelector(
@@ -143,17 +143,13 @@ const RecommendationHome = ({
   );
 
   const fetchYingPing = () =>
-    fetch(
-      `${API_DOMAIN}page/v2/typepage?id=1000`)
+    fetch(`${API_DOMAIN}page/v2/typepage?id=1000`)
       .then((response) => response.json())
       .then((json: VodCarousellResponseType) => {
         return json.data.yingping_list;
       });
 
-  const {
-    data: yingPingList,
-    isFetching: isFetchingYingPing,
-  } = useQuery({
+  const { data: yingPingList, isFetching: isFetchingYingPing } = useQuery({
     queryKey: ["yingPingList"],
     queryFn: () => fetchYingPing(),
   });
@@ -235,7 +231,7 @@ const RecommendationHome = ({
 
   return (
     <View style={{ width: width }}>
-      {data?.live_station_list && data?.live_station_list.length > 0 && (
+      {yingPingList ? (
         <FlatList
           refreshControl={
             <RefreshControl
@@ -283,10 +279,8 @@ const RecommendationHome = ({
                 </View>
               )}
               <View>
-                <View style={{ gap: spacing.m }}>
+                <View style={{ gap: spacing.m }}></View>
 
-                </View>
-                
                 {yingPingList && yingPingList.vod_list.length > 0 && (
                   <View
                     style={{
@@ -295,16 +289,14 @@ const RecommendationHome = ({
                       gap: spacing.xxs,
                     }}
                   >
-                    <ShowMoreVodButton
-                      text={yingPingList.type_name}
-                    />
+                    <ShowMoreVodButton text={yingPingList.type_name} />
                     {yingPingList.vod_list.map((item, index) => (
-                      <YingPingContainer 
+                      <YingPingContainer
                         key={item.vod_id}
                         vod={item}
                         width={width}
                         imgRatio={imgRatio}
-                        isSlide={index%2 !== 0}
+                        isSlide={index % 2 !== 0}
                       />
                     ))}
                   </View>
@@ -405,6 +397,25 @@ const RecommendationHome = ({
             </View>
           }
         />
+      ) : (
+        <>
+          <View
+            style={{
+              width: "100%",
+              height: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              alignSelf: "center",
+            }}
+          >
+            <FastImage
+              style={{ height: 80, width: 80 }}
+              source={require("../../../static/images/loading-spinner.gif")}
+              resizeMode={"contain"}
+            />
+          </View>
+        </>
       )}
     </View>
   );
