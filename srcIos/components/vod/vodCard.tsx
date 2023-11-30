@@ -14,21 +14,29 @@ interface Props {
     showPlayIcon?: boolean
     showInfo?: string
     shadowBottom?: boolean
-    index? : number
+    index?: number
 }
 
-function VodCard({ vod_name, vod_pic, vodImageStyle = {}, onPress, showInfo, showPlayIcon = false, shadowBottom = false, vodCardContainerStyle={}, index }: Props) {
+function VodCard({ vod_name, vod_pic, vodImageStyle = {}, onPress, showInfo, showPlayIcon = false, shadowBottom = false, vodCardContainerStyle = {}, index }: Props) {
     const { colors, textVariants, spacing } = useTheme();
     return (
         <View style={{ marginRight: vodImageStyle?.marginRight !== undefined ? vodImageStyle.marginRight : spacing.m }}>
             {
                 vod_name == undefined || vod_pic === undefined
-                    ? <View style={{ height: vodImageStyle?.height !== undefined ? vodImageStyle.height : 200, backgroundColor: colors.loading, ...styles.loadingCard, ...vodImageStyle, }}>
+                    ? <View style={{
+                        height: vodImageStyle?.height !== undefined ? vodImageStyle.height : 200,
+                        backgroundColor: colors.loading,
+                        ...styles.loadingCard,
+                        // ...vodImageStyle,
+                        width: vodImageStyle?.width !== undefined ? vodImageStyle.width : styles.card.width,
+                        marginBottom: 14,
+                        ...vodCardContainerStyle
+                    }}>
                         <LoadingImage />
                     </View>
                     : <View style={{
-                        width: vodImageStyle?.width !== undefined ? vodImageStyle.width : styles.card.width, 
-                        marginBottom : 14, 
+                        width: vodImageStyle?.width !== undefined ? vodImageStyle.width : styles.card.width,
+                        marginBottom: 14,
                         ...vodCardContainerStyle
                     }}>
                         <VodImageCard vod_img={vod_pic} shadowBottom={shadowBottom} vodStyle={{ ...styles.card, ...vodImageStyle }} onPress={onPress} showPlayIcon={showPlayIcon} showInfo={showInfo} index={index} />
@@ -50,8 +58,8 @@ const styles = StyleSheet.create({
         width: 150,
     },
     loadingCard: {
-        width: 150,
-        marginRight: 20,
+        // width: 150,
+        // marginRight: 20,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',

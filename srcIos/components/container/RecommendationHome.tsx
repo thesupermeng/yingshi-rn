@@ -58,7 +58,7 @@ const RecommendationHome = ({
   setScrollEnabled,
   onRefresh,
   refreshProp = false,
-  onLoad = () => {},
+  onLoad = () => { },
 }: Props) => {
   const { colors, textVariants, spacing } = useTheme();
   const vodReducer: VodReducerState = useAppSelector(
@@ -100,11 +100,14 @@ const RecommendationHome = ({
   };
 
   const fetchPlaylist = (page: number) =>
-    fetch(`${API_DOMAIN}topic/v1/topic?page=${page}`)
+    // fetch(`${API_DOMAIN}topic/v1/topic?page=${page}`)
+    fetch(`${API_DOMAIN}topic/v1/topic/temp`)
       .then((response) => response.json())
       .then((json: VodPlaylistResponseType) => {
-        setTotalPage(Number(json.data.TotalPageCount));
-        return Object.values(json.data.List);
+        // setTotalPage(Number(json.data.TotalPageCount));
+        // return Object.values(json.data.List);
+        setTotalPage(1);
+        return Object.values(json.data);
       });
   const {
     data: playlists,
@@ -263,7 +266,7 @@ const RecommendationHome = ({
               )}
               <View>
                 <View style={{ gap: spacing.m }}>
-                  
+
                 </View>
                 {data?.yunying &&
                   data.yunying.length > 0 &&

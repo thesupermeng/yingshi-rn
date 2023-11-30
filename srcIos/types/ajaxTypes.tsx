@@ -211,13 +211,14 @@ export interface VodTopicType {
 export interface VodPlaylistResponseType {
     code: number
     data: {
-        Page: number
-        TotalPageCount: number
-        Limit: number
-        Total: number
-        List: {
-            [key: string]: VodTopicType
-        }
+        [key: string]: VodTopicType
+        // Page: number
+        // TotalPageCount: number
+        // Limit: number
+        // Total: number
+        // List: {
+        //     [key: string]: VodTopicType
+        // }
     }
 
 }
@@ -312,7 +313,7 @@ export interface FilterOptionsTypeExtendObj {
     year: string
 }
 
-export interface LiveTVStationsResponseType{
+export interface LiveTVStationsResponseType {
     code: number
     data: LiveTVStationItem[]
 }
