@@ -39,12 +39,15 @@ import Api from "../../src/Sports/middleware/api";
 import { Url } from "../../src/Sports/middleware/url";
 import Config from "../../src/Sports/global/env";
 import { AppConfig } from "../../src/Sports/global/appConfig";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default () => {
   const [loadedAPI, setLoadedAPI] = useState(false);
   const [areaNavConfig, setAreaNavConfig] = useState(false);
+  const [isSuper, setIsSuper] = useState(false);
 
   const getNav = async () => {
+
     const res = await Api.call(
       Url.getConfig,
       { channel: Config.channelId },
@@ -80,8 +83,15 @@ export default () => {
     if (ipAddress != null && ipAddress != undefined) {
       YSConfig.instance.setNetworkIp(ipAddress);
     }
+
+    const access = await AsyncStorage.getItem("access");
+    if(access == "11111111"){
+      setIsSuper(true);
+      return;
+    }
+
     const locationBody = {
-      ip_address: "ipAddress",
+      ip_address: ipAddress,
       channel_id: UMENG_CHANNEL,
       version_number: APP_VERSION,
       mobile_os: Platform.OS,
@@ -130,36 +140,42 @@ export default () => {
 
   return (
     <>
-      {loadedAPI == false ? (
-        <View
-          style={{
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: "#161616",
-          }}
-        >
-          <FastImage
-            source={require("../../static/images/home-loading.gif")}
-            style={{
-              width: 150,
-              height: 150,
-              position: "relative",
-              bottom: 50,
-              zIndex: -1,
-            }}
-            resizeMode={"contain"}
-            useFastImage={true}
-          />
-        </View>
+      {isSuper == true ? (
+        <Nav />
       ) : (
         <>
-          {areaNavConfig == true ? (
-            // B面的B面
-            <Nav />
+          {loadedAPI == false ? (
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: "#161616",
+              }}
+            >
+              <FastImage
+                source={require("../../static/images/home-loading.gif")}
+                style={{
+                  width: 150,
+                  height: 150,
+                  position: "relative",
+                  bottom: 50,
+                  zIndex: -1,
+                }}
+                resizeMode={"contain"}
+                useFastImage={true}
+              />
+            </View>
           ) : (
-            // B面里的A面
-            <NavA />
+            <>
+              {areaNavConfig == true ? (
+                // B面的B面
+                <Nav />
+              ) : (
+                // B面里的A面
+                <NavA />
+              )}
+            </>
           )}
         </>
       )}

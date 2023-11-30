@@ -50,11 +50,11 @@ export default function TitleWithBackButtonHeader({
           onPress={onBack}
           btnStyle={{
             position: "absolute",
-            bottom: leftIconBottomVal,
+            // bottom: leftIconBottomVal,
             // paddingTop: Platform.OS == "android" ? 30 : 5,
-            paddingVertical: 8,
-            paddingLeft: 5,
-            width: 40,
+            // paddingVertical: 8,
+            // paddingLeft: 5,
+            width: 30,
           }}
         />
       </View>
@@ -76,7 +76,7 @@ export default function TitleWithBackButtonHeader({
             ...styles.backStyle,
             position: "absolute",
             right: 15,
-            bottom: 8,
+            // bottom: 8,
           }}
         >
           {right}
@@ -92,7 +92,7 @@ export default function TitleWithBackButtonHeader({
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 10,
+    paddingVertical: 10,
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",

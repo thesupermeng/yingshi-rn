@@ -331,7 +331,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
       user_id: userState.userId,
       product_id: membershipSelected?.productId,
       transaction_type: "SUBSCRIBE_VIP",
-      payment_channel: paymentSelected.toUpperCase(),
+      payment_channel: paymentSelected.toUpperCase().replace(/ /g, '_'),
       platform: APP_NAME_CONST + "-" + Platform.OS.toUpperCase(),
       channel_transaction_id: currentPurchase?.transactionId,
       transaction_receipt: currentPurchase
@@ -589,7 +589,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
               </Text>
             </TouchableOpacity>
           }
-          headerStyle={{ marginBottom: spacing.m }}
+          // headerStyle={{ marginBottom: spacing.m }}
         />
 
         {isOffline && (
