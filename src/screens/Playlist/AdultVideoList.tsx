@@ -117,15 +117,9 @@ export default ({navigation, route}: RootStackScreenProps<'午夜场剧情'>) =>
 
   return (
     <ScreenContainer>
-      <View
-        style={{
-          marginVertical: spacing.s
-        }}
-      >
-        <TitleWithBackButtonHeader
-          title={route.params.class}
-        />
-      </View>
+      <TitleWithBackButtonHeader
+        title={route.params.class}
+      />
       <View>
         <FlatList
           data={adultVodData}
@@ -135,7 +129,7 @@ export default ({navigation, route}: RootStackScreenProps<'午夜场剧情'>) =>
           onEndReached={fetchNextPage}
           showsVerticalScrollIndicator={false}
           ListFooterComponent={
-            <View style={{...styles.loading, marginBottom: 60}}>
+            <View style={{...styles.loading, marginBottom: 100}}>
               {hasNextPage && (
                 <FastImage
                   style={{
