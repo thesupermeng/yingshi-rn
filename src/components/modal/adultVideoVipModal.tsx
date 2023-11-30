@@ -20,7 +20,7 @@ const AdultVideoVipModal = () => {
   const screenState: screenModel = useAppSelector(
     ({screenReducer}) => screenReducer
   )
-  const {adultModeVipShow} = screenState
+  const {adultModeVipShow, adultMode} = screenState
   const dispatch = useAppDispatch()
 
   const isVip = !(Number(userState.userMemberExpired) <=
@@ -31,7 +31,7 @@ const AdultVideoVipModal = () => {
     dispatch(hideAdultModeVip())
   }, [])
 
-  if (adultModeVipShow && !isVip)
+  if (adultModeVipShow && !isVip && adultMode)
     return (
       <View
         style={{
