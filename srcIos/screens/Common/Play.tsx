@@ -240,7 +240,8 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const [isOffline, setIsOffline] = useState(false);
   const [isShowSheet, setShowSheet] = useState(false);
   const [comment, setComment] = useState('');
-  const [isUpdated, setIsUpdated] = useState(false);
+  const [locCommentId, setLocCommentId] = useState('');
+  const [localComment, setLocalComment] = useState<commentsType[] | undefined>([]);
   const [allComment, setAllComment] = useState<commentsType[] | undefined>([]);
 
   const {
@@ -414,6 +415,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   useEffect(() => {
     currentEpisodeRef.current = vod?.episodeWatched;
+    setLocCommentId("userComment" + vod?.vod_douban_id);
     setCurrentEpisode(
       vod?.episodeWatched === undefined ? 0 : vod.episodeWatched
     );
@@ -431,6 +433,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const handleRefresh = useCallback(async () => {
     // setIsRefreshing(true);
     await refetch();
+    setLocalComment(await getLocalComments());
     // setIsRefreshing(false);
     return;
   }, []);
@@ -625,10 +628,10 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
       let mergedArray;
       const locComments = await getLocalComments();
   
-      if (onlineComments) {
+      if (onlineComments && locComments) {
         mergedArray = locComments.concat(onlineComments);
       } else {
-        mergedArray = onlineComments;
+        mergedArray = localComment ?  localComment : onlineComments;
       }
       
       console.log('merged comments');
@@ -636,12 +639,11 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
       setAllComment(mergedArray);
     }
 
-    if(!isFetchingComments) {
+    if(!isFetchingComments && locCommentId) {
       mergeAllComments();
     }
-  }, [isFetchingComments, isUpdated]);
+  }, [isFetchingComments, localComment]);
 
-  const locCommentId = "userComment" + vod?.vod_douban_id;
   const getLocalComments = async () => {
     try {
       const comments = await AsyncStorage.getItem(locCommentId);
@@ -671,10 +673,9 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
         user_name: userState.userName,
         user_review: comment,
       }
-      existingComments.push(commmentObj);
+      existingComments.unshift(commmentObj);
       await AsyncStorage.setItem(locCommentId, JSON.stringify(existingComments));
-      await getLocalComments();
-      setIsUpdated(!isUpdated);
+      setLocalComment(await getLocalComments());
       Keyboard.dismiss();
     } catch (error) {
       console.log("error when storing the comment into local storage: ", error);
@@ -927,7 +928,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                 </View>
                 {/* show 选集播放 section when avaiable episode more thn 1 */}
                 <>
-                  {isFetchingVodDetails && isFetchingComments ? (
+                  {isFetchingVodDetails && isFetchingComments && locCommentId ? (
                     <>
                       <View
                         style={{
