@@ -87,11 +87,14 @@ function Playlist({ navigation }: BottomTabScreenProps<any>) {
   }, [navigation, isFocused]);
 
   const fetchPlaylist = useCallback((page: number) =>
-    fetch(`${API_DOMAIN}topic/v1/topic?page=${page}`)
+    // fetch(`${API_DOMAIN}topic/v1/topic?page=${page}`)
+    fetch(`${API_DOMAIN}topic/v1/topic/temp`)
       .then(response => response.json())
       .then((json: VodPlaylistResponseType) => {
-        setTotalPage(Number(json.data.TotalPageCount));
-        return Object.values(json.data.List);
+        // setTotalPage(Number(json.data.TotalPageCount));
+        // return Object.values(json.data.List);
+        setTotalPage(1);
+        return Object.values(json.data);
       }), []);
 
   const {
