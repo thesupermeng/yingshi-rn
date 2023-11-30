@@ -57,7 +57,7 @@ const RecommendationHome = ({
   setScrollEnabled,
   onRefresh,
   refreshProp = false,
-  onLoad = () => {},
+  onLoad = () => { },
 }: Props) => {
   const { colors, textVariants, spacing } = useTheme();
   const vodReducer: VodReducerState = useAppSelector(
@@ -74,7 +74,7 @@ const RecommendationHome = ({
   const carouselRef = useRef<any>();
   // const {width, height} = Dimensions.get('window');
   const [width, setWidth] = useState(Dimensions.get("window").width);
-  const [imgRatio, setImgRatio] = useState(1.5);
+  const [imgRatio, setImgRatio] = useState(1.883);
   useEffect(() => {
     setWidth(Number(Dimensions.get("window").width));
 
@@ -348,7 +348,7 @@ const RecommendationHome = ({
                     }}
                   >
                     {data?.live_station_list &&
-                    data?.live_station_list.length > 0 ? (
+                      data?.live_station_list.length > 0 ? (
                       <ShowMoreVodButton
                         text="电视台推荐"
                         onPress={() => {
@@ -364,7 +364,7 @@ const RecommendationHome = ({
                     )}
                   </View>
                   {data?.live_station_list &&
-                  data?.live_station_list.length > 0 ? (
+                    data?.live_station_list.length > 0 ? (
                     <View style={{ paddingLeft: spacing.sideOffset }}>
                       <VodLiveStationList
                         vodStyle={styles.vod_live_station}
