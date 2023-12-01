@@ -265,7 +265,7 @@ const CatagoryHome = ({
                   height={width / 2}
                   autoPlay={true}
                   data={data.carousel}
-                  scrollAnimationDuration={220}
+                  scrollAnimationDuration={120}
                   autoPlayInterval={2300}
                   onScrollBegin={() => {}}
                   onSnapToItem={index => {

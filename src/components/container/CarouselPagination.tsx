@@ -15,13 +15,13 @@ const CarouselPagination = ({data, activeIndex, onDotPress, onScrollIndexChanged
   const carouselActiveIndex = useRef<number | null>(null);
 
    // Debounce the active index update to reduce rapid updates
-   useEffect(() => {
-    const debounceTimeout = setTimeout(() => {
-      setDebouncedActiveIndex(activeIndex);
-    }, 10); // Adjust the debounce delay as needed
+  //  useEffect(() => {
+  //   const debounceTimeout = setTimeout(() => {
+  //     setDebouncedActiveIndex(activeIndex);
+  //   }, 10); // Adjust the debounce delay as needed
 
-    return () => clearTimeout(debounceTimeout);
-  }, [activeIndex]);
+  //   return () => clearTimeout(debounceTimeout);
+  // }, [activeIndex]);
 
   // Effect to handle the updated active index
   useEffect(() => {
