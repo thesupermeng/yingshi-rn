@@ -88,6 +88,8 @@ export default ({ navigation }: RootStackScreenProps<'设置'>) => {
   const userState: userModel = useAppSelector(
     ({ userReducer }: RootState) => userReducer,
   );
+
+  console.log(userState)
   return (
     <ScreenContainer>
       <View style={{ gap: spacing.m, justifyContent: 'space-between', flex: 1 }}>
@@ -120,17 +122,19 @@ export default ({ navigation }: RootStackScreenProps<'设置'>) => {
             confirmationText="清除"
           />
 
-          <ConfirmationModal
-            onConfirm={() => {
-              onRemoveAccount();
-              toggleRemoveAccountDialog();
-            }}
-            onCancel={toggleRemoveAccountDialog}
-            isVisible={isRemoveDialogOpen}
-            title="确定注销“影视TV”账号"
-            subtitle="确认删除帐户后，您的所有帐户数据将被永久删除"
-            confirmationText="确定"
-          />
+          {userState.userToken != '' &&
+            <ConfirmationModal
+              onConfirm={() => {
+                onRemoveAccount();
+                toggleRemoveAccountDialog();
+              }}
+              onCancel={toggleRemoveAccountDialog}
+              isVisible={isRemoveDialogOpen}
+              title="确定注销“影视TV”账号"
+              subtitle="确认删除帐户后，您的所有帐户数据将被永久删除"
+              confirmationText="确定"
+            />
+          }
 
           <ConfirmationModal
             onConfirm={async () => {
@@ -179,7 +183,9 @@ export default ({ navigation }: RootStackScreenProps<'设置'>) => {
                   </View>
                 }
               />
-              <ShowMoreButton text="注销账号" onPress={toggleRemoveAccountDialog} />
+              {userState.userToken != '' &&
+                <ShowMoreButton text="注销账号" onPress={toggleRemoveAccountDialog} />
+              }
             </View>
           </View>
         </View>

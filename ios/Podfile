@@ -1,5 +1,6 @@
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
+require_relative '../node_modules/react-native-permissions/scripts/setup'
 
 platform :ios, min_ios_version_supported
 prepare_react_native_project!
@@ -42,6 +43,28 @@ target 'yingshi' do
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
+  
+  setup_permissions([
+     'AppTrackingTransparency',
+    # 'BluetoothPeripheral',
+    # 'Calendars',
+    # 'Camera',
+    # 'Contacts',
+    # 'FaceID',
+    # 'LocationAccuracy',
+    # 'LocationAlways',
+    # 'LocationWhenInUse',
+    # 'MediaLibrary',
+    # 'Microphone',
+    # 'Motion',
+    # 'Notifications',
+    # 'PhotoLibrary',
+    # 'PhotoLibraryAddOnly',
+    # 'Reminders',
+    # 'Siri',
+    # 'SpeechRecognition',
+    # 'StoreKit',
+  ])
 
   target 'yingshiTests' do
     inherit! :complete
@@ -96,6 +119,7 @@ target 'yingshi' do
 
   
   pod 'RCTSystemSetting', :path => '../node_modules/react-native-system-setting'
+#  pod 'Permission-AppTrackingTransparency', :path => "#{permissions_path}/AppTrackingTransparency"
 
   post_install do |installer|
     react_native_post_install(

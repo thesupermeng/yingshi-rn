@@ -133,6 +133,7 @@ export const AllCommentScreen = ({ navigation, route }: RootStackScreenProps<"å…
         <FlatList
           data={commentItems}
           showsVerticalScrollIndicator={false}
+          maxToRenderPerBatch={10}
           initialNumToRender={10}
           removeClippedSubviews
           renderItem={renderItem}

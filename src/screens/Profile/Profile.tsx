@@ -23,7 +23,6 @@ import { useNavigation } from "@react-navigation/native";
 
 import Orientation from "react-native-orientation-locker";
 import ProfileIcon from "../../../static/images/profile.svg";
-import DefaultProfileIcon from "../../../static/images/default_profile.svg";
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import MoreArrow from "../../../static/images/more_arrow.svg";
 import EditIcn from "./../../../static/images/profile/edit.svg";
@@ -48,6 +47,7 @@ import {
 import ExpiredOverlay from "../../components/modal/expiredOverlay";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { SHOW_PAYMENT_CONST } from "../../utility/constants";
+import FastImage from "../../components/common/customFastImage";
 
 function Profile({ navigation, route }: BottomTabScreenProps<any>) {
   const navigator = useNavigation();
@@ -202,8 +202,13 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                 <ProfileIcon
                   style={{ color: colors.button, width: 18, height: 18 }}
                 />
-                : <DefaultProfileIcon
-                  style={{ color: colors.button, width: 18, height: 18 }}
+                : <FastImage
+                  style={{
+                    height: 60,
+                    width: 60,
+                    marginVertical: 2,
+                  }}
+                  source={require("../../../static/images/profilePic.png")}
                 />
               }
               <View
