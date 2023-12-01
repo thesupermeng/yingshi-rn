@@ -96,6 +96,8 @@ const definedValue = (val: any) => {
   return val + " ";
 };
 
+const getRandomNumberOneToTen = () => Math.floor(Math.random() * 10) + 1;
+
 const server = new BridgeServer("http_service", true); // http server for hosting no-ads m3u8
 
 const getNoAdsUri = async (url: string) => {
@@ -474,7 +476,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   const fetchSVod = () =>
     fetch(
-      `${API_DOMAIN}svod/v1/vod?class=${vod?.vod_class}&limit=100&rand=1`
+      `${API_DOMAIN}svod/v1/vod?class=${vod?.vod_class}&limit=10&rand=1&page=${getRandomNumberOneToTen()}`
     )
       .then((response) => response.json())
       .then((json: SuggestResponseType) => {
