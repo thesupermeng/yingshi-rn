@@ -45,7 +45,7 @@ const eighteenPlusControls = ({}: Props) => {
   return (
     <View style={{...styles.container, height: (adultModeVipShow || adultModeDisclaimerShow ? '100%' : 'auto')}}>
 
-      <WatchAnytimeVipModal/>    
+      {watchAnytimeAdultMode && <WatchAnytimeVipModal/> }   
       <AdultModeSwitch 
       switchStyle={styles.switch}        
       />
