@@ -150,6 +150,7 @@ export default forwardRef<VideoRef, Props>(
     // New state to keep track of app's background/foreground status
     const [isInBackground, setIsInBackground] = useState(false);
     
+    const disableSeek = useRef(false)
 
     useImperativeHandle(ref, () => ({
       setPause: (pauseVideo: boolean) => {
@@ -333,6 +334,7 @@ export default forwardRef<VideoRef, Props>(
     };
 
     const onSeek = (time: number) => {
+      if (disableSeek.current === true) return
       hideSeekProgress();
       time = Math.min(Math.max(time, 0), duration);
       try {
@@ -364,6 +366,7 @@ export default forwardRef<VideoRef, Props>(
     // };
 
     const onSeekGesture = (time: number) => {
+      if (disableSeek.current === true) return
       if (currentTime < time) {
         setSeekDirection("forward");
       } else {
@@ -375,6 +378,7 @@ export default forwardRef<VideoRef, Props>(
 
 
     const directSeekTo = (targetTime: number) => {
+      if (disableSeek.current === true) return
       hideSeekProgress()
       // Calculate the direction of seeking based on the current and target times
     // const direction = targetTime > currentTime ? 'forward' : 'backward';
@@ -419,6 +423,8 @@ export default forwardRef<VideoRef, Props>(
     };
 
     const onSkip = (time: any) => {
+      if (disableSeek.current === true) return
+
       if (videoPlayerRef?.current) {
         if (time > 0 && isLastForward == false) {
           setIsLastForward(true);
@@ -533,6 +539,9 @@ export default forwardRef<VideoRef, Props>(
       if (screenState.adultVideoWatchTime > ADULT_MODE_PREVIEW_DURATION && screenState.adultMode && !isVip){
           dispatch(showAdultModeVip())
           setIsPaused(true)
+          disableSeek.current = true
+      } else {
+        disableSeek.current = false
       }
     }, [currentTime, isPaused])
 
