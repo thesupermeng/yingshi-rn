@@ -39,7 +39,7 @@ const VipRegisterBar = () => {
         <View style={{flexDirection: 'row', gap: 8, alignItems: 'center'}}>
           <VipIcon width={24} height={24}/>
           <View>
-            <Text style={{color: '#FFE6A5', textShadowColor: 'rgba(0, 0, 0, 0.15)', fontWeight: '600', fontSize: 14, textShadowOffset: {height:0, width: 4}, textShadowRadius: 4 }}>邀请好友，一起开通VIP会员，畅享尊贵特权</Text>
+            <Text style={{color: '#FFE6A5', textShadowColor: 'rgba(0, 0, 0, 0.15)', fontWeight: '600', fontSize: 14, textShadowOffset: {height:0, width: 4}, textShadowRadius: 4 }}>邀请好友获得VIP奖励，享更多权益</Text>
             {/* <Text style={{color: '#FFF', textShadowColor: 'rgba(0, 0, 0, 0.15)', fontWeight: '600', fontSize: 12, textShadowOffset: {height:0, width: 4}, textShadowRadius: 4 }}>$18.88/VIP会员180天</Text> */}
           </View>
         </View>
