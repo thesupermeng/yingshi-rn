@@ -474,7 +474,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   const fetchSVod = () =>
     fetch(
-      `${API_DOMAIN}svod/v1/vod?class=${vod?.vod_class}&limit=6&rand=1`
+      `${API_DOMAIN}svod/v1/vod?class=${vod?.vod_class}&limit=100&rand=1`
     )
       .then((response) => response.json())
       .then((json: SuggestResponseType) => {
@@ -999,7 +999,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                                   }}
                                 />
                                 <VodListVertical
-                                  vods={suggestedSVods}
+                                  vods={suggestedSVods.slice(0,6)}
                                   minNumPerRow={2}
                                   numOfRows={3}
                                   outerRowPadding={2 * (20 - spacing.sideOffset)}
