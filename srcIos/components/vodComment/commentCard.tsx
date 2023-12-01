@@ -1,12 +1,12 @@
 import { useTheme } from "@react-navigation/native";
 import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, ActionSheetIOS } from "react-native";
 import FastImage from "react-native-fast-image";
 import { commentsType } from "../../types/ajaxTypes";
 import { showToast } from "../../Sports/utility/toast";
 import DefaultProfileIcon from "../../../static/images/default_profile.svg";
-import { showLoginAction, showReportAction } from "../../redux/actions/screenAction";
 import { useAppDispatch } from "../../hooks/hooks";
+import { showReportAction } from "../../redux/actions/screenAction";
 
 interface Props {
   commentItem: commentsType;
@@ -17,7 +17,20 @@ export const CommentCard = ({commentItem}: Props) => {
   const dispatch = useAppDispatch();
 
   const handlePress = async () => {
-    showToast("我们将在24小时内处理您的请求，并在确认存在违规行为后采取适当的措施来处理相关内容。")
+    ActionSheetIOS.showActionSheetWithOptions(
+      {
+        options: ['取消', '色情低俗', '广告', '令人恶心', '违纪违法', '政治敏感'],
+        cancelButtonIndex: 0,
+        userInterfaceStyle: 'dark',
+        tintColor: colors.primary,
+      },
+      buttonIndex => {
+        if (buttonIndex !== 0) {
+          showToast("我们将在24小时内处理您的请求，并在确认存在违规行为后采取适当的措施来处理相关内容。")
+        }
+      },
+    );
+    
   };
 
   return (
