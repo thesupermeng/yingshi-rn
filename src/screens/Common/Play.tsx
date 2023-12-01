@@ -214,6 +214,14 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   )
   const adultMode = route.params.player_mode === 'adult' ? true : false
 
+  useEffect(() => {
+    if(route.params.player_mode === 'adult'){
+      dispatch(enableAdultMode());
+    }else{
+      dispatch(disableAdultMode());
+    }
+  }, [])
+
   const vod = vodReducer.playVod.vod;
   // const [vod, setVod] = useState(vodReducer.playVod.vod);
   const [initTime, setInitTime] = useState(0);

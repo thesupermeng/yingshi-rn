@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import ScreenContainer from "../../components/container/screenContainer";
 import { useTheme, useFocusEffect } from "@react-navigation/native";
@@ -17,6 +17,7 @@ import { RootState } from "../../redux/store";
 import { lockAppOrientation } from "../../redux/actions/settingsActions";
 import useInterstitialAds from "../../hooks/useInterstitialAds";
 import { screenModel } from "../../types/screenType";
+import { disableAdultMode } from "../../redux/actions/screenAction";
 
 let insetsTop = 0;
 let insetsBottom = 0;
@@ -68,6 +69,10 @@ export default ({ navigation, route }: RootStackScreenProps<"电视台播放">) 
   const screenState: screenModel = useAppSelector(
     ({ screenReducer }: RootState) => screenReducer
   );
+
+  useEffect(() => {
+    dispatch(disableAdultMode())
+  }, [])
 
   insetsTop = insetsTop == 0 ? insets.top : insetsTop;
   insetsBottom = insetsBottom == 0 ? insets.bottom : insets.bottom;
