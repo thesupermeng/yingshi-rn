@@ -10,6 +10,7 @@ import CloseIcon from '../../../static/images/close.svg'
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { userModel } from '../../types/userType';
 import { screenModel } from '../../types/screenType';
+import { SHOW_PAYMENT_CONST } from '../../utility/constants';
 
 
 const AdultVideoVipModal = () => {
@@ -79,7 +80,7 @@ const AdultVideoVipModal = () => {
                 立即升级VIP，畅享午夜视频
               </Text>
               <View style={styles.btnContainer}>
-                <TouchableOpacity
+                {SHOW_PAYMENT_CONST && <TouchableOpacity
                   onPress={() => {
                     handleCloseModal();
                     navigator.navigate('付费VIP');
@@ -93,7 +94,7 @@ const AdultVideoVipModal = () => {
                     }}>
                     购买VIP
                   </Text>
-                </TouchableOpacity>
+                </TouchableOpacity>}
                 <TouchableOpacity
                   onPress={() => {
                     handleCloseModal();
