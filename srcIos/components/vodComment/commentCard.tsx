@@ -1,15 +1,15 @@
 import { useTheme } from "@react-navigation/native";
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import FastImage from "react-native-fast-image";
+import FastImage from "../../components/common/customFastImage";
 import { commentsType } from "../../types/ajaxTypes";
 
 interface Props {
   commentItem: commentsType;
 }
 
-export const CommentCard = ({commentItem}: Props) => {
-  const {textVariants, colors} = useTheme();
+export const CommentCard = ({ commentItem }: Props) => {
+  const { textVariants, colors } = useTheme();
 
   return (
     <View style={styles.container}>
@@ -22,28 +22,27 @@ export const CommentCard = ({commentItem}: Props) => {
           justifyContent: "center",
           alignItems: "center",
         }}
-        resizeMode={FastImage.resizeMode.contain}
         source={require("../../../static/images/profilePic.png")}
       />
-      <View style={{...styles.commentContainer}}>
-        <View style={{flexDirection: 'row', gap: 10, alignItems: 'center'}}>
-          <Text style={{...textVariants.bodyBold, flex: 1}}>
+      <View style={{ ...styles.commentContainer }}>
+        <View style={{ flexDirection: 'row', gap: 10, alignItems: 'center' }}>
+          <Text style={{ ...textVariants.bodyBold, flex: 1 }}>
             {commentItem.user_name}
           </Text>
           <TouchableOpacity style={styles.btnContainer}>
-            <Text style={{ ...textVariants.small, textAlign: 'center'}}>
+            <Text style={{ ...textVariants.small, textAlign: 'center' }}>
               举报
             </Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.btnContainer}>
-            <Text style={{ ...textVariants.small, textAlign: 'center'}}>
+            <Text style={{ ...textVariants.small, textAlign: 'center' }}>
               拉黑
             </Text>
           </TouchableOpacity>
         </View>
-        
+
         <Text
-          style={{ ...textVariants.subBody, color: colors.muted}}
+          style={{ ...textVariants.subBody, color: colors.muted }}
           numberOfLines={3}
         >
           {commentItem.user_review}
@@ -64,8 +63,8 @@ const styles = StyleSheet.create({
     gap: 5,
   },
   btnContainer: {
-    backgroundColor: '#EF1F1F', 
-    borderRadius: 4, 
+    backgroundColor: '#EF1F1F',
+    borderRadius: 4,
     paddingHorizontal: 4,
     paddingVertical: 1,
   }

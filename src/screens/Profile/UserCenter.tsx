@@ -41,8 +41,8 @@ import {
   updateUsernameState,
   updateUserReferral,
 } from '../../redux/actions/userAction';
-import DefaultProfileIcon from "../../../static/images/default_profile.svg";
 import { showToast } from '../../Sports/utility/toast';
+import FastImage from "../../components/common/customFastImage";
 
 export default ({ navigation }: RootStackScreenProps<'个人中心'>) => {
   const { colors, textVariants, icons, spacing } = useTheme();
@@ -231,10 +231,12 @@ export default ({ navigation }: RootStackScreenProps<'个人中心'>) => {
             <Text style={{ fontSize: 16, color: '#9C9C9C' }}>
               头像
             </Text>
-            <DefaultProfileIcon
-              style={{ color: colors.button }}
-              width={34}
-              height={34}
+            <FastImage
+              style={{
+                height: 34,
+                width: 34,
+              }}
+              source={require("../../../static/images/profilePic.png")}
             />
           </TouchableOpacity>
           <View>
