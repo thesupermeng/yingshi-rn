@@ -81,6 +81,8 @@ export const AllCommentScreen = ({ navigation, route }: RootStackScreenProps<"å…
         <FlatList
           data={commentItems}
           showsVerticalScrollIndicator={false}
+          initialNumToRender={10}
+          maxToRenderPerBatch={10}
           renderItem={({ item, index }: { item: commentsType, index: number }) => {
             return (
               <CommentCard
