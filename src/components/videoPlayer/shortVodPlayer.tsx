@@ -488,7 +488,7 @@ function ShortVideoPlayer({
               </View>
             }
           </View>
-          <Slider
+          {!disableSeek && <Slider
             style={styles.slider}
             maximumValue={duration}
             minimumValue={0}
@@ -506,9 +506,9 @@ function ShortVideoPlayer({
             maximumTrackTintColor={'#ffffff24'}
             thumbTintColor={'#FFFFFF'}
             trackStyle={{ height: 2, opacity: 1 }}
-          />
+          />}
           {
-            duration > 0 && showOverlay && currentDuration >= 0 &&
+            duration > 0 && showOverlay && currentDuration >= 0 && !disableSeek &&
             (
               duration < 3600
                 ? <Text style={{
