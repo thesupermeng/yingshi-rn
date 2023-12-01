@@ -26,7 +26,7 @@ const eighteenPlusControls = ({}: Props) => {
   const userState: userModel = useAppSelector(
     ({userReducer}) => userReducer
   )
-  const {adultModeVipShow, adultModeDisclaimerShow, adultMode} = screenState
+  const {adultModeVipShow, adultModeDisclaimerShow, adultMode, watchAnytimeAdultMode} = screenState
   const dispatch = useAppDispatch()
   // const isVip = !(Number(userState.userMemberExpired) <=
   //                 Number(userState.userCurrentTimestamp) ||
@@ -49,14 +49,15 @@ const eighteenPlusControls = ({}: Props) => {
       <AdultModeSwitch 
       switchStyle={styles.switch}        
       />
-      <AdultModeCountdownIndicator
+      {watchAnytimeAdultMode && 
+        <AdultModeCountdownIndicator
         containerStyle={{
           position: 'absolute', 
           top: 70, 
           right: 20, 
           flex: 1
         }}
-      />
+      />}
       <EighteenPlusOverlay
         handleAccept={() => {
           console.debug('accepted 18+')
