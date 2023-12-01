@@ -70,7 +70,7 @@ export const VipDetails = ({
                 : "-"}
             </Text>
             <Text style={{ ...textVariants.small, color: colors.muted }}>
-              购买总额 （USD）
+              购买总额 (CNY)
             </Text>
           </View>
         )}
