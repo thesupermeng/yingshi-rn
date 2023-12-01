@@ -31,7 +31,7 @@ const AdultVideoVipModal = () => {
     dispatch(hideAdultModeVip())
   }, [])
 
-  if (adultModeVipShow && !isVip && adultMode && watchAnytimeAdultMode)
+  if (adultModeVipShow && !isVip && adultMode)
     return (
       <View
         style={{
