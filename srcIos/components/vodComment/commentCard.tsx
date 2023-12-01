@@ -5,6 +5,8 @@ import FastImage from "react-native-fast-image";
 import { commentsType } from "../../types/ajaxTypes";
 import { showToast } from "../../Sports/utility/toast";
 import DefaultProfileIcon from "../../../static/images/default_profile.svg";
+import { showLoginAction, showReportAction } from "../../redux/actions/screenAction";
+import { useAppDispatch } from "../../hooks/hooks";
 
 interface Props {
   commentItem: commentsType;
@@ -12,26 +14,33 @@ interface Props {
 
 export const CommentCard = ({commentItem}: Props) => {
   const {textVariants, colors} = useTheme();
+  const dispatch = useAppDispatch();
+
+  const handlePress = async () => {
+    showToast("我们将在24小时内处理您的请求，并在确认存在违规行为后采取适当的措施来处理相关内容。")
+  };
 
   return (
     <View style={styles.container}>
-      <DefaultProfileIcon
+      {/* <DefaultProfileIcon
         width={42}
         height={42}
-      />
+      /> */}
       <View style={{...styles.commentContainer}}>
         <View style={{flexDirection: 'row', gap: 10, alignItems: 'center'}}>
           <Text style={{...textVariants.bodyBold, flex: 1}}>
             {commentItem.user_name}
           </Text>
           <TouchableOpacity 
-            onPress={() => showToast("提交成功，我们将在24小时内进行审核！")}
+            onPress={handlePress}
             style={styles.btnContainer}>
             <Text style={{ ...textVariants.small, textAlign: 'center'}}>
               举报
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.btnContainer}>
+          <TouchableOpacity 
+            onPress={() => showToast("拉黑成功！已不能在接受对方的消息！")}
+            style={styles.btnContainer}>
             <Text style={{ ...textVariants.small, textAlign: 'center'}}>
               拉黑
             </Text>

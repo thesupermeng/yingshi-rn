@@ -80,6 +80,7 @@ import useAnalytics from "../../hooks/useAnalytics";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { showLoginAction } from "../../redux/actions/screenAction";
 import { VodCommentBox } from '../../components/vodComment';
+import { showToast } from "../../../src/Sports/utility/toast";
 
 type VideoRef = {
   setPause: (param: boolean) => void;
@@ -682,6 +683,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
       await getLocalComments();
       setIsUpdated(!isUpdated);
       Keyboard.dismiss();
+      showToast("提交成功，我们将在24小时内进行审核！");
     } catch (error) {
       console.log("error when storing the comment into local storage: ", error);
     }
