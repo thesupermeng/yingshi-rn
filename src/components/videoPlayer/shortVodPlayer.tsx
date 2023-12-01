@@ -25,6 +25,9 @@ import { QueryClient } from '@tanstack/react-query';
 import { screenModel } from '../../types/screenType';
 import { debounce } from 'lodash';
 import useAnalytics from '../../hooks/useAnalytics';
+import { userModel } from '../../types/userType';
+import { ADULT_MODE_PREVIEW_DURATION } from '../../utility/constants';
+import { showAdultModeVip } from '../../redux/actions/screenAction';
 
 
 interface Props {
@@ -67,7 +70,7 @@ function ShortVideoPlayer({
   const screenState: screenModel = useAppSelector(
     ({screenReducer}) => screenReducer
   )
-  const {adultMode} = screenState
+  const {adultMode, adultVideoWatchTime} = screenState
   if (currentVod?.mini_video_original_video_name == undefined) {
     currentVod.mini_video_original_video_name = '';
   }
@@ -101,6 +104,15 @@ function ShortVideoPlayer({
   const windowWidth = Dimensions.get('window').width;
 
   const { watchAnytimeVideoClicksAnalytics, watchAnytimePlaylistClicksAnalytics } = useAnalytics();
+
+  const userState: userModel = useAppSelector(
+    ({userReducer}) => userReducer
+  )
+  
+  const isVip = !(Number(userState.userMemberExpired) <=
+                  Number(userState.userCurrentTimestamp) ||
+                  userState.userToken === "")
+  const disableSeek = !isVip && (adultVideoWatchTime >= ADULT_MODE_PREVIEW_DURATION) && adultMode
 
   useEffect(() => {
     setVod(vod);
@@ -159,6 +171,10 @@ function ShortVideoPlayer({
   };
 
   const handleSeek = useCallback((value: number) => {
+    if (disableSeek) {
+      dispatch(showAdultModeVip())
+      return
+    }
     if (!isVideoReadyIos && Platform.OS === 'ios') return;
     if (!isVideoReadyAndroid && Platform.OS === 'android') return;
 
@@ -472,7 +488,7 @@ function ShortVideoPlayer({
               </View>
             }
           </View>
-          <Slider
+          {!disableSeek && <Slider
             style={styles.slider}
             maximumValue={duration}
             minimumValue={0}
@@ -490,9 +506,9 @@ function ShortVideoPlayer({
             maximumTrackTintColor={'#ffffff24'}
             thumbTintColor={'#FFFFFF'}
             trackStyle={{ height: 2, opacity: 1 }}
-          />
+          />}
           {
-            duration > 0 && showOverlay && currentDuration >= 0 &&
+            duration > 0 && showOverlay && currentDuration >= 0 && !disableSeek &&
             (
               duration < 3600
                 ? <Text style={{
