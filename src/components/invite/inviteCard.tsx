@@ -314,19 +314,6 @@ export default function InviteCard({ userState = {} }: Props) {
           ) : (
             <></>
           )}
-
-          <View style={styles.featureItem}>
-            <View style={styles.imgContainer}>
-              <FastImage
-                source={require("../../../static/images/invite/ads.png")}
-                style={styles.featureIcn}
-                resizeMode={FastImage.resizeMode.contain}
-              />
-            </View>
-            <View>
-              <Text style={styles.featureTitle}>去广告</Text>
-            </View>
-          </View>
           <View style={styles.featureItem}>
             <View style={styles.imgContainer}>
               <FastImage
@@ -339,6 +326,19 @@ export default function InviteCard({ userState = {} }: Props) {
               <Text style={styles.featureTitle}>夜来香</Text>
             </View>
           </View>
+          <View style={styles.featureItem}>
+            <View style={styles.imgContainer}>
+              <FastImage
+                source={require("../../../static/images/invite/ads.png")}
+                style={styles.featureIcn}
+                resizeMode={FastImage.resizeMode.contain}
+              />
+            </View>
+            <View>
+              <Text style={styles.featureTitle}>去广告</Text>
+            </View>
+          </View>
+          
         </LinearGradient>
         {/* invite button  component  */}
         <TouchableOpacity

@@ -47,19 +47,6 @@ export const VipBenefit = () => {
       ) : (
         <></>
       )}
-
-      <View style={styles.featureItem}>
-        <View style={styles.imgContainer}>
-          <FastImage
-            source={require('../../../static/images/vip/vip_no_ad.png')}
-            style={styles.featureIcn}
-            resizeMode={FastImage.resizeMode.contain}
-          />
-        </View>
-        <View>
-          <Text style={{...textVariants.small}}>去广告</Text>
-        </View>
-      </View>
       <View style={styles.featureItem}>
         <View style={styles.imgContainer}>
           <FastImage
@@ -72,6 +59,19 @@ export const VipBenefit = () => {
           <Text style={{...textVariants.small}}>夜来香</Text>
         </View>
       </View>
+      <View style={styles.featureItem}>
+        <View style={styles.imgContainer}>
+          <FastImage
+            source={require('../../../static/images/vip/vip_no_ad.png')}
+            style={styles.featureIcn}
+            resizeMode={FastImage.resizeMode.contain}
+          />
+        </View>
+        <View>
+          <Text style={{...textVariants.small}}>去广告</Text>
+        </View>
+      </View>
+      
     </LinearGradient>
   );
 };
