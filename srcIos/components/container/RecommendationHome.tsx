@@ -101,52 +101,53 @@ const RecommendationHome = ({
     }, 0);
   };
 
-  const fetchPlaylist = (page: number) =>
-    // fetch(`${API_DOMAIN}topic/v1/topic?page=${page}`)
-    fetch(`${API_DOMAIN}topic/v1/topic/temp`)
-      .then((response) => response.json())
-      .then((json: VodPlaylistResponseType) => {
-        // setTotalPage(Number(json.data.TotalPageCount));
-        // return Object.values(json.data.List);
-        setTotalPage(1);
-        return Object.values(json.data);
-      });
-  const {
-    data: playlists,
-    isSuccess,
-    hasNextPage,
-    fetchNextPage,
-    isFetchingNextPage,
-    isFetching,
-    refetch,
-  } = useInfiniteQuery(
-    ["vodPlaylist"],
-    ({ pageParam = 1 }) => fetchPlaylist(pageParam),
-    {
-      getNextPageParam: (lastPage, allPages) => {
-        if (lastPage === null) {
-          return undefined;
-        }
-        const nextPage: any = allPages.length + 1;
-        //if reach end
-        if (nextPage > totalPage && totalPage != 0) {
-          return undefined;
-        }
-        return nextPage;
-      },
-      onSuccess: (data) => {
-        if (data && data?.pages) {
-          setResults([...results, ...data.pages[data.pages.length - 1].flat()]);
-        }
-      },
-    }
-  );
+  // const fetchPlaylist = (page: number) =>
+  //   // fetch(`${API_DOMAIN}topic/v1/topic?page=${page}`)
+  //   fetch(`${API_DOMAIN}topic/v1/topic/temp`)
+  //     .then((response) => response.json())
+  //     .then((json: VodPlaylistResponseType) => {
+  //       // setTotalPage(Number(json.data.TotalPageCount));
+  //       // return Object.values(json.data.List);
+  //       setTotalPage(1);
+  //       return Object.values(json.data);
+  //     });
+  // const {
+  //   data: playlists,
+  //   isSuccess,
+  //   hasNextPage,
+  //   fetchNextPage,
+  //   isFetchingNextPage,
+  //   isFetching,
+  //   refetch,
+  // } = useInfiniteQuery(
+  //   ["vodPlaylist"],
+  //   ({ pageParam = 1 }) => fetchPlaylist(pageParam),
+  //   {
+  //     getNextPageParam: (lastPage, allPages) => {
+  //       if (lastPage === null) {
+  //         return undefined;
+  //       }
+  //       const nextPage: any = allPages.length + 1;
+  //       //if reach end
+  //       if (nextPage > totalPage && totalPage != 0) {
+  //         return undefined;
+  //       }
+  //       return nextPage;
+  //     },
+  //     onSuccess: (data) => {
+  //       if (data && data?.pages) {
+  //         setResults([...results, ...data.pages[data.pages.length - 1].flat()]);
+  //       }
+  //     },
+  //   }
+  // );
 
   const fetchYingPing = () =>
     fetch(`${API_DOMAIN}page/v2/typepage?id=1000`)
       .then((response) => response.json())
       .then((json: VodCarousellResponseType) => {
-        return json.data.yingping_list;
+        setResults(json.data.topic_list);
+        return json.data;
       });
 
   const { data: yingPingList, isFetching: isFetchingYingPing } = useQuery({
@@ -176,7 +177,7 @@ const RecommendationHome = ({
               uri: item.carousel_pic_mobile,
               priority: "normal",
             }}
-            resizeMode={"contain"}
+            resizeMode={"cover"}
             useFastImage={true}
           />
           <LinearGradient
@@ -233,6 +234,7 @@ const RecommendationHome = ({
     <View style={{ width: width }}>
       {yingPingList ? (
         <FlatList
+          style={{paddingBottom: 10}}
           refreshControl={
             <RefreshControl
               refreshing={isRefreshing}
@@ -242,7 +244,7 @@ const RecommendationHome = ({
           }
           ListHeaderComponent={
             <>
-              {data?.carousel[0] && !refreshProp && (
+              {yingPingList?.carousel[0] && !refreshProp && (
                 <View
                   style={{
                     flex: 1,
@@ -261,7 +263,7 @@ const RecommendationHome = ({
                       imgRatio
                     }
                     autoPlay={true}
-                    data={data.carousel}
+                    data={yingPingList.carousel}
                     scrollAnimationDuration={220}
                     autoPlayInterval={2300}
                     onSnapToItem={(index) => {
@@ -273,7 +275,7 @@ const RecommendationHome = ({
                     renderItem={renderCarousel}
                   />
                   <CarouselPagination
-                    data={data.carousel}
+                    data={yingPingList.carousel}
                     activeIndex={activeIndex}
                   />
                 </View>
@@ -281,7 +283,7 @@ const RecommendationHome = ({
               <View>
                 <View style={{ gap: spacing.m }}></View>
 
-                {yingPingList && yingPingList.vod_list.length > 0 && (
+                {yingPingList && yingPingList.yingping_list.vod_list.length > 0 && (
                   <View
                     style={{
                       paddingLeft: spacing.sideOffset,
@@ -289,8 +291,8 @@ const RecommendationHome = ({
                       gap: spacing.xxs,
                     }}
                   >
-                    <ShowMoreVodButton text={yingPingList.type_name} />
-                    {yingPingList.vod_list.map((item, index) => (
+                    <ShowMoreVodButton text={yingPingList.yingping_list.type_name} />
+                    {yingPingList.yingping_list.vod_list.map((item, index) => (
                       <YingPingContainer
                         key={item.vod_id}
                         vod={item}
@@ -302,7 +304,7 @@ const RecommendationHome = ({
                   </View>
                 )}
 
-                {data?.yunying &&
+                {/* {data?.yunying &&
                   data.yunying.length > 0 &&
                   data.yunying.map((item, index) => (
                     <View
@@ -325,11 +327,11 @@ const RecommendationHome = ({
                       </View>
                       <VodListVertical vods={item.vod_list} />
                     </View>
-                  ))}
+                  ))} */}
 
-                {data?.categories &&
-                  data.categories.length > 0 &&
-                  data.categories.map((category, index) => (
+                {yingPingList?.categories &&
+                  yingPingList.categories.length > 0 &&
+                  yingPingList.categories.map((category, index) => (
                     <View
                       key={`category-${index}`}
                       style={{
@@ -359,43 +361,43 @@ const RecommendationHome = ({
             </>
           }
           data={results}
-          onEndReached={() => {
-            if (hasNextPage && !isFetchingNextPage && !isFetching) {
-              fetchNextPage();
-            }
-          }}
+          // onEndReached={() => {
+          //   if (hasNextPage && !isFetchingNextPage && !isFetching) {
+          //     fetchNextPage();
+          //   }
+          // }}
           initialNumToRender={0}
           onEndReachedThreshold={0.5}
           renderItem={renderContent}
-          ListFooterComponent={
-            <View style={{ ...styles.loading, marginBottom: 60 }}>
-              {hasNextPage && (
-                <FastImage
-                  style={{
-                    height: 80,
-                    width: 80,
+          // ListFooterComponent={
+          //   <View style={{ ...styles.loading, marginBottom: 60 }}>
+          //     {hasNextPage && (
+          //       <FastImage
+          //         style={{
+          //           height: 80,
+          //           width: 80,
 
-                    flex: 1,
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                  source={require("../../../static/images/loading-spinner.gif")}
-                  resizeMode={"contain"}
-                />
-              )}
-              {!(isFetchingNextPage || isFetching) && !hasNextPage && (
-                <Text
-                  style={{
-                    ...textVariants.subBody,
-                    color: colors.muted,
-                    paddingTop: 12,
-                  }}
-                >
-                  已经到底了
-                </Text>
-              )}
-            </View>
-          }
+          //           flex: 1,
+          //           justifyContent: "center",
+          //           alignItems: "center",
+          //         }}
+          //         source={require("../../../static/images/loading-spinner.gif")}
+          //         resizeMode={"contain"}
+          //       />
+          //     )}
+          //     {!(isFetchingNextPage || isFetching) && !hasNextPage && (
+          //       <Text
+          //         style={{
+          //           ...textVariants.subBody,
+          //           color: colors.muted,
+          //           paddingTop: 12,
+          //         }}
+          //       >
+          //         已经到底了
+          //       </Text>
+          //     )}
+          //   </View>
+          // }
         />
       ) : (
         <>
