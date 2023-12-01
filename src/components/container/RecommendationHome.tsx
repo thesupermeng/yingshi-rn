@@ -295,7 +295,7 @@ const RecommendationHome = ({
                     }
                     autoPlay={true}
                     data={data.carousel}
-                    scrollAnimationDuration={220}
+                    scrollAnimationDuration={120}
                     autoPlayInterval={2300}
                     onSnapToItem={(index) => {
                       setActiveIndex(index);
