@@ -987,7 +987,8 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                               <View style={{ gap: spacing.l, marginBottom: 60 }}>
                                 <ShowMoreVodButton
                                   isPlayScreen={true}
-                                  text={`相关${vod?.vod_class ?? '影片'}`}
+                                  // text={`相关${vod?.vod_class ?? '影片'}`}
+                                  text={"相关推荐"}
                                   onPress={() => {
                                     //  videoPlayerRef.current.setPause(true);
                                     setTimeout(() => {
@@ -1003,7 +1004,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                                   minNumPerRow={2}
                                   numOfRows={3}
                                   outerRowPadding={2 * (20 - spacing.sideOffset)}
-                                  heightToWidthRatio={1 / 1.414}
+                                  heightToWidthRatio={1 / 1.814}
                                   playerMode='adult'
                                   onPress={() => {
                                     if (!isCollapsed) {
