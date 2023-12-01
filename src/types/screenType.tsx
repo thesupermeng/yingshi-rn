@@ -15,4 +15,5 @@ export interface screenModel {
   adultMode: boolean; 
   lastSeenNavName: string; 
   isOverEighteenAccepted: boolean;
+  watchAnytimeAdultMode: boolean;
 }

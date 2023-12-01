@@ -77,6 +77,7 @@ import { BottomNavTabsResponse } from "../../src/types/ajaxTypes";
 import { YSConfig } from "../../ysConfig";
 import {
   disableAdultMode,
+  disableWatchAnytimeAdultMode,
   hideAdultModeDisclaimer,
   hideAdultModeVip,
   hideLoginAction,
@@ -545,6 +546,7 @@ export default () => {
     dispatch(resetAdultVideoWatchTime())
     dispatch(disableAdultMode())
     dispatch(hideAdultModeVip()) 
+    dispatch(disableWatchAnytimeAdultMode())
     // dispatch(resetOverEighteen())
   }, []);
 

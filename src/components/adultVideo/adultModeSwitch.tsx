@@ -1,9 +1,9 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { Text, View, ViewStyle } from "react-native";
 import { Switch } from "react-native-switch"
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { screenModel } from "../../types/screenType";
-import { acceptOverEighteen, disableAdultMode, enableAdultMode, hideAdultModeVip, showAdultModeDisclaimer, showAdultModeVip } from "../../redux/actions/screenAction";
+import { acceptOverEighteen, disableAdultMode, disableWatchAnytimeAdultMode, enableAdultMode, enableWatchAnytimeAdultMode, hideAdultModeVip, showAdultModeDisclaimer, showAdultModeVip } from "../../redux/actions/screenAction";
 
 interface Props{
   switchStyle: ViewStyle;
@@ -25,13 +25,14 @@ const AdultModeSwitch = ({switchStyle}: Props) => {
   )
   const dispatch = useAppDispatch()
 
-  const {adultMode, adultModeDisclaimerShow, isOverEighteenAccepted} = screenState
+  const {adultMode, adultModeDisclaimerShow, isOverEighteenAccepted, watchAnytimeAdultMode} = screenState
 
   const handleToggle = useCallback((e:boolean) => {
     if (e){ //if swtiching to true
       if (isOverEighteenAccepted){
         dispatch(enableAdultMode())
         dispatch(hideAdultModeVip())
+        dispatch(enableWatchAnytimeAdultMode())
       } else {
         dispatch(showAdultModeDisclaimer())
       }
@@ -39,13 +40,14 @@ const AdultModeSwitch = ({switchStyle}: Props) => {
     } else {
       dispatch(disableAdultMode())
       dispatch(hideAdultModeVip())
+      dispatch(disableWatchAnytimeAdultMode())
     }
   }, [isOverEighteenAccepted])
 
   return (
     <View style={switchStyle}>
       <Switch
-            value={adultMode}
+            value={adultMode && watchAnytimeAdultMode}
             onValueChange={handleToggle}
             backgroundInactive={"transparent"}
             activeText=""
