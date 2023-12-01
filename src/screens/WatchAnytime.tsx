@@ -59,30 +59,13 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
     // ========== for analytics - start ==========
     const { watchAnytimeViewsAnalytics } = useAnalytics();
 
+    // ========== for analytics - start ==========
     useEffect(() => {
         watchAnytimeViewsAnalytics({
             isXmode: adultMode,
         });
-    }, [])
-    // ========== for analytics - end ==========
-    
-    useEffect(() => {
-        // ========== for analytics - start ==========
-        watchAnytimeViewsAnalytics({
-            isXmode: adultMode,
-        });
-        // ========== for analytics - end ==========
-
-        if (!afterInitialLoad.current){
-            // if first time loading from home, dont refetch, use prefetched data
-            afterInitialLoad.current = true
-        }
-        else{ //
-            remove(); // remove cached video data on change... 
-            refetch();
-        } 
-
     }, [adultMode])
+    // ========== for analytics - end ==========
 
 
     // Add an event listener to the navigation object for the tab press event
