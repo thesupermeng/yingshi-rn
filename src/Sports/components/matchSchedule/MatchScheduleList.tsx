@@ -219,7 +219,7 @@ const MatchScheduleList = ({
         <FastImage
           source={require('../../assets/images/IconRefresh.png')}
           style={{ width: 35, height: 35 }}
-          resizeMode="contain"
+          resizeMode={"contain"}
         />
       </TouchableOpacity>
     </View>

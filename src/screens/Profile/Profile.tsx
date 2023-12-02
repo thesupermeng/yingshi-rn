@@ -208,6 +208,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                     width: 60,
                     marginVertical: 2,
                   }}
+                  resizeMode={"contain"}
                   source={require("../../../static/images/profilePic.png")}
                 />
               }

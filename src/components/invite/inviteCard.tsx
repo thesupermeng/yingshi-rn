@@ -11,7 +11,7 @@ import {
 import { useNavigation, useTheme } from "@react-navigation/native";
 
 import WhatsappIcn from "../../../static/images/invite/whatsapp.svg";
-
+import FastImage from "../common/customFastImage";
 import TelegramIcn from "../../../static/images/invite/telegram.svg";
 import FacebookIcn from "../../../static/images/invite/fb.svg";
 import WechatIcn from "../../../static/images/invite/wechat.svg";
@@ -23,7 +23,7 @@ import ProfileIcn from "../../../static/images/invite/profile-icon.svg";
 
 import { TouchableOpacity } from "@gorhom/bottom-sheet";
 
-import FastImage from "react-native-fast-image";
+
 import LinearGradient from "react-native-linear-gradient";
 import { userModel } from "../../types/userType";
 import { useAppDispatch } from "../../hooks/hooks";
@@ -265,7 +265,7 @@ export default function InviteCard({ userState = {} }: Props) {
               height: 180,
               width: 240,
             }}
-            resizeMode={FastImage.resizeMode.contain}
+            resizeMode={"contain"}
           />
 
           {/* <CrownIcon /> */}
@@ -293,33 +293,31 @@ export default function InviteCard({ userState = {} }: Props) {
               <FastImage
                 source={require("../../../static/images/vip/vip_logo.png")}
                 style={styles.featureIcn}
-                resizeMode={FastImage.resizeMode.contain}
+                resizeMode={"contain"}
               />
             </View>
             <View>
               <Text style={styles.featureTitle}>VIP尊贵标识</Text>
             </View>
           </View>
-          {YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5 ? (
+
             <View style={styles.featureItem}>
               <View style={styles.imgContainer}>
                 <FastImage
                   source={require("../../../static/images/invite/sport.png")}
                   style={styles.featureIcn}
-                  resizeMode={FastImage.resizeMode.contain}
+                  resizeMode={"contain"}
                 />
               </View>
               <Text style={styles.featureTitle}>体育频道</Text>
             </View>
-          ) : (
-            <></>
-          )}
+        
           <View style={styles.featureItem}>
             <View style={styles.imgContainer}>
               <FastImage
                 source={require("../../../static/images/invite/vip_adult_video.png")}
                 style={styles.featureIcn}
-                resizeMode={FastImage.resizeMode.contain}
+                resizeMode={"contain"}
               />
             </View>
             <View>
@@ -331,7 +329,7 @@ export default function InviteCard({ userState = {} }: Props) {
               <FastImage
                 source={require("../../../static/images/invite/ads.png")}
                 style={styles.featureIcn}
-                resizeMode={FastImage.resizeMode.contain}
+                resizeMode={"contain"}
               />
             </View>
             <View>
@@ -403,7 +401,7 @@ export default function InviteCard({ userState = {} }: Props) {
                 height: 40,
                 width: 40,
               }}
-              resizeMode={FastImage.resizeMode.contain}
+              resizeMode={"contain"}
             />
           </TouchableOpacity>
 

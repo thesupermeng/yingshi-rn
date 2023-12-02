@@ -23,7 +23,10 @@ import { debounce } from "lodash";
 import { Dimensions } from "react-native";
 import VideoControlsOverlay from "./VideoControlsOverlay";
 import WebView from "react-native-webview";
-import FastImage from "react-native-fast-image";
+
+
+import FastImage from "../../components/common/customFastImage";
+
 import FastForwardProgressIcon from "../../../static/images/fastforwardProgress.svg";
 import RewindProgressIcon from "../../../static/images/rewindProgress.svg";
 
@@ -666,7 +669,7 @@ export default forwardRef<VideoRef, Props>(
               <FastImage
                 source={require("../../../static/images/videoBufferLoading.gif")}
                 style={{ width: 100, height: 100 }}
-                resizeMode="contain"
+                resizeMode={"contain"}
               />
             )}
           </View>
