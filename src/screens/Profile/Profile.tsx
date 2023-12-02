@@ -380,7 +380,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                 </View>
               ))}
 
-            {Platform.OS === "android" && !SHOW_PAYMENT_CONST && (
+{Platform.OS === "ios" && !SHOW_PAYMENT_CONST && (
               <TouchableOpacity
                 style={{
                   ...styles.btn,
@@ -411,6 +411,39 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                 />
               </TouchableOpacity>
             )}
+
+
+            {/* {Platform.OS === "android" && !SHOW_PAYMENT_CONST && (
+              <TouchableOpacity
+                style={{
+                  ...styles.btn,
+                  backgroundColor: "#2d2e30",
+                }}
+                onPress={() => {
+                  navigation.navigate("邀请");
+                }}
+              >
+                <View style={styles.left}>
+                  <View style={styles.icon}>
+                    <VipIcon width={icons.sizes.l} height={icons.sizes.l} />
+                  </View>
+
+                  <Text
+                    style={{
+                      ...textVariants.body,
+                    }}
+                  >
+                    {highlightText("邀请好友获得VIP奖励，享更多权益", "VIP")}
+                  </Text>
+                </View>
+
+                <VipArrow
+                  width={icons.sizes.l}
+                  height={icons.sizes.l}
+                  color={colors.muted}
+                />
+              </TouchableOpacity>
+            )} */}
 
             <ShowMoreButton
               text="我的收藏"

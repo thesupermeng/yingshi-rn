@@ -72,8 +72,8 @@ export default () => {
     }
     if(access == "22222222"){
       setIsSuper(false);
-      YSConfig.instance.setAreaConfig(true);
-      setAreaNavConfig(true);
+      YSConfig.instance.setAreaConfig(false);
+      setAreaNavConfig(false);
       setLoadedAPI(true);
       return;
     }
