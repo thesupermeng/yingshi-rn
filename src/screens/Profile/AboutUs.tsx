@@ -27,6 +27,7 @@ import RNRestart from 'react-native-restart';
 export default ({ navigation }: RootStackScreenProps<"关于我们">) => {
   const { colors, textVariants, icons, spacing } = useTheme();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [countToggleB, setCountToggleB] = useState(0);
 
   const toggleOverlay = () => {
     setIsDialogOpen(!isDialogOpen);
@@ -37,7 +38,7 @@ export default ({ navigation }: RootStackScreenProps<"关于我们">) => {
   }
 
   const switchToggle = async () => {
-    await AsyncStorage.setItem("access", "00000000");
+    await AsyncStorage.setItem("access", "22222222");
     RNRestart.Restart();
   }
 

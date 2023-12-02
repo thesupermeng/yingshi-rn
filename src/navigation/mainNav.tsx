@@ -70,7 +70,7 @@ export default () => {
       setIsSuper(true);
       return;
     }
-    if(access == "00000000"){
+    if(access == "22222222"){
       setIsSuper(false);
       YSConfig.instance.setAreaConfig(true);
       setAreaNavConfig(true);
