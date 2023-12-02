@@ -99,6 +99,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: "100%",
     alignItems: "center",
+   marginBottom:15
   },
   backStyle: {
     display: "flex",

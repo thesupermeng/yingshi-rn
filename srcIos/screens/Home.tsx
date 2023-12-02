@@ -245,20 +245,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
         >
           <HomeHeader navigator={navigation} />
         </View>
-        <HomeNav
-          // hideContent={hideContent}
-          navId={navId}
-          onTabPress={onTabPress}
-          onTabSwipe={onTabSwipe}
-          tabList={
-            navOptions?.map((e) => ({
-              id: e.id,
-              title: e.name,
-              name: e.name,
-            })) ?? []
-          }
-          tabChildren={(tab, i) => (
-            <>
+        <>
               {(!data || isRefreshing) && (
                 <View
                   style={{
@@ -303,10 +290,8 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
                   />
                 </View>
               )}
-              {data && !isOffline && getContent({ item: data[i], index: i })}
+              {data && !isOffline && getContent({ item: data[0], index: 0 })}
             </>
-          )}
-        />
       </ScreenContainer>
       {isOffline && <NoConnection onClickRetry={checkConnection} />}
     </>
