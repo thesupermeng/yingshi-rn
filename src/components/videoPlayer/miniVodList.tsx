@@ -3,12 +3,17 @@ import { View, FlatList, RefreshControl } from 'react-native';
 import { MiniVideo } from '../../types/ajaxTypes';
 import ShortVod from '../../components/videoPlayer/shortVod';
 import FastImage from "../common/customFastImage";
-import { useTheme } from '@react-navigation/native';
+import { useFocusEffect, useTheme } from '@react-navigation/native';
 import { StyleSheet } from 'react-native';
-import useAnalytics from '../../hooks/useAnalytics';
+
+import { screenModel } from '../../types/screenType';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
+import { ADULT_MODE_PREVIEW_DURATION } from '../../utility/constants';
+import { showAdultModeVip } from '../../redux/actions/screenAction';
 import { userModel } from '../../types/userType';
+import useAnalytics from '../../hooks/useAnalytics';
 import { RootState } from '../../redux/store';
-import { useAppSelector } from '../../hooks/hooks';
+
 
 interface Props {
     miniVodListRef: any,
@@ -63,14 +68,48 @@ export default forwardRef<MiniVodRef, Props>(
         const [isPause, setPause] = useState(true);
         const [isScrolling, setIsScrolling] = useState(false);
         const [videoCurrentDurations, setVideoCurrentDurations] = useState<number[]>([]);
-
+        const [isChangingSource, setChangingSource] = useState(false);
         // for analytics used
-        const [preTolVideoViews, setPreTolVideoViews] = useState(0); // previous
-        const [curTolVideoViews, setCurTolVideoViews] = useState(1); // current
+        const [curAnalyticsIndex, setCurAnalyticsIndex] = useState(0);
 
+        const screenState: screenModel = useAppSelector(
+            ({screenReducer}) => screenReducer
+          )
         const userState: userModel = useAppSelector(
-            ({ userReducer }: RootState) => userReducer
-        );
+            ({userReducer}) => userReducer
+        )
+
+        const {adultModeDisclaimerShow, adultModeVipShow, adultVideoWatchTime, adultMode} = screenState
+        const isVip = (Number(userState.userMemberExpired) <=
+                        Number(userState.userCurrentTimestamp) ||
+                        userState.userToken === "")
+        const dispatch = useAppDispatch()
+        useEffect(() => {
+            if (adultVideoWatchTime >= ADULT_MODE_PREVIEW_DURATION && adultMode && isVip){
+                dispatch(showAdultModeVip())
+                setPause(true)
+            }
+        }, [videoCurrentDurations[current], isPause])
+
+        useEffect(() => {
+            if (adultModeDisclaimerShow || adultModeVipShow) {
+                setPause(true)
+            }
+        }, [adultModeDisclaimerShow, adultModeVipShow])
+
+        useEffect(() => {
+            setChangingSource(true);
+            setPause(true);
+        }, [adultMode]);
+
+        useFocusEffect(
+            useCallback(() => {
+                if (videos.length > 0 && isChangingSource) {
+                    setChangingSource(false);
+                    setPause(false);
+                }
+            }, [isChangingSource, videos])
+        )
 
         const handleOnScroll = useCallback((e: any) => {
             const positionY = parseFloat(e.nativeEvent.contentOffset.y.toFixed(5));
@@ -79,26 +118,36 @@ export default forwardRef<MiniVodRef, Props>(
             if (index >= 0 && displayHeight > 0 && index != current) {
                 setCurrent(index);
             }
-
-            // for analytics used
-            if ((index + 1) > curTolVideoViews) {
-                setPreTolVideoViews(curTolVideoViews);
-                setCurTolVideoViews(index + 1);
-            }
-        }, [displayHeight, current, curTolVideoViews]);
+        }, [displayHeight, current]);
 
         // ========== for analytics - start ==========
         const { watchAnytimeVideoViewTimesAnalytics } = useAnalytics();
 
         useEffect(() => {
-            if (!isActive && curTolVideoViews > preTolVideoViews) {
+            // ========== for analytics - start ==========
+            if (collectionPartialVideos.length > 0) {
+                setCurAnalyticsIndex(0);
+
                 watchAnytimeVideoViewTimesAnalytics({
                     userId: userState.userId,
-                    tolVideoViews: curTolVideoViews,
+                    vod_id: collectionPartialVideos[0].mini_video_id,
+                    isXmode: adultMode
                 });
             }
-        }, [isActive, preTolVideoViews, curTolVideoViews]);
+            // ========== for analytics - end ==========
+        }, [collectionPartialVideos]);
 
+        useEffect(() => {
+            if(current > curAnalyticsIndex){
+                setCurAnalyticsIndex(current);
+
+                watchAnytimeVideoViewTimesAnalytics({
+                    userId: userState.userId,
+                    vod_id: collectionPartialVideos[current].mini_video_id,
+                    isXmode: adultMode
+                });
+            }
+        }, [current, curAnalyticsIndex, collectionPartialVideos, adultMode, userState]);
         // ========== for analytics - end ==========
 
         useImperativeHandle(ref, () => ({
@@ -123,7 +172,6 @@ export default forwardRef<MiniVodRef, Props>(
 
             if (inCollectionView == true) {
             }
-
         }, [videos]);
 
         useEffect(() => {
@@ -164,6 +212,7 @@ export default forwardRef<MiniVodRef, Props>(
                         setCollectionEpisode={setCollectionEpisodeToTitle}
                         isPause={isPause || current !== index}
                         onManualPause={(current) => {
+                            console.log('click pause');
                             setPause(!current);
                         }}
                         isShowVideo={current === index && !isScrolling && !isPressTabScroll}

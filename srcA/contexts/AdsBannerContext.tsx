@@ -41,7 +41,7 @@ export const AdsBannerContext = createContext<{
   currentRoute: string | null;
 }>({
   setRoute: () => {},
-  setNavbarHeight: 0,
+  setNavbarHeight: () => {},
   currentRoute: "",
 });
 

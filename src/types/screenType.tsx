@@ -10,4 +10,11 @@ export interface screenModel {
   interstitialShow: boolean;
   isPlayerFullScreen: boolean;
   fromWhereToProfile?: 'login' | 'register';
+  adultVideoWatchTime: number; // number of seconds user watch AV 
+  adultModeDisclaimerShow: boolean; 
+  adultModeVipShow: boolean; 
+  adultMode: boolean; 
+  lastSeenNavName: string; 
+  isOverEighteenAccepted: boolean;
+  watchAnytimeAdultMode: boolean;
 }

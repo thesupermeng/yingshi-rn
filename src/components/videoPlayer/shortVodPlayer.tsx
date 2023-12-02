@@ -16,14 +16,19 @@ import PlayBoDanIcon from '../../../static/images/play-bodan.svg';
 
 import FastImage from '../common/customFastImage';
 import { Slider } from '@rneui/themed';
-import { useAppDispatch } from '../../hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { useNavigation, useTheme } from '@react-navigation/native';
 import { playVod, viewPlaylistDetails } from '../../redux/actions/vodActions';
 import HejiIcon from '../../../static/images/heji.svg';
 import ExpandUpIcon from '../../../static/images/expandHeji.svg';
 import { QueryClient } from '@tanstack/react-query';
+import { screenModel } from '../../types/screenType';
 import { debounce } from 'lodash';
 import useAnalytics from '../../hooks/useAnalytics';
+import { userModel } from '../../types/userType';
+import { ADULT_MODE_PREVIEW_DURATION } from '../../utility/constants';
+import { showAdultModeVip } from '../../redux/actions/screenAction';
+
 
 interface Props {
   thumbnail?: string;
@@ -40,6 +45,12 @@ interface Props {
   isActive: boolean,
 }
 
+const maxLength = 10;
+
+const truncateVodName = (vodName:string) => {
+  return vodName?.length > maxLength ? vodName.substring(0, maxLength) + '...' : vodName
+}
+
 function ShortVideoPlayer({
   vod,
   thumbnail,
@@ -54,18 +65,19 @@ function ShortVideoPlayer({
   updateVideoDuration,
   isActive,
 }: Props) {
-  const maxLength = 10;
 
   const [currentVod, setVod] = useState(vod);
-
+  const screenState: screenModel = useAppSelector(
+    ({screenReducer}) => screenReducer
+  )
+  const {adultMode, adultVideoWatchTime} = screenState
   if (currentVod?.mini_video_original_video_name == undefined) {
     currentVod.mini_video_original_video_name = '';
   }
 
-  let vodName =
-    currentVod?.mini_video_original_video_name.length > maxLength
-      ? currentVod?.mini_video_original_video_name.substring(0, maxLength) + '...'
-      : currentVod?.mini_video_original_video_name;
+  let vodName = !adultMode ?
+      truncateVodName(currentVod?.mini_video_original_video_name)
+      : truncateVodName(currentVod?.mini_video_vod?.vod_name)
   // let vodName = "我的"
 
   const dispatch = useAppDispatch();
@@ -92,6 +104,15 @@ function ShortVideoPlayer({
   const windowWidth = Dimensions.get('window').width;
 
   const { watchAnytimeVideoClicksAnalytics, watchAnytimePlaylistClicksAnalytics } = useAnalytics();
+
+  const userState: userModel = useAppSelector(
+    ({userReducer}) => userReducer
+  )
+  
+  const isVip = !(Number(userState.userMemberExpired) <=
+                  Number(userState.userCurrentTimestamp) ||
+                  userState.userToken === "")
+  const disableSeek = !isVip && (adultVideoWatchTime >= ADULT_MODE_PREVIEW_DURATION) && adultMode
 
   useEffect(() => {
     setVod(vod);
@@ -150,6 +171,10 @@ function ShortVideoPlayer({
   };
 
   const handleSeek = useCallback((value: number) => {
+    if (disableSeek) {
+      dispatch(showAdultModeVip())
+      return
+    }
     if (!isVideoReadyIos && Platform.OS === 'ios') return;
     if (!isVideoReadyAndroid && Platform.OS === 'android') return;
 
@@ -208,6 +233,7 @@ function ShortVideoPlayer({
       dispatch(playVod(currentVod.mini_video_vod));
       navigation.navigate('播放', {
         vod_id: currentVod.vod?.vod_id,
+        player_mode: adultMode ? 'adult' : 'normal'
       });
 
       // ========== for analytics - start ==========
@@ -462,7 +488,7 @@ function ShortVideoPlayer({
               </View>
             }
           </View>
-          <Slider
+          {!disableSeek && <Slider
             style={styles.slider}
             maximumValue={duration}
             minimumValue={0}
@@ -480,9 +506,9 @@ function ShortVideoPlayer({
             maximumTrackTintColor={'#ffffff24'}
             thumbTintColor={'#FFFFFF'}
             trackStyle={{ height: 2, opacity: 1 }}
-          />
+          />}
           {
-            duration > 0 && showOverlay && currentDuration >= 0 &&
+            duration > 0 && showOverlay && currentDuration >= 0 && !disableSeek &&
             (
               duration < 3600
                 ? <Text style={{

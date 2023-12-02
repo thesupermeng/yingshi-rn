@@ -38,61 +38,65 @@ export default function TitleWithBackButtonHeader({
   console.log("leftIconBottomVal");
   console.log(leftIconBottomVal);
   return (
-    <View style={{ ...styles.container }}>
-      <View
-        style={{
-          ...styles.backStyle,
-          position: "absolute",
-          left: 15,
-        }}
-      >
-        <BackButton
-          onPress={onBack}
-          btnStyle={{
-            position: "absolute",
-            // bottom: leftIconBottomVal,
-            // paddingTop: Platform.OS == "android" ? 30 : 5,
-            // paddingVertical: 8,
-            // paddingLeft: 5,
-            width: 30,
-          }}
-        />
-      </View>
-      <View style={{ ...headerStyle }}>
-        <Text
-          style={{
-            ...textVariants.header,
-            fontSize: 16,
-          }}
-          numberOfLines={1}
-        >
-          {title}
-        </Text>
-      </View>
-
-      {right ? (
+    <View style={styles.mainContainer}>
+      <View style={{ ...styles.container }}>
         <View
           style={{
             ...styles.backStyle,
             position: "absolute",
-            right: 15,
-            // bottom: 8,
+            left: 15,
           }}
         >
-          {right}
+          <BackButton
+            onPress={onBack}
+            btnStyle={{
+              position: "absolute",
+              bottom: leftIconBottomVal,
+              // paddingTop: Platform.OS == "android" ? 30 : 5,
+              paddingVertical: 8,
+              paddingLeft: 5,
+              width: 30,
+              height: 30
+            }}
+          />
         </View>
-      ) : (
-        <View style={{ opacity: 0, pointerEvents: "none" }}>
-          <BackButton onPress={onBack} />
+        <View style={{ ...headerStyle }}>
+          <Text
+            style={{
+              ...textVariants.header,
+              fontSize: 16,
+            }}
+            numberOfLines={1}
+          >
+            {title}
+          </Text>
         </View>
-      )}
+
+        {right ? (
+          <View
+            style={{
+              ...styles.backStyle,
+              position: "absolute",
+              right: 15,
+              top: 8,
+            }}
+          >
+            {right}
+          </View>
+        ) : (
+          <View style={{ opacity: 0, pointerEvents: "none" }}>
+            <BackButton onPress={onBack} />
+          </View>
+        )}
+      </View>
+
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 10,
+    paddingTop: 10,
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
@@ -104,4 +108,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  mainContainer: { 
+    paddingVertical: 8
+  }
 });

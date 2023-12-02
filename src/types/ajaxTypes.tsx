@@ -397,3 +397,29 @@ export interface CheckVersionRequest {
     mobile_os: string,
     mobile_model: string,
 }
+
+export interface AdultVodType {
+    vod_id: number
+    type_id: number
+    type_id_1: number
+    vod_name: string
+    vod_en: string
+    vod_letter: string
+    vod_class: string
+    vod_pic: string
+    vod_pic_thumb: string
+    vod_blurb: string
+    vod_pubdate: string
+    vod_total: number
+    vod_year: number
+    vod_isend: number
+    vod_score: number
+    vod_time: number
+    vod_time_add: number
+    vod_time_hits: number
+    vod_content: string
+    vod_play_from: string
+    vod_play_url: string
+    vod_play_list: VodEpisodeListType
+    vod_restricted: number
+  }

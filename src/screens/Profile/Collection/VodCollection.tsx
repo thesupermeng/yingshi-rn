@@ -16,9 +16,10 @@ import {playVod} from '../../../redux/actions/vodActions';
 import {VodType} from '../../../types/ajaxTypes';
 import {RootStackScreenProps} from '../../../types/navigationTypes';
 import EmptyList from '../../../components/common/emptyList';
+import { disableAdultMode, enableAdultMode } from '../../../redux/actions/screenAction';
 
 type FlatListType = {
-  item: VodType;
+  item: VodType & {playMode?: 'adult'|'normal'};
 };
 
 export default () => {
@@ -58,8 +59,12 @@ export default () => {
                   dispatch(playVod(item));
                   navigation.navigate('播放', {
                     vod_id: item.vod_id,
+                    player_mode: item.playMode
                   });
+                  if (item.playMode === 'adult') {dispatch(enableAdultMode())}
+                  else {dispatch(disableAdultMode())}
                 }}
+                imgOrientation='horizontal'
               />
             )}
           />

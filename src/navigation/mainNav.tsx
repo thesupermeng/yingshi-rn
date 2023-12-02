@@ -85,7 +85,7 @@ export default () => {
       mobile_os: Platform.OS,
       product: APP_NAME_CONST + "-" + Platform.OS.toUpperCase(),
       mobile_model: "HUAWEIP20",
-      ab_switch: true
+     // ab_switch: true
     };
 
     const locationResponse = await fetch(`${API_DOMAIN}location/v1/info`, {

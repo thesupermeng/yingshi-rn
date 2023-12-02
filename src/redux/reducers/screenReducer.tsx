@@ -17,6 +17,13 @@ const initialState: screenModel = {
   interstitialShow: false,
   isPlayerFullScreen: false,
   fromWhereToProfile: undefined,
+  adultVideoWatchTime: 0,
+  lastSeenNavName: '推荐', 
+  adultMode: false, 
+  adultModeDisclaimerShow: false, 
+  adultModeVipShow: false, 
+  isOverEighteenAccepted: false, 
+  watchAnytimeAdultMode: false
 };
 
 export function screenReducer(state = initialState, action: screenActionType) {
@@ -109,6 +116,72 @@ export function screenReducer(state = initialState, action: screenActionType) {
         ...state,
         isPlayerFullScreen: action.payload,
       };
+      
+    case "increment_adult_video_watch_time":
+      return {
+        ...state,
+        adultVideoWatchTime: state.adultVideoWatchTime + 1,
+      };
+    case "reset_adult_video_watch_time":
+      return {
+        ...state,
+        adultVideoWatchTime: 0,
+      };
+    case "show_adult_mode_disclaimer": 
+      return {
+        ...state, 
+        adultModeDisclaimerShow: true
+      }
+    case "hide_adult_mode_disclaimer": 
+      return {
+        ...state, 
+        adultModeDisclaimerShow: false
+      }
+    case "show_adult_mode_vip": 
+      return {
+        ...state, 
+        adultModeVipShow: true
+      }
+    case "hide_adult_mode_vip": 
+      return {
+        ...state, 
+        adultModeVipShow: false
+      }
+    case "enable_adult_mode": 
+      return {
+        ...state, 
+        adultMode: true
+      }
+    case "disable_adult_mode": 
+      return {
+        ...state, 
+        adultMode: false
+      }
+    case "set_last_seen_nav_name": 
+      return {
+        ...state, 
+        lastSeenNavName: action.payload
+      }
+    case "accept_over_eighteen": 
+      return {
+        ...state, 
+        isOverEighteenAccepted: true
+      }
+    case "reset_over_eighteen":
+      return {
+        ...state, 
+        isOverEighteenAccepted: false
+      }
+    case "enable_watch_anytime_adult_mode": 
+      return {
+        ...state, 
+        watchAnytimeAdultMode: true
+      }
+    case "disable_watch_anytime_adult_mode": 
+      return {
+        ...state, 
+        watchAnytimeAdultMode: false
+      }
     default:
       return state;
   }
