@@ -156,6 +156,10 @@ function ShortVideoPlayer({
 
   const onBuffer = useCallback((bufferObj: any) => {
     setIsBuffering(bufferObj.isBuffering);
+    if(adultMode) // && Platform.OS === 'ios'
+    {
+      setIsBuffering(false);
+    }
   }, []);
 
   const handleProgress = useCallback((progress: OnProgressData) => {
