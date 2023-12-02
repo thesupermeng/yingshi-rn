@@ -263,12 +263,12 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                     {/* {userState.userMemberExpired == '0' && (
                       <Text style={{fontSize: 14}}>VIP会员已经到期</Text>
                     )} */}
-                    {userState.userMemberExpired >=
+                    {/* {userState.userMemberExpired >=
                       userState.userCurrentTimestamp && (
                         <Text style={{ color: colors.primary, fontSize: 14 }}>
                           VIP会员有效日期至{displayedDate}
                         </Text>
-                      )}
+                      )} */}
                   </>
                 )}
               </View>
