@@ -13,7 +13,7 @@ import AdultModeSwitch from "./adultModeSwitch";
 import { screenModel } from "../../types/screenType";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { RootState } from "../../redux/store";
-import { acceptOverEighteen, disableAdultMode, enableAdultMode, hideAdultModeDisclaimer, incrementAdultVideoWatchTime } from "../../redux/actions/screenAction";
+import { acceptOverEighteen, disableAdultMode, enableAdultMode, enableWatchAnytimeAdultMode, hideAdultModeDisclaimer, hideAdultModeVip, incrementAdultVideoWatchTime } from "../../redux/actions/screenAction";
 import { userModel } from "../../types/userType";
 interface Props {
   
@@ -61,9 +61,11 @@ const eighteenPlusControls = ({}: Props) => {
       <EighteenPlusOverlay
         handleAccept={() => {
           console.debug('accepted 18+')
-          dispatch(acceptOverEighteen())
           dispatch(enableAdultMode())
+          dispatch(acceptOverEighteen())
           dispatch(hideAdultModeDisclaimer())
+         // dispatch(hideAdultModeVip())
+          dispatch(enableWatchAnytimeAdultMode())
           }}
         handleReject={() => {
           console.debug('rejected 18+')
