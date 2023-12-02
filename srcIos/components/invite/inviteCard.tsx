@@ -285,7 +285,7 @@ export default function InviteCard({ userState = {} }: Props) {
             borderTopRightRadius: 15,
             flexDirection: "row", // Set flexDirection to 'row'
             justifyContent: "space-evenly",
-            // flexWrap: 'wrap', // Allow items to wrap to the next row
+           flexWrap: 'wrap', // Allow items to wrap to the next row
           }}
         >
           <View style={styles.featureItem}>
@@ -499,7 +499,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
     gap: 8,
-    width: "47%", // 50% width for 2 items per row
+    width: "40%", // 50% width for 2 items per row
     marginBottom: 15, // Add margin to create spacing between rows
     marginTop: 10,
     marginLeft: "3%",
