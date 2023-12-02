@@ -44,7 +44,7 @@ export const YingPingContainer = ({vod, width, imgRatio, isSlide}: Props) => {
           style={{ ...textVariants.subBody, color: colors.muted }}
           numberOfLines={5}
         >
-          {vod.vod_content.replace(pTagRegex, "")}
+          {vod?.vod_content?.replace(pTagRegex, "")}
         </Text>
         <View 
           style={{
@@ -97,7 +97,7 @@ export const YingPingContainer = ({vod, width, imgRatio, isSlide}: Props) => {
             style={{ ...textVariants.subBody, color: colors.muted }}
             numberOfLines={3}
           >
-            {vod.vod_content.replace(pTagRegex, "")}
+            {vod?.vod_content?.replace(pTagRegex, "")}
           </Text>
         </View>
       </TouchableOpacity>
