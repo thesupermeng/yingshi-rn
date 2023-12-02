@@ -87,7 +87,7 @@ export default ({navigation, route}: RootStackScreenProps<'午夜场剧情'>) =>
               vod_id: item?.vod_id,
               player_mode: 'adult'
           });
-          dispatch(enableAdultMode())
+          // dispatch(enableAdultMode())
         }}>
         <FastImage
           style={{flex: 1, borderRadius: 10}}

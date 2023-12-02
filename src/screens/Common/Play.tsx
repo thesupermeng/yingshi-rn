@@ -214,6 +214,14 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   )
   const adultMode = route.params.player_mode === 'adult' ? true : false
 
+  useEffect(() => {
+    if(route.params.player_mode === 'adult'){
+      dispatch(enableAdultMode());
+    }else{
+      dispatch(disableAdultMode());
+    }
+  }, [])
+
   const vod = vodReducer.playVod.vod;
   // const [vod, setVod] = useState(vodReducer.playVod.vod);
   const [initTime, setInitTime] = useState(0);
@@ -987,7 +995,8 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                               <View style={{ gap: spacing.l, marginBottom: 60 }}>
                                 <ShowMoreVodButton
                                   isPlayScreen={true}
-                                  text={`相关${vod?.vod_class ?? '影片'}`}
+                                  // text={`相关${vod?.vod_class ?? '影片'}`}
+                                  text={"相关推荐"}
                                   onPress={() => {
                                     //  videoPlayerRef.current.setPause(true);
                                     setTimeout(() => {
@@ -1003,7 +1012,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                                   minNumPerRow={2}
                                   numOfRows={3}
                                   outerRowPadding={2 * (20 - spacing.sideOffset)}
-                                  heightToWidthRatio={1 / 1.414}
+                                  heightToWidthRatio={1 / 1.814}
                                   playerMode='adult'
                                   onPress={() => {
                                     if (!isCollapsed) {
