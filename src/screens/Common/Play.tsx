@@ -1022,7 +1022,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                               <View style={{ gap: spacing.l, marginBottom: 60 }}>
                                 <ShowMoreVodButton
                                   isPlayScreen={true}
-                                  text={`相关${vod?.type_name}`}
+                                  text={`相关${vod?.type_name ?? '相关推荐'}`}
                                   onPress={() => {
                                     //  videoPlayerRef.current.setPause(true);
                                     setTimeout(() => {
