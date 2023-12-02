@@ -7,6 +7,7 @@ import { useAppDispatch } from '../../hooks/hooks';
 import VodCard from '../../components/vod/vodCard';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { VodType } from '../../types/ajaxTypes';
+import { disableAdultMode, enableAdultMode } from '../../redux/actions/screenAction';
 
 
 interface Props {
@@ -16,9 +17,10 @@ interface Props {
     minNumPerRow?: number,
     heightToWidthRatio?: number,
     onPress?: () => any,
+    playerMode?: 'normal' | 'adult'
 }
 
-function VodListVertical({ vods, numOfRows = 2, outerRowPadding = 0, minNumPerRow = 3, heightToWidthRatio = 1.414, onPress }: Props) {
+function VodListVertical({ vods, numOfRows = 2, outerRowPadding = 0, minNumPerRow = 3, heightToWidthRatio = 1.414, onPress, playerMode='normal' }: Props) {
     const { textVariants, colors, spacing, icons } = useTheme();
     const insets = useSafeAreaInsets();
     const navigation = useNavigation();
@@ -76,7 +78,10 @@ function VodListVertical({ vods, numOfRows = 2, outerRowPadding = 0, minNumPerRo
                 dispatch(playVod(vod));
                 navigation.navigate('播放', {
                     vod_id: vod?.vod_id,
+                    player_mode: playerMode
                 });
+                if (playerMode == 'adult') {dispatch(enableAdultMode())}
+                else {dispatch(disableAdultMode())}
             }}
             index={idx}
         />

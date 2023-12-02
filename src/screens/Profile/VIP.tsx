@@ -577,7 +577,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
               <Text
                 style={{
                   ...textVariants.subBody,
-                  padding: 8,
+                  // padding: 8,
                   opacity:
                     userState.userPaidVipList.total_purchased_days > 0 ||
                     userState.userAccumulateRewardDay > 0

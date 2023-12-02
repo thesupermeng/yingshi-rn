@@ -21,7 +21,7 @@ const initialState: MiniVodReducerState = {
 }
 
 export function miniVodReducer(state = initialState, action: MiniVodActionType) {
-    console.log(action.miniVodCollectionItemIndex);
+    // console.log(action.miniVodCollectionItemIndex);
     switch (action.type) {
         case SELECT_MINI_VOD_COLLECTION_ITEM: {
             return {

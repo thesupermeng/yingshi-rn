@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState, memo, useContext } from "react";
 import { Platform, StyleSheet, View } from "react-native";
 import ScreenContainer from "../components/container/screenContainer";
-import { useFocusEffect, useTheme } from "@react-navigation/native";
+import { useFocusEffect, useRoute, useTheme } from "@react-navigation/native";
 import { useQuery, useQueries, UseQueryResult } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
 import {
@@ -15,6 +15,7 @@ import {
 import {
   ANDROID_HOME_PAGE_POP_UP_ADS,
   API_DOMAIN,
+  API_DOMAIN_TEST,
   IOS_HOME_PAGE_POP_UP_ADS,
 } from "../utility/constants";
 import CatagoryHome from "../components/container/CatagoryHome";
@@ -38,10 +39,17 @@ import {
 } from "./../../AnyThinkAds/ATReactNativeSDK";
 import { AdsBannerContext } from "../contexts/AdsBannerContext";
 
-import useInterstitialAds from "../hooks/useInterstitialAds"
+
+import useInterstitialAds from "../hooks/useInterstitialAds";
+import EighteenPlusOverlay from "../components/modal/overEighteenOverlay";
+import { hideAdultModeDisclaimer } from "../redux/actions/screenAction";
+
+
 import useAnalytics from "../hooks/useAnalytics";
 
+
 function Home({ navigation }: BottomTabScreenProps<any>) {
+  const dispatch = useAppDispatch();
   const isFocused = useIsFocused();
   const { colors, spacing } = useTheme();
   const [navId, setNavId] = useState(0);
@@ -56,7 +64,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   const { data: navOptions, refetch } = useQuery({
     queryKey: ["HomePageNavOptions"],
     queryFn: () =>
-      fetch(`${API_DOMAIN}nav/v1/navItems`, {})
+      fetch(`${API_DOMAIN}nav/v1/navItems?channelId=WEB`, {}) //  removed  '+ UMENG_CHANNEL' in url
         .then((response) => response.json())
         .then((json: NavOptionsResponseType) => {
           return json.data;
@@ -64,7 +72,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   });
 
   const fetchData = useCallback((id: number) => {
-    return fetch(`${API_DOMAIN}page/v2/typepage?id=${id}`)
+    return fetch(`${API_DOMAIN_TEST}page/v2/typepage?id=${id}`)
       .then((response) => response.json())
       .then((json: VodCarousellResponseType) => {
         return json;
@@ -120,7 +128,6 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
     }
     try {
       await queryClient.resetQueries(["HomePage", id]);
-
       setIsRefreshing(false);
       setNavId(id);
       setShowHomeLoading(false);
@@ -205,32 +212,32 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
 
   useEffect(() => {
     if (navOptions !== undefined && navOptions.length > 0) {
-      homeTabViewsAnalytics({
-        tab_id: navOptions[navId].id.toString(),
-        tab_name: navOptions[navId].name,
-      });
+
+      const idx = navOptions?.findIndex((e) => e.id === navId);
+homeTabViewsAnalytics({
+  tab_id: navOptions[idx].id.toString(),
+  tab_name: navOptions[idx].name,
+});
     }
   }, [navId])
   // ========== for analytics - end ==========
 
   const onTabPress = (target?: string) => {
     const targetStr = target?.substring(0, target.indexOf('-'));
-
     if (navOptions !== undefined) {
-      const found = navOptions?.findIndex((e) => e.name === targetStr);
-      setNavId(found);
-
-      // ========== for analytics - start ==========
-      homeTabClicksAnalytics({
-        tab_id: navOptions[found].id.toString(),
-        tab_name: navOptions[found].name,
-      });
+        const found = navOptions?.findIndex((e) => e.name === targetStr);
+        setNavId(navOptions[found].id);
+        // ========== for analytics - start ==========
+        homeTabClicksAnalytics({
+          tab_id: navOptions[found].id.toString(),
+          tab_name: navOptions[found].name,
+        });
       // ========== for analytics - end ==========
     }
   }
 
   const onTabSwipe = useCallback((index: number, tab: any) => {
-    setNavId(index);
+    setNavId(tab.id);
   }, []);
 
   useInterstitialAds();
@@ -308,7 +315,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
                   />
                 </View>
               )}
-              {data && !isOffline && getContent({ item: data[i], index: i })}
+              {data && !isOffline && getContent({ item: data[i], index: tab.id })}
             </>
           )}
         />

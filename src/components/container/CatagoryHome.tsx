@@ -10,7 +10,7 @@ import {
   FlatList,
 } from 'react-native';
 import { FlatList as FlatListSecondary } from 'react-native-gesture-handler';
-import { useNavigation, useTheme } from '@react-navigation/native';
+import { useFocusEffect, useNavigation, useTheme } from '@react-navigation/native';
 import Swiper from 'react-native-swiper';
 import ShowMoreVodButton from '../button/showMoreVodButton';
 import {
@@ -47,6 +47,9 @@ import Animated, {
   withDelay,
   withTiming,
 } from 'react-native-reanimated';
+import { acceptOverEighteen, enableAdultMode, hideAdultModeDisclaimer, showAdultModeDisclaimer } from '../../redux/actions/screenAction';
+import EighteenPlusOverlay from '../modal/overEighteenOverlay';
+import { screenModel } from '../../types/screenType';
 // import {FlatList, PanGestureHandler} from 'react-native-gesture-handler';
 
 interface NavType {
@@ -70,6 +73,9 @@ const CatagoryHome = ({
   onRefresh,
   refreshProp,
 }: Props) => {
+  const screenState: screenModel = useAppSelector(
+    ({screenReducer}) => screenReducer
+  )
   const { colors, textVariants, spacing } = useTheme();
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
@@ -112,15 +118,26 @@ const CatagoryHome = ({
           paddingRight: spacing.sideOffset,
         }}>
         <ShowMoreVodButton
-          text={item.type_name}
+          text={item.type_name.trim()}
           onPress={() => {
-            navigation.navigate('片库', {
-              type_id: item.type_id,
-              class: item.type_name,
-            });
+            console.debug('navid', navId)
+            if (navId != 99) {
+              navigation.navigate('片库', {
+                type_id: item.vod_list[0].type_id,
+              });
+            } else {
+              navigation.navigate('午夜场剧情', {
+                class: item.vod_list[0].vod_class
+              });
+            }
           }}
-        />
-        {item?.vod_list && <VodListVertical vods={item?.vod_list} />}
+        /> 
+        { navId == 99 
+          ? // is 午夜场剧情
+          item?.vod_list && <VodListVertical numOfRows={2} vods={item?.vod_list} minNumPerRow={2} heightToWidthRatio={1/1.414} playerMode='adult' />
+          : 
+          item?.vod_list && <VodListVertical vods={item?.vod_list}/>
+        }
       </View>
     ),
     [],
@@ -131,10 +148,13 @@ const CatagoryHome = ({
       <TouchableOpacity
         key={`slider-${index}`}
         onPress={() => {
+          console.debug('pllaying mode', navId)
           dispatch(playVod(item.vod));
           navigation.navigate('播放', {
             vod_id: item.carousel_content_id,
+            player_mode: navId == 99 ? 'adult' : 'normal'
           });
+          if (navId == 99) {dispatch(enableAdultMode())}
         }}>
         <FastImage
           style={styles.image}
@@ -208,8 +228,17 @@ const CatagoryHome = ({
   //   setActiveIndex(0);
   // }, [refreshProp]);
 
+  useFocusEffect(
+    useCallback(() => {
+      if (navId == 99){
+        dispatch(showAdultModeDisclaimer())
+      }
+    }, [navId])
+  )
+
   return (
-    <View style={{ width: width }}>
+    <>
+    <View style={{width: width}}>
       <FlatList
         refreshControl={
           <RefreshControl
@@ -220,7 +249,7 @@ const CatagoryHome = ({
         }
         ListHeaderComponent={
           <>
-            {data?.carousel[0] && !refreshProp && (
+            {navId != 99 && data?.carousel[0] && !refreshProp && (
               <View
                 style={{
                   flex: 1,
@@ -254,7 +283,7 @@ const CatagoryHome = ({
               </View>
             )}
             <View>
-              {data && data.class_list && data.class_list.length > 0 && (
+              {navId != 99 && data && data.class_list && data.class_list.length > 0 && (
                 <FlatListSecondary
                   ref={categoryListRef}
                   data={['全部剧集', ...data.class_list]}
@@ -284,13 +313,25 @@ const CatagoryHome = ({
                       <ShowMoreVodButton
                         text={item.type_name}
                         onPress={() => {
-                          navigation.navigate('片库', {
-                            type_id: item.vod_list[0].type_id,
-                          });
+                          console.debug('navid', navId)
+                          if (navId != 99) {
+                            navigation.navigate('片库', {
+                              type_id: item.vod_list[0].type_id,
+                            });
+                          } else {
+                            navigation.navigate('午夜场剧情', {
+                              class: item.vod_list[0].vod_class
+                            });
+                          }
                         }}
                       />
                     </View>
-                    <VodListVertical vods={item.vod_list} />
+                    { navId == 99 
+                    ? // is 午夜场剧情
+                    item?.vod_list && <VodListVertical numOfRows={2} vods={item?.vod_list} minNumPerRow={2} heightToWidthRatio={1/1.414} playerMode='adult' />
+                    : 
+                    item?.vod_list && <VodListVertical vods={item?.vod_list}/>
+                  }
                   </View>
                 ))}
             </View>
@@ -301,10 +342,10 @@ const CatagoryHome = ({
         windowSize={3}
         maxToRenderPerBatch={3}
         renderItem={listItem}
-        contentContainerStyle={{ paddingBottom: 60 }}
+        contentContainerStyle={{paddingBottom: 60}}
         removeClippedSubviews={true}
         ListFooterComponent={
-          <View style={{ ...styles.loading }}>
+          <View style={{...styles.loading}}>
             <Text
               style={{
                 ...textVariants.subBody,
@@ -315,8 +356,23 @@ const CatagoryHome = ({
             </Text>
           </View>
         }
+        onEndReachedThreshold={0.5}
       />
     </View>
+    {navId == 99 &&
+      <EighteenPlusOverlay
+          handleAccept={() => {
+            dispatch(acceptOverEighteen())
+          }}
+          handleReject={() => {
+            navigation.navigate('首页', {
+              screen: screenState.lastSeenNavName
+            })
+          }}
+        />
+    
+    }
+    </>
   );
 };
 

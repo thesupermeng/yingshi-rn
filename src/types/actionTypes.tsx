@@ -10,7 +10,8 @@ export interface VodActionType {
     timeWatched?: number,
     episodeWatched?: number
     fromMiniVodCollectionItemIndex?: number
-    miniVodCollectionItemIndex?: number
+    miniVodCollectionItemIndex?: number,
+    isAdultVideo?: boolean,
 }
 
 export interface FavoriteVodActionType {

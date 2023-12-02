@@ -27,7 +27,7 @@ import FastImage from "react-native-fast-image";
 import FastForwardProgressIcon from "../../../static/images/fastforwardProgress.svg";
 import RewindProgressIcon from "../../../static/images/rewindProgress.svg";
 
-import { incrementSportWatchTime, setFullscreenState } from "../../redux/actions/screenAction";
+import { incrementSportWatchTime, setFullscreenState, showAdultModeVip } from "../../redux/actions/screenAction";
 
 import {
   LiveTVStationItem,
@@ -38,7 +38,7 @@ import VideoWithControls from "./videoWithControls";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../../hooks/hooks";
 import { screenModel } from "../../types/screenType";
-import { NON_VIP_STREAM_TIME_SECONDS } from "../../utility/constants";
+import { ADULT_MODE_PREVIEW_DURATION, NON_VIP_STREAM_TIME_SECONDS } from "../../utility/constants";
 import { userModel } from "../../types/userType";
 
 interface Props {
@@ -149,6 +149,8 @@ export default forwardRef<VideoRef, Props>(
 
     // New state to keep track of app's background/foreground status
     const [isInBackground, setIsInBackground] = useState(false);
+    
+    const disableSeek = useRef(false)
 
     useImperativeHandle(ref, () => ({
       setPause: (pauseVideo: boolean) => {
@@ -332,6 +334,7 @@ export default forwardRef<VideoRef, Props>(
     };
 
     const onSeek = (time: number) => {
+      if (disableSeek.current === true) return
       hideSeekProgress();
       time = Math.min(Math.max(time, 0), duration);
       try {
@@ -363,6 +366,7 @@ export default forwardRef<VideoRef, Props>(
     // };
 
     const onSeekGesture = (time: number) => {
+      if (disableSeek.current === true) return
       if (currentTime < time) {
         setSeekDirection("forward");
       } else {
@@ -374,6 +378,7 @@ export default forwardRef<VideoRef, Props>(
 
 
     const directSeekTo = (targetTime: number) => {
+      if (disableSeek.current === true) return
       hideSeekProgress()
       // Calculate the direction of seeking based on the current and target times
     // const direction = targetTime > currentTime ? 'forward' : 'backward';
@@ -418,6 +423,8 @@ export default forwardRef<VideoRef, Props>(
     };
 
     const onSkip = (time: any) => {
+      if (disableSeek.current === true) return
+
       if (videoPlayerRef?.current) {
         if (time > 0 && isLastForward == false) {
           setIsLastForward(true);
@@ -509,12 +516,34 @@ export default forwardRef<VideoRef, Props>(
       }
     }, [route.name])
 
+    // useEffect(() => { // ! might have a conflict with the previous use effect ^^^^^^^
+    //   if (!isPaused){
+    //     setIsPaused(true)
+    //   }
+    // }, [screenState.adultModeVipShow])
+
+    const isVip = !(Number(userState.userMemberExpired) <=
+                    Number(userState.userCurrentTimestamp) ||
+                    userState.userToken === "")
+
     const pauseSportVideo =
       route.name === "体育详情" &&
       screenState.sportWatchTime > NON_VIP_STREAM_TIME_SECONDS &&
       (Number(userState.userMemberExpired) <=
         Number(userState.userCurrentTimestamp) ||
         userState.userToken === "");
+
+
+
+    useEffect(() => {
+      if (screenState.adultVideoWatchTime > ADULT_MODE_PREVIEW_DURATION && screenState.adultMode && !isVip){
+          dispatch(showAdultModeVip())
+          setIsPaused(true)
+          disableSeek.current = true
+      } else {
+        disableSeek.current = false
+      }
+    }, [currentTime, isPaused])
 
     return (
       <View style={styles.container}>

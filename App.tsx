@@ -59,8 +59,7 @@ import RegengOverlay from "./src/components/modal/regengOverlay";
 
 import {
   ATRNSDK,
-  ATInterstitialRNSDK,
-  ATBannerRNSDK,
+
 } from "./AnyThinkAds/ATReactNativeSDK";
 
 import { TermsAcceptContextProvider } from "./src/contexts/TermsAcceptedContext";
@@ -69,7 +68,10 @@ import { AdsBannerContextProvider } from "./src/contexts/AdsBannerContext";
 import { AdsBannerContextProvider as AdsBannerContextProviderA } from "./srcA/contexts/AdsBannerContext";
 import NetInfo from "@react-native-community/netinfo";
 
+
+
 const topon_channel = "WEB";
+
 // import * as Sentry from "@sentry/react-native";
 
 // Sentry.init({
@@ -244,21 +246,30 @@ let App = () => {
     // queryClient.prefetchInfiniteQuery(["vodPlaylist"], ({ pageParam = 1 }) =>
     //   fetchPlaylist(pageParam)
     // );
-
-    const fetchVods = (page: number) =>
-      fetch(`${API_DOMAIN}miniVod/v2/miniVod?page=${page}&limit=300`)
-        .then((response) => response.json())
-        .then((json: MiniVideoResponseType) => {
-          return json.data.List;
-        });
-
     type MiniVideoResponseType = {
       data: {
         List: Array<MiniVideo>;
       };
     };
-    queryClient.prefetchInfiniteQuery(["watchAnytime"], ({ pageParam = 1 }) =>
+    
+    const fetchVods = (page: number) =>
+      fetch(`${API_DOMAIN_TEST}miniVod/v2/miniVod?page=${page}&limit=300`)
+        .then((response) => response.json())
+        .then((json: MiniVideoResponseType) => {
+          return json.data.List;
+        });
+    const fetchAdultVods = (page: number) =>
+    fetch(`${API_DOMAIN_TEST}miniSVod/v1/miniSVod?page=${page}&limit=300`)
+      .then((response) => response.json())
+      .then((json: MiniVideoResponseType) => {
+        return json.data.List;
+      });
+
+    queryClient.prefetchInfiniteQuery(["watchAnytime", "normal"], ({ pageParam = 1 }) =>
       fetchVods(pageParam)
+    );
+    queryClient.prefetchInfiniteQuery(["watchAnytime", "adult"], ({ pageParam = 1 }) =>
+      fetchAdultVods(pageParam)
     );
 
     // queryClient.prefetchQuery({
@@ -341,27 +352,29 @@ let App = () => {
 
   return (
     <View style={{ flex: 1, backgroundColor: "#161616" }}>
-      <TermsAcceptContextProviderA>
-        <TermsAcceptContextProvider>
-          <QueryClientProvider client={queryClient}>
-            <Provider store={store}>
-              <PersistGate loading={null} persistor={persistor}>
-                <AdsBannerContextProviderA>
-                  <AdsBannerContextProvider>
-                    <GestureHandlerRootView style={{ flex: 1 }}>
-                      <BottomSheetModalProvider>
-                        <MainNav />
-                      </BottomSheetModalProvider>
-                    </GestureHandlerRootView>
-                  </AdsBannerContextProvider>
-                </AdsBannerContextProviderA>
-              </PersistGate>
-              {showRegengOverlay && <RegengOverlay />}
-            </Provider>
-          </QueryClientProvider>
-        </TermsAcceptContextProvider>
-      </TermsAcceptContextProviderA>
+    <TermsAcceptContextProviderA>
+      <TermsAcceptContextProvider>
+        <QueryClientProvider client={queryClient}>
+          <Provider store={store}>
+            <PersistGate loading={null} persistor={persistor}>
+              <AdsBannerContextProviderA>
+                <AdsBannerContextProvider>
+                  <GestureHandlerRootView style={{ flex: 1 }}>
+                    <BottomSheetModalProvider>
+                    <MainNav />
+                    </BottomSheetModalProvider>
+                  </GestureHandlerRootView>
+                </AdsBannerContextProvider>
+              </AdsBannerContextProviderA>
+            </PersistGate>
+            {showRegengOverlay && <RegengOverlay />}
+          </Provider>
+        </QueryClientProvider>
+      </TermsAcceptContextProvider>
+    </TermsAcceptContextProviderA>
+
     </View>
+
   );
 };
 

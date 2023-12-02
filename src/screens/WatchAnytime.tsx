@@ -9,7 +9,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { StyleSheet } from 'react-native';
 import { MiniVideo } from '../types/ajaxTypes';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
-import { API_DOMAIN } from '../utility/constants';
+import { API_DOMAIN, API_DOMAIN_TEST } from '../utility/constants';
 import MiniVideoList from '../components/videoPlayer/miniVodList';
 import { useFocusEffect, useIsFocused, withNavigationFocus } from '@react-navigation/native';
 import NoConnection from './../components/common/noConnection';
@@ -17,6 +17,8 @@ import NetInfo from '@react-native-community/netinfo';
 import { SettingsReducerState } from '../redux/reducers/settingsReducer';
 import { useAppSelector } from '../hooks/hooks';
 import { RootState } from '../redux/store';
+import EighteenPlusControls from '../components/adultVideo/eighteenPlusControls';
+import { screenModel } from '../types/screenType';
 import useAnalytics from '../hooks/useAnalytics';
 
 type MiniVideoResponseType = {
@@ -43,13 +45,28 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
         ({ settingsReducer }: RootState) => settingsReducer
     );
 
+    const screenState: screenModel = useAppSelector(
+        ({screenReducer}) => screenReducer
+      )
+
+    const {adultMode: adultModeGlobal, watchAnytimeAdultMode} = screenState; 
+    const adultMode = adultModeGlobal && watchAnytimeAdultMode 
+
+    const fetchMode = adultMode ? "adult" : "normal"
+    const apiEndpoint = adultMode ? `${API_DOMAIN_TEST}miniSVod/v1/miniSVod` : `${API_DOMAIN_TEST}miniVod/v2/miniVod`
+    const afterInitialLoad = useRef(false);
+
     // ========== for analytics - start ==========
     const { watchAnytimeViewsAnalytics } = useAnalytics();
 
+    // ========== for analytics - start ==========
     useEffect(() => {
-        watchAnytimeViewsAnalytics();
-    }, [])
+        watchAnytimeViewsAnalytics({
+            isXmode: adultMode,
+        });
+    }, [adultMode])
     // ========== for analytics - end ==========
+
 
     // Add an event listener to the navigation object for the tab press event
     useEffect(() => {
@@ -87,15 +104,15 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
     const [flattenedVideos, setFlattenedVideos] = useState(Array<MiniVideo>);
     const LIMIT = 300;
     const fetchVods = (page: number) => fetch(
-        `${API_DOMAIN}miniVod/v2/miniVod?page=${page}&limit=${LIMIT}`,
+        `${apiEndpoint}?page=${page}&limit=${LIMIT}`,
     )
         .then(response => response.json())
         .then((json: MiniVideoResponseType) => {
             return json.data.List
         })
 
-    const { data: videos, isSuccess, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching, refetch } =
-        useInfiniteQuery(['watchAnytime'], ({ pageParam = 1 }) => fetchVods(pageParam), {
+    const { data: videos, isSuccess, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching, refetch, remove } =
+        useInfiniteQuery(['watchAnytime', fetchMode], ({ pageParam = 1 }) => fetchVods(pageParam), {
             getNextPageParam: (lastPage, allPages) => {
                 if (lastPage === null) {
                     return undefined;
@@ -156,6 +173,7 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
             <View style={{ position: 'absolute', top: 0, left: 0, padding: 20, zIndex: 50, width: '100%', flexDirection: 'row', alignItems: 'center' }}>
                 <Text style={{ color: '#FFF', fontSize: 20 }}>随心看</Text>
             </View>
+            <EighteenPlusControls/>
             {!isOffline &&
                 <MiniVideoList
                     ref={miniVodRef}

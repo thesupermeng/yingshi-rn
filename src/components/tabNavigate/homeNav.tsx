@@ -1,8 +1,11 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { useTheme } from "@react-navigation/native";
-import { useCallback } from "react";
+import { useCallback, useRef } from "react";
 import { Dimensions, StyleSheet, Text, View } from "react-native";
 import FastImage from "react-native-fast-image";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { hideAdultModeDisclaimer, showAdultModeDisclaimer, updateLastSeenNavName } from "../../redux/actions/screenAction";
+import { screenModel } from "../../types/screenType";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -15,7 +18,6 @@ interface Props {
   navId:number
 }
 
-
 export default function HomeNav({
   tabList,
   tabChildren,
@@ -24,19 +26,17 @@ export default function HomeNav({
   onTabSwipe,
   navId,
 }: Props) {
-  const { colors, textVariants } = useTheme();
+
+  const {colors, textVariants} = useTheme();
+  const dispatch = useAppDispatch();
 
   const renderTab = useCallback((tab: any, i: any) => (
     <Tab.Screen
       key={tab.id}
       name={tab.name}
-      listeners={{
-        tabPress: e => onTabPress(e.target),
-        swipeEnd: _ => onTabSwipe(i, tab),
-      }}
       options={() => ({
         tabBarLabel: ({ focused, color }) =>
-        tab.id  == navId ?  (
+        tab.id == navId ?  (
             <Text
               style={{
                 ...styles.textStyles,
@@ -59,7 +59,25 @@ export default function HomeNav({
             </Text>
           ),
       })}
-      children={() => tabChildren(tab, i)}
+
+      children={() => tabChildren(tab, i)} 
+      listeners={{
+        tabPress: e => onTabPress(e.target),
+ 
+        swipeEnd: e => {
+          onTabSwipe(i, tab); 
+          if (tab.id == 99){
+            dispatch(showAdultModeDisclaimer())
+          }
+        }, 
+        focus: e => {
+          if (tab.id != 99){
+            dispatch(showAdultModeDisclaimer())
+            dispatch(updateLastSeenNavName(tab.name))
+            // dispatch(hideAdultModeDisclaimer())
+          }
+        }
+      }}
     />
   ), [tabChildren])
 

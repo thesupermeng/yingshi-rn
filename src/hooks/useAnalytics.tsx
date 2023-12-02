@@ -8,6 +8,8 @@ enum EventId {
     // WatchAnytime
     WatchAnytime_views = 'WatchAnytime-Views',
     WatchAnytime_video_view_times = 'WatchAnytime-video_view_times',
+    WatchAnytime_x_views = 'WatchAnytime-X_views',
+    WatchAnytime_x_video_view_times = 'WatchAnytime-X_video_view_times',
     WatchAnytime_playlist_clicks = 'WatchAnytime-playlist_clicks',
     WatchAnytime_video_clicks = 'WatchAnytime-video_clicks',
 
@@ -45,6 +47,8 @@ enum EventId {
     // Plays
     Plays_views = 'Play-views',
     Plays_plays_times = 'Play-plays_times',
+    Plays_X_views = 'Play-X_views',
+    Plays_X_plays_times = 'Play-X_plays_times',
     Plays_share_clicks = 'Play-share_clicks',
 }
 
@@ -71,20 +75,37 @@ const useAnalytics = ({ showLog }: { showLog: boolean } = { showLog: false }) =>
 
 
     // ============================== WatchAnytime ==============================
-    const watchAnytimeViewsAnalytics = () => {
-        AnalyticsUtil.onEventWithMap(EventId.WatchAnytime_views, {});
+    const watchAnytimeViewsAnalytics = ({ isXmode = false }: { isXmode: boolean } = { isXmode: false }) => {
+        let evendId: string = EventId.WatchAnytime_views;
 
-        if (showLog) console.log('trigger event id:', EventId.WatchAnytime_views);
+        if (isXmode) {
+            evendId = EventId.WatchAnytime_x_views;
+        }
+
+        AnalyticsUtil.onEventWithMap(evendId, {});
+
+        if (showLog) console.log('trigger event id:', evendId);
     }
 
-    const watchAnytimeVideoViewTimesAnalytics = ({ userId, tolVideoViews }: { userId: string, tolVideoViews: number }) => {
+    const watchAnytimeVideoViewTimesAnalytics = ({ userId, vod_id, isXmode }: { userId: string, vod_id: string, isXmode: boolean }) => {
+        let evendId: string = EventId.WatchAnytime_video_view_times;
+
+        if (isXmode) {
+            evendId = EventId.WatchAnytime_x_video_view_times;
+        }
+
         // add prefix
-        userId = 'userId-' + userId;
-        AnalyticsUtil.onEventWithMap(EventId.WatchAnytime_video_view_times, {
-            [userId]: tolVideoViews,
+        if (userId !== '') {
+            userId = 'userId-' + userId;
+        } else {
+            userId = 'guest';
+        }
+
+        AnalyticsUtil.onEventWithMap(evendId, {
+            [userId]: vod_id,
         });
 
-        if (showLog) console.log('trigger event id:', EventId.WatchAnytime_video_view_times);
+        if (showLog) console.log('trigger event id:', evendId);
     }
 
     const watchAnytimeVideoClicksAnalytics = () => {
@@ -248,22 +269,34 @@ const useAnalytics = ({ showLog }: { showLog: boolean } = { showLog: false }) =>
 
 
     // ============================== Plays ==============================
-    const playsViewsAnalytics = ({ vod_id, vod_name }: { vod_id: string, vod_name: string }) => {
-        AnalyticsUtil.onEventWithMap(EventId.Plays_views, {
+    const playsViewsAnalytics = ({ vod_id, vod_name, isXmode = false }: { vod_id: string, vod_name: string, isXmode: boolean }) => {
+        let eventId: string = EventId.Plays_views;
+
+        if (isXmode) {
+            eventId = EventId.Plays_X_views;
+        }
+
+        AnalyticsUtil.onEventWithMap(eventId, {
             'vod_id': vod_id,
             'vod_name': vod_name,
         });
 
-        if (showLog) console.log('trigger event id:', EventId.Plays_views);
+        if (showLog) console.log('trigger event id:', eventId);
     }
 
-    const playsPlaysTimesAnalytics = ({ vod_id, vod_name }: { vod_id: string, vod_name: string }) => {
-        AnalyticsUtil.onEventWithMap(EventId.Plays_plays_times, {
+    const playsPlaysTimesAnalytics = ({ vod_id, vod_name, isXmode = false }: { vod_id: string, vod_name: string, isXmode: boolean }) => {
+        let eventId: string = EventId.Plays_plays_times;
+
+        if (isXmode) {
+            eventId = EventId.Plays_X_plays_times;
+        }
+
+        AnalyticsUtil.onEventWithMap(eventId, {
             'vod_id': vod_id,
             'vod_name': vod_name,
         });
 
-        if (showLog) console.log('trigger event id:', EventId.Plays_plays_times);
+        if (showLog) console.log('trigger event id:', eventId);
     }
 
     const playsShareClicksAnalytics = () => {

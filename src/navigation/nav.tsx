@@ -76,13 +76,20 @@ import { API_DOMAIN, UMENG_CHANNEL } from "../../src/utility/constants";
 import { BottomNavTabsResponse } from "../../src/types/ajaxTypes";
 import { YSConfig } from "../../ysConfig";
 import {
+  disableAdultMode,
+  disableWatchAnytimeAdultMode,
+  hideAdultModeDisclaimer,
+  hideAdultModeVip,
   hideLoginAction,
   hideRegisterAction,
   interstitialClose,
   interstitialShow,
   removeScreenAction,
+  resetAdultVideoWatchTime,
   resetBottomSheetAction,
+  resetOverEighteen,
   resetSportWatchTime,
+  showAdultModeDisclaimer,
 } from "../redux/actions/screenAction";
 import { Dialog } from "@rneui/themed";
 // import FastImage from "react-native-fast-image";
@@ -113,6 +120,7 @@ import { VipDetails } from "../components/vip/vipDetails";
 
 import { ATInterstitialRNSDK } from "./../../AnyThinkAds/ATReactNativeSDK";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
+import AdultVideoList from "../screens/Playlist/AdultVideoList";
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -140,6 +148,16 @@ export default () => {
   const HomeTabScreen = useCallback(() => {
     return (
       <HomeTab.Navigator
+        screenListeners={{
+          tabPress: e => {
+            if (e.target?.includes('随心看')){
+              dispatch(hideAdultModeDisclaimer())
+            }
+            if (e.target?.includes('首页')){
+              dispatch(showAdultModeDisclaimer())
+            }
+          }
+        }}
         screenOptions={({ route }) => ({
           headerShown: false,
           tabBarStyle:
@@ -257,8 +275,13 @@ export default () => {
           <HomeTab.Screen name="随心看" component={WatchAnytime} />
           <HomeTab.Screen name="体育" component={MatchesScreen} />
           <HomeTab.Screen name="播单" component={PlaylistScreen} />
-          <HomeTab.Screen name="我的" component={ProfileScreen} />
+
+          <HomeTab.Screen name="我的" component={ProfileScreen} /> 
+        </>
+
+       
         </> */}
+
       </HomeTab.Navigator>
     );
   }, []);
@@ -520,6 +543,11 @@ export default () => {
   useEffect(() => {
     dispatch(resetSportWatchTime());
     initInterstitialAdListener();
+    dispatch(resetAdultVideoWatchTime())
+    dispatch(disableAdultMode())
+    dispatch(hideAdultModeVip()) 
+    dispatch(disableWatchAnytimeAdultMode())
+    // dispatch(resetOverEighteen())
   }, []);
 
   return (
@@ -565,7 +593,7 @@ export default () => {
           <Stack.Screen
             name="播放"
             component={PlayScreen}
-            initialParams={{ vod_id: 1 }}
+            initialParams={{ vod_id: 1, player_mode: 'normal' }}
             options={{ orientation: "all" }}
           />
           <Stack.Screen name="播放历史" component={HistoryScreen} />
@@ -639,6 +667,11 @@ export default () => {
             name="VIP明细"
             component={VipDetails}
             options={{ orientation: "portrait" }}
+          />
+          <Stack.Screen
+            name="午夜场剧情"
+            component={AdultVideoList}
+            options={{ orientation: 'portrait' }}
           />
         </Stack.Navigator>
         {settingsReducer.appOrientation === "PORTRAIT" && ( // only show if portrait
