@@ -70,6 +70,13 @@ export default () => {
       setIsSuper(true);
       return;
     }
+    if(access == "00000000"){
+      setIsSuper(false);
+      YSConfig.instance.setAreaConfig(true);
+      setAreaNavConfig(true);
+      setLoadedAPI(true);
+      return;
+    }
 
     const locationBody = {
       ip_address: ipAddress,

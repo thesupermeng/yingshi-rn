@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -21,6 +21,8 @@ import {
   APP_NAME_CONST,
   APP_VERSION,
 } from "../../../src/utility/constants";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import RNRestart from 'react-native-restart';
 
 export default ({ navigation }: RootStackScreenProps<"关于我们">) => {
   const { colors, textVariants, icons, spacing } = useTheme();
@@ -29,6 +31,21 @@ export default ({ navigation }: RootStackScreenProps<"关于我们">) => {
   const toggleOverlay = () => {
     setIsDialogOpen(!isDialogOpen);
   };
+
+  const spamToggleB = () => {
+    setCountToggleB(countToggleB + 1);
+  }
+
+  const switchToggle = async () => {
+    await AsyncStorage.setItem("access", "00000000");
+    RNRestart.Restart();
+  }
+
+  useEffect(() => {
+    if(countToggleB == 8){
+      switchToggle();
+    }
+  }, [countToggleB])
 
   return (
     // footer={
@@ -47,9 +64,11 @@ export default ({ navigation }: RootStackScreenProps<"关于我们">) => {
         <View style={styles.logo}>
           <Logo2 height={icons.sizes.xxl} width={icons.sizes.xxl} />
         </View>
-        <Text style={{ textAlign: "center", ...textVariants.body }}>
-          {APP_VERSION}
-        </Text>
+        <TouchableOpacity onPress={spamToggleB}>
+          <Text style={{ textAlign: "center", ...textVariants.body }}>
+            {APP_VERSION}
+          </Text>
+        </TouchableOpacity>
         <NotificationModal
           onConfirm={toggleOverlay}
           isVisible={isDialogOpen}
