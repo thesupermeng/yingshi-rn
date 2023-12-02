@@ -849,7 +849,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                       <Text
                         style={{ ...textVariants.subBody, color: colors.muted }}
                       >
-                        {`更新：${vod
+                        {`更新：${vod  && vod.vod_time_add
                           ? new Date(vod?.vod_time_add * 1000)
                             .toISOString().slice(0, 10)
                             .replace(/\//g, "-")
