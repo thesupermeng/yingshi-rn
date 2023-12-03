@@ -141,7 +141,7 @@ export default forwardRef<VideoRef, Props>(
     const userState: userModel = useAppSelector(
       ({ userReducer }) => userReducer
     );
-    const bufferRef = useRef(false);
+    const bufferRef = useRef(true);
     const onBuffer = (bufferObj: any) => {
       if (!bufferObj.isBuffering) {
         accumulatedSkip.current = 0;
