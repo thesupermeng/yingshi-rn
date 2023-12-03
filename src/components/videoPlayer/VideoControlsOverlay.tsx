@@ -21,6 +21,7 @@ import FastImage from '../common/customFastImage';
 import { screenModel } from '../../types/screenType';
 import { useAppSelector } from '../../hooks/hooks';
 import AdultModeCountdownIndicator from '../adultVideo/adultModeCountdownIndicator';
+import { UMENG_CHANNEL } from '../../utility/constants';
 
 type Props = {
   videoUrl: string;
@@ -464,6 +465,7 @@ export default forwardRef<RefHandler, Props>(({
             </>
         )
       }
+  {UMENG_CHANNEL != 'GOOGLE_PLAY' &&
       <AdultModeCountdownIndicator
         containerStyle={{
           position: 'absolute', 
@@ -471,6 +473,7 @@ export default forwardRef<RefHandler, Props>(({
           left: 0
         }}
       />
+}
     </View>
   );
 });
