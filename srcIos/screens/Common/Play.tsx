@@ -551,8 +551,9 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const handleSearchVideo = useCallback(async () => {
     const searchTerm = vod?.vod_name ? vod?.vod_name : "";
     const encodedSearchTerm = encodeURIComponent(searchTerm);
-    const url = `https://www.bing.com/search?q=${encodedSearchTerm}`;
-
+    // const url = `https://www.bing.com/search?q=${encodedSearchTerm}`;
+    // const url = `https://www.bing.com/search?q=%E6%88%91%E7%9A%84%E5%8A%A9%E7%90%86%E4%B8%8D%E7%AE%80%E5%8D%95`;
+    const url = `https://www.bing.com/search?q=${encodedSearchTerm}&form=QBLH&sp=-1&ghc=1&lq=0&pq=a&sc=10-1&qs=n&sk=&cvid=F4E27DDDEE8343F082F994097EF7592A&ghsh=0&ghacc=0&ghpl=`;
     try {
       if (await InAppBrowser.isAvailable()) {
         await InAppBrowser.open(url);
