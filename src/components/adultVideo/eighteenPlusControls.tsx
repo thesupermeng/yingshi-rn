@@ -1,10 +1,16 @@
-
 import { Divider } from "@rneui/base";
 import { ReactNode, useCallback, useEffect, useState } from "react";
-import { StyleProp, StyleSheet, Text, TextStyle, View, ViewStyle } from "react-native";
+import {
+  StyleProp,
+  StyleSheet,
+  Text,
+  TextStyle,
+  View,
+  ViewStyle,
+} from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { ViewProps } from "react-native-svg/lib/typescript/fabric/utils";
-import { Switch } from "react-native-switch"
+import { Switch } from "react-native-switch";
 import WatchAnytimeVipModal from "../modal/adultVideoVipModal";
 import EighteenPlusOverlay from "../modal/overEighteenOverlay";
 import CountdownIndicator from "../button/countdownIndicator";
@@ -13,21 +19,31 @@ import AdultModeSwitch from "./adultModeSwitch";
 import { screenModel } from "../../types/screenType";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { RootState } from "../../redux/store";
-import { acceptOverEighteen, disableAdultMode, enableAdultMode, enableWatchAnytimeAdultMode, hideAdultModeDisclaimer, hideAdultModeVip, incrementAdultVideoWatchTime } from "../../redux/actions/screenAction";
+import {
+  acceptOverEighteen,
+  disableAdultMode,
+  enableAdultMode,
+  enableWatchAnytimeAdultMode,
+  hideAdultModeDisclaimer,
+  hideAdultModeVip,
+  incrementAdultVideoWatchTime,
+} from "../../redux/actions/screenAction";
 import { userModel } from "../../types/userType";
-interface Props {
-  
-}
+import { UMENG_CHANNEL } from "../../utility/constants";
+interface Props {}
 
 const eighteenPlusControls = ({}: Props) => {
   const screenState: screenModel = useAppSelector(
-    ({screenReducer}) => screenReducer
-  )
-  const userState: userModel = useAppSelector(
-    ({userReducer}) => userReducer
-  )
-  const {adultModeVipShow, adultModeDisclaimerShow, adultMode, watchAnytimeAdultMode} = screenState
-  const dispatch = useAppDispatch()
+    ({ screenReducer }) => screenReducer
+  );
+  const userState: userModel = useAppSelector(({ userReducer }) => userReducer);
+  const {
+    adultModeVipShow,
+    adultModeDisclaimerShow,
+    adultMode,
+    watchAnytimeAdultMode,
+  } = screenState;
+  const dispatch = useAppDispatch();
   // const isVip = !(Number(userState.userMemberExpired) <=
   //                 Number(userState.userCurrentTimestamp) ||
   //                 userState.userToken === "")
@@ -43,52 +59,56 @@ const eighteenPlusControls = ({}: Props) => {
   // }, [adultMode])
 
   return (
-    <View style={{...styles.container, height: (adultModeVipShow || adultModeDisclaimerShow ? '100%' : 'auto')}}>
-
-      {watchAnytimeAdultMode && <WatchAnytimeVipModal/> }   
-      <AdultModeSwitch 
-      switchStyle={styles.switch}        
-      />
-      {watchAnytimeAdultMode && 
+    <View
+      style={{
+        ...styles.container,
+        height: adultModeVipShow || adultModeDisclaimerShow ? "100%" : "auto",
+      }}
+    >
+      {watchAnytimeAdultMode && <WatchAnytimeVipModal />}
+      {UMENG_CHANNEL != "GOOGLE_PLAY" && (
+        <AdultModeSwitch switchStyle={styles.switch} />
+      )}
+      {watchAnytimeAdultMode && UMENG_CHANNEL != "GOOGLE_PLAY" && (
         <AdultModeCountdownIndicator
-        containerStyle={{
-          position: 'absolute', 
-          top: 70, 
-          right: 20, 
-          flex: 1
-        }}
-      />}
+          containerStyle={{
+            position: "absolute",
+            top: 70,
+            right: 20,
+            flex: 1,
+          }}
+        />
+      )}
       <EighteenPlusOverlay
         handleAccept={() => {
-          console.debug('accepted 18+')
-          dispatch(enableAdultMode())
-          dispatch(acceptOverEighteen())
-          dispatch(hideAdultModeDisclaimer())
-         // dispatch(hideAdultModeVip())
-          dispatch(enableWatchAnytimeAdultMode())
-          }}
+          console.debug("accepted 18+");
+          dispatch(enableAdultMode());
+          dispatch(acceptOverEighteen());
+          dispatch(hideAdultModeDisclaimer());
+          // dispatch(hideAdultModeVip())
+          dispatch(enableWatchAnytimeAdultMode());
+        }}
         handleReject={() => {
-          console.debug('rejected 18+')
-          dispatch(disableAdultMode())
-          dispatch(hideAdultModeDisclaimer())
+          console.debug("rejected 18+");
+          dispatch(disableAdultMode());
+          dispatch(hideAdultModeDisclaimer());
         }}
       />
     </View>
   );
+};
 
-}
-
-const styles= StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
-    zIndex: 100, 
-    width: '100%',
-    position: 'absolute'
-  }, 
+    zIndex: 100,
+    width: "100%",
+    position: "absolute",
+  },
   switch: {
-    position: 'absolute',
-    top: 25, 
-    right: 20
-  }
-})
+    position: "absolute",
+    top: 25,
+    right: 20,
+  },
+});
 
-export default eighteenPlusControls; 
+export default eighteenPlusControls;
