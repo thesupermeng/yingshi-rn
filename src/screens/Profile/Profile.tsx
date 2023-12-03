@@ -198,7 +198,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                 flexDirection: "row",
               }}
             >
-              {userState.userToken == "" ?
+              {userState.userToken == "" || Platform.OS === "android" ?
                 <ProfileIcon
                   style={{ color: colors.button, width: 18, height: 18 }}
                 />

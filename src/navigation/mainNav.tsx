@@ -7,6 +7,7 @@ import FastImage from "../components/common/customFastImage";
 import { NetworkInfo } from "react-native-network-info";
 import Nav from "../../src/navigation/nav";
 import NavIos from "../../srcIos/navigation/nav";
+import NavA from "../../srcA/navigation/nav";
 import axios from "axios";
 import {
   API_DOMAIN,
@@ -28,7 +29,6 @@ export default () => {
   const [isSuper, setIsSuper] = useState(false);
 
   const getNav = async () => {
-
     const res = await Api.call(
       Url.getConfig,
       { channel: Config.channelId },
@@ -66,11 +66,11 @@ export default () => {
     }
 
     const access = await AsyncStorage.getItem("access");
-    if(access == "11111111"){
+    if (access == "11111111") {
       setIsSuper(true);
       return;
     }
-    if(access == "22222222"){
+    if (access == "22222222") {
       setIsSuper(false);
       YSConfig.instance.setAreaConfig(false);
       setAreaNavConfig(false);
@@ -85,7 +85,7 @@ export default () => {
       mobile_os: Platform.OS,
       product: APP_NAME_CONST + "-" + Platform.OS.toUpperCase(),
       mobile_model: "HUAWEIP20",
-     // ab_switch: true
+      // ab_switch: true
     };
 
     const locationResponse = await fetch(`${API_DOMAIN}location/v1/info`, {
@@ -160,8 +160,10 @@ export default () => {
                 // B面的B面
                 <Nav />
               ) : (
-                // B面里的A面
-                <NavIos />
+                <>
+                  {Platform.OS === "ios" && <NavIos />}
+                  {Platform.OS === "android" && <NavA />}
+                </>
               )}
             </>
           )}

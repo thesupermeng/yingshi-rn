@@ -57,18 +57,15 @@ import CodePush from "react-native-code-push";
 import { YSConfig } from "./ysConfig";
 import RegengOverlay from "./src/components/modal/regengOverlay";
 
-import {
-  ATRNSDK,
-
-} from "./AnyThinkAds/ATReactNativeSDK";
+import { ATRNSDK } from "./AnyThinkAds/ATReactNativeSDK";
 
 import { TermsAcceptContextProvider } from "./src/contexts/TermsAcceptedContext";
-import { TermsAcceptContextProvider as TermsAcceptContextProviderA } from "./srcIos/contexts/TermsAcceptedContext";
+import { TermsAcceptContextProvider as TermsAcceptContextProviderIos } from "./srcIos/contexts/TermsAcceptedContext";
+import { TermsAcceptContextProvider as TermsAcceptContextProviderA } from "./srcA/contexts/TermsAcceptedContext";
+
 import { AdsBannerContextProvider } from "./src/contexts/AdsBannerContext";
 import { AdsBannerContextProvider as AdsBannerContextProviderA } from "./srcA/contexts/AdsBannerContext";
 import NetInfo from "@react-native-community/netinfo";
-
-
 
 const topon_channel = "WEB";
 
@@ -201,7 +198,6 @@ let App = () => {
           }),
     });
 
-
     queryClient.prefetchQuery({
       queryKey: ["HomePage", 1000],
       queryFn: () =>
@@ -251,7 +247,7 @@ let App = () => {
         List: Array<MiniVideo>;
       };
     };
-    
+
     const fetchVods = (page: number) =>
       fetch(`${API_DOMAIN_TEST}miniVod/v2/miniVod?page=${page}&limit=300`)
         .then((response) => response.json())
@@ -259,17 +255,19 @@ let App = () => {
           return json.data.List;
         });
     const fetchAdultVods = (page: number) =>
-    fetch(`${API_DOMAIN_TEST}miniSVod/v1/miniSVod?page=${page}&limit=300`)
-      .then((response) => response.json())
-      .then((json: MiniVideoResponseType) => {
-        return json.data.List;
-      });
+      fetch(`${API_DOMAIN_TEST}miniSVod/v1/miniSVod?page=${page}&limit=300`)
+        .then((response) => response.json())
+        .then((json: MiniVideoResponseType) => {
+          return json.data.List;
+        });
 
-    queryClient.prefetchInfiniteQuery(["watchAnytime", "normal"], ({ pageParam = 1 }) =>
-      fetchVods(pageParam)
+    queryClient.prefetchInfiniteQuery(
+      ["watchAnytime", "normal"],
+      ({ pageParam = 1 }) => fetchVods(pageParam)
     );
-    queryClient.prefetchInfiniteQuery(["watchAnytime", "adult"], ({ pageParam = 1 }) =>
-      fetchAdultVods(pageParam)
+    queryClient.prefetchInfiniteQuery(
+      ["watchAnytime", "adult"],
+      ({ pageParam = 1 }) => fetchAdultVods(pageParam)
     );
 
     // queryClient.prefetchQuery({
@@ -352,29 +350,29 @@ let App = () => {
 
   return (
     <View style={{ flex: 1, backgroundColor: "#161616" }}>
-    <TermsAcceptContextProviderA>
-      <TermsAcceptContextProvider>
-        <QueryClientProvider client={queryClient}>
-          <Provider store={store}>
-            <PersistGate loading={null} persistor={persistor}>
-              <AdsBannerContextProviderA>
-                <AdsBannerContextProvider>
-                  <GestureHandlerRootView style={{ flex: 1 }}>
-                    <BottomSheetModalProvider>
-                    <MainNav />
-                    </BottomSheetModalProvider>
-                  </GestureHandlerRootView>
-                </AdsBannerContextProvider>
-              </AdsBannerContextProviderA>
-            </PersistGate>
-            {showRegengOverlay && <RegengOverlay />}
-          </Provider>
-        </QueryClientProvider>
-      </TermsAcceptContextProvider>
-    </TermsAcceptContextProviderA>
-
+      <TermsAcceptContextProviderIos>
+        <TermsAcceptContextProviderA>
+          <TermsAcceptContextProvider>
+            <QueryClientProvider client={queryClient}>
+              <Provider store={store}>
+                <PersistGate loading={null} persistor={persistor}>
+                  <AdsBannerContextProviderA>
+                    <AdsBannerContextProvider>
+                      <GestureHandlerRootView style={{ flex: 1 }}>
+                        <BottomSheetModalProvider>
+                          <MainNav />
+                        </BottomSheetModalProvider>
+                      </GestureHandlerRootView>
+                    </AdsBannerContextProvider>
+                  </AdsBannerContextProviderA>
+                </PersistGate>
+                {showRegengOverlay && <RegengOverlay />}
+              </Provider>
+            </QueryClientProvider>
+          </TermsAcceptContextProvider>
+        </TermsAcceptContextProviderA>
+      </TermsAcceptContextProviderIos>
     </View>
-
   );
 };
 
