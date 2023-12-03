@@ -99,92 +99,93 @@ const definedValue = (val: any) => {
 const server = new BridgeServer("http_service", true); // http server for hosting no-ads m3u8
 
 const getNoAdsUri = async (url: string) => {
-  const startTime = new Date().valueOf();
-  const parentUrl = url
-    .split("/")
-    .filter((part) => !part.includes(".m3u8"))
-    .join("/"); // get https://domain/subfolder/subfolder
-  const videoSubfolder = parentUrl
-    .replace("https://", "")
-    .replace("http://", "");
-  // console.log('parent url ', parentUrl)
+  return url;
+  // const startTime = new Date().valueOf();
+  // const parentUrl = url
+  //   .split("/")
+  //   .filter((part) => !part.includes(".m3u8"))
+  //   .join("/"); // get https://domain/subfolder/subfolder
+  // const videoSubfolder = parentUrl
+  //   .replace("https://", "")
+  //   .replace("http://", "");
+  // // console.log('parent url ', parentUrl)
 
-  // const filePath =
-  //   RNFetchBlob.fs.dirs.DocumentDir +
-  //   '/' +
-  //   parentUrl
-  //     .replaceAll(':', '')
-  //     .replaceAll('//', '')
-  //     .replaceAll(/^\s+|\s+$/gm, '')
-  //     .replaceAll('.', '') +
-  //   '/index.m3u8';
+  // // const filePath =
+  // //   RNFetchBlob.fs.dirs.DocumentDir +
+  // //   '/' +
+  // //   parentUrl
+  // //     .replaceAll(':', '')
+  // //     .replaceAll('//', '')
+  // //     .replaceAll(/^\s+|\s+$/gm, '')
+  // //     .replaceAll('.', '') +
+  // //   '/index.m3u8';
 
-  const index = await RNFetchBlob.fetch("GET", url);
-  const masterPlaylistRelativeUrl = index
-    .text()
-    .toString()
-    .split("\n")
-    .filter((txt) => txt.includes(".m3u8"))
-    .at(-1); // get subfolder/subfolder/mixed.m3u8
-  const masterPlaylistUrl = parentUrl + "/" + masterPlaylistRelativeUrl;
+  // const index = await RNFetchBlob.fetch("GET", url);
+  // const masterPlaylistRelativeUrl = index
+  //   .text()
+  //   .toString()
+  //   .split("\n")
+  //   .filter((txt) => txt.includes(".m3u8"))
+  //   .at(-1); // get subfolder/subfolder/mixed.m3u8
+  // const masterPlaylistUrl = parentUrl + "/" + masterPlaylistRelativeUrl;
 
-  const playlistFolder = masterPlaylistRelativeUrl
-    .split("/")
-    .slice(0, -1)
-    .join("/"); // get /subfolder/subfolder/
+  // const playlistFolder = masterPlaylistRelativeUrl
+  //   .split("/")
+  //   .slice(0, -1)
+  //   .join("/"); // get /subfolder/subfolder/
 
-  const playlistContent = (await RNFetchBlob.fetch("GET", masterPlaylistUrl))
-    .text()
-    .toString();
+  // const playlistContent = (await RNFetchBlob.fetch("GET", masterPlaylistUrl))
+  //   .text()
+  //   .toString();
 
-  if (playlistContent.includes("file not found")) return url; // if file not found, return original url
+  // if (playlistContent.includes("file not found")) return url; // if file not found, return original url
 
-  const playlist = playlistContent.split("\n").map((line) => {
-    if (line.endsWith(".ts")) {
-      return parentUrl + "/" + playlistFolder + "/" + line;
-    }
-    return line;
-  });
+  // const playlist = playlistContent.split("\n").map((line) => {
+  //   if (line.endsWith(".ts")) {
+  //     return parentUrl + "/" + playlistFolder + "/" + line;
+  //   }
+  //   return line;
+  // });
 
-  let fragCounter = 0;
-  let adsLine: number[] = [];
+  // let fragCounter = 0;
+  // let adsLine: number[] = [];
 
-  playlist.forEach((line, index) => {
-    if (line.endsWith(".ts")) {
-      const indexTs = line.split("/").at(-1).split(".ts")[0];
-      const indexTsInt = parseInt(
-        indexTs.substring(indexTs.length - index.toString().length)
-      );
-      if (indexTsInt === fragCounter) {
-        fragCounter++;
-      } else {
-        adsLine.push(index - 1);
-        adsLine.push(index);
-      }
-    }
-  });
-  // console.log('ads line', adsLine)
-  const noAdsPlaylistContent = playlist.filter(
-    (_, index) => !adsLine.includes(index)
-  );
+  // playlist.forEach((line, index) => {
+  //   if (line.endsWith(".ts")) {
+  //     const indexTs = line.split("/").at(-1).split(".ts")[0];
+  //     const indexTsInt = parseInt(
+  //       indexTs.substring(indexTs.length - index.toString().length)
+  //     );
+  //     if (indexTsInt === fragCounter) {
+  //       fragCounter++;
+  //     } else {
+  //       adsLine.push(index - 1);
+  //       adsLine.push(index);
+  //     }
+  //   }
+  // });
+  // // console.log('ads line', adsLine)
+  // const noAdsPlaylistContent = playlist.filter(
+  //   (_, index) => !adsLine.includes(index)
+  // );
 
-  // console.log(playlistContent.length, noAdsPlaylistContent.length)
+  // // console.log(playlistContent.length, noAdsPlaylistContent.length)
 
-  server.get(`/${videoSubfolder}/index.m3u8`, async (req, res) => {
-    res.send(
-      200,
-      "application/vnd.apple.mpegurl",
-      noAdsPlaylistContent.join("\n")
-    );
-  });
+  // server.get(`/${videoSubfolder}/index.m3u8`, async (req, res) => {
+  //   res.send(
+  //     200,
+  //     "application/vnd.apple.mpegurl",
+  //     noAdsPlaylistContent.join("\n")
+  //   );
+  // });
 
-  console.debug(
-    "processing took ",
-    (new Date().valueOf() - startTime) / 1000,
-    "s"
-  );
+  // console.debug(
+  //   "processing took ",
+  //   (new Date().valueOf() - startTime) / 1000,
+  //   "s"
+  // );
 
-  return `http://localhost:${PLAY_HTTP_SERVER_PORT}/${videoSubfolder}/index.m3u8`;
+  // return `http://localhost:${PLAY_HTTP_SERVER_PORT}/${videoSubfolder}/index.m3u8`;
 };
 
 const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
@@ -393,7 +394,6 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   }, []);
 
   const localIp = YSConfig.instance.ip;
-
   const apiEndpoint = adultMode ? `${API_DOMAIN_TEST}svod/v1/vod/detail` : `${API_DOMAIN_TEST}vod/v1/vod/detail`
   const fetchVodDetails = useCallback(() =>
     fetch(
@@ -409,7 +409,6 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       .then((response) => response.json())
       .then((json: VodDetailsResponseType) => {
         const isRestricted = json.data[0]?.vod_restricted === 1;
-
         if (isRestricted) {
           videoPlayerRef.current.setPause(true);
           // use setTimeout to prevent video non pause before unmount the screen
