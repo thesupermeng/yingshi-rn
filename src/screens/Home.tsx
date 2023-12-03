@@ -17,6 +17,7 @@ import {
   API_DOMAIN,
   API_DOMAIN_TEST,
   IOS_HOME_PAGE_POP_UP_ADS,
+  UMENG_CHANNEL,
 } from "../utility/constants";
 import CatagoryHome from "../components/container/CatagoryHome";
 import RecommendationHome from "../components/container/RecommendationHome";
@@ -61,10 +62,17 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   );
   const bottomTabHeight = useBottomTabBarHeight();
 
+  let channel = UMENG_CHANNEL;
+
+  if (Platform.OS === "ios")
+  {
+    channel = 'WEB';
+  }
+
   const { data: navOptions, refetch } = useQuery({
     queryKey: ["HomePageNavOptions"],
     queryFn: () =>
-      fetch(`${API_DOMAIN}nav/v1/navItems?channelId=WEB`, {}) //  removed  '+ UMENG_CHANNEL' in url
+      fetch(`${API_DOMAIN}nav/v1/navItems?channelId=${UMENG_CHANNEL}`, {}) //  removed  '+ UMENG_CHANNEL' in url
         .then((response) => response.json())
         .then((json: NavOptionsResponseType) => {
           return json.data;
