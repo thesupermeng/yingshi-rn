@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo, Ref, forwardRef, useImperativeHandle, useCallback, useRef } from 'react';
-import { View, PanResponder, StyleSheet, Dimensions, Text, TouchableOpacity } from 'react-native';
+import { View, PanResponder, StyleSheet, Dimensions, Text, TouchableOpacity, Platform } from 'react-native';
 import MiddleControls from './MiddleControls';
 import BottomControls from './BottomControls';
 import LinearGradient from 'react-native-linear-gradient';
@@ -465,7 +465,7 @@ export default forwardRef<RefHandler, Props>(({
             </>
         )
       }
-  {UMENG_CHANNEL != 'GOOGLE_PLAY' &&
+  {(UMENG_CHANNEL != "GOOGLE_PLAY" || Platform.OS === "ios" ) &&
       <AdultModeCountdownIndicator
         containerStyle={{
           position: 'absolute', 

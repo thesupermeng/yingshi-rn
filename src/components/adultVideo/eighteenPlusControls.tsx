@@ -1,6 +1,7 @@
 import { Divider } from "@rneui/base";
 import { ReactNode, useCallback, useEffect, useState } from "react";
 import {
+  Platform,
   StyleProp,
   StyleSheet,
   Text,
@@ -57,7 +58,7 @@ const eighteenPlusControls = ({}: Props) => {
   //   }
   //   return () => clearInterval(interval)
   // }, [adultMode])
-
+console.log( Platform.OS )
   return (
     <View
       style={{
@@ -66,10 +67,10 @@ const eighteenPlusControls = ({}: Props) => {
       }}
     >
       {watchAnytimeAdultMode && <WatchAnytimeVipModal />}
-      {UMENG_CHANNEL != "GOOGLE_PLAY" && (
+      {(UMENG_CHANNEL != "GOOGLE_PLAY" || Platform.OS === "ios" ) && (
         <AdultModeSwitch switchStyle={styles.switch} />
       )}
-      {watchAnytimeAdultMode && UMENG_CHANNEL != "GOOGLE_PLAY" && (
+      {watchAnytimeAdultMode && (UMENG_CHANNEL != "GOOGLE_PLAY" || Platform.OS === "ios" )&& (
         <AdultModeCountdownIndicator
           containerStyle={{
             position: "absolute",
