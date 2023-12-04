@@ -74,6 +74,7 @@ export default function HomeNav({
 
 
         focus: e => {
+          onTabPress(e.target)
           if (tab.id != 99){
             dispatch(showAdultModeDisclaimer())
             dispatch(updateLastSeenNavName(tab.name))
