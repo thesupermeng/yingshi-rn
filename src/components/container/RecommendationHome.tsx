@@ -37,8 +37,6 @@ import Carousel from "react-native-reanimated-carousel";
 import CarouselPagination from "./CarouselPagination";
 import LoadingIcon from "./../../../static/images/MutedVolume.svg";
 import { Image } from "react-native";
-import {FlashList} from "@shopify/flash-list";
-
 interface NavType {
   id: number;
   name: string;
@@ -264,10 +262,9 @@ const RecommendationHome = ({
   )
 
   return (
-    <View style={{ width: width, height: '100%' }}>
+    <View style={{ width: width }}>
       {data?.live_station_list && data?.live_station_list.length > 0 && (
-        <FlashList
-          estimatedItemSize={100}
+        <FlatList
           refreshControl={
             <RefreshControl
               refreshing={isRefreshing}
@@ -398,10 +395,10 @@ const RecommendationHome = ({
               fetchNextPage();
             }
           }}
-          // initialNumToRender={0}
+          initialNumToRender={0}
           onEndReachedThreshold={0.5}
           renderItem={renderContent}
-          // disableVirtualization={true}
+          disableVirtualization={true}
           ListFooterComponent={
             <View style={{ ...styles.loading, marginBottom: 60 }}>
               {hasNextPage && (
