@@ -128,7 +128,8 @@ export function screenReducer(state = initialState, action: screenActionType) {
         adultVideoWatchTime: 0,
       };
     case "show_adult_mode_disclaimer": 
-      if (state.isOverEighteenAccepted) return state
+      if (state.isOverEighteenAccepted) 
+    {  return state}
       else 
         return {
           ...state, 
