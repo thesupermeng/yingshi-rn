@@ -43,6 +43,7 @@ const eighteenPlusControls = ({}: Props) => {
     adultModeDisclaimerShow,
     adultMode,
     watchAnytimeAdultMode,
+    isOverEighteenAccepted
   } = screenState;
   const dispatch = useAppDispatch();
   // const isVip = !(Number(userState.userMemberExpired) <=
@@ -63,7 +64,7 @@ console.log( Platform.OS )
     <View
       style={{
         ...styles.container,
-        height: adultModeVipShow || adultModeDisclaimerShow ? "100%" : "auto",
+        height: adultModeVipShow || (!isOverEighteenAccepted && adultModeDisclaimerShow) ? "100%" : "auto",
       }}
     >
       {watchAnytimeAdultMode && <WatchAnytimeVipModal />}
