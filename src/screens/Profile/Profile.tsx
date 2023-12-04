@@ -414,7 +414,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
             )}
 
 
-            {/* {Platform.OS === "android" && !SHOW_PAYMENT_CONST && (
+            {Platform.OS === "android" && !SHOW_PAYMENT_CONST && (
               <TouchableOpacity
                 style={{
                   ...styles.btn,
@@ -444,7 +444,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                   color={colors.muted}
                 />
               </TouchableOpacity>
-            )} */}
+            )}
 
             <ShowMoreButton
               text="我的收藏"
