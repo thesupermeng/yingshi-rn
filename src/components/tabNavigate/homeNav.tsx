@@ -64,12 +64,15 @@ export default function HomeNav({
       listeners={{
         tabPress: e => onTabPress(e.target),
  
-        swipeEnd: e => {
-          onTabSwipe(i, tab); 
-          if (tab.id == 99){
-            dispatch(showAdultModeDisclaimer())
-          }
-        }, 
+        // swipeEnd: e => {
+        //   onTabSwipe(i, tab); 
+        //   console.debug('tab swipe triggered')
+        //   if (tab.id == 99){
+        //     dispatch(showAdultModeDisclaimer())
+        //   }
+        // }, 
+
+
         focus: e => {
           if (tab.id != 99){
             dispatch(showAdultModeDisclaimer())
