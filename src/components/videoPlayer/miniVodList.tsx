@@ -215,7 +215,8 @@ export default forwardRef<MiniVodRef, Props>(
                             console.log('click pause');
                             setPause(!current);
                         }}
-                        isShowVideo={current === index && !isScrolling && !isPressTabScroll}
+                        isShowVideo={ (current > index - 3 && current < index + 3) }
+                        // isShowVideo={current === index && !isScrolling && !isPressTabScroll}
                         currentDuration={videoCurrentDurations[index]}
                         updateVideoDuration={(duration) => updateVideoDuration(index, duration)}
                         isActive={isActive}
@@ -223,15 +224,17 @@ export default forwardRef<MiniVodRef, Props>(
                 )}
             </View>
         ), [current, isActive, isPause, isScrolling, inCollectionView, displayHeight, videoCurrentDurations, isPressTabScroll]);
+        
+        const onLayoutRender = useCallback((event: any) => {
+            var { height } = event.nativeEvent.layout;
+            const heightStr: string = height.toFixed(5);
+
+            // use substring to prevent rounding
+            setDisplayHeight(parseFloat(heightStr.substring(0, heightStr.length - 1)))
+        }, [])
 
         return (
-            <View style={{ flex: 1 }} onLayout={(event: any) => {
-                var { height } = event.nativeEvent.layout;
-                const heightStr: string = height.toFixed(5);
-
-                // use substring to prevent rounding
-                setDisplayHeight(parseFloat(heightStr.substring(0, heightStr.length - 1)))
-            }}>
+            <View style={{ flex: 1 }} onLayout={onLayoutRender}>
                 {isInitFetching ?
                     <View
                         style={{
