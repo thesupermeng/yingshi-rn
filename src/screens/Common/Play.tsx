@@ -40,6 +40,7 @@ import WeChatIcon from "../../../static/images/wechat.svg";
 import QQIcon from "../../../static/images/qq.svg";
 import PYQIcon from "../../../static/images/pyq.svg";
 import MoreArrow from "../../../static/images/more_arrow.svg";
+import SourceIcon from "../../../static/images/source_icon.svg";
 import VodEpisodeSelectionModal from "../../components/modal/vodEpisodeSelectionModal";
 // import FastImage from "react-native-fast-image";
 import FastImage from "../../components/common/customFastImage";
@@ -216,9 +217,9 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const adultMode = route.params.player_mode === 'adult' ? true : false
 
   useEffect(() => {
-    if(route.params.player_mode === 'adult'){
+    if (route.params.player_mode === 'adult') {
       dispatch(enableAdultMode());
-    }else{
+    } else {
       dispatch(disableAdultMode());
     }
   }, [])
@@ -256,8 +257,8 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const [isOffline, setIsOffline] = useState(false);
   const [isShowSheet, setShowSheet] = useState(false);
   const isVip = !(Number(userState.userMemberExpired) <=
-                  Number(userState.userCurrentTimestamp) ||
-                  userState.userToken === "")
+    Number(userState.userCurrentTimestamp) ||
+    userState.userToken === "")
 
   const {
     playsViewsAnalytics,
@@ -265,6 +266,80 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     playsShareClicksAnalytics,
   } = useAnalytics();
   const [isReadyPlay, setReadyPlay] = useState(false);
+
+  //logic and function for multiple sources
+
+  const renderSources = useCallback(
+    ({ item }) => (
+      <TouchableOpacity
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: 'center',
+          backgroundColor:
+            currentEpisode === item.nid ? colors.primary : colors.search,
+          paddingVertical: 8,
+          paddingHorizontal: 10,
+          minWidth: 70,
+          marginRight: spacing.xs,
+          ...styles.episodeBtn,
+        }}
+        // onPress={() => onPressEpisode(item.nid)}
+      >
+        <SourceIcon
+        style={{}}/>
+        <Text
+          numberOfLines={1}
+          style={{
+            fontSize: 13,
+            textAlign: "center",
+            fontWeight: "500",
+            color: currentEpisode === item.nid ? colors.selected : colors.muted,
+          }}
+        >
+          {/* {item.name} */}
+          Source
+        </Text>
+      </TouchableOpacity>
+    ),
+    [currentEpisode]
+  );
+
+  const renderQuality = useCallback(
+    ({ item }) => (
+      <TouchableOpacity
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: 'center',
+          backgroundColor:
+            currentEpisode === item.nid ? colors.primary : colors.search,
+          paddingVertical: 8,
+          paddingHorizontal: 10,
+          minWidth: 70,
+          marginRight: spacing.xs,
+          ...styles.episodeBtn,
+        }}
+        // onPress={() => onPressEpisode(item.nid)}
+      >
+        <SourceIcon
+        style={{}}/>
+        <Text
+          numberOfLines={1}
+          style={{
+            fontSize: 13,
+            textAlign: "center",
+            fontWeight: "500",
+            color: currentEpisode === item.nid ? colors.selected : colors.muted,
+          }}
+        >
+          {/* {item.name} */}
+          1080P
+        </Text>
+      </TouchableOpacity>
+    ),
+    [currentEpisode]
+  );
 
   const EPISODE_RANGE_SIZE = 100;
 
@@ -670,7 +745,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
 
   useEffect(() => {
-    if (adultMode){
+    if (adultMode) {
       dispatch(enableAdultMode())
     } else {
       dispatch(disableAdultMode())
@@ -777,7 +852,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
                   }
 
-                 
+
 
                   <View style={styles.descriptionContainer}>
                     {vod && (
@@ -938,8 +1013,38 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                     </>
                   ) : (
                     <>
+
+                    {/* For multiple source UI */}
+                    {!adultMode && (
+                      <>
+                    <View
+                              style={{ ...styles.spaceApart, gap: spacing.l }}
+                            >
+                              <Text style={textVariants.body}>播放源</Text>
+
+                            </View>
+                            <FlatList
+                              horizontal={true}
+                              showsHorizontalScrollIndicator={false}
+                              initialNumToRender={10}
+                              onScrollToIndexFailed={() => { }}
+                              ref={episodeRef}
+                              data={vod?.vod_play_list.urls?.slice(
+                                showEpisodeRangeStart,
+                                showEpisodeRangeEnd
+                              )}
+                              renderItem={renderSources}
+                              // onContentSizeChange={onContentSizeChange}
+                              ListFooterComponent={
+                                <View style={{ paddingHorizontal: 20 }} />
+                              }
+                              keyExtractor={(item, index) => index.toString()}
+                            />
+                            </>
+                            )}
+                            {/* For multiple source UI */}
                       {vod?.vod_play_list !== undefined &&
-                        vod?.vod_play_list.urls?.length > 1 && (
+                        vod?.vod_play_list.urls?.length > 1 ? (
                           <>
                             <View
                               style={{ ...styles.spaceApart, gap: spacing.l }}
@@ -984,6 +1089,36 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                             />
                             <View />
                           </>
+                        ) : (
+                          <>
+                          {!adultMode && (
+                            <>
+                          <View
+                              style={{ ...styles.spaceApart, gap: spacing.l }}
+                            >
+                              <Text style={textVariants.body}>选集</Text>
+
+                            </View>
+                            <FlatList
+                              horizontal={true}
+                              showsHorizontalScrollIndicator={false}
+                              initialNumToRender={10}
+                              onScrollToIndexFailed={() => { }}
+                              ref={episodeRef}
+                              data={vod?.vod_play_list.urls?.slice(
+                                showEpisodeRangeStart,
+                                showEpisodeRangeEnd
+                              )}
+                              renderItem={renderQuality}
+                              // onContentSizeChange={onContentSizeChange}
+                              ListFooterComponent={
+                                <View style={{ paddingHorizontal: 20 }} />
+                              }
+                              keyExtractor={(item, index) => index.toString()}
+                            />
+                            </>
+                            )}
+                            </>
                         )}
 
                       {adultMode ? (
