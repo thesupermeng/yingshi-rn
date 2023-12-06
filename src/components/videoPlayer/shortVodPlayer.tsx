@@ -1,35 +1,34 @@
-import React, { useEffect, useState, memo, useCallback, useRef } from 'react';
+import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 import {
-  View,
-  TouchableWithoutFeedback,
-  StyleSheet,
-  TouchableOpacity,
-  Text,
   Dimensions,
   Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
 } from 'react-native';
 import Video, { OnProgressData } from 'react-native-video';
 import PlayIcon from '../../../static/images/blackPlay.svg';
 import PauseIcon from '../../../static/images/pause.svg';
-import PlayZhengPianIcon from '../../../static/images/play-zhengpian1.svg';
 import PlayBoDanIcon from '../../../static/images/play-bodan.svg';
+import PlayZhengPianIcon from '../../../static/images/play-zhengpian1.svg';
 
-import FastImage from '../common/customFastImage';
-import { Slider } from '@rneui/themed';
-import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { useNavigation, useTheme } from '@react-navigation/native';
-import { playVod, viewPlaylistDetails } from '../../redux/actions/vodActions';
-import HejiIcon from '../../../static/images/heji.svg';
-import ExpandUpIcon from '../../../static/images/expandHeji.svg';
+import { Slider } from '@rneui/themed';
 import { QueryClient } from '@tanstack/react-query';
-import { screenModel } from '../../types/screenType';
 import { debounce } from 'lodash';
+import RNFetchBlob from 'rn-fetch-blob';
+import ExpandUpIcon from '../../../static/images/expandHeji.svg';
+import HejiIcon from '../../../static/images/heji.svg';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import useAnalytics from '../../hooks/useAnalytics';
+import { showAdultModeVip } from '../../redux/actions/screenAction';
+import { playVod, viewPlaylistDetails } from '../../redux/actions/vodActions';
+import { screenModel } from '../../types/screenType';
 import { userModel } from '../../types/userType';
 import { ADULT_MODE_PREVIEW_DURATION } from '../../utility/constants';
-import { showAdultModeVip } from '../../redux/actions/screenAction';
-import RNFetchBlob from 'rn-fetch-blob';
-
+import FastImage from '../common/customFastImage';
 
 interface Props {
   thumbnail?: string;
@@ -40,17 +39,19 @@ interface Props {
   openSheet?: any;
   isPause: boolean;
   onManualPause: (value: boolean) => void;
-  isShowVideo: boolean,
-  currentDuration: number,
-  updateVideoDuration: (duration: number) => any,
-  isActive: boolean,
+  isShowVideo: boolean;
+  currentDuration: number;
+  updateVideoDuration: (duration: number) => any;
+  isActive: boolean;
 }
 
 const maxLength = 10;
 
-const truncateVodName = (vodName:string) => {
-  return vodName?.length > maxLength ? vodName.substring(0, maxLength) + '...' : vodName
-}
+const truncateVodName = (vodName: string) => {
+  return vodName?.length > maxLength
+    ? vodName.substring(0, maxLength) + '...'
+    : vodName;
+};
 
 function ShortVideoPlayer({
   vod,
@@ -65,25 +66,24 @@ function ShortVideoPlayer({
   updateVideoDuration,
   isActive,
 }: Props) {
-
   const [currentVod, setVod] = useState(vod);
   const screenState: screenModel = useAppSelector(
-    ({screenReducer}) => screenReducer
-  )
-  const {adultMode, adultVideoWatchTime} = screenState
+    ({screenReducer}) => screenReducer,
+  );
+  const {adultMode, adultVideoWatchTime} = screenState;
   if (currentVod?.mini_video_original_video_name == undefined) {
     currentVod.mini_video_original_video_name = '';
   }
 
-  let vodName = !adultMode ?
-      truncateVodName(currentVod?.mini_video_original_video_name)
-      : truncateVodName(currentVod?.mini_video_vod?.vod_name)
+  let vodName = !adultMode
+    ? truncateVodName(currentVod?.mini_video_original_video_name)
+    : truncateVodName(currentVod?.mini_video_vod?.vod_name);
   // let vodName = "我的"
 
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
 
-  const { colors, textVariants } = useTheme();
+  const {colors, textVariants} = useTheme();
 
   const [isBuffering, setIsBuffering] = useState(false);
   const videoRef = useRef<Video>(null);
@@ -100,32 +100,36 @@ function ShortVideoPlayer({
   const [isVideoReadyIos, setVideoReadyIos] = useState(false);
   const [isVideoReadyAndroid, setVideoReadyAndroid] = useState(false);
   const [onSliding, setOnSliding] = useState(false);
-  const [miniVodUrl, setMiniVodUrl] = useState(currentVod.mini_video_origin_video_url)
+  const [miniVodUrl, setMiniVodUrl] = useState(
+    currentVod.mini_video_origin_video_url,
+  );
 
   const windowWidth = Dimensions.get('window').width;
 
-  const { watchAnytimeVideoClicksAnalytics, watchAnytimePlaylistClicksAnalytics } = useAnalytics();
+  const {
+    watchAnytimeVideoClicksAnalytics,
+    watchAnytimePlaylistClicksAnalytics,
+  } = useAnalytics();
 
-  const userState: userModel = useAppSelector(
-    ({userReducer}) => userReducer
-  )
-  
-  const isVip = !(Number(userState.userMemberExpired) <=
-                  Number(userState.userCurrentTimestamp) ||
-                  userState.userToken === "")
-  const disableSeek = !isVip && (adultVideoWatchTime >= ADULT_MODE_PREVIEW_DURATION) && adultMode
+  const userState: userModel = useAppSelector(({userReducer}) => userReducer);
+
+  const isVip = !(
+    Number(userState.userMemberExpired) <=
+      Number(userState.userCurrentTimestamp) || userState.userToken === ''
+  );
+  const disableSeek =
+    !isVip && adultVideoWatchTime >= ADULT_MODE_PREVIEW_DURATION && adultMode;
 
   useEffect(() => {
     setVod(vod);
-  }, [vod])
+  }, [vod]);
 
   useEffect(() => {
     if (!isShowVideo && Platform.OS === 'ios') setVideoReadyIos(false);
     if (!isShowVideo && Platform.OS === 'android') setVideoReadyAndroid(false);
-  }, [isShowVideo])
+  }, [isShowVideo]);
 
   useEffect(() => {
-
     if (currentVod.mini_video_topic?.topic_id != 0) {
       setIsBodan(true);
       setWatchText('看播单');
@@ -153,56 +157,66 @@ function ShortVideoPlayer({
 
   const openBottomSheet = useCallback(() => {
     openSheet();
-  }, [])
+  }, []);
 
   const onBuffer = useCallback((bufferObj: any) => {
     setIsBuffering(bufferObj.isBuffering);
-    if(adultMode) // && Platform.OS === 'ios'
-    {
+    if (adultMode) {
+      // && Platform.OS === 'ios'
       setIsBuffering(false);
     }
   }, []);
 
-  const handleProgress = useCallback((progress: OnProgressData) => {
-    if (progress.currentTime !== currentDuration && !isVideoReadyAndroid && Platform.OS === 'android') setVideoReadyAndroid(true);
-    if (!onSliding) updateVideoDuration(progress.currentTime)
-  }, [currentDuration, onSliding, isVideoReadyAndroid]);
+  const handleProgress = useCallback(
+    (progress: OnProgressData) => {
+      if (
+        progress.currentTime !== currentDuration &&
+        !isVideoReadyAndroid &&
+        Platform.OS === 'android'
+      )
+        setVideoReadyAndroid(true);
+      if (!onSliding) updateVideoDuration(progress.currentTime);
+    },
+    [currentDuration, onSliding, isVideoReadyAndroid],
+  );
 
   const showControls = () => {
     clearTimeout(timer.current);
     setShowOverlay(true);
-    overlayRef.current = true
+    overlayRef.current = true;
     timer.current = setTimeout(() => setShowOverlay(false), 3000);
   };
 
-  const handleSeek = useCallback((value: number) => {
-    if (disableSeek) {
-      dispatch(showAdultModeVip())
-      return
-    }
-    if (!isVideoReadyIos && Platform.OS === 'ios') return;
-    if (!isVideoReadyAndroid && Platform.OS === 'android') return;
+  const handleSeek = useCallback(
+    (value: number) => {
+      if (disableSeek) {
+        dispatch(showAdultModeVip());
+        return;
+      }
+      if (!isVideoReadyIos && Platform.OS === 'ios') return;
+      if (!isVideoReadyAndroid && Platform.OS === 'android') return;
 
-    if (Number.isNaN(value)) {
-      value = 0;
-    }
+      if (Number.isNaN(value)) {
+        value = 0;
+      }
 
-    if (!onSliding) setOnSliding(true);
+      if (!onSliding) setOnSliding(true);
 
-    showControls();
-    updateVideoDuration(value);
-    seekVideo(value);
-  }, [isVideoReadyIos, isVideoReadyAndroid, onSliding]);
+      showControls();
+      updateVideoDuration(value);
+      seekVideo(value);
+    },
+    [isVideoReadyIos, isVideoReadyAndroid, onSliding],
+  );
 
   const seekVideo = useCallback(
-    debounce((value) => {
-
+    debounce(value => {
       if (videoRef.current) {
         videoRef.current.seek(value);
         setOnSliding(false);
       }
     }, 1000),
-    [videoRef.current]
+    [videoRef.current],
   );
 
   const handlePlayPause = () => {
@@ -238,7 +252,7 @@ function ShortVideoPlayer({
       dispatch(playVod(currentVod.mini_video_vod));
       navigation.navigate('播放', {
         vod_id: currentVod.vod?.vod_id,
-        player_mode: adultMode ? 'adult' : 'normal'
+        player_mode: adultMode ? 'adult' : 'normal',
       });
 
       // ========== for analytics - start ==========
@@ -248,15 +262,15 @@ function ShortVideoPlayer({
   }, [isBodan]);
 
   const handleViewLayout = (event: any) => {
-    const { height } = event.nativeEvent.layout;
+    const {height} = event.nativeEvent.layout;
     setImageContainerHeight(height);
-  }
+  };
 
   useEffect(() => {
-    if (isPause === false){
-      setIsBuffering(false)
+    if (isPause === false) {
+      setIsBuffering(false);
     }
-  }, [isPause])
+  }, [isPause]);
 
   const bottomContent = useCallback(() => {
     return (
@@ -266,18 +280,17 @@ function ShortVideoPlayer({
           left: 0,
           bottom: 0,
           width: '100%',
-          justifyContent: 'flex-end'
+          justifyContent: 'flex-end',
         }}>
-        <View style={{ paddingHorizontal: 20 }}>
+        <View style={{paddingHorizontal: 20}}>
           {currentVod != undefined &&
             currentVod.mini_video_original_img_url != null &&
             currentVod.mini_video_original_img_url != '' && (
-              <View style={{ flexWrap: 'wrap' }}>
+              <View style={{flexWrap: 'wrap'}}>
                 {/* <View style={{ flex: 10, flexDirection: 'column', justifyContent: 'flex-end', marginRight: 35 }}> */}
-                
 
                 {!adultMode && (
-                    <View
+                  <View
                     style={{
                       padding: 8,
                       height: 75,
@@ -286,129 +299,155 @@ function ShortVideoPlayer({
                       backgroundColor: 'rgba(106, 106, 106, 0.25)',
                     }}>
                     <>
-                        {!isBodan &&
-                          <View
-                            style={{
-                              width: 45,
-                              flexDirection: 'column',
-                              justifyContent: 'flex-end',
-                            }}
-                            onLayout={handleViewLayout}>
-                            <TouchableOpacity style={{ flex: 1, position: 'relative' }} onPress={redirectVod}>
-                              <FastImage
-                                style={{ flex: 1, borderRadius: 6 }}
-                                source={{
-                                  uri: currentVod.mini_video_original_img_url,
-                                  priority: "high",
-                                }}
-                              />
-                            </TouchableOpacity>
-                          </View>
-                        }
-                        {isBodan &&
-                          <View
-                            style={{
-                              width: 45,
-                              flexDirection: 'column',
-                              justifyContent: 'flex-end',
-                              marginRight: 6
-                            }}
-                            onLayout={handleViewLayout}>
-                            <TouchableOpacity style={{ flex: 1, position: 'relative' }} onPress={redirectVod}>
-                              <FastImage
-                                style={{ flex: 1, borderRadius: 6, position: 'absolute', width: '100%', height: '100%', zIndex: 3 }}
-                                source={{
-                                  uri: currentVod.mini_video_original_img_url,
-                                  priority: "high",
-                                }}
-                                onProgress={(e) => {
-                                  setImageLoaded(false)
-                                }}
-                                onLoad={(e) => {
-                                  setImageLoaded(true)
-                                }}
-                              />
-                              {imageLoaded && isBodan &&
-                                <View>
-                                  <FastImage
-                                    style={{ flex: 1, borderRadius: 6, position: 'absolute', width: '100%', height: imageContainerHeight - 6, zIndex: 2, top: 5.8 }}
-                                    source={require('../../../static/images/bodan2.jpeg')}
-                                  />
-                                  <FastImage
-                                    style={{ flex: 1, borderRadius: 6, position: 'absolute', width: '100%', height: imageContainerHeight - 12, top: 11.8 }}
-                                    source={require('../../../static/images/bodan3.jpg')}
-                                  />
-                                </View>
-                              }
-                            </TouchableOpacity>
-                          </View>
-                        }
+                      {!isBodan && (
                         <View
                           style={{
+                            width: 45,
                             flexDirection: 'column',
-                            alignContent: 'center',
-                            marginLeft: 10,
-                            marginRight: 5,
-                          }}>
-                          <TouchableOpacity onPress={redirectVod}>
-                            <View
-                              style={{
-                                flexDirection: 'column',
-                                justifyContent: 'space-between',
-                                height: '100%',
-                                paddingVertical: 5,
-                              }}>
-                              <View
-                                style={{
-                                  justifyContent: 'flex-start',
-                                  flexDirection: 'row',
-                                }}>
-                                <View>
-                                  <Text
-                                    numberOfLines={1}
-                                    ellipsizeMode="tail"
-                                    style={{
-                                      ...textVariants.bodyBold,
-                                      color: colors.text,
-                                      fontSize: 15,
-                                    }}>
-                                    {vodName}
-                                  </Text>
-                                </View>
-                              </View>
-                              <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-                                <View style={{ flexWrap: 'wrap' }}>
-                                  {isBodan ?
-                                    <PlayBoDanIcon width={20} height={20} />
-                                    :
-                                    <PlayZhengPianIcon width={20} height={20} />
-                                  }
-                                </View>
-                                <View
-                                  style={{
-                                    paddingLeft: 6,
-                                    justifyContent: 'center',
-                                  }}>
-                                  <Text
-                                    style={{
-                                      ...textVariants.subBody,
-                                      color: colors.text,
-                                      fontSize: 14,
-                                    }}>
-                                    {watchText}
-                                  </Text>
-                                </View>
-                              </View>
-                            </View>
+                            justifyContent: 'flex-end',
+                          }}
+                          onLayout={handleViewLayout}>
+                          <TouchableOpacity
+                            style={{flex: 1, position: 'relative'}}
+                            onPress={redirectVod}>
+                            <FastImage
+                              style={{flex: 1, borderRadius: 6}}
+                              source={{
+                                uri: currentVod.mini_video_original_img_url,
+                                priority: 'high',
+                              }}
+                            />
                           </TouchableOpacity>
                         </View>
-                      </>
+                      )}
+                      {isBodan && (
+                        <View
+                          style={{
+                            width: 45,
+                            flexDirection: 'column',
+                            justifyContent: 'flex-end',
+                            marginRight: 6,
+                          }}
+                          onLayout={handleViewLayout}>
+                          <TouchableOpacity
+                            style={{flex: 1, position: 'relative'}}
+                            onPress={redirectVod}>
+                            <FastImage
+                              style={{
+                                flex: 1,
+                                borderRadius: 6,
+                                position: 'absolute',
+                                width: '100%',
+                                height: '100%',
+                                zIndex: 3,
+                              }}
+                              source={{
+                                uri: currentVod.mini_video_original_img_url,
+                                priority: 'high',
+                              }}
+                              onProgress={e => {
+                                setImageLoaded(false);
+                              }}
+                              onLoad={e => {
+                                setImageLoaded(true);
+                              }}
+                            />
+                            {imageLoaded && isBodan && (
+                              <View>
+                                <FastImage
+                                  style={{
+                                    flex: 1,
+                                    borderRadius: 6,
+                                    position: 'absolute',
+                                    width: '100%',
+                                    height: imageContainerHeight - 6,
+                                    zIndex: 2,
+                                    top: 5.8,
+                                  }}
+                                  source={require('../../../static/images/bodan2.jpeg')}
+                                />
+                                <FastImage
+                                  style={{
+                                    flex: 1,
+                                    borderRadius: 6,
+                                    position: 'absolute',
+                                    width: '100%',
+                                    height: imageContainerHeight - 12,
+                                    top: 11.8,
+                                  }}
+                                  source={require('../../../static/images/bodan3.jpg')}
+                                />
+                              </View>
+                            )}
+                          </TouchableOpacity>
+                        </View>
+                      )}
+                      <View
+                        style={{
+                          flexDirection: 'column',
+                          alignContent: 'center',
+                          marginLeft: 10,
+                          marginRight: 5,
+                        }}>
+                        <TouchableOpacity onPress={redirectVod}>
+                          <View
+                            style={{
+                              flexDirection: 'column',
+                              justifyContent: 'space-between',
+                              height: '100%',
+                              paddingVertical: 5,
+                            }}>
+                            <View
+                              style={{
+                                justifyContent: 'flex-start',
+                                flexDirection: 'row',
+                              }}>
+                              <View>
+                                <Text
+                                  numberOfLines={1}
+                                  ellipsizeMode="tail"
+                                  style={{
+                                    ...textVariants.bodyBold,
+                                    color: colors.text,
+                                    fontSize: 15,
+                                  }}>
+                                  {vodName}
+                                </Text>
+                              </View>
+                            </View>
+                            <View
+                              style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+                              <View style={{flexWrap: 'wrap'}}>
+                                {isBodan ? (
+                                  <PlayBoDanIcon width={20} height={20} />
+                                ) : (
+                                  <PlayZhengPianIcon width={20} height={20} />
+                                )}
+                              </View>
+                              <View
+                                style={{
+                                  paddingLeft: 6,
+                                  justifyContent: 'center',
+                                }}>
+                                <Text
+                                  style={{
+                                    ...textVariants.subBody,
+                                    color: colors.text,
+                                    fontSize: 14,
+                                  }}>
+                                  {watchText}
+                                </Text>
+                              </View>
+                            </View>
+                          </View>
+                        </TouchableOpacity>
+                      </View>
+                    </>
                   </View>
-                )
-                }
+                )}
               </View>
             )}
-          <View style={{ marginTop: 10, flexDirection: 'row' }}>
+          <View style={{marginTop: 10, flexDirection: 'row'}}>
             {/* <View style={{ flex: 10, flexDirection: 'column', justifyContent: 'flex-end', marginRight: 35 }}> */}
             <View
               style={{
@@ -417,7 +456,12 @@ function ShortVideoPlayer({
                 justifyContent: 'flex-end',
               }}>
               <TouchableOpacity>
-                <Text style={{ ...textVariants.small, color: colors.text, paddingBottom: 20 }}>
+                <Text
+                  style={{
+                    ...textVariants.small,
+                    color: colors.text,
+                    paddingBottom: 20,
+                  }}>
                   {currentVod.mini_video_title}
                 </Text>
               </TouchableOpacity>
@@ -425,15 +469,38 @@ function ShortVideoPlayer({
           </View>
         </View>
 
-        {currentVod.is_collection?.toLowerCase() == "y" &&
-          <View style={{ backgroundColor: '#171717', paddingBottom: 18, paddingTop: 12, paddingLeft: 20, paddingRight: 20 }}>
-            <TouchableOpacity style={{ flex: 1 }} onPress={() => {
-              openBottomSheet();
+        {currentVod.is_collection?.toLowerCase() == 'y' && (
+          <View
+            style={{
+              backgroundColor: '#171717',
+              paddingBottom: 18,
+              paddingTop: 12,
+              paddingLeft: 20,
+              paddingRight: 20,
             }}>
-              <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
-                <View style={{ flex: 1, flexDirection: 'row' }}>
+            <TouchableOpacity
+              style={{flex: 1}}
+              onPress={() => {
+                openBottomSheet();
+              }}>
+              <View
+                style={{
+                  flex: 1,
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                }}>
+                <View style={{flex: 1, flexDirection: 'row'}}>
                   <HejiIcon height={24} width={24} />
-                  <Text style={{ paddingLeft: 6, alignSelf: 'center', fontSize: 14, color: colors.text, fontWeight: '700' }}>{currentVod.mini_video_collection_title}</Text>
+                  <Text
+                    style={{
+                      paddingLeft: 6,
+                      alignSelf: 'center',
+                      fontSize: 14,
+                      color: colors.text,
+                      fontWeight: '700',
+                    }}>
+                    {currentVod.mini_video_collection_title}
+                  </Text>
                 </View>
                 <View style={{}}>
                   <ExpandUpIcon height={24} width={24} />
@@ -441,153 +508,208 @@ function ShortVideoPlayer({
               </View>
             </TouchableOpacity>
           </View>
-        }
+        )}
       </View>
-    )
+    );
   }, [isBodan, currentVod, adultMode]);
 
   useEffect(() => {
     const fn = async () => {
-      if (isPause === false && currentDuration < 1 && isBuffering === true){
-        // check if video is in local storage 
-        // if local storage, update miniVodUrl 
-        // else do nothing 
+      if (isPause === false && currentDuration < 1 && isBuffering === true) {
+        // check if video is in local storage
+        // if local storage, update miniVodUrl
+        // else do nothing
 
-        const fileLocation = RNFetchBlob.fs.dirs.DocumentDir + `/videocache/${currentVod.mini_video_id}.mp4`
+        const fileLocation =
+          RNFetchBlob.fs.dirs.DocumentDir +
+          `/videocache/${currentVod.mini_video_id}.mp4`;
 
-        const fileExist = await RNFetchBlob.fs.exists(fileLocation)
+        const fileExist = await RNFetchBlob.fs.exists(fileLocation);
 
-        if (fileExist){
-          console.debug('file exist, change source! ')
-          setMiniVodUrl(fileLocation)
+        if (fileExist) {
+          console.debug('file exist, change source! ');
+          setMiniVodUrl(fileLocation);
         } else {
-          console.debug('file not exist ')
+          console.debug('file not exist ');
         }
       }
-    }
-    fn()
-  }, [isPause, currentDuration])
+    };
+    fn();
+  }, [isPause, currentDuration]);
 
   useEffect(() => {
-    setMiniVodUrl(currentVod.mini_video_origin_video_url)
-  }, [currentVod])
+    setMiniVodUrl(currentVod.mini_video_origin_video_url);
+  }, [currentVod]);
 
   return (
     <>
-      {isShowVideo &&
-      <TouchableWithoutFeedback
-        onPress={() => {
-          showControls();
-          if (overlayRef.current) {
-            handlePlayPause();
-          }
-        }}>
-        <View>
-          <View style={[styles.container, { height: displayHeight }]}>
-            {(isBuffering || (Platform.OS === 'ios' ? !isVideoReadyIos : !isVideoReadyAndroid)) && (
-              <View style={styles.buffering}>
-                <FastImage
-                  source={require('../../../static/images/videoBufferLoading.gif')}
-                  style={{ width: 100, height: 100, }}
-                  resizeMode="contain"
-                  useFastImage={true}
-                />
-              </View>
-            )}
-            {(Platform.OS === 'ios' ? !isVideoReadyIos : !isVideoReadyAndroid) && thumbnail &&
-              <FastImage
-                source={{ uri: thumbnail }}
-                style={styles.video}
+      {isShowVideo && (
+        <TouchableWithoutFeedback
+          onPress={() => {
+            showControls();
+            if (overlayRef.current) {
+              handlePlayPause();
+            }
+          }}>
+          <View>
+            <View style={[styles.container, {height: displayHeight}]}>
+              {(isBuffering ||
+                (Platform.OS === 'ios'
+                  ? !isVideoReadyIos
+                  : !isVideoReadyAndroid)) && (
+                <View style={styles.buffering}>
+                  <FastImage
+                    source={require('../../../static/images/videoBufferLoading.gif')}
+                    style={{width: 100, height: 100}}
+                    resizeMode="contain"
+                    useFastImage={true}
+                  />
+                </View>
+              )}
+              {(Platform.OS === 'ios'
+                ? !isVideoReadyIos
+                : !isVideoReadyAndroid) &&
+                thumbnail && (
+                  <FastImage
+                    source={{uri: thumbnail}}
+                    style={styles.video}
+                    resizeMode="contain"
+                    useFastImage={true}
+                  />
+                )}
+              <Video
+                ref={videoRef}
                 resizeMode="contain"
-                useFastImage={true}
+                // poster={thumbnail}
+                source={{
+                  uri: miniVodUrl,
+                  // uri: 'https://v3-dy-o.zjcdn.com/b35b5e65ee4b305da17b21aeabf80603/656ee741/video/tos/cn/tos-cn-ve-15/ocHHtKWRbACiQfngBL2ueIEApe7QU30B8aDIBI/?a=6383&ch=5&cr=3&dr=0&lr=all&cd=0%7C0%7C0%7C3&cv=1&br=1001&bt=1001&cs=2&ds=3&ft=.6JO5fymVZmo0PalfdwkVQ._0G._KJd.&mime_type=video_mp4&qs=15&rc=ZzU6aTk8aTtpNWlnZDxkZkBpMzo6OjY6ZjtkbzMzNGkzM0AzLzQxMS1hXzAxYGMyNTUwYSMxbHFmcjQwY2tgLS1kLWFzcw%3D%3D&btag=e00008000&cc=1f&dy_q=1701763366&feature_id=7f4d8f8be65505495ee2bac95e186f16&l=2023120516024553B64ACE481F93004EA1&__vid=7308963587102362899',
+                  headers: {
+                    'User-Agent':
+                      'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+                  },
+                }}
+                onReadyForDisplay={() => setVideoReadyIos(true)}
+                onBuffer={onBuffer}
+                repeat={true}
+                style={{
+                  ...styles.video,
+                  opacity: (
+                    Platform.OS === 'ios'
+                      ? isVideoReadyIos
+                      : isVideoReadyAndroid
+                  )
+                    ? 1
+                    : 0,
+                }}
+                // onVideoSeek={}
+                // ignoreSilentSwitch={"ignore"}
+                paused={
+                  isPause ||
+                  onSliding ||
+                  (Platform.OS === 'ios' && !isVideoReadyIos)
+                }
+                onLoad={handleLoad}
+                onLoadStart={handleLoadStart}
+                onProgress={handleProgress}
+                progressUpdateInterval={400}
               />
-            }
-            <Video
-              ref={videoRef}
-              resizeMode="contain"
-              // poster={thumbnail}
-              source={{
-                uri: miniVodUrl,
-                // uri: 'https://v3-dy-o.zjcdn.com/b35b5e65ee4b305da17b21aeabf80603/656ee741/video/tos/cn/tos-cn-ve-15/ocHHtKWRbACiQfngBL2ueIEApe7QU30B8aDIBI/?a=6383&ch=5&cr=3&dr=0&lr=all&cd=0%7C0%7C0%7C3&cv=1&br=1001&bt=1001&cs=2&ds=3&ft=.6JO5fymVZmo0PalfdwkVQ._0G._KJd.&mime_type=video_mp4&qs=15&rc=ZzU6aTk8aTtpNWlnZDxkZkBpMzo6OjY6ZjtkbzMzNGkzM0AzLzQxMS1hXzAxYGMyNTUwYSMxbHFmcjQwY2tgLS1kLWFzcw%3D%3D&btag=e00008000&cc=1f&dy_q=1701763366&feature_id=7f4d8f8be65505495ee2bac95e186f16&l=2023120516024553B64ACE481F93004EA1&__vid=7308963587102362899',
-                headers: {
-                  'User-Agent':
-                    'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
-                },
-              }}
-              onReadyForDisplay={() => setVideoReadyIos(true)}
-              onBuffer={onBuffer}
-              repeat={true}
-              style={{
-                ...styles.video,
-                opacity: (Platform.OS === 'ios' ? isVideoReadyIos : isVideoReadyAndroid) ? 1 : 0,
-              }}
-              // onVideoSeek={}
-              // ignoreSilentSwitch={"ignore"}
-              paused={isPause || onSliding || (Platform.OS === 'ios' && !isVideoReadyIos)}
-              onLoad={handleLoad}
-              onLoadStart={handleLoadStart}
-              onProgress={handleProgress}
-              progressUpdateInterval={400}
-            />
-            <View
-              style={{
-                position: 'absolute',
-                left: (Dimensions.get('window').width - 80) / 2,
-                top: (Dimensions.get('window').height - 130) / 2,
-                zIndex: 999,
-              }}>
-              {showIcon && (isPause ? <PlayIcon /> : <PauseIcon />)}
+              <View
+                style={{
+                  position: 'absolute',
+                  left: (Dimensions.get('window').width - 80) / 2,
+                  top: (Dimensions.get('window').height - 130) / 2,
+                  zIndex: 999,
+                }}>
+                {showIcon && (isPause ? <PlayIcon /> : <PauseIcon />)}
+              </View>
+              {bottomContent()}
+              {!disableSeek && (
+                <Slider
+                  style={styles.slider}
+                  maximumValue={duration}
+                  minimumValue={0}
+                  disabled={!showOverlay}
+                  thumbTouchSize={{width: 10, height: 10}}
+                  allowTouchTrack={!isBuffering}
+                  thumbStyle={{
+                    height: showOverlay ? 8 : 1,
+                    width: showOverlay ? 8 : 1,
+                  }}
+                  value={currentDuration}
+                  onValueChange={handleSeek}
+                  onSlidingComplete={handleSeek}
+                  minimumTrackTintColor={'#ffffff80'}
+                  maximumTrackTintColor={'#ffffff24'}
+                  thumbTintColor={'#FFFFFF'}
+                  trackStyle={{height: 2, opacity: 1}}
+                />
+              )}
+              {duration > 0 &&
+                showOverlay &&
+                currentDuration >= 0 &&
+                !disableSeek &&
+                (duration < 3600 ? (
+                  <Text
+                    style={{
+                      position: 'absolute',
+                      bottom: 12,
+                      backgroundColor: '#000',
+                      borderRadius: 4,
+                      paddingVertical: 6,
+                      paddingHorizontal: 10,
+                      left: Math.min(
+                        Math.max(
+                          0,
+                          (currentDuration / duration) * windowWidth - 44,
+                        ),
+                        windowWidth - 76,
+                      ),
+                    }}>
+                    <Text style={textVariants.small}>
+                      {new Date(currentDuration * 1000)
+                        .toISOString()
+                        .substring(14, 19)}
+                    </Text>
+                    <Text
+                      style={{
+                        ...textVariants.small,
+                        color: colors.muted,
+                      }}>{` / ${new Date(duration * 1000)
+                      .toISOString()
+                      .substring(14, 19)}`}</Text>
+                  </Text>
+                ) : (
+                  <Text
+                    style={{
+                      position: 'absolute',
+                      bottom: 20,
+                      left: Math.min(
+                        Math.max(
+                          0,
+                          (currentDuration / duration) * windowWidth - 34,
+                        ),
+                        windowWidth - 76,
+                      ),
+                    }}>
+                    <Text style={textVariants.small}>
+                      {new Date(currentDuration * 1000)
+                        .toISOString()
+                        .substring(11, 19)}
+                    </Text>
+                    <Text
+                      style={{
+                        ...textVariants.small,
+                        color: colors.muted,
+                      }}>{` / ${new Date(duration * 1000)
+                      .toISOString()
+                      .substring(11, 19)}`}</Text>
+                  </Text>
+                ))}
             </View>
-            {bottomContent()}
-            {!disableSeek && <Slider
-              style={styles.slider}
-              maximumValue={duration}
-              minimumValue={0}
-              disabled={!showOverlay}
-              thumbTouchSize={{ width: 10, height: 10 }}
-              allowTouchTrack={!isBuffering}
-              thumbStyle={{
-                height: showOverlay ? 8 : 1,
-                width: showOverlay ? 8 : 1,
-              }}
-              value={currentDuration}
-              onValueChange={handleSeek}
-              onSlidingComplete={handleSeek}
-              minimumTrackTintColor={'#ffffff80'}
-              maximumTrackTintColor={'#ffffff24'}
-              thumbTintColor={'#FFFFFF'}
-              trackStyle={{ height: 2, opacity: 1 }}
-            />}
-            {
-              duration > 0 && showOverlay && currentDuration >= 0 && !disableSeek &&
-              (
-                duration < 3600
-                  ? <Text style={{
-                    position: 'absolute',
-                    bottom: 12,
-                    backgroundColor: '#000',
-                    borderRadius: 4,
-                    paddingVertical: 6,
-                    paddingHorizontal: 10,
-                    left: Math.min(Math.max(0, (currentDuration / duration) * windowWidth - 44), windowWidth - 76)
-                  }}>
-                    <Text style={textVariants.small}>{new Date(currentDuration * 1000).toISOString().substring(14, 19)}</Text>
-                    <Text style={{ ...textVariants.small, color: colors.muted }}>{` / ${new Date(duration * 1000).toISOString().substring(14, 19)}`}</Text>
-                  </Text>
-                  : <Text style={{
-                    position: 'absolute',
-                    bottom: 20,
-                    left: Math.min(Math.max(0, (currentDuration / duration) * windowWidth - 34), windowWidth - 76)
-                  }}>
-                    <Text style={textVariants.small}>{new Date(currentDuration * 1000).toISOString().substring(11, 19)}</Text>
-                    <Text style={{ ...textVariants.small, color: colors.muted }}>{` / ${new Date(duration * 1000).toISOString().substring(11, 19)}`}</Text>
-                  </Text>
-              )
-            }
           </View>
-        </View>
-      </TouchableWithoutFeedback>
-    }
+        </TouchableWithoutFeedback>
+      )}
     </>
   );
 }
@@ -701,5 +823,5 @@ const styles = StyleSheet.create({
     bottom: 0,
     right: 0,
     height: 9,
-  }
+  },
 });
