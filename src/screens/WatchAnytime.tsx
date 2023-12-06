@@ -194,7 +194,6 @@ function WatchAnytime({navigation}: BottomTabScreenProps<any>) {
           isFetching={isFetching}
           isFetchingNextPage={isFetchingNextPage}
           isActive={isFocused && !isInBackground}
-          setCollectionEpisode={(index: number) => {}}
           handleRefreshMiniVod={handleRefresh}
           isRefreshing={isRefreshing}
           isPressTabScroll={isPressTabScroll}

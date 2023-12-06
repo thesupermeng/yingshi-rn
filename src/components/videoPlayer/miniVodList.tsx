@@ -28,7 +28,6 @@ interface Props {
     initialIndex?: number,
     collection_ori_all_videos?: any,
     enterPosition?: number,
-    setCollectionEpisode?: any,
     currentVodIndex?: number,
     handleRefreshMiniVod?: any,
     isRefreshing: boolean,
@@ -53,7 +52,6 @@ export default forwardRef<MiniVodRef, Props>(
             isFetching,
             isActive,
             inCollectionView = false,
-            setCollectionEpisode,
             isRefreshing = false,
             isPressTabScroll = false,
         }: Props,
@@ -179,7 +177,7 @@ export default forwardRef<MiniVodRef, Props>(
         }, [isFetching, isRefreshing, isActive, isScrolling])
 
         const setCollectionEpisodeToTitle = (index: number) => {
-            setCollectionEpisode(index);
+            console.warn('prop removed')
         }
 
         const refreshComponent = useCallback(() => {
