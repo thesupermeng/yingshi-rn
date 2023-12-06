@@ -89,7 +89,6 @@ import {
   resetBottomSheetAction,
   resetOverEighteen,
   resetSportWatchTime,
-  showAdultModeDisclaimer,
 } from "../redux/actions/screenAction";
 import { Dialog } from "@rneui/themed";
 // import FastImage from "react-native-fast-image";
@@ -150,12 +149,12 @@ export default () => {
       <HomeTab.Navigator
         screenListeners={{
           tabPress: e => {
-            if (e.target?.includes('随心看')){
+            if (e.target?.includes('随心看')) {
               dispatch(hideAdultModeDisclaimer())
             }
-            if (e.target?.includes('首页')){
-              dispatch(showAdultModeDisclaimer())
-            }
+            // if (e.target?.includes('首页')){
+            //   dispatch(showAdultModeDisclaimer())
+            // }
           }
         }}
         screenOptions={({ route }) => ({
@@ -454,9 +453,9 @@ export default () => {
       (event: any) => {
         console.warn(
           "ATInterstitialLoadFail: " +
-            event.placementId +
-            ", errorMsg: " +
-            event.errorMsg
+          event.placementId +
+          ", errorMsg: " +
+          event.errorMsg
         );
       }
     );
@@ -480,9 +479,9 @@ export default () => {
       (event: any) => {
         console.log(
           "ATInterstitialPlayStart: " +
-            event.placementId +
-            ", adCallbackInfo: " +
-            event.adCallbackInfo
+          event.placementId +
+          ", adCallbackInfo: " +
+          event.adCallbackInfo
         );
       }
     );
@@ -505,11 +504,11 @@ export default () => {
       (event: any) => {
         console.log(
           "ATInterstitialPlayFail: " +
-            event.placementId +
-            ", errorMsg: " +
-            event.errorMsg +
-            ", adCallbackInfo: " +
-            event.adCallbackInfo
+          event.placementId +
+          ", errorMsg: " +
+          event.errorMsg +
+          ", adCallbackInfo: " +
+          event.adCallbackInfo
         );
       }
     );
@@ -519,9 +518,9 @@ export default () => {
       (event: any) => {
         console.log(
           "ATInterstitialClick: " +
-            event.placementId +
-            ", adCallbackInfo: " +
-            event.adCallbackInfo
+          event.placementId +
+          ", adCallbackInfo: " +
+          event.adCallbackInfo
         );
       }
     );
@@ -546,7 +545,7 @@ export default () => {
     initInterstitialAdListener();
     dispatch(resetAdultVideoWatchTime())
     dispatch(disableAdultMode())
-    dispatch(hideAdultModeVip()) 
+    dispatch(hideAdultModeVip())
     dispatch(disableWatchAnytimeAdultMode())
     // dispatch(resetOverEighteen())
   }, []);

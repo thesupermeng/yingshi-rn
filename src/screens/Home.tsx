@@ -47,6 +47,7 @@ import { hideAdultModeDisclaimer } from "../redux/actions/screenAction";
 
 
 import useAnalytics from "../hooks/useAnalytics";
+import { screenModel } from "../types/screenType";
 
 
 function Home({ navigation }: BottomTabScreenProps<any>) {
@@ -60,12 +61,14 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   const settingsReducer: SettingsReducerState = useAppSelector(
     ({ settingsReducer }: RootState) => settingsReducer
   );
+  const screenState: screenModel = useAppSelector(
+    ({ screenReducer }) => screenReducer
+  )
   const bottomTabHeight = useBottomTabBarHeight();
 
   let channel = UMENG_CHANNEL;
 
-  if (Platform.OS === "ios")
-  {
+  if (Platform.OS === "ios") {
     channel = 'WEB';
   }
 
@@ -166,6 +169,17 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
     return () => unsubscribe();
   }, [navigation, isFocused, navId, handleRefresh]);
 
+  const handleRejectEighteenPlus = useCallback(() => {
+    const found = navOptions?.find((e) => e.name === screenState.lastSeenNavName);
+
+    if (found) {
+      navigation.navigate('首页', {
+        screen: screenState.lastSeenNavName
+      })
+      setNavId(found.id);
+    }
+  }, [navOptions, screenState.lastSeenNavName]);
+
   const getContent = useCallback(
     ({
       item,
@@ -191,13 +205,14 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
                   navId={index}
                   onRefresh={handleRefresh}
                   refreshProp={isRefreshing}
+                  handleRejectEighteenPlus={handleRejectEighteenPlus}
                 />
               </>
             ))}
         </>
       );
     },
-    []
+    [navOptions, screenState.lastSeenNavName]
   );
 
   const { setNavbarHeight } = useContext(AdsBannerContext)
@@ -222,10 +237,10 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
     if (navOptions !== undefined && navOptions.length > 0) {
 
       const idx = navOptions?.findIndex((e) => e.id === navId);
-homeTabViewsAnalytics({
-  tab_id: navOptions[idx].id.toString(),
-  tab_name: navOptions[idx].name,
-});
+      homeTabViewsAnalytics({
+        tab_id: navOptions[idx].id.toString(),
+        tab_name: navOptions[idx].name,
+      });
     }
   }, [navId])
   // ========== for analytics - end ==========
@@ -233,14 +248,17 @@ homeTabViewsAnalytics({
   const onTabPress = (target?: string) => {
     const targetStr = target?.substring(0, target.indexOf('-'));
     if (navOptions !== undefined) {
-        const found = navOptions?.findIndex((e) => e.name === targetStr);
-        setNavId(navOptions[found].id);
+      const found = navOptions?.find((e) => e.name === targetStr);
+
+      if (found) {
+        setNavId(found.id);
         // ========== for analytics - start ==========
         homeTabClicksAnalytics({
-          tab_id: navOptions[found].id.toString(),
-          tab_name: navOptions[found].name,
+          tab_id: found.id.toString(),
+          tab_name: found.name,
         });
-      // ========== for analytics - end ==========
+        // ========== for analytics - end ==========
+      }
     }
   }
 
