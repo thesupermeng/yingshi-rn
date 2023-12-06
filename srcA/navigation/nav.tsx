@@ -51,7 +51,6 @@ import ShortVodCollectionScreen from "../screens/Profile/Collection/shortVodColl
 import SportsIcon from "../../static/images/sports.svg";
 import MatchesScreen from "../Sports/screens/Sports/Matches";
 import MatchDetailsScreen from "../Sports/screens/Sports/MatchDetails";
-import WatchCollectionScreen from "../../src/screens/WatchCollection";
 import { useDispatch, useSelector } from "react-redux";
 import LoginBottomSheet from "../components/auth/loginBottomSheet";
 import RegisterBottomSheet from "../components/auth/registerBottomSheet";
@@ -611,7 +610,6 @@ export default () => {
             }}
             options={{ orientation: "all" }}
           />
-          <Stack.Screen name="合集播放" component={WatchCollectionScreen} />
           <Stack.Screen
             name="OTP"
             component={OtpScreen}
