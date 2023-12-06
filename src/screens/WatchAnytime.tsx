@@ -26,15 +26,18 @@ type MiniVodRef = {
   setPause: (pause: boolean) => void;
 };
 
+const LIMIT = 300;
+
 function WatchAnytime({navigation}: BottomTabScreenProps<any>) {
   const isFocused = useIsFocused();
   // New state to keep track of app's background/foreground status
   const [isInBackground, setIsInBackground] = useState(false);
+  const [flattenedVideos, setFlattenedVideos] = useState(Array<MiniVideo>);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [isOffline, setIsOffline] = useState(false);
-  const miniVodRef = useRef() as React.MutableRefObject<MiniVodRef>;
-  const miniVodListRef = useRef<any>();
   const [isPressTabScroll, setPressTabScroll] = useState(false);
+  const miniVodRef = useRef<MiniVodRef>();
+  const miniVodListRef = useRef<any>();
 
   const settingsReducer: SettingsReducerState = useAppSelector(
     ({settingsReducer}: RootState) => settingsReducer,
@@ -51,10 +54,63 @@ function WatchAnytime({navigation}: BottomTabScreenProps<any>) {
   const apiEndpoint = adultMode
     ? `${API_DOMAIN_TEST}miniSVod/v1/miniSVod`
     : `${API_DOMAIN_TEST}miniVod/v2/miniVod`;
-  const afterInitialLoad = useRef(false);
 
   // ========== for analytics - start ==========
   const {watchAnytimeViewsAnalytics} = useAnalytics();
+
+  // Handle app's background/foreground status
+  const handleAppStateChange = (nextAppState: any) => {
+    setIsInBackground(nextAppState !== 'active');
+  };
+
+  const handleRefresh = useCallback(async () => {
+    setIsRefreshing(true);
+    // await queryClient.resetQueries(['watchAnytime']); // Pass the query key as an array of strings
+    await refetch();
+    setIsRefreshing(false);
+    return;
+  }, []);
+
+  const fetchVods = (page: number) =>
+    fetch(`${apiEndpoint}?page=${page}&limit=${LIMIT}`)
+      .then(response => response.json())
+      .then((json: MiniVideoResponseType) => {
+        return json.data.List;
+      });
+
+  const {
+    data: videos,
+    isSuccess,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
+    isFetching,
+    refetch,
+    remove,
+  } = useInfiniteQuery(
+    ['watchAnytime', fetchMode],
+    ({pageParam = 1}) => fetchVods(pageParam),
+    {
+      getNextPageParam: (lastPage, allPages) => {
+        if (lastPage === null) {
+          return undefined;
+        }
+        const nextPage =
+          lastPage.length === LIMIT ? allPages.length + 1 : undefined;
+        return nextPage;
+      },
+      onSuccess: data => {},
+    },
+  );
+
+  const checkConnection = useCallback(async () => {
+    const state = await NetInfo.fetch();
+    const offline = !(state.isConnected && state.isInternetReachable);
+    setIsOffline(offline);
+    if (!offline) {
+      handleRefresh();
+    }
+  }, []);
 
   // ========== for analytics - start ==========
   useEffect(() => {
@@ -88,61 +144,21 @@ function WatchAnytime({navigation}: BottomTabScreenProps<any>) {
     return () => unsubscribe();
   }, [navigation, isFocused, isRefreshing]);
 
-  const handleRefresh = useCallback(async () => {
-    setIsRefreshing(true);
-    // await queryClient.resetQueries(['watchAnytime']); // Pass the query key as an array of strings
-    await refetch();
-    setIsRefreshing(false);
-    return;
-  }, []);
-
-  const [flattenedVideos, setFlattenedVideos] = useState(Array<MiniVideo>);
-  const LIMIT = 300;
-  const fetchVods = (page: number) =>
-    fetch(`${apiEndpoint}?page=${page}&limit=${LIMIT}`)
-      .then(response => response.json())
-      .then((json: MiniVideoResponseType) => {
-        return json.data.List;
-      });
-
-  const {
-    data: videos,
-    isSuccess,
-    hasNextPage,
-    fetchNextPage,
-    isFetchingNextPage,
-    isFetching,
-    refetch,
-    remove,
-  } = useInfiniteQuery(
-    ['watchAnytime', fetchMode],
-    ({pageParam = 1}) => fetchVods(pageParam),
-    {
-      getNextPageParam: (lastPage, allPages) => {
-        if (lastPage === null) {
-          return undefined;
-        }
-        const nextPage =
-          lastPage.length === LIMIT ? allPages.length + 1 : undefined;
-        return nextPage;
-      },
-      onSuccess: data => {},
-    },
-  );
-
   useEffect(() => {
     if (videos != undefined) {
       setFlattenedVideos(videos?.pages.flat());
     }
   }, [videos]);
 
-  const checkConnection = useCallback(async () => {
-    const state = await NetInfo.fetch();
-    const offline = !(state.isConnected && state.isInternetReachable);
-    setIsOffline(offline);
-    if (!offline) {
-      handleRefresh();
-    }
+  useEffect(() => {
+    const subscription = AppState.addEventListener(
+      'change',
+      handleAppStateChange,
+    );
+
+    return () => {
+      subscription.remove();
+    };
   }, []);
 
   useFocusEffect(
@@ -162,37 +178,10 @@ function WatchAnytime({navigation}: BottomTabScreenProps<any>) {
     }, [settingsReducer.isOffline]),
   );
 
-  useEffect(() => {
-    const subscription = AppState.addEventListener(
-      'change',
-      handleAppStateChange,
-    );
-
-    return () => {
-      subscription.remove();
-    };
-  }, []);
-
-  // Handle app's background/foreground status
-  const handleAppStateChange = (nextAppState: any) => {
-    setIsInBackground(nextAppState !== 'active');
-  };
-
   return (
-    <ScreenContainer
-      containerStyle={{paddingLeft: 0, paddingRight: 0, paddingBottom: 10}}>
-      <View
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          padding: 20,
-          zIndex: 50,
-          width: '100%',
-          flexDirection: 'row',
-          alignItems: 'center',
-        }}>
-        <Text style={{color: '#FFF', fontSize: 20}}>随心看</Text>
+    <ScreenContainer containerStyle={styles.containerStyle}>
+      <View style={styles.titleTextContainer}>
+        <Text style={styles.titleText}>随心看</Text>
       </View>
       <EighteenPlusControls />
       {!isOffline && (
@@ -218,4 +207,21 @@ function WatchAnytime({navigation}: BottomTabScreenProps<any>) {
 
 export default memo(WatchAnytime);
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  containerStyle: {
+    paddingLeft: 0,
+    paddingRight: 0,
+    paddingBottom: 10,
+  },
+  titleTextContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    padding: 20,
+    zIndex: 50,
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  titleText: {color: '#FFF', fontSize: 20},
+});
