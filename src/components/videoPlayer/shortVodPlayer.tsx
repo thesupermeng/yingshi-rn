@@ -8,7 +8,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import Video, { OnProgressData } from 'react-native-video';
+import Video, { OnProgressData, VideoRef } from 'react-native-video';
 import PlayIcon from '../../../static/images/blackPlay.svg';
 import PauseIcon from '../../../static/images/pause.svg';
 import PlayBoDanIcon from '../../../static/images/play-bodan.svg';
@@ -53,6 +53,8 @@ const truncateVodName = (vodName: string) => {
     : vodName;
 };
 
+const videoBufferGif = require('../../../static/images/videoBufferLoading.gif')
+
 function ShortVideoPlayer({
   vod,
   thumbnail,
@@ -78,7 +80,6 @@ function ShortVideoPlayer({
   let vodName = !adultMode
     ? truncateVodName(currentVod?.mini_video_original_video_name)
     : truncateVodName(currentVod?.mini_video_vod?.vod_name);
-  // let vodName = "我的"
 
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
@@ -86,7 +87,7 @@ function ShortVideoPlayer({
   const {colors, textVariants} = useTheme();
 
   const [isBuffering, setIsBuffering] = useState(false);
-  const videoRef = useRef<Video>(null);
+  const videoRef = useRef<VideoRef>(null);
   const [duration, setDuration] = useState(0);
   const [showOverlay, setShowOverlay] = useState(false);
   const timer = useRef<number>(0);
@@ -95,14 +96,15 @@ function ShortVideoPlayer({
   const [imageContainerHeight, setImageContainerHeight] = useState(0);
   const [isBodan, setIsBodan] = useState(true);
   const [watchText, setWatchText] = useState('看正片');
+  const isBodanRef = useRef(true)
+  const watchTextRef = useRef('看正片')
+
   const [imageLoaded, setImageLoaded] = useState(false);
   const overlayRef = useRef(false);
   const [isVideoReadyIos, setVideoReadyIos] = useState(false);
   const [isVideoReadyAndroid, setVideoReadyAndroid] = useState(false);
   const [onSliding, setOnSliding] = useState(false);
-  const [miniVodUrl, setMiniVodUrl] = useState(
-    currentVod.mini_video_origin_video_url,
-  );
+  const [miniVodUrl, setMiniVodUrl] = useState(currentVod.mini_video_origin_video_url);
 
   const windowWidth = Dimensions.get('window').width;
 
@@ -131,19 +133,26 @@ function ShortVideoPlayer({
 
   useEffect(() => {
     if (currentVod.mini_video_topic?.topic_id != 0) {
-      setIsBodan(true);
-      setWatchText('看播单');
+      // setIsBodan(true);
+      isBodanRef.current = true
+      // setWatchText('看播单');
+      watchTextRef.current = '看播单'
     } else {
-      setIsBodan(false);
-      setWatchText('看正片');
+      // setIsBodan(false);
+      // setWatchText('看正片');
+      isBodanRef.current = false
+      watchTextRef.current = '看正片'
+
     }
 
     return () => {
       setShowOverlay(false);
       setShowIcon(false);
       updateVideoDuration(0);
-      setIsBodan(false);
-      setWatchText('看正片');
+      // setIsBodan(false);
+      // setWatchText('看正片');
+      isBodanRef.current = false
+      watchTextRef.current = '看正片'
     };
   }, [currentVod]);
 
@@ -152,8 +161,6 @@ function ShortVideoPlayer({
       setShowIcon(false);
     }
   }, [isActive]);
-
-  const queryClient = new QueryClient();
 
   const openBottomSheet = useCallback(() => {
     openSheet();
@@ -165,7 +172,7 @@ function ShortVideoPlayer({
       // && Platform.OS === 'ios'
       setIsBuffering(false);
     }
-  }, []);
+  }, [adultMode]);
 
   const handleProgress = useCallback(
     (progress: OnProgressData) => {
@@ -228,18 +235,18 @@ function ShortVideoPlayer({
     onManualPause(isPause);
   };
 
-  const handleLoadStart = () => {
+  const handleLoadStart = useCallback(() => {
     if (videoRef.current) {
       videoRef.current.seek(currentDuration);
     }
-  };
+  }, [currentDuration])
 
   const handleLoad = (meta: any) => {
     setDuration(meta.duration);
   };
 
   const redirectVod = useCallback(() => {
-    if (isBodan) {
+    if (isBodanRef.current) {
       dispatch(viewPlaylistDetails(currentVod.mini_video_topic));
       navigation.navigate('PlaylistDetail', {
         topic_id: currentVod.mini_video_topic.topic_id,
@@ -259,7 +266,7 @@ function ShortVideoPlayer({
       watchAnytimeVideoClicksAnalytics();
       // ========== for analytics - end ==========
     }
-  }, [isBodan]);
+  }, [currentVod]);
 
   const handleViewLayout = (event: any) => {
     const {height} = event.nativeEvent.layout;
@@ -299,7 +306,7 @@ function ShortVideoPlayer({
                       backgroundColor: 'rgba(106, 106, 106, 0.25)',
                     }}>
                     <>
-                      {!isBodan && (
+                      {!isBodanRef.current && (
                         <View
                           style={{
                             width: 45,
@@ -320,7 +327,7 @@ function ShortVideoPlayer({
                           </TouchableOpacity>
                         </View>
                       )}
-                      {isBodan && (
+                      {isBodanRef.current && (
                         <View
                           style={{
                             width: 45,
@@ -352,7 +359,7 @@ function ShortVideoPlayer({
                                 setImageLoaded(true);
                               }}
                             />
-                            {imageLoaded && isBodan && (
+                            {imageLoaded && isBodanRef.current && (
                               <View>
                                 <FastImage
                                   style={{
@@ -418,7 +425,7 @@ function ShortVideoPlayer({
                             <View
                               style={{flexDirection: 'row', flexWrap: 'wrap'}}>
                               <View style={{flexWrap: 'wrap'}}>
-                                {isBodan ? (
+                                {isBodanRef.current ? (
                                   <PlayBoDanIcon width={20} height={20} />
                                 ) : (
                                   <PlayZhengPianIcon width={20} height={20} />
@@ -435,7 +442,7 @@ function ShortVideoPlayer({
                                     color: colors.text,
                                     fontSize: 14,
                                   }}>
-                                  {watchText}
+                                  {watchTextRef.current}
                                 </Text>
                               </View>
                             </View>
@@ -511,7 +518,7 @@ function ShortVideoPlayer({
         )}
       </View>
     );
-  }, [isBodan, currentVod, adultMode]);
+  }, [currentVod, adultMode]);
 
   useEffect(() => {
     const fn = async () => {
@@ -559,7 +566,7 @@ function ShortVideoPlayer({
                   : !isVideoReadyAndroid)) && (
                 <View style={styles.buffering}>
                   <FastImage
-                    source={require('../../../static/images/videoBufferLoading.gif')}
+                    source={videoBufferGif}
                     style={{width: 100, height: 100}}
                     resizeMode="contain"
                     useFastImage={true}
@@ -583,7 +590,6 @@ function ShortVideoPlayer({
                 // poster={thumbnail}
                 source={{
                   uri: miniVodUrl,
-                  // uri: 'https://v3-dy-o.zjcdn.com/b35b5e65ee4b305da17b21aeabf80603/656ee741/video/tos/cn/tos-cn-ve-15/ocHHtKWRbACiQfngBL2ueIEApe7QU30B8aDIBI/?a=6383&ch=5&cr=3&dr=0&lr=all&cd=0%7C0%7C0%7C3&cv=1&br=1001&bt=1001&cs=2&ds=3&ft=.6JO5fymVZmo0PalfdwkVQ._0G._KJd.&mime_type=video_mp4&qs=15&rc=ZzU6aTk8aTtpNWlnZDxkZkBpMzo6OjY6ZjtkbzMzNGkzM0AzLzQxMS1hXzAxYGMyNTUwYSMxbHFmcjQwY2tgLS1kLWFzcw%3D%3D&btag=e00008000&cc=1f&dy_q=1701763366&feature_id=7f4d8f8be65505495ee2bac95e186f16&l=2023120516024553B64ACE481F93004EA1&__vid=7308963587102362899',
                   headers: {
                     'User-Agent':
                       'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
@@ -602,8 +608,6 @@ function ShortVideoPlayer({
                     ? 1
                     : 0,
                 }}
-                // onVideoSeek={}
-                // ignoreSilentSwitch={"ignore"}
                 paused={
                   isPause ||
                   onSliding ||
