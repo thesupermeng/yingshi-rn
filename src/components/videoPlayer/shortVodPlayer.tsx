@@ -246,7 +246,7 @@ function ShortVideoPlayer({
       watchAnytimeVideoClicksAnalytics();
       // ========== for analytics - end ==========
     }
-  }, []);
+  }, [isBodan]);
 
   const handleViewLayout = (event: any) => {
     const { height } = event.nativeEvent.layout;
@@ -445,7 +445,7 @@ function ShortVideoPlayer({
         }
       </View>
     )
-  }, []);
+  }, [isBodan, currentVod, adultMode]);
 
   useEffect(() => {
     const fn = async () => {
