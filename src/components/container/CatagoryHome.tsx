@@ -64,6 +64,7 @@ interface Props {
   setScrollEnabled?: any;
   onRefresh?: any;
   refreshProp?: boolean;
+  handleRejectEighteenPlus: () => void,
 }
 const BTN_COLORS = ['#30AA55', '#7E9CEE', '#F1377A', '#FFCC12', '#ED7445'];
 const CatagoryHome = ({
@@ -72,10 +73,8 @@ const CatagoryHome = ({
   setScrollEnabled,
   onRefresh,
   refreshProp,
+  handleRejectEighteenPlus,
 }: Props) => {
-  const screenState: screenModel = useAppSelector(
-    ({screenReducer}) => screenReducer
-  )
   const { colors, textVariants, spacing } = useTheme();
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
@@ -131,12 +130,12 @@ const CatagoryHome = ({
               });
             }
           }}
-        /> 
-        { navId == 99 
+        />
+        {navId == 99
           ? // is 午夜场剧情
-          item?.vod_list && <VodListVertical numOfRows={2} vods={item?.vod_list} minNumPerRow={2} heightToWidthRatio={1/1.814} playerMode='adult' />
-          : 
-          item?.vod_list && <VodListVertical vods={item?.vod_list}/>
+          item?.vod_list && <VodListVertical numOfRows={2} vods={item?.vod_list} minNumPerRow={2} heightToWidthRatio={1 / 1.814} playerMode='adult' />
+          :
+          item?.vod_list && <VodListVertical vods={item?.vod_list} />
         }
       </View>
     ),
@@ -154,7 +153,7 @@ const CatagoryHome = ({
             vod_id: item.carousel_content_id,
             player_mode: navId == 99 ? 'adult' : 'normal'
           });
-          if (navId == 99) {dispatch(enableAdultMode())}
+          if (navId == 99) { dispatch(enableAdultMode()) }
         }}>
         <FastImage
           style={styles.image}
@@ -230,7 +229,7 @@ const CatagoryHome = ({
 
   useFocusEffect(
     useCallback(() => {
-      if (navId == 99){
+      if (navId == 99) {
         dispatch(showAdultModeDisclaimer())
       }
     }, [navId])
@@ -238,140 +237,136 @@ const CatagoryHome = ({
 
   return (
     <>
-    <View style={{width: width}}>
-      <FlatList
-        refreshControl={
-          <RefreshControl
-            refreshing={isRefreshing}
-            onRefresh={handleRefresh}
-            tintColor="#FAC33D"
-          />
-        }
-        ListHeaderComponent={
-          <>
-            {navId != 99 && data?.carousel[0] && !refreshProp && (
-              <View
-                style={{
-                  flex: 1,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  borderRadius: 17,
-                  zIndex: 9999,
-                }}>
-                <Carousel
-                  ref={carouselRef}
-                  loop
-                  width={width - spacing.sideOffset - spacing.sideOffset}
-                  height={width / 2}
-                  autoPlay={true}
-                  data={data.carousel}
-                  scrollAnimationDuration={120}
-                  autoPlayInterval={2300}
-                  onScrollBegin={() => {}}
-                  onSnapToItem={index => {
-                    setActiveIndex(index);
-                  }}
-                  onScrollEnd={index => {
-                    setActiveIndex(index);
-                  }}
-                  renderItem={renderCarousel}
-                />
-                <CarouselPagination
-                  data={data.carousel}
-                  activeIndex={activeIndex}
-                />
-              </View>
-            )}
-            <View>
-              {navId != 99 && data && data.class_list && data.class_list.length > 0 && (
-                <FlatListSecondary
-                  ref={categoryListRef}
-                  data={['全部剧集', ...data.class_list]}
-                  horizontal
-                  showsHorizontalScrollIndicator={false}
-                  initialNumToRender={5}
-                  contentContainerStyle={{
-                    ...styles.catalogNav,
-                    marginBottom: spacing.m,
-                    paddingLeft: spacing.sideOffset,
-                    paddingRight: spacing.sideOffset,
-                  }}
-                  renderItem={renderContent}
-                />
+      <View style={{ width: width }}>
+        <FlatList
+          refreshControl={
+            <RefreshControl
+              refreshing={isRefreshing}
+              onRefresh={handleRefresh}
+              tintColor="#FAC33D"
+            />
+          }
+          ListHeaderComponent={
+            <>
+              {navId != 99 && data?.carousel[0] && !refreshProp && (
+                <View
+                  style={{
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderRadius: 17,
+                    zIndex: 9999,
+                  }}>
+                  <Carousel
+                    ref={carouselRef}
+                    loop
+                    width={width - spacing.sideOffset - spacing.sideOffset}
+                    height={width / 2}
+                    autoPlay={true}
+                    data={data.carousel}
+                    scrollAnimationDuration={120}
+                    autoPlayInterval={2300}
+                    onScrollBegin={() => { }}
+                    onSnapToItem={index => {
+                      setActiveIndex(index);
+                    }}
+                    onScrollEnd={index => {
+                      setActiveIndex(index);
+                    }}
+                    renderItem={renderCarousel}
+                  />
+                  <CarouselPagination
+                    data={data.carousel}
+                    activeIndex={activeIndex}
+                  />
+                </View>
               )}
-              {data?.yunying &&
-                data.yunying.length > 0 &&
-                data.yunying.map((item, index) => (
-                  <View
-                    key={item.type_name}
-                    style={{
+              <View>
+                {navId != 99 && data && data.class_list && data.class_list.length > 0 && (
+                  <FlatListSecondary
+                    ref={categoryListRef}
+                    data={['全部剧集', ...data.class_list]}
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    initialNumToRender={5}
+                    contentContainerStyle={{
+                      ...styles.catalogNav,
+                      marginBottom: spacing.m,
                       paddingLeft: spacing.sideOffset,
                       paddingRight: spacing.sideOffset,
-                      gap: spacing.m,
-                    }}>
-                    <View>
-                      <ShowMoreVodButton
-                        text={item.type_name}
-                        onPress={() => {
-                          console.debug('navid', navId)
-                          if (navId != 99) {
-                            navigation.navigate('片库', {
-                              type_id: item.vod_list[0].type_id,
-                            });
-                          } else {
-                            navigation.navigate('午夜场剧情', {
-                              class: item.vod_list[0].vod_class
-                            });
-                          }
-                        }}
-                      />
+                    }}
+                    renderItem={renderContent}
+                  />
+                )}
+                {data?.yunying &&
+                  data.yunying.length > 0 &&
+                  data.yunying.map((item, index) => (
+                    <View
+                      key={item.type_name}
+                      style={{
+                        paddingLeft: spacing.sideOffset,
+                        paddingRight: spacing.sideOffset,
+                        gap: spacing.m,
+                      }}>
+                      <View>
+                        <ShowMoreVodButton
+                          text={item.type_name}
+                          onPress={() => {
+                            console.debug('navid', navId)
+                            if (navId != 99) {
+                              navigation.navigate('片库', {
+                                type_id: item.vod_list[0].type_id,
+                              });
+                            } else {
+                              navigation.navigate('午夜场剧情', {
+                                class: item.vod_list[0].vod_class
+                              });
+                            }
+                          }}
+                        />
+                      </View>
+                      {navId == 99
+                        ? // is 午夜场剧情
+                        item?.vod_list && <VodListVertical numOfRows={2} vods={item?.vod_list} minNumPerRow={2} heightToWidthRatio={1 / 1.814} playerMode='adult' />
+                        :
+                        item?.vod_list && <VodListVertical vods={item?.vod_list} />
+                      }
                     </View>
-                    { navId == 99 
-                    ? // is 午夜场剧情
-                    item?.vod_list && <VodListVertical numOfRows={2} vods={item?.vod_list} minNumPerRow={2} heightToWidthRatio={1/1.814} playerMode='adult' />
-                    : 
-                    item?.vod_list && <VodListVertical vods={item?.vod_list}/>
-                  }
-                  </View>
-                ))}
+                  ))}
+              </View>
+            </>
+          }
+          data={data?.categories ? data?.categories : []}
+          initialNumToRender={1}
+          windowSize={3}
+          maxToRenderPerBatch={3}
+          renderItem={listItem}
+          contentContainerStyle={{ paddingBottom: 60 }}
+          removeClippedSubviews={true}
+          ListFooterComponent={
+            <View style={{ ...styles.loading }}>
+              <Text
+                style={{
+                  ...textVariants.subBody,
+                  color: colors.muted,
+                  paddingTop: 12,
+                }}>
+                已经到底了
+              </Text>
             </View>
-          </>
-        }
-        data={data?.categories ? data?.categories : []}
-        initialNumToRender={1}
-        windowSize={3}
-        maxToRenderPerBatch={3}
-        renderItem={listItem}
-        contentContainerStyle={{paddingBottom: 60}}
-        removeClippedSubviews={true}
-        ListFooterComponent={
-          <View style={{...styles.loading}}>
-            <Text
-              style={{
-                ...textVariants.subBody,
-                color: colors.muted,
-                paddingTop: 12,
-              }}>
-              已经到底了
-            </Text>
-          </View>
-        }
-        onEndReachedThreshold={0.5}
-      />
-    </View>
-    {navId == 99 &&
-      <EighteenPlusOverlay
+          }
+          onEndReachedThreshold={0.5}
+        />
+      </View>
+      {navId == 99 &&
+        <EighteenPlusOverlay
           handleAccept={() => {
             dispatch(acceptOverEighteen())
           }}
-          handleReject={() => {
-            navigation.navigate('首页', {
-              screen: screenState.lastSeenNavName
-            })
-          }}
+          handleReject={handleRejectEighteenPlus}
         />
-    
-    }
+
+      }
     </>
   );
 };
