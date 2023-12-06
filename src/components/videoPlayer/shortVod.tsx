@@ -6,7 +6,6 @@ interface Props {
     thumbnail?: string;
     displayHeight: number;
     vod: any;
-    inCollectionView?: boolean;
     isPause: boolean;
     onManualPause: (value: boolean) => void;
     isShowVideo: boolean,
@@ -19,7 +18,6 @@ function ShortVod({
     vod,
     thumbnail,
     displayHeight = 0,
-    inCollectionView = false,
     isPause = true,
     onManualPause,
     isShowVideo,
@@ -45,7 +43,6 @@ function ShortVod({
                 vod={currentVod}
                 thumbnail={thumbnail}
                 displayHeight={displayHeight}
-                inCollectionView={inCollectionView}
                 openSheet={openSheet}
                 isPause={isPause}
                 onManualPause={onManualPause}
@@ -61,7 +58,6 @@ function ShortVod({
                     collectionVideoId={currentVod.mini_video_id}
                     collectionId={currentVod.mini_video_heji_id}
                     collectionName={currentVod.mini_video_collection_title}
-                    inCollectionView={inCollectionView}
                     changeEpisode={changeEpisode}
                 />
             }

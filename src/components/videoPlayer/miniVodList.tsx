@@ -26,7 +26,6 @@ interface Props {
   isFetchingNextPage: any;
   isFetching: boolean;
   isActive: boolean;
-  inCollectionView?: boolean;
   setParentCurrent?: any;
   initialIndex?: number;
   collection_ori_all_videos?: any;
@@ -57,7 +56,6 @@ export default forwardRef<MiniVodRef, Props>(
       isFetchingNextPage,
       isFetching,
       isActive,
-      inCollectionView = false,
       isRefreshing = false,
       isPressTabScroll = false,
     }: Props,
@@ -193,9 +191,6 @@ export default forwardRef<MiniVodRef, Props>(
 
       // set default 0 for all video duration
       setVideoCurrentDurations(videos.map(() => 0));
-
-      if (inCollectionView == true) {
-      }
     }, [videos]);
 
     useEffect(() => {
@@ -233,7 +228,6 @@ export default forwardRef<MiniVodRef, Props>(
               vod={item}
               thumbnail={item.mini_video_origin_cover}
               displayHeight={displayHeight ? displayHeight : 0}
-              inCollectionView={inCollectionView}
               isPause={isPause || current !== index}
               onManualPause={current => {
                 console.log('click pause');
@@ -255,7 +249,6 @@ export default forwardRef<MiniVodRef, Props>(
         isActive,
         isPause,
         isScrolling,
-        inCollectionView,
         displayHeight,
         videoCurrentDurations,
         isPressTabScroll,

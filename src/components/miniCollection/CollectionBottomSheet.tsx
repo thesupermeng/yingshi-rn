@@ -31,7 +31,6 @@ interface Props {
   collectionVideoList?: any;
   collectionVideoId?: number;
   collectionName?: string;
-  inCollectionView?: boolean;
   changeEpisode: any;
   currentVodIndex?: number;
   changeCurrentVodIndex?: any;
@@ -45,7 +44,6 @@ function CollectionBottomSheet({
   collectionName,
   collectionVideoId = 0,
   collectionId,
-  inCollectionView = false,
   changeEpisode,
   currentVodIndex = 0,
 }: Props) {

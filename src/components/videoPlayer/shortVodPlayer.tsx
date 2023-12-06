@@ -34,7 +34,6 @@ interface Props {
   thumbnail?: string;
   displayHeight: number;
   vod: any;
-  inCollectionView?: boolean;
   setCollectionEpisode?: any;
   openSheet?: any;
   isPause: boolean;
@@ -59,7 +58,6 @@ function ShortVideoPlayer({
   vod,
   thumbnail,
   displayHeight = 0,
-  inCollectionView = false,
   openSheet,
   isPause = false,
   onManualPause,
