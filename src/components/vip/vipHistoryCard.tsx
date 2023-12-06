@@ -33,16 +33,27 @@ export const VipHistoryCard = ({ historyItem }: Props) => {
       </View>
       <View
         style={{flex: 1, alignSelf: 'center'}}>
-        {historyItem.status === 2 ? 
+        {historyItem.status === 2 && 
           <Text
-            style={{...textVariants.subBody, color: '#FF8A00', alignSelf: 'flex-end'}}>
+            style={{...textVariants.subBody, color: colors.muted, alignSelf: 'flex-end'}}>
             处理中
-          </Text> : 
-          <Text
-            style={{...textVariants.subBody, color: historyItem.status === 1 ? colors.primary : colors.muted , alignSelf: 'flex-end'}}>
-            {historyItem.status === 1 ? '+' : '' }{historyItem.vipDays}天
           </Text>
         }
+
+        {historyItem.status === 1 && 
+          <Text
+            style={{...textVariants.subBody, color: colors.primary , alignSelf: 'flex-end'}}>
+            {historyItem.status === 1 ? '+' : '' }{historyItem.vipDays}天
+          </Text>
+        } 
+
+        {historyItem.status === 0 && 
+          <Text
+            style={{...textVariants.subBody, color: '#FF0000' , alignSelf: 'flex-end'}}>
+            失败
+          </Text>
+        } 
+         
       </View>
     </View>
   );
