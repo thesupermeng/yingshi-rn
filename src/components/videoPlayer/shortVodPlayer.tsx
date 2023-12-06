@@ -468,6 +468,10 @@ function ShortVideoPlayer({
     fn()
   }, [isPause, currentDuration])
 
+  useEffect(() => {
+    setMiniVodUrl(currentVod.mini_video_origin_video_url)
+  }, [currentVod])
+
   return (
     <>
       {isShowVideo &&
