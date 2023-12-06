@@ -1,29 +1,28 @@
-import React, { useState, memo, useCallback, useEffect, useRef } from "react";
+import { useTheme } from '@react-navigation/native';
+import { useQuery } from '@tanstack/react-query';
+import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  ScrollView,
   Image,
-} from "react-native";
-import { useNavigation, useTheme } from "@react-navigation/native";
-import FastImage from "react-native-fast-image";
-import { useQuery } from "@tanstack/react-query";
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import {
   selectMiniVodCollection,
   setFromMiniVodCollection,
-} from "../../redux/actions/miniVodActions";
-import { API_DOMAIN } from "../../utility/constants";
+} from '../../redux/actions/miniVodActions';
+import { MiniVodReducerState } from '../../redux/reducers/miniVodReducer';
+import { RootState } from '../../redux/store';
 import {
   CollectionResponseType,
   MiniVideoCollectionItem,
-} from "../../types/ajaxTypes";
-import { getMinuteSecond } from "../../utility/helper";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { RootState } from "../../redux/store";
-import { MiniVodReducerState } from "../../redux/reducers/miniVodReducer";
-import BottomSheet from "../bottomSheet/bottomSheet";
+} from '../../types/ajaxTypes';
+import { API_DOMAIN } from '../../utility/constants';
+import { getMinuteSecond } from '../../utility/helper';
+import BottomSheet from '../bottomSheet/bottomSheet';
 
 interface Props {
   isVisible?: boolean;
@@ -38,6 +37,8 @@ interface Props {
   changeCurrentVodIndex?: any;
 }
 
+const loadingSpinnerGif = require('../../../static/images/loading-spinner.gif');
+
 function CollectionBottomSheet({
   isVisible = false,
   handleClose,
@@ -50,14 +51,12 @@ function CollectionBottomSheet({
 }: Props) {
   const scrollRef = useRef<any>();
   const miniVodReducer: MiniVodReducerState = useAppSelector(
-    ({ miniVodReducer }: RootState) => miniVodReducer
+    ({miniVodReducer}: RootState) => miniVodReducer,
   );
 
-  const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const [enabledUseQuery, setEnabledUseQuery] = useState(false);
   const [totalCollectionEpisodes, setTotalCollectionEpisodes] = useState(0);
-  const [itemIndex, setItemIndex] = useState(0);
   const [imageError, setImageError] = useState(false);
 
   useEffect(() => {
@@ -76,21 +75,21 @@ function CollectionBottomSheet({
     isFetching,
     isPreviousData,
   } = useQuery(
-    ["collection", collectionId],
+    ['collection', collectionId],
     () =>
       fetch(`${API_DOMAIN}miniVod/v2/collections/${collectionVideoId}?limit=30`)
-        .then((response) => response.json())
+        .then(response => response.json())
         .then((json: CollectionResponseType) => {
           return json.data.List;
         }),
     {
       enabled: enabledUseQuery,
-    }
+    },
   );
 
   useEffect(() => {
     if (collectionData != undefined) {
-      let itemIndex = collectionData.findIndex((obj) => {
+      let itemIndex = collectionData.findIndex(obj => {
         return obj.mini_video_id === collectionVideoId;
       });
 
@@ -98,18 +97,16 @@ function CollectionBottomSheet({
         itemIndex = -1;
       }
 
-      setItemIndex(itemIndex);
-
       dispatch(setFromMiniVodCollection(itemIndex));
       dispatch(selectMiniVodCollection(itemIndex));
       setTotalCollectionEpisodes(collectionData.length);
       if (scrollRef) {
-        scrollRef?.current?.scrollTo({ y: itemIndex * 130, animated: true });
+        scrollRef?.current?.scrollTo({y: itemIndex * 130, animated: true});
       }
     }
   }, [collectionData]);
 
-  const { colors, textVariants, spacing } = useTheme();
+  const {colors, textVariants, spacing} = useTheme();
 
   const handleSheetChanges = () => {
     if (handleClose !== undefined) handleClose();
@@ -122,7 +119,7 @@ function CollectionBottomSheet({
         changeEpisode(item, index);
       }
     },
-    [collectionData]
+    [collectionData],
   );
 
   let selectedIndex = miniVodReducer.miniVodCollectionItemIndex;
@@ -138,57 +135,44 @@ function CollectionBottomSheet({
       isVisible={isVisible}
       onBackdropPress={handleSheetChanges}
       containerStyle={{
-        height: "60%",
-      }}
-    >
+        height: '60%',
+      }}>
       <View
         style={{
           ...styles.container,
-          // backgroundColor: colors.card,
-          backgroundColor: "#171717",
+          backgroundColor: '#171717',
           paddingLeft: spacing.sideOffset,
           paddingRight: spacing.sideOffset,
           paddingBottom: 50,
           gap: spacing.m,
-        }}
-      >
-        <View style={{ paddingTop: 12, paddingBottom: 8 }}>
+        }}>
+        <View style={styles.headerContainer}>
           <Text
             style={{
               ...textVariants.header,
-              textAlign: "center",
+              textAlign: 'center',
               paddingBottom: 4,
-            }}
-          >
+            }}>
             {collectionName}
           </Text>
-          {isLoading ||
-            (!isFetching && (
-              <Text
-                style={{
-                  ...textVariants.subBody,
-                  textAlign: "center",
-                  color: colors.sliderDot,
-                }}
-              >
-                更新至{totalCollectionEpisodes}集
-              </Text>
-            ))}
+          {(isLoading || !isFetching) && (
+            <Text
+              style={{
+                ...textVariants.subBody,
+                textAlign: 'center',
+                color: colors.sliderDot,
+              }}>
+              更新至{totalCollectionEpisodes}集
+            </Text>
+          )}
         </View>
 
         {(isLoading || isFetching || !enabledUseQuery) && (
-          <View
-            style={{
-              flex: 1,
-              alignContent: "center",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
+          <View style={styles.loadingContainer}>
             <Image
-              style={{ height: 80, width: 80 }}
-              source={require("../../../static/images/loading-spinner.gif")}
-              resizeMode={"contain"}
+              style={{height: 80, width: 80}}
+              source={loadingSpinnerGif}
+              resizeMode={'contain'}
             />
           </View>
         )}
@@ -196,73 +180,69 @@ function CollectionBottomSheet({
           !isFetching &&
           collectionData != undefined &&
           enabledUseQuery && (
-            <View style={{ flex: 1, marginRight: 8 }}>
-              <ScrollView ref={scrollRef} showsVerticalScrollIndicator={false}>
-                {collectionData?.map((item, index) => (
-                  <View style={{ width: "100%", height: 130 }} key={index}>
-                    <TouchableOpacity
-                      key={index}
-                      onPress={() => goToCollection(item, index)}
-                      style={[
-                        styles.bottomSheetItem,
-                        index == selectedIndex
-                          ? styles.selectedBottomSheetItem
-                          : styles.notSelected,
-                      ]}
-                    >
-                      <View style={{ flex: 1, flexDirection: "row" }}>
-                        <View
-                          style={{
-                            flex: 2,
-                            backgroundColor: "black",
-                            borderRadius: 6,
+            <ScrollView
+              ref={scrollRef}
+              showsVerticalScrollIndicator={false}
+              style={{flex: 1, marginRight: 8}}>
+              {collectionData?.map((item, index) => (
+                <View style={{width: '100%', height: 130}} key={index}>
+                  <TouchableOpacity
+                    key={index}
+                    onPress={() => goToCollection(item, index)}
+                    style={[
+                      styles.bottomSheetItem,
+                      index == selectedIndex
+                        ? styles.selectedBottomSheetItem
+                        : styles.notSelected,
+                    ]}>
+                    <View style={{flex: 1, flexDirection: 'row'}}>
+                      <View
+                        style={{
+                          flex: 2,
+                          backgroundColor: 'black',
+                          borderRadius: 6,
+                        }}>
+                        <Image
+                          style={{height: '100%'}}
+                          source={{
+                            uri:
+                              imageError == false
+                                ? item.mini_video_origin_cover
+                                : 'https://static.wixstatic.com/media/5dca26_0052ca4edcc94049a9115dea94e6616d~mv2.png',
                           }}
-                        >
-                          <Image
-                            style={{ height: "100%" }}
-                            source={{
-                              uri:
-                                imageError == false
-                                  ? item.mini_video_origin_cover
-                                  : "https://static.wixstatic.com/media/5dca26_0052ca4edcc94049a9115dea94e6616d~mv2.png",
-                            }}
-                            onError={() => setImageError(true)}
-                            resizeMode={"contain"}
-                          />
-                        </View>
-                        <View
-                          style={{
-                            flex: 6,
-                            flexDirection: "column",
-                            alignSelf: "center",
-                          }}
-                        >
-                          <View style={{ paddingLeft: 12 }}>
-                            <Text
-                              numberOfLines={3}
-                              style={{
-                                ...textVariants.unselected,
-                                paddingBottom: 10,
-                              }}
-                            >
-                              {item.mini_video_title}
-                            </Text>
-                            <Text
-                              style={{
-                                ...textVariants.subBody,
-                                color: colors.sliderDot,
-                              }}
-                            >
-                              {getMinuteSecond(item.mini_video_duration)}
-                            </Text>
-                          </View>
+                          onError={() => setImageError(true)}
+                          resizeMode={'contain'}
+                        />
+                      </View>
+                      <View
+                        style={{
+                          flex: 6,
+                          flexDirection: 'column',
+                          alignSelf: 'center',
+                        }}>
+                        <View style={{paddingLeft: 12}}>
+                          <Text
+                            numberOfLines={3}
+                            style={{
+                              ...textVariants.unselected,
+                              paddingBottom: 10,
+                            }}>
+                            {item.mini_video_title}
+                          </Text>
+                          <Text
+                            style={{
+                              ...textVariants.subBody,
+                              color: colors.sliderDot,
+                            }}>
+                            {getMinuteSecond(item.mini_video_duration)}
+                          </Text>
                         </View>
                       </View>
-                    </TouchableOpacity>
-                  </View>
-                ))}
-              </ScrollView>
-            </View>
+                    </View>
+                  </TouchableOpacity>
+                </View>
+              ))}
+            </ScrollView>
           )}
       </View>
     </BottomSheet>
@@ -274,17 +254,17 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     flex: 1,
-    height: "100%",
+    height: '100%',
   },
   episodeList: {
-    display: "flex",
-    flexDirection: "row",
-    flexWrap: "wrap",
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
     // alignItems: 'flex-start',
     paddingLeft: 10,
   },
   bottomSheetItem: {
-    width: "100%",
+    width: '100%',
     marginVertical: 1,
     padding: 7,
     // paddingVertical: 8,
@@ -292,9 +272,16 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   selectedBottomSheetItem: {
-    backgroundColor: "#303030",
+    backgroundColor: '#303030',
   },
   notSelected: {},
+  loadingContainer: {
+    flex: 1,
+    alignContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  headerContainer: {paddingTop: 12, paddingBottom: 8},
 });
 
 export default memo(CollectionBottomSheet);
