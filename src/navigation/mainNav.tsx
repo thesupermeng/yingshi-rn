@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { View } from "react-native";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider, useInfiniteQuery } from "@tanstack/react-query";
 import FastImage from "../components/common/customFastImage";
 import { NetworkInfo } from "react-native-network-info";
 import Nav from "../../src/navigation/nav";
@@ -14,6 +14,7 @@ import {
   UMENG_CHANNEL,
   APP_VERSION,
   APP_NAME_CONST,
+  API_DOMAIN_TEST,
 } from "../../src/utility/constants";
 import { YSConfig } from "../../ysConfig";
 import { Dimensions, Platform } from "react-native";
@@ -22,6 +23,8 @@ import { Url } from "../../src/Sports/middleware/url";
 import Config from "../../src/Sports/global/env";
 import { AppConfig } from "../../src/Sports/global/appConfig";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import RNFetchBlob from "rn-fetch-blob";
+import { Toast } from "@ant-design/react-native";
 
 export default () => {
   const [loadedAPI, setLoadedAPI] = useState(false);
@@ -126,6 +129,16 @@ export default () => {
     getNav();
   }, []);
 
+  const {data} = useInfiniteQuery(['watchAnytime', 'normal'])
+  useEffect(() => {
+    if (!!data){
+      const firstFiveVod = data.pages.flat(Infinity).slice(0,10)
+      // console.debug(firstFiveVod.map(a => a.mini_video_id))
+      firstFiveVod.forEach(vod => downloadVod(vod))
+
+    }
+  }, [data])
+
   return (
     <>
       {isSuper == true ? (
@@ -172,3 +185,24 @@ export default () => {
     </>
   );
 };
+
+function downloadVod(vod){
+  const fileLocation = RNFetchBlob.fs.dirs.DocumentDir + `/videocache/${vod.mini_video_id}.mp4`
+
+  const fileExist = RNFetchBlob.fs.exists(fileLocation)
+
+  fileExist.then((exist) => {
+    if (exist){
+      // console.debug('file exist!')
+    } else {
+      RNFetchBlob
+      .config({
+        path: fileLocation
+      })
+      .fetch('GET', vod.mini_video_origin_video_url)
+      .then((res) =>{
+        // console.debug('finished download', res.path())
+      })
+    }
+  })
+}

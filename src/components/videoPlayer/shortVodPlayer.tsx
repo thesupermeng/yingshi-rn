@@ -28,6 +28,7 @@ import useAnalytics from '../../hooks/useAnalytics';
 import { userModel } from '../../types/userType';
 import { ADULT_MODE_PREVIEW_DURATION } from '../../utility/constants';
 import { showAdultModeVip } from '../../redux/actions/screenAction';
+import RNFetchBlob from 'rn-fetch-blob';
 
 
 interface Props {
@@ -100,6 +101,7 @@ function ShortVideoPlayer({
   const [isVideoReadyIos, setVideoReadyIos] = useState(false);
   const [isVideoReadyAndroid, setVideoReadyAndroid] = useState(false);
   const [onSliding, setOnSliding] = useState(false);
+  const [miniVodUrl, setMiniVodUrl] = useState(currentVod.mini_video_origin_video_url)
 
   const windowWidth = Dimensions.get('window').width;
 
@@ -244,12 +246,18 @@ function ShortVideoPlayer({
       watchAnytimeVideoClicksAnalytics();
       // ========== for analytics - end ==========
     }
-  }, []);
+  }, [isBodan]);
 
   const handleViewLayout = (event: any) => {
     const { height } = event.nativeEvent.layout;
     setImageContainerHeight(height);
   }
+
+  useEffect(() => {
+    if (isPause === false){
+      setIsBuffering(false)
+    }
+  }, [isPause])
 
   const bottomContent = useCallback(() => {
     return (
@@ -437,7 +445,29 @@ function ShortVideoPlayer({
         }
       </View>
     )
-  }, []);
+  }, [isBodan, currentVod, adultMode]);
+
+  useEffect(() => {
+    const fn = async () => {
+      if (isPause === false && currentDuration < 1){
+        // check if video is in local storage 
+        // if local storage, update miniVodUrl 
+        // else do nothing 
+
+        const fileLocation = RNFetchBlob.fs.dirs.DocumentDir + `/videocache/${currentVod.mini_video_id}.mp4`
+
+        const fileExist = await RNFetchBlob.fs.exists(fileLocation)
+
+        if (fileExist){
+          console.debug('file exist, change source! ')
+          setMiniVodUrl(fileLocation)
+        } else {
+          console.debug('file not exist ')
+        }
+      }
+    }
+    fn()
+  }, [isPause, currentDuration])
 
   return (
     <>
@@ -474,7 +504,7 @@ function ShortVideoPlayer({
               resizeMode="contain"
               // poster={thumbnail}
               source={{
-                uri: currentVod.mini_video_origin_video_url,
+                uri: miniVodUrl,
                 // uri: 'https://v3-dy-o.zjcdn.com/b35b5e65ee4b305da17b21aeabf80603/656ee741/video/tos/cn/tos-cn-ve-15/ocHHtKWRbACiQfngBL2ueIEApe7QU30B8aDIBI/?a=6383&ch=5&cr=3&dr=0&lr=all&cd=0%7C0%7C0%7C3&cv=1&br=1001&bt=1001&cs=2&ds=3&ft=.6JO5fymVZmo0PalfdwkVQ._0G._KJd.&mime_type=video_mp4&qs=15&rc=ZzU6aTk8aTtpNWlnZDxkZkBpMzo6OjY6ZjtkbzMzNGkzM0AzLzQxMS1hXzAxYGMyNTUwYSMxbHFmcjQwY2tgLS1kLWFzcw%3D%3D&btag=e00008000&cc=1f&dy_q=1701763366&feature_id=7f4d8f8be65505495ee2bac95e186f16&l=2023120516024553B64ACE481F93004EA1&__vid=7308963587102362899',
                 headers: {
                   'User-Agent':

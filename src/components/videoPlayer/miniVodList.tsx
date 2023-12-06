@@ -113,7 +113,7 @@ export default forwardRef<MiniVodRef, Props>(
 
         const handleOnScroll = useCallback((e: any) => {
             const positionY = parseFloat(e.nativeEvent.contentOffset.y.toFixed(5));
-            const index = Math.floor(positionY / displayHeight);
+            const index = Math.round(positionY / displayHeight);
 
             if (index >= 0 && displayHeight > 0 && index != current) {
                 setCurrent(index);
