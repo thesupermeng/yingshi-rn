@@ -54,15 +54,17 @@ function ShortVod({
                 updateVideoDuration={updateVideoDuration}
                 isActive={isActive}
             />
-            <CollectionBottomSheet
-                isVisible={isShowBottomSheet}
-                handleClose={() => setShowBottomSheet(false)}
-                collectionVideoId={currentVod.mini_video_id}
-                collectionId={currentVod.mini_video_heji_id}
-                collectionName={currentVod.mini_video_collection_title}
-                inCollectionView={inCollectionView}
-                changeEpisode={changeEpisode}
-            />
+            { currentVod.mini_video_heji_id !== 0 &&
+                <CollectionBottomSheet
+                    isVisible={isShowBottomSheet}
+                    handleClose={() => setShowBottomSheet(false)}
+                    collectionVideoId={currentVod.mini_video_id}
+                    collectionId={currentVod.mini_video_heji_id}
+                    collectionName={currentVod.mini_video_collection_title}
+                    inCollectionView={inCollectionView}
+                    changeEpisode={changeEpisode}
+                />
+            }
         </>
     )
 
