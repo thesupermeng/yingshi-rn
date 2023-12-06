@@ -41,6 +41,9 @@ type MiniVodRef = {
   setPause: (pause: boolean) => void;
 };
 
+const homeLoadingGif = require('../../../static/images/home-loading.gif');
+const loadingSpinnerGif = require('../../../static/images/loading-spinner.gif');
+
 export default forwardRef<MiniVodRef, Props>(
   (
     {
@@ -91,6 +94,7 @@ export default forwardRef<MiniVodRef, Props>(
       Number(userState.userMemberExpired) <=
         Number(userState.userCurrentTimestamp) || userState.userToken === '';
     const dispatch = useAppDispatch();
+
     useEffect(() => {
       if (
         adultVideoWatchTime >= ADULT_MODE_PREVIEW_DURATION &&
@@ -273,25 +277,30 @@ export default forwardRef<MiniVodRef, Props>(
       );
     }, []);
 
+    const hanldeOnEndReached = useCallback(() => {
+      if (hasNextPage && !isFetchingNextPage && !isFetching) {
+        fetchNextPage();
+      }
+    }, [hasNextPage, isFetchingNextPage, isFetching]);
+
+    const handleOnScrollBeginDrag = useCallback(
+      e => {
+        if (!isScrolling) setIsScrolling(true);
+      },
+      [isScrolling],
+    );
+
+    const handleOnMomentumScrollEnd = useCallback(() => {
+      setIsScrolling(false);
+    }, []);
+
     return (
       <View style={{flex: 1}} onLayout={onLayoutRender}>
         {isInitFetching ? (
-          <View
-            style={{
-              flex: 1,
-              width: '100%',
-              height: '100%',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
+          <View style={styles.loadingContainer}>
             <FastImage
-              source={require('../../../static/images/home-loading.gif')}
-              style={{
-                width: 150,
-                height: 150,
-                bottom: 50,
-                zIndex: 1,
-              }}
+              source={homeLoadingGif}
+              style={styles.homeLoadingImage}
               resizeMode={'contain'}
               useFastImage={true}
             />
@@ -315,30 +324,22 @@ export default forwardRef<MiniVodRef, Props>(
             viewabilityConfig={{viewAreaCoveragePercentThreshold: 100}}
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
-            onEndReached={() => {
-              if (hasNextPage && !isFetchingNextPage && !isFetching) {
-                fetchNextPage();
-              }
-            }}
+            onEndReached={hanldeOnEndReached}
             onEndReachedThreshold={0.8}
             ListFooterComponent={
               <View style={{...styles.loading, marginBottom: spacing.xl}}>
                 {hasNextPage && (
                   <FastImage
                     style={{height: 80, width: 80}}
-                    source={require('../../../static/images/loading-spinner.gif')}
+                    source={loadingSpinnerGif}
                     resizeMode={'contain'}
                   />
                 )}
               </View>
             }
             onScroll={handleOnScroll}
-            onScrollBeginDrag={e => {
-              if (!isScrolling) setIsScrolling(true);
-            }}
-            onMomentumScrollEnd={() => {
-              setIsScrolling(false);
-            }}
+            onScrollBeginDrag={handleOnScrollBeginDrag}
+            onMomentumScrollEnd={handleOnMomentumScrollEnd}
           />
         )}
       </View>
@@ -351,5 +352,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     flex: 1,
+  },
+  loadingContainer: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  homeLoadingImage: {
+    width: 150,
+    height: 150,
+    bottom: 50,
+    zIndex: 1,
   },
 });
