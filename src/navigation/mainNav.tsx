@@ -26,6 +26,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import RNFetchBlob from "rn-fetch-blob";
 import { Toast } from "@ant-design/react-native";
 
+
 export default () => {
   const [loadedAPI, setLoadedAPI] = useState(false);
   const [areaNavConfig, setAreaNavConfig] = useState(false);
@@ -125,18 +126,38 @@ export default () => {
     }
   };
 
+  const downloadFirstNVid = async (n:number) => {
+    // check if date file exist 
+    // if not exist, create
+    // if exist, check if today
+    // if not today, delete folder 
+    // download
+    const todayDateString = new Date().toDateString().replace(/\s/g, "")
+    const dateFile = RNFetchBlob.fs.dirs.DocumentDir + `/videocache/bGFzdHNhdmU=` // 'lastsave' convert to base64.. 
+    const dateFileExist = await RNFetchBlob.fs.exists(dateFile)
+    if (!dateFileExist){
+      RNFetchBlob.fs.writeFile(dateFile, todayDateString, 'base64')
+    }
+    else {
+      const fileContent = await RNFetchBlob.fs.readFile(dateFile, 'base64')
+      if (fileContent !== todayDateString){
+        await RNFetchBlob.fs.unlink(RNFetchBlob.fs.dirs.DocumentDir + '/videocache')
+      } 
+    }
+    
+    if (!!data){
+      const firstFiveVod = data.pages.flat(Infinity).slice(0,n)
+      firstFiveVod.forEach(vod => downloadVod(vod))
+    }
+  }
+
   useEffect(() => {
     getNav();
   }, []);
 
   const {data} = useInfiniteQuery(['watchAnytime', 'normal'])
   useEffect(() => {
-    if (!!data){
-      const firstFiveVod = data.pages.flat(Infinity).slice(0,10)
-      // console.debug(firstFiveVod.map(a => a.mini_video_id))
-      firstFiveVod.forEach(vod => downloadVod(vod))
-
-    }
+    downloadFirstNVid(10)
   }, [data])
 
   return (
