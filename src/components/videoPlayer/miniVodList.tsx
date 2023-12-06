@@ -26,9 +26,7 @@ interface Props {
   isFetchingNextPage: any;
   isFetching: boolean;
   isActive: boolean;
-  setParentCurrent?: any;
   initialIndex?: number;
-  collection_ori_all_videos?: any;
   enterPosition?: number;
   currentVodIndex?: number;
   handleRefreshMiniVod?: any;
@@ -50,7 +48,6 @@ export default forwardRef<MiniVodRef, Props>(
       handleRefreshMiniVod,
       videos,
       initialIndex = 0,
-      setParentCurrent = null,
       fetchNextPage,
       hasNextPage,
       isFetchingNextPage,

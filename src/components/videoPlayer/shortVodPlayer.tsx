@@ -92,8 +92,6 @@ function ShortVideoPlayer({
   const iconTimer = useRef<number>(0);
   const [showIcon, setShowIcon] = useState(false);
   const [imageContainerHeight, setImageContainerHeight] = useState(0);
-  const [isBodan, setIsBodan] = useState(true);
-  const [watchText, setWatchText] = useState('看正片');
   const isBodanRef = useRef(true)
   const watchTextRef = useRef('看正片')
 
