@@ -251,6 +251,12 @@ function ShortVideoPlayer({
     setImageContainerHeight(height);
   }
 
+  useEffect(() => {
+    if (isPause === false){
+      setIsBuffering(false)
+    }
+  }, [isPause])
+
   const bottomContent = useCallback(() => {
     return (
       <View
