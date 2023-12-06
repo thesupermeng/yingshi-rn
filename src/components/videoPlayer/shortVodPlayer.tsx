@@ -449,7 +449,7 @@ function ShortVideoPlayer({
 
   useEffect(() => {
     const fn = async () => {
-      if (isPause === false && currentDuration < 1){
+      if (isPause === false && currentDuration < 1 && isBuffering === true){
         // check if video is in local storage 
         // if local storage, update miniVodUrl 
         // else do nothing 
