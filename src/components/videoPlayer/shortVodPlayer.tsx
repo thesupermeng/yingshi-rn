@@ -57,7 +57,6 @@ function ShortVideoPlayer({
   thumbnail,
   displayHeight = 0,
   inCollectionView = false,
-  setCollectionEpisode,
   openSheet,
   isPause = false,
   onManualPause,

@@ -7,7 +7,6 @@ interface Props {
     displayHeight: number;
     vod: any;
     inCollectionView?: boolean;
-    setCollectionEpisode?: any;
     isPause: boolean;
     onManualPause: (value: boolean) => void;
     isShowVideo: boolean,
@@ -21,7 +20,6 @@ function ShortVod({
     thumbnail,
     displayHeight = 0,
     inCollectionView = false,
-    setCollectionEpisode,
     isPause = true,
     onManualPause,
     isShowVideo,
@@ -34,7 +32,6 @@ function ShortVod({
 
     const changeEpisode = useCallback((item: any, index: number) => {
         setVod(item);
-        setCollectionEpisode(index);
         setShowBottomSheet(false);
     }, []);
 
@@ -49,7 +46,6 @@ function ShortVod({
                 thumbnail={thumbnail}
                 displayHeight={displayHeight}
                 inCollectionView={inCollectionView}
-                setCollectionEpisode={setCollectionEpisode}
                 openSheet={openSheet}
                 isPause={isPause}
                 onManualPause={onManualPause}

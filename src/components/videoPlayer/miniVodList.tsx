@@ -6,7 +6,7 @@ import React, {
   useImperativeHandle,
   useState,
 } from 'react';
-import {FlatList, RefreshControl, StyleSheet, View} from 'react-native';
+import {FlatList, NativeScrollEvent, NativeSyntheticEvent, RefreshControl, StyleSheet, View} from 'react-native';
 import ShortVod from '../../components/videoPlayer/shortVod';
 import {MiniVideo} from '../../types/ajaxTypes';
 import FastImage from '../common/customFastImage';
@@ -202,10 +202,6 @@ export default forwardRef<MiniVodRef, Props>(
       setPause(isFetching || isRefreshing || !isActive || isScrolling);
     }, [isFetching, isRefreshing, isActive, isScrolling]);
 
-    const setCollectionEpisodeToTitle = (index: number) => {
-      console.warn('prop removed');
-    };
-
     const refreshComponent = useCallback(() => {
       return (
         <>
@@ -238,7 +234,6 @@ export default forwardRef<MiniVodRef, Props>(
               thumbnail={item.mini_video_origin_cover}
               displayHeight={displayHeight ? displayHeight : 0}
               inCollectionView={inCollectionView}
-              setCollectionEpisode={setCollectionEpisodeToTitle}
               isPause={isPause || current !== index}
               onManualPause={current => {
                 console.log('click pause');
@@ -284,7 +279,7 @@ export default forwardRef<MiniVodRef, Props>(
     }, [hasNextPage, isFetchingNextPage, isFetching]);
 
     const handleOnScrollBeginDrag = useCallback(
-      e => {
+      (e: NativeSyntheticEvent<NativeScrollEvent>) => {
         if (!isScrolling) setIsScrolling(true);
       },
       [isScrolling],
