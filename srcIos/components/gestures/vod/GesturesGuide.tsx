@@ -8,7 +8,7 @@ import {useTheme} from '@react-navigation/native';
 import BrightnessGestureIcon from '@static/images/brightnessGuide.svg';
 import VolumeGestureIcon from '@static/images/volumeGuide.svg';
 import ProgressGestureIcon from '@static/images/progressGuide.svg';
-import {useAppDispatch} from '../../../hooks/hooks';
+import {useAppDispatch} from '@hooks/hooks';
 import {hideVodGestureGuide} from '@redux/actions/settingsActions';
 
 export default () => {

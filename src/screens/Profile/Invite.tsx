@@ -27,7 +27,7 @@ import InviteStep from "./../../components/invite/inviteStep";
 import InviteCard from "./../../components/invite/inviteCard";
 
 import InviteHeader from "./../../components/invite/inviteHeader";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import { userModel } from "../../types/userType";
 import { TouchableOpacity } from "@gorhom/bottom-sheet";
 import { updateUserAuth } from "@redux/actions/userAction";

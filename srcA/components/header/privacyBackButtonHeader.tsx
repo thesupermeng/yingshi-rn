@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { View, TouchableOpacity, StyleSheet, Text, ViewStyle } from 'react-native';
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { useTheme, useRoute } from '@react-navigation/native';
 import BackButton from '../button/backButton';

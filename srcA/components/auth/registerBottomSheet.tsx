@@ -1,6 +1,6 @@
 import React, { useState, memo, useEffect } from "react";
 import { Keyboard } from "react-native";
-import { useAppDispatch } from "../../hooks/hooks";
+import { useAppDispatch } from "@hooks/hooks";
 import {
   resetBottomSheetForm,
   showLoginAction,

@@ -16,7 +16,7 @@ import PlayBoDanIcon from '@static/images/play-bodan.svg';
 
 import FastImage from '../common/customFastImage';
 import { Slider } from '@rneui/themed';
-import { useAppDispatch } from '../../hooks/hooks';
+import { useAppDispatch } from '@hooks/hooks';
 import { useNavigation, useTheme } from '@react-navigation/native';
 import { playVod, viewPlaylistDetails } from '@redux/actions/vodActions';
 import HejiIcon from '@static/images/heji.svg';

@@ -69,7 +69,7 @@ import {
 } from "react-native-safe-area-context";
 import { LogBox, Platform, StyleSheet, Text, View } from "react-native";
 import DeviceInfo from "react-native-device-info";
-import { useAppSelector, useAppDispatch } from "../hooks/hooks";
+import { useAppSelector, useAppDispatch } from "@hooks/hooks";
 import { QueryClient, useQuery } from "@tanstack/react-query";
 import { API_DOMAIN, UMENG_CHANNEL } from "../../src/utility/constants";
 import { BottomNavTabsResponse } from "../../src/types/ajaxTypes";

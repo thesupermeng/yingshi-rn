@@ -8,7 +8,7 @@ import { StyleSheet } from 'react-native';
 import useAnalytics from '../../hooks/useAnalytics';
 import { userModel } from '../../types/userType';
 import { RootState } from '@redux/store';
-import { useAppSelector } from '../../hooks/hooks';
+import { useAppSelector } from '@hooks/hooks';
 
 interface Props {
     miniVodListRef: any,

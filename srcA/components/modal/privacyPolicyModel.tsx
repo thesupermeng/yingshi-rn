@@ -4,7 +4,7 @@ import { useCallback, useContext, useEffect, useState } from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { Text } from "react-native";
 import RNExitApp from "react-native-exit-app";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import { acceptPrivacyPolicy } from "@redux/actions/settingsActions";
 import { TermsAcceptContext } from "../../contexts/TermsAcceptedContext";
 

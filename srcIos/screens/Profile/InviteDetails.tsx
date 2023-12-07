@@ -32,7 +32,7 @@ import InviteHeader from '../../components/invite/inviteHeader';
 import FastImage from '../../components/common/customFastImage';
 import LinearGradient from 'react-native-linear-gradient';
 import {userModel} from '../../types/userType';
-import {useAppSelector} from '../../hooks/hooks';
+import {useAppSelector} from '@hooks/hooks';
 import {getUserDetails} from '../../features/user';
 import {
   updateUserAuth,

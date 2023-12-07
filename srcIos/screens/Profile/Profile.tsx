@@ -10,7 +10,7 @@ import {
   Platform,
 } from "react-native";
 import { useTheme, useFocusEffect } from "@react-navigation/native";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import { RootState } from "@redux/store";
 import ShowMoreButton from "../../components/button/showMoreButton";
 

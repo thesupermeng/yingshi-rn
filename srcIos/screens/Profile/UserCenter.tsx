@@ -29,7 +29,7 @@ import InviteStep from '../../components/invite/inviteStep';
 import InviteCard from '../../components/invite/inviteCard';
 
 import InviteHeader from '../../components/invite/inviteHeader';
-import { useAppSelector } from '../../hooks/hooks';
+import { useAppSelector } from '@hooks/hooks';
 import { userModel } from '../../types/userType';
 import { useDispatch } from 'react-redux';
 import { TouchableOpacity } from '@gorhom/bottom-sheet';

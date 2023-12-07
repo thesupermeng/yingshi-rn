@@ -11,7 +11,7 @@ import ShortVod from '../../components/videoPlayer/shortVod';
 import {MiniVideo} from '../../types/ajaxTypes';
 import FastImage from '../common/customFastImage';
 
-import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
+import {useAppDispatch, useAppSelector} from '@hooks/hooks';
 import useAnalytics from '../../hooks/useAnalytics';
 import {showAdultModeVip} from '@redux/actions/screenAction';
 import {screenModel} from '../../types/screenType';

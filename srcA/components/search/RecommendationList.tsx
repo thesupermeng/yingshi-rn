@@ -1,7 +1,7 @@
 import {useNavigation, useTheme} from '@react-navigation/native';
 import {StyleSheet, View, TouchableOpacity, Text, Linking} from 'react-native';
 import {SuggestedVodType} from '../../types/ajaxTypes';
-import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
+import {useAppDispatch, useAppSelector} from '@hooks/hooks';
 import {playVod} from '@redux/actions/vodActions';
 import {
   addSearchHistory,

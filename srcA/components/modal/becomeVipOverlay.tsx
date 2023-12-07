@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import VipModal from './vipModal';
 import { useNavigation, useRoute, useTheme } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useAppDispatch } from '../../hooks/hooks';
+import { useAppDispatch } from '@hooks/hooks';
 import {
   resetBecomeVip,
   showLoginAction,

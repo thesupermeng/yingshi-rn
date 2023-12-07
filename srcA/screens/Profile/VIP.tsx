@@ -21,7 +21,7 @@ import { RootState } from "@redux/store";
 
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import { userModel } from "../../types/userType";
 import { updateUserAuth } from "@redux/actions/userAction";
 import { getUserDetails } from "../../features/user";

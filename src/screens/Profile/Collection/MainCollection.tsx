@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View, FlatList, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import ScreenContainer from '../../../components/container/screenContainer';
 import {useTheme} from '@react-navigation/native';
-import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
+import {useAppDispatch, useAppSelector} from '@hooks/hooks';
 import {RootState} from '@redux/store';
 import FavoritePlaylist from '../../../components/playlist/favoritePlaylist';
 import TitleWithBackButtonHeader from '../../../components/header/titleWithBackButtonHeader';

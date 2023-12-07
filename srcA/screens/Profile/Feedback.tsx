@@ -22,7 +22,7 @@ import {
 } from "../../../src/utility/constants";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 import { SettingsReducerState } from "@redux/reducers/settingsReducer";
-import { useAppSelector } from "../../hooks/hooks";
+import { useAppSelector } from "@hooks/hooks";
 import { YSConfig } from "../../../ysConfig";
 
 export default ({ navigation }: RootStackScreenProps<"反馈">) => {

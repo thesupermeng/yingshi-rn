@@ -17,7 +17,7 @@ import NoConnection from './../../components/common/noConnection';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 import { SettingsReducerState } from '@redux/reducers/settingsReducer';
 import { RootState } from '@redux/store';
-import { useAppSelector } from '../../hooks/hooks';
+import { useAppSelector } from '@hooks/hooks';
 import useAnalytics from '../../hooks/useAnalytics';
 
 type FlatListType = {

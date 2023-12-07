@@ -13,7 +13,7 @@ import Orientation from "react-native-orientation-locker";
 import { useEffect, useState } from "react";
 import { screenModel } from "../../types/screenType";
 import { RootState } from "@redux/store";
-import { useAppSelector } from "../../hooks/hooks";
+import { useAppSelector } from "@hooks/hooks";
 interface Props {
   children?: React.ReactNode;
   scrollView?: boolean;

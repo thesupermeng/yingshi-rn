@@ -48,7 +48,7 @@ import StatisticPage from '../../components/matchDetails/statisticPage';
 import { LineUpType } from '../../types/lineUpTypes';
 import LineUpPage from '../../components/matchDetails/lineUpPage';
 import { useDispatch } from 'react-redux';
-import { useAppSelector } from '../../../hooks/hooks';
+import { useAppSelector } from '@hooks/hooks';
 import { screenModel } from '../../../types/screenType';
 import { incrementSportWatchTime } from '@redux/actions/screenAction';
 import BecomeVipOverlay from "../../../components/modal/becomeVipOverlay";

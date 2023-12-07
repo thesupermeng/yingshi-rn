@@ -12,7 +12,7 @@ import {
 import Icon from "react-native-vector-icons/MaterialIcons"; // You can use any icon library you prefer
 
 import { registerUser } from "../../features/user";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import {
   hideBottomSheetAction,
   navigateToProfileScreen,

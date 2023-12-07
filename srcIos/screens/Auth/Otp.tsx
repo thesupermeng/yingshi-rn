@@ -20,7 +20,7 @@ import { ResendCountDown } from './resendCountDown';
 import { registerUser, loginUser } from '../../features/user';
 import { addUserAuthState } from '@redux/actions/userAction';
 
-import { useAppDispatch } from '../../hooks/hooks';
+import { useAppDispatch } from '@hooks/hooks';
 import { changeScreenAction } from '@redux/actions/screenAction';
 import useAnalytics from '../../hooks/useAnalytics';
 

@@ -20,7 +20,7 @@ import {
   MiniVideoCollectionItem,
 } from "../../types/ajaxTypes";
 import { getMinuteSecond } from "../../utility/helper";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import { RootState } from "@redux/store";
 import { MiniVodReducerState } from "@redux/reducers/miniVodReducer";
 import BottomSheet from "../bottomSheet/bottomSheet";

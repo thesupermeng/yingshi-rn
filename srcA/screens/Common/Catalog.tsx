@@ -23,7 +23,7 @@ import {
   VodType,
 } from '../../types/ajaxTypes';
 import { playVod } from '@redux/actions/vodActions';
-import { useAppDispatch } from '../../hooks/hooks';
+import { useAppDispatch } from '@hooks/hooks';
 import {
   useInfiniteQuery,
   useQuery,

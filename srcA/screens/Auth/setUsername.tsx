@@ -22,7 +22,7 @@ import TitleWithBackButtonHeader from '../../components/header/titleWithBackButt
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import {ResendCountDown} from './resendCountDown';
 import {updateUsername} from '../../features/user';
-import {useAppSelector} from '../../hooks/hooks';
+import {useAppSelector} from '@hooks/hooks';
 import {RootState} from '@redux/store';
 import {InputItem, Button} from '@ant-design/react-native';
 import {ProfileTabParamList} from '../../types/navigationTypes';

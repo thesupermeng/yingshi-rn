@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import FavoriteIcon from '@static/images/favorite.svg';
 import { useTheme } from '@react-navigation/native';
-import { useAppDispatch } from '../../hooks/hooks';
+import { useAppDispatch } from '@hooks/hooks';
 import { RootState } from '@redux/store';
 import {
   addVodToFavorites,

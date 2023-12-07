@@ -3,7 +3,7 @@ import { View, FlatList, Text, StyleSheet, Linking } from "react-native";
 import { useNavigation, useTheme } from "@react-navigation/native";
 
 import { VodType } from "../../types/ajaxTypes";
-import { useAppDispatch } from "../../hooks/hooks";
+import { useAppDispatch } from "@hooks/hooks";
 import FavoriteVodCard from "./favoriteVodCard";
 import { playVod } from "@redux/actions/vodActions";
 

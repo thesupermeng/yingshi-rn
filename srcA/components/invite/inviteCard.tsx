@@ -26,7 +26,7 @@ import { TouchableOpacity } from "@gorhom/bottom-sheet";
 import FastImage from "react-native-fast-image";
 import LinearGradient from "react-native-linear-gradient";
 import { userModel } from "../../types/userType";
-import { useAppDispatch } from "../../hooks/hooks";
+import { useAppDispatch } from "@hooks/hooks";
 import { showLoginAction } from "@redux/actions/screenAction";
 import Share from "react-native-share";
 import { APP_NAME_CONST, INVITE_DOMAIN } from "../../utility/constants";

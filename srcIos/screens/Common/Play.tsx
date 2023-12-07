@@ -34,7 +34,7 @@ import {
   commentsType,
 } from "../../types/ajaxTypes";
 import { addVodToHistory, playVod } from "@redux/actions/vodActions";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import { RootState } from "@redux/store";
 import {
   FavoriteVodReducerState,

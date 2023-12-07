@@ -41,7 +41,7 @@ import NoConnection from "./../../../components/common/noConnection";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 
 import { userModel } from "../../../types/userType";
-import { useAppSelector } from "../../../hooks/hooks";
+import { useAppSelector } from "@hooks/hooks";
 import { RootState } from "@redux/store";
 import { useDispatch } from "react-redux";
 import BecomeVipOverlay from "../../../components/modal/becomeVipOverlay";

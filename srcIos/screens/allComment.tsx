@@ -7,7 +7,7 @@ import ScreenContainer from "../components/container/screenContainer";
 import TitleWithBackButtonHeader from "../components/header/titleWithBackButtonHeader";
 import { useTheme } from "@react-navigation/native";
 import { userModel } from "../types/userType";
-import { useAppDispatch, useAppSelector } from "../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import { RootState } from "@redux/store";
 import SubmitBtn from "@static/images/submitBtn.svg"
 import AsyncStorage from "@react-native-async-storage/async-storage";

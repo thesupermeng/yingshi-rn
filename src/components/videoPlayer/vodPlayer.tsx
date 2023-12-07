@@ -39,7 +39,7 @@ import {
 } from "../../types/ajaxTypes";
 import VideoWithControls from "./videoWithControls";
 import { useDispatch } from "react-redux";
-import { useAppSelector } from "../../hooks/hooks";
+import { useAppSelector } from "@hooks/hooks";
 import { screenModel } from "../../types/screenType";
 import { ADULT_MODE_PREVIEW_DURATION, NON_VIP_STREAM_TIME_SECONDS } from "../../utility/constants";
 import { userModel } from "../../types/userType";

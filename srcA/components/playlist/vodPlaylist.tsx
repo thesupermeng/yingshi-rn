@@ -5,7 +5,7 @@ import { playVod, viewPlaylistDetails } from '@redux/actions/vodActions';
 import { View, StyleSheet, Text, TouchableOpacity, FlatList, Linking } from 'react-native';
 import RightIcon from '@static/images/more_arrow.svg';
 import VodCard from '../vod/vodCard';
-import { useAppDispatch } from '../../hooks/hooks';
+import { useAppDispatch } from '@hooks/hooks';
 import { TextStyle } from 'react-native';
 import appsFlyer from 'react-native-appsflyer';
 import useAnalytics from '../../hooks/useAnalytics';

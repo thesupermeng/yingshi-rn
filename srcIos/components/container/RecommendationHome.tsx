@@ -24,7 +24,7 @@ import {
 // import FastImage from "react-native-fast-image";
 import FastImage from "../common/customFastImage";
 import { VodReducerState } from "@redux/reducers/vodReducer";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import { RootState } from "@redux/store";
 import VodHistoryList from "../vod/vodHistoryList";
 import VodLiveStationList from "../vod/vodLiveStationList";

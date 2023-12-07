@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Dimensions, FlatList, Image } from 'react-nativ
 import { useNavigation, useTheme } from '@react-navigation/native';
 
 import { playVod } from '@redux/actions/vodActions';
-import { useAppDispatch } from '../../hooks/hooks';
+import { useAppDispatch } from '@hooks/hooks';
 import VodCard from '../../components/vod/vodCard';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { VodType } from '../../types/ajaxTypes';

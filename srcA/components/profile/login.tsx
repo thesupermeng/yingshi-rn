@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../features/user";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import {
   hideBottomSheetAction,
   hideLoginAction,
