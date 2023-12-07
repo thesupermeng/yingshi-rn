@@ -9,10 +9,10 @@ import {
     showLoginAction,
     showRegisterAction,
     navigateToProfileScreen
-} from "../../redux/actions/screenAction";
-import { screenReducer } from "../../redux/reducers/screenReducer";
+} from "@redux/actions/screenAction";
+import { screenReducer } from "@redux/reducers/screenReducer";
 import { screenModel } from "../../types/screenType";
-import { RootState } from "../../redux/store";
+import { RootState } from "@redux/store";
 import { Route } from "react-native-tab-view";
 
 interface Props {

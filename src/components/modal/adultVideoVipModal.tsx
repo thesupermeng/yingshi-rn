@@ -1,5 +1,5 @@
 import {View, Text, TouchableOpacity, ViewStyle, TextStyle, StyleSheet} from 'react-native';
-import {hideAdultModeVip, showRegisterAction} from '../../redux/actions/screenAction';
+import {hideAdultModeVip, showRegisterAction} from '@redux/actions/screenAction';
 import VipModal from './vipModal';
 import FastImage from 'react-native-fast-image';
 import { useNavigation } from '@react-navigation/native';

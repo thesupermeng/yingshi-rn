@@ -62,7 +62,7 @@ import {
   WatchAnytimeTabParamList,
 } from "../types/navigationTypes";
 import RNBootSplash from "react-native-bootsplash";
-import { RootState } from "../redux/store";
+import { RootState } from "@redux/store";
 import {
   SafeAreaProvider,
   useSafeAreaInsets,
@@ -88,7 +88,7 @@ import {
   resetBottomSheetAction,
   resetOverEighteen,
   resetSportWatchTime,
-} from "../redux/actions/screenAction";
+} from "@redux/actions/screenAction";
 import { Dialog } from "@rneui/themed";
 // import FastImage from "react-native-fast-image";
 import FastImage from "../components/common/customFastImage";
@@ -99,7 +99,7 @@ import { getUserDetails } from "../features/user";
 import {
   updateUserAuth,
   updateUserReferral,
-} from "../redux/actions/userAction";
+} from "@redux/actions/userAction";
 import ExpiredOverlay from "../components/modal/expiredOverlay";
 import EventRules from "../screens/Profile/EventRules";
 import PrivacyPolicyOverlay from "../components/modal/privacyPolicyOverlay";
@@ -109,8 +109,8 @@ import {
   handleDevicesOrientation,
   lockAppOrientation,
   updateNetworkInfo,
-} from "../redux/actions/settingsActions";
-import { SettingsReducerState } from "../redux/reducers/settingsReducer";
+} from "@redux/actions/settingsActions";
+import { SettingsReducerState } from "@redux/reducers/settingsReducer";
 import { AdsBannerContext } from "../contexts/AdsBannerContext";
 import VIP from "../screens/Profile/VIP";
 import { withIAPContext } from "react-native-iap";

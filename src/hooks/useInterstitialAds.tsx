@@ -14,7 +14,7 @@ import {
   NON_VIP_STREAM_TIME_SECONDS,
 } from "../utility/constants";
 import { userModel } from "../types/userType";
-import { RootState } from "../redux/store";
+import { RootState } from "@redux/store";
 import { useAppSelector } from "./hooks";
 import { AdsBannerContext } from "../contexts/AdsBannerContext";
 import { screenModel } from "../types/screenType";

@@ -3,13 +3,13 @@ import { View, FlatList, Text, StyleSheet, Linking } from 'react-native';
 import ScreenContainer from '../../../components/container/screenContainer';
 import { useTheme } from '@react-navigation/native';
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
-import { RootState } from '../../../redux/store';
+import { RootState } from '@redux/store';
 
 import TitleWithBackButtonHeader from '../../../components/header/titleWithBackButtonHeader';
-import { FavoriteVodReducerState, VodReducerState } from '../../../redux/reducers/vodReducer';
+import { FavoriteVodReducerState, VodReducerState } from '@redux/reducers/vodReducer';
 import FavoriteVodCard from '../../../components/vod/favoriteVodCard';
 import CollectionHeader from '../../../components/header/myCollectionHeader';
-import { playVod } from '../../../redux/actions/vodActions';
+import { playVod } from '@redux/actions/vodActions';
 import { VodType } from '../../../types/ajaxTypes';
 import { RootStackScreenProps } from '../../../types/navigationTypes';
 import EmptyIcon from '../../../../static/images/empty.svg';

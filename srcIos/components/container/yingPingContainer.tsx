@@ -5,7 +5,7 @@ import FastImage from "react-native-fast-image";
 import { VodType } from "../../types/ajaxTypes";
 import Logo from '../../../static/images/ying_ping_logo.svg';
 import { useAppDispatch } from "../../hooks/hooks";
-import { playVod } from "../../redux/actions/vodActions";
+import { playVod } from "@redux/actions/vodActions";
 
 interface Props {
   vod: VodType;

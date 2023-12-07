@@ -12,10 +12,10 @@ import TitleWithBackButtonHeader from "../../components/header/titleWithBackButt
 
 import { useTheme } from "@react-navigation/native";
 import { APP_NAME_CONST } from "../../../src/utility/constants";
-import { showLoginAction, showRegisterAction } from "../../redux/actions/screenAction";
+import { showLoginAction, showRegisterAction } from "@redux/actions/screenAction";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { screenModel } from "../../types/screenType";
-import { RootState } from "../../redux/store";
+import { RootState } from "@redux/store";
 
 export default ({ navigation }: RootStackScreenProps<"用户协议">) => {
   const { colors, textVariants, icons, spacing } = useTheme();

@@ -18,7 +18,7 @@ import FastImage from '../common/customFastImage';
 import { Slider } from '@rneui/themed';
 import { useAppDispatch } from '../../hooks/hooks';
 import { useNavigation, useTheme } from '@react-navigation/native';
-import { playVod, viewPlaylistDetails } from '../../redux/actions/vodActions';
+import { playVod, viewPlaylistDetails } from '@redux/actions/vodActions';
 import HejiIcon from '../../../static/images/heji.svg';
 import ExpandUpIcon from '../../../static/images/expandHeji.svg';
 import { QueryClient } from '@tanstack/react-query';

@@ -7,7 +7,7 @@ import {useAppDispatch} from '../../hooks/hooks';
 import {
   showLoginAction,
   showRegisterAction,
-} from '../../redux/actions/screenAction';
+} from '@redux/actions/screenAction';
 
 interface Props {}
 

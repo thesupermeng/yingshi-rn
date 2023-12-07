@@ -3,16 +3,16 @@ import {View, FlatList, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import ScreenContainer from '../../../components/container/screenContainer';
 import {useTheme} from '@react-navigation/native';
 import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
-import {RootState} from '../../../redux/store';
+import {RootState} from '@redux/store';
 import FavoritePlaylist from '../../../components/playlist/favoritePlaylist';
 import TitleWithBackButtonHeader from '../../../components/header/titleWithBackButtonHeader';
 import {
   FavoriteVodReducerState,
   VodReducerState,
-} from '../../../redux/reducers/vodReducer';
+} from '@redux/reducers/vodReducer';
 import FavoriteVodCard from '../../../components/vod/favoriteVodCard';
 import MainCollectionHeader from '../../../components/header/mainCollectionHeader';
-import {playVod} from '../../../redux/actions/vodActions';
+import {playVod} from '@redux/actions/vodActions';
 import {VodType} from '../../../types/ajaxTypes';
 import {RootStackScreenProps} from '../../../types/navigationTypes';
 import EmptyList from '../../../components/common/emptyList';

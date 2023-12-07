@@ -11,7 +11,7 @@ import {
 import ScreenContainer from "../../components/container/screenContainer";
 import { RootStackScreenProps } from "../../types/navigationTypes";
 import { useTheme } from "@react-navigation/native";
-import { RootState } from "../../redux/store";
+import { RootState } from "@redux/store";
 
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
 import axios from "axios";
@@ -30,7 +30,7 @@ import InviteHeader from "./../../components/invite/inviteHeader";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { userModel } from "../../types/userType";
 import { TouchableOpacity } from "@gorhom/bottom-sheet";
-import { updateUserAuth } from "../../redux/actions/userAction";
+import { updateUserAuth } from "@redux/actions/userAction";
 import { getUserDetails } from "../../features/user";
 import useAnalytics from "../../hooks/useAnalytics";
 

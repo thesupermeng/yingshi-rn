@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from "react-native";
 import ScreenContainer from "../../components/container/screenContainer";
 import { RootStackScreenProps } from "../../types/navigationTypes";
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
-import { showRegisterAction } from "../../redux/actions/screenAction";
+import { showRegisterAction } from "@redux/actions/screenAction";
 import PrivacyBackButtonHeader from "../../components/header/privacyBackButtonHeader";
 
 import { useTheme } from "@react-navigation/native";

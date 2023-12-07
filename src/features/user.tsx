@@ -1,7 +1,7 @@
 import { API_DOMAIN, API_DOMAIN_TEST } from "../utility/constants";
 import axios from "axios";
 import { useAppSelector } from "../hooks/hooks";
-import { RootState } from "../redux/store";
+import { RootState } from "@redux/store";
 import deviceInfoModule from "react-native-device-info";
 //import {refreshUserToken, updateAnonymous} from '~redux/auth/authSlice';
 import DeviceInfo from "react-native-device-info";

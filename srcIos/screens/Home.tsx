@@ -27,8 +27,8 @@ import { useIsFocused } from "@react-navigation/native";
 import NoConnection from "./../components/common/noConnection";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 import { useAppSelector, useAppDispatch } from "../hooks/hooks";
-import { RootState } from "../redux/store";
-import { SettingsReducerState } from "../redux/reducers/settingsReducer";
+import { RootState } from "@redux/store";
+import { SettingsReducerState } from "@redux/reducers/settingsReducer";
 import HomeNav from "../components/tabNavigate/homeNav";
 
 import {

@@ -23,10 +23,10 @@ import { StyleSheet } from 'react-native';
 import TitleWithBackButtonHeader from '../components/header/titleWithBackButtonHeader';
 import BackIcon from '../../static/images/back_arrow.svg';
 import {useAppDispatch, useAppSelector} from '../hooks/hooks';
-import { selectMiniVodCollection } from '../redux/actions/miniVodActions';
+import { selectMiniVodCollection } from '@redux/actions/miniVodActions';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { RootState } from '../redux/store';
-import { MiniVodReducerState } from '../redux/reducers/miniVodReducer';
+import { RootState } from '@redux/store';
+import { MiniVodReducerState } from '@redux/reducers/miniVodReducer';
 
 type PlayContextValue = {
     value: string;

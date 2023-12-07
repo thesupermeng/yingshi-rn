@@ -50,14 +50,14 @@ import LineUpPage from '../../components/matchDetails/lineUpPage';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../../../hooks/hooks';
 import { screenModel } from '../../../types/screenType';
-import { incrementSportWatchTime } from '../../../redux/actions/screenAction';
+import { incrementSportWatchTime } from '@redux/actions/screenAction';
 import BecomeVipOverlay from "../../../components/modal/becomeVipOverlay";
 import { NON_VIP_STREAM_TIME_SECONDS } from '../../../utility/constants';
 import { userModel } from '../../../types/userType';
 import useInterstitialAds from '../../../hooks/useInterstitialAds';
 import useAnalytics from '../../../hooks/useAnalytics';
-import { SettingsReducerState } from '../../../redux/reducers/settingsReducer';
-import { RootState } from '../../../redux/store';
+import { SettingsReducerState } from '@redux/reducers/settingsReducer';
+import { RootState } from '@redux/store';
 
 
 type FlatListType = {

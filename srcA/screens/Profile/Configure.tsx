@@ -19,16 +19,16 @@ import NotificationModal from '../../components/modal/notificationModal';
 import MoreArrow from '../../../static/images/more_arrow.svg';
 import ConfirmationModal from '../../components/modal/confirmationModal';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-import { clearStorageMemory } from '../../redux/actions/settingsActions';
+import { clearStorageMemory } from '@redux/actions/settingsActions';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 
-import { removeUserAuthState } from '../../redux/actions/userAction';
-import { changeScreenAction } from '../../redux/actions/screenAction';
-import { RootState } from '../../redux/store';
+import { removeUserAuthState } from '@redux/actions/userAction';
+import { changeScreenAction } from '@redux/actions/screenAction';
+import { RootState } from '@redux/store';
 import { userModel } from '../../types/userType';
 
 import { APP_VERSION } from '../../utility/constants';
-import { SettingsReducerState } from '../../redux/reducers/settingsReducer';
+import { SettingsReducerState } from '@redux/reducers/settingsReducer';
 export default ({ navigation }: RootStackScreenProps<'设置'>) => {
   const { colors, textVariants, icons, spacing } = useTheme();
   const [isVersionDialogOpen, setIsVersionDialogOpen] = useState(false);

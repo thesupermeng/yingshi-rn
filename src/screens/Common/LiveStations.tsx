@@ -4,11 +4,11 @@ import ScreenContainer from '../../components/container/screenContainer';
 import {RootStackScreenProps} from '../../types/navigationTypes';
 import {useTheme} from '@react-navigation/native';
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
-import {RootState} from '../../redux/store';
+import {RootState} from '@redux/store';
 
 import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
-import {VodRecordType, VodReducerState} from '../../redux/reducers/vodReducer';
-import {removeVodsFromHistory, playVod} from '../../redux/actions/vodActions';
+import {VodRecordType, VodReducerState} from '@redux/reducers/vodReducer';
+import {removeVodsFromHistory, playVod} from '@redux/actions/vodActions';
 import VodHistoryCard from '../../components/vod/vodHistoryCard';
 import CheckBoxSelected from '../../../static/images/checkbox_selected.svg';
 import CheckBoxUnselected from '../../../static/images/checkbox_unselected.svg';

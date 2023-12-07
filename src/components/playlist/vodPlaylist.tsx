@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback, useMemo, memo } from 'react';
 import { useNavigation, useTheme } from '@react-navigation/native';
 import { VodTopicType, VodType } from '../../types/ajaxTypes';
-import { playVod, viewPlaylistDetails } from '../../redux/actions/vodActions';
+import { playVod, viewPlaylistDetails } from '@redux/actions/vodActions';
 import { View, StyleSheet, Text, TouchableOpacity, FlatList } from 'react-native';
 import RightIcon from '../../../static/images/more_arrow.svg';
 import VodCard from '../vod/vodCard';

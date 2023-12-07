@@ -7,7 +7,7 @@ import { useAppDispatch } from '../../hooks/hooks';
 import {
   resetBecomeVip,
   showLoginAction,
-} from '../../redux/actions/screenAction';
+} from '@redux/actions/screenAction';
 import FastImage from 'react-native-fast-image';
 import useAnalytics from '../../hooks/useAnalytics';
 import { SHOW_PAYMENT_CONST } from '../../utility/constants';

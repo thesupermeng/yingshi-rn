@@ -13,9 +13,9 @@ import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import {
   selectMiniVodCollection,
   setFromMiniVodCollection,
-} from '../../redux/actions/miniVodActions';
-import { MiniVodReducerState } from '../../redux/reducers/miniVodReducer';
-import { RootState } from '../../redux/store';
+} from '@redux/actions/miniVodActions';
+import { MiniVodReducerState } from '@redux/reducers/miniVodReducer';
+import { RootState } from '@redux/store';
 import {
   CollectionResponseType,
   MiniVideoCollectionItem,

@@ -1,7 +1,7 @@
 import {StyleSheet, TouchableOpacity, View, Text} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import VodImageCard from './vodImageCard';
-import {VodRecordType} from '../../redux/reducers/vodReducer';
+import {VodRecordType} from '@redux/reducers/vodReducer';
 
 interface Props {
   vod: VodRecordType;

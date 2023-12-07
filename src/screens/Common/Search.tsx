@@ -21,13 +21,13 @@ import { RootStackScreenProps } from "../../types/navigationTypes";
 import { API_DOMAIN } from "../../utility/constants";
 import VodWithDescriptionList from "../../components/vod/vodWithDescriptionList";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { RootState } from "../../redux/store";
+import { RootState } from "@redux/store";
 // import FastImage from 'react-native-fast-image';
 import FastImage from "../../components/common/customFastImage";
 import {
   addSearchHistory,
   clearSearchHistory,
-} from "../../redux/actions/searchActions";
+} from "@redux/actions/searchActions";
 import Animated, {
   FadeInUp,
   FadeOutUp,

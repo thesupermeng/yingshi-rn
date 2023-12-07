@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from "react-native";
 import ScreenContainer from "../../components/container/screenContainer";
 import { useTheme } from "@react-navigation/native";
 import { useAppSelector } from "../../hooks/hooks";
-import { RootState } from "../../redux/store";
+import { RootState } from "@redux/store";
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
 import FavoritePlaylistButton from "../../components/button/favoritePlaylistButton";
 import { RootStackScreenProps } from "../../types/navigationTypes";

@@ -28,13 +28,13 @@ import {
   SuggestResponseType,
   VodDetailsResponseType,
 } from "../../types/ajaxTypes";
-import { addVodToHistory, playVod } from "../../redux/actions/vodActions";
+import { addVodToHistory, playVod } from "@redux/actions/vodActions";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { RootState } from "../../redux/store";
+import { RootState } from "@redux/store";
 import {
   FavoriteVodReducerState,
   VodReducerState,
-} from "../../redux/reducers/vodReducer";
+} from "@redux/reducers/vodReducer";
 import SinaIcon from "../../../static/images/sina.svg";
 import WeChatIcon from "../../../static/images/wechat.svg";
 import QQIcon from "../../../static/images/qq.svg";
@@ -55,12 +55,12 @@ import ShowMoreVodButton from "../../components/button/showMoreVodButton";
 import VodListVertical from "../../components/vod/vodListVertical";
 import VodPlayer from "../../components/videoPlayer/vodPlayer";
 import { FlatList } from "react-native-gesture-handler";
-import { SettingsReducerState } from "../../redux/reducers/settingsReducer";
+import { SettingsReducerState } from "@redux/reducers/settingsReducer";
 import BingSearch from "../../components/container/bingSearchContainer";
 
 import NoConnection from "../../components/common/noConnection";
 import NetInfo from "@react-native-community/netinfo";
-import { lockAppOrientation } from "../../redux/actions/settingsActions";
+import { lockAppOrientation } from "@redux/actions/settingsActions";
 import { AdsBannerContext } from "../../contexts/AdsBannerContext";
 import useInterstitialAds from "../../hooks/useInterstitialAds";
 import { URL } from "react-native-url-polyfill";

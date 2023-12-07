@@ -4,7 +4,7 @@ import { useAppDispatch } from "../../hooks/hooks";
 import {
   resetBottomSheetForm,
   showLoginAction,
-} from "../../redux/actions/screenAction";
+} from "@redux/actions/screenAction";
 import { Register } from "../profile/register";
 import BottomSheet from "../bottomSheet/bottomSheet";
 import DeviceInfo from "react-native-device-info";

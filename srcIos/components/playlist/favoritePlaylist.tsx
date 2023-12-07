@@ -5,7 +5,7 @@ import {
   playVod,
   togglePlaylistFavorites,
   viewPlaylistDetails,
-} from '../../redux/actions/vodActions';
+} from '@redux/actions/vodActions';
 import {View, StyleSheet, Text, TouchableOpacity, FlatList, Linking} from 'react-native';
 import RightIcon from '../../../static/images/more_arrow.svg';
 import VodCard from '../vod/vodCard';

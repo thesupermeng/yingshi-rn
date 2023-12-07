@@ -7,7 +7,7 @@ import { useAppDispatch } from '../../hooks/hooks';
 import {
     showLoginAction,
     showRegisterAction,
-} from '../../redux/actions/screenAction';
+} from '@redux/actions/screenAction';
 // import FastImage from 'react-native-fast-image';
 import FastImage from '../common/customFastImage';
 import CodePush from "react-native-code-push";

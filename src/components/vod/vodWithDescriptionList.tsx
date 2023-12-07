@@ -5,7 +5,7 @@ import { useNavigation, useTheme } from "@react-navigation/native";
 import { VodType } from "../../types/ajaxTypes";
 import { useAppDispatch } from "../../hooks/hooks";
 import FavoriteVodCard from "./favoriteVodCard";
-import { playVod } from "../../redux/actions/vodActions";
+import { playVod } from "@redux/actions/vodActions";
 
 interface Props {
   vodList: Array<VodType>;

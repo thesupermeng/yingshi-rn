@@ -3,9 +3,9 @@ import {useNavigation, useTheme} from '@react-navigation/native';
 import {StyleSheet, View, TouchableOpacity, Text} from 'react-native';
 import {SuggestedVodType} from '../../types/ajaxTypes';
 import {useAppDispatch} from '../../hooks/hooks';
-import {playVod} from '../../redux/actions/vodActions';
+import {playVod} from '@redux/actions/vodActions';
 import EmptyList from '../common/emptyList';
-import {addSearchHistory} from '../../redux/actions/searchActions';
+import {addSearchHistory} from '@redux/actions/searchActions';
 
 interface Props {
   searchResultList: Array<SuggestedVodType>;

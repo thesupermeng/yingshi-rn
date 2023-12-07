@@ -29,8 +29,8 @@ import { useIsFocused } from "@react-navigation/native";
 import NoConnection from "./../components/common/noConnection";
 import NetInfo from "@react-native-community/netinfo";
 import { useAppSelector, useAppDispatch } from "../hooks/hooks";
-import { RootState } from "../redux/store";
-import { SettingsReducerState } from "../redux/reducers/settingsReducer";
+import { RootState } from "@redux/store";
+import { SettingsReducerState } from "@redux/reducers/settingsReducer";
 import HomeNav from "../components/tabNavigate/homeNav";
 
 import {
@@ -43,7 +43,7 @@ import { AdsBannerContext } from "../contexts/AdsBannerContext";
 
 import useInterstitialAds from "../hooks/useInterstitialAds";
 import EighteenPlusOverlay from "../components/modal/overEighteenOverlay";
-import { hideAdultModeDisclaimer } from "../redux/actions/screenAction";
+import { hideAdultModeDisclaimer } from "@redux/actions/screenAction";
 
 
 import useAnalytics from "../hooks/useAnalytics";

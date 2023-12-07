@@ -4,7 +4,7 @@ import { userModel } from "../../types/userType";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { screenModel } from "../../types/screenType";
 import { ADULT_MODE_PREVIEW_DURATION } from "../../utility/constants";
-import { incrementAdultVideoWatchTime, showAdultModeVip } from "../../redux/actions/screenAction";
+import { incrementAdultVideoWatchTime, showAdultModeVip } from "@redux/actions/screenAction";
 import { memo, useCallback, useEffect } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 

@@ -4,7 +4,7 @@ import { useCallback, useRef } from "react";
 import { Dimensions, StyleSheet, Text, View } from "react-native";
 import FastImage from "react-native-fast-image";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { hideAdultModeDisclaimer, showAdultModeDisclaimer, updateLastSeenNavName } from "../../redux/actions/screenAction";
+import { hideAdultModeDisclaimer, showAdultModeDisclaimer, updateLastSeenNavName } from "@redux/actions/screenAction";
 import { screenModel } from "../../types/screenType";
 
 const Tab = createMaterialTopTabNavigator();

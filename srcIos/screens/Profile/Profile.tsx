@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { useTheme, useFocusEffect } from "@react-navigation/native";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { RootState } from "../../redux/store";
+import { RootState } from "@redux/store";
 import ShowMoreButton from "../../components/button/showMoreButton";
 
 import CollectionIcon from "../../../static/images/collection.svg";
@@ -35,14 +35,14 @@ import {
   hideBottomSheetAction,
   removeScreenAction,
   showLoginAction,
-} from "../../redux/actions/screenAction";
+} from "@redux/actions/screenAction";
 import { userModel } from "../../types/userType";
 import NotificationModal from "../../components/modal/notificationModal";
 import { getUserDetails } from "../../features/user";
 import {
   updateUserAuth,
   updateUserReferral,
-} from "../../redux/actions/userAction";
+} from "@redux/actions/userAction";
 import ExpiredOverlay from "../../components/modal/expiredOverlay";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { YSConfig } from "../../../ysConfig";

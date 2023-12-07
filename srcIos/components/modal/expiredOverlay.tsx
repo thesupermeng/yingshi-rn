@@ -4,7 +4,7 @@ import VipModal from './vipModal';
 import {useNavigation, useTheme} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useAppDispatch} from '../../hooks/hooks';
-import {showLoginAction} from '../../redux/actions/screenAction';
+import {showLoginAction} from '@redux/actions/screenAction';
 
 interface Props {
   remainingDay: number;

@@ -5,7 +5,7 @@ import { Login } from "../profile/login";
 import {
   resetBottomSheetForm,
   showRegisterAction,
-} from "../../redux/actions/screenAction";
+} from "@redux/actions/screenAction";
 import BottomSheet from "../bottomSheet/bottomSheet";
 import DeviceInfo from "react-native-device-info";
 

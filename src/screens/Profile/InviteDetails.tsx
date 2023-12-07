@@ -12,7 +12,7 @@ import {
 import ScreenContainer from '../../components/container/screenContainer';
 import {RootStackScreenProps} from '../../types/navigationTypes';
 import {useTheme} from '@react-navigation/native';
-import {RootState} from '../../redux/store';
+import {RootState} from '@redux/store';
 
 import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
 import axios from 'axios';
@@ -37,7 +37,7 @@ import {getUserDetails} from '../../features/user';
 import {
   updateUserAuth,
   updateUserReferral,
-} from '../../redux/actions/userAction';
+} from '@redux/actions/userAction';
 import {useDispatch} from 'react-redux';
 export default ({navigation}: RootStackScreenProps<'邀请详情'>) => {
   const {colors, textVariants, icons, spacing} = useTheme();

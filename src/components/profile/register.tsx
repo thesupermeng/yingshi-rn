@@ -16,12 +16,12 @@ import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import {
   hideBottomSheetAction,
   navigateToProfileScreen,
-} from "../../redux/actions/screenAction";
+} from "@redux/actions/screenAction";
 import { RadioButton } from "react-native-paper";
 // import FastImage from 'react-native-fast-image';
 import FastImage from "../common/customFastImage";
 import { screenModel } from "../../types/screenType";
-import { RootState } from "../../redux/store";
+import { RootState } from "@redux/store";
 import SpinnerOverlay from "../modal/SpinnerOverlay";
 export const Register = (props: any) => {
   const [emailValid, setEmailValid] = useState(true);

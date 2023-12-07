@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TextInput, Platform } from "react-native";
 import ScreenContainer from "../../components/container/screenContainer";
 import { RootStackScreenProps } from "../../types/navigationTypes";
 import { useFocusEffect, useTheme } from "@react-navigation/native";
-import { RootState } from "../../redux/store";
+import { RootState } from "@redux/store";
 // import NetInfo from '@react-native-community/netinfo';
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
 import { Button, Dialog } from "@rneui/themed";
@@ -21,7 +21,7 @@ import {
   YING_SHI_PRODUCT_ANDROID,
 } from "../../../src/utility/constants";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
-import { SettingsReducerState } from "../../redux/reducers/settingsReducer";
+import { SettingsReducerState } from "@redux/reducers/settingsReducer";
 import { useAppSelector } from "../../hooks/hooks";
 import { YSConfig } from "../../../ysConfig";
 

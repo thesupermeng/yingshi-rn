@@ -15,9 +15,9 @@ import { useIsFocused } from '@react-navigation/native';
 // import {FlatList, PanGestureHandler} from 'react-native-gesture-handler';
 import NoConnection from './../../components/common/noConnection';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
-import { SettingsReducerState } from '../../redux/reducers/settingsReducer';
+import { SettingsReducerState } from '@redux/reducers/settingsReducer';
 import { useAppSelector } from '../../hooks/hooks';
-import { RootState } from '../../redux/store';
+import { RootState } from '@redux/store';
 import useAnalytics from '../../hooks/useAnalytics';
 
 type FlatListType = {

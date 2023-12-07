@@ -21,7 +21,7 @@ import {
   SuggestedVodType,
   VodType,
 } from '../../types/ajaxTypes';
-import {playVod} from '../../redux/actions/vodActions';
+import {playVod} from '@redux/actions/vodActions';
 import {useAppDispatch} from '../../hooks/hooks';
 import {
   useInfiniteQuery,

@@ -12,7 +12,7 @@ import { Dimensions } from "react-native";
 import Orientation from "react-native-orientation-locker";
 import { useEffect, useState } from "react";
 import { screenModel } from "../../types/screenType";
-import { RootState } from "../../redux/store";
+import { RootState } from "@redux/store";
 import { useAppSelector } from "../../hooks/hooks";
 interface Props {
   children?: React.ReactNode;

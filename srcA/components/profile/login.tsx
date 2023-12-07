@@ -18,8 +18,8 @@ import {
   hideLoginAction,
   hideRegisterAction,
   initialBottomSheetForm,
-} from "../../redux/actions/screenAction";
-import { RootState } from "../../redux/store";
+} from "@redux/actions/screenAction";
+import { RootState } from "@redux/store";
 import { screenModel } from "../../types/screenType";
 import SpinnerOverlay from "../modal/SpinnerOverlay";
 export const Login = (props: any) => {

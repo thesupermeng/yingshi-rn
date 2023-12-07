@@ -13,7 +13,7 @@ import { useQuery } from "@tanstack/react-query";
 import {
   selectMiniVodCollection,
   setFromMiniVodCollection,
-} from "../../redux/actions/miniVodActions";
+} from "@redux/actions/miniVodActions";
 import { API_DOMAIN } from "../../utility/constants";
 import {
   CollectionResponseType,
@@ -21,8 +21,8 @@ import {
 } from "../../types/ajaxTypes";
 import { getMinuteSecond } from "../../utility/helper";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { RootState } from "../../redux/store";
-import { MiniVodReducerState } from "../../redux/reducers/miniVodReducer";
+import { RootState } from "@redux/store";
+import { MiniVodReducerState } from "@redux/reducers/miniVodReducer";
 import BottomSheet from "../bottomSheet/bottomSheet";
 
 interface Props {

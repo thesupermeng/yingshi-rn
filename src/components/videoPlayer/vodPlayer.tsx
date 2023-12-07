@@ -30,7 +30,7 @@ import FastImage from "../../components/common/customFastImage";
 import FastForwardProgressIcon from "../../../static/images/fastforwardProgress.svg";
 import RewindProgressIcon from "../../../static/images/rewindProgress.svg";
 
-import { incrementSportWatchTime, setFullscreenState, showAdultModeVip } from "../../redux/actions/screenAction";
+import { incrementSportWatchTime, setFullscreenState, showAdultModeVip } from "@redux/actions/screenAction";
 
 import {
   LiveTVStationItem,

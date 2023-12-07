@@ -12,9 +12,9 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import FastImage from "../../components/common/customFastImage";
 import VodLiveStationListVertical from "../../components/vod/vodLiveStationListVertical";
 import VodPlayer from "../../components/videoPlayer/vodPlayer";
-import { SettingsReducerState } from "../../redux/reducers/settingsReducer";
-import { RootState } from "../../redux/store";
-import { lockAppOrientation } from "../../redux/actions/settingsActions";
+import { SettingsReducerState } from "@redux/reducers/settingsReducer";
+import { RootState } from "@redux/store";
+import { lockAppOrientation } from "@redux/actions/settingsActions";
 import useInterstitialAds from "../../hooks/useInterstitialAds";
 
 export default ({ navigation, route }: RootStackScreenProps<"电视台播放">) => {

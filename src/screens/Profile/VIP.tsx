@@ -17,13 +17,13 @@ import {
 import ScreenContainer from "../../components/container/screenContainer";
 import { RootStackScreenProps } from "../../types/navigationTypes";
 import { useTheme } from "@react-navigation/native";
-import { RootState } from "../../redux/store";
+import { RootState } from "@redux/store";
 
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { userModel } from "../../types/userType";
-import { updateUserAuth } from "../../redux/actions/userAction";
+import { updateUserAuth } from "@redux/actions/userAction";
 import { getUserDetails } from "../../features/user";
 import { VipCard } from "../../components/vip/vipCard";
 import { TouchableOpacity } from "react-native";
@@ -39,7 +39,7 @@ import {
 } from "../../utility/constants";
 import axios from "axios";
 import { showToast } from "../../Sports/utility/toast";
-import { showLoginAction } from "../../redux/actions/screenAction";
+import { showLoginAction } from "@redux/actions/screenAction";
 import SpinnerOverlay from "../../components/modal/SpinnerOverlay";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { InAppBrowser } from "react-native-inappbrowser-reborn";
