@@ -15,7 +15,7 @@ interface Props {
   hideContent?: boolean,
   onTabPress: (target?: string) => void,
   onTabSwipe: (index: number, tab: any) => void,
-  navId:number
+  navId: number
 }
 
 export default function HomeNav({
@@ -27,7 +27,7 @@ export default function HomeNav({
   navId,
 }: Props) {
 
-  const {colors, textVariants} = useTheme();
+  const { colors, textVariants } = useTheme();
   const dispatch = useAppDispatch();
 
   const renderTab = useCallback((tab: any, i: any) => (
@@ -36,7 +36,7 @@ export default function HomeNav({
       name={tab.name}
       options={() => ({
         tabBarLabel: ({ focused, color }) =>
-        tab.id == navId ?  (
+          tab.id == navId ? (
             <Text
               style={{
                 ...styles.textStyles,
@@ -60,10 +60,12 @@ export default function HomeNav({
           ),
       })}
 
-      children={() => tabChildren(tab, i)} 
+      children={() => tabChildren(tab, i)}
       listeners={{
         tabPress: e => onTabPress(e.target),
- 
+        swipeStart: e => {
+          dispatch(showAdultModeDisclaimer())
+        },
         // swipeEnd: e => {
         //   onTabSwipe(i, tab); 
         //   console.debug('tab swipe triggered')
@@ -71,14 +73,14 @@ export default function HomeNav({
         //     dispatch(showAdultModeDisclaimer())
         //   }
         // }, 
-
-
         focus: e => {
           onTabPress(e.target)
-          if (tab.id != 99){
-            dispatch(showAdultModeDisclaimer())
+          if (tab.id != 99) {
+            // dispatch(showAdultModeDisclaimer())
             dispatch(updateLastSeenNavName(tab.name))
-            // dispatch(hideAdultModeDisclaimer())
+            dispatch(hideAdultModeDisclaimer())
+          } else {
+            dispatch(showAdultModeDisclaimer())
           }
         }
       }}

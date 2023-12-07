@@ -6,29 +6,29 @@ import { useAppSelector } from '../../hooks/hooks';
 import { BlurView } from '@react-native-community/blur';
 
 interface Props {
-    handleAccept: any
-    handleReject: any
+  handleAccept: any
+  handleReject: any
 }
 
 export default function EighteenPlusOverlay({ handleAccept, handleReject }: Props) {
   const screenState: screenModel = useAppSelector(
-    ({screenReducer}) => screenReducer
+    ({ screenReducer }) => screenReducer
   )
-  const {adultModeDisclaimerShow, isOverEighteenAccepted} = screenState
+  const { adultModeDisclaimerShow, isOverEighteenAccepted } = screenState
 
   if (adultModeDisclaimerShow && !isOverEighteenAccepted)
     return (
-      <View style={{height: '100%', width: '100%', position: 'absolute'}}>
+      <View style={{ height: '100%', width: '100%', position: 'absolute' }}>
         <BlurView
           blurType='dark'
           blurAmount={15}
           style={{
-            flex: 1, 
-            position: 'absolute', 
+            flex: 1,
+            position: 'absolute',
             width: '100%',
             height: '100%'
           }}
-        ></BlurView>
+        />
         <View style={{ flex: 1, position: 'relative', alignItems: 'center', justifyContent: 'center', alignSelf: 'center', alignContent: 'center', marginBottom: '18%' }}>
           <View style={{ position: 'relative', alignItems: 'center' }}>
             <EighteenPlusIcon style={{ position: 'absolute', zIndex: 100, top: 0 }}></EighteenPlusIcon>
@@ -41,7 +41,7 @@ export default function EighteenPlusOverlay({ handleAccept, handleReject }: Prop
                 paddingBottom: 26,
                 paddingHorizontal: 28,
               }}>
-              <View style={{alignItems: 'center', justifyContent: 'center'}}>
+              <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                 <Text
                   style={{
                     color: 'white',
@@ -70,7 +70,7 @@ export default function EighteenPlusOverlay({ handleAccept, handleReject }: Prop
                   }}>
                   观看视频者必须年满18周岁
                 </Text>
-                <View style={{paddingTop: 22, alignItems: 'center'}}>
+                <View style={{ paddingTop: 22, alignItems: 'center' }}>
                   <TouchableOpacity
                     onPress={handleAccept}
                     style={{
@@ -91,8 +91,8 @@ export default function EighteenPlusOverlay({ handleAccept, handleReject }: Prop
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={handleReject}
-                    style={{paddingTop: 16}}>
-                    <Text style={{color: '#9C9C9C', fontSize: 16, fontWeight: '500'}}>否</Text>
+                    style={{ paddingTop: 16 }}>
+                    <Text style={{ color: '#9C9C9C', fontSize: 16, fontWeight: '500' }}>否</Text>
                   </TouchableOpacity>
                 </View>
               </View>
@@ -103,7 +103,7 @@ export default function EighteenPlusOverlay({ handleAccept, handleReject }: Prop
 
     )
 
-    return <></>
+  return <></>
 }
 
 const styles = {
