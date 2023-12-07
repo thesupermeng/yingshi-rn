@@ -39,7 +39,7 @@ export const ResendCountDown = props => {
       }}>
       <Image
         style={styles.iconStyle}
-        source={require('../../../static/images/invite/time.png')}
+        source={require('@static/images/invite/time.png')}
       />
 
       <Text style={styles.hyperlink}>{timerRef.current} 秒</Text>

@@ -1,7 +1,7 @@
 import {SearchBar} from '@rneui/themed';
 import {useTheme} from '@react-navigation/native';
 import {TextInput, StyleSheet, View, TouchableOpacity} from 'react-native';
-import SearchIcon from '../../../static/images/search.svg';
+import SearchIcon from '@static/images/search.svg';
 
 interface Props {
   defaultValue?: string;

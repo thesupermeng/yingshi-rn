@@ -201,7 +201,7 @@ function CollectionBottomSheet({
           >
             <Image
               style={{ height: 80, width: 80 }}
-              source={require("../../../static/images/loading-spinner.gif")}
+              source={require("@static/images/loading-spinner.gif")}
               resizeMode={"contain"}
             />
           </View>

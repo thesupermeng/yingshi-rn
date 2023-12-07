@@ -203,7 +203,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
           >
             <Image
               style={styles.iconStyle}
-              source={require("../../../../static/images/profile/vipSport.png")}
+              source={require("@static/images/profile/vipSport.png")}
             />
 
             {Number(userState.userMemberExpired) <=

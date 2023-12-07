@@ -5,7 +5,7 @@ import {
   View,
   TextStyle,
 } from 'react-native';
-import FavoriteIcon from '../../../static/images/favorite.svg';
+import FavoriteIcon from '@static/images/favorite.svg';
 import { useTheme } from '@react-navigation/native';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { RootState } from '@redux/store';

@@ -38,8 +38,8 @@ type MiniVodRef = {
   setPause: (pause: boolean) => void;
 };
 
-const homeLoadingGif = require('../../../static/images/home-loading.gif');
-const loadingSpinnerGif = require('../../../static/images/loading-spinner.gif');
+const homeLoadingGif = require('@static/images/home-loading.gif');
+const loadingSpinnerGif = require('@static/images/loading-spinner.gif');
 
 export default forwardRef<MiniVodRef, Props>(
   (

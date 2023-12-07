@@ -35,7 +35,7 @@ import LinearGradient from "react-native-linear-gradient";
 import Carousel from "react-native-reanimated-carousel";
 
 import CarouselPagination from "./CarouselPagination";
-import LoadingIcon from "./../../../static/images/MutedVolume.svg";
+import LoadingIcon from "@static/images/MutedVolume.svg";
 import { Image } from "react-native";
 interface NavType {
   id: number;
@@ -411,7 +411,7 @@ const RecommendationHome = ({
                     justifyContent: "center",
                     alignItems: "center",
                   }}
-                  source={require("../../../static/images/loading-spinner.gif")}
+                  source={require("@static/images/loading-spinner.gif")}
                   resizeMode={"contain"}
                 />
               )}

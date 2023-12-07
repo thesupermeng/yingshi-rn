@@ -187,7 +187,7 @@ export default function RegengOverlay({  }: Props) {
                                         {regengContent}
                                     </Text>
                                     <FastImage
-                                        source={require('../../../static/images/videoBufferLoading.gif')}
+                                        source={require('@static/images/videoBufferLoading.gif')}
                                         style={{ width: 100, height: 100 }}
                                         resizeMode="contain"
                                     />

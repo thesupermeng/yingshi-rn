@@ -27,8 +27,8 @@ import WebView from "react-native-webview";
 
 import FastImage from "../../components/common/customFastImage";
 
-import FastForwardProgressIcon from "../../../static/images/fastforwardProgress.svg";
-import RewindProgressIcon from "../../../static/images/rewindProgress.svg";
+import FastForwardProgressIcon from "@static/images/fastforwardProgress.svg";
+import RewindProgressIcon from "@static/images/rewindProgress.svg";
 
 import { incrementSportWatchTime, setFullscreenState, showAdultModeVip } from "@redux/actions/screenAction";
 
@@ -667,7 +667,7 @@ export default forwardRef<VideoRef, Props>(
               </View>
             ) : (
               <FastImage
-                source={require("../../../static/images/videoBufferLoading.gif")}
+                source={require("@static/images/videoBufferLoading.gif")}
                 style={{ width: 100, height: 100 }}
                 resizeMode={"contain"}
               />

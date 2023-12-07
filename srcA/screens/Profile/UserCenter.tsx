@@ -169,7 +169,7 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
                           position: 'relative',
                           top: 1,
                         }}
-                        source={require('../../../static/images/invite/danger.png')}
+                        source={require('@static/images/invite/danger.png')}
                       />
 
                       <Text style={styles.danger}>{errUsername} </Text>
@@ -249,7 +249,7 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
                               position: 'relative',
                               top: 1,
                             }}
-                            source={require('../../../static/images/invite/danger.png')}
+                            source={require('@static/images/invite/danger.png')}
                           />
 
                           <Text style={styles.danger}>{errReferral} </Text>
@@ -325,7 +325,7 @@ export default ({navigation}: RootStackScreenProps<'个人中心'>) => {
                       position: 'relative',
                       top: 2,
                     }}
-                    source={require('../../../static/images/profile/copy.png')}
+                    source={require('@static/images/profile/copy.png')}
                   />
                 </View>
               </View>

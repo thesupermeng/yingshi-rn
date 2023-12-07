@@ -8,7 +8,7 @@ import { RootState } from "@redux/store";
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
 import { Button, Dialog } from "@rneui/themed";
 import { TouchableOpacity } from "@gorhom/bottom-sheet";
-import FeedbackSuccessIcon from "../../../static/images/feedback_success.svg";
+import FeedbackSuccessIcon from "@static/images/feedback_success.svg";
 import axios from "axios";
 import { SubmitFeedbackRequest } from "../../../src/types/ajaxTypes";
 import { Keyboard } from "react-native";

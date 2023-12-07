@@ -231,7 +231,7 @@ const OtpInputs = props => {
           }}>
           <Image
             style={styles.iconStyle}
-            source={require('../../../static/images/invite/danger.png')}
+            source={require('@static/images/invite/danger.png')}
           />
 
           <Text style={styles.danger}>验证码不正确，请重试</Text>

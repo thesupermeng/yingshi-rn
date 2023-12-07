@@ -608,7 +608,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
             }}
           >
             <FastImage
-              source={require("../../../static/images/home-loading.gif")}
+              source={require("@static/images/home-loading.gif")}
               style={{
                 width: 150,
                 height: 150,

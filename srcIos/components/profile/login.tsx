@@ -106,14 +106,14 @@ const LoginCard = (props) => {
         {props.email != "" && props.emailValid && (
           <Image
             style={styles.iconStyle}
-            source={require("../../../static/images/profile/cricket_tick.png")}
+            source={require("@static/images/profile/cricket_tick.png")}
           />
         )}
 
         {props.errMsg.includes("稍后") && (
           <Image
             style={styles.iconStyle}
-            source={require("../../../static/images/profile/cricket_tick.png")}
+            source={require("@static/images/profile/cricket_tick.png")}
           />
         )}
 
@@ -129,7 +129,7 @@ const LoginCard = (props) => {
             >
               <Image
                 style={styles.iconStyle}
-                source={require("../../../static/images/profile/cross.png")}
+                source={require("@static/images/profile/cross.png")}
               />
             </TouchableWithoutFeedback>
           )}
@@ -158,7 +158,7 @@ const LoginCard = (props) => {
                 position: "relative",
                 top: 1,
               }}
-              source={require("../../../static/images/invite/danger.png")}
+              source={require("@static/images/invite/danger.png")}
             />
           </View>
           <Text style={styles.danger}>{props.errMsg}</Text>
@@ -236,7 +236,7 @@ const LoginCard = (props) => {
         <TouchableOpacity onPress={props.radioHandler}>
           {props.radioValue && (
             <Image
-              source={require("../../../static/images/profile/ticked.png")}
+              source={require("@static/images/profile/ticked.png")}
               style={{
                 height: 16,
                 width: 16,
@@ -249,7 +249,7 @@ const LoginCard = (props) => {
 
           {!props.radioValue && (
             <Image
-              source={require("../../../static/images/profile/untick.png")}
+              source={require("@static/images/profile/untick.png")}
               style={{
                 height: 16,
                 width: 16,
@@ -298,7 +298,7 @@ const LoginCard = (props) => {
           </Text>
           <Image
             style={{ width: 18, height: 18 }}
-            source={require("../../../static/images/profile/rightArrow.png")}
+            source={require("@static/images/profile/rightArrow.png")}
           />
         </View>
       </TouchableOpacity>

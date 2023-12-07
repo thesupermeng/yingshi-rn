@@ -16,7 +16,7 @@ import TitleWithBackButtonHeader from '../../components/header/titleWithBackButt
 import { Button, Dialog } from '@rneui/themed';
 import ShowMoreButton from '../../components/button/showMoreButton';
 import NotificationModal from '../../components/modal/notificationModal';
-import MoreArrow from '../../../static/images/more_arrow.svg';
+import MoreArrow from '@static/images/more_arrow.svg';
 import ConfirmationModal from '../../components/modal/confirmationModal';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { clearStorageMemory } from '@redux/actions/settingsActions';

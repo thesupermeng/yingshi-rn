@@ -198,7 +198,7 @@ export default forwardRef<MiniVodRef, Props>(
                         }}
                     >
                         <FastImage
-                            source={require("../../../static/images/home-loading.gif")}
+                            source={require("@static/images/home-loading.gif")}
                             style={{
                                 width: 150,
                                 height: 150,
@@ -236,7 +236,7 @@ export default forwardRef<MiniVodRef, Props>(
                                 {
                                     hasNextPage && <FastImage
                                         style={{ height: 80, width: 80 }}
-                                        source={require('../../../static/images/loading-spinner.gif')}
+                                        source={require('@static/images/loading-spinner.gif')}
                                         resizeMode={'contain'}
                                     />
                                 }

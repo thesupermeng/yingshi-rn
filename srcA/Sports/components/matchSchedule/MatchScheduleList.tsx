@@ -204,7 +204,7 @@ const MatchScheduleList = ({
         alignItems: 'center', 
       }}>
         <FastImage
-          source={require('../../../../static/images/loading-spinner.gif')}
+          source={require('@static/images/loading-spinner.gif')}
           style={{ width: 100, height: 100 }}
           resizeMode="contain"
         />

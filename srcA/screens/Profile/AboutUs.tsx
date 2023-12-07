@@ -14,7 +14,7 @@ import { RootState } from "@redux/store";
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
 import { Button } from "@rneui/themed";
 import ShowMoreButton from "../../components/button/showMoreButton";
-import Logo2 from "../../../static/images/logo2.svg";
+import Logo2 from "@static/images/logo2.svg";
 import NotificationModal from "../../components/modal/notificationModal";
 import {
   APP_EMAIL_CONST,

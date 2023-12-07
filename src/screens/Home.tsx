@@ -312,7 +312,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
                   {
                     <FastImage
                       style={{ height: 80, width: 80 }}
-                      source={require("../../static/images/loading-spinner.gif")}
+                      source={require("@static/images/loading-spinner.gif")}
                       resizeMode={"contain"}
                     />
                   }
@@ -328,7 +328,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
                   }}
                 >
                   <FastImage
-                    source={require("../../static/images/home-loading.gif")}
+                    source={require("@static/images/home-loading.gif")}
                     style={{
                       width: 150,
                       height: 150,

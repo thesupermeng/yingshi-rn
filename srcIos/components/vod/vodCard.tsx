@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity, Text, ScrollView, Image, View, ViewStyle } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import VodImageCard from './vodImageCard';
-import LoadingImage from '../../../static/images/loading_img.svg';
+import LoadingImage from '@static/images/loading_img.svg';
 import { memo } from 'react';
 import { ImageStyle } from 'react-native-fast-image';
 interface Props {

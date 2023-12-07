@@ -5,7 +5,7 @@ import BackButton from '../button/backButton';
 
 import {VodType} from '../../types/ajaxTypes';
 
-import BingIcon from '../../../static/images/bing.svg';
+import BingIcon from '@static/images/bing.svg';
 
 interface Props {
   vod: VodType;

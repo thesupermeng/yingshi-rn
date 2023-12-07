@@ -1,5 +1,5 @@
 import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
-import MoreArrow from '../../../static/images/more_arrow.svg';
+import MoreArrow from '@static/images/more_arrow.svg';
 import { useTheme } from '@react-navigation/native';
 interface Props {
   onPress?: any;

@@ -214,7 +214,7 @@ export default (props: any) => {
                             position: 'relative',
                             top: 1,
                           }}
-                          source={require('../../../static/images/invite/danger.png')}
+                          source={require('@static/images/invite/danger.png')}
                         />
                       </View>
                       <Text style={styles.danger}>{errMsg} </Text>

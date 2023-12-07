@@ -4,7 +4,7 @@ import { View, Text, TouchableOpacity, StyleSheet, ActionSheetIOS } from "react-
 import FastImage from "react-native-fast-image";
 import { commentsType } from "../../types/ajaxTypes";
 import { showToast } from "../../Sports/utility/toast";
-import DefaultProfileIcon from "../../../static/images/default_profile.svg";
+import DefaultProfileIcon from "@static/images/default_profile.svg";
 import { useAppDispatch } from "../../hooks/hooks";
 import { showReportAction } from "@redux/actions/screenAction";
 

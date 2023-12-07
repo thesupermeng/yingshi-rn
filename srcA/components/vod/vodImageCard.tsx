@@ -3,7 +3,7 @@ import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import { ImageStyle } from 'react-native-fast-image';
 import FastImage from '../common/customFastImage';
-import PlayIcon from '../../../static/images/play.svg';
+import PlayIcon from '@static/images/play.svg';
 import LinearGradient from 'react-native-linear-gradient'
 interface Props {
     vod_img: string,

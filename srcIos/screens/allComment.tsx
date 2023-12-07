@@ -9,7 +9,7 @@ import { useTheme } from "@react-navigation/native";
 import { userModel } from "../types/userType";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { RootState } from "@redux/store";
-import SubmitBtn from "../../static/images/submitBtn.svg"
+import SubmitBtn from "@static/images/submitBtn.svg"
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { showLoginAction } from "@redux/actions/screenAction";
 

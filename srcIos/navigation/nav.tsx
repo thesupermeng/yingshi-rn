@@ -39,17 +39,17 @@ import UserAgreementScreen from "../screens/Profile/UserAgreement";
 import ConfigureScreen from "../screens/Profile/Configure";
 import OtpScreen from "../screens/Auth/Otp";
 import SetUsername from "../screens/Auth/setUsername";
-import HomeTabIcon from "../../static/images/home_tab.svg";
-import HomeActiveTabIcon from "../../static/images/home_tab_active.svg";
-import PlaylistTabIcon from "../../static/images/playlist_tab.svg";
-import PlaylistActiveTabIcon from "../../static/images/playlist_tab_active.svg";
-import ProfileTabIcon from "../../static/images/profile_tab.svg";
-import ProfileActiveTabIcon from "../../static/images/profile_tab_active.svg";
-import WatchAnytimeTabIcon from "../../static/images/video_tab.svg";
-import WatchAnytimeActiveTabIcon from "../../static/images/video_tab_active.svg";
+import HomeTabIcon from "@static/images/home_tab.svg";
+import HomeActiveTabIcon from "@static/images/home_tab_active.svg";
+import PlaylistTabIcon from "@static/images/playlist_tab.svg";
+import PlaylistActiveTabIcon from "@static/images/playlist_tab_active.svg";
+import ProfileTabIcon from "@static/images/profile_tab.svg";
+import ProfileActiveTabIcon from "@static/images/profile_tab_active.svg";
+import WatchAnytimeTabIcon from "@static/images/video_tab.svg";
+import WatchAnytimeActiveTabIcon from "@static/images/video_tab_active.svg";
 import CatalogScreen from "../screens/Common/Catalog";
 import ShortVodCollectionScreen from "../screens/Profile/Collection/shortVodCollection";
-import SportsIcon from "../../static/images/sports.svg";
+import SportsIcon from "@static/images/sports.svg";
 import MatchesScreen from "../Sports/screens/Sports/Matches";
 import MatchDetailsScreen from "../Sports/screens/Sports/MatchDetails";
 import { useDispatch, useSelector } from "react-redux";
@@ -693,7 +693,7 @@ export default () => {
             alignItems: "center",
           }}
           resizeMode={"contain"}
-          source={require("../../static/images/profile/login-success.gif")}
+          source={require("@static/images/profile/login-success.gif")}
         />
 
         <Text

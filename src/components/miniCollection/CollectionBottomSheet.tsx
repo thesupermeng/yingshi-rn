@@ -36,7 +36,7 @@ interface Props {
   changeCurrentVodIndex?: any;
 }
 
-const loadingSpinnerGif = require('../../../static/images/loading-spinner.gif');
+const loadingSpinnerGif = require('@static/images/loading-spinner.gif');
 
 function CollectionBottomSheet({
   isVisible = false,

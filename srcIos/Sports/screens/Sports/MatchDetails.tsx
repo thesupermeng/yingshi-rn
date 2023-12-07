@@ -287,7 +287,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
         ) : (
           <View style={styles.fetching}>
             <FastImage
-              source={require('../../../../static/images/loading-spinner.gif')}
+              source={require('@static/images/loading-spinner.gif')}
               style={{ width: 100, height: 80, marginBottom: -20 }}
               resizeMode="contain"
             />

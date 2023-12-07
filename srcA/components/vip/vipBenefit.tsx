@@ -24,7 +24,7 @@ export const VipBenefit = () => {
       <View style={styles.featureItem}>
         <View style={styles.imgContainer}>
           <FastImage
-            source={require('../../../static/images/vip/vip_logo.png')}
+            source={require('@static/images/vip/vip_logo.png')}
             style={styles.featureIcn}
             resizeMode={FastImage.resizeMode.contain}
           />
@@ -37,7 +37,7 @@ export const VipBenefit = () => {
         <View style={styles.featureItem}>
           <View style={styles.imgContainer}>
             <FastImage
-              source={require('../../../static/images/vip/vip_sport.png')}
+              source={require('@static/images/vip/vip_sport.png')}
               style={styles.featureIcn}
               resizeMode={FastImage.resizeMode.contain}
             />
@@ -51,7 +51,7 @@ export const VipBenefit = () => {
       <View style={styles.featureItem}>
         <View style={styles.imgContainer}>
           <FastImage
-            source={require('../../../static/images/vip/vip_no_ad.png')}
+            source={require('@static/images/vip/vip_no_ad.png')}
             style={styles.featureIcn}
             resizeMode={FastImage.resizeMode.contain}
           />

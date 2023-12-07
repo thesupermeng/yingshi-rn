@@ -10,8 +10,8 @@ import TitleWithBackButtonHeader from '../../components/header/titleWithBackButt
 import {VodRecordType, VodReducerState} from '@redux/reducers/vodReducer';
 import {removeVodsFromHistory, playVod} from '@redux/actions/vodActions';
 import VodHistoryCard from '../../components/vod/vodHistoryCard';
-import CheckBoxSelected from '../../../static/images/checkbox_selected.svg';
-import CheckBoxUnselected from '../../../static/images/checkbox_unselected.svg';
+import CheckBoxSelected from '@static/images/checkbox_selected.svg';
+import CheckBoxUnselected from '@static/images/checkbox_unselected.svg';
 import {VodType} from '../../types/ajaxTypes';
 import {Button} from '@rneui/themed';
 import ConfirmationModal from '../../components/modal/confirmationModal';

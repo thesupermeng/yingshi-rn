@@ -5,11 +5,11 @@ import { useTheme } from '@react-navigation/native';
 import { VipMember } from './vipMember';
 import { membershipModel } from '../../types/membershipType';
 import { VipPayment } from './vipPayment';
-import GPayIcon from "../../../static/images/vip/gpay.svg";
-import ApplePayIcon from "../../../static/images/vip/apple_pay.svg";
-import AlipayIcon from "../../../static/images/vip/alipay.svg";
-import WechatPayIcon from "../../../static/images/vip/wechat_pay.svg";
-import PaypalIcon from "../../../static/images/vip/paypal.svg";
+import GPayIcon from "@static/images/vip/gpay.svg";
+import ApplePayIcon from "@static/images/vip/apple_pay.svg";
+import AlipayIcon from "@static/images/vip/alipay.svg";
+import WechatPayIcon from "@static/images/vip/wechat_pay.svg";
+import PaypalIcon from "@static/images/vip/paypal.svg";
 import { useEffect, useState } from 'react';
 import { userModel } from '../../types/userType';
 
@@ -95,7 +95,7 @@ export const VipCard = ({
           }
         </View>
         <FastImage
-          source={require('../../../static/images/vip/crown_vip.png')}
+          source={require('@static/images/vip/crown_vip.png')}
           style={{
             alignSelf: 'flex-end',
             height: '100%',

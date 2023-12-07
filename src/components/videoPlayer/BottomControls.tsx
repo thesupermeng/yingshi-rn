@@ -9,15 +9,15 @@ import {
   Platform,
   Image,
 } from 'react-native';
-import FullScreen from '../../../static/images/fullScreen.svg';
-import MoreMoviesIcon from '../../../static/images/moreMovies.svg';
-import MinimizeScreen from '../../../static/images/minimizeScreen.svg';
+import FullScreen from '@static/images/fullScreen.svg';
+import MoreMoviesIcon from '@static/images/moreMovies.svg';
+import MinimizeScreen from '@static/images/minimizeScreen.svg';
 import { TouchableWithoutFeedback } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import { RectButton } from 'react-native-gesture-handler';
-import NextEpisodeIcon from '../../../static/images/nextEpisode.svg';
-import SelectEpisodesIcon from '../../../static/images/selectEpisodes.svg';
-import LockScreenIcon from '../../../static/images/lockScreen.svg';
+import NextEpisodeIcon from '@static/images/nextEpisode.svg';
+import SelectEpisodesIcon from '@static/images/selectEpisodes.svg';
+import LockScreenIcon from '@static/images/lockScreen.svg';
 import { Slider } from '@rneui/themed';
 import VideoThumbnail from './VideoThumbnail';
 
@@ -75,7 +75,7 @@ export default ({
     onToggleFullScreen();
   };
 
-  // const thumbImage = require('../../../static/images/white-dot.png');
+  // const thumbImage = require('@static/images/white-dot.png');
 
   const position = getMinutesFromSeconds(currentTime);
   const fullDuration = getMinutesFromSeconds(duration);

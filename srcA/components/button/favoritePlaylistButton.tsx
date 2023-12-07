@@ -1,5 +1,5 @@
 import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
-import FavoriteIcon from '../../../static/images/favorite.svg';
+import FavoriteIcon from '@static/images/favorite.svg';
 import { useTheme } from '@react-navigation/native';
 import { useAppSelector, useAppDispatch } from '../../hooks/hooks';
 import { RootState } from '@redux/store';

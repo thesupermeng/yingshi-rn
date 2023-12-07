@@ -189,7 +189,7 @@ export default () => {
               }}
             >
               <FastImage
-                source={require("../../static/images/home-loading.gif")}
+                source={require("@static/images/home-loading.gif")}
                 style={{
                   width: 150,
                   height: 150,

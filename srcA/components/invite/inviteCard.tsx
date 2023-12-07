@@ -10,16 +10,16 @@ import {
 } from "react-native";
 import { useNavigation, useTheme } from "@react-navigation/native";
 
-import WhatsappIcn from "../../../static/images/invite/whatsapp.svg";
+import WhatsappIcn from "@static/images/invite/whatsapp.svg";
 
-import TelegramIcn from "../../../static/images/invite/telegram.svg";
-import FacebookIcn from "../../../static/images/invite/fb.svg";
-import WechatIcn from "../../../static/images/invite/wechat.svg";
+import TelegramIcn from "@static/images/invite/telegram.svg";
+import FacebookIcn from "@static/images/invite/fb.svg";
+import WechatIcn from "@static/images/invite/wechat.svg";
 
-// import TwitterIcn from '../../../static/images/invite/twitter.svg';
-import WeiboIcn from "../../../static/images/invite/weibo.svg";
-import CopyIcn from "../../../static/images/invite/copy.svg";
-import ProfileIcn from "../../../static/images/invite/profile-icon.svg";
+// import TwitterIcn from '@static/images/invite/twitter.svg';
+import WeiboIcn from "@static/images/invite/weibo.svg";
+import CopyIcn from "@static/images/invite/copy.svg";
+import ProfileIcn from "@static/images/invite/profile-icon.svg";
 
 import { TouchableOpacity } from "@gorhom/bottom-sheet";
 
@@ -260,7 +260,7 @@ export default function InviteCard({ userState = {} }: Props) {
           </View>
 
           <FastImage
-            source={require("../../../static/images/crown.png")}
+            source={require("@static/images/crown.png")}
             style={{
               height: 180,
               width: 240,
@@ -291,7 +291,7 @@ export default function InviteCard({ userState = {} }: Props) {
           <View style={styles.featureItem}>
             <View style={styles.imgContainer}>
               <FastImage
-                source={require("../../../static/images/vip/vip_logo.png")}
+                source={require("@static/images/vip/vip_logo.png")}
                 style={styles.featureIcn}
                 resizeMode={FastImage.resizeMode.contain}
               />
@@ -305,7 +305,7 @@ export default function InviteCard({ userState = {} }: Props) {
             <View style={styles.featureItem}>
               <View style={styles.imgContainer}>
                 <FastImage
-                  source={require("../../../static/images/invite/sport.png")}
+                  source={require("@static/images/invite/sport.png")}
                   style={styles.featureIcn}
                   resizeMode={FastImage.resizeMode.contain}
                 />
@@ -319,7 +319,7 @@ export default function InviteCard({ userState = {} }: Props) {
           <View style={styles.featureItem}>
             <View style={styles.imgContainer}>
               <FastImage
-                source={require("../../../static/images/invite/ads.png")}
+                source={require("@static/images/invite/ads.png")}
                 style={styles.featureIcn}
                 resizeMode={FastImage.resizeMode.contain}
               />
@@ -387,7 +387,7 @@ export default function InviteCard({ userState = {} }: Props) {
 
           <TouchableOpacity onPress={shareToTwitter}>
             <FastImage
-              source={require("../../../static/images/invite/twitter.png")}
+              source={require("@static/images/invite/twitter.png")}
               style={{
                 height: 40,
                 width: 40,

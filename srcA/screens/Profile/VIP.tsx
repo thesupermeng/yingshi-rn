@@ -465,8 +465,8 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
             resizeMode={FastImage.resizeMode.contain}
             source={
               isSuccess
-                ? require("../../../static/images/profile/login-success.gif")
-                : require("../../../static/images/profile/cross.png")
+                ? require("@static/images/profile/login-success.gif")
+                : require("@static/images/profile/cross.png")
             }
           />
           <View
@@ -549,7 +549,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
             }}
           >
             <FastImage
-              source={require("../../../static/images/home-loading.gif")}
+              source={require("@static/images/home-loading.gif")}
               style={{
                 width: 150,
                 height: 150,

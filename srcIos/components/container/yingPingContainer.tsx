@@ -3,7 +3,7 @@ import React from "react"
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import FastImage from "react-native-fast-image";
 import { VodType } from "../../types/ajaxTypes";
-import Logo from '../../../static/images/ying_ping_logo.svg';
+import Logo from '@static/images/ying_ping_logo.svg';
 import { useAppDispatch } from "../../hooks/hooks";
 import { playVod } from "@redux/actions/vodActions";
 

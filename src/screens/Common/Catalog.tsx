@@ -32,7 +32,7 @@ import TitleWithBackButtonHeader from '../../components/header/titleWithBackButt
 import {API_DOMAIN, API_DOMAIN_TEST} from '../../utility/constants';
 import VodTopicFilter from '../../components/vod/vodTopicFilter';
 import VodCard from '../../components/vod/vodCard';
-import DownArrow from '../../../static/images/arrow_down_yellow.svg';
+import DownArrow from '@static/images/arrow_down_yellow.svg';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Animated, {
   useSharedValue,
@@ -550,7 +550,7 @@ export default ({navigation, route}: RootStackScreenProps<'片库'>) => {
                 {hasNextPage && (
                   <FastImage
                     style={{height: 80, width: 80}}
-                    source={require('../../../static/images/loading-spinner.gif')}
+                    source={require('@static/images/loading-spinner.gif')}
                     resizeMode={'contain'}
                   />
                 )}

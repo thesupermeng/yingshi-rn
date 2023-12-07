@@ -7,9 +7,9 @@ import {
 } from 'react-native';
 import React, {useEffect} from 'react';
 import {useTheme} from '@react-navigation/native';
-import NoWifi from '../../../static/images/no-wifi.svg';
-import RefreshIcon from '../../../static/images/refresh.svg';
-import YingshiGreyIcon from '../../../static/images/yingshi-grey.svg';
+import NoWifi from '@static/images/no-wifi.svg';
+import RefreshIcon from '@static/images/refresh.svg';
+import YingshiGreyIcon from '@static/images/yingshi-grey.svg';
 import {useOrientation} from '../../hooks/useOrientation';
 interface Props {
   onClickRetry?: any;
