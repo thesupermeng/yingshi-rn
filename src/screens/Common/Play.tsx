@@ -269,6 +269,36 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   //logic and function for multiple sources
 
+  const staticDummyData = [
+    { id: 1, source: '喷射云' },
+    { id: 2, source: '速播云' },
+    { id: 3, source: '光速云' },
+    // Add more dummy data as needed
+  ];
+
+  const qualitySelection = [
+    { id: 1, source: 'HD' },
+    { id: 2, source: '1080P' },
+    { id: 3, source: '720P' },
+    // Add more dummy data as needed
+  ];
+  const defaultSource = staticDummyData.length > 0 ? staticDummyData[0].id : 0;
+  const defaultQuality = qualitySelection.length > 0 ? qualitySelection[0].id : 0;
+  const [currentSource, setCurrentSource] = useState(defaultSource);
+  const [currentQuality, setCurrentQuality] = useState(defaultQuality);
+
+  const onPressSource = useCallback((itemId: any) => {
+    setCurrentSource(itemId);
+    currentEpisodeRef.current = itemId;
+    currentTimeRef.current = 0;
+  }, []);
+
+  const onPressQuality = useCallback((itemId: any) => {
+    setCurrentQuality(itemId);
+    currentEpisodeRef.current = itemId;
+    currentTimeRef.current = 0;
+  }, []);
+
   const renderSources = useCallback(
     ({ item }) => (
       <TouchableOpacity
@@ -277,28 +307,29 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
           justifyContent: "space-between",
           alignItems: 'center',
           backgroundColor:
-            currentEpisode === item.nid ? colors.primary : colors.search,
+            currentSource === item.id ? colors.primary : colors.search,
           paddingVertical: 8,
-          paddingHorizontal: 10,
-          minWidth: 70,
+          paddingHorizontal: 8,
+          // minWidth: 70,
           marginRight: spacing.xs,
           ...styles.episodeBtn,
         }}
-        // onPress={() => onPressEpisode(item.nid)}
+        // onPress={() => onPressEpisode(item.id)}
+        onPress={() => onPressSource(item.id)}
       >
         <SourceIcon
-        style={{}}/>
+        style={{marginRight: 3,}}/>
         <Text
           numberOfLines={1}
           style={{
-            fontSize: 13,
+            fontSize: 15,
             textAlign: "center",
-            fontWeight: "500",
-            color: currentEpisode === item.nid ? colors.selected : colors.muted,
+            fontWeight: "600",
+            color: currentSource === item.id ? colors.selected : colors.muted,
           }}
         >
           {/* {item.name} */}
-          Source
+          {item.source}
         </Text>
       </TouchableOpacity>
     ),
@@ -313,28 +344,27 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
           justifyContent: "space-between",
           alignItems: 'center',
           backgroundColor:
-            currentEpisode === item.nid ? colors.primary : colors.search,
+            currentQuality === item.id ? colors.primary : colors.search,
           paddingVertical: 8,
-          paddingHorizontal: 10,
-          minWidth: 70,
+          paddingHorizontal: 8,
+          // minWidth: 70,
           marginRight: spacing.xs,
           ...styles.episodeBtn,
         }}
-        // onPress={() => onPressEpisode(item.nid)}
+        // onPress={() => onPressEpisode(item.id)}
+        onPress={() => onPressQuality(item.id)}
       >
-        <SourceIcon
-        style={{}}/>
         <Text
           numberOfLines={1}
           style={{
-            fontSize: 13,
+            fontSize: 15,
             textAlign: "center",
             fontWeight: "500",
-            color: currentEpisode === item.nid ? colors.selected : colors.muted,
+            color: currentQuality === item.id ? colors.selected : colors.muted,
           }}
         >
           {/* {item.name} */}
-          1080P
+          {item.source}
         </Text>
       </TouchableOpacity>
     ),
@@ -1029,10 +1059,11 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                               initialNumToRender={10}
                               onScrollToIndexFailed={() => { }}
                               ref={episodeRef}
-                              data={vod?.vod_play_list.urls?.slice(
-                                showEpisodeRangeStart,
-                                showEpisodeRangeEnd
-                              )}
+                              // data={vod?.vod_play_list.urls?.slice(
+                              //   showEpisodeRangeStart,
+                              //   showEpisodeRangeEnd
+                              // )}
+                              data={staticDummyData}
                               renderItem={renderSources}
                               // onContentSizeChange={onContentSizeChange}
                               ListFooterComponent={
@@ -1105,10 +1136,11 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                               initialNumToRender={10}
                               onScrollToIndexFailed={() => { }}
                               ref={episodeRef}
-                              data={vod?.vod_play_list.urls?.slice(
-                                showEpisodeRangeStart,
-                                showEpisodeRangeEnd
-                              )}
+                              // data={vod?.vod_play_list.urls?.slice(
+                              //   showEpisodeRangeStart,
+                              //   showEpisodeRangeEnd
+                              // )}
+                              data={qualitySelection}
                               renderItem={renderQuality}
                               // onContentSizeChange={onContentSizeChange}
                               ListFooterComponent={
