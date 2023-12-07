@@ -60,6 +60,22 @@ const eighteenPlusControls = ({}: Props) => {
   //   return () => clearInterval(interval)
   // }, [adultMode])
 console.log( Platform.OS )
+
+  const handleAccept = useCallback(() => {
+    console.debug("accepted 18+");
+    dispatch(enableAdultMode());
+    dispatch(acceptOverEighteen());
+    dispatch(hideAdultModeDisclaimer());
+    // dispatch(hideAdultModeVip())
+    dispatch(enableWatchAnytimeAdultMode());
+  }, [])
+
+  const handleReject = useCallback(() => {
+    console.debug("rejected 18+");
+    dispatch(disableAdultMode());
+    dispatch(hideAdultModeDisclaimer());
+  }, [])
+
   return (
     <View
       style={{
@@ -82,19 +98,8 @@ console.log( Platform.OS )
         />
       )}
       <EighteenPlusOverlay
-        handleAccept={() => {
-          console.debug("accepted 18+");
-          dispatch(enableAdultMode());
-          dispatch(acceptOverEighteen());
-          dispatch(hideAdultModeDisclaimer());
-          // dispatch(hideAdultModeVip())
-          dispatch(enableWatchAnytimeAdultMode());
-        }}
-        handleReject={() => {
-          console.debug("rejected 18+");
-          dispatch(disableAdultMode());
-          dispatch(hideAdultModeDisclaimer());
-        }}
+        handleAccept={handleAccept}
+        handleReject={handleReject}
       />
     </View>
   );
