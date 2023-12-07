@@ -133,6 +133,11 @@ export default () => {
     // if exist, check if today
     // if not today, delete folder 
     // download
+    const tempfolder = RNFetchBlob.fs.dirs.DocumentDir + `/partial/`
+    if (await RNFetchBlob.fs.exists(tempfolder)){
+      await RNFetchBlob.fs.unlink(tempfolder)
+    }
+
     const todayDateString = new Date().toDateString().replace(/\s/g, "")
     const dateFile = RNFetchBlob.fs.dirs.DocumentDir + `/videocache/bGFzdHNhdmU=` // 'lastsave' convert to base64.. 
     const dateFileExist = await RNFetchBlob.fs.exists(dateFile)
@@ -217,6 +222,7 @@ export default () => {
 
 function downloadVod(vod){
   const fileLocation = RNFetchBlob.fs.dirs.DocumentDir + `/videocache/${vod.mini_video_id}.mp4`
+  const temp = RNFetchBlob.fs.dirs.DocumentDir + `/partial/${vod.mini_video_id}`
 
   const fileExist = RNFetchBlob.fs.exists(fileLocation)
 
@@ -226,11 +232,12 @@ function downloadVod(vod){
     } else {
       return RNFetchBlob
       .config({
-        path: fileLocation
+        path: temp
       })
       .fetch('GET', vod.mini_video_origin_video_url)
       .then((res) =>{
         // console.debug('finished download', res.path())
+        return RNFetchBlob.fs.mv(res.path(), fileLocation)
       })
     }
   })
