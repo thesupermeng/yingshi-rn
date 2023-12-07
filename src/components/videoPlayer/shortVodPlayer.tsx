@@ -518,7 +518,7 @@ function ShortVideoPlayer({
 
   useEffect(() => {
     const fn = async () => {
-      if (isPause === false && currentDuration < 1 && isBuffering === true) {
+      if ((isPause === true || isBuffering === true) && currentDuration < 1) {
         // check if video is in local storage
         // if local storage, update miniVodUrl
         // else do nothing
@@ -530,15 +530,15 @@ function ShortVideoPlayer({
         const fileExist = await RNFetchBlob.fs.exists(fileLocation);
 
         if (fileExist) {
-          console.debug('file exist, change source! ');
-          setMiniVodUrl(fileLocation);
+          // console.log('file exist, change source! ');
+          setMiniVodUrl(`${fileLocation}`);
         } else {
-          console.debug('file not exist ');
+          // console.log('file not exist ');
         }
       }
     };
     fn();
-  }, [isPause, currentDuration]);
+  }, [currentDuration, isBuffering, isPause]);
 
   useEffect(() => {
     setMiniVodUrl(currentVod.mini_video_origin_video_url);
