@@ -25,6 +25,7 @@ import { AppConfig } from "../../src/Sports/global/appConfig";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import RNFetchBlob from "rn-fetch-blob";
 import { Toast } from "@ant-design/react-native";
+import _ from "lodash";
 
 
 export default () => {
@@ -146,8 +147,15 @@ export default () => {
     }
     
     if (!!data){
-      const firstFiveVod = data.pages.flat(Infinity).slice(0,n)
-      firstFiveVod.forEach(vod => downloadVod(vod))
+      const firstNVod = data.pages.flat(Infinity).slice(0,n)
+      const NChunks = _.chunk(firstNVod, 5)
+      for (const chunk of NChunks) {
+        // console.debug('downloading chunk')
+        await Promise.all(
+          chunk.map(vod => downloadVod(vod))
+        )
+      }
+
     }
   }
 
@@ -157,7 +165,7 @@ export default () => {
 
   const {data} = useInfiniteQuery(['watchAnytime', 'normal'])
   useEffect(() => {
-    downloadFirstNVid(10)
+    downloadFirstNVid(100)
   }, [data])
 
   return (
@@ -212,11 +220,11 @@ function downloadVod(vod){
 
   const fileExist = RNFetchBlob.fs.exists(fileLocation)
 
-  fileExist.then((exist) => {
+  return fileExist.then((exist) => {
     if (exist){
       // console.debug('file exist!')
     } else {
-      RNFetchBlob
+      return RNFetchBlob
       .config({
         path: fileLocation
       })
