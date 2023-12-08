@@ -17,16 +17,14 @@ const DescriptionBar = ({vodDescription}: Props) => {
           flexDirection: 'column',
           justifyContent: 'flex-end',
         }}>
-        <TouchableOpacity>
-          <Text
-            style={{
-              ...textVariants.small,
-              color: colors.text,
-              paddingBottom: 20,
-            }}>
-            {vodDescription}
-          </Text>
-        </TouchableOpacity>
+        <Text
+          style={{
+            ...textVariants.small,
+            color: colors.text,
+            paddingBottom: 20,
+          }}>
+          {vodDescription}
+        </Text>
       </View>
     </View>
   );
