@@ -1,8 +1,8 @@
 import {StyleSheet, TouchableOpacity, View, Text} from 'react-native';
 import FastImage from '../../common/customFastImage';
 
-import PlayZhengPianIcon from '../../../../static/images/play-zhengpian1.svg';
-import PlayBoDanIcon from '../../../../static/images/play-bodan.svg';
+import PlayZhengPianIcon from '@static/images/play-zhengpian1.svg';
+import PlayBoDanIcon from '@static/images/play-bodan.svg';
 import {useTheme} from '@react-navigation/native';
 import {memo, useState} from 'react';
 
