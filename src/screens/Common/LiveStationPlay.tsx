@@ -15,7 +15,7 @@ import VodPlayer from "../../components/videoPlayer/vodPlayer";
 import { SettingsReducerState } from "@redux/reducers/settingsReducer";
 import { RootState } from "@redux/store";
 import { lockAppOrientation } from "@redux/actions/settingsActions";
-import useInterstitialAds from "../../hooks/useInterstitialAds";
+import useInterstitialAds from "@hooks/useInterstitialAds";
 import { screenModel } from "../../types/screenType";
 import { disableAdultMode } from "@redux/actions/screenAction";
 

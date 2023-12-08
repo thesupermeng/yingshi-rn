@@ -37,7 +37,7 @@ import ClearHistoryIcon from "@static/images/clear.svg";
 import EmptyList from "../../components/common/emptyList";
 import appsFlyer from "react-native-appsflyer";
 import ConfirmationModal from "../../components/modal/confirmationModal";
-import useAnalytics from "../../hooks/useAnalytics";
+import useAnalytics from "@hooks/useAnalytics";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import RNRestart from 'react-native-restart';
 

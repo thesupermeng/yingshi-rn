@@ -46,7 +46,7 @@ import { RootState } from "@redux/store";
 import { useDispatch } from "react-redux";
 import BecomeVipOverlay from "../../../components/modal/becomeVipOverlay";
 import { SettingsReducerState } from "@redux/reducers/settingsReducer";
-import useAnalytics from "../../../hooks/useAnalytics";
+import useAnalytics from "@hooks/useAnalytics";
 
 interface NavType {
   has_submenu: boolean;

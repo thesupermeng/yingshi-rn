@@ -38,8 +38,8 @@ import {
 } from "./../../AnyThinkAds/ATReactNativeSDK";
 import { AdsBannerContext } from "../contexts/AdsBannerContext";
 
-import useInterstitialAds from "../hooks/useInterstitialAds"
-import useAnalytics from "../hooks/useAnalytics";
+import useInterstitialAds from "@hooks/useInterstitialAds"
+import useAnalytics from "@hooks/useAnalytics";
 
 function Home({ navigation }: BottomTabScreenProps<any>) {
   const isFocused = useIsFocused();

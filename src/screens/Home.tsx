@@ -41,12 +41,12 @@ import {
 import { AdsBannerContext } from "../contexts/AdsBannerContext";
 
 
-import useInterstitialAds from "../hooks/useInterstitialAds";
+import useInterstitialAds from "@hooks/useInterstitialAds";
 import EighteenPlusOverlay from "../components/modal/overEighteenOverlay";
 import { hideAdultModeDisclaimer } from "@redux/actions/screenAction";
 
 
-import useAnalytics from "../hooks/useAnalytics";
+import useAnalytics from "@hooks/useAnalytics";
 import { screenModel } from "../types/screenType";
 
 

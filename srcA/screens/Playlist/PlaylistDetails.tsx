@@ -8,7 +8,7 @@ import TitleWithBackButtonHeader from "../../components/header/titleWithBackButt
 import FavoritePlaylistButton from "../../components/button/favoritePlaylistButton";
 import { RootStackScreenProps } from "../../types/navigationTypes";
 import VodWithDescriptionList from "../../components/vod/vodWithDescriptionList";
-import useAnalytics from "../../hooks/useAnalytics";
+import useAnalytics from "@hooks/useAnalytics";
 
 export default ({ navigation }: RootStackScreenProps<"PlaylistDetail">) => {
   const { textVariants, colors, spacing } = useTheme();

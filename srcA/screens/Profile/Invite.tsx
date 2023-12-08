@@ -32,7 +32,7 @@ import { userModel } from "../../types/userType";
 import { TouchableOpacity } from "@gorhom/bottom-sheet";
 import { updateUserAuth } from "@redux/actions/userAction";
 import { getUserDetails } from "../../features/user";
-import useAnalytics from "../../hooks/useAnalytics";
+import useAnalytics from "@hooks/useAnalytics";
 
 
 export default ({ navigation }: RootStackScreenProps<"邀请">) => {

@@ -62,7 +62,7 @@ import NoConnection from "../../components/common/noConnection";
 import NetInfo from "@react-native-community/netinfo";
 import { lockAppOrientation } from "@redux/actions/settingsActions";
 import { AdsBannerContext } from "../../contexts/AdsBannerContext";
-import useInterstitialAds from "../../hooks/useInterstitialAds";
+import useInterstitialAds from "@hooks/useInterstitialAds";
 import { URL } from "react-native-url-polyfill";
 import RNFetchBlob from "rn-fetch-blob";
 import { userModel } from "../../types/userType";
@@ -75,7 +75,7 @@ import AdultVideoVipModal from "../../components/modal/adultVideoVipModal";
 import VipRegisterBar from "../../components/adultVideo/vipRegisterBar";
 import { disableAdultMode, enableAdultMode, incrementAdultVideoWatchTime } from "@redux/actions/screenAction";
 
-import useAnalytics from "../../hooks/useAnalytics";
+import useAnalytics from "@hooks/useAnalytics";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { screenModel } from "../../types/screenType";
 

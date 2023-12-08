@@ -42,7 +42,7 @@ import { showToast } from "../../../src/Sports/utility/toast";
 import { showLoginAction } from "@redux/actions/screenAction";
 import SpinnerOverlay from "../../components/modal/SpinnerOverlay";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import useAnalytics from "../../hooks/useAnalytics";
+import useAnalytics from "@hooks/useAnalytics";
 
 export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const {

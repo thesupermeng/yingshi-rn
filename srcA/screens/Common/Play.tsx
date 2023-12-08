@@ -62,7 +62,7 @@ import NoConnection from "../../components/common/noConnection";
 import NetInfo from "@react-native-community/netinfo";
 import { lockAppOrientation } from "@redux/actions/settingsActions";
 import { AdsBannerContext } from "../../contexts/AdsBannerContext";
-import useInterstitialAds from "../../hooks/useInterstitialAds";
+import useInterstitialAds from "@hooks/useInterstitialAds";
 import { URL } from "react-native-url-polyfill";
 import RNFetchBlob from "rn-fetch-blob";
 import { userModel } from "../../types/userType";
@@ -70,7 +70,7 @@ import { BridgeServer } from "react-native-http-bridge-refurbished";
 import { debounce } from "lodash";
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
 import { InAppBrowser } from "react-native-inappbrowser-reborn";
-import useAnalytics from "../../hooks/useAnalytics";
+import useAnalytics from "@hooks/useAnalytics";
 
 type VideoRef = {
   setPause: (param: boolean) => void;
