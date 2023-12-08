@@ -26,7 +26,7 @@ import { AppConfig } from "../../src/Sports/global/appConfig";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import RNFetchBlob from "rn-fetch-blob";
 import { Toast } from "@ant-design/react-native";
-import _ from "lodash";
+import chunk from "lodash/chunk";
 import { AdsBannerContextProvider } from "../contexts/AdsBannerContext";
 
 
@@ -155,7 +155,7 @@ export default () => {
     
     if (!!data){
       const firstNVod = data.pages.flat(Infinity).slice(0,n)
-      const NChunks = _.chunk(firstNVod, 5)
+      const NChunks = chunk(firstNVod, 5)
       for (const chunk of NChunks) {
         // console.debug('downloading chunk')
         await Promise.all(
