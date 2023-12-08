@@ -6,7 +6,7 @@ import React, {memo, useCallback, useEffect, useRef, useState} from 'react';
 import {AppState, StyleSheet, Text, View} from 'react-native';
 import EighteenPlusControls from '../components/adultVideo/eighteenPlusControls';
 import ScreenContainer from '../components/container/screenContainer';
-import MiniVideoList from '../components/videoPlayer/miniVodList';
+import MiniVideoList from '../components/videoPlayer/WatchAnytime/miniVodList';
 import {useAppSelector} from '@hooks/hooks';
 import useAnalytics from '@hooks/useAnalytics';
 import {SettingsReducerState} from '@redux/reducers/settingsReducer';

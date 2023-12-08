@@ -27,10 +27,10 @@ import { playVod, viewPlaylistDetails } from '@redux/actions/vodActions';
 import { screenModel } from '@type/screenType';
 import { userModel } from '@type/userType';
 import { ADULT_MODE_PREVIEW_DURATION } from '@utility/constants';
-import FastImage from '../common/customFastImage';
-import RedirectButton from './WatchAnytime/RedirectButton';
-import DescriptionBar from './WatchAnytime/DescriptionBar';
-import HejiButton from './WatchAnytime/HejiButton';
+import FastImage from '../../common/customFastImage';
+import RedirectButton from './RedirectButton';
+import DescriptionBar from './DescriptionBar';
+import HejiButton from './HejiButton';
 
 interface Props {
   thumbnail?: string;

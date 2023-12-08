@@ -1,6 +1,6 @@
 import React, { useState, memo, useCallback } from 'react';
-import ShortVideoPlayer from '../../components/videoPlayer/shortVodPlayer';
-import CollectionBottomSheet from '../../../src/components/miniCollection/CollectionBottomSheet';
+import ShortVideoPlayer from './shortVodPlayer';
+import CollectionBottomSheet from '../../miniCollection/CollectionBottomSheet';
 
 interface Props {
     thumbnail?: string;
