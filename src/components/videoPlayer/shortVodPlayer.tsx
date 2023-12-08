@@ -19,7 +19,6 @@ import { Slider } from '@rneui/themed';
 import { QueryClient } from '@tanstack/react-query';
 import { debounce } from 'lodash';
 import RNFetchBlob from 'rn-fetch-blob';
-import ExpandUpIcon from '@static/images/expandHeji.svg';
 import HejiIcon from '@static/images/heji.svg';
 import { useAppDispatch, useAppSelector } from '@hooks/hooks';
 import useAnalytics from '@hooks/useAnalytics';
@@ -29,6 +28,9 @@ import { screenModel } from '@type/screenType';
 import { userModel } from '@type/userType';
 import { ADULT_MODE_PREVIEW_DURATION } from '@utility/constants';
 import FastImage from '../common/customFastImage';
+import RedirectButton from './WatchAnytime/RedirectButton';
+import DescriptionBar from './WatchAnytime/DescriptionBar';
+import HejiButton from './WatchAnytime/HejiButton';
 
 interface Props {
   thumbnail?: string;
@@ -291,230 +293,28 @@ function ShortVideoPlayer({
             currentVod.mini_video_original_img_url != '' && (
               <View style={{flexWrap: 'wrap'}}>
                 {/* <View style={{ flex: 10, flexDirection: 'column', justifyContent: 'flex-end', marginRight: 35 }}> */}
-
-                {!adultMode && (
-                  <View
-                    style={{
-                      padding: 8,
-                      height: 75,
-                      flexDirection: 'row',
-                      borderRadius: 8,
-                      backgroundColor: 'rgba(106, 106, 106, 0.25)',
-                    }}>
-                    <>
-                      {!isBodanRef.current && (
-                        <View
-                          style={{
-                            width: 45,
-                            flexDirection: 'column',
-                            justifyContent: 'flex-end',
-                          }}
-                          onLayout={handleViewLayout}>
-                          <TouchableOpacity
-                            style={{flex: 1, position: 'relative'}}
-                            onPress={redirectVod}>
-                            <FastImage
-                              style={{flex: 1, borderRadius: 6}}
-                              source={{
-                                uri: currentVod.mini_video_original_img_url,
-                                priority: 'high',
-                              }}
-                            />
-                          </TouchableOpacity>
-                        </View>
-                      )}
-                      {isBodanRef.current && (
-                        <View
-                          style={{
-                            width: 45,
-                            flexDirection: 'column',
-                            justifyContent: 'flex-end',
-                            marginRight: 6,
-                          }}
-                          onLayout={handleViewLayout}>
-                          <TouchableOpacity
-                            style={{flex: 1, position: 'relative'}}
-                            onPress={redirectVod}>
-                            <FastImage
-                              style={{
-                                flex: 1,
-                                borderRadius: 6,
-                                position: 'absolute',
-                                width: '100%',
-                                height: '100%',
-                                zIndex: 3,
-                              }}
-                              source={{
-                                uri: currentVod.mini_video_original_img_url,
-                                priority: 'high',
-                              }}
-                              onProgress={e => {
-                                setImageLoaded(false);
-                              }}
-                              onLoad={e => {
-                                setImageLoaded(true);
-                              }}
-                            />
-                            {imageLoaded && isBodanRef.current && (
-                              <View>
-                                <FastImage
-                                  style={{
-                                    flex: 1,
-                                    borderRadius: 6,
-                                    position: 'absolute',
-                                    width: '100%',
-                                    height: imageContainerHeight - 6,
-                                    zIndex: 2,
-                                    top: 5.8,
-                                  }}
-                                  source={require('@static/images/bodan2.jpeg')}
-                                />
-                                <FastImage
-                                  style={{
-                                    flex: 1,
-                                    borderRadius: 6,
-                                    position: 'absolute',
-                                    width: '100%',
-                                    height: imageContainerHeight - 12,
-                                    top: 11.8,
-                                  }}
-                                  source={require('@static/images/bodan3.jpg')}
-                                />
-                              </View>
-                            )}
-                          </TouchableOpacity>
-                        </View>
-                      )}
-                      <View
-                        style={{
-                          flexDirection: 'column',
-                          alignContent: 'center',
-                          marginLeft: 10,
-                          marginRight: 5,
-                        }}>
-                        <TouchableOpacity onPress={redirectVod}>
-                          <View
-                            style={{
-                              flexDirection: 'column',
-                              justifyContent: 'space-between',
-                              height: '100%',
-                              paddingVertical: 5,
-                            }}>
-                            <View
-                              style={{
-                                justifyContent: 'flex-start',
-                                flexDirection: 'row',
-                              }}>
-                              <View>
-                                <Text
-                                  numberOfLines={1}
-                                  ellipsizeMode="tail"
-                                  style={{
-                                    ...textVariants.bodyBold,
-                                    color: colors.text,
-                                    fontSize: 15,
-                                  }}>
-                                  {vodName}
-                                </Text>
-                              </View>
-                            </View>
-                            <View
-                              style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-                              <View style={{flexWrap: 'wrap'}}>
-                                {isBodanRef.current ? (
-                                  <PlayBoDanIcon width={20} height={20} />
-                                ) : (
-                                  <PlayZhengPianIcon width={20} height={20} />
-                                )}
-                              </View>
-                              <View
-                                style={{
-                                  paddingLeft: 6,
-                                  justifyContent: 'center',
-                                }}>
-                                <Text
-                                  style={{
-                                    ...textVariants.subBody,
-                                    color: colors.text,
-                                    fontSize: 14,
-                                  }}>
-                                  {watchTextRef.current}
-                                </Text>
-                              </View>
-                            </View>
-                          </View>
-                        </TouchableOpacity>
-                      </View>
-                    </>
-                  </View>
-                )}
+                {!adultMode &&
+                  <RedirectButton
+                  imageUrl={currentVod?.mini_video_original_img_url}
+                  isBodan={isBodanRef.current}
+                  vodTitle={vodName}
+                  redirectVod={redirectVod}
+                />}
+                
               </View>
             )}
-          <View style={{marginTop: 10, flexDirection: 'row'}}>
-            {/* <View style={{ flex: 10, flexDirection: 'column', justifyContent: 'flex-end', marginRight: 35 }}> */}
-            <View
-              style={{
-                flex: 10,
-                flexDirection: 'column',
-                justifyContent: 'flex-end',
-              }}>
-              <TouchableOpacity>
-                <Text
-                  style={{
-                    ...textVariants.small,
-                    color: colors.text,
-                    paddingBottom: 20,
-                  }}>
-                  {currentVod.mini_video_title}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
+          <DescriptionBar vodDescription={currentVod.mini_video_title}/>
         </View>
 
         {currentVod.is_collection?.toLowerCase() == 'y' && (
-          <View
-            style={{
-              backgroundColor: '#171717',
-              paddingBottom: 18,
-              paddingTop: 12,
-              paddingLeft: 20,
-              paddingRight: 20,
-            }}>
-            <TouchableOpacity
-              style={{flex: 1}}
-              onPress={() => {
-                openBottomSheet();
-              }}>
-              <View
-                style={{
-                  flex: 1,
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                }}>
-                <View style={{flex: 1, flexDirection: 'row'}}>
-                  <HejiIcon height={24} width={24} />
-                  <Text
-                    style={{
-                      paddingLeft: 6,
-                      alignSelf: 'center',
-                      fontSize: 14,
-                      color: colors.text,
-                      fontWeight: '700',
-                    }}>
-                    {currentVod.mini_video_collection_title}
-                  </Text>
-                </View>
-                <View style={{}}>
-                  <ExpandUpIcon height={24} width={24} />
-                </View>
-              </View>
-            </TouchableOpacity>
-          </View>
+          <HejiButton
+            handleOnPress={openBottomSheet}
+            collectionTitle={currentVod.mini_video_collection_title}
+          />
         )}
       </View>
     );
-  }, [currentVod, adultMode]);
+  }, [vodName, currentVod, adultMode]);
 
   useEffect(() => {
     const fn = async () => {

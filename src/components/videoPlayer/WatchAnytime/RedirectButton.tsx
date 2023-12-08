@@ -9,8 +9,6 @@ import {memo, useState} from 'react';
 interface Props {
   imageUrl: string;
   vodTitle: string;
-  vodDescription: string;
-  playerMode: 'adult' | 'normal';
   isBodan: boolean;
   redirectVod: any;
 }
@@ -20,8 +18,6 @@ const RedirectButton = ({
   vodTitle,
   isBodan,
   redirectVod,
-  vodDescription,
-  playerMode,
 }: Props): JSX.Element => {
   const watchText = isBodan ? '看播单' : '看正片';
   const {colors, textVariants} = useTheme();
