@@ -28,9 +28,10 @@ import { YSConfig } from "./ysConfig";
 
 import { ATRNSDK } from "./AnyThinkAds/ATReactNativeSDK";
 
+// remove when merge
 import { TermsAcceptContextProvider } from "./src/contexts/TermsAcceptedContext";
-import { TermsAcceptContextProvider as TermsAcceptContextProviderA } from "./srcA/contexts/TermsAcceptedContext";
-import { TermsAcceptContextProvider as TermsAcceptContextProviderIos } from "./srcIos/contexts/TermsAcceptedContext";
+import { TermsAcceptContextProvider as TermsAcceptContextProviderA } from "./src/contexts/TermsAcceptedContext";
+import { TermsAcceptContextProvider as TermsAcceptContextProviderIos } from "./src/contexts/TermsAcceptedContext";
 
 const topon_channel = "WEB";
 
