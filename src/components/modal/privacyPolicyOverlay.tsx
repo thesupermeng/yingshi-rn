@@ -1,6 +1,6 @@
 import { useNavigation, useTheme } from "@react-navigation/native";
 import { useCallback, useContext, useEffect } from "react";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { BackHandler, StyleSheet, TouchableOpacity, View } from "react-native";
 import { Text } from "react-native";
 import RNExitApp from "react-native-exit-app";
 import { useAppDispatch } from "@hooks/hooks";
@@ -28,7 +28,8 @@ export default function PrivacyPolicyOverlay({
   }, []);
 
   const handleReject = useCallback(() => {
-    RNExitApp.exitApp();
+    // RNExitApp.exitApp();
+    BackHandler.exitApp();
   }, []);
 
   const handleAccept = useCallback(()=>{
