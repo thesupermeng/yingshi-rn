@@ -1,71 +1,36 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { View } from "react-native";
-import { Provider } from "react-redux";
-import MainNav from "./src/navigation/mainNav";
-import { store, persistor } from "@redux/store";
-import { PersistGate } from "redux-persist/integration/react";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
+import { persistor, store } from "@redux/store";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { NetworkInfo } from "react-native-network-info";
-import { showToast } from "./src/Sports/utility/toast";
-import VipOverlay from "./src/components/modal/vipOverlay";
-import axios from "axios";
 import {
+  MiniVideo,
+  VodCarousellResponseType
+} from "@type/ajaxTypes";
+import {
+  ANDROID_HOME_PAGE_BANNER_ADS,
   API_DOMAIN,
   API_DOMAIN_TEST,
-  API_DOMAIN_LOCAL,
-  APPSFLYER_DEVKEY,
-  UMENG_CHANNEL,
-  APP_VERSION,
-  TOPON_ANDROID_APP_KEY,
+  IOS_HOME_PAGE_BANNER_ADS,
   TOPON_ANDROID_APP_ID,
-  ANDROID_HOME_PAGE_BANNER_ADS,
+  TOPON_ANDROID_APP_KEY,
   TOPON_IOS_APP_ID,
   TOPON_IOS_APP_KEY,
-  IOS_HOME_PAGE_BANNER_ADS,
-  IOS_HOME_PAGE_POP_UP_ADS,
-  TOPON_BANNER_WIDTH,
-  TOPON_BANNER_HEIGHT,
-  ANDROID_HOME_PAGE_POP_UP_ADS,
-  ANDROID_PLAY_DETAILS_BANNER_ADS,
-  ANDROID_TOPIC_DETAILS_BANNER_ADS,
-  ANDROID_TOPIC_TAB_BANNER_ADS,
-  IOS_PLAY_DETAILS_BANNER_ADS,
-  IOS_TOPIC_DETAILS_BANNER_ADS,
-  IOS_TOPIC_TAB_BANNER_ADS,
-  APP_NAME_CONST,
 } from "@utility/constants";
-import {
-  BottomNavTabs,
-  BottomNavTabsResponse,
-  FilterOptionsResponseType,
-  MiniVideo,
-  NavOptionsResponseType,
-  SuggestResponseType,
-  VodCarousellResponseType,
-  VodPlaylistResponseType,
-  LiveTVStationsResponseType,
-  CheckVersionResponseType,
-  CheckVersionRequest,
-} from "@type/ajaxTypes";
-import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import appsFlyer from "react-native-appsflyer";
-import Api from "./src/Sports/middleware/api";
-import { Url } from "./src/Sports/middleware/url";
-import { Dimensions, Platform } from "react-native";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Platform, View } from "react-native";
 import CodePush from "react-native-code-push";
-import { YSConfig } from "./ysConfig";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 import RegengOverlay from "./src/components/modal/regengOverlay";
+import MainNav from "./src/navigation/mainNav";
+import { YSConfig } from "./ysConfig";
 
 import { ATRNSDK } from "./AnyThinkAds/ATReactNativeSDK";
 
 import { TermsAcceptContextProvider } from "./src/contexts/TermsAcceptedContext";
-import { TermsAcceptContextProvider as TermsAcceptContextProviderIos } from "./srcIos/contexts/TermsAcceptedContext";
 import { TermsAcceptContextProvider as TermsAcceptContextProviderA } from "./srcA/contexts/TermsAcceptedContext";
-
-import { AdsBannerContextProvider } from "./src/contexts/AdsBannerContext";
-import { AdsBannerContextProvider as AdsBannerContextProviderA } from "./srcA/contexts/AdsBannerContext";
-import NetInfo from "@react-native-community/netinfo";
+import { TermsAcceptContextProvider as TermsAcceptContextProviderIos } from "./srcIos/contexts/TermsAcceptedContext";
 
 const topon_channel = "WEB";
 
@@ -356,15 +321,11 @@ let App = () => {
             <QueryClientProvider client={queryClient}>
               <Provider store={store}>
                 <PersistGate loading={null} persistor={persistor}>
-                  <AdsBannerContextProviderA>
-                    <AdsBannerContextProvider>
-                      <GestureHandlerRootView style={{ flex: 1 }}>
-                        <BottomSheetModalProvider>
-                          <MainNav />
-                        </BottomSheetModalProvider>
-                      </GestureHandlerRootView>
-                    </AdsBannerContextProvider>
-                  </AdsBannerContextProviderA>
+                  <GestureHandlerRootView style={{ flex: 1 }}>
+                    <BottomSheetModalProvider>
+                      <MainNav />
+                    </BottomSheetModalProvider>
+                  </GestureHandlerRootView>
                 </PersistGate>
                 {showRegengOverlay && <RegengOverlay />}
               </Provider>

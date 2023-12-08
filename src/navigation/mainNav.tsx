@@ -26,6 +26,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import RNFetchBlob from "rn-fetch-blob";
 import { Toast } from "@ant-design/react-native";
 import _ from "lodash";
+import { AdsBannerContextProvider } from "../contexts/AdsBannerContext";
 
 
 export default () => {
@@ -205,11 +206,15 @@ export default () => {
             <>
               {areaNavConfig == true ? (
                 // B面的B面
-                <Nav />
+                <AdsBannerContextProvider>
+                  <Nav />
+                </AdsBannerContextProvider>
               ) : (
                 <>
-                  {Platform.OS === "ios" && <NavIos />}
-                  {Platform.OS === "android" && <NavA />}
+                  <AdsBannerContextProvider>
+                    {Platform.OS === "ios" && <NavIos />}
+                    {Platform.OS === "android" && <NavA />}
+                  </AdsBannerContextProvider>
                 </>
               )}
             </>
