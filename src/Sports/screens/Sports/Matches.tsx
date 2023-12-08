@@ -34,7 +34,7 @@ import FastImage from "react-native-fast-image";
 import Api from "../../middleware/api";
 import { Url } from "../../middleware/url";
 import { formatMatchDate } from "../../utility/utils";
-import { MatchDetailsType } from "@type/matchTypes";
+import { MatchDetailsType } from "../../types/matchTypes";
 import MatchSchedule from "../../components/matchSchedule/MatchSchedule";
 import MatchScheduleNav from "../../components/matchSchedule/MatchScheduleNav";
 import NoConnection from "./../../../components/common/noConnection";
