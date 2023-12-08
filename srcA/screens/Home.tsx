@@ -16,7 +16,7 @@ import {
   ANDROID_HOME_PAGE_POP_UP_ADS,
   API_DOMAIN,
   IOS_HOME_PAGE_POP_UP_ADS,
-} from "../utility/constants";
+} from "@utility/constants";
 import CatagoryHome from "../components/container/CatagoryHome";
 import RecommendationHome from "../components/container/RecommendationHome";
 import HomeHeader from "../components/header/homeHeader";

@@ -20,7 +20,7 @@ import {
   API_DOMAIN,
   API_DOMAIN_TEST,
   API_DOMAIN_LOCAL,
-} from "../../../src/utility/constants";
+} from "@utility/constants";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 
 import InviteStep from "./../../components/invite/inviteStep";
@@ -32,7 +32,7 @@ import { userModel } from "../../types/userType";
 import { TouchableOpacity } from "@gorhom/bottom-sheet";
 import { updateUserAuth } from "@redux/actions/userAction";
 import { getUserDetails } from "../../features/user";
-import useAnalytics from '../../hooks/useAnalytics';
+import useAnalytics from '@hooks/useAnalytics';
 
 
 export default ({ navigation }: RootStackScreenProps<"邀请">) => {

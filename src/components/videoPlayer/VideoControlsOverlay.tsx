@@ -21,7 +21,7 @@ import FastImage from '../common/customFastImage';
 import { screenModel } from '../../types/screenType';
 import { useAppSelector } from '@hooks/hooks';
 import AdultModeCountdownIndicator from '../adultVideo/adultModeCountdownIndicator';
-import { UMENG_CHANNEL } from '../../utility/constants';
+import { UMENG_CHANNEL } from '@utility/constants';
 
 type Props = {
   videoUrl: string;

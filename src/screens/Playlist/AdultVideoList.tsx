@@ -19,7 +19,7 @@ import VodLiveStationListVertical from '../../components/vod/vodLiveStationListV
 import EmptyList from '../../components/common/emptyList';
 import {ScrollView} from 'react-native-gesture-handler';
 import FastImage from '../../components/common/customFastImage';
-import {API_DOMAIN_TEST} from '../../utility/constants';
+import {API_DOMAIN_TEST} from '@utility/constants';
 import { enableAdultMode } from '@redux/actions/screenAction';
 
 type AdultVodReturnType = {

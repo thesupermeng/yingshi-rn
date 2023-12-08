@@ -5,7 +5,7 @@ import Logo from '@static/images/logo.svg';
 import History from '@static/images/history.svg';
 import { useTheme } from '@react-navigation/native';
 import { useQuery } from '@tanstack/react-query';
-import { API_DOMAIN } from '../../utility/constants';
+import { API_DOMAIN } from '@utility/constants';
 import { SuggestResponseType, VodCarousellResponseType } from '../../types/ajaxTypes';
 import { useMemo } from 'react';
 

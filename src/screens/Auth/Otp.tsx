@@ -22,7 +22,7 @@ import { addUserAuthState } from '@redux/actions/userAction';
 
 import { useAppDispatch } from '@hooks/hooks';
 import { changeScreenAction } from '@redux/actions/screenAction';
-import useAnalytics from '../../hooks/useAnalytics';
+import useAnalytics from '@hooks/useAnalytics';
 
 
 const OtpInputs = props => {

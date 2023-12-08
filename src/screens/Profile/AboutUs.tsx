@@ -20,7 +20,7 @@ import {
   APP_EMAIL_CONST,
   APP_NAME_CONST,
   APP_VERSION,
-} from "../../../src/utility/constants";
+} from "@utility/constants";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import RNRestart from 'react-native-restart';
 

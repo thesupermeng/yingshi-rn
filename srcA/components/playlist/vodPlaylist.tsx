@@ -8,7 +8,7 @@ import VodCard from '../vod/vodCard';
 import { useAppDispatch } from '@hooks/hooks';
 import { TextStyle } from 'react-native';
 import appsFlyer from 'react-native-appsflyer';
-import useAnalytics from '../../hooks/useAnalytics';
+import useAnalytics from '@hooks/useAnalytics';
 
 interface Props {
   playlist: VodTopicType;

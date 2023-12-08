@@ -19,7 +19,7 @@ import {
   UMENG_CHANNEL,
   YING_SHI_PRODUCT_IOS,
   YING_SHI_PRODUCT_ANDROID,
-} from "../../../src/utility/constants";
+} from "@utility/constants";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 import { SettingsReducerState } from "@redux/reducers/settingsReducer";
 import { useAppSelector } from "@hooks/hooks";

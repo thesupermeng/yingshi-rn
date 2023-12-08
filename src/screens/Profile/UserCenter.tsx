@@ -21,7 +21,7 @@ import {
   API_DOMAIN,
   API_DOMAIN_TEST,
   API_DOMAIN_LOCAL,
-} from "../../utility/constants";
+} from "@utility/constants";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 
 import { ScrollView } from "react-native-gesture-handler";
@@ -42,7 +42,7 @@ import {
   updateUsernameState,
   updateUserReferral,
 } from "@redux/actions/userAction";
-import { showToast } from "../../Sports/utility/toast";
+import { showToast } from "../../../src/Sports/utility/toast";
 import FastImage from "../../components/common/customFastImage";
 
 export default ({ navigation }: RootStackScreenProps<"个人中心">) => {

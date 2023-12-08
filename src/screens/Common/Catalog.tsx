@@ -29,7 +29,7 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
-import {API_DOMAIN, API_DOMAIN_TEST} from '../../utility/constants';
+import {API_DOMAIN, API_DOMAIN_TEST} from '@utility/constants';
 import VodTopicFilter from '../../components/vod/vodTopicFilter';
 import VodCard from '../../components/vod/vodCard';
 import DownArrow from '@static/images/arrow_down_yellow.svg';

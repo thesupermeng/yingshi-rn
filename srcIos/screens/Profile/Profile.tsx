@@ -46,7 +46,7 @@ import {
 import ExpiredOverlay from "../../components/modal/expiredOverlay";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { YSConfig } from "../../../ysConfig";
-import { SHOW_PAYMENT_CONST } from "../../utility/constants";
+import { SHOW_PAYMENT_CONST } from "@utility/constants";
 import FastImage from "../../components/common/customFastImage";
 
 function Profile({ navigation, route }: BottomTabScreenProps<any>) {

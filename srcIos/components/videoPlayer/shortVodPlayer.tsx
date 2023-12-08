@@ -23,7 +23,7 @@ import HejiIcon from '@static/images/heji.svg';
 import ExpandUpIcon from '@static/images/expandHeji.svg';
 import { QueryClient } from '@tanstack/react-query';
 import { debounce } from 'lodash';
-import useAnalytics from '../../hooks/useAnalytics';
+import useAnalytics from '@hooks/useAnalytics';
 
 interface Props {
   thumbnail?: string;

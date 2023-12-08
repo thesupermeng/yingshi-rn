@@ -19,7 +19,7 @@ import Api from '../../middleware/api';
 import MatchSchedule from './MatchSchedule';
 // import FastImage from 'react-native-fast-image';
 import FastImage from '../../../components/common/customFastImage';
-import { TOPON_BANNER_HEIGHT } from '../../../utility/constants';
+import { TOPON_BANNER_HEIGHT } from '@utility/constants';
 
 interface Props {
   matchTypeID: number;

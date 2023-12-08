@@ -8,12 +8,12 @@ import EighteenPlusControls from '../components/adultVideo/eighteenPlusControls'
 import ScreenContainer from '../components/container/screenContainer';
 import MiniVideoList from '../components/videoPlayer/miniVodList';
 import {useAppSelector} from '@hooks/hooks';
-import useAnalytics from '../hooks/useAnalytics';
+import useAnalytics from '@hooks/useAnalytics';
 import {SettingsReducerState} from '@redux/reducers/settingsReducer';
 import {RootState} from '@redux/store';
 import {MiniVideo} from '../types/ajaxTypes';
 import {screenModel} from '../types/screenType';
-import {API_DOMAIN_TEST} from '../utility/constants';
+import {API_DOMAIN_TEST} from '@utility/constants';
 import NoConnection from './../components/common/noConnection';
 
 type MiniVideoResponseType = {

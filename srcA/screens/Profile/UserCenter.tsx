@@ -20,7 +20,7 @@ import {
   API_DOMAIN,
   API_DOMAIN_TEST,
   API_DOMAIN_LOCAL,
-} from '../../utility/constants';
+} from '@utility/constants';
 import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
 
 import {ScrollView} from 'react-native-gesture-handler';

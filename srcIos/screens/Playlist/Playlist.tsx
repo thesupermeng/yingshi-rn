@@ -8,7 +8,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { VodPlaylistResponseType, VodTopicType } from '../../types/ajaxTypes';
 import VodPlaylist from '../../components/playlist/vodPlaylist';
 import { BottomTabScreenProps, useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
-import { API_DOMAIN } from '../../utility/constants';
+import { API_DOMAIN } from '@utility/constants';
 // import FastImage from 'react-native-fast-image';
 import FastImage from "../../components/common/customFastImage"
 import { useIsFocused } from '@react-navigation/native';
@@ -18,7 +18,7 @@ import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 import { SettingsReducerState } from '@redux/reducers/settingsReducer';
 import { RootState } from '@redux/store';
 import { useAppSelector } from '@hooks/hooks';
-import useAnalytics from '../../hooks/useAnalytics';
+import useAnalytics from '@hooks/useAnalytics';
 
 type FlatListType = {
   item: VodTopicType;

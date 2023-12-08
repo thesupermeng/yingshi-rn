@@ -71,7 +71,7 @@ import { LogBox, Platform, StyleSheet, Text, View } from "react-native";
 import DeviceInfo from "react-native-device-info";
 import { useAppSelector, useAppDispatch } from "@hooks/hooks";
 import { QueryClient, useQuery } from "@tanstack/react-query";
-import { API_DOMAIN, UMENG_CHANNEL } from "../../src/utility/constants";
+import { API_DOMAIN, UMENG_CHANNEL } from "@utility/constants";
 import { BottomNavTabsResponse } from "../../src/types/ajaxTypes";
 import { YSConfig } from "../../ysConfig";
 import {
@@ -87,7 +87,7 @@ import { Dialog } from "@rneui/themed";
 // import FastImage from "react-native-fast-image";
 import FastImage from "../components/common/customFastImage";
 import { screenModel } from "../types/screenType";
-import { YingshiDarkTheme, YingshiLightTheme } from "../utility/theme";
+import { YingshiDarkTheme, YingshiLightTheme } from "@utility/theme";
 import { userModel } from "../types/userType";
 import { getUserDetails } from "../features/user";
 import {

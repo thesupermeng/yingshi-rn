@@ -1,7 +1,7 @@
 import {
     ADD_VOD_TO_FAVORITES, REMOVE_VOD_FROM_FAVORITES, PLAY_VOD, TOGGLE_VOD_FAVORITES,
     TOGGLE_PLAYLIST_FAVORITES, VIEW_PLAYLIST, ADD_VOD_TO_HISTORY, CLEAR_HISTORY, REMOVE_VOD_HISTORY, SELECT_MINI_VOD_COLLECTION_ITEM
-} from "../../utility/constants"
+} from "@utility/constants"
 import { FavoriteVodActionType, VodActionType, VodPlaylistActionType } from "../../types/actionTypes"
 import { VodTopicType, VodType } from "../../types/ajaxTypes"
 

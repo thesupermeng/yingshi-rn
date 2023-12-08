@@ -33,7 +33,7 @@ import {
   IOS_TOPIC_DETAILS_BANNER_ADS,
   IOS_TOPIC_TAB_BANNER_ADS,
   APP_NAME_CONST,
-} from "./src/utility/constants";
+} from "@utility/constants";
 import {
   BottomNavTabs,
   BottomNavTabsResponse,

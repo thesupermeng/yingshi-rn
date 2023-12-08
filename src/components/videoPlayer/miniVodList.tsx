@@ -12,11 +12,11 @@ import {MiniVideo} from '../../types/ajaxTypes';
 import FastImage from '../common/customFastImage';
 
 import {useAppDispatch, useAppSelector} from '@hooks/hooks';
-import useAnalytics from '../../hooks/useAnalytics';
+import useAnalytics from '@hooks/useAnalytics';
 import {showAdultModeVip} from '@redux/actions/screenAction';
 import {screenModel} from '../../types/screenType';
 import {userModel} from '../../types/userType';
-import {ADULT_MODE_PREVIEW_DURATION} from '../../utility/constants';
+import {ADULT_MODE_PREVIEW_DURATION} from '@utility/constants';
 
 interface Props {
   miniVodListRef: any;

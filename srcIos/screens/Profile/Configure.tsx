@@ -27,9 +27,9 @@ import { changeScreenAction } from '@redux/actions/screenAction';
 import { RootState } from '@redux/store';
 import { userModel } from '../../types/userType';
 
-import { APP_VERSION } from '../../utility/constants';
+import { APP_VERSION } from '@utility/constants';
 import { SettingsReducerState } from '@redux/reducers/settingsReducer';
-import { showToast } from '../../Sports/utility/toast';
+import { showToast } from '../../../src/Sports/utility/toast';
 export default ({ navigation }: RootStackScreenProps<'设置'>) => {
   const { colors, textVariants, icons, spacing } = useTheme();
   const [isVersionDialogOpen, setIsVersionDialogOpen] = useState(false);

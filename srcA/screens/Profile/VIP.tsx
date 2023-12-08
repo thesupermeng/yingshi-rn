@@ -36,9 +36,9 @@ import {
   API_DOMAIN_TEST,
   API_DOMAIN,
   APP_NAME_CONST,
-} from "../../utility/constants";
+} from "@utility/constants";
 import axios from "axios";
-import { showToast } from "../../Sports/utility/toast";
+import { showToast } from "../../../src/Sports/utility/toast";
 import { showLoginAction } from "@redux/actions/screenAction";
 import SpinnerOverlay from "../../components/modal/SpinnerOverlay";
 import AsyncStorage from "@react-native-async-storage/async-storage";

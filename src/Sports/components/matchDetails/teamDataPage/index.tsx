@@ -2,7 +2,7 @@ import { ScrollView, SafeAreaView, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import FootballDataPage from './footballDataPage';
 import BasketballDataPage from './basketballDataPage';
-// import { useAds } from '../../../hooks/useAds';
+// import { useAds } from '@hooks/useAds';
 import ScreenContainer from '../../../../components/container/screenContainer';
 import { MatchDetailWithRankingData } from '../../../types/liveMatchTypes';
 

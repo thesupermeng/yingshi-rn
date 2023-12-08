@@ -27,7 +27,7 @@ import { changeScreenAction } from '@redux/actions/screenAction';
 import { RootState } from '@redux/store';
 import { userModel } from '../../types/userType';
 
-import { APP_VERSION } from '../../utility/constants';
+import { APP_VERSION } from '@utility/constants';
 import { SettingsReducerState } from '@redux/reducers/settingsReducer';
 
 export default ({ navigation }: RootStackScreenProps<'设置'>) => {

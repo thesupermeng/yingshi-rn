@@ -20,8 +20,8 @@ import {
   CollectionResponseType,
   MiniVideoCollectionItem,
 } from '../../types/ajaxTypes';
-import { API_DOMAIN } from '../../utility/constants';
-import { getMinuteSecond } from '../../utility/helper';
+import { API_DOMAIN } from '@utility/constants';
+import { getMinuteSecond } from '@utility/helper';
 import BottomSheet from '../bottomSheet/bottomSheet';
 
 interface Props {

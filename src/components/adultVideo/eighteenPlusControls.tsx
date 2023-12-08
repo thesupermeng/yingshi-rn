@@ -30,7 +30,7 @@ import {
   incrementAdultVideoWatchTime,
 } from "@redux/actions/screenAction";
 import { userModel } from "../../types/userType";
-import { UMENG_CHANNEL } from "../../utility/constants";
+import { UMENG_CHANNEL } from "@utility/constants";
 interface Props {}
 
 const eighteenPlusControls = ({}: Props) => {

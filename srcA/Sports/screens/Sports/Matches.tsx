@@ -27,7 +27,7 @@ import {
   BottomTabScreenProps,
   useBottomTabBarHeight,
 } from "@react-navigation/bottom-tabs";
-import { API_DOMAIN, MATCH_API_DOMAIN } from "../../../utility/constants";
+import { API_DOMAIN, MATCH_API_DOMAIN } from "@utility/constants";
 import Animated from "react-native-reanimated";
 import FastImage from "react-native-fast-image";
 // import { API } from './util';

@@ -16,7 +16,7 @@ import { MatchUpdatesType } from '../../../types/matchUpdatesType';
 import Weather from '../../weather';
 import EmptyDataPage from '../../EmptyDataPage';
 // import AdsComp from '../../../components/adsComp';
-// import {useAds} from '../../../hooks/useAds';
+// import {useAds} from '@hooks/useAds';
 
 interface Props {
   liveRoomMatchDetails?: MatchDetailWithRankingData

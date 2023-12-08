@@ -54,7 +54,7 @@ import {
   APP_NAME_CONST,
   PLAY_HTTP_SERVER_PORT,
   UMENG_CHANNEL,
-} from "../../utility/constants";
+} from "@utility/constants";
 import { useQuery } from "@tanstack/react-query";
 import ShowMoreVodButton from "../../components/button/showMoreVodButton";
 import VodListVertical from "../../components/vod/vodListVertical";

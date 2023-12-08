@@ -9,8 +9,8 @@ import {
   showLoginAction,
 } from '@redux/actions/screenAction';
 import FastImage from 'react-native-fast-image';
-import useAnalytics from '../../hooks/useAnalytics';
-import { SHOW_PAYMENT_CONST } from '../../utility/constants';
+import useAnalytics from '@hooks/useAnalytics';
+import { SHOW_PAYMENT_CONST } from '@utility/constants';
 
 interface Props {
   showBecomeVIPOverlay: boolean;

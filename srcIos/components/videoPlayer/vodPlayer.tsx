@@ -38,7 +38,7 @@ import VideoWithControls from "./videoWithControls";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "@hooks/hooks";
 import { screenModel } from "../../types/screenType";
-import { NON_VIP_STREAM_TIME_SECONDS } from "../../utility/constants";
+import { NON_VIP_STREAM_TIME_SECONDS } from "@utility/constants";
 import { userModel } from "../../types/userType";
 
 interface Props {

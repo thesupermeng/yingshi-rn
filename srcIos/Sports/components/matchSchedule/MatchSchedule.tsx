@@ -22,7 +22,7 @@ import { useAppSelector } from '@hooks/hooks';
 import { showBecomeVip } from '@redux/actions/screenAction';
 import { useDispatch } from 'react-redux';
 import { screenModel } from '../../../types/screenType';
-import useAnalytics from '../../../hooks/useAnalytics';
+import useAnalytics from '@hooks/useAnalytics';
 
 interface Props {
   matchSche: MatchDetailsType;

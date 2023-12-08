@@ -8,7 +8,7 @@ import {
   View,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {useAnimation} from '../../../hooks/useAnimation';
+import {useAnimation} from '@hooks/useAnimation';
 import {PanelType} from '../config';
 import {LiveStatPanel} from './controlComponents/LiveStatPanel';
 import {RecommendPanel} from './controlComponents/recommend/RecommendPanel';

@@ -11,7 +11,7 @@ import { RootStackScreenProps } from "../../types/navigationTypes";
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
 
 import { useTheme } from "@react-navigation/native";
-import { APP_NAME_CONST } from "../../../src/utility/constants";
+import { APP_NAME_CONST } from "@utility/constants";
 import { showLoginAction, showRegisterAction } from "@redux/actions/screenAction";
 import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import { screenModel } from "../../types/screenType";

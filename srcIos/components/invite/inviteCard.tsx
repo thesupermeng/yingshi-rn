@@ -29,7 +29,7 @@ import { userModel } from "../../types/userType";
 import { useAppDispatch } from "@hooks/hooks";
 import { showLoginAction } from "@redux/actions/screenAction";
 import Share from "react-native-share";
-import { APP_NAME_CONST, INVITE_DOMAIN } from "../../utility/constants";
+import { APP_NAME_CONST, INVITE_DOMAIN } from "@utility/constants";
 import { YSConfig } from "../../../ysConfig";
 import NotificationModal from "../modal/notificationModal";
 interface Props {

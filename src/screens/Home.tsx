@@ -18,7 +18,7 @@ import {
   API_DOMAIN_TEST,
   IOS_HOME_PAGE_POP_UP_ADS,
   UMENG_CHANNEL,
-} from "../utility/constants";
+} from "@utility/constants";
 import CatagoryHome from "../components/container/CatagoryHome";
 import RecommendationHome from "../components/container/RecommendationHome";
 import HomeHeader from "../components/header/homeHeader";
