@@ -15,7 +15,7 @@ import {
   APP_VERSION,
   APP_NAME_CONST,
   API_DOMAIN_TEST,
-} from "../../src/utility/constants";
+} from "@utility/constants";
 import { YSConfig } from "../../ysConfig";
 import { Dimensions, Platform } from "react-native";
 import Api from "../../src/Sports/middleware/api";
@@ -189,7 +189,7 @@ export default () => {
               }}
             >
               <FastImage
-                source={require("../../static/images/home-loading.gif")}
+                source={require("@static/images/home-loading.gif")}
                 style={{
                   width: 150,
                   height: 150,

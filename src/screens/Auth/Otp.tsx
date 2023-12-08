@@ -18,11 +18,11 @@ import TitleWithBackButtonHeader from '../../components/header/titleWithBackButt
 
 import { ResendCountDown } from './resendCountDown';
 import { registerUser, loginUser } from '../../features/user';
-import { addUserAuthState } from '../../redux/actions/userAction';
+import { addUserAuthState } from '@redux/actions/userAction';
 
-import { useAppDispatch } from '../../hooks/hooks';
-import { changeScreenAction } from '../../redux/actions/screenAction';
-import useAnalytics from '../../hooks/useAnalytics';
+import { useAppDispatch } from '@hooks/hooks';
+import { changeScreenAction } from '@redux/actions/screenAction';
+import useAnalytics from '@hooks/useAnalytics';
 
 
 const OtpInputs = props => {
@@ -231,7 +231,7 @@ const OtpInputs = props => {
           }}>
           <Image
             style={styles.iconStyle}
-            source={require('../../../static/images/invite/danger.png')}
+            source={require('@static/images/invite/danger.png')}
           />
 
           <Text style={styles.danger}>验证码不正确，请重试</Text>

@@ -12,9 +12,9 @@ import {
   IOS_HOME_PAGE_POP_UP_ADS,
   IOS_PLAY_DETAILS_POP_UP_ADS,
   NON_VIP_STREAM_TIME_SECONDS,
-} from "../utility/constants";
+} from "@utility/constants";
 import { userModel } from "../types/userType";
-import { RootState } from "../redux/store";
+import { RootState } from "@redux/store";
 import { useAppSelector } from "./hooks";
 import { AdsBannerContext } from "../contexts/AdsBannerContext";
 import { screenModel } from "../types/screenType";

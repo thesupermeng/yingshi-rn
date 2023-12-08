@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {VideoLiveType} from '../../../global/const';
-import {useAnimation} from '../../../hooks/useAnimation';
+import {useAnimation} from '@hooks/useAnimation';
 import {
   setLiveRelatedStreams,
   setVideoControlBottomPenalProp,

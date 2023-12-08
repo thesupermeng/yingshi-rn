@@ -3,15 +3,15 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import RegengModal from './regengModal';
 import { useNavigation, useTheme } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useAppDispatch } from '../../hooks/hooks';
+import { useAppDispatch } from '@hooks/hooks';
 import {
     showLoginAction,
     showRegisterAction,
-} from '../../redux/actions/screenAction';
+} from '@redux/actions/screenAction';
 // import FastImage from 'react-native-fast-image';
 import FastImage from '../common/customFastImage';
 import CodePush from "react-native-code-push";
-import { showToast } from "../../Sports/utility/toast";
+import { showToast } from "../../../src/Sports/utility/toast";
 import {TermsAcceptContext} from '../../contexts/TermsAcceptedContext';
 
 interface Props { }
@@ -187,7 +187,7 @@ export default function RegengOverlay({  }: Props) {
                                         {regengContent}
                                     </Text>
                                     <FastImage
-                                        source={require('../../../static/images/videoBufferLoading.gif')}
+                                        source={require('@static/images/videoBufferLoading.gif')}
                                         style={{ width: 100, height: 100 }}
                                         resizeMode="contain"
                                     />

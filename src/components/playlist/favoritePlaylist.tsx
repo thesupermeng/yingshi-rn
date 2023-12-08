@@ -5,13 +5,13 @@ import {
   playVod,
   togglePlaylistFavorites,
   viewPlaylistDetails,
-} from '../../redux/actions/vodActions';
+} from '@redux/actions/vodActions';
 import {View, StyleSheet, Text, TouchableOpacity, FlatList} from 'react-native';
-import RightIcon from '../../../static/images/more_arrow.svg';
+import RightIcon from '@static/images/more_arrow.svg';
 import VodCard from '../vod/vodCard';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {useAppDispatch} from '../../hooks/hooks';
-import FavoriteIcon from '../../../static/images/favorite.svg';
+import {useAppDispatch} from '@hooks/hooks';
+import FavoriteIcon from '@static/images/favorite.svg';
 
 interface Props {
   playlist: VodTopicType;

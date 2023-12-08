@@ -5,14 +5,14 @@ import {
   View,
   TextStyle,
 } from 'react-native';
-import FavoriteIcon from '../../../static/images/favorite.svg';
+import FavoriteIcon from '@static/images/favorite.svg';
 import { useTheme } from '@react-navigation/native';
-import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-import { RootState } from '../../redux/store';
+import { useAppDispatch, useAppSelector } from '@hooks/hooks';
+import { RootState } from '@redux/store';
 import {
   addVodToFavorites,
   removeVodFromFavorites,
-} from '../../redux/actions/vodActions';
+} from '@redux/actions/vodActions';
 import { VodType } from '../../types/ajaxTypes';
 import { screenModel } from '../../types/screenType';
 interface Props {

@@ -1,9 +1,9 @@
 import React, { useRef, memo } from 'react';
 import { View, StyleSheet } from 'react-native';
-import Play from '../../../static/images/blackPlay.svg';
-import Pause from '../../../static/images/pause.svg';
-import Rewind from '../../../static/images/rewind.svg';
-import Fastforward from '../../../static/images/fastforward.svg';
+import Play from '@static/images/blackPlay.svg';
+import Pause from '@static/images/pause.svg';
+import Rewind from '@static/images/rewind.svg';
+import Fastforward from '@static/images/fastforward.svg';
 import { RectButton } from 'react-native-gesture-handler';
 import { useTheme } from '@react-navigation/native';
 

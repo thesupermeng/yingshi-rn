@@ -41,13 +41,13 @@ import {VideoLiveType} from '../../../global/const';
 import {StyleSheet} from 'react-native';
 import {ShowControlType} from '../config';
 import {AppConfig} from '../../../global/appConfig';
-import store from '../../../redux/store';
-import {floatingPlayer} from '../../../redux/reducers/floatingPlayer';
+import store from '@redux/store';
+import {floatingPlayer} from '@redux/reducers/floatingPlayer';
 // import {setPredictionShareTimeStamp} from '../../../global/asyncStorage';
 import debounce from 'lodash.debounce';
 import {useCallback} from 'react';
 import {useEffect} from 'react';
-import AppSettingsAction from '../../../redux/actions/appSettingsAction';
+import AppSettingsAction from '@redux/actions/appSettingsAction';
 import vars from '../../../utility/vars';
 
 export const RenderControl = ({children, onPress, style = {}}) => {

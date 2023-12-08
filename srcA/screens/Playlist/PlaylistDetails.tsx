@@ -2,13 +2,13 @@ import React, { useCallback, useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import ScreenContainer from "../../components/container/screenContainer";
 import { useTheme } from "@react-navigation/native";
-import { useAppSelector } from "../../hooks/hooks";
-import { RootState } from "../../redux/store";
+import { useAppSelector } from "@hooks/hooks";
+import { RootState } from "@redux/store";
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
 import FavoritePlaylistButton from "../../components/button/favoritePlaylistButton";
 import { RootStackScreenProps } from "../../types/navigationTypes";
 import VodWithDescriptionList from "../../components/vod/vodWithDescriptionList";
-import useAnalytics from "../../hooks/useAnalytics";
+import useAnalytics from "@hooks/useAnalytics";
 
 export default ({ navigation }: RootStackScreenProps<"PlaylistDetail">) => {
   const { textVariants, colors, spacing } = useTheme();

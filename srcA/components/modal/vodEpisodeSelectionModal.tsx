@@ -14,8 +14,8 @@ import {
 import {useTheme} from '@react-navigation/native';
 import {VodEpisodeListType} from '../../types/ajaxTypes';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import SortAscIcon from '../../../static/images/sortAsc.svg';
-import SortDescIcon from '../../../static/images/sortDesc.svg';
+import SortAscIcon from '@static/images/sortAsc.svg';
+import SortDescIcon from '@static/images/sortDesc.svg';
 import BottomSheet from '../bottomSheet/bottomSheet';
 
 interface Props {

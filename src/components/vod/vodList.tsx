@@ -4,8 +4,8 @@ import { useNavigation, useTheme } from '@react-navigation/native';
 import { useQuery } from '@tanstack/react-query';
 import { VodType } from '../../types/ajaxTypes';
 import VodCard from './vodCard';
-import { useAppDispatch } from '../../hooks/hooks';
-import { playVod } from '../../redux/actions/vodActions';
+import { useAppDispatch } from '@hooks/hooks';
+import { playVod } from '@redux/actions/vodActions';
 interface Props {
     query_url?: string,
     initial_page?: number,

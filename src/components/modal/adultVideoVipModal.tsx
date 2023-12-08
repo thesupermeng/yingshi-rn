@@ -1,16 +1,16 @@
 import {View, Text, TouchableOpacity, ViewStyle, TextStyle, StyleSheet} from 'react-native';
-import {hideAdultModeVip, showRegisterAction} from '../../redux/actions/screenAction';
+import {hideAdultModeVip, showRegisterAction} from '@redux/actions/screenAction';
 import VipModal from './vipModal';
 import FastImage from 'react-native-fast-image';
 import { useNavigation } from '@react-navigation/native';
 import { IconClose } from '../../Sports/assets';
 import { useCallback } from 'react';
-import CrossIcon from '../../../static/images/cross.svg'
-import CloseIcon from '../../../static/images/close.svg'
-import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
+import CrossIcon from '@static/images/cross.svg'
+import CloseIcon from '@static/images/close.svg'
+import { useAppDispatch, useAppSelector } from '@hooks/hooks';
 import { userModel } from '../../types/userType';
 import { screenModel } from '../../types/screenType';
-import { SHOW_PAYMENT_CONST } from '../../utility/constants';
+import { SHOW_PAYMENT_CONST } from '@utility/constants';
 
 
 const AdultVideoVipModal = () => {

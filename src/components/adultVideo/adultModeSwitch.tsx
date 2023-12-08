@@ -1,9 +1,9 @@
 import React, { useCallback, useState } from "react";
 import { Text, View, ViewStyle } from "react-native";
 import { Switch } from "react-native-switch"
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import { screenModel } from "../../types/screenType";
-import { acceptOverEighteen, disableAdultMode, disableWatchAnytimeAdultMode, enableAdultMode, enableWatchAnytimeAdultMode, hideAdultModeVip, showAdultModeDisclaimer, showAdultModeVip } from "../../redux/actions/screenAction";
+import { acceptOverEighteen, disableAdultMode, disableWatchAnytimeAdultMode, enableAdultMode, enableWatchAnytimeAdultMode, hideAdultModeVip, showAdultModeDisclaimer, showAdultModeVip } from "@redux/actions/screenAction";
 
 interface Props{
   switchStyle: ViewStyle;

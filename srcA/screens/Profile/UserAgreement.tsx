@@ -11,7 +11,7 @@ import { RootStackScreenProps } from "../../types/navigationTypes";
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
 
 import { useTheme } from "@react-navigation/native";
-import { APP_NAME_CONST } from "../../../src/utility/constants";
+import { APP_NAME_CONST } from "@utility/constants";
 
 export default ({ navigation }: RootStackScreenProps<"用户协议">) => {
   const { colors, textVariants, icons, spacing } = useTheme();

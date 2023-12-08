@@ -9,8 +9,8 @@ import { useTheme } from '@react-navigation/native';
 import styles from './style';
 import { TouchableOpacity } from 'react-native';
 import { formatMatchDate } from '../../utility/utils';
-import { RootState } from '../../../redux/store';
-// import FollowMatchAction from '../../redux/actions/followMatchAction';
+import { RootState } from '@redux/store';
+// import FollowMatchAction from '@redux/actions/followMatchAction';
 import { MatchDetailsType } from '../../types/matchTypes';
 // import {showToast} from '../../utility/toast';
 import { Url } from '../../middleware/url';
@@ -19,7 +19,7 @@ import Api from '../../middleware/api';
 import MatchSchedule from './MatchSchedule';
 // import FastImage from 'react-native-fast-image';
 import FastImage from '../../../components/common/customFastImage';
-import { TOPON_BANNER_HEIGHT } from '../../../utility/constants';
+import { TOPON_BANNER_HEIGHT } from '@utility/constants';
 
 interface Props {
   matchTypeID: number;
@@ -204,7 +204,7 @@ const MatchScheduleList = ({
         alignItems: 'center', 
       }}>
         <FastImage
-          source={require('../../../../static/images/loading-spinner.gif')}
+          source={require('@static/images/loading-spinner.gif')}
           style={{ width: 100, height: 100 }}
           resizeMode="contain"
         />

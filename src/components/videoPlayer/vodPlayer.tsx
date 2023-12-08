@@ -27,10 +27,10 @@ import WebView from "react-native-webview";
 
 import FastImage from "../../components/common/customFastImage";
 
-import FastForwardProgressIcon from "../../../static/images/fastforwardProgress.svg";
-import RewindProgressIcon from "../../../static/images/rewindProgress.svg";
+import FastForwardProgressIcon from "@static/images/fastforwardProgress.svg";
+import RewindProgressIcon from "@static/images/rewindProgress.svg";
 
-import { incrementSportWatchTime, setFullscreenState, showAdultModeVip } from "../../redux/actions/screenAction";
+import { incrementSportWatchTime, setFullscreenState, showAdultModeVip } from "@redux/actions/screenAction";
 
 import {
   LiveTVStationItem,
@@ -39,9 +39,9 @@ import {
 } from "../../types/ajaxTypes";
 import VideoWithControls from "./videoWithControls";
 import { useDispatch } from "react-redux";
-import { useAppSelector } from "../../hooks/hooks";
+import { useAppSelector } from "@hooks/hooks";
 import { screenModel } from "../../types/screenType";
-import { ADULT_MODE_PREVIEW_DURATION, NON_VIP_STREAM_TIME_SECONDS } from "../../utility/constants";
+import { ADULT_MODE_PREVIEW_DURATION, NON_VIP_STREAM_TIME_SECONDS } from "@utility/constants";
 import { userModel } from "../../types/userType";
 
 interface Props {
@@ -667,7 +667,7 @@ export default forwardRef<VideoRef, Props>(
               </View>
             ) : (
               <FastImage
-                source={require("../../../static/images/videoBufferLoading.gif")}
+                source={require("@static/images/videoBufferLoading.gif")}
                 style={{ width: 100, height: 100 }}
                 resizeMode={"contain"}
               />

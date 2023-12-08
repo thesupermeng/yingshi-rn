@@ -5,10 +5,10 @@ import ShortVod from '../../components/videoPlayer/shortVod';
 import FastImage from "../common/customFastImage";
 import { useTheme } from '@react-navigation/native';
 import { StyleSheet } from 'react-native';
-import useAnalytics from '../../hooks/useAnalytics';
+import useAnalytics from '@hooks/useAnalytics';
 import { userModel } from '../../types/userType';
-import { RootState } from '../../redux/store';
-import { useAppSelector } from '../../hooks/hooks';
+import { RootState } from '@redux/store';
+import { useAppSelector } from '@hooks/hooks';
 
 interface Props {
     miniVodListRef: any,
@@ -198,7 +198,7 @@ export default forwardRef<MiniVodRef, Props>(
                         }}
                     >
                         <FastImage
-                            source={require("../../../static/images/home-loading.gif")}
+                            source={require("@static/images/home-loading.gif")}
                             style={{
                                 width: 150,
                                 height: 150,
@@ -236,7 +236,7 @@ export default forwardRef<MiniVodRef, Props>(
                                 {
                                     hasNextPage && <FastImage
                                         style={{ height: 80, width: 80 }}
-                                        source={require('../../../static/images/loading-spinner.gif')}
+                                        source={require('@static/images/loading-spinner.gif')}
                                         resizeMode={'contain'}
                                     />
                                 }

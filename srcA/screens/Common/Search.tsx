@@ -12,32 +12,32 @@ import OrderedSearchResultsList from "../../components/search/RecommendationList
 import SearchResultList from "../../components/search/SearchResultList";
 import ScreenContainer from "../../components/container/screenContainer";
 import BackButton from "../../components/button/backButton";
-import SearchIcon from "../../../static/images/search.svg";
-import ClearIcon from "../../../static/images/cross.svg";
+import SearchIcon from "@static/images/search.svg";
+import ClearIcon from "@static/images/cross.svg";
 import { useQuery } from "@tanstack/react-query";
 
 import { SuggestResponseType, SuggestedVodType } from "../../types/ajaxTypes";
 import { RootStackScreenProps } from "../../types/navigationTypes";
-import { API_DOMAIN } from "../../utility/constants";
+import { API_DOMAIN } from "@utility/constants";
 import VodWithDescriptionList from "../../components/vod/vodWithDescriptionList";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { RootState } from "../../redux/store";
+import { useAppDispatch, useAppSelector } from "@hooks/hooks";
+import { RootState } from "@redux/store";
 // import FastImage from 'react-native-fast-image';
 import FastImage from "../../components/common/customFastImage";
 import {
   addSearchHistory,
   clearSearchHistory,
-} from "../../redux/actions/searchActions";
+} from "@redux/actions/searchActions";
 import Animated, {
   FadeInUp,
   FadeOutUp,
   useAnimatedStyle,
 } from "react-native-reanimated";
-import ClearHistoryIcon from "../../../static/images/clear.svg";
+import ClearHistoryIcon from "@static/images/clear.svg";
 import EmptyList from "../../components/common/emptyList";
 import appsFlyer from "react-native-appsflyer";
 import ConfirmationModal from "../../components/modal/confirmationModal";
-import useAnalytics from "../../hooks/useAnalytics";
+import useAnalytics from "@hooks/useAnalytics";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import RNRestart from 'react-native-restart';
 
@@ -327,7 +327,7 @@ export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
       {showResults && searchResults.length === 0 && isFetching && (
         <View style={styles.buffering}>
           <FastImage
-            source={require("../../../static/images/videoBufferLoading.gif")}
+            source={require("@static/images/videoBufferLoading.gif")}
             style={{ width: 100, height: 100 }}
             resizeMode="contain"
           />

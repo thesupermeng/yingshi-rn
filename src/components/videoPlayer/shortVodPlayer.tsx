@@ -9,25 +9,25 @@ import {
   View,
 } from 'react-native';
 import Video, { OnProgressData, VideoRef } from 'react-native-video';
-import PlayIcon from '../../../static/images/blackPlay.svg';
-import PauseIcon from '../../../static/images/pause.svg';
-import PlayBoDanIcon from '../../../static/images/play-bodan.svg';
-import PlayZhengPianIcon from '../../../static/images/play-zhengpian1.svg';
+import PlayIcon from '@static/images/blackPlay.svg';
+import PauseIcon from '@static/images/pause.svg';
+import PlayBoDanIcon from '@static/images/play-bodan.svg';
+import PlayZhengPianIcon from '@static/images/play-zhengpian1.svg';
 
 import { useNavigation, useTheme } from '@react-navigation/native';
 import { Slider } from '@rneui/themed';
 import { QueryClient } from '@tanstack/react-query';
 import { debounce } from 'lodash';
 import RNFetchBlob from 'rn-fetch-blob';
-import ExpandUpIcon from '../../../static/images/expandHeji.svg';
-import HejiIcon from '../../../static/images/heji.svg';
-import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-import useAnalytics from '../../hooks/useAnalytics';
-import { showAdultModeVip } from '../../redux/actions/screenAction';
-import { playVod, viewPlaylistDetails } from '../../redux/actions/vodActions';
+import ExpandUpIcon from '@static/images/expandHeji.svg';
+import HejiIcon from '@static/images/heji.svg';
+import { useAppDispatch, useAppSelector } from '@hooks/hooks';
+import useAnalytics from '@hooks/useAnalytics';
+import { showAdultModeVip } from '@redux/actions/screenAction';
+import { playVod, viewPlaylistDetails } from '@redux/actions/vodActions';
 import { screenModel } from '../../types/screenType';
 import { userModel } from '../../types/userType';
-import { ADULT_MODE_PREVIEW_DURATION } from '../../utility/constants';
+import { ADULT_MODE_PREVIEW_DURATION } from '@utility/constants';
 import FastImage from '../common/customFastImage';
 
 interface Props {
@@ -52,7 +52,7 @@ const truncateVodName = (vodName: string) => {
     : vodName;
 };
 
-const videoBufferGif = require('../../../static/images/videoBufferLoading.gif')
+const videoBufferGif = require('@static/images/videoBufferLoading.gif')
 
 function ShortVideoPlayer({
   vod,
@@ -367,7 +367,7 @@ function ShortVideoPlayer({
                                     zIndex: 2,
                                     top: 5.8,
                                   }}
-                                  source={require('../../../static/images/bodan2.jpeg')}
+                                  source={require('@static/images/bodan2.jpeg')}
                                 />
                                 <FastImage
                                   style={{
@@ -378,7 +378,7 @@ function ShortVideoPlayer({
                                     height: imageContainerHeight - 12,
                                     top: 11.8,
                                   }}
-                                  source={require('../../../static/images/bodan3.jpg')}
+                                  source={require('@static/images/bodan3.jpg')}
                                 />
                               </View>
                             )}

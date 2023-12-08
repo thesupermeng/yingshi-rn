@@ -155,7 +155,7 @@ export default function MatchScheduleNav({
       >
         <FastImage
           style={{ height: 150, width: 150 }}
-          source={require("../../../../static/images/home-loading.gif")}
+          source={require("@static/images/home-loading.gif")}
           resizeMode={"contain"}
         />
       </View>}

@@ -12,14 +12,14 @@ import {
 } from "react-native";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../features/user";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import {
   hideBottomSheetAction,
   hideLoginAction,
   hideRegisterAction,
   initialBottomSheetForm,
-} from "../../redux/actions/screenAction";
-import { RootState } from "../../redux/store";
+} from "@redux/actions/screenAction";
+import { RootState } from "@redux/store";
 import { screenModel } from "../../types/screenType";
 import SpinnerOverlay from "../modal/SpinnerOverlay";
 export const Login = (props: any) => {
@@ -97,14 +97,14 @@ const LoginCard = (props) => {
         {props.email != "" && props.emailValid && (
           <Image
             style={styles.iconStyle}
-            source={require("../../../static/images/profile/cricket_tick.png")}
+            source={require("@static/images/profile/cricket_tick.png")}
           />
         )}
 
         {props.errMsg.includes("稍后") && (
           <Image
             style={styles.iconStyle}
-            source={require("../../../static/images/profile/cricket_tick.png")}
+            source={require("@static/images/profile/cricket_tick.png")}
           />
         )}
 
@@ -120,7 +120,7 @@ const LoginCard = (props) => {
             >
               <Image
                 style={styles.iconStyle}
-                source={require("../../../static/images/profile/cross.png")}
+                source={require("@static/images/profile/cross.png")}
               />
             </TouchableWithoutFeedback>
           )}
@@ -149,7 +149,7 @@ const LoginCard = (props) => {
                 position: "relative",
                 top: 1,
               }}
-              source={require("../../../static/images/invite/danger.png")}
+              source={require("@static/images/invite/danger.png")}
             />
           </View>
           <Text style={styles.danger}>{props.errMsg}</Text>
@@ -228,7 +228,7 @@ const LoginCard = (props) => {
           </Text>
           <Image
             style={{ width: 18, height: 18 }}
-            source={require("../../../static/images/profile/rightArrow.png")}
+            source={require("@static/images/profile/rightArrow.png")}
           />
         </View>
       </TouchableOpacity>

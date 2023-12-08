@@ -1,9 +1,9 @@
 import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
-import FavoriteIcon from '../../../static/images/favorite.svg';
+import FavoriteIcon from '@static/images/favorite.svg';
 import { useTheme } from '@react-navigation/native';
-import { useAppSelector, useAppDispatch } from '../../hooks/hooks';
-import { RootState } from '../../redux/store';
-import { togglePlaylistFavorites } from '../../redux/actions/vodActions';
+import { useAppSelector, useAppDispatch } from '@hooks/hooks';
+import { RootState } from '@redux/store';
+import { togglePlaylistFavorites } from '@redux/actions/vodActions';
 import { VodTopicType } from '../../types/ajaxTypes';
 interface Props {
     playlist: VodTopicType,

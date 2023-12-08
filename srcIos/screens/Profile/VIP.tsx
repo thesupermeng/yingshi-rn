@@ -17,13 +17,13 @@ import {
 import ScreenContainer from "../../components/container/screenContainer";
 import { RootStackScreenProps } from "../../types/navigationTypes";
 import { useTheme } from "@react-navigation/native";
-import { RootState } from "../../redux/store";
+import { RootState } from "@redux/store";
 
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import { userModel } from "../../types/userType";
-import { updateUserAuth } from "../../redux/actions/userAction";
+import { updateUserAuth } from "@redux/actions/userAction";
 import { getUserDetails } from "../../features/user";
 import { VipCard } from "../../components/vip/vipCard";
 import { TouchableOpacity } from "react-native";
@@ -36,13 +36,13 @@ import {
   API_DOMAIN_TEST,
   API_DOMAIN,
   APP_NAME_CONST,
-} from "../../utility/constants";
+} from "@utility/constants";
 import axios from "axios";
-import { showToast } from "../../Sports/utility/toast";
-import { showLoginAction } from "../../redux/actions/screenAction";
+import { showToast } from "../../../src/Sports/utility/toast";
+import { showLoginAction } from "@redux/actions/screenAction";
 import SpinnerOverlay from "../../components/modal/SpinnerOverlay";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import useAnalytics from "../../hooks/useAnalytics";
+import useAnalytics from "@hooks/useAnalytics";
 
 export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const {
@@ -465,8 +465,8 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
             resizeMode={FastImage.resizeMode.contain}
             source={
               isSuccess
-                ? require("../../../static/images/profile/login-success.gif")
-                : require("../../../static/images/profile/cross.png")
+                ? require("@static/images/profile/login-success.gif")
+                : require("@static/images/profile/cross.png")
             }
           />
           <View
@@ -549,7 +549,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
             }}
           >
             <FastImage
-              source={require("../../../static/images/home-loading.gif")}
+              source={require("@static/images/home-loading.gif")}
               style={{
                 width: 150,
                 height: 150,

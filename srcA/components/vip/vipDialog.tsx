@@ -46,8 +46,8 @@ export const VipDialog = ({
             resizeMode={FastImage.resizeMode.contain}
             source={
               isSuccess
-                ? require("../../../static/images/profile/login-success.gif")
-                : require("../../../static/images/profile/cross.png")
+                ? require("@static/images/profile/login-success.gif")
+                : require("@static/images/profile/cross.png")
             }
           />
           <View

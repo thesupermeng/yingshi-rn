@@ -1,11 +1,11 @@
 import React, { useState, memo, useEffect } from "react";
 import { Keyboard } from "react-native";
-import { useAppDispatch } from "../../hooks/hooks";
+import { useAppDispatch } from "@hooks/hooks";
 import { Login } from "../profile/login";
 import {
   resetBottomSheetForm,
   showRegisterAction,
-} from "../../redux/actions/screenAction";
+} from "@redux/actions/screenAction";
 import BottomSheet from "../bottomSheet/bottomSheet";
 import DeviceInfo from "react-native-device-info";
 

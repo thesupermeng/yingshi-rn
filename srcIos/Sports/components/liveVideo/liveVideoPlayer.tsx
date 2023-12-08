@@ -4,14 +4,14 @@ import styles from './style';
 import { VideoLiveType } from '../../global/const';
 import { MatchDetailsType, Stream } from '../../types/matchTypes';
 import VodPlayer from '../../../components/videoPlayer/vodPlayer';
-import { lockAppOrientation } from '../../../redux/actions/settingsActions';
-import { RootState } from '../../../redux/store';
-import { SettingsReducerState } from '../../../redux/reducers/settingsReducer';
-import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
+import { lockAppOrientation } from '@redux/actions/settingsActions';
+import { RootState } from '@redux/store';
+import { SettingsReducerState } from '@redux/reducers/settingsReducer';
+import { useAppDispatch, useAppSelector } from '@hooks/hooks';
 import WebView from 'react-native-webview';
-import BackIcon from "../../../../static/images/back_arrow.svg";
+import BackIcon from "@static/images/back_arrow.svg";
 import { useTheme } from '@react-navigation/native';
-import useAnalytics from '../../../hooks/useAnalytics';
+import useAnalytics from '@hooks/useAnalytics';
 
 interface Props {
     matchID?: number,

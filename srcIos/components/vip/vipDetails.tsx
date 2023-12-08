@@ -8,7 +8,7 @@ import { VipNav } from "../tabNavigate/vipNav";
 import { useEffect, useState } from "react";
 import { VipPurchaseHistory } from "./vipPurchaseHistory";
 import { VipInviteHistory } from "./vipInviteHistory";
-import { SHOW_PAYMENT_CONST } from "../../utility/constants";
+import { SHOW_PAYMENT_CONST } from "@utility/constants";
 
 export const VipDetails = ({
   route,

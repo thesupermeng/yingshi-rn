@@ -11,11 +11,11 @@ import { RootStackScreenProps } from "../../types/navigationTypes";
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
 
 import { useTheme } from "@react-navigation/native";
-import { APP_NAME_CONST } from "../../../src/utility/constants";
-import { showLoginAction, showRegisterAction } from "../../redux/actions/screenAction";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { APP_NAME_CONST } from "@utility/constants";
+import { showLoginAction, showRegisterAction } from "@redux/actions/screenAction";
+import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import { screenModel } from "../../types/screenType";
-import { RootState } from "../../redux/store";
+import { RootState } from "@redux/store";
 
 export default ({ navigation }: RootStackScreenProps<"用户协议">) => {
   const { colors, textVariants, icons, spacing } = useTheme();

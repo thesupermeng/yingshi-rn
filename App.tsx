@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { View } from "react-native";
 import { Provider } from "react-redux";
 import MainNav from "./src/navigation/mainNav";
-import { store, persistor } from "./src/redux/store";
+import { store, persistor } from "@redux/store";
 import { PersistGate } from "redux-persist/integration/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { NetworkInfo } from "react-native-network-info";
@@ -33,7 +33,7 @@ import {
   IOS_TOPIC_DETAILS_BANNER_ADS,
   IOS_TOPIC_TAB_BANNER_ADS,
   APP_NAME_CONST,
-} from "./src/utility/constants";
+} from "@utility/constants";
 import {
   BottomNavTabs,
   BottomNavTabsResponse,

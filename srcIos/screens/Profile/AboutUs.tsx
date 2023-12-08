@@ -9,18 +9,18 @@ import {
 import ScreenContainer from "../../components/container/screenContainer";
 import { RootStackScreenProps } from "../../types/navigationTypes";
 import { useTheme } from "@react-navigation/native";
-import { RootState } from "../../redux/store";
+import { RootState } from "@redux/store";
 
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
 import { Button } from "@rneui/themed";
 import ShowMoreButton from "../../components/button/showMoreButton";
-import Logo2 from "../../../static/images/logo2.svg";
+import Logo2 from "@static/images/logo2.svg";
 import NotificationModal from "../../components/modal/notificationModal";
 import {
   APP_EMAIL_CONST,
   APP_NAME_CONST,
   APP_VERSION,
-} from "../../../src/utility/constants";
+} from "@utility/constants";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import RNRestart from 'react-native-restart';
 

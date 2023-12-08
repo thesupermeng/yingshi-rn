@@ -3,12 +3,12 @@ import { View, Text, StyleSheet } from "react-native";
 import ScreenContainer from "../../components/container/screenContainer";
 import { RootStackScreenProps } from "../../types/navigationTypes";
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
-import { showRegisterAction } from "../../redux/actions/screenAction";
+import { showRegisterAction } from "@redux/actions/screenAction";
 import PrivacyBackButtonHeader from "../../components/header/privacyBackButtonHeader";
 
 import { useTheme } from "@react-navigation/native";
 import { ScrollView } from "react-native-gesture-handler";
-import { APP_NAME_CONST } from "../../utility/constants";
+import { APP_NAME_CONST } from "@utility/constants";
 
 export default ({ navigation }: RootStackScreenProps<"隐私政策">) => {
   const { colors, textVariants, icons, spacing } = useTheme();

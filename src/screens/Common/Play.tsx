@@ -18,7 +18,7 @@ import {
   Platform,
 } from "react-native";
 import FavoriteButton from "../../components/button/favoriteVodButton";
-import FavoriteIcon from "../../../static/images/favorite.svg";
+import FavoriteIcon from "@static/images/favorite.svg";
 import ScreenContainer from "../../components/container/screenContainer";
 import { useTheme, useFocusEffect, useRoute } from "@react-navigation/native";
 import { YSConfig } from "../../../ysConfig";
@@ -28,18 +28,18 @@ import {
   SuggestResponseType,
   VodDetailsResponseType,
 } from "../../types/ajaxTypes";
-import { addVodToHistory, playVod } from "../../redux/actions/vodActions";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { RootState } from "../../redux/store";
+import { addVodToHistory, playVod } from "@redux/actions/vodActions";
+import { useAppDispatch, useAppSelector } from "@hooks/hooks";
+import { RootState } from "@redux/store";
 import {
   FavoriteVodReducerState,
   VodReducerState,
-} from "../../redux/reducers/vodReducer";
-import SinaIcon from "../../../static/images/sina.svg";
-import WeChatIcon from "../../../static/images/wechat.svg";
-import QQIcon from "../../../static/images/qq.svg";
-import PYQIcon from "../../../static/images/pyq.svg";
-import MoreArrow from "../../../static/images/more_arrow.svg";
+} from "@redux/reducers/vodReducer";
+import SinaIcon from "@static/images/sina.svg";
+import WeChatIcon from "@static/images/wechat.svg";
+import QQIcon from "@static/images/qq.svg";
+import PYQIcon from "@static/images/pyq.svg";
+import MoreArrow from "@static/images/more_arrow.svg";
 import VodEpisodeSelectionModal from "../../components/modal/vodEpisodeSelectionModal";
 // import FastImage from "react-native-fast-image";
 import FastImage from "../../components/common/customFastImage";
@@ -49,20 +49,20 @@ import {
   APP_NAME_CONST,
   PLAY_HTTP_SERVER_PORT,
   UMENG_CHANNEL,
-} from "../../utility/constants";
+} from "@utility/constants";
 import { useQuery } from "@tanstack/react-query";
 import ShowMoreVodButton from "../../components/button/showMoreVodButton";
 import VodListVertical from "../../components/vod/vodListVertical";
 import VodPlayer from "../../components/videoPlayer/vodPlayer";
 import { FlatList } from "react-native-gesture-handler";
-import { SettingsReducerState } from "../../redux/reducers/settingsReducer";
+import { SettingsReducerState } from "@redux/reducers/settingsReducer";
 import BingSearch from "../../components/container/bingSearchContainer";
 
 import NoConnection from "../../components/common/noConnection";
 import NetInfo from "@react-native-community/netinfo";
-import { lockAppOrientation } from "../../redux/actions/settingsActions";
+import { lockAppOrientation } from "@redux/actions/settingsActions";
 import { AdsBannerContext } from "../../contexts/AdsBannerContext";
-import useInterstitialAds from "../../hooks/useInterstitialAds";
+import useInterstitialAds from "@hooks/useInterstitialAds";
 import { URL } from "react-native-url-polyfill";
 import RNFetchBlob from "rn-fetch-blob";
 import { userModel } from "../../types/userType";
@@ -70,12 +70,12 @@ import { BridgeServer } from "react-native-http-bridge-refurbished";
 import { debounce } from "lodash";
 
 import LinearGradient from "react-native-linear-gradient";
-import VipIcon from '../../../static/images/vip-icon.svg'
+import VipIcon from '@static/images/vip-icon.svg'
 import AdultVideoVipModal from "../../components/modal/adultVideoVipModal";
 import VipRegisterBar from "../../components/adultVideo/vipRegisterBar";
-import { disableAdultMode, enableAdultMode, incrementAdultVideoWatchTime } from "../../redux/actions/screenAction";
+import { disableAdultMode, enableAdultMode, incrementAdultVideoWatchTime } from "@redux/actions/screenAction";
 
-import useAnalytics from "../../hooks/useAnalytics";
+import useAnalytics from "@hooks/useAnalytics";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { screenModel } from "../../types/screenType";
 
@@ -734,7 +734,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
           >
             <FastImage
               style={{ height: 80, width: 80 }}
-              source={require("../../../static/images/loading-spinner.gif")}
+              source={require("@static/images/loading-spinner.gif")}
               resizeMode={"contain"}
             />
           </View>
@@ -896,7 +896,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                             width: 14,
                             alignSelf: "center",
                           }}
-                          source={require("../../../static/images/down_arrow.png")}
+                          source={require("@static/images/down_arrow.png")}
                           resizeMode={"contain"}
                         />
                       )}
@@ -908,7 +908,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                             width: 14,
                             alignSelf: "center",
                           }}
-                          source={require("../../../static/images/up_arrow.png")}
+                          source={require("@static/images/up_arrow.png")}
                           resizeMode={"contain"}
                         />
                       )}
@@ -931,7 +931,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                       >
                         <FastImage
                           style={{ height: 80, width: 80 }}
-                          source={require("../../../static/images/loading-spinner.gif")}
+                          source={require("@static/images/loading-spinner.gif")}
                           resizeMode={"contain"}
                         />
                       </View>

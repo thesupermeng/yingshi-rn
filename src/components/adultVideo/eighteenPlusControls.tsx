@@ -18,8 +18,8 @@ import CountdownIndicator from "../button/countdownIndicator";
 import AdultModeCountdownIndicator from "./adultModeCountdownIndicator";
 import AdultModeSwitch from "./adultModeSwitch";
 import { screenModel } from "../../types/screenType";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { RootState } from "../../redux/store";
+import { useAppDispatch, useAppSelector } from "@hooks/hooks";
+import { RootState } from "@redux/store";
 import {
   acceptOverEighteen,
   disableAdultMode,
@@ -28,9 +28,9 @@ import {
   hideAdultModeDisclaimer,
   hideAdultModeVip,
   incrementAdultVideoWatchTime,
-} from "../../redux/actions/screenAction";
+} from "@redux/actions/screenAction";
 import { userModel } from "../../types/userType";
-import { UMENG_CHANNEL } from "../../utility/constants";
+import { UMENG_CHANNEL } from "@utility/constants";
 interface Props {}
 
 const eighteenPlusControls = ({}: Props) => {

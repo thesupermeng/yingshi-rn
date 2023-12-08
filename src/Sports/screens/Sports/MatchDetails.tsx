@@ -48,17 +48,17 @@ import StatisticPage from '../../components/matchDetails/statisticPage';
 import { LineUpType } from '../../types/lineUpTypes';
 import LineUpPage from '../../components/matchDetails/lineUpPage';
 import { useDispatch } from 'react-redux';
-import { useAppSelector } from '../../../hooks/hooks';
+import { useAppSelector } from '@hooks/hooks';
 import { screenModel } from '../../../types/screenType';
-import { incrementSportWatchTime } from '../../../redux/actions/screenAction';
+import { incrementSportWatchTime } from '@redux/actions/screenAction';
 import BecomeVipOverlay from "../../../components/modal/becomeVipOverlay";
-import { NON_VIP_STREAM_TIME_SECONDS } from '../../../utility/constants';
+import { NON_VIP_STREAM_TIME_SECONDS } from '@utility/constants';
 import { userModel } from '../../../types/userType';
-import useInterstitialAds from '../../../hooks/useInterstitialAds';
-import useAnalytics from '../../../hooks/useAnalytics';
-import { RootState } from '../../../redux/store';
+import useInterstitialAds from '@hooks/useInterstitialAds';
+import useAnalytics from '@hooks/useAnalytics';
+import { RootState } from '@redux/store';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { SettingsReducerState } from '../../../redux/reducers/settingsReducer';
+import { SettingsReducerState } from '@redux/reducers/settingsReducer';
 
 let insetsTop = 0;
 let insetsBottom = 0;
@@ -340,7 +340,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
         ) : (
           <View style={styles.fetching}>
             <FastImage
-              source={require('../../../../static/images/loading-spinner.gif')}
+              source={require('@static/images/loading-spinner.gif')}
               style={{ width: 100, height: 80, marginBottom: -20 }}
               resizeMode="contain"
             />

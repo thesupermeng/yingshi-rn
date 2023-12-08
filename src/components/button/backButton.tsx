@@ -1,5 +1,5 @@
 import { StyleSheet, TouchableOpacity, ViewStyle, Platform } from "react-native";
-import BackIcon from "../../../static/images/back_arrow.svg";
+import BackIcon from "@static/images/back_arrow.svg";
 import { useTheme } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
 interface Props {

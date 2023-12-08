@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { View, StyleSheet, Image, Text } from 'react-native';
-import Moon from '../../../../static/images/Moon.svg';
-import Sun from '../../../../static/images/Sun.svg';
-import MutedVolume from '../../../../static/images/MutedVolume.svg';
-import Volume from '../../../../static/images/Volume.svg';
+import Moon from '@static/images/Moon.svg';
+import Sun from '@static/images/Sun.svg';
+import MutedVolume from '@static/images/MutedVolume.svg';
+import Volume from '@static/images/Volume.svg';
 
 type Props = {
   percent: number;

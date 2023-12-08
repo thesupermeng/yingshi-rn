@@ -28,7 +28,7 @@ import {
 } from './util/util';
 import VideoPlayerControls from './videoPlayerControls';
 import {showToast} from '../../utility/toast';
-// import {useAds} from '../../hooks/useAds';
+// import {useAds} from '@hooks/useAds';
 import {parseVideoURL} from '../../utility/urlEncryp';
 
 export const VideoPlayer = React.forwardRef((props, playerRef) => {

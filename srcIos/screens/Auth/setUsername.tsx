@@ -22,12 +22,12 @@ import TitleWithBackButtonHeader from '../../components/header/titleWithBackButt
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import {ResendCountDown} from './resendCountDown';
 import {updateUsername} from '../../features/user';
-import {useAppSelector} from '../../hooks/hooks';
-import {RootState} from '../../redux/store';
+import {useAppSelector} from '@hooks/hooks';
+import {RootState} from '@redux/store';
 import {InputItem, Button} from '@ant-design/react-native';
 import {ProfileTabParamList} from '../../types/navigationTypes';
-import {changeScreenAction} from '../../redux/actions/screenAction';
-import {updateUsernameState} from '../../redux/actions/userAction';
+import {changeScreenAction} from '@redux/actions/screenAction';
+import {updateUsernameState} from '@redux/actions/userAction';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {userModel} from '../../types/userType';
 import BackButton from '../../components/button/backButton';
@@ -214,7 +214,7 @@ export default (props: any) => {
                             position: 'relative',
                             top: 1,
                           }}
-                          source={require('../../../static/images/invite/danger.png')}
+                          source={require('@static/images/invite/danger.png')}
                         />
                       </View>
                       <Text style={styles.danger}>{errMsg} </Text>

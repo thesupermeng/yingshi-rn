@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { View, TouchableOpacity, StyleSheet, Text, ViewStyle } from 'react-native';
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { useTheme, useRoute } from '@react-navigation/native';
 import BackButton from '../button/backButton';
@@ -9,10 +9,10 @@ import {
     showLoginAction,
     showRegisterAction,
     navigateToProfileScreen
-  } from "../../redux/actions/screenAction";
-import { screenReducer } from "../../redux/reducers/screenReducer";
+  } from "@redux/actions/screenAction";
+import { screenReducer } from "@redux/reducers/screenReducer";
 import { screenModel } from "../../types/screenType";
-import { RootState } from "../../redux/store";
+import { RootState } from "@redux/store";
 import { Route } from "react-native-tab-view";
 
 interface Props {

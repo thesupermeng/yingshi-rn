@@ -16,7 +16,7 @@ import {
   ANDROID_HOME_PAGE_POP_UP_ADS,
   API_DOMAIN,
   IOS_HOME_PAGE_POP_UP_ADS,
-} from "../utility/constants";
+} from "@utility/constants";
 import CatagoryHome from "../components/container/CatagoryHome";
 import RecommendationHome from "../components/container/RecommendationHome";
 import HomeHeader from "../components/header/homeHeader";
@@ -26,9 +26,9 @@ import FastImage from "../components/common/customFastImage";
 import { useIsFocused } from "@react-navigation/native";
 import NoConnection from "./../components/common/noConnection";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
-import { useAppSelector, useAppDispatch } from "../hooks/hooks";
-import { RootState } from "../redux/store";
-import { SettingsReducerState } from "../redux/reducers/settingsReducer";
+import { useAppSelector, useAppDispatch } from "@hooks/hooks";
+import { RootState } from "@redux/store";
+import { SettingsReducerState } from "@redux/reducers/settingsReducer";
 import HomeNav from "../components/tabNavigate/homeNav";
 
 import {
@@ -38,8 +38,8 @@ import {
 } from "./../../AnyThinkAds/ATReactNativeSDK";
 import { AdsBannerContext } from "../contexts/AdsBannerContext";
 
-import useInterstitialAds from "../hooks/useInterstitialAds"
-import useAnalytics from "../hooks/useAnalytics";
+import useInterstitialAds from "@hooks/useInterstitialAds"
+import useAnalytics from "@hooks/useAnalytics";
 
 function Home({ navigation }: BottomTabScreenProps<any>) {
   const isFocused = useIsFocused();
@@ -279,7 +279,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
                   {
                     <FastImage
                       style={{ height: 80, width: 80 }}
-                      source={require("../../static/images/loading-spinner.gif")}
+                      source={require("@static/images/loading-spinner.gif")}
                       resizeMode={"contain"}
                     />
                   }
@@ -295,7 +295,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
                   }}
                 >
                   <FastImage
-                    source={require("../../static/images/home-loading.gif")}
+                    source={require("@static/images/home-loading.gif")}
                     style={{
                       width: 150,
                       height: 150,

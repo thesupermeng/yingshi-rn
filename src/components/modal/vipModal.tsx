@@ -1,6 +1,6 @@
 import React, { useEffect, ReactNode } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import VIPIcon from '../../../static/images/vip_icon.svg';
+import VIPIcon from '@static/images/vip_icon.svg';
 
 interface Props {
     children: ReactNode

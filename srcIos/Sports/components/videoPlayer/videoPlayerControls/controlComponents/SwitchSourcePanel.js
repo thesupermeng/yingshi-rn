@@ -6,8 +6,8 @@ import {
   VideoPlayerActions,
 } from '../../../../pages/matchDetails/action';
 import {Colors} from '../../../../global/colors';
-import {useLiveVideoSources} from '../../../../hooks/useLiveVideoSources';
-import {useAnimationVideoSources} from '../../../../hooks/useAnimationVideoSources';
+import {useLiveVideoSources} from '@hooks/useLiveVideoSources';
+import {useAnimationVideoSources} from '@hooks/useAnimationVideoSources';
 import {VideoLiveType} from '../../../../global/const';
 import {VideoLive, AnimationLive} from '../../../../assets';
 

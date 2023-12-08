@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, TextStyle } from 'react-native';
 import { useTheme } from '@react-navigation/native';
-import EmptyIcon from '../../../static/images/empty.svg';
+import EmptyIcon from '@static/images/empty.svg';
 
 interface Props {
     style?: TextStyle,

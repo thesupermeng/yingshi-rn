@@ -13,16 +13,16 @@ import { useQuery } from "@tanstack/react-query";
 import {
   selectMiniVodCollection,
   setFromMiniVodCollection,
-} from "../../redux/actions/miniVodActions";
-import { API_DOMAIN } from "../../utility/constants";
+} from "@redux/actions/miniVodActions";
+import { API_DOMAIN } from "@utility/constants";
 import {
   CollectionResponseType,
   MiniVideoCollectionItem,
 } from "../../types/ajaxTypes";
-import { getMinuteSecond } from "../../utility/helper";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { RootState } from "../../redux/store";
-import { MiniVodReducerState } from "../../redux/reducers/miniVodReducer";
+import { getMinuteSecond } from "@utility/helper";
+import { useAppDispatch, useAppSelector } from "@hooks/hooks";
+import { RootState } from "@redux/store";
+import { MiniVodReducerState } from "@redux/reducers/miniVodReducer";
 import BottomSheet from "../bottomSheet/bottomSheet";
 
 interface Props {
@@ -201,7 +201,7 @@ function CollectionBottomSheet({
           >
             <Image
               style={{ height: 80, width: 80 }}
-              source={require("../../../static/images/loading-spinner.gif")}
+              source={require("@static/images/loading-spinner.gif")}
               resizeMode={"contain"}
             />
           </View>

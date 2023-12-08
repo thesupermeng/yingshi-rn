@@ -9,15 +9,15 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { StyleSheet } from 'react-native';
 import { MiniVideo } from '../types/ajaxTypes';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
-import { API_DOMAIN } from '../utility/constants';
+import { API_DOMAIN } from '@utility/constants';
 import MiniVideoList from '../components/videoPlayer/miniVodList';
 import { useFocusEffect, useIsFocused } from '@react-navigation/native';
 import NoConnection from './../components/common/noConnection';
 import NetInfo from '@react-native-community/netinfo';
-import { SettingsReducerState } from '../redux/reducers/settingsReducer';
-import { useAppSelector } from '../hooks/hooks';
-import { RootState } from '../redux/store';
-import useAnalytics from '../hooks/useAnalytics';
+import { SettingsReducerState } from '@redux/reducers/settingsReducer';
+import { useAppSelector } from '@hooks/hooks';
+import { RootState } from '@redux/store';
+import useAnalytics from '@hooks/useAnalytics';
 
 type MiniVideoResponseType = {
     data: {

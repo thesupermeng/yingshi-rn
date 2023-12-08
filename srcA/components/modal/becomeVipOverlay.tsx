@@ -3,14 +3,14 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import VipModal from './vipModal';
 import { useNavigation, useRoute, useTheme } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useAppDispatch } from '../../hooks/hooks';
+import { useAppDispatch } from '@hooks/hooks';
 import {
   resetBecomeVip,
   showLoginAction,
-} from '../../redux/actions/screenAction';
+} from '@redux/actions/screenAction';
 import FastImage from 'react-native-fast-image';
-import useAnalytics from '../../hooks/useAnalytics';
-import { SHOW_PAYMENT_CONST } from '../../utility/constants';
+import useAnalytics from '@hooks/useAnalytics';
+import { SHOW_PAYMENT_CONST } from '@utility/constants';
 
 interface Props {
   showBecomeVIPOverlay: boolean;

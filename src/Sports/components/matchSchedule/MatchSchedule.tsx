@@ -12,17 +12,17 @@ import {
   getMatchStatus,
   liveRoomName,
 } from '../../utility/utils';
-import store, { RootState } from '../../../redux/store';
-// import FollowMatchAction from '../../redux/actions/followMatchAction';
+import store, { RootState } from '@redux/store';
+// import FollowMatchAction from '@redux/actions/followMatchAction';
 import { useNavigation } from '@react-navigation/native';
 import { MatchDetailsType } from '../../types/matchTypes';
 import BecomeVipOverlay from '../../../components/modal/becomeVipOverlay';
 import { userModel } from '../../../types/userType';
-import { useAppSelector } from '../../../hooks/hooks';
-import { showBecomeVip } from '../../../redux/actions/screenAction';
+import { useAppSelector } from '@hooks/hooks';
+import { showBecomeVip } from '@redux/actions/screenAction';
 import { useDispatch } from 'react-redux';
 import { screenModel } from '../../../types/screenType';
-import useAnalytics from '../../../hooks/useAnalytics';
+import useAnalytics from '@hooks/useAnalytics';
 
 interface Props {
   matchSche: MatchDetailsType;

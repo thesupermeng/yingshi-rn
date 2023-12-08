@@ -9,21 +9,21 @@ import {
   Platform,
 } from 'react-native';
 import Video, { OnProgressData } from 'react-native-video';
-import PlayIcon from '../../../static/images/blackPlay.svg';
-import PauseIcon from '../../../static/images/pause.svg';
-import PlayZhengPianIcon from '../../../static/images/play-zhengpian1.svg';
-import PlayBoDanIcon from '../../../static/images/play-bodan.svg';
+import PlayIcon from '@static/images/blackPlay.svg';
+import PauseIcon from '@static/images/pause.svg';
+import PlayZhengPianIcon from '@static/images/play-zhengpian1.svg';
+import PlayBoDanIcon from '@static/images/play-bodan.svg';
 
 import FastImage from '../common/customFastImage';
 import { Slider } from '@rneui/themed';
-import { useAppDispatch } from '../../hooks/hooks';
+import { useAppDispatch } from '@hooks/hooks';
 import { useNavigation, useTheme } from '@react-navigation/native';
-import { playVod, viewPlaylistDetails } from '../../redux/actions/vodActions';
-import HejiIcon from '../../../static/images/heji.svg';
-import ExpandUpIcon from '../../../static/images/expandHeji.svg';
+import { playVod, viewPlaylistDetails } from '@redux/actions/vodActions';
+import HejiIcon from '@static/images/heji.svg';
+import ExpandUpIcon from '@static/images/expandHeji.svg';
 import { QueryClient } from '@tanstack/react-query';
 import { debounce } from 'lodash';
-import useAnalytics from '../../hooks/useAnalytics';
+import useAnalytics from '@hooks/useAnalytics';
 
 interface Props {
   thumbnail?: string;
@@ -234,7 +234,7 @@ function ShortVideoPlayer({
           {(isBuffering || (Platform.OS === 'ios' ? !isVideoReadyIos : !isVideoReadyAndroid)) && isShowVideo && (
             <View style={styles.buffering}>
               <FastImage
-                source={require('../../../static/images/videoBufferLoading.gif')}
+                source={require('@static/images/videoBufferLoading.gif')}
                 style={{ width: 100, height: 100, }}
                 resizeMode="contain"
                 useFastImage={true}
@@ -354,11 +354,11 @@ function ShortVideoPlayer({
                               <View>
                                 <FastImage
                                   style={{ flex: 1, borderRadius: 6, position: 'absolute', width: '100%', height: imageContainerHeight - 6, zIndex: 2, top: 5.8 }}
-                                  source={require('../../../static/images/bodan2.jpeg')}
+                                  source={require('@static/images/bodan2.jpeg')}
                                 />
                                 <FastImage
                                   style={{ flex: 1, borderRadius: 6, position: 'absolute', width: '100%', height: imageContainerHeight - 12, top: 11.8 }}
-                                  source={require('../../../static/images/bodan3.jpg')}
+                                  source={require('@static/images/bodan3.jpg')}
                                 />
                               </View>
                             }

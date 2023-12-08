@@ -11,7 +11,7 @@ import {
 import ScreenContainer from "../../components/container/screenContainer";
 import { RootStackScreenProps } from "../../types/navigationTypes";
 import { useTheme } from "@react-navigation/native";
-import { RootState } from "../../redux/store";
+import { RootState } from "@redux/store";
 
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
 import axios from "axios";
@@ -20,19 +20,19 @@ import {
   API_DOMAIN,
   API_DOMAIN_TEST,
   API_DOMAIN_LOCAL,
-} from "../../../src/utility/constants";
+} from "@utility/constants";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 
 import InviteStep from "./../../components/invite/inviteStep";
 import InviteCard from "./../../components/invite/inviteCard";
 
 import InviteHeader from "./../../components/invite/inviteHeader";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import { userModel } from "../../types/userType";
 import { TouchableOpacity } from "@gorhom/bottom-sheet";
-import { updateUserAuth } from "../../redux/actions/userAction";
+import { updateUserAuth } from "@redux/actions/userAction";
 import { getUserDetails } from "../../features/user";
-import useAnalytics from '../../hooks/useAnalytics';
+import useAnalytics from '@hooks/useAnalytics';
 
 
 export default ({ navigation }: RootStackScreenProps<"邀请">) => {

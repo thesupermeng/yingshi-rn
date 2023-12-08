@@ -11,12 +11,12 @@ import ShortVod from '../../components/videoPlayer/shortVod';
 import {MiniVideo} from '../../types/ajaxTypes';
 import FastImage from '../common/customFastImage';
 
-import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
-import useAnalytics from '../../hooks/useAnalytics';
-import {showAdultModeVip} from '../../redux/actions/screenAction';
+import {useAppDispatch, useAppSelector} from '@hooks/hooks';
+import useAnalytics from '@hooks/useAnalytics';
+import {showAdultModeVip} from '@redux/actions/screenAction';
 import {screenModel} from '../../types/screenType';
 import {userModel} from '../../types/userType';
-import {ADULT_MODE_PREVIEW_DURATION} from '../../utility/constants';
+import {ADULT_MODE_PREVIEW_DURATION} from '@utility/constants';
 
 interface Props {
   miniVodListRef: any;
@@ -38,8 +38,8 @@ type MiniVodRef = {
   setPause: (pause: boolean) => void;
 };
 
-const homeLoadingGif = require('../../../static/images/home-loading.gif');
-const loadingSpinnerGif = require('../../../static/images/loading-spinner.gif');
+const homeLoadingGif = require('@static/images/home-loading.gif');
+const loadingSpinnerGif = require('@static/images/loading-spinner.gif');
 
 export default forwardRef<MiniVodRef, Props>(
   (

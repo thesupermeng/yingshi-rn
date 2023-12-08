@@ -11,17 +11,17 @@ import { LiveTVStationItem, VodEpisodeListType, VodType } from '../../types/ajax
 import VodCombinedGesture from '../gestures/vod/vodCombinedGesture';
 import Animated, { SlideInRight, useAnimatedStyle, withTiming, useSharedValue, FadeInDown, runOnJS, FadeIn } from 'react-native-reanimated';
 import Orientation from 'react-native-orientation-locker';
-import UnlockScreenIcon from '../../../static/images/unlockScreen.svg';
-import ProjectIcon from '../../../static/images/project.svg'
+import UnlockScreenIcon from '@static/images/unlockScreen.svg';
+import ProjectIcon from '@static/images/project.svg'
 import VodListVertical from '../vod/vodListVertical';
 import GesturesGuide from '../gestures/vod/GesturesGuide';
 import VodLiveStationListVertical from '../vod/vodLiveStationListVertical';
 // import FastImage from 'react-native-fast-image';
 import FastImage from '../common/customFastImage';
 import { screenModel } from '../../types/screenType';
-import { useAppSelector } from '../../hooks/hooks';
+import { useAppSelector } from '@hooks/hooks';
 import AdultModeCountdownIndicator from '../adultVideo/adultModeCountdownIndicator';
-import { UMENG_CHANNEL } from '../../utility/constants';
+import { UMENG_CHANNEL } from '@utility/constants';
 
 type Props = {
   videoUrl: string;
@@ -246,7 +246,7 @@ export default forwardRef<RefHandler, Props>(({
         }}>
           <Text style={{ ...textVariants.header, marginRight: 5 }}>{`${accumulatedSkip}s`}</Text>
           <FastImage
-            source={require('../../../static/images/backward.png')}
+            source={require('@static/images/backward.png')}
             style={{
               height: icons.sizes.l,
               width: icons.sizes.l,
@@ -269,7 +269,7 @@ export default forwardRef<RefHandler, Props>(({
           borderRadius: 8
         }}>
           <FastImage
-            source={require('../../../static/images/forward.png')}
+            source={require('@static/images/forward.png')}
             style={{
               height: icons.sizes.l,
               width: icons.sizes.l,
@@ -368,7 +368,7 @@ export default forwardRef<RefHandler, Props>(({
                           ? <View style={{ ...styles.loading }}>
                             <FastImage
                               style={{ height: 80, width: 80 }}
-                              source={require('../../../static/images/loading-spinner.gif')}
+                              source={require('@static/images/loading-spinner.gif')}
                               resizeMode={"contain"}
                             />
                           </View>

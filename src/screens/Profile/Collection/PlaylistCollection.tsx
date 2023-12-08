@@ -2,8 +2,8 @@ import React from 'react';
 import {View, TouchableOpacity, Text, StyleSheet, FlatList} from 'react-native';
 import ScreenContainer from '../../../components/container/screenContainer';
 import {useNavigation, useTheme} from '@react-navigation/native';
-import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
-import {RootState} from '../../../redux/store';
+import {useAppDispatch, useAppSelector} from '@hooks/hooks';
+import {RootState} from '@redux/store';
 
 import TitleWithBackButtonHeader from '../../../components/header/titleWithBackButtonHeader';
 import CollectionHeader from '../../../components/header/myCollectionHeader';

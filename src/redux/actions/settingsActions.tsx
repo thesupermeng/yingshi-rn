@@ -1,6 +1,6 @@
 import {
     CLEAR_STORAGE_MEMORY, HIDE_VOD_PLAYER_GUIDE, ACCEPT_PRIVACY_POLICY, HANDLE_APP_ORIENTATION, HANDLE_DEVICES_ORIENTATION, LOCK_ORIENTATION, UPDATE_NETWORK_INFO
-} from "../../utility/constants";
+} from "@utility/constants";
 
 export const clearStorageMemory = () => (
     {

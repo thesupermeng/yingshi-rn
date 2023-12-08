@@ -10,7 +10,7 @@ import { Url } from '../middleware/url';
 //   openSettings,
 // } from 'react-native-permissions';
 import RNFS from 'react-native-fs';
-// import AppSettingsAction from '../redux/actions/appSettingsAction';
+// import AppSettingsAction from '@redux/actions/appSettingsAction';
 // import Config from '../global/env';
 // import { AppConfig } from '../global/appConfig';
 // import { getPredictionShareTimeStamp } from '../global/asyncStorage';

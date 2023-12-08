@@ -8,7 +8,7 @@ import {
   View,
 } from 'react-native';
 import {useSelector} from 'react-redux';
-import {useAnimation} from '../../../hooks/useAnimation';
+import {useAnimation} from '@hooks/useAnimation';
 import {AnimationHeight} from '../config';
 import VideoPlayerstyles from '../style';
 import {Back, Unlocker, ShareButton, Pip} from './Controls';
