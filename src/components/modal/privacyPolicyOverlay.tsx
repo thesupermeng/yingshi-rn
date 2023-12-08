@@ -28,8 +28,7 @@ export default function PrivacyPolicyOverlay({
   }, []);
 
   const handleReject = useCallback(() => {
-    // RNExitApp.exitApp();
-    BackHandler.exitApp();
+    RNExitApp.exitApp();
   }, []);
 
   const handleAccept = useCallback(()=>{
