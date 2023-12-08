@@ -37,7 +37,7 @@ import {
   removeScreenAction,
   showLoginAction,
 } from "@redux/actions/screenAction";
-import { userModel } from "../../types/userType";
+import { userModel } from "@type/userType";
 import NotificationModal from "../../components/modal/notificationModal";
 import { getUserDetails } from "../../features/user";
 import {

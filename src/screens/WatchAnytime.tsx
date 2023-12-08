@@ -11,8 +11,8 @@ import {useAppSelector} from '@hooks/hooks';
 import useAnalytics from '@hooks/useAnalytics';
 import {SettingsReducerState} from '@redux/reducers/settingsReducer';
 import {RootState} from '@redux/store';
-import {MiniVideo} from '../types/ajaxTypes';
-import {screenModel} from '../types/screenType';
+import {MiniVideo} from '@type/ajaxTypes';
+import {screenModel} from '@type/screenType';
 import {API_DOMAIN_TEST} from '@utility/constants';
 import NoConnection from './../components/common/noConnection';
 

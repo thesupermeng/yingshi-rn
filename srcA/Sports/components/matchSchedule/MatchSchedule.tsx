@@ -17,11 +17,11 @@ import store, { RootState } from '@redux/store';
 import { useNavigation } from '@react-navigation/native';
 import { MatchDetailsType } from '../../types/matchTypes';
 import BecomeVipOverlay from '../../../components/modal/becomeVipOverlay';
-import { userModel } from '../../../types/userType';
+import { userModel } from '@type/userType';
 import { useAppSelector } from '@hooks/hooks';
 import { showBecomeVip } from '@redux/actions/screenAction';
 import { useDispatch } from 'react-redux';
-import { screenModel } from '../../../types/screenType';
+import { screenModel } from '@type/screenType';
 import useAnalytics from '@hooks/useAnalytics';
 
 interface Props {

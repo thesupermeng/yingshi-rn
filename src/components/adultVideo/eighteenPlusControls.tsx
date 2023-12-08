@@ -17,7 +17,7 @@ import EighteenPlusOverlay from "../modal/overEighteenOverlay";
 import CountdownIndicator from "../button/countdownIndicator";
 import AdultModeCountdownIndicator from "./adultModeCountdownIndicator";
 import AdultModeSwitch from "./adultModeSwitch";
-import { screenModel } from "../../types/screenType";
+import { screenModel } from "@type/screenType";
 import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import { RootState } from "@redux/store";
 import {
@@ -29,7 +29,7 @@ import {
   hideAdultModeVip,
   incrementAdultVideoWatchTime,
 } from "@redux/actions/screenAction";
-import { userModel } from "../../types/userType";
+import { userModel } from "@type/userType";
 import { UMENG_CHANNEL } from "@utility/constants";
 interface Props {}
 

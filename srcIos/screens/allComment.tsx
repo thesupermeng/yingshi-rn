@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { FlatList, Keyboard, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { RootStackScreenProps } from "../types/navigationTypes";
+import { RootStackScreenProps } from "@type/navigationTypes";
 import { CommentCard } from "../components/vodComment/commentCard";
-import { commentsType } from "../types/ajaxTypes";
+import { commentsType } from "@type/ajaxTypes";
 import ScreenContainer from "../components/container/screenContainer";
 import TitleWithBackButtonHeader from "../components/header/titleWithBackButtonHeader";
 import { useTheme } from "@react-navigation/native";
-import { userModel } from "../types/userType";
+import { userModel } from "@type/userType";
 import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import { RootState } from "@redux/store";
 import SubmitBtn from "@static/images/submitBtn.svg"

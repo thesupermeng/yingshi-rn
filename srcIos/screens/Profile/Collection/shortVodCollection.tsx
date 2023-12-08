@@ -10,8 +10,8 @@ import { FavoriteVodReducerState, VodReducerState } from '@redux/reducers/vodRed
 import FavoriteVodCard from '../../../components/vod/favoriteVodCard';
 import CollectionHeader from '../../../components/header/myCollectionHeader';
 import { playVod } from '@redux/actions/vodActions';
-import { VodType } from '../../../types/ajaxTypes';
-import { RootStackScreenProps } from '../../../types/navigationTypes';
+import { VodType } from '@type/ajaxTypes';
+import { RootStackScreenProps } from '@type/navigationTypes';
 import EmptyIcon from '@static/images/empty.svg';
 import EmptyList from '../../../components/common/emptyList';
 

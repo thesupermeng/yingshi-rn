@@ -9,7 +9,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
-import { RootStackScreenProps } from '../../types/navigationTypes';
+import { RootStackScreenProps } from '@type/navigationTypes';
 import { useFocusEffect, useNavigation, useTheme } from '@react-navigation/native';
 
 import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
@@ -25,7 +25,7 @@ import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 import { removeUserAuthState } from '@redux/actions/userAction';
 import { changeScreenAction } from '@redux/actions/screenAction';
 import { RootState } from '@redux/store';
-import { userModel } from '../../types/userType';
+import { userModel } from '@type/userType';
 
 import { APP_VERSION } from '@utility/constants';
 import { SettingsReducerState } from '@redux/reducers/settingsReducer';

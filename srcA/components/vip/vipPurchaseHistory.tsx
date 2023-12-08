@@ -3,9 +3,9 @@ import EmptyList from "../common/emptyList";
 import { VipHistoryCard } from "./vipHistoryCard";
 import { useTheme } from "@react-navigation/native";
 import { ScrollView } from "react-native-gesture-handler";
-import { userModel } from "../../types/userType";
+import { userModel } from "@type/userType";
 import { useEffect, useState } from "react";
-import { vipHistoryResponseType } from "../../types/membershipType";
+import { vipHistoryResponseType } from "@type/membershipType";
 
 interface Props {
   userState: userModel;

@@ -20,7 +20,7 @@ import {
   VodType,
   LiveTVStationsResponseType,
   VodData,
-} from '../../types/ajaxTypes';
+} from '@type/ajaxTypes';
 // import FastImage from 'react-native-fast-image';
 import FastImage from "../common/customFastImage";
 import { VodReducerState } from '@redux/reducers/vodReducer';
@@ -49,7 +49,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { acceptOverEighteen, enableAdultMode, hideAdultModeDisclaimer, showAdultModeDisclaimer } from '@redux/actions/screenAction';
 import EighteenPlusOverlay from '../modal/overEighteenOverlay';
-import { screenModel } from '../../types/screenType';
+import { screenModel } from '@type/screenType';
 // import {FlatList, PanGestureHandler} from 'react-native-gesture-handler';
 
 interface NavType {

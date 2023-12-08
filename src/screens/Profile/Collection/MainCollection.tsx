@@ -13,11 +13,11 @@ import {
 import FavoriteVodCard from '../../../components/vod/favoriteVodCard';
 import MainCollectionHeader from '../../../components/header/mainCollectionHeader';
 import {playVod} from '@redux/actions/vodActions';
-import {VodType} from '../../../types/ajaxTypes';
-import {RootStackScreenProps} from '../../../types/navigationTypes';
+import {VodType} from '@type/ajaxTypes';
+import {RootStackScreenProps} from '@type/navigationTypes';
 import EmptyList from '../../../components/common/emptyList';
 
-import {VodTopicType} from '../../../types/ajaxTypes';
+import {VodTopicType} from '@type/ajaxTypes';
 
 import PlaylistCollection from './PlaylistCollection';
 import VodCollection from './VodCollection';

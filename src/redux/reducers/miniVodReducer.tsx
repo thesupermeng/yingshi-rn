@@ -1,8 +1,8 @@
 import {
     SELECT_MINI_VOD_COLLECTION_ITEM, SET_FROM_MINI_VOD_COLLECTION_ITEM
 } from "@utility/constants"
-import { MiniVodActionType } from "../../types/actionTypes"
-import { VodTopicType, VodType } from "../../types/ajaxTypes"
+import { MiniVodActionType } from "@type/actionTypes"
+import { VodTopicType, VodType } from "@type/ajaxTypes"
 
 export interface VodRecordType extends VodType {
     timeWatched: number,

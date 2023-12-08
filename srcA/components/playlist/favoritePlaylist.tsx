@@ -1,6 +1,6 @@
 import React from 'react';
 import {useTheme} from '@react-navigation/native';
-import {VodTopicType, VodType} from '../../types/ajaxTypes';
+import {VodTopicType, VodType} from '@type/ajaxTypes';
 import {
   playVod,
   togglePlaylistFavorites,

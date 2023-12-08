@@ -21,7 +21,7 @@ import {
   VodType,
   LiveTVStationsResponseType,
   VodData,
-} from '../../types/ajaxTypes';
+} from '@type/ajaxTypes';
 // import FastImage from 'react-native-fast-image';
 import FastImage from "../common/customFastImage";
 import { VodReducerState } from '@redux/reducers/vodReducer';

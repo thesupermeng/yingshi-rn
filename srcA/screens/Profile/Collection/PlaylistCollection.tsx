@@ -8,8 +8,8 @@ import {RootState} from '@redux/store';
 import TitleWithBackButtonHeader from '../../../components/header/titleWithBackButtonHeader';
 import CollectionHeader from '../../../components/header/myCollectionHeader';
 import FavoritePlaylist from '../../../components/playlist/favoritePlaylist';
-import {VodTopicType} from '../../../types/ajaxTypes';
-import {RootStackScreenProps} from '../../../types/navigationTypes';
+import {VodTopicType} from '@type/ajaxTypes';
+import {RootStackScreenProps} from '@type/navigationTypes';
 import EmptyList from '../../../components/common/emptyList';
 
 type FlatListType = {

@@ -25,7 +25,7 @@ import { TouchableOpacity } from "@gorhom/bottom-sheet";
 
 
 import LinearGradient from "react-native-linear-gradient";
-import { userModel } from "../../types/userType";
+import { userModel } from "@type/userType";
 import { useAppDispatch } from "@hooks/hooks";
 import { showLoginAction } from "@redux/actions/screenAction";
 import Share from "react-native-share";

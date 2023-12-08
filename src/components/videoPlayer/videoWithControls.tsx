@@ -2,7 +2,7 @@ import { MutableRefObject, memo } from "react"
 import { StyleSheet, View } from "react-native";
 import Video from "react-native-video";
 import VideoControlsOverlay from "./VideoControlsOverlay";
-import { LiveTVStationItem, VodEpisodeListType, VodType } from "../../types/ajaxTypes";
+import { LiveTVStationItem, VodEpisodeListType, VodType } from "@type/ajaxTypes";
 import AdultModeCountdownIndicator from "../adultVideo/adultModeCountdownIndicator";
 
 

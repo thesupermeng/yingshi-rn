@@ -21,7 +21,7 @@ import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import {
   VodPlaylistResponseType,
   VodTopicType,
-} from "../../../types/ajaxTypes";
+} from "@type/ajaxTypes";
 import VodPlaylist from "../../../components/playlist/vodPlaylist";
 import {
   BottomTabScreenProps,
@@ -34,13 +34,13 @@ import FastImage from "react-native-fast-image";
 import Api from "../../middleware/api";
 import { Url } from "../../middleware/url";
 import { formatMatchDate } from "../../utility/utils";
-import { MatchDetailsType } from "../../types/matchTypes";
+import { MatchDetailsType } from "@type/matchTypes";
 import MatchSchedule from "../../components/matchSchedule/MatchSchedule";
 import MatchScheduleNav from "../../components/matchSchedule/MatchScheduleNav";
 import NoConnection from "./../../../components/common/noConnection";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 
-import { userModel } from "../../../types/userType";
+import { userModel } from "@type/userType";
 import { useAppSelector } from "@hooks/hooks";
 import { RootState } from "@redux/store";
 import { useDispatch } from "react-redux";

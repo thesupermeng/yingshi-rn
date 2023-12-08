@@ -18,7 +18,7 @@ import { API_DOMAIN } from "@utility/constants";
 import {
   CollectionResponseType,
   MiniVideoCollectionItem,
-} from "../../types/ajaxTypes";
+} from "@type/ajaxTypes";
 import { getMinuteSecond } from "@utility/helper";
 import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import { RootState } from "@redux/store";

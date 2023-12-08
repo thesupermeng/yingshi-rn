@@ -20,7 +20,7 @@ import {
 import { RadioButton } from "react-native-paper";
 // import FastImage from 'react-native-fast-image';
 import FastImage from "../common/customFastImage";
-import { screenModel } from "../../types/screenType";
+import { screenModel } from "@type/screenType";
 import { RootState } from "@redux/store";
 import SpinnerOverlay from "../modal/SpinnerOverlay";
 export const Register = (props: any) => {

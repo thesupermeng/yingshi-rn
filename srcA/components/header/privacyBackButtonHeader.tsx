@@ -4,14 +4,14 @@ import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { useTheme, useRoute } from '@react-navigation/native';
 import BackButton from '../button/backButton';
-import { RootStackParamList, RootStackScreenProps } from "../../types/navigationTypes";
+import { RootStackParamList, RootStackScreenProps } from "@type/navigationTypes";
 import {
     showLoginAction,
     showRegisterAction,
     navigateToProfileScreen
   } from "@redux/actions/screenAction";
 import { screenReducer } from "@redux/reducers/screenReducer";
-import { screenModel } from "../../types/screenType";
+import { screenModel } from "@type/screenType";
 import { RootState } from "@redux/store";
 import { Route } from "react-native-tab-view";
 

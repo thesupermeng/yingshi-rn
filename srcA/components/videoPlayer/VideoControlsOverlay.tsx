@@ -7,7 +7,7 @@ import BackButton from '../button/backButton';
 import { useNavigation, useTheme } from '@react-navigation/native';
 import { BaseButton, FlatList, Gesture, GestureDetector, RectButton, ScrollView, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import VodEpisodeSelection from '../vod/vodEpisodeSelection';
-import { LiveTVStationItem, VodEpisodeListType, VodType } from '../../types/ajaxTypes';
+import { LiveTVStationItem, VodEpisodeListType, VodType } from '@type/ajaxTypes';
 import VodCombinedGesture from '../gestures/vod/vodCombinedGesture';
 import Animated, { SlideInRight, useAnimatedStyle, withTiming, useSharedValue, FadeInDown, runOnJS, FadeIn } from 'react-native-reanimated';
 import Orientation from 'react-native-orientation-locker';

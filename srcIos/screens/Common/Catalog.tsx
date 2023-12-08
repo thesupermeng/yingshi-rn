@@ -14,14 +14,14 @@ import {
 import ScreenContainer from '../../components/container/screenContainer';
 import { useFocusEffect, useTheme } from '@react-navigation/native';
 
-import { RootStackScreenProps } from '../../types/navigationTypes';
+import { RootStackScreenProps } from '@type/navigationTypes';
 import {
   FilterOptionsResponseType,
   FilterOptionsTypeExtendObj,
   SuggestResponseType,
   SuggestedVodType,
   VodType,
-} from '../../types/ajaxTypes';
+} from '@type/ajaxTypes';
 import { playVod } from '@redux/actions/vodActions';
 import { useAppDispatch } from '@hooks/hooks';
 import {

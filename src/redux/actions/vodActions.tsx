@@ -2,8 +2,8 @@ import {
     ADD_VOD_TO_FAVORITES, REMOVE_VOD_FROM_FAVORITES, CLEAR_HISTORY, PLAY_VOD, TOGGLE_VOD_FAVORITES, SELECT_MINI_VOD_COLLECTION_ITEM,
     TOGGLE_PLAYLIST_FAVORITES, VIEW_PLAYLIST, ADD_VOD_TO_HISTORY, REMOVE_VOD_HISTORY
 } from "@utility/constants";
-import { VodActionType } from "../../types/actionTypes";
-import { VodTopicType, VodType } from "../../types/ajaxTypes";
+import { VodActionType } from "@type/actionTypes";
+import { VodTopicType, VodType } from "@type/ajaxTypes";
 
 export const addVodToFavorites = (vod: VodType, playMode: 'adult'|'normal'='normal') => {
     console.debug('playmode added', playMode)

@@ -7,7 +7,7 @@ import {
 import ScreenContainer from '../components/container/screenContainer';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { StyleSheet } from 'react-native';
-import { MiniVideo } from '../types/ajaxTypes';
+import { MiniVideo } from '@type/ajaxTypes';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { API_DOMAIN } from '@utility/constants';
 import MiniVideoList from '../components/videoPlayer/miniVodList';

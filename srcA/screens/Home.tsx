@@ -7,7 +7,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import {
   NavOptionsResponseType,
   VodCarousellResponseType,
-} from "../types/ajaxTypes";
+} from "@type/ajaxTypes";
 import {
   BottomTabScreenProps,
   useBottomTabBarHeight,

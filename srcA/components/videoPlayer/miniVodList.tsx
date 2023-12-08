@@ -1,12 +1,12 @@
 import React, { useState, useCallback, useEffect, forwardRef, useImperativeHandle } from 'react';
 import { View, FlatList, RefreshControl } from 'react-native';
-import { MiniVideo } from '../../types/ajaxTypes';
+import { MiniVideo } from '@type/ajaxTypes';
 import ShortVod from '../../components/videoPlayer/shortVod';
 import FastImage from "../common/customFastImage";
 import { useTheme } from '@react-navigation/native';
 import { StyleSheet } from 'react-native';
 import useAnalytics from '@hooks/useAnalytics';
-import { userModel } from '../../types/userType';
+import { userModel } from '@type/userType';
 import { RootState } from '@redux/store';
 import { useAppSelector } from '@hooks/hooks';
 

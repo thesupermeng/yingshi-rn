@@ -2,7 +2,7 @@ import {View, TouchableOpacity, StyleSheet, Text} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useTheme} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {RootStackParamList} from '../../types/navigationTypes';
+import {RootStackParamList} from '@type/navigationTypes';
 
 interface Props {
   selectedTab: String;

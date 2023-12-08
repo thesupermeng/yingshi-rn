@@ -46,7 +46,7 @@ import {
   LiveTVStationsResponseType,
   CheckVersionResponseType,
   CheckVersionRequest,
-} from "./src/types/ajaxTypes";
+} from "@type/ajaxTypes";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import appsFlyer from "react-native-appsflyer";

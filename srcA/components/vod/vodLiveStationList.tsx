@@ -9,8 +9,8 @@ import React, {
 import {StyleSheet, TouchableOpacity, Image, ViewStyle} from 'react-native';
 import {useNavigation, useTheme} from '@react-navigation/native';
 import {useQuery} from '@tanstack/react-query';
-import {VodType} from '../../types/ajaxTypes';
-import {LiveTVStationItem} from '../../types/ajaxTypes';
+import {VodType} from '@type/ajaxTypes';
+import {LiveTVStationItem} from '@type/ajaxTypes';
 import VodCard from './vodCard';
 import {useAppDispatch} from '@hooks/hooks';
 import {playVod} from '@redux/actions/vodActions';

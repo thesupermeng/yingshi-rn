@@ -3,7 +3,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import BingSearchButton from '../button/bingSearchButton';
 import BackButton from '../button/backButton';
 
-import {VodType} from '../../types/ajaxTypes';
+import {VodType} from '@type/ajaxTypes';
 
 import BingIcon from '@static/images/bing.svg';
 

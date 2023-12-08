@@ -7,7 +7,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import {
   NavOptionsResponseType,
   VodCarousellResponseType,
-} from "../types/ajaxTypes";
+} from "@type/ajaxTypes";
 import {
   BottomTabScreenProps,
   useBottomTabBarHeight,
@@ -47,7 +47,7 @@ import { hideAdultModeDisclaimer } from "@redux/actions/screenAction";
 
 
 import useAnalytics from "@hooks/useAnalytics";
-import { screenModel } from "../types/screenType";
+import { screenModel } from "@type/screenType";
 
 
 function Home({ navigation }: BottomTabScreenProps<any>) {

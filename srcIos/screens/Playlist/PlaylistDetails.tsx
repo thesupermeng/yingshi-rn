@@ -6,7 +6,7 @@ import { useAppSelector } from "@hooks/hooks";
 import { RootState } from "@redux/store";
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
 import FavoritePlaylistButton from "../../components/button/favoritePlaylistButton";
-import { RootStackScreenProps } from "../../types/navigationTypes";
+import { RootStackScreenProps } from "@type/navigationTypes";
 import VodWithDescriptionList from "../../components/vod/vodWithDescriptionList";
 import useAnalytics from "@hooks/useAnalytics";
 

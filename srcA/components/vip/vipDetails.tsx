@@ -1,5 +1,5 @@
 import LinearGradient from "react-native-linear-gradient";
-import { RootStackScreenProps } from "../../types/navigationTypes";
+import { RootStackScreenProps } from "@type/navigationTypes";
 import ScreenContainer from "../container/screenContainer";
 import TitleWithBackButtonHeader from "../header/titleWithBackButtonHeader";
 import { useTheme } from "@react-navigation/native";

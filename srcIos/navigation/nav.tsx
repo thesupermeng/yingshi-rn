@@ -61,7 +61,7 @@ import {
   ProfileTabParamList,
   RootStackParamList,
   WatchAnytimeTabParamList,
-} from "../types/navigationTypes";
+} from "@type/navigationTypes";
 import RNBootSplash from "react-native-bootsplash";
 import { RootState } from "@redux/store";
 import {
@@ -73,7 +73,7 @@ import DeviceInfo from "react-native-device-info";
 import { useAppSelector, useAppDispatch } from "@hooks/hooks";
 import { QueryClient, useQuery } from "@tanstack/react-query";
 import { API_DOMAIN, UMENG_CHANNEL } from "@utility/constants";
-import { BottomNavTabsResponse } from "../../src/types/ajaxTypes";
+import { BottomNavTabsResponse } from "@type/ajaxTypes";
 import { YSConfig } from "../../ysConfig";
 import {
   hideLoginAction,
@@ -87,9 +87,9 @@ import {
 import { Dialog } from "@rneui/themed";
 // import FastImage from "react-native-fast-image";
 import FastImage from "../components/common/customFastImage";
-import { screenModel } from "../types/screenType";
+import { screenModel } from "@type/screenType";
 import { YingshiDarkTheme, YingshiLightTheme } from "@utility/theme";
-import { userModel } from "../types/userType";
+import { userModel } from "@type/userType";
 import { getUserDetails } from "../features/user";
 import {
   updateUserAuth,

@@ -8,14 +8,14 @@ import React, {
 } from 'react';
 import {FlatList, NativeScrollEvent, NativeSyntheticEvent, RefreshControl, StyleSheet, View} from 'react-native';
 import ShortVod from '../../components/videoPlayer/shortVod';
-import {MiniVideo} from '../../types/ajaxTypes';
+import {MiniVideo} from '@type/ajaxTypes';
 import FastImage from '../common/customFastImage';
 
 import {useAppDispatch, useAppSelector} from '@hooks/hooks';
 import useAnalytics from '@hooks/useAnalytics';
 import {showAdultModeVip} from '@redux/actions/screenAction';
-import {screenModel} from '../../types/screenType';
-import {userModel} from '../../types/userType';
+import {screenModel} from '@type/screenType';
+import {userModel} from '@type/userType';
 import {ADULT_MODE_PREVIEW_DURATION} from '@utility/constants';
 
 interface Props {

@@ -33,13 +33,13 @@ import {
   LiveTVStationItem,
   VodEpisodeListType,
   VodType,
-} from "../../types/ajaxTypes";
+} from "@type/ajaxTypes";
 import VideoWithControls from "./videoWithControls";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "@hooks/hooks";
-import { screenModel } from "../../types/screenType";
+import { screenModel } from "@type/screenType";
 import { NON_VIP_STREAM_TIME_SECONDS } from "@utility/constants";
-import { userModel } from "../../types/userType";
+import { userModel } from "@type/userType";
 
 interface Props {
   vod_url?: string;

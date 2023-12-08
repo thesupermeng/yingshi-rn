@@ -1,5 +1,5 @@
 import { ScrollView, View } from "react-native";
-import { userModel } from "../../types/userType";
+import { userModel } from "@type/userType";
 import { useEffect, useState } from "react";
 import EmptyList from "../common/emptyList";
 import { VipHistoryCard } from "./vipHistoryCard";

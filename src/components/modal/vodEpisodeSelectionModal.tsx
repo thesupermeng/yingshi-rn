@@ -12,7 +12,7 @@ import {
   ScrollView,
 } from 'react-native';
 import {useTheme} from '@react-navigation/native';
-import {VodEpisodeListType} from '../../types/ajaxTypes';
+import {VodEpisodeListType} from '@type/ajaxTypes';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import SortAscIcon from '@static/images/sortAsc.svg';
 import SortDescIcon from '@static/images/sortDesc.svg';

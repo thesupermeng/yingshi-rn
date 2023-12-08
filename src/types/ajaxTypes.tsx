@@ -422,4 +422,20 @@ export interface AdultVodType {
     vod_play_url: string
     vod_play_list: VodEpisodeListType
     vod_restricted: number
-  }
+}
+
+export interface commentsResponseType {
+    code: number,
+    data: commentsResponseDataType,
+}
+
+export interface commentsResponseDataType {
+    douban_reviews: commentsType[],
+    total_review: number,
+}
+
+export interface commentsType {
+    douban_reviews_id: number,
+    user_name: string,
+    user_review: string,
+}

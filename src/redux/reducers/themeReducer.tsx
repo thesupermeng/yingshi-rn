@@ -1,5 +1,5 @@
 import { DARK_THEME, LIGHT_THEME } from "@utility/constants";
-import { ThemeActionType } from "../../types/actionTypes";
+import { ThemeActionType } from "@type/actionTypes";
 const initialState = {
   theme: true
 };

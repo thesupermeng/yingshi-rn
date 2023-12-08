@@ -10,7 +10,7 @@ import {
   Platform,
 } from "react-native";
 import ScreenContainer from "../../components/container/screenContainer";
-import { RootStackScreenProps } from "../../types/navigationTypes";
+import { RootStackScreenProps } from "@type/navigationTypes";
 import { useTheme } from "@react-navigation/native";
 import { RootState } from "@redux/store";
 import { InputItem, Button } from "@ant-design/react-native";
@@ -31,7 +31,7 @@ import InviteCard from "../../components/invite/inviteCard";
 
 import InviteHeader from "../../components/invite/inviteHeader";
 import { useAppSelector } from "@hooks/hooks";
-import { userModel } from "../../types/userType";
+import { userModel } from "@type/userType";
 import { useDispatch } from "react-redux";
 import { TouchableOpacity } from "@gorhom/bottom-sheet";
 import { changeScreenAction } from "@redux/actions/screenAction";

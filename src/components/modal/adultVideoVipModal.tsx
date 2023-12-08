@@ -8,8 +8,8 @@ import { useCallback } from 'react';
 import CrossIcon from '@static/images/cross.svg'
 import CloseIcon from '@static/images/close.svg'
 import { useAppDispatch, useAppSelector } from '@hooks/hooks';
-import { userModel } from '../../types/userType';
-import { screenModel } from '../../types/screenType';
+import { userModel } from '@type/userType';
+import { screenModel } from '@type/screenType';
 import { SHOW_PAYMENT_CONST } from '@utility/constants';
 
 

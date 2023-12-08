@@ -16,8 +16,8 @@ import SearchIcon from "@static/images/search.svg";
 import ClearIcon from "@static/images/cross.svg";
 import { useQuery } from "@tanstack/react-query";
 
-import { SuggestResponseType, SuggestedVodType } from "../../types/ajaxTypes";
-import { RootStackScreenProps } from "../../types/navigationTypes";
+import { SuggestResponseType, SuggestedVodType } from "@type/ajaxTypes";
+import { RootStackScreenProps } from "@type/navigationTypes";
 import { API_DOMAIN } from "@utility/constants";
 import VodWithDescriptionList from "../../components/vod/vodWithDescriptionList";
 import { useAppDispatch, useAppSelector } from "@hooks/hooks";

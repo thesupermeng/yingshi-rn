@@ -4,7 +4,7 @@ import { useTheme } from '@react-navigation/native';
 import { useAppSelector, useAppDispatch } from '@hooks/hooks';
 import { RootState } from '@redux/store';
 import { togglePlaylistFavorites } from '@redux/actions/vodActions';
-import { VodTopicType } from '../../types/ajaxTypes';
+import { VodTopicType } from '@type/ajaxTypes';
 interface Props {
     playlist: VodTopicType,
     leftIcon?: React.ReactNode,

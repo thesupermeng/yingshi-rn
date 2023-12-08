@@ -13,7 +13,7 @@ import {
   addVodToFavorites,
   removeVodFromFavorites,
 } from '@redux/actions/vodActions';
-import { VodType } from '../../types/ajaxTypes';
+import { VodType } from '@type/ajaxTypes';
 interface Props {
   vod: VodType;
   onPress?: any;

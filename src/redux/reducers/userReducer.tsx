@@ -1,4 +1,4 @@
-import {userModel} from '../../types/userType';
+import {userModel} from '@type/userType';
 
 // export interface UserActionType {
 //   type: string;

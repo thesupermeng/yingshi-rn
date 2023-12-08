@@ -23,11 +23,11 @@ import ScreenContainer from "../../components/container/screenContainer";
 import { useTheme, useFocusEffect, useRoute } from "@react-navigation/native";
 import { YSConfig } from "../../../ysConfig";
 
-import { RootStackScreenProps } from "../../types/navigationTypes";
+import { RootStackScreenProps } from "@type/navigationTypes";
 import {
   SuggestResponseType,
   VodDetailsResponseType,
-} from "../../types/ajaxTypes";
+} from "@type/ajaxTypes";
 import { addVodToHistory, playVod } from "@redux/actions/vodActions";
 import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import { RootState } from "@redux/store";
@@ -65,7 +65,7 @@ import { AdsBannerContext } from "../../contexts/AdsBannerContext";
 import useInterstitialAds from "@hooks/useInterstitialAds";
 import { URL } from "react-native-url-polyfill";
 import RNFetchBlob from "rn-fetch-blob";
-import { userModel } from "../../types/userType";
+import { userModel } from "@type/userType";
 import { BridgeServer } from "react-native-http-bridge-refurbished";
 import { debounce } from "lodash";
 
@@ -77,7 +77,7 @@ import { disableAdultMode, enableAdultMode, incrementAdultVideoWatchTime } from 
 
 import useAnalytics from "@hooks/useAnalytics";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { screenModel } from "../../types/screenType";
+import { screenModel } from "@type/screenType";
 
 let insetsTop = 0;
 let insetsBottom = 0;

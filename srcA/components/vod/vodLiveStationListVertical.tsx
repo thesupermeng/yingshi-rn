@@ -11,14 +11,14 @@ import {
 import ScreenContainer from '../../components/container/screenContainer';
 import {useNavigation, useTheme} from '@react-navigation/native';
 
-import {RootStackScreenProps} from '../../types/navigationTypes';
+import {RootStackScreenProps} from '@type/navigationTypes';
 import {
   FilterOptionsResponseType,
   FilterOptionsTypeExtendObj,
   SuggestResponseType,
   SuggestedVodType,
   VodType,
-} from '../../types/ajaxTypes';
+} from '@type/ajaxTypes';
 import {playVod} from '@redux/actions/vodActions';
 import {useAppDispatch} from '@hooks/hooks';
 import {
@@ -39,7 +39,7 @@ import Animated, {
 import {FlatListProps} from 'react-native/Libraries/Lists/FlatList';
 // import FastImage from 'react-native-fast-image';
 import FastImage from '../common/customFastImage';
-import {LiveTVStationItem} from '../../types/ajaxTypes';
+import {LiveTVStationItem} from '@type/ajaxTypes';
 
 interface Props {
   itemList: Array<LiveTVStationItem>;

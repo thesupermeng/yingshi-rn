@@ -9,7 +9,7 @@ import {
   ScrollView,
 } from "react-native";
 import ScreenContainer from "../../components/container/screenContainer";
-import { RootStackScreenProps } from "../../types/navigationTypes";
+import { RootStackScreenProps } from "@type/navigationTypes";
 import { useTheme } from "@react-navigation/native";
 import { RootState } from "@redux/store";
 
@@ -28,7 +28,7 @@ import InviteCard from "./../../components/invite/inviteCard";
 
 import InviteHeader from "./../../components/invite/inviteHeader";
 import { useAppDispatch, useAppSelector } from "@hooks/hooks";
-import { userModel } from "../../types/userType";
+import { userModel } from "@type/userType";
 import { TouchableOpacity } from "@gorhom/bottom-sheet";
 import { updateUserAuth } from "@redux/actions/userAction";
 import { getUserDetails } from "../../features/user";

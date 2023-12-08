@@ -3,7 +3,7 @@ import FastImage from 'react-native-fast-image';
 import { VipBenefit } from './vipBenefit';
 import { useTheme } from '@react-navigation/native';
 import { VipMember } from './vipMember';
-import { membershipModel } from '../../types/membershipType';
+import { membershipModel } from '@type/membershipType';
 import { VipPayment } from './vipPayment';
 import GPayIcon from "@static/images/vip/gpay.svg";
 import ApplePayIcon from "@static/images/vip/apple_pay.svg";
@@ -11,7 +11,7 @@ import AlipayIcon from "@static/images/vip/alipay.svg";
 import WechatPayIcon from "@static/images/vip/wechat_pay.svg";
 import PaypalIcon from "@static/images/vip/paypal.svg";
 import { useEffect, useState } from 'react';
-import { userModel } from '../../types/userType';
+import { userModel } from '@type/userType';
 
 interface Props {
   userState: userModel;

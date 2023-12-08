@@ -4,7 +4,7 @@ import LinearGradient from "react-native-linear-gradient"
 import VipIcon from '@static/images/vip-icon.svg'
 import MoreArrow from '@static/images/more_arrow.svg'
 import { useAppDispatch, useAppSelector } from "@hooks/hooks"
-import { userModel } from "../../types/userType"
+import { userModel } from "@type/userType"
 import { showAdultModeVip } from "@redux/actions/screenAction"
 import { useNavigation } from "@react-navigation/native"
 

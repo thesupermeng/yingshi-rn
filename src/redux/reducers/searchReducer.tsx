@@ -1,6 +1,6 @@
 import { ADD_SEARCH_HISTORY, REMOVE_SEARCH_HISTORY, CLEAR_SEARCH_HISTORY} from "@utility/constants"
-import { SearchHistoryActionType } from "../../types/actionTypes"
-import { VodTopicType, VodType } from "../../types/ajaxTypes"
+import { SearchHistoryActionType } from "@type/actionTypes"
+import { VodTopicType, VodType } from "@type/ajaxTypes"
 
 export interface SearchHistoryState {
     history: Array<string>,

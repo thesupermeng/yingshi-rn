@@ -7,14 +7,14 @@ import {
   TouchableOpacity,
 } from "react-native";
 import ScreenContainer from "../../components/container/screenContainer";
-import { RootStackScreenProps } from "../../types/navigationTypes";
+import { RootStackScreenProps } from "@type/navigationTypes";
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
 
 import { useTheme } from "@react-navigation/native";
 import { APP_NAME_CONST } from "@utility/constants";
 import { showLoginAction, showRegisterAction } from "@redux/actions/screenAction";
 import { useAppDispatch, useAppSelector } from "@hooks/hooks";
-import { screenModel } from "../../types/screenType";
+import { screenModel } from "@type/screenType";
 import { RootState } from "@redux/store";
 
 export default ({ navigation }: RootStackScreenProps<"用户协议">) => {

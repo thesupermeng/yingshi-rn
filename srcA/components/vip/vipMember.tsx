@@ -1,7 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { useTheme } from '@react-navigation/native';
 import LinearGradient from "react-native-linear-gradient";
-import { membershipModel } from "../../types/membershipType";
+import { membershipModel } from "@type/membershipType";
 
 interface Props {
   membershipPlan : membershipModel;

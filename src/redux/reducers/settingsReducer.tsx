@@ -1,6 +1,6 @@
 import { HIDE_VOD_PLAYER_GUIDE, ACCEPT_PRIVACY_POLICY, HANDLE_APP_ORIENTATION, HANDLE_DEVICES_ORIENTATION, LOCK_ORIENTATION, UPDATE_NETWORK_INFO } from "@utility/constants"
-import { SearchHistoryActionType, SettingsActionType } from "../../types/actionTypes"
-import { VodTopicType, VodType } from "../../types/ajaxTypes"
+import { SearchHistoryActionType, SettingsActionType } from "@type/actionTypes"
+import { VodTopicType, VodType } from "@type/ajaxTypes"
 import Orientation, { OrientationType } from "react-native-orientation-locker";
 
 export interface SettingsReducerState {

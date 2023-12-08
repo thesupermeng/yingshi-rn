@@ -11,7 +11,7 @@ import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { Dimensions } from "react-native";
 import Orientation from "react-native-orientation-locker";
 import { useEffect, useState } from "react";
-import { screenModel } from "../../types/screenType";
+import { screenModel } from "@type/screenType";
 import { RootState } from "@redux/store";
 import { useAppSelector } from "@hooks/hooks";
 interface Props {

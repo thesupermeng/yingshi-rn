@@ -20,7 +20,7 @@ import {
   initialBottomSheetForm,
 } from "@redux/actions/screenAction";
 import { RootState } from "@redux/store";
-import { screenModel } from "../../types/screenType";
+import { screenModel } from "@type/screenType";
 import SpinnerOverlay from "../modal/SpinnerOverlay";
 export const Login = (props: any) => {
   const [emailValid, setEmailValid] = useState(true);

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo, useRef, useCallback } from 'react';
 import { View, TouchableOpacity, Share, Text, StyleSheet, Alert, ScrollView, Image, SafeAreaView } from 'react-native';
 import { useTheme, useFocusEffect } from '@react-navigation/native';
-import { DetailTab } from '../../../types/ajaxTypes';
+import { DetailTab } from '@type/ajaxTypes';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 const Tab = createMaterialTopTabNavigator();

@@ -25,11 +25,11 @@ import {updateUsername} from '../../features/user';
 import {useAppSelector} from '@hooks/hooks';
 import {RootState} from '@redux/store';
 import {InputItem, Button} from '@ant-design/react-native';
-import {ProfileTabParamList} from '../../types/navigationTypes';
+import {ProfileTabParamList} from '@type/navigationTypes';
 import {changeScreenAction} from '@redux/actions/screenAction';
 import {updateUsernameState} from '@redux/actions/userAction';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {userModel} from '../../types/userType';
+import {userModel} from '@type/userType';
 import BackButton from '../../components/button/backButton';
 export default (props: any) => {
   const [optVarificationState, setOptVarificationState] = useState(2);

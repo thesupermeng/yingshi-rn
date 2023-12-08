@@ -1,5 +1,5 @@
 import {useTheme} from '@react-navigation/native';
-import {VodType} from '../../types/ajaxTypes';
+import {VodType} from '@type/ajaxTypes';
 import {View, StyleSheet, Text} from 'react-native';
 
 interface Props {

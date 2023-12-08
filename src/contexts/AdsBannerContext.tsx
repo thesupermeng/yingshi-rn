@@ -25,11 +25,11 @@ import {
   TOPON_BANNER_HEIGHT,
 } from "@utility/constants";
 import { getNavigationBarHeight } from "react-native-android-navbar-height";
-import { userModel } from "../types/userType";
+import { userModel } from "@type/userType";
 import { RootState } from "@redux/store";
 import { useAppSelector } from "@hooks/hooks";
 import { SettingsReducerState } from "@redux/reducers/settingsReducer";
-import { screenModel } from "../types/screenType";
+import { screenModel } from "@type/screenType";
 // LogBox.ignoreAllLogs();
 interface Props {
   children: ReactNode;

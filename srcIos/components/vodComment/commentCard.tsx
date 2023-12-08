@@ -2,7 +2,7 @@ import { useTheme } from "@react-navigation/native";
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet, ActionSheetIOS } from "react-native";
 import FastImage from "react-native-fast-image";
-import { commentsType } from "../../types/ajaxTypes";
+import { commentsType } from "@type/ajaxTypes";
 import { showToast } from "../../../src/Sports/utility/toast";
 import DefaultProfileIcon from "@static/images/default_profile.svg";
 import { useAppDispatch } from "@hooks/hooks";

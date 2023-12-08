@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { View, Text, StyleSheet, TextInput, Platform } from "react-native";
 import ScreenContainer from "../../components/container/screenContainer";
-import { RootStackScreenProps } from "../../types/navigationTypes";
+import { RootStackScreenProps } from "@type/navigationTypes";
 import { useFocusEffect, useTheme } from "@react-navigation/native";
 import { RootState } from "@redux/store";
 // import NetInfo from '@react-native-community/netinfo';
@@ -10,7 +10,7 @@ import { Button, Dialog } from "@rneui/themed";
 import { TouchableOpacity } from "@gorhom/bottom-sheet";
 import FeedbackSuccessIcon from "@static/images/feedback_success.svg";
 import axios from "axios";
-import { SubmitFeedbackRequest } from "../../../src/types/ajaxTypes";
+import { SubmitFeedbackRequest } from "@type/ajaxTypes";
 import { Keyboard } from "react-native";
 import {
   API_DOMAIN,

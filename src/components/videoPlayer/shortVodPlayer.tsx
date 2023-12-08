@@ -25,8 +25,8 @@ import { useAppDispatch, useAppSelector } from '@hooks/hooks';
 import useAnalytics from '@hooks/useAnalytics';
 import { showAdultModeVip } from '@redux/actions/screenAction';
 import { playVod, viewPlaylistDetails } from '@redux/actions/vodActions';
-import { screenModel } from '../../types/screenType';
-import { userModel } from '../../types/userType';
+import { screenModel } from '@type/screenType';
+import { userModel } from '@type/userType';
 import { ADULT_MODE_PREVIEW_DURATION } from '@utility/constants';
 import FastImage from '../common/customFastImage';
 

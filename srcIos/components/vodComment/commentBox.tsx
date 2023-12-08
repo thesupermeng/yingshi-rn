@@ -1,7 +1,7 @@
 import { useNavigation, useTheme } from "@react-navigation/native";
 import { Text, TouchableOpacity, View } from "react-native";
 import FastImage from "../common/customFastImage";
-import { commentsType } from "../../types/ajaxTypes";
+import { commentsType } from "@type/ajaxTypes";
 import CommentIcon from '@static/images/comment.svg';
 import { CommentCard } from "./commentCard";
 
