@@ -6,8 +6,9 @@ import { QueryClient, QueryClientProvider, useInfiniteQuery } from "@tanstack/re
 import FastImage from "../components/common/customFastImage";
 import { NetworkInfo } from "react-native-network-info";
 import Nav from "../../src/navigation/nav";
-import NavIos from "../../srcIos/navigation/nav";
-import NavA from "../../srcA/navigation/nav";
+import NavIos from "@iosScreen/navigation/nav";
+// import NavIos from "../../srcIos/navigation/nav";
+import NavA from "@androidScreen/navigation/nav";
 import axios from "axios";
 import {
   API_DOMAIN,
