@@ -333,7 +333,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
         </Text>
       </TouchableOpacity>
     ),
-    [currentEpisode]
+    [currentSource]
   );
 
   const renderQuality = useCallback(
@@ -368,7 +368,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
         </Text>
       </TouchableOpacity>
     ),
-    [currentEpisode]
+    [currentQuality]
   );
 
   const EPISODE_RANGE_SIZE = 100;
