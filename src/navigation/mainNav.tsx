@@ -16,6 +16,9 @@ import {
   APP_VERSION,
   APP_NAME_CONST,
   API_DOMAIN_TEST,
+  DOWNLOAD_BATCH_SIZE,
+  TOTAL_VIDEO_TO_DOWNLOAD,
+  DOWNLOAD_WATCH_ANYTIME,
 } from "@utility/constants";
 import { YSConfig } from "../../ysConfig";
 import { Dimensions, Platform } from "react-native";
@@ -136,6 +139,13 @@ export default () => {
     // if not today, delete folder 
     // download
     const tempfolder = RNFetchBlob.fs.dirs.DocumentDir + `/partial/`
+    const cacheFolder = RNFetchBlob.fs.dirs.DocumentDir + '/videocache/'
+
+    if ((await RNFetchBlob.fs.ls(cacheFolder)).length > TOTAL_VIDEO_TO_DOWNLOAD) {
+      // already downloaded required amount
+      return 
+    }
+
     if (await RNFetchBlob.fs.exists(tempfolder)){
       await RNFetchBlob.fs.unlink(tempfolder)
     }
@@ -149,13 +159,13 @@ export default () => {
     else {
       const fileContent = await RNFetchBlob.fs.readFile(dateFile, 'base64')
       if (fileContent !== todayDateString){
-        await RNFetchBlob.fs.unlink(RNFetchBlob.fs.dirs.DocumentDir + '/videocache')
+        await RNFetchBlob.fs.unlink(cacheFolder)
       } 
     }
     
     if (!!data){
       const firstNVod = data.pages.flat(Infinity).slice(0,n)
-      const NChunks = chunk(firstNVod, 5)
+      const NChunks = chunk(firstNVod, DOWNLOAD_BATCH_SIZE)
       for (const chunk of NChunks) {
         // console.debug('downloading chunk')
         await Promise.all(
@@ -172,7 +182,9 @@ export default () => {
 
   const {data} = useInfiniteQuery(['watchAnytime', 'normal'])
   useEffect(() => {
-    downloadFirstNVid(100)
+    if (DOWNLOAD_WATCH_ANYTIME === true){
+      downloadFirstNVid(TOTAL_VIDEO_TO_DOWNLOAD)
+    }
   }, [data])
 
   return (

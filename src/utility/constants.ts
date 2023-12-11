@@ -113,3 +113,7 @@ export const SHOW_PAYMENT_CONST = false;
 
 export const ADULT_MODE_PREVIEW_DURATION = 300; // number of seconds 
 
+// watch anytime download
+export const DOWNLOAD_WATCH_ANYTIME = true; 
+export const DOWNLOAD_BATCH_SIZE = 5; 
+export const TOTAL_VIDEO_TO_DOWNLOAD = 100; 
