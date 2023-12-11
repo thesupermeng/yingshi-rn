@@ -141,8 +141,9 @@ export default () => {
     const tempfolder = RNFetchBlob.fs.dirs.DocumentDir + `/partial/`
     const cacheFolder = RNFetchBlob.fs.dirs.DocumentDir + '/videocache/'
 
-    if ((await RNFetchBlob.fs.ls(cacheFolder)).length > TOTAL_VIDEO_TO_DOWNLOAD) {
+    if (await RNFetchBlob.fs.exists(cacheFolder) && (await RNFetchBlob.fs.ls(cacheFolder)).length > TOTAL_VIDEO_TO_DOWNLOAD) {
       // already downloaded required amount
+      // console.debug('already done')
       return 
     }
 
