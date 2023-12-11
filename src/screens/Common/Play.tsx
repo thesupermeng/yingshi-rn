@@ -619,6 +619,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   useEffect(() => {
     if (!!vodUrl) {
       // console.debug('vod url is', vodUrl)
+      setVodUri('')
       getNoAdsUri(vodUrl)
         .then((uri) => {
           console.debug("successfully modified playlist content", uri);
