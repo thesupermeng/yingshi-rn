@@ -344,16 +344,18 @@ function ShortVideoPlayer({
     setMiniVodUrl(currentVod.mini_video_origin_video_url);
   }, [currentVod]);
 
+  const handlePlayPauseOnPress = useCallback(() => {
+    showControls();
+    if (overlayRef.current) {
+      handlePlayPause();
+    }
+  })
+
   return (
     <>
       {isShowVideo && (
         <TouchableWithoutFeedback
-          onPress={() => {
-            showControls();
-            if (overlayRef.current) {
-              handlePlayPause();
-            }
-          }}>
+          onPress={handlePlayPauseOnPress}>
           <View>
             <View style={[styles.container, {height: displayHeight}]}>
               {(isBuffering ||
@@ -513,7 +515,7 @@ function ShortVideoPlayer({
     </>
   );
 }
-export default memo(ShortVideoPlayer);
+export default ShortVideoPlayer;
 
 const styles = StyleSheet.create({
   container: {
