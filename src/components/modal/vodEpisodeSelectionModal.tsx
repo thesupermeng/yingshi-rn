@@ -19,6 +19,7 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import SortAscIcon from '@static/images/sortAsc.svg';
 import SortDescIcon from '@static/images/sortDesc.svg';
 import BottomSheet from '../bottomSheet/bottomSheet';
+import { VodRecordType } from '@redux/reducers/vodReducer';
 
 interface Props {
   onConfirm: any;
@@ -28,6 +29,7 @@ interface Props {
   rangeSize?: number;
   isVisible: boolean; 
   handleClose: any;
+  vodId?: number;
 }
 function VodEpisodeSelectionModal({
   onConfirm,
@@ -37,6 +39,7 @@ function VodEpisodeSelectionModal({
   handleClose, 
   activeEpisode = 0,
   rangeSize = 50,
+  vodId,
 }: Props) {
   const {colors, textVariants, spacing} = useTheme();
   const EPISODE_RANGE_SIZE = rangeSize;
@@ -87,9 +90,14 @@ function VodEpisodeSelectionModal({
   }, [showEpisodeRangeStart, showEpisodeRangeEnd, episodes, sortBy]);
 
   // set current index to 0 when vod changes
+  // useEffect(() => {
+  //   setCurrentIndex(0);
+  // }, [episodes]);
+
   useEffect(() => {
     setCurrentIndex(0);
-  }, [activeEpisode]);
+  }, [vodId]);
+  
 
   const sort = () => {
     if (sortBy === 'asc') {

@@ -1076,6 +1076,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                 // }}
                 onConfirm={onConfirmEpisodeSelection}
                 rangeSize={EPISODE_RANGE_SIZE}
+                vodId={vod?.vod_id}
               />
             )}
           </>
