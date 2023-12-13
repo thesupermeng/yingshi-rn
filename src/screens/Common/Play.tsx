@@ -1120,8 +1120,11 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                                     color: colors.muted,
                                     fontSize: 15,
                                   }}
-                                >{`${showEpisodeRangeStart + 1
-                                  }-${showEpisodeRangeEnd}集`}</Text>
+                                >
+                                   {`${foundSource ? `1-${foundSource.url_count || 0}集` : 'No episodes available'}`}
+                                  {/* {`${showEpisodeRangeStart + 1
+                                  }-${showEpisodeRangeEnd}集`} */}
+                                  </Text>
                                 <MoreArrow
                                   style={{ color: colors.muted }}
                                   height={icons.sizes.m}
