@@ -520,7 +520,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     // });
     setTimeout(() => {
       episodeRef?.current?.scrollToIndex({
-        index: currentEpisode,
+        index: currentEpisode % 100,
         animated: true,
       });
     }, 500);

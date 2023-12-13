@@ -11,6 +11,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Dimensions,
+  FlatList,
 } from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {VodEpisodeListType} from '@type/ajaxTypes';
@@ -41,6 +42,22 @@ function VodEpisodeSelectionModal({
   const EPISODE_RANGE_SIZE = rangeSize;
   const insets = useSafeAreaInsets();
   const [sortBy, setSortBy] = useState('asc');
+  const ranges = [
+    ...Array(
+      episodes?.url_count === undefined
+        ? 0
+        : Math.ceil(episodes.url_count / EPISODE_RANGE_SIZE),
+    ).keys(),
+  ].map(
+    x =>
+      `${x * EPISODE_RANGE_SIZE + 1}-${Math.min(
+        (x + 1) * EPISODE_RANGE_SIZE,
+        episodes?.url_count === undefined
+          ? (x + 1) * EPISODE_RANGE_SIZE - 1
+          : episodes?.url_count,
+      )}`,
+  );
+
   const [currentIndex, setCurrentIndex] = useState(
     Math.floor(activeEpisode / EPISODE_RANGE_SIZE),
   );
@@ -95,13 +112,35 @@ function VodEpisodeSelectionModal({
       height='50%'
     >
       <View style={styles.episodeList}>
-        <Text
+        {/* <Text
           style={[
             styles.btn,
             textVariants.header
           ]}>
           {`${showEpisodeRangeStart+1}-${showEpisodeRangeEnd} 集`}
-        </Text>
+        </Text> */}
+        <FlatList
+            horizontal
+            data={ranges}
+            renderItem={({item, index}: {item: string; index: number}) => {
+              return (
+                <TouchableOpacity
+                  style={styles.btn}
+                  onPress={() => setCurrentIndex(index)}>
+                  <Text
+                    style={{
+                      textAlign: 'center',
+                      ...textVariants.header,
+                      color:
+                        index === currentIndex ? colors.text : colors.muted,
+                      fontSize: index === currentIndex ? 18 : 15,
+                    }}>
+                    {`${item}集`}
+                  </Text>
+                </TouchableOpacity>
+              );
+            }}
+          />
         <TouchableOpacity style={styles.sortBtn} onPress={sort}>
           <View style={{paddingTop: 4}}>
             {sortBy === 'asc' ? <SortAscIcon /> : <SortDescIcon />}
