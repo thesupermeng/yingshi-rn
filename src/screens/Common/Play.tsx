@@ -370,7 +370,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     () =>
       Math.floor((currentEpisode ? currentEpisode : 0) / EPISODE_RANGE_SIZE) *
       EPISODE_RANGE_SIZE,
-    [currentEpisode, vod]
+    [currentEpisode, vod, currentSourceId]
   );
 
   const foundSource = vodSources.find(({source_id}) => source_id === currentSourceId)?.vod_play_list
@@ -384,7 +384,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
         ? foundSource.url_count
           : showEpisodeRangeStart + EPISODE_RANGE_SIZE
       ),
-    [currentEpisode, showEpisodeRangeStart, vod]
+    [currentEpisode, showEpisodeRangeStart, vod, currentSourceId]
   );
   const onShare = async () => {
     try {
@@ -640,6 +640,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     //   offset: getOffSet(currentEpisode),
     //   animated: true,
     // });
+    if ((foundSource?.url_count ?? 0) < currentEpisode) return 
     setTimeout(() => {
       episodeRef?.current?.scrollToIndex({
         index: currentEpisode,
@@ -665,7 +666,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
           // setInitTime(currentTimeRef.current=0);
         }
       };
-    }, [vod, currentTimeRef, currentEpisode, videoPlayerRef])
+    }, [vod, currentTimeRef, currentEpisode, videoPlayerRef, currentSourceId])
   );
 
   const onPressEpisode = useCallback((itemId: any) => {
@@ -736,20 +737,31 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     []
   );
 
+  const setMinimumOfMaximumEpisode = () => {
+    // console.debug('total url', foundSource?.url_count - 1)
+    // console.debug('redux', vod?.episodeWatched)
+    const maxEpisode = (foundSource?.url_count ?? 1) - 1
+    const currEpisode = vod?.episodeWatched ?? 1
+    if (currEpisode >= maxEpisode)
+      setCurrentEpisode(Math.min(maxEpisode, currEpisode))
+  }
+
+  useEffect(() => {
+    setMinimumOfMaximumEpisode()
+    // when source changes, choose the minimum of the max episode 
+  }, [currentSourceId])
+
   let vodUrl: string|undefined = ''
   if (vodSources.length > 0 && !adultMode){
     if (vodSources.map(v => v.source_id).includes(currentSourceId)){
-      console.debug('if')
       vodUrl = vodSources?.find(({source_id}) => source_id === currentSourceId)?.vod_play_list.urls?.find(
         (url) => url.nid === currentEpisode
       )?.url;
     } else {
-      console.debug('else')
-      vodUrl = vodSources?.at(0)?.vod_play_list.urls?.find(
-        (url) => url.nid === currentEpisode
-      )?.url ?? vodSources?.at(0)?.vod_play_list.urls?.at(0)?.url
+      setCurrentSourceId(vodSources?.at(0)?.source_id)
     }
   }
+
   if (adultMode){
     // console.debug("vod", vod)
     vodUrl = vod?.vod_play_list?.urls?.find(
