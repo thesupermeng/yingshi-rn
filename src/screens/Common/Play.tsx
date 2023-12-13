@@ -297,7 +297,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       <TouchableOpacity
         style={{
           flexDirection: "row",
-          justifyContent: "space-between",
+          // justifyContent: "space-between",
           alignItems: 'center',
           backgroundColor:
             currentSourceId === item.source_id ? colors.primary : colors.search,
@@ -311,10 +311,15 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
         onPress={() => onPressSource(item.source_id)}
       >
         <SourceIcon
-        style={{marginRight: 3,}}/>
+        style={{
+          alignSelf: 'center',
+          marginRight: 3,
+          marginBottom: -3,
+        }}/>
         <Text
           numberOfLines={1}
           style={{
+            flex:1,
             fontSize: 15,
             textAlign: "center",
             fontWeight: "600",
@@ -627,6 +632,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   }, []);
 
   const saveVodToHistory = (vod: any) => {
+    console.log('something')
     dispatch(
       addVodToHistory(vod, currentTimeRef.current, currentEpisodeRef.current, adultMode, currentSourceId)
     );
@@ -665,7 +671,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
           // setInitTime(currentTimeRef.current=0);
         }
       };
-    }, [vod, currentTimeRef, currentEpisode, videoPlayerRef])
+    }, [vod, currentTimeRef, currentEpisode, videoPlayerRef, currentSourceId])
   );
 
   const onPressEpisode = useCallback((itemId: any) => {
