@@ -534,7 +534,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   });
 
   useEffect(() => {
-    if (vod !== undefined && vod !== null && vodDetails !== undefined) {
+    if (vod !== undefined && vod !== null && vodDetails !== undefined && !adultMode) {
       vod.vod_play_list = vodSources.find(({source_id}) => source_id === currentSourceId)?.vod_play_list;
       vod.vod_play_url = vodSources.find(({source_id}) => source_id === currentSourceId)?.vod_play_list.urls[0].url;
       // setVod(vod);
@@ -736,8 +736,8 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     []
   );
 
-  let vodUrl = ''
-  if (vodSources.length > 0){
+  let vodUrl: string|undefined = ''
+  if (vodSources.length > 0 && !adultMode){
     if (vodSources.map(v => v.source_id).includes(currentSourceId)){
       console.debug('if')
       vodUrl = vodSources?.find(({source_id}) => source_id === currentSourceId)?.vod_play_list.urls?.find(
@@ -750,7 +750,12 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       )?.url ?? vodSources?.at(0)?.vod_play_list.urls?.at(0)?.url
     }
   }
-  console.debug('vod url', vodUrl)
+  if (adultMode){
+    // console.debug("vod", vod)
+    vodUrl = vod?.vod_play_list?.urls?.find(
+      (url) => url.nid === currentEpisode
+    )?.url
+  }
 
 
   useEffect(() => {
