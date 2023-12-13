@@ -1,7 +1,7 @@
 import { useTheme } from "@react-navigation/native";
 import { BottomSheet as ReactBottomSheet } from "@rneui/base";
 import { useEffect, useState } from "react";
-import { Keyboard, Platform, View, ViewStyle } from "react-native";
+import { Dimensions, Keyboard, Platform, View, ViewStyle } from "react-native";
 import DeviceInfo from "react-native-device-info";
 
 interface Props {
@@ -56,8 +56,8 @@ export default function BottomSheet({
 
   return (
     <ReactBottomSheet
-      scrollViewProps={{ keyboardShouldPersistTaps: "handled" }}
-      isVisible={isVisible}
+    scrollViewProps={{ keyboardShouldPersistTaps: "handled", showsVerticalScrollIndicator: false, style: {width: Dimensions.get('screen').width} }}
+    isVisible={isVisible}
       onBackdropPress={onBackdropPress}
       backdropStyle={{
         backgroundColor: "#000000aa",

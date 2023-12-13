@@ -121,6 +121,7 @@ function VodEpisodeSelectionModal({
         contentContainerStyle={{
           ...styles.episodeList,
           paddingBottom: insets.bottom,
+          marginHorizontal: spacing.sideOffset,
         }}>
         {displayEpisodes?.map((ep, idx) => (
           <TouchableOpacity
@@ -188,6 +189,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     paddingLeft: 8,
     marginBottom: 14,
+    paddingHorizontal: 20
   },
   sortBtn: {
     display: 'flex',
