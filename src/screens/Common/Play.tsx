@@ -384,7 +384,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
         ? foundSource.url_count
           : showEpisodeRangeStart + EPISODE_RANGE_SIZE
       ),
-    [currentEpisode, showEpisodeRangeStart, vod]
+    [currentEpisode, showEpisodeRangeStart, vod, currentSourceId]
   );
   const onShare = async () => {
     try {
