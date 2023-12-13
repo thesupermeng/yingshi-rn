@@ -372,12 +372,16 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       EPISODE_RANGE_SIZE,
     [currentEpisode, vod]
   );
+
+  const foundSource = vodSources.find(({source_id}) => source_id === currentSourceId)?.vod_play_list
   const showEpisodeRangeEnd = useMemo(
     () =>
       Math.min(
         showEpisodeRangeStart + EPISODE_RANGE_SIZE,
-        vod?.vod_play_list
-          ? vod.vod_play_list.url_count
+        // vod?.vod_play_list
+        //   ? vod.vod_play_list.url_count
+        foundSource
+        ? foundSource.url_count
           : showEpisodeRangeStart + EPISODE_RANGE_SIZE
       ),
     [currentEpisode, showEpisodeRangeStart, vod]
@@ -1074,8 +1078,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                             </>
                             )}
                             {/* For multiple source UI */}
-                      {vod?.vod_play_list !== undefined &&
-                        vod?.vod_play_list.urls?.length > 1 ? (
+                      {foundSource !== undefined && (
                           <>
                             <View
                               style={{ ...styles.spaceApart, gap: spacing.l }}
@@ -1107,7 +1110,11 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                               initialNumToRender={10}
                               onScrollToIndexFailed={() => { }}
                               ref={episodeRef}
-                              data={vod?.vod_play_list.urls?.slice(
+                              // data={vod?.vod_play_list.urls?.slice(
+                              //   showEpisodeRangeStart,
+                              //   showEpisodeRangeEnd
+                              // )}
+                              data={vodSources.find(({source_id}) => source_id === currentSourceId)?.vod_play_list.urls?.slice(
                                 showEpisodeRangeStart,
                                 showEpisodeRangeEnd
                               )}
@@ -1120,37 +1127,6 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                             />
                             <View />
                           </>
-                        ) : (
-                          <>
-                          {!adultMode && (
-                            <>
-                          <View
-                              style={{ ...styles.spaceApart, gap: spacing.l }}
-                            >
-                              <Text style={textVariants.body}>选集</Text>
-
-                            </View>
-                            <FlatList
-                              horizontal={true}
-                              showsHorizontalScrollIndicator={false}
-                              initialNumToRender={10}
-                              onScrollToIndexFailed={() => { }}
-                              ref={episodeRef}
-                              // data={vod?.vod_play_list.urls?.slice(
-                              //   showEpisodeRangeStart,
-                              //   showEpisodeRangeEnd
-                              // )}
-                              data={vodSources.find(({source_id}) => source_id === currentSourceId)?.vod_play_list.urls}
-                              renderItem={renderQuality}
-                              // onContentSizeChange={onContentSizeChange}
-                              ListFooterComponent={
-                                <View style={{ paddingHorizontal: 20 }} />
-                              }
-                              keyExtractor={(item, index) => index.toString()}
-                            />
-                            </>
-                            )}
-                            </>
                         )}
 
                       {adultMode ? (
@@ -1232,7 +1208,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                 isVisible={isShowSheet}
                 handleClose={handleModalClose}
                 activeEpisode={currentEpisode}
-                episodes={vod?.vod_play_list}
+                episodes={foundSource}
                 onCancel={() => {
                   setShowSheet(false);
                 }}
