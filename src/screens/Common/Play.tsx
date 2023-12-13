@@ -487,7 +487,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       vod_name: vod?.vod_name,
     };
 
-    console.log("HELLLOOO===================");
+    // console.log("HELLLOOO===================");
     // appsFlyer.logEvent(
     //   eventName,
     //   eventValues,
@@ -560,12 +560,12 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
     if (!! vod?.vodSourceId){
       // if redux got, use it from redux 
-      console.debug('redux source id ', vod.vodSourceId)
+      // console.debug('redux source id ', vod.vodSourceId)
       setCurrentSourceId(vod.vodSourceId)
     } 
     else {
       // else just use from api
-      console.debug('using api preferred value')
+      // console.debug('using api preferred value')
       setCurrentSourceId(vodDetails?.preferred_source_id)
     }
     
@@ -632,7 +632,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   }, []);
 
   const saveVodToHistory = (vod: any) => {
-    console.log('something')
+    // console.log('something')
     dispatch(
       addVodToHistory(vod, currentTimeRef.current, currentEpisodeRef.current, adultMode, currentSourceId)
     );
