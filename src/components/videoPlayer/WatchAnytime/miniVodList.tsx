@@ -1,7 +1,6 @@
 import {useFocusEffect, useTheme} from '@react-navigation/native';
 import React, {
   forwardRef,
-  memo,
   useCallback,
   useEffect,
   useImperativeHandle,
@@ -42,7 +41,7 @@ type MiniVodRef = {
 const homeLoadingGif = require('@static/images/home-loading.gif');
 const loadingSpinnerGif = require('@static/images/loading-spinner.gif');
 
-const MiniVodList = forwardRef<MiniVodRef, Props>(
+export default forwardRef<MiniVodRef, Props>(
   (
     {
       miniVodListRef,
@@ -68,8 +67,9 @@ const MiniVodList = forwardRef<MiniVodRef, Props>(
       useState(videos);
     const [isPause, setPause] = useState(true);
     const [isScrolling, setIsScrolling] = useState(false);
-    const [videoCurrentDurations, setVideoCurrentDurations] =
-      useState<number>(0);
+    const [videoCurrentDurations, setVideoCurrentDurations] = useState<
+      number[]
+    >([]);
     const [isChangingSource, setChangingSource] = useState(false);
     // for analytics used
     const [curAnalyticsIndex, setCurAnalyticsIndex] = useState(0);
@@ -99,7 +99,7 @@ const MiniVodList = forwardRef<MiniVodRef, Props>(
         dispatch(showAdultModeVip());
         setPause(true);
       }
-    }, [videoCurrentDurations, isPause]);
+    }, [videoCurrentDurations[current], isPause]);
 
     useEffect(() => {
       if (adultModeDisclaimerShow || adultModeVipShow) {
@@ -187,7 +187,7 @@ const MiniVodList = forwardRef<MiniVodRef, Props>(
       setCollectionPartialVideos(videos);
 
       // set default 0 for all video duration
-      setVideoCurrentDurations(0);
+      setVideoCurrentDurations(videos.map(() => 0));
     }, [videos]);
 
     useEffect(() => {
@@ -208,7 +208,13 @@ const MiniVodList = forwardRef<MiniVodRef, Props>(
 
     const updateVideoDuration = (index: number, newDuration: number) => {
       // use map function for generate new list for update state
-      setVideoCurrentDurations(newDuration);
+      setVideoCurrentDurations(
+        videoCurrentDurations.map((duration, i) => {
+          if (index === i) return newDuration;
+
+          return duration;
+        }),
+      );
     };
 
     const renderItem = useCallback(
@@ -226,7 +232,7 @@ const MiniVodList = forwardRef<MiniVodRef, Props>(
               }}
               isShowVideo={current > index - 3 && current < index + 3}
               // isShowVideo={current === index && !isScrolling && !isPressTabScroll}
-              currentDuration={videoCurrentDurations}
+              currentDuration={videoCurrentDurations[index]}
               updateVideoDuration={duration =>
                 updateVideoDuration(index, duration)
               }
@@ -245,10 +251,6 @@ const MiniVodList = forwardRef<MiniVodRef, Props>(
         isPressTabScroll,
       ],
     );
-
-    useEffect(() => {
-      setVideoCurrentDurations(0)
-    }, [current])
 
     const onLayoutRender = useCallback((event: any) => {
       var {height} = event.nativeEvent.layout;
@@ -329,8 +331,6 @@ const MiniVodList = forwardRef<MiniVodRef, Props>(
     );
   },
 );
-
-export default memo(MiniVodList)
 
 const styles = StyleSheet.create({
   loading: {
