@@ -3,7 +3,7 @@ import {
     TOGGLE_PLAYLIST_FAVORITES, VIEW_PLAYLIST, ADD_VOD_TO_HISTORY, REMOVE_VOD_HISTORY
 } from "../../utility/constants";
 import { VodActionType } from "../../types/actionTypes";
-import { VodTopicType, VodType } from "../../types/ajaxTypes";
+import { VodSourceType, VodTopicType, VodType } from "../../types/ajaxTypes";
 
 export const addVodToFavorites = (vod: VodType, playMode: 'adult'|'normal'='normal') => {
     console.debug('playmode added', playMode)
@@ -52,13 +52,14 @@ export const viewPlaylistDetails = (playlist: VodTopicType) => (
     }
 )
 
-export const addVodToHistory = (vod: VodType, timeWatched: number, episodeWatched: number = 0, isAdultMode = false,) => {
+export const addVodToHistory = (vod: VodType, timeWatched: number, episodeWatched: number = 0, isAdultMode = false, vodSource: VodSourceType) => {
     return {
         type: ADD_VOD_TO_HISTORY,
         payload: [vod],
         timeWatched: timeWatched,
         episodeWatched: episodeWatched,
         isAdultVideo: isAdultMode,
+        vodSource: vodSource
     }
 }
 

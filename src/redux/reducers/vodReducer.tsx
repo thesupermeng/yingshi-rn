@@ -9,6 +9,7 @@ export interface VodRecordType extends VodType {
     timeWatched: number,
     recordedAt: Date,
     episodeWatched: number,
+    sourceWatched: number,
     isAdultVideo?: boolean,
 }
 interface PlayVodType {

@@ -82,6 +82,8 @@ export interface VodType {
     type_name: string,
     vod_play_list: VodEpisodeListType,
     vod_restricted: number,
+    vod_sources: VodSourceType[],
+    preferred_source_id: number
 }
 
 export interface SuggestResponseType {
@@ -123,6 +125,13 @@ export interface SuggestedVodType extends VodType {
 export interface VodEpisodeListType {
     url_count: number
     urls: VodEpisodeType[]
+}
+
+export interface VodSourceType {
+    source_id: number
+    source_name: string
+    source_url: string
+    vod_play_list: VodEpisodeListType
 }
 
 export interface VodEpisodeType {
