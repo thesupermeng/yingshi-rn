@@ -553,9 +553,22 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       setVodRestricted(isRestricted);
     }
 
+    if (!! vod?.vodSourceId){
+      // if redux got, use it from redux 
+      console.debug('redux source id ', vod.vodSourceId)
+      setCurrentSourceId(vod.vodSourceId)
+    } 
+    else {
+      // else just use from api
+      console.debug('using api preferred value')
+      setCurrentSourceId(vodDetails?.preferred_source_id)
+    }
+    
+    // setCurrentEpisode(Math.min((vodDetails?.vod_play_list.url_count ?? 1) - 1 , vod?.episodeWatched ?? 0))
+
     if (vodDetails && vodDetails.vod_sources && vodDetails.vod_sources.length > 0) {
         setVodSources(vodDetails.vod_sources);
-        setCurrentSourceId(vodDetails.preferred_source_id)
+        // setCurrentSourceId(vodDetails.preferred_source_id)
         // Other operations or state changes related to vodDetails...
       }
 
@@ -723,9 +736,21 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     []
   );
 
-  const vodUrl: string = vodSources?.find(({source_id}) => source_id === currentSourceId)?.vod_play_list.urls?.find(
-    (url) => url.nid === currentEpisode
-  )?.url;
+  let vodUrl = ''
+  if (vodSources.length > 0){
+    if (vodSources.map(v => v.source_id).includes(currentSourceId)){
+      console.debug('if')
+      vodUrl = vodSources?.find(({source_id}) => source_id === currentSourceId)?.vod_play_list.urls?.find(
+        (url) => url.nid === currentEpisode
+      )?.url;
+    } else {
+      console.debug('else')
+      vodUrl = vodSources?.at(0)?.vod_play_list.urls?.find(
+        (url) => url.nid === currentEpisode
+      )?.url ?? vodSources?.at(0)?.vod_play_list.urls?.at(0)?.url
+    }
+  }
+  console.debug('vod url', vodUrl)
 
 
   useEffect(() => {
