@@ -523,7 +523,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
         index: currentEpisode % 100,
         animated: true,
       });
-    }, 500);
+    }, 1000);
   }, [currentEpisode, episodeRef, isFetchingVodDetails]);
 
   useFocusEffect(
