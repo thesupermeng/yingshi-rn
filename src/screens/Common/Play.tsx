@@ -535,8 +535,8 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   useEffect(() => {
     if (vod !== undefined && vod !== null && vodDetails !== undefined && !adultMode) {
-      vod.vod_play_list = vodSources.find(({source_id}) => source_id === currentSourceId)?.vod_play_list;
-      vod.vod_play_url = vodSources.find(({source_id}) => source_id === currentSourceId)?.vod_play_list.urls[0].url;
+      vod.vod_play_list = vodDetails.vod_play_list;
+      vod.vod_play_url = vodDetails.vod_play_url;
       // setVod(vod);
       dispatch(playVod(vod));
     }
