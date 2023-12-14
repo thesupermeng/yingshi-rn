@@ -334,10 +334,11 @@ function ShortVideoPlayer({
           setMiniVodUrl(`${fileLocation}`);
         } else {
           // console.log('file not exist ');
+          setMiniVodUrl(currentVod.mini_video_origin_video_url)
         }
       }
     };
-    fn();
+    // fn();
   }, [currentDuration, isBuffering, isPause]);
 
   useEffect(() => {

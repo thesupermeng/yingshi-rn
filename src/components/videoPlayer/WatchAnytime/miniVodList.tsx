@@ -4,6 +4,7 @@ import React, {
   useCallback,
   useEffect,
   useImperativeHandle,
+  useMemo,
   useState,
 } from 'react';
 import {FlatList, NativeScrollEvent, NativeSyntheticEvent, RefreshControl, StyleSheet, View} from 'react-native';
@@ -220,7 +221,7 @@ export default forwardRef<MiniVodRef, Props>(
     const renderItem = useCallback(
       ({item, index}: {item: MiniVideo; index: number}) => (
         <View style={{height: displayHeight ? displayHeight : 0}}>
-          {displayHeight != 0 && (
+          {displayHeight != 0 && (current > index - 3 && current < index + 3) && (
             <ShortVod
               vod={item}
               thumbnail={item.mini_video_origin_cover}
@@ -237,7 +238,7 @@ export default forwardRef<MiniVodRef, Props>(
                 updateVideoDuration(index, duration)
               }
               isActive={isActive}
-            />
+                          />
           )}
         </View>
       ),
