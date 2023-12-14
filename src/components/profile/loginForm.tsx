@@ -124,6 +124,7 @@ export const LoginForm = forwardRef<LoginRef>(({ }, ref) => {
   const onChangeloginType = () => {
     setloginType(loginType === 'email' ? 'phone' : 'email');
     setLoginValue('');
+    setLoginValueErrMsg(null);
   }
 
   const onPressGoogleLogin = async () => {
