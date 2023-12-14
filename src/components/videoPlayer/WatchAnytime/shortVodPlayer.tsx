@@ -26,7 +26,7 @@ import { showAdultModeVip } from '@redux/actions/screenAction';
 import { playVod, viewPlaylistDetails } from '@redux/actions/vodActions';
 import { screenModel } from '@type/screenType';
 import { userModel } from '@type/userType';
-import { ADULT_MODE_PREVIEW_DURATION } from '@utility/constants';
+import { ADULT_MODE_PREVIEW_DURATION, DOWNLOAD_WATCH_ANYTIME } from '@utility/constants';
 import FastImage from '../../common/customFastImage';
 import RedirectButton from './RedirectButton';
 import DescriptionBar from './DescriptionBar';
@@ -329,16 +329,26 @@ function ShortVideoPlayer({
 
         const fileExist = await RNFetchBlob.fs.exists(fileLocation);
 
+        
         if (fileExist) {
+          const fileIsEmpty = (await RNFetchBlob.fs.stat(fileLocation)).size == 0 
           // console.log('file exist, change source! ');
-          setMiniVodUrl(`${fileLocation}`);
+          if (!fileIsEmpty){
+            setMiniVodUrl(`${fileLocation}`);
+          } else {
+            // console.debug('file exist but is empty, use url')
+            setMiniVodUrl(currentVod.mini_video_origin_video_url)
+          }
         } else {
           // console.log('file not exist ');
           setMiniVodUrl(currentVod.mini_video_origin_video_url)
         }
       }
     };
-    // fn();
+    if (DOWNLOAD_WATCH_ANYTIME === true){
+      // if download constant is true, only use
+      fn();
+    }
   }, [currentDuration, isBuffering, isPause]);
 
   useEffect(() => {
