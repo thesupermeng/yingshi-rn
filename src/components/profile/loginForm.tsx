@@ -42,7 +42,7 @@ export const LoginForm = forwardRef<LoginRef>(({ }, ref) => {
 
   const [loginType, setloginType] = useState<'email' | 'phone'>('email');
 
-  const [loginValue, setLoginValue] = useState('kelvin@redfin.tech'); // email or phone
+  const [loginValue, setLoginValue] = useState(''); // email or phone
   const [referralCode, setReferralCode] = useState('');
   const [loginValueErrMsg, setLoginValueErrMsg] = useState<string | null>(null); // null is valid, else is invalid (include empty string)
   const [referralCodeErrMsg, setReferralCodeErrMsg] = useState<string | null>(null);
