@@ -1,9 +1,4 @@
-import React, {
-  useState,
-  useMemo,
-  memo,
-  useEffect,
-} from 'react';
+import React, { useState, useMemo, memo, useEffect } from "react";
 import {
   View,
   Text,
@@ -12,14 +7,14 @@ import {
   ScrollView,
   Dimensions,
   FlatList,
-} from 'react-native';
-import {useTheme} from '@react-navigation/native';
-import {VodEpisodeListType} from '@type/ajaxTypes';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import SortAscIcon from '@static/images/sortAsc.svg';
-import SortDescIcon from '@static/images/sortDesc.svg';
-import BottomSheet from '../bottomSheet/bottomSheet';
-import { VodRecordType } from '@redux/reducers/vodReducer';
+} from "react-native";
+import { useTheme } from "@react-navigation/native";
+import { VodEpisodeListType } from "@type/ajaxTypes";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import SortAscIcon from "@static/images/sortAsc.svg";
+import SortDescIcon from "@static/images/sortDesc.svg";
+import BottomSheet from "../bottomSheet/bottomSheet";
+import { VodRecordType } from "@redux/reducers/vodReducer";
 
 interface Props {
   onConfirm: any;
@@ -27,7 +22,7 @@ interface Props {
   episodes?: VodEpisodeListType;
   activeEpisode?: number;
   rangeSize?: number;
-  isVisible: boolean; 
+  isVisible: boolean;
   handleClose: any;
   vodId?: number;
 }
@@ -36,37 +31,37 @@ function VodEpisodeSelectionModal({
   onCancel,
   episodes,
   isVisible,
-  handleClose, 
+  handleClose,
   activeEpisode = 0,
   rangeSize = 50,
   vodId,
 }: Props) {
-  const {colors, textVariants, spacing} = useTheme();
+  const { colors, textVariants, spacing } = useTheme();
   const EPISODE_RANGE_SIZE = rangeSize;
   const insets = useSafeAreaInsets();
-  const [sortBy, setSortBy] = useState('asc');
+  const [sortBy, setSortBy] = useState("asc");
   const ranges = [
     ...Array(
       episodes?.url_count === undefined
         ? 0
-        : Math.ceil(episodes.url_count / EPISODE_RANGE_SIZE),
+        : Math.ceil(episodes.url_count / EPISODE_RANGE_SIZE)
     ).keys(),
   ].map(
-    x =>
+    (x) =>
       `${x * EPISODE_RANGE_SIZE + 1}-${Math.min(
         (x + 1) * EPISODE_RANGE_SIZE,
         episodes?.url_count === undefined
           ? (x + 1) * EPISODE_RANGE_SIZE - 1
-          : episodes?.url_count,
-      )}`,
+          : episodes?.url_count
+      )}`
   );
 
   const [currentIndex, setCurrentIndex] = useState(
-    Math.floor(activeEpisode / EPISODE_RANGE_SIZE),
+    Math.floor(activeEpisode / EPISODE_RANGE_SIZE)
   );
   const showEpisodeRangeStart = useMemo(
     () => currentIndex * EPISODE_RANGE_SIZE,
-    [activeEpisode, currentIndex],
+    [activeEpisode, currentIndex]
   );
   const showEpisodeRangeEnd = useMemo(
     () =>
@@ -74,16 +69,16 @@ function VodEpisodeSelectionModal({
         showEpisodeRangeStart + EPISODE_RANGE_SIZE,
         episodes
           ? episodes.url_count
-          : showEpisodeRangeStart + EPISODE_RANGE_SIZE,
+          : showEpisodeRangeStart + EPISODE_RANGE_SIZE
       ),
-    [episodes, showEpisodeRangeStart],
+    [episodes, showEpisodeRangeStart]
   );
   const displayEpisodes = useMemo(() => {
     const eps = episodes?.urls?.slice(
       showEpisodeRangeStart,
-      showEpisodeRangeEnd,
+      showEpisodeRangeEnd
     );
-    if (sortBy === 'desc') {
+    if (sortBy === "desc") {
       eps?.reverse();
     }
     return eps;
@@ -95,29 +90,36 @@ function VodEpisodeSelectionModal({
   // }, [episodes]);
 
   useEffect(() => {
-    setCurrentIndex(0);
+    try {
+      let tempIndex = Math.floor(activeEpisode / 100) - 1;
+      setCurrentIndex(tempIndex);
+    } catch (err) {
+      console.log("err setCurrentIndex ");
+      setCurrentIndex(0);
+    }
+
+    //   setCurrentIndex(0);
   }, [vodId]);
-  
 
   const sort = () => {
-    if (sortBy === 'asc') {
-      setSortBy('desc');
+    if (sortBy === "asc") {
+      setSortBy("desc");
     } else {
-      setSortBy('asc');
+      setSortBy("asc");
     }
   };
 
   return (
-    <BottomSheet 
+    <BottomSheet
       isVisible={isVisible}
       onBackdropPress={handleClose}
       containerStyle={{
         paddingLeft: spacing.sideOffset,
         paddingRight: spacing.sideOffset,
         gap: spacing.m,
-        alignItems: 'center',
+        alignItems: "center",
       }}
-      height='50%'
+      height="50%"
     >
       <View style={styles.episodeList}>
         {/* <Text
@@ -128,82 +130,88 @@ function VodEpisodeSelectionModal({
           {`${showEpisodeRangeStart+1}-${showEpisodeRangeEnd} 集`}
         </Text> */}
         <FlatList
-            horizontal
-            data={ranges}
-            renderItem={({item, index}: {item: string; index: number}) => {
-              return (
-                <TouchableOpacity
-                  style={styles.btn}
-                  onPress={() => setCurrentIndex(index)}>
-                  <Text
-                    style={{
-                      textAlign: 'center',
-                      ...textVariants.header,
-                      color:
-                        index === currentIndex ? colors.text : colors.muted,
-                      fontSize: index === currentIndex ? 18 : 15,
-                    }}>
-                    {`${item}集`}
-                  </Text>
-                </TouchableOpacity>
-              );
-            }}
-          />
+          horizontal
+          data={ranges}
+          renderItem={({ item, index }: { item: string; index: number }) => {
+            return (
+              <TouchableOpacity
+                style={styles.btn}
+                onPress={() => setCurrentIndex(index)}
+              >
+                <Text
+                  style={{
+                    textAlign: "center",
+                    ...textVariants.header,
+                    color: index === currentIndex ? colors.text : colors.muted,
+                    fontSize: index === currentIndex ? 18 : 15,
+                  }}
+                >
+                  {`${item}集`}
+                </Text>
+              </TouchableOpacity>
+            );
+          }}
+        />
         <TouchableOpacity style={styles.sortBtn} onPress={sort}>
-          <View style={{paddingTop: 4}}>
-            {sortBy === 'asc' ? <SortAscIcon /> : <SortDescIcon />}
+          <View style={{ paddingTop: 4 }}>
+            {sortBy === "asc" ? <SortAscIcon /> : <SortDescIcon />}
           </View>
           <Text
             style={{
-              textAlign: 'center',
+              textAlign: "center",
               ...textVariants.header,
               color: colors.muted,
               fontSize: 15,
-            }}>
+            }}
+          >
             顺序
           </Text>
         </TouchableOpacity>
       </View>
-      {(displayEpisodes && isVisible) &&
-      <ScrollView
-        contentContainerStyle={{
-          ...styles.episodeList,
-          paddingBottom: insets.bottom,
-          marginHorizontal: spacing.sideOffset,
-        }}>
-        {displayEpisodes?.map((ep, idx) => (
-          <TouchableOpacity
-            key={`expand-${idx}`}
-            onPress={() => {
-              onConfirm(ep.nid);
-              onCancel();
-            }}>
-            <View
-              style={{
-                backgroundColor:
-                  ep.nid === activeEpisode ? colors.primary : colors.search,
-                padding: spacing.s,
-                minWidth: 60,
-                marginRight: 'auto',
-                marginBottom: spacing.s,
-                borderRadius: 8,
-              }}>
-              <Text
-                numberOfLines={1}
+      {displayEpisodes && isVisible && (
+        <ScrollView
+          contentContainerStyle={{
+            ...styles.episodeList,
+            paddingBottom: insets.bottom,
+            marginHorizontal: spacing.sideOffset,
+          }}
+        >
+          {displayEpisodes?.map((ep, idx) => (
+            <TouchableOpacity
+              key={`expand-${idx}`}
+              onPress={() => {
+                onConfirm(ep.nid);
+                onCancel();
+              }}
+            >
+              <View
                 style={{
-                  fontSize: 13,
-                  textAlign: 'center',
-                  fontWeight: '500',
-                  color:
-                    ep.nid === activeEpisode ? colors.selected : colors.muted,
-                }}>
-                {`${ep.name}`}
-              </Text>
-            </View>
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
-      }
+                  backgroundColor:
+                    ep.nid === activeEpisode ? colors.primary : colors.search,
+                  padding: spacing.s,
+                  minWidth: 60,
+                  marginRight: "auto",
+                  marginBottom: spacing.s,
+                  borderRadius: 8,
+                }}
+              >
+                <Text
+                  numberOfLines={1}
+                  style={{
+                    fontSize: 13,
+                    textAlign: "center",
+                    fontWeight: "500",
+                    color:
+                      ep.nid === activeEpisode ? colors.selected : colors.muted,
+                  }}
+                >
+                  {`${ep.name}`}
+                </Text>
+              </View>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+      )}
     </BottomSheet>
   );
 }
@@ -217,31 +225,31 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   text: {
-    color: 'white',
-    textAlign: 'center',
+    color: "white",
+    textAlign: "center",
   },
   btn: {
     flex: 1,
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     paddingLeft: 10,
     paddingRight: 10,
   },
   episodeList: {
-    display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
     gap: 8,
-    justifyContent: 'flex-start',
+    justifyContent: "flex-start",
     paddingLeft: 8,
     marginBottom: 14,
-    paddingHorizontal: 20
+    paddingHorizontal: 20,
   },
   sortBtn: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
   },
 });

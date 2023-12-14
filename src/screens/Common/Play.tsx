@@ -518,12 +518,15 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     //   offset: getOffSet(currentEpisode),
     //   animated: true,
     // });
+// console.log('aaaaaaaa')
+//     console.log(currentEpisode % 100);
+//    console.log(episodeRef);
     setTimeout(() => {
       episodeRef?.current?.scrollToIndex({
         index: currentEpisode % 100,
         animated: true,
       });
-    }, 1000);
+    }, 1200);
   }, [currentEpisode, episodeRef, isFetchingVodDetails]);
 
   useFocusEffect(
