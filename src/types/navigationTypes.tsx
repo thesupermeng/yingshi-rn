@@ -90,9 +90,11 @@ export type RootStackParamList = {
   };
   合集播放: {};
   OTP: {
-    email: string;
+    email?: string;
+    phone?: string;
     action?: string;
     referralCode?: string;
+    countryId?: number,
     // deviceId?: string;
   };
   SetUsername: undefined;
@@ -125,6 +127,6 @@ export type WatchAnytimeTabScreenProps<
 
 declare global {
   namespace ReactNavigation {
-    interface RootParamList extends RootStackParamList {}
+    interface RootParamList extends RootStackParamList { }
   }
 }

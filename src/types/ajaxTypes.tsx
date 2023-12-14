@@ -312,7 +312,7 @@ export interface FilterOptionsTypeExtendObj {
     year: string
 }
 
-export interface LiveTVStationsResponseType{
+export interface LiveTVStationsResponseType {
     code: number
     data: LiveTVStationItem[]
 }
@@ -438,4 +438,13 @@ export interface commentsType {
     douban_reviews_id: number,
     user_name: string,
     user_review: string,
+}
+
+export interface countryPhoneCodeType {
+    country_id: number,
+    country_iso3: string,
+    country_name: string,
+    country_phonecode: string,
+    country_flag: string,
+    country_status: number,
 }

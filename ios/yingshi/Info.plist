@@ -14,6 +14,12 @@
 				<string>yingshiapp</string>
 			</array>
 		</dict>
+    <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+            <string>com.googleusercontent.apps.699123886701-ok49jlua77cf0omih5g1u9f1irflnrq3</string>
+        </array>
+    </dict>
 	</array>
 	<key>CFBundleSignature</key>
 	<string>????</string>

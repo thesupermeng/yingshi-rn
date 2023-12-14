@@ -6,10 +6,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useAppDispatch} from '@hooks/hooks';
 import {
   showLoginAction,
-  showRegisterAction,
 } from '@redux/actions/screenAction';
 
-interface Props {}
+interface Props { }
 
 export default function VipOverlay({}: Props) {
   const [showVIPOverlay, setShowVIPOverlay] = useState(false);
@@ -91,7 +90,7 @@ export default function VipOverlay({}: Props) {
                     onPress={() => {
                       hideVipPrompt();
                       setTimeout(() => { // delay to ensure modal is hidden first 
-                        dispatch(showRegisterAction());
+                        dispatch(showLoginAction());
                       }, 50);
                     }}
                     style={{

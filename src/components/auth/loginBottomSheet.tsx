@@ -1,13 +1,9 @@
-import React, { useState, memo, useEffect } from "react";
+import React, { useState, memo, useEffect, useRef } from "react";
 import { Keyboard } from "react-native";
-import { useAppDispatch } from "@hooks/hooks";
-import { Login } from "../profile/login";
-import {
-  resetBottomSheetForm,
-  showRegisterAction,
-} from "@redux/actions/screenAction";
+import { LoginForm, LoginRef } from "../profile/loginForm";
 import BottomSheet from "../bottomSheet/bottomSheet";
 import DeviceInfo from "react-native-device-info";
+import { CountryPhoneList } from "../profile/countryPhoneList";
 
 interface Props {
   isVisible?: boolean;
@@ -20,10 +16,9 @@ function LoginBottomSheet({
   handleClose,
   displayMode,
 }: Props) {
-  const dispatch = useAppDispatch();
-
   //state for child
-  const [email, setEmail] = useState("");
+  const loginRef = useRef<LoginRef>(null);
+
   const deviceBrand = DeviceInfo.getBrand();
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
   const [bottomOffset, setBottomOffset] = useState(0);
@@ -74,24 +69,14 @@ function LoginBottomSheet({
       }}
       onBackdropPress={() => {
         if (handleClose) handleClose();
-        dispatch(resetBottomSheetForm());
+
         Keyboard.dismiss();
-        setEmail("");
+        loginRef.current?.resetValue();
       }}
+      maxHeight={'90%'}
     >
-      <Login
-        setEmail={setEmail}
-        email={email}
-        dismiss={() => { }}
-        goToRegister={() => {
-          console.log("showRegisterAction");
-          dispatch(resetBottomSheetForm());
-          Keyboard.dismiss();
-          setEmail("");
-          setTimeout(() => {
-            dispatch(showRegisterAction());
-          }, 100);
-        }}
+      <LoginForm
+        ref={loginRef}
       />
     </BottomSheet>
   );

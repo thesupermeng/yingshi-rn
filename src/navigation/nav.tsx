@@ -53,7 +53,6 @@ import MatchesScreen from "../Sports/screens/Sports/Matches";
 import MatchDetailsScreen from "../Sports/screens/Sports/MatchDetails";
 import { useDispatch, useSelector } from "react-redux";
 import LoginBottomSheet from "../components/auth/loginBottomSheet";
-import RegisterBottomSheet from "../components/auth/registerBottomSheet";
 import {
   HomeTabParamList,
   PlaylistTabParamList,
@@ -80,7 +79,6 @@ import {
   hideAdultModeDisclaimer,
   hideAdultModeVip,
   hideLoginAction,
-  hideRegisterAction,
   interstitialClose,
   interstitialShow,
   removeScreenAction,
@@ -363,11 +361,6 @@ export default () => {
       dispatch(hideLoginAction());
       setShowRegister(false);
       setShowLogin(true);
-    }
-    if (screenState.registerShow == true) {
-      dispatch(hideRegisterAction());
-      setShowLogin(false);
-      setShowRegister(true);
     }
     if (screenState.resetBottomSheet == true) {
       dispatch(resetBottomSheetAction());
@@ -677,10 +670,6 @@ export default () => {
             <LoginBottomSheet
               isVisible={isShowLogin}
               handleClose={() => setShowLogin(false)}
-            />
-            <RegisterBottomSheet
-              isVisible={isShowRegister}
-              handleClose={() => setShowRegister(false)}
             />
           </>
         )}

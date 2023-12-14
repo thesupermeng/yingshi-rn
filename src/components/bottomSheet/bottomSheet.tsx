@@ -11,6 +11,7 @@ interface Props {
   onBackdropPress: () => void;
   containerStyle?: ViewStyle;
   height?: string;
+  maxHeight?: string | number;
   bottomOffset?: number;
   supportedOrientations?: ("portrait" | "landscape")[];
 }
@@ -22,6 +23,7 @@ export default function BottomSheet({
   containerStyle,
   isKeyboardVisible = false,
   height = "auto",
+  maxHeight,
   bottomOffset = 0,
   supportedOrientations = ["portrait", "landscape"],
 }: Props) {
@@ -68,6 +70,7 @@ export default function BottomSheet({
         bottom: bottomPosition,
         width: "100%",
         height: height,
+        maxHeight: maxHeight,
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
         backgroundColor: colors.bottomSheet,

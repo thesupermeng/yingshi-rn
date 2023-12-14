@@ -12,7 +12,7 @@ import TitleWithBackButtonHeader from "../../components/header/titleWithBackButt
 
 import { useTheme } from "@react-navigation/native";
 import { APP_NAME_CONST } from "@utility/constants";
-import { showLoginAction, showRegisterAction } from "@redux/actions/screenAction";
+import { showLoginAction } from "@redux/actions/screenAction";
 import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import { screenModel } from "@type/screenType";
 import { RootState } from "@redux/store";
@@ -30,11 +30,8 @@ export default ({ navigation }: RootStackScreenProps<"用户协议">) => {
       if (screenReducer.navigateToProfile === true && screenReducer.fromWhereToProfile !== undefined) {
         // Check if the previous route was "RegistrationPage" and the destination is "ProfileScreen"
         // If yes, trigger your custom action
-        if (screenReducer.fromWhereToProfile === 'login') {
+        if (screenReducer.fromWhereToProfile === 'login_register') {
           dispatch(showLoginAction());
-        }
-        if (screenReducer.fromWhereToProfile === 'register') {
-          dispatch(showRegisterAction());
         }
       } else {
         return
