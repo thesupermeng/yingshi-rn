@@ -1,18 +1,18 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 import PanHandler from './PanHandler';
 import SystemSetting from 'react-native-system-setting';
-import {BlurView} from '@react-native-community/blur';
-import {RectButton} from 'react-native-gesture-handler';
-import {useTheme} from '@react-navigation/native';
+import { BlurView } from '../../blurView';
+import { RectButton } from 'react-native-gesture-handler';
+import { useTheme } from '@react-navigation/native';
 import BrightnessGestureIcon from '@static/images/brightnessGuide.svg';
 import VolumeGestureIcon from '@static/images/volumeGuide.svg';
 import ProgressGestureIcon from '@static/images/progressGuide.svg';
-import {useAppDispatch} from '@hooks/hooks';
-import {hideVodGestureGuide} from '@redux/actions/settingsActions';
+import { useAppDispatch } from '@hooks/hooks';
+import { hideVodGestureGuide } from '@redux/actions/settingsActions';
 
 export default () => {
-  const {colors, textVariants} = useTheme();
+  const { colors, textVariants } = useTheme();
   const dispatch = useAppDispatch();
   return (
     <View style={styles.container}>
@@ -24,24 +24,24 @@ export default () => {
         reducedTransparencyFallbackColor="white"
       />
       <View style={styles.instructions}>
-        <View style={{alignItems: 'flex-start'}}>
+        <View style={{ alignItems: 'flex-start' }}>
           <BrightnessGestureIcon />
         </View>
-        <View style={{alignItems: 'center', paddingVertical: 10, gap: 75}}>
-          <Text style={{...textVariants.header, fontWeight: '800'}}>
+        <View style={{ alignItems: 'center', paddingVertical: 10, gap: 75 }}>
+          <Text style={{ ...textVariants.header, fontWeight: '800' }}>
             播放界面操作导航
           </Text>
           <ProgressGestureIcon />
         </View>
-        <View style={{alignItems: 'flex-end'}}>
+        <View style={{ alignItems: 'flex-end' }}>
           <VolumeGestureIcon />
         </View>
       </View>
       <View>
         <RectButton
-          style={{...styles.btn, backgroundColor: colors.primary}}
+          style={{ ...styles.btn, backgroundColor: colors.primary }}
           onPress={() => dispatch(hideVodGestureGuide())}>
-          <Text style={{...textVariants.bodyBold, color: colors.background}}>
+          <Text style={{ ...textVariants.bodyBold, color: colors.background }}>
             知道了
           </Text>
         </RectButton>

@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import EighteenPlusIcon from '@static/images/eighteen-plus-icon.svg';
 import { screenModel } from '@type/screenType';
 import { useAppSelector } from '@hooks/hooks';
-import { BlurView } from '@react-native-community/blur';
+import { BlurView } from '../blurView';
 
 interface Props {
   handleAccept: any
