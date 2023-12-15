@@ -81,6 +81,7 @@ import useAnalytics from "../../hooks/useAnalytics";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { screenModel } from "../../types/screenType";
 import {getCountry} from 'react-native-localize'
+import VodSourcesEpisodes from "../../components/vod/vodSourcesEpisodes";
 
 let insetsTop = 0;
 let insetsBottom = 0;
@@ -286,12 +287,6 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     currentTimeRef.current = 0;
   }, []);
 
-  const onPressQuality = useCallback((itemId: any) => {
-    setCurrentQuality(itemId);
-    currentSourceRef.current = itemId;
-    currentTimeRef.current = 0;
-  }, []);
-
   const renderSources = useCallback(
     ({ item }) => (
       <TouchableOpacity
@@ -332,41 +327,6 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       </TouchableOpacity>
     ),
     [currentSourceId]
-  );
-
-  const renderQuality = useCallback(
-    ({ item }) => (
-      <TouchableOpacity
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: 'center',
-          backgroundColor:
-            currentEpisode === item.nid ? colors.primary : colors.search,
-          paddingVertical: 8,
-          paddingHorizontal: 8,
-          // minWidth: 70,
-          marginRight: spacing.xs,
-          ...styles.episodeBtn,
-        }}
-        // onPress={() => onPressEpisode(item.id)}
-        onPress={() => onPressEpisode(item.nid)}
-      >
-        <Text
-          numberOfLines={1}
-          style={{
-            fontSize: 15,
-            textAlign: "center",
-            fontWeight: "500",
-            color: currentEpisode === item.nid ? colors.selected : colors.muted,
-          }}
-        >
-          {/* {item.name} */}
-          {item.name}
-        </Text>
-      </TouchableOpacity>
-    ),
-    [currentQuality]
   );
 
   const EPISODE_RANGE_SIZE = 100;
@@ -860,7 +820,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
             vodTitle={vod?.vod_name}
             videoType="vod"
             activeEpisode={currentEpisode}
-            episodes={vod?.type_id !== 2 ? vod?.vod_play_list : undefined}
+            episodes={vod?.type_id !== 2 ? foundSource : undefined}
             onEpisodeChange={(id: number) => {
               setCurrentEpisode(id);
               currentTimeRef.current = 0;
@@ -998,7 +958,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                     <Text
                       style={{ ...textVariants.subBody, color: colors.muted }}
                     >
-                      {`更新：${vod
+                     {`更新：${vod && !!vod?.vod_time_add
                         ? new Date(vod?.vod_time_add * 1000)
                           .toISOString().slice(0, 10)
                           .replace(/\//g, "-")
