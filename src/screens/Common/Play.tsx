@@ -603,12 +603,17 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     //   offset: getOffSet(currentEpisode),
     //   animated: true,
     // });
-    if ((foundSource?.url_count ?? 0) < currentEpisode) return 
+    if ((foundSource?.url_count ?? 0) < currentEpisode) {
+    setCurrentEpisode(0)
+      return
+    } 
     setTimeout(() => {
+      try {
       episodeRef?.current?.scrollToIndex({
         index: currentEpisode % 100,
         animated: true,
       });
+    } catch(error) {console.error('An error occurred while scrolling:', error);}
     }, 1200)
   }, [currentEpisode, episodeRef, isFetchingVodDetails, currentSourceId, sourceRef]);
 
