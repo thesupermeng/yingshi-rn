@@ -16,6 +16,7 @@ export const signinupUser = async ({
   countryId,
   referralCode,
   otp,
+  isGoogleLogin = false,
 }: {
   loginType: 'EMAIL' | 'SMS',
   email?: string,
@@ -23,6 +24,7 @@ export const signinupUser = async ({
   countryId?: number,
   referralCode?: string,
   otp?: string,
+  isGoogleLogin?: boolean,
 }) => {
   let platform_id;
   let deviceId = await DeviceInfo.getUniqueId();
@@ -46,6 +48,7 @@ export const signinupUser = async ({
     product: platform_id,
     platform_id: platform_id,
     otp: otp,
+    is_social_login: isGoogleLogin,
   };
 
   console.log('111')

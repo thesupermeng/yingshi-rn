@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { useAppDispatch } from "@hooks/hooks";
 import {
+  changeScreenAction,
   navigateToProfileScreen,
 } from "@redux/actions/screenAction";
 import SpinnerOverlay from "../modal/SpinnerOverlay";
@@ -32,13 +33,25 @@ import { useQuery } from "@tanstack/react-query";
 import { API_DOMAIN } from "@utility/constants";
 import { signinupUser } from "../../features/user";
 import { showToast } from "../../Sports/utility/toast";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import useAnalytics from "@hooks/useAnalytics";
+import { useDispatch } from "react-redux";
+import { addUserAuthState } from "@redux/actions/userAction";
 
 export type LoginRef = {
   resetValue: () => void,
 }
 
-export const LoginForm = forwardRef<LoginRef>(({ }, ref) => {
+type Props = {
+  onGooleLoginSuccess?: () => void,
+}
+
+export const LoginForm = forwardRef<LoginRef, Props>(({
+  onGooleLoginSuccess,
+}: Props, ref) => {
   const navigation = useNavigation();
+  const { userCenterLoginSuccessTimesAnalytics, userCenterVipLoginSuccessTimesAnalytics } = useAnalytics();
+  const dispatch = useDispatch();
 
   const [loginType, setloginType] = useState<'email' | 'phone'>('email');
 
@@ -128,13 +141,23 @@ export const LoginForm = forwardRef<LoginRef>(({ }, ref) => {
   }
 
   const onPressGoogleLogin = async () => {
+    if (isSubmitting) return;
+
+    if (isReadTermNCondition == false) {
+      showToast('请勾选用户协议和隐私协议');
+      return;
+    }
+
+    let userInfo;
+
     try {
       await GoogleSignin.hasPlayServices();
 
-      const userInfo = await GoogleSignin.signIn();
-
-      console.log('userInfo\n\n');
-      console.log(userInfo);
+      if (await GoogleSignin.isSignedIn()) {
+        userInfo = await GoogleSignin.getCurrentUser();
+      } else {
+        userInfo = await GoogleSignin.signIn();
+      }
 
     } catch (error: any) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
@@ -152,7 +175,15 @@ export const LoginForm = forwardRef<LoginRef>(({ }, ref) => {
       }
 
       console.log(error.toString());
-      showToast(error.toString());
+      showToast('登入失败，请稍后再试');
+      return;
+    }
+
+    if (userInfo) {
+      onSubmit({
+        isGoogleLogin: true,
+        email: userInfo.user.email,
+      });
     }
   }
 
@@ -176,27 +207,43 @@ export const LoginForm = forwardRef<LoginRef>(({ }, ref) => {
     return true;
   }
 
-  const onSubmit = async () => {
+  const onSubmit = async ({ isGoogleLogin, email }: { isGoogleLogin?: boolean, email?: string } = {}) => {
+    console.log(isGoogleLogin)
+    console.log(email)
     if (isSubmitting) return;
 
     if (isReadTermNCondition == false) {
       return;
     }
 
-    if (loginValue === "") {
+    if (isGoogleLogin !== true && loginValue === "") {
       setLoginValueErrMsg(loginType === 'email' ? '请填写邮箱账号' : '请填写手机号码');
       return;
     }
 
+    let userInfo;
+
     try {
       setSubmitting(true);
 
-      await signinupUser({
+      let otherParams = {}
+
+      if (isGoogleLogin) {
+        otherParams = {
+          loginType: 'EMAIL',
+          email: email,
+          phone: undefined,
+          isGoogleLogin: true,
+        }
+      }
+
+      userInfo = await signinupUser({
         loginType: loginType === 'email' ? 'EMAIL' : 'SMS',
         email: loginType === 'email' ? loginValue : undefined,
         phone: loginType === 'phone' ? countryPhoneSelected?.country_phonecode + loginValue : undefined,
         countryId: loginType === 'phone' ? countryPhoneSelected?.country_id : undefined,
         referralCode: referralCode,
+        ...otherParams,
       });
     } catch (err: any) {
       setSubmitting(false);
@@ -206,12 +253,55 @@ export const LoginForm = forwardRef<LoginRef>(({ }, ref) => {
 
     setSubmitting(false);
 
-    navigation.navigate("OTP", {
-      email: loginType === 'email' ? loginValue : undefined,
-      phone: loginType === 'phone' ? countryPhoneSelected?.country_phonecode + loginValue : undefined,
-      countryId: loginType === 'phone' ? countryPhoneSelected?.country_id : undefined,
-      referralCode: referralCode,
-    });
+    if (isGoogleLogin) {
+      const resultData = userInfo.data;
+
+      let json = {
+        userToken: resultData.access_token,
+        userId: resultData.user.user_id,
+        userName: resultData.user.user_name,
+        userReferralCode: resultData.user.user_referral_code,
+        userEmail: resultData.user.user_email,
+        userMemberExpired: resultData.user.vip_end_time,
+        userReferrerName: resultData.user.referrer_name,
+        userEndDaysCount: resultData.user.user_vip_time_duration_days,
+        userTotalInvite: resultData.user.total_invited_user,
+        userAccumulateRewardDay: resultData.user.accumulated_vip_reward_days,
+        userAllowUpdateReferral: resultData.user.eligible_update_referrer,
+        userCurrentTimestamp: resultData.user.current_timestamp,
+        userInvitedUserList: resultData.user.invited_users,
+        userUpline: resultData.user.upline_user,
+        userAccumulateVipRewardDay: resultData.user.accumulated_paid_vip_reward_days,
+        userPaidVipList: resultData.user.paid_vip_response,
+      };
+
+      await dispatch(addUserAuthState(json));
+
+      if (userInfo.userCurrentTimestamp < userInfo.userMemberExpired) {
+        await AsyncStorage.setItem("showAds", "false");
+      } else {
+        await AsyncStorage.setItem("showAds", "true");
+      }
+
+      await dispatch(changeScreenAction('登录成功'));
+
+      // ========== for analytics - start ==========
+      userCenterLoginSuccessTimesAnalytics();
+
+      if (userInfo.userMemberExpired >= userInfo.userCurrentTimestamp) {
+        userCenterVipLoginSuccessTimesAnalytics();
+      }
+      // ========== for analytics - end ==========
+
+      if (onGooleLoginSuccess) onGooleLoginSuccess();
+    } else {
+      navigation.navigate("OTP", {
+        email: loginType === 'email' ? loginValue : undefined,
+        phone: loginType === 'phone' ? countryPhoneSelected?.country_phonecode + loginValue : undefined,
+        countryId: loginType === 'phone' ? countryPhoneSelected?.country_id : undefined,
+        referralCode: referralCode,
+      });
+    }
   }
 
   return (

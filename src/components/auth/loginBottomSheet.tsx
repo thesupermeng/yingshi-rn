@@ -77,6 +77,12 @@ function LoginBottomSheet({
     >
       <LoginForm
         ref={loginRef}
+        onGooleLoginSuccess={() => {
+          if (handleClose) handleClose()
+
+          Keyboard.dismiss();
+          loginRef.current?.resetValue();
+        }}
       />
     </BottomSheet>
   );

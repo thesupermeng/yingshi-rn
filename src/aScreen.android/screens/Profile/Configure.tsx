@@ -115,13 +115,11 @@ export default ({ navigation }: RootStackScreenProps<'设置'>) => {
               //    user logout
               await AsyncStorage.removeItem("showAds");
               await dispatch(removeUserAuthState());
-              
+
               navigator.navigate('Home', {
                 screen: 'Profile',
               });
               toggleLogoutDialog();
-
-              GoogleSignin.signOut();
             }}
             onCancel={toggleLogoutDialog}
             isVisible={isLogoutDialogOpen}
