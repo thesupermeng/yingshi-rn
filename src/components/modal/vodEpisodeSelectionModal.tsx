@@ -90,15 +90,7 @@ function VodEpisodeSelectionModal({
   // }, [episodes]);
 
   useEffect(() => {
-    try {
-      let tempIndex = Math.floor(activeEpisode / 100) - 1;
-      setCurrentIndex(tempIndex);
-    } catch (err) {
-      console.log("err setCurrentIndex ");
-      setCurrentIndex(0);
-    }
-
-    //   setCurrentIndex(0);
+    setCurrentIndex(0);
   }, [vodId]);
 
   const sort = () => {
