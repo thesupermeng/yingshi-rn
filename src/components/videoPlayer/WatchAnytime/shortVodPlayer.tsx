@@ -121,10 +121,6 @@ function ShortVideoPlayer({
     !isVip && adultVideoWatchTime >= ADULT_MODE_PREVIEW_DURATION && adultMode;
 
   useEffect(() => {
-    setVod(vod);
-  }, [vod]);
-
-  useEffect(() => {
     if (!isShowVideo && Platform.OS === 'ios') setVideoReadyIos(false);
     if (!isShowVideo && Platform.OS === 'android') setVideoReadyAndroid(false);
   }, [isShowVideo]);
@@ -349,7 +345,7 @@ function ShortVideoPlayer({
       // if download constant is true, only use
       fn();
     }
-  }, [currentDuration, isBuffering, isPause]);
+  }, [isBuffering, isPause]);
 
   useEffect(() => {
     setMiniVodUrl(currentVod.mini_video_origin_video_url);
@@ -423,7 +419,7 @@ function ShortVideoPlayer({
                 onLoad={handleLoad}
                 onLoadStart={handleLoadStart}
                 onProgress={handleProgress}
-                progressUpdateInterval={400}
+                progressUpdateInterval={1500}
               />
               <View
                 style={{
