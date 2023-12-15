@@ -166,16 +166,18 @@ export const LoginForm = forwardRef<LoginRef, Props>(({
       } else if (error.code === statusCodes.IN_PROGRESS) {
         // operation (e.g. sign in) is in progress already
         console.log('error IN_PROGRESS');
+        showToast('请勿频繁操作');
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
         // play services not available or outdated
         console.log('error PLAY_SERVICES_NOT_AVAILABLE');
+        showToast('谷歌服务获取失败');
       } else {
         // some other error happened
         console.log('error common');
+        showToast('登入失败，请稍后再试');
       }
-
       console.log(error.toString());
-      showToast('登入失败，请稍后再试');
+
       return;
     }
 
