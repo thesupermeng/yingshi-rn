@@ -51,7 +51,7 @@ export default function PrivacyBackButtonHeader({ title, headerStyle, right, des
         });
 
         return unsubscribe;
-    }, [navigation, route]);
+    }, [route]);
 
 
     return (

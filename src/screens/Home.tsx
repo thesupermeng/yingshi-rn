@@ -167,7 +167,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
     const unsubscribe = navigation.addListener("tabPress", handleTabPress);
     // Clean up the event listener when the component unmounts or when navId changes
     return () => unsubscribe();
-  }, [navigation, isFocused, navId, handleRefresh]);
+  }, [isFocused, navId, handleRefresh]);
 
   const handleRejectEighteenPlus = useCallback(() => {
     const found = navOptions?.find((e) => e.name === screenState.lastSeenNavName);

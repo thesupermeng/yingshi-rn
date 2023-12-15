@@ -142,8 +142,8 @@ function WatchAnytime({navigation}: BottomTabScreenProps<any>) {
     const unsubscribe = navigation.addListener('tabPress', handleTabPress);
     // Clean up the event listener when the component unmounts
     return () => unsubscribe();
-  }, [navigation, isFocused, isRefreshing]);
-
+  }, [isFocused, isRefreshing]);
+  
   useEffect(() => {
     if (videos != undefined) {
       setFlattenedVideos(videos?.pages.flat());
@@ -160,7 +160,7 @@ function WatchAnytime({navigation}: BottomTabScreenProps<any>) {
       subscription.remove();
     };
   }, []);
-
+  
   useFocusEffect(
     useCallback(() => {
       if (

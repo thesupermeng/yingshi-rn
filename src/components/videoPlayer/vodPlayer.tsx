@@ -244,7 +244,7 @@ export default forwardRef<VideoRef, Props>(
         removeBackPressListener.remove();
         onBeforeRemoveListener();
       };
-    }, [navigation, isFullScreen, isPaused]);
+    }, [isFullScreen, isPaused]);
 
     useEffect(() => {
       dispatch(setFullscreenState(isFullScreen));

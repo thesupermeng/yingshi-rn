@@ -84,7 +84,7 @@ function Playlist({ navigation }: BottomTabScreenProps<any>) {
 
     // Clean up the event listener when the component unmounts
     return () => unsubscribe();
-  }, [navigation, isFocused]);
+  }, [isFocused]);
 
   const fetchPlaylist = useCallback((page: number) =>
     fetch(`${API_DOMAIN}topic/v1/topic?page=${page}`)
