@@ -10,6 +10,7 @@ export interface VodRecordType extends VodType {
     recordedAt: Date,
     episodeWatched: number,
     isAdultVideo?: boolean,
+    vodSourceId: number | undefined
 }
 interface PlayVodType {
     vod: VodRecordType | null,
@@ -33,6 +34,7 @@ export function vodReducer(state = initialState, action: VodActionType) {
         recordedAt: new Date(),
         timeWatched: action.timeWatched === undefined ? 0 : action.timeWatched,
         episodeWatched: action.episodeWatched === undefined ? 0 : action.episodeWatched,
+        vodSourceId: action.vodSourceId
     };
 
     switch (action.type) {

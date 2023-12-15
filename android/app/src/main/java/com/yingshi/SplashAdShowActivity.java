@@ -164,8 +164,8 @@ public class SplashAdShowActivity extends Activity implements ATSplashExListener
         }
 
         if(isShowAds.equals("true")){
-            if (splashAd.isAdReady()) {
-                Log.i(TAG, "SplashAd is ready to show.");
+            if (splashAd.isAdReady()) 
+            {
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -176,11 +176,15 @@ public class SplashAdShowActivity extends Activity implements ATSplashExListener
                 }, 10);
 
             } else {
-                Log.i(TAG, "SplashAd isn't ready to show, start to request.");
-                splashAd.loadAd();
+                // loop in splash
+                //   Log.i(TAG, "SplashAd isn't ready to show, start to request.");
+                        // Toast.makeText(getApplicationContext(), "splashAd.loadAd()", Toast.LENGTH_SHORT).show();
+                 splashAd.loadAd();
+                // jumpToMainActivity();
             }
         }else{
-            delayRedirectToMainActivity(4000);
+            //delayRedirectToMainActivity(4000);
+             jumpToMainActivity();
         }
     }
 
@@ -250,15 +254,16 @@ public class SplashAdShowActivity extends Activity implements ATSplashExListener
     @Override
     public void onAdLoadTimeout() {
         Log.i(TAG, "onAdLoadTimeout---------");
-        Toast.makeText(getApplicationContext(), "onAdLoadTimeout", Toast.LENGTH_SHORT).show();
-        delayRedirectToMainActivity(4000);
+        // Toast.makeText(getApplicationContext(), "onAdLoadTimeout", Toast.LENGTH_SHORT).show();
+        jumpToMainActivity();
     }
 
 
     @Override
     public void onNoAdError(AdError adError) {
         Log.i(TAG, "onNoAdError---------:" + adError.getFullErrorInfo());
-        delayRedirectToMainActivity(4000);
+          // Toast.makeText(getApplicationContext(), "onNoAdError", Toast.LENGTH_SHORT).show();
+        jumpToMainActivity();
     }
 
     public void delayRedirectToMainActivity(int ms) {
@@ -318,7 +323,7 @@ public class SplashAdShowActivity extends Activity implements ATSplashExListener
 
                 overridePendingTransition(0, 0);
             }
-            // Toast.makeText(this, "start your MainActivity.", Toast.LENGTH_SHORT).show();
+            // // Toast.makeText(this, "start your MainActivity.", Toast.LENGTH_SHORT).show();
 
 //            Intent intent = new Intent(SplashAdShowActivity.this, MainActivity.class);
 //            startActivity(intent);

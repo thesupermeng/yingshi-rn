@@ -27,6 +27,7 @@ import { RootStackScreenProps } from "@type/navigationTypes";
 import {
   SuggestResponseType,
   VodDetailsResponseType,
+  VodSourceType,
 } from "@type/ajaxTypes";
 import { addVodToHistory, playVod } from "@redux/actions/vodActions";
 import { useAppDispatch, useAppSelector } from "@hooks/hooks";
@@ -40,6 +41,7 @@ import WeChatIcon from "@static/images/wechat.svg";
 import QQIcon from "@static/images/qq.svg";
 import PYQIcon from "@static/images/pyq.svg";
 import MoreArrow from "@static/images/more_arrow.svg";
+import SourceIcon from "@static/images/source_icon.svg";
 import VodEpisodeSelectionModal from "../../components/modal/vodEpisodeSelectionModal";
 // import FastImage from "react-native-fast-image";
 import FastImage from "../../components/common/customFastImage";
@@ -78,10 +80,10 @@ import { disableAdultMode, enableAdultMode, incrementAdultVideoWatchTime } from 
 import useAnalytics from "@hooks/useAnalytics";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { screenModel } from "@type/screenType";
+import VodSourcesEpisodes from "../../components/vod/vodSourcesEpisodes";
 
 let insetsTop = 0;
 let insetsBottom = 0;
-
 
 type VideoRef = {
   setPause: (param: boolean) => void;
@@ -216,14 +218,16 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const adultMode = route.params.player_mode === 'adult' ? true : false
 
   useEffect(() => {
-    if(route.params.player_mode === 'adult'){
+    if (route.params.player_mode === 'adult') {
       dispatch(enableAdultMode());
-    }else{
+    } else {
       dispatch(disableAdultMode());
     }
   }, [])
 
   const vod = vodReducer.playVod.vod;
+  // console.log(vod)
+
   // const [vod, setVod] = useState(vodReducer.playVod.vod);
   const [initTime, setInitTime] = useState(0);
   const isFavorite = vodFavouriteReducer.favorites.some(
@@ -251,13 +255,15 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const episodeRef = useRef<FlatList>(null);
   const videoPlayerRef = useRef() as React.MutableRefObject<VideoRef>;
   const currentEpisodeRef = useRef<number>();
+  const currentSourceRef = useRef<number>();
+  const sourceRef = useRef<FlatList>(null);
 
   const [dismountPlayer, setDismountPlayer] = useState(false);
   const [isOffline, setIsOffline] = useState(false);
   const [isShowSheet, setShowSheet] = useState(false);
   const isVip = !(Number(userState.userMemberExpired) <=
-                  Number(userState.userCurrentTimestamp) ||
-                  userState.userToken === "")
+    Number(userState.userCurrentTimestamp) ||
+    userState.userToken === "")
 
   const {
     playsViewsAnalytics,
@@ -266,23 +272,81 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   } = useAnalytics();
   const [isReadyPlay, setReadyPlay] = useState(false);
 
+  //logic and function for multiple sources
+
+  const [currentSourceId, setCurrentSourceId] = useState(vod?.sourceWatched === undefined ? 0 : vod.sourceWatched);
+  const [currentQuality, setCurrentQuality] = useState(vod?.sourceWatched === undefined ? 0 : vod.sourceWatched);
+  const [vodSources, setVodSources] = useState<VodSourceType[]>([]);
+
+  const onPressSource = useCallback((itemId: any) => {
+    setCurrentSourceId(itemId);
+    currentSourceRef.current = itemId;
+    currentTimeRef.current = 0;
+  }, []);
+
+  const renderSources = useCallback(
+    ({ item }) => (
+      <TouchableOpacity
+        style={{
+          flexDirection: "row",
+          // justifyContent: "space-between",
+          alignItems: 'center',
+          backgroundColor:
+            currentSourceId === item.source_id ? colors.primary : colors.search,
+          paddingVertical: 8,
+          paddingHorizontal: 8,
+          // minWidth: 70,
+          marginRight: spacing.xs,
+          ...styles.episodeBtn,
+        }}
+        // onPress={() => onPressEpisode(item.id)}
+        onPress={() => onPressSource(item.source_id)}
+      >
+        <SourceIcon
+        style={{
+          alignSelf: 'center',
+          marginRight: 3,
+          marginBottom: -3,
+        }}/>
+        <Text
+          numberOfLines={1}
+          style={{
+            flex:1,
+            fontSize: 15,
+            textAlign: "center",
+            fontWeight: "600",
+            color: currentSourceId === item.source_id ? colors.selected : colors.muted,
+          }}
+        >
+          {/* {item.name} */}
+          {item.source_name}
+        </Text>
+      </TouchableOpacity>
+    ),
+    [currentSourceId]
+  );
+
   const EPISODE_RANGE_SIZE = 100;
 
   const showEpisodeRangeStart = useMemo(
     () =>
       Math.floor((currentEpisode ? currentEpisode : 0) / EPISODE_RANGE_SIZE) *
       EPISODE_RANGE_SIZE,
-    [currentEpisode, vod]
+    [currentEpisode, vod, currentSourceId]
   );
+
+  const foundSource = vodSources.find(({source_id}) => source_id === currentSourceId)?.vod_play_list
   const showEpisodeRangeEnd = useMemo(
     () =>
       Math.min(
         showEpisodeRangeStart + EPISODE_RANGE_SIZE,
-        vod?.vod_play_list
-          ? vod.vod_play_list.url_count
+        // vod?.vod_play_list
+        //   ? vod.vod_play_list.url_count
+        foundSource
+        ? foundSource.url_count
           : showEpisodeRangeStart + EPISODE_RANGE_SIZE
       ),
-    [currentEpisode, showEpisodeRangeStart, vod]
+    [currentEpisode, showEpisodeRangeStart, vod, currentSourceId]
   );
   const onShare = async () => {
     try {
@@ -380,7 +444,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       vod_name: vod?.vod_name,
     };
 
-    console.log("HELLLOOO===================");
+    // console.log("HELLLOOO===================");
     // appsFlyer.logEvent(
     //   eventName,
     //   eventValues,
@@ -394,7 +458,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   }, []);
 
   const localIp = YSConfig.instance.ip;
-  const apiEndpoint = adultMode ? `${API_DOMAIN_TEST}svod/v1/vod/detail` : `${API_DOMAIN_TEST}vod/v1/vod/detail`
+  const apiEndpoint = adultMode ? `${API_DOMAIN_TEST}svod/v1/vod/detail` : `${API_DOMAIN_TEST}vod/v3/vod/detail`
   const fetchVodDetails = useCallback(() =>
     fetch(
 
@@ -432,7 +496,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   });
 
   useEffect(() => {
-    if (vod !== undefined && vod !== null && vodDetails !== undefined) {
+    if (vod !== undefined && vod !== null && vodDetails !== undefined && !adultMode) {
       vod.vod_play_list = vodDetails.vod_play_list;
       vod.vod_play_url = vodDetails.vod_play_url;
       // setVod(vod);
@@ -450,11 +514,31 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     } else {
       setVodRestricted(isRestricted);
     }
+
+    if (!! vod?.vodSourceId){
+      // if redux got, use it from redux 
+      // console.debug('redux source id ', vod.vodSourceId)
+      setCurrentSourceId(vod.vodSourceId)
+    } 
+    else {
+      // else just use from api
+      // console.debug('using api preferred value')
+      setCurrentSourceId(vodDetails?.preferred_source_id)
+    }
+    
+    // setCurrentEpisode(Math.min((vodDetails?.vod_play_list.url_count ?? 1) - 1 , vod?.episodeWatched ?? 0))
+
+    if (vodDetails && vodDetails.vod_sources && vodDetails.vod_sources.length > 0) {
+        setVodSources(vodDetails.vod_sources);
+        // setCurrentSourceId(vodDetails.preferred_source_id)
+        // Other operations or state changes related to vodDetails...
+      }
+
   }, [vodDetails]);
 
   const fetchVod = () =>
     fetch(
-      `${API_DOMAIN}vod/v2/vod?class=${vod?.vod_class
+      `${API_DOMAIN}vod/v1/vod?class=${vod?.vod_class
         ?.split(",")
         .shift()}&tid=${vod?.type_id}&limit=6`
     )
@@ -505,8 +589,9 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   }, []);
 
   const saveVodToHistory = (vod: any) => {
+    // console.log('something')
     dispatch(
-      addVodToHistory(vod, currentTimeRef.current, currentEpisodeRef.current, adultMode)
+      addVodToHistory(vod, currentTimeRef.current, currentEpisodeRef.current, adultMode, currentSourceId)
     );
     setInitTime(currentTimeRef.current);
     // setInitTime(currentTimeRef.current = 0)
@@ -518,16 +603,14 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     //   offset: getOffSet(currentEpisode),
     //   animated: true,
     // });
-// console.log('aaaaaaaa')
-//     console.log(currentEpisode % 100);
-//    console.log(episodeRef);
+    if ((foundSource?.url_count ?? 0) < currentEpisode) return 
     setTimeout(() => {
       episodeRef?.current?.scrollToIndex({
         index: currentEpisode % 100,
         animated: true,
       });
-    }, 1200);
-  }, [currentEpisode, episodeRef, isFetchingVodDetails]);
+    }, 1200)
+  }, [currentEpisode, episodeRef, isFetchingVodDetails, currentSourceId, sourceRef]);
 
   useFocusEffect(
     useCallback(() => {
@@ -535,16 +618,18 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       return () => {
         setDismountPlayer(true);
         if (
-          vod &&
-          vod?.vod_play_list.urls?.find((url) => url.nid === currentEpisode)
-            ?.url
+          vodSources &&
+          //START HERE, SAVE POINT
+          // vod?.vod_play_list.urls?.find((url) => url.nid === currentEpisode)
+          //   ?.url
+          vodSources?.find(({source_id}) => source_id === currentSourceId)?.vod_play_list.urls?.find((url) => url.nid === currentEpisode)
         ) {
           saveVodToHistory(vod);
           setInitTime(currentTimeRef.current);
           // setInitTime(currentTimeRef.current=0);
         }
       };
-    }, [vod, currentTimeRef, currentEpisode, videoPlayerRef])
+    }, [vod, currentTimeRef, currentEpisode, videoPlayerRef, currentSourceId])
   );
 
   const onPressEpisode = useCallback((itemId: any) => {
@@ -615,9 +700,38 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     []
   );
 
-  const vodUrl: string = vod?.vod_play_list.urls?.find(
-    (url) => url.nid === currentEpisode
-  )?.url;
+  const setMinimumOfMaximumEpisode = () => {
+    // console.debug('total url', foundSource?.url_count - 1)
+    // console.debug('redux', vod?.episodeWatched)
+    const maxEpisode = (foundSource?.url_count ?? 1) - 1
+    const currEpisode = vod?.episodeWatched ?? 1
+    if (currEpisode >= maxEpisode)
+      setCurrentEpisode(Math.min(maxEpisode, currEpisode))
+  }
+
+  useEffect(() => {
+    setMinimumOfMaximumEpisode()
+    // when source changes, choose the minimum of the max episode 
+  }, [currentSourceId])
+
+  let vodUrl: string|undefined = ''
+  if (vodSources.length > 0 && !adultMode){
+    if (vodSources.map(v => v.source_id).includes(currentSourceId)){
+      vodUrl = vodSources?.find(({source_id}) => source_id === currentSourceId)?.vod_play_list.urls?.find(
+        (url) => url.nid === currentEpisode
+      )?.url;
+    } else {
+      setCurrentSourceId(vodSources?.at(0)?.source_id)
+    }
+  }
+
+  if (adultMode){
+    // console.debug("vod", vod)
+    vodUrl = vod?.vod_play_list?.urls?.find(
+      (url) => url.nid === currentEpisode
+    )?.url
+  }
+
 
   useEffect(() => {
     if (!!vodUrl) {
@@ -674,7 +788,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
 
   useEffect(() => {
-    if (adultMode){
+    if (adultMode) {
       dispatch(enableAdultMode())
     } else {
       dispatch(disableAdultMode())
@@ -704,7 +818,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
             vodTitle={vod?.vod_name}
             videoType="vod"
             activeEpisode={currentEpisode}
-            episodes={vod?.type_id !== 2 ? vod?.vod_play_list : undefined}
+            episodes={vod?.type_id !== 2 ? foundSource : undefined}
             onEpisodeChange={(id: number) => {
               setCurrentEpisode(id);
               currentTimeRef.current = 0;
@@ -781,7 +895,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
                   }
 
-                 
+
 
                   <View style={styles.descriptionContainer}>
                     {vod && (
@@ -942,8 +1056,35 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                     </>
                   ) : (
                     <>
-                      {vod?.vod_play_list !== undefined &&
-                        vod?.vod_play_list.urls?.length > 1 && (
+
+                    {/* For multiple source UI */}
+                    {!adultMode && (
+                      <>
+                    <View
+                              style={{ ...styles.spaceApart, gap: spacing.l }}
+                            >
+                              <Text style={textVariants.body}>播放源</Text>
+
+                            </View>
+                            <FlatList
+                              horizontal={true}
+                              showsHorizontalScrollIndicator={false}
+                              initialNumToRender={10}
+                              onScrollToIndexFailed={() => { }}
+                              ref={sourceRef}
+                              data={vodSources}
+                              // data={staticDummyData.map(item => item.url)}
+                              renderItem={renderSources}
+                              // onContentSizeChange={onContentSizeChange}
+                              ListFooterComponent={
+                                <View style={{ paddingHorizontal: 20 }} />
+                              }
+                              keyExtractor={(item, index) => index.toString()}
+                            />
+                            </>
+                            )}
+                            {/* For multiple source UI */}
+                      {foundSource !== undefined && (
                           <>
                             <View
                               style={{ ...styles.spaceApart, gap: spacing.l }}
@@ -960,8 +1101,11 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                                     color: colors.muted,
                                     fontSize: 15,
                                   }}
-                                >{`${showEpisodeRangeStart + 1
-                                  }-${showEpisodeRangeEnd}集`}</Text>
+                                >
+                                   {`${foundSource ? `1-${foundSource.url_count || 0}集` : 'No episodes available'}`}
+                                  {/* {`${showEpisodeRangeStart + 1
+                                  }-${showEpisodeRangeEnd}集`} */}
+                                  </Text>
                                 <MoreArrow
                                   style={{ color: colors.muted }}
                                   height={icons.sizes.m}
@@ -975,7 +1119,11 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                               initialNumToRender={10}
                               onScrollToIndexFailed={() => { }}
                               ref={episodeRef}
-                              data={vod?.vod_play_list.urls?.slice(
+                              // data={vod?.vod_play_list.urls?.slice(
+                              //   showEpisodeRangeStart,
+                              //   showEpisodeRangeEnd
+                              // )}
+                              data={vodSources.find(({source_id}) => source_id === currentSourceId)?.vod_play_list.urls?.slice(
                                 showEpisodeRangeStart,
                                 showEpisodeRangeEnd
                               )}
@@ -1069,7 +1217,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                 isVisible={isShowSheet}
                 handleClose={handleModalClose}
                 activeEpisode={currentEpisode}
-                episodes={vod?.vod_play_list}
+                episodes={foundSource}
                 onCancel={() => {
                   setShowSheet(false);
                 }}
