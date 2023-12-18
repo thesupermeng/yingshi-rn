@@ -157,26 +157,37 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
           paddingVertical: 8,
         }}
       >
-        <View style={{ flexDirection: "row" }}>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <TouchableOpacity
             onPress={() => {
               setSelectedTab("sport");
             }}
           >
+            <View style={{ flexDirection: "row" }}>
+              {selectedTab == "sport" && (
+                <View style={{ paddingRight: 5 }}>
+               
+                  <SportTabIcon width={18} />
+                </View>
+              )}
 
-<SportTabIcon
-                  width={18}
-        
-                />
-            <Text
-              style={{
-                ...textVariants.bigHeader,
-                color: colors.text,
-                fontSize: selectedTab == "sport" ? 22 : 20,
-              }}
-            >
-              体育
-            </Text>
+              <Text
+                style={{
+                  ...textVariants.bigHeader,
+                  color: colors.text,
+
+                  fontSize: selectedTab == "sport" ? 22 : 19,
+                }}
+              >
+                体育
+              </Text>
+            </View>
           </TouchableOpacity>
 
           <Text
@@ -184,29 +195,40 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
               ...textVariants.bigHeader,
               color: colors.text,
               fontSize: 20,
-              paddingHorizontal:10
+              paddingHorizontal: 10,
             }}
           >
             |
           </Text>
+
           <TouchableOpacity
             onPress={() => {
               setSelectedTab("xvod");
             }}
           >
-            <XvodTabIcon
-                  width={18}
-        
-                />
-            <Text
+            <View
               style={{
-                ...textVariants.bigHeader,
-                color: colors.text,
-                fontSize: selectedTab == "xvod" ? 22 : 20,
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
               }}
             >
-              夜来香
-            </Text>
+              {selectedTab == "xvod" && (
+                <View style={{ paddingRight: 5 }}>
+                  <XvodTabIcon width={18} />
+                </View>
+              )}
+              <Text
+                style={{
+                  ...textVariants.bigHeader,
+                  color: colors.text,
+
+                  fontSize: selectedTab == "xvod" ? 22 : 19,
+                }}
+              >
+                夜来香
+              </Text>
+            </View>
           </TouchableOpacity>
         </View>
 
@@ -228,19 +250,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
             }
           }}
         >
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "center",
-              alignItems: "center",
-              backgroundColor: "#222327",
-              paddingHorizontal: 10,
-              borderRadius: 30,
-              paddingVertical: 5,
-              position: "relative",
-              top: 5,
-            }}
-          >
+          <View style={styles.headerContainerRight}>
             <Image
               style={styles.iconStyle}
               source={require("@static/images/profile/vipSport.png")}
@@ -310,5 +320,16 @@ const styles = StyleSheet.create({
     height: 18,
     width: 18,
     marginRight: 5,
+  },
+  headerContainerRight: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#222327",
+    paddingHorizontal: 10,
+    borderRadius: 30,
+    paddingVertical: 5,
+    position: "relative",
+    top: 5,
   },
 });
