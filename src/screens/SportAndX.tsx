@@ -30,7 +30,7 @@ import FastImage from "react-native-fast-image";
 import Api from "../Sports/middleware/api";
 import { Url } from "../Sports/middleware/url";
 
-import MatchScheduleNav from "../Sports/components/matchSchedule/MatchScheduleNav";
+import MatchScheduleNavVip from "../Sports/components/matchSchedule/MatchScheduleNavVip";
 import NoConnection from "../components/common/noConnection";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 
@@ -147,12 +147,11 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
         resizeMode="cover"
         style={{ flex: 1, height: 200 }}
       >
-        <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
+        <ScreenContainer isBgHide={true} containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
           <BecomeVipOverlay
             setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
             showBecomeVIPOverlay={showBecomeVIPOverlay}
           />
-
           <View
             style={{
               // backgroundColor: colors.background,
@@ -284,12 +283,11 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
               </View>
             </TouchableOpacity>
           </View>
-
           {selectedTab == "sport" &&
             matchTabs &&
             matchTabs.length > 0 &&
             !isOffline && (
-              <MatchScheduleNav
+              <MatchScheduleNavVip
                 setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
                 tabList={matchTabs}
               />
