@@ -9,12 +9,12 @@ export interface screenModel {
   sportWatchTime: number; // number of seconds user watched sports
   interstitialShow: boolean;
   isPlayerFullScreen: boolean;
-  fromWhereToProfile?: 'login' | 'register';
+  fromWhereToProfile?: 'login' | 'register' | 'login_register';
   adultVideoWatchTime: number; // number of seconds user watch AV 
-  adultModeDisclaimerShow: boolean; 
-  adultModeVipShow: boolean; 
-  adultMode: boolean; 
-  lastSeenNavName: string; 
+  adultModeDisclaimerShow: boolean;
+  adultModeVipShow: boolean;
+  adultMode: boolean;
+  lastSeenNavName: string;
   isOverEighteenAccepted: boolean;
   watchAnytimeAdultMode: boolean;
 }

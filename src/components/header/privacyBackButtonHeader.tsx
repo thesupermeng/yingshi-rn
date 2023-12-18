@@ -7,7 +7,6 @@ import BackButton from '../button/backButton';
 import { RootStackParamList, RootStackScreenProps } from "@type/navigationTypes";
 import {
     showLoginAction,
-    showRegisterAction,
     navigateToProfileScreen
 } from "@redux/actions/screenAction";
 import { screenReducer } from "@redux/reducers/screenReducer";
@@ -39,11 +38,8 @@ export default function PrivacyBackButtonHeader({ title, headerStyle, right, des
             if (screenReducer.navigateToProfile === true && screenReducer.fromWhereToProfile !== undefined) {
                 // Check if the previous route was "RegistrationPage" and the destination is "ProfileScreen"
                 // If yes, trigger your custom action
-                if (screenReducer.fromWhereToProfile === 'login') {
+                if (screenReducer.fromWhereToProfile === 'login_register') {
                     dispatch(showLoginAction());
-                }
-                if (screenReducer.fromWhereToProfile === 'register') {
-                    dispatch(showRegisterAction());
                 }
             } else {
                 return

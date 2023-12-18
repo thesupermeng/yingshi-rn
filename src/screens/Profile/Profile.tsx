@@ -381,7 +381,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                 </View>
               ))}
 
-{Platform.OS === "ios" && !SHOW_PAYMENT_CONST && (
+            {Platform.OS === "ios" && !SHOW_PAYMENT_CONST && (
               <TouchableOpacity
                 style={{
                   ...styles.btn,

@@ -120,6 +120,7 @@ target 'yingshi' do
   
   pod 'RCTSystemSetting', :path => '../node_modules/react-native-system-setting'
 #  pod 'Permission-AppTrackingTransparency', :path => "#{permissions_path}/AppTrackingTransparency"
+#  pod 'RNGoogleSignin', :path => "../node_modules/@react-native-google-signin/google-signin"
 
   post_install do |installer|
     react_native_post_install(

@@ -19,6 +19,8 @@ import {
   DOWNLOAD_BATCH_SIZE,
   TOTAL_VIDEO_TO_DOWNLOAD,
   DOWNLOAD_WATCH_ANYTIME,
+  GOOGLE_SINGIN_CLIENT_WEB,
+  GOOGLE_SINGIN_CLIENT_IOS,
 } from "@utility/constants";
 import { YSConfig } from "../../ysConfig";
 import { Dimensions, Platform } from "react-native";
@@ -31,6 +33,7 @@ import RNFetchBlob from "rn-fetch-blob";
 import { Toast } from "@ant-design/react-native";
 import chunk from "lodash/chunk";
 import { AdsBannerContextProvider } from "../contexts/AdsBannerContext";
+import { GoogleSignin } from "@react-native-google-signin/google-signin";
 
 
 export default () => {
@@ -179,6 +182,12 @@ export default () => {
 
   useEffect(() => {
     getNav();
+
+    GoogleSignin.configure({
+      webClientId: GOOGLE_SINGIN_CLIENT_WEB,
+      iosClientId: GOOGLE_SINGIN_CLIENT_IOS,
+      offlineAccess: true,
+    });
   }, []);
 
   const {data} = useInfiniteQuery(['watchAnytime', 'normal'])
