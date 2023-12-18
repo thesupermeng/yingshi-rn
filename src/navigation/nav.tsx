@@ -49,6 +49,10 @@ import WatchAnytimeActiveTabIcon from "@static/images/video_tab_active.svg";
 import CatalogScreen from "../screens/Common/Catalog";
 import ShortVodCollectionScreen from "../screens/Profile/Collection/shortVodCollection";
 import SportsIcon from "@static/images/sports.svg";
+
+import VipActionIcon from "@static/images/vip-icon.svg";
+import VipIcon from "@static/images/vip-icon-inactive.svg";
+
 import MatchesScreen from "../Sports/screens/Sports/Matches";
 import MatchDetailsScreen from "../Sports/screens/Sports/MatchDetails";
 import { useDispatch, useSelector } from "react-redux";
@@ -216,14 +220,14 @@ export default () => {
                   color={theme.icons.inactiveNavIconColor}
                 />
               );
-            } else if (route.name === "体育") {
+            } else if (route.name === "VIP特权") {
               icon = focused ? (
-                <SportsIcon
+                <VipActionIcon
                   width={iconWidth}
                   color={theme.icons.activeNavIconColor}
                 />
               ) : (
-                <SportsIcon
+                <VipIcon
                   width={iconWidth}
                   color={theme.icons.inactiveNavIconColor}
                 />
@@ -237,7 +241,7 @@ export default () => {
           <>
             <HomeTab.Screen name="首页" component={HomeScreen} />
             <HomeTab.Screen name="随心看" component={WatchAnytime} />
-            <HomeTab.Screen name="体育" component={MatchesScreen} />
+            <HomeTab.Screen name="VIP特权" component={MatchesScreen} />
             <HomeTab.Screen name="播单" component={PlaylistScreen} />
             <HomeTab.Screen name="我的" component={ProfileScreen} />
           </>
@@ -245,7 +249,7 @@ export default () => {
           <>
             <HomeTab.Screen name="首页" component={HomeScreen} />
             <HomeTab.Screen name="随心看" component={WatchAnytime} />
-            <HomeTab.Screen name="体育" component={MatchesScreen} />
+            <HomeTab.Screen name="VIP特权" component={MatchesScreen} />
             <HomeTab.Screen name="播单" component={PlaylistScreen} />
             <HomeTab.Screen name="我的" component={ProfileScreen} />
           </>
