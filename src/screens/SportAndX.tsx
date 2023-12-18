@@ -40,7 +40,8 @@ import { useDispatch } from "react-redux";
 import BecomeVipOverlay from "../components/modal/becomeVipOverlay";
 import { SettingsReducerState } from "@redux/reducers/settingsReducer";
 import useAnalytics from "@hooks/useAnalytics";
-
+import XvodTabIcon from "@static/images/xvodTab.svg";
+import SportTabIcon from "@static/images/sportTab.svg";
 interface NavType {
   has_submenu: boolean;
   ids: Array<number>;
@@ -48,6 +49,7 @@ interface NavType {
 }
 
 export default ({ navigation }: BottomTabScreenProps<any>) => {
+  const [selectedTab, setSelectedTab] = useState("sport");
   const { textVariants, colors, spacing } = useTheme();
   const [isOffline, setIsOffline] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -76,8 +78,6 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
       }),
   });
 
-  
-
   const matchTabs = useMemo(
     () =>
       navOptions?.map((x) => ({
@@ -100,16 +100,21 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     setIsOffline(settingsReducer.isOffline);
   }, []);
 
-  useFocusEffect(useCallback(() => {
-    if (!settingsReducer.isOffline && settingsReducer.isOffline !== isOffline) {
-      setIsOffline(settingsReducer.isOffline);
-      handleRefresh();
-    } else if (settingsReducer.isOffline) {
-      return () => {
+  useFocusEffect(
+    useCallback(() => {
+      if (
+        !settingsReducer.isOffline &&
+        settingsReducer.isOffline !== isOffline
+      ) {
         setIsOffline(settingsReducer.isOffline);
+        handleRefresh();
+      } else if (settingsReducer.isOffline) {
+        return () => {
+          setIsOffline(settingsReducer.isOffline);
+        };
       }
-    }
-  }, [settingsReducer.isOffline]));
+    }, [settingsReducer.isOffline])
+  );
 
   const [vipRemainingDay, setVipRemainingDay] = useState(0);
   useEffect(() => {
@@ -145,65 +150,78 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
         style={{
           backgroundColor: colors.background,
           paddingLeft: spacing.sideOffset,
-          paddingRight: spacing.sideOffset ,
+          paddingRight: spacing.sideOffset,
           flexDirection: "row",
           justifyContent: "space-between",
           alignItems: "center",
           paddingVertical: 8,
         }}
       >
-        <View style={{flexDirection:'row' }}>
+        <View style={{ flexDirection: "row" }}>
+          <TouchableOpacity
+            onPress={() => {
+              setSelectedTab("sport");
+            }}
+          >
 
+<SportTabIcon
+                  width={18}
+        
+                />
+            <Text
+              style={{
+                ...textVariants.bigHeader,
+                color: colors.text,
+                fontSize: selectedTab == "sport" ? 22 : 20,
+              }}
+            >
+              体育
+            </Text>
+          </TouchableOpacity>
 
-        <Text
-          style={{
-            ...textVariants.bigHeader,
-            color: colors.text,
-            fontSize: 22,
-   
-          }}
-        >
-          体育
-        </Text>
-
-
-        <Text
-          style={{
-            ...textVariants.bigHeader,
-            color: colors.text,
-            fontSize: 22,
-          
-          }}
-        >
-        |
-        </Text>
-
-
-        <Text
-          style={{
-            ...textVariants.bigHeader,
-            color: colors.text,
-            fontSize: 22,
-          
-          }}
-        >
-          夜来香
-        </Text>
-
+          <Text
+            style={{
+              ...textVariants.bigHeader,
+              color: colors.text,
+              fontSize: 20,
+              paddingHorizontal:10
+            }}
+          >
+            |
+          </Text>
+          <TouchableOpacity
+            onPress={() => {
+              setSelectedTab("xvod");
+            }}
+          >
+            <XvodTabIcon
+                  width={18}
+        
+                />
+            <Text
+              style={{
+                ...textVariants.bigHeader,
+                color: colors.text,
+                fontSize: selectedTab == "xvod" ? 22 : 20,
+              }}
+            >
+              夜来香
+            </Text>
+          </TouchableOpacity>
         </View>
 
         <TouchableOpacity
           activeOpacity={
             Number(userState.userMemberExpired) <=
               Number(userState.userCurrentTimestamp) ||
-              userState.userToken === ""
+            userState.userToken === ""
               ? 0.5
               : 1
           }
           onPress={() => {
             if (
               Number(userState.userMemberExpired) <=
-              Number(userState.userCurrentTimestamp) ||
+                Number(userState.userCurrentTimestamp) ||
               userState.userToken === ""
             ) {
               setShowBecomeVIPOverlay(true);
@@ -221,7 +239,6 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
               paddingVertical: 5,
               position: "relative",
               top: 5,
-            
             }}
           >
             <Image
@@ -231,7 +248,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
 
             {Number(userState.userMemberExpired) <=
               Number(userState.userCurrentTimestamp) ||
-              userState.userToken === "" ? (
+            userState.userToken === "" ? (
               <Text
                 style={{
                   color: colors.text,
@@ -254,26 +271,18 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
         </TouchableOpacity>
       </View>
 
+      {selectedTab == "sport" &&
+        matchTabs &&
+        matchTabs.length > 0 &&
+        !isOffline && (
+          // <MatchScheduleNav
+          //   setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
+          //   tabList={matchTabs}
+          // />
+          <Text>sport</Text>
+        )}
 
-
-      {matchTabs && matchTabs.length > 0 && !isOffline && (
-        // <MatchScheduleNav
-        //   setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
-        //   tabList={matchTabs}
-        // />
-        <Text>Sprot</Text>
-      )}
-
-
-{selectedTab (
-        // <MatchScheduleNav
-        //   setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
-        //   tabList={matchTabs}
-        // />
-        <Text>Sprot</Text>
-      )}
-
-
+      {selectedTab == "xvod" && <Text>xvod</Text>}
 
       {isOffline && <NoConnection onClickRetry={checkConnection} />}
     </ScreenContainer>
