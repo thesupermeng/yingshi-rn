@@ -6,14 +6,14 @@ import React, {memo, useCallback, useEffect, useRef, useState} from 'react';
 import {AppState, StyleSheet, Text, View} from 'react-native';
 import EighteenPlusControls from '../components/adultVideo/eighteenPlusControls';
 import ScreenContainer from '../components/container/screenContainer';
-import MiniVideoList from '../components/videoPlayer/miniVodList';
-import {useAppSelector} from '../hooks/hooks';
-import useAnalytics from '../hooks/useAnalytics';
-import {SettingsReducerState} from '../redux/reducers/settingsReducer';
-import {RootState} from '../redux/store';
-import {MiniVideo} from '../types/ajaxTypes';
-import {screenModel} from '../types/screenType';
-import {API_DOMAIN_TEST} from '../utility/constants';
+import MiniVideoList from '../components/videoPlayer/WatchAnytime/miniVodList';
+import {useAppSelector} from '@hooks/hooks';
+import useAnalytics from '@hooks/useAnalytics';
+import {SettingsReducerState} from '@redux/reducers/settingsReducer';
+import {RootState} from '@redux/store';
+import {MiniVideo} from '@type/ajaxTypes';
+import {screenModel} from '@type/screenType';
+import {API_DOMAIN_TEST} from '@utility/constants';
 import NoConnection from './../components/common/noConnection';
 
 type MiniVideoResponseType = {
@@ -26,15 +26,18 @@ type MiniVodRef = {
   setPause: (pause: boolean) => void;
 };
 
+const LIMIT = 300;
+
 function WatchAnytime({navigation}: BottomTabScreenProps<any>) {
   const isFocused = useIsFocused();
   // New state to keep track of app's background/foreground status
   const [isInBackground, setIsInBackground] = useState(false);
+  const [flattenedVideos, setFlattenedVideos] = useState(Array<MiniVideo>);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [isOffline, setIsOffline] = useState(false);
-  const miniVodRef = useRef() as React.MutableRefObject<MiniVodRef>;
-  const miniVodListRef = useRef<any>();
   const [isPressTabScroll, setPressTabScroll] = useState(false);
+  const miniVodRef = useRef<MiniVodRef>();
+  const miniVodListRef = useRef<any>();
 
   const settingsReducer: SettingsReducerState = useAppSelector(
     ({settingsReducer}: RootState) => settingsReducer,
@@ -51,42 +54,14 @@ function WatchAnytime({navigation}: BottomTabScreenProps<any>) {
   const apiEndpoint = adultMode
     ? `${API_DOMAIN_TEST}miniSVod/v1/miniSVod`
     : `${API_DOMAIN_TEST}miniVod/v2/miniVod`;
-  const afterInitialLoad = useRef(false);
 
   // ========== for analytics - start ==========
   const {watchAnytimeViewsAnalytics} = useAnalytics();
 
-  // ========== for analytics - start ==========
-  useEffect(() => {
-    watchAnytimeViewsAnalytics({
-      isXmode: adultMode,
-    });
-  }, [adultMode]);
-  // ========== for analytics - end ==========
-
-  // Add an event listener to the navigation object for the tab press event
-  useEffect(() => {
-    const handleTabPress = () => {
-      if (isFocused && !isRefreshing) {
-        handleRefresh();
-
-        setPressTabScroll(true);
-
-        miniVodListRef.current?.scrollToIndex({
-          index: 0,
-          animated: true,
-        });
-
-        // 0.5 second for scroll animation, hide all video
-        setTimeout(() => {
-          setPressTabScroll(false);
-        }, 500);
-      }
-    };
-    const unsubscribe = navigation.addListener('tabPress', handleTabPress);
-    // Clean up the event listener when the component unmounts
-    return () => unsubscribe();
-  }, [navigation, isFocused, isRefreshing]);
+  // Handle app's background/foreground status
+  const handleAppStateChange = (nextAppState: any) => {
+    setIsInBackground(nextAppState !== 'active');
+  };
 
   const handleRefresh = useCallback(async () => {
     setIsRefreshing(true);
@@ -96,8 +71,6 @@ function WatchAnytime({navigation}: BottomTabScreenProps<any>) {
     return;
   }, []);
 
-  const [flattenedVideos, setFlattenedVideos] = useState(Array<MiniVideo>);
-  const LIMIT = 300;
   const fetchVods = (page: number) =>
     fetch(`${apiEndpoint}?page=${page}&limit=${LIMIT}`)
       .then(response => response.json())
@@ -130,12 +103,6 @@ function WatchAnytime({navigation}: BottomTabScreenProps<any>) {
     },
   );
 
-  useEffect(() => {
-    if (videos != undefined) {
-      setFlattenedVideos(videos?.pages.flat());
-    }
-  }, [videos]);
-
   const checkConnection = useCallback(async () => {
     const state = await NetInfo.fetch();
     const offline = !(state.isConnected && state.isInternetReachable);
@@ -145,6 +112,55 @@ function WatchAnytime({navigation}: BottomTabScreenProps<any>) {
     }
   }, []);
 
+  // ========== for analytics - start ==========
+  useEffect(() => {
+    watchAnytimeViewsAnalytics({
+      isXmode: adultMode,
+    });
+  }, [adultMode]);
+  // ========== for analytics - end ==========
+
+  // Add an event listener to the navigation object for the tab press event
+  useEffect(() => {
+    const handleTabPress = () => {
+      if (isFocused && !isRefreshing) {
+        handleRefresh();
+
+        setPressTabScroll(true);
+
+        miniVodListRef.current?.scrollToIndex({
+          index: 0,
+          animated: true,
+        });
+
+        // 0.5 second for scroll animation, hide all video
+        setTimeout(() => {
+          setPressTabScroll(false);
+        }, 500);
+      }
+    };
+    const unsubscribe = navigation.addListener('tabPress', handleTabPress);
+    // Clean up the event listener when the component unmounts
+    return () => unsubscribe();
+  }, [isFocused, isRefreshing]);
+  
+  useEffect(() => {
+    if (videos != undefined) {
+      setFlattenedVideos(videos?.pages.flat());
+    }
+  }, [videos]);
+
+  useEffect(() => {
+    const subscription = AppState.addEventListener(
+      'change',
+      handleAppStateChange,
+    );
+
+    return () => {
+      subscription.remove();
+    };
+  }, []);
+  
   useFocusEffect(
     useCallback(() => {
       if (
@@ -162,37 +178,10 @@ function WatchAnytime({navigation}: BottomTabScreenProps<any>) {
     }, [settingsReducer.isOffline]),
   );
 
-  useEffect(() => {
-    const subscription = AppState.addEventListener(
-      'change',
-      handleAppStateChange,
-    );
-
-    return () => {
-      subscription.remove();
-    };
-  }, []);
-
-  // Handle app's background/foreground status
-  const handleAppStateChange = (nextAppState: any) => {
-    setIsInBackground(nextAppState !== 'active');
-  };
-
   return (
-    <ScreenContainer
-      containerStyle={{paddingLeft: 0, paddingRight: 0, paddingBottom: 10}}>
-      <View
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          padding: 20,
-          zIndex: 50,
-          width: '100%',
-          flexDirection: 'row',
-          alignItems: 'center',
-        }}>
-        <Text style={{color: '#FFF', fontSize: 20}}>随心看</Text>
+    <ScreenContainer containerStyle={styles.containerStyle}>
+      <View style={styles.titleTextContainer}>
+        <Text style={styles.titleText}>随心看</Text>
       </View>
       <EighteenPlusControls />
       {!isOffline && (
@@ -205,7 +194,6 @@ function WatchAnytime({navigation}: BottomTabScreenProps<any>) {
           isFetching={isFetching}
           isFetchingNextPage={isFetchingNextPage}
           isActive={isFocused && !isInBackground}
-          setCollectionEpisode={(index: number) => {}}
           handleRefreshMiniVod={handleRefresh}
           isRefreshing={isRefreshing}
           isPressTabScroll={isPressTabScroll}
@@ -218,4 +206,21 @@ function WatchAnytime({navigation}: BottomTabScreenProps<any>) {
 
 export default memo(WatchAnytime);
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  containerStyle: {
+    paddingLeft: 0,
+    paddingRight: 0,
+    paddingBottom: 10,
+  },
+  titleTextContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    padding: 20,
+    zIndex: 50,
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  titleText: {color: '#FFF', fontSize: 20},
+});

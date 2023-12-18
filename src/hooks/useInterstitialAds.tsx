@@ -12,12 +12,12 @@ import {
   IOS_HOME_PAGE_POP_UP_ADS,
   IOS_PLAY_DETAILS_POP_UP_ADS,
   NON_VIP_STREAM_TIME_SECONDS,
-} from "../utility/constants";
-import { userModel } from "../types/userType";
-import { RootState } from "../redux/store";
+} from "@utility/constants";
+import { userModel } from "@type/userType";
+import { RootState } from "@redux/store";
 import { useAppSelector } from "./hooks";
 import { AdsBannerContext } from "../contexts/AdsBannerContext";
-import { screenModel } from "../types/screenType";
+import { screenModel } from "@type/screenType";
 
 type PlacementId =
   | typeof ANDROID_HOME_PAGE_POP_UP_ADS

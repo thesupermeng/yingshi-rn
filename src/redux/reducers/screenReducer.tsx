@@ -3,7 +3,7 @@ export interface screenActionType {
   payload: string;
 }
 
-import { screenModel } from "../../types/screenType";
+import { screenModel } from "@type/screenType";
 
 const initialState: screenModel = {
   screenAction: "",

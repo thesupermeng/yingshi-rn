@@ -38,20 +38,19 @@ import UserAgreementScreen from "../screens/Profile/UserAgreement";
 import ConfigureScreen from "../screens/Profile/Configure";
 import OtpScreen from "../screens/Auth/Otp";
 import SetUsername from "../screens/Auth/setUsername";
-import HomeTabIcon from "../../static/images/home_tab.svg";
-import HomeActiveTabIcon from "../../static/images/home_tab_active.svg";
-import PlaylistTabIcon from "../../static/images/playlist_tab.svg";
-import PlaylistActiveTabIcon from "../../static/images/playlist_tab_active.svg";
-import ProfileTabIcon from "../../static/images/profile_tab.svg";
-import ProfileActiveTabIcon from "../../static/images/profile_tab_active.svg";
-import WatchAnytimeTabIcon from "../../static/images/video_tab.svg";
-import WatchAnytimeActiveTabIcon from "../../static/images/video_tab_active.svg";
+import HomeTabIcon from "@static/images/home_tab.svg";
+import HomeActiveTabIcon from "@static/images/home_tab_active.svg";
+import PlaylistTabIcon from "@static/images/playlist_tab.svg";
+import PlaylistActiveTabIcon from "@static/images/playlist_tab_active.svg";
+import ProfileTabIcon from "@static/images/profile_tab.svg";
+import ProfileActiveTabIcon from "@static/images/profile_tab_active.svg";
+import WatchAnytimeTabIcon from "@static/images/video_tab.svg";
+import WatchAnytimeActiveTabIcon from "@static/images/video_tab_active.svg";
 import CatalogScreen from "../screens/Common/Catalog";
 import ShortVodCollectionScreen from "../screens/Profile/Collection/shortVodCollection";
-import SportsIcon from "../../static/images/sports.svg";
+import SportsIcon from "@static/images/sports.svg";
 import MatchesScreen from "../Sports/screens/Sports/Matches";
 import MatchDetailsScreen from "../Sports/screens/Sports/MatchDetails";
-import WatchCollectionScreen from "../../src/screens/WatchCollection";
 import { useDispatch, useSelector } from "react-redux";
 import LoginBottomSheet from "../components/auth/loginBottomSheet";
 import RegisterBottomSheet from "../components/auth/registerBottomSheet";
@@ -61,19 +60,19 @@ import {
   ProfileTabParamList,
   RootStackParamList,
   WatchAnytimeTabParamList,
-} from "../types/navigationTypes";
+} from "@type/navigationTypes";
 import RNBootSplash from "react-native-bootsplash";
-import { RootState } from "../redux/store";
+import { RootState } from "@redux/store";
 import {
   SafeAreaProvider,
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
 import { Platform, StyleSheet, Text, View } from "react-native";
 import DeviceInfo from "react-native-device-info";
-import { useAppSelector, useAppDispatch } from "../hooks/hooks";
+import { useAppSelector, useAppDispatch } from "@hooks/hooks";
 import { QueryClient, useQuery } from "@tanstack/react-query";
-import { API_DOMAIN, UMENG_CHANNEL } from "../../src/utility/constants";
-import { BottomNavTabsResponse } from "../../src/types/ajaxTypes";
+import { API_DOMAIN, UMENG_CHANNEL } from "@utility/constants";
+import { BottomNavTabsResponse } from "@type/ajaxTypes";
 import { YSConfig } from "../../ysConfig";
 import {
   disableAdultMode,
@@ -89,18 +88,18 @@ import {
   resetBottomSheetAction,
   resetOverEighteen,
   resetSportWatchTime,
-} from "../redux/actions/screenAction";
+} from "@redux/actions/screenAction";
 import { Dialog } from "@rneui/themed";
 // import FastImage from "react-native-fast-image";
 import FastImage from "../components/common/customFastImage";
-import { screenModel } from "../types/screenType";
-import { YingshiDarkTheme, YingshiLightTheme } from "../utility/theme";
-import { userModel } from "../types/userType";
+import { screenModel } from "@type/screenType";
+import { YingshiDarkTheme, YingshiLightTheme } from "@utility/theme";
+import { userModel } from "@type/userType";
 import { getUserDetails } from "../features/user";
 import {
   updateUserAuth,
   updateUserReferral,
-} from "../redux/actions/userAction";
+} from "@redux/actions/userAction";
 import ExpiredOverlay from "../components/modal/expiredOverlay";
 import EventRules from "../screens/Profile/EventRules";
 import PrivacyPolicyOverlay from "../components/modal/privacyPolicyOverlay";
@@ -110,8 +109,8 @@ import {
   handleDevicesOrientation,
   lockAppOrientation,
   updateNetworkInfo,
-} from "../redux/actions/settingsActions";
-import { SettingsReducerState } from "../redux/reducers/settingsReducer";
+} from "@redux/actions/settingsActions";
+import { SettingsReducerState } from "@redux/reducers/settingsReducer";
 import { AdsBannerContext } from "../contexts/AdsBannerContext";
 import VIP from "../screens/Profile/VIP";
 import { withIAPContext } from "react-native-iap";
@@ -639,7 +638,6 @@ export default () => {
             }}
             options={{ orientation: "all" }}
           />
-          <Stack.Screen name="合集播放" component={WatchCollectionScreen} />
           <Stack.Screen
             name="OTP"
             component={OtpScreen}
@@ -718,7 +716,7 @@ export default () => {
             alignItems: "center",
           }}
           resizeMode={"contain"}
-          source={require("../../static/images/profile/login-success.gif")}
+          source={require("@static/images/profile/login-success.gif")}
         />
 
         <Text

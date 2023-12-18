@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import {StyleSheet, TouchableOpacity, View, Text} from 'react-native';
 import {useTheme} from '@react-navigation/native';
-import {VodType} from '../../types/ajaxTypes';
+import {VodType} from '@type/ajaxTypes';
 import VodImageCard from './vodImageCard';
 import FavoriteButton from '../button/favoriteVodButton';
 import VodDescription from './vodDescription';

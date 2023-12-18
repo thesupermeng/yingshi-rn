@@ -3,8 +3,8 @@ import { View, Text, StyleSheet, ScrollView } from "react-native";
 import ScreenContainer from "../../components/container/screenContainer";
 import { useTheme, useFocusEffect } from "@react-navigation/native";
 
-import { RootStackScreenProps } from "../../types/navigationTypes";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { RootStackScreenProps } from "@type/navigationTypes";
+import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 
 import { Dimensions } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -12,12 +12,12 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import FastImage from "../../components/common/customFastImage";
 import VodLiveStationListVertical from "../../components/vod/vodLiveStationListVertical";
 import VodPlayer from "../../components/videoPlayer/vodPlayer";
-import { SettingsReducerState } from "../../redux/reducers/settingsReducer";
-import { RootState } from "../../redux/store";
-import { lockAppOrientation } from "../../redux/actions/settingsActions";
-import useInterstitialAds from "../../hooks/useInterstitialAds";
-import { screenModel } from "../../types/screenType";
-import { disableAdultMode } from "../../redux/actions/screenAction";
+import { SettingsReducerState } from "@redux/reducers/settingsReducer";
+import { RootState } from "@redux/store";
+import { lockAppOrientation } from "@redux/actions/settingsActions";
+import useInterstitialAds from "@hooks/useInterstitialAds";
+import { screenModel } from "@type/screenType";
+import { disableAdultMode } from "@redux/actions/screenAction";
 
 let insetsTop = 0;
 let insetsBottom = 0;

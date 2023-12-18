@@ -10,43 +10,43 @@ import {
   Platform,
 } from "react-native";
 import { useTheme, useFocusEffect } from "@react-navigation/native";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { RootState } from "../../redux/store";
+import { useAppDispatch, useAppSelector } from "@hooks/hooks";
+import { RootState } from "@redux/store";
 import ShowMoreButton from "../../components/button/showMoreButton";
 
-import CollectionIcon from "../../../static/images/collection.svg";
-import HistoryIcon from "../../../static/images/history.svg";
-import FeedbackIcon from "../../../static/images/feedback.svg";
-import SettingsIcon from "../../../static/images/settings.svg";
-import InfoIcon from "../../../static/images/info.svg";
+import CollectionIcon from "@static/images/collection.svg";
+import HistoryIcon from "@static/images/history.svg";
+import FeedbackIcon from "@static/images/feedback.svg";
+import SettingsIcon from "@static/images/settings.svg";
+import InfoIcon from "@static/images/info.svg";
 import { useNavigation } from "@react-navigation/native";
 
 import Orientation from "react-native-orientation-locker";
-import ProfileIcon from "../../../static/images/profile.svg";
+import ProfileIcon from "@static/images/profile.svg";
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
-import MoreArrow from "../../../static/images/more_arrow.svg";
-import EditIcn from "./../../../static/images/profile/edit.svg";
+import MoreArrow from "@static/images/more_arrow.svg";
+import EditIcn from "@static/images/profile/edit.svg";
 
-import VipIcon from "../../../static/images/vip-icon.svg";
-import VipArrow from "../../../static/images/vip-arrow.svg";
-import AddIcon from "../../../static/images/vip/add.svg";
+import VipIcon from "@static/images/vip-icon.svg";
+import VipArrow from "@static/images/vip-arrow.svg";
+import AddIcon from "@static/images/vip/add.svg";
 import { YSConfig } from "../../../ysConfig";
 
 import {
   hideBottomSheetAction,
   removeScreenAction,
   showLoginAction,
-} from "../../redux/actions/screenAction";
-import { userModel } from "../../types/userType";
+} from "@redux/actions/screenAction";
+import { userModel } from "@type/userType";
 import NotificationModal from "../../components/modal/notificationModal";
 import { getUserDetails } from "../../features/user";
 import {
   updateUserAuth,
   updateUserReferral,
-} from "../../redux/actions/userAction";
+} from "@redux/actions/userAction";
 import ExpiredOverlay from "../../components/modal/expiredOverlay";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { SHOW_PAYMENT_CONST } from "../../utility/constants";
+import { SHOW_PAYMENT_CONST } from "@utility/constants";
 import FastImage from "../../components/common/customFastImage";
 
 function Profile({ navigation, route }: BottomTabScreenProps<any>) {
@@ -209,7 +209,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                     marginVertical: 2,
                   }}
                   resizeMode={"contain"}
-                  source={require("../../../static/images/profilePic.png")}
+                  source={require("@static/images/profilePic.png")}
                 />
               }
               <View
@@ -255,7 +255,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                         userState.userCurrentTimestamp && (
                           <Image
                             style={styles.iconStyle}
-                            source={require("../../../static/images/profile/vip.png")}
+                            source={require("@static/images/profile/vip.png")}
                           />
                         )}
                     </View>

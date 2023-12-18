@@ -17,9 +17,9 @@ import EighteenPlusOverlay from "../modal/overEighteenOverlay";
 import CountdownIndicator from "../button/countdownIndicator";
 import AdultModeCountdownIndicator from "./adultModeCountdownIndicator";
 import AdultModeSwitch from "./adultModeSwitch";
-import { screenModel } from "../../types/screenType";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { RootState } from "../../redux/store";
+import { screenModel } from "@type/screenType";
+import { useAppDispatch, useAppSelector } from "@hooks/hooks";
+import { RootState } from "@redux/store";
 import {
   acceptOverEighteen,
   disableAdultMode,
@@ -28,9 +28,9 @@ import {
   hideAdultModeDisclaimer,
   hideAdultModeVip,
   incrementAdultVideoWatchTime,
-} from "../../redux/actions/screenAction";
-import { userModel } from "../../types/userType";
-import { UMENG_CHANNEL } from "../../utility/constants";
+} from "@redux/actions/screenAction";
+import { userModel } from "@type/userType";
+import { UMENG_CHANNEL } from "@utility/constants";
 interface Props {}
 
 const eighteenPlusControls = ({}: Props) => {
@@ -60,6 +60,22 @@ const eighteenPlusControls = ({}: Props) => {
   //   return () => clearInterval(interval)
   // }, [adultMode])
 console.log( Platform.OS )
+
+  const handleAccept = useCallback(() => {
+    console.debug("accepted 18+");
+    dispatch(enableAdultMode());
+    dispatch(acceptOverEighteen());
+    dispatch(hideAdultModeDisclaimer());
+    // dispatch(hideAdultModeVip())
+    dispatch(enableWatchAnytimeAdultMode());
+  }, [])
+
+  const handleReject = useCallback(() => {
+    console.debug("rejected 18+");
+    dispatch(disableAdultMode());
+    dispatch(hideAdultModeDisclaimer());
+  }, [])
+
   return (
     <View
       style={{
@@ -82,19 +98,8 @@ console.log( Platform.OS )
         />
       )}
       <EighteenPlusOverlay
-        handleAccept={() => {
-          console.debug("accepted 18+");
-          dispatch(enableAdultMode());
-          dispatch(acceptOverEighteen());
-          dispatch(hideAdultModeDisclaimer());
-          // dispatch(hideAdultModeVip())
-          dispatch(enableWatchAnytimeAdultMode());
-        }}
-        handleReject={() => {
-          console.debug("rejected 18+");
-          dispatch(disableAdultMode());
-          dispatch(hideAdultModeDisclaimer());
-        }}
+        handleAccept={handleAccept}
+        handleReject={handleReject}
       />
     </View>
   );

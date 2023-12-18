@@ -12,6 +12,7 @@ export interface VodActionType {
     fromMiniVodCollectionItemIndex?: number
     miniVodCollectionItemIndex?: number,
     isAdultVideo?: boolean,
+    vodSourceId?: number,
 }
 
 export interface FavoriteVodActionType {

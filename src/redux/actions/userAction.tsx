@@ -1,4 +1,4 @@
-import {userModel} from '../../types/userType';
+import {userModel} from '@type/userType';
 
 export const addUserAuthState = (user: userModel) => ({
   type: 'add_user_auth',

@@ -5,16 +5,16 @@ import {
   View,
   TextStyle,
 } from 'react-native';
-import FavoriteIcon from '../../../static/images/favorite.svg';
+import FavoriteIcon from '@static/images/favorite.svg';
 import { useTheme } from '@react-navigation/native';
-import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-import { RootState } from '../../redux/store';
+import { useAppDispatch, useAppSelector } from '@hooks/hooks';
+import { RootState } from '@redux/store';
 import {
   addVodToFavorites,
   removeVodFromFavorites,
-} from '../../redux/actions/vodActions';
-import { VodType } from '../../types/ajaxTypes';
-import { screenModel } from '../../types/screenType';
+} from '@redux/actions/vodActions';
+import { VodType } from '@type/ajaxTypes';
+import { screenModel } from '@type/screenType';
 interface Props {
   vod: VodType;
   onPress?: any;

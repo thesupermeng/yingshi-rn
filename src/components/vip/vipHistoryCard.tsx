@@ -1,6 +1,6 @@
 import { useTheme } from "@react-navigation/native";
 import { StyleSheet, Text, View } from "react-native";
-import { vipHistoryResponseType } from "../../types/membershipType";
+import { vipHistoryResponseType } from "@type/membershipType";
 
 interface Props {
   historyItem: vipHistoryResponseType;

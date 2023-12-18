@@ -7,7 +7,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import {
   NavOptionsResponseType,
   VodCarousellResponseType,
-} from "../types/ajaxTypes";
+} from "@type/ajaxTypes";
 import {
   BottomTabScreenProps,
   useBottomTabBarHeight,
@@ -18,7 +18,7 @@ import {
   API_DOMAIN_TEST,
   IOS_HOME_PAGE_POP_UP_ADS,
   UMENG_CHANNEL,
-} from "../utility/constants";
+} from "@utility/constants";
 import CatagoryHome from "../components/container/CatagoryHome";
 import RecommendationHome from "../components/container/RecommendationHome";
 import HomeHeader from "../components/header/homeHeader";
@@ -28,9 +28,9 @@ import FastImage from "../components/common/customFastImage";
 import { useIsFocused } from "@react-navigation/native";
 import NoConnection from "./../components/common/noConnection";
 import NetInfo from "@react-native-community/netinfo";
-import { useAppSelector, useAppDispatch } from "../hooks/hooks";
-import { RootState } from "../redux/store";
-import { SettingsReducerState } from "../redux/reducers/settingsReducer";
+import { useAppSelector, useAppDispatch } from "@hooks/hooks";
+import { RootState } from "@redux/store";
+import { SettingsReducerState } from "@redux/reducers/settingsReducer";
 import HomeNav from "../components/tabNavigate/homeNav";
 
 import {
@@ -41,13 +41,13 @@ import {
 import { AdsBannerContext } from "../contexts/AdsBannerContext";
 
 
-import useInterstitialAds from "../hooks/useInterstitialAds";
+import useInterstitialAds from "@hooks/useInterstitialAds";
 import EighteenPlusOverlay from "../components/modal/overEighteenOverlay";
-import { hideAdultModeDisclaimer } from "../redux/actions/screenAction";
+import { hideAdultModeDisclaimer } from "@redux/actions/screenAction";
 
 
-import useAnalytics from "../hooks/useAnalytics";
-import { screenModel } from "../types/screenType";
+import useAnalytics from "@hooks/useAnalytics";
+import { screenModel } from "@type/screenType";
 
 
 function Home({ navigation }: BottomTabScreenProps<any>) {
@@ -167,7 +167,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
     const unsubscribe = navigation.addListener("tabPress", handleTabPress);
     // Clean up the event listener when the component unmounts or when navId changes
     return () => unsubscribe();
-  }, [navigation, isFocused, navId, handleRefresh]);
+  }, [isFocused, navId, handleRefresh]);
 
   const handleRejectEighteenPlus = useCallback(() => {
     const found = navOptions?.find((e) => e.name === screenState.lastSeenNavName);
@@ -312,7 +312,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
                   {
                     <FastImage
                       style={{ height: 80, width: 80 }}
-                      source={require("../../static/images/loading-spinner.gif")}
+                      source={require("@static/images/loading-spinner.gif")}
                       resizeMode={"contain"}
                     />
                   }
@@ -328,7 +328,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
                   }}
                 >
                   <FastImage
-                    source={require("../../static/images/home-loading.gif")}
+                    source={require("@static/images/home-loading.gif")}
                     style={{
                       width: 150,
                       height: 150,

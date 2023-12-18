@@ -21,13 +21,13 @@ import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import {
   VodPlaylistResponseType,
   VodTopicType,
-} from "../../../types/ajaxTypes";
+} from "@type/ajaxTypes";
 import VodPlaylist from "../../../components/playlist/vodPlaylist";
 import {
   BottomTabScreenProps,
   useBottomTabBarHeight,
 } from "@react-navigation/bottom-tabs";
-import { API_DOMAIN, MATCH_API_DOMAIN } from "../../../utility/constants";
+import { API_DOMAIN, MATCH_API_DOMAIN } from "@utility/constants";
 import Animated from "react-native-reanimated";
 import FastImage from "react-native-fast-image";
 // import { API } from './util';
@@ -40,13 +40,13 @@ import MatchScheduleNav from "../../components/matchSchedule/MatchScheduleNav";
 import NoConnection from "./../../../components/common/noConnection";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 
-import { userModel } from "../../../types/userType";
-import { useAppSelector } from "../../../hooks/hooks";
-import { RootState } from "../../../redux/store";
+import { userModel } from "@type/userType";
+import { useAppSelector } from "@hooks/hooks";
+import { RootState } from "@redux/store";
 import { useDispatch } from "react-redux";
 import BecomeVipOverlay from "../../../components/modal/becomeVipOverlay";
-import { SettingsReducerState } from "../../../redux/reducers/settingsReducer";
-import useAnalytics from "../../../hooks/useAnalytics";
+import { SettingsReducerState } from "@redux/reducers/settingsReducer";
+import useAnalytics from "@hooks/useAnalytics";
 
 interface NavType {
   has_submenu: boolean;
@@ -203,7 +203,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
           >
             <Image
               style={styles.iconStyle}
-              source={require("../../../../static/images/profile/vipSport.png")}
+              source={require("@static/images/profile/vipSport.png")}
             />
 
             {Number(userState.userMemberExpired) <=

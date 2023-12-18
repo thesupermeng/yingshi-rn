@@ -1,15 +1,16 @@
 import {
     ADD_VOD_TO_FAVORITES, REMOVE_VOD_FROM_FAVORITES, PLAY_VOD, TOGGLE_VOD_FAVORITES,
     TOGGLE_PLAYLIST_FAVORITES, VIEW_PLAYLIST, ADD_VOD_TO_HISTORY, CLEAR_HISTORY, REMOVE_VOD_HISTORY, SELECT_MINI_VOD_COLLECTION_ITEM
-} from "../../utility/constants"
-import { FavoriteVodActionType, VodActionType, VodPlaylistActionType } from "../../types/actionTypes"
-import { VodTopicType, VodType } from "../../types/ajaxTypes"
+} from "@utility/constants"
+import { FavoriteVodActionType, VodActionType, VodPlaylistActionType } from "@type/actionTypes"
+import { VodTopicType, VodType } from "@type/ajaxTypes"
 
 export interface VodRecordType extends VodType {
     timeWatched: number,
     recordedAt: Date,
     episodeWatched: number,
     isAdultVideo?: boolean,
+    vodSourceId: number | undefined
 }
 interface PlayVodType {
     vod: VodRecordType | null,
@@ -33,6 +34,7 @@ export function vodReducer(state = initialState, action: VodActionType) {
         recordedAt: new Date(),
         timeWatched: action.timeWatched === undefined ? 0 : action.timeWatched,
         episodeWatched: action.episodeWatched === undefined ? 0 : action.episodeWatched,
+        vodSourceId: action.vodSourceId
     };
 
     switch (action.type) {

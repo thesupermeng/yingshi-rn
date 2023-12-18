@@ -33,7 +33,7 @@ import { matchOnTime, matchRunningStatusBasketball } from '../../utility/date';
 import { MatchDetailWithRankingData } from '../../types/liveMatchTypes';
 import { MatchDetailsType, Stream } from '../../types/matchTypes';
 import { MatchUpdatesType } from '../../types/matchUpdatesType';
-import DefaultTeamIcon from '../defaultTeamIcon';
+import DefaultTeamIcon from '../DefaultTeamIcon';
 
 interface Props {
   listLiveDetails?: MatchDetailWithRankingData,

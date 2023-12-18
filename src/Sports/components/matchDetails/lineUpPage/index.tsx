@@ -8,7 +8,7 @@ import { MatchDetailWithRankingData } from '../../../types/liveMatchTypes';
 import { LineUpType } from '../../../types/lineUpTypes';
 
 // import AdsComp from '../../../components/adsComp';
-// import {useAds} from '../../../hooks/useAds';
+// import {useAds} from '@hooks/useAds';
 interface Props {
   liveRoomMatchDetails?: MatchDetailWithRankingData,
   liveRoomLineup?: LineUpType

@@ -29,10 +29,11 @@ export const LOCK_ORIENTATION = 'lock_orientation';
 
 export const UPDATE_NETWORK_INFO = 'update_network_info';
 
-// export const API_DOMAIN = 'https://api.yingshi.tv/'
-export const API_DOMAIN = 'https://api.gxhongdeli168.com/';
+export const API_DOMAIN = 'https://testapi.yingshi.tv/'
+// export const API_DOMAIN = 'https://api.gxhongdeli168.com/';
 // export const API_DOMAIN_TEST = 'https://testapi.yingshi.tv/';
-export const API_DOMAIN_TEST = 'https://api.gxhongdeli168.com/';
+export const API_DOMAIN_TEST = 'https://testapi.yingshi.tv/'
+// export const API_DOMAIN_TEST = 'https://api.gxhongdeli168.com/';
 export const API_DOMAIN_LOCAL = 'http://localhost:3000/';
 export const MATCH_API_DOMAIN = 'https://api.ggsimida.com/';
 
@@ -113,3 +114,7 @@ export const SHOW_PAYMENT_CONST = false;
 
 export const ADULT_MODE_PREVIEW_DURATION = 300; // number of seconds 
 
+// watch anytime download
+export const DOWNLOAD_WATCH_ANYTIME = false; 
+export const DOWNLOAD_BATCH_SIZE = 5; 
+export const TOTAL_VIDEO_TO_DOWNLOAD = 100; 

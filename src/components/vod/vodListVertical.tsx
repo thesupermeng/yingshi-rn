@@ -2,12 +2,12 @@ import React, { memo, useEffect, useState, useMemo } from 'react';
 import { View, Text, StyleSheet, Dimensions, FlatList, Image } from 'react-native';
 import { useNavigation, useTheme } from '@react-navigation/native';
 
-import { playVod } from '../../redux/actions/vodActions';
-import { useAppDispatch } from '../../hooks/hooks';
+import { playVod } from '@redux/actions/vodActions';
+import { useAppDispatch } from '@hooks/hooks';
 import VodCard from '../../components/vod/vodCard';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { VodType } from '../../types/ajaxTypes';
-import { disableAdultMode, enableAdultMode } from '../../redux/actions/screenAction';
+import { VodType } from '@type/ajaxTypes';
+import { disableAdultMode, enableAdultMode } from '@redux/actions/screenAction';
 
 
 interface Props {

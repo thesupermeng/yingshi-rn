@@ -1,10 +1,10 @@
 import React, { useState, useMemo, RefObject, memo, useCallback } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Dimensions, ScrollView } from 'react-native';
 import { useTheme } from '@react-navigation/native';
-import { VodEpisodeListType, VodEpisodeType } from '../../types/ajaxTypes';
+import { VodEpisodeListType, VodEpisodeType } from '@type/ajaxTypes';
 import { FlatList, GestureHandlerRootView } from 'react-native-gesture-handler';
-import SortAscIcon from '../../../static/images/sortAsc.svg';
-import SortDescIcon from '../../../static/images/sortDesc.svg';
+import SortAscIcon from '@static/images/sortAsc.svg';
+import SortDescIcon from '@static/images/sortDesc.svg';
 interface Props {
     onConfirm: any,
     onCancel: any,

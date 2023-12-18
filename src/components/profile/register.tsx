@@ -12,16 +12,16 @@ import {
 import Icon from "react-native-vector-icons/MaterialIcons"; // You can use any icon library you prefer
 
 import { registerUser } from "../../features/user";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import {
   hideBottomSheetAction,
   navigateToProfileScreen,
-} from "../../redux/actions/screenAction";
+} from "@redux/actions/screenAction";
 import { RadioButton } from "react-native-paper";
 // import FastImage from 'react-native-fast-image';
 import FastImage from "../common/customFastImage";
-import { screenModel } from "../../types/screenType";
-import { RootState } from "../../redux/store";
+import { screenModel } from "@type/screenType";
+import { RootState } from "@redux/store";
 import SpinnerOverlay from "../modal/SpinnerOverlay";
 export const Register = (props: any) => {
   const [emailValid, setEmailValid] = useState(true);
@@ -115,7 +115,7 @@ const RegisterCard = (props: any) => {
         {props.email !== "" && props.emailValid && (
           <Image
             style={styles.iconStyle}
-            source={require("../../../static/images/profile/cricket_tick.png")}
+            source={require("@static/images/profile/cricket_tick.png")}
           />
         )}
         {props.email !== "" && !props.emailValid && (
@@ -128,7 +128,7 @@ const RegisterCard = (props: any) => {
           >
             <Image
               style={styles.iconStyle}
-              source={require("../../../static/images/profile/cross.png")}
+              source={require("@static/images/profile/cross.png")}
             />
           </TouchableWithoutFeedback>
         )}
@@ -149,7 +149,7 @@ const RegisterCard = (props: any) => {
                 position: "relative",
                 top: 1,
               }}
-              source={require("../../../static/images/invite/danger.png")}
+              source={require("@static/images/invite/danger.png")}
             />
 
             <Text style={styles.danger}>{props.errEmail} </Text>
@@ -191,7 +191,7 @@ const RegisterCard = (props: any) => {
         >
           <Image
             style={styles.iconStyle}
-            source={require("../../../static/images/profile/cross.png")}
+            source={require("@static/images/profile/cross.png")}
           />
         </TouchableWithoutFeedback>
       )}
@@ -211,7 +211,7 @@ const RegisterCard = (props: any) => {
               position: "relative",
               top: 1,
             }}
-            source={require("../../../static/images/invite/danger.png")}
+            source={require("@static/images/invite/danger.png")}
           />
 
           <Text style={styles.danger}>{props.errReferral} </Text>
@@ -325,7 +325,7 @@ const RegisterCard = (props: any) => {
         <TouchableOpacity onPress={props.radioHandler}>
           {props.radioValue && (
             <Image
-              source={require("../../../static/images/profile/ticked.png")}
+              source={require("@static/images/profile/ticked.png")}
               style={{
                 height: 16,
                 width: 16,
@@ -338,7 +338,7 @@ const RegisterCard = (props: any) => {
 
           {!props.radioValue && (
             <Image
-              source={require("../../../static/images/profile/untick.png")}
+              source={require("@static/images/profile/untick.png")}
               style={{
                 height: 16,
                 width: 16,
@@ -384,7 +384,7 @@ const RegisterCard = (props: any) => {
           </Text>
           <Image
             style={{ width: 18, height: 18 }}
-            source={require("../../../static/images/profile/rightArrow.png")}
+            source={require("@static/images/profile/rightArrow.png")}
           />
         </View>
       </TouchableOpacity>

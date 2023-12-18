@@ -10,9 +10,9 @@ import {
   Platform,
 } from "react-native";
 import ScreenContainer from "../../components/container/screenContainer";
-import { RootStackScreenProps } from "../../types/navigationTypes";
+import { RootStackScreenProps } from "@type/navigationTypes";
 import { useTheme } from "@react-navigation/native";
-import { RootState } from "../../redux/store";
+import { RootState } from "@redux/store";
 import { InputItem, Button } from "@ant-design/react-native";
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
 import axios from "axios";
@@ -21,7 +21,7 @@ import {
   API_DOMAIN,
   API_DOMAIN_TEST,
   API_DOMAIN_LOCAL,
-} from "../../utility/constants";
+} from "@utility/constants";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 
 import { ScrollView } from "react-native-gesture-handler";
@@ -30,19 +30,19 @@ import InviteStep from "../../components/invite/inviteStep";
 import InviteCard from "../../components/invite/inviteCard";
 
 import InviteHeader from "../../components/invite/inviteHeader";
-import { useAppSelector } from "../../hooks/hooks";
-import { userModel } from "../../types/userType";
+import { useAppSelector } from "@hooks/hooks";
+import { userModel } from "@type/userType";
 import { useDispatch } from "react-redux";
 import { TouchableOpacity } from "@gorhom/bottom-sheet";
-import { changeScreenAction } from "../../redux/actions/screenAction";
+import { changeScreenAction } from "@redux/actions/screenAction";
 import NotificationModal from "../../components/modal/notificationModal";
 import { getUserDetails, updateUsername } from "../../features/user";
 import {
   updateUserAuth,
   updateUsernameState,
   updateUserReferral,
-} from "../../redux/actions/userAction";
-import { showToast } from "../../Sports/utility/toast";
+} from "@redux/actions/userAction";
+import { showToast } from "../../../src/Sports/utility/toast";
 import FastImage from "../../components/common/customFastImage";
 
 export default ({ navigation }: RootStackScreenProps<"个人中心">) => {
@@ -230,7 +230,7 @@ export default ({ navigation }: RootStackScreenProps<"个人中心">) => {
                   height: 34,
                   width: 34,
                 }}
-                source={require("../../../static/images/profilePic.png")}
+                source={require("@static/images/profilePic.png")}
               />
             </TouchableOpacity>
           )}
@@ -275,7 +275,7 @@ export default ({ navigation }: RootStackScreenProps<"个人中心">) => {
                         position: "relative",
                         top: 1,
                       }}
-                      source={require("../../../static/images/invite/danger.png")}
+                      source={require("@static/images/invite/danger.png")}
                     />
 
                     <Text style={styles.danger}>{errUsername} </Text>
@@ -359,7 +359,7 @@ export default ({ navigation }: RootStackScreenProps<"个人中心">) => {
                             position: "relative",
                             top: 1,
                           }}
-                          source={require("../../../static/images/invite/danger.png")}
+                          source={require("@static/images/invite/danger.png")}
                         />
 
                         <Text style={styles.danger}>{errReferral} </Text>
@@ -442,7 +442,7 @@ export default ({ navigation }: RootStackScreenProps<"个人中心">) => {
                     position: "relative",
                     top: 2,
                   }}
-                  source={require("../../../static/images/profile/copy.png")}
+                  source={require("@static/images/profile/copy.png")}
                 />
               </View>
             </View>

@@ -6,8 +6,9 @@ import { QueryClient, QueryClientProvider, useInfiniteQuery } from "@tanstack/re
 import FastImage from "../components/common/customFastImage";
 import { NetworkInfo } from "react-native-network-info";
 import Nav from "../../src/navigation/nav";
-import NavIos from "../../srcIos/navigation/nav";
-import NavA from "../../srcA/navigation/nav";
+import NavIos from "@iosScreen/navigation/nav";
+// import NavIos from "../../srcIos/navigation/nav";
+import NavA from "@androidScreen/navigation/nav";
 import axios from "axios";
 import {
   API_DOMAIN,
@@ -15,7 +16,10 @@ import {
   APP_VERSION,
   APP_NAME_CONST,
   API_DOMAIN_TEST,
-} from "../../src/utility/constants";
+  DOWNLOAD_BATCH_SIZE,
+  TOTAL_VIDEO_TO_DOWNLOAD,
+  DOWNLOAD_WATCH_ANYTIME,
+} from "@utility/constants";
 import { YSConfig } from "../../ysConfig";
 import { Dimensions, Platform } from "react-native";
 import Api from "../../src/Sports/middleware/api";
@@ -25,6 +29,9 @@ import { AppConfig } from "../../src/Sports/global/appConfig";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import RNFetchBlob from "rn-fetch-blob";
 import { Toast } from "@ant-design/react-native";
+import chunk from "lodash/chunk";
+import { AdsBannerContextProvider } from "../contexts/AdsBannerContext";
+
 
 export default () => {
   const [loadedAPI, setLoadedAPI] = useState(false);
@@ -125,17 +132,59 @@ export default () => {
     }
   };
 
+  const downloadFirstNVid = async (n:number) => {
+    // check if date file exist 
+    // if not exist, create
+    // if exist, check if today
+    // if not today, delete folder 
+    // download
+    const tempfolder = RNFetchBlob.fs.dirs.DocumentDir + `/partial/`
+    const cacheFolder = RNFetchBlob.fs.dirs.DocumentDir + '/videocache/'
+
+    if (await RNFetchBlob.fs.exists(cacheFolder) && (await RNFetchBlob.fs.ls(cacheFolder)).length > TOTAL_VIDEO_TO_DOWNLOAD) {
+      // already downloaded required amount
+      // console.debug('already done')
+      return 
+    }
+
+    if (await RNFetchBlob.fs.exists(tempfolder)){
+      await RNFetchBlob.fs.unlink(tempfolder)
+    }
+
+    const todayDateString = new Date().toDateString().replace(/\s/g, "")
+    const dateFile = RNFetchBlob.fs.dirs.DocumentDir + `/videocache/bGFzdHNhdmU=` // 'lastsave' convert to base64.. 
+    const dateFileExist = await RNFetchBlob.fs.exists(dateFile)
+    if (!dateFileExist){
+      RNFetchBlob.fs.writeFile(dateFile, todayDateString, 'base64')
+    }
+    else {
+      const fileContent = await RNFetchBlob.fs.readFile(dateFile, 'base64')
+      if (fileContent !== todayDateString){
+        await RNFetchBlob.fs.unlink(cacheFolder)
+      } 
+    }
+    
+    if (!!data){
+      const firstNVod = data.pages.flat(Infinity).slice(0,n)
+      const NChunks = chunk(firstNVod, DOWNLOAD_BATCH_SIZE)
+      for (const chunk of NChunks) {
+        // console.debug('downloading chunk')
+        await Promise.all(
+          chunk.map(vod => downloadVod(vod))
+        )
+      }
+
+    }
+  }
+
   useEffect(() => {
     getNav();
   }, []);
 
   const {data} = useInfiniteQuery(['watchAnytime', 'normal'])
   useEffect(() => {
-    if (!!data){
-      const firstFiveVod = data.pages.flat(Infinity).slice(0,10)
-      // console.debug(firstFiveVod.map(a => a.mini_video_id))
-      firstFiveVod.forEach(vod => downloadVod(vod))
-
+    if (DOWNLOAD_WATCH_ANYTIME === true){
+      downloadFirstNVid(TOTAL_VIDEO_TO_DOWNLOAD)
     }
   }, [data])
 
@@ -155,7 +204,7 @@ export default () => {
               }}
             >
               <FastImage
-                source={require("../../static/images/home-loading.gif")}
+                source={require("@static/images/home-loading.gif")}
                 style={{
                   width: 150,
                   height: 150,
@@ -171,11 +220,15 @@ export default () => {
             <>
               {areaNavConfig == true ? (
                 // B面的B面
-                <Nav />
+                <AdsBannerContextProvider>
+                  <Nav />
+                </AdsBannerContextProvider>
               ) : (
                 <>
-                  {Platform.OS === "ios" && <NavIos />}
-                  {Platform.OS === "android" && <NavA />}
+                  <AdsBannerContextProvider>
+                    {Platform.OS === "ios" && <NavIos />}
+                    {Platform.OS === "android" && <NavA />}
+                  </AdsBannerContextProvider>
                 </>
               )}
             </>
@@ -188,20 +241,22 @@ export default () => {
 
 function downloadVod(vod){
   const fileLocation = RNFetchBlob.fs.dirs.DocumentDir + `/videocache/${vod.mini_video_id}.mp4`
+  const temp = RNFetchBlob.fs.dirs.DocumentDir + `/partial/${vod.mini_video_id}`
 
   const fileExist = RNFetchBlob.fs.exists(fileLocation)
 
-  fileExist.then((exist) => {
+  return fileExist.then((exist) => {
     if (exist){
       // console.debug('file exist!')
     } else {
-      RNFetchBlob
+      return RNFetchBlob
       .config({
-        path: fileLocation
+        path: temp
       })
       .fetch('GET', vod.mini_video_origin_video_url)
       .then((res) =>{
         // console.debug('finished download', res.path())
+        return RNFetchBlob.fs.mv(res.path(), fileLocation)
       })
     }
   })

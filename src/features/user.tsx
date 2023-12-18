@@ -1,7 +1,7 @@
-import { API_DOMAIN, API_DOMAIN_TEST } from "../utility/constants";
+import { API_DOMAIN, API_DOMAIN_TEST } from "@utility/constants";
 import axios from "axios";
-import { useAppSelector } from "../hooks/hooks";
-import { RootState } from "../redux/store";
+import { useAppSelector } from "@hooks/hooks";
+import { RootState } from "@redux/store";
 import deviceInfoModule from "react-native-device-info";
 //import {refreshUserToken, updateAnonymous} from '~redux/auth/authSlice';
 import DeviceInfo from "react-native-device-info";
@@ -11,7 +11,7 @@ import { Platform } from "react-native";
 import {
   YING_SHI_PRODUCT_ANDROID,
   YING_SHI_PRODUCT_IOS,
-} from "../utility/constants";
+} from "@utility/constants";
 
 // new code
 export const registerUser = async ({ email, referral_code, otp }: any) => {

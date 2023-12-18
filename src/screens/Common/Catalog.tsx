@@ -13,26 +13,26 @@ import {
 import ScreenContainer from '../../components/container/screenContainer';
 import {useFocusEffect, useTheme} from '@react-navigation/native';
 
-import {RootStackScreenProps} from '../../types/navigationTypes';
+import {RootStackScreenProps} from '@type/navigationTypes';
 import {
   FilterOptionsResponseType,
   FilterOptionsTypeExtendObj,
   SuggestResponseType,
   SuggestedVodType,
   VodType,
-} from '../../types/ajaxTypes';
-import {playVod} from '../../redux/actions/vodActions';
-import {useAppDispatch} from '../../hooks/hooks';
+} from '@type/ajaxTypes';
+import {playVod} from '@redux/actions/vodActions';
+import {useAppDispatch} from '@hooks/hooks';
 import {
   useInfiniteQuery,
   useQuery,
   useQueryClient,
 } from '@tanstack/react-query';
 import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
-import {API_DOMAIN, API_DOMAIN_TEST} from '../../utility/constants';
+import {API_DOMAIN, API_DOMAIN_TEST} from '@utility/constants';
 import VodTopicFilter from '../../components/vod/vodTopicFilter';
 import VodCard from '../../components/vod/vodCard';
-import DownArrow from '../../../static/images/arrow_down_yellow.svg';
+import DownArrow from '@static/images/arrow_down_yellow.svg';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Animated, {
   useSharedValue,
@@ -550,7 +550,7 @@ export default ({navigation, route}: RootStackScreenProps<'片库'>) => {
                 {hasNextPage && (
                   <FastImage
                     style={{height: 80, width: 80}}
-                    source={require('../../../static/images/loading-spinner.gif')}
+                    source={require('@static/images/loading-spinner.gif')}
                     resizeMode={'contain'}
                   />
                 )}

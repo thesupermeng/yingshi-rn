@@ -1,4 +1,28 @@
 {
   "extends": "@tsconfig/react-native/tsconfig.json",
-  "include": ["src/screens", "src/navigation", "src/components", "src/custom.d.ts", "src/*.d.ts", "src/hooks/hooks.tsx", "src/hooks/useOrientation.tsx", "src/components/vod/.tsx", "src/Sports/middleware/url.js", "src/Sports", "src/contexts/AdultVideoContext.tsx"]
+  "compilerOptions": {
+    "paths": {
+      "@redux/*": [
+        "./src/redux/*"
+      ],
+      "@hooks/*": [
+        "./src/hooks/*"
+      ],
+      "@type/*": [
+        "./src/types/*"
+      ],
+      "@utility/*": [
+        "./src/utility/*"
+      ],
+      "@static/*": [
+        "./static/*"
+      ],
+      "@androidScreen/*": [
+        "./src/aScreen.android/*"
+      ],
+      "@iosScreen/*": [
+        "./src/aScreen.ios/*"
+      ],
+    },
+  }
 }

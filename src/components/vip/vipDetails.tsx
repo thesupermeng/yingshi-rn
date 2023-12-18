@@ -1,5 +1,5 @@
 import LinearGradient from "react-native-linear-gradient";
-import { RootStackScreenProps } from "../../types/navigationTypes";
+import { RootStackScreenProps } from "@type/navigationTypes";
 import ScreenContainer from "../container/screenContainer";
 import TitleWithBackButtonHeader from "../header/titleWithBackButtonHeader";
 import { useTheme } from "@react-navigation/native";
@@ -8,7 +8,7 @@ import { VipNav } from "../tabNavigate/vipNav";
 import { useEffect, useState } from "react";
 import { VipPurchaseHistory } from "./vipPurchaseHistory";
 import { VipInviteHistory } from "./vipInviteHistory";
-import { SHOW_PAYMENT_CONST } from "../../utility/constants";
+import { SHOW_PAYMENT_CONST } from "@utility/constants";
 
 export const VipDetails = ({
   route,
