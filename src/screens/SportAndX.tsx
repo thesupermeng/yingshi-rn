@@ -142,72 +142,26 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
   // bgVipXvod
   return (
     <>
-       <ImageBackground 
+      <ImageBackground
         source={require("./../../static/images/bgVipSport.png")}
         resizeMode="cover"
-        style={{ flex: 1 , height:200, }} >
-    <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
-   
-      <BecomeVipOverlay
-        setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
-        showBecomeVIPOverlay={showBecomeVIPOverlay}
-      />
-
-      <View
-        style={{
-         // backgroundColor: colors.background,
-          paddingLeft: spacing.sideOffset,
-          paddingRight: spacing.sideOffset,
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-          paddingVertical: 8,
-        }}
+        style={{ flex: 1, height: 200 }}
       >
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <TouchableOpacity
-            onPress={() => {
-              setSelectedTab("sport");
-            }}
-          >
-            <View style={{ flexDirection: "row" }}>
-              {selectedTab == "sport" && (
-                <View style={{ paddingRight: 5 }}>
-                  <SportTabIcon width={18} />
-                </View>
-              )}
-              <Text
-                style={{
-                  ...textVariants.bigHeader,
-                  color: colors.text,
-                  fontSize: selectedTab == "sport" ? 22 : 19,
-                }}
-              >
-                体育
-              </Text>
-            </View>
-          </TouchableOpacity>
+        <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
+          <BecomeVipOverlay
+            setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
+            showBecomeVIPOverlay={showBecomeVIPOverlay}
+          />
 
-          <Text
+          <View
             style={{
-              ...textVariants.bigHeader,
-              color: colors.text,
-              fontSize: 20,
-              paddingHorizontal: 10,
-            }}
-          >
-            |
-          </Text>
-
-          <TouchableOpacity
-            onPress={() => {
-              setSelectedTab("xvod");
+              // backgroundColor: colors.background,
+              paddingLeft: spacing.sideOffset,
+              paddingRight: spacing.sideOffset,
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+              paddingVertical: 8,
             }}
           >
             <View
@@ -217,91 +171,136 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                 alignItems: "center",
               }}
             >
-              {selectedTab == "xvod" && (
-                <View style={{ paddingRight: 5 }}>
-                  <XvodTabIcon width={18} />
+              <TouchableOpacity
+                onPress={() => {
+                  setSelectedTab("sport");
+                }}
+              >
+                <View style={{ flexDirection: "row" }}>
+                  {selectedTab == "sport" && (
+                    <View style={{ paddingRight: 5 }}>
+                      <SportTabIcon width={18} />
+                    </View>
+                  )}
+                  <Text
+                    style={{
+                      ...textVariants.bigHeader,
+                      color: colors.text,
+                      fontSize: selectedTab == "sport" ? 22 : 19,
+                    }}
+                  >
+                    体育
+                  </Text>
                 </View>
-              )}
+              </TouchableOpacity>
+
               <Text
                 style={{
                   ...textVariants.bigHeader,
                   color: colors.text,
-
-                  fontSize: selectedTab == "xvod" ? 22 : 19,
+                  fontSize: 20,
+                  paddingHorizontal: 10,
                 }}
               >
-                夜来香
+                |
               </Text>
+
+              <TouchableOpacity
+                onPress={() => {
+                  setSelectedTab("xvod");
+                }}
+              >
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  {selectedTab == "xvod" && (
+                    <View style={{ paddingRight: 5 }}>
+                      <XvodTabIcon width={18} />
+                    </View>
+                  )}
+                  <Text
+                    style={{
+                      ...textVariants.bigHeader,
+                      color: colors.text,
+
+                      fontSize: selectedTab == "xvod" ? 22 : 19,
+                    }}
+                  >
+                    夜来香
+                  </Text>
+                </View>
+              </TouchableOpacity>
             </View>
-          </TouchableOpacity>
-        </View>
 
-        <TouchableOpacity
-          activeOpacity={
-            Number(userState.userMemberExpired) <=
-              Number(userState.userCurrentTimestamp) ||
-            userState.userToken === ""
-              ? 0.5
-              : 1
-          }
-          onPress={() => {
-            if (
-              Number(userState.userMemberExpired) <=
-                Number(userState.userCurrentTimestamp) ||
-              userState.userToken === ""
-            ) {
-              setShowBecomeVIPOverlay(true);
-            }
-          }}
-        >
-          <View style={styles.headerContainerRight}>
-            <Image
-              style={styles.iconStyle}
-              source={require("@static/images/profile/vipSport.png")}
-            />
+            <TouchableOpacity
+              activeOpacity={
+                Number(userState.userMemberExpired) <=
+                  Number(userState.userCurrentTimestamp) ||
+                userState.userToken === ""
+                  ? 0.5
+                  : 1
+              }
+              onPress={() => {
+                if (
+                  Number(userState.userMemberExpired) <=
+                    Number(userState.userCurrentTimestamp) ||
+                  userState.userToken === ""
+                ) {
+                  setShowBecomeVIPOverlay(true);
+                }
+              }}
+            >
+              <View style={styles.headerContainerRight}>
+                <Image
+                  style={styles.iconStyle}
+                  source={require("@static/images/profile/vipSport.png")}
+                />
 
-            {Number(userState.userMemberExpired) <=
-              Number(userState.userCurrentTimestamp) ||
-            userState.userToken === "" ? (
-              <Text
-                style={{
-                  color: colors.text,
-                  fontSize: 14,
-                }}
-              >
-                成为VIP
-              </Text>
-            ) : (
-              <Text
-                style={{
-                  color: colors.text,
-                  fontSize: 14,
-                }}
-              >
-                VIP {vipRemainingDay}天
-              </Text>
-            )}
+                {Number(userState.userMemberExpired) <=
+                  Number(userState.userCurrentTimestamp) ||
+                userState.userToken === "" ? (
+                  <Text
+                    style={{
+                      color: colors.text,
+                      fontSize: 14,
+                    }}
+                  >
+                    成为VIP
+                  </Text>
+                ) : (
+                  <Text
+                    style={{
+                      color: colors.text,
+                      fontSize: 14,
+                    }}
+                  >
+                    VIP {vipRemainingDay}天
+                  </Text>
+                )}
+              </View>
+            </TouchableOpacity>
           </View>
-        </TouchableOpacity>
-      </View>
 
-      {selectedTab == "sport" &&
-        matchTabs &&
-        matchTabs.length > 0 &&
-        !isOffline && (
-          <MatchScheduleNav
-            setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
-            tabList={matchTabs}
-          />
-          // <Text>sport</Text>
-        )}
+          {selectedTab == "sport" &&
+            matchTabs &&
+            matchTabs.length > 0 &&
+            !isOffline && (
+              <MatchScheduleNav
+                setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
+                tabList={matchTabs}
+              />
+              // <Text>sport</Text>
+            )}
 
-      {selectedTab == "xvod" && <Text>xvod</Text>}
+          {selectedTab == "xvod" && <Text>xvod</Text>}
 
-      {isOffline && <NoConnection onClickRetry={checkConnection} />}
-   
-    </ScreenContainer>
-    </ImageBackground>
+          {isOffline && <NoConnection onClickRetry={checkConnection} />}
+        </ScreenContainer>
+      </ImageBackground>
     </>
   );
 };
