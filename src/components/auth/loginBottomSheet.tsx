@@ -73,7 +73,7 @@ function LoginBottomSheet({
         Keyboard.dismiss();
         loginRef.current?.resetValue();
       }}
-      maxHeight={'90%'}
+    // maxHeight={'90%'}
     >
       <LoginForm
         ref={loginRef}
