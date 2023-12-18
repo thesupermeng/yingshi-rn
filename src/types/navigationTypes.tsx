@@ -11,6 +11,7 @@ export type HomeTabParamList = {
   播单: undefined;
   我的: undefined;
   体育: undefined;
+  VIP特权: undefined;
 };
 
 export type ProfileTabParamList = {
