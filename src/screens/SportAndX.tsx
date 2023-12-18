@@ -13,6 +13,7 @@ import {
   TouchableOpacity,
   Dimensions,
   Image,
+  ImageBackground,
 } from "react-native";
 import ScreenContainer from "../components/container/screenContainer";
 import { useFocusEffect, useTheme } from "@react-navigation/native";
@@ -138,9 +139,15 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     setIsRefreshing(false);
     return;
   }, []);
-
+  // bgVipXvod
   return (
+    <>
+       <ImageBackground 
+        source={require("./../../static/images/bgVipSport.png")}
+        resizeMode="cover"
+        style={{ flex: 1 , height:200, }} >
     <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
+   
       <BecomeVipOverlay
         setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
         showBecomeVIPOverlay={showBecomeVIPOverlay}
@@ -148,7 +155,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
 
       <View
         style={{
-          backgroundColor: colors.background,
+         // backgroundColor: colors.background,
           paddingLeft: spacing.sideOffset,
           paddingRight: spacing.sideOffset,
           flexDirection: "row",
@@ -172,16 +179,13 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
             <View style={{ flexDirection: "row" }}>
               {selectedTab == "sport" && (
                 <View style={{ paddingRight: 5 }}>
-               
                   <SportTabIcon width={18} />
                 </View>
               )}
-
               <Text
                 style={{
                   ...textVariants.bigHeader,
                   color: colors.text,
-
                   fontSize: selectedTab == "sport" ? 22 : 19,
                 }}
               >
@@ -285,17 +289,20 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
         matchTabs &&
         matchTabs.length > 0 &&
         !isOffline && (
-          // <MatchScheduleNav
-          //   setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
-          //   tabList={matchTabs}
-          // />
-          <Text>sport</Text>
+          <MatchScheduleNav
+            setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
+            tabList={matchTabs}
+          />
+          // <Text>sport</Text>
         )}
 
       {selectedTab == "xvod" && <Text>xvod</Text>}
 
       {isOffline && <NoConnection onClickRetry={checkConnection} />}
+   
     </ScreenContainer>
+    </ImageBackground>
+    </>
   );
 };
 
