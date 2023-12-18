@@ -52,6 +52,7 @@ export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
     []
   );
   const [showResults, setShowResults] = useState(false);
+  const [searchLimit, setSearchLimit] = useState(0)
 
   const dispatch = useAppDispatch();
   const searchHistory = useAppSelector(
@@ -65,6 +66,8 @@ export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
     searchResultViewsAnalytics,
     searchResultClicksAnalytics,
   } = useAnalytics();
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
 
   const { data: recommendations } = useQuery({
     queryKey: ["recommendationList"],
@@ -92,6 +95,7 @@ export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
           setSearchResults([]);
         } else {
           setSearchResults(json.data.List);
+          //BACKEND API LIMITS ITEMS TO 10 PER PAGE
 
           // ========== for analytics - start ==========
           if (userSearch) searchResultViewsAnalytics();
@@ -105,6 +109,42 @@ export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
         setisFetching(false);
       });
   }
+
+  async function fetchNextPage(text: string, userSearch: boolean = false) {
+    if (!hasMore || isFetching) {
+      return; // If no more items to fetch or already fetching, return
+    }
+
+    setisFetching(true);
+
+    const nextPage = page + 1;
+    fetch(`${API_DOMAIN}vod/v2/vod?wd=${text}&limit=50&page=${nextPage}`)
+      .then((response) => response.json())
+      .then((json: SuggestResponseType) => {
+        setSearchTimer(0);
+
+        if (json.data.List === null || json.data.List.length === 0) {
+          setHasMore(false); // No more items available
+        } else {
+          // Append the new results to the existing ones
+          setSearchResults([...searchResults, ...json.data.List]);
+          setPage(nextPage);
+          // ========== for analytics - start ==========
+          if (userSearch) searchResultViewsAnalytics();
+          // ========== for analytics - end ==========
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+      .finally(() => {
+        setisFetching(false);
+      });
+  }
+
+  const handleEndReached = () => {
+    fetchNextPage(search, true); // Fetch next page when reaching the end
+  };
 
   useEffect(() => {
     if (route.params.initial !== "") {
@@ -229,6 +269,14 @@ export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
           contentContainerStyle={{ flexGrow: 1 }}
           showsVerticalScrollIndicator={false} // Hide the vertical scroll bar
           keyboardDismissMode="on-drag"
+          onScroll={({ nativeEvent }) => {
+            const offsetY = nativeEvent.contentOffset.y;
+            const contentHeight = nativeEvent.contentSize.height;
+            const height = nativeEvent.layoutMeasurement.height;
+            if (offsetY >= contentHeight - height && !isFetching) {
+              handleEndReached();
+            }
+          }}
         >
           <View style={{ marginLeft: 10 }}>
             {search !== undefined &&
