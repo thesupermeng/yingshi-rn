@@ -143,10 +143,12 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
   return (
     <>
       <ImageBackground
-        source={require("./../../static/images/bgVipSport.png")}
+        source={ selectedTab == "sport"   ? require("./../../static/images/bgVipSport.png") : require("./../../static/images/bgVipXvod.png")}
         resizeMode="cover"
         style={{ flex: 1, height: 200 }}
       >
+
+        
         <ScreenContainer isBgHide={true} containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
           <BecomeVipOverlay
             setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
@@ -329,7 +331,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#222327",
+    backgroundColor: "rgba(34, 35, 39 , 0.7)",
     paddingHorizontal: 10,
     borderRadius: 30,
     paddingVertical: 5,
