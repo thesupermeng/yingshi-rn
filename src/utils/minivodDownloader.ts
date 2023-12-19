@@ -10,7 +10,7 @@ async function downloadVod(vod: MiniVideo){
 
   if (await RNFetchBlob.fs.exists(cacheFolder)){
     if ((await RNFetchBlob.fs.ls(cacheFolder)).length >= TOTAL_VIDEO_TO_DOWNLOAD){
-      console.debug('exceed limit, no download')
+      // console.debug('exceed limit, no download')
       return
     }
   } else{
@@ -21,7 +21,7 @@ async function downloadVod(vod: MiniVideo){
 
   return fileExist.then((exist) => {
     if (exist){
-      console.debug('file exist!')
+      // console.debug('file exist!')
     } else {
       return RNFetchBlob
       .config({
@@ -29,8 +29,8 @@ async function downloadVod(vod: MiniVideo){
       })
       .fetch('GET', vod.mini_video_origin_video_url)
       .then((res) =>{
-        console.debug('finished download', res.path())
-        console.debug('moving to ', fileLocation)
+        // console.debug('finished download', res.path())
+        // console.debug('moving to ', fileLocation)
         return RNFetchBlob.fs.mv(res.path(), fileLocation)
       })
     }
@@ -48,7 +48,7 @@ export const downloadFirstNVid = async (n:number, vods: MiniVideo[]) => {
 
   if (await RNFetchBlob.fs.exists(cacheFolder) && (await RNFetchBlob.fs.ls(cacheFolder)).length > TOTAL_VIDEO_TO_DOWNLOAD) {
     // already downloaded required amount
-    console.debug('already done')
+    // console.debug('already done')
     return 
   }
   // if ((await RNFetchBlob.fs.ls(cacheFolder)).length >= 300) return // video exceed limit 
@@ -73,6 +73,7 @@ export const downloadFirstNVid = async (n:number, vods: MiniVideo[]) => {
   const NChunks = chunk(vods, DOWNLOAD_BATCH_SIZE)
   for (const chunk of NChunks) {
     // console.debug('downloading chunk')
+    if (await RNFetchBlob.fs.exists(cacheFolder) && (await RNFetchBlob.fs.ls(cacheFolder)).length > TOTAL_VIDEO_TO_DOWNLOAD) break
     await Promise.all(
       chunk.map(vod => downloadVod(vod))
     )
@@ -85,7 +86,7 @@ export const deleteCachedVideos = async () => {
 
   for (const id of excludedIds) {
     await deleteFile(id)
-    console.debug('Deleted file with id', id)
+    // console.debug('Deleted file with id', id)
   }
 
 
@@ -96,7 +97,7 @@ const deleteFile = async (id: string) => {
   const targetFilePath = cacheFolderPath + `${id}.mp4` // assuming file is mp4
 
   if (!(await RNFetchBlob.fs.exists(targetFilePath))) {
-    console.debug('Ignored. File not found')
+    // console.debug('Ignored. File not found')
     return 
     // do nothing if file not exist
   }
@@ -109,7 +110,7 @@ export const addIdToCache = async (id: string) => {
   const todayStr = new Date().toISOString().slice(0, 10)
   const cacheFileName = await getCacheFileName() 
   if (!cacheFileName){
-    console.debug('cache file not exist, create')
+    // console.debug('cache file not exist, create')
     RNFetchBlob.fs.createFile(`${RNFetchBlob.fs.dirs.DocumentDir}/watched.${todayStr}`, '', 'utf8')
   }
 
@@ -121,7 +122,7 @@ export const addIdToCache = async (id: string) => {
   
   const entry = `${id}|${todayStr}\n`
   await RNFetchBlob.fs.appendFile(watchedVidsPath, entry, 'utf8')
-  console.debug('adding to cachefile')
+  // console.debug('adding to cachefile')
 }
 
 export const getExcludedIds = async () : Promise<string[]> => {
@@ -159,7 +160,7 @@ export const checkExpiredCacheFile = async (days: number) => {
 
   const cacheFileName = await getCacheFileName()
   if (!cacheFileName) return 
-  const [_, dateCreatedStr] = cacheFileName.split('|')
+  const [_, dateCreatedStr] = cacheFileName.split('.')
   const dateCreated = new Date(dateCreatedStr)
   const today = new Date(); 
   today.setHours(0,0,0,0);
@@ -167,10 +168,10 @@ export const checkExpiredCacheFile = async (days: number) => {
   const diffDays = Math.ceil((today.valueOf() - dateCreated.valueOf()) / (1000 * 60 * 60 * 24))
 
   if (diffDays >= days) {
-    console.debug('cache file more than 3 days, deleting')
+    // console.debug('cache file more than 3 days, deleting')
     await RNFetchBlob.fs.unlink(`${RNFetchBlob.fs.dirs.DocumentDir}/${cacheFileName}`)
   } else {
-    console.debug('cache file still not expired. keep')
+    // console.debug('cache file still not expired. keep')
   }
   
 }

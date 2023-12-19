@@ -10,9 +10,7 @@ type MiniVideoResponseType = {
 };
 
 const fetchMiniVods = async (page: number) => {
-  console.log('page', page)
-  // const excluded = await getExcludedIds()
-  const excluded = [1,2,3]
+  const excluded = await getExcludedIds()
   const res = await fetch(`${API_DOMAIN_TEST}miniVod/v2/miniVod?page=${page}&limit=300&exclude=${excluded.join(',')}`)
   const json: MiniVideoResponseType = await res.json()
   return json.data.List
@@ -29,7 +27,6 @@ const prefetchMiniVod = async (queryClient: QueryClient) => {
 };
 
 const fetchAdultVods = async (page: number) =>{
-      console.debug(page)
       return fetch(`${API_DOMAIN_TEST}miniSVod/v1/miniSVod?page=${page}&limit=300`)
         .then((response) => response.json())
         .then((json: MiniVideoResponseType) => {
