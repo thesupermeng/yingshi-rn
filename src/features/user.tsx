@@ -123,47 +123,47 @@ export const signinupUser = async ({
 //   return result;
 // };
 
-// export const updateUsername = async ({
-//   username,
-//   referralCode,
-//   bearerToken,
-// }: any) => {
-//   // Define your request headers
-//   const headers = {
-//     Authorization: `Bearer ${bearerToken}`,
-//     "Content-Type": "application/json", // Set your content type accordingly
-//   };
+export const updateUsername = async ({
+  username,
+  referralCode,
+  bearerToken,
+}: any) => {
+  // Define your request headers
+  const headers = {
+    Authorization: `Bearer ${bearerToken}`,
+    "Content-Type": "application/json", // Set your content type accordingly
+  };
 
-//   let json = {
-//     username: username,
-//     referral_code: referralCode,
-//   };
+  let json = {
+    username: username,
+    referral_code: referralCode,
+  };
 
-//   let result = await axios.post(API_DOMAIN_TEST + "users/v1/update", json, {
-//     headers: headers,
-//   });
+  let result = await axios.post(API_DOMAIN_TEST + "users/v1/update", json, {
+    headers: headers,
+  });
 
-//   return result;
-// };
+  return result;
+};
 
-// export const getUserDetails = async ({ bearerToken }: any) => {
-//   if (bearerToken == "") {
-//     return null;
-//   }
-//   let deviceId = await DeviceInfo.getUniqueId();
-//   if (typeof deviceId !== "string") {
-//     deviceId = JSON.stringify(deviceId);
-//   }
-//   // Define your request headers
-//   const headers = {
-//     Authorization: `Bearer ${bearerToken}`,
-//     "Content-Type": "application/json", // Set your content type accordingly
-//     "Device-Id": deviceId
-//   };
+export const getUserDetails = async ({ bearerToken }: any) => {
+  if (bearerToken == "") {
+    return null;
+  }
+  let deviceId = await DeviceInfo.getUniqueId();
+  if (typeof deviceId !== "string") {
+    deviceId = JSON.stringify(deviceId);
+  }
+  // Define your request headers
+  const headers = {
+    Authorization: `Bearer ${bearerToken}`,
+    "Content-Type": "application/json", // Set your content type accordingly
+    "Device-Id": deviceId
+  };
 
-//   let result = await axios.get(API_DOMAIN_TEST + "users/v1/me", {
-//     headers: headers,
-//   });
+  let result = await axios.get(API_DOMAIN_TEST + "users/v1/me", {
+    headers: headers,
+  });
 
-//   return result;
-// };
+  return result;
+};
