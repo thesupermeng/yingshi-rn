@@ -138,7 +138,7 @@ export default function MatchScheduleNav({
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "transparent" }}>
-      {showLoading && (
+      {/* {showLoading && (
         <View
           style={{
             width: "100%",
@@ -157,7 +157,7 @@ export default function MatchScheduleNav({
             resizeMode={"contain"}
           />
         </View>
-      )}
+      )} */}
 
       <Tab.Navigator
         keyboardDismissMode="none"
@@ -225,13 +225,7 @@ export default function MatchScheduleNav({
           })}
           children={() => (
             <>
-              <ScrollView
-                bounces={false}
-                alwaysBounceHorizontal={false}
-                alwaysBounceVertical={false}
-                showsVerticalScrollIndicator={false}
-                showsHorizontalScrollIndicator={false}
-              >
+             
                 <MatchScheduleListVip
                   bgDark={true}
                   isLive={true}
@@ -239,7 +233,7 @@ export default function MatchScheduleNav({
                   matchTypeID={-1}
                   status={-1}
                 />
-              </ScrollView>
+            
             </>
           )}
         />

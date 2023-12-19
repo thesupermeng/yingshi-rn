@@ -11,7 +11,7 @@ import { MatchDetailsType } from "../../types/matchTypes";
 import { Url } from "../../middleware/url";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import Api from "../../middleware/api";
-import MatchSchedule from "./MatchSchedule";
+import MatchScheduleVip from "./MatchScheduleVip";
 // import FastImage from 'react-native-fast-image';
 import FastImage from "../../../components/common/customFastImage";
 import { TOPON_BANNER_HEIGHT } from "@utility/constants";
@@ -154,13 +154,16 @@ const MatchScheduleList = ({
               }}
             >
               <Text style={textVariants.header}>
-                {item?.date} {index}
+                {item?.date} 
+               
               </Text>
             </View>
           ) : (
             item?.data !== undefined && (
               <>
-                <MatchSchedule
+         {/* <Text>{String(matches?.data.length > (index + 1) && matches?.data[index+1]?.date !== undefined  )}</Text> */}
+                <MatchScheduleVip
+                  borderFlag={String(matches?.data.length > (index + 1) && matches?.data[index+1]?.date !== undefined  )}
                   bgDark={true}
                   setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
                   key={index}
