@@ -1,35 +1,23 @@
+import React, {
+  useEffect,
+  useState,
+  useMemo,
+  useRef,
+  useCallback,
+} from "react";
+import { View, Text, StyleSheet, SafeAreaView, ScrollView } from "react-native";
+import { useTheme, useFocusEffect } from "@react-navigation/native";
+import { Dimensions } from "react-native";
+import FastImage from "react-native-fast-image";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import MatchScheduleList from "./MatchScheduleList";
 
-import React, {useEffect, useState, useMemo, useRef, useCallback} from 'react';
-import {
-  View,
-  TouchableOpacity,
-  Share,
-  Text,
-  StyleSheet,
-  Alert,
-  ScrollView,
-  Image,
-  SafeAreaView,
-} from 'react-native';
-import {useTheme, useFocusEffect} from '@react-navigation/native';
-
-import Orientation from 'react-native-orientation-locker';
-
-import {Dimensions} from 'react-native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import FastImage from 'react-native-fast-image';
-import BottomSheet from '@gorhom/bottom-sheet';
-import {DetailTab} from '@type/ajaxTypes';
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import MatchSchedule from './MatchSchedule';
-import {tapGestureHandlerProps} from 'react-native-gesture-handler/lib/typescript/handlers/TapGestureHandler';
-import MatchScheduleList from './MatchScheduleList';
 
 const Tab = createMaterialTopTabNavigator();
 
 interface Props {
   streamId?: number;
-  tabList?: {title: string; id: number; name: string}[];
+  tabList?: { title: string; id: number; name: string }[];
   setShowBecomeVIPOverlay: any;
 }
 
@@ -38,34 +26,36 @@ export default function MatchScheduleNav({
   streamId,
   setShowBecomeVIPOverlay,
 }: Props) {
-  const {colors, textVariants, spacing} = useTheme();
-  const width = Dimensions.get('window').width;
+  const { colors, textVariants, spacing } = useTheme();
+  const width = Dimensions.get("window").width;
 
   const [showLoading, setShowLoading] = useState(true);
 
-  useEffect(() =>{
-    // fake loading to ensure all assets are loaded 
+  useEffect(() => {
+    // fake loading to ensure all assets are loaded
     setTimeout(() => {
-      setShowLoading(false)
+      setShowLoading(false);
     }, 1000);
-  }, [])
+  }, []);
 
   const renderTabs = (tab: any, index: any) => {
-
     const tabScreenChild = (i: number) => (
-      <MatchScheduleList
-        setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
-        matchTypeID={tab.id}
-        status={i}
-      />
-    )
+      <>
+        <MatchScheduleList
+      bgDark={true}
+          setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
+          matchTypeID={tab.id}
+          status={i}
+        />
+      </>
+    );
 
     return (
       <Tab.Screen
         key={index}
         name={tab.name}
-        options={({route}) => ({
-          tabBarLabel: ({focused, color}) =>
+        options={({ route }) => ({
+          tabBarLabel: ({ focused, color }) =>
             focused ? (
               <Text
                 style={{
@@ -73,9 +63,10 @@ export default function MatchScheduleNav({
                   color: colors.primary,
                   height: 30,
                   width: 40,
-                  textAlignVertical: 'bottom',
+                  textAlignVertical: "bottom",
                   fontWeight: textVariants.selected.fontWeight,
-                }}>
+                }}
+              >
                 {tab.name}
               </Text>
             ) : (
@@ -85,9 +76,10 @@ export default function MatchScheduleNav({
                   color: colors.muted,
                   height: 30,
                   width: 40,
-                  textAlignVertical: 'bottom',
+                  textAlignVertical: "bottom",
                   fontWeight: textVariants.unselected.fontWeight,
-                }}>
+                }}
+              >
                 {tab.name}
               </Text>
             ),
@@ -117,10 +109,12 @@ export default function MatchScheduleNav({
               },
               tabBarStyle: {
                 paddingLeft: 8,
-                marginTop: -8,
-                backgroundColor:'transparent'
+                backgroundColor: "#0c0c0c",
+                borderTopRightRadius: 10,
+                borderTopLeftRadius: 10,
               },
-            }}>
+            }}
+          >
             <Tab.Screen
               key={`inner-${index}-1`}
               name="进行中"
@@ -139,40 +133,44 @@ export default function MatchScheduleNav({
           </Tab.Navigator>
         )}
       />
-    )
-  }
+    );
+  };
 
   return (
-    <SafeAreaView style={{flex: 1}}> 
-      {showLoading && <View 
-        style={{
-          width: '100%', 
-          height: '100%', 
-          position: 'absolute', 
-          zIndex: 1000, 
-          backgroundColor: 'rgb(20,22,25)',
-          justifyContent: 'center', 
-          alignItems: 'center'
-        }}
-      >
-        <FastImage
-          style={{ height: 150, width: 150 }}
-          source={require("@static/images/home-loading.gif")}
-          resizeMode={"contain"}
-        />
-      </View>}
+    <SafeAreaView  style={{ flex: 1  , backgroundColor : 'transparent'}}>
+      {showLoading && (
+        <View
+          style={{
+            width: "100%",
+            height: "100%",
+            position: "absolute",
+            zIndex: 1000,
+      backgroundColor:'#000',
+            justifyContent: "center",
+            alignItems: "center",
+            borderRadius: 20,
+          }}
+        >
+          <FastImage
+            style={{ height: 150, width: 150 }}
+            source={require("@static/images/home-loading.gif")}
+            resizeMode={"contain"}
+          />
+        </View>
+      )}
+
       <Tab.Navigator
         keyboardDismissMode="none"
-        screenOptions={({route}) => ({
+        screenOptions={({ route }) => ({
           tabBarScrollEnabled: true,
           tabBarIndicatorStyle: {
             // height: 4,
             opacity: 0,
           },
           tabBarItemStyle: {
-            alignItems: 'center',
-            display: 'flex',
-            flexDirection: 'row-reverse',
+            alignItems: "center",
+            display: "flex",
+            flexDirection: "row-reverse",
             width: 50,
             paddingTop: 0,
             paddingBottom: 0,
@@ -185,24 +183,19 @@ export default function MatchScheduleNav({
           },
           tabBarStyle: {
             padding: 0,
-            marginTop: -8,
             paddingLeft: 12,
-            backgroundColor:'transparent'
+            backgroundColor: "transparent",
+            borderTopRightRadius: 10,
+            borderTopLeftRadius: 10,
           },
-          // // tabBarActiveTintColor: colors.primary,
-          // // tabBarInactiveTintColor: colors.muted,
-          // // tabBarIconStyle: { position: 'absolute', top: -22, right: -20 },
-          // tabBarLabel: ({ focused, color }) => (
-          //     focused
-          //     ? <Text>{}</Text>
-          //     : <Text>sax</Text>
-          // )
-        })}>
+   
+        })}
+      >
         <Tab.Screen
           key={-1}
-          name={'直播'}
-          options={({route}) => ({
-            tabBarLabel: ({focused, color}) =>
+          name={"直播"}
+          options={({ route }) => ({
+            tabBarLabel: ({ focused, color }) =>
               focused ? (
                 <Text
                   style={{
@@ -210,9 +203,10 @@ export default function MatchScheduleNav({
                     color: colors.primary,
                     height: 30,
                     width: 40,
-                    textAlignVertical: 'bottom',
+                    textAlignVertical: "bottom",
                     fontWeight: textVariants.selected.fontWeight,
-                  }}>
+                  }}
+                >
                   直播
                 </Text>
               ) : (
@@ -222,23 +216,35 @@ export default function MatchScheduleNav({
                     color: colors.muted,
                     height: 30,
                     width: 40,
-                    textAlignVertical: 'bottom',
+                    textAlignVertical: "bottom",
                     fontWeight: textVariants.unselected.fontWeight,
-                  }}>
+                  }}
+                >
                   直播
                 </Text>
               ),
           })}
           children={() => (
-            <MatchScheduleList
-              setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
-              matchTypeID={-1}
-              status={-1}
-            />
+            <>
+              <ScrollView
+                style={{
+                 //backgroundColor: "red",
+                  borderTopRightRadius: 10,
+                  borderTopLeftRadius: 10,
+                }}
+              >
+           <MatchScheduleList
+           bgDark={true}
+                setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
+                matchTypeID={-1}
+                status={-1}
+              />
+              </ScrollView>
+           
+            </>
           )}
         />
-        {tabList != undefined &&
-          tabList.map(renderTabs)}
+        {tabList != undefined && tabList.map(renderTabs)}
       </Tab.Navigator>
     </SafeAreaView>
   );

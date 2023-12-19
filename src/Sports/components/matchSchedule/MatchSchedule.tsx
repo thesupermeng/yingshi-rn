@@ -30,12 +30,14 @@ interface Props {
   followMatchIds?: Array<number>;
   isMatchPage?: boolean;
   setShowBecomeVIPOverlay: any;
+  bgDark?:boolean
 }
 
 const MatchSchedule = ({
   matchSche,
   onPress = () => { },
   isMatchPage = true,
+  bgDark = false,
   setShowBecomeVIPOverlay,
 }: Props) => {
   const navigation = useNavigation();
@@ -123,7 +125,7 @@ const MatchSchedule = ({
   return (
     <>
       <TouchableOpacity onPress={matchClicked}>
-        <View style={styles.border}>
+        <View style={{...styles.border , backgroundColor : bgDark ? '#0c0c0c' : 'inherit' }}>
           <View style={styles.matchScheduleHeader}>
             <View style={styles.matchInfo}>
               <Text style={{ ...styles.spaceBetween, color: colors.muted }}>

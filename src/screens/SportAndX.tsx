@@ -143,20 +143,24 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
   return (
     <>
       <ImageBackground
-        source={ selectedTab == "sport"   ? require("./../../static/images/bgVipSport.png") : require("./../../static/images/bgVipXvod.png")}
+        source={
+          selectedTab == "sport"
+            ? require("./../../static/images/bgVipSport.png")
+            : require("./../../static/images/bgVipXvod.png")
+        }
         resizeMode="cover"
         style={{ flex: 1, height: 200 }}
       >
-
-        
-        <ScreenContainer isBgHide={true} containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
+        <ScreenContainer
+          isBgHide={true}
+          containerStyle={{ paddingLeft: 0, paddingRight: 0 }}
+        >
           <BecomeVipOverlay
             setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
             showBecomeVIPOverlay={showBecomeVIPOverlay}
           />
           <View
             style={{
-              // backgroundColor: colors.background,
               paddingLeft: spacing.sideOffset,
               paddingRight: spacing.sideOffset,
               flexDirection: "row",
@@ -194,7 +198,6 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                   </Text>
                 </View>
               </TouchableOpacity>
-
               <Text
                 style={{
                   ...textVariants.bigHeader,
@@ -205,7 +208,6 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
               >
                 |
               </Text>
-
               <TouchableOpacity
                 onPress={() => {
                   setSelectedTab("xvod");
@@ -227,7 +229,6 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                     style={{
                       ...textVariants.bigHeader,
                       color: colors.text,
-
                       fontSize: selectedTab == "xvod" ? 22 : 19,
                     }}
                   >
@@ -236,7 +237,6 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                 </View>
               </TouchableOpacity>
             </View>
-
             <TouchableOpacity
               activeOpacity={
                 Number(userState.userMemberExpired) <=
@@ -260,7 +260,6 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                   style={styles.iconStyle}
                   source={require("@static/images/profile/vipSport.png")}
                 />
-
                 {Number(userState.userMemberExpired) <=
                   Number(userState.userCurrentTimestamp) ||
                 userState.userToken === "" ? (
@@ -289,15 +288,24 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
             matchTabs &&
             matchTabs.length > 0 &&
             !isOffline && (
-              <MatchScheduleNavVip
-                setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
-                tabList={matchTabs}
-              />
+              <View
+                style={{
+                  flex: 1,
+                  marginHorizontal: 10,
+                  backgroundColor:'transparent'
+                  // borderColor:'red',
+                  // borderWidth:20
+                }}
+              >
+                <MatchScheduleNavVip
+                  setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
+                  tabList={matchTabs}
+                />
+              </View>
               // <Text>sport</Text>
             )}
 
           {selectedTab == "xvod" && <Text>xvod</Text>}
-
           {isOffline && <NoConnection onClickRetry={checkConnection} />}
         </ScreenContainer>
       </ImageBackground>
