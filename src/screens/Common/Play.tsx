@@ -1074,7 +1074,7 @@ if(vodDetails?.vod_sources === null) {
                     <>
 
                     {/* For multiple source UI */}
-                    {!adultMode && (
+                    {!adultMode && vodDetails?.vod_sources != null && (
                       <>
                     <View
                               style={{ ...styles.spaceApart, gap: spacing.l }}
