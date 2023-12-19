@@ -34,6 +34,7 @@ import { Toast } from "@ant-design/react-native";
 import chunk from "lodash/chunk";
 import { AdsBannerContextProvider } from "../contexts/AdsBannerContext";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
+import { downloadFirstNVid } from "../utils/minivodDownloader";
 
 
 export default () => {
@@ -135,50 +136,7 @@ export default () => {
     }
   };
 
-  const downloadFirstNVid = async (n:number) => {
-    // check if date file exist 
-    // if not exist, create
-    // if exist, check if today
-    // if not today, delete folder 
-    // download
-    const tempfolder = RNFetchBlob.fs.dirs.DocumentDir + `/partial/`
-    const cacheFolder = RNFetchBlob.fs.dirs.DocumentDir + '/videocache/'
-
-    if (await RNFetchBlob.fs.exists(cacheFolder) && (await RNFetchBlob.fs.ls(cacheFolder)).length > TOTAL_VIDEO_TO_DOWNLOAD) {
-      // already downloaded required amount
-      // console.debug('already done')
-      return 
-    }
-
-    if (await RNFetchBlob.fs.exists(tempfolder)){
-      await RNFetchBlob.fs.unlink(tempfolder)
-    }
-
-    const todayDateString = new Date().toDateString().replace(/\s/g, "")
-    const dateFile = RNFetchBlob.fs.dirs.DocumentDir + `/videocache/bGFzdHNhdmU=` // 'lastsave' convert to base64.. 
-    const dateFileExist = await RNFetchBlob.fs.exists(dateFile)
-    if (!dateFileExist){
-      RNFetchBlob.fs.writeFile(dateFile, todayDateString, 'base64')
-    }
-    else {
-      const fileContent = await RNFetchBlob.fs.readFile(dateFile, 'base64')
-      if (fileContent !== todayDateString){
-        await RNFetchBlob.fs.unlink(cacheFolder)
-      } 
-    }
-    
-    if (!!data){
-      const firstNVod = data.pages.flat(Infinity).slice(0,n)
-      const NChunks = chunk(firstNVod, DOWNLOAD_BATCH_SIZE)
-      for (const chunk of NChunks) {
-        // console.debug('downloading chunk')
-        await Promise.all(
-          chunk.map(vod => downloadVod(vod))
-        )
-      }
-
-    }
-  }
+  
 
   useEffect(() => {
     getNav();
@@ -193,7 +151,12 @@ export default () => {
   const {data} = useInfiniteQuery(['watchAnytime', 'normal'])
   useEffect(() => {
     if (DOWNLOAD_WATCH_ANYTIME === true){
-      downloadFirstNVid(TOTAL_VIDEO_TO_DOWNLOAD)
+      if (!!data){
+        const firstNVod = data.pages.flat(Infinity).slice(0, TOTAL_VIDEO_TO_DOWNLOAD)
+        downloadFirstNVid(TOTAL_VIDEO_TO_DOWNLOAD, firstNVod)
+
+      }
+
     }
   }, [data])
 
@@ -247,26 +210,3 @@ export default () => {
     </>
   );
 };
-
-function downloadVod(vod){
-  const fileLocation = RNFetchBlob.fs.dirs.DocumentDir + `/videocache/${vod.mini_video_id}.mp4`
-  const temp = RNFetchBlob.fs.dirs.DocumentDir + `/partial/${vod.mini_video_id}`
-
-  const fileExist = RNFetchBlob.fs.exists(fileLocation)
-
-  return fileExist.then((exist) => {
-    if (exist){
-      // console.debug('file exist!')
-    } else {
-      return RNFetchBlob
-      .config({
-        path: temp
-      })
-      .fetch('GET', vod.mini_video_origin_video_url)
-      .then((res) =>{
-        // console.debug('finished download', res.path())
-        return RNFetchBlob.fs.mv(res.path(), fileLocation)
-      })
-    }
-  })
-}

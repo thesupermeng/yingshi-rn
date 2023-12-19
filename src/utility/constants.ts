@@ -118,6 +118,7 @@ export const ADULT_MODE_PREVIEW_DURATION = 300; // number of seconds
 export const DOWNLOAD_WATCH_ANYTIME = true;
 export const DOWNLOAD_BATCH_SIZE = 5;
 export const TOTAL_VIDEO_TO_DOWNLOAD = 100;
+// export const CACHE_DURATION = 3; //days
 
 export const GOOGLE_SINGIN_CLIENT_WEB = '699123886701-lg76r3gei261u8lip8jp7qjlt49hqkf7.apps.googleusercontent.com';
 export const GOOGLE_SINGIN_CLIENT_IOS = '699123886701-ok49jlua77cf0omih5g1u9f1irflnrq3.apps.googleusercontent.com';

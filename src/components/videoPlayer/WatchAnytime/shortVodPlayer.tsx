@@ -31,6 +31,7 @@ import FastImage from '../../common/customFastImage';
 import RedirectButton from './RedirectButton';
 import DescriptionBar from './DescriptionBar';
 import HejiButton from './HejiButton';
+import { addIdToCache } from '../../../utils/minivodDownloader';
 
 interface Props {
   thumbnail?: string;
@@ -272,6 +273,15 @@ function ShortVideoPlayer({
       setIsBuffering(false);
     }
   }, [isPause]);
+
+  useEffect(() => {
+
+    return () => {
+      // on component unmount
+      const id = vod.mini_video_id
+      addIdToCache(id)
+    }
+  }, [])
 
   const bottomContent = useCallback(() => {
     return (
