@@ -1,6 +1,6 @@
 import { useNavigation, useTheme } from '@react-navigation/native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useEffect } from 'react';
 import {
   StyleSheet,
@@ -16,7 +16,7 @@ import { useDispatch } from 'react-redux';
 import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
 
 import { ResendCountDown } from './resendCountDown';
-import { registerUser, loginUser, signinupUser } from '../../features/user';
+import { signinupUser } from '../../features/user';
 import { addUserAuthState } from '@redux/actions/userAction';
 
 import { changeScreenAction } from '@redux/actions/screenAction';
@@ -74,6 +74,10 @@ const OtpInputs = ({
   const { userCenterLoginSuccessTimesAnalytics, userCenterVipLoginSuccessTimesAnalytics } = useAnalytics();
 
   const [focusedInput, setFocusedInput] = useState(null); // Track the focused input index
+
+  const styles = useMemo(() => createStyles({
+    colors,
+  }), []);
 
   const handleFocus = (index: any) => {
     console.log(index);
@@ -207,25 +211,25 @@ const OtpInputs = ({
 
   return (
     <View>
-      <Text style={styles().title}>输入邮箱验证码</Text>
+      <Text style={styles.title}>输入邮箱验证码</Text>
 
-      <Text style={styles().description}>
+      <Text style={styles.description}>
         验证码已发送至{' '}
-        <Text style={styles({ colors }).hyperlink}>
+        <Text style={styles.hyperlink}>
           {email ?? phone}
         </Text>{' '}
       </Text>
 
-      {email && <Text style={styles().description}>如果没有收到邮件，请检查垃圾邮箱</Text>}
+      {email && <Text style={styles.description}>如果没有收到邮件，请检查垃圾邮箱</Text>}
 
-      <View style={styles().containerStyle}>
+      <View style={styles.containerStyle}>
         {[0, 0, 0, 0, 0, 0].map((_, i) => {
           return (
             <TextInput
               key={i}
               style={[
-                isValid === 0 ? styles().inputStyle : styles().inputInvalidStyle,
-                focusedInput === i ? styles().inputFocused : null,
+                isValid === 0 ? styles.inputStyle : styles.inputInvalidStyle,
+                focusedInput === i ? styles.inputFocused : null,
               ]}
               keyboardType="numeric"
               onKeyPress={e => focusPrevious(e.nativeEvent.key, i)}
@@ -249,11 +253,11 @@ const OtpInputs = ({
             marginBottom: 20,
           }}>
           <Image
-            style={styles().iconStyle}
+            style={styles.iconStyle}
             source={require('@static/images/invite/danger.png')}
           />
 
-          <Text style={styles().danger}>验证码不正确，请重试</Text>
+          <Text style={styles.danger}>验证码不正确，请重试</Text>
         </View>
       )}
 
@@ -265,7 +269,7 @@ const OtpInputs = ({
           style={{ marginTop: 35 }}
         >
           <Text
-            style={styles({ colors }).hyperlink}
+            style={styles.hyperlink}
           >
             重新发送验证码
           </Text>
@@ -276,7 +280,7 @@ const OtpInputs = ({
   );
 };
 
-const styles = ({ colors }: any = {}) => StyleSheet.create({
+const createStyles = ({ colors }: any = {}) => StyleSheet.create({
   headerBarShadow: {
     width: '100%',
     marginTop: 12,

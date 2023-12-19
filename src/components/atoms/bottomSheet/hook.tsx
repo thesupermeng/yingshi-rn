@@ -14,11 +14,11 @@ export const useCBottomSheetHook = ({
         setDeviceName(d);
     });
 
-    const paddingBottom = deviceBrand == "HUAWEI" && /p\d+/i.test(deviceName)
+    const marginBottom = deviceBrand == "HUAWEI" && /p\d+/i.test(deviceName)
         ? 100
-        : 50;
+        : 30;
 
     return {
-        paddingBottom,
+        marginBottom,
     };
 }

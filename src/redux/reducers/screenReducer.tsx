@@ -9,20 +9,18 @@ const initialState: screenModel = {
   screenAction: "",
   screenShow: false,
   loginShow: false,
-  registerShow: false,
   resetBottomSheet: false,
   resetInputForm: false,
   navigateToProfile: false,
   sportWatchTime: 0,
   interstitialShow: false,
   isPlayerFullScreen: false,
-  fromWhereToProfile: undefined,
   adultVideoWatchTime: 0,
-  lastSeenNavName: '推荐', 
-  adultMode: false, 
-  adultModeDisclaimerShow: false, 
-  adultModeVipShow: false, 
-  isOverEighteenAccepted: false, 
+  lastSeenNavName: '推荐',
+  adultMode: false,
+  adultModeDisclaimerShow: false,
+  adultModeVipShow: false,
+  isOverEighteenAccepted: false,
   watchAnytimeAdultMode: false
 };
 
@@ -49,16 +47,6 @@ export function screenReducer(state = initialState, action: screenActionType) {
         ...state,
         loginShow: false,
       };
-    case "show_register_action":
-      return {
-        ...state,
-        registerShow: true,
-      };
-    case "hide_register_action":
-      return {
-        ...state,
-        registerShow: false,
-      };
     case "hide_bottom_sheet_action":
       return {
         ...state,
@@ -84,7 +72,6 @@ export function screenReducer(state = initialState, action: screenActionType) {
       return {
         ...state,
         navigateToProfile: true,
-        fromWhereToProfile: action.payload,
       };
     case "reset_profile_screen":
       return {
@@ -116,7 +103,7 @@ export function screenReducer(state = initialState, action: screenActionType) {
         ...state,
         isPlayerFullScreen: action.payload,
       };
-      
+
     case "increment_adult_video_watch_time":
       return {
         ...state,
@@ -127,62 +114,61 @@ export function screenReducer(state = initialState, action: screenActionType) {
         ...state,
         adultVideoWatchTime: 0,
       };
-    case "show_adult_mode_disclaimer": 
-      if (state.isOverEighteenAccepted) 
-    {  return state}
-      else 
+    case "show_adult_mode_disclaimer":
+      if (state.isOverEighteenAccepted) { return state }
+      else
         return {
-          ...state, 
+          ...state,
           adultModeDisclaimerShow: true
         }
-    case "hide_adult_mode_disclaimer": 
+    case "hide_adult_mode_disclaimer":
       return {
-        ...state, 
+        ...state,
         adultModeDisclaimerShow: false
       }
-    case "show_adult_mode_vip": 
+    case "show_adult_mode_vip":
       return {
-        ...state, 
+        ...state,
         adultModeVipShow: true
       }
-    case "hide_adult_mode_vip": 
+    case "hide_adult_mode_vip":
       return {
-        ...state, 
+        ...state,
         adultModeVipShow: false
       }
-    case "enable_adult_mode": 
+    case "enable_adult_mode":
       return {
-        ...state, 
+        ...state,
         adultMode: true
       }
-    case "disable_adult_mode": 
+    case "disable_adult_mode":
       return {
-        ...state, 
+        ...state,
         adultMode: false
       }
-    case "set_last_seen_nav_name": 
+    case "set_last_seen_nav_name":
       return {
-        ...state, 
+        ...state,
         lastSeenNavName: action.payload
       }
-    case "accept_over_eighteen": 
+    case "accept_over_eighteen":
       return {
-        ...state, 
+        ...state,
         isOverEighteenAccepted: true
       }
     case "reset_over_eighteen":
       return {
-        ...state, 
+        ...state,
         isOverEighteenAccepted: false
       }
-    case "enable_watch_anytime_adult_mode": 
+    case "enable_watch_anytime_adult_mode":
       return {
-        ...state, 
+        ...state,
         watchAnytimeAdultMode: true
       }
-    case "disable_watch_anytime_adult_mode": 
+    case "disable_watch_anytime_adult_mode":
       return {
-        ...state, 
+        ...state,
         watchAnytimeAdultMode: false
       }
     default:

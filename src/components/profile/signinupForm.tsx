@@ -38,7 +38,7 @@ import useAnalytics from "@hooks/useAnalytics";
 import { useDispatch } from "react-redux";
 import { addUserAuthState } from "@redux/actions/userAction";
 
-export type LoginRef = {
+export type SigninupRef = {
   resetValue: () => void,
 }
 
@@ -46,7 +46,7 @@ type Props = {
   onGooleLoginSuccess?: () => void,
 }
 
-export const LoginForm = forwardRef<LoginRef, Props>(({
+export const SigninupForm = forwardRef<SigninupRef, Props>(({
   onGooleLoginSuccess,
 }: Props, ref) => {
   const navigation = useNavigation();
@@ -594,11 +594,11 @@ const LoginCard = ({
         isReadChecked={isReadTermNCondition}
         onPress={onPressTermNCondition}
         onPressUserAgreement={() => {
-          dispatch(navigateToProfileScreen('login'));
+          dispatch(navigateToProfileScreen());
           navigation.navigate("用户协议");
         }}
         onPressPrivacyPolicy={() => {
-          dispatch(navigateToProfileScreen('login'));
+          dispatch(navigateToProfileScreen());
           navigation.navigate("隐私政策");
         }}
       />

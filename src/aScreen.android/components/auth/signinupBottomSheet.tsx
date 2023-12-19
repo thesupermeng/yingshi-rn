@@ -1,13 +1,8 @@
-import React, { useState, memo, useEffect } from "react";
+import React, { useState, memo, useEffect, useRef } from "react";
 import { Keyboard } from "react-native";
-import { useAppDispatch } from "@hooks/hooks";
-import {
-  resetBottomSheetForm,
-  showLoginAction,
-} from "@redux/actions/screenAction";
-import { Register } from "../profile/register";
-import BottomSheet from "../bottomSheet/bottomSheet";
+import { SigninupForm, SigninupRef } from "../profile/signinupForm";
 import DeviceInfo from "react-native-device-info";
+import { CBottomSheet } from "../atoms";
 
 interface Props {
   isVisible?: boolean;
@@ -15,20 +10,18 @@ interface Props {
   displayMode?: string;
 }
 
-function RegisterBottomSheet({
+function SigninupBottomSheet({
   isVisible = false,
   handleClose,
   displayMode,
 }: Props) {
-  const dispatch = useAppDispatch();
+  //state for child
+  const loginRef = useRef<SigninupRef>(null);
 
-  //child state
-  const [email, setEmail] = useState("");
-  const [referralCode, setReferralCode] = useState("");
   const deviceBrand = DeviceInfo.getBrand();
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
-  const [endCoordinates, setEndCoordinates] = useState(0);
   const [bottomOffset, setBottomOffset] = useState(0);
+
   const [deviceName, setDeviceName] = useState("");
   DeviceInfo.getDeviceName().then((d) => {
     setDeviceName(d);
@@ -37,15 +30,13 @@ function RegisterBottomSheet({
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
       "keyboardDidShow",
-      (e) => {
-        setEndCoordinates(e.endCoordinates.height);
+      () => {
         setKeyboardVisible(true); // or some other action
       }
     );
     const keyboardDidHideListener = Keyboard.addListener(
       "keyboardDidHide",
       () => {
-        setEndCoordinates(0);
         setKeyboardVisible(false); // or some other action
       }
     );
@@ -54,9 +45,6 @@ function RegisterBottomSheet({
       keyboardDidShowListener.remove();
     };
   }, []);
-  useEffect(() => {
-    console.log(endCoordinates);
-  }, [endCoordinates]);
 
   useEffect(() => {
     if (
@@ -71,33 +59,27 @@ function RegisterBottomSheet({
   }, [isKeyboardVisible]);
 
   return (
-    <BottomSheet
-      isKeyboardVisible={isKeyboardVisible}
+    <CBottomSheet
       isVisible={isVisible}
-      bottomOffset={bottomOffset}
-      containerStyle={{
-        height: 'auto',
-      }}
       onBackdropPress={() => {
         if (handleClose) handleClose();
 
-        dispatch(resetBottomSheetForm());
         Keyboard.dismiss();
-        setReferralCode("");
-        setEmail("");
+        loginRef.current?.resetValue();
       }}
+      maxHeight={'70%'}
     >
-      <Register
-        email={email}
-        referralCode={referralCode}
-        setEmail={setEmail}
-        setReferralCode={setReferralCode}
-        goToLogin={() => {
-          dispatch(showLoginAction());
+      <SigninupForm
+        ref={loginRef}
+        onGooleLoginSuccess={() => {
+          if (handleClose) handleClose()
+
+          Keyboard.dismiss();
+          loginRef.current?.resetValue();
         }}
       />
-    </BottomSheet>
+    </CBottomSheet>
   );
 }
 
-export default memo(RegisterBottomSheet);
+export default memo(SigninupBottomSheet);

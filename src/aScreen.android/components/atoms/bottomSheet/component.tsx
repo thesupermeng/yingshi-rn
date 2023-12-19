@@ -38,7 +38,8 @@ export const CBottomSheet = ({
         backdropColor: backdropColor,
         bottomsheetColor: colors.bottomSheet,
         bottomsheetPaddingTop: showWhiteLine ? 0 : 40,
-    }), [backdropColor, colors.bottomSheet, showWhiteLine]);
+        contentContainerHeight: height,
+    }), [backdropColor, colors.bottomSheet, showWhiteLine, height]);
 
     const hook = useCBottomSheetHook();
 
@@ -61,16 +62,12 @@ export const CBottomSheet = ({
                 <View
                     style={{
                         backgroundColor: styles.backdrop.backgroundColor,
+                        height: height,
+                        maxHeight: maxHeight,
+                        minHeight: minHeight,
                     }}
                 >
-                    <View
-                        style={{
-                            ...styles.bottomsheet,
-                            height: height,
-                            maxHeight: maxHeight,
-                            minHeight: minHeight,
-                        }}
-                    >
+                    <View style={styles.bottomsheet}>
                         {showWhiteLine &&
                             <View
                                 style={styles.whiteLineContainer}
@@ -87,7 +84,7 @@ export const CBottomSheet = ({
                             style={{
                                 ...styles.containerContainer,
                                 ...style,
-                                paddingBottom: hook.paddingBottom,
+                                marginBottom: hook.marginBottom,
                             }}
                         >
                             {children}
@@ -103,10 +100,12 @@ const styleCBottomSheet = ({
     backdropColor,
     bottomsheetColor,
     bottomsheetPaddingTop,
+    contentContainerHeight,
 }: {
     backdropColor: string,
     bottomsheetColor: string,
     bottomsheetPaddingTop: number,
+    contentContainerHeight: string | number,
 }) => StyleSheet.create({
     backdrop: {
         width: '100%',
@@ -115,6 +114,8 @@ const styleCBottomSheet = ({
         backgroundColor: backdropColor,
     },
     bottomsheet: {
+        height: contentContainerHeight === 'auto' ? 'auto'
+            : '100%',
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
         backgroundColor: bottomsheetColor,
@@ -133,6 +134,10 @@ const styleCBottomSheet = ({
         borderRadius: 10,
     },
     containerContainer: {
-        padding: 20,
+        height: contentContainerHeight === 'auto' ? 'auto'
+            : '100%',
+        paddingHorizontal: 20,
+        marginVertical: 20,
+        // prevent to use padding top or bottom
     }
 });

@@ -1,9 +1,8 @@
 import React, { useState, memo, useEffect, useRef } from "react";
 import { Keyboard } from "react-native";
-import { LoginForm, LoginRef } from "../profile/loginForm";
-import BottomSheet from "../bottomSheet/bottomSheet";
+import { SigninupForm, SigninupRef } from "../profile/signinupForm";
 import DeviceInfo from "react-native-device-info";
-import { CountryPhoneList } from "../profile/countryPhoneList";
+import { CBottomSheet } from "../atoms";
 
 interface Props {
   isVisible?: boolean;
@@ -11,13 +10,13 @@ interface Props {
   displayMode?: string;
 }
 
-function LoginBottomSheet({
+function SigninupBottomSheet({
   isVisible = false,
   handleClose,
   displayMode,
 }: Props) {
   //state for child
-  const loginRef = useRef<LoginRef>(null);
+  const loginRef = useRef<SigninupRef>(null);
 
   const deviceBrand = DeviceInfo.getBrand();
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
@@ -60,22 +59,17 @@ function LoginBottomSheet({
   }, [isKeyboardVisible]);
 
   return (
-    <BottomSheet
-      isKeyboardVisible={isKeyboardVisible}
+    <CBottomSheet
       isVisible={isVisible}
-      bottomOffset={bottomOffset}
-      containerStyle={{
-        height: 'auto',
-      }}
       onBackdropPress={() => {
         if (handleClose) handleClose();
 
         Keyboard.dismiss();
         loginRef.current?.resetValue();
       }}
-    // maxHeight={'90%'}
+      maxHeight={'70%'}
     >
-      <LoginForm
+      <SigninupForm
         ref={loginRef}
         onGooleLoginSuccess={() => {
           if (handleClose) handleClose()
@@ -84,8 +78,8 @@ function LoginBottomSheet({
           loginRef.current?.resetValue();
         }}
       />
-    </BottomSheet>
+    </CBottomSheet>
   );
 }
 
-export default memo(LoginBottomSheet);
+export default memo(SigninupBottomSheet);

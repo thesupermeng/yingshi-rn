@@ -1,5 +1,5 @@
-import {View, Text, TouchableOpacity, ViewStyle, TextStyle, StyleSheet} from 'react-native';
-import {hideAdultModeVip, showRegisterAction} from '@redux/actions/screenAction';
+import { View, Text, TouchableOpacity, ViewStyle, TextStyle, StyleSheet } from 'react-native';
+import { hideAdultModeVip } from '@redux/actions/screenAction';
 import VipModal from './vipModal';
 import FastImage from 'react-native-fast-image';
 import { useNavigation } from '@react-navigation/native';
@@ -19,14 +19,14 @@ const AdultVideoVipModal = () => {
     ({ userReducer }) => userReducer
   );
   const screenState: screenModel = useAppSelector(
-    ({screenReducer}) => screenReducer
+    ({ screenReducer }) => screenReducer
   )
-  const {adultModeVipShow, adultMode, watchAnytimeAdultMode} = screenState
+  const { adultModeVipShow, adultMode, watchAnytimeAdultMode } = screenState
   const dispatch = useAppDispatch()
 
   const isVip = !(Number(userState.userMemberExpired) <=
-                  Number(userState.userCurrentTimestamp) ||
-                  userState.userToken === "")
+    Number(userState.userCurrentTimestamp) ||
+    userState.userToken === "")
 
   const handleCloseModal = useCallback(() => {
     dispatch(hideAdultModeVip())
@@ -59,7 +59,7 @@ const AdultVideoVipModal = () => {
                 <CloseIcon />
               </View>
             </TouchableOpacity>
-            <View style={{alignItems: 'center', justifyContent: 'center'}}>
+            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
               <Text
                 style={{
                   fontSize: 20,
