@@ -240,7 +240,7 @@ const MatchScheduleList = ({
           ref={flatlistRef}
           data={matches.data}
           windowSize={3}
-          style={{ backgroundColor: "transparent" }}
+          //  style={{ backgroundColor: "transparent" }}
           maxToRenderPerBatch={10}
           initialNumToRender={10}
           renderItem={Content}
@@ -257,12 +257,21 @@ const MatchScheduleList = ({
           }
         />
       ) : (
-        <View style={{ height: height }}>
-          <View style={styles.buffering} />
+        <View
+          style={{
+            height: 100,
+            backgroundColor: "#0c0c0c",
+            justifyContent: "center",
+            alignItems: "center",
+            borderBottomLeftRadius:15,
+            borderBottomRightRadius:15
+          }}
+        >
+          <Text style={{ color: "#9c9c9c", fontStyle: "italic" }}>
+            暂无赛事
+          </Text>
         </View>
       )}
-
-
 
       {showLoading && (
         <View

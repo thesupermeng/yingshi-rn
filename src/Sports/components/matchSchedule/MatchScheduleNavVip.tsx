@@ -40,7 +40,7 @@ export default function MatchScheduleNav({
   const renderTabs = (tab: any, index: any) => {
     const tabScreenChild = (i: number) => (
       <>
-        <Text>11111</Text>
+      
         <MatchScheduleListVip
           bgDark={true}
           setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
