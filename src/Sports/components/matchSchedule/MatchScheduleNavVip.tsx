@@ -28,19 +28,19 @@ export default function MatchScheduleNav({
   const { colors, textVariants, spacing } = useTheme();
   const width = Dimensions.get("window").width;
 
-  const [showLoading, setShowLoading] = useState(true);
+  // const [showLoading, setShowLoading] = useState(true);
 
-  useEffect(() => {
-    // fake loading to ensure all assets are loaded
-    setTimeout(() => {
-      setShowLoading(false);
-    }, 1000);
-  }, []);
+  // useEffect(() => {
+  //   fake loading to ensure all assets are loaded
+  //   setTimeout(() => {
+  //     setShowLoading(false);
+  //   }, 1000);
+  // }, []);
 
   const renderTabs = (tab: any, index: any) => {
     const tabScreenChild = (i: number) => (
       <>
-        {/* <Text>11111</Text> */}
+        <Text>11111</Text>
         <MatchScheduleListVip
           bgDark={true}
           setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}

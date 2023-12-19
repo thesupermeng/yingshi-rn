@@ -43,6 +43,7 @@ import { SettingsReducerState } from "@redux/reducers/settingsReducer";
 import useAnalytics from "@hooks/useAnalytics";
 import XvodTabIcon from "@static/images/xvodTab.svg";
 import SportTabIcon from "@static/images/sportTab.svg";
+import XVodTab from "./VipPrivilege/XVodTab";
 interface NavType {
   has_submenu: boolean;
   ids: Array<number>;
@@ -305,7 +306,23 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
               // <Text>sport</Text>
             )}
 
-          {selectedTab == "xvod" && <Text>xvod</Text>}
+          {selectedTab == "xvod" && 
+              <View
+              style={{
+                flex: 1,
+                marginHorizontal: 10,
+                backgroundColor:'transparent'
+                // borderColor:'red',
+                // borderWidth:20
+              }}
+            >
+          {/* <XVodTab
+          setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
+          tabList={matchTabs}/> */}
+         
+         </View>
+          
+          }
           {isOffline && <NoConnection onClickRetry={checkConnection} />}
         </ScreenContainer>
       </ImageBackground>

@@ -49,6 +49,7 @@ const MatchScheduleList = ({
 
   const [isFetchNext, setFetchNext] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
+  const [showLoading2, setShowLoading2] = useState(true);
 
   const [matches, setMatches] = useState<Matches>({
     headers: [],
@@ -153,17 +154,17 @@ const MatchScheduleList = ({
                 position: "relative",
               }}
             >
-              <Text style={textVariants.header}>
-                {item?.date} 
-               
-              </Text>
+              <Text style={textVariants.header}>{item?.date}</Text>
             </View>
           ) : (
             item?.data !== undefined && (
               <>
-         {/* <Text>{String(matches?.data.length > (index + 1) && matches?.data[index+1]?.date !== undefined  )}</Text> */}
+                {/* <Text>{String(matches?.data.length > (index + 1) && matches?.data[index+1]?.date !== undefined  )}</Text> */}
                 <MatchScheduleVip
-                  borderFlag={String(matches?.data.length > (index + 1) && matches?.data[index+1]?.date !== undefined  )}
+                  borderFlag={String(
+                    matches?.data.length > index + 1 &&
+                      matches?.data[index + 1]?.date !== undefined
+                  )}
                   bgDark={true}
                   setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
                   key={index}
@@ -186,13 +187,60 @@ const MatchScheduleList = ({
     }, 1000);
   };
 
+  useEffect(() => {
+    // fake loading to ensure all assets are loaded
+    setTimeout(() => {
+      setShowLoading2(false);
+    }, 1000);
+  }, []);
+
   return (
     <View style={{ flex: 1 }}>
+      {showLoading2 && (
+        // <View
+        //   style={{
+        //     width: "100%",
+        //     height: "100%",
+        //     position: "absolute",
+        //     zIndex: 1000,
+        //     backgroundColor: "#0c0c0c",
+        //     justifyContent: "center",
+        //     alignItems: "center",
+        //     borderRadius: 20,
+        //   }}
+        // >
+        //   <FastImage
+        //     style={{ height: 150, width: 150 }}
+        //     source={require("@static/images/home-loading.gif")}
+        //     resizeMode={"contain"}
+        //   />
+        // </View>
+
+        <View
+          style={{
+            position: "absolute",
+            backgroundColor: colors.background,
+            zIndex: 1,
+            width: "100%",
+            height: "100%",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <FastImage
+            source={require("@static/images/loading-spinner.gif")}
+            style={{ width: 100, height: 100 }}
+            resizeMode="contain"
+          />
+        </View>
+      )}
+
       {matches?.data !== undefined && matches.data.length > 0 ? (
         <FlatList
           ref={flatlistRef}
           data={matches.data}
           windowSize={3}
+          style={{ backgroundColor: "transparent" }}
           maxToRenderPerBatch={10}
           initialNumToRender={10}
           renderItem={Content}
@@ -213,6 +261,8 @@ const MatchScheduleList = ({
           <View style={styles.buffering} />
         </View>
       )}
+
+
 
       {showLoading && (
         <View
