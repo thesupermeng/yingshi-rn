@@ -218,6 +218,7 @@ const MatchScheduleList = ({
 
         <View
           style={{
+            borderRadius:15,
             position: "absolute",
             backgroundColor: colors.background,
             zIndex: 1,
@@ -236,6 +237,7 @@ const MatchScheduleList = ({
       )}
 
       {matches?.data !== undefined && matches.data.length > 0 ? (
+        <View style={{   opacity: showLoading2 ? 0 : 1}}>
         <FlatList
           ref={flatlistRef}
           data={matches.data}
@@ -256,9 +258,12 @@ const MatchScheduleList = ({
             <View style={{ paddingTop: TOPON_BANNER_HEIGHT + 20 }} />
           }
         />
+</View>
+
       ) : (
         <View
           style={{
+            opacity: showLoading2 ? 0 : 1,
             height: 100,
             backgroundColor: "#0c0c0c",
             justifyContent: "center",
@@ -283,6 +288,7 @@ const MatchScheduleList = ({
             height: "100%",
             justifyContent: "center",
             alignItems: "center",
+            borderRadius:15,
           }}
         >
           <FastImage

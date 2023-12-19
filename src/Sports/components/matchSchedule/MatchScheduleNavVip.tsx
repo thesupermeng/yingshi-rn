@@ -137,7 +137,7 @@ export default function MatchScheduleNav({
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "transparent" }}>
+    <SafeAreaView style={{ flex: 1}}>
       {/* {showLoading && (
         <View
           style={{
