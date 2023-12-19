@@ -160,6 +160,7 @@ export default function MatchScheduleNav({
       )} */}
 
       <Tab.Navigator
+        sceneContainerStyle={{ backgroundColor: 'transparent' }}
         keyboardDismissMode="none"
         screenOptions={({ route }) => ({
           tabBarScrollEnabled: true,
