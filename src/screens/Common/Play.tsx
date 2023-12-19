@@ -28,6 +28,7 @@ import {
   SuggestResponseType,
   VodDetailsResponseType,
   VodSourceType,
+  VodType,
 } from "@type/ajaxTypes";
 import { addVodToHistory, playVod } from "@redux/actions/vodActions";
 import { useAppDispatch, useAppSelector } from "@hooks/hooks";
@@ -81,6 +82,7 @@ import useAnalytics from "@hooks/useAnalytics";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { screenModel } from "@type/screenType";
 import VodSourcesEpisodes from "../../components/vod/vodSourcesEpisodes";
+import { current } from "@reduxjs/toolkit";
 
 let insetsTop = 0;
 let insetsBottom = 0;
@@ -275,7 +277,6 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   //logic and function for multiple sources
 
   const [currentSourceId, setCurrentSourceId] = useState(vod?.sourceWatched === undefined ? 0 : vod.sourceWatched);
-  const [currentQuality, setCurrentQuality] = useState(vod?.sourceWatched === undefined ? 0 : vod.sourceWatched);
   const [vodSources, setVodSources] = useState<VodSourceType[]>([]);
 
   const onPressSource = useCallback((itemId: any) => {
@@ -283,6 +284,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     currentSourceRef.current = itemId;
     currentTimeRef.current = 0;
   }, []);
+
 
   const renderSources = useCallback(
     ({ item }) => (
@@ -599,14 +601,16 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   useEffect(() => {
     setIsCollapsed(true);
+    console.log('Current Episode:', currentEpisode);
+    console.log('Found Source URL Count:', foundSource?.url_count);
     // episodeRef?.current?.scrollToOffset({
     //   offset: getOffSet(currentEpisode),
     //   animated: true,
     // });
-    if ((foundSource?.url_count ?? 0) < currentEpisode) {
-    setCurrentEpisode(0)
-      return
-    } 
+    // if ((foundSource?.url_count ?? 0) < currentEpisode && foundSource && foundSource.url_count) {
+    //   setCurrentEpisode(foundSource.url_count - 1);
+    //   return
+    // } 
     setTimeout(() => {
       try {
       episodeRef?.current?.scrollToIndex({
@@ -617,6 +621,13 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     }, 1200)
   }, [currentEpisode, episodeRef, isFetchingVodDetails, currentSourceId, sourceRef]);
 
+
+useEffect (() => {
+if(vodDetails?.vod_sources === null) {
+  setDismountPlayer(true)
+}
+})
+
   useFocusEffect(
     useCallback(() => {
       setDismountPlayer(false);
@@ -624,7 +635,6 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
         setDismountPlayer(true);
         if (
           vodSources &&
-          //START HERE, SAVE POINT
           // vod?.vod_play_list.urls?.find((url) => url.nid === currentEpisode)
           //   ?.url
           vodSources?.find(({source_id}) => source_id === currentSourceId)?.vod_play_list.urls?.find((url) => url.nid === currentEpisode)
@@ -716,6 +726,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   useEffect(() => {
     setMinimumOfMaximumEpisode()
+    // console.log(currentEpisode, currentEpisodeRef)
     // when source changes, choose the minimum of the max episode 
   }, [currentSourceId])
 
@@ -813,7 +824,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       >
         {/* if isVodRestricted, show bing search */}
         {isVodRestricted && vod && !isOffline && <BingSearch vod={vod} />}
-
+        {dismountPlayer && vod && vodDetails?.vod_sources === null && <BingSearch vod={vod} />}
         {!isVodRestricted && !dismountPlayer && !isOffline && (
           <VodPlayer
             vod_url={vodUri}
