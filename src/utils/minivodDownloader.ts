@@ -100,8 +100,11 @@ export const addIdToCache = async (id: string) => {
   await RNFetchBlob.fs.appendFile(watchedVidsPath, entry, 'utf8')
 }
 
-const getExcludedIds = async () : Promise<string[]> => {
+export const getExcludedIds = async () : Promise<string[]> => {
   const watchedVidsPath = RNFetchBlob.fs.dirs.DocumentDir + '/watched'
+
+  if (!(await RNFetchBlob.fs.exists(watchedVidsPath))) return [] // if file not exist, return empty array
+
   const watchedVids = (await RNFetchBlob.fs.readFile(watchedVidsPath, 'utf8')).split('\n')
   
   const today = new Date(); 
