@@ -10,8 +10,7 @@ import { useTheme, useFocusEffect } from "@react-navigation/native";
 import { Dimensions } from "react-native";
 import FastImage from "react-native-fast-image";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import MatchScheduleList from "./MatchScheduleList";
-
+import MatchScheduleListVip from "./MatchScheduleListVip";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -41,8 +40,9 @@ export default function MatchScheduleNav({
   const renderTabs = (tab: any, index: any) => {
     const tabScreenChild = (i: number) => (
       <>
-        <MatchScheduleList
-      bgDark={true}
+        {/* <Text>11111</Text> */}
+        <MatchScheduleListVip
+          bgDark={true}
           setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
           matchTypeID={tab.id}
           status={i}
@@ -137,7 +137,7 @@ export default function MatchScheduleNav({
   };
 
   return (
-    <SafeAreaView  style={{ flex: 1  , backgroundColor : 'transparent'}}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "transparent" }}>
       {showLoading && (
         <View
           style={{
@@ -145,7 +145,7 @@ export default function MatchScheduleNav({
             height: "100%",
             position: "absolute",
             zIndex: 1000,
-      backgroundColor:'#000',
+            backgroundColor: "#000",
             justifyContent: "center",
             alignItems: "center",
             borderRadius: 20,
@@ -188,7 +188,6 @@ export default function MatchScheduleNav({
             borderTopRightRadius: 10,
             borderTopLeftRadius: 10,
           },
-   
         })}
       >
         <Tab.Screen
@@ -227,23 +226,24 @@ export default function MatchScheduleNav({
           children={() => (
             <>
               <ScrollView
-                style={{
-                 //backgroundColor: "red",
-                  borderTopRightRadius: 10,
-                  borderTopLeftRadius: 10,
-                }}
+                bounces={false}
+                alwaysBounceHorizontal={false}
+                alwaysBounceVertical={false}
+                showsVerticalScrollIndicator={false}
+                showsHorizontalScrollIndicator={false}
               >
-           <MatchScheduleList
-           bgDark={true}
-                setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
-                matchTypeID={-1}
-                status={-1}
-              />
+                <MatchScheduleListVip
+                  bgDark={true}
+                  isLive={true}
+                  setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
+                  matchTypeID={-1}
+                  status={-1}
+                />
               </ScrollView>
-           
             </>
           )}
         />
+
         {tabList != undefined && tabList.map(renderTabs)}
       </Tab.Navigator>
     </SafeAreaView>
