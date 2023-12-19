@@ -9,32 +9,32 @@ type MiniVideoResponseType = {
   };
 };
 
+export const fetchMiniVods = async (page: number) => {
+  const excluded = await getExcludedIds()
+  const res = await fetch(`${API_DOMAIN_TEST}miniVod/v2/miniVod?page=${page}&limit=300&exclude=${excluded.join(',')}`)
+  const json: MiniVideoResponseType = await res.json()
+  return json.data.List
+
+}
+
 export const prefetchMiniVod = async (queryClient: QueryClient) => {
-  const excludedIds = await getExcludedIds()
-
-  const fetchVods = (page: number, excluded: string) =>
-  fetch(`${API_DOMAIN_TEST}miniVod/v2/miniVod?page=${page}&limit=300&exclude=${excluded}`)
-    .then((response) => response.json())
-    .then((json: MiniVideoResponseType) => {
-      return json.data.List;
-    });
-
   queryClient.prefetchInfiniteQuery(
     ["watchAnytime", "normal"],
-    ({ pageParam = 1 }) => fetchVods(pageParam, excludedIds.join(','))
+    ({ pageParam = 1 }) => fetchMiniVods(pageParam)
   );
   
   // console.info('done prefetch minivod')
 }
 
-export const prefetchAdultMiniVod = async (queryClient: QueryClient) => {
-  const fetchAdultVods = (page: number) =>
+const fetchAdultVods = (page: number) =>
       fetch(`${API_DOMAIN_TEST}miniSVod/v1/miniSVod?page=${page}&limit=300`)
         .then((response) => response.json())
         .then((json: MiniVideoResponseType) => {
           return json.data.List;
         });
 
+export const prefetchAdultMiniVod = async (queryClient: QueryClient) => {
+  
     queryClient.prefetchInfiniteQuery(
       ["watchAnytime", "adult"],
       ({ pageParam = 1 }) => fetchAdultVods(pageParam)

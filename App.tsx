@@ -33,6 +33,7 @@ import { TermsAcceptContextProvider } from "./src/contexts/TermsAcceptedContext"
 import { TermsAcceptContextProvider as TermsAcceptContextProviderA } from "./src/contexts/TermsAcceptedContext";
 import { TermsAcceptContextProvider as TermsAcceptContextProviderIos } from "./src/contexts/TermsAcceptedContext";
 import { prefetchAdultMiniVod, prefetchMiniVod } from "./src/api/miniVod";
+import { checkExpiredCacheFile, deleteCachedVideos } from "./src/utils/minivodDownloader";
 
 const topon_channel = "WEB";
 
@@ -141,6 +142,15 @@ let App = () => {
   let tryToLoadCount = 0;
   let adsReadyFlag = false;
 
+  const downloadWatchAnytimeSequence = async () => {
+    await deleteCachedVideos(); 
+    await checkExpiredCacheFile(3); 
+
+    prefetchMiniVod(queryClient)
+    prefetchAdultMiniVod(queryClient)
+
+  }
+
   useEffect(() => {
     // console.log("YSConfig.instance.ip");
     // console.log(YSConfig.instance.ip);
@@ -154,6 +164,8 @@ let App = () => {
     //         return json.data.List;
     //       }),
     // });
+
+
 
     queryClient.prefetchQuery({
       queryKey: ["HomePage", 0],
@@ -215,8 +227,7 @@ let App = () => {
       };
     };
 
-    prefetchMiniVod(queryClient)
-    prefetchAdultMiniVod(queryClient)
+    downloadWatchAnytimeSequence()
 
     // queryClient.prefetchQuery({
     //   queryKey: ["matchesNavOptions"],

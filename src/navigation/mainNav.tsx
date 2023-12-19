@@ -35,6 +35,7 @@ import chunk from "lodash/chunk";
 import { AdsBannerContextProvider } from "../contexts/AdsBannerContext";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { downloadFirstNVid } from "../utils/minivodDownloader";
+import { fetchMiniVods } from "../api/miniVod";
 
 
 export default () => {
@@ -148,9 +149,12 @@ export default () => {
     });
   }, []);
 
-  const {data} = useInfiniteQuery(['watchAnytime', 'normal'])
+  const {data} = useInfiniteQuery(['watchAnytime', 'normal'], {
+    queryFn: fetchMiniVods
+  })
   useEffect(() => {
     if (DOWNLOAD_WATCH_ANYTIME === true){
+
       if (!!data){
         const firstNVod = data.pages.flat(Infinity).slice(0, TOTAL_VIDEO_TO_DOWNLOAD)
         downloadFirstNVid(TOTAL_VIDEO_TO_DOWNLOAD, firstNVod)
