@@ -1,34 +1,16 @@
 import React, { useState, useCallback, useEffect } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  SafeAreaView,
-  ScrollView,
-  FlatList,
-  Dimensions,
-} from "react-native";
+import { View, Text, StyleSheet, SafeAreaView, FlatList } from "react-native";
 
 import { API_DOMAIN } from "@utility/constants";
-import {
-  NavOptionsResponseType,
-  VodCarousellResponseType,
-  VodData,
-} from "@type/ajaxTypes";
+import { VodCarousellResponseType, VodData } from "@type/ajaxTypes";
 import { useQueries, useQuery } from "@tanstack/react-query";
 
-import {
-  acceptOverEighteen,
-  enableAdultMode,
-  hideAdultModeDisclaimer,
-  showAdultModeDisclaimer,
-} from "@redux/actions/screenAction";
+import { acceptOverEighteen } from "@redux/actions/screenAction";
 import EighteenPlusOverlay from "../../components/modal/overEighteenOverlay";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import { useAppDispatch } from "@hooks/hooks";
 import ShowMoreVodButton from "../../components/button/showMoreVodButton";
 import VodListVerticalVip from "./vodListVerticalVip";
-// import FastImage from "react-native-fast-image";
 import FastImage from "../../components/common/customFastImage";
 interface Props {
   handleRejectEighteenPlus: any;
@@ -41,15 +23,6 @@ export default function XVodTab({
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const [showLoading, setShowLoading] = useState(false);
-  // const { data: navOptions, refetch } = useQuery({
-  //   queryKey: ["HomePageNavOptions"],
-  //   queryFn: () =>
-  //     fetch(`${API_DOMAIN}nav/v1/navItems`, {})
-  //       .then((response) => response.json())
-  //       .then((json: NavOptionsResponseType) => {
-  //         return json.data;
-  //       }),
-  // });
 
   const listItem = useCallback(
     ({ item, index }: { item: VodData; index: number }) => (
@@ -62,8 +35,8 @@ export default function XVodTab({
           backgroundColor: "#0c0c0c",
           borderRadius: 15,
           marginBottom: 15,
-          paddingTop:4,
-          paddingBottom:4
+          paddingTop: 4,
+          paddingBottom: 4,
         }}
       >
         <ShowMoreVodButton
@@ -91,54 +64,47 @@ export default function XVodTab({
     []
   );
 
-
-
-  
-
   let data = useQuery({
     queryKey: ["HomePage"],
     queryFn: () =>
       fetch(`${API_DOMAIN}page/v2/typepage?id=99`)
         .then((response) => response.json())
         .then((json: VodCarousellResponseType) => {
-          setShowLoading(false)
+          setShowLoading(false);
           return json;
         }),
   });
-  
 
   useEffect(() => {
     // console.log("data");
     // console.log(data.data?.data);
-    if(data==undefined)
-    {    setShowLoading(true)}
-
-}, []);
-
+    if (data == undefined) {
+      setShowLoading(true);
+    }
+  }, []);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-
-{showLoading && (
+      {showLoading && (
         <View
-        style={{
-          position: "absolute",
-          //backgroundColor: colors.background,
-          backgroundColor: '#0c0c0c',
-          zIndex: 1,
-          width: "100%",
-          height: "100%",
-          justifyContent: "center",
-          alignItems: "center",
-          borderRadius:15,
-        }}
-      >
-        <FastImage
-          source={require("@static/images/loading-spinner.gif")}
-          style={{ width: 100, height: 100 }}
-          resizeMode="contain"
-        />
-      </View>
+          style={{
+            position: "absolute",
+            //backgroundColor: colors.background,
+            backgroundColor: "#0c0c0c",
+            zIndex: 1,
+            width: "100%",
+            height: "100%",
+            justifyContent: "center",
+            alignItems: "center",
+            borderRadius: 15,
+          }}
+        >
+          <FastImage
+            source={require("@static/images/loading-spinner.gif")}
+            style={{ width: 100, height: 100 }}
+            resizeMode="contain"
+          />
+        </View>
       )}
 
       <FlatList

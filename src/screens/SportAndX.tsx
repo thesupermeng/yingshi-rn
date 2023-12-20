@@ -64,10 +64,9 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     ({ settingsReducer }: RootState) => settingsReducer
   );
 
-  const handleRejectEighteenPlus = ()=>{
-    setSelectedTab("sport")
-  }
-
+  const handleRejectEighteenPlus = () => {
+    setSelectedTab("sport");
+  };
 
   // ========== for analytics - start ==========
   const { sportViewsAnalytics } = useAnalytics();
@@ -298,7 +297,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                 style={{
                   flex: 1,
                   marginHorizontal: 10,
-                  backgroundColor:'transparent'
+                  backgroundColor: "transparent",
                   // borderColor:'red',
                   // borderWidth:20
                 }}
@@ -311,20 +310,19 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
               // <Text>sport</Text>
             )}
 
-          {selectedTab == "xvod" && 
-              <View
+          {selectedTab == "xvod" && (
+            <View
               style={{
                 flex: 1,
                 marginHorizontal: 10,
-                backgroundColor:'transparent'
+                backgroundColor: "transparent",
                 // borderColor:'red',
                 // borderWidth:20
               }}
             >
-          <XVodTab handleRejectEighteenPlus={handleRejectEighteenPlus}/>         
-         </View>
-          
-          }
+              <XVodTab handleRejectEighteenPlus={handleRejectEighteenPlus} />
+            </View>
+          )}
           {isOffline && <NoConnection onClickRetry={checkConnection} />}
         </ScreenContainer>
       </ImageBackground>
