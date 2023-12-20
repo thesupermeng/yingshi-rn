@@ -22,6 +22,7 @@ interface Props {
   header?: React.ReactNode;
   isHome?: boolean;
   isPlay?: boolean;
+  isBgHide?: boolean;
 }
 export default function ScreenContainer({
   children,
@@ -31,6 +32,7 @@ export default function ScreenContainer({
   header,
   isHome = false,
   isPlay = false,
+  isBgHide =false
 }: Props) {
   const windowHeight = Dimensions.get("window").height;
   let bottomTabHeight = 0;
@@ -56,7 +58,7 @@ export default function ScreenContainer({
       {scrollView ? (
         <ScrollView
           style={{
-            backgroundColor: colors.background,
+            backgroundColor: isBgHide ? 'inherit' : colors.background,
             paddingTop: insets.top,
             paddingBottom: insets.bottom,
             paddingLeft: insets.left,
@@ -65,7 +67,7 @@ export default function ScreenContainer({
           stickyHeaderIndices={[0]}
           contentContainerStyle={{ paddingBottom: 30 }}
         >
-          <StatusBar backgroundColor="black" barStyle="light-content" />
+          <StatusBar backgroundColor={isBgHide ? 'inherit' : 'black'}  barStyle="light-content" />
           {header}
           <View
             style={{
@@ -82,7 +84,7 @@ export default function ScreenContainer({
       ) : (
         <View
           style={{
-            backgroundColor: colors.background,
+            backgroundColor: isBgHide ? 'inherit' : colors.background,
             ...styles.viewContainer,
             paddingTop: isPlay ? 0 : insets.top,
             paddingBottom: !isHome || isPlay ? 0 : insets.bottom,
@@ -92,7 +94,7 @@ export default function ScreenContainer({
             // height: displayHeight,
           }}
         >
-          <StatusBar backgroundColor="black" barStyle="light-content" />
+          <StatusBar backgroundColor={isBgHide ? 'inherit' : 'black' } barStyle="light-content" />
           <View
             style={{
               ...styles.innerContainer,
