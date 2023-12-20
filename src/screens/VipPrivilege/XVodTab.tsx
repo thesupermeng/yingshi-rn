@@ -28,7 +28,8 @@ import { useNavigation, useTheme } from "@react-navigation/native";
 import { useAppDispatch } from "@hooks/hooks";
 import ShowMoreVodButton from "../../components/button/showMoreVodButton";
 import VodListVerticalVip from "./vodListVerticalVip";
-
+// import FastImage from "react-native-fast-image";
+import FastImage from "../../components/common/customFastImage";
 interface Props {
   handleRejectEighteenPlus: any;
 }
@@ -39,6 +40,7 @@ export default function XVodTab({
   const { colors, textVariants, spacing } = useTheme();
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
+  const [showLoading, setShowLoading] = useState(true);
   // const { data: navOptions, refetch } = useQuery({
   //   queryKey: ["HomePageNavOptions"],
   //   queryFn: () =>
@@ -60,7 +62,7 @@ export default function XVodTab({
           backgroundColor: "#0c0c0c",
           borderRadius: 15,
           marginBottom: 15,
-          paddingTop:8,
+          paddingTop:4,
           paddingBottom:4
         }}
       >
@@ -89,40 +91,6 @@ export default function XVodTab({
     []
   );
 
-  // const listItem = ({ item, index }: { item: VodData; index: number }) => (
-  //   <View
-  //     key={`${item.type_name}-${index}`}
-  //     style={{
-  //       gap: spacing.m,
-  //       paddingLeft: spacing.sideOffset,
-  //       paddingRight: spacing.sideOffset,
-  //       backgroundColor: "#0c0c0c",
-  //       borderRadius: 15,
-  //       marginBottom: 15,
-  //     }}
-  //   >
-  //     <ShowMoreVodButton
-  //       text={item.type_name.trim()}
-  //       onPress={() => {
-  //         navigation.navigate("午夜场剧情", {
-  //           class: item.vod_list[0].vod_class,
-  //         });
-  //       }}
-  //     />
-  //     {
-  //       is 午夜场剧情
-  //       item?.vod_list && (
-  //         <VodListVerticalVip
-  //           numOfRows={2}
-  //           vods={item?.vod_list}
-  //           minNumPerRow={2}
-  //           heightToWidthRatio={1 / 1.814}
-  //           playerMode="adult"
-  //         />
-  //       )
-  //     }
-  //   </View>
-  // );
 
   const data = useQuery({
     queryKey: ["HomePage"],
@@ -130,15 +98,39 @@ export default function XVodTab({
       fetch(`${API_DOMAIN}page/v2/typepage?id=99`)
         .then((response) => response.json())
         .then((json: VodCarousellResponseType) => {
+          setShowLoading(false)
           return json;
         }),
   });
-  const [width, setWidth] = useState(Dimensions.get("window").width);
+  
   console.log("data");
   console.log(data.data?.data);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
+
+{showLoading && (
+        <View
+        style={{
+          position: "absolute",
+          //backgroundColor: colors.background,
+          backgroundColor: '#0c0c0c',
+          zIndex: 1,
+          width: "100%",
+          height: "100%",
+          justifyContent: "center",
+          alignItems: "center",
+          borderRadius:15,
+        }}
+      >
+        <FastImage
+          source={require("@static/images/loading-spinner.gif")}
+          style={{ width: 100, height: 100 }}
+          resizeMode="contain"
+        />
+      </View>
+      )}
+
       <FlatList
         data={data?.data?.data?.categories ? data?.data?.data?.categories : []}
         initialNumToRender={1}
