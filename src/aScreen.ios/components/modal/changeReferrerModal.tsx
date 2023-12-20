@@ -99,6 +99,7 @@ export const ChangeReferrerModal = ({
         <CBottomSheet
             isVisible={isVisible}
             onBackdropPress={onClose}
+            isLoading={isSubmitting}
         >
             <View style={styles.headerContainer}>
                 <TouchableOpacity onPress={onClose}>

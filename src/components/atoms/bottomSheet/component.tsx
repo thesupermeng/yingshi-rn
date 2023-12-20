@@ -3,6 +3,7 @@ import { KeyboardAvoidingView, Modal, Platform, ScrollView, StyleSheet, View, Vi
 import { CPressable } from "../pressable";
 import { useTheme } from "@react-navigation/native";
 import { useCBottomSheetHook } from "./hook";
+import SpinnerOverlay from "../../modal/SpinnerOverlay";
 
 
 type CProps = {
@@ -17,6 +18,7 @@ type CProps = {
     backdropColor?: string,
     supportedOrientations?: ("portrait" | "landscape")[];
     disabledKeyboardAvoiding?: boolean,
+    isLoading?: boolean,
 }
 
 export const CBottomSheet = ({
@@ -31,6 +33,7 @@ export const CBottomSheet = ({
     backdropColor = '#000000aa',
     supportedOrientations = ['portrait'],
     disabledKeyboardAvoiding = false,
+    isLoading = false,
 }: CProps) => {
     const { colors } = useTheme();
 
@@ -67,6 +70,8 @@ export const CBottomSheet = ({
                         minHeight: minHeight,
                     }}
                 >
+                    <SpinnerOverlay visible={isLoading} />
+
                     <View style={styles.bottomsheet}>
                         {showWhiteLine &&
                             <View

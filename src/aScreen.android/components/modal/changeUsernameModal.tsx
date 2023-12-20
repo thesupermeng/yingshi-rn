@@ -108,6 +108,7 @@ export const ChangeUsernameModal = ({
         <CBottomSheet
             isVisible={isVisible}
             onBackdropPress={onClose}
+            isLoading={isSubmitting}
         >
             <View style={styles.headerContainer}>
                 <TouchableOpacity onPress={onClose}>

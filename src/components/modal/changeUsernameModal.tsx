@@ -9,6 +9,7 @@ import { userModel } from "@type/userType";
 import { useDispatch } from "react-redux";
 import { changeScreenAction } from "@redux/actions/screenAction";
 import { updateUsernameState } from "@redux/actions/userAction";
+import SpinnerOverlay from "./SpinnerOverlay";
 
 
 interface Props {
@@ -108,6 +109,7 @@ export const ChangeUsernameModal = ({
         <CBottomSheet
             isVisible={isVisible}
             onBackdropPress={onClose}
+            isLoading={isSubmitting}
         >
             <View style={styles.headerContainer}>
                 <TouchableOpacity onPress={onClose}>
