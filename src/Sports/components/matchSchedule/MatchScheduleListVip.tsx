@@ -49,7 +49,6 @@ const MatchScheduleList = ({
 
   const [isFetchNext, setFetchNext] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
-  const [showLoading2, setShowLoading2] = useState(true);
 
   const [matches, setMatches] = useState<Matches>({
     headers: [],
@@ -179,61 +178,25 @@ const MatchScheduleList = ({
   };
 
   const handleRefresh = () => {
-    setShowLoading2(true);
+    setShowLoading(true);
     flatlistRef?.current?.scrollToOffset({ animated: false, offset: 0 });
 
     setTimeout(() => {
    //   setShowLoading(false);
-      setShowLoading2(false);
+      setShowLoading(false);
     }, 1200);
   };
 
   useEffect(() => {
-  handleRefresh()
+    setShowLoading(true);
+    setTimeout(() => {
+      //   setShowLoading(false);
+      setShowLoading(false);
+       }, 1000);
   }, []);
 
   return (
     <View style={{ flex: 1 }}>
-      {showLoading2 && (
-        // <View
-        //   style={{
-        //     width: "100%",
-        //     height: "100%",
-        //     position: "absolute",
-        //     zIndex: 1000,
-        //     backgroundColor: "#0c0c0c",
-        //     justifyContent: "center",
-        //     alignItems: "center",
-        //     borderRadius: 20,
-        //   }}
-        // >
-        //   <FastImage
-        //     style={{ height: 150, width: 150 }}
-        //     source={require("@static/images/home-loading.gif")}
-        //     resizeMode={"contain"}
-        //   />
-        // </View>
-
-        <View
-          style={{
-            borderRadius:15,
-            position: "absolute",
-            backgroundColor: colors.background,
-            zIndex: 1,
-            width: "100%",
-            height: "100%",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <FastImage
-            source={require("@static/images/loading-spinner.gif")}
-            style={{ width: 100, height: 100 }}
-            resizeMode="contain"
-          />
-        </View>
-      )}
-
       {matches?.data !== undefined && matches.data.length > 0 ? (
         <View >
         <FlatList
@@ -280,7 +243,8 @@ const MatchScheduleList = ({
         <View
           style={{
             position: "absolute",
-            backgroundColor: colors.background,
+            //backgroundColor: colors.background,
+            backgroundColor: '#0c0c0c',
             zIndex: 1,
             width: "100%",
             height: "100%",
