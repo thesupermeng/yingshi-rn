@@ -108,6 +108,7 @@ const deleteFile = async (id: string) => {
   }
 
   await RNFetchBlob.fs.unlink(targetFilePath)
+  await deleteVodFromApiCache(id)
 
 } 
 
@@ -228,4 +229,17 @@ export const batchAddVodToApiCache = async (vod: MiniVideo[]) => {
 function removeDuplicateObjects(array: MiniVideo[]): MiniVideo[] {
   const uniqueObjectSet = new Set(array.map(JSON.stringify));
   return Array.from(uniqueObjectSet, (str) => JSON.parse(str) as MiniVideo);
+}
+
+const deleteVodFromApiCache = async (id: string) => {
+  if (!(await getIsApiCacheExist())) return 
+  const apiCacheFilePath = RNFetchBlob.fs.dirs.DocumentDir + '/apicache.json'
+  const apiCacheContentStr = await RNFetchBlob.fs.readFile(apiCacheFilePath, 'utf8')
+  const apiCacheContent: MiniVideo[] = JSON.parse(apiCacheContentStr)
+
+  console.debug('removing vod from api cache', id)
+
+  const filteredCacheContent = apiCacheContent.filter(vod => vod.mini_video_id.toString() !== id)
+  await RNFetchBlob.fs.writeFile(apiCacheFilePath, JSON.stringify(filteredCacheContent))
+
 }

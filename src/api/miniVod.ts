@@ -2,6 +2,7 @@ import { API_DOMAIN_TEST } from "@utility/constants";
 import { getApiCache, getExcludedIds, getIsApiCacheExist } from "../utils/minivodDownloader"
 import { MiniVideo } from "@type/ajaxTypes";
 import { QueryClient } from "@tanstack/react-query";
+import shuffle from 'lodash/shuffle'
 
 type MiniVideoResponseType = {
   data: {
@@ -19,7 +20,7 @@ const fetchMiniVods = async (page: number, from: 'api'|'local' = 'local') => {
     return json.data.List
   } else {
     console.debug('getting from local')
-    return await getApiCache()
+    return shuffle(await getApiCache())
   }
 }
 
