@@ -133,7 +133,7 @@ export const updateUsername = async ({
     referral_code: referralCode,
   };
 
-  let result = await axios.post(API_DOMAIN_TEST + "users/v1/update", json, {
+  let result = await axios.post(API_DOMAIN + "users/v1/update", json, {
     headers: headers,
   });
 
@@ -155,7 +155,7 @@ export const getUserDetails = async ({ bearerToken }: any) => {
     "Device-Id": deviceId
   };
 
-  let result = await axios.get(API_DOMAIN_TEST + "users/v1/me", {
+  let result = await axios.get(API_DOMAIN + "users/v1/me", {
     headers: headers,
   });
 
