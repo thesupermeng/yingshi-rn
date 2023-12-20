@@ -54,6 +54,7 @@ function VodWithDescriptionList({
           data={vodList}
           contentContainerStyle={{ paddingBottom: 30 }}
           renderItem={renderItem}
+          showsVerticalScrollIndicator={false}
           ListFooterComponent={
             <View style={{ ...styles.loading, marginBottom: 30 }}>
               <Text
