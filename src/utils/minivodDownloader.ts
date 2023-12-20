@@ -73,7 +73,7 @@ export const downloadFirstNVid = async (n:number, vods: MiniVideo[]) => {
   //     await RNFetchBlob.fs.unlink(cacheFolder)
   //   } 
   // }
-  
+
   const NChunks = chunk(vods, DOWNLOAD_BATCH_SIZE)
   for (const chunk of NChunks) {
     // console.debug('downloading chunk')
@@ -227,8 +227,15 @@ export const batchAddVodToApiCache = async (vod: MiniVideo[]) => {
 }
 
 function removeDuplicateObjects(array: MiniVideo[]): MiniVideo[] {
-  const uniqueObjectSet = new Set(array.map(JSON.stringify));
-  return Array.from(uniqueObjectSet, (str) => JSON.parse(str) as MiniVideo);
+  const seenIds = new Set<number>();
+
+  return array.filter(obj => {
+    if (!seenIds.has(obj.mini_video_id)) {
+      seenIds.add(obj.mini_video_id);
+      return true;
+    }
+    return false;
+  });
 }
 
 const deleteVodFromApiCache = async (id: string) => {
