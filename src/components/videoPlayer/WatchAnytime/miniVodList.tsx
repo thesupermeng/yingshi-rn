@@ -221,7 +221,7 @@ export default forwardRef<MiniVodRef, Props>(
     const renderItem = useCallback(
       ({item, index}: {item: MiniVideo; index: number}) => (
         <View style={{height: displayHeight ? displayHeight : 0}}>
-          {displayHeight != 0 && (current > index - 3 && current < index + 3) && (
+          {displayHeight != 0 && (current > index - 2 && current < index + 2) && (
             <ShortVod
               vod={item}
               thumbnail={item.mini_video_origin_cover}
@@ -231,7 +231,7 @@ export default forwardRef<MiniVodRef, Props>(
                 console.log('click pause');
                 setPause(!current);
               }}
-              isShowVideo={current > index - 3 && current < index + 3}
+              isShowVideo={current > index - 2 && current < index + 2}
               // isShowVideo={current === index && !isScrolling && !isPressTabScroll}
               currentDuration={videoCurrentDurations[index]}
               updateVideoDuration={duration =>
@@ -296,8 +296,8 @@ export default forwardRef<MiniVodRef, Props>(
             ref={miniVodListRef}
             data={collectionPartialVideos}
             initialNumToRender={10}
-            maxToRenderPerBatch={5}
-            windowSize={5}
+            maxToRenderPerBatch={3}
+            windowSize={3}
             refreshControl={refreshComponent()}
             renderItem={renderItem}
             horizontal={false}
