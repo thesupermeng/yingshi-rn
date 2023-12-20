@@ -86,14 +86,10 @@ function WatchAnytime({navigation}: BottomTabScreenProps<any>) {
     ({pageParam = 1}) => fetchMiniVods(pageParam),
     {
       getNextPageParam: (lastPage, allPages) => {
-        if (lastPage === null) {
-          return undefined;
-        }
-        const nextPage =
-          lastPage.length === LIMIT ? allPages.length + 1 : undefined;
-        return nextPage;
+        return allPages.length + 1
       },
       onSuccess: data => {},
+      refetchOnMount: 'always'
     },
   );
 
@@ -145,7 +141,6 @@ function WatchAnytime({navigation}: BottomTabScreenProps<any>) {
   }, [videos]);
 
   useEffect(() => {
-    refetch()
     const subscription = AppState.addEventListener(
       'change',
       handleAppStateChange,
