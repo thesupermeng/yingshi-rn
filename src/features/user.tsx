@@ -51,15 +51,9 @@ export const signinupUser = async ({
     is_social_login: isGoogleLogin,
   };
 
-  console.log('111')
-  console.log(json)
-
   let result = await axios.post(API_DOMAIN + 'users/v1/signinup', json, {
     validateStatus: status => (status >= 200 && status < 300) || status === 400
   });
-
-  console.log('222')
-  console.log(result.data)
 
   if (result.data.code === -1) {
     throw result.data.message;
@@ -68,60 +62,60 @@ export const signinupUser = async ({
   return result.data;
 }
 
-export const registerUser = async ({ email, referral_code, otp }: any) => {
-  let platform_id;
-  let deviceId = await DeviceInfo.getUniqueId();
+// export const registerUser = async ({ email, referral_code, otp }: any) => {
+//   let platform_id;
+//   let deviceId = await DeviceInfo.getUniqueId();
 
-  if (typeof deviceId !== "string") {
-    deviceId = JSON.stringify(deviceId);
-  }
+//   if (typeof deviceId !== "string") {
+//     deviceId = JSON.stringify(deviceId);
+//   }
 
-  if (Platform.OS === "android") {
-    platform_id = YING_SHI_PRODUCT_ANDROID;
-  } else {
-    platform_id = YING_SHI_PRODUCT_IOS;
-  }
+//   if (Platform.OS === "android") {
+//     platform_id = YING_SHI_PRODUCT_ANDROID;
+//   } else {
+//     platform_id = YING_SHI_PRODUCT_IOS;
+//   }
 
-  let json = {
-    email: email,
-    referral_code: referral_code,
-    // device_id: deviceInfoModule.getDeviceId(),
-    device_id: deviceId,
-    otp: otp,
-    product: platform_id,
-    platform_id: platform_id,
-  };
-  console.log("json");
-  console.log(json);
-  let result = await axios.post(API_DOMAIN_TEST + "users/v1/register", json);
-  console.log("result");
-  console.log(result);
-  return result;
-};
+//   let json = {
+//     email: email,
+//     referral_code: referral_code,
+//     // device_id: deviceInfoModule.getDeviceId(),
+//     device_id: deviceId,
+//     otp: otp,
+//     product: platform_id,
+//     platform_id: platform_id,
+//   };
+//   console.log("json");
+//   console.log(json);
+//   let result = await axios.post(API_DOMAIN_TEST + "users/v1/register", json);
+//   console.log("result");
+//   console.log(result);
+//   return result;
+// };
 
-export const loginUser = async ({ email, otp }: any) => {
-  let platform_id;
-  let deviceId = await DeviceInfo.getUniqueId();
-  if (typeof deviceId !== "string") {
-    deviceId = JSON.stringify(deviceId);
-  }
+// export const loginUser = async ({ email, otp }: any) => {
+//   let platform_id;
+//   let deviceId = await DeviceInfo.getUniqueId();
+//   if (typeof deviceId !== "string") {
+//     deviceId = JSON.stringify(deviceId);
+//   }
 
-  if (Platform.OS === "android") {
-    platform_id = YING_SHI_PRODUCT_ANDROID;
-  } else {
-    platform_id = YING_SHI_PRODUCT_IOS;
-  }
+//   if (Platform.OS === "android") {
+//     platform_id = YING_SHI_PRODUCT_ANDROID;
+//   } else {
+//     platform_id = YING_SHI_PRODUCT_IOS;
+//   }
 
-  let json = {
-    email: email,
-    otp: otp,
-    product: platform_id,
-    device_id: deviceId,
-  };
+//   let json = {
+//     email: email,
+//     otp: otp,
+//     product: platform_id,
+//     device_id: deviceId,
+//   };
 
-  let result = await axios.post(API_DOMAIN_TEST + "users/v1/login", json);
-  return result;
-};
+//   let result = await axios.post(API_DOMAIN_TEST + "users/v1/login", json);
+//   return result;
+// };
 
 export const updateUsername = async ({
   username,
@@ -139,7 +133,7 @@ export const updateUsername = async ({
     referral_code: referralCode,
   };
 
-  let result = await axios.post(API_DOMAIN_TEST + "users/v1/update", json, {
+  let result = await axios.post(API_DOMAIN + "users/v1/update", json, {
     headers: headers,
   });
 
@@ -161,7 +155,7 @@ export const getUserDetails = async ({ bearerToken }: any) => {
     "Device-Id": deviceId
   };
 
-  let result = await axios.get(API_DOMAIN_TEST + "users/v1/me", {
+  let result = await axios.get(API_DOMAIN + "users/v1/me", {
     headers: headers,
   });
 

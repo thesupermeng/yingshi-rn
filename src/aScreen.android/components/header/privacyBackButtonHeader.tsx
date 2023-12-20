@@ -7,20 +7,16 @@ import BackButton from '../button/backButton';
 import { RootStackParamList, RootStackScreenProps } from "@type/navigationTypes";
 import {
     showLoginAction,
-    showRegisterAction,
-    navigateToProfileScreen
-  } from "@redux/actions/screenAction";
-import { screenReducer } from "@redux/reducers/screenReducer";
+} from "@redux/actions/screenAction";
 import { screenModel } from "@type/screenType";
 import { RootState } from "@redux/store";
-import { Route } from "react-native-tab-view";
 
 interface Props {
     title?: string,
     onBack?: any,
     headerStyle?: ViewStyle,
     right?: React.ReactNode,
-    destination: keyof RootStackParamList, 
+    destination: keyof RootStackParamList,
 }
 
 
@@ -32,21 +28,21 @@ export default function PrivacyBackButtonHeader({ title, headerStyle, right, des
     const route = useRoute();
     const screenReducer: screenModel = useAppSelector(
         ({ screenReducer }: RootState) => screenReducer
-      );
+    );
 
-      useEffect(() => {
+    useEffect(() => {
         const unsubscribe = navigation.addListener('beforeRemove', (e) => {
             if (screenReducer.navigateToProfile === true) {
                 // Check if the previous route was "RegistrationPage" and the destination is "ProfileScreen"
                 // If yes, trigger your custom action
-                dispatch(showRegisterAction());
-            }else {
+                dispatch(showLoginAction());
+            } else {
                 return
             }
         });
 
         return unsubscribe;
-    }, [navigation, route]);
+    }, [route]);
 
 
     return (
@@ -74,13 +70,13 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         width: '100%',
         alignItems: 'center',
-        marginTop: 5, 
+        marginTop: 5,
     },
     backStyle: {
-        width: 30, 
-        height: 30, 
-        display: 'flex', 
-        alignItems: 'center', 
+        width: 30,
+        height: 30,
+        display: 'flex',
+        alignItems: 'center',
         justifyContent: 'center',
     }
 });

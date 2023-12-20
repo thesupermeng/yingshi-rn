@@ -120,6 +120,8 @@ export default ({ navigation }: RootStackScreenProps<'设置'>) => {
                 screen: 'Profile',
               });
               toggleLogoutDialog();
+
+              GoogleSignin.signOut();
             }}
             onCancel={toggleLogoutDialog}
             isVisible={isLogoutDialogOpen}

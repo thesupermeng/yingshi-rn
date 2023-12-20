@@ -52,7 +52,7 @@ import SportsIcon from "@static/images/sports.svg";
 import MatchesScreen from "../Sports/screens/Sports/Matches";
 import MatchDetailsScreen from "../Sports/screens/Sports/MatchDetails";
 import { useDispatch, useSelector } from "react-redux";
-import LoginBottomSheet from "../components/auth/loginBottomSheet";
+import SigninupBottomSheet from "../components/auth/signinupBottomSheet";
 import {
   HomeTabParamList,
   PlaylistTabParamList,
@@ -343,7 +343,6 @@ export default () => {
   const [gifKey, setGifKey] = useState(0);
 
   const [isShowLogin, setShowLogin] = useState(false);
-  const [isShowRegister, setShowRegister] = useState(false);
 
   useEffect(() => {
     if (screenState.screenShow != false) {
@@ -359,13 +358,11 @@ export default () => {
 
     if (screenState.loginShow == true) {
       dispatch(hideLoginAction());
-      setShowRegister(false);
       setShowLogin(true);
     }
     if (screenState.resetBottomSheet == true) {
       dispatch(resetBottomSheetAction());
       setShowLogin(false);
-      setShowRegister(false);
     }
   }, [screenState]);
 
@@ -667,7 +664,7 @@ export default () => {
         </Stack.Navigator>
         {settingsReducer.appOrientation === "PORTRAIT" && ( // only show if portrait
           <>
-            <LoginBottomSheet
+            <SigninupBottomSheet
               isVisible={isShowLogin}
               handleClose={() => setShowLogin(false)}
             />

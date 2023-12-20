@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import {
   View,
   Text,
   StyleSheet,
-  TextInput,
-  TouchableOpacity,
 } from "react-native";
 import ScreenContainer from "../../components/container/screenContainer";
 import { RootStackScreenProps } from "@type/navigationTypes";
@@ -12,30 +10,21 @@ import TitleWithBackButtonHeader from "../../components/header/titleWithBackButt
 
 import { useTheme } from "@react-navigation/native";
 import { APP_NAME_CONST } from "@utility/constants";
-import { showLoginAction, showRegisterAction } from "@redux/actions/screenAction";
-import { useAppDispatch, useAppSelector } from "@hooks/hooks";
+import { showLoginAction } from "@redux/actions/screenAction";
+import { useAppDispatch, useSelector } from "@hooks/hooks";
 import { screenModel } from "@type/screenType";
-import { RootState } from "@redux/store";
 
 export default ({ navigation }: RootStackScreenProps<"用户协议">) => {
-  const { colors, textVariants, icons, spacing } = useTheme();
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const { textVariants, spacing } = useTheme();
   const dispatch = useAppDispatch();
-  const screenReducer: screenModel = useAppSelector(
-    ({ screenReducer }: RootState) => screenReducer
-  );
+  const screenReducer = useSelector<screenModel>('screenReducer');
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('beforeRemove', (e) => {
-      if (screenReducer.navigateToProfile === true && screenReducer.fromWhereToProfile !== undefined) {
+      if (screenReducer.navigateToProfile === true) {
         // Check if the previous route was "RegistrationPage" and the destination is "ProfileScreen"
         // If yes, trigger your custom action
-        if (screenReducer.fromWhereToProfile === 'login') {
-          dispatch(showLoginAction());
-        }
-        if (screenReducer.fromWhereToProfile === 'register') {
-          dispatch(showRegisterAction());
-        }
+        dispatch(showLoginAction());
       } else {
         return
       }
@@ -43,10 +32,6 @@ export default ({ navigation }: RootStackScreenProps<"用户协议">) => {
 
     return unsubscribe;
   }, [navigation]);
-
-  const toggleOverlay = () => {
-    setIsDialogOpen(!isDialogOpen);
-  };
 
   return (
     <ScreenContainer scrollView={true}>
