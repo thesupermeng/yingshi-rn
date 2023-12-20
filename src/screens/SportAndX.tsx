@@ -316,10 +316,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                 // borderWidth:20
               }}
             >
-          {/* <XVodTab
-          setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
-          tabList={matchTabs}/> */}
-         
+          <XVodTab/>         
          </View>
           
           }
