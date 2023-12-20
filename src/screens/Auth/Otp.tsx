@@ -212,7 +212,8 @@ const OtpInputs = ({
 
   return (
     <View>
-      <Text style={styles.title}>输入邮箱验证码</Text>
+      {/* <Text style={styles.title}>输入邮箱验证码</Text> */}
+      <Text style={styles.title}>{email ? '输入邮箱验证码' : '输入OTP验证码' }</Text>
 
       <Text style={styles.description}>
         验证码已发送至{' '}
