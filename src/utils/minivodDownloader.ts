@@ -14,7 +14,11 @@ async function downloadVod(vod: MiniVideo){
       return
     }
   } else{
-    RNFetchBlob.fs.mkdir(cacheFolder)
+    try{
+      await RNFetchBlob.fs.mkdir(cacheFolder)
+    } catch (e) {
+      // console.debug(e)
+    }
   }
 
   const fileExist = RNFetchBlob.fs.exists(fileLocation)
@@ -77,6 +81,7 @@ export const downloadFirstNVid = async (n:number, vods: MiniVideo[]) => {
     await Promise.all(
       chunk.map(vod => downloadVod(vod))
     )
+    batchAddVodToApiCache(chunk)
   }
 
 }
@@ -174,4 +179,53 @@ export const checkExpiredCacheFile = async (days: number) => {
     // console.debug('cache file still not expired. keep')
   }
   
+}
+
+
+export const getIsApiCacheExist = async() => {
+  const apiCacheFilePath = RNFetchBlob.fs.dirs.DocumentDir + '/apicache.json'
+
+  return await RNFetchBlob.fs.exists(apiCacheFilePath)
+}
+
+export const getApiCache = async () => {
+  const apiCacheFilePath = RNFetchBlob.fs.dirs.DocumentDir + '/apicache.json'
+
+  if (await getIsApiCacheExist()){
+    // if exists
+    const res = JSON.parse(await RNFetchBlob.fs.readFile(apiCacheFilePath, 'utf8'))
+    // console.debug('res', res)
+    return res
+  } else {
+    return []
+  }
+
+}
+
+export const batchAddVodToApiCache = async (vod: MiniVideo[]) => {
+  const apiCacheFilePath = RNFetchBlob.fs.dirs.DocumentDir + '/apicache.json'
+  try {
+    if (!(await getIsApiCacheExist())){
+      await RNFetchBlob.fs.createFile(apiCacheFilePath, '[]', 'utf8')
+    }
+  } catch (e) {
+    // console.debug('error,', e)
+  }
+  const apiCacheContentStr = await RNFetchBlob.fs.readFile(apiCacheFilePath, 'utf8')
+  const apiCacheContent: MiniVideo[] = JSON.parse(apiCacheContentStr)
+  // console.debug(apiCacheContent)
+  if (apiCacheContent.length < TOTAL_VIDEO_TO_DOWNLOAD){
+    const newArr = removeDuplicateObjects(apiCacheContent.concat(vod))
+    // console.debug('adding api content to cache', vod.mini_video_id)
+    await RNFetchBlob.fs.writeFile(apiCacheFilePath, JSON.stringify(newArr))
+  } else {
+    // exceed limit, not adding to cache
+    console.debug('not adding to cache, exceed limit')
+  }
+
+}
+
+function removeDuplicateObjects(array: MiniVideo[]): MiniVideo[] {
+  const uniqueObjectSet = new Set(array.map(JSON.stringify));
+  return Array.from(uniqueObjectSet, (str) => JSON.parse(str) as MiniVideo);
 }

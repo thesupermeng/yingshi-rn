@@ -1,5 +1,5 @@
 import { API_DOMAIN_TEST } from "@utility/constants";
-import { getExcludedIds } from "../utils/minivodDownloader"
+import { getApiCache, getExcludedIds, getIsApiCacheExist } from "../utils/minivodDownloader"
 import { MiniVideo } from "@type/ajaxTypes";
 import { QueryClient } from "@tanstack/react-query";
 
@@ -9,13 +9,19 @@ type MiniVideoResponseType = {
   };
 };
 
-const fetchMiniVods = async (page: number) => {
-  const excluded = await getExcludedIds()
-  const res = await fetch(`${API_DOMAIN_TEST}miniVod/v2/miniVod?page=${page}&limit=300&exclude=${excluded.join(',')}`)
-  const json: MiniVideoResponseType = await res.json()
-  return json.data.List
-
-};
+const fetchMiniVods = async (page: number, from: 'api'|'local' = 'local') => {
+  const apiCacheExists = await getIsApiCacheExist()
+  if (!apiCacheExists || from === 'api' || page > 1){
+    console.debug('getting from api')
+    const excluded = await getExcludedIds()
+    const res = await fetch(`${API_DOMAIN_TEST}miniVod/v2/miniVod?page=${page}&limit=300&exclude=${excluded.join(',')}`)
+    const json: MiniVideoResponseType = await res.json()
+    return json.data.List
+  } else {
+    console.debug('getting from local')
+    return await getApiCache()
+  }
+}
 
 const prefetchMiniVod = async (queryClient: QueryClient) => {
   queryClient.prefetchInfiniteQuery(

@@ -150,7 +150,7 @@ export default () => {
   }, []);
 
   const {data} = useInfiniteQuery(['watchAnytime', 'normal'], {
-    queryFn: ({pageParam = 1}) => fetchMiniVods(pageParam)
+    queryFn: ({pageParam = 1}) => fetchMiniVods(pageParam, 'api')
   })
   useEffect(() => {
     if (DOWNLOAD_WATCH_ANYTIME === true){
