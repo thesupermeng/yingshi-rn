@@ -312,12 +312,12 @@ function ShortVideoPlayer({
           <DescriptionBar vodDescription={currentVod.mini_video_title}/>
         </View>
 
-        {currentVod.is_collection?.toLowerCase() == 'y' && (
+        {/* {currentVod.is_collection?.toLowerCase() == 'y' && (
           <HejiButton
             handleOnPress={openBottomSheet}
             collectionTitle={currentVod.mini_video_collection_title}
           />
-        )}
+        )} */}
       </View>
     );
   }, [vodName, currentVod, adultMode]);
