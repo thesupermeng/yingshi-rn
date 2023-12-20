@@ -816,7 +816,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                     <>
                       {vod &&
                         suggestedVods !== undefined &&
-                        suggestedVods?.length > 0 && (
+                        suggestedVods?.length > 0 ? (
                           <View style={{ gap: spacing.l, marginBottom: 60 }}>
                             <ShowMoreVodButton
                               isPlayScreen={true}
@@ -840,7 +840,13 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                               }}
                             />
                           </View>
-                        )}
+                        ):
+                        <>
+                          {/* 广告空位 */}
+                        <View style={{marginBottom: 60}}></View>
+                        </>
+                        
+                        }
                     </>
                   )}
                 </>
