@@ -64,6 +64,11 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     ({ settingsReducer }: RootState) => settingsReducer
   );
 
+  const handleRejectEighteenPlus = ()=>{
+    setSelectedTab("sport")
+  }
+
+
   // ========== for analytics - start ==========
   const { sportViewsAnalytics } = useAnalytics();
 
@@ -316,7 +321,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                 // borderWidth:20
               }}
             >
-          <XVodTab/>         
+          <XVodTab handleRejectEighteenPlus={handleRejectEighteenPlus}/>         
          </View>
           
           }
