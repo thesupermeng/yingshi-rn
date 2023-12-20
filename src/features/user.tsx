@@ -51,15 +51,9 @@ export const signinupUser = async ({
     is_social_login: isGoogleLogin,
   };
 
-  console.log('111')
-  console.log(json)
-
   let result = await axios.post(API_DOMAIN + 'users/v1/signinup', json, {
     validateStatus: status => (status >= 200 && status < 300) || status === 400
   });
-
-  console.log('222')
-  console.log(result.data)
 
   if (result.data.code === -1) {
     throw result.data.message;
