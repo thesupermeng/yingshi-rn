@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import {
   View,
   Text,
@@ -40,7 +40,7 @@ export default function XVodTab({
   const { colors, textVariants, spacing } = useTheme();
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
-  const [showLoading, setShowLoading] = useState(true);
+  const [showLoading, setShowLoading] = useState(false);
   // const { data: navOptions, refetch } = useQuery({
   //   queryKey: ["HomePageNavOptions"],
   //   queryFn: () =>
@@ -92,7 +92,10 @@ export default function XVodTab({
   );
 
 
-  const data = useQuery({
+
+  
+
+  let data = useQuery({
     queryKey: ["HomePage"],
     queryFn: () =>
       fetch(`${API_DOMAIN}page/v2/typepage?id=99`)
@@ -103,8 +106,15 @@ export default function XVodTab({
         }),
   });
   
-  console.log("data");
-  console.log(data.data?.data);
+
+  useEffect(() => {
+    // console.log("data");
+    // console.log(data.data?.data);
+    if(data==undefined)
+    {    setShowLoading(true)}
+
+}, []);
+
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
