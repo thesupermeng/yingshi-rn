@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Platform } from "react-native";
+import { LogBox, Platform } from "react-native";
 import {
   ATRNSDK,
   ATInterstitialRNSDK,
@@ -18,7 +18,7 @@ import { RootState } from "@redux/store";
 import { useAppSelector } from "./hooks";
 import { AdsBannerContext } from "../contexts/AdsBannerContext";
 import { screenModel } from "@type/screenType";
-
+LogBox.ignoreAllLogs();
 type PlacementId =
   | typeof ANDROID_HOME_PAGE_POP_UP_ADS
   | typeof IOS_HOME_PAGE_POP_UP_ADS

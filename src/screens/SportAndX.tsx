@@ -158,7 +158,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
       >
         <ScreenContainer
           isBgHide={true}
-          containerStyle={{ paddingLeft: 0, paddingRight: 0 }}
+          containerStyle={{ paddingLeft: 0, paddingRight: 0, paddingTop: 8 }}
         >
           <BecomeVipOverlay
             setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
@@ -186,10 +186,16 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                   setSelectedTab("sport");
                 }}
               >
-                <View style={{ flexDirection: "row" }}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
                   {selectedTab == "sport" && (
                     <View style={{ paddingRight: 5 }}>
-                      <SportTabIcon width={18} />
+                      <SportTabIcon width={20} />
                     </View>
                   )}
                   <Text
@@ -227,7 +233,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                 >
                   {selectedTab == "xvod" && (
                     <View style={{ paddingRight: 5 }}>
-                      <XvodTabIcon width={18} />
+                      <XvodTabIcon width={20} />
                     </View>
                   )}
                   <Text
@@ -316,6 +322,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                 flex: 1,
                 marginHorizontal: 10,
                 backgroundColor: "transparent",
+
                 // borderColor:'red',
                 // borderWidth:20
               }}

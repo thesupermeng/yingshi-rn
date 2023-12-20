@@ -159,6 +159,7 @@ export default function MatchScheduleNav({
             backgroundColor: "transparent",
             borderTopRightRadius: 10,
             borderTopLeftRadius: 10,
+            shadowColor:'transparent'
           },
         })}
       >
