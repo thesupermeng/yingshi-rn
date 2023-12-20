@@ -55,7 +55,7 @@ const MatchScheduleList = ({
     headers: [],
     data: [],
   });
-
+ 
   const getUrl = () => {
     let url = "";
     if (matchTypeID !== -1) {
@@ -132,67 +132,64 @@ const MatchScheduleList = ({
     fetchData().then();
   }, []);
 
-  const Content = useCallback(
-    ({
-      item,
-      index,
-    }: {
-      item: { date: string | undefined; data: MatchDetailsType | undefined };
-      index: number;
-    }) => {
-      return (
-        <View style={{ width: "100%" }}>
-          {item?.date !== undefined ? (
-            <View
-              style={{
-                backgroundColor: bgDark ? "#0c0c0c" : colors.card2,
-                padding: spacing.xs,
-                paddingLeft: spacing.sideOffset,
-                borderTopLeftRadius: index == 0 && !isLive ? 0 : 15,
-                borderTopRightRadius: index == 0 && !isLive ? 0 : 15,
-                marginTop: index == 0 ? 0 : 20,
-                position: "relative",
-              }}
-            >
-              <Text style={textVariants.header}>{item?.date}</Text>
-            </View>
-          ) : (
-            item?.data !== undefined && (
-              <>
-                {/* <Text>{String((matches?.data.length > (index + 1) && matches?.data[index+1]?.date !== undefined ) || (matches?.data.length == index+1 ) )}</Text> */}
-                <MatchScheduleVip
-                  borderFlag={String(
-                 (   matches?.data.length >= index + 1 &&
-                      matches?.data[index + 1]?.date !== undefined)
-                      || (matches?.data.length == index+1 )
-                  )}
-                  bgDark={true}
-                  setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
-                  key={index}
-                  matchSche={item?.data}
-                />
-              </>
-            )
-          )}
-        </View>
-      );
-    },
-    []
-  );
+
+  const Content = ({
+    item,
+    index,
+  }: {
+    item: { date: string | undefined; data: MatchDetailsType | undefined };
+    index: number;
+  }) => {
+    return (
+      <View style={{ width: "100%" }}>
+        {item?.date !== undefined ? (
+          <View
+            style={{
+              backgroundColor: bgDark ? "#0c0c0c" : colors.card2,
+              padding: spacing.xs,
+              paddingLeft: spacing.sideOffset,
+              borderTopLeftRadius: index == 0 && !isLive ? 0 : 15,
+              borderTopRightRadius: index == 0 && !isLive ? 0 : 15,
+              marginTop: index == 0 ? 0 : 20,
+              position: "relative",
+            }}
+          >
+            <Text style={textVariants.header}>{item?.date}</Text>
+          </View>
+        ) : (
+          item?.data !== undefined && (
+            <>
+              {/* <Text>{String((matches?.data.length > (index + 1) && matches?.data[index+1]?.date !== undefined ) || (matches?.data.length == index+1 ) )}</Text> */}
+              <MatchScheduleVip
+                borderFlag={String(
+                  (matches?.data.length >= index + 1 &&
+                    matches?.data[index + 1]?.date !== undefined) ||
+                    (matches?.data.length == index + 1)
+                )}
+                bgDark={true}
+                setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
+                key={index}
+                matchSche={item?.data}
+              />
+            </>
+          )
+        )}
+      </View>
+    );
+  };
 
   const handleRefresh = () => {
-    setShowLoading(true);
+    setShowLoading2(true);
     flatlistRef?.current?.scrollToOffset({ animated: false, offset: 0 });
+
     setTimeout(() => {
-      setShowLoading(false);
-    }, 1000);
+   //   setShowLoading(false);
+      setShowLoading2(false);
+    }, 1200);
   };
 
   useEffect(() => {
-    // fake loading to ensure all assets are loaded
-    setTimeout(() => {
-      setShowLoading2(false);
-    }, 1000);
+  handleRefresh()
   }, []);
 
   return (
@@ -238,7 +235,7 @@ const MatchScheduleList = ({
       )}
 
       {matches?.data !== undefined && matches.data.length > 0 ? (
-        <View style={{   opacity: showLoading2 ? 0 : 1}}>
+        <View >
         <FlatList
           ref={flatlistRef}
           data={matches.data}
@@ -264,7 +261,7 @@ const MatchScheduleList = ({
       ) : (
         <View
           style={{
-            opacity: showLoading2 ? 0 : 1,
+          
             height: 100,
             backgroundColor: "#0c0c0c",
             justifyContent: "center",
