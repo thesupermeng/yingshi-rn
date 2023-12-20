@@ -25,6 +25,7 @@ interface Props {
   matchTypeID: number;
   status?: number;
   setShowBecomeVIPOverlay: any;
+  bgDark?:boolean
 }
 
 type MatchType = {
@@ -41,6 +42,7 @@ const MatchScheduleList = ({
   matchTypeID,
   status = -1,
   setShowBecomeVIPOverlay,
+  bgDark = false
 }: Props) => {
   const { colors, textVariants, spacing } = useTheme();
   const width = Dimensions.get('window').width;
@@ -141,7 +143,7 @@ const MatchScheduleList = ({
         {item?.date !== undefined ? (
           <View
             style={{
-              backgroundColor: colors.card2,
+              backgroundColor: bgDark ? '#0c0c0c' : colors.card2,
               padding: spacing.xs,
               paddingLeft: spacing.sideOffset,
             }}>
@@ -149,11 +151,15 @@ const MatchScheduleList = ({
           </View>
         ) : (
           item?.data !== undefined && (
+            <>
+      
             <MatchSchedule
+          bgDark={true}
               setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
               key={index}
               matchSche={item?.data}
             />
+            </>
           )
         )}
       </View>

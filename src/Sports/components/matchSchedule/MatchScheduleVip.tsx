@@ -31,6 +31,7 @@ interface Props {
   isMatchPage?: boolean;
   setShowBecomeVIPOverlay: any;
   bgDark?: boolean;
+  borderFlag?:string
 }
 
 const MatchSchedule = ({
@@ -39,6 +40,7 @@ const MatchSchedule = ({
   isMatchPage = true,
   bgDark = false,
   setShowBecomeVIPOverlay,
+  borderFlag
 }: Props) => {
   const navigation = useNavigation();
   const { colors, textVariants, spacing } = useTheme();
@@ -74,54 +76,7 @@ const MatchSchedule = ({
     // ========== for analytics - end ==========
   };
 
-  // const streamerClicked = (streamerId, streamerStatus) => {
-  //   return () => {
-  //     // navigation.navigate(redirectPage(streamerId, streamerStatus), {
-  //     //   matchId: match?.id,
-  //     //   streamerId: streamerId,
-  //     // });
-  //     navigation.navigate('体育详情', {
-  //       matchId: matchSche?.id === null ? undefined : matchSche.id,
-  //       streamerId:
-  //         matchSche?.streams?.length > 0
-  //           ? matchSche?.streams[0]?.streamer_id
-  //           : undefined,
-  //       sportType: '足球'
-  //     });
-  //   };
-  // };
 
-  // const redirectPage = (streamerId = null, streamerStatus = null) => {
-  //   if (streamerId != null && streamerStatus == 3) {
-  //     return 'LivePage';
-  //   } else if (streamerId != null && streamerStatus != null) {
-  //     if (match?.status == 0 || match?.status == 1) {
-  //       return 'BeforeLivePage';
-  //     } else {
-  //       return 'AfterLivePage';
-  //     }
-  //   } else {
-  //     const onlineStreamer = match?.streams?.findIndex(e => e.status == 3);
-  //     if (onlineStreamer != undefined && onlineStreamer != -1) {
-  //       return 'LivePage';
-  //     } else if (match?.status == 1) {
-  //       return 'AfterLivePage';
-  //     } else if (match?.status == 0) {
-  //       return 'BeforeLivePage';
-  //     } else {
-  //       return 'AfterLivePage';
-  //     }
-  //   }
-  // };
-
-  // const getOnlineStreamer = () => {
-  //   const onlineStreamer = matchSche?.streams?.findIndex(e => e.status == 3);
-  //   if (onlineStreamer != undefined && onlineStreamer != -1) {
-  //     return matchSche?.streams[onlineStreamer].streamer_id;
-  //   } else {
-  //     return null;
-  //   }
-  // };
   return (
     <>
       <TouchableOpacity onPress={matchClicked}>
@@ -130,12 +85,14 @@ const MatchSchedule = ({
             ...styles.border,
             backgroundColor: bgDark ? "#0c0c0c" : "inherit",
             borderColor: "rgba(156, 156, 156 , 0.2)",
+            borderBottomLeftRadius: borderFlag =='true' ? 15 : 0,
+            borderBottomRightRadius:  borderFlag =='true' ? 15 : 0,
           }}
         >
           <View style={styles.matchScheduleHeader}>
             <View style={styles.matchInfo}>
               <Text style={{ ...styles.spaceBetween, color: colors.muted }}>
-                {matchSche?.competition?.name_short}
+                {matchSche?.competition?.name_short}  
               </Text>
               <Text
                 style={{
