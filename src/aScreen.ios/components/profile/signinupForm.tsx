@@ -264,6 +264,7 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
         userName: resultData.user.user_name,
         userReferralCode: resultData.user.user_referral_code,
         userEmail: resultData.user.user_email,
+        userPhoneNumber: resultData.user.user_phone,
         userMemberExpired: resultData.user.vip_end_time,
         userReferrerName: resultData.user.referrer_name,
         userEndDaysCount: resultData.user.user_vip_time_duration_days,
@@ -279,23 +280,30 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
 
       await dispatch(addUserAuthState(json));
 
-      if (userInfo.userCurrentTimestamp < userInfo.userMemberExpired) {
-        await AsyncStorage.setItem("showAds", "false");
-      } else {
-        await AsyncStorage.setItem("showAds", "true");
+
+      if (userInfo.message.includes("注册成功")) {
+        navigation.navigate('SetUsername');
+
+      } else if (userInfo.message.includes("登录成功")) {
+
+        if (userInfo.userCurrentTimestamp < userInfo.userMemberExpired) {
+          await AsyncStorage.setItem("showAds", "false");
+        } else {
+          await AsyncStorage.setItem("showAds", "true");
+        }
+
+        await dispatch(changeScreenAction('登录成功'));
+
+        // ========== for analytics - start ==========
+        userCenterLoginSuccessTimesAnalytics();
+
+        if (userInfo.userMemberExpired >= userInfo.userCurrentTimestamp) {
+          userCenterVipLoginSuccessTimesAnalytics();
+        }
+        // ========== for analytics - end ==========
+
+        if (onGooleLoginSuccess) onGooleLoginSuccess();
       }
-
-      await dispatch(changeScreenAction('登录成功'));
-
-      // ========== for analytics - start ==========
-      userCenterLoginSuccessTimesAnalytics();
-
-      if (userInfo.userMemberExpired >= userInfo.userCurrentTimestamp) {
-        userCenterVipLoginSuccessTimesAnalytics();
-      }
-      // ========== for analytics - end ==========
-
-      if (onGooleLoginSuccess) onGooleLoginSuccess();
     } else {
       navigation.navigate("OTP", {
         email: loginType === 'email' ? loginValue : undefined,

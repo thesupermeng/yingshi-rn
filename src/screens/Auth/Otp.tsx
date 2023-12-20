@@ -168,6 +168,7 @@ const OtpInputs = ({
       userName: resultData.user.user_name,
       userReferralCode: resultData.user.user_referral_code,
       userEmail: resultData.user.user_email,
+      userPhoneNumber: resultData.user.user_phone,
       userMemberExpired: resultData.user.vip_end_time,
       userReferrerName: resultData.user.referrer_name,
       userEndDaysCount: resultData.user.user_vip_time_duration_days,

@@ -72,10 +72,10 @@ export default ({ navigation }: RootStackScreenProps<"个人中心">) => {
             </Text>
           </TouchableOpacity>
 
-          {/* email  */}
+          {/* email & phone */}
           <View style={styles.pressableTextContainer}>
             <Text style={{ fontSize: 16, color: '#9C9C9C' }}>
-              {userState.userEmail}
+              {userState.userEmail !== '' ? userState.userEmail : userState.userPhoneNumber}
             </Text>
           </View>
 

@@ -121,7 +121,6 @@ export const ChangeUsernameModal = ({
                     设置昵称
                 </Text>
 
-                {/* TODOOO: handle loading */}
                 <TouchableOpacity onPress={onSubmitForm}>
                     <Text style={textVariants.body}>
                         保存
