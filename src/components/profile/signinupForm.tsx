@@ -53,7 +53,7 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
   const { userCenterLoginSuccessTimesAnalytics, userCenterVipLoginSuccessTimesAnalytics } = useAnalytics();
   const dispatch = useDispatch();
 
-  const [loginType, setloginType] = useState<'email' | 'phone'>('email');
+  const [loginType, setloginType] = useState<'email' | 'phone'>('phone');
 
   const [loginValue, setLoginValue] = useState(''); // email or phone
   const [referralCode, setReferralCode] = useState('');
@@ -162,18 +162,14 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
     } catch (error: any) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         // user cancelled the login flow
-        console.log('error SIGN_IN_CANCELLED');
       } else if (error.code === statusCodes.IN_PROGRESS) {
         // operation (e.g. sign in) is in progress already
-        console.log('error IN_PROGRESS');
         showToast('请勿频繁操作');
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
         // play services not available or outdated
-        console.log('error PLAY_SERVICES_NOT_AVAILABLE');
         showToast('谷歌服务获取失败');
       } else {
         // some other error happened
-        console.log('error common');
         showToast('登入失败，请稍后再试');
       }
       console.log(error.toString());
@@ -210,8 +206,6 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
   }
 
   const onSubmit = async ({ isGoogleLogin, email }: { isGoogleLogin?: boolean, email?: string } = {}) => {
-    console.log(isGoogleLogin)
-    console.log(email)
     if (isSubmitting) return;
 
     if (isReadTermNCondition == false) {
@@ -264,6 +258,7 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
         userName: resultData.user.user_name,
         userReferralCode: resultData.user.user_referral_code,
         userEmail: resultData.user.user_email,
+        userPhoneNumber: resultData.user.user_phone,
         userMemberExpired: resultData.user.vip_end_time,
         userReferrerName: resultData.user.referrer_name,
         userEndDaysCount: resultData.user.user_vip_time_duration_days,
@@ -279,23 +274,29 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
 
       await dispatch(addUserAuthState(json));
 
-      if (userInfo.userCurrentTimestamp < userInfo.userMemberExpired) {
-        await AsyncStorage.setItem("showAds", "false");
-      } else {
-        await AsyncStorage.setItem("showAds", "true");
+      if (userInfo.message.includes("注册成功")) {
+        navigation.navigate('SetUsername');
+
+      } else if (userInfo.message.includes("登录成功")) {
+
+        if (userInfo.userCurrentTimestamp < userInfo.userMemberExpired) {
+          await AsyncStorage.setItem("showAds", "false");
+        } else {
+          await AsyncStorage.setItem("showAds", "true");
+        }
+
+        await dispatch(changeScreenAction('登录成功'));
+
+        // ========== for analytics - start ==========
+        userCenterLoginSuccessTimesAnalytics();
+
+        if (userInfo.userMemberExpired >= userInfo.userCurrentTimestamp) {
+          userCenterVipLoginSuccessTimesAnalytics();
+        }
+        // ========== for analytics - end ==========
+
+        if (onGooleLoginSuccess) onGooleLoginSuccess();
       }
-
-      await dispatch(changeScreenAction('登录成功'));
-
-      // ========== for analytics - start ==========
-      userCenterLoginSuccessTimesAnalytics();
-
-      if (userInfo.userMemberExpired >= userInfo.userCurrentTimestamp) {
-        userCenterVipLoginSuccessTimesAnalytics();
-      }
-      // ========== for analytics - end ==========
-
-      if (onGooleLoginSuccess) onGooleLoginSuccess();
     } else {
       navigation.navigate("OTP", {
         email: loginType === 'email' ? loginValue : undefined,
