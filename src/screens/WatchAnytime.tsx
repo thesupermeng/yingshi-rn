@@ -15,6 +15,7 @@ import {MiniVideo} from '@type/ajaxTypes';
 import {screenModel} from '@type/screenType';
 import {API_DOMAIN_TEST} from '@utility/constants';
 import NoConnection from './../components/common/noConnection';
+import { fetchMiniVods } from '../api/miniVod';
 
 type MiniVideoResponseType = {
   data: {
@@ -71,13 +72,6 @@ function WatchAnytime({navigation}: BottomTabScreenProps<any>) {
     return;
   }, []);
 
-  const fetchVods = (page: number) =>
-    fetch(`${apiEndpoint}?page=${page}&limit=${LIMIT}`)
-      .then(response => response.json())
-      .then((json: MiniVideoResponseType) => {
-        return json.data.List;
-      });
-
   const {
     data: videos,
     isSuccess,
@@ -89,7 +83,7 @@ function WatchAnytime({navigation}: BottomTabScreenProps<any>) {
     remove,
   } = useInfiniteQuery(
     ['watchAnytime', fetchMode],
-    ({pageParam = 1}) => fetchVods(pageParam),
+    ({pageParam = 1}) => fetchMiniVods(pageParam),
     {
       getNextPageParam: (lastPage, allPages) => {
         if (lastPage === null) {
@@ -151,6 +145,7 @@ function WatchAnytime({navigation}: BottomTabScreenProps<any>) {
   }, [videos]);
 
   useEffect(() => {
+    refetch()
     const subscription = AppState.addEventListener(
       'change',
       handleAppStateChange,

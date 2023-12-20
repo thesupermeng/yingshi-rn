@@ -2,14 +2,12 @@ export interface screenModel {
   screenAction: string;
   screenShow: boolean;
   loginShow: boolean;
-  registerShow: boolean;
   resetBottomSheet: boolean;
   resetInputForm: boolean;
   navigateToProfile: boolean;
   sportWatchTime: number; // number of seconds user watched sports
   interstitialShow: boolean;
   isPlayerFullScreen: boolean;
-  fromWhereToProfile?: 'login' | 'register' | 'login_register';
   adultVideoWatchTime: number; // number of seconds user watch AV 
   adultModeDisclaimerShow: boolean;
   adultModeVipShow: boolean;

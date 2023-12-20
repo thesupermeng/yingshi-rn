@@ -31,14 +31,14 @@ import {
 } from '@react-native-google-signin/google-signin';
 import { useQuery } from "@tanstack/react-query";
 import { API_DOMAIN } from "@utility/constants";
-import { signinupUser } from "../../features/user";
+import { signinupUser } from "../../../features/user";
 import { showToast } from "../../Sports/utility/toast";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import useAnalytics from "@hooks/useAnalytics";
 import { useDispatch } from "react-redux";
 import { addUserAuthState } from "@redux/actions/userAction";
 
-export type LoginRef = {
+export type SigninupRef = {
   resetValue: () => void,
 }
 
@@ -46,14 +46,14 @@ type Props = {
   onGooleLoginSuccess?: () => void,
 }
 
-export const LoginForm = forwardRef<LoginRef, Props>(({
+export const SigninupForm = forwardRef<SigninupRef, Props>(({
   onGooleLoginSuccess,
 }: Props, ref) => {
   const navigation = useNavigation();
   const { userCenterLoginSuccessTimesAnalytics, userCenterVipLoginSuccessTimesAnalytics } = useAnalytics();
   const dispatch = useDispatch();
 
-  const [loginType, setloginType] = useState<'email' | 'phone'>('email');
+  const [loginType, setloginType] = useState<'email' | 'phone'>('phone');
 
   const [loginValue, setLoginValue] = useState(''); // email or phone
   const [referralCode, setReferralCode] = useState('');
@@ -264,6 +264,7 @@ export const LoginForm = forwardRef<LoginRef, Props>(({
         userName: resultData.user.user_name,
         userReferralCode: resultData.user.user_referral_code,
         userEmail: resultData.user.user_email,
+        userPhoneNumber: resultData.user.user_phone,
         userMemberExpired: resultData.user.vip_end_time,
         userReferrerName: resultData.user.referrer_name,
         userEndDaysCount: resultData.user.user_vip_time_duration_days,
@@ -279,23 +280,30 @@ export const LoginForm = forwardRef<LoginRef, Props>(({
 
       await dispatch(addUserAuthState(json));
 
-      if (userInfo.userCurrentTimestamp < userInfo.userMemberExpired) {
-        await AsyncStorage.setItem("showAds", "false");
-      } else {
-        await AsyncStorage.setItem("showAds", "true");
+
+      if (userInfo.message.includes("注册成功")) {
+        navigation.navigate('SetUsername');
+
+      } else if (userInfo.message.includes("登录成功")) {
+
+        if (userInfo.userCurrentTimestamp < userInfo.userMemberExpired) {
+          await AsyncStorage.setItem("showAds", "false");
+        } else {
+          await AsyncStorage.setItem("showAds", "true");
+        }
+
+        await dispatch(changeScreenAction('登录成功'));
+
+        // ========== for analytics - start ==========
+        userCenterLoginSuccessTimesAnalytics();
+
+        if (userInfo.userMemberExpired >= userInfo.userCurrentTimestamp) {
+          userCenterVipLoginSuccessTimesAnalytics();
+        }
+        // ========== for analytics - end ==========
+
+        if (onGooleLoginSuccess) onGooleLoginSuccess();
       }
-
-      await dispatch(changeScreenAction('登录成功'));
-
-      // ========== for analytics - start ==========
-      userCenterLoginSuccessTimesAnalytics();
-
-      if (userInfo.userMemberExpired >= userInfo.userCurrentTimestamp) {
-        userCenterVipLoginSuccessTimesAnalytics();
-      }
-      // ========== for analytics - end ==========
-
-      if (onGooleLoginSuccess) onGooleLoginSuccess();
     } else {
       navigation.navigate("OTP", {
         email: loginType === 'email' ? loginValue : undefined,
@@ -560,86 +568,83 @@ const LoginCard = ({
             <Text style={styles.danger}>{referralCodeErrMsg} </Text>
           </View>
         )}
-      </View>
-
-      {/* ============================== submit button ============================== */}
-      <Button
-        type="primary"
-        disabled={loginValue === '' || loginValueErrMsg !== null || !isReadTermNCondition}
-        style={[
-          styles.continueButtonStyle,
-          loginValue === "" || !isReadTermNCondition ? styles.btnInactive : styles.btnActive,
-        ]}
-        activeStyle={[
-          styles.continueButtonStyle,
-          loginValue === "" || !isReadTermNCondition ? styles.btnInactive : styles.btnActive,
-        ]}
-        onPress={onSubmit}
-      >
-        <Text
-          style={{
-            //  fontFamily: 'SF Pro Display',
-            fontWeight: "600",
-            fontSize: 14,
-            letterSpacing: 0.2,
-            color: loginValue === "" || !isReadTermNCondition ? "white" : "#000",
-          }}
+        <Button
+          type="primary"
+          disabled={loginValue === '' || loginValueErrMsg !== null || !isReadTermNCondition}
+          style={[
+            styles.continueButtonStyle,
+            loginValue === "" || !isReadTermNCondition ? styles.btnInactive : styles.btnActive,
+          ]}
+          activeStyle={[
+            styles.continueButtonStyle,
+            loginValue === "" || !isReadTermNCondition ? styles.btnInactive : styles.btnActive,
+          ]}
+          onPress={onSubmit}
         >
-          注册
-        </Text>
-      </Button>
+          <Text
+            style={{
+              //  fontFamily: 'SF Pro Display',
+              fontWeight: "600",
+              fontSize: 14,
+              letterSpacing: 0.2,
+              color: loginValue === "" || !isReadTermNCondition ? "white" : "#000",
+            }}
+          >
+            注册
+          </Text>
+        </Button>
 
 
-      <ReadAgreementPrivacyPolicy
-        isReadChecked={isReadTermNCondition}
-        onPress={onPressTermNCondition}
-        onPressUserAgreement={() => {
-          dispatch(navigateToProfileScreen('login'));
-          navigation.navigate("用户协议");
-        }}
-        onPressPrivacyPolicy={() => {
-          dispatch(navigateToProfileScreen('login'));
-          navigation.navigate("隐私政策");
-        }}
-      />
-
-      {/* ============================== other login type ============================== */}
-      <View style={{ alignItems: 'center' }}>
-        <Text style={{ color: "#9c9c9c" }}>使用以下方式登入</Text>
-      </View>
-
-      <View style={{
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginBottom: 30,
-        display: 'flex',
-        flexDirection: 'row',
-        padding: 10,
-      }}>
-        <TouchableOpacity
-          onPress={onChangeloginType}
-          style={{
-            backgroundColor: '#1D2023',
-            padding: 8,
-            borderRadius: 100,
-            marginRight: 10,
+        <ReadAgreementPrivacyPolicy
+          isReadChecked={isReadTermNCondition}
+          onPress={onPressTermNCondition}
+          onPressUserAgreement={() => {
+            dispatch(navigateToProfileScreen());
+            navigation.navigate("用户协议");
           }}
-        >
-          {loginType === 'email' && <PhoneIcon />}
-          {loginType === 'phone' && <MailIcon />}
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={onPressGoogleLogin}
-          style={{
-            backgroundColor: '#1D2023',
-            padding: 8,
-            borderRadius: 100,
-            marginRight: 10,
+          onPressPrivacyPolicy={() => {
+            dispatch(navigateToProfileScreen());
+            navigation.navigate("隐私政策");
           }}
-        >
-          <GmailIcon />
-        </TouchableOpacity>
+        />
+
+        {/* ============================== other login type ============================== */}
+        <View style={{ alignItems: 'center' }}>
+          <Text style={{ color: "#9c9c9c" }}>使用以下方式登入</Text>
+        </View>
+
+        <View style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          display: 'flex',
+          flexDirection: 'row',
+          padding: 10,
+        }}>
+          <TouchableOpacity
+            onPress={onChangeloginType}
+            style={{
+              backgroundColor: '#1D2023',
+              padding: 8,
+              borderRadius: 100,
+              marginRight: 10,
+            }}
+          >
+            {loginType === 'email' && <PhoneIcon />}
+            {loginType === 'phone' && <MailIcon />}
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={onPressGoogleLogin}
+            style={{
+              backgroundColor: '#1D2023',
+              padding: 8,
+              borderRadius: 100,
+              marginRight: 10,
+            }}
+          >
+            <GmailIcon />
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
@@ -648,7 +653,6 @@ const LoginCard = ({
 const styles = StyleSheet.create({
   textinputContainer: {
     marginTop: 15,
-    marginBottom: 10,
     justifyContent: 'center',
   },
   countryPhoneInputContainer: {
@@ -702,11 +706,9 @@ const styles = StyleSheet.create({
     borderWidth: 0,
   },
   card: {
-    height: "85%",
-    width: "100%",
-    paddingHorizontal: 20,
-    paddingTop: 20,
-    backgroundColor: "transparent",
+    // height: "100%",
+    // width: "100%",
+    // backgroundColor: "transparent",
   },
   title: {
     fontWeight: "400",

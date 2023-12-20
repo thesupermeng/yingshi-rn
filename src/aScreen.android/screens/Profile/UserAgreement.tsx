@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import {
   View,
   Text,
   StyleSheet,
-  TextInput,
-  TouchableOpacity,
 } from "react-native";
 import ScreenContainer from "../../components/container/screenContainer";
 import { RootStackScreenProps } from "@type/navigationTypes";
@@ -12,14 +10,28 @@ import TitleWithBackButtonHeader from "../../components/header/titleWithBackButt
 
 import { useTheme } from "@react-navigation/native";
 import { APP_NAME_CONST } from "@utility/constants";
+import { useAppDispatch, useSelector } from "@hooks/hooks";
+import { showLoginAction } from "@redux/actions/screenAction";
+import { screenModel } from "@type/screenType";
 
 export default ({ navigation }: RootStackScreenProps<"用户协议">) => {
-  const { colors, textVariants, icons, spacing } = useTheme();
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const { textVariants, spacing } = useTheme();
+  const dispatch = useAppDispatch();
+  const screenReducer = useSelector<screenModel>('screenReducer');
 
-  const toggleOverlay = () => {
-    setIsDialogOpen(!isDialogOpen);
-  };
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('beforeRemove', (e) => {
+      if (screenReducer.navigateToProfile === true) {
+        // Check if the previous route was "RegistrationPage" and the destination is "ProfileScreen"
+        // If yes, trigger your custom action
+        dispatch(showLoginAction());
+      } else {
+        return
+      }
+    });
+
+    return unsubscribe;
+  }, [navigation]);
 
   return (
     <ScreenContainer scrollView={true}>

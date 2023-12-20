@@ -1,4 +1,4 @@
-import {userModel} from '@type/userType';
+import { userModel } from '@type/userType';
 
 // export interface UserActionType {
 //   type: string;
@@ -11,6 +11,7 @@ const initialState: userModel = {
   userName: '',
   userReferralCode: '',
   userEmail: '',
+  userPhoneNumber: '',
   userMemberExpired: '',
   userReferrerName: '',
   userEndDaysCount: 0,
@@ -34,6 +35,7 @@ export function userReducer(state = initialState, action: any) {
         userName: '',
         userReferralCode: '',
         userEmail: '',
+        userPhoneNumber: '',
         userMemberExpired: '',
         userReferrerName: '',
         userEndDaysCount: 0,
@@ -47,15 +49,13 @@ export function userReducer(state = initialState, action: any) {
         userPaidVipList: {},
       };
     case 'add_user_auth':
-      console.log('add_user_auth reducer');
-      console.log(state);
-
       let json = {
         userToken: action.payload.userToken,
         userId: action.payload.userId,
         userName: action.payload.userName,
         userReferralCode: action.payload.userReferralCode,
         userEmail: action.payload.userEmail,
+        userPhoneNumber: action.payload.userPhoneNumber,
         userMemberExpired: action.payload.userMemberExpired,
         userReferrerName: action.payload.userReferrerName,
         userEndDaysCount: action.payload.userEndDaysCount,
@@ -76,13 +76,11 @@ export function userReducer(state = initialState, action: any) {
         ...json,
       };
     case 'update_user_auth':
-      console.log('update_user_auth');
-      // console.log(state);
-      // console.log(action.payload);
       let updatedState = {
         userName: action.payload.user.user_name,
         userReferralCode: action.payload.user.user_referral_code,
         userEmail: action.payload.user.user_email,
+        userPhoneNumber: `${action.payload.user.country?.country_phonecode ?? ''}${action.payload.user.user_phone}`,
         userMemberExpired: action.payload.user.vip_end_time,
         userReferrerName: action.payload.user.referrer_name,
         userEndDaysCount: action.payload.user.user_vip_time_duration_days,

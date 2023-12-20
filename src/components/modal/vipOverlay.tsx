@@ -1,16 +1,16 @@
-import React, {Suspense, useCallback, useEffect, useState} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import React, { Suspense, useCallback, useEffect, useState } from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
 import VipModal from './vipModal';
-import {useNavigation, useTheme} from '@react-navigation/native';
+import { useNavigation, useTheme } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useAppDispatch} from '@hooks/hooks';
+import { useAppDispatch } from '@hooks/hooks';
 import {
   showLoginAction,
 } from '@redux/actions/screenAction';
 
 interface Props { }
 
-export default function VipOverlay({}: Props) {
+export default function VipOverlay({ }: Props) {
   const [showVIPOverlay, setShowVIPOverlay] = useState(false);
 
   const hideVipPrompt = useCallback(async () => {
@@ -28,13 +28,13 @@ export default function VipOverlay({}: Props) {
           setShowVIPOverlay(true);
           await AsyncStorage.setItem('firstLaunchVipPrompt', 'true');
         }
-      } catch (e) {}
+      } catch (e) { }
     };
 
     checkFirstLaunchVipPrompted();
   }, []);
 
-  const {colors, textVariants, spacing, icons} = useTheme();
+  const { colors, textVariants, spacing, icons } = useTheme();
 
   return (
     <>
@@ -56,7 +56,7 @@ export default function VipOverlay({}: Props) {
                 paddingBottom: 26,
                 paddingHorizontal: 28,
               }}>
-              <View style={{alignItems: 'center', justifyContent: 'center'}}>
+              <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                 <Text
                   style={{
                     fontSize: 20,
@@ -85,7 +85,7 @@ export default function VipOverlay({}: Props) {
                   }}>
                   领取30天VIP会员
                 </Text>
-                <View style={{paddingTop: 22, alignItems: 'center'}}>
+                <View style={{ paddingTop: 22, alignItems: 'center' }}>
                   <TouchableOpacity
                     onPress={() => {
                       hideVipPrompt();
@@ -110,8 +110,8 @@ export default function VipOverlay({}: Props) {
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => hideVipPrompt()}
-                    style={{paddingTop: 16}}>
-                    <Text style={{color: '#9C9C9C', fontSize: 16}}>取消</Text>
+                    style={{ paddingTop: 16 }}>
+                    <Text style={{ color: '#9C9C9C', fontSize: 16 }}>取消</Text>
                   </TouchableOpacity>
                 </View>
               </View>

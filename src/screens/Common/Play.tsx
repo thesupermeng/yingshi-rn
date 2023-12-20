@@ -604,7 +604,6 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     //   animated: true,
     // });
     if ((foundSource?.url_count ?? 0) < currentEpisode) {
-    setCurrentEpisode(0)
       return
     } 
     setTimeout(() => {
@@ -613,7 +612,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
         index: currentEpisode % 100,
         animated: true,
       });
-    } catch(error) {console.error('An error occurred while scrolling:', error);}
+    } catch(error) {console.log('An error occurred while scrolling:', error);}
     }, 1200)
   }, [currentEpisode, episodeRef, isFetchingVodDetails, currentSourceId, sourceRef]);
 
@@ -709,15 +708,21 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     // console.debug('total url', foundSource?.url_count - 1)
     // console.debug('redux', vod?.episodeWatched)
     const maxEpisode = (foundSource?.url_count ?? 1) - 1
-    const currEpisode = vod?.episodeWatched ?? 1
-    if (currEpisode >= maxEpisode)
-      setCurrentEpisode(Math.min(maxEpisode, currEpisode))
+    const reduxCurrentEpisode = vod?.episodeWatched ?? 1
+    if (reduxCurrentEpisode >= maxEpisode){
+      setCurrentEpisode(Math.min(maxEpisode, reduxCurrentEpisode))
+    } else if (currentEpisode >= maxEpisode){
+      setCurrentEpisode(Math.min(maxEpisode, currentEpisode))
+    }
   }
 
   useEffect(() => {
-    setMinimumOfMaximumEpisode()
+    if (!!foundSource){
+      // only after source is found
+      setMinimumOfMaximumEpisode()
+    }
     // when source changes, choose the minimum of the max episode 
-  }, [currentSourceId])
+  }, [currentSourceId, foundSource])
 
   let vodUrl: string|undefined = ''
   if (vodSources.length > 0 && !adultMode){
