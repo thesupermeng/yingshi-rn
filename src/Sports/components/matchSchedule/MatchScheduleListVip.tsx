@@ -188,11 +188,15 @@ const MatchScheduleList = ({
   };
 
   useEffect(() => {
-    setShowLoading(true);
-    setTimeout(() => {
-      //   setShowLoading(false);
-      setShowLoading(false);
-       }, 1000);
+    if(matches?.data == undefined)
+    {
+      setShowLoading(true);
+      setTimeout(() => {
+        //   setShowLoading(false);
+        setShowLoading(false);
+         }, 1000);
+    }
+  
   }, []);
 
   return (

@@ -28,19 +28,9 @@ export default function MatchScheduleNav({
   const { colors, textVariants, spacing } = useTheme();
   const width = Dimensions.get("window").width;
 
-  // const [showLoading, setShowLoading] = useState(true);
-
-  // useEffect(() => {
-  //   fake loading to ensure all assets are loaded
-  //   setTimeout(() => {
-  //     setShowLoading(false);
-  //   }, 1000);
-  // }, []);
-
   const renderTabs = (tab: any, index: any) => {
     const tabScreenChild = (i: number) => (
       <>
-      
         <MatchScheduleListVip
           bgDark={true}
           setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
@@ -138,26 +128,7 @@ export default function MatchScheduleNav({
 
   return (
     <SafeAreaView style={{ flex: 1}}>
-      {/* {showLoading && (
-        <View
-          style={{
-            width: "100%",
-            height: "100%",
-            position: "absolute",
-            zIndex: 1000,
-            backgroundColor: "#000",
-            justifyContent: "center",
-            alignItems: "center",
-            borderRadius: 20,
-          }}
-        >
-          <FastImage
-            style={{ height: 150, width: 150 }}
-            source={require("@static/images/home-loading.gif")}
-            resizeMode={"contain"}
-          />
-        </View>
-      )} */}
+   
 
       <Tab.Navigator
         sceneContainerStyle={{ backgroundColor: 'transparent' }}
