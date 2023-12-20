@@ -1,15 +1,12 @@
-import React, {useState} from 'react';
-import {useEffect} from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   View,
-  TextInput,
-  TouchableWithoutFeedback,
   Text,
   Image,
 } from 'react-native';
 
-export const ResendCountDown = props => {
+export const ResendCountDown = (props: any) => {
   const [countDown, setCountDown] = useState(120);
 
   const timerRef = React.useRef(countDown);
@@ -42,7 +39,7 @@ export const ResendCountDown = props => {
         source={require('@static/images/invite/time.png')}
       />
 
-      <Text style={styles.hyperlink}>{timerRef.current} 秒</Text>
+      <Text style={styles.hyperlink}>{Math.floor(timerRef.current / 60).toString().padStart(2, '0')}:{(timerRef.current % 60).toString().padStart(2, '0')} 秒</Text>
     </View>
   );
 };
@@ -54,5 +51,5 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     color: '#9C9C9C',
   },
-  iconStyle: {height: 26, width: 26, marginRight: 5},
+  iconStyle: { height: 26, width: 26, marginRight: 5 },
 });

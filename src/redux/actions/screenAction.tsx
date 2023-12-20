@@ -22,14 +22,6 @@ export const hideLoginAction = () => ({
   type: "hide_login_action",
 });
 
-export const showRegisterAction = () => ({
-  type: "show_register_action",
-});
-
-export const hideRegisterAction = () => ({
-  type: "hide_register_action",
-});
-
 export const hideBottomSheetAction = () => ({
   type: "hide_bottom_sheet_action",
 });
@@ -44,9 +36,8 @@ export const initialBottomSheetForm = () => ({
   type: "initial_bottom_sheet_from",
 });
 
-export const navigateToProfileScreen = (from: 'login' | 'register') => ({
+export const navigateToProfileScreen = () => ({
   type: "navigate_to_profile_screen",
-  payload: from,
 });
 
 export const resetProfileScreen = () => ({
@@ -107,7 +98,7 @@ export const disableAdultMode = () => ({
 })
 
 export const updateLastSeenNavName = (action: string) => ({
-  type: 'set_last_seen_nav_name', 
+  type: 'set_last_seen_nav_name',
   payload: action
 })
 

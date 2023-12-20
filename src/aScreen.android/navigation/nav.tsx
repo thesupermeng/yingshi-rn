@@ -52,8 +52,7 @@ import SportsIcon from "@static/images/sports.svg";
 import MatchesScreen from "../Sports/screens/Sports/Matches";
 import MatchDetailsScreen from "../Sports/screens/Sports/MatchDetails";
 import { useDispatch, useSelector } from "react-redux";
-import LoginBottomSheet from "../components/auth/loginBottomSheet";
-import RegisterBottomSheet from "../components/auth/registerBottomSheet";
+import SigninupBottomSheet from "../components/auth/signinupBottomSheet";
 import {
   HomeTabParamList,
   PlaylistTabParamList,
@@ -76,7 +75,6 @@ import { BottomNavTabsResponse } from "@type/ajaxTypes";
 import { YSConfig } from "../../../ysConfig";
 import {
   hideLoginAction,
-  hideRegisterAction,
   interstitialClose,
   interstitialShow,
   removeScreenAction,
@@ -322,7 +320,6 @@ export default () => {
   const [gifKey, setGifKey] = useState(0);
 
   const [isShowLogin, setShowLogin] = useState(false);
-  const [isShowRegister, setShowRegister] = useState(false);
 
   useEffect(() => {
     if (screenState.screenShow != false) {
@@ -338,18 +335,11 @@ export default () => {
 
     if (screenState.loginShow == true) {
       dispatch(hideLoginAction());
-      setShowRegister(false);
       setShowLogin(true);
-    }
-    if (screenState.registerShow == true) {
-      dispatch(hideRegisterAction());
-      setShowLogin(false);
-      setShowRegister(true);
     }
     if (screenState.resetBottomSheet == true) {
       dispatch(resetBottomSheetAction());
       setShowLogin(false);
-      setShowRegister(false);
     }
   }, [screenState]);
 
@@ -429,9 +419,9 @@ export default () => {
       (event: any) => {
         console.warn(
           "ATInterstitialLoadFail: " +
-            event.placementId +
-            ", errorMsg: " +
-            event.errorMsg
+          event.placementId +
+          ", errorMsg: " +
+          event.errorMsg
         );
       }
     );
@@ -455,9 +445,9 @@ export default () => {
       (event: any) => {
         console.log(
           "ATInterstitialPlayStart: " +
-            event.placementId +
-            ", adCallbackInfo: " +
-            event.adCallbackInfo
+          event.placementId +
+          ", adCallbackInfo: " +
+          event.adCallbackInfo
         );
       }
     );
@@ -480,11 +470,11 @@ export default () => {
       (event: any) => {
         console.log(
           "ATInterstitialPlayFail: " +
-            event.placementId +
-            ", errorMsg: " +
-            event.errorMsg +
-            ", adCallbackInfo: " +
-            event.adCallbackInfo
+          event.placementId +
+          ", errorMsg: " +
+          event.errorMsg +
+          ", adCallbackInfo: " +
+          event.adCallbackInfo
         );
       }
     );
@@ -494,9 +484,9 @@ export default () => {
       (event: any) => {
         console.log(
           "ATInterstitialClick: " +
-            event.placementId +
-            ", adCallbackInfo: " +
-            event.adCallbackInfo
+          event.placementId +
+          ", adCallbackInfo: " +
+          event.adCallbackInfo
         );
       }
     );
@@ -641,13 +631,9 @@ export default () => {
         </Stack.Navigator>
         {settingsReducer.appOrientation === "PORTRAIT" && ( // only show if portrait
           <>
-            <LoginBottomSheet
+            <SigninupBottomSheet
               isVisible={isShowLogin}
               handleClose={() => setShowLogin(false)}
-            />
-            <RegisterBottomSheet
-              isVisible={isShowRegister}
-              handleClose={() => setShowRegister(false)}
             />
           </>
         )}

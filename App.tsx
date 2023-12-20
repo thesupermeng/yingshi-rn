@@ -32,6 +32,8 @@ import { ATRNSDK } from "./AnyThinkAds/ATReactNativeSDK";
 import { TermsAcceptContextProvider } from "./src/contexts/TermsAcceptedContext";
 import { TermsAcceptContextProvider as TermsAcceptContextProviderA } from "./src/contexts/TermsAcceptedContext";
 import { TermsAcceptContextProvider as TermsAcceptContextProviderIos } from "./src/contexts/TermsAcceptedContext";
+import { prefetchAdultMiniVod, prefetchMiniVod } from "./src/api/miniVod";
+import { checkExpiredCacheFile, deleteCachedVideos } from "./src/utils/minivodDownloader";
 
 const topon_channel = "WEB";
 
@@ -140,6 +142,15 @@ let App = () => {
   let tryToLoadCount = 0;
   let adsReadyFlag = false;
 
+  const downloadWatchAnytimeSequence = async () => {
+    await deleteCachedVideos(); 
+    await checkExpiredCacheFile(3); 
+
+    prefetchMiniVod(queryClient)
+    prefetchAdultMiniVod(queryClient)
+
+  }
+
   useEffect(() => {
     // console.log("YSConfig.instance.ip");
     // console.log(YSConfig.instance.ip);
@@ -153,6 +164,8 @@ let App = () => {
     //         return json.data.List;
     //       }),
     // });
+
+
 
     queryClient.prefetchQuery({
       queryKey: ["HomePage", 0],
@@ -214,27 +227,7 @@ let App = () => {
       };
     };
 
-    const fetchVods = (page: number) =>
-      fetch(`${API_DOMAIN_TEST}miniVod/v2/miniVod?page=${page}&limit=300`)
-        .then((response) => response.json())
-        .then((json: MiniVideoResponseType) => {
-          return json.data.List;
-        });
-    const fetchAdultVods = (page: number) =>
-      fetch(`${API_DOMAIN_TEST}miniSVod/v1/miniSVod?page=${page}&limit=300`)
-        .then((response) => response.json())
-        .then((json: MiniVideoResponseType) => {
-          return json.data.List;
-        });
-
-    queryClient.prefetchInfiniteQuery(
-      ["watchAnytime", "normal"],
-      ({ pageParam = 1 }) => fetchVods(pageParam)
-    );
-    queryClient.prefetchInfiniteQuery(
-      ["watchAnytime", "adult"],
-      ({ pageParam = 1 }) => fetchAdultVods(pageParam)
-    );
+    downloadWatchAnytimeSequence()
 
     // queryClient.prefetchQuery({
     //   queryKey: ["matchesNavOptions"],

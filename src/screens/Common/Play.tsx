@@ -28,7 +28,6 @@ import {
   SuggestResponseType,
   VodDetailsResponseType,
   VodSourceType,
-  VodType,
 } from "@type/ajaxTypes";
 import { addVodToHistory, playVod } from "@redux/actions/vodActions";
 import { useAppDispatch, useAppSelector } from "@hooks/hooks";
@@ -82,7 +81,6 @@ import useAnalytics from "@hooks/useAnalytics";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { screenModel } from "@type/screenType";
 import VodSourcesEpisodes from "../../components/vod/vodSourcesEpisodes";
-import { current } from "@reduxjs/toolkit";
 
 let insetsTop = 0;
 let insetsBottom = 0;
@@ -277,6 +275,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   //logic and function for multiple sources
 
   const [currentSourceId, setCurrentSourceId] = useState(vod?.sourceWatched === undefined ? 0 : vod.sourceWatched);
+  const [currentQuality, setCurrentQuality] = useState(vod?.sourceWatched === undefined ? 0 : vod.sourceWatched);
   const [vodSources, setVodSources] = useState<VodSourceType[]>([]);
 
   const onPressSource = useCallback((itemId: any) => {
@@ -284,7 +283,6 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     currentSourceRef.current = itemId;
     currentTimeRef.current = 0;
   }, []);
-
 
   const renderSources = useCallback(
     ({ item }) => (
@@ -601,32 +599,22 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   useEffect(() => {
     setIsCollapsed(true);
-    console.log('Current Episode:', currentEpisode);
-    console.log('Found Source URL Count:', foundSource?.url_count);
     // episodeRef?.current?.scrollToOffset({
     //   offset: getOffSet(currentEpisode),
     //   animated: true,
     // });
-    // if ((foundSource?.url_count ?? 0) < currentEpisode && foundSource && foundSource.url_count) {
-    //   setCurrentEpisode(foundSource.url_count - 1);
-    //   return
-    // } 
+    if ((foundSource?.url_count ?? 0) < currentEpisode) {
+      return
+    } 
     setTimeout(() => {
       try {
       episodeRef?.current?.scrollToIndex({
         index: currentEpisode % 100,
         animated: true,
       });
-    } catch(error) {console.error('An error occurred while scrolling:', error);}
+    } catch(error) {console.log('An error occurred while scrolling:', error);}
     }, 1200)
   }, [currentEpisode, episodeRef, isFetchingVodDetails, currentSourceId, sourceRef]);
-
-
-useEffect (() => {
-if(vodDetails?.vod_sources === null) {
-  setDismountPlayer(true)
-}
-})
 
   useFocusEffect(
     useCallback(() => {
@@ -635,6 +623,7 @@ if(vodDetails?.vod_sources === null) {
         setDismountPlayer(true);
         if (
           vodSources &&
+          //START HERE, SAVE POINT
           // vod?.vod_play_list.urls?.find((url) => url.nid === currentEpisode)
           //   ?.url
           vodSources?.find(({source_id}) => source_id === currentSourceId)?.vod_play_list.urls?.find((url) => url.nid === currentEpisode)
@@ -719,16 +708,21 @@ if(vodDetails?.vod_sources === null) {
     // console.debug('total url', foundSource?.url_count - 1)
     // console.debug('redux', vod?.episodeWatched)
     const maxEpisode = (foundSource?.url_count ?? 1) - 1
-    const currEpisode = vod?.episodeWatched ?? 1
-    if (currEpisode >= maxEpisode)
-      setCurrentEpisode(Math.min(maxEpisode, currEpisode))
+    const reduxCurrentEpisode = vod?.episodeWatched ?? 1
+    if (reduxCurrentEpisode >= maxEpisode){
+      setCurrentEpisode(Math.min(maxEpisode, reduxCurrentEpisode))
+    } else if (currentEpisode >= maxEpisode){
+      setCurrentEpisode(Math.min(maxEpisode, currentEpisode))
+    }
   }
 
   useEffect(() => {
-    setMinimumOfMaximumEpisode()
-    // console.log(currentEpisode, currentEpisodeRef)
+    if (!!foundSource){
+      // only after source is found
+      setMinimumOfMaximumEpisode()
+    }
     // when source changes, choose the minimum of the max episode 
-  }, [currentSourceId])
+  }, [currentSourceId, foundSource])
 
   let vodUrl: string|undefined = ''
   if (vodSources.length > 0 && !adultMode){
@@ -824,7 +818,7 @@ if(vodDetails?.vod_sources === null) {
       >
         {/* if isVodRestricted, show bing search */}
         {isVodRestricted && vod && !isOffline && <BingSearch vod={vod} />}
-        {dismountPlayer && vod && vodDetails?.vod_sources === null && <BingSearch vod={vod} />}
+
         {!isVodRestricted && !dismountPlayer && !isOffline && (
           <VodPlayer
             vod_url={vodUri}
@@ -1074,7 +1068,7 @@ if(vodDetails?.vod_sources === null) {
                     <>
 
                     {/* For multiple source UI */}
-                    {!adultMode && vodDetails?.vod_sources != null && (
+                    {!adultMode && (
                       <>
                     <View
                               style={{ ...styles.spaceApart, gap: spacing.l }}

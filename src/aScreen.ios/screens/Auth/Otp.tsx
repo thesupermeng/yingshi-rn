@@ -1,6 +1,6 @@
 import { useNavigation, useTheme } from '@react-navigation/native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useEffect } from 'react';
 import {
   StyleSheet,
@@ -8,35 +8,77 @@ import {
   TextInput,
   TouchableWithoutFeedback,
   Text,
-  SafeAreaView,
   Keyboard,
   Image,
 } from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
 
 import { ResendCountDown } from './resendCountDown';
-import { registerUser, loginUser } from '../../../features/user';
+import { signinupUser } from '../../../features/user';
 import { addUserAuthState } from '@redux/actions/userAction';
 
-import { useAppDispatch } from '@hooks/hooks';
 import { changeScreenAction } from '@redux/actions/screenAction';
 import useAnalytics from '@hooks/useAnalytics';
 
 
-const OtpInputs = props => {
-  const storeToken = useSelector(state => state.userToken);
+export default (props: any) => {
+  return (
+    <ScreenContainer>
+      <View
+        style={{
+          height: '100%',
+        }}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+          <>
+            <TitleWithBackButtonHeader title="" />
+
+            <View style={{ paddingLeft: 20, paddingRight: 20, paddingTop: '20%' }}>
+              <OtpInputs
+                email={props.route.params.email}
+                phone={props.route.params.phone}
+                referralCode={props.route.params.referralCode}
+                countryId={props.route.params.countryId}
+              />
+            </View>
+          </>
+        </TouchableWithoutFeedback>
+      </View>
+    </ScreenContainer>
+  );
+};
+
+type OtpInputsProps = {
+  email?: string,
+  phone?: string,
+  referralCode?: string,
+  countryId?: number,
+}
+
+const OtpInputs = ({
+  email,
+  phone,
+  referralCode,
+  countryId,
+}: OtpInputsProps) => {
+  const { colors } = useTheme();
+
+  const navigation = useNavigation();
   const dispatch = useDispatch();
+
   const [otp, setOtp] = useState('      ');
-  const [otpTextInput, setOtpTextInput] = useState([]);
+  const [otpTextInput, setOtpTextInput] = useState<TextInput[]>([]);
   const [resend, setResend] = useState(false);
   const [isValid, setValid] = useState(0); // 0: have not checked, 1: invalid, 2: valid
-  const navigator = useNavigation();
   const { userCenterLoginSuccessTimesAnalytics, userCenterVipLoginSuccessTimesAnalytics } = useAnalytics();
 
   const [focusedInput, setFocusedInput] = useState(null); // Track the focused input index
-  const navigation = useNavigation();
+
+  const styles = useMemo(() => createStyles({
+    colors,
+  }), []);
+
   const handleFocus = (index: any) => {
     console.log(index);
     setFocusedInput(index);
@@ -49,29 +91,25 @@ const OtpInputs = props => {
   useEffect(() => {
     otpTextInput[0].focus();
   }, []);
+
   // to make sure countdown reset before restart the countdown
-  const resendOTP = async () => {
+  const resendOTP = () => {
     setResend(false);
-    console.log('props');
-    console.log(props);
-    if (props.action == 'register') {
-      console.log('resend OTP register');
-      await registerUser({
-        email: props.email,
-        referral_code: props.referral_code,
-        otp: '',
-      });
-    }
-    if (props.action == 'login') {
-      await loginUser({
-        email: props.email,
-        otp: '',
-      });
-    }
-    return;
+
+    signinupUser({
+      loginType: email !== undefined ? 'EMAIL' : 'SMS',
+      email: email,
+      phone: phone,
+      countryId: countryId,
+      referralCode: referralCode,
+    }).then(() => {
+      setOtpTextInput([]);
+      setOtp('      ');
+      setValid(0);
+    });
   };
 
-  const focusPrevious = async (key, index) => {
+  const focusPrevious = async (key: string, index: number) => {
     if (key === 'Backspace') {
       if (otp[index] == ' ' && index !== 0) {
         let new_otp = otp.replace(/./g, (c, i) => (i == index ? ' ' : c));
@@ -91,92 +129,9 @@ const OtpInputs = props => {
         // last digit enter, need to verify otp
         let new_otp = otp.replace(/./g, (c, i) => (i == index ? key : c));
         setOtp(new_otp);
-        let verfifyPayload = {
-          email: props.email,
-          code: new_otp,
-        };
 
-        // let result = await otpApiCall(
-        //   verfifyPayload,
-        //   dispatch,
-        //   storeToken.user_token,
-        //   storeToken.refresh_token,
-        // );
-        console.log('result');
-        let result: any;
-        try {
-          if (props.action == 'register') {
-            result = await registerUser({
-              email: props.email,
-              referral_code: props.referral_code,
-              otp: new_otp,
-            });
-          }
-
-          if (props.action == 'login') {
-            result = await loginUser({
-              email: props.email,
-              otp: new_otp,
-            });
-          }
-        } catch (err: any) {
-          console.log('err debug');
-          console.log(err.response.data.message);
-          setValid(1);
-          result = { state: '' };
-          result.state = err.response.data.message;
-          //  props.setErrMsg(err.response.data.message);
-        }
-        console.log('json for user result');
-        console.log(result);
-
-        let resultData = result.data.data;
-
-        let json = {
-          userToken: resultData.access_token,
-          userId: resultData.user.user_id,
-          userName: resultData.user.user_name,
-          userReferralCode: resultData.user.user_referral_code,
-          userEmail: resultData.user.user_email,
-          userMemberExpired: resultData.user.vip_end_time,
-          userReferrerName: resultData.user.referrer_name,
-          userEndDaysCount: resultData.user.user_vip_time_duration_days,
-          userTotalInvite: resultData.user.total_invited_user,
-          userAccumulateRewardDay: resultData.user.accumulated_vip_reward_days,
-          userAllowUpdateReferral: resultData.user.eligible_update_referrer,
-          userCurrentTimestamp: resultData.user.current_timestamp,
-          userInvitedUserList: resultData.user.invited_users,
-          userUpline: resultData.user.upline_user,
-          userAccumulateVipRewardDay: resultData.user.accumulated_paid_vip_reward_days,
-          userPaidVipList: resultData.user.paid_vip_response,
-        };
-        await dispatch(addUserAuthState(json));
-        console.log('json for user state');
-        console.log(json);
-
-        if (props.action == 'login') {
-          if (json.userCurrentTimestamp < json.userMemberExpired) {
-            await AsyncStorage.setItem("showAds", "false");
-          } else {
-            await AsyncStorage.setItem("showAds", "true");
-          }
-          await dispatch(changeScreenAction('登录成功'));
-          // navigator.navigate('Home', {
-          //   screen: 'Profile',
-          // });
-          navigator.goBack();
-
-          // ========== for analytics - start ==========
-          userCenterLoginSuccessTimesAnalytics();
-
-          if (json.userMemberExpired >= json.userCurrentTimestamp) {
-            userCenterVipLoginSuccessTimesAnalytics();
-          }
-          // ========== for analytics - end ==========
-        }
-        if (props.action == 'register') {
-          navigation.navigate('SetUsername');
-        }
+        // submit otp when 6 digit
+        await onSubmit(new_otp);
 
         return;
       }
@@ -185,40 +140,106 @@ const OtpInputs = props => {
     }
     setValid(0);
   };
-  const { colors, textVariants, icons, spacing } = useTheme();
+
+  const onSubmit = async (new_otp: string) => {
+    let result: any;
+
+    try {
+      result = await signinupUser({
+        loginType: email !== undefined ? 'EMAIL' : 'SMS',
+        email: email,
+        phone: phone,
+        countryId: countryId,
+        referralCode: referralCode,
+        otp: new_otp,
+      })
+    } catch (err: any) {
+      setValid(1);
+      result = { state: '' };
+      result.state = err;
+      return;
+    }
+
+    const resultData = result.data;
+
+    let json = {
+      userToken: resultData.access_token,
+      userId: resultData.user.user_id,
+      userName: resultData.user.user_name,
+      userReferralCode: resultData.user.user_referral_code,
+      userEmail: resultData.user.user_email,
+      userPhoneNumber: resultData.user.user_phone,
+      userMemberExpired: resultData.user.vip_end_time,
+      userReferrerName: resultData.user.referrer_name,
+      userEndDaysCount: resultData.user.user_vip_time_duration_days,
+      userTotalInvite: resultData.user.total_invited_user,
+      userAccumulateRewardDay: resultData.user.accumulated_vip_reward_days,
+      userAllowUpdateReferral: resultData.user.eligible_update_referrer,
+      userCurrentTimestamp: resultData.user.current_timestamp,
+      userInvitedUserList: resultData.user.invited_users,
+      userUpline: resultData.user.upline_user,
+      userAccumulateVipRewardDay: resultData.user.accumulated_paid_vip_reward_days,
+      userPaidVipList: resultData.user.paid_vip_response,
+    };
+
+    await dispatch(addUserAuthState(json));
+
+    const resultMsg = result.message;
+
+    if (resultMsg.includes("注册成功")) {
+      navigation.navigate('SetUsername');
+
+    } else if (resultMsg.includes("登录成功")) {
+
+      if (json.userCurrentTimestamp < json.userMemberExpired) {
+        await AsyncStorage.setItem("showAds", "false");
+      } else {
+        await AsyncStorage.setItem("showAds", "true");
+      }
+
+      await dispatch(changeScreenAction('登录成功'));
+      navigation.goBack();
+
+      // ========== for analytics - start ==========
+      userCenterLoginSuccessTimesAnalytics();
+
+      if (json.userMemberExpired >= json.userCurrentTimestamp) {
+        userCenterVipLoginSuccessTimesAnalytics();
+      }
+      // ========== for analytics - end ==========
+    }
+  }
 
   return (
-    <View
-      style={{
-        backgroundColor: 'transparent',
-      }}>
-      {/* <Text style={styles.OTPtitle}>OTP Verification</Text> */}
+    <View>
       <Text style={styles.title}>输入邮箱验证码</Text>
 
       <Text style={styles.description}>
         验证码已发送至{' '}
-        <Text style={[styles.hyperlink, { color: colors.primary }]}>
-          {props.email}
+        <Text style={styles.hyperlink}>
+          {email ?? phone}
         </Text>{' '}
       </Text>
-      <Text style={styles.description}>如果没有收到邮件，请检查垃圾邮箱</Text>
+
+      {email && <Text style={styles.description}>如果没有收到邮件，请检查垃圾邮箱</Text>}
+
       <View style={styles.containerStyle}>
-        {[0, 0, 0, 0, 0, 0].map((i, j) => {
+        {[0, 0, 0, 0, 0, 0].map((_, i) => {
           return (
             <TextInput
-              key={j}
+              key={i}
               style={[
                 isValid === 0 ? styles.inputStyle : styles.inputInvalidStyle,
-                focusedInput === j ? styles.inputFocused : null,
+                focusedInput === i ? styles.inputFocused : null,
               ]}
               keyboardType="numeric"
-              onKeyPress={e => focusPrevious(e.nativeEvent.key, j)}
+              onKeyPress={e => focusPrevious(e.nativeEvent.key, i)}
               ref={ref => {
-                otpTextInput[j] = ref;
+                otpTextInput[i] = ref!;
               }}
               onBlur={handleBlur}
-              onFocus={() => handleFocus(j)}
-              value={otp[j]}
+              onFocus={() => handleFocus(i)}
+              value={otp[i]}
               maxLength={1}
             />
           );
@@ -230,6 +251,7 @@ const OtpInputs = props => {
             justifyContent: 'flex-start',
             alignItems: 'center',
             flexDirection: 'row',
+            marginBottom: 20,
           }}>
           <Image
             style={styles.iconStyle}
@@ -239,29 +261,19 @@ const OtpInputs = props => {
           <Text style={styles.danger}>验证码不正确，请重试</Text>
         </View>
       )}
-      {/* <Text>没有收到验证码?</Text> */}
+
       {!resend && <ResendCountDown resend={resend} setResend={setResend} />}
+
       {resend && (
         <TouchableWithoutFeedback
-          onPress={async () => {
-            // otpResendEvent = new OtpResendEvent();
-            // otpResendEvent.send();
-            console.log('await resendOTP();');
-            await resendOTP();
-
-            setOtpTextInput([]);
-            setOtp('      ');
-            setValid(0);
-          }}>
-          <View style={{ marginTop: 35 }}>
-            <Text
-              style={[
-                styles.hyperlink,
-                { color: colors.primary, textAlign: 'center', fontWeight: '600' },
-              ]}>
-              重新发送验证码
-            </Text>
-          </View>
+          onPress={resendOTP}
+          style={{ marginTop: 35 }}
+        >
+          <Text
+            style={styles.hyperlink}
+          >
+            重新发送验证码
+          </Text>
         </TouchableWithoutFeedback>
       )}
       {/* <Text style={[styles.description, {marginBottom:10}]}>If you don't receive the OTP within 60 seconds, please click the <Text style={styles.hyperlink}>Resend</Text> button to receive the OTP again.</Text> */}
@@ -269,37 +281,7 @@ const OtpInputs = props => {
   );
 };
 
-export default (props: any) => {
-  const [optVarificationState, setOptVarificationState] = useState(2);
-  const { colors, textVariants, icons, spacing } = useTheme();
-  return (
-    <ScreenContainer>
-      <View
-        style={{
-          height: '100%',
-        }}>
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-          <>
-            <TitleWithBackButtonHeader title="" />
-
-            {/* <View style={styles.headerBarShadow}/> */}
-            <View style={{ paddingLeft: 20, paddingRight: 20, paddingTop: '20%' }}>
-              <OtpInputs
-                optVarificationState={optVarificationState}
-                setOptVarificationState={setOptVarificationState}
-                email={props.route.params.email}
-                referral_code={props.route.params.referralCode}
-                action={props.route.params.action}
-              />
-            </View>
-          </>
-        </TouchableWithoutFeedback>
-      </View>
-    </ScreenContainer>
-  );
-};
-
-const styles = StyleSheet.create({
+const createStyles = ({ colors }: any = {}) => StyleSheet.create({
   headerBarShadow: {
     width: '100%',
     marginTop: 12,
@@ -361,6 +343,8 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 15,
     paddingLeft: 10,
+    textAlign: 'center',
+    color: colors?.primary,
   },
   danger: {
     fontWeight: '400',

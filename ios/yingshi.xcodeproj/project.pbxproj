@@ -26,6 +26,7 @@
 		8E1A5A292AC2B31000EBA460 /* libRNExitApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E1A5A282AC2B31000EBA460 /* libRNExitApp.a */; };
 		9A218EB72AC413D600F6B98C /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A218EB62AC413D600F6B98C /* libz.tbd */; };
 		9A218EB92AC414D600F6B98C /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9A218EB82AC414D600F6B98C /* AppCenter-Config.plist */; };
+		C80E30302B21A8D20093541D /* assets in Resources */ = {isa = PBXBuildFile; fileRef = C80E302F2B21A8D20093541D /* assets */; };
 		E0B570BE4849C7E1B06B1328 /* libPods-yingshi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9374E784C9501640E56DDD41 /* libPods-yingshi.a */; };
 		F32676582AE794EB00484C18 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F32676572AE794EB00484C18 /* StoreKit.framework */; };
 /* End PBXBuildFile section */
@@ -93,6 +94,7 @@
 		9A218F882AC42D1400F6B98C /* CodePush.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CodePush.xcodeproj; path = "../node_modules/react-native-code-push/ios/CodePush.xcodeproj"; sourceTree = "<group>"; };
 		A31B7D6109B419792C3A6C42 /* Pods-yingshi-yingshiTests.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yingshi-yingshiTests.staging.xcconfig"; path = "Target Support Files/Pods-yingshi-yingshiTests/Pods-yingshi-yingshiTests.staging.xcconfig"; sourceTree = "<group>"; };
 		BC7BF9602F2319F79850DD86 /* Pods-yingshi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yingshi.debug.xcconfig"; path = "Target Support Files/Pods-yingshi/Pods-yingshi.debug.xcconfig"; sourceTree = "<group>"; };
+		C80E302F2B21A8D20093541D /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
 		C82276D00DD6901B76AC0898 /* libPods-yingshi-yingshiTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-yingshi-yingshiTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CABA2759F26C1ABC887F1D07 /* Pods-yingshi-yingshiTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yingshi-yingshiTests.debug.xcconfig"; path = "Target Support Files/Pods-yingshi-yingshiTests/Pods-yingshi-yingshiTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E1F242248CB4C62E3062B641 /* Pods-yingshi.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yingshi.staging.xcconfig"; path = "Target Support Files/Pods-yingshi/Pods-yingshi.staging.xcconfig"; sourceTree = "<group>"; };
@@ -263,6 +265,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				C80E302F2B21A8D20093541D /* assets */,
 				F395A1212AE7BC2100B64265 /* yingshi.storekit */,
 				9A218EB82AC414D600F6B98C /* AppCenter-Config.plist */,
 				13B07FAE1A68108700A75B9A /* yingshi */,
@@ -426,6 +429,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C80E30302B21A8D20093541D /* assets in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				9A218EB92AC414D600F6B98C /* AppCenter-Config.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
@@ -705,7 +709,6 @@
 				INFOPLIST_FILE = yingshi/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "影视TV";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires access to the camera.";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app does not require access to the microphone.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app requires access to the photo library.";
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -746,7 +749,6 @@
 				INFOPLIST_FILE = yingshi/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "影视TV";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires access to the camera.";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app does not require access to the microphone.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app requires access to the photo library.";
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -1021,7 +1023,6 @@
 				INFOPLIST_FILE = yingshi/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "影视TV";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires access to the camera.";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app does not require access to the microphone.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app requires access to the photo library.";
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;

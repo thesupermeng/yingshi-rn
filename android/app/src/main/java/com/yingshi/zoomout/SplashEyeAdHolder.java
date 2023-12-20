@@ -5,7 +5,7 @@
  * https://github.com/toponteam/TopOn-Android-SDK/blob/master/LICENSE
  */
 
-package com.yingshi.zoomout;
+package com.yingshitv.zoomout;
 
 import com.anythink.splashad.api.IATSplashEyeAd;
 

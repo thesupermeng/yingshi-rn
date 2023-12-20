@@ -14,6 +14,12 @@
 				<string>yingshiapp</string>
 			</array>
 		</dict>
+    <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+            <string>com.googleusercontent.apps.699123886701-ok49jlua77cf0omih5g1u9f1irflnrq3</string>
+        </array>
+    </dict>
 	</array>
 	<key>CFBundleSignature</key>
 	<string>????</string>
@@ -83,8 +89,8 @@
 		<string>com.baidu.BaiduMobile</string>
 		<string>com.dianping.dpscope</string>
 	</array>
-<!--	<key>NSLocationWhenInUseUsageDescription</key>-->
-<!--	<string>获取您的地区，为你推荐身边的更多优惠信息</string>-->
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>获取您的地区，为你推荐身边的更多优惠信息</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>

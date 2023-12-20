@@ -1,6 +1,6 @@
-package com.yingshi;
+package com.yingshitv;
 
-import com.yingshi.SQLiteDBHelper;
+import com.yingshitv.SQLiteDBHelper;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

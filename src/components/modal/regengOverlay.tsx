@@ -4,22 +4,19 @@ import RegengModal from './regengModal';
 import { useNavigation, useTheme } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useAppDispatch } from '@hooks/hooks';
-import {
-    showLoginAction,
-    showRegisterAction,
-} from '@redux/actions/screenAction';
+
 // import FastImage from 'react-native-fast-image';
 import FastImage from '../common/customFastImage';
 import CodePush from "react-native-code-push";
 import { showToast } from "../../../src/Sports/utility/toast";
-import {TermsAcceptContext} from '../../contexts/TermsAcceptedContext';
+import { TermsAcceptContext } from '../../contexts/TermsAcceptedContext';
 
 interface Props { }
 
-export default function RegengOverlay({  }: Props) {
-    const {accepted} = useContext(TermsAcceptContext)
+export default function RegengOverlay({ }: Props) {
+    const { accepted } = useContext(TermsAcceptContext)
 
-    const {colors, textVariants, spacing, icons} = useTheme();
+    const { colors, textVariants, spacing, icons } = useTheme();
 
     const [isCancelledShowRegengOverlay, setIsCancelledShowRegengOverlay] = useState(false);
     const [isRegengOngoing, setIsRegengOngoing] = useState(false);
@@ -28,39 +25,39 @@ export default function RegengOverlay({  }: Props) {
     const acceptRegeng = () => {
         setIsRegengOngoing(true);
         CodePush.sync(
-          {
-            installMode: CodePush.InstallMode.IMMEDIATE,
-          },
-          (syncStatus) => {
-            switch (syncStatus) {
-              case CodePush.SyncStatus.CHECKING_FOR_UPDATE:
-                setRegengContent("正在下载新资源...");
-                console.log("CODEPUSH STATUS : Checking for updates");
-                break;
+            {
+                installMode: CodePush.InstallMode.IMMEDIATE,
+            },
+            (syncStatus) => {
+                switch (syncStatus) {
+                    case CodePush.SyncStatus.CHECKING_FOR_UPDATE:
+                        setRegengContent("正在下载新资源...");
+                        console.log("CODEPUSH STATUS : Checking for updates");
+                        break;
 
-              case CodePush.SyncStatus.DOWNLOADING_PACKAGE:
-                setRegengContent("正在下载新资源...");
-                break;
+                    case CodePush.SyncStatus.DOWNLOADING_PACKAGE:
+                        setRegengContent("正在下载新资源...");
+                        break;
 
-              case CodePush.SyncStatus.INSTALLING_UPDATE:
-                setRegengContent("正在安装新资源...");
-                break;
+                    case CodePush.SyncStatus.INSTALLING_UPDATE:
+                        setRegengContent("正在安装新资源...");
+                        break;
 
-              case CodePush.SyncStatus.UP_TO_DATE:
-                console.log("CODEPUSH STATUS : Up to date");
-                break;
+                    case CodePush.SyncStatus.UP_TO_DATE:
+                        console.log("CODEPUSH STATUS : Up to date");
+                        break;
 
-              case CodePush.SyncStatus.UPDATE_INSTALLED:
-                showToast("安装完成");
-                // restart
-                break;
+                    case CodePush.SyncStatus.UPDATE_INSTALLED:
+                        showToast("安装完成");
+                        // restart
+                        break;
 
-              case CodePush.SyncStatus.UNKNOWN_ERROR:
-                showToast("安装失败");
-                setIsCancelledShowRegengOverlay(true)
-                break;
+                    case CodePush.SyncStatus.UNKNOWN_ERROR:
+                        showToast("安装失败");
+                        setIsCancelledShowRegengOverlay(true)
+                        break;
+                }
             }
-          }
         );
     }
 
@@ -106,7 +103,7 @@ export default function RegengOverlay({  }: Props) {
                                             textAlign: 'left',
                                             width: '80%'
                                         }}>
-                                        新版本特性: 
+                                        新版本特性:
                                     </Text>
                                     <Text
                                         style={{

@@ -7,13 +7,9 @@ import BackButton from '../button/backButton';
 import { RootStackParamList, RootStackScreenProps } from "@type/navigationTypes";
 import {
     showLoginAction,
-    showRegisterAction,
-    navigateToProfileScreen
 } from "@redux/actions/screenAction";
-import { screenReducer } from "@redux/reducers/screenReducer";
 import { screenModel } from "@type/screenType";
 import { RootState } from "@redux/store";
-import { Route } from "react-native-tab-view";
 
 interface Props {
     title?: string,
@@ -36,15 +32,10 @@ export default function PrivacyBackButtonHeader({ title, headerStyle, right, des
 
     useEffect(() => {
         const unsubscribe = navigation.addListener('beforeRemove', (e) => {
-            if (screenReducer.navigateToProfile === true && screenReducer.fromWhereToProfile !== undefined) {
+            if (screenReducer.navigateToProfile === true) {
                 // Check if the previous route was "RegistrationPage" and the destination is "ProfileScreen"
                 // If yes, trigger your custom action
-                if (screenReducer.fromWhereToProfile === 'login') {
-                    dispatch(showLoginAction());
-                }
-                if (screenReducer.fromWhereToProfile === 'register') {
-                    dispatch(showRegisterAction());
-                }
+                dispatch(showLoginAction());
             } else {
                 return
             }

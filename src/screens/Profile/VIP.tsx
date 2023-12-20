@@ -171,7 +171,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   useEffect(() => {
     if (membershipProducts) {
       const defaultMembership = membershipProducts.find(
-        (product) => product.title === "6个月"
+        (product) => product.title === "12个月"
       );
       if (defaultMembership) {
         setSelectedMembership(defaultMembership);
