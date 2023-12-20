@@ -49,12 +49,13 @@ const MatchScheduleList = ({
 
   const [isFetchNext, setFetchNext] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
+  const [showLoading2, setShowLoading2] = useState(false);
 
   const [matches, setMatches] = useState<Matches>({
     headers: [],
     data: [],
   });
- 
+
   const getUrl = () => {
     let url = "";
     if (matchTypeID !== -1) {
@@ -131,7 +132,6 @@ const MatchScheduleList = ({
     fetchData().then();
   }, []);
 
-
   const Content = ({
     item,
     index,
@@ -163,7 +163,7 @@ const MatchScheduleList = ({
                 borderFlag={String(
                   (matches?.data.length >= index + 1 &&
                     matches?.data[index + 1]?.date !== undefined) ||
-                    (matches?.data.length == index + 1)
+                    matches?.data.length == index + 1
                 )}
                 bgDark={true}
                 setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
@@ -182,59 +182,96 @@ const MatchScheduleList = ({
     flatlistRef?.current?.scrollToOffset({ animated: false, offset: 0 });
 
     setTimeout(() => {
-   //   setShowLoading(false);
+      //   setShowLoading(false);
       setShowLoading(false);
     }, 1200);
   };
 
-  useEffect(() => {
-    if(matches?.data == undefined)
-    {
-      setShowLoading(true);
-      setTimeout(() => {
-        //   setShowLoading(false);
-        setShowLoading(false);
-         }, 1000);
-    }
+  // useEffect(() => {
+  //   if (matches?.data == undefined) {
+  //     setShowLoading(true);
+  //     setTimeout(() => {
+  //       //   setShowLoading(false);
+  //       setShowLoading(false);
+  //     }, 1000);
+  //   }
+  // }, []);
+
+  const handleInitialLoading = useCallback(() => {
   
+      setShowLoading2(true);
+      setTimeout(() => {
+        setShowLoading2(false);
+      }, 1200);
+
   }, []);
+  
+  useEffect(() => {
+    handleInitialLoading();
+  }, [handleInitialLoading]);
 
   return (
     <View style={{ flex: 1 }}>
-      {matches?.data !== undefined && matches.data.length > 0 ? (
-        <View >
-        <FlatList
-          ref={flatlistRef}
-          data={matches.data}
-          windowSize={3}
-          //  style={{ backgroundColor: "transparent" }}
-          maxToRenderPerBatch={10}
-          initialNumToRender={10}
-          renderItem={Content}
-          // onEndReached={() => {
-          //   if (hasNextPage) {
-          //     setFetchNext(true);
-          //     fetchNextPage();
-          //   }
-          // }}
-          onEndReachedThreshold={0.9}
-          //  stickyHeaderIndices={matches.headers}
-          ListFooterComponent={
-            <View style={{ paddingTop: TOPON_BANNER_HEIGHT + 20 }} />
-          }
-        />
-</View>
 
-      ) : (
+{showLoading2 && (
         <View
           style={{
-          
+            width: "100%",
+            height: "100%",
+            position: "absolute",
+            zIndex: 1000,
+            backgroundColor: "#0c0c0c",
+            justifyContent: "center",
+            alignItems: "center",
+            borderRadius: 20,
+          }}
+        >
+          <FastImage
+            style={{ height: 150, width: 150 }}
+            source={require("@static/images/home-loading.gif")}
+            resizeMode={"contain"}
+          />
+        </View>
+
+      )}
+
+
+      {matches?.data !== undefined && matches.data.length > 0 ? (
+        <View>
+          <FlatList
+            ref={flatlistRef}
+            data={matches.data}
+            windowSize={3}
+            //  style={{ backgroundColor: "transparent" }}
+            maxToRenderPerBatch={10}
+            initialNumToRender={10}
+            renderItem={Content}
+            // onEndReached={() => {
+            //   if (hasNextPage) {
+            //     setFetchNext(true);
+            //     fetchNextPage();
+            //   }
+            // }}
+            onEndReachedThreshold={0.9}
+            //  stickyHeaderIndices={matches.headers}
+            ListFooterComponent={
+              <View style={{ paddingTop: TOPON_BANNER_HEIGHT + 20 }} />
+            }
+          />
+        </View>
+      ) : (
+        <></>
+      )}
+
+      {matches?.data !== undefined && matches.data.length == 0 && (
+        <View
+          style={{
             height: 100,
             backgroundColor: "#0c0c0c",
             justifyContent: "center",
             alignItems: "center",
-            borderBottomLeftRadius:15,
-            borderBottomRightRadius:15
+            borderBottomLeftRadius: 15,
+            borderBottomRightRadius: 15,
           }}
         >
           <Text style={{ color: "#9c9c9c", fontStyle: "italic" }}>
@@ -248,13 +285,13 @@ const MatchScheduleList = ({
           style={{
             position: "absolute",
             //backgroundColor: colors.background,
-            backgroundColor: '#0c0c0c',
+            backgroundColor: "#0c0c0c",
             zIndex: 1,
             width: "100%",
             height: "100%",
             justifyContent: "center",
             alignItems: "center",
-            borderRadius:15,
+            borderRadius: 15,
           }}
         >
           <FastImage

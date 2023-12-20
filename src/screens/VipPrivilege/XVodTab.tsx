@@ -97,6 +97,7 @@ export default function XVodTab({
             justifyContent: "center",
             alignItems: "center",
             borderRadius: 15,
+           
           }}
         >
           <FastImage
@@ -107,6 +108,7 @@ export default function XVodTab({
         </View>
       )}
 
+<View style={{paddingTop:10}}>
       <FlatList
         data={data?.data?.data?.categories ? data?.data?.data?.categories : []}
         initialNumToRender={1}
@@ -115,21 +117,9 @@ export default function XVodTab({
         renderItem={listItem}
         contentContainerStyle={{ paddingBottom: 60 }}
         removeClippedSubviews={true}
-        // ListFooterComponent={
-        //   <View style={{ ...styles.loading }}>
-        //     <Text
-        //       style={{
-        //         ...textVariants.subBody,
-        //         color: colors.muted,
-        //         paddingTop: 12,
-        //       }}>
-        //       已经到底了
-        //     </Text>
-        //   </View>
-        // }
         onEndReachedThreshold={0.5}
       />
-
+</View>
       <EighteenPlusOverlay
         handleAccept={() => {
           dispatch(acceptOverEighteen());

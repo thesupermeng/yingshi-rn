@@ -14,6 +14,7 @@ import {
   Dimensions,
   Image,
   ImageBackground,
+  Platform,
 } from "react-native";
 import ScreenContainer from "../components/container/screenContainer";
 import { useFocusEffect, useTheme } from "@react-navigation/native";
@@ -158,7 +159,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
       >
         <ScreenContainer
           isBgHide={true}
-          containerStyle={{ paddingLeft: 0, paddingRight: 0, paddingTop: 8 }}
+          containerStyle={{ paddingLeft: 0, paddingRight: 0, paddingTop: Platform.OS === "ios" ? 8  :15  }}
         >
           <BecomeVipOverlay
             setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
@@ -203,6 +204,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                       ...textVariants.bigHeader,
                       color: colors.text,
                       fontSize: selectedTab == "sport" ? 22 : 19,
+                      fontWeight:selectedTab == "sport" ? 'bold' : 'normal',
                     }}
                   >
                     体育
@@ -241,6 +243,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                       ...textVariants.bigHeader,
                       color: colors.text,
                       fontSize: selectedTab == "xvod" ? 22 : 19,
+                      fontWeight:selectedTab == "xvod" ? 'bold' : 'normal',
                     }}
                   >
                     夜来香
