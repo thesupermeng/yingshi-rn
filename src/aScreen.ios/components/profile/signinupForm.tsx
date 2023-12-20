@@ -53,7 +53,7 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
   const { userCenterLoginSuccessTimesAnalytics, userCenterVipLoginSuccessTimesAnalytics } = useAnalytics();
   const dispatch = useDispatch();
 
-  const [loginType, setloginType] = useState<'email' | 'phone'>('email');
+  const [loginType, setloginType] = useState<'email' | 'phone'>('phone');
 
   const [loginValue, setLoginValue] = useState(''); // email or phone
   const [referralCode, setReferralCode] = useState('');
