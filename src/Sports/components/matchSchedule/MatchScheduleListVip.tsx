@@ -159,11 +159,12 @@ const MatchScheduleList = ({
           ) : (
             item?.data !== undefined && (
               <>
-                {/* <Text>{String(matches?.data.length > (index + 1) && matches?.data[index+1]?.date !== undefined  )}</Text> */}
+                {/* <Text>{String((matches?.data.length > (index + 1) && matches?.data[index+1]?.date !== undefined ) || (matches?.data.length == index+1 ) )}</Text> */}
                 <MatchScheduleVip
                   borderFlag={String(
-                    matches?.data.length > index + 1 &&
-                      matches?.data[index + 1]?.date !== undefined
+                 (   matches?.data.length >= index + 1 &&
+                      matches?.data[index + 1]?.date !== undefined)
+                      || (matches?.data.length == index+1 )
                   )}
                   bgDark={true}
                   setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
