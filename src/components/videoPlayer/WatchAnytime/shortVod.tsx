@@ -1,4 +1,4 @@
-import React, { useState, memo, useCallback } from 'react';
+import React, { useState, memo, useCallback, useEffect } from 'react';
 import ShortVideoPlayer from './shortVodPlayer';
 import CollectionBottomSheet from '../../miniCollection/CollectionBottomSheet';
 
@@ -27,6 +27,7 @@ function ShortVod({
 }: Props) {
     const [isShowBottomSheet, setShowBottomSheet] = useState(false);
     const [currentVod, setVod] = useState(vod);
+    const [showVod, setShowVod] = useState(true);
 
     const changeEpisode = useCallback((item: any, index: number) => {
         setVod(item);
@@ -37,29 +38,43 @@ function ShortVod({
         setShowBottomSheet(true);
     }
 
+    useEffect(() => {
+        setShowVod(true);
+        console.log("MOUNT - " + vod.mini_video_title);
+
+        return () => {
+            console.log("UNMOUNT - " + vod.mini_video_title);
+            setShowVod(false);
+        }
+    }, [])
+
     return (
         <>
-            <ShortVideoPlayer
-                vod={currentVod}
-                thumbnail={thumbnail}
-                displayHeight={displayHeight}
-                openSheet={openSheet}
-                isPause={isPause}
-                onManualPause={onManualPause}
-                isShowVideo={isShowVideo}
-                currentDuration={currentDuration}
-                updateVideoDuration={updateVideoDuration}
-                isActive={isActive}
-            />
-            { currentVod.mini_video_heji_id !== 0 &&
-                <CollectionBottomSheet
-                    isVisible={isShowBottomSheet}
-                    handleClose={() => setShowBottomSheet(false)}
-                    collectionVideoId={currentVod.mini_video_id}
-                    collectionId={currentVod.mini_video_heji_id}
-                    collectionName={currentVod.mini_video_collection_title}
-                    changeEpisode={changeEpisode}
-                />
+            {showVod &&
+                <>
+                    <ShortVideoPlayer
+                        vod={currentVod}
+                        thumbnail={thumbnail}
+                        displayHeight={displayHeight}
+                        openSheet={openSheet}
+                        isPause={isPause}
+                        onManualPause={onManualPause}
+                        isShowVideo={isShowVideo}
+                        currentDuration={currentDuration}
+                        updateVideoDuration={updateVideoDuration}
+                        isActive={isActive}
+                    />
+                    { currentVod.mini_video_heji_id !== 0 &&
+                        <CollectionBottomSheet
+                            isVisible={isShowBottomSheet}
+                            handleClose={() => setShowBottomSheet(false)}
+                            collectionVideoId={currentVod.mini_video_id}
+                            collectionId={currentVod.mini_video_heji_id}
+                            collectionName={currentVod.mini_video_collection_title}
+                            changeEpisode={changeEpisode}
+                        />
+                    }
+                </>
             }
         </>
     )
