@@ -33,9 +33,15 @@ export default function PrivacyBackButtonHeader({ title, headerStyle, right, des
     useEffect(() => {
         const unsubscribe = navigation.addListener('beforeRemove', (e) => {
             if (screenReducer.navigateToProfile === true) {
-                // Check if the previous route was "RegistrationPage" and the destination is "ProfileScreen"
-                // If yes, trigger your custom action
-                dispatch(showLoginAction());
+                     // Check if the previous route was "RegistrationPage" and the destination is "ProfileScreen"
+        // If yes, trigger your custom action
+        const navState = navigation.getState();
+        const currentRouteName = navState.routes[navState.index].name;
+        const previousRouteName = navState.routes[navState.index - 1]?.name;
+        if( previousRouteName !='关于我们')
+        {
+          dispatch(showLoginAction());
+        }
             } else {
                 return
             }
