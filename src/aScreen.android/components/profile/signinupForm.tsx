@@ -590,10 +590,13 @@ const LoginCard = ({
               color: loginValue === "" || !isReadTermNCondition ? "white" : "#000",
             }}
           >
-            注册
+            登入
           </Text>
         </Button>
 
+        <Text style={{ fontSize: 12, color: "#9c9c9c", marginVertical: 10, }}>
+          如果未注册，登入后将自动为您创建账号。
+        </Text>
 
         <ReadAgreementPrivacyPolicy
           isReadChecked={isReadTermNCondition}
