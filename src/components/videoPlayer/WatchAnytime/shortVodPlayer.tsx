@@ -361,6 +361,11 @@ function ShortVideoPlayer({
     setMiniVodUrl(currentVod.mini_video_origin_video_url);
   }, [currentVod]);
 
+  const handleOnReadyForDisplay = useCallback(() => {
+    setVideoReadyIos(true)
+    setVideoReadyAndroid(true)
+  }, []);
+
   return (
     <>
       {isShowVideo && (
@@ -408,7 +413,7 @@ function ShortVideoPlayer({
                       'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
                   },
                 }}
-                onReadyForDisplay={() => setVideoReadyIos(true)}
+                onReadyForDisplay={handleOnReadyForDisplay}
                 onBuffer={onBuffer}
                 repeat={true}
                 style={{

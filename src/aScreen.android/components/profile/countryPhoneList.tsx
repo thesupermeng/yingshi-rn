@@ -34,7 +34,7 @@ export const CountryPhoneList = ({
                             style={styles.countryFlag}
                         />
 
-                        <Text style={{ color: 'white', width: 50, }}>{item.country_phonecode}</Text>
+                        <Text style={{ color: 'white', width: 50, }}>+{item.country_phonecode}</Text>
                         <Text style={{ color: 'white' }}>{item.country_name}</Text>
                     </TouchableOpacity>
                 }}
