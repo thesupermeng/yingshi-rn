@@ -280,7 +280,7 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
 
       } else if (userInfo.message.includes("登录成功")) {
 
-        if (userInfo.userCurrentTimestamp < userInfo.userMemberExpired) {
+        if (json.userCurrentTimestamp < json.userMemberExpired) {
           await AsyncStorage.setItem("showAds", "false");
         } else {
           await AsyncStorage.setItem("showAds", "true");
@@ -291,7 +291,7 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
         // ========== for analytics - start ==========
         userCenterLoginSuccessTimesAnalytics();
 
-        if (userInfo.userMemberExpired >= userInfo.userCurrentTimestamp) {
+        if (json.userMemberExpired >= json.userCurrentTimestamp) {
           userCenterVipLoginSuccessTimesAnalytics();
         }
         // ========== for analytics - end ==========
