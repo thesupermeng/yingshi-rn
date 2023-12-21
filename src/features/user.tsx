@@ -4,8 +4,8 @@ import DeviceInfo from "react-native-device-info";
 
 import { Platform } from "react-native";
 import {
-  YING_SHI_PRODUCT_ANDROID,
-  YING_SHI_PRODUCT_IOS,
+  DA_YU_PRODUCT_ANDROID,
+  DA_YU_PRODUCT_IOS,
 } from "@utility/constants";
 
 // new code
@@ -33,9 +33,9 @@ export const signinupUser = async ({
   }
 
   if (Platform.OS === "android") {
-    platform_id = YING_SHI_PRODUCT_ANDROID;
+    platform_id = DA_YU_PRODUCT_ANDROID;
   } else {
-    platform_id = YING_SHI_PRODUCT_IOS;
+    platform_id = DA_YU_PRODUCT_IOS;
   }
 
   let json = {
