@@ -10,7 +10,7 @@ import {
 } from '@redux/actions/screenAction';
 import FastImage from 'react-native-fast-image';
 import useAnalytics from '@hooks/useAnalytics';
-import { SHOW_PAYMENT_CONST } from '@utility/constants';
+import { SHOW_ZF_CONST } from '@utility/constants';
 
 interface Props {
   showBecomeVIPOverlay: boolean;
@@ -96,7 +96,7 @@ export default function ExpiredOverlay({
                   尊享体育频道
                 </Text>
                 <View style={styles.btnContainer}>
-                  { SHOW_PAYMENT_CONST &&
+                  { SHOW_ZF_CONST &&
                   <TouchableOpacity
                     onPress={() => {
                       setShowBecomeVIPOverlay(false);

@@ -3,13 +3,8 @@ import FastImage from 'react-native-fast-image';
 import { VipBenefit } from './vipBenefit';
 import { useTheme } from '@react-navigation/native';
 import { VipMember } from './vipMember';
-import { membershipModel } from '@type/membershipType';
-import { VipPayment } from './vipPayment';
-import GPayIcon from "@static/images/vip/gpay.svg";
-import ApplePayIcon from "@static/images/vip/apple_pay.svg";
-import AlipayIcon from "@static/images/vip/alipay.svg";
-import WechatPayIcon from "@static/images/vip/wechat_pay.svg";
-import PaypalIcon from "@static/images/vip/paypal.svg";
+import { membershipModel, zfModel } from '@type/membershipType';
+import { VipZf } from './vipZf';
 import { useEffect, useState } from 'react';
 import { userModel } from '@type/userType';
 
@@ -18,8 +13,9 @@ interface Props {
   membershipProduct: Array<membershipModel>;
   selectedMembership: membershipModel;
   onMembershipSelect: (selected: membershipModel) => void;
-  selectedPayment: string;
-  onPaymentSelect: (payment: string) => void;
+  zfOptions: Array<zfModel>;
+  selectedZf: string;
+  onZfSelect: (zf: string) => void;
 }
 
 export const VipCard = ({
@@ -27,10 +23,11 @@ export const VipCard = ({
   membershipProduct,
   selectedMembership,
   onMembershipSelect,
-  selectedPayment,
-  onPaymentSelect,
+  zfOptions,
+  selectedZf,
+  onZfSelect,
 }: Props) => {
-  const { textVariants} = useTheme();
+  const { textVariants } = useTheme();
   const [vipRemainingDay, setVipRemainingDay] = useState(0);
   useEffect(() => {
     // Assuming you have the two timestamps
@@ -59,7 +56,7 @@ export const VipCard = ({
 
     setVipRemainingDay(result);
   }, [userState.userCurrentTimestamp]);
-  
+
   return (
     <View
       style={{
@@ -85,13 +82,13 @@ export const VipCard = ({
           <Text style={{ color: '#ffffff', fontSize: 28, fontWeight: '700' }}>
             VIP {vipRemainingDay.toLocaleString()} 天
           </Text>
-          {vipRemainingDay === 0 ? 
+          {vipRemainingDay === 0 ?
             <Text style={{ ...textVariants.small, color: '#9C9C9C' }}>
               您还不是会员,开通VIP享受权益
             </Text> :
             <Text style={{ ...textVariants.small, color: '#9C9C9C' }}>
               剩余天数
-          </Text>
+            </Text>
           }
         </View>
         <FastImage
@@ -110,61 +107,40 @@ export const VipCard = ({
 
       {/* membership plan */}
       <View
-        style={{marginBottom: 10}}>
+        style={{ marginBottom: 10 }}>
         <Text
-          style={{...textVariants.bodyBold, fontSize: 15, marginLeft: 25}}>
-            开通会员
+          style={{ ...textVariants.bodyBold, fontSize: 15, marginLeft: 25 }}>
+          开通会员
         </Text>
         {membershipProduct.map((item) => (
-          <VipMember 
-            key={item.productId} 
+          <VipMember
+            key={item.productId}
             membershipPlan={item}
-            isSelected={ selectedMembership && selectedMembership.productId === item.productId}
+            isSelected={selectedMembership && selectedMembership.productId === item.productId}
             onSelect={onMembershipSelect} />
         ))}
       </View>
-      
-      {/* payment method */}
-      <View
-        style={{marginBottom: 15}}>
-        <Text
-          style={{...textVariants.bodyBold, fontSize: 15, marginLeft: 25}}>
+
+      {/* zf method */}
+      {zfOptions.length > 0 &&
+        <View
+          style={{ marginBottom: 15 }}>
+          <Text
+            style={{ ...textVariants.bodyBold, fontSize: 15, marginLeft: 25 }}>
             支付方式
-        </Text>
-        <VipPayment
-          paymentOption='支付宝'
-          icon={<AlipayIcon />}
-          isSelected={ selectedPayment === '支付宝'}
-          onPaymentSelect={onPaymentSelect}  />
+          </Text>
+          {zfOptions.map((option) => (
+            <VipZf
+              key={option.payment_type_code}
+              zfOption={option}
+              // icon={<AlipayIcon />}
+              isSelected={selectedZf === option.payment_type_code}
+              onZfSelect={onZfSelect} />
+          ))}
 
-        <VipPayment
-          paymentOption='微信支付'
-          icon={<WechatPayIcon />}
-          isSelected={ selectedPayment === '微信支付'}
-          onPaymentSelect={onPaymentSelect}  />
+        </View>
+      }
 
-        {Platform.OS === "android" && 
-          <VipPayment
-            paymentOption='Google Pay'
-            icon={<GPayIcon />}
-            isSelected={ selectedPayment === 'Google Pay'}
-            onPaymentSelect={onPaymentSelect}/>
-        }
-
-        {Platform.OS === "ios" &&
-          <VipPayment
-            paymentOption='Apple Pay'
-            icon={<ApplePayIcon />}
-            isSelected={ selectedPayment === 'Apple Pay'}
-            onPaymentSelect={onPaymentSelect}  />
-        }
-
-        <VipPayment
-          paymentOption='PayPal'
-          icon={<PaypalIcon />}
-          isSelected={ selectedPayment === 'PayPal'}
-          onPaymentSelect={onPaymentSelect}  />
-      </View>
     </View>
   );
 }

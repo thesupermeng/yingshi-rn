@@ -46,7 +46,7 @@ import {
 import ExpiredOverlay from "../../components/modal/expiredOverlay";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { YSConfig } from "../../../../ysConfig";
-import { SHOW_PAYMENT_CONST } from "@utility/constants";
+import { SHOW_ZF_CONST } from "@utility/constants";
 
 function Profile({ navigation, route }: BottomTabScreenProps<any>) {
   const navigator = useNavigation();
@@ -241,11 +241,11 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                       </Text>
                       {userState.userMemberExpired >=
                         userState.userCurrentTimestamp && (
-                        <Image
-                          style={styles.iconStyle}
-                          source={require("@static/images/profile/vip.png")}
-                        />
-                      )}
+                          <Image
+                            style={styles.iconStyle}
+                            source={require("@static/images/profile/vip.png")}
+                          />
+                        )}
                     </View>
 
                     {/* {userState.userMemberExpired == '0' && (
@@ -253,10 +253,10 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                     )} */}
                     {userState.userMemberExpired >=
                       userState.userCurrentTimestamp && (
-                      <Text style={{ color: colors.primary, fontSize: 14 }}>
-                        VIP会员有效日期至{displayedDate}
-                      </Text>
-                    )}
+                        <Text style={{ color: colors.primary, fontSize: 14 }}>
+                          VIP会员有效日期至{displayedDate}
+                        </Text>
+                      )}
                   </>
                 )}
               </View>
@@ -283,7 +283,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
 
           <View style={{ marginBottom: -30, flex: 3, paddingBottom: 120 }}>
             {Platform.OS === "ios" ||
-              (SHOW_PAYMENT_CONST && (
+              (SHOW_ZF_CONST && (
                 <View
                   style={{
                     flexDirection: "row",
@@ -316,7 +316,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                         </Text>
 
                         {YSConfig.instance.tabConfig != null &&
-                        YSConfig.instance.len == 5 ? (
+                          YSConfig.instance.len == 5 ? (
                           <Text
                             style={{
                               ...textVariants.small,
@@ -374,7 +374,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                 </View>
               ))}
 
-            {Platform.OS === "android" && !SHOW_PAYMENT_CONST && (
+            {Platform.OS === "android" && !SHOW_ZF_CONST && (
               <TouchableOpacity
                 style={{
                   ...styles.btn,

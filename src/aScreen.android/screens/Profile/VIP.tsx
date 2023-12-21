@@ -63,7 +63,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const [membershipSelected, setSelectedMembership] = useState<membershipModel>(
     membershipProducts[0]
   );
-  const [paymentSelected, setSelectedPayment] = useState(
+  const [zfSelected, setSelectedZf] = useState(
     IS_IOS ? "Apple Pay" : "Google Pay"
   );
   const [isOffline, setIsOffline] = useState(false);
@@ -183,21 +183,21 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
 
     setIsBtnEnable(false);
     try {
-      if (paymentSelected === "Apple Pay") {
-        console.log("apple pay payment");
+      if (zfSelected === "Apple Pay") {
+        console.log("apple pay zf");
         console.log(initConnectionError);
         setIsVisible(true);
         await getProducts({ skus: [membershipSelected.productSKU] });
 
         await requestPurchase({ sku: membershipSelected.productSKU });
-      } else if (paymentSelected === "Google Pay") {
+      } else if (zfSelected === "Google Pay") {
         console.log("google pay method");
         setIsVisible(true);
         await getProducts({ skus: [membershipSelected.productSKU] });
 
         await requestPurchase({ skus: [membershipSelected.productSKU] });
       } else {
-        console.log("others payment method");
+        console.log("others zf method");
       }
     } catch (error) {
       setIsVisible(false);
@@ -225,7 +225,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
       user_id: userState.userId,
       product_id: membershipSelected?.productId,
       transaction_type: "SUBSCRIBE_VIP",
-      payment_channel: paymentSelected.toUpperCase(),
+      zf_channel: zfSelected.toUpperCase(),
       platform: APP_NAME_CONST + "-" + Platform.OS.toUpperCase(),
       channel_transaction_id: currentPurchase?.transactionId,
       transaction_receipt: currentPurchase
@@ -491,7 +491,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
               margin: 10,
               alignItems: "center",
               borderRadius: 10,
-              backgroundColor: paymentSelected
+              backgroundColor: zfSelected
                 ? colors.primary
                 : colors.highlight,
             }}
@@ -582,8 +582,8 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
               membershipProduct={membershipProducts}
               selectedMembership={membershipSelected}
               onMembershipSelect={setSelectedMembership}
-              selectedPayment={paymentSelected}
-              onPaymentSelect={setSelectedPayment}
+              selectedZf={zfSelected}
+              onZfSelect={setSelectedZf}
             />
 
             <View

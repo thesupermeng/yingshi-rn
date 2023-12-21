@@ -10,7 +10,7 @@ import {
 } from '@redux/actions/screenAction';
 import FastImage from 'react-native-fast-image';
 import useAnalytics from '@hooks/useAnalytics';
-import { SHOW_PAYMENT_CONST } from '@utility/constants';
+import { SHOW_ZF_CONST } from '@utility/constants';
 
 interface Props {
   showBecomeVIPOverlay: boolean;
@@ -96,27 +96,27 @@ export default function ExpiredOverlay({
                   尊享体育频道
                 </Text>
                 <View style={styles.btnContainer}>
-                  { SHOW_PAYMENT_CONST &&
-                  <TouchableOpacity
-                    onPress={() => {
-                      setShowBecomeVIPOverlay(false);
-                      navigator.navigate('付费VIP');
+                  {SHOW_ZF_CONST &&
+                    <TouchableOpacity
+                      onPress={() => {
+                        setShowBecomeVIPOverlay(false);
+                        navigator.navigate('付费VIP');
 
-                      // ========== for analytics - start ==========
-                      sportDetailsVipPopupClicksAnalytics('pay');
-                      // ========== for analytics - end ==========
-                    }}
-                    style={styles.btn}>
-                    <Text
-                      style={{
-                        color: '#000',
-                        fontWeight: '600',
-                        fontSize: 16,
-                      }}>
-                      购买VIP
-                    </Text>
-                  </TouchableOpacity>
-                }
+                        // ========== for analytics - start ==========
+                        sportDetailsVipPopupClicksAnalytics('pay');
+                        // ========== for analytics - end ==========
+                      }}
+                      style={styles.btn}>
+                      <Text
+                        style={{
+                          color: '#000',
+                          fontWeight: '600',
+                          fontSize: 16,
+                        }}>
+                        购买VIP
+                      </Text>
+                    </TouchableOpacity>
+                  }
                   <TouchableOpacity
                     onPress={() => {
                       setShowBecomeVIPOverlay(false);

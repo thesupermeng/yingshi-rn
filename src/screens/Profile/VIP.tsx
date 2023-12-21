@@ -27,7 +27,7 @@ import { updateUserAuth } from "@redux/actions/userAction";
 import { getUserDetails } from "../../features/user";
 import { VipCard } from "../../components/vip/vipCard";
 import { TouchableOpacity } from "react-native";
-import { membershipModel } from "@type/membershipType";
+import { membershipModel, zfModel } from "@type/membershipType";
 import NoConnection from "../../components/common/noConnection";
 import { Dialog } from "@rneui/themed";
 import FastImage from "react-native-fast-image";
@@ -64,9 +64,11 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const [membershipSelected, setSelectedMembership] = useState<membershipModel>(
     membershipProducts[0]
   );
-  const [paymentSelected, setSelectedPayment] = useState(
-    IS_IOS ? "Apple Pay" : "Google Pay"
-  );
+  const [zfOptions, setZfOptions] = useState<zfModel[]>([]);
+  // const [zfSelected, setSelectedZf] = useState<zfModel>(
+  //   zfOptions[0]
+  // );
+  const [zfSelected, setSelectedZf] = useState('');
   const [isOffline, setIsOffline] = useState(false);
   const { colors, textVariants, spacing } = useTheme();
   const userState: userModel = useAppSelector(
@@ -142,7 +144,11 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   }, []);
 
   const fetchData = async () => {
-    const response = await axios.get(`${API_DOMAIN_TEST}products/v1/products`);
+    console.log(Platform.OS)
+    const productApi = IS_IOS
+      ? `${API_DOMAIN_TEST}products/v1/products?product_type_id=yingshi_4_fang`
+      : `${API_DOMAIN_TEST}products/v1/products`;
+    const response = await axios.get(productApi);
     const data = await response.data.data;
     let products: Array<membershipModel>;
     if (response) {
@@ -156,6 +162,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
             product.currency.currency_symbol + " " + product.product_price,
           description: product.product_desc,
           subscriptionDays: product.product_value,
+          zfOptions: product.payment_options,
         };
       });
 
@@ -179,31 +186,41 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     }
   }, [membershipProducts]);
 
-  const handlePurchase = async () => {
-    if (userState.userToken == "") {
-      dispatch(showLoginAction());
-      console.log("show login");
-      return; //early return
+  useEffect(() => {
+    if (membershipSelected) {
+      console.log(membershipSelected)
+      setZfOptions(membershipSelected.zfOptions);
+      setSelectedZf(membershipSelected.zfOptions[0].payment_type_code)
     }
+
+  }, [membershipSelected]);
+
+  const handlePurchase = async () => {
+    // if (userState.userToken == "") {
+    //   dispatch(showLoginAction());
+    //   console.log("show login");
+    //   return; //early return
+    // }
 
     setIsBtnEnable(false);
     try {
       setIsVisible(true);
-      if (paymentSelected === "Apple Pay") {
-        console.log("apple pay payment");
-        console.log(initConnectionError);
-        await getProducts({ skus: [membershipSelected.productSKU] });
+      handleZfGateway();
+      // if (zfSelected === "Apple") {
+      //   console.log("apple zf");
+      //   console.log(initConnectionError);
+      //   await getProducts({ skus: [membershipSelected.productSKU] });
 
-        await requestPurchase({ sku: membershipSelected.productSKU });
-      } else if (paymentSelected === "Google Pay") {
-        console.log("google pay method");
-        await getProducts({ skus: [membershipSelected.productSKU] });
+      //   await requestPurchase({ sku: membershipSelected.productSKU });
+      // } else if (zfSelected === "Google") {
+      //   console.log("google pay method");
+      //   await getProducts({ skus: [membershipSelected.productSKU] });
 
-        await requestPurchase({ skus: [membershipSelected.productSKU] });
-      } else {
-        console.log("others payment method");
-        handlePaymentGateway();
-      }
+      //   await requestPurchase({ skus: [membershipSelected.productSKU] });
+      // } else {
+      //   console.log("others zf method");
+      //   handleZfGateway();
+      // }
     } catch (error) {
       setIsVisible(false);
       if (error instanceof PurchaseError) {
@@ -226,19 +243,19 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     }
   };
 
-  const handlePaymentGateway = async () => {
+  const handleZfGateway = async () => {
     const orderJson = {
       product_id: parseInt(membershipSelected.productId),
-      payment_type: 'GCASH_NATIVE',
+      zf_type: 'GCASH_NATIVE',
       platform: APP_NAME_CONST + "-" + Platform.OS.toUpperCase(),
     };
     console.log('order json: ', orderJson);
 
     try {
-      const result = await axios.post(`${API_DOMAIN_TEST}finpay/v1/order`, orderJson, { headers: headers });
+      const result = await axios.post(`${API_DOMAIN_TEST}finzf/v1/order`, orderJson, { headers: headers });
 
       console.log("returned order data: ", result.data);
-      openLink(result.data.data.paymentData, result.data.data.transaction_id);
+      openLink(result.data.data.zfData, result.data.data.transaction_id);
     } catch (error) {
       console.log('error catch: ', error);
       setDialogText(axiosErrorText);
@@ -290,7 +307,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
               setDialogText(tryAgainDialogText);
               setIsDialogOpen(true);
             }, 15000);
-            getPaymentStatus(transID);
+            getZfStatus(transID);
           } else {
             setIsVisible(false);
             setIsBtnEnable(true);
@@ -305,9 +322,9 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     }
   };
 
-  const getPaymentStatus = async (transID: string) => {
-    const statusAPI = `${API_DOMAIN_TEST}finpay/v1/transactions?transaction_id=${transID}`;
-    const status = await axios.get(statusAPI, {headers: headers});
+  const getZfStatus = async (transID: string) => {
+    const statusAPI = `${API_DOMAIN_TEST}finzf/v1/transactions?transaction_id=${transID}`;
+    const status = await axios.get(statusAPI, { headers: headers });
 
     console.log('order: ', statusAPI);
     console.log('order status: ', status.data);
@@ -331,7 +348,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
       user_id: userState.userId,
       product_id: membershipSelected?.productId,
       transaction_type: "SUBSCRIBE_VIP",
-      payment_channel: paymentSelected.toUpperCase().replace(/ /g, '_'),
+      zf_channel: zfSelected.toUpperCase().replace(/ /g, '_'),
       platform: APP_NAME_CONST + "-" + Platform.OS.toUpperCase(),
       channel_transaction_id: currentPurchase?.transactionId,
       transaction_receipt: currentPurchase
@@ -468,7 +485,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
               // setIsSuccess(true);
 
               const success = await saveFinishTrans("1", ""); //validate receipt with server
-              
+
               setReceiptBuffer((prev) => {
                 const receipt = new Map(prev);
                 receipt.set(currentPurchase.transactionId?.concat(success), success);
@@ -580,7 +597,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                   // padding: 8,
                   opacity:
                     userState.userPaidVipList.total_purchased_days > 0 ||
-                    userState.userAccumulateRewardDay > 0
+                      userState.userAccumulateRewardDay > 0
                       ? 100
                       : 0,
                 }}
@@ -589,7 +606,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
               </Text>
             </TouchableOpacity>
           }
-          // headerStyle={{ marginBottom: spacing.m }}
+        // headerStyle={{ marginBottom: spacing.m }}
         />
 
         {isOffline && (
@@ -638,8 +655,9 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
               membershipProduct={membershipProducts}
               selectedMembership={membershipSelected}
               onMembershipSelect={setSelectedMembership}
-              selectedPayment={paymentSelected}
-              onPaymentSelect={setSelectedPayment}
+              zfOptions={zfOptions}
+              selectedZf={zfSelected}
+              onZfSelect={setSelectedZf}
             />
 
             <View

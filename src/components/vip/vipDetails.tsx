@@ -8,7 +8,7 @@ import { VipNav } from "../tabNavigate/vipNav";
 import { useEffect, useState } from "react";
 import { VipPurchaseHistory } from "./vipPurchaseHistory";
 import { VipInviteHistory } from "./vipInviteHistory";
-import { SHOW_PAYMENT_CONST } from "@utility/constants";
+import { SHOW_ZF_CONST } from "@utility/constants";
 
 export const VipDetails = ({
   route,
@@ -21,7 +21,7 @@ export const VipDetails = ({
     { id: 0, name: "邀请记录" },
     { id: 1, name: "购买记录" },
   ];
-  if (SHOW_PAYMENT_CONST == false) {
+  if (SHOW_ZF_CONST == false) {
     navOptions = [{ id: 0, name: "邀请记录" }];
   }
 
@@ -62,7 +62,7 @@ export const VipDetails = ({
           </Text>
         </View>
 
-        {SHOW_PAYMENT_CONST && (
+        {SHOW_ZF_CONST && (
           <View style={styles.featureItem}>
             <Text style={{ ...textVariants.bigHeader }}>
               {userState.userPaidVipList.total_purchased_amount
