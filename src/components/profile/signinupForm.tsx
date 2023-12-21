@@ -13,6 +13,7 @@ import {
 import { useAppDispatch } from "@hooks/hooks";
 import {
   changeScreenAction,
+  hideBottomSheetAction,
   navigateToProfileScreen,
 } from "@redux/actions/screenAction";
 import SpinnerOverlay from "../modal/SpinnerOverlay";
@@ -326,6 +327,7 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
         if (onGooleLoginSuccess) onGooleLoginSuccess();
       }
     } else {
+      dispatch(hideBottomSheetAction());
       navigation.navigate("OTP", {
         email: loginType === 'email' ? loginValue : undefined,
         phone: loginType === 'phone' ? countryPhoneSelected?.country_phonecode + loginValue : undefined,
