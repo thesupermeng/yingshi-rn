@@ -109,6 +109,23 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
     setLoginValue(value);
     setLoginValueErrMsg(null);
 
+  // Remove all non-digit characters from the input value
+  const formattedValue = value.replace(/\D/g, '');
+
+  let formattedPhoneNumber = '';
+  for (let i = 0; i < formattedValue.length; i++) {
+    formattedPhoneNumber += formattedValue[i];
+    if (i === 2 && formattedValue.length > 3) {
+      formattedPhoneNumber += ' ';
+    } else if (i === 5 && formattedValue.length > 6) {
+      formattedPhoneNumber += ' ';
+    }
+  }
+
+  // Update the state with the formatted phone number
+    setLoginValue(formattedPhoneNumber);
+    setLoginValueErrMsg(null);
+
     if (value === '') return;
 
     if (loginType === 'email' && !isEmailValid(value)) {
@@ -212,7 +229,14 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
       return;
     }
 
-    if (isGoogleLogin !== true && loginValue === "") {
+    const formattedLoginValue = loginType === 'phone' ? loginValue.replace(/\s/g, '') : loginValue;
+
+    // if (isGoogleLogin !== true && loginValue === "") {
+    //   setLoginValueErrMsg(loginType === 'email' ? '请填写邮箱账号' : '请填写手机号码');
+    //   return;
+    // }
+
+    if ((isGoogleLogin !== true && formattedLoginValue === "") || loginValueErrMsg !== null) {
       setLoginValueErrMsg(loginType === 'email' ? '请填写邮箱账号' : '请填写手机号码');
       return;
     }
@@ -236,7 +260,8 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
       userInfo = await signinupUser({
         loginType: loginType === 'email' ? 'EMAIL' : 'SMS',
         email: loginType === 'email' ? loginValue : undefined,
-        phone: loginType === 'phone' ? countryPhoneSelected?.country_phonecode + loginValue : undefined,
+        // phone: loginType === 'phone' ? countryPhoneSelected?.country_phonecode + loginValue : undefined,
+        phone: loginType === 'phone' ? countryPhoneSelected?.country_phonecode + formattedLoginValue : undefined,
         countryId: loginType === 'phone' ? countryPhoneSelected?.country_id : undefined,
         referralCode: referralCode,
         ...otherParams,
@@ -727,6 +752,7 @@ const styles = StyleSheet.create({
     color: "#000",
   },
   btnInactive: {
+    // backgroundColor: "#1d2023",
     backgroundColor: "#1d2023",
   },
   danger: {
