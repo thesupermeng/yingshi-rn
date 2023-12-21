@@ -130,8 +130,11 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
 
     if (loginType === 'email' && !isEmailValid(value)) {
       setLoginValueErrMsg('邮件格式错误');
-    } else if (loginType === 'phone' && !isPhoneValid(value)) {
+    // } else if (loginType === 'phone' && !isPhoneValid(value)) {
+    } else if (loginType === 'phone' && !isPhoneValid(formattedPhoneNumber)) {
       setLoginValueErrMsg('手机号码格式错误');
+    } else if (loginType === 'phone' && formattedPhoneNumber.replace(/\s/g, '').length < 8 || formattedPhoneNumber.replace(/\s/g, '').length > 11) {
+      setLoginValueErrMsg('手机号码长度太短');
     }
   };
 
