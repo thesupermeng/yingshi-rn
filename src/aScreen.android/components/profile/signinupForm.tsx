@@ -393,10 +393,9 @@ const LoginCard = ({
     <View style={styles.card}>
       <Text style={styles.title}>注册/登录</Text>
       <Text style={styles.subtitle}>登录后可管理您的账号，多端同步观看历史和收藏夹</Text>
-      <View style={styles.textinputContainer}>
-        {/* ============================== tab control ============================== */}
-        <View style={styles.tabContainer}>
-          {/* <TouchableOpacity
+      {/* ============================== tab control ============================== */}
+      <View style={styles.tabContainer}>
+        {/* <TouchableOpacity
             style={styles.tabItemContainer}
             onPress={() => onChangeloginType('phone')}
           >
@@ -413,24 +412,24 @@ const LoginCard = ({
             }
           </TouchableOpacity> */}
 
-          <TouchableOpacity
-            style={styles.tabItemContainer}
-            onPress={() => onChangeloginType('email')}
-          >
-            <Text style={[loginType === 'email' ? styles.tabItemFocusText : styles.tabItemUnfocusText]}>电邮地址</Text>
-            {loginType === 'email' &&
-              <View
-                style={{
-                  width: 30,
-                  height: 4,
-                  borderRadius: 20,
-                  backgroundColor: colors.primary,
-                }}
-              />
-            }
-          </TouchableOpacity>
-        </View>
-
+        <TouchableOpacity
+          style={styles.tabItemContainer}
+          onPress={() => onChangeloginType('email')}
+        >
+          <Text style={[loginType === 'email' ? styles.tabItemFocusText : styles.tabItemUnfocusText]}>电邮地址</Text>
+          {loginType === 'email' &&
+            <View
+              style={{
+                width: 30,
+                height: 4,
+                borderRadius: 20,
+                backgroundColor: colors.primary,
+              }}
+            />
+          }
+        </TouchableOpacity>
+      </View>
+      <View style={styles.textinputContainer}>
         {/* ============================== login value (email / phone) ============================== */}
         {loginType === 'email' && <>
           <TextInput
