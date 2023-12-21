@@ -649,9 +649,9 @@ const LoginCard = ({
         />
 
         {/* ============================== other login type ============================== */}
-        <View style={{ alignItems: 'center' }}>
+        {/* <View style={{ alignItems: 'center' }}>
           <Text style={{ color: "#9c9c9c" }}>使用以下方式登入</Text>
-        </View>
+        </View> */}
 
         <View style={{
           justifyContent: 'center',
@@ -673,7 +673,7 @@ const LoginCard = ({
             {loginType === 'phone' && <MailIcon />}
           </TouchableOpacity> */}
 
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={onPressGoogleLogin}
             style={{
               backgroundColor: '#1D2023',
@@ -683,7 +683,7 @@ const LoginCard = ({
             }}
           >
             <GmailIcon />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </View>
     </View>
