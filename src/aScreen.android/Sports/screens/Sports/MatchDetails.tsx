@@ -232,7 +232,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
 
   const isFullyLoaded = !f1 && !f2 && !f3;
 
-  useInterstitialAds();
+  // useInterstitialAds();
 
   return (
     <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
