@@ -62,10 +62,7 @@ export default function InviteStep() {
             <Text style={styles.textDesc}>
               下载
               <Text
-                style={{
-                  fontSize: 10,
-                  color: colors.primary,
-                }}
+                 style={styles.textDesc}
               >
                 {"此APP"}
                 {/* {APP_NAME_CONST} */}
