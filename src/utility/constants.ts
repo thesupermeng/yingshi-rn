@@ -45,7 +45,7 @@ export const CLEAR_STORAGE_MEMORY = 'clear_storage_memory';
 
 export const APPSFLYER_DEVKEY = 'wrxTHihLJNWrrusXtgRJZa';
 
-export const INVITE_DOMAIN = 'https://xiangkantv.net/invite/pro/?invite=';
+export const INVITE_DOMAIN = 'https://yingshi.tv/invite/pro/?invite=';
 
 // const ALL_UMENG_CHANNELS = {
 //     'WEB': 'WEB',
@@ -95,6 +95,9 @@ export const TOPON_BANNER_RATIO = TOPON_BANNER_HEIGHT / TOPON_BANNER_WIDTH;
 export const YING_SHI_PRODUCT_ANDROID = 3;
 export const YING_SHI_PRODUCT_IOS = 4;
 
+export const DA_YU_PRODUCT_ANDROID = 5;
+export const DA_YU_PRODUCT_IOS = 6;
+
 // export const YING_SHI_PIN_ANDROID = 1;
 // export const YING_SHI_PIN_IOS = 2;
 // export const YING_SHI_TV_ANDROID = 3;
@@ -103,8 +106,8 @@ export const YING_SHI_PRODUCT_IOS = 4;
 export const IS_IOS = Platform.OS === 'ios';
 export const IS_ANDROID = Platform.OS === 'android';
 
-export const APP_NAME_CONST = '大鱼影视';
-export const APP_EMAIL_CONST = 'contact.movie9@gmail.com';
+export const APP_NAME_CONST = '影视TV';
+export const APP_EMAIL_CONST = 'contactus@yingshi.tv';
 
 export const NON_VIP_STREAM_TIME_SECONDS = 300;
 
