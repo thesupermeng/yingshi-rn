@@ -1,5 +1,5 @@
 import { Button } from "@ant-design/react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useTheme } from "@react-navigation/native";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import {
   View,
@@ -37,6 +37,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import useAnalytics from "@hooks/useAnalytics";
 import { useDispatch } from "react-redux";
 import { addUserAuthState } from "@redux/actions/userAction";
+
 
 export type SigninupRef = {
   resetValue: () => void,
@@ -134,8 +135,8 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
     setShowCountryList(false);
   }
 
-  const onChangeloginType = () => {
-    setloginType(loginType === 'email' ? 'phone' : 'email');
+  const onChangeloginType = (type: 'email' | 'phone') => {
+    setloginType(type);
     setLoginValue('');
     setLoginValueErrMsg(null);
   }
@@ -356,7 +357,7 @@ type LoginCardProps = {
   onLoginValueChange: (value: string) => void,
   onReferralCodeChange: (value: string) => void,
   onPressTermNCondition: () => void,
-  onChangeloginType: () => void,
+  onChangeloginType: (type: 'email' | 'phone') => void,
   onPressGoogleLogin: () => void,
   onPressCountryDropdown: () => void,
   onSubmit: () => void,
@@ -378,6 +379,7 @@ const LoginCard = ({
   onPressCountryDropdown,
   onSubmit,
 }: LoginCardProps) => {
+  const { colors } = useTheme();
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
 
@@ -386,6 +388,43 @@ const LoginCard = ({
       <Text style={styles.title}>注册/登录</Text>
       <Text style={styles.subtitle}>登录后可管理您的账号，多端同步观看历史和收藏夹</Text>
       <View style={styles.textinputContainer}>
+        {/* ============================== tab control ============================== */}
+        <View style={styles.tabContainer}>
+          <TouchableOpacity
+            style={styles.tabItemContainer}
+            onPress={() => onChangeloginType('phone')}
+          >
+            <Text style={[loginType === 'phone' ? styles.tabItemFocusText : styles.tabItemUnfocusText]}>手机号码</Text>
+            {loginType === 'phone' &&
+              <View
+                style={{
+                  width: 30,
+                  height: 4,
+                  borderRadius: 20,
+                  backgroundColor: colors.primary,
+                }}
+              />
+            }
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.tabItemContainer}
+            onPress={() => onChangeloginType('email')}
+          >
+            <Text style={[loginType === 'email' ? styles.tabItemFocusText : styles.tabItemUnfocusText]}>电邮地址</Text>
+            {loginType === 'email' &&
+              <View
+                style={{
+                  width: 30,
+                  height: 4,
+                  borderRadius: 20,
+                  backgroundColor: colors.primary,
+                }}
+              />
+            }
+          </TouchableOpacity>
+        </View>
+
         {/* ============================== login value (email / phone) ============================== */}
         {loginType === 'email' && <>
           <TextInput
@@ -620,7 +659,7 @@ const LoginCard = ({
         flexDirection: 'row',
         padding: 10,
       }}>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={onChangeloginType}
           style={{
             backgroundColor: '#1D2023',
@@ -631,7 +670,7 @@ const LoginCard = ({
         >
           {loginType === 'email' && <PhoneIcon />}
           {loginType === 'phone' && <MailIcon />}
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         <TouchableOpacity
           onPress={onPressGoogleLogin}
@@ -654,6 +693,23 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginBottom: 10,
     justifyContent: 'center',
+  },
+  tabContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    paddingBottom: 20,
+  },
+  tabItemContainer: {
+    marginRight: 10,
+    alignItems: 'center',
+  },
+  tabItemFocusText: {
+    color: 'white',
+    paddingBottom: 10,
+  },
+  tabItemUnfocusText: {
+    color: '#9c9c9c',
+    paddingBottom: 10,
   },
   countryPhoneInputContainer: {
     display: 'flex',
