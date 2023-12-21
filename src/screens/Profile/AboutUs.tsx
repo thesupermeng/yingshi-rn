@@ -74,7 +74,7 @@ export default ({ navigation }: RootStackScreenProps<"关于我们">) => {
           onConfirm={toggleOverlay}
           isVisible={isDialogOpen}
           title="版权声明"
-          subtitle1={`如果${APP_NAME_CONST}提供内容侵犯了您的版权, 请发送电子邮件说明, ${APP_NAME_CONST}将立即删除内容, 保护版权所有者的权益。`}
+          subtitle1={`如果该APP提供内容侵犯了您的版权, 请发送电子邮件说明, 我们将立即删除内容, 保护版权所有者的权益。`}
           subtitle2="联系邮箱:"
           subtitle3={APP_EMAIL_CONST}
         />
