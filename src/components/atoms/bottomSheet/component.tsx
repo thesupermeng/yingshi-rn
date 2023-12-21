@@ -84,6 +84,7 @@ export const CBottomSheet = ({
                         }
 
                         <ScrollView
+                        keyboardShouldPersistTaps={'handled'}
                             showsVerticalScrollIndicator={false}
                             showsHorizontalScrollIndicator={false}
                             style={{
