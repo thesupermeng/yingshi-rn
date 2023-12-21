@@ -45,7 +45,7 @@ export const CLEAR_STORAGE_MEMORY = 'clear_storage_memory';
 
 export const APPSFLYER_DEVKEY = 'wrxTHihLJNWrrusXtgRJZa';
 
-export const INVITE_DOMAIN = 'https://yingshi.tv/invite/pro/?invite=';
+export const INVITE_DOMAIN = 'https://xiangkantv.net/invite/pro/?invite=';
 
 // const ALL_UMENG_CHANNELS = {
 //     'WEB': 'WEB',

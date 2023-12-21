@@ -608,13 +608,13 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
 
             <View style={{ ...styles.footerWithBackgroundContainer }}>
               <Text style={{ ...textVariants.small }}>
-                有关购买查询，请联系contactus@yingshi.tv
+                有关购买查询，请联系contact.movie9@gmail.com
               </Text>
             </View>
             {IS_IOS ? (
               <View style={{ ...styles.footerContainer }}>
                 <Text style={{ ...textVariants.small }}>
-                  活动由影视TV公司提供 与苹果公司Apple.Inc 无关
+                  活动由此APP公司提供 与苹果公司Apple.Inc 无关
                 </Text>
               </View>
             ) : null}
