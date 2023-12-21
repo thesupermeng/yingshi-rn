@@ -75,9 +75,12 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   const { data: navOptions, refetch } = useQuery({
     queryKey: ["HomePageNavOptions"],
     queryFn: () =>
-      fetch(`${API_DOMAIN}nav/v1/navItems?channelId=${UMENG_CHANNEL}`, {}) //  removed  '+ UMENG_CHANNEL' in url
+      fetch(`${API_DOMAIN}nav/v1/navItems?channelId=${UMENG_CHANNEL}&platformId=` + Platform.OS , {}) //  removed  '+ UMENG_CHANNEL' in url
         .then((response) => response.json())
         .then((json: NavOptionsResponseType) => {
+
+          console.log('sss')
+          console.log(json.data)
           return json.data;
         }),
   });

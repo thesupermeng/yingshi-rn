@@ -1214,7 +1214,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                                 />
                               </View>
                             ) : 
-                              {/* 广告空位 */}
+                            
                             <>
                             <View style={{marginBottom: 60}}></View>
                             </>

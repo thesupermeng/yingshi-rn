@@ -31,9 +31,9 @@ export const UPDATE_NETWORK_INFO = 'update_network_info';
 
 // export const API_DOMAIN = 'https://api.yingshi.tv/'
 // export const API_DOMAIN = 'https://api.gxhongdeli168.com/';
-export const API_DOMAIN = 'https://testapi.yingshi.tv/';
+export const API_DOMAIN = 'https://api.gxhongdeli168.com/';
 // export const API_DOMAIN_TEST = 'https://testapi.yingshi.tv/';
-export const API_DOMAIN_TEST = 'https://testapi.yingshi.tv/';
+export const API_DOMAIN_TEST = 'https://api.gxhongdeli168.com/';
 export const API_DOMAIN_LOCAL = 'http://localhost:3000/';
 export const MATCH_API_DOMAIN = 'https://api.ggsimida.com/';
 
@@ -58,7 +58,7 @@ export const INVITE_DOMAIN = 'https://yingshi.tv/invite/pro/?invite=';
 
 export const UMENG_CHANNEL = "WEB";
 
-export const APP_VERSION = "1.5.1";
+export const APP_VERSION = "1.7.0";
 
 export const TOPON_ANDROID_APP_ID = 'a65002a2db3a7f';
 export const TOPON_ANDROID_APP_KEY = 'aad683307ed540dfc11b094206e8a15b1';
