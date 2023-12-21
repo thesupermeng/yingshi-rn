@@ -431,7 +431,7 @@ const LoginCard = ({
               left: 94,
               zIndex: 100,
             }}>
-              {countryPhoneSelected?.country_phonecode}
+              +{countryPhoneSelected?.country_phonecode}
             </Text>
 
             <TextInput
