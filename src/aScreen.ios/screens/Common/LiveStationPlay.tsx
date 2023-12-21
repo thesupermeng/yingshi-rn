@@ -59,7 +59,7 @@ export default ({ navigation, route }: RootStackScreenProps<"电视台播放">) 
   const lockOrientation = (orientation: string) => {
     dispatch(lockAppOrientation(orientation));
   };
-  useInterstitialAds();
+  // useInterstitialAds();
   return (
     <ScreenContainer
       containerStyle={{ flex: 1, paddingRight: 0, paddingLeft: 0 }}

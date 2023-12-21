@@ -211,8 +211,8 @@ export default () => {
                 </AdsBannerContextProvider>
               ) : (
                 <>
+                  {Platform.OS === "ios" && <NavIos />}
                   <AdsBannerContextProvider>
-                    {Platform.OS === "ios" && <NavIos />}
                     {Platform.OS === "android" && <NavA />}
                   </AdsBannerContextProvider>
                 </>

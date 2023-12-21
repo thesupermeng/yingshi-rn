@@ -233,7 +233,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
     setNavId(index);
   }, []);
 
-  useInterstitialAds();
+  // useInterstitialAds();
 
   return (
     <>
