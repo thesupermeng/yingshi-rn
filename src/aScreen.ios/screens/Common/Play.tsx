@@ -187,7 +187,7 @@ const getNoAdsUri = async (url: string) => {
   return `http://localhost:${PLAY_HTTP_SERVER_PORT}/${videoSubfolder}/index.m3u8`;
 };
 
-export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
+export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
   const { setRoute: setAdsRoute } = useContext(AdsBannerContext);
   useFocusEffect(() => {
     // for banner ads
@@ -277,11 +277,21 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
       playsShareClicksAnalytics();
       // ========== for analytics - end ==========
 
+      let msg = `《${
+        vod?.vod_name
+      }》高清播放${"\n"}https://yingshi.tv/index.php/vod/play/id/${
+        vod?.vod_id
+      }/sid/1/nid/${
+        currentEpisode + 1
+      }.html${"\n"}${APP_NAME_CONST}-海量高清视频在线观看`
+
+      if(APP_NAME_CONST=='大鱼影视')
+      {
+        msg = `海量视频内容 随时随地 想看就看 ${"\n"}https://xiangkantv.net/share.html`
+      }
+
       const result = await Share.share({
-        message: `《${vod?.vod_name
-          }》高清播放${"\n"}https://yingshi.tv/index.php/vod/play/id/${vod?.vod_id
-          }/sid/1/nid/${currentEpisode + 1
-          }.html${"\n"}${APP_NAME_CONST}-海量高清视频在线观看`,
+        message: msg,
       });
       if (result.action === Share.sharedAction) {
         if (result.activityType) {
@@ -867,7 +877,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                         gap: 8,
                       }}
                     >
-                      <TouchableOpacity
+                      {/* <TouchableOpacity
                         onPress={handleSearchVideo}
                         style={{
                           backgroundColor: "#FAC33D",
@@ -887,7 +897,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                       </TouchableOpacity>
                       <Text style={{...textVariants.small, alignSelf: 'flex-end'}}>
                         *点击跳转bing搜索片源
-                      </Text>
+                      </Text> */}
                     </View>
                     </View>
                   </View>

@@ -35,8 +35,8 @@ export default function TitleWithBackButtonHeader({
     console.log(right);
     leftIconBottomVal = Platform.OS == "ios" ? -22 : -20;
   }
-  console.log("leftIconBottomVal");
-  console.log(leftIconBottomVal);
+  // console.log("leftIconBottomVal");
+  // console.log(leftIconBottomVal);
   return (
     <View style={styles.mainContainer}>
       <View style={{ ...styles.container }}>

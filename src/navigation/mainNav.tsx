@@ -60,11 +60,9 @@ export default () => {
         Platform.OS.toUpperCase()
     );
 
-    const resPromise = axios.get("https://geolocation-db.com/json/");
 
-    const [response, resTemp] = await Promise.all([
-      responsePromise,
-      resPromise,
+    const [response] = await Promise.all([
+      responsePromise
     ]);
 
     if (response.ok) {
@@ -74,7 +72,16 @@ export default () => {
       }
     }
 
-    const ipAddress = resTemp.data.IPv4;
+    // let ipAddress = resTemp.data.IPv4;
+    let ipAddress = "";
+
+    try{
+      const resPromise = await axios.get("https://geolocation-db.com/json/");
+      ipAddress = resPromise.data.IPv4;
+    }catch(err){
+      ipAddress = "219.75.27.16";
+    }
+    console.log(ipAddress);
 
     if (ipAddress != null && ipAddress != undefined) {
       YSConfig.instance.setNetworkIp(ipAddress);
@@ -167,7 +174,10 @@ export default () => {
   return (
     <>
       {isSuper == true ? (
-        <Nav />
+             <AdsBannerContextProvider>
+                <Nav />
+             </AdsBannerContextProvider>
+      
       ) : (
         <>
           {loadedAPI == false ? (

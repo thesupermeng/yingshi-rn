@@ -30,7 +30,7 @@ export default ({ navigation }: RootStackScreenProps<'合集收藏'>) => {
             <FavoriteVodCard vod={item} onPress={() => {
                 const url = `https://m.iqiyi.com/search.html?key=${item.vod_name}`
                 dispatch(playVod(item));
-                navigation.navigate('播放', {
+                navigation.navigate('播放IOS', {
                     vod_id: item.vod_id
                 });
             }} />

@@ -76,6 +76,7 @@ export default function XVodTab({
   });
 
   useEffect(() => {
+    
     // console.log("data");
     // console.log(data.data?.data);
     if (data == undefined) {
@@ -121,6 +122,7 @@ export default function XVodTab({
       />
 </View>
       <EighteenPlusOverlay
+      isRadius={true}
         handleAccept={() => {
           dispatch(acceptOverEighteen());
         }}

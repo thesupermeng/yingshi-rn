@@ -26,7 +26,7 @@ function SigninupBottomSheet({
         Keyboard.dismiss();
         loginRef.current?.resetValue();
       }}
-      maxHeight={'70%'}
+      maxHeight={'85%'}
     >
       <SigninupForm
         ref={loginRef}

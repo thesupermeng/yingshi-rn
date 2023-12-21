@@ -41,7 +41,7 @@ export default function RecommendationList({recommendationList}: Props) {
                 dispatch(addSearchHistory(item.vod_name));
               }, 400)
               dispatch(playVod(item));
-              navigation.navigate('播放', {vod_id: item.vod_id});
+              navigation.navigate('播放IOS', {vod_id: item.vod_id});
             }}>
             <Text
               style={{

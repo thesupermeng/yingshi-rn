@@ -63,7 +63,7 @@ function VodPlaylist({ playlist, titleStyle }: Props) {
       vod_pic={item.vod_pic}
       onPress={() => {
         dispatch(playVod(item));
-        navigator.navigate('播放', {
+        navigator.navigate('播放IOS', {
           vod_id: item.vod_id,
         });
 

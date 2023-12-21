@@ -424,7 +424,7 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
             }}
             onPress={() => {
               dispatch(playVod(item));
-              navigation.navigate('播放', {
+              navigation.navigate('播放IOS', {
                 vod_id: item?.vod_id,
               });
 

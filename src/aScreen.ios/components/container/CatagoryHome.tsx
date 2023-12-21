@@ -133,7 +133,7 @@ const CatagoryHome = ({
         key={`slider-${index}`}
         onPress={() => {
           dispatch(playVod(item.vod));
-          navigation.navigate('播放', {
+          navigation.navigate('播放IOS', {
             vod_id: item.carousel_content_id,
           });
         }}>

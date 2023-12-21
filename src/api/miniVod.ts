@@ -1,4 +1,4 @@
-import { API_DOMAIN_TEST } from "@utility/constants";
+import { API_DOMAIN_TEST, DOWNLOAD_WATCH_ANYTIME } from "@utility/constants";
 import { getApiCache, getExcludedIds, getIsApiCacheExist } from "../utils/minivodDownloader"
 import { MiniVideo } from "@type/ajaxTypes";
 import { QueryClient } from "@tanstack/react-query";
@@ -12,7 +12,7 @@ type MiniVideoResponseType = {
 
 const fetchMiniVods = async (page: number, from: 'api'|'local' = 'local') => {
   const apiCacheExists = await getIsApiCacheExist()
-  if (!apiCacheExists || from === 'api' || page > 1){
+  if (!apiCacheExists || from === 'api' || page > 1 || DOWNLOAD_WATCH_ANYTIME === false){
     console.debug('getting from api')
     const excluded = await getExcludedIds()
     const res = await fetch(`${API_DOMAIN_TEST}miniVod/v2/miniVod?page=${page}&limit=300&exclude=${excluded.join(',')}`)

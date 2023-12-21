@@ -1,7 +1,7 @@
-import {useNavigation, useTheme} from '@react-navigation/native';
-import React, {useState} from 'react';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {useEffect} from 'react';
+import { useNavigation, useTheme } from '@react-navigation/native';
+import React, { useState } from 'react';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { useEffect } from 'react';
 import {
   StyleSheet,
   View,
@@ -17,23 +17,23 @@ import {
 } from 'react-native';
 // import {ScreenContainer} from 'react-native-screens';
 import ScreenContainer from '../../components/container/screenContainer';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
-import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
-import {ResendCountDown} from './resendCountDown';
-import {updateUsername} from '../../features/user';
-import {useAppSelector} from '@hooks/hooks';
-import {RootState} from '@redux/store';
-import {InputItem, Button} from '@ant-design/react-native';
-import {ProfileTabParamList} from '@type/navigationTypes';
-import {changeScreenAction} from '@redux/actions/screenAction';
-import {updateUsernameState} from '@redux/actions/userAction';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-import {userModel} from '@type/userType';
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import { ResendCountDown } from './resendCountDown';
+import { updateUsername } from '../../features/user';
+import { useAppSelector } from '@hooks/hooks';
+import { RootState } from '@redux/store';
+import { InputItem, Button } from '@ant-design/react-native';
+import { ProfileTabParamList } from '@type/navigationTypes';
+import { changeScreenAction } from '@redux/actions/screenAction';
+import { updateUsernameState } from '@redux/actions/userAction';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { userModel } from '@type/userType';
 import BackButton from '../../components/button/backButton';
 export default (props: any) => {
   const [optVarificationState, setOptVarificationState] = useState(2);
-  const {colors, textVariants, icons, spacing} = useTheme();
+  const { colors, textVariants, icons, spacing } = useTheme();
   const [errMsg, setErrMsg] = useState('');
   const [username, setUsername] = useState('');
   const [usernameValid, setUsernameValid] = useState(true);
@@ -55,7 +55,7 @@ export default (props: any) => {
               },
             },
           ],
-          {cancelable: false}, // Prevent dismissing the alert by tapping outside
+          { cancelable: false }, // Prevent dismissing the alert by tapping outside
         );
 
         // Prevent the default behavior (navigating back)
@@ -120,7 +120,7 @@ export default (props: any) => {
   };
 
   const userState: userModel = useAppSelector(
-    ({userReducer}: RootState) => userReducer,
+    ({ userReducer }: RootState) => userReducer,
   );
 
   return (
@@ -130,140 +130,145 @@ export default (props: any) => {
         backgroundColor: '#000',
       }}>
       <ScreenContainer>
-      {/* <SafeAreaView> */}
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-        <>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              paddingLeft: 20,
-              paddingRight: 20,
-              paddingTop: 20,
-            }}>
-            <BackButton />
-            <TouchableOpacity
-              onPress={() => {
-                updateUsernameHandler(true);
-              }}>
-              <Text
-                style={{
-                  fontWeight: '500',
-                  fontSize: 18,
-                  letterSpacing: 0.2,
-                  color: '#fff',
-                }}>
-                跳过
-              </Text>
-            </TouchableOpacity>
-          </View>
-
-          {/* <View style={styles.headerBarShadow}/> */}
-          <View style={{paddingLeft: 20, paddingRight: 20, paddingTop: '20%'}}>
+        {/* <SafeAreaView> */}
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+          <>
             <View
               style={{
-                backgroundColor: 'transparent',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                paddingLeft: 20,
+                paddingRight: 20,
+                paddingTop: 20,
               }}>
-              {/* <Text style={styles.OTPtitle}>OTP Verification</Text> */}
-              <Text style={styles.title}>输入属于你的昵称</Text>
-
-              <Text style={styles.description}>
-                请输入2-18个字符
-                {/* {userState.userEmail} */}
-              </Text>
-
-              <InputItem
-                autoCapitalize="none"
-                style={[
-                  styles.textInpoutCommonStyle,
-                  styles.defaultTextInputStyle,
-                  usernameValid
-                    ? styles.correctTextInputStyle
-                    : styles.invalidTextInputStyle,
-                ]}
-                value={username}
-                onChange={value => {
-                  onInputChange(value);
+              <BackButton
+                onPress={() => {
+                  updateUsernameHandler(true);
+                  navigator.goBack();
                 }}
-                placeholder="输入昵称"
-                placeholderTextColor="#B6B6B6"
-                maxLength={18}
               />
+              <TouchableOpacity
+                onPress={() => {
+                  updateUsernameHandler(true);
+                }}>
+                <Text
+                  style={{
+                    fontWeight: '500',
+                    fontSize: 18,
+                    letterSpacing: 0.2,
+                    color: '#fff',
+                  }}>
+                  跳过
+                </Text>
+              </TouchableOpacity>
+            </View>
 
+            {/* <View style={styles.headerBarShadow}/> */}
+            <View style={{ paddingLeft: 20, paddingRight: 20, paddingTop: '20%' }}>
               <View
                 style={{
-                  marginTop: 45,
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  backgroundColor: 'transparent',
                 }}>
-                <View
-                  style={{
-                    justifyContent: 'flex-start',
-                    alignItems: 'center',
-                    flexDirection: 'row',
-                  }}>
-                  {errMsg != '' && (
-                    <>
-                      <View style={{alignSelf: 'flex-start'}}>
-                        <Image
-                          style={{
-                            height: 22,
-                            width: 22,
-                            marginRight: 5,
-                            position: 'relative',
-                            top: 1,
-                          }}
-                          source={require('@static/images/invite/danger.png')}
-                        />
-                      </View>
-                      <Text style={styles.danger}>{errMsg} </Text>
-                    </>
-                  )}
-                </View>
+                {/* <Text style={styles.OTPtitle}>OTP Verification</Text> */}
+                <Text style={styles.title}>输入属于你的昵称</Text>
 
-                <Text
-                  style={{fontWeight: '600', fontSize: 15, color: '#9C9C9C'}}>
-                  {username.length}/18
+                <Text style={styles.description}>
+                  请输入2-18个字符
                   {/* {userState.userEmail} */}
                 </Text>
-              </View>
 
-              <Button
-                type="primary"
-                // disabled={props.email === '' || !props.emailValid}
-                style={[
-                  styles.continueButtonStyle,
-                  username === '' || !usernameValid
-                    ? styles.btnInactive
-                    : styles.btnActive,
-                ]}
-                activeStyle={[
-                  styles.continueButtonStyle,
-                  username === '' || !usernameValid
-                    ? styles.btnInactive
-                    : styles.btnActive,
-                ]}
-                //disabled={!props.emailValid}
-                onPress={() => {
-                  updateUsernameHandler(false);
-                }}>
-                <Text
+                <InputItem
+                  autoCapitalize="none"
+                  style={[
+                    styles.textInpoutCommonStyle,
+                    styles.defaultTextInputStyle,
+                    usernameValid
+                      ? styles.correctTextInputStyle
+                      : styles.invalidTextInputStyle,
+                  ]}
+                  value={username}
+                  onChange={value => {
+                    onInputChange(value);
+                  }}
+                  placeholder="输入昵称"
+                  placeholderTextColor="#B6B6B6"
+                  maxLength={18}
+                />
+
+                <View
                   style={{
-                    //  fontFamily: 'SF Pro Display',
-                    fontWeight: '600',
-                    fontSize: 15,
-                    letterSpacing: 0.2,
-                    color: username === '' || !usernameValid ? 'white' : '#000',
+                    marginTop: 45,
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
                   }}>
-                  确定
-                </Text>
-              </Button>
+                  <View
+                    style={{
+                      justifyContent: 'flex-start',
+                      alignItems: 'center',
+                      flexDirection: 'row',
+                    }}>
+                    {errMsg != '' && (
+                      <>
+                        <View style={{ alignSelf: 'flex-start' }}>
+                          <Image
+                            style={{
+                              height: 22,
+                              width: 22,
+                              marginRight: 5,
+                              position: 'relative',
+                              top: 1,
+                            }}
+                            source={require('@static/images/invite/danger.png')}
+                          />
+                        </View>
+                        <Text style={styles.danger}>{errMsg} </Text>
+                      </>
+                    )}
+                  </View>
+
+                  <Text
+                    style={{ fontWeight: '600', fontSize: 15, color: '#9C9C9C' }}>
+                    {username.length}/18
+                    {/* {userState.userEmail} */}
+                  </Text>
+                </View>
+
+                <Button
+                  type="primary"
+                  // disabled={props.email === '' || !props.emailValid}
+                  style={[
+                    styles.continueButtonStyle,
+                    username === '' || !usernameValid
+                      ? styles.btnInactive
+                      : styles.btnActive,
+                  ]}
+                  activeStyle={[
+                    styles.continueButtonStyle,
+                    username === '' || !usernameValid
+                      ? styles.btnInactive
+                      : styles.btnActive,
+                  ]}
+                  //disabled={!props.emailValid}
+                  onPress={() => {
+                    updateUsernameHandler(false);
+                  }}>
+                  <Text
+                    style={{
+                      //  fontFamily: 'SF Pro Display',
+                      fontWeight: '600',
+                      fontSize: 15,
+                      letterSpacing: 0.2,
+                      color: username === '' || !usernameValid ? 'white' : '#000',
+                    }}>
+                    确定
+                  </Text>
+                </Button>
+              </View>
             </View>
-          </View>
-        </>
-      </TouchableWithoutFeedback>
-      {/* </SafeAreaView> */}
+          </>
+        </TouchableWithoutFeedback>
+        {/* </SafeAreaView> */}
       </ScreenContainer>
     </View>
   );
@@ -280,8 +285,8 @@ const styles = StyleSheet.create({
     // backgroundColor: '#1d2023',
     // fontFamily: 'SF Pro Display',
   },
-  defaultTextInputStyle: {backgroundColor: '#1d2023'},
-  correctTextInputStyle: {backgroundColor: '#1d2023', color: '#fff'},
+  defaultTextInputStyle: { backgroundColor: '#1d2023' },
+  correctTextInputStyle: { backgroundColor: '#1d2023', color: '#fff' },
   invalidTextInputStyle: {
     backgroundColor: '#311818',
     borderWidth: 1,
@@ -293,7 +298,7 @@ const styles = StyleSheet.create({
     marginTop: 12,
     height: 4,
     shadowColor: 'rgba(0, 0, 0, 0.05)',
-    shadowOffset: {width: 0, height: 4},
+    shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.8,
     elevation: 5,
     shadowRadius: 3,
