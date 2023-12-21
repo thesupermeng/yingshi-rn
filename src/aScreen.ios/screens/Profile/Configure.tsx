@@ -131,7 +131,7 @@ export default ({ navigation }: RootStackScreenProps<'设置'>) => {
               }}
               onCancel={toggleRemoveAccountDialog}
               isVisible={isRemoveDialogOpen}
-              title="确定注销“影视TV”账号"
+              title="确定注销“大鱼影视”账号"
               subtitle="确认删除帐户后，您的所有帐户数据将被永久删除"
               confirmationText="确定"
             />

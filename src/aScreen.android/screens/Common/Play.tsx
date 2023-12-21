@@ -265,7 +265,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
       const result = await Share.share({
         message: `《${
           vod?.vod_name
-        }》高清播放${"\n"}https://yingshi.tv/index.php/vod/play/id/${
+        }》高清播放${"\n"}https://xiangkantv.net/index.php/vod/play/id/${
           vod?.vod_id
         }/sid/1/nid/${
           currentEpisode + 1

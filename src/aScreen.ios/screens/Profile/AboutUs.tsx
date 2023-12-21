@@ -56,7 +56,7 @@ export default ({ navigation }: RootStackScreenProps<"关于我们">) => {
     //       ...textVariants.body,
     //       marginBottom: spacing.m,
     //     }}>
-    //     contactus@yingshi.tv
+    //     contact.movie9@gmail.com
     //   </Text>
     // }
     <ScreenContainer>
