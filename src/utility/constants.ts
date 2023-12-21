@@ -108,7 +108,7 @@ export const IS_ANDROID = Platform.OS === 'android';
 
 export const APP_NAME_CONST = '大鱼影视';
 export const APP_NAME_CONST2 = '该APP';
-export const APP_EMAIL_CONST = 'contactus@yingshi.tv';
+export const APP_EMAIL_CONST = 'contact.movie9@gmail.com';
 
 export const NON_VIP_STREAM_TIME_SECONDS = 300;
 

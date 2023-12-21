@@ -34,7 +34,7 @@ export default ({ navigation }: RootStackScreenProps<"隐私政策">) => {
             {APP_NAME_CONST}隐私协议
           </Text>
           <Text style={textVariants.body}>
-            {`《${APP_NAME_CONST2}隐私协议》目录\n` +
+            {`《${APP_NAME_CONST}隐私协议》\n` +
               `一、引言\n` +
               `二、名词解释\n` +
               `三、我们如何收集和使用您的个人信息\n` +
