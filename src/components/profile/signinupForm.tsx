@@ -110,22 +110,24 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
     setLoginValue(value);
     setLoginValueErrMsg(null);
 
-  // Remove all non-digit characters from the input value
-  const formattedValue = value.replace(/\D/g, '');
+    if (loginType === 'phone') {
+      // Remove all non-digit characters from the input value
+      const formattedValue = value.replace(/\D/g, '');
 
-  let formattedPhoneNumber = '';
-  for (let i = 0; i < formattedValue.length; i++) {
-    formattedPhoneNumber += formattedValue[i];
-    if (i === 2 && formattedValue.length > 3) {
-      formattedPhoneNumber += ' ';
-    } else if (i === 5 && formattedValue.length > 6) {
-      formattedPhoneNumber += ' ';
+      let formattedPhoneNumber = '';
+      for (let i = 0; i < formattedValue.length; i++) {
+        formattedPhoneNumber += formattedValue[i];
+        if (i === 2 && formattedValue.length > 3) {
+          formattedPhoneNumber += ' ';
+        } else if (i === 5 && formattedValue.length > 6) {
+          formattedPhoneNumber += ' ';
+        }
+      }
+
+      // Update the state with the formatted phone number
+      setLoginValue(formattedPhoneNumber);
+      setLoginValueErrMsg(null);
     }
-  }
-
-  // Update the state with the formatted phone number
-    setLoginValue(formattedPhoneNumber);
-    setLoginValueErrMsg(null);
 
     if (value === '') return;
 
