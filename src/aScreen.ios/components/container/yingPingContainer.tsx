@@ -53,7 +53,7 @@ export const YingPingContainer = ({vod, width, imgRatio, isSlide}: Props) => {
           }}
         >
           <FastImage
-            source={{ uri: 'https://xiangkantv.net/' + vod.vod_pic_slide }}
+            source={{ uri: 'https://yingshi.tv/' + vod.vod_pic_slide }}
             resizeMode={"cover"}
             style={styles.slideImage}
           />
