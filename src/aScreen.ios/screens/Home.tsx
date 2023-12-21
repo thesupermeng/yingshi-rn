@@ -186,6 +186,12 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   );
 
 
+  const { setNavbarHeight } = useContext(AdsBannerContext);
+
+  useEffect(() => {
+    setNavbarHeight(bottomTabHeight);
+  }, [bottomTabHeight]);
+  
   // ========== for analytics - start ==========
   const { homeTabViewsAnalytics, homeTabClicksAnalytics } = useAnalytics();
 
