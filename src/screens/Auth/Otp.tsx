@@ -346,6 +346,7 @@ const createStyles = ({ colors }: any = {}) => StyleSheet.create({
     paddingLeft: 10,
     textAlign: 'center',
     color: colors?.primary,
+    marginTop: 50
   },
   danger: {
     fontWeight: '400',
