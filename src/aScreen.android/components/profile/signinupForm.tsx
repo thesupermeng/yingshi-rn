@@ -53,7 +53,7 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
   const { userCenterLoginSuccessTimesAnalytics, userCenterVipLoginSuccessTimesAnalytics } = useAnalytics();
   const dispatch = useDispatch();
 
-  const [loginType, setloginType] = useState<'email' | 'phone'>('phone');
+  const [loginType, setloginType] = useState<'email' | 'phone'>('email');
 
   const [loginValue, setLoginValue] = useState(''); // email or phone
   const [referralCode, setReferralCode] = useState('');
@@ -396,7 +396,7 @@ const LoginCard = ({
       <View style={styles.textinputContainer}>
         {/* ============================== tab control ============================== */}
         <View style={styles.tabContainer}>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={styles.tabItemContainer}
             onPress={() => onChangeloginType('phone')}
           >
@@ -411,7 +411,7 @@ const LoginCard = ({
                 }}
               />
             }
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
           <TouchableOpacity
             style={styles.tabItemContainer}
