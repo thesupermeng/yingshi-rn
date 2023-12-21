@@ -56,7 +56,7 @@ export default () => {
                 initialFavoriteState={true}
                 onPress={() => {
                   dispatch(playVod(item));
-                  navigation.navigate('播放', {
+                  navigation.navigate('播放IOS', {
                     vod_id: item.vod_id,
                   });
                 }}

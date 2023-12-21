@@ -22,7 +22,7 @@ export const YingPingContainer = ({vod, width, imgRatio, isSlide}: Props) => {
   
   const handleOnPress = () => {
     dispatch(playVod(vod));
-    navigation.navigate('播放', {
+    navigation.navigate('播放IOS', {
         vod_id: vod.vod_id,
     });
   }

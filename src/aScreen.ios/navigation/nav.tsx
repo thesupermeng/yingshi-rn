@@ -553,7 +553,7 @@ export default () => {
             options={{ orientation: "portrait" }}
           />
           <Stack.Screen
-            name="播放"
+            name="播放IOS"
             component={PlayScreen}
             initialParams={{ vod_id: 1 }}
             options={{ orientation: "all" }}
