@@ -121,6 +121,7 @@ export default function XVodTab({
       />
 </View>
       <EighteenPlusOverlay
+      isRadius={true}
         handleAccept={() => {
           dispatch(acceptOverEighteen());
         }}
