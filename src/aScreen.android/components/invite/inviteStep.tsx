@@ -67,7 +67,8 @@ export default function InviteStep() {
                   color: colors.primary,
                 }}
               >
-                {APP_NAME_CONST}
+                {"此APP"}
+                {/* {APP_NAME_CONST} */}
                 {/* 影视PRO */}
               </Text>
             </Text>
