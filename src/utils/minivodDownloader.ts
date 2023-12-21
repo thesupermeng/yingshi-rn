@@ -241,7 +241,7 @@ export const batchAddVodToApiCache = async (vod: MiniVideo[]) => {
     await RNFetchBlob.fs.writeFile(apiCacheFilePath, JSON.stringify(newArr));
   } else {
     // exceed limit, not adding to cache
-    console.debug('not adding to cache, exceed limit');
+    // console.debug('not adding to cache, exceed limit');
   }
 };
 

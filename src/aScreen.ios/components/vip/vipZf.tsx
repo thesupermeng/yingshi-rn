@@ -1,30 +1,33 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { useTheme } from '@react-navigation/native';
 import LinearGradient from "react-native-linear-gradient";
+import FastImage from 'react-native-fast-image';
+// import FastImage from "../common/customFastImage";
+import { zfModel } from "@type/membershipType";
+import React from "react";
+import AlipayIcon from "@static/images/vip/wechat_pay.svg";
 
 interface Props {
-  paymentOption: string,
-  icon?: React.ReactNode,
+  zfOption: zfModel,
   isSelected: boolean;
-  onPaymentSelect: (payment: string) => void;
+  onZfSelect: (zf: string) => void;
 }
 
-export const VipPayment = ({
-  paymentOption,
-  icon,
+export const VipZf = ({
+  zfOption,
   isSelected,
-  onPaymentSelect,
+  onZfSelect,
 }: Props) => {
   const { textVariants, colors } = useTheme();
   const handleClick = () => {
-    onPaymentSelect(paymentOption);
+    onZfSelect(zfOption.payment_type_code);
   }
 
   return (
     <TouchableOpacity onPress={handleClick}>
       <LinearGradient
-        start={{x:1, y:0}}
-        end={{x:0, y:1}}
+        start={{ x: 1, y: 0 }}
+        end={{ x: 0, y: 1 }}
         colors={isSelected ? ['#1D2023', '#2E3134'] : ['#1F2224', '#1F2224']}
         style={{
           paddingHorizontal: 20,
@@ -45,21 +48,21 @@ export const VipPayment = ({
             flexDirection: 'row',
             alignItems: 'center',
           }}>
-          {icon && 
-            <View 
-              style={{
-                borderRadius: 7
-              }}>
-              {icon}
-            </View>}
+          <FastImage
+            source={{
+              uri: zfOption.payment_type_icon,
+            }}
+            style={{ width: 40, height: 30, borderRadius: 5, }}
+            resizeMode={"contain"}
+          />
           <Text
-            style={{...textVariants.bodyBold}}>
-            {paymentOption}
+            style={{ ...textVariants.bodyBold }}>
+            {zfOption.payment_type_name}
           </Text>
         </View>
         {isSelected ?
-          <View style={{...styles.outerBorder, borderColor: colors.primary}}>
-            <View style={{...styles.innerCircle, backgroundColor: colors.primary}}/>
+          <View style={{ ...styles.outerBorder, borderColor: colors.primary }}>
+            <View style={{ ...styles.innerCircle, backgroundColor: colors.primary }} />
           </View> : null
         }
       </LinearGradient>

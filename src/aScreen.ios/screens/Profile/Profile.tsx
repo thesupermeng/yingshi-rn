@@ -46,7 +46,7 @@ import {
 import ExpiredOverlay from "../../components/modal/expiredOverlay";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { YSConfig } from "../../../../ysConfig";
-import { SHOW_PAYMENT_CONST } from "@utility/constants";
+import { SHOW_ZF_CONST } from "@utility/constants";
 import FastImage from "../../components/common/customFastImage";
 
 function Profile({ navigation, route }: BottomTabScreenProps<any>) {
@@ -295,7 +295,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
 
           <View style={{ marginBottom: -30, flex: 3, paddingBottom: 120 }}>
             {Platform.OS === "ios" ||
-              (SHOW_PAYMENT_CONST && (
+              (SHOW_ZF_CONST && (
                 <View
                   style={{
                     flexDirection: "row",
@@ -386,7 +386,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                 </View>
               ))}
 
-            {Platform.OS === "android" && !SHOW_PAYMENT_CONST && (
+            {Platform.OS === "android" && !SHOW_ZF_CONST && (
               <TouchableOpacity
                 style={{
                   ...styles.btn,
