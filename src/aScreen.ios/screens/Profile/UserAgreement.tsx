@@ -48,7 +48,7 @@ export default ({ navigation }: RootStackScreenProps<"用户协议">) => {
           {APP_NAME_CONST}用户协议
         </Text>
         <Text style={textVariants.body}>
-          {`《${APP_NAME_CONST2}用户服务协议》\n` +
+          {`《${APP_NAME_CONST}用户服务协议》\n` +
             `一、协议的定义及服务说明\n` +
             `二、您的${APP_NAME_CONST2}账号\n` +
             `三、服务使用规则\n` +
