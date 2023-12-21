@@ -97,8 +97,14 @@ const useInterstitialAds = () => {
         } else {
           console.log(" showing pop up ads");
           homePageShown = true;
-        
-          ATInterstitialRNSDK.showAd(adsID);
+          const ready = await ATInterstitialRNSDK.hasAdReady(interstitialPlacementId);
+            if(ready)
+            {     ATInterstitialRNSDK.showAd(adsID);}
+            else
+            {
+              isInterstitialReady(adsID)
+            }
+     
         }
         //
       }
