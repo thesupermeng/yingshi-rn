@@ -13,7 +13,11 @@ import {
 import { useAppDispatch } from "@hooks/hooks";
 import {
   changeScreenAction,
+  hideBottomSheetAction,
+  hideLoginAction,
   navigateToProfileScreen,
+  removeScreenAction,
+  resetBottomSheetAction,
 } from "@redux/actions/screenAction";
 import SpinnerOverlay from "../modal/SpinnerOverlay";
 import PhoneIcon from '@static/images/phone.svg';
@@ -212,6 +216,8 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
   const onSubmit = async ({ isGoogleLogin, email }: { isGoogleLogin?: boolean, email?: string } = {}) => {
     console.log(isGoogleLogin)
     console.log(email)
+   
+
     if (isSubmitting) return;
 
     if (isReadTermNCondition == false) {
@@ -305,6 +311,12 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
         if (onGooleLoginSuccess) onGooleLoginSuccess();
       }
     } else {
+  
+      // dispatch(navigateToProfileScreen());
+      // dispatch(hideLoginAction());
+      // dispatch(removeScreenAction());
+      // dispatch(removeScreenAction());
+      dispatch(hideBottomSheetAction());
       navigation.navigate("OTP", {
         email: loginType === 'email' ? loginValue : undefined,
         phone: loginType === 'phone' ? countryPhoneSelected?.country_phonecode + loginValue : undefined,
