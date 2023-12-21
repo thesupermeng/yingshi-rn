@@ -152,7 +152,7 @@ export default forwardRef<VideoRef, Props>(
 
     // New state to keep track of app's background/foreground status
     const [isInBackground, setIsInBackground] = useState(false);
-    
+
     const disableSeek = useRef(false)
 
     useImperativeHandle(ref, () => ({
@@ -231,6 +231,7 @@ export default forwardRef<VideoRef, Props>(
             StatusBar.setHidden(false);
             setIsFullScreen(false);
           } else {
+            videoPlayerRef.current.pause();
             setIsPaused(true);
             // use setTimeout to prevent video non pause before pop the screen
             setTimeout(() => {
@@ -356,7 +357,7 @@ export default forwardRef<VideoRef, Props>(
     //   const steps = duration * FPS;
     //   const timeDiff = targetTime - currentTime;
     //   const timeIncrement = timeDiff / steps;
-    
+
     //   for (let i = 0; i < steps; i++) {
     //     setTimeout(() => {
     //       const newTime = currentTime + timeIncrement;
@@ -384,26 +385,26 @@ export default forwardRef<VideoRef, Props>(
       if (disableSeek.current === true) return
       hideSeekProgress()
       // Calculate the direction of seeking based on the current and target times
-    // const direction = targetTime > currentTime ? 'forward' : 'backward';
+      // const direction = targetTime > currentTime ? 'forward' : 'backward';
 
-    //   // Calculate the seek amount based on the difference between target and current time
-    // const seekAmount = Math.abs(targetTime - currentTime);
+      //   // Calculate the seek amount based on the difference between target and current time
+      // const seekAmount = Math.abs(targetTime - currentTime);
 
-    // // Optionally, you can adjust the seek amount based on the direction to fine-tune seeking
-    // // For example, seek a shorter duration when seeking backward
-    // const adjustedSeekAmount = direction === 'backward' ? seekAmount * 0.8 : seekAmount;
+      // // Optionally, you can adjust the seek amount based on the direction to fine-tune seeking
+      // // For example, seek a shorter duration when seeking backward
+      // const adjustedSeekAmount = direction === 'backward' ? seekAmount * 0.8 : seekAmount;
 
-    // // Determine the new seek time based on the direction and adjusted seek amount
-    // const newTime = direction === 'forward' ? currentTime + adjustedSeekAmount : currentTime - adjustedSeekAmount;
+      // // Determine the new seek time based on the direction and adjusted seek amount
+      // const newTime = direction === 'forward' ? currentTime + adjustedSeekAmount : currentTime - adjustedSeekAmount;
 
-    // // Ensure the seek time stays within video duration boundaries
-    // const boundedTime = Math.min(Math.max(newTime, 0), duration);
+      // // Ensure the seek time stays within video duration boundaries
+      // const boundedTime = Math.min(Math.max(newTime, 0), duration);
 
-    // // Update the current time and seek in the video player
-    // setCurrentTime(boundedTime);
-    // if (videoPlayerRef.current && !isNaN(boundedTime)) {
-    //   videoPlayerRef.current.seek(boundedTime);
-    // }
+      // // Update the current time and seek in the video player
+      // setCurrentTime(boundedTime);
+      // if (videoPlayerRef.current && !isNaN(boundedTime)) {
+      //   videoPlayerRef.current.seek(boundedTime);
+      // }
       const newTime = Math.min(Math.max(targetTime, 0), duration); // Ensure the seek time stays within video duration boundaries
       setCurrentTime(newTime);
       if (videoPlayerRef.current && !isNaN(newTime)) {
@@ -526,8 +527,8 @@ export default forwardRef<VideoRef, Props>(
     // }, [screenState.adultModeVipShow])
 
     const isVip = !(Number(userState.userMemberExpired) <=
-                    Number(userState.userCurrentTimestamp) ||
-                    userState.userToken === "")
+      Number(userState.userCurrentTimestamp) ||
+      userState.userToken === "")
 
     const pauseSportVideo =
       route.name === "体育详情" &&
@@ -539,10 +540,10 @@ export default forwardRef<VideoRef, Props>(
 
 
     useEffect(() => {
-      if (screenState.adultVideoWatchTime > ADULT_MODE_PREVIEW_DURATION && screenState.adultMode && !isVip){
-          dispatch(showAdultModeVip())
-          setIsPaused(true)
-          disableSeek.current = true
+      if (screenState.adultVideoWatchTime > ADULT_MODE_PREVIEW_DURATION && screenState.adultMode && !isVip) {
+        dispatch(showAdultModeVip())
+        setIsPaused(true)
+        disableSeek.current = true
       } else {
         disableSeek.current = false
       }
