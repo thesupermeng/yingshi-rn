@@ -76,6 +76,7 @@ export default function XVodTab({
   });
 
   useEffect(() => {
+    
     // console.log("data");
     // console.log(data.data?.data);
     if (data == undefined) {
