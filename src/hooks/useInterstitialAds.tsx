@@ -18,7 +18,7 @@ import { RootState } from "@redux/store";
 import { useAppSelector } from "./hooks";
 import { AdsBannerContext } from "../contexts/AdsBannerContext";
 import { screenModel } from "@type/screenType";
-LogBox.ignoreAllLogs();
+// LogBox.ignoreAllLogs();
 type PlacementId =
   | typeof ANDROID_HOME_PAGE_POP_UP_ADS
   | typeof IOS_HOME_PAGE_POP_UP_ADS
@@ -69,15 +69,17 @@ const useInterstitialAds = () => {
             : IOS_HOME_PAGE_POP_UP_ADS;
       } else if (
         currentRoute == "播放" ||
+        currentRoute == "播放IOS" ||
         currentRoute == "体育详情" ||
-        currentRoute == "电视台播放"
+        currentRoute == "电视台播放" || 
+        Platform.OS == 'ios'
       ) {
+        console.log('插屏 play screen')
         adsID =
           Platform.OS === "android"
             ? ANDROID_PLAY_DETAILS_POP_UP_ADS
             : IOS_PLAY_DETAILS_POP_UP_ADS;
       }
-
       if (adsID == null && homePageShown == false) {
         homePageShown = true;
         adsID =
@@ -85,7 +87,6 @@ const useInterstitialAds = () => {
             ? ANDROID_HOME_PAGE_POP_UP_ADS
             : IOS_HOME_PAGE_POP_UP_ADS;
       }
-
       if (adsID != null) {
         if (
           screenState.sportWatchTime > NON_VIP_STREAM_TIME_SECONDS &&
@@ -94,7 +95,9 @@ const useInterstitialAds = () => {
           // asd
           console.log("not showing pop up ads, prevent blocking modal action");
         } else {
+          console.log(" showing pop up ads");
           homePageShown = true;
+        
           ATInterstitialRNSDK.showAd(adsID);
         }
         //
@@ -116,7 +119,7 @@ const useInterstitialAds = () => {
       retryCount < 3
     ) {
       retryCount += 1;
-      // console.log("=======  not vip ======");
+      console.log("=======  not vip ======");
       loadInterstitial(interstitialPlacementId);
       setTimeout(() => {
         isInterstitialReady(interstitialPlacementId);

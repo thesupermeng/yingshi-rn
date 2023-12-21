@@ -523,7 +523,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
     dispatch(lockAppOrientation(orientation));
   };
 
-  // useInterstitialAds();
+   useInterstitialAds();
 
   const [vodUri, setVodUri] = useState("");
 
