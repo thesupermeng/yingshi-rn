@@ -92,6 +92,21 @@ const OtpInputs = ({
     otpTextInput[0].focus();
   }, []);
 
+  const formatPhoneNumber = (phoneNumber) => {
+  // Remove all non-numeric characters from the phone number
+  const numericPhoneNumber = phoneNumber.replace(/\D/g, '');
+
+  // Check if the phone number is empty or null
+  if (!numericPhoneNumber) return '';
+
+  const countryCode = numericPhoneNumber.substring(0, 3); // Replace with your country code length
+  const firstPart = numericPhoneNumber.substring(3, 6);
+  const secondPart = numericPhoneNumber.substring(6);
+
+  const formattedNumber = `+${countryCode} ${firstPart} ${secondPart}`;
+  return formattedNumber;
+  };
+
   // to make sure countdown reset before restart the countdown
   const resendOTP = () => {
     setResend(false);
@@ -217,8 +232,11 @@ const OtpInputs = ({
 
       <Text style={styles.description}>
         验证码已发送至{' '}
-        <Text style={styles.hyperlink}>
+        {/* <Text style={styles.hyperlink}>
           {email ?? phone}
+        </Text>{' '} */}
+        <Text style={styles.hyperlink}>
+        {email ? email : formatPhoneNumber(phone)}
         </Text>{' '}
       </Text>
 
