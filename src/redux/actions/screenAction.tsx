@@ -117,3 +117,10 @@ export const enableWatchAnytimeAdultMode = () => ({
 export const disableWatchAnytimeAdultMode = () => ({
   type: 'disable_watch_anytime_adult_mode'
 })
+
+
+
+export const setShowAdultTab = (action: boolean) => ({
+  type: "set_show_adult_tab",
+  payload: action,
+});

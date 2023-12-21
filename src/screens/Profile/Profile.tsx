@@ -294,8 +294,9 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
           </TouchableOpacity>
 
           <View style={{ marginBottom: -30, flex: 3, paddingBottom: 120 }}>
-            {Platform.OS === "ios" ||
-              (SHOW_PAYMENT_CONST && (
+     
+            {(Platform.OS === "ios" && SHOW_PAYMENT_CONST)
+               && 
                 <View
                   style={{
                     flexDirection: "row",
@@ -379,9 +380,9 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                     </View>
                   </TouchableOpacity>
                 </View>
-              ))}
+              }
 
-            {Platform.OS === "ios" && !SHOW_PAYMENT_CONST && (
+            {(Platform.OS === "ios" && !SHOW_PAYMENT_CONST) && (
               <TouchableOpacity
                 style={{
                   ...styles.btn,
@@ -414,7 +415,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
             )}
 
 
-            {Platform.OS === "android" && !SHOW_PAYMENT_CONST && (
+            {(Platform.OS === "android" && !SHOW_PAYMENT_CONST) && (
               <TouchableOpacity
                 style={{
                   ...styles.btn,

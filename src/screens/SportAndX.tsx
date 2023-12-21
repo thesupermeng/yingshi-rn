@@ -45,6 +45,7 @@ import useAnalytics from "@hooks/useAnalytics";
 import XvodTabIcon from "@static/images/xvodTab.svg";
 import SportTabIcon from "@static/images/sportTab.svg";
 import XVodTab from "./VipPrivilege/XVodTab";
+import { screenModel } from "@type/screenType";
 interface NavType {
   has_submenu: boolean;
   ids: Array<number>;
@@ -63,6 +64,10 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
   );
   const settingsReducer: SettingsReducerState = useAppSelector(
     ({ settingsReducer }: RootState) => settingsReducer
+  );
+
+  const screenState: screenModel = useAppSelector(
+    ({ screenReducer }) => screenReducer
   );
 
   const handleRejectEighteenPlus = () => {
@@ -159,7 +164,11 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
       >
         <ScreenContainer
           isBgHide={true}
-          containerStyle={{ paddingLeft: 0, paddingRight: 0, paddingTop: Platform.OS === "ios" ? 8  :15  }}
+          containerStyle={{
+            paddingLeft: 0,
+            paddingRight: 0,
+            paddingTop: Platform.OS === "ios" ? 8 : 15,
+          }}
         >
           <BecomeVipOverlay
             setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
@@ -204,52 +213,58 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                       ...textVariants.bigHeader,
                       color: colors.text,
                       fontSize: selectedTab == "sport" ? 22 : 19,
-                      fontWeight:selectedTab == "sport" ? 'bold' : 'normal',
+                      fontWeight: selectedTab == "sport" ? "bold" : "normal",
                     }}
                   >
                     体育
                   </Text>
                 </View>
               </TouchableOpacity>
-              <Text
-                style={{
-                  ...textVariants.bigHeader,
-                  color: colors.text,
-                  fontSize: 20,
-                  paddingHorizontal: 10,
-                }}
-              >
-                |
-              </Text>
-              <TouchableOpacity
-                onPress={() => {
-                  setSelectedTab("xvod");
-                }}
-              >
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  {selectedTab == "xvod" && (
-                    <View style={{ paddingRight: 5 }}>
-                      <XvodTabIcon width={20} />
-                    </View>
-                  )}
+
+              {screenState.showAdultTab && (
+                <>
                   <Text
                     style={{
                       ...textVariants.bigHeader,
                       color: colors.text,
-                      fontSize: selectedTab == "xvod" ? 22 : 19,
-                      fontWeight:selectedTab == "xvod" ? 'bold' : 'normal',
+                      fontSize: 20,
+                      paddingHorizontal: 10,
                     }}
                   >
-                    夜来香
+                    |
                   </Text>
-                </View>
-              </TouchableOpacity>
+
+                  <TouchableOpacity
+                    onPress={() => {
+                      setSelectedTab("xvod");
+                    }}
+                  >
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      {selectedTab == "xvod" && (
+                        <View style={{ paddingRight: 5 }}>
+                          <XvodTabIcon width={20} />
+                        </View>
+                      )}
+                      <Text
+                        style={{
+                          ...textVariants.bigHeader,
+                          color: colors.text,
+                          fontSize: selectedTab == "xvod" ? 22 : 19,
+                          fontWeight: selectedTab == "xvod" ? "bold" : "normal",
+                        }}
+                      >
+                        夜来香
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                </>
+              )}
             </View>
             <TouchableOpacity
               activeOpacity={

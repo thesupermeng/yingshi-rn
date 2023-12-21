@@ -15,4 +15,5 @@ export interface screenModel {
   lastSeenNavName: string;
   isOverEighteenAccepted: boolean;
   watchAnytimeAdultMode: boolean;
+  showAdultTab:boolean;
 }
