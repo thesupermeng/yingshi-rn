@@ -707,7 +707,7 @@
 					"$(PROJECT_DIR)/Core",
 				);
 				INFOPLIST_FILE = yingshi/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "影视TV";
+				INFOPLIST_KEY_CFBundleDisplayName = "大鱼影视";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires access to the camera.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app does not require access to the microphone.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app requires access to the photo library.";
@@ -747,7 +747,7 @@
 					"$(PROJECT_DIR)/Core",
 				);
 				INFOPLIST_FILE = yingshi/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "影视TV";
+				INFOPLIST_KEY_CFBundleDisplayName = "大鱼影视";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires access to the camera.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app does not require access to the microphone.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app requires access to the photo library.";
@@ -1021,7 +1021,7 @@
 					"$(PROJECT_DIR)/Core",
 				);
 				INFOPLIST_FILE = yingshi/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "影视TV";
+				INFOPLIST_KEY_CFBundleDisplayName = "大鱼影视";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires access to the camera.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app does not require access to the microphone.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app requires access to the photo library.";
