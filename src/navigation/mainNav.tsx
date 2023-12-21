@@ -174,7 +174,10 @@ export default () => {
   return (
     <>
       {isSuper == true ? (
-        <Nav />
+             <AdsBannerContextProvider>
+                <Nav />
+             </AdsBannerContextProvider>
+      
       ) : (
         <>
           {loadedAPI == false ? (
