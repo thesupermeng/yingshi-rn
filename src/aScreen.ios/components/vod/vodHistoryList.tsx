@@ -72,7 +72,7 @@ export default function VodHistoryList({
             }
             onPress={() => {
               dispatch(playVod(item));
-              navigation.navigate('播放', {vod_id: item.vod_id});
+              navigation.navigate('播放IOS', {vod_id: item.vod_id});
             }}
             index={index}
           />

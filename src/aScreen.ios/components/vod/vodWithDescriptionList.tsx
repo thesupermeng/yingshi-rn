@@ -35,7 +35,7 @@ export default ({
         vod={item}
         onPress={() => {
           dispatch(playVod(item));
-          navigation.navigate("播放", { vod_id: item.vod_id });
+          navigation.navigate("播放IOS", { vod_id: item.vod_id });
 
           if (onClickSearchResult !== undefined) onClickSearchResult();
           if (onClickCatalogVideo !== undefined) onClickCatalogVideo();

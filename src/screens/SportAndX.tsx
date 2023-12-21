@@ -46,6 +46,7 @@ import XvodTabIcon from "@static/images/xvodTab.svg";
 import SportTabIcon from "@static/images/sportTab.svg";
 import XVodTab from "./VipPrivilege/XVodTab";
 import { screenModel } from "@type/screenType";
+import { showAdultModeDisclaimer } from "@redux/actions/screenAction";
 interface NavType {
   has_submenu: boolean;
   ids: Array<number>;
@@ -236,6 +237,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
 
                   <TouchableOpacity
                     onPress={() => {
+                      dispatch(showAdultModeDisclaimer())
                       setSelectedTab("xvod");
                     }}
                   >

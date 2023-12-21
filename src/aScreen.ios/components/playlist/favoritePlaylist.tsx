@@ -72,7 +72,7 @@ export default function FavoritePlaylist({playlist, navigator}: Props) {
               vodImageStyle={{width: 120, height: 180}}
               onPress={() => {
                 dispatch(playVod(item));
-                navigator.navigate('播放', {
+                navigator.navigate('播放IOS', {
                   vod_id: item.vod_id,
                 });
               }}

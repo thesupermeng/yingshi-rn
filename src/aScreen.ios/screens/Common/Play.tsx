@@ -187,7 +187,7 @@ const getNoAdsUri = async (url: string) => {
   return `http://localhost:${PLAY_HTTP_SERVER_PORT}/${videoSubfolder}/index.m3u8`;
 };
 
-export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
+export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
   const { setRoute: setAdsRoute } = useContext(AdsBannerContext);
   useFocusEffect(() => {
     // for banner ads

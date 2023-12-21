@@ -206,7 +206,7 @@ function ShortVideoPlayer({
       // ========== for analytics - end ==========
     } else {
       dispatch(playVod(currentVod.mini_video_vod));
-      navigation.navigate('播放', {
+      navigation.navigate('播放IOS', {
         vod_id: currentVod.vod?.vod_id,
       });
 

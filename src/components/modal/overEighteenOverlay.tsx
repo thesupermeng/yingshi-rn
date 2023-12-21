@@ -8,9 +8,10 @@ import { BlurView } from '../blurView';
 interface Props {
   handleAccept: any
   handleReject: any
+  isRadius?:boolean
 }
 
-export default function EighteenPlusOverlay({ handleAccept, handleReject }: Props) {
+export default function EighteenPlusOverlay({ handleAccept, handleReject , isRadius=false }: Props) {
   const screenState: screenModel = useAppSelector(
     ({ screenReducer }) => screenReducer
   )
@@ -26,7 +27,8 @@ export default function EighteenPlusOverlay({ handleAccept, handleReject }: Prop
             flex: 1,
             position: 'absolute',
             width: '100%',
-            height: '100%'
+            height: '100%',
+            borderRadius : isRadius ? 15:0
           }}
         />
         <View style={{ flex: 1, position: 'relative', alignItems: 'center', justifyContent: 'center', alignSelf: 'center', alignContent: 'center', marginBottom: '18%' }}>
