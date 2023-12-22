@@ -152,7 +152,7 @@ function WatchAnytime({navigation}: BottomTabScreenProps<any>) {
     // 0.5 second for scroll animation, hide all video
     setTimeout(() => {
       setPressTabScroll(false);
-      handleRefresh();
+      // handleRefresh();
     }, 500);
   }, [adultMode])
   
