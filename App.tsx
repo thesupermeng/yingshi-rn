@@ -35,6 +35,7 @@ import { TermsAcceptContextProvider as TermsAcceptContextProviderIos } from "./s
 import { prefetchAdultMiniVod, prefetchMiniVod } from "./src/api/miniVod";
 import { checkExpiredCacheFile, deleteCachedVideos } from "./src/utils/minivodDownloader";
 import NetInfo from '@react-native-community/netinfo';
+import { showToast } from "./src/Sports/utility/toast";
 const topon_channel = "WEB";
 
 // import * as Sentry from "@sentry/react-native";
@@ -116,6 +117,15 @@ let App = () => {
       {
         RNRestart.Restart();
       }
+    }
+    else
+    {
+      if(count == 0)
+      {   
+        showToast('无网络，请检查您的网络连接');
+    }
+
+  
     }
   }, [isConnected]);
 
