@@ -72,13 +72,21 @@ export default () => {
       }
     }
 
-    // let ipAddress = resTemp.data.IPv4;
-    let ipAddress = "";
+    let ipAddress;
 
-    try{
-      const resPromise = await axios.get("https://geolocation-db.com/json/");
-      ipAddress = resPromise.data.IPv4;
-    }catch(err){
+    try {
+      const response = await fetch("https://geolocation-db.com/json/");
+      if (!response.ok) {
+        // If the response status is not ok (2xx), throw an error
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const data = await response.json();
+      ipAddress = data.IPv4;
+     // throw new Error("Forced 502 Error");
+    } catch (err) {
+      // Log the error to understand what went wrong
+      console.error("Error fetching geolocation:", err);
+      // Handle the error gracefully, set a default IP address, or take appropriate action
       ipAddress = "219.75.27.16";
     }
     console.log(ipAddress);
