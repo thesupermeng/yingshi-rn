@@ -132,7 +132,7 @@ function WatchAnytime({navigation}: BottomTabScreenProps<any>) {
         // 0.5 second for scroll animation, hide all video
         setTimeout(() => {
           setPressTabScroll(false);
-          // handleRefresh();
+          handleRefresh();
         }, 500);
       }
     };
@@ -140,6 +140,21 @@ function WatchAnytime({navigation}: BottomTabScreenProps<any>) {
     // Clean up the event listener when the component unmounts
     return () => unsubscribe();
   }, [isFocused, isRefreshing]);
+
+  useEffect(() => {
+    setPressTabScroll(true);
+
+    miniVodListRef.current?.scrollToIndex({
+      index: 0,
+      animated: true,
+    });
+
+    // 0.5 second for scroll animation, hide all video
+    setTimeout(() => {
+      setPressTabScroll(false);
+      handleRefresh();
+    }, 500);
+  }, [adultMode])
   
   useEffect(() => {
     if (videos != undefined) {
