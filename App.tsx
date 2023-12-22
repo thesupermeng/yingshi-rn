@@ -190,7 +190,7 @@ let App = () => {
       };
     };
 
-    downloadWatchAnytimeSequence()
+  
 
     // queryClient.prefetchQuery({
     //   queryKey: ["matchesNavOptions"],
@@ -269,7 +269,7 @@ let App = () => {
   console.log("YSConfig.instance.areaConfig");
 
   console.log(YSConfig.instance.areaConfig);
-
+  downloadWatchAnytimeSequence()
   return (
     <View style={{ flex: 1, backgroundColor: "#161616" }}>
       <TermsAcceptContextProviderIos>
