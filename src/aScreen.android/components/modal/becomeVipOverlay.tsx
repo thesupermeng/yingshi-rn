@@ -84,7 +84,7 @@ export default function ExpiredOverlay({
                     fontSize: 16,
                     fontWeight: '300',
                   }}>
-                  立即升级VIP，无广告观影
+               立即升级VIP，无广告观影
                 </Text>
                 <Text
                   style={{
@@ -93,7 +93,7 @@ export default function ExpiredOverlay({
                     fontSize: 16,
                     fontWeight: '300',
                   }}>
-                  尊享体育频道
+             畅享体育赛事直播及午夜视频
                 </Text>
                 <View style={styles.btnContainer}>
                   { SHOW_ZF_CONST &&
