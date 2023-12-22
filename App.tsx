@@ -111,7 +111,7 @@ let App = () => {
     if (isConnected) {
       setCount(count + 1);
       // Perform actions to refresh the page (e.g., reload data, reset state)
-      console.error('Network is back! Refresh the page.');
+    //  console.error('Network is back! Refresh the page.');
       if(count == 1)
       {
         RNRestart.Restart();
