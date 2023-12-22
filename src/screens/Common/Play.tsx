@@ -581,6 +581,8 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   useEffect(() => {
     currentEpisodeRef.current = vod?.episodeWatched;
+    currentTimeRef.current = vod?.timeWatched;
+    console.log('vod change')
     setCurrentEpisode(
       vod?.episodeWatched === undefined ? 0 : vod.episodeWatched
     );
