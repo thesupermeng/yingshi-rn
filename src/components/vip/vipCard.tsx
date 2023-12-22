@@ -133,7 +133,6 @@ export const VipCard = ({
             <VipZf
               key={option.payment_type_code}
               zfOption={option}
-              // icon={<AlipayIcon />}
               isSelected={selectedZf === option.payment_type_code}
               onZfSelect={onZfSelect} />
           ))}

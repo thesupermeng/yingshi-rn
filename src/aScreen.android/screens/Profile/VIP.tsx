@@ -64,7 +64,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     membershipProducts[0]
   );
   const [zfSelected, setSelectedZf] = useState(
-    IS_IOS ? "Apple Pay" : "Google Pay"
+    IS_IOS ? "Apple" : "Google"
   );
   const [isOffline, setIsOffline] = useState(false);
   const { colors, textVariants, spacing } = useTheme();
@@ -183,15 +183,15 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
 
     setIsBtnEnable(false);
     try {
-      if (zfSelected === "Apple Pay") {
-        console.log("apple pay zf");
+      if (zfSelected === "Apple") {
+        console.log("apple zf");
         console.log(initConnectionError);
         setIsVisible(true);
         await getProducts({ skus: [membershipSelected.productSKU] });
 
         await requestPurchase({ sku: membershipSelected.productSKU });
-      } else if (zfSelected === "Google Pay") {
-        console.log("google pay method");
+      } else if (zfSelected === "Google") {
+        console.log("google method");
         setIsVisible(true);
         await getProducts({ skus: [membershipSelected.productSKU] });
 

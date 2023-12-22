@@ -5,7 +5,6 @@ import FastImage from 'react-native-fast-image';
 // import FastImage from "../common/customFastImage";
 import { zfModel } from "@type/membershipType";
 import React from "react";
-import AlipayIcon from "@static/images/vip/wechat_pay.svg";
 
 interface Props {
   zfOption: zfModel,
