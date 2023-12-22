@@ -65,9 +65,6 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     membershipProducts[0]
   );
   const [zfOptions, setZfOptions] = useState<zfModel[]>([]);
-  // const [zfSelected, setSelectedZf] = useState<zfModel>(
-  //   zfOptions[0]
-  // );
   const [zfSelected, setSelectedZf] = useState('');
   const [isOffline, setIsOffline] = useState(false);
   const { colors, textVariants, spacing } = useTheme();
@@ -213,7 +210,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
 
       //   await requestPurchase({ sku: membershipSelected.productSKU });
       // } else if (zfSelected === "Google") {
-      //   console.log("google pay method");
+      //   console.log("google method");
       //   await getProducts({ skus: [membershipSelected.productSKU] });
 
       //   await requestPurchase({ skus: [membershipSelected.productSKU] });
