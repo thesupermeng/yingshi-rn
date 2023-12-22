@@ -27,14 +27,14 @@ import MainNav from "./src/navigation/mainNav";
 import { YSConfig } from "./ysConfig";
 
 import { ATRNSDK } from "./AnyThinkAds/ATReactNativeSDK";
-
+import RNRestart from 'react-native-restart';
 // remove when merge
 import { TermsAcceptContextProvider } from "./src/contexts/TermsAcceptedContext";
 import { TermsAcceptContextProvider as TermsAcceptContextProviderA } from "./src/contexts/TermsAcceptedContext";
 import { TermsAcceptContextProvider as TermsAcceptContextProviderIos } from "./src/contexts/TermsAcceptedContext";
 import { prefetchAdultMiniVod, prefetchMiniVod } from "./src/api/miniVod";
 import { checkExpiredCacheFile, deleteCachedVideos } from "./src/utils/minivodDownloader";
-
+import NetInfo from '@react-native-community/netinfo';
 const topon_channel = "WEB";
 
 // import * as Sentry from "@sentry/react-native";
@@ -93,54 +93,31 @@ let App = () => {
     },
   });
 
-  const getIP = async () => {
-    const res = await axios.get("https://geolocation-db.com/json/");
-    const ipAddress = res.data.IPv4;
-    if (ipAddress != null && ipAddress != undefined) {
-      YSConfig.instance.setNetworkIp(ipAddress);
-      // checkVersion(ipAddress);
+  const [isConnected, setIsConnected] = useState(true);
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener((state:any) => {
+      setIsConnected(state.isConnected);
+    });
+
+    return () => {
+      // Unsubscribe from the network status listener when the component unmounts
+      unsubscribe();
+    };
+  }, []);
+
+  // Add additional logic to refresh the page when the network becomes available
+  useEffect(() => {
+    if (isConnected) {
+      setCount(count + 1);
+      // Perform actions to refresh the page (e.g., reload data, reset state)
+      console.error('Network is back! Refresh the page.');
+      if(count == 1)
+      {
+        RNRestart.Restart();
+      }
     }
-  };
-
-  // const checkVersion = async (ipAddress: string) => {
-  //   const checkVersionReq: CheckVersionRequest = {
-  //     ip_address: ipAddress,
-  //     channel_id: UMENG_CHANNEL,
-  //     version_number: APP_VERSION,
-  //     product: APP_NAME_CONST + "-" + Platform.OS.toUpperCase(),
-  //     mobile_os: Platform.OS,
-  //     mobile_model: "HUAWEIP20",
-  //   };
-
-  //   const { data: response } = await axios.post(
-  //     `${API_DOMAIN}version/v1/check`,
-  //     checkVersionReq
-  //   );
-
-  //   const res = response.data.version;
-  //   const v1 = parseInt(APP_VERSION.replace(/\./g, ""), 10);
-  //   const v2 = parseInt(res.replace(/\./g, ""), 10);
-
-  //   console.log("ADAAAGGG");
-  //   if (v2 > v1) {
-  //     console.log("??");
-  //     CodePush.checkForUpdate().then((update) => {
-  //       // console.log('----+---')
-  //       // console.log(update + "UUUUU")
-  //       if (update) {
-  //         console.log(update + "AZZZZ?!");
-  //         setShowRegengOverlay(true);
-  //       } else {
-  //         console.log("EHH?");
-  //       }
-  //     });
-  //   }
-
-  //   return response;
-  // };
-
-  let tryToLoadCount = 0;
-  let adsReadyFlag = false;
+  }, [isConnected]);
 
   const downloadWatchAnytimeSequence = async () => {
     await deleteCachedVideos(); 
@@ -152,27 +129,13 @@ let App = () => {
   }
 
   useEffect(() => {
-    // console.log("YSConfig.instance.ip");
-    // console.log(YSConfig.instance.ip);
-    //  getIP();
-    // queryClient.prefetchQuery({
-    //   queryKey: ["recommendationList"],
-    //   queryFn: () =>
-    //     fetch(`${API_DOMAIN}vod/v1/vod?by=hits_day`)
-    //       .then((response) => response.json())
-    //       .then((json: SuggestResponseType) => {
-    //         return json.data.List;
-    //       }),
-    // });
-
-
-
     queryClient.prefetchQuery({
       queryKey: ["HomePage", 0],
       queryFn: () =>
         fetch(`${API_DOMAIN}page/v2/typepage?id=0`)
           .then((response) => response.json())
           .then((json: VodCarousellResponseType) => {
+            setCount(99);
             return json;
           }),
     });
