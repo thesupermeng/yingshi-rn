@@ -1046,7 +1046,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                         style={styles.descriptionContainer2Text}
                         numberOfLines={isCollapsed ? 2 : 20}
                       >
-                        {`${definedValue(vod?.vod_content)}`}
+                        {`${definedValue(vodDetails?.vod_content)}`}
                       </Text>
                     </View>
                     <View style={{ paddingBottom: 0 }}>
