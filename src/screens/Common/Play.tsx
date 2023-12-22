@@ -247,7 +247,6 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   }, [])
 
   const vod = vodReducer.playVod.vod;
-  // console.log(vod)
 
   // const [vod, setVod] = useState(vodReducer.playVod.vod);
   const [initTime, setInitTime] = useState(0);
@@ -777,7 +776,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   useEffect(() => {
     if (!!vodUrl && !!vod?.vod_id) {
       // console.debug('vod url is', vodUrl)
-      setVodUri('')
+      // setVodUri('')
       getNoAdsUri(vodUrl, vod?.vod_id)
         .then((uri) => {
           console.debug("successfully modified playlist content", uri);
@@ -793,7 +792,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       // console.log('stop server')
       debounceSetVodUri("");
     };
-  }, [vodUrl, vod]);
+  }, [vodUrl]);
 
   useEffect(() => {
     if (vodUri) {
