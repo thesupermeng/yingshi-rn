@@ -69,7 +69,7 @@ import { URL } from "react-native-url-polyfill";
 import RNFetchBlob from "rn-fetch-blob";
 import { userModel } from "@type/userType";
 import { BridgeServer } from "react-native-http-bridge-refurbished";
-import { debounce, replace, uniqueId } from "lodash";
+import { debounce } from "lodash";
 
 import LinearGradient from "react-native-linear-gradient";
 import VipIcon from '@static/images/vip-icon.svg'
