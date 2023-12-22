@@ -136,7 +136,7 @@ function WatchAnytime({navigation}: BottomTabScreenProps<any>) {
   
   useEffect(() => {
     if (videos != undefined) {
-      setFlattenedVideos(videos?.pages.flat());
+      setFlattenedVideos(videos?.pages.flat().filter(x => x));
     }
   }, [videos]);
 
