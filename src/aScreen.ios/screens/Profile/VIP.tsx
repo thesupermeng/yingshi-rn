@@ -64,7 +64,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     membershipProducts[0]
   );
   const [zfSelected, setSelectedZf] = useState(
-    IS_IOS ? "Apple Pay" : "Google Pay"
+    IS_IOS ? "Apple" : "Google"
   );
   const [isOffline, setIsOffline] = useState(false);
   const { colors, textVariants, spacing } = useTheme();
@@ -575,9 +575,6 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
             showsVerticalScrollIndicator={false}
           >
             <VipCard
-              containerStyle={{
-                marginHorizontal: 0,
-              }}
               userState={userState}
               membershipProduct={membershipProducts}
               selectedMembership={membershipSelected}

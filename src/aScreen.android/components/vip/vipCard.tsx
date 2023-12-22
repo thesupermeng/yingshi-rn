@@ -5,8 +5,6 @@ import { useTheme } from '@react-navigation/native';
 import { VipMember } from './vipMember';
 import { membershipModel } from '@type/membershipType';
 import { VipZf } from './vipZf';
-import GPayIcon from "@static/images/vip/gpay.svg";
-import ApplePayIcon from "@static/images/vip/apple_pay.svg";
 import { useEffect, useState } from 'react';
 import { userModel } from '@type/userType';
 
@@ -131,17 +129,17 @@ export const VipCard = ({
 
         {/* {Platform.OS === "android" && 
           <VipZf
-            zfOption='Google Pay'
-            icon={<GPayIcon />}
-            isSelected={ selectedZf === 'Google Pay'}
+            zfOption='Google'
+            icon={<GIcon />}
+            isSelected={ selectedZf === 'Google'}
             onZfSelect={onZfSelect}/>
         }
 
         {Platform.OS === "ios" &&
           <VipZf
-            zfOption='Apple Pay'
-            icon={<ApplePayIcon />}
-            isSelected={ selectedZf === 'Apple Pay'}
+            zfOption='Apple'
+            icon={<AppleIcon />}
+            isSelected={ selectedZf === 'Apple'}
             onZfSelect={onZfSelect}  />
         } */}
 
