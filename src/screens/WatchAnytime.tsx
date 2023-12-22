@@ -15,7 +15,7 @@ import {MiniVideo} from '@type/ajaxTypes';
 import {screenModel} from '@type/screenType';
 import {API_DOMAIN_TEST} from '@utility/constants';
 import NoConnection from './../components/common/noConnection';
-import { fetchMiniVods } from '../api/miniVod';
+import { fetchAdultVods, fetchMiniVods } from '../api/miniVod';
 
 type MiniVideoResponseType = {
   data: {
@@ -67,7 +67,7 @@ function WatchAnytime({navigation}: BottomTabScreenProps<any>) {
   const handleRefresh = useCallback(async () => {
     setIsRefreshing(true);
     // await queryClient.resetQueries(['watchAnytime']); // Pass the query key as an array of strings
-    // await refetch();
+    await refetch();
     setIsRefreshing(false);
     return;
   }, []);
@@ -83,7 +83,14 @@ function WatchAnytime({navigation}: BottomTabScreenProps<any>) {
     remove,
   } = useInfiniteQuery(
     ['watchAnytime', fetchMode],
-    ({pageParam = 1}) => fetchMiniVods(pageParam),
+    ({pageParam = 1}) => {
+      console.log('fetchMode -', fetchMode)
+      if(fetchMode == 'normal'){
+        return fetchMiniVods(pageParam)
+      }else{
+        return fetchAdultVods(pageParam)
+      }
+    },
     {
       getNextPageParam: (lastPage, allPages) => {
         return allPages.length + 1
