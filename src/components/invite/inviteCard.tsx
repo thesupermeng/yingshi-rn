@@ -97,6 +97,8 @@ export default function InviteCard({ userState = {} }: Props) {
     });
   }, [userState]);
 
+  
+
   const shareToWhatsApp = async () => {
     if (userState.userToken == "") {
       dispatch(showLoginAction());
@@ -373,15 +375,43 @@ export default function InviteCard({ userState = {} }: Props) {
           </View>
         </TouchableOpacity>
         {/* social media share section  */}
-        <TouchableOpacity onPress={toggleShare}>
+      
                       <View style={{ ...styles.share, gap: 10 }}>
-                        
+                      <TouchableOpacity onPress={toggleShare()}>
                         <WeChatIcon />
+
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={toggleShare()}>
                         <PYQIcon />
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={toggleShare()}>
                         <SinaIcon />
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={toggleShare()}>
                         <QQIcon />
-                      </View>
+
+                        </TouchableOpacity>
+
+
+                        <TouchableOpacity
+            onPress={() => {
+              if (userState.userToken == "") {
+                dispatch(showLoginAction());
+                return;
+              }
+              Clipboard.setString(
+                shareOptions.message + " " + shareOptions.url
+              );
+              setIsDialogOpen(true);
+            }}
+          >
+            <CopyIcn />
+     
+
+
+                   
                     </TouchableOpacity>
+                    </View>
         {/* stat section  */}
         <TouchableOpacity
           onPress={() => {
