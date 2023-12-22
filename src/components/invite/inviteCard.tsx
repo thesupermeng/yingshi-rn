@@ -32,6 +32,11 @@ import Share from "react-native-share";
 import { APP_NAME_CONST, INVITE_DOMAIN } from "@utility/constants";
 import { YSConfig } from "../../../ysConfig";
 import NotificationModal from "../modal/notificationModal";
+
+import SinaIcon from "@static/images/sina.svg";
+import WeChatIcon from "@static/images/wechat.svg";
+import QQIcon from "@static/images/qq.svg";
+import PYQIcon from "@static/images/pyq.svg";
 interface Props {
   userState: userModel;
 }
@@ -163,51 +168,51 @@ export default function InviteCard({ userState = {} }: Props) {
       });
   };
 
-  const shareToWeibo = async () => {
-    if (userState.userToken === "") {
-      dispatch(showLoginAction());
-      return;
-    }
-    const message = encodeURIComponent(
-      shareOptions.message + "\n" + shareOptions.url
-    );
-    const appURL = `http://service.weibo.com/share/share.php?url=${message}`;
+  // const shareToWeibo = async () => {
+  //   if (userState.userToken === "") {
+  //     dispatch(showLoginAction());
+  //     return;
+  //   }
+  //   const message = encodeURIComponent(
+  //     shareOptions.message + "\n" + shareOptions.url
+  //   );
+  //   const appURL = `http://service.weibo.com/share/share.php?url=${message}`;
 
-    Linking.openURL(appURL);
-  };
+  //   Linking.openURL(appURL);
+  // };
 
-  const shareToFacebook = async () => {
-    if (userState.userToken == "") {
-      dispatch(showLoginAction());
-      return;
-    }
-    try {
-      await Share.shareSingle({
-        ...shareOptions,
-        social: Share.Social.FACEBOOK,
-      });
-      // Linking.openURL(
-      //   'https://www.facebook.com/sharer/sharer.php?u=' + '' + shareOptions.url,
-      // );
-    } catch (error) {
-      console.error("Error sharing link", error);
-    }
-  };
+  // const shareToFacebook = async () => {
+  //   if (userState.userToken == "") {
+  //     dispatch(showLoginAction());
+  //     return;
+  //   }
+  //   try {
+  //     await Share.shareSingle({
+  //       ...shareOptions,
+  //       social: Share.Social.FACEBOOK,
+  //     });
+  //     Linking.openURL(
+  //       'https://www.facebook.com/sharer/sharer.php?u=' + '' + shareOptions.url,
+  //     );
+  //   } catch (error) {
+  //     console.error("Error sharing link", error);
+  //   }
+  // };
 
-  const shareToTwitter = async () => {
-    if (userState.userToken == "") {
-      dispatch(showLoginAction());
-      return;
-    }
-    try {
-      await Share.shareSingle({
-        ...shareOptions,
-        social: Share.Social.TWITTER,
-      });
-    } catch (error) {
-      console.log("Error sharing link", error);
-    }
-  };
+  // const shareToTwitter = async () => {
+  //   if (userState.userToken == "") {
+  //     dispatch(showLoginAction());
+  //     return;
+  //   }
+  //   try {
+  //     await Share.shareSingle({
+  //       ...shareOptions,
+  //       social: Share.Social.TWITTER,
+  //     });
+  //   } catch (error) {
+  //     console.log("Error sharing link", error);
+  //   }
+  // };
 
   const toggleShare = async () => {
     if (userState.userToken == "") {
@@ -368,71 +373,15 @@ export default function InviteCard({ userState = {} }: Props) {
           </View>
         </TouchableOpacity>
         {/* social media share section  */}
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            marginHorizontal: 33,
-            marginVertical: 25,
-            marginTop: 15,
-            // position: 'relative',
-            // bottom: 5,
-          }}
-        >
-          <TouchableOpacity onPress={shareToWhatsApp}>
-            <WhatsappIcn style={{ width: 18, height: 18 }} />
-          </TouchableOpacity>
-
-          <TouchableOpacity onPress={shareToTelegram}>
-            <TelegramIcn />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={shareToFacebook}>
-            <FacebookIcn />
-          </TouchableOpacity>
-
-          {/* <TouchableOpacity onPress={shareToWeixin}>
-            <WechatIcn />
-          </TouchableOpacity> */}
-
-          <TouchableOpacity onPress={shareToTwitter}>
-            <FastImage
-              source={require("@static/images/invite/twitter.png")}
-              style={{
-                height: 40,
-                width: 40,
-              }}
-              resizeMode={"contain"}
-            />
-          </TouchableOpacity>
-
-          {/* <TouchableOpacity onPress={shareToWeibo}>
-            <WeiboIcn />
-          </TouchableOpacity> */}
-
-          <TouchableOpacity
-            onPress={() => {
-              if (userState.userToken == "") {
-                dispatch(showLoginAction());
-                return;
-              }
-              Clipboard.setString(
-                shareOptions.message + " " + shareOptions.url
-              );
-              setIsDialogOpen(true);
-            }}
-          >
-            <CopyIcn />
-          </TouchableOpacity>
-
-          <NotificationModal
-            onConfirm={toggleOverlay}
-            isVisible={isDialogOpen}
-            title="复制成功"
-            subtitle1=""
-            subtitle2=""
-            subtitle3=""
-          />
-        </View>
+        <TouchableOpacity onPress={toggleShare}>
+                      <View style={{ ...styles.share, gap: 10 }}>
+                        
+                        <WeChatIcon />
+                        <PYQIcon />
+                        <SinaIcon />
+                        <QQIcon />
+                      </View>
+                    </TouchableOpacity>
         {/* stat section  */}
         <TouchableOpacity
           onPress={() => {
@@ -517,5 +466,15 @@ const styles = StyleSheet.create({
   featureIcn: {
     flex: 1,
     width: 22,
+  },
+  share: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    paddingBottom:10,
+    paddingTop:15,
+    flex:1,
+    justifyContent:'space-between',
+    paddingHorizontal:50
   },
 });

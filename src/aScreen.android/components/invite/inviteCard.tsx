@@ -11,7 +11,7 @@ import {
 import { useNavigation, useTheme } from "@react-navigation/native";
 
 import WhatsappIcn from "@static/images/invite/whatsapp.svg";
-
+import FastImage from "../common/customFastImage";
 import TelegramIcn from "@static/images/invite/telegram.svg";
 import FacebookIcn from "@static/images/invite/fb.svg";
 import WechatIcn from "@static/images/invite/wechat.svg";
@@ -23,15 +23,20 @@ import ProfileIcn from "@static/images/invite/profile-icon.svg";
 
 import { TouchableOpacity } from "@gorhom/bottom-sheet";
 
-import FastImage from "react-native-fast-image";
+
 import LinearGradient from "react-native-linear-gradient";
 import { userModel } from "@type/userType";
 import { useAppDispatch } from "@hooks/hooks";
 import { showLoginAction } from "@redux/actions/screenAction";
 import Share from "react-native-share";
 import { APP_NAME_CONST, INVITE_DOMAIN } from "@utility/constants";
-import { YSConfig } from "../../../../ysConfig";
+import { YSConfig } from "../../../ysConfig";
 import NotificationModal from "../modal/notificationModal";
+
+import SinaIcon from "@static/images/sina.svg";
+import WeChatIcon from "@static/images/wechat.svg";
+import QQIcon from "@static/images/qq.svg";
+import PYQIcon from "@static/images/pyq.svg";
 interface Props {
   userState: userModel;
 }
@@ -90,7 +95,7 @@ export default function InviteCard({ userState = {} }: Props) {
       message: `下载${APP_NAME_CONST},免费领取VIP会员,免费看海量高清影视`,
       url: INVITE_DOMAIN + encodedAuth,
     });
-  }, []);
+  }, [userState]);
 
   const shareToWhatsApp = async () => {
     if (userState.userToken == "") {
@@ -163,51 +168,51 @@ export default function InviteCard({ userState = {} }: Props) {
       });
   };
 
-  const shareToWeibo = async () => {
-    if (userState.userToken === "") {
-      dispatch(showLoginAction());
-      return;
-    }
-    const message = encodeURIComponent(
-      shareOptions.message + "\n" + shareOptions.url
-    );
-    const appURL = `http://service.weibo.com/share/share.php?url=${message}`;
+  // const shareToWeibo = async () => {
+  //   if (userState.userToken === "") {
+  //     dispatch(showLoginAction());
+  //     return;
+  //   }
+  //   const message = encodeURIComponent(
+  //     shareOptions.message + "\n" + shareOptions.url
+  //   );
+  //   const appURL = `http://service.weibo.com/share/share.php?url=${message}`;
 
-    Linking.openURL(appURL);
-  };
+  //   Linking.openURL(appURL);
+  // };
 
-  const shareToFacebook = async () => {
-    if (userState.userToken == "") {
-      dispatch(showLoginAction());
-      return;
-    }
-    try {
-      await Share.shareSingle({
-        ...shareOptions,
-        social: Share.Social.FACEBOOK,
-      });
-      // Linking.openURL(
-      //   'https://www.facebook.com/sharer/sharer.php?u=' + '' + shareOptions.url,
-      // );
-    } catch (error) {
-      console.error("Error sharing link", error);
-    }
-  };
+  // const shareToFacebook = async () => {
+  //   if (userState.userToken == "") {
+  //     dispatch(showLoginAction());
+  //     return;
+  //   }
+  //   try {
+  //     await Share.shareSingle({
+  //       ...shareOptions,
+  //       social: Share.Social.FACEBOOK,
+  //     });
+  //     Linking.openURL(
+  //       'https://www.facebook.com/sharer/sharer.php?u=' + '' + shareOptions.url,
+  //     );
+  //   } catch (error) {
+  //     console.error("Error sharing link", error);
+  //   }
+  // };
 
-  const shareToTwitter = async () => {
-    if (userState.userToken == "") {
-      dispatch(showLoginAction());
-      return;
-    }
-    try {
-      await Share.shareSingle({
-        ...shareOptions,
-        social: Share.Social.TWITTER,
-      });
-    } catch (error) {
-      console.log("Error sharing link", error);
-    }
-  };
+  // const shareToTwitter = async () => {
+  //   if (userState.userToken == "") {
+  //     dispatch(showLoginAction());
+  //     return;
+  //   }
+  //   try {
+  //     await Share.shareSingle({
+  //       ...shareOptions,
+  //       social: Share.Social.TWITTER,
+  //     });
+  //   } catch (error) {
+  //     console.log("Error sharing link", error);
+  //   }
+  // };
 
   const toggleShare = async () => {
     if (userState.userToken == "") {
@@ -265,7 +270,7 @@ export default function InviteCard({ userState = {} }: Props) {
               height: 180,
               width: 240,
             }}
-            resizeMode={FastImage.resizeMode.contain}
+            resizeMode={"contain"}
           />
 
           {/* <CrownIcon /> */}
@@ -285,7 +290,7 @@ export default function InviteCard({ userState = {} }: Props) {
             borderTopRightRadius: 15,
             flexDirection: "row", // Set flexDirection to 'row'
             justifyContent: "space-evenly",
-            // flexWrap: 'wrap', // Allow items to wrap to the next row
+           flexWrap: 'wrap', // Allow items to wrap to the next row
           }}
         >
           <View style={styles.featureItem}>
@@ -293,7 +298,7 @@ export default function InviteCard({ userState = {} }: Props) {
               <FastImage
                 source={require("@static/images/vip/vip_logo.png")}
                 style={styles.featureIcn}
-                resizeMode={FastImage.resizeMode.contain}
+                resizeMode={"contain"}
               />
             </View>
             <View>
@@ -301,33 +306,42 @@ export default function InviteCard({ userState = {} }: Props) {
             </View>
           </View>
 
-          {YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5 ? (
             <View style={styles.featureItem}>
               <View style={styles.imgContainer}>
                 <FastImage
                   source={require("@static/images/invite/sport.png")}
                   style={styles.featureIcn}
-                  resizeMode={FastImage.resizeMode.contain}
+                  resizeMode={"contain"}
                 />
               </View>
               <Text style={styles.featureTitle}>体育频道</Text>
             </View>
-          ) : (
-            <></>
-          )}
-
+        
+          <View style={styles.featureItem}>
+            <View style={styles.imgContainer}>
+              <FastImage
+                source={require("@static/images/invite/vip_adult_video.png")}
+                style={styles.featureIcn}
+                resizeMode={"contain"}
+              />
+            </View>
+            <View>
+              <Text style={styles.featureTitle}>夜来香</Text>
+            </View>
+          </View>
           <View style={styles.featureItem}>
             <View style={styles.imgContainer}>
               <FastImage
                 source={require("@static/images/invite/ads.png")}
                 style={styles.featureIcn}
-                resizeMode={FastImage.resizeMode.contain}
+                resizeMode={"contain"}
               />
             </View>
             <View>
               <Text style={styles.featureTitle}>去广告</Text>
             </View>
           </View>
+          
         </LinearGradient>
         {/* invite button  component  */}
         <TouchableOpacity
@@ -359,71 +373,15 @@ export default function InviteCard({ userState = {} }: Props) {
           </View>
         </TouchableOpacity>
         {/* social media share section  */}
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            marginHorizontal: 33,
-            marginVertical: 25,
-            marginTop: 15,
-            // position: 'relative',
-            // bottom: 5,
-          }}
-        >
-          <TouchableOpacity onPress={shareToWhatsApp}>
-            <WhatsappIcn style={{ width: 18, height: 18 }} />
-          </TouchableOpacity>
-
-          <TouchableOpacity onPress={shareToTelegram}>
-            <TelegramIcn />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={shareToFacebook}>
-            <FacebookIcn />
-          </TouchableOpacity>
-
-          {/* <TouchableOpacity onPress={shareToWeixin}>
-            <WechatIcn />
-          </TouchableOpacity> */}
-
-          <TouchableOpacity onPress={shareToTwitter}>
-            <FastImage
-              source={require("@static/images/invite/twitter.png")}
-              style={{
-                height: 40,
-                width: 40,
-              }}
-              resizeMode={FastImage.resizeMode.contain}
-            />
-          </TouchableOpacity>
-
-          {/* <TouchableOpacity onPress={shareToWeibo}>
-            <WeiboIcn />
-          </TouchableOpacity> */}
-
-          <TouchableOpacity
-            onPress={() => {
-              if (userState.userToken == "") {
-                dispatch(showLoginAction());
-                return;
-              }
-              Clipboard.setString(
-                shareOptions.message + " " + shareOptions.url
-              );
-              setIsDialogOpen(true);
-            }}
-          >
-            <CopyIcn />
-          </TouchableOpacity>
-
-          <NotificationModal
-            onConfirm={toggleOverlay}
-            isVisible={isDialogOpen}
-            title="复制成功"
-            subtitle1=""
-            subtitle2=""
-            subtitle3=""
-          />
-        </View>
+        <TouchableOpacity onPress={toggleShare}>
+                      <View style={{ ...styles.share, gap: 10 }}>
+                        
+                        <WeChatIcon />
+                        <PYQIcon />
+                        <SinaIcon />
+                        <QQIcon />
+                      </View>
+                    </TouchableOpacity>
         {/* stat section  */}
         <TouchableOpacity
           onPress={() => {
@@ -490,7 +448,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
     gap: 8,
-    width: "47%", // 50% width for 2 items per row
+    width: "40%", // 50% width for 2 items per row
     marginBottom: 15, // Add margin to create spacing between rows
     marginTop: 10,
     marginLeft: "3%",
@@ -499,14 +457,24 @@ const styles = StyleSheet.create({
   featureTitle: { fontSize: 14, color: "#ffffff", fontWeight: "400" },
   imgContainer: {
     backgroundColor: "#3b3e40",
-    width: 34,
-    height: 34,
-    borderRadius: 19,
+    width: 45,
+    height: 45,
+    borderRadius: 23,
     justifyContent: "center",
     alignItems: "center",
   },
   featureIcn: {
     flex: 1,
-    width: 18,
+    width: 22,
+  },
+  share: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    paddingBottom:10,
+    paddingTop:15,
+    flex:1,
+    justifyContent:'space-between',
+    paddingHorizontal:50
   },
 });
