@@ -69,7 +69,7 @@ import { URL } from "react-native-url-polyfill";
 import RNFetchBlob from "rn-fetch-blob";
 import { userModel } from "@type/userType";
 import { BridgeServer } from "react-native-http-bridge-refurbished";
-import { debounce, replace } from "lodash";
+import { debounce } from "lodash";
 
 import LinearGradient from "react-native-linear-gradient";
 import VipIcon from '@static/images/vip-icon.svg'
@@ -110,7 +110,9 @@ const getNoAdsUri = async (url: string, vodId: string) => {
     return url;
   } else {
     const modifiedPlaylist = m3u8Content.replace(/#EXT-X-TARGETDURATION:\d*/, '#EXT-X-TARGETDURATION:999')
-    server.get(`/${vodId}/index.m3u8`, async (req, res) => {
+    const uniqueIdentifier = url.split('/').at(-1)?.replace('.m3u8', '')
+
+    server.get(`/${uniqueIdentifier}/index.m3u8`, async (req, res) => {
     res.send(
       200,
       "application/vnd.apple.mpegurl",
@@ -118,7 +120,7 @@ const getNoAdsUri = async (url: string, vodId: string) => {
     );
   });
 
-  return `http://localhost:${PLAY_HTTP_SERVER_PORT}/${vodId}/index.m3u8`;
+  return `http://localhost:${PLAY_HTTP_SERVER_PORT}/${uniqueIdentifier}/index.m3u8`;
 
   }
   
@@ -247,7 +249,6 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   }, [])
 
   const vod = vodReducer.playVod.vod;
-  // console.log(vod)
 
   // const [vod, setVod] = useState(vodReducer.playVod.vod);
   const [initTime, setInitTime] = useState(0);
@@ -580,6 +581,8 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   useEffect(() => {
     currentEpisodeRef.current = vod?.episodeWatched;
+    currentTimeRef.current = vod?.timeWatched;
+    console.log('vod change')
     setCurrentEpisode(
       vod?.episodeWatched === undefined ? 0 : vod.episodeWatched
     );
@@ -793,7 +796,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       // console.log('stop server')
       debounceSetVodUri("");
     };
-  }, [vodUrl, vod]);
+  }, [vodUrl]);
 
   useEffect(() => {
     if (vodUri) {
