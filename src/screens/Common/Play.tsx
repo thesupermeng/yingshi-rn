@@ -80,7 +80,7 @@ import { disableAdultMode, enableAdultMode, incrementAdultVideoWatchTime } from 
 import useAnalytics from "@hooks/useAnalytics";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { screenModel } from "@type/screenType";
-import VodSourcesEpisodes from "../../components/vod/vodSourcesEpisodes";
+// import VodSourcesEpisodes from "../../components/vod/vodSourcesEpisodes";
 
 let insetsTop = 0;
 let insetsBottom = 0;
