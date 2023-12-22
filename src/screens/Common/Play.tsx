@@ -1039,18 +1039,24 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                       setIsCollapsed(!isCollapsed);
                     }}
                   >
-                    <View style={{ paddingBottom: 18 }}>
+                    {/* <View style={{ paddingBottom: 18 }}> */}
+                    <View style={{ paddingBottom: 5 }}>
+                      {isCollapsed ? (
+                        <Text /> 
+                      ) : (
                       <Text
                         ref={textRef}
                         onTextLayout={handleTextLayout}
                         style={styles.descriptionContainer2Text}
-                        numberOfLines={isCollapsed ? 2 : 20}
+                        // numberOfLines={isCollapsed ? 2 : 20}
+                        numberOfLines={20}
                       >
                         {`${definedValue(vodDetails?.vod_content)}`}
                       </Text>
+                      )}
                     </View>
-                    <View style={{ paddingBottom: 0 }}>
-                      {isCollapsed && actualNumberOfLines >= 2 && (
+                    <View style={{ paddingBottom: 0, }}>
+                      {isCollapsed && actualNumberOfLines >= 0 && (
                         <FastImage
                           style={{
                             flex: 1,
