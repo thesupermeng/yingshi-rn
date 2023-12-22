@@ -69,7 +69,7 @@ import { URL } from "react-native-url-polyfill";
 import RNFetchBlob from "rn-fetch-blob";
 import { userModel } from "@type/userType";
 import { BridgeServer } from "react-native-http-bridge-refurbished";
-import { debounce, replace } from "lodash";
+import { debounce, replace, uniqueId } from "lodash";
 
 import LinearGradient from "react-native-linear-gradient";
 import VipIcon from '@static/images/vip-icon.svg'
@@ -110,7 +110,9 @@ const getNoAdsUri = async (url: string, vodId: string) => {
     return url;
   } else {
     const modifiedPlaylist = m3u8Content.replace(/#EXT-X-TARGETDURATION:\d*/, '#EXT-X-TARGETDURATION:999')
-    server.get(`/${vodId}/index.m3u8`, async (req, res) => {
+    const uniqueIdentifier = url.split('/').at(-1)?.replace('.m3u8', '')
+
+    server.get(`/${uniqueIdentifier}/index.m3u8`, async (req, res) => {
     res.send(
       200,
       "application/vnd.apple.mpegurl",
@@ -118,7 +120,7 @@ const getNoAdsUri = async (url: string, vodId: string) => {
     );
   });
 
-  return `http://localhost:${PLAY_HTTP_SERVER_PORT}/${vodId}/index.m3u8`;
+  return `http://localhost:${PLAY_HTTP_SERVER_PORT}/${uniqueIdentifier}/index.m3u8`;
 
   }
   
@@ -776,7 +778,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   useEffect(() => {
     if (!!vodUrl && !!vod?.vod_id) {
       // console.debug('vod url is', vodUrl)
-      // setVodUri('')
+      setVodUri('')
       getNoAdsUri(vodUrl, vod?.vod_id)
         .then((uri) => {
           console.debug("successfully modified playlist content", uri);
