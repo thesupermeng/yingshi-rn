@@ -1,10 +1,7 @@
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { persistor, store } from "@redux/store";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import {
-  MiniVideo,
-  VodCarousellResponseType
-} from "@type/ajaxTypes";
+import { MiniVideo, VodCarousellResponseType } from "@type/ajaxTypes";
 import {
   ANDROID_HOME_PAGE_BANNER_ADS,
   API_DOMAIN,
@@ -27,14 +24,17 @@ import MainNav from "./src/navigation/mainNav";
 import { YSConfig } from "./ysConfig";
 
 import { ATRNSDK } from "./AnyThinkAds/ATReactNativeSDK";
-import RNRestart from 'react-native-restart';
+import RNRestart from "react-native-restart";
 // remove when merge
 import { TermsAcceptContextProvider } from "./src/contexts/TermsAcceptedContext";
 import { TermsAcceptContextProvider as TermsAcceptContextProviderA } from "./src/contexts/TermsAcceptedContext";
 import { TermsAcceptContextProvider as TermsAcceptContextProviderIos } from "./src/contexts/TermsAcceptedContext";
 import { prefetchAdultMiniVod, prefetchMiniVod } from "./src/api/miniVod";
-import { checkExpiredCacheFile, deleteCachedVideos } from "./src/utils/minivodDownloader";
-import NetInfo from '@react-native-community/netinfo';
+import {
+  checkExpiredCacheFile,
+  deleteCachedVideos,
+} from "./src/utils/minivodDownloader";
+import NetInfo from "@react-native-community/netinfo";
 const topon_channel = "WEB";
 
 // import * as Sentry from "@sentry/react-native";
@@ -96,7 +96,7 @@ let App = () => {
   const [isConnected, setIsConnected] = useState(true);
   const [count, setCount] = useState(0);
   useEffect(() => {
-    const unsubscribe = NetInfo.addEventListener((state:any) => {
+    const unsubscribe = NetInfo.addEventListener((state: any) => {
       setIsConnected(state.isConnected);
     });
 
@@ -111,27 +111,20 @@ let App = () => {
     if (isConnected) {
       setCount(count + 1);
       // Perform actions to refresh the page (e.g., reload data, reset state)
-    //  console.error('Network is back! Refresh the page.');
-      if(count == 1)
-      {
+      //  console.error('Network is back! Refresh the page.');
+      if (count == 1) {
         RNRestart.Restart();
       }
     }
   }, [isConnected]);
 
-
-
-
-  
-
   const downloadWatchAnytimeSequence = async () => {
-    await deleteCachedVideos(); 
-    await checkExpiredCacheFile(3); 
+    await deleteCachedVideos();
+    await checkExpiredCacheFile(3);
 
-    prefetchMiniVod(queryClient)
-    prefetchAdultMiniVod(queryClient)
-
-  }
+    prefetchMiniVod(queryClient);
+    prefetchAdultMiniVod(queryClient);
+  };
 
   useEffect(() => {
     queryClient.prefetchQuery({
@@ -194,8 +187,6 @@ let App = () => {
         List: Array<MiniVideo>;
       };
     };
-
-  
 
     // queryClient.prefetchQuery({
     //   queryKey: ["matchesNavOptions"],
@@ -274,7 +265,7 @@ let App = () => {
   console.log("YSConfig.instance.areaConfig");
 
   console.log(YSConfig.instance.areaConfig);
-  downloadWatchAnytimeSequence()
+  downloadWatchAnytimeSequence();
   return (
     <View style={{ flex: 1, backgroundColor: "#161616" }}>
       <TermsAcceptContextProviderIos>

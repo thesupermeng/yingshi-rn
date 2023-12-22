@@ -15,7 +15,7 @@ import {MiniVideo} from '@type/ajaxTypes';
 import {screenModel} from '@type/screenType';
 import {API_DOMAIN_TEST} from '@utility/constants';
 import NoConnection from './../components/common/noConnection';
-import { fetchAdultVods, fetchMiniVods } from '../api/miniVod';
+import {fetchAdultVods, fetchMiniVods} from '../api/miniVod';
 
 type MiniVideoResponseType = {
   data: {
@@ -84,19 +84,19 @@ function WatchAnytime({navigation}: BottomTabScreenProps<any>) {
   } = useInfiniteQuery(
     ['watchAnytime', fetchMode],
     ({pageParam = 1}) => {
-      console.log('fetchMode -', fetchMode)
-      if(fetchMode == 'normal'){
-        return fetchMiniVods(pageParam)
-      }else{
-        return fetchAdultVods(pageParam)
+      console.log('fetchMode -', fetchMode);
+      if (fetchMode == 'normal') {
+        return fetchMiniVods(pageParam);
+      } else {
+        return fetchAdultVods(pageParam);
       }
     },
     {
       getNextPageParam: (lastPage, allPages) => {
-        return allPages.length + 1
+        return allPages.length + 1;
       },
       onSuccess: data => {},
-      refetchOnMount: 'always'
+      refetchOnMount: 'always',
     },
   );
 
@@ -121,7 +121,6 @@ function WatchAnytime({navigation}: BottomTabScreenProps<any>) {
   useEffect(() => {
     const handleTabPress = () => {
       if (isFocused && !isRefreshing) {
-
         setPressTabScroll(true);
 
         miniVodListRef.current?.scrollToIndex({
@@ -154,8 +153,8 @@ function WatchAnytime({navigation}: BottomTabScreenProps<any>) {
       setPressTabScroll(false);
       // handleRefresh();
     }, 500);
-  }, [adultMode])
-  
+  }, [adultMode]);
+
   useEffect(() => {
     if (videos != undefined) {
       setFlattenedVideos(videos?.pages.flat().filter(x => x)); // remove null values
@@ -172,7 +171,7 @@ function WatchAnytime({navigation}: BottomTabScreenProps<any>) {
       subscription.remove();
     };
   }, []);
-  
+
   useFocusEffect(
     useCallback(() => {
       if (
@@ -215,8 +214,6 @@ function WatchAnytime({navigation}: BottomTabScreenProps<any>) {
     </ScreenContainer>
   );
 }
-
-
 
 export default memo(WatchAnytime);
 
