@@ -243,7 +243,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const handleZfGateway = async () => {
     const orderJson = {
       product_id: parseInt(membershipSelected.productId),
-      zf_type: 'GCASH_NATIVE',
+      zf_type: zfSelected,
       platform: APP_NAME_CONST + "-" + Platform.OS.toUpperCase(),
     };
     console.log('order json: ', orderJson);
@@ -252,7 +252,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
       const result = await axios.post(`${API_DOMAIN_TEST}finzf/v1/order`, orderJson, { headers: headers });
 
       console.log("returned order data: ", result.data);
-      openLink(result.data.data.zfData, result.data.data.transaction_id);
+      openLink(result.data.data.paymentData, result.data.data.transaction_id);
     } catch (error) {
       console.log('error catch: ', error);
       setDialogText(axiosErrorText);
