@@ -196,11 +196,11 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   }, [membershipSelected]);
 
   const handlePurchase = async () => {
-    // if (userState.userToken == "") {
-    //   dispatch(showLoginAction());
-    //   console.log("show login");
-    //   return; //early return
-    // }
+    if (userState.userToken == "") {
+      dispatch(showLoginAction());
+      console.log("show login");
+      return; //early return
+    }
 
     setIsBtnEnable(false);
     try {
