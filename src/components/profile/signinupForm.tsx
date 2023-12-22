@@ -194,15 +194,77 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
         showToast('登入失败，请稍后再试');
       }
       console.log(error.toString());
-
       return;
     }
 
-    if (userInfo) {
-      onSubmit({
-        isGoogleLogin: true,
+    if (userInfo === null) {
+      showToast('登入失败，请稍后再试');
+      return;
+    }
+
+    try {
+      setSubmitting(true);
+
+      userInfo = await signinupUser({
+        loginType: 'EMAIL',
         email: userInfo.user.email,
+        referralCode: referralCode,
+        isGoogleLogin: true,
       });
+    } catch (err: any) {
+      GoogleSignin.signOut();
+      showToast(err.toString());
+      return;
+    } finally {
+      setSubmitting(false);
+    }
+
+    const resultData = userInfo.data;
+
+    let json = {
+      userToken: resultData.access_token,
+      userId: resultData.user.user_id,
+      userName: resultData.user.user_name,
+      userReferralCode: resultData.user.user_referral_code,
+      userEmail: resultData.user.user_email,
+      userPhoneNumber: resultData.user.user_phone,
+      userMemberExpired: resultData.user.vip_end_time,
+      userReferrerName: resultData.user.referrer_name,
+      userEndDaysCount: resultData.user.user_vip_time_duration_days,
+      userTotalInvite: resultData.user.total_invited_user,
+      userAccumulateRewardDay: resultData.user.accumulated_vip_reward_days,
+      userAllowUpdateReferral: resultData.user.eligible_update_referrer,
+      userCurrentTimestamp: resultData.user.current_timestamp,
+      userInvitedUserList: resultData.user.invited_users,
+      userUpline: resultData.user.upline_user,
+      userAccumulateVipRewardDay: resultData.user.accumulated_paid_vip_reward_days,
+      userPaidVipList: resultData.user.paid_vip_response,
+    };
+
+    await dispatch(addUserAuthState(json));
+
+    if (userInfo.message.includes("注册成功")) {
+      navigation.navigate('SetUsername');
+
+    } else if (userInfo.message.includes("登录成功")) {
+
+      if (json.userCurrentTimestamp < json.userMemberExpired) {
+        await AsyncStorage.setItem("showAds", "false");
+      } else {
+        await AsyncStorage.setItem("showAds", "true");
+      }
+
+      await dispatch(changeScreenAction('登录成功'));
+
+      // ========== for analytics - start ==========
+      userCenterLoginSuccessTimesAnalytics();
+
+      if (json.userMemberExpired >= json.userCurrentTimestamp) {
+        userCenterVipLoginSuccessTimesAnalytics();
+      }
+      // ========== for analytics - end ==========
+
+      if (onGooleLoginSuccess) onGooleLoginSuccess();
     }
   }
 
@@ -226,7 +288,7 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
     return true;
   }
 
-  const onSubmit = async ({ isGoogleLogin, email }: { isGoogleLogin?: boolean, email?: string } = {}) => {
+  const onSubmit = async () => {
     if (isSubmitting) return;
 
     if (isReadTermNCondition == false) {
@@ -240,35 +302,21 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
     //   return;
     // }
 
-    if ((isGoogleLogin !== true && formattedLoginValue === "") || loginValueErrMsg !== null) {
+    if (formattedLoginValue === "" || loginValueErrMsg !== null) {
       setLoginValueErrMsg(loginType === 'email' ? '请填写邮箱账号' : '请填写手机号码');
       return;
     }
 
-    let userInfo;
-
     try {
       setSubmitting(true);
 
-      let otherParams = {}
-
-      if (isGoogleLogin) {
-        otherParams = {
-          loginType: 'EMAIL',
-          email: email,
-          phone: undefined,
-          isGoogleLogin: true,
-        }
-      }
-
-      userInfo = await signinupUser({
+      await signinupUser({
         loginType: loginType === 'email' ? 'EMAIL' : 'SMS',
         email: loginType === 'email' ? loginValue : undefined,
         // phone: loginType === 'phone' ? countryPhoneSelected?.country_phonecode + loginValue : undefined,
         phone: loginType === 'phone' ? countryPhoneSelected?.country_phonecode + formattedLoginValue : undefined,
         countryId: loginType === 'phone' ? countryPhoneSelected?.country_id : undefined,
         referralCode: referralCode,
-        ...otherParams,
       });
     } catch (err: any) {
       setSubmitting(false);
@@ -278,63 +326,13 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
 
     setSubmitting(false);
 
-    if (isGoogleLogin) {
-      const resultData = userInfo.data;
-
-      let json = {
-        userToken: resultData.access_token,
-        userId: resultData.user.user_id,
-        userName: resultData.user.user_name,
-        userReferralCode: resultData.user.user_referral_code,
-        userEmail: resultData.user.user_email,
-        userPhoneNumber: resultData.user.user_phone,
-        userMemberExpired: resultData.user.vip_end_time,
-        userReferrerName: resultData.user.referrer_name,
-        userEndDaysCount: resultData.user.user_vip_time_duration_days,
-        userTotalInvite: resultData.user.total_invited_user,
-        userAccumulateRewardDay: resultData.user.accumulated_vip_reward_days,
-        userAllowUpdateReferral: resultData.user.eligible_update_referrer,
-        userCurrentTimestamp: resultData.user.current_timestamp,
-        userInvitedUserList: resultData.user.invited_users,
-        userUpline: resultData.user.upline_user,
-        userAccumulateVipRewardDay: resultData.user.accumulated_paid_vip_reward_days,
-        userPaidVipList: resultData.user.paid_vip_response,
-      };
-
-      await dispatch(addUserAuthState(json));
-
-      if (userInfo.message.includes("注册成功")) {
-        navigation.navigate('SetUsername');
-
-      } else if (userInfo.message.includes("登录成功")) {
-
-        if (json.userCurrentTimestamp < json.userMemberExpired) {
-          await AsyncStorage.setItem("showAds", "false");
-        } else {
-          await AsyncStorage.setItem("showAds", "true");
-        }
-
-        await dispatch(changeScreenAction('登录成功'));
-
-        // ========== for analytics - start ==========
-        userCenterLoginSuccessTimesAnalytics();
-
-        if (json.userMemberExpired >= json.userCurrentTimestamp) {
-          userCenterVipLoginSuccessTimesAnalytics();
-        }
-        // ========== for analytics - end ==========
-
-        if (onGooleLoginSuccess) onGooleLoginSuccess();
-      }
-    } else {
-      dispatch(hideBottomSheetAction());
-      navigation.navigate("OTP", {
-        email: loginType === 'email' ? loginValue : undefined,
-        phone: loginType === 'phone' ? countryPhoneSelected?.country_phonecode + loginValue : undefined,
-        countryId: loginType === 'phone' ? countryPhoneSelected?.country_id : undefined,
-        referralCode: referralCode,
-      });
-    }
+    dispatch(hideBottomSheetAction());
+    navigation.navigate("OTP", {
+      email: loginType === 'email' ? loginValue : undefined,
+      phone: loginType === 'phone' ? countryPhoneSelected?.country_phonecode + loginValue : undefined,
+      countryId: loginType === 'phone' ? countryPhoneSelected?.country_id : undefined,
+      referralCode: referralCode,
+    });
   }
 
   return (
@@ -700,7 +698,7 @@ const LoginCard = ({
           {loginType === 'phone' && <MailIcon />}
         </TouchableOpacity> */}
 
-        {/* <TouchableOpacity
+        <TouchableOpacity
           onPress={onPressGoogleLogin}
           style={{
             backgroundColor: '#1D2023',
@@ -710,7 +708,7 @@ const LoginCard = ({
           }}
         >
           <GmailIcon />
-        </TouchableOpacity> */}
+        </TouchableOpacity>
       </View>
     </View>
   );
