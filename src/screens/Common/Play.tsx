@@ -80,7 +80,7 @@ import { disableAdultMode, enableAdultMode, incrementAdultVideoWatchTime } from 
 import useAnalytics from "@hooks/useAnalytics";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { screenModel } from "@type/screenType";
-import VodSourcesEpisodes from "../../components/vod/vodSourcesEpisodes";
+// import VodSourcesEpisodes from "../../components/vod/vodSourcesEpisodes";
 
 let insetsTop = 0;
 let insetsBottom = 0;
@@ -100,8 +100,31 @@ const definedValue = (val: any) => {
 
 const server = new BridgeServer("http_service", true); // http server for hosting no-ads m3u8
 
-const getNoAdsUri = async (url: string) => {
-  return url;
+const getNoAdsUri = async (url: string, vodId: string) => {
+  // fix for haiwaikan EXT-X-TARGETDURATION
+  const m3u8Content = (await RNFetchBlob.fetch("GET", url)).text().toString(); 
+
+  const isPlaylistFile = m3u8Content.match(/#EXT-X-TARGETDURATION:\d*/) !== null
+
+  if (!isPlaylistFile){ 
+    return url;
+  } else {
+    const modifiedPlaylist = m3u8Content.replace(/#EXT-X-TARGETDURATION:\d*/, '#EXT-X-TARGETDURATION:999')
+    const uniqueIdentifier = url.split('/').at(-1)?.replace('.m3u8', '')
+
+    server.get(`/${uniqueIdentifier}/index.m3u8`, async (req, res) => {
+    res.send(
+      200,
+      "application/vnd.apple.mpegurl",
+      modifiedPlaylist
+    );
+  });
+
+  return `http://localhost:${PLAY_HTTP_SERVER_PORT}/${uniqueIdentifier}/index.m3u8`;
+
+  }
+  
+
   // const startTime = new Date().valueOf();
   // const parentUrl = url
   //   .split("/")
@@ -226,7 +249,6 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   }, [])
 
   const vod = vodReducer.playVod.vod;
-  // console.log(vod)
 
   // const [vod, setVod] = useState(vodReducer.playVod.vod);
   const [initTime, setInitTime] = useState(0);
@@ -559,6 +581,8 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   useEffect(() => {
     currentEpisodeRef.current = vod?.episodeWatched;
+    currentTimeRef.current = vod?.timeWatched;
+    console.log('vod change')
     setCurrentEpisode(
       vod?.episodeWatched === undefined ? 0 : vod.episodeWatched
     );
@@ -754,10 +778,10 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
 
   useEffect(() => {
-    if (!!vodUrl) {
+    if (!!vodUrl && !!vod?.vod_id) {
       // console.debug('vod url is', vodUrl)
       setVodUri('')
-      getNoAdsUri(vodUrl)
+      getNoAdsUri(vodUrl, vod?.vod_id)
         .then((uri) => {
           console.debug("successfully modified playlist content", uri);
           debounceSetVodUri(uri);
