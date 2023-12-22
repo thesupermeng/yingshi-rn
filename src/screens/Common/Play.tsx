@@ -69,7 +69,7 @@ import { URL } from "react-native-url-polyfill";
 import RNFetchBlob from "rn-fetch-blob";
 import { userModel } from "@type/userType";
 import { BridgeServer } from "react-native-http-bridge-refurbished";
-import { debounce } from "lodash";
+import { debounce, replace } from "lodash";
 
 import LinearGradient from "react-native-linear-gradient";
 import VipIcon from '@static/images/vip-icon.svg'
@@ -100,8 +100,29 @@ const definedValue = (val: any) => {
 
 const server = new BridgeServer("http_service", true); // http server for hosting no-ads m3u8
 
-const getNoAdsUri = async (url: string) => {
-  return url;
+const getNoAdsUri = async (url: string, vodId: string) => {
+  // fix for haiwaikan EXT-X-TARGETDURATION
+  const m3u8Content = (await RNFetchBlob.fetch("GET", url)).text().toString(); 
+
+  const isPlaylistFile = m3u8Content.match(/#EXT-X-TARGETDURATION:\d*/) !== null
+
+  if (!isPlaylistFile){ 
+    return url;
+  } else {
+    const modifiedPlaylist = m3u8Content.replace(/#EXT-X-TARGETDURATION:\d*/, '#EXT-X-TARGETDURATION:999')
+    server.get(`/${vodId}/index.m3u8`, async (req, res) => {
+    res.send(
+      200,
+      "application/vnd.apple.mpegurl",
+      modifiedPlaylist
+    );
+  });
+
+  return `http://localhost:${PLAY_HTTP_SERVER_PORT}/${vodId}/index.m3u8`;
+
+  }
+  
+
   // const startTime = new Date().valueOf();
   // const parentUrl = url
   //   .split("/")
@@ -754,10 +775,10 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
 
   useEffect(() => {
-    if (!!vodUrl) {
+    if (!!vodUrl && !!vod?.vod_id) {
       // console.debug('vod url is', vodUrl)
       setVodUri('')
-      getNoAdsUri(vodUrl)
+      getNoAdsUri(vodUrl, vod?.vod_id)
         .then((uri) => {
           console.debug("successfully modified playlist content", uri);
           debounceSetVodUri(uri);
@@ -772,7 +793,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       // console.log('stop server')
       debounceSetVodUri("");
     };
-  }, [vodUrl]);
+  }, [vodUrl, vod]);
 
   useEffect(() => {
     if (vodUri) {
