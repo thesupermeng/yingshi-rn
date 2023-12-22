@@ -231,7 +231,7 @@ export default forwardRef<VideoRef, Props>(
             StatusBar.setHidden(false);
             setIsFullScreen(false);
           } else {
-            videoPlayerRef.current.pause();
+            // videoPlayerRef.current.pause();
             setIsPaused(true);
             // use setTimeout to prevent video non pause before pop the screen
             setTimeout(() => {
