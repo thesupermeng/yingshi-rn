@@ -123,8 +123,10 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
   }
 
   // Update the state with the formatted phone number
+  if (loginType === 'phone') {
     setLoginValue(formattedPhoneNumber);
     setLoginValueErrMsg(null);
+  }
 
     if (value === '') return;
 
@@ -133,8 +135,6 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
     // } else if (loginType === 'phone' && !isPhoneValid(value)) {
     } else if (loginType === 'phone' && !isPhoneValid(formattedPhoneNumber)) {
       setLoginValueErrMsg('手机号码格式错误');
-    } else if (loginType === 'phone' && formattedPhoneNumber.replace(/\s/g, '').length < 8 || formattedPhoneNumber.replace(/\s/g, '').length > 11) {
-      setLoginValueErrMsg('手机号码长度太短');
     }
   };
 
@@ -218,10 +218,10 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
   }
 
   const isPhoneValid = (value: string) => {
-    if (!/^[0-9]{7,12}$/.test(value.replace(RegExp(' ', 'g'), ''))) {
-      return false;
+    // if (!/^[0-9]{7,12}$/.test(value.replace(RegExp(' ', 'g'), ''))) {
+    if (!/^[0-9]{7,12}$/.test(value.replace(RegExp(' ', 'g'), '')) && value.replace(/\s/g, '').length < 8 || value.replace(/\s/g, '').length > 11) {
+    return false;
     }
-
     return true;
   }
 
