@@ -562,7 +562,7 @@ export default () => {
             name="全部评论"
             component={AllCommentScreen}
             initialParams={{
-              vod_douban_id: 0,
+              vod_id: 0,
               vod_name: "",
               commentItems: undefined
             }}

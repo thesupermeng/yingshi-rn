@@ -57,7 +57,7 @@ export type RootStackParamList = {
     player_mode?: "adult" | 'normal';
   };
   全部评论: {
-    vod_douban_id: VodType["vod_douban_id"];
+    vod_id: VodType["vod_id"];
     vod_name: VodType["vod_name"];
     commentItems: commentsType[];
   };

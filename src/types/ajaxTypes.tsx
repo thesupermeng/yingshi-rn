@@ -255,8 +255,16 @@ export interface VodCarousellResponseType {
         class_list: Array<string>,
         yunying: Array<VodData>,
         categories: Array<VodData>,
-        live_station_list: Array<LiveTVStationItem>
+        live_station_list: Array<LiveTVStationItem>,
+        yingping_list: YingPingList,
+        topic_list: Array<VodTopicType>,
     }
+}
+
+export interface YingPingList {
+    type_name: string,
+    type_id: number,
+    vod_list: Array<VodType>,
 }
 
 export interface MiniVideo {

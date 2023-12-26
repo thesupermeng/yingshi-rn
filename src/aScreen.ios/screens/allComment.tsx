@@ -12,10 +12,10 @@ import { RootState } from "@redux/store";
 import SubmitBtn from "@static/images/submitBtn.svg"
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { showLoginAction } from "@redux/actions/screenAction";
-
+import { showToast } from "../../Sports/utility/toast";
 
 export const AllCommentScreen = ({ navigation, route }: RootStackScreenProps<"全部评论">) => {
-  const { vod_douban_id, vod_name, commentItems } = route.params;
+  const { vod_id, vod_name, commentItems } = route.params;
   const { colors, textVariants, } = useTheme();
   const [comment, setComment] = useState('');
   const [allComment, setAllComment] = useState<commentsType[] | undefined>([]);
@@ -25,7 +25,7 @@ export const AllCommentScreen = ({ navigation, route }: RootStackScreenProps<"�
   const [isUpdated, setIsUpdated] = useState(false);
   const dispatch = useAppDispatch();
 
-  const locCommentId = "userComment" + vod_douban_id;
+  const locCommentId = "userComment" + vod_id;
   const getLocalComments = async () => {
     try {
       const comments = await AsyncStorage.getItem(locCommentId);
@@ -59,7 +59,10 @@ export const AllCommentScreen = ({ navigation, route }: RootStackScreenProps<"�
       await AsyncStorage.setItem(locCommentId, JSON.stringify(existingComments));
       
       commentItems.unshift(commmentObj);
+      setIsUpdated(!isUpdated);
       Keyboard.dismiss();
+      showToast("提交成功，我们将在24小时内进行审核！");
+
     } catch (error) {
       console.log("error when storing the comment into local storage: ", error);
     }
@@ -131,6 +134,7 @@ export const AllCommentScreen = ({ navigation, route }: RootStackScreenProps<"�
         />
 
         <FlatList
+          extraData={isUpdated}
           data={commentItems}
           showsVerticalScrollIndicator={false}
           maxToRenderPerBatch={10}

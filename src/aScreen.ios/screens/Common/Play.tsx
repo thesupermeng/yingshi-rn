@@ -620,7 +620,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
 
   const fetchComments = () =>
     fetch(
-      `${API_DOMAIN}vod/v1/vod/reviewdetail?douban_id=${vod?.vod_douban_id}&limit=6`)
+      `${API_DOMAIN}vod/v1/vod/reviewdetail?douban_id=${vod?.vod_douban_id}`)
       .then((response) => response.json())
       .then((json: commentsResponseType) => {
         return json.data.douban_reviews;
@@ -630,7 +630,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
     data: onlineComments,
     isFetching: isFetchingComments,
   } = useQuery({
-    queryKey: ["relatedComments", vod?.vod_douban_id],
+    queryKey: ["relatedComments", vod?.vod_id],
     queryFn: () => fetchComments(),
   });
 
@@ -653,13 +653,9 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
     if (!isFetchingComments) {
       mergeAllComments();
     }
-
-  
-
-
   }, [isFetchingComments, isUpdated]);
 
-  const locCommentId = "userComment" + vod?.vod_douban_id;
+  const locCommentId = "userComment" + vod?.vod_id;
   const getLocalComments = async () => {
     try {
       const comments = await AsyncStorage.getItem(locCommentId);
@@ -689,7 +685,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
         user_name: userState.userName,
         user_review: comment,
       }
-      existingComments.push(commmentObj);
+      existingComments.unshift(commmentObj);
       await AsyncStorage.setItem(locCommentId, JSON.stringify(existingComments));
       await getLocalComments();
       setIsUpdated(!isUpdated);
@@ -977,7 +973,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
                             comments={allComment ?? []}
                             onCommentTap={() => {
                               navigation.navigate('全部评论', {
-                                vod_douban_id: vod.vod_douban_id,
+                                vod_id: vod.vod_id,
                                 vod_name: vod.vod_name,
                                 commentItems: allComment,
                               });
