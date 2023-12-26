@@ -12,6 +12,7 @@ import WebView from 'react-native-webview';
 import BackIcon from "@static/images/back_arrow.svg";
 import { useTheme } from '@react-navigation/native';
 import useAnalytics from '@hooks/useAnalytics';
+import CountdownIndicator from '../../../../components/button/countdownIndicator';
 
 interface Props {
     matchID?: number,
@@ -25,9 +26,12 @@ interface Props {
     },
     setVideoSource?: any,
     onGoBack: () => void,
+    showCountdown: boolean,
+    countdownTime?: number,
+    onVipCountdownClick: () => void,
 }
 
-const LiveVideo = ({ matchID, liveDataState, onLiveEnd, onLoad, streamID, videoSource, setVideoSource, onGoBack }: Props) => {
+const LiveVideo = ({ matchID, liveDataState, onLiveEnd, onLoad, streamID, videoSource, setVideoSource, onGoBack, showCountdown = false, countdownTime = 0, onVipCountdownClick, }: Props) => {
     const { colors } = useTheme();
 
     const homeName = liveDataState?.home?.name;
@@ -149,16 +153,30 @@ const LiveVideo = ({ matchID, liveDataState, onLiveEnd, onLoad, streamID, videoS
                     {
                         videoSource?.url !== undefined && (
                             videoSource.type === VideoLiveType.LIVE
-                                ? <VodPlayer
-                                    onBack={onHandleBack}
-                                    vod_source={videoSource.url}
-                                    videoType='live'
-                                    vodTitle={combinedName}
-                                    appOrientation={settingsReducer.appOrientation}
-                                    devicesOrientation={settingsReducer.devicesOrientation}
-                                    lockOrientation={lockOrientation}
-                                    onReadyForDisplay={onReadyForDisplay}
-                                />
+                                ? <>
+                                    <VodPlayer
+                                        onBack={onHandleBack}
+                                        vod_source={videoSource.url}
+                                        videoType='live'
+                                        vodTitle={combinedName}
+                                        appOrientation={settingsReducer.appOrientation}
+                                        devicesOrientation={settingsReducer.devicesOrientation}
+                                        lockOrientation={lockOrientation}
+                                        onReadyForDisplay={onReadyForDisplay}
+                                    />
+                                    {showCountdown &&
+                                        <CountdownIndicator
+                                            timer={countdownTime}
+                                            onClickVip={() => { onVipCountdownClick() }}
+                                            vipButtonText="开通VIP畅享无限内容"
+                                            containerStyle={{
+                                                position: 'absolute',
+                                                bottom: 0,
+                                                left: 0
+                                            }}
+                                        />
+                                    }
+                                </>
                                 : <View
                                     style={{
                                         width: '100%',

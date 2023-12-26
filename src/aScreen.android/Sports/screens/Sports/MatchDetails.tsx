@@ -96,6 +96,8 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
     type: 0,
     url: undefined,
   });
+  const showCountdown = userState.userToken === "" || Number(userState.userMemberExpired) <= Number(userState.userCurrentTimestamp);
+
   // ========== for analytics - start ==========
   const { sportDetailsViewsAnalytics, sportDetailsVipPopupTimesAnalytics } = useAnalytics();
 
@@ -239,6 +241,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
       <BecomeVipOverlay
         setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
         showBecomeVIPOverlay={showBecomeVIPOverlay}
+        isJustClose={showCountdown && NON_VIP_STREAM_TIME_SECONDS > screenState.sportWatchTime}
       />
       {videoSource.url &&
         ((videoSource.type === VideoLiveType.LIVE &&
@@ -254,6 +257,11 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
           onLoad={onLiveLoad}
           videoSource={videoSource}
           onGoBack={navigation.goBack}
+          showCountdown={showCountdown}
+          countdownTime={NON_VIP_STREAM_TIME_SECONDS - screenState.sportWatchTime}
+          onVipCountdownClick={() => {
+            setShowBecomeVIPOverlay(true)
+          }}
         />
       ) : (
         <BeforeLive

@@ -102,6 +102,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
   const [isLiveVideoFullScreen, setIsLiveVideoFullScreen] = useState(false);
   const [shouldShowComponents, setShouldShowComponents] = useState(true);
   const [isNavVisible, setIsNavVisible] = useState(true);
+  const showCountdown = userState.userToken === "" || Number(userState.userMemberExpired) <= Number(userState.userCurrentTimestamp);
 
   // ========== for analytics - start ==========
   const { sportDetailsViewsAnalytics, sportDetailsVipPopupTimesAnalytics } = useAnalytics();
@@ -274,7 +275,6 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
   insetsBottom = insetsBottom == 0 ? insets.bottom : insets.bottom;
 
 
-
   return (
     <ScreenContainer
       isPlay={true}
@@ -291,6 +291,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
       <BecomeVipOverlay
         setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
         showBecomeVIPOverlay={showBecomeVIPOverlay}
+        isJustClose={showCountdown && NON_VIP_STREAM_TIME_SECONDS > screenState.sportWatchTime}
       />
       {videoSource.url &&
         ((videoSource.type === VideoLiveType.LIVE &&
@@ -307,6 +308,11 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
           videoSource={videoSource}
           onGoBack={navigation.goBack}
           // onFullscreenChangeCallback={isFullscreen}
+          showCountdown={showCountdown}
+          countdownTime={NON_VIP_STREAM_TIME_SECONDS - screenState.sportWatchTime}
+          onVipCountdownClick={() => {
+            setShowBecomeVIPOverlay(true)
+          }}
         />
       ) : (
         <BeforeLive
@@ -334,19 +340,19 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
           listLiveMatchDetailsUpdates={liveRoomUpdate}
         />
       )}
-      {settingsReducer.appOrientation === 'PORTRAIT' && ( (isNavVisible &&
+      {settingsReducer.appOrientation === 'PORTRAIT' && ((isNavVisible &&
         isFullyLoaded && tabList.length > 0) ? (
-          <MatchDetailsNav streamId={10001} tabList={tabList} />
-        ) : (
-          <View style={styles.fetching}>
-            <FastImage
-              source={require('@static/images/loading-spinner.gif')}
-              style={{ width: 100, height: 80, marginBottom: -20 }}
-              resizeMode="contain"
-            />
-            {/* <Text style={{ ...textVariants.body, color: colors.muted, textAlign: 'center' }}>加载中。。。</Text> */}
-          </View>
-        )
+        <MatchDetailsNav streamId={10001} tabList={tabList} />
+      ) : (
+        <View style={styles.fetching}>
+          <FastImage
+            source={require('@static/images/loading-spinner.gif')}
+            style={{ width: 100, height: 80, marginBottom: -20 }}
+            resizeMode="contain"
+          />
+          {/* <Text style={{ ...textVariants.body, color: colors.muted, textAlign: 'center' }}>加载中。。。</Text> */}
+        </View>
+      )
       )}
     </ScreenContainer>
   );
