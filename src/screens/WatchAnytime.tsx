@@ -118,27 +118,27 @@ function WatchAnytime({navigation}: BottomTabScreenProps<any>) {
   // ========== for analytics - end ==========
 
   // Add an event listener to the navigation object for the tab press event
-  useEffect(() => {
-    const handleTabPress = () => {
-      if (isFocused && !isRefreshing) {
-        setPressTabScroll(true);
+  // useEffect(() => {
+  //   const handleTabPress = () => {
+  //     if (isFocused && !isRefreshing) {
+  //       setPressTabScroll(true);
 
-        miniVodListRef.current?.scrollToIndex({
-          index: 0,
-          animated: true,
-        });
+  //       miniVodListRef.current?.scrollToIndex({
+  //         index: 0,
+  //         animated: true,
+  //       });
 
-        // 0.5 second for scroll animation, hide all video
-        setTimeout(() => {
-          setPressTabScroll(false);
-          handleRefresh();
-        }, 500);
-      }
-    };
-    const unsubscribe = navigation.addListener('tabPress', handleTabPress);
-    // Clean up the event listener when the component unmounts
-    return () => unsubscribe();
-  }, [isFocused, isRefreshing]);
+  //       // 0.5 second for scroll animation, hide all video
+  //       setTimeout(() => {
+  //         setPressTabScroll(false);
+  //         handleRefresh();
+  //       }, 500);
+  //     }
+  //   };
+  //   const unsubscribe = navigation.addListener('tabPress', handleTabPress);
+  //   // Clean up the event listener when the component unmounts
+  //   return () => unsubscribe();
+  // }, [isFocused, isRefreshing]);
 
   useEffect(() => {
     setPressTabScroll(true);
