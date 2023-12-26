@@ -101,7 +101,7 @@ export default function ExpiredOverlay({
                   {SHOW_ZF_CONST &&
                     <TouchableOpacity
                       onPress={() => {
-                        setShowBecomeVIPOverlay();
+                        setShowBecomeVIPOverlay(false);
                         navigator.navigate('付费VIP');
 
                         // ========== for analytics - start ==========
@@ -121,7 +121,7 @@ export default function ExpiredOverlay({
                   }
                   <TouchableOpacity
                     onPress={() => {
-                      setShowBecomeVIPOverlay();
+                      setShowBecomeVIPOverlay(false);
                       navigator.navigate('邀请');
 
                       // ========== for analytics - start ==========

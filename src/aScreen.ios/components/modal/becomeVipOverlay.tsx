@@ -15,11 +15,13 @@ import { SHOW_ZF_CONST } from '@utility/constants';
 interface Props {
   showBecomeVIPOverlay: boolean;
   setShowBecomeVIPOverlay: any;
+  isJustClose: boolean,
 }
 
 export default function ExpiredOverlay({
   showBecomeVIPOverlay = false,
   setShowBecomeVIPOverlay,
+  isJustClose,
 }: Props) {
   const navigator = useNavigation();
   const dispatch = useAppDispatch();
@@ -56,7 +58,7 @@ export default function ExpiredOverlay({
               <TouchableOpacity
                 onPress={() => {
                   setShowBecomeVIPOverlay(false);
-                  if (route.name === '体育详情') {
+                  if (!isJustClose && route.name === '体育详情') {
                     navigator.goBack();
                   }
                 }}>

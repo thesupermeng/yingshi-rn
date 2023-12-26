@@ -15,11 +15,13 @@ import { SHOW_ZF_CONST } from '@utility/constants';
 interface Props {
   showBecomeVIPOverlay: boolean;
   setShowBecomeVIPOverlay: any;
+  isJustClose: boolean,
 }
 
 export default function ExpiredOverlay({
   showBecomeVIPOverlay = false,
   setShowBecomeVIPOverlay,
+  isJustClose,
 }: Props) {
   const navigator = useNavigation();
   const dispatch = useAppDispatch();
@@ -56,7 +58,7 @@ export default function ExpiredOverlay({
               <TouchableOpacity
                 onPress={() => {
                   setShowBecomeVIPOverlay(false);
-                  if (route.name === '体育详情') {
+                  if (!isJustClose && route.name === '体育详情') {
                     navigator.goBack();
                   }
                 }}>
@@ -96,27 +98,27 @@ export default function ExpiredOverlay({
                   尊享体育频道
                 </Text>
                 <View style={styles.btnContainer}>
-                  { SHOW_ZF_CONST &&
-                  <TouchableOpacity
-                    onPress={() => {
-                      setShowBecomeVIPOverlay(false);
-                      navigator.navigate('付费VIP');
+                  {SHOW_ZF_CONST &&
+                    <TouchableOpacity
+                      onPress={() => {
+                        setShowBecomeVIPOverlay(false);
+                        navigator.navigate('付费VIP');
 
-                      // ========== for analytics - start ==========
-                      sportDetailsVipPopupClicksAnalytics('pay');
-                      // ========== for analytics - end ==========
-                    }}
-                    style={styles.btn}>
-                    <Text
-                      style={{
-                        color: '#000',
-                        fontWeight: '600',
-                        fontSize: 16,
-                      }}>
-                      购买VIP
-                    </Text>
-                  </TouchableOpacity>
-                }
+                        // ========== for analytics - start ==========
+                        sportDetailsVipPopupClicksAnalytics('pay');
+                        // ========== for analytics - end ==========
+                      }}
+                      style={styles.btn}>
+                      <Text
+                        style={{
+                          color: '#000',
+                          fontWeight: '600',
+                          fontSize: 16,
+                        }}>
+                        购买VIP
+                      </Text>
+                    </TouchableOpacity>
+                  }
                   <TouchableOpacity
                     onPress={() => {
                       setShowBecomeVIPOverlay(false);
