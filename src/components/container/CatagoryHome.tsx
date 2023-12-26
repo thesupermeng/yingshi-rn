@@ -123,6 +123,7 @@ const CatagoryHome = ({
             if (navId != 99) {
               navigation.navigate('片库', {
                 type_id: item.vod_list[0].type_id,
+                class : item.type_name
               });
             } else {
               navigation.navigate('午夜场剧情', {
