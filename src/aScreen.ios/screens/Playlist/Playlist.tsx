@@ -35,6 +35,8 @@ function Playlist({ navigation }: BottomTabScreenProps<any>) {
   const isFocused = useIsFocused();
   const [isOffline, setIsOffline] = useState(false);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const settingsReducer: SettingsReducerState = useAppSelector(
     ({ settingsReducer }: RootState) => settingsReducer
   );
@@ -158,6 +160,23 @@ function Playlist({ navigation }: BottomTabScreenProps<any>) {
     await queryClient.resetQueries(['vodPlaylist']); // Pass the query key as an array of strings
 
     // return setIsRefreshing(false);
+  }, []);
+
+  useEffect(() => {
+    // Trigger loading spinner when the component mounts
+    // setIsLoading(true);
+    setIsRefreshing(true)
+
+    // Fetch data or perform actions here
+    // For example:
+    // fetchPlaylistData();
+
+    // For now, let's simulate a delay to mimic data loading
+    setTimeout(() => {
+      // Once the simulated data fetching/loading is complete, set isLoading to false
+      // setIsLoading(false);
+      setIsRefreshing(false)
+    }, 2000); // Adjust the delay time according to your data fetching logic
   }, []);
 
   //ads
