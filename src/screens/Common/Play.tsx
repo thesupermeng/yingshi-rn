@@ -384,7 +384,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
         currentEpisode + 1
       }.html${"\n"}${APP_NAME_CONST}-海量高清视频在线观看`
 
-      if(APP_NAME_CONST=='大鱼影视')
+      if(APP_NAME_CONST=='爱美剧')
       {
         msg = `海量视频内容 随时随地 想看就看 ${"\n"}https://xiangkantv.net/share.html`
       }
