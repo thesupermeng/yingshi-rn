@@ -24,7 +24,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CodePushDeploymentKey</key>
-	<string>KsO7FCf3Rz-gOUFeCbRFOndw87cCa6KC9wuSp</string>
+	<string>bANlp7AwlK57caU3h80moPva099ffOii-VPk9</string>
 	<key>GADApplicationIdentifier</key>
 	<string>ca-app-pub-6143222543441738~9891877510</string>
 	<key>GADIsAdManagerApp</key>
@@ -1030,5 +1030,8 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>CFBundleShortVersionString</key>
+	<string>1.2.0</string> <!-- Replace with your actual version number -->
+
 </dict>
 </plist>

@@ -107,9 +107,9 @@ bool isCurrentMainView = NO;
   }
 
   
-//  [AppCenterReactNative register];
-//  [AppCenterReactNativeAnalytics registerWithInitiallyEnabled:true];
-//  [AppCenterReactNativeCrashes registerWithAutomaticProcessing];
+ [AppCenterReactNative register];
+ [AppCenterReactNativeAnalytics registerWithInitiallyEnabled:true];
+ [AppCenterReactNativeCrashes registerWithAutomaticProcessing];
 
   [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
 //  AVAudioSession *audioSession = [AVAudioSession sharedInstance];
