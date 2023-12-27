@@ -58,6 +58,7 @@ import useInterstitialAds from '@hooks/useInterstitialAds';
 import useAnalytics from '@hooks/useAnalytics';
 import { SettingsReducerState } from '@redux/reducers/settingsReducer';
 import { RootState } from '@redux/store';
+import VipRegisterBar from '../../../../components/adultVideo/vipRegisterBar';
 
 
 type FlatListType = {
@@ -289,6 +290,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
           listLiveMatchDetailsUpdates={liveRoomUpdate}
         />
       )}
+      <VipRegisterBar />
       {settingsReducer.appOrientation === 'PORTRAIT' && (
         isFullyLoaded && tabList.length > 0 ? (
           <MatchDetailsNav streamId={10001} tabList={tabList} />
