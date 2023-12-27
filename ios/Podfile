@@ -22,7 +22,7 @@ if linkage != nil
   use_frameworks! :linkage => linkage.to_sym
 end
 
-target 'dayutv' do
+target 'aimeiju' do
   config = use_native_modules!
 
   # Flags change depending on the env values.
@@ -66,7 +66,7 @@ target 'dayutv' do
     # 'StoreKit',
   ])
 
-  target 'dayutvTests' do
+  target 'aimeijuTests' do
     inherit! :complete
     # Pods for testing
   end
