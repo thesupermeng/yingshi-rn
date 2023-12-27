@@ -16,6 +16,7 @@ import {screenModel} from '@type/screenType';
 import {API_DOMAIN_TEST} from '@utility/constants';
 import NoConnection from './../components/common/noConnection';
 import {fetchAdultVods, fetchMiniVods} from '../api/miniVod';
+import { userModel } from '@type/userType';
 
 type MiniVideoResponseType = {
   data: {
@@ -47,9 +48,16 @@ function WatchAnytime({navigation}: BottomTabScreenProps<any>) {
   const screenState: screenModel = useAppSelector(
     ({screenReducer}) => screenReducer,
   );
-
+  
+  const userState: userModel = useAppSelector(
+    ({ userReducer }) => userReducer
+  );
   const {adultMode: adultModeGlobal, watchAnytimeAdultMode} = screenState;
   const adultMode = adultModeGlobal && watchAnytimeAdultMode;
+
+  const isVip = !(Number(userState.userMemberExpired) <=
+                  Number(userState.userCurrentTimestamp) ||
+                  userState.userToken === "")
 
   const fetchMode = adultMode ? 'adult' : 'normal';
   const apiEndpoint = adultMode
@@ -82,13 +90,13 @@ function WatchAnytime({navigation}: BottomTabScreenProps<any>) {
     refetch,
     remove,
   } = useInfiniteQuery(
-    ['watchAnytime', fetchMode],
+    ['watchAnytime', fetchMode, isVip],
     ({pageParam = 1}) => {
       console.log('fetchMode -', fetchMode);
       if (fetchMode == 'normal') {
         return fetchMiniVods(pageParam);
       } else {
-        return fetchAdultVods(pageParam);
+        return fetchAdultVods(pageParam, isVip);
       }
     },
     {

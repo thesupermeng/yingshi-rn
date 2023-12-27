@@ -26,26 +26,40 @@ const fetchMiniVods = async (page: number, from: 'api'|'local' = 'local') => {
 
 const prefetchMiniVod = async (queryClient: QueryClient) => {
   queryClient.prefetchInfiniteQuery(
-    ["watchAnytime", "normal"],
+    ["watchAnytime", "normal", true],
+    ({ pageParam = 1 }) => fetchMiniVods(pageParam)
+  );
+  queryClient.prefetchInfiniteQuery(
+    ["watchAnytime", "normal", false],
     ({ pageParam = 1 }) => fetchMiniVods(pageParam)
   );
   
   // console.info('done prefetch minivod')
 };
 
-const fetchAdultVods = async (page: number) =>{
+const fetchAdultVods = async (page: number, isVip: boolean) =>{
       return fetch(`${API_DOMAIN_TEST}miniSVod/v1/miniSVod?page=${page}&limit=300`)
         .then((response) => response.json())
         .then((json: MiniVideoResponseType) => {
-          return json.data.List;
+          if (isVip){
+            // console.debug('api return vip content')
+            return json.data.List;
+          } else {
+            // console.debug('api return non-vip content')
+            return json.data.NonVIPList;
+          }
         });
 };
 
 const prefetchAdultMiniVod = async (queryClient: QueryClient) => {
   
     queryClient.prefetchInfiniteQuery(
-      ["watchAnytime", "adult"],
-      ({ pageParam = 1 }) => fetchAdultVods(pageParam)
+      ["watchAnytime", "adult", false],
+      ({ pageParam = 1 }) => fetchAdultVods(pageParam, false)
+    );
+    queryClient.prefetchInfiniteQuery(
+      ["watchAnytime", "adult", true],
+      ({ pageParam = 1 }) => fetchAdultVods(pageParam, true)
     );
 
   // console.info('done prefetch adult minivod')
