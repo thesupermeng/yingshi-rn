@@ -46,7 +46,10 @@ import XvodTabIcon from "@static/images/xvodTab.svg";
 import SportTabIcon from "@static/images/sportTab.svg";
 import XVodTab from "./VipPrivilege/XVodTab";
 import { screenModel } from "@type/screenType";
-import { disableAdultMode, showAdultModeDisclaimer } from "@redux/actions/screenAction";
+import {
+  disableAdultMode,
+  showAdultModeDisclaimer,
+} from "@redux/actions/screenAction";
 interface NavType {
   has_submenu: boolean;
   ids: Array<number>;
@@ -206,8 +209,14 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                   }}
                 >
                   {selectedTab == "sport" && (
-                    <View style={{ paddingRight: 7, position:'relative' , bottom:8 }}>
-                      <SportTabIcon width={25} />
+                    <View
+                      style={{
+                        paddingRight: 7,
+                        position: "relative",
+                        bottom: 10,
+                      }}
+                    >
+                      <SportTabIcon width={32} height={32} />
                     </View>
                   )}
 
@@ -221,7 +230,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                         ...textVariants.bigHeader,
                         color: colors.text,
                         fontSize: selectedTab == "sport" ? 20 : 16,
-                       // fontWeight: selectedTab == "sport" ? "bold" : "normal",
+                        // fontWeight: selectedTab == "sport" ? "bold" : "normal",
                         paddingBottom: 3,
                         marginBottom: 0,
                       }}
@@ -229,7 +238,12 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                       体育
                     </Text>
 
-                    <View style={{ justifyContent: "center" , paddingHorizontal:12}}>
+                    <View
+                      style={{
+                        justifyContent: "center",
+                        paddingHorizontal: 12,
+                      }}
+                    >
                       <View
                         style={{
                           borderTopWidth: selectedTab == "sport" ? 2 : 0, // Border bottom width
@@ -246,58 +260,68 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
 
               {screenState.showAdultTab && (
                 <>
-                   
-              <TouchableOpacity
-                onPress={() => {
-                  setSelectedTab("xvod");
-                }}
-              >
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    marginLeft:15
-                  }}
-                >
-                  {selectedTab == "xvod" && (
-                    <View style={{ paddingRight: 5, position:'relative' , bottom:8 }}>
-                      <XvodTabIcon width={25} />
-                    </View>
-                  )}
-
-                  <View
-                    style={{
-                      flexDirection: "column",
+                  <TouchableOpacity
+                    onPress={() => {
+                      setSelectedTab("xvod");
                     }}
                   >
-                    <Text
+                    <View
                       style={{
-                        ...textVariants.bigHeader,
-                        color: colors.text,
-                        fontSize: selectedTab == "xvod" ? 20 : 16,
-                       // fontWeight: selectedTab == "sport" ? "bold" : "normal",
-                        paddingBottom: 3,
-                        marginBottom: 0,
+                        flexDirection: "row",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        marginLeft: 15,
                       }}
                     >
-                      夜来香
-                    </Text>
+                      {selectedTab == "xvod" && (
+                        <View
+                          style={{
+                            paddingRight: 7,
+                            position: "relative",
+                            bottom: 12,
+                          }}
+                        >
+                          <XvodTabIcon width={32} height={32} />
+                        </View>
+                      )}
 
-                    <View style={{ justifyContent: "center" , paddingHorizontal:15}}>
                       <View
                         style={{
-                          borderTopWidth: selectedTab == "xvod" ? 2 : 0, // Border bottom width
-                          borderTopColor: "#ffffff", // Border bottom color
-                          maxWidth: 22,
+                          flexDirection: "column",
                         }}
-                      ></View>
+                      >
+                        <Text
+                          style={{
+                            ...textVariants.bigHeader,
+                            color: colors.text,
+                            fontSize: selectedTab == "xvod" ? 20 : 16,
+                            // fontWeight: selectedTab == "sport" ? "bold" : "normal",
+                            paddingBottom: 3,
+                            marginBottom: 0,
+                          }}
+                        >
+                          夜来香
+                        </Text>
 
-                      <Text></Text>
+                        <View
+                          style={{
+                            justifyContent: "center",
+                            paddingHorizontal: 15,
+                          }}
+                        >
+                          <View
+                            style={{
+                              borderTopWidth: selectedTab == "xvod" ? 2 : 0, // Border bottom width
+                              borderTopColor: "#ffffff", // Border bottom color
+                              maxWidth: 22,
+                            }}
+                          ></View>
+
+                          <Text></Text>
+                        </View>
+                      </View>
                     </View>
-                  </View>
-                </View>
-              </TouchableOpacity>
+                  </TouchableOpacity>
                 </>
               )}
             </View>
@@ -305,14 +329,14 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
               activeOpacity={
                 Number(userState.userMemberExpired) <=
                   Number(userState.userCurrentTimestamp) ||
-                  userState.userToken === ""
+                userState.userToken === ""
                   ? 0.5
                   : 1
               }
               onPress={() => {
                 if (
                   Number(userState.userMemberExpired) <=
-                  Number(userState.userCurrentTimestamp) ||
+                    Number(userState.userCurrentTimestamp) ||
                   userState.userToken === ""
                 ) {
                   setShowBecomeVIPOverlay(true);
@@ -326,7 +350,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                 />
                 {Number(userState.userMemberExpired) <=
                   Number(userState.userCurrentTimestamp) ||
-                  userState.userToken === "" ? (
+                userState.userToken === "" ? (
                   <Text
                     style={{
                       color: colors.text,
@@ -375,7 +399,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                 flex: 1,
                 marginHorizontal: 10,
                 backgroundColor: "transparent",
-
+marginTop:5
                 // borderColor:'red',
                 // borderWidth:20
               }}
@@ -421,6 +445,6 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     paddingVertical: 5,
     position: "relative",
-    top: 5,
+    bottom: 8,
   },
 });
