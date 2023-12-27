@@ -301,6 +301,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const [vodSources, setVodSources] = useState<VodSourceType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isVodPlayerLoading, setIsVodPlayerLoading] = useState(false);
+  const [shouldResumeAfterLoad, setShouldResumeAfterLoad] = useState(false)
 
   //For pausing video player when switch source
   const onPressSource = useCallback((itemId: any) => {
@@ -309,6 +310,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       currentTimeRef.current = 0; // Reset current time when switching sources
       if (videoPlayerRef.current) {
         videoPlayerRef.current.setPause(true);
+        setShouldResumeAfterLoad(true)
     }
   }
   }, [currentSourceId]);
@@ -844,6 +846,11 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     }
 
     setReadyPlay(true);
+
+    if (shouldResumeAfterLoad && videoPlayerRef.current) {
+      videoPlayerRef.current.setPause(false); // Resume playing the video
+      setShouldResumeAfterLoad(false); // Reset the flag after resuming
+    }
   };
   // ========== for analytics - end ==========
   const insets = useSafeAreaInsets();
