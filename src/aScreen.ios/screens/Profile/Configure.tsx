@@ -27,7 +27,7 @@ import { changeScreenAction } from '@redux/actions/screenAction';
 import { RootState } from '@redux/store';
 import { userModel } from '@type/userType';
 
-import { APP_VERSION } from '@utility/constants';
+import { APP_NAME_CONST, APP_VERSION } from '@utility/constants';
 import { SettingsReducerState } from '@redux/reducers/settingsReducer';
 import { showToast } from '../../Sports/utility/toast';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
@@ -131,7 +131,7 @@ export default ({ navigation }: RootStackScreenProps<'设置'>) => {
               }}
               onCancel={toggleRemoveAccountDialog}
               isVisible={isRemoveDialogOpen}
-              title="确定注销“大鱼影视”账号"
+              title={`确定注销“${APP_NAME_CONST}”账号`}
               subtitle="确认删除帐户后，您的所有帐户数据将被永久删除"
               confirmationText="确定"
             />

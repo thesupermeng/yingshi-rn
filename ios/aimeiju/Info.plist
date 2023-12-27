@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>NSUserTrackingUsageDescription</key>
-	<string>是否允许大鱼影视跟踪您在其他公司的App和网站上的活动</string>
+	<string>是否允许爱美剧跟踪您在其他公司的App和网站上的活动</string>
 	<!-- <key>NSPhotoLibraryUsageDescription</key>
-	<string>是否允许影视TV向您发送通知</string> -->
+	<string>是否允许爱美剧向您发送通知</string> -->
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
