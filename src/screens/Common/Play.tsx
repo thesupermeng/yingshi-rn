@@ -299,12 +299,36 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const [currentSourceId, setCurrentSourceId] = useState(vod?.sourceWatched === undefined ? 0 : vod.sourceWatched);
   const [currentQuality, setCurrentQuality] = useState(vod?.sourceWatched === undefined ? 0 : vod.sourceWatched);
   const [vodSources, setVodSources] = useState<VodSourceType[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isVodPlayerLoading, setIsVodPlayerLoading] = useState(false);
 
+  //For pausing video player when switch source
   const onPressSource = useCallback((itemId: any) => {
-    setCurrentSourceId(itemId);
-    currentSourceRef.current = itemId;
-    currentTimeRef.current = 0;
-  }, []);
+    if (itemId !== currentSourceId) {
+      setCurrentSourceId(itemId);
+      currentTimeRef.current = 0; // Reset current time when switching sources
+      if (videoPlayerRef.current) {
+        videoPlayerRef.current.setPause(true);
+    }
+  }
+  }, [currentSourceId]);
+
+  // For adding loading spinner before load player
+  // const onPressSource = useCallback((itemId: any) => {
+  //   if (itemId !== currentSourceId) {
+  //     setIsLoading(true); // Set loading state to true when switching sources
+  //     setCurrentSourceId(itemId);
+  //     // currentSourceRef.current = itemId;
+  //     currentTimeRef.current = 0;
+  //     if (videoPlayerRef.current) {
+  //       videoPlayerRef.current.setPause(true);
+  //     }
+  //     // Simulate loading for 2 seconds before displaying the player again
+  //     setTimeout(() => {
+  //       setIsLoading(false); // Set loading state to false after 2 seconds (simulating loading)
+  //     }, 2000);
+  //   }
+  // }, [currentSourceId]);
 
   const renderSources = useCallback(
     ({ item }) => (
@@ -500,7 +524,9 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       Platform.OS.toUpperCase() +
       `&channelId=` +
       UMENG_CHANNEL +
-      `&ip=${localIp}`
+      // `&ip=${localIp}`
+      `&ip=218.107.132.66`
+
     )
       .then((response) => response.json())
       .then((json: VodDetailsResponseType) => {
@@ -850,6 +876,24 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
           paddingRight: 0,
         }}
       >
+        {/* {isLoading && (
+          <View
+            style={{
+              width: '100%',
+              aspectRatio: 16 / 9,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              alignSelf: 'center',
+            }}
+          >
+            <FastImage
+              style={{ height: 80, width: 80 }}
+              source={require('@static/images/loading-spinner.gif')}
+              resizeMode={'contain'}
+            />
+          </View>
+        )} */}
         {/* if isVodRestricted, show bing search */}
         {isVodRestricted && vod && !isOffline && <BingSearch vod={vod} />}
 
