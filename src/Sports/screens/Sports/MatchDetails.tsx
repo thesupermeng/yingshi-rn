@@ -59,6 +59,7 @@ import useAnalytics from '@hooks/useAnalytics';
 import { RootState } from '@redux/store';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SettingsReducerState } from '@redux/reducers/settingsReducer';
+import VipRegisterBar from '../../../components/adultVideo/vipRegisterBar';
 
 let insetsTop = 0;
 let insetsBottom = 0;
@@ -340,6 +341,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
           listLiveMatchDetailsUpdates={liveRoomUpdate}
         />
       )}
+      <VipRegisterBar />
       {settingsReducer.appOrientation === 'PORTRAIT' && ((isNavVisible &&
         isFullyLoaded && tabList.length > 0) ? (
         <MatchDetailsNav streamId={10001} tabList={tabList} />
