@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00E356F31AD99517003FC87E /* yingshiTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* yingshiTests.m */; };
+		00E356F31AD99517003FC87E /* aimeijuTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* aimeijuTests.m */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -56,17 +56,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		00E356EE1AD99517003FC87E /* dayutvTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = dayutvTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356EE1AD99517003FC87E /* aimeijuTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = aimeijuTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* yingshiTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = yingshiTests.m; sourceTree = "<group>"; };
+		00E356F21AD99517003FC87E /* aimeijuTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = aimeijuTests.m; sourceTree = "<group>"; };
 		036E823097E14AB6B03AEF04 /* Pods-dayutv.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dayutv.staging.xcconfig"; path = "Target Support Files/Pods-dayutv/Pods-dayutv.staging.xcconfig"; sourceTree = "<group>"; };
 		070FAEB62E18BD0B1B16E22A /* libPods-dayutv-dayutvTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dayutv-dayutvTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07F961A680F5B00A75B9A /* dayutv.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dayutv.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = dayutv/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = dayutv/AppDelegate.mm; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = dayutv/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = dayutv/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = dayutv/main.m; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* aimeiju.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = aimeiju.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = aimeiju/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = aimeiju/AppDelegate.mm; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = aimeiju/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = aimeiju/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = aimeiju/main.m; sourceTree = "<group>"; };
 		1FB58DFA3306A9F99EABCD34 /* Pods-yingshi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yingshi.release.xcconfig"; path = "Target Support Files/Pods-yingshi/Pods-yingshi.release.xcconfig"; sourceTree = "<group>"; };
 		3896D1802B0C48F70082748B /* UMAnalyticsModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMAnalyticsModule.h; sourceTree = "<group>"; };
 		3896D1812B0C48F70082748B /* RNUMConfigure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNUMConfigure.m; sourceTree = "<group>"; };
@@ -89,7 +89,7 @@
 		38EB5E052ACDB24500F913BB /* ATRNSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATRNSDK.h; sourceTree = "<group>"; };
 		38EB5E062ACDB24500F913BB /* ATRNSDK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATRNSDK.m; sourceTree = "<group>"; };
 		6FB5B446BF309CFD86895BF5 /* libPods-dayutv.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dayutv.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = dayutv/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = aimeiju/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		841D0BD03D813AC9AC8EF499 /* Pods-dayutv.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dayutv.debug.xcconfig"; path = "Target Support Files/Pods-dayutv/Pods-dayutv.debug.xcconfig"; sourceTree = "<group>"; };
 		8AE9E9A470163860C118A273 /* Pods-dayutv-dayutvTests.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dayutv-dayutvTests.staging.xcconfig"; path = "Target Support Files/Pods-dayutv-dayutvTests/Pods-dayutv-dayutvTests.staging.xcconfig"; sourceTree = "<group>"; };
 		8E1A5A282AC2B31000EBA460 /* libRNExitApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNExitApp.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -133,13 +133,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E356EF1AD99517003FC87E /* dayutvTests */ = {
+		00E356EF1AD99517003FC87E /* aimeijuTests */ = {
 			isa = PBXGroup;
 			children = (
-				00E356F21AD99517003FC87E /* yingshiTests.m */,
+				00E356F21AD99517003FC87E /* aimeijuTests.m */,
 				00E356F01AD99517003FC87E /* Supporting Files */,
 			);
-			path = dayutvTests;
+			path = aimeijuTests;
 			sourceTree = "<group>";
 		};
 		00E356F01AD99517003FC87E /* Supporting Files */ = {
@@ -150,7 +150,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		13B07FAE1A68108700A75B9A /* yingshi */ = {
+		13B07FAE1A68108700A75B9A /* aimeiju */ = {
 			isa = PBXGroup;
 			children = (
 				3896D17F2B0C48F70082748B /* UMReactBridge */,
@@ -164,7 +164,7 @@
 				3896D1872B0D85D90082748B /* RNViewController.m */,
 				3896D18A2B0D85FB0082748B /* RNViewController.h */,
 			);
-			name = yingshi;
+			name = aimeiju;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
@@ -274,9 +274,9 @@
 				C80E302F2B21A8D20093541D /* assets */,
 				F395A1212AE7BC2100B64265 /* yingshi.storekit */,
 				9A218EB82AC414D600F6B98C /* AppCenter-Config.plist */,
-				13B07FAE1A68108700A75B9A /* yingshi */,
+				13B07FAE1A68108700A75B9A /* aimeiju */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* dayutvTests */,
+				00E356EF1AD99517003FC87E /* aimeijuTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
@@ -289,8 +289,8 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* dayutv.app */,
-				00E356EE1AD99517003FC87E /* dayutvTests.xctest */,
+				13B07F961A680F5B00A75B9A /* aimeiju.app */,
+				00E356EE1AD99517003FC87E /* aimeijuTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -326,9 +326,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* dayutvTests */ = {
+		00E356ED1AD99517003FC87E /* aimeijuTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "dayutvTests" */;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "aimeijuTests" */;
 			buildPhases = (
 				D9DFA6B94D1A9E88C7627961 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
@@ -342,14 +342,14 @@
 			dependencies = (
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
-			name = dayutvTests;
+			name = aimeijuTests;
 			productName = yingshiTests;
-			productReference = 00E356EE1AD99517003FC87E /* dayutvTests.xctest */;
+			productReference = 00E356EE1AD99517003FC87E /* aimeijuTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		13B07F861A680F5B00A75B9A /* dayutv */ = {
+		13B07F861A680F5B00A75B9A /* aimeiju */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "dayutv" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "aimeiju" */;
 			buildPhases = (
 				384D2CF0FD86ECA538B00543 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
@@ -365,9 +365,9 @@
 			);
 			dependencies = (
 			);
-			name = dayutv;
+			name = aimeiju;
 			productName = yingshi;
-			productReference = 13B07F961A680F5B00A75B9A /* dayutv.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* aimeiju.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -387,7 +387,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "dayutv" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "aimeiju" */;
 			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -406,8 +406,8 @@
 			);
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* dayutv */,
-				00E356ED1AD99517003FC87E /* dayutvTests */,
+				13B07F861A680F5B00A75B9A /* aimeiju */,
+				00E356ED1AD99517003FC87E /* aimeijuTests */,
 			);
 		};
 /* End PBXProject section */
@@ -619,7 +619,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00E356F31AD99517003FC87E /* yingshiTests.m in Sources */,
+				00E356F31AD99517003FC87E /* aimeijuTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -647,7 +647,7 @@
 /* Begin PBXTargetDependency section */
 		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* dayutv */;
+			target = 13B07F861A680F5B00A75B9A /* aimeiju */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -676,7 +676,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/dayutv.app/dayutv";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/aimeiju.app/aimeiju";
 			};
 			name = Debug;
 		};
@@ -700,7 +700,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/dayutv.app/dayutv";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/aimeiju.app/aimeiju";
 			};
 			name = Release;
 		};
@@ -718,8 +718,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Core",
 				);
-				INFOPLIST_FILE = dayutv/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "大鱼影视";
+				INFOPLIST_FILE = aimeiju/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "爱美剧";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires access to the camera.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app does not require access to the microphone.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app requires access to the photo library.";
@@ -738,7 +738,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = dayutv;
+				PRODUCT_NAME = aimeiju;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -758,8 +758,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Core",
 				);
-				INFOPLIST_FILE = dayutv/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "大鱼影视";
+				INFOPLIST_FILE = aimeiju/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "爱美剧";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires access to the camera.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app does not require access to the microphone.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app requires access to the photo library.";
@@ -778,7 +778,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = dayutv;
+				PRODUCT_NAME = aimeiju;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1032,8 +1032,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Core",
 				);
-				INFOPLIST_FILE = dayutv/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "大鱼影视";
+				INFOPLIST_FILE = aimeiju/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "爱美剧";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires access to the camera.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app does not require access to the microphone.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app requires access to the photo library.";
@@ -1052,7 +1052,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = dayutv;
+				PRODUCT_NAME = aimeiju;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1078,14 +1078,14 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/dayutv.app/dayutv";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/aimeiju.app/aimeiju";
 			};
 			name = Staging;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "dayutvTests" */ = {
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "aimeijuTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
@@ -1095,7 +1095,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "dayutv" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "aimeiju" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -1105,7 +1105,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "dayutv" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "aimeiju" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,

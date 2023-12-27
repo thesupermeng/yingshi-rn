@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "dayutv.app"
-               BlueprintName = "dayutv"
-               ReferencedContainer = "container:dayutv.xcodeproj">
+               BuildableName = "aimeiju.app"
+               BlueprintName = "aimeiju"
+               ReferencedContainer = "container:aimeiju.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "dayutvTests.xctest"
-               BlueprintName = "dayutvTests"
-               ReferencedContainer = "container:dayutv.xcodeproj">
+               BuildableName = "aimeijuTests.xctest"
+               BlueprintName = "aimeijuTests"
+               ReferencedContainer = "container:aimeiju.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "dayutv.app"
-            BlueprintName = "dayutv"
-            ReferencedContainer = "container:dayutv.xcodeproj">
+            BuildableName = "aimeiju.app"
+            BlueprintName = "aimeiju"
+            ReferencedContainer = "container:aimeiju.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <StoreKitConfigurationFileReference
@@ -75,9 +75,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "dayutv.app"
-            BlueprintName = "dayutv"
-            ReferencedContainer = "container:dayutv.xcodeproj">
+            BuildableName = "aimeiju.app"
+            BlueprintName = "aimeiju"
+            ReferencedContainer = "container:aimeiju.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
