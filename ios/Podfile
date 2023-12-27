@@ -33,7 +33,7 @@ target 'dayutv' do
     # Hermes is now enabled by default. Disable by setting this flag to false.
     # Upcoming versions of React Native may rely on get_default_flags(), but
     # we make it explicit here to aid in the React Native upgrade process.
-    :hermes_enabled => true,
+    :hermes_enabled => false,
     :fabric_enabled => flags[:fabric_enabled],
     # Enables Flipper.
     #
@@ -121,6 +121,9 @@ target 'dayutv' do
   pod 'RCTSystemSetting', :path => '../node_modules/react-native-system-setting'
 #  pod 'Permission-AppTrackingTransparency', :path => "#{permissions_path}/AppTrackingTransparency"
 #  pod 'RNGoogleSignin', :path => "../node_modules/@react-native-google-signin/google-signin"
+
+# CodePush plugin dependency
+  pod 'CodePush', :path => '../node_modules/react-native-code-push'
 
   post_install do |installer|
     react_native_post_install(
