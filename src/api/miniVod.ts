@@ -1,7 +1,7 @@
 import { API_DOMAIN_TEST, DOWNLOAD_WATCH_ANYTIME } from "@utility/constants";
 import { getApiCache, getExcludedIds, getIsApiCacheExist } from "../utils/minivodDownloader"
 import { MiniVideo } from "@type/ajaxTypes";
-import { QueryClient } from "@tanstack/react-query";
+import { QueryClient, useInfiniteQuery } from "@tanstack/react-query";
 import shuffle from 'lodash/shuffle'
 
 type MiniVideoResponseType = {
@@ -25,10 +25,6 @@ const fetchMiniVods = async (page: number, from: 'api'|'local' = 'local') => {
 }
 
 const prefetchMiniVod = async (queryClient: QueryClient) => {
-  queryClient.prefetchInfiniteQuery(
-    ["watchAnytime", "normal", true],
-    ({ pageParam = 1 }) => fetchMiniVods(pageParam)
-  );
   queryClient.prefetchInfiniteQuery(
     ["watchAnytime", "normal", false],
     ({ pageParam = 1 }) => fetchMiniVods(pageParam)
@@ -65,4 +61,23 @@ const prefetchAdultMiniVod = async (queryClient: QueryClient) => {
   // console.info('done prefetch adult minivod')
 };
 
-export { fetchMiniVods, fetchAdultVods, prefetchAdultMiniVod, prefetchMiniVod }
+const useMinivodQuery = (fetchMode: 'adult'|'normal', isVip:boolean) => useInfiniteQuery(
+  ['watchAnytime', fetchMode, isVip],
+  ({pageParam = 1}) => {
+    console.log('fetchMode -', fetchMode);
+    if (fetchMode == 'normal') {
+      return fetchMiniVods(pageParam);
+    } else {
+      return fetchAdultVods(pageParam, isVip);
+    }
+  },
+  {
+    getNextPageParam: (lastPage, allPages) => {
+      return allPages.length + 1;
+    },
+    onSuccess: data => {},
+    refetchOnMount: 'always',
+  },
+);
+
+export { fetchMiniVods, fetchAdultVods, prefetchAdultMiniVod, prefetchMiniVod, useMinivodQuery }

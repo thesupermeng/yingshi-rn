@@ -1,22 +1,21 @@
+import { useAppSelector } from '@hooks/hooks';
+import useAnalytics from '@hooks/useAnalytics';
 import NetInfo from '@react-native-community/netinfo';
-import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
-import {useFocusEffect, useIsFocused} from '@react-navigation/native';
-import {useInfiniteQuery} from '@tanstack/react-query';
-import React, {memo, useCallback, useEffect, useRef, useState} from 'react';
-import {AppState, StyleSheet, Text, View} from 'react-native';
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import { useFocusEffect, useIsFocused } from '@react-navigation/native';
+import { SettingsReducerState } from '@redux/reducers/settingsReducer';
+import { RootState } from '@redux/store';
+import { MiniVideo } from '@type/ajaxTypes';
+import { screenModel } from '@type/screenType';
+import { userModel } from '@type/userType';
+import { API_DOMAIN_TEST } from '@utility/constants';
+import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
+import { AppState, StyleSheet, Text, View } from 'react-native';
+import { useMinivodQuery } from '../api/miniVod';
 import EighteenPlusControls from '../components/adultVideo/eighteenPlusControls';
 import ScreenContainer from '../components/container/screenContainer';
 import MiniVideoList from '../components/videoPlayer/WatchAnytime/miniVodList';
-import {useAppSelector} from '@hooks/hooks';
-import useAnalytics from '@hooks/useAnalytics';
-import {SettingsReducerState} from '@redux/reducers/settingsReducer';
-import {RootState} from '@redux/store';
-import {MiniVideo} from '@type/ajaxTypes';
-import {screenModel} from '@type/screenType';
-import {API_DOMAIN_TEST} from '@utility/constants';
 import NoConnection from './../components/common/noConnection';
-import {fetchAdultVods, fetchMiniVods} from '../api/miniVod';
-import { userModel } from '@type/userType';
 
 type MiniVideoResponseType = {
   data: {
@@ -89,24 +88,7 @@ function WatchAnytime({navigation}: BottomTabScreenProps<any>) {
     isFetching,
     refetch,
     remove,
-  } = useInfiniteQuery(
-    ['watchAnytime', fetchMode, isVip],
-    ({pageParam = 1}) => {
-      console.log('fetchMode -', fetchMode);
-      if (fetchMode == 'normal') {
-        return fetchMiniVods(pageParam);
-      } else {
-        return fetchAdultVods(pageParam, isVip);
-      }
-    },
-    {
-      getNextPageParam: (lastPage, allPages) => {
-        return allPages.length + 1;
-      },
-      onSuccess: data => {},
-      refetchOnMount: 'always',
-    },
-  );
+  } = useMinivodQuery(fetchMode, isVip)
 
   const checkConnection = useCallback(async () => {
     const state = await NetInfo.fetch();
