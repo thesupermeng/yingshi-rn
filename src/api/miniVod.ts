@@ -89,6 +89,7 @@ const fetchAdultVods = async (page: number, isVip: boolean) => {
   return MiniVodApi.getListByPage({
     page,
     limit: 300,
+    xMode: true
   }).then((data) => {
     if (isVip) {
       // console.debug('api return vip content')
