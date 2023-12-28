@@ -81,6 +81,8 @@ import useAnalytics from "@hooks/useAnalytics";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { screenModel } from "@type/screenType";
 import { VodApi } from "@api";
+import DescriptionBottomSheet from "../../components/videoPlayer/Play/vodDescriptionBottomSheet"
+import { VodDescription } from "../../components/videoPlayer/Play/vodDescription";
 
 let insetsTop = 0;
 let insetsBottom = 0;
@@ -302,6 +304,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isVodPlayerLoading, setIsVodPlayerLoading] = useState(false);
   const [shouldResumeAfterLoad, setShouldResumeAfterLoad] = useState(false)
+  const [isShowDescription, setShowDescription] = useState(false);
 
   //For pausing video player when switch source
   const onPressSource = useCallback((itemId: any) => {
@@ -1037,6 +1040,24 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                           .replace(/\//g, "-")
                         }`}
                     </Text>
+                    <TouchableOpacity
+                    onPress={() => setShowDescription(true)}
+                    >
+                      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                      <Text
+                        style={{
+                        ...textVariants.subBody,
+                        color: "#FAC33D",
+                        }}>
+                          更多详情
+                          </Text>
+                    <MoreArrow
+                    width={icons.sizes.l}
+                    height={icons.sizes.l}
+                    color= "#FAC33D"
+                  />
+                  </View>
+                  </TouchableOpacity>
                     {!(adultMode) && <TouchableOpacity onPress={onShare}>
                       <View style={{ ...styles.share, gap: 10 }}>
                         <Text
@@ -1055,7 +1076,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                     </TouchableOpacity>}
                   </View>
                 </View>
-                <View>
+                {/* <View>
                   {!adultMode &&
                     <Text style={styles.descriptionContainer2Text}>
                       {`导演：${definedValue(vod?.vod_director)}${"\n"}` +
@@ -1066,9 +1087,9 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                     onPress={() => {
                       setIsCollapsed(!isCollapsed);
                     }}
-                  >
+                  > */}
                     {/* <View style={{ paddingBottom: 18 }}> */}
-                    <View style={{ paddingBottom: 5 }}>
+                    {/* <View style={{ paddingBottom: 5 }}>
                       {isCollapsed ? (
                         <Text />
                       ) : (
@@ -1110,7 +1131,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                       )}
                     </View>
                   </TouchableOpacity>
-                </View>
+                </View> */}
                 {/* show 选集播放 section when avaiable episode more thn 1 */}
                 <>
                   {isFetchingVodDetails ? (
@@ -1324,6 +1345,15 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
           <AdultVideoVipModal />
         }
       </ScreenContainer>
+      <DescriptionBottomSheet
+        isVisible={isShowDescription}
+        handleClose={() => setShowDescription(false)}
+        vodTitle={vod?.vod_name}
+        vod_actor={vod?.vod_actor}
+        vod_writer={vod?.vod_author}
+        vod_director={vod?.vod_director}
+        vod_content={vodDetails?.vod_content}
+        />
     </>
   );
 };
