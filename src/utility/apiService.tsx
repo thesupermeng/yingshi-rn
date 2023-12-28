@@ -10,7 +10,7 @@ import { YSConfig } from '../../ysConfig';
 export class CApi {
     static #env = new CEnv(__DEV__ ? 'development' : 'production');
     static #apiInstance: AxiosInstance | null = null;
-    static #bearerToken: string;
+    static bearerToken: string;
 
     static init = async () => {
         if (__DEV__) {
@@ -35,14 +35,14 @@ export class CApi {
         });
 
         this.#apiInstance.interceptors.request.use(async (config) => {
-            if (this.#bearerToken === undefined) {
+            if (this.bearerToken === undefined) {
                 const token = await this.#tryGetToken();
-                if (token) this.#bearerToken = token;
+                if (token) this.bearerToken = token;
             }
 
             // check if url is our system, pass bearer token and device id
             if (config.url?.includes(this.#env.apiUrl)) {
-                config.headers['Authorization'] = `Bearer ${this.#bearerToken}`;
+                config.headers['Authorization'] = `Bearer ${this.bearerToken}`;
                 config.headers['Device-Id'] = deviceId;
                 config.headers['IP-Address'] = this.#getIpAddress();
             }

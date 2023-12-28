@@ -28,9 +28,12 @@ import {
   hideAdultModeDisclaimer,
   hideAdultModeVip,
   incrementAdultVideoWatchTime,
+  showAdultVipPrivilegeMiniVideoAction,
 } from "@redux/actions/screenAction";
 import { userModel } from "@type/userType";
 import { UMENG_CHANNEL } from "@utility/constants";
+import { AdultVipPrivilegeOverlay } from "../modal/adultVipPrivilegeOverlay";
+import { VipPrivilegeFloatingIndicator } from "./vipPrivilegeFloatingIndicator";
 interface Props {}
 
 const eighteenPlusControls = ({}: Props) => {
@@ -43,12 +46,13 @@ const eighteenPlusControls = ({}: Props) => {
     adultModeDisclaimerShow,
     adultMode,
     watchAnytimeAdultMode,
-    isOverEighteenAccepted
+    isOverEighteenAccepted, 
+    showAdultVipPrivilegeMiniVideo
   } = screenState;
   const dispatch = useAppDispatch();
-  // const isVip = !(Number(userState.userMemberExpired) <=
-  //                 Number(userState.userCurrentTimestamp) ||
-  //                 userState.userToken === "")
+  const isVip = !(Number(userState.userMemberExpired) <=
+                  Number(userState.userCurrentTimestamp) ||
+                  userState.userToken === "")
 
   // useEffect(() => {
   //   let interval: any;
@@ -76,18 +80,37 @@ console.log( Platform.OS )
     dispatch(hideAdultModeDisclaimer());
   }, [])
 
+  const handlePressIndicator = useCallback(() => {
+    dispatch(showAdultVipPrivilegeMiniVideoAction())
+  }, [])
+
   return (
     <View
       style={{
         ...styles.container,
-        height: adultModeVipShow || (!isOverEighteenAccepted && adultModeDisclaimerShow) ? "100%" : "auto",
+        // height: adultModeVipShow || (!isOverEighteenAccepted && adultModeDisclaimerShow) ? "100%" : "auto",
+        height: showAdultVipPrivilegeMiniVideo ? '100%' : 'auto'
       }}
     >
       {watchAnytimeAdultMode && <WatchAnytimeVipModal />}
       {(UMENG_CHANNEL != "GOOGLE_PLAY" || Platform.OS === "ios" ) && (
         <AdultModeSwitch switchStyle={styles.switch} />
       )}
-      {watchAnytimeAdultMode && (UMENG_CHANNEL != "GOOGLE_PLAY" || Platform.OS === "ios" )&& (
+      {watchAnytimeAdultMode && !isVip && !showAdultVipPrivilegeMiniVideo &&
+        <VipPrivilegeFloatingIndicator
+          text1="升级VIP"
+          text2="享更多福利视频 》"
+          containerStyle={{
+            position: "absolute",
+            top: 70,
+            right: 0,
+            flex: 1,
+          }}
+          onPress={handlePressIndicator}
+        />
+
+      }
+      {/* {watchAnytimeAdultMode && (UMENG_CHANNEL != "GOOGLE_PLAY" || Platform.OS === "ios" )&& (
         <AdultModeCountdownIndicator
           containerStyle={{
             position: "absolute",
@@ -96,11 +119,12 @@ console.log( Platform.OS )
             flex: 1,
           }}
         />
-      )}
-      <EighteenPlusOverlay
+      )} */}
+      {/* <EighteenPlusOverlay
         handleAccept={handleAccept}
         handleReject={handleReject}
-      />
+      /> */}
+      <AdultVipPrivilegeOverlay/>
     </View>
   );
 };
