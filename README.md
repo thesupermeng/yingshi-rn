@@ -97,3 +97,6 @@ Rollback to previous version:
 code-push rollback <appName> <deploymentName>
 example:
 - code-push rollback yingshi-ios Production
+
+
+appcenter codepush release-react -a developeryingshi/yingshi-ios-new -d Production --description "test" --mandatory true --plist-file ios/aimeiju/Info.plist
