@@ -16,9 +16,6 @@ import { useFocusEffect, useTheme } from '@react-navigation/native';
 
 import { RootStackScreenProps } from '@type/navigationTypes';
 import {
-  FilterOptionsResponseType,
-  FilterOptionsTypeExtendObj,
-  SuggestResponseType,
   SuggestedVodType,
   VodType,
 } from '@type/ajaxTypes';
@@ -48,6 +45,7 @@ import EmptyList from '../../components/common/emptyList';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { TabItem } from '@rneui/base/dist/Tab/Tab.Item';
 import useAnalytics from '@hooks/useAnalytics';
+import { VodApi } from '@api';
 
 interface NavType {
   id: number;
@@ -99,14 +97,7 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
   const dispatch = useAppDispatch();
   const { data: navOptions } = useQuery({
     queryKey: ['filterOptions'],
-    queryFn: () =>
-      fetch(`${API_DOMAIN}type/v1/type`)
-        .then(response => {
-          return response.json();
-        })
-        .then((json: FilterOptionsResponseType) => {
-          return json.data;
-        }),
+    queryFn: () => VodApi.getTopicType(),
   });
   // Filtering
   const [currentTopicId, setCurrentTopicId] = useState(
@@ -209,30 +200,17 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
   };
 
   const fetchVods = useCallback(
-    (page: number) => {
-      let url = `${API_DOMAIN}vod/v2/vod?limit=${LIMIT_PER_PAGE}`;
-      url += `&tid=${currentTopicId}`;
-      if (topicClass.value !== '全部类型') {
-        url += `&class=${topicClass.value}`;
-      }
-      if (area.value !== '全部地区') {
-        url += `&area=${area.value}`;
-      }
-      if (lang.value !== '全部语言') {
-        url += `&lang=${lang.value}`;
-      }
-      if (year.value !== '全部时间') {
-        url += `&year=${year.value}`;
-      }
-      url += `&by=${orderBy.value}&order=desc`;
-      url += `&page=${page}`;
-
-      return fetch(url)
-        .then(response => response.json())
-        .then((json: SuggestResponseType) => {
-          return json.data.List;
-        });
-    },
+    (page: number) => VodApi.getList({
+      page,
+      limit: LIMIT_PER_PAGE,
+      tid: currentTopicId.toString(),
+      by: orderBy.value,
+      category: topicClass.value !== '全部类型' ? topicClass.value : undefined,
+      area: area.value !== '全部地区' ? area.value : undefined,
+      lang: lang.value !== '全部语言' ? lang.value : undefined,
+      year: year.value !== '全部时间' ? year.value : undefined,
+      orderBy: 'desc',
+    }).then((data) => data.List as SuggestedVodType[]),
     [area, year, lang, topicClass, currentTopicId, orderBy],
   );
 

@@ -3,12 +3,12 @@ import { Image, Keyboard, StyleSheet, Text, TouchableOpacity, View } from "react
 import { CBottomSheet } from "../atoms";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import { CTextInput } from "../atoms/textInput";
-import { updateUsername } from "../../../features/user";
 import { useSelector } from "@hooks/hooks";
 import { userModel } from "@type/userType";
 import { useDispatch } from "react-redux";
 import { changeScreenAction } from "@redux/actions/screenAction";
 import { updateUsernameState } from "@redux/actions/userAction";
+import { UserApi } from "@api";
 
 
 interface Props {
@@ -68,22 +68,20 @@ export const ChangeUsernameModal = ({
         if (isSubmitting) return;
         setSubmitting(true);
 
-        let res;
         try {
-            res = await updateUsername({
+            await UserApi.updateUsername({
                 username: username,
-                bearerToken: userState.userToken,
             });
         } catch (err: any) {
             if (
-                err.response.data.errors &&
-                err.response.data.errors.username
+                err.errors &&
+                err.errors.username
             ) {
-                setUsernameErrMsg(err.response.data.errors.username);
+                setUsernameErrMsg(err.errors.username);
             }
 
-            if (!err.response.data.errors && err.response.data.message) {
-                setUsernameErrMsg(err.response.data.message);
+            if (!err.errors && err.message) {
+                setUsernameErrMsg(err.message);
             }
 
             setSubmitting(false);

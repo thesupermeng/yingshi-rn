@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -10,19 +10,19 @@ import {
   RefreshControl,
 } from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
-import {RootStackScreenProps} from '@type/navigationTypes';
-import {useTheme} from '@react-navigation/native';
-import {RootState} from '@redux/store';
+import { RootStackScreenProps } from '@type/navigationTypes';
+import { useTheme } from '@react-navigation/native';
+import { RootState } from '@redux/store';
 
 import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
 import axios from 'axios';
-import {Keyboard} from 'react-native';
+import { Keyboard } from 'react-native';
 import {
   API_DOMAIN,
   API_DOMAIN_TEST,
   API_DOMAIN_LOCAL,
 } from '@utility/constants';
-import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
+import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 
 import InviteStep from '../../components/invite/inviteStep';
 import InviteCard from '../../components/invite/inviteCard';
@@ -31,19 +31,19 @@ import InviteHeader from '../../components/invite/inviteHeader';
 // import FastImage from 'react-native-fast-image';
 import FastImage from '../../components/common/customFastImage';
 import LinearGradient from 'react-native-linear-gradient';
-import {userModel} from '@type/userType';
-import {useAppSelector} from '@hooks/hooks';
-import {getUserDetails} from '../../features/user';
+import { userModel } from '@type/userType';
+import { useAppSelector } from '@hooks/hooks';
 import {
   updateUserAuth,
   updateUserReferral,
 } from '@redux/actions/userAction';
-import {useDispatch} from 'react-redux';
-export default ({navigation}: RootStackScreenProps<'邀请详情'>) => {
-  const {colors, textVariants, icons, spacing} = useTheme();
+import { useDispatch } from 'react-redux';
+import { UserApi } from '@api';
+export default ({ navigation }: RootStackScreenProps<'邀请详情'>) => {
+  const { colors, textVariants, icons, spacing } = useTheme();
 
   const userState: userModel = useAppSelector(
-    ({userReducer}: RootState) => userReducer,
+    ({ userReducer }: RootState) => userReducer,
   );
   const dispatch = useDispatch();
 
@@ -56,15 +56,12 @@ export default ({navigation}: RootStackScreenProps<'邀请详情'>) => {
     setRefreshing(false);
   };
   const refreshUserState = async () => {
-    let result;
-    result = await getUserDetails({
-      bearerToken: userState.userToken,
-    });
+    const result = await UserApi.getUserDetails();
     if (result == null) {
       return;
     }
-    let resultData = result.data.data;
-    await dispatch(updateUserAuth(resultData));
+
+    await dispatch(updateUserAuth(result));
 
     return;
   };
@@ -98,7 +95,7 @@ export default ({navigation}: RootStackScreenProps<'邀请详情'>) => {
         displayText = item.user_name + '接受了您的邀请';
       }
 
-      return {...item, displayText: displayText};
+      return { ...item, displayText: displayText };
     });
     console.log('mergedArray');
     console.log(mergedArray);
@@ -117,8 +114,8 @@ export default ({navigation}: RootStackScreenProps<'邀请详情'>) => {
         <LinearGradient
           colors={['#323638', '#1a1d20']} // An array of gradient colors
           locations={[0.1, 1]}
-          start={{x: 1, y: 0}} // Top-right corner
-          end={{x: 0, y: 1}} // Bottom-left corner
+          start={{ x: 1, y: 0 }} // Top-right corner
+          end={{ x: 0, y: 1 }} // Bottom-left corner
           style={{
             marginTop: 40,
             paddingHorizontal: 20,
@@ -145,9 +142,9 @@ export default ({navigation}: RootStackScreenProps<'邀请详情'>) => {
         </LinearGradient>
 
         {/*  invite table   */}
-        <View style={{marginTop: 40, alignItems: 'center'}}>
+        <View style={{ marginTop: 40, alignItems: 'center' }}>
           <Text
-            style={{...textVariants.header, fontSize: 16, fontWeight: '700'}}>
+            style={{ ...textVariants.header, fontSize: 16, fontWeight: '700' }}>
             邀请记录
           </Text>
 
@@ -171,14 +168,14 @@ export default ({navigation}: RootStackScreenProps<'邀请详情'>) => {
                     paddingHorizontal: 20,
                     paddingVertical: 15,
                   }}>
-                  <View style={{flex: 1, paddingRight: 10}}>
+                  <View style={{ flex: 1, paddingRight: 10 }}>
                     <Text
-                      style={{fontSize: 16, color: '#fff'}}
+                      style={{ fontSize: 16, color: '#fff' }}
                       numberOfLines={1}
                       ellipsizeMode="tail">
                       {item.displayText}
                     </Text>
-                    <Text style={{color: '#9c9c9c'}}>{item.created_at}</Text>
+                    <Text style={{ color: '#9c9c9c' }}>{item.created_at}</Text>
                   </View>
 
                   <View
@@ -219,7 +216,7 @@ export default ({navigation}: RootStackScreenProps<'邀请详情'>) => {
                   paddingVertical: 20,
                 }}>
                 <View>
-                  <Text style={{color: '#fff'}}>暂时无邀请记录</Text>
+                  <Text style={{ color: '#fff' }}>暂时无邀请记录</Text>
                 </View>
               </View>
             </View>

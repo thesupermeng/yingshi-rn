@@ -23,6 +23,12 @@
       "@iosScreen/*": [
         "./src/aScreen.ios/*"
       ],
+      "@api": [
+        "./src/api/index.tsx"
+      ],
+      "@constants": [
+        "./src/constants/index.tsx"
+      ],
     },
   }
 }

@@ -31,8 +31,8 @@ import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import { userModel } from "@type/userType";
 import { TouchableOpacity } from "@gorhom/bottom-sheet";
 import { updateUserAuth } from "@redux/actions/userAction";
-import { getUserDetails } from "../../features/user";
 import useAnalytics from '@hooks/useAnalytics';
+import { UserApi } from "@api";
 
 
 export default ({ navigation }: RootStackScreenProps<"邀请">) => {
@@ -60,16 +60,12 @@ export default ({ navigation }: RootStackScreenProps<"邀请">) => {
   };
 
   const refreshUserState = async () => {
-    let result;
-    result = await getUserDetails({
-      bearerToken: userState.userToken,
-    });
+    const result = await UserApi.getUserDetails();
     if (result == null) {
       return;
     }
-    let resultData = result.data.data;
 
-    await dispatch(updateUserAuth(resultData));
+    await dispatch(updateUserAuth(result));
     return;
   };
 

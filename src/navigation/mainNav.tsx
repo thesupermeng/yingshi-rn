@@ -1,41 +1,28 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View } from "react-native";
-import { Provider } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react";
-import { QueryClient, QueryClientProvider, useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import FastImage from "../components/common/customFastImage";
-import { NetworkInfo } from "react-native-network-info";
 import Nav from "../../src/navigation/nav";
 import NavIos from "@iosScreen/navigation/nav";
-// import NavIos from "../../srcIos/navigation/nav";
 import NavA from "@androidScreen/navigation/nav";
-import axios from "axios";
 import {
-  API_DOMAIN,
-  UMENG_CHANNEL,
-  APP_VERSION,
-  APP_NAME_CONST,
-  API_DOMAIN_TEST,
-  DOWNLOAD_BATCH_SIZE,
   TOTAL_VIDEO_TO_DOWNLOAD,
   DOWNLOAD_WATCH_ANYTIME,
   GOOGLE_SINGIN_CLIENT_WEB,
   GOOGLE_SINGIN_CLIENT_IOS,
 } from "@utility/constants";
 import { YSConfig } from "../../ysConfig";
-import { Dimensions, Platform } from "react-native";
+import { Platform } from "react-native";
 import Api from "../../src/Sports/middleware/api";
 import { Url } from "../../src/Sports/middleware/url";
 import Config from "../../src/Sports/global/env";
 import { AppConfig } from "../../src/Sports/global/appConfig";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import RNFetchBlob from "rn-fetch-blob";
-import { Toast } from "@ant-design/react-native";
-import chunk from "lodash/chunk";
 import { AdsBannerContextProvider } from "../contexts/AdsBannerContext";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { downloadFirstNVid } from "../utils/minivodDownloader";
 import { fetchMiniVods } from "../api/miniVod";
+import { AppsApi } from "@api";
 
 
 export default () => {
@@ -43,7 +30,7 @@ export default () => {
   const [areaNavConfig, setAreaNavConfig] = useState(false);
   const [isSuper, setIsSuper] = useState(false);
 
-  const getNav = async () => {
+  const onAppInit = async () => {
     const res = await Api.call(
       Url.getConfig,
       { channel: Config.channelId },
@@ -51,48 +38,6 @@ export default () => {
     );
     if (res.success) {
       AppConfig.instance.setConfig(res.data);
-    }
-
-    const responsePromise = fetch(
-      `${API_DOMAIN}nav/v1/bottomtabs?channelId=` +
-        UMENG_CHANNEL +
-        `&mobileOS=` +
-        Platform.OS.toUpperCase()
-    );
-
-
-    const [response] = await Promise.all([
-      responsePromise
-    ]);
-
-    if (response.ok) {
-      const tabData = await response.json();
-      if (tabData != undefined && tabData != null) {
-        YSConfig.instance.setTabConfig(tabData.data);
-      }
-    }
-
-    let ipAddress;
-
-    try {
-      const response = await fetch("https://geolocation-db.com/json/");
-      if (!response.ok) {
-        // If the response status is not ok (2xx), throw an error
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      const data = await response.json();
-      ipAddress = data.IPv4;
-     // throw new Error("Forced 502 Error");
-    } catch (err) {
-      // Log the error to understand what went wrong
-      console.error("Error fetching geolocation:", err);
-      // Handle the error gracefully, set a default IP address, or take appropriate action
-      ipAddress = "219.75.27.16";
-    }
-    console.log(ipAddress);
-
-    if (ipAddress != null && ipAddress != undefined) {
-      YSConfig.instance.setNetworkIp(ipAddress);
     }
 
     const access = await AsyncStorage.getItem("access");
@@ -108,36 +53,23 @@ export default () => {
       return;
     }
 
-    const locationBody = {
-      ip_address: ipAddress,
-      channel_id: UMENG_CHANNEL,
-      version_number: APP_VERSION,
-      mobile_os: Platform.OS,
-      product: APP_NAME_CONST + "-" + Platform.OS.toUpperCase(),
-      mobile_model: "HUAWEIP20",
-      // ab_switch: true
-    };
 
-    const locationResponse = await fetch(`${API_DOMAIN}location/v1/info`, {
-      method: "POST",
-      mode: "cors",
-      credentials: "same-origin",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(locationBody),
-    });
-    if (locationResponse.ok) {
-      const locationResp = await locationResponse.json();
+    await Promise.all([
+      AppsApi.getLocalIpAddress(),
+      AppsApi.getBottomNav(),
+    ]);
 
-      if (locationResp != undefined && locationResp != null) {
-        if (locationResp.data == undefined || locationResp.data == null) {
+    try {
+      const locationResp = await AppsApi.postLocation();
+
+      if (locationResp !== undefined && locationResp !== null) {
+        if (locationResp.status == undefined || locationResp.status == null) {
           YSConfig.instance.setAreaConfig(false);
           setAreaNavConfig(false);
           setLoadedAPI(true);
         } else {
-          YSConfig.instance.setAreaConfig(locationResp.data.status);
-          setAreaNavConfig(locationResp.data.status);
+          YSConfig.instance.setAreaConfig(locationResp.status);
+          setAreaNavConfig(locationResp.status);
           setLoadedAPI(true);
         }
       } else {
@@ -145,17 +77,16 @@ export default () => {
         setAreaNavConfig(false);
         setLoadedAPI(true);
       }
-    } else {
+
+    } catch (e: any) {
       YSConfig.instance.setAreaConfig(false);
       setAreaNavConfig(false);
       setLoadedAPI(true);
     }
-  };
-
-  
+  }
 
   useEffect(() => {
-    getNav();
+    onAppInit();
 
     GoogleSignin.configure({
       webClientId: GOOGLE_SINGIN_CLIENT_WEB,
@@ -164,13 +95,14 @@ export default () => {
     });
   }, []);
 
-  const {data} = useInfiniteQuery(['watchAnytime', 'normal'], {
-    queryFn: ({pageParam = 1}) => fetchMiniVods(pageParam, 'api')
+  const { data } = useInfiniteQuery(['watchAnytime', 'normal'], {
+    queryFn: ({ pageParam = 1 }) => fetchMiniVods(pageParam, 'api')
   })
-  useEffect(() => {
-    if (DOWNLOAD_WATCH_ANYTIME === true){
 
-      if (!!data){
+  useEffect(() => {
+    if (DOWNLOAD_WATCH_ANYTIME === true) {
+
+      if (!!data) {
         const firstNVod = data.pages.flat(Infinity).slice(0, TOTAL_VIDEO_TO_DOWNLOAD)
         downloadFirstNVid(TOTAL_VIDEO_TO_DOWNLOAD, firstNVod)
 
@@ -182,10 +114,10 @@ export default () => {
   return (
     <>
       {isSuper == true ? (
-             <AdsBannerContextProvider>
-                <Nav />
-             </AdsBannerContextProvider>
-      
+        <AdsBannerContextProvider>
+          <Nav />
+        </AdsBannerContextProvider>
+
       ) : (
         <>
           {loadedAPI == false ? (

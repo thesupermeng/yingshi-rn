@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useMemo, memo, useState} from 'react';
+import React, { useCallback, useEffect, useMemo, memo, useState } from 'react';
 import {
   View,
   TouchableOpacity,
@@ -9,18 +9,14 @@ import {
   Image,
 } from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
-import {useNavigation, useTheme} from '@react-navigation/native';
+import { useNavigation, useTheme } from '@react-navigation/native';
 
-import {RootStackScreenProps} from '@type/navigationTypes';
+import { RootStackScreenProps } from '@type/navigationTypes';
 import {
-  FilterOptionsResponseType,
-  FilterOptionsTypeExtendObj,
-  SuggestResponseType,
-  SuggestedVodType,
   VodType,
 } from '@type/ajaxTypes';
-import {playVod} from '@redux/actions/vodActions';
-import {useAppDispatch} from '@hooks/hooks';
+import { playVod } from '@redux/actions/vodActions';
+import { useAppDispatch } from '@hooks/hooks';
 import {
   useInfiniteQuery,
   useQuery,
@@ -30,16 +26,16 @@ import TitleWithBackButtonHeader from '../../components/header/titleWithBackButt
 import VodTopicFilter from '../../components/vod/vodTopicFilter';
 import VodCard from '../../components/vod/vodCard';
 import DownArrow from '@static/images/arrow_down_yellow.svg';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Animated, {
   useSharedValue,
   useAnimatedScrollHandler,
   useAnimatedStyle,
 } from 'react-native-reanimated';
-import {FlatListProps} from 'react-native/Libraries/Lists/FlatList';
+import { FlatListProps } from 'react-native/Libraries/Lists/FlatList';
 // import FastImage from 'react-native-fast-image';
 import FastImage from '../common/customFastImage';
-import {LiveTVStationItem} from '@type/ajaxTypes';
+import { LiveTVStationItem } from '@type/ajaxTypes';
 
 interface Props {
   itemList: Array<LiveTVStationItem>;
@@ -54,7 +50,7 @@ export default function VodLiveStationListVertical({
   numOfRows = 4,
   selectedItem,
 }: Props) {
-  const {textVariants, colors, spacing, icons} = useTheme();
+  const { textVariants, colors, spacing, icons } = useTheme();
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
@@ -71,7 +67,7 @@ export default function VodLiveStationListVertical({
     for (let i = 0; i < items.length; i += itemsPerRow) {
       const rowItems = items.slice(i, i + itemsPerRow);
       const row = (
-        <View key={i} style={{...styles.cardRow, gap: 10}}>
+        <View key={i} style={{ ...styles.cardRow, gap: 10 }}>
           {rowItems.map(item => (
             <TouchableOpacity
               key={item.id}
@@ -86,7 +82,7 @@ export default function VodLiveStationListVertical({
                 });
               }}>
               <FastImage
-                style={{flex: 1, borderRadius: 10}}
+                style={{ flex: 1, borderRadius: 10 }}
                 source={{
                   uri: item.live_station_img_url.charAt(0) == '/' ? 'https://xiangkantv.net' + item.live_station_img_url : item.live_station_img_url,
                   priority: 'normal',
@@ -105,7 +101,7 @@ export default function VodLiveStationListVertical({
       {!isLoading && (
         <>
           <View style={styles.container}>{renderItems()}</View>
-          <View style={{...styles.loading}}>
+          <View style={{ ...styles.loading }}>
             <Text
               style={{
                 ...textVariants.subBody,
@@ -119,9 +115,9 @@ export default function VodLiveStationListVertical({
       )}
 
       {isLoading && (
-        <View style={{...styles.loading, paddingTop: 20}}>
+        <View style={{ ...styles.loading, paddingTop: 20 }}>
           <FastImage
-            style={{height: 80, width: 80}}
+            style={{ height: 80, width: 80 }}
             source={require('@static/images/loading-spinner.gif')}
             resizeMode={"contain"}
           />

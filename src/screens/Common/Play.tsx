@@ -25,8 +25,8 @@ import { YSConfig } from "../../../ysConfig";
 
 import { RootStackScreenProps } from "@type/navigationTypes";
 import {
-  SuggestResponseType,
-  VodDetailsResponseType,
+  AdultVodListType,
+  SuggestedVodType,
   VodSourceType,
 } from "@type/ajaxTypes";
 import { addVodToHistory, playVod } from "@redux/actions/vodActions";
@@ -80,7 +80,7 @@ import { disableAdultMode, enableAdultMode, incrementAdultVideoWatchTime } from 
 import useAnalytics from "@hooks/useAnalytics";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { screenModel } from "@type/screenType";
-// import VodSourcesEpisodes from "../../components/vod/vodSourcesEpisodes";
+import { VodApi } from "@api";
 
 let insetsTop = 0;
 let insetsBottom = 0;
@@ -102,28 +102,28 @@ const server = new BridgeServer("http_service", true); // http server for hostin
 
 const getNoAdsUri = async (url: string, vodId: string) => {
   // fix for haiwaikan EXT-X-TARGETDURATION
-  const m3u8Content = (await RNFetchBlob.fetch("GET", url)).text().toString(); 
+  const m3u8Content = (await RNFetchBlob.fetch("GET", url)).text().toString();
 
   const isPlaylistFile = m3u8Content.match(/#EXT-X-TARGETDURATION:\d*/) !== null
 
-  if (!isPlaylistFile){ 
+  if (!isPlaylistFile) {
     return url;
   } else {
     const modifiedPlaylist = m3u8Content.replace(/#EXT-X-TARGETDURATION:\d*/, '#EXT-X-TARGETDURATION:999')
     const uniqueIdentifier = url.split('/').at(-1)?.replace('.m3u8', '')
 
     server.get(`/${uniqueIdentifier}/index.m3u8`, async (req, res) => {
-    res.send(
-      200,
-      "application/vnd.apple.mpegurl",
-      modifiedPlaylist
-    );
-  });
+      res.send(
+        200,
+        "application/vnd.apple.mpegurl",
+        modifiedPlaylist
+      );
+    });
 
-  return `http://localhost:${PLAY_HTTP_SERVER_PORT}/${uniqueIdentifier}/index.m3u8`;
+    return `http://localhost:${PLAY_HTTP_SERVER_PORT}/${uniqueIdentifier}/index.m3u8`;
 
   }
-  
+
 
   // const startTime = new Date().valueOf();
   // const parentUrl = url
@@ -311,8 +311,8 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       if (videoPlayerRef.current) {
         videoPlayerRef.current.setPause(true);
         setShouldResumeAfterLoad(true)
+      }
     }
-  }
   }, [currentSourceId]);
 
   // For adding loading spinner before load player
@@ -351,15 +351,15 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
         onPress={() => onPressSource(item.source_id)}
       >
         <SourceIcon
-        style={{
-          alignSelf: 'center',
-          marginRight: 3,
-          marginBottom: -3,
-        }}/>
+          style={{
+            alignSelf: 'center',
+            marginRight: 3,
+            marginBottom: -3,
+          }} />
         <Text
           numberOfLines={1}
           style={{
-            flex:1,
+            flex: 1,
             fontSize: 15,
             textAlign: "center",
             fontWeight: "600",
@@ -383,7 +383,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     [currentEpisode, vod, currentSourceId]
   );
 
-  const foundSource = vodSources.find(({source_id}) => source_id === currentSourceId)?.vod_play_list
+  const foundSource = vodSources.find(({ source_id }) => source_id === currentSourceId)?.vod_play_list
   const showEpisodeRangeEnd = useMemo(
     () =>
       Math.min(
@@ -391,7 +391,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
         // vod?.vod_play_list
         //   ? vod.vod_play_list.url_count
         foundSource
-        ? foundSource.url_count
+          ? foundSource.url_count
           : showEpisodeRangeStart + EPISODE_RANGE_SIZE
       ),
     [currentEpisode, showEpisodeRangeStart, vod, currentSourceId]
@@ -402,16 +402,12 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       playsShareClicksAnalytics();
       // ========== for analytics - end ==========
 
-      let msg = `《${
-        vod?.vod_name
-      }》高清播放${"\n"}https://yingshi.tv/index.php/vod/play/id/${
-        vod?.vod_id
-      }/sid/1/nid/${
-        currentEpisode + 1
-      }.html${"\n"}${APP_NAME_CONST}-海量高清视频在线观看`
+      let msg = `《${vod?.vod_name
+        }》高清播放${"\n"}https://yingshi.tv/index.php/vod/play/id/${vod?.vod_id
+        }/sid/1/nid/${currentEpisode + 1
+        }.html${"\n"}${APP_NAME_CONST}-海量高清视频在线观看`
 
-      if(APP_NAME_CONST=='爱美剧')
-      {
+      if (APP_NAME_CONST == '爱美剧') {
         msg = `海量视频内容 随时随地 想看就看 ${"\n"}https://xiangkantv.net/share.html`
       }
 
@@ -515,41 +511,24 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     // );
   }, []);
 
-  const localIp = YSConfig.instance.ip;
-  const apiEndpoint = adultMode ? `${API_DOMAIN_TEST}svod/v1/vod/detail` : `${API_DOMAIN_TEST}vod/v3/vod/detail`
   const fetchVodDetails = useCallback(() =>
-    fetch(
-
-      `${apiEndpoint}?id=${vod?.vod_id}&appName=${APP_NAME_CONST}&platform=` +
-
-
-      Platform.OS.toUpperCase() +
-      `&channelId=` +
-      UMENG_CHANNEL +
-      // `&ip=${localIp}`
-      `&ip=218.107.132.66`
-
-    )
-      .then((response) => response.json())
-      .then((json: VodDetailsResponseType) => {
-        const isRestricted = json.data[0]?.vod_restricted === 1;
-        if (isRestricted) {
-          videoPlayerRef.current.setPause(true);
-          // use setTimeout to prevent video non pause before unmount the screen
-          setTimeout(() => {
-            setVodRestricted(isRestricted);
-          }, 100);
-        } else {
+    VodApi.getDetail(vod?.vod_id.toString() ?? '', {
+      xMode: adultMode,
+    }).then((data) => {
+      const isRestricted = data.vod_restricted === 1;
+      if (isRestricted) {
+        videoPlayerRef.current.setPause(true);
+        // use setTimeout to prevent video non pause before unmount the screen
+        setTimeout(() => {
           setVodRestricted(isRestricted);
-        }
+        }, 100);
+      } else {
+        setVodRestricted(isRestricted);
+      }
 
-        return json.data[0];
-      }), [apiEndpoint, vod])
-  // console.debug(`${apiEndpoint}?id=${vod?.vod_id}&appName=${APP_NAME_CONST}&platform=` +
-  // Platform.OS.toUpperCase() +
-  // `&channelId=` +
-  // UMENG_CHANNEL +
-  // `&ip=${localIp}`)
+      return data;
+    }), [vod]);
+
   const { data: vodDetails, isFetching: isFetchingVodDetails } = useQuery({
     queryKey: ["vodDetails", vod?.vod_id],
     queryFn: () => fetchVodDetails(),
@@ -575,37 +554,35 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       setVodRestricted(isRestricted);
     }
 
-    if (!! vod?.vodSourceId){
+    if (!!vod?.vodSourceId) {
       // if redux got, use it from redux 
       // console.debug('redux source id ', vod.vodSourceId)
       setCurrentSourceId(vod.vodSourceId)
-    } 
+    }
     else {
       // else just use from api
       // console.debug('using api preferred value')
       setCurrentSourceId(vodDetails?.preferred_source_id)
     }
-    
+
     // setCurrentEpisode(Math.min((vodDetails?.vod_play_list.url_count ?? 1) - 1 , vod?.episodeWatched ?? 0))
 
     if (vodDetails && vodDetails.vod_sources && vodDetails.vod_sources.length > 0) {
-        setVodSources(vodDetails.vod_sources);
-        // setCurrentSourceId(vodDetails.preferred_source_id)
-        // Other operations or state changes related to vodDetails...
-      }
+      setVodSources(vodDetails.vod_sources);
+      // setCurrentSourceId(vodDetails.preferred_source_id)
+      // Other operations or state changes related to vodDetails...
+    }
 
   }, [vodDetails]);
 
   const fetchVod = () =>
-    fetch(
-      `${API_DOMAIN}vod/v1/vod?class=${vod?.vod_class
+    VodApi.getList({
+      category: vod?.vod_class
         ?.split(",")
-        .shift()}&tid=${vod?.type_id}&limit=6`
-    )
-      .then((response) => response.json())
-      .then((json: SuggestResponseType) => {
-        return json.data.List;
-      });
+        .shift(),
+      tid: vod?.type_id.toString() ?? '',
+      limit: 6,
+    }).then((data) => data.List as SuggestedVodType[]);
 
   useEffect(() => {
     currentEpisodeRef.current = vod?.episodeWatched;
@@ -626,13 +603,13 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   });
 
   const fetchSVod = () =>
-    fetch(
-      `${API_DOMAIN}svod/v1/vod?class=${vod?.vod_class}&limit=6&rand=1`
-    )
-      .then((response) => response.json())
-      .then((json: SuggestResponseType) => {
-        return json.data.List;
-      });
+    VodApi.getList({
+      category: vod?.vod_class,
+      tid: vod?.type_id.toString() ?? '',
+      limit: 6,
+      rand: 1,
+      xMode: true,
+    }).then((data) => data.List as AdultVodListType[]);
 
   const {
     data: suggestedSVods,
@@ -667,14 +644,14 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     // });
     if ((foundSource?.url_count ?? 0) < currentEpisode) {
       return
-    } 
+    }
     setTimeout(() => {
       try {
-      episodeRef?.current?.scrollToIndex({
-        index: currentEpisode % 100,
-        animated: true,
-      });
-    } catch(error) {console.log('An error occurred while scrolling:', error);}
+        episodeRef?.current?.scrollToIndex({
+          index: currentEpisode % 100,
+          animated: true,
+        });
+      } catch (error) { console.log('An error occurred while scrolling:', error); }
     }, 1200)
   }, [currentEpisode, episodeRef, isFetchingVodDetails, currentSourceId, sourceRef]);
 
@@ -688,7 +665,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
           //START HERE, SAVE POINT
           // vod?.vod_play_list.urls?.find((url) => url.nid === currentEpisode)
           //   ?.url
-          vodSources?.find(({source_id}) => source_id === currentSourceId)?.vod_play_list.urls?.find((url) => url.nid === currentEpisode)
+          vodSources?.find(({ source_id }) => source_id === currentSourceId)?.vod_play_list.urls?.find((url) => url.nid === currentEpisode)
         ) {
           saveVodToHistory(vod);
           setInitTime(currentTimeRef.current);
@@ -771,25 +748,25 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     // console.debug('redux', vod?.episodeWatched)
     const maxEpisode = (foundSource?.url_count ?? 1) - 1
     const reduxCurrentEpisode = vod?.episodeWatched ?? 1
-    if (reduxCurrentEpisode >= maxEpisode){
+    if (reduxCurrentEpisode >= maxEpisode) {
       setCurrentEpisode(Math.min(maxEpisode, reduxCurrentEpisode))
-    } else if (currentEpisode >= maxEpisode){
+    } else if (currentEpisode >= maxEpisode) {
       setCurrentEpisode(Math.min(maxEpisode, currentEpisode))
     }
   }
 
   useEffect(() => {
-    if (!!foundSource){
+    if (!!foundSource) {
       // only after source is found
       setMinimumOfMaximumEpisode()
     }
     // when source changes, choose the minimum of the max episode 
   }, [currentSourceId, foundSource])
 
-  let vodUrl: string|undefined = ''
-  if (vodSources.length > 0 && !adultMode){
-    if (vodSources.map(v => v.source_id).includes(currentSourceId)){
-      vodUrl = vodSources?.find(({source_id}) => source_id === currentSourceId)?.vod_play_list.urls?.find(
+  let vodUrl: string | undefined = ''
+  if (vodSources.length > 0 && !adultMode) {
+    if (vodSources.map(v => v.source_id).includes(currentSourceId)) {
+      vodUrl = vodSources?.find(({ source_id }) => source_id === currentSourceId)?.vod_play_list.urls?.find(
         (url) => url.nid === currentEpisode
       )?.url;
     } else {
@@ -797,7 +774,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     }
   }
 
-  if (adultMode){
+  if (adultMode) {
     // console.debug("vod", vod)
     vodUrl = vod?.vod_play_list?.urls?.find(
       (url) => url.nid === currentEpisode
@@ -1093,17 +1070,17 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                     {/* <View style={{ paddingBottom: 18 }}> */}
                     <View style={{ paddingBottom: 5 }}>
                       {isCollapsed ? (
-                        <Text /> 
+                        <Text />
                       ) : (
-                      <Text
-                        ref={textRef}
-                        onTextLayout={handleTextLayout}
-                        style={styles.descriptionContainer2Text}
-                        // numberOfLines={isCollapsed ? 2 : 20}
-                        numberOfLines={20}
-                      >
-                        {`${definedValue(vodDetails?.vod_content)}`}
-                      </Text>
+                        <Text
+                          ref={textRef}
+                          onTextLayout={handleTextLayout}
+                          style={styles.descriptionContainer2Text}
+                          // numberOfLines={isCollapsed ? 2 : 20}
+                          numberOfLines={20}
+                        >
+                          {`${definedValue(vodDetails?.vod_content)}`}
+                        </Text>
                       )}
                     </View>
                     <View style={{ paddingBottom: 0, }}>
@@ -1158,86 +1135,86 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                   ) : (
                     <>
 
-                    {/* For multiple source UI */}
-                    {!adultMode && (
-                      <>
-                    <View
-                              style={{ ...styles.spaceApart, gap: spacing.l }}
-                            >
-                              <Text style={textVariants.body}>播放源</Text>
+                      {/* For multiple source UI */}
+                      {!adultMode && (
+                        <>
+                          <View
+                            style={{ ...styles.spaceApart, gap: spacing.l }}
+                          >
+                            <Text style={textVariants.body}>播放源</Text>
 
-                            </View>
-                            <FlatList
-                              horizontal={true}
-                              showsHorizontalScrollIndicator={false}
-                              initialNumToRender={10}
-                              onScrollToIndexFailed={() => { }}
-                              ref={sourceRef}
-                              data={vodSources}
-                              // data={staticDummyData.map(item => item.url)}
-                              renderItem={renderSources}
-                              // onContentSizeChange={onContentSizeChange}
-                              ListFooterComponent={
-                                <View style={{ paddingHorizontal: 20 }} />
-                              }
-                              keyExtractor={(item, index) => index.toString()}
-                            />
-                            </>
-                            )}
-                            {/* For multiple source UI */}
+                          </View>
+                          <FlatList
+                            horizontal={true}
+                            showsHorizontalScrollIndicator={false}
+                            initialNumToRender={10}
+                            onScrollToIndexFailed={() => { }}
+                            ref={sourceRef}
+                            data={vodSources}
+                            // data={staticDummyData.map(item => item.url)}
+                            renderItem={renderSources}
+                            // onContentSizeChange={onContentSizeChange}
+                            ListFooterComponent={
+                              <View style={{ paddingHorizontal: 20 }} />
+                            }
+                            keyExtractor={(item, index) => index.toString()}
+                          />
+                        </>
+                      )}
+                      {/* For multiple source UI */}
                       {foundSource !== undefined && (
-                          <>
-                            <View
-                              style={{ ...styles.spaceApart, gap: spacing.l }}
+                        <>
+                          <View
+                            style={{ ...styles.spaceApart, gap: spacing.l }}
+                          >
+                            <Text style={textVariants.body}>选集播放</Text>
+                            <TouchableOpacity
+                              style={styles.share}
+                              onPress={() => {
+                                setShowSheet(true); // render list only when modal is up
+                              }}
                             >
-                              <Text style={textVariants.body}>选集播放</Text>
-                              <TouchableOpacity
-                                style={styles.share}
-                                onPress={() => {
-                                  setShowSheet(true); // render list only when modal is up
+                              <Text
+                                style={{
+                                  color: colors.muted,
+                                  fontSize: 15,
                                 }}
                               >
-                                <Text
-                                  style={{
-                                    color: colors.muted,
-                                    fontSize: 15,
-                                  }}
-                                >
-                                   {`${foundSource ? `1-${foundSource.url_count || 0}集` : 'No episodes available'}`}
-                                  {/* {`${showEpisodeRangeStart + 1
+                                {`${foundSource ? `1-${foundSource.url_count || 0}集` : 'No episodes available'}`}
+                                {/* {`${showEpisodeRangeStart + 1
                                   }-${showEpisodeRangeEnd}集`} */}
-                                  </Text>
-                                <MoreArrow
-                                  style={{ color: colors.muted }}
-                                  height={icons.sizes.m}
-                                  width={icons.sizes.m}
-                                />
-                              </TouchableOpacity>
-                            </View>
-                            <FlatList
-                              horizontal={true}
-                              showsHorizontalScrollIndicator={false}
-                              initialNumToRender={10}
-                              onScrollToIndexFailed={() => { }}
-                              ref={episodeRef}
-                              // data={vod?.vod_play_list.urls?.slice(
-                              //   showEpisodeRangeStart,
-                              //   showEpisodeRangeEnd
-                              // )}
-                              data={vodSources.find(({source_id}) => source_id === currentSourceId)?.vod_play_list.urls?.slice(
-                                showEpisodeRangeStart,
-                                showEpisodeRangeEnd
-                              )}
-                              renderItem={renderEpisodes}
-                              // onContentSizeChange={onContentSizeChange}
-                              ListFooterComponent={
-                                <View style={{ paddingHorizontal: 20 }} />
-                              }
-                              keyExtractor={(item, index) => index.toString()}
-                            />
-                            <View />
-                          </>
-                        )}
+                              </Text>
+                              <MoreArrow
+                                style={{ color: colors.muted }}
+                                height={icons.sizes.m}
+                                width={icons.sizes.m}
+                              />
+                            </TouchableOpacity>
+                          </View>
+                          <FlatList
+                            horizontal={true}
+                            showsHorizontalScrollIndicator={false}
+                            initialNumToRender={10}
+                            onScrollToIndexFailed={() => { }}
+                            ref={episodeRef}
+                            // data={vod?.vod_play_list.urls?.slice(
+                            //   showEpisodeRangeStart,
+                            //   showEpisodeRangeEnd
+                            // )}
+                            data={vodSources.find(({ source_id }) => source_id === currentSourceId)?.vod_play_list.urls?.slice(
+                              showEpisodeRangeStart,
+                              showEpisodeRangeEnd
+                            )}
+                            renderItem={renderEpisodes}
+                            // onContentSizeChange={onContentSizeChange}
+                            ListFooterComponent={
+                              <View style={{ paddingHorizontal: 20 }} />
+                            }
+                            keyExtractor={(item, index) => index.toString()}
+                          />
+                          <View />
+                        </>
+                      )}
 
                       {adultMode ? (
                         <>
@@ -1277,40 +1254,40 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                         </>
                       ) : (
                         <>
-                      
+
                           {vod &&
                             suggestedVods !== undefined &&
                             suggestedVods?.length > 0 ? (
-                              <View style={{ gap: spacing.l, marginBottom: 60 }}>
-                                <ShowMoreVodButton
-                                  isPlayScreen={true}
-                                  text={`相关${vod?.type_name ?? '相关推荐'}`}
-                                  onPress={() => {
-                                    //  videoPlayerRef.current.setPause(true);
-                                    setTimeout(() => {
-                                      navigation.navigate("片库", {
-                                        type_id: vod.type_id,
-                                      });
-                                    }, 150);
-                                  }}
-                                />
-                                <VodListVertical
-                                  vods={suggestedVods}
-                                  outerRowPadding={2 * (20 - spacing.sideOffset)}
-                                  onPress={() => {
-                                    if (!isCollapsed) {
-                                      setIsCollapsed(true);
-                                    }
-                                  }}
-                                />
-                              </View>
-                            ) : 
-                            
+                            <View style={{ gap: spacing.l, marginBottom: 60 }}>
+                              <ShowMoreVodButton
+                                isPlayScreen={true}
+                                text={`相关${vod?.type_name ?? '相关推荐'}`}
+                                onPress={() => {
+                                  //  videoPlayerRef.current.setPause(true);
+                                  setTimeout(() => {
+                                    navigation.navigate("片库", {
+                                      type_id: vod.type_id,
+                                    });
+                                  }, 150);
+                                }}
+                              />
+                              <VodListVertical
+                                vods={suggestedVods}
+                                outerRowPadding={2 * (20 - spacing.sideOffset)}
+                                onPress={() => {
+                                  if (!isCollapsed) {
+                                    setIsCollapsed(true);
+                                  }
+                                }}
+                              />
+                            </View>
+                          ) :
+
                             <>
-                            <View style={{marginBottom: 60}}></View>
+                              <View style={{ marginBottom: 60 }}></View>
                             </>
-                            
-                            }
+
+                          }
                         </>
                       )
                       }

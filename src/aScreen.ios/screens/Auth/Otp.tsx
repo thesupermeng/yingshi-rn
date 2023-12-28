@@ -16,11 +16,11 @@ import { useDispatch } from 'react-redux';
 import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
 
 import { ResendCountDown } from './resendCountDown';
-import { signinupUser } from '../../../features/user';
 import { addUserAuthState } from '@redux/actions/userAction';
 
 import { changeScreenAction } from '@redux/actions/screenAction';
 import useAnalytics from '@hooks/useAnalytics';
+import { UserApi } from '@api';
 
 
 export default (props: any) => {
@@ -96,7 +96,7 @@ const OtpInputs = ({
   const resendOTP = () => {
     setResend(false);
 
-    signinupUser({
+    UserApi.signinupUser({
       loginType: email !== undefined ? 'EMAIL' : 'SMS',
       email: email,
       phone: phone,
@@ -145,7 +145,7 @@ const OtpInputs = ({
     let result: any;
 
     try {
-      result = await signinupUser({
+      result = await UserApi.signinupUser({
         loginType: email !== undefined ? 'EMAIL' : 'SMS',
         email: email,
         phone: phone,

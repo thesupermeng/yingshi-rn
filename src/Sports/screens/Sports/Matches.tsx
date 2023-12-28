@@ -19,7 +19,6 @@ import MainHeader from "../../../components/header/homeHeader";
 import { useFocusEffect, useTheme } from "@react-navigation/native";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import {
-  VodPlaylistResponseType,
   VodTopicType,
 } from "@type/ajaxTypes";
 import VodPlaylist from "../../../components/playlist/vodPlaylist";

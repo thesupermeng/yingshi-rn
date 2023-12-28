@@ -75,7 +75,7 @@ const useAnalytics = ({ showLog }: { showLog: boolean } = { showLog: false }) =>
 
 
     // ============================== WatchAnytime ==============================
-    const watchAnytimeViewsAnalytics = ({ isXmode = false }: { isXmode: boolean } = { isXmode: false }) => {
+    const watchAnytimeViewsAnalytics = ({ isXmode = false }: { isXmode?: boolean } = { isXmode: false }) => {
         let evendId: string = EventId.WatchAnytime_views;
 
         if (isXmode) {
@@ -87,7 +87,7 @@ const useAnalytics = ({ showLog }: { showLog: boolean } = { showLog: false }) =>
         if (showLog) console.log('trigger event id:', evendId);
     }
 
-    const watchAnytimeVideoViewTimesAnalytics = ({ userId, vod_id, isXmode }: { userId: string, vod_id: string, isXmode: boolean }) => {
+    const watchAnytimeVideoViewTimesAnalytics = ({ userId, vod_id, isXmode }: { userId: string, vod_id: string, isXmode?: boolean }) => {
         let evendId: string = EventId.WatchAnytime_video_view_times;
 
         if (isXmode) {
@@ -269,7 +269,7 @@ const useAnalytics = ({ showLog }: { showLog: boolean } = { showLog: false }) =>
 
 
     // ============================== Plays ==============================
-    const playsViewsAnalytics = ({ vod_id, vod_name, isXmode = false }: { vod_id: string, vod_name: string, isXmode: boolean }) => {
+    const playsViewsAnalytics = ({ vod_id, vod_name, isXmode = false }: { vod_id: string, vod_name: string, isXmode?: boolean }) => {
         let eventId: string = EventId.Plays_views;
 
         if (isXmode) {
@@ -284,7 +284,7 @@ const useAnalytics = ({ showLog }: { showLog: boolean } = { showLog: false }) =>
         if (showLog) console.log('trigger event id:', eventId);
     }
 
-    const playsPlaysTimesAnalytics = ({ vod_id, vod_name, isXmode = false }: { vod_id: string, vod_name: string, isXmode: boolean }) => {
+    const playsPlaysTimesAnalytics = ({ vod_id, vod_name, isXmode = false }: { vod_id: string, vod_name: string, isXmode?: boolean }) => {
         let eventId: string = EventId.Plays_plays_times;
 
         if (isXmode) {

@@ -2,12 +2,12 @@ import { useState } from "react";
 import { Image, Keyboard, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { CBottomSheet, CTextInput } from "../atoms";
 import { useNavigation, useTheme } from "@react-navigation/native";
-import { getUserDetails, updateUsername } from "../../../features/user";
 import { useSelector } from "@hooks/hooks";
 import { userModel } from "@type/userType";
 import { useDispatch } from "react-redux";
 import { changeScreenAction } from "@redux/actions/screenAction";
 import { updateUserAuth } from "@redux/actions/userAction";
+import { UserApi } from "@api";
 
 
 interface Props {
@@ -57,34 +57,28 @@ export const ChangeReferrerModal = ({
 
         let res;
         try {
-            res = await updateUsername({
+            res = await UserApi.updateUsername({
                 username: userState.userName,
                 referralCode: referrer,
-                bearerToken: userState.userToken,
             });
         } catch (err: any) {
-            console.log(err.response);
             if (
-                err.response.data.errors &&
-                err.response.data.errors.referral_code
+                err.errors &&
+                err.errors.referral_code
             ) {
-                setReferrerErrMsg(err.response.data.errors.referral_code);
+                setReferrerErrMsg(err.errors.referral_code);
             }
 
             setSubmitting(false);
             return;
         }
 
-        const result = await getUserDetails({
-            bearerToken: userState.userToken,
-        });
+        const result = await UserApi.getUserDetails();
         if (result == null) {
             return;
         }
 
-        const resultData = result.data.data;
-
-        await dispatch(updateUserAuth(resultData));
+        await dispatch(updateUserAuth(result));
         dispatch(changeScreenAction("修改成功"));
 
         Keyboard.dismiss();
