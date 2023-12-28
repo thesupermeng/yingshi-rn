@@ -85,6 +85,7 @@ export default forwardRef<MiniVodRef, Props>(
       adultModeVipShow,
       adultVideoWatchTime,
       adultMode,
+      showAdultVipPrivilegeMiniVideo
     } = screenState;
     const isVip =
       Number(userState.userMemberExpired) <=
@@ -102,11 +103,19 @@ export default forwardRef<MiniVodRef, Props>(
       }
     }, [videoCurrentDurations[current], isPause]);
 
+    // useEffect(() => {
+    //   if (adultModeDisclaimerShow || adultModeVipShow) {
+    //     setPause(true);
+    //   }
+    // }, [adultModeDisclaimerShow, adultModeVipShow]);
+
     useEffect(() => {
-      if (adultModeDisclaimerShow || adultModeVipShow) {
-        setPause(true);
+      if (showAdultVipPrivilegeMiniVideo){
+        setPause(true)
+      } else {
+        setPause(false)
       }
-    }, [adultModeDisclaimerShow, adultModeVipShow]);
+    }, [showAdultVipPrivilegeMiniVideo])
 
     useEffect(() => {
       setChangingSource(true);
