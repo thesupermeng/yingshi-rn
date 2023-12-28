@@ -407,3 +407,13 @@ export interface CountryPhoneCodeType {
     country_flag: string,
     country_status: number,
 }
+
+export type VodPlayerAdType = {
+    id: number | null,
+    name: string | null,
+    url: string | null,
+    slotId: number | null,
+    isVideo: boolean,
+    actionUrl: string | null,
+    minDuration: number,
+}

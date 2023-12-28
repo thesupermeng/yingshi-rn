@@ -39,10 +39,14 @@ import {
 } from "@type/ajaxTypes";
 import VideoWithControls from "./videoWithControls";
 import { useDispatch } from "react-redux";
-import { useAppSelector } from "@hooks/hooks";
+import { useAppSelector, useSelector } from "@hooks/hooks";
 import { screenModel } from "@type/screenType";
-import { ADULT_MODE_PREVIEW_DURATION, NON_VIP_STREAM_TIME_SECONDS } from "@utility/constants";
+import { ADULT_MODE_PREVIEW_DURATION, AD_VIDEO_SECONDS, NON_VIP_STREAM_TIME_SECONDS } from "@utility/constants";
 import { userModel } from "@type/userType";
+import { AdVideoImage } from "./AdVideoImage";
+import { VodReducerState } from "@redux/reducers/vodReducer";
+import { VodApi } from "@api";
+import { useQuery } from "@tanstack/react-query";
 
 interface Props {
   vod_url?: string;
@@ -69,6 +73,7 @@ interface Props {
   lockOrientation: (orientation: string) => void;
   handleSaveVod?: any;
   onReadyForDisplay?: () => void;
+  showAds?: boolean,
 }
 
 type VideoControlsRef = {
@@ -114,6 +119,7 @@ export default forwardRef<VideoRef, Props>(
       lockOrientation,
       handleSaveVod = () => { },
       onReadyForDisplay,
+      showAds = false,
     }: Props,
     ref
   ) => {
@@ -135,12 +141,8 @@ export default forwardRef<VideoRef, Props>(
     const navigation = useNavigation();
     const route = useRoute();
     const dispatch = useDispatch();
-    const screenState: screenModel = useAppSelector(
-      ({ screenReducer }) => screenReducer
-    );
-    const userState: userModel = useAppSelector(
-      ({ userReducer }) => userReducer
-    );
+    const screenState = useSelector<screenModel>('screenReducer');
+    const userState = useSelector<userModel>('userReducer');
     const bufferRef = useRef(true);
     const onBuffer = (bufferObj: any) => {
       if (!bufferObj.isBuffering) {
@@ -150,10 +152,37 @@ export default forwardRef<VideoRef, Props>(
       bufferRef.current = bufferObj.isBuffering;
     };
 
-    // New state to keep track of app's background/foreground status
-    const [isInBackground, setIsInBackground] = useState(false);
-
     const disableSeek = useRef(false)
+
+    const [showAd, setShowAd] = useState(false);
+    const [adCountdownTime, setAdCountdownTime] = useState(AD_VIDEO_SECONDS);
+
+    const { data: playerVodAds, isFetching: isFetchAds } = useQuery({
+      queryKey: ["playerAdsVideo"],
+      queryFn: () => VodApi.getPlayerAdVideo(),
+    });
+
+    useEffect(() => {
+      if (showAds && playerVodAds) {
+        setShowAd(true);
+        setAdCountdownTime(playerVodAds.minDuration);
+      }
+    }, [playerVodAds]);
+
+    useEffect(() => {
+      if (adCountdownTime <= 0) {
+        setShowAd(false);
+        return;
+      }
+
+      const adTimeInterval = setInterval(() => {
+        setAdCountdownTime(prev => prev - 1);
+      }, 1000)
+
+      return () => {
+        clearInterval(adTimeInterval);
+      }
+    }, [adCountdownTime]);
 
     useImperativeHandle(ref, () => ({
       setPause: (pauseVideo: boolean) => {
@@ -550,66 +579,90 @@ export default forwardRef<VideoRef, Props>(
       }
     }, [currentTime, isPaused])
 
+    const onPressAd = () => {
+
+    }
+
     return (
       <View style={styles.container}>
-        <View style={{ ...styles.bofangBox }}>
-          {!(vod_url !== undefined || vod_source !== undefined) ? (
-            <View
-              style={{
-                width: "100%",
-                aspectRatio: 16 / 9,
-                backgroundColor: "black",
-              }}
-            />
-          ) : useWebview ? (
-            <WebView
-              resizeMode="contain"
-              source={vod_url === undefined ? vod_source : { uri: vod_url }}
-              style={styles.video}
-              onLoad={onVideoLoaded}
-            />
-          ) : (
-            <VideoWithControls
-              playbackRate={playbackRate}
+        {showAd && playerVodAds &&
+          <View style={{ ...styles.bofangBox }}>
+            <AdVideoImage
               videoPlayerRef={videoPlayerRef}
-              isPaused={isPaused || pauseSportVideo} // Pause video  when sport timer is up
-              vod_source={vod_source}
-              vod_url={vod_url}
-              currentTimeRef={currentTimeRef}
-              controlsRef={controlsRef}
-              currentTime={currentTime}
-              duration={duration}
+              type={playerVodAds.isVideo ? 'video' : 'image'}
+              url={playerVodAds.url!}
+              countdownTime={adCountdownTime}
               isFullScreen={isFullScreen}
-              vodTitle={vodTitle}
-              videoType={videoType}
-              activeEpisode={activeEpisode}
-              episodes={episodes}
-              rangeSize={rangeSize}
-              accumulatedSkip={accumulatedSkip.current}
-              movieList={movieList}
-              showGuide={showGuide}
-              showMoreType={showMoreType}
-              streams={streams}
-              isFetchingRecommendedMovies={isFetchingRecommendedMovies}
-              onBuffer={onBuffer}
-              getNextEpisode={getNextEpisode}
-              onVideoLoaded={onVideoLoaded}
-              onVideoProgessing={onVideoProgessing}
-              onSeek={onSeek}
-              onSeekGesture={onSeekGesture}
-              onSkip={onSkip}
-              onTogglePlayPause={onTogglePlayPause}
-              onToggleFullScreen={onToggleFullScreen}
+              isShowShare={false}
+              onPressAd={onPressAd}
               onGoBack={onGoBack}
-              setPlaybackRate={setPlaybackRate}
-              changeEpisodeAndPlay={changeEpisodeAndPlay}
               onShare={onShare}
-              onReadyForDisplay={onReadyForDisplay}
+              onPressFullScreenBtn={onToggleFullScreen}
             />
-          )}
-        </View>
+          </View>
+        }
 
-        {(bufferRef.current || seekDirection !== "none") && (
+        {!isFetchAds && !showAd &&
+          <View style={{ ...styles.bofangBox }}>
+            {!(vod_url !== undefined || vod_source !== undefined) ? (
+              <View
+                style={{
+                  width: "100%",
+                  aspectRatio: 16 / 9,
+                  backgroundColor: "black",
+                }}
+              />
+            ) : useWebview ? (
+              <WebView
+                resizeMode="contain"
+                source={vod_url === undefined ? vod_source : { uri: vod_url }}
+                style={styles.video}
+                onLoad={onVideoLoaded}
+              />
+            ) : (
+              <VideoWithControls
+                playbackRate={playbackRate}
+                videoPlayerRef={videoPlayerRef}
+                isPaused={isPaused || pauseSportVideo} // Pause video  when sport timer is up
+                vod_source={vod_source}
+                vod_url={vod_url}
+                currentTimeRef={currentTimeRef}
+                controlsRef={controlsRef}
+                currentTime={currentTime}
+                duration={duration}
+                isFullScreen={isFullScreen}
+                vodTitle={vodTitle}
+                videoType={videoType}
+                activeEpisode={activeEpisode}
+                episodes={episodes}
+                rangeSize={rangeSize}
+                accumulatedSkip={accumulatedSkip.current}
+                movieList={movieList}
+                showGuide={showGuide}
+                showMoreType={showMoreType}
+                streams={streams}
+                isFetchingRecommendedMovies={isFetchingRecommendedMovies}
+                onBuffer={onBuffer}
+                getNextEpisode={getNextEpisode}
+                onVideoLoaded={onVideoLoaded}
+                onVideoProgessing={onVideoProgessing}
+                onSeek={onSeek}
+                onSeekGesture={onSeekGesture}
+                onSkip={onSkip}
+                onTogglePlayPause={onTogglePlayPause}
+                onToggleFullScreen={onToggleFullScreen}
+                onGoBack={onGoBack}
+                setPlaybackRate={setPlaybackRate}
+                changeEpisodeAndPlay={changeEpisodeAndPlay}
+                onShare={onShare}
+                onReadyForDisplay={onReadyForDisplay}
+              />
+            )}
+          </View>
+        }
+
+
+        {(bufferRef.current || seekDirection !== "none" || isFetchAds) && !showAd && (
           <View style={styles.buffering}>
             {seekDirection !== "none" ? (
               <View

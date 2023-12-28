@@ -9,7 +9,7 @@ import { CEndpoint } from "@constants";
 
 
 export class MiniVodApi {
-  static getListByPage = async ({ page, limit = 100, exclude, xMode = false, }: { page: number, limit?: number, exclude?: string[], xMode?: boolean }) => {
+  static getListByPage = async ({ page, limit = 100, exclude, xMode = false, }: { page: number, limit?: number, exclude?: string, xMode?: boolean }) => {
     try {
       const result = await CApi.get(xMode ? CEndpoint.minivodGetXList : CEndpoint.minivodGetList, {
         query: {
@@ -68,7 +68,7 @@ const fetchMiniVods = async (page: number, from: 'api' | 'local' = 'local') => {
     return await MiniVodApi.getListByPage({
       page,
       limit: 300,
-      exclude: excluded,
+      exclude: excluded.join(','),
     });
   } else {
     console.debug('getting from local')

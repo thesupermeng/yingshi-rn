@@ -1,7 +1,7 @@
 import { CEndpoint, CLangKey } from "@constants";
-import { FilterOptionsType, SuggestVodListType, VodType, CommentsResponseDataType, AdultVodListType } from "@type/ajaxTypes";
+import { FilterOptionsType, SuggestVodListType, VodType, CommentsResponseDataType, AdultVodListType, VodPlayerAdType } from "@type/ajaxTypes";
 import { CApi } from "@utility/apiService";
-import { APP_NAME_CONST, UMENG_CHANNEL } from "@utility/constants";
+import { AD_VIDEO_SECONDS, APP_NAME_CONST, UMENG_CHANNEL } from "@utility/constants";
 import { Platform } from "react-native";
 import { YSConfig } from "../../ysConfig";
 import { CLang } from "@utility/langService";
@@ -182,6 +182,39 @@ export class VodApi {
             }
 
             return result.data as CommentsResponseDataType;
+
+        } catch (e: any) {
+            console.error(`[Error ${this.name}]: ${e.toString()}`);
+            throw e;
+        }
+    };
+
+    static getPlayerAdVideo = async (): Promise<VodPlayerAdType | undefined> => {
+        try {
+            const result = await CApi.get(CEndpoint.vodGetAdsSlot, {
+                query: {
+                    slot_id: '114',
+                    ip: YSConfig.instance.ip
+                }
+            });
+
+            if (result.success === false) {
+                throw result.message;
+            }
+
+            if (!result.data) {
+                return undefined;
+            }
+
+            return {
+                id: result.data.ads_id,
+                name: result.data.ads_name,
+                url: result.data.ads_pic,
+                slotId: result.data.ads_slot_id,
+                isVideo: result.data.is_video,
+                actionUrl: result.data.ads_url,
+                minDuration: result.data.ads_min_duration ?? AD_VIDEO_SECONDS,
+            }
 
         } catch (e: any) {
             console.error(`[Error ${this.name}]: ${e.toString()}`);

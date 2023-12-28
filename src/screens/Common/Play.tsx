@@ -908,7 +908,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
             handleSaveVod={() => saveVodToHistory(vod)}
             // setNavBarOptions={setNavBarOptions}
             onReadyForDisplay={onReadyForDisplay}
-
+            showAds={true}
           />
         )}
         {isOffline && dismountPlayer && (

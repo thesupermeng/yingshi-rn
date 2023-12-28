@@ -21,6 +21,7 @@ export class CEndpoint {
     static vodGetList = 'vod/v2/vod';
     static vodGetXList = 'svod/v1/vod';
     static vodGetReviewDetail = 'vod/v1/vod/reviewdetail';
+    static vodGetAdsSlot = 'ads/v1/slot';
 
     static minivodGetList = 'miniVod/v2/miniVod';
     static minivodGetXList = 'miniSVod/v1/miniSVod';
