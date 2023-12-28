@@ -7,6 +7,7 @@ import {BlurView} from '../blurView';
 import FastImage from '../common/customFastImage';
 import VipIcon from '@static/images/vip_icon.svg';
 import LinearGradient from 'react-native-linear-gradient';
+import CloseButton from '@static/images/close.svg'
 
 const adultModels = require('@static/images/vip_adult_models.png');
 const adultBg = require('@static/images/vip_adult_background.png');
@@ -19,16 +20,22 @@ interface Props {
   titleText: string; 
   imageGradientColors: string[]; 
   contentGradientColors: string[];
+  onClose: any; 
+  onPurchase: any; 
+  onInvite: any; 
 }
 
 export default function VipPrivilegeModal({
   showBlur = false,
-  benefitsTextsArray = ['高清体育赛事  零时差感受赛场激情', '海量福利视频 你想要的这里都有', '高清画质 无广告观影体验'],
+  benefitsTextsArray,
   coverImage,
   coverBackground, 
-  titleText = 'VIP升级权益', 
+  titleText, 
   imageGradientColors = ['#FF9AD000', '#EB59A7'], 
   contentGradientColors = ['#EA58A7', '#DE2575'], 
+  onClose, 
+  onPurchase, 
+  onInvite
 
 }: Props) {
   return (
@@ -63,6 +70,14 @@ export default function VipPrivilegeModal({
             gap: 5,
             padding: 15,
           }}>
+          <CloseButton
+            style={{
+              position: 'absolute',
+              top: '-50%',
+              right: 15,
+            }}
+            onClick={onClose}
+          />
           <View>
             <View style={styles.imageContainer}>
               <FastImage
@@ -82,17 +97,13 @@ export default function VipPrivilegeModal({
               />
             </View>
             <View style={styles.contentContainer}>
-              <View
-                style={styles.contentGradient}
-              
-              >
-
-              <LinearGradient
-                colors={contentGradientColors}
-                angle={180}
-                style={{height: '100%'}}
+              <View style={styles.contentGradient}>
+                <LinearGradient
+                  colors={contentGradientColors}
+                  angle={180}
+                  style={{height: '100%'}}
                 />
-                </View>
+              </View>
               <View style={styles.content}>
                 <VipIcon />
                 <View>
@@ -104,12 +115,12 @@ export default function VipPrivilegeModal({
                   ))}
                 </View>
                 <View style={styles.buttonContainer}>
-                  <TouchableOpacity style={styles.purchaseButton}>
+                  <TouchableOpacity style={styles.purchaseButton} onPress={onPurchase}>
                     <Text style={styles.purchaseButtonText}>
                       付费购买VIP会员 →
                     </Text>
                   </TouchableOpacity>
-                  <TouchableOpacity style={styles.inviteButton}>
+                  <TouchableOpacity style={styles.inviteButton} onPress={onInvite}>
                     <Text style={styles.inviteButtonText}>
                       邀请好友免费得VIP会员 →
                     </Text>
@@ -156,6 +167,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     fontSize: 15,
     lineHeight: 24,
+    fontFamily: 'PingFang SC'
   },
   buttonContainer: {
     gap: 10,
@@ -167,7 +179,8 @@ const styles = StyleSheet.create({
     lineHeight: 25,
     color: '#FFFFFF',
     marginBottom: 5,
-    textAlign: 'center'
+    textAlign: 'center', 
+    fontFamily: '045-SSYiFeiTi'
   },
   content: {
     display: 'flex',
