@@ -415,4 +415,5 @@ export type VodPlayerAdType = {
     slotId: number | null,
     isVideo: boolean,
     actionUrl: string | null,
+    minDuration: number,
 }

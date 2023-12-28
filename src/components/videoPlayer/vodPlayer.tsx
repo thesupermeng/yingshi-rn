@@ -45,7 +45,6 @@ import { ADULT_MODE_PREVIEW_DURATION, AD_VIDEO_SECONDS, NON_VIP_STREAM_TIME_SECO
 import { userModel } from "@type/userType";
 import { AdVideoImage } from "./AdVideoImage";
 import { VodReducerState } from "@redux/reducers/vodReducer";
-import { addPlayerAdVideo } from "@redux/actions/vodActions";
 import { VodApi } from "@api";
 import { useQuery } from "@tanstack/react-query";
 
@@ -74,6 +73,7 @@ interface Props {
   lockOrientation: (orientation: string) => void;
   handleSaveVod?: any;
   onReadyForDisplay?: () => void;
+  showAds?: boolean,
 }
 
 type VideoControlsRef = {
@@ -119,6 +119,7 @@ export default forwardRef<VideoRef, Props>(
       lockOrientation,
       handleSaveVod = () => { },
       onReadyForDisplay,
+      showAds = false,
     }: Props,
     ref
   ) => {
@@ -162,8 +163,9 @@ export default forwardRef<VideoRef, Props>(
     });
 
     useEffect(() => {
-      if (playerVodAds) {
+      if (showAds && playerVodAds) {
         setShowAd(true);
+        setAdCountdownTime(playerVodAds.minDuration);
       }
     }, [playerVodAds]);
 

@@ -1,7 +1,7 @@
 import { CEndpoint, CLangKey } from "@constants";
 import { FilterOptionsType, SuggestVodListType, VodType, CommentsResponseDataType, AdultVodListType, VodPlayerAdType } from "@type/ajaxTypes";
 import { CApi } from "@utility/apiService";
-import { APP_NAME_CONST, UMENG_CHANNEL } from "@utility/constants";
+import { AD_VIDEO_SECONDS, APP_NAME_CONST, UMENG_CHANNEL } from "@utility/constants";
 import { Platform } from "react-native";
 import { YSConfig } from "../../ysConfig";
 import { CLang } from "@utility/langService";
@@ -213,6 +213,7 @@ export class VodApi {
                 slotId: result.data.ads_slot_id,
                 isVideo: result.data.is_video,
                 actionUrl: result.data.ads_url,
+                minDuration: result.data.ads_min_duration ?? AD_VIDEO_SECONDS,
             }
 
         } catch (e: any) {
