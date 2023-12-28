@@ -4,11 +4,12 @@ import RegengModal from './regengModal';
 import { useNavigation, useTheme } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useAppDispatch } from '@hooks/hooks';
+
 // import FastImage from 'react-native-fast-image';
 import FastImage from '../common/customFastImage';
 import CodePush from "react-native-code-push";
-import { showToast } from "../../Sports/utility/toast";
-import { TermsAcceptContext } from '../../../contexts/TermsAcceptedContext';
+import { showToast } from "../../../src/Sports/utility/toast";
+import { TermsAcceptContext } from '../../contexts/TermsAcceptedContext';
 import RNRestart from "react-native-restart";
 interface Props { }
 
