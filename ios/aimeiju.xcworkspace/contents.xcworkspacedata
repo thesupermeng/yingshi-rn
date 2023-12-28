@@ -7,4 +7,7 @@
    <FileRef
       location = "group:/Users/carl/Desktop/yingshi-dayu/ios/aimeiju.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:aimeiju.xcodeproj">
+   </FileRef>
 </Workspace>

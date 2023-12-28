@@ -4,8 +4,6 @@
 <dict>
 	<key>NSUserTrackingUsageDescription</key>
 	<string>是否允许爱美剧跟踪您在其他公司的App和网站上的活动</string>
-	<!-- <key>NSPhotoLibraryUsageDescription</key>
-	<string>是否允许爱美剧向您发送通知</string> -->
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -14,12 +12,12 @@
 				<string>yingshiapp</string>
 			</array>
 		</dict>
-    <dict>
-        <key>CFBundleURLSchemes</key>
-        <array>
-            <string>com.googleusercontent.apps.699123886701-ok49jlua77cf0omih5g1u9f1irflnrq3</string>
-        </array>
-    </dict>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.699123886701-ok49jlua77cf0omih5g1u9f1irflnrq3</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleSignature</key>
 	<string>????</string>
@@ -1031,7 +1029,10 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>CFBundleShortVersionString</key>
-	<string>1.2.0</string> <!-- Replace with your actual version number -->
-
+	<string>1.2.0</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>045-SSYiFeiTi.ttf</string>
+	</array>
 </dict>
 </plist>
