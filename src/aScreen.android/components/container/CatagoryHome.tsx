@@ -15,12 +15,10 @@ import { useNavigation, useTheme } from '@react-navigation/native';
 import Swiper from 'react-native-swiper';
 import ShowMoreVodButton from '../button/showMoreVodButton';
 import {
-  VodCarousellResponseType,
-  VodPlaylistResponseType,
   VodTopicType,
   VodType,
-  LiveTVStationsResponseType,
   VodData,
+  VodCarousellType,
 } from '@type/ajaxTypes';
 // import FastImage from 'react-native-fast-image';
 import FastImage from "../common/customFastImage";
@@ -55,7 +53,7 @@ interface NavType {
   name: string;
 }
 interface Props {
-  vodCarouselRes: VodCarousellResponseType;
+  vodCarouselRes: VodCarousellType;
   navOptions?: NavType[] | undefined;
   onNavChange?: any;
   navId?: number;
@@ -65,7 +63,7 @@ interface Props {
 }
 const BTN_COLORS = ['#30AA55', '#7E9CEE', '#F1377A', '#FFCC12', '#ED7445'];
 const CatagoryHome = ({
-  vodCarouselRes,
+  vodCarouselRes: data,
   navId = 0,
   setScrollEnabled,
   onRefresh,
@@ -75,7 +73,6 @@ const CatagoryHome = ({
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const [activeIndex, setActiveIndex] = useState(0);
-  const data = vodCarouselRes.data;
   const carouselRef = useRef<any>();
   const categoryListRef = useRef<any>();
   //const width = Dimensions.get('window').width;
@@ -221,7 +218,7 @@ const CatagoryHome = ({
         }
         ListHeaderComponent={
           <>
-            {data?.carousel[0] && !refreshProp && (
+            {data?.carousel !== null && data?.carousel[0] && !refreshProp && (
               <View
                 style={{
                   flex: 1,
@@ -239,7 +236,7 @@ const CatagoryHome = ({
                   data={data.carousel}
                   scrollAnimationDuration={120}
                   autoPlayInterval={2300}
-                  onScrollBegin={() => {}}
+                  onScrollBegin={() => { }}
                   onSnapToItem={index => {
                     setActiveIndex(index);
                   }}

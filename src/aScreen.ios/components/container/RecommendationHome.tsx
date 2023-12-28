@@ -15,11 +15,9 @@ import { useNavigation, useTheme } from "@react-navigation/native";
 import Swiper from "react-native-swiper";
 import ShowMoreVodButton from "../button/showMoreVodButton";
 import {
-  VodCarousellResponseType,
-  VodPlaylistResponseType,
   VodTopicType,
   VodType,
-  LiveTVStationsResponseType,
+  VodCarousellType,
 } from "@type/ajaxTypes";
 // import FastImage from "react-native-fast-image";
 import FastImage from "../common/customFastImage";
@@ -39,13 +37,14 @@ import CarouselPagination from "./CarouselPagination";
 import LoadingIcon from "@static/images/MutedVolume.svg";
 import { Image } from "react-native";
 import { YingPingContainer } from "../container/yingPingContainer";
+import { AppsApi, PlaylistApi } from "@api";
 
 interface NavType {
   id: number;
   name: string;
 }
 interface Props {
-  vodCarouselRes: VodCarousellResponseType;
+  vodCarouselRes: VodCarousellType;
   navOptions?: NavType[] | undefined;
   onNavChange?: any;
   navId?: number;
@@ -56,11 +55,11 @@ interface Props {
 }
 
 const RecommendationHome = ({
-  vodCarouselRes,
+  vodCarouselRes: data,
   setScrollEnabled,
   onRefresh,
   refreshProp = false,
-  onLoad = () => {},
+  onLoad = () => { },
 }: Props) => {
   const { colors, textVariants, spacing } = useTheme();
   const vodReducer: VodReducerState = useAppSelector(
@@ -69,7 +68,6 @@ const RecommendationHome = ({
   const history = vodReducer.history;
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
-  const data = vodCarouselRes.data;
   const [totalPage, setTotalPage] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
   const [results, setResults] = useState<Array<VodTopicType>>([]);
@@ -102,15 +100,14 @@ const RecommendationHome = ({
   };
 
   // const fetchPlaylist = (page: number) =>
-  //   // fetch(`${API_DOMAIN}topic/v1/topic?page=${page}`)
-  //   fetch(`${API_DOMAIN}topic/v1/topic/temp`)
-  //     .then((response) => response.json())
-  //     .then((json: VodPlaylistResponseType) => {
-  //       // setTotalPage(Number(json.data.TotalPageCount));
-  //       // return Object.values(json.data.List);
-  //       setTotalPage(1);
-  //       return Object.values(json.data);
-  //     });
+  // // PlaylistApi.getTopic(page)
+  // PlaylistApi.getTopicIosTmp()
+  //   .then((data) => {
+  //     // setTotalPage(Number(json.data.TotalPageCount));
+  //     // return Object.values(json.data.List);
+  //     setTotalPage(1);
+  //     return Object.values(data.List);
+  //   });
   // const {
   //   data: playlists,
   //   isSuccess,
@@ -143,11 +140,10 @@ const RecommendationHome = ({
   // );
 
   const fetchYingPing = () =>
-    fetch(`${API_DOMAIN}page/v2/typepage?id=1000`)
-      .then((response) => response.json())
-      .then((json: VodCarousellResponseType) => {
-        setResults(json.data.topic_list);
-        return json.data;
+    AppsApi.getHomePages(1000)
+      .then((data) => {
+        setResults(data.topic_list);
+        return data;
       });
 
   const { data: yingPingList, isFetching: isFetchingYingPing } = useQuery({
@@ -234,7 +230,7 @@ const RecommendationHome = ({
     <View style={{ width: width }}>
       {yingPingList ? (
         <FlatList
-          style={{paddingBottom: 10}}
+          style={{ paddingBottom: 10 }}
           refreshControl={
             <RefreshControl
               refreshing={isRefreshing}
@@ -369,35 +365,35 @@ const RecommendationHome = ({
           initialNumToRender={0}
           onEndReachedThreshold={0.5}
           renderItem={renderContent}
-          // ListFooterComponent={
-          //   <View style={{ ...styles.loading, marginBottom: 60 }}>
-          //     {hasNextPage && (
-          //       <FastImage
-          //         style={{
-          //           height: 80,
-          //           width: 80,
+        // ListFooterComponent={
+        //   <View style={{ ...styles.loading, marginBottom: 60 }}>
+        //     {hasNextPage && (
+        //       <FastImage
+        //         style={{
+        //           height: 80,
+        //           width: 80,
 
-          //           flex: 1,
-          //           justifyContent: "center",
-          //           alignItems: "center",
-          //         }}
-          //         source={require("@static/images/loading-spinner.gif")}
-          //         resizeMode={"contain"}
-          //       />
-          //     )}
-          //     {!(isFetchingNextPage || isFetching) && !hasNextPage && (
-          //       <Text
-          //         style={{
-          //           ...textVariants.subBody,
-          //           color: colors.muted,
-          //           paddingTop: 12,
-          //         }}
-          //       >
-          //         已经到底了
-          //       </Text>
-          //     )}
-          //   </View>
-          // }
+        //           flex: 1,
+        //           justifyContent: "center",
+        //           alignItems: "center",
+        //         }}
+        //         source={require("@static/images/loading-spinner.gif")}
+        //         resizeMode={"contain"}
+        //       />
+        //     )}
+        //     {!(isFetchingNextPage || isFetching) && !hasNextPage && (
+        //       <Text
+        //         style={{
+        //           ...textVariants.subBody,
+        //           color: colors.muted,
+        //           paddingTop: 12,
+        //         }}
+        //       >
+        //         已经到底了
+        //       </Text>
+        //     )}
+        //   </View>
+        // }
         />
       ) : (
         <>

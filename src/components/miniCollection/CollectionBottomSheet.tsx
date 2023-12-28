@@ -17,12 +17,12 @@ import {
 import { MiniVodReducerState } from '@redux/reducers/miniVodReducer';
 import { RootState } from '@redux/store';
 import {
-  CollectionResponseType,
   MiniVideoCollectionItem,
 } from '@type/ajaxTypes';
 import { API_DOMAIN } from '@utility/constants';
 import { getMinuteSecond } from '@utility/helper';
 import BottomSheet from '../bottomSheet/bottomSheet';
+import { MiniVodApi } from '@api';
 
 interface Props {
   isVisible?: boolean;
@@ -49,7 +49,7 @@ function CollectionBottomSheet({
 }: Props) {
   const scrollRef = useRef<any>();
   const miniVodReducer: MiniVodReducerState = useAppSelector(
-    ({miniVodReducer}: RootState) => miniVodReducer,
+    ({ miniVodReducer }: RootState) => miniVodReducer,
   );
 
   const dispatch = useAppDispatch();
@@ -74,12 +74,7 @@ function CollectionBottomSheet({
     isPreviousData,
   } = useQuery(
     ['collection', collectionId],
-    () =>
-      fetch(`${API_DOMAIN}miniVod/v2/collections/${collectionVideoId}?limit=30`)
-        .then(response => response.json())
-        .then((json: CollectionResponseType) => {
-          return json.data.List;
-        }),
+    () => MiniVodApi.getRecommendations(collectionVideoId),
     {
       enabled: enabledUseQuery,
     },
@@ -99,12 +94,12 @@ function CollectionBottomSheet({
       dispatch(selectMiniVodCollection(itemIndex));
       setTotalCollectionEpisodes(collectionData.length);
       if (scrollRef) {
-        scrollRef?.current?.scrollTo({y: itemIndex * 130, animated: true});
+        scrollRef?.current?.scrollTo({ y: itemIndex * 130, animated: true });
       }
     }
   }, [collectionData]);
 
-  const {colors, textVariants, spacing} = useTheme();
+  const { colors, textVariants, spacing } = useTheme();
 
   const handleSheetChanges = () => {
     if (handleClose !== undefined) handleClose();
@@ -168,7 +163,7 @@ function CollectionBottomSheet({
         {(isLoading || isFetching || !enabledUseQuery) && (
           <View style={styles.loadingContainer}>
             <Image
-              style={{height: 80, width: 80}}
+              style={{ height: 80, width: 80 }}
               source={loadingSpinnerGif}
               resizeMode={'contain'}
             />
@@ -181,9 +176,9 @@ function CollectionBottomSheet({
             <ScrollView
               ref={scrollRef}
               showsVerticalScrollIndicator={false}
-              style={{flex: 1, marginRight: 8}}>
+              style={{ flex: 1, marginRight: 8 }}>
               {collectionData?.map((item, index) => (
-                <View style={{width: '100%', height: 130}} key={index}>
+                <View style={{ width: '100%', height: 130 }} key={index}>
                   <TouchableOpacity
                     key={index}
                     onPress={() => goToCollection(item, index)}
@@ -193,7 +188,7 @@ function CollectionBottomSheet({
                         ? styles.selectedBottomSheetItem
                         : styles.notSelected,
                     ]}>
-                    <View style={{flex: 1, flexDirection: 'row'}}>
+                    <View style={{ flex: 1, flexDirection: 'row' }}>
                       <View
                         style={{
                           flex: 2,
@@ -201,7 +196,7 @@ function CollectionBottomSheet({
                           borderRadius: 6,
                         }}>
                         <Image
-                          style={{height: '100%'}}
+                          style={{ height: '100%' }}
                           source={{
                             uri:
                               imageError == false
@@ -218,7 +213,7 @@ function CollectionBottomSheet({
                           flexDirection: 'column',
                           alignSelf: 'center',
                         }}>
-                        <View style={{paddingLeft: 12}}>
+                        <View style={{ paddingLeft: 12 }}>
                           <Text
                             numberOfLines={3}
                             style={{
@@ -279,7 +274,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  headerContainer: {paddingTop: 12, paddingBottom: 8},
+  headerContainer: { paddingTop: 12, paddingBottom: 8 },
 });
 
 export default memo(CollectionBottomSheet);

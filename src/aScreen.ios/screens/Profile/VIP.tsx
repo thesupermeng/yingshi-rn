@@ -24,7 +24,6 @@ import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import { userModel } from "@type/userType";
 import { updateUserAuth } from "@redux/actions/userAction";
-import { getUserDetails } from "../../../features/user";
 import { VipCard } from "../../components/vip/vipCard";
 import { TouchableOpacity } from "react-native";
 import { membershipModel } from "@type/membershipType";
@@ -43,6 +42,7 @@ import { showLoginAction } from "@redux/actions/screenAction";
 import SpinnerOverlay from "../../components/modal/SpinnerOverlay";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import useAnalytics from "@hooks/useAnalytics";
+import { ProductApi, UserApi } from "@api";
 
 export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const {
@@ -98,16 +98,12 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   };
 
   const refreshUserState = async () => {
-    let result;
-    result = await getUserDetails({
-      bearerToken: userState.userToken,
-    });
+    const result = await UserApi.getUserDetails();
     if (result == null) {
       return;
     }
-    let resultData = result.data.data;
 
-    await dispatch(updateUserAuth(resultData));
+    await dispatch(updateUserAuth(result));
     return;
   };
 
@@ -126,7 +122,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         const offline = !(
           state.isConnected &&
           (state.isInternetReachable === true ||
-          state.isInternetReachable === null
+            state.isInternetReachable === null
             ? true
             : false)
         );
@@ -137,10 +133,10 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   }, []);
 
   const fetchData = async () => {
-    const response = await axios.get(`${API_DOMAIN_TEST}products/v1/products`);
-    const data = await response.data.data;
+    const data = await ProductApi.getList();
     let products: Array<membershipModel>;
-    if (response) {
+
+    if (data) {
       products = data.map((product: any) => {
         return {
           productId: product.product_id,
@@ -238,14 +234,11 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
 
     addLocalTrans(trans);
 
-    const receiptApi = IS_IOS
-      ? `${API_DOMAIN}validate/v1/iosreceipt`
-      : `${API_DOMAIN}validate/v1/androidreceipt`;
-    const result = await axios.post(receiptApi, trans);
+    const result = await ProductApi.postValidateReceipt(trans);
 
     console.log("complete transaction result");
-    console.log(result.data);
-    return result.data.data.data;
+    console.log(result);
+    return result.data.data;
   };
 
   const getLocalTrans = async () => {
@@ -288,14 +281,12 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         console.log("pop item");
         console.log(popItem);
 
-        const receiptApi = IS_IOS
-          ? `${API_DOMAIN}validate/v1/iosreceipt`
-          : `${API_DOMAIN}validate/v1/androidreceipt`;
-        const result = await axios.post(receiptApi, popItem);
-        console.log("response get back");
-        console.log(result.data);
+        const result = await ProductApi.postValidateReceipt(popItem);
 
-        if (result.status !== 200) {
+        console.log("response get back");
+        console.log(result);
+
+        if (result.statusCode !== 200) {
           console.log("push back the unsuccess trans: ", popItem);
           existingData.push(popItem);
         }
@@ -521,7 +512,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                   padding: 8,
                   opacity:
                     userState.userPaidVipList.total_purchased_days > 0 ||
-                    userState.userAccumulateRewardDay > 0
+                      userState.userAccumulateRewardDay > 0
                       ? 100
                       : 0,
                 }}

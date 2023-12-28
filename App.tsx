@@ -1,7 +1,7 @@
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { persistor, store } from "@redux/store";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { MiniVideo, VodCarousellResponseType } from "@type/ajaxTypes";
+import { MiniVideo } from "@type/ajaxTypes";
 import {
   ANDROID_HOME_PAGE_BANNER_ADS,
   API_DOMAIN,
@@ -35,6 +35,8 @@ import {
   deleteCachedVideos,
 } from "./src/utils/minivodDownloader";
 import NetInfo from "@react-native-community/netinfo";
+import { AppsApi, PlaylistApi, VodApi } from "@api";
+
 const topon_channel = "WEB";
 
 // import * as Sentry from "@sentry/react-native";
@@ -130,53 +132,37 @@ let App = () => {
     queryClient.prefetchQuery({
       queryKey: ["HomePage", 0],
       queryFn: () =>
-        fetch(`${API_DOMAIN}page/v2/typepage?id=0`)
-          .then((response) => response.json())
-          .then((json: VodCarousellResponseType) => {
+        AppsApi.getHomePages(0)
+          .then((data) => {
             setCount(99);
-            return json;
+            return data;
           }),
     });
 
     queryClient.prefetchQuery({
       queryKey: ["HomePage", 1000],
-      queryFn: () =>
-        fetch(`${API_DOMAIN}page/v2/typepage?id=1000`)
-          .then((response) => response.json())
-          .then((json: any) => {
-            return json.data.yingping_list;
-          }),
+      queryFn: () => AppsApi.getHomePages(1000)
+        .then((data) => {
+          return data.yingping_list;
+        }),
     });
 
     // queryClient.prefetchQuery({
     //   queryKey: ["filterOptions"],
-    //   queryFn: () =>
-    //     fetch(`${API_DOMAIN}type/v1/type`)
-    //       .then((response) => {
-    //         return response.json();
-    //       })
-    //       .then((json: FilterOptionsResponseType) => {
-    //         return json.data;
-    //       }),
+    //   queryFn: () => VodApi.getTopicType(),
     //   staleTime: Infinity,
     // });
 
     // queryClient.prefetchQuery({
     //   queryKey: ["HomePageNavOptions"],
-    //   queryFn: () =>
-    //     fetch(`${API_DOMAIN}nav/v1/navItems`, {})
-    //       .then((response) => response.json())
-    //       .then((json: NavOptionsResponseType) => {
-    //         return json.data;
-    //       }),
+    //   queryFn: () => AppsApi.getHomeNav(),
     //   staleTime: Infinity,
     // });
 
     // const fetchPlaylist = (page: number) =>
-    //   fetch(`${API_DOMAIN}topic/v1/topic?page=${page}`)
-    //     .then((response) => response.json())
-    //     .then((json: VodPlaylistResponseType) => {
-    //       return Object.values(json.data.List);
+    //   PlaylistApi.getTopic(page)
+    //     .then((data) => {
+    //       return Object.values(data);
     //     });
 
     // queryClient.prefetchInfiniteQuery(["vodPlaylist"], ({ pageParam = 1 }) =>

@@ -39,7 +39,6 @@ import {
 } from "@redux/actions/screenAction";
 import { userModel } from "@type/userType";
 import NotificationModal from "../../components/modal/notificationModal";
-import { getUserDetails } from "../../features/user";
 import {
   updateUserAuth,
   updateUserReferral,
@@ -48,6 +47,7 @@ import ExpiredOverlay from "../../components/modal/expiredOverlay";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { SHOW_ZF_CONST } from "@utility/constants";
 import FastImage from "../../components/common/customFastImage";
+import { UserApi } from "@api";
 
 function Profile({ navigation, route }: BottomTabScreenProps<any>) {
   const navigator = useNavigation();
@@ -66,16 +66,12 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
   };
 
   const refreshUserState = async () => {
-    let result;
-    result = await getUserDetails({
-      bearerToken: userState.userToken,
-    });
+    const result = await UserApi.getUserDetails();
     if (result == null) {
       return;
     }
-    let resultData = result.data.data;
 
-    await dispatch(updateUserAuth(resultData));
+    await dispatch(updateUserAuth(result));
     return;
   };
 

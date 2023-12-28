@@ -15,11 +15,10 @@ import { useNavigation, useTheme } from "@react-navigation/native";
 import Swiper from "react-native-swiper";
 import ShowMoreVodButton from "../button/showMoreVodButton";
 import {
-  VodCarousellResponseType,
-  VodPlaylistResponseType,
   VodTopicType,
   VodType,
-  LiveTVStationsResponseType,
+  VodPlayListType,
+  VodCarousellType,
 } from "@type/ajaxTypes";
 // import FastImage from "react-native-fast-image";
 import FastImage from "../common/customFastImage"
@@ -38,12 +37,13 @@ import Carousel from "react-native-reanimated-carousel";
 import CarouselPagination from "./CarouselPagination";
 import LoadingIcon from "@static/images/MutedVolume.svg";
 import { Image } from "react-native";
+import { PlaylistApi } from "@api";
 interface NavType {
   id: number;
   name: string;
 }
 interface Props {
-  vodCarouselRes: VodCarousellResponseType;
+  vodCarouselRes: VodCarousellType;
   navOptions?: NavType[] | undefined;
   onNavChange?: any;
   navId?: number;
@@ -54,7 +54,7 @@ interface Props {
 }
 
 const RecommendationHome = ({
-  vodCarouselRes,
+  vodCarouselRes: data,
   setScrollEnabled,
   onRefresh,
   refreshProp = false,
@@ -67,7 +67,6 @@ const RecommendationHome = ({
   const history = vodReducer.history;
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
-  const data = vodCarouselRes.data;
   const [totalPage, setTotalPage] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
   const [results, setResults] = useState<Array<VodTopicType>>([]);
@@ -100,12 +99,12 @@ const RecommendationHome = ({
   };
 
   const fetchPlaylist = (page: number) =>
-    fetch(`${API_DOMAIN}topic/v1/topic?page=${page}`)
-      .then((response) => response.json())
-      .then((json: VodPlaylistResponseType) => {
-        setTotalPage(Number(json.data.TotalPageCount));
-        return Object.values(json.data.List);
+    PlaylistApi.getTopic(page)
+      .then((results: VodPlayListType) => {
+        setTotalPage(Number(results.TotalPageCount));
+        return Object.values(results.List);
       });
+
   const {
     data: playlists,
     isSuccess,

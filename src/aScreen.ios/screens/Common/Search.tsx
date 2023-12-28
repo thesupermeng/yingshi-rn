@@ -16,7 +16,7 @@ import SearchIcon from "@static/images/search.svg";
 import ClearIcon from "@static/images/cross.svg";
 import { useQuery } from "@tanstack/react-query";
 
-import { SuggestResponseType, SuggestedVodType } from "@type/ajaxTypes";
+import { SuggestedVodType } from "@type/ajaxTypes";
 import { RootStackScreenProps } from "@type/navigationTypes";
 import { API_DOMAIN } from "@utility/constants";
 import VodWithDescriptionList from "../../components/vod/vodWithDescriptionList";
@@ -38,6 +38,7 @@ import EmptyList from "../../components/common/emptyList";
 import appsFlyer from "react-native-appsflyer";
 import ConfirmationModal from "../../components/modal/confirmationModal";
 import useAnalytics from "@hooks/useAnalytics";
+import { VodApi } from "@api";
 
 export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
   const [search, setSearch] = useState("");
@@ -68,12 +69,7 @@ export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
 
   const { data: recommendations } = useQuery({
     queryKey: ["recommendationList"],
-    queryFn: () =>
-      fetch(`${API_DOMAIN}vod/v2/vod?by=hits_day`)
-        .then((response) => response.json())
-        .then((json: SuggestResponseType) => {
-          return json.data.List;
-        }),
+    queryFn: () => VodApi.getListByRecommendations(),
   });
 
   async function fetchData(text: string, userSearch: boolean = false) {
@@ -83,15 +79,14 @@ export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
     if (userSearch && text.length > 0) searchKeywordAnalytics(text);
     // ========== for analytics - end ==========
 
-    fetch(`${API_DOMAIN}vod/v2/vod?wd=${text}&limit=50`)
-      .then((response) => response.json())
-      .then((json: SuggestResponseType) => {
+    VodApi.getListByKeyword(text)
+      .then((data) => {
         setSearchTimer(0);
 
-        if (json.data.List === null) {
+        if (data.length <= 0) {
           setSearchResults([]);
         } else {
-          setSearchResults(json.data.List);
+          setSearchResults(data);
 
           // ========== for analytics - start ==========
           if (userSearch) searchResultViewsAnalytics();
@@ -232,9 +227,9 @@ export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
         >
           <View style={{ marginLeft: 10 }}>
             {search !== undefined &&
-            search !== null &&
-            search.length === 0 &&
-            recommendations ? (
+              search !== null &&
+              search.length === 0 &&
+              recommendations ? (
               <View style={{ gap: spacing.m }}>
                 {searchHistory.history.length > 0 && (
                   <Animated.View style={{ gap: spacing.m }} entering={FadeInUp}>

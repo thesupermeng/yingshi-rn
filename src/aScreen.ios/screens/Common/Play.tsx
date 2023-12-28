@@ -28,10 +28,8 @@ import { YSConfig } from "../../../../ysConfig";
 
 import { RootStackScreenProps } from "@type/navigationTypes";
 import {
-  SuggestResponseType,
-  VodDetailsResponseType,
-  commentsResponseType,
-  commentsType,
+  SuggestedVodType,
+  CommentsType,
 } from "@type/ajaxTypes";
 import { addVodToHistory, playVod } from "@redux/actions/vodActions";
 import { useAppDispatch, useAppSelector } from "@hooks/hooks";
@@ -81,6 +79,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { showLoginAction } from "@redux/actions/screenAction";
 import { VodCommentBox } from '../../components/vodComment';
 import { showToast } from "../../Sports/utility/toast";
+import { VodApi } from "@api";
 
 type VideoRef = {
   setPause: (param: boolean) => void;
@@ -242,7 +241,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
   const [isShowSheet, setShowSheet] = useState(false);
   const [comment, setComment] = useState('');
   const [isUpdated, setIsUpdated] = useState(false);
-  const [allComment, setAllComment] = useState<commentsType[] | undefined>([]);
+  const [allComment, setAllComment] = useState<CommentsType[] | undefined>([]);
   const [showLoading, setShowLoading] = useState(true);
 
 
@@ -277,16 +276,12 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
       playsShareClicksAnalytics();
       // ========== for analytics - end ==========
 
-      let msg = `《${
-        vod?.vod_name
-      }》高清播放${"\n"}https://yingshi.tv/index.php/vod/play/id/${
-        vod?.vod_id
-      }/sid/1/nid/${
-        currentEpisode + 1
-      }.html${"\n"}${APP_NAME_CONST}-海量高清视频在线观看`
+      let msg = `《${vod?.vod_name
+        }》高清播放${"\n"}https://yingshi.tv/index.php/vod/play/id/${vod?.vod_id
+        }/sid/1/nid/${currentEpisode + 1
+        }.html${"\n"}${APP_NAME_CONST}-海量高清视频在线观看`
 
-      if(APP_NAME_CONST=='爱美剧')
-      {
+      if (APP_NAME_CONST == '爱美剧') {
         msg = `海量视频内容 随时随地 想看就看 ${"\n"}https://xiangkantv.net/share.html`
       }
 
@@ -362,18 +357,10 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
     // );
   }, []);
 
-  const localIp = YSConfig.instance.ip;
   const fetchVodDetails = () =>
-    fetch(
-      `${API_DOMAIN}vod/v1/vod/detail?id=${vod?.vod_id}&appName=${APP_NAME_CONST}&platform=` +
-      Platform.OS.toUpperCase() +
-      `&channelId=` +
-      UMENG_CHANNEL +
-      `&ip=${localIp}`
-    )
-      .then((response) => response.json())
-      .then((json: VodDetailsResponseType) => {
-        const isRestricted = json.data[0]?.vod_restricted === 1;
+    VodApi.getDetail(vod?.vod_id.toString() ?? '')
+      .then((data) => {
+        const isRestricted = data.vod_restricted === 1;
 
         if (isRestricted) {
           // videoPlayerRef.current.setPause(true);
@@ -385,7 +372,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
           setVodRestricted(isRestricted);
         }
 
-        return json.data[0];
+        return data;
       });
 
   const { data: vodDetails, isFetching: isFetchingVodDetails } = useQuery({
@@ -415,15 +402,13 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
   }, [vodDetails]);
 
   const fetchVod = () =>
-    fetch(
-      `${API_DOMAIN}vod/v2/vod?class=${vod?.vod_class
+    VodApi.getList({
+      category: vod?.vod_class
         ?.split(",")
-        .shift()}&tid=${vod?.type_id}&limit=6`
-    )
-      .then((response) => response.json())
-      .then((json: SuggestResponseType) => {
-        return json.data.List;
-      });
+        .shift(),
+      tid: vod?.type_id.toString() ?? '',
+      limit: 6,
+    }).then((data) => data.List as SuggestedVodType[]);
 
   useEffect(() => {
     currentEpisodeRef.current = vod?.episodeWatched;
@@ -619,11 +604,9 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
   // // ========== for analytics - end ==========
 
   const fetchComments = () =>
-    fetch(
-      `${API_DOMAIN}vod/v1/vod/reviewdetail?douban_id=${vod?.vod_douban_id}`)
-      .then((response) => response.json())
-      .then((json: commentsResponseType) => {
-        return json.data.douban_reviews;
+    VodApi.getReviewDetails(vod?.vod_douban_id.toString() ?? '')
+      .then((data) => {
+        return data.douban_reviews;
       });
 
   const {
@@ -856,7 +839,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
                       <Text
                         style={{ ...textVariants.subBody, color: colors.muted }}
                       >
-                        {`更新：${vod  && vod.vod_time_add
+                        {`更新：${vod && vod.vod_time_add
                           ? new Date(vod?.vod_time_add * 1000)
                             .toISOString().slice(0, 10)
                             .replace(/\//g, "-")
@@ -866,14 +849,14 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
                           }`}
                       </Text>
                       <View
-                      style={{
-                        display: "flex",
-                        alignItems: "flex-start",
-                        flexDirection: 'row',
-                        gap: 8,
-                      }}
-                    >
-                      {/* <TouchableOpacity
+                        style={{
+                          display: "flex",
+                          alignItems: "flex-start",
+                          flexDirection: 'row',
+                          gap: 8,
+                        }}
+                      >
+                        {/* <TouchableOpacity
                         onPress={handleSearchVideo}
                         style={{
                           backgroundColor: "#FAC33D",
@@ -894,7 +877,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
                       <Text style={{...textVariants.small, alignSelf: 'flex-end'}}>
                         *点击跳转bing搜索片源
                       </Text> */}
-                    </View>
+                      </View>
                     </View>
                   </View>
                   <View>

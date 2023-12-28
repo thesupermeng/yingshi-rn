@@ -5,7 +5,7 @@ import ScreenContainer from '../../components/container/screenContainer';
 import MainHeader from '../../components/header/homeHeader';
 import { useFocusEffect, useTheme } from '@react-navigation/native';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { VodPlaylistResponseType, VodTopicType } from '@type/ajaxTypes';
+import { VodPlayListType, VodTopicType } from '@type/ajaxTypes';
 import VodPlaylist from '../../components/playlist/vodPlaylist';
 import { BottomTabScreenProps, useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { API_DOMAIN } from '@utility/constants';
@@ -19,6 +19,7 @@ import { SettingsReducerState } from '@redux/reducers/settingsReducer';
 import { RootState } from '@redux/store';
 import { useAppSelector } from '@hooks/hooks';
 import useAnalytics from '@hooks/useAnalytics';
+import { PlaylistApi } from '@api';
 
 type FlatListType = {
   item: VodTopicType;
@@ -89,14 +90,10 @@ function Playlist({ navigation }: BottomTabScreenProps<any>) {
   }, [navigation, isFocused]);
 
   const fetchPlaylist = useCallback((page: number) =>
-    // fetch(`${API_DOMAIN}topic/v1/topic?page=${page}`)
-    fetch(`${API_DOMAIN}topic/v1/topic/temp`)
-      .then(response => response.json())
-      .then((json: VodPlaylistResponseType) => {
-        // setTotalPage(Number(json.data.TotalPageCount));
-        // return Object.values(json.data.List);
-        setTotalPage(1);
-        return Object.values(json.data);
+    PlaylistApi.getTopicIosTmp()
+      .then((json: VodPlayListType) => {
+        setTotalPage(Number(json.TotalPageCount));
+        return Object.values(json.List);
       }), []);
 
   const {
