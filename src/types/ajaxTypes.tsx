@@ -6,6 +6,10 @@ export type PaggingResponseType<T> = {
     List: T
 }
 
+export type PaggingResponseTypeWithNonVip<T> = {
+    NonVIPList: T
+} & PaggingResponseType<T>
+
 export type NavOptionsType = {
     id: number,
     name: string,
@@ -25,7 +29,7 @@ export type VodPlayListType = PaggingResponseType<{
 
 export type SuggestVodListType = PaggingResponseType<SuggestedVodType[]>
 export type AdultVodListType = PaggingResponseType<AdultVodType[]>
-export type MiniVideoListType = PaggingResponseType<MiniVideo[]>
+export type MiniVideoListType = PaggingResponseTypeWithNonVip<MiniVideo[]>
 export type MiniVideoVodListType = PaggingResponseType<MiniVideoCollectionItem[]>
 
 export interface VodType {
