@@ -9,7 +9,7 @@ import FastImage from '../common/customFastImage';
 import CodePush from "react-native-code-push";
 import { showToast } from "../../Sports/utility/toast";
 import { TermsAcceptContext } from '../../../contexts/TermsAcceptedContext';
-
+import RNRestart from "react-native-restart";
 interface Props { }
 
 export default function RegengOverlay({ }: Props) {
@@ -49,6 +49,7 @@ export default function RegengOverlay({ }: Props) {
                     case CodePush.SyncStatus.UPDATE_INSTALLED:
                         showToast("安装完成");
                         // restart
+                        RNRestart.Restart();
                         break;
 
                     case CodePush.SyncStatus.UNKNOWN_ERROR:
