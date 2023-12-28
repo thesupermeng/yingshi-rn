@@ -16,7 +16,6 @@ import {
 } from "@redux/actions/miniVodActions";
 import { API_DOMAIN } from "@utility/constants";
 import {
-  CollectionResponseType,
   MiniVideoCollectionItem,
 } from "@type/ajaxTypes";
 import { getMinuteSecond } from "@utility/helper";
@@ -24,6 +23,7 @@ import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import { RootState } from "@redux/store";
 import { MiniVodReducerState } from "@redux/reducers/miniVodReducer";
 import BottomSheet from "../bottomSheet/bottomSheet";
+import { MiniVodApi } from "@api";
 
 interface Props {
   isVisible?: boolean;
@@ -77,12 +77,7 @@ function CollectionBottomSheet({
     isPreviousData,
   } = useQuery(
     ["collection", collectionId],
-    () =>
-      fetch(`${API_DOMAIN}miniVod/v2/collections/${collectionVideoId}?limit=30`)
-        .then((response) => response.json())
-        .then((json: CollectionResponseType) => {
-          return json.data.List;
-        }),
+    () => MiniVodApi.getRecommendations(collectionVideoId),
     {
       enabled: enabledUseQuery,
     }

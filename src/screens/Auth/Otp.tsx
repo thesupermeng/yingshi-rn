@@ -16,11 +16,11 @@ import { useDispatch } from 'react-redux';
 import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
 
 import { ResendCountDown } from './resendCountDown';
-import { signinupUser } from '../../features/user';
 import { addUserAuthState } from '@redux/actions/userAction';
 
 import { changeScreenAction } from '@redux/actions/screenAction';
 import useAnalytics from '@hooks/useAnalytics';
+import { UserApi } from '@api';
 
 
 export default (props: any) => {
@@ -93,25 +93,25 @@ const OtpInputs = ({
   }, []);
 
   const formatPhoneNumber = (phoneNumber) => {
-  // Remove all non-numeric characters from the phone number
-  const numericPhoneNumber = phoneNumber.replace(/\D/g, '');
+    // Remove all non-numeric characters from the phone number
+    const numericPhoneNumber = phoneNumber.replace(/\D/g, '');
 
-  // Check if the phone number is empty or null
-  if (!numericPhoneNumber) return '';
+    // Check if the phone number is empty or null
+    if (!numericPhoneNumber) return '';
 
-  const countryCode = numericPhoneNumber.substring(0, 3); // Replace with your country code length
-  const firstPart = numericPhoneNumber.substring(3, 6);
-  const secondPart = numericPhoneNumber.substring(6);
+    const countryCode = numericPhoneNumber.substring(0, 3); // Replace with your country code length
+    const firstPart = numericPhoneNumber.substring(3, 6);
+    const secondPart = numericPhoneNumber.substring(6);
 
-  const formattedNumber = `+${countryCode} ${firstPart} ${secondPart}`;
-  return formattedNumber;
+    const formattedNumber = `+${countryCode} ${firstPart} ${secondPart}`;
+    return formattedNumber;
   };
 
   // to make sure countdown reset before restart the countdown
   const resendOTP = () => {
     setResend(false);
 
-    signinupUser({
+    UserApi.signinupUser({
       loginType: email !== undefined ? 'EMAIL' : 'SMS',
       email: email,
       phone: phone,
@@ -160,7 +160,7 @@ const OtpInputs = ({
     let result: any;
 
     try {
-      result = await signinupUser({
+      result = await UserApi.signinupUser({
         loginType: email !== undefined ? 'EMAIL' : 'SMS',
         email: email,
         phone: phone,
@@ -228,7 +228,7 @@ const OtpInputs = ({
   return (
     <View>
       {/* <Text style={styles.title}>输入邮箱验证码</Text> */}
-      <Text style={styles.title}>{email ? '输入邮箱验证码' : '输入OTP验证码' }</Text>
+      <Text style={styles.title}>{email ? '输入邮箱验证码' : '输入OTP验证码'}</Text>
 
       <Text style={styles.description}>
         验证码已发送至{' '}
@@ -236,7 +236,7 @@ const OtpInputs = ({
           {email ?? phone}
         </Text>{' '} */}
         <Text style={styles.hyperlink}>
-        {email ? email : formatPhoneNumber(phone)}
+          {email ? email : formatPhoneNumber(phone)}
         </Text>{' '}
       </Text>
 

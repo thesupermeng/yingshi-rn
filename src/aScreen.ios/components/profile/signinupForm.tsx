@@ -23,7 +23,7 @@ import GmailIcon from '@static/images/gmail.svg';
 import DropdownIcon from '@static/images/dropdown.svg';
 import { CountryPhoneList } from "./countryPhoneList";
 import FastImage from '../common/customFastImage';
-import { countryPhoneCodeType } from "@type/ajaxTypes";
+import { CountryPhoneCodeType } from "@type/ajaxTypes";
 import { ReadAgreementPrivacyPolicy } from "./readAgreementPrivacyPolicy";
 
 import {
@@ -32,12 +32,12 @@ import {
 } from '@react-native-google-signin/google-signin';
 import { useQuery } from "@tanstack/react-query";
 import { API_DOMAIN } from "@utility/constants";
-import { signinupUser } from "../../../features/user";
 import { showToast } from "../../Sports/utility/toast";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import useAnalytics from "@hooks/useAnalytics";
 import { useDispatch } from "react-redux";
 import { addUserAuthState } from "@redux/actions/userAction";
+import { UserApi } from "@api";
 
 
 export type SigninupRef = {
@@ -65,7 +65,7 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
 
   // for country phone code
   const [isShowCountryList, setShowCountryList] = useState(false);
-  const [countryPhoneSelected, setCountryPhoneSelected] = useState<countryPhoneCodeType>();
+  const [countryPhoneSelected, setCountryPhoneSelected] = useState<CountryPhoneCodeType>();
 
   // ohters
   const [isSubmitting, setSubmitting] = useState(false);
@@ -73,12 +73,7 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
 
   const { data: countryPhoneOptions } = useQuery({
     queryKey: ["CountryPhoneOptions"],
-    queryFn: () =>
-      fetch(`${API_DOMAIN}country/v1/country`)
-        .then((response) => response.json())
-        .then((json: any) => {
-          return json.data as countryPhoneCodeType[];
-        }),
+    queryFn: () => UserApi.getCountries(),
   });
 
 
@@ -186,7 +181,7 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
     try {
       setSubmitting(true);
 
-      userInfo = await signinupUser({
+      userInfo = await UserApi.signinupUser({
         loginType: 'EMAIL',
         email: userInfo.user.email,
         referralCode: referralCode,
@@ -291,7 +286,7 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
     try {
       setSubmitting(true);
 
-      await signinupUser({
+      await UserApi.signinupUser({
         loginType: loginType === 'email' ? 'EMAIL' : 'SMS',
         email: loginType === 'email' ? loginValue : undefined,
         // phone: loginType === 'phone' ? countryPhoneSelected?.country_phonecode + loginValue : undefined,
@@ -361,7 +356,7 @@ type LoginCardProps = {
   loginValueErrMsg: string | null,
   referralCodeErrMsg: string | null,
   isReadTermNCondition: boolean,
-  countryPhoneSelected?: countryPhoneCodeType,
+  countryPhoneSelected?: CountryPhoneCodeType,
   onLoginValueChange: (value: string) => void,
   onReferralCodeChange: (value: string) => void,
   onPressTermNCondition: () => void,

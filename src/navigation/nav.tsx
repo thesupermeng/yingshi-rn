@@ -77,7 +77,6 @@ import DeviceInfo from "react-native-device-info";
 import { useAppSelector, useAppDispatch } from "@hooks/hooks";
 import { QueryClient, useQuery } from "@tanstack/react-query";
 import { API_DOMAIN, UMENG_CHANNEL } from "@utility/constants";
-import { BottomNavTabsResponse } from "@type/ajaxTypes";
 import { YSConfig } from "../../ysConfig";
 import {
   disableAdultMode,
@@ -99,7 +98,6 @@ import FastImage from "../components/common/customFastImage";
 import { screenModel } from "@type/screenType";
 import { YingshiDarkTheme, YingshiLightTheme } from "@utility/theme";
 import { userModel } from "@type/userType";
-import { getUserDetails } from "../features/user";
 import {
   updateUserAuth,
   updateUserReferral,
@@ -123,6 +121,7 @@ import { VipDetails } from "../components/vip/vipDetails";
 import { ATInterstitialRNSDK } from "./../../AnyThinkAds/ATReactNativeSDK";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 import AdultVideoList from "../screens/Playlist/AdultVideoList";
+import { UserApi } from "@api";
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -259,22 +258,19 @@ export default () => {
   }, []);
 
   const refreshUserState = async () => {
-    let result;
-    result = await getUserDetails({
-      bearerToken: userState.userToken,
-    });
+    const result = await UserApi.getUserDetails();
+
     if (result == null) {
       await AsyncStorage.removeItem("showAds");
       return;
     }
 
-    let resultData = result.data.data;
-    if (resultData.user.current_timestamp < resultData.user.vip_end_time) {
+    if (result.user.current_timestamp < result.user.vip_end_time) {
       await AsyncStorage.setItem("showAds", "false");
     } else {
       await AsyncStorage.setItem("showAds", "true");
     }
-    await dispatch(updateUserAuth(resultData));
+    await dispatch(updateUserAuth(result));
     return;
   };
   // privacy & policy overlay

@@ -21,7 +21,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { ResendCountDown } from './resendCountDown';
-import { updateUsername } from '../../../features/user';
 import { useAppSelector } from '@hooks/hooks';
 import { RootState } from '@redux/store';
 import { InputItem, Button } from '@ant-design/react-native';
@@ -31,6 +30,7 @@ import { updateUsernameState } from '@redux/actions/userAction';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { userModel } from '@type/userType';
 import BackButton from '../../components/button/backButton';
+import { UserApi } from '@api';
 export default (props: any) => {
   const [optVarificationState, setOptVarificationState] = useState(2);
   const { colors, textVariants, icons, spacing } = useTheme();
@@ -99,20 +99,19 @@ export default (props: any) => {
 
     let res;
     try {
-      res = await updateUsername({
+      res = await UserApi.updateUsername({
         username: isJump ? '' : username,
-        bearerToken: userState.userToken,
       });
     } catch (err: any) {
-      if (err.response.data.errors.username) {
+      if (err.errors.username) {
         setUsernameValid(false);
-        setErrMsg(err.response.data.errors.username);
+        setErrMsg(err.errors.username);
       }
 
       return;
     }
 
-    await dispatch(updateUsernameState(res.data.data));
+    await dispatch(updateUsernameState(res));
     await dispatch(changeScreenAction('登录成功'));
     navigator.navigate('Home', {
       screen: 'Profile',

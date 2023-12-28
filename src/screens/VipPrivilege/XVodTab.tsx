@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect } from "react";
 import { View, Text, StyleSheet, SafeAreaView, FlatList } from "react-native";
 
 import { API_DOMAIN } from "@utility/constants";
-import { VodCarousellResponseType, VodData } from "@type/ajaxTypes";
+import { VodData } from "@type/ajaxTypes";
 import { useQueries, useQuery } from "@tanstack/react-query";
 
 import { acceptOverEighteen } from "@redux/actions/screenAction";
@@ -12,12 +12,13 @@ import { useAppDispatch } from "@hooks/hooks";
 import ShowMoreVodButton from "../../components/button/showMoreVodButton";
 import VodListVerticalVip from "./vodListVerticalVip";
 import FastImage from "../../components/common/customFastImage";
+import { AppsApi } from "@api";
 interface Props {
   handleRejectEighteenPlus: any;
 }
 
 export default function XVodTab({
-  handleRejectEighteenPlus = () => {},
+  handleRejectEighteenPlus = () => { },
 }: Props) {
   const { colors, textVariants, spacing } = useTheme();
   const dispatch = useAppDispatch();
@@ -66,19 +67,14 @@ export default function XVodTab({
 
   let data = useQuery({
     queryKey: ["HomePage"],
-    queryFn: () =>
-      fetch(`${API_DOMAIN}page/v2/typepage?id=99`)
-        .then((response) => response.json())
-        .then((json: VodCarousellResponseType) => {
-          setShowLoading(false);
-          return json;
-        }),
+    queryFn: () => AppsApi.getHomePages(99)
+      .then((data) => {
+        setShowLoading(false);
+        return data;
+      }),
   });
 
   useEffect(() => {
-    
-    // console.log("data");
-    // console.log(data.data?.data);
     if (data == undefined) {
       setShowLoading(true);
     }
@@ -98,7 +94,7 @@ export default function XVodTab({
             justifyContent: "center",
             alignItems: "center",
             borderRadius: 15,
-           
+
           }}
         >
           <FastImage
@@ -109,20 +105,20 @@ export default function XVodTab({
         </View>
       )}
 
-<View style={{paddingTop:10}}>
-      <FlatList
-        data={data?.data?.data?.categories ? data?.data?.data?.categories : []}
-        initialNumToRender={1}
-        windowSize={3}
-        maxToRenderPerBatch={3}
-        renderItem={listItem}
-        contentContainerStyle={{ paddingBottom: 60 }}
-        removeClippedSubviews={true}
-        onEndReachedThreshold={0.5}
-      />
-</View>
+      <View style={{ paddingTop: 10 }}>
+        <FlatList
+          data={data?.data?.categories ? data?.data?.categories : []}
+          initialNumToRender={1}
+          windowSize={3}
+          maxToRenderPerBatch={3}
+          renderItem={listItem}
+          contentContainerStyle={{ paddingBottom: 60 }}
+          removeClippedSubviews={true}
+          onEndReachedThreshold={0.5}
+        />
+      </View>
       <EighteenPlusOverlay
-      isRadius={true}
+        isRadius={true}
         handleAccept={() => {
           dispatch(acceptOverEighteen());
         }}

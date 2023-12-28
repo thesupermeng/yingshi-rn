@@ -1,12 +1,12 @@
 import { useNavigation, useTheme } from "@react-navigation/native";
 import { Text, TouchableOpacity, View } from "react-native";
 import FastImage from "../common/customFastImage";
-import { commentsType } from "@type/ajaxTypes";
+import { CommentsType } from "@type/ajaxTypes";
 import CommentIcon from '@static/images/comment.svg';
 import { CommentCard } from "./commentCard";
 
 type VodCommentBoxProps = {
-    comments: commentsType[],
+    comments: CommentsType[],
     onlyShow?: number,
     onCommentTap: () => void,
 }

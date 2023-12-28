@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { FlatList, Keyboard, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { RootStackScreenProps } from "@type/navigationTypes";
 import { CommentCard } from "../components/vodComment/commentCard";
-import { commentsType } from "@type/ajaxTypes";
+import { CommentsType } from "@type/ajaxTypes";
 import ScreenContainer from "../components/container/screenContainer";
 import TitleWithBackButtonHeader from "../components/header/titleWithBackButtonHeader";
 import { useTheme } from "@react-navigation/native";
@@ -18,7 +18,7 @@ export const AllCommentScreen = ({ navigation, route }: RootStackScreenProps<"ÂÖ
   const { vod_id, vod_name, commentItems } = route.params;
   const { colors, textVariants, } = useTheme();
   const [comment, setComment] = useState('');
-  const [allComment, setAllComment] = useState<commentsType[] | undefined>([]);
+  const [allComment, setAllComment] = useState<CommentsType[] | undefined>([]);
   const userState: userModel = useAppSelector(
     ({ userReducer }: RootState) => userReducer
   );
@@ -43,7 +43,7 @@ export const AllCommentScreen = ({ navigation, route }: RootStackScreenProps<"ÂÖ
   };
 
   const storeUserComments = async () => {
-    if(!comment) {
+    if (!comment) {
       return;
     }
 
@@ -57,7 +57,7 @@ export const AllCommentScreen = ({ navigation, route }: RootStackScreenProps<"ÂÖ
       }
       existingComments.unshift(commmentObj);
       await AsyncStorage.setItem(locCommentId, JSON.stringify(existingComments));
-      
+
       commentItems.unshift(commmentObj);
       setIsUpdated(!isUpdated);
       Keyboard.dismiss();
@@ -69,7 +69,7 @@ export const AllCommentScreen = ({ navigation, route }: RootStackScreenProps<"ÂÖ
   };
 
   const renderItem = useCallback(
-    ({item, index}: {item: commentsType, index: number}) => {
+    ({ item, index }: { item: CommentsType, index: number }) => {
       return (
         <CommentCard
           key={index}
@@ -81,8 +81,8 @@ export const AllCommentScreen = ({ navigation, route }: RootStackScreenProps<"ÂÖ
   );
 
   return (
-    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{flex:1}}>
-      <ScreenContainer 
+    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
+      <ScreenContainer
         footer={
           <View style={{ ...styles.commentContainer, backgroundColor: '#1D2023' }}>
             <TextInput
@@ -121,7 +121,7 @@ export const AllCommentScreen = ({ navigation, route }: RootStackScreenProps<"ÂÖ
                 <Text style={{ ...textVariants.body, color: colors.primary }}>
                   Á´ãÂç≥ÁôªÂΩï
                 </Text>
-              </TouchableOpacity>                  
+              </TouchableOpacity>
             )}
           </View>
         }
@@ -143,8 +143,8 @@ export const AllCommentScreen = ({ navigation, route }: RootStackScreenProps<"ÂÖ
           renderItem={renderItem}
         />
       </ScreenContainer>
-    </KeyboardAvoidingView> 
-    
+    </KeyboardAvoidingView>
+
   );
 }
 

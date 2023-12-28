@@ -11,7 +11,7 @@ import { userModel } from '@type/userType';
 import { API_DOMAIN_TEST } from '@utility/constants';
 import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { AppState, StyleSheet, Text, View } from 'react-native';
-import { useMinivodQuery } from '../api/miniVod';
+import { useMinivodQuery } from '@api';
 import EighteenPlusControls from '../components/adultVideo/eighteenPlusControls';
 import ScreenContainer from '../components/container/screenContainer';
 import MiniVideoList from '../components/videoPlayer/WatchAnytime/miniVodList';
@@ -29,7 +29,7 @@ type MiniVodRef = {
 
 const LIMIT = 300;
 
-function WatchAnytime({navigation}: BottomTabScreenProps<any>) {
+function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
   const isFocused = useIsFocused();
   // New state to keep track of app's background/foreground status
   const [isInBackground, setIsInBackground] = useState(false);
@@ -41,30 +41,27 @@ function WatchAnytime({navigation}: BottomTabScreenProps<any>) {
   const miniVodListRef = useRef<any>();
 
   const settingsReducer: SettingsReducerState = useAppSelector(
-    ({settingsReducer}: RootState) => settingsReducer,
+    ({ settingsReducer }: RootState) => settingsReducer,
   );
 
   const screenState: screenModel = useAppSelector(
-    ({screenReducer}) => screenReducer,
+    ({ screenReducer }) => screenReducer,
   );
-  
+
   const userState: userModel = useAppSelector(
     ({ userReducer }) => userReducer
   );
-  const {adultMode: adultModeGlobal, watchAnytimeAdultMode} = screenState;
+  const { adultMode: adultModeGlobal, watchAnytimeAdultMode } = screenState;
   const adultMode = adultModeGlobal && watchAnytimeAdultMode;
 
   const isVip = !(Number(userState.userMemberExpired) <=
-                  Number(userState.userCurrentTimestamp) ||
-                  userState.userToken === "")
+    Number(userState.userCurrentTimestamp) ||
+    userState.userToken === "")
 
   const fetchMode = adultMode ? 'adult' : 'normal';
-  const apiEndpoint = adultMode
-    ? `${API_DOMAIN_TEST}miniSVod/v1/miniSVod`
-    : `${API_DOMAIN_TEST}miniVod/v2/miniVod`;
 
   // ========== for analytics - start ==========
-  const {watchAnytimeViewsAnalytics} = useAnalytics();
+  const { watchAnytimeViewsAnalytics } = useAnalytics();
 
   // Handle app's background/foreground status
   const handleAppStateChange = (nextAppState: any) => {
@@ -223,5 +220,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  titleText: {color: '#FFF', fontSize: 20},
+  titleText: { color: '#FFF', fontSize: 20 },
 });

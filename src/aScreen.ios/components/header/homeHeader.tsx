@@ -6,8 +6,8 @@ import History from '@static/images/history.svg';
 import { useTheme } from '@react-navigation/native';
 import { useQuery } from '@tanstack/react-query';
 import { API_DOMAIN } from '@utility/constants';
-import { SuggestResponseType, VodCarousellResponseType } from '@type/ajaxTypes';
 import { useMemo } from 'react';
+import { VodApi } from '@api';
 
 interface Props {
     logo?: React.ReactNode,
@@ -19,12 +19,7 @@ function MainHeader({ logo, navigator, headerStyle }: Props) {
 
     const { data: recommendations } = useQuery({
         queryKey: ["recommendationList"],
-        queryFn: () =>
-            fetch(`${API_DOMAIN}vod/v2/vod?by=hits_day`)
-                .then(response => response.json())
-                .then((json: SuggestResponseType) => {
-                    return json.data.List
-                }),
+        queryFn: () => VodApi.getListByRecommendations(),
     });
 
     const randomVod = useMemo(() => {
