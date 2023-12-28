@@ -4,19 +4,14 @@ import { Switch } from "react-native-switch"
 import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import { screenModel } from "@type/screenType";
 import { acceptOverEighteen, disableAdultMode, disableWatchAnytimeAdultMode, enableAdultMode, enableWatchAnytimeAdultMode, hideAdultModeVip, showAdultModeDisclaimer, showAdultModeVip } from "@redux/actions/screenAction";
+import AdultSwitchON from '@static/images/adult-switch-on.svg'
+import AdultSwitchOFF from '@static/images/adult-switch-off.svg'
 
 interface Props{
   switchStyle: ViewStyle;
 }
 
-const EighteenPlusText = () => 
-  <Text
-    style={{
-      fontWeight: '900', 
-      fontSize: 10, 
-      color: 'black'
-    }}
-  >18+</Text>
+
 
 const AdultModeSwitch = ({switchStyle}: Props) => {
 
@@ -53,7 +48,10 @@ const AdultModeSwitch = ({switchStyle}: Props) => {
             activeText=""
             inActiveText=""
             switchBorderRadius={20}
-            renderInsideCircle={() => <EighteenPlusText />}
+            renderInsideCircle={() => {
+              if (adultMode) return <AdultSwitchON />
+              else return <AdultSwitchOFF />
+            }}
             containerStyle={{
               borderWidth: 2,
               borderColor: !adultMode ? 'white' : '#0000009E',
@@ -62,9 +60,10 @@ const AdultModeSwitch = ({switchStyle}: Props) => {
             switchLeftPx={5}
             switchRightPx={5}
             backgroundActive="#0000009E"
-            circleActiveColor="#FAC33D"
+            // circleActiveColor="#FAC33D"
             circleBorderWidth={0}
-            circleSize={20}
+            circleSize={22}
+            innerCircleStyle={{backgroundColor: '#ff000000', alignItems: "center", justifyContent: "center"}}
           />
 
     </View>

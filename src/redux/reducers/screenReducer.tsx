@@ -22,7 +22,8 @@ const initialState: screenModel = {
   adultModeVipShow: false,
   isOverEighteenAccepted: false,
   watchAnytimeAdultMode: false,
-  showAdultTab: false
+  showAdultTab: false, 
+  showAdultVipPrivilegeMiniVideo: true
 };
 
 export function screenReducer(state = initialState, action: screenActionType) {
@@ -172,11 +173,21 @@ export function screenReducer(state = initialState, action: screenActionType) {
         ...state,
         watchAnytimeAdultMode: false
       }
-      case "set_show_adult_tab":
-        return {
-          ...state,
-          showAdultTab: action.payload,
-        }
+    case "set_show_adult_tab":
+      return {
+        ...state,
+        showAdultTab: action.payload,
+      }
+    case "show_adult_vip_privilege_mini_video": 
+      return {
+        ...state, 
+        showAdultVipPrivilegeMiniVideo: true
+      }
+    case "hide_adult_vip_privilege_mini_video": 
+      return {
+        ...state, 
+        showAdultVipPrivilegeMiniVideo: false
+      }
     default:
       return state;
   }

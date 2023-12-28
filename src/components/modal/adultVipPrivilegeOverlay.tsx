@@ -1,6 +1,10 @@
 import { useNavigation } from "@react-navigation/native";
 import VipPrivilegeModal from "./vipPrivilegeModal"
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "@hooks/hooks";
+import { hideAdultVipPrivilegeMiniVideo, hideAdultVipPrivilegeMiniVideoAction, showAdultVipPrivilegeMiniVideoAction } from "@redux/actions/screenAction";
+import { View } from "react-native";
+import { screenModel } from "@type/screenType";
 
 const adultModels = require('@static/images/vip_adult_models.png');
 const adultBg = require('@static/images/vip_adult_background.png');
@@ -8,6 +12,16 @@ const adultBg = require('@static/images/vip_adult_background.png');
 export const AdultVipPrivilegeOverlay = () => {
 
   const navigator = useNavigation()
+  const dispatch = useAppDispatch()
+  const screenState: screenModel = useAppSelector(
+    ({ screenReducer }) => screenReducer
+  );
+
+  const {showAdultVipPrivilegeMiniVideo} = screenState
+
+  useEffect(() => {
+    dispatch(showAdultVipPrivilegeMiniVideoAction())
+  }, [])
 
   const handleOnPurchase = useCallback(() => {
     navigator.navigate('付费VIP');
@@ -17,7 +31,13 @@ export const AdultVipPrivilegeOverlay = () => {
     navigator.navigate('邀请');
   }, [])
 
+  const handleOnClose = useCallback(() => {
+    dispatch(hideAdultVipPrivilegeMiniVideoAction())
+    console.debug('close!!!')
+  }, [])
+
   return (
+
     <VipPrivilegeModal
       titleText={"VIP升级权益"}
       benefitsTextsArray={['高清体育赛事  零时差感受赛场激情', '海量福利视频 你想要的这里都有', '高清画质 无广告观影体验']}
@@ -27,6 +47,10 @@ export const AdultVipPrivilegeOverlay = () => {
       coverImage={adultModels}
       onPurchase={handleOnPurchase}
       onInvite={handleOnInvite}
+      onClose={(handleOnClose)}
+      showBlur={true}
+      showCondition={showAdultVipPrivilegeMiniVideo}
     />
+
   )
 }

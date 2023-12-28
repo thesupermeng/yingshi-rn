@@ -31,6 +31,7 @@ import {
 } from "@redux/actions/screenAction";
 import { userModel } from "@type/userType";
 import { UMENG_CHANNEL } from "@utility/constants";
+import { AdultVipPrivilegeOverlay } from "../modal/adultVipPrivilegeOverlay";
 interface Props {}
 
 const eighteenPlusControls = ({}: Props) => {
@@ -43,7 +44,8 @@ const eighteenPlusControls = ({}: Props) => {
     adultModeDisclaimerShow,
     adultMode,
     watchAnytimeAdultMode,
-    isOverEighteenAccepted
+    isOverEighteenAccepted, 
+    showAdultVipPrivilegeMiniVideo
   } = screenState;
   const dispatch = useAppDispatch();
   // const isVip = !(Number(userState.userMemberExpired) <=
@@ -80,14 +82,15 @@ console.log( Platform.OS )
     <View
       style={{
         ...styles.container,
-        height: adultModeVipShow || (!isOverEighteenAccepted && adultModeDisclaimerShow) ? "100%" : "auto",
+        // height: adultModeVipShow || (!isOverEighteenAccepted && adultModeDisclaimerShow) ? "100%" : "auto",
+        height: showAdultVipPrivilegeMiniVideo ? '100%' : 'auto'
       }}
     >
       {watchAnytimeAdultMode && <WatchAnytimeVipModal />}
       {(UMENG_CHANNEL != "GOOGLE_PLAY" || Platform.OS === "ios" ) && (
         <AdultModeSwitch switchStyle={styles.switch} />
       )}
-      {watchAnytimeAdultMode && (UMENG_CHANNEL != "GOOGLE_PLAY" || Platform.OS === "ios" )&& (
+      {/* {watchAnytimeAdultMode && (UMENG_CHANNEL != "GOOGLE_PLAY" || Platform.OS === "ios" )&& (
         <AdultModeCountdownIndicator
           containerStyle={{
             position: "absolute",
@@ -96,11 +99,12 @@ console.log( Platform.OS )
             flex: 1,
           }}
         />
-      )}
-      <EighteenPlusOverlay
+      )} */}
+      {/* <EighteenPlusOverlay
         handleAccept={handleAccept}
         handleReject={handleReject}
-      />
+      /> */}
+      <AdultVipPrivilegeOverlay/>
     </View>
   );
 };
