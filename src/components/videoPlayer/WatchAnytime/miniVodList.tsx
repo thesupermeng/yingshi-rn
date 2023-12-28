@@ -219,29 +219,32 @@ export default forwardRef<MiniVodRef, Props>(
     };
 
     const renderItem = useCallback(
-      ({item, index}: {item: MiniVideo; index: number}) => (
-        <View style={{height: displayHeight ? displayHeight : 0}}>
-          {displayHeight != 0 && (current > index - 2 && current < index + 2) && (
-            <ShortVod
-              vod={item}
-              thumbnail={item.mini_video_origin_cover}
-              displayHeight={displayHeight ? displayHeight : 0}
-              isPause={isPause || current !== index}
-              onManualPause={current => {
-                console.log('click pause');
-                setPause(!current);
-              }}
-              isShowVideo={current > index - 2 && current < index + 2}
-              // isShowVideo={current === index && !isScrolling && !isPressTabScroll}
-              currentDuration={videoCurrentDurations[index]}
-              updateVideoDuration={duration =>
-                updateVideoDuration(index, duration)
-              }
-              isActive={isActive}
-                          />
-          )}
-        </View>
-      ),
+      ({item, index}: {item: MiniVideo; index: number}) => {
+        let prevPosition = Math.max(0, index - 1);
+        return (
+          <View style={{height: displayHeight ? displayHeight : 0}}>
+            {displayHeight != 0 && (current >= prevPosition && current < index + 2) && (
+              <ShortVod
+                vod={item}
+                thumbnail={item.mini_video_origin_cover}
+                displayHeight={displayHeight ? displayHeight : 0}
+                isPause={isPause || current !== index}
+                onManualPause={current => {
+                  console.log('click pause');
+                  setPause(!current);
+                }}
+                isShowVideo={current >= prevPosition && current < index + 2}
+                // isShowVideo={current === index && !isScrolling && !isPressTabScroll}
+                currentDuration={videoCurrentDurations[index]}
+                updateVideoDuration={duration =>
+                  updateVideoDuration(index, duration)
+                }
+                isActive={isActive}
+                            />
+            )}
+          </View>
+        )
+      },
       [
         current,
         isActive,
@@ -295,7 +298,7 @@ export default forwardRef<MiniVodRef, Props>(
           <FlatList
             ref={miniVodListRef}
             data={collectionPartialVideos}
-            initialNumToRender={10}
+            initialNumToRender={5}
             maxToRenderPerBatch={3}
             windowSize={3}
             refreshControl={refreshComponent()}

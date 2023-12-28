@@ -1,3 +1,33 @@
+export type PaggingResponseType<T> = {
+    Page: number
+    TotalPageCount: number
+    Limit: number
+    Total: number
+    List: T
+}
+
+export type NavOptionsType = {
+    id: number,
+    name: string,
+}
+
+export type VodCarousellType = {
+    carousel: Array<CarouselData>,
+    class_list: Array<string>,
+    yunying: Array<VodData>,
+    categories: Array<VodData>,
+    live_station_list: Array<LiveTVStationItem>
+}
+
+export type VodPlayListType = PaggingResponseType<{
+    [key: string]: VodTopicType
+}>
+
+export type SuggestVodListType = PaggingResponseType<SuggestedVodType[]>
+export type AdultVodListType = PaggingResponseType<AdultVodType[]>
+export type MiniVideoListType = PaggingResponseType<MiniVideo[]>
+export type MiniVideoVodListType = PaggingResponseType<MiniVideoCollectionItem[]>
+
 export interface VodType {
     vod_id: number,
     type_id: number,
@@ -84,19 +114,6 @@ export interface VodType {
     vod_restricted: number,
     vod_sources: VodSourceType[],
     preferred_source_id: number
-}
-
-export interface SuggestResponseType {
-    code: number
-    data: SuggestResponseDataType
-}
-
-interface SuggestResponseDataType {
-    Total: number
-    TotalPageCount: number
-    Page: number
-    Limit: number
-    List: SuggestedVodType[]
 }
 
 export interface SuggestedVodType extends VodType {
@@ -217,20 +234,6 @@ export interface VodTopicType {
     vod_list: VodListType[]
 }
 
-export interface VodPlaylistResponseType {
-    code: number
-    data: {
-        Page: number
-        TotalPageCount: number
-        Limit: number
-        Total: number
-        List: {
-            [key: string]: VodTopicType
-        }
-    }
-
-}
-
 export type VodData = {
     vod_list: Array<VodType>
     type_name: string
@@ -249,14 +252,10 @@ type CarouselData = {
     vod: VodType
 }
 
-export interface VodCarousellResponseType {
-    data: {
-        carousel: Array<CarouselData>,
-        class_list: Array<string>,
-        yunying: Array<VodData>,
-        categories: Array<VodData>,
-        live_station_list: Array<LiveTVStationItem>
-    }
+export interface YingPingList {
+    type_name: string,
+    type_id: number,
+    vod_list: Array<VodType>,
 }
 
 export interface MiniVideo {
@@ -285,18 +284,6 @@ export interface MiniVideo {
     mini_video_keyword: string
 }
 
-export interface FilterOptionsResponseType {
-    code: number
-    data: FilterOptionsType[]
-}
-
-export interface NavOptionsResponseType {
-    data: {
-        id: number,
-        name: string,
-    }[]
-}
-
 export interface FilterOptionsType {
     type_id: number
     type_name: string
@@ -321,11 +308,6 @@ export interface FilterOptionsTypeExtendObj {
     year: string
 }
 
-export interface LiveTVStationsResponseType {
-    code: number
-    data: LiveTVStationItem[]
-}
-
 export interface LiveTVStationItem {
     id: number
     live_station_name: string
@@ -339,34 +321,12 @@ export interface DetailTab {
     page: any
 }
 
-export interface BottomNavTabsResponse {
-    data: BottomNavTabs[]
-}
-
-export interface BottomNavTabs {
-    name: string,
-    settings: any
-}
-
 export interface SubmitFeedbackRequest {
     email: string,
     feedback_category: number,
     feedback: string,
     platform_id: number,
     ip_address: string
-}
-
-export interface CollectionResponseType {
-    code: number
-    data: CollectionResponseDataType
-}
-
-export interface CollectionResponseDataType {
-    Total: number
-    TotalPageCount: number
-    Page: number
-    Limit: number
-    List: MiniVideoCollectionItem[]
 }
 
 export interface MiniVideoCollectionItem {
@@ -382,11 +342,6 @@ export interface MiniVideoCollectionItem {
     mini_video_release_time: number;
     current_episode: number;
     mini_video_collection_title: string;
-}
-
-export interface VodDetailsResponseType {
-    code: number
-    data: VodType[]
 }
 
 export interface CheckVersionResponseType {
@@ -433,23 +388,18 @@ export interface AdultVodType {
     vod_restricted: number
 }
 
-export interface commentsResponseType {
-    code: number,
-    data: commentsResponseDataType,
-}
-
-export interface commentsResponseDataType {
-    douban_reviews: commentsType[],
+export interface CommentsResponseDataType {
+    douban_reviews: CommentsType[],
     total_review: number,
 }
 
-export interface commentsType {
+export interface CommentsType {
     douban_reviews_id: number,
     user_name: string,
     user_review: string,
 }
 
-export interface countryPhoneCodeType {
+export interface CountryPhoneCodeType {
     country_id: number,
     country_iso3: string,
     country_name: string,

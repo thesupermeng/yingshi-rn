@@ -18,6 +18,7 @@ import { SettingsReducerState } from '@redux/reducers/settingsReducer';
 import { useAppSelector } from '@hooks/hooks';
 import { RootState } from '@redux/store';
 import useAnalytics from '@hooks/useAnalytics';
+import { MiniVodApi } from '@api';
 
 type MiniVideoResponseType = {
     data: {
@@ -86,13 +87,10 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
 
     const [flattenedVideos, setFlattenedVideos] = useState(Array<MiniVideo>);
     const LIMIT = 300;
-    const fetchVods = (page: number) => fetch(
-        `${API_DOMAIN}miniVod/v2/miniVod?page=${page}&limit=${LIMIT}`,
-    )
-        .then(response => response.json())
-        .then((json: MiniVideoResponseType) => {
-            return json.data.List
-        })
+    const fetchVods = (page: number) => MiniVodApi.getListByPage({
+        page,
+        limit: LIMIT,
+    });
 
     const { data: videos, isSuccess, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching, refetch } =
         useInfiniteQuery(['watchAnytime'], ({ pageParam = 1 }) => fetchVods(pageParam), {
@@ -110,7 +108,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
 
     useEffect(() => {
         if (videos != undefined) {
-            setFlattenedVideos(videos?.pages.flat());
+            setFlattenedVideos(videos?.pages.flat().filter(x => x));
         }
     }, [videos])
 

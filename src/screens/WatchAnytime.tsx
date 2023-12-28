@@ -1,21 +1,21 @@
+import { useAppSelector } from '@hooks/hooks';
+import useAnalytics from '@hooks/useAnalytics';
 import NetInfo from '@react-native-community/netinfo';
-import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
-import {useFocusEffect, useIsFocused} from '@react-navigation/native';
-import {useInfiniteQuery} from '@tanstack/react-query';
-import React, {memo, useCallback, useEffect, useRef, useState} from 'react';
-import {AppState, StyleSheet, Text, View} from 'react-native';
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import { useFocusEffect, useIsFocused } from '@react-navigation/native';
+import { SettingsReducerState } from '@redux/reducers/settingsReducer';
+import { RootState } from '@redux/store';
+import { MiniVideo } from '@type/ajaxTypes';
+import { screenModel } from '@type/screenType';
+import { userModel } from '@type/userType';
+import { API_DOMAIN_TEST } from '@utility/constants';
+import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
+import { AppState, StyleSheet, Text, View } from 'react-native';
+import { useMinivodQuery } from '@api';
 import EighteenPlusControls from '../components/adultVideo/eighteenPlusControls';
 import ScreenContainer from '../components/container/screenContainer';
 import MiniVideoList from '../components/videoPlayer/WatchAnytime/miniVodList';
-import {useAppSelector} from '@hooks/hooks';
-import useAnalytics from '@hooks/useAnalytics';
-import {SettingsReducerState} from '@redux/reducers/settingsReducer';
-import {RootState} from '@redux/store';
-import {MiniVideo} from '@type/ajaxTypes';
-import {screenModel} from '@type/screenType';
-import {API_DOMAIN_TEST} from '@utility/constants';
 import NoConnection from './../components/common/noConnection';
-import { fetchMiniVods } from '../api/miniVod';
 
 type MiniVideoResponseType = {
   data: {
@@ -29,7 +29,7 @@ type MiniVodRef = {
 
 const LIMIT = 300;
 
-function WatchAnytime({navigation}: BottomTabScreenProps<any>) {
+function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
   const isFocused = useIsFocused();
   // New state to keep track of app's background/foreground status
   const [isInBackground, setIsInBackground] = useState(false);
@@ -41,23 +41,27 @@ function WatchAnytime({navigation}: BottomTabScreenProps<any>) {
   const miniVodListRef = useRef<any>();
 
   const settingsReducer: SettingsReducerState = useAppSelector(
-    ({settingsReducer}: RootState) => settingsReducer,
+    ({ settingsReducer }: RootState) => settingsReducer,
   );
 
   const screenState: screenModel = useAppSelector(
-    ({screenReducer}) => screenReducer,
+    ({ screenReducer }) => screenReducer,
   );
 
-  const {adultMode: adultModeGlobal, watchAnytimeAdultMode} = screenState;
+  const userState: userModel = useAppSelector(
+    ({ userReducer }) => userReducer
+  );
+  const { adultMode: adultModeGlobal, watchAnytimeAdultMode } = screenState;
   const adultMode = adultModeGlobal && watchAnytimeAdultMode;
 
+  const isVip = !(Number(userState.userMemberExpired) <=
+    Number(userState.userCurrentTimestamp) ||
+    userState.userToken === "")
+
   const fetchMode = adultMode ? 'adult' : 'normal';
-  const apiEndpoint = adultMode
-    ? `${API_DOMAIN_TEST}miniSVod/v1/miniSVod`
-    : `${API_DOMAIN_TEST}miniVod/v2/miniVod`;
 
   // ========== for analytics - start ==========
-  const {watchAnytimeViewsAnalytics} = useAnalytics();
+  const { watchAnytimeViewsAnalytics } = useAnalytics();
 
   // Handle app's background/foreground status
   const handleAppStateChange = (nextAppState: any) => {
@@ -81,17 +85,7 @@ function WatchAnytime({navigation}: BottomTabScreenProps<any>) {
     isFetching,
     refetch,
     remove,
-  } = useInfiniteQuery(
-    ['watchAnytime', fetchMode],
-    ({pageParam = 1}) => fetchMiniVods(pageParam),
-    {
-      getNextPageParam: (lastPage, allPages) => {
-        return allPages.length + 1
-      },
-      onSuccess: data => {},
-      refetchOnMount: 'always'
-    },
-  );
+  } = useMinivodQuery(fetchMode, isVip)
 
   const checkConnection = useCallback(async () => {
     const state = await NetInfo.fetch();
@@ -111,32 +105,46 @@ function WatchAnytime({navigation}: BottomTabScreenProps<any>) {
   // ========== for analytics - end ==========
 
   // Add an event listener to the navigation object for the tab press event
+  // useEffect(() => {
+  //   const handleTabPress = () => {
+  //     if (isFocused && !isRefreshing) {
+  //       setPressTabScroll(true);
+
+  //       miniVodListRef.current?.scrollToIndex({
+  //         index: 0,
+  //         animated: true,
+  //       });
+
+  //       // 0.5 second for scroll animation, hide all video
+  //       setTimeout(() => {
+  //         setPressTabScroll(false);
+  //         handleRefresh();
+  //       }, 500);
+  //     }
+  //   };
+  //   const unsubscribe = navigation.addListener('tabPress', handleTabPress);
+  //   // Clean up the event listener when the component unmounts
+  //   return () => unsubscribe();
+  // }, [isFocused, isRefreshing]);
+
   useEffect(() => {
-    const handleTabPress = () => {
-      if (isFocused && !isRefreshing) {
-        handleRefresh();
+    setPressTabScroll(true);
 
-        setPressTabScroll(true);
+    miniVodListRef.current?.scrollToIndex({
+      index: 0,
+      animated: true,
+    });
 
-        miniVodListRef.current?.scrollToIndex({
-          index: 0,
-          animated: true,
-        });
+    // 0.5 second for scroll animation, hide all video
+    setTimeout(() => {
+      setPressTabScroll(false);
+      // handleRefresh();
+    }, 500);
+  }, [adultMode]);
 
-        // 0.5 second for scroll animation, hide all video
-        setTimeout(() => {
-          setPressTabScroll(false);
-        }, 500);
-      }
-    };
-    const unsubscribe = navigation.addListener('tabPress', handleTabPress);
-    // Clean up the event listener when the component unmounts
-    return () => unsubscribe();
-  }, [isFocused, isRefreshing]);
-  
   useEffect(() => {
     if (videos != undefined) {
-      setFlattenedVideos(videos?.pages.flat());
+      setFlattenedVideos(videos?.pages.flat().filter(x => x)); // remove null values
     }
   }, [videos]);
 
@@ -150,7 +158,7 @@ function WatchAnytime({navigation}: BottomTabScreenProps<any>) {
       subscription.remove();
     };
   }, []);
-  
+
   useFocusEffect(
     useCallback(() => {
       if (
@@ -194,8 +202,6 @@ function WatchAnytime({navigation}: BottomTabScreenProps<any>) {
   );
 }
 
-
-
 export default memo(WatchAnytime);
 
 const styles = StyleSheet.create({
@@ -214,5 +220,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  titleText: {color: '#FFF', fontSize: 20},
+  titleText: { color: '#FFF', fontSize: 20 },
 });

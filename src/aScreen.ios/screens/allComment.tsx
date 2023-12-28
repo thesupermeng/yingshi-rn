@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { FlatList, Keyboard, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { RootStackScreenProps } from "@type/navigationTypes";
 import { CommentCard } from "../components/vodComment/commentCard";
-import { commentsType } from "@type/ajaxTypes";
+import { CommentsType } from "@type/ajaxTypes";
 import ScreenContainer from "../components/container/screenContainer";
 import TitleWithBackButtonHeader from "../components/header/titleWithBackButtonHeader";
 import { useTheme } from "@react-navigation/native";
@@ -12,20 +12,20 @@ import { RootState } from "@redux/store";
 import SubmitBtn from "@static/images/submitBtn.svg"
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { showLoginAction } from "@redux/actions/screenAction";
-
+import { showToast } from "../../Sports/utility/toast";
 
 export const AllCommentScreen = ({ navigation, route }: RootStackScreenProps<"全部评论">) => {
-  const { vod_douban_id, vod_name, commentItems } = route.params;
+  const { vod_id, vod_name, commentItems } = route.params;
   const { colors, textVariants, } = useTheme();
   const [comment, setComment] = useState('');
-  const [allComment, setAllComment] = useState<commentsType[] | undefined>([]);
+  const [allComment, setAllComment] = useState<CommentsType[] | undefined>([]);
   const userState: userModel = useAppSelector(
     ({ userReducer }: RootState) => userReducer
   );
   const [isUpdated, setIsUpdated] = useState(false);
   const dispatch = useAppDispatch();
 
-  const locCommentId = "userComment" + vod_douban_id;
+  const locCommentId = "userComment" + vod_id;
   const getLocalComments = async () => {
     try {
       const comments = await AsyncStorage.getItem(locCommentId);
@@ -43,7 +43,7 @@ export const AllCommentScreen = ({ navigation, route }: RootStackScreenProps<"�
   };
 
   const storeUserComments = async () => {
-    if(!comment) {
+    if (!comment) {
       return;
     }
 
@@ -57,16 +57,19 @@ export const AllCommentScreen = ({ navigation, route }: RootStackScreenProps<"�
       }
       existingComments.unshift(commmentObj);
       await AsyncStorage.setItem(locCommentId, JSON.stringify(existingComments));
-      
+
       commentItems.unshift(commmentObj);
+      setIsUpdated(!isUpdated);
       Keyboard.dismiss();
+      showToast("提交成功，我们将在24小时内进行审核！");
+
     } catch (error) {
       console.log("error when storing the comment into local storage: ", error);
     }
   };
 
   const renderItem = useCallback(
-    ({item, index}: {item: commentsType, index: number}) => {
+    ({ item, index }: { item: CommentsType, index: number }) => {
       return (
         <CommentCard
           key={index}
@@ -78,8 +81,8 @@ export const AllCommentScreen = ({ navigation, route }: RootStackScreenProps<"�
   );
 
   return (
-    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{flex:1}}>
-      <ScreenContainer 
+    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
+      <ScreenContainer
         footer={
           <View style={{ ...styles.commentContainer, backgroundColor: '#1D2023' }}>
             <TextInput
@@ -118,7 +121,7 @@ export const AllCommentScreen = ({ navigation, route }: RootStackScreenProps<"�
                 <Text style={{ ...textVariants.body, color: colors.primary }}>
                   立即登录
                 </Text>
-              </TouchableOpacity>                  
+              </TouchableOpacity>
             )}
           </View>
         }
@@ -131,6 +134,7 @@ export const AllCommentScreen = ({ navigation, route }: RootStackScreenProps<"�
         />
 
         <FlatList
+          extraData={isUpdated}
           data={commentItems}
           showsVerticalScrollIndicator={false}
           maxToRenderPerBatch={10}
@@ -139,8 +143,8 @@ export const AllCommentScreen = ({ navigation, route }: RootStackScreenProps<"�
           renderItem={renderItem}
         />
       </ScreenContainer>
-    </KeyboardAvoidingView> 
-    
+    </KeyboardAvoidingView>
+
   );
 }
 

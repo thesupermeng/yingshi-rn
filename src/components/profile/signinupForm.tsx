@@ -1,5 +1,5 @@
 import { Button } from "@ant-design/react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useTheme } from "@react-navigation/native";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import {
   View,
@@ -13,6 +13,7 @@ import {
 import { useAppDispatch } from "@hooks/hooks";
 import {
   changeScreenAction,
+  hideBottomSheetAction,
   navigateToProfileScreen,
 } from "@redux/actions/screenAction";
 import SpinnerOverlay from "../modal/SpinnerOverlay";
@@ -22,7 +23,7 @@ import GmailIcon from '@static/images/gmail.svg';
 import DropdownIcon from '@static/images/dropdown.svg';
 import { CountryPhoneList } from "./countryPhoneList";
 import FastImage from '../common/customFastImage';
-import { countryPhoneCodeType } from "@type/ajaxTypes";
+import { CountryPhoneCodeType } from "@type/ajaxTypes";
 import { ReadAgreementPrivacyPolicy } from "./readAgreementPrivacyPolicy";
 
 import {
@@ -30,13 +31,13 @@ import {
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 import { useQuery } from "@tanstack/react-query";
-import { API_DOMAIN } from "@utility/constants";
-import { signinupUser } from "../../features/user";
 import { showToast } from "../../Sports/utility/toast";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import useAnalytics from "@hooks/useAnalytics";
 import { useDispatch } from "react-redux";
 import { addUserAuthState } from "@redux/actions/userAction";
+import { UserApi } from "@api";
+
 
 export type SigninupRef = {
   resetValue: () => void,
@@ -53,7 +54,7 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
   const { userCenterLoginSuccessTimesAnalytics, userCenterVipLoginSuccessTimesAnalytics } = useAnalytics();
   const dispatch = useDispatch();
 
-  const [loginType, setloginType] = useState<'email' | 'phone'>('phone');
+  const [loginType, setloginType] = useState<'email' | 'phone'>('email');
 
   const [loginValue, setLoginValue] = useState(''); // email or phone
   const [referralCode, setReferralCode] = useState('');
@@ -63,7 +64,7 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
 
   // for country phone code
   const [isShowCountryList, setShowCountryList] = useState(false);
-  const [countryPhoneSelected, setCountryPhoneSelected] = useState<countryPhoneCodeType>();
+  const [countryPhoneSelected, setCountryPhoneSelected] = useState<CountryPhoneCodeType>();
 
   // ohters
   const [isSubmitting, setSubmitting] = useState(false);
@@ -71,14 +72,8 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
 
   const { data: countryPhoneOptions } = useQuery({
     queryKey: ["CountryPhoneOptions"],
-    queryFn: () =>
-      fetch(`${API_DOMAIN}country/v1/country`)
-        .then((response) => response.json())
-        .then((json: any) => {
-          return json.data as countryPhoneCodeType[];
-        }),
+    queryFn: () => UserApi.getCountries(),
   });
-
 
   useImperativeHandle(ref, () => ({
     resetValue: () => {
@@ -109,31 +104,30 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
     setLoginValue(value);
     setLoginValueErrMsg(null);
 
-  // Remove all non-digit characters from the input value
-  const formattedValue = value.replace(/\D/g, '');
+    if (loginType === 'phone') {
+      // Remove all non-digit characters from the input value
+      const formattedValue = value.replace(/\D/g, '');
 
-  let formattedPhoneNumber = '';
-  for (let i = 0; i < formattedValue.length; i++) {
-    formattedPhoneNumber += formattedValue[i];
-    if (i === 2 && formattedValue.length > 3) {
-      formattedPhoneNumber += ' ';
-    } else if (i === 5 && formattedValue.length > 6) {
-      formattedPhoneNumber += ' ';
+      let formattedPhoneNumber = '';
+      for (let i = 0; i < formattedValue.length; i++) {
+        formattedPhoneNumber += formattedValue[i];
+        if (i === 2 && formattedValue.length > 3) {
+          formattedPhoneNumber += ' ';
+        } else if (i === 5 && formattedValue.length > 6) {
+          formattedPhoneNumber += ' ';
+        }
+      }
+
+      // Update the state with the formatted phone number
+      setLoginValue(formattedPhoneNumber);
+      setLoginValueErrMsg(null);
     }
-  }
-
-  // Update the state with the formatted phone number
-  if (loginType === 'phone') {
-    setLoginValue(formattedPhoneNumber);
-    setLoginValueErrMsg(null);
-  }
 
     if (value === '') return;
 
     if (loginType === 'email' && !isEmailValid(value)) {
       setLoginValueErrMsg('邮件格式错误');
-    // } else if (loginType === 'phone' && !isPhoneValid(value)) {
-    } else if (loginType === 'phone' && !isPhoneValid(formattedPhoneNumber)) {
+    } else if (loginType === 'phone' && !isPhoneValid(value)) {
       setLoginValueErrMsg('手机号码格式错误');
     }
   };
@@ -154,8 +148,8 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
     setShowCountryList(false);
   }
 
-  const onChangeloginType = () => {
-    setloginType(loginType === 'email' ? 'phone' : 'email');
+  const onChangeloginType = (type: 'email' | 'phone') => {
+    setloginType(type);
     setLoginValue('');
     setLoginValueErrMsg(null);
   }
@@ -193,15 +187,77 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
         showToast('登入失败，请稍后再试');
       }
       console.log(error.toString());
-
       return;
     }
 
-    if (userInfo) {
-      onSubmit({
-        isGoogleLogin: true,
+    if (userInfo === null) {
+      showToast('登入失败，请稍后再试');
+      return;
+    }
+
+    try {
+      setSubmitting(true);
+      userInfo = await UserApi.signinupUser({
+        loginType: 'EMAIL',
         email: userInfo.user.email,
+        referralCode: referralCode,
+        isGoogleLogin: true,
       });
+
+    } catch (err: any) {
+      GoogleSignin.signOut();
+      showToast(err.toString());
+      return;
+    } finally {
+      setSubmitting(false);
+    }
+
+    const resultData = userInfo.data;
+
+    let json = {
+      userToken: resultData.access_token,
+      userId: resultData.user.user_id,
+      userName: resultData.user.user_name,
+      userReferralCode: resultData.user.user_referral_code,
+      userEmail: resultData.user.user_email,
+      userPhoneNumber: resultData.user.user_phone,
+      userMemberExpired: resultData.user.vip_end_time,
+      userReferrerName: resultData.user.referrer_name,
+      userEndDaysCount: resultData.user.user_vip_time_duration_days,
+      userTotalInvite: resultData.user.total_invited_user,
+      userAccumulateRewardDay: resultData.user.accumulated_vip_reward_days,
+      userAllowUpdateReferral: resultData.user.eligible_update_referrer,
+      userCurrentTimestamp: resultData.user.current_timestamp,
+      userInvitedUserList: resultData.user.invited_users,
+      userUpline: resultData.user.upline_user,
+      userAccumulateVipRewardDay: resultData.user.accumulated_paid_vip_reward_days,
+      userPaidVipList: resultData.user.paid_vip_response,
+    };
+
+    await dispatch(addUserAuthState(json));
+
+    if (userInfo.message.includes("注册成功")) {
+      navigation.navigate('SetUsername');
+
+    } else if (userInfo.message.includes("登录成功")) {
+
+      if (json.userCurrentTimestamp < json.userMemberExpired) {
+        await AsyncStorage.setItem("showAds", "false");
+      } else {
+        await AsyncStorage.setItem("showAds", "true");
+      }
+
+      await dispatch(changeScreenAction('登录成功'));
+
+      // ========== for analytics - start ==========
+      userCenterLoginSuccessTimesAnalytics();
+
+      if (json.userMemberExpired >= json.userCurrentTimestamp) {
+        userCenterVipLoginSuccessTimesAnalytics();
+      }
+      // ========== for analytics - end ==========
+
+      if (onGooleLoginSuccess) onGooleLoginSuccess();
     }
   }
 
@@ -218,14 +274,14 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
   }
 
   const isPhoneValid = (value: string) => {
-    // if (!/^[0-9]{7,12}$/.test(value.replace(RegExp(' ', 'g'), ''))) {
-    if (!/^[0-9]{7,12}$/.test(value.replace(RegExp(' ', 'g'), '')) && value.replace(/\s/g, '').length < 8 || value.replace(/\s/g, '').length > 11) {
-    return false;
+    if (!/^[0-9]{7,12}$/.test(value.replace(RegExp(' ', 'g'), ''))) {
+      return false;
     }
+
     return true;
   }
 
-  const onSubmit = async ({ isGoogleLogin, email }: { isGoogleLogin?: boolean, email?: string } = {}) => {
+  const onSubmit = async () => {
     if (isSubmitting) return;
 
     if (isReadTermNCondition == false) {
@@ -239,35 +295,20 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
     //   return;
     // }
 
-    if ((isGoogleLogin !== true && formattedLoginValue === "") || loginValueErrMsg !== null) {
+    if (formattedLoginValue === "" || loginValueErrMsg !== null) {
       setLoginValueErrMsg(loginType === 'email' ? '请填写邮箱账号' : '请填写手机号码');
       return;
     }
 
-    let userInfo;
-
     try {
       setSubmitting(true);
-
-      let otherParams = {}
-
-      if (isGoogleLogin) {
-        otherParams = {
-          loginType: 'EMAIL',
-          email: email,
-          phone: undefined,
-          isGoogleLogin: true,
-        }
-      }
-
-      userInfo = await signinupUser({
+      await UserApi.signinupUser({
         loginType: loginType === 'email' ? 'EMAIL' : 'SMS',
         email: loginType === 'email' ? loginValue : undefined,
         // phone: loginType === 'phone' ? countryPhoneSelected?.country_phonecode + loginValue : undefined,
         phone: loginType === 'phone' ? countryPhoneSelected?.country_phonecode + formattedLoginValue : undefined,
         countryId: loginType === 'phone' ? countryPhoneSelected?.country_id : undefined,
         referralCode: referralCode,
-        ...otherParams,
       });
     } catch (err: any) {
       setSubmitting(false);
@@ -277,62 +318,13 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
 
     setSubmitting(false);
 
-    if (isGoogleLogin) {
-      const resultData = userInfo.data;
-
-      let json = {
-        userToken: resultData.access_token,
-        userId: resultData.user.user_id,
-        userName: resultData.user.user_name,
-        userReferralCode: resultData.user.user_referral_code,
-        userEmail: resultData.user.user_email,
-        userPhoneNumber: resultData.user.user_phone,
-        userMemberExpired: resultData.user.vip_end_time,
-        userReferrerName: resultData.user.referrer_name,
-        userEndDaysCount: resultData.user.user_vip_time_duration_days,
-        userTotalInvite: resultData.user.total_invited_user,
-        userAccumulateRewardDay: resultData.user.accumulated_vip_reward_days,
-        userAllowUpdateReferral: resultData.user.eligible_update_referrer,
-        userCurrentTimestamp: resultData.user.current_timestamp,
-        userInvitedUserList: resultData.user.invited_users,
-        userUpline: resultData.user.upline_user,
-        userAccumulateVipRewardDay: resultData.user.accumulated_paid_vip_reward_days,
-        userPaidVipList: resultData.user.paid_vip_response,
-      };
-
-      await dispatch(addUserAuthState(json));
-
-      if (userInfo.message.includes("注册成功")) {
-        navigation.navigate('SetUsername');
-
-      } else if (userInfo.message.includes("登录成功")) {
-
-        if (userInfo.userCurrentTimestamp < userInfo.userMemberExpired) {
-          await AsyncStorage.setItem("showAds", "false");
-        } else {
-          await AsyncStorage.setItem("showAds", "true");
-        }
-
-        await dispatch(changeScreenAction('登录成功'));
-
-        // ========== for analytics - start ==========
-        userCenterLoginSuccessTimesAnalytics();
-
-        if (userInfo.userMemberExpired >= userInfo.userCurrentTimestamp) {
-          userCenterVipLoginSuccessTimesAnalytics();
-        }
-        // ========== for analytics - end ==========
-
-        if (onGooleLoginSuccess) onGooleLoginSuccess();
-      }
-    } else {
-      navigation.navigate("OTP", {
-        email: loginType === 'email' ? loginValue : undefined,
-        phone: loginType === 'phone' ? countryPhoneSelected?.country_phonecode + loginValue : undefined,
-        countryId: loginType === 'phone' ? countryPhoneSelected?.country_id : undefined,
-        referralCode: referralCode,
-      });
-    }
+    dispatch(hideBottomSheetAction());
+    navigation.navigate("OTP", {
+      email: loginType === 'email' ? loginValue : undefined,
+      phone: loginType === 'phone' ? countryPhoneSelected?.country_phonecode + loginValue : undefined,
+      countryId: loginType === 'phone' ? countryPhoneSelected?.country_id : undefined,
+      referralCode: referralCode,
+    });
   }
 
   return (
@@ -380,11 +372,11 @@ type LoginCardProps = {
   loginValueErrMsg: string | null,
   referralCodeErrMsg: string | null,
   isReadTermNCondition: boolean,
-  countryPhoneSelected?: countryPhoneCodeType,
+  countryPhoneSelected?: CountryPhoneCodeType,
   onLoginValueChange: (value: string) => void,
   onReferralCodeChange: (value: string) => void,
   onPressTermNCondition: () => void,
-  onChangeloginType: () => void,
+  onChangeloginType: (type: 'email' | 'phone') => void,
   onPressGoogleLogin: () => void,
   onPressCountryDropdown: () => void,
   onSubmit: () => void,
@@ -406,6 +398,7 @@ const LoginCard = ({
   onPressCountryDropdown,
   onSubmit,
 }: LoginCardProps) => {
+  const { colors } = useTheme();
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
 
@@ -413,6 +406,42 @@ const LoginCard = ({
     <View style={styles.card}>
       <Text style={styles.title}>注册/登录</Text>
       <Text style={styles.subtitle}>登录后可管理您的账号，多端同步观看历史和收藏夹</Text>
+      {/* ============================== tab control ============================== */}
+      <View style={styles.tabContainer}>
+        <TouchableOpacity
+          style={styles.tabItemContainer}
+          onPress={() => onChangeloginType('phone')}
+        >
+          <Text style={[loginType === 'phone' ? styles.tabItemFocusText : styles.tabItemUnfocusText]}>手机号码</Text>
+          {loginType === 'phone' &&
+            <View
+              style={{
+                width: 30,
+                height: 4,
+                borderRadius: 20,
+                backgroundColor: colors.primary,
+              }}
+            />
+          }
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.tabItemContainer}
+          onPress={() => onChangeloginType('email')}
+        >
+          <Text style={[loginType === 'email' ? styles.tabItemFocusText : styles.tabItemUnfocusText]}>电邮地址</Text>
+          {loginType === 'email' &&
+            <View
+              style={{
+                width: 30,
+                height: 4,
+                borderRadius: 20,
+                backgroundColor: colors.primary,
+              }}
+            />
+          }
+        </TouchableOpacity>
+      </View>
       <View style={styles.textinputContainer}>
         {/* ============================== login value (email / phone) ============================== */}
         {loginType === 'email' && <>
@@ -459,7 +488,7 @@ const LoginCard = ({
               left: 94,
               zIndex: 100,
             }}>
-              {countryPhoneSelected?.country_phonecode}
+              +{countryPhoneSelected?.country_phonecode}
             </Text>
 
             <TextInput
@@ -614,10 +643,13 @@ const LoginCard = ({
             color: loginValue === "" || !isReadTermNCondition ? "white" : "#000",
           }}
         >
-          注册
+          登入
         </Text>
       </Button>
 
+      <Text style={{ fontSize: 12, color: "#9c9c9c", marginVertical: 10, }}>
+        如果未注册，登入后将自动为您创建账号。
+      </Text>
 
       <ReadAgreementPrivacyPolicy
         isReadChecked={isReadTermNCondition}
@@ -633,9 +665,9 @@ const LoginCard = ({
       />
 
       {/* ============================== other login type ============================== */}
-      <View style={{ alignItems: 'center' }}>
+      {/* <View style={{ alignItems: 'center' }}>
         <Text style={{ color: "#9c9c9c" }}>使用以下方式登入</Text>
-      </View>
+      </View> */}
 
       <View style={{
         justifyContent: 'center',
@@ -645,7 +677,7 @@ const LoginCard = ({
         flexDirection: 'row',
         padding: 10,
       }}>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={onChangeloginType}
           style={{
             backgroundColor: '#1D2023',
@@ -656,7 +688,7 @@ const LoginCard = ({
         >
           {loginType === 'email' && <PhoneIcon />}
           {loginType === 'phone' && <MailIcon />}
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         <TouchableOpacity
           onPress={onPressGoogleLogin}
@@ -679,6 +711,23 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginBottom: 10,
     justifyContent: 'center',
+  },
+  tabContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    paddingBottom: 20,
+  },
+  tabItemContainer: {
+    marginRight: 10,
+    alignItems: 'center',
+  },
+  tabItemFocusText: {
+    color: 'white',
+    paddingBottom: 10,
+  },
+  tabItemUnfocusText: {
+    color: '#9c9c9c',
+    paddingBottom: 10,
   },
   countryPhoneInputContainer: {
     display: 'flex',

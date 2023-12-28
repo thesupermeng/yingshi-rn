@@ -7,6 +7,7 @@ import {
   Image,
   Clipboard,
   Linking,
+  Share,
 } from "react-native";
 import { useNavigation, useTheme } from "@react-navigation/native";
 
@@ -23,15 +24,19 @@ import ProfileIcn from "@static/images/invite/profile-icon.svg";
 
 import { TouchableOpacity } from "@gorhom/bottom-sheet";
 
-
 import LinearGradient from "react-native-linear-gradient";
 import { userModel } from "@type/userType";
 import { useAppDispatch } from "@hooks/hooks";
 import { showLoginAction } from "@redux/actions/screenAction";
-import Share from "react-native-share";
+//import Share from "react-native-share";
 import { APP_NAME_CONST, INVITE_DOMAIN } from "@utility/constants";
-import { YSConfig } from "../../../../ysConfig";
+import { YSConfig } from "../../../ysConfig";
 import NotificationModal from "../modal/notificationModal";
+
+import SinaIcon from "@static/images/sina.svg";
+import WeChatIcon from "@static/images/wechat.svg";
+import QQIcon from "@static/images/qq.svg";
+import PYQIcon from "@static/images/pyq.svg";
 interface Props {
   userState: userModel;
 }
@@ -41,7 +46,7 @@ export default function InviteCard({ userState = {} }: Props) {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const [shareOptions, setShareOptions] = useState({
-    message: `下载${APP_NAME_CONST},免费领取VIP会员,免费看海量高清影视`,
+    message: `下载${APP_NAME_CONST},免费领取VIP会员,免费看海量高清影视 `,
     url: "",
   });
 
@@ -87,10 +92,22 @@ export default function InviteCard({ userState = {} }: Props) {
     let encodedAuth = new Buffer(inviteParam).toString("base64");
     setShareOptions({
       ...shareOptions,
-      message: `下载${APP_NAME_CONST},免费领取VIP会员,免费看海量高清影视`,
+      message: `下载${APP_NAME_CONST},免费领取VIP会员,免费看海量高清影视 `,
       url: INVITE_DOMAIN + encodedAuth,
     });
   }, [userState]);
+
+  useEffect(() => {
+    const inviteParam = userState.userReferralCode + userState.userName;
+
+    const Buffer = require("buffer").Buffer;
+    let encodedAuth = new Buffer(inviteParam).toString("base64");
+    setShareOptions({
+      ...shareOptions,
+      message: `下载${APP_NAME_CONST},免费领取VIP会员,免费看海量高清影视 `,
+      url: INVITE_DOMAIN + encodedAuth,
+    });
+  }, []);
 
   const shareToWhatsApp = async () => {
     if (userState.userToken == "") {
@@ -163,51 +180,51 @@ export default function InviteCard({ userState = {} }: Props) {
       });
   };
 
-  const shareToWeibo = async () => {
-    if (userState.userToken === "") {
-      dispatch(showLoginAction());
-      return;
-    }
-    const message = encodeURIComponent(
-      shareOptions.message + "\n" + shareOptions.url
-    );
-    const appURL = `http://service.weibo.com/share/share.php?url=${message}`;
+  // const shareToWeibo = async () => {
+  //   if (userState.userToken === "") {
+  //     dispatch(showLoginAction());
+  //     return;
+  //   }
+  //   const message = encodeURIComponent(
+  //     shareOptions.message + "\n" + shareOptions.url
+  //   );
+  //   const appURL = `http://service.weibo.com/share/share.php?url=${message}`;
 
-    Linking.openURL(appURL);
-  };
+  //   Linking.openURL(appURL);
+  // };
 
-  const shareToFacebook = async () => {
-    if (userState.userToken == "") {
-      dispatch(showLoginAction());
-      return;
-    }
-    try {
-      await Share.shareSingle({
-        ...shareOptions,
-        social: Share.Social.FACEBOOK,
-      });
-      // Linking.openURL(
-      //   'https://www.facebook.com/sharer/sharer.php?u=' + '' + shareOptions.url,
-      // );
-    } catch (error) {
-      console.error("Error sharing link", error);
-    }
-  };
+  // const shareToFacebook = async () => {
+  //   if (userState.userToken == "") {
+  //     dispatch(showLoginAction());
+  //     return;
+  //   }
+  //   try {
+  //     await Share.shareSingle({
+  //       ...shareOptions,
+  //       social: Share.Social.FACEBOOK,
+  //     });
+  //     Linking.openURL(
+  //       'https://www.facebook.com/sharer/sharer.php?u=' + '' + shareOptions.url,
+  //     );
+  //   } catch (error) {
+  //     console.error("Error sharing link", error);
+  //   }
+  // };
 
-  const shareToTwitter = async () => {
-    if (userState.userToken == "") {
-      dispatch(showLoginAction());
-      return;
-    }
-    try {
-      await Share.shareSingle({
-        ...shareOptions,
-        social: Share.Social.TWITTER,
-      });
-    } catch (error) {
-      console.log("Error sharing link", error);
-    }
-  };
+  // const shareToTwitter = async () => {
+  //   if (userState.userToken == "") {
+  //     dispatch(showLoginAction());
+  //     return;
+  //   }
+  //   try {
+  //     await Share.shareSingle({
+  //       ...shareOptions,
+  //       social: Share.Social.TWITTER,
+  //     });
+  //   } catch (error) {
+  //     console.log("Error sharing link", error);
+  //   }
+  // };
 
   const toggleShare = async () => {
     if (userState.userToken == "") {
@@ -215,18 +232,43 @@ export default function InviteCard({ userState = {} }: Props) {
       return;
     }
     try {
-      const options = {
-        title: "分享",
-        message: shareOptions.message,
-        url: shareOptions.url,
-      };
-      console.log("options:", options);
-      await Share.open(options);
-      // console.log('Link shared successfully ');
+      const inviteParam = userState.userReferralCode + userState.userName;
+
+      const Buffer = require("buffer").Buffer;
+      let encodedAuth = new Buffer(inviteParam).toString("base64");
+
+      // let msg = `下载爱美剧，免费领取VIP会员，免费看海量高清影视  ${" \n "} ${INVITE_DOMAIN}${encodedAuth}`;
+
+      let msg = "下载爱美剧，免费领取VIP会员，免费看海量高清影视 " + INVITE_DOMAIN + encodedAuth;
+
+      const result = await Share.share({
+        message: msg,
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
     } catch (error) {
       console.log("Error sharing link :", error);
     }
   };
+
+  useEffect(() => {
+    const inviteParam = userState.userReferralCode + userState.userName;
+
+    const Buffer = require("buffer").Buffer;
+    let encodedAuth = new Buffer(inviteParam).toString("base64");
+    setShareOptions({
+      ...shareOptions,
+      message: `下载${APP_NAME_CONST},免费领取VIP会员,免费看海量高清影视 `,
+      url: INVITE_DOMAIN + encodedAuth,
+    });
+  }, []);
 
   return (
     <>
@@ -285,7 +327,7 @@ export default function InviteCard({ userState = {} }: Props) {
             borderTopRightRadius: 15,
             flexDirection: "row", // Set flexDirection to 'row'
             justifyContent: "space-evenly",
-           flexWrap: 'wrap', // Allow items to wrap to the next row
+            flexWrap: "wrap", // Allow items to wrap to the next row
           }}
         >
           <View style={styles.featureItem}>
@@ -301,17 +343,17 @@ export default function InviteCard({ userState = {} }: Props) {
             </View>
           </View>
 
-            <View style={styles.featureItem}>
-              <View style={styles.imgContainer}>
-                <FastImage
-                  source={require("@static/images/invite/sport.png")}
-                  style={styles.featureIcn}
-                  resizeMode={"contain"}
-                />
-              </View>
-              <Text style={styles.featureTitle}>体育频道</Text>
+          <View style={styles.featureItem}>
+            <View style={styles.imgContainer}>
+              <FastImage
+                source={require("@static/images/invite/sport.png")}
+                style={styles.featureIcn}
+                resizeMode={"contain"}
+              />
             </View>
-        
+            <Text style={styles.featureTitle}>体育频道</Text>
+          </View>
+
           <View style={styles.featureItem}>
             <View style={styles.imgContainer}>
               <FastImage
@@ -336,7 +378,6 @@ export default function InviteCard({ userState = {} }: Props) {
               <Text style={styles.featureTitle}>去广告</Text>
             </View>
           </View>
-          
         </LinearGradient>
         {/* invite button  component  */}
         <TouchableOpacity
@@ -368,46 +409,20 @@ export default function InviteCard({ userState = {} }: Props) {
           </View>
         </TouchableOpacity>
         {/* social media share section  */}
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            marginHorizontal: 33,
-            marginVertical: 25,
-            marginTop: 15,
-            // position: 'relative',
-            // bottom: 5,
-          }}
-        >
-          <TouchableOpacity onPress={shareToWhatsApp}>
-            <WhatsappIcn style={{ width: 18, height: 18 }} />
-          </TouchableOpacity>
 
-          <TouchableOpacity onPress={shareToTelegram}>
-            <TelegramIcn />
+        <View style={{ ...styles.share, gap: 10 }}>
+          <TouchableOpacity onPress={toggleShare}>
+            <WeChatIcon />
           </TouchableOpacity>
-          <TouchableOpacity onPress={shareToFacebook}>
-            <FacebookIcn />
+          <TouchableOpacity onPress={toggleShare}>
+            <PYQIcon />
           </TouchableOpacity>
-
-          {/* <TouchableOpacity onPress={shareToWeixin}>
-            <WechatIcn />
-          </TouchableOpacity> */}
-
-          <TouchableOpacity onPress={shareToTwitter}>
-            <FastImage
-              source={require("@static/images/invite/twitter.png")}
-              style={{
-                height: 40,
-                width: 40,
-              }}
-              resizeMode={"contain"}
-            />
+          <TouchableOpacity onPress={toggleShare}>
+            <SinaIcon />
           </TouchableOpacity>
-
-          {/* <TouchableOpacity onPress={shareToWeibo}>
-            <WeiboIcn />
-          </TouchableOpacity> */}
+          <TouchableOpacity onPress={toggleShare}>
+            <QQIcon />
+          </TouchableOpacity>
 
           <TouchableOpacity
             onPress={() => {
@@ -423,15 +438,6 @@ export default function InviteCard({ userState = {} }: Props) {
           >
             <CopyIcn />
           </TouchableOpacity>
-
-          <NotificationModal
-            onConfirm={toggleOverlay}
-            isVisible={isDialogOpen}
-            title="复制成功"
-            subtitle1=""
-            subtitle2=""
-            subtitle3=""
-          />
         </View>
         {/* stat section  */}
         <TouchableOpacity
@@ -489,6 +495,15 @@ export default function InviteCard({ userState = {} }: Props) {
             </View>
           </View>
         </TouchableOpacity>
+
+        <NotificationModal
+            onConfirm={toggleOverlay}
+            isVisible={isDialogOpen}
+            title="复制成功"
+            subtitle1=""
+            subtitle2=""
+            subtitle3=""
+          />
       </View>
     </>
   );
@@ -517,5 +532,15 @@ const styles = StyleSheet.create({
   featureIcn: {
     flex: 1,
     width: 22,
+  },
+  share: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    paddingBottom: 10,
+    paddingTop: 15,
+    flex: 1,
+    justifyContent: "space-between",
+    paddingHorizontal: 50,
   },
 });

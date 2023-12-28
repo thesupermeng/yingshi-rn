@@ -1,12 +1,12 @@
-import { countryPhoneCodeType } from "@type/ajaxTypes";
+import { CountryPhoneCodeType } from "@type/ajaxTypes";
 import React from "react";
 import { FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import FastImage from '../common/customFastImage';
 
 type CountryPhoneListProps = {
-    data: countryPhoneCodeType[],
-    dataSelected?: countryPhoneCodeType,
-    onSelectCountryPhone: (data: countryPhoneCodeType) => void,
+    data: CountryPhoneCodeType[],
+    dataSelected?: CountryPhoneCodeType,
+    onSelectCountryPhone: (data: CountryPhoneCodeType) => void,
 }
 export const CountryPhoneList = ({
     data,

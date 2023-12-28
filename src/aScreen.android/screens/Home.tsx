@@ -5,8 +5,7 @@ import { useFocusEffect, useTheme } from "@react-navigation/native";
 import { useQuery, useQueries, UseQueryResult } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
 import {
-  NavOptionsResponseType,
-  VodCarousellResponseType,
+  VodCarousellType,
 } from "@type/ajaxTypes";
 import {
   BottomTabScreenProps,
@@ -40,6 +39,7 @@ import { AdsBannerContext } from "../../contexts/AdsBannerContext";
 
 import useInterstitialAds from "@hooks/useInterstitialAds"
 import useAnalytics from "@hooks/useAnalytics";
+import { AppsApi } from "@api";
 
 function Home({ navigation }: BottomTabScreenProps<any>) {
   const isFocused = useIsFocused();
@@ -55,21 +55,10 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
 
   const { data: navOptions, refetch } = useQuery({
     queryKey: ["HomePageNavOptions"],
-    queryFn: () =>
-      fetch(`${API_DOMAIN}nav/v1/navItems`, {})
-        .then((response) => response.json())
-        .then((json: NavOptionsResponseType) => {
-          return json.data;
-        }),
+    queryFn: () => AppsApi.getHomeNav(),
   });
 
-  const fetchData = useCallback((id: number) => {
-    return fetch(`${API_DOMAIN}page/v2/typepage?id=${id}`)
-      .then((response) => response.json())
-      .then((json: VodCarousellResponseType) => {
-        return json;
-      });
-  }, []);
+  const fetchData = useCallback((id: number) => AppsApi.getHomePages(id), []);
 
   const data = useQueries({
     queries: navOptions
@@ -156,7 +145,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
       item,
       index,
     }: {
-      item: UseQueryResult<VodCarousellResponseType>;
+      item: UseQueryResult<VodCarousellType>;
       index: number;
     }) => {
       return (
@@ -185,11 +174,11 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
     []
   );
 
-  const { setNavbarHeight } = useContext(AdsBannerContext)
+  const { setNavbarHeight } = useContext(AdsBannerContext);
 
   useEffect(() => {
-    setNavbarHeight(bottomTabHeight)
-  }, [bottomTabHeight])
+    setNavbarHeight(bottomTabHeight);
+  }, [bottomTabHeight]);
 
   // ========== for analytics - start ==========
   const { homeTabViewsAnalytics, homeTabClicksAnalytics } = useAnalytics();
@@ -201,36 +190,39 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
         tab_name: navOptions[0].name,
       });
     }
-  }, [navOptions])
+  }, [navOptions]);
 
   useEffect(() => {
     if (navOptions !== undefined && navOptions.length > 0) {
+      const idx = navOptions?.findIndex((e) => e.id === navId);
       homeTabViewsAnalytics({
-        tab_id: navOptions[navId].id.toString(),
-        tab_name: navOptions[navId].name,
+        tab_id: navOptions[idx].id.toString(),
+        tab_name: navOptions[idx].name,
       });
     }
-  }, [navId])
+  }, [navId]);
   // ========== for analytics - end ==========
 
   const onTabPress = (target?: string) => {
-    const targetStr = target?.substring(0, target.indexOf('-'));
+    const targetStr = target?.substring(0, target.indexOf("-"));
 
     if (navOptions !== undefined) {
-      const found = navOptions?.findIndex((e) => e.name === targetStr);
-      setNavId(found);
+      const found = navOptions?.find((e) => e.name === targetStr);
 
-      // ========== for analytics - start ==========
-      homeTabClicksAnalytics({
-        tab_id: navOptions[found].id.toString(),
-        tab_name: navOptions[found].name,
-      });
-      // ========== for analytics - end ==========
+      if (found) {
+        setNavId(found.id);
+        // ========== for analytics - start ==========
+        homeTabClicksAnalytics({
+          tab_id: found.id.toString(),
+          tab_name: found.name,
+        });
+        // ========== for analytics - end ==========
+      }
     }
   }
 
   const onTabSwipe = useCallback((index: number, tab: any) => {
-    setNavId(index);
+    setNavId(tab.id);
   }, []);
 
   // useInterstitialAds();

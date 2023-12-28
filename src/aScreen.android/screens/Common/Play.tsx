@@ -25,8 +25,7 @@ import { YSConfig } from "../../../../ysConfig";
 
 import { RootStackScreenProps } from "@type/navigationTypes";
 import {
-  SuggestResponseType,
-  VodDetailsResponseType,
+  SuggestedVodType,
 } from "@type/ajaxTypes";
 import { addVodToHistory, playVod } from "@redux/actions/vodActions";
 import { useAppDispatch, useAppSelector } from "@hooks/hooks";
@@ -71,6 +70,7 @@ import { debounce } from "lodash";
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
 import { InAppBrowser } from "react-native-inappbrowser-reborn";
 import useAnalytics from "@hooks/useAnalytics";
+import { VodApi } from "@api";
 
 type VideoRef = {
   setPause: (param: boolean) => void;
@@ -262,16 +262,12 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
       playsShareClicksAnalytics();
       // ========== for analytics - end ==========
 
-      let msg = `《${
-        vod?.vod_name
-      }》高清播放${"\n"}https://yingshi.tv/index.php/vod/play/id/${
-        vod?.vod_id
-      }/sid/1/nid/${
-        currentEpisode + 1
-      }.html${"\n"}${APP_NAME_CONST}-海量高清视频在线观看`
+      let msg = `《${vod?.vod_name
+        }》高清播放${"\n"}https://yingshi.tv/index.php/vod/play/id/${vod?.vod_id
+        }/sid/1/nid/${currentEpisode + 1
+        }.html${"\n"}${APP_NAME_CONST}-海量高清视频在线观看`
 
-      if(APP_NAME_CONST=='大鱼影视')
-      {
+      if (APP_NAME_CONST == '爱美剧') {
         msg = `海量视频内容 随时随地 想看就看 ${"\n"}https://xiangkantv.net/share.html`
       }
 
@@ -347,18 +343,10 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
     // );
   }, []);
 
-  const localIp = YSConfig.instance.ip;
   const fetchVodDetails = () =>
-    fetch(
-      `${API_DOMAIN}vod/v1/vod/detail?id=${vod?.vod_id}&appName=${APP_NAME_CONST}&platform=` +
-        Platform.OS.toUpperCase() +
-        `&channelId=` +
-        UMENG_CHANNEL +
-        `&ip=${localIp}`
-    )
-      .then((response) => response.json())
-      .then((json: VodDetailsResponseType) => {
-        const isRestricted = json.data[0]?.vod_restricted === 1;
+    VodApi.getDetail(vod?.vod_id.toString() ?? '')
+      .then((data) => {
+        const isRestricted = data.vod_restricted === 1;
 
         if (isRestricted) {
           // videoPlayerRef.current.setPause(true);
@@ -370,7 +358,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
           setVodRestricted(isRestricted);
         }
 
-        return json.data[0];
+        return data;
       });
 
   const { data: vodDetails, isFetching: isFetchingVodDetails } = useQuery({
@@ -400,15 +388,13 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   }, [vodDetails]);
 
   const fetchVod = () =>
-    fetch(
-      `${API_DOMAIN}vod/v2/vod?class=${vod?.vod_class
+    VodApi.getList({
+      category: vod?.vod_class
         ?.split(",")
-        .shift()}&tid=${vod?.type_id}&limit=6`
-    )
-      .then((response) => response.json())
-      .then((json: SuggestResponseType) => {
-        return json.data.List;
-      });
+        .shift(),
+      tid: vod?.type_id.toString() ?? '',
+      limit: 6,
+    }).then((data) => data.List as SuggestedVodType[]);
 
   useEffect(() => {
     currentEpisodeRef.current = vod?.episodeWatched;
@@ -713,15 +699,14 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                     <Text
                       style={{ ...textVariants.subBody, color: colors.muted }}
                     >
-                      {`更新：${
-                        vod
-                          ? new Date(vod?.vod_time_add * 1000)
-                              .toLocaleDateString("en-GB")
-                              .replace(/\//g, "-")
-                          : new Date()
-                              .toLocaleDateString("en-GB")
-                              .replace(/\//g, "-")
-                      }`}
+                      {`更新：${vod
+                        ? new Date(vod?.vod_time_add * 1000)
+                          .toLocaleDateString("en-GB")
+                          .replace(/\//g, "-")
+                        : new Date()
+                          .toLocaleDateString("en-GB")
+                          .replace(/\//g, "-")
+                        }`}
                     </Text>
                     <View
                       style={{
@@ -824,36 +809,36 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
                       {vod &&
                         suggestedVods !== undefined &&
                         suggestedVods?.length > 0 ? (
-                          <View style={{ gap: spacing.l, marginBottom: 60 }}>
-                            <ShowMoreVodButton
-                              isPlayScreen={true}
-                              text={`相关${vod?.type_name}`}
-                              onPress={() => {
-                                // videoPlayerRef.current.setPause(true);
-                                setTimeout(() => {
-                                  navigation.navigate("片库", {
-                                    type_id: vod.type_id,
-                                  });
-                                }, 150);
-                              }}
-                            />
-                            <VodListVertical
-                              vods={suggestedVods}
-                              outerRowPadding={2 * (20 - spacing.sideOffset)}
-                              onPress={() => {
-                                if (!isCollapsed) {
-                                  setIsCollapsed(true);
-                                }
-                              }}
-                            />
-                          </View>
-                        ):
+                        <View style={{ gap: spacing.l, marginBottom: 60 }}>
+                          <ShowMoreVodButton
+                            isPlayScreen={true}
+                            text={`相关${vod?.type_name}`}
+                            onPress={() => {
+                              // videoPlayerRef.current.setPause(true);
+                              setTimeout(() => {
+                                navigation.navigate("片库", {
+                                  type_id: vod.type_id,
+                                });
+                              }, 150);
+                            }}
+                          />
+                          <VodListVertical
+                            vods={suggestedVods}
+                            outerRowPadding={2 * (20 - spacing.sideOffset)}
+                            onPress={() => {
+                              if (!isCollapsed) {
+                                setIsCollapsed(true);
+                              }
+                            }}
+                          />
+                        </View>
+                      ) :
                         <>
                           {/* 广告空位 */}
-                        <View style={{marginBottom: 60}}></View>
+                          <View style={{ marginBottom: 60 }}></View>
                         </>
-                        
-                        }
+
+                      }
                     </>
                   )}
                 </>

@@ -14,10 +14,7 @@ import { useAppDispatch } from "@hooks/hooks";
 import {
   changeScreenAction,
   hideBottomSheetAction,
-  hideLoginAction,
   navigateToProfileScreen,
-  removeScreenAction,
-  resetBottomSheetAction,
 } from "@redux/actions/screenAction";
 import SpinnerOverlay from "../modal/SpinnerOverlay";
 import PhoneIcon from '@static/images/phone.svg';
@@ -26,7 +23,7 @@ import GmailIcon from '@static/images/gmail.svg';
 import DropdownIcon from '@static/images/dropdown.svg';
 import { CountryPhoneList } from "./countryPhoneList";
 import FastImage from '../common/customFastImage';
-import { countryPhoneCodeType } from "@type/ajaxTypes";
+import { CountryPhoneCodeType } from "@type/ajaxTypes";
 import { ReadAgreementPrivacyPolicy } from "./readAgreementPrivacyPolicy";
 
 import {
@@ -35,12 +32,13 @@ import {
 } from '@react-native-google-signin/google-signin';
 import { useQuery } from "@tanstack/react-query";
 import { API_DOMAIN } from "@utility/constants";
-import { signinupUser } from "../../../features/user";
 import { showToast } from "../../Sports/utility/toast";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import useAnalytics from "@hooks/useAnalytics";
 import { useDispatch } from "react-redux";
 import { addUserAuthState } from "@redux/actions/userAction";
+import { UserApi } from "@api";
+
 
 export type SigninupRef = {
   resetValue: () => void,
@@ -67,7 +65,7 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
 
   // for country phone code
   const [isShowCountryList, setShowCountryList] = useState(false);
-  const [countryPhoneSelected, setCountryPhoneSelected] = useState<countryPhoneCodeType>();
+  const [countryPhoneSelected, setCountryPhoneSelected] = useState<CountryPhoneCodeType>();
 
   // ohters
   const [isSubmitting, setSubmitting] = useState(false);
@@ -75,12 +73,7 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
 
   const { data: countryPhoneOptions } = useQuery({
     queryKey: ["CountryPhoneOptions"],
-    queryFn: () =>
-      fetch(`${API_DOMAIN}country/v1/country`)
-        .then((response) => response.json())
-        .then((json: any) => {
-          return json.data as countryPhoneCodeType[];
-        }),
+    queryFn: () => UserApi.getCountries(),
   });
 
 
@@ -166,30 +159,88 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
     } catch (error: any) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         // user cancelled the login flow
-        console.log('error SIGN_IN_CANCELLED');
       } else if (error.code === statusCodes.IN_PROGRESS) {
         // operation (e.g. sign in) is in progress already
-        console.log('error IN_PROGRESS');
         showToast('请勿频繁操作');
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
         // play services not available or outdated
-        console.log('error PLAY_SERVICES_NOT_AVAILABLE');
         showToast('谷歌服务获取失败');
       } else {
         // some other error happened
-        console.log('error common');
         showToast('登入失败，请稍后再试');
       }
       console.log(error.toString());
-
       return;
     }
 
-    if (userInfo) {
-      onSubmit({
-        isGoogleLogin: true,
+    if (userInfo === null) {
+      showToast('登入失败，请稍后再试');
+      return;
+    }
+
+    try {
+      setSubmitting(true);
+
+      userInfo = await UserApi.signinupUser({
+        loginType: 'EMAIL',
         email: userInfo.user.email,
+        referralCode: referralCode,
+        isGoogleLogin: true,
       });
+    } catch (err: any) {
+      GoogleSignin.signOut();
+      showToast(err.toString());
+      return;
+    } finally {
+      setSubmitting(false);
+    }
+
+    const resultData = userInfo.data;
+
+    let json = {
+      userToken: resultData.access_token,
+      userId: resultData.user.user_id,
+      userName: resultData.user.user_name,
+      userReferralCode: resultData.user.user_referral_code,
+      userEmail: resultData.user.user_email,
+      userPhoneNumber: resultData.user.user_phone,
+      userMemberExpired: resultData.user.vip_end_time,
+      userReferrerName: resultData.user.referrer_name,
+      userEndDaysCount: resultData.user.user_vip_time_duration_days,
+      userTotalInvite: resultData.user.total_invited_user,
+      userAccumulateRewardDay: resultData.user.accumulated_vip_reward_days,
+      userAllowUpdateReferral: resultData.user.eligible_update_referrer,
+      userCurrentTimestamp: resultData.user.current_timestamp,
+      userInvitedUserList: resultData.user.invited_users,
+      userUpline: resultData.user.upline_user,
+      userAccumulateVipRewardDay: resultData.user.accumulated_paid_vip_reward_days,
+      userPaidVipList: resultData.user.paid_vip_response,
+    };
+
+    await dispatch(addUserAuthState(json));
+
+    if (userInfo.message.includes("注册成功")) {
+      navigation.navigate('SetUsername');
+
+    } else if (userInfo.message.includes("登录成功")) {
+
+      if (json.userCurrentTimestamp < json.userMemberExpired) {
+        await AsyncStorage.setItem("showAds", "false");
+      } else {
+        await AsyncStorage.setItem("showAds", "true");
+      }
+
+      await dispatch(changeScreenAction('登录成功'));
+
+      // ========== for analytics - start ==========
+      userCenterLoginSuccessTimesAnalytics();
+
+      if (json.userMemberExpired >= json.userCurrentTimestamp) {
+        userCenterVipLoginSuccessTimesAnalytics();
+      }
+      // ========== for analytics - end ==========
+
+      if (onGooleLoginSuccess) onGooleLoginSuccess();
     }
   }
 
@@ -213,45 +264,35 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
     return true;
   }
 
-  const onSubmit = async ({ isGoogleLogin, email }: { isGoogleLogin?: boolean, email?: string } = {}) => {
-    console.log(isGoogleLogin)
-    console.log(email)
-   
-
+  const onSubmit = async () => {
     if (isSubmitting) return;
 
     if (isReadTermNCondition == false) {
       return;
     }
 
-    if (isGoogleLogin !== true && loginValue === "") {
+    const formattedLoginValue = loginType === 'phone' ? loginValue.replace(/\s/g, '') : loginValue;
+
+    // if (isGoogleLogin !== true && loginValue === "") {
+    //   setLoginValueErrMsg(loginType === 'email' ? '请填写邮箱账号' : '请填写手机号码');
+    //   return;
+    // }
+
+    if (formattedLoginValue === "" || loginValueErrMsg !== null) {
       setLoginValueErrMsg(loginType === 'email' ? '请填写邮箱账号' : '请填写手机号码');
       return;
     }
 
-    let userInfo;
-
     try {
       setSubmitting(true);
 
-      let otherParams = {}
-
-      if (isGoogleLogin) {
-        otherParams = {
-          loginType: 'EMAIL',
-          email: email,
-          phone: undefined,
-          isGoogleLogin: true,
-        }
-      }
-
-      userInfo = await signinupUser({
+      await UserApi.signinupUser({
         loginType: loginType === 'email' ? 'EMAIL' : 'SMS',
         email: loginType === 'email' ? loginValue : undefined,
-        phone: loginType === 'phone' ? countryPhoneSelected?.country_phonecode + loginValue : undefined,
+        // phone: loginType === 'phone' ? countryPhoneSelected?.country_phonecode + loginValue : undefined,
+        phone: loginType === 'phone' ? countryPhoneSelected?.country_phonecode + formattedLoginValue : undefined,
         countryId: loginType === 'phone' ? countryPhoneSelected?.country_id : undefined,
         referralCode: referralCode,
-        ...otherParams,
       });
     } catch (err: any) {
       setSubmitting(false);
@@ -261,69 +302,13 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
 
     setSubmitting(false);
 
-    if (isGoogleLogin) {
-      const resultData = userInfo.data;
-
-      let json = {
-        userToken: resultData.access_token,
-        userId: resultData.user.user_id,
-        userName: resultData.user.user_name,
-        userReferralCode: resultData.user.user_referral_code,
-        userEmail: resultData.user.user_email,
-        userPhoneNumber: resultData.user.user_phone,
-        userMemberExpired: resultData.user.vip_end_time,
-        userReferrerName: resultData.user.referrer_name,
-        userEndDaysCount: resultData.user.user_vip_time_duration_days,
-        userTotalInvite: resultData.user.total_invited_user,
-        userAccumulateRewardDay: resultData.user.accumulated_vip_reward_days,
-        userAllowUpdateReferral: resultData.user.eligible_update_referrer,
-        userCurrentTimestamp: resultData.user.current_timestamp,
-        userInvitedUserList: resultData.user.invited_users,
-        userUpline: resultData.user.upline_user,
-        userAccumulateVipRewardDay: resultData.user.accumulated_paid_vip_reward_days,
-        userPaidVipList: resultData.user.paid_vip_response,
-      };
-
-      await dispatch(addUserAuthState(json));
-
-
-      if (userInfo.message.includes("注册成功")) {
-        navigation.navigate('SetUsername');
-
-      } else if (userInfo.message.includes("登录成功")) {
-
-        if (json.userCurrentTimestamp < json.userMemberExpired) {
-          await AsyncStorage.setItem("showAds", "false");
-        } else {
-          await AsyncStorage.setItem("showAds", "true");
-        }
-
-        await dispatch(changeScreenAction('登录成功'));
-
-        // ========== for analytics - start ==========
-        userCenterLoginSuccessTimesAnalytics();
-
-        if (json.userMemberExpired >= json.userCurrentTimestamp) {
-          userCenterVipLoginSuccessTimesAnalytics();
-        }
-        // ========== for analytics - end ==========
-
-        if (onGooleLoginSuccess) onGooleLoginSuccess();
-      }
-    } else {
-  
-      // dispatch(navigateToProfileScreen());
-      // dispatch(hideLoginAction());
-      // dispatch(removeScreenAction());
-      // dispatch(removeScreenAction());
-      dispatch(hideBottomSheetAction());
-      navigation.navigate("OTP", {
-        email: loginType === 'email' ? loginValue : undefined,
-        phone: loginType === 'phone' ? countryPhoneSelected?.country_phonecode + loginValue : undefined,
-        countryId: loginType === 'phone' ? countryPhoneSelected?.country_id : undefined,
-        referralCode: referralCode,
-      });
-    }
+    dispatch(hideBottomSheetAction());
+    navigation.navigate("OTP", {
+      email: loginType === 'email' ? loginValue : undefined,
+      phone: loginType === 'phone' ? countryPhoneSelected?.country_phonecode + loginValue : undefined,
+      countryId: loginType === 'phone' ? countryPhoneSelected?.country_id : undefined,
+      referralCode: referralCode,
+    });
   }
 
   return (
@@ -371,7 +356,7 @@ type LoginCardProps = {
   loginValueErrMsg: string | null,
   referralCodeErrMsg: string | null,
   isReadTermNCondition: boolean,
-  countryPhoneSelected?: countryPhoneCodeType,
+  countryPhoneSelected?: CountryPhoneCodeType,
   onLoginValueChange: (value: string) => void,
   onReferralCodeChange: (value: string) => void,
   onPressTermNCondition: () => void,
@@ -617,62 +602,66 @@ const LoginCard = ({
             <Text style={styles.danger}>{referralCodeErrMsg} </Text>
           </View>
         )}
-        <Button
-          type="primary"
-          disabled={loginValue === '' || loginValueErrMsg !== null || !isReadTermNCondition}
-          style={[
-            styles.continueButtonStyle,
-            loginValue === "" || !isReadTermNCondition ? styles.btnInactive : styles.btnActive,
-          ]}
-          activeStyle={[
-            styles.continueButtonStyle,
-            loginValue === "" || !isReadTermNCondition ? styles.btnInactive : styles.btnActive,
-          ]}
-          onPress={onSubmit}
+      </View>
+
+      {/* ============================== submit button ============================== */}
+      <Button
+        type="primary"
+        disabled={loginValue === '' || loginValueErrMsg !== null || !isReadTermNCondition}
+        style={[
+          styles.continueButtonStyle,
+          loginValue === "" || !isReadTermNCondition ? styles.btnInactive : styles.btnActive,
+        ]}
+        activeStyle={[
+          styles.continueButtonStyle,
+          loginValue === "" || !isReadTermNCondition ? styles.btnInactive : styles.btnActive,
+        ]}
+        onPress={onSubmit}
+      >
+        <Text
+          style={{
+            //  fontFamily: 'SF Pro Display',
+            fontWeight: "600",
+            fontSize: 14,
+            letterSpacing: 0.2,
+            color: loginValue === "" || !isReadTermNCondition ? "white" : "#000",
+          }}
         >
-          <Text
-            style={{
-              //  fontFamily: 'SF Pro Display',
-              fontWeight: "600",
-              fontSize: 14,
-              letterSpacing: 0.2,
-              color: loginValue === "" || !isReadTermNCondition ? "white" : "#000",
-            }}
-          >
-            登入
-          </Text>
-        </Button>
-
-        <Text style={{ fontSize: 12, color: "#9c9c9c", marginVertical: 10, }}>
-          如果未注册，登入后将自动为您创建账号。
+          登入
         </Text>
+      </Button>
 
-        <ReadAgreementPrivacyPolicy
-          isReadChecked={isReadTermNCondition}
-          onPress={onPressTermNCondition}
-          onPressUserAgreement={() => {
-            dispatch(navigateToProfileScreen());
-            navigation.navigate("用户协议");
-          }}
-          onPressPrivacyPolicy={() => {
-            dispatch(navigateToProfileScreen());
-            navigation.navigate("隐私政策");
-          }}
-        />
+      <Text style={{ fontSize: 12, color: "#9c9c9c", marginVertical: 10, }}>
+        如果未注册，登入后将自动为您创建账号。
+      </Text>
 
-        {/* ============================== other login type ============================== */}
-        {/* <View style={{ alignItems: 'center' }}>
+      <ReadAgreementPrivacyPolicy
+        isReadChecked={isReadTermNCondition}
+        onPress={onPressTermNCondition}
+        onPressUserAgreement={() => {
+          dispatch(navigateToProfileScreen());
+          navigation.navigate("用户协议");
+        }}
+        onPressPrivacyPolicy={() => {
+          dispatch(navigateToProfileScreen());
+          navigation.navigate("隐私政策");
+        }}
+      />
+
+      {/* ============================== other login type ============================== */}
+      {/* <View style={{ alignItems: 'center' }}>
           <Text style={{ color: "#9c9c9c" }}>使用以下方式登入</Text>
         </View> */}
 
-        <View style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-          display: 'flex',
-          flexDirection: 'row',
-          padding: 10,
-        }}>
-          {/* <TouchableOpacity
+      <View style={{
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 30,
+        display: 'flex',
+        flexDirection: 'row',
+        padding: 10,
+      }}>
+        {/* <TouchableOpacity
             onPress={onChangeloginType}
             style={{
               backgroundColor: '#1D2023',
@@ -685,18 +674,17 @@ const LoginCard = ({
             {loginType === 'phone' && <MailIcon />}
           </TouchableOpacity> */}
 
-          {/* <TouchableOpacity
-            onPress={onPressGoogleLogin}
-            style={{
-              backgroundColor: '#1D2023',
-              padding: 8,
-              borderRadius: 100,
-              marginRight: 10,
-            }}
-          >
-            <GmailIcon />
-          </TouchableOpacity> */}
-        </View>
+        <TouchableOpacity
+          onPress={onPressGoogleLogin}
+          style={{
+            backgroundColor: '#1D2023',
+            padding: 8,
+            borderRadius: 100,
+            marginRight: 10,
+          }}
+        >
+          <GmailIcon />
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -705,6 +693,7 @@ const LoginCard = ({
 const styles = StyleSheet.create({
   textinputContainer: {
     marginTop: 15,
+    marginBottom: 10,
     justifyContent: 'center',
   },
   tabContainer: {
@@ -775,9 +764,11 @@ const styles = StyleSheet.create({
     borderWidth: 0,
   },
   card: {
-    // height: "100%",
-    // width: "100%",
-    // backgroundColor: "transparent",
+    height: "85%",
+    width: "100%",
+    paddingHorizontal: 20,
+    paddingTop: 20,
+    backgroundColor: "transparent",
   },
   title: {
     fontWeight: "400",
@@ -797,6 +788,7 @@ const styles = StyleSheet.create({
     color: "#000",
   },
   btnInactive: {
+    // backgroundColor: "#1d2023",
     backgroundColor: "#1d2023",
   },
   danger: {

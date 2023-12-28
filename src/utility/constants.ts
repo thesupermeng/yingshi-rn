@@ -31,9 +31,9 @@ export const UPDATE_NETWORK_INFO = 'update_network_info';
 
 // export const API_DOMAIN = 'https://api.yingshi.tv/'
 // export const API_DOMAIN = 'https://api.gxhongdeli168.com/';
-export const API_DOMAIN = 'https://api.gxhongdeli168.com';
+export const API_DOMAIN = 'https://api.gxhongdeli168.com/';
 // export const API_DOMAIN_TEST = 'https://testapi.yingshi.tv/';
-export const API_DOMAIN_TEST = 'https://api.gxhongdeli168.com';
+export const API_DOMAIN_TEST = 'https://api.gxhongdeli168.com/';
 export const API_DOMAIN_LOCAL = 'http://localhost:3000/';
 export const MATCH_API_DOMAIN = 'https://api.ggsimida.com/';
 
@@ -45,7 +45,7 @@ export const CLEAR_STORAGE_MEMORY = 'clear_storage_memory';
 
 export const APPSFLYER_DEVKEY = 'wrxTHihLJNWrrusXtgRJZa';
 
-export const INVITE_DOMAIN = 'https://yingshi.tv/invite/pro/?invite=';
+export const INVITE_DOMAIN = 'https://xiangkantv.net/invite.html?invite=';
 
 // const ALL_UMENG_CHANNELS = {
 //     'WEB': 'WEB',
@@ -95,6 +95,9 @@ export const TOPON_BANNER_RATIO = TOPON_BANNER_HEIGHT / TOPON_BANNER_WIDTH;
 export const YING_SHI_PRODUCT_ANDROID = 3;
 export const YING_SHI_PRODUCT_IOS = 4;
 
+export const DA_YU_PRODUCT_ANDROID = 5;
+export const DA_YU_PRODUCT_IOS = 6;
+
 // export const YING_SHI_PIN_ANDROID = 1;
 // export const YING_SHI_PIN_IOS = 2;
 // export const YING_SHI_TV_ANDROID = 3;
@@ -103,8 +106,9 @@ export const YING_SHI_PRODUCT_IOS = 4;
 export const IS_IOS = Platform.OS === 'ios';
 export const IS_ANDROID = Platform.OS === 'android';
 
-export const APP_NAME_CONST = '影视TV';
-export const APP_EMAIL_CONST = 'contactus@yingshi.tv';
+export const APP_NAME_CONST = '爱美剧';
+export const APP_NAME_CONST2 = '该APP';
+export const APP_EMAIL_CONST = 'contact.movie9@gmail.com';
 
 export const NON_VIP_STREAM_TIME_SECONDS = 300;
 
@@ -117,7 +121,7 @@ export const ADULT_MODE_PREVIEW_DURATION = 300; // number of seconds
 // watch anytime download
 export const DOWNLOAD_WATCH_ANYTIME = true;
 export const DOWNLOAD_BATCH_SIZE = 5;
-export const TOTAL_VIDEO_TO_DOWNLOAD = 100;
+export const TOTAL_VIDEO_TO_DOWNLOAD = 300;
 // export const CACHE_DURATION = 3; //days
 
 export const GOOGLE_SINGIN_CLIENT_WEB = '699123886701-lg76r3gei261u8lip8jp7qjlt49hqkf7.apps.googleusercontent.com';

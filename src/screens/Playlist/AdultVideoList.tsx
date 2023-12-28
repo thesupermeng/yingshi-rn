@@ -1,26 +1,27 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {View, TouchableOpacity, Text, StyleSheet, FlatList} from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { View, TouchableOpacity, Text, StyleSheet, FlatList } from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
-import {RootStackScreenProps} from '@type/navigationTypes';
-import {useTheme} from '@react-navigation/native';
-import {useAppDispatch, useAppSelector} from '@hooks/hooks';
-import {RootState} from '@redux/store';
+import { RootStackScreenProps } from '@type/navigationTypes';
+import { useTheme } from '@react-navigation/native';
+import { useAppDispatch, useAppSelector } from '@hooks/hooks';
+import { RootState } from '@redux/store';
 
 import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
-import {VodRecordType, VodReducerState} from '@redux/reducers/vodReducer';
-import {removeVodsFromHistory, playVod} from '@redux/actions/vodActions';
+import { VodRecordType, VodReducerState } from '@redux/reducers/vodReducer';
+import { removeVodsFromHistory, playVod } from '@redux/actions/vodActions';
 import VodHistoryCard from '../../components/vod/vodHistoryCard';
 import CheckBoxSelected from '@static/images/checkbox_selected.svg';
 import CheckBoxUnselected from '@static/images/checkbox_unselected.svg';
-import {AdultVodType, VodType} from '@type/ajaxTypes';
-import {Button} from '@rneui/themed';
+import { AdultVodListType, AdultVodType, VodType } from '@type/ajaxTypes';
+import { Button } from '@rneui/themed';
 import ConfirmationModal from '../../components/modal/confirmationModal';
 import VodLiveStationListVertical from '../../components/vod/vodLiveStationListVertical';
 import EmptyList from '../../components/common/emptyList';
-import {ScrollView} from 'react-native-gesture-handler';
+import { ScrollView } from 'react-native-gesture-handler';
 import FastImage from '../../components/common/customFastImage';
-import {API_DOMAIN_TEST} from '@utility/constants';
+import { API_DOMAIN_TEST } from '@utility/constants';
 import { enableAdultMode } from '@redux/actions/screenAction';
+import { VodApi } from '@api';
 
 type AdultVodReturnType = {
   data: {
@@ -31,9 +32,9 @@ type AdultVodReturnType = {
 
 
 
-export default ({navigation, route}: RootStackScreenProps<'午夜场剧情'>) => {
+export default ({ navigation, route }: RootStackScreenProps<'午夜场剧情'>) => {
   const [adultVodData, setAdultVodData] = useState<AdultVodType[]>([]);
-  const {colors, textVariants, spacing, icons} = useTheme();
+  const { colors, textVariants, spacing, icons } = useTheme();
   const [page, setPage] = useState(1);
   const totalPageCount = useRef<number>(0);
   const [hasNextPage, setHasNextPage] = useState(true);
@@ -41,17 +42,12 @@ export default ({navigation, route}: RootStackScreenProps<'午夜场剧情'>) =>
   const dispatch = useAppDispatch()
 
   const fetchVod = async (page: number) => {
-    const data: AdultVodReturnType = await (
-      await fetch(
-        `${API_DOMAIN_TEST}svod/v1/vod?` +
-          new URLSearchParams({
-            page: page.toString(),
-            limit: '150',
-            class: route.params.class
-          }),
-      )
-    ).json();
-    return data.data;
+    return await VodApi.getList({
+      page: page,
+      limit: 150,
+      category: route.params.class,
+      xMode: true,
+    })
   };
 
   const fetchNextPage = async () => {
@@ -62,7 +58,7 @@ export default ({navigation, route}: RootStackScreenProps<'午夜场剧情'>) =>
       setHasNextPage(true);
     }
     setIsFetching(true);
-    const vodData = await fetchVod(page);
+    const vodData = await fetchVod(page) as AdultVodListType;
     const data = vodData.List;
     setIsFetching(false);
 
@@ -70,7 +66,7 @@ export default ({navigation, route}: RootStackScreenProps<'午夜场剧情'>) =>
     setPage(page => page + 1);
   };
 
-  const renderItem = ({item, index}: {item: AdultVodType; index: number}) => (
+  const renderItem = ({ item, index }: { item: AdultVodType; index: number }) => (
     <View
       style={{
         width: '48%',
@@ -84,13 +80,13 @@ export default ({navigation, route}: RootStackScreenProps<'午夜场剧情'>) =>
           console.debug('vod pressed', item.vod_name);
           dispatch(playVod(item));
           navigation.navigate('播放', {
-              vod_id: item?.vod_id,
-              player_mode: 'adult'
+            vod_id: item?.vod_id,
+            player_mode: 'adult'
           });
           // dispatch(enableAdultMode())
         }}>
         <FastImage
-          style={{flex: 1, borderRadius: 10}}
+          style={{ flex: 1, borderRadius: 10 }}
           source={{
             uri: item.vod_pic,
           }}
@@ -125,12 +121,12 @@ export default ({navigation, route}: RootStackScreenProps<'午夜场剧情'>) =>
           data={adultVodData}
           renderItem={renderItem}
           numColumns={2}
-          contentContainerStyle={{justifyContent: 'space-evenly'}}
+          contentContainerStyle={{ justifyContent: 'space-evenly' }}
           onEndReached={fetchNextPage}
           showsVerticalScrollIndicator={false}
           onEndReachedThreshold={0.5}
           ListFooterComponent={
-            <View style={{...styles.loading, marginBottom: 100}}>
+            <View style={{ ...styles.loading, marginBottom: 100 }}>
               {hasNextPage && (
                 <FastImage
                   style={{

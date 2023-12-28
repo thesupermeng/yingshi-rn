@@ -11,8 +11,8 @@ import { useFocusEffect, useRoute, useTheme } from "@react-navigation/native";
 import { useQuery, useQueries, UseQueryResult } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
 import {
-  NavOptionsResponseType,
-  VodCarousellResponseType,
+  NavOptionsType,
+  VodCarousellType,
 } from "@type/ajaxTypes";
 import {
   BottomTabScreenProps,
@@ -55,6 +55,7 @@ import {
 
 import useAnalytics from "@hooks/useAnalytics";
 import { screenModel } from "@type/screenType";
+import { AppsApi } from "@api";
 
 function Home({ navigation }: BottomTabScreenProps<any>) {
   const dispatch = useAppDispatch();
@@ -77,42 +78,29 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   if (Platform.OS === "ios") {
     channel = "WEB";
   }
-
+  ;
   const { data: navOptions, refetch } = useQuery({
     queryKey: ["HomePageNavOptions"],
-    queryFn: () =>
-      fetch(
-        `${API_DOMAIN}nav/v1/navItems?channelId=${UMENG_CHANNEL}&platformId=` +
-          Platform.OS,
-        {}
-      ) //  removed  '+ UMENG_CHANNEL' in url
-        .then((response) => response.json())
-        .then((json: NavOptionsResponseType) => {
-          let tempData = json.data;
+    queryFn: () => AppsApi.getHomeNav()
+      .then((json: NavOptionsType[]) => {
 
-          let gotAdultFlag = tempData.findIndex((e) => e?.id == 99);
-          if (gotAdultFlag >= 0) {
-            tempData = tempData.filter((e) => e?.id != 99);
-            dispatch(setShowAdultTab(true));
-          }
-          return tempData;
-        }),
+        let gotAdultFlag = json.findIndex((e) => e?.id == 99);
+        if (gotAdultFlag >= 0) {
+          json = json.filter((e) => e?.id != 99);
+          dispatch(setShowAdultTab(true));
+        }
+        return json;
+      }),
   });
 
-  const fetchData = useCallback((id: number) => {
-    return fetch(`${API_DOMAIN_TEST}page/v2/typepage?id=${id}`)
-      .then((response) => response.json())
-      .then((json: VodCarousellResponseType) => {
-        return json;
-      });
-  }, []);
+  const fetchData = useCallback((id: number) => AppsApi.getHomePages(id), []);
 
   const data = useQueries({
     queries: navOptions
       ? navOptions?.map((x: any) => ({
-          queryKey: ["HomePage", x.id],
-          queryFn: () => fetchData(x.id),
-        }))
+        queryKey: ["HomePage", x.id],
+        queryFn: () => fetchData(x.id),
+      }))
       : [],
   });
 
@@ -214,7 +202,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
       item,
       index,
     }: {
-      item: UseQueryResult<VodCarousellResponseType>;
+      item: UseQueryResult<VodCarousellType>;
       index: number;
     }) => {
       return (

@@ -24,7 +24,6 @@ import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import { userModel } from "@type/userType";
 import { updateUserAuth } from "@redux/actions/userAction";
-import { getUserDetails } from "../../features/user";
 import { VipCard } from "../../components/vip/vipCard";
 import { TouchableOpacity } from "react-native";
 import { membershipModel, zfModel } from "@type/membershipType";
@@ -44,6 +43,7 @@ import SpinnerOverlay from "../../components/modal/SpinnerOverlay";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { InAppBrowser } from "react-native-inappbrowser-reborn";
 import { VipDialog } from "../../components/vip/vipDialog";
+import { ProductApi, UserApi } from "@api";
 
 export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const {
@@ -102,16 +102,12 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   };
 
   const refreshUserState = async () => {
-    let result;
-    result = await getUserDetails({
-      bearerToken: userState.userToken,
-    });
+    const result = await UserApi.getUserDetails();
     if (result == null) {
       return;
     }
-    let resultData = result.data.data;
 
-    await dispatch(updateUserAuth(resultData));
+    await dispatch(updateUserAuth(result));
     return;
   };
 
@@ -141,14 +137,11 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   }, []);
 
   const fetchData = async () => {
-    console.log(Platform.OS)
-    const productApi = IS_IOS
-      ? `${API_DOMAIN_TEST}products/v1/products?product_type_id=yingshi_4_fang`
-      : `${API_DOMAIN_TEST}products/v1/products`;
-    const response = await axios.get(productApi);
-    const data = await response.data.data;
+    const data = await ProductApi.getList({
+      productTypeId: IS_IOS ? 'yingshi_4_fang' : undefined,
+    });
     let products: Array<membershipModel>;
-    if (response) {
+    if (data) {
       products = data.map((product: any) => {
         return {
           productId: product.product_id,
@@ -241,18 +234,15 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   };
 
   const handleZfGateway = async () => {
-    const orderJson = {
-      product_id: parseInt(membershipSelected.productId),
-      zf_type: zfSelected,
-      platform: APP_NAME_CONST + "-" + Platform.OS.toUpperCase(),
-    };
-    console.log('order json: ', orderJson);
-
     try {
-      const result = await axios.post(`${API_DOMAIN_TEST}finzf/v1/order`, orderJson, { headers: headers });
+      const result = await ProductApi.postFinzfOrder({
+        productId: parseInt(membershipSelected.productId),
+        zfType: zfSelected,
+      });
 
-      console.log("returned order data: ", result.data);
-      openLink(result.data.data.paymentData, result.data.data.transaction_id);
+      console.log("returned order data: ", result);
+
+      openLink(result.paymentData, result.transaction_id);
     } catch (error) {
       console.log('error catch: ', error);
       setDialogText(axiosErrorText);
@@ -320,18 +310,17 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   };
 
   const getZfStatus = async (transID: string) => {
-    const statusAPI = `${API_DOMAIN_TEST}finzf/v1/transactions?transaction_id=${transID}`;
-    const status = await axios.get(statusAPI, { headers: headers });
+    const result = await ProductApi.getFinzfTransaction({
+      transactionId: transID,
+    });
+    console.log('order status: ', result);
 
-    console.log('order: ', statusAPI);
-    console.log('order status: ', status.data);
-
-    if (status.data.data.transaction_status_string === 'COMPLETED') {
+    if (result.transaction_status_string === 'COMPLETED') {
       setIsSuccess(true);
       setDialogText(successDialogText);
       setIsDialogOpen(true);
       clearTimeout(pendingTimeoutRef.current);
-    } else if (status.data.data.transaction_status_string === 'FAILED') {
+    } else if (result.transaction_status_string === 'FAILED') {
       setDialogText(failedDialogText);
       setIsDialogOpen(true);
       clearTimeout(pendingTimeoutRef.current);
@@ -358,14 +347,11 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
 
     addLocalTrans(trans);
 
-    const receiptApi = IS_IOS
-      ? `${API_DOMAIN}validate/v1/iosreceipt`
-      : `${API_DOMAIN}validate/v1/androidreceipt`;
-    const result = await axios.post(receiptApi, trans);
+    const result = await ProductApi.postValidateReceipt(trans);
 
     console.log("complete transaction result");
-    console.log(result.data);
-    return result.data.data.data;
+    console.log(result);
+    return result.data.data;
   };
 
   const getLocalTrans = async () => {
@@ -408,14 +394,12 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         console.log("pop item");
         console.log(popItem);
 
-        const receiptApi = IS_IOS
-          ? `${API_DOMAIN}validate/v1/iosreceipt`
-          : `${API_DOMAIN}validate/v1/androidreceipt`;
-        const result = await axios.post(receiptApi, popItem);
-        console.log("response get back");
-        console.log(result.data);
+        const result = await ProductApi.postValidateReceipt(popItem);
 
-        if (result.status !== 200) {
+        console.log("response get back");
+        console.log(result);
+
+        if (result.statusCode !== 200) {
           console.log("push back the unsuccess trans: ", popItem);
           existingData.push(popItem);
         }
@@ -679,13 +663,13 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
 
             <View style={{ ...styles.footerWithBackgroundContainer }}>
               <Text style={{ ...textVariants.small }}>
-                有关购买查询，请联系contactus@yingshi.tv
+                有关购买查询，请联系contact.movie9@gmail.com
               </Text>
             </View>
             {IS_IOS ? (
               <View style={{ ...styles.footerContainer }}>
                 <Text style={{ ...textVariants.small }}>
-                  活动由影视TV公司提供 与苹果公司Apple.Inc 无关
+                  活动由此APP公司提供 与苹果公司Apple.Inc 无关
                 </Text>
               </View>
             ) : null}

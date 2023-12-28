@@ -214,7 +214,7 @@ function ShortVideoPlayer({
   const seekVideo = useCallback(
     debounce(value => {
       if (videoRef.current) {
-        videoRef.current.seek(value);
+        videoRef.current.seek(isNaN(value)? 0 : value);
         setOnSliding(false);
       }
     }, 1000),
@@ -232,7 +232,7 @@ function ShortVideoPlayer({
 
   const handleLoadStart = useCallback(() => {
     if (videoRef.current) {
-      videoRef.current.seek(currentDuration);
+      videoRef.current.seek(isNaN(currentDuration)? 0 : currentDuration);
     }
   }, [currentDuration])
 

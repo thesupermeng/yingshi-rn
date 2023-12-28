@@ -14,12 +14,8 @@ import { useFocusEffect, useNavigation, useTheme } from '@react-navigation/nativ
 import Swiper from 'react-native-swiper';
 import ShowMoreVodButton from '../button/showMoreVodButton';
 import {
-  VodCarousellResponseType,
-  VodPlaylistResponseType,
-  VodTopicType,
-  VodType,
-  LiveTVStationsResponseType,
   VodData,
+  VodCarousellType,
 } from '@type/ajaxTypes';
 // import FastImage from 'react-native-fast-image';
 import FastImage from "../common/customFastImage";
@@ -57,7 +53,7 @@ interface NavType {
   name: string;
 }
 interface Props {
-  vodCarouselRes: VodCarousellResponseType;
+  vodCarouselRes: VodCarousellType;
   navOptions?: NavType[] | undefined;
   onNavChange?: any;
   navId?: number;
@@ -68,7 +64,7 @@ interface Props {
 }
 const BTN_COLORS = ['#30AA55', '#7E9CEE', '#F1377A', '#FFCC12', '#ED7445'];
 const CatagoryHome = ({
-  vodCarouselRes,
+  vodCarouselRes: data,
   navId = 0,
   setScrollEnabled,
   onRefresh,
@@ -79,7 +75,6 @@ const CatagoryHome = ({
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const [activeIndex, setActiveIndex] = useState(0);
-  const data = vodCarouselRes.data;
   const carouselRef = useRef<any>();
   const categoryListRef = useRef<any>();
   //const width = Dimensions.get('window').width;
@@ -123,6 +118,7 @@ const CatagoryHome = ({
             if (navId != 99) {
               navigation.navigate('片库', {
                 type_id: item.vod_list[0].type_id,
+                class: item.type_name
               });
             } else {
               navigation.navigate('午夜场剧情', {

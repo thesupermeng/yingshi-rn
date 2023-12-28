@@ -5,8 +5,7 @@ import { useFocusEffect, useTheme } from "@react-navigation/native";
 import { useQuery, useQueries, UseQueryResult } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
 import {
-  NavOptionsResponseType,
-  VodCarousellResponseType,
+  VodCarousellType,
 } from "@type/ajaxTypes";
 import {
   BottomTabScreenProps,
@@ -40,6 +39,7 @@ import { AdsBannerContext } from "../../contexts/AdsBannerContext";
 
 import useInterstitialAds from "@hooks/useInterstitialAds"
 import useAnalytics from "@hooks/useAnalytics";
+import { AppsApi } from "@api";
 
 function Home({ navigation }: BottomTabScreenProps<any>) {
   const isFocused = useIsFocused();
@@ -55,21 +55,10 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
 
   const { data: navOptions, refetch } = useQuery({
     queryKey: ["HomePageNavOptions"],
-    queryFn: () =>
-      fetch(`${API_DOMAIN}nav/v1/navItems`, {})
-        .then((response) => response.json())
-        .then((json: NavOptionsResponseType) => {
-          return json.data;
-        }),
+    queryFn: () => AppsApi.getHomeNav(),
   });
 
-  const fetchData = useCallback((id: number) => {
-    return fetch(`${API_DOMAIN}page/v2/typepage?id=${id}`)
-      .then((response) => response.json())
-      .then((json: VodCarousellResponseType) => {
-        return json;
-      });
-  }, []);
+  const fetchData = useCallback((id: number) => AppsApi.getHomePages(id), []);
 
   const data = useQueries({
     queries: navOptions
@@ -156,7 +145,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
       item,
       index,
     }: {
-      item: UseQueryResult<VodCarousellResponseType>;
+      item: UseQueryResult<VodCarousellType>;
       index: number;
     }) => {
       return (
@@ -191,7 +180,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   useEffect(() => {
     setNavbarHeight(bottomTabHeight);
   }, [bottomTabHeight]);
-  
+
   // ========== for analytics - start ==========
   const { homeTabViewsAnalytics, homeTabClicksAnalytics } = useAnalytics();
 
@@ -252,52 +241,52 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
           <HomeHeader navigator={navigation} />
         </View>
         <>
-              {(!data || isRefreshing) && (
-                <View
-                  style={{
-                    ...styles.loading,
-                    flex: 1,
-                    alignItems: "center",
-                    justifyContent: "center",
-                    position: "absolute",
-                    left: "50%",
-                    marginLeft: -40, // Half of the element's width
-                  }}
-                >
-                  {
-                    <FastImage
-                      style={{ height: 80, width: 80 }}
-                      source={require("@static/images/loading-spinner.gif")}
-                      resizeMode={"contain"}
-                    />
-                  }
-                </View>
-              )}
-              {showHomeLoading && !isOffline && (
-                <View
-                  style={{
-                    flex: 1,
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "rgb(20,22,25)",
-                  }}
-                >
-                  <FastImage
-                    source={require("@static/images/home-loading.gif")}
-                    style={{
-                      width: 150,
-                      height: 150,
-                      position: "relative",
-                      bottom: 50,
-                      zIndex: -1,
-                    }}
-                    resizeMode={"contain"}
-                    useFastImage={true}
-                  />
-                </View>
-              )}
-              {data && !isOffline && getContent({ item: data[0], index: 0 })}
-            </>
+          {(!data || isRefreshing) && (
+            <View
+              style={{
+                ...styles.loading,
+                flex: 1,
+                alignItems: "center",
+                justifyContent: "center",
+                position: "absolute",
+                left: "50%",
+                marginLeft: -40, // Half of the element's width
+              }}
+            >
+              {
+                <FastImage
+                  style={{ height: 80, width: 80 }}
+                  source={require("@static/images/loading-spinner.gif")}
+                  resizeMode={"contain"}
+                />
+              }
+            </View>
+          )}
+          {showHomeLoading && !isOffline && (
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: "rgb(20,22,25)",
+              }}
+            >
+              <FastImage
+                source={require("@static/images/home-loading.gif")}
+                style={{
+                  width: 150,
+                  height: 150,
+                  position: "relative",
+                  bottom: 50,
+                  zIndex: -1,
+                }}
+                resizeMode={"contain"}
+                useFastImage={true}
+              />
+            </View>
+          )}
+          {data && !isOffline && getContent({ item: data[0], index: 0 })}
+        </>
       </ScreenContainer>
       {isOffline && <NoConnection onClickRetry={checkConnection} />}
     </>

@@ -1,7 +1,7 @@
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import type { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { VodType, VodTopicType, LiveTVStationItem, commentsType } from "./ajaxTypes";
+import { VodType, VodTopicType, LiveTVStationItem, CommentsType } from "./ajaxTypes";
 import { userModel } from "./userType";
 
 // https://reactnavigation.org/docs/typescript/
@@ -57,9 +57,9 @@ export type RootStackParamList = {
     player_mode?: "adult" | 'normal';
   };
   全部评论: {
-    vod_douban_id: VodType["vod_douban_id"];
+    vod_id: VodType["vod_id"];
     vod_name: VodType["vod_name"];
-    commentItems: commentsType[];
+    commentItems: CommentsType[];
   };
   搜索: {
     initial: string;

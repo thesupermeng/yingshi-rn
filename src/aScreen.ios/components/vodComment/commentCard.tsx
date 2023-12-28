@@ -2,18 +2,18 @@ import { useTheme } from "@react-navigation/native";
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet, ActionSheetIOS } from "react-native";
 import FastImage from "react-native-fast-image";
-import { commentsType } from "@type/ajaxTypes";
+import { CommentsType } from "@type/ajaxTypes";
 import { showToast } from "../../Sports/utility/toast";
 import DefaultProfileIcon from "@static/images/default_profile.svg";
 import { useAppDispatch } from "@hooks/hooks";
 import { showReportAction } from "@redux/actions/screenAction";
 
 interface Props {
-  commentItem: commentsType;
+  commentItem: CommentsType;
 }
 
-export const CommentCard = ({commentItem}: Props) => {
-  const {textVariants, colors} = useTheme();
+export const CommentCard = ({ commentItem }: Props) => {
+  const { textVariants, colors } = useTheme();
   const dispatch = useAppDispatch();
 
   const handlePress = async () => {
@@ -30,7 +30,7 @@ export const CommentCard = ({commentItem}: Props) => {
         }
       },
     );
-    
+
   };
 
   return (
@@ -39,29 +39,29 @@ export const CommentCard = ({commentItem}: Props) => {
         width={42}
         height={42}
       /> */}
-      <View style={{...styles.commentContainer}}>
-        <View style={{flexDirection: 'row', gap: 10, alignItems: 'center'}}>
-          <Text style={{...textVariants.bodyBold, flex: 1}}>
+      <View style={{ ...styles.commentContainer }}>
+        <View style={{ flexDirection: 'row', gap: 10, alignItems: 'center' }}>
+          <Text style={{ ...textVariants.bodyBold, flex: 1 }}>
             {commentItem.user_name}
           </Text>
-          <TouchableOpacity 
+          <TouchableOpacity
             onPress={handlePress}
             style={styles.btnContainer}>
-            <Text style={{ ...textVariants.small, textAlign: 'center'}}>
+            <Text style={{ ...textVariants.small, textAlign: 'center' }}>
               举报
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity 
+          <TouchableOpacity
             onPress={() => showToast("拉黑成功！已不能在接受对方的消息！")}
             style={styles.btnContainer}>
-            <Text style={{ ...textVariants.small, textAlign: 'center'}}>
+            <Text style={{ ...textVariants.small, textAlign: 'center' }}>
               拉黑
             </Text>
           </TouchableOpacity>
         </View>
-        
+
         <Text
-          style={{ ...textVariants.subBody, color: colors.muted}}
+          style={{ ...textVariants.subBody, color: colors.muted }}
           numberOfLines={3}
         >
           {commentItem.user_review}
@@ -82,8 +82,8 @@ const styles = StyleSheet.create({
     gap: 5,
   },
   btnContainer: {
-    backgroundColor: '#EF1F1F', 
-    borderRadius: 4, 
+    backgroundColor: '#EF1F1F',
+    borderRadius: 4,
     paddingHorizontal: 4,
     paddingVertical: 1,
   }

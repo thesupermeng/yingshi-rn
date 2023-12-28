@@ -22,7 +22,7 @@ if linkage != nil
   use_frameworks! :linkage => linkage.to_sym
 end
 
-target 'yingshi' do
+target 'aimeiju' do
   config = use_native_modules!
 
   # Flags change depending on the env values.
@@ -66,7 +66,7 @@ target 'yingshi' do
     # 'StoreKit',
   ])
 
-  target 'yingshiTests' do
+  target 'aimeijuTests' do
     inherit! :complete
     # Pods for testing
   end
@@ -121,6 +121,9 @@ target 'yingshi' do
   pod 'RCTSystemSetting', :path => '../node_modules/react-native-system-setting'
 #  pod 'Permission-AppTrackingTransparency', :path => "#{permissions_path}/AppTrackingTransparency"
 #  pod 'RNGoogleSignin', :path => "../node_modules/@react-native-google-signin/google-signin"
+
+# CodePush plugin dependency
+  pod 'CodePush', :path => '../node_modules/react-native-code-push'
 
   post_install do |installer|
     react_native_post_install(

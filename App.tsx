@@ -1,10 +1,7 @@
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { persistor, store } from "@redux/store";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import {
-  MiniVideo,
-  VodCarousellResponseType
-} from "@type/ajaxTypes";
+import { MiniVideo } from "@type/ajaxTypes";
 import {
   ANDROID_HOME_PAGE_BANNER_ADS,
   API_DOMAIN,
@@ -27,15 +24,19 @@ import MainNav from "./src/navigation/mainNav";
 import { YSConfig } from "./ysConfig";
 
 import { ATRNSDK } from "./AnyThinkAds/ATReactNativeSDK";
-import RNRestart from 'react-native-restart';
+import RNRestart from "react-native-restart";
 // remove when merge
 import { TermsAcceptContextProvider } from "./src/contexts/TermsAcceptedContext";
 import { TermsAcceptContextProvider as TermsAcceptContextProviderA } from "./src/contexts/TermsAcceptedContext";
 import { TermsAcceptContextProvider as TermsAcceptContextProviderIos } from "./src/contexts/TermsAcceptedContext";
 import { prefetchAdultMiniVod, prefetchMiniVod } from "./src/api/miniVod";
-import { checkExpiredCacheFile, deleteCachedVideos } from "./src/utils/minivodDownloader";
-import NetInfo from '@react-native-community/netinfo';
-import { showToast } from "./src/Sports/utility/toast";
+import {
+  checkExpiredCacheFile,
+  deleteCachedVideos,
+} from "./src/utils/minivodDownloader";
+import NetInfo from "@react-native-community/netinfo";
+import { AppsApi, PlaylistApi, VodApi } from "@api";
+
 const topon_channel = "WEB";
 
 // import * as Sentry from "@sentry/react-native";
@@ -97,7 +98,7 @@ let App = () => {
   const [isConnected, setIsConnected] = useState(true);
   const [count, setCount] = useState(0);
   useEffect(() => {
-    const unsubscribe = NetInfo.addEventListener((state:any) => {
+    const unsubscribe = NetInfo.addEventListener((state: any) => {
       setIsConnected(state.isConnected);
     });
 
@@ -112,83 +113,56 @@ let App = () => {
     if (isConnected) {
       setCount(count + 1);
       // Perform actions to refresh the page (e.g., reload data, reset state)
-      //console.error('Network is back! Refresh the page.');
-      if(count == 1)
-      {
+      //  console.error('Network is back! Refresh the page.');
+      if (count == 1) {
         RNRestart.Restart();
       }
     }
-    else
-    {
-        showToast('无网络，请检查您的网络连接');
-    }
   }, [isConnected]);
 
-
-
-
-  
-
   const downloadWatchAnytimeSequence = async () => {
-    await deleteCachedVideos(); 
-    await checkExpiredCacheFile(3); 
+    await deleteCachedVideos();
+    await checkExpiredCacheFile(3);
 
-    prefetchMiniVod(queryClient)
-    prefetchAdultMiniVod(queryClient)
-
-  }
+    prefetchMiniVod(queryClient);
+    prefetchAdultMiniVod(queryClient);
+  };
 
   useEffect(() => {
     queryClient.prefetchQuery({
       queryKey: ["HomePage", 0],
       queryFn: () =>
-        fetch(`${API_DOMAIN}page/v2/typepage?id=0`)
-          .then((response) => response.json())
-          .then((json: VodCarousellResponseType) => {
+        AppsApi.getHomePages(0)
+          .then((data) => {
             setCount(99);
-            return json;
+            return data;
           }),
     });
 
     queryClient.prefetchQuery({
       queryKey: ["HomePage", 1000],
-      queryFn: () =>
-        fetch(`${API_DOMAIN}page/v2/typepage?id=1000`)
-          .then((response) => response.json())
-          .then((json: any) => {
-            return json.data.yingping_list;
-          }),
+      queryFn: () => AppsApi.getHomePages(1000)
+        .then((data) => {
+          return data.yingping_list;
+        }),
     });
 
     // queryClient.prefetchQuery({
     //   queryKey: ["filterOptions"],
-    //   queryFn: () =>
-    //     fetch(`${API_DOMAIN}type/v1/type`)
-    //       .then((response) => {
-    //         return response.json();
-    //       })
-    //       .then((json: FilterOptionsResponseType) => {
-    //         return json.data;
-    //       }),
+    //   queryFn: () => VodApi.getTopicType(),
     //   staleTime: Infinity,
     // });
 
     // queryClient.prefetchQuery({
     //   queryKey: ["HomePageNavOptions"],
-    //   queryFn: () =>
-    //     fetch(`${API_DOMAIN}nav/v1/navItems`, {})
-    //       .then((response) => response.json())
-    //       .then((json: NavOptionsResponseType) => {
-    //         return json.data;
-    //       }),
+    //   queryFn: () => AppsApi.getHomeNav(),
     //   staleTime: Infinity,
     // });
 
     // const fetchPlaylist = (page: number) =>
-    //   fetch(`${API_DOMAIN}topic/v1/topic?page=${page}`)
-    //     .then((response) => response.json())
-    //     .then((json: VodPlaylistResponseType) => {
-    //       return Object.values(json.data.List);
+    //   PlaylistApi.getTopic(page)
+    //     .then((data) => {
+    //       return Object.values(data);
     //     });
 
     // queryClient.prefetchInfiniteQuery(["vodPlaylist"], ({ pageParam = 1 }) =>
@@ -199,8 +173,6 @@ let App = () => {
         List: Array<MiniVideo>;
       };
     };
-
-    downloadWatchAnytimeSequence()
 
     // queryClient.prefetchQuery({
     //   queryKey: ["matchesNavOptions"],
@@ -279,7 +251,7 @@ let App = () => {
   console.log("YSConfig.instance.areaConfig");
 
   console.log(YSConfig.instance.areaConfig);
-
+  downloadWatchAnytimeSequence();
   return (
     <View style={{ flex: 1, backgroundColor: "#161616" }}>
       <TermsAcceptContextProviderIos>

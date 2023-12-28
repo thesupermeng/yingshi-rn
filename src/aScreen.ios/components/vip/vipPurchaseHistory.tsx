@@ -21,7 +21,7 @@ export const VipPurchaseHistory = ( {userState,}: Props ) => {
     let displayText;
     if(historyData){
       historyList = historyData.map((history: any) => {
-        displayText = '购买成功' + history.product_name + 'VIP ($ ' + history.product_price + ')'
+        displayText = '购买成功' + history.product_name + 'VIP (¥ ' + history.product_price + ')'
         return {
           displayText: displayText,
           createdDate: history.start_date,

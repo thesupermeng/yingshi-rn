@@ -58,6 +58,7 @@ import useInterstitialAds from '@hooks/useInterstitialAds';
 import useAnalytics from '@hooks/useAnalytics';
 import { SettingsReducerState } from '@redux/reducers/settingsReducer';
 import { RootState } from '@redux/store';
+import VipRegisterBar from '../../../../components/adultVideo/vipRegisterBar';
 
 
 type FlatListType = {
@@ -96,6 +97,8 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
     type: 0,
     url: undefined,
   });
+  const showCountdown = userState.userToken === "" || Number(userState.userMemberExpired) <= Number(userState.userCurrentTimestamp);
+
   // ========== for analytics - start ==========
   const { sportDetailsViewsAnalytics, sportDetailsVipPopupTimesAnalytics } = useAnalytics();
 
@@ -239,6 +242,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
       <BecomeVipOverlay
         setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
         showBecomeVIPOverlay={showBecomeVIPOverlay}
+        isJustClose={showCountdown && NON_VIP_STREAM_TIME_SECONDS > screenState.sportWatchTime}
       />
       {videoSource.url &&
         ((videoSource.type === VideoLiveType.LIVE &&
@@ -254,6 +258,11 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
           onLoad={onLiveLoad}
           videoSource={videoSource}
           onGoBack={navigation.goBack}
+          showCountdown={showCountdown}
+          countdownTime={NON_VIP_STREAM_TIME_SECONDS - screenState.sportWatchTime}
+          onVipCountdownClick={() => {
+            setShowBecomeVIPOverlay(true)
+          }}
         />
       ) : (
         <BeforeLive
@@ -281,6 +290,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
           listLiveMatchDetailsUpdates={liveRoomUpdate}
         />
       )}
+      <VipRegisterBar />
       {settingsReducer.appOrientation === 'PORTRAIT' && (
         isFullyLoaded && tabList.length > 0 ? (
           <MatchDetailsNav streamId={10001} tabList={tabList} />

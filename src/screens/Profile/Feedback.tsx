@@ -24,6 +24,7 @@ import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 import { SettingsReducerState } from "@redux/reducers/settingsReducer";
 import { useAppSelector } from "@hooks/hooks";
 import { YSConfig } from "../../../ysConfig";
+import { FeedbackApi } from "@api";
 
 export default ({ navigation }: RootStackScreenProps<"反馈">) => {
   const { colors, textVariants, icons } = useTheme();
@@ -63,15 +64,13 @@ export default ({ navigation }: RootStackScreenProps<"反馈">) => {
 
   const submitFeedback = async (data: SubmitFeedbackRequest) => {
     if (!isOffline) {
-      const { data: response } = await axios.post(
-        `${API_DOMAIN}feedback/v1/submit`,
-        data
-      );
+      const result = FeedbackApi.postFeedback(data);
+
       setDialogText("反馈成功，我们会在 24 小时内处理你的反馈！");
       Keyboard.dismiss();
       setIsDialogOpen(true);
 
-      return response.data;
+      return result;
     } else {
       setDialogText("无法检测网络， 请稍后再试");
       Keyboard.dismiss();

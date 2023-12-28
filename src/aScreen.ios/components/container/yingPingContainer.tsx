@@ -35,7 +35,7 @@ export const YingPingContainer = ({vod, width, imgRatio, isSlide}: Props) => {
         onPress={handleOnPress}
       >
         <View style={{flexDirection: 'row', gap: 8, alignItems: 'center', }}>
-          <Logo/>
+          <Logo width={30} height={31}/>
           <Text style={{ ...textVariants.body }}>
             官方推荐
           </Text>
@@ -82,7 +82,7 @@ export const YingPingContainer = ({vod, width, imgRatio, isSlide}: Props) => {
         />
         <View style={styles.descriptionContainer}>
           <View style={{flexDirection: 'row', gap: 8, alignItems: 'center', }}>
-            <Logo/>
+            <Logo width={30} height={31}/>
             <Text style={{ ...textVariants.body }}>
               官方推荐
             </Text>
