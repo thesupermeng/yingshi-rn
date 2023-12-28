@@ -41,8 +41,9 @@ import VideoWithControls from "./videoWithControls";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "@hooks/hooks";
 import { screenModel } from "@type/screenType";
-import { ADULT_MODE_PREVIEW_DURATION, NON_VIP_STREAM_TIME_SECONDS } from "@utility/constants";
+import { ADULT_MODE_PREVIEW_DURATION, AD_VIDEO_SECONDS, NON_VIP_STREAM_TIME_SECONDS } from "@utility/constants";
 import { userModel } from "@type/userType";
+import { AdVideoImage } from "./AdVideoImage";
 
 interface Props {
   vod_url?: string;
@@ -154,6 +155,29 @@ export default forwardRef<VideoRef, Props>(
     const [isInBackground, setIsInBackground] = useState(false);
 
     const disableSeek = useRef(false)
+
+    const [showAd, setShowAd] = useState(false);
+    const [adCountdownTime, setAdCountdownTime] = useState(AD_VIDEO_SECONDS);
+
+    useEffect(() => {
+      // TODO: check is need show custom ad
+      setShowAd(true);
+    }, []);
+
+    useEffect(() => {
+      if (adCountdownTime <= 0) {
+        setShowAd(false);
+        return;
+      }
+
+      const adTimeInterval = setInterval(() => {
+        setAdCountdownTime(prev => prev - 1);
+      }, 1000)
+
+      return () => {
+        clearInterval(adTimeInterval);
+      }
+    }, [adCountdownTime]);
 
     useImperativeHandle(ref, () => ({
       setPause: (pauseVideo: boolean) => {
@@ -550,64 +574,89 @@ export default forwardRef<VideoRef, Props>(
       }
     }, [currentTime, isPaused])
 
+    const onPressAd = () => {
+
+    }
+
     return (
       <View style={styles.container}>
-        <View style={{ ...styles.bofangBox }}>
-          {!(vod_url !== undefined || vod_source !== undefined) ? (
-            <View
-              style={{
-                width: "100%",
-                aspectRatio: 16 / 9,
-                backgroundColor: "black",
-              }}
-            />
-          ) : useWebview ? (
-            <WebView
-              resizeMode="contain"
-              source={vod_url === undefined ? vod_source : { uri: vod_url }}
-              style={styles.video}
-              onLoad={onVideoLoaded}
-            />
-          ) : (
-            <VideoWithControls
-              playbackRate={playbackRate}
+        {showAd &&
+          <View style={{ ...styles.bofangBox }}>
+            <AdVideoImage
               videoPlayerRef={videoPlayerRef}
-              isPaused={isPaused || pauseSportVideo} // Pause video  when sport timer is up
-              vod_source={vod_source}
-              vod_url={vod_url}
-              currentTimeRef={currentTimeRef}
-              controlsRef={controlsRef}
-              currentTime={currentTime}
-              duration={duration}
+              type={'video'}
+              url={'https://m3u.haiwaikan.com/xm3u8/8d72b27c5bf773b1981da740b2f7b2ae6fe82d44535cd174862964fe2b1352889921f11e97d0da21.m3u8'}
+              // url={'https://blog.marks-iplaw.jp/wp-content/uploads/2017/03/28508523-e1489736535124.gif'}
+              countdownTime={adCountdownTime}
               isFullScreen={isFullScreen}
-              vodTitle={vodTitle}
-              videoType={videoType}
-              activeEpisode={activeEpisode}
-              episodes={episodes}
-              rangeSize={rangeSize}
-              accumulatedSkip={accumulatedSkip.current}
-              movieList={movieList}
-              showGuide={showGuide}
-              showMoreType={showMoreType}
-              streams={streams}
-              isFetchingRecommendedMovies={isFetchingRecommendedMovies}
-              onBuffer={onBuffer}
-              getNextEpisode={getNextEpisode}
-              onVideoLoaded={onVideoLoaded}
-              onVideoProgessing={onVideoProgessing}
-              onSeek={onSeek}
-              onSeekGesture={onSeekGesture}
-              onSkip={onSkip}
-              onTogglePlayPause={onTogglePlayPause}
-              onToggleFullScreen={onToggleFullScreen}
+              isShowShare={false}
+              onPressAd={onPressAd}
               onGoBack={onGoBack}
-              setPlaybackRate={setPlaybackRate}
-              changeEpisodeAndPlay={changeEpisodeAndPlay}
               onShare={onShare}
-              onReadyForDisplay={onReadyForDisplay}
+              onPressFullScreenBtn={onToggleFullScreen}
             />
-          )}
-        </View>
+          </View>
+        }
+
+        {!showAd &&
+          <View style={{ ...styles.bofangBox }}>
+            {!(vod_url !== undefined || vod_source !== undefined) ? (
+              <View
+                style={{
+                  width: "100%",
+                  aspectRatio: 16 / 9,
+                  backgroundColor: "black",
+                }}
+              />
+            ) : useWebview ? (
+              <WebView
+                resizeMode="contain"
+                source={vod_url === undefined ? vod_source : { uri: vod_url }}
+                style={styles.video}
+                onLoad={onVideoLoaded}
+              />
+            ) : (
+              <VideoWithControls
+                playbackRate={playbackRate}
+                videoPlayerRef={videoPlayerRef}
+                isPaused={isPaused || pauseSportVideo} // Pause video  when sport timer is up
+                vod_source={vod_source}
+                vod_url={vod_url}
+                currentTimeRef={currentTimeRef}
+                controlsRef={controlsRef}
+                currentTime={currentTime}
+                duration={duration}
+                isFullScreen={isFullScreen}
+                vodTitle={vodTitle}
+                videoType={videoType}
+                activeEpisode={activeEpisode}
+                episodes={episodes}
+                rangeSize={rangeSize}
+                accumulatedSkip={accumulatedSkip.current}
+                movieList={movieList}
+                showGuide={showGuide}
+                showMoreType={showMoreType}
+                streams={streams}
+                isFetchingRecommendedMovies={isFetchingRecommendedMovies}
+                onBuffer={onBuffer}
+                getNextEpisode={getNextEpisode}
+                onVideoLoaded={onVideoLoaded}
+                onVideoProgessing={onVideoProgessing}
+                onSeek={onSeek}
+                onSeekGesture={onSeekGesture}
+                onSkip={onSkip}
+                onTogglePlayPause={onTogglePlayPause}
+                onToggleFullScreen={onToggleFullScreen}
+                onGoBack={onGoBack}
+                setPlaybackRate={setPlaybackRate}
+                changeEpisodeAndPlay={changeEpisodeAndPlay}
+                onShare={onShare}
+                onReadyForDisplay={onReadyForDisplay}
+              />
+            )}
+          </View>
+        }
+
 
         {(bufferRef.current || seekDirection !== "none") && (
           <View style={styles.buffering}>
