@@ -6,6 +6,7 @@ export const LIGHT_THEME = 'LIGHT_THEME';
 export const ADD_VOD_TO_FAVORITES = 'add_vod_to_fav';
 export const REMOVE_VOD_FROM_FAVORITES = 'remove_from_fav';
 export const PLAY_VOD = 'play_vod';
+export const ADD_PLAYER_AD_VIDEO = 'add_player_ad_video';
 export const TOGGLE_VOD_FAVORITES = 'toggle_vod_fav';
 
 export const SELECT_MINI_VOD_COLLECTION_ITEM =

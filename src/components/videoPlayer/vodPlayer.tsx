@@ -39,11 +39,15 @@ import {
 } from "@type/ajaxTypes";
 import VideoWithControls from "./videoWithControls";
 import { useDispatch } from "react-redux";
-import { useAppSelector } from "@hooks/hooks";
+import { useAppSelector, useSelector } from "@hooks/hooks";
 import { screenModel } from "@type/screenType";
 import { ADULT_MODE_PREVIEW_DURATION, AD_VIDEO_SECONDS, NON_VIP_STREAM_TIME_SECONDS } from "@utility/constants";
 import { userModel } from "@type/userType";
 import { AdVideoImage } from "./AdVideoImage";
+import { VodReducerState } from "@redux/reducers/vodReducer";
+import { addPlayerAdVideo } from "@redux/actions/vodActions";
+import { VodApi } from "@api";
+import { useQuery } from "@tanstack/react-query";
 
 interface Props {
   vod_url?: string;
@@ -136,12 +140,8 @@ export default forwardRef<VideoRef, Props>(
     const navigation = useNavigation();
     const route = useRoute();
     const dispatch = useDispatch();
-    const screenState: screenModel = useAppSelector(
-      ({ screenReducer }) => screenReducer
-    );
-    const userState: userModel = useAppSelector(
-      ({ userReducer }) => userReducer
-    );
+    const screenState = useSelector<screenModel>('screenReducer');
+    const userState = useSelector<userModel>('userReducer');
     const bufferRef = useRef(true);
     const onBuffer = (bufferObj: any) => {
       if (!bufferObj.isBuffering) {
@@ -151,18 +151,21 @@ export default forwardRef<VideoRef, Props>(
       bufferRef.current = bufferObj.isBuffering;
     };
 
-    // New state to keep track of app's background/foreground status
-    const [isInBackground, setIsInBackground] = useState(false);
-
     const disableSeek = useRef(false)
 
     const [showAd, setShowAd] = useState(false);
     const [adCountdownTime, setAdCountdownTime] = useState(AD_VIDEO_SECONDS);
 
+    const { data: playerVodAds, isFetching: isFetchAds } = useQuery({
+      queryKey: ["playerAdsVideo"],
+      queryFn: () => VodApi.getPlayerAdVideo(),
+    });
+
     useEffect(() => {
-      // TODO: check is need show custom ad
-      setShowAd(true);
-    }, []);
+      if (playerVodAds) {
+        setShowAd(true);
+      }
+    }, [playerVodAds]);
 
     useEffect(() => {
       if (adCountdownTime <= 0) {
@@ -580,13 +583,12 @@ export default forwardRef<VideoRef, Props>(
 
     return (
       <View style={styles.container}>
-        {showAd &&
+        {showAd && playerVodAds &&
           <View style={{ ...styles.bofangBox }}>
             <AdVideoImage
               videoPlayerRef={videoPlayerRef}
-              type={'video'}
-              url={'https://m3u.haiwaikan.com/xm3u8/8d72b27c5bf773b1981da740b2f7b2ae6fe82d44535cd174862964fe2b1352889921f11e97d0da21.m3u8'}
-              // url={'https://blog.marks-iplaw.jp/wp-content/uploads/2017/03/28508523-e1489736535124.gif'}
+              type={playerVodAds.isVideo ? 'video' : 'image'}
+              url={playerVodAds.url!}
               countdownTime={adCountdownTime}
               isFullScreen={isFullScreen}
               isShowShare={false}
@@ -598,7 +600,7 @@ export default forwardRef<VideoRef, Props>(
           </View>
         }
 
-        {!showAd &&
+        {!isFetchAds && !showAd &&
           <View style={{ ...styles.bofangBox }}>
             {!(vod_url !== undefined || vod_source !== undefined) ? (
               <View
@@ -658,7 +660,7 @@ export default forwardRef<VideoRef, Props>(
         }
 
 
-        {(bufferRef.current || seekDirection !== "none") && (
+        {(bufferRef.current || seekDirection !== "none" || isFetchAds) && !showAd && (
           <View style={styles.buffering}>
             {seekDirection !== "none" ? (
               <View
