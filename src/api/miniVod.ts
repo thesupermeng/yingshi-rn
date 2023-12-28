@@ -65,11 +65,12 @@ const fetchMiniVods = async (page: number, from: 'api' | 'local' = 'local') => {
   if (!apiCacheExists || from === 'api' || page > 1 || DOWNLOAD_WATCH_ANYTIME === false) {
     console.debug('getting from api')
     const excluded = await getExcludedIds()
-    return await MiniVodApi.getListByPage({
+    const result =  await MiniVodApi.getListByPage({
       page,
       limit: 300,
       exclude: excluded.join(','),
     });
+    return result.List
   } else {
     console.debug('getting from local')
     return shuffle(await getApiCache())
@@ -129,7 +130,9 @@ const useMinivodQuery = (fetchMode: 'adult' | 'normal', isVip: boolean) => useIn
     getNextPageParam: (lastPage, allPages) => {
       return allPages.length + 1;
     },
-    onSuccess: data => { },
+    onSuccess: data => { 
+      console.debug('data',data)
+    },
     refetchOnMount: 'always',
   },
 );

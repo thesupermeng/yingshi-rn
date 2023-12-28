@@ -23,7 +23,7 @@ const initialState: screenModel = {
   isOverEighteenAccepted: false,
   watchAnytimeAdultMode: false,
   showAdultTab: false, 
-  showAdultVipPrivilegeMiniVideo: true
+  showAdultVipPrivilegeMiniVideo: false
 };
 
 export function screenReducer(state = initialState, action: screenActionType) {
@@ -164,11 +164,13 @@ export function screenReducer(state = initialState, action: screenActionType) {
         isOverEighteenAccepted: false
       }
     case "enable_watch_anytime_adult_mode":
+      console.log('enable wa adult')
       return {
         ...state,
         watchAnytimeAdultMode: true
       }
     case "disable_watch_anytime_adult_mode":
+      console.log('disable wa adult')
       return {
         ...state,
         watchAnytimeAdultMode: false
