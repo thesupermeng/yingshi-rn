@@ -5,6 +5,7 @@ import { CEndpoint, CLangKey } from "@constants";
 import { CApi } from "@utility/apiService";
 import { YING_SHI_PRODUCT_ANDROID, YING_SHI_PRODUCT_IOS } from "@utility/constants";
 import { CountryPhoneCodeType } from "@type/ajaxTypes";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 export class UserApi {
@@ -57,6 +58,10 @@ export class UserApi {
                 throw result.message;
             }
 
+            if (result.data && result.data.access_token) {
+                await AsyncStorage.setItem("bearerToken", result.data.access_token);
+            }
+
             return result;
 
         } catch (e: any) {
@@ -67,6 +72,10 @@ export class UserApi {
 
     static getUserDetails = async () => {
         try {
+            if (CApi.bearerToken === undefined || CApi.bearerToken === null) {
+                return;
+            }
+
             const result = await CApi.get(CEndpoint.userGetDetails);
 
             if (result.success === false) {
