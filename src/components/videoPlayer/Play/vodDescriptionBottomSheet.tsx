@@ -74,6 +74,7 @@ function DescriptionBottomSheet({
         if (handleClose) handleClose();
       }}
       maxHeight={'85%'}
+      style={{paddingBottom:50}}
     >
         <View style={styles.titleContainer}>
         <Text  
@@ -111,10 +112,12 @@ const styles = StyleSheet.create({
     titleContainer: {
         alignItems: 'center',
         justifyContent: 'flex-start',
+     
       },
     descriptionContainer2Text: {
         color: "#9C9C9C",
         fontSize: 15,
+   
       },
   });
 
