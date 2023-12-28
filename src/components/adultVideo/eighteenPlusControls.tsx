@@ -92,7 +92,7 @@ console.log( Platform.OS )
         height: showAdultVipPrivilegeMiniVideo ? '100%' : 'auto'
       }}
     >
-      {watchAnytimeAdultMode && <WatchAnytimeVipModal />}
+      {/* {watchAnytimeAdultMode && <WatchAnytimeVipModal />} */}
       {(UMENG_CHANNEL != "GOOGLE_PLAY" || Platform.OS === "ios" ) && (
         <AdultModeSwitch switchStyle={styles.switch} />
       )}

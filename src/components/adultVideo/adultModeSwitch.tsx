@@ -42,19 +42,19 @@ const AdultModeSwitch = ({switchStyle}: Props) => {
   return (
     <View style={switchStyle}>
       <Switch
-            value={adultMode && watchAnytimeAdultMode}
+            value={watchAnytimeAdultMode}
             onValueChange={handleToggle}
             backgroundInactive={"transparent"}
             activeText=""
             inActiveText=""
             switchBorderRadius={20}
             renderInsideCircle={() => {
-              if (adultMode) return <AdultSwitchON />
+              if (watchAnytimeAdultMode) return <AdultSwitchON />
               else return <AdultSwitchOFF />
             }}
             containerStyle={{
               borderWidth: 2,
-              borderColor: !adultMode ? 'white' : '#0000009E',
+              borderColor: !watchAnytimeAdultMode ? 'white' : '#0000009E',
             }}
             barHeight={27}
             switchLeftPx={5}
