@@ -1,16 +1,18 @@
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { persistor, store } from "@redux/store";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { MiniVideo } from "@type/ajaxTypes";
+import { CheckVersionRequest, MiniVideo } from "@type/ajaxTypes";
 import {
   ANDROID_HOME_PAGE_BANNER_ADS,
   API_DOMAIN,
   API_DOMAIN_TEST,
+  APP_VERSION,
   IOS_HOME_PAGE_BANNER_ADS,
   TOPON_ANDROID_APP_ID,
   TOPON_ANDROID_APP_KEY,
   TOPON_IOS_APP_ID,
   TOPON_IOS_APP_KEY,
+  UMENG_CHANNEL,
 } from "@utility/constants";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -85,7 +87,7 @@ let App = () => {
   //   },
   // );
 
-  const [showRegengOverlay, setShowRegengOverlay] = useState(false);
+
 
   const queryClient = new QueryClient({
     defaultOptions: {
@@ -132,17 +134,16 @@ let App = () => {
     queryClient.prefetchQuery({
       queryKey: ["HomePage", 0],
       queryFn: () =>
-        AppsApi.getHomePages(0)
-          .then((data) => {
-            setCount(99);
-            return data;
-          }),
+        AppsApi.getHomePages(0).then((data) => {
+          setCount(99);
+          return data;
+        }),
     });
 
     queryClient.prefetchQuery({
       queryKey: ["HomePage", 1000],
-      queryFn: () => AppsApi.getHomePages(1000)
-        .then((data) => {
+      queryFn: () =>
+        AppsApi.getHomePages(1000).then((data) => {
           return data.yingping_list;
         }),
     });
@@ -251,7 +252,55 @@ let App = () => {
   console.log("YSConfig.instance.areaConfig");
 
   console.log(YSConfig.instance.areaConfig);
+
+  // re geng
+  const [showRegengOverlay, setShowRegengOverlay] = useState(false);
+  useEffect(() => {
+   
+    checkVersion()
+  }, []);
+
+  const checkVersion = async () => {
+    await  AppsApi.getLocalIpAddress();
+    const checkVersionReq: CheckVersionRequest = {
+      ip_address: YSConfig.instance.ip,
+      channel_id: UMENG_CHANNEL,
+      version_number: APP_VERSION,
+      product: "影视TV-" + Platform.OS.toUpperCase(),
+      mobile_os: Platform.OS,
+      mobile_model: "HUAWEIP20",
+    };
+    console.log(checkVersionReq);
+
+    const { data: response } = await axios.post(
+      `${API_DOMAIN}version/v1/check`,
+      checkVersionReq
+    );
+
+    const res = response.data.version;
+    const v1 = parseInt(APP_VERSION.replace(/\./g, ""), 10);
+    const v2 = parseInt(res.replace(/\./g, ""), 10);
+
+    console.log("ADAAAGGG");
+    if (v2 > v1) {
+      console.log("??");
+      CodePush.checkForUpdate().then((update) => {
+        // console.log('----+---')
+        // console.log(update + "UUUUU")
+        if (update) {
+          console.log(update + "AZZZZ?!");
+          setShowRegengOverlay(true);
+        } else {
+          console.log("EHH?");
+        }
+      });
+    }
+ 
+    return response;
+  };
+
   downloadWatchAnytimeSequence();
+
   return (
     <View style={{ flex: 1, backgroundColor: "#161616" }}>
       <TermsAcceptContextProviderIos>
