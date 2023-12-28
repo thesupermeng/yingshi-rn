@@ -28,10 +28,12 @@ import {
   hideAdultModeDisclaimer,
   hideAdultModeVip,
   incrementAdultVideoWatchTime,
+  showAdultVipPrivilegeMiniVideoAction,
 } from "@redux/actions/screenAction";
 import { userModel } from "@type/userType";
 import { UMENG_CHANNEL } from "@utility/constants";
 import { AdultVipPrivilegeOverlay } from "../modal/adultVipPrivilegeOverlay";
+import { VipPrivilegeFloatingIndicator } from "./vipPrivilegeFloatingIndicator";
 interface Props {}
 
 const eighteenPlusControls = ({}: Props) => {
@@ -48,9 +50,9 @@ const eighteenPlusControls = ({}: Props) => {
     showAdultVipPrivilegeMiniVideo
   } = screenState;
   const dispatch = useAppDispatch();
-  // const isVip = !(Number(userState.userMemberExpired) <=
-  //                 Number(userState.userCurrentTimestamp) ||
-  //                 userState.userToken === "")
+  const isVip = !(Number(userState.userMemberExpired) <=
+                  Number(userState.userCurrentTimestamp) ||
+                  userState.userToken === "")
 
   // useEffect(() => {
   //   let interval: any;
@@ -78,6 +80,10 @@ console.log( Platform.OS )
     dispatch(hideAdultModeDisclaimer());
   }, [])
 
+  const handlePressIndicator = useCallback(() => {
+    dispatch(showAdultVipPrivilegeMiniVideoAction())
+  }, [])
+
   return (
     <View
       style={{
@@ -90,6 +96,20 @@ console.log( Platform.OS )
       {(UMENG_CHANNEL != "GOOGLE_PLAY" || Platform.OS === "ios" ) && (
         <AdultModeSwitch switchStyle={styles.switch} />
       )}
+      {watchAnytimeAdultMode && !isVip && !showAdultVipPrivilegeMiniVideo &&
+        <VipPrivilegeFloatingIndicator
+          text1="升级VIP"
+          text2="享更多福利视频 》"
+          containerStyle={{
+            position: "absolute",
+            top: 70,
+            right: 0,
+            flex: 1,
+          }}
+          onPress={handlePressIndicator}
+        />
+
+      }
       {/* {watchAnytimeAdultMode && (UMENG_CHANNEL != "GOOGLE_PLAY" || Platform.OS === "ios" )&& (
         <AdultModeCountdownIndicator
           containerStyle={{

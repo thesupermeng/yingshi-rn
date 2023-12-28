@@ -2,7 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import VipPrivilegeModal from "./vipPrivilegeModal"
 import { useCallback, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@hooks/hooks";
-import { hideAdultVipPrivilegeMiniVideo, hideAdultVipPrivilegeMiniVideoAction, showAdultVipPrivilegeMiniVideoAction } from "@redux/actions/screenAction";
+import { hideAdultVipPrivilegeMiniVideoAction, showAdultVipPrivilegeMiniVideoAction } from "@redux/actions/screenAction";
 import { View } from "react-native";
 import { screenModel } from "@type/screenType";
 
@@ -18,10 +18,6 @@ export const AdultVipPrivilegeOverlay = () => {
   );
 
   const {showAdultVipPrivilegeMiniVideo} = screenState
-
-  useEffect(() => {
-    dispatch(showAdultVipPrivilegeMiniVideoAction())
-  }, [])
 
   const handleOnPurchase = useCallback(() => {
     navigator.navigate('付费VIP');

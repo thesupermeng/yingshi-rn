@@ -84,6 +84,7 @@ export default function VipPrivilegeModal({
                 position: 'absolute',
                 top: '-50%',
                 right: 15,
+                zIndex: 200, 
               }}
               onPress={onClose}
               >
