@@ -407,3 +407,17 @@ export interface CountryPhoneCodeType {
     country_flag: string,
     country_status: number,
 }
+
+export interface bannerAdType {
+    ads_id: number,
+    ads_slot_id: number,
+    ads_name: string,
+    ads_code: string,
+    ads_pic: string,
+    ads_url: string,
+    ads_layout_type: string,
+    ads_content_type: number,
+    ads_sort: number,
+    ban_region: string,
+    is_video: boolean
+}
