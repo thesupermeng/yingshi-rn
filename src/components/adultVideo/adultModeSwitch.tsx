@@ -24,7 +24,8 @@ const AdultModeSwitch = ({switchStyle}: Props) => {
 
   const handleToggle = useCallback((e:boolean) => {
     if (e){ //if swtiching to true
-      if (isOverEighteenAccepted){
+      dispatch(enableWatchAnytimeAdultMode()) //force enable
+      if (isOverEighteenAccepted){ // logic from previous implementation
         dispatch(enableAdultMode())
         dispatch(hideAdultModeVip())
         dispatch(enableWatchAnytimeAdultMode())
