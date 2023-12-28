@@ -3,7 +3,7 @@ enum CEnvType { production, staging, development }
 export class CEnv {
     static #localeURL = 'https://api.gxhongdeli168.com';
     static #serverURL = 'https://api.gxhongdeli168.com';
-    static #productionURL = '';
+    static #productionURL = 'https://api.gxhongdeli168.com' ;
 
     envType: CEnvType;
     domainUrl: string;
@@ -31,8 +31,8 @@ export class CEnv {
             }
             default: {
                 this.envType = CEnvType.development;
-                this.domainUrl = '';
-                this.apiUrl = '';
+                this.domainUrl = CEnv.#productionURL;
+                this.apiUrl = CEnv.#productionURL;
             }
         }
     }
