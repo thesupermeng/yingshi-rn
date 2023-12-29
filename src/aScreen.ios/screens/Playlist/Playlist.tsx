@@ -93,7 +93,7 @@ function Playlist({ navigation }: BottomTabScreenProps<any>) {
     PlaylistApi.getTopicIosTmp()
       .then((json: VodPlayListType) => {
         setTotalPage(Number(json.TotalPageCount));
-        return Object.values(json.List);
+        return Object.values(json);
       }), []);
 
   const {
