@@ -45,7 +45,7 @@ export class MiniVodApi {
 
       const data = result.data as MiniVideoVodListType;
 
-      return data.List;
+      return data.List ?? [];
 
     } catch (e: any) {
       console.error(`[Error ${this.name}]: ${e.toString()}`);

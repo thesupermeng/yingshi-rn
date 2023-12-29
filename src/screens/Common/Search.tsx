@@ -166,10 +166,10 @@ export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
       searchKeyword = search;
     }
 
-    const eventName = "search_keyword";
-    const eventValues = {
-      keyword: searchKeyword,
-    };
+    // const eventName = "search_keyword";
+    // const eventValues = {
+    //   keyword: searchKeyword,
+    // };
 
     // appsFlyer.logEvent(
     //   eventName,
@@ -279,7 +279,7 @@ export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
               recommendations ? (
               <View style={{ gap: spacing.m }}>
                 {searchHistory.history.length > 0 && (
-                  <Animated.View style={{ gap: spacing.m }} entering={FadeInUp}>
+                  <View style={{ gap: spacing.m }}>
                     <View style={styles.rowApart}>
                       <Text style={{ ...textVariants.header }}>历史搜索</Text>
                       <TouchableOpacity
@@ -334,7 +334,7 @@ export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
                         );
                       })}
                     </View>
-                  </Animated.View>
+                  </View>
                 )}
                 <OrderedSearchResultsList
                   recommendationList={recommendations}
