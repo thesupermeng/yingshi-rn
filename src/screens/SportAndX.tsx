@@ -393,6 +393,13 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                   setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
                   tabList={matchTabs}
                 />
+                {!isVip &&
+                  <BecomeVipOverlay
+                    setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
+                    showBecomeVIPOverlay={showBecomeVIPOverlay}
+                    selectedTab={selectedTab}
+                  />
+              }
               </View>
               // <Text>sport</Text>
             )}

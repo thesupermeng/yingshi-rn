@@ -12,6 +12,7 @@ import FastImage from 'react-native-fast-image';
 import useAnalytics from '@hooks/useAnalytics';
 import { SHOW_ZF_CONST } from '@utility/constants';
 import { AdultVipPrivilegeOverlay } from './adultVipPrivilegeOverlay';
+import { SportVipPrivilegeOverlay } from './sportVipPrivilegeOverlay';
 
 interface Props {
   showBecomeVIPOverlay: boolean;
@@ -40,6 +41,13 @@ export default function ExpiredOverlay({
   if (selectedTab === 'xvod'){
     return (
       <AdultVipPrivilegeOverlay
+        showCondition={showBecomeVIPOverlay}
+        onClose={() => {setShowBecomeVIPOverlay(false)}}
+      />
+    )
+  } else if (selectedTab === 'sport'){
+    return (
+      <SportVipPrivilegeOverlay
         showCondition={showBecomeVIPOverlay}
         onClose={() => {setShowBecomeVIPOverlay(false)}}
       />
