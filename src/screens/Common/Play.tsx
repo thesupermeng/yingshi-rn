@@ -1097,8 +1097,8 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                           更多详情
                           </Text>
                     <MoreArrow
-                    width={icons.sizes.m}
-                    height={icons.sizes.m}
+                    width={icons.sizes.s}
+                    height={icons.sizes.s}
                     color= "#FAC33D"
                   />
                   </View>

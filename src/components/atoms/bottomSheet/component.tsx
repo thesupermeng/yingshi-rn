@@ -1,9 +1,10 @@
-import { useMemo } from "react";
-import { KeyboardAvoidingView, Modal, Platform, ScrollView, StyleSheet, View, ViewStyle } from "react-native";
+import React, { useMemo, useRef, useState } from "react";
+import { KeyboardAvoidingView, Modal, Platform, ScrollView, StyleSheet, View, ViewStyle, PanResponder, Animated } from "react-native";
 import { CPressable } from "../pressable";
 import { useTheme } from "@react-navigation/native";
 import { useCBottomSheetHook } from "./hook";
 import SpinnerOverlay from "../../modal/SpinnerOverlay";
+import { PanGestureHandler, State } from 'react-native-gesture-handler'
 
 
 type CProps = {
@@ -47,6 +48,7 @@ export const CBottomSheet = ({
     const hook = useCBottomSheetHook();
 
     return (
+
         <Modal
             visible={isVisible}
             transparent={true}
@@ -143,7 +145,7 @@ const styleCBottomSheet = ({
         height: contentContainerHeight === 'auto' ? 'auto'
             : '100%',
         paddingHorizontal: 20,
-        marginVertical: 10,
+        marginVertical: 3,
         // prevent to use padding top or bottom
     }
 });

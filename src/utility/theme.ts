@@ -226,7 +226,7 @@ export const YingshiDarkTheme: ExtendedTheme = {
     inactiveNavIconColor: palette.dark_grey2,
     iconColor: palette.white,
     sizes: {
-      s: 12,
+      s: 15,
       m: 18,
       l: 24,
       xl: 32,
