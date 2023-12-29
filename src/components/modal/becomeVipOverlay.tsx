@@ -11,17 +11,20 @@ import {
 import FastImage from 'react-native-fast-image';
 import useAnalytics from '@hooks/useAnalytics';
 import { SHOW_ZF_CONST } from '@utility/constants';
+import { AdultVipPrivilegeOverlay } from './adultVipPrivilegeOverlay';
 
 interface Props {
   showBecomeVIPOverlay: boolean;
   setShowBecomeVIPOverlay: any;
-  isJustClose: boolean,
+  isJustClose: boolean;
+  selectedTab: 'sport' | 'xvod'
 }
 
 export default function ExpiredOverlay({
   showBecomeVIPOverlay = false,
   setShowBecomeVIPOverlay,
   isJustClose,
+  selectedTab
 }: Props) {
   const navigator = useNavigation();
   const dispatch = useAppDispatch();
@@ -33,6 +36,16 @@ export default function ExpiredOverlay({
 
   const { colors, textVariants, spacing, icons } = useTheme();
   const { sportDetailsVipPopupClicksAnalytics } = useAnalytics();
+
+  if (selectedTab === 'xvod'){
+    return (
+      <AdultVipPrivilegeOverlay
+        showCondition={showBecomeVIPOverlay}
+        onClose={() => {setShowBecomeVIPOverlay(false)}}
+      />
+    )
+  }
+
 
   return (
     <>

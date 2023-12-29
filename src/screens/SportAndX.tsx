@@ -15,6 +15,7 @@ import {
   Image,
   ImageBackground,
   Platform,
+  TouchableWithoutFeedback,
 } from "react-native";
 import ScreenContainer from "../components/container/screenContainer";
 import { useFocusEffect, useTheme } from "@react-navigation/native";
@@ -50,6 +51,7 @@ import {
   disableAdultMode,
   showAdultModeDisclaimer,
 } from "@redux/actions/screenAction";
+import { BlurView } from "../components/blurView";
 interface NavType {
   has_submenu: boolean;
   ids: Array<number>;
@@ -155,6 +157,12 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     return;
   }, []);
   // bgVipXvod
+
+  const isVip = !(
+    Number(userState.userMemberExpired) <=
+      Number(userState.userCurrentTimestamp) || userState.userToken === ''
+  );
+
   return (
     <>
       <ImageBackground
@@ -174,10 +182,6 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
             paddingTop: Platform.OS === "ios" ? 8 : 15,
           }}
         >
-          <BecomeVipOverlay
-            setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
-            showBecomeVIPOverlay={showBecomeVIPOverlay}
-          />
           <View
             style={{
               paddingLeft: spacing.sideOffset,
@@ -405,6 +409,26 @@ marginTop:5
               }}
             >
               <XVodTab handleRejectEighteenPlus={handleRejectEighteenPlus} />
+              {!isVip &&
+              <>
+                <TouchableWithoutFeedback
+                  style={styles.xvodBlur}
+                  onPress={() => setShowBecomeVIPOverlay(true)}
+                >
+                  <BlurView
+                    blurType="dark"
+                    blurAmount={2}
+                    style={styles.xvodBlur}
+                  />
+                </TouchableWithoutFeedback>
+                <BecomeVipOverlay
+                  setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
+                  showBecomeVIPOverlay={showBecomeVIPOverlay}
+                  selectedTab={selectedTab}
+                />
+              </>
+              
+              }
             </View>
           )}
           {isOffline && <NoConnection onClickRetry={checkConnection} />}
@@ -447,4 +471,13 @@ const styles = StyleSheet.create({
     position: "relative",
     bottom: 8,
   },
+  xvodBlur: {
+      flex: 1,
+      position: 'absolute',
+      width: '100%',
+      height: '100%',
+      marginTop: 10,
+      borderRadius: 15,
+      // borderRadius: showBlur ? 15 : 0,
+  }
 });
