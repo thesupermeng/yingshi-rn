@@ -55,6 +55,7 @@ const topon_channel = "WEB";
 // });
 
 let App = () => {
+  CodePush.notifyAppReady()
   // appsFlyer.initSdk(
   //   {
   //     devKey: APPSFLYER_DEVKEY,
