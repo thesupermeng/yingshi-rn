@@ -56,12 +56,13 @@ export default function RegengOverlay({}: Props) {
             break;
 
           case CodePush.SyncStatus.UPDATE_INSTALLED:
-            showToast("安装完成");
+            CodePush.notifyAppReady()
+            showToast("安装完成 重启应用以应用更改");
             // 显示提示给用户
-            Alert.alert("更新已安装", "已安装新版本，请重启应用以应用更改。", [
-              { text: "立即重启", onPress: () => RNRestart.Restart() },
-              { text: "稍后", onPress: () => console.log("用户选择稍后重启") },
-            ]);
+            // Alert.alert("更新已安装", "已安装新版本，请重启应用以应用更改。", [
+            //   { text: "立即重启", onPress: () => RNRestart.Restart() },
+            //   { text: "稍后", onPress: () => console.log("用户选择稍后重启") },
+            // ]);
             break;
 
           case CodePush.SyncStatus.UNKNOWN_ERROR:

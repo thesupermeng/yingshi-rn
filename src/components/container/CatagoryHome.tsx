@@ -16,6 +16,7 @@ import ShowMoreVodButton from '../button/showMoreVodButton';
 import {
   VodData,
   VodCarousellType,
+  bannerAdType,
 } from '@type/ajaxTypes';
 // import FastImage from 'react-native-fast-image';
 import FastImage from "../common/customFastImage";
@@ -46,6 +47,12 @@ import Animated, {
 import { acceptOverEighteen, enableAdultMode, hideAdultModeDisclaimer, showAdultModeDisclaimer } from '@redux/actions/screenAction';
 import EighteenPlusOverlay from '../modal/overEighteenOverlay';
 import { screenModel } from '@type/screenType';
+import { CApi } from '@utility/apiService';
+import { CEndpoint } from '@constants';
+import { YSConfig } from '../../../ysConfig';
+import { BannerContainer } from './bannerContainer';
+import { userModel } from '@type/userType';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 // import {FlatList, PanGestureHandler} from 'react-native-gesture-handler';
 
 interface NavType {
@@ -71,10 +78,17 @@ const CatagoryHome = ({
   refreshProp,
   handleRejectEighteenPlus,
 }: Props) => {
+  const userState: userModel = useAppSelector(
+    ({ userReducer }) => userReducer
+  );
+  const isVip = !(Number(userState.userMemberExpired) <=
+                  Number(userState.userCurrentTimestamp) ||
+                  userState.userToken === "");
   const { colors, textVariants, spacing } = useTheme();
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const [activeIndex, setActiveIndex] = useState(0);
+  const [bannerAd, setBannerAd] = useState<bannerAdType>();
   const carouselRef = useRef<any>();
   const categoryListRef = useRef<any>();
   //const width = Dimensions.get('window').width;
@@ -101,6 +115,22 @@ const CatagoryHome = ({
       setIsRefreshing(false);
     }, 0);
   };
+
+  const fetchBannerAd = async () => {
+    const response = await CApi.get(CEndpoint.bannerAd, {
+      query: {
+        slot_id: navId >= 3 ? 101 + navId : 100 + navId,
+        ip: YSConfig.instance.ip,
+      },
+    });
+    const banner = await response.data;
+
+    if (banner) {
+      setBannerAd(banner);
+    } else {
+      setBannerAd(undefined);
+    }
+  }
 
   const listItem = useCallback(
     ({ item, index }: { item: VodData; index: number }) => (
@@ -133,9 +163,17 @@ const CatagoryHome = ({
           :
           item?.vod_list && <VodListVertical vods={item?.vod_list} />
         }
+
+        {(data.yunying ?
+            data.yunying.length + index + 1 : index + 1) % 3 === 0 && bannerAd && (
+          <BannerContainer
+            bannerImg={bannerAd.ads_pic}
+            bannerUrl={bannerAd.ads_url}
+          />
+        )}
       </View>
     ),
-    [],
+    [bannerAd],
   );
 
   const renderCarousel = useCallback(({ item, index }: { item: any, index: number }) => {
@@ -223,8 +261,20 @@ const CatagoryHome = ({
   //   setActiveIndex(0);
   // }, [refreshProp]);
 
+  const shouldShowAds = async () => {
+    const shouldShow = await AsyncStorage.getItem('showAds');
+    
+    if ((shouldShow && shouldShow === 'true') || !shouldShow) {
+      fetchBannerAd();
+    } else {
+      setBannerAd(undefined);
+    }
+  };
+
   useFocusEffect(
     useCallback(() => {
+      shouldShowAds();
+      
       if (navId == 99) {
         dispatch(showAdultModeDisclaimer())
       }
@@ -294,6 +344,20 @@ const CatagoryHome = ({
                     renderItem={renderContent}
                   />
                 )}
+
+                {bannerAd && (
+                  <View style ={{
+                    paddingLeft: spacing.sideOffset,
+                    paddingRight: spacing.sideOffset,
+                    paddingVertical: 5,
+                  }}>
+                    <BannerContainer
+                      bannerImg={bannerAd.ads_pic}
+                      bannerUrl={bannerAd.ads_url}
+                    />
+                  </View>
+                )}
+
                 {data?.yunying &&
                   data.yunying.length > 0 &&
                   data.yunying.map((item, index) => (
@@ -327,6 +391,13 @@ const CatagoryHome = ({
                         :
                         item?.vod_list && <VodListVertical vods={item?.vod_list} />
                       }
+
+                      {(index + 1) % 3 === 0 && bannerAd && (
+                        <BannerContainer
+                          bannerImg={bannerAd.ads_pic}
+                          bannerUrl={bannerAd.ads_url}
+                        />
+                      )}
                     </View>
                   ))}
               </View>

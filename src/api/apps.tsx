@@ -110,6 +110,9 @@ export class AppsApi {
             const result = await CApi.get(CEndpoint.homeGetPages, {
                 query: {
                     id: id,
+                    platform:Platform.OS,
+                    channelId:UMENG_CHANNEL,
+                    appName:APP_NAME_CONST
                 },
             });
 
