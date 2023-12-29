@@ -134,21 +134,21 @@ export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
       searchKeyword = search;
     }
 
-    const eventName = "search_keyword";
-    const eventValues = {
-      keyword: searchKeyword,
-    };
+    // const eventName = "search_keyword";
+    // const eventValues = {
+    //   keyword: searchKeyword,
+    // };
 
-    appsFlyer.logEvent(
-      eventName,
-      eventValues,
-      (res) => {
-        console.log(res);
-      },
-      (err) => {
-        console.error(err);
-      }
-    );
+    // appsFlyer.logEvent(
+    //   eventName,
+    //   eventValues,
+    //   (res) => {
+    //     console.log(res);
+    //   },
+    //   (err) => {
+    //     console.error(err);
+    //   }
+    // );
 
     fetchData(searchKeyword, true);
     dispatch(addSearchHistory(searchKeyword));
