@@ -56,6 +56,7 @@ export default function RegengOverlay({}: Props) {
             break;
 
           case CodePush.SyncStatus.UPDATE_INSTALLED:
+            CodePush.notifyAppReady()
             showToast("安装完成 重启应用以应用更改");
             // 显示提示给用户
             // Alert.alert("更新已安装", "已安装新版本，请重启应用以应用更改。", [
