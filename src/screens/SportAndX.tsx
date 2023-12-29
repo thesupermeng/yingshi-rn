@@ -52,6 +52,7 @@ import {
   showAdultModeDisclaimer,
 } from "@redux/actions/screenAction";
 import { BlurView } from "../components/blurView";
+import { YSConfig } from "../../ysConfig";
 interface NavType {
   has_submenu: boolean;
   ids: Array<number>;
@@ -59,7 +60,7 @@ interface NavType {
 }
 
 export default ({ navigation }: BottomTabScreenProps<any>) => {
-  const [selectedTab, setSelectedTab] = useState("sport");
+  const showSport = (YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5)
   const { textVariants, colors, spacing } = useTheme();
   const [isOffline, setIsOffline] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -75,6 +76,8 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
   const screenState: screenModel = useAppSelector(
     ({ screenReducer }) => screenReducer
   );
+
+  const [selectedTab, setSelectedTab] = useState(showSport ? 'sport' : screenState.showAdultTab ? 'xvod' : null);
 
   const handleRejectEighteenPlus = () => {
     setSelectedTab("sport");
@@ -169,7 +172,9 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
         source={
           selectedTab == "sport"
             ? require("./../../static/images/bgVipSport.png")
-            : require("./../../static/images/bgVipXvod.png")
+            : screenState.showAdultTab 
+            ? require("./../../static/images/bgVipXvod.png")
+            : require("./../../static/images/profile/bg-gradient.png")
         }
         resizeMode="cover"
         style={{ flex: 1, height: 200 }}
@@ -199,7 +204,8 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                 alignItems: "center",
               }}
             >
-              <TouchableOpacity
+              {showSport &&
+                <TouchableOpacity
                 onPress={() => {
                   setSelectedTab("sport");
                   dispatch(disableAdultMode());
@@ -261,6 +267,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                   </View>
                 </View>
               </TouchableOpacity>
+              }
 
               {screenState.showAdultTab && (
                 <>
