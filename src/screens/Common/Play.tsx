@@ -1280,8 +1280,10 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                               <VodListVertical
                                 vods={suggestedVods}
                                 outerRowPadding={2 * (20 - spacing.sideOffset)}
-                                onPress={() => {
-                                  videoPlayerRef.current.setPause(true);
+                                onPress={({ vodId }) => {
+                                  if (vodId !== vod.vod_id) {
+                                    videoPlayerRef.current.setPause(true);
+                                  }
 
                                   if (!isCollapsed) {
                                     setIsCollapsed(true);
