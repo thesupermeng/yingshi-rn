@@ -34,4 +34,6 @@ export class CEndpoint {
     static productPostValidateReceiptAndroid = 'validate/v1/androidreceipt';
     static productGetFinzfTransaction = 'finzf/v1/transactions';
     static productPostFinzfOrder = 'finzf/v1/order';
+
+    static bannerAd = 'ads/v1/slot';
 }
