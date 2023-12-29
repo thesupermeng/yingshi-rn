@@ -166,6 +166,14 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
       Number(userState.userCurrentTimestamp) || userState.userToken === ''
   );
 
+  useEffect(() => {
+    if (selectedTab === 'xvod' && !isVip){
+      setShowBecomeVIPOverlay(true)
+    } else {
+      setShowBecomeVIPOverlay(false)
+    }
+  }, [selectedTab])
+
   return (
     <>
       <ImageBackground
