@@ -1,6 +1,6 @@
 import React, { memo, useState, useRef, useEffect, useCallback } from "react";
 import { View, Text, FlatList, Dimensions } from "react-native";
-import { useTheme } from "@react-navigation/native";
+import { useFocusEffect, useTheme } from "@react-navigation/native";
 import styles from "./style";
 import { TouchableOpacity } from "react-native";
 import { formatMatchDate } from "../../utility/utils";
@@ -20,8 +20,7 @@ import { CApi } from "@utility/apiService";
 import { CEndpoint } from "@constants";
 import { YSConfig } from "../../../../ysConfig";
 import { BannerContainer } from "../../../components/container/bannerContainer";
-import { userModel } from "@type/userType";
-import { useAppSelector } from "@hooks/hooks";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface Props {
   matchTypeID: number;
@@ -48,12 +47,6 @@ const MatchScheduleList = ({
   bgDark = false,
   isLive = false,
 }: Props) => {
-  const userState: userModel = useAppSelector(
-    ({ userReducer }) => userReducer
-  );
-  const isVip = !(Number(userState.userMemberExpired) <=
-                  Number(userState.userCurrentTimestamp) ||
-                  userState.userToken === "");
   const { colors, textVariants, spacing } = useTheme();
   const width = Dimensions.get("window").width;
   const height = Dimensions.get("window").height;
@@ -153,16 +146,30 @@ const MatchScheduleList = ({
 
     if (banner) {
       setBannerAd(banner);
+    } else {
+      setBannerAd(undefined);
     }
   }
 
   useEffect(() => {
     fetchData().then();
-
-    if (!isVip) {
-      fetchBannerAd();
-    }
   }, []);
+
+  const shouldShowAds = async () => {
+    const shouldShow = await AsyncStorage.getItem('showAds');
+    
+    if ((shouldShow && shouldShow === 'true') || !shouldShow) {
+      fetchBannerAd();
+    } else {
+      setBannerAd(undefined);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      shouldShowAds();
+    }, [])
+  );
 
   const Content = ({
     item,

@@ -178,6 +178,8 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
 
     if (banner) {
       setBannerAd(banner);
+    } else {
+      setBannerAd(undefined);
     }
   }
 

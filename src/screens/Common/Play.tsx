@@ -550,6 +550,8 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
     if (banner) {
       setBannerAd(banner);
+    } else {
+      setBannerAd(undefined);
     }
   }
 
