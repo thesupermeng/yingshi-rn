@@ -49,6 +49,7 @@ import { AdVideoImage } from "./AdVideoImage";
 import { VodReducerState } from "@redux/reducers/vodReducer";
 import { VodApi } from "@api";
 import { useQuery } from "@tanstack/react-query";
+import useAnalytics from "@hooks/useAnalytics";
 
 LogBox.ignoreLogs([`Trying to load empty source.`])
 
@@ -166,6 +167,11 @@ export default forwardRef<VideoRef, Props>(
       queryFn: () => VodApi.getPlayerAdVideo(),
     });
 
+    const {
+      playsAdsViewAnalytics,
+      playsAdsClickAnalytics,
+    } = useAnalytics();
+
     useEffect(() => {
       if (showAds &&
         playerVodAds &&
@@ -174,6 +180,10 @@ export default forwardRef<VideoRef, Props>(
       ) {
         setShowAd(true);
         setAdCountdownTime(playerVodAds.minDuration);
+
+        // ========== for analytics - start ==========
+        playsAdsViewAnalytics();
+        // ========== for analytics - end ==========
       }
     }, [playerVodAds]);
 
@@ -588,11 +598,20 @@ export default forwardRef<VideoRef, Props>(
     }, [currentTime, isPaused])
 
     const onPressAd = () => {
-      if (!playerVodAds?.actionUrl) return;
+      if (!playerVodAds?.actionUrl) {
+        // ========== for analytics - start ==========
+        playsAdsClickAnalytics();
+        // ========== for analytics - end ==========
+        return;
+      }
 
       const url = playerVodAds?.actionUrl.includes('http://') ? playerVodAds?.actionUrl : 'http://' + playerVodAds?.actionUrl
 
       Linking.openURL(url);
+
+      // ========== for analytics - start ==========
+      playsAdsClickAnalytics({ url });
+      // ========== for analytics - end ==========
     }
 
     return (
