@@ -14,6 +14,7 @@ import {
   Text,
   BackHandler,
   Platform,
+  Linking,
 } from "react-native";
 
 import Video from "react-native-video";
@@ -596,9 +597,6 @@ export default forwardRef<VideoRef, Props>(
     }, [currentTime, isPaused])
 
     const onPressAd = () => {
-<<<<<<< HEAD
-
-=======
       if (!playerVodAds?.actionUrl) {
         // ========== for analytics - start ==========
         playsAdsClickAnalytics();
@@ -613,7 +611,6 @@ export default forwardRef<VideoRef, Props>(
       // ========== for analytics - start ==========
       playsAdsClickAnalytics({ url });
       // ========== for analytics - end ==========
->>>>>>> kelvin/yingshi-aimeiju-video-ad
     }
 
     return (
