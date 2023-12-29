@@ -8,6 +8,7 @@ import FastImage from '../common/customFastImage';
 import VipIcon from '@static/images/vip_icon.svg';
 import LinearGradient from 'react-native-linear-gradient';
 import CloseButton from '@static/images/close.svg'
+import { SHOW_ZF_CONST } from '@utility/constants';
 
 const adultModels = require('@static/images/vip_adult_models.png');
 const adultBg = require('@static/images/vip_adult_background.png');
@@ -127,13 +128,14 @@ export default function VipPrivilegeModal({
                     ))}
                   </View>
                   <View style={styles.buttonContainer}>
-                    <TouchableOpacity
+                    {SHOW_ZF_CONST &&
+                      <TouchableOpacity
                       style={styles.purchaseButton}
                       onPress={onPurchase}>
                       <Text style={styles.purchaseButtonText}>
                         付费购买VIP会员 →
                       </Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity>}
                     <TouchableOpacity
                       style={styles.inviteButton}
                       onPress={onInvite}>
