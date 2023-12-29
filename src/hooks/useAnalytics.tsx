@@ -50,6 +50,10 @@ enum EventId {
     Plays_X_views = 'Play-X_views',
     Plays_X_plays_times = 'Play-X_plays_times',
     Plays_share_clicks = 'Play-share_clicks',
+
+    // Plays (ads)
+    Plays_ads_views = 'Play-ads_views',
+    Plays_ads_clicks = 'Play-ads_clicks',
 }
 
 const useAnalytics = ({ showLog }: { showLog: boolean } = { showLog: false }) => {
@@ -305,6 +309,29 @@ const useAnalytics = ({ showLog }: { showLog: boolean } = { showLog: false }) =>
         if (showLog) console.log('trigger event id:', EventId.Plays_share_clicks);
     }
 
+    const playsAdsViewAnalytics = () => {
+        AnalyticsUtil.onEventWithMap(EventId.Plays_ads_views, {});
+
+        if (showLog) console.log('trigger event id:', EventId.Plays_ads_views);
+    }
+
+    const playsAdsClickAnalytics = ({ url }: { url?: string } = {}) => {
+        let params = {}
+
+        if (url === undefined || url === '') {
+            params = {
+                'url': 'none',
+            }
+        } else {
+            params = {
+                'url': url,
+            }
+        }
+
+        AnalyticsUtil.onEventWithMap(EventId.Plays_ads_clicks, params);
+
+        if (showLog) console.log('trigger event id:', EventId.Plays_ads_clicks);
+    }
 
     return {
         // Home
@@ -344,6 +371,8 @@ const useAnalytics = ({ showLog }: { showLog: boolean } = { showLog: false }) =>
         playsViewsAnalytics,
         playsPlaysTimesAnalytics,
         playsShareClicksAnalytics,
+        playsAdsViewAnalytics,
+        playsAdsClickAnalytics,
     };
 }
 
