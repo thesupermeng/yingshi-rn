@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
         height: "100%",
         width: "100%",
         backgroundColor: "transparent",
+        paddingBottom:30
         // paddingHorizontal: 20,
         // paddingTop: 20,
     },

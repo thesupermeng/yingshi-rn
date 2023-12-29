@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
         backgroundColor: "transparent",
         paddingHorizontal: 20,
         paddingTop: 20,
+        paddingBottom:30
     },
     title: {
         fontWeight: "400",
