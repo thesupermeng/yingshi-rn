@@ -118,8 +118,8 @@ export const AdVideoImage = ({
 const styles = StyleSheet.create({
     countdownContainer: {
         position: 'absolute',
-        left: 0,
-        bottom: 50,
+        right: 0,
+        top: 50,
         zIndex: 999,
         backgroundColor: '#00000055',
         flexDirection: 'row',
