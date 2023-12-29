@@ -31,6 +31,12 @@ export default () => {
   const [isSuper, setIsSuper] = useState(false);
 
   const onAppInit = async () => {
+
+    await Promise.all([
+      AppsApi.getLocalIpAddress(),
+      AppsApi.getBottomNav(),
+    ]);
+
     const res = await Api.call(
       Url.getConfig,
       { channel: Config.channelId },
@@ -52,12 +58,6 @@ export default () => {
       setLoadedAPI(true);
       return;
     }
-
-
-    await Promise.all([
-      AppsApi.getLocalIpAddress(),
-      AppsApi.getBottomNav(),
-    ]);
 
     try {
       const locationResp = await AppsApi.postLocation();
@@ -86,6 +86,7 @@ export default () => {
   }
 
   useEffect(() => {
+    console.log('onAppInit')
     onAppInit();
 
     GoogleSignin.configure({
