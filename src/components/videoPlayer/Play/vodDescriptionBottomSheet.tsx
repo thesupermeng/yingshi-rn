@@ -68,7 +68,8 @@ function DescriptionBottomSheet({
       };
 
     return (
-        <CBottomSheet
+
+    <CBottomSheet
       isVisible={isVisible}
       onBackdropPress={() => {
         if (handleClose) handleClose();
@@ -81,7 +82,7 @@ function DescriptionBottomSheet({
         style={{
             ...textVariants.header,
             color: textColor ? textColor : colors.text,
-            flex: 1,
+            flex: 1, marginBottom: 10,
         }}>
             {`${definedValue(vodTitle)}`}
         </Text>
