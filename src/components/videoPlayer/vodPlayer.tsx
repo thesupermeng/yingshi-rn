@@ -167,7 +167,11 @@ export default forwardRef<VideoRef, Props>(
     });
 
     useEffect(() => {
-      if (showAds && playerVodAds) {
+      if (showAds &&
+        playerVodAds &&
+        userState.userToken !== '' &&
+        userState.userCurrentTimestamp < userState.userMemberExpired
+      ) {
         setShowAd(true);
         setAdCountdownTime(playerVodAds.minDuration);
       }
