@@ -205,8 +205,7 @@ export class VodApi {
             if (!result.data) {
                 return undefined;
             }
-            console.log('result.data')
-            console.log(result.data)
+
             return {
                 id: result.data.ads_id,
                 name: result.data.ads_name,
