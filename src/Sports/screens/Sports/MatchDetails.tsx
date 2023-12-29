@@ -33,7 +33,7 @@ import MatchDetailsNav from '../../components/matchDetails/MatchDetailsNav';
 import MatchSchedule from '../../components/matchSchedule/MatchSchedule';
 import LiveStatPage from '../../components/matchDetails/liveStatPage';
 import TeamDataPage from '../../components/matchDetails/teamDataPage';
-import VodPlayer from '../../../components/videoPlayer/vodPlayer';
+import VodPlayer, { VideoRef } from '../../../components/videoPlayer/vodPlayer';
 import { parseVideoURL } from '../../utility/urlEncryp';
 import Video from 'react-native-video';
 import LiveVideo from '../../components/liveVideo/liveVideoPlayer';
@@ -104,6 +104,8 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
   const [shouldShowComponents, setShouldShowComponents] = useState(true);
   const [isNavVisible, setIsNavVisible] = useState(true);
   const showCountdown = userState.userToken === "" || Number(userState.userMemberExpired) <= Number(userState.userCurrentTimestamp);
+
+  const videoRef = useRef<VideoRef | null>(null);
 
   // ========== for analytics - start ==========
   const { sportDetailsViewsAnalytics, sportDetailsVipPopupTimesAnalytics } = useAnalytics();
@@ -293,12 +295,16 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
         setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
         showBecomeVIPOverlay={showBecomeVIPOverlay}
         isJustClose={showCountdown && NON_VIP_STREAM_TIME_SECONDS > screenState.sportWatchTime}
+        onClose={() => {
+          videoRef.current?.setPause(false);
+        }}
       />
       {videoSource.url &&
         ((videoSource.type === VideoLiveType.LIVE &&
           match?.streams?.some(streamer => streamer.status == 3)) ||
           videoSource.type === VideoLiveType.ANIMATION) ? (
         <LiveVideo
+          videoRef={videoRef}
           liveDataState={match}
           // fullScreen={tempFullscreen}
           streamID={streamID}
@@ -312,6 +318,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
           showCountdown={showCountdown}
           countdownTime={NON_VIP_STREAM_TIME_SECONDS - screenState.sportWatchTime}
           onVipCountdownClick={() => {
+            videoRef.current?.setPause(true);
             setShowBecomeVIPOverlay(true)
           }}
         />
@@ -341,7 +348,9 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
           listLiveMatchDetailsUpdates={liveRoomUpdate}
         />
       )}
-      <VipRegisterBar />
+      <VipRegisterBar onPress={() => {
+        videoRef.current?.setPause(true);
+      }} />
       {settingsReducer.appOrientation === 'PORTRAIT' && ((isNavVisible &&
         isFullyLoaded && tabList.length > 0) ? (
         <MatchDetailsNav streamId={10001} tabList={tabList} />

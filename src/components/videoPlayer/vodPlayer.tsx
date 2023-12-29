@@ -91,7 +91,7 @@ type VideoControlsRef = {
   toggleLock: () => void;
 };
 
-type VideoRef = {
+export type VideoRef = {
   setPause: (param: boolean) => void;
   isPaused: boolean;
   setCurrentTime: (time: number) => void;
