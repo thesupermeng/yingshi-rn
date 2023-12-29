@@ -343,7 +343,8 @@ export default function InviteCard({ userState = {} }: Props) {
             </View>
           </View>
 
-          <View style={styles.featureItem}>
+          {YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5 &&
+            <View style={styles.featureItem}>
             <View style={styles.imgContainer}>
               <FastImage
                 source={require("@static/images/invite/sport.png")}
@@ -352,7 +353,7 @@ export default function InviteCard({ userState = {} }: Props) {
               />
             </View>
             <Text style={styles.featureTitle}>体育频道</Text>
-          </View>
+          </View>}
 
           <View style={styles.featureItem}>
             <View style={styles.imgContainer}>

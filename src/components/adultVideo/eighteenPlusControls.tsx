@@ -27,6 +27,7 @@ import {
   enableWatchAnytimeAdultMode,
   hideAdultModeDisclaimer,
   hideAdultModeVip,
+  hideAdultVipPrivilegeMiniVideoAction,
   incrementAdultVideoWatchTime,
   showAdultVipPrivilegeMiniVideoAction,
 } from "@redux/actions/screenAction";
@@ -84,6 +85,11 @@ console.log( Platform.OS )
     dispatch(showAdultVipPrivilegeMiniVideoAction())
   }, [])
 
+  const handleOnClose = useCallback(() => {
+    dispatch(hideAdultVipPrivilegeMiniVideoAction())
+    console.debug('close!!!')
+  }, [])
+
   return (
     <View
       style={{
@@ -124,7 +130,11 @@ console.log( Platform.OS )
         handleAccept={handleAccept}
         handleReject={handleReject}
       /> */}
-      <AdultVipPrivilegeOverlay/>
+      <AdultVipPrivilegeOverlay
+        showCondition={showAdultVipPrivilegeMiniVideo}
+        onClose={handleOnClose}
+        showBlur={true}
+      />
     </View>
   );
 };
