@@ -14,6 +14,8 @@ import {
   Text,
   BackHandler,
   Platform,
+  LogBox,
+  Linking,
 } from "react-native";
 
 import Video from "react-native-video";
@@ -47,6 +49,8 @@ import { AdVideoImage } from "./AdVideoImage";
 import { VodReducerState } from "@redux/reducers/vodReducer";
 import { VodApi } from "@api";
 import { useQuery } from "@tanstack/react-query";
+
+LogBox.ignoreLogs([`Trying to load empty source.`])
 
 interface Props {
   vod_url?: string;
@@ -580,11 +584,18 @@ export default forwardRef<VideoRef, Props>(
     }, [currentTime, isPaused])
 
     const onPressAd = () => {
+      if (!playerVodAds?.actionUrl) return;
 
+      const url = playerVodAds?.actionUrl.includes('http://') ? playerVodAds?.actionUrl : 'http://' + playerVodAds?.actionUrl
+
+      Linking.openURL(url);
     }
 
     return (
       <View style={styles.container}>
+        {isFetchAds &&
+          <View style={styles.bofangBox} />
+        }
         {showAd && playerVodAds &&
           <View style={{ ...styles.bofangBox }}>
             <AdVideoImage
