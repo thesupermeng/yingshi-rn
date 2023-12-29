@@ -1,23 +1,24 @@
-import {useFocusEffect, useTheme} from '@react-navigation/native';
+import { useFocusEffect, useTheme } from '@react-navigation/native';
 import React, {
   forwardRef,
   useCallback,
   useEffect,
   useImperativeHandle,
   useMemo,
+  useRef,
   useState,
 } from 'react';
-import {FlatList, NativeScrollEvent, NativeSyntheticEvent, RefreshControl, StyleSheet, View} from 'react-native';
+import { FlatList, NativeScrollEvent, NativeSyntheticEvent, RefreshControl, StyleSheet, View } from 'react-native';
 import ShortVod from './shortVod';
-import {MiniVideo} from '@type/ajaxTypes';
+import { MiniVideo } from '@type/ajaxTypes';
 import FastImage from '../../common/customFastImage';
 
-import {useAppDispatch, useAppSelector} from '@hooks/hooks';
+import { useAppDispatch, useAppSelector } from '@hooks/hooks';
 import useAnalytics from '@hooks/useAnalytics';
-import {showAdultModeVip} from '@redux/actions/screenAction';
-import {screenModel} from '@type/screenType';
-import {userModel} from '@type/userType';
-import {ADULT_MODE_PREVIEW_DURATION} from '@utility/constants';
+import { showAdultModeVip } from '@redux/actions/screenAction';
+import { screenModel } from '@type/screenType';
+import { userModel } from '@type/userType';
+import { ADULT_MODE_PREVIEW_DURATION } from '@utility/constants';
 
 interface Props {
   miniVodListRef: any;
@@ -59,8 +60,9 @@ export default forwardRef<MiniVodRef, Props>(
     }: Props,
     ref,
   ) => {
-    const {spacing} = useTheme();
+    const { spacing } = useTheme();
 
+    const isFirstComeIn = useRef(true);
     const [isInitFetching, setInitFetching] = useState(true);
     const [displayHeight, setDisplayHeight] = useState<number>(0);
     const [current, setCurrent] = useState<number>(0);
@@ -76,47 +78,37 @@ export default forwardRef<MiniVodRef, Props>(
     const [curAnalyticsIndex, setCurAnalyticsIndex] = useState(0);
 
     const screenState: screenModel = useAppSelector(
-      ({screenReducer}) => screenReducer,
+      ({ screenReducer }) => screenReducer,
     );
-    const userState: userModel = useAppSelector(({userReducer}) => userReducer);
+    const userState: userModel = useAppSelector(({ userReducer }) => userReducer);
 
     const {
       adultModeDisclaimerShow,
       adultModeVipShow,
       adultVideoWatchTime,
-      // adultMode,
-      watchAnytimeAdultMode: adultMode, 
-      showAdultVipPrivilegeMiniVideo
+      adultMode,
     } = screenState;
     const isVip =
       Number(userState.userMemberExpired) <=
-        Number(userState.userCurrentTimestamp) || userState.userToken === '';
+      Number(userState.userCurrentTimestamp) || userState.userToken === '';
     const dispatch = useAppDispatch();
 
-    // useEffect(() => {
-    //   if (
-    //     adultVideoWatchTime >= ADULT_MODE_PREVIEW_DURATION &&
-    //     adultMode &&
-    //     isVip
-    //   ) {
-    //     dispatch(showAdultModeVip());
-    //     setPause(true);
-    //   }
-    // }, [videoCurrentDurations[current], isPause]);
-
-    // useEffect(() => {
-    //   if (adultModeDisclaimerShow || adultModeVipShow) {
-    //     setPause(true);
-    //   }
-    // }, [adultModeDisclaimerShow, adultModeVipShow]);
+    useEffect(() => {
+      if (
+        adultVideoWatchTime >= ADULT_MODE_PREVIEW_DURATION &&
+        adultMode &&
+        isVip
+      ) {
+        dispatch(showAdultModeVip());
+        setPause(true);
+      }
+    }, [videoCurrentDurations[current], isPause]);
 
     useEffect(() => {
-      if (showAdultVipPrivilegeMiniVideo){
-        setPause(true)
-      } else {
-        setPause(false)
+      if (adultModeDisclaimerShow || adultModeVipShow) {
+        setPause(true);
       }
-    }, [showAdultVipPrivilegeMiniVideo])
+    }, [adultModeDisclaimerShow, adultModeVipShow]);
 
     useEffect(() => {
       setChangingSource(true);
@@ -145,7 +137,7 @@ export default forwardRef<MiniVodRef, Props>(
     );
 
     // ========== for analytics - start ==========
-    const {watchAnytimeVideoViewTimesAnalytics} = useAnalytics();
+    const { watchAnytimeVideoViewTimesAnalytics } = useAnalytics();
 
     useEffect(() => {
       // ========== for analytics - start ==========
@@ -202,7 +194,9 @@ export default forwardRef<MiniVodRef, Props>(
     }, [videos]);
 
     useEffect(() => {
-      if (!showAdultVipPrivilegeMiniVideo) {
+      if (isFirstComeIn.current) {
+        setPause(true);
+      } else {
         setPause(isFetching || isRefreshing || !isActive || isScrolling);
       }
     }, [isFetching, isRefreshing, isActive, isScrolling]);
@@ -231,10 +225,10 @@ export default forwardRef<MiniVodRef, Props>(
     };
 
     const renderItem = useCallback(
-      ({item, index}: {item: MiniVideo; index: number}) => {
+      ({ item, index }: { item: MiniVideo; index: number }) => {
         let prevPosition = Math.max(0, index - 1);
         return (
-          <View style={{height: displayHeight ? displayHeight : 0}}>
+          <View style={{ height: displayHeight ? displayHeight : 0 }}>
             {displayHeight != 0 && (current >= prevPosition && current < index + 2) && (
               <ShortVod
                 vod={item}
@@ -244,6 +238,7 @@ export default forwardRef<MiniVodRef, Props>(
                 onManualPause={current => {
                   console.log('click pause');
                   setPause(!current);
+                  isFirstComeIn.current = false;
                 }}
                 isShowVideo={current >= prevPosition && current < index + 2}
                 // isShowVideo={current === index && !isScrolling && !isPressTabScroll}
@@ -252,7 +247,7 @@ export default forwardRef<MiniVodRef, Props>(
                   updateVideoDuration(index, duration)
                 }
                 isActive={isActive}
-                            />
+              />
             )}
           </View>
         )
@@ -269,7 +264,7 @@ export default forwardRef<MiniVodRef, Props>(
     );
 
     const onLayoutRender = useCallback((event: any) => {
-      var {height} = event.nativeEvent.layout;
+      var { height } = event.nativeEvent.layout;
       const heightStr: string = height.toFixed(5);
 
       // use substring to prevent rounding
@@ -296,7 +291,7 @@ export default forwardRef<MiniVodRef, Props>(
     }, []);
 
     return (
-      <View style={{flex: 1}} onLayout={onLayoutRender}>
+      <View style={{ flex: 1 }} onLayout={onLayoutRender}>
         {isInitFetching ? (
           <View style={styles.loadingContainer}>
             <FastImage
@@ -322,16 +317,16 @@ export default forwardRef<MiniVodRef, Props>(
             keyExtractor={(item: any, index: any) =>
               item.mini_video_id.toString()
             }
-            viewabilityConfig={{viewAreaCoveragePercentThreshold: 100}}
+            viewabilityConfig={{ viewAreaCoveragePercentThreshold: 100 }}
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
             onEndReached={hanldeOnEndReached}
             onEndReachedThreshold={0.8}
             ListFooterComponent={
-              <View style={{...styles.loading, marginBottom: spacing.xl}}>
+              <View style={{ ...styles.loading, marginBottom: spacing.xl }}>
                 {hasNextPage && (
                   <FastImage
-                    style={{height: 80, width: 80}}
+                    style={{ height: 80, width: 80 }}
                     source={loadingSpinnerGif}
                     resizeMode={'contain'}
                   />
