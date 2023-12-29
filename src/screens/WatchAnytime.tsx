@@ -130,10 +130,10 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
   useEffect(() => {
     setPressTabScroll(true);
 
-    miniVodListRef.current?.scrollToIndex({
-      index: 0,
-      animated: false,
-    });
+    // miniVodListRef.current?.scrollToIndex({
+    //   index: 0,
+    //   animated: false,
+    // });
 
     // 0.5 second for scroll animation, hide all video
     setTimeout(() => {
@@ -195,6 +195,7 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
           handleRefreshMiniVod={handleRefresh}
           isRefreshing={isRefreshing}
           isPressTabScroll={isPressTabScroll}
+          key={adultMode.toString()}
         />
       )}
       {isOffline && <NoConnection onClickRetry={checkConnection} />}
