@@ -14,6 +14,8 @@ import {
   Text,
   BackHandler,
   Platform,
+  LogBox,
+  Linking,
 } from "react-native";
 
 import Video from "react-native-video";
@@ -47,6 +49,9 @@ import { AdVideoImage } from "./AdVideoImage";
 import { VodReducerState } from "@redux/reducers/vodReducer";
 import { VodApi } from "@api";
 import { useQuery } from "@tanstack/react-query";
+import useAnalytics from "@hooks/useAnalytics";
+
+LogBox.ignoreLogs([`Trying to load empty source.`])
 
 interface Props {
   vod_url?: string;
@@ -162,14 +167,25 @@ export default forwardRef<VideoRef, Props>(
       queryFn: () => VodApi.getPlayerAdVideo(),
     });
 
+    const {
+      playsAdsViewAnalytics,
+      playsAdsClickAnalytics,
+    } = useAnalytics();
+
     useEffect(() => {
       if (showAds &&
         playerVodAds &&
-        userState.userToken !== '' &&
-        userState.userCurrentTimestamp < userState.userMemberExpired
+        (
+          userState.userToken === '' ||
+          userState.userCurrentTimestamp >= userState.userMemberExpired
+        )
       ) {
         setShowAd(true);
         setAdCountdownTime(playerVodAds.minDuration);
+
+        // ========== for analytics - start ==========
+        playsAdsViewAnalytics();
+        // ========== for analytics - end ==========
       }
     }, [playerVodAds]);
 
@@ -584,11 +600,27 @@ export default forwardRef<VideoRef, Props>(
     }, [currentTime, isPaused])
 
     const onPressAd = () => {
+      if (!playerVodAds?.actionUrl) {
+        // ========== for analytics - start ==========
+        playsAdsClickAnalytics();
+        // ========== for analytics - end ==========
+        return;
+      }
 
+      const url = playerVodAds?.actionUrl.includes('http://') ? playerVodAds?.actionUrl : 'http://' + playerVodAds?.actionUrl
+
+      Linking.openURL(url);
+
+      // ========== for analytics - start ==========
+      playsAdsClickAnalytics({ url });
+      // ========== for analytics - end ==========
     }
 
     return (
       <View style={styles.container}>
+        {isFetchAds &&
+          <View style={styles.bofangBox} />
+        }
         {showAd && playerVodAds &&
           <View style={{ ...styles.bofangBox }}>
             <AdVideoImage
