@@ -100,3 +100,6 @@ example:
 
 
 appcenter codepush release-react -a developeryingshi/yingshi-ios-new -d Production --description "test" --mandatory true --plist-file ios/aimeiju/Info.plist
+
+
+ appcenter codepush release-react -a developeryingshi/yingshi-ios-new -d Production --description "test" --mandatory true --plist-file ios/aimeiju/Info.plist --entry-file src/components/container/RecommendationHome.tsx
