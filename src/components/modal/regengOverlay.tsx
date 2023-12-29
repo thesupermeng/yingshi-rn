@@ -1,5 +1,5 @@
 import React, { Suspense, useCallback, useContext, useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import RegengModal from './regengModal';
 import { useNavigation, useTheme } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -47,11 +47,14 @@ export default function RegengOverlay({ }: Props) {
                         console.log("CODEPUSH STATUS : Up to date");
                         break;
 
-                    case CodePush.SyncStatus.UPDATE_INSTALLED:
-                        showToast("安装完成");
-                        // restart
-                        RNRestart.Restart();
-                        break;
+                        case CodePush.SyncStatus.UPDATE_INSTALLED:
+                            showToast("安装完成");
+                            // 显示提示给用户
+                            Alert.alert("更新已安装", "已安装新版本，请重启应用以应用更改。", [
+                              { text: "立即重启", onPress: () => RNRestart.Restart() },
+                              { text: "稍后", onPress: () => console.log("用户选择稍后重启") },
+                            ]);
+                            break;
 
                     case CodePush.SyncStatus.UNKNOWN_ERROR:
                         showToast("安装失败");
