@@ -4,7 +4,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import FastImage from "../components/common/customFastImage";
 import Nav from "../../src/navigation/nav";
 import NavIos from "@iosScreen/navigation/nav";
-import NavA from "@androidScreen/navigation/nav";
+
 import {
   TOTAL_VIDEO_TO_DOWNLOAD,
   DOWNLOAD_WATCH_ANYTIME,
@@ -153,9 +153,7 @@ export default () => {
               ) : (
                 <>
                   {Platform.OS === "ios" && <NavIos />}
-                  <AdsBannerContextProvider>
-                    {Platform.OS === "android" && <NavA />}
-                  </AdsBannerContextProvider>
+                
                 </>
               )}
             </>
