@@ -92,7 +92,7 @@ export const VipCard = ({
           }
         </View>
         <FastImage
-          source={require('@static/images/vip/crown_vip.png')}
+          source={require('@static/images/crown.png')}
           style={{
             alignSelf: 'flex-end',
             height: '100%',

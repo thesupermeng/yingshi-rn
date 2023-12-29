@@ -25,7 +25,7 @@ export const VipCard = ({
   selectedZf,
   onZfSelect,
 }: Props) => {
-  const { textVariants} = useTheme();
+  const { textVariants } = useTheme();
   const [vipRemainingDay, setVipRemainingDay] = useState(0);
   useEffect(() => {
     // Assuming you have the two timestamps
@@ -54,7 +54,7 @@ export const VipCard = ({
 
     setVipRemainingDay(result);
   }, [userState.userCurrentTimestamp]);
-  
+
   return (
     <View
       style={{
@@ -80,17 +80,17 @@ export const VipCard = ({
           <Text style={{ color: '#ffffff', fontSize: 28, fontWeight: '700' }}>
             VIP {vipRemainingDay.toLocaleString()} 天
           </Text>
-          {vipRemainingDay === 0 ? 
+          {vipRemainingDay === 0 ?
             <Text style={{ ...textVariants.small, color: '#9C9C9C' }}>
               您还不是会员,开通VIP享受权益
             </Text> :
             <Text style={{ ...textVariants.small, color: '#9C9C9C' }}>
               剩余天数
-          </Text>
+            </Text>
           }
         </View>
         <FastImage
-          source={require('@static/images/vip/crown_vip.png')}
+          source={require('@static/images/crown.png')}
           style={{
             alignSelf: 'flex-end',
             height: '100%',
@@ -105,26 +105,26 @@ export const VipCard = ({
 
       {/* membership plan */}
       <View
-        style={{marginBottom: 10}}>
+        style={{ marginBottom: 10 }}>
         <Text
-          style={{...textVariants.bodyBold, fontSize: 15, marginLeft: 25}}>
-            开通会员
+          style={{ ...textVariants.bodyBold, fontSize: 15, marginLeft: 25 }}>
+          开通会员
         </Text>
         {membershipProduct.map((item) => (
-          <VipMember 
-            key={item.productId} 
+          <VipMember
+            key={item.productId}
             membershipPlan={item}
-            isSelected={ selectedMembership && selectedMembership.productId === item.productId}
+            isSelected={selectedMembership && selectedMembership.productId === item.productId}
             onSelect={onMembershipSelect} />
         ))}
       </View>
-      
+
       {/* zf method */}
       <View
-        style={{marginBottom: 15}}>
+        style={{ marginBottom: 15 }}>
         <Text
-          style={{...textVariants.bodyBold, fontSize: 15, marginLeft: 25}}>
-            支付方式
+          style={{ ...textVariants.bodyBold, fontSize: 15, marginLeft: 25 }}>
+          支付方式
         </Text>
 
         {/* {Platform.OS === "android" && 

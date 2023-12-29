@@ -30,19 +30,19 @@ export const VipBenefit = () => {
           />
         </View>
         <View>
-          <Text style={{...textVariants.small}}>VIP尊贵标识</Text>
+          <Text style={{ ...textVariants.small }}>VIP尊贵标识</Text>
         </View>
       </View>
       {YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5 ? (
         <View style={styles.featureItem}>
           <View style={styles.imgContainer}>
             <FastImage
-              source={require('@static/images/vip/vip_sport.png')}
+              source={require('@static/images/invite/sport.png')}
               style={styles.featureIcn}
               resizeMode={FastImage.resizeMode.contain}
             />
           </View>
-          <Text style={{...textVariants.small}}>体育频道</Text>
+          <Text style={{ ...textVariants.small }}>体育频道</Text>
         </View>
       ) : (
         <></>
@@ -51,13 +51,13 @@ export const VipBenefit = () => {
       <View style={styles.featureItem}>
         <View style={styles.imgContainer}>
           <FastImage
-            source={require('@static/images/vip/vip_no_ad.png')}
+            source={require('@static/images/invite/ads.png')}
             style={styles.featureIcn}
             resizeMode={FastImage.resizeMode.contain}
           />
         </View>
         <View>
-          <Text style={{...textVariants.small}}>去广告</Text>
+          <Text style={{ ...textVariants.small }}>去广告</Text>
         </View>
       </View>
     </LinearGradient>
