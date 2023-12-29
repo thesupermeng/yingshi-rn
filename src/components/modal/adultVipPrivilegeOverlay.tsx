@@ -9,7 +9,13 @@ import { screenModel } from "@type/screenType";
 const adultModels = require('@static/images/vip_adult_models.png');
 const adultBg = require('@static/images/vip_adult_background.png');
 
-export const AdultVipPrivilegeOverlay = () => {
+interface Props {
+  showCondition: boolean;
+  onClose: any;
+  showBlur?: boolean; 
+}
+
+export const AdultVipPrivilegeOverlay = ({showCondition, onClose, showBlur}: Props) => {
 
   const navigator = useNavigation()
   const dispatch = useAppDispatch()
@@ -17,7 +23,6 @@ export const AdultVipPrivilegeOverlay = () => {
     ({ screenReducer }) => screenReducer
   );
 
-  const {showAdultVipPrivilegeMiniVideo} = screenState
 
   const handleOnPurchase = useCallback(() => {
     navigator.navigate('付费VIP');
@@ -27,10 +32,6 @@ export const AdultVipPrivilegeOverlay = () => {
     navigator.navigate('邀请');
   }, [])
 
-  const handleOnClose = useCallback(() => {
-    dispatch(hideAdultVipPrivilegeMiniVideoAction())
-    console.debug('close!!!')
-  }, [])
 
   return (
 
@@ -43,9 +44,9 @@ export const AdultVipPrivilegeOverlay = () => {
       coverImage={adultModels}
       onPurchase={handleOnPurchase}
       onInvite={handleOnInvite}
-      onClose={(handleOnClose)}
-      showBlur={true}
-      showCondition={showAdultVipPrivilegeMiniVideo}
+      onClose={onClose}
+      showBlur={showBlur}
+      showCondition={showCondition}
     />
 
   )

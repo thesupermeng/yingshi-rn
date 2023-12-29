@@ -52,7 +52,7 @@ export default function VipPrivilegeModal({
         {showBlur && (
           <BlurView
             blurType="dark"
-            blurAmount={15}
+            blurAmount={3}
             style={{
               flex: 1,
               position: 'absolute',
