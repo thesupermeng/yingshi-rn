@@ -15,6 +15,7 @@ import {
   Image,
   ImageBackground,
   Platform,
+  TouchableWithoutFeedback,
 } from "react-native";
 import ScreenContainer from "../components/container/screenContainer";
 import { useFocusEffect, useTheme } from "@react-navigation/native";
@@ -50,6 +51,8 @@ import {
   disableAdultMode,
   showAdultModeDisclaimer,
 } from "@redux/actions/screenAction";
+import { BlurView } from "../components/blurView";
+import { YSConfig } from "../../ysConfig";
 interface NavType {
   has_submenu: boolean;
   ids: Array<number>;
@@ -57,7 +60,7 @@ interface NavType {
 }
 
 export default ({ navigation }: BottomTabScreenProps<any>) => {
-  const [selectedTab, setSelectedTab] = useState("sport");
+  const showSport = (YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5)
   const { textVariants, colors, spacing } = useTheme();
   const [isOffline, setIsOffline] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -73,6 +76,8 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
   const screenState: screenModel = useAppSelector(
     ({ screenReducer }) => screenReducer
   );
+
+  const [selectedTab, setSelectedTab] = useState(showSport ? 'sport' : screenState.showAdultTab ? 'xvod' : null);
 
   const handleRejectEighteenPlus = () => {
     setSelectedTab("sport");
@@ -155,13 +160,29 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     return;
   }, []);
   // bgVipXvod
+
+  const isVip = !(
+    Number(userState.userMemberExpired) <=
+      Number(userState.userCurrentTimestamp) || userState.userToken === ''
+  );
+
+  useEffect(() => {
+    if (selectedTab === 'xvod' && !isVip){
+      setShowBecomeVIPOverlay(true)
+    } else {
+      setShowBecomeVIPOverlay(false)
+    }
+  }, [selectedTab])
+
   return (
     <>
       <ImageBackground
         source={
           selectedTab == "sport"
             ? require("./../../static/images/bgVipSport.png")
-            : require("./../../static/images/bgVipXvod.png")
+            : screenState.showAdultTab 
+            ? require("./../../static/images/bgVipXvod.png")
+            : require("./../../static/images/profile/bg-gradient.png")
         }
         resizeMode="cover"
         style={{ flex: 1, height: 200 }}
@@ -174,10 +195,6 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
             paddingTop: Platform.OS === "ios" ? 8 : 15,
           }}
         >
-          <BecomeVipOverlay
-            setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
-            showBecomeVIPOverlay={showBecomeVIPOverlay}
-          />
           <View
             style={{
               paddingLeft: spacing.sideOffset,
@@ -195,7 +212,8 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                 alignItems: "center",
               }}
             >
-              <TouchableOpacity
+              {showSport &&
+                <TouchableOpacity
                 onPress={() => {
                   setSelectedTab("sport");
                   dispatch(disableAdultMode());
@@ -257,6 +275,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                   </View>
                 </View>
               </TouchableOpacity>
+              }
 
               {screenState.showAdultTab && (
                 <>
@@ -389,6 +408,13 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                   setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
                   tabList={matchTabs}
                 />
+                {!isVip &&
+                  <BecomeVipOverlay
+                    setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
+                    showBecomeVIPOverlay={showBecomeVIPOverlay}
+                    selectedTab={selectedTab}
+                  />
+              }
               </View>
               // <Text>sport</Text>
             )}
@@ -405,6 +431,26 @@ marginTop:5
               }}
             >
               <XVodTab handleRejectEighteenPlus={handleRejectEighteenPlus} />
+              {!isVip &&
+              <>
+                <TouchableWithoutFeedback
+                  style={styles.xvodBlur}
+                  onPress={() => setShowBecomeVIPOverlay(true)}
+                >
+                  <BlurView
+                    blurType="dark"
+                    blurAmount={2}
+                    style={styles.xvodBlur}
+                  />
+                </TouchableWithoutFeedback>
+                <BecomeVipOverlay
+                  setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
+                  showBecomeVIPOverlay={showBecomeVIPOverlay}
+                  selectedTab={selectedTab}
+                />
+              </>
+              
+              }
             </View>
           )}
           {isOffline && <NoConnection onClickRetry={checkConnection} />}
@@ -447,4 +493,13 @@ const styles = StyleSheet.create({
     position: "relative",
     bottom: 8,
   },
+  xvodBlur: {
+      flex: 1,
+      position: 'absolute',
+      width: '100%',
+      height: '100%',
+      marginTop: 10,
+      borderRadius: 15,
+      // borderRadius: showBlur ? 15 : 0,
+  }
 });

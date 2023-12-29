@@ -52,7 +52,7 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
     ({ userReducer }) => userReducer
   );
   const { adultMode: adultModeGlobal, watchAnytimeAdultMode } = screenState;
-  const adultMode = adultModeGlobal && watchAnytimeAdultMode;
+  const adultMode = watchAnytimeAdultMode;
 
   const isVip = !(Number(userState.userMemberExpired) <=
     Number(userState.userCurrentTimestamp) ||

@@ -4,19 +4,14 @@ import { Switch } from "react-native-switch"
 import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import { screenModel } from "@type/screenType";
 import { acceptOverEighteen, disableAdultMode, disableWatchAnytimeAdultMode, enableAdultMode, enableWatchAnytimeAdultMode, hideAdultModeVip, showAdultModeDisclaimer, showAdultModeVip } from "@redux/actions/screenAction";
+import AdultSwitchON from '@static/images/adult-switch-on.svg'
+import AdultSwitchOFF from '@static/images/adult-switch-off.svg'
 
 interface Props{
   switchStyle: ViewStyle;
 }
 
-const EighteenPlusText = () => 
-  <Text
-    style={{
-      fontWeight: '900', 
-      fontSize: 10, 
-      color: 'black'
-    }}
-  >18+</Text>
+
 
 const AdultModeSwitch = ({switchStyle}: Props) => {
 
@@ -29,7 +24,8 @@ const AdultModeSwitch = ({switchStyle}: Props) => {
 
   const handleToggle = useCallback((e:boolean) => {
     if (e){ //if swtiching to true
-      if (isOverEighteenAccepted){
+      dispatch(enableWatchAnytimeAdultMode()) //force enable
+      if (isOverEighteenAccepted){ // logic from previous implementation
         dispatch(enableAdultMode())
         dispatch(hideAdultModeVip())
         dispatch(enableWatchAnytimeAdultMode())
@@ -47,24 +43,28 @@ const AdultModeSwitch = ({switchStyle}: Props) => {
   return (
     <View style={switchStyle}>
       <Switch
-            value={adultMode && watchAnytimeAdultMode}
+            value={watchAnytimeAdultMode}
             onValueChange={handleToggle}
             backgroundInactive={"transparent"}
             activeText=""
             inActiveText=""
             switchBorderRadius={20}
-            renderInsideCircle={() => <EighteenPlusText />}
+            renderInsideCircle={() => {
+              if (watchAnytimeAdultMode) return <AdultSwitchON />
+              else return <AdultSwitchOFF />
+            }}
             containerStyle={{
               borderWidth: 2,
-              borderColor: !adultMode ? 'white' : '#0000009E',
+              borderColor: !watchAnytimeAdultMode ? 'white' : '#0000009E',
             }}
             barHeight={27}
             switchLeftPx={5}
             switchRightPx={5}
             backgroundActive="#0000009E"
-            circleActiveColor="#FAC33D"
+            // circleActiveColor="#FAC33D"
             circleBorderWidth={0}
-            circleSize={20}
+            circleSize={22}
+            innerCircleStyle={{backgroundColor: '#ff000000', alignItems: "center", justifyContent: "center"}}
           />
 
     </View>

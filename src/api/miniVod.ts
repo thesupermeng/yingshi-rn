@@ -9,7 +9,7 @@ import { CEndpoint } from "@constants";
 
 
 export class MiniVodApi {
-  static getListByPage = async ({ page, limit = 100, exclude, xMode = false, }: { page: number, limit?: number, exclude?: string[], xMode?: boolean }) => {
+  static getListByPage = async ({ page, limit = 100, exclude, xMode = false, }: { page: number, limit?: number, exclude?: string, xMode?: boolean }) => {
     try {
       const result = await CApi.get(xMode ? CEndpoint.minivodGetXList : CEndpoint.minivodGetList, {
         query: {
@@ -65,11 +65,12 @@ const fetchMiniVods = async (page: number, from: 'api' | 'local' = 'local') => {
   if (!apiCacheExists || from === 'api' || page > 1 || DOWNLOAD_WATCH_ANYTIME === false) {
     console.debug('getting from api')
     const excluded = await getExcludedIds()
-    return await MiniVodApi.getListByPage({
+    const result =  await MiniVodApi.getListByPage({
       page,
       limit: 300,
-      exclude: excluded,
+      exclude: excluded.join(','),
     });
+    return result.List
   } else {
     console.debug('getting from local')
     return shuffle(await getApiCache())
@@ -89,6 +90,7 @@ const fetchAdultVods = async (page: number, isVip: boolean) => {
   return MiniVodApi.getListByPage({
     page,
     limit: 300,
+    xMode: true
   }).then((data) => {
     if (isVip) {
       // console.debug('api return vip content')
@@ -128,7 +130,9 @@ const useMinivodQuery = (fetchMode: 'adult' | 'normal', isVip: boolean) => useIn
     getNextPageParam: (lastPage, allPages) => {
       return allPages.length + 1;
     },
-    onSuccess: data => { },
+    onSuccess: data => { 
+      console.debug('data',data)
+    },
     refetchOnMount: 'always',
   },
 );

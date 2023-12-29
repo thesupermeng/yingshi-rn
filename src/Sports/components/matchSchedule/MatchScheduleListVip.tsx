@@ -1,6 +1,6 @@
 import React, { memo, useState, useRef, useEffect, useCallback } from "react";
 import { View, Text, FlatList, Dimensions } from "react-native";
-import { useTheme } from "@react-navigation/native";
+import { useFocusEffect, useTheme } from "@react-navigation/native";
 import styles from "./style";
 import { TouchableOpacity } from "react-native";
 import { formatMatchDate } from "../../utility/utils";
@@ -15,6 +15,12 @@ import MatchScheduleVip from "./MatchScheduleVip";
 // import FastImage from 'react-native-fast-image';
 import FastImage from "../../../components/common/customFastImage";
 import { TOPON_BANNER_HEIGHT } from "@utility/constants";
+import { bannerAdType } from "@type/ajaxTypes";
+import { CApi } from "@utility/apiService";
+import { CEndpoint } from "@constants";
+import { YSConfig } from "../../../../ysConfig";
+import { BannerContainer } from "../../../components/container/bannerContainer";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface Props {
   matchTypeID: number;
@@ -50,6 +56,7 @@ const MatchScheduleList = ({
   const [isFetchNext, setFetchNext] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
   const [showLoading2, setShowLoading2] = useState(false);
+  const [bannerAd, setBannerAd] = useState<bannerAdType>();
 
   const [matches, setMatches] = useState<Matches>({
     headers: [],
@@ -128,9 +135,41 @@ const MatchScheduleList = ({
     }
   }, []);
 
+  const fetchBannerAd = async () => {
+    const response = await CApi.get(CEndpoint.bannerAd, {
+      query: {
+        slot_id: 110,
+        ip: YSConfig.instance.ip,
+      },
+    });
+    const banner = await response.data;
+
+    if (banner) {
+      setBannerAd(banner);
+    } else {
+      setBannerAd(undefined);
+    }
+  }
+
   useEffect(() => {
     fetchData().then();
   }, []);
+
+  const shouldShowAds = async () => {
+    const shouldShow = await AsyncStorage.getItem('showAds');
+    
+    if ((shouldShow && shouldShow === 'true') || !shouldShow) {
+      fetchBannerAd();
+    } else {
+      setBannerAd(undefined);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      shouldShowAds();
+    }, [])
+  );
 
   const Content = ({
     item,
@@ -170,6 +209,18 @@ const MatchScheduleList = ({
                 key={index}
                 matchSche={item?.data}
               />
+              
+              {(index + 1) % 5 === 0 && bannerAd && (
+                <View style ={{
+                  paddingVertical: 5
+                }}>
+                  <BannerContainer
+                    bannerImg={bannerAd.ads_pic}
+                    bannerUrl={bannerAd.ads_url}
+                  />
+                </View>
+                
+              )}
             </>
           )
         )}

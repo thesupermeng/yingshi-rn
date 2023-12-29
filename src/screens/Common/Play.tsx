@@ -28,6 +28,7 @@ import {
   AdultVodListType,
   SuggestedVodType,
   VodSourceType,
+  bannerAdType,
 } from "@type/ajaxTypes";
 import { addVodToHistory, playVod } from "@redux/actions/vodActions";
 import { useAppDispatch, useAppSelector } from "@hooks/hooks";
@@ -81,8 +82,13 @@ import useAnalytics from "@hooks/useAnalytics";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { screenModel } from "@type/screenType";
 import { VodApi } from "@api";
+
 import DescriptionBottomSheet from "../../components/videoPlayer/Play/vodDescriptionBottomSheet"
 import { VodDescription } from "../../components/videoPlayer/Play/vodDescription";
+
+import { BannerContainer } from "../../components/container/bannerContainer";
+import { CApi } from "@utility/apiService";
+import { CEndpoint } from "@constants";
 
 let insetsTop = 0;
 let insetsBottom = 0;
@@ -304,7 +310,10 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isVodPlayerLoading, setIsVodPlayerLoading] = useState(false);
   const [shouldResumeAfterLoad, setShouldResumeAfterLoad] = useState(false)
+
   const [isShowDescription, setShowDescription] = useState(false);
+
+  const [bannerAd, setBannerAd] = useState<bannerAdType>();
 
   //For pausing video player when switch source
   const onPressSource = useCallback((itemId: any) => {
@@ -536,6 +545,28 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     queryKey: ["vodDetails", vod?.vod_id],
     queryFn: () => fetchVodDetails(),
   });
+
+  const fetchBannerAd = async () => {
+    const response = await CApi.get(CEndpoint.bannerAd, {
+      query: {
+        slot_id: adultMode ? 113 : 112,
+        ip: YSConfig.instance.ip,
+      },
+    });
+    const banner = await response.data;
+
+    if (banner) {
+      setBannerAd(banner);
+    } else {
+      setBannerAd(undefined);
+    }
+  }
+
+  useEffect(() => {
+    if (!isVip) {
+      fetchBannerAd();
+    }
+  },[]);
 
   useEffect(() => {
     if (vod !== undefined && vod !== null && vodDetails !== undefined && !adultMode) {
@@ -911,7 +942,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
             handleSaveVod={() => saveVodToHistory(vod)}
             // setNavBarOptions={setNavBarOptions}
             onReadyForDisplay={onReadyForDisplay}
-
+            showAds={true}
           />
         )}
         {isOffline && dismountPlayer && (
@@ -939,6 +970,20 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
         {!isOffline && (
           <>
             {adultMode && <VipRegisterBar />}
+
+            {bannerAd && (
+              <View style ={{
+                paddingLeft: spacing.sideOffset,
+                paddingRight: spacing.sideOffset,
+                paddingVertical: 5
+              }}>
+                <BannerContainer
+                  bannerImg={bannerAd.ads_pic}
+                  bannerUrl={bannerAd.ads_url}
+                />
+              </View>
+            )}
+
             <ScrollView
               nestedScrollEnabled={true}
               contentContainerStyle={{ marginTop: spacing.m }}

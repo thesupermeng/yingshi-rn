@@ -6,6 +6,10 @@ export type PaggingResponseType<T> = {
     List: T
 }
 
+export type PaggingResponseTypeWithNonVip<T> = {
+    NonVIPList: T
+} & PaggingResponseType<T>
+
 export type NavOptionsType = {
     id: number,
     name: string,
@@ -25,7 +29,7 @@ export type VodPlayListType = PaggingResponseType<{
 
 export type SuggestVodListType = PaggingResponseType<SuggestedVodType[]>
 export type AdultVodListType = PaggingResponseType<AdultVodType[]>
-export type MiniVideoListType = PaggingResponseType<MiniVideo[]>
+export type MiniVideoListType = PaggingResponseTypeWithNonVip<MiniVideo[]>
 export type MiniVideoVodListType = PaggingResponseType<MiniVideoCollectionItem[]>
 
 export interface VodType {
@@ -406,4 +410,28 @@ export interface CountryPhoneCodeType {
     country_phonecode: string,
     country_flag: string,
     country_status: number,
+}
+
+
+export type VodPlayerAdType = {
+    id: number | null,
+    name: string | null,
+    url: string | null,
+    slotId: number | null,
+    isVideo: boolean,
+    actionUrl: string | null,
+    minDuration: number,
+}
+export interface bannerAdType {
+    ads_id: number,
+    ads_slot_id: number,
+    ads_name: string,
+    ads_code: string,
+    ads_pic: string,
+    ads_url: string,
+    ads_layout_type: string,
+    ads_content_type: number,
+    ads_sort: number,
+    ban_region: string,
+    is_video: boolean
 }

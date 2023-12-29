@@ -171,16 +171,16 @@ export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
       keyword: searchKeyword,
     };
 
-    appsFlyer.logEvent(
-      eventName,
-      eventValues,
-      (res) => {
-        console.log(res);
-      },
-      (err) => {
-        console.error(err);
-      }
-    );
+    // appsFlyer.logEvent(
+    //   eventName,
+    //   eventValues,
+    //   (res) => {
+    //     console.log(res);
+    //   },
+    //   (err) => {
+    //     console.error(err);
+    //   }
+    // );
 
     fetchData(searchKeyword, true);
     dispatch(addSearchHistory(searchKeyword));

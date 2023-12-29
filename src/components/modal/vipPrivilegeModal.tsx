@@ -8,6 +8,7 @@ import FastImage from '../common/customFastImage';
 import VipIcon from '@static/images/vip_icon.svg';
 import LinearGradient from 'react-native-linear-gradient';
 import CloseButton from '@static/images/close.svg'
+import { SHOW_ZF_CONST } from '@utility/constants';
 
 const adultModels = require('@static/images/vip_adult_models.png');
 const adultBg = require('@static/images/vip_adult_background.png');
@@ -23,6 +24,7 @@ interface Props {
   onClose: any; 
   onPurchase: any; 
   onInvite: any; 
+  showCondition: boolean;
 }
 
 export default function VipPrivilegeModal({
@@ -35,104 +37,120 @@ export default function VipPrivilegeModal({
   contentGradientColors = ['#EA58A7', '#DE2575'], 
   onClose, 
   onPurchase, 
-  onInvite
+  onInvite, 
+  showCondition
 
 }: Props) {
-  return (
-    <>
-      {showBlur && (
-        <BlurView
-          blurType="dark"
-          blurAmount={15}
-          style={{
-            flex: 1,
-            position: 'absolute',
-            width: '100%',
-            height: '100%',
-            borderRadius: showBlur ? 15 : 0,
-          }}
-        />
-      )}
+  if (showCondition)
+    return (
       <View
         style={{
-          flex: 1,
-          position: 'relative',
-          alignItems: 'center',
-          justifyContent: 'center',
-          alignSelf: 'center',
-          alignContent: 'center',
-          marginBottom: '5%',
+          position: 'absolute',
+          width: '100%',
+          height: '100%',
+          // backgroundColor: '#ff00ff80',
         }}>
+        {showBlur && (
+          <BlurView
+            blurType="dark"
+            blurAmount={3}
+            style={{
+              flex: 1,
+              position: 'absolute',
+              width: '100%',
+              height: '100%',
+              // borderRadius: showBlur ? 15 : 0,
+            }}
+          />
+        )}
         <View
           style={{
+            flex: 1,
             position: 'relative',
             alignItems: 'center',
-            gap: 5,
-            padding: 15,
+            justifyContent: 'center',
+            alignSelf: 'center',
+            alignContent: 'center',
+            marginBottom: '-20%',
           }}>
-          <CloseButton
+          <View
             style={{
-              position: 'absolute',
-              top: '-50%',
-              right: 15,
-            }}
-            onClick={onClose}
-          />
-          <View>
-            <View style={styles.imageContainer}>
-              <FastImage
-                source={coverBackground ?? adultBg}
-                style={styles.image}
-                resizeMode="cover"
-              />
-              <FastImage
-                source={coverImage ?? adultModels}
-                style={styles.image}
-                resizeMode="cover"
-              />
-              <LinearGradient
-                colors={imageGradientColors}
-                angle={180}
-                style={styles.imageGradient}
-              />
-            </View>
-            <View style={styles.contentContainer}>
-              <View style={styles.contentGradient}>
+              position: 'relative',
+              alignItems: 'center',
+              gap: 5,
+              padding: 15,
+            }}>
+            <TouchableOpacity
+              style={{
+                position: 'absolute',
+                top: '-50%',
+                right: 15,
+                zIndex: 200, 
+              }}
+              onPress={onClose}
+              >
+              <CloseButton />
+            </TouchableOpacity>
+            <View>
+              <View style={styles.imageContainer}>
+                <FastImage
+                  source={coverBackground ?? adultBg}
+                  style={styles.image}
+                  resizeMode="cover"
+                />
+                <FastImage
+                  source={coverImage ?? adultModels}
+                  style={styles.image}
+                  resizeMode="cover"
+                />
                 <LinearGradient
-                  colors={contentGradientColors}
+                  colors={imageGradientColors}
                   angle={180}
-                  style={{height: '100%'}}
+                  style={styles.imageGradient}
                 />
               </View>
-              <View style={styles.content}>
-                <VipIcon />
-                <View>
-                  <Text style={styles.titleText}>{titleText}</Text>
-                  {benefitsTextsArray.map((text, index) => (
-                    <Text key={text + index} style={styles.benefitsText}>
-                      • {text}
-                    </Text>
-                  ))}
+              <View style={styles.contentContainer}>
+                <View style={styles.contentGradient}>
+                  <LinearGradient
+                    colors={contentGradientColors}
+                    angle={180}
+                    style={{height: '100%'}}
+                  />
                 </View>
-                <View style={styles.buttonContainer}>
-                  <TouchableOpacity style={styles.purchaseButton} onPress={onPurchase}>
-                    <Text style={styles.purchaseButtonText}>
-                      付费购买VIP会员 →
-                    </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.inviteButton} onPress={onInvite}>
-                    <Text style={styles.inviteButtonText}>
-                      邀请好友免费得VIP会员 →
-                    </Text>
-                  </TouchableOpacity>
+                <View style={styles.content}>
+                  <VipIcon />
+                  <View>
+                    <Text style={styles.titleText}>{titleText}</Text>
+                    {benefitsTextsArray.map((text, index) => (
+                      <Text key={text + index} style={styles.benefitsText}>
+                        • {text}
+                      </Text>
+                    ))}
+                  </View>
+                  <View style={styles.buttonContainer}>
+                    {SHOW_ZF_CONST &&
+                      <TouchableOpacity
+                      style={styles.purchaseButton}
+                      onPress={onPurchase}>
+                      <Text style={styles.purchaseButtonText}>
+                        付费购买VIP会员 →
+                      </Text>
+                    </TouchableOpacity>}
+                    <TouchableOpacity
+                      style={styles.inviteButton}
+                      onPress={onInvite}>
+                      <Text style={styles.inviteButtonText}>
+                        邀请好友免费得VIP会员 →
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
                 </View>
               </View>
             </View>
           </View>
         </View>
       </View>
-    </>
-  );
+    );
 }
 
 const styles = StyleSheet.create({

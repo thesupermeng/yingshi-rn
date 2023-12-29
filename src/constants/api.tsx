@@ -18,9 +18,10 @@ export class CEndpoint {
     static vodGetTopicType = 'type/v1/type';
     static vodGetDetail = 'vod/v3/vod/detail';
     static vodGetXDetail = 'svod/v1/vod/detail';
-    static vodGetList = 'vod/v2/vod';
+    static vodGetList = 'vod/v3/vod';
     static vodGetXList = 'svod/v1/vod';
     static vodGetReviewDetail = 'vod/v1/vod/reviewdetail';
+    static vodGetAdsSlot = 'ads/v1/slot';
 
     static minivodGetList = 'miniVod/v2/miniVod';
     static minivodGetXList = 'miniSVod/v1/miniSVod';
@@ -33,4 +34,6 @@ export class CEndpoint {
     static productPostValidateReceiptAndroid = 'validate/v1/androidreceipt';
     static productGetFinzfTransaction = 'finzf/v1/transactions';
     static productPostFinzfOrder = 'finzf/v1/order';
+
+    static bannerAd = 'ads/v1/slot';
 }

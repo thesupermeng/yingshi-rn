@@ -124,3 +124,11 @@ export const setShowAdultTab = (action: boolean) => ({
   type: "set_show_adult_tab",
   payload: action,
 });
+
+export const showAdultVipPrivilegeMiniVideoAction = () => ({
+  type: 'show_adult_vip_privilege_mini_video'
+})
+
+export const hideAdultVipPrivilegeMiniVideoAction = () => ({
+  type: 'hide_adult_vip_privilege_mini_video'
+})

@@ -16,4 +16,5 @@ export interface screenModel {
   isOverEighteenAccepted: boolean;
   watchAnytimeAdultMode: boolean;
   showAdultTab:boolean;
+  showAdultVipPrivilegeMiniVideo: boolean; 
 }

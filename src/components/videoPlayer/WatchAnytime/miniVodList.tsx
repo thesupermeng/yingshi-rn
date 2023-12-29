@@ -85,28 +85,37 @@ export default forwardRef<MiniVodRef, Props>(
       adultModeVipShow,
       adultVideoWatchTime,
       adultMode,
+      showAdultVipPrivilegeMiniVideo
     } = screenState;
     const isVip =
       Number(userState.userMemberExpired) <=
         Number(userState.userCurrentTimestamp) || userState.userToken === '';
     const dispatch = useAppDispatch();
 
-    useEffect(() => {
-      if (
-        adultVideoWatchTime >= ADULT_MODE_PREVIEW_DURATION &&
-        adultMode &&
-        isVip
-      ) {
-        dispatch(showAdultModeVip());
-        setPause(true);
-      }
-    }, [videoCurrentDurations[current], isPause]);
+    // useEffect(() => {
+    //   if (
+    //     adultVideoWatchTime >= ADULT_MODE_PREVIEW_DURATION &&
+    //     adultMode &&
+    //     isVip
+    //   ) {
+    //     dispatch(showAdultModeVip());
+    //     setPause(true);
+    //   }
+    // }, [videoCurrentDurations[current], isPause]);
+
+    // useEffect(() => {
+    //   if (adultModeDisclaimerShow || adultModeVipShow) {
+    //     setPause(true);
+    //   }
+    // }, [adultModeDisclaimerShow, adultModeVipShow]);
 
     useEffect(() => {
-      if (adultModeDisclaimerShow || adultModeVipShow) {
-        setPause(true);
+      if (showAdultVipPrivilegeMiniVideo){
+        setPause(true)
+      } else {
+        setPause(false)
       }
-    }, [adultModeDisclaimerShow, adultModeVipShow]);
+    }, [showAdultVipPrivilegeMiniVideo])
 
     useEffect(() => {
       setChangingSource(true);
@@ -192,7 +201,9 @@ export default forwardRef<MiniVodRef, Props>(
     }, [videos]);
 
     useEffect(() => {
-      setPause(isFetching || isRefreshing || !isActive || isScrolling);
+      if (!showAdultVipPrivilegeMiniVideo) {
+        setPause(isFetching || isRefreshing || !isActive || isScrolling);
+      }
     }, [isFetching, isRefreshing, isActive, isScrolling]);
 
     const refreshComponent = useCallback(() => {

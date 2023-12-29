@@ -22,7 +22,8 @@ const initialState: screenModel = {
   adultModeVipShow: false,
   isOverEighteenAccepted: false,
   watchAnytimeAdultMode: false,
-  showAdultTab: false
+  showAdultTab: false, 
+  showAdultVipPrivilegeMiniVideo: false
 };
 
 export function screenReducer(state = initialState, action: screenActionType) {
@@ -163,20 +164,32 @@ export function screenReducer(state = initialState, action: screenActionType) {
         isOverEighteenAccepted: false
       }
     case "enable_watch_anytime_adult_mode":
+      console.log('enable wa adult')
       return {
         ...state,
         watchAnytimeAdultMode: true
       }
     case "disable_watch_anytime_adult_mode":
+      console.log('disable wa adult')
       return {
         ...state,
         watchAnytimeAdultMode: false
       }
-      case "set_show_adult_tab":
-        return {
-          ...state,
-          showAdultTab: action.payload,
-        }
+    case "set_show_adult_tab":
+      return {
+        ...state,
+        showAdultTab: action.payload,
+      }
+    case "show_adult_vip_privilege_mini_video": 
+      return {
+        ...state, 
+        showAdultVipPrivilegeMiniVideo: true
+      }
+    case "hide_adult_vip_privilege_mini_video": 
+      return {
+        ...state, 
+        showAdultVipPrivilegeMiniVideo: false
+      }
     default:
       return state;
   }

@@ -19,9 +19,10 @@ const DescriptionBar = ({vodDescription}: Props) => {
         }}>
         <Text
           style={{
-            ...textVariants.small,
+            ...textVariants.body,
             color: colors.text,
             paddingBottom: 20,
+            lineHeight: 23
           }}>
           {vodDescription}
         </Text>

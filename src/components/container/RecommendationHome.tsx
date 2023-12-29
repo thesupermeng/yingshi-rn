@@ -10,13 +10,14 @@ import {
   FlatList,
 } from "react-native";
 // import {FlatList, PanGestureHandler} from 'react-native-gesture-handler';
-import { useNavigation, useTheme } from "@react-navigation/native";
+import { useFocusEffect, useNavigation, useTheme } from "@react-navigation/native";
 import Swiper from "react-native-swiper";
 import ShowMoreVodButton from "../button/showMoreVodButton";
 import {
   VodTopicType,
   VodPlayListType,
   VodCarousellType,
+  bannerAdType,
 } from "@type/ajaxTypes";
 // import FastImage from "react-native-fast-image";
 import FastImage from "../common/customFastImage"
@@ -36,6 +37,11 @@ import CarouselPagination from "./CarouselPagination";
 import LoadingIcon from "@static/images/MutedVolume.svg";
 import { Image } from "react-native";
 import { PlaylistApi } from "../../api/playlist";
+import { CApi } from "@utility/apiService";
+import { CEndpoint } from "@constants";
+import { YSConfig } from "../../../ysConfig";
+import { BannerContainer } from "./bannerContainer";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface NavType {
   id: number;
@@ -69,6 +75,7 @@ const RecommendationHome = ({
   const [totalPage, setTotalPage] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
   const [results, setResults] = useState<Array<VodTopicType>>([]);
+  const [bannerAd, setBannerAd] = useState<bannerAdType>();
   const [isRefreshing, setIsRefreshing] = useState(false);
   const carouselRef = useRef<any>();
   // const {width, height} = Dimensions.get('window');
@@ -134,9 +141,41 @@ const RecommendationHome = ({
     }
   );
 
+  const fetchBannerAd = async () => {
+    const response = await CApi.get(CEndpoint.bannerAd, {
+      query: {
+        slot_id: 100,
+        ip: YSConfig.instance.ip,
+      },
+    });
+    const banner = await response.data;
+
+    if (banner) {
+      setBannerAd(banner);
+    } else {
+      setBannerAd(undefined);
+    }
+  }
+
   useEffect(() => {
     onLoad();
   }, []);
+
+  const shouldShowAds = async () => {
+    const shouldShow = await AsyncStorage.getItem('showAds');
+    
+    if ((shouldShow && shouldShow === 'true') || !shouldShow) {
+      fetchBannerAd();
+    } else {
+      setBannerAd(undefined);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      shouldShowAds();
+    }, [])
+  );
 
   const renderCarousel = useCallback(
     ({ item, index }: { item: any; index: number }) => {
@@ -203,6 +242,12 @@ const RecommendationHome = ({
             />
           </View>
           <VodListVertical vods={item.vod_list} />
+          {(data.yunying.length + data.categories.length + index + 1) % 3 === 0 && bannerAd && (
+            <BannerContainer
+              bannerImg={bannerAd.ads_pic}
+              bannerUrl={bannerAd.ads_url}
+            />
+          )}
         </View>
       </View>
     ),
@@ -229,6 +274,13 @@ const RecommendationHome = ({
         />
       </View>
       <VodListVertical vods={item.vod_list} />
+
+      {(index + 1) % 3 === 0 && bannerAd && (
+        <BannerContainer
+          bannerImg={bannerAd.ads_pic}
+          bannerUrl={bannerAd.ads_url}
+        />
+      )}
     </View>
   );
 
@@ -256,6 +308,13 @@ const RecommendationHome = ({
         />
       </View>
       <VodListVertical vods={category.vod_list} />
+
+      {(data.yunying.length + index + 1) % 3 === 0 && bannerAd && (
+        <BannerContainer
+          bannerImg={bannerAd.ads_pic}
+          bannerUrl={bannerAd.ads_url}
+        />
+      )}
     </View>
   )
 
@@ -335,6 +394,19 @@ const RecommendationHome = ({
                         isRefreshing={isRefreshing}
                       />
                     </View>
+                  </View>
+                )}
+
+                {bannerAd && (
+                  <View style ={{
+                    paddingLeft: spacing.sideOffset,
+                    paddingRight: spacing.sideOffset,
+                    paddingVertical: 5
+                  }}>
+                    <BannerContainer
+                      bannerImg={bannerAd.ads_pic}
+                      bannerUrl={bannerAd.ads_url}
+                    />
                   </View>
                 )}
 

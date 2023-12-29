@@ -73,7 +73,7 @@ function ShortVideoPlayer({
   const screenState: screenModel = useAppSelector(
     ({screenReducer}) => screenReducer,
   );
-  const {adultMode, adultVideoWatchTime} = screenState;
+  const {watchAnytimeAdultMode: adultMode, adultVideoWatchTime} = screenState;
   if (currentVod?.mini_video_original_video_name == undefined) {
     currentVod.mini_video_original_video_name = '';
   }
