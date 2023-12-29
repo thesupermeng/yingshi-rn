@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, forwardRef, useImperativeHandle } from 'react';
+import React, { useState, useCallback, useEffect, forwardRef, useImperativeHandle, useRef } from 'react';
 import { View, FlatList, RefreshControl } from 'react-native';
 import { MiniVideo } from '@type/ajaxTypes';
 import ShortVod from '../../components/videoPlayer/shortVod';
@@ -54,6 +54,7 @@ export default forwardRef<MiniVodRef, Props>(
     ) => {
         const { spacing } = useTheme();
 
+        const isFirstComeIn = useRef(true);
         const [isInitFetching, setInitFetching] = useState(true);
         const [displayHeight, setDisplayHeight] = useState<number>(0);
         const [current, setCurrent] = useState<number>(0);
@@ -95,7 +96,7 @@ export default forwardRef<MiniVodRef, Props>(
         }, [collectionPartialVideos]);
 
         useEffect(() => {
-            if(current > curAnalyticsIndex){
+            if (current > curAnalyticsIndex) {
                 setCurAnalyticsIndex(current);
 
                 watchAnytimeVideoViewTimesAnalytics({
@@ -132,7 +133,11 @@ export default forwardRef<MiniVodRef, Props>(
         }, [videos]);
 
         useEffect(() => {
-            setPause(isFetching || isRefreshing || !isActive || isScrolling);
+            if (isFirstComeIn.current) {
+                setPause(true);
+            } else {
+                setPause(isFetching || isRefreshing || !isActive || isScrolling);
+            }
         }, [isFetching, isRefreshing, isActive, isScrolling])
 
         const setCollectionEpisodeToTitle = (index: number) => {
@@ -170,6 +175,7 @@ export default forwardRef<MiniVodRef, Props>(
                         isPause={isPause || current !== index}
                         onManualPause={(current) => {
                             setPause(!current);
+                            isFirstComeIn.current = false;
                         }}
                         isShowVideo={current === index && !isScrolling}
                         currentDuration={videoCurrentDurations[index]}
