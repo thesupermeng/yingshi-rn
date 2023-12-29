@@ -10,7 +10,7 @@ import {
   FlatList,
 } from "react-native";
 // import {FlatList, PanGestureHandler} from 'react-native-gesture-handler';
-import { useNavigation, useTheme } from "@react-navigation/native";
+import { useFocusEffect, useNavigation, useTheme } from "@react-navigation/native";
 import Swiper from "react-native-swiper";
 import ShowMoreVodButton from "../button/showMoreVodButton";
 import {
@@ -42,6 +42,7 @@ import { CEndpoint } from "@constants";
 import { YSConfig } from "../../../ysConfig";
 import { BannerContainer } from "./bannerContainer";
 import { userModel } from "@type/userType";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface NavType {
   id: number;
@@ -69,12 +70,6 @@ const RecommendationHome = ({
   const vodReducer: VodReducerState = useAppSelector(
     ({ vodReducer }: RootState) => vodReducer
   );
-  const userState: userModel = useAppSelector(
-    ({ userReducer }) => userReducer
-  );
-  const isVip = !(Number(userState.userMemberExpired) <=
-                  Number(userState.userCurrentTimestamp) ||
-                  userState.userToken === "");
   const history = vodReducer.history.filter((e) => !e.isAdultVideo);
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
@@ -163,10 +158,23 @@ const RecommendationHome = ({
 
   useEffect(() => {
     onLoad();
-    if (!isVip) {
-      fetchBannerAd();
-    }
   }, []);
+
+  const shouldShowAds = async () => {
+    const shouldShow = await AsyncStorage.getItem('showAds');
+    
+    if ((shouldShow && shouldShow === 'true') || !shouldShow) {
+      fetchBannerAd();
+    } else {
+      setBannerAd(undefined);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      shouldShowAds();
+    }, [])
+  );
 
   const renderCarousel = useCallback(
     ({ item, index }: { item: any; index: number }) => {

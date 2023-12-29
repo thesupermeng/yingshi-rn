@@ -52,6 +52,7 @@ import { CEndpoint } from '@constants';
 import { YSConfig } from '../../../ysConfig';
 import { BannerContainer } from './bannerContainer';
 import { userModel } from '@type/userType';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 // import {FlatList, PanGestureHandler} from 'react-native-gesture-handler';
 
 interface NavType {
@@ -258,11 +259,19 @@ const CatagoryHome = ({
   //   setActiveIndex(0);
   // }, [refreshProp]);
 
+  const shouldShowAds = async () => {
+    const shouldShow = await AsyncStorage.getItem('showAds');
+    
+    if ((shouldShow && shouldShow === 'true') || !shouldShow) {
+      fetchBannerAd();
+    } else {
+      setBannerAd(undefined);
+    }
+  };
+
   useFocusEffect(
     useCallback(() => {
-      if (!isVip) {
-        fetchBannerAd();
-      }
+      shouldShowAds();
       
       if (navId == 99) {
         dispatch(showAdultModeDisclaimer())
