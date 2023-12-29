@@ -542,14 +542,13 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const fetchBannerAd = async () => {
     const response = await CApi.get(CEndpoint.bannerAd, {
       query: {
-        slot_id: 112,
+        slot_id: adultMode ? 113 : 112,
         ip: YSConfig.instance.ip,
       },
     });
     const banner = await response.data;
 
     if (banner) {
-      console.log('rrrrrrrrrrrr', 112);
       setBannerAd(banner);
     }
   }
