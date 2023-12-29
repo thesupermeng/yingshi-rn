@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import { hideAdultVipPrivilegeMiniVideoAction, showAdultVipPrivilegeMiniVideoAction } from "@redux/actions/screenAction";
 import { View } from "react-native";
 import { screenModel } from "@type/screenType";
+import useAnalytics from "@hooks/useAnalytics";
 
 const sportModels = require('@static/images/vip_sport_models.png');
 const sportBg = require('@static/images/vip_sport_background.png');
@@ -19,6 +20,7 @@ export const SportVipPrivilegeOverlay = ({showCondition, onClose, showBlur}: Pro
 
   const navigator = useNavigation()
   const dispatch = useAppDispatch()
+  const { sportDetailsVipPopupClicksAnalytics } = useAnalytics();
   const screenState: screenModel = useAppSelector(
     ({ screenReducer }) => screenReducer
   );
@@ -26,10 +28,17 @@ export const SportVipPrivilegeOverlay = ({showCondition, onClose, showBlur}: Pro
 
   const handleOnPurchase = useCallback(() => {
     navigator.navigate('付费VIP');
+    // ========== for analytics - start ==========
+    sportDetailsVipPopupClicksAnalytics('pay');
+    // ========== for analytics - end ==========
   }, [])
 
   const handleOnInvite = useCallback(() => {
     navigator.navigate('邀请');
+    // ========== for analytics - start ==========
+    sportDetailsVipPopupClicksAnalytics('invite');
+    // ========== for analytics - end ==========
+    
   }, [])
 
 
