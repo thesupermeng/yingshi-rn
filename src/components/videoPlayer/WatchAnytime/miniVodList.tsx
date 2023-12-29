@@ -84,7 +84,8 @@ export default forwardRef<MiniVodRef, Props>(
       adultModeDisclaimerShow,
       adultModeVipShow,
       adultVideoWatchTime,
-      adultMode,
+      // adultMode,
+      watchAnytimeAdultMode: adultMode, 
       showAdultVipPrivilegeMiniVideo
     } = screenState;
     const isVip =

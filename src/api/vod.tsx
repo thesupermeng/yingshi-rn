@@ -136,7 +136,7 @@ export class VodApi {
 
             const data = result.data as SuggestVodListType;
 
-            return data.List;
+            return data.List ?? [];
 
         } catch (e: any) {
             console.error(`[Error ${this.name}]: ${e.toString()}`);
@@ -160,7 +160,7 @@ export class VodApi {
 
             const data = result.data as SuggestVodListType;
 
-            return data.List;
+            return data.List ?? [];
 
         } catch (e: any) {
             console.error(`[Error ${this.name}]: ${e.toString()}`);

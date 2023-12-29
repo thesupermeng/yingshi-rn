@@ -7,13 +7,15 @@ import App from './App';
 import { ATRNSDK } from './AnyThinkAds/ATReactNativeSDK';
 // import {name as appName} from './app.json';
 // AppRegistry.registerComponent(appName, () => App);
-
+import CodePush from "react-native-code-push";
 import { AppRegistry } from 'react-native';
 import 'react-native-gesture-handler';
 import { PERMISSIONS, RESULTS, request } from 'react-native-permissions';
 import { name as appName } from './app.json';
 
 AppRegistry.registerRunnable(appName, async initialProps => {
+
+  CodePush.notifyAppReady()
   try {
     // ATRNSDK.initSDK('a5aa1f9deda26d', '4f7b9ac17decb9babec83aac078742c7');
     // ATRNSDK.initSDK('a65002a2db3a7f', '0b1cab850e5de6fdc1fe0e114a0256eb');
