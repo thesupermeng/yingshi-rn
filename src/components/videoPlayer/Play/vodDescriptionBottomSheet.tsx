@@ -68,7 +68,8 @@ function DescriptionBottomSheet({
       };
 
     return (
-        <CBottomSheet
+
+    <CBottomSheet
       isVisible={isVisible}
       onBackdropPress={() => {
         if (handleClose) handleClose();
@@ -82,7 +83,7 @@ function DescriptionBottomSheet({
         style={{
             ...textVariants.header,
             color: textColor ? textColor : colors.text,
-            flex: 1,
+            flex: 1, marginBottom: 10,
         }}>
             {`${definedValue(vodTitle)}`}
         </Text>
@@ -94,16 +95,17 @@ function DescriptionBottomSheet({
          `主演：${definedValue(vod_actor)}${"\n"}`}
     </Text>
     </View>
+    <View style={{marginBottom: 20}}>
     <Text
         ref={textRef}
         onTextLayout={handleTextLayout}
         style={styles.descriptionContainer2Text}
         // numberOfLines={isCollapsed ? 2 : 20}
-        numberOfLines={20}
+        numberOfLines={30}
         >
         {`简介 ${"\n"}${definedValue(vod_content)}`}
         </Text>
-
+        </View>
     </CBottomSheet>
     )
 }

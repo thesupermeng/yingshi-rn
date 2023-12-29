@@ -1091,7 +1091,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                           .replace(/\//g, "-")
                         }`}
                     </Text>
-                    <TouchableOpacity
+                   {!(adultMode) && <TouchableOpacity
                     onPress={() => setShowDescription(true)}
                     >
                       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -1103,12 +1103,12 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                           更多详情
                           </Text>
                     <MoreArrow
-                    width={icons.sizes.l}
-                    height={icons.sizes.l}
+                    width={icons.sizes.s}
+                    height={icons.sizes.s}
                     color= "#FAC33D"
                   />
                   </View>
-                  </TouchableOpacity>
+                  </TouchableOpacity>}
                     {!(adultMode) && <TouchableOpacity onPress={onShare}>
                       <View style={{ ...styles.share, gap: 10 }}>
                         <Text
