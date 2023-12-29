@@ -205,7 +205,8 @@ export class VodApi {
             if (!result.data) {
                 return undefined;
             }
-
+            console.log('result.data')
+            console.log(result.data)
             return {
                 id: result.data.ads_id,
                 name: result.data.ads_name,
@@ -213,7 +214,7 @@ export class VodApi {
                 slotId: result.data.ads_slot_id,
                 isVideo: result.data.is_video,
                 actionUrl: result.data.ads_url,
-                minDuration: result.data.ads_min_duration ?? AD_VIDEO_SECONDS,
+                minDuration: !isNaN(result.data.ads_min_duration ?? NaN) ? result.data.ads_min_duration : AD_VIDEO_SECONDS,
             }
 
         } catch (e: any) {
