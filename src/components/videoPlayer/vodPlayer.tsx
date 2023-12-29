@@ -91,7 +91,7 @@ type VideoControlsRef = {
   toggleLock: () => void;
 };
 
-type VideoRef = {
+export type VideoRef = {
   setPause: (param: boolean) => void;
   isPaused: boolean;
   setCurrentTime: (time: number) => void;
@@ -159,6 +159,8 @@ export default forwardRef<VideoRef, Props>(
 
     const disableSeek = useRef(false)
 
+    const adVideoRef = useRef<Video | null>();
+    const adCountdownIntervalRef = useRef<NodeJS.Timeout | null>();
     const [showAd, setShowAd] = useState(false);
     const [adCountdownTime, setAdCountdownTime] = useState(AD_VIDEO_SECONDS);
 
@@ -173,6 +175,8 @@ export default forwardRef<VideoRef, Props>(
     } = useAnalytics();
 
     useEffect(() => {
+      if (vod_url === '') return;
+
       if (showAds &&
         playerVodAds &&
         (
@@ -182,12 +186,13 @@ export default forwardRef<VideoRef, Props>(
       ) {
         setShowAd(true);
         setAdCountdownTime(playerVodAds.minDuration);
+        adVideoRef.current?.seek(0);
 
         // ========== for analytics - start ==========
         playsAdsViewAnalytics();
         // ========== for analytics - end ==========
       }
-    }, [playerVodAds]);
+    }, [playerVodAds, vod_url]);
 
     useEffect(() => {
       if (adCountdownTime <= 0) {
@@ -195,19 +200,26 @@ export default forwardRef<VideoRef, Props>(
         return;
       }
 
-      const adTimeInterval = setInterval(() => {
+      adCountdownIntervalRef.current = setInterval(() => {
         setAdCountdownTime(prev => prev - 1);
       }, 1000)
 
       return () => {
-        clearInterval(adTimeInterval);
+        if (adCountdownIntervalRef.current) {
+          clearInterval(adCountdownIntervalRef.current);
+        }
       }
     }, [adCountdownTime]);
 
     useImperativeHandle(ref, () => ({
       setPause: (pauseVideo: boolean) => {
         setIsPaused(pauseVideo);
-        videoPlayerRef.current?.setNativeProps({ paused: pauseVideo })
+        videoPlayerRef.current?.setNativeProps({ paused: pauseVideo });
+        adVideoRef.current?.setNativeProps({ paused: pauseVideo });
+
+        if (adCountdownIntervalRef.current) {
+          clearInterval(adCountdownIntervalRef.current);
+        }
       },
       isPaused: isPaused,
       setCurrentTime: (time) => setCurrentTime(time),
@@ -281,6 +293,7 @@ export default forwardRef<VideoRef, Props>(
             StatusBar.setHidden(false);
             setIsFullScreen(false);
           } else {
+            adVideoRef.current?.setNativeProps({ paused: true })
             videoPlayerRef.current?.setNativeProps({ paused: true })
 
             setIsPaused(true);
@@ -296,7 +309,7 @@ export default forwardRef<VideoRef, Props>(
         removeBackPressListener.remove();
         onBeforeRemoveListener();
       };
-    }, [isFullScreen, isPaused, videoPlayerRef.current]);
+    }, [isFullScreen, isPaused, videoPlayerRef.current, adVideoRef.current]);
 
     useEffect(() => {
       dispatch(setFullscreenState(isFullScreen));
@@ -625,7 +638,7 @@ export default forwardRef<VideoRef, Props>(
         {showAd && playerVodAds &&
           <View style={{ ...styles.bofangBox }}>
             <AdVideoImage
-              videoPlayerRef={videoPlayerRef}
+              videoPlayerRef={adVideoRef}
               type={playerVodAds.isVideo ? 'video' : 'image'}
               url={playerVodAds.url!}
               countdownTime={adCountdownTime}

@@ -16,11 +16,11 @@ interface Props {
     outerRowPadding?: number,
     minNumPerRow?: number,
     heightToWidthRatio?: number,
-    onPress?: () => any,
+    onPress?: ({ vodId }: { vodId: any }) => any,
     playerMode?: 'normal' | 'adult'
 }
 
-function VodListVertical({ vods, numOfRows = 2, outerRowPadding = 0, minNumPerRow = 3, heightToWidthRatio = 1.414, onPress, playerMode='normal' }: Props) {
+function VodListVertical({ vods, numOfRows = 2, outerRowPadding = 0, minNumPerRow = 3, heightToWidthRatio = 1.414, onPress, playerMode = 'normal' }: Props) {
     const { textVariants, colors, spacing, icons } = useTheme();
     const insets = useSafeAreaInsets();
     const navigation = useNavigation();
@@ -48,7 +48,7 @@ function VodListVertical({ vods, numOfRows = 2, outerRowPadding = 0, minNumPerRo
         if (BTN_MARGIN_RIGHT > 16) {
             const excess = (BTN_MARGIN_RIGHT - 16) * (CARDS_PER_ROW - 1);
             BTN_MARGIN_RIGHT = 16;
-            cardWidth += Math.floor(excess / CARDS_PER_ROW)  
+            cardWidth += Math.floor(excess / CARDS_PER_ROW)
         }
 
         setCardsPerRow(CARDS_PER_ROW);
@@ -72,8 +72,8 @@ function VodListVertical({ vods, numOfRows = 2, outerRowPadding = 0, minNumPerRo
                 marginBottom: Math.min(marginRight, 14)
             }}
             onPress={() => {
-                if(onPress){
-                    onPress();
+                if (onPress) {
+                    onPress({ vodId: vod?.vod_id });
                 }
                 dispatch(playVod(vod));
                 navigation.navigate('播放', {
@@ -86,7 +86,7 @@ function VodListVertical({ vods, numOfRows = 2, outerRowPadding = 0, minNumPerRo
             index={idx}
         />
     )
-    
+
     return (
         <View style={styles.vodList}>
             {

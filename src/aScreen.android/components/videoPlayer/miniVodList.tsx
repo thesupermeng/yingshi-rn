@@ -62,10 +62,8 @@ export default forwardRef<MiniVodRef, Props>(
         const [isPause, setPause] = useState(true);
         const [isScrolling, setIsScrolling] = useState(false);
         const [videoCurrentDurations, setVideoCurrentDurations] = useState<number[]>([]);
-
         // for analytics used
-        const [preTolVideoViews, setPreTolVideoViews] = useState(0); // previous
-        const [curTolVideoViews, setCurTolVideoViews] = useState(1); // current
+        const [curAnalyticsIndex, setCurAnalyticsIndex] = useState(0);
 
         const userState: userModel = useAppSelector(
             ({ userReducer }: RootState) => userReducer
@@ -78,26 +76,36 @@ export default forwardRef<MiniVodRef, Props>(
             if (index >= 0 && displayHeight > 0 && index != current) {
                 setCurrent(index);
             }
-
-            // for analytics used
-            if ((index + 1) > curTolVideoViews) {
-                setPreTolVideoViews(curTolVideoViews);
-                setCurTolVideoViews(index + 1);
-            }
-        }, [displayHeight, current, curTolVideoViews]);
+        }, [displayHeight, current]);
 
         // ========== for analytics - start ==========
         const { watchAnytimeVideoViewTimesAnalytics } = useAnalytics();
 
         useEffect(() => {
-            if (!isActive && curTolVideoViews > preTolVideoViews) {
+            // ========== for analytics - start ==========
+            if (collectionPartialVideos.length > 0) {
+                setCurAnalyticsIndex(0);
+
                 watchAnytimeVideoViewTimesAnalytics({
                     userId: userState.userId,
-                    tolVideoViews: curTolVideoViews,
+                    vod_id: collectionPartialVideos[0].mini_video_id,
+                    isXmode: false,
                 });
             }
-        }, [isActive, preTolVideoViews, curTolVideoViews]);
+            // ========== for analytics - end ==========
+        }, [collectionPartialVideos]);
 
+        useEffect(() => {
+            if (current > curAnalyticsIndex) {
+                setCurAnalyticsIndex(current);
+
+                watchAnytimeVideoViewTimesAnalytics({
+                    userId: userState.userId,
+                    vod_id: collectionPartialVideos[current].mini_video_id,
+                    isXmode: false
+                });
+            }
+        }, [current, curAnalyticsIndex, collectionPartialVideos, userState]);
         // ========== for analytics - end ==========
 
         useImperativeHandle(ref, () => ({
@@ -122,7 +130,6 @@ export default forwardRef<MiniVodRef, Props>(
 
             if (inCollectionView == true) {
             }
-
         }, [videos]);
 
         useEffect(() => {
