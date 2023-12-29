@@ -41,7 +41,6 @@ import { CApi } from "@utility/apiService";
 import { CEndpoint } from "@constants";
 import { YSConfig } from "../../../ysConfig";
 import { BannerContainer } from "./bannerContainer";
-import { userModel } from "@type/userType";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface NavType {
@@ -153,6 +152,8 @@ const RecommendationHome = ({
 
     if (banner) {
       setBannerAd(banner);
+    } else {
+      setBannerAd(undefined);
     }
   }
 

@@ -127,6 +127,8 @@ const CatagoryHome = ({
 
     if (banner) {
       setBannerAd(banner);
+    } else {
+      setBannerAd(undefined);
     }
   }
 
