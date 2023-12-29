@@ -293,6 +293,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
         setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
         showBecomeVIPOverlay={showBecomeVIPOverlay}
         isJustClose={showCountdown && NON_VIP_STREAM_TIME_SECONDS > screenState.sportWatchTime}
+        selectedTab='sport'
       />
       {videoSource.url &&
         ((videoSource.type === VideoLiveType.LIVE &&
