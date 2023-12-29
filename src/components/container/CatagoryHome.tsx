@@ -354,7 +354,7 @@ const CatagoryHome = ({
           onEndReachedThreshold={0.5}
         />
       </View>
-      {navId == 99 &&
+      {/* {navId == 99 &&
         <EighteenPlusOverlay
           handleAccept={() => {
             dispatch(acceptOverEighteen())
@@ -362,7 +362,7 @@ const CatagoryHome = ({
           handleReject={handleRejectEighteenPlus}
         />
 
-      }
+      } */}
     </>
   );
 };

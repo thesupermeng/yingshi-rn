@@ -117,13 +117,13 @@ export default function XVodTab({
           onEndReachedThreshold={0.5}
         />
       </View>
-      <EighteenPlusOverlay
+      {/* <EighteenPlusOverlay
         isRadius={true}
         handleAccept={() => {
           dispatch(acceptOverEighteen());
         }}
         handleReject={handleRejectEighteenPlus}
-      />
+      /> */}
     </SafeAreaView>
   );
 }
