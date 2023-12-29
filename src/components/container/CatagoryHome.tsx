@@ -51,6 +51,7 @@ import { CApi } from '@utility/apiService';
 import { CEndpoint } from '@constants';
 import { YSConfig } from '../../../ysConfig';
 import { BannerContainer } from './bannerContainer';
+import { userModel } from '@type/userType';
 // import {FlatList, PanGestureHandler} from 'react-native-gesture-handler';
 
 interface NavType {
@@ -76,6 +77,12 @@ const CatagoryHome = ({
   refreshProp,
   handleRejectEighteenPlus,
 }: Props) => {
+  const userState: userModel = useAppSelector(
+    ({ userReducer }) => userReducer
+  );
+  const isVip = !(Number(userState.userMemberExpired) <=
+                  Number(userState.userCurrentTimestamp) ||
+                  userState.userToken === "");
   const { colors, textVariants, spacing } = useTheme();
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
@@ -253,7 +260,10 @@ const CatagoryHome = ({
 
   useFocusEffect(
     useCallback(() => {
-      fetchBannerAd();
+      if (!isVip) {
+        fetchBannerAd();
+      }
+      
       if (navId == 99) {
         dispatch(showAdultModeDisclaimer())
       }

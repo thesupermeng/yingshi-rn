@@ -15,6 +15,13 @@ import MatchScheduleVip from "./MatchScheduleVip";
 // import FastImage from 'react-native-fast-image';
 import FastImage from "../../../components/common/customFastImage";
 import { TOPON_BANNER_HEIGHT } from "@utility/constants";
+import { bannerAdType } from "@type/ajaxTypes";
+import { CApi } from "@utility/apiService";
+import { CEndpoint } from "@constants";
+import { YSConfig } from "../../../../ysConfig";
+import { BannerContainer } from "../../../components/container/bannerContainer";
+import { userModel } from "@type/userType";
+import { useAppSelector } from "@hooks/hooks";
 
 interface Props {
   matchTypeID: number;
@@ -41,6 +48,12 @@ const MatchScheduleList = ({
   bgDark = false,
   isLive = false,
 }: Props) => {
+  const userState: userModel = useAppSelector(
+    ({ userReducer }) => userReducer
+  );
+  const isVip = !(Number(userState.userMemberExpired) <=
+                  Number(userState.userCurrentTimestamp) ||
+                  userState.userToken === "");
   const { colors, textVariants, spacing } = useTheme();
   const width = Dimensions.get("window").width;
   const height = Dimensions.get("window").height;
@@ -50,6 +63,7 @@ const MatchScheduleList = ({
   const [isFetchNext, setFetchNext] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
   const [showLoading2, setShowLoading2] = useState(false);
+  const [bannerAd, setBannerAd] = useState<bannerAdType>();
 
   const [matches, setMatches] = useState<Matches>({
     headers: [],
@@ -128,8 +142,26 @@ const MatchScheduleList = ({
     }
   }, []);
 
+  const fetchBannerAd = async () => {
+    const response = await CApi.get(CEndpoint.bannerAd, {
+      query: {
+        slot_id: 110,
+        ip: YSConfig.instance.ip,
+      },
+    });
+    const banner = await response.data;
+
+    if (banner) {
+      setBannerAd(banner);
+    }
+  }
+
   useEffect(() => {
     fetchData().then();
+
+    if (!isVip) {
+      fetchBannerAd();
+    }
   }, []);
 
   const Content = ({
@@ -170,6 +202,18 @@ const MatchScheduleList = ({
                 key={index}
                 matchSche={item?.data}
               />
+              
+              {(index + 1) % 5 === 0 && bannerAd && (
+                <View style ={{
+                  paddingVertical: 5
+                }}>
+                  <BannerContainer
+                    bannerImg={bannerAd.ads_pic}
+                    bannerUrl={bannerAd.ads_url}
+                  />
+                </View>
+                
+              )}
             </>
           )
         )}

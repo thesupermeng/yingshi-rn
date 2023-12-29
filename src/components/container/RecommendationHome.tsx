@@ -41,6 +41,7 @@ import { CApi } from "@utility/apiService";
 import { CEndpoint } from "@constants";
 import { YSConfig } from "../../../ysConfig";
 import { BannerContainer } from "./bannerContainer";
+import { userModel } from "@type/userType";
 
 interface NavType {
   id: number;
@@ -68,6 +69,12 @@ const RecommendationHome = ({
   const vodReducer: VodReducerState = useAppSelector(
     ({ vodReducer }: RootState) => vodReducer
   );
+  const userState: userModel = useAppSelector(
+    ({ userReducer }) => userReducer
+  );
+  const isVip = !(Number(userState.userMemberExpired) <=
+                  Number(userState.userCurrentTimestamp) ||
+                  userState.userToken === "");
   const history = vodReducer.history.filter((e) => !e.isAdultVideo);
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
@@ -156,7 +163,9 @@ const RecommendationHome = ({
 
   useEffect(() => {
     onLoad();
-    fetchBannerAd();
+    if (!isVip) {
+      fetchBannerAd();
+    }
   }, []);
 
   const renderCarousel = useCallback(
