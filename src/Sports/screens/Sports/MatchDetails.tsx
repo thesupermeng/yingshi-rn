@@ -16,7 +16,7 @@ import {
 } from 'react-native';
 import ScreenContainer from '../../../components/container/screenContainer';
 import MainHeader from '../../../components/header/homeHeader';
-import { useTheme } from '@react-navigation/native';
+import { useFocusEffect, useTheme } from '@react-navigation/native';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { DetailTab } from '@type/ajaxTypes';
 import VodPlaylist from '../../../components/playlist/vodPlaylist';
@@ -256,7 +256,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
   // }, [])
 
   useEffect(() => {
-    if (!showBecomeVIPOverlay && screenState.sportWatchTime > NON_VIP_STREAM_TIME_SECONDS && (Number(userState.userMemberExpired) <= Number(userState.userCurrentTimestamp) || userState.userToken === "")) {
+    if (!showBecomeVIPOverlay && screenState.sportWatchTime === NON_VIP_STREAM_TIME_SECONDS && (Number(userState.userMemberExpired) <= Number(userState.userCurrentTimestamp) || userState.userToken === "")) {
       setShowBecomeVIPOverlay(true);
 
       // ========== for analytics - start ==========
@@ -265,6 +265,14 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
     }
 
   }, [screenState.sportWatchTime, showBecomeVIPOverlay])
+
+  useFocusEffect(useCallback(()=> {
+    if (!showBecomeVIPOverlay && screenState.sportWatchTime > NON_VIP_STREAM_TIME_SECONDS && (Number(userState.userMemberExpired) <= Number(userState.userCurrentTimestamp) || userState.userToken === "")) {
+
+      setShowBecomeVIPOverlay(true);
+    }
+
+  }, []))
 
   const isFullyLoaded = !f1 && !f2 && !f3;
 
