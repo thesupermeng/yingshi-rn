@@ -883,6 +883,12 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     }
   }, [adultMode])
 
+  useEffect(() => {
+    if (vodUri && vodUri !== '' && videoPlayerRef.current) {
+      videoPlayerRef.current.setPause(false);
+    }
+  }, [vodUri]);
+
   return (
     <>
       <ScreenContainer
@@ -1341,6 +1347,8 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                                 vods={suggestedVods}
                                 outerRowPadding={2 * (20 - spacing.sideOffset)}
                                 onPress={() => {
+                                  videoPlayerRef.current.setPause(true);
+
                                   if (!isCollapsed) {
                                     setIsCollapsed(true);
                                   }

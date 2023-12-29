@@ -51,7 +51,7 @@ import { VodApi } from "@api";
 import { useQuery } from "@tanstack/react-query";
 import useAnalytics from "@hooks/useAnalytics";
 
-LogBox.ignoreLogs([`Trying to load empty source.`])
+LogBox.ignoreLogs([`Trying to load empty source.`]);
 
 interface Props {
   vod_url?: string;
@@ -207,6 +207,7 @@ export default forwardRef<VideoRef, Props>(
     useImperativeHandle(ref, () => ({
       setPause: (pauseVideo: boolean) => {
         setIsPaused(pauseVideo);
+        videoPlayerRef.current?.setNativeProps({ paused: pauseVideo })
       },
       isPaused: isPaused,
       setCurrentTime: (time) => setCurrentTime(time),
@@ -280,8 +281,8 @@ export default forwardRef<VideoRef, Props>(
             StatusBar.setHidden(false);
             setIsFullScreen(false);
           } else {
-            videoPlayerRef.current.setNativeProps({ paused: false })
-            // videoPlayerRef.current.pause();
+            videoPlayerRef.current?.setNativeProps({ paused: true })
+
             setIsPaused(true);
             // use setTimeout to prevent video non pause before pop the screen
             setTimeout(() => {
@@ -295,7 +296,7 @@ export default forwardRef<VideoRef, Props>(
         removeBackPressListener.remove();
         onBeforeRemoveListener();
       };
-    }, [isFullScreen, isPaused]);
+    }, [isFullScreen, isPaused, videoPlayerRef.current]);
 
     useEffect(() => {
       dispatch(setFullscreenState(isFullScreen));
