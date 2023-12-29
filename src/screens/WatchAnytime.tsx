@@ -132,7 +132,7 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
 
     miniVodListRef.current?.scrollToIndex({
       index: 0,
-      animated: true,
+      animated: false,
     });
 
     // 0.5 second for scroll animation, hide all video
