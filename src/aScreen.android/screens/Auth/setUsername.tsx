@@ -36,7 +36,7 @@ export default (props: any) => {
   const { colors, textVariants, icons, spacing } = useTheme();
   const [errMsg, setErrMsg] = useState('');
   const [username, setUsername] = useState('');
-  const [usernameValid, setUsernameValid] = useState(true);
+  const [usernameErrMsg, setUsernameErrMsg] = useState<string | null>(null);
   const navigator = useNavigation();
   useEffect(() => {
     // Add an event listener for the hardware back button press
@@ -68,44 +68,40 @@ export default (props: any) => {
   }, []);
 
   const onInputChange = (value: any) => {
-    // setErrMsg('');
-
-    const cleanedValue = value.replace(/\s+/g, '');
-
-    setUsername(cleanedValue);
-    ValidateUsername(cleanedValue);
+    setUsername(value);
+    validateUsername(value.replace(/\s+/g, ""));
   };
+
   const dispatch = useDispatch();
-  function ValidateUsername(username: string) {
-    if (username.length < 2) {
-      setErrMsg('昵称必须介于2-18个字');
-      setUsernameValid(false);
+
+  function validateUsername(username: string) {
+    if (2 <= username.length && username.length <= 18) {
+      setUsernameErrMsg(null);
+      return true;
     } else {
-      setErrMsg('');
-      setUsernameValid(true);
+      setUsernameErrMsg("昵称必须介于2-18个字");
+      return false;
     }
   }
 
   const updateUsernameHandler = async (isJump = false) => {
-    if (username == '' && !isJump) {
-      setErrMsg('请输入昵称');
-      setUsernameValid(false);
-      return;
-    }
+    if (usernameErrMsg !== null && !isJump) return;
 
-    if (username.length < 2 && !isJump) {
-      return;
-    }
-
-    let res;
+    let res: any;
     try {
       res = await UserApi.updateUsername({
         username: isJump ? '' : username,
       });
     } catch (err: any) {
-      if (err.errors.username) {
-        setUsernameValid(false);
-        setErrMsg(err.errors.username);
+      if (
+        err.errors &&
+        err.errors.username
+      ) {
+        setUsernameErrMsg(err.errors.username);
+      }
+
+      if (!err.errors && err.message) {
+        setUsernameErrMsg(err.message);
       }
 
       return;
@@ -181,7 +177,7 @@ export default (props: any) => {
                   style={[
                     styles.textInpoutCommonStyle,
                     styles.defaultTextInputStyle,
-                    usernameValid
+                    usernameErrMsg === null
                       ? styles.correctTextInputStyle
                       : styles.invalidTextInputStyle,
                   ]}
@@ -191,7 +187,7 @@ export default (props: any) => {
                   }}
                   placeholder="输入昵称"
                   placeholderTextColor="#B6B6B6"
-                  maxLength={18}
+                // maxLength={18}
                 />
 
                 <View
@@ -228,8 +224,7 @@ export default (props: any) => {
 
                   <Text
                     style={{ fontWeight: '600', fontSize: 15, color: '#9C9C9C' }}>
-                    {username.length}/18
-                    {/* {userState.userEmail} */}
+                    {username.replace(/\s+/g, "").length}/18
                   </Text>
                 </View>
 
@@ -238,13 +233,13 @@ export default (props: any) => {
                   // disabled={props.email === '' || !props.emailValid}
                   style={[
                     styles.continueButtonStyle,
-                    username === '' || !usernameValid
+                    username === '' || usernameErrMsg !== null
                       ? styles.btnInactive
                       : styles.btnActive,
                   ]}
                   activeStyle={[
                     styles.continueButtonStyle,
-                    username === '' || !usernameValid
+                    username === '' || usernameErrMsg !== null
                       ? styles.btnInactive
                       : styles.btnActive,
                   ]}
@@ -258,7 +253,7 @@ export default (props: any) => {
                       fontWeight: '600',
                       fontSize: 15,
                       letterSpacing: 0.2,
-                      color: username === '' || !usernameValid ? 'white' : '#000',
+                      color: username === '' || usernameErrMsg !== null ? 'white' : '#000',
                     }}>
                     确定
                   </Text>
