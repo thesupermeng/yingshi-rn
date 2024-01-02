@@ -29,7 +29,7 @@ import { userModel } from '@type/userType';
 
 import { APP_NAME_CONST, APP_VERSION } from '@utility/constants';
 import { SettingsReducerState } from '@redux/reducers/settingsReducer';
-import { showToast } from '../../Sports/utility/toast';
+import { CPopup } from '@utility/popup';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 export default ({ navigation }: RootStackScreenProps<'设置'>) => {
   const { colors, textVariants, icons, spacing } = useTheme();
@@ -62,7 +62,7 @@ export default ({ navigation }: RootStackScreenProps<'设置'>) => {
   }
   const onRemoveAccount = () => {
     setTimeout(() => {
-      showToast('我们将在3个工作日内处理您注销请求，请注意您的邮箱，在此期间您可以继续登录');
+      CPopup.showToast('我们将在3个工作日内处理您注销请求，请注意您的邮箱，在此期间您可以继续登录');
     }, 500);
   }
 

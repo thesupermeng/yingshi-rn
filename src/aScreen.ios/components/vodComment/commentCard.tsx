@@ -3,7 +3,7 @@ import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet, ActionSheetIOS } from "react-native";
 import FastImage from "react-native-fast-image";
 import { CommentsType } from "@type/ajaxTypes";
-import { showToast } from "../../Sports/utility/toast";
+import { CPopup } from "@utility/popup";
 import DefaultProfileIcon from "@static/images/default_profile.svg";
 import { useAppDispatch } from "@hooks/hooks";
 import { showReportAction } from "@redux/actions/screenAction";
@@ -26,7 +26,7 @@ export const CommentCard = ({ commentItem }: Props) => {
       },
       buttonIndex => {
         if (buttonIndex !== 0) {
-          showToast("我们将在24小时内处理您的请求，并在确认存在违规行为后采取适当的措施来处理相关内容。")
+          CPopup.showToast("我们将在24小时内处理您的请求，并在确认存在违规行为后采取适当的措施来处理相关内容。")
         }
       },
     );
@@ -52,7 +52,7 @@ export const CommentCard = ({ commentItem }: Props) => {
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => showToast("拉黑成功！已不能在接受对方的消息！")}
+            onPress={() => CPopup.showToast("拉黑成功！已不能在接受对方的消息！")}
             style={styles.btnContainer}>
             <Text style={{ ...textVariants.small, textAlign: 'center' }}>
               拉黑

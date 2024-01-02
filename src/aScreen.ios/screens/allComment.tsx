@@ -12,7 +12,7 @@ import { RootState } from "@redux/store";
 import SubmitBtn from "@static/images/submitBtn.svg"
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { showLoginAction } from "@redux/actions/screenAction";
-import { showToast } from "../../Sports/utility/toast";
+import { CPopup } from "@utility/popup";
 
 export const AllCommentScreen = ({ navigation, route }: RootStackScreenProps<"全部评论">) => {
   const { vod_id, vod_name, commentItems } = route.params;
@@ -61,7 +61,7 @@ export const AllCommentScreen = ({ navigation, route }: RootStackScreenProps<"�
       commentItems.unshift(commmentObj);
       setIsUpdated(!isUpdated);
       Keyboard.dismiss();
-      showToast("提交成功，我们将在24小时内进行审核！");
+      CPopup.showToast("提交成功，我们将在24小时内进行审核！");
 
     } catch (error) {
       console.log("error when storing the comment into local storage: ", error);

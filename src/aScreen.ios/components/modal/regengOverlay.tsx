@@ -13,12 +13,12 @@ import { useAppDispatch } from "@hooks/hooks";
 // import FastImage from 'react-native-fast-image';
 import FastImage from "../common/customFastImage";
 import CodePush from "react-native-code-push";
-import { showToast } from "../../Sports/utility/toast";
+import { CPopup } from "@utility/popup";
 import { TermsAcceptContext } from "../../../contexts/TermsAcceptedContext";
 import RNRestart from "react-native-restart";
-interface Props {}
+interface Props { }
 
-export default function RegengOverlay({}: Props) {
+export default function RegengOverlay({ }: Props) {
   const { accepted } = useContext(TermsAcceptContext);
 
   const { colors, textVariants, spacing, icons } = useTheme();
@@ -57,7 +57,7 @@ export default function RegengOverlay({}: Props) {
 
           case CodePush.SyncStatus.UPDATE_INSTALLED:
             CodePush.notifyAppReady()
-            showToast("安装完成 重启应用以应用更改");
+            CPopup.showToast("安装完成 重启应用以应用更改");
             // 显示提示给用户
             // Alert.alert("更新已安装", "已安装新版本，请重启应用以应用更改。", [
             //   { text: "立即重启", onPress: () => RNRestart.Restart() },
@@ -66,7 +66,7 @@ export default function RegengOverlay({}: Props) {
             break;
 
           case CodePush.SyncStatus.UNKNOWN_ERROR:
-            showToast("安装失败");
+            CPopup.showToast("安装失败");
             setIsCancelledShowRegengOverlay(true);
             break;
         }

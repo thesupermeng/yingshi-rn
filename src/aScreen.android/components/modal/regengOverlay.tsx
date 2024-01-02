@@ -7,7 +7,7 @@ import { useAppDispatch } from '@hooks/hooks';
 // import FastImage from 'react-native-fast-image';
 import FastImage from '../common/customFastImage';
 import CodePush from "react-native-code-push";
-import { showToast } from "../../Sports/utility/toast";
+import { CPopup } from "@utility/popup";
 import { TermsAcceptContext } from '../../../contexts/TermsAcceptedContext';
 
 interface Props { }
@@ -47,12 +47,12 @@ export default function RegengOverlay({ }: Props) {
                         break;
 
                     case CodePush.SyncStatus.UPDATE_INSTALLED:
-                        showToast("安装完成");
+                        CPopup.showToast("安装完成");
                         // restart
                         break;
 
                     case CodePush.SyncStatus.UNKNOWN_ERROR:
-                        showToast("安装失败");
+                        CPopup.showToast("安装失败");
                         setIsCancelledShowRegengOverlay(true)
                         break;
                 }
