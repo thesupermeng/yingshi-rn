@@ -18,7 +18,7 @@ import ScreenContainer from '../../../components/container/screenContainer';
 import MainHeader from '../../../components/header/homeHeader';
 import { useFocusEffect, useTheme } from '@react-navigation/native';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
-import { DetailTab } from '@type/ajaxTypes';
+import { DetailTab, bannerAdType } from '@type/ajaxTypes';
 import VodPlaylist from '../../../components/playlist/vodPlaylist';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import Animated from 'react-native-reanimated';
@@ -60,6 +60,7 @@ import { RootState } from '@redux/store';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SettingsReducerState } from '@redux/reducers/settingsReducer';
 import VipRegisterBar from '../../../components/adultVideo/vipRegisterBar';
+import { BannerContainer } from '../../../components/container/bannerContainer';
 
 let insetsTop = 0;
 let insetsBottom = 0;
@@ -106,6 +107,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
   const showCountdown = userState.userToken === "" || Number(userState.userMemberExpired) <= Number(userState.userCurrentTimestamp);
 
   const videoRef = useRef<VideoRef | null>(null);
+  const [bannerAd, setBannerAd] = useState<bannerAdType>();
 
   // ========== for analytics - start ==========
   const { sportDetailsViewsAnalytics, sportDetailsVipPopupTimesAnalytics } = useAnalytics();
@@ -269,8 +271,13 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
   }, [screenState.sportWatchTime, showBecomeVIPOverlay])
 
   useFocusEffect(useCallback(() => {
-    videoRef.current?.setPause(false);
-  }, []));
+    if (!showBecomeVIPOverlay && screenState.sportWatchTime > NON_VIP_STREAM_TIME_SECONDS && (Number(userState.userMemberExpired) <= Number(userState.userCurrentTimestamp) || userState.userToken === "")) {
+
+      setShowBecomeVIPOverlay(true);
+    } else {
+      videoRef.current?.setPause(false);
+    }
+  }, []))
 
   const isFullyLoaded = !f1 && !f2 && !f3;
 
@@ -299,6 +306,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
         setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
         showBecomeVIPOverlay={showBecomeVIPOverlay}
         isJustClose={showCountdown && NON_VIP_STREAM_TIME_SECONDS > screenState.sportWatchTime}
+        selectedTab='sport'
         onClose={() => {
           videoRef.current?.setPause(false);
         }}
@@ -355,6 +363,20 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
       <VipRegisterBar onPress={() => {
         videoRef.current?.setPause(true);
       }} />
+
+      {bannerAd && (
+        <View style={{
+          paddingLeft: spacing.sideOffset,
+          paddingRight: spacing.sideOffset,
+          paddingVertical: 5
+        }}>
+          <BannerContainer
+            bannerImg={bannerAd.ads_pic}
+            bannerUrl={bannerAd.ads_url}
+          />
+        </View>
+      )}
+
       {settingsReducer.appOrientation === 'PORTRAIT' && ((isNavVisible &&
         isFullyLoaded && tabList.length > 0) ? (
         <MatchDetailsNav streamId={10001} tabList={tabList} />
