@@ -92,7 +92,7 @@ export default forwardRef<MiniVodRef, Props>(
             if (!isActive && curTolVideoViews > preTolVideoViews) {
                 watchAnytimeVideoViewTimesAnalytics({
                     userId: userState.userId,
-                    tolVideoViews: curTolVideoViews,
+                    vod_id: collectionPartialVideos[0].mini_video_id,
                 });
             }
         }, [isActive, preTolVideoViews, curTolVideoViews]);
