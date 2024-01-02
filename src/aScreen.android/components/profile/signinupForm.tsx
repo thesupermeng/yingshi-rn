@@ -492,7 +492,7 @@ const LoginCard = ({
               onChangeText={(value) => {
                 onLoginValueChange(value);
               }}
-              placeholder="2 345 6789"
+              placeholder="请输入手机号"
               placeholderTextColor="#B6B6B6"
             />
           </View>
