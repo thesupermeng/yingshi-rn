@@ -62,7 +62,6 @@ export default forwardRef<MiniVodRef, Props>(
   ) => {
     const { spacing } = useTheme();
 
-    const isFirstComeIn = useRef(true);
     const [isInitFetching, setInitFetching] = useState(true);
     const [displayHeight, setDisplayHeight] = useState<number>(0);
     const [current, setCurrent] = useState<number>(0);
@@ -194,11 +193,7 @@ export default forwardRef<MiniVodRef, Props>(
     }, [videos]);
 
     useEffect(() => {
-      if (isFirstComeIn.current) {
-        setPause(true);
-      } else {
-        setPause(isFetching || isRefreshing || !isActive || isScrolling);
-      }
+      setPause(isFetching || isRefreshing || !isActive || isScrolling);
     }, [isFetching, isRefreshing, isActive, isScrolling]);
 
     const refreshComponent = useCallback(() => {
@@ -238,7 +233,6 @@ export default forwardRef<MiniVodRef, Props>(
                 onManualPause={current => {
                   console.log('click pause');
                   setPause(!current);
-                  isFirstComeIn.current = false;
                 }}
                 isShowVideo={current >= prevPosition && current < index + 2}
                 // isShowVideo={current === index && !isScrolling && !isPressTabScroll}

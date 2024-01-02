@@ -54,7 +54,6 @@ export default forwardRef<MiniVodRef, Props>(
     ) => {
         const { spacing } = useTheme();
 
-        const isFirstComeIn = useRef(true);
         const [isInitFetching, setInitFetching] = useState(true);
         const [displayHeight, setDisplayHeight] = useState<number>(0);
         const [current, setCurrent] = useState<number>(0);
@@ -93,7 +92,7 @@ export default forwardRef<MiniVodRef, Props>(
             if (!isActive && curTolVideoViews > preTolVideoViews) {
                 watchAnytimeVideoViewTimesAnalytics({
                     userId: userState.userId,
-                    tolVideoViews: curTolVideoViews,
+                    vod_id: collectionPartialVideos[0].mini_video_id,
                 });
             }
         }, [isActive, preTolVideoViews, curTolVideoViews]);
@@ -126,11 +125,7 @@ export default forwardRef<MiniVodRef, Props>(
         }, [videos]);
 
         useEffect(() => {
-            if (isFirstComeIn.current) {
-                setPause(true);
-            } else {
-                setPause(isFetching || isRefreshing || !isActive || isScrolling);
-            }
+            setPause(isFetching || isRefreshing || !isActive || isScrolling);
         }, [isFetching, isRefreshing, isActive, isScrolling])
 
         const setCollectionEpisodeToTitle = (index: number) => {
@@ -168,7 +163,6 @@ export default forwardRef<MiniVodRef, Props>(
                         isPause={isPause || current !== index}
                         onManualPause={(current) => {
                             setPause(!current);
-                            isFirstComeIn.current = false;
                         }}
                         isShowVideo={current === index && !isScrolling}
                         currentDuration={videoCurrentDurations[index]}

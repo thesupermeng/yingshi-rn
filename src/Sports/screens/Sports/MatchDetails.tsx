@@ -16,7 +16,7 @@ import {
 } from 'react-native';
 import ScreenContainer from '../../../components/container/screenContainer';
 import MainHeader from '../../../components/header/homeHeader';
-import { useTheme } from '@react-navigation/native';
+import { useFocusEffect, useTheme } from '@react-navigation/native';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { DetailTab } from '@type/ajaxTypes';
 import VodPlaylist from '../../../components/playlist/vodPlaylist';
@@ -267,6 +267,10 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
     }
 
   }, [screenState.sportWatchTime, showBecomeVIPOverlay])
+
+  useFocusEffect(useCallback(() => {
+    videoRef.current?.setPause(false);
+  }, []));
 
   const isFullyLoaded = !f1 && !f2 && !f3;
 
