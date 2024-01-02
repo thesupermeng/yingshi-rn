@@ -8,6 +8,7 @@ import {
   RefreshControl,
   Dimensions,
   FlatList,
+  Linking,
 } from "react-native";
 // import {FlatList, PanGestureHandler} from 'react-native-gesture-handler';
 import { useFocusEffect, useNavigation, useTheme } from "@react-navigation/native";
@@ -183,10 +184,15 @@ const RecommendationHome = ({
         <TouchableOpacity
           key={`slider-${index}`}
           onPress={() => {
-            dispatch(playVod(item.vod));
-            navigation.navigate("播放", {
-              vod_id: item.carousel_content_id,
-            });
+            if(item.is_ads == true){
+              const url = item.ads_url.includes('http://') ? item.ads_url : 'http://' + item.ads_url;
+              Linking.openURL(url);
+            }else{
+              dispatch(playVod(item.vod));
+              navigation.navigate("播放", {
+                vod_id: item.carousel_content_id,
+              });
+            }
           }}
         >
           <FastImage

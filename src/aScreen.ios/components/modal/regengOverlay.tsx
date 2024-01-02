@@ -23,12 +23,17 @@ export default function RegengOverlay({ }: Props) {
 
   const { colors, textVariants, spacing, icons } = useTheme();
 
+
   const [
     isCancelledShowRegengOverlay,
     setIsCancelledShowRegengOverlay,
   ] = useState(false);
   const [isRegengOngoing, setIsRegengOngoing] = useState(false);
   const [regengContent, setRegengContent] = useState("");
+
+  const [downloadProgress, setDownloadProgress] = useState("");
+
+  const [totalDownload, setTotalDownload] = useState("");
 
   const acceptRegeng = () => {
     setIsRegengOngoing(true);
@@ -56,8 +61,14 @@ export default function RegengOverlay({ }: Props) {
             break;
 
           case CodePush.SyncStatus.UPDATE_INSTALLED:
+<<<<<<< Updated upstream
             CodePush.notifyAppReady()
             CPopup.showToast("安装完成 重启应用以应用更改");
+=======
+            CodePush.notifyAppReady();
+            showToast("安装完成, 重启应用以应用更改");
+
+>>>>>>> Stashed changes
             // 显示提示给用户
             // Alert.alert("更新已安装", "已安装新版本，请重启应用以应用更改。", [
             //   { text: "立即重启", onPress: () => RNRestart.Restart() },
@@ -66,10 +77,22 @@ export default function RegengOverlay({ }: Props) {
             break;
 
           case CodePush.SyncStatus.UNKNOWN_ERROR:
+<<<<<<< Updated upstream
             CPopup.showToast("安装失败");
+=======
+            showToast("更新失败，请稍后重试");
+>>>>>>> Stashed changes
             setIsCancelledShowRegengOverlay(true);
             break;
         }
+      },
+      ({ receivedBytes, totalBytes }) => {
+        const progress = (receivedBytes / totalBytes) * 100;
+        console.log(`Download progress: ${progress.toFixed(2)}%`);
+        console.log(`Total bundle size: ${totalBytes} bytes`);
+
+        setDownloadProgress(`${progress.toFixed(2)}%`);
+        setTotalDownload(`${totalBytes} bytes`);
       }
     );
   };
@@ -175,7 +198,17 @@ export default function RegengOverlay({ }: Props) {
                                             </Text>
                                         </TouchableOpacity> */}
                     <TouchableOpacity
-                      onPress={() => cancelRegeng()}
+                      onPress={() => {
+                        Alert.alert(
+                            "取消更新",
+                            "确定取消更新吗？",
+                            [
+                              { text: "取消", style: "cancel" },
+                              { text: "确定", onPress: () => cancelRegeng() },
+                            ],
+                            { cancelable: false }
+                          );
+                      }}
                       style={{ paddingTop: 0, flex: 1 }}
                     >
                       <Text
@@ -239,7 +272,16 @@ export default function RegengOverlay({ }: Props) {
                       fontWeight: "300",
                     }}
                   >
-                    {regengContent}
+                    {regengContent} ({downloadProgress})
+                  </Text>
+                  <Text
+                    style={{
+                      color: "white",
+                      paddingTop: 12,
+                      fontSize: 16,
+                      fontWeight: "300",
+                    }}
+                  >
                   </Text>
                   <FastImage
                     source={require("@static/images/videoBufferLoading.gif")}
