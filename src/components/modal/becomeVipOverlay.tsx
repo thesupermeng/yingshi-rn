@@ -13,19 +13,22 @@ import useAnalytics from '@hooks/useAnalytics';
 import { SHOW_ZF_CONST } from '@utility/constants';
 import { AdultVipPrivilegeOverlay } from './adultVipPrivilegeOverlay';
 import { SportVipPrivilegeOverlay } from './sportVipPrivilegeOverlay';
+import { CommonVipPrivilegeOverlay } from './commonVipPrivilegeOverlay';
 
 interface Props {
   showBecomeVIPOverlay: boolean;
   setShowBecomeVIPOverlay: any;
   isJustClose: boolean;
-  selectedTab: 'sport' | 'xvod'
+  selectedTab: 'sport' | 'xvod' | 'common',
+  onClose?: () => void,
 }
 
 export default function ExpiredOverlay({
   showBecomeVIPOverlay = false,
   setShowBecomeVIPOverlay,
   isJustClose,
-  selectedTab
+  selectedTab,
+  onClose,
 }: Props) {
   const navigator = useNavigation();
   const dispatch = useAppDispatch();
@@ -45,6 +48,7 @@ export default function ExpiredOverlay({
         <AdultVipPrivilegeOverlay
           showCondition={showBecomeVIPOverlay}
           onClose={() => {
+            if (onClose) onClose();
             setShowBecomeVIPOverlay(false);
           }}
         />
@@ -54,10 +58,19 @@ export default function ExpiredOverlay({
         <SportVipPrivilegeOverlay
           showCondition={showBecomeVIPOverlay}
           onClose={() => {
+            if (onClose) onClose();
             setShowBecomeVIPOverlay(false);
           }}
         />
       );
+    } else if (selectedTab === 'common') {
+      return <CommonVipPrivilegeOverlay
+        showCondition={showBecomeVIPOverlay}
+        onClose={() => {
+          if (onClose) onClose();
+          setShowBecomeVIPOverlay(false);
+        }}
+      />
     }
   };
 
@@ -73,7 +86,7 @@ export default function ExpiredOverlay({
             position: 'absolute',
             zIndex: 1000,
           }}>
-            {renderOverlay()}
+          {renderOverlay()}
         </View>
       )}
     </>

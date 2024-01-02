@@ -1,4 +1,4 @@
-import { useIsFocused, useTheme } from "@react-navigation/native";
+import { useTheme } from "@react-navigation/native";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import LinearGradient from "react-native-linear-gradient";
 import Video from "react-native-video"
@@ -20,6 +20,7 @@ type Props = {
     isFullScreen: boolean,
     isShowShare: boolean,
     onPressAd: () => void,
+    onPressCountdown?: () => void,
     onGoBack: () => void,
     onShare: () => void,
     onPressFullScreenBtn: () => void,
@@ -33,6 +34,7 @@ export const AdVideoImage = ({
     isFullScreen,
     isShowShare,
     onPressAd,
+    onPressCountdown,
     onGoBack,
     onShare,
     onPressFullScreenBtn,
@@ -62,7 +64,10 @@ export const AdVideoImage = ({
         }
 
 
-        <View style={styles.countdownContainer} >
+        <CPressable
+            onPress={onPressCountdown}
+            style={styles.countdownContainer}
+        >
             <Text style={{ color: colors.primary }}>
                 {countdownTime} 秒
             </Text>
@@ -76,7 +81,7 @@ export const AdVideoImage = ({
             <Text style={{ color: 'white' }}>
                 会员去广告 》
             </Text>
-        </View>
+        </CPressable>
 
         <LinearGradient
             colors={['transparent', 'black']}
