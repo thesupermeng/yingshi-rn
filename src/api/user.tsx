@@ -3,7 +3,7 @@ import DeviceInfo from "react-native-device-info";
 import { CEndpoint, CLangKey } from "@constants";
 // import { User } from "@modals";
 import { CApi } from "@utility/apiService";
-import { AMJ_PRODUCT_ANDROID, AMJ_PRODUCT_IOS } from "@utility/constants";
+import { YING_SHI_PRODUCT_ANDROID, YING_SHI_PRODUCT_IOS } from "@utility/constants";
 import { CountryPhoneCodeType } from "@type/ajaxTypes";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -34,9 +34,9 @@ export class UserApi {
             }
 
             if (Platform.OS === "android") {
-                platform_id = AMJ_PRODUCT_ANDROID;
+                platform_id = YING_SHI_PRODUCT_ANDROID;
             } else {
-                platform_id = AMJ_PRODUCT_IOS;
+                platform_id = YING_SHI_PRODUCT_IOS;
             }
 
             const result = await CApi.post(CEndpoint.userPostSigninup, {

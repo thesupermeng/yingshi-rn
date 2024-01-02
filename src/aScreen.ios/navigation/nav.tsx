@@ -50,8 +50,8 @@ import WatchAnytimeActiveTabIcon from "@static/images/video_tab_active.svg";
 import CatalogScreen from "../screens/Common/Catalog";
 import ShortVodCollectionScreen from "../screens/Profile/Collection/shortVodCollection";
 import SportsIcon from "@static/images/sports.svg";
-// import MatchesScreen from "../Sports/screens/Sports/Matches";
-// import MatchDetailsScreen from "../Sports/screens/Sports/MatchDetails";
+import MatchesScreen from "../Sports/screens/Sports/Matches";
+import MatchDetailsScreen from "../Sports/screens/Sports/MatchDetails";
 import { useDispatch, useSelector } from "react-redux";
 import SigninupBottomSheet from "../components/auth/signinupBottomSheet";
 import {
@@ -582,7 +582,7 @@ export default () => {
           />
           <Stack.Screen name="设置" component={ConfigureScreen} />
           <Stack.Screen name="合集收藏" component={ShortVodCollectionScreen} />
-          {/* <Stack.Screen
+          <Stack.Screen
             name="体育详情"
             component={MatchDetailsScreen}
             initialParams={{
@@ -590,7 +590,7 @@ export default () => {
               matchId: undefined,
             }}
             options={{ orientation: "all" }}
-          /> */}
+          />
           <Stack.Screen
             name="电视台列表"
             component={LiveStationsScreen}

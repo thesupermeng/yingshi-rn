@@ -37,6 +37,7 @@ import {
   APP_NAME_CONST,
 } from "@utility/constants";
 import axios from "axios";
+import { showToast } from "../../Sports/utility/toast";
 import { showLoginAction } from "@redux/actions/screenAction";
 import SpinnerOverlay from "../../components/modal/SpinnerOverlay";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -201,7 +202,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
       } else {
         console.error("handle purchase error: ", error);
       }
-      // CPopup.showToast(
+      // showToast(
       //   error?.code.toString() +
       //     "  error message : " +
       //     error.message.toString()

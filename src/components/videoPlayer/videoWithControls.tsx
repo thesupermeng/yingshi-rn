@@ -98,7 +98,6 @@ const VideoWithControls = ({
                 onBuffer={onBuffer}
                 paused={isPaused} // Pause video when app is in the background
                 resizeMode="contain"
-                playWhenInactive={true}
                 onEnd={() => {
                     const nextEpi = getNextEpisode();
                     if (nextEpi !== undefined) {
@@ -159,7 +158,7 @@ const VideoWithControls = ({
                 streams={streams}
                 isFetchingRecommendedMovies={isFetchingRecommendedMovies}
             />
-
+            
         </View>
     );
 }

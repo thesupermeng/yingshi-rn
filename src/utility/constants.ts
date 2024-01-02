@@ -96,8 +96,8 @@ export const TOPON_BANNER_RATIO = TOPON_BANNER_HEIGHT / TOPON_BANNER_WIDTH;
 export const YING_SHI_PRODUCT_ANDROID = 3;
 export const YING_SHI_PRODUCT_IOS = 4;
 
-export const AMJ_PRODUCT_ANDROID = 5;
-export const AMJ_PRODUCT_IOS = 6;
+export const DA_YU_PRODUCT_ANDROID = 5;
+export const DA_YU_PRODUCT_IOS = 6;
 
 // export const YING_SHI_PIN_ANDROID = 1;
 // export const YING_SHI_PIN_IOS = 2;

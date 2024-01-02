@@ -57,7 +57,6 @@ export const AdVideoImage = ({
                 }}
                 resizeMode="contain"
                 style={styles.video}
-                playWhenInactive={true}
             />
         }
 

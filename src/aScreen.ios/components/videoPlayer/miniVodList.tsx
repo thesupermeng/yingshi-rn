@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, forwardRef, useImperativeHandle, useRef } from 'react';
+import React, { useState, useCallback, useEffect, forwardRef, useImperativeHandle } from 'react';
 import { View, FlatList, RefreshControl } from 'react-native';
 import { MiniVideo } from '@type/ajaxTypes';
 import ShortVod from '../../components/videoPlayer/shortVod';
@@ -92,7 +92,7 @@ export default forwardRef<MiniVodRef, Props>(
             if (!isActive && curTolVideoViews > preTolVideoViews) {
                 watchAnytimeVideoViewTimesAnalytics({
                     userId: userState.userId,
-                    vod_id: collectionPartialVideos[0].mini_video_id,
+                    tolVideoViews: curTolVideoViews,
                 });
             }
         }, [isActive, preTolVideoViews, curTolVideoViews]);

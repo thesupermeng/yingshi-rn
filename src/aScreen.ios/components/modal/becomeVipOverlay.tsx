@@ -16,14 +16,12 @@ interface Props {
   showBecomeVIPOverlay: boolean;
   setShowBecomeVIPOverlay: any;
   isJustClose: boolean,
-  onClose?: () => void,
 }
 
 export default function ExpiredOverlay({
   showBecomeVIPOverlay = false,
   setShowBecomeVIPOverlay,
   isJustClose,
-  onClose,
 }: Props) {
   const navigator = useNavigation();
   const dispatch = useAppDispatch();
@@ -59,7 +57,6 @@ export default function ExpiredOverlay({
               }}>
               <TouchableOpacity
                 onPress={() => {
-                  if (onClose) onClose();
                   setShowBecomeVIPOverlay(false);
                   if (!isJustClose && route.name === '体育详情') {
                     navigator.goBack();
@@ -98,7 +95,7 @@ export default function ExpiredOverlay({
                     fontSize: 16,
                     fontWeight: '300',
                   }}>
-                  畅享体育赛事直播及午夜视频
+                畅享体育赛事直播及午夜视频
                 </Text>
                 <View style={styles.btnContainer}>
                   {SHOW_ZF_CONST &&

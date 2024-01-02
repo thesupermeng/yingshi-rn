@@ -18,7 +18,7 @@ import ScreenContainer from '../../../components/container/screenContainer';
 import MainHeader from '../../../components/header/homeHeader';
 import { useFocusEffect, useTheme } from '@react-navigation/native';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
-import { DetailTab } from '@type/ajaxTypes';
+import { DetailTab, bannerAdType } from '@type/ajaxTypes';
 import VodPlaylist from '../../../components/playlist/vodPlaylist';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import Animated from 'react-native-reanimated';
@@ -33,7 +33,7 @@ import MatchDetailsNav from '../../components/matchDetails/MatchDetailsNav';
 import MatchSchedule from '../../components/matchSchedule/MatchSchedule';
 import LiveStatPage from '../../components/matchDetails/liveStatPage';
 import TeamDataPage from '../../components/matchDetails/teamDataPage';
-import VodPlayer, { VideoRef } from '../../../components/videoPlayer/vodPlayer';
+import VodPlayer from '../../../components/videoPlayer/vodPlayer';
 import { parseVideoURL } from '../../utility/urlEncryp';
 import Video from 'react-native-video';
 import LiveVideo from '../../components/liveVideo/liveVideoPlayer';
@@ -60,6 +60,10 @@ import { RootState } from '@redux/store';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SettingsReducerState } from '@redux/reducers/settingsReducer';
 import VipRegisterBar from '../../../components/adultVideo/vipRegisterBar';
+import { CApi } from '@utility/apiService';
+import { CEndpoint } from '@constants';
+import { YSConfig } from '../../../../ysConfig';
+import { BannerContainer } from '../../../components/container/bannerContainer';
 
 let insetsTop = 0;
 let insetsBottom = 0;
@@ -104,8 +108,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
   const [shouldShowComponents, setShouldShowComponents] = useState(true);
   const [isNavVisible, setIsNavVisible] = useState(true);
   const showCountdown = userState.userToken === "" || Number(userState.userMemberExpired) <= Number(userState.userCurrentTimestamp);
-
-  const videoRef = useRef<VideoRef | null>(null);
+  const [bannerAd, setBannerAd] = useState<bannerAdType>();
 
   // ========== for analytics - start ==========
   const { sportDetailsViewsAnalytics, sportDetailsVipPopupTimesAnalytics } = useAnalytics();
@@ -163,6 +166,26 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
       }),
     staleTime: 1000,
   });
+
+  const fetchBannerAd = async () => {
+    const response = await CApi.get(CEndpoint.bannerAd, {
+      query: {
+        slot_id: 111,
+        ip: YSConfig.instance.ip,
+      },
+    });
+    const banner = await response.data;
+
+    if (banner) {
+      setBannerAd(banner);
+    } else {
+      setBannerAd(undefined);
+    }
+  }
+
+  useEffect(() => {
+    fetchBannerAd();
+  }, []);
 
   useEffect(() => {
     setTabList([
@@ -258,7 +281,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
   // }, [])
 
   useEffect(() => {
-    if (!showBecomeVIPOverlay && screenState.sportWatchTime > NON_VIP_STREAM_TIME_SECONDS && (Number(userState.userMemberExpired) <= Number(userState.userCurrentTimestamp) || userState.userToken === "")) {
+    if (!showBecomeVIPOverlay && screenState.sportWatchTime === NON_VIP_STREAM_TIME_SECONDS && (Number(userState.userMemberExpired) <= Number(userState.userCurrentTimestamp) || userState.userToken === "")) {
       setShowBecomeVIPOverlay(true);
 
       // ========== for analytics - start ==========
@@ -268,9 +291,13 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
 
   }, [screenState.sportWatchTime, showBecomeVIPOverlay])
 
-  useFocusEffect(useCallback(() => {
-    videoRef.current?.setPause(false);
-  }, []));
+  useFocusEffect(useCallback(()=> {
+    if (!showBecomeVIPOverlay && screenState.sportWatchTime > NON_VIP_STREAM_TIME_SECONDS && (Number(userState.userMemberExpired) <= Number(userState.userCurrentTimestamp) || userState.userToken === "")) {
+
+      setShowBecomeVIPOverlay(true);
+    }
+
+  }, []))
 
   const isFullyLoaded = !f1 && !f2 && !f3;
 
@@ -299,16 +326,13 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
         setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
         showBecomeVIPOverlay={showBecomeVIPOverlay}
         isJustClose={showCountdown && NON_VIP_STREAM_TIME_SECONDS > screenState.sportWatchTime}
-        onClose={() => {
-          videoRef.current?.setPause(false);
-        }}
+        selectedTab='sport'
       />
       {videoSource.url &&
         ((videoSource.type === VideoLiveType.LIVE &&
           match?.streams?.some(streamer => streamer.status == 3)) ||
           videoSource.type === VideoLiveType.ANIMATION) ? (
         <LiveVideo
-          videoRef={videoRef}
           liveDataState={match}
           // fullScreen={tempFullscreen}
           streamID={streamID}
@@ -322,7 +346,6 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
           showCountdown={showCountdown}
           countdownTime={NON_VIP_STREAM_TIME_SECONDS - screenState.sportWatchTime}
           onVipCountdownClick={() => {
-            videoRef.current?.setPause(true);
             setShowBecomeVIPOverlay(true)
           }}
         />
@@ -352,9 +375,21 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
           listLiveMatchDetailsUpdates={liveRoomUpdate}
         />
       )}
-      <VipRegisterBar onPress={() => {
-        videoRef.current?.setPause(true);
-      }} />
+      <VipRegisterBar />
+      
+      {bannerAd && (
+        <View style ={{
+          paddingLeft: spacing.sideOffset,
+          paddingRight: spacing.sideOffset,
+          paddingVertical: 5
+        }}>
+          <BannerContainer
+            bannerImg={bannerAd.ads_pic}
+            bannerUrl={bannerAd.ads_url}
+          />
+        </View>
+      )}
+
       {settingsReducer.appOrientation === 'PORTRAIT' && ((isNavVisible &&
         isFullyLoaded && tabList.length > 0) ? (
         <MatchDetailsNav streamId={10001} tabList={tabList} />

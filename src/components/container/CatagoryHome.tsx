@@ -8,7 +8,6 @@ import {
   RefreshControl,
   Dimensions,
   FlatList,
-  Linking,
 } from 'react-native';
 import { FlatList as FlatListSecondary } from 'react-native-gesture-handler';
 import { useFocusEffect, useNavigation, useTheme } from '@react-navigation/native';
@@ -182,18 +181,13 @@ const CatagoryHome = ({
       <TouchableOpacity
         key={`slider-${index}`}
         onPress={() => {
-          if(item.is_ads == true){
-            const url = item.ads_url.includes('http://') ? item.ads_url : 'http://' + item.ads_url;
-            Linking.openURL(url);
-          }else{
-            console.debug('pllaying mode', navId)
-            dispatch(playVod(item.vod));
-            navigation.navigate('播放', {
-              vod_id: item.carousel_content_id,
-              player_mode: navId == 99 ? 'adult' : 'normal'
-            });
-            if (navId == 99) { dispatch(enableAdultMode()) }
-          }
+          console.debug('pllaying mode', navId)
+          dispatch(playVod(item.vod));
+          navigation.navigate('播放', {
+            vod_id: item.carousel_content_id,
+            player_mode: navId == 99 ? 'adult' : 'normal'
+          });
+          if (navId == 99) { dispatch(enableAdultMode()) }
         }}>
         <FastImage
           style={styles.image}

@@ -3,7 +3,7 @@ import { TouchableOpacity, View } from 'react-native';
 import styles from './style';
 import { VideoLiveType } from '../../global/const';
 import { MatchDetailsType, Stream } from '../../types/matchTypes';
-import VodPlayer, { VideoRef } from '../../../components/videoPlayer/vodPlayer';
+import VodPlayer from '../../../components/videoPlayer/vodPlayer';
 import { lockAppOrientation } from '@redux/actions/settingsActions';
 import { RootState } from '@redux/store';
 import { SettingsReducerState } from '@redux/reducers/settingsReducer';
@@ -15,7 +15,6 @@ import useAnalytics from '@hooks/useAnalytics';
 import CountdownIndicator from '../../../components/button/countdownIndicator';
 
 interface Props {
-    videoRef?: React.MutableRefObject<VideoRef | null>,
     matchID?: number,
     streamID?: number,
     liveDataState?: MatchDetailsType,
@@ -32,7 +31,7 @@ interface Props {
     onVipCountdownClick: () => void,
 }
 
-const LiveVideo = ({ videoRef, matchID, liveDataState, onLiveEnd, onLoad, streamID, videoSource, setVideoSource, onGoBack, showCountdown = false, countdownTime = 0, onVipCountdownClick, }: Props) => {
+const LiveVideo = ({ matchID, liveDataState, onLiveEnd, onLoad, streamID, videoSource, setVideoSource, onGoBack, showCountdown = false, countdownTime = 0, onVipCountdownClick, }: Props) => {
     const { colors } = useTheme();
 
     const homeName = liveDataState?.home?.name;
@@ -156,7 +155,6 @@ const LiveVideo = ({ videoRef, matchID, liveDataState, onLiveEnd, onLoad, stream
                             videoSource.type === VideoLiveType.LIVE
                                 ? <>
                                     <VodPlayer
-                                        ref={videoRef}
                                         onBack={onHandleBack}
                                         vod_source={videoSource.url}
                                         videoType='live'
@@ -169,9 +167,7 @@ const LiveVideo = ({ videoRef, matchID, liveDataState, onLiveEnd, onLoad, stream
                                     {showCountdown &&
                                         <CountdownIndicator
                                             timer={countdownTime}
-                                            onClickVip={() => {
-                                                onVipCountdownClick()
-                                            }}
+                                            onClickVip={() => { onVipCountdownClick() }}
                                             vipButtonText="开通VIP畅享无限内容"
                                             containerStyle={{
                                                 position: 'absolute',

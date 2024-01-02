@@ -15,7 +15,7 @@ import { useSelector } from "@hooks/hooks";
 import { userModel } from "@type/userType";
 import { TouchableOpacity } from "@gorhom/bottom-sheet";
 import NotificationModal from "../../components/modal/notificationModal";
-import { CPopup } from "@utility/popup";
+import { showToast } from "../../Sports/utility/toast";
 import FastImage from "../../components/common/customFastImage";
 import { ChangeUsernameModal } from "../../components/modal/changeUsernameModal";
 import { ChangeReferrerModal } from "../../components/modal/changeReferrerModal";
@@ -68,7 +68,7 @@ export default ({ navigation }: RootStackScreenProps<"个人中心">) => {
           <TouchableOpacity
             style={styles.pressableTextContainer}
             onPress={() => {
-              CPopup.showToast('目前暂不支持更改头像，敬请期待');
+              showToast('目前暂不支持更改头像，敬请期待');
             }}
           >
             <Text style={{ fontSize: 16, color: '#9C9C9C' }}>头像</Text>
