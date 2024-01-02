@@ -185,7 +185,7 @@ const RecommendationHome = ({
           key={`slider-${index}`}
           onPress={() => {
             if(item.is_ads == true){
-              const url = item.ads_url.includes('http://') ? item.ads_url : 'http://' + item.ads_url;
+              const url = item.ads_url.includes('https://') || item.ads_url.includes('http://') ? item.ads_url : 'https://' + item.ads_url;
               Linking.openURL(url);
             }else{
               dispatch(playVod(item.vod));

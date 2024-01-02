@@ -13,16 +13,20 @@ export const BannerContainer = ({bannerImg, bannerUrl}: Props) => {
     const { spacing } = useTheme();
 
     const redirectToAd = async () => {
-        try {
-            if (await InAppBrowser.isAvailable()) {
-                console.log('using iapbrowser')
-                await InAppBrowser.open('https://' + bannerUrl);
-            } else {
-                Linking.openURL(bannerUrl);
-            }
-        } catch (e) {
-            Linking.openURL(bannerUrl);
-        }
+
+        const url = bannerUrl.includes('https://') || bannerUrl.includes('http://') ? bannerUrl : 'https://' + bannerUrl;
+        Linking.openURL(url);
+
+        // try {
+        //     if (await InAppBrowser.isAvailable()) {
+        //         console.log('using iapbrowser')
+        //         await InAppBrowser.open('https://' + bannerUrl);
+        //     } else {
+        //         Linking.openURL(bannerUrl);
+        //     }
+        // } catch (e) {
+        //     Linking.openURL(bannerUrl);
+        // }
     }
 
     return (
