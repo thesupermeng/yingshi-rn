@@ -1,3 +1,4 @@
+
 export class CEndpoint {
     // ============================== apps ==============================
     static appGetLocalIp = 'https://geolocation-db.com/json';
@@ -10,7 +11,7 @@ export class CEndpoint {
     static userGetCountries = 'country/v1/country';
 
     static homeGetNav = 'nav/v1/navItems';
-    static homeGetPages = 'page/v2/typepage';
+    static homeGetPages = 'page/v2/typepage/&platform=IOS&channelId=WEB&appName=影视TV';
 
     static playlistGetTopic = 'topic/v1/topic';
     static playlistGetTopicIosTmp = 'topic/v1/topic/temp';
@@ -18,7 +19,7 @@ export class CEndpoint {
     static vodGetTopicType = 'type/v1/type';
     static vodGetDetail = 'vod/v3/vod/detail';
     static vodGetXDetail = 'svod/v1/vod/detail';
-    static vodGetList = 'vod/v3/vod';
+    static vodGetList = 'vod/v3/vod';   //change to v ... JAN 2
     static vodGetXList = 'svod/v1/vod';
     static vodGetReviewDetail = 'vod/v1/vod/reviewdetail';
     static vodGetAdsSlot = 'ads/v1/slot';
