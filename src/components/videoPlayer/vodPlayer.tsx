@@ -91,7 +91,7 @@ type VideoControlsRef = {
   toggleLock: () => void;
 };
 
-type VideoRef = {
+export type VideoRef = {
   setPause: (param: boolean) => void;
   isPaused: boolean;
   setCurrentTime: (time: number) => void;
@@ -485,9 +485,7 @@ export default forwardRef<VideoRef, Props>(
         console.error("crash here");
       }
 
-      if (Platform.OS === "ios") {
-        bufferRef.current = false;
-      }
+      bufferRef.current = false;
     };
 
     const onSkip = (time: any) => {

@@ -32,7 +32,7 @@ import {
 } from '@react-native-google-signin/google-signin';
 import { useQuery } from "@tanstack/react-query";
 import { API_DOMAIN } from "@utility/constants";
-import { showToast } from "../../Sports/utility/toast";
+import { CPopup } from "@utility/popup";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import useAnalytics from "@hooks/useAnalytics";
 import { useDispatch } from "react-redux";
@@ -141,7 +141,7 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
     if (isSubmitting) return;
 
     if (isReadTermNCondition == false) {
-      showToast('请勾选用户协议和隐私协议');
+      CPopup.showToast('请勾选用户协议和隐私协议');
       return;
     }
 
@@ -161,20 +161,20 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
         // user cancelled the login flow
       } else if (error.code === statusCodes.IN_PROGRESS) {
         // operation (e.g. sign in) is in progress already
-        showToast('请勿频繁操作');
+        CPopup.showToast('请勿频繁操作');
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
         // play services not available or outdated
-        showToast('谷歌服务获取失败');
+        CPopup.showToast('谷歌服务获取失败');
       } else {
         // some other error happened
-        showToast('登入失败，请稍后再试');
+        CPopup.showToast('登入失败，请稍后再试');
       }
       console.log(error.toString());
       return;
     }
 
     if (userInfo === null) {
-      showToast('登入失败，请稍后再试');
+      CPopup.showToast('登入失败，请稍后再试');
       return;
     }
 
@@ -189,7 +189,7 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
       });
     } catch (err: any) {
       GoogleSignin.signOut();
-      showToast(err.toString());
+      CPopup.showToast(err.toString());
       return;
     } finally {
       setSubmitting(false);
