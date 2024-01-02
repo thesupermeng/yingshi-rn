@@ -11,7 +11,7 @@ export class CEndpoint {
     static userGetCountries = 'country/v1/country';
 
     static homeGetNav = 'nav/v1/navItems';
-    static homeGetPages = 'page/v2/typepage/&platform=IOS&channelId=WEB&appName=影视TV';
+    static homeGetPages = 'page/v2/typepage';
 
     static playlistGetTopic = 'topic/v1/topic';
     static playlistGetTopicIosTmp = 'topic/v1/topic/temp';
