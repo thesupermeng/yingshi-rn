@@ -627,7 +627,7 @@ export default forwardRef<VideoRef, Props>(
         return;
       }
 
-      const url = playerVodAds?.actionUrl.includes('http://') ? playerVodAds?.actionUrl : 'http://' + playerVodAds?.actionUrl
+      const url = playerVodAds?.actionUrl.includes('http') ? playerVodAds?.actionUrl : 'https://' + playerVodAds?.actionUrl
 
       Linking.openURL(url);
 

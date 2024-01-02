@@ -3,6 +3,7 @@ import { Linking, View } from "react-native";
 import FastImage from "../common/customFastImage";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import InAppBrowser from "react-native-inappbrowser-reborn";
+import { useEffect } from "react";
 
 interface Props {
     bannerImg: string;
@@ -12,8 +13,14 @@ interface Props {
 export const BannerContainer = ({ bannerImg, bannerUrl }: Props) => {
     const { spacing } = useTheme();
 
+    useEffect(() => {
+        console.log('mount')
+    });
+
     const redirectToAd = async () => {
         try {
+            bannerUrl = bannerUrl.includes('http') ? bannerUrl : 'https://' + bannerUrl;
+
             // if (await InAppBrowser.isAvailable()) {
             //     console.log('using iapbrowser')
             //     await InAppBrowser.open('https://' + bannerUrl);
@@ -26,20 +33,24 @@ export const BannerContainer = ({ bannerImg, bannerUrl }: Props) => {
     }
 
     return (
-        <TouchableOpacity
-            style={{
-                paddingVertical: 5,
-            }}
-            onPress={redirectToAd}
+        <View
+
         >
-            <FastImage
-                source={{
-                    uri: bannerImg,
+            <TouchableOpacity
+                style={{
+                    paddingVertical: 5,
                 }}
-                style={{ width: "100%", aspectRatio: 64 / 10, borderRadius: 8, }}
-                resizeMode={"contain"}
-                useFastImage={true}
-            />
-        </TouchableOpacity>
+                onPress={redirectToAd}
+            >
+                <FastImage
+                    source={{
+                        uri: bannerImg,
+                    }}
+                    style={{ width: "100%", aspectRatio: 64 / 10, borderRadius: 8, }}
+                    resizeMode={"contain"}
+                    useFastImage={true}
+                />
+            </TouchableOpacity>
+        </View>
     )
 }
