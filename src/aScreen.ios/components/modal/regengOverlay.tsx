@@ -16,9 +16,9 @@ import CodePush from "react-native-code-push";
 import { CPopup } from "@utility/popup";
 import { TermsAcceptContext } from "../../../contexts/TermsAcceptedContext";
 import RNRestart from "react-native-restart";
-interface Props { }
+interface Props {}
 
-export default function RegengOverlay({ }: Props) {
+export default function RegengOverlay({}: Props) {
   const { accepted } = useContext(TermsAcceptContext);
 
   const { colors, textVariants, spacing, icons } = useTheme();
@@ -56,7 +56,7 @@ export default function RegengOverlay({ }: Props) {
             break;
 
           case CodePush.SyncStatus.UPDATE_INSTALLED:
-            CodePush.notifyAppReady()
+            CodePush.notifyAppReady();
             CPopup.showToast("安装完成 重启应用以应用更改");
             // 显示提示给用户
             // Alert.alert("更新已安装", "已安装新版本，请重启应用以应用更改。", [
