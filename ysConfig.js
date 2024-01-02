@@ -7,6 +7,10 @@ export class YSConfig {
   areaConfig = true;
   ip = '';
 
+      // y == 成为VIP 
+    // n == 付费购买VIP
+    showBecomeVip = false;
+
   setTabConfig(tabConfig) {
     this.tabConfig = tabConfig;
     this.len = tabConfig.length;
@@ -18,5 +22,9 @@ export class YSConfig {
 
   setNetworkIp(ip) {
     this.ip = ip;
+  }
+
+  setShowBecomeVip(payload) {
+    this.showBecomeVip = payload;
   }
 }
