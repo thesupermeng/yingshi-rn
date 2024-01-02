@@ -622,10 +622,12 @@ export default forwardRef<VideoRef, Props>(
         // ========== for analytics - start ==========
         playsAdsClickAnalytics();
         // ========== for analytics - end ==========
+
+        if (onPressCountdown) onPressCountdown();
         return;
       }
 
-      const url = playerVodAds?.actionUrl.includes('http://') ? playerVodAds?.actionUrl : 'http://' + playerVodAds?.actionUrl
+      const url = playerVodAds?.actionUrl.includes('http') ? playerVodAds?.actionUrl : 'https://' + playerVodAds?.actionUrl
 
       Linking.openURL(url);
 
