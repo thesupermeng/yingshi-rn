@@ -109,7 +109,6 @@ export const AdVideoImage = ({
         >
             <CPressable
                 onPress={() => {
-                    console.log('qweqwewq')
                     onPressFullScreenBtn()
                 }}>
                 {isFullScreen

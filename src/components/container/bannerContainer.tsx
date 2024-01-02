@@ -9,17 +9,17 @@ interface Props {
     bannerUrl: string;
 }
 
-export const BannerContainer = ({bannerImg, bannerUrl}: Props) => {
+export const BannerContainer = ({ bannerImg, bannerUrl }: Props) => {
     const { spacing } = useTheme();
 
     const redirectToAd = async () => {
         try {
-            if (await InAppBrowser.isAvailable()) {
-                console.log('using iapbrowser')
-                await InAppBrowser.open('https://' + bannerUrl);
-            } else {
-                Linking.openURL(bannerUrl);
-            }
+            // if (await InAppBrowser.isAvailable()) {
+            //     console.log('using iapbrowser')
+            //     await InAppBrowser.open('https://' + bannerUrl);
+            // } else {
+            Linking.openURL(bannerUrl);
+            // }
         } catch (e) {
             Linking.openURL(bannerUrl);
         }
@@ -36,7 +36,7 @@ export const BannerContainer = ({bannerImg, bannerUrl}: Props) => {
                 source={{
                     uri: bannerImg,
                 }}
-                style={{ width: "100%", aspectRatio:64/10,  borderRadius: 8,}}
+                style={{ width: "100%", aspectRatio: 64 / 10, borderRadius: 8, }}
                 resizeMode={"contain"}
                 useFastImage={true}
             />
