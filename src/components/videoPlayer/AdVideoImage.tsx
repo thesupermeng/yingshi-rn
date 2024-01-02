@@ -94,11 +94,9 @@ export const AdVideoImage = ({
                     <BackButton btnStyle={styles.backBtn} />
                 </TouchableOpacity>
                 {isShowShare &&
-                    <RectButton
-                        disallowInterruption={true}
-                        onPress={onShare}>
+                    <CPressable onPress={onShare}>
                         <ProjectIcon width={30} height={30} />
-                    </RectButton>
+                    </CPressable>
                 }
             </View>
         </LinearGradient>
@@ -109,14 +107,16 @@ export const AdVideoImage = ({
             end={{ x: 0.5, y: 0.8 }}
             style={styles.bottomBlur}
         >
-            <RectButton
-                disallowInterruption={true}
-                onPress={onPressFullScreenBtn}>
+            <CPressable
+                onPress={() => {
+                    console.log('qweqwewq')
+                    onPressFullScreenBtn()
+                }}>
                 {isFullScreen
                     ? <MinimizeScreen width={30} height={30} />
                     : <FullScreen width={30} height={30} />
                 }
-            </RectButton>
+            </CPressable>
         </LinearGradient>
     </CPressable>
 }
