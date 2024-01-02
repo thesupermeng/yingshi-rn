@@ -79,7 +79,6 @@ interface Props {
   handleSaveVod?: any;
   onReadyForDisplay?: () => void;
   showAds?: boolean,
-  onPressCountdown?: () => void,
 }
 
 type VideoControlsRef = {
@@ -126,7 +125,6 @@ export default forwardRef<VideoRef, Props>(
       handleSaveVod = () => { },
       onReadyForDisplay,
       showAds = false,
-      onPressCountdown,
     }: Props,
     ref
   ) => {
@@ -219,12 +217,8 @@ export default forwardRef<VideoRef, Props>(
         videoPlayerRef.current?.setNativeProps({ paused: pauseVideo });
         adVideoRef.current?.setNativeProps({ paused: pauseVideo });
 
-        if (pauseVideo === true && adCountdownIntervalRef.current) {
+        if (adCountdownIntervalRef.current) {
           clearInterval(adCountdownIntervalRef.current);
-        } else if (pauseVideo === false && showAd) {
-          adCountdownIntervalRef.current = setInterval(() => {
-            setAdCountdownTime(prev => prev - 1);
-          }, 1000)
         }
       },
       isPaused: isPaused,
@@ -622,12 +616,10 @@ export default forwardRef<VideoRef, Props>(
         // ========== for analytics - start ==========
         playsAdsClickAnalytics();
         // ========== for analytics - end ==========
-
-        if (onPressCountdown) onPressCountdown();
         return;
       }
 
-      const url = playerVodAds?.actionUrl.includes('http') ? playerVodAds?.actionUrl : 'https://' + playerVodAds?.actionUrl
+      const url = playerVodAds?.actionUrl.includes('https://') || playerVodAds?.actionUrl.includes('http://') ? playerVodAds?.actionUrl : 'https://' + playerVodAds?.actionUrl
 
       Linking.openURL(url);
 
@@ -651,7 +643,6 @@ export default forwardRef<VideoRef, Props>(
               isFullScreen={isFullScreen}
               isShowShare={false}
               onPressAd={onPressAd}
-              onPressCountdown={onPressCountdown}
               onGoBack={onGoBack}
               onShare={onShare}
               onPressFullScreenBtn={onToggleFullScreen}
