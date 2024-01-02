@@ -622,6 +622,8 @@ export default forwardRef<VideoRef, Props>(
         // ========== for analytics - start ==========
         playsAdsClickAnalytics();
         // ========== for analytics - end ==========
+
+        if (onPressCountdown) onPressCountdown();
         return;
       }
 
