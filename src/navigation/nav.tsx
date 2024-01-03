@@ -313,8 +313,6 @@ export default () => {
   );
   const [gifKey, setGifKey] = useState(0);
 
-  const [isShowLogin, setShowLogin] = useState(false);
-
   useEffect(() => {
     if (screenState.screenShow != false) {
       dispatch(removeScreenAction());
@@ -327,13 +325,9 @@ export default () => {
       }, 3000);
     }
 
-    if (screenState.loginShow == true) {
-      dispatch(hideLoginAction());
-      setShowLogin(true);
-    }
     if (screenState.resetBottomSheet == true) {
       dispatch(resetBottomSheetAction());
-      setShowLogin(false);
+      dispatch(hideLoginAction());
     }
   }, [screenState]);
 
@@ -636,8 +630,10 @@ export default () => {
         {settingsReducer.appOrientation === "PORTRAIT" && ( // only show if portrait
           <>
             <SigninupBottomSheet
-              isVisible={isShowLogin}
-              handleClose={() => setShowLogin(false)}
+              isVisible={screenState.loginShow}
+              handleClose={() => {
+                dispatch(hideLoginAction());
+              }}
             />
           </>
         )}

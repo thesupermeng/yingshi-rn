@@ -15,10 +15,10 @@ import FastImage from '../../common/customFastImage';
 
 import { useAppDispatch, useAppSelector } from '@hooks/hooks';
 import useAnalytics from '@hooks/useAnalytics';
-import { showAdultModeVip } from '@redux/actions/screenAction';
+import { showAdultModeVip, showLoginAction } from '@redux/actions/screenAction';
 import { screenModel } from '@type/screenType';
 import { userModel } from '@type/userType';
-import { ADULT_MODE_PREVIEW_DURATION, MINI_SHOW_VIP_NUMBER } from '@utility/constants';
+import { ADULT_MODE_PREVIEW_DURATION, MINI_SHOW_LOGIN_NUMBER } from '@utility/constants';
 import BecomeVipOverlay from '../../modal/becomeVipOverlay';
 
 interface Props {
@@ -82,7 +82,6 @@ export default forwardRef<MiniVodRef, Props>(
     );
     const userState: userModel = useAppSelector(({ userReducer }) => userReducer);
     const swipeCount = useRef(0);
-    const [isShowVipModel, setShowVipModel] = useState(false);
     const {
       adultModeDisclaimerShow,
       adultModeVipShow,
@@ -195,8 +194,8 @@ export default forwardRef<MiniVodRef, Props>(
     }, [videos]);
 
     useEffect(() => {
-      setPause(isFetching || isRefreshing || !isActive || isScrolling || isShowVipModel);
-    }, [isFetching, isRefreshing, isActive, isScrolling, isShowVipModel]);
+      setPause(isFetching || isRefreshing || !isActive || isScrolling || screenState.loginShow);
+    }, [isFetching, isRefreshing, isActive, isScrolling, screenState.loginShow]);
 
     const refreshComponent = useCallback(() => {
       return (
@@ -287,10 +286,10 @@ export default forwardRef<MiniVodRef, Props>(
     }, []);
 
     useEffect(() => {
-      if ((swipeCount.current + 1) < MINI_SHOW_VIP_NUMBER) {
+      if ((swipeCount.current + 1) < MINI_SHOW_LOGIN_NUMBER) {
         swipeCount.current++;
       } else {
-        setShowVipModel(true);
+        dispatch(showLoginAction());
         swipeCount.current = 0;
       }
     }, [current]);
@@ -343,13 +342,6 @@ export default forwardRef<MiniVodRef, Props>(
             onMomentumScrollEnd={handleOnMomentumScrollEnd}
           />
         )}
-
-        <BecomeVipOverlay
-          setShowBecomeVIPOverlay={setShowVipModel}
-          showBecomeVIPOverlay={isShowVipModel}
-          isJustClose={true}
-          selectedTab='common'
-        />
       </View>
     );
   },
