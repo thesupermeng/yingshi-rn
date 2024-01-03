@@ -235,8 +235,8 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
   }, [screenState.sportWatchTime, showBecomeVIPOverlay])
 
   useFocusEffect(useCallback(() => {
-    videoRef.current?.setPause(false);
-  }, []));
+    if (!showBecomeVIPOverlay) videoRef.current?.setPause(false);
+  }, [showBecomeVIPOverlay]));
 
   const isFullyLoaded = !f1 && !f2 && !f3;
 
