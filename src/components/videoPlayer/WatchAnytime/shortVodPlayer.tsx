@@ -227,6 +227,10 @@ function ShortVideoPlayer({
     if (isPause) {
       iconTimer.current = setTimeout(() => setShowIcon(false), 1000);
     }
+    else
+    {
+      iconTimer.current = setTimeout(() => setShowIcon(false), 1000);
+    }
     onManualPause(isPause);
   };
 
