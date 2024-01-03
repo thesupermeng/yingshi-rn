@@ -31,7 +31,7 @@ export default function RegengOverlay({}: Props) {
   const [isRegengOngoing, setIsRegengOngoing] = useState(false);
   const [regengContent, setRegengContent] = useState("");
 
-  const [downloadProgress, setDownloadProgress] = useState("");
+  const [downloadProgress, setDownloadProgress] = useState("0%");
 
   const [totalDownload, setTotalDownload] = useState("");
 

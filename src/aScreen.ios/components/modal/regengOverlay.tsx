@@ -30,6 +30,10 @@ export default function RegengOverlay({}: Props) {
   const [isRegengOngoing, setIsRegengOngoing] = useState(false);
   const [regengContent, setRegengContent] = useState("");
 
+  const [downloadProgress, setDownloadProgress] = useState("0%");
+
+  const [totalDownload, setTotalDownload] = useState("");
+
   const acceptRegeng = () => {
     setIsRegengOngoing(true);
     CodePush.sync(
@@ -57,7 +61,8 @@ export default function RegengOverlay({}: Props) {
 
           case CodePush.SyncStatus.UPDATE_INSTALLED:
             CodePush.notifyAppReady();
-            CPopup.showToast("安装完成 重启应用以应用更改");
+            CPopup.showToast("安装完成, 重启应用以应用更改");
+
             // 显示提示给用户
             // Alert.alert("更新已安装", "已安装新版本，请重启应用以应用更改。", [
             //   { text: "立即重启", onPress: () => RNRestart.Restart() },
@@ -66,10 +71,18 @@ export default function RegengOverlay({}: Props) {
             break;
 
           case CodePush.SyncStatus.UNKNOWN_ERROR:
-            CPopup.showToast("安装失败");
+            CPopup.showToast("更新失败，请稍后重试");
             setIsCancelledShowRegengOverlay(true);
             break;
         }
+      },
+      ({ receivedBytes, totalBytes }) => {
+        const progress = (receivedBytes / totalBytes) * 100;
+        console.log(`Download progress: ${progress.toFixed(2)}%`);
+        console.log(`Total bundle size: ${totalBytes} bytes`);
+
+        setDownloadProgress(`${progress.toFixed(2)}%`);
+        setTotalDownload(`${totalBytes} bytes`);
       }
     );
   };
@@ -160,22 +173,32 @@ export default function RegengOverlay({}: Props) {
                     }}
                   >
                     {/* <TouchableOpacity
-                                            onPress={() => {
-                                                hideVipPrompt();
-                                                dispatch(showRegisterAction());
-                                            }}
-                                            style={{ paddingTop: 16 }}>
-                                            <Text
-                                                style={{
-                                                    color: colors.text,
-                                                    fontWeight: '600',
-                                                    fontSize: 16,
-                                                }}>
-                                                立即领取
-                                            </Text>
-                                        </TouchableOpacity> */}
+                                              onPress={() => {
+                                                  hideVipPrompt();
+                                                  dispatch(showRegisterAction());
+                                              }}
+                                              style={{ paddingTop: 16 }}>
+                                              <Text
+                                                  style={{
+                                                      color: colors.text,
+                                                      fontWeight: '600',
+                                                      fontSize: 16,
+                                                  }}>
+                                                  立即领取
+                                              </Text>
+                                          </TouchableOpacity> */}
                     <TouchableOpacity
-                      onPress={() => cancelRegeng()}
+                      onPress={() => {
+                        Alert.alert(
+                          "取消更新",
+                          "确定取消更新吗？",
+                          [
+                            { text: "取消", style: "cancel" },
+                            { text: "确定", onPress: () => cancelRegeng() },
+                          ],
+                          { cancelable: false }
+                        );
+                      }}
                       style={{ paddingTop: 0, flex: 1 }}
                     >
                       <Text
@@ -239,8 +262,16 @@ export default function RegengOverlay({}: Props) {
                       fontWeight: "300",
                     }}
                   >
-                    {regengContent}
+                    {regengContent} ({downloadProgress})
                   </Text>
+                  <Text
+                    style={{
+                      color: "white",
+                      paddingTop: 12,
+                      fontSize: 16,
+                      fontWeight: "300",
+                    }}
+                  ></Text>
                   <FastImage
                     source={require("@static/images/videoBufferLoading.gif")}
                     style={{ width: 100, height: 100 }}
