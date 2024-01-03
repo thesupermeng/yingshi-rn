@@ -79,7 +79,7 @@ export const AdVideoImage = ({
                     style={styles.countdownContainer}
                 >
                     <Text style={{ color: 'white' }}>
-                        {countdownTime} s
+                        {countdownTime}s {' '}
                     </Text>
 
                     <Text style={{ color: 'white' }}>
