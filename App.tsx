@@ -300,7 +300,11 @@ let App = () => {
     return response;
   };
 
-  downloadWatchAnytimeSequence();
+
+  useEffect(() => {
+   
+    downloadWatchAnytimeSequence();
+  }, []);
 
   return (
     <View style={{ flex: 1, backgroundColor: "#161616" }}>

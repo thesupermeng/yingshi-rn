@@ -38,10 +38,7 @@ import {
 } from "@redux/actions/screenAction";
 import { userModel } from "@type/userType";
 import NotificationModal from "../../components/modal/notificationModal";
-import {
-  updateUserAuth,
-  updateUserReferral,
-} from "@redux/actions/userAction";
+import { updateUserAuth, updateUserReferral } from "@redux/actions/userAction";
 import ExpiredOverlay from "../../components/modal/expiredOverlay";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { YSConfig } from "../../../../ysConfig";
@@ -194,11 +191,12 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                 flexDirection: "row",
               }}
             >
-              {userState.userToken == "" ?
+              {userState.userToken == "" ? (
                 <ProfileIcon
                   style={{ color: colors.button, width: 18, height: 18 }}
                 />
-                : <FastImage
+              ) : (
+                <FastImage
                   style={{
                     height: 60,
                     width: 60,
@@ -207,7 +205,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                   resizeMode={"contain"}
                   source={require("@static/images/profilePic.png")}
                 />
-              }
+              )}
               <View
                 style={{
                   flexDirection: "column",
@@ -249,11 +247,11 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                       </Text>
                       {userState.userMemberExpired >=
                         userState.userCurrentTimestamp && (
-                          <Image
-                            style={styles.iconStyle}
-                            source={require("@static/images/profile/vip.png")}
-                          />
-                        )}
+                        <Image
+                          style={styles.iconStyle}
+                          source={require("@static/images/profile/vip.png")}
+                        />
+                      )}
                     </View>
 
                     {/* {userState.userMemberExpired == '0' && (
@@ -320,11 +318,16 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                             ...textVariants.body,
                           }}
                         >
-                          {highlightText("付费VIP", "")}
+                          {highlightText(
+                            YSConfig.instance.showBecomeVip
+                              ? "成为VIP"
+                              : "付费VIP",
+                            ""
+                          )}
                         </Text>
 
                         {YSConfig.instance.tabConfig != null &&
-                          YSConfig.instance.len == 5 ? (
+                        YSConfig.instance.len == 5 ? (
                           <Text
                             style={{
                               ...textVariants.small,

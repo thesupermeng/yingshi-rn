@@ -44,6 +44,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { InAppBrowser } from "react-native-inappbrowser-reborn";
 import { VipDialog } from "../../components/vip/vipDialog";
 import { ProductApi, UserApi } from "@api";
+import { YSConfig } from "../../../ysConfig";
 
 export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const {
@@ -65,7 +66,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     membershipProducts[0]
   );
   const [zfOptions, setZfOptions] = useState<zfModel[]>([]);
-  const [zfSelected, setSelectedZf] = useState('');
+  const [zfSelected, setSelectedZf] = useState("");
   const [isOffline, setIsOffline] = useState(false);
   const { colors, textVariants, spacing } = useTheme();
   const userState: userModel = useAppSelector(
@@ -83,11 +84,23 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const scrollRef = useRef<any>();
   const pendingTimeoutRef = useRef<NodeJS.Timeout>();
 
-  const successDialogText = ['付款成功', '你已成为VIP用户'];
-  const failedDialogText = ['付款失败'];
-  const axiosErrorText = ['系统繁忙，请稍后再试']
-  const tryAgainDialogText = ['支付系统正在忙碌，请稍后手动刷新后前往VIP明细检查购买记录，检查前请勿重复支付'];
-  const [dialogText, setDialogText] = useState([''])
+  let successDialogText = ["付款成功", "你已成为VIP用户"];
+  let failedDialogText = ["付款失败"];
+  let axiosErrorText = ["系统繁忙，请稍后再试"];
+  let tryAgainDialogText = [
+    "支付系统正在忙碌，请稍后手动刷新后前往VIP明细检查购买记录，检查前请勿重复支付",
+  ];
+
+  if (YSConfig.instance.showBecomeVip) {
+    successDialogText = ["成功", "你已成为VIP用户"];
+    failedDialogText = ["失败"];
+    axiosErrorText = ["系统繁忙，请稍后再试"];
+    tryAgainDialogText = [
+      "支付系统正在忙碌，请稍后手动刷新后前往VIP明细检查VIP记录，检查前请勿重复支付",
+    ];
+  }
+
+  const [dialogText, setDialogText] = useState([""]);
 
   const headers = {
     Authorization: `Bearer ${userState.userToken}`,
@@ -126,7 +139,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         const offline = !(
           state.isConnected &&
           (state.isInternetReachable === true ||
-            state.isInternetReachable === null
+          state.isInternetReachable === null
             ? true
             : false)
         );
@@ -138,7 +151,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
 
   const fetchData = async () => {
     const data = await ProductApi.getList({
-      productTypeId: IS_IOS ? 'yingshi_4_fang' : undefined,
+      productTypeId: IS_IOS ? "yingshi_4_fang" : undefined,
     });
     let products: Array<membershipModel>;
     if (data) {
@@ -178,11 +191,10 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
 
   useEffect(() => {
     if (membershipSelected) {
-      console.log(membershipSelected)
+      console.log(membershipSelected);
       setZfOptions(membershipSelected.zfOptions);
-      setSelectedZf(membershipSelected.zfOptions[0].payment_type_code)
+      setSelectedZf(membershipSelected.zfOptions[0].payment_type_code);
     }
-
   }, [membershipSelected]);
 
   const handlePurchase = async () => {
@@ -244,16 +256,16 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
 
       openLink(result.paymentData, result.transaction_id);
     } catch (error) {
-      console.log('error catch: ', error);
+      console.log("error catch: ", error);
       setDialogText(axiosErrorText);
       setIsDialogOpen(true);
-    };
+    }
   };
 
-  const getDeepLink = (path = '') => {
-    const scheme = 'yingshiapp';
+  const getDeepLink = (path = "") => {
+    const scheme = "yingshiapp";
     const prefix =
-      Platform.OS === 'android' ? `${scheme}://yingshi/` : `${scheme}://`;
+      Platform.OS === "android" ? `${scheme}://yingshi/` : `${scheme}://`;
     return prefix + path;
   };
 
@@ -264,11 +276,11 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
       if (await InAppBrowser.isAvailable()) {
         InAppBrowser.openAuth(url, redirectUrl, {
           // IOS properties
-          dismissButtonStyle: 'cancel',
+          dismissButtonStyle: "cancel",
           readerMode: false,
           animated: true,
-          modalPresentationStyle: 'fullScreen',
-          modalTransitionStyle: 'coverVertical',
+          modalPresentationStyle: "fullScreen",
+          modalTransitionStyle: "coverVertical",
           modalEnabled: true,
           enableBarCollapsing: false,
           // Android properties
@@ -277,17 +289,17 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
           enableDefaultShare: false,
           forceCloseOnRedirection: false,
           animations: {
-            startEnter: 'slide_in_left',
-            startExit: 'slide_out_right',
-            endEnter: 'slide_in_left',
-            endExit: 'slide_out_right',
+            startEnter: "slide_in_left",
+            startExit: "slide_out_right",
+            endEnter: "slide_in_left",
+            endExit: "slide_out_right",
           },
           hasBackButton: true,
           browserPackage: undefined,
           showInRecents: true,
           includeReferrer: true,
         }).then((response) => {
-          console.log('response: ', JSON.stringify(response));
+          console.log("response: ", JSON.stringify(response));
           if (response.type === "success" && response.url) {
             Linking.openURL(response.url);
             pendingTimeoutRef.current = setTimeout(() => {
@@ -299,13 +311,13 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
             setIsVisible(false);
             setIsBtnEnable(true);
           }
-        })
+        });
       } else {
-        console.log('in app browser not supported');
+        console.log("in app browser not supported");
         Linking.openURL(url);
       }
     } catch (error) {
-      console.log('error when open link: ', error)
+      console.log("error when open link: ", error);
     }
   };
 
@@ -313,19 +325,19 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     const result = await ProductApi.getFinzfTransaction({
       transactionId: transID,
     });
-    console.log('order status: ', result);
+    console.log("order status: ", result);
 
-    if (result.transaction_status_string === 'COMPLETED') {
+    if (result.transaction_status_string === "COMPLETED") {
       setIsSuccess(true);
       setDialogText(successDialogText);
       setIsDialogOpen(true);
       clearTimeout(pendingTimeoutRef.current);
-    } else if (result.transaction_status_string === 'FAILED') {
+    } else if (result.transaction_status_string === "FAILED") {
       setDialogText(failedDialogText);
       setIsDialogOpen(true);
       clearTimeout(pendingTimeoutRef.current);
     } else {
-      console.log('order still in progress');
+      console.log("order still in progress");
     }
   };
 
@@ -334,7 +346,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
       user_id: userState.userId,
       product_id: membershipSelected?.productId,
       transaction_type: "SUBSCRIBE_VIP",
-      zf_channel: zfSelected.toUpperCase().replace(/ /g, '_'),
+      zf_channel: zfSelected.toUpperCase().replace(/ /g, "_"),
       platform: APP_NAME_CONST + "-" + Platform.OS.toUpperCase(),
       channel_transaction_id: currentPurchase?.transactionId,
       transaction_receipt: currentPurchase
@@ -469,7 +481,10 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
 
               setReceiptBuffer((prev) => {
                 const receipt = new Map(prev);
-                receipt.set(currentPurchase.transactionId?.concat(success), success);
+                receipt.set(
+                  currentPurchase.transactionId?.concat(success),
+                  success
+                );
                 return receipt;
               });
 
@@ -478,7 +493,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                   purchase: currentPurchase,
                   isConsumable: true,
                 });
-                setDialogText(successDialogText)
+                setDialogText(successDialogText);
                 setIsDialogOpen(true);
                 setIsSuccess(true);
               } else {
@@ -486,7 +501,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                   purchase: currentPurchase,
                   isConsumable: true,
                 });
-                setDialogText(failedDialogText)
+                setDialogText(failedDialogText);
                 setIsDialogOpen(true);
                 setIsSuccess(false);
               }
@@ -551,7 +566,8 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
           </>
         }
       >
-        <VipDialog isDialogOpen={isDialogOpen}
+        <VipDialog
+          isDialogOpen={isDialogOpen}
           isOffline={isOffline}
           isSuccess={isSuccess}
           handleConfirm={handleConfirm}
@@ -578,7 +594,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                   // padding: 8,
                   opacity:
                     userState.userPaidVipList.total_purchased_days > 0 ||
-                      userState.userAccumulateRewardDay > 0
+                    userState.userAccumulateRewardDay > 0
                       ? 100
                       : 0,
                 }}
@@ -587,7 +603,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
               </Text>
             </TouchableOpacity>
           }
-        // headerStyle={{ marginBottom: spacing.m }}
+          // headerStyle={{ marginBottom: spacing.m }}
         />
 
         {isOffline && (

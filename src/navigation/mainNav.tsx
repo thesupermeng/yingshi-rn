@@ -24,18 +24,13 @@ import { downloadFirstNVid } from "../utils/minivodDownloader";
 import { fetchMiniVods } from "../api/miniVod";
 import { AppsApi } from "@api";
 
-
 export default () => {
   const [loadedAPI, setLoadedAPI] = useState(false);
   const [areaNavConfig, setAreaNavConfig] = useState(false);
   const [isSuper, setIsSuper] = useState(false);
 
   const onAppInit = async () => {
-
-    await Promise.all([
-      AppsApi.getLocalIpAddress(),
-      AppsApi.getBottomNav(),
-    ]);
+    await Promise.all([AppsApi.getLocalIpAddress(), AppsApi.getBottomNav()]);
 
     const res = await Api.call(
       Url.getConfig,
@@ -44,19 +39,6 @@ export default () => {
     );
     if (res.success) {
       AppConfig.instance.setConfig(res.data);
-    }
-
-    const access = await AsyncStorage.getItem("access");
-    if (access == "11111111") {
-      setIsSuper(true);
-      return;
-    }
-    if (access == "22222222") {
-      setIsSuper(false);
-      YSConfig.instance.setAreaConfig(false);
-      setAreaNavConfig(false);
-      setLoadedAPI(true);
-      return;
     }
 
     try {
@@ -72,21 +54,41 @@ export default () => {
           setAreaNavConfig(locationResp.status);
           setLoadedAPI(true);
         }
+
+        // y == 成为VIP
+        // n == 付费购买VIP
+        if (locationResp.is_become_vip == "y") {
+          // sdfgh gh sdfghj
+          YSConfig.instance.setShowBecomeVip(true);
+        }
       } else {
         YSConfig.instance.setAreaConfig(false);
         setAreaNavConfig(false);
         setLoadedAPI(true);
       }
-
-    } catch (e: any) {
+    } catch (e) {
       YSConfig.instance.setAreaConfig(false);
       setAreaNavConfig(false);
       setLoadedAPI(true);
     }
-  }
+
+    //check super (profile click)
+    const access = await AsyncStorage.getItem("access");
+    if (access == "11111111") {
+      setIsSuper(true);
+      return;
+    }
+    if (access == "22222222") {
+      setIsSuper(false);
+      YSConfig.instance.setAreaConfig(false);
+      setAreaNavConfig(false);
+      setLoadedAPI(true);
+      return;
+    }
+  };
 
   useEffect(() => {
-    console.log('onAppInit')
+    console.log("onAppInit");
     onAppInit();
 
     GoogleSignin.configure({
@@ -96,21 +98,20 @@ export default () => {
     });
   }, []);
 
-  const { data } = useInfiniteQuery(['watchAnytime', 'normal'], {
-    queryFn: ({ pageParam = 1 }) => fetchMiniVods(pageParam, 'api')
-  })
+  const { data } = useInfiniteQuery(["watchAnytime", "normal"], {
+    queryFn: ({ pageParam = 1 }) => fetchMiniVods(pageParam, "api"),
+  });
 
   useEffect(() => {
     if (DOWNLOAD_WATCH_ANYTIME === true) {
-
       if (!!data) {
-        const firstNVod = data.pages.flat(Infinity).slice(0, TOTAL_VIDEO_TO_DOWNLOAD)
-        downloadFirstNVid(TOTAL_VIDEO_TO_DOWNLOAD, firstNVod)
-
+        const firstNVod = data.pages
+          .flat(Infinity)
+          .slice(0, TOTAL_VIDEO_TO_DOWNLOAD);
+        downloadFirstNVid(TOTAL_VIDEO_TO_DOWNLOAD, firstNVod);
       }
-
     }
-  }, [data])
+  }, [data]);
 
   return (
     <>
@@ -118,7 +119,6 @@ export default () => {
         <AdsBannerContextProvider>
           <Nav />
         </AdsBannerContextProvider>
-
       ) : (
         <>
           {loadedAPI == false ? (
@@ -151,10 +151,7 @@ export default () => {
                   <Nav />
                 </AdsBannerContextProvider>
               ) : (
-                <>
-                  {Platform.OS === "ios" && <NavIos />}
-                
-                </>
+                <>{Platform.OS === "ios" && <NavIos />}</>
               )}
             </>
           )}

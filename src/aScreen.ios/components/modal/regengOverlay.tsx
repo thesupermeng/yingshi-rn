@@ -13,7 +13,7 @@ import { useAppDispatch } from "@hooks/hooks";
 // import FastImage from 'react-native-fast-image';
 import FastImage from "../common/customFastImage";
 import CodePush from "react-native-code-push";
-import { showToast } from "../../Sports/utility/toast";
+import { CPopup } from "@utility/popup";
 import { TermsAcceptContext } from "../../../contexts/TermsAcceptedContext";
 import RNRestart from "react-native-restart";
 interface Props {}
@@ -23,17 +23,12 @@ export default function RegengOverlay({}: Props) {
 
   const { colors, textVariants, spacing, icons } = useTheme();
 
-
   const [
     isCancelledShowRegengOverlay,
     setIsCancelledShowRegengOverlay,
   ] = useState(false);
   const [isRegengOngoing, setIsRegengOngoing] = useState(false);
   const [regengContent, setRegengContent] = useState("");
-
-  const [downloadProgress, setDownloadProgress] = useState("");
-
-  const [totalDownload, setTotalDownload] = useState("");
 
   const acceptRegeng = () => {
     setIsRegengOngoing(true);
@@ -62,8 +57,7 @@ export default function RegengOverlay({}: Props) {
 
           case CodePush.SyncStatus.UPDATE_INSTALLED:
             CodePush.notifyAppReady();
-            showToast("安装完成, 重启应用以应用更改");
-
+            CPopup.showToast("安装完成 重启应用以应用更改");
             // 显示提示给用户
             // Alert.alert("更新已安装", "已安装新版本，请重启应用以应用更改。", [
             //   { text: "立即重启", onPress: () => RNRestart.Restart() },
@@ -72,18 +66,10 @@ export default function RegengOverlay({}: Props) {
             break;
 
           case CodePush.SyncStatus.UNKNOWN_ERROR:
-            showToast("更新失败，请稍后重试");
+            CPopup.showToast("安装失败");
             setIsCancelledShowRegengOverlay(true);
             break;
         }
-      },
-      ({ receivedBytes, totalBytes }) => {
-        const progress = (receivedBytes / totalBytes) * 100;
-        console.log(`Download progress: ${progress.toFixed(2)}%`);
-        console.log(`Total bundle size: ${totalBytes} bytes`);
-
-        setDownloadProgress(`${progress.toFixed(2)}%`);
-        setTotalDownload(`${totalBytes} bytes`);
       }
     );
   };
@@ -189,17 +175,7 @@ export default function RegengOverlay({}: Props) {
                                             </Text>
                                         </TouchableOpacity> */}
                     <TouchableOpacity
-                      onPress={() => {
-                        Alert.alert(
-                            "取消更新",
-                            "确定取消更新吗？",
-                            [
-                              { text: "取消", style: "cancel" },
-                              { text: "确定", onPress: () => cancelRegeng() },
-                            ],
-                            { cancelable: false }
-                          );
-                      }}
+                      onPress={() => cancelRegeng()}
                       style={{ paddingTop: 0, flex: 1 }}
                     >
                       <Text
@@ -263,16 +239,7 @@ export default function RegengOverlay({}: Props) {
                       fontWeight: "300",
                     }}
                   >
-                    {regengContent} ({downloadProgress})
-                  </Text>
-                  <Text
-                    style={{
-                      color: "white",
-                      paddingTop: 12,
-                      fontSize: 16,
-                      fontWeight: "300",
-                    }}
-                  >
+                    {regengContent}
                   </Text>
                   <FastImage
                     source={require("@static/images/videoBufferLoading.gif")}

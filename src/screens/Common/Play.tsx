@@ -89,6 +89,7 @@ import { VodDescription } from "../../components/videoPlayer/Play/vodDescription
 import { BannerContainer } from "../../components/container/bannerContainer";
 import { CApi } from "@utility/apiService";
 import { CEndpoint } from "@constants";
+import BecomeVipOverlay from "../../components/modal/becomeVipOverlay";
 
 let insetsTop = 0;
 let insetsBottom = 0;
@@ -246,7 +247,8 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const screenState: screenModel = useAppSelector(
     ({ screenReducer }) => screenReducer
   )
-  const adultMode = route.params.player_mode === 'adult' ? true : false
+  const adultMode = route.params.player_mode === 'adult' ? true : false;
+  const [isShowAdOverlay, setShowAdOverlay] = useState(false);
 
   useEffect(() => {
     if (route.params.player_mode === 'adult') {
@@ -566,7 +568,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     if (!isVip) {
       fetchBannerAd();
     }
-  },[]);
+  }, []);
 
   useEffect(() => {
     if (vod !== undefined && vod !== null && vodDetails !== undefined && !adultMode) {
@@ -889,6 +891,16 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     }
   }, [vodUri]);
 
+  const onPressCountdown = () => {
+    setShowAdOverlay(true);
+    videoPlayerRef.current?.setPause(true);
+  }
+
+  const onCloseAdOverlay = () => {
+    setShowAdOverlay(false);
+    videoPlayerRef.current?.setPause(false);
+  }
+
   return (
     <>
       <ScreenContainer
@@ -949,6 +961,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
             // setNavBarOptions={setNavBarOptions}
             onReadyForDisplay={onReadyForDisplay}
             showAds={true}
+            onPressCountdown={onPressCountdown}
           />
         )}
         {isOffline && dismountPlayer && (
@@ -978,7 +991,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
             {adultMode && <VipRegisterBar />}
 
             {bannerAd && (
-              <View style ={{
+              <View style={{
                 paddingLeft: spacing.sideOffset,
                 paddingRight: spacing.sideOffset,
                 paddingVertical: 5
@@ -1091,24 +1104,24 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                           .replace(/\//g, "-")
                         }`}
                     </Text>
-                   {!(adultMode) && <TouchableOpacity
-                    onPress={() => setShowDescription(true)}
+                    {!(adultMode) && <TouchableOpacity
+                      onPress={() => setShowDescription(true)}
                     >
                       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                      <Text
-                        style={{
-                        ...textVariants.subBody,
-                        color: "#FAC33D",
-                        }}>
+                        <Text
+                          style={{
+                            ...textVariants.subBody,
+                            color: "#FAC33D",
+                          }}>
                           更多详情
-                          </Text>
-                    <MoreArrow
-                    width={icons.sizes.s}
-                    height={icons.sizes.s}
-                    color= "#FAC33D"
-                  />
-                  </View>
-                  </TouchableOpacity>}
+                        </Text>
+                        <MoreArrow
+                          width={icons.sizes.s}
+                          height={icons.sizes.s}
+                          color="#FAC33D"
+                        />
+                      </View>
+                    </TouchableOpacity>}
                     {!(adultMode) && <TouchableOpacity onPress={onShare}>
                       <View style={{ ...styles.share, gap: 10 }}>
                         <Text
@@ -1139,8 +1152,8 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                       setIsCollapsed(!isCollapsed);
                     }}
                   > */}
-                    {/* <View style={{ paddingBottom: 18 }}> */}
-                    {/* <View style={{ paddingBottom: 5 }}>
+                {/* <View style={{ paddingBottom: 18 }}> */}
+                {/* <View style={{ paddingBottom: 5 }}>
                       {isCollapsed ? (
                         <Text />
                       ) : (
@@ -1408,7 +1421,15 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
         vod_writer={vod?.vod_author}
         vod_director={vod?.vod_director}
         vod_content={vodDetails?.vod_content}
-        />
+      />
+
+      <BecomeVipOverlay
+        setShowBecomeVIPOverlay={setShowAdOverlay}
+        showBecomeVIPOverlay={isShowAdOverlay}
+        isJustClose={true}
+        selectedTab='common'
+        onClose={onCloseAdOverlay}
+      />
     </>
   );
 };

@@ -108,10 +108,10 @@ const prefetchAdultMiniVod = async (queryClient: QueryClient) => {
     ["watchAnytime", "adult", false],
     ({ pageParam = 1 }) => fetchAdultVods(pageParam, false)
   );
-  queryClient.prefetchInfiniteQuery(
-    ["watchAnytime", "adult", true],
-    ({ pageParam = 1 }) => fetchAdultVods(pageParam, true)
-  );
+  // queryClient.prefetchInfiniteQuery(
+  //   ["watchAnytime", "adult", true],
+  //   ({ pageParam = 1 }) => fetchAdultVods(pageParam, true)
+  // );
 
   // console.info('done prefetch adult minivod')
 };

@@ -125,6 +125,8 @@ export const DOWNLOAD_BATCH_SIZE = 5;
 export const TOTAL_VIDEO_TO_DOWNLOAD = 300;
 // export const CACHE_DURATION = 3; //days
 
+export const MINI_SHOW_LOGIN_NUMBER = 20;
+
 export const AD_VIDEO_SECONDS = 10;
 
 export const GOOGLE_SINGIN_CLIENT_WEB = '699123886701-lg76r3gei261u8lip8jp7qjlt49hqkf7.apps.googleusercontent.com';

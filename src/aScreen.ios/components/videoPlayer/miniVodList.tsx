@@ -8,7 +8,9 @@ import { StyleSheet } from 'react-native';
 import useAnalytics from '@hooks/useAnalytics';
 import { userModel } from '@type/userType';
 import { RootState } from '@redux/store';
-import { useAppSelector } from '@hooks/hooks';
+import { useAppDispatch, useAppSelector } from '@hooks/hooks';
+import { MINI_SHOW_LOGIN_NUMBER } from '@utility/constants';
+import { showLoginAction } from '@redux/actions/screenAction';
 
 interface Props {
     miniVodListRef: any,
@@ -65,6 +67,9 @@ export default forwardRef<MiniVodRef, Props>(
         // for analytics used
         const [preTolVideoViews, setPreTolVideoViews] = useState(0); // previous
         const [curTolVideoViews, setCurTolVideoViews] = useState(1); // current
+
+        const swipeCount = useRef(0);
+        const dispatch = useAppDispatch();
 
         const userState: userModel = useAppSelector(
             ({ userReducer }: RootState) => userReducer
@@ -171,6 +176,15 @@ export default forwardRef<MiniVodRef, Props>(
                 )}
             </View>
         ), [current, isPause, isScrolling, inCollectionView, displayHeight, videoCurrentDurations]);
+
+        useEffect(() => {
+            if ((swipeCount.current + 1) < MINI_SHOW_LOGIN_NUMBER) {
+                swipeCount.current++;
+            } else {
+                dispatch(showLoginAction());
+                swipeCount.current = 0;
+            }
+        }, [current]);
 
         return (
             <View style={{ flex: 1 }} onLayout={(event: any) => {

@@ -23,16 +23,15 @@ export class AppsApi {
             if (result.data && result.data.IPv4) {
                 ipAddress = result.data.IPv4;
             }
-
             return result.data;
 
         } catch (e: any) {
-
             console.error(`[Error ${this.name}]: ${e.toString()}`);
-            throw e;
-        } finally {
             YSConfig.instance.setNetworkIp(ipAddress);
-        }
+        } 
+        // finally {
+        //     YSConfig.instance.setNetworkIp(ipAddress);
+        // }
     };
 
     static getBottomNav = async () => {

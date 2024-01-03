@@ -82,11 +82,11 @@ export default (props: any) => {
       setUsernameErrMsg("昵称必须介于2-18个字");
       return false;
     }
+
   }
 
   const updateUsernameHandler = async (isJump = false) => {
     if (usernameErrMsg !== null && !isJump) return;
-
 
     let res: any;
     try {
@@ -104,6 +104,7 @@ export default (props: any) => {
       if (!err.errors && err.message) {
         setUsernameErrMsg(err.message);
       }
+
 
       return;
     }

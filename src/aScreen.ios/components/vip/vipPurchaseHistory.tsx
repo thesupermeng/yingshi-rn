@@ -6,12 +6,13 @@ import { ScrollView } from "react-native-gesture-handler";
 import { userModel } from "@type/userType";
 import { useEffect, useState } from "react";
 import { vipHistoryResponseType } from "@type/membershipType";
+import { YSConfig } from "../../../../ysConfig";
 
 interface Props {
   userState: userModel;
 }
 
-export const VipPurchaseHistory = ( {userState,}: Props ) => {
+export const VipPurchaseHistory = ({ userState }: Props) => {
   const { textVariants, colors } = useTheme();
   const [purchaseList, setPurchaseList] = useState([]);
 
@@ -19,41 +20,53 @@ export const VipPurchaseHistory = ( {userState,}: Props ) => {
     const historyData = userState.userPaidVipList.history;
     let historyList;
     let displayText;
-    if(historyData){
+    if (historyData) {
       historyList = historyData.map((history: any) => {
-        displayText = '购买成功' + history.product_name + 'VIP (¥ ' + history.product_price + ')'
+        displayText =
+          "购买成功" +
+          history.product_name +
+          "VIP (¥ " +
+          history.product_price +
+          ")";
         return {
           displayText: displayText,
           createdDate: history.start_date,
           vipDays: history.num_days,
         };
       });
-      console.log('historyList');
+      console.log("historyList");
       console.log(historyList);
       setPurchaseList(historyList);
     }
-  },[]);
-  
+  }, []);
+
   return (
     <>
-      {purchaseList.length > 0  ? 
+      {purchaseList.length > 0 ? (
         <ScrollView
-          style={{ 
+          style={{
             marginHorizontal: 5,
             marginBottom: 20,
             borderRadius: 15,
             flexGrow: 0,
-            overflow: 'hidden',
+            overflow: "hidden",
           }}
-          contentContainerStyle={{borderRadius: 15, overflow: 'hidden'}}
+          contentContainerStyle={{ borderRadius: 15, overflow: "hidden" }}
           showsVerticalScrollIndicator={false}
         >
           {purchaseList.map((item, index) => {
-            return <VipHistoryCard key={index} historyItem={item}/>
+            return <VipHistoryCard key={index} historyItem={item} />;
           })}
-        </ScrollView> :
-        <EmptyList description="暂无购买记录" />
-      }
+        </ScrollView>
+      ) : (
+        <>
+          {YSConfig.instance.showBecomeVip ? (
+            <EmptyList description="暂无购买记录" />
+          ) : (
+            <EmptyList description="暂无VIP记录" />
+          )}
+        </>
+      )}
     </>
-  )
-}
+  );
+};

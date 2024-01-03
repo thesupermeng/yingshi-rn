@@ -1,4 +1,4 @@
-import { useIsFocused, useTheme } from "@react-navigation/native";
+import { useTheme } from "@react-navigation/native";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import LinearGradient from "react-native-linear-gradient";
 import Video from "react-native-video"
@@ -20,6 +20,7 @@ type Props = {
     isFullScreen: boolean,
     isShowShare: boolean,
     onPressAd: () => void,
+    onPressCountdown?: () => void,
     onGoBack: () => void,
     onShare: () => void,
     onPressFullScreenBtn: () => void,
@@ -33,6 +34,7 @@ export const AdVideoImage = ({
     isFullScreen,
     isShowShare,
     onPressAd,
+    onPressCountdown,
     onGoBack,
     onShare,
     onPressFullScreenBtn,
@@ -57,69 +59,75 @@ export const AdVideoImage = ({
                 }}
                 resizeMode="contain"
                 style={styles.video}
+                playWhenInactive={true}
             />
         }
 
-
-        <View style={styles.countdownContainer} >
-            <Text style={{ color: colors.primary }}>
-                {countdownTime} 秒
-            </Text>
-
-            <Text style={{ color: 'white' }}>
-                后关闭广告
-            </Text>
-
-            <View style={styles.verticalLine} />
-
-            <Text style={{ color: 'white' }}>
-                会员去广告 》
-            </Text>
-        </View>
-
-        <LinearGradient
+        {/* <LinearGradient
             colors={['transparent', 'black']}
             start={{ x: 0.5, y: 0.8 }}
-            end={{ x: 0.5, y: 0 }}
+            end={{ x: 0.5, y: 0 }} */}
+        <View
             style={styles.topBlur}
         >
             <View style={{ ...styles.videoHeader, marginRight: isFullScreen ? 20 : 0 }}>
                 <TouchableOpacity onPress={() => onGoBack()} style={{ flexDirection: 'row', alignItems: 'center', flexShrink: 1, paddingRight: 10, }}>
                     <BackButton btnStyle={styles.backBtn} />
                 </TouchableOpacity>
-                {isShowShare &&
-                    <RectButton
-                        disallowInterruption={true}
-                        onPress={onShare}>
-                        <ProjectIcon width={30} height={30} />
-                    </RectButton>
-                }
-            </View>
-        </LinearGradient>
 
-        <LinearGradient
+                <CPressable
+                    onPress={onPressCountdown}
+                    style={styles.countdownContainer}
+                >
+                    <Text style={{ color: 'white' }}>
+                        {countdownTime}s {' '}
+                    </Text>
+
+                    <Text style={{ color: 'white' }}>
+                        后关闭广告
+                    </Text>
+
+                    <View style={styles.verticalLine} />
+
+                    <Text style={{ color: colors.primary }}>
+                        VIP跳广告 》
+                    </Text>
+                </CPressable>
+                {/* {isShowShare &&
+                    <CPressable onPress={onShare}>
+                        <ProjectIcon width={30} height={30} />
+                    </CPressable>
+                } */}
+            </View>
+            {/* </LinearGradient> */}
+        </View>
+
+        {/* <LinearGradient
             colors={['transparent', 'black']}
             start={{ x: 0.5, y: 0 }}
-            end={{ x: 0.5, y: 0.8 }}
+            end={{ x: 0.5, y: 0.8 }} */}
+        <View
             style={styles.bottomBlur}
         >
-            <RectButton
-                disallowInterruption={true}
-                onPress={onPressFullScreenBtn}>
+            <CPressable
+                onPress={() => {
+                    onPressFullScreenBtn()
+                }}>
                 {isFullScreen
                     ? <MinimizeScreen width={30} height={30} />
                     : <FullScreen width={30} height={30} />
                 }
-            </RectButton>
-        </LinearGradient>
+            </CPressable>
+            {/* </LinearGradient> */}
+        </View>
     </CPressable>
 }
 
 const styles = StyleSheet.create({
     countdownContainer: {
-        position: 'absolute',
-        right: 0,
-        top: 50,
+        // position: 'absolute',
+        // right: 0,
+        // top: 20,
         zIndex: 999,
         backgroundColor: '#00000055',
         flexDirection: 'row',
@@ -130,7 +138,7 @@ const styles = StyleSheet.create({
         height: '100%',
         width: 2,
         borderRadius: 8,
-        backgroundColor: '#00000044',
+        backgroundColor: '#ffffff66',
         marginHorizontal: 4,
     },
     video: {

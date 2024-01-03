@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { VipPurchaseHistory } from "./vipPurchaseHistory";
 import { VipInviteHistory } from "./vipInviteHistory";
 import { SHOW_ZF_CONST } from "@utility/constants";
+import { YSConfig } from "../../../ysConfig";
 
 export const VipDetails = ({
   route,
@@ -19,7 +20,7 @@ export const VipDetails = ({
 
   let navOptions = [
     { id: 0, name: "邀请记录" },
-    { id: 1, name: "购买记录" },
+    { id: 1, name:  YSConfig.instance.showBecomeVip ? "VIP记录" : "购买记录" },
   ];
   if (SHOW_ZF_CONST == false) {
     navOptions = [{ id: 0, name: "邀请记录" }];
@@ -83,7 +84,7 @@ export const VipDetails = ({
         }))}
         tabChildren={(tab) => (
           <>
-            {tab.name === "购买记录" ? (
+            {tab.id === 1 ? (
               <VipPurchaseHistory userState={userState} />
             ) : (
               <VipInviteHistory userState={userState} />

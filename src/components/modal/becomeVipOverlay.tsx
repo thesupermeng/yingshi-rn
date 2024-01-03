@@ -11,11 +11,15 @@ import {
 import FastImage from 'react-native-fast-image';
 import useAnalytics from '@hooks/useAnalytics';
 import { SHOW_ZF_CONST } from '@utility/constants';
+import { AdultVipPrivilegeOverlay } from './adultVipPrivilegeOverlay';
+import { SportVipPrivilegeOverlay } from './sportVipPrivilegeOverlay';
+import { CommonVipPrivilegeOverlay } from './commonVipPrivilegeOverlay';
 
 interface Props {
   showBecomeVIPOverlay: boolean;
   setShowBecomeVIPOverlay: any;
-  isJustClose: boolean,
+  isJustClose: boolean;
+  selectedTab: 'sport' | 'xvod' | 'common',
   onClose?: () => void,
 }
 
@@ -23,6 +27,7 @@ export default function ExpiredOverlay({
   showBecomeVIPOverlay = false,
   setShowBecomeVIPOverlay,
   isJustClose,
+  selectedTab,
   onClose,
 }: Props) {
   const navigator = useNavigation();
@@ -36,6 +41,40 @@ export default function ExpiredOverlay({
   const { colors, textVariants, spacing, icons } = useTheme();
   const { sportDetailsVipPopupClicksAnalytics } = useAnalytics();
 
+
+  const renderOverlay = () => {
+    if (selectedTab === 'xvod') {
+      return (
+        <AdultVipPrivilegeOverlay
+          showCondition={showBecomeVIPOverlay}
+          onClose={() => {
+            if (onClose) onClose();
+            setShowBecomeVIPOverlay(false);
+          }}
+        />
+      );
+    } else if (selectedTab === 'sport') {
+      return (
+        <SportVipPrivilegeOverlay
+          showCondition={showBecomeVIPOverlay}
+          onClose={() => {
+            if (onClose) onClose();
+            setShowBecomeVIPOverlay(false);
+          }}
+        />
+      );
+    } else if (selectedTab === 'common') {
+      return <CommonVipPrivilegeOverlay
+        showCondition={showBecomeVIPOverlay}
+        onClose={() => {
+          if (onClose) onClose();
+          setShowBecomeVIPOverlay(false);
+        }}
+      />
+    }
+  };
+
+
   return (
     <>
       {showBecomeVIPOverlay && (
@@ -43,108 +82,11 @@ export default function ExpiredOverlay({
           style={{
             height: '100%',
             width: '100%',
-            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+            // backgroundColor: 'rgba(0, 0, 0, 0.8)',
             position: 'absolute',
             zIndex: 1000,
           }}>
-          <VipModal>
-            <View
-              style={{
-                backgroundColor: 'rgba(34, 34, 34, 0.9)',
-                marginTop: 40,
-                borderRadius: 12,
-                paddingTop: 36,
-                paddingBottom: 26,
-                paddingHorizontal: 28,
-              }}>
-              <TouchableOpacity
-                onPress={() => {
-                  if (onClose) onClose();
-                  setShowBecomeVIPOverlay(false);
-                  if (!isJustClose && route.name === '体育详情') {
-                    navigator.goBack();
-                  }
-                }}>
-                <FastImage
-                  source={require('../../Sports/assets/images/close.png')}
-                  style={styles.closeBtnContainer}
-                  resizeMode={FastImage.resizeMode.cover}
-                />
-              </TouchableOpacity>
-              <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                <Text
-                  style={{
-                    fontSize: 20,
-                    fontWeight: '500',
-                    color: '#E2820E',
-                    paddingTop: 20,
-                    paddingVertical: 12,
-                  }}>
-                  VIP升级权益
-                </Text>
-                <Text
-                  style={{
-                    color: 'white',
-                    padding: 2,
-                    fontSize: 16,
-                    fontWeight: '300',
-                  }}>
-                  立即升级VIP，无广告观影
-                </Text>
-                <Text
-                  style={{
-                    color: 'white',
-                    padding: 2,
-                    fontSize: 16,
-                    fontWeight: '300',
-                  }}>
-                  畅享体育赛事直播及午夜视频
-                </Text>
-                <View style={styles.btnContainer}>
-                  {SHOW_ZF_CONST &&
-                    <TouchableOpacity
-                      onPress={() => {
-                        setShowBecomeVIPOverlay(false);
-                        navigator.navigate('付费VIP');
-
-                        // ========== for analytics - start ==========
-                        sportDetailsVipPopupClicksAnalytics('pay');
-                        // ========== for analytics - end ==========
-                      }}
-                      style={styles.btn}>
-                      <Text
-                        style={{
-                          color: '#000',
-                          fontWeight: '600',
-                          fontSize: 16,
-                        }}>
-                        购买VIP
-                      </Text>
-                    </TouchableOpacity>
-                  }
-                  <TouchableOpacity
-                    onPress={() => {
-                      setShowBecomeVIPOverlay(false);
-                      navigator.navigate('邀请');
-
-                      // ========== for analytics - start ==========
-                      sportDetailsVipPopupClicksAnalytics('invite');
-                      // ========== for analytics - end ==========
-                    }}
-                    style={styles.btn}>
-                    <Text
-                      style={{
-                        color: '#000',
-                        fontWeight: '600',
-                        fontSize: 16,
-                      }}>
-                      邀请好友
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </View>
-          </VipModal>
+          {renderOverlay()}
         </View>
       )}
     </>
