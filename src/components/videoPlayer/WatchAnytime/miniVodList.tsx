@@ -18,7 +18,8 @@ import useAnalytics from '@hooks/useAnalytics';
 import { showAdultModeVip } from '@redux/actions/screenAction';
 import { screenModel } from '@type/screenType';
 import { userModel } from '@type/userType';
-import { ADULT_MODE_PREVIEW_DURATION } from '@utility/constants';
+import { ADULT_MODE_PREVIEW_DURATION, MINI_SHOW_VIP_NUMBER } from '@utility/constants';
+import BecomeVipOverlay from '../../modal/becomeVipOverlay';
 
 interface Props {
   miniVodListRef: any;
@@ -80,7 +81,8 @@ export default forwardRef<MiniVodRef, Props>(
       ({ screenReducer }) => screenReducer,
     );
     const userState: userModel = useAppSelector(({ userReducer }) => userReducer);
-
+    const swipeCount = useRef(0);
+    const [isShowVipModel, setShowVipModel] = useState(false);
     const {
       adultModeDisclaimerShow,
       adultModeVipShow,
@@ -193,8 +195,8 @@ export default forwardRef<MiniVodRef, Props>(
     }, [videos]);
 
     useEffect(() => {
-      setPause(isFetching || isRefreshing || !isActive || isScrolling);
-    }, [isFetching, isRefreshing, isActive, isScrolling]);
+      setPause(isFetching || isRefreshing || !isActive || isScrolling || isShowVipModel);
+    }, [isFetching, isRefreshing, isActive, isScrolling, isShowVipModel]);
 
     const refreshComponent = useCallback(() => {
       return (
@@ -284,6 +286,15 @@ export default forwardRef<MiniVodRef, Props>(
       setIsScrolling(false);
     }, []);
 
+    useEffect(() => {
+      if ((swipeCount.current + 1) < MINI_SHOW_VIP_NUMBER) {
+        swipeCount.current++;
+      } else {
+        setShowVipModel(true);
+        swipeCount.current = 0;
+      }
+    }, [current]);
+
     return (
       <View style={{ flex: 1 }} onLayout={onLayoutRender}>
         {isInitFetching ? (
@@ -332,6 +343,13 @@ export default forwardRef<MiniVodRef, Props>(
             onMomentumScrollEnd={handleOnMomentumScrollEnd}
           />
         )}
+
+        <BecomeVipOverlay
+          setShowBecomeVIPOverlay={setShowVipModel}
+          showBecomeVIPOverlay={isShowVipModel}
+          isJustClose={true}
+          selectedTab='common'
+        />
       </View>
     );
   },
