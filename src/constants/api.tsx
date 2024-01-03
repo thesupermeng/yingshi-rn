@@ -1,4 +1,3 @@
-
 export class CEndpoint {
     // ============================== apps ==============================
     static appGetLocalIp = 'https://geolocation-db.com/json';
@@ -19,7 +18,7 @@ export class CEndpoint {
     static vodGetTopicType = 'type/v1/type';
     static vodGetDetail = 'vod/v3/vod/detail';
     static vodGetXDetail = 'svod/v1/vod/detail';
-    static vodGetList = 'vod/v3/vod';   //change to v ... JAN 2
+    static vodGetList = 'vod/v3/vod';
     static vodGetXList = 'svod/v1/vod';
     static vodGetReviewDetail = 'vod/v1/vod/reviewdetail';
     static vodGetAdsSlot = 'ads/v1/slot';
