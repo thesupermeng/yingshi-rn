@@ -274,10 +274,10 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
     if (!showBecomeVIPOverlay && screenState.sportWatchTime > NON_VIP_STREAM_TIME_SECONDS && (Number(userState.userMemberExpired) <= Number(userState.userCurrentTimestamp) || userState.userToken === "")) {
 
       setShowBecomeVIPOverlay(true);
-    } else {
+    } else if (!showBecomeVIPOverlay) {
       videoRef.current?.setPause(false);
     }
-  }, []))
+  }, [showBecomeVIPOverlay]))
 
   const isFullyLoaded = !f1 && !f2 && !f3;
 

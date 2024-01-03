@@ -35,6 +35,7 @@ interface Props {
   handleRefreshMiniVod?: any;
   isRefreshing: boolean;
   isPressTabScroll: boolean;
+  isFocusLogin: React.MutableRefObject<boolean>,
 }
 
 type MiniVodRef = {
@@ -58,6 +59,7 @@ export default forwardRef<MiniVodRef, Props>(
       isActive,
       isRefreshing = false,
       isPressTabScroll = false,
+      isFocusLogin,
     }: Props,
     ref,
   ) => {
@@ -194,8 +196,8 @@ export default forwardRef<MiniVodRef, Props>(
     }, [videos]);
 
     useEffect(() => {
-      setPause(isFetching || isRefreshing || !isActive || isScrolling || screenState.loginShow);
-    }, [isFetching, isRefreshing, isActive, isScrolling, screenState.loginShow]);
+      setPause(isFetching || isRefreshing || !isActive || isScrolling || screenState.loginShow || isFocusLogin.current);
+    }, [isFetching, isRefreshing, isActive, isScrolling, screenState.loginShow, isFocusLogin.current]);
 
     const refreshComponent = useCallback(() => {
       return (
@@ -304,13 +306,16 @@ export default forwardRef<MiniVodRef, Props>(
     }, []);
 
     useEffect(() => {
-      if ((swipeCount.current + 1) < MINI_SHOW_LOGIN_NUMBER) {
+      if (userState.userToken !== '') return;
+
+      if (swipeCount.current < MINI_SHOW_LOGIN_NUMBER) {
         swipeCount.current++;
       } else {
+        isFocusLogin.current = true;
         dispatch(showLoginAction());
-        swipeCount.current = 0;
+        // swipeCount.current = 0;
       }
-    }, [current]);
+    }, [current, isFocusLogin.current]);
 
     return (
       <View style={{ flex: 1 }} onLayout={onLayoutRender}>
