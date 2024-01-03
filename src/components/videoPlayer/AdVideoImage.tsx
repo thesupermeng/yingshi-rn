@@ -63,10 +63,11 @@ export const AdVideoImage = ({
             />
         }
 
-        <LinearGradient
+        {/* <LinearGradient
             colors={['transparent', 'black']}
             start={{ x: 0.5, y: 0.8 }}
-            end={{ x: 0.5, y: 0 }}
+            end={{ x: 0.5, y: 0 }} */}
+        <View
             style={styles.topBlur}
         >
             <View style={{ ...styles.videoHeader, marginRight: isFullScreen ? 20 : 0 }}>
@@ -98,12 +99,14 @@ export const AdVideoImage = ({
                     </CPressable>
                 } */}
             </View>
-        </LinearGradient>
+            {/* </LinearGradient> */}
+        </View>
 
-        <LinearGradient
+        {/* <LinearGradient
             colors={['transparent', 'black']}
             start={{ x: 0.5, y: 0 }}
-            end={{ x: 0.5, y: 0.8 }}
+            end={{ x: 0.5, y: 0.8 }} */}
+        <View
             style={styles.bottomBlur}
         >
             <CPressable
@@ -115,7 +118,8 @@ export const AdVideoImage = ({
                     : <FullScreen width={30} height={30} />
                 }
             </CPressable>
-        </LinearGradient>
+            {/* </LinearGradient> */}
+        </View>
     </CPressable>
 }
 
