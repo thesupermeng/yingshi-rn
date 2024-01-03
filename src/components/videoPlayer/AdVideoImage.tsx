@@ -63,26 +63,6 @@ export const AdVideoImage = ({
             />
         }
 
-
-        <CPressable
-            onPress={onPressCountdown}
-            style={styles.countdownContainer}
-        >
-            <Text style={{ color: colors.primary }}>
-                {countdownTime} 秒
-            </Text>
-
-            <Text style={{ color: 'white' }}>
-                后关闭广告
-            </Text>
-
-            <View style={styles.verticalLine} />
-
-            <Text style={{ color: 'white' }}>
-                会员去广告 》
-            </Text>
-        </CPressable>
-
         <LinearGradient
             colors={['transparent', 'black']}
             start={{ x: 0.5, y: 0.8 }}
@@ -93,11 +73,30 @@ export const AdVideoImage = ({
                 <TouchableOpacity onPress={() => onGoBack()} style={{ flexDirection: 'row', alignItems: 'center', flexShrink: 1, paddingRight: 10, }}>
                     <BackButton btnStyle={styles.backBtn} />
                 </TouchableOpacity>
-                {isShowShare &&
+
+                <CPressable
+                    onPress={onPressCountdown}
+                    style={styles.countdownContainer}
+                >
+                    <Text style={{ color: 'white' }}>
+                        {countdownTime} s
+                    </Text>
+
+                    <Text style={{ color: 'white' }}>
+                        后关闭广告
+                    </Text>
+
+                    <View style={styles.verticalLine} />
+
+                    <Text style={{ color: colors.primary }}>
+                        VIP跳广告 》
+                    </Text>
+                </CPressable>
+                {/* {isShowShare &&
                     <CPressable onPress={onShare}>
                         <ProjectIcon width={30} height={30} />
                     </CPressable>
-                }
+                } */}
             </View>
         </LinearGradient>
 
@@ -122,9 +121,9 @@ export const AdVideoImage = ({
 
 const styles = StyleSheet.create({
     countdownContainer: {
-        position: 'absolute',
-        right: 0,
-        top: 50,
+        // position: 'absolute',
+        // right: 0,
+        // top: 20,
         zIndex: 999,
         backgroundColor: '#00000055',
         flexDirection: 'row',
@@ -135,7 +134,7 @@ const styles = StyleSheet.create({
         height: '100%',
         width: 2,
         borderRadius: 8,
-        backgroundColor: '#00000044',
+        backgroundColor: '#ffffff66',
         marginHorizontal: 4,
     },
     video: {
