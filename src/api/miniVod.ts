@@ -9,13 +9,26 @@ import { CEndpoint } from "@constants";
 
 
 export class MiniVodApi {
-  static getListByPage = async ({ page, limit = 100, exclude, xMode = false, }: { page: number, limit?: number, exclude?: string, xMode?: boolean }) => {
+  static getListByPage = async ({
+    page,
+    limit = 100,
+    exclude,
+    xMode = false,
+    isVip = false,
+  }: {
+    page: number,
+    limit?: number,
+    exclude?: string,
+    xMode?: boolean,
+    isVip?: boolean
+  }) => {
     try {
       const result = await CApi.get(xMode ? CEndpoint.minivodGetXList : CEndpoint.minivodGetList, {
         query: {
           page,
           limit,
           exclude,
+          isVip,
         }
       });
 
@@ -60,19 +73,20 @@ type MiniVideoResponseType = {
   };
 };
 
-const fetchMiniVods = async (page: number, from: 'api' | 'local' = 'local') => {
+const fetchMiniVods = async (page: number, { from = 'local', isVip = false }: { from?: 'api' | 'local', isVip?: boolean } = {}) => {
   const apiCacheExists = await getIsApiCacheExist()
   if (!apiCacheExists || from === 'api' || page > 1 || DOWNLOAD_WATCH_ANYTIME === false) {
-    console.debug('getting from api')
+    // console.debug('getting from api')
     const excluded = await getExcludedIds()
-    const result =  await MiniVodApi.getListByPage({
+    const result = await MiniVodApi.getListByPage({
       page,
       limit: 300,
       exclude: excluded.join(','),
+      isVip,
     });
     return result.List
   } else {
-    console.debug('getting from local')
+    // console.debug('getting from local')
     return shuffle(await getApiCache())
   }
 }
@@ -119,9 +133,9 @@ const prefetchAdultMiniVod = async (queryClient: QueryClient) => {
 const useMinivodQuery = (fetchMode: 'adult' | 'normal', isVip: boolean) => useInfiniteQuery(
   ['watchAnytime', fetchMode, isVip],
   ({ pageParam = 1 }) => {
-    console.log('fetchMode -', fetchMode);
+    // console.log('fetchMode -', fetchMode);
     if (fetchMode == 'normal') {
-      return fetchMiniVods(pageParam);
+      return fetchMiniVods(pageParam, { isVip });
     } else {
       return fetchAdultVods(pageParam, isVip);
     }
@@ -130,8 +144,8 @@ const useMinivodQuery = (fetchMode: 'adult' | 'normal', isVip: boolean) => useIn
     getNextPageParam: (lastPage, allPages) => {
       return allPages.length + 1;
     },
-    onSuccess: data => { 
-      console.debug('data',data)
+    onSuccess: data => {
+      // console.debug('data', data)
     },
     refetchOnMount: 'always',
   },

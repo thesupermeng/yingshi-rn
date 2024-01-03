@@ -19,7 +19,7 @@ import { showAdultModeVip, showLoginAction } from '@redux/actions/screenAction';
 import { screenModel } from '@type/screenType';
 import { userModel } from '@type/userType';
 import { ADULT_MODE_PREVIEW_DURATION, MINI_SHOW_LOGIN_NUMBER } from '@utility/constants';
-import BecomeVipOverlay from '../../modal/becomeVipOverlay';
+import ShortAds from './shortAds';
 
 interface Props {
   miniVodListRef: any;
@@ -223,6 +223,24 @@ export default forwardRef<MiniVodRef, Props>(
     const renderItem = useCallback(
       ({ item, index }: { item: MiniVideo; index: number }) => {
         let prevPosition = Math.max(0, index - 1);
+
+        if (item.is_ads) {
+          return <ShortAds
+            vod={item}
+            thumbnail={item.ads_thumbnail}
+            displayHeight={displayHeight ? displayHeight : 0}
+            isPause={isPause || current !== index}
+            onManualPause={current => {
+              console.log('click pause');
+              setPause(!current);
+            }}
+            isShowVideo={current >= prevPosition && current < index + 2}
+            currentDuration={videoCurrentDurations[index]}
+            isActive={isActive}
+            index={index}
+          />
+        }
+
         return (
           <View style={{ height: displayHeight ? displayHeight : 0 }}>
             {displayHeight != 0 && (current >= prevPosition && current < index + 2) && (
