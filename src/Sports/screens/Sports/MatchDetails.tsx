@@ -309,6 +309,10 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
         selectedTab='sport'
         onClose={() => {
           videoRef.current?.setPause(false);
+
+          if (!(showCountdown && NON_VIP_STREAM_TIME_SECONDS > screenState.sportWatchTime) && route.name === '体育详情') {
+            navigation.goBack();
+          }
         }}
       />
       {videoSource.url &&
