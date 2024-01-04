@@ -180,6 +180,12 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
     }, [settingsReducer.isOffline]),
   );
 
+  useEffect(() => {
+    if (userState.userToken !== '' && isFocusLogin.current) {
+      isFocusLogin.current = false;
+    }
+  }, [userState.userToken]);
+
   const onFocusLoginOverlayPress = () => {
     dispatch(showLoginAction());
   }
