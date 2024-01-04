@@ -16,28 +16,30 @@ export const BannerContainer = ({
   const navigator = useNavigation()
 
   const redirectToAd = async () => {
-    if (bannerAd.ads_redirect_type === 1) {
-      navigator.navigate('活动页', {bannerAd: bannerAd})
-
-
-    } else {
-      const url =
+    const url =
         bannerAd.ads_url.includes('https://') || bannerAd.ads_url.includes('http://')
           ? bannerAd.ads_url
           : 'https://' + bannerAd.ads_url;
-      Linking.openURL(url);
 
-      // try {
-      //     if (await InAppBrowser.isAvailable()) {
-      //         console.log('using iapbrowser')
-      //         await InAppBrowser.open('https://' + bannerUrl);
-      //     } else {
-      //         Linking.openURL(bannerUrl);
-      //     }
-      // } catch (e) {
-      //     Linking.openURL(bannerUrl);
-      // }
-    }
+    if (bannerAd.ads_redirect_type === 1) { // use web veiw
+      navigator.navigate('活动页', {bannerAd: bannerAd})
+
+
+    } else if (bannerAd.ads_redirect_type === 2) { // use in app browser
+      try {
+        if (await InAppBrowser.isAvailable()) {
+          await InAppBrowser.open(url);
+        } else {
+          Linking.openURL(url);
+        }
+      } catch (e) {
+        Linking.openURL(url);
+      }
+    
+  } else { // use external browser
+    Linking.openURL(url);
+    
+  }
   };
 
   return (

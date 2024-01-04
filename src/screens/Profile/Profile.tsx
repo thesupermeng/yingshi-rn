@@ -63,7 +63,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
   );
   // console.log("Profile")
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [bannerAd, setBannerAd] = useState<bannerAdType>()
+  const [bannerAd, setBannerAd] = useState<bannerAdType[]>()
 
   const toggleOverlay = () => {
     setIsDialogOpen(!isDialogOpen);
@@ -136,7 +136,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
 
   const fetchBannerAd = async () => {
     console.debug('fetching banner ad')
-    const response = await CApi.get(CEndpoint.bannerAd, {
+    const response = await CApi.get(CEndpoint.bannerEventAds, {
       query: {
         slot_id: 100,
         ip: YSConfig.instance.ip,
@@ -327,10 +327,11 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
             </View>
           </TouchableOpacity>
 
-          {bannerAd && 
-            <BannerContainer
-              bannerAd={bannerAd}
-          />
+          {bannerAd && bannerAd.map((ad => {
+            return <BannerContainer
+              bannerAd={ad}
+              />
+          }))
           }
 
           <View style={{ marginBottom: -30, flex: 3, paddingBottom: 120 }}>
