@@ -55,7 +55,7 @@ export class UserApi {
             });
 
             if (result.success === false) {
-                throw result.message;
+                throw result;
             }
 
             if (result.data && result.data.access_token) {
