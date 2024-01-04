@@ -375,8 +375,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
           paddingVertical: 5
         }}>
           <BannerContainer
-            bannerImg={bannerAd.ads_pic}
-            bannerUrl={bannerAd.ads_url}
+            bannerAd={bannerAd}
           />
         </View>
       )}

@@ -36,4 +36,5 @@ export class CEndpoint {
     static productPostFinzfOrder = 'finzf/v1/order';
 
     static bannerAd = 'ads/v1/slot';
+    static bannerEventAds = 'ads/v1/events'
 }

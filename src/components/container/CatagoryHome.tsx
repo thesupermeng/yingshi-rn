@@ -168,8 +168,7 @@ const CatagoryHome = ({
         {(data.yunying ?
             data.yunying.length + index + 1 : index + 1) % 3 === 0 && bannerAd && (
           <BannerContainer
-            bannerImg={bannerAd.ads_pic}
-            bannerUrl={bannerAd.ads_url}
+            bannerAd={bannerAd}
           />
         )}
       </View>
@@ -358,8 +357,7 @@ const CatagoryHome = ({
                     paddingVertical: 5,
                   }}>
                     <BannerContainer
-                      bannerImg={bannerAd.ads_pic}
-                      bannerUrl={bannerAd.ads_url}
+                      bannerAd={bannerAd}
                     />
                   </View>
                 )}
@@ -400,8 +398,7 @@ const CatagoryHome = ({
 
                       {(index + 1) % 3 === 0 && bannerAd && (
                         <BannerContainer
-                          bannerImg={bannerAd.ads_pic}
-                          bannerUrl={bannerAd.ads_url}
+                          bannerAd={bannerAd}
                         />
                       )}
                     </View>
