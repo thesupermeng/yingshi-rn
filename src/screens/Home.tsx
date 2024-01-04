@@ -34,7 +34,7 @@ import FastImage from "../components/common/customFastImage";
 import { useIsFocused } from "@react-navigation/native";
 import NoConnection from "./../components/common/noConnection";
 import NetInfo from "@react-native-community/netinfo";
-import { useAppSelector, useAppDispatch } from "@hooks/hooks";
+import { useAppSelector, useAppDispatch, useSelector } from "@hooks/hooks";
 import { RootState } from "@redux/store";
 import { SettingsReducerState } from "@redux/reducers/settingsReducer";
 import HomeNav from "../components/tabNavigate/homeNav";
@@ -52,10 +52,10 @@ import {
   hideAdultModeDisclaimer,
   setShowAdultTab,
 } from "@redux/actions/screenAction";
-
-import useAnalytics from "@hooks/useAnalytics";
 import { screenModel } from "@type/screenType";
 import { AppsApi } from "@api";
+import UmengAnalytics from "../../Umeng/UmengAnalytics";
+import { userModel } from "@type/userType";
 
 function Home({ navigation }: BottomTabScreenProps<any>) {
   const dispatch = useAppDispatch();
@@ -71,6 +71,10 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   const screenState: screenModel = useAppSelector(
     ({ screenReducer }) => screenReducer
   );
+  const userState = useSelector<userModel>('userReducer');
+  const isVip = !(Number(userState.userMemberExpired) <=
+    Number(userState.userCurrentTimestamp) ||
+    userState.userToken === "")
   const bottomTabHeight = useBottomTabBarHeight();
 
   let channel = UMENG_CHANNEL;
@@ -93,7 +97,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
       }),
   });
 
-  const fetchData = useCallback((id: number) => AppsApi.getHomePages(id), []);
+  const fetchData = useCallback((id: number) => AppsApi.getHomePages(id, isVip), []);
 
   const data = useQueries({
     queries: navOptions
@@ -211,25 +215,30 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
             (index === 0 ? (
               <RecommendationHome
                 vodCarouselRes={item.data}
+                navId={index}
+                tabName={navOptions !== undefined ? navOptions[index].name : ''}
                 onRefresh={handleRefresh}
                 onLoad={handleShowLoading}
                 refreshProp={isRefreshing}
+                isTabFocus={navId === index}
               />
             ) : (
               <>
                 <CatagoryHome
                   vodCarouselRes={item.data}
                   navId={index}
+                  tabName={navOptions !== undefined ? navOptions[index].name : ''}
                   onRefresh={handleRefresh}
                   refreshProp={isRefreshing}
                   handleRejectEighteenPlus={handleRejectEighteenPlus}
+                  isTabFocus={navId === index}
                 />
               </>
             ))}
         </>
       );
     },
-    [navOptions, screenState.lastSeenNavName]
+    [navOptions, navId, screenState.lastSeenNavName]
   );
 
   const { setNavbarHeight } = useContext(AdsBannerContext);
@@ -239,11 +248,9 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   }, [bottomTabHeight]);
 
   // ========== for analytics - start ==========
-  const { homeTabViewsAnalytics, homeTabClicksAnalytics } = useAnalytics();
-
   useEffect(() => {
     if (navOptions !== undefined && navOptions.length > 0) {
-      homeTabViewsAnalytics({
+      UmengAnalytics.homeTabViewsAnalytics({
         tab_id: navOptions[0].id.toString(),
         tab_name: navOptions[0].name,
       });
@@ -253,7 +260,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   useEffect(() => {
     if (navOptions !== undefined && navOptions.length > 0) {
       const idx = navOptions?.findIndex((e) => e.id === navId);
-      homeTabViewsAnalytics({
+      UmengAnalytics.homeTabViewsAnalytics({
         tab_id: navOptions[idx].id.toString(),
         tab_name: navOptions[idx].name,
       });
@@ -269,7 +276,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
       if (found) {
         setNavId(found.id);
         // ========== for analytics - start ==========
-        homeTabClicksAnalytics({
+        UmengAnalytics.homeTabClicksAnalytics({
           tab_id: found.id.toString(),
           tab_name: found.name,
         });

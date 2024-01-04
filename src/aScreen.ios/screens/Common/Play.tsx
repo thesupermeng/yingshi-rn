@@ -74,7 +74,7 @@ import { BridgeServer } from "react-native-http-bridge-refurbished";
 import { debounce } from "lodash";
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
 import { InAppBrowser } from "react-native-inappbrowser-reborn";
-import useAnalytics from "@hooks/useAnalytics";
+import UmengAnalytics from "../../../../Umeng/UmengAnalytics";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { showLoginAction } from "@redux/actions/screenAction";
 import { VodCommentBox } from '../../components/vodComment';
@@ -244,12 +244,6 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
   const [allComment, setAllComment] = useState<CommentsType[] | undefined>([]);
   const [showLoading, setShowLoading] = useState(true);
 
-
-  const {
-    playsViewsAnalytics,
-    playsPlaysTimesAnalytics,
-    playsShareClicksAnalytics,
-  } = useAnalytics();
   const [isReadyPlay, setReadyPlay] = useState(false);
 
   const EPISODE_RANGE_SIZE = 100;
@@ -273,7 +267,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
   const onShare = async () => {
     try {
       // ========== for analytics - start ==========
-      playsShareClicksAnalytics();
+      UmengAnalytics.playsShareClicksAnalytics();
       // ========== for analytics - end ==========
 
       let msg = `《${vod?.vod_name
@@ -316,7 +310,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
       setReadyPlay(false);
 
       // ========== for analytics - start ==========
-      playsViewsAnalytics({
+      UmengAnalytics.playsViewsAnalytics({
         vod_id: vod.vod_id.toString(),
         vod_name: vod.vod_name,
       });
@@ -593,7 +587,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
   // // ========== for analytics - start ==========
   // const onReadyForDisplay = () => {
   //   if (vod && !isReadyPlay) {
-  //     playsPlaysTimesAnalytics({
+  //     UmengAnalytics.playsPlaysTimesAnalytics({
   //       vod_id: vod.vod_id.toString(),
   //       vod_name: vod.vod_name,
   //     });

@@ -432,6 +432,7 @@ export type VodPlayerAdType = {
     isVideo: boolean,
     actionUrl: string | null,
     minDuration: number,
+    redirectType: number,
 }
 export interface bannerAdType {
     ads_id: number,
@@ -444,7 +445,7 @@ export interface bannerAdType {
     ads_content_type: number,
     ads_sort: number,
     ban_region: string,
-    is_video: boolean, 
+    is_video: boolean,
     ads_redirect_type: number
 
 }

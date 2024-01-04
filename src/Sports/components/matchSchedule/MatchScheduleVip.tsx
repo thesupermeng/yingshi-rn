@@ -22,7 +22,7 @@ import { useAppSelector } from "@hooks/hooks";
 import { showBecomeVip } from "@redux/actions/screenAction";
 import { useDispatch } from "react-redux";
 import { screenModel } from "@type/screenType";
-import useAnalytics from "@hooks/useAnalytics";
+import UmengAnalytics from "../../../../Umeng/UmengAnalytics";
 
 interface Props {
   matchSche: MatchDetailsType;
@@ -31,12 +31,12 @@ interface Props {
   isMatchPage?: boolean;
   setShowBecomeVIPOverlay: any;
   bgDark?: boolean;
-  borderFlag?:string
+  borderFlag?: string
 }
 
 const MatchSchedule = ({
   matchSche,
-  onPress = () => {},
+  onPress = () => { },
   isMatchPage = true,
   bgDark = false,
   setShowBecomeVIPOverlay,
@@ -46,7 +46,6 @@ const MatchSchedule = ({
   const { colors, textVariants, spacing } = useTheme();
   const dispatch = useDispatch();
   let totalViews = 0;
-  const { sportClicksAnalytics } = useAnalytics();
 
   const calTotalViews = () => {
     if (matchSche?.streams != undefined && matchSche?.streams.length > 0) {
@@ -72,7 +71,7 @@ const MatchSchedule = ({
     });
 
     // ========== for analytics - start ==========
-    sportClicksAnalytics();
+    UmengAnalytics.sportClicksAnalytics();
     // ========== for analytics - end ==========
   };
 
@@ -85,14 +84,14 @@ const MatchSchedule = ({
             ...styles.border,
             backgroundColor: bgDark ? "#0c0c0c" : "inherit",
             borderColor: "rgba(156, 156, 156 , 0.2)",
-            borderBottomLeftRadius: borderFlag =='true' ? 15 : 0,
-            borderBottomRightRadius:  borderFlag =='true' ? 15 : 0,
+            borderBottomLeftRadius: borderFlag == 'true' ? 15 : 0,
+            borderBottomRightRadius: borderFlag == 'true' ? 15 : 0,
           }}
         >
           <View style={styles.matchScheduleHeader}>
             <View style={styles.matchInfo}>
               <Text style={{ ...styles.spaceBetween, color: colors.muted }}>
-                {matchSche?.competition?.name_short}  
+                {matchSche?.competition?.name_short}
               </Text>
               <Text
                 style={{
@@ -114,8 +113,8 @@ const MatchSchedule = ({
             </View>
             <View style={styles.matchStatus}>
               {matchSche?.streams != undefined &&
-              matchSche?.streams?.length > 0 &&
-              matchSche?.streams?.some((streamer) => streamer.status == 3) ? (
+                matchSche?.streams?.length > 0 &&
+                matchSche?.streams?.some((streamer) => streamer.status == 3) ? (
                 <View style={{ flexDirection: "row" }}>
                   <View style={styles.liveIcon} />
                   <Text style={{ ...styles.liveStatus }}>直播中</Text>
@@ -168,7 +167,7 @@ const MatchSchedule = ({
                 {matchSche.home?.name}
               </Text>
               {matchSche?.home?.icon != undefined &&
-              matchSche?.home?.icon.length > 0 ? (
+                matchSche?.home?.icon.length > 0 ? (
                 <FastImage
                   style={styles.teamImage}
                   source={{ uri: matchSche?.home?.icon }}
@@ -199,10 +198,10 @@ const MatchSchedule = ({
                           matchSche?.home_score,
                           matchSche?.sports_type
                         ) >
-                        calculateScore(
-                          matchSche?.away_score,
-                          matchSche?.sports_type
-                        )
+                          calculateScore(
+                            matchSche?.away_score,
+                            matchSche?.sports_type
+                          )
                           ? { ...styles.highScoreFont, color: colors.primary }
                           : styles.scoreFont
                       }
@@ -219,10 +218,10 @@ const MatchSchedule = ({
                           matchSche?.away_score,
                           matchSche?.sports_type
                         ) >
-                        calculateScore(
-                          matchSche?.home_score,
-                          matchSche?.sports_type
-                        )
+                          calculateScore(
+                            matchSche?.home_score,
+                            matchSche?.sports_type
+                          )
                           ? { ...styles.highScoreFont, color: colors.primary }
                           : styles.scoreFont
                       }
@@ -275,7 +274,7 @@ const MatchSchedule = ({
             )}
             <View style={styles.teamContentB}>
               {matchSche?.away?.icon != undefined &&
-              matchSche?.away?.icon.length > 0 ? (
+                matchSche?.away?.icon.length > 0 ? (
                 <FastImage
                   style={styles.teamImage}
                   source={{ uri: matchSche?.away?.icon }}

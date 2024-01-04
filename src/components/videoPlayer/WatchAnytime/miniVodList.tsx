@@ -14,7 +14,7 @@ import { MiniVideo } from '@type/ajaxTypes';
 import FastImage from '../../common/customFastImage';
 
 import { useAppDispatch, useAppSelector } from '@hooks/hooks';
-import useAnalytics from '@hooks/useAnalytics';
+import UmengAnalytics from '../../../../Umeng/UmengAnalytics';
 import { showAdultModeVip, showLoginAction } from '@redux/actions/screenAction';
 import { screenModel } from '@type/screenType';
 import { userModel } from '@type/userType';
@@ -139,14 +139,12 @@ export default forwardRef<MiniVodRef, Props>(
     );
 
     // ========== for analytics - start ==========
-    const { watchAnytimeVideoViewTimesAnalytics } = useAnalytics();
-
     useEffect(() => {
       // ========== for analytics - start ==========
       if (collectionPartialVideos.length > 0) {
         setCurAnalyticsIndex(0);
 
-        watchAnytimeVideoViewTimesAnalytics({
+        UmengAnalytics.watchAnytimeVideoViewTimesAnalytics({
           userId: userState.userId,
           vod_id: collectionPartialVideos[0].mini_video_id,
           isXmode: adultMode,
@@ -159,7 +157,7 @@ export default forwardRef<MiniVodRef, Props>(
       if (current > curAnalyticsIndex) {
         setCurAnalyticsIndex(current);
 
-        watchAnytimeVideoViewTimesAnalytics({
+        UmengAnalytics.watchAnytimeVideoViewTimesAnalytics({
           userId: userState.userId,
           vod_id: collectionPartialVideos[current].mini_video_id,
           isXmode: adultMode,

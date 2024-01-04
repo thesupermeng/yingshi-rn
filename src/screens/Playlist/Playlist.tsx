@@ -18,7 +18,7 @@ import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 import { SettingsReducerState } from '@redux/reducers/settingsReducer';
 import { useAppSelector } from '@hooks/hooks';
 import { RootState } from '@redux/store';
-import useAnalytics from '@hooks/useAnalytics';
+import UmengAnalytics from '../../../Umeng/UmengAnalytics';
 import { PlaylistApi } from '@api';
 
 type FlatListType = {
@@ -41,10 +41,8 @@ function Playlist({ navigation }: BottomTabScreenProps<any>) {
   );
 
   // ========== for analytics - start ==========
-  const { playlistViewsAnalytics } = useAnalytics();
-
   useFocusEffect(useCallback(() => {
-    playlistViewsAnalytics();
+    UmengAnalytics.playlistViewsAnalytics();
   }, []));
   // ========== for analytics - end ==========
 

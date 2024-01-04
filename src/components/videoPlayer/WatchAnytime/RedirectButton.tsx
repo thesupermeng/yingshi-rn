@@ -95,9 +95,11 @@ const RedirectButton = ({
                   </View>
                 </View>
                 <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-                  <View style={{flexWrap: 'wrap'}}>
+                  <View style={{flexWrap: 'wrap' , justifyContent:'center' , alignItems:'center'}}>
                     {isBodan ? (
-                      <PlayBoDanIcon width={20} height={20} />
+                      <View style={{width:20 , height:20 }}>
+                      <PlayBoDanIcon  style={{flex:1}}/>
+                      </View>
                     ) : (
                       <PlayZhengPianIcon width={20} height={20} />
                     )}
@@ -106,12 +108,15 @@ const RedirectButton = ({
                     style={{
                       paddingLeft: 6,
                       justifyContent: 'center',
+                    
                     }}>
                     <Text
                       style={{
                         ...textVariants.subBody,
                         color: colors.text,
                         fontSize: 14,
+                        position:'relative',
+                        top: isBodan ? 2 : 0
                       }}>
                       {watchText}
                     </Text>

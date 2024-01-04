@@ -8,7 +8,7 @@ import TitleWithBackButtonHeader from '../../components/header/titleWithBackButt
 import FavoritePlaylistButton from '../../components/button/favoritePlaylistButton';
 import { RootStackScreenProps } from '@type/navigationTypes';
 import VodWithDescriptionList from '../../components/vod/vodWithDescriptionList';
-import useAnalytics from '@hooks/useAnalytics';
+import UmengAnalytics from '../../../Umeng/UmengAnalytics';
 
 function PlaylistDetail({ navigation }: RootStackScreenProps<'PlaylistDetail'>) {
   const { textVariants, colors, spacing } = useTheme();
@@ -18,14 +18,9 @@ function PlaylistDetail({ navigation }: RootStackScreenProps<'PlaylistDetail'>) 
   const playlist = playlistReducer?.playlistDetails?.playlist;
 
   // ========== for analytics - start ==========
-  const {
-    playlistTopicsViewsAnalytics,
-    playlistTopicsClickAnalytics,
-  } = useAnalytics();
-
   useEffect(() => {
     if (playlist !== null) {
-      playlistTopicsViewsAnalytics({
+      UmengAnalytics.playlistTopicsViewsAnalytics({
         topic_id: playlist.topic_id.toString(),
         topic_name: playlist.topic_name,
       });
@@ -34,7 +29,7 @@ function PlaylistDetail({ navigation }: RootStackScreenProps<'PlaylistDetail'>) 
 
   const onClickCatalogVideo = useCallback(() => {
     if (playlist !== null) {
-      playlistTopicsClickAnalytics({
+      UmengAnalytics.playlistTopicsClickAnalytics({
         topic_id: playlist.topic_id.toString(),
         topic_name: playlist.topic_name,
       });

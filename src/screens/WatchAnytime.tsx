@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from '@hooks/hooks';
-import useAnalytics from '@hooks/useAnalytics';
+import UmengAnalytics from '../../Umeng/UmengAnalytics';
 import NetInfo from '@react-native-community/netinfo';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { useFocusEffect, useIsFocused } from '@react-navigation/native';
@@ -65,8 +65,6 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
   const isFocusLogin = useRef(false);
 
   // ========== for analytics - start ==========
-  const { watchAnytimeViewsAnalytics } = useAnalytics();
-
   // Handle app's background/foreground status
   const handleAppStateChange = (nextAppState: any) => {
     setIsInBackground(nextAppState !== 'active');
@@ -102,7 +100,7 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
 
   // ========== for analytics - start ==========
   useFocusEffect(useCallback(() => {
-    watchAnytimeViewsAnalytics({
+    UmengAnalytics.watchAnytimeViewsAnalytics({
       isXmode: adultMode,
     });
   }, [adultMode]));

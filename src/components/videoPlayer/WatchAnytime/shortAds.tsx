@@ -6,7 +6,6 @@ import Video, { OnProgressData, VideoRef } from 'react-native-video';
 import FastImage from '../../common/customFastImage';
 import { useNavigation, useTheme } from '@react-navigation/native';
 import { useAppDispatch, useAppSelector } from '@hooks/hooks';
-import useAnalytics from '@hooks/useAnalytics';
 import { DOWNLOAD_WATCH_ANYTIME } from '@utility/constants';
 import { playVod } from '@redux/actions/vodActions';
 import RNFetchBlob from 'rn-fetch-blob';
@@ -234,7 +233,7 @@ function ShortAds({
                                         ref={videoRef}
                                         resizeMode="contain"
                                         source={{
-                                            uri: miniVodUrl,
+                                            uri: currentVod.ads_pic,
                                             headers: {
                                                 'User-Agent':
                                                     'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
@@ -377,5 +376,6 @@ const styles = StyleSheet.create({
     },
     adsBtnText: {
         fontSize: 18,
+        fontWeight:'bold'
     }
 });

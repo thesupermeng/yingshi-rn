@@ -43,6 +43,7 @@ import EmptyList from '../../components/common/emptyList';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { TabItem } from '@rneui/base/dist/Tab/Tab.Item';
 import { VodApi } from '@api';
+import UmengAnalytics from '../../../Umeng/UmengAnalytics';
 
 interface NavType {
   id: number;
@@ -319,14 +320,12 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
   });
 
   // ========== for analytics - start ==========
-  const { catalogViewsAnalytics, catalogClicksAnalytics } = useAnalytics();
-
   useEffect(() => {
     if (topicOptions.length > 0) {
       const currentTopicName = topicOptions.find((topic) => topic.id === currentTopicId);
 
       if (currentTopicName) {
-        catalogViewsAnalytics({
+        UmengAnalytics.catalogViewsAnalytics({
           category_id: currentTopicId.toString(),
           category_name: currentTopicName.name,
         });
@@ -408,7 +407,7 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
               const currentTopicName = topicOptions.find((topic) => topic.id === currentTopicId);
 
               if (currentTopicName) {
-                catalogClicksAnalytics({
+                UmengAnalytics.catalogClicksAnalytics({
                   category_id: currentTopicId.toString(),
                   category_name: currentTopicName.name,
                 });

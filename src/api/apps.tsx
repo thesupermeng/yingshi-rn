@@ -28,7 +28,7 @@ export class AppsApi {
         } catch (e: any) {
             console.error(`[Error ${this.name}]: ${e.toString()}`);
             YSConfig.instance.setNetworkIp(ipAddress);
-        } 
+        }
         finally {
             YSConfig.instance.setNetworkIp(ipAddress);
         }
@@ -104,7 +104,7 @@ export class AppsApi {
         }
     };
 
-    static getHomePages = async (id: number) => {
+    static getHomePages = async (id: number, isVip: boolean = false,) => {
         try {
             const result = await CApi.get(CEndpoint.homeGetPages, {
                 query: {
@@ -113,6 +113,7 @@ export class AppsApi {
                     channelId: UMENG_CHANNEL,
                     // appName:APP_NAME_CONST,
                     appName: '影视TV',
+                    ads: !isVip,
                 },
             });
 

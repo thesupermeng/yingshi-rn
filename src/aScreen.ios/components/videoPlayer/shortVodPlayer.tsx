@@ -23,7 +23,7 @@ import HejiIcon from '@static/images/heji.svg';
 import ExpandUpIcon from '@static/images/expandHeji.svg';
 import { QueryClient } from '@tanstack/react-query';
 import { debounce } from 'lodash';
-import useAnalytics from '@hooks/useAnalytics';
+import UmengAnalytics from '../../../../Umeng/UmengAnalytics';
 
 interface Props {
   thumbnail?: string;
@@ -90,8 +90,6 @@ function ShortVideoPlayer({
   const [onSliding, setOnSliding] = useState(false);
 
   const windowWidth = Dimensions.get('window').width;
-
-  const { watchAnytimeVideoClicksAnalytics, watchAnytimePlaylistClicksAnalytics } = useAnalytics();
 
   useEffect(() => {
     setVod(vod);
@@ -202,7 +200,7 @@ function ShortVideoPlayer({
       });
 
       // ========== for analytics - start ==========
-      watchAnytimePlaylistClicksAnalytics();
+      UmengAnalytics.watchAnytimePlaylistClicksAnalytics();
       // ========== for analytics - end ==========
     } else {
       dispatch(playVod(currentVod.mini_video_vod));
@@ -211,7 +209,7 @@ function ShortVideoPlayer({
       });
 
       // ========== for analytics - start ==========
-      watchAnytimeVideoClicksAnalytics();
+      UmengAnalytics.watchAnytimeVideoClicksAnalytics();
       // ========== for analytics - end ==========
     }
   };

@@ -48,7 +48,7 @@ import { VipDialog } from "../../components/vip/vipDialog";
 import { ProductApi, UserApi } from "@api";
 import { YSConfig } from "../../../ysConfig";
 import WebView from "react-native-webview";
-import useAnalytics from "@hooks/useAnalytics";
+import UmengAnalytics from "../../../Umeng/UmengAnalytics";
 
 export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const {
@@ -107,10 +107,8 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const [dialogText, setDialogText] = useState([""]);
 
   // ========== for analytics - start ==========
-  const { userCenterVipPayViewsAnalytics } = useAnalytics();
-
   useEffect(() => {
-    userCenterVipPayViewsAnalytics();
+    UmengAnalytics.userCenterVipPayViewsAnalytics();
   }, []);
   // ========== for analytics - end ==========
 
