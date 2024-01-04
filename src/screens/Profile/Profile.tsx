@@ -324,6 +324,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
           {bannerAd && bannerAd.map((ad => {
             return <BannerContainer
               bannerAd={ad}
+              key={ad.ads_id}
               />
           }))
           }
