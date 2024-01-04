@@ -21,27 +21,28 @@ const AdEvent = ({ navigation, route }: RootStackScreenProps<'活动页'>) => {
       />
       <WebView
         source={{
-          html: `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
-  <script>
-    const handleClick = () => {
-      window.ReactNativeWebView.postMessage('triggerRnNavigatePurchaseVip')
-    }
-  </script>
-  <button
-    onclick="handleClick()"
-  >Click me</button>
-</body>
-</html>
-          `
+          uri: bannerAd.ads_url
+//           html: `
+// <!DOCTYPE html>
+// <html lang="en">
+// <head>
+//   <meta charset="UTF-8">
+//   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+// </head>
+// <body>
+//   <script>
+//     const handleClick = () => {
+//       window.ReactNativeWebView.postMessage('triggerRnNavigatePurchaseVip')
+//     }
+//   </script>
+//   <button
+//     onclick="handleClick()"
+//   >Click me</button>
+// </body>
+// </html>
+//           `
         }}
-
+        onShouldStartLoadWithRequest={() => true}
         onMessage={m => handleOnMessage(m.nativeEvent.data)}
 
       />
