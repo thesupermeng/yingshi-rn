@@ -585,7 +585,9 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         />
 
         <TitleWithBackButtonHeader
-          title="付费VIP"
+          title={ YSConfig.instance.showBecomeVip
+            ? "成为VIP"
+            : "付费VIP"}
           right={
             <TouchableOpacity
               onPress={() => {
