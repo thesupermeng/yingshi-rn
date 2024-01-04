@@ -46,6 +46,11 @@ import { SHOW_ZF_CONST } from "@utility/constants";
 import FastImage from "../../components/common/customFastImage";
 import { UserApi } from "@api";
 import { AppConfig } from "../../Sports/global/appConfig";
+import { BannerContainer } from "../../components/container/bannerContainer";
+import { bannerAdType } from "@type/ajaxTypes";
+import { CApi } from "@utility/apiService";
+import { CEndpoint } from "../../constants/api";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function Profile({ navigation, route }: BottomTabScreenProps<any>) {
   const navigator = useNavigation();
@@ -58,6 +63,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
   );
   // console.log("Profile")
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [bannerAd, setBannerAd] = useState<bannerAdType>()
 
   const toggleOverlay = () => {
     setIsDialogOpen(!isDialogOpen);
@@ -127,6 +133,39 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
       )
     );
   };
+
+  const fetchBannerAd = async () => {
+    console.debug('fetching banner ad')
+    const response = await CApi.get(CEndpoint.bannerAd, {
+      query: {
+        slot_id: 100,
+        ip: YSConfig.instance.ip,
+      },
+    });
+    const banner = await response.data;
+
+    if (banner) {
+      setBannerAd(banner);
+    } else {
+      setBannerAd(undefined);
+    }
+  }
+
+  const shouldShowAds = async () => {
+    const shouldShow = await AsyncStorage.getItem('showAds');
+    
+    if ((shouldShow && shouldShow === 'true') || !shouldShow) {
+      fetchBannerAd();
+    } else {
+      setBannerAd(undefined);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      shouldShowAds();
+    }, [])
+  );
 
   useEffect(() => {
     let date = new Date(Number(userState.userMemberExpired) * 1000); // Multiply by 1000 to convert from seconds to milliseconds
@@ -287,6 +326,12 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
               </View>
             </View>
           </TouchableOpacity>
+
+          {bannerAd && 
+            <BannerContainer
+              bannerAd={bannerAd}
+          />
+          }
 
           <View style={{ marginBottom: -30, flex: 3, paddingBottom: 120 }}>
             {Platform.OS === "ios" && SHOW_ZF_CONST && (
