@@ -152,7 +152,8 @@ export default function RegengOverlay({}: Props) {
                     }}
                   >
                     优化性能，修复BUG
-                  </Text>                  <View
+                  </Text>              
+                      <View
                     style={{
                       paddingTop: 24,
                       alignItems: "center",
@@ -161,21 +162,7 @@ export default function RegengOverlay({}: Props) {
                       alignContent: "center",
                     }}
                   >
-                    {/* <TouchableOpacity
-                                              onPress={() => {
-                                                  hideVipPrompt();
-                                                  dispatch(showRegisterAction());
-                                              }}
-                                              style={{ paddingTop: 16 }}>
-                                              <Text
-                                                  style={{
-                                                      color: colors.text,
-                                                      fontWeight: '600',
-                                                      fontSize: 16,
-                                                  }}>
-                                                  立即领取
-                                              </Text>
-                                          </TouchableOpacity> */}
+              
                     <TouchableOpacity
                       onPress={() => {
                         Alert.alert(
