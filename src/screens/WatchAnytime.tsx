@@ -101,11 +101,11 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
   }, []);
 
   // ========== for analytics - start ==========
-  useEffect(() => {
+  useFocusEffect(useCallback(() => {
     watchAnytimeViewsAnalytics({
       isXmode: adultMode,
     });
-  }, [adultMode]);
+  }, [adultMode]));
   // ========== for analytics - end ==========
 
   // Add an event listener to the navigation object for the tab press event

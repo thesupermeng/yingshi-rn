@@ -17,22 +17,13 @@ interface Props {
 export const CommonVipPrivilegeOverlay = ({ showCondition, onClose, showBlur }: Props) => {
 
   const navigator = useNavigation()
-  const { sportDetailsVipPopupClicksAnalytics } = useAnalytics();
-
 
   const handleOnPurchase = useCallback(() => {
     navigator.navigate('付费VIP');
-    // ========== for analytics - start ==========
-    sportDetailsVipPopupClicksAnalytics('pay');
-    // ========== for analytics - end ==========
   }, [])
 
   const handleOnInvite = useCallback(() => {
     navigator.navigate('邀请');
-    // ========== for analytics - start ==========
-    sportDetailsVipPopupClicksAnalytics('invite');
-    // ========== for analytics - end ==========
-
   }, [])
 
 
