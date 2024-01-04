@@ -148,7 +148,11 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
 
   useEffect(() => {
     if (videos != undefined) {
-      setFlattenedVideos(videos?.pages.flat().filter(x => x)); // remove null values
+      let filtered = videos?.pages.flat().filter(x => x)
+      if (isVip){
+        filtered = filtered.filter(x => !x.is_ads)
+      }
+      setFlattenedVideos(filtered); // remove null values
     }
   }, [videos]);
 
