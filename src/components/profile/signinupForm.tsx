@@ -404,7 +404,7 @@ const LoginCard = ({
 
   return (
     <View style={styles.card}>
-      <Text style={styles.title}>注册/登录</Text>
+      <Text style={styles.title}>「登录/注册」解锁更多精彩内容！</Text>
       {/* <Text style={styles.subtitle}>登录后可管理您的账号，多端同步观看历史和收藏夹</Text> */}
       {/* ============================== tab control ============================== */}
       <View style={styles.tabContainer}>
