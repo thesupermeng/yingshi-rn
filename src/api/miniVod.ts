@@ -1,12 +1,31 @@
 import { API_DOMAIN_TEST, DOWNLOAD_WATCH_ANYTIME } from "@utility/constants";
 import { getApiCache, getExcludedIds, getIsApiCacheExist } from "../utils/minivodDownloader"
-import { MiniVideo, MiniVideoListType, MiniVideoVodListType } from "@type/ajaxTypes";
+import { MiniVideo, MiniVideoCollectionItem, MiniVideoListType, MiniVideoVodListType } from "@type/ajaxTypes";
 import { QueryClient, useInfiniteQuery } from "@tanstack/react-query";
 import shuffle from 'lodash/shuffle'
 
 import { CApi } from "@utility/apiService";
 import { CEndpoint } from "@constants";
 
+
+const customShuffleWithAds = (arr: MiniVideo[]) => { // basically keeping ads at index 3rd, 6th, 9th of previous item 
+  const contentArray = shuffle(arr.filter(item => !item.is_ads))
+  const adsArray = shuffle(arr.filter(item => item.is_ads))
+  
+  const offsets = [3, 6, 9]
+  
+  let current = 0
+
+  adsArray.forEach((val, index) => {
+    const offsetIndex = index % 3
+    current += offsets[offsetIndex]
+    const ad = adsArray[index];
+
+    contentArray.splice(current - 1 , 0, ad)
+  })
+
+  return contentArray
+}
 
 export class MiniVodApi {
   static getListByPage = async ({
@@ -87,7 +106,7 @@ const fetchMiniVods = async (page: number, { from = 'local', isVip = false }: { 
     return result.List
   } else {
     // console.debug('getting from local')
-    return shuffle(await getApiCache())
+    return customShuffleWithAds(await getApiCache())
   }
 }
 
