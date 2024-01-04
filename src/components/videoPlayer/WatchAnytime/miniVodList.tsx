@@ -363,6 +363,7 @@ export default forwardRef<MiniVodRef, Props>(
             onScroll={handleOnScroll}
             onScrollBeginDrag={handleOnScrollBeginDrag}
             onMomentumScrollEnd={handleOnMomentumScrollEnd}
+            scrollsToTop={false}
           />
         )}
       </View>
