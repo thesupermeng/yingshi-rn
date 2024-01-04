@@ -49,7 +49,8 @@ import { AdVideoImage } from "./AdVideoImage";
 import { VodReducerState } from "@redux/reducers/vodReducer";
 import { VodApi } from "@api";
 import { useQuery } from "@tanstack/react-query";
-import useAnalytics from "@hooks/useAnalytics";
+import UmengAnalytics from "../../../Umeng/UmengAnalytics";
+import InAppBrowser from "react-native-inappbrowser-reborn";
 
 LogBox.ignoreLogs([`Trying to load empty source.`]);
 
@@ -171,11 +172,6 @@ export default forwardRef<VideoRef, Props>(
       queryFn: () => VodApi.getPlayerAdVideo(),
     });
 
-    const {
-      playsAdsViewAnalytics,
-      playsAdsClickAnalytics,
-    } = useAnalytics();
-
     useEffect(() => {
       if (vod_url === '') return;
 
@@ -191,7 +187,7 @@ export default forwardRef<VideoRef, Props>(
         adVideoRef.current?.seek(0);
 
         // ========== for analytics - start ==========
-        playsAdsViewAnalytics();
+        UmengAnalytics.playsAdsViewAnalytics();
         // ========== for analytics - end ==========
       }
     }, [playerVodAds, vod_url]);
@@ -617,10 +613,10 @@ export default forwardRef<VideoRef, Props>(
       }
     }, [currentTime, isPaused])
 
-    const onPressAd = () => {
+    const onPressAd = async () => {
       if (!playerVodAds?.actionUrl) {
         // ========== for analytics - start ==========
-        playsAdsClickAnalytics();
+        UmengAnalytics.playsAdsClickAnalytics();
         // ========== for analytics - end ==========
 
         if (onPressCountdown) onPressCountdown();
@@ -629,10 +625,21 @@ export default forwardRef<VideoRef, Props>(
 
       const url = playerVodAds?.actionUrl.includes('http') ? playerVodAds?.actionUrl : 'https://' + playerVodAds?.actionUrl
 
+      // if (playerVodAds?.redirectType === 1) { // use web veiw
+      //   navigation.navigate('活动页', { bannerAd: bannerAd })
+
+      // } else if (playerVodAds?.redirectType === 2 && await InAppBrowser.isAvailable()) { // use in app browser
+      //   try {
+      //     await InAppBrowser.open(url);
+      //   } catch (e) {
+      //     Linking.openURL(url);
+      //   }
+      // } else { // use external browser
       Linking.openURL(url);
+      // }
 
       // ========== for analytics - start ==========
-      playsAdsClickAnalytics({ url });
+      UmengAnalytics.playsAdsClickAnalytics({ url });
       // ========== for analytics - end ==========
     }
 

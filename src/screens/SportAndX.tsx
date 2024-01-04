@@ -42,7 +42,7 @@ import { RootState } from "@redux/store";
 import { useDispatch } from "react-redux";
 import BecomeVipOverlay from "../components/modal/becomeVipOverlay";
 import { SettingsReducerState } from "@redux/reducers/settingsReducer";
-import useAnalytics from "@hooks/useAnalytics";
+import UmengAnalytics from "../../Umeng/UmengAnalytics";
 import XvodTabIcon from "@static/images/xvodTab.svg";
 import SportTabIcon from "@static/images/sportTab.svg";
 import XVodTab from "./VipPrivilege/XVodTab";
@@ -84,10 +84,8 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
   };
 
   // ========== for analytics - start ==========
-  const { sportViewsAnalytics } = useAnalytics();
-
   useFocusEffect(useCallback(() => {
-    sportViewsAnalytics();
+    UmengAnalytics.sportViewsAnalytics();
   }, []));
   // ========== for analytics - end ==========
 

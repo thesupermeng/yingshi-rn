@@ -69,7 +69,7 @@ import { BridgeServer } from "react-native-http-bridge-refurbished";
 import { debounce } from "lodash";
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
 import { InAppBrowser } from "react-native-inappbrowser-reborn";
-import useAnalytics from "@hooks/useAnalytics";
+import UmengAnalytics from "../../../../Umeng/UmengAnalytics";
 import { VodApi } from "@api";
 
 type VideoRef = {
@@ -231,11 +231,6 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const [isOffline, setIsOffline] = useState(false);
   const [isShowSheet, setShowSheet] = useState(false);
 
-  const {
-    playsViewsAnalytics,
-    playsPlaysTimesAnalytics,
-    playsShareClicksAnalytics,
-  } = useAnalytics();
   const [isReadyPlay, setReadyPlay] = useState(false);
 
   const EPISODE_RANGE_SIZE = 100;
@@ -259,7 +254,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const onShare = async () => {
     try {
       // ========== for analytics - start ==========
-      playsShareClicksAnalytics();
+      UmengAnalytics.playsShareClicksAnalytics();
       // ========== for analytics - end ==========
 
       let msg = `《${vod?.vod_name
@@ -302,7 +297,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
       setReadyPlay(false);
 
       // ========== for analytics - start ==========
-      playsViewsAnalytics({
+      UmengAnalytics.playsViewsAnalytics({
         vod_id: vod.vod_id.toString(),
         vod_name: vod.vod_name,
       });
@@ -578,7 +573,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放">) => {
   // // ========== for analytics - start ==========
   // const onReadyForDisplay = () => {
   //   if (vod && !isReadyPlay) {
-  //     playsPlaysTimesAnalytics({
+  //     UmengAnalytics.playsPlaysTimesAnalytics({
   //       vod_id: vod.vod_id.toString(),
   //       vod_name: vod.vod_name,
   //     });

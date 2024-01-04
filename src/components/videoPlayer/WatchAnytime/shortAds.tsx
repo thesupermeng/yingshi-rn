@@ -6,7 +6,6 @@ import Video, { OnProgressData, VideoRef } from 'react-native-video';
 import FastImage from '../../common/customFastImage';
 import { useNavigation, useTheme } from '@react-navigation/native';
 import { useAppDispatch, useAppSelector } from '@hooks/hooks';
-import useAnalytics from '@hooks/useAnalytics';
 import { DOWNLOAD_WATCH_ANYTIME } from '@utility/constants';
 import { playVod } from '@redux/actions/vodActions';
 import RNFetchBlob from 'rn-fetch-blob';

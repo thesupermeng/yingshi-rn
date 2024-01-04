@@ -11,7 +11,7 @@ import { useAppDispatch, useAppSelector } from '@hooks/hooks';
 import WebView from 'react-native-webview';
 import BackIcon from "@static/images/back_arrow.svg";
 import { useTheme } from '@react-navigation/native';
-import useAnalytics from '@hooks/useAnalytics';
+import UmengAnalytics from '../../../../Umeng/UmengAnalytics';
 import CountdownIndicator from '../../../components/button/countdownIndicator';
 
 interface Props {
@@ -135,12 +135,10 @@ const LiveVideo = ({ videoRef, matchID, liveDataState, onLiveEnd, onLoad, stream
     };
 
     // ========== for analytics - start ==========
-    const { sportDetailsPlaysTimesAnalytics } = useAnalytics();
-
     const onReadyForDisplay = useCallback(() => {
         if (!isReadyPlay && videoSource !== undefined) {
             setReadyPlay(true);
-            sportDetailsPlaysTimesAnalytics(videoSource.type === VideoLiveType.LIVE ? 'live' : 'animation');
+            UmengAnalytics.sportDetailsPlaysTimesAnalytics(videoSource.type === VideoLiveType.LIVE ? 'live' : 'animation');
         }
     }, [isReadyPlay, videoSource]);
     // ========== for analytics - end ==========

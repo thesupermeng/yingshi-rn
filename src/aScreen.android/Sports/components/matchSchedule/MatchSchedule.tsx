@@ -22,7 +22,7 @@ import { useAppSelector } from '@hooks/hooks';
 import { showBecomeVip } from '@redux/actions/screenAction';
 import { useDispatch } from 'react-redux';
 import { screenModel } from '@type/screenType';
-import useAnalytics from '@hooks/useAnalytics';
+import UmengAnalytics from '../../../../../Umeng/UmengAnalytics';
 
 interface Props {
   matchSche: MatchDetailsType;
@@ -42,7 +42,6 @@ const MatchSchedule = ({
   const { colors, textVariants, spacing } = useTheme();
   const dispatch = useDispatch();
   let totalViews = 0;
-  const { sportClicksAnalytics } = useAnalytics();
 
   const calTotalViews = () => {
     if (matchSche?.streams != undefined && matchSche?.streams.length > 0) {
@@ -68,7 +67,7 @@ const MatchSchedule = ({
     });
 
     // ========== for analytics - start ==========
-    sportClicksAnalytics();
+    UmengAnalytics.sportClicksAnalytics();
     // ========== for analytics - end ==========
   };
 

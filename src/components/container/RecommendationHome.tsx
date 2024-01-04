@@ -43,6 +43,7 @@ import { CEndpoint } from "@constants";
 import { YSConfig } from "../../../ysConfig";
 import { BannerContainer } from "./bannerContainer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import UmengAnalytics from "../../../Umeng/UmengAnalytics";
 
 interface NavType {
   id: number;
@@ -53,18 +54,23 @@ interface Props {
   navOptions?: NavType[] | undefined;
   onNavChange?: any;
   navId?: number;
+  tabName?: string;
   setScrollEnabled?: any;
   onRefresh?: any;
   refreshProp?: boolean;
   onLoad?: any;
+  isTabFocus?: boolean,
 }
 
 const RecommendationHome = ({
   vodCarouselRes: data,
   setScrollEnabled,
+  navId,
+  tabName,
   onRefresh,
   refreshProp = false,
   onLoad = () => { },
+  isTabFocus = false,
 }: Props) => {
   const { colors, textVariants, spacing } = useTheme();
   const vodReducer: VodReducerState = useAppSelector(
@@ -82,7 +88,7 @@ const RecommendationHome = ({
   // const {width, height} = Dimensions.get('window');
   const [width, setWidth] = useState(Dimensions.get("window").width);
   const [imgRatio, setImgRatio] = useState(1.883);
-  const isVip = useAppSelector(({userReducer}) => !(Number(userReducer.userMemberExpired) <= Number(userReducer.userCurrentTimestamp) || userReducer.userToken === ""))
+  const isVip = useAppSelector(({ userReducer }) => !(Number(userReducer.userMemberExpired) <= Number(userReducer.userCurrentTimestamp) || userReducer.userToken === ""))
   useEffect(() => {
     setWidth(Number(Dimensions.get("window").width));
 
@@ -177,16 +183,48 @@ const RecommendationHome = ({
     }, [isVip])
   );
 
+  useFocusEffect(useCallback(() => {
+    if (isTabFocus && carouselRef.current && data.carousel[carouselRef.current.getCurrentIndex()].is_ads) {
+      UmengAnalytics.homeTabCarouselViewAnalytics({
+        tab_id: navId?.toString() ?? '0',
+        tab_name: tabName ?? '',
+      });
+    }
+  }, [isTabFocus, carouselRef.current?.getCurrentIndex()]));
+
+  const renderBanner = useCallback((bannerAd: bannerAdType) => (
+    <BannerContainer
+      bannerAd={bannerAd}
+      onMount={() => {
+        UmengAnalytics.homeTabBannerViewAnalytics({
+          tab_id: navId?.toString() ?? '0',
+          tab_name: tabName ?? '',
+        });
+      }}
+      onPress={() => {
+        UmengAnalytics.homeTabBannerClickAnalytics({
+          tab_id: navId?.toString() ?? '0',
+          tab_name: tabName ?? '',
+        });
+      }}
+    />
+  ), [navId, tabName]);
+
   const renderCarousel = useCallback(
     ({ item, index }: { item: any; index: number }) => {
       return (
         <TouchableOpacity
           key={`slider-${index}`}
           onPress={() => {
-            if(item.is_ads == true){
+            if (item.is_ads == true) {
               const url = item.ads_url.includes('https://') || item.ads_url.includes('http://') ? item.ads_url : 'https://' + item.ads_url;
               Linking.openURL(url);
-            }else{
+
+              UmengAnalytics.homeTabCarouselClickAnalytics({
+                tab_id: navId?.toString() ?? '0',
+                tab_name: tabName ?? '',
+              });
+            } else {
               dispatch(playVod(item.vod));
               navigation.navigate("播放", {
                 vod_id: item.carousel_content_id,
@@ -248,9 +286,7 @@ const RecommendationHome = ({
           </View>
           <VodListVertical vods={item.vod_list} />
           {(data.yunying.length + data.categories.length + index + 1) % 3 === 0 && bannerAd && (
-            <BannerContainer
-              bannerAd={bannerAd}
-            />
+            renderBanner(bannerAd)
           )}
         </View>
       </View>
@@ -280,9 +316,7 @@ const RecommendationHome = ({
       <VodListVertical vods={item.vod_list} />
 
       {(index + 1) % 3 === 0 && bannerAd && (
-        <BannerContainer
-          bannerAd={bannerAd}
-        />
+        renderBanner(bannerAd)
       )}
     </View>
   );
@@ -313,9 +347,7 @@ const RecommendationHome = ({
       <VodListVertical vods={category.vod_list} />
 
       {(data.yunying.length + index + 1) % 3 === 0 && bannerAd && (
-        <BannerContainer
-          bannerAd={bannerAd}
-        />
+        renderBanner(bannerAd)
       )}
     </View>
   )
@@ -400,14 +432,14 @@ const RecommendationHome = ({
                 )}
 
                 {bannerAd && (
-                  <View style ={{
+                  <View style={{
                     paddingLeft: spacing.sideOffset,
                     paddingRight: spacing.sideOffset,
                     paddingBottom: 5
                   }}>
-                    <BannerContainer
-                      bannerAd={bannerAd}
-                    />
+                    {
+                      renderBanner(bannerAd)
+                    }
                   </View>
                 )}
 

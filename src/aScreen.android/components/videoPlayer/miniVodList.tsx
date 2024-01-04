@@ -5,12 +5,13 @@ import ShortVod from '../../components/videoPlayer/shortVod';
 import FastImage from "../common/customFastImage";
 import { useTheme } from '@react-navigation/native';
 import { StyleSheet } from 'react-native';
-import useAnalytics from '@hooks/useAnalytics';
+import UmengAnalytics from '../../../../Umeng/UmengAnalytics';
 import { userModel } from '@type/userType';
 import { RootState } from '@redux/store';
 import { useAppDispatch, useAppSelector } from '@hooks/hooks';
 import { showLoginAction } from '@redux/actions/screenAction';
 import { MINI_SHOW_LOGIN_NUMBER } from '@utility/constants';
+import ShortAds from './shortAds';
 
 interface Props {
     miniVodListRef: any,
@@ -82,15 +83,12 @@ export default forwardRef<MiniVodRef, Props>(
             }
         }, [displayHeight, current]);
 
-        // ========== for analytics - start ==========
-        const { watchAnytimeVideoViewTimesAnalytics } = useAnalytics();
-
         useEffect(() => {
             // ========== for analytics - start ==========
             if (collectionPartialVideos.length > 0) {
                 setCurAnalyticsIndex(0);
 
-                watchAnytimeVideoViewTimesAnalytics({
+                UmengAnalytics.watchAnytimeVideoViewTimesAnalytics({
                     userId: userState.userId,
                     vod_id: collectionPartialVideos[0].mini_video_id,
                     isXmode: false,
@@ -103,7 +101,7 @@ export default forwardRef<MiniVodRef, Props>(
             if (current > curAnalyticsIndex) {
                 setCurAnalyticsIndex(current);
 
-                watchAnytimeVideoViewTimesAnalytics({
+                UmengAnalytics.watchAnytimeVideoViewTimesAnalytics({
                     userId: userState.userId,
                     vod_id: collectionPartialVideos[current].mini_video_id,
                     isXmode: false

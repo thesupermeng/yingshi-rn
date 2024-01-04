@@ -25,7 +25,7 @@ import FastImage from "../components/common/customFastImage";
 import { useIsFocused } from "@react-navigation/native";
 import NoConnection from "./../components/common/noConnection";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
-import { useAppSelector, useAppDispatch } from "@hooks/hooks";
+import { useAppSelector, useAppDispatch, useSelector } from "@hooks/hooks";
 import { RootState } from "@redux/store";
 import { SettingsReducerState } from "@redux/reducers/settingsReducer";
 import HomeNav from "../components/tabNavigate/homeNav";
@@ -38,8 +38,9 @@ import {
 import { AdsBannerContext } from "../../contexts/AdsBannerContext";
 
 import useInterstitialAds from "@hooks/useInterstitialAds"
-import useAnalytics from "@hooks/useAnalytics";
+import UmengAnalytics from "../../../Umeng/UmengAnalytics";
 import { AppsApi } from "@api";
+import { userModel } from "@type/userType";
 
 function Home({ navigation }: BottomTabScreenProps<any>) {
   const isFocused = useIsFocused();
@@ -51,6 +52,10 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   const settingsReducer: SettingsReducerState = useAppSelector(
     ({ settingsReducer }: RootState) => settingsReducer
   );
+  const userState = useSelector<userModel>('userReducer');
+  const isVip = !(Number(userState.userMemberExpired) <=
+    Number(userState.userCurrentTimestamp) ||
+    userState.userToken === "")
   const bottomTabHeight = useBottomTabBarHeight();
 
   const { data: navOptions, refetch } = useQuery({
@@ -58,7 +63,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
     queryFn: () => AppsApi.getHomeNav(),
   });
 
-  const fetchData = useCallback((id: number) => AppsApi.getHomePages(id), []);
+  const fetchData = useCallback((id: number) => AppsApi.getHomePages(id, isVip), []);
 
   const data = useQueries({
     queries: navOptions
@@ -181,11 +186,9 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   }, [bottomTabHeight]);
 
   // ========== for analytics - start ==========
-  const { homeTabViewsAnalytics, homeTabClicksAnalytics } = useAnalytics();
-
   useEffect(() => {
     if (navOptions !== undefined && navOptions.length > 0) {
-      homeTabViewsAnalytics({
+      UmengAnalytics.homeTabViewsAnalytics({
         tab_id: navOptions[0].id.toString(),
         tab_name: navOptions[0].name,
       });
@@ -195,7 +198,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   useEffect(() => {
     if (navOptions !== undefined && navOptions.length > 0) {
       const idx = navOptions?.findIndex((e) => e.id === navId);
-      homeTabViewsAnalytics({
+      UmengAnalytics.homeTabViewsAnalytics({
         tab_id: navOptions[idx].id.toString(),
         tab_name: navOptions[idx].name,
       });
@@ -212,7 +215,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
       if (found) {
         setNavId(found.id);
         // ========== for analytics - start ==========
-        homeTabClicksAnalytics({
+        UmengAnalytics.homeTabClicksAnalytics({
           tab_id: found.id.toString(),
           tab_name: found.name,
         });

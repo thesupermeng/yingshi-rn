@@ -54,6 +54,7 @@ import { YSConfig } from '../../../ysConfig';
 import { BannerContainer } from './bannerContainer';
 import { userModel } from '@type/userType';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import UmengAnalytics from '../../../Umeng/UmengAnalytics';
 // import {FlatList, PanGestureHandler} from 'react-native-gesture-handler';
 
 interface NavType {
@@ -65,24 +66,25 @@ interface Props {
   navOptions?: NavType[] | undefined;
   onNavChange?: any;
   navId?: number;
+  tabName?: string;
   setScrollEnabled?: any;
   onRefresh?: any;
   refreshProp?: boolean;
   handleRejectEighteenPlus: () => void,
+  isTabFocus?: boolean,
 }
 const BTN_COLORS = ['#30AA55', '#7E9CEE', '#F1377A', '#FFCC12', '#ED7445'];
 const CatagoryHome = ({
   vodCarouselRes: data,
   navId = 0,
+  tabName,
   setScrollEnabled,
   onRefresh,
   refreshProp,
   handleRejectEighteenPlus,
+  isTabFocus = false,
 }: Props) => {
-  const userState: userModel = useAppSelector(
-    ({ userReducer }) => userReducer
-  );
-  const isVip = useAppSelector(({userReducer}) => !(Number(userReducer.userMemberExpired) <= Number(userReducer.userCurrentTimestamp) || userReducer.userToken === ""))
+  const isVip = useAppSelector(({ userReducer }) => !(Number(userReducer.userMemberExpired) <= Number(userReducer.userCurrentTimestamp) || userReducer.userToken === ""))
 
   const { colors, textVariants, spacing } = useTheme();
   const dispatch = useAppDispatch();
@@ -132,6 +134,33 @@ const CatagoryHome = ({
     }
   }
 
+  useFocusEffect(useCallback(() => {
+    if (isTabFocus && carouselRef.current && data.carousel[carouselRef.current.getCurrentIndex()].is_ads) {
+      UmengAnalytics.homeTabCarouselViewAnalytics({
+        tab_id: navId?.toString() ?? '0',
+        tab_name: tabName ?? '',
+      });
+    }
+  }, [isTabFocus, carouselRef.current?.getCurrentIndex()]));
+
+  const renderBanner = useCallback((bannerAd: bannerAdType) => (
+    <BannerContainer
+      bannerAd={bannerAd}
+      onMount={() => {
+        UmengAnalytics.homeTabBannerViewAnalytics({
+          tab_id: navId.toString(),
+          tab_name: tabName ?? '',
+        });
+      }}
+      onPress={() => {
+        UmengAnalytics.homeTabBannerClickAnalytics({
+          tab_id: navId.toString(),
+          tab_name: tabName ?? '',
+        });
+      }}
+    />
+  ), [navId, tabName]);
+
   const listItem = useCallback(
     ({ item, index }: { item: VodData; index: number }) => (
       <View
@@ -165,11 +194,9 @@ const CatagoryHome = ({
         }
 
         {(data.yunying ?
-            data.yunying.length + index + 1 : index + 1) % 3 === 0 && bannerAd && (
-          <BannerContainer
-            bannerAd={bannerAd}
-          />
-        )}
+          data.yunying.length + index + 1 : index + 1) % 3 === 0 && bannerAd && (
+            renderBanner(bannerAd)
+          )}
       </View>
     ),
     [bannerAd],
@@ -180,10 +207,15 @@ const CatagoryHome = ({
       <TouchableOpacity
         key={`slider-${index}`}
         onPress={() => {
-          if(item.is_ads == true){
+          if (item.is_ads == true) {
             const url = item.ads_url.includes('https://') || item.ads_url.includes('http://') ? item.ads_url : 'https://' + item.ads_url;
             Linking.openURL(url);
-          }else{
+
+            UmengAnalytics.homeTabCarouselClickAnalytics({
+              tab_id: navId?.toString() ?? '0',
+              tab_name: tabName ?? '',
+            });
+          } else {
             console.debug('pllaying mode', navId)
             dispatch(playVod(item.vod));
             navigation.navigate('播放', {
@@ -276,7 +308,7 @@ const CatagoryHome = ({
   useFocusEffect(
     useCallback(() => {
       shouldShowAds();
-      
+
       if (navId == 99) {
         dispatch(showAdultModeDisclaimer())
       }
@@ -348,14 +380,14 @@ const CatagoryHome = ({
                 )}
 
                 {bannerAd && (
-                  <View style ={{
+                  <View style={{
                     paddingLeft: spacing.sideOffset,
                     paddingRight: spacing.sideOffset,
                     paddingVertical: 5,
                   }}>
-                    <BannerContainer
-                      bannerAd={bannerAd}
-                    />
+                    {
+                      renderBanner(bannerAd)
+                    }
                   </View>
                 )}
 
@@ -394,9 +426,7 @@ const CatagoryHome = ({
                       }
 
                       {(index + 1) % 3 === 0 && bannerAd && (
-                        <BannerContainer
-                          bannerAd={bannerAd}
-                        />
+                        renderBanner(bannerAd)
                       )}
                     </View>
                   ))}

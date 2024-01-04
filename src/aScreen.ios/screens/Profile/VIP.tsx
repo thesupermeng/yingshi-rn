@@ -40,7 +40,7 @@ import axios from "axios";
 import { showLoginAction } from "@redux/actions/screenAction";
 import SpinnerOverlay from "../../components/modal/SpinnerOverlay";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import useAnalytics from "@hooks/useAnalytics";
+import UmengAnalytics from "../../../../Umeng/UmengAnalytics";
 import { ProductApi, UserApi } from "@api";
 
 export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
@@ -82,10 +82,8 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const scrollRef = useRef<any>();
 
   // ========== for analytics - start ==========
-  const { userCenterVipPayViewsAnalytics } = useAnalytics();
-
   useEffect(() => {
-    userCenterVipPayViewsAnalytics();
+    UmengAnalytics.userCenterVipPayViewsAnalytics();
   }, []);
   // ========== for analytics - end ==========
 

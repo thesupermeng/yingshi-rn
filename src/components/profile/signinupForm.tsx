@@ -33,7 +33,7 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { showToast } from "../../Sports/utility/toast";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import useAnalytics from "@hooks/useAnalytics";
+import UmengAnalytics from "../../../Umeng/UmengAnalytics";
 import { useDispatch } from "react-redux";
 import { addUserAuthState } from "@redux/actions/userAction";
 import { UserApi } from "@api";
@@ -51,7 +51,6 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
   onGooleLoginSuccess,
 }: Props, ref) => {
   const navigation = useNavigation();
-  const { userCenterLoginSuccessTimesAnalytics, userCenterVipLoginSuccessTimesAnalytics } = useAnalytics();
   const dispatch = useDispatch();
 
   const [loginType, setloginType] = useState<'email' | 'phone'>('email');
@@ -250,10 +249,10 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
       await dispatch(changeScreenAction('登录成功'));
 
       // ========== for analytics - start ==========
-      userCenterLoginSuccessTimesAnalytics();
+      UmengAnalytics.userCenterLoginSuccessTimesAnalytics();
 
       if (json.userMemberExpired >= json.userCurrentTimestamp) {
-        userCenterVipLoginSuccessTimesAnalytics();
+        UmengAnalytics.userCenterVipLoginSuccessTimesAnalytics();
       }
       // ========== for analytics - end ==========
 

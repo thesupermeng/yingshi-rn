@@ -31,7 +31,7 @@ import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import { userModel } from "@type/userType";
 import { TouchableOpacity } from "@gorhom/bottom-sheet";
 import { updateUserAuth } from "@redux/actions/userAction";
-import useAnalytics from "@hooks/useAnalytics";
+import UmengAnalytics from "../../../../Umeng/UmengAnalytics";
 import { UserApi } from "@api";
 
 
@@ -46,10 +46,8 @@ export default ({ navigation }: RootStackScreenProps<"邀请">) => {
   const dispatch = useAppDispatch();
 
   // ========== for analytics - start ==========
-  const { userCenterVipInviteViewsAnalytics } = useAnalytics();
-
   useEffect(() => {
-    userCenterVipInviteViewsAnalytics();
+    UmengAnalytics.userCenterVipInviteViewsAnalytics();
   }, []);
   // ========== for analytics - end ==========
 

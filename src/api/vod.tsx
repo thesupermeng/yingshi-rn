@@ -214,6 +214,7 @@ export class VodApi {
                 isVideo: result.data.is_video,
                 actionUrl: result.data.ads_url,
                 minDuration: !isNaN(result.data.ads_min_duration ?? NaN) ? result.data.ads_min_duration : AD_VIDEO_SECONDS,
+                redirectType: result.data.ads_redirect_type,
             }
 
         } catch (e: any) {

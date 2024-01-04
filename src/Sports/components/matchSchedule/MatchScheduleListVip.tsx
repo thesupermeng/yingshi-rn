@@ -22,6 +22,7 @@ import { YSConfig } from "../../../../ysConfig";
 import { BannerContainer } from "../../../components/container/bannerContainer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAppSelector } from "@hooks/hooks";
+import UmengAnalytics from "../../../../Umeng/UmengAnalytics";
 
 interface Props {
   matchTypeID: number;
@@ -58,7 +59,7 @@ const MatchScheduleList = ({
   const [showLoading, setShowLoading] = useState(false);
   const [showLoading2, setShowLoading2] = useState(false);
   const [bannerAd, setBannerAd] = useState<bannerAdType>();
-  const isVip = useAppSelector(({userReducer}) => !(Number(userReducer.userMemberExpired) <= Number(userReducer.userCurrentTimestamp) || userReducer.userToken === ""))
+  const isVip = useAppSelector(({ userReducer }) => !(Number(userReducer.userMemberExpired) <= Number(userReducer.userCurrentTimestamp) || userReducer.userToken === ""))
 
 
   const [matches, setMatches] = useState<Matches>({
@@ -203,23 +204,29 @@ const MatchScheduleList = ({
                 borderFlag={String(
                   (matches?.data.length >= index + 1 &&
                     matches?.data[index + 1]?.date !== undefined) ||
-                    matches?.data.length == index + 1
+                  matches?.data.length == index + 1
                 )}
                 bgDark={true}
                 setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
                 key={index}
                 matchSche={item?.data}
               />
-              
+
               {(index + 1) % 5 === 0 && bannerAd && (
-                <View style ={{
+                <View style={{
                   paddingVertical: 5
                 }}>
                   <BannerContainer
                     bannerAd={bannerAd}
+                    onMount={() => {
+                      UmengAnalytics.sportBannerViewAnalytics();
+                    }}
+                    onPress={() => {
+                      UmengAnalytics.sportBannerClickAnalytics();
+                    }}
                   />
                 </View>
-                
+
               )}
             </>
           )
@@ -249,14 +256,14 @@ const MatchScheduleList = ({
   // }, []);
 
   const handleInitialLoading = useCallback(() => {
-  
-      setShowLoading2(true);
-      setTimeout(() => {
-        setShowLoading2(false);
-      }, 1200);
+
+    setShowLoading2(true);
+    setTimeout(() => {
+      setShowLoading2(false);
+    }, 1200);
 
   }, []);
-  
+
   useEffect(() => {
     handleInitialLoading();
   }, [handleInitialLoading]);
@@ -264,7 +271,7 @@ const MatchScheduleList = ({
   return (
     <View style={{ flex: 1 }}>
 
-{showLoading2 && (
+      {showLoading2 && (
         <View
           style={{
             width: "100%",
