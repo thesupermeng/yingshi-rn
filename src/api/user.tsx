@@ -126,7 +126,7 @@ export class UserApi {
             });
 
             if (result.success === false) {
-                throw result.message;
+                throw result;
             }
 
             return result.data;
