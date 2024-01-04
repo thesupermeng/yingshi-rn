@@ -174,7 +174,7 @@ export default (props: any) => {
                   {/* {userState.userEmail} */}
                 </Text>
 
-                <InputItem
+                <TextInput
                   autoCapitalize="none"
                   style={[
                     styles.textInpoutCommonStyle,
@@ -184,13 +184,39 @@ export default (props: any) => {
                       : styles.invalidTextInputStyle,
                   ]}
                   value={username}
-                  onChange={value => {
+                  onChangeText={value => {
                     onInputChange(value);
                   }}
                   placeholder="输入昵称"
                   placeholderTextColor="#B6B6B6"
                 // maxLength={18}
                 />
+                <View
+                    style={{
+                        justifyContent: "flex-start",
+                        alignItems: "center",
+                        flexDirection: "row",
+                        paddingRight: 40,
+                        marginTop: 5
+                    }}
+                >
+                    {usernameErrMsg !== null && (
+                        <>
+                            <Image
+                                style={{
+                                    height: 22,
+                                    width: 22,
+                                    marginRight: 5,
+                                    position: "relative",
+                                    top: 1,
+                                }}
+                                source={require("@static/images/invite/danger.png")}
+                            />
+
+                            <Text style={styles.danger}>{usernameErrMsg}</Text>
+                        </>
+                    )}
+                </View>
 
                 <View
                   style={{
@@ -272,7 +298,7 @@ export default (props: any) => {
 
 const styles = StyleSheet.create({
   textInpoutCommonStyle: {
-    marginHorizontal: '-5%',
+    marginHorizontal: 0,
     marginTop: 70,
     paddingLeft: 10,
     height: 42,
