@@ -404,7 +404,7 @@ const RecommendationHome = ({
                   <View style ={{
                     paddingLeft: spacing.sideOffset,
                     paddingRight: spacing.sideOffset,
-                    paddingVertical: 5
+                    paddingBottom: 5
                   }}>
                     <BannerContainer
                       bannerAd={bannerAd}

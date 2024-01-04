@@ -1004,7 +1004,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
             <ScrollView
               nestedScrollEnabled={true}
-              contentContainerStyle={{ marginTop: spacing.m }}
+              // contentContainerStyle={{ marginTop: spacing.s }}
               contentInsetAdjustmentBehavior="automatic"
             >
               <View style={{ ...styles.descriptionContainer2, gap: spacing.m }}>
