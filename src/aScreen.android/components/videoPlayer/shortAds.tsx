@@ -376,5 +376,6 @@ const styles = StyleSheet.create({
     },
     adsBtnText: {
         fontSize: 18,
+        fontWeight:'bold'
     }
 });
