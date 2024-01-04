@@ -48,6 +48,7 @@ import { VipDialog } from "../../components/vip/vipDialog";
 import { ProductApi, UserApi } from "@api";
 import { YSConfig } from "../../../ysConfig";
 import WebView from "react-native-webview";
+import useAnalytics from "@hooks/useAnalytics";
 
 export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const {
@@ -105,10 +106,13 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
 
   const [dialogText, setDialogText] = useState([""]);
 
-  const headers = {
-    Authorization: `Bearer ${userState.userToken}`,
-    "Content-Type": "application/json",
-  };
+  // ========== for analytics - start ==========
+  const { userCenterVipPayViewsAnalytics } = useAnalytics();
+
+  useEffect(() => {
+    userCenterVipPayViewsAnalytics();
+  }, []);
+  // ========== for analytics - end ==========
 
   const handleRefresh = async () => {
     setRefreshing(true);
@@ -142,7 +146,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         const offline = !(
           state.isConnected &&
           (state.isInternetReachable === true ||
-          state.isInternetReachable === null
+            state.isInternetReachable === null
             ? true
             : false)
         );
@@ -600,7 +604,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                   // padding: 8,
                   opacity:
                     userState.userPaidVipList.total_purchased_days > 0 ||
-                    userState.userAccumulateRewardDay > 0
+                      userState.userAccumulateRewardDay > 0
                       ? 100
                       : 0,
                 }}
@@ -609,7 +613,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
               </Text>
             </TouchableOpacity>
           }
-          // onBack={() => webViewref.current.canGoBack()}
+        // onBack={() => webViewref.current.canGoBack()}
         // headerStyle={{ marginBottom: spacing.m }}
         />
 
@@ -645,32 +649,32 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         {IS_IOS && !isOffline && (
           <WebView
             ref={webViewref}
-            source={{uri: 'http://localhost/vip/'}}
-            onLoadEnd={() => {webViewref.current.postMessage(`${userState.userToken}`)}}
+            source={{ uri: 'http://localhost/vip/' }}
+            onLoadEnd={() => { webViewref.current.postMessage(`${userState.userToken}`) }}
             automaticallyAdjustContentInsets={false}
             // onMessage={(e: {nativeEvent: {data?: string}}) => {
             //   Alert.alert('Message received from JS: ', e.nativeEvent.data);
             // }}
-            containerStyle = {{
+            containerStyle={{
               marginLeft: -spacing.sideOffset,
               marginRight: -spacing.sideOffset,
             }}
             onShouldStartLoadWithRequest={request => {
               if (request.url.includes('https')) {
-                  console.log(request.url);
-                  return false;
+                console.log(request.url);
+                return false;
               } else return true;
-             }}
-            // onNavigationStateChange={(event) => {
-            //   if (event.url !== 'http://localhost/vip/') {
-            //     console.log('666666666666', event.url);
-            //     // webViewref.current.stopLoading();
-            //     // Linking.openURL(event.url);
-            //   }
-            // }}
+            }}
+          // onNavigationStateChange={(event) => {
+          //   if (event.url !== 'http://localhost/vip/') {
+          //     console.log('666666666666', event.url);
+          //     // webViewref.current.stopLoading();
+          //     // Linking.openURL(event.url);
+          //   }
+          // }}
           />
         )}
-        
+
 
         {/*
         {!loading && !isOffline && (

@@ -43,9 +43,9 @@ function Playlist({ navigation }: BottomTabScreenProps<any>) {
   // ========== for analytics - start ==========
   const { playlistViewsAnalytics } = useAnalytics();
 
-  useEffect(() => {
+  useFocusEffect(useCallback(() => {
     playlistViewsAnalytics();
-  }, []);
+  }, []));
   // ========== for analytics - end ==========
 
   // Function to handle the refresh action

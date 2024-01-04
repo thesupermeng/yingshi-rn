@@ -318,6 +318,23 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
     },
   });
 
+  // ========== for analytics - start ==========
+  const { catalogViewsAnalytics, catalogClicksAnalytics } = useAnalytics();
+
+  useEffect(() => {
+    if (topicOptions.length > 0) {
+      const currentTopicName = topicOptions.find((topic) => topic.id === currentTopicId);
+
+      if (currentTopicName) {
+        catalogViewsAnalytics({
+          category_id: currentTopicId.toString(),
+          category_name: currentTopicName.name,
+        });
+      }
+    }
+  }, [currentTopicId, topicOptions]);
+  // ========== for analytics - end ==========
+
   useEffect(() => {
     const eventName = 'catalog';
     const eventValues = {
@@ -386,6 +403,17 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
               navigation.navigate('播放', {
                 vod_id: item?.vod_id,
               });
+
+              // ========== for analytics - start ==========
+              const currentTopicName = topicOptions.find((topic) => topic.id === currentTopicId);
+
+              if (currentTopicName) {
+                catalogClicksAnalytics({
+                  category_id: currentTopicId.toString(),
+                  category_name: currentTopicName.name,
+                });
+              }
+              // ========== for analytics - end ==========
             }}
           />
         </View>
