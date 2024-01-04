@@ -152,13 +152,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
   }
 
   const shouldShowAds = async () => {
-    const shouldShow = await AsyncStorage.getItem('showAds');
-    
-    if ((shouldShow && shouldShow === 'true') || !shouldShow) {
-      fetchBannerAd();
-    } else {
-      setBannerAd(undefined);
-    }
+    fetchBannerAd();
   };
 
   useFocusEffect(
