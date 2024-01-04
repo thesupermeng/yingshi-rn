@@ -410,10 +410,10 @@ const LoginCard = ({
       <View style={styles.tabContainer}>
         <TouchableOpacity
           style={styles.tabItemContainer}
-          onPress={() => onChangeloginType('phone')}
+          onPress={() => onChangeloginType('email')}
         >
-          <Text style={[loginType === 'phone' ? styles.tabItemFocusText : styles.tabItemUnfocusText]}>手机号码</Text>
-          {loginType === 'phone' &&
+          <Text style={[loginType === 'email' ? styles.tabItemFocusText : styles.tabItemUnfocusText]}>电邮地址</Text>
+          {loginType === 'email' &&
             <View
               style={{
                 width: 30,
@@ -427,10 +427,10 @@ const LoginCard = ({
 
         <TouchableOpacity
           style={styles.tabItemContainer}
-          onPress={() => onChangeloginType('email')}
+          onPress={() => onChangeloginType('phone')}
         >
-          <Text style={[loginType === 'email' ? styles.tabItemFocusText : styles.tabItemUnfocusText]}>电邮地址</Text>
-          {loginType === 'email' &&
+          <Text style={[loginType === 'phone' ? styles.tabItemFocusText : styles.tabItemUnfocusText]}>手机号码</Text>
+          {loginType === 'phone' &&
             <View
               style={{
                 width: 30,

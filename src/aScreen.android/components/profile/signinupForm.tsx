@@ -391,23 +391,6 @@ const LoginCard = ({
       <Text style={styles.subtitle}>登录后可管理您的账号，多端同步观看历史和收藏夹</Text>
       {/* ============================== tab control ============================== */}
       <View style={styles.tabContainer}>
-        {/* <TouchableOpacity
-            style={styles.tabItemContainer}
-            onPress={() => onChangeloginType('phone')}
-          >
-            <Text style={[loginType === 'phone' ? styles.tabItemFocusText : styles.tabItemUnfocusText]}>手机号码</Text>
-            {loginType === 'phone' &&
-              <View
-                style={{
-                  width: 30,
-                  height: 4,
-                  borderRadius: 20,
-                  backgroundColor: colors.primary,
-                }}
-              />
-            }
-          </TouchableOpacity> */}
-
         <TouchableOpacity
           style={styles.tabItemContainer}
           onPress={() => onChangeloginType('email')}
@@ -424,6 +407,23 @@ const LoginCard = ({
             />
           }
         </TouchableOpacity>
+
+        {/* <TouchableOpacity
+            style={styles.tabItemContainer}
+            onPress={() => onChangeloginType('phone')}
+          >
+            <Text style={[loginType === 'phone' ? styles.tabItemFocusText : styles.tabItemUnfocusText]}>手机号码</Text>
+            {loginType === 'phone' &&
+              <View
+                style={{
+                  width: 30,
+                  height: 4,
+                  borderRadius: 20,
+                  backgroundColor: colors.primary,
+                }}
+              />
+            }
+          </TouchableOpacity> */}
       </View>
       <View style={styles.textinputContainer}>
         {/* ============================== login value (email / phone) ============================== */}
