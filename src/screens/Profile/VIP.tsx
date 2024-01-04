@@ -77,6 +77,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   );
 
   const [loading, setLoading] = useState(true);
+  const [isNavigated, setIsNavigated] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -534,7 +535,9 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   };
 
   const webViewref = useRef<any>();
-  // const onLoadEnd
+  useEffect(() => {
+    webViewref.current.reload();
+  },[userState])  
 
   return (
     <>
@@ -609,7 +612,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
               </Text>
             </TouchableOpacity>
           }
-          // onBack={() => webViewref.current.canGoBack()}
+          onBack={() => isNavigated ? webViewref.current.goBack() : navigation.goBack()}
         // headerStyle={{ marginBottom: spacing.m }}
         />
 
@@ -619,7 +622,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
           </View>
         )}
 
-        {loading && !isOffline && (
+        {/* {loading && !isOffline && loadingWebView && (
           <View
             style={{
               flex: 1,
@@ -638,36 +641,60 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
               resizeMode={FastImage.resizeMode.contain}
             />
           </View>
-        )}
+        )} */}
 
         <SpinnerOverlay visible={isVisible} />
 
         {IS_IOS && !isOffline && (
           <WebView
             ref={webViewref}
-            source={{uri: 'http://localhost/vip/'}}
-            onLoadEnd={() => {webViewref.current.postMessage(`${userState.userToken}`)}}
+            source={{uri: 'http://localhost/vip'}}
+            onLoadEnd={() => {webViewref.current.postMessage(`${userState.userToken}`);}}
+            startInLoadingState
+            renderLoading={() => {
+              return (
+                <View
+                  style={{
+                    flex: 1,
+                    position: 'absolute',
+                    height: '100%',
+                    width: '100%',
+                    justifyContent: "center",
+                    alignItems: "center",
+                    backgroundColor: "rgb(20,22,25)",
+                  }}
+                >
+                  <FastImage
+                    source={require("@static/images/home-loading.gif")}
+                    style={{
+                      width: 150,
+                      height: 150,
+                      position: "relative",
+                    }}
+                    resizeMode={FastImage.resizeMode.contain}
+                  />
+                </View>
+              );
+            }}
             automaticallyAdjustContentInsets={false}
-            // onMessage={(e: {nativeEvent: {data?: string}}) => {
-            //   Alert.alert('Message received from JS: ', e.nativeEvent.data);
-            // }}
+            javaScriptCanOpenWindowsAutomatically={true}
+            onMessage={(e: {nativeEvent: {data?: string}}) => {
+              if (e.nativeEvent.data === 'invalid credential') {
+                dispatch(showLoginAction());
+              }
+            }}
             containerStyle = {{
               marginLeft: -spacing.sideOffset,
               marginRight: -spacing.sideOffset,
             }}
-            onShouldStartLoadWithRequest={request => {
-              if (request.url.includes('https')) {
-                  console.log(request.url);
-                  return false;
-              } else return true;
-             }}
-            // onNavigationStateChange={(event) => {
-            //   if (event.url !== 'http://localhost/vip/') {
-            //     console.log('666666666666', event.url);
-            //     // webViewref.current.stopLoading();
-            //     // Linking.openURL(event.url);
-            //   }
-            // }}
+            onNavigationStateChange={(event) => {
+              console.log(event.url);
+              if (event.url === 'http://localhost/vip') {
+                setIsNavigated(false);
+              } else {
+                setIsNavigated(true);
+              }
+            }}
           />
         )}
         
