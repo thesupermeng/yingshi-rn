@@ -69,9 +69,9 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
   // ========== for analytics - start ==========
   const { sportViewsAnalytics } = useAnalytics();
 
-  useEffect(() => {
+  useFocusEffect(useCallback(() => {
     sportViewsAnalytics();
-  }, []);
+  }, []));
   // ========== for analytics - end ==========
 
   const { data: navOptions, refetch } = useQuery({

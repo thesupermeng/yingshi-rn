@@ -29,9 +29,9 @@ export class AppsApi {
             console.error(`[Error ${this.name}]: ${e.toString()}`);
             YSConfig.instance.setNetworkIp(ipAddress);
         } 
-        // finally {
-        //     YSConfig.instance.setNetworkIp(ipAddress);
-        // }
+        finally {
+            YSConfig.instance.setNetworkIp(ipAddress);
+        }
     };
 
     static getBottomNav = async () => {

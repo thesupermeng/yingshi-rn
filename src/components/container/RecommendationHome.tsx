@@ -250,8 +250,7 @@ const RecommendationHome = ({
           <VodListVertical vods={item.vod_list} />
           {(data.yunying.length + data.categories.length + index + 1) % 3 === 0 && bannerAd && (
             <BannerContainer
-              bannerImg={bannerAd.ads_pic}
-              bannerUrl={bannerAd.ads_url}
+              bannerAd={bannerAd}
             />
           )}
         </View>
@@ -283,8 +282,7 @@ const RecommendationHome = ({
 
       {(index + 1) % 3 === 0 && bannerAd && (
         <BannerContainer
-          bannerImg={bannerAd.ads_pic}
-          bannerUrl={bannerAd.ads_url}
+          bannerAd={bannerAd}
         />
       )}
     </View>
@@ -317,8 +315,7 @@ const RecommendationHome = ({
 
       {(data.yunying.length + index + 1) % 3 === 0 && bannerAd && (
         <BannerContainer
-          bannerImg={bannerAd.ads_pic}
-          bannerUrl={bannerAd.ads_url}
+          bannerAd={bannerAd}
         />
       )}
     </View>
@@ -407,11 +404,10 @@ const RecommendationHome = ({
                   <View style ={{
                     paddingLeft: spacing.sideOffset,
                     paddingRight: spacing.sideOffset,
-                    paddingVertical: 5
+                    paddingBottom: 5
                   }}>
                     <BannerContainer
-                      bannerImg={bannerAd.ads_pic}
-                      bannerUrl={bannerAd.ads_url}
+                      bannerAd={bannerAd}
                     />
                   </View>
                 )}

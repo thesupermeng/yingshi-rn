@@ -122,6 +122,7 @@ import { ATInterstitialRNSDK } from "./../../AnyThinkAds/ATReactNativeSDK";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 import AdultVideoList from "../screens/Playlist/AdultVideoList";
 import { UserApi } from "@api";
+import AdEvent from "../screens/Common/AdEvent";
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -625,6 +626,10 @@ export default () => {
             name="午夜场剧情"
             component={AdultVideoList}
             options={{ orientation: 'portrait' }}
+          />
+          <Stack.Screen
+            name="活动页"
+            component={AdEvent}
           />
         </Stack.Navigator>
         {settingsReducer.appOrientation === "PORTRAIT" && ( // only show if portrait

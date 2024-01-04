@@ -1,6 +1,6 @@
 import { API_DOMAIN_TEST, DOWNLOAD_WATCH_ANYTIME } from "@utility/constants";
 import { getApiCache, getExcludedIds, getIsApiCacheExist } from "../utils/minivodDownloader"
-import { MiniVideo, MiniVideoListType, MiniVideoVodListType } from "@type/ajaxTypes";
+import { MiniVideo, MiniVideoCollectionItem, MiniVideoListType, MiniVideoVodListType } from "@type/ajaxTypes";
 import { QueryClient, useInfiniteQuery } from "@tanstack/react-query";
 import shuffle from 'lodash/shuffle'
 
@@ -8,14 +8,46 @@ import { CApi } from "@utility/apiService";
 import { CEndpoint } from "@constants";
 
 
+const customShuffleWithAds = (arr: MiniVideo[]) => { // basically keeping ads at index 3rd, 6th, 9th of previous item 
+  const contentArray = shuffle(arr.filter(item => !item.is_ads))
+  const adsArray = shuffle(arr.filter(item => item.is_ads))
+  
+  const offsets = [3, 6, 9]
+  
+  let current = 0
+
+  adsArray.forEach((val, index) => {
+    const offsetIndex = index % 3
+    current += offsets[offsetIndex]
+    const ad = adsArray[index];
+
+    contentArray.splice(current - 1 , 0, ad)
+  })
+
+  return contentArray
+}
+
 export class MiniVodApi {
-  static getListByPage = async ({ page, limit = 100, exclude, xMode = false, }: { page: number, limit?: number, exclude?: string, xMode?: boolean }) => {
+  static getListByPage = async ({
+    page,
+    limit = 100,
+    exclude,
+    xMode = false,
+    isVip = false,
+  }: {
+    page: number,
+    limit?: number,
+    exclude?: string,
+    xMode?: boolean,
+    isVip?: boolean
+  }) => {
     try {
       const result = await CApi.get(xMode ? CEndpoint.minivodGetXList : CEndpoint.minivodGetList, {
         query: {
           page,
           limit,
           exclude,
+          isVip,
         }
       });
 
@@ -60,20 +92,21 @@ type MiniVideoResponseType = {
   };
 };
 
-const fetchMiniVods = async (page: number, from: 'api' | 'local' = 'local') => {
+const fetchMiniVods = async (page: number, { from = 'local', isVip = false }: { from?: 'api' | 'local', isVip?: boolean } = {}) => {
   const apiCacheExists = await getIsApiCacheExist()
   if (!apiCacheExists || from === 'api' || page > 1 || DOWNLOAD_WATCH_ANYTIME === false) {
-    console.debug('getting from api')
+    // console.debug('getting from api')
     const excluded = await getExcludedIds()
-    const result =  await MiniVodApi.getListByPage({
+    const result = await MiniVodApi.getListByPage({
       page,
       limit: 300,
       exclude: excluded.join(','),
+      isVip,
     });
     return result.List
   } else {
-    console.debug('getting from local')
-    return shuffle(await getApiCache())
+    // console.debug('getting from local')
+    return customShuffleWithAds(await getApiCache())
   }
 }
 
@@ -119,9 +152,9 @@ const prefetchAdultMiniVod = async (queryClient: QueryClient) => {
 const useMinivodQuery = (fetchMode: 'adult' | 'normal', isVip: boolean) => useInfiniteQuery(
   ['watchAnytime', fetchMode, isVip],
   ({ pageParam = 1 }) => {
-    console.log('fetchMode -', fetchMode);
+    // console.log('fetchMode -', fetchMode);
     if (fetchMode == 'normal') {
-      return fetchMiniVods(pageParam);
+      return fetchMiniVods(pageParam, { isVip });
     } else {
       return fetchAdultVods(pageParam, isVip);
     }
@@ -130,8 +163,8 @@ const useMinivodQuery = (fetchMode: 'adult' | 'normal', isVip: boolean) => useIn
     getNextPageParam: (lastPage, allPages) => {
       return allPages.length + 1;
     },
-    onSuccess: data => { 
-      console.debug('data',data)
+    onSuccess: data => {
+      // console.debug('data', data)
     },
     refetchOnMount: 'always',
   },

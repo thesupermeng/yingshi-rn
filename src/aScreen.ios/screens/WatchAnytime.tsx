@@ -47,9 +47,9 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     // ========== for analytics - start ==========
     const { watchAnytimeViewsAnalytics } = useAnalytics();
 
-    useEffect(() => {
+    useFocusEffect(useCallback(() => {
         watchAnytimeViewsAnalytics();
-    }, [])
+    }, []));
     // ========== for analytics - end ==========
 
     // Add an event listener to the navigation object for the tab press event

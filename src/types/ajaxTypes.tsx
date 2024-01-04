@@ -286,6 +286,17 @@ export interface MiniVideo {
     mini_video_play_count: number
     mini_video_size: number
     mini_video_keyword: string
+    ads_pic: string,
+    ads_url: string,
+    ads_thumbnail: string,
+    ads_title: string,
+    ads_tag: string,
+    ads_button_text: string,
+    ads_desc1: string,
+    ads_desc2: string,
+    ads_redirect_type: number,
+    is_video: boolean,
+    is_ads: boolean,
 }
 
 export interface FilterOptionsType {
@@ -433,5 +444,7 @@ export interface bannerAdType {
     ads_content_type: number,
     ads_sort: number,
     ban_region: string,
-    is_video: boolean
+    is_video: boolean, 
+    ads_redirect_type: number
+
 }

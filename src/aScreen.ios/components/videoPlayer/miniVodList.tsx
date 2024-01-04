@@ -11,6 +11,7 @@ import { RootState } from '@redux/store';
 import { useAppDispatch, useAppSelector } from '@hooks/hooks';
 import { MINI_SHOW_LOGIN_NUMBER } from '@utility/constants';
 import { showLoginAction } from '@redux/actions/screenAction';
+import ShortAds from './shortAds';
 
 interface Props {
     miniVodListRef: any,
@@ -65,8 +66,7 @@ export default forwardRef<MiniVodRef, Props>(
         const [videoCurrentDurations, setVideoCurrentDurations] = useState<number[]>([]);
 
         // for analytics used
-        const [preTolVideoViews, setPreTolVideoViews] = useState(0); // previous
-        const [curTolVideoViews, setCurTolVideoViews] = useState(1); // current
+        const [curAnalyticsIndex, setCurAnalyticsIndex] = useState(0);
 
         const swipeCount = useRef(0);
         const dispatch = useAppDispatch();
@@ -82,25 +82,38 @@ export default forwardRef<MiniVodRef, Props>(
             if (index >= 0 && displayHeight > 0 && index != current) {
                 setCurrent(index);
             }
-
-            // for analytics used
-            if ((index + 1) > curTolVideoViews) {
-                setPreTolVideoViews(curTolVideoViews);
-                setCurTolVideoViews(index + 1);
-            }
-        }, [displayHeight, current, curTolVideoViews]);
+        }, [displayHeight, current]);
 
         // ========== for analytics - start ==========
         const { watchAnytimeVideoViewTimesAnalytics } = useAnalytics();
 
         useEffect(() => {
-            if (!isActive && curTolVideoViews > preTolVideoViews) {
+            if (collectionPartialVideos.length > 0) {
+                setCurAnalyticsIndex(0);
+
                 watchAnytimeVideoViewTimesAnalytics({
                     userId: userState.userId,
                     vod_id: collectionPartialVideos[0].mini_video_id,
                 });
             }
-        }, [isActive, preTolVideoViews, curTolVideoViews]);
+        }, [collectionPartialVideos]);
+
+        useEffect(() => {
+            if (current > curAnalyticsIndex) {
+                setCurAnalyticsIndex(current);
+
+                watchAnytimeVideoViewTimesAnalytics({
+                    userId: userState.userId,
+                    vod_id: collectionPartialVideos[current].mini_video_id,
+                });
+            }
+        }, [
+            current,
+            curAnalyticsIndex,
+            collectionPartialVideos,
+            userState,
+        ]);
+        // ========== for analytics - end ==========
 
         // ========== for analytics - end ==========
 
@@ -156,26 +169,47 @@ export default forwardRef<MiniVodRef, Props>(
             }));
         }
 
-        const renderItem = useCallback(({ item, index }: { item: MiniVideo, index: number }) => (
-            <View style={{ height: displayHeight ? displayHeight : 0 }}>
-                {displayHeight != 0 && (
-                    <ShortVod
-                        vod={item}
-                        thumbnail={item.mini_video_origin_cover}
-                        displayHeight={displayHeight ? displayHeight : 0}
-                        inCollectionView={inCollectionView}
-                        setCollectionEpisode={setCollectionEpisodeToTitle}
-                        isPause={isPause || current !== index}
-                        onManualPause={(current) => {
-                            setPause(!current);
-                        }}
-                        isShowVideo={current === index && !isScrolling}
-                        currentDuration={videoCurrentDurations[index]}
-                        updateVideoDuration={(duration) => updateVideoDuration(index, duration)}
-                    />
-                )}
-            </View>
-        ), [current, isPause, isScrolling, inCollectionView, displayHeight, videoCurrentDurations]);
+        const renderItem = useCallback(({ item, index }: { item: MiniVideo, index: number }) => {
+            let prevPosition = Math.max(0, index - 1);
+
+            if (item.is_ads) {
+                return <ShortAds
+                    vod={item}
+                    thumbnail={item.ads_thumbnail}
+                    displayHeight={displayHeight ? displayHeight : 0}
+                    isPause={isPause || current !== index}
+                    onManualPause={current => {
+                        console.log('click pause');
+                        setPause(!current);
+                    }}
+                    isShowVideo={current >= prevPosition && current < index + 2}
+                    currentDuration={videoCurrentDurations[index]}
+                    isActive={isActive}
+                    index={index}
+                />
+            }
+
+            return (
+                <View style={{ height: displayHeight ? displayHeight : 0 }}>
+                    {displayHeight != 0 && (
+                        <ShortVod
+                            vod={item}
+                            thumbnail={item.mini_video_origin_cover}
+                            displayHeight={displayHeight ? displayHeight : 0}
+                            inCollectionView={inCollectionView}
+                            setCollectionEpisode={setCollectionEpisodeToTitle}
+                            isPause={isPause || current !== index}
+                            onManualPause={(current) => {
+                                setPause(!current);
+                            }}
+                            isShowVideo={current === index && !isScrolling}
+                            currentDuration={videoCurrentDurations[index]}
+                            updateVideoDuration={(duration) => updateVideoDuration(index, duration)}
+                        />
+                    )}
+                </View>
+            );
+        }, [current, isPause, isScrolling, inCollectionView, displayHeight, videoCurrentDurations]);
 
         useEffect(() => {
             if ((swipeCount.current + 1) < MINI_SHOW_LOGIN_NUMBER) {

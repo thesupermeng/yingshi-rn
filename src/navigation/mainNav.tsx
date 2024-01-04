@@ -99,7 +99,9 @@ export default () => {
   }, []);
 
   const { data } = useInfiniteQuery(["watchAnytime", "normal"], {
-    queryFn: ({ pageParam = 1 }) => fetchMiniVods(pageParam, "api"),
+    queryFn: ({ pageParam = 1 }) => fetchMiniVods(pageParam, {
+      from: "api"
+    }),
   });
 
   useEffect(() => {

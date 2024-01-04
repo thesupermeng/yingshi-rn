@@ -19,7 +19,7 @@ import { showAdultModeVip, showLoginAction } from '@redux/actions/screenAction';
 import { screenModel } from '@type/screenType';
 import { userModel } from '@type/userType';
 import { ADULT_MODE_PREVIEW_DURATION, MINI_SHOW_LOGIN_NUMBER } from '@utility/constants';
-import BecomeVipOverlay from '../../modal/becomeVipOverlay';
+import ShortAds from './shortAds';
 
 interface Props {
   miniVodListRef: any;
@@ -35,6 +35,7 @@ interface Props {
   handleRefreshMiniVod?: any;
   isRefreshing: boolean;
   isPressTabScroll: boolean;
+  isFocusLogin: React.MutableRefObject<boolean>,
 }
 
 type MiniVodRef = {
@@ -58,6 +59,7 @@ export default forwardRef<MiniVodRef, Props>(
       isActive,
       isRefreshing = false,
       isPressTabScroll = false,
+      isFocusLogin,
     }: Props,
     ref,
   ) => {
@@ -194,8 +196,8 @@ export default forwardRef<MiniVodRef, Props>(
     }, [videos]);
 
     useEffect(() => {
-      setPause(isFetching || isRefreshing || !isActive || isScrolling || screenState.loginShow);
-    }, [isFetching, isRefreshing, isActive, isScrolling, screenState.loginShow]);
+      setPause(isFetching || isRefreshing || !isActive || isScrolling || screenState.loginShow || isFocusLogin.current);
+    }, [isFetching, isRefreshing, isActive, isScrolling, screenState.loginShow, isFocusLogin.current]);
 
     const refreshComponent = useCallback(() => {
       return (
@@ -223,6 +225,24 @@ export default forwardRef<MiniVodRef, Props>(
     const renderItem = useCallback(
       ({ item, index }: { item: MiniVideo; index: number }) => {
         let prevPosition = Math.max(0, index - 1);
+
+        if (item.is_ads) {
+          return <ShortAds
+            vod={item}
+            thumbnail={item.ads_thumbnail}
+            displayHeight={displayHeight ? displayHeight : 0}
+            isPause={isPause || current !== index}
+            onManualPause={current => {
+              console.log('click pause');
+              setPause(!current);
+            }}
+            isShowVideo={current >= prevPosition && current < index + 2}
+            currentDuration={videoCurrentDurations[index]}
+            isActive={isActive}
+            index={index}
+          />
+        }
+
         return (
           <View style={{ height: displayHeight ? displayHeight : 0 }}>
             {displayHeight != 0 && (current >= prevPosition && current < index + 2) && (
@@ -286,13 +306,16 @@ export default forwardRef<MiniVodRef, Props>(
     }, []);
 
     useEffect(() => {
-      if ((swipeCount.current + 1) < MINI_SHOW_LOGIN_NUMBER) {
+      if (userState.userToken !== '') return;
+
+      if (swipeCount.current < MINI_SHOW_LOGIN_NUMBER) {
         swipeCount.current++;
       } else {
+        isFocusLogin.current = true;
         dispatch(showLoginAction());
-        swipeCount.current = 0;
+        // swipeCount.current = 0;
       }
-    }, [current]);
+    }, [current, isFocusLogin.current]);
 
     return (
       <View style={{ flex: 1 }} onLayout={onLayoutRender}>
@@ -340,6 +363,7 @@ export default forwardRef<MiniVodRef, Props>(
             onScroll={handleOnScroll}
             onScrollBeginDrag={handleOnScrollBeginDrag}
             onMomentumScrollEnd={handleOnMomentumScrollEnd}
+            scrollsToTop={false}
           />
         )}
       </View>

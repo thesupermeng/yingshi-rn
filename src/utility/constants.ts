@@ -125,7 +125,7 @@ export const DOWNLOAD_BATCH_SIZE = 5;
 export const TOTAL_VIDEO_TO_DOWNLOAD = 300;
 // export const CACHE_DURATION = 3; //days
 
-export const MINI_SHOW_LOGIN_NUMBER = 20;
+export const MINI_SHOW_LOGIN_NUMBER = 10;
 
 export const AD_VIDEO_SECONDS = 10;
 

@@ -31,7 +31,7 @@ export default function RegengOverlay({}: Props) {
   const [isRegengOngoing, setIsRegengOngoing] = useState(false);
   const [regengContent, setRegengContent] = useState("");
 
-  const [downloadProgress, setDownloadProgress] = useState("");
+  const [downloadProgress, setDownloadProgress] = useState("0%");
 
   const [totalDownload, setTotalDownload] = useState("");
 
@@ -62,7 +62,7 @@ export default function RegengOverlay({}: Props) {
 
           case CodePush.SyncStatus.UPDATE_INSTALLED:
             CodePush.notifyAppReady();
-            CPopup.showToast("安装完成, 重启应用以应用更改");
+            CPopup.showToast("安装完成, 已重启应用");
 
             // 显示提示给用户
             // Alert.alert("更新已安装", "已安装新版本，请重启应用以应用更改。", [
@@ -142,7 +142,7 @@ export default function RegengOverlay({}: Props) {
                   >
                     新版本特性:
                   </Text>
-                  <Text
+  <Text
                     style={{
                       color: "white",
                       fontSize: 14,
@@ -151,20 +151,8 @@ export default function RegengOverlay({}: Props) {
                       width: "80%",
                     }}
                   >
-                    【优化】全新交互设计，升级用户体验
-                  </Text>
-                  <Text
-                    style={{
-                      color: "white",
-                      fontSize: 14,
-                      fontWeight: "300",
-                      textAlign: "left",
-                      width: "80%",
-                    }}
-                  >
-                    【修复】修改部分BUG
-                  </Text>
-                  <View
+                    优化性能，修复BUG
+                  </Text>                  <View
                     style={{
                       paddingTop: 24,
                       alignItems: "center",

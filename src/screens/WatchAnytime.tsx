@@ -1,4 +1,4 @@
-import { useAppSelector } from '@hooks/hooks';
+import { useAppDispatch, useAppSelector } from '@hooks/hooks';
 import useAnalytics from '@hooks/useAnalytics';
 import NetInfo from '@react-native-community/netinfo';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
@@ -10,12 +10,14 @@ import { screenModel } from '@type/screenType';
 import { userModel } from '@type/userType';
 import { API_DOMAIN_TEST } from '@utility/constants';
 import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
-import { AppState, StyleSheet, Text, View } from 'react-native';
+import { AppState, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { useMinivodQuery } from '@api';
 import EighteenPlusControls from '../components/adultVideo/eighteenPlusControls';
 import ScreenContainer from '../components/container/screenContainer';
 import MiniVideoList from '../components/videoPlayer/WatchAnytime/miniVodList';
 import NoConnection from './../components/common/noConnection';
+import { CPressable } from '../components/atoms';
+import { showLoginAction } from '@redux/actions/screenAction';
 
 type MiniVideoResponseType = {
   data: {
@@ -39,6 +41,7 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
   const [isPressTabScroll, setPressTabScroll] = useState(false);
   const miniVodRef = useRef<MiniVodRef>();
   const miniVodListRef = useRef<any>();
+  const dispatch = useAppDispatch();
 
   const settingsReducer: SettingsReducerState = useAppSelector(
     ({ settingsReducer }: RootState) => settingsReducer,
@@ -59,6 +62,7 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
     userState.userToken === "")
 
   const fetchMode = adultMode ? 'adult' : 'normal';
+  const isFocusLogin = useRef(false);
 
   // ========== for analytics - start ==========
   const { watchAnytimeViewsAnalytics } = useAnalytics();
@@ -97,11 +101,11 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
   }, []);
 
   // ========== for analytics - start ==========
-  useEffect(() => {
+  useFocusEffect(useCallback(() => {
     watchAnytimeViewsAnalytics({
       isXmode: adultMode,
     });
-  }, [adultMode]);
+  }, [adultMode]));
   // ========== for analytics - end ==========
 
   // Add an event listener to the navigation object for the tab press event
@@ -144,7 +148,11 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
 
   useEffect(() => {
     if (videos != undefined) {
-      setFlattenedVideos(videos?.pages.flat().filter(x => x)); // remove null values
+      let filtered = videos?.pages.flat().filter(x => x)
+      if (isVip){
+        filtered = filtered.filter(x => !x.is_ads)
+      }
+      setFlattenedVideos(filtered); // remove null values
     }
   }, [videos]);
 
@@ -176,6 +184,16 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
     }, [settingsReducer.isOffline]),
   );
 
+  useEffect(() => {
+    if (userState.userToken !== '' && isFocusLogin.current) {
+      isFocusLogin.current = false;
+    }
+  }, [userState.userToken]);
+
+  const onFocusLoginOverlayPress = () => {
+    dispatch(showLoginAction());
+  }
+
   return (
     <ScreenContainer containerStyle={styles.containerStyle}>
       <View style={styles.titleTextContainer}>
@@ -196,8 +214,21 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
           isRefreshing={isRefreshing}
           isPressTabScroll={isPressTabScroll}
           key={adultMode.toString()}
+          isFocusLogin={isFocusLogin}
         />
       )}
+      {isFocusLogin.current &&
+        <CPressable
+          onPress={onFocusLoginOverlayPress}
+          style={{
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+            zIndex: 999,
+          }}
+        />
+      }
+
       {isOffline && <NoConnection onClickRetry={checkConnection} />}
     </ScreenContainer>
   );

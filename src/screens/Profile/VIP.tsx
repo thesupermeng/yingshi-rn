@@ -7,6 +7,8 @@ import {
   ScrollView,
   Platform,
   Linking,
+  TextInput,
+  Alert,
 } from "react-native";
 import {
   isIosStorekit2,
@@ -45,6 +47,8 @@ import { InAppBrowser } from "react-native-inappbrowser-reborn";
 import { VipDialog } from "../../components/vip/vipDialog";
 import { ProductApi, UserApi } from "@api";
 import { YSConfig } from "../../../ysConfig";
+import WebView from "react-native-webview";
+import useAnalytics from "@hooks/useAnalytics";
 
 export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const {
@@ -102,10 +106,13 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
 
   const [dialogText, setDialogText] = useState([""]);
 
-  const headers = {
-    Authorization: `Bearer ${userState.userToken}`,
-    "Content-Type": "application/json",
-  };
+  // ========== for analytics - start ==========
+  const { userCenterVipPayViewsAnalytics } = useAnalytics();
+
+  useEffect(() => {
+    userCenterVipPayViewsAnalytics();
+  }, []);
+  // ========== for analytics - end ==========
 
   const handleRefresh = async () => {
     setRefreshing(true);
@@ -139,7 +146,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         const offline = !(
           state.isConnected &&
           (state.isInternetReachable === true ||
-          state.isInternetReachable === null
+            state.isInternetReachable === null
             ? true
             : false)
         );
@@ -530,12 +537,15 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     setIsSuccess(false);
   };
 
+  const webViewref = useRef<any>();
+  // const onLoadEnd
+
   return (
     <>
       <ScreenContainer
         footer={
           <>
-            {membershipSelected && (
+            {!IS_IOS && membershipSelected && (
               <View style={{ ...styles.summaryContainer }}>
                 <View style={{ ...styles.summaryLabel }}>
                   <Text style={{ ...textVariants.small }}>
@@ -575,7 +585,9 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         />
 
         <TitleWithBackButtonHeader
-          title="付费VIP"
+          title={ YSConfig.instance.showBecomeVip
+            ? "成为VIP"
+            : "付费VIP"}
           right={
             <TouchableOpacity
               onPress={() => {
@@ -594,7 +606,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                   // padding: 8,
                   opacity:
                     userState.userPaidVipList.total_purchased_days > 0 ||
-                    userState.userAccumulateRewardDay > 0
+                      userState.userAccumulateRewardDay > 0
                       ? 100
                       : 0,
                 }}
@@ -603,7 +615,8 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
               </Text>
             </TouchableOpacity>
           }
-          // headerStyle={{ marginBottom: spacing.m }}
+        // onBack={() => webViewref.current.canGoBack()}
+        // headerStyle={{ marginBottom: spacing.m }}
         />
 
         {isOffline && (
@@ -635,6 +648,37 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
 
         <SpinnerOverlay visible={isVisible} />
 
+        {IS_IOS && !isOffline && (
+          <WebView
+            ref={webViewref}
+            source={{ uri: 'http://localhost/vip/' }}
+            onLoadEnd={() => { webViewref.current.postMessage(`${userState.userToken}`) }}
+            automaticallyAdjustContentInsets={false}
+            // onMessage={(e: {nativeEvent: {data?: string}}) => {
+            //   Alert.alert('Message received from JS: ', e.nativeEvent.data);
+            // }}
+            containerStyle={{
+              marginLeft: -spacing.sideOffset,
+              marginRight: -spacing.sideOffset,
+            }}
+            onShouldStartLoadWithRequest={request => {
+              if (request.url.includes('https')) {
+                console.log(request.url);
+                return false;
+              } else return true;
+            }}
+          // onNavigationStateChange={(event) => {
+          //   if (event.url !== 'http://localhost/vip/') {
+          //     console.log('666666666666', event.url);
+          //     // webViewref.current.stopLoading();
+          //     // Linking.openURL(event.url);
+          //   }
+          // }}
+          />
+        )}
+
+
+        {/*
         {!loading && !isOffline && (
           <ScrollView
             refreshControl={
@@ -690,7 +734,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
               </View>
             ) : null}
           </ScrollView>
-        )}
+        )} */}
       </ScreenContainer>
     </>
   );

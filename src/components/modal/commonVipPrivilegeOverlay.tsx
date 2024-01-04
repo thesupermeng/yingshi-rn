@@ -6,7 +6,7 @@ import { screenModel } from "@type/screenType";
 import useAnalytics from "@hooks/useAnalytics";
 
 const commonModels = require('@static/images/vip_common_models.png');
-const sportBg = require('@static/images/vip_sport_background.png');
+const sportBg = require('@static/images/vip_common_background.png');
 
 interface Props {
   showCondition: boolean;
@@ -17,22 +17,13 @@ interface Props {
 export const CommonVipPrivilegeOverlay = ({ showCondition, onClose, showBlur }: Props) => {
 
   const navigator = useNavigation()
-  const { sportDetailsVipPopupClicksAnalytics } = useAnalytics();
-
 
   const handleOnPurchase = useCallback(() => {
     navigator.navigate('付费VIP');
-    // ========== for analytics - start ==========
-    sportDetailsVipPopupClicksAnalytics('pay');
-    // ========== for analytics - end ==========
   }, [])
 
   const handleOnInvite = useCallback(() => {
     navigator.navigate('邀请');
-    // ========== for analytics - start ==========
-    sportDetailsVipPopupClicksAnalytics('invite');
-    // ========== for analytics - end ==========
-
   }, [])
 
 
@@ -41,8 +32,8 @@ export const CommonVipPrivilegeOverlay = ({ showCondition, onClose, showBlur }: 
     <VipPrivilegeModal
       titleText={"VIP升级权益"}
       benefitsTextsArray={['高清体育赛事  零时差感受赛场激情', '海量福利视频 你想要的这里都有', '高清画质 无广告观影体验']}
-      imageGradientColors={['#0E5ED800', '#0B6AE4']}
-      contentGradientColors={['#0B6CE8', '#001A74']}
+      imageGradientColors = {['#D80E0E00', '#E80B0B'] }
+      contentGradientColors={['#E80B0B', '#740000']}
       coverBackground={sportBg}
       coverImage={commonModels}
       onPurchase={handleOnPurchase}

@@ -4,6 +4,8 @@
 <dict>
 	<key>NSUserTrackingUsageDescription</key>
 	<string>是否允许爱美剧跟踪您在其他公司的App和网站上的活动</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -19,8 +21,6 @@
 			</array>
 		</dict>
 	</array>
-	<key>CFBundleSignature</key>
-	<string>????</string>
 	<key>CodePushDeploymentKey</key>
 	<string>bANlp7AwlK57caU3h80moPva099ffOii-VPk9</string>
 	<key>GADApplicationIdentifier</key>
@@ -87,8 +87,6 @@
 		<string>com.baidu.BaiduMobile</string>
 		<string>com.dianping.dpscope</string>
 	</array>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>获取您的地区，为你推荐身边的更多优惠信息</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
@@ -1026,13 +1024,13 @@
 			<string>x2jnk7ly8j.skadnetwork</string>
 		</dict>
 	</array>
-	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
-	<key>CFBundleShortVersionString</key>
-	<string>1.2.0</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>045-SSYiFeiTi.ttf</string>
 	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+	<key>CFBundleShortVersionString</key> 
+	<string>1.5.1</string>
 </dict>
 </plist>
