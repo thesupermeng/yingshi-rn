@@ -1,7 +1,7 @@
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import type { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { VodType, VodTopicType, LiveTVStationItem, CommentsType } from "./ajaxTypes";
+import { VodType, VodTopicType, LiveTVStationItem, CommentsType, bannerAdType } from "./ajaxTypes";
 import { userModel } from "./userType";
 
 // https://reactnavigation.org/docs/typescript/
@@ -106,6 +106,9 @@ export type RootStackParamList = {
   };
   午夜场剧情: {
     class: string;
+  };
+  活动页: {
+    bannerAd: bannerAdType; 
   }
 };
 
