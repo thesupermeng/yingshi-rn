@@ -30,6 +30,7 @@ import { userModel } from '@type/userType';
 import { APP_VERSION } from '@utility/constants';
 import { SettingsReducerState } from '@redux/reducers/settingsReducer';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { CApi } from '@utility/apiService';
 
 export default ({ navigation }: RootStackScreenProps<'设置'>) => {
   const { colors, textVariants, icons, spacing } = useTheme();
@@ -116,6 +117,7 @@ export default ({ navigation }: RootStackScreenProps<'设置'>) => {
               //    user logout
               await AsyncStorage.removeItem("showAds");
               await dispatch(removeUserAuthState());
+              CApi.reset();
               navigator.navigate('Home', {
                 screen: 'Profile',
               });

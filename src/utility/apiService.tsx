@@ -336,6 +336,12 @@ export class CApi {
     static #getIpAddress = (): string => {
         return YSConfig.instance.ip;
     }
+
+    static reset = async () => {
+        this.#apiInstance = null; 
+        this.bearerToken = undefined;
+        await AsyncStorage.removeItem("bearerToken");
+    }
 }
 
 class ResponseModel {
