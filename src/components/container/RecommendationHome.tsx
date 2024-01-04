@@ -82,6 +82,7 @@ const RecommendationHome = ({
   // const {width, height} = Dimensions.get('window');
   const [width, setWidth] = useState(Dimensions.get("window").width);
   const [imgRatio, setImgRatio] = useState(1.883);
+  const isVip = useAppSelector(({userReducer}) => !(Number(userReducer.userMemberExpired) <= Number(userReducer.userCurrentTimestamp) || userReducer.userToken === ""))
   useEffect(() => {
     setWidth(Number(Dimensions.get("window").width));
 
@@ -163,9 +164,7 @@ const RecommendationHome = ({
   }, []);
 
   const shouldShowAds = async () => {
-    const shouldShow = await AsyncStorage.getItem('showAds');
-    
-    if ((shouldShow && shouldShow === 'true') || !shouldShow) {
+    if (!isVip) {
       fetchBannerAd();
     } else {
       setBannerAd(undefined);
@@ -175,7 +174,7 @@ const RecommendationHome = ({
   useFocusEffect(
     useCallback(() => {
       shouldShowAds();
-    }, [])
+    }, [isVip])
   );
 
   const renderCarousel = useCallback(

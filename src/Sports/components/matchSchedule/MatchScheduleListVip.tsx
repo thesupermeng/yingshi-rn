@@ -21,6 +21,7 @@ import { CEndpoint } from "@constants";
 import { YSConfig } from "../../../../ysConfig";
 import { BannerContainer } from "../../../components/container/bannerContainer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useAppSelector } from "@hooks/hooks";
 
 interface Props {
   matchTypeID: number;
@@ -57,6 +58,8 @@ const MatchScheduleList = ({
   const [showLoading, setShowLoading] = useState(false);
   const [showLoading2, setShowLoading2] = useState(false);
   const [bannerAd, setBannerAd] = useState<bannerAdType>();
+  const isVip = useAppSelector(({userReducer}) => !(Number(userReducer.userMemberExpired) <= Number(userReducer.userCurrentTimestamp) || userReducer.userToken === ""))
+
 
   const [matches, setMatches] = useState<Matches>({
     headers: [],
@@ -156,9 +159,7 @@ const MatchScheduleList = ({
   }, []);
 
   const shouldShowAds = async () => {
-    const shouldShow = await AsyncStorage.getItem('showAds');
-    
-    if ((shouldShow && shouldShow === 'true') || !shouldShow) {
+    if (!isVip) {
       fetchBannerAd();
     } else {
       setBannerAd(undefined);
@@ -168,7 +169,7 @@ const MatchScheduleList = ({
   useFocusEffect(
     useCallback(() => {
       shouldShowAds();
-    }, [])
+    }, [isVip])
   );
 
   const Content = ({

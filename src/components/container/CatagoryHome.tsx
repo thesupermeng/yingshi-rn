@@ -82,9 +82,8 @@ const CatagoryHome = ({
   const userState: userModel = useAppSelector(
     ({ userReducer }) => userReducer
   );
-  const isVip = !(Number(userState.userMemberExpired) <=
-                  Number(userState.userCurrentTimestamp) ||
-                  userState.userToken === "");
+  const isVip = useAppSelector(({userReducer}) => !(Number(userReducer.userMemberExpired) <= Number(userReducer.userCurrentTimestamp) || userReducer.userToken === ""))
+
   const { colors, textVariants, spacing } = useTheme();
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
@@ -267,9 +266,7 @@ const CatagoryHome = ({
   // }, [refreshProp]);
 
   const shouldShowAds = async () => {
-    const shouldShow = await AsyncStorage.getItem('showAds');
-    
-    if ((shouldShow && shouldShow === 'true') || !shouldShow) {
+    if (!isVip) {
       fetchBannerAd();
     } else {
       setBannerAd(undefined);
@@ -283,7 +280,7 @@ const CatagoryHome = ({
       if (navId == 99) {
         dispatch(showAdultModeDisclaimer())
       }
-    }, [navId])
+    }, [navId, isVip])
   )
 
   return (
