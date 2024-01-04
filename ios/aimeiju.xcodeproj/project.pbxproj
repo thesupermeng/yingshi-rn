@@ -60,7 +60,6 @@
 		00E356EE1AD99517003FC87E /* aimeijuTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = aimeijuTests.xctest; path = aimeiju.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* aimeijuTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = aimeijuTests.m; sourceTree = "<group>"; };
-		036E823097E14AB6B03AEF04 /* Pods-dayutv.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dayutv.staging.xcconfig"; path = "Target Support Files/Pods-dayutv/Pods-dayutv.staging.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* aimeiju.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = aimeiju.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = aimeiju/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = aimeiju/AppDelegate.mm; sourceTree = "<group>"; };
@@ -93,24 +92,19 @@
 		5CFC8C66716C43BEB9E996D0 /* 045-SSYiFeiTi.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "045-SSYiFeiTi.ttf"; path = "../assets/fonts/045-SSYiFeiTi.ttf"; sourceTree = "<group>"; };
 		6FC4288F8122D12445752171 /* Pods-aimeiju.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-aimeiju.release.xcconfig"; path = "Target Support Files/Pods-aimeiju/Pods-aimeiju.release.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = aimeiju/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		841D0BD03D813AC9AC8EF499 /* Pods-dayutv.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dayutv.debug.xcconfig"; path = "Target Support Files/Pods-dayutv/Pods-dayutv.debug.xcconfig"; sourceTree = "<group>"; };
-		8AE9E9A470163860C118A273 /* Pods-dayutv-dayutvTests.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dayutv-dayutvTests.staging.xcconfig"; path = "Target Support Files/Pods-dayutv-dayutvTests/Pods-dayutv-dayutvTests.staging.xcconfig"; sourceTree = "<group>"; };
 		8E1A5A282AC2B31000EBA460 /* libRNExitApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNExitApp.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		91804E205C9B1AEB0D108E6D /* Pods-aimeiju.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-aimeiju.staging.xcconfig"; path = "Target Support Files/Pods-aimeiju/Pods-aimeiju.staging.xcconfig"; sourceTree = "<group>"; };
 		9348CCF0EBC8F929A290B5CE /* libPods-aimeiju-aimeijuTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-aimeiju-aimeijuTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		93EB66B45C384DDF868C2647 /* libPods-aimeiju.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-aimeiju.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		953B914A96C860F30A0B79A9 /* Pods-dayutv.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dayutv.release.xcconfig"; path = "Target Support Files/Pods-dayutv/Pods-dayutv.release.xcconfig"; sourceTree = "<group>"; };
 		9A218EB62AC413D600F6B98C /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		9A218EB82AC414D600F6B98C /* AppCenter-Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "AppCenter-Config.plist"; sourceTree = "<group>"; };
 		9A218F882AC42D1400F6B98C /* CodePush.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CodePush.xcodeproj; path = "../node_modules/react-native-code-push/ios/CodePush.xcodeproj"; sourceTree = "<group>"; };
 		A31B7D6109B419792C3A6C42 /* Pods-yingshi-yingshiTests.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yingshi-yingshiTests.staging.xcconfig"; path = "Target Support Files/Pods-yingshi-yingshiTests/Pods-yingshi-yingshiTests.staging.xcconfig"; sourceTree = "<group>"; };
 		AA4A5A97788DA838968151AC /* Pods-aimeiju-aimeijuTests.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-aimeiju-aimeijuTests.staging.xcconfig"; path = "Target Support Files/Pods-aimeiju-aimeijuTests/Pods-aimeiju-aimeijuTests.staging.xcconfig"; sourceTree = "<group>"; };
 		BC7BF9602F2319F79850DD86 /* Pods-yingshi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yingshi.debug.xcconfig"; path = "Target Support Files/Pods-yingshi/Pods-yingshi.debug.xcconfig"; sourceTree = "<group>"; };
-		C2034C6AB42C4106FE0BDC77 /* Pods-dayutv-dayutvTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dayutv-dayutvTests.debug.xcconfig"; path = "Target Support Files/Pods-dayutv-dayutvTests/Pods-dayutv-dayutvTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C80E302F2B21A8D20093541D /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
 		CABA2759F26C1ABC887F1D07 /* Pods-yingshi-yingshiTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yingshi-yingshiTests.debug.xcconfig"; path = "Target Support Files/Pods-yingshi-yingshiTests/Pods-yingshi-yingshiTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E04321E543D2F7EB0D66361D /* Pods-aimeiju-aimeijuTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-aimeiju-aimeijuTests.release.xcconfig"; path = "Target Support Files/Pods-aimeiju-aimeijuTests/Pods-aimeiju-aimeijuTests.release.xcconfig"; sourceTree = "<group>"; };
-		E0D508FA92763BD4B6BD5804 /* Pods-dayutv-dayutvTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dayutv-dayutvTests.release.xcconfig"; path = "Target Support Files/Pods-dayutv-dayutvTests/Pods-dayutv-dayutvTests.release.xcconfig"; sourceTree = "<group>"; };
 		E1F242248CB4C62E3062B641 /* Pods-yingshi.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yingshi.staging.xcconfig"; path = "Target Support Files/Pods-yingshi/Pods-yingshi.staging.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F21B5AC502A809009A4460E6 /* Pods-yingshi-yingshiTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yingshi-yingshiTests.release.xcconfig"; path = "Target Support Files/Pods-yingshi-yingshiTests/Pods-yingshi-yingshiTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -330,12 +324,6 @@
 				CABA2759F26C1ABC887F1D07 /* Pods-yingshi-yingshiTests.debug.xcconfig */,
 				F21B5AC502A809009A4460E6 /* Pods-yingshi-yingshiTests.release.xcconfig */,
 				A31B7D6109B419792C3A6C42 /* Pods-yingshi-yingshiTests.staging.xcconfig */,
-				841D0BD03D813AC9AC8EF499 /* Pods-dayutv.debug.xcconfig */,
-				953B914A96C860F30A0B79A9 /* Pods-dayutv.release.xcconfig */,
-				036E823097E14AB6B03AEF04 /* Pods-dayutv.staging.xcconfig */,
-				C2034C6AB42C4106FE0BDC77 /* Pods-dayutv-dayutvTests.debug.xcconfig */,
-				E0D508FA92763BD4B6BD5804 /* Pods-dayutv-dayutvTests.release.xcconfig */,
-				8AE9E9A470163860C118A273 /* Pods-dayutv-dayutvTests.staging.xcconfig */,
 				3ABE73C894C3270F39CB08E1 /* Pods-aimeiju.debug.xcconfig */,
 				6FC4288F8122D12445752171 /* Pods-aimeiju.release.xcconfig */,
 				91804E205C9B1AEB0D108E6D /* Pods-aimeiju.staging.xcconfig */,
@@ -760,7 +748,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5.1;
+				MARKETING_VERSION = 1.0.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -807,7 +795,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5.1;
+				MARKETING_VERSION = 1.0.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1088,7 +1076,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5.1;
+				MARKETING_VERSION = 1.0.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
