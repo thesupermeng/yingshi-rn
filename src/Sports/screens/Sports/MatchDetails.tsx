@@ -61,6 +61,9 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SettingsReducerState } from '@redux/reducers/settingsReducer';
 import VipRegisterBar from '../../../components/adultVideo/vipRegisterBar';
 import { BannerContainer } from '../../../components/container/bannerContainer';
+import { CApi } from '@utility/apiService';
+import { CEndpoint } from '../../../constants/api';
+import { YSConfig } from '../../../../ysConfig';
 
 let insetsTop = 0;
 let insetsBottom = 0;
@@ -108,6 +111,8 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
 
   const videoRef = useRef<VideoRef | null>(null);
   const [bannerAd, setBannerAd] = useState<bannerAdType>();
+  const isVip = useAppSelector(({ userReducer }) => !(Number(userReducer.userMemberExpired) <= Number(userReducer.userCurrentTimestamp) || userReducer.userToken === ""))
+
 
   // ========== for analytics - start ==========
   useEffect(() => {
@@ -286,6 +291,27 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
   insetsTop = insetsTop == 0 ? insets.top : insetsTop;
   insetsBottom = insetsBottom == 0 ? insets.bottom : insets.bottom;
 
+  const fetchBannerAd = async () => {
+    const response = await CApi.get(CEndpoint.bannerAd, {
+      query: {
+        slot_id: 111,
+        ip: YSConfig.instance.ip,
+      },
+    });
+    const banner = await response.data;
+
+    if (banner) {
+      setBannerAd(banner);
+    } else {
+      setBannerAd(undefined);
+    }
+  }
+
+  useEffect(() => {
+    if (!isVip) {
+      fetchBannerAd();
+    }
+  }, []);
 
   return (
     <ScreenContainer
@@ -368,9 +394,9 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
 
       {bannerAd && (
         <View style={{
-          paddingLeft: spacing.sideOffset,
-          paddingRight: spacing.sideOffset,
-          paddingVertical: 5
+          // paddingLeft: spacing.sideOffset,
+          // paddingRight: spacing.sideOffset,
+          // paddingVertical: 5
         }}>
           <BannerContainer
             bannerAd={bannerAd}
