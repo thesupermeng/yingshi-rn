@@ -12,7 +12,7 @@ const customShuffleWithAds = (arr: MiniVideo[]) => { // basically keeping ads at
   const contentArray = shuffle(arr.filter(item => !item.is_ads))
   const adsArray = shuffle(arr.filter(item => item.is_ads))
   
-  const offsets = [3, 6, 9]
+  const offsets = [5, 5, 5]
   
   let current = 0
 
