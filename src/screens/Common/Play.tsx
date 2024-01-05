@@ -363,7 +363,6 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
           style={{
             alignSelf: 'center',
             marginRight: 3,
-            marginBottom: -3,
           }} />
         <Text
           numberOfLines={1}
@@ -371,6 +370,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
             flex: 1,
             fontSize: 15,
             textAlign: "center",
+            verticalAlign: 'bottom',
             fontWeight: "600",
             color: currentSourceId === item.source_id ? colors.selected : colors.muted,
           }}

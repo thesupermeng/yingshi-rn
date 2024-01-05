@@ -31,9 +31,10 @@ import {
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 import { useQuery } from "@tanstack/react-query";
-import { showToast } from "../../Sports/utility/toast";
+import { API_DOMAIN } from "@utility/constants";
+import { CPopup } from "@utility/popup";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import UmengAnalytics from "../../../Umeng/UmengAnalytics";
+import UmengAnalytics from "../../../../Umeng/UmengAnalytics";
 import { useDispatch } from "react-redux";
 import { addUserAuthState } from "@redux/actions/userAction";
 import { UserApi } from "@api";
@@ -74,6 +75,7 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
     queryFn: () => UserApi.getCountries(),
   });
 
+
   useImperativeHandle(ref, () => ({
     resetValue: () => {
       resetForm();
@@ -102,25 +104,6 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
   ) => {
     setLoginValue(value);
     setLoginValueErrMsg(null);
-
-    if (loginType === 'phone') {
-      // Remove all non-digit characters from the input value
-      const formattedValue = value.replace(/\D/g, '');
-
-      let formattedPhoneNumber = '';
-      for (let i = 0; i < formattedValue.length; i++) {
-        formattedPhoneNumber += formattedValue[i];
-        if (i === 2 && formattedValue.length > 3) {
-          formattedPhoneNumber += ' ';
-        } else if (i === 5 && formattedValue.length > 6) {
-          formattedPhoneNumber += ' ';
-        }
-      }
-
-      // Update the state with the formatted phone number
-      setLoginValue(formattedPhoneNumber);
-      setLoginValueErrMsg(null);
-    }
 
     if (value === '') return;
 
@@ -157,7 +140,7 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
     if (isSubmitting) return;
 
     if (isReadTermNCondition == false) {
-      showToast('请勾选用户协议和隐私协议');
+      CPopup.showToast('请勾选用户协议和隐私协议');
       return;
     }
 
@@ -177,20 +160,20 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
         // user cancelled the login flow
       } else if (error.code === statusCodes.IN_PROGRESS) {
         // operation (e.g. sign in) is in progress already
-        showToast('请勿频繁操作');
+        CPopup.showToast('请勿频繁操作');
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
         // play services not available or outdated
-        showToast('谷歌服务获取失败');
+        CPopup.showToast('谷歌服务获取失败');
       } else {
         // some other error happened
-        showToast('登入失败，请稍后再试');
+        CPopup.showToast('登入失败，请稍后再试');
       }
       console.log(error.toString());
       return;
     }
 
     if (userInfo === null) {
-      showToast('登入失败，请稍后再试');
+      CPopup.showToast('登入失败，请稍后再试');
       return;
     }
 
@@ -202,10 +185,9 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
         referralCode: referralCode,
         isGoogleLogin: true,
       });
-
     } catch (err: any) {
       GoogleSignin.signOut();
-      showToast(err.toString());
+      CPopup.showToast(err.toString());
       return;
     } finally {
       setSubmitting(false);
@@ -301,6 +283,7 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
 
     try {
       setSubmitting(true);
+
       await UserApi.signinupUser({
         loginType: loginType === 'email' ? 'EMAIL' : 'SMS',
         email: loginType === 'email' ? loginValue : undefined,
@@ -404,7 +387,7 @@ const LoginCard = ({
   return (
     <View style={styles.card}>
       <Text style={styles.title}>「登录/注册」解锁更多精彩内容！</Text>
-      {/* <Text style={styles.subtitle}>登录后可管理您的账号，多端同步观看历史和收藏夹</Text> */}
+      <Text style={styles.subtitle}>登录后可管理您的账号，多端同步观看历史和收藏夹</Text>
       {/* ============================== tab control ============================== */}
       <View style={styles.tabContainer}>
         <TouchableOpacity
@@ -424,22 +407,22 @@ const LoginCard = ({
           }
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.tabItemContainer}
-          onPress={() => onChangeloginType('phone')}
-        >
-          <Text style={[loginType === 'phone' ? styles.tabItemFocusText : styles.tabItemUnfocusText]}>手机号码</Text>
-          {loginType === 'phone' &&
-            <View
-              style={{
-                width: 30,
-                height: 4,
-                borderRadius: 20,
-                backgroundColor: colors.primary,
-              }}
-            />
-          }
-        </TouchableOpacity>
+        {/* <TouchableOpacity
+            style={styles.tabItemContainer}
+            onPress={() => onChangeloginType('phone')}
+          >
+            <Text style={[loginType === 'phone' ? styles.tabItemFocusText : styles.tabItemUnfocusText]}>手机号码</Text>
+            {loginType === 'phone' &&
+              <View
+                style={{
+                  width: 30,
+                  height: 4,
+                  borderRadius: 20,
+                  backgroundColor: colors.primary,
+                }}
+              />
+            }
+          </TouchableOpacity> */}
       </View>
       <View style={styles.textinputContainer}>
         {/* ============================== login value (email / phone) ============================== */}
