@@ -21,7 +21,7 @@ import { debounce } from 'lodash';
 import RNFetchBlob from 'rn-fetch-blob';
 import HejiIcon from '@static/images/heji.svg';
 import { useAppDispatch, useAppSelector } from '@hooks/hooks';
-import useAnalytics from '@hooks/useAnalytics';
+import UmengAnalytics from '../../../../Umeng/UmengAnalytics';
 import { showAdultModeVip } from '@redux/actions/screenAction';
 import { playVod, viewPlaylistDetails } from '@redux/actions/vodActions';
 import { screenModel } from '@type/screenType';
@@ -71,9 +71,9 @@ function ShortVideoPlayer({
 }: Props) {
   const [currentVod, setVod] = useState(vod);
   const screenState: screenModel = useAppSelector(
-    ({screenReducer}) => screenReducer,
+    ({ screenReducer }) => screenReducer,
   );
-  const {watchAnytimeAdultMode: adultMode, adultVideoWatchTime} = screenState;
+  const { watchAnytimeAdultMode: adultMode, adultVideoWatchTime } = screenState;
   if (currentVod?.mini_video_original_video_name == undefined) {
     currentVod.mini_video_original_video_name = '';
   }
@@ -85,7 +85,7 @@ function ShortVideoPlayer({
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
 
-  const {colors, textVariants} = useTheme();
+  const { colors, textVariants } = useTheme();
 
   const [isBuffering, setIsBuffering] = useState(false);
   const videoRef = useRef<VideoRef>(null);
@@ -107,16 +107,11 @@ function ShortVideoPlayer({
 
   const windowWidth = Dimensions.get('window').width;
 
-  const {
-    watchAnytimeVideoClicksAnalytics,
-    watchAnytimePlaylistClicksAnalytics,
-  } = useAnalytics();
-
-  const userState: userModel = useAppSelector(({userReducer}) => userReducer);
+  const userState: userModel = useAppSelector(({ userReducer }) => userReducer);
 
   const isVip = !(
     Number(userState.userMemberExpired) <=
-      Number(userState.userCurrentTimestamp) || userState.userToken === ''
+    Number(userState.userCurrentTimestamp) || userState.userToken === ''
   );
   const disableSeek =
     !isVip && adultVideoWatchTime >= ADULT_MODE_PREVIEW_DURATION && adultMode;
@@ -214,7 +209,7 @@ function ShortVideoPlayer({
   const seekVideo = useCallback(
     debounce(value => {
       if (videoRef.current) {
-        videoRef.current.seek(isNaN(value)? 0 : value);
+        videoRef.current.seek(isNaN(value) ? 0 : value);
         setOnSliding(false);
       }
     }, 1000),
@@ -227,8 +222,7 @@ function ShortVideoPlayer({
     if (isPause) {
       iconTimer.current = setTimeout(() => setShowIcon(false), 1000);
     }
-    else
-    {
+    else {
       iconTimer.current = setTimeout(() => setShowIcon(false), 1000);
     }
     onManualPause(isPause);
@@ -236,7 +230,7 @@ function ShortVideoPlayer({
 
   const handleLoadStart = useCallback(() => {
     if (videoRef.current) {
-      videoRef.current.seek(isNaN(currentDuration)? 0 : currentDuration);
+      videoRef.current.seek(isNaN(currentDuration) ? 0 : currentDuration);
     }
   }, [currentDuration])
 
@@ -252,7 +246,7 @@ function ShortVideoPlayer({
       });
 
       // ========== for analytics - start ==========
-      watchAnytimePlaylistClicksAnalytics();
+      UmengAnalytics.watchAnytimePlaylistClicksAnalytics();
       // ========== for analytics - end ==========
     } else {
       dispatch(playVod(currentVod.mini_video_vod));
@@ -262,13 +256,13 @@ function ShortVideoPlayer({
       });
 
       // ========== for analytics - start ==========
-      watchAnytimeVideoClicksAnalytics();
+      UmengAnalytics.watchAnytimeVideoClicksAnalytics();
       // ========== for analytics - end ==========
     }
   }, [currentVod]);
 
   const handleViewLayout = (event: any) => {
-    const {height} = event.nativeEvent.layout;
+    const { height } = event.nativeEvent.layout;
     setImageContainerHeight(height);
   };
 
@@ -297,23 +291,23 @@ function ShortVideoPlayer({
           width: '100%',
           justifyContent: 'flex-end',
         }}>
-        <View style={{paddingHorizontal: 20}}>
+        <View style={{ paddingHorizontal: 20 }}>
           {currentVod != undefined &&
             currentVod.mini_video_original_img_url != null &&
             currentVod.mini_video_original_img_url != '' && (
-              <View style={{flexWrap: 'wrap'}}>
+              <View style={{ flexWrap: 'wrap' }}>
                 {/* <View style={{ flex: 10, flexDirection: 'column', justifyContent: 'flex-end', marginRight: 35 }}> */}
                 {!adultMode &&
                   <RedirectButton
-                  imageUrl={currentVod?.mini_video_original_img_url}
-                  isBodan={isBodanRef.current}
-                  vodTitle={vodName}
-                  redirectVod={redirectVod}
-                />}
-                
+                    imageUrl={currentVod?.mini_video_original_img_url}
+                    isBodan={isBodanRef.current}
+                    vodTitle={vodName}
+                    redirectVod={redirectVod}
+                  />}
+
               </View>
             )}
-          <DescriptionBar vodDescription={currentVod.mini_video_title}/>
+          <DescriptionBar vodDescription={currentVod.mini_video_title} />
         </View>
 
         {/* {currentVod.is_collection?.toLowerCase() == 'y' && (
@@ -339,11 +333,11 @@ function ShortVideoPlayer({
 
         const fileExist = await RNFetchBlob.fs.exists(fileLocation);
 
-        
+
         if (fileExist) {
-          const fileIsEmpty = (await RNFetchBlob.fs.stat(fileLocation)).size == 0 
+          const fileIsEmpty = (await RNFetchBlob.fs.stat(fileLocation)).size == 0
           // console.log('file exist, change source! ');
-          if (!fileIsEmpty){
+          if (!fileIsEmpty) {
             setMiniVodUrl(`${fileLocation}`);
           } else {
             // console.debug('file exist but is empty, use url')
@@ -355,7 +349,7 @@ function ShortVideoPlayer({
         }
       }
     };
-    if (DOWNLOAD_WATCH_ANYTIME === true){
+    if (DOWNLOAD_WATCH_ANYTIME === true) {
       // if download constant is true, only use
       fn();
     }
@@ -381,26 +375,26 @@ function ShortVideoPlayer({
             }
           }}>
           <View>
-            <View style={[styles.container, {height: displayHeight}]}>
+            <View style={[styles.container, { height: displayHeight }]}>
               {(isBuffering ||
                 (Platform.OS === 'ios'
                   ? !isVideoReadyIos
                   : !isVideoReadyAndroid)) && (
-                <View style={styles.buffering}>
-                  <FastImage
-                    source={videoBufferGif}
-                    style={{width: 100, height: 100}}
-                    resizeMode="contain"
-                    useFastImage={true}
-                  />
-                </View>
-              )}
+                  <View style={styles.buffering}>
+                    <FastImage
+                      source={videoBufferGif}
+                      style={{ width: 100, height: 100 }}
+                      resizeMode="contain"
+                      useFastImage={true}
+                    />
+                  </View>
+                )}
               {(Platform.OS === 'ios'
                 ? !isVideoReadyIos
                 : !isVideoReadyAndroid) &&
                 thumbnail && (
                   <FastImage
-                    source={{uri: thumbnail}}
+                    source={{ uri: thumbnail }}
                     style={styles.video}
                     resizeMode="contain"
                     useFastImage={true}
@@ -456,7 +450,7 @@ function ShortVideoPlayer({
                   maximumValue={duration}
                   minimumValue={0}
                   disabled={!showOverlay}
-                  thumbTouchSize={{width: 10, height: 10}}
+                  thumbTouchSize={{ width: 10, height: 10 }}
                   allowTouchTrack={!isBuffering}
                   thumbStyle={{
                     height: showOverlay ? 8 : 1,
@@ -468,7 +462,7 @@ function ShortVideoPlayer({
                   minimumTrackTintColor={'#ffffff80'}
                   maximumTrackTintColor={'#ffffff24'}
                   thumbTintColor={'#FFFFFF'}
-                  trackStyle={{height: 2, opacity: 1}}
+                  trackStyle={{ height: 2, opacity: 1 }}
                 />
               )}
               {duration > 0 &&
@@ -502,8 +496,8 @@ function ShortVideoPlayer({
                         ...textVariants.small,
                         color: colors.muted,
                       }}>{` / ${new Date(duration * 1000)
-                      .toISOString()
-                      .substring(14, 19)}`}</Text>
+                        .toISOString()
+                        .substring(14, 19)}`}</Text>
                   </Text>
                 ) : (
                   <Text
@@ -528,8 +522,8 @@ function ShortVideoPlayer({
                         ...textVariants.small,
                         color: colors.muted,
                       }}>{` / ${new Date(duration * 1000)
-                      .toISOString()
-                      .substring(11, 19)}`}</Text>
+                        .toISOString()
+                        .substring(11, 19)}`}</Text>
                   </Text>
                 ))}
             </View>

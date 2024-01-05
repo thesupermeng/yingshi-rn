@@ -9,7 +9,6 @@ import {
   showLoginAction,
 } from '@redux/actions/screenAction';
 import FastImage from 'react-native-fast-image';
-import useAnalytics from '@hooks/useAnalytics';
 import { SHOW_ZF_CONST } from '@utility/constants';
 import { AdultVipPrivilegeOverlay } from './adultVipPrivilegeOverlay';
 import { SportVipPrivilegeOverlay } from './sportVipPrivilegeOverlay';
@@ -39,8 +38,6 @@ export default function ExpiredOverlay({
   // }, []);
 
   const { colors, textVariants, spacing, icons } = useTheme();
-  const { sportDetailsVipPopupClicksAnalytics } = useAnalytics();
-
 
   const renderOverlay = () => {
     if (selectedTab === 'xvod') {

@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from '@hooks/hooks';
-import useAnalytics from '@hooks/useAnalytics';
+import UmengAnalytics from '../../Umeng/UmengAnalytics';
 import NetInfo from '@react-native-community/netinfo';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { useFocusEffect, useIsFocused } from '@react-navigation/native';
@@ -65,8 +65,6 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
   const isFocusLogin = useRef(false);
 
   // ========== for analytics - start ==========
-  const { watchAnytimeViewsAnalytics } = useAnalytics();
-
   // Handle app's background/foreground status
   const handleAppStateChange = (nextAppState: any) => {
     setIsInBackground(nextAppState !== 'active');
@@ -101,11 +99,11 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
   }, []);
 
   // ========== for analytics - start ==========
-  useEffect(() => {
-    watchAnytimeViewsAnalytics({
+  useFocusEffect(useCallback(() => {
+    UmengAnalytics.watchAnytimeViewsAnalytics({
       isXmode: adultMode,
     });
-  }, [adultMode]);
+  }, [adultMode]));
   // ========== for analytics - end ==========
 
   // Add an event listener to the navigation object for the tab press event
@@ -148,7 +146,11 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
 
   useEffect(() => {
     if (videos != undefined) {
-      setFlattenedVideos(videos?.pages.flat().filter(x => x)); // remove null values
+      let filtered = videos?.pages.flat().filter(x => x)
+      if (isVip){
+        filtered = filtered.filter(x => !x.is_ads)
+      }
+      setFlattenedVideos(filtered); // remove null values
     }
   }, [videos]);
 
@@ -179,6 +181,12 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
       }
     }, [settingsReducer.isOffline]),
   );
+
+  useEffect(() => {
+    if (userState.userToken !== '' && isFocusLogin.current) {
+      isFocusLogin.current = false;
+    }
+  }, [userState.userToken]);
 
   const onFocusLoginOverlayPress = () => {
     dispatch(showLoginAction());

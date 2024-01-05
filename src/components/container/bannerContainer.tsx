@@ -1,49 +1,71 @@
-import { useTheme } from "@react-navigation/native";
-import { Linking, View } from "react-native";
-import FastImage from "../common/customFastImage";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import InAppBrowser from "react-native-inappbrowser-reborn";
+import { useNavigation, useTheme } from '@react-navigation/native';
+import { Linking, View } from 'react-native';
+import FastImage from '../common/customFastImage';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import InAppBrowser from 'react-native-inappbrowser-reborn';
+import { bannerAdType } from '@type/ajaxTypes';
+import { useEffect } from 'react';
 
 interface Props {
-    bannerImg: string;
-    bannerUrl: string;
+    bannerAd: bannerAdType,
+    onMount?: () => void,
+    onPress?: () => void,
 }
 
-export const BannerContainer = ({bannerImg, bannerUrl}: Props) => {
+export const BannerContainer = ({
+    bannerAd,
+    onMount,
+    onPress,
+}: Props) => {
     const { spacing } = useTheme();
+    const navigator = useNavigation()
+
+    useEffect(() => {
+        if (onMount) onMount();
+    }, []);
 
     const redirectToAd = async () => {
+        const url =
+            bannerAd.ads_url.includes('https://') || bannerAd.ads_url.includes('http://')
+                ? bannerAd.ads_url
+                : 'https://' + bannerAd.ads_url;
 
-        const url = bannerUrl.includes('https://') || bannerUrl.includes('http://') ? bannerUrl : 'https://' + bannerUrl;
-        Linking.openURL(url);
+        if (bannerAd.ads_redirect_type === 1) { // use web veiw
+            navigator.navigate('活动页', { bannerAd: bannerAd })
 
-        // try {
-        //     if (await InAppBrowser.isAvailable()) {
-        //         console.log('using iapbrowser')
-        //         await InAppBrowser.open('https://' + bannerUrl);
-        //     } else {
-        //         Linking.openURL(bannerUrl);
-        //     }
-        // } catch (e) {
-        //     Linking.openURL(bannerUrl);
-        // }
-    }
+
+        } else if (bannerAd.ads_redirect_type === 2) { // use in app browser
+            try {
+                if (await InAppBrowser.isAvailable()) {
+                    await InAppBrowser.open(url);
+                } else {
+                    Linking.openURL(url);
+                }
+            } catch (e) {
+                Linking.openURL(url);
+            }
+
+        } else { // use external browser
+            Linking.openURL(url);
+        }
+
+        if (onPress) onPress();
+    };
 
     return (
         <TouchableOpacity
             style={{
                 paddingVertical: 5,
             }}
-            onPress={redirectToAd}
-        >
+            onPress={redirectToAd}>
             <FastImage
                 source={{
-                    uri: bannerImg,
+                    uri: bannerAd?.ads_pic,
                 }}
-                style={{ width: "100%", aspectRatio:64/10,  borderRadius: 8,}}
-                resizeMode={"contain"}
+                style={{ width: '100%', aspectRatio: 64 / 10, borderRadius: 8 }}
+                resizeMode={'contain'}
                 useFastImage={true}
             />
         </TouchableOpacity>
-    )
-}
+    );
+};

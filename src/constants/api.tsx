@@ -30,4 +30,5 @@ export class CEndpoint {
     static feedbackPost = 'feedback/v1/submit';
 
     static bannerAd = 'ads/v1/slot';
+    static bannerEventAds = 'ads/v1/events'
 }

@@ -55,7 +55,7 @@ import BecomeVipOverlay from "../../../components/modal/becomeVipOverlay";
 import { NON_VIP_STREAM_TIME_SECONDS } from '@utility/constants';
 import { userModel } from '@type/userType';
 import useInterstitialAds from '@hooks/useInterstitialAds';
-import useAnalytics from '@hooks/useAnalytics';
+import UmengAnalytics from '../../../../Umeng/UmengAnalytics';
 import { RootState } from '@redux/store';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SettingsReducerState } from '@redux/reducers/settingsReducer';
@@ -110,10 +110,8 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
   const [bannerAd, setBannerAd] = useState<bannerAdType>();
 
   // ========== for analytics - start ==========
-  const { sportDetailsViewsAnalytics, sportDetailsVipPopupTimesAnalytics } = useAnalytics();
-
   useEffect(() => {
-    sportDetailsViewsAnalytics();
+    UmengAnalytics.sportDetailsViewsAnalytics();
   }, [])
   // ========== for analytics - end ==========
 
@@ -264,7 +262,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
       setShowBecomeVIPOverlay(true);
 
       // ========== for analytics - start ==========
-      sportDetailsVipPopupTimesAnalytics();
+      UmengAnalytics.sportDetailsVipPopupTimesAnalytics();
       // ========== for analytics - end ==========
     }
 
@@ -375,8 +373,17 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
           paddingVertical: 5
         }}>
           <BannerContainer
-            bannerImg={bannerAd.ads_pic}
-            bannerUrl={bannerAd.ads_url}
+            bannerAd={bannerAd}
+            onMount={() => {
+              UmengAnalytics.videoPlayerBannerViewAnalytics({
+                playerType: 'sport',
+              });
+            }}
+            onPress={() => {
+              UmengAnalytics.videoPlayerBannerClickAnalytics({
+                playerType: 'sport',
+              });
+            }}
           />
         </View>
       )}

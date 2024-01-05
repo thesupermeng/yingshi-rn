@@ -37,7 +37,7 @@ import ClearHistoryIcon from "@static/images/clear.svg";
 import EmptyList from "../../components/common/emptyList";
 import appsFlyer from "react-native-appsflyer";
 import ConfirmationModal from "../../components/modal/confirmationModal";
-import useAnalytics from "@hooks/useAnalytics";
+import UmengAnalytics from "../../../../Umeng/UmengAnalytics";
 import { VodApi } from "@api";
 
 export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
@@ -61,11 +61,6 @@ export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
   const [isFetching, setisFetching] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const { colors, textVariants, spacing, icons } = useTheme();
-  const {
-    searchKeywordAnalytics,
-    searchResultViewsAnalytics,
-    searchResultClicksAnalytics,
-  } = useAnalytics();
 
   const { data: recommendations } = useQuery({
     queryKey: ["recommendationList"],
@@ -76,7 +71,7 @@ export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
     setisFetching(true);
 
     // ========== for analytics - start ==========
-    if (userSearch && text.length > 0) searchKeywordAnalytics(text);
+    if (userSearch && text.length > 0) UmengAnalytics.searchKeywordAnalytics(text);
     // ========== for analytics - end ==========
 
     VodApi.getListByKeyword(text)
@@ -89,7 +84,7 @@ export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
           setSearchResults(data);
 
           // ========== for analytics - start ==========
-          if (userSearch) searchResultViewsAnalytics();
+          if (userSearch) UmengAnalytics.searchResultViewsAnalytics();
           // ========== for analytics - end ==========
         }
       })
@@ -154,7 +149,7 @@ export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
 
   // ========== for analytics - start ==========
   const onClickSearchResult = useCallback(() => {
-    searchResultClicksAnalytics();
+    UmengAnalytics.searchResultClicksAnalytics();
   }, []);
   // ========== for analytics - end ==========
 

@@ -8,7 +8,7 @@ import VodCard from '../vod/vodCard';
 import { useAppDispatch } from '@hooks/hooks';
 import { TextStyle } from 'react-native';
 import appsFlyer from 'react-native-appsflyer';
-import useAnalytics from '@hooks/useAnalytics';
+import UmengAnalytics from '../../../Umeng/UmengAnalytics';
 
 interface Props {
   playlist: VodTopicType;
@@ -24,14 +24,13 @@ function VodPlaylist({ playlist, titleStyle }: Props) {
   const { textVariants, spacing, colors, icons } = useTheme();
   const navigator = useNavigation();
   const dispatch = useAppDispatch();
-  const { playlistClickAnalytics } = useAnalytics();
 
   const viewMore = () => {
     dispatch(viewPlaylistDetails(playlist));
     navigator.navigate('PlaylistDetail', { topic_id: playlist.topic_id });
 
     // ========== for analytics - start ==========
-    playlistClickAnalytics({
+    UmengAnalytics.playlistClickAnalytics({
       topic_id: playlist.topic_id.toString(),
       topic_name: playlist.topic_name,
     });
@@ -68,7 +67,7 @@ function VodPlaylist({ playlist, titleStyle }: Props) {
         });
 
         // ========== for analytics - start ==========
-        playlistClickAnalytics({
+        UmengAnalytics.playlistClickAnalytics({
           topic_id: playlist.topic_id.toString(),
           topic_name: playlist.topic_name,
         });

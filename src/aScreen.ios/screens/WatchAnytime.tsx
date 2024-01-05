@@ -17,7 +17,7 @@ import NetInfo from '@react-native-community/netinfo';
 import { SettingsReducerState } from '@redux/reducers/settingsReducer';
 import { useAppSelector } from '@hooks/hooks';
 import { RootState } from '@redux/store';
-import useAnalytics from '@hooks/useAnalytics';
+import UmengAnalytics from '../../../Umeng/UmengAnalytics';
 import { MiniVodApi } from '@api';
 
 type MiniVideoResponseType = {
@@ -45,11 +45,9 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     );
 
     // ========== for analytics - start ==========
-    const { watchAnytimeViewsAnalytics } = useAnalytics();
-
-    useEffect(() => {
-        watchAnytimeViewsAnalytics();
-    }, [])
+    useFocusEffect(useCallback(() => {
+        UmengAnalytics.watchAnytimeViewsAnalytics();
+    }, []));
     // ========== for analytics - end ==========
 
     // Add an event listener to the navigation object for the tab press event

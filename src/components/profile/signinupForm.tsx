@@ -33,7 +33,7 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { showToast } from "../../Sports/utility/toast";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import useAnalytics from "@hooks/useAnalytics";
+import UmengAnalytics from "../../../Umeng/UmengAnalytics";
 import { useDispatch } from "react-redux";
 import { addUserAuthState } from "@redux/actions/userAction";
 import { UserApi } from "@api";
@@ -51,7 +51,6 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
   onGooleLoginSuccess,
 }: Props, ref) => {
   const navigation = useNavigation();
-  const { userCenterLoginSuccessTimesAnalytics, userCenterVipLoginSuccessTimesAnalytics } = useAnalytics();
   const dispatch = useDispatch();
 
   const [loginType, setloginType] = useState<'email' | 'phone'>('email');
@@ -250,10 +249,10 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
       await dispatch(changeScreenAction('登录成功'));
 
       // ========== for analytics - start ==========
-      userCenterLoginSuccessTimesAnalytics();
+      UmengAnalytics.userCenterLoginSuccessTimesAnalytics();
 
       if (json.userMemberExpired >= json.userCurrentTimestamp) {
-        userCenterVipLoginSuccessTimesAnalytics();
+        UmengAnalytics.userCenterVipLoginSuccessTimesAnalytics();
       }
       // ========== for analytics - end ==========
 
@@ -404,16 +403,16 @@ const LoginCard = ({
 
   return (
     <View style={styles.card}>
-      <Text style={styles.title}>注册/登录</Text>
+      <Text style={styles.title}>「登录/注册」解锁更多精彩内容！</Text>
       {/* <Text style={styles.subtitle}>登录后可管理您的账号，多端同步观看历史和收藏夹</Text> */}
       {/* ============================== tab control ============================== */}
       <View style={styles.tabContainer}>
         <TouchableOpacity
           style={styles.tabItemContainer}
-          onPress={() => onChangeloginType('phone')}
+          onPress={() => onChangeloginType('email')}
         >
-          <Text style={[loginType === 'phone' ? styles.tabItemFocusText : styles.tabItemUnfocusText]}>手机号码</Text>
-          {loginType === 'phone' &&
+          <Text style={[loginType === 'email' ? styles.tabItemFocusText : styles.tabItemUnfocusText]}>电邮地址</Text>
+          {loginType === 'email' &&
             <View
               style={{
                 width: 30,
@@ -427,10 +426,10 @@ const LoginCard = ({
 
         <TouchableOpacity
           style={styles.tabItemContainer}
-          onPress={() => onChangeloginType('email')}
+          onPress={() => onChangeloginType('phone')}
         >
-          <Text style={[loginType === 'email' ? styles.tabItemFocusText : styles.tabItemUnfocusText]}>电邮地址</Text>
-          {loginType === 'email' &&
+          <Text style={[loginType === 'phone' ? styles.tabItemFocusText : styles.tabItemUnfocusText]}>手机号码</Text>
+          {loginType === 'phone' &&
             <View
               style={{
                 width: 30,

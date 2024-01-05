@@ -42,7 +42,7 @@ import { RootState } from "@redux/store";
 import { useDispatch } from "react-redux";
 import BecomeVipOverlay from "../components/modal/becomeVipOverlay";
 import { SettingsReducerState } from "@redux/reducers/settingsReducer";
-import useAnalytics from "@hooks/useAnalytics";
+import UmengAnalytics from "../../Umeng/UmengAnalytics";
 import XvodTabIcon from "@static/images/xvodTab.svg";
 import SportTabIcon from "@static/images/sportTab.svg";
 import XVodTab from "./VipPrivilege/XVodTab";
@@ -84,11 +84,9 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
   };
 
   // ========== for analytics - start ==========
-  const { sportViewsAnalytics } = useAnalytics();
-
-  useEffect(() => {
-    sportViewsAnalytics();
-  }, []);
+  useFocusEffect(useCallback(() => {
+    UmengAnalytics.sportViewsAnalytics();
+  }, []));
   // ========== for analytics - end ==========
 
   const { data: navOptions, refetch } = useQuery({
@@ -163,11 +161,11 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
 
   const isVip = !(
     Number(userState.userMemberExpired) <=
-      Number(userState.userCurrentTimestamp) || userState.userToken === ''
+    Number(userState.userCurrentTimestamp) || userState.userToken === ''
   );
 
   useEffect(() => {
-    if (selectedTab === 'xvod' && !isVip){
+    if (selectedTab === 'xvod' && !isVip) {
       setShowBecomeVIPOverlay(true)
     } else {
       setShowBecomeVIPOverlay(false)
@@ -180,9 +178,9 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
         source={
           selectedTab == "sport"
             ? require("./../../static/images/bgVipSport.png")
-            : screenState.showAdultTab 
-            ? require("./../../static/images/bgVipXvod.png")
-            : require("./../../static/images/profile/bg-gradient.png")
+            : screenState.showAdultTab
+              ? require("./../../static/images/bgVipXvod.png")
+              : require("./../../static/images/profile/bg-gradient.png")
         }
         resizeMode="cover"
         style={{ flex: 1, height: 200 }}
@@ -214,67 +212,67 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
             >
               {showSport &&
                 <TouchableOpacity
-                onPress={() => {
-                  setSelectedTab("sport");
-                  dispatch(disableAdultMode());
-                }}
-              >
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "center",
-                    alignItems: "center",
+                  onPress={() => {
+                    setSelectedTab("sport");
+                    dispatch(disableAdultMode());
                   }}
                 >
-                  {selectedTab == "sport" && (
-                    <View
-                      style={{
-                        paddingRight: 7,
-                        position: "relative",
-                        bottom: 10,
-                      }}
-                    >
-                      <SportTabIcon width={32} height={32} />
-                    </View>
-                  )}
-
                   <View
                     style={{
-                      flexDirection: "column",
+                      flexDirection: "row",
+                      justifyContent: "center",
+                      alignItems: "center",
                     }}
                   >
-                    <Text
-                      style={{
-                        ...textVariants.bigHeader,
-                        color: colors.text,
-                        fontSize: selectedTab == "sport" ? 20 : 16,
-                        // fontWeight: selectedTab == "sport" ? "bold" : "normal",
-                        paddingBottom: 3,
-                        marginBottom: 0,
-                      }}
-                    >
-                      体育
-                    </Text>
+                    {selectedTab == "sport" && (
+                      <View
+                        style={{
+                          paddingRight: 7,
+                          position: "relative",
+                          bottom: 10,
+                        }}
+                      >
+                        <SportTabIcon width={32} height={32} />
+                      </View>
+                    )}
 
                     <View
                       style={{
-                        justifyContent: "center",
-                        paddingHorizontal: 12,
+                        flexDirection: "column",
                       }}
                     >
+                      <Text
+                        style={{
+                          ...textVariants.bigHeader,
+                          color: colors.text,
+                          fontSize: selectedTab == "sport" ? 20 : 16,
+                          // fontWeight: selectedTab == "sport" ? "bold" : "normal",
+                          paddingBottom: 3,
+                          marginBottom: 0,
+                        }}
+                      >
+                        体育
+                      </Text>
+
                       <View
                         style={{
-                          borderTopWidth: selectedTab == "sport" ? 2 : 0, // Border bottom width
-                          borderTopColor: "#ffffff", // Border bottom color
-                          maxWidth: 20,
+                          justifyContent: "center",
+                          paddingHorizontal: 12,
                         }}
-                      ></View>
+                      >
+                        <View
+                          style={{
+                            borderTopWidth: selectedTab == "sport" ? 2 : 0, // Border bottom width
+                            borderTopColor: "#ffffff", // Border bottom color
+                            maxWidth: 20,
+                          }}
+                        ></View>
 
-                      <Text></Text>
+                        <Text></Text>
+                      </View>
                     </View>
                   </View>
-                </View>
-              </TouchableOpacity>
+                </TouchableOpacity>
               }
 
               {screenState.showAdultTab && (
@@ -348,14 +346,14 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
               activeOpacity={
                 Number(userState.userMemberExpired) <=
                   Number(userState.userCurrentTimestamp) ||
-                userState.userToken === ""
+                  userState.userToken === ""
                   ? 0.5
                   : 1
               }
               onPress={() => {
                 if (
                   Number(userState.userMemberExpired) <=
-                    Number(userState.userCurrentTimestamp) ||
+                  Number(userState.userCurrentTimestamp) ||
                   userState.userToken === ""
                 ) {
                   setShowBecomeVIPOverlay(true);
@@ -369,7 +367,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                 />
                 {Number(userState.userMemberExpired) <=
                   Number(userState.userCurrentTimestamp) ||
-                userState.userToken === "" ? (
+                  userState.userToken === "" ? (
                   <Text
                     style={{
                       color: colors.text,
@@ -414,7 +412,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                     showBecomeVIPOverlay={showBecomeVIPOverlay}
                     selectedTab={selectedTab}
                   />
-              }
+                }
               </View>
               // <Text>sport</Text>
             )}
@@ -425,31 +423,31 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                 flex: 1,
                 marginHorizontal: 10,
                 backgroundColor: "transparent",
-marginTop:5
+                marginTop: 5
                 // borderColor:'red',
                 // borderWidth:20
               }}
             >
               <XVodTab handleRejectEighteenPlus={handleRejectEighteenPlus} />
               {!isVip &&
-              <>
-                <TouchableWithoutFeedback
-                  style={styles.xvodBlur}
-                  onPress={() => setShowBecomeVIPOverlay(true)}
-                >
-                  <BlurView
-                    blurType="dark"
-                    blurAmount={2}
+                <>
+                  <TouchableWithoutFeedback
                     style={styles.xvodBlur}
+                    onPress={() => setShowBecomeVIPOverlay(true)}
+                  >
+                    <BlurView
+                      blurType="dark"
+                      blurAmount={2}
+                      style={styles.xvodBlur}
+                    />
+                  </TouchableWithoutFeedback>
+                  <BecomeVipOverlay
+                    setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
+                    showBecomeVIPOverlay={showBecomeVIPOverlay}
+                    selectedTab={selectedTab}
                   />
-                </TouchableWithoutFeedback>
-                <BecomeVipOverlay
-                  setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
-                  showBecomeVIPOverlay={showBecomeVIPOverlay}
-                  selectedTab={selectedTab}
-                />
-              </>
-              
+                </>
+
               }
             </View>
           )}
@@ -494,12 +492,12 @@ const styles = StyleSheet.create({
     bottom: 8,
   },
   xvodBlur: {
-      flex: 1,
-      position: 'absolute',
-      width: '100%',
-      height: '100%',
-      marginTop: 10,
-      borderRadius: 15,
-      // borderRadius: showBlur ? 15 : 0,
+    flex: 1,
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    marginTop: 10,
+    borderRadius: 15,
+    // borderRadius: showBlur ? 15 : 0,
   }
 });

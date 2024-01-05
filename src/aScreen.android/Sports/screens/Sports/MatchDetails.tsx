@@ -55,7 +55,7 @@ import BecomeVipOverlay from "../../../components/modal/becomeVipOverlay";
 import { NON_VIP_STREAM_TIME_SECONDS } from '@utility/constants';
 import { userModel } from '@type/userType';
 import useInterstitialAds from '@hooks/useInterstitialAds';
-import useAnalytics from '@hooks/useAnalytics';
+import UmengAnalytics from '../../../../../Umeng/UmengAnalytics';
 import { SettingsReducerState } from '@redux/reducers/settingsReducer';
 import { RootState } from '@redux/store';
 import VipRegisterBar from '../../../../components/adultVideo/vipRegisterBar';
@@ -102,10 +102,8 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
   const videoRef = useRef<VideoRef | null>(null);
 
   // ========== for analytics - start ==========
-  const { sportDetailsViewsAnalytics, sportDetailsVipPopupTimesAnalytics } = useAnalytics();
-
   useEffect(() => {
-    sportDetailsViewsAnalytics();
+    UmengAnalytics.sportDetailsViewsAnalytics();
   }, [])
   // ========== for analytics - end ==========
 
@@ -228,7 +226,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
       setShowBecomeVIPOverlay(true);
 
       // ========== for analytics - start ==========
-      sportDetailsVipPopupTimesAnalytics();
+      UmengAnalytics.sportDetailsVipPopupTimesAnalytics();
       // ========== for analytics - end ==========
     }
 

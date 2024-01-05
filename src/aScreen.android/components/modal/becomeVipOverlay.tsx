@@ -9,8 +9,8 @@ import {
   showLoginAction,
 } from '@redux/actions/screenAction';
 import FastImage from 'react-native-fast-image';
-import useAnalytics from '@hooks/useAnalytics';
 import { SHOW_ZF_CONST } from '@utility/constants';
+import UmengAnalytics from '../../../../Umeng/UmengAnalytics';
 
 interface Props {
   showBecomeVIPOverlay: boolean;
@@ -34,7 +34,6 @@ export default function ExpiredOverlay({
   // }, []);
 
   const { colors, textVariants, spacing, icons } = useTheme();
-  const { sportDetailsVipPopupClicksAnalytics } = useAnalytics();
 
   return (
     <>
@@ -108,7 +107,7 @@ export default function ExpiredOverlay({
                         navigator.navigate('付费VIP');
 
                         // ========== for analytics - start ==========
-                        sportDetailsVipPopupClicksAnalytics('pay');
+                        UmengAnalytics.sportDetailsVipPopupClicksAnalytics('pay');
                         // ========== for analytics - end ==========
                       }}
                       style={styles.btn}>
@@ -128,7 +127,7 @@ export default function ExpiredOverlay({
                       navigator.navigate('邀请');
 
                       // ========== for analytics - start ==========
-                      sportDetailsVipPopupClicksAnalytics('invite');
+                      UmengAnalytics.sportDetailsVipPopupClicksAnalytics('invite');
                       // ========== for analytics - end ==========
                     }}
                     style={styles.btn}>

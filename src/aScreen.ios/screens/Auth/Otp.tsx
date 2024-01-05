@@ -19,7 +19,7 @@ import { ResendCountDown } from './resendCountDown';
 import { addUserAuthState } from '@redux/actions/userAction';
 
 import { changeScreenAction } from '@redux/actions/screenAction';
-import useAnalytics from '@hooks/useAnalytics';
+import UmengAnalytics from '../../../../Umeng/UmengAnalytics';
 import { UserApi } from '@api';
 
 
@@ -71,7 +71,6 @@ const OtpInputs = ({
   const [otpTextInput, setOtpTextInput] = useState<TextInput[]>([]);
   const [resend, setResend] = useState(false);
   const [isValid, setValid] = useState(0); // 0: have not checked, 1: invalid, 2: valid
-  const { userCenterLoginSuccessTimesAnalytics, userCenterVipLoginSuccessTimesAnalytics } = useAnalytics();
 
   const [focusedInput, setFocusedInput] = useState(null); // Track the focused input index
 
@@ -201,10 +200,10 @@ const OtpInputs = ({
       navigation.goBack();
 
       // ========== for analytics - start ==========
-      userCenterLoginSuccessTimesAnalytics();
+      UmengAnalytics.userCenterLoginSuccessTimesAnalytics();
 
       if (json.userMemberExpired >= json.userCurrentTimestamp) {
-        userCenterVipLoginSuccessTimesAnalytics();
+        UmengAnalytics.userCenterVipLoginSuccessTimesAnalytics();
       }
       // ========== for analytics - end ==========
     }

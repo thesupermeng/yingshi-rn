@@ -22,7 +22,7 @@ import {
 // import FastImage from "react-native-fast-image";
 import FastImage from "../common/customFastImage";
 import { VodReducerState } from "@redux/reducers/vodReducer";
-import { useAppDispatch, useAppSelector } from "@hooks/hooks";
+import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
 import { RootState } from "@redux/store";
 import VodHistoryList from "../vod/vodHistoryList";
 import VodLiveStationList from "../vod/vodLiveStationList";
@@ -38,6 +38,7 @@ import LoadingIcon from "@static/images/MutedVolume.svg";
 import { Image } from "react-native";
 import { YingPingContainer } from "../container/yingPingContainer";
 import { AppsApi, PlaylistApi } from "@api";
+import { userModel } from "@type/userType";
 
 interface NavType {
   id: number;
@@ -76,6 +77,12 @@ const RecommendationHome = ({
   // const {width, height} = Dimensions.get('window');
   const [width, setWidth] = useState(Dimensions.get("window").width);
   const [imgRatio, setImgRatio] = useState(1.5);
+
+  const userState = useSelector<userModel>('userReducer');
+  const isVip = !(Number(userState.userMemberExpired) <=
+    Number(userState.userCurrentTimestamp) ||
+    userState.userToken === "")
+
   useEffect(() => {
     setWidth(Number(Dimensions.get("window").width));
 
@@ -140,7 +147,7 @@ const RecommendationHome = ({
   // );
 
   const fetchYingPing = () =>
-    AppsApi.getHomePages(1000)
+    AppsApi.getHomePages(1000, isVip)
       .then((data) => {
         setResults(data.topic_list);
         return data;

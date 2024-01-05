@@ -43,6 +43,7 @@ import EmptyList from '../../components/common/emptyList';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { TabItem } from '@rneui/base/dist/Tab/Tab.Item';
 import { VodApi } from '@api';
+import UmengAnalytics from '../../../Umeng/UmengAnalytics';
 
 interface NavType {
   id: number;
@@ -318,6 +319,21 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
     },
   });
 
+  // ========== for analytics - start ==========
+  useEffect(() => {
+    if (topicOptions.length > 0) {
+      const currentTopicName = topicOptions.find((topic) => topic.id === currentTopicId);
+
+      if (currentTopicName) {
+        UmengAnalytics.catalogViewsAnalytics({
+          category_id: currentTopicId.toString(),
+          category_name: currentTopicName.name,
+        });
+      }
+    }
+  }, [currentTopicId, topicOptions]);
+  // ========== for analytics - end ==========
+
   useEffect(() => {
     const eventName = 'catalog';
     const eventValues = {
@@ -386,6 +402,17 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
               navigation.navigate('播放', {
                 vod_id: item?.vod_id,
               });
+
+              // ========== for analytics - start ==========
+              const currentTopicName = topicOptions.find((topic) => topic.id === currentTopicId);
+
+              if (currentTopicName) {
+                UmengAnalytics.catalogClicksAnalytics({
+                  category_id: currentTopicId.toString(),
+                  category_name: currentTopicName.name,
+                });
+              }
+              // ========== for analytics - end ==========
             }}
           />
         </View>

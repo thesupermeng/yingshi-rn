@@ -43,7 +43,7 @@ export class UserApi {
                 body: {
                     request_otp_by: loginType,
                     email: email,
-                    phone_number: phone,
+                    phone_number: phone?.replace(/\s/g, ''),
                     country_id: countryId,
                     device_id: deviceId,
                     referral_code: referralCode,
@@ -55,7 +55,7 @@ export class UserApi {
             });
 
             if (result.success === false) {
-                throw result.message;
+                throw result;
             }
 
             if (result.data && result.data.access_token) {
@@ -126,7 +126,7 @@ export class UserApi {
             });
 
             if (result.success === false) {
-                throw result.message;
+                throw result;
             }
 
             return result.data;

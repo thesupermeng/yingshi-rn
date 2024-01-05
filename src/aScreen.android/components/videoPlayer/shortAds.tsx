@@ -6,7 +6,6 @@ import Video, { OnProgressData, VideoRef } from 'react-native-video';
 import FastImage from '../common/customFastImage';
 import { useNavigation, useTheme } from '@react-navigation/native';
 import { useAppDispatch, useAppSelector } from '@hooks/hooks';
-import useAnalytics from '@hooks/useAnalytics';
 import { DOWNLOAD_WATCH_ANYTIME } from '@utility/constants';
 import { playVod } from '@redux/actions/vodActions';
 import RNFetchBlob from 'rn-fetch-blob';
@@ -74,10 +73,6 @@ function ShortAds({
     const [miniVodUrl, setMiniVodUrl] = useState(currentVod.ads_pic);
 
 
-    const {
-        watchAnytimeVideoClicksAnalytics,
-    } = useAnalytics();
-
     useEffect(() => {
         if (!isShowVideo && Platform.OS === 'ios') setVideoReadyIos(false);
         if (!isShowVideo && Platform.OS === 'android') setVideoReadyAndroid(false);
@@ -127,18 +122,6 @@ function ShortAds({
         }
     }, [currentDuration])
 
-    const redirectVod = useCallback(() => {
-        dispatch(playVod(currentVod.mini_video_vod));
-        navigation.navigate('播放', {
-            vod_id: currentVod.vod?.vod_id,
-            player_mode: adultMode ? 'adult' : 'normal',
-        });
-
-        // ========== for analytics - start ==========
-        watchAnytimeVideoClicksAnalytics();
-        // ========== for analytics - end ==========
-    }, [currentVod]);
-
     useEffect(() => {
         if (isPause === false) {
             setIsBuffering(false);
@@ -154,40 +137,40 @@ function ShortAds({
         }
     }, [])
 
-    // useEffect(() => {
-    //     const fn = async () => {
-    //         if ((isPause === true || isBuffering === true) && currentDuration < 1) {
-    //             // check if video is in local storage
-    //             // if local storage, update miniVodUrl
-    //             // else do nothing
+    useEffect(() => {
+        const fn = async () => {
+            if ((isPause === true || isBuffering === true) && currentDuration < 1) {
+                // check if video is in local storage
+                // if local storage, update miniVodUrl
+                // else do nothing
 
-    //             const fileLocation =
-    //                 RNFetchBlob.fs.dirs.DocumentDir +
-    //                 `/videocache/${currentVod.mini_video_id}.mp4`;
+                const fileLocation =
+                    RNFetchBlob.fs.dirs.DocumentDir +
+                    `/videocache/${currentVod.mini_video_id}.mp4`;
 
-    //             const fileExist = await RNFetchBlob.fs.exists(fileLocation);
+                const fileExist = await RNFetchBlob.fs.exists(fileLocation);
 
 
-    //             if (fileExist) {
-    //                 const fileIsEmpty = (await RNFetchBlob.fs.stat(fileLocation)).size == 0
-    //                 // console.log('file exist, change source! ');
-    //                 if (!fileIsEmpty) {
-    //                     setMiniVodUrl(`${fileLocation}`);
-    //                 } else {
-    //                     // console.debug('file exist but is empty, use url')
-    //                     setMiniVodUrl(currentVod.ads_pic)
-    //                 }
-    //             } else {
-    //                 // console.log('file not exist ');
-    //                 setMiniVodUrl(currentVod.ads_pic)
-    //             }
-    //         }
-    //     };
-    //     if (DOWNLOAD_WATCH_ANYTIME === true) {
-    //         // if download constant is true, only use
-    //         fn();
-    //     }
-    // }, [isBuffering, isPause]);
+                if (fileExist) {
+                    const fileIsEmpty = (await RNFetchBlob.fs.stat(fileLocation)).size == 0
+                    // console.log('file exist, change source! ');
+                    if (!fileIsEmpty) {
+                        setMiniVodUrl(`${fileLocation}`);
+                    } else {
+                        // console.debug('file exist but is empty, use url')
+                        setMiniVodUrl(currentVod.ads_pic)
+                    }
+                } else {
+                    // console.log('file not exist ');
+                    setMiniVodUrl(currentVod.ads_pic)
+                }
+            }
+        };
+        if (DOWNLOAD_WATCH_ANYTIME === true) {
+            // if download constant is true, only use
+            fn();
+        }
+    }, [isBuffering, isPause]);
 
     useEffect(() => {
         setMiniVodUrl(currentVod.ads_pic);
@@ -393,5 +376,6 @@ const styles = StyleSheet.create({
     },
     adsBtnText: {
         fontSize: 18,
+        fontWeight:'bold'
     }
 });

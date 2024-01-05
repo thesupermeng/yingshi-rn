@@ -78,7 +78,7 @@ import AdultVideoVipModal from "../../components/modal/adultVideoVipModal";
 import VipRegisterBar from "../../components/adultVideo/vipRegisterBar";
 import { disableAdultMode, enableAdultMode, incrementAdultVideoWatchTime } from "@redux/actions/screenAction";
 
-import useAnalytics from "@hooks/useAnalytics";
+import UmengAnalytics from "../../../Umeng/UmengAnalytics";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { screenModel } from "@type/screenType";
 import { VodApi } from "@api";
@@ -297,11 +297,6 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     Number(userState.userCurrentTimestamp) ||
     userState.userToken === "")
 
-  const {
-    playsViewsAnalytics,
-    playsPlaysTimesAnalytics,
-    playsShareClicksAnalytics,
-  } = useAnalytics();
   const [isReadyPlay, setReadyPlay] = useState(false);
 
   //logic and function for multiple sources
@@ -347,7 +342,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   // }, [currentSourceId]);
 
   const renderSources = useCallback(
-    ({ item }) => (
+    ({ item, index }) => (
       <TouchableOpacity
         style={{
           flexDirection: "row",
@@ -380,8 +375,8 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
             color: currentSourceId === item.source_id ? colors.selected : colors.muted,
           }}
         >
-          {/* {item.name} */}
-          {item.source_name}
+          {/* {item.source_name} */}
+          线路 {index + 1}
         </Text>
       </TouchableOpacity>
     ),
@@ -413,7 +408,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const onShare = async () => {
     try {
       // ========== for analytics - start ==========
-      playsShareClicksAnalytics();
+      UmengAnalytics.playsShareClicksAnalytics();
       // ========== for analytics - end ==========
 
       let msg = `《${vod?.vod_name
@@ -482,7 +477,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       setReadyPlay(false);
 
       // ========== for analytics - start ==========
-      playsViewsAnalytics({
+      UmengAnalytics.playsViewsAnalytics({
         vod_id: vod.vod_id.toString(),
         vod_name: vod.vod_name,
         isXmode: adultMode,
@@ -851,7 +846,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   // ========== for analytics - start ==========
   const onReadyForDisplay = () => {
     if (vod && !isReadyPlay) {
-      playsPlaysTimesAnalytics({
+      UmengAnalytics.playsPlaysTimesAnalytics({
         vod_id: vod.vod_id.toString(),
         vod_name: vod.vod_name,
         isXmode: adultMode,
@@ -997,15 +992,24 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                 paddingVertical: 5
               }}>
                 <BannerContainer
-                  bannerImg={bannerAd.ads_pic}
-                  bannerUrl={bannerAd.ads_url}
+                  bannerAd={bannerAd}
+                  onMount={() => {
+                    UmengAnalytics.videoPlayerBannerViewAnalytics({
+                      playerType: adultMode ? 'xVideo' : 'normal',
+                    });
+                  }}
+                  onPress={() => {
+                    UmengAnalytics.videoPlayerBannerClickAnalytics({
+                      playerType: adultMode ? 'xVideo' : 'normal',
+                    });
+                  }}
                 />
               </View>
             )}
 
             <ScrollView
               nestedScrollEnabled={true}
-              contentContainerStyle={{ marginTop: spacing.m }}
+              // contentContainerStyle={{ marginTop: spacing.s }}
               contentInsetAdjustmentBehavior="automatic"
             >
               <View style={{ ...styles.descriptionContainer2, gap: spacing.m }}>
