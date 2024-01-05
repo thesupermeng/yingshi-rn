@@ -42,7 +42,8 @@ export const VipInviteHistory = ( {userState,}: Props ) => {
       return {
         displayText: displayText, 
         createdDate: item.created_at, 
-        vipDays: item.invited_vip_reward_day
+        vipDays: item.invited_vip_reward_day, 
+        status: 1,
       };
     });
     console.log('mergedArray');
