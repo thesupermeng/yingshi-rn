@@ -111,8 +111,8 @@ export class AppsApi {
                     id: id,
                     platform: Platform.OS,
                     channelId: UMENG_CHANNEL,
-                    // appName:APP_NAME_CONST,
-                    appName: '影视TV',
+                    appName:APP_NAME_CONST,
+                   // appName: '影视TV',
                     ads: !isVip,
                 },
             });
