@@ -21,7 +21,7 @@ import {
   IS_IOS,
 } from "@utility/constants";
 import { showLoginAction } from "@redux/actions/screenAction";
-import useAnalytics from "@hooks/useAnalytics";
+import UmengAnalytics from "../../../../Umeng/UmengAnalytics";
 import { UserApi } from '@api';
 import WebView from "react-native-webview";
 
@@ -39,10 +39,8 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const scrollRef = useRef<any>();
 
   // ========== for analytics - start ==========
-  const { userCenterVipPayViewsAnalytics } = useAnalytics();
-
   useEffect(() => {
-    userCenterVipPayViewsAnalytics();
+    UmengAnalytics.userCenterVipPayViewsAnalytics();
   }, []);
   // ========== for analytics - end ==========
 
