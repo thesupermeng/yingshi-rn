@@ -59,7 +59,8 @@ const styles = StyleSheet.create({
     width: '100%', 
     height: 30, 
     textAlign: 'center', 
-    lineHeight: 30
+    lineHeight: 30, 
+    marginVertical: 10
   }, 
   button: {
     position: 'absolute', 
@@ -67,13 +68,15 @@ const styles = StyleSheet.create({
     height: 30,
     alignItems: 'center', 
     justifyContent: 'center', 
-    zIndex: 20
+    zIndex: 20,
+    marginVertical: 10
   }, 
   rightButton: {
     position: "absolute", 
     height: 30, 
     alignItems: 'center', 
     justifyContent: 'center', 
-    right: 0
+    right: 0, 
+    marginVertical: 10
   }
 });
