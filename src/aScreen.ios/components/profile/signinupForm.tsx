@@ -667,7 +667,7 @@ const LoginCard = ({
           color: 'white',
           fontSize: 16,
         }}>
-          继续使用 Google
+          使用Google账号登录
         </Text>
       </TouchableOpacity>
     </View>
