@@ -11,6 +11,7 @@ import { playVod } from '@redux/actions/vodActions';
 import RNFetchBlob from 'rn-fetch-blob';
 import { addIdToCache } from '../../../utils/minivodDownloader';
 import { screenModel } from '@type/screenType';
+import UmengAnalytics from '../../../../Umeng/UmengAnalytics';
 
 interface Props {
     thumbnail?: string;
@@ -58,9 +59,6 @@ function ShortAds({
     if (currentVod?.mini_video_original_video_name == undefined) {
         currentVod.mini_video_original_video_name = '';
     }
-
-    const dispatch = useAppDispatch();
-    const navigation = useNavigation();
 
     const [isBuffering, setIsBuffering] = useState(false);
     const videoRef = useRef<VideoRef>(null);
@@ -129,6 +127,7 @@ function ShortAds({
     }, [isPause]);
 
     useEffect(() => {
+        UmengAnalytics.watchAnytimeAdsViewAnalytics();
 
         return () => {
             // on component unmount
@@ -189,6 +188,8 @@ function ShortAds({
         const url = currentVod?.ads_url.includes('http') ? currentVod?.ads_url : 'https://' + currentVod?.actionUrl
 
         Linking.openURL(url);
+
+        UmengAnalytics.watchAnytimeAdsClicksAnalytics();
     }
 
     return (
@@ -376,6 +377,6 @@ const styles = StyleSheet.create({
     },
     adsBtnText: {
         fontSize: 18,
-        fontWeight:'bold'
+        fontWeight: 'bold'
     }
 });
