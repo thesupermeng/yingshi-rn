@@ -134,6 +134,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         paddingVertical: 6,
         paddingHorizontal: 10,
+        borderTopLeftRadius: 8,
+        borderBottomLeftRadius: 8,
     },
     verticalLine: {
         height: '100%',
