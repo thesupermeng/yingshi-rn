@@ -16,6 +16,8 @@ enum EventId {
     WatchAnytime_x_video_view_times = 'WatchAnytime-X_video_view_times',
     WatchAnytime_playlist_clicks = 'WatchAnytime-playlist_clicks',
     WatchAnytime_video_clicks = 'WatchAnytime-video_clicks',
+    WatchAnytime_Ads_views = 'WatchAnytime-ads_views',
+    WatchAnytime_Ads_clicks = 'WatchAnytime-ads_clicks',
 
     // Sport
     Sport_views = 'Sport-views',
@@ -168,6 +170,18 @@ export default class UmengAnalytics {
         AnalyticsUtil.onEventWithMap(EventId.WatchAnytime_playlist_clicks, {});
 
         if (this.showLog) console.log('trigger event id:', EventId.WatchAnytime_playlist_clicks);
+    }
+
+    static watchAnytimeAdsViewAnalytics = () => {
+        AnalyticsUtil.onEventWithMap(EventId.WatchAnytime_Ads_views, {});
+
+        if (this.showLog) console.log('trigger event id:', EventId.WatchAnytime_Ads_views);
+    }
+
+    static watchAnytimeAdsClicksAnalytics = () => {
+        AnalyticsUtil.onEventWithMap(EventId.WatchAnytime_Ads_clicks, {});
+
+        if (this.showLog) console.log('trigger event id:', EventId.WatchAnytime_Ads_clicks);
     }
 
 
