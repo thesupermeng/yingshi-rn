@@ -98,13 +98,13 @@ export default function VipPrivilegeModal({
               <View style={styles.imageContainer}>
                 <FastImage
                   source={coverBackground ?? adultBg}
-                  style={styles.image}
+                  style={{...styles.image, height: 117}}
                   resizeMode="cover"
                 />
                 <FastImage
                   source={coverImage ?? adultModels}
                   style={styles.image}
-                  resizeMode="cover"
+                  resizeMode="contain"
                 />
                 <LinearGradient
                   colors={imageGradientColors}
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FAC33D",
     borderRadius: 8,
     paddingHorizontal: 20,
-    paddingVertical: 8,
+    paddingVertical: 10,
     alignItems: "center",
   },
   purchaseButtonText: {
@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#121314",
     borderRadius: 8,
     paddingHorizontal: 20,
-    paddingVertical: 8,
+    paddingVertical: 10,
     alignItems: "center",
   },
   inviteButtonText: {
@@ -229,7 +229,10 @@ const styles = StyleSheet.create({
   image: {
     position: "absolute",
     bottom: 0,
-    width: "100%",
+    // width: "100%",
+    width: 327,
+    height: 160.124,
+    
   },
   contentGradient: {
     overflow: "hidden",
