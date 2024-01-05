@@ -94,7 +94,7 @@ export class UserApi {
                 throw CLangKey.apiEmptyResponse;
             }
 
-            return result.data.user;
+            return result.data;
 
         } catch (e: any) {
             console.error(`[Error ${this.name}]: ${e.toString()}`);
