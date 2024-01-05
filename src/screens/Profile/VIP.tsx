@@ -22,6 +22,7 @@ import {
 import { showLoginAction } from "@redux/actions/screenAction";
 import { UserApi } from "@api";
 import WebView from "react-native-webview";
+import { YSConfig } from "../../../ysConfig";
 
 export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const [isOffline, setIsOffline] = useState(false);
@@ -92,7 +93,9 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     <>
       <ScreenContainer>
         <TitleWithBackButtonHeader
-          title="付费VIP"
+         title={ YSConfig.instance.showBecomeVip
+          ? "成为VIP"
+          : "付费VIP"}
           right={
             <TouchableOpacity
               onPress={() => {
