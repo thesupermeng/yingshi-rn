@@ -1,6 +1,6 @@
-package com.yingshitv;
+package com.aimeijutv;
 
-import com.yingshitv.SQLiteDBHelper;
+import com.aimeijutv.SQLiteDBHelper;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

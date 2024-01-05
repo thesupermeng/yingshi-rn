@@ -1,4 +1,4 @@
-package com.yingshitv;
+package com.aimeijutv;
 
 import java.util.ArrayList;
 import java.util.Collections;

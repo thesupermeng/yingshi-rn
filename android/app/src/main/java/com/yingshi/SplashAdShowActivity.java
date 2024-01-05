@@ -5,7 +5,7 @@
  * https://github.com/toponteam/TopOn-Android-SDK/blob/master/LICENSE
  */
 
-package com.yingshitv;
+package com.aimeijutv;
 
 import android.app.Activity;
 import android.content.Context;
@@ -29,8 +29,8 @@ import com.anythink.core.api.AdError;
 import com.anythink.splashad.api.ATSplashAd;
 import com.anythink.splashad.api.ATSplashAdExtraInfo;
 import com.anythink.splashad.api.ATSplashExListener;
-import com.yingshitv.zoomout.SplashEyeAdHolder;
-import com.yingshitv.zoomout.SplashZoomOutManager;
+import com.aimeijutv.zoomout.SplashEyeAdHolder;
+import com.aimeijutv.zoomout.SplashZoomOutManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.Cursor;

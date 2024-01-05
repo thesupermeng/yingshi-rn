@@ -1,4 +1,4 @@
-package com.yingshitv;
+package com.aimeijutv;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

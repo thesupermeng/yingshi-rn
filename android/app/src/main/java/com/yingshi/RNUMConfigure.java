@@ -1,4 +1,4 @@
-package com.yingshitv;
+package com.aimeijutv;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
