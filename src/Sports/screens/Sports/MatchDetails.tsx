@@ -308,9 +308,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
   }
 
   useEffect(() => {
-    if (!isVip) {
-      fetchBannerAd();
-    }
+    fetchBannerAd();
   }, []);
 
   return (
