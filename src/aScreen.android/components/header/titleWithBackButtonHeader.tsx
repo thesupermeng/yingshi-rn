@@ -1,10 +1,8 @@
 import {
   View,
-  TouchableOpacity,
   StyleSheet,
   Text,
   ViewStyle,
-  Platform,
 } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import BackButton from "../button/backButton";
@@ -14,7 +12,6 @@ interface Props {
   onBack?: any;
   headerStyle?: ViewStyle;
   right?: React.ReactNode;
-  backBtnStyle?: ViewStyle; 
 }
 
 export default function TitleWithBackButtonHeader({
@@ -22,87 +19,61 @@ export default function TitleWithBackButtonHeader({
   onBack,
   headerStyle,
   right,
-  backBtnStyle
 }: Props) {
   const { textVariants } = useTheme();
 
-  let leftIconBottomVal;
-
-  if (right) {
-    console.log("right");
-    console.log(right);
-    leftIconBottomVal = Platform.OS == "ios" ? -4 : -7;
-  } else {
-    console.log("right");
-    console.log(right);
-    leftIconBottomVal = Platform.OS == "ios" ? -14 : -12;
-  }
-  // console.log("leftIconBottomVal");
-  // console.log(leftIconBottomVal);
   return (
-    <View style={{ ...styles.container}}>
-      <View
+    <View style={styles.container}>
+      <BackButton btnStyle={styles.button} onPress={onBack}/>
+      <Text
         style={{
-          ...styles.backStyle,
-          position: "absolute",
-          left: 15,
-          ...backBtnStyle
+          ...textVariants.header,
+          ...styles.title,
+          ...headerStyle
         }}
+        numberOfLines={1}
       >
-        <BackButton
-          onPress={onBack}
-          btnStyle={{
-            position: "absolute",
-            bottom: leftIconBottomVal,
-            // paddingTop: Platform.OS == "android" ? 30 : 5,
-            width: 30,
-          }}
-        />
-      </View>
-      <View style={{ ...headerStyle }}>
-        <Text
-          style={{
-            ...textVariants.header,
-            fontSize: 16,
-          }}
-          numberOfLines={1}
-        >
-          {title}
-        </Text>
-      </View>
-
-      {right ? (
-        <View
-          style={{
-            ...styles.backStyle,
-            position: "absolute",
-            right: 15,
-            bottom: 8,
-          }}
-        >
+        {title}
+      </Text>
+      { right &&     
+        <View style={styles.rightButton}>
           {right}
         </View>
-      ) : (
-        <View style={{ opacity: 0, pointerEvents: "none" }}>
-          <BackButton onPress={onBack} />
-        </View>
-      )}
+      }       
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 10,
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    width: "100%",
-    alignItems: "center",
-  },
-  backStyle: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
+    display: 'flex', 
+    flexDirection: 'row', 
+    height: 40, 
+  }, 
+  title: {
+    display: 'flex', 
+    flex: 1, 
+    position: 'absolute', 
+    alignItems: 'center', 
+    justifyContent: 'center', 
+    width: '100%', 
+    height: 30, 
+    textAlign: 'center', 
+    lineHeight: 30
+  }, 
+  button: {
+    position: 'absolute', 
+    width: 30, 
+    height: 30,
+    alignItems: 'center', 
+    justifyContent: 'center', 
+    zIndex: 20
+  }, 
+  rightButton: {
+    position: "absolute", 
+    height: 30, 
+    alignItems: 'center', 
+    justifyContent: 'center', 
+    right: 0
+  }
 });
