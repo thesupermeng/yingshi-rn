@@ -1,6 +1,5 @@
 import { useTheme } from "@react-navigation/native";
 import { StyleSheet, Text, View } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import { vipHistoryResponseType } from "@type/membershipType";
 
 interface Props {

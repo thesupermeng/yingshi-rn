@@ -6,7 +6,7 @@ import { useTheme } from "@react-navigation/native";
 import { StyleSheet, Text, View } from "react-native";
 import { VipNav } from "../tabNavigate/vipNav";
 import { useEffect, useState } from "react";
-import { VipPurchaseHistory } from "./vipPurchaseHistory";
+import { VipHistoryList } from "./vipHistoryList";
 import { VipInviteHistory } from "./vipInviteHistory";
 import { SHOW_ZF_CONST } from "@utility/constants";
 import { YSConfig } from "../../../../ysConfig";
@@ -71,7 +71,7 @@ export const VipDetails = ({
                 : "-"}
             </Text>
             <Text style={{ ...textVariants.small, color: colors.muted }}>
-              购买总额 （USD）
+              购买总额 （CNY）
             </Text>
           </View>
         )}
@@ -85,7 +85,7 @@ export const VipDetails = ({
         tabChildren={(tab) => (
           <>
             {tab.id === 1 ? (
-              <VipPurchaseHistory userState={userState} />
+              <VipHistoryList userState={userState} />
             ) : (
               <VipInviteHistory userState={userState} />
             )}

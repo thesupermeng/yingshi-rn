@@ -1,19 +1,15 @@
-import { Text, View } from "react-native";
 import EmptyList from "../common/emptyList";
 import { VipHistoryCard } from "./vipHistoryCard";
-import { useTheme } from "@react-navigation/native";
 import { ScrollView } from "react-native-gesture-handler";
 import { userModel } from "@type/userType";
 import { useEffect, useState } from "react";
-import { vipHistoryResponseType } from "@type/membershipType";
 import { YSConfig } from "../../../../ysConfig";
 
 interface Props {
   userState: userModel;
 }
 
-export const VipPurchaseHistory = ({ userState }: Props) => {
-  const { textVariants, colors } = useTheme();
+export const VipHistoryList = ({ userState }: Props) => {
   const [purchaseList, setPurchaseList] = useState([]);
 
   useEffect(() => {
