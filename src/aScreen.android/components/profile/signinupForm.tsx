@@ -386,7 +386,7 @@ const LoginCard = ({
 
   return (
     <View style={styles.card}>
-          <Text style={styles.title}>「登录/注册」解锁更多精彩内容！</Text>
+      <Text style={styles.title}>「登录/注册」解锁更多精彩内容！</Text>
       <Text style={styles.subtitle}>登录后可管理您的账号，多端同步观看历史和收藏夹</Text>
       {/* ============================== tab control ============================== */}
       <View style={styles.tabContainer}>
@@ -647,43 +647,28 @@ const LoginCard = ({
       />
 
       {/* ============================== other login type ============================== */}
-      {/* <View style={{ alignItems: 'center' }}>
-          <Text style={{ color: "#9c9c9c" }}>使用以下方式登入</Text>
-        </View> */}
-
-      <View style={{
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginBottom: 30,
-        display: 'flex',
-        flexDirection: 'row',
-        padding: 10,
-      }}>
-        {/* <TouchableOpacity
-            onPress={onChangeloginType}
-            style={{
-              backgroundColor: '#1D2023',
-              padding: 8,
-              borderRadius: 100,
-              marginRight: 10,
-            }}
-          >
-            {loginType === 'email' && <PhoneIcon />}
-            {loginType === 'phone' && <MailIcon />}
-          </TouchableOpacity> */}
-
-        <TouchableOpacity
-          onPress={onPressGoogleLogin}
-          style={{
-            backgroundColor: '#1D2023',
-            padding: 8,
-            borderRadius: 100,
-            marginRight: 10,
-          }}
-        >
-          <GmailIcon />
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity
+        onPress={onPressGoogleLogin}
+        style={{
+          backgroundColor: '#1D2023',
+          padding: 8,
+          paddingHorizontal: 20,
+          borderRadius: 8,
+          marginRight: 10,
+          flexDirection: 'row',
+          alignItems: 'center',
+        }}
+      >
+        <GmailIcon style={{ marginRight: 10, }} />
+        <Text style={{
+          flex: 1,
+          textAlign: 'center',
+          color: 'white',
+          fontSize: 16,
+        }}>
+          继续使用 Google
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 };
