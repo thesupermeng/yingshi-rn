@@ -418,7 +418,7 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
         </View>
       );
     },
-    [],
+    [[topicOptions, currentTopicId],],
   );
 
   return (
