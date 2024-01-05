@@ -1,19 +1,15 @@
-import { Text, View } from "react-native";
 import EmptyList from "../common/emptyList";
 import { VipHistoryCard } from "./vipHistoryCard";
-import { useTheme } from "@react-navigation/native";
 import { ScrollView } from "react-native-gesture-handler";
 import { userModel } from "@type/userType";
 import { useEffect, useState } from "react";
-import { vipHistoryResponseType } from "@type/membershipType";
-import { YSConfig } from "../../../ysConfig";
+import { YSConfig } from "../../../../ysConfig";
 
 interface Props {
   userState: userModel;
 }
 
-export const VipPurchaseHistory = ({ userState }: Props) => {
-  const { textVariants, colors } = useTheme();
+export const VipHistoryList = ({ userState }: Props) => {
   const [purchaseList, setPurchaseList] = useState([]);
 
   useEffect(() => {
@@ -23,8 +19,7 @@ export const VipPurchaseHistory = ({ userState }: Props) => {
     if (historyData) {
       historyList = historyData.map((history: any) => {
         displayText =
-          "购买" +
-          history.transaction_status_string.replace("支付", "") +
+          "购买成功" +
           history.product_name +
           "VIP (¥ " +
           history.product_price +
@@ -33,7 +28,6 @@ export const VipPurchaseHistory = ({ userState }: Props) => {
           displayText: displayText,
           createdDate: history.start_date,
           vipDays: history.num_days,
-          status: history.transaction_status,
         };
       });
       console.log("historyList");
@@ -63,9 +57,9 @@ export const VipPurchaseHistory = ({ userState }: Props) => {
       ) : (
         <>
           {YSConfig.instance.showBecomeVip ? (
-            <EmptyList description="暂无VIP记录" />
-          ) : (
             <EmptyList description="暂无购买记录" />
+          ) : (
+            <EmptyList description="暂无VIP记录" />
           )}
         </>
       )}

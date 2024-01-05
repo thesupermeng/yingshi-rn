@@ -22,12 +22,12 @@ import {
 } from "@utility/constants";
 import { showLoginAction } from "@redux/actions/screenAction";
 import UmengAnalytics from "../../../../Umeng/UmengAnalytics";
-import { UserApi } from "@api";
+import { UserApi } from '@api';
 import WebView from "react-native-webview";
 
 export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const [isOffline, setIsOffline] = useState(false);
-  const { textVariants, spacing } = useTheme();
+  const { colors, textVariants, spacing } = useTheme();
   const userState: userModel = useAppSelector(
     ({ userReducer }: RootState) => userReducer
   );

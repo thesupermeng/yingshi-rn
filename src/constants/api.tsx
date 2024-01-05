@@ -29,12 +29,6 @@ export class CEndpoint {
 
     static feedbackPost = 'feedback/v1/submit';
 
-    static productGetList = 'products/v1/products';
-    static productPostValidateReceiptIos = 'validate/v1/iosreceipt';
-    static productPostValidateReceiptAndroid = 'validate/v1/androidreceipt';
-    static productGetFinzfTransaction = 'finzf/v1/transactions';
-    static productPostFinzfOrder = 'finzf/v1/order';
-
     static bannerAd = 'ads/v1/slot';
     static bannerEventAds = 'ads/v1/events'
 }

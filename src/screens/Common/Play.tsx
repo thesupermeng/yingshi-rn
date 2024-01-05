@@ -342,7 +342,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   // }, [currentSourceId]);
 
   const renderSources = useCallback(
-    ({ item }) => (
+    ({ item, index }) => (
       <TouchableOpacity
         style={{
           flexDirection: "row",
@@ -375,8 +375,8 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
             color: currentSourceId === item.source_id ? colors.selected : colors.muted,
           }}
         >
-          {/* {item.name} */}
-          {item.source_name}
+          {/* {item.source_name} */}
+          线路 {index + 1}
         </Text>
       </TouchableOpacity>
     ),
