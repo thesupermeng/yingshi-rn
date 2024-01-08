@@ -130,7 +130,7 @@ const CatagoryHome = ({
   }
 
   useFocusEffect(useCallback(() => {
-    if (isTabFocus && carouselRef.current && data.carousel[carouselRef.current.getCurrentIndex()].is_ads) {
+    if (isTabFocus && carouselRef.current && data.carousel[carouselRef.current.getCurrentIndex()]?.is_ads) {
       UmengAnalytics.homeTabCarouselViewAnalytics({
         tab_id: navId?.toString() ?? '0',
         tab_name: tabName ?? '',
