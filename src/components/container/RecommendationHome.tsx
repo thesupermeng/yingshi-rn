@@ -18,7 +18,7 @@ import {
   VodTopicType,
   VodPlayListType,
   VodCarousellType,
-  bannerAdType,
+  BannerAdType,
 } from "@type/ajaxTypes";
 // import FastImage from "react-native-fast-image";
 import FastImage from "../common/customFastImage"
@@ -44,6 +44,7 @@ import { YSConfig } from "../../../ysConfig";
 import { BannerContainer } from "./bannerContainer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import UmengAnalytics from "../../../Umeng/UmengAnalytics";
+import { AdsApi } from "../../api/ads";
 
 interface NavType {
   id: number;
@@ -82,7 +83,7 @@ const RecommendationHome = ({
   const [totalPage, setTotalPage] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
   const [results, setResults] = useState<Array<VodTopicType>>([]);
-  const [bannerAd, setBannerAd] = useState<bannerAdType>();
+  const [bannerAd, setBannerAd] = useState<BannerAdType>();
   const [isRefreshing, setIsRefreshing] = useState(false);
   const carouselRef = useRef<any>();
   // const {width, height} = Dimensions.get('window');
@@ -150,13 +151,7 @@ const RecommendationHome = ({
   );
 
   const fetchBannerAd = async () => {
-    const response = await CApi.get(CEndpoint.bannerAd, {
-      query: {
-        slot_id: 100,
-        ip: YSConfig.instance.ip,
-      },
-    });
-    const banner = await response.data;
+    const banner = await AdsApi.getBannerAd(100);
 
     if (banner) {
       setBannerAd(banner);
@@ -192,7 +187,7 @@ const RecommendationHome = ({
     }
   }, [isTabFocus, carouselRef.current?.getCurrentIndex()]));
 
-  const renderBanner = useCallback((bannerAd: bannerAdType) => (
+  const renderBanner = useCallback((bannerAd: BannerAdType) => (
     <BannerContainer
       bannerAd={bannerAd}
       onMount={() => {

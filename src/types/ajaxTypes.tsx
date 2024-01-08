@@ -434,18 +434,26 @@ export type VodPlayerAdType = {
     minDuration: number,
     redirectType: number,
 }
-export interface bannerAdType {
-    ads_id: number,
-    ads_slot_id: number,
-    ads_name: string,
-    ads_code: string,
-    ads_pic: string,
-    ads_url: string,
-    ads_layout_type: string,
-    ads_content_type: number,
-    ads_sort: number,
-    ban_region: string,
-    is_video: boolean,
+export interface BannerAdType {
+    ads_id: number
+    ads_slot_id: number
+    ads_name: string
+    ads_code: string
+    url_thumbnail: string
+    ads_thumbnail: string
+    ads_pic: string
+    ads_url: string
+    ads_layout_type: string
+    ads_content_type: number
+    ads_sort: number
+    ban_region: string
+    is_video: boolean
+    ads_min_duration: number
+    ads_title: string
+    ads_tag: string
+    ads_button_text: string
+    ads_desc1: string
+    ads_desc2: string
     ads_redirect_type: number
 
 }

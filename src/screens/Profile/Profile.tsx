@@ -47,10 +47,11 @@ import FastImage from "../../components/common/customFastImage";
 import { UserApi } from "@api";
 import { AppConfig } from "../../Sports/global/appConfig";
 import { BannerContainer } from "../../components/container/bannerContainer";
-import { bannerAdType } from "@type/ajaxTypes";
+import { BannerAdType } from "@type/ajaxTypes";
 import { CApi } from "@utility/apiService";
 import { CEndpoint } from "../../constants/api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { AdsApi } from "../../api/ads";
 
 function Profile({ navigation, route }: BottomTabScreenProps<any>) {
   const navigator = useNavigation();
@@ -63,7 +64,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
   );
   // console.log("Profile")
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [bannerAd, setBannerAd] = useState<bannerAdType[]>()
+  const [bannerAd, setBannerAd] = useState<BannerAdType[]>()
 
   const toggleOverlay = () => {
     setIsDialogOpen(!isDialogOpen);
@@ -135,14 +136,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
   };
 
   const fetchBannerAd = async () => {
-    console.debug('fetching banner ad')
-    const response = await CApi.get(CEndpoint.bannerEventAds, {
-      query: {
-        slot_id: 100,
-        ip: YSConfig.instance.ip,
-      },
-    });
-    const banner = await response.data;
+    const banner = await AdsApi.getEventBanner();
 
     if (banner) {
       setBannerAd(banner);

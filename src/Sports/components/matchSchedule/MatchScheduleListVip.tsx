@@ -15,7 +15,7 @@ import MatchScheduleVip from "./MatchScheduleVip";
 // import FastImage from 'react-native-fast-image';
 import FastImage from "../../../components/common/customFastImage";
 import { TOPON_BANNER_HEIGHT } from "@utility/constants";
-import { bannerAdType } from "@type/ajaxTypes";
+import { BannerAdType } from "@type/ajaxTypes";
 import { CApi } from "@utility/apiService";
 import { CEndpoint } from "@constants";
 import { YSConfig } from "../../../../ysConfig";
@@ -23,6 +23,7 @@ import { BannerContainer } from "../../../components/container/bannerContainer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAppSelector } from "@hooks/hooks";
 import UmengAnalytics from "../../../../Umeng/UmengAnalytics";
+import { AdsApi } from "../../../api/ads";
 
 interface Props {
   matchTypeID: number;
@@ -58,7 +59,7 @@ const MatchScheduleList = ({
   const [isFetchNext, setFetchNext] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
   const [showLoading2, setShowLoading2] = useState(false);
-  const [bannerAd, setBannerAd] = useState<bannerAdType>();
+  const [bannerAd, setBannerAd] = useState<BannerAdType>();
   const isVip = useAppSelector(({ userReducer }) => !(Number(userReducer.userMemberExpired) <= Number(userReducer.userCurrentTimestamp) || userReducer.userToken === ""))
 
 
@@ -140,13 +141,7 @@ const MatchScheduleList = ({
   }, []);
 
   const fetchBannerAd = async () => {
-    const response = await CApi.get(CEndpoint.bannerAd, {
-      query: {
-        slot_id: 110,
-        ip: YSConfig.instance.ip,
-      },
-    });
-    const banner = await response.data;
+    const banner = await AdsApi.getBannerAd(110);
 
     if (banner) {
       setBannerAd(banner);
