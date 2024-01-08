@@ -324,7 +324,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
           }
 
           <View style={{ marginBottom: -30, flex: 3, paddingBottom: 120 }}>
-            {Platform.OS === "ios" && SHOW_ZF_CONST && (
+            {SHOW_ZF_CONST && (
               <View
                 style={{
                   flexDirection: "row",
@@ -415,7 +415,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
               </View>
             )}
 
-            {Platform.OS === "ios" && !SHOW_ZF_CONST && (
+            { !SHOW_ZF_CONST && (
               <TouchableOpacity
                 style={{
                   ...styles.btn,
@@ -446,8 +446,8 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                 />
               </TouchableOpacity>
             )}
-
-            {Platform.OS === "android" && !SHOW_ZF_CONST && (
+{/* 
+            {Platform.OS === "android" && (
               <TouchableOpacity
                 style={{
                   ...styles.btn,
@@ -477,7 +477,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                   color={colors.muted}
                 />
               </TouchableOpacity>
-            )}
+            )} */}
 
             <ShowMoreButton
               text="我的收藏"
