@@ -152,8 +152,8 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
           </View>
         )}
 
-        {IS_IOS && !isOffline && (
-          <View style={{backgroundColor: 'rgba(20, 22, 26, 1)', flex: loading ? 0 : 1}}>
+        {!isOffline && (
+          <View style={{backgroundColor: 'rgba(20, 22, 26, 1)', flex: loading ? 0 : 1, borderColor: 'black', borderRadius: 1}}>
             <WebView
               ref={webViewref}
               style={{ backgroundColor: !isNavigated ? 'transparent' : 'white' }}
