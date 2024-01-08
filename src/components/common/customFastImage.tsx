@@ -11,7 +11,7 @@ type Prop = FastImageProps & {useFastImage?: boolean, alternativeImg?: string[]}
 LogBox.ignoreLogs([`ReactImageView: Image source "null" doesn't exist`])
 
 const customFastImage = ({useFastImage = false, alternativeImg, ...imageProp}: Prop) => {
-  const currentImg = useRef(0); 
+  const currentImg = useRef(-1); 
   const [imgUrl, setImgUrl] = useState(typeof imageProp.source == 'number' ? undefined :  imageProp.source?.uri)
 
   const useNextImage = () => {
@@ -27,15 +27,15 @@ const customFastImage = ({useFastImage = false, alternativeImg, ...imageProp}: P
 
   if (useFastImage === true || Platform.OS === "android"){
     if (typeof imageProp.source == 'number'){ // if source={require(...)}
-    return <FastImage {...imageProp as FastImageProps}/>
+    return <FastImage key={currentImg.current} {...imageProp as FastImageProps}/>
     } else {
-      return <FastImage {...imageProp as FastImageProps} source={{uri: imgUrl}} onError={handleOnError}/>
+      return <FastImage key={currentImg.current} {...imageProp as FastImageProps} source={{uri: imgUrl}} onError={handleOnError}/>
     }
   } else {
     if (typeof imageProp.source == 'number'){ // if source={require(...)}
-      return <Image {...imageProp as MyImageProp}/>
+      return <Image key={currentImg.current} {...imageProp as MyImageProp}/>
     } else { // if source={{uri:...}}
-      return <Image {...imageProp as MyImageProp} source={{...(imageProp.source as ImageURISource), uri: imgUrl}} onError={handleOnError}/>
+      return <Image key={currentImg.current} {...imageProp as MyImageProp} source={{...(imageProp.source as ImageURISource), uri: imgUrl}} onError={handleOnError}/>
     }
   }
 }
