@@ -105,7 +105,7 @@ android {
         // ABB version 3 , 5 DEC 2023
         versionCode 3
         versionName "1.5.1"
-        resValue "string", "UMENG_APPKEY", "648ec50987568a379b587f39"
+        resValue "string", "UMENG_APPKEY", "650938dcb2f6fa00ba556645"
         resValue "string", "UMENG_CHANNEL", "GOOGLE_PLAY"
         resValue "string", "UMENG_CHANNEL_GENERAL", "DEFAULT"
         resValue "string", "UMENG_CHANNEL_YINGSHI_WEB", "WEB"
@@ -207,6 +207,7 @@ dependencies {
     implementation (name:'umeng-asms-armeabi-v1.8.0', ext:'aar')
     implementation (name:'umeng-abtest-v1.0.1', ext:'aar')
     implementation (name:'umeng-common-9.6.1', ext:'aar')
+    implementation (name:'uyumao-1.1.2', ext:'aar')
     implementation (name:'anythink_reactnativejs_bridge', ext:'aar')
     
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.0.0")

@@ -1,5 +1,7 @@
 package com.aimeijutv;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -81,7 +83,13 @@ public class AnalyticsModule extends ReactContextBaseJavaModule {
                 rMap.put(key, map.getMap(key).toString());
             }
         }
-        MobclickAgent.onEvent(context, eventId, rMap);
+        Log.i("UMLog", "事件: " + eventId + ", " + rMap);
+
+        if(rMap.isEmpty()){
+            MobclickAgent.onEvent(context, eventId);
+        }else{
+            MobclickAgent.onEvent(context, eventId, rMap);
+        }
     }
     @ReactMethod
     public void onEventWithMapAndCount(String eventId,ReadableMap map,int value) {

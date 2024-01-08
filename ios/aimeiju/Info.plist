@@ -20,6 +20,12 @@
 				<string>com.googleusercontent.apps.699123886701-ok49jlua77cf0omih5g1u9f1irflnrq3</string>
 			</array>
 		</dict>
+    <dict>
+      <key>CFBundleURLSchemes</key>
+      <array>
+        <string>um.650a5b7bb2f6fa00ba55f7f7</string>
+      </array>
+    </dict>
 	</array>
 	<key>CodePushDeploymentKey</key>
 	<string>bANlp7AwlK57caU3h80moPva099ffOii-VPk9</string>
