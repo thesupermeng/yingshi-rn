@@ -18,7 +18,7 @@ import ScreenContainer from '../../../components/container/screenContainer';
 import MainHeader from '../../../components/header/homeHeader';
 import { useFocusEffect, useTheme } from '@react-navigation/native';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
-import { DetailTab, bannerAdType } from '@type/ajaxTypes';
+import { DetailTab, BannerAdType } from '@type/ajaxTypes';
 import VodPlaylist from '../../../components/playlist/vodPlaylist';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import Animated from 'react-native-reanimated';
@@ -64,6 +64,7 @@ import { BannerContainer } from '../../../components/container/bannerContainer';
 import { CApi } from '@utility/apiService';
 import { CEndpoint } from '../../../constants/api';
 import { YSConfig } from '../../../../ysConfig';
+import { AdsApi } from '../../../api/ads';
 
 let insetsTop = 0;
 let insetsBottom = 0;
@@ -110,7 +111,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
   const showCountdown = userState.userToken === "" || Number(userState.userMemberExpired) <= Number(userState.userCurrentTimestamp);
 
   const videoRef = useRef<VideoRef | null>(null);
-  const [bannerAd, setBannerAd] = useState<bannerAdType>();
+  const [bannerAd, setBannerAd] = useState<BannerAdType>();
   const isVip = useAppSelector(({ userReducer }) => !(Number(userReducer.userMemberExpired) <= Number(userReducer.userCurrentTimestamp) || userReducer.userToken === ""))
 
 
@@ -292,13 +293,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
   insetsBottom = insetsBottom == 0 ? insets.bottom : insets.bottom;
 
   const fetchBannerAd = async () => {
-    const response = await CApi.get(CEndpoint.bannerAd, {
-      query: {
-        slot_id: 111,
-        ip: YSConfig.instance.ip,
-      },
-    });
-    const banner = await response.data;
+    const banner = await AdsApi.getBannerAd(111);
 
     if (banner) {
       setBannerAd(banner);

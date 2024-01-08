@@ -28,7 +28,7 @@ import {
   AdultVodListType,
   SuggestedVodType,
   VodSourceType,
-  bannerAdType,
+  BannerAdType,
 } from "@type/ajaxTypes";
 import { addVodToHistory, playVod } from "@redux/actions/vodActions";
 import { useAppDispatch, useAppSelector } from "@hooks/hooks";
@@ -90,6 +90,7 @@ import { BannerContainer } from "../../components/container/bannerContainer";
 import { CApi } from "@utility/apiService";
 import { CEndpoint } from "@constants";
 import BecomeVipOverlay from "../../components/modal/becomeVipOverlay";
+import { AdsApi } from "../../api/ads";
 
 let insetsTop = 0;
 let insetsBottom = 0;
@@ -310,7 +311,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   const [isShowDescription, setShowDescription] = useState(false);
 
-  const [bannerAd, setBannerAd] = useState<bannerAdType>();
+  const [bannerAd, setBannerAd] = useState<BannerAdType>();
 
   //For pausing video player when switch source
   const onPressSource = useCallback((itemId: any) => {
@@ -544,13 +545,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   });
 
   const fetchBannerAd = async () => {
-    const response = await CApi.get(CEndpoint.bannerAd, {
-      query: {
-        slot_id: adultMode ? 113 : 112,
-        ip: YSConfig.instance.ip,
-      },
-    });
-    const banner = await response.data;
+    const banner = await AdsApi.getBannerAd(adultMode ? 113 : 112);
 
     if (banner) {
       setBannerAd(banner);

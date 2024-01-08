@@ -3,11 +3,11 @@ import { Linking, View } from 'react-native';
 import FastImage from '../common/customFastImage';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import InAppBrowser from 'react-native-inappbrowser-reborn';
-import { bannerAdType } from '@type/ajaxTypes';
+import { BannerAdType } from '@type/ajaxTypes';
 import { useEffect } from 'react';
 
 interface Props {
-    bannerAd: bannerAdType,
+    bannerAd: BannerAdType,
     onMount?: () => void,
     onPress?: () => void,
 }
