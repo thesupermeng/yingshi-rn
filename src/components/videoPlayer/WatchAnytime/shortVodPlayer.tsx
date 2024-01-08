@@ -287,7 +287,7 @@ function ShortVideoPlayer({
         style={{
           position: 'absolute',
           left: 0,
-          bottom: 0,
+          bottom: 10,
           width: '100%',
           justifyContent: 'flex-end',
         }}>
@@ -640,7 +640,7 @@ const styles = StyleSheet.create({
   slider: {
     position: 'absolute',
     left: 0,
-    bottom: 0,
+    bottom: 10,
     right: 0,
     height: 9,
   },
