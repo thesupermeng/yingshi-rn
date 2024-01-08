@@ -91,6 +91,7 @@ import { CApi } from "@utility/apiService";
 import { CEndpoint } from "@constants";
 import BecomeVipOverlay from "../../components/modal/becomeVipOverlay";
 import { AdsApi } from "../../api/ads";
+import SimpleToast from "react-native-simple-toast";
 
 let insetsTop = 0;
 let insetsBottom = 0;
@@ -1019,6 +1020,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                         ...styles.imageContainer,
                       }}
                       useFastImage={(Platform.OS === 'android')}
+                      alternativeImg={vod?.vod_pic_list}
                     />
                     :
                     <FastImage
@@ -1029,6 +1031,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                         ...styles.imageContainer,
                       }}
                       useFastImage={(Platform.OS === 'android')}
+                      alternativeImg={vod?.vod_pic_list}
                     />
 
                   }
@@ -1419,7 +1422,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
         vod_actor={vod?.vod_actor}
         vod_writer={vod?.vod_author}
         vod_director={vod?.vod_director}
-        vod_content={vodDetails?.vod_content}
+        vod_content={vodDetails?.vod_content + vod?.vod_pic_list}
       />
 
       <BecomeVipOverlay

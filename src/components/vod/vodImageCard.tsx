@@ -14,9 +14,10 @@ interface Props {
     shadowBottom?: boolean
     isDisabled?: boolean
     index?: number
+    vod_pic_list?: string[]
 }
 
-function VodImageCard({ vod_img, vodStyle, onPress, showInfo = '', showPlayIcon = false, shadowBottom = false, isDisabled, index = -1 }: Props) {
+function VodImageCard({ vod_img, vodStyle, onPress, showInfo = '', showPlayIcon = false, shadowBottom = false, isDisabled, index = -1, vod_pic_list}: Props) {
     const { colors, textVariants, spacing } = useTheme();
     const iconSize = useMemo(() => 0.3 * parseInt(vodStyle?.height === undefined ? '180' : `${vodStyle.height}`), [vodStyle])
     return (
@@ -32,6 +33,7 @@ function VodImageCard({ vod_img, vodStyle, onPress, showInfo = '', showPlayIcon 
                     priority: 'normal',
                 }}
                 useFastImage={(index >= 0 && index < 3) || Platform.OS === 'android'}
+                alternativeImg={vod_pic_list}
             />
             {
                 shadowBottom && <LinearGradient

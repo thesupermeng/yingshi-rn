@@ -35,6 +35,7 @@ function FavoriteVodCard({
         onPress={onPress}
         showInfo={vod.vod_remarks}
         index={index}
+        vod_pic_list={vod.vod_pic_list}
       />
       <TouchableOpacity
         activeOpacity={1}

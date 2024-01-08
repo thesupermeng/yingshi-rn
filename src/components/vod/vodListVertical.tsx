@@ -84,6 +84,7 @@ function VodListVertical({ vods, numOfRows = 2, outerRowPadding = 0, minNumPerRo
                 // else {dispatch(disableAdultMode())}
             }}
             index={idx}
+            vod_pic_list={vod.vod_pic_list}
         />
     )
 

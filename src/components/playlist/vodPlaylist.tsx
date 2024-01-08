@@ -74,6 +74,7 @@ function VodPlaylist({ playlist, titleStyle }: Props) {
         // ========== for analytics - end ==========
       }}
       index={index}
+      vod_pic_list={item.vod_pic_list}
     />
   ), []);
 
