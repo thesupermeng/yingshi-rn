@@ -230,7 +230,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     // width: "100%",
-    width: 327,
+    width: 322,
     height: 160.124,
     
   },

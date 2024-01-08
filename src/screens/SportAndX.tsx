@@ -439,6 +439,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                       blurType="dark"
                       blurAmount={2}
                       style={styles.xvodBlur}
+                      overlayColor="" //fix android blur outside blur view https://github.com/Kureev/react-native-blur/issues/414#issuecomment-810541248
                     />
                   </TouchableWithoutFeedback>
                   <BecomeVipOverlay
