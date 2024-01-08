@@ -13,6 +13,13 @@ import com.umeng.commonsdk.UMConfigure;
  */
 
 public class RNUMConfigure {
+
+    public static void setLogEnabled(boolean isEnabled){
+        UMConfigure.setLogEnabled(isEnabled);
+    }
+    public static void preInit(Context context, String appkey, String channel){
+        UMConfigure.preInit(context,appkey,channel);
+    }
     public static void init(Context context, String appkey, String channel, int type, String secret){
         initRN("react-native","2.0");
         UMConfigure.init(context,appkey,channel,type,secret);

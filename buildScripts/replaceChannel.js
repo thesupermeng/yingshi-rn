@@ -39,8 +39,8 @@ fs.readFile(androidKeyFile, 'utf8', (err, data) => {
   const updatedCodePush = data.replace(
     /<string\s+moduleConfig="true"\s+name="CodePushDeploymentKey">[^<]+<\/string>/,
     '<string moduleConfig="true" name="CodePushDeploymentKey">' +
-      codePushDeploymentKey +
-      '</string>',
+    codePushDeploymentKey +
+    '</string>',
   );
 
   fs.writeFile(androidKeyFile, updatedCodePush, 'utf8', err => {
@@ -76,7 +76,7 @@ const replaceToChannelAndroid = {
 const replaceToUmengAppKey = {
   files: ['../android/app/build.gradle'],
   from: /resValue "string", "UMENG_APPKEY", "([^"]+)"/g,
-  to: 'resValue "string", "UMENG_APPKEY", "648ec50987568a379b587f39"',
+  to: 'resValue "string", "UMENG_APPKEY", "650938dcb2f6fa00ba556645"',
 };
 
 const replaceAppToponConf = {

@@ -13,6 +13,8 @@ import android.os.Bundle;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
 
+import com.aimeijutv.SplashAdShowActivity;
+import com.aimeijutv.RNUMConfigure;
 import android.content.Context;
 import android.util.Log;
 
@@ -39,6 +41,8 @@ public class MainActivity extends ReactActivity {
 
     String appKey = getResources().getString(R.string.UMENG_APPKEY);
     String channel = getResources().getString(R.string.UMENG_CHANNEL);
+    RNUMConfigure.setLogEnabled(true);
+    RNUMConfigure.preInit(this, appKey, channel);
     RNUMConfigure.init(this, appKey, channel, UMConfigure.DEVICE_TYPE_PHONE, "");
     MobclickAgent.setSessionContinueMillis(1000*40);
 

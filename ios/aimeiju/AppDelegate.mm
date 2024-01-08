@@ -26,6 +26,7 @@
 
 #import "ATSplashViewController.h"
 #import "RNViewController.h"
+#import <UMCommon/MobClick.h>
 
 @implementation AppDelegate
 
@@ -34,8 +35,8 @@ bool isCurrentMainView = NO;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  [UMConfigure setLogEnabled:YES];
-  [UMConfigure initWithAppkey:@"64a632e5bd4b621232c9e379" channel:@"App Store"];
+  [UMConfigure setLogEnabled:NO];
+  [UMConfigure initWithAppkey:@"650a5b7bb2f6fa00ba55f7f7" channel:@"App Store"];
 //  self.moduleName = @"yingshi";
   // You can add your custom initial props in the dictionary below.
   // They will be passed down to the ViewController used by React Native.
@@ -179,6 +180,10 @@ bool isCurrentMainView = NO;
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
+  if ([MobClick handleUrl:url]) {
+    return YES;
+  }
+
   return [RCTLinkingManager application:application openURL:url
                       sourceApplication:sourceApplication annotation:annotation];
 }
