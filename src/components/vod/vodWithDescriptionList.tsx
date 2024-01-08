@@ -41,6 +41,7 @@ function VodWithDescriptionList({
           if (onClickCatalogVideo !== undefined) onClickCatalogVideo();
         }}
         index={index}
+        vod_pic_list={item?.vod_pic_list}
       />
     ),
     []

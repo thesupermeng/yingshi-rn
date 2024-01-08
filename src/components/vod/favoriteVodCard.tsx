@@ -14,7 +14,8 @@ interface Props {
   hideFavoriteButton?: boolean;
   initialFavoriteState?: boolean;
   index: number;
-  imgOrientation?: 'horizontal' | 'vertical'
+  imgOrientation?: 'horizontal' | 'vertical'; 
+  vod_pic_list: string[]
 }
 function FavoriteVodCard({
   vod,
@@ -24,6 +25,7 @@ function FavoriteVodCard({
   initialFavoriteState = false,
   index, 
   imgOrientation,
+  vod_pic_list, 
   ...params
 }: Props) {
   const {colors, spacing, textVariants} = useTheme();

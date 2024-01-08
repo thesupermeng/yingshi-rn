@@ -25,6 +25,7 @@ export default function VodHistoryCard({
           vod_img={vod.vod_pic}
           vodStyle={styles.image}
           isDisabled={true}
+          vod_pic_list={vod.vod_pic_list}
         />
         <View
           style={{
