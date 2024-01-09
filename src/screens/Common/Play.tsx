@@ -478,6 +478,8 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       setInitTime(vod?.timeWatched);
       setReadyPlay(false);
 
+      // console.debug(vod.vod_pic)
+
       // ========== for analytics - start ==========
       UmengAnalytics.playsViewsAnalytics({
         vod_id: vod.vod_id.toString(),
@@ -766,7 +768,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const [vodUri, setVodUri] = useState("");
 
   const debounceSetVodUri = useCallback(
-    debounce((uri) => setVodUri(uri), 1000),
+    debounce((uri) => setVodUri(uri), 100),
     []
   );
 
@@ -812,10 +814,9 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   useEffect(() => {
     if (!!vodUrl && !!vod?.vod_id) {
       // console.debug('vod url is', vodUrl)
-      setVodUri('')
       getNoAdsUri(vodUrl, vod?.vod_id)
         .then((uri) => {
-          console.debug("successfully modified playlist content", uri);
+          // console.debug("successfully modified playlist content", uri);
           debounceSetVodUri(uri);
         })
         .catch((err) => {
@@ -926,6 +927,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
         {!isVodRestricted && !dismountPlayer && !isOffline && (
           <VodPlayer
+            key={vodUri} // remount on uri change 
             vod_url={vodUri}
             ref={videoPlayerRef}
             currentTimeRef={currentTimeRef}
@@ -1013,6 +1015,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
                   {adultMode ?
                     <FastImage
+                      key={vod?.vod_pic}
                       source={{ uri: vod?.vod_pic }}
                       resizeMode={"cover"}
                       style={{
@@ -1024,6 +1027,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                     />
                     :
                     <FastImage
+                      key={vod?.vod_pic}
                       source={{ uri: vod?.vod_pic }}
                       resizeMode={"cover"}
                       style={{

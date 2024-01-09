@@ -31,11 +31,13 @@ export default ({ init, callback, options = [] }: Props) => {
             if (index !== -1) {
                 const itemHeight = options.length /* Calculate the length of options */;
                 const offset = index * itemHeight;
-            if (index >= 10) {
-            flatListRef.current.scrollToItem({ animated: false, item: options[index], viewPosition: -0.5 })
-            } else {
-            flatListRef.current.scrollToOffset({ animated: false, offset });
-            }
+            setTimeout(() => {
+                if (index >= 10) {
+                    flatListRef.current.scrollToItem({ animated: false, item: options[index], viewPosition: -0.5 })
+                } else {
+                    flatListRef.current.scrollToOffset({ animated: false, offset });
+                }
+            }, 200);
               }
             }
           }, [selectedItem, options]);
