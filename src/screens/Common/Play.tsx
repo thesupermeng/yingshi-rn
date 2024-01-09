@@ -478,7 +478,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       setInitTime(vod?.timeWatched);
       setReadyPlay(false);
 
-      console.debug(vod.vod_pic)
+      // console.debug(vod.vod_pic)
 
       // ========== for analytics - start ==========
       UmengAnalytics.playsViewsAnalytics({
@@ -768,7 +768,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const [vodUri, setVodUri] = useState("");
 
   const debounceSetVodUri = useCallback(
-    debounce((uri) => setVodUri(uri), 1000),
+    debounce((uri) => setVodUri(uri), 100),
     []
   );
 
@@ -816,7 +816,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       // console.debug('vod url is', vodUrl)
       getNoAdsUri(vodUrl, vod?.vod_id)
         .then((uri) => {
-          console.debug("successfully modified playlist content", uri);
+          // console.debug("successfully modified playlist content", uri);
           debounceSetVodUri(uri);
         })
         .catch((err) => {
