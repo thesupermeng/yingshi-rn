@@ -20,18 +20,20 @@ const customFastImage = ({useFastImage = false, alternativeImg, ...imageProp}: P
   const [current, setCurrent] = useState(0)
   const { colors } = useTheme();
 
-  useEffect(() => {
-    setImgUrl(imageProp.source?.uri)
-  }, [imageProp])
 
   const useNextImage = () => {
     initialList.current = initialList.current?.filter(x => x !== imgUrl)
     if (!initialList.current || initialList.current.length == 0) {
       setError(true)
-      setCurrent(x => x + 1)
       return imageProp.source?.uri
     }
-    // console.debug('using', initialList.current.at(0))
+    setCurrent(x => {
+      if (alternativeImg && x < alternativeImg?.length){
+        return x + 1
+      }
+      return x
+    })
+    console.debug('using', initialList.current.at(0))
     return initialList.current.at(0)
   }
 
