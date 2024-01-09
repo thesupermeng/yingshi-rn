@@ -103,3 +103,7 @@ appcenter codepush release-react -a developeryingshi/yingshi-ios-new -d Producti
 
 
  appcenter codepush release-react -a developeryingshi/yingshi-ios-new -d Production --description "test" --mandatory true --plist-file ios/aimeiju/Info.plist --entry-file src/components/container/RecommendationHome.tsx
+
+
+and android codepush, change replaceChannel key also
+appcenter codepush release-react -a developeryingshi/yingshi-android-new -d Production
