@@ -46,7 +46,7 @@ export class CApi {
             if (config.url?.includes(this.#env.apiUrl)) {
                 config.headers['Authorization'] = `Bearer ${this.bearerToken}`;
                 config.headers['Device-Id'] = deviceId;
-                config.headers['App-Name'] = APP_NAME_CONST + '-' + Platform.OS.toUpperCase();
+                config.headers['App-Name'] = encodeURIComponent(APP_NAME_CONST) + '-' + Platform.OS.toUpperCase();
                 config.headers['IP-Address'] = this.#getIpAddress();
             }
 
