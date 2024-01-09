@@ -149,7 +149,7 @@ export class VodApi {
             const result = await CApi.get(CEndpoint.vodGetList, {
                 query: {
                     wd: keyword,
-                    limit: 50,
+                    limit: 35,
                     page,
                 }
             });
