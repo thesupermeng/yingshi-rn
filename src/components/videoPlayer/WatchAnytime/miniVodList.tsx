@@ -225,43 +225,44 @@ export default forwardRef<MiniVodRef, Props>(
       ({ item, index }: { item: MiniVideo; index: number }) => {
         let prevPosition = Math.max(0, index - 1);
 
-        if (item.is_ads) {
-          return <ShortAds
-            vod={item}
-            thumbnail={item.ads_thumbnail}
-            displayHeight={displayHeight ? displayHeight : 0}
-            isPause={isPause || current !== index}
-            onManualPause={current => {
-              console.log('click pause');
-              setPause(!current);
-            }}
-            isShowVideo={current >= prevPosition && current < index + 2}
-            currentDuration={videoCurrentDurations[index]}
-            isActive={isActive}
-            index={index}
-          />
-        }
-
         return (
           <View style={{ height: displayHeight ? displayHeight : 0 }}>
             {displayHeight != 0 && (current >= prevPosition && current < index + 2) && (
-              <ShortVod
-                vod={item}
-                thumbnail={item.mini_video_origin_cover}
-                displayHeight={displayHeight ? displayHeight : 0}
-                isPause={isPause || current !== index}
-                onManualPause={current => {
-                  console.log('click pause');
-                  setPause(!current);
-                }}
-                isShowVideo={current >= prevPosition && current < index + 2}
-                // isShowVideo={current === index && !isScrolling && !isPressTabScroll}
-                currentDuration={videoCurrentDurations[index]}
-                updateVideoDuration={duration =>
-                  updateVideoDuration(index, duration)
+              <>
+                {item.is_ads
+                  ? <ShortAds
+                    vod={item}
+                    thumbnail={item.ads_thumbnail}
+                    displayHeight={displayHeight ? displayHeight : 0}
+                    isPause={isPause || current !== index}
+                    onManualPause={current => {
+                      console.log('click pause');
+                      setPause(!current);
+                    }}
+                    isShowVideo={current >= prevPosition && current < index + 2}
+                    currentDuration={videoCurrentDurations[index]}
+                    isActive={isActive}
+                    index={index}
+                  />
+                  : <ShortVod
+                    vod={item}
+                    thumbnail={item.mini_video_origin_cover}
+                    displayHeight={displayHeight ? displayHeight : 0}
+                    isPause={isPause || current !== index}
+                    onManualPause={current => {
+                      console.log('click pause');
+                      setPause(!current);
+                    }}
+                    isShowVideo={current >= prevPosition && current < index + 2}
+                    // isShowVideo={current === index && !isScrolling && !isPressTabScroll}
+                    currentDuration={videoCurrentDurations[index]}
+                    updateVideoDuration={duration =>
+                      updateVideoDuration(index, duration)
+                    }
+                    isActive={isActive}
+                  />
                 }
-                isActive={isActive}
-              />
+              </>
             )}
           </View>
         )
