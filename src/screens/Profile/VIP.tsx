@@ -45,6 +45,7 @@ import { VipDialog } from "../../components/vip/vipDialog";
 import SpinnerOverlay from "../../components/modal/SpinnerOverlay";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { isAndroid } from "react-native-iap/lib/typescript/src/internal";
+import UmengAnalytics from "../../../Umeng/UmengAnalytics";
 
 export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const {
@@ -109,6 +110,12 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     "Content-Type": "application/json",
   };
 
+  // ========== for analytics - start ==========
+  useEffect(() => {
+    UmengAnalytics.userCenterVipPayViewsAnalytics();
+  }, []);
+  // ========== for analytics - end ==========
+
   const handleRefresh = async () => {
     setRefreshing(true);
     await refreshUserState();
@@ -141,7 +148,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         const offline = !(
           state.isConnected &&
           (state.isInternetReachable === true ||
-          state.isInternetReachable === null
+            state.isInternetReachable === null
             ? true
             : false)
         );
@@ -355,10 +362,10 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
 
   const webViewref = useRef<any>();
   useEffect(() => {
-    if(webViewref.current) {
+    if (webViewref.current) {
       webViewref.current.reload();
     }
-  },[userState.userToken]);
+  }, [userState.userToken]);
 
   const onLoadEnd = () => {
     webViewref.current.postMessage(`${userState.userToken}`);
@@ -410,9 +417,9 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         />
 
         <TitleWithBackButtonHeader
-         title={ YSConfig.instance.showBecomeVip
-          ? "成为VIP"
-          : "付费VIP"}
+          title={YSConfig.instance.showBecomeVip
+            ? "成为VIP"
+            : "付费VIP"}
           right={
             <TouchableOpacity
               onPress={() => {
@@ -430,7 +437,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                   ...textVariants.subBody,
                   opacity:
                     userState.userPaidVipList.total_purchased_days > 0 ||
-                    userState.userAccumulateRewardDay > 0
+                      userState.userAccumulateRewardDay > 0
                       ? 100
                       : 0,
                 }}
@@ -472,22 +479,22 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         <SpinnerOverlay visible={isVisible} />
 
         {IS_IOS && !isOffline && (
-          <View style={{backgroundColor: 'rgba(20, 22, 26, 1)', flex: loading ? 0 : 1}}>
+          <View style={{ backgroundColor: 'rgba(20, 22, 26, 1)', flex: loading ? 0 : 1 }}>
             <WebView
               ref={webViewref}
               style={{ backgroundColor: !isNavigated ? 'transparent' : 'white' }}
-              source={{uri: 'https://www.yingshi.tv/vip'}}
+              source={{ uri: 'https://www.yingshi.tv/vip' }}
               onLoadEnd={onLoadEnd}
               automaticallyAdjustContentInsets={false}
               javaScriptCanOpenWindowsAutomatically={true}
-              onMessage={(e: {nativeEvent: {data?: string}}) => {
+              onMessage={(e: { nativeEvent: { data?: string } }) => {
                 if (e.nativeEvent.data === 'invalid credential') {
                   dispatch(showLoginAction());
                 } else if (e.nativeEvent.data === 'refresh user state') {
                   handleRefresh();
                 }
               }}
-              containerStyle = {{
+              containerStyle={{
                 marginLeft: -spacing.sideOffset,
                 marginRight: -spacing.sideOffset,
               }}
