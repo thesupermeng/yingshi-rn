@@ -88,7 +88,8 @@ export default forwardRef<MiniVodRef, Props>(
       adultModeDisclaimerShow,
       adultModeVipShow,
       adultVideoWatchTime,
-      adultMode,
+      // adultMode,
+      watchAnytimeAdultMode: adultMode, // rename watchanytimeadultmode to adult mode
     } = screenState;
     const isVip =
       Number(userState.userMemberExpired) <=
