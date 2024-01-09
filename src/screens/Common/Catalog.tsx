@@ -392,6 +392,7 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
           }}>
           <VodCard
             vod_pic={item?.vod_pic}
+            vod_pic_list={item?.vod_pic_list}
             vod_name={item?.vod_name}
             vodImageStyle={{
               width: cardWidth,

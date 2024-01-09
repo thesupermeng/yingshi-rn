@@ -306,6 +306,15 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
     fetchBannerAd();
   }, []);
 
+  const onVipCountdownClick = useCallback(() => {
+    videoRef.current?.setPause(true);
+    setShowBecomeVIPOverlay(true);
+
+    // ========== for analytics - start ==========
+    UmengAnalytics.sportDetailsVipPopupTimesAnalytics();
+    // ========== for analytics - end ==========
+  }, [videoRef.current]);
+
   return (
     <ScreenContainer
       isPlay={true}
@@ -350,10 +359,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
           // onFullscreenChangeCallback={isFullscreen}
           showCountdown={showCountdown}
           countdownTime={NON_VIP_STREAM_TIME_SECONDS - screenState.sportWatchTime}
-          onVipCountdownClick={() => {
-            videoRef.current?.setPause(true);
-            setShowBecomeVIPOverlay(true)
-          }}
+          onVipCountdownClick={onVipCountdownClick}
         />
       ) : (
         <BeforeLive
