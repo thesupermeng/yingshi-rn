@@ -30,7 +30,6 @@ export const removeVodFromFavorites = (vod: VodType) => (
 // )
 
 export const playVod = (vod: VodType, timeWatched: number = 0, episodeToPlay: number = 0) => {
-    console.debug(vod)
     return {
         type: PLAY_VOD,
         payload: [vod],

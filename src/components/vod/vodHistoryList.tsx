@@ -55,6 +55,7 @@ export default function VodHistoryList({
       data={vodList}
       horizontal
       showsHorizontalScrollIndicator={false}
+      keyExtractor={(item) => item.vod_id.toString()}
       renderItem={({item, index}: FlatListType) => {
         return (
           <VodCard

@@ -817,7 +817,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       getNoAdsUri(vodUrl, vod?.vod_id)
         .then((uri) => {
           // console.debug("successfully modified playlist content", uri);
-          debounceSetVodUri(uri);
+          setVodUri(uri);
         })
         .catch((err) => {
           setVodUri(vodUrl);
@@ -827,7 +827,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
     return () => {
       // console.log('stop server')
-      debounceSetVodUri("");
+      setVodUri("");
     };
   }, [vodUrl]);
 
