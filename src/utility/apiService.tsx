@@ -6,6 +6,8 @@ import { CLang } from './langService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { CLangKey } from '../constants';
 import { YSConfig } from '../../ysConfig';
+import { APP_NAME_CONST } from './constants';
+import { Platform } from 'react-native';
 
 export class CApi {
     static #env = new CEnv(__DEV__ ? 'development' : 'production');
@@ -44,6 +46,7 @@ export class CApi {
             if (config.url?.includes(this.#env.apiUrl)) {
                 config.headers['Authorization'] = `Bearer ${this.bearerToken}`;
                 config.headers['Device-Id'] = deviceId;
+                config.headers['App-Name'] = APP_NAME_CONST + '-' + Platform.OS.toUpperCase();
                 config.headers['IP-Address'] = this.#getIpAddress();
             }
 
