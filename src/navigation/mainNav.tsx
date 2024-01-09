@@ -23,11 +23,14 @@ import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { downloadFirstNVid } from "../utils/minivodDownloader";
 import { fetchMiniVods } from "../api/miniVod";
 import { AppsApi } from "@api";
+import { hideLoginAction } from "@redux/actions/screenAction";
+import { useDispatch } from "react-redux";
 
 export default () => {
   const [loadedAPI, setLoadedAPI] = useState(false);
   const [areaNavConfig, setAreaNavConfig] = useState(false);
   const [isSuper, setIsSuper] = useState(false);
+  const dispatch = useDispatch();
 
   const onAppInit = async () => {
     await Promise.all([AppsApi.getLocalIpAddress(), AppsApi.getBottomNav()]);
@@ -96,6 +99,8 @@ export default () => {
       iosClientId: GOOGLE_SINGIN_CLIENT_IOS,
       offlineAccess: true,
     });
+
+    dispatch(hideLoginAction());
   }, []);
 
   const { data } = useInfiniteQuery(["watchAnytime", "normal"], {
