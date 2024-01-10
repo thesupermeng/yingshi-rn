@@ -8,6 +8,7 @@ import android.content.Context;
 import android.os.Build.VERSION_CODES;
 import com.umeng.commonsdk.UMConfigure;
 
+import com.aimeijutv.AnalyticsModule;
 /**
  * Created by wangfei on 17/9/14.
  */
@@ -15,7 +16,8 @@ import com.umeng.commonsdk.UMConfigure;
 public class RNUMConfigure {
 
     public static void setLogEnabled(boolean isEnabled){
-        UMConfigure.setLogEnabled(isEnabled);
+        AnalyticsModule.showLog = isEnabled;
+//        UMConfigure.setLogEnabled(isEnabled);
     }
     public static void preInit(Context context, String appkey, String channel){
         UMConfigure.preInit(context,appkey,channel);

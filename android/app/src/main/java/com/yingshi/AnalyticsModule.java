@@ -31,6 +31,7 @@ import com.umeng.analytics.MobclickAgent;
 
 public class AnalyticsModule extends ReactContextBaseJavaModule {
     private ReactApplicationContext context;
+    public static boolean showLog;
 
     public AnalyticsModule(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -83,7 +84,10 @@ public class AnalyticsModule extends ReactContextBaseJavaModule {
                 rMap.put(key, map.getMap(key).toString());
             }
         }
-        Log.i("UMLog", "事件: " + eventId + ", " + rMap);
+
+        if(showLog){
+            Log.i("UMLog", "事件: " + eventId + ", " + rMap);
+        }
 
         if(rMap.isEmpty()){
             MobclickAgent.onEvent(context, eventId);
