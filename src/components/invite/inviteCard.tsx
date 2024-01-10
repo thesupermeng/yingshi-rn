@@ -293,6 +293,7 @@ export default function InviteCard({ userState = {} }: Props) {
             style={{
               paddingTop: 45,
               gap: 10,
+              height: 180
             }}
           >
             <Text style={{ color: "#ffffff", fontSize: 28, fontWeight: "700" }}>
@@ -306,6 +307,8 @@ export default function InviteCard({ userState = {} }: Props) {
             style={{
               height: 180,
               width: 240,
+              right: 0, 
+              position: 'absolute'
             }}
             resizeMode={"contain"}
           />
