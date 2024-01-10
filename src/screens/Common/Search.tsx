@@ -150,7 +150,7 @@ export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
     setSearchTimer(
       setTimeout(() => {
         fetchData(input, true);
-      }, 100)
+      }, 500)
     );
   };
 
