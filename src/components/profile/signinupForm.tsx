@@ -14,6 +14,7 @@ import { useAppDispatch } from "@hooks/hooks";
 import {
   changeScreenAction,
   hideBottomSheetAction,
+  hideLoginAction,
   navigateToProfileScreen,
 } from "@redux/actions/screenAction";
 import SpinnerOverlay from "../modal/SpinnerOverlay";
@@ -656,10 +657,13 @@ const LoginCard = ({
         onPressUserAgreement={() => {
           dispatch(navigateToProfileScreen());
           navigation.navigate("用户协议");
+          dispatch(hideLoginAction());
         }}
         onPressPrivacyPolicy={() => {
           dispatch(navigateToProfileScreen());
           navigation.navigate("隐私政策");
+          dispatch(hideLoginAction());
+
         }}
       />
 
