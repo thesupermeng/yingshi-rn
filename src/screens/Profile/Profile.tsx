@@ -178,6 +178,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
               tintColor="#FAC33D"
             />
           }
+          showsVerticalScrollIndicator={false}
         >
           <View style={{ ...styles.topNav }}>
             <Text
