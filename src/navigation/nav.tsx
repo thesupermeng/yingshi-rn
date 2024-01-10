@@ -123,6 +123,7 @@ import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 import AdultVideoList from "../screens/Playlist/AdultVideoList";
 import { UserApi } from "@api";
 import AdEvent from "../screens/Common/AdEvent";
+import { CRouteInitializer } from "../routes/router";
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -222,10 +223,10 @@ export default () => {
               );
             } else if (route.name === "VIP特权") {
               icon = <View style={{
-                borderRadius: 100, 
-                backgroundColor: theme.colors.background, 
-                position: 'absolute', 
-                top: -20, 
+                borderRadius: 100,
+                backgroundColor: theme.colors.background,
+                position: 'absolute',
+                top: -20,
               }}>
                 {
                   focused ? (
@@ -251,20 +252,20 @@ export default () => {
                   )
                 }
               </View>
-              
-              
+
+
             }
             return icon;
           },
-          tabBarLabel: ({children, color, focused}) => {
+          tabBarLabel: ({ children, color, focused }) => {
             return <Text style={{
-              color: color, 
-              fontSize: 12, 
-              fontWeight: focused ? '600' : '400', 
+              color: color,
+              fontSize: 12,
+              fontWeight: focused ? '600' : '400',
 
             }}>{children}</Text>
 
-          }, 
+          },
         })}
       >
         {YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5 ? (
@@ -681,6 +682,7 @@ export default () => {
           showVIPOverlay={showVIPOverlay}
           setShowVIPOverlay={setShowVIPOverlay}
         />
+        <CRouteInitializer />
       </NavigationContainer>
       <Dialog
         isVisible={isDialogOpen}

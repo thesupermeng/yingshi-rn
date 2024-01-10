@@ -110,6 +110,7 @@ import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 
 import { ATInterstitialRNSDK } from "./../../../AnyThinkAds/ATReactNativeSDK";
 import { UserApi } from "@api";
+import { CRouteInitializer } from "../../routes/router";
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -651,6 +652,7 @@ export default () => {
           showVIPOverlay={showVIPOverlay}
           setShowVIPOverlay={setShowVIPOverlay}
         />
+        <CRouteInitializer />
       </NavigationContainer>
       <Dialog
         isVisible={isDialogOpen}
