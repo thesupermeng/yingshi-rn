@@ -14,7 +14,7 @@
  *   history => get all page details in stack
  *   
  *   method inside: toNamed, offNamed
- *      then => listen and callback if next screen close
+ *      then => listen and callback if next screen close (callback params are receive from back method)
  */
 
 import { useEffect } from "react";
