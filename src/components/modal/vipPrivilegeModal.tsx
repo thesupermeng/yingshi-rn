@@ -1,5 +1,5 @@
 import React, { useEffect, ReactNode } from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from "react-native";
 import EighteenPlusIcon from "@static/images/eighteen-plus-icon.svg";
 import { screenModel } from "@type/screenType";
 import { useAppSelector } from "@hooks/hooks";
@@ -41,6 +41,9 @@ export default function VipPrivilegeModal({
   onInvite,
   showCondition,
 }: Props) {
+  const isFullscreen = Dimensions.get('window').height < Dimensions.get('window').width
+
+
   if (showCondition)
     return (
       <View
@@ -49,6 +52,7 @@ export default function VipPrivilegeModal({
           width: "100%",
           height: "100%",
           // backgroundColor: '#ff00ff80',
+          transform: isFullscreen ? [{scale: 0.75}] : []
         }}
       >
         {showBlur && (
