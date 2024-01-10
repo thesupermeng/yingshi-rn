@@ -4,6 +4,7 @@ import chunk from 'lodash/chunk';
 import RNFetchBlob from 'rn-fetch-blob';
 
 async function downloadVod(vod: MiniVideo) {
+  if (vod.is_ads) return // dont need to download if is ads 
   const fileLocation =
     RNFetchBlob.fs.dirs.DocumentDir + `/videocache/${vod.mini_video_id}.mp4`;
   const temp =
