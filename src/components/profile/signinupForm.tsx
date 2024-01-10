@@ -312,7 +312,7 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
       });
     } catch (err: any) {
       setSubmitting(false);
-      setLoginValueErrMsg(err);
+      setLoginValueErrMsg(err.message);
       return;
     }
 
