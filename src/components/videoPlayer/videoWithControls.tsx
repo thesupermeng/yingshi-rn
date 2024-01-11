@@ -1,9 +1,10 @@
 import { MutableRefObject, memo } from "react"
-import { StyleSheet, View } from "react-native";
+import { Platform, StyleSheet, View } from "react-native";
 import Video from "react-native-video";
 import VideoControlsOverlay from "./VideoControlsOverlay";
 import { LiveTVStationItem, VodEpisodeListType, VodType } from "@type/ajaxTypes";
 import AdultModeCountdownIndicator from "../adultVideo/adultModeCountdownIndicator";
+import { useRoute } from "@react-navigation/native";
 
 
 interface Props {
@@ -82,6 +83,28 @@ const VideoWithControls = ({
     onReadyForDisplay,
 }: Props) => {
 
+    const route = useRoute()
+
+    /**
+     * Please read: 
+     * There is an issue with the sport live video where
+     * only in ANDROID, the sport live video cannot be paused. In IOS it works normally. 
+     * Found out that if removed the ref field, the ANDROID sport live video pause functions as expected. 
+     * However, the ref is required to perform functionalities like 'seek', as both sport video player and 
+     * normal vod video will use this component. 
+     * 
+     * A solution would be to remove the ref in ANDROID sport live stream, since it does use the seek method. 
+     * 
+     * Reference : 
+     * This problem only occur in react-native-video@5.2.1 ; As of writing, this is the most stable version. 
+     * Upgrading to current latest version (6.0.0-beta3) can solve the issue, however, methods like setNativeProps
+     * no longer works. 
+     * To ensure the stability of IOS and prevent any other side effects, v5.2.1 will remain to be used. 
+     * 
+     */
+
+    const conditionalProp = Platform.OS === 'android' && route.name === '体育详情' ? {} : {ref: ref => (videoPlayerRef.current = ref)}
+
     return (
         <View
             style={{
@@ -93,7 +116,6 @@ const VideoWithControls = ({
                 disableFocus
                 rate={playbackRate}
                 ignoreSilentSwitch="ignore"
-                ref={ref => (videoPlayerRef.current = ref)}
                 fullscreen={false}  // make it false to prevent duplicate fullscreen function 
                 onBuffer={onBuffer}
                 paused={isPaused} // Pause video when app is in the background
@@ -126,6 +148,7 @@ const VideoWithControls = ({
                 }}
                 onReadyForDisplay={onReadyForDisplay}
                 style={styles.video}
+                {...conditionalProp}
             />
             <VideoControlsOverlay
                 ref={controlsRef}
