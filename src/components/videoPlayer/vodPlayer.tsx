@@ -643,6 +643,11 @@ export default forwardRef<VideoRef, Props>(
       // ========== for analytics - end ==========
     }
 
+    useEffect(() => {
+      if (isFullScreen) lockOrientation('LANDSCAPE-LEFT')
+      else lockOrientation('PORTRAIT')
+    }, [isFullScreen])
+
     return (
       <View style={styles.container}>
         {isFetchAds &&

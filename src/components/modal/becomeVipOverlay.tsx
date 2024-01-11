@@ -58,6 +58,8 @@ export default function ExpiredOverlay({
             if (onClose) onClose();
             setShowBecomeVIPOverlay(false);
           }}
+          onPurchase={() => setShowBecomeVIPOverlay(false)}
+          onInvite={() => setShowBecomeVIPOverlay(false)}
         />
       );
     } else if (selectedTab === 'common') {
