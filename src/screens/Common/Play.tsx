@@ -377,8 +377,8 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
             color: currentSourceId === item.source_id ? colors.selected : colors.muted,
           }}
         >
-          {/* {item.source_name} */}
-          线路 {index + 1}
+          {item.source_name}
+          {/* 线路 {index + 1} */}
         </Text>
       </TouchableOpacity>
     ),
