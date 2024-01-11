@@ -97,12 +97,12 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
       }),
   });
 
-  const fetchData = useCallback((id: number) => AppsApi.getHomePages(id, isVip), []);
+  const fetchData = useCallback((id: number) => AppsApi.getHomePages(id, isVip), [isVip]);
 
   const data = useQueries({
     queries: navOptions
       ? navOptions?.map((x: any) => ({
-        queryKey: ["HomePage", x.id],
+        queryKey: ["HomePage", x.id, isVip],
         queryFn: () => fetchData(x.id),
       }))
       : [],
