@@ -378,7 +378,6 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
           }}
         >
           {item.source_name}
-          {/* 线路 {index + 1} */}
         </Text>
       </TouchableOpacity>
     ),
