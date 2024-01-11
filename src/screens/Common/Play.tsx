@@ -937,6 +937,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
             episodes={vod?.type_id !== 2 ? foundSource : undefined}
             onEpisodeChange={(id: number) => {
               setCurrentEpisode(id);
+              currentEpisodeRef.current = id;
               currentTimeRef.current = 0;
             }}
             showGuide={settingsReducer.showVodPlayerGuide}

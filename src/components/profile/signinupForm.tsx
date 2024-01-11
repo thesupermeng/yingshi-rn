@@ -60,7 +60,7 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
   const [referralCode, setReferralCode] = useState('');
   const [loginValueErrMsg, setLoginValueErrMsg] = useState<string | null>(null); // null is valid, else is invalid (include empty string)
   const [referralCodeErrMsg, setReferralCodeErrMsg] = useState<string | null>(null);
-  const [isReadTermNCondition, setReadTermNCondition] = useState(false);
+  const [isReadTermNCondition, setReadTermNCondition] = useState(true);
 
   // for country phone code
   const [isShowCountryList, setShowCountryList] = useState(false);

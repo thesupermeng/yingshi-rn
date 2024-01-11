@@ -164,9 +164,11 @@ const RecommendationHome = ({
 
   const renderCarousel = useCallback(
     ({ item, index }: { item: any; index: number }) => {
+
+      const key = item.is_ads ? (item.carousel_id + item.carousel_pic_mobile) : item.carousel_id;
       return (
         <TouchableOpacity
-          key={`slider-${index}`}
+          key={`slider-${key}`}
           onPress={() => {
             dispatch(playVod(item.vod));
             navigation.navigate("播放IOS", {
@@ -175,6 +177,7 @@ const RecommendationHome = ({
           }}
         >
           <FastImage
+            key={`slider-${key}`}
             style={styles.image}
             source={{
               uri: item.carousel_pic_mobile,

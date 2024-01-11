@@ -65,12 +65,9 @@ export default ({ navigation }: RootStackScreenProps<"个人中心">) => {
         }}
       >
         <View style={{ marginTop: 30 }}>
-          {Platform.OS === 'ios' && (
-            <TouchableOpacity
+         
+            <View
               style={styles.pressableTextContainer}
-              onPress={() => {
-                showToast('目前暂不支持更改头像，敬请期待');
-              }}
             >
               <Text style={{ fontSize: 16, color: '#9C9C9C' }}>头像</Text>
               <FastImage
@@ -80,8 +77,8 @@ export default ({ navigation }: RootStackScreenProps<"个人中心">) => {
                 }}
                 source={require('@static/images/profilePic.png')}
               />
-            </TouchableOpacity>
-          )}
+            </View>
+       
 
           {/* username  */}
           <TouchableOpacity

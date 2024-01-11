@@ -10,7 +10,7 @@ import { SettingsReducerState } from '@redux/reducers/settingsReducer';
 import { useAppDispatch, useAppSelector } from '@hooks/hooks';
 import WebView from 'react-native-webview';
 import BackIcon from "@static/images/back_arrow.svg";
-import { useTheme } from '@react-navigation/native';
+import { useIsFocused, useTheme } from '@react-navigation/native';
 import UmengAnalytics from '../../../../Umeng/UmengAnalytics';
 import CountdownIndicator from '../../../components/button/countdownIndicator';
 
@@ -143,6 +143,8 @@ const LiveVideo = ({ videoRef, matchID, liveDataState, onLiveEnd, onLoad, stream
     }, [isReadyPlay, videoSource]);
     // ========== for analytics - end ==========
 
+    const isFocus = useIsFocused()
+
     return (
         <View style={styles.container}>
             {/* <View style={{height: isFullScreen ? '100%' : 'auto'}}> */}
@@ -153,17 +155,19 @@ const LiveVideo = ({ videoRef, matchID, liveDataState, onLiveEnd, onLoad, stream
                         videoSource?.url !== undefined && (
                             videoSource.type === VideoLiveType.LIVE
                                 ? <>
-                                    <VodPlayer
-                                        ref={videoRef}
-                                        onBack={onHandleBack}
-                                        vod_source={videoSource.url}
-                                        videoType='live'
-                                        vodTitle={combinedName}
-                                        appOrientation={settingsReducer.appOrientation}
-                                        devicesOrientation={settingsReducer.devicesOrientation}
-                                        lockOrientation={lockOrientation}
-                                        onReadyForDisplay={onReadyForDisplay}
-                                    />
+                                    {isFocus && 
+                                        <VodPlayer
+                                            ref={videoRef}
+                                            onBack={onHandleBack}
+                                            vod_source={videoSource.url}
+                                            videoType='live'
+                                            vodTitle={combinedName}
+                                            appOrientation={settingsReducer.appOrientation}
+                                            devicesOrientation={settingsReducer.devicesOrientation}
+                                            lockOrientation={lockOrientation}
+                                            onReadyForDisplay={onReadyForDisplay}
+                                        />
+                                    }
                                     {showCountdown &&
                                         <CountdownIndicator
                                             timer={countdownTime}

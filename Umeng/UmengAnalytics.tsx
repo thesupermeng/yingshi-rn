@@ -66,6 +66,10 @@ enum EventId {
     // Video player banner
     VideoPlayer_Banner_views = 'VideoPlayer-banner_views',
     VideoPlayer_Banner_clicks = 'VideoPlayer-banner_clicks',
+
+    // Profile
+    Profile_Banner_views = 'Profile-banner_views',
+    Profile_Banner_clicks = 'Profile-banner_clicks',
 }
 
 export default class UmengAnalytics {
@@ -420,5 +424,19 @@ export default class UmengAnalytics {
         });
 
         if (this.showLog) console.log('trigger event id:', EventId.VideoPlayer_Banner_clicks);
+    }
+
+
+    // ============================== Profile ==============================
+    static profileBannerViewAnalytics = () => {
+        AnalyticsUtil.onEventWithMap(EventId.Profile_Banner_views, {});
+
+        if (this.showLog) console.log('trigger event id:', EventId.Profile_Banner_views);
+    }
+
+    static profileBannerClickAnalytics = () => {
+        AnalyticsUtil.onEventWithMap(EventId.Profile_Banner_clicks, {});
+
+        if (this.showLog) console.log('trigger event id:', EventId.Profile_Banner_clicks);
     }
 }

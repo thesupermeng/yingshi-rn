@@ -185,7 +185,7 @@ const RecommendationHome = ({
         tab_name: tabName ?? '',
       });
     }
-  }, [isTabFocus, carouselRef.current?.getCurrentIndex()]));
+  }, [data, isTabFocus, carouselRef.current?.getCurrentIndex()]));
 
   const renderBanner = useCallback((bannerAd: BannerAdType) => (
     <BannerContainer
@@ -207,9 +207,11 @@ const RecommendationHome = ({
 
   const renderCarousel = useCallback(
     ({ item, index }: { item: any; index: number }) => {
+
+      const key = item.is_ads ? (item.carousel_id + item.carousel_pic_mobile) : item.carousel_id;
       return (
         <TouchableOpacity
-          key={`slider-${index}`}
+          key={`slider-${key}`}
           onPress={() => {
             if (item.is_ads == true) {
               const url = item.ads_url.includes('https://') || item.ads_url.includes('http://') ? item.ads_url : 'https://' + item.ads_url;
@@ -228,6 +230,7 @@ const RecommendationHome = ({
           }}
         >
           <FastImage
+            key={`slider-${key}`}
             style={styles.image}
             source={{
               uri: item.carousel_pic_mobile,
@@ -286,7 +289,7 @@ const RecommendationHome = ({
         </View>
       </View>
     ),
-    []
+    [data]
   );
 
   const yunyingMap = (item: any, index: any) => (
