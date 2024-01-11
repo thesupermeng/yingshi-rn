@@ -53,7 +53,7 @@ public class SplashAdShowActivity extends Activity implements ATSplashExListener
     protected void onCreate(Bundle savedInstanceState) {
            // super.onCreate(savedInstanceState); // or super.onCreate(null) with react-native-screens
         super.onCreate(null);
-        ATSDK.init(this, "a65002a2db3a7f", "aad683307ed540dfc11b094206e8a15b1");
+        ATSDK.init(this, "a65096b9d21e23", "ad83e042ddc3e6904c1f63bcc575a6bd7");
 
         setContentView(R.layout.splash_ad_show);
 
@@ -103,14 +103,14 @@ public class SplashAdShowActivity extends Activity implements ATSplashExListener
         //Klevin
 //        defaultConfig = "{\"unit_id\":1333253,\"nw_firm_id\":51,\"adapter_class\":\"com.anythink.network.klevin.KlevinATSplashAdapter\",\"content\":\"{\\\"pos_id\\\":\\\"30029\\\",\\\"app_id\\\":\\\"30008\\\"}\"}";
 
-        splashAd = new ATSplashAd(this, "b65002d6fd72be", this, 10000, defaultConfig);
+        splashAd = new ATSplashAd(this, "b650d315a31bc4", this, 10000, defaultConfig);
 
         Map<String, Object> localMap = new HashMap<>();
         localMap.put(ATAdConst.KEY.AD_WIDTH, layoutParams.width);
         localMap.put(ATAdConst.KEY.AD_HEIGHT, layoutParams.height);
 
         splashAd.setLocalExtra(localMap);
-        ATSplashAd.entryAdScenario("b65002d6fd72be", "f628c7999265cd");
+        ATSplashAd.entryAdScenario("b650d315a31bc4", "f628c7999265cd");
 
         splashAd.setAdSourceStatusListener(new ATAdSourceStatusListener() {
             @Override
