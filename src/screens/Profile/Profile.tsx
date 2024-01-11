@@ -52,6 +52,7 @@ import { CApi } from "@utility/apiService";
 import { CEndpoint } from "../../constants/api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AdsApi } from "../../api/ads";
+import UmengAnalytics from "../../../Umeng/UmengAnalytics";
 
 function Profile({ navigation, route }: BottomTabScreenProps<any>) {
   const navigator = useNavigation();
@@ -163,6 +164,14 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
     let day = date.getDate();
     setDisplayedDate(`${year}年${month}月${day}日`);
   }, [userState.userMemberExpired]);
+
+  const onBannerView = useCallback(() => {
+    UmengAnalytics.profileBannerViewAnalytics();
+  }, []);
+
+  const onBannerPress = useCallback(() => {
+    UmengAnalytics.profileBannerClickAnalytics();
+  }, []);
 
   return (
     <>
@@ -276,11 +285,11 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                       </Text>
                       {userState.userMemberExpired >=
                         userState.userCurrentTimestamp && (
-                        <Image
-                          style={styles.iconStyle}
-                          source={require("@static/images/profile/vip.png")}
-                        />
-                      )}
+                          <Image
+                            style={styles.iconStyle}
+                            source={require("@static/images/profile/vip.png")}
+                          />
+                        )}
                     </View>
 
                     {/* {userState.userMemberExpired == '0' && (
@@ -288,10 +297,10 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                     )} */}
                     {userState.userMemberExpired >=
                       userState.userCurrentTimestamp && (
-                      <Text style={{ color: colors.primary, fontSize: 14 }}>
-                        VIP会员有效日期至{displayedDate}
-                      </Text>
-                    )}
+                        <Text style={{ color: colors.primary, fontSize: 14 }}>
+                          VIP会员有效日期至{displayedDate}
+                        </Text>
+                      )}
                   </>
                 )}
               </View>
@@ -320,7 +329,9 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
             return <BannerContainer
               bannerAd={ad}
               key={ad.ads_id}
-              />
+              onMount={onBannerView}
+              onPress={onBannerPress}
+            />
           }))
           }
 
@@ -360,7 +371,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                         )}
                       </Text>
                       {YSConfig.instance.tabConfig != null &&
-                      YSConfig.instance.len == 5 ? (
+                        YSConfig.instance.len == 5 ? (
                         <Text
                           style={{
                             ...textVariants.small,
@@ -416,7 +427,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
               </View>
             )}
 
-            { !SHOW_ZF_CONST && (
+            {!SHOW_ZF_CONST && (
               <TouchableOpacity
                 style={{
                   ...styles.btn,
@@ -447,7 +458,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                 />
               </TouchableOpacity>
             )}
-{/* 
+            {/* 
             {Platform.OS === "android" && (
               <TouchableOpacity
                 style={{
