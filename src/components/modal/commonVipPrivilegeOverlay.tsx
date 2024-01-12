@@ -18,10 +18,12 @@ export const CommonVipPrivilegeOverlay = ({ showCondition, onClose, showBlur }: 
   const navigator = useNavigation()
 
   const handleOnPurchase = useCallback(() => {
+    onClose()
     navigator.navigate('付费VIP');
   }, [])
 
   const handleOnInvite = useCallback(() => {
+    onClose()
     navigator.navigate('邀请');
   }, [])
 

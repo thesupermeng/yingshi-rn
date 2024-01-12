@@ -23,8 +23,8 @@ interface Props {
   imageGradientColors: string[];
   contentGradientColors: string[];
   onClose: any;
-  onPurchase: any;
-  onInvite: any;
+  onPurchase?: any;
+  onInvite?: any;
   showCondition: boolean;
 }
 

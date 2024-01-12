@@ -14,11 +14,9 @@ interface Props {
   showCondition: boolean;
   onClose: any;
   showBlur?: boolean;
-  onPurchase: any; 
-  onInvite: any; 
 }
 
-export const SportVipPrivilegeOverlay = ({ showCondition, onClose, showBlur, onPurchase, onInvite }: Props) => {
+export const SportVipPrivilegeOverlay = ({ showCondition, onClose, showBlur }: Props) => {
 
   const navigator = useNavigation()
   const dispatch = useAppDispatch()
@@ -28,7 +26,7 @@ export const SportVipPrivilegeOverlay = ({ showCondition, onClose, showBlur, onP
 
 
   const handleOnPurchase = useCallback(() => {
-    onPurchase()
+    onClose()
     navigator.navigate('付费VIP');
     // ========== for analytics - start ==========
     UmengAnalytics.sportDetailsVipPopupClicksAnalytics('pay');
@@ -36,7 +34,7 @@ export const SportVipPrivilegeOverlay = ({ showCondition, onClose, showBlur, onP
   }, [])
 
   const handleOnInvite = useCallback(() => {
-    onInvite()
+    onClose()
     navigator.navigate('邀请');
     // ========== for analytics - start ==========
     UmengAnalytics.sportDetailsVipPopupClicksAnalytics('invite');

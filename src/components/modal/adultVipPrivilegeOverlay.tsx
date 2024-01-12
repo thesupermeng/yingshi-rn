@@ -25,10 +25,12 @@ export const AdultVipPrivilegeOverlay = ({showCondition, onClose, showBlur}: Pro
 
 
   const handleOnPurchase = useCallback(() => {
+    onClose()
     navigator.navigate('付费VIP');
   }, [])
 
   const handleOnInvite = useCallback(() => {
+    onClose()
     navigator.navigate('邀请');
   }, [])
 
