@@ -1296,7 +1296,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                             //   showEpisodeRangeStart,
                             //   showEpisodeRangeEnd
                             // )}
-                            data={vodSources.find(({ source_id }) => source_id === currentSourceId)?.vod_play_list.urls?.slice(
+                            data={foundSource?.urls?.slice(
                               showEpisodeRangeStart,
                               showEpisodeRangeEnd
                             )}
@@ -1305,7 +1305,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                             ListFooterComponent={
                               <View style={{ paddingHorizontal: 20 }} />
                             }
-                            keyExtractor={(item, index) => index.toString()}
+                            keyExtractor={(item, index) =>  `${item.name.toString()}-${index.toString()}`}
                           />
                           <View />
                         </>
