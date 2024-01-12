@@ -436,6 +436,7 @@ export type VodPlayerAdType = {
 }
 export interface BannerAdType {
     ads_id: number
+    ads_event_title: string,
     ads_slot_id: number
     ads_name: string
     ads_code: string
