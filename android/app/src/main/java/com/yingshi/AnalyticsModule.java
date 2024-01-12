@@ -86,7 +86,7 @@ public class AnalyticsModule extends ReactContextBaseJavaModule {
         }
 
         if(showLog){
-            Log.i("UMLog", "事件: " + eventId + ", " + rMap);
+            Log.i("UMENG", "event: " + eventId + ", " + rMap);
         }
 
         if(rMap.isEmpty()){

@@ -6,6 +6,8 @@ import java.lang.reflect.Method;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build.VERSION_CODES;
+import android.util.Log;
+
 import com.umeng.commonsdk.UMConfigure;
 
 import com.aimeijutv.AnalyticsModule;
@@ -17,14 +19,18 @@ public class RNUMConfigure {
 
     public static void setLogEnabled(boolean isEnabled){
         AnalyticsModule.showLog = isEnabled;
-//        UMConfigure.setLogEnabled(isEnabled);
+        UMConfigure.setLogEnabled(isEnabled);
     }
     public static void preInit(Context context, String appkey, String channel){
         UMConfigure.preInit(context,appkey,channel);
     }
     public static void init(Context context, String appkey, String channel, int type, String secret){
-        initRN("react-native","2.0");
-        UMConfigure.init(context,appkey,channel,type,secret);
+        try {
+            initRN("react-native","2.0");
+            UMConfigure.init(context,appkey,channel,type,secret);
+        } catch (Exception e) {
+            Log.w("UMENG", e.getMessage());
+        }
     }
     @TargetApi(VERSION_CODES.KITKAT)
     private static void initRN(String v, String t){
