@@ -17,6 +17,7 @@
     "replace-constants-codepush": "export APK_CHANNEL=0&& npm run build-release",
     "android-apk-web-release": "export APK_CHANNEL=WEB&& npm run build-release",
     "android-apk-web-liebian-release": "export APK_CHANNEL=WEB_LIE_BIAN&& npm run build-release",
+    "android-apk-fenxiang-release": "export APK_CHANNEL=FEN_XIANG&& npm run build-release",
     "android-apk-googleplay-release": "export APK_CHANNEL=GOOGLE_PLAY&& npm run build-release",
     "android-apk-oppo-release": "export APK_CHANNEL=OPPO_APP_MARKET&& npm run build-release",
     "android-apk-huawei-release": "export APK_CHANNEL=HUAWEI_APP_GALLERY_OVERSEAS&& npm run build-release",
