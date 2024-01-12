@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, memo } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import styles from './style';
 import { VideoLiveType } from '../../global/const';
@@ -33,7 +33,7 @@ interface Props {
 }
 
 const LiveVideo = ({ videoRef, matchID, liveDataState, onLiveEnd, onLoad, streamID, videoSource, setVideoSource, onGoBack, showCountdown = false, countdownTime = 0, onVipCountdownClick, }: Props) => {
-    const { colors } = useTheme();
+        const { colors } = useTheme();
 
     const homeName = liveDataState?.home?.name;
     const awayName = liveDataState?.away?.name;
@@ -61,7 +61,7 @@ const LiveVideo = ({ videoRef, matchID, liveDataState, onLiveEnd, onLoad, stream
 
     const onHandleBack = () => {
         if (settingsReducer.appOrientation === 'PORTRAIT' || settingsReducer.appOrientation === 'PORTRAIT-UPSIDEDOWN') {
-            setTimeout(() => setVideoSource(VideoLiveType.DETAIL, ''))
+            setTimeout(() => setVideoSource(VideoLiveType.DETAIL, ''), 100)
         } else {
             onGoBack();
         }
@@ -214,4 +214,4 @@ const LiveVideo = ({ videoRef, matchID, liveDataState, onLiveEnd, onLoad, stream
     );
 };
 
-export default LiveVideo;
+export default memo(LiveVideo);

@@ -1,4 +1,4 @@
-import React, { Suspense, useCallback, useEffect, useState } from 'react';
+import React, { Suspense, memo, useCallback, useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import VipModal from './vipModal';
 import { useNavigation, useRoute, useTheme } from '@react-navigation/native';
@@ -22,7 +22,7 @@ interface Props {
   onClose?: () => void,
 }
 
-export default function ExpiredOverlay({
+function ExpiredOverlay({
   showBecomeVIPOverlay = false,
   setShowBecomeVIPOverlay,
   isJustClose,
@@ -91,6 +91,8 @@ export default function ExpiredOverlay({
     </>
   );
 }
+
+export default memo(ExpiredOverlay)
 
 const styles = StyleSheet.create({
   closeBtnContainer: {

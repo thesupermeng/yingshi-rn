@@ -1,5 +1,6 @@
 import React, {
   Component,
+  memo,
   useCallback,
   useEffect,
   useRef,
@@ -85,7 +86,7 @@ type VideoSource = {
   url: any;
 };
 
-export default ({ navigation, route }: BottomTabScreenProps<any>) => {
+const MatchDetails = ({ navigation, route }: BottomTabScreenProps<any>) => {
   const dispatch = useDispatch();
   const screenState: screenModel = useAppSelector(
     ({ screenReducer }) => screenReducer
@@ -212,13 +213,13 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
   }, [liveRoomUpdate, matchLineUp, matchDetails]);
   // console.log(match[0])
 
-  const onLiveEnd = () => {
+  const onLiveEnd = useCallback(() => {
     setIsLiveVideoEnd(true);
-  };
+  }, []);
 
-  const onLiveLoad = () => {
+  const onLiveLoad = useCallback(() => {
     setIsLiveVideoEnd(false);
-  };
+  }, []);
 
   useEffect(() => {
     if (match != undefined && match.streams != undefined) {
@@ -228,20 +229,20 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
   }, [match]);
 
   const handleFullscreenChange = (isFullscreen: boolean) => {
-    if (isFullscreen) {
-      // If exiting fullscreen, hide MatchDetailsNav after a delay
-      setIsNavVisible(false);
+        if (isFullscreen) {
+    // If exiting fullscreen, hide MatchDetailsNav after a delay
+    setIsNavVisible(false);
 
-      // After 3 seconds, set isNavVisible back to true to show the component
-      setTimeout(() => {
-        setIsNavVisible(true);
-      }, 3000); // Adjust the delay duration (in milliseconds) as needed
+    // After 3 seconds, set isNavVisible back to true to show the component
+    setTimeout(() => {
+    setIsNavVisible(true);
+    }, 3000); // Adjust the delay duration (in milliseconds) as needed
     }
   };
 
   useEffect(() => {
     handleFullscreenChange(screenState.isPlayerFullScreen);
-  }, [screenState.isPlayerFullScreen, handleFullscreenChange]);
+  }, [screenState.isPlayerFullScreen]);
   //   const hideNavInterval = setInterval(() => {
   //     // Hide the MatchDetailsNav for a few seconds
   //     setIsNavVisible(false);
@@ -313,7 +314,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
     // ========== for analytics - start ==========
     UmengAnalytics.sportDetailsVipPopupTimesAnalytics();
     // ========== for analytics - end ==========
-  }, [videoRef.current]);
+  }, []);
 
   return (
     <ScreenContainer
@@ -434,6 +435,8 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
     </ScreenContainer>
   );
 };
+
+export default memo(MatchDetails)
 
 const styles = StyleSheet.create({
   header: {
