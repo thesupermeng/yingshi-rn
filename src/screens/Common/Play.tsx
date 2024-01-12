@@ -991,14 +991,18 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
               }}>
                 <BannerContainer
                   bannerAd={bannerAd}
-                  onMount={() => {
+                  onMount={({ id, name }) => {
                     UmengAnalytics.videoPlayerBannerViewAnalytics({
                       playerType: adultMode ? 'xVideo' : 'normal',
+                      ads_id: id,
+                      ads_name: name,
                     });
                   }}
-                  onPress={() => {
+                  onPress={({ id, name }) => {
                     UmengAnalytics.videoPlayerBannerClickAnalytics({
                       playerType: adultMode ? 'xVideo' : 'normal',
+                      ads_id: id,
+                      ads_name: name,
                     });
                   }}
                 />

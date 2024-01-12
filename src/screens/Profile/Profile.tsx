@@ -165,12 +165,18 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
     setDisplayedDate(`${year}年${month}月${day}日`);
   }, [userState.userMemberExpired]);
 
-  const onBannerView = useCallback(() => {
-    UmengAnalytics.profileBannerViewAnalytics();
+  const onBannerView = useCallback(({ id, name }: any) => {
+    UmengAnalytics.profileBannerViewAnalytics({
+      ads_id: id,
+      ads_name: name,
+    });
   }, []);
 
-  const onBannerPress = useCallback(() => {
-    UmengAnalytics.profileBannerClickAnalytics();
+  const onBannerPress = useCallback(({ id, name }: any) => {
+    UmengAnalytics.profileBannerClickAnalytics({
+      ads_id: id,
+      ads_name: name,
+    });
   }, []);
 
   return (

@@ -141,16 +141,20 @@ const CatagoryHome = ({
   const renderBanner = useCallback((bannerAd: BannerAdType) => (
     <BannerContainer
       bannerAd={bannerAd}
-      onMount={() => {
+      onMount={({ id, name }) => {
         UmengAnalytics.homeTabBannerViewAnalytics({
           tab_id: navId.toString(),
           tab_name: tabName ?? '',
+          ads_id: id,
+          ads_name: name,
         });
       }}
-      onPress={() => {
+      onPress={({ id, name }) => {
         UmengAnalytics.homeTabBannerClickAnalytics({
           tab_id: navId.toString(),
           tab_name: tabName ?? '',
+          ads_id: id,
+          ads_name: name,
         });
       }}
     />

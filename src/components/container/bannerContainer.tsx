@@ -8,8 +8,8 @@ import { useEffect } from 'react';
 
 interface Props {
     bannerAd: BannerAdType,
-    onMount?: () => void,
-    onPress?: () => void,
+    onMount?: ({ id, name }: { id: string, name: string }) => void,
+    onPress?: ({ id, name }: { id: string, name: string }) => void,
 }
 
 export const BannerContainer = ({
@@ -21,7 +21,7 @@ export const BannerContainer = ({
     const navigator = useNavigation()
 
     useEffect(() => {
-        if (onMount) onMount();
+        if (onMount) onMount({ id: bannerAd.ads_id.toString(), name: bannerAd.ads_name });
     }, []);
 
     const redirectToAd = async () => {
@@ -49,7 +49,7 @@ export const BannerContainer = ({
             Linking.openURL(url);
         }
 
-        if (onPress) onPress();
+        if (onPress) onPress({ id: bannerAd.ads_id.toString(), name: bannerAd.ads_name });
     };
 
     return (

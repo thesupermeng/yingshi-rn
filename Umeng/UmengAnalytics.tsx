@@ -112,19 +112,23 @@ export default class UmengAnalytics {
         if (this.showLog) console.log('trigger event id:', EventId.Home_Carousel_clicks);
     }
 
-    static homeTabBannerViewAnalytics = ({ tab_id, tab_name }: { tab_id: string, tab_name: string }) => {
+    static homeTabBannerViewAnalytics = ({ tab_id, tab_name, ads_id, ads_name }: { tab_id: string, tab_name: string, ads_id: string, ads_name: string }) => {
         AnalyticsUtil.onEventWithMap(EventId.Home_Banner_views, {
             'tab_id': tab_id,
             'tab_name': tab_name,
+            'ads_id': ads_id,
+            'ads_name': ads_name,
         });
 
         if (this.showLog) console.log('trigger event id:', EventId.Home_Banner_views);
     }
 
-    static homeTabBannerClickAnalytics = ({ tab_id, tab_name }: { tab_id: string, tab_name: string }) => {
+    static homeTabBannerClickAnalytics = ({ tab_id, tab_name, ads_id, ads_name }: { tab_id: string, tab_name: string, ads_id: string, ads_name: string }) => {
         AnalyticsUtil.onEventWithMap(EventId.Home_Banner_clicks, {
             'tab_id': tab_id,
             'tab_name': tab_name,
+            'ads_id': ads_id,
+            'ads_name': ads_name,
         });
 
         if (this.showLog) console.log('trigger event id:', EventId.Home_Banner_clicks);
@@ -202,14 +206,20 @@ export default class UmengAnalytics {
         if (this.showLog) console.log('trigger event id:', EventId.Sport_clicks);
     }
 
-    static sportBannerViewAnalytics = () => {
-        AnalyticsUtil.onEventWithMap(EventId.Sport_Banner_views, {});
+    static sportBannerViewAnalytics = ({ ads_id, ads_name }: { ads_id: string, ads_name: string }) => {
+        AnalyticsUtil.onEventWithMap(EventId.Sport_Banner_views, {
+            'ads_id': ads_id,
+            'ads_name': ads_name,
+        });
 
         if (this.showLog) console.log('trigger event id:', EventId.Sport_Banner_views);
     }
 
-    static sportBannerClickAnalytics = () => {
-        AnalyticsUtil.onEventWithMap(EventId.Sport_Banner_clicks, {});
+    static sportBannerClickAnalytics = ({ ads_id, ads_name }: { ads_id: string, ads_name: string }) => {
+        AnalyticsUtil.onEventWithMap(EventId.Sport_Banner_clicks, {
+            'ads_id': ads_id,
+            'ads_name': ads_name,
+        });
 
         if (this.showLog) console.log('trigger event id:', EventId.Sport_Banner_clicks);
     }
@@ -410,17 +420,21 @@ export default class UmengAnalytics {
 
 
     // ============================== Video PLayer ==============================
-    static videoPlayerBannerViewAnalytics = ({ playerType }: { playerType: 'normal' | 'xVideo' | 'sport' }) => {
+    static videoPlayerBannerViewAnalytics = ({ playerType, ads_id, ads_name }: { playerType: 'normal' | 'xVideo' | 'sport', ads_id: string, ads_name: string }) => {
         AnalyticsUtil.onEventWithMap(EventId.VideoPlayer_Banner_views, {
             'player_type': playerType,
+            'ads_id': ads_id,
+            'ads_name': ads_name,
         });
 
         if (this.showLog) console.log('trigger event id:', EventId.VideoPlayer_Banner_views);
     }
 
-    static videoPlayerBannerClickAnalytics = ({ playerType }: { playerType: 'normal' | 'xVideo' | 'sport' }) => {
+    static videoPlayerBannerClickAnalytics = ({ playerType, ads_id, ads_name }: { playerType: 'normal' | 'xVideo' | 'sport', ads_id: string, ads_name: string }) => {
         AnalyticsUtil.onEventWithMap(EventId.VideoPlayer_Banner_clicks, {
             'player_type': playerType,
+            'ads_id': ads_id,
+            'ads_name': ads_name,
         });
 
         if (this.showLog) console.log('trigger event id:', EventId.VideoPlayer_Banner_clicks);
@@ -428,14 +442,20 @@ export default class UmengAnalytics {
 
 
     // ============================== Profile ==============================
-    static profileBannerViewAnalytics = () => {
-        AnalyticsUtil.onEventWithMap(EventId.Profile_Banner_views, {});
+    static profileBannerViewAnalytics = ({ ads_id, ads_name }: { ads_id: string, ads_name: string }) => {
+        AnalyticsUtil.onEventWithMap(EventId.Profile_Banner_views, {
+            'ads_id': ads_id,
+            'ads_name': ads_name,
+        });
 
         if (this.showLog) console.log('trigger event id:', EventId.Profile_Banner_views);
     }
 
-    static profileBannerClickAnalytics = () => {
-        AnalyticsUtil.onEventWithMap(EventId.Profile_Banner_clicks, {});
+    static profileBannerClickAnalytics = ({ ads_id, ads_name }: { ads_id: string, ads_name: string }) => {
+        AnalyticsUtil.onEventWithMap(EventId.Profile_Banner_clicks, {
+            'ads_id': ads_id,
+            'ads_name': ads_name,
+        });
 
         if (this.showLog) console.log('trigger event id:', EventId.Profile_Banner_clicks);
     }
