@@ -105,7 +105,7 @@ android {
         // ABB version 7 , Jan from aimeiju
         versionCode 7
         versionName "1.7.0"
-        resValue "string", "UMENG_APPKEY", "650938dcb2f6fa00ba556645"
+        resValue "string", "UMENG_APPKEY", "648ec50987568a379b587f39"
         resValue "string", "UMENG_CHANNEL", "WEB"
         resValue "string", "UMENG_CHANNEL_GENERAL", "DEFAULT"
         resValue "string", "UMENG_CHANNEL_YINGSHI_WEB", "WEB"
