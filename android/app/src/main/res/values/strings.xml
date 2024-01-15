@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">爱美剧</string>
+    <string name="app_name">影视TV</string>
     <string name="appCenterCrashes_whenToSendCrashes" moduleConfig="true" translatable="false">DO_NOT_ASK_JAVASCRIPT</string>
     <string name="appCenterAnalytics_whenToEnableAnalytics" moduleConfig="true" translatable="false">ALWAYS_SEND</string>
     <string moduleConfig="true" name="CodePushDeploymentKey">yKccuj7iqcdUJBfjKi4dYg0Q4apstPlWZ2RxX</string>
