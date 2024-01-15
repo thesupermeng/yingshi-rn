@@ -1,4 +1,4 @@
-package com.aimeijutv;
+package com.yingshitv;
 
 import android.util.Log;
 
