@@ -72,7 +72,7 @@ import {
   SafeAreaProvider,
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
-import { LogBox, Platform, StyleSheet, Text, View } from "react-native";
+import { Platform, StyleSheet, Text, View } from "react-native";
 import DeviceInfo from "react-native-device-info";
 import { useAppSelector, useAppDispatch } from "@hooks/hooks";
 import { QueryClient, useQuery } from "@tanstack/react-query";
@@ -222,49 +222,19 @@ export default () => {
                 />
               );
             } else if (route.name === "VIP特权") {
-              icon = <View style={{
-                borderRadius: 100,
-                backgroundColor: theme.colors.background,
-                position: 'absolute',
-                top: -20,
-              }}>
-                {
-                  focused ? (
-                    <VipActionIcon
-                      width={38}
-                      height={38}
-                      color={theme.icons.activeNavIconColor}
-                      style={{
-                        margin: 15,
-                        top: -5
-                      }}
-                    />
-                  ) : (
-                    <VipIcon
-                      width={38}
-                      height={38}
-                      color={theme.icons.inactiveNavIconColor}
-                      style={{
-                        margin: 15,
-                        top: -5
-                      }}
-                    />
-                  )
-                }
-              </View>
-
-
+              icon = focused ? (
+                <VipActionIcon
+                  width={iconWidth}
+                  color={theme.icons.activeNavIconColor}
+                />
+              ) : (
+                <VipIcon
+                  width={iconWidth}
+                  color={theme.icons.inactiveNavIconColor}
+                />
+              );
             }
             return icon;
-          },
-          tabBarLabel: ({ children, color, focused }) => {
-            return <Text style={{
-              color: color,
-              fontSize: 12,
-              fontWeight: focused ? '600' : '400',
-
-            }}>{children}</Text>
-
           },
         })}
       >
@@ -730,7 +700,6 @@ const styles = StyleSheet.create({
     paddingBottom: 12,
     height: 65,
     position: "relative",
-    overflow: 'visible',
     // bottom: 25,
   },
   navStyle: {
