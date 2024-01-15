@@ -195,6 +195,7 @@ export const checkExpiredCacheFile = async (days: number) => {
     await RNFetchBlob.fs.unlink(
       `${RNFetchBlob.fs.dirs.DocumentDir}/${cacheFileName}`,
     );
+    await clearMinivodApiCache()
   } else {
     // console.debug('cache file still not expired. keep')
   }
