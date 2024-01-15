@@ -21,7 +21,7 @@ export const BannerContainer = ({
     const navigator = useNavigation()
 
     useEffect(() => {
-        if (onMount) onMount({ id: bannerAd.ads_id.toString(), name: bannerAd.ads_name });
+        if (onMount) onMount({ id: bannerAd.ads_id.toString(), name: bannerAd.ads_event_title });
     }, []);
 
     const redirectToAd = async () => {
@@ -49,7 +49,7 @@ export const BannerContainer = ({
             Linking.openURL(url);
         }
 
-        if (onPress) onPress({ id: bannerAd.ads_id.toString(), name: bannerAd.ads_name });
+        if (onPress) onPress({ id: bannerAd.ads_id.toString(), name: bannerAd.ads_event_title });
     };
 
     return (
