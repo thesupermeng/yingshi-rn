@@ -25,12 +25,14 @@ import { fetchMiniVods } from "../api/miniVod";
 import { AppsApi } from "@api";
 import { hideLoginAction } from "@redux/actions/screenAction";
 import { useDispatch } from "react-redux";
+import { useAppSelector } from "@hooks/hooks";
 
 export default () => {
   const [loadedAPI, setLoadedAPI] = useState(false);
   const [areaNavConfig, setAreaNavConfig] = useState(false);
   const [isSuper, setIsSuper] = useState(false);
   const dispatch = useDispatch();
+  const isVip = useAppSelector(({ userReducer }) => !(Number(userReducer.userMemberExpired) <= Number(userReducer.userCurrentTimestamp) || userReducer.userToken === ""))
 
   const onAppInit = async () => {
     await Promise.all([AppsApi.getLocalIpAddress(), AppsApi.getBottomNav()]);
@@ -103,9 +105,10 @@ export default () => {
     dispatch(hideLoginAction());
   }, []);
 
-  const { data } = useInfiniteQuery(["watchAnytime", "normal"], {
+  const { data } = useInfiniteQuery(["watchAnytime", "normal", isVip], {
     queryFn: ({ pageParam = 1 }) => fetchMiniVods(pageParam, {
-      from: "api"
+      from: "api", 
+      isVip
     }),
   });
 
@@ -118,7 +121,7 @@ export default () => {
         downloadFirstNVid(TOTAL_VIDEO_TO_DOWNLOAD, firstNVod);
       }
     }
-  }, [data]);
+  }, [data, isVip]);
 
   return (
     <>

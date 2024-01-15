@@ -54,14 +54,14 @@ export const downloadFirstNVid = async (n: number, vods: MiniVideo[]) => {
   const tempfolder = RNFetchBlob.fs.dirs.DocumentDir + `/partial/`;
   const cacheFolder = RNFetchBlob.fs.dirs.DocumentDir + '/videocache/';
 
-  if (
-    (await RNFetchBlob.fs.exists(cacheFolder)) &&
-    (await RNFetchBlob.fs.ls(cacheFolder)).length > TOTAL_VIDEO_TO_DOWNLOAD
-  ) {
-    // already downloaded required amount
-    // console.debug('already done')
-    return;
-  }
+  // if (
+  //   (await RNFetchBlob.fs.exists(cacheFolder)) &&
+  //   (await RNFetchBlob.fs.ls(cacheFolder)).length > TOTAL_VIDEO_TO_DOWNLOAD
+  // ) {
+  //   // already downloaded required amount
+  //   // console.debug('already done')
+  //   return;
+  // }
   // if ((await RNFetchBlob.fs.ls(cacheFolder)).length >= 300) return // video exceed limit
 
   if (await RNFetchBlob.fs.exists(tempfolder)) {
@@ -84,11 +84,11 @@ export const downloadFirstNVid = async (n: number, vods: MiniVideo[]) => {
   const NChunks = chunk(vods, DOWNLOAD_BATCH_SIZE);
   for (const chunk of NChunks) {
     // console.debug('downloading chunk')
-    if (
-      (await RNFetchBlob.fs.exists(cacheFolder)) &&
-      (await RNFetchBlob.fs.ls(cacheFolder)).length > TOTAL_VIDEO_TO_DOWNLOAD
-    )
-      break;
+    // if (
+    //   (await RNFetchBlob.fs.exists(cacheFolder)) &&
+    //   (await RNFetchBlob.fs.ls(cacheFolder)).length > TOTAL_VIDEO_TO_DOWNLOAD
+    // )
+    //   break;
     await Promise.all(chunk.map(vod => downloadVod(vod)));
     batchAddVodToApiCache(chunk);
   }
@@ -277,3 +277,11 @@ const deleteVodFromApiCache = async (id: string) => {
     JSON.stringify(filteredCacheContent),
   );
 };
+
+export const clearMinivodApiCache = async () => {
+  const apiCacheFilePath = RNFetchBlob.fs.dirs.DocumentDir + '/apicache.json';
+  await RNFetchBlob.fs.writeFile(
+    apiCacheFilePath,
+    JSON.stringify([]),
+  );
+}
