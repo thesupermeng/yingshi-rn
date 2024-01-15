@@ -42,6 +42,7 @@ export const CommonVipPrivilegeOverlay = ({ showCondition, onClose, showBlur }: 
       onClose={onClose}
       showBlur={showBlur}
       showCondition={showCondition}
+      showDarkBackdrop={true}
     />
 
   )

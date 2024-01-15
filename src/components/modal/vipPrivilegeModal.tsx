@@ -18,6 +18,7 @@ interface Props {
   coverImage: any;
   coverBackground: any;
   showBlur: boolean;
+  showDarkBackdrop: boolean; 
   benefitsTextsArray: string[];
   titleText: string;
   imageGradientColors: string[];
@@ -25,11 +26,12 @@ interface Props {
   onClose: any;
   onPurchase?: any;
   onInvite?: any;
-  showCondition: boolean;
+  showCondition?: boolean;
 }
 
 export default function VipPrivilegeModal({
   showBlur = false,
+  showDarkBackdrop = false, 
   benefitsTextsArray,
   coverImage,
   coverBackground,
@@ -51,7 +53,7 @@ export default function VipPrivilegeModal({
           position: "absolute",
           width: "100%",
           height: "100%",
-          backgroundColor: '#00000040',
+          backgroundColor: `rgba(0, 0, 0, ${showDarkBackdrop ? 0.3 : 0})`
         }}
         onPress={onClose}
       >
