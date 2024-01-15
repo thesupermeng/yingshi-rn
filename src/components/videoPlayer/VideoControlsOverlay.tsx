@@ -411,7 +411,9 @@ export default forwardRef<RefHandler, Props>(({
                         flex: 1,
                         paddingBottom: 3,
                       }}
-                      numberOfLines={1}>
+                      numberOfLines={1}
+                      ellipsizeMode='middle'
+                      >
                       {headerTitle}
                     </Text>
                   </TouchableOpacity>

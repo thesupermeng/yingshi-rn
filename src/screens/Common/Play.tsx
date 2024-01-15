@@ -809,6 +809,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     )?.url
   }
 
+  const vodPlayerTitle = screenState.isPlayerFullScreen ? `${vod?.vod_name} - ${foundSource?.urls?.at(currentEpisode)?.name ?? ''}` : vod?.vod_name
 
   useEffect(() => {
     if (!!vodUrl && !!vod?.vod_id) {
@@ -931,7 +932,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
             ref={videoPlayerRef}
             currentTimeRef={currentTimeRef}
             initialStartTime={initTime}
-            vodTitle={vod?.vod_name}
+            vodTitle={vodPlayerTitle}
             videoType="vod"
             activeEpisode={currentEpisode}
             episodes={vod?.type_id !== 2 ? foundSource : undefined}
