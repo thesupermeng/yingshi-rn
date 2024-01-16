@@ -371,12 +371,13 @@ const styles = StyleSheet.create({
     adsBtn: {
         width: '100%',
         borderRadius: 10,
-        padding: 16,
+        padding: 12,
         justifyContent: 'center',
         alignItems: 'center',
     },
     adsBtnText: {
         fontSize: 18,
-        fontWeight: 'bold'
+        fontWeight: '900',
+        color: '#000000'
     }
 });
