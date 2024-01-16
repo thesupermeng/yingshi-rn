@@ -32,6 +32,7 @@ import {
   APP_NAME_CONST,
   IS_ANDROID,
   IS_IOS,
+  UMENG_CHANNEL,
 } from "@utility/constants";
 import { showLoginAction } from "@redux/actions/screenAction";
 import { ProductApi, UserApi } from "@api";
@@ -46,6 +47,7 @@ import SpinnerOverlay from "../../components/modal/SpinnerOverlay";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { isAndroid } from "react-native-iap/lib/typescript/src/internal";
 import UmengAnalytics from "../../../Umeng/UmengAnalytics";
+import { err } from "react-native-svg/lib/typescript/xml";
 
 export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const {
@@ -160,7 +162,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
 
   const fetchData = async () => {
     const data = await ProductApi.getList({
-      productTypeId: "yingshi_4_fang",
+      productTypeId: UMENG_CHANNEL !== 'GOOGLE_PLAY' ? "yingshi_4_fang" : undefined,
     });
     let products: Array<membershipModel>;
     if (data) {
@@ -174,15 +176,42 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
             product.currency.currency_symbol + " " + product.product_price,
           description: product.product_desc,
           subscriptionDays: product.product_value,
-          zfOptions: product.payment_options,
+          zfOptions: product.payment_options.length ? product.payment_options : getZfOptions(UMENG_CHANNEL),
         };
       });
 
-      console.log(products);
+      console.log(JSON.stringify(products));
       setMembershipProducts(products);
       setFetching(false);
     }
   };
+
+  const getZfOptions = (channel: string): zfModel[] => {
+    switch (channel) {
+      case 'GOOGLE_PLAY' :
+        return [
+          {
+            payment_type_code: "GOOGLE_PAY", 
+            payment_type_name: "Google Pay",
+            payment_type_icon: "google.png"
+          },
+        ];
+      
+      default: 
+        return [
+          {
+            payment_type_code: "ALIPAY", 
+            payment_type_name: "支付宝",
+            payment_type_icon: "https://test.yingshi.tv/static/images/payment/alipay-icon-lg.png"
+          },
+          {
+            payment_type_code: "JD_ECARD", 
+            payment_type_name: "微信支付",
+            payment_type_icon: "https://test.yingshi.tv/static/images/payment/wxpay-icon-lg.png"
+          },
+        ];
+    }
+  }
 
   useEffect(() => {
     if (IS_ANDROID) {
@@ -202,7 +231,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   }, [membershipProducts]);
 
   useEffect(() => {
-    if (membershipSelected) {
+    if (membershipSelected && membershipSelected.zfOptions.length) {
       setZfOptions(membershipSelected.zfOptions);
       setSelectedZf(membershipSelected.zfOptions[0].payment_type_code);
     }
@@ -218,22 +247,17 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     setIsBtnEnable(false);
     try {
       setIsVisible(true);
-      handleZfGateway();
-      // if (zfSelected === "Apple") {
-      //   console.log("apple zf");
-      //   console.log(initConnectionError);
-      //   await getProducts({ skus: [membershipSelected.productSKU] });
+      // handleZfGateway();
 
-      //   await requestPurchase({ sku: membershipSelected.productSKU });
-      // } else if (zfSelected === "Google") {
-      //   console.log("google method");
-      //   await getProducts({ skus: [membershipSelected.productSKU] });
+      if (zfSelected === "GOOGLE_PAY") {
+        console.log("google method");
+        await getProducts({ skus: [membershipSelected.productSKU] });
 
-      //   await requestPurchase({ skus: [membershipSelected.productSKU] });
-      // } else {
-      //   console.log("others zf method");
-      //   handleZfGateway();
-      // }
+        await requestPurchase({ skus: [membershipSelected.productSKU] });
+      } else {
+        console.log("others zf method");
+        handleZfGateway();
+      }
     } catch (error) {
       setIsVisible(false);
       if (error instanceof PurchaseError) {
@@ -262,10 +286,12 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         productId: parseInt(membershipSelected.productId),
         zfType: zfSelected,
       });
-
       console.log("returned order data: ", result);
 
-      openLink(result.paymentData, result.transaction_id);
+      if (result.paymentData) {
+        openLink(result.paymentData, result.transaction_id);
+      } else throw new Error('no url is retuned');
+
     } catch (error) {
       console.log("error catch: ", error);
       setDialogText(axiosErrorText);
@@ -351,6 +377,179 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
       console.log("order still in progress");
     }
   };
+
+  const saveFinishTrans = async (transStatus: string, error: any) => {
+    const trans = {
+      user_id: userState.userId,
+      product_id: membershipSelected?.productId,
+      transaction_type: "SUBSCRIBE_VIP",
+      zf_channel: zfSelected.toUpperCase().replace(/ /g, '_'),
+      platform: APP_NAME_CONST + "-" + Platform.OS.toUpperCase(),
+      channel_transaction_id: currentPurchase?.transactionId,
+      transaction_receipt: currentPurchase
+        ? JSON.stringify(currentPurchase.transactionReceipt)
+        : error.toString(),
+      transaction_status: parseInt(transStatus),
+      is_sb: __DEV__ ? 1 : 0,
+    };
+    console.log("complete trans: ", trans);
+
+    addLocalTrans(trans);
+
+    const result = await ProductApi.postValidateReceipt(trans);
+
+    console.log("complete transaction result");
+    console.log(result);
+    return result.data.data;
+  };
+
+  const getLocalTrans = async () => {
+    try {
+      const data = await AsyncStorage.getItem("transRecords");
+      console.log("trans data stored in local storage");
+      console.log(data);
+
+      if (data !== null) {
+        return JSON.parse(data);
+      }
+      return [];
+    } catch (error) {
+      console.log("error when retrieving local trans records: ", error);
+      return [];
+    }
+  };
+
+  const addLocalTrans = async (trans: any) => {
+    try {
+      const existingData = await getLocalTrans();
+      existingData.push(trans);
+      await AsyncStorage.setItem("transRecords", JSON.stringify(existingData));
+
+      const existingData2 = await getLocalTrans();
+      console.log("current trans stored in local: ", existingData2);
+    } catch (error) {
+      console.log("error when storing the trans into local storage: ", error);
+    }
+  };
+
+  const processLocalTrans = async () => {
+    try {
+      const existingData = await getLocalTrans();
+      console.log("processData");
+      let dataLength = existingData.length;
+
+      if (dataLength > 0) {
+        while (dataLength--) {
+          let popItem = existingData.shift();
+          console.log("pop item");
+          console.log(popItem);
+  
+          const result = await ProductApi.postValidateReceipt(popItem);
+  
+          console.log("response get back");
+          console.log(result);
+  
+          if (result.statusCode !== 200) {
+            console.log("push back the unsuccess trans: ", popItem);
+            existingData.push(popItem);
+          }
+        }
+        console.log("after data");
+        console.log(existingData);
+        existingData.length ?
+          await AsyncStorage.setItem("transRecords",  JSON.stringify(existingData)) :
+          await AsyncStorage.removeItem("transRecords");
+      }
+      
+    } catch (error) {
+      console.error("error saving local data to database: ", error);
+    }
+  };
+
+  useEffect(() => {
+    const passData = async () => {
+      if (!isOffline) {
+        await processLocalTrans();
+        await refreshUserState();
+        // if(currentPurchase) {
+        //   finishTransaction({
+        //     purchase: currentPurchase,
+        //     isConsumable: true,
+        //   });
+        // }
+      }
+    };
+
+    passData();
+  }, [isOffline]);
+
+  useEffect(() => {
+    const checkCurrentPurchase = async () => {
+      if (currentPurchase) {
+        console.log("-------Current Purchase------------");
+        console.log(currentPurchase);
+
+        try {
+          if (currentPurchase.transactionReceipt) {
+            const key = currentPurchase.transactionId?.concat("true");
+
+            if (receiptBuffer.has(key)) {
+              console.log(
+                "duplicate transaction id: ",
+                currentPurchase.transactionId
+              );
+              await finishTransaction({
+                purchase: currentPurchase,
+                isConsumable: true,
+              });
+              setIsVisible(false);
+              setIsBtnEnable(true);
+              return;
+            } else {
+              setTimeout(() => setIsVisible(false), 10000);
+
+              const success = await saveFinishTrans("1", ""); //validate receipt with server
+
+              setReceiptBuffer((prev) => {
+                const receipt = new Map(prev);
+                receipt.set(currentPurchase.transactionId?.concat(success), success);
+                return receipt;
+              });
+
+              if (success) {
+                await finishTransaction({
+                  purchase: currentPurchase,
+                  isConsumable: true,
+                });
+                setDialogText(successDialogText)
+                setIsDialogOpen(true);
+                setIsSuccess(true);
+              } else {
+                await finishTransaction({
+                  purchase: currentPurchase,
+                  isConsumable: true,
+                });
+                setDialogText(failedDialogText)
+                setIsDialogOpen(true);
+                setIsSuccess(false);
+              }
+            }
+          }
+        } catch (error) {
+          if (error instanceof PurchaseError) {
+            console.error("purchasing error: " + error);
+          } else {
+            console.error("current purchase error: " + error);
+          }
+          setIsVisible(false);
+          setIsBtnEnable(true);
+        }
+      }
+    };
+
+    checkCurrentPurchase();
+  }, [currentPurchase, finishTransaction]);
+
 
   const handleConfirm = () => {
     setIsDialogOpen(false);
