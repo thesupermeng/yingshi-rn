@@ -12,7 +12,7 @@ import RNFetchBlob from 'rn-fetch-blob';
 import { addIdToCache } from '../../../utils/minivodDownloader';
 import { screenModel } from '@type/screenType';
 import UmengAnalytics from '../../../../Umeng/UmengAnalytics';
-
+import BecomeVipOverlay from '../../modal/becomeVipOverlay';
 interface Props {
     thumbnail?: string;
     displayHeight: number;
@@ -181,7 +181,11 @@ function ShortAds({
     }, []);
 
     const onAdsBtnPress = () => {
-        if (!currentVod?.ads_url) {
+      
+        if (!currentVod?.ads_url || currentVod?.ads_url =='') {
+           //  videoRef.current.setPause(true);
+            onManualPause(true);
+            setShowAdOverlay(true);
             return;
         }
 
@@ -191,6 +195,13 @@ function ShortAds({
 
         UmengAnalytics.watchAnytimeAdsClicksAnalytics();
     }
+
+    const [isShowAdOverlay, setShowAdOverlay] = useState(false);
+    const onCloseAdOverlay = () => {
+        onManualPause(true);
+      //  videoRef.current.setPause(false);
+        setShowAdOverlay(false);
+      };
 
     return (
         <>
@@ -312,6 +323,14 @@ function ShortAds({
                     </View>
                 </>
             )}
+
+<BecomeVipOverlay
+        setShowBecomeVIPOverlay={setShowAdOverlay}
+        showBecomeVIPOverlay={isShowAdOverlay}
+        isJustClose={true}
+        selectedTab="common"
+        onClose={onCloseAdOverlay}
+      />
         </>
     )
 
