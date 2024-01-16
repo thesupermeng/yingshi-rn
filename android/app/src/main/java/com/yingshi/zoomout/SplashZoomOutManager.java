@@ -1,4 +1,4 @@
-package com.aimeijutv.zoomout;
+package com.yingshitv.zoomout;
 
 import android.animation.Animator;
 import android.content.Context;

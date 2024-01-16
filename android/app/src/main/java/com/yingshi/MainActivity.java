@@ -1,6 +1,6 @@
-package com.aimeijutv;
+package com.yingshitv;
 
-import com.aimeijutv.SQLiteDBHelper;
+import com.yingshitv.SQLiteDBHelper;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
@@ -13,8 +13,8 @@ import android.os.Bundle;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
 
-import com.aimeijutv.SplashAdShowActivity;
-import com.aimeijutv.RNUMConfigure;
+import com.yingshitv.SplashAdShowActivity;
+import com.yingshitv.RNUMConfigure;
 import android.content.Context;
 import android.util.Log;
 

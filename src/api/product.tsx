@@ -108,6 +108,7 @@ export class ProductApi {
                     product_id: productId,
                     zf_type: zfType,
                     platform: APP_NAME_CONST + "-" + Platform.OS.toUpperCase(),
+                    redirect_to: "app",
                 }
             });
 
