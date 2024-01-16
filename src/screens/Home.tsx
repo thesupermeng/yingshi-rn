@@ -93,6 +93,10 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
           json = json.filter((e) => e?.id != 99);
           dispatch(setShowAdultTab(true));
         }
+        else
+        {
+          dispatch(setShowAdultTab(false));
+        }
         return json;
       }),
   });
