@@ -29,159 +29,159 @@ type PlacementId =
 let homePageShown = false;
 let retryCount = 0;
 const useInterstitialAds = () => {
-  // const [adsReadyFlag, setAdsReadyFlag] = useState(false);
-  // const userState: userModel = useAppSelector(
-  //   ({ userReducer }: RootState) => userReducer
-  // );
+  const [adsReadyFlag, setAdsReadyFlag] = useState(false);
+  const userState: userModel = useAppSelector(
+    ({ userReducer }: RootState) => userReducer
+  );
 
-  // const screenState: screenModel = useAppSelector(
-  //   ({ screenReducer }) => screenReducer
-  // );
-  // const { currentRoute } = useContext(AdsBannerContext);
-  // const [visitCount, setVisitCount] = useState<Record<string, number>>({});
+  const screenState: screenModel = useAppSelector(
+    ({ screenReducer }) => screenReducer
+  );
+  const { currentRoute } = useContext(AdsBannerContext);
+  const [visitCount, setVisitCount] = useState<Record<string, number>>({});
 
-  // ATInterstitialRNSDK.setAdListener(
-  //   ATInterstitialRNSDK.onInterstitialLoaded,
-  //   (event: any) => {
-  //     setAdsReadyFlag(true);
-  //   }
-  // );
+  ATInterstitialRNSDK.setAdListener(
+    ATInterstitialRNSDK.onInterstitialLoaded,
+    (event: any) => {
+      setAdsReadyFlag(true);
+    }
+  );
 
-  // const loadInterstitial = (interstitialPlacementId: PlacementId) => {
-  //   var settings = {};
-  //   //@ts-ignore
-  //   settings[ATInterstitialRNSDK.UseRewardedVideoAsInterstitial] = false;
-  //   //    settings[ATInterstitialRNSDK.UseRewardedVideoAsInterstitial] = true;
+  const loadInterstitial = (interstitialPlacementId: PlacementId) => {
+    var settings = {};
+    //@ts-ignore
+    settings[ATInterstitialRNSDK.UseRewardedVideoAsInterstitial] = false;
+    //    settings[ATInterstitialRNSDK.UseRewardedVideoAsInterstitial] = true;
 
-  //   ATInterstitialRNSDK.loadAd(interstitialPlacementId, settings);
-  // };
+    ATInterstitialRNSDK.loadAd(interstitialPlacementId, settings);
+  };
 
-  // const isInterstitialReady = async (interstitialPlacementId: PlacementId) => {
-  //   const ready = await ATInterstitialRNSDK.hasAdReady(interstitialPlacementId);
-  //   setAdsReadyFlag(ready);
-  //   if (ready) {
-  //     let adsID: PlacementId;
-  //     adsID = null;
-  //     if (currentRoute == "首页") {
-  //       adsID =
-  //         Platform.OS === "android"
-  //           ? ANDROID_HOME_PAGE_POP_UP_ADS
-  //           : IOS_HOME_PAGE_POP_UP_ADS;
-  //     } else if (
-  //       currentRoute == "播放" ||
-  //       currentRoute == "体育详情" ||
-  //       currentRoute == "电视台播放"
-  //     ) {
-  //       adsID =
-  //         Platform.OS === "android"
-  //           ? ANDROID_PLAY_DETAILS_POP_UP_ADS
-  //           : IOS_PLAY_DETAILS_POP_UP_ADS;
-  //     }
+  const isInterstitialReady = async (interstitialPlacementId: PlacementId) => {
+    const ready = await ATInterstitialRNSDK.hasAdReady(interstitialPlacementId);
+    setAdsReadyFlag(ready);
+    if (ready) {
+      let adsID: PlacementId;
+      adsID = null;
+      if (currentRoute == "首页") {
+        adsID =
+          Platform.OS === "android"
+            ? ANDROID_HOME_PAGE_POP_UP_ADS
+            : IOS_HOME_PAGE_POP_UP_ADS;
+      } else if (
+        currentRoute == "播放" ||
+        currentRoute == "体育详情" ||
+        currentRoute == "电视台播放"
+      ) {
+        adsID =
+          Platform.OS === "android"
+            ? ANDROID_PLAY_DETAILS_POP_UP_ADS
+            : IOS_PLAY_DETAILS_POP_UP_ADS;
+      }
 
-  //     if (adsID == null && homePageShown == false) {
-  //       homePageShown = true;
-  //       adsID =
-  //         Platform.OS === "android"
-  //           ? ANDROID_HOME_PAGE_POP_UP_ADS
-  //           : IOS_HOME_PAGE_POP_UP_ADS;
-  //     }
+      if (adsID == null && homePageShown == false) {
+        homePageShown = true;
+        adsID =
+          Platform.OS === "android"
+            ? ANDROID_HOME_PAGE_POP_UP_ADS
+            : IOS_HOME_PAGE_POP_UP_ADS;
+      }
 
-  //     if (adsID != null) {
-  //       if (
-  //         screenState.sportWatchTime > NON_VIP_STREAM_TIME_SECONDS &&
-  //         currentRoute == "体育详情"
-  //       ) {
-  //         // asd
-  //         console.log("not showing pop up ads, prevent blocking modal action");
-  //       } else {
-  //         homePageShown = true;
-  //         ATInterstitialRNSDK.showAd(adsID);
-  //       }
-  //       //
-  //     }
-  //   } else {
-  //     // console.log("====== not ready =======");
-  //     setTimeout(() => {
-  //       showInterstitial(interstitialPlacementId);
-  //     }, 500);
-  //   }
-  // };
+      if (adsID != null) {
+        if (
+          screenState.sportWatchTime > NON_VIP_STREAM_TIME_SECONDS &&
+          currentRoute == "体育详情"
+        ) {
+          // asd
+          console.log("not showing pop up ads, prevent blocking modal action");
+        } else {
+          homePageShown = true;
+          ATInterstitialRNSDK.showAd(adsID);
+        }
+        //
+      }
+    } else {
+      // console.log("====== not ready =======");
+      setTimeout(() => {
+        showInterstitial(interstitialPlacementId);
+      }, 500);
+    }
+  };
 
-  // const showInterstitial = async (interstitialPlacementId: PlacementId) => {
-  //   // not vip
-  //   if (
-  //     (Number(userState.userMemberExpired) <=
-  //       Number(userState.userCurrentTimestamp) ||
-  //       userState.userToken === "") &&
-  //     retryCount < 3
-  //   ) {
-  //     retryCount += 1;
-  //     // console.log("=======  not vip ======");
-  //     loadInterstitial(interstitialPlacementId);
-  //     setTimeout(() => {
-  //       isInterstitialReady(interstitialPlacementId);
-  //     }, 500);
-  //   } else {
-  //     if (retryCount >= 3) {
-  //       //  console.log("exceed retry limit");
-  //     } else {
-  //       console.log("VIP no ads");
-  //     }
-  //   }
-  // };
+  const showInterstitial = async (interstitialPlacementId: PlacementId) => {
+    // not vip
+    if (
+      (Number(userState.userMemberExpired) <=
+        Number(userState.userCurrentTimestamp) ||
+        userState.userToken === "") &&
+      retryCount < 3
+    ) {
+      retryCount += 1;
+      // console.log("=======  not vip ======");
+      loadInterstitial(interstitialPlacementId);
+      setTimeout(() => {
+        isInterstitialReady(interstitialPlacementId);
+      }, 500);
+    } else {
+      if (retryCount >= 3) {
+        //  console.log("exceed retry limit");
+      } else {
+        console.log("VIP no ads");
+      }
+    }
+  };
 
-  // useEffect(() => {
-  //   retryCount = 0;
-  //   let adsID: PlacementId;
-  //   adsID = null;
+  useEffect(() => {
+    retryCount = 0;
+    let adsID: PlacementId;
+    adsID = null;
 
-  //   if (currentRoute == "首页" && homePageShown == false) {
-  //     adsID =
-  //       Platform.OS === "android"
-  //         ? ANDROID_HOME_PAGE_POP_UP_ADS
-  //         : IOS_HOME_PAGE_POP_UP_ADS;
-  //   } else if (
-  //     currentRoute == "播放" ||
-  //     currentRoute == "体育详情" ||
-  //     currentRoute == "电视台播放"
-  //   ) {
-  //     adsID =
-  //       Platform.OS === "android"
-  //         ? ANDROID_PLAY_DETAILS_POP_UP_ADS
-  //         : IOS_PLAY_DETAILS_POP_UP_ADS;
-  //   }
+    if (currentRoute == "首页" && homePageShown == false) {
+      adsID =
+        Platform.OS === "android"
+          ? ANDROID_HOME_PAGE_POP_UP_ADS
+          : IOS_HOME_PAGE_POP_UP_ADS;
+    } else if (
+      currentRoute == "播放" ||
+      currentRoute == "体育详情" ||
+      currentRoute == "电视台播放"
+    ) {
+      adsID =
+        Platform.OS === "android"
+          ? ANDROID_PLAY_DETAILS_POP_UP_ADS
+          : IOS_PLAY_DETAILS_POP_UP_ADS;
+    }
 
-  //   if (adsID != null) {
-  //     setTimeout(() => {
-  //       showInterstitial(adsID);
-  //     }, 100);
-  //   }
-  // }, [currentRoute]);
+    if (adsID != null) {
+      setTimeout(() => {
+        showInterstitial(adsID);
+      }, 100);
+    }
+  }, [currentRoute]);
 
-  // useEffect(() => {
-  //   retryCount = 0;
-  //   loadInterstitial(
-  //     Platform.OS === "android"
-  //       ? ANDROID_HOME_PAGE_POP_UP_ADS
-  //       : IOS_HOME_PAGE_POP_UP_ADS
-  //   );
+  useEffect(() => {
+    retryCount = 0;
+    loadInterstitial(
+      Platform.OS === "android"
+        ? ANDROID_HOME_PAGE_POP_UP_ADS
+        : IOS_HOME_PAGE_POP_UP_ADS
+    );
 
-  //   loadInterstitial(
-  //     Platform.OS === "android"
-  //       ? ANDROID_PLAY_DETAILS_POP_UP_ADS
-  //       : IOS_PLAY_DETAILS_POP_UP_ADS
-  //   );
+    loadInterstitial(
+      Platform.OS === "android"
+        ? ANDROID_PLAY_DETAILS_POP_UP_ADS
+        : IOS_PLAY_DETAILS_POP_UP_ADS
+    );
 
-  //   if (Platform.OS === "ios") {
-  //     setTimeout(() => {
-  //       showInterstitial(
-  //         Platform.OS === "android"
-  //           ? ANDROID_HOME_PAGE_POP_UP_ADS
-  //           : IOS_HOME_PAGE_POP_UP_ADS
-  //       );
-  //     }, 100);
-  //   }
-  // }, []);
+    if (Platform.OS === "ios") {
+      setTimeout(() => {
+        showInterstitial(
+          Platform.OS === "android"
+            ? ANDROID_HOME_PAGE_POP_UP_ADS
+            : IOS_HOME_PAGE_POP_UP_ADS
+        );
+      }, 100);
+    }
+  }, []);
 
   return;
 };
