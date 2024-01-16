@@ -27,10 +27,7 @@ import { useTheme, useFocusEffect, useRoute } from "@react-navigation/native";
 import { YSConfig } from "../../../../ysConfig";
 
 import { RootStackScreenProps } from "@type/navigationTypes";
-import {
-  SuggestedVodType,
-  CommentsType,
-} from "@type/ajaxTypes";
+import { SuggestedVodType, CommentsType } from "@type/ajaxTypes";
 import { addVodToHistory, playVod } from "@redux/actions/vodActions";
 import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import { RootState } from "@redux/store";
@@ -60,7 +57,7 @@ import VodPlayer from "../../components/videoPlayer/vodPlayer";
 import { FlatList } from "react-native-gesture-handler";
 import { SettingsReducerState } from "@redux/reducers/settingsReducer";
 import BingSearch from "../../components/container/bingSearchContainer";
-import SubmitBtn from "@static/images/submitBtn.svg"
+import SubmitBtn from "@static/images/submitBtn.svg";
 
 import NoConnection from "../../components/common/noConnection";
 import NetInfo from "@react-native-community/netinfo";
@@ -77,7 +74,7 @@ import { InAppBrowser } from "react-native-inappbrowser-reborn";
 import UmengAnalytics from "../../../../Umeng/UmengAnalytics";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { showLoginAction } from "@redux/actions/screenAction";
-import { VodCommentBox } from '../../components/vodComment';
+import { VodCommentBox } from "../../components/vodComment";
 import { CPopup } from "@utility/popup";
 import { VodApi } from "@api";
 
@@ -239,7 +236,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
   const [dismountPlayer, setDismountPlayer] = useState(false);
   const [isOffline, setIsOffline] = useState(false);
   const [isShowSheet, setShowSheet] = useState(false);
-  const [comment, setComment] = useState('');
+  const [comment, setComment] = useState("");
   const [isUpdated, setIsUpdated] = useState(false);
   const [allComment, setAllComment] = useState<CommentsType[] | undefined>([]);
   const [showLoading, setShowLoading] = useState(true);
@@ -270,13 +267,16 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
       UmengAnalytics.playsShareClicksAnalytics();
       // ========== for analytics - end ==========
 
-      let msg = `《${vod?.vod_name
-        }》高清播放${"\n"}https://yingshi.tv/index.php/vod/play/id/${vod?.vod_id
-        }/sid/1/nid/${currentEpisode + 1
-        }.html${"\n"}${APP_NAME_CONST}-海量高清视频在线观看`
+      let msg = `《${
+        vod?.vod_name
+      }》高清播放${"\n"}https://yingshi.tv/index.php/vod/play/id/${
+        vod?.vod_id
+      }/sid/1/nid/${
+        currentEpisode + 1
+      }.html${"\n"}${APP_NAME_CONST}-海量高清视频在线观看`;
 
-      if (APP_NAME_CONST == '爱美剧') {
-        msg = `海量视频内容 随时随地 想看就看 ${"\n"}https://xiangkantv.net/share.html`
+      if (APP_NAME_CONST == "爱美剧") {
+        msg = `海量视频内容 随时随地 想看就看 ${"\n"}https://xiangkantv.net/share.html`;
       }
 
       const result = await Share.share({
@@ -352,22 +352,21 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
   }, []);
 
   const fetchVodDetails = () =>
-    VodApi.getDetail(vod?.vod_id.toString() ?? '')
-      .then((data) => {
-        const isRestricted = data.vod_restricted === 1;
+    VodApi.getDetail(vod?.vod_id.toString() ?? "").then((data) => {
+      const isRestricted = data.vod_restricted === 1;
 
-        if (isRestricted) {
-          // videoPlayerRef.current.setPause(true);
-          // use setTimeout to prevent video non pause before unmount the screen
-          setTimeout(() => {
-            setVodRestricted(isRestricted);
-          }, 100);
-        } else {
+      if (isRestricted) {
+        // videoPlayerRef.current.setPause(true);
+        // use setTimeout to prevent video non pause before unmount the screen
+        setTimeout(() => {
           setVodRestricted(isRestricted);
-        }
+        }, 100);
+      } else {
+        setVodRestricted(isRestricted);
+      }
 
-        return data;
-      });
+      return data;
+    });
 
   const { data: vodDetails, isFetching: isFetchingVodDetails } = useQuery({
     queryKey: ["vodDetails", vod?.vod_id],
@@ -397,10 +396,8 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
 
   const fetchVod = () =>
     VodApi.getList({
-      category: vod?.vod_class
-        ?.split(",")
-        .shift(),
-      tid: vod?.type_id.toString() ?? '',
+      category: vod?.vod_class?.split(",").shift(),
+      tid: vod?.type_id.toString() ?? "",
       limit: 6,
     }).then((data) => data.List as SuggestedVodType[]);
 
@@ -598,15 +595,13 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
   // // ========== for analytics - end ==========
 
   const fetchComments = () =>
-    VodApi.getReviewDetails(vod?.vod_douban_id.toString() ?? '')
-      .then((data) => {
+    VodApi.getReviewDetails(vod?.vod_douban_id.toString() ?? "").then(
+      (data) => {
         return data.douban_reviews;
-      });
+      }
+    );
 
-  const {
-    data: onlineComments,
-    isFetching: isFetchingComments,
-  } = useQuery({
+  const { data: onlineComments, isFetching: isFetchingComments } = useQuery({
     queryKey: ["relatedComments", vod?.vod_id],
     queryFn: () => fetchComments(),
   });
@@ -623,9 +618,9 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
       }
 
       setAllComment(mergedArray);
-      setShowLoading(isFetchingComments)
-      console.log('done')
-    }
+      setShowLoading(isFetchingComments);
+      console.log("done");
+    };
 
     if (!isFetchingComments) {
       mergeAllComments();
@@ -654,16 +649,19 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
       return;
     }
 
-    console.log('user comment', comment);
+    console.log("user comment", comment);
     try {
       const existingComments = await getLocalComments();
       const commmentObj = {
         douban_reviews_id: existingComments.length + 1,
         user_name: userState.userName,
         user_review: comment,
-      }
+      };
       existingComments.unshift(commmentObj);
-      await AsyncStorage.setItem(locCommentId, JSON.stringify(existingComments));
+      await AsyncStorage.setItem(
+        locCommentId,
+        JSON.stringify(existingComments)
+      );
       await getLocalComments();
       setIsUpdated(!isUpdated);
       Keyboard.dismiss();
@@ -675,47 +673,69 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
 
   return (
     <>
-      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={{ flex: 1 }}
+      >
         <ScreenContainer
           containerStyle={{ paddingRight: 0, paddingLeft: 0 }}
           footer={
             <>
               {!isOffline && (
-                <View style={{ ...styles.commentContainer, backgroundColor: '#1D2023' }}>
+                <View
+                  style={{
+                    ...styles.commentContainer,
+                    backgroundColor: "#1D2023",
+                  }}
+                >
                   <TextInput
                     style={{
                       ...styles.input,
-                      backgroundColor: '#FFFFFF1A',
+                      backgroundColor: "#FFFFFF1A",
                       ...textVariants.body,
                     }}
                     onChangeText={setComment}
-                    placeholder={userState.userToken !== '' ? "请评论" : "请登录才进行评论"}
-                    editable={userState.userToken !== ''}
+                    placeholder={
+                      userState.userToken !== "" ? "请评论" : "请登录才进行评论"
+                    }
+                    editable={userState.userToken !== ""}
                     placeholderTextColor={colors.muted}
                     value={comment}
                     maxLength={200}
                     blurOnSubmit
                   />
 
-                  {userState.userToken !== '' ? (
+                  {userState.userToken !== "" ? (
                     <>
-                      <Text style={{ ...textVariants.body, color: comment.length === 200 ? colors.primary : colors.muted }}>
+                      <Text
+                        style={{
+                          ...textVariants.body,
+                          color:
+                            comment.length === 200
+                              ? colors.primary
+                              : colors.muted,
+                        }}
+                      >
                         {comment.length}/200
                       </Text>
                       <TouchableOpacity
                         onPress={() => {
-                          setComment('');
+                          setComment("");
                           storeUserComments();
                         }}
                       >
-                        <SubmitBtn fill={comment.length ? "#FAC33D" : "#3A3A3A"} />
+                        <SubmitBtn
+                          fill={comment.length ? "#FAC33D" : "#3A3A3A"}
+                        />
                       </TouchableOpacity>
                     </>
                   ) : (
                     <TouchableOpacity
                       onPress={() => dispatch(showLoginAction())}
                     >
-                      <Text style={{ ...textVariants.body, color: colors.primary }}>
+                      <Text
+                        style={{ ...textVariants.body, color: colors.primary }}
+                      >
                         立即登录
                       </Text>
                     </TouchableOpacity>
@@ -764,7 +784,9 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
                 contentContainerStyle={{ marginTop: spacing.m }}
                 contentInsetAdjustmentBehavior="automatic"
               >
-                <View style={{ ...styles.descriptionContainer2, gap: spacing.m }}>
+                <View
+                  style={{ ...styles.descriptionContainer2, gap: spacing.m }}
+                >
                   <View style={styles.videoDescription}>
                     <FastImage
                       source={{ uri: vod?.vod_pic }}
@@ -828,25 +850,41 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
                       >
                         {`${definedValue(vod?.vod_year)}`}
                         {`${definedValue(vod?.vod_area)}`}
-                        {`${definedValue(vod?.vod_class?.split(",").join(" "))}`}
+                        {`${definedValue(
+                          vod?.vod_class?.split(",").join(" ")
+                        )}`}
                       </Text>
                       <Text
                         style={{ ...textVariants.subBody, color: colors.muted }}
                       >
-                        {`更新：${vod && vod.vod_time_add
-                          ? new Date(vod?.vod_time_add * 1000)
-                            .toISOString().slice(0, 10)
-                            .replace(/\//g, "-")
-                          : new Date()
-                            .toISOString().slice(0, 10)
-                            .replace(/\//g, "-")
-                          }`}
+                        {(() => {
+                          try {
+                            const dateValue =
+                              vod && !!vod?.vod_time_add
+                                ? new Date(vod?.vod_time_add * 1000)
+                                    .toISOString()
+                                    .slice(0, 10)
+                                    .replace(/\//g, "-")
+                                : new Date()
+                                    .toISOString()
+                                    .slice(0, 10)
+                                    .replace(/\//g, "-");
+
+                            return `更新：${dateValue}`;
+                          } catch (error) {
+                            console.error(
+                              "Error while formatting date:",
+                              error
+                            );
+                            return "更新：N/A"; // or any default value you want to display on error
+                          }
+                        })()}
                       </Text>
                       <View
                         style={{
                           display: "flex",
                           alignItems: "flex-start",
-                          flexDirection: 'row',
+                          flexDirection: "row",
                           gap: 8,
                         }}
                       >
@@ -924,7 +962,9 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
                   </View>
                   {/* show 选集播放 section when avaiable episode more thn 1 */}
                   <>
-                    {isFetchingVodDetails || isFetchingComments || showLoading ? (
+                    {isFetchingVodDetails ||
+                    isFetchingComments ||
+                    showLoading ? (
                       <>
                         <View
                           style={{
@@ -945,18 +985,18 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
                       </>
                     ) : (
                       <>
-                        {vod && allComment && !showLoading &&
+                        {vod && allComment && !showLoading && (
                           <VodCommentBox
                             comments={allComment ?? []}
                             onCommentTap={() => {
-                              navigation.navigate('全部评论', {
+                              navigation.navigate("全部评论", {
                                 vod_id: vod.vod_id,
                                 vod_name: vod.vod_name,
                                 commentItems: allComment,
                               });
                             }}
                           />
-                        }
+                        )}
 
                         {vod &&
                           suggestedVods !== undefined &&
@@ -1084,8 +1124,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 15,
     paddingBottom: 25,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 15,
   },
   input: {
@@ -1095,5 +1135,4 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     flex: 3,
   },
-
 });
