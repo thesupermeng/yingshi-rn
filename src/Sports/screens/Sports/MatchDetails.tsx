@@ -279,7 +279,11 @@ const MatchDetails = ({ navigation, route }: BottomTabScreenProps<any>) => {
   useFocusEffect(useCallback(() => {
     if (!showBecomeVIPOverlay && screenState.sportWatchTime > NON_VIP_STREAM_TIME_SECONDS && (Number(userState.userMemberExpired) <= Number(userState.userCurrentTimestamp) || userState.userToken === "")) {
 
+        // fix android if sport countdown finish cant close
+        if( Platform.OS === 'ios')
+        {
       setShowBecomeVIPOverlay(true);
+        }
     } else if (!showBecomeVIPOverlay) {
       videoRef.current?.setPause(false);
     }
