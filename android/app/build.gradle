@@ -1,8 +1,8 @@
 apply plugin: "com.android.application"
 apply plugin: "com.facebook.react"
 
-apply from: 'topon_china.gradle'
-// apply from: 'topon_non_china.gradle'
+// apply from: 'topon_china.gradle'
+apply from: 'topon_non_china.gradle'
 
 import com.android.build.OutputFile
 
@@ -104,9 +104,9 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         // ABB version 7 , Jan from aimeiju
         versionCode 7
-        versionName "1.7.0"
+        versionName "1.7.2"
         resValue "string", "UMENG_APPKEY", "648ec50987568a379b587f39"
-        resValue "string", "UMENG_CHANNEL", "WEB"
+        resValue "string", "UMENG_CHANNEL", "GOOGLE_PLAY"
         resValue "string", "UMENG_CHANNEL_GENERAL", "DEFAULT"
         resValue "string", "UMENG_CHANNEL_YINGSHI_WEB", "WEB"
         resValue "string", "UMENG_CHANNEL_GOOGLE_PLAY", "GOOGLE_PLAY"
