@@ -47,13 +47,20 @@ export const VipZf = ({
             flexDirection: 'row',
             alignItems: 'center',
           }}>
-          <FastImage
-            source={{
-              uri: zfOption.payment_type_icon,
-            }}
-            style={{ width: 40, height: 30, borderRadius: 5, }}
-            resizeMode={"contain"}
-          />
+            
+          {zfOption.payment_type_icon.includes('https://') ? 
+            <FastImage
+              source={{uri: zfOption.payment_type_icon}}
+              style={{ width: 40, height: 30, borderRadius: 5, }}
+              resizeMode={"contain"}
+            /> : 
+            <FastImage
+              source={require('@static/images/vip/google.png')}
+              style={{ width: 40, height: 30, borderRadius: 5, }}
+              resizeMode={"contain"}
+            />
+          }
+          
           <Text
             style={{ ...textVariants.bodyBold }}>
             {zfOption.payment_type_name}
