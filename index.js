@@ -18,7 +18,7 @@ AppRegistry.registerRunnable(appName, async initialProps => {
   CodePush.notifyAppReady()
   try {
     // ATRNSDK.initSDK('a5aa1f9deda26d', '4f7b9ac17decb9babec83aac078742c7');
-    // ATRNSDK.initSDK('a65096b9d21e23', '0b1cab850e5de6fdc1fe0e114a0256eb');
+    // ATRNSDK.initSDK('a65002a2db3a7f', '0b1cab850e5de6fdc1fe0e114a0256eb');
   } catch (err) {
     console.log('Ads initialize error');
   }
