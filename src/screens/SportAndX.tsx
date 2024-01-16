@@ -200,7 +200,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
               flexDirection: "row",
               justifyContent: "space-between",
               alignItems: "center",
-              paddingVertical: 8,
+              paddingTop: 8,
             }}
           >
             <View
