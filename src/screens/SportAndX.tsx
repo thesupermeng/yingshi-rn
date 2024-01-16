@@ -224,17 +224,15 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                       alignItems: "center",
                     }}
                   >
-                    {selectedTab == "sport" && (
-                      <View
-                        style={{
-                          paddingRight: 7,
-                          position: "relative",
-                          bottom: 10,
-                        }}
-                      >
-                        <SportTabIcon width={32} height={32} />
-                      </View>
-                    )}
+                    <View
+                      style={{
+                        paddingRight: 7,
+                        position: "relative",
+                        bottom: 10,
+                      }}
+                    >
+                      <SportTabIcon width={32} height={32} />
+                    </View>
 
                     <View
                       style={{
@@ -290,17 +288,15 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                         marginLeft: 15,
                       }}
                     >
-                      {selectedTab == "xvod" && (
-                        <View
-                          style={{
-                            paddingRight: 7,
-                            position: "relative",
-                            bottom: 12,
-                          }}
-                        >
-                          <XvodTabIcon width={32} height={32} />
-                        </View>
-                      )}
+                      <View
+                        style={{
+                          paddingRight: 7,
+                          position: "relative",
+                          bottom: 12,
+                        }}
+                      >
+                        <XvodTabIcon width={32} height={32} />
+                      </View>
 
                       <View
                         style={{
