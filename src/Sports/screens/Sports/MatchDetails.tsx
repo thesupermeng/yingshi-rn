@@ -14,6 +14,7 @@ import {
   TouchableOpacity,
   Dimensions,
   Image,
+  Platform,
 } from 'react-native';
 import ScreenContainer from '../../../components/container/screenContainer';
 import MainHeader from '../../../components/header/homeHeader';
@@ -338,7 +339,11 @@ const MatchDetails = ({ navigation, route }: BottomTabScreenProps<any>) => {
           videoRef.current?.setPause(false);
 
           if (!(showCountdown && NON_VIP_STREAM_TIME_SECONDS > screenState.sportWatchTime) && route.name === '体育详情') {
-            navigation.goBack();
+            // android if sport countdown finish will nav back to sport after click on popout
+            if( Platform.OS === 'ios')
+            {
+              navigation.goBack();
+            }
           }
         }}
       />
