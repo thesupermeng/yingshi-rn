@@ -26,7 +26,7 @@ import { TouchableOpacity } from "@gorhom/bottom-sheet";
 
 import LinearGradient from "react-native-linear-gradient";
 import { userModel } from "@type/userType";
-import { useAppDispatch } from "@hooks/hooks";
+import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import { showLoginAction } from "@redux/actions/screenAction";
 //import Share from "react-native-share";
 import { APP_NAME_CONST, INVITE_DOMAIN } from "@utility/constants";
@@ -37,6 +37,7 @@ import SinaIcon from "@static/images/sina.svg";
 import WeChatIcon from "@static/images/wechat.svg";
 import QQIcon from "@static/images/qq.svg";
 import PYQIcon from "@static/images/pyq.svg";
+import { screenModel } from "@type/screenType";
 interface Props {
   userState: userModel;
 }
@@ -49,6 +50,10 @@ export default function InviteCard({ userState = {} }: Props) {
     message: `下载${APP_NAME_CONST},免费领取VIP会员,免费看海量高清影视 `,
     url: "",
   });
+
+  const screenState: screenModel = useAppSelector(
+    ({ screenReducer }) => screenReducer,
+);
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -353,7 +358,7 @@ export default function InviteCard({ userState = {} }: Props) {
             </View>
             <Text style={styles.featureTitle}>体育频道</Text>
           </View>
-
+          {screenState.showAdultTab && (
           <View style={styles.featureItem}>
             <View style={styles.imgContainer}>
               <FastImage
@@ -362,10 +367,13 @@ export default function InviteCard({ userState = {} }: Props) {
                 resizeMode={"contain"}
               />
             </View>
+         
             <View>
               <Text style={styles.featureTitle}>夜来香</Text>
             </View>
+          
           </View>
+            )}
           <View style={styles.featureItem}>
             <View style={styles.imgContainer}>
               <FastImage

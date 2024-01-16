@@ -1,4 +1,6 @@
+import { useAppSelector } from '@hooks/hooks';
 import { useTheme } from '@react-navigation/native';
+import { screenModel } from '@type/screenType';
 import { StyleSheet, Text, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
@@ -7,6 +9,11 @@ import { YSConfig } from "../../../ysConfig";
 export const VipBenefit = () => {
   const { textVariants } = useTheme();
   const locations = [0, 1];
+
+  const screenState: screenModel = useAppSelector(
+    ({ screenReducer }) => screenReducer,
+);
+
   return (
     <LinearGradient
       colors={['#323638', '#1a1d20']} // An array of gradient colors
@@ -47,6 +54,8 @@ export const VipBenefit = () => {
       ) : (
         <></>
       )}
+
+{screenState.showAdultTab && (
       <View style={styles.featureItem}>
         <View style={styles.imgContainer}>
           <FastImage
@@ -55,10 +64,15 @@ export const VipBenefit = () => {
             resizeMode={FastImage.resizeMode.contain}
           />
         </View>
+ 
+          
         <View>
           <Text style={{...textVariants.small}}>夜来香</Text>
         </View>
+       
       </View>
+       )
+      }
       <View style={styles.featureItem}>
         <View style={styles.imgContainer}>
           <FastImage

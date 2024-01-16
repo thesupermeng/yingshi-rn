@@ -26,7 +26,7 @@ import { TouchableOpacity } from "@gorhom/bottom-sheet";
 
 import LinearGradient from "react-native-linear-gradient";
 import { userModel } from "@type/userType";
-import { useAppDispatch } from "@hooks/hooks";
+import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import { showLoginAction } from "@redux/actions/screenAction";
 //import Share from "react-native-share";
 import { APP_NAME_CONST, INVITE_DOMAIN } from "@utility/constants";
@@ -37,6 +37,7 @@ import SinaIcon from "@static/images/sina.svg";
 import WeChatIcon from "@static/images/wechat.svg";
 import QQIcon from "@static/images/qq.svg";
 import PYQIcon from "@static/images/pyq.svg";
+import { screenModel } from "@type/screenType";
 interface Props {
   userState: userModel;
 }
@@ -55,6 +56,10 @@ export default function InviteCard({ userState = {} }: Props) {
   const toggleOverlay = () => {
     setIsDialogOpen(!isDialogOpen);
   };
+
+  const screenState: screenModel = useAppSelector(
+    ({ screenReducer }) => screenReducer,
+);
 
   const [vipRemainingDay, setVipRemainingDay] = useState(0);
   useEffect(() => {
@@ -333,7 +338,7 @@ export default function InviteCard({ userState = {} }: Props) {
             flexWrap: "wrap", // Allow items to wrap to the next row
           }}
         >
-          <View style={styles.featureItem}>
+              <View style={{...styles.featureItem ,width: screenState.showAdultTab ? "40%" : "30%"  }}>
             <View style={styles.imgContainer}>
               <FastImage
                 source={require("@static/images/vip/vip_logo.png")}
@@ -347,7 +352,7 @@ export default function InviteCard({ userState = {} }: Props) {
           </View>
 
           {YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5 &&
-            <View style={styles.featureItem}>
+             <View style={{...styles.featureItem ,width: screenState.showAdultTab ? "40%" : "30%"  }}>
             <View style={styles.imgContainer}>
               <FastImage
                 source={require("@static/images/invite/sport.png")}
@@ -357,8 +362,8 @@ export default function InviteCard({ userState = {} }: Props) {
             </View>
             <Text style={styles.featureTitle}>体育频道</Text>
           </View>}
-
-          <View style={styles.featureItem}>
+          {screenState.showAdultTab && (
+        <View style={{...styles.featureItem ,width: screenState.showAdultTab ? "40%" : "30%"  }}>
             <View style={styles.imgContainer}>
               <FastImage
                 source={require("@static/images/invite/vip_adult_video.png")}
@@ -366,11 +371,14 @@ export default function InviteCard({ userState = {} }: Props) {
                 resizeMode={"contain"}
               />
             </View>
+           
             <View>
               <Text style={styles.featureTitle}>夜来香</Text>
             </View>
+           
           </View>
-          <View style={styles.featureItem}>
+           )}
+       <View style={{...styles.featureItem ,width: screenState.showAdultTab ? "40%" : "30%"  }}>
             <View style={styles.imgContainer}>
               <FastImage
                 source={require("@static/images/invite/ads.png")}
