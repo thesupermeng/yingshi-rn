@@ -244,7 +244,7 @@ export default function InviteCard({ userState = {} }: Props) {
 
       // let msg = `下载爱美剧，免费领取VIP会员，免费看海量高清影视  ${" \n "} ${INVITE_DOMAIN}${encodedAuth}`;
 
-      let msg = "下载"  +  APP_NAME_CONST  +  "，免费领取VIP会员，免费看海量高清影视"  + INVITE_DOMAIN + encodedAuth;
+      let msg = "下载"  +  APP_NAME_CONST  +  "，免费领取VIP会员，免费看海量高清影视 "  + INVITE_DOMAIN + encodedAuth;
 
       const result = await Share.share({
         message: msg,
