@@ -116,8 +116,6 @@ const MatchDetails = ({ navigation, route }: BottomTabScreenProps<any>) => {
   const [bannerAd, setBannerAd] = useState<BannerAdType>();
   const isVip = useAppSelector(({ userReducer }) => !(Number(userReducer.userMemberExpired) <= Number(userReducer.userCurrentTimestamp) || userReducer.userToken === ""))
 
-  const [showOnce, setshowOnce] = useState(false);
-
 
   // ========== for analytics - start ==========
   useEffect(() => {
@@ -268,16 +266,9 @@ const MatchDetails = ({ navigation, route }: BottomTabScreenProps<any>) => {
   // }, [])
 
   useEffect(() => {
-    if(showOnce == true)
-    {
-      return
-    }
     if (!showBecomeVIPOverlay && screenState.sportWatchTime > NON_VIP_STREAM_TIME_SECONDS && (Number(userState.userMemberExpired) <= Number(userState.userCurrentTimestamp) || userState.userToken === "")) {
-      
-        setShowBecomeVIPOverlay(true);
-        setshowOnce(true)
-   
-    
+      setShowBecomeVIPOverlay(true);
+
       // ========== for analytics - start ==========
       UmengAnalytics.sportDetailsVipPopupTimesAnalytics();
       // ========== for analytics - end ==========
@@ -286,21 +277,17 @@ const MatchDetails = ({ navigation, route }: BottomTabScreenProps<any>) => {
   }, [screenState.sportWatchTime, showBecomeVIPOverlay])
 
   useFocusEffect(useCallback(() => {
-    if(showOnce == true)
-    {
-      return
-    }
     if (!showBecomeVIPOverlay && screenState.sportWatchTime > NON_VIP_STREAM_TIME_SECONDS && (Number(userState.userMemberExpired) <= Number(userState.userCurrentTimestamp) || userState.userToken === "")) {
-     
-        setShowBecomeVIPOverlay(true);
-        setshowOnce(true)
-     
-    
+
+        // fix android if sport countdown finish cant close
+        if( Platform.OS === 'ios')
+        {
+      setShowBecomeVIPOverlay(true);
+        }
     } else if (!showBecomeVIPOverlay) {
       videoRef.current?.setPause(false);
     }
   }, [showBecomeVIPOverlay]))
-
 
   const isFullyLoaded = !f1 && !f2 && !f3;
 
@@ -327,7 +314,6 @@ const MatchDetails = ({ navigation, route }: BottomTabScreenProps<any>) => {
 
   const onVipCountdownClick = useCallback(() => {
     videoRef.current?.setPause(true);
-
     setShowBecomeVIPOverlay(true);
 
     // ========== for analytics - start ==========
