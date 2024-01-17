@@ -12,6 +12,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {CLEAR_STORAGE_MEMORY} from '@utility/constants';
 import {userReducer} from './userReducer';
 import {screenReducer} from './screenReducer';
+import { downloadVideoReducer } from './videoDownloadReducer';
 const appReducer = combineReducers({
   themeReducer,
   vodPlaylistReducer,
@@ -22,6 +23,7 @@ const appReducer = combineReducers({
   settingsReducer,
   userReducer,
   screenReducer,
+  downloadVideoReducer
 });
 
 export default (state: any, action: any) => {

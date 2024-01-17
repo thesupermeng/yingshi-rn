@@ -51,3 +51,12 @@ export interface OneTimeActionActionType {
     payload?: string,
     showFirstLaunchVIPPrompt: boolean
 }
+
+export interface DownloadVideoActionType {
+    type: 'ADD_VIDEO_TO_DOWNLOAD' | 'REMOVE_VIDEO_FROM_DOWNLOAD' | 'PAUSE_VIDEO_DOWNLOAD' | 'CANCEL_VIDEO_DOWNLOAD', 
+    payload: {
+        vod: VodType, 
+        vodSourceId: number,
+        vodUrlNid: number 
+    }
+}

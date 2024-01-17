@@ -1,6 +1,6 @@
 import { VodType } from "./ajaxTypes"
 
-export interface VodDownloadModel {
+export interface EpisodeDownloadType {
   progress: {
     percentage: number, 
     bytes: number
@@ -8,9 +8,13 @@ export interface VodDownloadModel {
   status: 'downloading' | 'paused' | 'cancelled' | 'error'
   sizeInBytes: number
   videoPath: string
-  imagePath: string 
-  vod: VodType
   vodSourceId: number // determine the source
   vodUrlNid: number // determine the episode
 
+}
+
+export interface VodDownloadType {
+  vod: VodType
+  imagePath: string 
+  episodes: EpisodeDownloadType[]
 }
