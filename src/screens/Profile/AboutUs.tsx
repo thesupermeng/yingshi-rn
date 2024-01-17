@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -23,25 +23,78 @@ import {
 } from "@utility/constants";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import RNRestart from 'react-native-restart';
-import {FFmpegKit, FFmpegSession} from 'ffmpeg-kit-react-native'
-import RNFetchBlob from "rn-fetch-blob";
-import { downloadVod } from "../../utils/vodDownloader";
-
-const output = RNFetchBlob.fs.dirs.DocumentDir + '/testdownload'
-
 
 export default ({ navigation }: RootStackScreenProps<"关于我们">) => {
-  const [s, setS] = useState<FFmpegSession>()
+  const { colors, textVariants, icons, spacing } = useTheme();
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [countToggleB, setCountToggleB] = useState(0);
 
-  const downloadVideo = () => downloadVod('https://m3u.haiwaikan.com/xm3u8/5419f222d945864e287379169bc19ca4bb6a05be098d4b893ac7e9bd60c673669921f11e97d0da21.m3u8')
+  const toggleOverlay = () => {
+    setIsDialogOpen(!isDialogOpen);
+  };
 
-  const handlePress = useCallback(async () => {
-    await downloadVideo()
-  }, [])
+  const spamToggleB = () => {
+    setCountToggleB(countToggleB + 1);
+  }
+
+  const switchToggle = async () => {
+    await AsyncStorage.setItem("access", "22222222");
+    RNRestart.Restart();
+  }
+
+  useEffect(() => {
+    if(countToggleB == 8){
+      switchToggle();
+    }
+  }, [countToggleB])
 
   return (
-    <Button title={'download'} onPress={handlePress}/>
-  )
+    // footer={
+    //   <Text
+    //     style={{
+    //       textAlign: 'center',
+    //       ...textVariants.body,
+    //       marginBottom: spacing.m,
+    //     }}>
+    //     contact.movie9@gmail.com
+    //   </Text>
+    // }
+    <ScreenContainer>
+      <View style={{ gap: spacing.m }}>
+        <TitleWithBackButtonHeader title="关于我们" />
+        <View style={styles.logo}>
+          <Logo2 height={icons.sizes.xxl} width={icons.sizes.xxl} />
+        </View>
+        <TouchableOpacity onPress={spamToggleB}>
+          <Text style={{ textAlign: "center", ...textVariants.body }}>
+            {APP_VERSION}
+          </Text>
+        </TouchableOpacity>
+        <NotificationModal
+          onConfirm={toggleOverlay}
+          isVisible={isDialogOpen}
+          title="版权声明"
+          subtitle1={`如果该APP提供内容侵犯了您的版权, 请发送电子邮件说明, 我们将立即删除内容, 保护版权所有者的权益。`}
+          subtitle2="联系邮箱:"
+          subtitle3={APP_EMAIL_CONST}
+        />
+        <View>
+          <ShowMoreButton
+            text="隐私政策"
+            onPress={() => navigation.navigate("隐私政策")}
+          />
+          <ShowMoreButton
+            text="用户协议"
+            onPress={() => navigation.navigate("用户协议")}
+          />
+          <ShowMoreButton
+            text="版权声明"
+            onPress={() => setIsDialogOpen(!isDialogOpen)}
+          />
+        </View>
+      </View>
+    </ScreenContainer>
+  );
 };
 
 const styles = StyleSheet.create({
