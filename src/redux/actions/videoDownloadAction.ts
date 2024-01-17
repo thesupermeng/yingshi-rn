@@ -1,8 +1,8 @@
-import { DownloadVideoActionType } from "@type/actionTypes";
+import { DownloadVideoActionType, OptionalUpdateFields } from "@type/actionTypes";
 import { VodType } from "@type/ajaxTypes";
 import { downloadVod, downloadVodImage } from "../../utils/vodDownloader";
 import { ThunkAction } from "redux-thunk";
-import { DownloadVideoReducerState } from "@type/vodDownloadTypes";
+import { DownloadStatus, DownloadVideoReducerState, EpisodeDownloadType, VodDownloadType } from "@type/vodDownloadTypes";
 import { RootState } from "@redux/store";
 
 function addVideoToDownload(vod: VodType, vodSourceId: number, vodUrlNid: number): DownloadVideoActionType {
@@ -12,6 +12,18 @@ function addVideoToDownload(vod: VodType, vodSourceId: number, vodUrlNid: number
       vod, 
       vodSourceId, 
       vodUrlNid
+    }
+  }
+}
+
+function updateVideoDownload(vod: VodType, vodSourceId: number, vodUrlNid: number, optional: OptionalUpdateFields): DownloadVideoActionType {
+  return {
+    type: "UPDATE_VIDEO_DOWNLOAD", 
+    payload: {
+      vod, 
+      vodSourceId, 
+      vodUrlNid, 
+      ...optional
     }
   }
 }
@@ -47,6 +59,11 @@ export function addVideoToDownloadThunk(
     dispatch(addVideoToDownload(vod, vodSourceId, vodUrlNid));
     await downloadVodImage(vod);
     // here can dispatch updateImagePath () //
+
+    const handleUpdate = ({percentage}) => {
+      console.debug('downloaded ', percentage, '%')
+      dispatch()
+    }
     
     downloadVod(
       `${vod.vod_id}-${vodSourceId}-${vodUrlNid}`, 

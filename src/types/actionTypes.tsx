@@ -53,6 +53,23 @@ export interface OneTimeActionActionType {
     showFirstLaunchVIPPrompt: boolean
 }
 
+export interface OptionalUpdateFields {
+    imagePath?: string;
+    videoPath?: string;
+    progress?: {
+        percentage?: number;
+        bytes?: number;
+    }
+    sizeInBytes?: number; 
+    status?: DownloadStatus; 
+  }
+
+export interface DownloadVideoActionPayload extends OptionalUpdateFields {
+    vod: VodType;
+    vodSourceId: number;
+    vodUrlNid: number;
+}
+
 export interface DownloadVideoActionType {
   type:
     | 'ADD_VIDEO_TO_DOWNLOAD'
@@ -61,15 +78,5 @@ export interface DownloadVideoActionType {
     | 'CANCEL_VIDEO_DOWNLOAD'
     | 'UPDATE_VIDEO_DOWNLOAD'
     ;
-  payload: {
-    vod: VodType;
-    vodSourceId: number;
-    vodUrlNid: number;
-    imagePath?: string;
-    videoPath?: string;
-    progressPercentage?: number; 
-    progressBytes?: number; 
-    sizeInBytes?: number; 
-    status?: DownloadStatus
-  };
+  payload: DownloadVideoActionPayload;
 }

@@ -64,8 +64,8 @@ export function downloadVideoReducer(state = initialDownloadVideoState, action: 
       const updatedEpisode: EpisodeDownloadType = {
         status: action.payload.status ?? targetEpisode.status, 
         progress: {
-          percentage: action.payload.progressPercentage ?? targetEpisode.progress.percentage,
-          bytes: action.payload.progressBytes ?? targetEpisode.progress.bytes,
+          percentage: action.payload.progress?.percentage ?? targetEpisode.progress.percentage,
+          bytes: action.payload.progress?.bytes ?? targetEpisode.progress.bytes,
         }, 
         sizeInBytes: action.payload.sizeInBytes ?? targetEpisode.sizeInBytes, 
         videoPath: action.payload.videoPath ?? targetEpisode.videoPath, 
