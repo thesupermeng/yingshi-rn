@@ -51,7 +51,8 @@ public class SplashAdShowActivity extends Activity implements ATSplashExListener
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-           // super.onCreate(savedInstanceState); // or super.onCreate(null) with react-native-screens
+        // super.onCreate(savedInstanceState); // or super.onCreate(null) with
+        // react-native-screens
         super.onCreate(null);
         ATSDK.init(this, "a65096b9d21e23", "ad83e042ddc3e6904c1f63bcc575a6bd7");
 
@@ -64,7 +65,7 @@ public class SplashAdShowActivity extends Activity implements ATSplashExListener
 
         int ori = cf.orientation;
 
-        /**You should set size to the layout param.**/
+        /** You should set size to the layout param. **/
         if (ori == Configuration.ORIENTATION_LANDSCAPE) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
             layoutParams.width = (int) (getResources().getDisplayMetrics().widthPixels * 0.9);
@@ -79,29 +80,35 @@ public class SplashAdShowActivity extends Activity implements ATSplashExListener
             layoutParams.height = (int) (getResources().getDisplayMetrics().heightPixels * 0.9);
         }
 
-
         String defaultConfig = "";
 
-        //Mintegral
-//        defaultConfig = "{\"unit_id\":1333033,\"nw_firm_id\":6,\"adapter_class\":\"com.anythink.network.mintegral.MintegralATSplashAdapter\",\"content\":\"{\\\"placement_id\\\":\\\"210169\\\",\\\"unitid\\\":\\\"276803\\\",\\\"countdown\\\":\\\"5\\\",\\\"allows_skip\\\":\\\"1\\\",\\\"orientation\\\":\\\"1\\\",\\\"appkey\\\":\\\"ef13ef712aeb0f6eb3d698c4c08add96\\\",\\\"suport_video\\\":\\\"1\\\",\\\"appid\\\":\\\"100947\\\"}\"}";
+        // Mintegral
+        // defaultConfig =
+        // "{\"unit_id\":1333033,\"nw_firm_id\":6,\"adapter_class\":\"com.anythink.network.mintegral.MintegralATSplashAdapter\",\"content\":\"{\\\"placement_id\\\":\\\"210169\\\",\\\"unitid\\\":\\\"276803\\\",\\\"countdown\\\":\\\"5\\\",\\\"allows_skip\\\":\\\"1\\\",\\\"orientation\\\":\\\"1\\\",\\\"appkey\\\":\\\"ef13ef712aeb0f6eb3d698c4c08add96\\\",\\\"suport_video\\\":\\\"1\\\",\\\"appid\\\":\\\"100947\\\"}\"}";
 
-        //Tencent Ads
-//        defaultConfig = "{\"unit_id\":1333176,\"nw_firm_id\":8,\"adapter_class\":\"com.anythink.network.gdt.GDTATSplashAdapter\",\"content\":\"{\\\"unit_id\\\":\\\"8863364436303842593\\\",\\\"zoomoutad_sw\\\":\\\"1\\\",\\\"app_id\\\":\\\"1101152570\\\"}\"}";
+        // Tencent Ads
+        // defaultConfig =
+        // "{\"unit_id\":1333176,\"nw_firm_id\":8,\"adapter_class\":\"com.anythink.network.gdt.GDTATSplashAdapter\",\"content\":\"{\\\"unit_id\\\":\\\"8863364436303842593\\\",\\\"zoomoutad_sw\\\":\\\"1\\\",\\\"app_id\\\":\\\"1101152570\\\"}\"}";
 
-        //CSJ
-//        defaultConfig = "{\"unit_id\":1333195,\"nw_firm_id\":15,\"adapter_class\":\"com.anythink.network.toutiao.TTATSplashAdapter\",\"content\":\"{\\\"personalized_template\\\":\\\"0\\\",\\\"zoomoutad_sw\\\":\\\"2\\\",\\\"button_type\\\":\\\"1\\\",\\\"dl_type\\\":\\\"2\\\",\\\"slot_id\\\":\\\"801121648\\\",\\\"app_id\\\":\\\"5001121\\\"}\"}";
+        // CSJ
+        // defaultConfig =
+        // "{\"unit_id\":1333195,\"nw_firm_id\":15,\"adapter_class\":\"com.anythink.network.toutiao.TTATSplashAdapter\",\"content\":\"{\\\"personalized_template\\\":\\\"0\\\",\\\"zoomoutad_sw\\\":\\\"2\\\",\\\"button_type\\\":\\\"1\\\",\\\"dl_type\\\":\\\"2\\\",\\\"slot_id\\\":\\\"801121648\\\",\\\"app_id\\\":\\\"5001121\\\"}\"}";
 
-        //Sigmob
-//        defaultConfig = "{\"unit_id\":1333222,\"nw_firm_id\":29,\"adapter_class\":\"com.anythink.network.sigmob.SigmobATSplashAdapter\",\"content\":\"{\\\"placement_id\\\":\\\"ea1f8f21300\\\",\\\"app_id\\\":\\\"6878\\\",\\\"app_key\\\":\\\"8ebc1fd1c27e650c\\\"}\"}";
+        // Sigmob
+        // defaultConfig =
+        // "{\"unit_id\":1333222,\"nw_firm_id\":29,\"adapter_class\":\"com.anythink.network.sigmob.SigmobATSplashAdapter\",\"content\":\"{\\\"placement_id\\\":\\\"ea1f8f21300\\\",\\\"app_id\\\":\\\"6878\\\",\\\"app_key\\\":\\\"8ebc1fd1c27e650c\\\"}\"}";
 
-        //Baidu
-//        defaultConfig = "{\"unit_id\":1329553,\"nw_firm_id\":22,\"adapter_class\":\"com.anythink.network.baidu.BaiduATSplashAdapter\",\"content\":\"{\\\"button_type\\\":\\\"0\\\",\\\"ad_place_id\\\":\\\"7854679\\\",\\\"app_id\\\":\\\"a7dd29d3\\\"}\"}";
+        // Baidu
+        // defaultConfig =
+        // "{\"unit_id\":1329553,\"nw_firm_id\":22,\"adapter_class\":\"com.anythink.network.baidu.BaiduATSplashAdapter\",\"content\":\"{\\\"button_type\\\":\\\"0\\\",\\\"ad_place_id\\\":\\\"7854679\\\",\\\"app_id\\\":\\\"a7dd29d3\\\"}\"}";
 
-        //Kuaishou
-//        defaultConfig = "{\"unit_id\":1333246,\"nw_firm_id\":28,\"adapter_class\":\"com.anythink.network.ks.KSATSplashAdapter\",\"content\":\"{\\\"zoomoutad_sw\\\":\\\"1\\\",\\\"position_id\\\":\\\"4000000042\\\",\\\"app_id\\\":\\\"90009\\\",\\\"app_name\\\":\\\"90009\\\"}\"}";
+        // Kuaishou
+        // defaultConfig =
+        // "{\"unit_id\":1333246,\"nw_firm_id\":28,\"adapter_class\":\"com.anythink.network.ks.KSATSplashAdapter\",\"content\":\"{\\\"zoomoutad_sw\\\":\\\"1\\\",\\\"position_id\\\":\\\"4000000042\\\",\\\"app_id\\\":\\\"90009\\\",\\\"app_name\\\":\\\"90009\\\"}\"}";
 
-        //Klevin
-//        defaultConfig = "{\"unit_id\":1333253,\"nw_firm_id\":51,\"adapter_class\":\"com.anythink.network.klevin.KlevinATSplashAdapter\",\"content\":\"{\\\"pos_id\\\":\\\"30029\\\",\\\"app_id\\\":\\\"30008\\\"}\"}";
+        // Klevin
+        // defaultConfig =
+        // "{\"unit_id\":1333253,\"nw_firm_id\":51,\"adapter_class\":\"com.anythink.network.klevin.KlevinATSplashAdapter\",\"content\":\"{\\\"pos_id\\\":\\\"30029\\\",\\\"app_id\\\":\\\"30008\\\"}\"}";
 
         splashAd = new ATSplashAd(this, "b650d315a31bc4", this, 10000, defaultConfig);
 
@@ -153,19 +160,18 @@ public class SplashAdShowActivity extends Activity implements ATSplashExListener
         String isShowAds = "true";
 
         try {
-        while (cursor.moveToNext()) {
-            if(cursor.getString(0).equals("showAds")){
-                isShowAds = cursor.getString(1);
+            while (cursor.moveToNext()) {
+                if (cursor.getString(0).equals("showAds")) {
+                    isShowAds = cursor.getString(1);
+                }
             }
-        }
         } finally {
             cursor.close();
             readableDatabase.close();
         }
 
-        if(isShowAds.equals("true")){
-            if (splashAd.isAdReady()) 
-            {
+        if (isShowAds.equals("true")) {
+            if (splashAd.isAdReady()) {
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -177,14 +183,15 @@ public class SplashAdShowActivity extends Activity implements ATSplashExListener
 
             } else {
                 // loop in splash
-                //   Log.i(TAG, "SplashAd isn't ready to show, start to request.");
-                        // Toast.makeText(getApplicationContext(), "splashAd.loadAd()", Toast.LENGTH_SHORT).show();
-                 splashAd.loadAd();
+                // Log.i(TAG, "SplashAd isn't ready to show, start to request.");
+                // Toast.makeText(getApplicationContext(), "splashAd.loadAd()",
+                // Toast.LENGTH_SHORT).show();
+                splashAd.loadAd();
                 // jumpToMainActivity();
             }
-        }else{
-            //delayRedirectToMainActivity(4000);
-             jumpToMainActivity();
+        } else {
+            // delayRedirectToMainActivity(4000);
+            jumpToMainActivity();
         }
     }
 
@@ -194,41 +201,43 @@ public class SplashAdShowActivity extends Activity implements ATSplashExListener
     }
 
     // private void showAdWithCustomSkipView() {
-    //     TextView skipView = findViewById(R.id.splash_ad_skip);
+    // TextView skipView = findViewById(R.id.splash_ad_skip);
 
-    //     long countDownDuration = 5000;
-    //     long callbackInterval = 100;
-    //     skipView.setText(((int) (countDownDuration / 1000)) + "s | Skip");
+    // long countDownDuration = 5000;
+    // long callbackInterval = 100;
+    // skipView.setText(((int) (countDownDuration / 1000)) + "s | Skip");
 
-    //     splashAd.show(this, container, new ATSplashSkipInfo(skipView, countDownDuration, callbackInterval, new ATSplashSkipAdListener() {
-    //         @Override
-    //         public void onAdTick(long duration, long remainder) {
-    //             skipView.setText(((int) (remainder / 1000)) + "s | Skip");
-    //         }
+    // splashAd.show(this, container, new ATSplashSkipInfo(skipView,
+    // countDownDuration, callbackInterval, new ATSplashSkipAdListener() {
+    // @Override
+    // public void onAdTick(long duration, long remainder) {
+    // skipView.setText(((int) (remainder / 1000)) + "s | Skip");
+    // }
 
-    //         @Override
-    //         public void isSupportCustomSkipView(boolean isSupport) {
-    //             Log.i(TAG, "isSupportCustomSkipView: " + isSupport);
-    //             if (isSupport) {
-    //                 skipView.setVisibility(View.VISIBLE);
-    //             }
-    //         }
-    //     }));
+    // @Override
+    // public void isSupportCustomSkipView(boolean isSupport) {
+    // Log.i(TAG, "isSupportCustomSkipView: " + isSupport);
+    // if (isSupport) {
+    // skipView.setVisibility(View.VISIBLE);
+    // }
+    // }
+    // }));
 
-    //     splashAd.show(this, container, new ATSplashSkipInfo(skipView, countDownDuration, callbackInterval, new ATSplashSkipAdListener() {
-    //         @Override
-    //         public void onAdTick(long duration, long remainder) {
-    //             skipView.setText(((int) (remainder / 1000)) + "s | Skip");
-    //         }
+    // splashAd.show(this, container, new ATSplashSkipInfo(skipView,
+    // countDownDuration, callbackInterval, new ATSplashSkipAdListener() {
+    // @Override
+    // public void onAdTick(long duration, long remainder) {
+    // skipView.setText(((int) (remainder / 1000)) + "s | Skip");
+    // }
 
-    //         @Override
-    //         public void isSupportCustomSkipView(boolean isSupport) {
-    //             Log.i(TAG, "isSupportCustomSkipView: " + isSupport);
-    //             if (isSupport) {
-    //                 skipView.setVisibility(View.VISIBLE);
-    //             }
-    //         }
-    //     }), "f628c7999265cd");
+    // @Override
+    // public void isSupportCustomSkipView(boolean isSupport) {
+    // Log.i(TAG, "isSupportCustomSkipView: " + isSupport);
+    // if (isSupport) {
+    // skipView.setVisibility(View.VISIBLE);
+    // }
+    // }
+    // }), "f628c7999265cd");
     // }
 
     @Override
@@ -254,15 +263,16 @@ public class SplashAdShowActivity extends Activity implements ATSplashExListener
     @Override
     public void onAdLoadTimeout() {
         Log.i(TAG, "onAdLoadTimeout---------");
-        // Toast.makeText(getApplicationContext(), "onAdLoadTimeout", Toast.LENGTH_SHORT).show();
+        // Toast.makeText(getApplicationContext(), "onAdLoadTimeout",
+        // Toast.LENGTH_SHORT).show();
         jumpToMainActivity();
     }
-
 
     @Override
     public void onNoAdError(AdError adError) {
         Log.i(TAG, "onNoAdError---------:" + adError.getFullErrorInfo());
-          // Toast.makeText(getApplicationContext(), "onNoAdError", Toast.LENGTH_SHORT).show();
+        // Toast.makeText(getApplicationContext(), "onNoAdError",
+        // Toast.LENGTH_SHORT).show();
         jumpToMainActivity();
     }
 
@@ -323,12 +333,13 @@ public class SplashAdShowActivity extends Activity implements ATSplashExListener
 
                 overridePendingTransition(0, 0);
             }
-            // // Toast.makeText(this, "start your MainActivity.", Toast.LENGTH_SHORT).show();
+            // // Toast.makeText(this, "start your MainActivity.",
+            // Toast.LENGTH_SHORT).show();
 
-//            Intent intent = new Intent(SplashAdShowActivity.this, MainActivity.class);
-//            startActivity(intent);
+            // Intent intent = new Intent(SplashAdShowActivity.this, MainActivity.class);
+            // startActivity(intent);
             Log.d(TAG, "jumpToMainActivity: jumping to main");
-             finish();
+            finish();
         }
 
     }
@@ -350,7 +361,7 @@ public class SplashAdShowActivity extends Activity implements ATSplashExListener
 
             if (splashAd.isAdReady()) {
                 splashAd.show(this, container);
-//                splashAd.show(this, container, "f628c7999265cd");
+                // splashAd.show(this, container, "f628c7999265cd");
             }
         }
     }
