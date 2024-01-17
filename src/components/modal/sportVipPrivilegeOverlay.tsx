@@ -12,7 +12,7 @@ const sportBg = require('@static/images/vip_sport_background.png');
 
 interface Props {
   showCondition: boolean;
-  onClose: any;
+  onClose: ({ isAutoClose }: { isAutoClose?: boolean }) => void;
   showBlur?: boolean;
 }
 
@@ -26,7 +26,7 @@ export const SportVipPrivilegeOverlay = ({ showCondition, onClose, showBlur }: P
 
 
   const handleOnPurchase = useCallback(() => {
-    onClose()
+    onClose({ isAutoClose: true })
     navigator.navigate('付费VIP');
     // ========== for analytics - start ==========
     UmengAnalytics.sportDetailsVipPopupClicksAnalytics('pay');
@@ -34,7 +34,7 @@ export const SportVipPrivilegeOverlay = ({ showCondition, onClose, showBlur }: P
   }, [])
 
   const handleOnInvite = useCallback(() => {
-    onClose()
+    onClose({ isAutoClose: true })
     navigator.navigate('邀请');
     // ========== for analytics - start ==========
     UmengAnalytics.sportDetailsVipPopupClicksAnalytics('invite');
