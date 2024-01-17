@@ -1,4 +1,5 @@
 import { VodTopicType, VodType } from "./ajaxTypes"
+import { DownloadStatus } from "./vodDownloadTypes"
 
 export interface ThemeActionType {
     type: string
@@ -53,10 +54,22 @@ export interface OneTimeActionActionType {
 }
 
 export interface DownloadVideoActionType {
-    type: 'ADD_VIDEO_TO_DOWNLOAD' | 'REMOVE_VIDEO_FROM_DOWNLOAD' | 'PAUSE_VIDEO_DOWNLOAD' | 'CANCEL_VIDEO_DOWNLOAD', 
-    payload: {
-        vod: VodType, 
-        vodSourceId: number,
-        vodUrlNid: number 
-    }
+  type:
+    | 'ADD_VIDEO_TO_DOWNLOAD'
+    | 'REMOVE_VIDEO_FROM_DOWNLOAD'
+    | 'PAUSE_VIDEO_DOWNLOAD'
+    | 'CANCEL_VIDEO_DOWNLOAD'
+    | 'UPDATE_VIDEO_DOWNLOAD'
+    ;
+  payload: {
+    vod: VodType;
+    vodSourceId: number;
+    vodUrlNid: number;
+    imagePath?: string;
+    videoPath?: string;
+    progressPercentage?: number; 
+    progressBytes?: number; 
+    sizeInBytes?: number; 
+    status?: DownloadStatus
+  };
 }
