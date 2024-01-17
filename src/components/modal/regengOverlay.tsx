@@ -17,6 +17,8 @@ import CodePush from "react-native-code-push";
 import { TermsAcceptContext } from "../../contexts/TermsAcceptedContext";
 import RNRestart from "react-native-restart";
 import { CPopup } from "@utility/popup";
+import { YSConfig } from "../../../ysConfig";
+import RNExitApp from "react-native-exit-app";
 interface Props {}
 
 export default function RegengOverlay({}: Props) {
@@ -89,6 +91,10 @@ export default function RegengOverlay({}: Props) {
   };
 
   const cancelRegeng = () => {
+    // console.log('YSConfig.instance.updateAction')
+    // console.log(YSConfig.instance.updateAction) 
+    // base on flag. .. user cancel will force quit app 
+    // RNExitApp.exitApp();
     setIsCancelledShowRegengOverlay(true);
   };
 
