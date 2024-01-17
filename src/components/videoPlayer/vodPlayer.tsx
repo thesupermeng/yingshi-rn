@@ -578,6 +578,14 @@ export default forwardRef<VideoRef, Props>(
     }, [screenState.interstitialShow]);
 
     useEffect(() => {
+      if (screenState.interstitialShow === true) {
+        adVideoRef.current?.setNativeProps({ paused: true })
+      } else {
+        adVideoRef.current?.setNativeProps({ paused: false })
+      }
+    }, [screenState.interstitialShow]);
+
+    useEffect(() => {
       if (route.name == '体育详情') {
         const unsub = setInterval(() => {
           dispatch(incrementSportWatchTime());
