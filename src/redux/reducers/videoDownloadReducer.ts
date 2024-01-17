@@ -6,7 +6,7 @@ const initialDownloadVideoState : DownloadVideoReducerState = {
   downloads: []
 }
 
-export function downloadVideoReducer(state = initialDownloadVideoState, action: DownloadVideoActionType){
+export function downloadVideoReducer(state = initialDownloadVideoState, action: DownloadVideoActionType): DownloadVideoReducerState{
   switch (action.type){
     case 'ADD_VIDEO_TO_DOWNLOAD': {
       const newVodDownload: VodDownloadType = {
