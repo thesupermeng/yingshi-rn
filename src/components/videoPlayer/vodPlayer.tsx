@@ -54,6 +54,7 @@ import InAppBrowser from "react-native-inappbrowser-reborn";
 
 LogBox.ignoreLogs([`Trying to load empty source.`]);
 
+
 interface Props {
   vod_url?: string;
   vodTitle?: string;
@@ -131,9 +132,11 @@ export default forwardRef<VideoRef, Props>(
     }: Props,
     ref
   ) => {
+    const screenState = useSelector<screenModel>('screenReducer');
+
     const videoPlayerRef = React.useRef<Video | null>();
     const { colors, textVariants } = useTheme();
-    const [isFullScreen, setIsFullScreen] = useState(false);
+    const [isFullScreen, setIsFullScreen] = useState(screenState.isPlayerFullScreen);
     const [isPaused, setIsPaused] = useState(false);
     const [duration, setDuration] = useState(0);
     const [currentTime, setCurrentTime] = useState(initialStartTime);
@@ -149,7 +152,7 @@ export default forwardRef<VideoRef, Props>(
     const navigation = useNavigation();
     const route = useRoute();
     const dispatch = useDispatch();
-    const screenState = useSelector<screenModel>('screenReducer');
+
     const userState = useSelector<userModel>('userReducer');
     const bufferRef = useRef(true);
     const onBuffer = (bufferObj: any) => {
@@ -240,7 +243,7 @@ export default forwardRef<VideoRef, Props>(
 
     useEffect(() => {
       // set orientation: "portrait" because if set all android will auto rotate
-      if (Platform.OS === "android") {
+      if (Platform.OS === "android" && !isFullScreen) {
         navigation.setOptions({ orientation: "portrait" });
       }
 
@@ -643,10 +646,6 @@ export default forwardRef<VideoRef, Props>(
       // ========== for analytics - end ==========
     }
 
-    useEffect(() => {
-      if (isFullScreen) lockOrientation('LANDSCAPE-LEFT')
-      else lockOrientation('PORTRAIT')
-    }, [isFullScreen])
 
     return (
       <View style={styles.container}>
