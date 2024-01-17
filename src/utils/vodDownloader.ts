@@ -3,16 +3,16 @@ import { FFmpegKit, FFmpegSession, FFprobeKit, Log, MediaInformationSession, Sta
 import { throttle, uniqueId } from "lodash";
 import RNFetchBlob from "rn-fetch-blob";
 
-export async function downloadVod(url: string) { 
-  const uuid = uniqueId()
-  const outputFilePath = `${RNFetchBlob.fs.dirs.DocumentDir}/SavedVideos/${uuid}.mp4`
+export async function downloadVod(id: string, url: string, onProgress: ({percentage}: {percentage: number}) => void, onComplete: any, onError: any, ) { 
+  const outputFilePath = `${RNFetchBlob.fs.dirs.DocumentDir}/SavedVideos/${id}.mp4`
   const ffmpegScript = `-i ${url} -acodec copy -bsf:a aac_adtstoasc -vcodec copy ${outputFilePath}`
   const details = await FFprobeKit.getMediaInformation(url)
   let duration = 0
 
 
   const handleComplete = async (session: FFmpegSession) => {
-    console.log(`Download complete. File at ${outputFilePath}`)
+    // console.log(`Download complete. File at ${outputFilePath}`)
+    onComplete()
   }
 
   const handleLog = (async (log: Log) => {
@@ -31,10 +31,12 @@ export async function downloadVod(url: string) {
       if (!timeArr) return
       const timeInSeconds = +timeArr[0] * 60 * 60 + +timeArr[1] * 60 + +timeArr[2]
       const progressPercentage = timeInSeconds/duration * 100
-      console.debug(`Progress: ${progressPercentage}%`)
+      onProgress({percentage: progressPercentage})
+      // console.debug(`Progress: ${progressPercentage}%`)
 
     } catch (e) {
       console.error('FFMPEG ERROR')
+      onError()
     }
 
 
