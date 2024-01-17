@@ -95,7 +95,10 @@ const useInterstitialAds = () => {
           console.log("not showing pop up ads, prevent blocking modal action");
         } else {
           homePageShown = true;
-          ATInterstitialRNSDK.showAd(adsID);
+          if (screenState.interstitialShow != true)
+          {
+            ATInterstitialRNSDK.showAd(adsID);
+          }
         }
         //
       }

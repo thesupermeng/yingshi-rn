@@ -14,7 +14,6 @@ import {
   TouchableOpacity,
   Dimensions,
   Image,
-  Platform,
 } from 'react-native';
 import ScreenContainer from '../../../components/container/screenContainer';
 import MainHeader from '../../../components/header/homeHeader';
@@ -115,8 +114,6 @@ const MatchDetails = ({ navigation, route }: BottomTabScreenProps<any>) => {
   const videoRef = useRef<VideoRef | null>(null);
   const [bannerAd, setBannerAd] = useState<BannerAdType>();
   const isVip = useAppSelector(({ userReducer }) => !(Number(userReducer.userMemberExpired) <= Number(userReducer.userCurrentTimestamp) || userReducer.userToken === ""))
-
-  const [showOnce, setshowOnce] = useState(false);
 
 
   // ========== for analytics - start ==========
@@ -268,16 +265,9 @@ const MatchDetails = ({ navigation, route }: BottomTabScreenProps<any>) => {
   // }, [])
 
   useEffect(() => {
-    if(showOnce == true)
-    {
-      return
-    }
     if (!showBecomeVIPOverlay && screenState.sportWatchTime > NON_VIP_STREAM_TIME_SECONDS && (Number(userState.userMemberExpired) <= Number(userState.userCurrentTimestamp) || userState.userToken === "")) {
-      
-        setShowBecomeVIPOverlay(true);
-        setshowOnce(true)
-   
-    
+      setShowBecomeVIPOverlay(true);
+
       // ========== for analytics - start ==========
       UmengAnalytics.sportDetailsVipPopupTimesAnalytics();
       // ========== for analytics - end ==========
@@ -286,21 +276,13 @@ const MatchDetails = ({ navigation, route }: BottomTabScreenProps<any>) => {
   }, [screenState.sportWatchTime, showBecomeVIPOverlay])
 
   useFocusEffect(useCallback(() => {
-    if(showOnce == true)
-    {
-      return
-    }
     if (!showBecomeVIPOverlay && screenState.sportWatchTime > NON_VIP_STREAM_TIME_SECONDS && (Number(userState.userMemberExpired) <= Number(userState.userCurrentTimestamp) || userState.userToken === "")) {
-     
-        setShowBecomeVIPOverlay(true);
-        setshowOnce(true)
-     
-    
+
+      setShowBecomeVIPOverlay(true);
     } else if (!showBecomeVIPOverlay) {
       videoRef.current?.setPause(false);
     }
   }, [showBecomeVIPOverlay]))
-
 
   const isFullyLoaded = !f1 && !f2 && !f3;
 
@@ -327,7 +309,6 @@ const MatchDetails = ({ navigation, route }: BottomTabScreenProps<any>) => {
 
   const onVipCountdownClick = useCallback(() => {
     videoRef.current?.setPause(true);
-
     setShowBecomeVIPOverlay(true);
 
     // ========== for analytics - start ==========
@@ -357,11 +338,7 @@ const MatchDetails = ({ navigation, route }: BottomTabScreenProps<any>) => {
           videoRef.current?.setPause(false);
 
           if (!(showCountdown && NON_VIP_STREAM_TIME_SECONDS > screenState.sportWatchTime) && route.name === '体育详情') {
-            // android if sport countdown finish will nav back to sport after click on popout
-            if( Platform.OS === 'ios')
-            {
-              navigation.goBack();
-            }
+            navigation.goBack();
           }
         }}
       />
