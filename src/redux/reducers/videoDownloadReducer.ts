@@ -1,9 +1,5 @@
 import { DownloadVideoActionType } from "@type/actionTypes"
-import { EpisodeDownloadType, VodDownloadType } from "@type/vodDownloadTypes"
-
-export interface DownloadVideoReducerState {
-  downloads: Array<VodDownloadType>
-}
+import { DownloadVideoReducerState, EpisodeDownloadType, VodDownloadType } from "@type/vodDownloadTypes"
 
 const initialDownloadVideoState : DownloadVideoReducerState = {
   downloads: []
@@ -37,7 +33,11 @@ export function downloadVideoReducer(state = initialDownloadVideoState, action: 
       const concatEpisodeDownload = targetVod.episodes.concat(newEpisode)
       targetVod = {...targetVod, episodes: concatEpisodeDownload}
 
-      const concatDownloadsList = state.downloads.map(download => download.vod.vod_id === targetVod.vod.vod_id ? targetVod : download)
+      const concatDownloadsList = state.downloads
+        .map(download => download.vod.vod_id !== targetVod.vod.vod_id ? download : null)
+        .filter(download => download) 
+        .concat(targetVod)
+        
       return {
         ...state, 
         downloads: concatDownloadsList

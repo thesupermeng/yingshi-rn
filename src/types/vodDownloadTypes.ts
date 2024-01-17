@@ -18,3 +18,7 @@ export interface VodDownloadType {
   imagePath: string 
   episodes: EpisodeDownloadType[]
 }
+
+export interface DownloadVideoReducerState {
+  downloads: Array<VodDownloadType>
+}
