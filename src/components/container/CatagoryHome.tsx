@@ -130,10 +130,16 @@ const CatagoryHome = ({
   }
 
   useFocusEffect(useCallback(() => {
-    if (isTabFocus && carouselRef.current && data.carousel[carouselRef.current.getCurrentIndex()]?.is_ads) {
+    const currentCarousel = data.carousel[carouselRef.current.getCurrentIndex()];
+
+    if (isTabFocus && carouselRef.current && currentCarousel?.is_ads) {
       UmengAnalytics.homeTabCarouselViewAnalytics({
         tab_id: navId?.toString() ?? '0',
         tab_name: tabName ?? '',
+        ads_slot_id: currentCarousel.ads_slot_id,
+        ads_id: currentCarousel.ads_id,
+        ads_title: currentCarousel.ads_event_title,
+        ads_name: currentCarousel.ads_name,
       });
     }
   }, [isTabFocus, carouselRef.current?.getCurrentIndex()]));
@@ -141,20 +147,24 @@ const CatagoryHome = ({
   const renderBanner = useCallback((bannerAd: BannerAdType) => (
     <BannerContainer
       bannerAd={bannerAd}
-      onMount={({ id, name }) => {
+      onMount={({ id, name, slot_id, title }) => {
         UmengAnalytics.homeTabBannerViewAnalytics({
           tab_id: navId.toString(),
           tab_name: tabName ?? '',
           ads_id: id,
           ads_name: name,
+          ads_slot_id: slot_id,
+          ads_title: title,
         });
       }}
-      onPress={({ id, name }) => {
+      onPress={({ id, name, slot_id, title }) => {
         UmengAnalytics.homeTabBannerClickAnalytics({
           tab_id: navId.toString(),
           tab_name: tabName ?? '',
           ads_id: id,
           ads_name: name,
+          ads_slot_id: slot_id,
+          ads_title: title,
         });
       }}
     />
@@ -213,6 +223,10 @@ const CatagoryHome = ({
             UmengAnalytics.homeTabCarouselClickAnalytics({
               tab_id: navId?.toString() ?? '0',
               tab_name: tabName ?? '',
+              ads_slot_id: item.ads_slot_id,
+              ads_id: item.ads_id,
+              ads_title: item.ads_event_title,
+              ads_name: item.ads_name,
             });
           } else {
             console.debug('pllaying mode', navId)

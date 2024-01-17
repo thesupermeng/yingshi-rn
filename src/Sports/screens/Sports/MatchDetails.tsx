@@ -229,14 +229,14 @@ const MatchDetails = ({ navigation, route }: BottomTabScreenProps<any>) => {
   }, [match]);
 
   const handleFullscreenChange = (isFullscreen: boolean) => {
-        if (isFullscreen) {
-    // If exiting fullscreen, hide MatchDetailsNav after a delay
-    setIsNavVisible(false);
+    if (isFullscreen) {
+      // If exiting fullscreen, hide MatchDetailsNav after a delay
+      setIsNavVisible(false);
 
-    // After 3 seconds, set isNavVisible back to true to show the component
-    setTimeout(() => {
-    setIsNavVisible(true);
-    }, 3000); // Adjust the delay duration (in milliseconds) as needed
+      // After 3 seconds, set isNavVisible back to true to show the component
+      setTimeout(() => {
+        setIsNavVisible(true);
+      }, 3000); // Adjust the delay duration (in milliseconds) as needed
     }
   };
 
@@ -400,18 +400,22 @@ const MatchDetails = ({ navigation, route }: BottomTabScreenProps<any>) => {
         }}>
           <BannerContainer
             bannerAd={bannerAd}
-            onMount={({ id, name }) => {
+            onMount={({ id, name, slot_id, title }) => {
               UmengAnalytics.videoPlayerBannerViewAnalytics({
                 playerType: 'sport',
                 ads_id: id,
                 ads_name: name,
+                ads_slot_id: slot_id,
+                ads_title: title,
               });
             }}
-            onPress={({ id, name }) => {
+            onPress={({ id, name, slot_id, title }) => {
               UmengAnalytics.videoPlayerBannerClickAnalytics({
                 playerType: 'sport',
                 ads_id: id,
                 ads_name: name,
+                ads_slot_id: slot_id,
+                ads_title: title,
               });
             }}
           />

@@ -254,6 +254,11 @@ type CarouselData = {
     carousel_pic_pc: string
     carousel_pic_mobile: string
     vod: VodType
+    ads_slot_id: number,
+    ads_id: number,
+    ads_title: string,
+    ads_event_title: string,
+    ads_name: string,
 }
 
 export interface YingPingList {
@@ -426,6 +431,8 @@ export interface CountryPhoneCodeType {
 
 export type VodPlayerAdType = {
     id: number | null,
+    title: string | null,
+    eventTitle: string | null,
     name: string | null,
     url: string | null,
     slotId: number | null,

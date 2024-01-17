@@ -213,16 +213,20 @@ const MatchScheduleList = ({
                 }}>
                   <BannerContainer
                     bannerAd={bannerAd}
-                    onMount={({ id, name }) => {
+                    onMount={({ id, name, slot_id, title }) => {
                       UmengAnalytics.sportBannerViewAnalytics({
                         ads_id: id,
                         ads_name: name,
+                        ads_slot_id: slot_id,
+                        ads_title: title,
                       });
                     }}
-                    onPress={({ id, name }) => {
+                    onPress={({ id, name, slot_id, title }) => {
                       UmengAnalytics.sportBannerClickAnalytics({
                         ads_id: id,
                         ads_name: name,
+                        ads_slot_id: slot_id,
+                        ads_title: title,
                       });
                     }}
                   />
