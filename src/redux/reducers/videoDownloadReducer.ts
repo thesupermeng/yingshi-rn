@@ -1,5 +1,6 @@
 import { DownloadVideoActionType } from "@type/actionTypes"
 import { DownloadVideoReducerState, EpisodeDownloadType, VodDownloadType } from "@type/vodDownloadTypes"
+import RNFetchBlob from "rn-fetch-blob"
 
 const initialDownloadVideoState : DownloadVideoReducerState = {
   downloads: []
@@ -10,7 +11,7 @@ export function downloadVideoReducer(state = initialDownloadVideoState, action: 
     case 'ADD_VIDEO_TO_DOWNLOAD': {
       const newVodDownload: VodDownloadType = {
         vod: action.payload.vod, 
-        imagePath: '', 
+        imagePath: 'file:///' + RNFetchBlob.fs.dirs.DocumentDir + '/VodImages' + `/pic${action.payload.vod.vod_id}`, 
         episodes: []
       }
       let targetVod = state.downloads.find(download => download.vod.vod_id === action.payload.vod.vod_id) ?? newVodDownload

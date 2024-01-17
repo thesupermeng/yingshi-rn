@@ -1,3 +1,4 @@
+import { VodType } from "@type/ajaxTypes";
 import { FFmpegKit, FFmpegSession, FFprobeKit, Log, MediaInformationSession, Statistics } from "ffmpeg-kit-react-native";
 import { throttle, uniqueId } from "lodash";
 import RNFetchBlob from "rn-fetch-blob";
@@ -48,4 +49,25 @@ export async function downloadVod(url: string) {
     handleLog, 
     handleStatistic
   )
+}
+
+export async function downloadVodImage(vod: VodType){
+  const imagePath = RNFetchBlob.fs.dirs.DocumentDir + '/VodImages' + `/pic${vod.vod_id}`
+  // const urls = [vod.vod_pic]
+
+  if (await RNFetchBlob.fs.exists(imagePath)) return
+
+  try {
+    await RNFetchBlob.fs.mkdir(RNFetchBlob.fs.dirs.DocumentDir + '/VodImages').catch((err) => {})
+    const res = await RNFetchBlob
+      .config({
+        path: imagePath
+      })
+      .fetch('GET', vod.vod_pic)
+
+    
+  } catch {
+    // TODO : handle error 
+  }
+
 }
