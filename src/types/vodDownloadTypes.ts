@@ -5,6 +5,7 @@ export enum DownloadStatus {
   PAUSED, 
   CANCELLED, 
   ERROR,
+  COMPLETED
 }
 
 export interface EpisodeDownloadType {

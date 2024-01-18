@@ -42,7 +42,7 @@ function updateVideoDownload(vod: VodType, vodSourceId: number, vodUrlNid: numbe
 // }
 
 function getUrlOfVod(vod: VodType, vodSourceId: number, vodUrlNid: number) {
-  console.log(vod)
+  // console.log(vod)
   return vod.vod_sources
     .find(source => source.source_id === vodSourceId)?.vod_play_list.urls
     .find(url => url.nid === vodUrlNid)
@@ -60,17 +60,39 @@ export function addVideoToDownloadThunk(
     await downloadVodImage(vod);
     // here can dispatch updateImagePath () //
 
-    const handleUpdate = ({percentage}) => {
-      console.debug('downloaded ', percentage, '%')
-      dispatch()
+    const handleUpdate = ({percentage}: {percentage: number}) => {
+      // console.debug('downloaded ', percentage, '%')
+      dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {
+        progress: {
+          percentage: percentage
+        }
+      }))
     }
+
+    const handleComplete = () => {
+      console.debug('download complete for ', vod.vod_name)
+      dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {
+        status: DownloadStatus.COMPLETED
+      }))
+    }
+
+    const handleError = () => {
+      console.debug('error downloading ', vod.vod_name)
+      dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {
+        status: DownloadStatus.ERROR
+      }))
+    }
+
+    const url = getUrlOfVod(vod, vodSourceId, vodUrlNid)
+
+    if (!url) return; 
     
     downloadVod(
       `${vod.vod_id}-${vodSourceId}-${vodUrlNid}`, 
-      getUrlOfVod(vod, vodSourceId, vodUrlNid), 
-      ({percentage}) => {console.debug('downloaded', percentage)}, 
-      () => console.debug('download complete for ', vod.vod_name), 
-      () => console.debug('error downloading ', vod.vod_name)
+      url, 
+      handleUpdate, 
+      handleComplete, 
+      handleError
     )
 
   };
