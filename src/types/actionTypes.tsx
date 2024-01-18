@@ -63,7 +63,7 @@ export interface OptionalUpdateFields {
     }
     sizeInBytes?: number; 
     status?: DownloadStatus; 
-    ffmpegSession?: FFmpegSession; 
+    ffmpegSession?: FFmpegSession | null; 
   }
 
 export interface DownloadVideoActionPayload extends OptionalUpdateFields {

@@ -235,7 +235,7 @@ export function clearQueueOnAppStart(): ThunkAction<void, RootState, any, Downlo
     for (const download of state.downloads) {
       for (const episode of download.episodes) {
         RNFetchBlob.fs.unlink(episode.videoPath)
-        dispatch(updateVideoDownload(download.vod, episode.vodSourceId, episode.vodUrlNid, {progress: {percentage: 0}, status: DownloadStatus.ERROR}))
+        dispatch(updateVideoDownload(download.vod, episode.vodSourceId, episode.vodUrlNid, {progress: {percentage: 0}, status: DownloadStatus.ERROR, ffmpegSession: null}))
       }
     }
 
