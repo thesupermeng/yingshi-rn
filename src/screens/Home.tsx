@@ -56,6 +56,7 @@ import { screenModel } from "@type/screenType";
 import { AppsApi } from "@api";
 import UmengAnalytics from "../../Umeng/UmengAnalytics";
 import { userModel } from "@type/userType";
+import DeviceInfo from "react-native-device-info";
 
 function Home({ navigation }: BottomTabScreenProps<any>) {
   const dispatch = useAppDispatch();
@@ -245,10 +246,14 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   );
 
   const { setNavbarHeight } = useContext(AdsBannerContext);
-
+  const isSamsungDevice = DeviceInfo.getBrand() === 'samsung';
   useEffect(() => {
-    setNavbarHeight(bottomTabHeight);
-  }, [bottomTabHeight]);
+  //setNavbarHeight(bottomTabHeight);
+    setTimeout(() => {
+      // add delay to solve galaxy phone banner overlay nav on first start
+      setNavbarHeight(bottomTabHeight);
+    },  isSamsungDevice ? 600 : 300)
+  }, [bottomTabHeight , screenState.interstitialShow]);
 
   // ========== for analytics - start ==========
   useEffect(() => {
