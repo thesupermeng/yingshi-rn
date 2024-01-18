@@ -8,8 +8,8 @@ import { useEffect } from 'react';
 
 interface Props {
     bannerAd: BannerAdType,
-    onMount?: ({ id, name }: { id: string, name: string }) => void,
-    onPress?: ({ id, name }: { id: string, name: string }) => void,
+    onMount?: ({ slot_id, id, title, name }: { slot_id: number, id: number, title: string, name: string }) => void,
+    onPress?: ({ slot_id, id, title, name }: { slot_id: number, id: number, title: string, name: string }) => void,
 }
 
 export const BannerContainer = ({
@@ -21,7 +21,12 @@ export const BannerContainer = ({
     const navigator = useNavigation()
 
     useEffect(() => {
-        if (onMount) onMount({ id: bannerAd.ads_id.toString(), name: bannerAd.ads_event_title });
+        if (onMount) onMount({
+            slot_id: bannerAd.ads_slot_id,
+            id: bannerAd.ads_id,
+            title: bannerAd.ads_event_title,
+            name: bannerAd.ads_name,
+        });
     }, []);
 
     const redirectToAd = async () => {
@@ -49,7 +54,12 @@ export const BannerContainer = ({
             Linking.openURL(url);
         }
 
-        if (onPress) onPress({ id: bannerAd.ads_id.toString(), name: bannerAd.ads_event_title });
+        if (onPress) onPress({
+            slot_id: bannerAd.ads_slot_id,
+            id: bannerAd.ads_id,
+            title: bannerAd.ads_event_title,
+            name: bannerAd.ads_name,
+        });
     };
 
     return (

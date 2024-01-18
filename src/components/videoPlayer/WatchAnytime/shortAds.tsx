@@ -127,7 +127,12 @@ function ShortAds({
     }, [isPause]);
 
     useEffect(() => {
-        UmengAnalytics.watchAnytimeAdsViewAnalytics();
+        UmengAnalytics.watchAnytimeAdsViewAnalytics({
+            ads_slot_id: currentVod.ads_slot_id,
+            ads_id: currentVod.ads_id,
+            ads_title: currentVod.ads_event_title,
+            ads_name: currentVod.ads_name,
+        });
 
         return () => {
             // on component unmount
@@ -181,9 +186,9 @@ function ShortAds({
     }, []);
 
     const onAdsBtnPress = () => {
-      
-        if (!currentVod?.ads_url || currentVod?.ads_url =='') {
-           //  videoRef.current.setPause(true);
+
+        if (!currentVod?.ads_url || currentVod?.ads_url == '') {
+            //  videoRef.current.setPause(true);
             onManualPause(true);
             setShowAdOverlay(true);
             return;
@@ -193,15 +198,20 @@ function ShortAds({
 
         Linking.openURL(url);
 
-        UmengAnalytics.watchAnytimeAdsClicksAnalytics();
+        UmengAnalytics.watchAnytimeAdsClicksAnalytics({
+            ads_slot_id: currentVod.ads_slot_id,
+            ads_id: currentVod.ads_id,
+            ads_title: currentVod.ads_event_title,
+            ads_name: currentVod.ads_name,
+        });
     }
 
     const [isShowAdOverlay, setShowAdOverlay] = useState(false);
     const onCloseAdOverlay = () => {
         onManualPause(true);
-      //  videoRef.current.setPause(false);
+        //  videoRef.current.setPause(false);
         setShowAdOverlay(false);
-      };
+    };
 
     return (
         <>
@@ -324,13 +334,13 @@ function ShortAds({
                 </>
             )}
 
-<BecomeVipOverlay
-        setShowBecomeVIPOverlay={setShowAdOverlay}
-        showBecomeVIPOverlay={isShowAdOverlay}
-        isJustClose={true}
-        selectedTab="common"
-        onClose={onCloseAdOverlay}
-      />
+            <BecomeVipOverlay
+                setShowBecomeVIPOverlay={setShowAdOverlay}
+                showBecomeVIPOverlay={isShowAdOverlay}
+                isJustClose={true}
+                selectedTab="common"
+                onClose={onCloseAdOverlay}
+            />
         </>
     )
 

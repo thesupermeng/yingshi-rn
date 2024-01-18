@@ -93,8 +93,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
           json = json.filter((e) => e?.id != 99);
           dispatch(setShowAdultTab(true));
         }
-        else
-        {
+        else {
           dispatch(setShowAdultTab(false));
         }
         return json;
@@ -272,6 +271,23 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   }, [navId]);
   // ========== for analytics - end ==========
 
+  const onTabFocus = (target?: string) => {
+    const targetStr = target?.substring(0, target.indexOf("-"));
+    if (navOptions !== undefined) {
+      const found = navOptions?.find((e) => e.name === targetStr);
+
+      if (found) {
+        setNavId(found.id);
+        // ========== for analytics - start ==========
+        UmengAnalytics.homeTabViewsAnalytics({
+          tab_id: found.id.toString(),
+          tab_name: found.name,
+        });
+        // ========== for analytics - end ==========
+      }
+    }
+  };
+
   const onTabPress = (target?: string) => {
     const targetStr = target?.substring(0, target.indexOf("-"));
     if (navOptions !== undefined) {
@@ -314,6 +330,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
           // hideContent={hideContent}
           navId={navId}
           onTabPress={onTabPress}
+          onTabFocus={onTabFocus}
           onTabSwipe={onTabSwipe}
           tabList={
             navOptions?.map((e) => ({

@@ -190,7 +190,12 @@ export default forwardRef<VideoRef, Props>(
         adVideoRef.current?.seek(0);
 
         // ========== for analytics - start ==========
-        UmengAnalytics.playsAdsViewAnalytics();
+        UmengAnalytics.playsAdsViewAnalytics({
+          ads_slot_id: playerVodAds.slotId ?? undefined,
+          ads_id: playerVodAds.id ?? undefined,
+          ads_title: playerVodAds.eventTitle ?? '',
+          ads_name: playerVodAds.name ?? undefined,
+        });
         // ========== for analytics - end ==========
       }
     }, [playerVodAds, vod_url]);
@@ -650,10 +655,16 @@ export default forwardRef<VideoRef, Props>(
       // }
 
       // ========== for analytics - start ==========
-      UmengAnalytics.playsAdsClickAnalytics({ url });
+      UmengAnalytics.playsAdsClickAnalytics({
+        url,
+        ads_slot_id: playerVodAds.slotId ?? undefined,
+        ads_id: playerVodAds.id ?? undefined,
+        ads_title: playerVodAds.eventTitle ?? '',
+        ads_name: playerVodAds.name ?? undefined,
+      });
+
       // ========== for analytics - end ==========
     }
-
 
     return (
       <View style={styles.container}>

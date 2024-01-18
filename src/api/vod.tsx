@@ -208,6 +208,8 @@ export class VodApi {
 
             return {
                 id: result.data.ads_id,
+                title: result.data.ads_title,
+                eventTitle: result.data.ads_event_title,
                 name: result.data.ads_name,
                 url: result.data.ads_pic,
                 slotId: result.data.ads_slot_id,

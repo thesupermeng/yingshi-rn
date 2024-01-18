@@ -7,6 +7,7 @@ import {
   API_DOMAIN,
   API_DOMAIN_TEST,
   APP_VERSION,
+  EVENT_CUSTOM_START,
   IOS_HOME_PAGE_BANNER_ADS,
   TOPON_ANDROID_APP_ID,
   TOPON_ANDROID_APP_KEY,
@@ -38,6 +39,7 @@ import {
 } from "./src/utils/minivodDownloader";
 import NetInfo from "@react-native-community/netinfo";
 import { AppsApi, PlaylistApi, VodApi } from "@api";
+import { CustomEventAnalytic } from "./Umeng/EventAnalytic";
 
 const topon_channel = "WEB";
 
@@ -257,12 +259,12 @@ let App = () => {
   // re geng
   const [showRegengOverlay, setShowRegengOverlay] = useState(false);
   useEffect(() => {
-   
+
     checkVersion()
   }, []);
 
   const checkVersion = async () => {
-    await  AppsApi.getLocalIpAddress();
+    await AppsApi.getLocalIpAddress();
     const checkVersionReq: CheckVersionRequest = {
       ip_address: YSConfig.instance.ip,
       channel_id: UMENG_CHANNEL,
@@ -296,14 +298,22 @@ let App = () => {
         }
       });
     }
- 
+
     return response;
   };
 
 
   useEffect(() => {
-   
     downloadWatchAnytimeSequence();
+
+    CustomEventAnalytic.foundLocalPush();
+    if (EVENT_CUSTOM_START) {
+      CustomEventAnalytic.start();
+    }
+
+    return () => {
+      CustomEventAnalytic.close();
+    }
   }, []);
 
   return (
