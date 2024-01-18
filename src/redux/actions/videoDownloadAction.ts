@@ -215,6 +215,7 @@ export function removeVodFromDownloadThunk(
     for (const episode of targetVod.episodes) {
       await RNFetchBlob.fs.unlink(episode.videoPath)
     }
+    await RNFetchBlob.fs.unlink(targetVod.imagePath)
     dispatch(removeVodFromDownload(vod, vodSourceId, vodUrlNid))
   }
 }
