@@ -131,6 +131,7 @@ export default class UmengAnalytics {
             title: CustomEventKey.Home,
             params: {
                 desc_1: 'tab.id:' + tab_id,
+                desc_2: 'tab.name:' + tab_name,
             }
         });
 
@@ -147,6 +148,7 @@ export default class UmengAnalytics {
             title: CustomEventKey.Home,
             params: {
                 desc_1: 'tab.id:' + tab_id,
+                desc_2: 'tab.name:' + tab_name,
             }
         });
 
@@ -180,6 +182,7 @@ export default class UmengAnalytics {
             ads_id: ads_id,
             params: {
                 desc_1: 'tab.id:' + tab_id,
+                desc_2: 'tab.name:' + tab_name,
             }
         });
 
@@ -213,6 +216,7 @@ export default class UmengAnalytics {
             ads_id: ads_id,
             params: {
                 desc_1: 'tab.id:' + tab_id,
+                desc_2: 'tab.name:' + tab_name,
             }
         });
 
@@ -248,6 +252,7 @@ export default class UmengAnalytics {
             ads_id: ads_id,
             params: {
                 desc_1: 'tab.id:' + tab_id,
+                desc_2: 'tab.name:' + tab_name,
             }
         });
 
@@ -283,6 +288,7 @@ export default class UmengAnalytics {
             ads_id: ads_id,
             params: {
                 desc_1: 'tab.id:' + tab_id,
+                desc_2: 'tab.name:' + tab_name,
             }
         });
 
@@ -550,6 +556,7 @@ export default class UmengAnalytics {
             title: CustomEventKey.Playlist,
             params: {
                 desc_1: 'topic.id:' + topic_id,
+                desc_2: 'topic.name:' + topic_name,
             }
         });
 
@@ -566,6 +573,7 @@ export default class UmengAnalytics {
             title: CustomEventKey.Playlist_Topics,
             params: {
                 desc_1: 'topic.id:' + topic_id,
+                desc_2: 'topic.name:' + topic_name,
             }
         });
 
@@ -582,6 +590,7 @@ export default class UmengAnalytics {
             title: CustomEventKey.Playlist_Topics,
             params: {
                 desc_1: 'topic.id:' + topic_id,
+                desc_2: 'topic.name:' + topic_name,
             }
         });
 
@@ -685,6 +694,7 @@ export default class UmengAnalytics {
             title: CustomEventKey.Catalog,
             params: {
                 desc_1: 'category.id:' + category_id,
+                desc_2: 'category.name:' + category_name,
             }
         });
 
@@ -701,6 +711,7 @@ export default class UmengAnalytics {
             title: CustomEventKey.Catalog,
             params: {
                 desc_1: 'category.id:' + category_id,
+                desc_2: 'category.name:' + category_name,
             }
         });
 
@@ -725,6 +736,7 @@ export default class UmengAnalytics {
             title: isXmode ? CustomEventKey.PlaysX : CustomEventKey.Plays,
             params: {
                 desc_1: 'vod.id:' + vod_id,
+                desc_2: 'vod.name:' + vod_name,
             }
         });
 
@@ -747,6 +759,7 @@ export default class UmengAnalytics {
             title: isXmode ? CustomEventKey.PlaysX_Plays_Times : CustomEventKey.Plays_Plays_Times,
             params: {
                 desc_1: 'vod.id:' + vod_id,
+                desc_2: 'vod.name:' + vod_name,
             }
         });
 
