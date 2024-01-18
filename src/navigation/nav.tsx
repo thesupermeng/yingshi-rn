@@ -124,6 +124,7 @@ import AdultVideoList from "../screens/Playlist/AdultVideoList";
 import { UserApi } from "@api";
 import AdEvent from "../screens/Common/AdEvent";
 import { CRouteInitializer } from "../routes/router";
+import { clearQueueOnAppStart } from "@redux/actions/videoDownloadAction";
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -240,19 +241,19 @@ export default () => {
       >
         {YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5 ? (
           <>
-            <HomeTab.Screen name="首页" component={HomeScreen} />
-            <HomeTab.Screen name="随心看" component={WatchAnytime} />
-            <HomeTab.Screen name="会员中心" component={SportAndX} />
-            <HomeTab.Screen name="播单" component={PlaylistScreen} />
-            <HomeTab.Screen name="我的" component={ProfileScreen} />
+            <HomeTab.Screen name="首页" component={ProfileScreen} />
+            <HomeTab.Screen name="随心看" component={View} />
+            <HomeTab.Screen name="会员中心" component={View} />
+            <HomeTab.Screen name="播单" component={View} />
+            <HomeTab.Screen name="我的" component={View} />
           </>
         ) : (
           <>
-            <HomeTab.Screen name="首页" component={HomeScreen} />
-            <HomeTab.Screen name="随心看" component={WatchAnytime} />
-            <HomeTab.Screen name="会员中心" component={SportAndX} />
-            <HomeTab.Screen name="播单" component={PlaylistScreen} />
-            <HomeTab.Screen name="我的" component={ProfileScreen} />
+            <HomeTab.Screen name="首页" component={ProfileScreen} />
+            <HomeTab.Screen name="随心看" component={View} />
+            <HomeTab.Screen name="会员中心" component={View} />
+            <HomeTab.Screen name="播单" component={View} />
+            <HomeTab.Screen name="我的" component={View} />
           </>
         )}
       </HomeTab.Navigator>
@@ -308,7 +309,7 @@ export default () => {
 
   //screen state
   //screen state
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
   const screenState: screenModel = useAppSelector(
     ({ screenReducer }: RootState) => screenReducer
@@ -504,6 +505,7 @@ export default () => {
     dispatch(hideAdultModeVip())
     dispatch(disableWatchAnytimeAdultMode())
     // dispatch(resetOverEighteen())
+    dispatch(clearQueueOnAppStart())
   }, []);
 
   return (
