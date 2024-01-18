@@ -28,7 +28,7 @@ export function downloadVideoReducer(state = initialDownloadVideoState, action: 
         }, 
         status: DownloadStatus.DOWNLOADING, 
         sizeInBytes: 0, 
-        videoPath: '', 
+        videoPath: `${RNFetchBlob.fs.dirs.DocumentDir}/SavedVideos/${action.payload.vod.vod_id}-${action.payload.vodSourceId}-${action.payload.vodUrlNid}.mp4`, 
         vodSourceId: action.payload.vodSourceId, 
         vodUrlNid: action.payload.vodUrlNid
       }
@@ -160,6 +160,14 @@ export function downloadVideoReducer(state = initialDownloadVideoState, action: 
       return {
         ...state, 
         downloads: updatedList
+      }
+    }
+
+    case 'RESET_QUEUE': {
+      return {
+        ...state, 
+        currentDownloading: 0, 
+        queue: []
       }
     }
 

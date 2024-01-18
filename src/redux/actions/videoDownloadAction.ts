@@ -87,6 +87,14 @@ function removeVodFromDownload(vod: VodType, vodSourceId: number, vodUrlNid: num
   }
 }
 
+function resetQueue(): DownloadVideoActionType {
+  return {
+    type: "RESET_QUEUE",
+    // @ts-ignore 
+    payload: null // TODO : fix this type 
+  }
+}
+
 export function startFirstVideoDownload(): ThunkAction<void, RootState, any, DownloadVideoActionType> {
   return async function (dispatch, getState) {
     const state = getState().downloadVideoReducer;
@@ -201,7 +209,6 @@ export function removeVideoFromDownloadThunk(
   }
 }
 
-
 export function removeVodFromDownloadThunk(
   vod: VodType,
   vodSourceId: number,
@@ -217,5 +224,21 @@ export function removeVodFromDownloadThunk(
     }
     await RNFetchBlob.fs.unlink(targetVod.imagePath)
     dispatch(removeVodFromDownload(vod, vodSourceId, vodUrlNid))
+  }
+}
+
+export function clearQueueOnAppStart(): ThunkAction<void, RootState, any, DownloadVideoActionType> {
+  return async function (dispatch, getState) {
+    const state = getState().downloadVideoReducer
+    const targetEpisodes: EpisodeDownloadType[] = []
+
+    for (const download of state.downloads) {
+      for (const episode of download.episodes) {
+        RNFetchBlob.fs.unlink(episode.videoPath)
+        dispatch(updateVideoDownload(download.vod, episode.vodSourceId, episode.vodUrlNid, {progress: {percentage: 0}, status: DownloadStatus.ERROR}))
+      }
+    }
+
+    dispatch(resetQueue())
   }
 }

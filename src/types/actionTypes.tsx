@@ -83,6 +83,7 @@ export interface DownloadVideoActionType {
     | 'START_VIDEO_DOWNLOAD'
     | 'END_VIDEO_DOWNLOAD'
     | 'ADD_DOWNLOAD_TO_QUEUE'
+    | 'RESET_QUEUE'
     ;
   payload: DownloadVideoActionPayload;
 }
