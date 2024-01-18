@@ -3,7 +3,7 @@ import { FFmpegKit, FFmpegSession, FFprobeKit, Log, MediaInformationSession, Sta
 import { throttle, uniqueId } from "lodash";
 import RNFetchBlob from "rn-fetch-blob";
 
-export async function downloadVod(id: string, url: string, onProgress: ({percentage}: {percentage: number}) => void, onComplete: any, onError: any, ) { 
+export async function downloadVod(id: string, url: string, onProgress: ({percentage}: {percentage: number}) => void, onComplete: any, onError: any, onSessionCreated: ({session}:{session: FFmpegSession}) => void) { 
   await RNFetchBlob.fs.mkdir(RNFetchBlob.fs.dirs.DocumentDir + '/SavedVideos').catch((err) => {})
 
   const outputFilePath = `${RNFetchBlob.fs.dirs.DocumentDir}/SavedVideos/${id}.mp4`
@@ -47,12 +47,14 @@ export async function downloadVod(id: string, url: string, onProgress: ({percent
   const handleStatistic = async (stats: Statistics) => {
   }
 
-  await FFmpegKit.executeAsync(
+  const session = await FFmpegKit.executeAsync(
     ffmpegScript, 
     handleComplete, 
     handleLog, 
     handleStatistic
   )
+
+  onSessionCreated({session})
 }
 
 export async function downloadVodImage(vod: VodType){

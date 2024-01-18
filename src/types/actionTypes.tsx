@@ -1,3 +1,4 @@
+import { FFmpegSession } from "ffmpeg-kit-react-native"
 import { VodTopicType, VodType } from "./ajaxTypes"
 import { DownloadStatus } from "./vodDownloadTypes"
 
@@ -62,6 +63,7 @@ export interface OptionalUpdateFields {
     }
     sizeInBytes?: number; 
     status?: DownloadStatus; 
+    ffmpegSession?: FFmpegSession; 
   }
 
 export interface DownloadVideoActionPayload extends OptionalUpdateFields {

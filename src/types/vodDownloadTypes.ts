@@ -1,3 +1,4 @@
+import { FFmpegSession } from "ffmpeg-kit-react-native"
 import { DownloadVideoActionPayload } from "./actionTypes"
 import { VodType } from "./ajaxTypes"
 
@@ -19,7 +20,7 @@ export interface EpisodeDownloadType {
   videoPath: string
   vodSourceId: number // determine the source
   vodUrlNid: number // determine the episode
-
+  ffmpegSession?: FFmpegSession
 }
 
 export interface VodDownloadType {

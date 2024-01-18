@@ -6,6 +6,7 @@ import { DownloadStatus, DownloadVideoReducerState, EpisodeDownloadType, VodDown
 import { RootState } from "@redux/store";
 import { MAX_CONCURRENT_VIDEO_DOWNLOAD } from "@utility/constants";
 import RNFetchBlob from "rn-fetch-blob";
+import { FFmpegSession } from "ffmpeg-kit-react-native";
 
 function addVideoToDownload(vod: VodType, vodSourceId: number, vodUrlNid: number): DownloadVideoActionType {
   return {
@@ -143,6 +144,10 @@ export function startVideoDownloadThunk(
       onDownloadEnd()
     }
 
+    const handleSessionCreated = ({session}: {session: FFmpegSession}) => {
+      dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {ffmpegSession: session}))
+    }
+
     const state = getState().downloadVideoReducer
 
     const url = getUrlOfVod(vod, vodSourceId, vodUrlNid)
@@ -157,7 +162,8 @@ export function startVideoDownloadThunk(
       url, 
       handleUpdate, 
       handleComplete, 
-      handleError
+      handleError, 
+      handleSessionCreated
     )
   
   }
