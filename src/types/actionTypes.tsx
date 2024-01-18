@@ -74,6 +74,7 @@ export interface DownloadVideoActionType {
   type:
     | 'ADD_VIDEO_TO_DOWNLOAD'
     | 'REMOVE_VIDEO_FROM_DOWNLOAD'
+    | 'REMOVE_VOD_FROM_DOWNLOAD'
     | 'PAUSE_VIDEO_DOWNLOAD'
     | 'CANCEL_VIDEO_DOWNLOAD'
     | 'UPDATE_VIDEO_DOWNLOAD'

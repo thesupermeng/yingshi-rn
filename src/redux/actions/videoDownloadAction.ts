@@ -5,6 +5,7 @@ import { ThunkAction } from "redux-thunk";
 import { DownloadStatus, DownloadVideoReducerState, EpisodeDownloadType, VodDownloadType } from "@type/vodDownloadTypes";
 import { RootState } from "@redux/store";
 import { MAX_CONCURRENT_VIDEO_DOWNLOAD } from "@utility/constants";
+import RNFetchBlob from "rn-fetch-blob";
 
 function addVideoToDownload(vod: VodType, vodSourceId: number, vodUrlNid: number): DownloadVideoActionType {
   return {
@@ -62,6 +63,29 @@ export function addDownloadToQueue(vod: VodType, vodSourceId: number, vodUrlNid:
   }
 }
 
+function removeVideoFromDownload(vod: VodType, vodSourceId: number, vodUrlNid: number): DownloadVideoActionType {
+  return {
+    type: 'REMOVE_VIDEO_FROM_DOWNLOAD', 
+    payload: {
+      vod, 
+      vodSourceId, 
+      vodUrlNid, 
+    }
+  }
+}
+
+
+function removeVodFromDownload(vod: VodType, vodSourceId: number, vodUrlNid: number): DownloadVideoActionType {
+  return {
+    type: 'REMOVE_VOD_FROM_DOWNLOAD', 
+    payload: {
+      vod, 
+      vodSourceId, 
+      vodUrlNid, 
+    }
+  }
+}
+
 export function startFirstVideoDownload(): ThunkAction<void, RootState, any, DownloadVideoActionType> {
   return async function (dispatch, getState) {
     const state = getState().downloadVideoReducer;
@@ -70,19 +94,6 @@ export function startFirstVideoDownload(): ThunkAction<void, RootState, any, Dow
     dispatch(startVideoDownloadThunk(firstVod.vod, firstVod.vodSourceId, firstVod.vodUrlNid))
   }
 }
-
-// function updateImagePath(vod: VodType, filepath: string): DownloadVideoActionType{
-
-//   return {
-//     type: 'UPDATE_VOD_IMAGE', 
-//     payload: {
-//       vod: vod, 
-//       vodSourceId: NaN, // doesnt matter
-//       vodUrlNid: NaN, // doesnt matter 
-//       imagePath: filepath
-//     }
-//   }
-// }
 
 function getUrlOfVod(vod: VodType, vodSourceId: number, vodUrlNid: number) {
   // console.log(vod)
@@ -165,4 +176,39 @@ export function addVideoToDownloadThunk(
 
 
   };
+}
+
+export function removeVideoFromDownloadThunk(
+  vod: VodType,
+  vodSourceId: number,
+  vodUrlNid: number,
+): ThunkAction<void, RootState, any, DownloadVideoActionType> {
+  return async function (dispatch, getState) {
+    const state = getState().downloadVideoReducer
+    const targetVod = state.downloads.find(download => download.vod.vod_id === vod.vod_id)
+    if (!targetVod) return 
+    const targetEpisode = targetVod.episodes.find(episode => episode.vodSourceId === vodSourceId && episode.vodUrlNid === vodUrlNid)
+    if (!targetEpisode) return 
+
+    await RNFetchBlob.fs.unlink(targetEpisode.videoPath)
+    dispatch(removeVideoFromDownload(vod, vodSourceId, vodUrlNid))
+  }
+}
+
+
+export function removeVodFromDownloadThunk(
+  vod: VodType,
+  vodSourceId: number,
+  vodUrlNid: number,
+): ThunkAction<void, RootState, any, DownloadVideoActionType> {
+  return async function (dispatch, getState) {
+    const state = getState().downloadVideoReducer
+    const targetVod = state.downloads.find(download => download.vod.vod_id === vod.vod_id)
+    if (!targetVod) return 
+
+    for (const episode of targetVod.episodes) {
+      await RNFetchBlob.fs.unlink(episode.videoPath)
+    }
+    dispatch(removeVodFromDownload(vod, vodSourceId, vodUrlNid))
+  }
 }
