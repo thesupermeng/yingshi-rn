@@ -118,7 +118,7 @@ enum CustomEventKey {
 }
 
 export default class UmengAnalytics {
-    static showLog: boolean = true;
+    static showLog: boolean = false;
 
     // ============================== Home ==============================
     static homeTabViewsAnalytics = ({ tab_id, tab_name }: { tab_id: string, tab_name: string }) => {

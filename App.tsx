@@ -40,6 +40,7 @@ import {
 import NetInfo from "@react-native-community/netinfo";
 import { AppsApi, PlaylistApi, VodApi } from "@api";
 import { CustomEventAnalytic } from "./Umeng/EventAnalytic";
+import { logIgnore } from "@utility/helper";
 
 const topon_channel = "WEB";
 
@@ -55,6 +56,12 @@ const topon_channel = "WEB";
 //     profilesSampleRate: 1.0,
 //   },
 // });
+
+logIgnore([
+  'Trying to load empty source.',
+  '`new NativeEventEmitter()` was called with a non-null argument without the required',
+  `ReactImageView: Image source "null" doesn't exist`,
+]);
 
 let App = () => {
   CodePush.notifyAppReady()
