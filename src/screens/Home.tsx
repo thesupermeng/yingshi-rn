@@ -252,7 +252,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
     setTimeout(() => {
       // add delay to solve galaxy phone banner overlay nav on first start
       setNavbarHeight(bottomTabHeight);
-    },  isSamsungDevice ? 100 : 0)
+    },  isSamsungDevice ? 1000 : 500)
   }, [bottomTabHeight , screenState.interstitialShow]);
 
   // ========== for analytics - start ==========

@@ -6,9 +6,6 @@ export class EventApi {
     static postEvents = async (events: EventApiJsonType) => {
         try {
             if (events.stats.length <= 0) return;
-            console.log('send to api')
-            console.log(JSON.stringify(events))
-            // return true;
 
             const result = await CApi.post(CEndpoint.eventPost, {
                 body: events,

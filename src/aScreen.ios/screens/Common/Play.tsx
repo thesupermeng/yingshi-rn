@@ -63,7 +63,6 @@ import NoConnection from "../../components/common/noConnection";
 import NetInfo from "@react-native-community/netinfo";
 import { lockAppOrientation } from "@redux/actions/settingsActions";
 import { AdsBannerContext } from "../../../contexts/AdsBannerContext";
-import useInterstitialAds from "@hooks/useInterstitialAds";
 import { URL } from "react-native-url-polyfill";
 import RNFetchBlob from "rn-fetch-blob";
 import { userModel } from "@type/userType";

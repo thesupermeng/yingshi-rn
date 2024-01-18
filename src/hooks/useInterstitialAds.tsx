@@ -157,7 +157,7 @@ const useInterstitialAds = () => {
     if (adsID != null) {
       setTimeout(() => {
         showInterstitial(adsID);
-      }, 1000); //change from 100 to 1000 for 前贴片  haven't load finish will have sound if this show first 
+      }, 100); //change from 100 to 1000 for 前贴片  haven't load finish will have sound if this show first 
     }
   }, [currentRoute]);
 

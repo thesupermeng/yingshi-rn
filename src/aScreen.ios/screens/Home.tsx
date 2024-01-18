@@ -37,7 +37,6 @@ import {
 } from "./../../../AnyThinkAds/ATReactNativeSDK";
 import { AdsBannerContext } from "../../contexts/AdsBannerContext";
 
-import useInterstitialAds from "@hooks/useInterstitialAds"
 import UmengAnalytics from "../../../Umeng/UmengAnalytics";
 import { AppsApi } from "@api";
 import { userModel } from "@type/userType";
