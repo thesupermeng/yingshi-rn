@@ -55,7 +55,6 @@ import { incrementSportWatchTime } from '@redux/actions/screenAction';
 import BecomeVipOverlay from "../../../components/modal/becomeVipOverlay";
 import { NON_VIP_STREAM_TIME_SECONDS } from '@utility/constants';
 import { userModel } from '@type/userType';
-import useInterstitialAds from '@hooks/useInterstitialAds';
 import UmengAnalytics from '../../../../Umeng/UmengAnalytics';
 import { RootState } from '@redux/store';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -286,7 +285,7 @@ const MatchDetails = ({ navigation, route }: BottomTabScreenProps<any>) => {
 
   const isFullyLoaded = !f1 && !f2 && !f3;
 
-  useInterstitialAds();
+  // useInterstitialAds();
 
   const insets = useSafeAreaInsets();
 
