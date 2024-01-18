@@ -14,7 +14,9 @@ export async function downloadVod(id: string, url: string, onProgress: ({percent
 
   const handleComplete = async (session: FFmpegSession) => {
     // console.log(`Download complete. File at ${outputFilePath}`)
-    onComplete()
+    
+    const stats = await RNFetchBlob.fs.stat(outputFilePath)
+    onComplete(stats.size)
   }
 
   const handleLog = (async (log: Log) => {
@@ -45,6 +47,7 @@ export async function downloadVod(id: string, url: string, onProgress: ({percent
   })
 
   const handleStatistic = async (stats: Statistics) => {
+    console.debug(stats.getSize())
   }
 
   const session = await FFmpegKit.executeAsync(

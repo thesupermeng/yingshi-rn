@@ -136,10 +136,11 @@ export function startVideoDownloadThunk(
       dispatch(startFirstVideoDownload())
     }
 
-    const handleComplete = () => {
+    const handleComplete = (finalSizeInBytes: number) => {
       console.debug('download complete for ', vod.vod_name)
       dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {
-        status: DownloadStatus.COMPLETED
+        status: DownloadStatus.COMPLETED, 
+        sizeInBytes: finalSizeInBytes
       }))
       onDownloadEnd()
     }
@@ -235,7 +236,7 @@ export function clearQueueOnAppStart(): ThunkAction<void, RootState, any, Downlo
     for (const download of state.downloads) {
       for (const episode of download.episodes) {
         RNFetchBlob.fs.unlink(episode.videoPath)
-        dispatch(updateVideoDownload(download.vod, episode.vodSourceId, episode.vodUrlNid, {progress: {percentage: 0}, status: DownloadStatus.ERROR, ffmpegSession: null}))
+        dispatch(updateVideoDownload(download.vod, episode.vodSourceId, episode.vodUrlNid, {progress: {percentage: 0}, status: DownloadStatus.ERROR, ffmpegSession: null, sizeInBytes: 0}))
       }
     }
 
