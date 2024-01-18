@@ -1,3 +1,4 @@
+import { DownloadVideoActionPayload } from "./actionTypes"
 import { VodType } from "./ajaxTypes"
 
 export enum DownloadStatus { 
@@ -28,5 +29,7 @@ export interface VodDownloadType {
 }
 
 export interface DownloadVideoReducerState {
-  downloads: Array<VodDownloadType>
+  downloads: Array<VodDownloadType>;
+  currentDownloading: number;
+  queue: Array<DownloadVideoActionPayload>
 }

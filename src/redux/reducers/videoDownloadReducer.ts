@@ -3,7 +3,9 @@ import { DownloadStatus, DownloadVideoReducerState, EpisodeDownloadType, VodDown
 import RNFetchBlob from "rn-fetch-blob"
 
 const initialDownloadVideoState : DownloadVideoReducerState = {
-  downloads: []
+  downloads: [], 
+  currentDownloading: 0, 
+  queue: []
 }
 
 export function downloadVideoReducer(state = initialDownloadVideoState, action: DownloadVideoActionType): DownloadVideoReducerState{
@@ -86,7 +88,34 @@ export function downloadVideoReducer(state = initialDownloadVideoState, action: 
       .concat(updatedVod)
 
       return {
+        ...state, 
         downloads: updatedList
+      }
+    }
+
+    case 'START_VIDEO_DOWNLOAD': {
+      const updatedQueue = state.queue
+        .filter(download => !(download.vodSourceId === action.payload.vodSourceId && download.vodUrlNid === action.payload.vodUrlNid))
+
+
+      return {
+        ...state, 
+        currentDownloading: state.currentDownloading + 1, 
+        queue: updatedQueue
+      }
+    }
+
+    case 'END_VIDEO_DOWNLOAD': {
+      return {
+        ...state, 
+        currentDownloading: state.currentDownloading - 1, 
+      }
+    }
+
+    case 'ADD_DOWNLOAD_TO_QUEUE': {
+      return {
+        ...state, 
+        queue: state.queue.concat(action.payload), 
       }
     }
 

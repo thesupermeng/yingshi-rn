@@ -77,6 +77,9 @@ export interface DownloadVideoActionType {
     | 'PAUSE_VIDEO_DOWNLOAD'
     | 'CANCEL_VIDEO_DOWNLOAD'
     | 'UPDATE_VIDEO_DOWNLOAD'
+    | 'START_VIDEO_DOWNLOAD'
+    | 'END_VIDEO_DOWNLOAD'
+    | 'ADD_DOWNLOAD_TO_QUEUE'
     ;
   payload: DownloadVideoActionPayload;
 }

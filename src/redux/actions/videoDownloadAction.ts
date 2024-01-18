@@ -4,6 +4,7 @@ import { downloadVod, downloadVodImage } from "../../utils/vodDownloader";
 import { ThunkAction } from "redux-thunk";
 import { DownloadStatus, DownloadVideoReducerState, EpisodeDownloadType, VodDownloadType } from "@type/vodDownloadTypes";
 import { RootState } from "@redux/store";
+import { MAX_CONCURRENT_VIDEO_DOWNLOAD } from "@utility/constants";
 
 function addVideoToDownload(vod: VodType, vodSourceId: number, vodUrlNid: number): DownloadVideoActionType {
   return {
@@ -25,6 +26,48 @@ function updateVideoDownload(vod: VodType, vodSourceId: number, vodUrlNid: numbe
       vodUrlNid, 
       ...optional
     }
+  }
+}
+
+export function startVideoDownload(vod: VodType, vodSourceId: number, vodUrlNid: number): DownloadVideoActionType {
+  return {
+    type: 'START_VIDEO_DOWNLOAD', 
+    payload: {
+      vod, 
+      vodSourceId, 
+      vodUrlNid, 
+    }
+  }
+}
+
+export function endVideoDownload(vod: VodType, vodSourceId: number, vodUrlNid: number): DownloadVideoActionType {
+  return {
+    type: 'END_VIDEO_DOWNLOAD', 
+    payload: {
+      vod, 
+      vodSourceId, 
+      vodUrlNid, 
+    }
+  }
+}
+
+export function addDownloadToQueue(vod: VodType, vodSourceId: number, vodUrlNid: number): DownloadVideoActionType {
+  return {
+    type: 'ADD_DOWNLOAD_TO_QUEUE', 
+    payload: {
+      vod, 
+      vodSourceId, 
+      vodUrlNid, 
+    }
+  }
+}
+
+export function startFirstVideoDownload(): ThunkAction<void, RootState, any, DownloadVideoActionType> {
+  return async function (dispatch, getState) {
+    const state = getState().downloadVideoReducer;
+    const firstVod = state.queue.at(0);
+    if (!firstVod) return;
+    dispatch(startVideoDownloadThunk(firstVod.vod, firstVod.vodSourceId, firstVod.vodUrlNid))
   }
 }
 
@@ -50,16 +93,12 @@ function getUrlOfVod(vod: VodType, vodSourceId: number, vodUrlNid: number) {
 
 }
 
-export function addVideoToDownloadThunk(
+export function startVideoDownloadThunk(
   vod: VodType,
   vodSourceId: number,
   vodUrlNid: number,
 ): ThunkAction<void, RootState, any, DownloadVideoActionType> {
   return async function (dispatch, getState) {
-    dispatch(addVideoToDownload(vod, vodSourceId, vodUrlNid));
-    await downloadVodImage(vod);
-    // here can dispatch updateImagePath () //
-
     const handleUpdate = ({percentage}: {percentage: number}) => {
       // console.debug('downloaded ', percentage, '%')
       dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {
@@ -69,11 +108,20 @@ export function addVideoToDownloadThunk(
       }))
     }
 
+    const onDownloadEnd = () => {
+      dispatch(endVideoDownload(vod, vodSourceId, vodUrlNid))
+      const newState = getState().downloadVideoReducer
+      if (newState.queue.length === 0) return
+      if (newState.currentDownloading >= MAX_CONCURRENT_VIDEO_DOWNLOAD) return
+      dispatch(startFirstVideoDownload())
+    }
+
     const handleComplete = () => {
       console.debug('download complete for ', vod.vod_name)
       dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {
         status: DownloadStatus.COMPLETED
       }))
+      onDownloadEnd()
     }
 
     const handleError = () => {
@@ -81,12 +129,18 @@ export function addVideoToDownloadThunk(
       dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {
         status: DownloadStatus.ERROR
       }))
+      onDownloadEnd()
     }
+
+    const state = getState().downloadVideoReducer
 
     const url = getUrlOfVod(vod, vodSourceId, vodUrlNid)
 
     if (!url) return; 
-    
+    if (state.currentDownloading >= MAX_CONCURRENT_VIDEO_DOWNLOAD) return; 
+    if (state.queue.length === 0) return; 
+
+    dispatch(startVideoDownload(vod, vodSourceId, vodUrlNid))
     downloadVod(
       `${vod.vod_id}-${vodSourceId}-${vodUrlNid}`, 
       url, 
@@ -94,6 +148,21 @@ export function addVideoToDownloadThunk(
       handleComplete, 
       handleError
     )
+  
+  }
+}
+
+export function addVideoToDownloadThunk(
+  vod: VodType,
+  vodSourceId: number,
+  vodUrlNid: number,
+): ThunkAction<void, RootState, any, DownloadVideoActionType> {
+  return async function (dispatch, getState) {
+    dispatch(addVideoToDownload(vod, vodSourceId, vodUrlNid));
+    await downloadVodImage(vod);
+    dispatch(addDownloadToQueue(vod, vodSourceId, vodUrlNid))
+    dispatch(startVideoDownloadThunk(vod, vodSourceId, vodUrlNid))
+
 
   };
 }
