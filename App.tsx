@@ -41,7 +41,7 @@ import NetInfo from "@react-native-community/netinfo";
 import { AppsApi, PlaylistApi, VodApi } from "@api";
 import { CustomEventAnalytic } from "./Umeng/EventAnalytic";
 
-const topon_channel = "WEB";
+const topon_channel = "GOOGLE_PLAY";
 
 // import * as Sentry from "@sentry/react-native";
 

@@ -57,9 +57,9 @@ export const INVITE_DOMAIN = 'https://yingshi.tv/invite/pro/?invite=';
 //     'MI_GETAPPS': 'MI_GETAPPS',
 // }
 
-export const UMENG_CHANNEL = "WEB";
+export const UMENG_CHANNEL = "GOOGLE_PLAY";
 
-export const APP_VERSION = "1.7.0";
+export const APP_VERSION = "1.7.2";
 
 export const TOPON_ANDROID_APP_ID = 'a65002a2db3a7f';
 export const TOPON_ANDROID_APP_KEY = 'aad683307ed540dfc11b094206e8a15b1';
@@ -132,5 +132,5 @@ export const AD_VIDEO_SECONDS = 10;
 export const GOOGLE_SINGIN_CLIENT_WEB = '699123886701-lg76r3gei261u8lip8jp7qjlt49hqkf7.apps.googleusercontent.com';
 export const GOOGLE_SINGIN_CLIENT_IOS = '699123886701-ok49jlua77cf0omih5g1u9f1irflnrq3.apps.googleusercontent.com';
 
-export const EVENT_CUSTOM_START = true;
+export const EVENT_CUSTOM_START = false;
 export const EVENT_ANALYSIS_INTERVEL_SECONDS = 300;
