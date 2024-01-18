@@ -37,7 +37,7 @@ export function downloadVideoReducer(state = initialDownloadVideoState, action: 
       const concatDownloadsList = state.downloads
         .filter(download => download.vod.vod_id !== targetVod.vod.vod_id) 
         .concat(targetVod)
-        
+
       return {
         ...state, 
         downloads: concatDownloadsList
@@ -77,8 +77,8 @@ export function downloadVideoReducer(state = initialDownloadVideoState, action: 
         vod: targetVod.vod,
         imagePath: targetVod.imagePath,
         episodes: targetVod.episodes
-        .filter(episode => episode.vodSourceId !== targetEpisode.vodSourceId && episode.vodUrlNid !== targetEpisode.vodUrlNid) 
-        .concat(updatedEpisode)
+          .filter(episode => !(episode.vodSourceId === action.payload.vodSourceId && episode.vodUrlNid === action.payload.vodUrlNid)) 
+          .concat(updatedEpisode)
       }
 
       const updatedList = state.downloads
