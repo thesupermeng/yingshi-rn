@@ -69,7 +69,7 @@ export async function downloadVodImage(vod: VodType){
       .config({
         path: imagePath
       })
-      .fetch('GET', vod.vod_pic)
+      .fetch('GET', vod.vod_pic_oss) 
 
     
   } catch {
