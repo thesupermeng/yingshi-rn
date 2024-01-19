@@ -496,7 +496,11 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                 />
               </TouchableOpacity>
             )} */}
-
+            <ShowMoreButton
+              text="我的下载"
+              leftIcon={<CollectionIcon style={{ color: colors.button }} />}
+              onPress={() => navigation.navigate("我的下载")}
+            />
             <ShowMoreButton
               text="我的收藏"
               leftIcon={<CollectionIcon style={{ color: colors.button }} />}
