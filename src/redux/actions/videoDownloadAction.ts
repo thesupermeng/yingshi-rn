@@ -1,6 +1,6 @@
 import { DownloadVideoActionType, OptionalUpdateFields } from "@type/actionTypes";
 import { VodType } from "@type/ajaxTypes";
-import { downloadVod, downloadVodImage } from "../../utils/vodDownloader";
+import { downloadVod, downloadVodImage, getUrlOfVod } from "../../utils/vodDownloader";
 import { ThunkAction } from "redux-thunk";
 import { DownloadStatus, DownloadVideoReducerState, EpisodeDownloadType, VodDownloadType } from "@type/vodDownloadTypes";
 import { RootState } from "@redux/store";
@@ -31,7 +31,7 @@ function updateVideoDownload(vod: VodType, vodSourceId: number, vodUrlNid: numbe
   }
 }
 
-export function startVideoDownload(vod: VodType, vodSourceId: number, vodUrlNid: number): DownloadVideoActionType {
+function startVideoDownload(vod: VodType, vodSourceId: number, vodUrlNid: number): DownloadVideoActionType {
   return {
     type: 'START_VIDEO_DOWNLOAD', 
     payload: {
@@ -42,7 +42,7 @@ export function startVideoDownload(vod: VodType, vodSourceId: number, vodUrlNid:
   }
 }
 
-export function endVideoDownload(vod: VodType, vodSourceId: number, vodUrlNid: number): DownloadVideoActionType {
+function endVideoDownload(vod: VodType, vodSourceId: number, vodUrlNid: number): DownloadVideoActionType {
   return {
     type: 'END_VIDEO_DOWNLOAD', 
     payload: {
@@ -75,7 +75,7 @@ export function removeDownloadFromQueue(vod: VodType, vodSourceId: number, vodUr
   }
 }
 
-function removeVideoFromDownload(vod: VodType, vodSourceId: number, vodUrlNid: number): DownloadVideoActionType {
+export function removeVideoFromDownload(vod: VodType, vodSourceId: number, vodUrlNid: number): DownloadVideoActionType {
   return {
     type: 'REMOVE_VIDEO_FROM_DOWNLOAD', 
     payload: {
@@ -87,7 +87,7 @@ function removeVideoFromDownload(vod: VodType, vodSourceId: number, vodUrlNid: n
 }
 
 
-function removeVodFromDownload(vod: VodType, vodSourceId: number, vodUrlNid: number): DownloadVideoActionType {
+export function removeVodFromDownload(vod: VodType, vodSourceId: number, vodUrlNid: number): DownloadVideoActionType {
   return {
     type: 'REMOVE_VOD_FROM_DOWNLOAD', 
     payload: {
@@ -106,7 +106,7 @@ function resetQueue(): DownloadVideoActionType {
   }
 }
 
-export function startFirstVideoDownload(): ThunkAction<void, RootState, any, DownloadVideoActionType> {
+function startFirstVideoDownload(): ThunkAction<void, RootState, any, DownloadVideoActionType> {
   return async function (dispatch, getState) {
     const state = getState().downloadVideoReducer;
     const firstVod = state.queue.at(0);
@@ -115,16 +115,7 @@ export function startFirstVideoDownload(): ThunkAction<void, RootState, any, Dow
   }
 }
 
-function getUrlOfVod(vod: VodType, vodSourceId: number, vodUrlNid: number) {
-  // console.log(vod)
-  return vod.vod_sources
-    .find(source => source.source_id === vodSourceId)?.vod_play_list.urls
-    .find(url => url.nid === vodUrlNid)
-    ?.url
-
-}
-
-export function startVideoDownloadThunk(
+function startVideoDownloadThunk(
   vod: VodType,
   vodSourceId: number,
   vodUrlNid: number,
@@ -245,11 +236,23 @@ export function clearQueueOnAppStart(): ThunkAction<void, RootState, any, Downlo
 
     for (const download of state.downloads) {
       for (const episode of download.episodes) {
-        RNFetchBlob.fs.unlink(episode.videoPath)
-        dispatch(updateVideoDownload(download.vod, episode.vodSourceId, episode.vodUrlNid, {progress: {percentage: 0}, status: DownloadStatus.ERROR, ffmpegSession: null, sizeInBytes: 0}))
+        if (episode.status !== DownloadStatus.COMPLETED){
+          RNFetchBlob.fs.unlink(episode.videoPath)
+          dispatch(updateVideoDownload(download.vod, episode.vodSourceId, episode.vodUrlNid, {progress: {percentage: 0}, status: DownloadStatus.ERROR, ffmpegSession: null, sizeInBytes: 0}))
+        }
       }
     }
 
     dispatch(resetQueue())
+  }
+}
+
+export function restartVideoDownloadThunk (
+  vod: VodType,
+  vodSourceId: number,
+  vodUrlNid: number,): ThunkAction<void, RootState, any, DownloadVideoActionType> {
+  return async function (dispatch, getState) {
+    dispatch(addDownloadToQueue(vod, vodSourceId, vodUrlNid))
+    dispatch(startVideoDownloadThunk(vod, vodSourceId, vodUrlNid))
   }
 }

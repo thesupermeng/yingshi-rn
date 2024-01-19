@@ -80,3 +80,12 @@ export async function downloadVodImage(vod: VodType){
   }
 
 }
+
+export function getUrlOfVod(vod: VodType, vodSourceId: number, vodUrlNid: number) {
+  // console.log(vod)
+  return vod.vod_sources
+    .find(source => source.source_id === vodSourceId)?.vod_play_list.urls
+    .find(url => url.nid === vodUrlNid)
+    ?.url
+
+}
