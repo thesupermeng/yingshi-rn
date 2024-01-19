@@ -38,10 +38,12 @@ interface Props {
 export const AdsBannerContext = createContext<{
   setRoute: any;
   setNavbarHeight: any;
+  reloadBanner: any;
   currentRoute: string | null;
 }>({
   setRoute: () => {},
   setNavbarHeight: () => {},
+  reloadBanner: () => {},
   currentRoute: "",
 });
 
@@ -68,6 +70,13 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
     ({ screenReducer }: RootState) => screenReducer
   );
   // const [orientation, _] =
+
+ const reloadBanner = () =>{
+  console.log('reloadBanner')
+  setTimeout(() => {
+    showBannerInPosition().then();
+  }, 100);
+}
 
   const initBannerAdListener = () => {
     ATBannerRNSDK.setAdListener(ATBannerRNSDK.onBannerLoaded, (event) => {
@@ -412,10 +421,19 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
         }
       }
 
+
+      const includesKeywords = ['flip', 'fold', 'mate x3', 'mate xs'].some(keyword => deviceName.includes(keyword));
+    
+      let tabletOffset = 0;
+      if (DeviceInfo.isTablet() || includesKeywords) {
+        let sH = StatusBar.currentHeight || 0;
+        tabletOffset = 60
+      }
+   
       let x, y, width, height;
       x = 0;
       let bannerHeightOnScreen =
-        adsTopInPixel - TOPON_BANNER_HEIGHT * scale + huaweiOffset;
+        adsTopInPixel - TOPON_BANNER_HEIGHT * scale + huaweiOffset + tabletOffset;
       if (pageNoNavbar.includes(route)) {
         bannerHeightOnScreen += navbarHeightInPixel;
         // if (isHuaweiNova) {
@@ -507,7 +525,7 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
 
   return (
     <AdsBannerContext.Provider
-      value={{ setRoute, setNavbarHeight, currentRoute: route }}
+      value={{ setRoute, setNavbarHeight, currentRoute: route , reloadBanner }}
     >
       {children}
     </AdsBannerContext.Provider>

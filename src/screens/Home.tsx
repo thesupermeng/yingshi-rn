@@ -5,7 +5,7 @@ import React, {
   memo,
   useContext,
 } from "react";
-import { Platform, StyleSheet, View } from "react-native";
+import { Dimensions, Platform, StyleSheet, View } from "react-native";
 import ScreenContainer from "../components/container/screenContainer";
 import { useFocusEffect, useRoute, useTheme } from "@react-navigation/native";
 import { useQuery, useQueries, UseQueryResult } from "@tanstack/react-query";
@@ -56,6 +56,7 @@ import { screenModel } from "@type/screenType";
 import { AppsApi } from "@api";
 import UmengAnalytics from "../../Umeng/UmengAnalytics";
 import { userModel } from "@type/userType";
+import DeviceInfo from "react-native-device-info";
 
 function Home({ navigation }: BottomTabScreenProps<any>) {
   const dispatch = useAppDispatch();
@@ -93,8 +94,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
           json = json.filter((e) => e?.id != 99);
           dispatch(setShowAdultTab(true));
         }
-        else
-        {
+        else {
           dispatch(setShowAdultTab(false));
         }
         return json;
@@ -245,11 +245,34 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
     [navOptions, navId, screenState.lastSeenNavName]
   );
 
-  const { setNavbarHeight } = useContext(AdsBannerContext);
+  const { setNavbarHeight , reloadBanner } = useContext(AdsBannerContext);
 
+  
+  const isSamsungDevice = DeviceInfo.getBrand() === 'samsung';
   useEffect(() => {
-    setNavbarHeight(bottomTabHeight);
-  }, [bottomTabHeight]);
+  //setNavbarHeight(bottomTabHeight);
+    setTimeout(() => {
+      // add delay to solve galaxy phone banner overlay nav on first start
+      setNavbarHeight(bottomTabHeight);
+    },  isSamsungDevice ? 1000 : 500)
+  }, [bottomTabHeight , screenState.interstitialShow]);
+
+  const [deviceName, setDeviceName] = useState("");
+
+  DeviceInfo.getDeviceName().then((d) => {
+      setDeviceName(d.toLowerCase());
+  });
+
+   useEffect(() => {
+
+    Dimensions.addEventListener('change', (e) => {
+      const includesKeywords = ['flip', 'fold', 'mate x3', 'mate xs'].some(keyword => deviceName.includes(keyword));
+      if (DeviceInfo.isTablet() || includesKeywords) {
+        reloadBanner()
+    }
+    })
+  }, []);
+  
 
   // ========== for analytics - start ==========
   useEffect(() => {
@@ -271,6 +294,23 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
     }
   }, [navId]);
   // ========== for analytics - end ==========
+
+  const onTabFocus = (target?: string) => {
+    const targetStr = target?.substring(0, target.indexOf("-"));
+    if (navOptions !== undefined) {
+      const found = navOptions?.find((e) => e.name === targetStr);
+
+      if (found) {
+        setNavId(found.id);
+        // ========== for analytics - start ==========
+        UmengAnalytics.homeTabViewsAnalytics({
+          tab_id: found.id.toString(),
+          tab_name: found.name,
+        });
+        // ========== for analytics - end ==========
+      }
+    }
+  };
 
   const onTabPress = (target?: string) => {
     const targetStr = target?.substring(0, target.indexOf("-"));
@@ -314,6 +354,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
           // hideContent={hideContent}
           navId={navId}
           onTabPress={onTabPress}
+          onTabFocus={onTabFocus}
           onTabSwipe={onTabSwipe}
           tabList={
             navOptions?.map((e) => ({

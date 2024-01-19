@@ -14,6 +14,7 @@ interface Props {
   tabChildren: (tab: { title: string; id: number; name: string }, index: number) => React.ReactNode,
   hideContent?: boolean,
   onTabPress: (target?: string) => void,
+  onTabFocus: (target?: string) => void,
   onTabSwipe: (index: number, tab: any) => void,
   navId: number
 }
@@ -23,6 +24,7 @@ export default function HomeNav({
   tabChildren,
   hideContent = false,
   onTabPress,
+  onTabFocus,
   onTabSwipe,
   navId,
 }: Props) {
@@ -74,7 +76,7 @@ export default function HomeNav({
         //   }
         // }, 
         focus: e => {
-          onTabPress(e.target)
+          onTabFocus(e.target)
           if (tab.id != 99) {
             // dispatch(showAdultModeDisclaimer())
             dispatch(updateLastSeenNavName(tab.name))

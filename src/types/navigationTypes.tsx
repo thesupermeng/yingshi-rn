@@ -109,7 +109,8 @@ export type RootStackParamList = {
   };
   活动页: {
     bannerAd: BannerAdType; 
-  }
+  }; 
+  我的下载: undefined
 };
 
 export type RootStackScreenProps<

@@ -2,8 +2,7 @@ import { VodType } from "@type/ajaxTypes";
 import { FFmpegKit, FFmpegSession, FFprobeKit, Log, MediaInformationSession, Statistics } from "ffmpeg-kit-react-native";
 import { throttle, uniqueId } from "lodash";
 import RNFetchBlob from "rn-fetch-blob";
-
-export async function downloadVod(id: string, url: string, onProgress: ({percentage}: {percentage: number}) => void, onComplete: any, onError: any, ) { 
+export async function downloadVod(id: string, url: string, onProgress: (progress: {percentage?: number, bytes?:number}) => void, onComplete: any, onError: any, onSessionCreated: ({session}:{session: FFmpegSession}) => void) { 
   await RNFetchBlob.fs.mkdir(RNFetchBlob.fs.dirs.DocumentDir + '/SavedVideos').catch((err) => {})
 
   const outputFilePath = `${RNFetchBlob.fs.dirs.DocumentDir}/SavedVideos/${id}.mp4`
@@ -14,7 +13,9 @@ export async function downloadVod(id: string, url: string, onProgress: ({percent
 
   const handleComplete = async (session: FFmpegSession) => {
     // console.log(`Download complete. File at ${outputFilePath}`)
-    onComplete()
+    
+    const stats = await RNFetchBlob.fs.stat(outputFilePath)
+    onComplete(stats.size)
   }
 
   const handleLog = (async (log: Log) => {
@@ -45,18 +46,21 @@ export async function downloadVod(id: string, url: string, onProgress: ({percent
   })
 
   const handleStatistic = async (stats: Statistics) => {
+    onProgress({bytes: stats.getSize()})
   }
 
-  await FFmpegKit.executeAsync(
+  const session = await FFmpegKit.executeAsync(
     ffmpegScript, 
     handleComplete, 
     handleLog, 
     handleStatistic
   )
+
+  onSessionCreated({session})
 }
 
 export async function downloadVodImage(vod: VodType){
-  const imagePath = RNFetchBlob.fs.dirs.DocumentDir + '/VodImages' + `/pic${vod.vod_id}`
+  const imagePath = RNFetchBlob.fs.dirs.DocumentDir + '/VodImages' + `/pic${vod.vod_id}.png`
   // const urls = [vod.vod_pic]
 
   if (await RNFetchBlob.fs.exists(imagePath)) return
@@ -67,11 +71,20 @@ export async function downloadVodImage(vod: VodType){
       .config({
         path: imagePath
       })
-      .fetch('GET', vod.vod_pic)
+      .fetch('GET', vod.vod_pic_oss) 
 
     
   } catch {
     // TODO : handle error 
   }
+
+}
+
+export function getUrlOfVod(vod: VodType, vodSourceId: number, vodUrlNid: number) {
+  // console.log(vod)
+  return vod.vod_sources
+    .find(source => source.source_id === vodSourceId)?.vod_play_list.urls
+    .find(url => url.nid === vodUrlNid)
+    ?.url
 
 }

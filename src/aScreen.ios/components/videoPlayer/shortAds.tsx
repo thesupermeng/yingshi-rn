@@ -130,7 +130,12 @@ function ShortAds({
     }, [isPause]);
 
     useEffect(() => {
-        UmengAnalytics.watchAnytimeAdsViewAnalytics();
+        UmengAnalytics.watchAnytimeAdsViewAnalytics({
+            ads_slot_id: currentVod.ads_slot_id,
+            ads_id: currentVod.ads_id,
+            ads_title: currentVod.ads_event_title,
+            ads_name: currentVod.ads_name,
+        });
 
         return () => {
             // on component unmount
@@ -192,7 +197,12 @@ function ShortAds({
 
         Linking.openURL(url);
 
-        UmengAnalytics.watchAnytimeAdsClicksAnalytics();
+        UmengAnalytics.watchAnytimeAdsClicksAnalytics({
+            ads_slot_id: currentVod.ads_slot_id,
+            ads_id: currentVod.ads_id,
+            ads_title: currentVod.ads_event_title,
+            ads_name: currentVod.ads_name,
+        });
     }
 
     return (

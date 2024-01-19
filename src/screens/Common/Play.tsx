@@ -16,6 +16,7 @@ import {
   Alert,
   ScrollView,
   Platform,
+  Dimensions,
 } from "react-native";
 import FavoriteButton from "../../components/button/favoriteVodButton";
 import FavoriteIcon from "@static/images/favorite.svg";
@@ -67,7 +68,6 @@ import NoConnection from "../../components/common/noConnection";
 import NetInfo from "@react-native-community/netinfo";
 import { lockAppOrientation } from "@redux/actions/settingsActions";
 import { AdsBannerContext } from "../../contexts/AdsBannerContext";
-import useInterstitialAds from "@hooks/useInterstitialAds";
 import { URL } from "react-native-url-polyfill";
 import RNFetchBlob from "rn-fetch-blob";
 import { userModel } from "@type/userType";
@@ -99,6 +99,7 @@ import BecomeVipOverlay from "../../components/modal/becomeVipOverlay";
 import { AdsApi } from "../../api/ads";
 import SimpleToast from "react-native-simple-toast";
 import DownloadVodSelectionModal from "../../components/modal/downloadVodSelectionModal";
+import DeviceInfo from "react-native-device-info";
 
 let insetsTop = 0;
 let insetsBottom = 0;
@@ -675,6 +676,28 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     queryFn: () => fetchSVod(),
   });
 
+  
+  const [deviceName, setDeviceName] = useState("");
+
+  DeviceInfo.getDeviceName().then((d) => {
+      setDeviceName(d.toLowerCase());
+  });
+
+  useEffect(() => {
+    Dimensions.addEventListener('change', (e) => {
+      const includesKeywords = ['flip', 'fold', 'mate x3', 'mate xs'].some(keyword => deviceName.includes(keyword));
+
+      if (DeviceInfo.isTablet() || includesKeywords) {
+       setIsLoading(true)
+
+       setTimeout(() => {
+        setIsLoading(false)
+      }, 100);
+    }
+    })
+  }, []);
+
+
   const handleRefresh = useCallback(async () => {
     // setIsRefreshing(true);
     await refetch();
@@ -805,7 +828,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     dispatch(lockAppOrientation(orientation));
   };
 
-  useInterstitialAds();
+  // useInterstitialAds();
 
   const [vodUri, setVodUri] = useState("");
 
@@ -1037,18 +1060,22 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
               >
                 <BannerContainer
                   bannerAd={bannerAd}
-                  onMount={({ id, name }) => {
+                  onMount={({ id, name, slot_id, title }) => {
                     UmengAnalytics.videoPlayerBannerViewAnalytics({
                       playerType: adultMode ? "xVideo" : "normal",
                       ads_id: id,
                       ads_name: name,
+                      ads_slot_id: slot_id,
+                      ads_title: title,
                     });
                   }}
-                  onPress={({ id, name }) => {
+                  onPress={({ id, name, slot_id, title }) => {
                     UmengAnalytics.videoPlayerBannerClickAnalytics({
                       playerType: adultMode ? "xVideo" : "normal",
                       ads_id: id,
                       ads_name: name,
+                      ads_slot_id: slot_id,
+                      ads_title: title,
                     });
                   }}
                 />
@@ -1375,7 +1402,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
                 {/* show 选集播放 section when avaiable episode more thn 1 */}
                 <>
-                  {isFetchingVodDetails ? (
+                  {(isFetchingVodDetails || isLoading) ? (
                     <>
                       <View
                         style={{

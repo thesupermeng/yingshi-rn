@@ -19,6 +19,7 @@ import HistoryIcon from "@static/images/history.svg";
 import FeedbackIcon from "@static/images/feedback.svg";
 import SettingsIcon from "@static/images/settings.svg";
 import InfoIcon from "@static/images/info.svg";
+import DownloadIcon from '@static/images/download.svg'
 import { useNavigation } from "@react-navigation/native";
 
 import Orientation from "react-native-orientation-locker";
@@ -165,17 +166,21 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
     setDisplayedDate(`${year}年${month}月${day}日`);
   }, [userState.userMemberExpired]);
 
-  const onBannerView = useCallback(({ id, name }: any) => {
+  const onBannerView = useCallback(({ id, name, slot_id, title }: any) => {
     UmengAnalytics.profileBannerViewAnalytics({
       ads_id: id,
       ads_name: name,
+      ads_slot_id: slot_id,
+      ads_title: title,
     });
   }, []);
 
-  const onBannerPress = useCallback(({ id, name }: any) => {
+  const onBannerPress = useCallback(({ id, name, slot_id, title }: any) => {
     UmengAnalytics.profileBannerClickAnalytics({
       ads_id: id,
       ads_name: name,
+      ads_slot_id: slot_id,
+      ads_title: title,
     });
   }, []);
 
@@ -496,7 +501,11 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                 />
               </TouchableOpacity>
             )} */}
-
+            <ShowMoreButton
+              text="我的下载"
+              leftIcon={<DownloadIcon style={{ color: colors.button }} />}
+              onPress={() => navigation.navigate("我的下载")}
+            />
             <ShowMoreButton
               text="我的收藏"
               leftIcon={<CollectionIcon style={{ color: colors.button }} />}

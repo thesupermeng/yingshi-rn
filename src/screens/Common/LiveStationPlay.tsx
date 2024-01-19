@@ -15,7 +15,6 @@ import VodPlayer from "../../components/videoPlayer/vodPlayer";
 import { SettingsReducerState } from "@redux/reducers/settingsReducer";
 import { RootState } from "@redux/store";
 import { lockAppOrientation } from "@redux/actions/settingsActions";
-import useInterstitialAds from "@hooks/useInterstitialAds";
 import { screenModel } from "@type/screenType";
 import { disableAdultMode } from "@redux/actions/screenAction";
 
@@ -64,7 +63,7 @@ export default ({ navigation, route }: RootStackScreenProps<"电视台播放">) 
   const lockOrientation = (orientation: string) => {
     dispatch(lockAppOrientation(orientation));
   };
-  useInterstitialAds();
+  // useInterstitialAds();
 
   const screenState: screenModel = useAppSelector(
     ({ screenReducer }: RootState) => screenReducer

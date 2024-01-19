@@ -8,6 +8,7 @@ import VodCard from '../../components/vod/vodCard';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { VodType } from '@type/ajaxTypes';
 import { disableAdultMode, enableAdultMode } from '@redux/actions/screenAction';
+import DeviceInfo from 'react-native-device-info';
 
 
 interface Props {
@@ -33,15 +34,33 @@ function VodListVertical({ vods, numOfRows = 2, outerRowPadding = 0, minNumPerRo
 
     const width = Math.min(Dimensions.get('window').width, Dimensions.get('window').height);
 
+
+    const [deviceName, setDeviceName] = useState("");
+
+    DeviceInfo.getDeviceName().then((d) => {
+        setDeviceName(d.toLowerCase());
+    });
+    
     useEffect(() => {
         calculateDimensions;
+        // Dimensions.addEventListener('change', (e) => {
+        //     setTimeout(() => {
+        //         calculateDimensions;
+        //       }, 1000);
+        
+        //   })
     }, []);
-
     const calculateDimensions = useMemo(() => {
         const PADDING = 8;
         const windowDim = width - insets.left - insets.right - outerRowPadding - (2.1 * spacing.sideOffset); // usable space
         const maxWidth = (windowDim / minNumPerRow) - PADDING;
         let cardWidth = Math.min(160, Math.floor(maxWidth));
+        const includesKeywords = ['flip', 'fold', 'mate x3', 'mate xs'].some(keyword => deviceName.includes(keyword));
+        if(DeviceInfo.isTablet() || includesKeywords)
+        {
+            cardWidth = Math.min(145, Math.floor(maxWidth));
+        }
+
         const cardHeight = heightToWidthRatio * cardWidth;
         const CARDS_PER_ROW = Math.floor(windowDim / cardWidth);
         let BTN_MARGIN_RIGHT = (windowDim - (CARDS_PER_ROW * cardWidth)) / (CARDS_PER_ROW - 1);

@@ -99,7 +99,7 @@ console.log( Platform.OS )
       }}
     >
       {/* {watchAnytimeAdultMode && <WatchAnytimeVipModal />} */}
-      {(UMENG_CHANNEL != "GOOGLE_PLAY" || Platform.OS === "ios" ) && (
+      {(screenState.showAdultTab  || Platform.OS === "ios" ) && (
         <AdultModeSwitch switchStyle={styles.switch} />
       )}
       {watchAnytimeAdultMode && !isVip && !showAdultVipPrivilegeMiniVideo &&

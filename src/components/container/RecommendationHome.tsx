@@ -45,6 +45,7 @@ import { BannerContainer } from "./bannerContainer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import UmengAnalytics from "../../../Umeng/UmengAnalytics";
 import { AdsApi } from "../../api/ads";
+import DeviceInfo from "react-native-device-info";
 
 interface NavType {
   id: number;
@@ -99,6 +100,39 @@ const RecommendationHome = ({
       });
     }
   }, []);
+
+
+  
+
+  useEffect(() => {
+    handleTabletFold()
+  }, []);
+
+
+
+  const [deviceName, setDeviceName] = useState("");
+
+  DeviceInfo.getDeviceName().then((d) => {
+      setDeviceName(d.toLowerCase());
+  });
+  const handleTabletFold = async() =>
+  {
+    Dimensions.addEventListener('change', (e) => {
+      const includesKeywords = ['flip', 'fold', 'mate x3', 'mate xs'].some(keyword => deviceName.includes(keyword));
+      if (DeviceInfo.isTablet() || includesKeywords) {
+      setWidth(Number(Dimensions.get("window").width));
+      if (data.carousel.length > 0) {
+        Image.getSize(data.carousel[0].carousel_pic_mobile, (w, h) => {
+          setImgRatio(w / h);
+        });
+      }
+      handleRefresh()
+    }
+    })
+
+  }
+
+
   // Function to handle the pull-to-refresh action
   const handleRefresh = async () => {
     setIsRefreshing(true);
@@ -179,10 +213,16 @@ const RecommendationHome = ({
   );
 
   useFocusEffect(useCallback(() => {
-    if (isTabFocus && carouselRef.current && data.carousel[carouselRef.current.getCurrentIndex()]?.is_ads) {
+    const currentCarousel = data.carousel[carouselRef.current.getCurrentIndex()];
+
+    if (isTabFocus && carouselRef.current && currentCarousel?.is_ads) {
       UmengAnalytics.homeTabCarouselViewAnalytics({
         tab_id: navId?.toString() ?? '0',
         tab_name: tabName ?? '',
+        ads_slot_id: currentCarousel.ads_slot_id,
+        ads_id: currentCarousel.ads_id,
+        ads_title: currentCarousel.ads_event_title,
+        ads_name: currentCarousel.ads_name,
       });
     }
   }, [data, isTabFocus, carouselRef.current?.getCurrentIndex()]));
@@ -190,20 +230,24 @@ const RecommendationHome = ({
   const renderBanner = useCallback((bannerAd: BannerAdType) => (
     <BannerContainer
       bannerAd={bannerAd}
-      onMount={({ id, name }) => {
+      onMount={({ id, name, slot_id, title }) => {
         UmengAnalytics.homeTabBannerViewAnalytics({
           tab_id: navId?.toString() ?? '0',
           tab_name: tabName ?? '',
           ads_id: id,
           ads_name: name,
+          ads_slot_id: slot_id,
+          ads_title: title,
         });
       }}
-      onPress={({ id, name }) => {
+      onPress={({ id, name, slot_id, title }) => {
         UmengAnalytics.homeTabBannerClickAnalytics({
           tab_id: navId?.toString() ?? '0',
           tab_name: tabName ?? '',
           ads_id: id,
           ads_name: name,
+          ads_slot_id: slot_id,
+          ads_title: title,
         });
       }}
     />
@@ -224,6 +268,10 @@ const RecommendationHome = ({
               UmengAnalytics.homeTabCarouselClickAnalytics({
                 tab_id: navId?.toString() ?? '0',
                 tab_name: tabName ?? '',
+                ads_slot_id: item.ads_slot_id,
+                ads_id: item.ads_id,
+                ads_title: item.ads_event_title,
+                ads_name: item.ads_name,
               });
             } else {
               dispatch(playVod(item.vod));
@@ -234,7 +282,7 @@ const RecommendationHome = ({
           }}
         >
           <FastImage
-            key={`slider-${key}`}
+            key={`slider2-${key}`}
             style={styles.image}
             source={{
               uri: item.carousel_pic_mobile,

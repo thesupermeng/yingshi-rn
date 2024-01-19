@@ -4,7 +4,7 @@ import RNFetchBlob from "rn-fetch-blob"
 
 const initialDownloadVideoState : DownloadVideoReducerState = {
   downloads: [], 
-  currentDownloading: 0, 
+  currentDownloading: [], 
   queue: []
 }
 
@@ -13,7 +13,7 @@ export function downloadVideoReducer(state = initialDownloadVideoState, action: 
     case 'ADD_VIDEO_TO_DOWNLOAD': {
       const newVodDownload: VodDownloadType = {
         vod: action.payload.vod, 
-        imagePath: 'file:///' + RNFetchBlob.fs.dirs.DocumentDir + '/VodImages' + `/pic${action.payload.vod.vod_id}`, 
+        imagePath: 'file:///' + RNFetchBlob.fs.dirs.DocumentDir + '/VodImages' + `/pic${action.payload.vod.vod_id}.png`, 
         episodes: []
       }
       let targetVod = state.downloads.find(download => download.vod.vod_id === action.payload.vod.vod_id) ?? newVodDownload
@@ -28,7 +28,7 @@ export function downloadVideoReducer(state = initialDownloadVideoState, action: 
         }, 
         status: DownloadStatus.DOWNLOADING, 
         sizeInBytes: 0, 
-        videoPath: '', 
+        videoPath: `${RNFetchBlob.fs.dirs.DocumentDir}/SavedVideos/${action.payload.vod.vod_id}-${action.payload.vodSourceId}-${action.payload.vodUrlNid}.mp4`, 
         vodSourceId: action.payload.vodSourceId, 
         vodUrlNid: action.payload.vodUrlNid
       }
@@ -72,7 +72,8 @@ export function downloadVideoReducer(state = initialDownloadVideoState, action: 
         sizeInBytes: action.payload.sizeInBytes ?? targetEpisode.sizeInBytes, 
         videoPath: action.payload.videoPath ?? targetEpisode.videoPath, 
         vodSourceId: targetEpisode.vodSourceId, 
-        vodUrlNid: targetEpisode.vodUrlNid
+        vodUrlNid: targetEpisode.vodUrlNid, 
+        ffmpegSession : action.payload.ffmpegSession === undefined ? targetEpisode.ffmpegSession : action.payload.ffmpegSession
       } 
 
       const updatedVod: VodDownloadType = {
@@ -94,21 +95,16 @@ export function downloadVideoReducer(state = initialDownloadVideoState, action: 
     }
 
     case 'START_VIDEO_DOWNLOAD': {
-      const updatedQueue = state.queue
-        .filter(download => !(download.vodSourceId === action.payload.vodSourceId && download.vodUrlNid === action.payload.vodUrlNid))
-
-
       return {
         ...state, 
-        currentDownloading: state.currentDownloading + 1, 
-        queue: updatedQueue
+        currentDownloading: state.currentDownloading.concat(action.payload), 
       }
     }
 
     case 'END_VIDEO_DOWNLOAD': {
       return {
         ...state, 
-        currentDownloading: state.currentDownloading - 1, 
+        currentDownloading: state.currentDownloading.filter(item => !(item.vodSourceId === action.payload.vodSourceId && item.vodUrlNid === action.payload.vodUrlNid)), 
       }
     }
 
@@ -119,24 +115,78 @@ export function downloadVideoReducer(state = initialDownloadVideoState, action: 
       }
     }
 
+    case "REMOVE_DOWNLOAD_FROM_QUEUE": {
+      return {
+        ...state, 
+        queue: state.queue.filter(item => !(item.vodSourceId === action.payload.vodSourceId && item.vodUrlNid === action.payload.vodUrlNid))
+      }
+    }
+
     case 'REMOVE_VIDEO_FROM_DOWNLOAD': {
+      const targetVod = state.downloads.find(download => download.vod.vod_id === action.payload.vod.vod_id)
+      if (!targetVod) return state
+      const targetEpisode = targetVod.episodes.find(episode => episode.vodSourceId === action.payload.vodSourceId && episode.vodUrlNid === action.payload.vodUrlNid)
+      if (!targetEpisode) return state
+
+      const updatedVod: VodDownloadType = {
+        vod: targetVod.vod,
+        imagePath: targetVod.imagePath,
+        episodes: targetVod.episodes
+          .filter(episode => !(episode.vodSourceId === action.payload.vodSourceId && episode.vodUrlNid === action.payload.vodUrlNid))
+      }
+
+      const updatedList = state.downloads
+      .filter(download => download.vod.vod_id !== targetVod.vod.vod_id) 
+      .concat(updatedVod)
+
       return {
         ...state, 
-
+        downloads: updatedList
       }
     }
-    case 'PAUSE_VIDEO_DOWNLOAD':{ 
+
+    case 'REMOVE_VOD_FROM_DOWNLOAD': {
+      const targetVod = state.downloads.find(download => download.vod.vod_id === action.payload.vod.vod_id)
+      if (!targetVod) return state
+
+      const updatedVod: VodDownloadType = {
+        vod: targetVod.vod,
+        imagePath: targetVod.imagePath,
+        episodes: targetVod.episodes
+          .filter(episode => !(episode.vodSourceId === action.payload.vodSourceId && episode.vodUrlNid === action.payload.vodUrlNid))
+      }
+
+      const updatedList = state.downloads
+      .filter(download => download.vod.vod_id !== targetVod.vod.vod_id) 
+      .concat(updatedVod)
+
       return {
         ...state, 
-
+        downloads: updatedList
       }
     }
-    case 'CANCEL_VIDEO_DOWNLOAD': {
+
+    case 'RESET_QUEUE': {
       return {
         ...state, 
-
+        currentDownloading: [], 
+        queue: []
       }
     }
+
+    // case 'PAUSE_VIDEO_DOWNLOAD':{ // TODO : implement in the future 
+    //   return {
+    //     ...state, 
+
+    //   }
+    // }
+    // case 'CANCEL_VIDEO_DOWNLOAD': { // TODO : currently not implementing
+    //   return {
+    //     ...state, 
+
+    //   }
+    // }
+    
     default: {
       return state
     }
