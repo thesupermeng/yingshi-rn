@@ -19,6 +19,7 @@ import HistoryIcon from "@static/images/history.svg";
 import FeedbackIcon from "@static/images/feedback.svg";
 import SettingsIcon from "@static/images/settings.svg";
 import InfoIcon from "@static/images/info.svg";
+import DownloadIcon from '@static/images/download.svg'
 import { useNavigation } from "@react-navigation/native";
 
 import Orientation from "react-native-orientation-locker";
@@ -498,7 +499,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
             )} */}
             <ShowMoreButton
               text="我的下载"
-              leftIcon={<CollectionIcon style={{ color: colors.button }} />}
+              leftIcon={<DownloadIcon style={{ color: colors.button }} />}
               onPress={() => navigation.navigate("我的下载")}
             />
             <ShowMoreButton
