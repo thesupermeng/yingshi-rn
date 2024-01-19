@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState, memo, useContext } from "react";
-import { Platform, StyleSheet, View } from "react-native";
+import { Dimensions, Platform, StyleSheet, View } from "react-native";
 import ScreenContainer from "../components/container/screenContainer";
 import { useFocusEffect, useTheme } from "@react-navigation/native";
 import { useQuery, useQueries, UseQueryResult } from "@tanstack/react-query";
@@ -40,6 +40,7 @@ import { AdsBannerContext } from "../../contexts/AdsBannerContext";
 import UmengAnalytics from "../../../Umeng/UmengAnalytics";
 import { AppsApi } from "@api";
 import { userModel } from "@type/userType";
+import DeviceInfo from "react-native-device-info";
 
 function Home({ navigation }: BottomTabScreenProps<any>) {
   const isFocused = useIsFocused();
@@ -179,11 +180,22 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   );
 
 
-  const { setNavbarHeight } = useContext(AdsBannerContext);
-
+  const { setNavbarHeight, reloadBanner } = useContext(AdsBannerContext);
+  
   useEffect(() => {
     setNavbarHeight(bottomTabHeight);
   }, [bottomTabHeight]);
+
+
+
+  // useEffect(() => {
+  //   Dimensions.addEventListener('change', (e) => {
+  //     if (DeviceInfo.isTablet()) {
+  //       reloadBanner()
+  //   }
+  //   })
+  // }, []);
+  
 
   // ========== for analytics - start ==========
   useEffect(() => {

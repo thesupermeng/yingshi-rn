@@ -45,6 +45,7 @@ import { BannerContainer } from "./bannerContainer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import UmengAnalytics from "../../../Umeng/UmengAnalytics";
 import { AdsApi } from "../../api/ads";
+import DeviceInfo from "react-native-device-info";
 
 interface NavType {
   id: number;
@@ -99,6 +100,39 @@ const RecommendationHome = ({
       });
     }
   }, []);
+
+
+  
+
+  useEffect(() => {
+    handleTabletFold()
+  }, []);
+
+
+
+  const [deviceName, setDeviceName] = useState("");
+
+  DeviceInfo.getDeviceName().then((d) => {
+      setDeviceName(d.toLowerCase());
+  });
+  const handleTabletFold = async() =>
+  {
+    Dimensions.addEventListener('change', (e) => {
+      const includesKeywords = ['flip', 'fold', 'mate x3', 'mate xs'].some(keyword => deviceName.includes(keyword));
+      if (DeviceInfo.isTablet() || includesKeywords) {
+      setWidth(Number(Dimensions.get("window").width));
+      if (data.carousel.length > 0) {
+        Image.getSize(data.carousel[0].carousel_pic_mobile, (w, h) => {
+          setImgRatio(w / h);
+        });
+      }
+      handleRefresh()
+    }
+    })
+
+  }
+
+
   // Function to handle the pull-to-refresh action
   const handleRefresh = async () => {
     setIsRefreshing(true);
@@ -248,7 +282,7 @@ const RecommendationHome = ({
           }}
         >
           <FastImage
-            key={`slider-${key}`}
+            key={`slider2-${key}`}
             style={styles.image}
             source={{
               uri: item.carousel_pic_mobile,

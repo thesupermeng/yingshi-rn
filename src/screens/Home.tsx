@@ -5,7 +5,7 @@ import React, {
   memo,
   useContext,
 } from "react";
-import { Platform, StyleSheet, View } from "react-native";
+import { Dimensions, Platform, StyleSheet, View } from "react-native";
 import ScreenContainer from "../components/container/screenContainer";
 import { useFocusEffect, useRoute, useTheme } from "@react-navigation/native";
 import { useQuery, useQueries, UseQueryResult } from "@tanstack/react-query";
@@ -245,7 +245,9 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
     [navOptions, navId, screenState.lastSeenNavName]
   );
 
-  const { setNavbarHeight } = useContext(AdsBannerContext);
+  const { setNavbarHeight , reloadBanner } = useContext(AdsBannerContext);
+
+  
   const isSamsungDevice = DeviceInfo.getBrand() === 'samsung';
   useEffect(() => {
   //setNavbarHeight(bottomTabHeight);
@@ -254,6 +256,23 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
       setNavbarHeight(bottomTabHeight);
     },  isSamsungDevice ? 1000 : 500)
   }, [bottomTabHeight , screenState.interstitialShow]);
+
+  const [deviceName, setDeviceName] = useState("");
+
+  DeviceInfo.getDeviceName().then((d) => {
+      setDeviceName(d.toLowerCase());
+  });
+
+   useEffect(() => {
+
+    Dimensions.addEventListener('change', (e) => {
+      const includesKeywords = ['flip', 'fold', 'mate x3', 'mate xs'].some(keyword => deviceName.includes(keyword));
+      if (DeviceInfo.isTablet() || includesKeywords) {
+        reloadBanner()
+    }
+    })
+  }, []);
+  
 
   // ========== for analytics - start ==========
   useEffect(() => {
