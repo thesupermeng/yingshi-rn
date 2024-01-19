@@ -4,7 +4,7 @@ import RNFetchBlob from "rn-fetch-blob"
 
 const initialDownloadVideoState : DownloadVideoReducerState = {
   downloads: [], 
-  currentDownloading: 0, 
+  currentDownloading: [], 
   queue: []
 }
 
@@ -95,21 +95,16 @@ export function downloadVideoReducer(state = initialDownloadVideoState, action: 
     }
 
     case 'START_VIDEO_DOWNLOAD': {
-      const updatedQueue = state.queue
-        .filter(download => !(download.vodSourceId === action.payload.vodSourceId && download.vodUrlNid === action.payload.vodUrlNid))
-
-
       return {
         ...state, 
-        currentDownloading: state.currentDownloading + 1, 
-        queue: updatedQueue
+        currentDownloading: state.currentDownloading.concat(action.payload), 
       }
     }
 
     case 'END_VIDEO_DOWNLOAD': {
       return {
         ...state, 
-        currentDownloading: state.currentDownloading - 1, 
+        currentDownloading: state.currentDownloading.filter(item => !(item.vodSourceId === action.payload.vodSourceId && item.vodUrlNid === action.payload.vodUrlNid)), 
       }
     }
 
@@ -117,6 +112,13 @@ export function downloadVideoReducer(state = initialDownloadVideoState, action: 
       return {
         ...state, 
         queue: state.queue.concat(action.payload), 
+      }
+    }
+
+    case "REMOVE_DOWNLOAD_FROM_QUEUE": {
+      return {
+        ...state, 
+        queue: state.queue.filter(item => !(item.vodSourceId === action.payload.vodSourceId && item.vodUrlNid === action.payload.vodUrlNid))
       }
     }
 
@@ -167,23 +169,24 @@ export function downloadVideoReducer(state = initialDownloadVideoState, action: 
     case 'RESET_QUEUE': {
       return {
         ...state, 
-        currentDownloading: 0, 
+        currentDownloading: [], 
         queue: []
       }
     }
 
-    case 'PAUSE_VIDEO_DOWNLOAD':{ // TODO : implement in the future 
-      return {
-        ...state, 
+    // case 'PAUSE_VIDEO_DOWNLOAD':{ // TODO : implement in the future 
+    //   return {
+    //     ...state, 
 
-      }
-    }
-    case 'CANCEL_VIDEO_DOWNLOAD': { // TODO : currently not implementing
-      return {
-        ...state, 
+    //   }
+    // }
+    // case 'CANCEL_VIDEO_DOWNLOAD': { // TODO : currently not implementing
+    //   return {
+    //     ...state, 
 
-      }
-    }
+    //   }
+    // }
+    
     default: {
       return state
     }

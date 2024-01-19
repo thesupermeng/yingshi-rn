@@ -77,12 +77,13 @@ export interface DownloadVideoActionType {
     | 'ADD_VIDEO_TO_DOWNLOAD'
     | 'REMOVE_VIDEO_FROM_DOWNLOAD'
     | 'REMOVE_VOD_FROM_DOWNLOAD'
-    | 'PAUSE_VIDEO_DOWNLOAD'
-    | 'CANCEL_VIDEO_DOWNLOAD'
+    // | 'PAUSE_VIDEO_DOWNLOAD'
+    // | 'CANCEL_VIDEO_DOWNLOAD' 
     | 'UPDATE_VIDEO_DOWNLOAD'
     | 'START_VIDEO_DOWNLOAD'
     | 'END_VIDEO_DOWNLOAD'
     | 'ADD_DOWNLOAD_TO_QUEUE'
+    | 'REMOVE_DOWNLOAD_FROM_QUEUE'
     | 'RESET_QUEUE'
     ;
   payload: DownloadVideoActionPayload;

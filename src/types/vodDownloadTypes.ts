@@ -31,6 +31,6 @@ export interface VodDownloadType {
 
 export interface DownloadVideoReducerState {
   downloads: Array<VodDownloadType>;
-  currentDownloading: number;
+  currentDownloading: Array<DownloadVideoActionPayload>;
   queue: Array<DownloadVideoActionPayload>
 }

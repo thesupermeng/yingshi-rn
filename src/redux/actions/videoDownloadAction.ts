@@ -64,6 +64,17 @@ export function addDownloadToQueue(vod: VodType, vodSourceId: number, vodUrlNid:
   }
 }
 
+export function removeDownloadFromQueue(vod: VodType, vodSourceId: number, vodUrlNid: number): DownloadVideoActionType {
+  return {
+    type: 'REMOVE_DOWNLOAD_FROM_QUEUE', 
+    payload: {
+      vod, 
+      vodSourceId, 
+      vodUrlNid, 
+    }
+  }
+}
+
 function removeVideoFromDownload(vod: VodType, vodSourceId: number, vodUrlNid: number): DownloadVideoActionType {
   return {
     type: 'REMOVE_VIDEO_FROM_DOWNLOAD', 
@@ -132,7 +143,7 @@ export function startVideoDownloadThunk(
       dispatch(endVideoDownload(vod, vodSourceId, vodUrlNid))
       const newState = getState().downloadVideoReducer
       if (newState.queue.length === 0) return
-      if (newState.currentDownloading >= MAX_CONCURRENT_VIDEO_DOWNLOAD) return
+      if (newState.currentDownloading.length >= MAX_CONCURRENT_VIDEO_DOWNLOAD) return
       dispatch(startFirstVideoDownload())
     }
 
@@ -162,9 +173,10 @@ export function startVideoDownloadThunk(
     const url = getUrlOfVod(vod, vodSourceId, vodUrlNid)
 
     if (!url) return; 
-    if (state.currentDownloading >= MAX_CONCURRENT_VIDEO_DOWNLOAD) return; 
+    if (state.currentDownloading.length >= MAX_CONCURRENT_VIDEO_DOWNLOAD) return; 
     if (state.queue.length === 0) return; 
 
+    dispatch(removeDownloadFromQueue(vod, vodSourceId, vodUrlNid))
     dispatch(startVideoDownload(vod, vodSourceId, vodUrlNid))
     downloadVod(
       `${vod.vod_id}-${vodSourceId}-${vodUrlNid}`, 
@@ -185,11 +197,9 @@ export function addVideoToDownloadThunk(
 ): ThunkAction<void, RootState, any, DownloadVideoActionType> {
   return async function (dispatch, getState) {
     dispatch(addVideoToDownload(vod, vodSourceId, vodUrlNid));
-    await downloadVodImage(vod);
     dispatch(addDownloadToQueue(vod, vodSourceId, vodUrlNid))
+    await downloadVodImage(vod);
     dispatch(startVideoDownloadThunk(vod, vodSourceId, vodUrlNid))
-
-
   };
 }
 
