@@ -6,7 +6,7 @@ import { CLang } from './langService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { CLangKey } from '../constants';
 import { YSConfig } from '../../ysConfig';
-import { APP_NAME_CONST, UMENG_CHANNEL } from './constants';
+import { APP_NAME_CONST, APP_VERSION, UMENG_CHANNEL } from './constants';
 import { Platform } from 'react-native';
 
 export class CApi {
@@ -50,6 +50,7 @@ export class CApi {
                 config.headers['App-Channel'] = UMENG_CHANNEL;
                 config.headers['App-Name'] = encodeURIComponent(APP_NAME_CONST) + '-' + Platform.OS.toUpperCase();
                 config.headers['IP-Address'] = this.#getIpAddress();
+                config.headers['App-Version'] = APP_VERSION;
             }
 
             return config;
