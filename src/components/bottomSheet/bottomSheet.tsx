@@ -58,7 +58,7 @@ export default function BottomSheet({
 
   return (
     <ReactBottomSheet
-      scrollViewProps={{ keyboardShouldPersistTaps: "handled", showsVerticalScrollIndicator: false, style: {width: Dimensions.get('screen').width} }}
+      scrollViewProps={{ keyboardShouldPersistTaps: "handled", showsVerticalScrollIndicator: false, style: { width: Dimensions.get('screen').width } }}
       isVisible={isVisible}
       onBackdropPress={onBackdropPress}
       backdropStyle={{
@@ -74,10 +74,10 @@ export default function BottomSheet({
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
         backgroundColor: colors.bottomSheet,
-        paddingBottom:
-          deviceBrand == "HUAWEI" && /p\d+/i.test(deviceName)
-            ? bottomOffset + 100
-            : 0,
+        // paddingBottom:
+        //   deviceBrand == "HUAWEI" && /p\d+/i.test(deviceName)
+        //     ? bottomOffset + 100
+        //     : 0,
         ...containerStyle,
       }}
       modalProps={{
