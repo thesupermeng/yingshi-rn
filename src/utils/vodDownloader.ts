@@ -2,8 +2,7 @@ import { VodType } from "@type/ajaxTypes";
 import { FFmpegKit, FFmpegSession, FFprobeKit, Log, MediaInformationSession, Statistics } from "ffmpeg-kit-react-native";
 import { throttle, uniqueId } from "lodash";
 import RNFetchBlob from "rn-fetch-blob";
-
-export async function downloadVod(id: string, url: string, onProgress: ({percentage}: {percentage: number}) => void, onComplete: any, onError: any, onSessionCreated: ({session}:{session: FFmpegSession}) => void) { 
+export async function downloadVod(id: string, url: string, onProgress: (progress: {percentage?: number, bytes?:number}) => void, onComplete: any, onError: any, onSessionCreated: ({session}:{session: FFmpegSession}) => void) { 
   await RNFetchBlob.fs.mkdir(RNFetchBlob.fs.dirs.DocumentDir + '/SavedVideos').catch((err) => {})
 
   const outputFilePath = `${RNFetchBlob.fs.dirs.DocumentDir}/SavedVideos/${id}.mp4`
@@ -47,7 +46,7 @@ export async function downloadVod(id: string, url: string, onProgress: ({percent
   })
 
   const handleStatistic = async (stats: Statistics) => {
-    console.debug(stats.getSize())
+    onProgress({bytes: stats.getSize()})
   }
 
   const session = await FFmpegKit.executeAsync(
@@ -61,7 +60,7 @@ export async function downloadVod(id: string, url: string, onProgress: ({percent
 }
 
 export async function downloadVodImage(vod: VodType){
-  const imagePath = RNFetchBlob.fs.dirs.DocumentDir + '/VodImages' + `/pic${vod.vod_id}`
+  const imagePath = RNFetchBlob.fs.dirs.DocumentDir + '/VodImages' + `/pic${vod.vod_id}.png`
   // const urls = [vod.vod_pic]
 
   if (await RNFetchBlob.fs.exists(imagePath)) return

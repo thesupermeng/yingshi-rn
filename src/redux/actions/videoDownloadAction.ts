@@ -121,13 +121,22 @@ function startVideoDownloadThunk(
   vodUrlNid: number,
 ): ThunkAction<void, RootState, any, DownloadVideoActionType> {
   return async function (dispatch, getState) {
-    const handleUpdate = ({percentage}: {percentage: number}) => {
+    const handleUpdate = ({percentage, bytes}: {percentage?: number, bytes?: number}) => {
       // console.debug('downloaded ', percentage, '%')
-      dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {
-        progress: {
-          percentage: percentage
-        }
-      }))
+      if (percentage !== undefined){
+        dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {
+          progress: {
+            percentage: percentage
+          }
+        }))
+      }
+      if (bytes !== undefined) {
+        dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {
+          progress: {
+            bytes: bytes
+          }
+        }))
+      }
     }
 
     const onDownloadEnd = () => {
@@ -139,7 +148,7 @@ function startVideoDownloadThunk(
     }
 
     const handleComplete = (finalSizeInBytes: number) => {
-      console.debug('download complete for ', vod.vod_name)
+      // console.debug('download complete for ', vod.vod_name)
       dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {
         status: DownloadStatus.COMPLETED, 
         sizeInBytes: finalSizeInBytes
