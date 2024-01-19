@@ -125,7 +125,7 @@ import { UserApi } from "@api";
 import AdEvent from "../screens/Common/AdEvent";
 import { CRouteInitializer } from "../routes/router";
 import { clearQueueOnAppStart } from "@redux/actions/videoDownloadAction";
-import DownloadCatalog from "../screens/Profile/DownloadCatalog";
+import DownloadCatalog from "../screens/Profile/Download/DownloadCatalog";
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();

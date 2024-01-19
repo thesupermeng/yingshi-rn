@@ -1,18 +1,18 @@
 import { RootStackScreenProps } from "@type/navigationTypes"
-import ScreenContainer from "../../components/container/screenContainer"
-import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader"
+import ScreenContainer from "../../../components/container/screenContainer"
+import TitleWithBackButtonHeader from "../../../components/header/titleWithBackButtonHeader"
 import { FlatList, Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { useCallback, useState } from "react"
 import { useTheme } from "@react-navigation/native"
 import { useAppSelector } from "@hooks/hooks"
 import { RootState } from "@redux/store"
 import { VodDownloadType } from "@type/vodDownloadTypes"
-import EmptyList from "../../components/common/emptyList"
-import DownloadVodCard from "./Download/downloadVodCard"
+import EmptyList from "../../../components/common/emptyList"
+import DownloadVodCard from "../../../components/download/downloadVodCard"
 import CheckBoxSelected from "@static/images/checkbox_selected.svg";
 import CheckBoxUnselected from "@static/images/checkbox_unselected.svg";
 import { VodType } from "@type/ajaxTypes"
-import ConfirmationModal from "../../components/modal/confirmationModal"
+import ConfirmationModal from "../../../components/modal/confirmationModal"
 import { Button } from "@rneui/themed"
 
 const DownloadCatalog = ({ navigation }: RootStackScreenProps<"我的下载">) => {

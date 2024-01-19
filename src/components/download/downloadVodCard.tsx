@@ -2,10 +2,10 @@ import React, { memo } from 'react';
 import {StyleSheet, TouchableOpacity, View, Text} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {VodType} from '@type/ajaxTypes';
-import VodImageCard from '../../../components/vod/vodImageCard';
-import VodDescription from '../../../components/vod/vodDescription';
+import VodImageCard from '../vod/vodImageCard';
+import VodDescription from '../vod/vodDescription';
 import { DownloadStatus, VodDownloadType } from '@type/vodDownloadTypes';
-import FastImage from '../../../components/common/customFastImage'
+import FastImage from '../common/customFastImage'
 
 const DownloadingGif = require('@static/images/downloading.gif')
 
