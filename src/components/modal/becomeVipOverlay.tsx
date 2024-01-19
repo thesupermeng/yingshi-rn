@@ -54,8 +54,8 @@ function ExpiredOverlay({
       return (
         <SportVipPrivilegeOverlay
           showCondition={showBecomeVIPOverlay}
-          onClose={() => {
-            if (onClose) onClose();
+          onClose={({ isAutoClose }) => {
+            if (!isAutoClose && onClose) onClose();
             setShowBecomeVIPOverlay(false);
           }}
         />

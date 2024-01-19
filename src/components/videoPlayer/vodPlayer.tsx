@@ -54,6 +54,7 @@ import InAppBrowser from "react-native-inappbrowser-reborn";
 
 LogBox.ignoreLogs([`Trying to load empty source.`]);
 
+
 interface Props {
   vod_url?: string;
   vodTitle?: string;
@@ -131,9 +132,11 @@ export default forwardRef<VideoRef, Props>(
     }: Props,
     ref
   ) => {
+    const screenState = useSelector<screenModel>('screenReducer');
+
     const videoPlayerRef = React.useRef<Video | null>();
     const { colors, textVariants } = useTheme();
-    const [isFullScreen, setIsFullScreen] = useState(false);
+    const [isFullScreen, setIsFullScreen] = useState(screenState.isPlayerFullScreen);
     const [isPaused, setIsPaused] = useState(false);
     const [duration, setDuration] = useState(0);
     const [currentTime, setCurrentTime] = useState(initialStartTime);
@@ -149,7 +152,7 @@ export default forwardRef<VideoRef, Props>(
     const navigation = useNavigation();
     const route = useRoute();
     const dispatch = useDispatch();
-    const screenState = useSelector<screenModel>('screenReducer');
+
     const userState = useSelector<userModel>('userReducer');
     const bufferRef = useRef(true);
     const onBuffer = (bufferObj: any) => {
@@ -187,7 +190,12 @@ export default forwardRef<VideoRef, Props>(
         adVideoRef.current?.seek(0);
 
         // ========== for analytics - start ==========
-        UmengAnalytics.playsAdsViewAnalytics();
+        UmengAnalytics.playsAdsViewAnalytics({
+          ads_slot_id: playerVodAds.slotId ?? undefined,
+          ads_id: playerVodAds.id ?? undefined,
+          ads_title: playerVodAds.eventTitle ?? '',
+          ads_name: playerVodAds.name ?? undefined,
+        });
         // ========== for analytics - end ==========
       }
     }, [playerVodAds, vod_url]);
@@ -240,7 +248,7 @@ export default forwardRef<VideoRef, Props>(
 
     useEffect(() => {
       // set orientation: "portrait" because if set all android will auto rotate
-      if (Platform.OS === "android") {
+      if (Platform.OS === "android" && !isFullScreen) {
         navigation.setOptions({ orientation: "portrait" });
       }
 
@@ -575,6 +583,14 @@ export default forwardRef<VideoRef, Props>(
     }, [screenState.interstitialShow]);
 
     useEffect(() => {
+      if (screenState.interstitialShow === true) {
+        adVideoRef.current?.setNativeProps({ paused: true })
+      } else {
+        adVideoRef.current?.setNativeProps({ paused: false })
+      }
+    }, [screenState.interstitialShow]);
+
+    useEffect(() => {
       if (route.name == '体育详情') {
         const unsub = setInterval(() => {
           dispatch(incrementSportWatchTime());
@@ -639,14 +655,16 @@ export default forwardRef<VideoRef, Props>(
       // }
 
       // ========== for analytics - start ==========
-      UmengAnalytics.playsAdsClickAnalytics({ url });
+      UmengAnalytics.playsAdsClickAnalytics({
+        url,
+        ads_slot_id: playerVodAds.slotId ?? undefined,
+        ads_id: playerVodAds.id ?? undefined,
+        ads_title: playerVodAds.eventTitle ?? '',
+        ads_name: playerVodAds.name ?? undefined,
+      });
+
       // ========== for analytics - end ==========
     }
-
-    useEffect(() => {
-      if (isFullScreen) lockOrientation('LANDSCAPE-LEFT')
-      else lockOrientation('PORTRAIT')
-    }, [isFullScreen])
 
     return (
       <View style={styles.container}>

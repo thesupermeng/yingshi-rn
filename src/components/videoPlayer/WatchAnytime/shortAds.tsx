@@ -12,7 +12,7 @@ import RNFetchBlob from 'rn-fetch-blob';
 import { addIdToCache } from '../../../utils/minivodDownloader';
 import { screenModel } from '@type/screenType';
 import UmengAnalytics from '../../../../Umeng/UmengAnalytics';
-
+import BecomeVipOverlay from '../../modal/becomeVipOverlay';
 interface Props {
     thumbnail?: string;
     displayHeight: number;
@@ -127,7 +127,12 @@ function ShortAds({
     }, [isPause]);
 
     useEffect(() => {
-        UmengAnalytics.watchAnytimeAdsViewAnalytics();
+        UmengAnalytics.watchAnytimeAdsViewAnalytics({
+            ads_slot_id: currentVod.ads_slot_id,
+            ads_id: currentVod.ads_id,
+            ads_title: currentVod.ads_event_title,
+            ads_name: currentVod.ads_name,
+        });
 
         return () => {
             // on component unmount
@@ -181,7 +186,11 @@ function ShortAds({
     }, []);
 
     const onAdsBtnPress = () => {
-        if (!currentVod?.ads_url) {
+
+        if (!currentVod?.ads_url || currentVod?.ads_url == '') {
+            //  videoRef.current.setPause(true);
+            onManualPause(true);
+            setShowAdOverlay(true);
             return;
         }
 
@@ -189,8 +198,20 @@ function ShortAds({
 
         Linking.openURL(url);
 
-        UmengAnalytics.watchAnytimeAdsClicksAnalytics();
+        UmengAnalytics.watchAnytimeAdsClicksAnalytics({
+            ads_slot_id: currentVod.ads_slot_id,
+            ads_id: currentVod.ads_id,
+            ads_title: currentVod.ads_event_title,
+            ads_name: currentVod.ads_name,
+        });
     }
+
+    const [isShowAdOverlay, setShowAdOverlay] = useState(false);
+    const onCloseAdOverlay = () => {
+        onManualPause(true);
+        //  videoRef.current.setPause(false);
+        setShowAdOverlay(false);
+    };
 
     return (
         <>
@@ -312,6 +333,14 @@ function ShortAds({
                     </View>
                 </>
             )}
+
+            <BecomeVipOverlay
+                setShowBecomeVIPOverlay={setShowAdOverlay}
+                showBecomeVIPOverlay={isShowAdOverlay}
+                isJustClose={true}
+                selectedTab="common"
+                onClose={onCloseAdOverlay}
+            />
         </>
     )
 
@@ -371,12 +400,13 @@ const styles = StyleSheet.create({
     adsBtn: {
         width: '100%',
         borderRadius: 10,
-        padding: 16,
+        padding: 12,
         justifyContent: 'center',
         alignItems: 'center',
     },
     adsBtnText: {
         fontSize: 18,
-        fontWeight: 'bold'
+        fontWeight: '900',
+        color: '#000000'
     }
 });

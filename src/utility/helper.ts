@@ -22,3 +22,15 @@ export const getMinuteSecond = (milliseconds: number) => {
     const formattedTime = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
     return formattedTime;
 }
+
+export const logIgnore = (ignore: string[]) => {
+    const warnRef = console.warn;
+
+    console.warn = (e: string, ...params: any[]) => {
+        for (let msg of ignore) {
+            if (e.includes(msg)) return;
+        }
+
+        return warnRef(e, ...params);
+    }
+}

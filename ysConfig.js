@@ -6,6 +6,7 @@ export class YSConfig {
 
   areaConfig = true;
   ip = '';
+  updateAction = '';
 
       // y == 成为VIP 
     // n == 付费购买VIP
@@ -26,5 +27,9 @@ export class YSConfig {
 
   setShowBecomeVip(payload) {
     this.showBecomeVip = payload;
+  }
+
+  setUpdateAction(payload) {
+    this.updateAction = payload;
   }
 }
