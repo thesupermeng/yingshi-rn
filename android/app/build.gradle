@@ -102,8 +102,8 @@ android {
         applicationId "com.yingshitv"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        // ABB version 3 , 5 DEC 2023
-        versionCode 8
+        // ABB version 10 , 19jan
+        versionCode 10
         versionName "1.7.0"
         resValue "string", "UMENG_APPKEY", "650938dcb2f6fa00ba556645"
         resValue "string", "UMENG_CHANNEL", "WEB"
