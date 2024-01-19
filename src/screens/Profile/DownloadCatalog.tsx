@@ -101,7 +101,7 @@ const DownloadCatalog = ({ navigation }: RootStackScreenProps<"我的下载">) =
       />
       <View style={styles.contentContainer}>
         {
-          allDownloads.length > 0 && false ? 
+          allDownloads.length > 0 ? 
             <>
             <FlatList
               data={allDownloads}
