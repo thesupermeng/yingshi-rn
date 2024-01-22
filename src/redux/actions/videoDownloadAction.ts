@@ -7,6 +7,7 @@ import { RootState } from "@redux/store";
 import { MAX_CONCURRENT_VIDEO_DOWNLOAD } from "@utility/constants";
 import RNFetchBlob from "rn-fetch-blob";
 import { FFmpegSession } from "ffmpeg-kit-react-native";
+import { throttle } from "lodash";
 
 function addVideoToDownload(vod: VodType, vodSourceId: number, vodUrlNid: number): DownloadVideoActionType {
   return {
@@ -121,14 +122,23 @@ function startVideoDownloadThunk(
   vodUrlNid: number,
 ): ThunkAction<void, RootState, any, DownloadVideoActionType> {
   return async function (dispatch, getState) {
+    dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {
+      progress: {
+        percentage: 0
+      }, 
+      status: DownloadStatus.DOWNLOADING, 
+      sizeInBytes: 0
+    }))
+
+    const throttledUpdate = throttle((percentage) => dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {
+      progress: {
+        percentage: percentage
+      }
+    })), 2000)
     const handleUpdate = ({percentage, bytes}: {percentage?: number, bytes?: number}) => {
       // console.debug('downloaded ', percentage, '%')
       if (percentage !== undefined){
-        dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {
-          progress: {
-            percentage: percentage
-          }
-        }))
+        throttledUpdate(percentage)
       }
       if (bytes !== undefined) {
         dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {
@@ -165,7 +175,7 @@ function startVideoDownloadThunk(
     }
 
     const handleSessionCreated = ({session}: {session: FFmpegSession}) => {
-      dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {ffmpegSession: session}))
+      dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {}))
     }
 
     const state = getState().downloadVideoReducer
@@ -216,7 +226,7 @@ export function removeVideoFromDownloadThunk(
     const targetEpisode = targetVod.episodes.find(episode => episode.vodSourceId === vodSourceId && episode.vodUrlNid === vodUrlNid)
     if (!targetEpisode) return 
 
-    await RNFetchBlob.fs.unlink(targetEpisode.videoPath)
+    RNFetchBlob.fs.unlink(targetEpisode.videoPath).catch()
     dispatch(removeVideoFromDownload(vod, vodSourceId, vodUrlNid))
   }
 }
@@ -232,9 +242,9 @@ export function removeVodFromDownloadThunk(
     if (!targetVod) return 
 
     for (const episode of targetVod.episodes) {
-      await RNFetchBlob.fs.unlink(episode.videoPath)
+      RNFetchBlob.fs.unlink(episode.videoPath).catch()
     }
-    await RNFetchBlob.fs.unlink(targetVod.imagePath)
+    RNFetchBlob.fs.unlink(targetVod.imagePath).catch()
     dispatch(removeVodFromDownload(vod, vodSourceId, vodUrlNid))
   }
 }
@@ -247,9 +257,9 @@ export function clearQueueOnAppStart(): ThunkAction<void, RootState, any, Downlo
     for (const download of state.downloads) {
       for (const episode of download.episodes) {
         if (episode.status === DownloadStatus.DOWNLOADING){
-          RNFetchBlob.fs.unlink(episode.videoPath)
+          RNFetchBlob.fs.unlink(episode.videoPath).catch()
           dispatch(updateVideoDownload(download.vod, episode.vodSourceId, episode.vodUrlNid, {progress: {percentage: 0}, status: DownloadStatus.ERROR, ffmpegSession: null, sizeInBytes: 0}))
-          dispatch(addVideoToDownloadThunk(download.vod, episode.vodSourceId, episode.vodUrlNid))
+          // dispatch(addVideoToDownloadThunk(download.vod, episode.vodSourceId, episode.vodUrlNid))
         }
       }
     }

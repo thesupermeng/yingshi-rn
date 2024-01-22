@@ -2,6 +2,7 @@ import { DownloadStatus } from "@type/vodDownloadTypes";
 import { memo, useCallback } from "react";
 import { Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import DownloadCompleteIcon from '@static/images/downloadComplete.svg'
+import DownloadPauseIcon from '@static/images/download_pause.svg'
 import FastImage from "../common/customFastImage";
 import { LinearProgress } from "@rneui/base";
 
@@ -21,7 +22,7 @@ const StatusIcon = memo(({status}: {status: DownloadStatus}) => {
   if (status === DownloadStatus.COMPLETED)
     return <DownloadCompleteIcon style={styles.statusIcon} />
   if (status === DownloadStatus.ERROR)
-    return <FastImage source={DownloadingGif} resizeMode="contain" style={styles.statusIcon}/>
+    return <DownloadPauseIcon style={styles.statusIcon}/>
 
 })
 
