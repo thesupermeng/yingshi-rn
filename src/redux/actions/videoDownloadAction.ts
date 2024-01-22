@@ -122,14 +122,6 @@ function startVideoDownloadThunk(
   vodUrlNid: number,
 ): ThunkAction<void, RootState, any, DownloadVideoActionType> {
   return async function (dispatch, getState) {
-    dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {
-      progress: {
-        percentage: 0
-      }, 
-      status: DownloadStatus.DOWNLOADING, 
-      sizeInBytes: 0
-    }))
-
     const throttledUpdate = throttle((percentage) => dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {
       progress: {
         percentage: percentage
@@ -274,6 +266,13 @@ export function restartVideoDownloadThunk (
   vodUrlNid: number,): ThunkAction<void, RootState, any, DownloadVideoActionType> {
   return async function (dispatch, getState) {
     dispatch(addDownloadToQueue(vod, vodSourceId, vodUrlNid))
+    dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {
+      progress: {
+        percentage: 0
+      }, 
+      status: DownloadStatus.DOWNLOADING, 
+      sizeInBytes: 0
+    }))
     dispatch(startVideoDownloadThunk(vod, vodSourceId, vodUrlNid))
   }
 }

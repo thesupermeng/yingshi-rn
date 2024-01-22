@@ -87,7 +87,7 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
           if (isEditing){
             toggleHistory(item)
           } else {
-            if (item.status !== DownloadStatus.COMPLETED){
+            if (item.status === DownloadStatus.ERROR){
               dispatch(restartVideoDownloadThunk(download.vod, item.vodSourceId, item.vodUrlNid))
             }
           }
