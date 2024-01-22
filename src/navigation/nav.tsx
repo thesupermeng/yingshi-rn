@@ -126,6 +126,7 @@ import AdEvent from "../screens/Common/AdEvent";
 import { CRouteInitializer } from "../routes/router";
 import { clearQueueOnAppStart } from "@redux/actions/videoDownloadAction";
 import DownloadCatalog from "../screens/Profile/Download/DownloadCatalog";
+import DownloadDetails from "../screens/Profile/Download/DownloadDetails";
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -640,6 +641,12 @@ export default () => {
             component={DownloadCatalog}
             options={{ orientation: 'portrait' }}
           />
+          <Stack.Screen
+            name="下载详情"
+            component={DownloadDetails}
+            options={{ orientation: 'portrait' }}
+          />
+
         </Stack.Navigator>
         {settingsReducer.appOrientation === "PORTRAIT" && ( // only show if portrait
           <>

@@ -4,7 +4,7 @@ import TitleWithBackButtonHeader from "../../../components/header/titleWithBackB
 import { FlatList, Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { useCallback, useState } from "react"
 import { useTheme } from "@react-navigation/native"
-import { useAppSelector } from "@hooks/hooks"
+import { useAppDispatch, useAppSelector } from "@hooks/hooks"
 import { RootState } from "@redux/store"
 import { VodDownloadType } from "@type/vodDownloadTypes"
 import EmptyList from "../../../components/common/emptyList"
@@ -14,6 +14,7 @@ import CheckBoxUnselected from "@static/images/checkbox_unselected.svg";
 import { VodType } from "@type/ajaxTypes"
 import ConfirmationModal from "../../../components/modal/confirmationModal"
 import { Button } from "@rneui/themed"
+import { removeVodFromDownloadThunk } from "@redux/actions/videoDownloadAction"
 
 const DownloadCatalog = ({ navigation }: RootStackScreenProps<"我的下载">) => {
   const { colors, textVariants, icons, spacing } = useTheme();
@@ -21,6 +22,7 @@ const DownloadCatalog = ({ navigation }: RootStackScreenProps<"我的下载">) =
   const [removeHistory, setRemoveHistory] = useState<VodType[]>([]);
   const allDownloads = useAppSelector(({downloadVideoReducer}: RootState) => downloadVideoReducer.downloads)
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const dispatch = useAppDispatch();
 
 
   const toggleHistory = (vod: VodType) => {
@@ -63,7 +65,7 @@ const DownloadCatalog = ({ navigation }: RootStackScreenProps<"我的下载">) =
             if (isEditing){
               toggleHistory(item.vod)
             } else {
-              console.log('play this vod')
+              navigation.navigate('下载详情', {vodId: item.vod.vod_id})
             }
           }}
         />
@@ -91,7 +93,7 @@ const DownloadCatalog = ({ navigation }: RootStackScreenProps<"我的下载">) =
               style={{
                 ...textVariants.body,
                 // padding: 8,
-                // opacity: history && history.length > 0 ? 100 : 0,
+                opacity: allDownloads && allDownloads.length > 0 ? 100 : 0,
               }}
             >
               {isEditing ? "取消" : "编辑"}
@@ -110,8 +112,9 @@ const DownloadCatalog = ({ navigation }: RootStackScreenProps<"我的下载">) =
             />
             <ConfirmationModal
               onConfirm={() => {
-                // dispatch(removeVodsFromHistory(removeHistory));
-                console.log('dispatch remove download from redux')
+                for (const item of removeHistory) {
+                  dispatch(removeVodFromDownloadThunk(item, 0, 0))
+                }
                 setIsEditing(false);
                 setRemoveHistory([]);
                 toggleOverlay();
