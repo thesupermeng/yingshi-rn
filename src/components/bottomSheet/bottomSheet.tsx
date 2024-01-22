@@ -74,10 +74,10 @@ export default function BottomSheet({
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
         backgroundColor: colors.bottomSheet,
-        // paddingBottom:
-        //   deviceBrand == "HUAWEI" && /p\d+/i.test(deviceName)
-        //     ? bottomOffset + 100
-        //     : 0,
+        paddingBottom:
+          deviceBrand == "HUAWEI" && /p\d+/i.test(deviceName)
+            ? bottomOffset + 100
+            : 0,
         ...containerStyle,
       }}
       modalProps={{

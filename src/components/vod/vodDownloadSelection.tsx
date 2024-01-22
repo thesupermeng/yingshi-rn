@@ -1,4 +1,4 @@
-import React, { useState, useMemo, memo, useEffect, useRef } from "react";
+import React, { useState, useMemo, memo, useEffect } from "react";
 import {
   View,
   Text,
@@ -6,52 +6,48 @@ import {
   TouchableOpacity,
   ScrollView,
   Dimensions,
-  Animated,
-  FlatList
+  FlatList,
 } from "react-native";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import { VodEpisodeListType, VodEpisodeStatusType } from "@type/ajaxTypes";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-
+import SortAscIcon from "@static/images/sortAsc.svg";
+import SortDescIcon from "@static/images/sortDesc.svg";
 import BottomSheet from "../bottomSheet/bottomSheet";
+import { VodRecordType } from "@redux/reducers/vodReducer";
+import VipIcon from "@static/images/vip-icon.svg";
 import DownloadIcon from '@static/images/download.svg'
 import DlIcon from "@static/images/download_icon.svg";
-import VipIcon from "@static/images/vip-icon.svg"
 import FinishIcon from "@static/images/downloaded_icon.svg";
 import { DownloadStatus, DownloadVideoReducerState } from "@type/vodDownloadTypes";
 import { useAppSelector } from "@hooks/hooks";
 import { RootState } from "@redux/store";
 import { ProgressAnimation } from "../vod/progressAnimation";
+import Animated from "react-native-reanimated";
 
 interface Props {
   onDownload: (nid: number) => void;
   episodes?: VodEpisodeListType;
   activeEpisode?: number;
   rangeSize?: number;
-  isVisible: boolean;
-  handleClose: any;
   vodId?: number;
   isVip: boolean;
-  setShowAdOverlay: (show: boolean) => void
 }
 function DownloadVodSelectionModal({
   onDownload,
   episodes,
-  isVisible,
-  handleClose,
   activeEpisode = 0,
   rangeSize = 50,
   vodId,
-  isVip,
-  setShowAdOverlay
+  isVip
 }: Props) {
   const { colors, textVariants, spacing } = useTheme();
   const EPISODE_RANGE_SIZE = rangeSize;
   const insets = useSafeAreaInsets();
   const itemPerRow = 5;
   const gapSize = 8;
-  const width = Dimensions.get('window').width - 15 - spacing.sideOffset * 4;
-  const height = Dimensions.get('window').height * 0.3;
+  const width = Dimensions.get('window').width / 2 - 15 - spacing.sideOffset * 4;
+  const height = Dimensions.get('window').height * 0.32;
   const childWidth = (width - gapSize) / itemPerRow;
   const navigation = useNavigation();
   const downloadVideoReducer: DownloadVideoReducerState = useAppSelector(
@@ -102,12 +98,6 @@ function DownloadVodSelectionModal({
     return eps;
   }, [showEpisodeRangeStart, showEpisodeRangeEnd, episodes]);
 
-  const [episodeHeight, setHeight] = useState(0);
-  const handleContainerLayout = (e) => {
-    const height = e.nativeEvent.layout.height;
-    setHeight(height);
-  }
-
   const displayEpisodesWithStatus = useMemo(() => {
     const vodInfo = downloadVideoReducer.downloads.find(
       (download) => download.vod.vod_id === vodId
@@ -125,8 +115,7 @@ function DownloadVodSelectionModal({
       if (vodInfo && episodeInfo) {
         const isDownloading = episodeInfo.status === DownloadStatus.DOWNLOADING;
         const isDownloaded = episodeInfo.status === DownloadStatus.COMPLETED;
-        // console.log(episodeInfo)
-        // console.log(episodeHeight)
+        console.log(episodeInfo)
 
         return {
           ...ep,
@@ -150,53 +139,15 @@ function DownloadVodSelectionModal({
   }, [vodId]);
 
   return (
-    <BottomSheet
-      isVisible={isVisible}
-      onBackdropPress={handleClose}
-      containerStyle={{
+    <View
+      style={{
+        flex: 1,
         paddingLeft: spacing.sideOffset,
         paddingRight: spacing.sideOffset,
-        gap: spacing.m,
-        alignItems: "center"
+        gap: spacing.m
       }}
-      height="50%"
     >
-      <View style={{
-        ...styles.header, marginHorizontal: 30,
-      }}>
-        <Text
-          style={[
-            styles.title,
-            textVariants.header
-          ]}>
-          下载
-        </Text>
-      </View>
-      <FlatList
-        horizontal
-        data={ranges}
-        renderItem={({ item, index }: { item: string; index: number }) => {
-          return (
-            <TouchableOpacity
-              style={styles.btn}
-              onPress={() => setCurrentIndex(index)}
-            >
-              <Text
-                style={{
-                  textAlign: "center",
-                  ...textVariants.header,
-                  color: index === currentIndex ? colors.text : colors.muted,
-                  fontSize: index === currentIndex ? 18 : 15,
-                }}
-              >
-                {`${item}集`}
-              </Text>
-            </TouchableOpacity>
-          );
-        }}
-      />
-
-      {displayEpisodesWithStatus && isVisible && (
+      {displayEpisodesWithStatus && (
         <>
           <ScrollView
             style={{
@@ -217,28 +168,26 @@ function DownloadVodSelectionModal({
                 onPress={() => {
                   onDownload(ep.nid);
                 }}
-                disabled={!isVip}
               >
                 <View
                   style={{
                     backgroundColor: colors.search,
                     padding: spacing.s,
-                    minWidth: childWidth,
+                    width: childWidth,
                     marginBottom: spacing.s,
                     borderRadius: 8,
-                    position: "relative",
+                    position: "relative"
                   }}
-                  onLayout={episodeHeight === 0 ? handleContainerLayout : undefined}
                 >
                   {/* Todo: add progress animation when is downloading */}
                   {ep.isDownloading && (
                     <Animated.View style={{
-                      backgroundColor: ep.isDownloading ? '#FAC33D' : colors.search,
+                      backgroundColor: ep.isDownloading ? 'yellow' : colors.search,
                       position: "absolute",
-                      bottom: 0,
-                      height: ep.progress.percentage / 100 * episodeHeight,
+                      height: "100%",
                       width: childWidth,
-                      borderRadius: 8,
+                      // transform: [{ translateY: animation }],
+
                     }}>
                     </Animated.View>
                   )}
@@ -279,14 +228,28 @@ function DownloadVodSelectionModal({
                     </View>
                   )}
 
-                  {!isVip && !ep.isDownloaded && (
+                  {/* {ep.progress && (
+                    <View style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      borderWidth: 2,
+                      borderColor: 'blue',
+                      height: '100%'
+                    }}>
+                      <ProgressAnimation percentage={ep.progress.percentage} />
+                    </View>
+                  )} */}
+
+                  {/* {!isVip && (
                     <View style={{ ...styles.legend }}>
                       <VipIcon
                         width={14}
                         height={14}
                       />
                     </View>
-                  )}
+                  )} */}
                 </View>
               </TouchableOpacity>
             ))}
@@ -326,10 +289,6 @@ function DownloadVodSelectionModal({
                 padding: spacing.s,
                 borderRadius: 8,
               }}
-              onPress={() => {
-                handleClose();
-                setShowAdOverlay(true);
-              }}
             >
               <Text
                 style={{
@@ -343,9 +302,10 @@ function DownloadVodSelectionModal({
               </Text>
             </TouchableOpacity>
           )}
+
         </>
       )}
-    </BottomSheet>
+    </View>
   );
 }
 
@@ -380,14 +340,5 @@ const styles = StyleSheet.create({
     paddingVertical: 3,
     paddingHorizontal: 6,
     overflow: 'hidden'
-  },
-  btn: {
-    flex: 1,
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    paddingLeft: 10,
-    paddingRight: 10,
   },
 });

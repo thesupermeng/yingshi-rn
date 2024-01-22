@@ -162,6 +162,17 @@ export interface VodEpisodeType {
     nid: number
 }
 
+export interface VodEpisodeStatusType extends VodEpisodeType {
+    isDownloading: boolean
+    isDownloaded: boolean
+    progress: ProgressType
+}
+
+export interface ProgressType {
+    percentage: number
+    bytes: number
+}
+
 export interface TypeExtendType {
     class: string
     area: string

@@ -22,6 +22,8 @@ import { screenModel } from '@type/screenType';
 import { useAppSelector } from '@hooks/hooks';
 import AdultModeCountdownIndicator from '../adultVideo/adultModeCountdownIndicator';
 import { UMENG_CHANNEL } from '@utility/constants';
+import DownloadBtn from '@static/images/download_btn.svg';
+import VodDownloadSelection from '../vod/vodDownloadSelection';
 
 type Props = {
   videoUrl: string;
@@ -50,7 +52,10 @@ type Props = {
   showGuide: boolean,
   showMoreType?: 'episodes' | 'streams' | 'movies' | 'none',
   streams?: LiveTVStationItem[],
-  isFetchingRecommendedMovies?: boolean
+  isFetchingRecommendedMovies?: boolean,
+  isVip: boolean,
+  vodID?: number,
+  onDownloadVod: (nid: number) => void,
 };
 
 type RefHandler = {
@@ -90,11 +95,14 @@ export default forwardRef<RefHandler, Props>(({
   showGuide,
   showMoreType = 'none',
   streams = [],
-  isFetchingRecommendedMovies = false
+  isFetchingRecommendedMovies = false,
+  isVip,
+  vodID,
+  onDownloadVod
 }, ref) => {
   const { colors, spacing, textVariants, icons } = useTheme();
   const navigation = useNavigation();
-  const [showSlider, setShowSlider] = useState<'none' | 'playback' | 'episodes' | 'movies' | 'streams'>('none');
+  const [showSlider, setShowSlider] = useState<'none' | 'playback' | 'episodes' | 'download' | 'movies' | 'streams'>('none');
   const [showControls, setShowControls] = useState(true);
   const hideControlsTimeout = useRef(-1);
   const opacity = useSharedValue(1);
@@ -102,9 +110,9 @@ export default forwardRef<RefHandler, Props>(({
   const [isLocked, setIsLocked] = useState(false);
   const [showSliderThumbnail, setShowSliderThumbnail] = useState(false);
   const screenState: screenModel = useAppSelector(
-    ({screenReducer}) => screenReducer
+    ({ screenReducer }) => screenReducer
   )
-  const {adultMode} = screenState
+  const { adultMode } = screenState
 
   const width = Dimensions.get('window').width;
   const height = Dimensions.get('window').height;
@@ -320,6 +328,10 @@ export default forwardRef<RefHandler, Props>(({
                     <Text style={{ ...textVariants.header, marginBottom: 20, textAlign: 'left', marginLeft: spacing.sideOffset + 10 }}>选集</Text>
                   }
                   {
+                    showSlider === 'download' &&
+                    <Text style={{ ...textVariants.header, marginBottom: 20, textAlign: 'left', marginLeft: spacing.sideOffset + 10 }}>下载</Text>
+                  }
+                  {
                     showSlider === 'movies' &&
                     <Text style={{ ...textVariants.header, marginBottom: 20, textAlign: 'left', marginLeft: spacing.sideOffset + 10 }}>
                       电影推荐
@@ -358,6 +370,17 @@ export default forwardRef<RefHandler, Props>(({
                       onConfirm={onEpisodeChange}
                       rangeSize={rangeSize}
                       onCancel={() => { }}
+                    />
+                  }
+                  {
+                    showSlider === 'download' &&
+                    <VodDownloadSelection
+                      activeEpisode={activeEpisode}
+                      episodes={episodes}
+                      onDownload={onDownloadVod}
+                      rangeSize={rangeSize}
+                      vodId={vodID}
+                      isVip={isVip}
                     />
                   }
                   {
@@ -413,10 +436,18 @@ export default forwardRef<RefHandler, Props>(({
                       }}
                       numberOfLines={1}
                       ellipsizeMode='middle'
-                      >
+                    >
                       {headerTitle}
                     </Text>
                   </TouchableOpacity>
+                  {videoType === 'vod' && isFullScreen &&
+                    <RectButton
+                      disallowInterruption={true}
+                      onPress={() => { setShowSlider('download') }}
+                    >
+                      <DownloadBtn width={20} height={20} />
+                    </RectButton>
+                  }
                   {
                     videoType === 'vod' && !adultMode && <RectButton
                       disallowInterruption={true}
@@ -467,15 +498,15 @@ export default forwardRef<RefHandler, Props>(({
             </>
         )
       }
-  {(UMENG_CHANNEL != "GOOGLE_PLAY" || Platform.OS === "ios" ) &&
-      <AdultModeCountdownIndicator
-        containerStyle={{
-          position: 'absolute', 
-          bottom: showControls ? '20%' : 0, 
-          left: 0
-        }}
-      />
-}
+      {(UMENG_CHANNEL != "GOOGLE_PLAY" || Platform.OS === "ios") &&
+        <AdultModeCountdownIndicator
+          containerStyle={{
+            position: 'absolute',
+            bottom: showControls ? '20%' : 0,
+            left: 0
+          }}
+        />
+      }
     </View>
   );
 });

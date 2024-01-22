@@ -100,6 +100,8 @@ import { AdsApi } from "../../api/ads";
 import SimpleToast from "react-native-simple-toast";
 import DownloadVodSelectionModal from "../../components/modal/downloadVodSelectionModal";
 import DeviceInfo from "react-native-device-info";
+import { addVideoToDownloadThunk } from "@redux/actions/videoDownloadAction";
+import { DownloadVideoReducerState } from "@type/vodDownloadTypes";
 
 let insetsTop = 0;
 let insetsBottom = 0;
@@ -676,11 +678,10 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     queryFn: () => fetchSVod(),
   });
 
-  
   const [deviceName, setDeviceName] = useState("");
 
   DeviceInfo.getDeviceName().then((d) => {
-      setDeviceName(d.toLowerCase());
+    setDeviceName(d.toLowerCase());
   });
 
   useEffect(() => {
@@ -688,12 +689,12 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       const includesKeywords = ['flip', 'fold', 'mate x3', 'mate xs'].some(keyword => deviceName.includes(keyword));
 
       if (DeviceInfo.isTablet() || includesKeywords) {
-       setIsLoading(true)
+        setIsLoading(true)
 
-       setTimeout(() => {
-        setIsLoading(false)
-      }, 100);
-    }
+        setTimeout(() => {
+          setIsLoading(false)
+        }, 100);
+      }
     })
   }, []);
 
@@ -822,6 +823,12 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     setCurrentEpisode(selectedEpisodeId);
     currentTimeRef.current = 0; // Reset the current time to 0
     handleModalClose();
+  };
+
+  const onDownloadVod = (nid: number) => {
+    if (vodDetails) {
+      dispatch(addVideoToDownloadThunk(vodDetails, currentSourceId, nid));
+    }
   };
 
   const lockOrientation = (orientation: string) => {
@@ -1022,6 +1029,8 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
             onReadyForDisplay={onReadyForDisplay}
             showAds={true}
             onPressCountdown={onPressCountdown}
+            vodID={vod?.vod_id}
+            onDownloadVod={onDownloadVod}
           />
         )}
         {isOffline && dismountPlayer && (
@@ -1359,8 +1368,8 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                   )}
 
                   <TouchableOpacity
-                    onPress={() => { 
-                      setShowDlEpisode(true); 
+                    onPress={() => {
+                      setShowDlEpisode(true);
                     }}
                   >
                     <View
@@ -1389,13 +1398,16 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                       >
                         下载
                       </Text>
-                      <View style={{ width: 12, height: '100%' }}>
-                        <VipIcon
-                          width={12}
-                          height={12}
-                          style={{ ...styles.legend }}
-                        />
-                      </View>
+                      {!isVip && (
+                        <View style={{ width: 12, height: '100%' }}>
+                          <VipIcon
+                            width={12}
+                            height={12}
+                            style={{ ...styles.legend }}
+                          />
+                        </View>
+                      )}
+
                     </View>
                   </TouchableOpacity>
                 </View>
@@ -1616,13 +1628,11 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                   handleClose={() => setShowDlEpisode(false)}
                   activeEpisode={currentEpisode}
                   episodes={foundSource}
-                  onCancel={() => {
-                    setShowDlEpisode(false);
-                  }}
-                  onConfirm={onConfirmEpisodeSelection}
+                  onDownload={onDownloadVod}
                   rangeSize={EPISODE_RANGE_SIZE}
                   vodId={vod?.vod_id}
                   isVip={isVip}
+                  setShowAdOverlay={setShowAdOverlay}
                 />
               </>
             )}

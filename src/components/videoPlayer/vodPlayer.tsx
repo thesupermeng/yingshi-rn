@@ -82,6 +82,8 @@ interface Props {
   onReadyForDisplay?: () => void;
   showAds?: boolean,
   onPressCountdown?: () => void,
+  vodID?: number,
+  onDownloadVod: (nid: number) => void
 }
 
 type VideoControlsRef = {
@@ -129,6 +131,8 @@ export default forwardRef<VideoRef, Props>(
       onReadyForDisplay,
       showAds = false,
       onPressCountdown,
+      vodID,
+      onDownloadVod
     }: Props,
     ref
   ) => {
@@ -743,6 +747,9 @@ export default forwardRef<VideoRef, Props>(
                 changeEpisodeAndPlay={changeEpisodeAndPlay}
                 onShare={onShare}
                 onReadyForDisplay={onReadyForDisplay}
+                isVip={isVip}
+                vodID={vodID}
+                onDownloadVod={onDownloadVod}
               />
             )}
           </View>
