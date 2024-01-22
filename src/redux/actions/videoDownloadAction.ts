@@ -197,9 +197,10 @@ export function addVideoToDownloadThunk(
 ): ThunkAction<void, RootState, any, DownloadVideoActionType> {
   return async function (dispatch, getState) {
     dispatch(addVideoToDownload(vod, vodSourceId, vodUrlNid));
-    dispatch(addDownloadToQueue(vod, vodSourceId, vodUrlNid))
-    await downloadVodImage(vod);
+    dispatch(addDownloadToQueue(vod, vodSourceId, vodUrlNid)); 
+    dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {status: DownloadStatus.DOWNLOADING}))
     dispatch(startVideoDownloadThunk(vod, vodSourceId, vodUrlNid))
+    await downloadVodImage(vod);
   };
 }
 
@@ -245,9 +246,10 @@ export function clearQueueOnAppStart(): ThunkAction<void, RootState, any, Downlo
 
     for (const download of state.downloads) {
       for (const episode of download.episodes) {
-        if (episode.status !== DownloadStatus.COMPLETED){
+        if (episode.status === DownloadStatus.DOWNLOADING){
           RNFetchBlob.fs.unlink(episode.videoPath)
           dispatch(updateVideoDownload(download.vod, episode.vodSourceId, episode.vodUrlNid, {progress: {percentage: 0}, status: DownloadStatus.ERROR, ffmpegSession: null, sizeInBytes: 0}))
+          dispatch(addVideoToDownloadThunk(download.vod, episode.vodSourceId, episode.vodUrlNid))
         }
       }
     }
