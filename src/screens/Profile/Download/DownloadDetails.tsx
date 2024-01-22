@@ -82,6 +82,14 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
         title={`${getEpisodeName(item.vodSourceId, item.vodUrlNid)} - ${getSourceName(item.vodSourceId)}`}
         progressPercentage={+item.progress.percentage.toFixed(0)}
         status={item.status}
+        activeOpacity={isEditing ? 1 : 0.2}
+        onPress={() => {
+          if (isEditing){
+            toggleHistory(item)
+          } else {
+            // TODO add logic here
+          }
+        }}
       />
     </View> 
 

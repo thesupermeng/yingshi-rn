@@ -1,6 +1,6 @@
 import { DownloadStatus } from "@type/vodDownloadTypes";
 import { memo, useCallback } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import DownloadCompleteIcon from '@static/images/downloadComplete.svg'
 import FastImage from "../common/customFastImage";
 import { LinearProgress } from "@rneui/base";
@@ -11,7 +11,8 @@ interface Props {
   title: string; 
   progressPercentage: number; 
   status: DownloadStatus; 
-
+  activeOpacity?: number; 
+  onPress?: any; 
 }
 
 const StatusIcon = memo(({status}: {status: DownloadStatus}) => {
@@ -48,10 +49,13 @@ const statusToColor = (status: DownloadStatus) => {
 }
 
 
-const DownloadEpisodeDetailCard = ({title, progressPercentage, status}: Props) => {
+const DownloadEpisodeDetailCard = ({title, progressPercentage, status, activeOpacity, onPress}: Props) => {
 
   return (
-    <Pressable style={styles.container}>
+    <TouchableOpacity
+      activeOpacity={activeOpacity}
+      onPress={onPress}
+      style={styles.container}>
       <View style={styles.detailContainer}>
         <View style={styles.textContainer}>
           <Text style={styles.title}>{title}</Text>
@@ -67,7 +71,7 @@ const DownloadEpisodeDetailCard = ({title, progressPercentage, status}: Props) =
       <View>
         <StatusIcon status={status}/>
       </View>
-    </Pressable>
+    </TouchableOpacity>
   )
 }
 
@@ -81,7 +85,7 @@ const styles = StyleSheet.create({
     flex: 1, 
     justifyContent: 'space-between', 
     gap: 14, 
-    paddingVertical: 10
+    paddingVertical: 10, 
   }, 
   textContainer: { 
     flexDirection: "row", 
