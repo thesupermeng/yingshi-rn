@@ -2,7 +2,7 @@ import { DownloadStatus } from "@type/vodDownloadTypes";
 import { memo, useCallback } from "react";
 import { Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import DownloadCompleteIcon from '@static/images/downloadComplete.svg'
-import DownloadPauseIcon from '@static/images/download_pause.svg'
+import DownloadPauseIcon from '@static/images/downloadPause.svg'
 import FastImage from "../common/customFastImage";
 import { LinearProgress } from "@rneui/base";
 
@@ -65,7 +65,7 @@ const DownloadEpisodeDetailCard = ({title, progressPercentage, status, activeOpa
             <Text style={styles.statusText}>{statusToText(status)}</Text>
           </View>
         </View>
-        <LinearProgress animation={{duration: 500}} value={progressPercentage/100} color={statusToColor(status)} style={[styles.progressBar, {opacity: status === DownloadStatus.ERROR ? 0.5: 1}]}/>
+        <LinearProgress animation={false} value={progressPercentage/100} color={statusToColor(status)} style={[styles.progressBar, {opacity: status === DownloadStatus.ERROR ? 0.5: 1}]}/>
 
       </View>
       
