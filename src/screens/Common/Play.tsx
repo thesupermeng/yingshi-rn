@@ -20,6 +20,8 @@ import {
 } from "react-native";
 import FavoriteButton from "../../components/button/favoriteVodButton";
 import FavoriteIcon from "@static/images/favorite.svg";
+import VodDetailIcon from "@static/images/vod_detail.svg";
+import DlVodIcon from "@static/images/download_vod.svg";
 import ScreenContainer from "../../components/container/screenContainer";
 import { useTheme, useFocusEffect, useRoute } from "@react-navigation/native";
 import { YSConfig } from "../../../ysConfig";
@@ -96,7 +98,10 @@ import { CEndpoint } from "@constants";
 import BecomeVipOverlay from "../../components/modal/becomeVipOverlay";
 import { AdsApi } from "../../api/ads";
 import SimpleToast from "react-native-simple-toast";
+import DownloadVodSelectionModal from "../../components/modal/downloadVodSelectionModal";
 import DeviceInfo from "react-native-device-info";
+import { addVideoToDownloadThunk } from "@redux/actions/videoDownloadAction";
+import { DownloadVideoReducerState } from "@type/vodDownloadTypes";
 
 let insetsTop = 0;
 let insetsBottom = 0;
@@ -319,6 +324,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const [shouldResumeAfterLoad, setShouldResumeAfterLoad] = useState(false);
 
   const [isShowDescription, setShowDescription] = useState(false);
+  const [isShowDlEpisode, setShowDlEpisode] = useState(false);
 
   const [bannerAd, setBannerAd] = useState<BannerAdType>();
 
@@ -672,11 +678,10 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     queryFn: () => fetchSVod(),
   });
 
-  
   const [deviceName, setDeviceName] = useState("");
 
   DeviceInfo.getDeviceName().then((d) => {
-      setDeviceName(d.toLowerCase());
+    setDeviceName(d.toLowerCase());
   });
 
   useEffect(() => {
@@ -684,12 +689,12 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       const includesKeywords = ['flip', 'fold', 'mate x3', 'mate xs'].some(keyword => deviceName.includes(keyword));
 
       if (DeviceInfo.isTablet() || includesKeywords) {
-       setIsLoading(true)
+        setIsLoading(true)
 
-       setTimeout(() => {
-        setIsLoading(false)
-      }, 100);
-    }
+        setTimeout(() => {
+          setIsLoading(false)
+        }, 100);
+      }
     })
   }, []);
 
@@ -818,6 +823,12 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     setCurrentEpisode(selectedEpisodeId);
     currentTimeRef.current = 0; // Reset the current time to 0
     handleModalClose();
+  };
+
+  const onDownloadVod = (nid: number) => {
+    if (vodDetails) {
+      dispatch(addVideoToDownloadThunk(vodDetails, currentSourceId, nid));
+    }
   };
 
   const lockOrientation = (orientation: string) => {
@@ -1018,6 +1029,8 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
             onReadyForDisplay={onReadyForDisplay}
             showAds={true}
             onPressCountdown={onPressCountdown}
+            vodID={vod?.vod_id}
+            onDownloadVod={onDownloadVod}
           />
         )}
         {isOffline && dismountPlayer && (
@@ -1113,51 +1126,59 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
                   <View style={styles.descriptionContainer}>
                     {vod && (
-                      <FavoriteButton
-                        initialState={isFavorite}
-                        vod={vod}
-                        leftIcon={
-                          <View
-                            style={{
-                              display: "flex",
-                              flexDirection: "row",
-                              alignItems: "center",
-                              gap: spacing.xxs,
-                            }}
-                          >
-                            <FavoriteIcon
-                              width={18}
-                              height={18}
-                              style={{
-                                color: isFavorite
-                                  ? colors.primary
-                                  : colors.muted,
-                              }}
-                            />
-                            {isFavorite ? (
-                              <Text
-                                style={{
-                                  ...textVariants.subBody,
-                                  color: colors.primary,
-                                  paddingBottom: 3,
-                                }}
-                              >
-                                已收藏
-                              </Text>
-                            ) : (
-                              <Text
-                                style={{
-                                  ...textVariants.subBody,
-                                  color: colors.muted,
-                                  paddingBottom: 3,
-                                }}
-                              >
-                                收藏
-                              </Text>
-                            )}
-                          </View>
-                        }
-                      />
+                      <Text
+                        numberOfLines={1}
+                        style={{
+                          ...textVariants.header,
+                          color: colors.text,
+                        }}>
+                        {vod.vod_name}
+                      </Text>
+                      // <FavoriteButton
+                      //   initialState={isFavorite}
+                      //   vod={vod}
+                      //   leftIcon={
+                      //     <View
+                      //       style={{
+                      //         display: "flex",
+                      //         flexDirection: "row",
+                      //         alignItems: "center",
+                      //         gap: spacing.xxs,
+                      //       }}
+                      //     >
+                      //       <FavoriteIcon
+                      //         width={18}
+                      //         height={18}
+                      //         style={{
+                      //           color: isFavorite
+                      //             ? colors.primary
+                      //             : colors.muted,
+                      //         }}
+                      //       />
+                      //       {isFavorite ? (
+                      //         <Text
+                      //           style={{
+                      //             ...textVariants.subBody,
+                      //             color: colors.primary,
+                      //             paddingBottom: 3,
+                      //           }}
+                      //         >
+                      //           已收藏
+                      //         </Text>
+                      //       ) : (
+                      //         <Text
+                      //           style={{
+                      //             ...textVariants.subBody,
+                      //             color: colors.muted,
+                      //             paddingBottom: 3,
+                      //           }}
+                      //         >
+                      //           收藏
+                      //         </Text>
+                      //       )}
+                      //     </View>
+                      //   }
+                      // />
                     )}
                     <Text
                       style={{ ...textVariants.subBody, color: colors.muted }}
@@ -1190,29 +1211,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                         }
                       })()}
                     </Text>
-                    {!adultMode && (
-                      <TouchableOpacity
-                        onPress={() => setShowDescription(true)}
-                      >
-                        <View
-                          style={{ flexDirection: "row", alignItems: "center" }}
-                        >
-                          <Text
-                            style={{
-                              ...textVariants.subBody,
-                              color: "#FAC33D",
-                            }}
-                          >
-                            更多详情
-                          </Text>
-                          <MoreArrow
-                            width={icons.sizes.s}
-                            height={icons.sizes.s}
-                            color="#FAC33D"
-                          />
-                        </View>
-                      </TouchableOpacity>
-                    )}
+
                     {!adultMode && (
                       <TouchableOpacity onPress={onShare}>
                         <View style={{ ...styles.share, gap: 10 }}>
@@ -1289,6 +1288,130 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                     </View>
                   </TouchableOpacity>
                 </View> */}
+
+                <View style={styles.videoDescription}>
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                      gap: spacing.xxs,
+                    }}
+                  >
+                    <FavoriteIcon
+                      width={18}
+                      height={18}
+                      style={{
+                        color: isFavorite
+                          ? colors.primary
+                          : colors.muted,
+                      }}
+                    />
+                    {isFavorite ? (
+                      <Text
+                        style={{
+                          ...textVariants.subBody,
+                          color: colors.primary,
+                          paddingBottom: 3,
+                        }}
+                      >
+                        已收藏
+                      </Text>
+                    ) : (
+                      <Text
+                        style={{
+                          ...textVariants.subBody,
+                          color: colors.muted,
+                          paddingBottom: 3,
+                        }}
+                      >
+                        收藏
+                      </Text>
+                    )}
+                  </View>
+
+                  {!adultMode && (
+                    <TouchableOpacity
+                      onPress={() => setShowDescription(true)}
+                    >
+                      <View
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          alignItems: "center",
+                          alignContent: 'center',
+                          gap: spacing.xxs,
+                        }}
+                      >
+                        <VodDetailIcon
+                          width={24}
+                          height={24}
+                          style={{
+                            color: isShowDescription
+                              ? colors.primary
+                              : colors.muted,
+                          }}
+                        />
+                        <Text
+                          style={{
+                            ...textVariants.subBody,
+                            color: isShowDescription
+                              ? colors.primary
+                              : colors.muted,
+                            paddingBottom: 3,
+                          }}
+                        >
+                          详情
+                        </Text>
+                      </View>
+                    </TouchableOpacity>
+                  )}
+
+                  <TouchableOpacity
+                    onPress={() => {
+                      setShowDlEpisode(true);
+                    }}
+                  >
+                    <View
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        gap: spacing.xxs,
+                      }}
+                    >
+                      <DlVodIcon
+                        width={24}
+                        height={24}
+                        style={{
+                          color: isFavorite
+                            ? colors.primary
+                            : colors.muted,
+                        }}
+                      />
+                      <Text
+                        style={{
+                          ...textVariants.subBody,
+                          color: colors.muted,
+                          paddingBottom: 3,
+                        }}
+                      >
+                        下载
+                      </Text>
+                      {!isVip && (
+                        <View style={{ width: 12, height: '100%' }}>
+                          <VipIcon
+                            width={12}
+                            height={12}
+                            style={{ ...styles.legend }}
+                          />
+                        </View>
+                      )}
+
+                    </View>
+                  </TouchableOpacity>
+                </View>
+
                 {/* show 选集播放 section when avaiable episode more thn 1 */}
                 <>
                   {(isFetchingVodDetails || isLoading) ? (
@@ -1482,22 +1605,36 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
               </View>
             </ScrollView>
             {settingsReducer.appOrientation === "PORTRAIT" && ( // only show if portrait
-              <VodEpisodeSelectionModal
-                isVisible={isShowSheet}
-                handleClose={handleModalClose}
-                activeEpisode={currentEpisode}
-                episodes={foundSource}
-                onCancel={() => {
-                  setShowSheet(false);
-                }}
-                // onConfirm={(id: number) => {
-                //   setCurrentEpisode(id);
-                //   handleModalClose();
-                // }}
-                onConfirm={onConfirmEpisodeSelection}
-                rangeSize={EPISODE_RANGE_SIZE}
-                vodId={vod?.vod_id}
-              />
+              <>
+                <VodEpisodeSelectionModal
+                  isVisible={isShowSheet}
+                  handleClose={handleModalClose}
+                  activeEpisode={currentEpisode}
+                  episodes={foundSource}
+                  onCancel={() => {
+                    setShowSheet(false);
+                  }}
+                  // onConfirm={(id: number) => {
+                  //   setCurrentEpisode(id);
+                  //   handleModalClose();
+                  // }}
+                  onConfirm={onConfirmEpisodeSelection}
+                  rangeSize={EPISODE_RANGE_SIZE}
+                  vodId={vod?.vod_id}
+                />
+
+                <DownloadVodSelectionModal
+                  isVisible={isShowDlEpisode}
+                  handleClose={() => setShowDlEpisode(false)}
+                  activeEpisode={currentEpisode}
+                  episodes={foundSource}
+                  onDownload={onDownloadVod}
+                  rangeSize={EPISODE_RANGE_SIZE}
+                  vodId={vod?.vod_id}
+                  isVip={isVip}
+                  setShowAdOverlay={setShowAdOverlay}
+                />
+              </>
             )}
           </>
         )}
@@ -1593,6 +1730,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     alignItems: "flex-start",
+  },
+  legend: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    paddingLeft: 10,
+    overflow: 'hidden'
   },
 });
 
