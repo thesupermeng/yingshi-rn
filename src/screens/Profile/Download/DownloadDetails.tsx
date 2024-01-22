@@ -6,7 +6,7 @@ import TitleWithBackButtonHeader from "../../../components/header/titleWithBackB
 import React, { useCallback, useState } from "react";
 import DownloadEpisodeDetailCard from "../../../components/download/downloadEpisodeDetailCard";
 import { EpisodeDownloadType } from "@type/vodDownloadTypes";
-import { useAppSelector } from "@hooks/hooks";
+import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import { RootState } from "@redux/store";
 import MoreArrow from '@static/images/more_arrow.svg'
 import DownloadIconYellow from '@static/images/download_yellow.svg'
@@ -15,6 +15,7 @@ import CheckBoxSelected from "@static/images/checkbox_selected.svg";
 import CheckBoxUnselected from "@static/images/checkbox_unselected.svg";
 import ConfirmationModal from "../../../components/modal/confirmationModal";
 import { Button } from "@rneui/themed";
+import { removeVideoFromDownloadThunk, removeVodFromDownloadThunk } from "@redux/actions/videoDownloadAction";
 
 const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详情">) => {
   const { colors, textVariants, icons, spacing } = useTheme();
@@ -22,7 +23,7 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
   const { vodId } = route.params
   const [removeHistory, setRemoveHistory] = useState<EpisodeDownloadType[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-
+  const dispatch = useAppDispatch();
 
 
   const download = useAppSelector(({downloadVideoReducer}: RootState) => downloadVideoReducer.downloads.find(dl => dl.vod.vod_id === vodId))
@@ -154,10 +155,14 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
           onConfirm={() => {
             if (isDeleteAll) {
               // remove vod
+              dispatch(removeVodFromDownloadThunk(download.vod, 0, 0))
+              navigation.goBack()
             } else {
               // remove episode
+              for (const item of removeHistory) {
+                dispatch(removeVideoFromDownloadThunk(download.vod, item.vodSourceId, item.vodUrlNid))
+              }
             }
-            console.log('dispatch remove download from redux')
             setIsEditing(false);
             setRemoveHistory([]);
             toggleOverlay();
