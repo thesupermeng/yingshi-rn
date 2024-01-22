@@ -74,7 +74,7 @@ function DownloadVodCard({
   const totalNumberOfEpisodes = vodSource ? vodSource.vod_play_list.url_count : 0
   const totalDownloadedEpisodes = download.episodes.length
   const isVodsDownloading = download.episodes.some(ep => ep.status === DownloadStatus.DOWNLOADING) 
-  const isVodsDownloadingPaused = download.episodes.some(ep => ep.status === DownloadStatus.ERROR || ep.status === DownloadStatus.PAUSED)
+  const isVodsDownloadingPaused = !isVodsDownloading && download.episodes.some(ep => ep.status === DownloadStatus.ERROR || ep.status === DownloadStatus.PAUSED)
 
   return (
     <TouchableOpacity
