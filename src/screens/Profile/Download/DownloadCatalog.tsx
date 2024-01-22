@@ -63,7 +63,7 @@ const DownloadCatalog = ({ navigation }: RootStackScreenProps<"我的下载">) =
             if (isEditing){
               toggleHistory(item.vod)
             } else {
-              console.log('play this vod')
+              navigation.navigate('下载详情', {vodId: item.vod.vod_id})
             }
           }}
         />
