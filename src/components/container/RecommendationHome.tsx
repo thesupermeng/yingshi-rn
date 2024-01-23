@@ -358,7 +358,7 @@ const RecommendationHome = ({
           text={item.type_name}
           onPress={() => {
             navigation.navigate("片库", {
-              type_id: item.vod_list[0].type_id,
+              type_id: 1,
             });
           }}
         />
