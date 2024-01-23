@@ -47,7 +47,8 @@ export const logIgnore = (ignore: (string|RegExp)[]) => {
             if (msg instanceof RegExp){
                 if (msg.test(e)) return; 
             }else {
-                if (e.includes(msg)) return;
+               // if (e.includes(msg)) 
+                return;
             }
         }
 
