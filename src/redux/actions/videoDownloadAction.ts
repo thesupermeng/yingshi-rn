@@ -124,7 +124,7 @@ function startVideoDownloadThunk(
   return async function (dispatch, getState) {
     const throttledUpdate = throttle((percentage) => dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {
       progress: {
-        percentage: percentage
+        percentage: Math.min(percentage, 100)
       }
     })), 2000)
     const handleUpdate = ({percentage, bytes}: {percentage?: number, bytes?: number}) => {
@@ -153,7 +153,10 @@ function startVideoDownloadThunk(
       // console.debug('download complete for ', vod.vod_name)
       dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {
         status: DownloadStatus.COMPLETED, 
-        sizeInBytes: finalSizeInBytes
+        sizeInBytes: finalSizeInBytes, 
+        progress: {
+          percentage: 100
+        }
       }))
       onDownloadEnd()
     }

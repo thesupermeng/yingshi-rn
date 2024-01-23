@@ -159,6 +159,7 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
           keyExtractor={item => {
             return `${download.vod.vod_id}-${item.vodSourceId}-${item.vodUrlNid}`;
           }}
+          showsVerticalScrollIndicator={false}
         />
 
         <ConfirmationModal

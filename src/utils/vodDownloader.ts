@@ -6,7 +6,7 @@ export async function downloadVod(id: string, url: string, onProgress: (progress
   await RNFetchBlob.fs.mkdir(RNFetchBlob.fs.dirs.DocumentDir + '/SavedVideos').catch((err) => {})
 
   const outputFilePath = `${RNFetchBlob.fs.dirs.DocumentDir}/SavedVideos/${id}.mp4`
-  const ffmpegScript = `-i ${url} -acodec copy -bsf:a aac_adtstoasc -vcodec copy ${outputFilePath}`
+  const ffmpegScript = `-i ${url} -threads 1 -acodec copy -bsf:a aac_adtstoasc -vcodec copy ${outputFilePath}`
   const details = await FFprobeKit.getMediaInformation(url)
   let duration = 0
 
