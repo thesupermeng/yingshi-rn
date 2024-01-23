@@ -5,7 +5,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { View, Text, TouchableOpacity, Alert } from "react-native";
+import { View, Text, TouchableOpacity, Alert, Linking } from "react-native";
 import RegengModal from "./regengModal";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -37,7 +37,23 @@ export default function RegengOverlay({}: Props) {
 
   const [totalDownload, setTotalDownload] = useState("");
 
-  const acceptRegeng = () => {
+  const acceptRegeng = async () => {
+    if (YSConfig.instance.updateUrl != "") {
+      const supported = await Linking.canOpenURL(YSConfig.instance.updateUrl);
+      if (YSConfig.instance.updateAction != 1) {
+      setIsCancelledShowRegengOverlay(true);
+      }
+      if (supported) {
+        await Linking.openURL(YSConfig.instance.updateUrl);
+      } else {
+        console.error(
+          "Don't know how to open URI: ",
+          YSConfig.instance.updateUrl
+        );
+      }
+      return;
+    }
+
     setIsRegengOngoing(true);
     CodePush.sync(
       {
@@ -92,10 +108,14 @@ export default function RegengOverlay({}: Props) {
 
   const cancelRegeng = () => {
     // console.log('YSConfig.instance.updateAction')
-    // console.log(YSConfig.instance.updateAction) 
-    // base on flag. .. user cancel will force quit app 
+    // console.log(YSConfig.instance.updateAction)
+    // base on flag. .. user cancel will force quit app
     // RNExitApp.exitApp();
     setIsCancelledShowRegengOverlay(true);
+
+    if (YSConfig.instance.updateAction == 1) {
+      RNExitApp.exitApp();
+    }
   };
 
   return (
@@ -148,17 +168,32 @@ export default function RegengOverlay({}: Props) {
                   >
                     新版本特性:
                   </Text>
-                  <Text
-                    style={{
-                      color: "white",
-                      fontSize: 14,
-                      fontWeight: "300",
-                      textAlign: "left",
-                      width: "80%",
-                    }}
-                  >
-                    优化性能，修复BUG
-                  </Text>
+
+                  {YSConfig.instance.updateDesc == "" ? (
+                    <Text
+                      style={{
+                        color: "white",
+                        fontSize: 14,
+                        fontWeight: "300",
+                        textAlign: "left",
+                        width: "80%",
+                      }}
+                    >
+                      优化性能，修复BUG
+                    </Text>
+                  ) : (
+                    <Text
+                      style={{
+                        color: "white",
+                        fontSize: 14,
+                        fontWeight: "300",
+                        textAlign: "left",
+                        width: "80%",
+                      }}
+                    >
+                      {YSConfig.instance.updateDesc}
+                    </Text>
+                  )}
                   <View
                     style={{
                       paddingTop: 24,

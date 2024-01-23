@@ -6,7 +6,9 @@ export class YSConfig {
 
   areaConfig = true;
   ip = '';
-  updateAction = '';
+  updateAction = null;
+  updateDesc = '';
+  updateUrl = '';
 
       // y == 成为VIP 
     // n == 付费购买VIP
@@ -25,11 +27,21 @@ export class YSConfig {
     this.ip = ip;
   }
 
-  setShowBecomeVip(payload) {
-    this.showBecomeVip = payload;
+  setShowBecomeVip(showBecomeVip) {
+    this.showBecomeVip = showBecomeVip;
   }
 
-  setUpdateAction(payload) {
-    this.updateAction = payload;
+   // 0 ignore , 1 focce , 2 optional , 3 in background 
+  setUpdateAction(updateAction) {
+    this.updateAction = updateAction;
+  }
+
+  setUpdateDesc(updateDesc) {
+    this.updateDesc = updateDesc;
+  }
+
+  setUpdateUrl(updateUrl)
+  {
+    this.updateUrl = updateUrl;
   }
 }
