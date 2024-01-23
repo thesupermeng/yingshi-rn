@@ -1043,6 +1043,8 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
             onPressCountdown={onPressCountdown}
             vodID={vod?.vod_id}
             onDownloadVod={onDownloadVod}
+            sourceID={currentSourceId}
+            setShowAdOverlay={setShowAdOverlay}
           />
         )}
         {isOffline && dismountPlayer && (
@@ -1645,6 +1647,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                   vodId={vod?.vod_id}
                   isVip={isVip}
                   setShowAdOverlay={setShowAdOverlay}
+                  source={currentSourceId}
                 />
               </>
             )}

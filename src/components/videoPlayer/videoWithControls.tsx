@@ -45,7 +45,9 @@ interface Props {
     onReadyForDisplay?: () => void,
     isVip: boolean,
     vodID?: number,
-    onDownloadVod: (nid: number) => void
+    sourceID?: number,
+    onDownloadVod?: (nid: number) => void,
+    setShowAdOverlay: (show: boolean) => void
 }
 
 const VideoWithControls = ({
@@ -86,7 +88,9 @@ const VideoWithControls = ({
     onReadyForDisplay,
     isVip,
     vodID,
-    onDownloadVod
+    sourceID,
+    onDownloadVod,
+    setShowAdOverlay
 }: Props) => {
 
     const route = useRoute()
@@ -189,7 +193,9 @@ const VideoWithControls = ({
                 isFetchingRecommendedMovies={isFetchingRecommendedMovies}
                 isVip={isVip}
                 vodID={vodID}
+                sourceID={sourceID}
                 onDownloadVod={onDownloadVod}
+                setShowAdOverlay={setShowAdOverlay}
             />
 
         </View>
