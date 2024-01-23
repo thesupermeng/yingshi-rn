@@ -5,7 +5,7 @@ import { useTheme } from "@react-navigation/native";
 import TitleWithBackButtonHeader from "../../../components/header/titleWithBackButtonHeader";
 import React, { useCallback, useState } from "react";
 import DownloadEpisodeDetailCard from "../../../components/download/downloadEpisodeDetailCard";
-import { EpisodeDownloadType } from "@type/vodDownloadTypes";
+import { DownloadStatus, EpisodeDownloadType } from "@type/vodDownloadTypes";
 import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import { RootState } from "@redux/store";
 import MoreArrow from '@static/images/more_arrow.svg'
@@ -15,7 +15,7 @@ import CheckBoxSelected from "@static/images/checkbox_selected.svg";
 import CheckBoxUnselected from "@static/images/checkbox_unselected.svg";
 import ConfirmationModal from "../../../components/modal/confirmationModal";
 import { Button } from "@rneui/themed";
-import { removeVideoFromDownloadThunk, removeVodFromDownloadThunk } from "@redux/actions/videoDownloadAction";
+import { removeVideoFromDownloadThunk, removeVodFromDownloadThunk, restartVideoDownloadThunk } from "@redux/actions/videoDownloadAction";
 
 const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详情">) => {
   const { colors, textVariants, icons, spacing } = useTheme();
@@ -87,7 +87,9 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
           if (isEditing){
             toggleHistory(item)
           } else {
-            // TODO add logic here
+            if (item.status === DownloadStatus.ERROR){
+              dispatch(restartVideoDownloadThunk(download.vod, item.vodSourceId, item.vodUrlNid))
+            }
           }
         }}
       />

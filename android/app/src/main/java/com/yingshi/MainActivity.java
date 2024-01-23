@@ -1,5 +1,7 @@
 package com.yingshitv;
 
+import static com.facebook.react.views.textinput.ReactEditText.DEBUG_MODE;
+
 import com.yingshitv.SQLiteDBHelper;
 
 import com.facebook.react.ReactActivity;
@@ -8,6 +10,7 @@ import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
 import com.facebook.react.defaults.DefaultReactActivityDelegate;
 
 import android.content.Intent;
+import android.database.CursorWindow;
 import android.os.Bundle;
 
 import com.umeng.analytics.MobclickAgent;
@@ -17,6 +20,8 @@ import com.yingshitv.SplashAdShowActivity;
 import com.yingshitv.RNUMConfigure;
 import android.content.Context;
 import android.util.Log;
+
+import java.lang.reflect.Field;
 
 public class MainActivity extends ReactActivity {
 
@@ -47,6 +52,16 @@ public class MainActivity extends ReactActivity {
     MobclickAgent.setSessionContinueMillis(1000*40);
 
     showSplashScreenAd();
+
+    try {
+      Field field = CursorWindow.class.getDeclaredField("sCursorWindowSize");
+      field.setAccessible(true);
+      field.set(null, 100 * 1024 * 1024); //the 100MB is the new size
+    } catch (Exception e) {
+      if (DEBUG_MODE) {
+        e.printStackTrace();
+      }
+    }
 
     // ATSDK.setNetworkLogDebug(true);//SDK日志功能，集成测试阶段建议开启，上线前必须关闭
 

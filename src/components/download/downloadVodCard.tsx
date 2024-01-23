@@ -6,23 +6,44 @@ import VodImageCard from '../vod/vodImageCard';
 import VodDescription from '../vod/vodDescription';
 import { DownloadStatus, VodDownloadType } from '@type/vodDownloadTypes';
 import FastImage from '../common/customFastImage'
+import DownloadPauseYellowIcon from '@static/images/downloadPause_yellow.svg'
+
+
 
 const DownloadingGif = require('@static/images/downloading.gif')
 
-const DownloadIndicator = (props: {downloading: boolean}) =>  
-    <View style={{flexDirection: 'row', opacity: props.downloading ? 1 : 0}}> 
-      <Text
-        style={{color: '#FAC33D', lineHeight: 18}}
-      >
-        下载中
-      </Text>
-      <FastImage
-        useFastImage={true}
-        source={DownloadingGif}
-        resizeMode='contain'
-        style={{width: 18, height: 18}}
-      />
-    </View>
+const DownloadIndicator = (props: {downloading: boolean; paused: boolean}) => (
+  <View
+    style={{
+      flexDirection: 'row',
+      opacity: props.downloading || props.paused ? 1 : 0,
+      height: 18, 
+      gap: 2
+    }}>
+    {props.downloading && (
+      <>
+        <Text style={{color: '#FAC33D', lineHeight: 18}}>下载中</Text>
+        <FastImage
+          useFastImage={true}
+          source={DownloadingGif}
+          resizeMode="contain"
+          style={{width: 18, height: 18}}
+        />
+      </>
+    )}
+    {props.paused && (
+      <>
+        <Text style={{color: '#FAC33D', lineHeight: 18, opacity: 0.5}}>已暂停</Text>
+        <DownloadPauseYellowIcon
+          width={18}
+          height={18}
+          style={{opacity: 0.5}}
+        />
+      </>
+    )}
+  </View>
+);
+    
 
 
 
@@ -53,6 +74,7 @@ function DownloadVodCard({
   const totalNumberOfEpisodes = vodSource ? vodSource.vod_play_list.url_count : 0
   const totalDownloadedEpisodes = download.episodes.length
   const isVodsDownloading = download.episodes.some(ep => ep.status === DownloadStatus.DOWNLOADING) 
+  const isVodsDownloadingPaused = !isVodsDownloading && download.episodes.some(ep => ep.status === DownloadStatus.ERROR || ep.status === DownloadStatus.PAUSED)
 
   return (
     <TouchableOpacity
@@ -95,7 +117,7 @@ function DownloadVodCard({
             ({totalDownloadedEpisodes}/{totalNumberOfEpisodes}) 共
             {totalFileSizeInMB.toFixed(0)}MB
           </Text>
-          <DownloadIndicator downloading={isVodsDownloading} />
+          <DownloadIndicator downloading={isVodsDownloading} paused={isVodsDownloadingPaused} />
         </View>
       </View>
     </TouchableOpacity>

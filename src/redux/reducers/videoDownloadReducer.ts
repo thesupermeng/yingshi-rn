@@ -73,7 +73,7 @@ export function downloadVideoReducer(state = initialDownloadVideoState, action: 
         videoPath: action.payload.videoPath ?? targetEpisode.videoPath, 
         vodSourceId: targetEpisode.vodSourceId, 
         vodUrlNid: targetEpisode.vodUrlNid, 
-        ffmpegSession : action.payload.ffmpegSession === undefined ? targetEpisode.ffmpegSession : action.payload.ffmpegSession
+        // ffmpegSession : action.payload.ffmpegSession === undefined ? targetEpisode.ffmpegSession : action.payload.ffmpegSession
       } 
 
       const updatedVod: VodDownloadType = {
