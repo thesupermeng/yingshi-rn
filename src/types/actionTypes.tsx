@@ -1,4 +1,6 @@
+import { FFmpegSession } from "ffmpeg-kit-react-native"
 import { VodTopicType, VodType } from "./ajaxTypes"
+import { DownloadStatus } from "./vodDownloadTypes"
 
 export interface ThemeActionType {
     type: string
@@ -50,4 +52,39 @@ export interface OneTimeActionActionType {
     type: string,
     payload?: string,
     showFirstLaunchVIPPrompt: boolean
+}
+
+export interface OptionalUpdateFields {
+    imagePath?: string;
+    videoPath?: string;
+    progress?: {
+        percentage?: number;
+        bytes?: number;
+    }
+    sizeInBytes?: number; 
+    status?: DownloadStatus; 
+    ffmpegSession?: FFmpegSession | null; 
+  }
+
+export interface DownloadVideoActionPayload extends OptionalUpdateFields {
+    vod: VodType;
+    vodSourceId: number;
+    vodUrlNid: number;
+}
+
+export interface DownloadVideoActionType {
+  type:
+    | 'ADD_VIDEO_TO_DOWNLOAD'
+    | 'REMOVE_VIDEO_FROM_DOWNLOAD'
+    | 'REMOVE_VOD_FROM_DOWNLOAD'
+    // | 'PAUSE_VIDEO_DOWNLOAD'
+    // | 'CANCEL_VIDEO_DOWNLOAD' 
+    | 'UPDATE_VIDEO_DOWNLOAD'
+    | 'START_VIDEO_DOWNLOAD'
+    | 'END_VIDEO_DOWNLOAD'
+    | 'ADD_DOWNLOAD_TO_QUEUE'
+    | 'REMOVE_DOWNLOAD_FROM_QUEUE'
+    | 'RESET_QUEUE'
+    ;
+  payload: DownloadVideoActionPayload;
 }

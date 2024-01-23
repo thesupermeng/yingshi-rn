@@ -23,14 +23,34 @@ export const getMinuteSecond = (milliseconds: number) => {
     return formattedTime;
 }
 
-export const logIgnore = (ignore: string[]) => {
+export const warnIgnore = (ignore: (string|RegExp)[]) => {
     const warnRef = console.warn;
 
     console.warn = (e: string, ...params: any[]) => {
         for (let msg of ignore) {
-            if (e.includes(msg)) return;
+            if (msg instanceof RegExp){
+                if (msg.test(e)) return; 
+            }else {
+                if (e.includes(msg)) return;
+            }
         }
 
         return warnRef(e, ...params);
+    }
+}
+
+export const logIgnore = (ignore: (string|RegExp)[]) => {
+    const logRef = console.log;
+
+    console.log = (e: string, ...params: any[]) => {
+        for (let msg of ignore) {
+            if (msg instanceof RegExp){
+                if (msg.test(e)) return; 
+            }else {
+                if (e.includes(msg)) return;
+            }
+        }
+
+        return logRef(e, ...params);
     }
 }
