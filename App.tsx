@@ -6,6 +6,7 @@ import {
   ANDROID_HOME_PAGE_BANNER_ADS,
   API_DOMAIN,
   API_DOMAIN_TEST,
+  APP_NAME_CONST,
   APP_VERSION,
   EVENT_CUSTOM_START,
   IOS_HOME_PAGE_BANNER_ADS,
@@ -58,13 +59,13 @@ const topon_channel = "WEB";
 // });
 
 logIgnore([
-  'Trying to load empty source.',
-  '`new NativeEventEmitter()` was called with a non-null argument without the required',
+  "Trying to load empty source.",
+  "`new NativeEventEmitter()` was called with a non-null argument without the required",
   `ReactImageView: Image source "null" doesn't exist`,
 ]);
 
 let App = () => {
-  CodePush.notifyAppReady()
+  CodePush.notifyAppReady();
   // appsFlyer.initSdk(
   //   {
   //     devKey: APPSFLYER_DEVKEY,
@@ -96,8 +97,6 @@ let App = () => {
   //     console.error(error);
   //   },
   // );
-
-
 
   const queryClient = new QueryClient({
     defaultOptions: {
@@ -266,8 +265,7 @@ let App = () => {
   // re geng
   const [showRegengOverlay, setShowRegengOverlay] = useState(false);
   useEffect(() => {
-
-    checkVersion()
+    checkVersion();
   }, []);
 
   const checkVersion = async () => {
@@ -276,7 +274,7 @@ let App = () => {
       ip_address: YSConfig.instance.ip,
       channel_id: UMENG_CHANNEL,
       version_number: APP_VERSION,
-      product: "影视TV-" + Platform.OS.toUpperCase(),
+      product: APP_NAME_CONST + "-" + Platform.OS.toUpperCase(),
       mobile_os: Platform.OS,
       mobile_model: "HUAWEIP20",
     };
@@ -291,24 +289,38 @@ let App = () => {
     const v1 = parseInt(APP_VERSION.replace(/\./g, ""), 10);
     const v2 = parseInt(res.replace(/\./g, ""), 10);
 
+    // 0 ignore , 1 focce , 2 optional , 3 in background
+    const updateType = response.data.update_res.update_type;
+
+    YSConfig.instance.setUpdateAction(updateType);
+
+    YSConfig.instance.setUpdateUrl(response.data.update_res.update_url);
+    YSConfig.instance.setUpdateDesc(response.data.update_res.update_desc);
+
     console.log("ADAAAGGG");
-    if (v2 > v1) {
+    console.log(YSConfig.instance.updateAction);
+    if (v2 > v1 && updateType != 0) {
       console.log("??");
       CodePush.checkForUpdate().then((update) => {
-        // console.log('----+---')
-        // console.log(update + "UUUUU")
+        // console.log("----+---");
+        // console.log(update);
         if (update) {
-          console.log(update + "AZZZZ?!");
-          setShowRegengOverlay(true);
+        //  console.log(update + "AZZZZ?!");
+          if (updateType == 1 || updateType == 2) {
+            setShowRegengOverlay(true);
+          }
+          if (updateType == 3) {
+            CodePush.sync({
+              installMode: CodePush.InstallMode.ON_NEXT_RESTART,
+            });
+          }
         } else {
           console.log("EHH?");
         }
       });
     }
-
     return response;
   };
-
 
   useEffect(() => {
     downloadWatchAnytimeSequence();
@@ -320,7 +332,7 @@ let App = () => {
 
     return () => {
       CustomEventAnalytic.close();
-    }
+    };
   }, []);
 
   return (
