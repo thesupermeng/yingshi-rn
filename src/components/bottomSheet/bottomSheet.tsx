@@ -58,7 +58,7 @@ export default function BottomSheet({
 
   return (
     <ReactBottomSheet
-      scrollViewProps={{ keyboardShouldPersistTaps: "handled", showsVerticalScrollIndicator: false, style: {width: Dimensions.get('screen').width} }}
+      scrollViewProps={{ keyboardShouldPersistTaps: "handled", showsVerticalScrollIndicator: false, style: { width: Dimensions.get('screen').width } }}
       isVisible={isVisible}
       onBackdropPress={onBackdropPress}
       backdropStyle={{

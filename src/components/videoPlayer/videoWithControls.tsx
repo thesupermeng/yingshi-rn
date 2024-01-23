@@ -43,6 +43,11 @@ interface Props {
     changeEpisodeAndPlay: (ep: any) => void,
     onShare: () => any,
     onReadyForDisplay?: () => void,
+    isVip: boolean,
+    vodID?: number,
+    sourceID?: number,
+    onDownloadVod?: (nid: number) => void,
+    setShowAdOverlay: (show: boolean) => void
 }
 
 const VideoWithControls = ({
@@ -81,6 +86,11 @@ const VideoWithControls = ({
     changeEpisodeAndPlay,
     onShare,
     onReadyForDisplay,
+    isVip,
+    vodID,
+    sourceID,
+    onDownloadVod,
+    setShowAdOverlay
 }: Props) => {
 
     const route = useRoute()
@@ -181,6 +191,11 @@ const VideoWithControls = ({
                 showMoreType={showMoreType}
                 streams={streams}
                 isFetchingRecommendedMovies={isFetchingRecommendedMovies}
+                isVip={isVip}
+                vodID={vodID}
+                sourceID={sourceID}
+                onDownloadVod={onDownloadVod}
+                setShowAdOverlay={setShowAdOverlay}
             />
 
         </View>

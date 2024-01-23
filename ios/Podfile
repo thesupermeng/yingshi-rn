@@ -23,6 +23,9 @@ if linkage != nil
 end
 
 target 'aimeiju' do
+  # FFMpeg dependency 
+  pod 'ffmpeg-kit-react-native', :subspecs => ['full-gpl-lts'], :podspec => '../node_modules/ffmpeg-kit-react-native/ffmpeg-kit-react-native.podspec'
+
   config = use_native_modules!
 
   # Flags change depending on the env values.

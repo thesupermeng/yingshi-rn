@@ -124,6 +124,9 @@ import AdultVideoList from "../screens/Playlist/AdultVideoList";
 import { UserApi } from "@api";
 import AdEvent from "../screens/Common/AdEvent";
 import { CRouteInitializer } from "../routes/router";
+import { clearQueueOnAppStart } from "@redux/actions/videoDownloadAction";
+import DownloadCatalog from "../screens/Profile/Download/DownloadCatalog";
+import DownloadDetails from "../screens/Profile/Download/DownloadDetails";
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -308,7 +311,7 @@ export default () => {
 
   //screen state
   //screen state
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
   const screenState: screenModel = useAppSelector(
     ({ screenReducer }: RootState) => screenReducer
@@ -504,6 +507,7 @@ export default () => {
     dispatch(hideAdultModeVip())
     dispatch(disableWatchAnytimeAdultMode())
     // dispatch(resetOverEighteen())
+    dispatch(clearQueueOnAppStart())
   }, []);
 
   return (
@@ -632,6 +636,17 @@ export default () => {
             name="活动页"
             component={AdEvent}
           />
+          <Stack.Screen
+            name="我的下载"
+            component={DownloadCatalog}
+            options={{ orientation: 'portrait' }}
+          />
+          <Stack.Screen
+            name="下载详情"
+            component={DownloadDetails}
+            options={{ orientation: 'portrait' }}
+          />
+
         </Stack.Navigator>
         {settingsReducer.appOrientation === "PORTRAIT" && ( // only show if portrait
           <>
