@@ -1292,45 +1292,51 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                 </View> */}
 
                 <View style={styles.videoDescription}>
-                  <View
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      alignItems: "center",
-                      gap: spacing.xxs,
-                    }}
-                  >
-                    <FavoriteIcon
-                      width={18}
-                      height={18}
-                      style={{
-                        color: isFavorite
-                          ? colors.primary
-                          : colors.muted,
-                      }}
-                    />
-                    {isFavorite ? (
-                      <Text
+                  <FavoriteButton
+                    initialState={isFavorite}
+                    vod={vod}
+                    leftIcon={
+                      <View
                         style={{
-                          ...textVariants.subBody,
-                          color: colors.primary,
-                          paddingBottom: 3,
+                          display: "flex",
+                          flexDirection: "row",
+                          alignItems: "center",
+                          gap: spacing.xxs,
                         }}
                       >
-                        已收藏
-                      </Text>
-                    ) : (
-                      <Text
-                        style={{
-                          ...textVariants.subBody,
-                          color: colors.muted,
-                          paddingBottom: 3,
-                        }}
-                      >
-                        收藏
-                      </Text>
-                    )}
-                  </View>
+                        <FavoriteIcon
+                          width={18}
+                          height={18}
+                          style={{
+                            color: isFavorite
+                              ? colors.primary
+                              : colors.muted,
+                          }}
+                        />
+                        {isFavorite ? (
+                          <Text
+                            style={{
+                              ...textVariants.subBody,
+                              color: colors.primary,
+                              paddingBottom: 3,
+                            }}
+                          >
+                            已收藏
+                          </Text>
+                        ) : (
+                          <Text
+                            style={{
+                              ...textVariants.subBody,
+                              color: colors.muted,
+                              paddingBottom: 3,
+                            }}
+                          >
+                            收藏
+                          </Text>
+                        )}
+                      </View>
+                    }
+                  />
 
                   {!adultMode && (
                     <TouchableOpacity
