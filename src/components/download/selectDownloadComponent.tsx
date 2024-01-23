@@ -106,6 +106,7 @@ function SelectDownloadComponent({
 
   const handleContainerLayout = (e) => {
     const height = e.nativeEvent.layout.height;
+    console.log('99999999999999', height)
     setHeight(height);
   }
 
@@ -210,7 +211,7 @@ function SelectDownloadComponent({
                 onPress={() => {
                   onDownload(ep.nid);
                 }}
-                disabled={!isVip || ep.isDownloaded}
+                disabled={!isVip || ep.isDownloaded || ep.isDownloading}
               >
                 <View
                   style={{
