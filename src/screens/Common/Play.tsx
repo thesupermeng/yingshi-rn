@@ -101,7 +101,8 @@ import SimpleToast from "react-native-simple-toast";
 import DownloadVodSelectionModal from "../../components/modal/downloadVodSelectionModal";
 import DeviceInfo from "react-native-device-info";
 import { addVideoToDownloadThunk } from "@redux/actions/videoDownloadAction";
-import { DownloadVideoReducerState } from "@type/vodDownloadTypes";
+import { DownloadStatus, DownloadVideoReducerState, VodDownloadType } from "@type/vodDownloadTypes";
+import { CPopup } from "@utility/popup";
 
 let insetsTop = 0;
 let insetsBottom = 0;
@@ -269,7 +270,9 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   }, []);
 
   const vod = vodReducer.playVod.vod;
-
+  
+  const downloadedVod: VodDownloadType | undefined = useAppSelector(({downloadVideoReducer}:RootState) => {return downloadVideoReducer.downloads.find(download => download.vod.vod_id === vod?.vod_id)})
+  
   // const [vod, setVod] = useState(vodReducer.playVod.vod);
   const [initTime, setInitTime] = useState(0);
   const isFavorite = vodFavouriteReducer.favorites.some(
@@ -888,15 +891,24 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   useEffect(() => {
     if (!!vodUrl && !!vod?.vod_id) {
       // console.debug('vod url is', vodUrl)
-      getNoAdsUri(vodUrl, vod?.vod_id)
-        .then((uri) => {
-          // console.debug("successfully modified playlist content", uri);
-          setVodUri(uri);
-        })
-        .catch((err) => {
-          setVodUri(vodUrl);
-          console.error("something went wrong", err);
-        });
+      const episode = downloadedVod?.episodes.find(ep => ep.vodSourceId === currentSourceId && ep.vodUrlNid === currentEpisode && ep.status === DownloadStatus.COMPLETED)
+      if (downloadedVod && episode){
+        CPopup.showToast('Playing from local')
+        setVodUri(`file://${episode.videoPath}`)
+      } else {
+        CPopup.showToast("Playing from remote")
+
+        getNoAdsUri(vodUrl, vod?.vod_id)
+          .then((uri) => {
+            // console.debug("successfully modified playlist content", uri);
+            setVodUri(uri);
+          })
+          .catch((err) => {
+            setVodUri(vodUrl);
+            console.error("something went wrong", err);
+          });
+      }
+
     }
 
     return () => {
