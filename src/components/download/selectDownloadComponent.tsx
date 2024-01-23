@@ -106,7 +106,6 @@ function SelectDownloadComponent({
 
   const handleContainerLayout = (e) => {
     const height = e.nativeEvent.layout.height;
-    console.log('99999999999999', height)
     setHeight(height);
   }
 
