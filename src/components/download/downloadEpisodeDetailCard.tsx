@@ -59,7 +59,7 @@ const DownloadEpisodeDetailCard = ({title, progressPercentage, status, activeOpa
       style={styles.container}>
       <View style={styles.detailContainer}>
         <View style={styles.textContainer}>
-          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.title} ellipsizeMode="middle" numberOfLines={1}>{title}</Text>
           <View style={styles.statusTextContainer}>
             <Text style={styles.statusText}>{progressPercentage}%</Text>
             <Text style={styles.statusText}>{statusToText(status)}</Text>
@@ -101,7 +101,8 @@ const styles = StyleSheet.create({
     color: '#FFF', 
     fontSize: 17, 
     fontWeight: '600',
-    fontFamily: 'PingFang SC'
+    fontFamily: 'PingFang SC', 
+    width: "70%"
   },
   statusText: {
     color: '#9C9C9C', 
