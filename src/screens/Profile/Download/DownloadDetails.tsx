@@ -16,7 +16,7 @@ import CheckBoxUnselected from "@static/images/checkbox_unselected.svg";
 import ConfirmationModal from "../../../components/modal/confirmationModal";
 import { Button } from "@rneui/themed";
 import { removeVideoFromDownloadThunk, removeVodFromDownloadThunk, restartVideoDownloadThunk } from "@redux/actions/videoDownloadAction";
-import { playVod } from "@redux/actions/vodActions";
+import { addVodToHistory, playVod } from "@redux/actions/vodActions";
 
 const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详情">) => {
   const { colors, textVariants, icons, spacing } = useTheme();
@@ -91,8 +91,7 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
             if (item.status === DownloadStatus.ERROR){
               dispatch(restartVideoDownloadThunk(download.vod, item.vodSourceId, item.vodUrlNid))
             } else if (item.status === DownloadStatus.COMPLETED){
-              console.debug('play this vod')
-              dispatch(playVod(download.vod, 0, item.vodUrlNid))
+              dispatch(playVod(download.vod, 0, item.vodUrlNid, item.vodSourceId))
               navigation.navigate('播放', {
                 vod_id: download.vod.vod_id,
               });

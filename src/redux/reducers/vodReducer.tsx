@@ -49,7 +49,11 @@ export function vodReducer(state = initialState, action: VodActionType) {
             return {
                 ...state,
                 playVod: {
-                    vod: play
+                    vod: {
+                        ...play, 
+                        episodeWatched: action.episodeWatched ?? play.episodeWatched, 
+                        vodSourceId: action.vodSourceId ?? play.vodSourceId
+                    }
                 }
             };
         }
