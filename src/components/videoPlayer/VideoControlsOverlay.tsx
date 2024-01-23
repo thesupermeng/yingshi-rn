@@ -55,7 +55,9 @@ type Props = {
   isFetchingRecommendedMovies?: boolean,
   isVip: boolean,
   vodID?: number,
-  onDownloadVod: (nid: number) => void,
+  sourceID?: number,
+  onDownloadVod?: (nid: number) => void,
+  setShowAdOverlay: (show: boolean) => void
 };
 
 type RefHandler = {
@@ -98,7 +100,9 @@ export default forwardRef<RefHandler, Props>(({
   isFetchingRecommendedMovies = false,
   isVip,
   vodID,
-  onDownloadVod
+  sourceID,
+  onDownloadVod,
+  setShowAdOverlay
 }, ref) => {
   const { colors, spacing, textVariants, icons } = useTheme();
   const navigation = useNavigation();
@@ -373,7 +377,7 @@ export default forwardRef<RefHandler, Props>(({
                     />
                   }
                   {
-                    showSlider === 'download' &&
+                    showSlider === 'download' && onDownloadVod &&
                     <VodDownloadSelection
                       activeEpisode={activeEpisode}
                       episodes={episodes}
@@ -381,6 +385,11 @@ export default forwardRef<RefHandler, Props>(({
                       rangeSize={rangeSize}
                       vodId={vodID}
                       isVip={isVip}
+                      source={sourceID}
+                      handleClose={() => {
+                        setShowSlider('none');
+                      }}
+                      setShowAdOverlay={setShowAdOverlay}
                     />
                   }
                   {
@@ -440,10 +449,11 @@ export default forwardRef<RefHandler, Props>(({
                       {headerTitle}
                     </Text>
                   </TouchableOpacity>
-                  {videoType === 'vod' && isFullScreen &&
+                  {videoType === 'vod' && isFullScreen && onDownloadVod &&
                     <RectButton
                       disallowInterruption={true}
                       onPress={() => { setShowSlider('download') }}
+                      style={{paddingRight: 10, paddingBottom: 2,}}
                     >
                       <DownloadBtn width={20} height={20} />
                     </RectButton>
