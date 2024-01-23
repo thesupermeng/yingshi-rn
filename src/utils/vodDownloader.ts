@@ -14,8 +14,12 @@ export async function downloadVod(id: string, url: string, onProgress: (progress
   const handleComplete = async (session: FFmpegSession) => {
     // console.log(`Download complete. File at ${outputFilePath}`)
     
-    const stats = await RNFetchBlob.fs.stat(outputFilePath)
-    onComplete(stats.size)
+    try{
+      const stats = await RNFetchBlob.fs.stat(outputFilePath)
+      onComplete(stats.size)
+    } catch (e) {
+      onError()
+    }
   }
 
   const handleLog = (async (log: Log) => {
