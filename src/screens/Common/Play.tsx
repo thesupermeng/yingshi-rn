@@ -417,7 +417,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     [currentEpisode, vod, currentSourceId]
   );
 
-  const foundSource = vodSources.find(
+  let foundSource = vodSources.find(
     ({ source_id }) => source_id === currentSourceId
   )?.vod_play_list;
   const showEpisodeRangeEnd = useMemo(
@@ -829,8 +829,12 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   };
 
   const onDownloadVod = (nid: number) => {
-    if (vodDetails) {
-      dispatch(addVideoToDownloadThunk(vodDetails, currentSourceId, nid));
+    if (adultMode){
+      dispatch(addVideoToDownloadThunk(vod, 0, nid, adultMode));
+    } else {
+      if (vodDetails) {
+        dispatch(addVideoToDownloadThunk(vodDetails, currentSourceId, nid, adultMode));
+      }
     }
   };
 
@@ -1641,7 +1645,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                   isVisible={isShowDlEpisode}
                   handleClose={() => setShowDlEpisode(false)}
                   activeEpisode={currentEpisode}
-                  episodes={foundSource}
+                  episodes={adultMode ? vod?.vod_play_list : foundSource}
                   onDownload={onDownloadVod}
                   rangeSize={EPISODE_RANGE_SIZE}
                   vodId={vod?.vod_id}

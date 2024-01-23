@@ -75,7 +75,7 @@ export async function downloadVodImage(vod: VodType){
       .config({
         path: imagePath
       })
-      .fetch('GET', vod.vod_pic_oss) 
+      .fetch('GET', vod.vod_pic_oss ?? vod.vod_pic) 
 
     
   } catch {
@@ -84,8 +84,13 @@ export async function downloadVodImage(vod: VodType){
 
 }
 
-export function getUrlOfVod(vod: VodType, vodSourceId: number, vodUrlNid: number) {
+export function getUrlOfVod(vod: VodType, vodSourceId: number, vodUrlNid: number, vodIsAdult?: boolean) {
   // console.log(vod)
+  if (vodIsAdult){
+    return vod.vod_play_list.urls
+      .find(url => url.nid === vodUrlNid)
+      ?.url
+  }
   return vod.vod_sources
     .find(source => source.source_id === vodSourceId)?.vod_play_list.urls
     .find(url => url.nid === vodUrlNid)
