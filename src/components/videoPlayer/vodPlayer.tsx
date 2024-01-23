@@ -51,6 +51,7 @@ import { VodApi } from "@api";
 import { useQuery } from "@tanstack/react-query";
 import UmengAnalytics from "../../../Umeng/UmengAnalytics";
 import InAppBrowser from "react-native-inappbrowser-reborn";
+import ImmersiveMode from "react-native-immersive-mode"
 
 LogBox.ignoreLogs([`Trying to load empty source.`]);
 
@@ -673,6 +674,20 @@ export default forwardRef<VideoRef, Props>(
 
       // ========== for analytics - end ==========
     }
+
+    useEffect(() => {
+      if (isFullScreen) {
+        lockOrientation('LANDSCAPE-LEFT')
+        ImmersiveMode.setBarMode('Full')
+        ImmersiveMode.fullLayout(true)
+      }
+      else {
+        lockOrientation('PORTRAIT')
+        ImmersiveMode.setBarMode('Normal')
+        ImmersiveMode.fullLayout(false)
+      } 
+      
+    }, [isFullScreen])
 
     return (
       <View style={styles.container}>
