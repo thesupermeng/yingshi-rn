@@ -32,7 +32,8 @@ export function downloadVideoReducer(state = initialDownloadVideoState, action: 
         sizeInBytes: 0, 
         videoPath: `${RNFetchBlob.fs.dirs.DocumentDir}/SavedVideos/${action.payload.vod.vod_id}-${action.payload.vodSourceId}-${action.payload.vodUrlNid}.mp4`, 
         vodSourceId: action.payload.vodSourceId, 
-        vodUrlNid: action.payload.vodUrlNid
+        vodUrlNid: action.payload.vodUrlNid, 
+        ffmpegSession: action.payload.ffmpegSession
       }
 
       const concatEpisodeDownload = targetVod.episodes.concat(newEpisode)
@@ -75,7 +76,7 @@ export function downloadVideoReducer(state = initialDownloadVideoState, action: 
         videoPath: action.payload.videoPath ?? targetEpisode.videoPath, 
         vodSourceId: targetEpisode.vodSourceId, 
         vodUrlNid: targetEpisode.vodUrlNid, 
-        // ffmpegSession : action.payload.ffmpegSession === undefined ? targetEpisode.ffmpegSession : action.payload.ffmpegSession
+        ffmpegSession : action.payload.ffmpegSession === undefined ? targetEpisode.ffmpegSession : action.payload.ffmpegSession
       } 
 
       const updatedVod: VodDownloadType = {
