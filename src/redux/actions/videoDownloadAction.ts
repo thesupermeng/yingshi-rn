@@ -9,13 +9,14 @@ import RNFetchBlob from "rn-fetch-blob";
 import { FFmpegSession } from "ffmpeg-kit-react-native";
 import { throttle } from "lodash";
 
-function addVideoToDownload(vod: VodType, vodSourceId: number, vodUrlNid: number): DownloadVideoActionType {
+function addVideoToDownload(vod: VodType, vodSourceId: number, vodUrlNid: number, vodIsAdult?: boolean): DownloadVideoActionType {
   return {
     type: 'ADD_VIDEO_TO_DOWNLOAD', 
     payload: {
       vod, 
       vodSourceId, 
-      vodUrlNid
+      vodUrlNid, 
+      vodIsAdult : vodIsAdult ?? false
     }
   }
 }
@@ -112,7 +113,7 @@ function startFirstVideoDownload(): ThunkAction<void, RootState, any, DownloadVi
     const state = getState().downloadVideoReducer;
     const firstVod = state.queue.at(0);
     if (!firstVod) return;
-    dispatch(startVideoDownloadThunk(firstVod.vod, firstVod.vodSourceId, firstVod.vodUrlNid))
+    dispatch(startVideoDownloadThunk(firstVod.vod, firstVod.vodSourceId, firstVod.vodUrlNid, firstVod.vodIsAdult ?? false))
   }
 }
 
@@ -120,6 +121,7 @@ function startVideoDownloadThunk(
   vod: VodType,
   vodSourceId: number,
   vodUrlNid: number,
+  vodIsAdult?: boolean,
 ): ThunkAction<void, RootState, any, DownloadVideoActionType> {
   return async function (dispatch, getState) {
     const throttledUpdate = throttle((percentage) => dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {
@@ -175,7 +177,7 @@ function startVideoDownloadThunk(
 
     const state = getState().downloadVideoReducer
 
-    const url = getUrlOfVod(vod, vodSourceId, vodUrlNid)
+    const url = getUrlOfVod(vod, vodSourceId, vodUrlNid, vodIsAdult)
 
     if (!url) return; 
     if (state.currentDownloading.length >= MAX_CONCURRENT_VIDEO_DOWNLOAD) return; 
@@ -199,12 +201,13 @@ export function addVideoToDownloadThunk(
   vod: VodType,
   vodSourceId: number,
   vodUrlNid: number,
+  vodIsAdult?: boolean
 ): ThunkAction<void, RootState, any, DownloadVideoActionType> {
   return async function (dispatch, getState) {
-    dispatch(addVideoToDownload(vod, vodSourceId, vodUrlNid));
+    dispatch(addVideoToDownload(vod, vodSourceId, vodUrlNid, vodIsAdult));
     dispatch(addDownloadToQueue(vod, vodSourceId, vodUrlNid)); 
     dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {status: DownloadStatus.DOWNLOADING}))
-    dispatch(startVideoDownloadThunk(vod, vodSourceId, vodUrlNid))
+    dispatch(startVideoDownloadThunk(vod, vodSourceId, vodUrlNid, vodIsAdult))
     await downloadVodImage(vod);
   };
 }

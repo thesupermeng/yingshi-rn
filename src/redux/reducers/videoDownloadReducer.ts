@@ -11,10 +11,12 @@ const initialDownloadVideoState : DownloadVideoReducerState = {
 export function downloadVideoReducer(state = initialDownloadVideoState, action: DownloadVideoActionType): DownloadVideoReducerState{
   switch (action.type){
     case 'ADD_VIDEO_TO_DOWNLOAD': {
+
       const newVodDownload: VodDownloadType = {
         vod: action.payload.vod, 
         imagePath: 'file:///' + RNFetchBlob.fs.dirs.DocumentDir + '/VodImages' + `/pic${action.payload.vod.vod_id}.png`, 
-        episodes: []
+        episodes: [], 
+        vodIsAdult: action.payload.vodIsAdult ?? false
       }
       let targetVod = state.downloads.find(download => download.vod.vod_id === action.payload.vod.vod_id) ?? newVodDownload
       const videoExist = targetVod?.episodes.some(episode => episode.vodSourceId === action.payload.vodSourceId && episode.vodUrlNid === action.payload.vodUrlNid)
@@ -77,6 +79,7 @@ export function downloadVideoReducer(state = initialDownloadVideoState, action: 
       } 
 
       const updatedVod: VodDownloadType = {
+        ...targetVod,
         vod: targetVod.vod,
         imagePath: targetVod.imagePath,
         episodes: targetVod.episodes

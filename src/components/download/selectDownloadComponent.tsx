@@ -1,4 +1,4 @@
-import React, { useState, useMemo, memo, useEffect, useRef } from "react";
+import React, { useState, useMemo, memo, useEffect, useRef, useCallback } from "react";
 import {
   View,
   Text,
@@ -119,9 +119,14 @@ function SelectDownloadComponent({
     }
 
     return displayEpisodes?.map((ep) => {
-      const episodeInfo = vodInfo && vodInfo.episodes.find(
+      const episodeInfo = vodInfo && !vodInfo.vodIsAdult ? 
+      vodInfo.episodes.find(
         (episode) => episode.vodUrlNid === ep.nid && episode.vodSourceId === source
-      );
+      )
+      : 
+      vodInfo.episodes.find(
+        (episode) => episode.vodUrlNid === ep.nid
+      )
 
       if (vodInfo && episodeInfo) {
         const isDownloading = episodeInfo.status === DownloadStatus.DOWNLOADING;
@@ -148,6 +153,26 @@ function SelectDownloadComponent({
     setCurrentIndex(0);
   }, [vodId]);
 
+  const renderItem = useCallback(({ item, index }: { item: string; index: number }) => {
+    return (
+      <TouchableOpacity
+        style={styles.btn}
+        onPress={() => setCurrentIndex(index)}
+      >
+        <Text
+          style={{
+            textAlign: "center",
+            ...textVariants.header,
+            color: index === currentIndex ? colors.text : colors.muted,
+            fontSize: index === currentIndex ? 18 : 15,
+          }}
+        >
+          {`${item}集`}
+        </Text>
+      </TouchableOpacity>
+    );
+  }, [])
+
   return (
     <>
       {screen === 'potrait' && (
@@ -168,25 +193,7 @@ function SelectDownloadComponent({
       <FlatList
         horizontal
         data={ranges}
-        renderItem={({ item, index }: { item: string; index: number }) => {
-          return (
-            <TouchableOpacity
-              style={styles.btn}
-              onPress={() => setCurrentIndex(index)}
-            >
-              <Text
-                style={{
-                  textAlign: "center",
-                  ...textVariants.header,
-                  color: index === currentIndex ? colors.text : colors.muted,
-                  fontSize: index === currentIndex ? 18 : 15,
-                }}
-              >
-                {`${item}集`}
-              </Text>
-            </TouchableOpacity>
-          );
-        }}
+        renderItem={renderItem}
       />
 
       {displayEpisodesWithStatus && (
