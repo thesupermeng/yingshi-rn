@@ -20,7 +20,7 @@ export interface EpisodeDownloadType {
   videoPath: string
   vodSourceId: number // determine the source
   vodUrlNid: number // determine the episode
-  ffmpegSession?: FFmpegSession | null
+  ffmpegSession?: number | null
 }
 
 export interface VodDownloadType {
