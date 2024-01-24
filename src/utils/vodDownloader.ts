@@ -1,7 +1,8 @@
 import { VodType } from "@type/ajaxTypes";
-import { FFmpegKit, FFmpegSession, FFprobeKit, Log, MediaInformationSession, Statistics } from "ffmpeg-kit-react-native";
+import { FFmpegKit, FFmpegKitConfig, FFmpegSession, FFprobeKit, Level, Log, MediaInformationSession, Statistics } from "ffmpeg-kit-react-native";
 import { throttle, uniqueId } from "lodash";
 import RNFetchBlob from "rn-fetch-blob";
+
 export async function downloadVod(id: string, url: string, onProgress: (progress: {percentage?: number, bytes?:number}) => void, onComplete: any, onError: any, onSessionCreated: ({session}:{session: FFmpegSession}) => void) { 
   await RNFetchBlob.fs.mkdir(RNFetchBlob.fs.dirs.DocumentDir + '/SavedVideos').catch((err) => {})
 
@@ -9,14 +10,18 @@ export async function downloadVod(id: string, url: string, onProgress: (progress
   const ffmpegScript = `-i ${url} -acodec copy -bsf:a aac_adtstoasc -vcodec copy ${outputFilePath}`
   const details = await FFprobeKit.getMediaInformation(url)
   let duration = 0
+  let completionPercentage = 0; 
 
 
   const handleComplete = async (session: FFmpegSession) => {
     // console.log(`Download complete. File at ${outputFilePath}`)
-    
     try{
-      const stats = await RNFetchBlob.fs.stat(outputFilePath)
-      onComplete(stats.size)
+      if (completionPercentage < 100) { // if wifi die before download end, it will show success. so this will check whether the progress ady 100, if not, error
+        onError()
+      } else {
+        const stats = await RNFetchBlob.fs.stat(outputFilePath)
+        onComplete(stats.size)
+      }
     } catch (e) {
       onError()
     }
@@ -39,6 +44,7 @@ export async function downloadVod(id: string, url: string, onProgress: (progress
       const timeInSeconds = +timeArr[0] * 60 * 60 + +timeArr[1] * 60 + +timeArr[2]
       const progressPercentage = timeInSeconds/duration * 100
       onProgress({percentage: progressPercentage})
+      completionPercentage = Math.round(progressPercentage)
       // console.debug(`Progress: ${progressPercentage}%`)
 
     } catch (e) {
