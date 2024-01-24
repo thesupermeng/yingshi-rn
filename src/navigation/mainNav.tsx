@@ -25,6 +25,7 @@ import { fetchMiniVods } from "../api/miniVod";
 import { AppsApi } from "@api";
 import { hideLoginAction } from "@redux/actions/screenAction";
 import { useDispatch } from "react-redux";
+import NetInfo from "@react-native-community/netinfo";
 import { useAppSelector } from "@hooks/hooks";
 
 export default () => {
@@ -33,6 +34,19 @@ export default () => {
   const [isSuper, setIsSuper] = useState(false);
   const dispatch = useDispatch();
   const isVip = useAppSelector(({ userReducer }) => !(Number(userReducer.userMemberExpired) <= Number(userReducer.userCurrentTimestamp) || userReducer.userToken === ""))
+
+  const [isConnected, setIsConnected] = useState(true);
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener((state: any) => {
+      setIsConnected(state.isConnected);
+      if (state.isConnected === false) setAreaNavConfig(true)
+    });
+
+    return () => {
+      // Unsubscribe from the network status listener when the component unmounts
+      unsubscribe();
+    };
+  }, []);
 
   const onAppInit = async () => {
     await Promise.all([AppsApi.getLocalIpAddress(), AppsApi.getBottomNav()]);
@@ -131,7 +145,7 @@ export default () => {
         </AdsBannerContextProvider>
       ) : (
         <>
-          {loadedAPI == false ? (
+          {loadedAPI == false && isConnected === true ? (
             <View
               style={{
                 flex: 1,

@@ -271,8 +271,6 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   const vod = vodReducer.playVod.vod;
   
-  const downloadedVod: VodDownloadType | undefined = useAppSelector(({downloadVideoReducer}:RootState) => {return downloadVideoReducer.downloads.find(download => download.vod.vod_id === vod?.vod_id)})
-  
   // const [vod, setVod] = useState(vodReducer.playVod.vod);
   const [initTime, setInitTime] = useState(0);
   const isFavorite = vodFavouriteReducer.favorites.some(
@@ -331,6 +329,11 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   const [bannerAd, setBannerAd] = useState<BannerAdType>();
 
+
+  const downloadedVod: VodDownloadType | undefined = useAppSelector(({downloadVideoReducer}:RootState) => {return downloadVideoReducer.downloads.find(download => download.vod.vod_id === vod?.vod_id)})
+  const episode = adultMode ?  downloadedVod?.episodes.find(ep => ep.vodUrlNid === currentEpisode && ep.status === DownloadStatus.COMPLETED) :  downloadedVod?.episodes.find(ep => ep.vodSourceId === currentSourceId && ep.vodUrlNid === currentEpisode && ep.status === DownloadStatus.COMPLETED)
+  
+
   //For pausing video player when switch source
   const onPressSource = useCallback(
     (itemId: any) => {
@@ -338,7 +341,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
         setCurrentSourceId(itemId);
         currentTimeRef.current = 0; // Reset current time when switching sources
         if (videoPlayerRef.current) {
-          videoPlayerRef.current.setPause(true);
+          videoPlayerRef.current?.setPause(true);
           setShouldResumeAfterLoad(true);
         }
       }
@@ -354,7 +357,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   //     // currentSourceRef.current = itemId;
   //     currentTimeRef.current = 0;
   //     if (videoPlayerRef.current) {
-  //       videoPlayerRef.current.setPause(true);
+  //       videoPlayerRef.current?.setPause(true);
   //     }
   //     // Simulate loading for 2 seconds before displaying the player again
   //     setTimeout(() => {
@@ -555,7 +558,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       }).then((data) => {
         const isRestricted = data.vod_restricted === 1;
         if (isRestricted) {
-          videoPlayerRef.current.setPause(true);
+          videoPlayerRef.current?.setPause(true);
           // use setTimeout to prevent video non pause before unmount the screen
           setTimeout(() => {
             setVodRestricted(isRestricted);
@@ -569,9 +572,20 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     [vod]
   );
 
+  const handleFetchVodDetail = async () => {
+    const promise = (async () => downloadedVod?.vod)
+    if (isOffline){
+      console.debug('is offline')
+      return promise()
+    } else {
+      console.debug('not offline')
+      return fetchVodDetails()
+    }
+  }
+
   const { data: vodDetails, isFetching: isFetchingVodDetails } = useQuery({
-    queryKey: ["vodDetails", vod?.vod_id],
-    queryFn: () => fetchVodDetails(),
+    queryKey: ["vodDetails", vod?.vod_id, isOffline],
+    queryFn: () => handleFetchVodDetail(),
   });
 
   const fetchBannerAd = async () => {
@@ -606,7 +620,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     const isRestricted = vodDetails?.vod_restricted === 1;
 
     if (isRestricted) {
-      videoPlayerRef.current.setPause(true);
+      videoPlayerRef.current?.setPause(true);
       // use setTimeout to prevent video non pause before unmount the screen
       setTimeout(() => {
         setVodRestricted(isRestricted);
@@ -661,6 +675,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   } = useQuery({
     queryKey: ["relatedVods", vod],
     queryFn: () => fetchVod(),
+    enabled: !isOffline
   });
 
   const fetchSVod = () =>
@@ -679,6 +694,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   } = useQuery({
     queryKey: ["relatedSVods", vod],
     queryFn: () => fetchSVod(),
+    enabled: !isOffline
   });
 
   const [deviceName, setDeviceName] = useState("");
@@ -893,9 +909,10 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     : vod?.vod_name;
 
   useEffect(() => {
+    checkConnection()
+
     if (!!vodUrl && !!vod?.vod_id) {
       // console.debug('vod url is', vodUrl)
-      const episode = downloadedVod?.episodes.find(ep => ep.vodSourceId === currentSourceId && ep.vodUrlNid === currentEpisode && ep.status === DownloadStatus.COMPLETED)
       if (downloadedVod && episode){
         CPopup.showToast('Playing from local')
         setVodUri(`file://${episode.videoPath}`)
@@ -943,7 +960,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     setReadyPlay(true);
 
     if (shouldResumeAfterLoad && videoPlayerRef.current) {
-      videoPlayerRef.current.setPause(false); // Resume playing the video
+      videoPlayerRef.current?.setPause(false); // Resume playing the video
       setShouldResumeAfterLoad(false); // Reset the flag after resuming
     }
   };
@@ -968,7 +985,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   useEffect(() => {
     if (vodUri && vodUri !== "" && videoPlayerRef.current) {
-      videoPlayerRef.current.setPause(false);
+      videoPlayerRef.current?.setPause(false);
     }
   }, [vodUri]);
 
@@ -981,6 +998,8 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     setShowAdOverlay(false);
     videoPlayerRef.current?.setPause(false);
   };
+
+  const isEpisodeDownloaded = adultMode ? downloadedVod?.episodes.some(x => x.vodUrlNid === currentEpisode) : downloadedVod?.episodes.some(x => x.vodSourceId === currentSourceId && x.vodUrlNid === currentEpisode)
 
   return (
     <>
@@ -1014,7 +1033,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
         {/* if isVodRestricted, show bing search */}
         {isVodRestricted && vod && !isOffline && <BingSearch vod={vod} />}
 
-        {!isVodRestricted && !dismountPlayer && !isOffline && (
+        {!isVodRestricted && !dismountPlayer && !(isOffline && !episode) && (
           <VodPlayer
             key={vodUri} // remount on uri change
             vod_url={vodUri}
@@ -1051,7 +1070,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
             setShowAdOverlay={setShowAdOverlay}
           />
         )}
-        {isOffline && dismountPlayer && (
+        {isOffline && dismountPlayer && episode && (
           <View
             style={{
               width: "100%",
@@ -1069,11 +1088,11 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
             />
           </View>
         )}
-        {!dismountPlayer && isOffline && (
+        {!dismountPlayer && isOffline && !isEpisodeDownloaded && (
           <NoConnection onClickRetry={checkConnection} isPlay={true} />
         )}
 
-        {!isOffline && (
+        {(
           <>
             {adultMode && <VipRegisterBar />}
 
@@ -1118,8 +1137,8 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                 <View style={styles.videoDescription}>
                   {adultMode ? (
                     <FastImage
-                      key={vod?.vod_pic}
-                      source={{ uri: vod?.vod_pic }}
+                      key={`${vod?.vod_pic}-${isOffline}`}
+                      source={{ uri: isOffline && !!episode ? downloadedVod?.imagePath : vod?.vod_pic}}
                       resizeMode={"cover"}
                       style={{
                         ...styles.descriptionImageHorizontal,
@@ -1130,8 +1149,8 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                     />
                   ) : (
                     <FastImage
-                      key={vod?.vod_pic}
-                      source={{ uri: vod?.vod_pic }}
+                      key={`${vod?.vod_pic}-${isOffline}`}
+                      source={{ uri: isOffline && !!episode ? downloadedVod?.imagePath : vod?.vod_pic}}
                       resizeMode={"cover"}
                       style={{
                         ...styles.descriptionImage,
@@ -1438,7 +1457,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
                 {/* show 选集播放 section when avaiable episode more thn 1 */}
                 <>
-                  {(isFetchingVodDetails || isLoading) ? (
+                  {((!isOffline && isFetchingVodDetails) || isLoading) ? (
                     <>
                       <View
                         style={{
@@ -1557,7 +1576,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                                   // text={`相关${vod?.vod_class ?? '影片'}`}
                                   text={"相关推荐"}
                                   onPress={() => {
-                                    //  videoPlayerRef.current.setPause(true);
+                                    //  videoPlayerRef.current?.setPause(true);
                                     setTimeout(() => {
                                       navigation.navigate("午夜场剧情", {
                                         // class: item.vod_list[0].vod_class
@@ -1594,7 +1613,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                                 isPlayScreen={true}
                                 text={`相关${vod?.type_name ?? "相关推荐"}`}
                                 onPress={() => {
-                                  //  videoPlayerRef.current.setPause(true);
+                                  //  videoPlayerRef.current?.setPause(true);
                                   setTimeout(() => {
                                     navigation.navigate("片库", {
                                       type_id: vod.type_id,
@@ -1607,7 +1626,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                                 outerRowPadding={2 * (20 - spacing.sideOffset)}
                                 onPress={({ vodId }) => {
                                   if (vodId !== vod.vod_id) {
-                                    videoPlayerRef.current.setPause(true);
+                                    videoPlayerRef.current?.setPause(true);
                                   }
 
                                   if (!isCollapsed) {
@@ -1663,9 +1682,9 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
             )}
           </>
         )}
-        {isOffline && (
+        {/* {isOffline && (
           <NoConnection onClickRetry={checkConnection} isPlayBottom={true} />
-        )}
+        )} */}
         {adultMode && <AdultVideoVipModal />}
       </ScreenContainer>
       <DescriptionBottomSheet

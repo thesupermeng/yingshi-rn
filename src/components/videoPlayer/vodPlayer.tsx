@@ -52,6 +52,7 @@ import { useQuery } from "@tanstack/react-query";
 import UmengAnalytics from "../../../Umeng/UmengAnalytics";
 import InAppBrowser from "react-native-inappbrowser-reborn";
 import ImmersiveMode from "react-native-immersive-mode"
+import { RootState } from "@redux/store";
 
 LogBox.ignoreLogs([`Trying to load empty source.`]);
 
@@ -179,9 +180,12 @@ export default forwardRef<VideoRef, Props>(
     const [showAd, setShowAd] = useState(false);
     const [adCountdownTime, setAdCountdownTime] = useState(AD_VIDEO_SECONDS);
 
+    const isOffline = useAppSelector(({settingsReducer}: RootState) => settingsReducer.isOffline)
+
     const { data: playerVodAds, isFetching: isFetchAds } = useQuery({
       queryKey: ["playerAdsVideo"],
       queryFn: () => VodApi.getPlayerAdVideo(),
+      enabled: !isOffline
     });
 
     useEffect(() => {
