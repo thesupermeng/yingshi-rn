@@ -58,10 +58,6 @@ const topon_channel = "GOOGLE_PLAY";
 //   },
 // });
 
-logIgnore([
-  "Trying to load empty source.",
-  "`new NativeEventEmitter()` was called with a non-null argument without the required",
-]);
 warnIgnore([
   'Trying to load empty source.',
   '`new NativeEventEmitter()` was called with a non-null argument without the required',

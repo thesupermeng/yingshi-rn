@@ -25,16 +25,22 @@ export default function TitleWithBackButtonHeader({
   return (
     <View style={styles.container}>
       <BackButton btnStyle={styles.button} onPress={onBack}/>
-      <Text
+      <View
         style={{
-          ...textVariants.header,
-          ...styles.title,
-          ...headerStyle
+          ...styles.titleContainer
         }}
-        numberOfLines={1}
       >
-        {title}
-      </Text>
+        <Text
+          style={{
+            ...styles.title,
+            ...textVariants.header,
+            ...headerStyle
+          }}
+          numberOfLines={1}
+        >
+          {title}
+        </Text>
+      </View>
       { right &&     
         <View style={styles.rightButton}>
           {right}
@@ -56,11 +62,11 @@ const styles = StyleSheet.create({
     position: 'absolute', 
     alignItems: 'center', 
     justifyContent: 'center', 
-    width: '100%', 
+    width: '60%', 
     height: 30, 
     textAlign: 'center', 
     lineHeight: 30, 
-    marginVertical: 10
+    marginVertical: 10, 
   }, 
   button: {
     position: 'absolute', 
@@ -78,5 +84,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center', 
     right: 0, 
     marginVertical: 10
+  }, 
+  titleContainer: {
+    width: '100%', 
+    alignItems: 'center'
   }
 });

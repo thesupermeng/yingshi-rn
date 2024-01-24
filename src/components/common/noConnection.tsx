@@ -38,7 +38,7 @@ export default function NoConnection({
     <View
       style={{
         ...styles.container,
-        marginBottom: isPlay ? 150 : '50%',
+        marginBottom: isPlay ? 0 : '50%',
         backgroundColor: isPlay ? '#000000' : colors.background,
         minHeight: getMinHeight(),
       }}>
@@ -124,9 +124,10 @@ export default function NoConnection({
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
-    flexGrow: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    width: "100%",
+    aspectRatio: 16 / 9,
   },
   btns: {
     display: 'flex',

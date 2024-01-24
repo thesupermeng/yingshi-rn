@@ -27,6 +27,7 @@ export interface VodDownloadType {
   vod: VodType
   imagePath: string 
   episodes: EpisodeDownloadType[]
+  vodIsAdult: boolean
 }
 
 export interface DownloadVideoReducerState {

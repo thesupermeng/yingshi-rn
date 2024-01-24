@@ -70,6 +70,7 @@ export interface DownloadVideoActionPayload extends OptionalUpdateFields {
     vod: VodType;
     vodSourceId: number;
     vodUrlNid: number;
+    vodIsAdult?: boolean; 
 }
 
 export interface DownloadVideoActionType {
