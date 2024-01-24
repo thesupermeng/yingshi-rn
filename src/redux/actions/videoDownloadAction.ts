@@ -6,7 +6,7 @@ import { DownloadStatus, DownloadVideoReducerState, EpisodeDownloadType, VodDown
 import { RootState } from "@redux/store";
 import { MAX_CONCURRENT_VIDEO_DOWNLOAD } from "@utility/constants";
 import RNFetchBlob from "rn-fetch-blob";
-import { FFmpegSession } from "ffmpeg-kit-react-native";
+import { FFmpegKit, FFmpegSession } from "ffmpeg-kit-react-native";
 import { throttle } from "lodash";
 
 function addVideoToDownload(vod: VodType, vodSourceId: number, vodUrlNid: number, vodIsAdult?: boolean): DownloadVideoActionType {
@@ -134,13 +134,13 @@ function startVideoDownloadThunk(
       if (percentage !== undefined){
         throttledUpdate(percentage)
       }
-      if (bytes !== undefined) {
-        dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {
-          progress: {
-            bytes: bytes
-          }
-        }))
-      }
+      // if (bytes !== undefined) {
+      //   dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {
+      //     progress: {
+      //       bytes: bytes
+      //     }
+      //   }))
+      // }
     }
 
     const onDownloadEnd = () => {
@@ -172,7 +172,7 @@ function startVideoDownloadThunk(
     }
 
     const handleSessionCreated = ({session}: {session: FFmpegSession}) => {
-      dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {}))
+      dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {ffmpegSession: session.getSessionId()}))
     }
 
     const state = getState().downloadVideoReducer
@@ -225,6 +225,12 @@ export function removeVideoFromDownloadThunk(
     if (!targetEpisode) return 
 
     RNFetchBlob.fs.unlink(targetEpisode.videoPath).catch()
+    const allSession = await FFmpegKit.listSessions() 
+    for (const session of allSession) {
+      if (await session.getSessionId() === targetEpisode.ffmpegSession){
+        session.cancel(); 
+      }
+    }
     dispatch(removeVideoFromDownload(vod, vodSourceId, vodUrlNid))
   }
 }
@@ -241,6 +247,12 @@ export function removeVodFromDownloadThunk(
 
     for (const episode of targetVod.episodes) {
       RNFetchBlob.fs.unlink(episode.videoPath).catch()
+      const allSession = await FFmpegKit.listSessions() 
+      for (const session of allSession) {
+        if (await session.getSessionId() === episode.ffmpegSession){
+          session.cancel(); 
+        }
+      }
     }
     RNFetchBlob.fs.unlink(targetVod.imagePath).catch()
     dispatch(removeVodFromDownload(vod, vodSourceId, vodUrlNid))
