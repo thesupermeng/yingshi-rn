@@ -55,6 +55,6 @@ module.exports = (async () => {
       assetExts: assetExts.filter(ext => ext !== 'svg'),
       sourceExts: [...sourceExts, 'svg', 'js', 'json', 'ts', 'tsx'],
     },
-    ...jsoMetroPlugin
+    //...jsoMetroPlugin
   };
 })();
