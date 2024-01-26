@@ -20,6 +20,7 @@ import FinishIcon from "@static/images/downloaded_icon.svg";
 import { DownloadStatus, DownloadVideoReducerState } from "@type/vodDownloadTypes";
 import { useAppSelector } from "@hooks/hooks";
 import { RootState } from "@redux/store";
+import DeviceInfo from "react-native-device-info";
 
 interface Props {
   vodId?: number;
@@ -52,13 +53,19 @@ function SelectDownloadComponent({
   const gapSize = 8;
   const windowWidth = screen === 'landscape' ? Dimensions.get('window').width / 2 : Dimensions.get('window').width;
   const width = windowWidth - 15 - spacing.sideOffset * 4;
-  const height = Dimensions.get('window').height * (screen === 'landscape' ? 0.4 : 0.3);
+  const height = Dimensions.get('window').height / 2 * (screen === 'landscape' ? 0.8 : 0.55);
   const childWidth = (width - gapSize) / itemPerRow;
   const [episodeHeight, setHeight] = useState(0);
+  const [episodeWidth, setWidth] = useState(0);
   const navigation = useNavigation();
   const downloadVideoReducer: DownloadVideoReducerState = useAppSelector(
     ({ downloadVideoReducer }: RootState) => downloadVideoReducer
   );
+  const deviceBrand = DeviceInfo.getBrand();
+  const [deviceName, setDeviceName] = useState("");
+  DeviceInfo.getDeviceName().then((d) => {
+    setDeviceName(d);
+  });
 
   const ranges = [
     ...Array(
@@ -105,8 +112,10 @@ function SelectDownloadComponent({
   }, [showEpisodeRangeStart, showEpisodeRangeEnd, episodes]);
 
   const handleContainerLayout = (e) => {
-    const height = e.nativeEvent.layout.height;
-    setHeight(height);
+    const epHeight = e.nativeEvent.layout.height;
+    const epWidth = e.nativeEvent.layout.width;
+    setHeight(epHeight);
+    setWidth(epWidth);
   }
 
   const displayEpisodesWithStatus = useMemo(() => {
@@ -119,14 +128,14 @@ function SelectDownloadComponent({
     }
 
     return displayEpisodes?.map((ep) => {
-      const episodeInfo = vodInfo && !vodInfo.vodIsAdult ? 
-      vodInfo.episodes.find(
-        (episode) => episode.vodUrlNid === ep.nid && episode.vodSourceId === source
-      )
-      : 
-      vodInfo.episodes.find(
-        (episode) => episode.vodUrlNid === ep.nid
-      )
+      const episodeInfo = vodInfo && !vodInfo.vodIsAdult ?
+        vodInfo.episodes.find(
+          (episode) => episode.vodUrlNid === ep.nid && episode.vodSourceId === source
+        )
+        :
+        vodInfo.episodes.find(
+          (episode) => episode.vodUrlNid === ep.nid
+        )
 
       if (vodInfo && episodeInfo) {
         const isDownloading = episodeInfo.status === DownloadStatus.DOWNLOADING;
@@ -200,8 +209,10 @@ function SelectDownloadComponent({
         <>
           <ScrollView
             style={{
-              height: height,
-              marginBottom: 20,
+              height: deviceBrand == "HUAWEI" && /p\d+/i.test(deviceName)
+                ? height - 100
+                : height,
+              marginBottom: 15,
               marginHorizontal: spacing.sideOffset,
             }}
             contentContainerStyle={{
@@ -210,6 +221,7 @@ function SelectDownloadComponent({
               paddingBottom: insets.bottom,
               paddingHorizontal: 5,
             }}
+            nestedScrollEnabled={true}
           >
             {displayEpisodesWithStatus?.map((ep, idx) => (
               <TouchableOpacity
@@ -228,7 +240,7 @@ function SelectDownloadComponent({
                     borderRadius: 8,
                     position: "relative",
                   }}
-                  onLayout={episodeHeight === 0 ? handleContainerLayout : undefined}
+                  onLayout={episodeHeight === 0 || episodeWidth === 0 ? handleContainerLayout : undefined}
                 >
                   {ep.isDownloading && (
                     <Animated.View style={{
@@ -236,7 +248,7 @@ function SelectDownloadComponent({
                       position: "absolute",
                       bottom: 0,
                       height: ep.progress.percentage / 100 * episodeHeight,
-                      width: childWidth,
+                      width: episodeWidth,
                       borderRadius: 8,
                     }}>
                     </Animated.View>
@@ -301,6 +313,7 @@ function SelectDownloadComponent({
                 flexDirection: "row",
                 justifyContent: "center",
                 gap: 5,
+                marginBottom: insets.bottom,
               }}
               onPress={() => {
                 navigation.navigate("我的下载")
@@ -327,6 +340,7 @@ function SelectDownloadComponent({
                 marginHorizontal: spacing.sideOffset + 5,
                 padding: spacing.s,
                 borderRadius: 8,
+                marginBottom: insets.bottom,
               }}
               onPress={() => {
                 handleClose();
