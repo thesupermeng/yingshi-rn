@@ -128,6 +128,15 @@ function startFirstVideoDownload(): ThunkAction<void, RootState, any, DownloadVi
   }
 }
 
+function resumeFirstVideoDownload(): ThunkAction<void, RootState, any, DownloadVideoActionType> {
+  return async function (dispatch, getState) {
+    const state = getState().downloadVideoReducer;
+    const firstVod = state.queue.at(0);
+    if (!firstVod) return;
+    dispatch(resumeVideoDownloadThunk(firstVod.vod, firstVod.vodSourceId, firstVod.vodUrlNid, firstVod.vodIsAdult ?? false))
+  }
+}
+
 function startVideoDownloadThunk(
   vod: VodType,
   vodSourceId: number,
@@ -325,33 +334,30 @@ export function pauseVideoDownloadThunk (
   return async function (dispatch, getState) {
     dispatch(pauseVideoDownload(vod, vodSourceId, vodUrlNid))
     dispatch(endVideoDownload(vod, vodSourceId, vodUrlNid)) //* when pause video, remove it from the 'downloading' array
-    const newState = getState().downloadVideoReducer
-    if (newState.queue.length === 0) return
-    if (newState.currentDownloading.length >= MAX_CONCURRENT_VIDEO_DOWNLOAD) return
-    dispatch(startFirstVideoDownload())
+    dispatch(removeDownloadFromQueue(vod, vodSourceId, vodUrlNid))
 
     const state = getState().downloadVideoReducer
 
     const targetVod = state.downloads.find(download => download.vod.vod_id === vod.vod_id)
     if (!targetVod) return 
 
-    for (const episode of targetVod.episodes) {
-      // RNFetchBlob.fs.unlink(episode.videoPath).catch()
-      const allSession = await FFmpegKit.listSessions() 
-      for (const session of allSession) {
-        if (session.getSessionId() === episode.ffmpegSession){
-          await session.cancel(); 
-        }
-      }
-    }
+    const targetEpisode = targetVod.episodes.find(ep => ep.vodSourceId === vodSourceId && ep.vodUrlNid === vodUrlNid)
+    if (!targetEpisode) return 
+
+    if (targetEpisode.ffmpegSession) FFmpegKit.cancel(targetEpisode.ffmpegSession)
+    console.debug('pause', targetEpisode.ffmpegSession)
 
     await pauseDownloadVod(`${vod.vod_id}-${vodSourceId}-${vodUrlNid}`, () => {})
     dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {status: DownloadStatus.PAUSED}))
 
+    const newState = getState().downloadVideoReducer
+    if (newState.queue.length === 0) return
+    if (newState.currentDownloading.length >= MAX_CONCURRENT_VIDEO_DOWNLOAD) return
+    dispatch(resumeFirstVideoDownload())
   }
 }
 
-export function resumeVideoDownloadThunk(
+function resumeVideoDownloadThunk(
   vod: VodType,
   vodSourceId: number,
   vodUrlNid: number,
@@ -363,10 +369,6 @@ export function resumeVideoDownloadThunk(
       .find(x => x.vod.vod_id === vod.vod_id)?.episodes
       .find(x => x.vodSourceId === vodSourceId && x.vodUrlNid === vodUrlNid)
       ?.progress.percentage; 
-
-    const url = getUrlOfVod(vod, vodSourceId, vodUrlNid, vodIsAdult)
-
-    if (!url) return 
 
     dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {status:DownloadStatus.DOWNLOADING}))
 
@@ -428,6 +430,13 @@ export function resumeVideoDownloadThunk(
       dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {ffmpegSession: session.getSessionId()}))
     }
 
+    const url = getUrlOfVod(vod, vodSourceId, vodUrlNid, vodIsAdult)
+
+    if (!url) return  
+    if (initialState.currentDownloading.length >= MAX_CONCURRENT_VIDEO_DOWNLOAD) return; 
+    if (initialState.queue.length === 0) return; 
+    dispatch(startVideoDownload(vod, vodSourceId, vodUrlNid))
+    
     resumeDownloadVod(
       `${vod.vod_id}-${vodSourceId}-${vodUrlNid}`, 
       url, 
@@ -437,4 +446,18 @@ export function resumeVideoDownloadThunk(
       handleSessionCreated, 
     )
   }
+}
+
+export function resumeVideoToDownloadThunk(
+  vod: VodType,
+  vodSourceId: number,
+  vodUrlNid: number,
+  vodIsAdult?: boolean
+): ThunkAction<void, RootState, any, DownloadVideoActionType> {
+  return async function (dispatch, getState) {
+    dispatch(addDownloadToQueue(vod, vodSourceId, vodUrlNid)); 
+    dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {status: DownloadStatus.DOWNLOADING}))
+    dispatch(resumeVideoDownloadThunk(vod, vodSourceId, vodUrlNid, vodIsAdult))
+    await downloadVodImage(vod);
+  };
 }

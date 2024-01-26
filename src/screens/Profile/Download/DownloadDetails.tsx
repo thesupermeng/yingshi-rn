@@ -15,7 +15,7 @@ import CheckBoxSelected from "@static/images/checkbox_selected.svg";
 import CheckBoxUnselected from "@static/images/checkbox_unselected.svg";
 import ConfirmationModal from "../../../components/modal/confirmationModal";
 import { Button } from "@rneui/themed";
-import { pauseVideoDownloadThunk, removeVideoFromDownloadThunk, removeVodFromDownloadThunk, restartVideoDownloadThunk, resumeVideoDownloadThunk } from "@redux/actions/videoDownloadAction";
+import { pauseVideoDownloadThunk, removeVideoFromDownloadThunk, removeVodFromDownloadThunk, restartVideoDownloadThunk, resumeVideoToDownloadThunk } from "@redux/actions/videoDownloadAction";
 import { addVodToHistory, playVod } from "@redux/actions/vodActions";
 
 const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详情">) => {
@@ -109,7 +109,7 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
             } else if (item.status === DownloadStatus.DOWNLOADING) {
               dispatch(pauseVideoDownloadThunk(download.vod, item.vodSourceId, item.vodUrlNid))
             } else if (item.status === DownloadStatus.PAUSED) {
-              dispatch(resumeVideoDownloadThunk(download.vod, item.vodSourceId, item.vodUrlNid, download.vodIsAdult))
+              dispatch(resumeVideoToDownloadThunk(download.vod, item.vodSourceId, item.vodUrlNid, download.vodIsAdult))
             }
           }
         }}
