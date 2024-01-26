@@ -36,7 +36,7 @@ export const VipInviteHistory = ( {userState,}: Props ) => {
         displayText = item.text;
         item.invited_vip_reward_day = item.vip_reward_day;
       } else {
-        displayText = item.user_name + '接受了您的邀请';
+        displayText = item.title;
       }
 
       return {
