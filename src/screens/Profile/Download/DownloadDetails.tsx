@@ -109,7 +109,7 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
             } else if (item.status === DownloadStatus.DOWNLOADING) {
               dispatch(pauseVideoDownloadThunk(download.vod, item.vodSourceId, item.vodUrlNid))
             } else if (item.status === DownloadStatus.PAUSED) {
-              dispatch(resumeVideoDownloadThunk(download.vod, item.vodSourceId, item.vodUrlNid))
+              dispatch(resumeVideoDownloadThunk(download.vod, item.vodSourceId, item.vodUrlNid, download.vodIsAdult))
             }
           }
         }}
