@@ -325,6 +325,10 @@ export function pauseVideoDownloadThunk (
   return async function (dispatch, getState) {
     dispatch(pauseVideoDownload(vod, vodSourceId, vodUrlNid))
     dispatch(endVideoDownload(vod, vodSourceId, vodUrlNid)) //* when pause video, remove it from the 'downloading' array
+    const newState = getState().downloadVideoReducer
+    if (newState.queue.length === 0) return
+    if (newState.currentDownloading.length >= MAX_CONCURRENT_VIDEO_DOWNLOAD) return
+    dispatch(startFirstVideoDownload())
 
     const state = getState().downloadVideoReducer
 
@@ -350,7 +354,9 @@ export function pauseVideoDownloadThunk (
 export function resumeVideoDownloadThunk(
   vod: VodType,
   vodSourceId: number,
-  vodUrlNid: number,): ThunkAction<void, RootState, any, DownloadVideoActionType> {
+  vodUrlNid: number,
+  vodIsAdult?: boolean,
+  ): ThunkAction<void, RootState, any, DownloadVideoActionType> {
   return async function (dispatch, getState) {
     const initialState = getState().downloadVideoReducer
     const initialPercentage = initialState.downloads
@@ -358,7 +364,7 @@ export function resumeVideoDownloadThunk(
       .find(x => x.vodSourceId === vodSourceId && x.vodUrlNid === vodUrlNid)
       ?.progress.percentage; 
 
-    const url = getUrlOfVod(vod, vodSourceId, vodUrlNid, false)
+    const url = getUrlOfVod(vod, vodSourceId, vodUrlNid, vodIsAdult)
 
     if (!url) return 
 
