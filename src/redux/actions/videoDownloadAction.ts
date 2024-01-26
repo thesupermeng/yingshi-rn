@@ -239,13 +239,15 @@ export function removeVideoFromDownloadThunk(
   vodUrlNid: number,
 ): ThunkAction<void, RootState, any, DownloadVideoActionType> {
   return async function (dispatch, getState) {
+    const partialPath = `${RNFetchBlob.fs.dirs.DocumentDir}/PartialDownload/${vod.vod_id}-${vodSourceId}-${vodUrlNid}`
     const state = getState().downloadVideoReducer
     const targetVod = state.downloads.find(download => download.vod.vod_id === vod.vod_id)
     if (!targetVod) return 
     const targetEpisode = targetVod.episodes.find(episode => episode.vodSourceId === vodSourceId && episode.vodUrlNid === vodUrlNid)
     if (!targetEpisode) return 
 
-    RNFetchBlob.fs.unlink(targetEpisode.videoPath).catch()
+    RNFetchBlob.fs.unlink(targetEpisode.videoPath).catch(err => {})
+    RNFetchBlob.fs.unlink(partialPath).catch(err => {})
     const allSession = await FFmpegKit.listSessions() 
     for (const session of allSession) {
       if (await session.getSessionId() === targetEpisode.ffmpegSession){
@@ -267,13 +269,13 @@ export function removeVodFromDownloadThunk(
     if (!targetVod) return 
 
     for (const episode of targetVod.episodes) {
-      RNFetchBlob.fs.unlink(episode.videoPath).catch()
       const allSession = await FFmpegKit.listSessions() 
       for (const session of allSession) {
         if (await session.getSessionId() === episode.ffmpegSession){
           session.cancel(); 
         }
       }
+      dispatch(removeVideoFromDownloadThunk(vod, episode.vodSourceId, episode.vodUrlNid))
     }
     RNFetchBlob.fs.unlink(targetVod.imagePath).catch()
     dispatch(removeVodFromDownload(vod, vodSourceId, vodUrlNid))
