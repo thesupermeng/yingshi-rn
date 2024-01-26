@@ -302,7 +302,10 @@ function SelectDownloadComponent({
                 justifyContent: "center",
                 gap: 5,
               }}
-              onPress={() => navigation.navigate("我的下载")}
+              onPress={() => {
+                navigation.navigate("我的下载")
+                handleClose();
+              }}
             >
               <DownloadIcon width={24} height={24} />
               <Text
