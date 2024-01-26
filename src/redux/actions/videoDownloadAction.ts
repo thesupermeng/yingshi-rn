@@ -324,7 +324,7 @@ export function pauseVideoDownloadThunk (
   vodUrlNid: number,): ThunkAction<void, RootState, any, DownloadVideoActionType> {
   return async function (dispatch, getState) {
     dispatch(pauseVideoDownload(vod, vodSourceId, vodUrlNid))
-    dispatch(endVideoDownload(vod, vodSourceId, vodUrlNid))
+    dispatch(endVideoDownload(vod, vodSourceId, vodUrlNid)) //* when pause video, remove it from the 'downloading' array
 
     const state = getState().downloadVideoReducer
 
@@ -363,23 +363,16 @@ export function resumeVideoDownloadThunk(
     if (!url) return 
 
     dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {status:DownloadStatus.DOWNLOADING}))
+
     const throttledUpdate = throttle((percentage) => dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {
       progress: {
-        percentage: Math.min(initialPercentage + percentage, 100)
+        percentage: Math.min(initialPercentage + percentage, 100) //* because is resume, not restart 
       }
     })), 2000)
     const handleUpdate = ({percentage, bytes}: {percentage?: number, bytes?: number}) => {
-      // console.debug('downloaded ', percentage, '%')
       if (percentage !== undefined){
         throttledUpdate(percentage)
       }
-      // if (bytes !== undefined) {
-      //   dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {
-      //     progress: {
-      //       bytes: bytes
-      //     }
-      //   }))
-      // }
     }
 
     const onDownloadEnd = async () => {
@@ -388,6 +381,19 @@ export function resumeVideoDownloadThunk(
       if (newState.queue.length === 0) return
       if (newState.currentDownloading.length >= MAX_CONCURRENT_VIDEO_DOWNLOAD) return
       dispatch(startFirstVideoDownload())
+    }
+
+    const handleError = () => {
+      // console.debug('error downloading ', vod.vod_name)
+      const state = getState().downloadVideoReducer
+      const targetEpisode = state.downloads.find(dl => dl.vod.vod_id === vod.vod_id)?.episodes.find(ep => ep.vodSourceId === vodSourceId && ep.vodUrlNid === vodUrlNid)
+      if (targetEpisode?.status === DownloadStatus.PAUSED){
+        return 
+      }
+      dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {
+        status: DownloadStatus.ERROR
+      }))
+      onDownloadEnd()
     }
 
     const handleComplete = (finalSizeInBytes: number) => {
@@ -408,21 +414,8 @@ export function resumeVideoDownloadThunk(
           }))
           onDownloadEnd()          
         }, 
-        ()=>{}
+        handleError
       )
-    }
-
-    const handleError = () => {
-      // console.debug('error downloading ', vod.vod_name)
-      const state = getState().downloadVideoReducer
-      const targetEpisode = state.downloads.find(dl => dl.vod.vod_id === vod.vod_id)?.episodes.find(ep => ep.vodSourceId === vodSourceId && ep.vodUrlNid === vodUrlNid)
-      if (targetEpisode?.status === DownloadStatus.PAUSED){
-        return 
-      }
-      dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {
-        status: DownloadStatus.ERROR
-      }))
-      onDownloadEnd()
     }
 
     const handleSessionCreated = ({session}: {session: FFmpegSession}) => {

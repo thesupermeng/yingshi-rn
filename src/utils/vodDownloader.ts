@@ -1,5 +1,5 @@
 import { VodType } from "@type/ajaxTypes";
-import { FFmpegKit, FFmpegKitConfig, FFmpegSession, FFprobeKit, Level, Log, MediaInformationSession, Statistics } from "ffmpeg-kit-react-native";
+import { FFmpegKit, FFmpegKitConfig, FFmpegSession, FFmpegSessionCompleteCallback, FFprobeKit, Level, Log, MediaInformationSession, Statistics } from "ffmpeg-kit-react-native";
 import { throttle, uniqueId } from "lodash";
 import RNFetchBlob from "rn-fetch-blob";
 import {getVideoDuration} from 'react-native-video-duration'
@@ -149,7 +149,15 @@ export async function resumeDownloadVod(id: string, url:string, onProgress: any,
 
   const ffmpegCommand = `-ss ${startTime} -i ${url} -acodec copy -bsf:a aac_adtstoasc -vcodec copy ${outputFolder}/${segmentName}`
 
-  ffmpegDownload(`${outputFolder}/${segmentName}`, ffmpegCommand, url, onProgress, onComplete, onError, onSessionCreated)
+  ffmpegDownload(
+    `${outputFolder}/${segmentName}`, 
+    ffmpegCommand, 
+    url, 
+    onProgress, 
+    onComplete, 
+    onError, 
+    onSessionCreated
+  )
 }
 
 export async function concatPartialVideos(id: string, onComplete: any, onError: any,) {
@@ -167,14 +175,20 @@ export async function concatPartialVideos(id: string, onComplete: any, onError: 
   await RNFetchBlob.fs.mkdir(outputFolder).catch(err => {})
 
   const handleComplete = async () => {
-    RNFetchBlob.fs.unlink(inputFolder)
-    onComplete(); 
+    try{
+      RNFetchBlob.fs.unlink(inputFolder)
+      onComplete(); 
+    } catch (e) {
+      onError()
+      // TODO : Enhancement: can view what are the logs, identify error string, trigger on error. Right now technically will not have errors
+    }
+    
   }
 
   FFmpegKit.executeAsync(
     ffmpegConcatCommand, 
     handleComplete, 
-    () => {}, 
-    () => {}
+    () => {}, //* onLog, if wan do error checking probably is here
+    () => {} //* onStat, probably no use.. 
   )
 }
