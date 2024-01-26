@@ -350,6 +350,12 @@ export function resumeVideoDownloadThunk(
   vodSourceId: number,
   vodUrlNid: number,): ThunkAction<void, RootState, any, DownloadVideoActionType> {
   return async function (dispatch, getState) {
+    const initialState = getState().downloadVideoReducer
+    const initialPercentage = initialState.downloads
+      .find(x => x.vod.vod_id === vod.vod_id)?.episodes
+      .find(x => x.vodSourceId === vodSourceId && x.vodUrlNid === vodUrlNid)
+      ?.progress.percentage; 
+
     const url = getUrlOfVod(vod, vodSourceId, vodUrlNid, false)
 
     if (!url) return 
@@ -357,7 +363,7 @@ export function resumeVideoDownloadThunk(
     dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {status:DownloadStatus.DOWNLOADING}))
     const throttledUpdate = throttle((percentage) => dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {
       progress: {
-        percentage: Math.min(percentage, 100)
+        percentage: Math.min(initialPercentage + percentage, 100)
       }
     })), 2000)
     const handleUpdate = ({percentage, bytes}: {percentage?: number, bytes?: number}) => {
@@ -374,13 +380,12 @@ export function resumeVideoDownloadThunk(
       // }
     }
 
-    const onDownloadEnd = () => {
-      concatPartialVideos(`${vod.vod_id}-${vodSourceId}-${vodUrlNid}`, ()=>{}, ()=>{})
-      // dispatch(endVideoDownload(vod, vodSourceId, vodUrlNid))
-      // const newState = getState().downloadVideoReducer
-      // if (newState.queue.length === 0) return
-      // if (newState.currentDownloading.length >= MAX_CONCURRENT_VIDEO_DOWNLOAD) return
-      // dispatch(startFirstVideoDownload())
+    const onDownloadEnd = async () => {
+      dispatch(endVideoDownload(vod, vodSourceId, vodUrlNid))
+      const newState = getState().downloadVideoReducer
+      if (newState.queue.length === 0) return
+      if (newState.currentDownloading.length >= MAX_CONCURRENT_VIDEO_DOWNLOAD) return
+      dispatch(startFirstVideoDownload())
     }
 
     const handleComplete = (finalSizeInBytes: number) => {
@@ -389,15 +394,20 @@ export function resumeVideoDownloadThunk(
       if (targetEpisode?.status === DownloadStatus.PAUSED){
         return 
       }
-      // console.debug('download complete for ', vod.vod_name)
-      // dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {
-      //   status: DownloadStatus.COMPLETED, 
-      //   sizeInBytes: finalSizeInBytes, 
-      //   progress: {
-      //     percentage: 100
-      //   }
-      // }))
-      onDownloadEnd()
+      concatPartialVideos(
+        `${vod.vod_id}-${vodSourceId}-${vodUrlNid}`, 
+        ()=>{
+          dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {
+            status: DownloadStatus.COMPLETED, 
+            sizeInBytes: finalSizeInBytes, 
+            progress: {
+              percentage: 100
+            }
+          }))
+          onDownloadEnd()          
+        }, 
+        ()=>{}
+      )
     }
 
     const handleError = () => {

@@ -13,12 +13,8 @@ async function ffmpegDownload(outputPath: string, ffmpegCommand: string ,url: st
   const handleComplete = async (session: FFmpegSession) => {
     // console.log(`Download complete. File at ${outputFilePath}`)
     try{
-      if (completionPercentage < 100) { // if wifi die before download end, it will show success. so this will check whether the progress ady 100, if not, error
-        onError()
-      } else {
-        const stats = await RNFetchBlob.fs.stat(outputPath)
-        onComplete(stats.size)
-      }
+      const stats = await RNFetchBlob.fs.stat(outputPath)
+      onComplete(stats.size)
     } catch (e) {
       onError()
     }
@@ -69,7 +65,7 @@ async function ffmpegDownload(outputPath: string, ffmpegCommand: string ,url: st
 export async function downloadVod(id: string, url: string, onProgress: (progress: {percentage?: number, bytes?:number}) => void, onComplete: any, onError: any, onSessionCreated: ({session}:{session: FFmpegSession}) => void) { 
   await RNFetchBlob.fs.mkdir(RNFetchBlob.fs.dirs.DocumentDir + '/SavedVideos').catch((err) => {})
 
-  const outputFilePath = `${RNFetchBlob.fs.dirs.DocumentDir}/SavedVideos/${id}.mov`
+  const outputFilePath = `${RNFetchBlob.fs.dirs.DocumentDir}/SavedVideos/${id}.mp4`
   const ffmpegScript = `-i ${url} -acodec copy -bsf:a aac_adtstoasc -vcodec copy ${outputFilePath}`
 
   ffmpegDownload(outputFilePath, ffmpegScript, url, onProgress, onComplete, onError, onSessionCreated)
@@ -115,7 +111,7 @@ export async function pauseDownloadVod(id:string, onPause: any) {
   // TODO : stop FFMPEG session
   onPause();
 
-  const originalFilePath = `${RNFetchBlob.fs.dirs.DocumentDir}/SavedVideos/${id}.mov`
+  const originalFilePath = `${RNFetchBlob.fs.dirs.DocumentDir}/SavedVideos/${id}.mp4`
 
   await RNFetchBlob.fs.mkdir(RNFetchBlob.fs.dirs.DocumentDir + '/PartialDownload').catch((err) => {})
 
@@ -123,7 +119,7 @@ export async function pauseDownloadVod(id:string, onPause: any) {
 
   await RNFetchBlob.fs.mkdir(outputFolder).catch((err) => {})
 
-  const segmentName = `${(await RNFetchBlob.fs.ls(outputFolder)).length}.mov`
+  const segmentName = `${(await RNFetchBlob.fs.ls(outputFolder)).length}.mp4`
 
   if (await RNFetchBlob.fs.exists(originalFilePath)){
     // first time press pause 
@@ -135,7 +131,7 @@ export async function pauseDownloadVod(id:string, onPause: any) {
 }
 
 export async function resumeDownloadVod(id: string, url:string, onProgress: any, onComplete: any, onError: any, onSessionCreated: any) {
-  const originalFilePath = `${RNFetchBlob.fs.dirs.DocumentDir}/SavedVideos/${id}.mov`
+  const originalFilePath = `${RNFetchBlob.fs.dirs.DocumentDir}/SavedVideos/${id}.mp4`
   const outputFolder = `${RNFetchBlob.fs.dirs.DocumentDir}/PartialDownload/${id}`
 
   if (!(await RNFetchBlob.fs.exists(outputFolder))){
@@ -143,7 +139,7 @@ export async function resumeDownloadVod(id: string, url:string, onProgress: any,
     // maybe need to throw error 
     return 
   }
-  const segmentName = `${(await RNFetchBlob.fs.ls(outputFolder)).length}.mov`
+  const segmentName = `${(await RNFetchBlob.fs.ls(outputFolder)).length}.mp4`
 
   const outputFolderFiles = await RNFetchBlob.fs.ls(outputFolder)
   let startTime = 0
@@ -166,13 +162,13 @@ export async function concatPartialVideos(id: string, onComplete: any, onError: 
   const listTxt = (await RNFetchBlob.fs.ls(inputFolder)).map(path => `file '${inputFolder}/${path}'`).join('\n')
   const listTxtPath = `${inputFolder}/list.txt`
   const outputFolder = `${RNFetchBlob.fs.dirs.DocumentDir}/SavedVideos`
-  const ffmpegConcatCommand = `-f concat -safe 0 -i ${listTxtPath} -c copy ${outputFolder}/${id}.mov`
+  const ffmpegConcatCommand = `-f concat -safe 0 -i ${listTxtPath} -c copy ${outputFolder}/${id}.mp4`
   await RNFetchBlob.fs.writeFile(listTxtPath, listTxt)
   await RNFetchBlob.fs.mkdir(outputFolder).catch(err => {})
 
-  const handleComplete = () => {
+  const handleComplete = async () => {
+    RNFetchBlob.fs.unlink(inputFolder)
     onComplete(); 
-    // RNFetchBlob.fs.unlink(inputFolder) // TODO : uncomment this in prod
   }
 
   FFmpegKit.executeAsync(
