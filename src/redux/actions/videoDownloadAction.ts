@@ -171,13 +171,40 @@ function startVideoDownloadThunk(
       dispatch(startFirstVideoDownload())
     }
 
+    const handleError = () => {
+      console.debug('error downloading ', vod.vod_name)
+      const state = getState().downloadVideoReducer
+      const targetEpisode = state.downloads.find(dl => dl.vod.vod_id === vod.vod_id)?.episodes.find(ep => ep.vodSourceId === vodSourceId && ep.vodUrlNid === vodUrlNid)
+      if (!targetEpisode) return 
+      if (targetEpisode?.status === DownloadStatus.PAUSED){
+        return 
+      }
+      dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {
+        status: DownloadStatus.ERROR
+      }))
+
+    const targetVod = state.downloads.find(download => download.vod.vod_id === vod.vod_id)
+    if (!targetVod) return 
+    
+    const partialPath = `${RNFetchBlob.fs.dirs.DocumentDir}/PartialDownload/${vod.vod_id}-${vodSourceId}-${vodUrlNid}`
+    RNFetchBlob.fs.unlink(targetEpisode.videoPath).catch(err => {})
+    RNFetchBlob.fs.unlink(partialPath).catch(err => {})
+      onDownloadEnd()
+    }
+
     const handleComplete = (finalSizeInBytes: number) => {
       const state = getState().downloadVideoReducer
       const targetEpisode = state.downloads.find(dl => dl.vod.vod_id === vod.vod_id)?.episodes.find(ep => ep.vodSourceId === vodSourceId && ep.vodUrlNid === vodUrlNid)
+      if (!targetEpisode) return
       if (targetEpisode?.status === DownloadStatus.PAUSED){
         return 
       }
       // console.debug('download complete for ', vod.vod_name)
+      if (targetEpisode?.progress.percentage < 95){
+        //TODO : can enhance this logic 
+        handleError(); //* download didnt complete 95%, but wifi break, error..
+        return 
+      }
       dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {
         status: DownloadStatus.COMPLETED, 
         sizeInBytes: finalSizeInBytes, 
@@ -188,18 +215,7 @@ function startVideoDownloadThunk(
       onDownloadEnd()
     }
 
-    const handleError = () => {
-      console.debug('error downloading ', vod.vod_name)
-      const state = getState().downloadVideoReducer
-      const targetEpisode = state.downloads.find(dl => dl.vod.vod_id === vod.vod_id)?.episodes.find(ep => ep.vodSourceId === vodSourceId && ep.vodUrlNid === vodUrlNid)
-      if (targetEpisode?.status === DownloadStatus.PAUSED){
-        return 
-      }
-      dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {
-        status: DownloadStatus.ERROR
-      }))
-      onDownloadEnd()
-    }
+    
 
     const handleSessionCreated = ({session}: {session: FFmpegSession}) => {
       dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {ffmpegSession: session.getSessionId()}))
@@ -395,24 +411,38 @@ function resumeVideoDownloadThunk(
       // console.debug('error downloading ', vod.vod_name)
       const state = getState().downloadVideoReducer
       const targetEpisode = state.downloads.find(dl => dl.vod.vod_id === vod.vod_id)?.episodes.find(ep => ep.vodSourceId === vodSourceId && ep.vodUrlNid === vodUrlNid)
+      if (!targetEpisode) return
       if (targetEpisode?.status === DownloadStatus.PAUSED){
         return 
       }
       dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {
         status: DownloadStatus.ERROR
       }))
+
+
+      const targetVod = state.downloads.find(download => download.vod.vod_id === vod.vod_id)
+      if (!targetVod) return 
+      const partialPath = `${RNFetchBlob.fs.dirs.DocumentDir}/PartialDownload/${vod.vod_id}-${vodSourceId}-${vodUrlNid}`
+      RNFetchBlob.fs.unlink(targetEpisode.videoPath).catch(err => {})
+      RNFetchBlob.fs.unlink(partialPath).catch(err => {})
       onDownloadEnd()
     }
 
     const handleComplete = (finalSizeInBytes: number) => {
       const state = getState().downloadVideoReducer
       const targetEpisode = state.downloads.find(dl => dl.vod.vod_id === vod.vod_id)?.episodes.find(ep => ep.vodSourceId === vodSourceId && ep.vodUrlNid === vodUrlNid)
+      if (!targetEpisode) return 
       if (targetEpisode?.status === DownloadStatus.PAUSED){
         return 
       }
       concatPartialVideos(
         `${vod.vod_id}-${vodSourceId}-${vodUrlNid}`, 
         ()=>{
+          if (targetEpisode?.progress.percentage < 95){
+            //TODO : can enhance this logic 
+            handleError(); //* download didnt complete 95%, but wifi break, error..
+            return 
+          }
           dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {
             status: DownloadStatus.COMPLETED, 
             sizeInBytes: finalSizeInBytes, 

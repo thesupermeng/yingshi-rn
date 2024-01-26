@@ -99,7 +99,7 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
             toggleHistory(item)
           } else {
             if (item.status === DownloadStatus.ERROR){
-              dispatch(restartVideoDownloadThunk(download.vod, item.vodSourceId, item.vodUrlNid))
+              dispatch(restartVideoDownloadThunk(download.vod, item.vodSourceId, item.vodUrlNid, download.vodIsAdult))
             } else if (item.status === DownloadStatus.COMPLETED){
               dispatch(playVod(download.vod, 0, item.vodUrlNid, item.vodSourceId))
               navigation.navigate('播放', {
