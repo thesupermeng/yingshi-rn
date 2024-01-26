@@ -1,21 +1,23 @@
 import { VodType } from "@type/ajaxTypes";
-import { FFmpegKit, FFmpegSession, FFprobeKit, Log, MediaInformationSession, Statistics } from "ffmpeg-kit-react-native";
+import { FFmpegKit, FFmpegKitConfig, FFmpegSession, FFprobeKit, Level, Log, MediaInformationSession, Statistics } from "ffmpeg-kit-react-native";
 import { throttle, uniqueId } from "lodash";
 import RNFetchBlob from "rn-fetch-blob";
-export async function downloadVod(id: string, url: string, onProgress: (progress: {percentage?: number, bytes?:number}) => void, onComplete: any, onError: any, onSessionCreated: ({session}:{session: FFmpegSession}) => void) { 
-  await RNFetchBlob.fs.mkdir(RNFetchBlob.fs.dirs.DocumentDir + '/SavedVideos').catch((err) => {})
+import {getVideoDuration} from 'react-native-video-duration'
 
-  const outputFilePath = `${RNFetchBlob.fs.dirs.DocumentDir}/SavedVideos/${id}.mp4`
-  const ffmpegScript = `-i ${url} -acodec copy -bsf:a aac_adtstoasc -vcodec copy ${outputFilePath}`
+async function ffmpegDownload(outputPath: string, ffmpegCommand: string ,url: string, onProgress: any, onComplete: any, onError: any, onSessionCreated: any){
   const details = await FFprobeKit.getMediaInformation(url)
   let duration = 0
+  let completionPercentage = 0; 
 
 
   const handleComplete = async (session: FFmpegSession) => {
     // console.log(`Download complete. File at ${outputFilePath}`)
-    
-    const stats = await RNFetchBlob.fs.stat(outputFilePath)
-    onComplete(stats.size)
+    try{
+      const stats = await RNFetchBlob.fs.stat(outputPath)
+      onComplete(stats.size)
+    } catch (e) {
+      onError()
+    }
   }
 
   const handleLog = (async (log: Log) => {
@@ -35,6 +37,7 @@ export async function downloadVod(id: string, url: string, onProgress: (progress
       const timeInSeconds = +timeArr[0] * 60 * 60 + +timeArr[1] * 60 + +timeArr[2]
       const progressPercentage = timeInSeconds/duration * 100
       onProgress({percentage: progressPercentage})
+      completionPercentage = Math.round(progressPercentage)
       // console.debug(`Progress: ${progressPercentage}%`)
 
     } catch (e) {
@@ -50,13 +53,23 @@ export async function downloadVod(id: string, url: string, onProgress: (progress
   }
 
   const session = await FFmpegKit.executeAsync(
-    ffmpegScript, 
+    ffmpegCommand, 
     handleComplete, 
     handleLog, 
     handleStatistic
   )
 
   onSessionCreated({session})
+}
+
+export async function downloadVod(id: string, url: string, onProgress: (progress: {percentage?: number, bytes?:number}) => void, onComplete: any, onError: any, onSessionCreated: ({session}:{session: FFmpegSession}) => void) { 
+  await RNFetchBlob.fs.mkdir(RNFetchBlob.fs.dirs.DocumentDir + '/SavedVideos').catch((err) => {})
+
+  const outputFilePath = `${RNFetchBlob.fs.dirs.DocumentDir}/SavedVideos/${id}.mp4`
+  const ffmpegScript = `-i ${url} -acodec copy -bsf:a aac_adtstoasc -vcodec copy ${outputFilePath}`
+
+  ffmpegDownload(outputFilePath, ffmpegScript, url, onProgress, onComplete, onError, onSessionCreated)
+  
 }
 
 export async function downloadVodImage(vod: VodType){
@@ -71,7 +84,7 @@ export async function downloadVodImage(vod: VodType){
       .config({
         path: imagePath
       })
-      .fetch('GET', vod.vod_pic_oss) 
+      .fetch('GET', vod.vod_pic_oss ?? vod.vod_pic) 
 
     
   } catch {
@@ -80,11 +93,88 @@ export async function downloadVodImage(vod: VodType){
 
 }
 
-export function getUrlOfVod(vod: VodType, vodSourceId: number, vodUrlNid: number) {
+export function getUrlOfVod(vod: VodType, vodSourceId: number, vodUrlNid: number, vodIsAdult?: boolean) {
   // console.log(vod)
+  if (vodIsAdult){
+    return vod.vod_play_list.urls
+      .find(url => url.nid === vodUrlNid)
+      ?.url
+  }
   return vod.vod_sources
     .find(source => source.source_id === vodSourceId)?.vod_play_list.urls
     .find(url => url.nid === vodUrlNid)
     ?.url
 
+}
+
+export async function pauseDownloadVod(id:string, onPause: any) {
+  // TODO : stop FFMPEG session
+  onPause();
+
+  const originalFilePath = `${RNFetchBlob.fs.dirs.DocumentDir}/SavedVideos/${id}.mp4`
+
+  await RNFetchBlob.fs.mkdir(RNFetchBlob.fs.dirs.DocumentDir + '/PartialDownload').catch((err) => {})
+
+  const outputFolder = `${RNFetchBlob.fs.dirs.DocumentDir}/PartialDownload/${id}`
+
+  await RNFetchBlob.fs.mkdir(outputFolder).catch((err) => {})
+
+  const segmentName = `${(await RNFetchBlob.fs.ls(outputFolder)).length}.mp4`
+
+  if (await RNFetchBlob.fs.exists(originalFilePath)){
+    // first time press pause 
+
+    // move file to PartialDownload 
+    RNFetchBlob.fs.mv(originalFilePath, `${outputFolder}/${segmentName}`)
+  }
+
+}
+
+export async function resumeDownloadVod(id: string, url:string, onProgress: any, onComplete: any, onError: any, onSessionCreated: any) {
+  const originalFilePath = `${RNFetchBlob.fs.dirs.DocumentDir}/SavedVideos/${id}.mp4`
+  const outputFolder = `${RNFetchBlob.fs.dirs.DocumentDir}/PartialDownload/${id}`
+
+  if (!(await RNFetchBlob.fs.exists(outputFolder))){
+    // partial downloads for this video does not exist.. 
+    // maybe need to throw error 
+    return 
+  }
+  const segmentName = `${(await RNFetchBlob.fs.ls(outputFolder)).length}.mp4`
+
+  const outputFolderFiles = await RNFetchBlob.fs.ls(outputFolder)
+  let startTime = 0
+  for (const file of outputFolderFiles) {
+    startTime += (await getVideoDuration(`file://${outputFolder}/${file}`)).valueOf()
+  }
+
+  const ffmpegCommand = `-ss ${startTime} -i ${url} -acodec copy -bsf:a aac_adtstoasc -vcodec copy ${outputFolder}/${segmentName}`
+
+  ffmpegDownload(`${outputFolder}/${segmentName}`, ffmpegCommand, url, onProgress, onComplete, onError, onSessionCreated)
+}
+
+export async function concatPartialVideos(id: string, onComplete: any, onError: any,) {
+  const inputFolder = `${RNFetchBlob.fs.dirs.DocumentDir}/PartialDownload/${id}`
+  if (!(await RNFetchBlob.fs.exists(inputFolder))){
+    // partial downloads for this video does not exist.. 
+    // maybe need to throw error 
+    return 
+  }
+  const listTxt = (await RNFetchBlob.fs.ls(inputFolder)).map(path => `file '${inputFolder}/${path}'`).join('\n')
+  const listTxtPath = `${inputFolder}/list.txt`
+  const outputFolder = `${RNFetchBlob.fs.dirs.DocumentDir}/SavedVideos`
+  const ffmpegConcatCommand = `-f concat -safe 0 -i ${listTxtPath} -c copy ${outputFolder}/${id}.mp4`
+  await RNFetchBlob.fs.writeFile(listTxtPath, listTxt)
+  await RNFetchBlob.fs.mkdir(outputFolder).catch(err => {})
+
+  const handleComplete = async () => {
+    RNFetchBlob.fs.unlink(inputFolder)
+    onComplete(); 
+  }
+
+  FFmpegKit.executeAsync(
+    ffmpegConcatCommand, 
+    handleComplete, 
+    () => {}, 
+    () => {}
+  )
 }

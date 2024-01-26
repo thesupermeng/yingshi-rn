@@ -70,9 +70,17 @@ function DownloadVodCard({
   const {colors, spacing, textVariants} = useTheme();
 
   const totalFileSizeInMB = download.episodes.reduce((prev, curr) => prev + curr.sizeInBytes, 0) / 1024 / 1024  // size in MiB
-  const vodSource = download.vod.vod_sources.find(source => source.source_id === download.vod.preferred_source_id) ?? download.vod.vod_sources.shift()
-  const totalNumberOfEpisodes = vodSource ? vodSource.vod_play_list.url_count : 0
-  const totalDownloadedEpisodes = download.episodes.length
+
+  let totalNumberOfEpisodes, totalDownloadedEpisodes;
+  if (download.vod.vod_sources){
+    const vodSource = download.vod.vod_sources.find(source => source.source_id === download.vod.preferred_source_id) ?? download.vod.vod_sources.shift()
+    totalNumberOfEpisodes = vodSource ? vodSource.vod_play_list.url_count : 0
+    totalDownloadedEpisodes = download.episodes.filter(ep => ep.vodSourceId === download.vod.preferred_source_id).length
+  }
+  else {
+    totalNumberOfEpisodes = download.vod.vod_play_list.url_count
+    totalDownloadedEpisodes = download.episodes.length
+  }
   const isVodsDownloading = download.episodes.some(ep => ep.status === DownloadStatus.DOWNLOADING) 
   const isVodsDownloadingPaused = !isVodsDownloading && download.episodes.some(ep => ep.status === DownloadStatus.ERROR || ep.status === DownloadStatus.PAUSED)
 

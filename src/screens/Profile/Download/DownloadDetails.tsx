@@ -15,7 +15,8 @@ import CheckBoxSelected from "@static/images/checkbox_selected.svg";
 import CheckBoxUnselected from "@static/images/checkbox_unselected.svg";
 import ConfirmationModal from "../../../components/modal/confirmationModal";
 import { Button } from "@rneui/themed";
-import { removeVideoFromDownloadThunk, removeVodFromDownloadThunk, restartVideoDownloadThunk } from "@redux/actions/videoDownloadAction";
+import { pauseVideoDownloadThunk, removeVideoFromDownloadThunk, removeVodFromDownloadThunk, restartVideoDownloadThunk, resumeVideoDownloadThunk } from "@redux/actions/videoDownloadAction";
+import { addVodToHistory, playVod } from "@redux/actions/vodActions";
 
 const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详情">) => {
   const { colors, textVariants, icons, spacing } = useTheme();
@@ -33,14 +34,24 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
   const allEpisodes = download.episodes
 
   const getEpisodeName = useCallback((sourceId: number, urlNid: number) => {
-    return download.vod.vod_sources
+    if (download.vodIsAdult){
+      return download.vod.vod_play_list.urls
+        .find(url => url.nid === urlNid)
+        ?.name
+    } else {
+      return download.vod.vod_sources
       .find(source => source.source_id === sourceId)?.vod_play_list.urls
       .find(url => url.nid === urlNid)
       ?.name
+    }
   }, [download] )
 
-  const getSourceName = useCallback((sourceId: number) => {
-    return download.vod.vod_sources.find(source => source.source_id === sourceId)?.source_name
+  const getSourceName = useCallback((sourceId: number, vodIsAdult: boolean) => {
+    if (vodIsAdult){
+      return '夜来香'
+    } else {
+      return download.vod.vod_sources.find(source => source.source_id === sourceId)?.source_name
+    }
   }, [download])
 
   const toggleHistory = (episode: EpisodeDownloadType) => {
@@ -79,7 +90,7 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
       )
       }
       <DownloadEpisodeDetailCard
-        title={`${getEpisodeName(item.vodSourceId, item.vodUrlNid)} - ${getSourceName(item.vodSourceId)}`}
+        title={`${getEpisodeName(item.vodSourceId, item.vodUrlNid)} - ${getSourceName(item.vodSourceId, download.vodIsAdult)}`}
         progressPercentage={+item.progress.percentage.toFixed(0)}
         status={item.status}
         activeOpacity={isEditing ? 1 : 0.2}
@@ -89,6 +100,16 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
           } else {
             if (item.status === DownloadStatus.ERROR){
               dispatch(restartVideoDownloadThunk(download.vod, item.vodSourceId, item.vodUrlNid))
+            } else if (item.status === DownloadStatus.COMPLETED){
+              dispatch(playVod(download.vod, 0, item.vodUrlNid, item.vodSourceId))
+              navigation.navigate('播放', {
+                vod_id: download.vod.vod_id,
+                player_mode: download.vodIsAdult ? 'adult' : 'normal'
+              });
+            } else if (item.status === DownloadStatus.DOWNLOADING) {
+              dispatch(pauseVideoDownloadThunk(download.vod, item.vodSourceId, item.vodUrlNid))
+            } else if (item.status === DownloadStatus.PAUSED) {
+              dispatch(resumeVideoDownloadThunk(download.vod, item.vodSourceId, item.vodUrlNid))
             }
           }
         }}
@@ -159,6 +180,7 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
           keyExtractor={item => {
             return `${download.vod.vod_id}-${item.vodSourceId}-${item.vodUrlNid}`;
           }}
+          showsVerticalScrollIndicator={false}
         />
 
         <ConfirmationModal

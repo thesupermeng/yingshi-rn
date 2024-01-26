@@ -106,9 +106,10 @@ const DownloadCatalog = ({ navigation }: RootStackScreenProps<"我的下载">) =
           allDownloads.length > 0 ? 
             <>
             <FlatList
-              data={allDownloads}
+              data={allDownloads.sort((a, b) => a.vod.vod_id - b.vod.vod_id)}
               renderItem={renderItem}
               keyExtractor={(item, index) => item.vod.vod_id.toString()}
+              showsVerticalScrollIndicator={false}
             />
             <ConfirmationModal
               onConfirm={() => {
