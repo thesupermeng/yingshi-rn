@@ -375,7 +375,7 @@ export function resumeVideoDownloadThunk(
     }
 
     const onDownloadEnd = () => {
-      concatPartialVideos(`${vod.vod_id}-${vodSourceId}-${vodUrlNid}`)
+      concatPartialVideos(`${vod.vod_id}-${vodSourceId}-${vodUrlNid}`, ()=>{}, ()=>{})
       // dispatch(endVideoDownload(vod, vodSourceId, vodUrlNid))
       // const newState = getState().downloadVideoReducer
       // if (newState.queue.length === 0) return

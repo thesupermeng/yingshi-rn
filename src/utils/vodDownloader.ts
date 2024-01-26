@@ -156,14 +156,29 @@ export async function resumeDownloadVod(id: string, url:string, onProgress: any,
   ffmpegDownload(`${outputFolder}/${segmentName}`, ffmpegCommand, url, onProgress, onComplete, onError, onSessionCreated)
 }
 
-export async function concatPartialVideos(id: string) {
-  const outputFolder = `${RNFetchBlob.fs.dirs.DocumentDir}/PartialDownload/${id}`
-  if (!(await RNFetchBlob.fs.exists(outputFolder))){
+export async function concatPartialVideos(id: string, onComplete: any, onError: any,) {
+  const inputFolder = `${RNFetchBlob.fs.dirs.DocumentDir}/PartialDownload/${id}`
+  if (!(await RNFetchBlob.fs.exists(inputFolder))){
     // partial downloads for this video does not exist.. 
     // maybe need to throw error 
     return 
   }
-  const listTxt = (await RNFetchBlob.fs.ls(outputFolder)).map(path => `file '${outputFolder}/${path}'`).join('\n')
-  await RNFetchBlob.fs.writeFile(`${outputFolder}/list.txt`, listTxt)
+  const listTxt = (await RNFetchBlob.fs.ls(inputFolder)).map(path => `file '${inputFolder}/${path}'`).join('\n')
+  const listTxtPath = `${inputFolder}/list.txt`
+  const outputFolder = `${RNFetchBlob.fs.dirs.DocumentDir}/SavedVideos`
+  const ffmpegConcatCommand = `-f concat -safe 0 -i ${listTxtPath} -c copy ${outputFolder}/${id}.mov`
+  await RNFetchBlob.fs.writeFile(listTxtPath, listTxt)
+  await RNFetchBlob.fs.mkdir(outputFolder).catch(err => {})
 
+  const handleComplete = () => {
+    onComplete(); 
+    // RNFetchBlob.fs.unlink(inputFolder) // TODO : uncomment this in prod
+  }
+
+  FFmpegKit.executeAsync(
+    ffmpegConcatCommand, 
+    handleComplete, 
+    () => {}, 
+    () => {}
+  )
 }
