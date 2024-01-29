@@ -9,13 +9,14 @@ import { DownloadStatus, EpisodeDownloadType } from "@type/vodDownloadTypes";
 import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import { RootState } from "@redux/store";
 import MoreArrow from '@static/images/more_arrow.svg'
-import DownloadIconYellow from '@static/images/download_yellow.svg'
+import DownloadYellowMiniIcon from '@static/images/download_yellow_mini.svg'
+import DownloadPauseYellowMiniIcon from '@static/images/download_pause_yellow_mini.svg'
 import { VodType } from "@type/ajaxTypes";
 import CheckBoxSelected from "@static/images/checkbox_selected.svg";
 import CheckBoxUnselected from "@static/images/checkbox_unselected.svg";
 import ConfirmationModal from "../../../components/modal/confirmationModal";
 import { Button } from "@rneui/themed";
-import { removeVideoFromDownloadThunk, removeVodFromDownloadThunk, restartVideoDownloadThunk } from "@redux/actions/videoDownloadAction";
+import { pauseVideoDownloadThunk, removeVideoFromDownloadThunk, removeVodFromDownloadThunk, restartVideoDownloadThunk, resumeVideoToDownloadThunk } from "@redux/actions/videoDownloadAction";
 import { addVodToHistory, playVod } from "@redux/actions/vodActions";
 
 const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详情">) => {
@@ -99,13 +100,17 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
             toggleHistory(item)
           } else {
             if (item.status === DownloadStatus.ERROR){
-              dispatch(restartVideoDownloadThunk(download.vod, item.vodSourceId, item.vodUrlNid))
+              dispatch(restartVideoDownloadThunk(download.vod, item.vodSourceId, item.vodUrlNid, download.vodIsAdult))
             } else if (item.status === DownloadStatus.COMPLETED){
               dispatch(playVod(download.vod, 0, item.vodUrlNid, item.vodSourceId))
               navigation.navigate('播放', {
                 vod_id: download.vod.vod_id,
                 player_mode: download.vodIsAdult ? 'adult' : 'normal'
               });
+            } else if (item.status === DownloadStatus.DOWNLOADING) {
+              dispatch(pauseVideoDownloadThunk(download.vod, item.vodSourceId, item.vodUrlNid))
+            } else if (item.status === DownloadStatus.PAUSED) {
+              dispatch(resumeVideoToDownloadThunk(download.vod, item.vodSourceId, item.vodUrlNid, download.vodIsAdult))
             }
           }
         }}
@@ -114,8 +119,42 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
 
   }, [removeHistory, isEditing]) 
 
-  const totalDownloadSize = download.episodes.reduce((prev, curr) => {return prev + curr.sizeInBytes}, 0) / 1024 / 1024 
 
+  const totalDownloadSize = download.episodes.reduce((prev, curr) => {return prev + curr.sizeInBytes}, 0) / 1024 / 1024 
+  
+  let allButtonText = ''
+  let isButtonVisible = false
+  let buttonIcon = <DownloadPauseYellowMiniIcon/>
+  if (download.episodes.every(x => x.status === DownloadStatus.COMPLETED)){
+    isButtonVisible = false
+  } else if (download.episodes.some(x => x.status === DownloadStatus.DOWNLOADING)){
+    isButtonVisible = true
+    allButtonText = "全部暂停"
+    buttonIcon = <DownloadPauseYellowMiniIcon/>
+  } else if (download.episodes.every(x => [DownloadStatus.PAUSED, DownloadStatus.ERROR, DownloadStatus.COMPLETED].includes(x.status))){
+    isButtonVisible = true
+    allButtonText = "全部下载"
+    buttonIcon = <DownloadYellowMiniIcon/>
+  }
+
+
+  const handleButtonPress = useCallback(() => {
+    if (allButtonText === '全部暂停') { 
+      download.episodes
+        .filter(x => x.status === DownloadStatus.DOWNLOADING)
+        .forEach(episodeDownload => {
+          dispatch(pauseVideoDownloadThunk(download.vod, episodeDownload.vodSourceId, episodeDownload.vodUrlNid))
+        })
+    } else if (allButtonText === '全部下载') {
+      download.episodes
+      .filter(x => x.status === DownloadStatus.PAUSED || x.status === DownloadStatus.ERROR)
+      .forEach(episodeDownload => {
+        dispatch(resumeVideoToDownloadThunk(download.vod, episodeDownload.vodSourceId, episodeDownload.vodUrlNid, download.vodIsAdult))
+      })
+    } else {
+
+    }
+  }, [allButtonText])
 
   return (
     <ScreenContainer>
@@ -140,12 +179,12 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
       <View style={styles.contentContainer}>
         <View style={styles.moreControlsContainer}>
           <View style={styles.moreControlsLeftContainer}>
-            {/* <Pressable style={styles.downloadControlButton}>
+            <TouchableOpacity style={isButtonVisible ? styles.downloadControlButton : styles.downloadControlButtonHidden} onPress={handleButtonPress} >
               <Text style={{color: colors.muted, fontSize: 13, }}>
-                全部下载
+                {allButtonText}
               </Text>
-              <DownloadIconYellow/>
-            </Pressable> */}
+              {buttonIcon}
+            </TouchableOpacity>
             <Text
               style={{
                 color: colors.muted,
@@ -275,6 +314,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row', 
     alignContent: 'center', 
   }, 
+  downloadControlButtonHidden: {
+    display: "none"
+  },
   checkbox: {
     padding: 5,
   },

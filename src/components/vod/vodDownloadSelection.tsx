@@ -33,7 +33,6 @@ function DownloadVodSelection({
   return (
     <View
       style={{
-        flex: 1,
         paddingLeft: spacing.sideOffset,
         paddingRight: spacing.sideOffset,
         gap: spacing.s,
