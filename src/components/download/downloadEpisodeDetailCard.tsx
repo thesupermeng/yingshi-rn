@@ -23,6 +23,9 @@ const StatusIcon = memo(({status}: {status: DownloadStatus}) => {
     return <DownloadCompleteIcon style={styles.statusIcon} />
   if (status === DownloadStatus.ERROR)
     return <DownloadPauseIcon style={styles.statusIcon}/>
+    if (status === DownloadStatus.PAUSED)
+    return <DownloadPauseIcon style={styles.statusIcon}/>
+  
 
 })
 
@@ -32,6 +35,8 @@ const statusToText = (status: DownloadStatus) => {
       return '已完成'
     case DownloadStatus.DOWNLOADING: 
       return '下载中'
+    case DownloadStatus.PAUSED: 
+      return '已暂停'
     default: 
       return '下载失败'
   }
@@ -43,6 +48,7 @@ const statusToColor = (status: DownloadStatus) => {
     return '#07C160'
     case DownloadStatus.DOWNLOADING: 
     case DownloadStatus.ERROR: 
+    case DownloadStatus.PAUSED:
       return '#FAC33D'
     default: 
       return ''
@@ -65,7 +71,7 @@ const DownloadEpisodeDetailCard = ({title, progressPercentage, status, activeOpa
             <Text style={styles.statusText}>{statusToText(status)}</Text>
           </View>
         </View>
-        <LinearProgress animation={false} value={progressPercentage/100} color={statusToColor(status)} style={[styles.progressBar, {opacity: status === DownloadStatus.ERROR ? 0.5: 1}]}/>
+        <LinearProgress animation={false} value={progressPercentage/100} color={statusToColor(status)} style={[styles.progressBar, {opacity: status === DownloadStatus.ERROR || status === DownloadStatus.PAUSED ? 0.5: 1}]}/>
 
       </View>
       
