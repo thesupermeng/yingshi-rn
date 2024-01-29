@@ -1031,10 +1031,11 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>045-SSYiFeiTi.ttf</string>
+		<string>Anton-Regular.ttf</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>CFBundleShortVersionString</key> 
+	<key>CFBundleShortVersionString</key>
 	<string>1.7.0</string>
 </dict>
 </plist>

@@ -29,6 +29,7 @@
 		9A218EB72AC413D600F6B98C /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A218EB62AC413D600F6B98C /* libz.tbd */; };
 		9A218EB92AC414D600F6B98C /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9A218EB82AC414D600F6B98C /* AppCenter-Config.plist */; };
 		C80E30302B21A8D20093541D /* assets in Resources */ = {isa = PBXBuildFile; fileRef = C80E302F2B21A8D20093541D /* assets */; };
+		5423A35AA4F64DF5B8BD11D8 /* Anton-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA7444110469477DA8DC3CD7 /* Anton-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +108,7 @@
 		E1F242248CB4C62E3062B641 /* Pods-yingshi.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yingshi.staging.xcconfig"; path = "Target Support Files/Pods-yingshi/Pods-yingshi.staging.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F21B5AC502A809009A4460E6 /* Pods-yingshi-yingshiTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yingshi-yingshiTests.release.xcconfig"; path = "Target Support Files/Pods-yingshi-yingshiTests/Pods-yingshi-yingshiTests.release.xcconfig"; sourceTree = "<group>"; };
+		AA7444110469477DA8DC3CD7 /* Anton-Regular.ttf */ = {isa = PBXFileReference; name = "Anton-Regular.ttf"; path = "../assets/fonts/Anton-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -305,6 +307,7 @@
 			isa = PBXGroup;
 			children = (
 				5CFC8C66716C43BEB9E996D0 /* 045-SSYiFeiTi.ttf */,
+				AA7444110469477DA8DC3CD7 /* Anton-Regular.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -451,6 +454,7 @@
 				9A218EB92AC414D600F6B98C /* AppCenter-Config.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				0E468246AAB34070B20364F4 /* 045-SSYiFeiTi.ttf in Resources */,
+				5423A35AA4F64DF5B8BD11D8 /* Anton-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
