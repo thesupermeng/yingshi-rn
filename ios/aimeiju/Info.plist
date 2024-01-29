@@ -1032,6 +1032,7 @@
 	<array>
 		<string>045-SSYiFeiTi.ttf</string>
 		<string>Anton-Regular.ttf</string>
+		<string>Archivo-Regular.ttf</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>

@@ -27,24 +27,24 @@ export default function VipPromotionModal({
     const calCountdownDays = () => {
       const now = new Date();
       const target = new Date(targetDate);
-  
+
       let diff = target.getTime() - now.getTime();
-  
+
       if (diff < 0) {
-        setRemainingTime(['0', '0', '0', '0', '0', '0']) ;
+        setRemainingTime(['0', '0', '0', '0', '0', '0']);
       }
-  
+
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
       diff -= days * (1000 * 60 * 60 * 24);
-  
+
       const hours = Math.floor(diff / (1000 * 60 * 60));
       diff -= hours * (1000 * 60 * 60);
-  
+
       const minutes = Math.floor(diff / (1000 * 60));
       diff -= minutes * (1000 * 60);
-  
+
       const seconds = Math.floor(diff / 1000);
-  
+
       const formattedDays = String(days).padStart(2, '0');
       const formattedHours = String(hours).padStart(2, '0');
       const formattedMinutes = String(minutes).padStart(2, '0');
@@ -52,10 +52,11 @@ export default function VipPromotionModal({
       console.log(formattedDays)
       console.log(formattedHours)
       console.log(formattedMinutes)
-  
+
       setRemainingTime([...formattedDays.split(''), ...formattedHours.split(''), ...formattedMinutes.split('')]);
     }
 
+    calCountdownDays();
     const intervalId = setInterval(() => {
       calCountdownDays()
     }, 60000);
@@ -88,36 +89,19 @@ export default function VipPromotionModal({
             locations={[0, 0.29, 0.63, 1]}
             style={{
               width: 322,
-              height: 377,
+              height: 340,
               borderRadius: 14,
               paddingHorizontal: 16,
-              paddingBottom: 10,
+              paddingTop: 26,
+              paddingBottom: 12,
             }}
             start={{ x: 0, y: 0 }}
             end={{ x: 0, y: 1 }}
           >
-            <View style={{
-              position: "relative",
-              alignItems: "center",
-              paddingVertical: 15,
-            }}>
-              <FastImage
-                source={coverBackground}
-                style={styles.image2}
-                resizeMode="center"
-              />
-              <FastImage
-                source={coverImage}
-                style={styles.image1}
-                resizeMode="contain"
-              />
-            </View>
-
             <View
               style={{
                 flex: 1,
                 gap: 16,
-                marginTop: 25,
                 flexDirection: 'column',
               }}>
               <View
@@ -129,21 +113,27 @@ export default function VipPromotionModal({
                   style={{
                     ...styles.titleText
                   }}>
-                  限时优惠
+                  限时订阅优惠
                 </Text>
                 <View style={styles.countdownContainer}>
                   {remainingTime.map((val, i) => {
                     return (
-                      <>
+                      <View
+                        key={i}
+                        style={{
+                          flexDirection: 'row',
+                          gap: 5,
+                        }}>
                         <View
-                          key={i}
                           style={{
-                            paddingVertical: 2,
-                            paddingHorizontal: 10,
-                            backgroundColor: 'rgba(255, 255, 255, 0.10)',
+                            backgroundColor: '#F4DBBA',
                             borderRadius: 6,
                             justifyContent: 'center',
                             alignItems: 'center',
+                            width: 24, 
+                            height: 24,
+                            paddingTop: 5,
+                            paddingBottom: 3,
                           }}
                         >
                           <Text style={styles.countdownText}>
@@ -152,11 +142,11 @@ export default function VipPromotionModal({
 
                         </View>
                         {i % 2 === 1 && i < countdownVal.length - 1 && (
-                          <Text style={{ ...styles.countdownText, padding: 1, }}>
+                          <Text style={{ ...styles.countdownText, padding: 1, color: '#F4DBBA' }}>
                             :
                           </Text>
                         )}
-                      </>
+                      </View>
                     );
                   })}
                 </View>
@@ -177,12 +167,17 @@ export default function VipPromotionModal({
                 gap: 6,
               }}>
               <TouchableOpacity
-                style={styles.purchaseButton}
                 onPress={onPurchase}
               >
-                <Text style={styles.purchaseButtonText}>
-                  继续抢购
-                </Text>
+                <LinearGradient
+                  colors={['#D1AC7D', '#B1885F']}
+                  locations={[0.0, 0.99]}
+                  style={styles.purchaseButton}
+                >
+                  <Text style={styles.purchaseButtonText}>
+                    继续抢购
+                  </Text>
+                </LinearGradient>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.cancelButton}
@@ -201,16 +196,14 @@ export default function VipPromotionModal({
 
 const styles = StyleSheet.create({
   purchaseButton: {
-    backgroundColor: "#FAC33D",
     borderRadius: 8,
-    paddingHorizontal: 20,
     paddingVertical: 6,
     alignItems: "center",
   },
   purchaseButtonText: {
     color: "#1D2023",
     fontSize: 14,
-    fontWeight: "500",
+    fontWeight: "700",
     lineHeight: 25,
     fontFamily: "PingFang SC",
   },
@@ -224,7 +217,7 @@ const styles = StyleSheet.create({
   cancelButtonText: {
     color: "white",
     fontSize: 13,
-    fontWeight: "500",
+    fontWeight: "700",
     lineHeight: 25,
     textAlign: 'center',
     fontFamily: "PingFang SC",
@@ -234,18 +227,18 @@ const styles = StyleSheet.create({
     color: '#F4DBBA',
     fontSize: 17,
     fontFamily: 'PingFang SC',
-    fontWeight: '600',
+    fontWeight: '700',
     lineHeight: 22,
     letterSpacing: 1,
   },
   countdownText: {
     textAlign: "center",
-    color: 'white',
+    textAlignVertical: 'center',
+    color: '#1D2023',
     fontSize: 14,
-    fontFamily: 'Anton-Regular',
-    fontWeight: '400',
-    lineHeight: 21,
-    letterSpacing: 1,
+    fontFamily: 'Archivo-Regular',
+    fontWeight: '800',
+    lineHeight: 15,
   },
   contentText1: {
     fontFamily: 'PingFang SC',
