@@ -144,11 +144,16 @@ function startVideoDownloadThunk(
   vodIsAdult?: boolean,
 ): ThunkAction<void, RootState, any, DownloadVideoActionType> {
   return async function (dispatch, getState) {
-    const throttledUpdate = throttle((percentage) => dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {
-      progress: {
-        percentage: Math.min(percentage, 100)
+    const throttledUpdate = throttle((percentage) => {
+      const currentState = getState().downloadVideoReducer.downloads.find(x => x.vod.vod_id === vod.vod_id)?.episodes.find(x => x.vodSourceId === vodSourceId && x.vodUrlNid === vodUrlNid)
+      if (currentState?.status === DownloadStatus.DOWNLOADING){
+        dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {
+          progress: {
+            percentage: Math.min(percentage, 100)
+          }
+        }))
       }
-    })), 2000)
+    }, 2000)
     const handleUpdate = ({percentage, bytes}: {percentage?: number, bytes?: number}) => {
       // console.debug('downloaded ', percentage, '%')
       if (percentage !== undefined){
@@ -388,11 +393,17 @@ function resumeVideoDownloadThunk(
 
     dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {status:DownloadStatus.DOWNLOADING}))
 
-    const throttledUpdate = throttle((percentage) => dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {
-      progress: {
-        percentage: Math.min(initialPercentage + percentage, 100) //* because is resume, not restart 
+    const throttledUpdate = throttle((percentage) => {
+      const currentState = getState().downloadVideoReducer.downloads.find(x => x.vod.vod_id === vod.vod_id)?.episodes.find(x => x.vodSourceId === vodSourceId && x.vodUrlNid === vodUrlNid)
+      if (currentState?.status === DownloadStatus.DOWNLOADING){
+        dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {
+          progress: {
+            percentage: Math.min(initialPercentage + percentage, 100) //* because is resume, not restart 
+          }
+        }))
       }
-    })), 2000)
+    }, 2000)
+    
     const handleUpdate = ({percentage, bytes}: {percentage?: number, bytes?: number}) => {
       if (percentage !== undefined){
         throttledUpdate(percentage)
@@ -465,6 +476,7 @@ function resumeVideoDownloadThunk(
     if (!url) return  
     if (initialState.currentDownloading.length >= MAX_CONCURRENT_VIDEO_DOWNLOAD) return; 
     if (initialState.queue.length === 0) return; 
+    dispatch(removeDownloadFromQueue(vod, vodSourceId, vodUrlNid))
     dispatch(startVideoDownload(vod, vodSourceId, vodUrlNid))
     
     resumeDownloadVod(
