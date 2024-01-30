@@ -8,6 +8,7 @@ import { MAX_CONCURRENT_VIDEO_DOWNLOAD } from "@utility/constants";
 import RNFetchBlob from "rn-fetch-blob";
 import { FFmpegKit, FFmpegSession } from "ffmpeg-kit-react-native";
 import { throttle } from "lodash";
+import { VodApi } from "../../api/vod";
 
 function addVideoToDownload(vod: VodType, vodSourceId: number, vodUrlNid: number, vodIsAdult?: boolean): DownloadVideoActionType {
   return {
@@ -115,6 +116,17 @@ function pauseVideoDownload(vod: VodType, vodSourceId: number, vodUrlNid: number
       vod, 
       vodSourceId, 
       vodUrlNid, 
+    }
+  }
+}
+
+function updateVodDetails(vod: VodType): DownloadVideoActionType {
+  return {
+    type: 'UPDATE_VOD_DETAILS', 
+    payload: {
+      vod, 
+      vodSourceId: 0, // doesnt matter 
+      vodUrlNid: 0, // doesnt matter 
     }
   }
 }
@@ -514,5 +526,17 @@ export function resumeVideoToDownloadThunk(
     dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {status: DownloadStatus.DOWNLOADING}))
     dispatch(resumeVideoDownloadThunk(vod, vodSourceId, vodUrlNid, vodIsAdult))
     await downloadVodImage(vod);
+  };
+}
+
+export function updateAllVodDetailsThunk(): ThunkAction<void, RootState, any, DownloadVideoActionType> {
+  return async function (dispatch, getState) {
+    const downloads = getState().downloadVideoReducer.downloads
+    downloads.forEach(async (download) => {
+      const newVod = await VodApi.getDetail(download.vod.vod_id.toString(), {xMode: download.vodIsAdult})
+      dispatch(updateVodDetails(newVod))
+    })
+
+
   };
 }
