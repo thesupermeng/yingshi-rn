@@ -367,7 +367,7 @@ export function restartVideoDownloadThunk (
       status: DownloadStatus.DOWNLOADING, 
       sizeInBytes: 0
     }))
-    dispatch(startVideoDownloadThunk(vod, vodSourceId, vodUrlNid))
+    dispatch(startVideoDownloadThunk(vod, vodSourceId, vodUrlNid, targetVod.vodIsAdult))
   }
 }
 
