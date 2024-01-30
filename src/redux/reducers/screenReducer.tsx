@@ -6,6 +6,7 @@ export interface screenActionType {
 import { screenModel } from "@type/screenType";
 
 const initialState: screenModel = {
+  showEventSplash: true,
   screenAction: "",
   screenShow: false,
   loginShow: false,
@@ -16,14 +17,14 @@ const initialState: screenModel = {
   interstitialShow: false,
   isPlayerFullScreen: false,
   adultVideoWatchTime: 0,
-  lastSeenNavName: '推荐',
+  lastSeenNavName: "推荐",
   adultMode: false,
   adultModeDisclaimerShow: false,
   adultModeVipShow: false,
   isOverEighteenAccepted: false,
   watchAnytimeAdultMode: false,
-  showAdultTab: false, 
-  showAdultVipPrivilegeMiniVideo: false
+  showAdultTab: false,
+  showAdultVipPrivilegeMiniVideo: false,
 };
 
 export function screenReducer(state = initialState, action: screenActionType) {
@@ -117,79 +118,85 @@ export function screenReducer(state = initialState, action: screenActionType) {
         adultVideoWatchTime: 0,
       };
     case "show_adult_mode_disclaimer":
-      if (state.isOverEighteenAccepted) { return state }
-      else
+      if (state.isOverEighteenAccepted) {
+        return state;
+      } else
         return {
           ...state,
-          adultModeDisclaimerShow: true
-        }
+          adultModeDisclaimerShow: true,
+        };
     case "hide_adult_mode_disclaimer":
       return {
         ...state,
-        adultModeDisclaimerShow: false
-      }
+        adultModeDisclaimerShow: false,
+      };
     case "show_adult_mode_vip":
       return {
         ...state,
-        adultModeVipShow: true
-      }
+        adultModeVipShow: true,
+      };
     case "hide_adult_mode_vip":
       return {
         ...state,
-        adultModeVipShow: false
-      }
+        adultModeVipShow: false,
+      };
     case "enable_adult_mode":
       return {
         ...state,
-        adultMode: true
-      }
+        adultMode: true,
+      };
     case "disable_adult_mode":
       return {
         ...state,
-        adultMode: false
-      }
+        adultMode: false,
+      };
     case "set_last_seen_nav_name":
       return {
         ...state,
-        lastSeenNavName: action.payload
-      }
+        lastSeenNavName: action.payload,
+      };
     case "accept_over_eighteen":
       return {
         ...state,
-        isOverEighteenAccepted: true
-      }
+        isOverEighteenAccepted: true,
+      };
     case "reset_over_eighteen":
       return {
         ...state,
-        isOverEighteenAccepted: false
-      }
+        isOverEighteenAccepted: false,
+      };
     case "enable_watch_anytime_adult_mode":
-      console.log('enable wa adult')
+      console.log("enable wa adult");
       return {
         ...state,
-        watchAnytimeAdultMode: true
-      }
+        watchAnytimeAdultMode: true,
+      };
     case "disable_watch_anytime_adult_mode":
-      console.log('disable wa adult')
+      console.log("disable wa adult");
       return {
         ...state,
-        watchAnytimeAdultMode: false
-      }
+        watchAnytimeAdultMode: false,
+      };
     case "set_show_adult_tab":
       return {
         ...state,
         showAdultTab: action.payload,
-      }
-    case "show_adult_vip_privilege_mini_video": 
+      };
+    case "show_adult_vip_privilege_mini_video":
       return {
-        ...state, 
-        showAdultVipPrivilegeMiniVideo: true
-      }
-    case "hide_adult_vip_privilege_mini_video": 
+        ...state,
+        showAdultVipPrivilegeMiniVideo: true,
+      };
+    case "hide_adult_vip_privilege_mini_video":
       return {
-        ...state, 
-        showAdultVipPrivilegeMiniVideo: false
-      }
+        ...state,
+        showAdultVipPrivilegeMiniVideo: false,
+      };
+    case "set_show_event_splash":
+      return {
+        ...state,
+        showEventSplash: action.payload,
+      };
     default:
       return state;
   }

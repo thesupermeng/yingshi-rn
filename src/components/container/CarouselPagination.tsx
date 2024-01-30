@@ -4,11 +4,12 @@ import {View, StyleSheet, TouchableOpacity} from 'react-native';
 interface Props {
   data?: any;
   activeIndex?: any;
+  dashStyle:boolean;
   onDotPress?: (index: number) => void;
   onScrollIndexChanged?: (index: number) => void; // Callback to track scroll changes
 }
 
-const CarouselPagination = ({data, activeIndex, onDotPress, onScrollIndexChanged,}: Props) => {
+const CarouselPagination = ({data,dashStyle = false, activeIndex, onDotPress, onScrollIndexChanged, }: Props) => {
 
   const scrollOffsetRef = useRef<number>(0);
   const [debouncedActiveIndex, setDebouncedActiveIndex] = useState<number | null>(null);
@@ -44,8 +45,12 @@ const CarouselPagination = ({data, activeIndex, onDotPress, onScrollIndexChanged
     <View
       key={index}
       style={[
+        dashStyle ? { width: 18 } : { width: 5.5 },
+        dashStyle ? { height: 2 } : { height: 5.5 },
         styles.paginationDot,
         index === activeIndex && styles.paginationDotActive,
+
+       
       ]}
       onTouchStart={() => onDotPress && onDotPress(index)} // Trigger function on dot press
     />
@@ -79,11 +84,12 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   paginationDot: {
-    width: 5.5,
+  
     height: 5.5,
     borderRadius: 4,
     backgroundColor: '#fff',
     marginHorizontal: 4,
+    
   },
   paginationDotActive: {
     backgroundColor: '#FAC33D',

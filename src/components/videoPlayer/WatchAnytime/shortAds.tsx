@@ -254,13 +254,7 @@ function ShortAds({
                                     ? <Video
                                         ref={videoRef}
                                         resizeMode="contain"
-                                        source={{
-                                            uri: currentVod.ads_pic,
-                                            headers: {
-                                                'User-Agent':
-                                                    'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
-                                            },
-                                        }}
+                                        source={require("@static/images/splash/splashbg.png")}
                                         onReadyForDisplay={handleOnReadyForDisplay}
                                         onBuffer={onBuffer}
                                         repeat={true}

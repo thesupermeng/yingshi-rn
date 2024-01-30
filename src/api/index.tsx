@@ -5,3 +5,4 @@ export * from './product';
 export * from './user';
 export * from './playlist';
 export * from './vod';
+export * from './splash';

@@ -3,6 +3,7 @@ import { View } from "react-native";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import FastImage from "../components/common/customFastImage";
 import Nav from "../../src/navigation/nav";
+import EventSpash from "../../src/navigation/eventSplash";
 import NavIos from "@iosScreen/navigation/nav";
 
 import {
@@ -22,24 +23,40 @@ import { AdsBannerContextProvider } from "../contexts/AdsBannerContext";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { downloadFirstNVid } from "../utils/minivodDownloader";
 import { fetchMiniVods } from "../api/miniVod";
-import { AppsApi } from "@api";
+import { AppsApi , SplashApi } from "@api";
 import { hideLoginAction } from "@redux/actions/screenAction";
 import { useDispatch } from "react-redux";
 import NetInfo from "@react-native-community/netinfo";
 import { useAppSelector } from "@hooks/hooks";
+import { RootState } from "@redux/store";
+import { screenModel } from "@type/screenType";
 
 export default () => {
   const [loadedAPI, setLoadedAPI] = useState(false);
   const [areaNavConfig, setAreaNavConfig] = useState(false);
   const [isSuper, setIsSuper] = useState(false);
   const dispatch = useDispatch();
-  const isVip = useAppSelector(({ userReducer }) => !(Number(userReducer.userMemberExpired) <= Number(userReducer.userCurrentTimestamp) || userReducer.userToken === ""))
+  const isVip = useAppSelector(
+    ({ userReducer }) =>
+      !(
+        Number(userReducer.userMemberExpired) <=
+          Number(userReducer.userCurrentTimestamp) ||
+        userReducer.userToken === ""
+      )
+  );
 
   const [isConnected, setIsConnected] = useState(true);
+
+  const screenState: screenModel = useAppSelector(
+    ({ screenReducer }: RootState) => screenReducer
+  );
+
+  let splashList = {};
+
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener((state: any) => {
       setIsConnected(state.isConnected);
-      if (state.isConnected === false) setAreaNavConfig(true)
+      if (state.isConnected === false) setAreaNavConfig(true);
     });
 
     return () => {
@@ -73,6 +90,9 @@ export default () => {
           setAreaNavConfig(locationResp.status);
           setLoadedAPI(true);
         }
+
+
+        splashList= await SplashApi.getSplash();
 
         // y == 成为VIP
         // n == 付费购买VIP
@@ -120,10 +140,11 @@ export default () => {
   }, []);
 
   const { data } = useInfiniteQuery(["watchAnytime", "normal", isVip], {
-    queryFn: ({ pageParam = 1 }) => fetchMiniVods(pageParam, {
-      from: "api", 
-      isVip
-    }),
+    queryFn: ({ pageParam = 1 }) =>
+      fetchMiniVods(pageParam, {
+        from: "api",
+        isVip,
+      }),
   });
 
   useEffect(() => {
@@ -137,6 +158,8 @@ export default () => {
     }
   }, [data, isVip]);
 
+  console.log("screenState.showEventSplash");
+  console.log(screenState.showEventSplash);
   return (
     <>
       {isSuper == true ? (
@@ -169,14 +192,23 @@ export default () => {
             </View>
           ) : (
             <>
-              {areaNavConfig == true ? (
-                // B面的B面
-                <AdsBannerContextProvider>
-                  <Nav />
-                </AdsBannerContextProvider>
-              ) : (
-                <NavIos />
-              )}
+              <>
+                {areaNavConfig == true ? (
+                  // B面的B面
+                  <AdsBannerContextProvider>
+                    {screenState.showEventSplash == true ? (
+                      //show promo splash event
+                      <EventSpash />
+                    ) : (
+                      <Nav />
+                    )}
+                  </AdsBannerContextProvider>
+                ) : (
+                  <NavIos />
+                )}
+
+
+              </>
             </>
           )}
         </>

@@ -39,4 +39,6 @@ export class CEndpoint {
     static bannerEventAds = 'ads/v1/events';
 
     static eventPost = 'track/v1/statsViewClick';
+
+    static splashApi = 'intro/v1/navigate';
 }
