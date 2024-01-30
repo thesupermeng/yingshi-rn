@@ -27,7 +27,8 @@ function SplashCard({ img, index, isLast = false }: Props) {
       <FastImage
         key={`slider-${index}`}
         style={styles.image}
-        source={img}
+       // source={img}
+        source={{ uri: img }}
         resizeMode={"cover"}
         useFastImage={true}
       ></FastImage>
