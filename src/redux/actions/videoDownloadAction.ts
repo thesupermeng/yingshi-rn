@@ -285,6 +285,7 @@ export function removeVideoFromDownloadThunk(
       }
     }
     dispatch(removeVideoFromDownload(vod, vodSourceId, vodUrlNid))
+    dispatch(removeDownloadFromQueue(vod, vodSourceId, vodUrlNid))
   }
 }
 
@@ -336,6 +337,15 @@ export function restartVideoDownloadThunk (
   vodSourceId: number,
   vodUrlNid: number,): ThunkAction<void, RootState, any, DownloadVideoActionType> {
   return async function (dispatch, getState) {
+    const state = getState().downloadVideoReducer
+    const targetVod = state.downloads.find(download => download.vod.vod_id === vod.vod_id)
+    if (!targetVod) return 
+    const targetEpisode = state.downloads.find(dl => dl.vod.vod_id === vod.vod_id)?.episodes.find(ep => ep.vodSourceId === vodSourceId && ep.vodUrlNid === vodUrlNid)
+    if (!targetEpisode) return 
+    const partialPath = `${RNFetchBlob.fs.dirs.DocumentDir}/PartialDownload/${vod.vod_id}-${vodSourceId}-${vodUrlNid}`
+    await RNFetchBlob.fs.unlink(targetEpisode.videoPath).catch(err => {})
+    await RNFetchBlob.fs.unlink(partialPath).catch(err => {})
+
     dispatch(addDownloadToQueue(vod, vodSourceId, vodUrlNid))
     dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {
       progress: {
