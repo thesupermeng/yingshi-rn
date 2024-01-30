@@ -25,25 +25,12 @@ import Video from "react-native-video";
 import { promoMembershipModel } from "@type/membershipType";
 import { ProductApi } from "../api/product";
 
-export default () => {
-  let splashList = [
-    {
-      seq: 1,
-      url: require("@static/images/splash/splash1.png"),
-    },
-    {
-      seq: 2,
-      url: require("@static/images/splash/splash2.png"),
-    },
-    {
-      seq: 3,
-      url: require("@static/images/splash/splash3.png"),
-    },
-    {
-      seq: 4,
-      url: require("@static/images/splash/splash3.png"),
-    },
-  ];
+interface Props {
+  splashList: any;
+}
+
+export const EventSpash = ({splashList}: Props) => {
+
 
   const carouselRef = useRef<any>();
   const [width, setWidth] = useState(Dimensions.get("window").width);
