@@ -46,6 +46,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import UmengAnalytics from "../../../Umeng/UmengAnalytics";
 import { AdsApi } from "../../api/ads";
 import DeviceInfo from "react-native-device-info";
+import { VipPromotionOverlay } from "../modal/vipPromotionOverlay";
 
 interface NavType {
   id: number;
@@ -102,7 +103,7 @@ const RecommendationHome = ({
   }, []);
 
 
-  
+
 
   useEffect(() => {
     handleTabletFold()
@@ -113,21 +114,20 @@ const RecommendationHome = ({
   const [deviceName, setDeviceName] = useState("");
 
   DeviceInfo.getDeviceName().then((d) => {
-      setDeviceName(d.toLowerCase());
+    setDeviceName(d.toLowerCase());
   });
-  const handleTabletFold = async() =>
-  {
+  const handleTabletFold = async () => {
     Dimensions.addEventListener('change', (e) => {
       const includesKeywords = ['flip', 'fold', 'mate x3', 'mate xs'].some(keyword => deviceName.includes(keyword));
       if (DeviceInfo.isTablet() || includesKeywords) {
-      setWidth(Number(Dimensions.get("window").width));
-      if (data.carousel.length > 0) {
-        Image.getSize(data.carousel[0].carousel_pic_mobile, (w, h) => {
-          setImgRatio(w / h);
-        });
+        setWidth(Number(Dimensions.get("window").width));
+        if (data.carousel.length > 0) {
+          Image.getSize(data.carousel[0].carousel_pic_mobile, (w, h) => {
+            setImgRatio(w / h);
+          });
+        }
+        handleRefresh()
       }
-      handleRefresh()
-    }
     })
 
   }
@@ -402,8 +402,29 @@ const RecommendationHome = ({
     </View>
   )
 
+  const [showBecomeVIPOverlay, setShowBecomeVIPOverlay] = useState(true);
+  const renderOverlay = () => {
+    return <VipPromotionOverlay
+      showCondition={showBecomeVIPOverlay}
+      onClose={() => {
+        setShowBecomeVIPOverlay(false);
+      }}
+    />
+  };
+
   return (
     <View style={{ width: width }}>
+      {showBecomeVIPOverlay && (
+        <View
+          style={{
+            height: '100%',
+            width: '100%',
+            position: 'absolute',
+            zIndex: 10000,
+          }}>
+          {renderOverlay()}
+        </View>
+      )}
       {data?.live_station_list && data?.live_station_list.length > 0 && (
         <FlatList
           refreshControl={
