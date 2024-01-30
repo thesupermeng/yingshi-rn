@@ -95,9 +95,9 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
             player_mode: download.vodIsAdult ? 'adult' : 'normal',
           });
         } else if (item.status === DownloadStatus.DOWNLOADING) {
-          if (item.ffmpegSession === null || item.ffmpegSession === undefined) {
-            return;
-          }
+          // if (item.ffmpegSession === null || item.ffmpegSession === undefined) {
+          //   return;
+          // }
           dispatch(
             pauseVideoDownloadThunk(
               download.vod,
@@ -117,7 +117,7 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
         }
       }
     }, 200),
-    [],
+    [isEditing],
   );
 
   const renderItem = useCallback(({item, index}: {item: EpisodeDownloadType, index: number}) => {
