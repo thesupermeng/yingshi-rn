@@ -168,23 +168,38 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
   }
 
 
-  const handleButtonPress = useCallback(() => {
-    if (allButtonText === '全部暂停') { 
-      download.episodes
-        .filter(x => x.status === DownloadStatus.DOWNLOADING)
-        .forEach(episodeDownload => {
-          dispatch(pauseVideoDownloadThunk(download.vod, episodeDownload.vodSourceId, episodeDownload.vodUrlNid))
-        })
-    } else if (allButtonText === '全部下载') {
-      download.episodes
-      .filter(x => x.status === DownloadStatus.PAUSED)
-      .forEach(episodeDownload => {
-        dispatch(resumeVideoToDownloadThunk(download.vod, episodeDownload.vodSourceId, episodeDownload.vodUrlNid, download.vodIsAdult))
-      })
-    } else {
-
-    }
-  }, [allButtonText, download])
+  const handleButtonPress = useCallback(
+    debounce(() => {
+      if (allButtonText === '全部暂停') {
+        download.episodes
+          .filter(x => x.status === DownloadStatus.DOWNLOADING)
+          .forEach(episodeDownload => {
+            dispatch(
+              pauseVideoDownloadThunk(
+                download.vod,
+                episodeDownload.vodSourceId,
+                episodeDownload.vodUrlNid,
+              ),
+            );
+          });
+      } else if (allButtonText === '全部下载') {
+        download.episodes
+          .filter(x => x.status === DownloadStatus.PAUSED)
+          .forEach(episodeDownload => {
+            dispatch(
+              resumeVideoToDownloadThunk(
+                download.vod,
+                episodeDownload.vodSourceId,
+                episodeDownload.vodUrlNid,
+                download.vodIsAdult,
+              ),
+            );
+          });
+      } else {
+      }
+    }, 200),
+    [allButtonText, download],
+  );
 
   return (
     <ScreenContainer>
