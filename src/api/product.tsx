@@ -25,6 +25,22 @@ export class ProductApi {
         }
     }
 
+    static getNativeList = async () => {
+        try {
+            const result = await CApi.get(CEndpoint.nativeProductGetList);
+
+            if (result.success === false) {
+                throw result.message;
+            }
+
+            return result.data;
+
+        } catch (e: any) {
+            console.error(`[Error ${this.name}]: ${e.toString()}`);
+            throw e;
+        }
+    }
+
     static postValidateReceipt = async ({
         user_id,
         product_id,

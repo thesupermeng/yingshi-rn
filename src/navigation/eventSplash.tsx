@@ -22,6 +22,8 @@ import CarouselPagination from "../components/container/CarouselPagination";
 import LinearGradient from "react-native-linear-gradient";
 import FastImage from "../../src/components/common/customFastImage";
 import Video from "react-native-video";
+import { promoMembershipModel } from "@type/membershipType";
+import { ProductApi } from "../api/product";
 
 export default () => {
   let splashList = [
@@ -48,12 +50,75 @@ export default () => {
   const [height, setHeight] = useState(Dimensions.get("window").height);
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const [selectedProductIndex, setSelectedProductIndex] = useState(0);
+  const [oneTimeProducts, setOneTimeProducts] = useState<promoMembershipModel[]>([]);
+  const [subscriptionProducts, setSubcriptionProducts] = useState<promoMembershipModel[]>([]);
+  const [productSelected, setSelectedProduct] = useState<promoMembershipModel>(
+    subscriptionProducts[0]
+  );
+  const [isFetching, setIsFetching] = useState(true);
+
+  const fetchData = async () => {
+    const data = await ProductApi.getNativeList();
+    let oneTime: Array<promoMembershipModel>;
+    let subscription: Array<promoMembershipModel>;
+
+    if (data) {
+      oneTime = data.one_time_items.map((product: any) => {
+        return {
+          productId: product.product_id,
+          productSKU: product.product_ios_product_id,
+          title: product.product_name,
+          price: product.product_price,
+          promoPrice: product.currency.currency_symbol + " " + product.product_promo_price,
+          localizedPrice:
+            product.currency.currency_symbol + " " + product.product_price,
+          description: product.product_desc,
+          subscriptionDays: product.product_value,
+          zfOptions: 'GOOGLE_PAY',
+        };
+      });
+
+      subscription = data.subscription_items.map((product: any) => {
+        return {
+          productId: product.product_id,
+          productSKU: product.product_ios_product_id,
+          title: product.product_name,
+          price: product.product_price,
+          promoPrice:
+            product.currency.currency_symbol + product.product_promo_price,
+          localizedPrice:
+            product.currency.currency_symbol + (product.product_name === '1个月' ? product.product_price : product.fake_price),
+          description: product.product_desc,
+          subscriptionDays: product.product_value,
+          zfOptions: {
+            payment_type_code: "GOOGLE_PAY",
+            payment_type_name: "Google Pay",
+            payment_type_icon: "google.png"
+          },
+        };
+      });
+
+      setOneTimeProducts(oneTime);
+      setSubcriptionProducts(subscription);
+      setIsFetching(false);
+    }
+  };
 
   useEffect(() => {
     setWidth(Number(Dimensions.get("window").width));
     setHeight(Number(Dimensions.get("window").height));
+    fetchData();
   }, []);
+
+  useEffect(() => {
+    if (subscriptionProducts) {
+      const defaultProduct = subscriptionProducts.find(
+        (subscription) => subscription.title === '1个月'
+      );
+
+      defaultProduct && setSelectedProduct(defaultProduct);
+    }
+  }, [subscriptionProducts]);
 
   const renderCarousel = ({ item, index }) => {
     return (
@@ -150,111 +215,76 @@ export default () => {
                     ></FastImage>
                   </View>
 
-                  <View
-                    style={{
-                      position: "relative",
-                      bottom: 70,
-                      paddingHorizontal: 35,
-                      flexDirection: "row",
-                      width: "100%",
-                      maxWidth: "100%",
-                      gap: 20,
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <ImageBackground
-                      source={require("./../../static/images/splash/singleBg.png")}
-                      resizeMode="contain"
+                  {oneTimeProducts && (
+                    <View
                       style={{
-                        height: 100,
-                        width: 160,
-                        paddingTop: 25,
-                        paddingHorizontal: 10,
+                        position: "relative",
+                        bottom: 70,
+                        paddingHorizontal: 35,
+                        flexDirection: "row",
+                        width: "100%",
+                        maxWidth: "100%",
+                        gap: 20,
+                        justifyContent: "space-between",
                       }}
                     >
-                      <View style={{ justifyContent: "space-between", gap: 5 }}>
-                        <View>
-                          <Text style={{ color: "#351B04", fontSize: 12 }}>
-                            月度套餐
-                          </Text>
-                        </View>
-
-                        <View
+                      {oneTimeProducts.map((product, i) => (
+                        <ImageBackground
+                          key={product.productId}
+                          source={i === 0 ?
+                            require("./../../static/images/splash/singleBg.png") :
+                            require("./../../static/images/splash/singleBg2.png")
+                          }
+                          resizeMode="contain"
                           style={{
-                            justifyContent: "space-between",
-                            flexDirection: "row",
-                            alignItems: "center",
+                            height: 100,
+                            width: 160,
+                            paddingTop: 25,
+                            paddingHorizontal: 10,
                           }}
                         >
-                          <Text
-                            style={{
-                              color: "#351B04",
-                              fontSize: 14,
-                              fontWeight: "700",
-                            }}
-                          >
-                            1个月
-                          </Text>
-                          <Text
-                            style={{
-                              color: "#AE845B",
-                              fontSize: 19,
-                              fontWeight: "900",
-                            }}
-                          >
-                            ￥19
-                          </Text>
-                        </View>
-                      </View>
-                    </ImageBackground>
+                          <View style={{ justifyContent: "space-between", gap: 5 }}>
+                            <View>
+                              <Text
+                                style={{
+                                  color: i === 0 ? "#351B04" : '#fff',
+                                  fontSize: 12
+                                }}>
+                                {i === 0 ? '月度套餐' : '年度套餐'}
+                              </Text>
+                            </View>
 
-                    <ImageBackground
-                      source={require("./../../static/images/splash/singleBg2.png")}
-                      resizeMode="contain"
-                      style={{
-                        height: 100,
-                        width: 160,
-                        paddingTop: 25,
-                        paddingHorizontal: 10,
-                      }}
-                    >
-                      <View style={{ justifyContent: "space-between", gap: 5 }}>
-                        <View>
-                          <Text style={{ color: "#fff", fontSize: 12 }}>
-                            {" "}
-                            年度套餐
-                          </Text>
-                        </View>
-
-                        <View
-                          style={{
-                            justifyContent: "space-between",
-                            flexDirection: "row",
-                            alignItems: "center",
-                          }}
-                        >
-                          <Text
-                            style={{
-                              color: "#fff",
-                              fontSize: 14,
-                              fontWeight: "700",
-                            }}
-                          >
-                            12个月
-                          </Text>
-                          <Text
-                            style={{
-                              color: "#fff",
-                              fontSize: 19,
-                              fontWeight: "900",
-                            }}
-                          >
-                            ￥19
-                          </Text>
-                        </View>
-                      </View>
-                    </ImageBackground>
-                  </View>
+                            <View
+                              style={{
+                                justifyContent: "space-between",
+                                flexDirection: "row",
+                                alignItems: "center",
+                              }}
+                            >
+                              <Text
+                                style={{
+                                  color: i === 0 ? "#351B04" : '#fff',
+                                  fontSize: 14,
+                                  fontWeight: "700",
+                                }}
+                              >
+                                {product.title}
+                              </Text>
+                              <Text
+                                style={{
+                                  color: i === 0 ? "#AE845B" : '#fff',
+                                  fontSize: 19,
+                                  fontWeight: "900",
+                                }}
+                              >
+                                {product.localizedPrice}
+                              </Text>
+                            </View>
+                          </View>
+                        </ImageBackground>
+                      ))}
+                    </View>
+                  )}
 
                   {/* time  countdown */}
                   <View
@@ -308,148 +338,81 @@ export default () => {
                     </View>
                   </View>
                   {/* product card  */}
-                  <ScrollView contentContainerStyle={styles.scrollViewContent}>
-                    <TouchableOpacity
-                      style={
-                        selectedProductIndex == 0
-                          ? styles.cardContainerActive
-                          : styles.cardContainer
-                      }
-                      onPress={() => {
-                        setSelectedProductIndex(0);
-                      }}
-                    >
-                      <View>
-                        <View
-                          style={{
-                            ...styles.redIndicator,
-                            opacity: selectedProductIndex == 0 ? 1 : 0, // change to index 0
+                  {subscriptionProducts && (
+                    <ScrollView contentContainerStyle={styles.scrollViewContent}>
+                      {subscriptionProducts.map((subscription, i) => (
+                        <TouchableOpacity
+                          key={subscription.productId}
+                          style={
+                            productSelected == subscription
+                              ? styles.cardContainerActive
+                              : styles.cardContainer
+                          }
+                          onPress={() => {
+                            setSelectedProduct(subscription);
                           }}
                         >
-                          <Text style={styles.hotText}>最多人选择</Text>
-                        </View>
+                          <View>
+                            <View
+                              style={{
+                                ...styles.redIndicator,
+                                opacity: productSelected == subscription ? 1 : 0, // change to index 0
+                              }}
+                            >
+                              <Text style={styles.hotText}>最多人选择</Text>
+                            </View>
 
-                        <View style={styles.textContainer}>
-                          <Text style={styles.promo}>按年订阅</Text>
-                          <Text style={styles.promo2}>￥199</Text>
-                          <Text style={styles.promo3}>￥468</Text>
-                        </View>
-                      </View>
-                      <View
-                        style={
-                          selectedProductIndex == 0
-                            ? styles.buttonActive
-                            : styles.button
-                        }
-                      >
-                        <Text
-                          style={
-                            selectedProductIndex == 0
-                              ? styles.buttonTextActive
-                              : styles.buttonText
-                          }
-                        >
-                          限时4折
-                        </Text>
-                      </View>
-                    </TouchableOpacity>
-
-                    {/* Add more ProductCard components here for additional items */}
-                    <TouchableOpacity
-                      style={
-                        selectedProductIndex == 1
-                          ? styles.cardContainerActive
-                          : styles.cardContainer
-                      }
-                      onPress={() => {
-                        setSelectedProductIndex(1);
-                      }}
-                    >
-                      <View>
-                        <View
-                          style={{
-                            ...styles.redIndicator,
-                            opacity: selectedProductIndex == 1 ? 1 : 0, //change to index 0 only
-                          }}
-                        >
-                          <Text style={styles.hotText}>最多人选择</Text>
-                        </View>
-
-                        <View style={styles.textContainer}>
-                          <Text style={styles.promo}>按年订阅</Text>
-                          <Text style={styles.promo2}>￥199</Text>
-                          <Text style={styles.promo3}>￥468</Text>
-                        </View>
-                      </View>
-                      <View
-                        style={
-                          selectedProductIndex == 1
-                            ? styles.buttonActive
-                            : styles.button
-                        }
-                      >
-                        <Text
-                          style={
-                            selectedProductIndex == 1
-                              ? styles.buttonTextActive
-                              : styles.buttonText
-                          }
-                        >
-                          限时4折
-                        </Text>
-                      </View>
-                    </TouchableOpacity>
-                    {/* Add more ProductCard components here for additional items */}
-
-                    <TouchableOpacity
-                      style={
-                        selectedProductIndex == 2
-                          ? styles.cardContainerActive
-                          : styles.cardContainer
-                      }
-                      onPress={() => {
-                        setSelectedProductIndex(2);
-                      }}
-                    >
-                      <View>
-                        <View
-                          style={{
-                            ...styles.redIndicator,
-                            opacity: selectedProductIndex == 2 ? 2 : 0, //change to index 0 only
-                          }}
-                        >
-                          <Text style={styles.hotText}>最多人选择</Text>
-                        </View>
-
-                        <View style={styles.textContainer}>
-                          <Text style={styles.promo}>按年订阅</Text>
-                          <Text style={styles.promo2}>￥199</Text>
-                          <Text style={styles.promo3}>￥468</Text>
-                        </View>
-                      </View>
-                      <View
-                        style={
-                          selectedProductIndex == 2
-                            ? styles.buttonActive
-                            : styles.button
-                        }
-                      >
-                        <Text
-                          style={
-                            selectedProductIndex == 2
-                              ? styles.buttonTextActive
-                              : styles.buttonText
-                          }
-                        >
-                          限时4折
-                        </Text>
-                      </View>
-                    </TouchableOpacity>
-                  </ScrollView>
+                            <View style={styles.textContainer}>
+                              <Text style={styles.promo}>{subscription.title}</Text>
+                              <Text style={styles.promo2}>{subscription.promoPrice}</Text>
+                              <Text style={styles.promo3}>{subscription.localizedPrice}</Text>
+                            </View>
+                          </View>
+                          <View
+                            style={
+                              productSelected == subscription
+                                ? styles.buttonActive
+                                : styles.button
+                            }
+                          >
+                            <Text
+                              style={
+                                productSelected == subscription
+                                  ? styles.buttonTextActive
+                                  : styles.buttonText
+                              }
+                            >
+                              {subscription.description}
+                            </Text>
+                          </View>
+                        </TouchableOpacity>
+                      ))}
+                    </ScrollView>
+                  )}
 
                   {/* purchase button  */}
                   <View style={{ paddingHorizontal: 30, width: "100%" }}>
-                    <View
+                    <TouchableOpacity
+                    // onPress={onPurchase}
+                    >
+                      <LinearGradient
+                        colors={['#D1AC7D', '#B1885F']}
+                        locations={[0.0, 0.99]}
+                        style={{
+                          height: 40,
+                          marginBottom: 25,
+                          justifyContent: "center",
+                          alignItems: "center",
+                          paddingVertical: 8,
+                          borderRadius: 8,
+                        }}
+                      >
+                        <Text style={styles.purchaseText}>
+                          立即解锁 {productSelected && `- 总额${productSelected.promoPrice}`}
+                        </Text>
+                      </LinearGradient>
+                    </TouchableOpacity>
+                    {/* <View
                       style={{
                         backgroundColor: "#FAC33D",
                         height: 40,
@@ -461,8 +424,10 @@ export default () => {
                       }}
                     >
                       <Text style={styles.purchaseText}>立即解锁</Text>
-                    </View>
+                    </View> */}
                   </View>
+
+
                 </View>
               </LinearGradient>
             </View>
@@ -491,7 +456,7 @@ export default () => {
         height={height}
         data={splashList}
         scrollAnimationDuration={100}
-        onScrollBegin={() => {}}
+        onScrollBegin={() => { }}
         onSnapToItem={(index) => {
           setActiveIndex(index);
         }}
@@ -665,7 +630,7 @@ const styles = StyleSheet.create({
     paddingTop: 5,
   },
   buttonText: {
-    color: "#FAC33D",
+    color: "#fff",
     textAlign: "center",
     fontWeight: "600",
     marginBottom: 10,

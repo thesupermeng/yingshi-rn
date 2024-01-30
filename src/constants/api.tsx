@@ -30,6 +30,7 @@ export class CEndpoint {
     static feedbackPost = 'feedback/v1/submit';
 
     static productGetList = 'products/v1/products';
+    static nativeProductGetList = 'products/v2/nativeProducts';
     static productPostValidateReceiptIos = 'validate/v1/iosreceipt';
     static productPostValidateReceiptAndroid = 'validate/v1/androidreceipt';
     static productGetFinzfTransaction = 'finzf/v1/transactions';
