@@ -200,6 +200,25 @@ export function downloadVideoReducer(state = initialDownloadVideoState, action: 
       }
     }
 
+    case 'UPDATE_VOD_DETAILS': {
+      const targetVod = state.downloads.find(download => download.vod.vod_id === action.payload.vod.vod_id)
+      if (!targetVod) return state
+
+      const updatedVod: typeof targetVod = {
+        ...targetVod, 
+        vod: action.payload.vod ?? targetVod.vod
+      }
+      
+      const updatedList = state.downloads
+      .filter(download => download.vod.vod_id !== targetVod.vod.vod_id) 
+      .concat(updatedVod)
+
+
+      return {
+        ...state, 
+        downloads: updatedList
+      }
+    }
 
     // case 'CANCEL_VIDEO_DOWNLOAD': { // TODO : currently not implementing
     //   return {

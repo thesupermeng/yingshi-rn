@@ -143,21 +143,26 @@ export async function resumeDownloadVod(id: string, url:string, onProgress: any,
 
   const outputFolderFiles = await RNFetchBlob.fs.ls(outputFolder)
   let startTime = 0
-  for (const file of outputFolderFiles) {
-    startTime += (await getVideoDuration(`file://${outputFolder}/${file}`)).valueOf()
+  try{
+    for (const file of outputFolderFiles) {
+      startTime += (await getVideoDuration(`file://${outputFolder}/${file}`)).valueOf()
+    }
+    
+    const ffmpegCommand = `-ss ${startTime} -i ${url} -acodec copy -bsf:a aac_adtstoasc -vcodec copy ${outputFolder}/${segmentName}`
+  
+    ffmpegDownload(
+      `${outputFolder}/${segmentName}`, 
+      ffmpegCommand, 
+      url, 
+      onProgress, 
+      onComplete, 
+      onError, 
+      onSessionCreated
+    )
+  } catch {
+    onError()
   }
 
-  const ffmpegCommand = `-ss ${startTime} -i ${url} -acodec copy -bsf:a aac_adtstoasc -vcodec copy ${outputFolder}/${segmentName}`
-
-  ffmpegDownload(
-    `${outputFolder}/${segmentName}`, 
-    ffmpegCommand, 
-    url, 
-    onProgress, 
-    onComplete, 
-    onError, 
-    onSessionCreated
-  )
 }
 
 export async function concatPartialVideos(id: string, onComplete: any, onError: any,) {
@@ -167,7 +172,7 @@ export async function concatPartialVideos(id: string, onComplete: any, onError: 
     // maybe need to throw error 
     return 
   }
-  const listTxt = (await RNFetchBlob.fs.ls(inputFolder)).map(path => `file '${inputFolder}/${path}'`).join('\n')
+  const listTxt = (await RNFetchBlob.fs.ls(inputFolder)).sort().map(path => `file '${inputFolder}/${path}'`).join('\n')
   const listTxtPath = `${inputFolder}/list.txt`
   const outputFolder = `${RNFetchBlob.fs.dirs.DocumentDir}/SavedVideos`
   const ffmpegConcatCommand = `-f concat -safe 0 -i ${listTxtPath} -c copy ${outputFolder}/${id}.mp4`

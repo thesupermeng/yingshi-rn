@@ -86,6 +86,7 @@ export interface DownloadVideoActionType {
     | 'ADD_DOWNLOAD_TO_QUEUE'
     | 'REMOVE_DOWNLOAD_FROM_QUEUE'
     | 'RESET_QUEUE'
+    | 'UPDATE_VOD_DETAILS'
     ;
   payload: DownloadVideoActionPayload;
 }
