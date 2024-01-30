@@ -376,7 +376,7 @@ export function pauseVideoDownloadThunk (
     const targetEpisode = targetVod.episodes.find(ep => ep.vodSourceId === vodSourceId && ep.vodUrlNid === vodUrlNid)
     if (!targetEpisode) return 
 
-    if (targetEpisode.ffmpegSession) FFmpegKit.cancel(targetEpisode.ffmpegSession)
+    if (targetEpisode.ffmpegSession) await FFmpegKit.cancel(targetEpisode.ffmpegSession)
     console.debug('pause', targetEpisode.ffmpegSession)
 
     await pauseDownloadVod(`${vod.vod_id}-${vodSourceId}-${vodUrlNid}`, () => {})
@@ -416,6 +416,8 @@ function resumeVideoDownloadThunk(
     }, 2000)
     
     const handleUpdate = ({percentage, bytes}: {percentage?: number, bytes?: number}) => {
+      const currentState = getState().downloadVideoReducer.downloads.find(x => x.vod.vod_id === vod.vod_id)?.episodes.find(x => x.vodSourceId === vodSourceId && x.vodUrlNid === vodUrlNid)
+      if (currentState?.status === DownloadStatus.PAUSED) FFmpegKit.cancel(currentState.ffmpegSession ?? undefined)
       if (percentage !== undefined){
         throttledUpdate(percentage)
       }

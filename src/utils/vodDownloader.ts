@@ -172,7 +172,7 @@ export async function concatPartialVideos(id: string, onComplete: any, onError: 
     // maybe need to throw error 
     return 
   }
-  const listTxt = (await RNFetchBlob.fs.ls(inputFolder)).map(path => `file '${inputFolder}/${path}'`).join('\n')
+  const listTxt = (await RNFetchBlob.fs.ls(inputFolder)).sort().map(path => `file '${inputFolder}/${path}'`).join('\n')
   const listTxtPath = `${inputFolder}/list.txt`
   const outputFolder = `${RNFetchBlob.fs.dirs.DocumentDir}/SavedVideos`
   const ffmpegConcatCommand = `-f concat -safe 0 -i ${listTxtPath} -c copy ${outputFolder}/${id}.mp4`
