@@ -128,6 +128,8 @@ import { clearQueueOnAppStart } from "@redux/actions/videoDownloadAction";
 import DownloadCatalog from "../screens/Profile/Download/DownloadCatalog";
 import DownloadDetails from "../screens/Profile/Download/DownloadDetails";
 
+import AutoRenewService from "../screens/Profile/AutoRenewService";
+
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
   const HomeTab = createBottomTabNavigator<HomeTabParamList>();
@@ -645,6 +647,10 @@ export default () => {
             name="下载详情"
             component={DownloadDetails}
             options={{ orientation: 'portrait' }}
+          />
+          <Stack.Screen
+            name="续费服务"
+            component={AutoRenewService}
           />
 
         </Stack.Navigator>
