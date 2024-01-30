@@ -1,4 +1,5 @@
 export interface screenModel {
+  showEventSplash: boolean;
   screenAction: string;
   screenShow: boolean;
   loginShow: boolean;
@@ -8,13 +9,13 @@ export interface screenModel {
   sportWatchTime: number; // number of seconds user watched sports
   interstitialShow: boolean;
   isPlayerFullScreen: boolean;
-  adultVideoWatchTime: number; // number of seconds user watch AV 
+  adultVideoWatchTime: number; // number of seconds user watch AV
   adultModeDisclaimerShow: boolean;
   adultModeVipShow: boolean;
   adultMode: boolean;
   lastSeenNavName: string;
   isOverEighteenAccepted: boolean;
   watchAnytimeAdultMode: boolean;
-  showAdultTab:boolean;
-  showAdultVipPrivilegeMiniVideo: boolean; 
+  showAdultTab: boolean;
+  showAdultVipPrivilegeMiniVideo: boolean;
 }

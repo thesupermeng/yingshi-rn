@@ -1,13 +1,15 @@
 import React, { memo } from 'react';
 import SearchBar from './searchbar';
-import { View, TouchableOpacity, StyleSheet, ViewStyle } from 'react-native';
+import { View, TouchableOpacity, StyleSheet, ViewStyle, Text } from 'react-native';
 import Logo from '@static/images/logo.svg';
+import VipEntry from '@static/images/splash/VipEntry.svg';
 import History from '@static/images/history.svg';
 import { useTheme } from '@react-navigation/native';
 import { useQuery } from '@tanstack/react-query';
 import { SuggestVodListType } from '@type/ajaxTypes';
 import { useMemo } from 'react';
 import { VodApi } from '@api';
+
 
 interface Props {
     logo?: React.ReactNode,
@@ -36,10 +38,9 @@ function MainHeader({ logo, navigator, headerStyle }: Props) {
                     : <Logo height={36} />
             }
             <SearchBar onPress={() => navigator.navigate('搜索', { initial: randomVod?.vod_name })} defaultValue={randomVod !== undefined ? randomVod.vod_name : ''} />
-            <TouchableOpacity onPress={() => navigator.navigate('播放历史')}>
+            <TouchableOpacity onPress={() => navigator.navigate('付费VIP')}>
                 {
-                    icons.iconColor !== undefined &&
-                    <History height={26} width={26} color={icons.iconColor} />
+                  <VipEntry height={36} />
                 }
             </TouchableOpacity>
         </View>

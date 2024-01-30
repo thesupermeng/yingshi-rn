@@ -8,6 +8,7 @@ import { MAX_CONCURRENT_VIDEO_DOWNLOAD } from "@utility/constants";
 import RNFetchBlob from "rn-fetch-blob";
 import { FFmpegKit, FFmpegSession } from "ffmpeg-kit-react-native";
 import { throttle } from "lodash";
+import { VodApi } from "../../api/vod";
 
 function addVideoToDownload(vod: VodType, vodSourceId: number, vodUrlNid: number, vodIsAdult?: boolean): DownloadVideoActionType {
   return {
@@ -119,6 +120,17 @@ function pauseVideoDownload(vod: VodType, vodSourceId: number, vodUrlNid: number
   }
 }
 
+function updateVodDetails(vod: VodType): DownloadVideoActionType {
+  return {
+    type: 'UPDATE_VOD_DETAILS', 
+    payload: {
+      vod, 
+      vodSourceId: 0, // doesnt matter 
+      vodUrlNid: 0, // doesnt matter 
+    }
+  }
+}
+
 function startFirstVideoDownload(): ThunkAction<void, RootState, any, DownloadVideoActionType> {
   return async function (dispatch, getState) {
     const state = getState().downloadVideoReducer;
@@ -144,11 +156,16 @@ function startVideoDownloadThunk(
   vodIsAdult?: boolean,
 ): ThunkAction<void, RootState, any, DownloadVideoActionType> {
   return async function (dispatch, getState) {
-    const throttledUpdate = throttle((percentage) => dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {
-      progress: {
-        percentage: Math.min(percentage, 100)
+    const throttledUpdate = throttle((percentage) => {
+      const currentState = getState().downloadVideoReducer.downloads.find(x => x.vod.vod_id === vod.vod_id)?.episodes.find(x => x.vodSourceId === vodSourceId && x.vodUrlNid === vodUrlNid)
+      if (currentState?.status === DownloadStatus.DOWNLOADING){
+        dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {
+          progress: {
+            percentage: Math.min(percentage, 100)
+          }
+        }))
       }
-    })), 2000)
+    }, 2000)
     const handleUpdate = ({percentage, bytes}: {percentage?: number, bytes?: number}) => {
       // console.debug('downloaded ', percentage, '%')
       if (percentage !== undefined){
@@ -280,6 +297,8 @@ export function removeVideoFromDownloadThunk(
       }
     }
     dispatch(removeVideoFromDownload(vod, vodSourceId, vodUrlNid))
+    dispatch(removeDownloadFromQueue(vod, vodSourceId, vodUrlNid))
+    dispatch(endVideoDownload(vod, vodSourceId, vodUrlNid))
   }
 }
 
@@ -331,6 +350,15 @@ export function restartVideoDownloadThunk (
   vodSourceId: number,
   vodUrlNid: number,): ThunkAction<void, RootState, any, DownloadVideoActionType> {
   return async function (dispatch, getState) {
+    const state = getState().downloadVideoReducer
+    const targetVod = state.downloads.find(download => download.vod.vod_id === vod.vod_id)
+    if (!targetVod) return 
+    const targetEpisode = state.downloads.find(dl => dl.vod.vod_id === vod.vod_id)?.episodes.find(ep => ep.vodSourceId === vodSourceId && ep.vodUrlNid === vodUrlNid)
+    if (!targetEpisode) return 
+    const partialPath = `${RNFetchBlob.fs.dirs.DocumentDir}/PartialDownload/${vod.vod_id}-${vodSourceId}-${vodUrlNid}`
+    await RNFetchBlob.fs.unlink(targetEpisode.videoPath).catch(err => {})
+    await RNFetchBlob.fs.unlink(partialPath).catch(err => {})
+
     dispatch(addDownloadToQueue(vod, vodSourceId, vodUrlNid))
     dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {
       progress: {
@@ -339,7 +367,7 @@ export function restartVideoDownloadThunk (
       status: DownloadStatus.DOWNLOADING, 
       sizeInBytes: 0
     }))
-    dispatch(startVideoDownloadThunk(vod, vodSourceId, vodUrlNid))
+    dispatch(startVideoDownloadThunk(vod, vodSourceId, vodUrlNid, targetVod.vodIsAdult))
   }
 }
 
@@ -360,7 +388,7 @@ export function pauseVideoDownloadThunk (
     const targetEpisode = targetVod.episodes.find(ep => ep.vodSourceId === vodSourceId && ep.vodUrlNid === vodUrlNid)
     if (!targetEpisode) return 
 
-    if (targetEpisode.ffmpegSession) FFmpegKit.cancel(targetEpisode.ffmpegSession)
+    if (targetEpisode.ffmpegSession) await FFmpegKit.cancel(targetEpisode.ffmpegSession)
     console.debug('pause', targetEpisode.ffmpegSession)
 
     await pauseDownloadVod(`${vod.vod_id}-${vodSourceId}-${vodUrlNid}`, () => {})
@@ -388,12 +416,20 @@ function resumeVideoDownloadThunk(
 
     dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {status:DownloadStatus.DOWNLOADING}))
 
-    const throttledUpdate = throttle((percentage) => dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {
-      progress: {
-        percentage: Math.min(initialPercentage + percentage, 100) //* because is resume, not restart 
+    const throttledUpdate = throttle((percentage) => {
+      const currentState = getState().downloadVideoReducer.downloads.find(x => x.vod.vod_id === vod.vod_id)?.episodes.find(x => x.vodSourceId === vodSourceId && x.vodUrlNid === vodUrlNid)
+      if (currentState?.status === DownloadStatus.DOWNLOADING){
+        dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {
+          progress: {
+            percentage: Math.min(initialPercentage + percentage, 100) //* because is resume, not restart 
+          }
+        }))
       }
-    })), 2000)
+    }, 2000)
+    
     const handleUpdate = ({percentage, bytes}: {percentage?: number, bytes?: number}) => {
+      const currentState = getState().downloadVideoReducer.downloads.find(x => x.vod.vod_id === vod.vod_id)?.episodes.find(x => x.vodSourceId === vodSourceId && x.vodUrlNid === vodUrlNid)
+      if (currentState?.status === DownloadStatus.PAUSED) FFmpegKit.cancel(currentState.ffmpegSession ?? undefined)
       if (percentage !== undefined){
         throttledUpdate(percentage)
       }
@@ -438,11 +474,11 @@ function resumeVideoDownloadThunk(
       concatPartialVideos(
         `${vod.vod_id}-${vodSourceId}-${vodUrlNid}`, 
         ()=>{
-          if (targetEpisode?.progress.percentage < 95){
-            //TODO : can enhance this logic 
-            handleError(); //* download didnt complete 95%, but wifi break, error..
-            return 
-          }
+          // if (targetEpisode?.progress.percentage < 95){
+          //   //TODO : can enhance this logic 
+          //   handleError(); //* download didnt complete 95%, but wifi break, error..
+          //   return 
+          // }
           dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {
             status: DownloadStatus.COMPLETED, 
             sizeInBytes: finalSizeInBytes, 
@@ -465,6 +501,7 @@ function resumeVideoDownloadThunk(
     if (!url) return  
     if (initialState.currentDownloading.length >= MAX_CONCURRENT_VIDEO_DOWNLOAD) return; 
     if (initialState.queue.length === 0) return; 
+    dispatch(removeDownloadFromQueue(vod, vodSourceId, vodUrlNid))
     dispatch(startVideoDownload(vod, vodSourceId, vodUrlNid))
     
     resumeDownloadVod(
@@ -489,5 +526,17 @@ export function resumeVideoToDownloadThunk(
     dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {status: DownloadStatus.DOWNLOADING}))
     dispatch(resumeVideoDownloadThunk(vod, vodSourceId, vodUrlNid, vodIsAdult))
     await downloadVodImage(vod);
+  };
+}
+
+export function updateAllVodDetailsThunk(): ThunkAction<void, RootState, any, DownloadVideoActionType> {
+  return async function (dispatch, getState) {
+    const downloads = getState().downloadVideoReducer.downloads
+    downloads.forEach(async (download) => {
+      const newVod = await VodApi.getDetail(download.vod.vod_id.toString(), {xMode: download.vodIsAdult})
+      dispatch(updateVodDetails(newVod))
+    })
+
+
   };
 }

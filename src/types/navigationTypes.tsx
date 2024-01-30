@@ -108,12 +108,13 @@ export type RootStackParamList = {
     class: string;
   };
   活动页: {
-    bannerAd: BannerAdType; 
-  }; 
-  我的下载: undefined; 
+    bannerAd: BannerAdType;
+  };
+  我的下载: undefined;
   下载详情: {
     vodId: number
-  }; 
+  };
+  续费服务: undefined,
 };
 
 export type RootStackScreenProps<

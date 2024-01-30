@@ -124,9 +124,11 @@ import AdultVideoList from "../screens/Playlist/AdultVideoList";
 import { UserApi } from "@api";
 import AdEvent from "../screens/Common/AdEvent";
 import { CRouteInitializer } from "../routes/router";
-import { clearQueueOnAppStart } from "@redux/actions/videoDownloadAction";
+import { clearQueueOnAppStart, updateAllVodDetailsThunk } from "@redux/actions/videoDownloadAction";
 import DownloadCatalog from "../screens/Profile/Download/DownloadCatalog";
 import DownloadDetails from "../screens/Profile/Download/DownloadDetails";
+
+import AutoRenewService from "../screens/Profile/AutoRenewService";
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -508,6 +510,7 @@ export default () => {
     dispatch(disableWatchAnytimeAdultMode())
     // dispatch(resetOverEighteen())
     dispatch(clearQueueOnAppStart())
+    dispatch(updateAllVodDetailsThunk())
   }, []);
 
   return (
@@ -645,6 +648,10 @@ export default () => {
             name="下载详情"
             component={DownloadDetails}
             options={{ orientation: 'portrait' }}
+          />
+          <Stack.Screen
+            name="续费服务"
+            component={AutoRenewService}
           />
 
         </Stack.Navigator>

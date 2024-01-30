@@ -66,59 +66,57 @@ export const setFullscreenState = (action: boolean) => ({
 });
 
 export const incrementAdultVideoWatchTime = () => ({
-  type: "increment_adult_video_watch_time"
-})
+  type: "increment_adult_video_watch_time",
+});
 
 export const resetAdultVideoWatchTime = () => ({
-  type: "reset_adult_video_watch_time"
-})
+  type: "reset_adult_video_watch_time",
+});
 
 export const showAdultModeDisclaimer = () => ({
-  type: "show_adult_mode_disclaimer"
-})
+  type: "show_adult_mode_disclaimer",
+});
 
 export const hideAdultModeDisclaimer = () => ({
-  type: "hide_adult_mode_disclaimer"
-})
+  type: "hide_adult_mode_disclaimer",
+});
 
 export const showAdultModeVip = () => ({
-  type: "show_adult_mode_vip"
-})
+  type: "show_adult_mode_vip",
+});
 
 export const hideAdultModeVip = () => ({
-  type: "hide_adult_mode_vip"
-})
+  type: "hide_adult_mode_vip",
+});
 
 export const enableAdultMode = () => ({
-  type: "enable_adult_mode"
-})
+  type: "enable_adult_mode",
+});
 
 export const disableAdultMode = () => ({
-  type: "disable_adult_mode"
-})
+  type: "disable_adult_mode",
+});
 
 export const updateLastSeenNavName = (action: string) => ({
-  type: 'set_last_seen_nav_name',
-  payload: action
-})
+  type: "set_last_seen_nav_name",
+  payload: action,
+});
 
 export const acceptOverEighteen = () => ({
-  type: "accept_over_eighteen"
-})
+  type: "accept_over_eighteen",
+});
 
 export const resetOverEighteen = () => ({
-  type: 'reset_over_eighteen'
-})
+  type: "reset_over_eighteen",
+});
 
 export const enableWatchAnytimeAdultMode = () => ({
-  type: 'enable_watch_anytime_adult_mode'
-})
+  type: "enable_watch_anytime_adult_mode",
+});
 
 export const disableWatchAnytimeAdultMode = () => ({
-  type: 'disable_watch_anytime_adult_mode'
-})
-
-
+  type: "disable_watch_anytime_adult_mode",
+});
 
 export const setShowAdultTab = (action: boolean) => ({
   type: "set_show_adult_tab",
@@ -126,9 +124,14 @@ export const setShowAdultTab = (action: boolean) => ({
 });
 
 export const showAdultVipPrivilegeMiniVideoAction = () => ({
-  type: 'show_adult_vip_privilege_mini_video'
-})
+  type: "show_adult_vip_privilege_mini_video",
+});
 
 export const hideAdultVipPrivilegeMiniVideoAction = () => ({
-  type: 'hide_adult_vip_privilege_mini_video'
-})
+  type: "hide_adult_vip_privilege_mini_video",
+});
+
+export const setShowEventSplash = (action: boolean) => ({
+  type: "set_show_event_splash",
+  payload: action,
+});

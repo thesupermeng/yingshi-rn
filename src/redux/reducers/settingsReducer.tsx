@@ -82,6 +82,7 @@ export function settingsReducer(state = initialState, action: SettingsActionType
                 ...state,
                 isOffline: !(action.payload?.isConnected && ((action.payload?.isInternetReachable === true || action.payload?.isInternetReachable === null) ? true : false)),
             }
+            
         default:
             return state
     }

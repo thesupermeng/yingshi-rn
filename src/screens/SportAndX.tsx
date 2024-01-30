@@ -53,6 +53,7 @@ import {
 } from "@redux/actions/screenAction";
 import { BlurView } from "../components/blurView";
 import { YSConfig } from "../../ysConfig";
+import VipEntry from '@static/images/splash/VipEntry.svg';
 interface NavType {
   has_submenu: boolean;
   ids: Array<number>;
@@ -356,23 +357,23 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                 }
               }}
             >
-              <View style={styles.headerContainerRight}>
-                <Image
-                  style={styles.iconStyle}
-                  source={require("@static/images/profile/vipSport.png")}
-                />
+           
+              
                 {Number(userState.userMemberExpired) <=
                   Number(userState.userCurrentTimestamp) ||
                   userState.userToken === "" ? (
-                  <Text
-                    style={{
-                      color: colors.text,
-                      fontSize: 14,
-                    }}
-                  >
-                    成为VIP
-                  </Text>
+                   <> 
+                   <View style={styles.headerContainerRight2}>
+                   <VipEntry height={30} />
+                   </View>
+                   </>
                 ) : (
+                  <>
+                     <View style={styles.headerContainerRight}>
+                  <Image
+                  style={styles.iconStyle}
+                  source={require("@static/images/profile/vipSport.png")}
+                />
                   <Text
                     style={{
                       color: colors.text,
@@ -381,8 +382,10 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                   >
                     VIP {vipRemainingDay}天
                   </Text>
+                  </View>
+                  </>
                 )}
-              </View>
+            
             </TouchableOpacity>
           </View>
           {selectedTab == "sport" &&
@@ -485,6 +488,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderRadius: 30,
     paddingVertical: 5,
+    position: "relative",
+    bottom: 8,
+  },  
+  headerContainerRight2: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(34, 35, 39 , 0.7)",
+    paddingHorizontal: 7,
+    borderRadius: 30,
+    paddingVertical: 1,
     position: "relative",
     bottom: 8,
   },
