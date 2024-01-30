@@ -286,6 +286,7 @@ export function removeVideoFromDownloadThunk(
     }
     dispatch(removeVideoFromDownload(vod, vodSourceId, vodUrlNid))
     dispatch(removeDownloadFromQueue(vod, vodSourceId, vodUrlNid))
+    dispatch(endVideoDownload(vod, vodSourceId, vodUrlNid))
   }
 }
 
@@ -459,11 +460,11 @@ function resumeVideoDownloadThunk(
       concatPartialVideos(
         `${vod.vod_id}-${vodSourceId}-${vodUrlNid}`, 
         ()=>{
-          if (targetEpisode?.progress.percentage < 95){
-            //TODO : can enhance this logic 
-            handleError(); //* download didnt complete 95%, but wifi break, error..
-            return 
-          }
+          // if (targetEpisode?.progress.percentage < 95){
+          //   //TODO : can enhance this logic 
+          //   handleError(); //* download didnt complete 95%, but wifi break, error..
+          //   return 
+          // }
           dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {
             status: DownloadStatus.COMPLETED, 
             sizeInBytes: finalSizeInBytes, 

@@ -18,6 +18,7 @@ import ConfirmationModal from "../../../components/modal/confirmationModal";
 import { Button } from "@rneui/themed";
 import { pauseVideoDownloadThunk, removeVideoFromDownloadThunk, removeVodFromDownloadThunk, restartVideoDownloadThunk, resumeVideoToDownloadThunk } from "@redux/actions/videoDownloadAction";
 import { addVodToHistory, playVod } from "@redux/actions/vodActions";
+import { debounce, throttle } from "lodash";
 
 const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详情">) => {
   const { colors, textVariants, icons, spacing } = useTheme();
@@ -29,6 +30,8 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
 
 
   const download = useAppSelector(({downloadVideoReducer}: RootState) => downloadVideoReducer.downloads.find(dl => dl.vod.vod_id === vodId))
+  const state = useAppSelector(({downloadVideoReducer}: RootState) => downloadVideoReducer)
+
 
   if (!download) return <></>
 
@@ -72,6 +75,29 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
 
   const deleteAlertText = isDeleteAll ? `您是否确定清楚《${download.vod.vod_name}》?` : "您是否确定清除？"
 
+  const handleDownloadCardPress = throttle((item) => {
+    if (isEditing){
+      toggleHistory(item)
+    } else {
+      if (item.status === DownloadStatus.ERROR){
+        dispatch(restartVideoDownloadThunk(download.vod, item.vodSourceId, item.vodUrlNid))
+      } else if (item.status === DownloadStatus.COMPLETED){
+        dispatch(playVod(download.vod, 0, item.vodUrlNid, item.vodSourceId))
+        navigation.navigate('播放', {
+          vod_id: download.vod.vod_id,
+          player_mode: download.vodIsAdult ? 'adult' : 'normal'
+        });
+      } else if (item.status === DownloadStatus.DOWNLOADING) {
+        if (item.ffmpegSession === null || item.ffmpegSession === undefined){
+          return 
+        }
+        dispatch(pauseVideoDownloadThunk(download.vod, item.vodSourceId, item.vodUrlNid))
+      } else if (item.status === DownloadStatus.PAUSED) {
+        dispatch(resumeVideoToDownloadThunk(download.vod, item.vodSourceId, item.vodUrlNid, download.vodIsAdult))
+      }
+    }
+  }, 1000)
+
   const renderItem = useCallback(({item, index}: {item: EpisodeDownloadType, index: number}) => {
     return <View style={styles.downloadItem}>
       {isEditing && (
@@ -95,25 +121,7 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
         progressPercentage={+item.progress.percentage.toFixed(0)}
         status={item.status}
         activeOpacity={isEditing ? 1 : 0.2}
-        onPress={() => {
-          if (isEditing){
-            toggleHistory(item)
-          } else {
-            if (item.status === DownloadStatus.ERROR){
-              dispatch(restartVideoDownloadThunk(download.vod, item.vodSourceId, item.vodUrlNid, download.vodIsAdult))
-            } else if (item.status === DownloadStatus.COMPLETED){
-              dispatch(playVod(download.vod, 0, item.vodUrlNid, item.vodSourceId))
-              navigation.navigate('播放', {
-                vod_id: download.vod.vod_id,
-                player_mode: download.vodIsAdult ? 'adult' : 'normal'
-              });
-            } else if (item.status === DownloadStatus.DOWNLOADING) {
-              dispatch(pauseVideoDownloadThunk(download.vod, item.vodSourceId, item.vodUrlNid))
-            } else if (item.status === DownloadStatus.PAUSED) {
-              dispatch(resumeVideoToDownloadThunk(download.vod, item.vodSourceId, item.vodUrlNid, download.vodIsAdult))
-            }
-          }
-        }}
+        onPress={() => handleDownloadCardPress(item)}
       />
     </View> 
 
@@ -147,14 +155,14 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
         })
     } else if (allButtonText === '全部下载') {
       download.episodes
-      .filter(x => x.status === DownloadStatus.PAUSED || x.status === DownloadStatus.ERROR)
+      .filter(x => x.status === DownloadStatus.PAUSED)
       .forEach(episodeDownload => {
         dispatch(resumeVideoToDownloadThunk(download.vod, episodeDownload.vodSourceId, episodeDownload.vodUrlNid, download.vodIsAdult))
       })
     } else {
 
     }
-  }, [allButtonText])
+  }, [allButtonText, download])
 
   return (
     <ScreenContainer>
