@@ -136,6 +136,7 @@ function startFirstVideoDownload(): ThunkAction<void, RootState, any, DownloadVi
     const state = getState().downloadVideoReducer;
     const firstVod = state.queue.at(0);
     if (!firstVod) return;
+    console.debug('first vod is adult',firstVod.vodIsAdult)
     dispatch(startVideoDownloadThunk(firstVod.vod, firstVod.vodSourceId, firstVod.vodUrlNid, firstVod.vodIsAdult ?? false))
   }
 }
@@ -240,7 +241,9 @@ function startVideoDownloadThunk(
 
     const state = getState().downloadVideoReducer
 
-    const url = getUrlOfVod(vod, vodSourceId, vodUrlNid, vodIsAdult)
+    console.debug(vod, vodSourceId, vodUrlNid, vodIsAdult)
+    const isAdult = state.downloads.find(x => x.vod.vod_id === vod.vod_id)?.vodIsAdult
+    const url = getUrlOfVod(vod, vodSourceId, vodUrlNid, isAdult)
 
     if (!url) return; 
     if (state.currentDownloading.length >= MAX_CONCURRENT_VIDEO_DOWNLOAD) return; 
@@ -496,7 +499,8 @@ function resumeVideoDownloadThunk(
       dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {ffmpegSession: session.getSessionId()}))
     }
 
-    const url = getUrlOfVod(vod, vodSourceId, vodUrlNid, vodIsAdult)
+    const isAdult = initialState.downloads.find(x => x.vod.vod_id === vod.vod_id)?.vodIsAdult
+    const url = getUrlOfVod(vod, vodSourceId, vodUrlNid, isAdult)
 
     if (!url) return  
     if (initialState.currentDownloading.length >= MAX_CONCURRENT_VIDEO_DOWNLOAD) return; 
