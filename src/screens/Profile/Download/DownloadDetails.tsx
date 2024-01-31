@@ -79,8 +79,8 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
 
   const deleteAlertText = isDeleteAll ? `您是否确定清楚《${download.vod.vod_name}》?` : "您是否确定清除？"
 
-  const handleDownloadCardPress = useCallback((item) => 
-    debounce(item => {
+  const handleDownloadCardPress = (item: EpisodeDownloadType) => 
+    debounce(() => {
       if (isEditing) {
         toggleHistory(item);
       } else {
@@ -117,9 +117,7 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
           );
         }
       }
-    }, 200),
-    [isEditing],
-  );
+    }, 200)
 
   const renderItem = useCallback(({item, index}: {item: EpisodeDownloadType, index: number}) => {
     return <View style={styles.downloadItem}>
