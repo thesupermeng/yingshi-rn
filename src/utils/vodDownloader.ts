@@ -174,11 +174,42 @@ export async function concatPartialVideos(id: string, onComplete: any, onError: 
     // maybe need to throw error 
     return 
   }
-  const listTxt = (await RNFetchBlob.fs.ls(inputFolder)).sort((a, b) => {
-    const aNum = +a.replace('.mp4', '')
-    const bNum = +b.replace('.mp4', '')
-    return aNum - bNum
-  }).map(path => `file '${inputFolder}/${path}'`).join('\n')
+
+  let pathList: string[] = [];
+  for (const inputPath of await RNFetchBlob.fs.ls(inputFolder)) {
+    /**
+     * When vid cannot be played, the command below will output "Output file does not contain any stream"
+     * But, if vid can be played, it will take long time to process
+     * So 2s timeout is set, after 2s, if the session output is still empty, assume vid is OK 
+     * 
+     */
+    let sessionOutput = '';
+    FFmpegKit.execute(`-v error -i ${inputFolder}/${inputPath} -f null -`).then(s => {
+      s.getOutput().then(sOutput => {
+        sessionOutput = sOutput
+      })
+    })
+
+    await new Promise(resolve => {
+      setTimeout(() => {
+        if (sessionOutput.includes('Output file does not contain any stream')){
+          //* error in stream.. skip 
+        } else {
+          pathList.push(inputPath)
+        }
+        resolve('')
+      }, 2000);
+    })
+    
+  }
+
+  const listTxt = pathList
+    .sort((a, b) => {
+      const aNum = +a.replace('.mp4', '')
+      const bNum = +b.replace('.mp4', '')
+      return aNum - bNum
+    })
+    .map(path => `file '${inputFolder}/${path}'`).join('\n')
   const listTxtPath = `${inputFolder}/list.txt`
   const outputFolder = `${RNFetchBlob.fs.dirs.DocumentDir}/SavedVideos`
   const ffmpegConcatCommand = `-f concat -safe 0 -i ${listTxtPath} -c copy ${outputFolder}/${id}.mp4`
