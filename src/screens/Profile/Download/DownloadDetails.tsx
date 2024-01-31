@@ -3,7 +3,7 @@ import ScreenContainer from "../../../components/container/screenContainer";
 import { FlatList, Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import TitleWithBackButtonHeader from "../../../components/header/titleWithBackButtonHeader";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import DownloadEpisodeDetailCard from "../../../components/download/downloadEpisodeDetailCard";
 import { DownloadStatus, EpisodeDownloadType } from "@type/vodDownloadTypes";
 import { useAppDispatch, useAppSelector } from "@hooks/hooks";
@@ -19,6 +19,9 @@ import { Button } from "@rneui/themed";
 import { pauseVideoDownloadThunk, removeVideoFromDownloadThunk, removeVodFromDownloadThunk, restartVideoDownloadThunk, resumeVideoToDownloadThunk } from "@redux/actions/videoDownloadAction";
 import { addVodToHistory, playVod } from "@redux/actions/vodActions";
 import { debounce, throttle } from "lodash";
+import FastImage from '../../../components/common/customFastImage'
+
+const LoadingGif = require('@static/images/loading-spinner.gif')
 
 const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详情">) => {
   const { colors, textVariants, icons, spacing } = useTheme();
@@ -27,6 +30,7 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
   const [removeHistory, setRemoveHistory] = useState<EpisodeDownloadType[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const dispatch = useAppDispatch();
+  const [isLoading, setIsLoading] = useState(false);
 
 
   const download = useAppSelector(({downloadVideoReducer}: RootState) => downloadVideoReducer.downloads.find(dl => dl.vod.vod_id === vodId))
@@ -174,7 +178,6 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
         download.episodes
           .filter(x => x.status === DownloadStatus.DOWNLOADING)
           .forEach((episodeDownload) => {
-            console.debug('dispatch')
             if (episodeDownload.ffmpegSession !== null || !(state.currentDownloading.find( x => x.vod.vod_id === download.vod.vod_id && x.vodSourceId === episodeDownload.vodSourceId && x.vodUrlNid === episodeDownload.vodUrlNid))){
               //* if not null or not in currently downloading 
               dispatch(
@@ -201,6 +204,7 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
           });
       } else {
       }
+      setIsLoading(false)
     }, 200),
     [allButtonText, download],
   );
@@ -228,7 +232,13 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
       <View style={styles.contentContainer}>
         <View style={styles.moreControlsContainer}>
           <View style={styles.moreControlsLeftContainer}>
-            <TouchableOpacity style={isButtonVisible ? styles.downloadControlButton : styles.downloadControlButtonHidden} onPress={handleButtonPress} >
+            <TouchableOpacity 
+            style={isButtonVisible ? styles.downloadControlButton : styles.downloadControlButtonHidden} 
+            onPress={() => {
+              setIsLoading(true)
+              handleButtonPress()
+            }} 
+            >
               <Text style={{color: colors.muted, fontSize: 13, }}>
                 {allButtonText}
               </Text>
@@ -255,17 +265,28 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
             <MoreArrow style={{height: icons.sizes.m, width: icons.sizes.m}} color={colors.muted} />
           </Pressable>
         </View>
-        <FlatList
-          data={download.episodes.sort(
-            (a, b) =>
-              a.vodUrlNid - b.vodUrlNid || a.vodSourceId - b.vodSourceId,
-          )}
-          renderItem={renderItem}
-          keyExtractor={item => {
-            return `${download.vod.vod_id}-${item.vodSourceId}-${item.vodUrlNid}`;
-          }}
-          showsVerticalScrollIndicator={false}
-        />
+        <View>
+          <FlatList
+            data={download.episodes.sort(
+              (a, b) =>
+                a.vodUrlNid - b.vodUrlNid || a.vodSourceId - b.vodSourceId,
+            )}
+            renderItem={renderItem}
+            keyExtractor={item => {
+              return `${download.vod.vod_id}-${item.vodSourceId}-${item.vodUrlNid}`;
+            }}
+            showsVerticalScrollIndicator={false}
+          />
+          {isLoading && <View style={styles.loadingOverlayContainer}>
+            <FastImage
+              source={LoadingGif}
+              style={{
+                width: 150, 
+                height: 150, 
+              }}
+            />
+          </View>}
+        </View>
 
         <ConfirmationModal
           onConfirm={() => {
@@ -389,5 +410,14 @@ const styles = StyleSheet.create({
   }, 
   contentContainer: {
     flex: 1
+  }, 
+  loadingOverlayContainer: {
+    flex: 1, 
+    backgroundColor: '#161616A0', 
+    width: '100%',
+    height: '100%',
+    position: 'absolute', 
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 })
