@@ -95,16 +95,16 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
             player_mode: download.vodIsAdult ? 'adult' : 'normal',
           });
         } else if (item.status === DownloadStatus.DOWNLOADING) {
-          // if (item.ffmpegSession === null || item.ffmpegSession === undefined) {
-          //   return;
-          // }
-          dispatch(
-            pauseVideoDownloadThunk(
-              download.vod,
-              item.vodSourceId,
-              item.vodUrlNid,
-            ),
-          );
+            if (item.ffmpegSession !== null || !(state.currentDownloading.find(x => x.vod.vod_id === download.vod.vod_id && x.vodSourceId === item.vodSourceId && x.vodUrlNid === item.vodUrlNid))){
+              //* if not null or not in currently downloading 
+              dispatch(
+                pauseVideoDownloadThunk(
+                  download.vod,
+                  item.vodSourceId,
+                  item.vodUrlNid,
+                ),
+              );
+            }
         } else if (item.status === DownloadStatus.PAUSED) {
           dispatch(
             resumeVideoToDownloadThunk(
@@ -117,7 +117,7 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
         }
       }
     }, 200),
-    [isEditing],
+    [isEditing, state],
   );
 
   const renderItem = useCallback(({item, index}: {item: EpisodeDownloadType, index: number}) => {
@@ -139,7 +139,7 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
       )
       }
       <DownloadEpisodeDetailCard
-        title={`${getEpisodeName(item.vodSourceId, item.vodUrlNid)} - ${getSourceName(item.vodSourceId, download.vodIsAdult)}`}
+        title={`${getEpisodeName(item.vodSourceId, item.vodUrlNid)} - ${getSourceName(item.vodSourceId, download.vodIsAdult)} - (${item.ffmpegSession})`}
         progressPercentage={+item.progress.percentage.toFixed(0)}
         status={item.status}
         activeOpacity={isEditing ? 1 : 0.2}
@@ -147,7 +147,7 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
       />
     </View> 
 
-  }, [removeHistory, isEditing]) 
+  }, [removeHistory, isEditing, state]) 
 
 
   const totalDownloadSize = download.episodes.reduce((prev, curr) => {return prev + curr.sizeInBytes}, 0) / 1024 / 1024 
@@ -173,19 +173,23 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
       if (allButtonText === '全部暂停') {
         download.episodes
           .filter(x => x.status === DownloadStatus.DOWNLOADING)
-          .forEach(episodeDownload => {
-            dispatch(
-              pauseVideoDownloadThunk(
-                download.vod,
-                episodeDownload.vodSourceId,
-                episodeDownload.vodUrlNid,
-              ),
-            );
+          .forEach((episodeDownload) => {
+            console.debug('dispatch')
+            if (episodeDownload.ffmpegSession !== null || !(state.currentDownloading.find( x => x.vod.vod_id === download.vod.vod_id && x.vodSourceId === episodeDownload.vodSourceId && x.vodUrlNid === episodeDownload.vodUrlNid))){
+              //* if not null or not in currently downloading 
+              dispatch(
+                pauseVideoDownloadThunk(
+                  download.vod,
+                  episodeDownload.vodSourceId,
+                  episodeDownload.vodUrlNid,
+                ),
+              );
+            }
           });
       } else if (allButtonText === '全部下载') {
         download.episodes
           .filter(x => x.status === DownloadStatus.PAUSED)
-          .forEach(episodeDownload => {
+          .forEach((episodeDownload) => {
             dispatch(
               resumeVideoToDownloadThunk(
                 download.vod,
