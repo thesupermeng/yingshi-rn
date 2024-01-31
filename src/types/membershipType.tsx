@@ -11,6 +11,7 @@ export interface membershipModel {
 
 export interface promoMembershipModel extends membershipModel {
   promoPrice: string;
+  productType: string;
 }
 
 export interface zfModel {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { View } from "react-native";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import FastImage from "../components/common/customFastImage";
@@ -30,6 +30,7 @@ import NetInfo from "@react-native-community/netinfo";
 import { useAppSelector } from "@hooks/hooks";
 import { RootState } from "@redux/store";
 import { screenModel } from "@type/screenType";
+import { withIAPContext } from "react-native-iap";
 
 export default () => {
   const [loadedAPI, setLoadedAPI] = useState(false);
@@ -40,7 +41,7 @@ export default () => {
     ({ userReducer }) =>
       !(
         Number(userReducer.userMemberExpired) <=
-          Number(userReducer.userCurrentTimestamp) ||
+        Number(userReducer.userCurrentTimestamp) ||
         userReducer.userToken === ""
       )
   );
@@ -52,6 +53,7 @@ export default () => {
   );
 
   const [splashList, setSplashList] = useState({});
+  const EventSpashIAP = useCallback(withIAPContext(EventSpash), []);
 
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener((state: any) => {
@@ -207,7 +209,7 @@ export default () => {
                   <AdsBannerContextProvider>
                     {screenState.showEventSplash == true ? (
                       //show promo splash event
-                      <EventSpash splashList={splashList} />
+                      <EventSpashIAP splashList={splashList} />
                     ) : (
                       <Nav />
                     )}

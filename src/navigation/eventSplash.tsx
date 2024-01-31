@@ -2,15 +2,13 @@ import React, {
   useState,
   useEffect,
   useRef,
-  useCallback,
-  useContext,
 } from "react";
 
-import { FlatList } from "react-native-gesture-handler";
 import SplashCard from "./../../src/components/common/splashCard";
 import {
   Dimensions,
   ImageBackground,
+  Platform,
   ScrollView,
   StyleSheet,
   Text,
@@ -24,14 +22,32 @@ import FastImage from "../../src/components/common/customFastImage";
 import Video from "react-native-video";
 import { promoMembershipModel } from "@type/membershipType";
 import { ProductApi } from "../api/product";
+import { Purchase, PurchaseError, requestPurchase, requestSubscription, useIAP, withIAPContext } from "react-native-iap";
+import { isPlay } from "react-native-iap/src/internal";
+import SpinnerOverlay from "../components/modal/SpinnerOverlay";
+import { RootState } from "@redux/store";
+import { useAppSelector } from "@hooks/hooks";
+import { userModel } from "@type/userType";
+import { APP_NAME_CONST, IAP_TYPE, SUBSCRIPTION_TYPE } from "@utility/constants";
+import { showToast } from "../Sports/utility/toast";
 
 interface Props {
   splashList: any;
 }
 
-export const EventSpash = ({splashList}: Props) => {
+const iap_skus = ['yingshi_vip_1_month', 'yingshi_vip_12_months'];
+const subs_skus = ['vip_1_month_subscription', 'vip_3_month_subscription', 'vip_12_month_subscription'];
 
-
+export const EventSpash = ({ splashList }: Props) => {
+  const {
+    connected,
+    products,
+    currentPurchase,
+    finishTransaction,
+    getProducts,
+    getSubscriptions,
+    subscriptions,
+  } = useIAP();
   const carouselRef = useRef<any>();
   const [width, setWidth] = useState(Dimensions.get("window").width);
   const [height, setHeight] = useState(Dimensions.get("window").height);
@@ -43,6 +59,14 @@ export const EventSpash = ({splashList}: Props) => {
     subscriptionProducts[0]
   );
   const [isFetching, setIsFetching] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [isBtnEnable, setIsBtnEnable] = useState(true);
+  const [receiptBuffer, setReceiptBuffer] = useState(new Map());
+  const userState: userModel = useAppSelector(
+    ({ userReducer }: RootState) => userReducer
+  );
 
   const fetchData = async () => {
     const data = await ProductApi.getNativeList();
@@ -61,7 +85,12 @@ export const EventSpash = ({splashList}: Props) => {
             product.currency.currency_symbol + " " + product.product_price,
           description: product.product_desc,
           subscriptionDays: product.product_value,
-          zfOptions: 'GOOGLE_PAY',
+          zfOptions: {
+            payment_type_code: "GOOGLE_PAY",
+            payment_type_name: "Google Pay",
+            payment_type_icon: "google.png"
+          },
+          productType: IAP_TYPE,
         };
       });
 
@@ -82,6 +111,7 @@ export const EventSpash = ({splashList}: Props) => {
             payment_type_name: "Google Pay",
             payment_type_icon: "google.png"
           },
+          productType: SUBSCRIPTION_TYPE,
         };
       });
 
@@ -91,11 +121,125 @@ export const EventSpash = ({splashList}: Props) => {
     }
   };
 
+  const handleGetGoogleProduct = async () => {
+    try {
+      await getProducts({ skus: iap_skus });
+      await getSubscriptions({ skus: subs_skus });
+    } catch (err) {
+      console.log('error when get product from google play: ', err);
+    }
+  }
+
+  const onPurchase = async () => {
+    setIsBtnEnable(false);
+    try {
+      setIsVisible(true);
+      if (productSelected.productType === 'iap') {
+        await requestPurchase({ skus: [productSelected.productSKU] });
+
+      } else if (productSelected.productType === 'subs') {
+        const subs = subscriptions.find(sub => sub.productId === productSelected.productSKU);
+
+        if (subs) {
+          const offerToken = subs.subscriptionOfferDetails[0].offerToken;
+          await requestSubscription({
+            sku: productSelected.productSKU,
+            ...(offerToken && {
+              subscriptionOffers: [{ sku: productSelected.productSKU, offerToken }],
+            }),
+          });
+        } else {
+          throw new Error('subscription plan not found');
+        }
+      }
+    } catch (err) {
+      setIsVisible(false);
+      if (err instanceof PurchaseError) {
+        console.error("purchasing error: " + err);
+      } else {
+        console.error("handle purchase error: ", err);
+      }
+
+      if (err && err.code == "E_USER_CANCELLED") {
+        console.log("user cancel purchase");
+        setIsBtnEnable(true);
+      } else {
+        // setDialogText(failedDialogText);
+        // setIsDialogOpen(true);
+        showToast('fail to pay: ' + err);
+      }
+    }
+  };
+
+  const saveFinishIAP = async (transStatus: string, error: any) => {
+    const iapTrans = {
+      user_id: userState.userId,
+      product_id: productSelected?.productId,
+      transaction_type: "SUBSCRIBE_VIP",
+      zf_channel: 'GOOGLE_PAY',
+      platform: APP_NAME_CONST + "-" + Platform.OS.toUpperCase(),
+      channel_transaction_id: currentPurchase?.transactionId,
+      transaction_receipt: currentPurchase
+        ? JSON.stringify(currentPurchase.transactionReceipt)
+        : error.toString(),
+      transaction_status: parseInt(transStatus),
+      is_sb: __DEV__ ? 1 : 0,
+    };
+    console.log("iap json posted: ", iapTrans);
+
+    // addLocalTrans(trans);
+
+    const result = await ProductApi.postValidateReceipt(iapTrans);
+
+    console.log("validate iap result");
+    console.log(result);
+    return result.data.data;
+  };
+
+  const saveFinishSubs = async (sub: Purchase) => {
+    const subsTrans = {
+      product_id: productSelected?.productId,
+      payment_channel: 'GOOGLE_PAY',
+      autoRenewingAndroid: sub.autoRenewingAndroid,
+      dataAndroid: sub.dataAndroid,
+      developerPayloadAndroid: sub.developerPayloadAndroid,
+      isAcknowledgedAndroid: sub.isAcknowledgedAndroid,
+      obfuscatedAccountIdAndroid: sub.obfuscatedAccountIdAndroid,
+      obfuscatedProfileIdAndroid: sub.obfuscatedProfileIdAndroid,
+      packageNameAndroid: sub.packageNameAndroid,
+      productId: sub.productId,
+      productIds: sub.productIds,
+      purchaseStateAndroid: sub.purchaseStateAndroid,
+      purchaseToken: sub.purchaseToken,
+      signatureAndroid: sub.signatureAndroid,
+      transactionDate: sub.transactionDate,
+      transactionId: sub.transactionId,
+      transactionReceipt: sub.transactionReceipt,
+    };
+    console.log("subs json posted: ", subsTrans);
+
+    try {
+      const result = await ProductApi.postAndroidSubscriptions(subsTrans);
+      console.log("validate subscription result");
+      console.log(result);
+      return result.success;
+    } catch (err) {
+      console.log('post android subscription error: ', err);
+      return false;
+    }
+  }
+
   useEffect(() => {
     setWidth(Number(Dimensions.get("window").width));
     setHeight(Number(Dimensions.get("window").height));
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (connected) {
+      handleGetGoogleProduct();
+    }
+  }, [connected]);
 
   useEffect(() => {
     if (subscriptionProducts) {
@@ -106,6 +250,82 @@ export const EventSpash = ({splashList}: Props) => {
       defaultProduct && setSelectedProduct(defaultProduct);
     }
   }, [subscriptionProducts]);
+
+  useEffect(() => {
+    const checkCurrentPurchase = async () => {
+      if (currentPurchase) {
+        console.log("-------Current Purchase------------");
+        console.log(currentPurchase);
+        console.log(products.some(product => product.productId === currentPurchase.productId))
+
+        try {
+          if (currentPurchase.transactionReceipt) {
+            const key = currentPurchase.transactionId?.concat("true");
+
+            if (receiptBuffer.has(key)) {
+              console.log(
+                "duplicate transaction id: ",
+                currentPurchase.transactionId
+              );
+              await finishTransaction({
+                purchase: currentPurchase,
+                isConsumable: true,
+              });
+              setIsVisible(false);
+              setIsBtnEnable(true);
+              return;
+            }
+
+            setTimeout(() => setIsVisible(false), 10000);
+
+            const isIAP = products.some(product => product.productId === currentPurchase.productId)
+            const success = isIAP ?
+              await saveFinishIAP("1", "") :
+              await saveFinishSubs(currentPurchase); //validate receipt with server
+
+            setReceiptBuffer((prev) => {
+              const receipt = new Map(prev);
+              receipt.set(currentPurchase.transactionId?.concat(success), success);
+              return receipt;
+            });
+
+            if (success) {
+              console.log('success ', success)
+              await finishTransaction({
+                purchase: currentPurchase,
+                isConsumable: isIAP,
+              });
+
+              showToast('successfully validate and finish the transaction');
+              // setDialogText(successDialogText)
+              // setIsDialogOpen(true);
+              // setIsSuccess(true);
+            } else {
+              await finishTransaction({
+                purchase: currentPurchase,
+                isConsumable: isIAP,
+              });
+
+              showToast('FAILED to validate and finish the transaction');
+              // setDialogText(failedDialogText)
+              // setIsDialogOpen(true);
+              // setIsSuccess(false);
+            }
+          }
+        } catch (error) {
+          if (error instanceof PurchaseError) {
+            console.error("purchasing error: " + error);
+          } else {
+            console.error("current purchase error: " + error);
+          }
+          setIsVisible(false);
+          setIsBtnEnable(true);
+        }
+      }
+    };
+
+    checkCurrentPurchase();
+  }, [currentPurchase, finishTransaction]);
 
   const renderCarousel = ({ item, index }) => {
     return (
@@ -118,6 +338,7 @@ export const EventSpash = ({splashList}: Props) => {
               style={{ flex: 1, height: 400 }}
             > */}
             <View style={styles.container}>
+              <SpinnerOverlay visible={isVisible} />
               <Video
                 source={{
                   // uri: 'https://oss.yingshi.tv/videos/vod/vi/splashbg.mp4',
@@ -216,59 +437,65 @@ export const EventSpash = ({splashList}: Props) => {
                       }}
                     >
                       {oneTimeProducts.map((product, i) => (
-                        <ImageBackground
+                        <TouchableOpacity
                           key={product.productId}
-                          source={i === 0 ?
-                            require("./../../static/images/splash/singleBg.png") :
-                            require("./../../static/images/splash/singleBg2.png")
-                          }
-                          resizeMode="contain"
-                          style={{
-                            height: 100,
-                            width: 160,
-                            paddingTop: 25,
-                            paddingHorizontal: 10,
+                          onPress={() => {
+                            setSelectedProduct(product);
                           }}
                         >
-                          <View style={{ justifyContent: "space-between", gap: 5 }}>
-                            <View>
-                              <Text
-                                style={{
-                                  color: i === 0 ? "#351B04" : '#fff',
-                                  fontSize: 12
-                                }}>
-                                {i === 0 ? '月度套餐' : '年度套餐'}
-                              </Text>
-                            </View>
+                          <ImageBackground
+                            source={i === 0 ?
+                              require("./../../static/images/splash/singleBg.png") :
+                              require("./../../static/images/splash/singleBg2.png")
+                            }
+                            resizeMode="contain"
+                            style={{
+                              height: 100,
+                              width: 160,
+                              paddingTop: 25,
+                              paddingHorizontal: 10,
+                            }}
+                          >
+                            <View style={{ justifyContent: "space-between", gap: 5 }}>
+                              <View>
+                                <Text
+                                  style={{
+                                    color: i === 0 ? "#351B04" : '#fff',
+                                    fontSize: 12
+                                  }}>
+                                  {product.title === '1个月' ? '月度套餐' : '年度套餐'}
+                                </Text>
+                              </View>
 
-                            <View
-                              style={{
-                                justifyContent: "space-between",
-                                flexDirection: "row",
-                                alignItems: "center",
-                              }}
-                            >
-                              <Text
+                              <View
                                 style={{
-                                  color: i === 0 ? "#351B04" : '#fff',
-                                  fontSize: 14,
-                                  fontWeight: "700",
+                                  justifyContent: "space-between",
+                                  flexDirection: "row",
+                                  alignItems: "center",
                                 }}
                               >
-                                {product.title}
-                              </Text>
-                              <Text
-                                style={{
-                                  color: i === 0 ? "#AE845B" : '#fff',
-                                  fontSize: 19,
-                                  fontWeight: "900",
-                                }}
-                              >
-                                {product.localizedPrice}
-                              </Text>
+                                <Text
+                                  style={{
+                                    color: i === 0 ? "#351B04" : '#fff',
+                                    fontSize: 14,
+                                    fontWeight: "700",
+                                  }}
+                                >
+                                  {product.title}
+                                </Text>
+                                <Text
+                                  style={{
+                                    color: i === 0 ? "#AE845B" : '#fff',
+                                    fontSize: 19,
+                                    fontWeight: "900",
+                                  }}
+                                >
+                                  {product.localizedPrice}
+                                </Text>
+                              </View>
                             </View>
-                          </View>
-                        </ImageBackground>
+                          </ImageBackground>
+                        </TouchableOpacity>
                       ))}
                     </View>
                   )}
@@ -380,7 +607,7 @@ export const EventSpash = ({splashList}: Props) => {
                   {/* purchase button  */}
                   <View style={{ paddingHorizontal: 30, width: "100%" }}>
                     <TouchableOpacity
-                    // onPress={onPurchase}
+                      onPress={onPurchase}
                     >
                       <LinearGradient
                         colors={['#D1AC7D', '#B1885F']}
