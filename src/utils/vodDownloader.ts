@@ -3,6 +3,7 @@ import { FFmpegKit, FFmpegKitConfig, FFmpegSession, FFmpegSessionCompleteCallbac
 import { throttle, uniqueId } from "lodash";
 import RNFetchBlob from "rn-fetch-blob";
 import {getVideoDuration} from 'react-native-video-duration'
+console.debug(RNFetchBlob.fs.dirs.DocumentDir)
 
 async function ffmpegDownload(outputPath: string, ffmpegCommand: string ,url: string, onProgress: any, onComplete: any, onError: any, onSessionCreated: any){
   const details = await FFprobeKit.getMediaInformation(url)
@@ -21,6 +22,7 @@ async function ffmpegDownload(outputPath: string, ffmpegCommand: string ,url: st
   }
 
   const handleLog = (async (log: Log) => {
+    console.debug(log.getMessage())
     try {
       const durationFromString = await (log.getMessage()).match(/^\d+:\d+:\d+.*$/)?.pop()
       if (durationFromString){
@@ -172,7 +174,11 @@ export async function concatPartialVideos(id: string, onComplete: any, onError: 
     // maybe need to throw error 
     return 
   }
-  const listTxt = (await RNFetchBlob.fs.ls(inputFolder)).sort().map(path => `file '${inputFolder}/${path}'`).join('\n')
+  const listTxt = (await RNFetchBlob.fs.ls(inputFolder)).sort((a, b) => {
+    const aNum = +a.replace('.mp4', '')
+    const bNum = +b.replace('.mp4', '')
+    return aNum - bNum
+  }).map(path => `file '${inputFolder}/${path}'`).join('\n')
   const listTxtPath = `${inputFolder}/list.txt`
   const outputFolder = `${RNFetchBlob.fs.dirs.DocumentDir}/SavedVideos`
   const ffmpegConcatCommand = `-f concat -safe 0 -i ${listTxtPath} -c copy ${outputFolder}/${id}.mp4`
