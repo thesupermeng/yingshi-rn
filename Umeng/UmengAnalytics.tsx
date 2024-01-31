@@ -1,6 +1,114 @@
 import AnalyticsUtil from './AnalyticsUtil';
 import { CustomEventAnalytic } from './EventAnalytic';
 
+/**
+catalog
+- clicked: 片库-点击量
+- viewed: 片库-浏览量
+
+home_tab
+- clicked: 首页-点击量
+- viewed: 首页-浏览量
+
+play
+- viewed: 播放页-浏览量
+
+play_plays_times
+- viewed: 播放-播放量
+
+play_x
+- viewed: 播放页-X浏览量
+
+play_x_plays_times
+- viewed: 播放-X播放量
+
+Play_share
+- clicked: 播放-分享点击量
+
+playlist
+- clicked: 播单-点击量
+- viewed: 播单-浏览量
+
+playlist_topics
+- clicked: 播单-专题详情点击量
+- viewed: 播单-专题详情浏览量
+
+search_keywords
+- viewed: 搜索-关键词
+
+search_result
+- clicked: 搜索-结果内容点击量
+- viewed: 搜索-结果浏览量
+
+sport
+- clicked: 体育-点击量
+- viewed: 体育-浏览量
+
+sportDetail
+- viewed: 体育详情-浏览量
+
+sportDetail_play_times
+- viewed: 体育详情-播放量
+
+sportDetail_vip_popup
+- clicked: 体育详情-VIP点击次数
+- viewed: 体育详情-VIP弹出次数
+
+userCenter_login_success_times
+- viewed: 个人中心-登录成功数
+
+userCenter_vip_login_success_times
+- viewed: 个人中心-VIP登录成功数
+
+userCenter_view_vip
+- viewed (desc_1: "pay"): 个人中心-付费VIP浏览量
+- viewed (desc_1: "invite"): 个人中心-邀请VIP浏览量
+
+watchAnytime
+- viewed: 随心看-浏览量
+
+watchAnytime_play_times
+- viewed: 随心看-小视频浏览量
+
+watchAnytime_x
+- viewed: 随心看-X浏览量
+
+watchAnytime_x_play_times
+- viewed: 随心看-X小视频浏览量
+
+watchAnytime_view_playlist
+- clicked: 随心看-播单点击量
+
+watchAnytime_view_video
+- clicked: 随心看-正片点击量
+
+
+============================== ads ==============================
+slot_id: 100, 101, 102, 104, 105, 106, 107, 108
+- clicked: 首页-横幅点击量
+- viewed: 首页-横幅浏览量
+
+slot_id: 110
+- clicked: 体育-横幅点击量
+- viewed: 体育-横幅浏览量
+
+slot_id: 111, 112, 113
+- clicked: 视频播放-横幅点击量
+- viewed: 视频播放-横幅浏览量
+
+slot_id: 114
+- clicked: 播放-贴片点击量
+- viewed: 播放-贴片浏览量
+
+
+??? (no slot_id & title api return)
+- 首页-轮播图点击量
+- 首页-轮播图浏览量
+
+??? (no slot_id & title api return)
+- clicked: 随心看-小视频广告点击量
+- viewed: 随心看-小视频广告浏览量
+ */
 enum EventId {
     // Home
     Home_views = 'Home-views',
