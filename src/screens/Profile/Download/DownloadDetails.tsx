@@ -79,7 +79,7 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
 
   const deleteAlertText = isDeleteAll ? `您是否确定清楚《${download.vod.vod_name}》?` : "您是否确定清除？"
 
-  const handleDownloadCardPress = useCallback(
+  const handleDownloadCardPress = useCallback((item) => 
     debounce(item => {
       if (isEditing) {
         toggleHistory(item);
@@ -118,7 +118,7 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
         }
       }
     }, 200),
-    [isEditing, state],
+    [isEditing],
   );
 
   const renderItem = useCallback(({item, index}: {item: EpisodeDownloadType, index: number}) => {
@@ -144,11 +144,11 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
         progressPercentage={+item.progress.percentage.toFixed(0)}
         status={item.status}
         activeOpacity={isEditing ? 1 : 0.2}
-        onPress={() => handleDownloadCardPress(item)}
+        onPress={handleDownloadCardPress(item)}
       />
     </View> 
 
-  }, [removeHistory, isEditing, state]) 
+  }, [removeHistory, isEditing]) 
 
 
   const totalDownloadSize = download.episodes.reduce((prev, curr) => {return prev + curr.sizeInBytes}, 0) / 1024 / 1024 
