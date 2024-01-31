@@ -180,7 +180,7 @@ function SelectDownloadComponent({
         </Text>
       </TouchableOpacity>
     );
-  }, [])
+  }, [ranges])
 
   return (
     <>
