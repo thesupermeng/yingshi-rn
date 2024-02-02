@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { View } from "react-native";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import FastImage from "../components/common/customFastImage";
@@ -30,6 +30,7 @@ import NetInfo from "@react-native-community/netinfo";
 import { useAppSelector } from "@hooks/hooks";
 import { RootState } from "@redux/store";
 import { screenModel } from "@type/screenType";
+import { withIAPContext } from "react-native-iap";
 
 export default () => {
   const [loadedAPI, setLoadedAPI] = useState(false);
@@ -40,18 +41,19 @@ export default () => {
     ({ userReducer }) =>
       !(
         Number(userReducer.userMemberExpired) <=
-          Number(userReducer.userCurrentTimestamp) ||
+        Number(userReducer.userCurrentTimestamp) ||
         userReducer.userToken === ""
       )
   );
 
   const [isConnected, setIsConnected] = useState(true);
 
-  // const screenState: screenModel = useAppSelector(
-  //   ({ screenReducer }: RootState) => screenReducer
-  // );
+  const screenState: screenModel = useAppSelector(
+    ({ screenReducer }: RootState) => screenReducer
+  );
 
-  // const [splashList, setSplashList] = useState({});
+  const [splashList, setSplashList] = useState({});
+  const EventSpashIAP = useCallback(withIAPContext(EventSpash), []);
 
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener((state: any) => {
@@ -66,7 +68,18 @@ export default () => {
   }, []);
 
   const onAppInit = async () => {
- 
+    let splashListTemp = {};
+
+    splashListTemp = await SplashApi.getSplash();
+
+    splashListTemp = splashListTemp.map((item) => {
+      const obj = Object.assign({}, item);
+      obj.url = "https://yingshi.tv" + obj.intro_page_image_url;
+      return obj;
+    });
+    setSplashList(splashListTemp);
+    // console.log("==================== splashList from main ======================")
+    // console.log(splashList)
     await Promise.all([AppsApi.getLocalIpAddress(), AppsApi.getBottomNav()]);
 
     const res = await Api.call(
@@ -155,7 +168,9 @@ export default () => {
       }
     }
   }, [data, isVip]);
-  
+
+  console.log("screenState.showEventSplash");
+  console.log(screenState.showEventSplash);
   return (
     <>
       {isSuper == true ? (
@@ -192,13 +207,12 @@ export default () => {
                 {areaNavConfig == true ? (
                   // B面的B面
                   <AdsBannerContextProvider>
-                    {/* {(screenState.showEventSplash == true && splashList) ? (
+                    {screenState.showEventSplash == true ? (
                       //show promo splash event
-                      <EventSpash splashList={splashList} />
+                      <EventSpashIAP splashList={splashList} />
                     ) : (
                       <Nav />
-                    )} */}
-                    <Nav />
+                    )}
                   </AdsBannerContextProvider>
                 ) : (
                   <NavIos />

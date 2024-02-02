@@ -135,3 +135,6 @@ export const GOOGLE_SINGIN_CLIENT_IOS = '699123886701-ok49jlua77cf0omih5g1u9f1ir
 export const MAX_CONCURRENT_VIDEO_DOWNLOAD = 1
 export const EVENT_CUSTOM_START = true;
 export const EVENT_ANALYSIS_INTERVEL_SECONDS = 300;
+
+export const SUBSCRIPTION_TYPE = 'subs';
+export const IAP_TYPE = 'iap';
