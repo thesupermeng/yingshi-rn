@@ -845,7 +845,6 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   };
 
   const onDownloadVod = (nid: number) => {
-    CPopup.showToast('已加入下载列队，请前往 我的下载 查看下载进度')
     if (adultMode){
       dispatch(addVideoToDownloadThunk(vod, 0, nid, adultMode));
     } else {

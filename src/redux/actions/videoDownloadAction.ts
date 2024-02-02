@@ -136,6 +136,7 @@ function startFirstVideoDownload(): ThunkAction<void, RootState, any, DownloadVi
     const state = getState().downloadVideoReducer;
     const firstVod = state.queue.at(0);
     if (!firstVod) return;
+    console.debug('first vod is adult',firstVod.vodIsAdult)
     dispatch(startVideoDownloadThunk(firstVod.vod, firstVod.vodSourceId, firstVod.vodUrlNid, firstVod.vodIsAdult ?? false))
   }
 }
@@ -145,7 +146,17 @@ function resumeFirstVideoDownload(): ThunkAction<void, RootState, any, DownloadV
     const state = getState().downloadVideoReducer;
     const firstVod = state.queue.at(0);
     if (!firstVod) return;
-    dispatch(resumeVideoDownloadThunk(firstVod.vod, firstVod.vodSourceId, firstVod.vodUrlNid, firstVod.vodIsAdult ?? false))
+    
+    const firstVodProgressPercentage = state.downloads
+      .find(x => x.vod.vod_id === firstVod.vod.vod_id)?.episodes
+      .find(x => x.vodUrlNid === firstVod.vodUrlNid && x.vodSourceId === firstVod.vodSourceId)
+      ?.progress.percentage
+
+    if (firstVodProgressPercentage === 0){
+      dispatch(startVideoDownloadThunk(firstVod.vod, firstVod.vodSourceId, firstVod.vodUrlNid, firstVod.vodIsAdult ?? false))
+    } else {
+      dispatch(resumeVideoDownloadThunk(firstVod.vod, firstVod.vodSourceId, firstVod.vodUrlNid, firstVod.vodIsAdult ?? false))
+    }
   }
 }
 
@@ -185,7 +196,7 @@ function startVideoDownloadThunk(
       const newState = getState().downloadVideoReducer
       if (newState.queue.length === 0) return
       if (newState.currentDownloading.length >= MAX_CONCURRENT_VIDEO_DOWNLOAD) return
-      dispatch(startFirstVideoDownload())
+      dispatch(resumeFirstVideoDownload())
     }
 
     const handleError = () => {
@@ -235,12 +246,26 @@ function startVideoDownloadThunk(
     
 
     const handleSessionCreated = ({session}: {session: FFmpegSession}) => {
-      dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {ffmpegSession: session.getSessionId()}))
+      const currentState = getState().downloadVideoReducer
+      const targetVod = currentState.downloads.find(download => download.vod.vod_id === vod.vod_id)
+      if (!targetVod) return 
+      const targetEpisode = targetVod.episodes.find(episode => episode.vodSourceId === vodSourceId && episode.vodUrlNid === vodUrlNid)
+      if (!targetEpisode) return 
+
+      if (targetEpisode.status === DownloadStatus.PAUSED) { //* ensure session wont run after paused... coz this callback will be called AFTER user rapidly press (pause/start)
+        session.cancel()
+      }
+      else {
+        dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {ffmpegSession: session.getSessionId()}))
+      }
+
+
     }
 
     const state = getState().downloadVideoReducer
 
-    const url = getUrlOfVod(vod, vodSourceId, vodUrlNid, vodIsAdult)
+    const isAdult = state.downloads.find(x => x.vod.vod_id === vod.vod_id)?.vodIsAdult
+    const url = getUrlOfVod(vod, vodSourceId, vodUrlNid, isAdult)
 
     if (!url) return; 
     if (state.currentDownloading.length >= MAX_CONCURRENT_VIDEO_DOWNLOAD) return; 
@@ -392,7 +417,8 @@ export function pauseVideoDownloadThunk (
     console.debug('pause', targetEpisode.ffmpegSession)
 
     await pauseDownloadVod(`${vod.vod_id}-${vodSourceId}-${vodUrlNid}`, () => {})
-    dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {status: DownloadStatus.PAUSED}))
+    dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {status: DownloadStatus.PAUSED, ffmpegSession: null}))
+
 
     const newState = getState().downloadVideoReducer
     if (newState.queue.length === 0) return
@@ -440,7 +466,8 @@ function resumeVideoDownloadThunk(
       const newState = getState().downloadVideoReducer
       if (newState.queue.length === 0) return
       if (newState.currentDownloading.length >= MAX_CONCURRENT_VIDEO_DOWNLOAD) return
-      dispatch(startFirstVideoDownload())
+      dispatch(resumeFirstVideoDownload())
+      
     }
 
     const handleError = () => {
@@ -493,10 +520,22 @@ function resumeVideoDownloadThunk(
     }
 
     const handleSessionCreated = ({session}: {session: FFmpegSession}) => {
-      dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {ffmpegSession: session.getSessionId()}))
+      const currentState = getState().downloadVideoReducer
+      const targetVod = currentState.downloads.find(download => download.vod.vod_id === vod.vod_id)
+      if (!targetVod) return 
+      const targetEpisode = targetVod.episodes.find(episode => episode.vodSourceId === vodSourceId && episode.vodUrlNid === vodUrlNid)
+      if (!targetEpisode) return 
+
+      if (targetEpisode.status === DownloadStatus.PAUSED) { //* ensure session wont run after paused... coz this callback will be called AFTER user rapidly press (pause/start)
+        session.cancel()
+      }
+      else {
+        dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {ffmpegSession: session.getSessionId()}))
+      }
     }
 
-    const url = getUrlOfVod(vod, vodSourceId, vodUrlNid, vodIsAdult)
+    const isAdult = initialState.downloads.find(x => x.vod.vod_id === vod.vod_id)?.vodIsAdult
+    const url = getUrlOfVod(vod, vodSourceId, vodUrlNid, isAdult)
 
     if (!url) return  
     if (initialState.currentDownloading.length >= MAX_CONCURRENT_VIDEO_DOWNLOAD) return; 

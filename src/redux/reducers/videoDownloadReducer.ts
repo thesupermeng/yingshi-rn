@@ -108,7 +108,7 @@ export function downloadVideoReducer(state = initialDownloadVideoState, action: 
     case 'END_VIDEO_DOWNLOAD': {
       return {
         ...state, 
-        currentDownloading: state.currentDownloading.filter(item => !(item.vodSourceId === action.payload.vodSourceId && item.vodUrlNid === action.payload.vodUrlNid)), 
+        currentDownloading: state.currentDownloading.filter(item => !(item.vodSourceId === action.payload.vodSourceId && item.vodUrlNid === action.payload.vodUrlNid && item.vod.vod_id === action.payload.vod.vod_id)), 
       }
     }
 
@@ -122,7 +122,7 @@ export function downloadVideoReducer(state = initialDownloadVideoState, action: 
     case "REMOVE_DOWNLOAD_FROM_QUEUE": {
       return {
         ...state, 
-        queue: state.queue.filter(item => !(item.vodSourceId === action.payload.vodSourceId && item.vodUrlNid === action.payload.vodUrlNid))
+        queue: state.queue.filter(item => !(item.vodSourceId === action.payload.vodSourceId && item.vodUrlNid === action.payload.vodUrlNid && item.vod.vod_id === action.payload.vod.vod_id))
       }
     }
 

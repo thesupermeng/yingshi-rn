@@ -201,6 +201,8 @@ const styles = StyleSheet.create({
     color: '#1D2023', 
     fontSize: 12, 
     fontWeight: '500', 
+    height: 16, 
+    lineHeight: 16
   },
   checkbox: {
     padding: 5,

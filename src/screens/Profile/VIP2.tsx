@@ -754,4 +754,4 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderColor:'red',
     borderWidth:2,
-});
+}});
