@@ -59,7 +59,7 @@ import SplashCard from "../../components/common/splashCard";
 import Carousel from "react-native-reanimated-carousel";
 import { showToast } from "../../Sports/utility/toast";
 import CloseButton from "@static/images/close_icon.svg";
-
+import LottieView from "lottie-react-native";
 const iap_skus = ['yingshi_vip_1_month', 'yingshi_vip_12_months'];
 const subs_skus = ['vip_1_month_subscription', 'vip_3_month_subscription', 'vip_12_month_subscription'];
 
@@ -419,6 +419,30 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
       <>
         {(index === screenState.showEventSplashData.length - 1 || isLastShown || screenState.showEventSplashData.length == 0) ? (
           <>
+
+{(isFetching) && (
+            <View
+              style={{
+                ...styles.loading,
+                flex: 1,
+                alignItems: "center",
+                justifyContent: "center",
+                position: "absolute",
+                left: "50%",
+                marginLeft: -40, // Half of the element's width
+              }}
+            >
+              {
+                <FastImage
+                  style={{ height: 80, width: 80 }}
+                  source={require("@static/images/loading-spinner.gif")}
+                  resizeMode={"contain"}
+                />
+              }
+            </View>
+          )}
+
+{(!isFetching) && (
             <View style={styles.container}>
               <SpinnerOverlay visible={isVisible} />
               <VipDialog
@@ -427,6 +451,15 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                 isSuccess={isSuccess}
                 handleConfirm={handleConfirm}
                 dialogText={dialogText}
+              />
+                 <LottieView
+                style={styles.video}
+                source={{
+                  uri:
+                    "https://lottie.host/c291f0cc-ae75-4f88-b6a8-61fefe455da5/trOs1RgYsK.json",
+                }}
+                autoPlay
+                loop
               />
               <LinearGradient
                 colors={["rgba(20, 22, 26, 0)", "#14161A"]} // Transparent to #14161A
@@ -437,7 +470,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                 <View
                   style={{
                     flex: 1,
-                    paddingTop: 40,
+                    paddingTop: 25,
                     justifyContent: "flex-start",
                     alignItems: "center",
                     gap: -40,
@@ -775,6 +808,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                 </View>
               </LinearGradient>
             </View>
+             )}
           </>
         ) : (
           <>
@@ -842,6 +876,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center", // Center the content vertically
     justifyContent: "flex-start", // Start the content from the top
+    flexDirection:'column-reverse'
   },
   video: {
     position: "absolute", // Position the video absolutely within the container
