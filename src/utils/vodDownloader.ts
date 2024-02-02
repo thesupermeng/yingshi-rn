@@ -1,8 +1,9 @@
 import { VodType } from "@type/ajaxTypes";
-import { FFmpegKit, FFmpegKitConfig, FFmpegSession, FFprobeKit, Level, Log, MediaInformationSession, Statistics } from "ffmpeg-kit-react-native";
+import { FFmpegKit, FFmpegKitConfig, FFmpegSession, FFmpegSessionCompleteCallback, FFprobeKit, Level, Log, MediaInformationSession, Statistics } from "ffmpeg-kit-react-native";
 import { throttle, uniqueId } from "lodash";
 import RNFetchBlob from "rn-fetch-blob";
 import {getVideoDuration} from 'react-native-video-duration'
+console.debug(RNFetchBlob.fs.dirs.DocumentDir)
 
 async function ffmpegDownload(outputPath: string, ffmpegCommand: string ,url: string, onProgress: any, onComplete: any, onError: any, onSessionCreated: any){
   const details = await FFprobeKit.getMediaInformation(url)
@@ -21,6 +22,7 @@ async function ffmpegDownload(outputPath: string, ffmpegCommand: string ,url: st
   }
 
   const handleLog = (async (log: Log) => {
+    console.debug(log.getMessage())
     try {
       const durationFromString = await (log.getMessage()).match(/^\d+:\d+:\d+.*$/)?.pop()
       if (durationFromString){
@@ -143,13 +145,26 @@ export async function resumeDownloadVod(id: string, url:string, onProgress: any,
 
   const outputFolderFiles = await RNFetchBlob.fs.ls(outputFolder)
   let startTime = 0
-  for (const file of outputFolderFiles) {
-    startTime += (await getVideoDuration(`file://${outputFolder}/${file}`)).valueOf()
+  try{
+    for (const file of outputFolderFiles) {
+      startTime += (await getVideoDuration(`file://${outputFolder}/${file}`)).valueOf()
+    }
+    
+    const ffmpegCommand = `-ss ${startTime} -i ${url} -acodec copy -bsf:a aac_adtstoasc -vcodec copy ${outputFolder}/${segmentName}`
+  
+    ffmpegDownload(
+      `${outputFolder}/${segmentName}`, 
+      ffmpegCommand, 
+      url, 
+      onProgress, 
+      onComplete, 
+      onError, 
+      onSessionCreated
+    )
+  } catch {
+    onError()
   }
 
-  const ffmpegCommand = `-ss ${startTime} -i ${url} -acodec copy -bsf:a aac_adtstoasc -vcodec copy ${outputFolder}/${segmentName}`
-
-  ffmpegDownload(`${outputFolder}/${segmentName}`, ffmpegCommand, url, onProgress, onComplete, onError, onSessionCreated)
 }
 
 export async function concatPartialVideos(id: string, onComplete: any, onError: any,) {
@@ -159,7 +174,11 @@ export async function concatPartialVideos(id: string, onComplete: any, onError: 
     // maybe need to throw error 
     return 
   }
-  const listTxt = (await RNFetchBlob.fs.ls(inputFolder)).map(path => `file '${inputFolder}/${path}'`).join('\n')
+  const listTxt = (await RNFetchBlob.fs.ls(inputFolder)).sort((a, b) => {
+    const aNum = +a.replace('.mp4', '')
+    const bNum = +b.replace('.mp4', '')
+    return aNum - bNum
+  }).map(path => `file '${inputFolder}/${path}'`).join('\n')
   const listTxtPath = `${inputFolder}/list.txt`
   const outputFolder = `${RNFetchBlob.fs.dirs.DocumentDir}/SavedVideos`
   const ffmpegConcatCommand = `-f concat -safe 0 -i ${listTxtPath} -c copy ${outputFolder}/${id}.mp4`
@@ -167,14 +186,20 @@ export async function concatPartialVideos(id: string, onComplete: any, onError: 
   await RNFetchBlob.fs.mkdir(outputFolder).catch(err => {})
 
   const handleComplete = async () => {
-    RNFetchBlob.fs.unlink(inputFolder)
-    onComplete(); 
+    try{
+      RNFetchBlob.fs.unlink(inputFolder)
+      onComplete(); 
+    } catch (e) {
+      onError()
+      // TODO : Enhancement: can view what are the logs, identify error string, trigger on error. Right now technically will not have errors
+    }
+    
   }
 
   FFmpegKit.executeAsync(
     ffmpegConcatCommand, 
     handleComplete, 
-    () => {}, 
-    () => {}
+    () => {}, //* onLog, if wan do error checking probably is here
+    () => {} //* onStat, probably no use.. 
   )
 }

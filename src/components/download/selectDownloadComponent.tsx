@@ -227,9 +227,14 @@ function SelectDownloadComponent({
               <TouchableOpacity
                 key={`expand-${idx}`}
                 onPress={() => {
-                  onDownload(ep.nid);
+                  if (!isVip){
+                    handleClose();
+                    setShowAdOverlay(true);
+                  } else {
+                    onDownload(ep.nid);
+                  }
                 }}
-                disabled={!isVip || ep.isDownloaded || ep.isDownloading}
+                disabled={ep.isDownloaded || ep.isDownloading}
               >
                 <View
                   style={{

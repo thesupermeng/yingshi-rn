@@ -3,20 +3,25 @@ import ScreenContainer from "../../../components/container/screenContainer";
 import { FlatList, Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import TitleWithBackButtonHeader from "../../../components/header/titleWithBackButtonHeader";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import DownloadEpisodeDetailCard from "../../../components/download/downloadEpisodeDetailCard";
 import { DownloadStatus, EpisodeDownloadType } from "@type/vodDownloadTypes";
 import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import { RootState } from "@redux/store";
 import MoreArrow from '@static/images/more_arrow.svg'
-import DownloadIconYellow from '@static/images/download_yellow.svg'
+import DownloadYellowMiniIcon from '@static/images/download_yellow_mini.svg'
+import DownloadPauseYellowMiniIcon from '@static/images/download_pause_yellow_mini.svg'
 import { VodType } from "@type/ajaxTypes";
 import CheckBoxSelected from "@static/images/checkbox_selected.svg";
 import CheckBoxUnselected from "@static/images/checkbox_unselected.svg";
 import ConfirmationModal from "../../../components/modal/confirmationModal";
 import { Button } from "@rneui/themed";
-import { pauseVideoDownloadThunk, removeVideoFromDownloadThunk, removeVodFromDownloadThunk, restartVideoDownloadThunk, resumeVideoDownloadThunk } from "@redux/actions/videoDownloadAction";
+import { pauseVideoDownloadThunk, removeVideoFromDownloadThunk, removeVodFromDownloadThunk, restartVideoDownloadThunk, resumeVideoToDownloadThunk } from "@redux/actions/videoDownloadAction";
 import { addVodToHistory, playVod } from "@redux/actions/vodActions";
+import { debounce, throttle } from "lodash";
+import FastImage from '../../../components/common/customFastImage'
+
+const LoadingGif = require('@static/images/loading-spinner.gif')
 
 const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详情">) => {
   const { colors, textVariants, icons, spacing } = useTheme();
@@ -25,9 +30,12 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
   const [removeHistory, setRemoveHistory] = useState<EpisodeDownloadType[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const dispatch = useAppDispatch();
+  const [isLoading, setIsLoading] = useState(false);
 
 
   const download = useAppSelector(({downloadVideoReducer}: RootState) => downloadVideoReducer.downloads.find(dl => dl.vod.vod_id === vodId))
+  const state = useAppSelector(({downloadVideoReducer}: RootState) => downloadVideoReducer)
+
 
   if (!download) return <></>
 
@@ -71,6 +79,48 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
 
   const deleteAlertText = isDeleteAll ? `您是否确定清楚《${download.vod.vod_name}》?` : "您是否确定清除？"
 
+  const handleDownloadCardPress = useCallback(
+    debounce(item => {
+      if (isEditing) {
+        toggleHistory(item);
+      } else {
+        if (item.status === DownloadStatus.ERROR) {
+          dispatch(
+            restartVideoDownloadThunk(
+              download.vod,
+              item.vodSourceId,
+              item.vodUrlNid,
+            ),
+          );
+        } else if (item.status === DownloadStatus.COMPLETED) {
+          dispatch(playVod(download.vod, 0, item.vodUrlNid, item.vodSourceId));
+          navigation.navigate('播放', {
+            vod_id: download.vod.vod_id,
+            player_mode: download.vodIsAdult ? 'adult' : 'normal',
+          });
+        } else if (item.status === DownloadStatus.DOWNLOADING) {
+          dispatch(
+            pauseVideoDownloadThunk(
+              download.vod,
+              item.vodSourceId,
+              item.vodUrlNid,
+            ),
+          );
+        } else if (item.status === DownloadStatus.PAUSED) {
+          dispatch(
+            resumeVideoToDownloadThunk(
+              download.vod,
+              item.vodSourceId,
+              item.vodUrlNid,
+              download.vodIsAdult,
+            ),
+          );
+        }
+      }
+    }, 200),
+    [isEditing, state],
+  );
+
   const renderItem = useCallback(({item, index}: {item: EpisodeDownloadType, index: number}) => {
     return <View style={styles.downloadItem}>
       {isEditing && (
@@ -94,32 +144,64 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
         progressPercentage={+item.progress.percentage.toFixed(0)}
         status={item.status}
         activeOpacity={isEditing ? 1 : 0.2}
-        onPress={() => {
-          if (isEditing){
-            toggleHistory(item)
-          } else {
-            if (item.status === DownloadStatus.ERROR){
-              dispatch(restartVideoDownloadThunk(download.vod, item.vodSourceId, item.vodUrlNid))
-            } else if (item.status === DownloadStatus.COMPLETED){
-              dispatch(playVod(download.vod, 0, item.vodUrlNid, item.vodSourceId))
-              navigation.navigate('播放', {
-                vod_id: download.vod.vod_id,
-                player_mode: download.vodIsAdult ? 'adult' : 'normal'
-              });
-            } else if (item.status === DownloadStatus.DOWNLOADING) {
-              dispatch(pauseVideoDownloadThunk(download.vod, item.vodSourceId, item.vodUrlNid))
-            } else if (item.status === DownloadStatus.PAUSED) {
-              dispatch(resumeVideoDownloadThunk(download.vod, item.vodSourceId, item.vodUrlNid))
-            }
-          }
-        }}
+        onPress={() => handleDownloadCardPress(item)}
       />
     </View> 
 
-  }, [removeHistory, isEditing]) 
+  }, [removeHistory, isEditing, state]) 
+
 
   const totalDownloadSize = download.episodes.reduce((prev, curr) => {return prev + curr.sizeInBytes}, 0) / 1024 / 1024 
+  
+  let allButtonText = ''
+  let isButtonVisible = false
+  let buttonIcon = <DownloadPauseYellowMiniIcon/>
+  if (download.episodes.every(x => x.status === DownloadStatus.COMPLETED)){
+    isButtonVisible = false
+  } else if (download.episodes.some(x => x.status === DownloadStatus.DOWNLOADING)){
+    isButtonVisible = true
+    allButtonText = "全部暂停"
+    buttonIcon = <DownloadPauseYellowMiniIcon/>
+  } else if (download.episodes.every(x => [DownloadStatus.PAUSED, DownloadStatus.ERROR, DownloadStatus.COMPLETED].includes(x.status))){
+    isButtonVisible = true
+    allButtonText = "全部下载"
+    buttonIcon = <DownloadYellowMiniIcon/>
+  }
 
+
+  const handleButtonPress = useCallback(
+    debounce(() => {
+      if (allButtonText === '全部暂停') {
+        download.episodes
+          .filter(x => x.status === DownloadStatus.DOWNLOADING)
+          .forEach((episodeDownload) => {
+            dispatch(
+              pauseVideoDownloadThunk(
+                download.vod,
+                episodeDownload.vodSourceId,
+                episodeDownload.vodUrlNid,
+              ),
+            );
+          });
+      } else if (allButtonText === '全部下载') {
+        download.episodes
+          .filter(x => x.status === DownloadStatus.PAUSED)
+          .forEach((episodeDownload) => {
+            dispatch(
+              resumeVideoToDownloadThunk(
+                download.vod,
+                episodeDownload.vodSourceId,
+                episodeDownload.vodUrlNid,
+                download.vodIsAdult,
+              ),
+            );
+          });
+      } else {
+      }
+      setIsLoading(false)
+    }, 200),
+    [allButtonText, download],
+  );
 
   return (
     <ScreenContainer>
@@ -144,12 +226,18 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
       <View style={styles.contentContainer}>
         <View style={styles.moreControlsContainer}>
           <View style={styles.moreControlsLeftContainer}>
-            {/* <Pressable style={styles.downloadControlButton}>
+            <TouchableOpacity 
+            style={isButtonVisible ? styles.downloadControlButton : styles.downloadControlButtonHidden} 
+            onPress={() => {
+              setIsLoading(true)
+              handleButtonPress()
+            }} 
+            >
               <Text style={{color: colors.muted, fontSize: 13, }}>
-                全部下载
+                {allButtonText}
               </Text>
-              <DownloadIconYellow/>
-            </Pressable> */}
+              {buttonIcon}
+            </TouchableOpacity>
             <Text
               style={{
                 color: colors.muted,
@@ -171,17 +259,28 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
             <MoreArrow style={{height: icons.sizes.m, width: icons.sizes.m}} color={colors.muted} />
           </Pressable>
         </View>
-        <FlatList
-          data={download.episodes.sort(
-            (a, b) =>
-              a.vodUrlNid - b.vodUrlNid || a.vodSourceId - b.vodSourceId,
-          )}
-          renderItem={renderItem}
-          keyExtractor={item => {
-            return `${download.vod.vod_id}-${item.vodSourceId}-${item.vodUrlNid}`;
-          }}
-          showsVerticalScrollIndicator={false}
-        />
+        <View>
+          <FlatList
+            data={download.episodes.sort(
+              (a, b) =>
+                a.vodUrlNid - b.vodUrlNid || a.vodSourceId - b.vodSourceId,
+            )}
+            renderItem={renderItem}
+            keyExtractor={item => {
+              return `${download.vod.vod_id}-${item.vodSourceId}-${item.vodUrlNid}`;
+            }}
+            showsVerticalScrollIndicator={false}
+          />
+          {isLoading && <View style={styles.loadingOverlayContainer}>
+            <FastImage
+              source={LoadingGif}
+              style={{
+                width: 150, 
+                height: 150, 
+              }}
+            />
+          </View>}
+        </View>
 
         <ConfirmationModal
           onConfirm={() => {
@@ -279,6 +378,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row', 
     alignContent: 'center', 
   }, 
+  downloadControlButtonHidden: {
+    display: "none"
+  },
   checkbox: {
     padding: 5,
   },
@@ -302,5 +404,14 @@ const styles = StyleSheet.create({
   }, 
   contentContainer: {
     flex: 1
+  }, 
+  loadingOverlayContainer: {
+    flex: 1, 
+    backgroundColor: '#161616A0', 
+    width: '100%',
+    height: '100%',
+    position: 'absolute', 
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 })
