@@ -285,17 +285,15 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                             paddingTop: 25,
                             paddingHorizontal: 10, */}
                <LinearGradient
-                        colors={["#D1AC7D", "#B1885F"]}
+                        colors= {i === 0 ? ["#FCF6F2", "#FCF6F2"] : ["#D1AC7D", "#B1885F"]}
                         locations={[0.0, 0.99]}
                         style={{
                           marginTop:20,
-                          height: 80,
+                          height: 70,
                           width: 160,
-                          paddingTop: 15,
+                          paddingTop: 10,
                           paddingHorizontal: 10,
-                          borderRadius: 8,
-                          borderColor:'red',
-                          borderWidth:2
+                        
                         }}
                       >
                           <View
@@ -752,5 +750,8 @@ const styles = StyleSheet.create({
     color: "#9C9C9C",
   },
   cardContainer2:{},
-  cardContainerActive2:{},
+  cardContainerActive2:{
+    borderRadius: 8,
+    borderColor:'red',
+    borderWidth:2,
 });
