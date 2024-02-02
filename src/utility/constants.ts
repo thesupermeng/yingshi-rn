@@ -135,7 +135,7 @@ export const GOOGLE_SINGIN_CLIENT_WEB = '699123886701-lg76r3gei261u8lip8jp7qjlt4
 export const GOOGLE_SINGIN_CLIENT_IOS = '699123886701-ok49jlua77cf0omih5g1u9f1irflnrq3.apps.googleusercontent.com';
 
 export const MAX_CONCURRENT_VIDEO_DOWNLOAD = 1
-export const EVENT_CUSTOM_START = true;
+export const EVENT_CUSTOM_ON = true;
 export const EVENT_ANALYSIS_INTERVEL_SECONDS = 300;
 
 export const SUBSCRIPTION_TYPE = 'subs';
@@ -143,3 +143,9 @@ export const IAP_TYPE = 'iap';
 
 export const CHAT_SEND_COOLDOWN = 3;
 export const CHAT_BOX_MAX_ITEM = 150;
+
+export const VIP_PROMOTION_INTERVEL_SECONDS = 60; // second
+export const VIP_PROMOTION_COUNTDOWN_MINUTE = 300; // minute
+export const VIP_PROMOTION_PURCHASE_MIN = 25000;
+export const VIP_PROMOTION_PURCHASE_MAX = 50000;
+export const VIP_PROMOTION_PURCHASE_RANDOM = 10000;

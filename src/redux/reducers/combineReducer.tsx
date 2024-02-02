@@ -14,6 +14,7 @@ import { userReducer } from './userReducer';
 import { screenReducer } from './screenReducer';
 import { downloadVideoReducer } from './videoDownloadReducer';
 import { chatReducer } from './chatReducer';
+import { backgroundReducer } from './backgroundReducer';
 const appReducer = combineReducers({
   themeReducer,
   vodPlaylistReducer,
@@ -26,6 +27,7 @@ const appReducer = combineReducers({
   screenReducer,
   downloadVideoReducer,
   chatReducer,
+  backgroundReducer,
 });
 
 export default (state: any, action: any) => {
