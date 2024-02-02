@@ -724,7 +724,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                         contentContainerStyle={styles.scrollViewContent}
                         data={subscriptionProducts}
                         keyExtractor={(item) => item.productId}
-                        renderItem={({ item }) => (
+                        renderItem={({ item , index }) => (
                           <TouchableOpacity
                             style={
                               productSelected === item
@@ -739,7 +739,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                               <View
                                 style={{
                                   ...styles.redIndicator,
-                                  opacity: productSelected === item ? 1 : 0,
+                                  opacity: index === 0 ? 1 : 0,
                                 }}
                               >
                                 <Text style={styles.hotText}>最多人选择</Text>
