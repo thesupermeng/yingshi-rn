@@ -3,7 +3,7 @@ import ScreenContainer from "../../../components/container/screenContainer";
 import { FlatList, Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import TitleWithBackButtonHeader from "../../../components/header/titleWithBackButtonHeader";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import DownloadEpisodeDetailCard from "../../../components/download/downloadEpisodeDetailCard";
 import { DownloadStatus, EpisodeDownloadType } from "@type/vodDownloadTypes";
 import { useAppDispatch, useAppSelector } from "@hooks/hooks";
@@ -19,6 +19,9 @@ import { Button } from "@rneui/themed";
 import { pauseVideoDownloadThunk, removeVideoFromDownloadThunk, removeVodFromDownloadThunk, restartVideoDownloadThunk, resumeVideoToDownloadThunk } from "@redux/actions/videoDownloadAction";
 import { addVodToHistory, playVod } from "@redux/actions/vodActions";
 import { debounce, throttle } from "lodash";
+import FastImage from '../../../components/common/customFastImage'
+
+const LoadingGif = require('@static/images/loading-spinner.gif')
 
 const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详情">) => {
   const { colors, textVariants, icons, spacing } = useTheme();
@@ -27,6 +30,7 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
   const [removeHistory, setRemoveHistory] = useState<EpisodeDownloadType[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const dispatch = useAppDispatch();
+  const [isLoading, setIsLoading] = useState(false);
 
 
   const download = useAppSelector(({downloadVideoReducer}: RootState) => downloadVideoReducer.downloads.find(dl => dl.vod.vod_id === vodId))
@@ -75,8 +79,11 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
 
   const deleteAlertText = isDeleteAll ? `您是否确定清楚《${download.vod.vod_name}》?` : "您是否确定清除？"
 
-  const handleDownloadCardPress = useCallback(
-    debounce(item => {
+  let resumeTimeout:any; 
+
+  const handleDownloadCardPress = (item: EpisodeDownloadType) => 
+    debounce(() => {
+      clearTimeout(resumeTimeout)
       if (isEditing) {
         toggleHistory(item);
       } else {
@@ -95,9 +102,6 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
             player_mode: download.vodIsAdult ? 'adult' : 'normal',
           });
         } else if (item.status === DownloadStatus.DOWNLOADING) {
-          if (item.ffmpegSession === null || item.ffmpegSession === undefined) {
-            return;
-          }
           dispatch(
             pauseVideoDownloadThunk(
               download.vod,
@@ -106,19 +110,19 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
             ),
           );
         } else if (item.status === DownloadStatus.PAUSED) {
-          dispatch(
-            resumeVideoToDownloadThunk(
-              download.vod,
-              item.vodSourceId,
-              item.vodUrlNid,
-              download.vodIsAdult,
-            ),
-          );
+          resumeTimeout = setTimeout(() => {
+            dispatch(
+              resumeVideoToDownloadThunk(
+                download.vod,
+                item.vodSourceId,
+                item.vodUrlNid,
+                download.vodIsAdult,
+              ),
+            );
+          }, 500);
         }
       }
-    }, 200),
-    [],
-  );
+    }, 200)
 
   const renderItem = useCallback(({item, index}: {item: EpisodeDownloadType, index: number}) => {
     return <View style={styles.downloadItem}>
@@ -143,7 +147,7 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
         progressPercentage={+item.progress.percentage.toFixed(0)}
         status={item.status}
         activeOpacity={isEditing ? 1 : 0.2}
-        onPress={() => handleDownloadCardPress(item)}
+        onPress={handleDownloadCardPress(item)}
       />
     </View> 
 
@@ -173,7 +177,7 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
       if (allButtonText === '全部暂停') {
         download.episodes
           .filter(x => x.status === DownloadStatus.DOWNLOADING)
-          .forEach(episodeDownload => {
+          .forEach((episodeDownload) => {
             dispatch(
               pauseVideoDownloadThunk(
                 download.vod,
@@ -185,7 +189,7 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
       } else if (allButtonText === '全部下载') {
         download.episodes
           .filter(x => x.status === DownloadStatus.PAUSED)
-          .forEach(episodeDownload => {
+          .forEach((episodeDownload) => {
             dispatch(
               resumeVideoToDownloadThunk(
                 download.vod,
@@ -197,6 +201,7 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
           });
       } else {
       }
+      setIsLoading(false)
     }, 200),
     [allButtonText, download],
   );
@@ -224,7 +229,13 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
       <View style={styles.contentContainer}>
         <View style={styles.moreControlsContainer}>
           <View style={styles.moreControlsLeftContainer}>
-            <TouchableOpacity style={isButtonVisible ? styles.downloadControlButton : styles.downloadControlButtonHidden} onPress={handleButtonPress} >
+            <TouchableOpacity 
+            style={isButtonVisible ? styles.downloadControlButton : styles.downloadControlButtonHidden} 
+            onPress={() => {
+              setIsLoading(true)
+              handleButtonPress()
+            }} 
+            >
               <Text style={{color: colors.muted, fontSize: 13, }}>
                 {allButtonText}
               </Text>
@@ -251,17 +262,28 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
             <MoreArrow style={{height: icons.sizes.m, width: icons.sizes.m}} color={colors.muted} />
           </Pressable>
         </View>
-        <FlatList
-          data={download.episodes.sort(
-            (a, b) =>
-              a.vodUrlNid - b.vodUrlNid || a.vodSourceId - b.vodSourceId,
-          )}
-          renderItem={renderItem}
-          keyExtractor={item => {
-            return `${download.vod.vod_id}-${item.vodSourceId}-${item.vodUrlNid}`;
-          }}
-          showsVerticalScrollIndicator={false}
-        />
+        <View style={{flex: 1}}>
+          <FlatList
+            data={download.episodes.sort(
+              (a, b) =>
+                a.vodUrlNid - b.vodUrlNid || a.vodSourceId - b.vodSourceId,
+            )}
+            renderItem={renderItem}
+            keyExtractor={item => {
+              return `${download.vod.vod_id}-${item.vodSourceId}-${item.vodUrlNid}`;
+            }}
+            showsVerticalScrollIndicator={false}
+          />
+          {isLoading && <View style={styles.loadingOverlayContainer}>
+            <FastImage
+              source={LoadingGif}
+              style={{
+                width: 150, 
+                height: 150, 
+              }}
+            />
+          </View>}
+        </View>
 
         <ConfirmationModal
           onConfirm={() => {
@@ -385,5 +407,14 @@ const styles = StyleSheet.create({
   }, 
   contentContainer: {
     flex: 1
+  }, 
+  loadingOverlayContainer: {
+    flex: 1, 
+    backgroundColor: '#161616A0', 
+    width: '100%',
+    height: '100%',
+    position: 'absolute', 
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 })
