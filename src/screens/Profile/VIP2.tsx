@@ -872,7 +872,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
         data={screenState.showEventSplashData}
         scrollAnimationDuration={100}
         onScrollBegin={() => {}}
-        enabled={isLastShown == false}
+        enabled={(  screenState.showEventSplash !== false  )}
         loop={false}
         onSnapToItem={(index) => {
           setActiveIndex(index);
