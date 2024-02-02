@@ -3,7 +3,6 @@ import { FFmpegKit, FFmpegKitConfig, FFmpegSession, FFmpegSessionCompleteCallbac
 import { throttle, uniqueId } from "lodash";
 import RNFetchBlob from "rn-fetch-blob";
 import {getVideoDuration} from 'react-native-video-duration'
-console.debug(RNFetchBlob.fs.dirs.DocumentDir)
 import { fetch } from "@react-native-community/netinfo";
 
 async function ffmpegDownload(outputPath: string, ffmpegCommand: string ,url: string, onProgress: any, onComplete: any, onError: any, onSessionCreated: any){
@@ -29,7 +28,6 @@ async function ffmpegDownload(outputPath: string, ffmpegCommand: string ,url: st
   }
 
   const handleLog = (async (log: Log) => {
-    console.debug(log.getMessage())
     try {
       const durationFromString = await (log.getMessage()).match(/^\d+:\d+:\d+.*$/)?.pop()
       if (durationFromString){
