@@ -233,7 +233,11 @@ function SelectDownloadComponent({
                     setShowAdOverlay(true);
                   } else {
                     onDownload(ep.nid);
-                    Toast.info('已加入下载列队，请前往 我的下载 查看下载进度', 1)
+                    Toast.info({
+                      content: '已加入下载列队，请前往 我的下载 查看下载进度', 
+                      duration: 1, 
+                      mask: false
+                    })
                   }
                 }}
                 disabled={ep.isDownloaded || ep.isDownloading}
