@@ -4,6 +4,7 @@ import { throttle, uniqueId } from "lodash";
 import RNFetchBlob from "rn-fetch-blob";
 import {getVideoDuration} from 'react-native-video-duration'
 console.debug(RNFetchBlob.fs.dirs.DocumentDir)
+import { fetch } from "@react-native-community/netinfo";
 
 async function ffmpegDownload(outputPath: string, ffmpegCommand: string ,url: string, onProgress: any, onComplete: any, onError: any, onSessionCreated: any){
   const details = await FFprobeKit.getMediaInformation(url)
@@ -13,9 +14,15 @@ async function ffmpegDownload(outputPath: string, ffmpegCommand: string ,url: st
 
   const handleComplete = async (session: FFmpegSession) => {
     // console.log(`Download complete. File at ${outputFilePath}`)
+    const isOnline = (await fetch()).isConnected && (await fetch()).isInternetReachable
     try{
-      const stats = await RNFetchBlob.fs.stat(outputPath)
-      onComplete(stats.size)
+      if (isOnline){
+        const stats = await RNFetchBlob.fs.stat(outputPath)
+        onComplete(stats.size)
+      }
+      else {
+        onError()
+      }
     } catch (e) {
       onError()
     }
