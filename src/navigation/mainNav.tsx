@@ -47,11 +47,11 @@ export default () => {
 
   const [isConnected, setIsConnected] = useState(true);
 
-  const screenState: screenModel = useAppSelector(
-    ({ screenReducer }: RootState) => screenReducer
-  );
+  // const screenState: screenModel = useAppSelector(
+  //   ({ screenReducer }: RootState) => screenReducer
+  // );
 
-  const [splashList, setSplashList] = useState({});
+  // const [splashList, setSplashList] = useState({});
 
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener((state: any) => {
@@ -66,18 +66,7 @@ export default () => {
   }, []);
 
   const onAppInit = async () => {
-    let splashListTemp = {};
-
-    splashListTemp = await SplashApi.getSplash();
-
-    splashListTemp = splashListTemp.map((item) => {
-      const obj = Object.assign({}, item);
-      obj.url = "https://yingshi.tv" + obj.intro_page_image_url;
-      return obj;
-    });
-    setSplashList(splashListTemp);
-    // console.log("==================== splashList from main ======================")
-    // console.log(splashList)
+ 
     await Promise.all([AppsApi.getLocalIpAddress(), AppsApi.getBottomNav()]);
 
     const res = await Api.call(
@@ -166,9 +155,7 @@ export default () => {
       }
     }
   }, [data, isVip]);
-
-  console.log("screenState.showEventSplash");
-  console.log(screenState.showEventSplash);
+  
   return (
     <>
       {isSuper == true ? (
@@ -205,12 +192,13 @@ export default () => {
                 {areaNavConfig == true ? (
                   // B面的B面
                   <AdsBannerContextProvider>
-                    {screenState.showEventSplash == true ? (
+                    {/* {(screenState.showEventSplash == true && splashList) ? (
                       //show promo splash event
                       <EventSpash splashList={splashList} />
                     ) : (
                       <Nav />
-                    )}
+                    )} */}
+                    <Nav />
                   </AdsBannerContextProvider>
                 ) : (
                   <NavIos />

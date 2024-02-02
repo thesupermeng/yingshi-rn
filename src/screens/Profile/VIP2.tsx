@@ -1,47 +1,73 @@
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  useCallback,
-  useContext,
-} from "react";
-
-import { FlatList } from "react-native-gesture-handler";
-import SplashCard from "./../../src/components/common/splashCard";
+import React, { useEffect, useRef, useState } from "react";
 import {
+  View,
+  Text,
+  StyleSheet,
+  RefreshControl,
+  ScrollView,
+  Platform,
+  Linking,
+  TextInput,
+  Alert,
   Dimensions,
   ImageBackground,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
 } from "react-native";
-import Carousel from "react-native-reanimated-carousel";
-import CarouselPagination from "../components/container/CarouselPagination";
-import LinearGradient from "react-native-linear-gradient";
-import FastImage from "../../src/components/common/customFastImage";
-import Video from "react-native-video";
-import { promoMembershipModel } from "@type/membershipType";
-import { ProductApi } from "../api/product";
-import LottieView from "lottie-react-native";
-import { useNavigation } from "@react-navigation/native";
+import { PurchaseError, requestPurchase, useIAP } from "react-native-iap";
+import ScreenContainer from "../../components/container/screenContainer";
+import { RootStackScreenProps } from "@type/navigationTypes";
+import { useNavigation, useTheme } from "@react-navigation/native";
+import { RootState } from "@redux/store";
+
+import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
+import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
+import { useAppDispatch, useAppSelector } from "@hooks/hooks";
+import { userModel } from "@type/userType";
+import { updateUserAuth } from "@redux/actions/userAction";
+import { TouchableOpacity } from "react-native";
+import NoConnection from "../../components/common/noConnection";
+import FastImage from "react-native-fast-image";
+import {
+  APP_NAME_CONST,
+  IS_ANDROID,
+  IS_IOS,
+  UMENG_CHANNEL,
+} from "@utility/constants";
+import { setShowEventSplashData, showLoginAction , setShowEventSplash } from "@redux/actions/screenAction";
+import { ProductApi, UserApi } from "@api";
+import WebView from "react-native-webview";
+import { YSConfig } from "../../../ysConfig";
+import { VipCard } from "../../components/vip/vipCard";
+import {
+  membershipModel,
+  promoMembershipModel,
+  zfModel,
+} from "@type/membershipType";
+import { Dialog } from "@rneui/themed";
+import { InAppBrowser } from "react-native-inappbrowser-reborn";
+import { VipDialog } from "../../components/vip/vipDialog";
+import SpinnerOverlay from "../../components/modal/SpinnerOverlay";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { isAndroid } from "react-native-iap/lib/typescript/src/internal";
+import UmengAnalytics from "../../../Umeng/UmengAnalytics";
+import { err } from "react-native-svg/lib/typescript/xml";
+import CarouselPagination from "../../components/container/CarouselPagination";
 import { screenModel } from "@type/screenType";
-import { useAppSelector } from "@hooks/hooks";
+import LinearGradient from "react-native-linear-gradient";
+import SplashCard from "../../components/common/splashCard";
+import Carousel from "react-native-reanimated-carousel";
+import LottieView from "lottie-react-native";
 
-
-
-export const EventSpash = () => {
-
+export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
   const screenState: screenModel = useAppSelector(
     ({ screenReducer }) => screenReducer
   );
-  
+
   const carouselRef = useRef<any>();
   const [width, setWidth] = useState(Dimensions.get("window").width);
   const [height, setHeight] = useState(Dimensions.get("window").height);
   const [activeIndex, setActiveIndex] = useState(0);
-  const navigation = useNavigation();
+  const [isLastShown, setIsLastShown] = useState(false);
+  const dispatch = useAppDispatch();
 
   const [oneTimeProducts, setOneTimeProducts] = useState<
     promoMembershipModel[]
@@ -126,7 +152,7 @@ export const EventSpash = () => {
   const renderCarousel = ({ item, index }) => {
     return (
       <>
-        {index === screenState.showEventSplashData.length - 1 ? (
+        {(index === screenState.showEventSplashData.length - 1  || isLastShown || screenState.showEventSplashData.length ==0  )? (
           <>
             {/* <ImageBackground
               source={require("./../../static/images/splash/splashbg.png")}
@@ -134,8 +160,7 @@ export const EventSpash = () => {
               style={{ flex: 1, height: 400 }}
             > */}
             <View style={styles.container}>
-
-            {/* <Video
+              {/* <Video
                 source={{
                //    uri: 'https://oss.yingshi.tv/videos/vod/vi/splashbg.mp4',
                   // uri:
@@ -149,7 +174,7 @@ export const EventSpash = () => {
                 resizeMode="cover"
                 repeat={true}
               /> */}
-              <LottieView
+              {/* <LottieView
                 style={styles.video}
                 source={{
                   uri:
@@ -157,7 +182,7 @@ export const EventSpash = () => {
                 }}
                 autoPlay
                 loop
-              />
+              /> */}
               <LinearGradient
                 colors={["rgba(20, 22, 26, 0)", "#14161A"]} // Transparent to #14161A
                 style={styles.linearGradient}
@@ -182,7 +207,7 @@ export const EventSpash = () => {
                     }}
                   >
                     <FastImage
-                      source={require("./../../static/images/splash/splashText.png")}
+                      source={require("./../../../static/images/splash/splashText.png")}
                       style={{
                         flex: 1,
                       }}
@@ -201,7 +226,7 @@ export const EventSpash = () => {
                     }}
                   >
                     <FastImage
-                      source={require("./../../static/images/splash/card.png")}
+                      source={require("./../../../static/images/splash/card.png")}
                       style={{
                         flex: 1,
                       }}
@@ -219,7 +244,7 @@ export const EventSpash = () => {
                     }}
                   >
                     <FastImage
-                      source={require("./../../static/images/splash/subText.png")}
+                      source={require("./../../../static/images/splash/subText.png")}
                       style={{
                         width: 80,
                         height: 80,
@@ -242,21 +267,37 @@ export const EventSpash = () => {
                       }}
                     >
                       {oneTimeProducts.map((product, i) => (
-                        <ImageBackground
-                          key={product.productId}
-                          source={
-                            i === 0
-                              ? require("./../../static/images/splash/singleBg.png")
-                              : require("./../../static/images/splash/singleBg2.png")
-                          }
-                          resizeMode="contain"
-                          style={{
+    <TouchableOpacity
+    key={product.productId}
+    style={
+      productSelected == product
+        ? styles.cardContainerActive2
+        : styles.cardContainer2
+    }
+    onPress={() => {
+      setSelectedProduct(product);
+    }}
+  >
+
+{/* style={{
                             height: 100,
                             width: 160,
                             paddingTop: 25,
-                            paddingHorizontal: 10,
-                          }}
-                        >
+                            paddingHorizontal: 10, */}
+               <LinearGradient
+                        colors={["#D1AC7D", "#B1885F"]}
+                        locations={[0.0, 0.99]}
+                        style={{
+                          marginTop:20,
+                          height: 80,
+                          width: 160,
+                          paddingTop: 15,
+                          paddingHorizontal: 10,
+                          borderRadius: 8,
+                          borderColor:'red',
+                          borderWidth:2
+                        }}
+                      >
                           <View
                             style={{ justifyContent: "space-between", gap: 5 }}
                           >
@@ -298,7 +339,9 @@ export const EventSpash = () => {
                               </Text>
                             </View>
                           </View>
-                        </ImageBackground>
+                        </LinearGradient>
+
+</TouchableOpacity>
                       ))}
                     </View>
                   )}
@@ -315,7 +358,7 @@ export const EventSpash = () => {
                   >
                     <View style={{ width: 120, marginRight: 5 }}>
                       <FastImage
-                        source={require("./../../static/images/splash/subText2.png")}
+                        source={require("./../../../static/images/splash/subText2.png")}
                         style={{
                           flex: 1,
                           position: "relative",
@@ -376,7 +419,7 @@ export const EventSpash = () => {
                               style={{
                                 ...styles.redIndicator,
                                 opacity:
-                                  productSelected == subscription ? 1 : 0, // change to index 0
+                                  i == 0 ? 1 : 0, // change to index 0
                               }}
                             >
                               <Text style={styles.hotText}>最多人选择</Text>
@@ -416,27 +459,44 @@ export const EventSpash = () => {
                     </ScrollView>
                   )}
 
-                     {/* Privacy & terms and condition link section   */}
-<View style={{justifyContent:'center' ,alignItems:'center' , flexDirection:'row' , position:'relative' , bottom:85 , height:20}}>  
+                  {/* Privacy & terms and condition link section   */}
+                  <View
+                    style={{
+                      justifyContent: "center",
+                      alignItems: "center",
+                      flexDirection: "row",
+                      position: "relative",
+                      bottom: 85,
+                      height: 20,
+                    }}
+                  >
+                    <TouchableOpacity
+                      onPress={() => {
+                        navigation.navigate("隐私政策");
+                      }}
+                    >
+                      <Text style={styles.textPrivacy}>隐私协议 </Text>
+                      </TouchableOpacity>         
+                    <Text style={styles.textPrivacy}>| </Text>
+                    <TouchableOpacity
+                      onPress={() => {
+                        navigation.navigate("用户协议");
+                      }}
+                    >
+                    <Text style={styles.textPrivacy}>用户服务协议 </Text>
 
-<TouchableOpacity
-            onPress={()=>{   navigation.navigate("隐私政策");}}
-        >
-<Text style={styles.textPrivacy}>隐私协议 </Text>
+                    </TouchableOpacity>
+                    <Text style={styles.textPrivacy}>| </Text>
+                  
+                    <TouchableOpacity
+                      onPress={() => {
+                        navigation.navigate("续费服务");
+                      }}
+                    >
 
-</TouchableOpacity>
-<Text style={styles.textPrivacy}>| </Text>
-
-<Text style={styles.textPrivacy}>用户服务协议 </Text>
-<Text style={styles.textPrivacy}>| </Text>
-  
-<Text style={styles.textPrivacy}>自动续费协议 </Text>
- 
- 
-
- </View>
-
-
+                    <Text style={styles.textPrivacy}>自动续费协议 </Text>
+                          </TouchableOpacity>
+                  </View>
 
                   {/* purchase button  */}
                   <View style={{ paddingHorizontal: 30, width: "100%" }}>
@@ -504,37 +564,37 @@ export const EventSpash = () => {
         data={screenState.showEventSplashData}
         scrollAnimationDuration={100}
         onScrollBegin={() => {}}
+        enabled={isLastShown == false}
+        loop={true}
         onSnapToItem={(index) => {
           setActiveIndex(index);
+          if(index === screenState.showEventSplashData.length - 1)
+          {
+            setIsLastShown(true)
+            dispatch(setShowEventSplash(false));
+          }
+
         }}
         onScrollEnd={(index) => {
           setActiveIndex(index);
+          if(index === screenState.showEventSplashData.length - 1)
+          {
+            setIsLastShown(true)
+            dispatch(setShowEventSplash(false));
+          }
         }}
         renderItem={renderCarousel}
       />
-
-      {activeIndex !== screenState.showEventSplashData.length - 1 &&  screenState.showEventSplashData.length != 0 && screenState.showEventSplashData != {} && (
-        <CarouselPagination
-          data={screenState.showEventSplashData}
-          dashStyle={true}
-          activeIndex={activeIndex}
-        />
-      )}
-
-      {/* <FlatList
-          data={screenState.showEventSplashData}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          renderItem={({item, index}: any) => {
-            return (
-              <SplashCard
-              index={index}
-                img={item.url}
-                isLast={index === (screenState.showEventSplashData.length-1)}
-              />
-            );
-          }}
-        /> */}
+      {activeIndex !== screenState.showEventSplashData.length - 1 &&
+        screenState.showEventSplashData.length != 0 &&
+        screenState.showEventSplashData &&
+        isLastShown != true && (
+          <CarouselPagination
+            data={screenState.showEventSplashData}
+            dashStyle={true}
+            activeIndex={activeIndex}
+          />
+        )}
     </View>
   );
 };
@@ -542,11 +602,11 @@ export const EventSpash = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center', // Center the content vertically
-    justifyContent: 'flex-start', // Start the content from the top
+    alignItems: "center", // Center the content vertically
+    justifyContent: "flex-start", // Start the content from the top
   },
   video: {
-    position: 'absolute', // Position the video absolutely within the container
+    position: "absolute", // Position the video absolutely within the container
     top: 0, // Align the video to the top of the container
     left: 0, // Align the video to the left of the container
     right: 0, // Align the video to the right of the container
@@ -688,7 +748,9 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     marginBottom: 10,
   },
-  textPrivacy:{
-    color :"#9C9C9C"
-  }
+  textPrivacy: {
+    color: "#9C9C9C",
+  },
+  cardContainer2:{},
+  cardContainerActive2:{},
 });

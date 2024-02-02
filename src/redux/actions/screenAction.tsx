@@ -135,3 +135,9 @@ export const setShowEventSplash = (action: boolean) => ({
   type: "set_show_event_splash",
   payload: action,
 });
+
+export const setShowEventSplashData = (action: any) => ({
+  type: "set_show_event_splash_data",
+  payload: action,
+});
+

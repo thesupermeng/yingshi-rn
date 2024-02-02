@@ -101,6 +101,7 @@ export type RootStackParamList = {
   SetUsername: undefined;
   活动规则: undefined;
   付费VIP: undefined;
+  付费Google: undefined;
   VIP明细: {
     userState: userModel;
   };

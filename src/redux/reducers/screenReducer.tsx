@@ -7,6 +7,7 @@ import { screenModel } from "@type/screenType";
 
 const initialState: screenModel = {
   showEventSplash: true,
+  showEventSplashData:[],
   screenAction: "",
   screenShow: false,
   loginShow: false,
@@ -197,6 +198,14 @@ export function screenReducer(state = initialState, action: screenActionType) {
         ...state,
         showEventSplash: action.payload,
       };
+
+      case "set_show_event_splash_data":
+        return {
+          ...state,
+          showEventSplashData: action.payload,
+        };
+
+        
     default:
       return state;
   }
