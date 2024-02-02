@@ -312,10 +312,10 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
     let splashListTemp = [];
     try {
 
-      // if(screenState.showEventSplashData == false)
-      // {
-      //   return;
-      // }
+      if(screenState.showEventSplash == false)
+      {
+        return;
+      }
       splashListTemp = await SplashApi.getSplash();
 
       // console.log("==================== splashList from main ======================")

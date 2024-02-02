@@ -11,8 +11,15 @@ import {
   Alert,
   Dimensions,
   ImageBackground,
+  FlatList,
 } from "react-native";
-import { Purchase, PurchaseError, requestPurchase, requestSubscription, useIAP } from "react-native-iap";
+import {
+  Purchase,
+  PurchaseError,
+  requestPurchase,
+  requestSubscription,
+  useIAP,
+} from "react-native-iap";
 import ScreenContainer from "../../components/container/screenContainer";
 import { RootStackScreenProps } from "@type/navigationTypes";
 import { useNavigation, useTheme } from "@react-navigation/native";
@@ -34,7 +41,11 @@ import {
   SUBSCRIPTION_TYPE,
   UMENG_CHANNEL,
 } from "@utility/constants";
-import { setShowEventSplashData, showLoginAction, setShowEventSplash } from "@redux/actions/screenAction";
+import {
+  setShowEventSplashData,
+  showLoginAction,
+  setShowEventSplash,
+} from "@redux/actions/screenAction";
 import { ProductApi, UserApi } from "@api";
 import WebView from "react-native-webview";
 import { YSConfig } from "../../../ysConfig";
@@ -60,8 +71,12 @@ import Carousel from "react-native-reanimated-carousel";
 import { showToast } from "../../Sports/utility/toast";
 import CloseButton from "@static/images/close_icon.svg";
 import LottieView from "lottie-react-native";
-const iap_skus = ['yingshi_vip_1_month', 'yingshi_vip_12_months'];
-const subs_skus = ['vip_1_month_subscription', 'vip_3_month_subscription', 'vip_12_month_subscription'];
+const iap_skus = ["yingshi_vip_1_month", "yingshi_vip_12_months"];
+const subs_skus = [
+  "vip_1_month_subscription",
+  "vip_3_month_subscription",
+  "vip_12_month_subscription",
+];
 
 export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
   const {
@@ -137,7 +152,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
           zfOptions: {
             payment_type_code: "GOOGLE_PAY",
             payment_type_name: "Google Pay",
-            payment_type_icon: "google.png"
+            payment_type_icon: "google.png",
           },
           productType: IAP_TYPE,
         };
@@ -167,7 +182,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
         };
       });
 
-      console.log(subscription)
+      console.log(subscription);
 
       setOneTimeProducts(oneTime);
       setSubcriptionProducts(subscription);
@@ -180,30 +195,33 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
       await getProducts({ skus: iap_skus });
       await getSubscriptions({ skus: subs_skus });
     } catch (err) {
-      console.log('error when get product from google play: ', err);
+      console.log("error when get product from google play: ", err);
     }
-  }
+  };
 
   const onPurchase = async () => {
     setIsBtnEnable(false);
     try {
       setIsVisible(true);
-      if (productSelected.productType === 'iap') {
+      if (productSelected.productType === "iap") {
         await requestPurchase({ skus: [productSelected.productSKU] });
-
-      } else if (productSelected.productType === 'subs') {
-        const subs = subscriptions.find(sub => sub.productId === productSelected.productSKU);
+      } else if (productSelected.productType === "subs") {
+        const subs = subscriptions.find(
+          (sub) => sub.productId === productSelected.productSKU
+        );
 
         if (subs) {
           const offerToken = subs.subscriptionOfferDetails[0].offerToken;
           await requestSubscription({
             sku: productSelected.productSKU,
             ...(offerToken && {
-              subscriptionOffers: [{ sku: productSelected.productSKU, offerToken }],
+              subscriptionOffers: [
+                { sku: productSelected.productSKU, offerToken },
+              ],
             }),
           });
         } else {
-          throw new Error('subscription plan not found');
+          throw new Error("subscription plan not found");
         }
       }
     } catch (err) {
@@ -230,7 +248,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
       user_id: userState.userId,
       product_id: productSelected?.productId,
       transaction_type: "SUBSCRIBE_VIP",
-      zf_channel: 'GOOGLE_PAY',
+      zf_channel: "GOOGLE_PAY",
       platform: APP_NAME_CONST + "-" + Platform.OS.toUpperCase(),
       channel_transaction_id: currentPurchase?.transactionId,
       transaction_receipt: currentPurchase
@@ -252,7 +270,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
       console.log(result);
       return result.data.data;
     } catch (error) {
-      console.log('error when validate iap: ', error);
+      console.log("error when validate iap: ", error);
       return false;
     }
   };
@@ -260,7 +278,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
   const saveFinishSubs = async (sub: Purchase) => {
     const subsTrans = {
       product_id: productSelected?.productId,
-      payment_channel: 'GOOGLE_PAY',
+      payment_channel: "GOOGLE_PAY",
       autoRenewingAndroid: sub.autoRenewingAndroid,
       dataAndroid: sub.dataAndroid,
       developerPayloadAndroid: sub.developerPayloadAndroid,
@@ -285,10 +303,10 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
       console.log(result);
       return result.success;
     } catch (err) {
-      console.log('post android subscription error: ', err);
+      console.log("post android subscription error: ", err);
       return false;
     }
-  }
+  };
 
   useEffect(() => {
     setWidth(Number(Dimensions.get("window").width));
@@ -317,7 +335,11 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
       if (currentPurchase) {
         console.log("-------Current Purchase------------");
         console.log(currentPurchase);
-        console.log(products.some(product => product.productId === currentPurchase.productId))
+        console.log(
+          products.some(
+            (product) => product.productId === currentPurchase.productId
+          )
+        );
 
         try {
           if (currentPurchase.transactionReceipt) {
@@ -339,37 +361,42 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
 
             setTimeout(() => setIsVisible(false), 10000);
 
-            const isIAP = products.some(product => product.productId === currentPurchase.productId)
-            const success = isIAP ?
-              await saveFinishIAP("1", "") :
-              await saveFinishSubs(currentPurchase); //validate receipt with server
+            const isIAP = products.some(
+              (product) => product.productId === currentPurchase.productId
+            );
+            const success = isIAP
+              ? await saveFinishIAP("1", "")
+              : await saveFinishSubs(currentPurchase); //validate receipt with server
 
             setReceiptBuffer((prev) => {
               const receipt = new Map(prev);
-              receipt.set(currentPurchase.transactionId?.concat(success), success);
+              receipt.set(
+                currentPurchase.transactionId?.concat(success),
+                success
+              );
               return receipt;
             });
 
             if (success) {
-              console.log('success ', success)
+              console.log("success ", success);
               await finishTransaction({
                 purchase: currentPurchase,
                 isConsumable: isIAP,
               });
 
               // showToast('successfully validate and finish the transaction');
-              setDialogText(successDialogText)
+              setDialogText(successDialogText);
               setIsDialogOpen(true);
               setIsSuccess(true);
             } else {
-              console.log('success', success)
+              console.log("success", success);
               await finishTransaction({
                 purchase: currentPurchase,
                 isConsumable: isIAP,
               });
 
               // showToast('FAILED to validate and finish the transaction');
-              setDialogText(failedDialogText)
+              setDialogText(failedDialogText);
               setIsDialogOpen(true);
               setIsSuccess(false);
             }
@@ -417,398 +444,410 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
   const renderCarousel = ({ item, index }) => {
     return (
       <>
-        {(index === screenState.showEventSplashData.length - 1 || isLastShown || screenState.showEventSplashData.length == 0) ? (
+        {index === screenState.showEventSplashData.length - 1 ||
+        screenState.showEventSplash == false ||
+        isLastShown ||
+        screenState.showEventSplashData.length == 0 ? (
           <>
-
-{(isFetching) && (
-            <View
-              style={{
-                ...styles.loading,
-                flex: 1,
-                alignItems: "center",
-                justifyContent: "center",
-                position: "absolute",
-                left: "50%",
-                marginLeft: -40, // Half of the element's width
-              }}
-            >
-              {
-                <FastImage
-                  style={{ height: 80, width: 80 }}
-                  source={require("@static/images/loading-spinner.gif")}
-                  resizeMode={"contain"}
-                />
-              }
-            </View>
-          )}
-
-{(!isFetching) && (
-            <View style={styles.container}>
-              <SpinnerOverlay visible={isVisible} />
-              <VipDialog
-                isDialogOpen={isDialogOpen}
-                isOffline={isOffline}
-                isSuccess={isSuccess}
-                handleConfirm={handleConfirm}
-                dialogText={dialogText}
-              />
-                 <LottieView
-                style={styles.video}
-                source={{
-                  uri:
-                    "https://lottie.host/c291f0cc-ae75-4f88-b6a8-61fefe455da5/trOs1RgYsK.json",
+            {isFetching && (
+              <View
+                style={{
+                  ...styles.loading,
+                  flex: 1,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  position: "absolute",
+                  left: "50%",
+                  marginLeft: -40, // Half of the element's width
                 }}
-                autoPlay
-                loop
-              />
-              <LinearGradient
-                colors={["rgba(20, 22, 26, 0)", "#14161A"]} // Transparent to #14161A
-                style={styles.linearGradient}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 0, y: 0.4 }}
               >
-                <View
-                  style={{
-                    flex: 1,
-                    paddingTop: 25,
-                    justifyContent: "flex-start",
-                    alignItems: "center",
-                    gap: -40,
+                {
+                  <FastImage
+                    style={{ height: 80, width: 80 }}
+                    source={require("@static/images/loading-spinner.gif")}
+                    resizeMode={"contain"}
+                  />
+                }
+              </View>
+            )}
+
+            {!isFetching && (
+              <View style={styles.container}>
+                <SpinnerOverlay visible={isVisible} />
+                <VipDialog
+                  isDialogOpen={isDialogOpen}
+                  isOffline={isOffline}
+                  isSuccess={isSuccess}
+                  handleConfirm={handleConfirm}
+                  dialogText={dialogText}
+                />
+                <LottieView
+                  style={styles.video}
+                  source={{
+                    uri:
+                      "https://lottie.host/c291f0cc-ae75-4f88-b6a8-61fefe455da5/trOs1RgYsK.json",
                   }}
+                  autoPlay
+                  loop
+                />
+                <LinearGradient
+                  colors={["rgba(20, 22, 26, 0)", "#14161A"]} // Transparent to #14161A
+                  style={styles.linearGradient}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 0, y: 0.4 }}
                 >
-                  <TouchableOpacity
-                    style={{
-                      position: "absolute",
-                      left: 15,
-                      top: 20,
-                      zIndex: 200,
-                    }}
-                    onPress={() => {
-                      navigation.goBack();
-                    }}
-                  >
-                    <CloseButton />
-                  </TouchableOpacity>
                   <View
                     style={{
-                      width: "100%",
-                      height: 200,
-                      paddingHorizontal: 40,
-                      zIndex: 20,
-                    }}
-                  >
-                    <FastImage
-                      source={require("./../../../static/images/splash/splashText.png")}
-                      style={{
-                        flex: 1,
-                      }}
-                      resizeMode="contain"
-                    ></FastImage>
-                  </View>
-
-                  <View
-                    style={{
-                      width: "100%",
-                      height: 200,
-                      zIndex: 1,
-                      position: "relative",
-                      bottom: 70,
-                      paddingHorizontal: 30,
-                    }}
-                  >
-                    <FastImage
-                      source={require("./../../../static/images/splash/card.png")}
-                      style={{
-                        flex: 1,
-                      }}
-                      resizeMode="contain"
-                    ></FastImage>
-                  </View>
-
-                  <View
-                    style={{
-                      width: "100%",
-                      position: "relative",
-                      bottom: 70,
+                      flex: 1,
+                      paddingTop: 25,
                       justifyContent: "flex-start",
-                      paddingLeft: 35,
+                      alignItems: "center",
+                      gap: -40,
                     }}
                   >
-                    <FastImage
-                      source={require("./../../../static/images/splash/subText.png")}
+                    <TouchableOpacity
                       style={{
-                        width: 80,
-                        height: 80,
+                        position: "absolute",
+                        left: 15,
+                        top: 30,
+                        zIndex: 200,
                       }}
-                      resizeMode="contain"
-                    ></FastImage>
-                  </View>
-
-                  {oneTimeProducts && (
-                    <View
-                      style={{
-                        position: "relative",
-                        bottom: 70,
-                        paddingHorizontal: 35,
-                        flexDirection: "row",
-                        width: "100%",
-                        maxWidth: "100%",
-                        gap: 20,
-                        justifyContent: "space-between",
+                      onPress={() => {
+                        navigation.goBack();
                       }}
                     >
-                      {oneTimeProducts.map((product, i) => (
-                        <TouchableOpacity
-                          key={product.productId}
-                          style={
-                            productSelected == product
-                              ? styles.cardContainerActive2
-                              : styles.cardContainer2
-                          }
-                          onPress={() => {
-                            setSelectedProduct(product);
-                          }}
-                        >
-                          <LinearGradient
-                            colors={i === 0 ? ["#FCF6F2", "#FCF6F2"] : ["#D1AC7D", "#B1885F"]}
-                            locations={[0.0, 0.99]}
-                            style={{
-                              marginTop: 20,
-                              height: 70,
-                              width: 160,
-                              paddingTop: 10,
-                              paddingHorizontal: 10,
-                            }}
-                          >
-                            <View
-                              style={{ justifyContent: "space-between", gap: 5 }}
-                            >
-                              <View>
-                                <Text
-                                  style={{
-                                    color: i === 0 ? "#351B04" : "#fff",
-                                    fontSize: 12,
-                                  }}
-                                >
-                                  {product.title === '1个月' ? "月度套餐" : "年度套餐"}
-                                </Text>
-                              </View>
-
-                              <View
-                                style={{
-                                  justifyContent: "space-between",
-                                  flexDirection: "row",
-                                  alignItems: "center",
-                                }}
-                              >
-                                <Text
-                                  style={{
-                                    color: i === 0 ? "#351B04" : "#fff",
-                                    fontSize: 14,
-                                    fontWeight: "700",
-                                  }}
-                                >
-                                  {product.title}
-                                </Text>
-                                <Text
-                                  style={{
-                                    color: i === 0 ? "#AE845B" : "#fff",
-                                    fontSize: 19,
-                                    fontWeight: "900",
-                                  }}
-                                >
-                                  {product.localizedPrice}
-                                </Text>
-                              </View>
-                            </View>
-                          </LinearGradient>
-                        </TouchableOpacity>
-                      ))}
-                    </View>
-                  )}
-
-                  {/* time  countdown */}
-                  <View
-                    style={{
-                      position: "relative",
-                      bottom: 20,
-                      width: "100%",
-                      paddingLeft: 40,
-                      flexDirection: "row",
-                    }}
-                  >
-                    <View style={{ width: 120, marginRight: 5 }}>
+                      <CloseButton />
+                    </TouchableOpacity>
+                    <View
+                      style={{
+                        width: "100%",
+                        height: 200,
+                        paddingHorizontal: 40,
+                        zIndex: 20,
+                      }}
+                    >
                       <FastImage
-                        source={require("./../../../static/images/splash/subText2.png")}
+                        source={require("./../../../static/images/splash/splashText.png")}
                         style={{
                           flex: 1,
-                          position: "relative",
-                          top: 3,
                         }}
                         resizeMode="contain"
                       ></FastImage>
                     </View>
 
-                    <View style={styles.badgeContainer}>
-                      <View style={{ ...styles.badge }}>
-                        <Text style={styles.badgeText}>0</Text>
-                      </View>
-                      <View style={styles.badge}>
-                        <Text style={styles.badgeText}>0</Text>
-                      </View>
-
-                      <View style={styles.badge2}>
-                        <Text style={styles.badgeText2}>:</Text>
-                      </View>
-                      <View style={styles.badge}>
-                        <Text style={styles.badgeText}>0</Text>
-                      </View>
-                      <View style={styles.badge}>
-                        <Text style={styles.badgeText}>0</Text>
-                      </View>
-
-                      <View style={styles.badge2}>
-                        <Text style={styles.badgeText2}>:</Text>
-                      </View>
-                      <View style={styles.badge}>
-                        <Text style={styles.badgeText}>0</Text>
-                      </View>
-                      <View style={styles.badge}>
-                        <Text style={styles.badgeText}>0</Text>
-                      </View>
-                    </View>
-                  </View>
-                  {/* product card  */}
-                  {subscriptionProducts && (
-                    <ScrollView
-                      contentContainerStyle={styles.scrollViewContent}
-                    >
-                      {subscriptionProducts.map((subscription, i) => (
-                        <TouchableOpacity
-                          key={subscription.productId}
-                          style={
-                            productSelected == subscription
-                              ? styles.cardContainerActive
-                              : styles.cardContainer
-                          }
-                          onPress={() => {
-                            setSelectedProduct(subscription);
-                          }}
-                        >
-                          <View>
-                            <View
-                              style={{
-                                ...styles.redIndicator,
-                                opacity:
-                                  productSelected == subscription ? 1 : 0, // change to index 0
-                              }}
-                            >
-                              <Text style={styles.hotText}>最多人选择</Text>
-                            </View>
-
-                            <View style={styles.textContainer}>
-                              <Text style={styles.promo}>
-                                {subscription.title}
-                              </Text>
-                              <Text style={styles.promo2}>
-                                {subscription.promoPrice}
-                              </Text>
-                              <Text style={styles.promo3}>
-                                {subscription.localizedPrice}
-                              </Text>
-                            </View>
-                          </View>
-                          <View
-                            style={
-                              productSelected == subscription
-                                ? styles.buttonActive
-                                : styles.button
-                            }
-                          >
-                            <Text
-                              style={
-                                productSelected == subscription
-                                  ? styles.buttonTextActive
-                                  : styles.buttonText
-                              }
-                            >
-                              {subscription.description}
-                            </Text>
-                          </View>
-                        </TouchableOpacity>
-                      ))}
-                    </ScrollView>
-                  )}
-
-                  {/* Privacy & terms and condition link section   */}
-                  <View
-                    style={{
-                      justifyContent: "center",
-                      alignItems: "center",
-                      flexDirection: "row",
-                      position: "relative",
-                      bottom: 85,
-                      height: 20,
-                    }}
-                  >
-                    <TouchableOpacity
-                      onPress={() => {
-                        navigation.navigate("隐私政策");
+                    <View
+                      style={{
+                        width: "100%",
+                        height: 200,
+                        zIndex: 1,
+                        position: "relative",
+                        bottom: 70,
+                        paddingHorizontal: 30,
                       }}
                     >
-                      <Text style={styles.textPrivacy}>隐私协议 </Text>
-                    </TouchableOpacity>
-                    <Text style={styles.textPrivacy}>| </Text>
-                    <TouchableOpacity
-                      onPress={() => {
-                        navigation.navigate("用户协议");
-                      }}
-                    >
-                      <Text style={styles.textPrivacy}>用户服务协议 </Text>
-
-                    </TouchableOpacity>
-                    <Text style={styles.textPrivacy}>| </Text>
-
-                    <TouchableOpacity
-                      onPress={() => {
-                        navigation.navigate("续费服务");
-                      }}
-                    >
-
-                      <Text style={styles.textPrivacy}>自动续费协议 </Text>
-                    </TouchableOpacity>
-                  </View>
-
-                  {/* purchase button  */}
-                  <View style={{ paddingHorizontal: 30, width: "100%" }}>
-                    <TouchableOpacity
-                      onPress={onPurchase}
-                      disabled={!isBtnEnable}
-                    >
-                      <LinearGradient
-                        colors={["#D1AC7D", "#B1885F"]}
-                        locations={[0.0, 0.99]}
+                      <FastImage
+                        source={require("./../../../static/images/splash/card.png")}
                         style={{
-                          height: 40,
-                          marginBottom: 25,
-                          justifyContent: "center",
-                          alignItems: "center",
-                          paddingVertical: 8,
-                          borderRadius: 8,
+                          flex: 1,
+                        }}
+                        resizeMode="contain"
+                      ></FastImage>
+                    </View>
+
+                    <View
+                      style={{
+                        width: "100%",
+                        position: "relative",
+                        bottom: 70,
+                        justifyContent: "flex-start",
+                        paddingLeft: 35,
+                      }}
+                    >
+                      <FastImage
+                        source={require("./../../../static/images/splash/subText.png")}
+                        style={{
+                          width: 80,
+                          height: 80,
+                        }}
+                        resizeMode="contain"
+                      ></FastImage>
+                    </View>
+
+                    {oneTimeProducts && (
+                      <View
+                        style={{
+                          position: "relative",
+                          bottom: 70,
+                          paddingHorizontal: 35,
+                          flexDirection: "row",
+                          width: "100%",
+                          maxWidth: "100%",
+                          gap: 20,
+                          justifyContent: "space-between",
                         }}
                       >
-                        <Text style={styles.purchaseText}>
-                          立即解锁{" "}
-                          {productSelected &&
-                            `- 总额${productSelected.promoPrice}`}
-                        </Text>
-                      </LinearGradient>
-                    </TouchableOpacity>
+                        {oneTimeProducts.map((product, i) => (
+                          <TouchableOpacity
+                            key={product.productId}
+                            style={
+                              productSelected == product
+                                ? styles.cardContainerActive2
+                                : styles.cardContainer2
+                            }
+                            onPress={() => {
+                              setSelectedProduct(product);
+                            }}
+                          >
+                            <LinearGradient
+                              colors={
+                                i === 0
+                                  ? ["#FCF6F2", "#FCF6F2"]
+                                  : ["#D1AC7D", "#B1885F"]
+                              }
+                              locations={[0.0, 0.99]}
+                              style={{
+                                marginTop: 20,
+                                height: 70,
+                                width: 160,
+                                paddingTop: 10,
+                                paddingHorizontal: 10,
+                              }}
+                            >
+                              <View
+                                style={{
+                                  justifyContent: "space-between",
+                                  gap: 5,
+                                }}
+                              >
+                                <View>
+                                  <Text
+                                    style={{
+                                      color: i === 0 ? "#351B04" : "#fff",
+                                      fontSize: 12,
+                                    }}
+                                  >
+                                    {product.title === "1个月"
+                                      ? "月度套餐"
+                                      : "年度套餐"}
+                                  </Text>
+                                </View>
+
+                                <View
+                                  style={{
+                                    justifyContent: "space-between",
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                  }}
+                                >
+                                  <Text
+                                    style={{
+                                      color: i === 0 ? "#351B04" : "#fff",
+                                      fontSize: 14,
+                                      fontWeight: "700",
+                                    }}
+                                  >
+                                    {product.title}
+                                  </Text>
+                                  <Text
+                                    style={{
+                                      color: i === 0 ? "#AE845B" : "#fff",
+                                      fontSize: 19,
+                                      fontWeight: "900",
+                                    }}
+                                  >
+                                    {product.localizedPrice}
+                                  </Text>
+                                </View>
+                              </View>
+                            </LinearGradient>
+                          </TouchableOpacity>
+                        ))}
+                      </View>
+                    )}
+
+                    {/* time  countdown */}
+                    <View
+                      style={{
+                        position: "relative",
+                        bottom: 20,
+                        width: "100%",
+                        paddingLeft: 40,
+                        flexDirection: "row",
+                      }}
+                    >
+                      <View style={{ width: 120, marginRight: 5 }}>
+                        <FastImage
+                          source={require("./../../../static/images/splash/subText2.png")}
+                          style={{
+                            flex: 1,
+                            position: "relative",
+                            top: 3,
+                          }}
+                          resizeMode="contain"
+                        ></FastImage>
+                      </View>
+
+                      <View style={styles.badgeContainer}>
+                        <View style={{ ...styles.badge }}>
+                          <Text style={styles.badgeText}>0</Text>
+                        </View>
+                        <View style={styles.badge}>
+                          <Text style={styles.badgeText}>0</Text>
+                        </View>
+
+                        <View style={styles.badge2}>
+                          <Text style={styles.badgeText2}>:</Text>
+                        </View>
+                        <View style={styles.badge}>
+                          <Text style={styles.badgeText}>0</Text>
+                        </View>
+                        <View style={styles.badge}>
+                          <Text style={styles.badgeText}>0</Text>
+                        </View>
+
+                        <View style={styles.badge2}>
+                          <Text style={styles.badgeText2}>:</Text>
+                        </View>
+                        <View style={styles.badge}>
+                          <Text style={styles.badgeText}>0</Text>
+                        </View>
+                        <View style={styles.badge}>
+                          <Text style={styles.badgeText}>0</Text>
+                        </View>
+                      </View>
+                    </View>
+                    {/* product card  */}
+                    {subscriptionProducts && (
+                      // Replace the ScrollView with FlatList
+                      <FlatList
+                        horizontal={true} // Set horizontal to true for horizontal scrolling
+                        contentContainerStyle={styles.scrollViewContent}
+                        data={subscriptionProducts}
+                        keyExtractor={(item) => item.productId}
+                        renderItem={({ item }) => (
+                          <TouchableOpacity
+                            style={
+                              productSelected === item
+                                ? styles.cardContainerActive
+                                : styles.cardContainer
+                            }
+                            onPress={() => {
+                              setSelectedProduct(item);
+                            }}
+                          >
+                            <View>
+                              <View
+                                style={{
+                                  ...styles.redIndicator,
+                                  opacity: productSelected === item ? 1 : 0,
+                                }}
+                              >
+                                <Text style={styles.hotText}>最多人选择</Text>
+                              </View>
+                              <View style={styles.textContainer}>
+                                <Text style={styles.promo}>{item.title}</Text>
+                                <Text style={styles.promo2}>
+                                  {item.promoPrice}
+                                </Text>
+                                <Text style={styles.promo3}>
+                                  {item.localizedPrice}
+                                </Text>
+                              </View>
+                            </View>
+                            <View
+                              style={
+                                productSelected === item
+                                  ? styles.buttonActive
+                                  : styles.button
+                              }
+                            >
+                              <Text
+                                style={
+                                  productSelected === item
+                                    ? styles.buttonTextActive
+                                    : styles.buttonText
+                                }
+                              >
+                                {item.description}
+                              </Text>
+                            </View>
+                          </TouchableOpacity>
+                        )}
+                      />
+                    )}
+
+                    {/* Privacy & terms and condition link section   */}
+                    <View
+                      style={{
+                        justifyContent: "center",
+                        alignItems: "center",
+                        flexDirection: "row",
+                        position: "absolute",
+                        bottom: 95,
+                        height: 20,
+                      }}
+                    >
+                      <TouchableOpacity
+                        onPress={() => {
+                          navigation.navigate("隐私政策");
+                        }}
+                      >
+                        <Text style={styles.textPrivacy}>隐私协议 </Text>
+                      </TouchableOpacity>
+                      <Text style={styles.textPrivacy}>| </Text>
+                      <TouchableOpacity
+                        onPress={() => {
+                          navigation.navigate("用户协议");
+                        }}
+                      >
+                        <Text style={styles.textPrivacy}>用户服务协议 </Text>
+                      </TouchableOpacity>
+                      <Text style={styles.textPrivacy}>| </Text>
+
+                      <TouchableOpacity
+                        onPress={() => {
+                          navigation.navigate("续费服务");
+                        }}
+                      >
+                        <Text style={styles.textPrivacy}>自动续费协议 </Text>
+                      </TouchableOpacity>
+                    </View>
+
+                    {/* purchase button  */}
+                    <View style={{ paddingHorizontal: 30, width: "100%" ,
+                  
+                
+                  position: "absolute",
+                  bottom: 5,
+                  }}>
+                      <TouchableOpacity
+                        onPress={onPurchase}
+                        disabled={!isBtnEnable}
+                      >
+                        <LinearGradient
+                          colors={["#D1AC7D", "#B1885F"]}
+                          locations={[0.0, 0.99]}
+                          style={{
+                            height: 40,
+                            marginBottom: 25,
+                            justifyContent: "center",
+                            alignItems: "center",
+                            paddingVertical: 8,
+                            borderRadius: 8,
+                          }}
+                        >
+                          <Text style={styles.purchaseText}>
+                            立即解锁{" "}
+                            {productSelected &&
+                              `- 总额${productSelected.promoPrice}`}
+                          </Text>
+                        </LinearGradient>
+                      </TouchableOpacity>
+                    </View>
                   </View>
-                </View>
-              </LinearGradient>
-            </View>
-             )}
+                </LinearGradient>
+              </View>
+            )}
           </>
         ) : (
           <>
@@ -832,35 +871,54 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
         height={height}
         data={screenState.showEventSplashData}
         scrollAnimationDuration={100}
-        onScrollBegin={() => { }}
+        onScrollBegin={() => {}}
         enabled={isLastShown == false}
-        loop={true}
+        loop={false}
         onSnapToItem={(index) => {
           setActiveIndex(index);
           if (index === screenState.showEventSplashData.length - 1) {
-            setIsLastShown(true)
+            setIsLastShown(true);
 
             dispatch(setShowEventSplash(false));
-            dispatch(setShowEventSplashData([{"created_at": "", "intro_page_id": 1, "intro_page_image_url": "/upload/vod/111.jpeg", "intro_page_name": "首页1", "url": "https://yingshi.tv/upload/vod/111.jpeg"}]));
-
+            // dispatch(
+            //   setShowEventSplashData([
+            //     {
+            //       created_at: "",
+            //       intro_page_id: 1,
+            //       intro_page_image_url: "/upload/vod/111.jpeg",
+            //       intro_page_name: "首页1",
+            //       url: "https://yingshi.tv/upload/vod/111.jpeg",
+            //     },
+            //   ])
+            // );
           }
-
         }}
         onScrollEnd={(index) => {
           setActiveIndex(index);
           if (index === screenState.showEventSplashData.length - 1) {
-            setIsLastShown(true)
+            setIsLastShown(true);
             dispatch(setShowEventSplash(false));
 
-            dispatch(setShowEventSplashData([{"created_at": "", "intro_page_id": 1, "intro_page_image_url": "/upload/vod/111.jpeg", "intro_page_name": "首页1", "url": "https://yingshi.tv/upload/vod/111.jpeg"}]));
+            // dispatch(
+            //   setShowEventSplashData([
+            //     {
+            //       created_at: "",
+            //       intro_page_id: 1,
+            //       intro_page_image_url: "/upload/vod/111.jpeg",
+            //       intro_page_name: "首页1",
+            //       url: "https://yingshi.tv/upload/vod/111.jpeg",
+            //     },
+            //   ])
+            // );
           }
         }}
         renderItem={renderCarousel}
       />
-      {activeIndex !== screenState.showEventSplashData.length - 1 &&
+      {(activeIndex !== screenState.showEventSplashData.length - 1 &&
         screenState.showEventSplashData.length != 0 &&
         screenState.showEventSplashData &&
-        isLastShown != true && (
+        isLastShown != true) ||
+        screenState.showEventSplash == false && (
           <CarouselPagination
             data={screenState.showEventSplashData}
             dashStyle={true}
@@ -876,7 +934,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center", // Center the content vertically
     justifyContent: "flex-start", // Start the content from the top
-    flexDirection:'column-reverse'
+    flexDirection: "column-reverse",
   },
   video: {
     position: "absolute", // Position the video absolutely within the container
@@ -1027,7 +1085,7 @@ const styles = StyleSheet.create({
   cardContainer2: {},
   cardContainerActive2: {
     borderRadius: 8,
-    borderColor: 'red',
+    borderColor: "red",
     borderWidth: 2,
   },
 });
