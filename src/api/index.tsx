@@ -1,4 +1,6 @@
+export * from './ads';
 export * from './apps';
+export * from './chat';
 export * from './feedback';
 export * from './miniVod';
 export * from './product';

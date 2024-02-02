@@ -1,18 +1,19 @@
-import {CombinedState, combineReducers} from 'redux';
+import { CombinedState, combineReducers } from 'redux';
 import themeReducer from './themeReducer';
 import {
   vodReducer,
   vodPlaylistReducer,
   vodFavouritesReducer,
 } from './vodReducer';
-import {miniVodReducer} from './miniVodReducer';
-import {settingsReducer} from './settingsReducer';
-import {searchHistoryReducer} from './searchReducer';
+import { miniVodReducer } from './miniVodReducer';
+import { settingsReducer } from './settingsReducer';
+import { searchHistoryReducer } from './searchReducer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {CLEAR_STORAGE_MEMORY} from '@utility/constants';
-import {userReducer} from './userReducer';
-import {screenReducer} from './screenReducer';
+import { CLEAR_STORAGE_MEMORY } from '@utility/constants';
+import { userReducer } from './userReducer';
+import { screenReducer } from './screenReducer';
 import { downloadVideoReducer } from './videoDownloadReducer';
+import { chatReducer } from './chatReducer';
 const appReducer = combineReducers({
   themeReducer,
   vodPlaylistReducer,
@@ -23,13 +24,14 @@ const appReducer = combineReducers({
   settingsReducer,
   userReducer,
   screenReducer,
-  downloadVideoReducer
+  downloadVideoReducer,
+  chatReducer,
 });
 
 export default (state: any, action: any) => {
   if (action.type === CLEAR_STORAGE_MEMORY) {
     // Define the reducers you want to keep in the new state
-    const {screenReducer, userReducer} = state;
+    const { screenReducer, userReducer } = state;
 
     // Create a new state object with only the desired reducers
     state = {

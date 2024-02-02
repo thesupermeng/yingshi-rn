@@ -88,6 +88,7 @@ export type RootStackParamList = {
     matchId?: number;
     streamerId?: number;
     sportType?: "足球" | "篮球";
+    screen?: string,
   };
   合集播放: {};
   OTP: {

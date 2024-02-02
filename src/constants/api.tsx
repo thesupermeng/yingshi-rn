@@ -45,4 +45,7 @@ export class CEndpoint {
     static splashApi = 'intro/v1/navigate';
 
     static guestLoginApi = 'users/v2/guestsigninup';
+
+    static chatSocket = 'https://so.finapp.chat';
+    static liveSportsChats = 'liveSports/v1/notice';
 }

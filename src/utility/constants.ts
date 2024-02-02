@@ -125,6 +125,8 @@ export const DOWNLOAD_BATCH_SIZE = 5;
 export const TOTAL_VIDEO_TO_DOWNLOAD = 300;
 // export const CACHE_DURATION = 3; //days
 
+export const COMMENT_MAX_INPUT = 200;
+
 export const MINI_SHOW_LOGIN_NUMBER = 10;
 
 export const AD_VIDEO_SECONDS = 10;
@@ -138,3 +140,6 @@ export const EVENT_ANALYSIS_INTERVEL_SECONDS = 300;
 
 export const SUBSCRIPTION_TYPE = 'subs';
 export const IAP_TYPE = 'iap';
+
+export const CHAT_SEND_COOLDOWN = 3;
+export const CHAT_BOX_MAX_ITEM = 150;

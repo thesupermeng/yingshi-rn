@@ -41,9 +41,9 @@ export const AdsBannerContext = createContext<{
   reloadBanner: any;
   currentRoute: string | null;
 }>({
-  setRoute: () => {},
-  setNavbarHeight: () => {},
-  reloadBanner: () => {},
+  setRoute: () => { },
+  setNavbarHeight: () => { },
+  reloadBanner: () => { },
   currentRoute: "",
 });
 
@@ -71,12 +71,12 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
   );
   // const [orientation, _] =
 
- const reloadBanner = () =>{
-  console.log('reloadBanner')
-  setTimeout(() => {
-    showBannerInPosition().then();
-  }, 100);
-}
+  const reloadBanner = () => {
+    console.log('reloadBanner')
+    setTimeout(() => {
+      showBannerInPosition().then();
+    }, 100);
+  }
 
   const initBannerAdListener = () => {
     ATBannerRNSDK.setAdListener(ATBannerRNSDK.onBannerLoaded, (event) => {
@@ -89,9 +89,9 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
         latestMsg = event.errorMsg;
         console.warn(
           "ATBannerLoadFail: " +
-            event.placementId +
-            ", errorMsg: " +
-            event.errorMsg
+          event.placementId +
+          ", errorMsg: " +
+          event.errorMsg
         );
       }
     });
@@ -111,9 +111,9 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
       (event) => {
         console.log(
           "ATBannerCloseButtonTapped: " +
-            event.placementId +
-            ", adCallbackInfo: " +
-            event.adCallbackInfo
+          event.placementId +
+          ", adCallbackInfo: " +
+          event.adCallbackInfo
         );
       }
     );
@@ -121,9 +121,9 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
     ATBannerRNSDK.setAdListener(ATBannerRNSDK.onBannerClick, (event) => {
       console.log(
         "ATBannerClick: " +
-          event.placementId +
-          ", adCallbackInfo: " +
-          event.adCallbackInfo
+        event.placementId +
+        ", adCallbackInfo: " +
+        event.adCallbackInfo
       );
     });
 
@@ -142,9 +142,9 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
     ATBannerRNSDK.setAdListener(ATBannerRNSDK.onBannerRefreshFail, (event) => {
       console.log(
         "ATBannerRefreshFail: " +
-          event.placementId +
-          ", adCallbackInfo: " +
-          event.adCallbackInfo
+        event.placementId +
+        ", adCallbackInfo: " +
+        event.adCallbackInfo
       );
     });
   };
@@ -187,8 +187,8 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
   const getBannerPlacementId = (routeName: string | null) => {
     if (
       routeName == "播放" ||
-      routeName == "电视台播放" ||
-      routeName == "体育详情"
+      routeName == "电视台播放"
+      // routeName == "体育详情"
     ) {
       // video player page
       if (Platform.OS === "android") {
@@ -423,13 +423,13 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
 
 
       const includesKeywords = ['flip', 'fold', 'mate x3', 'mate xs'].some(keyword => deviceName.includes(keyword));
-    
+
       let tabletOffset = 0;
       if (DeviceInfo.isTablet() || includesKeywords) {
         let sH = StatusBar.currentHeight || 0;
         tabletOffset = 60
       }
-   
+
       let x, y, width, height;
       x = 0;
       let bannerHeightOnScreen =
@@ -501,7 +501,7 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
     if (settingState.appOrientation === "PORTRAIT") {
       if (
         Number(userState.userMemberExpired) <=
-          Number(userState.userCurrentTimestamp) ||
+        Number(userState.userCurrentTimestamp) ||
         userState.userToken === ""
       ) {
         // not member, then show banner
@@ -525,7 +525,7 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
 
   return (
     <AdsBannerContext.Provider
-      value={{ setRoute, setNavbarHeight, currentRoute: route , reloadBanner }}
+      value={{ setRoute, setNavbarHeight, currentRoute: route, reloadBanner }}
     >
       {children}
     </AdsBannerContext.Provider>

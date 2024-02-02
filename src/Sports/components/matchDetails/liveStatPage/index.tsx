@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {Text, View, ScrollView, Dimensions} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Text, View, ScrollView, Dimensions } from 'react-native';
 import AreaChart from '../../areaChart';
 import CustomMatchDetailsTabBar from '../../customMatchDetailsTabBar';
 import StatisticsChart from '../../statisticsChart';
@@ -15,6 +15,7 @@ import { MatchDetailWithRankingData } from '../../../types/liveMatchTypes';
 import { MatchUpdatesType } from '../../../types/matchUpdatesType';
 import Weather from '../../weather';
 import EmptyDataPage from '../../EmptyDataPage';
+import { useIsFocused } from '@react-navigation/native';
 // import AdsComp from '../../../components/adsComp';
 // import {useAds} from '@hooks/useAds';
 
@@ -28,11 +29,13 @@ type Tab = {
   children: React.ReactNode
 }
 
-const LiveStatPage = ({liveRoomUpdate, liveRoomMatchDetails} : Props) => {
+const LiveStatPage = ({ liveRoomUpdate, liveRoomMatchDetails }: Props) => {
+  const isFocus = useIsFocused();
+
   // const adsList = useSelector(state => state.adsList);
   // const [ads] = useAds(adsList);
 
-  const tabBar : Tab[]  = [
+  const tabBar: Tab[] = [
     {
       name: '重要事件',
       children: <StorylineEvent liveRoomUpdate={liveRoomUpdate} />,
@@ -50,11 +53,18 @@ const LiveStatPage = ({liveRoomUpdate, liveRoomMatchDetails} : Props) => {
     },
   ];
 
+  if (!isFocus) {
+    return <View style={{
+      backgroundColor: '#14161A',
+      flex: 1,
+    }} />;
+  }
+
   if (liveRoomMatchDetails?.sports_type === 1) {
     // 比赛未开赛
     if (liveRoomMatchDetails.status === 0) {
       return (
-        <ScrollView style={{backgroundColor: '#14161A'}}>
+        <ScrollView style={{ backgroundColor: '#14161A' }}>
           <Weather
             weather={liveRoomMatchDetails?.football_match?.environment}
             venue={liveRoomMatchDetails?.football_match?.venue}
@@ -65,7 +75,7 @@ const LiveStatPage = ({liveRoomUpdate, liveRoomMatchDetails} : Props) => {
     }
     if (liveRoomMatchDetails.status !== 0) {
       return (
-        <ScrollView style={{backgroundColor: '#14161A'}}>
+        <ScrollView style={{ backgroundColor: '#14161A' }}>
           {/* {ads && <AdsComp item={ads} />} */}
           {liveRoomUpdate?.football_match_live && (
             <AreaChart liveRoomUpdate={liveRoomUpdate} />
@@ -88,7 +98,7 @@ const LiveStatPage = ({liveRoomUpdate, liveRoomMatchDetails} : Props) => {
   } else if (liveRoomMatchDetails?.sports_type === 2) {
     if (liveRoomMatchDetails.status === 0) {
       return (
-        <ScrollView style={{backgroundColor: '#14161A'}}>
+        <ScrollView style={{ backgroundColor: '#14161A' }}>
           {/* {ads && <AdsComp item={ads} />} */}
           <LiveScoreBasketball liveRoomUpdate={liveRoomUpdate} />
           {/* {liveRoomUpdate !== undefined && Object.keys(liveRoomUpdate).length > 0 && (
@@ -100,11 +110,11 @@ const LiveStatPage = ({liveRoomUpdate, liveRoomMatchDetails} : Props) => {
     }
     if (liveRoomMatchDetails.status !== 0) {
       return (
-        <ScrollView style={{backgroundColor: '#14161A'}}>
+        <ScrollView style={{ backgroundColor: '#14161A' }}>
           {/* {ads && <AdsComp item={ads} />} */}
           <AreaChartBasketball liveRoomUpdate={liveRoomUpdate} />
           <LiveScoreBasketball liveRoomUpdate={liveRoomUpdate} />
-          {liveRoomUpdate !== undefined &&  Object.keys(liveRoomUpdate).length > 0 && (
+          {liveRoomUpdate !== undefined && Object.keys(liveRoomUpdate).length > 0 && (
             <BasketballLiveDetails
               liveRoomUpdate={liveRoomUpdate}></BasketballLiveDetails>
           )}
