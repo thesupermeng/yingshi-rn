@@ -262,7 +262,7 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
             <MoreArrow style={{height: icons.sizes.m, width: icons.sizes.m}} color={colors.muted} />
           </Pressable>
         </View>
-        <View>
+        <View style={{flex: 1}}>
           <FlatList
             data={download.episodes.sort(
               (a, b) =>
