@@ -805,7 +805,10 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
           setActiveIndex(index);
           if (index === screenState.showEventSplashData.length - 1) {
             setIsLastShown(true)
+
             dispatch(setShowEventSplash(false));
+            dispatch(setShowEventSplashData([{"created_at": "", "intro_page_id": 1, "intro_page_image_url": "/upload/vod/111.jpeg", "intro_page_name": "首页1", "url": "https://yingshi.tv/upload/vod/111.jpeg"}]));
+
           }
 
         }}
@@ -814,6 +817,8 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
           if (index === screenState.showEventSplashData.length - 1) {
             setIsLastShown(true)
             dispatch(setShowEventSplash(false));
+
+            dispatch(setShowEventSplashData([{"created_at": "", "intro_page_id": 1, "intro_page_image_url": "/upload/vod/111.jpeg", "intro_page_name": "首页1", "url": "https://yingshi.tv/upload/vod/111.jpeg"}]));
           }
         }}
         renderItem={renderCarousel}
