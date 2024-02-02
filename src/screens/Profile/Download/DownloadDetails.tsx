@@ -79,8 +79,11 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
 
   const deleteAlertText = isDeleteAll ? `您是否确定清楚《${download.vod.vod_name}》?` : "您是否确定清除？"
 
+  let resumeTimeout:any; 
+
   const handleDownloadCardPress = (item: EpisodeDownloadType) => 
     debounce(() => {
+      clearTimeout(resumeTimeout)
       if (isEditing) {
         toggleHistory(item);
       } else {
@@ -107,14 +110,16 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
             ),
           );
         } else if (item.status === DownloadStatus.PAUSED) {
-          dispatch(
-            resumeVideoToDownloadThunk(
-              download.vod,
-              item.vodSourceId,
-              item.vodUrlNid,
-              download.vodIsAdult,
-            ),
-          );
+          resumeTimeout = setTimeout(() => {
+            dispatch(
+              resumeVideoToDownloadThunk(
+                download.vod,
+                item.vodSourceId,
+                item.vodUrlNid,
+                download.vodIsAdult,
+              ),
+            );
+          }, 500);
         }
       }
     }, 200)
