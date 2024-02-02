@@ -146,7 +146,17 @@ function resumeFirstVideoDownload(): ThunkAction<void, RootState, any, DownloadV
     const state = getState().downloadVideoReducer;
     const firstVod = state.queue.at(0);
     if (!firstVod) return;
-    dispatch(resumeVideoDownloadThunk(firstVod.vod, firstVod.vodSourceId, firstVod.vodUrlNid, firstVod.vodIsAdult ?? false))
+    
+    const firstVodProgressPercentage = state.downloads
+      .find(x => x.vod.vod_id === firstVod.vod.vod_id)?.episodes
+      .find(x => x.vodUrlNid === firstVod.vodUrlNid && x.vodSourceId === firstVod.vodSourceId)
+      ?.progress.percentage
+
+    if (firstVodProgressPercentage === 0){
+      dispatch(startVideoDownloadThunk(firstVod.vod, firstVod.vodSourceId, firstVod.vodUrlNid, firstVod.vodIsAdult ?? false))
+    } else {
+      dispatch(resumeVideoDownloadThunk(firstVod.vod, firstVod.vodSourceId, firstVod.vodUrlNid, firstVod.vodIsAdult ?? false))
+    }
   }
 }
 
@@ -186,7 +196,7 @@ function startVideoDownloadThunk(
       const newState = getState().downloadVideoReducer
       if (newState.queue.length === 0) return
       if (newState.currentDownloading.length >= MAX_CONCURRENT_VIDEO_DOWNLOAD) return
-      dispatch(startFirstVideoDownload())
+      dispatch(resumeFirstVideoDownload())
     }
 
     const handleError = () => {
@@ -456,7 +466,8 @@ function resumeVideoDownloadThunk(
       const newState = getState().downloadVideoReducer
       if (newState.queue.length === 0) return
       if (newState.currentDownloading.length >= MAX_CONCURRENT_VIDEO_DOWNLOAD) return
-      dispatch(startFirstVideoDownload())
+      dispatch(resumeFirstVideoDownload())
+      
     }
 
     const handleError = () => {
