@@ -211,4 +211,58 @@ export class ProductApi {
             throw e;
         }
     }
+
+    static postAndroidIAP = async ({
+        user_id,
+        product_id,
+        transaction_type,
+        zf_channel,
+        platform,
+        channel_transaction_id,
+        transaction_receipt,
+        transaction_status,
+        is_sb,
+        purchase_token,
+        package_name_android
+    }: {
+        user_id: string;
+        product_id: string;
+        transaction_type: string;
+        zf_channel: string;
+        platform: string;
+        channel_transaction_id: string | undefined;
+        transaction_receipt: any;
+        transaction_status: number;
+        is_sb: number;
+        purchase_token?: string;
+        package_name_android?: string;
+    }) => {
+        try {
+            const result = await CApi.post(CEndpoint.productPostAndroidIAP, {
+                body: {
+                    user_id,
+                    product_id,
+                    transaction_type,
+                    zf_channel,
+                    platform,
+                    channel_transaction_id,
+                    transaction_receipt,
+                    transaction_status,
+                    is_sb,
+                    purchase_token,
+                    package_name_android 
+                }
+            });
+
+            if (result.success === false) {
+                throw result.message;
+            }
+
+            return result;
+
+        } catch (e: any) {
+            console.error(`[Error ${this.name}]: ${e.toString()}`);
+            throw e;
+        }
+    }
 }
