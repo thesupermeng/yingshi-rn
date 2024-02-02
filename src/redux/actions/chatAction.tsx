@@ -131,6 +131,9 @@ export const joinChatRoom = ({
                     payload: response?.message
                 });
             }
+
+            // after join just remove listen (prevent duplicate listen when same account different deveice join a same room)
+            ws.removeAllListeners(SocketEvent.Join);
         });
 
         ws.on(SocketEvent.Disonnect, (e) => { });
