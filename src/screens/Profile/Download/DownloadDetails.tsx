@@ -79,8 +79,11 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
 
   const deleteAlertText = isDeleteAll ? `您是否确定清楚《${download.vod.vod_name}》?` : "您是否确定清除？"
 
-  const handleDownloadCardPress = useCallback(
-    debounce(item => {
+  let resumeTimeout:any; 
+
+  const handleDownloadCardPress = (item: EpisodeDownloadType) => 
+    debounce(() => {
+      clearTimeout(resumeTimeout)
       if (isEditing) {
         toggleHistory(item);
       } else {
@@ -107,19 +110,19 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
             ),
           );
         } else if (item.status === DownloadStatus.PAUSED) {
-          dispatch(
-            resumeVideoToDownloadThunk(
-              download.vod,
-              item.vodSourceId,
-              item.vodUrlNid,
-              download.vodIsAdult,
-            ),
-          );
+          resumeTimeout = setTimeout(() => {
+            dispatch(
+              resumeVideoToDownloadThunk(
+                download.vod,
+                item.vodSourceId,
+                item.vodUrlNid,
+                download.vodIsAdult,
+              ),
+            );
+          }, 500);
         }
       }
-    }, 200),
-    [isEditing, state],
-  );
+    }, 200)
 
   const renderItem = useCallback(({item, index}: {item: EpisodeDownloadType, index: number}) => {
     return <View style={styles.downloadItem}>
@@ -144,11 +147,11 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
         progressPercentage={+item.progress.percentage.toFixed(0)}
         status={item.status}
         activeOpacity={isEditing ? 1 : 0.2}
-        onPress={() => handleDownloadCardPress(item)}
+        onPress={handleDownloadCardPress(item)}
       />
     </View> 
 
-  }, [removeHistory, isEditing, state]) 
+  }, [removeHistory, isEditing]) 
 
 
   const totalDownloadSize = download.episodes.reduce((prev, curr) => {return prev + curr.sizeInBytes}, 0) / 1024 / 1024 
@@ -259,7 +262,7 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
             <MoreArrow style={{height: icons.sizes.m, width: icons.sizes.m}} color={colors.muted} />
           </Pressable>
         </View>
-        <View>
+        <View style={{flex: 1}}>
           <FlatList
             data={download.episodes.sort(
               (a, b) =>

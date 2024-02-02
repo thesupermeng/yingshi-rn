@@ -3,7 +3,7 @@ import { FFmpegKit, FFmpegKitConfig, FFmpegSession, FFmpegSessionCompleteCallbac
 import { throttle, uniqueId } from "lodash";
 import RNFetchBlob from "rn-fetch-blob";
 import {getVideoDuration} from 'react-native-video-duration'
-console.debug(RNFetchBlob.fs.dirs.DocumentDir)
+import { fetch } from "@react-native-community/netinfo";
 
 async function ffmpegDownload(outputPath: string, ffmpegCommand: string ,url: string, onProgress: any, onComplete: any, onError: any, onSessionCreated: any){
   const details = await FFprobeKit.getMediaInformation(url)
@@ -13,16 +13,21 @@ async function ffmpegDownload(outputPath: string, ffmpegCommand: string ,url: st
 
   const handleComplete = async (session: FFmpegSession) => {
     // console.log(`Download complete. File at ${outputFilePath}`)
+    const isOnline = (await fetch()).isConnected && (await fetch()).isInternetReachable
     try{
-      const stats = await RNFetchBlob.fs.stat(outputPath)
-      onComplete(stats.size)
+      if (isOnline){
+        const stats = await RNFetchBlob.fs.stat(outputPath)
+        onComplete(stats.size)
+      }
+      else {
+        onError()
+      }
     } catch (e) {
       onError()
     }
   }
 
   const handleLog = (async (log: Log) => {
-    console.debug(log.getMessage())
     try {
       const durationFromString = await (log.getMessage()).match(/^\d+:\d+:\d+.*$/)?.pop()
       if (durationFromString){
@@ -174,11 +179,42 @@ export async function concatPartialVideos(id: string, onComplete: any, onError: 
     // maybe need to throw error 
     return 
   }
-  const listTxt = (await RNFetchBlob.fs.ls(inputFolder)).sort((a, b) => {
-    const aNum = +a.replace('.mp4', '')
-    const bNum = +b.replace('.mp4', '')
-    return aNum - bNum
-  }).map(path => `file '${inputFolder}/${path}'`).join('\n')
+
+  let pathList: string[] = [];
+  for (const inputPath of await RNFetchBlob.fs.ls(inputFolder)) {
+    /**
+     * When vid cannot be played, the command below will output "Output file does not contain any stream"
+     * But, if vid can be played, it will take long time to process
+     * So 2s timeout is set, after 2s, if the session output is still empty, assume vid is OK 
+     * 
+     */
+    let sessionOutput = '';
+    FFmpegKit.execute(`-v error -i ${inputFolder}/${inputPath} -f null -`).then(s => {
+      s.getOutput().then(sOutput => {
+        sessionOutput = sOutput
+      })
+    })
+
+    await new Promise(resolve => {
+      setTimeout(() => {
+        if (sessionOutput.includes('Output file does not contain any stream')){
+          //* error in stream.. skip 
+        } else {
+          pathList.push(inputPath)
+        }
+        resolve('')
+      }, 2000);
+    })
+    
+  }
+
+  const listTxt = pathList
+    .sort((a, b) => {
+      const aNum = +a.replace('.mp4', '')
+      const bNum = +b.replace('.mp4', '')
+      return aNum - bNum
+    })
+    .map(path => `file '${inputFolder}/${path}'`).join('\n')
   const listTxtPath = `${inputFolder}/list.txt`
   const outputFolder = `${RNFetchBlob.fs.dirs.DocumentDir}/SavedVideos`
   const ffmpegConcatCommand = `-f concat -safe 0 -i ${listTxtPath} -c copy ${outputFolder}/${id}.mp4`

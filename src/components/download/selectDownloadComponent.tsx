@@ -21,6 +21,7 @@ import { DownloadStatus, DownloadVideoReducerState } from "@type/vodDownloadType
 import { useAppSelector } from "@hooks/hooks";
 import { RootState } from "@redux/store";
 import DeviceInfo from "react-native-device-info";
+import { Provider, Toast } from "@ant-design/react-native";
 
 interface Props {
   vodId?: number;
@@ -180,10 +181,10 @@ function SelectDownloadComponent({
         </Text>
       </TouchableOpacity>
     );
-  }, [])
+  }, [ranges])
 
   return (
-    <>
+    <Provider>
       {screen === 'potrait' && (
         <View
           style={{
@@ -232,6 +233,11 @@ function SelectDownloadComponent({
                     setShowAdOverlay(true);
                   } else {
                     onDownload(ep.nid);
+                    Toast.info({
+                      content: '已加入下载列队，请前往 我的下载 查看下载进度', 
+                      duration: 1, 
+                      mask: false
+                    })
                   }
                 }}
                 disabled={ep.isDownloaded || ep.isDownloading}
@@ -366,7 +372,7 @@ function SelectDownloadComponent({
           )}
         </>
       )}
-    </>
+    </Provider>
   );
 }
 
