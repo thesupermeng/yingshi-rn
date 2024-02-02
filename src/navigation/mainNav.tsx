@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { View } from "react-native";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import FastImage from "../components/common/customFastImage";
@@ -23,18 +23,27 @@ import { AdsBannerContextProvider } from "../contexts/AdsBannerContext";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { downloadFirstNVid } from "../utils/minivodDownloader";
 import { fetchMiniVods } from "../api/miniVod";
-import { AppsApi, SplashApi } from "@api";
+import { AppsApi, SplashApi, UserApi } from "@api";
 import { hideLoginAction } from "@redux/actions/screenAction";
 import { useDispatch } from "react-redux";
 import NetInfo from "@react-native-community/netinfo";
 import { useAppSelector } from "@hooks/hooks";
 import { RootState } from "@redux/store";
 import { screenModel } from "@type/screenType";
+import { withIAPContext } from "react-native-iap";
+import DeviceInfo from "react-native-device-info";
+import { userModel } from "@type/userType";
+import { addUserAuthState } from "@redux/actions/userAction";
 
 export default () => {
   const [loadedAPI, setLoadedAPI] = useState(false);
   const [areaNavConfig, setAreaNavConfig] = useState(false);
   const [isSuper, setIsSuper] = useState(false);
+
+  const userState: userModel = useAppSelector(
+    ({ userReducer }: RootState) => userReducer
+  );
+
   const dispatch = useDispatch();
   const isVip = useAppSelector(
     ({ userReducer }) =>
@@ -51,8 +60,6 @@ export default () => {
     ({ screenReducer }: RootState) => screenReducer
   );
 
-  const [splashList, setSplashList] = useState({});
-
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener((state: any) => {
       setIsConnected(state.isConnected);
@@ -65,19 +72,52 @@ export default () => {
     };
   }, []);
 
+  //guest login
+
+  const guestLoginInit = async () => {
+    // console.log("guestLoginInit");
+    // console.log(userState.userId);
+    // console.log(userState.userToken);
+
+    if (userState.userId == "" && userState.userToken == "") {
+     // console.log("guestLogin");
+      let result = await UserApi.guestLogin();
+
+      // console.log("result");
+      // console.log(result);
+      const resultData = result;
+
+      let json = {
+        userToken: resultData.access_token,
+        userId: resultData.user.user_id,
+        userName: resultData.user.user_name,
+        userReferralCode: resultData.user.user_referral_code,
+        userEmail: resultData.user.user_email,
+        userPhoneNumber: resultData.user.user_phone,
+        userMemberExpired: resultData.user.vip_end_time,
+        userReferrerName: resultData.user.referrer_name,
+        userEndDaysCount: resultData.user.user_vip_time_duration_days,
+        userTotalInvite: resultData.user.total_invited_user,
+        userAccumulateRewardDay: resultData.user.accumulated_vip_reward_days,
+        userAllowUpdateReferral: resultData.user.eligible_update_referrer,
+        userCurrentTimestamp: resultData.user.current_timestamp,
+        userInvitedUserList: resultData.user.invited_users,
+        userUpline: resultData.user.upline_user,
+        userAccumulateVipRewardDay:
+          resultData.user.accumulated_paid_vip_reward_days,
+        userPaidVipList: resultData.user.paid_vip_response,
+      };
+      // console.log("json");
+      // console.log(json);
+
+      // await dispatch(addUserAuthState(json));
+    }
+  };
+
   const onAppInit = async () => {
-    let splashListTemp = {};
+    await guestLoginInit();
 
-    splashListTemp = await SplashApi.getSplash();
-
-    splashListTemp = splashListTemp.map((item) => {
-      const obj = Object.assign({}, item);
-      obj.url = "https://yingshi.tv" + obj.intro_page_image_url;
-      return obj;
-    });
-    setSplashList(splashListTemp);
-    // console.log("==================== splashList from main ======================")
-    // console.log(splashList)
+    // console.log("after guestLoginInit");
     await Promise.all([AppsApi.getLocalIpAddress(), AppsApi.getBottomNav()]);
 
     const res = await Api.call(
@@ -167,8 +207,6 @@ export default () => {
     }
   }, [data, isVip]);
 
-  console.log("screenState.showEventSplash");
-  console.log(screenState.showEventSplash);
   return (
     <>
       {isSuper == true ? (
@@ -205,12 +243,7 @@ export default () => {
                 {areaNavConfig == true ? (
                   // B面的B面
                   <AdsBannerContextProvider>
-                    {screenState.showEventSplash == true ? (
-                      //show promo splash event
-                      <EventSpash splashList={splashList} />
-                    ) : (
-                      <Nav />
-                    )}
+                    <Nav />
                   </AdsBannerContextProvider>
                 ) : (
                   <NavIos />

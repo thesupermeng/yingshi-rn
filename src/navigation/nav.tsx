@@ -55,7 +55,6 @@ import VipIcon from "@static/images/vip-icon-inactive.svg";
 
 import SportAndX from "./../../src/screens/SportAndX";
 
-
 import MatchDetailsScreen from "../Sports/screens/Sports/MatchDetails";
 import { useDispatch, useSelector } from "react-redux";
 import SigninupBottomSheet from "../components/auth/signinupBottomSheet";
@@ -98,10 +97,7 @@ import FastImage from "../components/common/customFastImage";
 import { screenModel } from "@type/screenType";
 import { YingshiDarkTheme, YingshiLightTheme } from "@utility/theme";
 import { userModel } from "@type/userType";
-import {
-  updateUserAuth,
-  updateUserReferral,
-} from "@redux/actions/userAction";
+import { updateUserAuth, updateUserReferral } from "@redux/actions/userAction";
 import ExpiredOverlay from "../components/modal/expiredOverlay";
 import EventRules from "../screens/Profile/EventRules";
 import PrivacyPolicyOverlay from "../components/modal/privacyPolicyOverlay";
@@ -115,6 +111,7 @@ import {
 import { SettingsReducerState } from "@redux/reducers/settingsReducer";
 import { AdsBannerContext } from "../contexts/AdsBannerContext";
 import VIP from "../screens/Profile/VIP";
+import VIP2 from "../screens/Profile/VIP2";
 import { withIAPContext } from "react-native-iap";
 import { VipDetails } from "../components/vip/vipDetails";
 
@@ -124,7 +121,10 @@ import AdultVideoList from "../screens/Playlist/AdultVideoList";
 import { UserApi } from "@api";
 import AdEvent from "../screens/Common/AdEvent";
 import { CRouteInitializer } from "../routes/router";
-import { clearQueueOnAppStart, updateAllVodDetailsThunk } from "@redux/actions/videoDownloadAction";
+import {
+  clearQueueOnAppStart,
+  updateAllVodDetailsThunk,
+} from "@redux/actions/videoDownloadAction";
 import DownloadCatalog from "../screens/Profile/Download/DownloadCatalog";
 import DownloadDetails from "../screens/Profile/Download/DownloadDetails";
 
@@ -157,14 +157,14 @@ export default () => {
     return (
       <HomeTab.Navigator
         screenListeners={{
-          tabPress: e => {
-            if (e.target?.includes('随心看')) {
-              dispatch(hideAdultModeDisclaimer())
+          tabPress: (e) => {
+            if (e.target?.includes("随心看")) {
+              dispatch(hideAdultModeDisclaimer());
             }
             // if (e.target?.includes('首页')){
             //   dispatch(showAdultModeDisclaimer())
             // }
-          }
+          },
         }}
         screenOptions={({ route }) => ({
           headerShown: false,
@@ -414,9 +414,9 @@ export default () => {
       (event: any) => {
         console.warn(
           "ATInterstitialLoadFail: " +
-          event.placementId +
-          ", errorMsg: " +
-          event.errorMsg
+            event.placementId +
+            ", errorMsg: " +
+            event.errorMsg
         );
       }
     );
@@ -440,9 +440,9 @@ export default () => {
       (event: any) => {
         console.log(
           "ATInterstitialPlayStart: " +
-          event.placementId +
-          ", adCallbackInfo: " +
-          event.adCallbackInfo
+            event.placementId +
+            ", adCallbackInfo: " +
+            event.adCallbackInfo
         );
       }
     );
@@ -465,11 +465,11 @@ export default () => {
       (event: any) => {
         console.log(
           "ATInterstitialPlayFail: " +
-          event.placementId +
-          ", errorMsg: " +
-          event.errorMsg +
-          ", adCallbackInfo: " +
-          event.adCallbackInfo
+            event.placementId +
+            ", errorMsg: " +
+            event.errorMsg +
+            ", adCallbackInfo: " +
+            event.adCallbackInfo
         );
       }
     );
@@ -479,9 +479,9 @@ export default () => {
       (event: any) => {
         console.log(
           "ATInterstitialClick: " +
-          event.placementId +
-          ", adCallbackInfo: " +
-          event.adCallbackInfo
+            event.placementId +
+            ", adCallbackInfo: " +
+            event.adCallbackInfo
         );
       }
     );
@@ -504,13 +504,13 @@ export default () => {
   useEffect(() => {
     dispatch(resetSportWatchTime());
     initInterstitialAdListener();
-    dispatch(resetAdultVideoWatchTime())
-    dispatch(disableAdultMode())
-    dispatch(hideAdultModeVip())
-    dispatch(disableWatchAnytimeAdultMode())
+    dispatch(resetAdultVideoWatchTime());
+    dispatch(disableAdultMode());
+    dispatch(hideAdultModeVip());
+    dispatch(disableWatchAnytimeAdultMode());
     // dispatch(resetOverEighteen())
-    dispatch(clearQueueOnAppStart())
-    dispatch(updateAllVodDetailsThunk())
+    dispatch(clearQueueOnAppStart());
+    dispatch(updateAllVodDetailsThunk());
   }, []);
 
   return (
@@ -556,7 +556,7 @@ export default () => {
           <Stack.Screen
             name="播放"
             component={PlayScreen}
-            initialParams={{ vod_id: 1, player_mode: 'normal' }}
+            initialParams={{ vod_id: 1, player_mode: "normal" }}
             options={{ orientation: "all" }}
           />
           <Stack.Screen name="播放历史" component={HistoryScreen} />
@@ -626,6 +626,12 @@ export default () => {
           />
 
           <Stack.Screen
+            name="付费Google"
+            component={useCallback(withIAPContext(VIP2), [])}
+            options={{ orientation: "portrait" }}
+          />
+
+          <Stack.Screen
             name="VIP明细"
             component={VipDetails}
             options={{ orientation: "portrait" }}
@@ -633,27 +639,20 @@ export default () => {
           <Stack.Screen
             name="午夜场剧情"
             component={AdultVideoList}
-            options={{ orientation: 'portrait' }}
+            options={{ orientation: "portrait" }}
           />
-          <Stack.Screen
-            name="活动页"
-            component={AdEvent}
-          />
+          <Stack.Screen name="活动页" component={AdEvent} />
           <Stack.Screen
             name="我的下载"
             component={DownloadCatalog}
-            options={{ orientation: 'portrait' }}
+            options={{ orientation: "portrait" }}
           />
           <Stack.Screen
             name="下载详情"
             component={DownloadDetails}
-            options={{ orientation: 'portrait' }}
+            options={{ orientation: "portrait" }}
           />
-          <Stack.Screen
-            name="续费服务"
-            component={AutoRenewService}
-          />
-
+          <Stack.Screen name="续费服务" component={AutoRenewService} />
         </Stack.Navigator>
         {settingsReducer.appOrientation === "PORTRAIT" && ( // only show if portrait
           <>

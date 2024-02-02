@@ -476,3 +476,46 @@ export interface BannerAdType {
     ads_redirect_type: number
 
 }
+
+export type LiveChatRoomType = {
+    roomId: string,
+    messages: LiveChatMessageType,
+}
+
+export type LiveChatMessageType = {
+    userId: string,
+    userName: string,
+    /**
+     * 1 - sys
+     * 2 - user
+     * 3 - admin
+     * 4 - virtual audience
+     * 5 - chatbot assistant
+     * 6 - streamer
+     */
+    role: number,
+    message: string,
+    /**
+     * 1 - all
+     * 2 - private (only view by user self)
+     */
+    visibility: number,
+    createAt: string,
+}
+
+export type StreamerPinMsgType = {
+    noticeId: number,
+    botName: string,
+    botMessage: string,
+    sportsType: number,
+    noticeSort: number,
+    createdAt?: Date,
+}
+
+export type SportTabType = {
+    name: string,
+    settings: {
+        enabled_live: string,
+        enabled_sports_chatroom: string,
+    }
+}

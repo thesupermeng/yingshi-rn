@@ -10,10 +10,7 @@ import ScreenContainer from "../components/container/screenContainer";
 import { useFocusEffect, useRoute, useTheme } from "@react-navigation/native";
 import { useQuery, useQueries, UseQueryResult } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
-import {
-  NavOptionsType,
-  VodCarousellType,
-} from "@type/ajaxTypes";
+import { NavOptionsType, VodCarousellType } from "@type/ajaxTypes";
 import {
   BottomTabScreenProps,
   useBottomTabBarHeight,
@@ -51,12 +48,14 @@ import EighteenPlusOverlay from "../components/modal/overEighteenOverlay";
 import {
   hideAdultModeDisclaimer,
   setShowAdultTab,
+  setShowEventSplashData,
 } from "@redux/actions/screenAction";
 import { screenModel } from "@type/screenType";
-import { AppsApi } from "@api";
+import { AppsApi, SplashApi } from "@api";
 import UmengAnalytics from "../../Umeng/UmengAnalytics";
 import { userModel } from "@type/userType";
 import DeviceInfo from "react-native-device-info";
+import { EventSpash } from "../navigation/eventSplash";
 
 function Home({ navigation }: BottomTabScreenProps<any>) {
   const dispatch = useAppDispatch();
@@ -72,10 +71,12 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   const screenState: screenModel = useAppSelector(
     ({ screenReducer }) => screenReducer
   );
-  const userState = useSelector<userModel>('userReducer');
-  const isVip = !(Number(userState.userMemberExpired) <=
-    Number(userState.userCurrentTimestamp) ||
-    userState.userToken === "")
+
+  const userState = useSelector<userModel>("userReducer");
+  const isVip = !(
+    Number(userState.userMemberExpired) <=
+      Number(userState.userCurrentTimestamp) || userState.userToken === ""
+  );
   const bottomTabHeight = useBottomTabBarHeight();
 
   let channel = UMENG_CHANNEL;
@@ -83,32 +84,32 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   if (Platform.OS === "ios") {
     channel = "WEB";
   }
-  ;
   const { data: navOptions, refetch } = useQuery({
     queryKey: ["HomePageNavOptions"],
-    queryFn: () => AppsApi.getHomeNav()
-      .then((json: NavOptionsType[]) => {
-
+    queryFn: () =>
+      AppsApi.getHomeNav().then((json: NavOptionsType[]) => {
         let gotAdultFlag = json.findIndex((e) => e?.id == 99);
         if (gotAdultFlag >= 0) {
           json = json.filter((e) => e?.id != 99);
           dispatch(setShowAdultTab(true));
-        }
-        else {
+        } else {
           dispatch(setShowAdultTab(false));
         }
         return json;
       }),
   });
 
-  const fetchData = useCallback((id: number) => AppsApi.getHomePages(id, isVip), [isVip]);
+  const fetchData = useCallback(
+    (id: number) => AppsApi.getHomePages(id, isVip),
+    [isVip]
+  );
 
   const data = useQueries({
     queries: navOptions
       ? navOptions?.map((x: any) => ({
-        queryKey: ["HomePage", x.id, isVip],
-        queryFn: () => fetchData(x.id),
-      }))
+          queryKey: ["HomePage", x.id, isVip],
+          queryFn: () => fetchData(x.id),
+        }))
       : [],
   });
 
@@ -220,7 +221,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
               <RecommendationHome
                 vodCarouselRes={item.data}
                 navId={index}
-                tabName={navOptions !== undefined ? navOptions[index].name : ''}
+                tabName={navOptions !== undefined ? navOptions[index].name : ""}
                 onRefresh={handleRefresh}
                 onLoad={handleShowLoading}
                 refreshProp={isRefreshing}
@@ -231,7 +232,9 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
                 <CatagoryHome
                   vodCarouselRes={item.data}
                   navId={index}
-                  tabName={navOptions !== undefined ? navOptions[index].name : ''}
+                  tabName={
+                    navOptions !== undefined ? navOptions[index].name : ""
+                  }
                   onRefresh={handleRefresh}
                   refreshProp={isRefreshing}
                   handleRejectEighteenPlus={handleRejectEighteenPlus}
@@ -245,34 +248,39 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
     [navOptions, navId, screenState.lastSeenNavName]
   );
 
-  const { setNavbarHeight , reloadBanner } = useContext(AdsBannerContext);
+  const { setNavbarHeight, reloadBanner } = useContext(AdsBannerContext);
 
-  
-  const isSamsungDevice = DeviceInfo.getBrand() === 'samsung';
+  const isSamsungDevice = DeviceInfo.getBrand() === "samsung";
   useEffect(() => {
-  //setNavbarHeight(bottomTabHeight);
-    setTimeout(() => {
-      // add delay to solve galaxy phone banner overlay nav on first start
-      setNavbarHeight(bottomTabHeight);
-    },  isSamsungDevice ? 1000 : 500)
-  }, [bottomTabHeight , screenState.interstitialShow]);
+    //setNavbarHeight(bottomTabHeight);
+    setTimeout(
+      () => {
+        // add delay to solve galaxy phone banner overlay nav on first start
+        setNavbarHeight(bottomTabHeight);
+      },
+      isSamsungDevice ? 1000 : 500
+    );
+  }, [bottomTabHeight, screenState.interstitialShow]);
 
   const [deviceName, setDeviceName] = useState("");
 
   DeviceInfo.getDeviceName().then((d) => {
-      setDeviceName(d.toLowerCase());
+    setDeviceName(d.toLowerCase());
   });
 
-   useEffect(() => {
-
-    Dimensions.addEventListener('change', (e) => {
-      const includesKeywords = ['flip', 'fold', 'mate x3', 'mate xs'].some(keyword => deviceName.includes(keyword));
+  useEffect(() => {
+    Dimensions.addEventListener("change", (e) => {
+      const includesKeywords = [
+        "flip",
+        "fold",
+        "mate x3",
+        "mate xs",
+      ].some((keyword) => deviceName.includes(keyword));
       if (DeviceInfo.isTablet() || includesKeywords) {
-        reloadBanner()
-    }
-    })
+        reloadBanner();
+      }
+    });
   }, []);
-  
 
   // ========== for analytics - start ==========
   useEffect(() => {
@@ -293,6 +301,53 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
       });
     }
   }, [navId]);
+
+  useEffect(() => {
+    checkSplash();
+  }, []);
+
+  const checkSplash = async () => {
+
+
+    let splashListTemp = [];
+    try {
+
+      // if(screenState.showEventSplashData == false)
+      // {
+      //   return;
+      // }
+      splashListTemp = await SplashApi.getSplash();
+
+      // console.log("==================== splashList from main ======================")
+      // console.log(splashListTemp)
+      if (splashListTemp.length > 0) {
+        splashListTemp = splashListTemp.map((item: any) => {
+          const obj = Object.assign({}, item);
+          obj.url = "https://yingshi.tv" + obj.intro_page_image_url;
+          return obj;
+        });
+      }
+      await dispatch(setShowEventSplashData( 
+        [...splashListTemp ,  {"created_at": "", "intro_page_id": 1, "intro_page_image_url": "/upload/vod/111.jpeg", "intro_page_name": "首页1", "url": "https://yingshi.tv/upload/vod/111.jpeg"}]
+        ));
+      //     console.log("==================== splashList from main ======================")
+      // console.log(screenState.showEventSplashData)
+    } catch (e) {
+      dispatch(setShowEventSplashData([]));
+    }
+
+    if(
+      screenState.showEventSplashData )
+      {
+        console.log("==================== splashList from main ======================")
+        console.log(screenState.showEventSplash )
+        console.log( screenState.showEventSplashData)
+        navigation.navigate("付费Google");
+      }
+
+
+  };
+
   // ========== for analytics - end ==========
 
   const onTabFocus = (target?: string) => {
@@ -336,88 +391,88 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   useInterstitialAds();
 
   return (
-    <>
-      <ScreenContainer
-        containerStyle={{ paddingLeft: 0, paddingRight: 0 }}
-        isHome={false} // solve home tab tabsize different issue
-      >
-        <View
-          style={{
-            backgroundColor: colors.background,
-            paddingLeft: spacing.sideOffset,
-            paddingRight: spacing.sideOffset,
-          }}
-        >
-          <HomeHeader navigator={navigation} />
-        </View>
-        <HomeNav
-          // hideContent={hideContent}
-          navId={navId}
-          onTabPress={onTabPress}
-          onTabFocus={onTabFocus}
-          onTabSwipe={onTabSwipe}
-          tabList={
-            navOptions?.map((e) => ({
-              id: e.id,
-              title: e.name,
-              name: e.name,
-            })) ?? []
-          }
-          tabChildren={(tab, i) => (
-            <>
-              {(!data || isRefreshing) && (
-                <View
-                  style={{
-                    ...styles.loading,
-                    flex: 1,
-                    alignItems: "center",
-                    justifyContent: "center",
-                    position: "absolute",
-                    left: "50%",
-                    marginLeft: -40, // Half of the element's width
-                  }}
-                >
-                  {
-                    <FastImage
-                      style={{ height: 80, width: 80 }}
-                      source={require("@static/images/loading-spinner.gif")}
-                      resizeMode={"contain"}
-                    />
-                  }
-                </View>
+        <>
+          <ScreenContainer
+            containerStyle={{ paddingLeft: 0, paddingRight: 0 }}
+            isHome={false} // solve home tab tabsize different issue
+          >
+            <View
+              style={{
+                backgroundColor: colors.background,
+                paddingLeft: spacing.sideOffset,
+                paddingRight: spacing.sideOffset,
+              }}
+            >
+              <HomeHeader navigator={navigation} />
+            </View>
+            <HomeNav
+              // hideContent={hideContent}
+              navId={navId}
+              onTabPress={onTabPress}
+              onTabFocus={onTabFocus}
+              onTabSwipe={onTabSwipe}
+              tabList={
+                navOptions?.map((e) => ({
+                  id: e.id,
+                  title: e.name,
+                  name: e.name,
+                })) ?? []
+              }
+              tabChildren={(tab, i) => (
+                <>
+                  {(!data || isRefreshing) && (
+                    <View
+                      style={{
+                        ...styles.loading,
+                        flex: 1,
+                        alignItems: "center",
+                        justifyContent: "center",
+                        position: "absolute",
+                        left: "50%",
+                        marginLeft: -40, // Half of the element's width
+                      }}
+                    >
+                      {
+                        <FastImage
+                          style={{ height: 80, width: 80 }}
+                          source={require("@static/images/loading-spinner.gif")}
+                          resizeMode={"contain"}
+                        />
+                      }
+                    </View>
+                  )}
+                  {showHomeLoading && !isOffline && (
+                    <View
+                      style={{
+                        flex: 1,
+                        justifyContent: "center",
+                        alignItems: "center",
+                        backgroundColor: "rgb(20,22,25)",
+                      }}
+                    >
+                      <FastImage
+                        source={require("@static/images/home-loading.gif")}
+                        style={{
+                          width: 150,
+                          height: 150,
+                          position: "relative",
+                          bottom: 50,
+                          zIndex: -1,
+                        }}
+                        resizeMode={"contain"}
+                        useFastImage={true}
+                      />
+                    </View>
+                  )}
+                  {data &&
+                    !isOffline &&
+                    getContent({ item: data[i], index: tab.id })}
+                </>
               )}
-              {showHomeLoading && !isOffline && (
-                <View
-                  style={{
-                    flex: 1,
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "rgb(20,22,25)",
-                  }}
-                >
-                  <FastImage
-                    source={require("@static/images/home-loading.gif")}
-                    style={{
-                      width: 150,
-                      height: 150,
-                      position: "relative",
-                      bottom: 50,
-                      zIndex: -1,
-                    }}
-                    resizeMode={"contain"}
-                    useFastImage={true}
-                  />
-                </View>
-              )}
-              {data &&
-                !isOffline &&
-                getContent({ item: data[i], index: tab.id })}
-            </>
-          )}
-        />
-      </ScreenContainer>
-      {isOffline && <NoConnection onClickRetry={checkConnection} />}
-    </>
+            />
+          </ScreenContainer>
+          {isOffline && <NoConnection onClickRetry={checkConnection} />}
+        </>
   );
 }
 

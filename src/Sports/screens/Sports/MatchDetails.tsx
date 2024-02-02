@@ -3,23 +3,21 @@ import React, {
   memo,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from 'react';
 import {
   StyleSheet,
   View,
-  Text,
-  FlatList,
-  TouchableOpacity,
-  Dimensions,
-  Image,
+  Platform,
+  KeyboardAvoidingView,
 } from 'react-native';
 import ScreenContainer from '../../../components/container/screenContainer';
 import MainHeader from '../../../components/header/homeHeader';
 import { useFocusEffect, useTheme } from '@react-navigation/native';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
-import { DetailTab, BannerAdType } from '@type/ajaxTypes';
+import { DetailTab, BannerAdType, SportTabType } from '@type/ajaxTypes';
 import VodPlaylist from '../../../components/playlist/vodPlaylist';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import Animated from 'react-native-reanimated';
@@ -49,7 +47,7 @@ import StatisticPage from '../../components/matchDetails/statisticPage';
 import { LineUpType } from '../../types/lineUpTypes';
 import LineUpPage from '../../components/matchDetails/lineUpPage';
 import { useDispatch } from 'react-redux';
-import { useAppSelector } from '@hooks/hooks';
+import { useAppDispatch, useAppSelector, useSelector } from '@hooks/hooks';
 import { screenModel } from '@type/screenType';
 import { incrementSportWatchTime } from '@redux/actions/screenAction';
 import BecomeVipOverlay from "../../../components/modal/becomeVipOverlay";
@@ -61,10 +59,10 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SettingsReducerState } from '@redux/reducers/settingsReducer';
 import VipRegisterBar from '../../../components/adultVideo/vipRegisterBar';
 import { BannerContainer } from '../../../components/container/bannerContainer';
-import { CApi } from '@utility/apiService';
-import { CEndpoint } from '../../../constants/api';
 import { YSConfig } from '../../../../ysConfig';
-import { AdsApi } from '../../../api/ads';
+import { AdsApi } from '@api';
+import LiveChatPage from '../../components/matchDetails/liveChatPage';
+import PrivateChatPage from '../../components/matchDetails/privateChatPage';
 
 let insetsTop = 0;
 let insetsBottom = 0;
@@ -87,6 +85,7 @@ type VideoSource = {
 
 const MatchDetails = ({ navigation, route }: BottomTabScreenProps<any>) => {
   const dispatch = useDispatch();
+
   const screenState: screenModel = useAppSelector(
     ({ screenReducer }) => screenReducer
   )
@@ -113,7 +112,9 @@ const MatchDetails = ({ navigation, route }: BottomTabScreenProps<any>) => {
   const videoRef = useRef<VideoRef | null>(null);
   const [bannerAd, setBannerAd] = useState<BannerAdType>();
   const isVip = useAppSelector(({ userReducer }) => !(Number(userReducer.userMemberExpired) <= Number(userReducer.userCurrentTimestamp) || userReducer.userToken === ""))
-
+  const sportTabDetails: SportTabType = YSConfig.instance.findTabByKey('体育');
+  const isEnableChatRoom = useMemo(() => sportTabDetails.settings.enabled_sports_chatroom.toLowerCase() !== 'y', [sportTabDetails]);
+  // const [isKeyboardShow, setKeyboardShow] = useState(false);
 
   // ========== for analytics - start ==========
   useEffect(() => {
@@ -170,8 +171,37 @@ const MatchDetails = ({ navigation, route }: BottomTabScreenProps<any>) => {
     staleTime: 1000,
   });
 
+  const streamer = (match === undefined || match?.streams === undefined || match.streams.length === 0)
+    ? null
+    : match.streams[0].streamer;
+
   useEffect(() => {
     setTabList([
+      ...(isEnableChatRoom && streamer ? [
+        {
+          name: 'LiveChat',
+          title: '聊天室',
+          page: (
+            <LiveChatPage
+              matchID={matchID.toString()}
+              streamer={streamer}
+              onPrivateChatPress={onGoPrivateChatPress}
+            // onInputFocus={onInputFocus}
+            />
+          ),
+        },
+        {
+          name: 'PrivateChat',
+          title: '私聊',
+          page: (
+            <PrivateChatPage
+              matchID={matchID.toString()}
+              streamer={streamer}
+            // onInputFocus={onInputFocus}
+            />
+          ),
+        },
+      ] : []),
       {
         name: 'Live',
         title: '直播',
@@ -209,8 +239,7 @@ const MatchDetails = ({ navigation, route }: BottomTabScreenProps<any>) => {
           ),
         },
     ]);
-  }, [liveRoomUpdate, matchLineUp, matchDetails]);
-  // console.log(match[0])
+  }, [streamer, liveRoomUpdate, matchLineUp, matchDetails]);
 
   const onLiveEnd = useCallback(() => {
     setIsLiveVideoEnd(true);
@@ -289,8 +318,13 @@ const MatchDetails = ({ navigation, route }: BottomTabScreenProps<any>) => {
 
   const insets = useSafeAreaInsets();
 
-  insetsTop = insetsTop == 0 ? insets.top : insetsTop;
-  insetsBottom = insetsBottom == 0 ? insets.bottom : insets.bottom;
+  if (Platform.OS === 'android') {
+    insetsTop = insets.top;
+    insetsBottom = insets.bottom;
+  } else {
+    insetsTop = insetsTop == 0 ? insets.top : insetsTop;
+    insetsBottom = insetsBottom == 0 ? insets.bottom : insets.bottom;
+  }
 
   const fetchBannerAd = async () => {
     const banner = await AdsApi.getBannerAd(111);
@@ -315,6 +349,19 @@ const MatchDetails = ({ navigation, route }: BottomTabScreenProps<any>) => {
     // ========== for analytics - end ==========
   }, []);
 
+  const onGoPrivateChatPress = () => {
+    navigation.navigate('体育详情', {
+      matchId: matchID,
+      streamerId: route?.params?.streamerId,
+      sportType: route?.params?.sportType,
+      screen: 'PrivateChat',
+    });
+  }
+
+  // const onInputFocus = (isFocus: boolean) => {
+  //   setKeyboardShow(isFocus);
+  // }
+
   return (
     <ScreenContainer
       isPlay={true}
@@ -328,113 +375,115 @@ const MatchDetails = ({ navigation, route }: BottomTabScreenProps<any>) => {
         paddingBottom: screenState.isPlayerFullScreen ? 0 : insetsBottom,
       }}
     >
-      <BecomeVipOverlay
-        setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
-        showBecomeVIPOverlay={showBecomeVIPOverlay}
-        isJustClose={showCountdown && NON_VIP_STREAM_TIME_SECONDS > screenState.sportWatchTime}
-        selectedTab='sport'
-        onClose={() => {
-          videoRef.current?.setPause(false);
+      <KeyboardAvoidingView
+        style={{ flex: 1, }}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      >
+        <BecomeVipOverlay
+          setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
+          showBecomeVIPOverlay={showBecomeVIPOverlay}
+          isJustClose={showCountdown && NON_VIP_STREAM_TIME_SECONDS > screenState.sportWatchTime}
+          selectedTab='sport'
+          onClose={() => {
+            videoRef.current?.setPause(false);
 
-          if (!(showCountdown && NON_VIP_STREAM_TIME_SECONDS > screenState.sportWatchTime) && route.name === '体育详情') {
-            navigation.goBack();
-          }
-        }}
-      />
-      {videoSource.url &&
-        ((videoSource.type === VideoLiveType.LIVE &&
-          match?.streams?.some(streamer => streamer.status == 3)) ||
-          videoSource.type === VideoLiveType.ANIMATION) ? (
-        <LiveVideo
-          videoRef={videoRef}
-          liveDataState={match}
-          // fullScreen={tempFullscreen}
-          streamID={streamID}
-          setVideoSource={setVideoSource}
-          matchID={matchID}
-          onLiveEnd={onLiveEnd}
-          onLoad={onLiveLoad}
-          videoSource={videoSource}
-          onGoBack={navigation.goBack}
-          // onFullscreenChangeCallback={isFullscreen}
-          showCountdown={showCountdown}
-          countdownTime={NON_VIP_STREAM_TIME_SECONDS - screenState.sportWatchTime}
-          onVipCountdownClick={onVipCountdownClick}
-        />
-      ) : (
-        <BeforeLive
-          dataLive={match?.streams}
-          onOpenLive={() => {
-            if (match?.streams && match?.streams?.length > 0) {
-              // onOpen('videoLive');
-              const { streamer_id, src } = match?.streams[0];
-              setStreamID(streamer_id);
-              setIsLiveVideoEnd(false);
-              setVideoSource({
-                type: VideoLiveType.LIVE,
-                url: parseVideoURL(src),
-              });
+            if (!(showCountdown && NON_VIP_STREAM_TIME_SECONDS > screenState.sportWatchTime) && route.name === '体育详情') {
+              navigation.goBack();
             }
           }}
-          onOpenAnimation={(url: string) => {
-            // onOpen('animation');
-            setIsLiveVideoEnd(false);
-            setVideoSource({ type: VideoLiveType.ANIMATION, url: url });
-          }}
-          listLiveDetails={matchDetails}
-          setVideoSource={setVideoSource}
-          liveDataState={match}
-          listLiveMatchDetailsUpdates={liveRoomUpdate}
         />
-      )}
-      <VipRegisterBar onPress={() => {
-        videoRef.current?.setPause(true);
-      }} />
-
-      {bannerAd && (
-        <View style={{
-          // paddingLeft: spacing.sideOffset,
-          // paddingRight: spacing.sideOffset,
-          // paddingVertical: 5
-        }}>
-          <BannerContainer
-            bannerAd={bannerAd}
-            onMount={({ id, name, slot_id, title }) => {
-              UmengAnalytics.videoPlayerBannerViewAnalytics({
-                playerType: 'sport',
-                ads_id: id,
-                ads_name: name,
-                ads_slot_id: slot_id,
-                ads_title: title,
-              });
-            }}
-            onPress={({ id, name, slot_id, title }) => {
-              UmengAnalytics.videoPlayerBannerClickAnalytics({
-                playerType: 'sport',
-                ads_id: id,
-                ads_name: name,
-                ads_slot_id: slot_id,
-                ads_title: title,
-              });
-            }}
+        {videoSource.url &&
+          ((videoSource.type === VideoLiveType.LIVE &&
+            match?.streams?.some(streamer => streamer.status == 3)) ||
+            videoSource.type === VideoLiveType.ANIMATION) ? (
+          <LiveVideo
+            videoRef={videoRef}
+            liveDataState={match}
+            // fullScreen={tempFullscreen}
+            streamID={streamID}
+            setVideoSource={setVideoSource}
+            matchID={matchID}
+            onLiveEnd={onLiveEnd}
+            onLoad={onLiveLoad}
+            videoSource={videoSource}
+            onGoBack={navigation.goBack}
+            // onFullscreenChangeCallback={isFullscreen}
+            showCountdown={showCountdown}
+            countdownTime={NON_VIP_STREAM_TIME_SECONDS - screenState.sportWatchTime}
+            onVipCountdownClick={onVipCountdownClick}
           />
-        </View>
-      )}
-
-      {settingsReducer.appOrientation === 'PORTRAIT' && ((isNavVisible &&
-        isFullyLoaded && tabList.length > 0) ? (
-        <MatchDetailsNav streamId={10001} tabList={tabList} />
-      ) : (
-        <View style={styles.fetching}>
-          <FastImage
-            source={require('@static/images/loading-spinner.gif')}
-            style={{ width: 100, height: 80, marginBottom: -20 }}
-            resizeMode="contain"
+        ) : (
+          <BeforeLive
+            dataLive={match?.streams}
+            onOpenLive={() => {
+              if (match?.streams && match?.streams?.length > 0) {
+                // onOpen('videoLive');
+                const { streamer_id, src } = match?.streams[0];
+                setStreamID(streamer_id);
+                setIsLiveVideoEnd(false);
+                setVideoSource({
+                  type: VideoLiveType.LIVE,
+                  url: parseVideoURL(src),
+                });
+              }
+            }}
+            onOpenAnimation={(url: string) => {
+              // onOpen('animation');
+              setIsLiveVideoEnd(false);
+              setVideoSource({ type: VideoLiveType.ANIMATION, url: url });
+            }}
+            listLiveDetails={matchDetails}
+            setVideoSource={setVideoSource}
+            liveDataState={match}
+            listLiveMatchDetailsUpdates={liveRoomUpdate}
           />
-          {/* <Text style={{ ...textVariants.body, color: colors.muted, textAlign: 'center' }}>加载中。。。</Text> */}
-        </View>
-      )
-      )}
+        )}
+        <VipRegisterBar onPress={() => {
+          videoRef.current?.setPause(true);
+        }} />
+
+        {/* {bannerAd && (
+          <View style={{
+            // paddingLeft: spacing.sideOffset,
+            // paddingRight: spacing.sideOffset,
+            // paddingVertical: 5
+          }}>
+            <BannerContainer
+              bannerAd={bannerAd}
+              onMount={() => {
+                UmengAnalytics.videoPlayerBannerViewAnalytics({
+                  playerType: 'sport',
+                });
+              }}
+              onPress={() => {
+                UmengAnalytics.videoPlayerBannerClickAnalytics({
+                  playerType: 'sport',
+                });
+              }}
+            />
+          </View>
+        )} */}
+
+        {settingsReducer.appOrientation === 'PORTRAIT' && ((isNavVisible &&
+          isFullyLoaded && tabList.length > 0) ? (
+          <MatchDetailsNav
+            streamId={10001}
+            tabList={tabList}
+            defaultTabName={'Live'}
+          // isKeyboardShow={isKeyboardShow}
+          />
+        ) : (
+          <View style={styles.fetching}>
+            <FastImage
+              source={require('@static/images/loading-spinner.gif')}
+              style={{ width: 100, height: 80, marginBottom: -20 }}
+              resizeMode="contain"
+            />
+            {/* <Text style={{ ...textVariants.body, color: colors.muted, textAlign: 'center' }}>加载中。。。</Text> */}
+          </View>
+        )
+        )}
+      </KeyboardAvoidingView>
     </ScreenContainer>
   );
 };

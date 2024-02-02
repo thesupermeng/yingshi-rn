@@ -10,9 +10,9 @@ export class YSConfig {
   updateDesc = '';
   updateUrl = '';
 
-      // y == 成为VIP 
-    // n == 付费购买VIP
-    showBecomeVip = false;
+  // y == 成为VIP 
+  // n == 付费购买VIP
+  showBecomeVip = false;
 
   setTabConfig(tabConfig) {
     this.tabConfig = tabConfig;
@@ -43,5 +43,15 @@ export class YSConfig {
   setUpdateUrl(updateUrl)
   {
     this.updateUrl = updateUrl;
+  }
+
+  findTabByKey(key) {
+    if (this.tabConfig == null) return null;
+
+    const found = this.tabConfig.find((e) => e.name === key);
+
+    if (found === null || found === undefined) return null;
+
+    return found;
   }
 }

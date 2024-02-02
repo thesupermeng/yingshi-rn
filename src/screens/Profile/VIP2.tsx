@@ -1,72 +1,84 @@
-import React, {
-  useState,
-  useEffect,
-  useRef,
-} from "react";
-
-import SplashCard from "./../../src/components/common/splashCard";
+import React, { useEffect, useRef, useState } from "react";
 import {
+  View,
+  Text,
+  StyleSheet,
+  RefreshControl,
+  ScrollView,
+  Platform,
+  Linking,
+  TextInput,
+  Alert,
   Dimensions,
   ImageBackground,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
 } from "react-native";
-import Carousel from "react-native-reanimated-carousel";
-import CarouselPagination from "../components/container/CarouselPagination";
-import LinearGradient from "react-native-linear-gradient";
-import FastImage from "../../src/components/common/customFastImage";
-import Video from "react-native-video";
-import { promoMembershipModel } from "@type/membershipType";
-import { ProductApi } from "../api/product";
-import { Purchase, PurchaseError, requestPurchase, requestSubscription, useIAP, withIAPContext } from "react-native-iap";
-import { isPlay } from "react-native-iap/src/internal";
-import SpinnerOverlay from "../components/modal/SpinnerOverlay";
+import { PurchaseError, requestPurchase, useIAP } from "react-native-iap";
+import ScreenContainer from "../../components/container/screenContainer";
+import { RootStackScreenProps } from "@type/navigationTypes";
+import { useNavigation, useTheme } from "@react-navigation/native";
 import { RootState } from "@redux/store";
-import { useAppSelector } from "@hooks/hooks";
+
+import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
+import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
+import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import { userModel } from "@type/userType";
-import { APP_NAME_CONST, IAP_TYPE, SUBSCRIPTION_TYPE } from "@utility/constants";
-import { showToast } from "../Sports/utility/toast";
+import { updateUserAuth } from "@redux/actions/userAction";
+import { TouchableOpacity } from "react-native";
+import NoConnection from "../../components/common/noConnection";
+import FastImage from "react-native-fast-image";
+import {
+  APP_NAME_CONST,
+  IS_ANDROID,
+  IS_IOS,
+  UMENG_CHANNEL,
+} from "@utility/constants";
+import { setShowEventSplashData, showLoginAction , setShowEventSplash } from "@redux/actions/screenAction";
+import { ProductApi, UserApi } from "@api";
+import WebView from "react-native-webview";
+import { YSConfig } from "../../../ysConfig";
+import { VipCard } from "../../components/vip/vipCard";
+import {
+  membershipModel,
+  promoMembershipModel,
+  zfModel,
+} from "@type/membershipType";
+import { Dialog } from "@rneui/themed";
+import { InAppBrowser } from "react-native-inappbrowser-reborn";
+import { VipDialog } from "../../components/vip/vipDialog";
+import SpinnerOverlay from "../../components/modal/SpinnerOverlay";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { isAndroid } from "react-native-iap/lib/typescript/src/internal";
+import UmengAnalytics from "../../../Umeng/UmengAnalytics";
+import { err } from "react-native-svg/lib/typescript/xml";
+import CarouselPagination from "../../components/container/CarouselPagination";
+import { screenModel } from "@type/screenType";
+import LinearGradient from "react-native-linear-gradient";
+import SplashCard from "../../components/common/splashCard";
+import Carousel from "react-native-reanimated-carousel";
+import LottieView from "lottie-react-native";
 
-interface Props {
-  splashList: any;
-}
+export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
+  const screenState: screenModel = useAppSelector(
+    ({ screenReducer }) => screenReducer
+  );
 
-const iap_skus = ['yingshi_vip_1_month', 'yingshi_vip_12_months'];
-const subs_skus = ['vip_1_month_subscription', 'vip_3_month_subscription', 'vip_12_month_subscription'];
-
-export const EventSpash = ({ splashList }: Props) => {
-  const {
-    connected,
-    products,
-    currentPurchase,
-    finishTransaction,
-    getProducts,
-    getSubscriptions,
-    subscriptions,
-  } = useIAP();
   const carouselRef = useRef<any>();
   const [width, setWidth] = useState(Dimensions.get("window").width);
   const [height, setHeight] = useState(Dimensions.get("window").height);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isLastShown, setIsLastShown] = useState(false);
+  const dispatch = useAppDispatch();
 
-  const [oneTimeProducts, setOneTimeProducts] = useState<promoMembershipModel[]>([]);
-  const [subscriptionProducts, setSubcriptionProducts] = useState<promoMembershipModel[]>([]);
+  const [oneTimeProducts, setOneTimeProducts] = useState<
+    promoMembershipModel[]
+  >([]);
+  const [subscriptionProducts, setSubcriptionProducts] = useState<
+    promoMembershipModel[]
+  >([]);
   const [productSelected, setSelectedProduct] = useState<promoMembershipModel>(
     subscriptionProducts[0]
   );
   const [isFetching, setIsFetching] = useState(true);
-  const [isVisible, setIsVisible] = useState(false);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [isBtnEnable, setIsBtnEnable] = useState(true);
-  const [receiptBuffer, setReceiptBuffer] = useState(new Map());
-  const userState: userModel = useAppSelector(
-    ({ userReducer }: RootState) => userReducer
-  );
 
   const fetchData = async () => {
     const data = await ProductApi.getNativeList();
@@ -80,17 +92,15 @@ export const EventSpash = ({ splashList }: Props) => {
           productSKU: product.product_ios_product_id,
           title: product.product_name,
           price: product.product_price,
-          promoPrice: product.currency.currency_symbol + " " + product.product_promo_price,
+          promoPrice:
+            product.currency.currency_symbol +
+            " " +
+            product.product_promo_price,
           localizedPrice:
             product.currency.currency_symbol + " " + product.product_price,
           description: product.product_desc,
           subscriptionDays: product.product_value,
-          zfOptions: {
-            payment_type_code: "GOOGLE_PAY",
-            payment_type_name: "Google Pay",
-            payment_type_icon: "google.png"
-          },
-          productType: IAP_TYPE,
+          zfOptions: "GOOGLE_PAY",
         };
       });
 
@@ -103,15 +113,17 @@ export const EventSpash = ({ splashList }: Props) => {
           promoPrice:
             product.currency.currency_symbol + product.product_promo_price,
           localizedPrice:
-            product.currency.currency_symbol + (product.product_name === '1个月' ? product.product_price : product.fake_price),
+            product.currency.currency_symbol +
+            (product.product_name === "1个月"
+              ? product.product_price
+              : product.fake_price),
           description: product.product_desc,
           subscriptionDays: product.product_value,
           zfOptions: {
             payment_type_code: "GOOGLE_PAY",
             payment_type_name: "Google Pay",
-            payment_type_icon: "google.png"
+            payment_type_icon: "google.png",
           },
-          productType: SUBSCRIPTION_TYPE,
         };
       });
 
@@ -121,114 +133,6 @@ export const EventSpash = ({ splashList }: Props) => {
     }
   };
 
-  const handleGetGoogleProduct = async () => {
-    try {
-      await getProducts({ skus: iap_skus });
-      await getSubscriptions({ skus: subs_skus });
-    } catch (err) {
-      console.log('error when get product from google play: ', err);
-    }
-  }
-
-  const onPurchase = async () => {
-    setIsBtnEnable(false);
-    try {
-      setIsVisible(true);
-      if (productSelected.productType === 'iap') {
-        await requestPurchase({ skus: [productSelected.productSKU] });
-
-      } else if (productSelected.productType === 'subs') {
-        const subs = subscriptions.find(sub => sub.productId === productSelected.productSKU);
-
-        if (subs) {
-          const offerToken = subs.subscriptionOfferDetails[0].offerToken;
-          await requestSubscription({
-            sku: productSelected.productSKU,
-            ...(offerToken && {
-              subscriptionOffers: [{ sku: productSelected.productSKU, offerToken }],
-            }),
-          });
-        } else {
-          throw new Error('subscription plan not found');
-        }
-      }
-    } catch (err) {
-      setIsVisible(false);
-      if (err instanceof PurchaseError) {
-        console.error("purchasing error: " + err);
-      } else {
-        console.error("handle purchase error: ", err);
-      }
-
-      if (err && err.code == "E_USER_CANCELLED") {
-        console.log("user cancel purchase");
-        setIsBtnEnable(true);
-      } else {
-        // setDialogText(failedDialogText);
-        // setIsDialogOpen(true);
-        showToast('fail to pay: ' + err);
-      }
-    }
-  };
-
-  const saveFinishIAP = async (transStatus: string, error: any) => {
-    const iapTrans = {
-      user_id: userState.userId,
-      product_id: productSelected?.productId,
-      transaction_type: "SUBSCRIBE_VIP",
-      zf_channel: 'GOOGLE_PAY',
-      platform: APP_NAME_CONST + "-" + Platform.OS.toUpperCase(),
-      channel_transaction_id: currentPurchase?.transactionId,
-      transaction_receipt: currentPurchase
-        ? JSON.stringify(currentPurchase.transactionReceipt)
-        : error.toString(),
-      transaction_status: parseInt(transStatus),
-      is_sb: __DEV__ ? 1 : 0,
-    };
-    console.log("iap json posted: ", iapTrans);
-
-    // addLocalTrans(trans);
-
-    const result = await ProductApi.postValidateReceipt(iapTrans);
-
-    console.log("validate iap result");
-    console.log(result);
-    return result.data.data;
-  };
-
-  const saveFinishSubs = async (sub: Purchase) => {
-    const subsTrans = {
-      product_id: productSelected?.productId,
-      payment_channel: 'GOOGLE_PAY',
-      autoRenewingAndroid: sub.autoRenewingAndroid,
-      dataAndroid: sub.dataAndroid,
-      developerPayloadAndroid: sub.developerPayloadAndroid,
-      isAcknowledgedAndroid: sub.isAcknowledgedAndroid,
-      obfuscatedAccountIdAndroid: sub.obfuscatedAccountIdAndroid,
-      obfuscatedProfileIdAndroid: sub.obfuscatedProfileIdAndroid,
-      packageNameAndroid: sub.packageNameAndroid,
-      productId: sub.productId,
-      productIds: sub.productIds,
-      purchaseStateAndroid: sub.purchaseStateAndroid,
-      purchaseToken: sub.purchaseToken,
-      signatureAndroid: sub.signatureAndroid,
-      transactionDate: sub.transactionDate,
-      transactionId: sub.transactionId,
-      transactionReceipt: sub.transactionReceipt,
-    };
-    console.log("subs json posted: ", subsTrans);
-
-    try {
-      const result = await ProductApi.postAndroidSubscriptions(subsTrans);
-      console.log("validate subscription result");
-      console.log(result);
-      return result.success;
-    } catch (err) {
-      console.log('post android subscription error: ', err);
-      return false;
-    }
-  }
-
   useEffect(() => {
     setWidth(Number(Dimensions.get("window").width));
     setHeight(Number(Dimensions.get("window").height));
@@ -236,101 +140,19 @@ export const EventSpash = ({ splashList }: Props) => {
   }, []);
 
   useEffect(() => {
-    if (connected) {
-      handleGetGoogleProduct();
-    }
-  }, [connected]);
-
-  useEffect(() => {
     if (subscriptionProducts) {
       const defaultProduct = subscriptionProducts.find(
-        (subscription) => subscription.title === '1个月'
+        (subscription) => subscription.title === "1个月"
       );
 
       defaultProduct && setSelectedProduct(defaultProduct);
     }
   }, [subscriptionProducts]);
 
-  useEffect(() => {
-    const checkCurrentPurchase = async () => {
-      if (currentPurchase) {
-        console.log("-------Current Purchase------------");
-        console.log(currentPurchase);
-        console.log(products.some(product => product.productId === currentPurchase.productId))
-
-        try {
-          if (currentPurchase.transactionReceipt) {
-            const key = currentPurchase.transactionId?.concat("true");
-
-            if (receiptBuffer.has(key)) {
-              console.log(
-                "duplicate transaction id: ",
-                currentPurchase.transactionId
-              );
-              await finishTransaction({
-                purchase: currentPurchase,
-                isConsumable: true,
-              });
-              setIsVisible(false);
-              setIsBtnEnable(true);
-              return;
-            }
-
-            setTimeout(() => setIsVisible(false), 10000);
-
-            const isIAP = products.some(product => product.productId === currentPurchase.productId)
-            const success = isIAP ?
-              await saveFinishIAP("1", "") :
-              await saveFinishSubs(currentPurchase); //validate receipt with server
-
-            setReceiptBuffer((prev) => {
-              const receipt = new Map(prev);
-              receipt.set(currentPurchase.transactionId?.concat(success), success);
-              return receipt;
-            });
-
-            if (success) {
-              console.log('success ', success)
-              await finishTransaction({
-                purchase: currentPurchase,
-                isConsumable: isIAP,
-              });
-
-              showToast('successfully validate and finish the transaction');
-              // setDialogText(successDialogText)
-              // setIsDialogOpen(true);
-              // setIsSuccess(true);
-            } else {
-              await finishTransaction({
-                purchase: currentPurchase,
-                isConsumable: isIAP,
-              });
-
-              showToast('FAILED to validate and finish the transaction');
-              // setDialogText(failedDialogText)
-              // setIsDialogOpen(true);
-              // setIsSuccess(false);
-            }
-          }
-        } catch (error) {
-          if (error instanceof PurchaseError) {
-            console.error("purchasing error: " + error);
-          } else {
-            console.error("current purchase error: " + error);
-          }
-          setIsVisible(false);
-          setIsBtnEnable(true);
-        }
-      }
-    };
-
-    checkCurrentPurchase();
-  }, [currentPurchase, finishTransaction]);
-
   const renderCarousel = ({ item, index }) => {
     return (
       <>
-        {index === splashList.length - 1 ? (
+        {(index === screenState.showEventSplashData.length - 1  || isLastShown || screenState.showEventSplashData.length ==0  )? (
           <>
             {/* <ImageBackground
               source={require("./../../static/images/splash/splashbg.png")}
@@ -338,12 +160,11 @@ export const EventSpash = ({ splashList }: Props) => {
               style={{ flex: 1, height: 400 }}
             > */}
             <View style={styles.container}>
-              <SpinnerOverlay visible={isVisible} />
-              <Video
+              {/* <Video
                 source={{
-                  // uri: 'https://oss.yingshi.tv/videos/vod/vi/splashbg.mp4',
-                  uri:
-                    "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+               //    uri: 'https://oss.yingshi.tv/videos/vod/vi/splashbg.mp4',
+                  // uri:
+                   // "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
                 }}
                 onError={(e) => {
                   console.log("jhidhhaj");
@@ -352,7 +173,16 @@ export const EventSpash = ({ splashList }: Props) => {
                 style={styles.video}
                 resizeMode="cover"
                 repeat={true}
-              />
+              /> */}
+              {/* <LottieView
+                style={styles.video}
+                source={{
+                  uri:
+                    "https://lottie.host/c291f0cc-ae75-4f88-b6a8-61fefe455da5/trOs1RgYsK.json",
+                }}
+                autoPlay
+                loop
+              /> */}
               <LinearGradient
                 colors={["rgba(20, 22, 26, 0)", "#14161A"]} // Transparent to #14161A
                 style={styles.linearGradient}
@@ -362,7 +192,7 @@ export const EventSpash = ({ splashList }: Props) => {
                 <View
                   style={{
                     flex: 1,
-                    paddingTop: 60,
+                    paddingTop: 40,
                     justifyContent: "flex-start",
                     alignItems: "center",
                     gap: -40,
@@ -377,7 +207,7 @@ export const EventSpash = ({ splashList }: Props) => {
                     }}
                   >
                     <FastImage
-                      source={require("./../../static/images/splash/splashText.png")}
+                      source={require("./../../../static/images/splash/splashText.png")}
                       style={{
                         flex: 1,
                       }}
@@ -391,12 +221,12 @@ export const EventSpash = ({ splashList }: Props) => {
                       height: 200,
                       zIndex: 1,
                       position: "relative",
-                      bottom: 65,
+                      bottom: 70,
                       paddingHorizontal: 30,
                     }}
                   >
                     <FastImage
-                      source={require("./../../static/images/splash/card.png")}
+                      source={require("./../../../static/images/splash/card.png")}
                       style={{
                         flex: 1,
                       }}
@@ -414,7 +244,7 @@ export const EventSpash = ({ splashList }: Props) => {
                     }}
                   >
                     <FastImage
-                      source={require("./../../static/images/splash/subText.png")}
+                      source={require("./../../../static/images/splash/subText.png")}
                       style={{
                         width: 80,
                         height: 80,
@@ -437,65 +267,79 @@ export const EventSpash = ({ splashList }: Props) => {
                       }}
                     >
                       {oneTimeProducts.map((product, i) => (
-                        <TouchableOpacity
-                          key={product.productId}
-                          onPress={() => {
-                            setSelectedProduct(product);
-                          }}
-                        >
-                          <ImageBackground
-                            source={i === 0 ?
-                              require("./../../static/images/splash/singleBg.png") :
-                              require("./../../static/images/splash/singleBg2.png")
-                            }
-                            resizeMode="contain"
-                            style={{
-                              height: 100,
-                              width: 160,
-                              paddingTop: 25,
-                              paddingHorizontal: 10,
-                            }}
-                          >
-                            <View style={{ justifyContent: "space-between", gap: 5 }}>
-                              <View>
-                                <Text
-                                  style={{
-                                    color: i === 0 ? "#351B04" : '#fff',
-                                    fontSize: 12
-                                  }}>
-                                  {product.title === '1个月' ? '月度套餐' : '年度套餐'}
-                                </Text>
-                              </View>
+    <TouchableOpacity
+    key={product.productId}
+    style={
+      productSelected == product
+        ? styles.cardContainerActive2
+        : styles.cardContainer2
+    }
+    onPress={() => {
+      setSelectedProduct(product);
+    }}
+  >
 
-                              <View
+{/* style={{
+                            height: 100,
+                            width: 160,
+                            paddingTop: 25,
+                            paddingHorizontal: 10, */}
+               <LinearGradient
+                        colors= {i === 0 ? ["#FCF6F2", "#FCF6F2"] : ["#D1AC7D", "#B1885F"]}
+                        locations={[0.0, 0.99]}
+                        style={{
+                          marginTop:20,
+                          height: 70,
+                          width: 160,
+                          paddingTop: 10,
+                          paddingHorizontal: 10,
+                        
+                        }}
+                      >
+                          <View
+                            style={{ justifyContent: "space-between", gap: 5 }}
+                          >
+                            <View>
+                              <Text
                                 style={{
-                                  justifyContent: "space-between",
-                                  flexDirection: "row",
-                                  alignItems: "center",
+                                  color: i === 0 ? "#351B04" : "#fff",
+                                  fontSize: 12,
                                 }}
                               >
-                                <Text
-                                  style={{
-                                    color: i === 0 ? "#351B04" : '#fff',
-                                    fontSize: 14,
-                                    fontWeight: "700",
-                                  }}
-                                >
-                                  {product.title}
-                                </Text>
-                                <Text
-                                  style={{
-                                    color: i === 0 ? "#AE845B" : '#fff',
-                                    fontSize: 19,
-                                    fontWeight: "900",
-                                  }}
-                                >
-                                  {product.localizedPrice}
-                                </Text>
-                              </View>
+                                {i === 0 ? "月度套餐" : "年度套餐"}
+                              </Text>
                             </View>
-                          </ImageBackground>
-                        </TouchableOpacity>
+
+                            <View
+                              style={{
+                                justifyContent: "space-between",
+                                flexDirection: "row",
+                                alignItems: "center",
+                              }}
+                            >
+                              <Text
+                                style={{
+                                  color: i === 0 ? "#351B04" : "#fff",
+                                  fontSize: 14,
+                                  fontWeight: "700",
+                                }}
+                              >
+                                {product.title}
+                              </Text>
+                              <Text
+                                style={{
+                                  color: i === 0 ? "#AE845B" : "#fff",
+                                  fontSize: 19,
+                                  fontWeight: "900",
+                                }}
+                              >
+                                {product.localizedPrice}
+                              </Text>
+                            </View>
+                          </View>
+                        </LinearGradient>
+
+</TouchableOpacity>
                       ))}
                     </View>
                   )}
@@ -512,7 +356,7 @@ export const EventSpash = ({ splashList }: Props) => {
                   >
                     <View style={{ width: 120, marginRight: 5 }}>
                       <FastImage
-                        source={require("./../../static/images/splash/subText2.png")}
+                        source={require("./../../../static/images/splash/subText2.png")}
                         style={{
                           flex: 1,
                           position: "relative",
@@ -553,7 +397,9 @@ export const EventSpash = ({ splashList }: Props) => {
                   </View>
                   {/* product card  */}
                   {subscriptionProducts && (
-                    <ScrollView contentContainerStyle={styles.scrollViewContent}>
+                    <ScrollView
+                      contentContainerStyle={styles.scrollViewContent}
+                    >
                       {subscriptionProducts.map((subscription, i) => (
                         <TouchableOpacity
                           key={subscription.productId}
@@ -570,16 +416,23 @@ export const EventSpash = ({ splashList }: Props) => {
                             <View
                               style={{
                                 ...styles.redIndicator,
-                                opacity: productSelected == subscription ? 1 : 0, // change to index 0
+                                opacity:
+                                  i == 0 ? 1 : 0, // change to index 0
                               }}
                             >
                               <Text style={styles.hotText}>最多人选择</Text>
                             </View>
 
                             <View style={styles.textContainer}>
-                              <Text style={styles.promo}>{subscription.title}</Text>
-                              <Text style={styles.promo2}>{subscription.promoPrice}</Text>
-                              <Text style={styles.promo3}>{subscription.localizedPrice}</Text>
+                              <Text style={styles.promo}>
+                                {subscription.title}
+                              </Text>
+                              <Text style={styles.promo2}>
+                                {subscription.promoPrice}
+                              </Text>
+                              <Text style={styles.promo3}>
+                                {subscription.localizedPrice}
+                              </Text>
                             </View>
                           </View>
                           <View
@@ -604,13 +457,52 @@ export const EventSpash = ({ splashList }: Props) => {
                     </ScrollView>
                   )}
 
+                  {/* Privacy & terms and condition link section   */}
+                  <View
+                    style={{
+                      justifyContent: "center",
+                      alignItems: "center",
+                      flexDirection: "row",
+                      position: "relative",
+                      bottom: 85,
+                      height: 20,
+                    }}
+                  >
+                    <TouchableOpacity
+                      onPress={() => {
+                        navigation.navigate("隐私政策");
+                      }}
+                    >
+                      <Text style={styles.textPrivacy}>隐私协议 </Text>
+                      </TouchableOpacity>         
+                    <Text style={styles.textPrivacy}>| </Text>
+                    <TouchableOpacity
+                      onPress={() => {
+                        navigation.navigate("用户协议");
+                      }}
+                    >
+                    <Text style={styles.textPrivacy}>用户服务协议 </Text>
+
+                    </TouchableOpacity>
+                    <Text style={styles.textPrivacy}>| </Text>
+                  
+                    <TouchableOpacity
+                      onPress={() => {
+                        navigation.navigate("续费服务");
+                      }}
+                    >
+
+                    <Text style={styles.textPrivacy}>自动续费协议 </Text>
+                          </TouchableOpacity>
+                  </View>
+
                   {/* purchase button  */}
                   <View style={{ paddingHorizontal: 30, width: "100%" }}>
                     <TouchableOpacity
-                      onPress={onPurchase}
+                    // onPress={onPurchase}
                     >
                       <LinearGradient
-                        colors={['#D1AC7D', '#B1885F']}
+                        colors={["#D1AC7D", "#B1885F"]}
                         locations={[0.0, 0.99]}
                         style={{
                           height: 40,
@@ -622,7 +514,9 @@ export const EventSpash = ({ splashList }: Props) => {
                         }}
                       >
                         <Text style={styles.purchaseText}>
-                          立即解锁 {productSelected && `- 总额${productSelected.promoPrice}`}
+                          立即解锁{" "}
+                          {productSelected &&
+                            `- 总额${productSelected.promoPrice}`}
                         </Text>
                       </LinearGradient>
                     </TouchableOpacity>
@@ -640,8 +534,6 @@ export const EventSpash = ({ splashList }: Props) => {
                       <Text style={styles.purchaseText}>立即解锁</Text>
                     </View> */}
                   </View>
-
-
                 </View>
               </LinearGradient>
             </View>
@@ -652,7 +544,7 @@ export const EventSpash = ({ splashList }: Props) => {
             <SplashCard
               index={index}
               img={item.url}
-              isLast={index === splashList.length - 1}
+              isLast={index === screenState.showEventSplashData.length - 1}
             />
           </>
         )}
@@ -665,43 +557,42 @@ export const EventSpash = ({ splashList }: Props) => {
       <Carousel
         autoPlay={false}
         ref={carouselRef}
-        loop
         width={width}
         height={height}
-        data={splashList}
+        data={screenState.showEventSplashData}
         scrollAnimationDuration={100}
-        onScrollBegin={() => { }}
+        onScrollBegin={() => {}}
+        enabled={isLastShown == false}
+        loop={true}
         onSnapToItem={(index) => {
           setActiveIndex(index);
+          if(index === screenState.showEventSplashData.length - 1)
+          {
+            setIsLastShown(true)
+            dispatch(setShowEventSplash(false));
+          }
+
         }}
         onScrollEnd={(index) => {
           setActiveIndex(index);
+          if(index === screenState.showEventSplashData.length - 1)
+          {
+            setIsLastShown(true)
+            dispatch(setShowEventSplash(false));
+          }
         }}
         renderItem={renderCarousel}
       />
-
-      {activeIndex !== splashList.length - 1 && (
-        <CarouselPagination
-          data={splashList}
-          dashStyle={true}
-          activeIndex={activeIndex}
-        />
-      )}
-
-      {/* <FlatList
-          data={splashList}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          renderItem={({item, index}: any) => {
-            return (
-              <SplashCard
-              index={index}
-                img={item.url}
-                isLast={index === (splashList.length-1)}
-              />
-            );
-          }}
-        /> */}
+      {activeIndex !== screenState.showEventSplashData.length - 1 &&
+        screenState.showEventSplashData.length != 0 &&
+        screenState.showEventSplashData &&
+        isLastShown != true && (
+          <CarouselPagination
+            data={screenState.showEventSplashData}
+            dashStyle={true}
+            activeIndex={activeIndex}
+          />
+        )}
     </View>
   );
 };
@@ -709,9 +600,15 @@ export const EventSpash = ({ splashList }: Props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: "center", // Center the content vertically
+    justifyContent: "flex-start", // Start the content from the top
   },
   video: {
-    ...StyleSheet.absoluteFillObject,
+    position: "absolute", // Position the video absolutely within the container
+    top: 0, // Align the video to the top of the container
+    left: 0, // Align the video to the left of the container
+    right: 0, // Align the video to the right of the container
+    bottom: 120, // Align the video to the bottom of the container
   },
   badgeContainer: {
     flexDirection: "row",
@@ -849,4 +746,12 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     marginBottom: 10,
   },
-});
+  textPrivacy: {
+    color: "#9C9C9C",
+  },
+  cardContainer2:{},
+  cardContainerActive2:{
+    borderRadius: 8,
+    borderColor:'red',
+    borderWidth:2,
+}});

@@ -79,6 +79,7 @@
     "ffmpeg-kit-react-native": "^6.0.2",
     "lodash": "^4.17.21",
     "lodash.debounce": "^4.0.8",
+    "lottie-react-native": "^6.6.0",
     "react": "^18.2.0",
     "react-devtools": "~4.14.0",
     "react-devtools-core": "~4.14.0",
@@ -130,7 +131,8 @@
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.2",
     "replace-in-file": "^7.0.1",
-    "rn-fetch-blob": "^0.12.0"
+    "rn-fetch-blob": "^0.12.0",
+    "socket.io-client": "^4.7.4"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

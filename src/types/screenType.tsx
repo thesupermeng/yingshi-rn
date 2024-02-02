@@ -1,5 +1,6 @@
 export interface screenModel {
   showEventSplash: boolean;
+  showEventSplashData: any;
   screenAction: string;
   screenShow: boolean;
   loginShow: boolean;

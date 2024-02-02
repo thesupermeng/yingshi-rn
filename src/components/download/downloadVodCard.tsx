@@ -7,6 +7,7 @@ import VodDescription from '../vod/vodDescription';
 import { DownloadStatus, VodDownloadType } from '@type/vodDownloadTypes';
 import FastImage from '../common/customFastImage'
 import DownloadPauseYellowIcon from '@static/images/downloadPause_yellow.svg'
+import { Divider } from '@rneui/base';
 
 
 
@@ -75,7 +76,7 @@ function DownloadVodCard({
   if (download.vod.vod_sources){
     const vodSource = download.vod.vod_sources.find(source => source.source_id === download.vod.preferred_source_id) ?? download.vod.vod_sources.shift()
     totalNumberOfEpisodes = vodSource ? vodSource.vod_play_list.url_count : 0
-    totalDownloadedEpisodes = download.episodes.filter(ep => ep.vodSourceId === download.vod.preferred_source_id).length
+    totalDownloadedEpisodes = download.episodes.length
   }
   else {
     totalNumberOfEpisodes = download.vod.vod_play_list.url_count
@@ -121,10 +122,16 @@ function DownloadVodCard({
             ellipsizeMode="tail">
             {download.vod.vod_name}
           </Text>
-          <Text style={{color: colors.muted}}>
-            ({totalDownloadedEpisodes}/{totalNumberOfEpisodes}) 共
-            {totalFileSizeInMB.toFixed(0)}MB
-          </Text>
+          <View style={styles.videoCountDetail}>
+            <Text style={{color: colors.muted}}>
+              {totalDownloadedEpisodes}个视频
+            </Text>
+            <Divider orientation='vertical'/>
+            <Text style={{color: colors.muted}}>
+              共{totalFileSizeInMB.toFixed(0)}MB
+            </Text>
+
+          </View>
           <DownloadIndicator downloading={isVodsDownloading} paused={isVodsDownloadingPaused} />
         </View>
       </View>
@@ -157,5 +164,9 @@ const styles = StyleSheet.create({
   imageHorizontal: {
     width: 154,
     height: 87,
+  }, 
+  videoCountDetail: {
+    flexDirection: 'row', 
+    gap: 5
   }
 });

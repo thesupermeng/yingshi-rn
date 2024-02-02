@@ -452,7 +452,10 @@ export default forwardRef<RefHandler, Props>(({
                   {videoType === 'vod' && isFullScreen && onDownloadVod &&
                     <RectButton
                       disallowInterruption={true}
-                      onPress={() => { setShowSlider('download') }}
+                      onPress={() => { 
+                        clearHidingDelay();
+                        setShowSlider('download'); 
+                      }}
                       style={{paddingRight: 10, paddingBottom: 2,}}
                     >
                       <DownloadBtn width={20} height={20} />

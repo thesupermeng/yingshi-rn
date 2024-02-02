@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
-import { useAppDispatch } from "@hooks/hooks";
+import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import {
   changeScreenAction,
   hideBottomSheetAction,
@@ -38,6 +38,8 @@ import UmengAnalytics from "../../../Umeng/UmengAnalytics";
 import { useDispatch } from "react-redux";
 import { addUserAuthState } from "@redux/actions/userAction";
 import { UserApi } from "@api";
+import { userModel } from "@type/userType";
+import { RootState } from "@redux/store";
 
 
 export type SigninupRef = {
@@ -66,9 +68,13 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
   const [isShowCountryList, setShowCountryList] = useState(false);
   const [countryPhoneSelected, setCountryPhoneSelected] = useState<CountryPhoneCodeType>();
 
-  // ohters
+  // others
   const [isSubmitting, setSubmitting] = useState(false);
   const [containerHeight, setContainerHeight] = useState(0);
+
+  const userState: userModel = useAppSelector(
+    ({ userReducer }: RootState) => userReducer,
+  );
 
   const { data: countryPhoneOptions } = useQuery({
     queryKey: ["CountryPhoneOptions"],
@@ -202,6 +208,7 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
         email: userInfo.user.email,
         referralCode: referralCode,
         isGoogleLogin: true,
+        userId: userState.userId
       });
 
     } catch (err: any) {
@@ -309,6 +316,7 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
         phone: loginType === 'phone' ? countryPhoneSelected?.country_phonecode + formattedLoginValue : undefined,
         countryId: loginType === 'phone' ? countryPhoneSelected?.country_id : undefined,
         referralCode: referralCode,
+        userId: userState.userId
       });
     } catch (err: any) {
       setSubmitting(false);

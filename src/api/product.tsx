@@ -139,4 +139,76 @@ export class ProductApi {
             throw e;
         }
     }
+
+    static postAndroidSubscriptions = async ({
+        product_id,
+        payment_channel,
+        autoRenewingAndroid,
+        dataAndroid,
+        developerPayloadAndroid,
+        isAcknowledgedAndroid,
+        obfuscatedAccountIdAndroid,
+        obfuscatedProfileIdAndroid,
+        packageNameAndroid,
+        productId,
+        productIds,
+        purchaseStateAndroid,
+        purchaseToken,
+        signatureAndroid,
+        transactionDate,
+        transactionId,
+        transactionReceipt,
+    }: {
+        product_id: string;
+        payment_channel: string;
+        autoRenewingAndroid?: boolean;
+        dataAndroid?: string;
+        developerPayloadAndroid?: string;
+        isAcknowledgedAndroid?: boolean;
+        obfuscatedAccountIdAndroid?: string;
+        obfuscatedProfileIdAndroid?: string;
+        packageNameAndroid?: string;
+        productId: string;
+        productIds?: string[];
+        purchaseStateAndroid?: number;
+        purchaseToken?: string;
+        signatureAndroid?: string;
+        transactionDate: number;
+        transactionId?: string;
+        transactionReceipt: string;
+    }) => {
+        try {
+            const result = await CApi.post(CEndpoint.productPostAndroidSubscription, {
+                body: {
+                    product_id,
+                    payment_channel,
+                    autoRenewingAndroid,
+                    dataAndroid,
+                    developerPayloadAndroid,
+                    isAcknowledgedAndroid,
+                    obfuscatedAccountIdAndroid,
+                    obfuscatedProfileIdAndroid,
+                    packageNameAndroid,
+                    productId,
+                    productIds,
+                    purchaseStateAndroid,
+                    purchaseToken,
+                    signatureAndroid,
+                    transactionDate,
+                    transactionId,
+                    transactionReceipt,
+                }
+            });
+
+            if (result.success === false) {
+                throw result.message;
+            }
+
+            return result;
+
+        } catch (e: any) {
+            console.error(`[Error ${this.name}]: ${e.toString()}`);
+            throw e;
+        }
+    }
 }
