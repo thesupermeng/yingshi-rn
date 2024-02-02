@@ -254,7 +254,6 @@ function startVideoDownloadThunk(
 
     const state = getState().downloadVideoReducer
 
-    console.debug(vod, vodSourceId, vodUrlNid, vodIsAdult)
     const isAdult = state.downloads.find(x => x.vod.vod_id === vod.vod_id)?.vodIsAdult
     const url = getUrlOfVod(vod, vodSourceId, vodUrlNid, isAdult)
 
