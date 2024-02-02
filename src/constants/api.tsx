@@ -43,4 +43,6 @@ export class CEndpoint {
     static eventPost = 'track/v1/statsViewClick';
 
     static splashApi = 'intro/v1/navigate';
+
+    static guestLoginApi = 'users/v2/guestsigninup';
 }
