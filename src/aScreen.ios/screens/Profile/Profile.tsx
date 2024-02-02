@@ -42,7 +42,7 @@ import { updateUserAuth, updateUserReferral } from "@redux/actions/userAction";
 import ExpiredOverlay from "../../components/modal/expiredOverlay";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { YSConfig } from "../../../../ysConfig";
-import { SHOW_ZF_CONST } from "@utility/constants";
+import { SHOW_ZF_CONST, UMENG_CHANNEL } from "@utility/constants";
 import FastImage from "../../components/common/customFastImage";
 import { UserApi } from "@api";
 
@@ -304,7 +304,14 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                       flex: 1,
                     }}
                     onPress={() => {
-                      navigation.navigate("付费VIP");
+                      if (UMENG_CHANNEL == 'GOOGLE_PLAY')
+                      {
+                        navigation.navigate("付费Google");
+                      }
+                      else
+                      {
+                        navigation.navigate("付费VIP");
+                      }
                       // dispatch(showLoginAction());
                     }}
                   >

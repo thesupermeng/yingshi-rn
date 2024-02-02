@@ -1,6 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import VipPromotionModal from "./vipPromotionModal"
 import { useCallback } from "react";
+import { UMENG_CHANNEL } from "@utility/constants";
 
 const commonModels = require('@static/images/vip_promotion_models.png');
 const sportBg = require('@static/images/vip_promotion_background.png');
@@ -15,7 +16,14 @@ export const VipPromotionOverlay = ({ showCondition, onClose, }: Props) => {
   const navigator = useNavigation()
 
   const handleOnPurchase = useCallback(() => {
-    navigator.navigate('付费VIP');
+    if (UMENG_CHANNEL == 'GOOGLE_PLAY')
+    {
+      navigator.navigate("付费Google");
+    }
+    else
+    {
+      navigator.navigate("付费VIP");
+    }
   }, [])
 
   return (

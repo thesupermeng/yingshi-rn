@@ -6,6 +6,7 @@ import { hideAdultVipPrivilegeMiniVideoAction, showAdultVipPrivilegeMiniVideoAct
 import { View } from "react-native";
 import { screenModel } from "@type/screenType";
 import UmengAnalytics from "../../../Umeng/UmengAnalytics";
+import { UMENG_CHANNEL } from "@utility/constants";
 
 const sportModels = require('@static/images/vip_sport_models.png');
 const sportBg = require('@static/images/vip_sport_background.png');
@@ -27,7 +28,16 @@ export const SportVipPrivilegeOverlay = ({ showCondition, onClose, showBlur }: P
 
   const handleOnPurchase = useCallback(() => {
     onClose({ isAutoClose: true })
-    navigator.navigate('付费VIP');
+    if (UMENG_CHANNEL == 'GOOGLE_PLAY')
+    {
+      navigator.navigate("付费Google");
+    }
+    else
+    {
+      navigator.navigate("付费VIP");
+    }
+
+
     // ========== for analytics - start ==========
     UmengAnalytics.sportDetailsVipPopupClicksAnalytics('pay');
     // ========== for analytics - end ==========

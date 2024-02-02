@@ -3,6 +3,7 @@ import VipPrivilegeModal from "./vipPrivilegeModal"
 import { useCallback } from "react";
 import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import { screenModel } from "@type/screenType";
+import { UMENG_CHANNEL } from "@utility/constants";
 
 const commonModels = require('@static/images/vip_common_models.png');
 const sportBg = require('@static/images/vip_common_background.png');
@@ -19,7 +20,14 @@ export const CommonVipPrivilegeOverlay = ({ showCondition, onClose, showBlur }: 
 
   const handleOnPurchase = useCallback(() => {
     onClose()
-    navigator.navigate('付费VIP');
+    if (UMENG_CHANNEL == 'GOOGLE_PLAY')
+    {
+      navigator.navigate("付费Google");
+    }
+    else
+    {
+      navigator.navigate("付费VIP");
+    }
   }, [])
 
   const handleOnInvite = useCallback(() => {
