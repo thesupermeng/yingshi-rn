@@ -61,7 +61,7 @@ const PrivateChatPage = ({
     }, [chatState.privateRoom]);
 
     const getHistory = debounce(() => {
-        const histories = chatState.privateRoomHistory?.filter(e => e.roomId === matchID && e.userId === chatState.userId);
+        const histories = chatState.privateRoomHistory?.filter(e => e.roomId === `private:${matchID}` && e.userId === chatState.userId);
 
         if (!histories || histories.length === 0) return;
 
