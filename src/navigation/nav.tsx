@@ -71,7 +71,7 @@ import {
   SafeAreaProvider,
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
-import { Platform, StyleSheet, Text, View } from "react-native";
+import { Platform, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import DeviceInfo from "react-native-device-info";
 import { useAppSelector, useAppDispatch } from "@hooks/hooks";
 import { QueryClient, useQuery } from "@tanstack/react-query";
@@ -90,7 +90,9 @@ import {
   resetBottomSheetAction,
   resetOverEighteen,
   resetSportWatchTime,
+  setShowGuestPurchaseSuccess,
   setShowPromotionDialog,
+  showLoginAction,
 } from "@redux/actions/screenAction";
 import { Dialog } from "@rneui/themed";
 // import FastImage from "react-native-fast-image";
@@ -131,6 +133,7 @@ import DownloadDetails from "../screens/Profile/Download/DownloadDetails";
 
 import AutoRenewService from "../screens/Profile/AutoRenewService";
 import { VipPromotionOverlay } from "../components/modal/vipPromotionOverlay";
+import { GuestPurchaseSuccessOverlay } from "../components/modal/guestPurchaseSuccessOverlay";
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -290,6 +293,8 @@ export default () => {
 
 
   const [showBecomeVIPOverlay, setShowBecomeVIPOverlay] = useState(false);
+  const [showGuestPurchaseSuccessOverlay, setShowGuestPurchaseSuccessOverlay] = useState(false);
+  
 
   const renderOverlay = () => {
     return <VipPromotionOverlay
@@ -299,6 +304,15 @@ export default () => {
       }}
     />
   };
+
+  // const renderOverlay2 = () => {
+  //   return <GuestPurchaseSuccessOverlay
+  //     showCondition={showGuestPurchaseSuccessOverlay}
+  //     onClose={() => {
+  //       setShowGuestPurchaseSuccessOverlay(false);
+  //     }}
+  //   />
+  // };
 
   const [vipRemainingDay, setVipRemainingDay] = useState(0);
 
@@ -354,12 +368,22 @@ export default () => {
     if (screenState.showPromotionDialog== true) {
       dispatch(setShowPromotionDialog(false));
       setShowBecomeVIPOverlay(true)
+    }
 
 
+    if (screenState.showGuestPurchaseSuccess== true) {
+      dispatch(setShowGuestPurchaseSuccess(false));
+      setShowGuestPurchaseSuccessOverlay(true)
+ 
     }
 
 
   }, [screenState]);
+
+  //test modal 
+  // useEffect(() => {
+  //   setShowGuestPurchaseSuccessOverlay(true)
+  // }, []);
 
   useEffect(() => {
     refreshUserState();
@@ -757,6 +781,88 @@ export default () => {
           {screenState.screenAction}
         </Text>
       </Dialog>
+
+
+      <Dialog
+        isVisible={showGuestPurchaseSuccessOverlay}
+        overlayStyle={{
+          backgroundColor: "rgba(34, 34, 34, 1)",
+          ...styles.overlay,
+        }}
+        backdropStyle={{ backgroundColor: "rgba(0, 0, 0, 0.8)" }}
+        onBackdropPress={() => setShowGuestPurchaseSuccessOverlay(false)}
+      >
+        <FastImage
+          useFastImage={true}
+          key={gifKey}
+          style={{
+            height: 80,
+            width: 80,
+            marginRight: 5,
+            position: "relative",
+            top: 1,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+          resizeMode={"contain"}
+          source={require("@static/images/profile/login-success.gif")}
+        />
+
+        <Text
+          style={{
+            color: "#fff",
+            fontFamily: "PingFang SC",
+            fontSize: 18,
+            fontWeight: "600",
+            paddingTop:10
+          }}
+        >
+         购买成功
+        </Text>
+
+        <Text
+          style={{
+            color: "#fff",
+            fontFamily: "PingFang SC",
+            fontSize: 14,
+            fontWeight: "600",
+            paddingTop:14,
+            textAlign:'center',
+            lineHeight: 24
+          }}
+        >
+          恭喜您成为准贵的影视TV会员，立即登录账号合并您的VIP会员，可以多设备使用VIP会员账号
+        </Text>
+
+        <TouchableOpacity
+             
+             style={{width:'100%'}}
+             onPress={() => {
+              setShowGuestPurchaseSuccessOverlay(false)
+               dispatch(showLoginAction());
+             }}
+              >
+                <View
+                
+                  style={styles.purchaseButton}
+                >
+                  <Text style={styles.purchaseButtonText}>
+                    去登录
+                  </Text>
+                </View>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={styles.cancelButton}
+                onPress={()=>{ setShowGuestPurchaseSuccessOverlay(false)}}
+              >
+                <Text style={styles.cancelButtonText}>
+                  取消
+                </Text>
+              </TouchableOpacity>
+
+      </Dialog>
+
     </SafeAreaProvider>
   );
 };
@@ -784,4 +890,35 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 20,
   },
+  purchaseButton: {
+    borderRadius: 8,
+    paddingVertical: 6,
+    alignItems: "center",
+    backgroundColor:'#D1AC7D',
+    paddingHorizontal:30,
+    marginTop:16
+  },
+  purchaseButtonText: {
+    color: "#1D2023",
+    fontSize: 14,
+    fontWeight: "700",
+    lineHeight: 25,
+    fontFamily: "PingFang SC",
+  },
+  cancelButton: {
+    // backgroundColor: "#121314",
+     borderRadius: 8,
+     paddingHorizontal: 20,
+     paddingVertical: 6,
+     marginTop:8,
+     alignItems: "center",
+   },
+   cancelButtonText: {
+     color: "white",
+     fontSize: 13,
+     fontWeight: "700",
+     lineHeight: 25,
+     textAlign: 'center',
+     fontFamily: "PingFang SC",
+   },
 });

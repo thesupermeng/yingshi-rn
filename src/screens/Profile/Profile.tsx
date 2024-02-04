@@ -36,6 +36,7 @@ import { YSConfig } from "../../../ysConfig";
 import {
   hideBottomSheetAction,
   removeScreenAction,
+  setShowGuestPurchaseSuccess,
   showLoginAction,
 } from "@redux/actions/screenAction";
 import { userModel } from "@type/userType";
@@ -213,16 +214,25 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
     );
   };
 
-  // useEffect(() => {
-  //   setShowBecomeVIPOverlay(true)
-  // }, []);
+  useEffect(() => {
 
 
-  useFocusEffect(
-    useCallback(() => {
-      setShowBecomeVIPOverlay(true)
-    }, [])
-  );
+    // guest with VIP show login alert
+    if(userState.userEmail == "" &&
+    userState.userPhoneNumber == "" &&
+    userState.userMemberExpired >=
+      userState.userCurrentTimestamp )
+      {
+        setShowBecomeVIPOverlay(true)
+      }
+  }, []);
+
+
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     setShowBecomeVIPOverlay(true)
+  //   }, [])
+  // );
   
 
   return (
