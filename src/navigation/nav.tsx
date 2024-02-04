@@ -90,6 +90,7 @@ import {
   resetBottomSheetAction,
   resetOverEighteen,
   resetSportWatchTime,
+  setShowPromotionDialog,
 } from "@redux/actions/screenAction";
 import { Dialog } from "@rneui/themed";
 // import FastImage from "react-native-fast-image";
@@ -129,6 +130,7 @@ import DownloadCatalog from "../screens/Profile/Download/DownloadCatalog";
 import DownloadDetails from "../screens/Profile/Download/DownloadDetails";
 
 import AutoRenewService from "../screens/Profile/AutoRenewService";
+import { VipPromotionOverlay } from "../components/modal/vipPromotionOverlay";
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -286,6 +288,18 @@ export default () => {
   // vip remaining day dialog
   const [showVIPOverlay, setShowVIPOverlay] = useState(false);
 
+
+  const [showBecomeVIPOverlay, setShowBecomeVIPOverlay] = useState(false);
+
+  const renderOverlay = () => {
+    return <VipPromotionOverlay
+      showCondition={showBecomeVIPOverlay}
+      onClose={() => {
+        setShowBecomeVIPOverlay(false);
+      }}
+    />
+  };
+
   const [vipRemainingDay, setVipRemainingDay] = useState(0);
 
   useEffect(() => {
@@ -336,6 +350,15 @@ export default () => {
       dispatch(resetBottomSheetAction());
       dispatch(hideLoginAction());
     }
+
+    if (screenState.showPromotionDialog== true) {
+      dispatch(setShowPromotionDialog(false));
+      setShowBecomeVIPOverlay(true)
+
+
+    }
+
+
   }, [screenState]);
 
   useEffect(() => {
@@ -520,6 +543,19 @@ export default () => {
         onReady={() => RNBootSplash.hide()}
         onStateChange={handleStateChange}
       >
+
+{showBecomeVIPOverlay && (
+        <View
+          style={{
+            height: '100%',
+            width: '100%',
+            position: 'absolute',
+            zIndex: 10000,
+          }}>
+          {renderOverlay()}
+        </View>
+      )}
+      
         <Stack.Navigator
           initialRouteName="Home"
           screenOptions={({ route }) => ({
@@ -668,11 +704,21 @@ export default () => {
           isVisible={showPrivacyOverlay}
           setIsVisible={setShowPrivacyOverlay}
         />
+
+
         <ExpiredOverlay
           remainingDay={vipRemainingDay}
           showVIPOverlay={showVIPOverlay}
           setShowVIPOverlay={setShowVIPOverlay}
         />
+
+<ExpiredOverlay
+          remainingDay={vipRemainingDay}
+          showVIPOverlay={showVIPOverlay}
+          setShowVIPOverlay={setShowVIPOverlay}
+        />
+
+
         <CRouteInitializer />
       </NavigationContainer>
       <Dialog

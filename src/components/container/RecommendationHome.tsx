@@ -402,19 +402,19 @@ const RecommendationHome = ({
     </View>
   )
 
-  const [showBecomeVIPOverlay, setShowBecomeVIPOverlay] = useState(true);
-  const renderOverlay = () => {
-    return <VipPromotionOverlay
-      showCondition={showBecomeVIPOverlay}
-      onClose={() => {
-        setShowBecomeVIPOverlay(false);
-      }}
-    />
-  };
+  // const [showBecomeVIPOverlay, setShowBecomeVIPOverlay] = useState(true);
+  // const renderOverlay = () => {
+  //   return <VipPromotionOverlay
+  //     showCondition={showBecomeVIPOverlay}
+  //     onClose={() => {
+  //       setShowBecomeVIPOverlay(false);
+  //     }}
+  //   />
+  // };
 
   return (
     <View style={{ width: width }}>
-      {showBecomeVIPOverlay && (
+      {/* {showBecomeVIPOverlay && (
         <View
           style={{
             height: '100%',
@@ -424,7 +424,7 @@ const RecommendationHome = ({
           }}>
           {renderOverlay()}
         </View>
-      )}
+      )} */}
       {data?.live_station_list && data?.live_station_list.length > 0 && (
         <FlatList
           refreshControl={

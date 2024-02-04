@@ -27,7 +27,7 @@ import { RootState } from "@redux/store";
 
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
-import { useAppDispatch, useAppSelector } from "@hooks/hooks";
+import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
 import { userModel } from "@type/userType";
 import { updateUserAuth } from "@redux/actions/userAction";
 import { TouchableOpacity } from "react-native";
@@ -40,11 +40,13 @@ import {
   IS_IOS,
   SUBSCRIPTION_TYPE,
   UMENG_CHANNEL,
+  VIP_PROMOTION_COUNTDOWN_MINUTE,
 } from "@utility/constants";
 import {
   setShowEventSplashData,
   showLoginAction,
   setShowEventSplash,
+  setShowPromotionDialog,
 } from "@redux/actions/screenAction";
 import { ProductApi, UserApi } from "@api";
 import WebView from "react-native-webview";
@@ -81,6 +83,7 @@ const subs_skus = [
 import Tick from "@static/images/splash/tick.svg";
 import Tick1 from "@static/images/splash/tick1.svg";
 import Tick2 from "@static/images/splash/tick2.svg";
+import { BackgroundType } from "@redux/reducers/backgroundReducer";
 
 export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
   const {
@@ -106,6 +109,24 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isLastShown, setIsLastShown] = useState(false);
   const dispatch = useAppDispatch();
+
+  const backgroundState = useSelector<BackgroundType>('backgroundReducer');
+  const [countdownSecond, setCountdownSecond] = useState(((VIP_PROMOTION_COUNTDOWN_MINUTE * 60 * 1000) - (Date.now() - backgroundState.vipPromotionCountdownStart)) / 1000);
+
+  const hours = Math.floor(countdownSecond / 60 / 60);
+  const minute = Math.floor(countdownSecond / 60 % 60);
+  const second = Math.floor(countdownSecond % 60);
+
+  const remainingTimeAry = [
+    String(hours).padStart(2, '0')[0],
+    String(hours).padStart(2, '0')[1],
+    String(minute).padStart(2, '0')[0],
+    String(minute).padStart(2, '0')[1],
+    String(second).padStart(2, '0')[0],
+    String(second).padStart(2, '0')[1],
+  ];
+
+  
 
   const [oneTimeProducts, setOneTimeProducts] = useState<
     promoMembershipModel[]
@@ -334,6 +355,15 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
     }
   }, [subscriptionProducts]);
 
+
+  useEffect(() => {
+    const countdownInterval = setInterval(() => {
+      setCountdownSecond(((VIP_PROMOTION_COUNTDOWN_MINUTE * 60 * 1000) - (Date.now() - backgroundState.vipPromotionCountdownStart)) / 1000);
+    }, 1000);
+
+    return () => clearInterval(countdownInterval);
+  }, []);
+
   useEffect(() => {
     const checkCurrentPurchase = async () => {
       if (currentPurchase) {
@@ -494,6 +524,9 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                     zIndex: 200,
                   }}
                   onPress={() => {
+
+                 
+                    dispatch(setShowPromotionDialog(true));
                     navigation.goBack();
                   }}
                 >
@@ -690,7 +723,29 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                       </View>
 
                       <View style={styles.badgeContainer}>
-                        <View style={{ ...styles.badge }}>
+
+
+                      {remainingTimeAry.map((val, i) => {
+                    return (
+                      <>
+                      <View
+                        key={i}>
+                      <View style={styles.badge}>
+                          <Text style={styles.badgeText}>{val}</Text>
+                        </View>
+                    
+                    </View>
+                      {i % 2 === 1 && i < remainingTimeAry.length - 1 && (
+                          <View style={styles.badge2}>
+                          <Text style={styles.badgeText2}>:</Text>
+                        </View>
+                        )}
+</>
+
+                    );
+                  })}
+                  
+                        {/* <View style={{ ...styles.badge }}>
                           <Text style={styles.badgeText}>0</Text>
                         </View>
                         <View style={styles.badge}>
@@ -715,8 +770,12 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                         </View>
                         <View style={styles.badge}>
                           <Text style={styles.badgeText}>0</Text>
-                        </View>
+                        </View> */}
+
                       </View>
+
+
+
                     </View>
 
                     {/* oneTimeProducts / single purchase  */}
@@ -905,7 +964,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1  , backgroundColor:'#000'}}>
       <Carousel
         autoPlay={false}
         ref={carouselRef}
@@ -956,17 +1015,18 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
         }}
         renderItem={renderCarousel}
       />
+      {/* ||
+        screenState.showEventSplash == true */}
       {(activeIndex !== screenState.showEventSplashData.length - 1 &&
         screenState.showEventSplashData.length != 0 &&
         screenState.showEventSplashData &&
-        isLastShown != true) ||
-        (screenState.showEventSplash == false && (
+        isLastShown != true) && screenState.showEventSplash == true && (
           <CarouselPagination
             data={screenState.showEventSplashData}
             dashStyle={true}
             activeIndex={activeIndex}
           />
-        ))}
+        )}
     </View>
   );
 };
@@ -1139,5 +1199,10 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderColor: "#fff",
     borderWidth: 2,
+  },
+  loading: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
   },
 });

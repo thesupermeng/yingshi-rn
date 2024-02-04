@@ -26,6 +26,7 @@ const initialState: screenModel = {
   watchAnytimeAdultMode: false,
   showAdultTab: false,
   showAdultVipPrivilegeMiniVideo: false,
+  showPromotionDialog: false
 };
 
 export function screenReducer(state = initialState, action: screenActionType) {
@@ -204,7 +205,11 @@ export function screenReducer(state = initialState, action: screenActionType) {
           ...state,
           showEventSplashData: action.payload,
         };
-
+        case "set_show_promotion_dialog":
+          return {
+            ...state,
+            showPromotionDialog: action.payload,
+          };
         
     default:
       return state;
