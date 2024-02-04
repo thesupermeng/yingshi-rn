@@ -2,6 +2,9 @@ import React, { useEffect, ReactNode, useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from "react-native";
 import FastImage from "../common/customFastImage";
 import LinearGradient from "react-native-linear-gradient";
+import { useSelector } from "@hooks/hooks";
+import { BackgroundType } from "@redux/reducers/backgroundReducer";
+import { VIP_PROMOTION_COUNTDOWN_MINUTE, VIP_PROMOTION_PURCHASE_MAX } from "@utility/constants";
 
 interface Props {
   coverImage: any;
@@ -18,51 +21,31 @@ export default function VipPromotionModal({
   onPurchase,
   showCondition,
 }: Props) {
+  const backgroundState = useSelector<BackgroundType>('backgroundReducer');
+  const [countdownSecond, setCountdownSecond] = useState(((VIP_PROMOTION_COUNTDOWN_MINUTE * 60 * 1000) - (Date.now() - backgroundState.vipPromotionCountdownStart)) / 1000);
+
+  const hours = Math.floor(countdownSecond / 60 / 60);
+  const minute = Math.floor(countdownSecond / 60 % 60);
+  const second = Math.floor(countdownSecond % 60);
+
+  const remainingTimeAry = [
+    String(hours).padStart(2, '0')[0],
+    String(hours).padStart(2, '0')[1],
+    String(minute).padStart(2, '0')[0],
+    String(minute).padStart(2, '0')[1],
+    String(second).padStart(2, '0')[0],
+    String(second).padStart(2, '0')[1],
+  ];
+
   const isFullscreen = Dimensions.get('window').height < Dimensions.get('window').width;
-  const countdownVal = [0, 0, 5, 9, 5, 9];
-  const targetDate = '2024-02-01T00:56:59Z';
-  const [remainingTime, setRemainingTime] = useState<string[]>(['0', '0', '0', '0', '0', '0']);
 
   useEffect(() => {
-    const calCountdownDays = () => {
-      const now = new Date();
-      const target = new Date(targetDate);
+    const countdownInterval = setInterval(() => {
+      setCountdownSecond(((VIP_PROMOTION_COUNTDOWN_MINUTE * 60 * 1000) - (Date.now() - backgroundState.vipPromotionCountdownStart)) / 1000);
+    }, 1000);
 
-      let diff = target.getTime() - now.getTime();
-
-      if (diff < 0) {
-        setRemainingTime(['0', '0', '0', '0', '0', '0']);
-      }
-
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      diff -= days * (1000 * 60 * 60 * 24);
-
-      const hours = Math.floor(diff / (1000 * 60 * 60));
-      diff -= hours * (1000 * 60 * 60);
-
-      const minutes = Math.floor(diff / (1000 * 60));
-      diff -= minutes * (1000 * 60);
-
-      const seconds = Math.floor(diff / 1000);
-
-      const formattedDays = String(days).padStart(2, '0');
-      const formattedHours = String(hours).padStart(2, '0');
-      const formattedMinutes = String(minutes).padStart(2, '0');
-      const formattedSeconds = String(seconds).padStart(2, '0');
-      console.log(formattedDays)
-      console.log(formattedHours)
-      console.log(formattedMinutes)
-
-      setRemainingTime([...formattedDays.split(''), ...formattedHours.split(''), ...formattedMinutes.split('')]);
-    }
-
-    calCountdownDays();
-    const intervalId = setInterval(() => {
-      calCountdownDays()
-    }, 60000);
-
-    return () => clearInterval(intervalId);
-  }, [targetDate]);
+    return () => clearInterval(countdownInterval);
+  }, []);
 
   if (showCondition)
     return (
@@ -116,7 +99,7 @@ export default function VipPromotionModal({
                   限时订阅优惠
                 </Text>
                 <View style={styles.countdownContainer}>
-                  {remainingTime.map((val, i) => {
+                  {remainingTimeAry.map((val, i) => {
                     return (
                       <View
                         key={i}
@@ -130,7 +113,7 @@ export default function VipPromotionModal({
                             borderRadius: 6,
                             justifyContent: 'center',
                             alignItems: 'center',
-                            width: 24, 
+                            width: 24,
                             height: 24,
                             paddingTop: 5,
                             paddingBottom: 3,
@@ -141,7 +124,7 @@ export default function VipPromotionModal({
                           </Text>
 
                         </View>
-                        {i % 2 === 1 && i < countdownVal.length - 1 && (
+                        {i % 2 === 1 && i < remainingTimeAry.length - 1 && (
                           <Text style={{ ...styles.countdownText, padding: 1, color: '#F4DBBA' }}>
                             :
                           </Text>
@@ -156,8 +139,8 @@ export default function VipPromotionModal({
               </Text>
               <Text style={styles.contentText2}>
                 限时优惠
-                <Text style={{ ...styles.contentText2, color: '#FAC33D' }}>5万</Text>名额，已有
-                <Text style={{ ...styles.contentText2, color: '#FAC33D' }}>46878人</Text>购买
+                <Text style={{ ...styles.contentText2, color: '#FAC33D' }}>{VIP_PROMOTION_PURCHASE_MAX / 10000}万</Text>名额，已有
+                <Text style={{ ...styles.contentText2, color: '#FAC33D' }}>{backgroundState.vipPromotionPurchaseNum}人</Text>购买
               </Text>
             </View>
 
@@ -192,6 +175,8 @@ export default function VipPromotionModal({
         </View >
       </View >
     );
+
+  return <></>;
 }
 
 const styles = StyleSheet.create({

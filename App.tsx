@@ -331,15 +331,6 @@ let App = () => {
 
   useEffect(() => {
     downloadWatchAnytimeSequence();
-
-    CustomEventAnalytic.foundLocalPush();
-    if (EVENT_CUSTOM_START) {
-      CustomEventAnalytic.start();
-    }
-
-    return () => {
-      CustomEventAnalytic.close();
-    };
   }, []);
 
   return (
