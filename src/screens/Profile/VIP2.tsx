@@ -78,6 +78,10 @@ const subs_skus = [
   "vip_12_month_subscription",
 ];
 
+import Tick from "@static/images/splash/tick.svg";
+import Tick1 from "@static/images/splash/tick1.svg";
+import Tick2 from "@static/images/splash/tick2.svg";
+
 export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
   const {
     connected,
@@ -481,20 +485,20 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                   handleConfirm={handleConfirm}
                   dialogText={dialogText}
                 />
-{/* return button  */}
-<TouchableOpacity
-                      style={{
-                        position: "absolute",
-                        left: 15,
-                        top: 30,
-                        zIndex: 200,
-                      }}
-                      onPress={() => {
-                        navigation.goBack();
-                      }}
-                    >
-                      <CloseButton />
-                    </TouchableOpacity>
+                {/* return button  */}
+                <TouchableOpacity
+                  style={{
+                    position: "absolute",
+                    left: 15,
+                    top: 30,
+                    zIndex: 200,
+                  }}
+                  onPress={() => {
+                    navigation.goBack();
+                  }}
+                >
+                  <CloseButton />
+                </TouchableOpacity>
 
                 <LottieView
                   style={styles.video}
@@ -517,13 +521,11 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                       paddingTop: 25,
                       justifyContent: "flex-start",
                       alignItems: "center",
-                      flexDirection:'column-reverse',
+                      flexDirection: "column-reverse",
                     }}
                   >
-
-                       {/* purchase button  */}
-                       <View style={{ paddingHorizontal: 30, width: "100%" 
-                  }}>
+                    {/* purchase button  */}
+                    <View style={{ paddingHorizontal: 30, width: "100%" }}>
                       <TouchableOpacity
                         onPress={onPurchase}
                         disabled={!isBtnEnable}
@@ -548,13 +550,13 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                         </LinearGradient>
                       </TouchableOpacity>
                     </View>
- {/* Privacy & terms and condition link section   */}
- <View
+                    {/* Privacy & terms and condition link section   */}
+                    <View
                       style={{
                         justifyContent: "center",
                         alignItems: "center",
                         flexDirection: "row",
-                 paddingBottom:14
+                        paddingBottom: 14,
                       }}
                     >
                       <TouchableOpacity
@@ -583,69 +585,85 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                       </TouchableOpacity>
                     </View>
 
-  {/* product scroll card  */}
-  {subscriptionProducts && (
-              
-             <View style={{height:230}}>
-              <FlatList
-                horizontal={true} // Set horizontal to true for horizontal scrolling
-                contentContainerStyle={styles.scrollViewContent}
-                showsHorizontalScrollIndicator={false} 
-                data={subscriptionProducts}
-                keyExtractor={(item) => item.productId}
-                renderItem={({ item , index }) => (
-                  <TouchableOpacity
-                    style={
-                      productSelected === item
-                        ? styles.cardContainerActive
-                        : styles.cardContainer
-                    }
-                    onPress={() => {
-                      setSelectedProduct(item);
-                    }}
-                  >
-                    <View>
-                      <View
-                        style={{
-                          ...styles.redIndicator,
-                          opacity: index === 0 ? 1 : 0,
-                        }}
-                      >
-                        <Text style={styles.hotText}>最多人选择</Text>
-                      </View>
-                      <View style={styles.textContainer}>
-                        <Text style={styles.promo}>{item.title}</Text>
-                        <Text style={styles.promo2}>
-                          {item.promoPrice}
-                        </Text>
-                        <Text style={styles.promo3}>
-                          {item.localizedPrice}
-                        </Text>
-                      </View>
-                    </View>
-                    <View
-                      style={
-                        productSelected === item
-                          ? styles.buttonActive
-                          : styles.button
-                      }
-                    >
-                      <Text
-                        style={
-                          productSelected === item
-                            ? styles.buttonTextActive
-                            : styles.buttonText
-                        }
-                      >
-                        {item.description}
-                      </Text>
-                    </View>
-                  </TouchableOpacity>
-                )}
-              />
-          </View>
-            )}
+                    {/* product scroll card  */}
+                    {subscriptionProducts && (
+                      <View style={{ height: 230 }}>
+                        <FlatList
+                          horizontal={true} // Set horizontal to true for horizontal scrolling
+                          contentContainerStyle={styles.scrollViewContent}
+                          showsHorizontalScrollIndicator={false}
+                          data={subscriptionProducts}
+                          keyExtractor={(item) => item.productId}
+                          renderItem={({ item, index }) => (
+                            <TouchableOpacity
+                              style={
+                                productSelected === item
+                                  ? styles.cardContainerActive
+                                  : styles.cardContainer
+                              }
+                              onPress={() => {
+                                setSelectedProduct(item);
+                              }}
+                            >
+                              <View>
+                                <View
+                                  style={{
+                                    justifyContent: "space-between",
+                                    flexDirection: "row",
+                                  }}
+                                >
+                                  <View
+                                    style={{
+                                      ...styles.redIndicator,
+                                      opacity: index === 0 ? 1 : 0,
+                                    }}
+                                  >
+                                    <Text style={styles.hotText}>
+                                      最多人选择
+                                    </Text>
+                                  </View>
 
+                                  {productSelected === item && (
+                                    <View
+                                      style={{ paddingRight: 5, paddingTop: 2 }}
+                                    >
+                                      <Tick width={18} height={18} />
+                                    </View>
+                                  )}
+                                </View>
+
+                                <View style={styles.textContainer}>
+                                  <Text style={styles.promo}>{item.title}</Text>
+                                  <Text style={styles.promo2}>
+                                    {item.promoPrice}
+                                  </Text>
+                                  <Text style={styles.promo3}>
+                                    {item.localizedPrice}
+                                  </Text>
+                                </View>
+                              </View>
+                              <View
+                                style={
+                                  productSelected === item
+                                    ? styles.buttonActive
+                                    : styles.button
+                                }
+                              >
+                                <Text
+                                  style={
+                                    productSelected === item
+                                      ? styles.buttonTextActive
+                                      : styles.buttonText
+                                  }
+                                >
+                                  {item.description}
+                                </Text>
+                              </View>
+                            </TouchableOpacity>
+                          )}
+                        />
+                      </View>
+                    )}
 
                     {/* time  countdown */}
                     <View
@@ -653,13 +671,13 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                         width: "100%",
                         paddingLeft: 25,
                         flexDirection: "row",
-                        position:'relative',
-                        bottom:20,
-                      //  justifyContent:'center',
-                        alignItems:'center'
+                        position: "relative",
+                        bottom: 20,
+                        //  justifyContent:'center',
+                        alignItems: "center",
                       }}
                     >
-                      <View style={{ width: 120, height:25,  marginRight: 5 }}>
+                      <View style={{ width: 120, height: 25, marginRight: 5 }}>
                         <FastImage
                           source={require("./../../../static/images/splash/subText2.png")}
                           style={{
@@ -702,23 +720,20 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                     </View>
 
                     {/* oneTimeProducts / single purchase  */}
-                     {oneTimeProducts && (
+                    {oneTimeProducts && (
                       <View
                         style={{
                           flexDirection: "row",
                           width: width,
                           maxWidth: width,
-                          paddingHorizontal:30,
+                          paddingHorizontal: 30,
                           justifyContent: "space-between",
                         }}
                       >
                         {oneTimeProducts.map((product, i) => (
                           <TouchableOpacity
                             key={product.productId}
-                            style={
-                             {   width:'48%',
-                             height: 70,}
-                            }
+                            style={{ width: "48%", height: 70 }}
                             onPress={() => {
                               setSelectedProduct(product);
                             }}
@@ -731,17 +746,30 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                               }
                               locations={[0.0, 0.99]}
                               style={{
-                             
                                 flex: 1,
-                               
+
                                 paddingTop: 10,
                                 paddingHorizontal: 10,
-                                ...(productSelected === product && i === 0)
+                                ...(productSelected === product && i === 0
                                   ? styles.cardContainerActive2
-                                  : (productSelected === product && i === 1)
+                                  : productSelected === product && i === 1
                                   ? styles.cardContainerActive3
-                                  : styles.cardContainer2
-                              }}>
+                                  : styles.cardContainer2),
+                              }}
+                            >
+                              {productSelected === product && (
+                                <View
+                                  style={{
+                                    position: "absolute",
+                                    right: 3,
+                                    top: 3,
+                                  }}
+                                >
+                                  {i === 0 && <Tick1 width={18} height={18} />}
+
+                                  {i === 1 && <Tick2 width={18} height={18} />}
+                                </View>
+                              )}
                               <View
                                 style={{
                                   justifyContent: "space-between",
@@ -794,15 +822,13 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                       </View>
                     )}
 
-
- {/* card 2 */}
- <View
+                    {/* card 2 */}
+                    <View
                       style={{
                         width: "100%",
-                       height:60,
+                        height: 60,
                         justifyContent: "flex-start",
                         paddingLeft: 28,
-                        
                       }}
                     >
                       <FastImage
@@ -815,56 +841,51 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                       ></FastImage>
                     </View>
 
-
-{/* top banner */}
-<View    style={{
-                        width: "100%",
-                        height: 210,}}>
-
-
-                   {/* title  */}
+                    {/* top banner */}
                     <View
                       style={{
                         width: "100%",
-                        height: 110,
-              paddingHorizontal:20,
-                        zIndex: 20,
-                  
+                        height: 210,
                       }}
                     >
-                      <FastImage
-                        source={require("./../../../static/images/splash/splashText.png")}
+                      {/* title  */}
+                      <View
                         style={{
-                          flex: 1,
+                          width: "100%",
+                          height: 110,
+                          paddingHorizontal: 20,
+                          zIndex: 20,
                         }}
-                        resizeMode="contain"
-                      ></FastImage>
-                    </View>
-   
-  {/* card 1  */}
-  <View
-                      style={{
-                        width: "100%",
-                        height: 140,
-                        zIndex: 1,
-                        position: "relative",
-                       bottom: '15%',
-                        paddingHorizontal: 30,
-                      }}
-                    >
-                      <FastImage
-                        source={require("./../../../static/images/splash/card.png")}
-                        style={{
-                          flex: 1,
-                        }}
-                        resizeMode="contain"
-                      ></FastImage>
-                    </View>
-                    </View>   
+                      >
+                        <FastImage
+                          source={require("./../../../static/images/splash/splashText.png")}
+                          style={{
+                            flex: 1,
+                          }}
+                          resizeMode="contain"
+                        ></FastImage>
+                      </View>
 
-                   
-                   
-                 
+                      {/* card 1  */}
+                      <View
+                        style={{
+                          width: "100%",
+                          height: 140,
+                          zIndex: 1,
+                          position: "relative",
+                          bottom: "15%",
+                          paddingHorizontal: 30,
+                        }}
+                      >
+                        <FastImage
+                          source={require("./../../../static/images/splash/card.png")}
+                          style={{
+                            flex: 1,
+                          }}
+                          resizeMode="contain"
+                        ></FastImage>
+                      </View>
+                    </View>
                   </View>
                 </LinearGradient>
               </View>
@@ -893,7 +914,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
         data={screenState.showEventSplashData}
         scrollAnimationDuration={100}
         onScrollBegin={() => {}}
-        enabled={(  screenState.showEventSplash !== false  )}
+        enabled={screenState.showEventSplash !== false}
         loop={false}
         onSnapToItem={(index) => {
           setActiveIndex(index);
@@ -939,13 +960,13 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
         screenState.showEventSplashData.length != 0 &&
         screenState.showEventSplashData &&
         isLastShown != true) ||
-        screenState.showEventSplash == false && (
+        (screenState.showEventSplash == false && (
           <CarouselPagination
             data={screenState.showEventSplashData}
             dashStyle={true}
             activeIndex={activeIndex}
           />
-        )}
+        ))}
     </View>
   );
 };
@@ -1010,7 +1031,7 @@ const styles = StyleSheet.create({
     position: "relative",
     paddingTop: 35,
   },
-    cardContainer: {
+  cardContainer: {
     borderRadius: 8,
     borderWidth: 1,
     borderColor: "#242529",
@@ -1032,7 +1053,7 @@ const styles = StyleSheet.create({
     height: 180,
   },
   redIndicator: {
-    width: 100,
+    width: 80,
     height: 20,
     backgroundColor: "#FA3E3E",
     paddingLeft: 10,
@@ -1082,6 +1103,7 @@ const styles = StyleSheet.create({
   hotText: {
     color: "#fff",
     fontWeight: "900",
+    fontSize: 12,
   },
   purchaseText: {
     color: "#000",
@@ -1112,8 +1134,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderColor: "#AE845B",
     borderWidth: 2,
-  
-  
   },
   cardContainerActive3: {
     borderRadius: 8,
