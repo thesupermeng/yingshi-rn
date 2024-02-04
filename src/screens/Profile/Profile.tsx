@@ -330,32 +330,69 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                   )}
                 </View>
               </View>
+              {/* 游客 no vip  */}
+              {userState.userEmail == "" &&
+                userState.userPhoneNumber == "" &&
+                userState.userMemberExpired <
+                  userState.userCurrentTimestamp && (
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                      paddingTop: 10,
+                      alignItems: "center",
+                    }}
+                  >
+                    <Text style={{ color: "white" }}>
+                      游客您好，登录可享有跟多服务{" "}
+                    </Text>
 
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  paddingTop: 10,
-                  alignItems: "center",
-                }}
-              >
-                <Text style={{ color: "white" }}>
-                  游客您好，登录可享有跟多服务{" "}
-                </Text>
+                    <View
+                      style={{
+                        backgroundColor: "#FAC33D",
+                        paddingHorizontal: 16,
+                        paddingVertical: 5,
+                        borderRadius: 10,
+                      }}
+                    >
+                      <Text style={{ color: "#000", fontWeight: "700" }}>
+                        登录{" "}
+                      </Text>
+                    </View>
+                  </View>
+                )}
 
-                <View
-                  style={{
-                    backgroundColor: "#FAC33D",
-                    paddingHorizontal: 16,
-                    paddingVertical: 5,
-                    borderRadius: 10,
-                  }}
-                >
-                  <Text style={{ color: "#000", fontWeight: "700" }}>
-                    登录{" "}
-                  </Text>
-                </View>
-              </View>
+              {/* 游客 got vip  */}
+              {userState.userEmail == "" &&
+                userState.userPhoneNumber == "" &&
+                userState.userMemberExpired >=
+                  userState.userCurrentTimestamp && (
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                      paddingTop: 10,
+                      alignItems: "center",
+                    }}
+                  >
+                    <Text style={{ color: colors.primary }}>
+                      VIP会员有效日期至{displayedDate}
+                    </Text>
+
+                    <View
+                      style={{
+                        backgroundColor: "#FAC33D",
+                        paddingHorizontal: 16,
+                        paddingVertical: 5,
+                        borderRadius: 10,
+                      }}
+                    >
+                      <Text style={{ color: "#000", fontWeight: "700" }}>
+                        登录{" "}
+                      </Text>
+                    </View>
+                  </View>
+                )}
             </View>
           </TouchableOpacity>
 
