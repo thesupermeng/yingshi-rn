@@ -19,7 +19,7 @@ import HistoryIcon from "@static/images/history.svg";
 import FeedbackIcon from "@static/images/feedback.svg";
 import SettingsIcon from "@static/images/settings.svg";
 import InfoIcon from "@static/images/info.svg";
-import DownloadIcon from '@static/images/download.svg'
+import DownloadIcon from "@static/images/download.svg";
 import { useNavigation } from "@react-navigation/native";
 
 import Orientation from "react-native-orientation-locker";
@@ -68,7 +68,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
   );
   // console.log("Profile")
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [bannerAd, setBannerAd] = useState<BannerAdType[]>()
+  const [bannerAd, setBannerAd] = useState<BannerAdType[]>();
 
   const toggleOverlay = () => {
     setIsDialogOpen(!isDialogOpen);
@@ -147,7 +147,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
     } else {
       setBannerAd(undefined);
     }
-  }
+  };
 
   const shouldShowAds = async () => {
     fetchBannerAd();
@@ -160,14 +160,14 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
   );
 
   const [deviceUniqueId, setDeviceUniqueId] = useState("");
-  
-  const setDeviceId = async() => {
+
+  const setDeviceId = async () => {
     let deviceId = await DeviceInfo.getUniqueId();
-    setDeviceUniqueId(deviceId)
-  }
+    setDeviceUniqueId(deviceId);
+  };
 
   useEffect(() => {
-setDeviceId();
+    setDeviceId();
   }, []);
 
   useEffect(() => {
@@ -223,7 +223,6 @@ setDeviceId();
             >
               我的
             </Text>
-     
           </View>
           {/* 游客登录  component*/}
           <TouchableOpacity
@@ -239,124 +238,138 @@ setDeviceId();
               }
             }}
           >
-
             <View
               style={{
                 ...styles.btnHeader,
-           
               }}
             >
-              <View style={{     flexDirection:'row'}}>
-              {userState.userToken == "" || Platform.OS === "android" ? (
-                <ProfileIcon
-                  style={{ color: colors.button, width: 18, height: 18 }}
-                />
-              ) : (
-                <FastImage
-                  style={{
-                    height: 36,
-                    width: 36,
-                    marginVertical: 2,
-                  }}
-                  resizeMode={"contain"}
-                  source={require("@static/images/profilePic.png")}
-                />
-              )}
-              <View
-                style={{
-                  flexDirection: "column",
-                  flex: 1,
-                  gap: 5,
-                  justifyContent: "center",
-                  paddingLeft: 12,
-                }}
-              >
-                {userState.userToken == "" && (
-                  <>
-                      <Text style={{ color: "#ffffff", fontSize: 20 }}>
-                      游客ID:
-                    </Text>
-                    <Text style={{ color: "#ffffff", fontSize: 14  }}>
-                      {deviceUniqueId}
-                    </Text>
-                  </>
+              <View style={{ flexDirection: "row" }}>
+                {userState.userToken == "" || Platform.OS === "android" ? (
+                  <ProfileIcon
+                    style={{ color: colors.button, width: 18, height: 18 }}
+                  />
+                ) : (
+                  <FastImage
+                    style={{
+                      height: 36,
+                      width: 36,
+                      marginVertical: 2,
+                    }}
+                    resizeMode={"contain"}
+                    source={require("@static/images/profilePic.png")}
+                  />
                 )}
-                {userState.userToken != "" && (
-                  <>
-                    <View
-                      style={{
-                        flexDirection: "row",
-                        justifyContent: "flex-start",
-                        alignItems: "center",
-                        paddingRight: 30,
-                      }}
-                    >
-                      <Text
-                        style={{
-                          color: "#ffffff",
-                          fontSize: 20,
-                        }}
-                        numberOfLines={1}
-                        ellipsizeMode="tail"
-                      >
-                        {userState.userName}
+                <View
+                  style={{
+                    flexDirection: "column",
+                    flex: 1,
+                    gap: 5,
+                    justifyContent: "center",
+                    paddingLeft: 12,
+                  }}
+                >
+                  {userState.userToken == "" && (
+                    <>
+                      <Text style={{ color: "#ffffff", fontSize: 14 }}>
+                        游客ID:
                       </Text>
-                      {userState.userMemberExpired >=
-                        userState.userCurrentTimestamp && (
+                      <Text style={{ color: "#ffffff", fontSize: 20 }}>
+                        {deviceUniqueId}
+                      </Text>
+                    </>
+                  )}
+                  {userState.userToken != "" && (
+                    <>
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          justifyContent: "flex-start",
+                          alignItems: "center",
+                          paddingRight: 30,
+                        }}
+                      >
+                        <Text
+                          style={{
+                            color: "#ffffff",
+                            fontSize: 20,
+                          }}
+                          numberOfLines={1}
+                          ellipsizeMode="tail"
+                        >
+                          {userState.userName}
+                        </Text>
+                        {userState.userMemberExpired >=
+                          userState.userCurrentTimestamp && (
                           <Image
                             style={styles.iconStyle}
                             source={require("@static/images/profile/vip.png")}
                           />
                         )}
-                    </View>
+                      </View>
 
-                    {/* {userState.userMemberExpired == '0' && (
+                      {/* {userState.userMemberExpired == '0' && (
                       <Text style={{fontSize: 14}}>VIP会员已经到期</Text>
                     )} */}
-                    {userState.userMemberExpired >=
-                      userState.userCurrentTimestamp && (
+                      {userState.userMemberExpired >=
+                        userState.userCurrentTimestamp && (
                         <Text style={{ color: colors.primary, fontSize: 14 }}>
                           VIP会员有效日期至{displayedDate}
                         </Text>
                       )}
-                  </>
-                )}
+                    </>
+                  )}
+                </View>
+
+                <View
+                  style={{
+                    justifyContent: "center",
+                  }}
+                >
+                  {userState.userToken != "" && (
+                    <EditIcn width={29} height={29} color={colors.muted} />
+                  )}
+                </View>
               </View>
 
               <View
                 style={{
-                  justifyContent: "center",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  paddingTop: 10,
+                  alignItems: "center",
                 }}
               >
-                {userState.userToken != "" && (
-                  <EditIcn width={29} height={29} color={colors.muted} />
-                )}
-              </View>
-              </View>
+                <Text style={{ color: "white" }}>
+                  游客您好，登录可享有跟多服务{" "}
+                </Text>
 
-              <View style={{     flexDirection:'row' , justifyContent:'space-between' , paddingTop:10 , alignItems:'center'}}>
-                <Text style={{color:'white'}}>游客您好，登录可享有跟多服务 </Text>
-
-                <View style={{backgroundColor : '#FAC33D' , paddingHorizontal : 16 , paddingVertical:5 , borderRadius:10}}>
-
-
-                <Text style={{color:'#000', fontWeight:'700'}}>登录 </Text>
+                <View
+                  style={{
+                    backgroundColor: "#FAC33D",
+                    paddingHorizontal: 16,
+                    paddingVertical: 5,
+                    borderRadius: 10,
+                  }}
+                >
+                  <Text style={{ color: "#000", fontWeight: "700" }}>
+                    登录{" "}
+                  </Text>
                 </View>
-                </View>
+              </View>
             </View>
-
-
           </TouchableOpacity>
 
-          {bannerAd && bannerAd.map((ad => {
-            return <BannerContainer
-              bannerAd={ad}
-              key={ad.ads_id}
-              onMount={onBannerView}
-              onPress={onBannerPress}
-            />
-          }))
-          }
+          {bannerAd &&
+            bannerAd.map((ad) => {
+              return (
+                <BannerContainer
+                  bannerAd={ad}
+                  key={ad.ads_id}
+                  onMount={onBannerView}
+                  onPress={onBannerPress}
+                />
+              );
+            })}
 
           <View style={{ marginBottom: -30, flex: 3, paddingBottom: 120 }}>
             {SHOW_ZF_CONST && (
@@ -372,14 +385,11 @@ setDeviceId();
                     ...styles.btn,
                   }}
                   onPress={() => {
-                    if (UMENG_CHANNEL == 'GOOGLE_PLAY')
-      {
-        navigation.navigate("付费Google");
-      }
-      else
-      {
-        navigation.navigate("付费VIP");
-      }
+                    if (UMENG_CHANNEL == "GOOGLE_PLAY") {
+                      navigation.navigate("付费Google");
+                    } else {
+                      navigation.navigate("付费VIP");
+                    }
                     // dispatch(showLoginAction());
                   }}
                 >
@@ -401,7 +411,7 @@ setDeviceId();
                         )}
                       </Text>
                       {YSConfig.instance.tabConfig != null &&
-                        YSConfig.instance.len == 5 ? (
+                      YSConfig.instance.len == 5 ? (
                         <Text
                           style={{
                             ...textVariants.small,
@@ -638,12 +648,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   btnHeader: {
-
     width: "100%",
     backgroundColor: "#1A1E21",
     borderRadius: 10,
-    padding:10
-
+    padding: 10,
   },
   highlightColor: {
     color: "#FAC33D", // Change this color to your desired highlight color

@@ -481,6 +481,21 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                   handleConfirm={handleConfirm}
                   dialogText={dialogText}
                 />
+{/* return button  */}
+<TouchableOpacity
+                      style={{
+                        position: "absolute",
+                        left: 15,
+                        top: 30,
+                        zIndex: 200,
+                      }}
+                      onPress={() => {
+                        navigation.goBack();
+                      }}
+                    >
+                      <CloseButton />
+                    </TouchableOpacity>
+
                 <LottieView
                   style={styles.video}
                   source={{
@@ -494,7 +509,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                   colors={["rgba(20, 22, 26, 0)", "#14161A"]} // Transparent to #14161A
                   style={styles.linearGradient}
                   start={{ x: 0, y: 0 }}
-                  end={{ x: 0, y: 0.4 }}
+                  end={{ x: 0, y: 0.3 }}
                 >
                   <View
                     style={{
@@ -502,87 +517,198 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                       paddingTop: 25,
                       justifyContent: "flex-start",
                       alignItems: "center",
-                      gap: -40,
+                      flexDirection:'column-reverse',
                     }}
                   >
-                    <TouchableOpacity
+
+                       {/* purchase button  */}
+                       <View style={{ paddingHorizontal: 30, width: "100%" 
+                  }}>
+                      <TouchableOpacity
+                        onPress={onPurchase}
+                        disabled={!isBtnEnable}
+                      >
+                        <LinearGradient
+                          colors={["#D1AC7D", "#B1885F"]}
+                          locations={[0.0, 0.99]}
+                          style={{
+                            height: 40,
+                            marginBottom: 25,
+                            justifyContent: "center",
+                            alignItems: "center",
+                            paddingVertical: 8,
+                            borderRadius: 8,
+                          }}
+                        >
+                          <Text style={styles.purchaseText}>
+                            立即解锁{" "}
+                            {productSelected &&
+                              `- 总额${productSelected.promoPrice}`}
+                          </Text>
+                        </LinearGradient>
+                      </TouchableOpacity>
+                    </View>
+ {/* Privacy & terms and condition link section   */}
+ <View
                       style={{
-                        position: "absolute",
-                        left: 15,
-                        top: 30,
-                        zIndex: 200,
-                      }}
-                      onPress={() => {
-                        navigation.goBack();
+                        justifyContent: "center",
+                        alignItems: "center",
+                        flexDirection: "row",
+                 paddingBottom:14
                       }}
                     >
-                      <CloseButton />
-                    </TouchableOpacity>
-                    <View
-                      style={{
-                        width: "100%",
-                        height: 200,
-                        paddingHorizontal: 40,
-                        zIndex: 20,
-                      }}
-                    >
-                      <FastImage
-                        source={require("./../../../static/images/splash/splashText.png")}
-                        style={{
-                          flex: 1,
+                      <TouchableOpacity
+                        onPress={() => {
+                          navigation.navigate("隐私政策");
                         }}
-                        resizeMode="contain"
-                      ></FastImage>
+                      >
+                        <Text style={styles.textPrivacy}>隐私协议 </Text>
+                      </TouchableOpacity>
+                      <Text style={styles.textPrivacy}>| </Text>
+                      <TouchableOpacity
+                        onPress={() => {
+                          navigation.navigate("用户协议");
+                        }}
+                      >
+                        <Text style={styles.textPrivacy}>用户服务协议 </Text>
+                      </TouchableOpacity>
+                      <Text style={styles.textPrivacy}>| </Text>
+
+                      <TouchableOpacity
+                        onPress={() => {
+                          navigation.navigate("续费服务");
+                        }}
+                      >
+                        <Text style={styles.textPrivacy}>自动续费协议 </Text>
+                      </TouchableOpacity>
                     </View>
 
-                    <View
-                      style={{
-                        width: "100%",
-                        height: 200,
-                        zIndex: 1,
-                        position: "relative",
-                        bottom: 70,
-                        paddingHorizontal: 30,
-                      }}
-                    >
-                      <FastImage
-                        source={require("./../../../static/images/splash/card.png")}
-                        style={{
-                          flex: 1,
-                        }}
-                        resizeMode="contain"
-                      ></FastImage>
-                    </View>
-
-                    <View
-                      style={{
-                        width: "100%",
-                        position: "relative",
-                        bottom: 70,
-                        justifyContent: "flex-start",
-                        paddingLeft: 35,
-                      }}
-                    >
-                      <FastImage
-                        source={require("./../../../static/images/splash/subText.png")}
-                        style={{
-                          width: 80,
-                          height: 80,
-                        }}
-                        resizeMode="contain"
-                      ></FastImage>
-                    </View>
-
-                    {oneTimeProducts && (
+  {/* product scroll card  */}
+  {subscriptionProducts && (
+              
+             <View style={{height:230}}>
+              <FlatList
+                horizontal={true} // Set horizontal to true for horizontal scrolling
+                contentContainerStyle={styles.scrollViewContent}
+                showsHorizontalScrollIndicator={false} 
+                data={subscriptionProducts}
+                keyExtractor={(item) => item.productId}
+                renderItem={({ item , index }) => (
+                  <TouchableOpacity
+                    style={
+                      productSelected === item
+                        ? styles.cardContainerActive
+                        : styles.cardContainer
+                    }
+                    onPress={() => {
+                      setSelectedProduct(item);
+                    }}
+                  >
+                    <View>
                       <View
                         style={{
-                          position: "relative",
-                          bottom: 70,
-                          paddingHorizontal: 35,
+                          ...styles.redIndicator,
+                          opacity: index === 0 ? 1 : 0,
+                        }}
+                      >
+                        <Text style={styles.hotText}>最多人选择</Text>
+                      </View>
+                      <View style={styles.textContainer}>
+                        <Text style={styles.promo}>{item.title}</Text>
+                        <Text style={styles.promo2}>
+                          {item.promoPrice}
+                        </Text>
+                        <Text style={styles.promo3}>
+                          {item.localizedPrice}
+                        </Text>
+                      </View>
+                    </View>
+                    <View
+                      style={
+                        productSelected === item
+                          ? styles.buttonActive
+                          : styles.button
+                      }
+                    >
+                      <Text
+                        style={
+                          productSelected === item
+                            ? styles.buttonTextActive
+                            : styles.buttonText
+                        }
+                      >
+                        {item.description}
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                )}
+              />
+          </View>
+            )}
+
+
+                    {/* time  countdown */}
+                    <View
+                      style={{
+                        width: "100%",
+                        paddingLeft: 25,
+                        flexDirection: "row",
+                        position:'relative',
+                        bottom:20,
+                      //  justifyContent:'center',
+                        alignItems:'center'
+                      }}
+                    >
+                      <View style={{ width: 120, height:25,  marginRight: 5 }}>
+                        <FastImage
+                          source={require("./../../../static/images/splash/subText2.png")}
+                          style={{
+                            flex: 1,
+                            position: "relative",
+                            top: 3,
+                          }}
+                          resizeMode="contain"
+                        ></FastImage>
+                      </View>
+
+                      <View style={styles.badgeContainer}>
+                        <View style={{ ...styles.badge }}>
+                          <Text style={styles.badgeText}>0</Text>
+                        </View>
+                        <View style={styles.badge}>
+                          <Text style={styles.badgeText}>0</Text>
+                        </View>
+
+                        <View style={styles.badge2}>
+                          <Text style={styles.badgeText2}>:</Text>
+                        </View>
+                        <View style={styles.badge}>
+                          <Text style={styles.badgeText}>0</Text>
+                        </View>
+                        <View style={styles.badge}>
+                          <Text style={styles.badgeText}>0</Text>
+                        </View>
+
+                        <View style={styles.badge2}>
+                          <Text style={styles.badgeText2}>:</Text>
+                        </View>
+                        <View style={styles.badge}>
+                          <Text style={styles.badgeText}>0</Text>
+                        </View>
+                        <View style={styles.badge}>
+                          <Text style={styles.badgeText}>0</Text>
+                        </View>
+                      </View>
+                    </View>
+
+                    {/* oneTimeProducts / single purchase  */}
+                     {oneTimeProducts && (
+                      <View
+                        style={{
                           flexDirection: "row",
-                          width: "100%",
-                          maxWidth: "100%",
-                          gap: 20,
+                          width: width,
+                          maxWidth: width,
+                          paddingHorizontal:30,
                           justifyContent: "space-between",
                         }}
                       >
@@ -590,9 +716,8 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                           <TouchableOpacity
                             key={product.productId}
                             style={
-                              productSelected == product
-                                ? styles.cardContainerActive2
-                                : styles.cardContainer2
+                             {   width:'48%',
+                             height: 70,}
                             }
                             onPress={() => {
                               setSelectedProduct(product);
@@ -606,13 +731,17 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                               }
                               locations={[0.0, 0.99]}
                               style={{
-                                marginTop: 20,
-                                height: 70,
-                                width: 160,
+                             
+                                flex: 1,
+                               
                                 paddingTop: 10,
                                 paddingHorizontal: 10,
-                              }}
-                            >
+                                ...(productSelected === product && i === 0)
+                                  ? styles.cardContainerActive2
+                                  : (productSelected === product && i === 1)
+                                  ? styles.cardContainerActive3
+                                  : styles.cardContainer2
+                              }}>
                               <View
                                 style={{
                                   justifyContent: "space-between",
@@ -665,185 +794,77 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                       </View>
                     )}
 
-                    {/* time  countdown */}
-                    <View
+
+ {/* card 2 */}
+ <View
                       style={{
-                        position: "relative",
-                        bottom: 20,
                         width: "100%",
-                        paddingLeft: 40,
-                        flexDirection: "row",
+                       height:60,
+                        justifyContent: "flex-start",
+                        paddingLeft: 28,
+                        
                       }}
                     >
-                      <View style={{ width: 120, marginRight: 5 }}>
-                        <FastImage
-                          source={require("./../../../static/images/splash/subText2.png")}
-                          style={{
-                            flex: 1,
-                            position: "relative",
-                            top: 3,
-                          }}
-                          resizeMode="contain"
-                        ></FastImage>
-                      </View>
-
-                      <View style={styles.badgeContainer}>
-                        <View style={{ ...styles.badge }}>
-                          <Text style={styles.badgeText}>0</Text>
-                        </View>
-                        <View style={styles.badge}>
-                          <Text style={styles.badgeText}>0</Text>
-                        </View>
-
-                        <View style={styles.badge2}>
-                          <Text style={styles.badgeText2}>:</Text>
-                        </View>
-                        <View style={styles.badge}>
-                          <Text style={styles.badgeText}>0</Text>
-                        </View>
-                        <View style={styles.badge}>
-                          <Text style={styles.badgeText}>0</Text>
-                        </View>
-
-                        <View style={styles.badge2}>
-                          <Text style={styles.badgeText2}>:</Text>
-                        </View>
-                        <View style={styles.badge}>
-                          <Text style={styles.badgeText}>0</Text>
-                        </View>
-                        <View style={styles.badge}>
-                          <Text style={styles.badgeText}>0</Text>
-                        </View>
-                      </View>
+                      <FastImage
+                        source={require("./../../../static/images/splash/subText.png")}
+                        style={{
+                          width: 80,
+                          height: 80,
+                        }}
+                        resizeMode="contain"
+                      ></FastImage>
                     </View>
-                    {/* product card  */}
-                    {subscriptionProducts && (
-                      // Replace the ScrollView with FlatList
-                      <FlatList
-                        horizontal={true} // Set horizontal to true for horizontal scrolling
-                        contentContainerStyle={styles.scrollViewContent}
-                        data={subscriptionProducts}
-                        keyExtractor={(item) => item.productId}
-                        renderItem={({ item , index }) => (
-                          <TouchableOpacity
-                            style={
-                              productSelected === item
-                                ? styles.cardContainerActive
-                                : styles.cardContainer
-                            }
-                            onPress={() => {
-                              setSelectedProduct(item);
-                            }}
-                          >
-                            <View>
-                              <View
-                                style={{
-                                  ...styles.redIndicator,
-                                  opacity: index === 0 ? 1 : 0,
-                                }}
-                              >
-                                <Text style={styles.hotText}>最多人选择</Text>
-                              </View>
-                              <View style={styles.textContainer}>
-                                <Text style={styles.promo}>{item.title}</Text>
-                                <Text style={styles.promo2}>
-                                  {item.promoPrice}
-                                </Text>
-                                <Text style={styles.promo3}>
-                                  {item.localizedPrice}
-                                </Text>
-                              </View>
-                            </View>
-                            <View
-                              style={
-                                productSelected === item
-                                  ? styles.buttonActive
-                                  : styles.button
-                              }
-                            >
-                              <Text
-                                style={
-                                  productSelected === item
-                                    ? styles.buttonTextActive
-                                    : styles.buttonText
-                                }
-                              >
-                                {item.description}
-                              </Text>
-                            </View>
-                          </TouchableOpacity>
-                        )}
-                      />
-                    )}
 
-                    {/* Privacy & terms and condition link section   */}
+
+{/* top banner */}
+<View    style={{
+                        width: "100%",
+                        height: 210,}}>
+
+
+                   {/* title  */}
                     <View
                       style={{
-                        justifyContent: "center",
-                        alignItems: "center",
-                        flexDirection: "row",
-                        position: "absolute",
-                        bottom: 95,
-                        height: 20,
+                        width: "100%",
+                        height: 110,
+              paddingHorizontal:20,
+                        zIndex: 20,
+                  
                       }}
                     >
-                      <TouchableOpacity
-                        onPress={() => {
-                          navigation.navigate("隐私政策");
+                      <FastImage
+                        source={require("./../../../static/images/splash/splashText.png")}
+                        style={{
+                          flex: 1,
                         }}
-                      >
-                        <Text style={styles.textPrivacy}>隐私协议 </Text>
-                      </TouchableOpacity>
-                      <Text style={styles.textPrivacy}>| </Text>
-                      <TouchableOpacity
-                        onPress={() => {
-                          navigation.navigate("用户协议");
-                        }}
-                      >
-                        <Text style={styles.textPrivacy}>用户服务协议 </Text>
-                      </TouchableOpacity>
-                      <Text style={styles.textPrivacy}>| </Text>
-
-                      <TouchableOpacity
-                        onPress={() => {
-                          navigation.navigate("续费服务");
-                        }}
-                      >
-                        <Text style={styles.textPrivacy}>自动续费协议 </Text>
-                      </TouchableOpacity>
+                        resizeMode="contain"
+                      ></FastImage>
                     </View>
-
-                    {/* purchase button  */}
-                    <View style={{ paddingHorizontal: 30, width: "100%" ,
-                  
-                
-                  position: "absolute",
-                  bottom: 5,
-                  }}>
-                      <TouchableOpacity
-                        onPress={onPurchase}
-                        disabled={!isBtnEnable}
-                      >
-                        <LinearGradient
-                          colors={["#D1AC7D", "#B1885F"]}
-                          locations={[0.0, 0.99]}
-                          style={{
-                            height: 40,
-                            marginBottom: 25,
-                            justifyContent: "center",
-                            alignItems: "center",
-                            paddingVertical: 8,
-                            borderRadius: 8,
-                          }}
-                        >
-                          <Text style={styles.purchaseText}>
-                            立即解锁{" "}
-                            {productSelected &&
-                              `- 总额${productSelected.promoPrice}`}
-                          </Text>
-                        </LinearGradient>
-                      </TouchableOpacity>
+   
+  {/* card 1  */}
+  <View
+                      style={{
+                        width: "100%",
+                        height: 140,
+                        zIndex: 1,
+                        position: "relative",
+                       bottom: '15%',
+                        paddingHorizontal: 30,
+                      }}
+                    >
+                      <FastImage
+                        source={require("./../../../static/images/splash/card.png")}
+                        style={{
+                          flex: 1,
+                        }}
+                        resizeMode="contain"
+                      ></FastImage>
                     </View>
+                    </View>   
+
+                   
+                   
+                 
                   </View>
                 </LinearGradient>
               </View>
@@ -989,6 +1010,16 @@ const styles = StyleSheet.create({
     position: "relative",
     paddingTop: 35,
   },
+    cardContainer: {
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "#242529",
+    backgroundColor: "#242529",
+    flexDirection: "column",
+    alignItems: "stretch",
+    width: 120,
+    height: 180,
+  },
   cardContainerActive: {
     borderRadius: 8,
     borderWidth: 1,
@@ -1057,16 +1088,7 @@ const styles = StyleSheet.create({
     fontWeight: "900",
     fontSize: 18,
   },
-  cardContainer: {
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: "#242529",
-    backgroundColor: "#242529",
-    flexDirection: "column",
-    alignItems: "stretch",
-    width: 120,
-    height: 180,
-  },
+
   button: {
     backgroundColor: "#393939", //change to grey , follow figma
     borderBottomLeftRadius: 8,
@@ -1082,10 +1104,20 @@ const styles = StyleSheet.create({
   textPrivacy: {
     color: "#9C9C9C",
   },
-  cardContainer2: {},
+  cardContainer2: {
+    borderRadius: 8,
+    borderWidth: 2,
+  },
   cardContainerActive2: {
     borderRadius: 8,
-    borderColor: "red",
+    borderColor: "#AE845B",
+    borderWidth: 2,
+  
+  
+  },
+  cardContainerActive3: {
+    borderRadius: 8,
+    borderColor: "#fff",
     borderWidth: 2,
   },
 });
