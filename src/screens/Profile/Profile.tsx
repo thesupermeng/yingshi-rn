@@ -56,6 +56,7 @@ import { AdsApi } from "../../api/ads";
 import UmengAnalytics from "../../../Umeng/UmengAnalytics";
 import DeviceInfo from "react-native-device-info";
 import style from "../../Sports/components/matchDetails/liveChatPage/style";
+import { VipLoginAlertOverlay } from "../../components/modal/vipLoginAlertOverlay";
 
 function Profile({ navigation, route }: BottomTabScreenProps<any>) {
   const navigator = useNavigation();
@@ -197,9 +198,48 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
     });
   }, []);
 
+
+
+  const [showBecomeVIPOverlay, setShowBecomeVIPOverlay] = useState(false);
+
+  const renderOverlay = () => {
+    return (
+      <VipLoginAlertOverlay
+        showCondition={showBecomeVIPOverlay}
+        onClose={() => {
+          setShowBecomeVIPOverlay(false);
+        }}
+      />
+    );
+  };
+
+  // useEffect(() => {
+  //   setShowBecomeVIPOverlay(true)
+  // }, []);
+
+
+  useFocusEffect(
+    useCallback(() => {
+      setShowBecomeVIPOverlay(true)
+    }, [])
+  );
+  
+
   return (
     <>
       <View style={{ paddingTop: insets.top }}>
+      {showBecomeVIPOverlay && (
+          <View
+            style={{
+              height: "100%",
+              width: "100%",
+              position: "absolute",
+              zIndex: 10000,
+            }}
+          >
+            {renderOverlay()}
+          </View>
+        )}
         {/* <ScreenContainer> */}
         {/* <SafeAreaView> */}
         <ScrollView
