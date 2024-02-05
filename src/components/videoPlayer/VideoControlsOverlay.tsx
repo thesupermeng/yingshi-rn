@@ -21,7 +21,7 @@ import FastImage from '../common/customFastImage';
 import { screenModel } from '@type/screenType';
 import { useAppSelector } from '@hooks/hooks';
 import AdultModeCountdownIndicator from '../adultVideo/adultModeCountdownIndicator';
-import { UMENG_CHANNEL } from '@utility/constants';
+import { DOWNLOAD_FEATURE_ENABLED, UMENG_CHANNEL } from '@utility/constants';
 import DownloadBtn from '@static/images/download_btn.svg';
 import VodDownloadSelection from '../vod/vodDownloadSelection';
 
@@ -449,7 +449,7 @@ export default forwardRef<RefHandler, Props>(({
                       {headerTitle}
                     </Text>
                   </TouchableOpacity>
-                  {videoType === 'vod' && isFullScreen && onDownloadVod &&
+                  {videoType === 'vod' && isFullScreen && onDownloadVod && DOWNLOAD_FEATURE_ENABLED && 
                     <RectButton
                       disallowInterruption={true}
                       onPress={() => { 

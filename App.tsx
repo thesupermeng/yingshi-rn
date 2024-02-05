@@ -62,11 +62,12 @@ warnIgnore([
   'Trying to load empty source.',
   '`new NativeEventEmitter()` was called with a non-null argument without the required',
   `ReactImageView: Image source "null" doesn't exist`,
+  'StatusBar._updatePropsStack',
 ]);
 
 logIgnore([
-  /Opening .* for reading/, 
-  /\[.*\] pts has no value/, 
+  /Opening .* for reading/,
+  /\[.*\] pts has no value/,
   /frame=.*fps=.*q=.*size=.*time=.*bitrate=.*speed=.*/
 ])
 
@@ -311,7 +312,7 @@ let App = () => {
         // console.log("----+---");
         // console.log(update);
         if (update) {
-        //  console.log(update + "AZZZZ?!");
+          //  console.log(update + "AZZZZ?!");
           if (updateType == 1 || updateType == 2) {
             setShowRegengOverlay(true);
           }
@@ -330,15 +331,6 @@ let App = () => {
 
   useEffect(() => {
     downloadWatchAnytimeSequence();
-
-    CustomEventAnalytic.foundLocalPush();
-    if (EVENT_CUSTOM_START) {
-      CustomEventAnalytic.start();
-    }
-
-    return () => {
-      CustomEventAnalytic.close();
-    };
   }, []);
 
   return (

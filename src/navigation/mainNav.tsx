@@ -27,15 +27,17 @@ import { AppsApi, SplashApi, UserApi } from "@api";
 import { hideLoginAction } from "@redux/actions/screenAction";
 import { useDispatch } from "react-redux";
 import NetInfo from "@react-native-community/netinfo";
-import { useAppSelector } from "@hooks/hooks";
+import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import { RootState } from "@redux/store";
 import { screenModel } from "@type/screenType";
 import { withIAPContext } from "react-native-iap";
 import DeviceInfo from "react-native-device-info";
 import { userModel } from "@type/userType";
 import { addUserAuthState } from "@redux/actions/userAction";
+import { onBootApp, onCloseApp } from "@redux/actions/backgroundAction";
 
 export default () => {
+  const appDispatch = useAppDispatch();
   const [loadedAPI, setLoadedAPI] = useState(false);
   const [areaNavConfig, setAreaNavConfig] = useState(false);
   const [isSuper, setIsSuper] = useState(false);
@@ -49,7 +51,7 @@ export default () => {
     ({ userReducer }) =>
       !(
         Number(userReducer.userMemberExpired) <=
-          Number(userReducer.userCurrentTimestamp) ||
+        Number(userReducer.userCurrentTimestamp) ||
         userReducer.userToken === ""
       )
   );
@@ -66,9 +68,12 @@ export default () => {
       if (state.isConnected === false) setAreaNavConfig(true);
     });
 
+    appDispatch(onBootApp());
+
     return () => {
       // Unsubscribe from the network status listener when the component unmounts
       unsubscribe();
+      appDispatch(onCloseApp());
     };
   }, []);
 
@@ -79,8 +84,8 @@ export default () => {
     // console.log(userState.userId);
     // console.log(userState.userToken);
 
-    if (userState.userId == "" && userState.userToken == "") {
-     // console.log("guestLogin");
+    if (userState.userId != "" || userState.userToken == "") {
+      // console.log("guestLogin");
       let result = await UserApi.guestLogin();
 
       // console.log("result");
@@ -94,7 +99,8 @@ export default () => {
         userReferralCode: resultData.user.user_referral_code,
         userEmail: resultData.user.user_email,
         userPhoneNumber: resultData.user.user_phone,
-        userMemberExpired: resultData.user.vip_end_time,
+         userMemberExpired: resultData.user.vip_end_time,
+       // userMemberExpired: resultData.user.created_at,
         userReferrerName: resultData.user.referrer_name,
         userEndDaysCount: resultData.user.user_vip_time_duration_days,
         userTotalInvite: resultData.user.total_invited_user,
@@ -110,7 +116,7 @@ export default () => {
       // console.log("json");
       // console.log(json);
 
-      // await dispatch(addUserAuthState(json));
+       await dispatch(addUserAuthState(json));
     }
   };
 

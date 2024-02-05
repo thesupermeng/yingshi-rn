@@ -19,4 +19,6 @@ export interface screenModel {
   watchAnytimeAdultMode: boolean;
   showAdultTab: boolean;
   showAdultVipPrivilegeMiniVideo: boolean;
+  showPromotionDialog:boolean;
+  showGuestPurchaseSuccess:boolean;
 }

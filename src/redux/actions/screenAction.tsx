@@ -141,3 +141,15 @@ export const setShowEventSplashData = (action: any) => ({
   payload: action,
 });
 
+
+export const setShowPromotionDialog = (action: any) => ({
+  type: "set_show_promotion_dialog",
+  payload: action,
+});
+export const setShowGuestPurchaseSuccess = (action: any) => ({
+  type: "set_show_guest_purchase_success",
+  payload: action,
+});
+
+
+

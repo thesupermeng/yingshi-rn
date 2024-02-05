@@ -10,7 +10,7 @@ import CloseIcon from '@static/images/close.svg'
 import { useAppDispatch, useAppSelector } from '@hooks/hooks';
 import { userModel } from '@type/userType';
 import { screenModel } from '@type/screenType';
-import { SHOW_ZF_CONST } from '@utility/constants';
+import { SHOW_ZF_CONST, UMENG_CHANNEL } from '@utility/constants';
 
 
 const AdultVideoVipModal = () => {
@@ -83,7 +83,14 @@ const AdultVideoVipModal = () => {
                 {SHOW_ZF_CONST && <TouchableOpacity
                   onPress={() => {
                     handleCloseModal();
-                    navigator.navigate('付费VIP');
+                    if (UMENG_CHANNEL == 'GOOGLE_PLAY')
+                    {
+                      navigator.navigate("付费Google");
+                    }
+                    else
+                    {
+                      navigator.navigate("付费VIP");
+                    }
                   }}
                   style={styles.btn}>
                   <Text

@@ -14,38 +14,16 @@ interface Props {
   showCondition: boolean;
 }
 
-export default function VipPromotionModal({
-  coverImage,
-  coverBackground,
+export default function VipLoginAlertModal({
+ 
   onClose,
   onPurchase,
   showCondition,
 }: Props) {
-  const backgroundState = useSelector<BackgroundType>('backgroundReducer');
-  const [countdownSecond, setCountdownSecond] = useState(((VIP_PROMOTION_COUNTDOWN_MINUTE * 60 * 1000) - (Date.now() - backgroundState.vipPromotionCountdownStart)) / 1000);
-
-  const hours = Math.floor(countdownSecond / 60 / 60);
-  const minute = Math.floor(countdownSecond / 60 % 60);
-  const second = Math.floor(countdownSecond % 60);
-
-  const remainingTimeAry = [
-    String(hours).padStart(2, '0')[0],
-    String(hours).padStart(2, '0')[1],
-    String(minute).padStart(2, '0')[0],
-    String(minute).padStart(2, '0')[1],
-    String(second).padStart(2, '0')[0],
-    String(second).padStart(2, '0')[1],
-  ];
 
   const isFullscreen = Dimensions.get('window').height < Dimensions.get('window').width;
 
-  useEffect(() => {
-    const countdownInterval = setInterval(() => {
-      setCountdownSecond(((VIP_PROMOTION_COUNTDOWN_MINUTE * 60 * 1000) - (Date.now() - backgroundState.vipPromotionCountdownStart)) / 1000);
-    }, 1000);
 
-    return () => clearInterval(countdownInterval);
-  }, []);
 
   if (showCondition)
     return (
@@ -57,6 +35,8 @@ export default function VipPromotionModal({
           transform: isFullscreen ? [{ scale: 0.75 }] : []
         }}
       >
+ 
+
         <View
           style={{
             flex: 1,
@@ -67,9 +47,8 @@ export default function VipPromotionModal({
             alignContent: "center",
           }}
         >
-          <LinearGradient
-            colors={['#4A3E2A', '#231D14', '#1A1712', '#191612']}
-            locations={[0, 0.29, 0.63, 1]}
+          <View
+           
             style={{
               width: 322,
               height: 340,
@@ -77,15 +56,28 @@ export default function VipPromotionModal({
               paddingHorizontal: 16,
               paddingTop: 26,
               paddingBottom: 12,
+              backgroundColor:'#222222'
             }}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 0, y: 1 }}
+       
           >
+
+<FastImage
+                    style={{
+                      height: 140,
+                      width: 140,
+                      position:'absolute',
+                      left:'30%',
+                      bottom: 270,
+                    }}
+                    resizeMode={"contain"}
+                    source={require("@static/images/splash/alert.png")}
+                  />
             <View
               style={{
                 flex: 1,
                 gap: 16,
                 flexDirection: 'column',
+                paddingTop:50
               }}>
               <View
                 style={{
@@ -96,52 +88,14 @@ export default function VipPromotionModal({
                   style={{
                     ...styles.titleText
                   }}>
-                  限时订阅优惠
+                  登录提醒
                 </Text>
-                <View style={styles.countdownContainer}>
-                  {remainingTimeAry.map((val, i) => {
-                    return (
-                      <View
-                        key={i}
-                        style={{
-                          flexDirection: 'row',
-                          gap: 5,
-                        }}>
-                        <View
-                          style={{
-                            backgroundColor: '#F4DBBA',
-                            borderRadius: 6,
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            width: 24,
-                            height: 24,
-                            paddingTop: 5,
-                            paddingBottom: 3,
-                          }}
-                        >
-                          <Text style={styles.countdownText}>
-                            {val}
-                          </Text>
-
-                        </View>
-                        {i % 2 === 1 && i < remainingTimeAry.length - 1 && (
-                          <Text style={{ ...styles.countdownText, padding: 1, color: '#F4DBBA' }}>
-                            :
-                          </Text>
-                        )}
-                      </View>
-                    );
-                  })}
-                </View>
+             
               </View>
               <Text style={styles.contentText1}>
-                限时优惠，立即升级会员可享受最低4折优惠，先到先得！已有99.5%用户抢先购买，解锁了更多影视权益。您确定要错过这个升级体验的最好机会吗？
+              尊敬的VIP用户，检测到您购买VIP后未登录账户，为享受更佳的视听体验，请马上登录账户合并您的VIP会员信息，登录后您的VIP将继承至最近1次登录的账户内
               </Text>
-              <Text style={styles.contentText2}>
-                限时优惠
-                <Text style={{ ...styles.contentText2, color: '#FAC33D' }}>{VIP_PROMOTION_PURCHASE_MAX / 10000}万</Text>名额，已有
-                <Text style={{ ...styles.contentText2, color: '#FAC33D' }}>{backgroundState.vipPromotionPurchaseNum}人</Text>购买
-              </Text>
+           
             </View>
 
             <View
@@ -152,26 +106,25 @@ export default function VipPromotionModal({
               <TouchableOpacity
                 onPress={onPurchase}
               >
-                <LinearGradient
-                  colors={['#D1AC7D', '#B1885F']}
-                  locations={[0.0, 0.99]}
+                <View
+                
                   style={styles.purchaseButton}
                 >
                   <Text style={styles.purchaseButtonText}>
-                    继续抢购
+                    立即登录
                   </Text>
-                </LinearGradient>
+                </View>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.cancelButton}
                 onPress={onClose}
               >
                 <Text style={styles.cancelButtonText}>
-                  放弃机会
+                  取消
                 </Text>
               </TouchableOpacity>
             </View>
-          </LinearGradient>
+          </View>
         </View >
       </View >
     );
@@ -184,6 +137,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingVertical: 6,
     alignItems: "center",
+    backgroundColor:'#FAC33D'
   },
   purchaseButtonText: {
     color: "#1D2023",
@@ -193,10 +147,11 @@ const styles = StyleSheet.create({
     fontFamily: "PingFang SC",
   },
   cancelButton: {
-    backgroundColor: "#121314",
+   // backgroundColor: "#121314",
     borderRadius: 8,
     paddingHorizontal: 20,
     paddingVertical: 6,
+    marginTop:8,
     alignItems: "center",
   },
   cancelButtonText: {
@@ -209,7 +164,8 @@ const styles = StyleSheet.create({
   },
   titleText: {
     textAlign: 'center',
-    color: '#F4DBBA',
+   // color: '#F4DBBA',
+    color:'#fff',
     fontSize: 17,
     fontFamily: 'PingFang SC',
     fontWeight: '700',
@@ -233,6 +189,7 @@ const styles = StyleSheet.create({
     letterSpacing: 0.5,
     textAlign: 'center',
     color: 'white',
+    paddingHorizontal:8
   },
   contentText2: {
     fontFamily: 'PingFang SC',

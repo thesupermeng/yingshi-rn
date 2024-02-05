@@ -105,7 +105,7 @@ export default function VipPrivilegeModal({
               >
                 <CloseButton />
               </TouchableOpacity>
-              <View>
+              <View >
                 <View style={styles.imageContainer}>
                   <FastImage
                     source={coverBackground ?? adultBg}
@@ -123,46 +123,53 @@ export default function VipPrivilegeModal({
                     style={styles.imageGradient}
                   />
                 </View>
+                <VipIcon 
+                  style={{
+                    zIndex: 4255235, 
+                    position: 'absolute',  
+                    top: '-15%', 
+                    alignSelf: 'center'
+                    }}
+                />
                 <View style={styles.contentContainer}>
                   <View style={styles.contentGradient}>
                     <LinearGradient
                       colors={contentGradientColors}
                       angle={180}
-                      style={{ height: "100%" }}
-                    />
-                  </View>
-                  <View style={styles.content}>
-                    <VipIcon />
-                    <View>
-                      <Text style={styles.titleText}>{titleText}</Text>
-                      {benefitsTextsArray.map((text, index) => (
-                        <Text key={text + index} style={styles.benefitsText}>
-                          • {text}
-                        </Text>
-                      ))}
-                    </View>
-                    <View style={styles.buttonContainer}>
-                      {SHOW_ZF_CONST && (
-                        <TouchableOpacity
-                          style={styles.purchaseButton}
-                          onPress={onPurchase}
-                        >
-                          <Text style={styles.purchaseButtonText}>
-                            {YSConfig.instance.showBecomeVip
-                              ? "立即成为VIP会员 →"
-                              : "付费购买VIP会员 →"}
-                          </Text>
-                        </TouchableOpacity>
-                      )}
-                      <TouchableOpacity
-                        style={styles.inviteButton}
-                        onPress={onInvite}
-                      >
-                        <Text style={styles.inviteButtonText}>
-                          邀请好友免费得VIP会员 →
-                        </Text>
-                      </TouchableOpacity>
-                    </View>
+                    >
+                      <View style={styles.content}>
+                        <View>
+                          <Text style={styles.titleText}>{titleText}</Text>
+                          {benefitsTextsArray.map((text, index) => (
+                            <Text key={text + index} style={styles.benefitsText}>
+                              • {text}
+                            </Text>
+                          ))}
+                        </View>
+                        <View style={styles.buttonContainer}>
+                          {SHOW_ZF_CONST && (
+                            <TouchableOpacity
+                              style={styles.purchaseButton}
+                              onPress={onPurchase}
+                            >
+                              <Text style={styles.purchaseButtonText}>
+                                {YSConfig.instance.showBecomeVip
+                                  ? "立即成为VIP会员 →"
+                                  : "付费购买VIP会员 →"}
+                              </Text>
+                            </TouchableOpacity>
+                          )}
+                          <TouchableOpacity
+                            style={styles.inviteButton}
+                            onPress={onInvite}
+                          >
+                            <Text style={styles.inviteButtonText}>
+                              邀请好友免费得VIP会员 →
+                            </Text>
+                          </TouchableOpacity>
+                        </View>
+                      </View>
+                    </LinearGradient>
                   </View>
                 </View>
               </View>
@@ -223,9 +230,8 @@ const styles = StyleSheet.create({
   content: {
     display: "flex",
     alignItems: "center",
-    top: "-20%",
-    position: "absolute",
-    width: "100%",
+    width: "100%",  
+    paddingVertical: 50,
   },
   imageContainer: {
     borderTopLeftRadius: 12,
@@ -248,7 +254,6 @@ const styles = StyleSheet.create({
   },
   contentGradient: {
     overflow: "hidden",
-    height: 280,
     borderBottomLeftRadius: 12,
     borderBottomRightRadius: 12,
   },

@@ -32,6 +32,7 @@ export class CEndpoint {
     static productGetList = 'products/v1/products';
     static nativeProductGetList = 'products/v2/nativeProducts';
     static productPostAndroidSubscription = 'android/v1/subscription';
+    static productPostAndroidIAP = 'android/v1/onetime';
     static productPostValidateReceiptIos = 'validate/v1/iosreceipt';
     static productPostValidateReceiptAndroid = 'validate/v1/androidreceipt';
     static productGetFinzfTransaction = 'finzf/v1/transactions';

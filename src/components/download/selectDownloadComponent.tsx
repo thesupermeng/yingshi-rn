@@ -22,6 +22,13 @@ import { useAppSelector } from "@hooks/hooks";
 import { RootState } from "@redux/store";
 import DeviceInfo from "react-native-device-info";
 import { Provider, Toast } from "@ant-design/react-native";
+import { debounce, throttle } from "lodash";
+import { CPopup } from "@utility/popup";
+
+const throttledToast = debounce((msg: string) => {
+    CPopup.showToast(msg)
+  }, 1000)
+
 
 interface Props {
   vodId?: number;
@@ -62,11 +69,6 @@ function SelectDownloadComponent({
   const downloadVideoReducer: DownloadVideoReducerState = useAppSelector(
     ({ downloadVideoReducer }: RootState) => downloadVideoReducer
   );
-  const deviceBrand = DeviceInfo.getBrand();
-  const [deviceName, setDeviceName] = useState("");
-  DeviceInfo.getDeviceName().then((d) => {
-    setDeviceName(d);
-  });
 
   const ranges = [
     ...Array(
@@ -184,7 +186,7 @@ function SelectDownloadComponent({
   }, [ranges])
 
   return (
-    <Provider>
+    <>
       {screen === 'potrait' && (
         <View
           style={{
@@ -210,9 +212,7 @@ function SelectDownloadComponent({
         <>
           <ScrollView
             style={{
-              height: deviceBrand == "HUAWEI" && /p\d+/i.test(deviceName)
-                ? height - 100
-                : height,
+              height: height,
               marginBottom: 15,
               marginHorizontal: spacing.sideOffset,
             }}
@@ -233,11 +233,12 @@ function SelectDownloadComponent({
                     setShowAdOverlay(true);
                   } else {
                     onDownload(ep.nid);
-                    Toast.info({
-                      content: '已加入下载列队，请前往 我的下载 查看下载进度', 
-                      duration: 1, 
-                      mask: false
-                    })
+                    // Toast.info({
+                    //   content: <Text style={{color: 'white', top:-100, backgroundColor: '#00000080', padding: 5}}>'已加入下载队列，请查看‘我的下载’'</Text>, 
+                    //   duration: 1, 
+                    //   mask: false
+                    // })
+                    throttledToast('已加入下载队列，请查看‘我的下载’')
                   }
                 }}
                 disabled={ep.isDownloaded || ep.isDownloading}
@@ -372,7 +373,7 @@ function SelectDownloadComponent({
           )}
         </>
       )}
-    </Provider>
+    </>
   );
 }
 

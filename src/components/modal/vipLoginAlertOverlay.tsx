@@ -1,8 +1,10 @@
 import React, { useCallback } from "react";
 import { Modal, TouchableWithoutFeedback, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import VipPromotionModal from "./vipPromotionModal";
+import VipLoginAlertModal from "./vipLoginAlertModal";
 import { UMENG_CHANNEL } from "@utility/constants";
+import { showLoginAction } from "@redux/actions/screenAction";
+import { useAppDispatch } from "@hooks/hooks";
 
 const commonModels = require('@static/images/vip_promotion_models.png');
 const sportBg = require('@static/images/vip_promotion_background.png');
@@ -12,17 +14,19 @@ interface Props {
   onClose: any;
 }
 
-export const VipPromotionOverlay = ({ showCondition, onClose }: Props) => {
+export const VipLoginAlertOverlay = ({ showCondition, onClose }: Props) => {
   const navigator = useNavigation();
-
+  const dispatch = useAppDispatch();
   const handleOnPurchase = useCallback(() => {
     onClose();
+    dispatch(showLoginAction());
+    // if (UMENG_CHANNEL == 'GOOGLE_PLAY') {
+    //   navigator.navigate("付费Google");
+    // } else {
+    //   navigator.navigate("付费VIP");
+    // }
 
-    if (UMENG_CHANNEL == 'GOOGLE_PLAY') {
-      navigator.navigate("付费Google");
-    } else {
-      navigator.navigate("付费VIP");
-    }
+
   }, []);
 
   return (
@@ -34,7 +38,7 @@ export const VipPromotionOverlay = ({ showCondition, onClose }: Props) => {
     >
       <TouchableWithoutFeedback onPress={onClose}>
         <View style={{ flex: 1, backgroundColor: "rgba(0, 0, 0, 0.4)" }}>
-          <VipPromotionModal
+          <VipLoginAlertModal
             coverBackground={sportBg}
             coverImage={commonModels}
             onPurchase={handleOnPurchase}
