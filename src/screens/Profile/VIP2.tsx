@@ -907,33 +907,18 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                         height: 210,
                       }}
                     >
-                      {/* title  */}
-                      <View
-                        style={{
-                          width: "100%",
-                          height: 110,
-                          paddingHorizontal: 20,
-                          zIndex: 20,
-                        }}
-                      >
-                        <FastImage
-                          source={require("./../../../static/images/splash/splashText.png")}
-                          style={{
-                            flex: 1,
-                          }}
-                          resizeMode="contain"
-                        ></FastImage>
-                      </View>
+              
 
                       {/* card 1  */}
                       <View
                         style={{
                           width: "100%",
-                          height: 140,
+                          height: 280,
                           zIndex: 1,
                           position: "relative",
-                          bottom: "15%",
-                          paddingHorizontal: 30,
+                          bottom: "20%",
+                          paddingHorizontal:10
+                    
                         }}
                       >
                         <FastImage

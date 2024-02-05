@@ -32,7 +32,8 @@ import { SettingsReducerState } from '@redux/reducers/settingsReducer';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { CApi } from '@utility/apiService';
 import {clearMinivodApiCache} from "../../utils/minivodDownloader"
-
+import { UserApi } from '../../api/user';
+import { addUserAuthState } from "@redux/actions/userAction";
 
 export default ({ navigation }: RootStackScreenProps<'设置'>) => {
   const { colors, textVariants, icons, spacing } = useTheme();
@@ -75,6 +76,48 @@ export default ({ navigation }: RootStackScreenProps<'设置'>) => {
       }
     }
   }, [settingsReducer.isOffline]));
+
+  const guestLoginInit = async () => {
+    // console.log("guestLoginInit");
+    // console.log(userState.userId);
+    // console.log(userState.userToken);
+
+    if (userState.userId != "" || userState.userToken == "") {
+      // console.log("guestLogin");
+      let result = await UserApi.guestLogin();
+
+      // console.log("result");
+      // console.log(result);
+      const resultData = result;
+
+      let json = {
+        userToken: resultData.access_token,
+        userId: resultData.user.user_id,
+        userName: resultData.user.user_name,
+        userReferralCode: resultData.user.user_referral_code,
+        userEmail: resultData.user.user_email,
+        userPhoneNumber: resultData.user.user_phone,
+         userMemberExpired: resultData.user.vip_end_time,
+       // userMemberExpired: resultData.user.created_at,
+        userReferrerName: resultData.user.referrer_name,
+        userEndDaysCount: resultData.user.user_vip_time_duration_days,
+        userTotalInvite: resultData.user.total_invited_user,
+        userAccumulateRewardDay: resultData.user.accumulated_vip_reward_days,
+        userAllowUpdateReferral: resultData.user.eligible_update_referrer,
+        userCurrentTimestamp: resultData.user.current_timestamp,
+        userInvitedUserList: resultData.user.invited_users,
+        userUpline: resultData.user.upline_user,
+        userAccumulateVipRewardDay:
+          resultData.user.accumulated_paid_vip_reward_days,
+        userPaidVipList: resultData.user.paid_vip_response,
+      };
+      // console.log("json");
+      // console.log(json);
+
+       await dispatch(addUserAuthState(json));
+    }
+  };
+  
 
   // useEffect(() => {
   //   dispatch(changeScreenAction('showSuccessLogin'));
@@ -121,12 +164,20 @@ export default ({ navigation }: RootStackScreenProps<'设置'>) => {
               await dispatch(removeUserAuthState());
               CApi.reset();
               clearMinivodApiCache()
+
+
+              await guestLoginInit();
+
               navigator.navigate('Home', {
                 screen: 'Profile',
               });
               toggleLogoutDialog();
 
               GoogleSignin.signOut();
+
+
+
+
             }}
             onCancel={toggleLogoutDialog}
             isVisible={isLogoutDialogOpen}
@@ -163,7 +214,7 @@ export default ({ navigation }: RootStackScreenProps<'设置'>) => {
             </View>
           </View>
         </View>
-        {userState.userToken != '' && (
+        {userState.userToken != ''  && (userState.userEmail !='' || userState.userPhoneNumber != 0) && (
           <TouchableOpacity onPress={toggleLogoutDialog}>
             <View
               style={{

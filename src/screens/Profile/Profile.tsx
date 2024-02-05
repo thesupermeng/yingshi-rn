@@ -219,7 +219,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
 
     // guest with VIP show login alert
     if(userState.userEmail == "" &&
-    userState.userPhoneNumber == "" &&
+    userState.userPhoneNumber == 0 &&
     userState.userMemberExpired >=
       userState.userCurrentTimestamp )
       {
@@ -278,7 +278,8 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
           <TouchableOpacity
             activeOpacity={1}
             onPress={() => {
-              if (userState.userToken == "") {
+              
+              if (userState.userToken == "" || (userState.userEmail =='' && userState.userPhoneNumber ==0)) {
                 dispatch(showLoginAction());
                 // console.log('props{');
                 // setActionType('login');
@@ -318,7 +319,8 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                     paddingLeft: 12,
                   }}
                 >
-                  {userState.userToken == "" && (
+                  {userState.userEmail == "" &&
+                userState.userPhoneNumber == 0 && (
                     <>
                       <Text style={{ color: "#ffffff", fontSize: 14 }}>
                         游客ID:
@@ -328,7 +330,8 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                       </Text>
                     </>
                   )}
-                  {userState.userToken != "" && (
+                  {userState.userToken != "" &&   (userState.userEmail != "" || 
+                userState.userPhoneNumber != 0 ) && (
                     <>
                       <View
                         style={{
@@ -348,6 +351,8 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                         >
                           {userState.userName}
                         </Text>
+
+
                         {userState.userMemberExpired >=
                           userState.userCurrentTimestamp && (
                           <Image
@@ -361,7 +366,8 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                       <Text style={{fontSize: 14}}>VIP会员已经到期</Text>
                     )} */}
                       {userState.userMemberExpired >=
-                        userState.userCurrentTimestamp && (
+                        userState.userCurrentTimestamp &&
+                        (
                         <Text style={{ color: colors.primary, fontSize: 14 }}>
                           VIP会员有效日期至{displayedDate}
                         </Text>
@@ -375,14 +381,15 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                     justifyContent: "center",
                   }}
                 >
-                  {userState.userToken != "" && (
+                  {userState.userToken != "" && (userState.userEmail != "" || 
+                userState.userPhoneNumber != 0 ) && (
                     <EditIcn width={29} height={29} color={colors.muted} />
                   )}
                 </View>
               </View>
               {/* 游客 no vip  */}
               {userState.userEmail == "" &&
-                userState.userPhoneNumber == "" &&
+                userState.userPhoneNumber == 0 &&
                 userState.userMemberExpired <
                   userState.userCurrentTimestamp && (
                   <View
@@ -414,7 +421,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
 
               {/* 游客 got vip  */}
               {userState.userEmail == "" &&
-                userState.userPhoneNumber == "" &&
+                userState.userPhoneNumber == 0 &&
                 userState.userMemberExpired >=
                   userState.userCurrentTimestamp && (
                   <View
@@ -472,6 +479,8 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                     ...styles.btn,
                   }}
                   onPress={() => {
+
+                    
                     if (UMENG_CHANNEL == "GOOGLE_PLAY") {
                       navigation.navigate("付费Google");
                     } else {
@@ -525,7 +534,16 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                     ...styles.btn,
                   }}
                   onPress={() => {
-                    navigation.navigate("邀请");
+
+                    if(userState.userEmail ==''  && userState.userPhoneNumber ==0 )
+                    {
+                      dispatch(showLoginAction());
+                    }
+                    else
+                    {
+                      navigation.navigate("邀请");
+                    }
+                 
                   }}
                 >
                   <View style={styles.left}>

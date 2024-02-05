@@ -84,7 +84,7 @@ export default () => {
     // console.log(userState.userId);
     // console.log(userState.userToken);
 
-    if (userState.userId == "" && userState.userToken == "") {
+    if (userState.userId != "" || userState.userToken == "") {
       // console.log("guestLogin");
       let result = await UserApi.guestLogin();
 
@@ -99,7 +99,8 @@ export default () => {
         userReferralCode: resultData.user.user_referral_code,
         userEmail: resultData.user.user_email,
         userPhoneNumber: resultData.user.user_phone,
-        userMemberExpired: resultData.user.vip_end_time,
+         userMemberExpired: resultData.user.vip_end_time,
+       // userMemberExpired: resultData.user.created_at,
         userReferrerName: resultData.user.referrer_name,
         userEndDaysCount: resultData.user.user_vip_time_duration_days,
         userTotalInvite: resultData.user.total_invited_user,
@@ -115,7 +116,7 @@ export default () => {
       // console.log("json");
       // console.log(json);
 
-      // await dispatch(addUserAuthState(json));
+       await dispatch(addUserAuthState(json));
     }
   };
 
