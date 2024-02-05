@@ -15,10 +15,12 @@ import { useIsFocused, useTheme } from "@react-navigation/native";
 
 import createStyles from "./style";
 import { Streamer } from "../../../types/matchTypes";
+import { UnreadCard } from "../../../../components/chat/unread";
 
 type Props = {
     matchID: string,
     streamer: Streamer,
+    sportType: string,
     onPrivateChatPress: () => void,
     onInputFocus?: (isFocus: boolean) => void,
 }
@@ -26,6 +28,7 @@ type Props = {
 const LiveChatPage = ({
     matchID,
     streamer,
+    sportType,
     onPrivateChatPress,
     onInputFocus,
 }: Props) => {
@@ -37,13 +40,14 @@ const LiveChatPage = ({
 
     const PIN_YIN_ACCEPTED = 20;
 
-    const chatRedecer = useSelector<ChatType>('chatReducer');
+    const chatState = useSelector<ChatType>('chatReducer');
     const userState = useSelector<userModel>('userReducer');
     const [cooldownTimeout, setCooldownTimeout] = useState<NodeJS.Timeout | null>(null);
     const [comment, setComment] = useState('');
     const [isCommentValid, setCommentValid] = useState(true);
     const chatFlatListRef = useRef<FlatList<LiveChatMessageType> | null>(null);
     const isPinToBottom = useRef(true);
+    const [numOfUnread, setNumOfUnread] = useState(0);
 
     const appDispatch = useAppDispatch();
 
@@ -56,6 +60,7 @@ const LiveChatPage = ({
     useEffect(() => {
         appDispatch(joinChatRoom({
             roomId: matchID,
+            sportType: sportType,
         }));
 
         return () => {
@@ -129,12 +134,14 @@ const LiveChatPage = ({
 
         if (Math.round(currentYBottom) === Math.round(e.nativeEvent.contentSize.height)) {
             isPinToBottom.current = true;
+            setNumOfUnread(0);
         }
     }
 
     const onReconnect = () => {
         appDispatch(joinChatRoom({
             roomId: matchID,
+            sportType: sportType,
         }));
     }
 
@@ -145,6 +152,22 @@ const LiveChatPage = ({
             });
         }
     }
+
+    const onUnreadPress = () => {
+        const maxLenght = chatState.liveRoom?.messages.length ?? 0;
+
+        chatFlatListRef.current?.scrollToIndex({
+            index: maxLenght !== 0 ? maxLenght - 1 : 0,
+            viewPosition: 1,
+        });
+        setNumOfUnread(0);
+    }
+
+    useEffect(() => {
+        if ((chatState.liveRoom?.messages.length ?? 0) > 0 && isPinToBottom.current == false) {
+            setNumOfUnread(prev => prev + 1);
+        }
+    }, [chatState.liveRoom?.messages.length])
 
     return (
         <View style={styles.container}>
@@ -194,7 +217,7 @@ const LiveChatPage = ({
             <FlatList
                 ref={ref => chatFlatListRef.current = ref}
                 keyExtractor={(item) => item.createAt}
-                data={chatRedecer.liveRoom?.messages}
+                data={chatState.liveRoom?.messages}
                 renderItem={renderItem}
                 style={styles.chatlistContainer}
                 ItemSeparatorComponent={renderSeparator}
@@ -204,7 +227,7 @@ const LiveChatPage = ({
             />
 
 
-            {!chatRedecer.liveRoom === null &&
+            {!chatState.liveRoom === null &&
                 <View style={styles.disconnectChatContainer}>
                     <Text style={styles.chatText}>
                         {'聊天室链接失败。'}
@@ -218,6 +241,19 @@ const LiveChatPage = ({
             }
 
             <View style={styles.commentInputContainer}>
+                {numOfUnread > 0 &&
+                    <UnreadCard
+                        text={numOfUnread}
+                        onPress={onUnreadPress}
+                        style={{
+                            position: 'absolute',
+                            top: -40,
+                            left: 0,
+                            right: 0,
+                        }}
+                    />
+                }
+
                 <CTextInput
                     style={styles.commentInput}
                     placeholder={userState.userToken === '' ? '登入即可发言' : undefined}
@@ -225,12 +261,12 @@ const LiveChatPage = ({
                     onChangeText={onChangeComment}
                     maxLength={COMMENT_MAX_INPUT + PIN_YIN_ACCEPTED}
                     disabled={userState.userToken === '' || cooldownTimeout !== null}
-                // onFocus={() => {
-                //     if (onInputFocus) onInputFocus(true);
-                // }}
-                // onBlur={() => {
-                //     if (onInputFocus) onInputFocus(false);
-                // }}
+                    onFocus={() => {
+                        if (onInputFocus) onInputFocus(true);
+                    }}
+                    onBlur={() => {
+                        if (onInputFocus) onInputFocus(false);
+                    }}
                 />
 
                 <Text style={isCommentValid ? styles.commentText : styles.commentInvalidText}>
