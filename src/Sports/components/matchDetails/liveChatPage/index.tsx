@@ -49,6 +49,7 @@ const LiveChatPage = ({
     const chatFlatListRef = useRef<FlatList<LiveChatMessageType> | null>(null);
     const isPinToBottom = useRef(true);
     const [numOfUnread, setNumOfUnread] = useState(0);
+    const isLogin = userState.userEmail !== '' || userState.userPhoneNumber !== '';
 
     const appDispatch = useAppDispatch();
 
@@ -257,11 +258,11 @@ const LiveChatPage = ({
             <View style={styles.commentInputContainer}>
                 <CTextInput
                     style={styles.commentInput}
-                    placeholder={userState.userToken === '' ? '登入即可发言' : '发送消息'}
+                    placeholder={!isLogin ? '登入即可发言' : '发送消息'}
                     value={cooldownTimeout !== null ? '请稍后再输入' : comment}
                     onChangeText={onChangeComment}
                     maxLength={COMMENT_MAX_INPUT + PIN_YIN_ACCEPTED}
-                    disabled={userState.userToken === '' || cooldownTimeout !== null}
+                    disabled={!isLogin || cooldownTimeout !== null}
                     onFocus={() => {
                         if (onInputFocus) onInputFocus(true);
                     }}
