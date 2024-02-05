@@ -30,10 +30,7 @@ export default function BottomSheet({
   const { colors } = useTheme();
   const [bottomPosition, setBottomPosition] = useState(0);
   const deviceBrand = DeviceInfo.getBrand();
-  const [deviceName, setDeviceName] = useState("");
-  DeviceInfo.getDeviceName().then((d) => {
-    setDeviceName(d);
-  });
+  const [deviceName, setDeviceName] = useState(DeviceInfo.getModel());
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
@@ -75,7 +72,7 @@ export default function BottomSheet({
         borderTopRightRadius: 30,
         backgroundColor: colors.bottomSheet,
         paddingBottom:
-          deviceBrand == "HUAWEI" && /p\d+/i.test(deviceName)
+          deviceBrand == "HUAWEI" && /ELE-L29/i.test(deviceName)
             ? bottomOffset + 100
             : 0,
         ...containerStyle,
