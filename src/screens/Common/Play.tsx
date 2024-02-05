@@ -915,12 +915,12 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     if (!!vodUrl && !!vod?.vod_id) {
       // console.debug('vod url is', vodUrl)
       if (downloadedVod && episode){
-        CPopup.showToast('本地播放')
+        // CPopup.showToast('本地播放')
         setVodUri(`file://${episode.videoPath}`)
       } else {
-        if (DOWNLOAD_FEATURE_ENABLED){
-          CPopup.showToast("远程播放")
-        }
+        // if (DOWNLOAD_FEATURE_ENABLED){
+        //   CPopup.showToast("远程播放")
+        // }
 
         getNoAdsUri(vodUrl, vod?.vod_id)
           .then((uri) => {
