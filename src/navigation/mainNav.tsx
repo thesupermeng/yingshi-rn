@@ -84,7 +84,7 @@ export default () => {
     // console.log(userState.userId);
     // console.log(userState.userToken);
 
-    if (userState.userId != "" || userState.userToken == "") {
+    if (userState.userId == "" && userState.userToken == "") {
       // console.log("guestLogin");
       let result = await UserApi.guestLogin();
 

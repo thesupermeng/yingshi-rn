@@ -824,11 +824,10 @@ export default () => {
             lineHeight: 24
           }}
         >
-          恭喜您成为准贵的影视TV会员，立即登录账号合并您的VIP会员，可以多设备使用VIP会员账号
+          恭喜您成为尊贵的影视TV会员，立即登录账号合并您的VIP会员，可以多设备使用VIP会员账号
         </Text>
 
         <TouchableOpacity
-             
              style={{width:'100%'}}
              onPress={() => {
               setShowGuestPurchaseSuccessOverlay(false)
@@ -836,7 +835,6 @@ export default () => {
              }}
               >
                 <View
-                
                   style={styles.purchaseButton}
                 >
                   <Text style={styles.purchaseButtonText}>
@@ -844,7 +842,6 @@ export default () => {
                   </Text>
                 </View>
               </TouchableOpacity>
-
               <TouchableOpacity
                 style={styles.cancelButton}
                 onPress={()=>{ setShowGuestPurchaseSuccessOverlay(false)}}

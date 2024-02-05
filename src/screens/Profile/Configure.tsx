@@ -82,7 +82,6 @@ export default ({ navigation }: RootStackScreenProps<'设置'>) => {
     // console.log(userState.userId);
     // console.log(userState.userToken);
 
-    if (userState.userId != "" || userState.userToken == "") {
       // console.log("guestLogin");
       let result = await UserApi.guestLogin();
 
@@ -115,7 +114,7 @@ export default ({ navigation }: RootStackScreenProps<'设置'>) => {
       // console.log(json);
 
       await dispatch(addUserAuthState(json));
-    }
+   
   };
 
 
