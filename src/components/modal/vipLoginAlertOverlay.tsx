@@ -5,6 +5,7 @@ import VipLoginAlertModal from "./vipLoginAlertModal";
 import { UMENG_CHANNEL } from "@utility/constants";
 import { showLoginAction } from "@redux/actions/screenAction";
 import { useAppDispatch } from "@hooks/hooks";
+import { loginModalShown } from "@redux/actions/backgroundAction";
 
 const commonModels = require('@static/images/vip_promotion_models.png');
 const sportBg = require('@static/images/vip_promotion_background.png');
@@ -17,8 +18,15 @@ interface Props {
 export const VipLoginAlertOverlay = ({ showCondition, onClose }: Props) => {
   const navigator = useNavigation();
   const dispatch = useAppDispatch();
+
+  const onCloseModal = () => {
+    onClose();
+    dispatch(loginModalShown());
+  }
+
   const handleOnPurchase = useCallback(() => {
     onClose();
+    dispatch(loginModalShown());
     dispatch(showLoginAction());
     // if (UMENG_CHANNEL == 'GOOGLE_PLAY') {
     //   navigator.navigate("付费Google");
@@ -34,15 +42,15 @@ export const VipLoginAlertOverlay = ({ showCondition, onClose }: Props) => {
       visible={showCondition}
       transparent={true}
       animationType="fade"
-      onRequestClose={onClose}
+      onRequestClose={onCloseModal}
     >
-      <TouchableWithoutFeedback onPress={onClose}>
+      <TouchableWithoutFeedback onPress={onCloseModal}>
         <View style={{ flex: 1, backgroundColor: "rgba(0, 0, 0, 0.4)" }}>
           <VipLoginAlertModal
             coverBackground={sportBg}
             coverImage={commonModels}
             onPurchase={handleOnPurchase}
-            onClose={onClose}
+            onClose={onCloseModal}
             showCondition={showCondition}
           />
         </View>

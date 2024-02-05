@@ -43,6 +43,7 @@ const PrivateChatPage = ({
     const chatFlatListRef = useRef<FlatList<PrivateRoomHistoryType> | null>(null);
     const isPinToBottom = useRef(true);
     const [numOfUnread, setNumOfUnread] = useState(0);
+    const isLogin = userState.userEmail !== '' || userState.userPhoneNumber !== '';
 
     const appDispatch = useAppDispatch();
 
@@ -293,11 +294,11 @@ const PrivateChatPage = ({
             <View style={styles.commentInputContainer}>
                 <CTextInput
                     style={styles.commentInput}
-                    placeholder={userState.userToken === '' ? '登入即可发言' : '发送消息'}
+                    placeholder={!isLogin ? '登入即可发言' : '发送消息'}
                     value={comment}
                     onChangeText={onChangeComment}
                     maxLength={COMMENT_MAX_INPUT + PIN_YIN_ACCEPTED}
-                    disabled={userState.userToken === ''}
+                    disabled={!isLogin}
                     onFocus={() => {
                         if (onInputFocus) onInputFocus(true);
                     }}

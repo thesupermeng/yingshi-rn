@@ -3,6 +3,8 @@ import { Modal, TouchableWithoutFeedback, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import VipPromotionModal from "./vipPromotionModal";
 import { UMENG_CHANNEL } from "@utility/constants";
+import { useDispatch } from "react-redux";
+import { vipPromotionModalShown } from "@redux/actions/backgroundAction";
 
 const commonModels = require('@static/images/vip_promotion_models.png');
 const sportBg = require('@static/images/vip_promotion_background.png');
@@ -14,9 +16,16 @@ interface Props {
 
 export const VipPromotionOverlay = ({ showCondition, onClose }: Props) => {
   const navigator = useNavigation();
+  const dispatch = useDispatch();
+
+  const onCloseModal = () => {
+    onClose();
+    dispatch(vipPromotionModalShown());
+  }
 
   const handleOnPurchase = useCallback(() => {
     onClose();
+    dispatch(vipPromotionModalShown());
 
     if (UMENG_CHANNEL == 'GOOGLE_PLAY') {
       navigator.navigate("付费Google");
@@ -38,7 +47,7 @@ export const VipPromotionOverlay = ({ showCondition, onClose }: Props) => {
             coverBackground={sportBg}
             coverImage={commonModels}
             onPurchase={handleOnPurchase}
-            onClose={onClose}
+            onClose={onCloseModal}
             showCondition={showCondition}
           />
         </View>
