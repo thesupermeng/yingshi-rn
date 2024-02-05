@@ -42,9 +42,9 @@ function DownloadVodSelectionModal({
         paddingRight: spacing.sideOffset,
         gap: spacing.m,
         alignItems: "center",
-        paddingBottom: -100,
       }}
       height="50%"
+      bottomOffset={-100}
     >
       {isVisible && (
         <SelectDownloadComponent

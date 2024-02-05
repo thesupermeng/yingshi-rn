@@ -62,11 +62,6 @@ function SelectDownloadComponent({
   const downloadVideoReducer: DownloadVideoReducerState = useAppSelector(
     ({ downloadVideoReducer }: RootState) => downloadVideoReducer
   );
-  const deviceBrand = DeviceInfo.getBrand();
-  const [deviceName, setDeviceName] = useState("");
-  DeviceInfo.getDeviceName().then((d) => {
-    setDeviceName(d);
-  });
 
   const ranges = [
     ...Array(
@@ -210,9 +205,7 @@ function SelectDownloadComponent({
         <>
           <ScrollView
             style={{
-              height: deviceBrand == "HUAWEI" && /p\d+/i.test(deviceName)
-                ? height - 100
-                : height,
+              height: height,
               marginBottom: 15,
               marginHorizontal: spacing.sideOffset,
             }}
