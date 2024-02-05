@@ -41,7 +41,8 @@ function DownloadVodSelectionModal({
         paddingLeft: spacing.sideOffset,
         paddingRight: spacing.sideOffset,
         gap: spacing.m,
-        alignItems: "center"
+        alignItems: "center",
+        paddingBottom: -100,
       }}
       height="50%"
     >
