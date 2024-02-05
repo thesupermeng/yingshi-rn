@@ -5,6 +5,7 @@ import { useAppDispatch, useSelector } from "@hooks/hooks";
 import { userModel } from "@type/userType";
 import { CPressable, CTextInput } from "../../../../components/atoms";
 import SendIcon from '@static/images/send.svg';
+import SendFillIcon from '@static/images/send_filled.svg';
 import { COMMENT_MAX_INPUT } from "@utility/constants";
 import { LiveChatMessageType } from "@type/ajaxTypes";
 import { ChatType } from "@redux/reducers/chatReducer";
@@ -184,7 +185,7 @@ const PrivateChatPage = ({
     }, []);
 
     const onSubmitComment = useCallback(() => {
-        if (!isCommentValid) return;
+        if (comment.trim().length === 0 || !isCommentValid) return;
 
         appDispatch(sendChatMessage({
             message: comment,
@@ -276,20 +277,20 @@ const PrivateChatPage = ({
                 </View>
             }
 
-            <View style={styles.commentInputContainer}>
-                {numOfUnread > 0 &&
-                    <UnreadCard
-                        text={numOfUnread}
-                        onPress={onUnreadPress}
-                        style={{
-                            position: 'absolute',
-                            top: -40,
-                            left: 0,
-                            right: 0,
-                        }}
-                    />
-                }
+            {numOfUnread > 0 &&
+                <UnreadCard
+                    text={numOfUnread}
+                    onPress={onUnreadPress}
+                    style={{
+                        position: 'absolute',
+                        bottom: 70,
+                        left: 0,
+                        right: 0,
+                    }}
+                />
+            }
 
+            <View style={styles.commentInputContainer}>
                 <CTextInput
                     style={styles.commentInput}
                     placeholder={userState.userToken === '' ? '登入即可发言' : '发送消息'}
@@ -310,7 +311,10 @@ const PrivateChatPage = ({
                 </Text>
 
                 <CPressable onPress={onSubmitComment}>
-                    <SendIcon />
+                    {comment.trim().length > 0 && isCommentValid
+                        ? <SendFillIcon />
+                        : <SendIcon style={{ marginLeft: 5, marginRight: 5 }} />
+                    }
                 </CPressable>
             </View>
         </View>
