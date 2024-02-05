@@ -445,7 +445,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
               });
 
               // showToast('successfully validate and finish the transaction');
-              if (userState.userEmail !== '' || userState.userPhoneNumber !== '') {
+              if (userState.userEmail !== '' || userState.userPhoneNumber != 0) {
                 setDialogText(successDialogText);
                 setIsDialogOpen(true);
                 setIsSuccess(true);
@@ -507,6 +507,10 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
   };
 
   const renderCarousel = ({ item, index }) => {
+    function setShowBecomeVIPOverlay(arg0: boolean) {
+      throw new Error("Function not implemented.");
+    }
+
     return (
       <>
         {index === screenState.showEventSplashData.length - 1 ||
@@ -555,8 +559,22 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                     zIndex: 200,
                   }}
                   onPress={() => {
-                    dispatch(setShowPromotionDialog(true));
-                    navigation.goBack();
+     
+
+                    if(userState.userEmail == "" &&
+                    userState.userPhoneNumber == 0 &&
+                    userState.userMemberExpired >=
+                      userState.userCurrentTimestamp )
+                      {
+                       // setShowBecomeVIPOverlay(true)
+                        navigation.goBack();
+                      }
+                      else
+                      {
+                        dispatch(setShowPromotionDialog(true));
+                        navigation.goBack();
+                      }
+                  
                   }}
                 >
                   <CloseButton />
