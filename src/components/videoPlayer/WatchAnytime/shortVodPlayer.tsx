@@ -405,9 +405,7 @@ function ShortVideoPlayer({
                 resizeMode="contain"
                 // poster={thumbnail}
                 source={{
-                 // uri: miniVodUrl,
-                      uri: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4',
-                      //uri:'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
+                  uri: miniVodUrl,
                   headers: {
                     'User-Agent':
                       'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
