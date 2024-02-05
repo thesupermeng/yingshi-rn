@@ -5,6 +5,7 @@ import { useAppDispatch, useSelector } from "@hooks/hooks";
 import { userModel } from "@type/userType";
 import { CPressable, CTextInput } from "../../../../components/atoms";
 import SendIcon from '@static/images/send.svg';
+import SendFillIcon from '@static/images/send_filled.svg';
 import { COMMENT_MAX_INPUT } from "@utility/constants";
 import { LiveChatMessageType } from "@type/ajaxTypes";
 import { ChatType } from "@redux/reducers/chatReducer";
@@ -14,16 +15,19 @@ import { useTheme } from "@react-navigation/native";
 import { Avatar } from "@rneui/base";
 import { PrivateRoomHistoryType, PrivateRoomType } from "@type/chatTypes";
 import { debounce } from "lodash";
+import { UnreadCard } from "../../../../components/chat/unread";
 
 type Props = {
     matchID: string,
     streamer: Streamer,
+    sportType: string,
     onInputFocus?: (isFocus: boolean) => void,
 }
 
 const PrivateChatPage = ({
     matchID,
     streamer,
+    sportType,
     onInputFocus,
 }: Props) => {
     const PIN_YIN_ACCEPTED = 20;
@@ -38,6 +42,8 @@ const PrivateChatPage = ({
     const [isCommentValid, setCommentValid] = useState(true);
     const chatFlatListRef = useRef<FlatList<PrivateRoomHistoryType> | null>(null);
     const isPinToBottom = useRef(true);
+    const [numOfUnread, setNumOfUnread] = useState(0);
+    const isLogin = userState.userEmail !== '' || userState.userPhoneNumber !== '';
 
     const appDispatch = useAppDispatch();
 
@@ -45,6 +51,7 @@ const PrivateChatPage = ({
         appDispatch(joinChatRoom({
             roomId: matchID,
             isPrivate: true,
+            sportType: sportType,
         }));
 
         return () => {
@@ -83,7 +90,9 @@ const PrivateChatPage = ({
             <View>
                 {item.joinDate &&
                     <Text style={styles.chatGroupText}>
-                        {groupDate.toISOString().slice(0, 16).replace('T', ' ').replace(/\//g, "-")}
+                        {groupDate.toISOString().slice(0, 10).replace('T', ' ').replace(/\//g, "-").concat(' ')}
+                        {String(groupDate.getHours()).padStart(2, '0')}:
+                        {String(groupDate.getMinutes()).padStart(2, '0')}
                     </Text>
                 }
                 <FlatList
@@ -177,7 +186,7 @@ const PrivateChatPage = ({
     }, []);
 
     const onSubmitComment = useCallback(() => {
-        if (!isCommentValid) return;
+        if (comment.trim().length === 0 || !isCommentValid) return;
 
         appDispatch(sendChatMessage({
             message: comment,
@@ -198,6 +207,7 @@ const PrivateChatPage = ({
 
             if (Math.round(currentYBottom) === Math.round(e.nativeEvent.contentSize.height)) {
                 isPinToBottom.current = true;
+                setNumOfUnread(0);
             }
         }
 
@@ -210,6 +220,7 @@ const PrivateChatPage = ({
         appDispatch(joinChatRoom({
             roomId: matchID,
             isPrivate: true,
+            sportType: sportType,
         }));
     }
 
@@ -220,6 +231,22 @@ const PrivateChatPage = ({
             });
         }
     }
+
+    const onUnreadPress = () => {
+        const maxLenght = chatState.liveRoom?.messages.length ?? 0;
+
+        chatFlatListRef.current?.scrollToIndex({
+            index: maxLenght !== 0 ? maxLenght - 1 : 0,
+            viewPosition: 1,
+        });
+        setNumOfUnread(0);
+    }
+
+    useEffect(() => {
+        if ((chatState.liveRoom?.messages.length ?? 0) > 0 && isPinToBottom.current == false) {
+            setNumOfUnread(prev => prev + 1);
+        }
+    }, [chatState.liveRoom?.messages.length])
 
     return (
         <View style={styles.container}>
@@ -251,20 +278,33 @@ const PrivateChatPage = ({
                 </View>
             }
 
+            {numOfUnread > 0 &&
+                <UnreadCard
+                    text={numOfUnread}
+                    onPress={onUnreadPress}
+                    style={{
+                        position: 'absolute',
+                        bottom: 70,
+                        left: 0,
+                        right: 0,
+                    }}
+                />
+            }
+
             <View style={styles.commentInputContainer}>
                 <CTextInput
                     style={styles.commentInput}
-                    placeholder={userState.userToken === '' ? '登入即可发言' : undefined}
+                    placeholder={!isLogin ? '登入即可发言' : '发送消息'}
                     value={comment}
                     onChangeText={onChangeComment}
                     maxLength={COMMENT_MAX_INPUT + PIN_YIN_ACCEPTED}
-                    disabled={userState.userToken === ''}
-                // onFocus={() => {
-                //     if (onInputFocus) onInputFocus(true);
-                // }}
-                // onBlur={() => {
-                //     if (onInputFocus) onInputFocus(false);
-                // }}
+                    disabled={!isLogin}
+                    onFocus={() => {
+                        if (onInputFocus) onInputFocus(true);
+                    }}
+                    onBlur={() => {
+                        if (onInputFocus) onInputFocus(false);
+                    }}
                 />
 
                 <Text style={isCommentValid ? styles.commentText : styles.commentInvalidText}>
@@ -272,7 +312,10 @@ const PrivateChatPage = ({
                 </Text>
 
                 <CPressable onPress={onSubmitComment}>
-                    <SendIcon />
+                    {comment.trim().length > 0 && isCommentValid
+                        ? <SendFillIcon />
+                        : <SendIcon style={{ marginLeft: 5, marginRight: 5 }} />
+                    }
                 </CPressable>
             </View>
         </View>

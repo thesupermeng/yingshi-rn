@@ -12,6 +12,7 @@ import {
   View,
   Platform,
   KeyboardAvoidingView,
+  Keyboard,
 } from 'react-native';
 import ScreenContainer from '../../../components/container/screenContainer';
 import MainHeader from '../../../components/header/homeHeader';
@@ -113,7 +114,7 @@ const MatchDetails = ({ navigation, route }: BottomTabScreenProps<any>) => {
   const [bannerAd, setBannerAd] = useState<BannerAdType>();
   const isVip = useAppSelector(({ userReducer }) => !(Number(userReducer.userMemberExpired) <= Number(userReducer.userCurrentTimestamp) || userReducer.userToken === ""))
   const sportTabDetails: SportTabType = YSConfig.instance.findTabByKey('体育');
-  const isEnableChatRoom = useMemo(() => sportTabDetails.settings.enabled_sports_chatroom.toLowerCase() !== 'y', [sportTabDetails]);
+
   // const [isKeyboardShow, setKeyboardShow] = useState(false);
 
   // ========== for analytics - start ==========
@@ -175,6 +176,9 @@ const MatchDetails = ({ navigation, route }: BottomTabScreenProps<any>) => {
     ? null
     : match.streams[0].streamer;
 
+  const isEnableChatRoom = sportTabDetails.settings.enabled_sports_chatroom.toLowerCase() !== 'y' && matchDetails !== undefined;
+  const sportType = matchDetails?.sports_type === 1 ? 'football' : matchDetails?.sports_type === 2 ? 'basketball' : '';
+
   useEffect(() => {
     setTabList([
       ...(isEnableChatRoom && streamer ? [
@@ -185,8 +189,9 @@ const MatchDetails = ({ navigation, route }: BottomTabScreenProps<any>) => {
             <LiveChatPage
               matchID={matchID.toString()}
               streamer={streamer}
+              sportType={sportType}
               onPrivateChatPress={onGoPrivateChatPress}
-            // onInputFocus={onInputFocus}
+              onInputFocus={onInputFocus}
             />
           ),
         },
@@ -197,7 +202,8 @@ const MatchDetails = ({ navigation, route }: BottomTabScreenProps<any>) => {
             <PrivateChatPage
               matchID={matchID.toString()}
               streamer={streamer}
-            // onInputFocus={onInputFocus}
+              sportType={sportType}
+              onInputFocus={onInputFocus}
             />
           ),
         },
@@ -358,9 +364,12 @@ const MatchDetails = ({ navigation, route }: BottomTabScreenProps<any>) => {
     });
   }
 
-  // const onInputFocus = (isFocus: boolean) => {
-  //   setKeyboardShow(isFocus);
-  // }
+  const onInputFocus = (isFocus: boolean) => {
+    if (isFocus === false) {
+      Keyboard.dismiss();
+    }
+    // setKeyboardShow(isFocus);
+  }
 
   return (
     <ScreenContainer

@@ -9,6 +9,10 @@ export const onBootApp = ({
     try {
         const backgroundState = getState().backgroundReducer;
 
+        dispatch({
+            type: BackgroundActionEventType.ON_APP_BOOT,
+        });
+
         // ========== custom event ==========
         CustomEventAnalytic.foundLocalPush();
 
@@ -79,3 +83,11 @@ export const onCloseApp = ({
 
     }
 }
+
+export const loginModalShown = () => ({
+    type: BackgroundActionEventType.LOGIN_WARINING_MODAL_SHOWN,
+});
+
+export const vipPromotionModalShown = () => ({
+    type: BackgroundActionEventType.VIP_PROMOTION_MODAL_SHOWN,
+});

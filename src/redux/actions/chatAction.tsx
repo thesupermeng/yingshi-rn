@@ -23,9 +23,11 @@ let privateRoomWebsocket: Socket | null = null;
 export const joinChatRoom = ({
     roomId,
     isPrivate = false,
+    sportType,
 }: {
     roomId?: string,
     isPrivate?: boolean,
+    sportType?: string,
 } = {}) => async (dispatch: any, getState: () => RootState) => {
     try {
         if (roomId === undefined) return;
@@ -56,6 +58,7 @@ export const joinChatRoom = ({
                 room_id: roomIdWithPrefix,
                 user_id: userId,
                 user_name: userName,
+                game_type: sportType ?? '',
             });
         });
 

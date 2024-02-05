@@ -22,11 +22,7 @@ import {
 } from "react-native-iap";
 import ScreenContainer from "../../components/container/screenContainer";
 import { RootStackScreenProps } from "@type/navigationTypes";
-import {
-  useFocusEffect,
-  useNavigation,
-  useTheme,
-} from "@react-navigation/native";
+import { useFocusEffect, useNavigation, useTheme } from "@react-navigation/native";
 import { RootState } from "@redux/store";
 
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
@@ -120,24 +116,20 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
   const [isLastShown, setIsLastShown] = useState(false);
   const dispatch = useAppDispatch();
 
-  const backgroundState = useSelector<BackgroundType>("backgroundReducer");
-  const [countdownSecond, setCountdownSecond] = useState(
-    (VIP_PROMOTION_COUNTDOWN_MINUTE * 60 * 1000 -
-      (Date.now() - backgroundState.vipPromotionCountdownStart)) /
-      1000
-  );
+  const backgroundState = useSelector<BackgroundType>('backgroundReducer');
+  const [countdownSecond, setCountdownSecond] = useState(((VIP_PROMOTION_COUNTDOWN_MINUTE * 60 * 1000) - (Date.now() - backgroundState.vipPromotionCountdownStart)) / 1000);
 
   const hours = Math.floor(countdownSecond / 60 / 60);
-  const minute = Math.floor((countdownSecond / 60) % 60);
+  const minute = Math.floor(countdownSecond / 60 % 60);
   const second = Math.floor(countdownSecond % 60);
 
   const remainingTimeAry = [
-    String(hours).padStart(2, "0")[0],
-    String(hours).padStart(2, "0")[1],
-    String(minute).padStart(2, "0")[0],
-    String(minute).padStart(2, "0")[1],
-    String(second).padStart(2, "0")[0],
-    String(second).padStart(2, "0")[1],
+    String(hours).padStart(2, '0')[0],
+    String(hours).padStart(2, '0')[1],
+    String(minute).padStart(2, '0')[0],
+    String(minute).padStart(2, '0')[1],
+    String(second).padStart(2, '0')[0],
+    String(second).padStart(2, '0')[1],
   ];
 
   const [oneTimeProducts, setOneTimeProducts] = useState<
@@ -179,21 +171,16 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
     setIsOffline(settingsReducer.isOffline);
   }, []);
 
-  useFocusEffect(
-    useCallback(() => {
-      if (
-        !settingsReducer.isOffline &&
-        settingsReducer.isOffline !== isOffline
-      ) {
+  useFocusEffect(useCallback(() => {
+    if (!settingsReducer.isOffline && settingsReducer.isOffline !== isOffline) {
+      setIsOffline(settingsReducer.isOffline);
+      handleRefresh();
+    } else if (settingsReducer.isOffline) {
+      return () => {
         setIsOffline(settingsReducer.isOffline);
-        handleRefresh();
-      } else if (settingsReducer.isOffline) {
-        return () => {
-          setIsOffline(settingsReducer.isOffline);
-        };
       }
-    }, [settingsReducer.isOffline])
-  );
+    }
+  }, [settingsReducer.isOffline]));
 
   const fetchData = async () => {
     const data = await ProductApi.getNativeList();
@@ -248,19 +235,6 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
         };
       });
 
-      // Find the index of the item with product_name "12个月"
-      const index12Months = subscription.findIndex(
-        (item) => item.title === "12个月"
-      );
-
-      // If found, move it to the second position
-      if (index12Months !== -1) {
-        const item12Months = subscription.splice(index12Months, 1)[0];
-        subscription.splice(1, 0, item12Months);
-      }
-
-      console.log("subscription");
-      console.log(subscription);
       setOneTimeProducts(oneTime);
       setSubcriptionProducts(subscription);
       setIsFetching(false);
@@ -407,13 +381,10 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
     }
   }, [subscriptionProducts]);
 
+
   useEffect(() => {
     const countdownInterval = setInterval(() => {
-      setCountdownSecond(
-        (VIP_PROMOTION_COUNTDOWN_MINUTE * 60 * 1000 -
-          (Date.now() - backgroundState.vipPromotionCountdownStart)) /
-          1000
-      );
+      setCountdownSecond(((VIP_PROMOTION_COUNTDOWN_MINUTE * 60 * 1000) - (Date.now() - backgroundState.vipPromotionCountdownStart)) / 1000);
     }, 1000);
 
     return () => clearInterval(countdownInterval);
@@ -474,16 +445,14 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
               });
 
               // showToast('successfully validate and finish the transaction');
-              if (
-                userState.userEmail !== "" ||
-                userState.userPhoneNumber != 0
-              ) {
+              if (userState.userEmail !== '' || userState.userPhoneNumber != '') {
                 setDialogText(successDialogText);
                 setIsDialogOpen(true);
                 setIsSuccess(true);
               } else {
                 dispatch(setShowGuestPurchaseSuccess(true));
               }
+
             } else {
               console.log("success", success);
               await finishTransaction({
@@ -545,9 +514,9 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
     return (
       <>
         {index === screenState.showEventSplashData.length - 1 ||
-        screenState.showEventSplash == false ||
-        isLastShown ||
-        screenState.showEventSplashData.length == 0 ? (
+          screenState.showEventSplash == false ||
+          isLastShown ||
+          screenState.showEventSplashData.length == 0 ? (
           <>
             {isFetching && (
               <View
@@ -590,18 +559,20 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                     zIndex: 200,
                   }}
                   onPress={() => {
-                    if (
-                      userState.userEmail == "" &&
-                      userState.userPhoneNumber == 0 &&
+
+
+                    if (userState.userEmail == "" &&
+                      userState.userPhoneNumber == '' &&
                       userState.userMemberExpired >=
-                        userState.userCurrentTimestamp
-                    ) {
+                      userState.userCurrentTimestamp) {
                       // setShowBecomeVIPOverlay(true)
                       navigation.goBack();
-                    } else {
+                    }
+                    else {
                       dispatch(setShowPromotionDialog(true));
                       navigation.goBack();
                     }
+
                   }}
                 >
                   <CloseButton />
@@ -797,13 +768,17 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                       </View>
 
                       <View style={styles.badgeContainer}>
+
+
                         {remainingTimeAry.map((val, i) => {
                           return (
                             <>
-                              <View key={i}>
+                              <View
+                                key={i}>
                                 <View style={styles.badge}>
                                   <Text style={styles.badgeText}>{val}</Text>
                                 </View>
+
                               </View>
                               {i % 2 === 1 && i < remainingTimeAry.length - 1 && (
                                 <View style={styles.badge2}>
@@ -811,6 +786,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                                 </View>
                               )}
                             </>
+
                           );
                         })}
 
@@ -840,7 +816,11 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                         <View style={styles.badge}>
                           <Text style={styles.badgeText}>0</Text>
                         </View> */}
+
                       </View>
+
+
+
                     </View>
 
                     {/* oneTimeProducts / single purchase  */}
@@ -877,8 +857,8 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                                 ...(productSelected === product && i === 0
                                   ? styles.cardContainerActive2
                                   : productSelected === product && i === 1
-                                  ? styles.cardContainerActive3
-                                  : styles.cardContainer2),
+                                    ? styles.cardContainerActive3
+                                    : styles.cardContainer2),
                               }}
                             >
                               {productSelected === product && (
@@ -951,7 +931,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                       style={{
                         width: "100%",
                         height: 60,
-                        justifyContent: "space-between",
+                        justifyContent: "flex-start",
                         paddingLeft: 28,
                       }}
                     >
@@ -963,41 +943,20 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                         }}
                         resizeMode="contain"
                       ></FastImage>
-                      {userState.userMemberExpired >=
-                        userState.userCurrentTimestamp && (
-                        <TouchableOpacity
-                          style={{
-                            position: "absolute",
-                            bottom: 15,
-                            right: 30,
-                          }}
-                          onPress={() => {
-                            navigation.navigate("VIP明细", {
-                              userState: userState,
-                            });
-                          }}
-                        >
-                          <Text style={{ color: "#9c9c9c" }}>VIP明细</Text>
-                        </TouchableOpacity>
-                      )}
                     </View>
 
-                    {/* top banner */}
-                    <View
-                      style={{
-                        width: "100%",
-                        height: 210,
-                      }}
-                    >
+             
+
+
                       {/* card 1  */}
                       <View
                         style={{
                           width: "100%",
-                          height: 280,
+                          height: 215,
                           zIndex: 1,
                           position: "relative",
-                          bottom: "20%",
-                          paddingHorizontal: 10,
+                          bottom: 15,
+                          paddingHorizontal:20
                         }}
                       >
                         <FastImage
@@ -1008,7 +967,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                           resizeMode="contain"
                         ></FastImage>
                       </View>
-                    </View>
+              
                   </View>
                 </LinearGradient>
               </View>
@@ -1028,7 +987,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: "#000" }}>
+    <View style={{ flex: 1, backgroundColor: '#000' }}>
       <Carousel
         autoPlay={false}
         ref={carouselRef}
@@ -1036,7 +995,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
         height={height}
         data={screenState.showEventSplashData}
         scrollAnimationDuration={100}
-        onScrollBegin={() => {}}
+        onScrollBegin={() => { }}
         enabled={screenState.showEventSplash !== false}
         loop={false}
         onSnapToItem={(index) => {
@@ -1081,11 +1040,10 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
       />
       {/* ||
         screenState.showEventSplash == true */}
-      {activeIndex !== screenState.showEventSplashData.length - 1 &&
+      {(activeIndex !== screenState.showEventSplashData.length - 1 &&
         screenState.showEventSplashData.length != 0 &&
         screenState.showEventSplashData &&
-        isLastShown != true &&
-        screenState.showEventSplash == true && (
+        isLastShown != true) && screenState.showEventSplash == true && (
           <CarouselPagination
             data={screenState.showEventSplashData}
             dashStyle={true}
@@ -1266,8 +1224,8 @@ const styles = StyleSheet.create({
     borderWidth: 2,
   },
   loading: {
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     flex: 1,
   },
 });

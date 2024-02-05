@@ -1,7 +1,10 @@
 
 export enum BackgroundActionEventType {
-    'VIP_PROMOTION_BOOT',
-    'VIP_PROMOTION_PURCHASE_UPDATE',
+    ON_APP_BOOT = 'ON_APP_BOOT',
+    LOGIN_WARINING_MODAL_SHOWN = 'LOGIN_WARINING_MODAL_SHOWN',
+    VIP_PROMOTION_MODAL_SHOWN = 'VIP_PROMOTION_MODAL_SHOWN',
+    VIP_PROMOTION_BOOT = 'VIP_PROMOTION_BOOT',
+    VIP_PROMOTION_PURCHASE_UPDATE = 'VIP_PROMOTION_PURCHASE_UPDATE',
 }
 
 export type BackgroundActionType = {
@@ -10,12 +13,16 @@ export type BackgroundActionType = {
 }
 
 export type BackgroundType = {
+    isLoginModalShown: boolean,
+    isVipPromotionModalShown: boolean,
     vipPromotionCountdownStart: number,
     vipPromotionPurchaseNum: number,
     vipPromotionIntervel: NodeJS.Timeout | null,
 }
 
 const initialState: BackgroundType = {
+    isLoginModalShown: false,
+    isVipPromotionModalShown: false,
     vipPromotionCountdownStart: 0,
     vipPromotionPurchaseNum: 0,
     vipPromotionIntervel: null,
@@ -23,6 +30,25 @@ const initialState: BackgroundType = {
 
 export const backgroundReducer = (state = initialState, action: BackgroundActionType): BackgroundType => {
     switch (action.type) {
+        case BackgroundActionEventType.ON_APP_BOOT: {
+            return {
+                ...state,
+                isLoginModalShown: false,
+                isVipPromotionModalShown: false,
+            }
+        }
+        case BackgroundActionEventType.LOGIN_WARINING_MODAL_SHOWN: {
+            return {
+                ...state,
+                isLoginModalShown: true,
+            }
+        }
+        case BackgroundActionEventType.VIP_PROMOTION_MODAL_SHOWN: {
+            return {
+                ...state,
+                isVipPromotionModalShown: true,
+            }
+        }
         case BackgroundActionEventType.VIP_PROMOTION_BOOT: {
             if (action.payload?.interval && state.vipPromotionIntervel) {
                 clearInterval(state.vipPromotionIntervel);
