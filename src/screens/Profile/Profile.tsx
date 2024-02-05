@@ -44,7 +44,7 @@ import NotificationModal from "../../components/modal/notificationModal";
 import { updateUserAuth, updateUserReferral } from "@redux/actions/userAction";
 import ExpiredOverlay from "../../components/modal/expiredOverlay";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { SHOW_ZF_CONST, UMENG_CHANNEL } from "@utility/constants";
+import { DOWNLOAD_FEATURE_ENABLED, SHOW_ZF_CONST, UMENG_CHANNEL } from "@utility/constants";
 import FastImage from "../../components/common/customFastImage";
 import { UserApi } from "@api";
 import { AppConfig } from "../../Sports/global/appConfig";
@@ -617,11 +617,11 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                 />
               </TouchableOpacity>
             )} */}
-            <ShowMoreButton
+            {DOWNLOAD_FEATURE_ENABLED && <ShowMoreButton
               text="我的下载"
               leftIcon={<DownloadIcon style={{ color: colors.button }} />}
               onPress={() => navigation.navigate("我的下载")}
-            />
+            />}
             <ShowMoreButton
               text="我的收藏"
               leftIcon={<CollectionIcon style={{ color: colors.button }} />}

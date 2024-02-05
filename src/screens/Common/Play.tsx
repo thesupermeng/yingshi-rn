@@ -53,6 +53,7 @@ import {
   API_DOMAIN,
   API_DOMAIN_TEST,
   APP_NAME_CONST,
+  DOWNLOAD_FEATURE_ENABLED,
   PLAY_HTTP_SERVER_PORT,
   UMENG_CHANNEL,
 } from "@utility/constants";
@@ -1410,7 +1411,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                     </TouchableOpacity>
                   )}
 
-                  <TouchableOpacity
+                  {DOWNLOAD_FEATURE_ENABLED && <TouchableOpacity
                     onPress={() => {
                       setShowDlEpisode(true);
                     }}
@@ -1452,7 +1453,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                       )}
 
                     </View>
-                  </TouchableOpacity>
+                  </TouchableOpacity>}
                 </View>
 
                 {/* show 选集播放 section when avaiable episode more thn 1 */}
