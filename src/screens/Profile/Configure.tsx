@@ -31,7 +31,7 @@ import { APP_VERSION } from '@utility/constants';
 import { SettingsReducerState } from '@redux/reducers/settingsReducer';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { CApi } from '@utility/apiService';
-import {clearMinivodApiCache} from "../../utils/minivodDownloader"
+import { clearMinivodApiCache } from "../../utils/minivodDownloader"
 import { UserApi } from '../../api/user';
 import { addUserAuthState } from "@redux/actions/userAction";
 
@@ -97,8 +97,8 @@ export default ({ navigation }: RootStackScreenProps<'设置'>) => {
         userReferralCode: resultData.user.user_referral_code,
         userEmail: resultData.user.user_email,
         userPhoneNumber: resultData.user.user_phone,
-         userMemberExpired: resultData.user.vip_end_time,
-       // userMemberExpired: resultData.user.created_at,
+        userMemberExpired: resultData.user.vip_end_time,
+        // userMemberExpired: resultData.user.created_at,
         userReferrerName: resultData.user.referrer_name,
         userEndDaysCount: resultData.user.user_vip_time_duration_days,
         userTotalInvite: resultData.user.total_invited_user,
@@ -114,10 +114,10 @@ export default ({ navigation }: RootStackScreenProps<'设置'>) => {
       // console.log("json");
       // console.log(json);
 
-       await dispatch(addUserAuthState(json));
+      await dispatch(addUserAuthState(json));
     }
   };
-  
+
 
   // useEffect(() => {
   //   dispatch(changeScreenAction('showSuccessLogin'));
@@ -162,7 +162,6 @@ export default ({ navigation }: RootStackScreenProps<'设置'>) => {
               //    user logout
               await AsyncStorage.removeItem("showAds");
               await dispatch(removeUserAuthState());
-              CApi.reset();
               clearMinivodApiCache()
 
 
@@ -214,7 +213,7 @@ export default ({ navigation }: RootStackScreenProps<'设置'>) => {
             </View>
           </View>
         </View>
-        {userState.userToken != ''  && (userState.userEmail !='' || userState.userPhoneNumber != 0) && (
+        {userState.userToken != '' && (userState.userEmail != '' || userState.userPhoneNumber != 0) && (
           <TouchableOpacity onPress={toggleLogoutDialog}>
             <View
               style={{
