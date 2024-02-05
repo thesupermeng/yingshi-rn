@@ -176,7 +176,7 @@ const MatchDetails = ({ navigation, route }: BottomTabScreenProps<any>) => {
     ? null
     : match.streams[0].streamer;
 
-  const isEnableChatRoom = sportTabDetails.settings.enabled_sports_chatroom.toLowerCase() !== 'y' && matchDetails !== undefined;
+  const isEnableChatRoom = sportTabDetails.settings.enabled_sports_chatroom.toLowerCase() !== 'n' && matchDetails !== undefined;
   const sportType = matchDetails?.sports_type === 1 ? 'football' : matchDetails?.sports_type === 2 ? 'basketball' : '';
 
   useEffect(() => {
