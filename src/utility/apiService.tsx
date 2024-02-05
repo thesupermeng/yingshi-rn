@@ -336,7 +336,8 @@ export class CApi {
     }
 
     static regetToken = async (): Promise<string | null> => {
-        return await AsyncStorage.getItem("bearerToken");
+        this.bearerToken = await AsyncStorage.getItem("bearerToken") ?? '';
+        return this.bearerToken;
     }
 
     static #getIpAddress = (): string => {
