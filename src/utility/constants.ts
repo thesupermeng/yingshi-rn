@@ -59,7 +59,7 @@ export const INVITE_DOMAIN = 'https://yingshi.tv/invite/pro/?invite=';
 
 export const UMENG_CHANNEL = "GOOGLE_PLAY";
 
-export const APP_VERSION = "1.7.2";
+export const APP_VERSION = "1.7.5";
 
 export const TOPON_ANDROID_APP_ID = 'a65002a2db3a7f';
 export const TOPON_ANDROID_APP_KEY = 'aad683307ed540dfc11b094206e8a15b1';
