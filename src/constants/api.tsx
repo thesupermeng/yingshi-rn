@@ -4,7 +4,7 @@ export class CEndpoint {
     static appGetBottomNav = 'nav/v1/bottomtabs';
     static appPostLocation = 'location/v1/info';
 
-    static userPostSigninup = 'users/v1/signinup';
+    static userPostSigninup = 'users/v2/signinup';
     static userGetDetails = 'users/v1/me';
     static userPostUsername = 'users/v1/update';
     static userGetCountries = 'country/v1/country';
