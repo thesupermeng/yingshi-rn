@@ -26,7 +26,9 @@ export class UserApi {
                 throw result.message;
             }
 
-   
+            if (result.data && result.data.access_token) {
+                await AsyncStorage.setItem("bearerToken", result.data.access_token);
+            }
 
             return result.data;
 

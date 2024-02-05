@@ -736,13 +736,6 @@ export default () => {
           setShowVIPOverlay={setShowVIPOverlay}
         />
 
-<ExpiredOverlay
-          remainingDay={vipRemainingDay}
-          showVIPOverlay={showVIPOverlay}
-          setShowVIPOverlay={setShowVIPOverlay}
-        />
-
-
         <CRouteInitializer />
       </NavigationContainer>
       <Dialog

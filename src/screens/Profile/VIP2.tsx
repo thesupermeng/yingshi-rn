@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   View,
   Text,
@@ -22,7 +22,7 @@ import {
 } from "react-native-iap";
 import ScreenContainer from "../../components/container/screenContainer";
 import { RootStackScreenProps } from "@type/navigationTypes";
-import { useNavigation, useTheme } from "@react-navigation/native";
+import { useFocusEffect, useNavigation, useTheme } from "@react-navigation/native";
 import { RootState } from "@redux/store";
 
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
@@ -47,6 +47,7 @@ import {
   showLoginAction,
   setShowEventSplash,
   setShowPromotionDialog,
+  setShowGuestPurchaseSuccess,
 } from "@redux/actions/screenAction";
 import { ProductApi, UserApi } from "@api";
 import WebView from "react-native-webview";
@@ -84,6 +85,7 @@ import Tick from "@static/images/splash/tick.svg";
 import Tick1 from "@static/images/splash/tick1.svg";
 import Tick2 from "@static/images/splash/tick2.svg";
 import { BackgroundType } from "@redux/reducers/backgroundReducer";
+import { SettingsReducerState } from "@redux/reducers/settingsReducer";
 
 export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
   const {
@@ -101,6 +103,10 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
 
   const userState: userModel = useAppSelector(
     ({ userReducer }: RootState) => userReducer
+  );
+
+  const settingsReducer: SettingsReducerState = useAppSelector(
+    ({ settingsReducer }: RootState) => settingsReducer
   );
 
   const carouselRef = useRef<any>();
@@ -125,8 +131,6 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
     String(second).padStart(2, '0')[0],
     String(second).padStart(2, '0')[1],
   ];
-
-  
 
   const [oneTimeProducts, setOneTimeProducts] = useState<
     promoMembershipModel[]
@@ -153,6 +157,30 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
     "支付系统正在忙碌，请稍后手动刷新后前往VIP明细检查购买记录，检查前请勿重复支付",
   ];
   const [dialogText, setDialogText] = useState([""]);
+
+  const checkConnection = async () => {
+    const state = await NetInfo.fetch();
+    const offline = !(state.isConnected && state.isInternetReachable);
+    setIsOffline(offline);
+    if (!offline) {
+      handleRefresh();
+    }
+  };
+
+  useEffect(() => {
+    setIsOffline(settingsReducer.isOffline);
+  }, []);
+
+  useFocusEffect(useCallback(() => {
+    if (!settingsReducer.isOffline && settingsReducer.isOffline !== isOffline) {
+      setIsOffline(settingsReducer.isOffline);
+      handleRefresh();
+    } else if (settingsReducer.isOffline) {
+      return () => {
+        setIsOffline(settingsReducer.isOffline);
+      }
+    }
+  }, [settingsReducer.isOffline]));
 
   const fetchData = async () => {
     const data = await ProductApi.getNativeList();
@@ -195,7 +223,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
             product.currency.currency_symbol +
             (product.product_name === "1个月"
               ? product.product_price
-              : product.fake_price),
+              : product.product_fake_price),
           description: product.product_desc,
           subscriptionDays: product.product_value,
           zfOptions: {
@@ -206,8 +234,6 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
           productType: SUBSCRIPTION_TYPE,
         };
       });
-
-      console.log(subscription);
 
       setOneTimeProducts(oneTime);
       setSubcriptionProducts(subscription);
@@ -419,9 +445,14 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
               });
 
               // showToast('successfully validate and finish the transaction');
-              setDialogText(successDialogText);
-              setIsDialogOpen(true);
-              setIsSuccess(true);
+              if (userState.userEmail !== '' || userState.userPhoneNumber !== '') {
+                setDialogText(successDialogText);
+                setIsDialogOpen(true);
+                setIsSuccess(true);
+              } else {
+                dispatch(setShowGuestPurchaseSuccess(true));
+              }
+
             } else {
               console.log("success", success);
               await finishTransaction({
@@ -479,9 +510,9 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
     return (
       <>
         {index === screenState.showEventSplashData.length - 1 ||
-        screenState.showEventSplash == false ||
-        isLastShown ||
-        screenState.showEventSplashData.length == 0 ? (
+          screenState.showEventSplash == false ||
+          isLastShown ||
+          screenState.showEventSplashData.length == 0 ? (
           <>
             {isFetching && (
               <View
@@ -524,8 +555,6 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                     zIndex: 200,
                   }}
                   onPress={() => {
-
-                 
                     dispatch(setShowPromotionDialog(true));
                     navigation.goBack();
                   }}
@@ -725,26 +754,26 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                       <View style={styles.badgeContainer}>
 
 
-                      {remainingTimeAry.map((val, i) => {
-                    return (
-                      <>
-                      <View
-                        key={i}>
-                      <View style={styles.badge}>
-                          <Text style={styles.badgeText}>{val}</Text>
-                        </View>
-                    
-                    </View>
-                      {i % 2 === 1 && i < remainingTimeAry.length - 1 && (
-                          <View style={styles.badge2}>
-                          <Text style={styles.badgeText2}>:</Text>
-                        </View>
-                        )}
-</>
+                        {remainingTimeAry.map((val, i) => {
+                          return (
+                            <>
+                              <View
+                                key={i}>
+                                <View style={styles.badge}>
+                                  <Text style={styles.badgeText}>{val}</Text>
+                                </View>
 
-                    );
-                  })}
-                  
+                              </View>
+                              {i % 2 === 1 && i < remainingTimeAry.length - 1 && (
+                                <View style={styles.badge2}>
+                                  <Text style={styles.badgeText2}>:</Text>
+                                </View>
+                              )}
+                            </>
+
+                          );
+                        })}
+
                         {/* <View style={{ ...styles.badge }}>
                           <Text style={styles.badgeText}>0</Text>
                         </View>
@@ -812,8 +841,8 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                                 ...(productSelected === product && i === 0
                                   ? styles.cardContainerActive2
                                   : productSelected === product && i === 1
-                                  ? styles.cardContainerActive3
-                                  : styles.cardContainer2),
+                                    ? styles.cardContainerActive3
+                                    : styles.cardContainer2),
                               }}
                             >
                               {productSelected === product && (
@@ -949,7 +978,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
   };
 
   return (
-    <View style={{ flex: 1  , backgroundColor:'#000'}}>
+    <View style={{ flex: 1, backgroundColor: '#000' }}>
       <Carousel
         autoPlay={false}
         ref={carouselRef}
@@ -957,7 +986,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
         height={height}
         data={screenState.showEventSplashData}
         scrollAnimationDuration={100}
-        onScrollBegin={() => {}}
+        onScrollBegin={() => { }}
         enabled={screenState.showEventSplash !== false}
         loop={false}
         onSnapToItem={(index) => {
