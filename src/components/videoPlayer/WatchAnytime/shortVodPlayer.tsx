@@ -405,7 +405,9 @@ function ShortVideoPlayer({
                 resizeMode="contain"
                 // poster={thumbnail}
                 source={{
-                  uri: miniVodUrl,
+                 // uri: miniVodUrl,
+                      uri: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4',
+                      //uri:'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
                   headers: {
                     'User-Agent':
                       'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
@@ -433,6 +435,15 @@ function ShortVideoPlayer({
                 onLoadStart={handleLoadStart}
                 onProgress={handleProgress}
                 progressUpdateInterval={1500}
+                onError={(e)=>{
+
+                  console.log(e)
+                  console.log(e)
+                  console.log(e)
+console.log('=============')
+                  console.log(e)
+                  console.log(e)
+                }}
               />
               <View
                 style={{

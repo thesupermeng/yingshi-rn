@@ -25,6 +25,22 @@ export class ProductApi {
         }
     }
 
+    static getNativeList = async () => {
+        try {
+            const result = await CApi.get(CEndpoint.nativeProductGetList);
+
+            if (result.success === false) {
+                throw result.message;
+            }
+
+            return result.data;
+
+        } catch (e: any) {
+            console.error(`[Error ${this.name}]: ${e.toString()}`);
+            throw e;
+        }
+    }
+
     static postValidateReceipt = async ({
         user_id,
         product_id,
@@ -117,6 +133,132 @@ export class ProductApi {
             }
 
             return result.data;
+
+        } catch (e: any) {
+            console.error(`[Error ${this.name}]: ${e.toString()}`);
+            throw e;
+        }
+    }
+
+    static postAndroidSubscriptions = async ({
+        product_id,
+        payment_channel,
+        autoRenewingAndroid,
+        dataAndroid,
+        developerPayloadAndroid,
+        isAcknowledgedAndroid,
+        obfuscatedAccountIdAndroid,
+        obfuscatedProfileIdAndroid,
+        packageNameAndroid,
+        productId,
+        productIds,
+        purchaseStateAndroid,
+        purchaseToken,
+        signatureAndroid,
+        transactionDate,
+        transactionId,
+        transactionReceipt,
+    }: {
+        product_id: string;
+        payment_channel: string;
+        autoRenewingAndroid?: boolean;
+        dataAndroid?: string;
+        developerPayloadAndroid?: string;
+        isAcknowledgedAndroid?: boolean;
+        obfuscatedAccountIdAndroid?: string;
+        obfuscatedProfileIdAndroid?: string;
+        packageNameAndroid?: string;
+        productId: string;
+        productIds?: string[];
+        purchaseStateAndroid?: number;
+        purchaseToken?: string;
+        signatureAndroid?: string;
+        transactionDate: number;
+        transactionId?: string;
+        transactionReceipt: string;
+    }) => {
+        try {
+            const result = await CApi.post(CEndpoint.productPostAndroidSubscription, {
+                body: {
+                    product_id,
+                    payment_channel,
+                    autoRenewingAndroid,
+                    dataAndroid,
+                    developerPayloadAndroid,
+                    isAcknowledgedAndroid,
+                    obfuscatedAccountIdAndroid,
+                    obfuscatedProfileIdAndroid,
+                    packageNameAndroid,
+                    productId,
+                    productIds,
+                    purchaseStateAndroid,
+                    purchaseToken,
+                    signatureAndroid,
+                    transactionDate,
+                    transactionId,
+                    transactionReceipt,
+                }
+            });
+
+            if (result.success === false) {
+                throw result.message;
+            }
+
+            return result;
+
+        } catch (e: any) {
+            console.error(`[Error ${this.name}]: ${e.toString()}`);
+            throw e;
+        }
+    }
+
+    static postAndroidIAP = async ({
+        user_id,
+        product_id,
+        transaction_type,
+        zf_channel,
+        platform,
+        channel_transaction_id,
+        transaction_receipt,
+        transaction_status,
+        is_sb,
+        purchase_token,
+        package_name_android
+    }: {
+        user_id: string;
+        product_id: string;
+        transaction_type: string;
+        zf_channel: string;
+        platform: string;
+        channel_transaction_id: string | undefined;
+        transaction_receipt: any;
+        transaction_status: number;
+        is_sb: number;
+        purchase_token?: string;
+        package_name_android?: string;
+    }) => {
+        try {
+            const result = await CApi.post(CEndpoint.productPostAndroidIAP, {
+                body: {
+                    user_id,
+                    product_id,
+                    transaction_type,
+                    zf_channel,
+                    platform,
+                    channel_transaction_id,
+                    transaction_receipt,
+                    transaction_status,
+                    is_sb,
+                    purchase_token,
+                    package_name_android 
+                }
+            });
+
+            if (result.success === false) {
+                throw result.message;
+            }
+
+            return result;
 
         } catch (e: any) {
             console.error(`[Error ${this.name}]: ${e.toString()}`);

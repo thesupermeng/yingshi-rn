@@ -8,6 +8,7 @@ import {
   Text,
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
+import { UMENG_CHANNEL } from "@utility/constants";
 
 const AdEvent = ({ navigation, route }: RootStackScreenProps<'活动页'>) => {
   const {bannerAd} = route.params
@@ -16,7 +17,14 @@ const AdEvent = ({ navigation, route }: RootStackScreenProps<'活动页'>) => {
   const handleOnMessage = (message: string) => {
     console.debug(message)
     if (message === 'triggerRnNavigatePurchaseVip'){
-      navigation.navigate('付费VIP')
+      if (UMENG_CHANNEL == 'GOOGLE_PLAY')
+      {
+        navigation.navigate("付费Google");
+      }
+      else
+      {
+        navigation.navigate("付费VIP");
+      }
     }
   }
   const webViewref = useRef<any>();

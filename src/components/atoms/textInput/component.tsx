@@ -7,7 +7,10 @@ type CTextInputProps = {
     placeholderTextColor?: string,
     maxLength?: number,
     onChangeText?: (value: string) => void,
+    onFocus?: () => void,
+    onBlur?: () => void,
     showErrorStyle?: boolean,
+    disabled?: boolean,
     style?: TextStyle,
 }
 
@@ -17,7 +20,10 @@ export const CTextInput = ({
     placeholderTextColor = '#B6B6B6',
     maxLength,
     onChangeText,
+    onFocus,
+    onBlur,
     showErrorStyle = false,
+    disabled = false,
     style,
 }: CTextInputProps) => {
 
@@ -35,9 +41,12 @@ export const CTextInput = ({
                 ]}
                 value={value}
                 onChangeText={onChangeText}
+                onFocus={onFocus}
+                onBlur={onBlur}
                 placeholder={placeholder}
                 placeholderTextColor={placeholderTextColor}
                 maxLength={maxLength}
+                editable={!disabled}
             />
         </>
     );

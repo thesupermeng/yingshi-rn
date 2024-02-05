@@ -55,7 +55,6 @@ import VipIcon from "@static/images/vip-icon-inactive.svg";
 
 import SportAndX from "./../../src/screens/SportAndX";
 
-
 import MatchDetailsScreen from "../Sports/screens/Sports/MatchDetails";
 import { useDispatch, useSelector } from "react-redux";
 import SigninupBottomSheet from "../components/auth/signinupBottomSheet";
@@ -72,7 +71,7 @@ import {
   SafeAreaProvider,
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
-import { Platform, StyleSheet, Text, View } from "react-native";
+import { Platform, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import DeviceInfo from "react-native-device-info";
 import { useAppSelector, useAppDispatch } from "@hooks/hooks";
 import { QueryClient, useQuery } from "@tanstack/react-query";
@@ -91,6 +90,9 @@ import {
   resetBottomSheetAction,
   resetOverEighteen,
   resetSportWatchTime,
+  setShowGuestPurchaseSuccess,
+  setShowPromotionDialog,
+  showLoginAction,
 } from "@redux/actions/screenAction";
 import { Dialog } from "@rneui/themed";
 // import FastImage from "react-native-fast-image";
@@ -98,10 +100,7 @@ import FastImage from "../components/common/customFastImage";
 import { screenModel } from "@type/screenType";
 import { YingshiDarkTheme, YingshiLightTheme } from "@utility/theme";
 import { userModel } from "@type/userType";
-import {
-  updateUserAuth,
-  updateUserReferral,
-} from "@redux/actions/userAction";
+import { updateUserAuth, updateUserReferral } from "@redux/actions/userAction";
 import ExpiredOverlay from "../components/modal/expiredOverlay";
 import EventRules from "../screens/Profile/EventRules";
 import PrivacyPolicyOverlay from "../components/modal/privacyPolicyOverlay";
@@ -115,6 +114,7 @@ import {
 import { SettingsReducerState } from "@redux/reducers/settingsReducer";
 import { AdsBannerContext } from "../contexts/AdsBannerContext";
 import VIP from "../screens/Profile/VIP";
+import VIP2 from "../screens/Profile/VIP2";
 import { withIAPContext } from "react-native-iap";
 import { VipDetails } from "../components/vip/vipDetails";
 
@@ -124,9 +124,16 @@ import AdultVideoList from "../screens/Playlist/AdultVideoList";
 import { UserApi } from "@api";
 import AdEvent from "../screens/Common/AdEvent";
 import { CRouteInitializer } from "../routes/router";
-import { clearQueueOnAppStart, updateAllVodDetailsThunk } from "@redux/actions/videoDownloadAction";
+import {
+  clearQueueOnAppStart,
+  updateAllVodDetailsThunk,
+} from "@redux/actions/videoDownloadAction";
 import DownloadCatalog from "../screens/Profile/Download/DownloadCatalog";
 import DownloadDetails from "../screens/Profile/Download/DownloadDetails";
+
+import AutoRenewService from "../screens/Profile/AutoRenewService";
+import { VipPromotionOverlay } from "../components/modal/vipPromotionOverlay";
+import { GuestPurchaseSuccessOverlay } from "../components/modal/guestPurchaseSuccessOverlay";
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -155,14 +162,14 @@ export default () => {
     return (
       <HomeTab.Navigator
         screenListeners={{
-          tabPress: e => {
-            if (e.target?.includes('随心看')) {
-              dispatch(hideAdultModeDisclaimer())
+          tabPress: (e) => {
+            if (e.target?.includes("随心看")) {
+              dispatch(hideAdultModeDisclaimer());
             }
             // if (e.target?.includes('首页')){
             //   dispatch(showAdultModeDisclaimer())
             // }
-          }
+          },
         }}
         screenOptions={({ route }) => ({
           headerShown: false,
@@ -284,6 +291,29 @@ export default () => {
   // vip remaining day dialog
   const [showVIPOverlay, setShowVIPOverlay] = useState(false);
 
+
+  const [showBecomeVIPOverlay, setShowBecomeVIPOverlay] = useState(false);
+  const [showGuestPurchaseSuccessOverlay, setShowGuestPurchaseSuccessOverlay] = useState(false);
+  
+
+  const renderOverlay = () => {
+    return <VipPromotionOverlay
+      showCondition={showBecomeVIPOverlay}
+      onClose={() => {
+        setShowBecomeVIPOverlay(false);
+      }}
+    />
+  };
+
+  // const renderOverlay2 = () => {
+  //   return <GuestPurchaseSuccessOverlay
+  //     showCondition={showGuestPurchaseSuccessOverlay}
+  //     onClose={() => {
+  //       setShowGuestPurchaseSuccessOverlay(false);
+  //     }}
+  //   />
+  // };
+
   const [vipRemainingDay, setVipRemainingDay] = useState(0);
 
   useEffect(() => {
@@ -334,7 +364,26 @@ export default () => {
       dispatch(resetBottomSheetAction());
       dispatch(hideLoginAction());
     }
+
+    if (screenState.showPromotionDialog== true) {
+      dispatch(setShowPromotionDialog(false));
+      setShowBecomeVIPOverlay(true)
+    }
+
+
+    if (screenState.showGuestPurchaseSuccess== true) {
+      dispatch(setShowGuestPurchaseSuccess(false));
+      setShowGuestPurchaseSuccessOverlay(true)
+ 
+    }
+
+
   }, [screenState]);
+
+  //test modal 
+  // useEffect(() => {
+  //   setShowGuestPurchaseSuccessOverlay(true)
+  // }, []);
 
   useEffect(() => {
     refreshUserState();
@@ -412,9 +461,9 @@ export default () => {
       (event: any) => {
         console.warn(
           "ATInterstitialLoadFail: " +
-          event.placementId +
-          ", errorMsg: " +
-          event.errorMsg
+            event.placementId +
+            ", errorMsg: " +
+            event.errorMsg
         );
       }
     );
@@ -438,9 +487,9 @@ export default () => {
       (event: any) => {
         console.log(
           "ATInterstitialPlayStart: " +
-          event.placementId +
-          ", adCallbackInfo: " +
-          event.adCallbackInfo
+            event.placementId +
+            ", adCallbackInfo: " +
+            event.adCallbackInfo
         );
       }
     );
@@ -463,11 +512,11 @@ export default () => {
       (event: any) => {
         console.log(
           "ATInterstitialPlayFail: " +
-          event.placementId +
-          ", errorMsg: " +
-          event.errorMsg +
-          ", adCallbackInfo: " +
-          event.adCallbackInfo
+            event.placementId +
+            ", errorMsg: " +
+            event.errorMsg +
+            ", adCallbackInfo: " +
+            event.adCallbackInfo
         );
       }
     );
@@ -477,9 +526,9 @@ export default () => {
       (event: any) => {
         console.log(
           "ATInterstitialClick: " +
-          event.placementId +
-          ", adCallbackInfo: " +
-          event.adCallbackInfo
+            event.placementId +
+            ", adCallbackInfo: " +
+            event.adCallbackInfo
         );
       }
     );
@@ -502,13 +551,13 @@ export default () => {
   useEffect(() => {
     dispatch(resetSportWatchTime());
     initInterstitialAdListener();
-    dispatch(resetAdultVideoWatchTime())
-    dispatch(disableAdultMode())
-    dispatch(hideAdultModeVip())
-    dispatch(disableWatchAnytimeAdultMode())
+    dispatch(resetAdultVideoWatchTime());
+    dispatch(disableAdultMode());
+    dispatch(hideAdultModeVip());
+    dispatch(disableWatchAnytimeAdultMode());
     // dispatch(resetOverEighteen())
-    dispatch(clearQueueOnAppStart())
-    dispatch(updateAllVodDetailsThunk())
+    dispatch(clearQueueOnAppStart());
+    dispatch(updateAllVodDetailsThunk());
   }, []);
 
   return (
@@ -518,6 +567,19 @@ export default () => {
         onReady={() => RNBootSplash.hide()}
         onStateChange={handleStateChange}
       >
+
+{showBecomeVIPOverlay && (
+        <View
+          style={{
+            height: '100%',
+            width: '100%',
+            position: 'absolute',
+            zIndex: 10000,
+          }}>
+          {renderOverlay()}
+        </View>
+      )}
+      
         <Stack.Navigator
           initialRouteName="Home"
           screenOptions={({ route }) => ({
@@ -554,7 +616,7 @@ export default () => {
           <Stack.Screen
             name="播放"
             component={PlayScreen}
-            initialParams={{ vod_id: 1, player_mode: 'normal' }}
+            initialParams={{ vod_id: 1, player_mode: "normal" }}
             options={{ orientation: "all" }}
           />
           <Stack.Screen name="播放历史" component={HistoryScreen} />
@@ -624,6 +686,12 @@ export default () => {
           />
 
           <Stack.Screen
+            name="付费Google"
+            component={useCallback(withIAPContext(VIP2), [])}
+            options={{ orientation: "portrait" }}
+          />
+
+          <Stack.Screen
             name="VIP明细"
             component={VipDetails}
             options={{ orientation: "portrait" }}
@@ -631,23 +699,20 @@ export default () => {
           <Stack.Screen
             name="午夜场剧情"
             component={AdultVideoList}
-            options={{ orientation: 'portrait' }}
+            options={{ orientation: "portrait" }}
           />
-          <Stack.Screen
-            name="活动页"
-            component={AdEvent}
-          />
+          <Stack.Screen name="活动页" component={AdEvent} />
           <Stack.Screen
             name="我的下载"
             component={DownloadCatalog}
-            options={{ orientation: 'portrait' }}
+            options={{ orientation: "portrait" }}
           />
           <Stack.Screen
             name="下载详情"
             component={DownloadDetails}
-            options={{ orientation: 'portrait' }}
+            options={{ orientation: "portrait" }}
           />
-
+          <Stack.Screen name="续费服务" component={AutoRenewService} />
         </Stack.Navigator>
         {settingsReducer.appOrientation === "PORTRAIT" && ( // only show if portrait
           <>
@@ -663,11 +728,21 @@ export default () => {
           isVisible={showPrivacyOverlay}
           setIsVisible={setShowPrivacyOverlay}
         />
+
+
         <ExpiredOverlay
           remainingDay={vipRemainingDay}
           showVIPOverlay={showVIPOverlay}
           setShowVIPOverlay={setShowVIPOverlay}
         />
+
+<ExpiredOverlay
+          remainingDay={vipRemainingDay}
+          showVIPOverlay={showVIPOverlay}
+          setShowVIPOverlay={setShowVIPOverlay}
+        />
+
+
         <CRouteInitializer />
       </NavigationContainer>
       <Dialog
@@ -706,6 +781,88 @@ export default () => {
           {screenState.screenAction}
         </Text>
       </Dialog>
+
+
+      <Dialog
+        isVisible={showGuestPurchaseSuccessOverlay}
+        overlayStyle={{
+          backgroundColor: "rgba(34, 34, 34, 1)",
+          ...styles.overlay,
+        }}
+        backdropStyle={{ backgroundColor: "rgba(0, 0, 0, 0.8)" }}
+        onBackdropPress={() => setShowGuestPurchaseSuccessOverlay(false)}
+      >
+        <FastImage
+          useFastImage={true}
+          key={gifKey}
+          style={{
+            height: 80,
+            width: 80,
+            marginRight: 5,
+            position: "relative",
+            top: 1,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+          resizeMode={"contain"}
+          source={require("@static/images/profile/login-success.gif")}
+        />
+
+        <Text
+          style={{
+            color: "#fff",
+            fontFamily: "PingFang SC",
+            fontSize: 18,
+            fontWeight: "600",
+            paddingTop:10
+          }}
+        >
+         购买成功
+        </Text>
+
+        <Text
+          style={{
+            color: "#fff",
+            fontFamily: "PingFang SC",
+            fontSize: 14,
+            fontWeight: "600",
+            paddingTop:14,
+            textAlign:'center',
+            lineHeight: 24
+          }}
+        >
+          恭喜您成为准贵的影视TV会员，立即登录账号合并您的VIP会员，可以多设备使用VIP会员账号
+        </Text>
+
+        <TouchableOpacity
+             
+             style={{width:'100%'}}
+             onPress={() => {
+              setShowGuestPurchaseSuccessOverlay(false)
+               dispatch(showLoginAction());
+             }}
+              >
+                <View
+                
+                  style={styles.purchaseButton}
+                >
+                  <Text style={styles.purchaseButtonText}>
+                    去登录
+                  </Text>
+                </View>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={styles.cancelButton}
+                onPress={()=>{ setShowGuestPurchaseSuccessOverlay(false)}}
+              >
+                <Text style={styles.cancelButtonText}>
+                  取消
+                </Text>
+              </TouchableOpacity>
+
+      </Dialog>
+
     </SafeAreaProvider>
   );
 };
@@ -733,4 +890,35 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 20,
   },
+  purchaseButton: {
+    borderRadius: 8,
+    paddingVertical: 6,
+    alignItems: "center",
+    backgroundColor:'#D1AC7D',
+    paddingHorizontal:30,
+    marginTop:16
+  },
+  purchaseButtonText: {
+    color: "#1D2023",
+    fontSize: 14,
+    fontWeight: "700",
+    lineHeight: 25,
+    fontFamily: "PingFang SC",
+  },
+  cancelButton: {
+    // backgroundColor: "#121314",
+     borderRadius: 8,
+     paddingHorizontal: 20,
+     paddingVertical: 6,
+     marginTop:8,
+     alignItems: "center",
+   },
+   cancelButtonText: {
+     color: "white",
+     fontSize: 13,
+     fontWeight: "700",
+     lineHeight: 25,
+     textAlign: 'center',
+     fontFamily: "PingFang SC",
+   },
 });

@@ -19,7 +19,7 @@ import HistoryIcon from "@static/images/history.svg";
 import FeedbackIcon from "@static/images/feedback.svg";
 import SettingsIcon from "@static/images/settings.svg";
 import InfoIcon from "@static/images/info.svg";
-import DownloadIcon from '@static/images/download.svg'
+import DownloadIcon from "@static/images/download.svg";
 import { useNavigation } from "@react-navigation/native";
 
 import Orientation from "react-native-orientation-locker";
@@ -36,6 +36,7 @@ import { YSConfig } from "../../../ysConfig";
 import {
   hideBottomSheetAction,
   removeScreenAction,
+  setShowGuestPurchaseSuccess,
   showLoginAction,
 } from "@redux/actions/screenAction";
 import { userModel } from "@type/userType";
@@ -43,7 +44,7 @@ import NotificationModal from "../../components/modal/notificationModal";
 import { updateUserAuth, updateUserReferral } from "@redux/actions/userAction";
 import ExpiredOverlay from "../../components/modal/expiredOverlay";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { SHOW_ZF_CONST } from "@utility/constants";
+import { SHOW_ZF_CONST, UMENG_CHANNEL } from "@utility/constants";
 import FastImage from "../../components/common/customFastImage";
 import { UserApi } from "@api";
 import { AppConfig } from "../../Sports/global/appConfig";
@@ -54,6 +55,9 @@ import { CEndpoint } from "../../constants/api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AdsApi } from "../../api/ads";
 import UmengAnalytics from "../../../Umeng/UmengAnalytics";
+import DeviceInfo from "react-native-device-info";
+import style from "../../Sports/components/matchDetails/liveChatPage/style";
+import { VipLoginAlertOverlay } from "../../components/modal/vipLoginAlertOverlay";
 
 function Profile({ navigation, route }: BottomTabScreenProps<any>) {
   const navigator = useNavigation();
@@ -66,7 +70,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
   );
   // console.log("Profile")
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [bannerAd, setBannerAd] = useState<BannerAdType[]>()
+  const [bannerAd, setBannerAd] = useState<BannerAdType[]>();
 
   const toggleOverlay = () => {
     setIsDialogOpen(!isDialogOpen);
@@ -145,7 +149,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
     } else {
       setBannerAd(undefined);
     }
-  }
+  };
 
   const shouldShowAds = async () => {
     fetchBannerAd();
@@ -156,6 +160,17 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
       shouldShowAds();
     }, [])
   );
+
+  const [deviceUniqueId, setDeviceUniqueId] = useState("");
+
+  const setDeviceId = async () => {
+    let deviceId = await DeviceInfo.getUniqueId();
+    setDeviceUniqueId(deviceId);
+  };
+
+  useEffect(() => {
+    setDeviceId();
+  }, []);
 
   useEffect(() => {
     let date = new Date(Number(userState.userMemberExpired) * 1000); // Multiply by 1000 to convert from seconds to milliseconds
@@ -184,9 +199,57 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
     });
   }, []);
 
+
+
+  const [showBecomeVIPOverlay, setShowBecomeVIPOverlay] = useState(false);
+
+  const renderOverlay = () => {
+    return (
+      <VipLoginAlertOverlay
+        showCondition={showBecomeVIPOverlay}
+        onClose={() => {
+          setShowBecomeVIPOverlay(false);
+        }}
+      />
+    );
+  };
+
+  useEffect(() => {
+
+
+    // guest with VIP show login alert
+    if(userState.userEmail == "" &&
+    userState.userPhoneNumber == "" &&
+    userState.userMemberExpired >=
+      userState.userCurrentTimestamp )
+      {
+        setShowBecomeVIPOverlay(true)
+      }
+  }, []);
+
+
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     setShowBecomeVIPOverlay(true)
+  //   }, [])
+  // );
+  
+
   return (
     <>
       <View style={{ paddingTop: insets.top }}>
+      {showBecomeVIPOverlay && (
+          <View
+            style={{
+              height: "100%",
+              width: "100%",
+              position: "absolute",
+              zIndex: 10000,
+            }}
+          >
+            {renderOverlay()}
+          </View>
+        )}
         {/* <ScreenContainer> */}
         {/* <SafeAreaView> */}
         <ScrollView
@@ -210,14 +273,6 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
             >
               我的
             </Text>
-            {/* <TouchableOpacity onPress={() => dispatch(toggleTheme(!themeReducer.theme))}>
-                      {
-                          themeReducer.theme
-                              ? <LightMode color={icons.iconColor} height={26} width={26} />
-                              : <DarkMode color={icons.iconColor}  height={26} width={26} />
-
-                      }
-                  </TouchableOpacity> */}
           </View>
           {/* 游客登录  component*/}
           <TouchableOpacity
@@ -235,116 +290,173 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
           >
             <View
               style={{
-                paddingTop: 20,
-                paddingBottom: 10,
-                flexDirection: "row",
+                ...styles.btnHeader,
               }}
             >
-              {userState.userToken == "" || Platform.OS === "android" ? (
-                <ProfileIcon
-                  style={{ color: colors.button, width: 18, height: 18 }}
-                />
-              ) : (
-                <FastImage
-                  style={{
-                    height: 60,
-                    width: 60,
-                    marginVertical: 2,
-                  }}
-                  resizeMode={"contain"}
-                  source={require("@static/images/profilePic.png")}
-                />
-              )}
-              <View
-                style={{
-                  flexDirection: "column",
-                  flex: 1,
-                  gap: 5,
-                  justifyContent: "center",
-                  paddingLeft: 12,
-                }}
-              >
-                {userState.userToken == "" && (
-                  <>
-                    <Text style={{ color: "#ffffff", fontSize: 20 }}>
-                      游客您好！
-                    </Text>
-                    <Text style={{ color: "#ffffff", fontSize: 14 }}>
-                      登录可享更多服务
-                    </Text>
-                  </>
+              <View style={{ flexDirection: "row" }}>
+                {userState.userToken == "" || Platform.OS === "android" ? (
+                  <ProfileIcon
+                    style={{ color: colors.button, width: 18, height: 18 }}
+                  />
+                ) : (
+                  <FastImage
+                    style={{
+                      height: 36,
+                      width: 36,
+                      marginVertical: 2,
+                    }}
+                    resizeMode={"contain"}
+                    source={require("@static/images/profilePic.png")}
+                  />
                 )}
-                {userState.userToken != "" && (
-                  <>
-                    <View
-                      style={{
-                        flexDirection: "row",
-                        justifyContent: "flex-start",
-                        alignItems: "center",
-                        paddingRight: 30,
-                      }}
-                    >
-                      <Text
-                        style={{
-                          color: "#ffffff",
-                          fontSize: 20,
-                        }}
-                        numberOfLines={1}
-                        ellipsizeMode="tail"
-                      >
-                        {userState.userName}
+                <View
+                  style={{
+                    flexDirection: "column",
+                    flex: 1,
+                    gap: 5,
+                    justifyContent: "center",
+                    paddingLeft: 12,
+                  }}
+                >
+                  {userState.userToken == "" && (
+                    <>
+                      <Text style={{ color: "#ffffff", fontSize: 14 }}>
+                        游客ID:
                       </Text>
-                      {userState.userMemberExpired >=
-                        userState.userCurrentTimestamp && (
+                      <Text style={{ color: "#ffffff", fontSize: 20 }}>
+                        {deviceUniqueId}
+                      </Text>
+                    </>
+                  )}
+                  {userState.userToken != "" && (
+                    <>
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          justifyContent: "flex-start",
+                          alignItems: "center",
+                          paddingRight: 30,
+                        }}
+                      >
+                        <Text
+                          style={{
+                            color: "#ffffff",
+                            fontSize: 20,
+                          }}
+                          numberOfLines={1}
+                          ellipsizeMode="tail"
+                        >
+                          {userState.userName}
+                        </Text>
+                        {userState.userMemberExpired >=
+                          userState.userCurrentTimestamp && (
                           <Image
                             style={styles.iconStyle}
                             source={require("@static/images/profile/vip.png")}
                           />
                         )}
-                    </View>
+                      </View>
 
-                    {/* {userState.userMemberExpired == '0' && (
+                      {/* {userState.userMemberExpired == '0' && (
                       <Text style={{fontSize: 14}}>VIP会员已经到期</Text>
                     )} */}
-                    {userState.userMemberExpired >=
-                      userState.userCurrentTimestamp && (
+                      {userState.userMemberExpired >=
+                        userState.userCurrentTimestamp && (
                         <Text style={{ color: colors.primary, fontSize: 14 }}>
                           VIP会员有效日期至{displayedDate}
                         </Text>
                       )}
-                  </>
-                )}
-              </View>
+                    </>
+                  )}
+                </View>
 
-              <View
-                style={{
-                  justifyContent: "center",
-                }}
-              >
-                {userState.userToken == "" && (
-                  <MoreArrow
-                    width={icons.sizes.l}
-                    height={icons.sizes.l}
-                    color={colors.muted}
-                  />
+                <View
+                  style={{
+                    justifyContent: "center",
+                  }}
+                >
+                  {userState.userToken != "" && (
+                    <EditIcn width={29} height={29} color={colors.muted} />
+                  )}
+                </View>
+              </View>
+              {/* 游客 no vip  */}
+              {userState.userEmail == "" &&
+                userState.userPhoneNumber == "" &&
+                userState.userMemberExpired <
+                  userState.userCurrentTimestamp && (
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                      paddingTop: 10,
+                      alignItems: "center",
+                    }}
+                  >
+                    <Text style={{ color: "white" }}>
+                      游客您好，登录可享有跟多服务{" "}
+                    </Text>
+
+                    <View
+                      style={{
+                        backgroundColor: "#FAC33D",
+                        paddingHorizontal: 16,
+                        paddingVertical: 5,
+                        borderRadius: 10,
+                      }}
+                    >
+                      <Text style={{ color: "#000", fontWeight: "700" }}>
+                        登录{" "}
+                      </Text>
+                    </View>
+                  </View>
                 )}
 
-                {userState.userToken != "" && (
-                  <EditIcn width={29} height={29} color={colors.muted} />
+              {/* 游客 got vip  */}
+              {userState.userEmail == "" &&
+                userState.userPhoneNumber == "" &&
+                userState.userMemberExpired >=
+                  userState.userCurrentTimestamp && (
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                      paddingTop: 10,
+                      alignItems: "center",
+                    }}
+                  >
+                    <Text style={{ color: colors.primary }}>
+                      VIP会员有效日期至{displayedDate}
+                    </Text>
+
+                    <View
+                      style={{
+                        backgroundColor: "#FAC33D",
+                        paddingHorizontal: 16,
+                        paddingVertical: 5,
+                        borderRadius: 10,
+                      }}
+                    >
+                      <Text style={{ color: "#000", fontWeight: "700" }}>
+                        登录{" "}
+                      </Text>
+                    </View>
+                  </View>
                 )}
-              </View>
             </View>
           </TouchableOpacity>
 
-          {bannerAd && bannerAd.map((ad => {
-            return <BannerContainer
-              bannerAd={ad}
-              key={ad.ads_id}
-              onMount={onBannerView}
-              onPress={onBannerPress}
-            />
-          }))
-          }
+          {bannerAd &&
+            bannerAd.map((ad) => {
+              return (
+                <BannerContainer
+                  bannerAd={ad}
+                  key={ad.ads_id}
+                  onMount={onBannerView}
+                  onPress={onBannerPress}
+                />
+              );
+            })}
 
           <View style={{ marginBottom: -30, flex: 3, paddingBottom: 120 }}>
             {SHOW_ZF_CONST && (
@@ -360,7 +472,11 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                     ...styles.btn,
                   }}
                   onPress={() => {
-                    navigation.navigate("付费VIP");
+                    if (UMENG_CHANNEL == "GOOGLE_PLAY") {
+                      navigation.navigate("付费Google");
+                    } else {
+                      navigation.navigate("付费VIP");
+                    }
                     // dispatch(showLoginAction());
                   }}
                 >
@@ -382,7 +498,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                         )}
                       </Text>
                       {YSConfig.instance.tabConfig != null &&
-                        YSConfig.instance.len == 5 ? (
+                      YSConfig.instance.len == 5 ? (
                         <Text
                           style={{
                             ...textVariants.small,
@@ -617,6 +733,12 @@ const styles = StyleSheet.create({
     marginTop: 20,
     backgroundColor: "#1A1E21",
     flex: 1,
+  },
+  btnHeader: {
+    width: "100%",
+    backgroundColor: "#1A1E21",
+    borderRadius: 10,
+    padding: 10,
   },
   highlightColor: {
     color: "#FAC33D", // Change this color to your desired highlight color

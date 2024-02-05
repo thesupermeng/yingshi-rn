@@ -6,6 +6,7 @@ import FootballIconComponent from '../../../components/footballIconComponent';
 import EmptyDataPage from '../../EmptyDataPage';
 import { MatchDetailWithRankingData } from '../../../types/liveMatchTypes';
 import { LineUpType } from '../../../types/lineUpTypes';
+import { useIsFocused } from '@react-navigation/native';
 
 // import AdsComp from '../../../components/adsComp';
 // import {useAds} from '@hooks/useAds';
@@ -16,14 +17,16 @@ interface Props {
 
 
 const LineUpPage = ({ liveRoomLineup, liveRoomMatchDetails }: Props) => {
+  const isFocus = useIsFocused();
   // const adsList = useSelector(state => state.adsList);
   // const [ads] = useAds(adsList);
+
   return (
     <View>
       {liveRoomLineup?.sports_type !== 1 && <EmptyDataPage />}
-      <ScrollView style={{ backgroundColor: '#14161A' }}>
+      <ScrollView style={{ backgroundColor: '#14161A', height: '100%' }}>
         {/* {ads && <AdsComp item={ads} />} */}
-        {liveRoomLineup?.sports_type === 1 && (
+        {isFocus && liveRoomLineup?.sports_type === 1 && (
           <View>
             <LineUpFootball
               detail={liveRoomMatchDetails}
@@ -42,7 +45,7 @@ const LineUpPage = ({ liveRoomLineup, liveRoomMatchDetails }: Props) => {
           </View>
         )}
 
-        {liveRoomMatchDetails?.home != undefined &&
+        {isFocus && liveRoomMatchDetails?.home != undefined &&
           liveRoomMatchDetails?.away != undefined &&
           ((liveRoomMatchDetails?.football_home_injuries != undefined &&
             liveRoomMatchDetails?.football_home_injuries?.length > 0) ||
@@ -60,7 +63,7 @@ const LineUpPage = ({ liveRoomLineup, liveRoomMatchDetails }: Props) => {
               />
             </View>
           )}
-        {liveRoomLineup?.sports_type === 1 && (
+        {isFocus && liveRoomLineup?.sports_type === 1 && (
           <View style={{ backgroundColor: '#14161A' }}>
             <View style={styles.firstBar}></View>
             <FootballIconComponent showLessIcon={true} />

@@ -30,6 +30,9 @@ export class CEndpoint {
     static feedbackPost = 'feedback/v1/submit';
 
     static productGetList = 'products/v1/products';
+    static nativeProductGetList = 'products/v2/nativeProducts';
+    static productPostAndroidSubscription = 'android/v1/subscription';
+    static productPostAndroidIAP = 'android/v1/onetime';
     static productPostValidateReceiptIos = 'validate/v1/iosreceipt';
     static productPostValidateReceiptAndroid = 'validate/v1/androidreceipt';
     static productGetFinzfTransaction = 'finzf/v1/transactions';
@@ -39,4 +42,11 @@ export class CEndpoint {
     static bannerEventAds = 'ads/v1/events';
 
     static eventPost = 'track/v1/statsViewClick';
+
+    static splashApi = 'intro/v1/navigate';
+
+    static guestLoginApi = 'users/v2/guestsigninup';
+
+    static chatSocket = 'https://so.finapp.chat';
+    static liveSportsChats = 'liveSports/v1/notice';
 }

@@ -7,7 +7,7 @@ import PrivacyBackButtonHeader from "../../components/header/privacyBackButtonHe
 
 import { useTheme } from "@react-navigation/native";
 import { ScrollView } from "react-native-gesture-handler";
-import { APP_NAME_CONST , APP_NAME_CONST2 } from "@utility/constants";
+import { APP_NAME_CONST, APP_NAME_CONST2 } from "@utility/constants";
 
 export default ({ navigation }: RootStackScreenProps<"隐私政策">) => {
   const { colors, textVariants, icons, spacing } = useTheme();
@@ -20,7 +20,7 @@ export default ({ navigation }: RootStackScreenProps<"隐私政策">) => {
   return (
     // <ScreenContainer scrollView={true}>
     <ScreenContainer>
-      <View style={{ gap: spacing.m }}>
+      <View style={{ gap: spacing.m, height: '100%' }}>
         {/* <TitleWithBackButtonHeader title='隐私政策' /> */}
         <PrivacyBackButtonHeader title="隐私政策" />
         <ScrollView>

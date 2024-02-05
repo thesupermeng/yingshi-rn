@@ -21,6 +21,9 @@ import { addUserAuthState } from '@redux/actions/userAction';
 import { changeScreenAction } from '@redux/actions/screenAction';
 import UmengAnalytics from '../../../Umeng/UmengAnalytics';
 import { UserApi } from '@api';
+import { userModel } from '@type/userType';
+import { useAppSelector } from '@hooks/hooks';
+import { RootState } from '@redux/store';
 
 
 export default (props: any) => {
@@ -74,6 +77,10 @@ const OtpInputs = ({
 
   const [focusedInput, setFocusedInput] = useState(null); // Track the focused input index
 
+  const userState: userModel = useAppSelector(
+    ({ userReducer }: RootState) => userReducer,
+  );
+  
   const styles = useMemo(() => createStyles({
     colors,
   }), []);
@@ -116,6 +123,7 @@ const OtpInputs = ({
       phone: phone,
       countryId: countryId,
       referralCode: referralCode,
+      userId: userState.userId
     }).then(() => {
       setOtpTextInput([]);
       setOtp('      ');
@@ -166,6 +174,7 @@ const OtpInputs = ({
         countryId: countryId,
         referralCode: referralCode,
         otp: new_otp,
+        userId: userState.userId
       })
     } catch (err: any) {
       setValid(1);

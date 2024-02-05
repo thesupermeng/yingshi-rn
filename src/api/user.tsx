@@ -9,6 +9,35 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 export class UserApi {
+
+
+    static guestLogin = async () => {
+        try {
+         
+            let deviceId = await DeviceInfo.getUniqueId();
+
+            const result = await CApi.post(CEndpoint.guestLoginApi, {
+                body: {
+                    device_id: deviceId,
+                },
+            });
+
+            if (result.success === false) {
+                throw result.message;
+            }
+
+   
+
+            return result.data;
+
+        } catch (e: any) {
+            console.error(`[Error ${this.name}]: ${e.toString()}`);
+            throw e;
+        }
+    }
+
+
+
     static signinupUser = async ({
         loginType,
         email,
@@ -17,6 +46,7 @@ export class UserApi {
         referralCode,
         otp,
         isGoogleLogin = false,
+        userId,
     }: {
         loginType: 'EMAIL' | 'SMS',
         email?: string,
@@ -25,6 +55,7 @@ export class UserApi {
         referralCode?: string,
         otp?: string,
         isGoogleLogin?: boolean,
+        userId : string
     }) => {
         try {
             let platform_id;
@@ -51,6 +82,7 @@ export class UserApi {
                     platform_id: platform_id,
                     otp: otp,
                     is_social_login: isGoogleLogin,
+                    user_id: userId,
                 },
             });
 

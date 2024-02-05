@@ -9,6 +9,11 @@ export interface membershipModel {
   zfOptions: zfModel[];
 }
 
+export interface promoMembershipModel extends membershipModel {
+  promoPrice: string;
+  productType: string;
+}
+
 export interface zfModel {
   payment_type_code: string;
   payment_type_name: string;

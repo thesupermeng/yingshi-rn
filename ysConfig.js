@@ -6,11 +6,13 @@ export class YSConfig {
 
   areaConfig = true;
   ip = '';
-  updateAction = '';
+  updateAction = null;
+  updateDesc = '';
+  updateUrl = '';
 
-      // y == 成为VIP 
-    // n == 付费购买VIP
-    showBecomeVip = false;
+  // y == 成为VIP 
+  // n == 付费购买VIP
+  showBecomeVip = false;
 
   setTabConfig(tabConfig) {
     this.tabConfig = tabConfig;
@@ -25,11 +27,31 @@ export class YSConfig {
     this.ip = ip;
   }
 
-  setShowBecomeVip(payload) {
-    this.showBecomeVip = payload;
+  setShowBecomeVip(showBecomeVip) {
+    this.showBecomeVip = showBecomeVip;
   }
 
-  setUpdateAction(payload) {
-    this.updateAction = payload;
+   // 0 ignore , 1 focce , 2 optional , 3 in background 
+  setUpdateAction(updateAction) {
+    this.updateAction = updateAction;
+  }
+
+  setUpdateDesc(updateDesc) {
+    this.updateDesc = updateDesc;
+  }
+
+  setUpdateUrl(updateUrl)
+  {
+    this.updateUrl = updateUrl;
+  }
+
+  findTabByKey(key) {
+    if (this.tabConfig == null) return null;
+
+    const found = this.tabConfig.find((e) => e.name === key);
+
+    if (found === null || found === undefined) return null;
+
+    return found;
   }
 }
