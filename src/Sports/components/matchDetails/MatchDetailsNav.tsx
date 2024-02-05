@@ -50,7 +50,7 @@ export default function MatchDetailsNav({ tabList, streamId, defaultTabName, isK
                     },
                 }}
                 // tabBar={tabBarArrow}
-                sceneContainerStyle={{ backgroundColor: 'white' }}>
+                sceneContainerStyle={{ backgroundColor: '#14161A' }}>
                 {tabList != undefined && tabList.map((tab, index) => {
                     return (
                         <Tab.Screen
