@@ -13,7 +13,7 @@ export class UserApi {
 
     static guestLogin = async () => {
         try {
-         
+
             let deviceId = await DeviceInfo.getUniqueId();
 
             const result = await CApi.post(CEndpoint.guestLoginApi, {
@@ -28,6 +28,7 @@ export class UserApi {
 
             if (result.data && result.data.access_token) {
                 await AsyncStorage.setItem("bearerToken", result.data.access_token);
+                CApi.regetToken();
             }
 
             return result.data;
@@ -57,7 +58,7 @@ export class UserApi {
         referralCode?: string,
         otp?: string,
         isGoogleLogin?: boolean,
-        userId : string
+        userId: string
     }) => {
         try {
             let platform_id;
@@ -94,6 +95,7 @@ export class UserApi {
 
             if (result.data && result.data.access_token) {
                 await AsyncStorage.setItem("bearerToken", result.data.access_token);
+                CApi.regetToken();
             }
 
             return result;
@@ -106,10 +108,6 @@ export class UserApi {
 
     static getUserDetails = async () => {
         try {
-            if (CApi.bearerToken === undefined || CApi.bearerToken === null) {
-                return;
-            }
-
             const result = await CApi.get(CEndpoint.userGetDetails);
 
             if (result.success === false) {

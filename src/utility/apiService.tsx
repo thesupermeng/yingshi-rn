@@ -38,7 +38,7 @@ export class CApi {
 
         this.#apiInstance.interceptors.request.use(async (config) => {
             if (this.bearerToken === undefined) {
-                const token = await this.#tryGetToken();
+                const token = await this.regetToken();
                 if (token) this.bearerToken = token;
             }
 
@@ -335,18 +335,12 @@ export class CApi {
         });
     }
 
-    static #tryGetToken = async (): Promise<string | null> => {
+    static regetToken = async (): Promise<string | null> => {
         return await AsyncStorage.getItem("bearerToken");
     }
 
     static #getIpAddress = (): string => {
         return YSConfig.instance.ip;
-    }
-
-    static reset = async () => {
-        this.#apiInstance = null; 
-        this.bearerToken = undefined;
-        await AsyncStorage.removeItem("bearerToken");
     }
 }
 
