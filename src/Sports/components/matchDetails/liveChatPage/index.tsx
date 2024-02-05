@@ -5,7 +5,7 @@ import { userModel } from "@type/userType";
 import { CPressable, CTextInput } from "../../../../components/atoms";
 import SendIcon from '@static/images/send.svg';
 import SendFillIcon from '@static/images/send_filled.svg';
-import { CHAT_SEND_COOLDOWN, COMMENT_MAX_INPUT } from "@utility/constants";
+import { CHAT_BOX_MAX_ITEM, CHAT_SEND_COOLDOWN, COMMENT_MAX_INPUT } from "@utility/constants";
 import { LiveChatMessageType } from "@type/ajaxTypes";
 import { ChatApi } from "../../../../api/chat";
 import { ChatType } from "@redux/reducers/chatReducer";
@@ -167,7 +167,13 @@ const LiveChatPage = ({
 
     useEffect(() => {
         if ((chatState.liveRoom?.messages.length ?? 0) > 0 && isPinToBottom.current == false) {
-            setNumOfUnread(prev => prev + 1);
+            setNumOfUnread(prev => {
+                if (prev === CHAT_BOX_MAX_ITEM) {
+                    return CHAT_BOX_MAX_ITEM;
+                }
+
+                return prev + 1
+            });
         }
     }, [chatState.liveRoom?.messages.length])
 
