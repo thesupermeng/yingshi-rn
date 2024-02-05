@@ -80,7 +80,9 @@ export function userReducer(state = initialState, action: any) {
         userName: action.payload.user.user_name,
         userReferralCode: action.payload.user.user_referral_code,
         userEmail: action.payload.user.user_email,
-        userPhoneNumber: `${action.payload.user.country?.country_phonecode ?? ''}${action.payload.user.user_phone}`,
+        userPhoneNumber: action.payload.user.user_phone !== 0
+          ? `${action.payload.user.country?.country_phonecode ?? ''}${action.payload.user.user_phone}`
+          : '',
         userMemberExpired: action.payload.user.vip_end_time,
         userReferrerName: action.payload.user.referrer_name,
         userEndDaysCount: action.payload.user.user_vip_time_duration_days,

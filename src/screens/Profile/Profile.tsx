@@ -221,7 +221,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
 
     // guest with VIP show login alert
     if (userState.userEmail == "" &&
-      userState.userPhoneNumber == 0 &&
+      userState.userPhoneNumber == '' &&
       userState.userMemberExpired >=
       userState.userCurrentTimestamp) {
       setShowBecomeVIPOverlay(true)
@@ -280,7 +280,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
             activeOpacity={1}
             onPress={() => {
 
-              if (userState.userToken == "" || (userState.userEmail == '' && userState.userPhoneNumber == 0)) {
+              if (userState.userToken == "" || (userState.userEmail == '' && userState.userPhoneNumber == '')) {
                 dispatch(showLoginAction());
                 // console.log('props{');
                 // setActionType('login');
@@ -321,7 +321,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                   }}
                 >
                   {userState.userEmail == "" &&
-                    userState.userPhoneNumber == 0 && (
+                    userState.userPhoneNumber == '' && (
                       <>
                         <Text style={{ color: "#ffffff", fontSize: 14 }}>
                           游客ID:
@@ -332,7 +332,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                       </>
                     )}
                   {userState.userToken != "" && (userState.userEmail != "" ||
-                    userState.userPhoneNumber != 0) && (
+                    userState.userPhoneNumber != '') && (
                       <>
                         <View
                           style={{
@@ -383,14 +383,14 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                   }}
                 >
                   {userState.userToken != "" && (userState.userEmail != "" ||
-                    userState.userPhoneNumber != 0) && (
+                    userState.userPhoneNumber != '') && (
                       <EditIcn width={29} height={29} color={colors.muted} />
                     )}
                 </View>
               </View>
               {/* 游客 no vip  */}
               {userState.userEmail == "" &&
-                userState.userPhoneNumber == 0 &&
+                userState.userPhoneNumber == '' &&
                 userState.userMemberExpired <
                 userState.userCurrentTimestamp && (
                   <View
@@ -422,7 +422,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
 
               {/* 游客 got vip  */}
               {userState.userEmail == "" &&
-                userState.userPhoneNumber == 0 &&
+                userState.userPhoneNumber == '' &&
                 userState.userMemberExpired >=
                 userState.userCurrentTimestamp && (
                   <View
@@ -536,7 +536,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                   }}
                   onPress={() => {
 
-                    if (userState.userEmail == '' && userState.userPhoneNumber == 0) {
+                    if (userState.userEmail == '' && userState.userPhoneNumber == '') {
                       dispatch(showLoginAction());
                     }
                     else {

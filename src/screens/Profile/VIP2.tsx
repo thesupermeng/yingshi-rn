@@ -445,7 +445,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
               });
 
               // showToast('successfully validate and finish the transaction');
-              if (userState.userEmail !== '' || userState.userPhoneNumber != 0) {
+              if (userState.userEmail !== '' || userState.userPhoneNumber != '') {
                 setDialogText(successDialogText);
                 setIsDialogOpen(true);
                 setIsSuccess(true);
@@ -559,22 +559,20 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                     zIndex: 200,
                   }}
                   onPress={() => {
-     
 
-                    if(userState.userEmail == "" &&
-                    userState.userPhoneNumber == 0 &&
-                    userState.userMemberExpired >=
-                      userState.userCurrentTimestamp )
-                      {
-                       // setShowBecomeVIPOverlay(true)
-                        navigation.goBack();
-                      }
-                      else
-                      {
-                        dispatch(setShowPromotionDialog(true));
-                        navigation.goBack();
-                      }
-                  
+
+                    if (userState.userEmail == "" &&
+                      userState.userPhoneNumber == '' &&
+                      userState.userMemberExpired >=
+                      userState.userCurrentTimestamp) {
+                      // setShowBecomeVIPOverlay(true)
+                      navigation.goBack();
+                    }
+                    else {
+                      dispatch(setShowPromotionDialog(true));
+                      navigation.goBack();
+                    }
+
                   }}
                 >
                   <CloseButton />
@@ -954,7 +952,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                         height: 210,
                       }}
                     >
-              
+
 
                       {/* card 1  */}
                       <View
@@ -964,8 +962,8 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                           zIndex: 1,
                           position: "relative",
                           bottom: "20%",
-                          paddingHorizontal:10
-                    
+                          paddingHorizontal: 10
+
                         }}
                       >
                         <FastImage

@@ -187,7 +187,7 @@ export default ({ navigation }: RootStackScreenProps<'设置'>) => {
             </View>
           </View>
         </View>
-        {userState.userToken != '' && userState.userEmail !='' && userState.userPhoneNumber != 0 && (
+        {userState.userToken != '' && userState.userEmail != '' && userState.userPhoneNumber != '' && (
           <TouchableOpacity onPress={toggleLogoutDialog}>
             <View
               style={{
