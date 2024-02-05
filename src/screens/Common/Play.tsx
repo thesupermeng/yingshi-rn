@@ -915,7 +915,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
     if (!!vodUrl && !!vod?.vod_id) {
       // console.debug('vod url is', vodUrl)
-      if (downloadedVod && episode){
+      if (downloadedVod && episode && episode.status === DownloadStatus.COMPLETED){
         // CPopup.showToast('本地播放')
         setVodUri(`file://${episode.videoPath}`)
       } else {
@@ -1003,7 +1003,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     videoPlayerRef.current?.setPause(false);
   };
 
-  const isEpisodeDownloaded = adultMode ? downloadedVod?.episodes.some(x => x.vodUrlNid === currentEpisode) : downloadedVod?.episodes.some(x => x.vodSourceId === currentSourceId && x.vodUrlNid === currentEpisode)
+  const isEpisodeDownloaded = adultMode ? downloadedVod?.episodes.find(x => x.vodUrlNid === currentEpisode)?.status === DownloadStatus.COMPLETED : downloadedVod?.episodes.find(x => x.vodSourceId === currentSourceId && x.vodUrlNid === currentEpisode)?.status === DownloadStatus.COMPLETED
 
   return (
     <>
