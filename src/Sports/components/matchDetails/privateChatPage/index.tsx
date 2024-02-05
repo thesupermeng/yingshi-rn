@@ -88,7 +88,9 @@ const PrivateChatPage = ({
             <View>
                 {item.joinDate &&
                     <Text style={styles.chatGroupText}>
-                        {groupDate.toISOString().slice(0, 16).replace('T', ' ').replace(/\//g, "-")}
+                        {groupDate.toISOString().slice(0, 10).replace('T', ' ').replace(/\//g, "-").concat(' ')}
+                        {String(groupDate.getHours()).padStart(2, '0')}:
+                        {String(groupDate.getMinutes()).padStart(2, '0')}
                     </Text>
                 }
                 <FlatList
@@ -290,7 +292,7 @@ const PrivateChatPage = ({
 
                 <CTextInput
                     style={styles.commentInput}
-                    placeholder={userState.userToken === '' ? '登入即可发言' : undefined}
+                    placeholder={userState.userToken === '' ? '登入即可发言' : '发送消息'}
                     value={comment}
                     onChangeText={onChangeComment}
                     maxLength={COMMENT_MAX_INPUT + PIN_YIN_ACCEPTED}

@@ -256,7 +256,7 @@ const LiveChatPage = ({
 
                 <CTextInput
                     style={styles.commentInput}
-                    placeholder={userState.userToken === '' ? '登入即可发言' : undefined}
+                    placeholder={userState.userToken === '' ? '登入即可发言' : '发送消息'}
                     value={cooldownTimeout !== null ? '请稍后再输入' : comment}
                     onChangeText={onChangeComment}
                     maxLength={COMMENT_MAX_INPUT + PIN_YIN_ACCEPTED}
