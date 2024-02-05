@@ -10,7 +10,7 @@ import {
   Platform,
 } from "react-native";
 import { useTheme, useFocusEffect } from "@react-navigation/native";
-import { useAppDispatch, useAppSelector } from "@hooks/hooks";
+import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
 import { RootState } from "@redux/store";
 import ShowMoreButton from "../../components/button/showMoreButton";
 
@@ -58,6 +58,7 @@ import UmengAnalytics from "../../../Umeng/UmengAnalytics";
 import DeviceInfo from "react-native-device-info";
 import style from "../../Sports/components/matchDetails/liveChatPage/style";
 import { VipLoginAlertOverlay } from "../../components/modal/vipLoginAlertOverlay";
+import { BackgroundType } from "@redux/reducers/backgroundReducer";
 
 function Profile({ navigation, route }: BottomTabScreenProps<any>) {
   const navigator = useNavigation();
@@ -68,6 +69,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
   const userState: userModel = useAppSelector(
     ({ userReducer }: RootState) => userReducer
   );
+  const appState = useSelector<BackgroundType>('backgroundReducer');
   // console.log("Profile")
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [bannerAd, setBannerAd] = useState<BannerAdType[]>();
@@ -218,13 +220,12 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
 
 
     // guest with VIP show login alert
-    if(userState.userEmail == "" &&
-    userState.userPhoneNumber == 0 &&
-    userState.userMemberExpired >=
-      userState.userCurrentTimestamp )
-      {
-        setShowBecomeVIPOverlay(true)
-      }
+    if (userState.userEmail == "" &&
+      userState.userPhoneNumber == 0 &&
+      userState.userMemberExpired >=
+      userState.userCurrentTimestamp) {
+      setShowBecomeVIPOverlay(true)
+    }
   }, []);
 
 
@@ -233,12 +234,12 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
   //     setShowBecomeVIPOverlay(true)
   //   }, [])
   // );
-  
+
 
   return (
     <>
       <View style={{ paddingTop: insets.top }}>
-      {showBecomeVIPOverlay && (
+        {!appState.isLoginModalShown && showBecomeVIPOverlay && (
           <View
             style={{
               height: "100%",
@@ -278,8 +279,8 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
           <TouchableOpacity
             activeOpacity={1}
             onPress={() => {
-              
-              if (userState.userToken == "" || (userState.userEmail =='' && userState.userPhoneNumber ==0)) {
+
+              if (userState.userToken == "" || (userState.userEmail == '' && userState.userPhoneNumber == 0)) {
                 dispatch(showLoginAction());
                 // console.log('props{');
                 // setActionType('login');
@@ -320,60 +321,60 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                   }}
                 >
                   {userState.userEmail == "" &&
-                userState.userPhoneNumber == 0 && (
-                    <>
-                      <Text style={{ color: "#ffffff", fontSize: 14 }}>
-                        游客ID:
-                      </Text>
-                      <Text style={{ color: "#ffffff", fontSize: 20 }}>
-                        {deviceUniqueId}
-                      </Text>
-                    </>
-                  )}
-                  {userState.userToken != "" &&   (userState.userEmail != "" || 
-                userState.userPhoneNumber != 0 ) && (
-                    <>
-                      <View
-                        style={{
-                          flexDirection: "row",
-                          justifyContent: "flex-start",
-                          alignItems: "center",
-                          paddingRight: 30,
-                        }}
-                      >
-                        <Text
-                          style={{
-                            color: "#ffffff",
-                            fontSize: 20,
-                          }}
-                          numberOfLines={1}
-                          ellipsizeMode="tail"
-                        >
-                          {userState.userName}
+                    userState.userPhoneNumber == 0 && (
+                      <>
+                        <Text style={{ color: "#ffffff", fontSize: 14 }}>
+                          游客ID:
                         </Text>
+                        <Text style={{ color: "#ffffff", fontSize: 20 }}>
+                          {deviceUniqueId}
+                        </Text>
+                      </>
+                    )}
+                  {userState.userToken != "" && (userState.userEmail != "" ||
+                    userState.userPhoneNumber != 0) && (
+                      <>
+                        <View
+                          style={{
+                            flexDirection: "row",
+                            justifyContent: "flex-start",
+                            alignItems: "center",
+                            paddingRight: 30,
+                          }}
+                        >
+                          <Text
+                            style={{
+                              color: "#ffffff",
+                              fontSize: 20,
+                            }}
+                            numberOfLines={1}
+                            ellipsizeMode="tail"
+                          >
+                            {userState.userName}
+                          </Text>
 
 
-                        {userState.userMemberExpired >=
-                          userState.userCurrentTimestamp && (
-                          <Image
-                            style={styles.iconStyle}
-                            source={require("@static/images/profile/vip.png")}
-                          />
-                        )}
-                      </View>
+                          {userState.userMemberExpired >=
+                            userState.userCurrentTimestamp && (
+                              <Image
+                                style={styles.iconStyle}
+                                source={require("@static/images/profile/vip.png")}
+                              />
+                            )}
+                        </View>
 
-                      {/* {userState.userMemberExpired == '0' && (
+                        {/* {userState.userMemberExpired == '0' && (
                       <Text style={{fontSize: 14}}>VIP会员已经到期</Text>
                     )} */}
-                      {userState.userMemberExpired >=
-                        userState.userCurrentTimestamp &&
-                        (
-                        <Text style={{ color: colors.primary, fontSize: 14 }}>
-                          VIP会员有效日期至{displayedDate}
-                        </Text>
-                      )}
-                    </>
-                  )}
+                        {userState.userMemberExpired >=
+                          userState.userCurrentTimestamp &&
+                          (
+                            <Text style={{ color: colors.primary, fontSize: 14 }}>
+                              VIP会员有效日期至{displayedDate}
+                            </Text>
+                          )}
+                      </>
+                    )}
                 </View>
 
                 <View
@@ -381,17 +382,17 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                     justifyContent: "center",
                   }}
                 >
-                  {userState.userToken != "" && (userState.userEmail != "" || 
-                userState.userPhoneNumber != 0 ) && (
-                    <EditIcn width={29} height={29} color={colors.muted} />
-                  )}
+                  {userState.userToken != "" && (userState.userEmail != "" ||
+                    userState.userPhoneNumber != 0) && (
+                      <EditIcn width={29} height={29} color={colors.muted} />
+                    )}
                 </View>
               </View>
               {/* 游客 no vip  */}
               {userState.userEmail == "" &&
                 userState.userPhoneNumber == 0 &&
                 userState.userMemberExpired <
-                  userState.userCurrentTimestamp && (
+                userState.userCurrentTimestamp && (
                   <View
                     style={{
                       flexDirection: "row",
@@ -423,7 +424,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
               {userState.userEmail == "" &&
                 userState.userPhoneNumber == 0 &&
                 userState.userMemberExpired >=
-                  userState.userCurrentTimestamp && (
+                userState.userCurrentTimestamp && (
                   <View
                     style={{
                       flexDirection: "row",
@@ -480,7 +481,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                   }}
                   onPress={() => {
 
-                    
+
                     if (UMENG_CHANNEL == "GOOGLE_PLAY") {
                       navigation.navigate("付费Google");
                     } else {
@@ -507,7 +508,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                         )}
                       </Text>
                       {YSConfig.instance.tabConfig != null &&
-                      YSConfig.instance.len == 5 ? (
+                        YSConfig.instance.len == 5 ? (
                         <Text
                           style={{
                             ...textVariants.small,
@@ -535,15 +536,13 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                   }}
                   onPress={() => {
 
-                    if(userState.userEmail ==''  && userState.userPhoneNumber ==0 )
-                    {
+                    if (userState.userEmail == '' && userState.userPhoneNumber == 0) {
                       dispatch(showLoginAction());
                     }
-                    else
-                    {
+                    else {
                       navigation.navigate("邀请");
                     }
-                 
+
                   }}
                 >
                   <View style={styles.left}>

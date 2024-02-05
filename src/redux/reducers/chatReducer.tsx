@@ -1,20 +1,19 @@
 import { LiveChatRoomType } from '@type/ajaxTypes';
 import { LiveRoomHistoryType, LiveRoomType, PrivateRoomHistoryType, PrivateRoomType } from '@type/chatTypes';
 import { CHAT_BOX_MAX_ITEM } from '@utility/constants';
-import { Socket } from 'socket.io-client';
 
 export enum ChatActionEventType {
-    'JOIN_LIVE_ROOM',
-    'JOIN_LIVE_ROOM_SUCCESS',
-    'JOIN_LIVE_ROOM_FAIL',
-    'LEAVE_LIVE_ROOM',
-    'UPDATE_LIVE_ROOM_MESSAGE',
+    JOIN_LIVE_ROOM = 'JOIN_LIVE_ROOM',
+    JOIN_LIVE_ROOM_SUCCESS = 'JOIN_LIVE_ROOM_SUCCESS',
+    JOIN_LIVE_ROOM_FAIL = 'JOIN_LIVE_ROOM_FAIL',
+    LEAVE_LIVE_ROOM = 'LEAVE_LIVE_ROOM',
+    UPDATE_LIVE_ROOM_MESSAGE = 'UPDATE_LIVE_ROOM_MESSAGE',
 
-    'JOIN_PRIVATE_ROOM',
-    'JOIN_PRIVATE_ROOM_SUCCESS',
-    'JOIN_PRIVATE_ROOM_FAIL',
-    'LEAVE_PRIVATE_ROOM',
-    'UPDATE_PRIVATE_ROOM_MESSAGE',
+    JOIN_PRIVATE_ROOM = 'JOIN_PRIVATE_ROOM',
+    JOIN_PRIVATE_ROOM_SUCCESS = 'JOIN_PRIVATE_ROOM_SUCCESS',
+    JOIN_PRIVATE_ROOM_FAIL = 'JOIN_PRIVATE_ROOM_FAIL',
+    LEAVE_PRIVATE_ROOM = 'LEAVE_PRIVATE_ROOM',
+    UPDATE_PRIVATE_ROOM_MESSAGE = 'UPDATE_PRIVATE_ROOM_MESSAGE',
 }
 
 export type ChatActionType = {
