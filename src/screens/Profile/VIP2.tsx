@@ -983,21 +983,15 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                       )}
                     </View>
 
-                    {/* top banner */}
-                    <View
-                      style={{
-                        width: "100%",
-                        height: 210,
-                      }}
-                    >
+                 
                       {/* card 1  */}
                       <View
                         style={{
                           width: "100%",
-                          height: 280,
+                          height: 220,
                           zIndex: 1,
                           position: "relative",
-                          bottom: "20%",
+                          bottom: 10,
                           paddingHorizontal: 10,
                         }}
                       >
@@ -1009,7 +1003,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                           resizeMode="contain"
                         ></FastImage>
                       </View>
-                    </View>
+                
                   </View>
                 </LinearGradient>
               </View>
