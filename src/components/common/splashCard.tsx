@@ -22,12 +22,12 @@ interface Props {
 function SplashCard({ img, index, isLast = false }: Props) {
   const { colors, textVariants, spacing } = useTheme();
   return (
-    <View style={{flex:1  , backgroundColor : 'green'}}>
-             {/* <Text style={{color:'#ffffff'}}>asdasdsdas</Text> */}
+    <View style={{ flex: 1, backgroundColor: 'black' }}>
+      {/* <Text style={{color:'#ffffff'}}>asdasdsdas</Text> */}
       <FastImage
         key={`slider-${index}`}
         style={styles.image}
-       // source={img}
+        // source={img}
         source={{ uri: img }}
         resizeMode={"cover"}
         useFastImage={true}
@@ -40,8 +40,8 @@ export default memo(SplashCard);
 
 const styles = StyleSheet.create({
   image: {
-    width:'100%',
-    height:'100%',
-    flex:1
+    width: '100%',
+    height: '100%',
+    flex: 1
   },
 });
