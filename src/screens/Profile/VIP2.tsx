@@ -433,6 +433,9 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
         try {
           if (currentPurchase.transactionReceipt) {
             const key = currentPurchase.transactionId?.concat("true");
+            const isIAP = products.some(
+              (product) => product.productId === currentPurchase.productId
+            );
 
             if (receiptBuffer.has(key)) {
               console.log(
@@ -441,7 +444,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
               );
               await finishTransaction({
                 purchase: currentPurchase,
-                isConsumable: true,
+                isConsumable: isIAP,
               });
               setIsVisible(false);
               setIsBtnEnable(true);
@@ -450,9 +453,6 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
 
             setTimeout(() => setIsVisible(false), 10000);
 
-            const isIAP = products.some(
-              (product) => product.productId === currentPurchase.productId
-            );
             const success = isIAP
               ? await saveFinishIAP("1", "")
               : await saveFinishSubs(currentPurchase); //validate receipt with server
@@ -473,7 +473,8 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                 isConsumable: isIAP,
               });
 
-              // showToast('successfully validate and finish the transaction');
+              handleRefresh();
+
               if (
                 userState.userEmail !== "" ||
                 userState.userPhoneNumber != ''
@@ -483,7 +484,9 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                 setIsSuccess(true);
               } else {
                 dispatch(setShowGuestPurchaseSuccess(true));
-                navigation.goBack();
+                setIsVisible(false);
+                setIsBtnEnable(true);
+                // navigation.goBack();
               }
             } else {
               console.log("success", success);
@@ -492,7 +495,6 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                 isConsumable: isIAP,
               });
 
-              // showToast('FAILED to validate and finish the transaction');
               setDialogText(failedDialogText);
               setIsDialogOpen(true);
               setIsSuccess(false);
@@ -593,7 +595,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                   onPress={() => {
                     if (
                       userState.userEmail == "" &&
-                      userState.userPhoneNumber == 0 &&
+                      userState.userPhoneNumber == '' &&
                       userState.userMemberExpired >=
                         userState.userCurrentTimestamp
                     ) {
@@ -800,18 +802,21 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                       <View style={styles.badgeContainer}>
                         {remainingTimeAry.map((val, i) => {
                           return (
-                            <>
-                              <View key={i}>
-                                <View style={styles.badge}>
-                                  <Text style={styles.badgeText}>{val}</Text>
-                                </View>
+                            <View
+                              key={i}
+                              style={{
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                              }}>
+                              <View style={styles.badge}>
+                                <Text style={styles.badgeText}>{val}</Text>
                               </View>
                               {i % 2 === 1 && i < remainingTimeAry.length - 1 && (
                                 <View style={styles.badge2}>
                                   <Text style={styles.badgeText2}>:</Text>
                                 </View>
                               )}
-                            </>
+                            </View>
                           );
                         })}
 
@@ -1140,7 +1145,7 @@ const styles = StyleSheet.create({
   badge2: {
     backgroundColor: "transparent", // Background color of the badge
     paddingHorizontal: 4, // Adjust the padding as needed
-    paddingVertical: 4, // Adjust the padding as needed
+    paddingBottom: 4, // Adjust the padding as needed
     marginRight: 3, // Adjust the margin to create a gap between badges
   },
   //bottom card part
