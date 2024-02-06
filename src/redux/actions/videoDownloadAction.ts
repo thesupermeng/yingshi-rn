@@ -137,7 +137,9 @@ function startFirstVideoDownload(): ThunkAction<void, RootState, any, DownloadVi
     const firstVod = state.queue.at(0);
     if (!firstVod) return;
     console.debug('first vod is adult',firstVod.vodIsAdult)
-    dispatch(startVideoDownloadThunk(firstVod.vod, firstVod.vodSourceId, firstVod.vodUrlNid, firstVod.vodIsAdult ?? false))
+    const vod = state.downloads.find(x => x.vod.vod_id === firstVod.vodId)?.vod
+    if (!vod) return; 
+    dispatch(startVideoDownloadThunk(vod, firstVod.vodSourceId, firstVod.vodUrlNid, firstVod.vodIsAdult ?? false))
   }
 }
 
@@ -146,16 +148,18 @@ function resumeFirstVideoDownload(): ThunkAction<void, RootState, any, DownloadV
     const state = getState().downloadVideoReducer;
     const firstVod = state.queue.at(0);
     if (!firstVod) return;
+    const vod = state.downloads.find(x => x.vod.vod_id === firstVod.vodId)?.vod
+    if (!vod) return; 
     
     const firstVodProgressPercentage = state.downloads
-      .find(x => x.vod.vod_id === firstVod.vod.vod_id)?.episodes
+      .find(x => x.vod.vod_id === vod.vod_id)?.episodes
       .find(x => x.vodUrlNid === firstVod.vodUrlNid && x.vodSourceId === firstVod.vodSourceId)
       ?.progress.percentage
 
     if (firstVodProgressPercentage === 0){
-      dispatch(startVideoDownloadThunk(firstVod.vod, firstVod.vodSourceId, firstVod.vodUrlNid, firstVod.vodIsAdult ?? false))
+      dispatch(startVideoDownloadThunk(vod, firstVod.vodSourceId, firstVod.vodUrlNid, firstVod.vodIsAdult ?? false))
     } else {
-      dispatch(resumeVideoDownloadThunk(firstVod.vod, firstVod.vodSourceId, firstVod.vodUrlNid, firstVod.vodIsAdult ?? false))
+      dispatch(resumeVideoDownloadThunk(vod, firstVod.vodSourceId, firstVod.vodUrlNid, firstVod.vodIsAdult ?? false))
     }
   }
 }
