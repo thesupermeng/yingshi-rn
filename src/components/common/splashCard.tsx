@@ -14,12 +14,13 @@ import { memo } from "react";
 import { ImageStyle } from "react-native-fast-image";
 import FastImage from "../common/customFastImage";
 interface Props {
-  img: any;
+  uri?: any;
+  source?: number;
   index: number;
   isLast?: boolean;
 }
 
-function SplashCard({ img, index, isLast = false }: Props) {
+function SplashCard({ uri, source, index, isLast = false }: Props) {
   const { colors, textVariants, spacing } = useTheme();
   return (
     <View style={{ flex: 1, backgroundColor: 'black' }}>
@@ -27,8 +28,9 @@ function SplashCard({ img, index, isLast = false }: Props) {
       <FastImage
         key={`slider-${index}`}
         style={styles.image}
-        // source={img}
-        source={{ uri: img }}
+        source={source ?? {
+          uri: uri
+        }}
         resizeMode={"cover"}
         useFastImage={true}
       ></FastImage>
@@ -42,6 +44,6 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     height: '100%',
-    flex: 1
+    flex: 1,
   },
 });

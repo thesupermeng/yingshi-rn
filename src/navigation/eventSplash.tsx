@@ -649,7 +649,7 @@ export const EventSpash = ({ splashList }: Props) => {
           <>
             <SplashCard
               index={index}
-              img={item.url}
+              source={require(`@static/images/eventSplash${index + 1}.png`)}
               isLast={index === splashList.length - 1}
             />
           </>

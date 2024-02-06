@@ -1008,7 +1008,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
           <>
             <SplashCard
               index={index}
-              img={item.url}
+              uri={item.url}
               isLast={index === screenState.showEventSplashData.length - 1}
             />
           </>
