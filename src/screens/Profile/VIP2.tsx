@@ -89,6 +89,7 @@ import Tick2 from "@static/images/splash/tick2.svg";
 import { BackgroundType } from "@redux/reducers/backgroundReducer";
 import { SettingsReducerState } from "@redux/reducers/settingsReducer";
 import { UserStateType } from "@redux/reducers/userReducer";
+import Video from "react-native-video";
 
 export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
   const {
@@ -599,7 +600,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                   <CloseButton />
                 </TouchableOpacity>
 
-                <LottieView
+                {/* <LottieView
                   style={styles.video}
                   source={{
                     uri:
@@ -607,6 +608,12 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                   }}
                   autoPlay
                   loop
+                /> */}
+                <Video
+                  source={require("@static/images/splash/bg.mp4")}
+                  style={styles.video}
+                  resizeMode="cover"
+                  repeat={true}
                 />
                 <LinearGradient
                   colors={["rgba(20, 22, 26, 0)", "#14161A"]} // Transparent to #14161A
@@ -724,7 +731,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
 
                                   {productSelected === item && (
                                     <View
-                                      style={{ paddingRight: 5, paddingTop: 2 }}
+                                      style={{ paddingRight: 5, paddingTop: 5 }}
                                     >
                                       <Tick width={18} height={18} />
                                     </View>
@@ -852,7 +859,16 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                         {oneTimeProducts.map((product, i) => (
                           <TouchableOpacity
                             key={product.productId}
-                            style={{ width: "48%", height: 70 }}
+                            style={{ 
+                              width: "48%", 
+                              height: 70, 
+                              overflow: "hidden",
+                              ...(productSelected === product && i === 0
+                                ? styles.cardContainerActive2
+                                : productSelected === product && i === 1
+                                  ? styles.cardContainerActive3
+                                  : styles.cardContainer2),
+                            }}
                             onPress={() => {
                               setSelectedProduct(product);
                             }}
@@ -866,22 +882,16 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                               locations={[0.0, 0.99]}
                               style={{
                                 flex: 1,
-
                                 paddingTop: 10,
                                 paddingHorizontal: 10,
-                                ...(productSelected === product && i === 0
-                                  ? styles.cardContainerActive2
-                                  : productSelected === product && i === 1
-                                    ? styles.cardContainerActive3
-                                    : styles.cardContainer2),
                               }}
                             >
                               {productSelected === product && (
                                 <View
                                   style={{
                                     position: "absolute",
-                                    right: 3,
-                                    top: 3,
+                                    right: 5,
+                                    top: 5,
                                   }}
                                 >
                                   {i === 0 && <Tick1 width={18} height={18} />}
@@ -1098,7 +1108,7 @@ const styles = StyleSheet.create({
     top: 0, // Align the video to the top of the container
     left: 0, // Align the video to the left of the container
     right: 0, // Align the video to the right of the container
-    bottom: 120, // Align the video to the bottom of the container
+    bottom: 0, // Align the video to the bottom of the container
   },
   badgeContainer: {
     flexDirection: "row",
@@ -1169,8 +1179,8 @@ const styles = StyleSheet.create({
   },
   redIndicator: {
     width: 80,
-    height: 20,
     backgroundColor: "#FA3E3E",
+    paddingVertical: 5,
     paddingLeft: 10,
     borderTopLeftRadius: 8,
     borderTopRightRadius: 0,
