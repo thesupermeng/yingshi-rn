@@ -27,20 +27,18 @@ import InviteStep from "./../../components/invite/inviteStep";
 import InviteCard from "./../../components/invite/inviteCard";
 
 import InviteHeader from "./../../components/invite/inviteHeader";
-import { useAppDispatch, useAppSelector } from "@hooks/hooks";
-import { userModel } from "@type/userType";
+import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
 import { TouchableOpacity } from "@gorhom/bottom-sheet";
 import { updateUserAuth } from "@redux/actions/userAction";
 import UmengAnalytics from '../../../Umeng/UmengAnalytics';
 import { UserApi } from "@api";
+import { UserStateType } from "@redux/reducers/userReducer";
 
 
 export default ({ navigation }: RootStackScreenProps<"邀请">) => {
   const { colors, textVariants, icons, spacing } = useTheme();
 
-  const userState: userModel = useAppSelector(
-    ({ userReducer }: RootState) => userReducer
-  );
+  const userState = useSelector<UserStateType>('userReducer');
 
   const [refreshing, setRefreshing] = useState(false);
   const dispatch = useAppDispatch();
@@ -81,7 +79,7 @@ export default ({ navigation }: RootStackScreenProps<"邀请">) => {
           {/* top component  */}
           <InviteHeader />
           {/* content card component  */}
-          <InviteCard userState={userState} />
+          <InviteCard userState={userState.user!} />
           {/* event section  */}
 
           <TouchableOpacity

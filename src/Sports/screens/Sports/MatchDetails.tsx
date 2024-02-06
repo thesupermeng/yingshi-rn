@@ -53,7 +53,6 @@ import { screenModel } from '@type/screenType';
 import { incrementSportWatchTime } from '@redux/actions/screenAction';
 import BecomeVipOverlay from "../../../components/modal/becomeVipOverlay";
 import { NON_VIP_STREAM_TIME_SECONDS } from '@utility/constants';
-import { userModel } from '@type/userType';
 import UmengAnalytics from '../../../../Umeng/UmengAnalytics';
 import { RootState } from '@redux/store';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -64,6 +63,7 @@ import { YSConfig } from '../../../../ysConfig';
 import { AdsApi } from '@api';
 import LiveChatPage from '../../components/matchDetails/liveChatPage';
 import PrivateChatPage from '../../components/matchDetails/privateChatPage';
+import { UserStateType } from '@redux/reducers/userReducer';
 
 let insetsTop = 0;
 let insetsBottom = 0;
@@ -93,9 +93,7 @@ const MatchDetails = ({ navigation, route }: BottomTabScreenProps<any>) => {
   const settingsReducer: SettingsReducerState = useAppSelector(
     ({ settingsReducer }: RootState) => settingsReducer
   );
-  const userState: userModel = useAppSelector(
-    ({ userReducer }) => userReducer
-  )
+  const userState = useSelector<UserStateType>('userReducer');
   const { textVariants, colors, spacing } = useTheme();
   const [isLiveVideoEnd, setIsLiveVideoEnd] = useState(false);
   const matchID: number = route?.params?.matchId;
@@ -108,11 +106,11 @@ const MatchDetails = ({ navigation, route }: BottomTabScreenProps<any>) => {
   const [isLiveVideoFullScreen, setIsLiveVideoFullScreen] = useState(false);
   const [shouldShowComponents, setShouldShowComponents] = useState(true);
   const [isNavVisible, setIsNavVisible] = useState(true);
-  const showCountdown = userState.userToken === "" || Number(userState.userMemberExpired) <= Number(userState.userCurrentTimestamp);
+  const showCountdown = userState.user === null || !userState.user.isVip();
 
   const videoRef = useRef<VideoRef | null>(null);
   const [bannerAd, setBannerAd] = useState<BannerAdType>();
-  const isVip = useAppSelector(({ userReducer }) => !(Number(userReducer.userMemberExpired) <= Number(userReducer.userCurrentTimestamp) || userReducer.userToken === ""))
+  const isVip = userState.user !== null && userState.user.isVip();
   const sportTabDetails: SportTabType = YSConfig.instance.findTabByKey('体育');
 
   // const [isKeyboardShow, setKeyboardShow] = useState(false);
@@ -299,7 +297,7 @@ const MatchDetails = ({ navigation, route }: BottomTabScreenProps<any>) => {
   // }, [])
 
   useEffect(() => {
-    if (!showBecomeVIPOverlay && screenState.sportWatchTime > NON_VIP_STREAM_TIME_SECONDS && (Number(userState.userMemberExpired) <= Number(userState.userCurrentTimestamp) || userState.userToken === "")) {
+    if (!showBecomeVIPOverlay && screenState.sportWatchTime > NON_VIP_STREAM_TIME_SECONDS && !isVip) {
       setShowBecomeVIPOverlay(true);
 
       // ========== for analytics - start ==========
@@ -310,7 +308,7 @@ const MatchDetails = ({ navigation, route }: BottomTabScreenProps<any>) => {
   }, [screenState.sportWatchTime, showBecomeVIPOverlay])
 
   useFocusEffect(useCallback(() => {
-    if (!showBecomeVIPOverlay && screenState.sportWatchTime > NON_VIP_STREAM_TIME_SECONDS && (Number(userState.userMemberExpired) <= Number(userState.userCurrentTimestamp) || userState.userToken === "")) {
+    if (!showBecomeVIPOverlay && screenState.sportWatchTime > NON_VIP_STREAM_TIME_SECONDS && !isVip) {
 
       setShowBecomeVIPOverlay(true);
     } else if (!showBecomeVIPOverlay) {

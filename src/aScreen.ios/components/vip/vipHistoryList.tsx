@@ -1,12 +1,12 @@
 import EmptyList from "../common/emptyList";
 import { VipHistoryCard } from "./vipHistoryCard";
 import { ScrollView } from "react-native-gesture-handler";
-import { userModel } from "@type/userType";
 import { useEffect, useState } from "react";
 import { YSConfig } from "../../../../ysConfig";
+import { User } from "@models/user";
 
 interface Props {
-  userState: userModel;
+  userState: User;
 }
 
 export const VipHistoryList = ({ userState }: Props) => {

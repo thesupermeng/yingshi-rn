@@ -20,7 +20,7 @@ export const VipDetails = ({
 
   let navOptions = [
     { id: 0, name: "邀请记录" },
-    { id: 1, name:  YSConfig.instance.showBecomeVip ? "VIP记录" : "购买记录" },
+    { id: 1, name: YSConfig.instance.showBecomeVip ? "VIP记录" : "购买记录" },
   ];
   if (SHOW_ZF_CONST == false) {
     navOptions = [{ id: 0, name: "邀请记录" }];

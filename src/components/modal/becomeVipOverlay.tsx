@@ -17,7 +17,7 @@ import { CommonVipPrivilegeOverlay } from './commonVipPrivilegeOverlay';
 interface Props {
   showBecomeVIPOverlay: boolean;
   setShowBecomeVIPOverlay: any;
-  isJustClose: boolean;
+  isJustClose?: boolean;
   selectedTab: 'sport' | 'xvod' | 'common',
   onClose?: () => void,
 }

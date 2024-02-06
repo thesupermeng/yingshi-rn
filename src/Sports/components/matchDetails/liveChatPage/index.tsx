@@ -1,7 +1,6 @@
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { FlatList, Keyboard, Text, View } from "react-native"
 import { useAppDispatch, useSelector } from "@hooks/hooks";
-import { userModel } from "@type/userType";
 import { CPressable, CTextInput } from "../../../../components/atoms";
 import SendIcon from '@static/images/send.svg';
 import SendFillIcon from '@static/images/send_filled.svg';
@@ -17,6 +16,7 @@ import { useIsFocused, useTheme } from "@react-navigation/native";
 import createStyles from "./style";
 import { Streamer } from "../../../types/matchTypes";
 import { UnreadCard } from "../../../../components/chat/unread";
+import { UserStateType } from "@redux/reducers/userReducer";
 
 type Props = {
     matchID: string,
@@ -42,14 +42,14 @@ const LiveChatPage = ({
     const PIN_YIN_ACCEPTED = 20;
 
     const chatState = useSelector<ChatType>('chatReducer');
-    const userState = useSelector<userModel>('userReducer');
+    const userState = useSelector<UserStateType>('userReducer');
     const [cooldownTimeout, setCooldownTimeout] = useState<NodeJS.Timeout | null>(null);
     const [comment, setComment] = useState('');
     const [isCommentValid, setCommentValid] = useState(true);
     const chatFlatListRef = useRef<FlatList<LiveChatMessageType> | null>(null);
     const isPinToBottom = useRef(true);
     const [numOfUnread, setNumOfUnread] = useState(0);
-    const isLogin = userState.userEmail !== '' || userState.userPhoneNumber !== '';
+    const isLogin = userState.user !== null && userState.user.isLogin();
 
     const appDispatch = useAppDispatch();
 

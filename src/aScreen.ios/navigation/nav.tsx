@@ -52,7 +52,7 @@ import ShortVodCollectionScreen from "../screens/Profile/Collection/shortVodColl
 import SportsIcon from "@static/images/sports.svg";
 // import MatchesScreen from "../Sports/screens/Sports/Matches";
 // import MatchDetailsScreen from "../Sports/screens/Sports/MatchDetails";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import SigninupBottomSheet from "../components/auth/signinupBottomSheet";
 import {
   HomeTabParamList,
@@ -69,7 +69,7 @@ import {
 } from "react-native-safe-area-context";
 import { LogBox, Platform, StyleSheet, Text, View } from "react-native";
 import DeviceInfo from "react-native-device-info";
-import { useAppSelector, useAppDispatch } from "@hooks/hooks";
+import { useAppSelector, useAppDispatch, useSelector } from "@hooks/hooks";
 import { QueryClient, useQuery } from "@tanstack/react-query";
 import { API_DOMAIN, UMENG_CHANNEL } from "@utility/constants";
 import { YSConfig } from "../../../ysConfig";
@@ -86,7 +86,6 @@ import { Dialog } from "@rneui/themed";
 import FastImage from "../components/common/customFastImage";
 import { screenModel } from "@type/screenType";
 import { YingshiDarkTheme, YingshiLightTheme } from "@utility/theme";
-import { userModel } from "@type/userType";
 import {
   updateUserAuth,
   updateUserReferral,
@@ -111,6 +110,7 @@ import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 import { ATInterstitialRNSDK } from "./../../../AnyThinkAds/ATReactNativeSDK";
 import { UserApi } from "@api";
 import { CRouteInitializer } from "../../routes/router";
+import { UserStateType } from "@redux/reducers/userReducer";
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -131,9 +131,7 @@ export default () => {
     iconWidth = 25;
   }
 
-  const userState: userModel = useAppSelector(
-    ({ userReducer }: RootState) => userReducer
-  );
+  const userState = useSelector<UserStateType>('userReducer');
 
   const HomeTabScreen = useCallback(() => {
     return (
@@ -285,8 +283,8 @@ export default () => {
   const [vipRemainingDay, setVipRemainingDay] = useState(0);
 
   useEffect(() => {
-    const date1Timestamp = userState.userCurrentTimestamp;
-    const date2Timestamp = userState.userMemberExpired;
+    const date1Timestamp = userState.user?.userCurrentTimestamp;
+    const date2Timestamp = userState.user?.userMemberExpired;
     const date1Milliseconds = Number(date1Timestamp) * 1000;
     const date2Milliseconds = Number(date2Timestamp) * 1000;
     const timeDifferenceMilliseconds = date2Milliseconds - date1Milliseconds;
@@ -300,12 +298,11 @@ export default () => {
     if (
       result <= 3 &&
       roundedTimeDifferenceDays >= 0 &&
-      date2Timestamp > date1Timestamp &&
-      userState.userToken != ""
+      userState.user?.isVip()
     ) {
       setShowVIPOverlay(true);
     }
-  }, [userState.userCurrentTimestamp]);
+  }, [userState.user?.userCurrentTimestamp]);
 
   //screen state
   //screen state

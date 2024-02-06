@@ -29,7 +29,7 @@ import { YSConfig } from "../../../../ysConfig";
 import { RootStackScreenProps } from "@type/navigationTypes";
 import { SuggestedVodType, CommentsType } from "@type/ajaxTypes";
 import { addVodToHistory, playVod } from "@redux/actions/vodActions";
-import { useAppDispatch, useAppSelector } from "@hooks/hooks";
+import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
 import { RootState } from "@redux/store";
 import {
   FavoriteVodReducerState,
@@ -65,7 +65,6 @@ import { lockAppOrientation } from "@redux/actions/settingsActions";
 import { AdsBannerContext } from "../../../contexts/AdsBannerContext";
 import { URL } from "react-native-url-polyfill";
 import RNFetchBlob from "rn-fetch-blob";
-import { userModel } from "@type/userType";
 import { BridgeServer } from "react-native-http-bridge-refurbished";
 import { debounce } from "lodash";
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
@@ -76,6 +75,7 @@ import { showLoginAction } from "@redux/actions/screenAction";
 import { VodCommentBox } from "../../components/vodComment";
 import { CPopup } from "@utility/popup";
 import { VodApi } from "@api";
+import { UserStateType } from "@redux/reducers/userReducer";
 
 type VideoRef = {
   setPause: (param: boolean) => void;
@@ -199,9 +199,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
   const settingsReducer: SettingsReducerState = useAppSelector(
     ({ settingsReducer }: RootState) => settingsReducer
   );
-  const userState: userModel = useAppSelector(
-    ({ userReducer }: RootState) => userReducer
-  );
+  const userState = useSelector<UserStateType>('userReducer');
   const vod = vodReducer.playVod.vod;
   // const [vod, setVod] = useState(vodReducer.playVod.vod);
   const [initTime, setInitTime] = useState(0);
@@ -266,13 +264,10 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
       UmengAnalytics.playsShareClicksAnalytics();
       // ========== for analytics - end ==========
 
-      let msg = `《${
-        vod?.vod_name
-      }》高清播放${"\n"}https://yingshi.tv/index.php/vod/play/id/${
-        vod?.vod_id
-      }/sid/1/nid/${
-        currentEpisode + 1
-      }.html${"\n"}${APP_NAME_CONST}-海量高清视频在线观看`;
+      let msg = `《${vod?.vod_name
+        }》高清播放${"\n"}https://yingshi.tv/index.php/vod/play/id/${vod?.vod_id
+        }/sid/1/nid/${currentEpisode + 1
+        }.html${"\n"}${APP_NAME_CONST}-海量高清视频在线观看`;
 
       if (APP_NAME_CONST == "爱美剧") {
         msg = `海量视频内容 随时随地 想看就看 ${"\n"}https://xiangkantv.net/share.html`;
@@ -653,7 +648,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
       const existingComments = await getLocalComments();
       const commmentObj = {
         douban_reviews_id: existingComments.length + 1,
-        user_name: userState.userName,
+        user_name: userState.user?.userName ?? '',
         user_review: comment,
       };
       existingComments.unshift(commmentObj);
@@ -695,16 +690,16 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
                     }}
                     onChangeText={setComment}
                     placeholder={
-                      userState.userToken !== "" ? "请评论" : "请登录才进行评论"
+                      userState.user?.isLogin() ? "请评论" : "请登录才进行评论"
                     }
-                    editable={userState.userToken !== ""}
+                    editable={userState.user?.isLogin()}
                     placeholderTextColor={colors.muted}
                     value={comment}
                     maxLength={200}
                     blurOnSubmit
                   />
 
-                  {userState.userToken !== "" ? (
+                  {userState.user?.isLogin() ? (
                     <>
                       <Text
                         style={{
@@ -861,13 +856,13 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
                             const dateValue =
                               vod && !!vod?.vod_time_add
                                 ? new Date(vod?.vod_time_add * 1000)
-                                    .toISOString()
-                                    .slice(0, 10)
-                                    .replace(/\//g, "-")
+                                  .toISOString()
+                                  .slice(0, 10)
+                                  .replace(/\//g, "-")
                                 : new Date()
-                                    .toISOString()
-                                    .slice(0, 10)
-                                    .replace(/\//g, "-");
+                                  .toISOString()
+                                  .slice(0, 10)
+                                  .replace(/\//g, "-");
 
                             return `更新：${dateValue}`;
                           } catch (error) {
@@ -962,8 +957,8 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
                   {/* show 选集播放 section when avaiable episode more thn 1 */}
                   <>
                     {isFetchingVodDetails ||
-                    isFetchingComments ||
-                    showLoading ? (
+                      isFetchingComments ||
+                      showLoading ? (
                       <>
                         <View
                           style={{

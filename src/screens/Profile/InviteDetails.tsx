@@ -31,20 +31,18 @@ import InviteHeader from '../../components/invite/inviteHeader';
 // import FastImage from 'react-native-fast-image';
 import FastImage from '../../components/common/customFastImage';
 import LinearGradient from 'react-native-linear-gradient';
-import { userModel } from '@type/userType';
-import { useAppSelector } from '@hooks/hooks';
+import { useAppSelector, useSelector } from '@hooks/hooks';
 import {
   updateUserAuth,
   updateUserReferral,
 } from '@redux/actions/userAction';
 import { useDispatch } from 'react-redux';
 import { UserApi } from '@api';
+import { UserStateType } from '@redux/reducers/userReducer';
 export default ({ navigation }: RootStackScreenProps<'邀请详情'>) => {
   const { colors, textVariants, icons, spacing } = useTheme();
 
-  const userState: userModel = useAppSelector(
-    ({ userReducer }: RootState) => userReducer,
-  );
+  const userState = useSelector<UserStateType>('userReducer');
   const dispatch = useDispatch();
 
   const [refreshing, setRefreshing] = useState(false);
@@ -71,10 +69,10 @@ export default ({ navigation }: RootStackScreenProps<'邀请详情'>) => {
 
     let mergedArray;
 
-    if (userState.userUpline.created_at != '') {
-      mergedArray = userState.userInvitedUserList.concat(userState.userUpline);
+    if (userState.user?.userUpline.created_at != '') {
+      mergedArray = userState.user?.userInvitedUserList.concat(userState.user.userUpline);
     } else {
-      mergedArray = userState.userInvitedUserList;
+      mergedArray = userState.user.userInvitedUserList;
     }
 
     mergedArray.sort((a: any, b: any) => {
@@ -128,14 +126,14 @@ export default ({ navigation }: RootStackScreenProps<'邀请详情'>) => {
           }}>
           <View style={styles.container}>
             {/* Your content goes here */}
-            <Text style={styles.title}>{userState.userTotalInvite}</Text>
+            <Text style={styles.title}>{userState.user?.userTotalInvite}</Text>
             <Text style={styles.subTitle}>已邀请人数</Text>
           </View>
 
           <View style={styles.container}>
             {/* Your content goes here */}
             <Text style={styles.title}>
-              {userState.userAccumulateRewardDay}
+              {userState.user?.userAccumulateRewardDay}
             </Text>
             <Text style={styles.subTitle}>累计获得天数</Text>
           </View>

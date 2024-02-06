@@ -1,31 +1,27 @@
 import { ViewStyle } from "react-native";
 import CountdownIndicator from "../button/countdownIndicator";
-import { userModel } from "@type/userType";
-import { useAppDispatch, useAppSelector } from "@hooks/hooks";
+import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
 import { screenModel } from "@type/screenType";
 import { ADULT_MODE_PREVIEW_DURATION } from "@utility/constants";
 import { incrementAdultVideoWatchTime, showAdultModeVip } from "@redux/actions/screenAction";
 import { memo, useCallback, useEffect } from "react";
 import { useFocusEffect } from "@react-navigation/native";
+import { UserStateType } from "@redux/reducers/userReducer";
 
 interface Props {
   containerStyle: ViewStyle;
 }
 
-const AdultModeCountdownIndicator = ({containerStyle}: Props) => {
-  const userState: userModel = useAppSelector(
-    ({ userReducer }) => userReducer
-  );
+const AdultModeCountdownIndicator = ({ containerStyle }: Props) => {
+  const userState = useSelector<UserStateType>('userReducer');
   const screenState: screenModel = useAppSelector(
-    ({screenReducer}) => screenReducer
+    ({ screenReducer }) => screenReducer
   )
   const dispatch = useAppDispatch()
 
-  const {adultVideoWatchTime, adultMode} = screenState
-  const isVip = !(Number(userState.userMemberExpired) <=
-                  Number(userState.userCurrentTimestamp) ||
-                  userState.userToken === "")
-                  
+  const { adultVideoWatchTime, adultMode } = screenState
+  const isVip = userState.user?.isVip() ?? false;
+
   useFocusEffect(
     useCallback(() => {
       let interval: any;
@@ -44,7 +40,7 @@ const AdultModeCountdownIndicator = ({containerStyle}: Props) => {
     return (
       <CountdownIndicator
         timer={countdownTimer}
-        onClickVip={() => {dispatch(showAdultModeVip())}}
+        onClickVip={() => { dispatch(showAdultModeVip()) }}
         vipButtonText="开通VIP畅享无限内容"
         containerStyle={containerStyle}
       />

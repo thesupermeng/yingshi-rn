@@ -6,14 +6,12 @@ import { CApi } from "@utility/apiService";
 import { AMJ_PRODUCT_ANDROID, AMJ_PRODUCT_IOS } from "@utility/constants";
 import { CountryPhoneCodeType } from "@type/ajaxTypes";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { User } from "@models/user";
 
 
 export class UserApi {
-
-
-    static guestLogin = async () => {
+    static guestLogin = async (): Promise<User> => {
         try {
-
             let deviceId = await DeviceInfo.getUniqueId();
 
             const result = await CApi.post(CEndpoint.guestLoginApi, {
@@ -31,15 +29,13 @@ export class UserApi {
                 CApi.regetToken();
             }
 
-            return result.data;
+            return User.fromJson(result.data);
 
         } catch (e: any) {
             console.error(`[Error ${this.name}]: ${e.toString()}`);
             throw e;
         }
     }
-
-
 
     static signinupUser = async ({
         loginType,

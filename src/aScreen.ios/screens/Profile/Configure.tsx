@@ -18,19 +18,19 @@ import ShowMoreButton from '../../components/button/showMoreButton';
 import NotificationModal from '../../components/modal/notificationModal';
 import MoreArrow from '@static/images/more_arrow.svg';
 import ConfirmationModal from '../../components/modal/confirmationModal';
-import { useAppDispatch, useAppSelector } from '@hooks/hooks';
+import { useAppDispatch, useAppSelector, useSelector } from '@hooks/hooks';
 import { clearStorageMemory } from '@redux/actions/settingsActions';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 
 import { removeUserAuthState } from '@redux/actions/userAction';
 import { changeScreenAction } from '@redux/actions/screenAction';
 import { RootState } from '@redux/store';
-import { userModel } from '@type/userType';
 
 import { APP_NAME_CONST, APP_VERSION } from '@utility/constants';
 import { SettingsReducerState } from '@redux/reducers/settingsReducer';
 import { CPopup } from '@utility/popup';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { UserStateType } from '@redux/reducers/userReducer';
 export default ({ navigation }: RootStackScreenProps<'设置'>) => {
   const { colors, textVariants, icons, spacing } = useTheme();
   const [isVersionDialogOpen, setIsVersionDialogOpen] = useState(false);
@@ -86,9 +86,7 @@ export default ({ navigation }: RootStackScreenProps<'设置'>) => {
   // useEffect(() => {
   //   dispatch(changeScreenAction('showSuccessLogin'));
   // }, []);
-  const userState: userModel = useAppSelector(
-    ({ userReducer }: RootState) => userReducer,
-  );
+  const userState = useSelector<UserStateType>('userReducer');
 
   console.log(userState)
   return (
@@ -123,7 +121,7 @@ export default ({ navigation }: RootStackScreenProps<'设置'>) => {
             confirmationText="清除"
           />
 
-          {userState.userToken != '' &&
+          {userState.user !== null && userState.user.isLogin() &&
             <ConfirmationModal
               onConfirm={() => {
                 onRemoveAccount();
@@ -181,13 +179,13 @@ export default ({ navigation }: RootStackScreenProps<'设置'>) => {
                   </View>
                 }
               />
-              {userState.userToken != '' &&
+              {userState.user !== null && userState.user.isLogin() &&
                 <ShowMoreButton text="注销账号" onPress={toggleRemoveAccountDialog} />
               }
             </View>
           </View>
         </View>
-        {userState.userToken != '' && userState.userEmail != '' && userState.userPhoneNumber != '' && (
+        {userState.user !== null && userState.user.isLogin() && (
           <TouchableOpacity onPress={toggleLogoutDialog}>
             <View
               style={{

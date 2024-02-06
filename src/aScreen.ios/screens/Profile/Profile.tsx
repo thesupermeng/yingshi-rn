@@ -10,7 +10,7 @@ import {
   Platform,
 } from "react-native";
 import { useTheme, useFocusEffect } from "@react-navigation/native";
-import { useAppDispatch, useAppSelector } from "@hooks/hooks";
+import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
 import { RootState } from "@redux/store";
 import ShowMoreButton from "../../components/button/showMoreButton";
 
@@ -36,7 +36,6 @@ import {
   removeScreenAction,
   showLoginAction,
 } from "@redux/actions/screenAction";
-import { userModel } from "@type/userType";
 import NotificationModal from "../../components/modal/notificationModal";
 import { updateUserAuth, updateUserReferral } from "@redux/actions/userAction";
 import ExpiredOverlay from "../../components/modal/expiredOverlay";
@@ -45,6 +44,7 @@ import { YSConfig } from "../../../../ysConfig";
 import { SHOW_ZF_CONST, UMENG_CHANNEL } from "@utility/constants";
 import FastImage from "../../components/common/customFastImage";
 import { UserApi } from "@api";
+import { UserStateType } from "@redux/reducers/userReducer";
 
 function Profile({ navigation, route }: BottomTabScreenProps<any>) {
   const navigator = useNavigation();
@@ -52,9 +52,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
   const dispatch = useAppDispatch();
   const [refreshing, setRefreshing] = useState(false);
   const [displayedDate, setDisplayedDate] = useState("");
-  const userState: userModel = useAppSelector(
-    ({ userReducer }: RootState) => userReducer
-  );
+  const userState = useSelector<UserStateType>('userReducer');
   // console.log("Profile")
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -128,13 +126,13 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
   };
 
   useEffect(() => {
-    let date = new Date(Number(userState.userMemberExpired) * 1000); // Multiply by 1000 to convert from seconds to milliseconds
+    let date = new Date(Number(userState.user?.userMemberExpired ?? '0') * 1000); // Multiply by 1000 to convert from seconds to milliseconds
     //Extract year, month, and day
     let year = date.getFullYear();
     let month = date.getMonth() + 1; // Months are 0-based, so add 1
     let day = date.getDate();
     setDisplayedDate(`${year}年${month}月${day}日`);
-  }, [userState.userMemberExpired]);
+  }, [userState.user?.userMemberExpired]);
 
   return (
     <>
@@ -174,7 +172,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
           <TouchableOpacity
             activeOpacity={1}
             onPress={() => {
-              if (userState.userToken == "") {
+              if (!userState.user?.isLogin()) {
                 dispatch(showLoginAction());
                 // console.log('props{');
                 // setActionType('login');
@@ -191,7 +189,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                 flexDirection: "row",
               }}
             >
-              {userState.userToken == "" ? (
+              {!userState.user?.isLogin() ? (
                 <ProfileIcon
                   style={{ color: colors.button, width: 18, height: 18 }}
                 />
@@ -215,7 +213,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                   paddingLeft: 12,
                 }}
               >
-                {userState.userToken == "" && (
+                {!userState.user?.isLogin() && (
                   <>
                     <Text style={{ color: "#ffffff", fontSize: 20 }}>
                       游客您好！
@@ -225,7 +223,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                     </Text>
                   </>
                 )}
-                {userState.userToken != "" && (
+                {!userState.user?.isLogin() && (
                   <>
                     <View
                       style={{
@@ -243,10 +241,9 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                         numberOfLines={1}
                         ellipsizeMode="tail"
                       >
-                        {userState.userName}
+                        {userState.user?.userName}
                       </Text>
-                      {userState.userMemberExpired >=
-                        userState.userCurrentTimestamp && (
+                      {userState.user?.isVip() && (
                         <Image
                           style={styles.iconStyle}
                           source={require("@static/images/profile/vip.png")}
@@ -272,7 +269,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                   justifyContent: "center",
                 }}
               >
-                {userState.userToken == "" && (
+                {!userState.user?.isLogin() && (
                   <MoreArrow
                     width={icons.sizes.l}
                     height={icons.sizes.l}
@@ -280,7 +277,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                   />
                 )}
 
-                {userState.userToken != "" && (
+                {userState.user?.isLogin() && (
                   <EditIcn width={29} height={29} color={colors.muted} />
                 )}
               </View>
@@ -304,12 +301,10 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                       flex: 1,
                     }}
                     onPress={() => {
-                      if (UMENG_CHANNEL == 'GOOGLE_PLAY')
-                      {
+                      if (UMENG_CHANNEL == 'GOOGLE_PLAY') {
                         navigation.navigate("付费Google");
                       }
-                      else
-                      {
+                      else {
                         navigation.navigate("付费VIP");
                       }
                       // dispatch(showLoginAction());
@@ -334,7 +329,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                         </Text>
 
                         {YSConfig.instance.tabConfig != null &&
-                        YSConfig.instance.len == 5 ? (
+                          YSConfig.instance.len == 5 ? (
                           <Text
                             style={{
                               ...textVariants.small,

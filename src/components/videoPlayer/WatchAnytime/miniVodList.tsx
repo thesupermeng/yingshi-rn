@@ -13,13 +13,13 @@ import ShortVod from './shortVod';
 import { MiniVideo } from '@type/ajaxTypes';
 import FastImage from '../../common/customFastImage';
 
-import { useAppDispatch, useAppSelector } from '@hooks/hooks';
+import { useAppDispatch, useAppSelector, useSelector } from '@hooks/hooks';
 import UmengAnalytics from '../../../../Umeng/UmengAnalytics';
 import { showAdultModeVip, showLoginAction } from '@redux/actions/screenAction';
 import { screenModel } from '@type/screenType';
-import { userModel } from '@type/userType';
 import { ADULT_MODE_PREVIEW_DURATION, MINI_SHOW_LOGIN_NUMBER } from '@utility/constants';
 import ShortAds from './shortAds';
+import { UserStateType } from '@redux/reducers/userReducer';
 
 interface Props {
   miniVodListRef: any;
@@ -82,7 +82,7 @@ export default forwardRef<MiniVodRef, Props>(
     const screenState: screenModel = useAppSelector(
       ({ screenReducer }) => screenReducer,
     );
-    const userState: userModel = useAppSelector(({ userReducer }) => userReducer);
+    const userState = useSelector<UserStateType>('userReducer');
     const swipeCount = useRef(0);
     const {
       adultModeDisclaimerShow,
@@ -91,9 +91,7 @@ export default forwardRef<MiniVodRef, Props>(
       // adultMode,
       watchAnytimeAdultMode: adultMode, // rename watchanytimeadultmode to adult mode
     } = screenState;
-    const isVip =
-      Number(userState.userMemberExpired) <=
-      Number(userState.userCurrentTimestamp) || userState.userToken === '';
+    const isVip = userState.user?.isVip() ?? false;
     const dispatch = useAppDispatch();
 
     useEffect(() => {
@@ -146,7 +144,7 @@ export default forwardRef<MiniVodRef, Props>(
         setCurAnalyticsIndex(0);
 
         UmengAnalytics.watchAnytimeVideoViewTimesAnalytics({
-          userId: userState.userId,
+          userId: userState.user?.userId ?? '',
           vod_id: collectionPartialVideos[0].mini_video_id,
           isXmode: adultMode,
         });
@@ -159,7 +157,7 @@ export default forwardRef<MiniVodRef, Props>(
         setCurAnalyticsIndex(current);
 
         UmengAnalytics.watchAnytimeVideoViewTimesAnalytics({
-          userId: userState.userId,
+          userId: userState.user?.userId ?? '',
           vod_id: collectionPartialVideos[current].mini_video_id,
           isXmode: adultMode,
         });
@@ -306,7 +304,7 @@ export default forwardRef<MiniVodRef, Props>(
     }, []);
 
     useEffect(() => {
-      if (userState.userToken !== '') return;
+      if (userState.user?.isLogin()) return;
 
       if (swipeCount.current < MINI_SHOW_LOGIN_NUMBER) {
         swipeCount.current++;

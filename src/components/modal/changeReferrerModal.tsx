@@ -3,11 +3,11 @@ import { Image, Keyboard, StyleSheet, Text, TouchableOpacity, View } from "react
 import { CBottomSheet, CTextInput } from "../atoms";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import { useSelector } from "@hooks/hooks";
-import { userModel } from "@type/userType";
 import { useDispatch } from "react-redux";
 import { changeScreenAction } from "@redux/actions/screenAction";
 import { updateUserAuth } from "@redux/actions/userAction";
 import { UserApi } from "@api";
+import { UserStateType } from "@redux/reducers/userReducer";
 
 
 interface Props {
@@ -25,7 +25,7 @@ export const ChangeReferrerModal = ({
 
     const dispatch = useDispatch();
     const navigation = useNavigation();
-    const userState = useSelector<userModel>('userReducer');
+    const userState = useSelector<UserStateType>('userReducer');
 
     const [referrer, setReferrer] = useState('');
     const [referrerErrMsg, setReferrerErrMsg] = useState<string | null>(null);
@@ -57,7 +57,7 @@ export const ChangeReferrerModal = ({
 
         try {
             await UserApi.updateUsername({
-                username: userState.userName,
+                username: userState.user?.userName ?? '',
                 referralCode: referrer,
             });
         } catch (err: any) {

@@ -2,7 +2,6 @@ import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { FlatList, Keyboard, Text, View } from "react-native"
 import createStyles from "./style";
 import { useAppDispatch, useSelector } from "@hooks/hooks";
-import { userModel } from "@type/userType";
 import { CPressable, CTextInput } from "../../../../components/atoms";
 import SendIcon from '@static/images/send.svg';
 import SendFillIcon from '@static/images/send_filled.svg';
@@ -16,6 +15,7 @@ import { Avatar } from "@rneui/base";
 import { PrivateRoomHistoryType, PrivateRoomType } from "@type/chatTypes";
 import { debounce } from "lodash";
 import { UnreadCard } from "../../../../components/chat/unread";
+import { UserStateType } from "@redux/reducers/userReducer";
 
 type Props = {
     matchID: string,
@@ -36,14 +36,14 @@ const PrivateChatPage = ({
     const styles = useMemo(() => createStyles({ colors }), []);
 
     const chatState = useSelector<ChatType>('chatReducer');
-    const userState = useSelector<userModel>('userReducer');
+    const userState = useSelector<UserStateType>('userReducer');
     const [comment, setComment] = useState('');
     const [historyChat, sethistoryChat] = useState<PrivateRoomHistoryType[]>([]);
     const [isCommentValid, setCommentValid] = useState(true);
     const chatFlatListRef = useRef<FlatList<PrivateRoomHistoryType> | null>(null);
     const isPinToBottom = useRef(true);
     const [numOfUnread, setNumOfUnread] = useState(0);
-    const isLogin = userState.userEmail !== '' || userState.userPhoneNumber !== '';
+    const isLogin = userState.user !== null && userState.user.isLogin();
 
     const appDispatch = useAppDispatch();
 

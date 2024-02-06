@@ -13,11 +13,10 @@ import {
   IOS_PLAY_DETAILS_POP_UP_ADS,
   NON_VIP_STREAM_TIME_SECONDS,
 } from "@utility/constants";
-import { userModel } from "@type/userType";
-import { RootState } from "@redux/store";
-import { useAppSelector } from "./hooks";
+import { useAppSelector, useSelector } from "./hooks";
 import { AdsBannerContext } from "../contexts/AdsBannerContext";
 import { screenModel } from "@type/screenType";
+import { UserStateType } from "@redux/reducers/userReducer";
 // LogBox.ignoreAllLogs();
 type PlacementId =
   | typeof ANDROID_HOME_PAGE_POP_UP_ADS
@@ -30,9 +29,7 @@ let homePageShown = false;
 let retryCount = 0;
 const useInterstitialAds = () => {
   const [adsReadyFlag, setAdsReadyFlag] = useState(false);
-  const userState: userModel = useAppSelector(
-    ({ userReducer }: RootState) => userReducer
-  );
+  const userState = useSelector<UserStateType>('userReducer');
 
   const screenState: screenModel = useAppSelector(
     ({ screenReducer }) => screenReducer
@@ -95,9 +92,8 @@ const useInterstitialAds = () => {
           console.log("not showing pop up ads, prevent blocking modal action");
         } else {
           homePageShown = true;
-          if (screenState.interstitialShow != true)
-          {
-          //  ATInterstitialRNSDK.showAd(adsID);
+          if (screenState.interstitialShow != true) {
+            //  ATInterstitialRNSDK.showAd(adsID);
           }
         }
         //
@@ -113,9 +109,8 @@ const useInterstitialAds = () => {
   const showInterstitial = async (interstitialPlacementId: PlacementId) => {
     // not vip
     if (
-      (Number(userState.userMemberExpired) <=
-        Number(userState.userCurrentTimestamp) ||
-        userState.userToken === "") &&
+      (!userState.user?.isVip() ||
+        userState.user.isGuest()) &&
       retryCount < 3
     ) {
       retryCount += 1;

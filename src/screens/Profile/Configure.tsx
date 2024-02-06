@@ -24,14 +24,13 @@ import ShowMoreButton from "../../components/button/showMoreButton";
 import NotificationModal from "../../components/modal/notificationModal";
 import MoreArrow from "@static/images/more_arrow.svg";
 import ConfirmationModal from "../../components/modal/confirmationModal";
-import { useAppDispatch, useAppSelector } from "@hooks/hooks";
+import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
 import { clearStorageMemory } from "@redux/actions/settingsActions";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 
 import { removeUserAuthState } from "@redux/actions/userAction";
 import { changeScreenAction } from "@redux/actions/screenAction";
 import { RootState } from "@redux/store";
-import { userModel } from "@type/userType";
 
 import { APP_VERSION } from "@utility/constants";
 import { SettingsReducerState } from "@redux/reducers/settingsReducer";
@@ -40,6 +39,7 @@ import { CApi } from "@utility/apiService";
 import { clearMinivodApiCache } from "../../utils/minivodDownloader";
 import { UserApi } from "../../api/user";
 import { addUserAuthState } from "@redux/actions/userAction";
+import { UserStateType } from '@redux/reducers/userReducer';
 
 export default ({ navigation }: RootStackScreenProps<"设置">) => {
   const { colors, textVariants, icons, spacing } = useTheme();
@@ -87,51 +87,15 @@ export default ({ navigation }: RootStackScreenProps<"设置">) => {
   );
 
   const guestLoginInit = async () => {
-    // console.log("guestLoginInit");
-    // console.log(userState.userId);
-    // console.log(userState.userToken);
+    const user = await UserApi.guestLogin();
 
-    // console.log("guestLogin");
-    let result = await UserApi.guestLogin();
-
-    // console.log("result");
-    // console.log(result);
-    const resultData = result;
-
-    let json = {
-      userToken: resultData.access_token,
-      userId: resultData.user.user_id,
-      userName: resultData.user.user_name,
-      userReferralCode: resultData.user.user_referral_code,
-      userEmail: resultData.user.user_email,
-      userPhoneNumber:
-        resultData.user.user_phone !== 0 ? resultData.user.user_phone : "",
-      userMemberExpired: resultData.user.vip_end_time,
-      // userMemberExpired: resultData.user.created_at,
-      userReferrerName: resultData.user.referrer_name,
-      userEndDaysCount: resultData.user.user_vip_time_duration_days,
-      userTotalInvite: resultData.user.total_invited_user,
-      userAccumulateRewardDay: resultData.user.accumulated_vip_reward_days,
-      userAllowUpdateReferral: resultData.user.eligible_update_referrer,
-      userCurrentTimestamp: resultData.user.current_timestamp,
-      userInvitedUserList: resultData.user.invited_users,
-      userUpline: resultData.user.upline_user,
-      userAccumulateVipRewardDay:
-        resultData.user.accumulated_paid_vip_reward_days,
-      userPaidVipList: resultData.user.paid_vip_response,
-    };
-    // console.log("json");
-    // console.log(json);
-
-    await dispatch(addUserAuthState(json));
+    await dispatch(addUserAuthState(user));
   };
 
   // useEffect(() => {
   //   dispatch(changeScreenAction('showSuccessLogin'));
   // }, []);
-  const userState: userModel = useAppSelector(
-    ({ userReducer }: RootState) => userReducer
-  );
+  const userState = useSelector<UserStateType>('userReducer');
   return (
     <ScreenContainer>
       <View
@@ -220,25 +184,24 @@ export default ({ navigation }: RootStackScreenProps<"设置">) => {
             </View>
           </View>
         </View>
-        {userState.userToken != "" &&
-          (userState.userEmail != "" || userState.userPhoneNumber != "") && (
-            <TouchableOpacity onPress={toggleLogoutDialog}>
-              <View
-                style={{
-                  backgroundColor: "#1d2023",
-                  width: "100%",
-                  height: 50,
-                  borderRadius: 8,
-                  borderWidth: 0,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  marginBottom: 30,
-                }}
-              >
-                <Text style={{ color: "#FF3C3C" }}>退出登录</Text>
-              </View>
-            </TouchableOpacity>
-          )}
+        {userState.user?.isLogin() && (
+          <TouchableOpacity onPress={toggleLogoutDialog}>
+            <View
+              style={{
+                backgroundColor: "#1d2023",
+                width: "100%",
+                height: 50,
+                borderRadius: 8,
+                borderWidth: 0,
+                justifyContent: "center",
+                alignItems: "center",
+                marginBottom: 30,
+              }}
+            >
+              <Text style={{ color: "#FF3C3C" }}>退出登录</Text>
+            </View>
+          </TouchableOpacity>
+        )}
       </View>
 
       {/* Loading spinner with backdrop */}

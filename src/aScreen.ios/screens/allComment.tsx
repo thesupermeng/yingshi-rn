@@ -6,22 +6,20 @@ import { CommentsType } from "@type/ajaxTypes";
 import ScreenContainer from "../components/container/screenContainer";
 import TitleWithBackButtonHeader from "../components/header/titleWithBackButtonHeader";
 import { useTheme } from "@react-navigation/native";
-import { userModel } from "@type/userType";
-import { useAppDispatch, useAppSelector } from "@hooks/hooks";
+import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
 import { RootState } from "@redux/store";
 import SubmitBtn from "@static/images/submitBtn.svg"
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { showLoginAction } from "@redux/actions/screenAction";
 import { CPopup } from "@utility/popup";
+import { UserStateType } from "@redux/reducers/userReducer";
 
 export const AllCommentScreen = ({ navigation, route }: RootStackScreenProps<"全部评论">) => {
   const { vod_id, vod_name, commentItems } = route.params;
   const { colors, textVariants, } = useTheme();
   const [comment, setComment] = useState('');
   const [allComment, setAllComment] = useState<CommentsType[] | undefined>([]);
-  const userState: userModel = useAppSelector(
-    ({ userReducer }: RootState) => userReducer
-  );
+  const userState = useSelector<UserStateType>('userReducer');
   const [isUpdated, setIsUpdated] = useState(false);
   const dispatch = useAppDispatch();
 
@@ -52,7 +50,7 @@ export const AllCommentScreen = ({ navigation, route }: RootStackScreenProps<"�
       const existingComments = await getLocalComments();
       const commmentObj = {
         douban_reviews_id: existingComments.length + 1,
-        user_name: userState.userName,
+        user_name: userState.user?.userName ?? '',
         user_review: comment,
       }
       existingComments.unshift(commmentObj);
@@ -92,15 +90,15 @@ export const AllCommentScreen = ({ navigation, route }: RootStackScreenProps<"�
                 ...textVariants.body,
               }}
               onChangeText={setComment}
-              placeholder={userState.userToken !== '' ? "请评论" : "请登录才进行评论"}
-              editable={userState.userToken !== ''}
+              placeholder={userState.user?.isLogin() ? "请评论" : "请登录才进行评论"}
+              editable={userState.user?.isLogin()}
               placeholderTextColor={colors.muted}
               value={comment}
               maxLength={200}
               blurOnSubmit
             />
 
-            {userState.userToken !== '' ? (
+            {userState.user?.isLogin() ? (
               <>
                 <Text style={{ ...textVariants.body, color: comment.length === 200 ? colors.primary : colors.muted }}>
                   {comment.length}/200

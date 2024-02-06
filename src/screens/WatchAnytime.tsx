@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from '@hooks/hooks';
+import { useAppDispatch, useAppSelector, useSelector } from '@hooks/hooks';
 import UmengAnalytics from '../../Umeng/UmengAnalytics';
 import NetInfo from '@react-native-community/netinfo';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
@@ -7,7 +7,6 @@ import { SettingsReducerState } from '@redux/reducers/settingsReducer';
 import { RootState } from '@redux/store';
 import { MiniVideo } from '@type/ajaxTypes';
 import { screenModel } from '@type/screenType';
-import { userModel } from '@type/userType';
 import { API_DOMAIN_TEST } from '@utility/constants';
 import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { AppState, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
@@ -18,6 +17,7 @@ import MiniVideoList from '../components/videoPlayer/WatchAnytime/miniVodList';
 import NoConnection from './../components/common/noConnection';
 import { CPressable } from '../components/atoms';
 import { showLoginAction } from '@redux/actions/screenAction';
+import { UserStateType } from '@redux/reducers/userReducer';
 
 type MiniVideoResponseType = {
   data: {
@@ -51,15 +51,11 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
     ({ screenReducer }) => screenReducer,
   );
 
-  const userState: userModel = useAppSelector(
-    ({ userReducer }) => userReducer
-  );
+  const userState = useSelector<UserStateType>('userReducer');
   const { adultMode: adultModeGlobal, watchAnytimeAdultMode } = screenState;
   const adultMode = watchAnytimeAdultMode;
 
-  const isVip = !(Number(userState.userMemberExpired) <=
-    Number(userState.userCurrentTimestamp) ||
-    userState.userToken === "")
+  const isVip = userState.user?.isVip() ?? false;
 
   const fetchMode = adultMode ? 'adult' : 'normal';
   const isFocusLogin = useRef(false);
@@ -147,7 +143,7 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
   useEffect(() => {
     if (videos != undefined) {
       let filtered = videos?.pages.flat().filter(x => x)
-      if (isVip){
+      if (isVip) {
         filtered = filtered.filter(x => !x.is_ads)
       }
       setFlattenedVideos(filtered); // remove null values
@@ -183,10 +179,10 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
   );
 
   useEffect(() => {
-    if (userState.userToken !== '' && isFocusLogin.current) {
+    if (userState.user?.isLogin() && isFocusLogin.current) {
       isFocusLogin.current = false;
     }
-  }, [userState.userToken]);
+  }, [userState.user?.userToken]);
 
   const onFocusLoginOverlayPress = () => {
     dispatch(showLoginAction());

@@ -11,8 +11,7 @@ import { RootState } from "@redux/store";
 
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
-import { useAppDispatch, useAppSelector } from "@hooks/hooks";
-import { userModel } from "@type/userType";
+import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
 import { updateUserAuth } from "@redux/actions/userAction";
 import { TouchableOpacity } from "react-native";
 import NoConnection from "../../components/common/noConnection";
@@ -24,13 +23,12 @@ import { showLoginAction } from "@redux/actions/screenAction";
 import UmengAnalytics from "../../../../Umeng/UmengAnalytics";
 import { UserApi } from "@api";
 import WebView from "react-native-webview";
+import { UserStateType } from "@redux/reducers/userReducer";
 
 export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const [isOffline, setIsOffline] = useState(false);
   const { textVariants, spacing } = useTheme();
-  const userState: userModel = useAppSelector(
-    ({ userReducer }: RootState) => userReducer
-  );
+  const userState = useSelector<UserStateType>('userReducer');
 
   const [loading, setIsLoading] = useState(true);
   const [isNavigated, setIsNavigated] = useState(false);
@@ -89,10 +87,10 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const webViewref = useRef<any>();
   useEffect(() => {
     webViewref.current.reload();
-  },[userState.userToken]);
+  }, [userState.user?.userToken]);
 
   const onLoadEnd = () => {
-    webViewref.current.postMessage(`${userState.userToken}`);
+    webViewref.current.postMessage(`${userState.user?.userToken}`);
     setIsLoading(false);
   };
 
@@ -104,12 +102,12 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
           right={
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate("VIP明细", { userState: userState });
+                navigation.navigate("VIP明细", { userState: userState.user! });
               }}
               disabled={
                 !(
-                  userState.userPaidVipList.total_purchased_days > 0 ||
-                  userState.userAccumulateRewardDay > 0
+                  (userState.user?.userPaidVipList.total_purchased_days ?? 0) > 0 ||
+                  (userState.user?.userAccumulateRewardDay ?? 0) > 0
                 )
               }
             >
@@ -117,8 +115,8 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                 style={{
                   ...textVariants.subBody,
                   opacity:
-                    userState.userPaidVipList.total_purchased_days > 0 ||
-                    userState.userAccumulateRewardDay > 0
+                    (userState.user?.userPaidVipList.total_purchased_days ?? 0) > 0 ||
+                      (userState.user?.userAccumulateRewardDay ?? 0) > 0
                       ? 100
                       : 0,
                 }}
@@ -158,15 +156,15 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         )}
 
         {IS_IOS && !isOffline && (
-          <View style={{backgroundColor: 'rgba(20, 22, 26, 1)', flex: loading ? 0 : 1}}>
+          <View style={{ backgroundColor: 'rgba(20, 22, 26, 1)', flex: loading ? 0 : 1 }}>
             <WebView
               ref={webViewref}
               style={{ backgroundColor: !isNavigated ? 'transparent' : 'white' }}
-              source={{uri: 'https://www.yingshi.tv/vip'}}
+              source={{ uri: 'https://www.yingshi.tv/vip' }}
               onLoadEnd={onLoadEnd}
               automaticallyAdjustContentInsets={false}
               javaScriptCanOpenWindowsAutomatically={true}
-              onMessage={(e: {nativeEvent: {data?: string}}) => {
+              onMessage={(e: { nativeEvent: { data?: string } }) => {
                 console.log('99999', e.nativeEvent.data)
                 if (e.nativeEvent.data === 'invalid credential') {
                   dispatch(showLoginAction());
@@ -174,7 +172,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                   handleRefresh();
                 }
               }}
-              containerStyle = {{
+              containerStyle={{
                 marginLeft: -spacing.sideOffset,
                 marginRight: -spacing.sideOffset,
               }}

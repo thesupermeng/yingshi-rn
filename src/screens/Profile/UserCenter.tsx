@@ -12,20 +12,20 @@ import { RootStackScreenProps } from "@type/navigationTypes";
 import { useTheme } from "@react-navigation/native";
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
 import { useSelector } from "@hooks/hooks";
-import { userModel } from "@type/userType";
 import { TouchableOpacity } from "@gorhom/bottom-sheet";
 import NotificationModal from "../../components/modal/notificationModal";
 import { showToast } from "../../Sports/utility/toast";
 import FastImage from "../../components/common/customFastImage";
 import { ChangeUsernameModal } from "../../components/modal/changeUsernameModal";
 import { ChangeReferrerModal } from "../../components/modal/changeReferrerModal";
+import { UserStateType } from "@redux/reducers/userReducer";
 
 export default ({ navigation }: RootStackScreenProps<"个人中心">) => {
   const { colors } = useTheme();
 
-  const userState = useSelector<userModel>('userReducer');
+  const userState = useSelector<UserStateType>('userReducer');
 
-  const [username, setUsername] = useState(userState.userName);
+  const [username, setUsername] = useState(userState.user?.userName ?? '');
 
   const [isShowUsernameModal, setShowUsernameModal] = useState(false);
   const [isShowReferrerModal, setShowReferrerModal] = useState(false);
@@ -50,7 +50,7 @@ export default ({ navigation }: RootStackScreenProps<"个人中心">) => {
   }
 
   const onCopyReferralCode = () => {
-    Clipboard.setString(userState.userReferralCode);
+    Clipboard.setString(userState.user?.userReferralCode ?? '');
     setIsDialogOpen(true);
   }
 
@@ -65,20 +65,20 @@ export default ({ navigation }: RootStackScreenProps<"个人中心">) => {
         }}
       >
         <View style={{ marginTop: 30 }}>
-         
-            <View
-              style={styles.pressableTextContainer}
-            >
-              <Text style={{ fontSize: 16, color: '#9C9C9C' }}>头像</Text>
-              <FastImage
-                style={{
-                  height: 34,
-                  width: 34,
-                }}
-                source={require('@static/images/profilePic.png')}
-              />
-            </View>
-       
+
+          <View
+            style={styles.pressableTextContainer}
+          >
+            <Text style={{ fontSize: 16, color: '#9C9C9C' }}>头像</Text>
+            <FastImage
+              style={{
+                height: 34,
+                width: 34,
+              }}
+              source={require('@static/images/profilePic.png')}
+            />
+          </View>
+
 
           {/* username  */}
           <TouchableOpacity
@@ -93,13 +93,13 @@ export default ({ navigation }: RootStackScreenProps<"个人中心">) => {
           {/* email & phone */}
           <View style={styles.pressableTextContainer}>
             <Text style={{ fontSize: 16, color: '#9C9C9C' }}>
-              {userState.userEmail !== '' ? userState.userEmail : userState.userPhoneNumber}
+              {userState.user?.userEmail !== '' ? userState.user?.userEmail : userState.user.userPhoneNumber}
             </Text>
           </View>
 
           {/* referral  */}
-          {userState.userReferrerName == '' &&
-            userState.userAllowUpdateReferral == true &&
+          {userState.user?.userReferrerName == '' &&
+            userState.user.userAllowUpdateReferral == true &&
             <TouchableOpacity
               style={styles.pressableTextContainer}
               onPress={onPressReferrer}
@@ -110,7 +110,7 @@ export default ({ navigation }: RootStackScreenProps<"个人中心">) => {
             </TouchableOpacity>
           }
 
-          {userState.userReferrerName != '' && (
+          {userState.user?.userReferrerName != '' && (
             <View style={styles.pressableTextContainer}>
               <Text style={{ fontSize: 16, color: '#9C9C9C' }}>推介人</Text>
 
@@ -122,7 +122,7 @@ export default ({ navigation }: RootStackScreenProps<"个人中心">) => {
                 }}
               >
                 <Text style={{ fontSize: 14, color: '#9C9C9C' }}>
-                  {userState.userReferrerName}
+                  {userState.user?.userReferrerName}
                 </Text>
               </View>
             </View>
@@ -134,7 +134,7 @@ export default ({ navigation }: RootStackScreenProps<"个人中心">) => {
             onPress={onCopyReferralCode}
           >
             <Text style={{ fontSize: 16, color: colors.primary }}>
-              {userState.userReferralCode}
+              {userState.user?.userReferralCode}
             </Text>
 
             <View

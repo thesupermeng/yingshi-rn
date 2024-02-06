@@ -32,7 +32,6 @@ import { RootState } from "@redux/store";
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
-import { userModel } from "@type/userType";
 import { updateUserAuth } from "@redux/actions/userAction";
 import { TouchableOpacity } from "react-native";
 import NoConnection from "../../components/common/noConnection";
@@ -56,7 +55,6 @@ import {
 import { ProductApi, UserApi } from "@api";
 import WebView from "react-native-webview";
 import { YSConfig } from "../../../ysConfig";
-import { VipCard } from "../../components/vip/vipCard";
 import {
   membershipModel,
   promoMembershipModel,
@@ -90,6 +88,7 @@ import Tick1 from "@static/images/splash/tick1.svg";
 import Tick2 from "@static/images/splash/tick2.svg";
 import { BackgroundType } from "@redux/reducers/backgroundReducer";
 import { SettingsReducerState } from "@redux/reducers/settingsReducer";
+import { UserStateType } from "@redux/reducers/userReducer";
 
 export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
   const {
@@ -105,9 +104,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
     ({ screenReducer }) => screenReducer
   );
 
-  const userState: userModel = useAppSelector(
-    ({ userReducer }: RootState) => userReducer
-  );
+  const userState = useSelector<UserStateType>('userReducer');
 
   const settingsReducer: SettingsReducerState = useAppSelector(
     ({ settingsReducer }: RootState) => settingsReducer
@@ -124,7 +121,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
   const [countdownSecond, setCountdownSecond] = useState(
     (VIP_PROMOTION_COUNTDOWN_MINUTE * 60 * 1000 -
       (Date.now() - backgroundState.vipPromotionCountdownStart)) /
-      1000
+    1000
   );
 
   const hours = Math.floor(countdownSecond / 60 / 60);
@@ -322,7 +319,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
 
   const saveFinishIAP = async (transStatus: string, error: any) => {
     const iapTrans = {
-      user_id: userState.userId,
+      user_id: userState.user?.userId ?? '',
       product_id: productSelected?.productId,
       transaction_type: "SUBSCRIBE_VIP",
       zf_channel: "GOOGLE_PAY",
@@ -412,7 +409,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
       setCountdownSecond(
         (VIP_PROMOTION_COUNTDOWN_MINUTE * 60 * 1000 -
           (Date.now() - backgroundState.vipPromotionCountdownStart)) /
-          1000
+        1000
       );
     }, 1000);
 
@@ -475,10 +472,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
 
               handleRefresh();
 
-              if (
-                userState.userEmail !== "" ||
-                userState.userPhoneNumber != ''
-              ) {
+              if (userState.user?.isLogin()) {
                 setDialogText(successDialogText);
                 setIsDialogOpen(true);
                 setIsSuccess(true);
@@ -548,9 +542,9 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
     return (
       <>
         {index === screenState.showEventSplashData.length - 1 ||
-        screenState.showEventSplash == false ||
-        isLastShown ||
-        screenState.showEventSplashData.length == 0 ? (
+          screenState.showEventSplash == false ||
+          isLastShown ||
+          screenState.showEventSplashData.length == 0 ? (
           <>
             {isFetching && (
               <View
@@ -593,12 +587,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                     zIndex: 200,
                   }}
                   onPress={() => {
-                    if (
-                      userState.userEmail == "" &&
-                      userState.userPhoneNumber == '' &&
-                      userState.userMemberExpired >=
-                        userState.userCurrentTimestamp
-                    ) {
+                    if (!userState.user?.isLogin() && userState.user?.isVip()) {
                       // setShowBecomeVIPOverlay(true)
                       navigation.goBack();
                     } else {
@@ -883,8 +872,8 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                                 ...(productSelected === product && i === 0
                                   ? styles.cardContainerActive2
                                   : productSelected === product && i === 1
-                                  ? styles.cardContainerActive3
-                                  : styles.cardContainer2),
+                                    ? styles.cardContainerActive3
+                                    : styles.cardContainer2),
                               }}
                             >
                               {productSelected === product && (
@@ -971,48 +960,49 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                       ></FastImage>
                       {userState.userMemberExpired >=
                         userState.userCurrentTimestamp && (
-                        <TouchableOpacity
-                          style={{
-                            position: "absolute",
-                            bottom: 15,
-                            right: 30,
-                          }}
-                          onPress={() => {
-                            navigation.navigate("VIP明细", {
-                              userState: userState,
-                            });
-                          }}
-                        >
-                          <Text style={{ color: "#9c9c9c" }}>VIP明细</Text>
-                        </TouchableOpacity>
-                      )}
+                          <TouchableOpacity
+                            style={{
+                              position: "absolute",
+                              bottom: 15,
+                              right: 30,
+                            }}
+                            onPress={() => {
+                              navigation.navigate("VIP明细", {
+                                userState: userState,
+                              });
+                            }}
+                          >
+                            <Text style={{ color: "#9c9c9c" }}>VIP明细</Text>
+                          </TouchableOpacity>
+                        )}
                     </View>
 
-                 
-                      {/* card 1  */}
-                      <View
+
+                    {/* card 1  */}
+                    <View
+                      style={{
+                        width: "100%",
+                        height: 220,
+                        zIndex: 1,
+                        position: "relative",
+                        bottom: 10,
+                        paddingHorizontal: 10,
+                      }}
+                    >
+                      <FastImage
+                        source={require("./../../../static/images/splash/card.png")}
                         style={{
-                          width: "100%",
-                          height: 220,
-                          zIndex: 1,
-                          position: "relative",
-                          bottom: 10,
-                          paddingHorizontal: 10,
+                          flex: 1,
                         }}
-                      >
-                        <FastImage
-                          source={require("./../../../static/images/splash/card.png")}
-                          style={{
-                            flex: 1,
-                          }}
-                          resizeMode="contain"
-                        ></FastImage>
-                      </View>
-                
-                  </View>
-                </LinearGradient>
-              </View>
-            )}
+                        resizeMode="contain"
+                      ></FastImage>
+                    </View>
+
+                  </View >
+                </LinearGradient >
+              </View >
+            )
+            }
           </>
         ) : (
           <>
@@ -1036,7 +1026,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
         height={height}
         data={screenState.showEventSplashData}
         scrollAnimationDuration={100}
-        onScrollBegin={() => {}}
+        onScrollBegin={() => { }}
         enabled={screenState.showEventSplash !== false}
         loop={false}
         onSnapToItem={(index) => {
