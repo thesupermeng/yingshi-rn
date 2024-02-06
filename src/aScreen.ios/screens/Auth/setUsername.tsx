@@ -28,7 +28,6 @@ import { ProfileTabParamList } from '@type/navigationTypes';
 import { changeScreenAction } from '@redux/actions/screenAction';
 import { updateUsernameState } from '@redux/actions/userAction';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { userModel } from '@type/userType';
 import BackButton from '../../components/button/backButton';
 import { UserApi } from '@api';
 export default (props: any) => {
@@ -115,10 +114,6 @@ export default (props: any) => {
       screen: 'Profile',
     });
   };
-
-  const userState: userModel = useAppSelector(
-    ({ userReducer }: RootState) => userReducer,
-  );
 
   return (
     <View

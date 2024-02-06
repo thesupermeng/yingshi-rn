@@ -1,5 +1,5 @@
 import { FFmpegSession } from "ffmpeg-kit-react-native"
-import { DownloadVideoActionPayload } from "./actionTypes"
+import { DownloadVideoActionPayload, DownloadVideoQueueItem } from "./actionTypes"
 import { VodType } from "./ajaxTypes"
 
 export enum DownloadStatus { 
@@ -32,6 +32,6 @@ export interface VodDownloadType {
 
 export interface DownloadVideoReducerState {
   downloads: Array<VodDownloadType>;
-  currentDownloading: Array<DownloadVideoActionPayload>;
-  queue: Array<DownloadVideoActionPayload>
+  currentDownloading: Array<DownloadVideoQueueItem>;
+  queue: Array<DownloadVideoQueueItem>
 }

@@ -7,26 +7,22 @@ import { IconClose } from '../../Sports/assets';
 import { useCallback } from 'react';
 import CrossIcon from '@static/images/cross.svg'
 import CloseIcon from '@static/images/close.svg'
-import { useAppDispatch, useAppSelector } from '@hooks/hooks';
-import { userModel } from '@type/userType';
+import { useAppDispatch, useAppSelector, useSelector } from '@hooks/hooks';
 import { screenModel } from '@type/screenType';
 import { SHOW_ZF_CONST, UMENG_CHANNEL } from '@utility/constants';
+import { UserStateType } from '@redux/reducers/userReducer';
 
 
 const AdultVideoVipModal = () => {
   const navigator = useNavigation();
-  const userState: userModel = useAppSelector(
-    ({ userReducer }) => userReducer
-  );
+  const userState = useSelector<UserStateType>('userReducer');
   const screenState: screenModel = useAppSelector(
     ({ screenReducer }) => screenReducer
   )
   const { adultModeVipShow, adultMode, watchAnytimeAdultMode } = screenState
   const dispatch = useAppDispatch()
 
-  const isVip = !(Number(userState.userMemberExpired) <=
-    Number(userState.userCurrentTimestamp) ||
-    userState.userToken === "")
+  const isVip = userState.user?.isVip() ?? false;
 
   const handleCloseModal = useCallback(() => {
     dispatch(hideAdultModeVip())
@@ -83,12 +79,10 @@ const AdultVideoVipModal = () => {
                 {SHOW_ZF_CONST && <TouchableOpacity
                   onPress={() => {
                     handleCloseModal();
-                    if (UMENG_CHANNEL == 'GOOGLE_PLAY')
-                    {
+                    if (UMENG_CHANNEL == 'GOOGLE_PLAY') {
                       navigator.navigate("付费Google");
                     }
-                    else
-                    {
+                    else {
                       navigator.navigate("付费VIP");
                     }
                   }}

@@ -2,7 +2,7 @@ import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import type { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { VodType, VodTopicType, LiveTVStationItem, CommentsType, BannerAdType } from "./ajaxTypes";
-import { userModel } from "./userType";
+import { User } from "@models/user";
 
 // https://reactnavigation.org/docs/typescript/
 export type HomeTabParamList = {
@@ -104,7 +104,7 @@ export type RootStackParamList = {
   付费VIP: undefined;
   付费Google: undefined;
   VIP明细: {
-    userState: userModel;
+    userState: User;
   };
   午夜场剧情: {
     class: string;

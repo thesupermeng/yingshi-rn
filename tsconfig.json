@@ -29,6 +29,9 @@
       "@constants": [
         "./src/constants/index.tsx"
       ],
+      "@models/*": [
+        "./src/models/*"
+      ],
     },
   }
 }

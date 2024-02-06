@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
-import { useAppDispatch, useAppSelector } from "@hooks/hooks";
+import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
 import {
   changeScreenAction,
   hideBottomSheetAction,
@@ -38,8 +38,8 @@ import UmengAnalytics from "../../../Umeng/UmengAnalytics";
 import { useDispatch } from "react-redux";
 import { addUserAuthState } from "@redux/actions/userAction";
 import { UserApi } from "@api";
-import { userModel } from "@type/userType";
-import { RootState } from "@redux/store";
+import { User } from "@models/user";
+import { UserStateType } from "@redux/reducers/userReducer";
 
 
 export type SigninupRef = {
@@ -72,9 +72,7 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
   const [isSubmitting, setSubmitting] = useState(false);
   const [containerHeight, setContainerHeight] = useState(0);
 
-  const userState: userModel = useAppSelector(
-    ({ userReducer }: RootState) => userReducer,
-  );
+  const userState = useSelector<UserStateType>('userReducer');
 
   const { data: countryPhoneOptions } = useQuery({
     queryKey: ["CountryPhoneOptions"],
@@ -208,7 +206,7 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
         email: userInfo.user.email,
         referralCode: referralCode,
         isGoogleLogin: true,
-        userId: userState.userId
+        userId: userState.user?.userId ?? '',
       });
 
     } catch (err: any) {
@@ -221,34 +219,16 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
 
     const resultData = userInfo.data;
 
-    let json = {
-      userToken: resultData.access_token,
-      userId: resultData.user.user_id,
-      userName: resultData.user.user_name,
-      userReferralCode: resultData.user.user_referral_code,
-      userEmail: resultData.user.user_email,
-      userPhoneNumber: resultData.user.user_phone,
-      userMemberExpired: resultData.user.vip_end_time,
-      userReferrerName: resultData.user.referrer_name,
-      userEndDaysCount: resultData.user.user_vip_time_duration_days,
-      userTotalInvite: resultData.user.total_invited_user,
-      userAccumulateRewardDay: resultData.user.accumulated_vip_reward_days,
-      userAllowUpdateReferral: resultData.user.eligible_update_referrer,
-      userCurrentTimestamp: resultData.user.current_timestamp,
-      userInvitedUserList: resultData.user.invited_users,
-      userUpline: resultData.user.upline_user,
-      userAccumulateVipRewardDay: resultData.user.accumulated_paid_vip_reward_days,
-      userPaidVipList: resultData.user.paid_vip_response,
-    };
+    const user = User.fromJson(resultData);
 
-    await dispatch(addUserAuthState(json));
+    await dispatch(addUserAuthState(user));
 
     if (userInfo.message.includes("注册成功")) {
       navigation.navigate('SetUsername');
 
     } else if (userInfo.message.includes("登录成功")) {
 
-      if (json.userCurrentTimestamp < json.userMemberExpired) {
+      if (user.isVip()) {
         await AsyncStorage.setItem("showAds", "false");
       } else {
         await AsyncStorage.setItem("showAds", "true");
@@ -259,7 +239,7 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
       // ========== for analytics - start ==========
       UmengAnalytics.userCenterLoginSuccessTimesAnalytics();
 
-      if (json.userMemberExpired >= json.userCurrentTimestamp) {
+      if (user.isVip()) {
         UmengAnalytics.userCenterVipLoginSuccessTimesAnalytics();
       }
       // ========== for analytics - end ==========
@@ -316,7 +296,7 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
         phone: loginType === 'phone' ? countryPhoneSelected?.country_phonecode + formattedLoginValue : undefined,
         countryId: loginType === 'phone' ? countryPhoneSelected?.country_id : undefined,
         referralCode: referralCode,
-        userId: userState.userId
+        userId: userState.user?.userId ?? '',
       });
     } catch (err: any) {
       setSubmitting(false);

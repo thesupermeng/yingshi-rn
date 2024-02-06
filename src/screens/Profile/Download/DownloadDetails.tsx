@@ -188,16 +188,27 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
           });
       } else if (allButtonText === '全部下载') {
         download.episodes
-          .filter(x => x.status === DownloadStatus.PAUSED)
+          .filter(x => x.status === DownloadStatus.PAUSED || x.status === DownloadStatus.ERROR)
           .forEach((episodeDownload) => {
-            dispatch(
-              resumeVideoToDownloadThunk(
-                download.vod,
-                episodeDownload.vodSourceId,
-                episodeDownload.vodUrlNid,
-                download.vodIsAdult,
-              ),
-            );
+            if (episodeDownload.status === DownloadStatus.PAUSED){
+              dispatch(
+                resumeVideoToDownloadThunk(
+                  download.vod,
+                  episodeDownload.vodSourceId,
+                  episodeDownload.vodUrlNid,
+                  download.vodIsAdult,
+                ),
+              );
+            }
+            if (episodeDownload.status === DownloadStatus.ERROR){
+              dispatch(
+                restartVideoDownloadThunk(
+                  download.vod,
+                  episodeDownload.vodSourceId,
+                  episodeDownload.vodUrlNid,
+                )
+              )
+            }
           });
       } else {
       }

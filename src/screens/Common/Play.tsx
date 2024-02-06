@@ -34,7 +34,7 @@ import {
   BannerAdType,
 } from "@type/ajaxTypes";
 import { addVodToHistory, playVod } from "@redux/actions/vodActions";
-import { useAppDispatch, useAppSelector } from "@hooks/hooks";
+import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
 import { RootState } from "@redux/store";
 import {
   FavoriteVodReducerState,
@@ -71,7 +71,6 @@ import { lockAppOrientation } from "@redux/actions/settingsActions";
 import { AdsBannerContext } from "../../contexts/AdsBannerContext";
 import { URL } from "react-native-url-polyfill";
 import RNFetchBlob from "rn-fetch-blob";
-import { userModel } from "@type/userType";
 import { BridgeServer } from "react-native-http-bridge-refurbished";
 import { debounce } from "lodash";
 
@@ -104,6 +103,7 @@ import DeviceInfo from "react-native-device-info";
 import { addVideoToDownloadThunk } from "@redux/actions/videoDownloadAction";
 import { DownloadStatus, DownloadVideoReducerState, VodDownloadType } from "@type/vodDownloadTypes";
 import { CPopup } from "@utility/popup";
+import { UserStateType } from "@redux/reducers/userReducer";
 
 let insetsTop = 0;
 let insetsBottom = 0;
@@ -253,9 +253,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const settingsReducer: SettingsReducerState = useAppSelector(
     ({ settingsReducer }: RootState) => settingsReducer
   );
-  const userState: userModel = useAppSelector(
-    ({ userReducer }: RootState) => userReducer
-  );
+  const userState = useSelector<UserStateType>('userReducer');
   const screenState: screenModel = useAppSelector(
     ({ screenReducer }) => screenReducer
   );
@@ -271,7 +269,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   }, []);
 
   const vod = vodReducer.playVod.vod;
-  
+
   // const [vod, setVod] = useState(vodReducer.playVod.vod);
   const [initTime, setInitTime] = useState(0);
   const isFavorite = vodFavouriteReducer.favorites.some(
@@ -305,10 +303,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const [dismountPlayer, setDismountPlayer] = useState(false);
   const [isOffline, setIsOffline] = useState(false);
   const [isShowSheet, setShowSheet] = useState(false);
-  const isVip = !(
-    Number(userState.userMemberExpired) <=
-    Number(userState.userCurrentTimestamp) || userState.userToken === ""
-  );
+  const isVip = userState.user?.isVip() ?? false;
 
   const [isReadyPlay, setReadyPlay] = useState(false);
 
@@ -331,9 +326,9 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const [bannerAd, setBannerAd] = useState<BannerAdType>();
 
 
-  const downloadedVod: VodDownloadType | undefined = useAppSelector(({downloadVideoReducer}:RootState) => {return downloadVideoReducer.downloads.find(download => download.vod.vod_id === vod?.vod_id)})
-  const episode = adultMode ?  downloadedVod?.episodes.find(ep => ep.vodUrlNid === currentEpisode && ep.status === DownloadStatus.COMPLETED) :  downloadedVod?.episodes.find(ep => ep.vodSourceId === currentSourceId && ep.vodUrlNid === currentEpisode && ep.status === DownloadStatus.COMPLETED)
-  
+  const downloadedVod: VodDownloadType | undefined = useAppSelector(({ downloadVideoReducer }: RootState) => { return downloadVideoReducer.downloads.find(download => download.vod.vod_id === vod?.vod_id) })
+  const episode = adultMode ? downloadedVod?.episodes.find(ep => ep.vodUrlNid === currentEpisode && ep.status === DownloadStatus.COMPLETED) : downloadedVod?.episodes.find(ep => ep.vodSourceId === currentSourceId && ep.vodUrlNid === currentEpisode && ep.status === DownloadStatus.COMPLETED)
+
 
   //For pausing video player when switch source
   const onPressSource = useCallback(
@@ -575,7 +570,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   const handleFetchVodDetail = async () => {
     const promise = (async () => downloadedVod?.vod)
-    if (isOffline){
+    if (isOffline) {
       console.debug('is offline')
       return promise()
     } else {
@@ -847,7 +842,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   };
 
   const onDownloadVod = (nid: number) => {
-    if (adultMode){
+    if (adultMode) {
       dispatch(addVideoToDownloadThunk(vod, 0, nid, adultMode));
     } else {
       if (vodDetails) {
@@ -915,7 +910,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
     if (!!vodUrl && !!vod?.vod_id) {
       // console.debug('vod url is', vodUrl)
-      if (downloadedVod && episode && episode.status === DownloadStatus.COMPLETED){
+      if (downloadedVod && episode && episode.status === DownloadStatus.COMPLETED) {
         // CPopup.showToast('本地播放')
         setVodUri(`file://${episode.videoPath}`)
       } else {
@@ -1142,7 +1137,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                   {adultMode ? (
                     <FastImage
                       key={`${vod?.vod_pic}-${isOffline}`}
-                      source={{ uri: isOffline && !!episode ? downloadedVod?.imagePath : vod?.vod_pic}}
+                      source={{ uri: isOffline && !!episode ? downloadedVod?.imagePath : vod?.vod_pic }}
                       resizeMode={"cover"}
                       style={{
                         ...styles.descriptionImageHorizontal,
@@ -1154,7 +1149,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                   ) : (
                     <FastImage
                       key={`${vod?.vod_pic}-${isOffline}`}
-                      source={{ uri: isOffline && !!episode ? downloadedVod?.imagePath : vod?.vod_pic}}
+                      source={{ uri: isOffline && !!episode ? downloadedVod?.imagePath : vod?.vod_pic }}
                       resizeMode={"cover"}
                       style={{
                         ...styles.descriptionImage,

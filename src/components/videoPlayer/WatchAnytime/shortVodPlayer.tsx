@@ -20,18 +20,18 @@ import { QueryClient } from '@tanstack/react-query';
 import { debounce } from 'lodash';
 import RNFetchBlob from 'rn-fetch-blob';
 import HejiIcon from '@static/images/heji.svg';
-import { useAppDispatch, useAppSelector } from '@hooks/hooks';
+import { useAppDispatch, useAppSelector, useSelector } from '@hooks/hooks';
 import UmengAnalytics from '../../../../Umeng/UmengAnalytics';
 import { showAdultModeVip } from '@redux/actions/screenAction';
 import { playVod, viewPlaylistDetails } from '@redux/actions/vodActions';
 import { screenModel } from '@type/screenType';
-import { userModel } from '@type/userType';
 import { ADULT_MODE_PREVIEW_DURATION, DOWNLOAD_WATCH_ANYTIME } from '@utility/constants';
 import FastImage from '../../common/customFastImage';
 import RedirectButton from './RedirectButton';
 import DescriptionBar from './DescriptionBar';
 import HejiButton from './HejiButton';
 import { addIdToCache } from '../../../utils/minivodDownloader';
+import { UserStateType } from '@redux/reducers/userReducer';
 
 interface Props {
   thumbnail?: string;
@@ -107,12 +107,9 @@ function ShortVideoPlayer({
 
   const windowWidth = Dimensions.get('window').width;
 
-  const userState: userModel = useAppSelector(({ userReducer }) => userReducer);
+  const userState = useSelector<UserStateType>('userReducer');
 
-  const isVip = !(
-    Number(userState.userMemberExpired) <=
-    Number(userState.userCurrentTimestamp) || userState.userToken === ''
-  );
+  const isVip = userState.user?.isVip() ?? false;
   const disableSeek =
     !isVip && adultVideoWatchTime >= ADULT_MODE_PREVIEW_DURATION && adultMode;
 
@@ -433,12 +430,12 @@ function ShortVideoPlayer({
                 onLoadStart={handleLoadStart}
                 onProgress={handleProgress}
                 progressUpdateInterval={1500}
-                onError={(e)=>{
+                onError={(e) => {
 
                   console.log(e)
                   console.log(e)
                   console.log(e)
-console.log('=============')
+                  console.log('=============')
                   console.log(e)
                   console.log(e)
                 }}

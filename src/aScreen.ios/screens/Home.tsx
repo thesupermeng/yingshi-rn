@@ -39,8 +39,8 @@ import { AdsBannerContext } from "../../contexts/AdsBannerContext";
 
 import UmengAnalytics from "../../../Umeng/UmengAnalytics";
 import { AppsApi } from "@api";
-import { userModel } from "@type/userType";
 import DeviceInfo from "react-native-device-info";
+import { UserStateType } from "@redux/reducers/userReducer";
 
 function Home({ navigation }: BottomTabScreenProps<any>) {
   const isFocused = useIsFocused();
@@ -52,10 +52,8 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   const settingsReducer: SettingsReducerState = useAppSelector(
     ({ settingsReducer }: RootState) => settingsReducer
   );
-  const userState = useSelector<userModel>('userReducer');
-  const isVip = !(Number(userState.userMemberExpired) <=
-    Number(userState.userCurrentTimestamp) ||
-    userState.userToken === "")
+  const userState = useSelector<UserStateType>('userReducer');
+  const isVip = userState.user?.isVip();
   const bottomTabHeight = useBottomTabBarHeight();
 
   const { data: navOptions, refetch } = useQuery({
@@ -181,7 +179,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
 
 
   const { setNavbarHeight, reloadBanner } = useContext(AdsBannerContext);
-  
+
   useEffect(() => {
     setNavbarHeight(bottomTabHeight);
   }, [bottomTabHeight]);
@@ -195,7 +193,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   //   }
   //   })
   // }, []);
-  
+
 
   // ========== for analytics - start ==========
   useEffect(() => {

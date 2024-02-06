@@ -1,118 +1,69 @@
-import { userModel } from '@type/userType';
+import { User } from '@models/user';
 
-// export interface UserActionType {
-//   type: string;
-//   payload: userModel;
-// }
+type UserActionType = {
+  type: string;
+  payload: any;
+}
 
-const initialState: userModel = {
-  userToken: '',
-  userId: '',
-  userName: '',
-  userReferralCode: '',
-  userEmail: '',
-  userPhoneNumber: '',
-  userMemberExpired: '',
-  userReferrerName: '',
-  userEndDaysCount: 0,
-  userTotalInvite: 0,
-  userAccumulateRewardDay: 0,
-  userAllowUpdateReferral: false,
-  userInvitedUserList: [],
-  userUpline: {},
-  userCurrentTimestamp: '',
-  userAccumulateVipRewardDay: 0,
-  userPaidVipList: {},
-};
+export type UserStateType = {
+  user: User | null,
+}
 
-export function userReducer(state = initialState, action: any) {
+const initialState: UserStateType = {
+  user: null,
+}
+
+export function userReducer(state = initialState, action: UserActionType): UserStateType {
   switch (action.type) {
     case 'remove_user_auth':
       return {
         ...state,
-        userToken: '',
-        userId: '',
-        userName: '',
-        userReferralCode: '',
-        userEmail: '',
-        userPhoneNumber: '',
-        userMemberExpired: '',
-        userReferrerName: '',
-        userEndDaysCount: 0,
-        userTotalInvite: 0,
-        userAccumulateRewardDay: 0,
-        userAllowUpdateReferral: false,
-        userInvitedUserList: [],
-        userUpline: {},
-        userCurrentTimestamp: '',
-        userAccumulateVipRewardDay: 0,
-        userPaidVipList: {},
+        user: null,
       };
     case 'add_user_auth':
-      let json = {
-        userToken: action.payload.userToken,
-        userId: action.payload.userId,
-        userName: action.payload.userName,
-        userReferralCode: action.payload.userReferralCode,
-        userEmail: action.payload.userEmail,
-        userPhoneNumber: action.payload.userPhoneNumber,
-        userMemberExpired: action.payload.userMemberExpired,
-        userReferrerName: action.payload.userReferrerName,
-        userEndDaysCount: action.payload.userEndDaysCount,
-        userTotalInvite: action.payload.userTotalInvite,
-        userAccumulateRewardDay: action.payload.userAccumulateRewardDay,
-        userAllowUpdateReferral: action.payload.userAllowUpdateReferral,
-        userCurrentTimestamp: action.payload.userCurrentTimestamp,
-
-        userInvitedUserList: action.payload.userInvitedUserList
-          ? action.payload.userInvitedUserList
-          : [],
-        userUpline: action.payload.userUpline,
-        userAccumulateVipRewardDay: action.payload.userAccumulateVipRewardDay,
-        userPaidVipList: action.payload.userPaidVipList,
-      };
-
       return {
-        ...json,
+        ...state,
+        user: action.payload ?? null,
       };
     case 'update_user_auth':
-      let updatedState = {
-        userName: action.payload.user.user_name,
-        userReferralCode: action.payload.user.user_referral_code,
-        userEmail: action.payload.user.user_email,
-        userPhoneNumber: action.payload.user.user_phone !== 0
-          ? `${action.payload.user.country?.country_phonecode ?? ''}${action.payload.user.user_phone}`
-          : '',
-        userMemberExpired: action.payload.user.vip_end_time,
-        userReferrerName: action.payload.user.referrer_name,
-        userEndDaysCount: action.payload.user.user_vip_time_duration_days,
-        userTotalInvite: action.payload.user.total_invited_user,
-        userAccumulateRewardDay:
-          action.payload.user.accumulated_vip_reward_days,
-        userAllowUpdateReferral: action.payload.user.eligible_update_referrer,
-        userCurrentTimestamp: action.payload.user.current_timestamp,
-        userInvitedUserList: action.payload.user.invited_users,
-        userUpline: action.payload.user.upline_user,
-        userAccumulateVipRewardDay: action.payload.user.accumulated_paid_vip_reward_days,
-        userPaidVipList: action.payload.user.paid_vip_response,
+      console.debug('111')
+      console.log(action.payload.user)
+      const newUserDetails = User.fromJson({
+        user: action.payload.user,
+      });
+
+      newUserDetails.userToken = state.user?.userToken ?? '';
+      newUserDetails.userPhoneNumber = action.payload.user.user_phone !== 0
+        ? `${action.payload.user.country?.country_phonecode ?? ''}${action.payload.user.user_phone}`
+        : '';
+
+      console.debug('newUserDetails')
+      console.log(newUserDetails)
+      return {
+        ...state,
+        user: newUserDetails,
       };
+
+    case 'update_user_username': {
+      let user = state.user;
+
+      if (user !== null) user.userName = action.payload;
 
       return {
         ...state,
-        ...updatedState,
+        user: user,
       };
+    }
+    case 'update_user_referral': {
+      let user = state.user;
 
-    case 'update_user_username':
-      console.log('update_user_username reducer');
+      if (user !== null) user.userReferrerName = action.payload;
+
       return {
         ...state,
-        userName: action.payload,
+        user: user,
       };
-    case 'update_user_referral':
-      return {
-        ...state,
-        userReferrerName: action.payload,
-      };
+    }
     default:
       return state;
   }

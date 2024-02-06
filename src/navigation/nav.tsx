@@ -99,7 +99,6 @@ import { Dialog } from "@rneui/themed";
 import FastImage from "../components/common/customFastImage";
 import { screenModel } from "@type/screenType";
 import { YingshiDarkTheme, YingshiLightTheme } from "@utility/theme";
-import { userModel } from "@type/userType";
 import { updateUserAuth, updateUserReferral } from "@redux/actions/userAction";
 import ExpiredOverlay from "../components/modal/expiredOverlay";
 import EventRules from "../screens/Profile/EventRules";
@@ -135,6 +134,7 @@ import AutoRenewService from "../screens/Profile/AutoRenewService";
 import { VipPromotionOverlay } from "../components/modal/vipPromotionOverlay";
 import { GuestPurchaseSuccessOverlay } from "../components/modal/guestPurchaseSuccessOverlay";
 import { BackgroundType } from "@redux/reducers/backgroundReducer";
+import { UserStateType } from "@redux/reducers/userReducer";
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -155,9 +155,7 @@ export default () => {
     iconWidth = 25;
   }
 
-  const userState: userModel = useAppSelector(
-    ({ userReducer }: RootState) => userReducer
-  );
+  const userState = useSelector<UserStateType>('userReducer');
 
   const appState = useSelector<BackgroundType>('backgroundReducer');
 
@@ -320,8 +318,8 @@ export default () => {
   const [vipRemainingDay, setVipRemainingDay] = useState(0);
 
   useEffect(() => {
-    const date1Timestamp = userState.userCurrentTimestamp;
-    const date2Timestamp = userState.userMemberExpired;
+    const date1Timestamp = userState.user?.userCurrentTimestamp ?? '';
+    const date2Timestamp = userState.user?.userMemberExpired ?? '';
     const date1Milliseconds = Number(date1Timestamp) * 1000;
     const date2Milliseconds = Number(date2Timestamp) * 1000;
     const timeDifferenceMilliseconds = date2Milliseconds - date1Milliseconds;
@@ -336,11 +334,11 @@ export default () => {
       result <= 3 &&
       roundedTimeDifferenceDays >= 0 &&
       date2Timestamp > date1Timestamp &&
-      userState.userToken != ""
+      userState.user?.isLogin()
     ) {
       setShowVIPOverlay(true);
     }
-  }, [userState.userCurrentTimestamp]);
+  }, [userState.user?.userCurrentTimestamp]);
 
   //screen state
   //screen state

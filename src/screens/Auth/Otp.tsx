@@ -21,9 +21,9 @@ import { addUserAuthState } from '@redux/actions/userAction';
 import { changeScreenAction } from '@redux/actions/screenAction';
 import UmengAnalytics from '../../../Umeng/UmengAnalytics';
 import { UserApi } from '@api';
-import { userModel } from '@type/userType';
-import { useAppSelector } from '@hooks/hooks';
-import { RootState } from '@redux/store';
+import { useSelector } from '@hooks/hooks';
+import { User } from '@models/user';
+import { UserStateType } from '@redux/reducers/userReducer';
 
 
 export default (props: any) => {
@@ -77,10 +77,8 @@ const OtpInputs = ({
 
   const [focusedInput, setFocusedInput] = useState(null); // Track the focused input index
 
-  const userState: userModel = useAppSelector(
-    ({ userReducer }: RootState) => userReducer,
-  );
-  
+  const userState = useSelector<UserStateType>('userReducer');
+
   const styles = useMemo(() => createStyles({
     colors,
   }), []);
@@ -123,7 +121,7 @@ const OtpInputs = ({
       phone: phone,
       countryId: countryId,
       referralCode: referralCode,
-      userId: userState.userId
+      userId: userState.user?.userId ?? '',
     }).then(() => {
       setOtpTextInput([]);
       setOtp('      ');
@@ -174,7 +172,7 @@ const OtpInputs = ({
         countryId: countryId,
         referralCode: referralCode,
         otp: new_otp,
-        userId: userState.userId
+        userId: userState.user?.userId ?? '',
       })
     } catch (err: any) {
       setValid(1);
@@ -185,27 +183,9 @@ const OtpInputs = ({
 
     const resultData = result.data;
 
-    let json = {
-      userToken: resultData.access_token,
-      userId: resultData.user.user_id,
-      userName: resultData.user.user_name,
-      userReferralCode: resultData.user.user_referral_code,
-      userEmail: resultData.user.user_email,
-      userPhoneNumber: resultData.user.user_phone,
-      userMemberExpired: resultData.user.vip_end_time,
-      userReferrerName: resultData.user.referrer_name,
-      userEndDaysCount: resultData.user.user_vip_time_duration_days,
-      userTotalInvite: resultData.user.total_invited_user,
-      userAccumulateRewardDay: resultData.user.accumulated_vip_reward_days,
-      userAllowUpdateReferral: resultData.user.eligible_update_referrer,
-      userCurrentTimestamp: resultData.user.current_timestamp,
-      userInvitedUserList: resultData.user.invited_users,
-      userUpline: resultData.user.upline_user,
-      userAccumulateVipRewardDay: resultData.user.accumulated_paid_vip_reward_days,
-      userPaidVipList: resultData.user.paid_vip_response,
-    };
+    const user = User.fromJson(resultData);
 
-    await dispatch(addUserAuthState(json));
+    await dispatch(addUserAuthState(user));
 
     const resultMsg = result.message;
 
@@ -214,7 +194,7 @@ const OtpInputs = ({
 
     } else if (resultMsg.includes("登录成功")) {
 
-      if (json.userCurrentTimestamp < json.userMemberExpired) {
+      if (user.isVip()) {
         await AsyncStorage.setItem("showAds", "false");
       } else {
         await AsyncStorage.setItem("showAds", "true");
@@ -226,7 +206,7 @@ const OtpInputs = ({
       // ========== for analytics - start ==========
       UmengAnalytics.userCenterLoginSuccessTimesAnalytics();
 
-      if (json.userMemberExpired >= json.userCurrentTimestamp) {
+      if (user.isVip()) {
         UmengAnalytics.userCenterVipLoginSuccessTimesAnalytics();
       }
       // ========== for analytics - end ==========

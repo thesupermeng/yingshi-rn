@@ -25,11 +25,11 @@ import {
   TOPON_BANNER_HEIGHT,
 } from "@utility/constants";
 import { getNavigationBarHeight } from "react-native-android-navbar-height";
-import { userModel } from "@type/userType";
 import { RootState } from "@redux/store";
-import { useAppSelector } from "@hooks/hooks";
+import { useAppSelector, useSelector } from "@hooks/hooks";
 import { SettingsReducerState } from "@redux/reducers/settingsReducer";
 import { screenModel } from "@type/screenType";
+import { UserStateType } from "@redux/reducers/userReducer";
 // LogBox.ignoreAllLogs();
 interface Props {
   children: ReactNode;
@@ -59,9 +59,7 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
   const [systemNavHeight, setSystemNavHeight] = useState(0);
   const windowWidth2 = useWindowDimensions().width;
   // const windowHeight2 = useWindowDimensions().height;
-  const userState: userModel = useAppSelector(
-    ({ userReducer }: RootState) => userReducer
-  );
+  const userState = useSelector<UserStateType>('userReducer');
   const settingState: SettingsReducerState = useAppSelector(
     ({ settingsReducer }: RootState) => settingsReducer
   );
@@ -500,9 +498,8 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
     // show banner logic
     if (settingState.appOrientation === "PORTRAIT") {
       if (
-        Number(userState.userMemberExpired) <=
-        Number(userState.userCurrentTimestamp) ||
-        userState.userToken === ""
+        !userState.user?.isVip() ||
+        userState.user.isGuest()
       ) {
         // not member, then show banner
         // console.debug('not member')

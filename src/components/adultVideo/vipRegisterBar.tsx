@@ -3,10 +3,10 @@ import { View, Text, TouchableOpacity } from "react-native"
 import LinearGradient from "react-native-linear-gradient"
 import VipIcon from '@static/images/vip-icon.svg'
 import MoreArrow from '@static/images/more_arrow.svg'
-import { useAppDispatch, useAppSelector } from "@hooks/hooks"
-import { userModel } from "@type/userType"
+import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks"
 import { showAdultModeVip } from "@redux/actions/screenAction"
 import { useNavigation } from "@react-navigation/native"
+import { UserStateType } from "@redux/reducers/userReducer"
 
 
 const VipRegisterBar = ({
@@ -21,12 +21,8 @@ const VipRegisterBar = ({
 
     navigator.navigate('邀请');
   }, [])
-  const userState: userModel = useAppSelector(
-    ({ userReducer }) => userReducer
-  );
-  const isVip = !(Number(userState.userMemberExpired) <=
-    Number(userState.userCurrentTimestamp) ||
-    userState.userToken === "")
+  const userState = useSelector<UserStateType>('userReducer');
+  const isVip = userState.user?.isVip() ?? false;
   if (!isVip)
     return (
       <LinearGradient

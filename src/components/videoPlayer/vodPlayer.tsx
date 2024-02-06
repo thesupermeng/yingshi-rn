@@ -44,7 +44,6 @@ import { useDispatch } from "react-redux";
 import { useAppSelector, useSelector } from "@hooks/hooks";
 import { screenModel } from "@type/screenType";
 import { ADULT_MODE_PREVIEW_DURATION, AD_VIDEO_SECONDS, NON_VIP_STREAM_TIME_SECONDS } from "@utility/constants";
-import { userModel } from "@type/userType";
 import { AdVideoImage } from "./AdVideoImage";
 import { VodReducerState } from "@redux/reducers/vodReducer";
 import { VodApi } from "@api";
@@ -53,6 +52,7 @@ import UmengAnalytics from "../../../Umeng/UmengAnalytics";
 import InAppBrowser from "react-native-inappbrowser-reborn";
 import ImmersiveMode from "react-native-immersive-mode"
 import { RootState } from "@redux/store";
+import { UserStateType } from "@redux/reducers/userReducer";
 
 LogBox.ignoreLogs([`Trying to load empty source.`]);
 
@@ -163,7 +163,7 @@ export default forwardRef<VideoRef, Props>(
     const route = useRoute();
     const dispatch = useDispatch();
 
-    const userState = useSelector<userModel>('userReducer');
+    const userState = useSelector<UserStateType>('userReducer');
     const bufferRef = useRef(true);
     const onBuffer = (bufferObj: any) => {
       if (!bufferObj.isBuffering) {
@@ -180,7 +180,7 @@ export default forwardRef<VideoRef, Props>(
     const [showAd, setShowAd] = useState(false);
     const [adCountdownTime, setAdCountdownTime] = useState(AD_VIDEO_SECONDS);
 
-    const isOffline = useAppSelector(({settingsReducer}: RootState) => settingsReducer.isOffline)
+    const isOffline = useAppSelector(({ settingsReducer }: RootState) => settingsReducer.isOffline)
 
     const { data: playerVodAds, isFetching: isFetchAds } = useQuery({
       queryKey: ["playerAdsVideo"],
@@ -193,10 +193,7 @@ export default forwardRef<VideoRef, Props>(
 
       if (showAds &&
         playerVodAds &&
-        (
-          userState.userToken === '' ||
-          userState.userCurrentTimestamp >= userState.userMemberExpired
-        )
+        (!userState.user?.isVip())
       ) {
         setShowAd(true);
         setAdCountdownTime(playerVodAds.minDuration);
@@ -689,8 +686,8 @@ export default forwardRef<VideoRef, Props>(
         lockOrientation('PORTRAIT')
         ImmersiveMode.setBarMode('Normal')
         ImmersiveMode.fullLayout(false)
-      } 
-      
+      }
+
     }, [isFullScreen])
 
     return (

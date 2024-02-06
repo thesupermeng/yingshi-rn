@@ -1,6 +1,6 @@
-import {userModel} from '@type/userType';
+import { User } from '@models/user';
 
-export const addUserAuthState = (user: userModel) => ({
+export const addUserAuthState = (user: User) => ({
   type: 'add_user_auth',
   payload: user,
 });

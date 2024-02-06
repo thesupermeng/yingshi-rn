@@ -27,14 +27,15 @@ import { AppsApi, SplashApi, UserApi } from "@api";
 import { hideLoginAction } from "@redux/actions/screenAction";
 import { useDispatch } from "react-redux";
 import NetInfo from "@react-native-community/netinfo";
-import { useAppDispatch, useAppSelector } from "@hooks/hooks";
+import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
 import { RootState } from "@redux/store";
 import { screenModel } from "@type/screenType";
 import { withIAPContext } from "react-native-iap";
 import DeviceInfo from "react-native-device-info";
-import { userModel } from "@type/userType";
 import { addUserAuthState } from "@redux/actions/userAction";
 import { onBootApp, onCloseApp } from "@redux/actions/backgroundAction";
+import { UserStateType } from "@redux/reducers/userReducer";
+import { User } from "@models/user";
 
 export default () => {
   const appDispatch = useAppDispatch();
@@ -42,19 +43,11 @@ export default () => {
   const [areaNavConfig, setAreaNavConfig] = useState(false);
   const [isSuper, setIsSuper] = useState(false);
 
-  const userState: userModel = useAppSelector(
-    ({ userReducer }: RootState) => userReducer
-  );
+  const userState = useSelector<UserStateType>('userReducer');
 
   const dispatch = useDispatch();
-  const isVip = useAppSelector(
-    ({ userReducer }) =>
-      !(
-        Number(userReducer.userMemberExpired) <=
-        Number(userReducer.userCurrentTimestamp) ||
-        userReducer.userToken === ""
-      )
-  );
+
+  const isVip = userState.user?.isVip !== undefined ? userState.user.isVip() : false;
 
   const [isConnected, setIsConnected] = useState(true);
 
@@ -70,6 +63,10 @@ export default () => {
 
     appDispatch(onBootApp());
 
+    if (userState.user !== null) {
+      dispatch(addUserAuthState(new User(userState.user)));
+    }
+
     return () => {
       // Unsubscribe from the network status listener when the component unmounts
       unsubscribe();
@@ -80,50 +77,16 @@ export default () => {
   //guest login
 
   const guestLoginInit = async () => {
-    // console.log("guestLoginInit");
-    // console.log(userState.userId);
-    // console.log(userState.userToken);
+    if (userState.user === null) {
+      const user = await UserApi.guestLogin();
 
-    if (userState.userId == "" && userState.userToken == "") {
-      // console.log("guestLogin");
-      let result = await UserApi.guestLogin();
-
-      // console.log("result");
-      // console.log(result);
-      const resultData = result;
-
-      let json = {
-        userToken: resultData.access_token,
-        userId: resultData.user.user_id,
-        userName: resultData.user.user_name,
-        userReferralCode: resultData.user.user_referral_code,
-        userEmail: resultData.user.user_email,
-        userPhoneNumber: resultData.user.user_phone !== 0 ? resultData.user.user_phone : '',
-        userMemberExpired: resultData.user.vip_end_time,
-        // userMemberExpired: resultData.user.created_at,
-        userReferrerName: resultData.user.referrer_name,
-        userEndDaysCount: resultData.user.user_vip_time_duration_days,
-        userTotalInvite: resultData.user.total_invited_user,
-        userAccumulateRewardDay: resultData.user.accumulated_vip_reward_days,
-        userAllowUpdateReferral: resultData.user.eligible_update_referrer,
-        userCurrentTimestamp: resultData.user.current_timestamp,
-        userInvitedUserList: resultData.user.invited_users,
-        userUpline: resultData.user.upline_user,
-        userAccumulateVipRewardDay:
-          resultData.user.accumulated_paid_vip_reward_days,
-        userPaidVipList: resultData.user.paid_vip_response,
-      };
-      // console.log("json");
-      // console.log(json);
-
-      await dispatch(addUserAuthState(json));
+      await dispatch(addUserAuthState(user));
     }
   };
 
   const onAppInit = async () => {
     await guestLoginInit();
 
-    // console.log("after guestLoginInit");
     await Promise.all([AppsApi.getLocalIpAddress(), AppsApi.getBottomNav()]);
 
     const res = await Api.call(

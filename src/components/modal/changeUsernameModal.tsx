@@ -4,7 +4,6 @@ import { CBottomSheet } from "../atoms";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import { CTextInput } from "../atoms/textInput";
 import { useSelector } from "@hooks/hooks";
-import { userModel } from "@type/userType";
 import { useDispatch } from "react-redux";
 import { changeScreenAction } from "@redux/actions/screenAction";
 import { updateUsernameState } from "@redux/actions/userAction";
@@ -29,7 +28,6 @@ export const ChangeUsernameModal = ({
 
     const dispatch = useDispatch();
     const navigation = useNavigation();
-    const userState = useSelector<userModel>('userReducer');
 
     const [username, setUsername] = useState(initialUsername);
     const [usernameErrMsg, setUsernameErrMsg] = useState<string | null>(null);

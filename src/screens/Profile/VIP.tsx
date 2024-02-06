@@ -22,8 +22,7 @@ import { RootState } from "@redux/store";
 
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
-import { useAppDispatch, useAppSelector } from "@hooks/hooks";
-import { userModel } from "@type/userType";
+import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
 import { updateUserAuth } from "@redux/actions/userAction";
 import { TouchableOpacity } from "react-native";
 import NoConnection from "../../components/common/noConnection";
@@ -48,6 +47,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { isAndroid } from "react-native-iap/lib/typescript/src/internal";
 import UmengAnalytics from "../../../Umeng/UmengAnalytics";
 import { err } from "react-native-svg/lib/typescript/xml";
+import { UserStateType } from "@redux/reducers/userReducer";
 
 export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const {
@@ -72,9 +72,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const [zfSelected, setSelectedZf] = useState("");
   const [isOffline, setIsOffline] = useState(false);
   const { colors, textVariants, spacing } = useTheme();
-  const userState: userModel = useAppSelector(
-    ({ userReducer }: RootState) => userReducer
-  );
+  const userState = useSelector<UserStateType>('userReducer');
 
   const [loading, setIsLoading] = useState(true);
   const [fetching, setFetching] = useState(true);
@@ -108,7 +106,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const [dialogText, setDialogText] = useState([""]);
 
   const headers = {
-    Authorization: `Bearer ${userState.userToken}`,
+    Authorization: `Bearer ${userState.user?.userToken}`,
     "Content-Type": "application/json",
   };
 
@@ -188,24 +186,24 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
 
   const getZfOptions = (channel: string): zfModel[] => {
     switch (channel) {
-      case 'GOOGLE_PLAY' :
+      case 'GOOGLE_PLAY':
         return [
           {
-            payment_type_code: "GOOGLE_PAY", 
+            payment_type_code: "GOOGLE_PAY",
             payment_type_name: "Google Pay",
             payment_type_icon: "google.png"
           },
         ];
-      
-      default: 
+
+      default:
         return [
           {
-            payment_type_code: "ALIPAY", 
+            payment_type_code: "ALIPAY",
             payment_type_name: "支付宝",
             payment_type_icon: "https://test.yingshi.tv/static/images/payment/alipay-icon-lg.png"
           },
           {
-            payment_type_code: "JD_ECARD", 
+            payment_type_code: "JD_ECARD",
             payment_type_name: "微信支付",
             payment_type_icon: "https://test.yingshi.tv/static/images/payment/wxpay-icon-lg.png"
           },
@@ -238,7 +236,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   }, [membershipSelected]);
 
   const handlePurchase = async () => {
-    if (userState.userToken == "") {
+    if (!userState.user?.isLogin()) {
       dispatch(showLoginAction());
       console.log("show login");
       return; //early return
@@ -380,7 +378,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
 
   const saveFinishTrans = async (transStatus: string, error: any) => {
     const trans = {
-      user_id: userState.userId,
+      user_id: userState.user?.userId ?? '',
       product_id: membershipSelected?.productId,
       transaction_type: "SUBSCRIBE_VIP",
       zf_channel: zfSelected.toUpperCase().replace(/ /g, '_'),
@@ -443,12 +441,12 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
           let popItem = existingData.shift();
           console.log("pop item");
           console.log(popItem);
-  
+
           const result = await ProductApi.postValidateReceipt(popItem);
-  
+
           console.log("response get back");
           console.log(result);
-  
+
           if (result.statusCode !== 200) {
             console.log("push back the unsuccess trans: ", popItem);
             existingData.push(popItem);
@@ -457,10 +455,10 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         console.log("after data");
         console.log(existingData);
         existingData.length ?
-          await AsyncStorage.setItem("transRecords",  JSON.stringify(existingData)) :
+          await AsyncStorage.setItem("transRecords", JSON.stringify(existingData)) :
           await AsyncStorage.removeItem("transRecords");
       }
-      
+
     } catch (error) {
       console.error("error saving local data to database: ", error);
     }
@@ -564,10 +562,10 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     if (webViewref.current) {
       webViewref.current.reload();
     }
-  }, [userState.userToken]);
+  }, [userState.user?.userToken]);
 
   const onLoadEnd = () => {
-    webViewref.current.postMessage(`${userState.userToken}`);
+    webViewref.current.postMessage(`${userState.user?.userToken}`);
     setIsLoading(false);
   };
 
@@ -622,12 +620,12 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
           right={
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate("VIP明细", { userState: userState });
+                navigation.navigate("VIP明细", { userState: userState.user! });
               }}
               disabled={
                 !(
-                  userState.userPaidVipList.total_purchased_days > 0 ||
-                  userState.userAccumulateRewardDay > 0
+                  (userState.user?.userPaidVipList.total_purchased_days ?? 0) > 0 ||
+                  (userState.user?.userAccumulateRewardDay ?? 0) > 0
                 )
               }
             >
@@ -635,8 +633,8 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                 style={{
                   ...textVariants.subBody,
                   opacity:
-                    userState.userPaidVipList.total_purchased_days > 0 ||
-                      userState.userAccumulateRewardDay > 0
+                    userState.user?.userPaidVipList.total_purchased_days > 0 ||
+                      (userState.user?.userAccumulateRewardDay ?? 0) > 0
                       ? 100
                       : 0,
                 }}
@@ -721,7 +719,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
             showsVerticalScrollIndicator={false}
           >
             <VipCard
-              userState={userState}
+              userState={userState.user!}
               membershipProduct={membershipProducts}
               selectedMembership={membershipSelected}
               onMembershipSelect={setSelectedMembership}

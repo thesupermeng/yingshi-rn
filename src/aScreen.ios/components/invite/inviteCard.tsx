@@ -25,7 +25,6 @@ import ProfileIcn from "@static/images/invite/profile-icon.svg";
 import { TouchableOpacity } from "@gorhom/bottom-sheet";
 
 import LinearGradient from "react-native-linear-gradient";
-import { userModel } from "@type/userType";
 import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import { showLoginAction } from "@redux/actions/screenAction";
 //import Share from "react-native-share";
@@ -38,8 +37,9 @@ import WeChatIcon from "@static/images/wechat.svg";
 import QQIcon from "@static/images/qq.svg";
 import PYQIcon from "@static/images/pyq.svg";
 import { screenModel } from "@type/screenType";
+import { User } from "@models/user";
 interface Props {
-  userState: userModel;
+  userState: User;
 }
 export default function InviteCard({ userState = {} }: Props) {
   const { colors, textVariants, icons, spacing } = useTheme();
@@ -53,7 +53,7 @@ export default function InviteCard({ userState = {} }: Props) {
 
   const screenState: screenModel = useAppSelector(
     ({ screenReducer }) => screenReducer,
-);
+  );
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -244,7 +244,7 @@ export default function InviteCard({ userState = {} }: Props) {
 
       // let msg = `下载爱美剧，免费领取VIP会员，免费看海量高清影视  ${" \n "} ${INVITE_DOMAIN}${encodedAuth}`;
 
-      let msg = "下载"  +  APP_NAME_CONST  +  "，免费领取VIP会员，免费看海量高清影视 "  + INVITE_DOMAIN + encodedAuth;
+      let msg = "下载" + APP_NAME_CONST + "，免费领取VIP会员，免费看海量高清影视 " + INVITE_DOMAIN + encodedAuth;
 
       const result = await Share.share({
         message: msg,
@@ -359,21 +359,21 @@ export default function InviteCard({ userState = {} }: Props) {
             <Text style={styles.featureTitle}>体育频道</Text>
           </View>
           {screenState.showAdultTab && (
-          <View style={styles.featureItem}>
-            <View style={styles.imgContainer}>
-              <FastImage
-                source={require("@static/images/invite/vip_adult_video.png")}
-                style={styles.featureIcn}
-                resizeMode={"contain"}
-              />
+            <View style={styles.featureItem}>
+              <View style={styles.imgContainer}>
+                <FastImage
+                  source={require("@static/images/invite/vip_adult_video.png")}
+                  style={styles.featureIcn}
+                  resizeMode={"contain"}
+                />
+              </View>
+
+              <View>
+                <Text style={styles.featureTitle}>夜来香</Text>
+              </View>
+
             </View>
-         
-            <View>
-              <Text style={styles.featureTitle}>夜来香</Text>
-            </View>
-          
-          </View>
-            )}
+          )}
           <View style={styles.featureItem}>
             <View style={styles.imgContainer}>
               <FastImage
@@ -505,13 +505,13 @@ export default function InviteCard({ userState = {} }: Props) {
         </TouchableOpacity>
 
         <NotificationModal
-            onConfirm={toggleOverlay}
-            isVisible={isDialogOpen}
-            title="复制成功"
-            subtitle1=""
-            subtitle2=""
-            subtitle3=""
-          />
+          onConfirm={toggleOverlay}
+          isVisible={isDialogOpen}
+          title="复制成功"
+          subtitle1=""
+          subtitle2=""
+          subtitle3=""
+        />
       </View>
     </>
   );

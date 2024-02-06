@@ -18,7 +18,7 @@ import CountdownIndicator from "../button/countdownIndicator";
 import AdultModeCountdownIndicator from "./adultModeCountdownIndicator";
 import AdultModeSwitch from "./adultModeSwitch";
 import { screenModel } from "@type/screenType";
-import { useAppDispatch, useAppSelector } from "@hooks/hooks";
+import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
 import { RootState } from "@redux/store";
 import {
   acceptOverEighteen,
@@ -31,29 +31,27 @@ import {
   incrementAdultVideoWatchTime,
   showAdultVipPrivilegeMiniVideoAction,
 } from "@redux/actions/screenAction";
-import { userModel } from "@type/userType";
 import { UMENG_CHANNEL } from "@utility/constants";
 import { AdultVipPrivilegeOverlay } from "../modal/adultVipPrivilegeOverlay";
 import { VipPrivilegeFloatingIndicator } from "./vipPrivilegeFloatingIndicator";
-interface Props {}
+import { UserStateType } from "@redux/reducers/userReducer";
+interface Props { }
 
-const eighteenPlusControls = ({}: Props) => {
+const eighteenPlusControls = ({ }: Props) => {
   const screenState: screenModel = useAppSelector(
     ({ screenReducer }) => screenReducer
   );
-  const userState: userModel = useAppSelector(({ userReducer }) => userReducer);
+  const userState = useSelector<UserStateType>('userReducer');
   const {
     adultModeVipShow,
     adultModeDisclaimerShow,
     adultMode,
     watchAnytimeAdultMode,
-    isOverEighteenAccepted, 
+    isOverEighteenAccepted,
     showAdultVipPrivilegeMiniVideo
   } = screenState;
   const dispatch = useAppDispatch();
-  const isVip = !(Number(userState.userMemberExpired) <=
-                  Number(userState.userCurrentTimestamp) ||
-                  userState.userToken === "")
+  const isVip = userState.user?.isVip() ?? false;
 
   // useEffect(() => {
   //   let interval: any;
@@ -64,7 +62,7 @@ const eighteenPlusControls = ({}: Props) => {
   //   }
   //   return () => clearInterval(interval)
   // }, [adultMode])
-console.log( Platform.OS )
+  console.log(Platform.OS)
 
   const handleAccept = useCallback(() => {
     console.debug("accepted 18+");
@@ -99,7 +97,7 @@ console.log( Platform.OS )
       }}
     >
       {/* {watchAnytimeAdultMode && <WatchAnytimeVipModal />} */}
-      {(screenState.showAdultTab  || Platform.OS === "ios" ) && (
+      {(screenState.showAdultTab || Platform.OS === "ios") && (
         <AdultModeSwitch switchStyle={styles.switch} />
       )}
       {watchAnytimeAdultMode && !isVip && !showAdultVipPrivilegeMiniVideo &&

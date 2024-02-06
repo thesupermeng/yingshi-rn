@@ -26,10 +26,10 @@ import { Purchase, PurchaseError, requestPurchase, requestSubscription, useIAP, 
 import { isPlay } from "react-native-iap/src/internal";
 import SpinnerOverlay from "../components/modal/SpinnerOverlay";
 import { RootState } from "@redux/store";
-import { useAppSelector } from "@hooks/hooks";
-import { userModel } from "@type/userType";
+import { useAppSelector, useSelector } from "@hooks/hooks";
 import { APP_NAME_CONST, IAP_TYPE, SUBSCRIPTION_TYPE } from "@utility/constants";
 import { showToast } from "../Sports/utility/toast";
+import { UserStateType } from "@redux/reducers/userReducer";
 
 interface Props {
   splashList: any;
@@ -64,9 +64,7 @@ export const EventSpash = ({ splashList }: Props) => {
   const [isSuccess, setIsSuccess] = useState(false);
   const [isBtnEnable, setIsBtnEnable] = useState(true);
   const [receiptBuffer, setReceiptBuffer] = useState(new Map());
-  const userState: userModel = useAppSelector(
-    ({ userReducer }: RootState) => userReducer
-  );
+  const userState = useSelector<UserStateType>('userReducer');
 
   const fetchData = async () => {
     const data = await ProductApi.getNativeList();
@@ -173,7 +171,7 @@ export const EventSpash = ({ splashList }: Props) => {
 
   const saveFinishIAP = async (transStatus: string, error: any) => {
     const iapTrans = {
-      user_id: userState.userId,
+      user_id: userState.user?.userId ?? '',
       product_id: productSelected?.productId,
       transaction_type: "SUBSCRIBE_VIP",
       zf_channel: 'GOOGLE_PAY',

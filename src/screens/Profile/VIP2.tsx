@@ -32,7 +32,6 @@ import { RootState } from "@redux/store";
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
-import { userModel } from "@type/userType";
 import { updateUserAuth } from "@redux/actions/userAction";
 import { TouchableOpacity } from "react-native";
 import NoConnection from "../../components/common/noConnection";
@@ -56,7 +55,6 @@ import {
 import { ProductApi, UserApi } from "@api";
 import WebView from "react-native-webview";
 import { YSConfig } from "../../../ysConfig";
-import { VipCard } from "../../components/vip/vipCard";
 import {
   membershipModel,
   promoMembershipModel,
@@ -90,6 +88,7 @@ import Tick1 from "@static/images/splash/tick1.svg";
 import Tick2 from "@static/images/splash/tick2.svg";
 import { BackgroundType } from "@redux/reducers/backgroundReducer";
 import { SettingsReducerState } from "@redux/reducers/settingsReducer";
+import { UserStateType } from "@redux/reducers/userReducer";
 
 export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
   const {
@@ -105,9 +104,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
     ({ screenReducer }) => screenReducer
   );
 
-  const userState: userModel = useAppSelector(
-    ({ userReducer }: RootState) => userReducer
-  );
+  const userState = useSelector<UserStateType>('userReducer');
 
   const settingsReducer: SettingsReducerState = useAppSelector(
     ({ settingsReducer }: RootState) => settingsReducer
@@ -124,7 +121,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
   const [countdownSecond, setCountdownSecond] = useState(
     (VIP_PROMOTION_COUNTDOWN_MINUTE * 60 * 1000 -
       (Date.now() - backgroundState.vipPromotionCountdownStart)) /
-      1000
+    1000
   );
 
   const hours = Math.floor(countdownSecond / 60 / 60);
@@ -322,7 +319,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
 
   const saveFinishIAP = async (transStatus: string, error: any) => {
     const iapTrans = {
-      user_id: userState.userId,
+      user_id: userState.user?.userId ?? '',
       product_id: productSelected?.productId,
       transaction_type: "SUBSCRIBE_VIP",
       zf_channel: "GOOGLE_PAY",
@@ -412,7 +409,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
       setCountdownSecond(
         (VIP_PROMOTION_COUNTDOWN_MINUTE * 60 * 1000 -
           (Date.now() - backgroundState.vipPromotionCountdownStart)) /
-          1000
+        1000
       );
     }, 1000);
 
@@ -433,6 +430,9 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
         try {
           if (currentPurchase.transactionReceipt) {
             const key = currentPurchase.transactionId?.concat("true");
+            const isIAP = products.some(
+              (product) => product.productId === currentPurchase.productId
+            );
 
             if (receiptBuffer.has(key)) {
               console.log(
@@ -441,7 +441,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
               );
               await finishTransaction({
                 purchase: currentPurchase,
-                isConsumable: true,
+                isConsumable: isIAP,
               });
               setIsVisible(false);
               setIsBtnEnable(true);
@@ -450,9 +450,6 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
 
             setTimeout(() => setIsVisible(false), 10000);
 
-            const isIAP = products.some(
-              (product) => product.productId === currentPurchase.productId
-            );
             const success = isIAP
               ? await saveFinishIAP("1", "")
               : await saveFinishSubs(currentPurchase); //validate receipt with server
@@ -473,17 +470,17 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                 isConsumable: isIAP,
               });
 
-              // showToast('successfully validate and finish the transaction');
-              if (
-                userState.userEmail !== "" ||
-                userState.userPhoneNumber != ''
-              ) {
+              handleRefresh();
+
+              if (userState.user?.isLogin()) {
                 setDialogText(successDialogText);
                 setIsDialogOpen(true);
                 setIsSuccess(true);
               } else {
                 dispatch(setShowGuestPurchaseSuccess(true));
-                navigation.goBack();
+                setIsVisible(false);
+                setIsBtnEnable(true);
+                // navigation.goBack();
               }
             } else {
               console.log("success", success);
@@ -492,7 +489,6 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                 isConsumable: isIAP,
               });
 
-              // showToast('FAILED to validate and finish the transaction');
               setDialogText(failedDialogText);
               setIsDialogOpen(true);
               setIsSuccess(false);
@@ -546,9 +542,9 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
     return (
       <>
         {index === screenState.showEventSplashData.length - 1 ||
-        screenState.showEventSplash == false ||
-        isLastShown ||
-        screenState.showEventSplashData.length == 0 ? (
+          screenState.showEventSplash == false ||
+          isLastShown ||
+          screenState.showEventSplashData.length == 0 ? (
           <>
             {isFetching && (
               <View
@@ -591,12 +587,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                     zIndex: 200,
                   }}
                   onPress={() => {
-                    if (
-                      userState.userEmail == "" &&
-                      userState.userPhoneNumber == 0 &&
-                      userState.userMemberExpired >=
-                        userState.userCurrentTimestamp
-                    ) {
+                    if (!userState.user?.isLogin() && userState.user?.isVip()) {
                       // setShowBecomeVIPOverlay(true)
                       navigation.goBack();
                     } else {
@@ -800,18 +791,21 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                       <View style={styles.badgeContainer}>
                         {remainingTimeAry.map((val, i) => {
                           return (
-                            <>
-                              <View key={i}>
-                                <View style={styles.badge}>
-                                  <Text style={styles.badgeText}>{val}</Text>
-                                </View>
+                            <View
+                              key={i}
+                              style={{
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                              }}>
+                              <View style={styles.badge}>
+                                <Text style={styles.badgeText}>{val}</Text>
                               </View>
                               {i % 2 === 1 && i < remainingTimeAry.length - 1 && (
                                 <View style={styles.badge2}>
                                   <Text style={styles.badgeText2}>:</Text>
                                 </View>
                               )}
-                            </>
+                            </View>
                           );
                         })}
 
@@ -878,8 +872,8 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                                 ...(productSelected === product && i === 0
                                   ? styles.cardContainerActive2
                                   : productSelected === product && i === 1
-                                  ? styles.cardContainerActive3
-                                  : styles.cardContainer2),
+                                    ? styles.cardContainerActive3
+                                    : styles.cardContainer2),
                               }}
                             >
                               {productSelected === product && (
@@ -966,48 +960,49 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                       ></FastImage>
                       {userState.userMemberExpired >=
                         userState.userCurrentTimestamp && (
-                        <TouchableOpacity
-                          style={{
-                            position: "absolute",
-                            bottom: 15,
-                            right: 30,
-                          }}
-                          onPress={() => {
-                            navigation.navigate("VIP明细", {
-                              userState: userState,
-                            });
-                          }}
-                        >
-                          <Text style={{ color: "#9c9c9c" }}>VIP明细</Text>
-                        </TouchableOpacity>
-                      )}
+                          <TouchableOpacity
+                            style={{
+                              position: "absolute",
+                              bottom: 15,
+                              right: 30,
+                            }}
+                            onPress={() => {
+                              navigation.navigate("VIP明细", {
+                                userState: userState,
+                              });
+                            }}
+                          >
+                            <Text style={{ color: "#9c9c9c" }}>VIP明细</Text>
+                          </TouchableOpacity>
+                        )}
                     </View>
 
-                 
-                      {/* card 1  */}
-                      <View
+
+                    {/* card 1  */}
+                    <View
+                      style={{
+                        width: "100%",
+                        height: 220,
+                        zIndex: 1,
+                        position: "relative",
+                        bottom: 10,
+                        paddingHorizontal: 10,
+                      }}
+                    >
+                      <FastImage
+                        source={require("./../../../static/images/splash/card.png")}
                         style={{
-                          width: "100%",
-                          height: 220,
-                          zIndex: 1,
-                          position: "relative",
-                          bottom: 10,
-                          paddingHorizontal: 10,
+                          flex: 1,
                         }}
-                      >
-                        <FastImage
-                          source={require("./../../../static/images/splash/card.png")}
-                          style={{
-                            flex: 1,
-                          }}
-                          resizeMode="contain"
-                        ></FastImage>
-                      </View>
-                
-                  </View>
-                </LinearGradient>
-              </View>
-            )}
+                        resizeMode="contain"
+                      ></FastImage>
+                    </View>
+
+                  </View >
+                </LinearGradient >
+              </View >
+            )
+            }
           </>
         ) : (
           <>
@@ -1031,7 +1026,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
         height={height}
         data={screenState.showEventSplashData}
         scrollAnimationDuration={100}
-        onScrollBegin={() => {}}
+        onScrollBegin={() => { }}
         enabled={screenState.showEventSplash !== false}
         loop={false}
         onSnapToItem={(index) => {
@@ -1140,7 +1135,7 @@ const styles = StyleSheet.create({
   badge2: {
     backgroundColor: "transparent", // Background color of the badge
     paddingHorizontal: 4, // Adjust the padding as needed
-    paddingVertical: 4, // Adjust the padding as needed
+    paddingBottom: 4, // Adjust the padding as needed
     marginRight: 3, // Adjust the margin to create a gap between badges
   },
   //bottom card part

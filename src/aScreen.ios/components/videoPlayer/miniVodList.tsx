@@ -6,12 +6,11 @@ import FastImage from "../common/customFastImage";
 import { useTheme } from '@react-navigation/native';
 import { StyleSheet } from 'react-native';
 import UmengAnalytics from '../../../../Umeng/UmengAnalytics';
-import { userModel } from '@type/userType';
-import { RootState } from '@redux/store';
-import { useAppDispatch, useAppSelector } from '@hooks/hooks';
+import { useAppDispatch, useAppSelector, useSelector } from '@hooks/hooks';
 import { MINI_SHOW_LOGIN_NUMBER } from '@utility/constants';
 import { showLoginAction } from '@redux/actions/screenAction';
 import ShortAds from './shortAds';
+import { UserStateType } from '@redux/reducers/userReducer';
 
 interface Props {
     miniVodListRef: any,
@@ -71,9 +70,7 @@ export default forwardRef<MiniVodRef, Props>(
         const swipeCount = useRef(0);
         const dispatch = useAppDispatch();
 
-        const userState: userModel = useAppSelector(
-            ({ userReducer }: RootState) => userReducer
-        );
+        const userState = useSelector<UserStateType>('userReducer');
 
         const handleOnScroll = useCallback((e: any) => {
             const positionY = parseFloat(e.nativeEvent.contentOffset.y.toFixed(5));
@@ -90,7 +87,7 @@ export default forwardRef<MiniVodRef, Props>(
                 setCurAnalyticsIndex(0);
 
                 UmengAnalytics.watchAnytimeVideoViewTimesAnalytics({
-                    userId: userState.userId,
+                    userId: userState.user?.userId ?? '',
                     vod_id: collectionPartialVideos[0].mini_video_id,
                 });
             }
@@ -101,7 +98,7 @@ export default forwardRef<MiniVodRef, Props>(
                 setCurAnalyticsIndex(current);
 
                 UmengAnalytics.watchAnytimeVideoViewTimesAnalytics({
-                    userId: userState.userId,
+                    userId: userState.user?.userId ?? '',
                     vod_id: collectionPartialVideos[current].mini_video_id,
                 });
             }

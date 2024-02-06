@@ -73,6 +73,10 @@ export interface DownloadVideoActionPayload extends OptionalUpdateFields {
     vodIsAdult?: boolean; 
 }
 
+export interface DownloadVideoQueueItem extends Omit<DownloadVideoActionPayload, 'vod'> {
+    vodId: number
+}
+
 export interface DownloadVideoActionType {
   type:
     | 'ADD_VIDEO_TO_DOWNLOAD'

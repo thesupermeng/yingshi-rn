@@ -1,14 +1,14 @@
 import { ScrollView, View } from "react-native";
-import { userModel } from "@type/userType";
 import { useEffect, useState } from "react";
 import EmptyList from "../common/emptyList";
 import { VipHistoryCard } from "./vipHistoryCard";
+import { User } from "@models/user";
 
 interface Props {
-  userState: userModel;
+  userState: User;
 }
 
-export const VipInviteHistory = ( {userState,}: Props ) => {
+export const VipInviteHistory = ({ userState, }: Props) => {
   const [inviteList, setInviteList] = useState([]);
 
   useEffect(() => {
@@ -40,9 +40,9 @@ export const VipInviteHistory = ( {userState,}: Props ) => {
       }
 
       return {
-        displayText: displayText, 
-        createdDate: item.created_at, 
-        vipDays: item.invited_vip_reward_day, 
+        displayText: displayText,
+        createdDate: item.created_at,
+        vipDays: item.invited_vip_reward_day,
         status: 1,
       };
     });
@@ -53,20 +53,20 @@ export const VipInviteHistory = ( {userState,}: Props ) => {
 
   return (
     <>
-      {inviteList.length > 0  ? 
+      {inviteList.length > 0 ?
         <ScrollView
-          style={{ 
+          style={{
             marginHorizontal: 5,
             marginBottom: 30,
             borderRadius: 15,
             flexGrow: 0,
             overflow: 'hidden',
           }}
-          contentContainerStyle={{borderRadius: 15, overflow: 'hidden'}}
+          contentContainerStyle={{ borderRadius: 15, overflow: 'hidden' }}
           showsVerticalScrollIndicator={false}
         >
           {inviteList.map((item, index) => {
-            return <VipHistoryCard key={index} historyItem={item}/>
+            return <VipHistoryCard key={index} historyItem={item} />
           })}
         </ScrollView> :
         <EmptyList description="暂无邀请记录" />

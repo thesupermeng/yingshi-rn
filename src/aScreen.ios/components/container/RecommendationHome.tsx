@@ -38,7 +38,7 @@ import LoadingIcon from "@static/images/MutedVolume.svg";
 import { Image } from "react-native";
 import { YingPingContainer } from "../container/yingPingContainer";
 import { AppsApi, PlaylistApi } from "@api";
-import { userModel } from "@type/userType";
+import { UserStateType } from "@redux/reducers/userReducer";
 
 interface NavType {
   id: number;
@@ -78,10 +78,8 @@ const RecommendationHome = ({
   const [width, setWidth] = useState(Dimensions.get("window").width);
   const [imgRatio, setImgRatio] = useState(1.5);
 
-  const userState = useSelector<userModel>('userReducer');
-  const isVip = !(Number(userState.userMemberExpired) <=
-    Number(userState.userCurrentTimestamp) ||
-    userState.userToken === "")
+  const userState = useSelector<UserStateType>('userReducer');
+  const isVip = userState.user?.isVip() ?? false;
 
   useEffect(() => {
     setWidth(Number(Dimensions.get("window").width));

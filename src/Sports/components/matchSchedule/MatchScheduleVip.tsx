@@ -17,7 +17,6 @@ import store, { RootState } from "@redux/store";
 import { useNavigation } from "@react-navigation/native";
 import { MatchDetailsType } from "../../types/matchTypes";
 import BecomeVipOverlay from "../../../components/modal/becomeVipOverlay";
-import { userModel } from "@type/userType";
 import { useAppSelector } from "@hooks/hooks";
 import { showBecomeVip } from "@redux/actions/screenAction";
 import { useDispatch } from "react-redux";
@@ -60,10 +59,6 @@ const MatchSchedule = ({
 
     return totalViews;
   };
-
-  const userState: userModel = useAppSelector(
-    ({ userReducer }: RootState) => userReducer
-  );
 
   const matchClicked = () => {
     navigation.navigate("体育详情", {

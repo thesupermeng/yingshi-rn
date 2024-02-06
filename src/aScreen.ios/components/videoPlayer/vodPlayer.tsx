@@ -36,10 +36,10 @@ import {
 } from "@type/ajaxTypes";
 import VideoWithControls from "./videoWithControls";
 import { useDispatch } from "react-redux";
-import { useAppSelector } from "@hooks/hooks";
+import { useAppSelector, useSelector } from "@hooks/hooks";
 import { screenModel } from "@type/screenType";
 import { NON_VIP_STREAM_TIME_SECONDS } from "@utility/constants";
-import { userModel } from "@type/userType";
+import { UserStateType } from "@redux/reducers/userReducer";
 
 interface Props {
   vod_url?: string;
@@ -135,9 +135,7 @@ export default forwardRef<VideoRef, Props>(
     const screenState: screenModel = useAppSelector(
       ({ screenReducer }) => screenReducer
     );
-    const userState: userModel = useAppSelector(
-      ({ userReducer }) => userReducer
-    );
+    const userState = useSelector<UserStateType>('userReducer');
     const bufferRef = useRef(false);
     const onBuffer = (bufferObj: any) => {
       if (!bufferObj.isBuffering) {
@@ -457,9 +455,7 @@ export default forwardRef<VideoRef, Props>(
     const pauseSportVideo =
       route.name === "体育详情" &&
       screenState.sportWatchTime > NON_VIP_STREAM_TIME_SECONDS &&
-      (Number(userState.userMemberExpired) <=
-        Number(userState.userCurrentTimestamp) ||
-        userState.userToken === "");
+      !userState.user?.isVip();
 
     return (
       <View style={styles.container}>

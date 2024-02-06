@@ -36,8 +36,7 @@ import MatchScheduleNavVip from "../Sports/components/matchSchedule/MatchSchedul
 import NoConnection from "../components/common/noConnection";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 
-import { userModel } from "@type/userType";
-import { useAppSelector } from "@hooks/hooks";
+import { useAppSelector, useSelector } from "@hooks/hooks";
 import { RootState } from "@redux/store";
 import { useDispatch } from "react-redux";
 import BecomeVipOverlay from "../components/modal/becomeVipOverlay";
@@ -54,6 +53,7 @@ import {
 import { BlurView } from "../components/blurView";
 import { YSConfig } from "../../ysConfig";
 import VipEntry from '@static/images/splash/VipEntry.svg';
+import { UserStateType } from "@redux/reducers/userReducer";
 interface NavType {
   has_submenu: boolean;
   ids: Array<number>;
@@ -67,9 +67,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const dispatch = useDispatch();
   const [showBecomeVIPOverlay, setShowBecomeVIPOverlay] = useState(false);
-  const userState: userModel = useAppSelector(
-    ({ userReducer }: RootState) => userReducer
-  );
+  const userState = useSelector<UserStateType>('userReducer');
   const settingsReducer: SettingsReducerState = useAppSelector(
     ({ settingsReducer }: RootState) => settingsReducer
   );
@@ -138,8 +136,8 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
 
   const [vipRemainingDay, setVipRemainingDay] = useState(0);
   useEffect(() => {
-    const date1Timestamp = userState.userCurrentTimestamp;
-    const date2Timestamp = userState.userMemberExpired;
+    const date1Timestamp = userState.user?.userCurrentTimestamp ?? '';
+    const date2Timestamp = userState.user?.userMemberExpired ?? '';
     const date1Milliseconds = Number(date1Timestamp) * 1000;
     const date2Milliseconds = Number(date2Timestamp) * 1000;
     const timeDifferenceMilliseconds = date2Milliseconds - date1Milliseconds;
@@ -149,7 +147,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     const result =
       roundedTimeDifferenceDays <= 0 ? 0 : roundedTimeDifferenceDays;
     setVipRemainingDay(result);
-  }, [userState.userCurrentTimestamp]);
+  }, [userState.user?.userCurrentTimestamp]);
 
   const handleRefresh = useCallback(async () => {
     setIsRefreshing(true);
@@ -160,10 +158,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
   }, []);
   // bgVipXvod
 
-  const isVip = !(
-    Number(userState.userMemberExpired) <=
-    Number(userState.userCurrentTimestamp) || userState.userToken === ''
-  );
+  const isVip = userState.user?.isVip() ?? false;
 
   useEffect(() => {
     if (selectedTab === 'xvod' && !isVip) {
@@ -341,51 +336,48 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
             </View>
             <TouchableOpacity
               activeOpacity={
-                Number(userState.userMemberExpired) <=
-                  Number(userState.userCurrentTimestamp) ||
-                  userState.userToken === ""
+                !userState.user?.isVip() ||
+                  userState.user.isGuest()
                   ? 0.5
                   : 1
               }
               onPress={() => {
                 if (
-                  Number(userState.userMemberExpired) <=
-                  Number(userState.userCurrentTimestamp) ||
-                  userState.userToken === ""
+                  !userState.user?.isVip() ||
+                  userState.user.isGuest()
                 ) {
                   setShowBecomeVIPOverlay(true);
                 }
               }}
             >
-           
-              
-                {Number(userState.userMemberExpired) <=
-                  Number(userState.userCurrentTimestamp) ||
-                  userState.userToken === "" ? (
-                   <> 
-                   <View style={styles.headerContainerRight2}>
-                   <VipEntry height={30} />
-                   </View>
-                   </>
-                ) : (
-                  <>
-                     <View style={styles.headerContainerRight}>
-                  <Image
-                  style={styles.iconStyle}
-                  source={require("@static/images/profile/vipSport.png")}
-                />
-                  <Text
-                    style={{
-                      color: colors.text,
-                      fontSize: 14,
-                    }}
-                  >
-                    VIP {vipRemainingDay}天
-                  </Text>
+
+
+              {!userState.user?.isVip() ||
+                userState.user.isGuest() ? (
+                <>
+                  <View style={styles.headerContainerRight2}>
+                    <VipEntry height={30} />
                   </View>
-                  </>
-                )}
-            
+                </>
+              ) : (
+                <>
+                  <View style={styles.headerContainerRight}>
+                    <Image
+                      style={styles.iconStyle}
+                      source={require("@static/images/profile/vipSport.png")}
+                    />
+                    <Text
+                      style={{
+                        color: colors.text,
+                        fontSize: 14,
+                      }}
+                    >
+                      VIP {vipRemainingDay}天
+                    </Text>
+                  </View>
+                </>
+              )}
+
             </TouchableOpacity>
           </View>
           {selectedTab == "sport" &&
@@ -490,7 +482,7 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     position: "relative",
     bottom: 8,
-  },  
+  },
   headerContainerRight2: {
     flexDirection: "row",
     justifyContent: "center",

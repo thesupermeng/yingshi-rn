@@ -6,10 +6,10 @@ import { VipMember } from './vipMember';
 import { membershipModel, zfModel } from '@type/membershipType';
 import { VipZf } from './vipZf';
 import { useEffect, useState } from 'react';
-import { userModel } from '@type/userType';
+import { User } from '@models/user';
 
 interface Props {
-  userState: userModel;
+  userState: User;
   membershipProduct: Array<membershipModel>;
   selectedMembership: membershipModel;
   onMembershipSelect: (selected: membershipModel) => void;

@@ -53,9 +53,9 @@ import {
 import { screenModel } from "@type/screenType";
 import { AppsApi, SplashApi } from "@api";
 import UmengAnalytics from "../../Umeng/UmengAnalytics";
-import { userModel } from "@type/userType";
 import DeviceInfo from "react-native-device-info";
 import { EventSpash } from "../navigation/eventSplash";
+import { UserStateType } from "@redux/reducers/userReducer";
 
 function Home({ navigation }: BottomTabScreenProps<any>) {
   const dispatch = useAppDispatch();
@@ -72,11 +72,8 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
     ({ screenReducer }) => screenReducer
   );
 
-  const userState = useSelector<userModel>("userReducer");
-  const isVip = !(
-    Number(userState.userMemberExpired) <=
-      Number(userState.userCurrentTimestamp) || userState.userToken === ""
-  );
+  const userState = useSelector<UserStateType>("userReducer");
+  const isVip = userState.user?.isVip();
   const bottomTabHeight = useBottomTabBarHeight();
 
   let channel = UMENG_CHANNEL;
@@ -107,9 +104,9 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   const data = useQueries({
     queries: navOptions
       ? navOptions?.map((x: any) => ({
-          queryKey: ["HomePage", x.id, isVip],
-          queryFn: () => fetchData(x.id),
-        }))
+        queryKey: ["HomePage", x.id, isVip],
+        queryFn: () => fetchData(x.id),
+      }))
       : [],
   });
 
@@ -312,8 +309,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
     let splashListTemp = [];
     try {
 
-      if(screenState.showEventSplash == false)
-      {
+      if (screenState.showEventSplash == false) {
         return;
       }
       splashListTemp = await SplashApi.getSplash();
@@ -327,23 +323,22 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
           return obj;
         });
       }
-      await dispatch(setShowEventSplashData( 
-        [...splashListTemp ,  {"created_at": "", "intro_page_id": 1, "intro_page_image_url": "/upload/vod/111.jpeg", "intro_page_name": "首页1", "url": "https://yingshi.tv/upload/vod/111.jpeg"}]
-        ));
+      await dispatch(setShowEventSplashData(
+        [...splashListTemp, { "created_at": "", "intro_page_id": 1, "intro_page_image_url": "/upload/vod/111.jpeg", "intro_page_name": "首页1", "url": "https://yingshi.tv/upload/vod/111.jpeg" }]
+      ));
       //     console.log("==================== splashList from main ======================")
       // console.log(screenState.showEventSplashData)
     } catch (e) {
-      dispatch(setShowEventSplashData([{"created_at": "", "intro_page_id": 1, "intro_page_image_url": "/upload/vod/111.jpeg", "intro_page_name": "首页1", "url": "https://yingshi.tv/upload/vod/111.jpeg"}]));
+      dispatch(setShowEventSplashData([{ "created_at": "", "intro_page_id": 1, "intro_page_image_url": "/upload/vod/111.jpeg", "intro_page_name": "首页1", "url": "https://yingshi.tv/upload/vod/111.jpeg" }]));
     }
 
-    if(
-      screenState.showEventSplashData )
-      {
-        console.log("==================== splashList from main ======================")
-        console.log(screenState.showEventSplash )
-        console.log( screenState.showEventSplashData)
-        navigation.navigate("付费Google");
-      }
+    if (
+      screenState.showEventSplashData) {
+      console.log("==================== splashList from main ======================")
+      console.log(screenState.showEventSplash)
+      console.log(screenState.showEventSplashData)
+      navigation.navigate("付费Google");
+    }
 
 
   };
@@ -391,88 +386,88 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   useInterstitialAds();
 
   return (
-        <>
-          <ScreenContainer
-            containerStyle={{ paddingLeft: 0, paddingRight: 0 }}
-            isHome={false} // solve home tab tabsize different issue
-          >
-            <View
-              style={{
-                backgroundColor: colors.background,
-                paddingLeft: spacing.sideOffset,
-                paddingRight: spacing.sideOffset,
-              }}
-            >
-              <HomeHeader navigator={navigation} />
-            </View>
-            <HomeNav
-              // hideContent={hideContent}
-              navId={navId}
-              onTabPress={onTabPress}
-              onTabFocus={onTabFocus}
-              onTabSwipe={onTabSwipe}
-              tabList={
-                navOptions?.map((e) => ({
-                  id: e.id,
-                  title: e.name,
-                  name: e.name,
-                })) ?? []
-              }
-              tabChildren={(tab, i) => (
-                <>
-                  {(!data || isRefreshing) && (
-                    <View
-                      style={{
-                        ...styles.loading,
-                        flex: 1,
-                        alignItems: "center",
-                        justifyContent: "center",
-                        position: "absolute",
-                        left: "50%",
-                        marginLeft: -40, // Half of the element's width
-                      }}
-                    >
-                      {
-                        <FastImage
-                          style={{ height: 80, width: 80 }}
-                          source={require("@static/images/loading-spinner.gif")}
-                          resizeMode={"contain"}
-                        />
-                      }
-                    </View>
-                  )}
-                  {showHomeLoading && !isOffline && (
-                    <View
-                      style={{
-                        flex: 1,
-                        justifyContent: "center",
-                        alignItems: "center",
-                        backgroundColor: "rgb(20,22,25)",
-                      }}
-                    >
-                      <FastImage
-                        source={require("@static/images/home-loading.gif")}
-                        style={{
-                          width: 150,
-                          height: 150,
-                          position: "relative",
-                          bottom: 50,
-                          zIndex: -1,
-                        }}
-                        resizeMode={"contain"}
-                        useFastImage={true}
-                      />
-                    </View>
-                  )}
-                  {data &&
-                    !isOffline &&
-                    getContent({ item: data[i], index: tab.id })}
-                </>
+    <>
+      <ScreenContainer
+        containerStyle={{ paddingLeft: 0, paddingRight: 0 }}
+        isHome={false} // solve home tab tabsize different issue
+      >
+        <View
+          style={{
+            backgroundColor: colors.background,
+            paddingLeft: spacing.sideOffset,
+            paddingRight: spacing.sideOffset,
+          }}
+        >
+          <HomeHeader navigator={navigation} />
+        </View>
+        <HomeNav
+          // hideContent={hideContent}
+          navId={navId}
+          onTabPress={onTabPress}
+          onTabFocus={onTabFocus}
+          onTabSwipe={onTabSwipe}
+          tabList={
+            navOptions?.map((e) => ({
+              id: e.id,
+              title: e.name,
+              name: e.name,
+            })) ?? []
+          }
+          tabChildren={(tab, i) => (
+            <>
+              {(!data || isRefreshing) && (
+                <View
+                  style={{
+                    ...styles.loading,
+                    flex: 1,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    position: "absolute",
+                    left: "50%",
+                    marginLeft: -40, // Half of the element's width
+                  }}
+                >
+                  {
+                    <FastImage
+                      style={{ height: 80, width: 80 }}
+                      source={require("@static/images/loading-spinner.gif")}
+                      resizeMode={"contain"}
+                    />
+                  }
+                </View>
               )}
-            />
-          </ScreenContainer>
-          {isOffline && <NoConnection onClickRetry={checkConnection} />}
-        </>
+              {showHomeLoading && !isOffline && (
+                <View
+                  style={{
+                    flex: 1,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    backgroundColor: "rgb(20,22,25)",
+                  }}
+                >
+                  <FastImage
+                    source={require("@static/images/home-loading.gif")}
+                    style={{
+                      width: 150,
+                      height: 150,
+                      position: "relative",
+                      bottom: 50,
+                      zIndex: -1,
+                    }}
+                    resizeMode={"contain"}
+                    useFastImage={true}
+                  />
+                </View>
+              )}
+              {data &&
+                !isOffline &&
+                getContent({ item: data[i], index: tab.id })}
+            </>
+          )}
+        />
+      </ScreenContainer>
+      {isOffline && <NoConnection onClickRetry={checkConnection} />}
+    </>
   );
 }
 
