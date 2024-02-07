@@ -723,7 +723,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
           <ScreenContainer
             footer={
               <>
-                {membershipSelected && (
+                {membershipSelected && !fetching && (
                   <View style={{ ...styles.summaryContainer }}>
                     <TouchableOpacity
                       onPress={handlePurchase}
