@@ -104,6 +104,7 @@ import { addVideoToDownloadThunk } from "@redux/actions/videoDownloadAction";
 import { DownloadStatus, DownloadVideoReducerState, VodDownloadType } from "@type/vodDownloadTypes";
 import { CPopup } from "@utility/popup";
 import { UserStateType } from "@redux/reducers/userReducer";
+import { User } from "@models/user";
 
 let insetsTop = 0;
 let insetsBottom = 0;
@@ -303,7 +304,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const [dismountPlayer, setDismountPlayer] = useState(false);
   const [isOffline, setIsOffline] = useState(false);
   const [isShowSheet, setShowSheet] = useState(false);
-  const isVip = userState.user?.isVip() ?? false;
+  const isVip = User.isVip(userState.user);
 
   const [isReadyPlay, setReadyPlay] = useState(false);
 

@@ -46,6 +46,7 @@ import BecomeVipOverlay from "../../../components/modal/becomeVipOverlay";
 import { SettingsReducerState } from "@redux/reducers/settingsReducer";
 import UmengAnalytics from "../../../../Umeng/UmengAnalytics";
 import { UserStateType } from "@redux/reducers/userReducer";
+import { User } from "@models/user";
 
 interface NavType {
   has_submenu: boolean;
@@ -167,12 +168,12 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
         </Text>
 
         <TouchableOpacity
-          activeOpacity={!userState.user?.isVip()
+          activeOpacity={!User.isVip(userState.user)
             ? 0.5
             : 1
           }
           onPress={() => {
-            if (!userState.user?.isVip()) {
+            if (!User.isVip(userState.user)) {
               setShowBecomeVIPOverlay(true);
             }
           }}
@@ -195,7 +196,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
               source={require("@static/images/profile/vipSport.png")}
             />
 
-            {!userState.user?.isVip() ? (
+            {!User.isVip(userState.user) ? (
               <Text
                 style={{
                   color: colors.text,

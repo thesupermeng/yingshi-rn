@@ -17,6 +17,7 @@ import { useAppSelector, useSelector } from "./hooks";
 import { AdsBannerContext } from "../contexts/AdsBannerContext";
 import { screenModel } from "@type/screenType";
 import { UserStateType } from "@redux/reducers/userReducer";
+import { User } from "@models/user";
 // LogBox.ignoreAllLogs();
 type PlacementId =
   | typeof ANDROID_HOME_PAGE_POP_UP_ADS
@@ -109,8 +110,8 @@ const useInterstitialAds = () => {
   const showInterstitial = async (interstitialPlacementId: PlacementId) => {
     // not vip
     if (
-      (!userState.user?.isVip() ||
-        userState.user.isGuest()) &&
+      (!User.isVip(userState.user) ||
+        User.isGuest(userState.user)) &&
       retryCount < 3
     ) {
       retryCount += 1;

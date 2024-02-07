@@ -31,6 +31,7 @@ import { SettingsReducerState } from '@redux/reducers/settingsReducer';
 import { CPopup } from '@utility/popup';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { UserStateType } from '@redux/reducers/userReducer';
+import { User } from '@models/user';
 export default ({ navigation }: RootStackScreenProps<'设置'>) => {
   const { colors, textVariants, icons, spacing } = useTheme();
   const [isVersionDialogOpen, setIsVersionDialogOpen] = useState(false);
@@ -121,7 +122,7 @@ export default ({ navigation }: RootStackScreenProps<'设置'>) => {
             confirmationText="清除"
           />
 
-          {userState.user !== null && userState.user.isLogin() &&
+          {User.isLogin(userState.user) &&
             <ConfirmationModal
               onConfirm={() => {
                 onRemoveAccount();
@@ -179,13 +180,13 @@ export default ({ navigation }: RootStackScreenProps<'设置'>) => {
                   </View>
                 }
               />
-              {userState.user !== null && userState.user.isLogin() &&
+              {User.isLogin(userState.user) &&
                 <ShowMoreButton text="注销账号" onPress={toggleRemoveAccountDialog} />
               }
             </View>
           </View>
         </View>
-        {userState.user !== null && userState.user.isLogin() && (
+        {User.isLogin(userState.user) && (
           <TouchableOpacity onPress={toggleLogoutDialog}>
             <View
               style={{

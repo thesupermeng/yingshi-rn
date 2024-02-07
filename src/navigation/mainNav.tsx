@@ -47,7 +47,7 @@ export default () => {
 
   const dispatch = useDispatch();
 
-  const isVip = userState.user?.isVip !== undefined ? userState.user.isVip() : false;
+  const isVip = User.isVip(userState.user);
 
   const [isConnected, setIsConnected] = useState(true);
 

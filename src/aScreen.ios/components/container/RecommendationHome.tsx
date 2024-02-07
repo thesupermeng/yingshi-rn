@@ -39,6 +39,7 @@ import { Image } from "react-native";
 import { YingPingContainer } from "../container/yingPingContainer";
 import { AppsApi, PlaylistApi } from "@api";
 import { UserStateType } from "@redux/reducers/userReducer";
+import { User } from "@models/user";
 
 interface NavType {
   id: number;
@@ -79,7 +80,7 @@ const RecommendationHome = ({
   const [imgRatio, setImgRatio] = useState(1.5);
 
   const userState = useSelector<UserStateType>('userReducer');
-  const isVip = userState.user?.isVip() ?? false;
+  const isVip = User.isVip(userState.user);
 
   useEffect(() => {
     setWidth(Number(Dimensions.get("window").width));

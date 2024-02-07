@@ -41,6 +41,7 @@ import UmengAnalytics from "../../../Umeng/UmengAnalytics";
 import { AppsApi } from "@api";
 import DeviceInfo from "react-native-device-info";
 import { UserStateType } from "@redux/reducers/userReducer";
+import { User } from "@models/user";
 
 function Home({ navigation }: BottomTabScreenProps<any>) {
   const isFocused = useIsFocused();
@@ -53,7 +54,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
     ({ settingsReducer }: RootState) => settingsReducer
   );
   const userState = useSelector<UserStateType>('userReducer');
-  const isVip = userState.user?.isVip();
+  const isVip = User.isVip(userState.user);
   const bottomTabHeight = useBottomTabBarHeight();
 
   const { data: navOptions, refetch } = useQuery({
