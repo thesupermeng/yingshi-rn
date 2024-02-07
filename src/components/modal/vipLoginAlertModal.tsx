@@ -137,7 +137,8 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingVertical: 6,
     alignItems: "center",
-    backgroundColor:'#FAC33D'
+    backgroundColor:'#FAC33D',
+    marginTop:10
   },
   purchaseButtonText: {
     color: "#1D2023",
