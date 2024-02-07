@@ -284,7 +284,9 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         // console.log(subscription);
         setOneTimeProducts(oneTime);
         setMembershipProducts(subscription);
-        setFetching(false);
+        setTimeout(() => {
+          setFetching(false);
+        }, 1000);
       }
     } else {
       let siFang: Array<promoMembershipModel>;
@@ -709,14 +711,16 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
 
     return (
       <>
-        {index === screenState.showEventSplashData.length - 1 ||
+        {
+      
+        (index === screenState.showEventSplashData.length - 1 ||
           screenState.showEventSplash == false ||
           isLastShown ||
-          screenState.showEventSplashData.length == 0 ? (
+          screenState.showEventSplashData.length == 0) ? (
           <ScreenContainer
             footer={
               <>
-                {membershipSelected && (
+                {membershipSelected  &&    !fetching && (
                   <View style={{ ...styles.summaryContainer }}>
                     <TouchableOpacity
                       onPress={handlePurchase}
