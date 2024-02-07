@@ -28,11 +28,12 @@ export const VipPromotionOverlay = ({ showCondition, onClose }: Props) => {
     onClose();
     dispatch(vipPromotionModalShown());
 
-    if (UMENG_CHANNEL == 'GOOGLE_PLAY') {
-      navigator.navigate("付费Google");
-    } else {
-      navigator.navigate("付费VIP");
-    }
+    navigator.navigate("付费VIP");
+    // if (UMENG_CHANNEL == 'GOOGLE_PLAY') {
+    //   navigator.navigate("付费Google");
+    // } else {
+    //   navigator.navigate("付费VIP");
+    // }
   }, []);
 
   return (

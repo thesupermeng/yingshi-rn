@@ -20,14 +20,15 @@ export const CommonVipPrivilegeOverlay = ({ showCondition, onClose, showBlur }: 
 
   const handleOnPurchase = useCallback(() => {
     onClose()
-    if (UMENG_CHANNEL == 'GOOGLE_PLAY')
-    {
-      navigator.navigate("付费Google");
-    }
-    else
-    {
-      navigator.navigate("付费VIP");
-    }
+    navigator.navigate("付费VIP");
+    // if (UMENG_CHANNEL == 'GOOGLE_PLAY')
+    // {
+    //   navigator.navigate("付费Google");
+    // }
+    // else
+    // {
+    //   navigator.navigate("付费VIP");
+    // }
   }, [])
 
   const handleOnInvite = useCallback(() => {
