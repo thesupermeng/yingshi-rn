@@ -344,8 +344,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
               }
               onPress={() => {
                 if (
-                  !User.isVip(userState.user) ||
-                  User.isGuest(userState.user)
+                  !User.isVip(userState.user)
                 ) {
                   setShowBecomeVIPOverlay(true);
                 }
@@ -353,8 +352,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
             >
 
 
-              {!User.isVip(userState.user) ||
-                User.isGuest(userState.user) ? (
+              {!User.isVip(userState.user) ? (
                 <>
                   <View style={styles.headerContainerRight2}>
                     <VipEntry height={30} />
