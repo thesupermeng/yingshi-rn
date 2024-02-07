@@ -64,6 +64,7 @@ import { AdsApi } from '@api';
 import LiveChatPage from '../../components/matchDetails/liveChatPage';
 import PrivateChatPage from '../../components/matchDetails/privateChatPage';
 import { UserStateType } from '@redux/reducers/userReducer';
+import { User } from '@models/user';
 
 let insetsTop = 0;
 let insetsBottom = 0;
@@ -106,11 +107,11 @@ const MatchDetails = ({ navigation, route }: BottomTabScreenProps<any>) => {
   const [isLiveVideoFullScreen, setIsLiveVideoFullScreen] = useState(false);
   const [shouldShowComponents, setShouldShowComponents] = useState(true);
   const [isNavVisible, setIsNavVisible] = useState(true);
-  const showCountdown = userState.user === null || !userState.user.isVip();
+  const showCountdown = !User.isVip(userState.user);
 
   const videoRef = useRef<VideoRef | null>(null);
   const [bannerAd, setBannerAd] = useState<BannerAdType>();
-  const isVip = userState.user !== null && userState.user.isVip();
+  const isVip = User.isVip(userState.user);
   const sportTabDetails: SportTabType = YSConfig.instance.findTabByKey('体育');
 
   // const [isKeyboardShow, setKeyboardShow] = useState(false);

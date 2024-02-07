@@ -40,6 +40,7 @@ import { useAppSelector, useSelector } from "@hooks/hooks";
 import { screenModel } from "@type/screenType";
 import { NON_VIP_STREAM_TIME_SECONDS } from "@utility/constants";
 import { UserStateType } from "@redux/reducers/userReducer";
+import { User } from "@models/user";
 
 interface Props {
   vod_url?: string;
@@ -455,7 +456,7 @@ export default forwardRef<VideoRef, Props>(
     const pauseSportVideo =
       route.name === "体育详情" &&
       screenState.sportWatchTime > NON_VIP_STREAM_TIME_SECONDS &&
-      !userState.user?.isVip();
+      !User.isVip(userState.user);
 
     return (
       <View style={styles.container}>

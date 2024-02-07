@@ -11,16 +11,16 @@ export class SplashApi {
         //   slot_id: slotId, 
         //   ip: YSConfig.instance.ip
         // }
-      }); 
-      
+      });
+
       if (result.success === false) {
         throw result.message
       }
 
       return result.data
 
-    } catch (e: any){
-      console.error(`[Error ${this.name}]: ${e.toString()}`);
+    } catch (e: any) {
+      console.error(`[Error ${this.getSplash.name}]: ${e.toString()}`);
       throw e;
     }
   }

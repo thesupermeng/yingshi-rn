@@ -54,6 +54,7 @@ import { BlurView } from "../components/blurView";
 import { YSConfig } from "../../ysConfig";
 import VipEntry from '@static/images/splash/VipEntry.svg';
 import { UserStateType } from "@redux/reducers/userReducer";
+import { User } from "@models/user";
 interface NavType {
   has_submenu: boolean;
   ids: Array<number>;
@@ -158,7 +159,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
   }, []);
   // bgVipXvod
 
-  const isVip = userState.user?.isVip() ?? false;
+  const isVip = User.isVip(userState.user);
 
   useEffect(() => {
     if (selectedTab === 'xvod' && !isVip) {
@@ -336,15 +337,15 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
             </View>
             <TouchableOpacity
               activeOpacity={
-                !userState.user?.isVip() ||
-                  userState.user.isGuest()
+                !User.isVip(userState.user) ||
+                  User.isGuest(userState.user)
                   ? 0.5
                   : 1
               }
               onPress={() => {
                 if (
-                  !userState.user?.isVip() ||
-                  userState.user.isGuest()
+                  !User.isVip(userState.user) ||
+                  User.isGuest(userState.user)
                 ) {
                   setShowBecomeVIPOverlay(true);
                 }
@@ -352,8 +353,8 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
             >
 
 
-              {!userState.user?.isVip() ||
-                userState.user.isGuest() ? (
+              {!User.isVip(userState.user) ||
+                User.isGuest(userState.user) ? (
                 <>
                   <View style={styles.headerContainerRight2}>
                     <VipEntry height={30} />

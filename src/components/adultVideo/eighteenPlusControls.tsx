@@ -35,6 +35,7 @@ import { UMENG_CHANNEL } from "@utility/constants";
 import { AdultVipPrivilegeOverlay } from "../modal/adultVipPrivilegeOverlay";
 import { VipPrivilegeFloatingIndicator } from "./vipPrivilegeFloatingIndicator";
 import { UserStateType } from "@redux/reducers/userReducer";
+import { User } from "@models/user";
 interface Props { }
 
 const eighteenPlusControls = ({ }: Props) => {
@@ -51,7 +52,7 @@ const eighteenPlusControls = ({ }: Props) => {
     showAdultVipPrivilegeMiniVideo
   } = screenState;
   const dispatch = useAppDispatch();
-  const isVip = userState.user?.isVip() ?? false;
+  const isVip = User.isVip(userState.user);
 
   // useEffect(() => {
   //   let interval: any;

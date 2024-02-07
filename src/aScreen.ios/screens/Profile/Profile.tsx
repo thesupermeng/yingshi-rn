@@ -45,6 +45,7 @@ import { SHOW_ZF_CONST, UMENG_CHANNEL } from "@utility/constants";
 import FastImage from "../../components/common/customFastImage";
 import { UserApi } from "@api";
 import { UserStateType } from "@redux/reducers/userReducer";
+import { User } from "@models/user";
 
 function Profile({ navigation, route }: BottomTabScreenProps<any>) {
   const navigator = useNavigation();
@@ -172,7 +173,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
           <TouchableOpacity
             activeOpacity={1}
             onPress={() => {
-              if (!userState.user?.isLogin()) {
+              if (!User.isLogin(userState.user)) {
                 dispatch(showLoginAction());
                 // console.log('props{');
                 // setActionType('login');
@@ -189,7 +190,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                 flexDirection: "row",
               }}
             >
-              {!userState.user?.isLogin() ? (
+              {!User.isLogin(userState.user) ? (
                 <ProfileIcon
                   style={{ color: colors.button, width: 18, height: 18 }}
                 />
@@ -213,7 +214,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                   paddingLeft: 12,
                 }}
               >
-                {!userState.user?.isLogin() && (
+                {!User.isLogin(userState.user) && (
                   <>
                     <Text style={{ color: "#ffffff", fontSize: 20 }}>
                       游客您好！
@@ -223,7 +224,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                     </Text>
                   </>
                 )}
-                {!userState.user?.isLogin() && (
+                {!User.isLogin(userState.user) && (
                   <>
                     <View
                       style={{
@@ -243,7 +244,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                       >
                         {userState.user?.userName}
                       </Text>
-                      {userState.user?.isVip() && (
+                      {User.isVip(userState.user) && (
                         <Image
                           style={styles.iconStyle}
                           source={require("@static/images/profile/vip.png")}
@@ -269,7 +270,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                   justifyContent: "center",
                 }}
               >
-                {!userState.user?.isLogin() && (
+                {!User.isLogin(userState.user) && (
                   <MoreArrow
                     width={icons.sizes.l}
                     height={icons.sizes.l}
@@ -277,7 +278,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                   />
                 )}
 
-                {userState.user?.isLogin() && (
+                {User.isLogin(userState.user) && (
                   <EditIcn width={29} height={29} color={colors.muted} />
                 )}
               </View>

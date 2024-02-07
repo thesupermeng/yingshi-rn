@@ -53,6 +53,7 @@ import InAppBrowser from "react-native-inappbrowser-reborn";
 import ImmersiveMode from "react-native-immersive-mode"
 import { RootState } from "@redux/store";
 import { UserStateType } from "@redux/reducers/userReducer";
+import { User } from "@models/user";
 
 LogBox.ignoreLogs([`Trying to load empty source.`]);
 
@@ -193,7 +194,7 @@ export default forwardRef<VideoRef, Props>(
 
       if (showAds &&
         playerVodAds &&
-        (!userState.user?.isVip())
+        (!User.isVip(userState.user))
       ) {
         setShowAd(true);
         setAdCountdownTime(playerVodAds.minDuration);

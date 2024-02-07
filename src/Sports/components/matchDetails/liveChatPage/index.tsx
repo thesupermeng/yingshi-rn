@@ -17,6 +17,7 @@ import createStyles from "./style";
 import { Streamer } from "../../../types/matchTypes";
 import { UnreadCard } from "../../../../components/chat/unread";
 import { UserStateType } from "@redux/reducers/userReducer";
+import { User } from "@models/user";
 
 type Props = {
     matchID: string,
@@ -49,7 +50,7 @@ const LiveChatPage = ({
     const chatFlatListRef = useRef<FlatList<LiveChatMessageType> | null>(null);
     const isPinToBottom = useRef(true);
     const [numOfUnread, setNumOfUnread] = useState(0);
-    const isLogin = userState.user !== null && userState.user.isLogin();
+    const isLogin = User.isLogin(userState.user);
 
     const appDispatch = useAppDispatch();
 

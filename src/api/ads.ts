@@ -8,35 +8,35 @@ export class AdsApi {
     try {
       const result = await CApi.get(CEndpoint.bannerAd, {
         query: {
-          slot_id: slotId, 
+          slot_id: slotId,
           ip: YSConfig.instance.ip
         }
-      }); 
-      
+      });
+
       if (result.success === false) {
         throw result.message
       }
 
       return result.data as BannerAdType
 
-    } catch (e: any){
-      console.error(`[Error ${this.name}]: ${e.toString()}`);
+    } catch (e: any) {
+      console.error(`[Error ${this.getBannerAd.name}]: ${e.toString()}`);
       throw e;
     }
   }
 
   static getEventBanner = async () => {
     try {
-      const result = await CApi.get(CEndpoint.bannerEventAds, {}); 
-      
+      const result = await CApi.get(CEndpoint.bannerEventAds, {});
+
       if (result.success === false) {
         throw result.message
       }
 
       return result.data as BannerAdType[]
 
-    } catch (e: any){
-      console.error(`[Error ${this.name}]: ${e.toString()}`);
+    } catch (e: any) {
+      console.error(`[Error ${this.getEventBanner.name}]: ${e.toString()}`);
       throw e;
     }
   }

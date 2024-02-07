@@ -18,7 +18,7 @@ export class EventApi {
             return true;
 
         } catch (e: any) {
-            console.error(`[Error ${this.name}]: ${e.toString()}`);
+            console.error(`[Error ${this.postEvents.name}]: ${e.toString()}`);
         }
     };
 }

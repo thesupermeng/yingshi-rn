@@ -32,6 +32,7 @@ import DescriptionBar from './DescriptionBar';
 import HejiButton from './HejiButton';
 import { addIdToCache } from '../../../utils/minivodDownloader';
 import { UserStateType } from '@redux/reducers/userReducer';
+import { User } from '@models/user';
 
 interface Props {
   thumbnail?: string;
@@ -109,7 +110,7 @@ function ShortVideoPlayer({
 
   const userState = useSelector<UserStateType>('userReducer');
 
-  const isVip = userState.user?.isVip() ?? false;
+  const isVip = User.isVip(userState.user);
   const disableSeek =
     !isVip && adultVideoWatchTime >= ADULT_MODE_PREVIEW_DURATION && adultMode;
 

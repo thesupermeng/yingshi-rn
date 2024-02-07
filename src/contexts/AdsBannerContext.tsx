@@ -30,6 +30,7 @@ import { useAppSelector, useSelector } from "@hooks/hooks";
 import { SettingsReducerState } from "@redux/reducers/settingsReducer";
 import { screenModel } from "@type/screenType";
 import { UserStateType } from "@redux/reducers/userReducer";
+import { User } from "@models/user";
 // LogBox.ignoreAllLogs();
 interface Props {
   children: ReactNode;
@@ -498,8 +499,8 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
     // show banner logic
     if (settingState.appOrientation === "PORTRAIT") {
       if (
-        !userState.user?.isVip() ||
-        userState.user.isGuest()
+        !User.isVip(userState.user) ||
+        User.isGuest(userState.user)
       ) {
         // not member, then show banner
         // console.debug('not member')

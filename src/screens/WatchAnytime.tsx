@@ -18,6 +18,7 @@ import NoConnection from './../components/common/noConnection';
 import { CPressable } from '../components/atoms';
 import { showLoginAction } from '@redux/actions/screenAction';
 import { UserStateType } from '@redux/reducers/userReducer';
+import { User } from '@models/user';
 
 type MiniVideoResponseType = {
   data: {
@@ -55,7 +56,7 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
   const { adultMode: adultModeGlobal, watchAnytimeAdultMode } = screenState;
   const adultMode = watchAnytimeAdultMode;
 
-  const isVip = userState.user?.isVip() ?? false;
+  const isVip = User.isVip(userState.user);
 
   const fetchMode = adultMode ? 'adult' : 'normal';
   const isFocusLogin = useRef(false);
@@ -179,7 +180,7 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
   );
 
   useEffect(() => {
-    if (userState.user?.isLogin() && isFocusLogin.current) {
+    if (User.isLogin(userState.user) && isFocusLogin.current) {
       isFocusLogin.current = false;
     }
   }, [userState.user?.userToken]);

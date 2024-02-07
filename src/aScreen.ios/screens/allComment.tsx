@@ -13,6 +13,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { showLoginAction } from "@redux/actions/screenAction";
 import { CPopup } from "@utility/popup";
 import { UserStateType } from "@redux/reducers/userReducer";
+import { User } from "@models/user";
 
 export const AllCommentScreen = ({ navigation, route }: RootStackScreenProps<"全部评论">) => {
   const { vod_id, vod_name, commentItems } = route.params;
@@ -90,15 +91,15 @@ export const AllCommentScreen = ({ navigation, route }: RootStackScreenProps<"�
                 ...textVariants.body,
               }}
               onChangeText={setComment}
-              placeholder={userState.user?.isLogin() ? "请评论" : "请登录才进行评论"}
-              editable={userState.user?.isLogin()}
+              placeholder={User.isLogin(userState.user) ? "请评论" : "请登录才进行评论"}
+              editable={User.isLogin(userState.user)}
               placeholderTextColor={colors.muted}
               value={comment}
               maxLength={200}
               blurOnSubmit
             />
 
-            {userState.user?.isLogin() ? (
+            {User.isLogin(userState.user) ? (
               <>
                 <Text style={{ ...textVariants.body, color: comment.length === 200 ? colors.primary : colors.muted }}>
                   {comment.length}/200

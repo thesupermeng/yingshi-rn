@@ -91,6 +91,7 @@ import { BackgroundType } from "@redux/reducers/backgroundReducer";
 import { SettingsReducerState } from "@redux/reducers/settingsReducer";
 import { UserStateType } from "@redux/reducers/userReducer";
 import Video from "react-native-video";
+import { User } from "@models/user";
 
 export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
   const {
@@ -262,7 +263,9 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
       console.log(subscription);
       setOneTimeProducts(oneTime);
       setSubcriptionProducts(subscription);
-      setIsFetching(false);
+      setTimeout(() => {
+        setIsFetching(false);
+      }, 500);
     }
   };
 
@@ -474,7 +477,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
 
               handleRefresh();
 
-              if (userState.user?.isLogin()) {
+              if (User.isLogin(userState.user)) {
                 setDialogText(successDialogText);
                 setIsDialogOpen(true);
                 setIsSuccess(true);
@@ -589,7 +592,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                     zIndex: 200,
                   }}
                   onPress={() => {
-                    if (!userState.user?.isLogin() && userState.user?.isVip()) {
+                    if (!User.isLogin(userState.user) && User.isVip(userState.user)) {
                       // setShowBecomeVIPOverlay(true)
                       navigation.goBack();
                     } else {
@@ -969,7 +972,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                         }}
                         resizeMode="contain"
                       ></FastImage>
-                      {userState.user?.isVip() && (
+                      {User.isVip(userState.user) && (
                         <TouchableOpacity
                           style={{
                             position: "absolute",

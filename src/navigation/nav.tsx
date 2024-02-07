@@ -135,6 +135,7 @@ import { VipPromotionOverlay } from "../components/modal/vipPromotionOverlay";
 import { GuestPurchaseSuccessOverlay } from "../components/modal/guestPurchaseSuccessOverlay";
 import { BackgroundType } from "@redux/reducers/backgroundReducer";
 import { UserStateType } from "@redux/reducers/userReducer";
+import { User } from "@models/user";
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -334,7 +335,7 @@ export default () => {
       result <= 3 &&
       roundedTimeDifferenceDays >= 0 &&
       date2Timestamp > date1Timestamp &&
-      userState.user?.isLogin()
+      User.isLogin(userState.user)
     ) {
       setShowVIPOverlay(true);
     }

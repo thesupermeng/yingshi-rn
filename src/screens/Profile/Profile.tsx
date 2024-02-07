@@ -59,6 +59,7 @@ import style from "../../Sports/components/matchDetails/liveChatPage/style";
 import { VipLoginAlertOverlay } from "../../components/modal/vipLoginAlertOverlay";
 import { BackgroundType } from "@redux/reducers/backgroundReducer";
 import { UserStateType } from "@redux/reducers/userReducer";
+import { User } from "@models/user";
 
 function Profile({ navigation, route }: BottomTabScreenProps<any>) {
   const navigator = useNavigation();
@@ -218,7 +219,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
 
 
     // guest with VIP show login alert
-    if (userState.user?.isGuest() && userState.user.isVip()) {
+    if (User.isGuest(userState.user) && User.isVip(userState.user)) {
       setShowBecomeVIPOverlay(true)
     }
   }, []);
@@ -275,7 +276,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
             activeOpacity={1}
             onPress={() => {
 
-              if (!userState.user?.isLogin()) {
+              if (!User.isLogin(userState.user)) {
                 dispatch(showLoginAction());
                 // console.log('props{');
                 // setActionType('login');
@@ -291,7 +292,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
               }}
             >
               <View style={{ flexDirection: "row" }}>
-                {!userState.user?.isLogin() || Platform.OS === "android" ? (
+                {!User.isLogin(userState.user) || Platform.OS === "android" ? (
                   <ProfileIcon
                     style={{ color: colors.button, width: 18, height: 18 }}
                   />
@@ -315,7 +316,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                     paddingLeft: 12,
                   }}
                 >
-                  {userState.user?.isGuest() && (
+                  {User.isGuest(userState.user) && (
                     <>
                       <Text style={{ color: "#ffffff", fontSize: 14 }}>
                         游客ID:
@@ -325,7 +326,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                       </Text>
                     </>
                   )}
-                  {userState.user?.isLogin() && (
+                  {User.isLogin(userState.user) && (
                     <>
                       <View
                         style={{
@@ -347,7 +348,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                         </Text>
 
 
-                        {userState.user.isVip() && (
+                        {User.isVip(userState.user) && (
                           <Image
                             style={styles.iconStyle}
                             source={require("@static/images/profile/vip.png")}
@@ -358,7 +359,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                       {/* {userState.userMemberExpired == '0' && (
                       <Text style={{fontSize: 14}}>VIP会员已经到期</Text>
                     )} */}
-                      {userState.user.isVip() &&
+                      {User.isVip(userState.user) &&
                         (
                           <Text style={{ color: colors.primary, fontSize: 14 }}>
                             VIP会员有效日期至{displayedDate}
@@ -373,14 +374,14 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                     justifyContent: "center",
                   }}
                 >
-                  {userState.user?.isLogin() && (
+                  {User.isLogin(userState.user) && (
                     <EditIcn width={29} height={29} color={colors.muted} />
                   )}
                 </View>
               </View>
               {/* 游客 no vip  */}
-              {userState.user?.isGuest() &&
-                !userState.user?.isVip() && (
+              {User.isGuest(userState.user) &&
+                !User.isVip(userState.user) && (
                   <View
                     style={{
                       flexDirection: "row",
@@ -409,8 +410,8 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                 )}
 
               {/* 游客 got vip  */}
-              {userState.user?.isGuest() &&
-                userState.user?.isVip() && (
+              {User.isGuest(userState.user) &&
+                User.isVip(userState.user) && (
                   <View
                     style={{
                       flexDirection: "row",
@@ -522,7 +523,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                   }}
                   onPress={() => {
 
-                    if (userState.user?.isGuest()) {
+                    if (User.isGuest(userState.user)) {
                       dispatch(showLoginAction());
                     }
                     else {

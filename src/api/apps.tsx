@@ -26,7 +26,7 @@ export class AppsApi {
             return result.data;
 
         } catch (e: any) {
-            console.error(`[Error ${this.name}]: ${e.toString()}`);
+            console.error(`[Error ${this.getLocalIpAddress.name}]: ${e.toString()}`);
             YSConfig.instance.setNetworkIp(ipAddress);
         }
         finally {
@@ -52,7 +52,7 @@ export class AppsApi {
             return result.data;
 
         } catch (e: any) {
-            console.error(`[Error ${this.name}]: ${e.toString()}`);
+            console.error(`[Error ${this.getBottomNav.name}]: ${e.toString()}`);
             throw e;
         }
     };
@@ -78,7 +78,7 @@ export class AppsApi {
             return result.data;
 
         } catch (e: any) {
-            console.error(`[Error ${this.name}]: ${e.toString()}`);
+            console.error(`[Error ${this.postLocation.name}]: ${e.toString()}`);
             throw e;
         }
     };
@@ -99,7 +99,7 @@ export class AppsApi {
             return result.data as NavOptionsType[];
 
         } catch (e: any) {
-            console.error(`[Error ${this.name}]: ${e.toString()}`);
+            console.error(`[Error ${this.getHomeNav.name}]: ${e.toString()}`);
             throw e;
         }
     };
@@ -111,8 +111,8 @@ export class AppsApi {
                     id: id,
                     platform: Platform.OS,
                     channelId: UMENG_CHANNEL,
-                    appName:APP_NAME_CONST,
-                   // appName: '影视TV',
+                    appName: APP_NAME_CONST,
+                    // appName: '影视TV',
                     ads: !isVip,
                 },
             });
@@ -124,7 +124,7 @@ export class AppsApi {
             return result.data as VodCarousellType;
 
         } catch (e: any) {
-            console.error(`[Error ${this.name}]: ${e.toString()}`);
+            console.error(`[Error ${this.getHomePages.name}]: ${e.toString()}`);
             throw e;
         }
     };

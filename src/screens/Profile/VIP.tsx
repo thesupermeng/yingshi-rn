@@ -236,7 +236,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   }, [membershipSelected]);
 
   const handlePurchase = async () => {
-    if (!userState.user?.isLogin()) {
+    if (!User.isLogin(userState.user)) {
       dispatch(showLoginAction());
       console.log("show login");
       return; //early return

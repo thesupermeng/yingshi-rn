@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector, useSelector } from '@hooks/hooks';
 import { screenModel } from '@type/screenType';
 import { SHOW_ZF_CONST, UMENG_CHANNEL } from '@utility/constants';
 import { UserStateType } from '@redux/reducers/userReducer';
+import { User } from '@models/user';
 
 
 const AdultVideoVipModal = () => {
@@ -22,7 +23,7 @@ const AdultVideoVipModal = () => {
   const { adultModeVipShow, adultMode, watchAnytimeAdultMode } = screenState
   const dispatch = useAppDispatch()
 
-  const isVip = userState.user?.isVip() ?? false;
+  const isVip = User.isVip(userState.user);
 
   const handleCloseModal = useCallback(() => {
     dispatch(hideAdultModeVip())

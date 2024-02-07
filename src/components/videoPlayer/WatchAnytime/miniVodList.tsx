@@ -20,6 +20,7 @@ import { screenModel } from '@type/screenType';
 import { ADULT_MODE_PREVIEW_DURATION, MINI_SHOW_LOGIN_NUMBER } from '@utility/constants';
 import ShortAds from './shortAds';
 import { UserStateType } from '@redux/reducers/userReducer';
+import { User } from '@models/user';
 
 interface Props {
   miniVodListRef: any;
@@ -91,7 +92,7 @@ export default forwardRef<MiniVodRef, Props>(
       // adultMode,
       watchAnytimeAdultMode: adultMode, // rename watchanytimeadultmode to adult mode
     } = screenState;
-    const isVip = userState.user?.isVip() ?? false;
+    const isVip = User.isVip(userState.user);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
@@ -304,7 +305,7 @@ export default forwardRef<MiniVodRef, Props>(
     }, []);
 
     useEffect(() => {
-      if (userState.user?.isLogin()) return;
+      if (User.isLogin(userState.user)) return;
 
       if (swipeCount.current < MINI_SHOW_LOGIN_NUMBER) {
         swipeCount.current++;

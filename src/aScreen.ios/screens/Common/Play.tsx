@@ -76,6 +76,7 @@ import { VodCommentBox } from "../../components/vodComment";
 import { CPopup } from "@utility/popup";
 import { VodApi } from "@api";
 import { UserStateType } from "@redux/reducers/userReducer";
+import { User } from "@models/user";
 
 type VideoRef = {
   setPause: (param: boolean) => void;
@@ -690,16 +691,16 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
                     }}
                     onChangeText={setComment}
                     placeholder={
-                      userState.user?.isLogin() ? "请评论" : "请登录才进行评论"
+                      User.isLogin(userState.user) ? "请评论" : "请登录才进行评论"
                     }
-                    editable={userState.user?.isLogin()}
+                    editable={User.isLogin(userState.user)}
                     placeholderTextColor={colors.muted}
                     value={comment}
                     maxLength={200}
                     blurOnSubmit
                   />
 
-                  {userState.user?.isLogin() ? (
+                  {User.isLogin(userState.user) ? (
                     <>
                       <Text
                         style={{

@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks"
 import { showAdultModeVip } from "@redux/actions/screenAction"
 import { useNavigation } from "@react-navigation/native"
 import { UserStateType } from "@redux/reducers/userReducer"
+import { User } from "@models/user"
 
 
 const VipRegisterBar = ({
@@ -22,7 +23,7 @@ const VipRegisterBar = ({
     navigator.navigate('邀请');
   }, [])
   const userState = useSelector<UserStateType>('userReducer');
-  const isVip = userState.user?.isVip() ?? false;
+  const isVip = User.isVip(userState.user);
   if (!isVip)
     return (
       <LinearGradient

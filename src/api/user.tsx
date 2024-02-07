@@ -32,7 +32,7 @@ export class UserApi {
             return User.fromJson(result.data);
 
         } catch (e: any) {
-            console.error(`[Error ${this.name}]: ${e.toString()}`);
+            console.error(`[Error ${this.guestLogin.name}]: ${e.toString()}`);
             throw e;
         }
     }
@@ -97,7 +97,7 @@ export class UserApi {
             return result;
 
         } catch (e: any) {
-            console.error(`[Error ${this.name}]: ${e.toString()}`);
+            console.error(`[Error ${this.signinupUser.name}]: ${e.toString()}`);
             throw e;
         }
     }
@@ -125,8 +125,9 @@ export class UserApi {
             return result.data;
 
         } catch (e: any) {
-            console.error(`[Error ${this.name}]: ${e.toString()}`);
-            throw e;
+            console.error(`[Error ${this.getUserDetails.name}]: ${e.toString()}`);
+            // throw e;
+            return undefined;
         }
     }
 
@@ -160,7 +161,7 @@ export class UserApi {
             return result.data;
 
         } catch (e: any) {
-            console.error(`[Error ${this.name}]: ${e.toString()}`);
+            console.error(`[Error ${this.updateUsername.name}]: ${e.toString()}`);
             throw e;
         }
     };
@@ -176,7 +177,7 @@ export class UserApi {
             return result.data as CountryPhoneCodeType[];
 
         } catch (e: any) {
-            console.error(`[Error ${this.name}]: ${e.toString()}`);
+            console.error(`[Error ${this.getCountries.name}]: ${e.toString()}`);
             throw e;
         }
     }

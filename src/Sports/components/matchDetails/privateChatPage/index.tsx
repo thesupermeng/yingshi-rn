@@ -16,6 +16,7 @@ import { PrivateRoomHistoryType, PrivateRoomType } from "@type/chatTypes";
 import { debounce } from "lodash";
 import { UnreadCard } from "../../../../components/chat/unread";
 import { UserStateType } from "@redux/reducers/userReducer";
+import { User } from "@models/user";
 
 type Props = {
     matchID: string,
@@ -43,7 +44,7 @@ const PrivateChatPage = ({
     const chatFlatListRef = useRef<FlatList<PrivateRoomHistoryType> | null>(null);
     const isPinToBottom = useRef(true);
     const [numOfUnread, setNumOfUnread] = useState(0);
-    const isLogin = userState.user !== null && userState.user.isLogin();
+    const isLogin = User.isLogin(userState.user);
 
     const appDispatch = useAppDispatch();
 

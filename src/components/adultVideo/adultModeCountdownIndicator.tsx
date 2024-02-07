@@ -7,6 +7,7 @@ import { incrementAdultVideoWatchTime, showAdultModeVip } from "@redux/actions/s
 import { memo, useCallback, useEffect } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import { UserStateType } from "@redux/reducers/userReducer";
+import { User } from "@models/user";
 
 interface Props {
   containerStyle: ViewStyle;
@@ -20,7 +21,7 @@ const AdultModeCountdownIndicator = ({ containerStyle }: Props) => {
   const dispatch = useAppDispatch()
 
   const { adultVideoWatchTime, adultMode } = screenState
-  const isVip = userState.user?.isVip() ?? false;
+  const isVip = User.isVip(userState.user);
 
   useFocusEffect(
     useCallback(() => {
