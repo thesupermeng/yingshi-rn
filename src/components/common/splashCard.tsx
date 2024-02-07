@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   TouchableOpacity,
@@ -22,8 +22,10 @@ interface Props {
 
 function SplashCard({ uri, source, index, isLast = false }: Props) {
   const { colors, textVariants, spacing } = useTheme();
+  const [isLoadImg, setLoadImg] = useState(false);
+
   return (
-    <View style={{ flex: 1, backgroundColor: 'black' }}>
+    <View style={{ flex: 1, backgroundColor: 'black', justifyContent: 'center' }}>
       {/* <Text style={{color:'#ffffff'}}>asdasdsdas</Text> */}
       <FastImage
         key={`slider-${index}`}
@@ -32,8 +34,17 @@ function SplashCard({ uri, source, index, isLast = false }: Props) {
           uri: uri
         }}
         resizeMode={"cover"}
-        useFastImage={true}
-      ></FastImage>
+        onLoadStart={() => setLoadImg(true)}
+        onLoadEnd={() => setLoadImg(false)}
+      />
+      {isLoadImg &&
+        <FastImage
+          style={{ position: 'absolute', alignSelf: 'center', width: 80, height: 80 }}
+          source={require('@static/images/loading-spinner.gif')}
+          resizeMode={'contain'}
+          useFastImage={true}
+        />
+      }
     </View>
   );
 }

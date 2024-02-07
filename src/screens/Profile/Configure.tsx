@@ -40,6 +40,7 @@ import { clearMinivodApiCache } from "../../utils/minivodDownloader";
 import { UserApi } from "../../api/user";
 import { addUserAuthState } from "@redux/actions/userAction";
 import { UserStateType } from '@redux/reducers/userReducer';
+import { User } from "@models/user";
 
 export default ({ navigation }: RootStackScreenProps<"设置">) => {
   const { colors, textVariants, icons, spacing } = useTheme();
