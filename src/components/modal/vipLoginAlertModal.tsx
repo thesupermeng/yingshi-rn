@@ -77,7 +77,8 @@ export default function VipLoginAlertModal({
                 flex: 1,
                 gap: 16,
                 flexDirection: 'column',
-                paddingTop:50
+                paddingTop:50,
+                paddingBottom:15
               }}>
               <View
                 style={{
@@ -138,7 +139,6 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     alignItems: "center",
     backgroundColor:'#FAC33D',
-    marginTop:10
   },
   purchaseButtonText: {
     color: "#1D2023",
