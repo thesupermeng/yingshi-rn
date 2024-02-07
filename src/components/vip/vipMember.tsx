@@ -33,7 +33,7 @@ export const VipMember = ({
           colors={isSelected ? ['rgba(160, 110, 60, 0.2)', 'rgba(255, 226, 188, 0.2)'] : ['rgba(255, 255, 255, 0.1)', 'rgba(255, 255, 255, 0.02)']}
           start={{ x: 0.5, y: isSelected ? 0.5 : 0 }}
           style={styles.contentContainer}>
-          {membershipPlan.title === '12个月' && isSelected &&
+          {membershipPlan.title === '1个月' &&
             <View style={{ ...styles.legend }}>
               <Text style={{ ...textVariants.small, fontWeight: '600' }}>最多人选择</Text>
             </View>

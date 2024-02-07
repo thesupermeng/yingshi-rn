@@ -77,7 +77,8 @@ export default function VipLoginAlertModal({
                 flex: 1,
                 gap: 16,
                 flexDirection: 'column',
-                paddingTop:50
+                paddingTop:50,
+                paddingBottom:10
               }}>
               <View
                 style={{
