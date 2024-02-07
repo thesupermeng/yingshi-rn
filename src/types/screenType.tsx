@@ -1,6 +1,7 @@
 export interface screenModel {
   showEventSplash: boolean;
   showEventSplashData: any;
+  eventSplashLastPageViewTime?: number,
   screenAction: string;
   screenShow: boolean;
   loginShow: boolean;
@@ -19,6 +20,6 @@ export interface screenModel {
   watchAnytimeAdultMode: boolean;
   showAdultTab: boolean;
   showAdultVipPrivilegeMiniVideo: boolean;
-  showPromotionDialog:boolean;
-  showGuestPurchaseSuccess:boolean;
+  showPromotionDialog: boolean;
+  showGuestPurchaseSuccess: boolean;
 }

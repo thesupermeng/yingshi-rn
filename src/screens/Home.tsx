@@ -19,6 +19,7 @@ import {
   ANDROID_HOME_PAGE_POP_UP_ADS,
   API_DOMAIN,
   API_DOMAIN_TEST,
+  EVENT_SPLASH_SHOW_DURATION,
   IOS_HOME_PAGE_POP_UP_ADS,
   UMENG_CHANNEL,
 } from "@utility/constants";
@@ -46,6 +47,7 @@ import { AdsBannerContext } from "../contexts/AdsBannerContext";
 import useInterstitialAds from "@hooks/useInterstitialAds";
 import EighteenPlusOverlay from "../components/modal/overEighteenOverlay";
 import {
+  clearEventSplashLastPageViewTime,
   hideAdultModeDisclaimer,
   setShowAdultTab,
   setShowEventSplashData,
@@ -309,7 +311,12 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
     let splashListTemp = [];
     try {
 
-      if (screenState.showEventSplash == false) {
+      // if (screenState.showEventSplash == false) {
+      //   return;
+      // }
+      if (screenState.eventSplashLastPageViewTime !== undefined &&
+        Date.now() - screenState.eventSplashLastPageViewTime < EVENT_SPLASH_SHOW_DURATION
+      ) {
         return;
       }
       splashListTemp = await SplashApi.getSplash();
@@ -338,6 +345,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
       console.log(screenState.showEventSplash)
       console.log(screenState.showEventSplashData)
       navigation.navigate("付费Google");
+      dispatch(clearEventSplashLastPageViewTime());
     }
 
 

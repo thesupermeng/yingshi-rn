@@ -88,4 +88,22 @@ export class User {
     public isVip = (): boolean => {
         return this.userCurrentTimestamp < this.userMemberExpired;
     }
+
+    public static isGuest = (user?: User): boolean => {
+        if (user === null || user === undefined) return true;
+
+        return user.userEmail === '' && user.userPhoneNumber === '';
+    }
+
+    public static isLogin = (user?: User): boolean => {
+        if (user === null || user === undefined) return false;
+
+        return user.userEmail !== '' || user.userPhoneNumber !== '';
+    }
+
+    public static isVip = (user?: User): boolean => {
+        if (user === null || user === undefined) return false;
+
+        return user.userCurrentTimestamp < user.userMemberExpired;
+    }
 }

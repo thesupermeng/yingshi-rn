@@ -7,7 +7,8 @@ import { screenModel } from "@type/screenType";
 
 const initialState: screenModel = {
   showEventSplash: true,
-  showEventSplashData:[],
+  showEventSplashData: [],
+  eventSplashLastPageViewTime: undefined,
   screenAction: "",
   screenShow: false,
   loginShow: false,
@@ -201,21 +202,31 @@ export function screenReducer(state = initialState, action: screenActionType) {
         showEventSplash: action.payload,
       };
 
-      case "set_show_event_splash_data":
-        return {
-          ...state,
-          showEventSplashData: action.payload,
-        };
-        case "set_show_promotion_dialog":
-          return {
-            ...state,
-            showPromotionDialog: action.payload,
-          };
-          case "set_show_guest_purchase_success":
-            return {
-              ...state,
-              showGuestPurchaseSuccess: action.payload,
-            };
+    case "set_show_event_splash_data":
+      return {
+        ...state,
+        showEventSplashData: action.payload,
+      };
+    case "set_event_splash_last_page_view_time":
+      return {
+        ...state,
+        eventSplashLastPageViewTime: Date.now(),
+      }
+    case "clear_event_splash_last_page_view_time":
+      return {
+        ...state,
+        eventSplashLastPageViewTime: undefined,
+      }
+    case "set_show_promotion_dialog":
+      return {
+        ...state,
+        showPromotionDialog: action.payload,
+      };
+    case "set_show_guest_purchase_success":
+      return {
+        ...state,
+        showGuestPurchaseSuccess: action.payload,
+      };
     default:
       return state;
   }

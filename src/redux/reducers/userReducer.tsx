@@ -26,8 +26,6 @@ export function userReducer(state = initialState, action: UserActionType): UserS
         user: action.payload ?? null,
       };
     case 'update_user_auth':
-      console.debug('111')
-      console.log(action.payload.user)
       const newUserDetails = User.fromJson({
         user: action.payload.user,
       });
@@ -37,8 +35,7 @@ export function userReducer(state = initialState, action: UserActionType): UserS
         ? `${action.payload.user.country?.country_phonecode ?? ''}${action.payload.user.user_phone}`
         : '';
 
-      console.debug('newUserDetails')
-      console.log(newUserDetails)
+
       return {
         ...state,
         user: newUserDetails,
