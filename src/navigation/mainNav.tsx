@@ -63,7 +63,7 @@ export default () => {
 
     appDispatch(onBootApp());
 
-    if (userState.user !== null) {
+    if (userState.user !== null && userState.user !== undefined) {
       dispatch(addUserAuthState(new User(userState.user)));
     }
 
