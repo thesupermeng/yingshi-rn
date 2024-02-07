@@ -36,7 +36,7 @@ import {
   UMENG_CHANNEL,
   VIP_PROMOTION_COUNTDOWN_MINUTE,
 } from "@utility/constants";
-import { setShowEventSplash, setShowGuestPurchaseSuccess, setShowPromotionDialog, showLoginAction } from "@redux/actions/screenAction";
+import { setEventSplashLastPageViewTime, setShowEventSplash, setShowGuestPurchaseSuccess, setShowPromotionDialog, showLoginAction } from "@redux/actions/screenAction";
 import { ProductApi, UserApi } from "@api";
 import WebView from "react-native-webview";
 import { YSConfig } from "../../../ysConfig";
@@ -284,7 +284,9 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         // console.log(subscription);
         setOneTimeProducts(oneTime);
         setMembershipProducts(subscription);
-        setFetching(false);
+        setTimeout(() => {
+          setFetching(false);
+        }, 1000);
       }
     } else {
       let siFang: Array<promoMembershipModel>;
@@ -511,10 +513,13 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         setDialogText(successDialogText);
         setIsDialogOpen(true);
         setIsSuccess(true);
+        navigation.goBack()
       } else {
         dispatch(setShowGuestPurchaseSuccess(true));
         setIsVisible(false);
         setIsBtnEnable(true);
+        navigation.goBack()
+
       }
       clearTimeout(pendingTimeoutRef.current);
     } else if (result.transaction_status_string === "FAILED") {
@@ -649,10 +654,12 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                 setDialogText(successDialogText);
                 setIsDialogOpen(true);
                 setIsSuccess(true);
+                 navigation.goBack()
               } else {
                 dispatch(setShowGuestPurchaseSuccess(true));
                 setIsVisible(false);
                 setIsBtnEnable(true);
+                navigation.goBack()
               }
             } else {
               console.log("success", success);
@@ -1151,6 +1158,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
             setIsLastShown(true);
 
             dispatch(setShowEventSplash(false));
+            dispatch(setEventSplashLastPageViewTime());
             // dispatch(
             //   setShowEventSplashData([
             //     {
@@ -1169,7 +1177,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
           if (index === screenState.showEventSplashData.length - 1) {
             setIsLastShown(true);
             dispatch(setShowEventSplash(false));
-
+            dispatch(setEventSplashLastPageViewTime());
             // dispatch(
             //   setShowEventSplashData([
             //     {
