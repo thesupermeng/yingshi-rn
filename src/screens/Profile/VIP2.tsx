@@ -263,7 +263,9 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
       console.log(subscription);
       setOneTimeProducts(oneTime);
       setSubcriptionProducts(subscription);
-      setIsFetching(false);
+      setTimeout(() => {
+        setIsFetching(false);
+      }, 500);
     }
   };
 
