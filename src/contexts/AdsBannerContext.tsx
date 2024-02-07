@@ -498,10 +498,7 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
     hideAllBanner();
     // show banner logic
     if (settingState.appOrientation === "PORTRAIT") {
-      if (
-        !User.isVip(userState.user) ||
-        User.isGuest(userState.user)
-      ) {
+      if (!User.isVip(userState.user)) {
         // not member, then show banner
         // console.debug('not member')
         setTimeout(() => {
