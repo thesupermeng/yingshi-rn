@@ -355,7 +355,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   useEffect(() => {
     if (membershipProducts) {
       const defaultMembership = membershipProducts.find(
-        (product) => product.title === "12个月"
+        (product) => product.title === "1个月"  
       );
       if (defaultMembership) {
         setSelectedMembership(defaultMembership);
@@ -513,10 +513,13 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         setDialogText(successDialogText);
         setIsDialogOpen(true);
         setIsSuccess(true);
+        navigation.goBack()
       } else {
         dispatch(setShowGuestPurchaseSuccess(true));
         setIsVisible(false);
         setIsBtnEnable(true);
+        navigation.goBack()
+
       }
       clearTimeout(pendingTimeoutRef.current);
     } else if (result.transaction_status_string === "FAILED") {
@@ -651,10 +654,12 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                 setDialogText(successDialogText);
                 setIsDialogOpen(true);
                 setIsSuccess(true);
+                 navigation.goBack()
               } else {
                 dispatch(setShowGuestPurchaseSuccess(true));
                 setIsVisible(false);
                 setIsBtnEnable(true);
+                navigation.goBack()
               }
             } else {
               console.log("success", success);
@@ -711,16 +716,14 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
 
     return (
       <>
-        {
-      
-        (index === screenState.showEventSplashData.length - 1 ||
+        {index === screenState.showEventSplashData.length - 1 ||
           screenState.showEventSplash == false ||
           isLastShown ||
-          screenState.showEventSplashData.length == 0) ? (
+          screenState.showEventSplashData.length == 0 ? (
           <ScreenContainer
             footer={
               <>
-                {membershipSelected  &&    !fetching && (
+                {membershipSelected && !fetching && (
                   <View style={{ ...styles.summaryContainer }}>
                     <TouchableOpacity
                       onPress={handlePurchase}
@@ -1174,7 +1177,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
           if (index === screenState.showEventSplashData.length - 1) {
             setIsLastShown(true);
             dispatch(setShowEventSplash(false));
-
+            dispatch(setEventSplashLastPageViewTime());
             // dispatch(
             //   setShowEventSplashData([
             //     {
