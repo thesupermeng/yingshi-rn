@@ -1,5 +1,5 @@
 import React, { memo, useEffect, useRef, useState } from 'react';
-import {View, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, StyleSheet, TouchableOpacity, Platform} from 'react-native';
 
 interface Props {
   data?: any;
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     marginTop: 0,
     marginBottom: 0,
     position: 'relative',
-    bottom: 12,
+    bottom: Platform.OS === 'ios' ? 35 : 12, 
     borderRadius: 10,
   },
   paginationDot: {
