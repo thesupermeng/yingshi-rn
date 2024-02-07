@@ -36,7 +36,7 @@ import {
   UMENG_CHANNEL,
   VIP_PROMOTION_COUNTDOWN_MINUTE,
 } from "@utility/constants";
-import { setShowEventSplash, setShowGuestPurchaseSuccess, setShowPromotionDialog, showLoginAction } from "@redux/actions/screenAction";
+import { setEventSplashLastPageViewTime, setShowEventSplash, setShowGuestPurchaseSuccess, setShowPromotionDialog, showLoginAction } from "@redux/actions/screenAction";
 import { ProductApi, UserApi } from "@api";
 import WebView from "react-native-webview";
 import { YSConfig } from "../../../ysConfig";
@@ -1155,6 +1155,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
             setIsLastShown(true);
 
             dispatch(setShowEventSplash(false));
+            dispatch(setEventSplashLastPageViewTime());
             // dispatch(
             //   setShowEventSplashData([
             //     {
