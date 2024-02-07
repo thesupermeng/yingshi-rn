@@ -127,6 +127,7 @@ export class UserApi {
         } catch (e: any) {
             console.error(`[Error ${this.getUserDetails.name}]: ${e.toString()}`);
             // throw e;
+            return undefined;
         }
     }
 
