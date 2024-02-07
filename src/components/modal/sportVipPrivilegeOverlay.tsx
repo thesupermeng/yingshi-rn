@@ -28,14 +28,15 @@ export const SportVipPrivilegeOverlay = ({ showCondition, onClose, showBlur }: P
 
   const handleOnPurchase = useCallback(() => {
     onClose({ isAutoClose: true })
-    if (UMENG_CHANNEL == 'GOOGLE_PLAY')
-    {
-      navigator.navigate("付费Google");
-    }
-    else
-    {
-      navigator.navigate("付费VIP");
-    }
+    navigator.navigate("付费VIP");
+    // if (UMENG_CHANNEL == 'GOOGLE_PLAY')
+    // {
+    //   navigator.navigate("付费Google");
+    // }
+    // else
+    // {
+    //   navigator.navigate("付费VIP");
+    // }
 
 
     // ========== for analytics - start ==========

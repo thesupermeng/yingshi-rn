@@ -49,11 +49,12 @@ function MainHeader({ logo, navigator, headerStyle }: Props) {
       />
       <TouchableOpacity
         onPress={() => {
-          if (UMENG_CHANNEL == "GOOGLE_PLAY") {
-            navigator.navigate("付费Google");
-          } else {
-            navigator.navigate("付费VIP");
-          }
+          navigator.navigate("付费VIP");
+          // if (UMENG_CHANNEL == "GOOGLE_PLAY") {
+          //   navigator.navigate("付费Google");
+          // } else {
+          //   navigator.navigate("付费VIP");
+          // }
         }}
       >
         {<VipEntry height={36} />}
