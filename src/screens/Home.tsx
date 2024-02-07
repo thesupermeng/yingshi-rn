@@ -311,10 +311,6 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
 
     let splashListTemp = [];
     try {
-
-      // if (screenState.showEventSplash == false) {
-      //   return;
-      // }
       if (screenState.eventSplashLastPageViewTime !== undefined &&
         Date.now() - screenState.eventSplashLastPageViewTime < EVENT_SPLASH_SHOW_DURATION
       ) {

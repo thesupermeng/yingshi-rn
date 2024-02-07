@@ -215,6 +215,7 @@ export function screenReducer(state = initialState, action: screenActionType) {
     case "clear_event_splash_last_page_view_time":
       return {
         ...state,
+        showEventSplash: true,
         eventSplashLastPageViewTime: undefined,
       }
     case "set_show_promotion_dialog":
