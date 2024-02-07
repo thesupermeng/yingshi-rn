@@ -110,8 +110,7 @@ const useInterstitialAds = () => {
   const showInterstitial = async (interstitialPlacementId: PlacementId) => {
     // not vip
     if (
-      (!User.isVip(userState.user) ||
-        User.isGuest(userState.user)) &&
+      (!User.isVip(userState.user)) &&
       retryCount < 3
     ) {
       retryCount += 1;
