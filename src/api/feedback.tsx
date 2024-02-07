@@ -14,7 +14,7 @@ export class FeedbackApi {
             return result.data;
 
         } catch (e: any) {
-            console.error(`[Error ${this.name}]: ${e.toString()}`);
+            console.error(`[Error ${this.postFeedback.name}]: ${e.toString()}`);
             throw e;
         }
     }

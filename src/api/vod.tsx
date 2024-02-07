@@ -18,7 +18,7 @@ export class VodApi {
             return result.data as FilterOptionsType[];
 
         } catch (e: any) {
-            console.error(`[Error ${this.name}]: ${e.toString()}`);
+            console.error(`[Error ${this.getTopicType.name}]: ${e.toString()}`);
             throw e;
         }
     }
@@ -46,7 +46,7 @@ export class VodApi {
             return result.data[0] as VodType;
 
         } catch (e: any) {
-            console.error(`[Error ${this.name}]: ${e.toString()}`);
+            console.error(`[Error ${this.getDetail.name}]: ${e.toString()}`);
             throw e;
         }
     }
@@ -116,7 +116,7 @@ export class VodApi {
             return xMode ? result.data as AdultVodListType : result.data as SuggestVodListType;
 
         } catch (e: any) {
-            console.error(`[Error ${this.name}]: ${e.toString()}`);
+            console.error(`[Error ${this.getList.name}]: ${e.toString()}`);
             throw e;
         }
     };
@@ -139,7 +139,7 @@ export class VodApi {
             return data.List ?? [];
 
         } catch (e: any) {
-            console.error(`[Error ${this.name}]: ${e.toString()}`);
+            console.error(`[Error ${this.getListByRecommendations.name}]: ${e.toString()}`);
             throw e;
         }
     };
@@ -163,7 +163,7 @@ export class VodApi {
             return data.List ?? [];
 
         } catch (e: any) {
-            console.error(`[Error ${this.name}]: ${e.toString()}`);
+            console.error(`[Error ${this.getListByKeyword.name}]: ${e.toString()}`);
             throw e;
         }
     };
@@ -184,7 +184,7 @@ export class VodApi {
             return result.data as CommentsResponseDataType;
 
         } catch (e: any) {
-            console.error(`[Error ${this.name}]: ${e.toString()}`);
+            console.error(`[Error ${this.getReviewDetails.name}]: ${e.toString()}`);
             throw e;
         }
     };
@@ -220,7 +220,7 @@ export class VodApi {
             }
 
         } catch (e: any) {
-            console.error(`[Error ${this.name}]: ${e.toString()}`);
+            console.error(`[Error ${this.getPlayerAdVideo.name}]: ${e.toString()}`);
             throw e;
         }
     };

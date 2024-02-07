@@ -20,7 +20,7 @@ export class ProductApi {
             return result.data;
 
         } catch (e: any) {
-            console.error(`[Error ${this.name}]: ${e.toString()}`);
+            console.error(`[Error ${this.getList.name}]: ${e.toString()}`);
             throw e;
         }
     }
@@ -36,7 +36,7 @@ export class ProductApi {
             return result.data;
 
         } catch (e: any) {
-            console.error(`[Error ${this.name}]: ${e.toString()}`);
+            console.error(`[Error ${this.getNativeList.name}]: ${e.toString()}`);
             throw e;
         }
     }
@@ -86,7 +86,7 @@ export class ProductApi {
             return result;
 
         } catch (e: any) {
-            console.error(`[Error ${this.name}]: ${e.toString()}`);
+            console.error(`[Error ${this.postValidateReceipt.name}]: ${e.toString()}`);
             throw e;
         }
     }
@@ -106,7 +106,7 @@ export class ProductApi {
             return result.data;
 
         } catch (e: any) {
-            console.error(`[Error ${this.name}]: ${e.toString()}`);
+            console.error(`[Error ${this.getFinzfTransaction.name}]: ${e.toString()}`);
             throw e;
         }
     }
@@ -135,7 +135,7 @@ export class ProductApi {
             return result.data;
 
         } catch (e: any) {
-            console.error(`[Error ${this.name}]: ${e.toString()}`);
+            console.error(`[Error ${this.postFinzfOrder.name}]: ${e.toString()}`);
             throw e;
         }
     }
@@ -207,7 +207,7 @@ export class ProductApi {
             return result;
 
         } catch (e: any) {
-            console.error(`[Error ${this.name}]: ${e.toString()}`);
+            console.error(`[Error ${this.postAndroidSubscriptions.name}]: ${e.toString()}`);
             throw e;
         }
     }
@@ -250,7 +250,7 @@ export class ProductApi {
                     transaction_status,
                     is_sb,
                     purchase_token,
-                    package_name_android 
+                    package_name_android
                 }
             });
 
@@ -261,7 +261,7 @@ export class ProductApi {
             return result;
 
         } catch (e: any) {
-            console.error(`[Error ${this.name}]: ${e.toString()}`);
+            console.error(`[Error ${this.postAndroidIAP.name}]: ${e.toString()}`);
             throw e;
         }
     }

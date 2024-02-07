@@ -11,9 +11,9 @@ import { CEndpoint } from "@constants";
 const customShuffleWithAds = (arr: MiniVideo[]) => { // basically keeping ads at index 3rd, 6th, 9th of previous item 
   const contentArray = shuffle(arr.filter(item => !item.is_ads))
   const adsArray = shuffle(arr.filter(item => item.is_ads))
-  
+
   const offsets = [5, 5, 5]
-  
+
   let current = 0
 
   adsArray.forEach((val, index) => {
@@ -21,7 +21,7 @@ const customShuffleWithAds = (arr: MiniVideo[]) => { // basically keeping ads at
     current += offsets[offsetIndex]
     const ad = adsArray[index];
 
-    contentArray.splice(current - 1 , 0, ad)
+    contentArray.splice(current - 1, 0, ad)
   })
 
   return contentArray
@@ -58,7 +58,7 @@ export class MiniVodApi {
       return result.data as MiniVideoListType;
 
     } catch (e: any) {
-      console.error(`[Error ${this.name}]: ${e.toString()}`);
+      console.error(`[Error ${this.getListByPage.name}]: ${e.toString()}`);
       throw e;
     }
   };
@@ -80,7 +80,7 @@ export class MiniVodApi {
       return data.List ?? [];
 
     } catch (e: any) {
-      console.error(`[Error ${this.name}]: ${e.toString()}`);
+      console.error(`[Error ${this.getRecommendations.name}]: ${e.toString()}`);
       throw e;
     }
   };
