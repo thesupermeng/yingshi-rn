@@ -265,7 +265,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
       setSubcriptionProducts(subscription);
       setTimeout(() => {
         setIsFetching(false);
-      }, 500);
+      }, 1000);
     }
   };
 
