@@ -507,9 +507,15 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     console.log("order status: ", result);
 
     if (result.transaction_status_string === "COMPLETED") {
-      setIsSuccess(true);
-      setDialogText(successDialogText);
-      setIsDialogOpen(true);
+      if (userState.user?.isLogin()) {
+        setDialogText(successDialogText);
+        setIsDialogOpen(true);
+        setIsSuccess(true);
+      } else {
+        dispatch(setShowGuestPurchaseSuccess(true));
+        setIsVisible(false);
+        setIsBtnEnable(true);
+      }
       clearTimeout(pendingTimeoutRef.current);
     } else if (result.transaction_status_string === "FAILED") {
       setDialogText(failedDialogText);
