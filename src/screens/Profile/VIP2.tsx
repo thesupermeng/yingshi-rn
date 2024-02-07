@@ -51,6 +51,7 @@ import {
   setShowEventSplash,
   setShowPromotionDialog,
   setShowGuestPurchaseSuccess,
+  setEventSplashLastPageViewTime,
 } from "@redux/actions/screenAction";
 import { ProductApi, UserApi } from "@api";
 import WebView from "react-native-webview";
@@ -859,9 +860,9 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                         {oneTimeProducts.map((product, i) => (
                           <TouchableOpacity
                             key={product.productId}
-                            style={{ 
-                              width: "48%", 
-                              height: 70, 
+                            style={{
+                              width: "48%",
+                              height: 70,
                               overflow: "hidden",
                               ...(productSelected === product && i === 0
                                 ? styles.cardContainerActive2
@@ -968,23 +969,22 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                         }}
                         resizeMode="contain"
                       ></FastImage>
-                      {userState.userMemberExpired >=
-                        userState.userCurrentTimestamp && (
-                          <TouchableOpacity
-                            style={{
-                              position: "absolute",
-                              bottom: 15,
-                              right: 30,
-                            }}
-                            onPress={() => {
-                              navigation.navigate("VIP明细", {
-                                userState: userState,
-                              });
-                            }}
-                          >
-                            <Text style={{ color: "#9c9c9c" }}>VIP明细</Text>
-                          </TouchableOpacity>
-                        )}
+                      {userState.user?.isVip() && (
+                        <TouchableOpacity
+                          style={{
+                            position: "absolute",
+                            bottom: 15,
+                            right: 30,
+                          }}
+                          onPress={() => {
+                            navigation.navigate("VIP明细", {
+                              userState: userState.user!,
+                            });
+                          }}
+                        >
+                          <Text style={{ color: "#9c9c9c" }}>VIP明细</Text>
+                        </TouchableOpacity>
+                      )}
                     </View>
 
 
@@ -1045,6 +1045,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
             setIsLastShown(true);
 
             dispatch(setShowEventSplash(false));
+            dispatch(setEventSplashLastPageViewTime());
             // dispatch(
             //   setShowEventSplashData([
             //     {
@@ -1063,6 +1064,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
           if (index === screenState.showEventSplashData.length - 1) {
             setIsLastShown(true);
             dispatch(setShowEventSplash(false));
+            dispatch(setEventSplashLastPageViewTime());
 
             // dispatch(
             //   setShowEventSplashData([

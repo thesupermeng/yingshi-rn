@@ -151,3 +151,5 @@ export const VIP_PROMOTION_PURCHASE_MAX = 50000;
 export const VIP_PROMOTION_PURCHASE_RANDOM = 10000;
 
 export const DOWNLOAD_FEATURE_ENABLED = true;
+
+export const EVENT_SPLASH_SHOW_DURATION = 7 * 24 * 60 * 60 * 1000; // 1 week

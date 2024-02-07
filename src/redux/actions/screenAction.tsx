@@ -141,6 +141,13 @@ export const setShowEventSplashData = (action: any) => ({
   payload: action,
 });
 
+export const setEventSplashLastPageViewTime = () => ({
+  type: "set_event_splash_last_page_view_time",
+});
+
+export const clearEventSplashLastPageViewTime = () => ({
+  type: "clear_event_splash_last_page_view_time",
+});
 
 export const setShowPromotionDialog = (action: any) => ({
   type: "set_show_promotion_dialog",
