@@ -341,7 +341,8 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
       console.log("==================== splashList from main ======================")
       console.log(screenState.showEventSplash)
       console.log(screenState.showEventSplashData)
-      navigation.navigate("付费Google");
+      // navigation.navigate("付费Google");
+      navigation.navigate("付费VIP");
       dispatch(clearEventSplashLastPageViewTime());
     }
 

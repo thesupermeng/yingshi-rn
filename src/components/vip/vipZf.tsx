@@ -31,14 +31,12 @@ export const VipZf = ({
         style={{
           paddingHorizontal: 20,
           paddingVertical: 10,
-          marginHorizontal: 15,
-          marginTop: 10,
           borderRadius: 10,
           flexDirection: 'row',
           justifyContent: 'space-evenly',
           alignItems: 'center',
           borderWidth: isSelected ? 2 : 0, // Add border when selected
-          borderColor: colors.primary, // Set your desired border color
+          borderColor: '#BC9569', // Set your desired border color
         }}>
         <View
           style={{
@@ -67,8 +65,8 @@ export const VipZf = ({
           </Text>
         </View>
         {isSelected ?
-          <View style={{ ...styles.outerBorder, borderColor: colors.primary }}>
-            <View style={{ ...styles.innerCircle, backgroundColor: colors.primary }} />
+          <View style={{ ...styles.outerBorder, borderColor: '#C8A275' }}>
+            <View style={{ ...styles.innerCircle, backgroundColor: '#C8A275' }} />
           </View> : null
         }
       </LinearGradient>

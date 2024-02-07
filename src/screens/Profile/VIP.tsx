@@ -7,20 +7,19 @@ import {
   ScrollView,
   Platform,
   Linking,
-  TextInput,
-  Alert
+  Dimensions,
 } from "react-native";
 import {
+  Purchase,
   PurchaseError,
   requestPurchase,
+  requestSubscription,
   useIAP,
 } from "react-native-iap";
 import ScreenContainer from "../../components/container/screenContainer";
 import { RootStackScreenProps } from "@type/navigationTypes";
 import { useTheme } from "@react-navigation/native";
-import { RootState } from "@redux/store";
 
-import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
 import { updateUserAuth } from "@redux/actions/userAction";
@@ -29,49 +28,74 @@ import NoConnection from "../../components/common/noConnection";
 import FastImage from "react-native-fast-image";
 import {
   APP_NAME_CONST,
+  IAP_TYPE,
   IS_ANDROID,
   IS_IOS,
+  SI_FANG,
+  SUBSCRIPTION_TYPE,
   UMENG_CHANNEL,
+  VIP_PROMOTION_COUNTDOWN_MINUTE,
 } from "@utility/constants";
-import { showLoginAction } from "@redux/actions/screenAction";
+import { setShowEventSplash, setShowGuestPurchaseSuccess, setShowPromotionDialog, showLoginAction } from "@redux/actions/screenAction";
 import { ProductApi, UserApi } from "@api";
 import WebView from "react-native-webview";
 import { YSConfig } from "../../../ysConfig";
 import { VipCard } from "../../components/vip/vipCard";
-import { membershipModel, zfModel } from "@type/membershipType";
-import { Dialog } from "@rneui/themed";
+import { membershipModel, promoMembershipModel, zfModel } from "@type/membershipType";
 import { InAppBrowser } from 'react-native-inappbrowser-reborn';
 import { VipDialog } from "../../components/vip/vipDialog";
 import SpinnerOverlay from "../../components/modal/SpinnerOverlay";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { isAndroid } from "react-native-iap/lib/typescript/src/internal";
 import UmengAnalytics from "../../../Umeng/UmengAnalytics";
-import { err } from "react-native-svg/lib/typescript/xml";
 import { UserStateType } from "@redux/reducers/userReducer";
+import LinearGradient from "react-native-linear-gradient";
+import Video from "react-native-video";
+import { BackgroundType } from "@redux/reducers/backgroundReducer";
+import CloseButton from "@static/images/close_icon.svg";
+import Tick1 from "@static/images/splash/tick1.svg";
+import Tick2 from "@static/images/splash/tick2.svg";
+import { screenModel } from "@type/screenType";
+import SplashCard from "../../components/common/splashCard";
+import Carousel from "react-native-reanimated-carousel";
+import CarouselPagination from "../../components/container/CarouselPagination";
+
+const iap_skus = ["yingshi_vip_1_month", "yingshi_vip_12_months"];
+const subs_skus = [
+  "vip_1_month_subscription",
+  "vip_3_month_subscription",
+  "vip_12_month_subscription",
+];
 
 export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const {
     connected,
     products,
-    purchaseHistory,
+    subscriptions,
     currentPurchase,
-    currentPurchaseError,
-    initConnectionError,
     finishTransaction,
     getProducts,
-    getPurchaseHistory,
-    availablePurchases,
+    getSubscriptions,
   } = useIAP();
+
+  const screenState: screenModel = useAppSelector(
+    ({ screenReducer }) => screenReducer
+  );
+
   const [membershipProducts, setMembershipProducts] = useState<
-    membershipModel[]
+    promoMembershipModel[]
   >([]);
-  const [membershipSelected, setSelectedMembership] = useState<membershipModel>(
+
+  const [oneTimeProducts, setOneTimeProducts] = useState<
+    promoMembershipModel[]
+  >([]);
+
+  const [membershipSelected, setSelectedMembership] = useState<promoMembershipModel>(
     membershipProducts[0]
   );
   const [zfOptions, setZfOptions] = useState<zfModel[]>([]);
   const [zfSelected, setSelectedZf] = useState("");
   const [isOffline, setIsOffline] = useState(false);
-  const { colors, textVariants, spacing } = useTheme();
+  const { textVariants, spacing } = useTheme();
   const userState = useSelector<UserStateType>('userReducer');
 
   const [loading, setIsLoading] = useState(true);
@@ -104,11 +128,43 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   }
 
   const [dialogText, setDialogText] = useState([""]);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isLastShown, setIsLastShown] = useState(false);
+  const [width, setWidth] = useState(Dimensions.get("window").width);
+  const [height, setHeight] = useState(Dimensions.get("window").height);
+  const carouselRef = useRef<any>();
 
-  const headers = {
-    Authorization: `Bearer ${userState.user?.userToken}`,
-    "Content-Type": "application/json",
-  };
+  const backgroundState = useSelector<BackgroundType>("backgroundReducer");
+  const [countdownSecond, setCountdownSecond] = useState(
+    (VIP_PROMOTION_COUNTDOWN_MINUTE * 60 * 1000 -
+      (Date.now() - backgroundState.vipPromotionCountdownStart)) /
+    1000
+  );
+
+  const hours = Math.floor(countdownSecond / 60 / 60);
+  const minute = Math.floor((countdownSecond / 60) % 60);
+  const second = Math.floor(countdownSecond % 60);
+
+  const remainingTimeAry = [
+    String(hours).padStart(2, "0")[0],
+    String(hours).padStart(2, "0")[1],
+    String(minute).padStart(2, "0")[0],
+    String(minute).padStart(2, "0")[1],
+    String(second).padStart(2, "0")[0],
+    String(second).padStart(2, "0")[1],
+  ];
+
+  useEffect(() => {
+    const countdownInterval = setInterval(() => {
+      setCountdownSecond(
+        (VIP_PROMOTION_COUNTDOWN_MINUTE * 60 * 1000 -
+          (Date.now() - backgroundState.vipPromotionCountdownStart)) /
+        1000
+      );
+    }, 1000);
+
+    return () => clearInterval(countdownInterval);
+  }, []);
 
   // ========== for analytics - start ==========
   useEffect(() => {
@@ -159,63 +215,140 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   }, []);
 
   const fetchData = async () => {
-    const data = await ProductApi.getList({
-      productTypeId: UMENG_CHANNEL !== 'GOOGLE_PLAY' ? "yingshi_4_fang" : undefined,
-    });
-    let products: Array<membershipModel>;
-    if (data) {
-      products = data.map((product: any) => {
-        return {
-          productId: product.product_id,
-          productSKU: product.product_ios_product_id,
-          title: product.product_name,
-          price: product.product_price,
-          localizedPrice:
-            product.currency.currency_symbol + " " + product.product_price,
-          description: product.product_desc,
-          subscriptionDays: product.product_value,
-          zfOptions: product.payment_options.length ? product.payment_options : getZfOptions(UMENG_CHANNEL),
-        };
-      });
+    const data = await ProductApi.getNativeList();
 
-      console.log(JSON.stringify(products));
-      setMembershipProducts(products);
-      setFetching(false);
+    if (UMENG_CHANNEL === "GOOGLE_PLAY") {
+      let oneTime: Array<promoMembershipModel>;
+      let subscription: Array<promoMembershipModel>;
+
+      if (data) {
+        oneTime = data.one_time_items.map((product: any) => {
+          return {
+            productId: product.product_id,
+            productSKU: product.product_ios_product_id,
+            title: product.product_name,
+            price: product.product_price,
+            promoPrice:
+              product.currency.currency_symbol +
+              " " +
+              product.product_promo_price,
+            localizedPrice:
+              product.currency.currency_symbol + " " + product.product_price,
+            description: product.product_desc,
+            subscriptionDays: product.product_value,
+            zfOptions: [{
+              payment_type_code: "GOOGLE_PAY",
+              payment_type_name: "Google Pay",
+              payment_type_icon: "google.png",
+            }],
+            productType: IAP_TYPE,
+          };
+        });
+
+        subscription = data.subscription_items.map((product: any) => {
+          return {
+            productId: product.product_id,
+            productSKU: product.product_ios_product_id,
+            title: product.product_name,
+            price: product.product_price,
+            promoPrice:
+              product.currency.currency_symbol + product.product_promo_price,
+            localizedPrice:
+              product.currency.currency_symbol +
+              (product.product_name === "1个月"
+                ? product.product_price
+                : product.product_fake_price),
+            description: product.product_desc,
+            subscriptionDays: product.product_value,
+            zfOptions: [{
+              payment_type_code: "GOOGLE_PAY",
+              payment_type_name: "Google Pay",
+              payment_type_icon: "google.png",
+            }],
+            productType: SUBSCRIPTION_TYPE,
+          };
+        });
+
+        // Find the index of the item with product_name "12个月"
+        const index12Months = subscription.findIndex(
+          (item) => item.title === "12个月"
+        );
+
+        // If found, move it to the second position
+        if (index12Months !== -1) {
+          const item12Months = subscription.splice(index12Months, 1)[0];
+          subscription.splice(1, 0, item12Months);
+        }
+
+        // console.log("subscription");
+        // console.log(subscription);
+        setOneTimeProducts(oneTime);
+        setMembershipProducts(subscription);
+        setFetching(false);
+      }
+    } else {
+      let siFang: Array<promoMembershipModel>;
+
+      if (data) {
+        siFang = data['4_fang_items'].map((product: any) => {
+          return {
+            productId: product.product_id,
+            productSKU: product.product_ios_product_id,
+            title: product.product_name,
+            price: product.product_price,
+            promoPrice:
+              product.currency.currency_symbol +
+              " " +
+              product.product_price,
+            localizedPrice:
+              product.currency.currency_symbol + " " + product.product_fake_price,
+            description: product.product_desc,
+            subscriptionDays: product.product_value,
+            zfOptions: product.payment_options,
+            productType: SI_FANG,
+          };
+        });
+
+        // Find the index of the item with product_name "12个月"
+        const index12Months = siFang.findIndex(
+          (item) => item.title === "12个月"
+        );
+
+        // If found, move it to the first position
+        if (index12Months !== -1) {
+          const item12Months = siFang.splice(index12Months, 1)[0];
+          siFang.splice(0, 0, item12Months);
+        }
+
+        // console.log("sifang");
+        // console.log(siFang);
+        setMembershipProducts(siFang);
+        setFetching(false);
+      }
     }
   };
 
-  const getZfOptions = (channel: string): zfModel[] => {
-    switch (channel) {
-      case 'GOOGLE_PLAY':
-        return [
-          {
-            payment_type_code: "GOOGLE_PAY",
-            payment_type_name: "Google Pay",
-            payment_type_icon: "google.png"
-          },
-        ];
-
-      default:
-        return [
-          {
-            payment_type_code: "ALIPAY",
-            payment_type_name: "支付宝",
-            payment_type_icon: "https://test.yingshi.tv/static/images/payment/alipay-icon-lg.png"
-          },
-          {
-            payment_type_code: "JD_ECARD",
-            payment_type_name: "微信支付",
-            payment_type_icon: "https://test.yingshi.tv/static/images/payment/wxpay-icon-lg.png"
-          },
-        ];
+  const handleGetGoogleProduct = async () => {
+    try {
+      await getProducts({ skus: iap_skus });
+      await getSubscriptions({ skus: subs_skus });
+    } catch (err) {
+      console.log("error when get product from google play: ", err);
     }
-  }
+  };
 
   useEffect(() => {
-    if (IS_ANDROID) {
-      fetchData();
-    }
+    setWidth(Number(Dimensions.get("window").width));
+    setHeight(Number(Dimensions.get("window").height));
+    fetchData();
   }, []);
+
+  useEffect(() => {
+    if (connected && UMENG_CHANNEL === 'GOOGLE_PLAY') {
+      console.log('get product of google play dbefjndsvb')
+      handleGetGoogleProduct();
+    }
+  }, [connected]);
 
   useEffect(() => {
     if (membershipProducts) {
@@ -236,24 +369,38 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   }, [membershipSelected]);
 
   const handlePurchase = async () => {
-    if (!User.isLogin(userState.user)) {
-      dispatch(showLoginAction());
-      console.log("show login");
-      return; //early return
-    }
-
     setIsBtnEnable(false);
     try {
       setIsVisible(true);
-      // handleZfGateway();
 
       if (zfSelected === "GOOGLE_PAY") {
         console.log("google method");
-        await getProducts({ skus: [membershipSelected.productSKU] });
+        console.log('the data: ', membershipSelected)
 
-        await requestPurchase({ skus: [membershipSelected.productSKU] });
+        if (membershipSelected.productType === "iap") {
+          await requestPurchase({ skus: [membershipSelected.productSKU] });
+        } else if (membershipSelected.productType === "subs") {
+          const subs = subscriptions.find(
+            (sub) => sub.productId === membershipSelected.productSKU
+          );
+
+          if (subs) {
+            const offerToken = subs.subscriptionOfferDetails[0].offerToken;
+            await requestSubscription({
+              sku: membershipSelected.productSKU,
+              ...(offerToken && {
+                subscriptionOffers: [
+                  { sku: membershipSelected.productSKU, offerToken },
+                ],
+              }),
+            });
+          } else {
+            throw new Error("subscription plan not found");
+          }
+        }
+
       } else {
-        console.log("others zf method");
+        console.log("4 fang method");
         handleZfGateway();
       }
     } catch (error) {
@@ -263,11 +410,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
       } else {
         console.error("handle purchase error: ", error);
       }
-      // showToast(
-      //   error?.code.toString() +
-      //     "  error message : " +
-      //     error.message.toString()
-      // );
+
       if (error && error?.code == "E_USER_CANCELLED") {
         console.log("user cancel purchase");
         setIsBtnEnable(true);
@@ -280,14 +423,15 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
 
   const handleZfGateway = async () => {
     try {
+      console.log(membershipSelected.productId)
       const result = await ProductApi.postFinzfOrder({
         productId: parseInt(membershipSelected.productId),
         zfType: zfSelected,
       });
       console.log("returned order data: ", result);
 
-      if (result.paymentData) {
-        openLink(result.paymentData, result.transaction_id);
+      if (result.paymentData.url) {
+        openLink(result.paymentData.url, result.transaction_id);
       } else throw new Error('no url is retuned');
 
     } catch (error) {
@@ -363,9 +507,15 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     console.log("order status: ", result);
 
     if (result.transaction_status_string === "COMPLETED") {
-      setIsSuccess(true);
-      setDialogText(successDialogText);
-      setIsDialogOpen(true);
+      if (userState.user?.isLogin()) {
+        setDialogText(successDialogText);
+        setIsDialogOpen(true);
+        setIsSuccess(true);
+      } else {
+        dispatch(setShowGuestPurchaseSuccess(true));
+        setIsVisible(false);
+        setIsBtnEnable(true);
+      }
       clearTimeout(pendingTimeoutRef.current);
     } else if (result.transaction_status_string === "FAILED") {
       setDialogText(failedDialogText);
@@ -376,12 +526,12 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     }
   };
 
-  const saveFinishTrans = async (transStatus: string, error: any) => {
-    const trans = {
+  const saveFinishIAP = async (transStatus: string, error: any) => {
+    const iapTrans = {
       user_id: userState.user?.userId ?? '',
       product_id: membershipSelected?.productId,
       transaction_type: "SUBSCRIBE_VIP",
-      zf_channel: zfSelected.toUpperCase().replace(/ /g, '_'),
+      zf_channel: "GOOGLE_PAY",
       platform: APP_NAME_CONST + "-" + Platform.OS.toUpperCase(),
       channel_transaction_id: currentPurchase?.transactionId,
       transaction_receipt: currentPurchase
@@ -389,107 +539,73 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         : error.toString(),
       transaction_status: parseInt(transStatus),
       is_sb: __DEV__ ? 1 : 0,
+      purchase_token: currentPurchase?.purchaseToken,
+      package_name_android: currentPurchase?.packageNameAndroid,
     };
-    console.log("complete trans: ", trans);
+    console.log("iap json posted: ", iapTrans);
 
-    addLocalTrans(trans);
-
-    const result = await ProductApi.postValidateReceipt(trans);
-
-    console.log("complete transaction result");
-    console.log(result);
-    return result.data.data;
-  };
-
-  const getLocalTrans = async () => {
     try {
-      const data = await AsyncStorage.getItem("transRecords");
-      console.log("trans data stored in local storage");
-      console.log(data);
+      const result = await ProductApi.postAndroidIAP(iapTrans);
 
-      if (data !== null) {
-        return JSON.parse(data);
-      }
-      return [];
+      console.log("validate iap result");
+      console.log(result);
+      return result.data.data;
     } catch (error) {
-      console.log("error when retrieving local trans records: ", error);
-      return [];
+      console.log("error when validate iap: ", error);
+      return false;
     }
   };
 
-  const addLocalTrans = async (trans: any) => {
-    try {
-      const existingData = await getLocalTrans();
-      existingData.push(trans);
-      await AsyncStorage.setItem("transRecords", JSON.stringify(existingData));
-
-      const existingData2 = await getLocalTrans();
-      console.log("current trans stored in local: ", existingData2);
-    } catch (error) {
-      console.log("error when storing the trans into local storage: ", error);
-    }
-  };
-
-  const processLocalTrans = async () => {
-    try {
-      const existingData = await getLocalTrans();
-      console.log("processData");
-      let dataLength = existingData.length;
-
-      if (dataLength > 0) {
-        while (dataLength--) {
-          let popItem = existingData.shift();
-          console.log("pop item");
-          console.log(popItem);
-
-          const result = await ProductApi.postValidateReceipt(popItem);
-
-          console.log("response get back");
-          console.log(result);
-
-          if (result.statusCode !== 200) {
-            console.log("push back the unsuccess trans: ", popItem);
-            existingData.push(popItem);
-          }
-        }
-        console.log("after data");
-        console.log(existingData);
-        existingData.length ?
-          await AsyncStorage.setItem("transRecords", JSON.stringify(existingData)) :
-          await AsyncStorage.removeItem("transRecords");
-      }
-
-    } catch (error) {
-      console.error("error saving local data to database: ", error);
-    }
-  };
-
-  useEffect(() => {
-    const passData = async () => {
-      if (!isOffline) {
-        await processLocalTrans();
-        await refreshUserState();
-        // if(currentPurchase) {
-        //   finishTransaction({
-        //     purchase: currentPurchase,
-        //     isConsumable: true,
-        //   });
-        // }
-      }
+  const saveFinishSubs = async (sub: Purchase) => {
+    const subsTrans = {
+      product_id: membershipSelected?.productId,
+      payment_channel: "GOOGLE_PAY",
+      autoRenewingAndroid: sub.autoRenewingAndroid,
+      dataAndroid: sub.dataAndroid,
+      developerPayloadAndroid: sub.developerPayloadAndroid,
+      isAcknowledgedAndroid: sub.isAcknowledgedAndroid,
+      obfuscatedAccountIdAndroid: sub.obfuscatedAccountIdAndroid,
+      obfuscatedProfileIdAndroid: sub.obfuscatedProfileIdAndroid,
+      packageNameAndroid: sub.packageNameAndroid,
+      productId: sub.productId,
+      productIds: sub.productIds,
+      purchaseStateAndroid: sub.purchaseStateAndroid,
+      purchaseToken: sub.purchaseToken,
+      signatureAndroid: sub.signatureAndroid,
+      transactionDate: sub.transactionDate,
+      transactionId: sub.transactionId,
+      transactionReceipt: sub.transactionReceipt,
     };
+    console.log("subs json posted: ", subsTrans);
 
-    passData();
-  }, [isOffline]);
+    try {
+      const result = await ProductApi.postAndroidSubscriptions(subsTrans);
+      console.log("validate subscription result");
+      console.log(result);
+      return result.success;
+    } catch (err) {
+      console.log("post android subscription error: ", err);
+      return false;
+    }
+  };
 
   useEffect(() => {
     const checkCurrentPurchase = async () => {
       if (currentPurchase) {
         console.log("-------Current Purchase------------");
         console.log(currentPurchase);
+        console.log(
+          products.some(
+            (product) => product.productId === currentPurchase.productId
+          )
+        );
 
         try {
           if (currentPurchase.transactionReceipt) {
             const key = currentPurchase.transactionId?.concat("true");
+            const isIAP = products.some(
+              (product) => product.productId === currentPurchase.productId
+            );
 
             if (receiptBuffer.has(key)) {
               console.log(
@@ -498,39 +614,56 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
               );
               await finishTransaction({
                 purchase: currentPurchase,
-                isConsumable: true,
+                isConsumable: isIAP,
               });
               setIsVisible(false);
               setIsBtnEnable(true);
               return;
-            } else {
-              setTimeout(() => setIsVisible(false), 10000);
+            }
 
-              const success = await saveFinishTrans("1", ""); //validate receipt with server
+            setTimeout(() => setIsVisible(false), 10000);
 
-              setReceiptBuffer((prev) => {
-                const receipt = new Map(prev);
-                receipt.set(currentPurchase.transactionId?.concat(success), success);
-                return receipt;
+            const success = isIAP
+              ? await saveFinishIAP("1", "")
+              : await saveFinishSubs(currentPurchase); //validate receipt with server
+
+            setReceiptBuffer((prev) => {
+              const receipt = new Map(prev);
+              receipt.set(
+                currentPurchase.transactionId?.concat(success),
+                success
+              );
+              return receipt;
+            });
+
+            if (success) {
+              console.log("success ", success);
+              await finishTransaction({
+                purchase: currentPurchase,
+                isConsumable: isIAP,
               });
 
-              if (success) {
-                await finishTransaction({
-                  purchase: currentPurchase,
-                  isConsumable: true,
-                });
-                setDialogText(successDialogText)
+              handleRefresh();
+
+              if (userState.user?.isLogin()) {
+                setDialogText(successDialogText);
                 setIsDialogOpen(true);
                 setIsSuccess(true);
               } else {
-                await finishTransaction({
-                  purchase: currentPurchase,
-                  isConsumable: true,
-                });
-                setDialogText(failedDialogText)
-                setIsDialogOpen(true);
-                setIsSuccess(false);
+                dispatch(setShowGuestPurchaseSuccess(true));
+                setIsVisible(false);
+                setIsBtnEnable(true);
               }
+            } else {
+              console.log("success", success);
+              await finishTransaction({
+                purchase: currentPurchase,
+                isConsumable: isIAP,
+              });
+
+              setDialogText(failedDialogText);
+              setIsDialogOpen(true);
+              setIsSuccess(false);
             }
           }
         } catch (error) {
@@ -557,125 +690,104 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     setIsSuccess(false);
   };
 
-  const webViewref = useRef<any>();
-  useEffect(() => {
-    if (webViewref.current) {
-      webViewref.current.reload();
+  // const webViewref = useRef<any>();
+  // useEffect(() => {
+  //   if (webViewref.current) {
+  //     webViewref.current.reload();
+  //   }
+  // }, [userState.user?.userToken]);
+
+  // const onLoadEnd = () => {
+  //   webViewref.current.postMessage(`${userState.user?.userToken}`);
+  //   setIsLoading(false);
+  // };
+
+  const renderCarousel = ({ item, index }) => {
+    function setShowBecomeVIPOverlay(arg0: boolean) {
+      throw new Error("Function not implemented.");
     }
-  }, [userState.user?.userToken]);
 
-  const onLoadEnd = () => {
-    webViewref.current.postMessage(`${userState.user?.userToken}`);
-    setIsLoading(false);
-  };
-
-  return (
-    <>
-      <ScreenContainer
-        footer={
-          <>
-            {!IS_IOS && membershipSelected && (
-              <View style={{ ...styles.summaryContainer }}>
-                <View style={{ ...styles.summaryLabel }}>
-                  <Text style={{ ...textVariants.small }}>
-                    {membershipSelected.title}
-                  </Text>
-                  <Text style={{ ...textVariants.body, color: colors.title }}>
-                    {membershipSelected.localizedPrice}
-                  </Text>
-                </View>
-                <TouchableOpacity
-                  style={{
-                    width: "60%",
-                    padding: 10,
-                    margin: 10,
-                    alignItems: "center",
-                    borderRadius: 10,
-                    backgroundColor: isBtnEnable
-                      ? colors.primary
-                      : colors.highlight,
-                  }}
-                  onPress={handlePurchase}
-                  disabled={isBtnEnable ? false : true}
-                >
-                  <Text style={{ ...styles.btnText }}>立即开通</Text>
-                </TouchableOpacity>
-              </View>
-            )}
-          </>
-        }
-      >
-        <VipDialog
-          isDialogOpen={isDialogOpen}
-          isOffline={isOffline}
-          isSuccess={isSuccess}
-          handleConfirm={handleConfirm}
-          dialogText={dialogText}
-        />
-
-        <TitleWithBackButtonHeader
-          title={YSConfig.instance.showBecomeVip
-            ? "成为VIP"
-            : "付费VIP"}
-          right={
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate("VIP明细", { userState: userState.user! });
-              }}
-              disabled={
-                !(
-                  (userState.user?.userPaidVipList.total_purchased_days ?? 0) > 0 ||
-                  (userState.user?.userAccumulateRewardDay ?? 0) > 0
-                )
-              }
-            >
-              <Text
-                style={{
-                  ...textVariants.subBody,
-                  opacity:
-                    userState.user?.userPaidVipList.total_purchased_days > 0 ||
-                      (userState.user?.userAccumulateRewardDay ?? 0) > 0
-                      ? 100
-                      : 0,
-                }}
-              >
-                VIP明细
-              </Text>
-            </TouchableOpacity>
-          }
-          onBack={() => isNavigated ? webViewref.current.goBack() : navigation.goBack()}
-        />
-
-        {isOffline && (
-          <View style={{ height: "100%" }}>
-            <NoConnection onClickRetry={checkConnection} />
-          </View>
-        )}
-
-        {(IS_IOS ? loading : fetching) && !isOffline && (
-          <View
-            style={{
-              flex: 1,
-              justifyContent: "center",
-              alignItems: "center",
-              backgroundColor: "rgb(20,22,25)",
+    return (
+      <>
+        {index === screenState.showEventSplashData.length - 1 ||
+          screenState.showEventSplash == false ||
+          isLastShown ||
+          screenState.showEventSplashData.length == 0 ? (
+          <ScreenContainer
+            footer={
+              <>
+                {membershipSelected && (
+                  <View style={{ ...styles.summaryContainer }}>
+                    <TouchableOpacity
+                      onPress={handlePurchase}
+                      disabled={!isBtnEnable}
+                    >
+                      <LinearGradient
+                        colors={["#D1AC7D", "#B1885F"]}
+                        locations={[0.0, 0.99]}
+                        style={{
+                          height: 40,
+                          marginHorizontal: 10,
+                          justifyContent: "center",
+                          alignItems: "center",
+                          paddingVertical: 8,
+                          borderRadius: 8,
+                        }}
+                      >
+                        <Text style={styles.btnText}>
+                          立即解锁{" "}
+                          {membershipSelected &&
+                            `- 总额${membershipSelected.promoPrice}`}
+                        </Text>
+                      </LinearGradient>
+                    </TouchableOpacity>
+                  </View>
+                )}
+              </>
+            }
+            containerStyle={{
+              paddingLeft: -spacing.sideOffset,
+              paddingRight: -spacing.sideOffset,
             }}
           >
-            <FastImage
-              source={require("@static/images/home-loading.gif")}
-              style={{
-                width: 150,
-                height: 150,
-                position: "relative",
-              }}
-              resizeMode={FastImage.resizeMode.contain}
+            <VipDialog
+              isDialogOpen={isDialogOpen}
+              isOffline={isOffline}
+              isSuccess={isSuccess}
+              handleConfirm={handleConfirm}
+              dialogText={dialogText}
             />
-          </View>
-        )}
 
-        <SpinnerOverlay visible={isVisible} />
+            {isOffline && (
+              <View style={{ height: "100%" }}>
+                <NoConnection onClickRetry={checkConnection} />
+              </View>
+            )}
 
-        {IS_IOS && !isOffline && (
+            {fetching && !isOffline && (
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  backgroundColor: "rgb(20,22,25)",
+                }}
+              >
+                <FastImage
+                  source={require("@static/images/home-loading.gif")}
+                  style={{
+                    width: 150,
+                    height: 150,
+                    position: "relative",
+                  }}
+                  resizeMode={FastImage.resizeMode.contain}
+                />
+              </View>
+            )}
+
+            <SpinnerOverlay visible={isVisible} />
+
+            {/* {IS_IOS && !isOffline && (
           <View style={{ backgroundColor: 'rgba(20, 22, 26, 1)', flex: loading ? 0 : 1 }}>
             <WebView
               ref={webViewref}
@@ -704,75 +816,405 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
               }}
             />
           </View>
-        )}
+        )} */}
 
-        {IS_ANDROID && !fetching && !isOffline && (
-          <ScrollView
-            refreshControl={
-              <RefreshControl
-                refreshing={refreshing}
-                onRefresh={handleRefresh}
-                tintColor="#FAC33D"
-              />
-            }
-            ref={scrollRef}
-            showsVerticalScrollIndicator={false}
-          >
-            <VipCard
-              userState={userState.user!}
-              membershipProduct={membershipProducts}
-              selectedMembership={membershipSelected}
-              onMembershipSelect={setSelectedMembership}
-              zfOptions={zfOptions}
-              selectedZf={zfSelected}
-              onZfSelect={setSelectedZf}
-            />
+            {!fetching && !isOffline && (
+              <View style={{ flex: 1, }}>
+                <View style={{
+                  flex: UMENG_CHANNEL === 'GOOGLE_PLAY' ? 2.2 : (IS_IOS ? 1.5 : 1),
+                  overflow: 'hidden',
+                }}>
+                  {/* return button  */}
+                  <TouchableOpacity
+                    style={{
+                      position: "absolute",
+                      left: 15,
+                      top: 20,
+                      zIndex: 200,
+                    }}
+                    onPress={() => {
+                      if (!userState.user?.isLogin() && userState.user?.isVip()) {
+                        navigation.goBack();
+                      } else {
+                        dispatch(setShowPromotionDialog(true));
+                        navigation.goBack();
+                      }
+                    }}
+                  >
+                    <CloseButton />
+                  </TouchableOpacity>
 
-            <View
-              style={{
-                ...styles.tncContainer,
-                backgroundColor: "transparent",
-                paddingTop: 0,
-              }}
-            >
-              <Text
-                style={{
-                  ...textVariants.small,
-                  textAlign: "center",
-                  color: "#a6a6a6",
-                  fontStyle: "italic",
-                }}
-                numberOfLines={2}
-              >
-                因不同地区税收政策不同/汇率波动，实际支付价格与会员显示价格存在少量偏差
-              </Text>
-            </View>
+                  <Video
+                    source={require("@static/images/splash/bg.mp4")}
+                    style={styles.video}
+                    resizeMode="cover"
+                    repeat={true}
+                  />
+                  <LinearGradient
+                    colors={[
+                      'rgba(20, 22, 26, 0)',
+                      'rgba(20, 22, 26, 0.27912)',
+                      'rgba(20, 22, 26, 0.9)',
+                      '#14161A'
+                    ]}
+                    locations={[0, 0.206, 0.3967, 0.8086]}
+                    start={{ x: 0.5, y: 0 }}
+                    end={{ x: 0.5, y: 1 }}
+                    style={{
+                      flex: 1,
+                    }}
+                  />
 
-            <View style={{ ...styles.footerWithBackgroundContainer }}>
-              <Text style={{ ...textVariants.small }}>
-                有关购买查询，请联系contact.movie9@gmail.com
-              </Text>
-            </View>
-            {IS_IOS ? (
-              <View style={{ ...styles.footerContainer }}>
-                <Text style={{ ...textVariants.small }}>
-                  活动由此APP公司提供 与苹果公司Apple.Inc 无关
-                </Text>
+                  <View
+                    style={{
+                      position: "absolute",
+                      paddingHorizontal: 15,
+                      paddingBottom: 10,
+                      bottom: 0,
+                      gap: 15,
+                    }}>
+                    <FastImage
+                      source={require("./../../../static/images/splash/card.png")}
+                      style={{
+                        width: '100%',
+                        aspectRatio: 16 / 9,
+                      }}
+                      resizeMode="contain"
+                    />
+
+                    {/* oneTimeProducts / single purchase  */}
+                    {oneTimeProducts && oneTimeProducts.length > 0 && (
+                      <View style={{
+                        paddingHorizontal: 10,
+                        gap: 15,
+                      }}>
+                        <Text style={styles.countdownLabel}>
+                          单次购买
+                        </Text>
+                        <View
+                          style={{
+                            gap: 15,
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                          }}
+                        >
+                          {oneTimeProducts.map((product, i) => (
+                            <TouchableOpacity
+                              key={product.productId}
+                              style={{
+                                flex: 1,
+                                height: 70,
+                                overflow: "hidden",
+                                borderRadius: 8,
+                                borderWidth: membershipSelected === product ? 2 : 0,
+                                borderColor: membershipSelected === product ?
+                                  (i === 0 ? '#AE845B' : '#fff') : 'transparent'
+                              }}
+                              onPress={() => {
+                                setSelectedMembership(product);
+                              }}
+                            >
+                              <LinearGradient
+                                colors={
+                                  i === 0
+                                    ? ["#FCF6F2", "#FCF6F2"]
+                                    : ["#D1AC7D", "#B1885F"]
+                                }
+                                locations={[0.0, 0.99]}
+                                style={{
+                                  flex: 1,
+                                  paddingTop: 10,
+                                  paddingHorizontal: 10,
+                                }}
+                              >
+                                {membershipSelected === product && (
+                                  <View
+                                    style={{
+                                      position: "absolute",
+                                      right: 5,
+                                      top: 5,
+                                    }}
+                                  >
+                                    {i === 0 && <Tick1 width={18} height={18} />}
+
+                                    {i === 1 && <Tick2 width={18} height={18} />}
+                                  </View>
+                                )}
+                                <View
+                                  style={{
+                                    justifyContent: "space-between",
+                                    gap: 5,
+                                  }}
+                                >
+                                  <View>
+                                    <Text
+                                      style={{
+                                        color: i === 0 ? "#351B04" : "#fff",
+                                        fontSize: 12,
+                                      }}
+                                    >
+                                      {product.title === "1个月"
+                                        ? "月度套餐"
+                                        : "年度套餐"}
+                                    </Text>
+                                  </View>
+
+                                  <View
+                                    style={{
+                                      justifyContent: "space-between",
+                                      flexDirection: "row",
+                                      alignItems: "center",
+                                    }}
+                                  >
+                                    <Text
+                                      style={{
+                                        color: i === 0 ? "#351B04" : "#fff",
+                                        fontSize: 14,
+                                        fontWeight: "700",
+                                      }}
+                                    >
+                                      {product.title}
+                                    </Text>
+                                    <Text
+                                      style={{
+                                        color: i === 0 ? "#AE845B" : "#fff",
+                                        fontSize: 19,
+                                        fontWeight: "900",
+                                      }}
+                                    >
+                                      {product.localizedPrice}
+                                    </Text>
+                                  </View>
+                                </View>
+                              </LinearGradient>
+                            </TouchableOpacity>
+                          ))}
+                        </View>
+                      </View>
+                    )}
+
+                    {/* countdown container */}
+                    <View style={{
+                      flex: 1,
+                      flexDirection: 'row',
+                      paddingHorizontal: 10,
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                    }}>
+                      <View style={{
+                        gap: 12,
+                        flexDirection: 'row'
+                      }}>
+                        <Text style={styles.countdownLabel}>
+                          限时优惠
+                        </Text>
+                        <View style={styles.countdownContainer}>
+                          {remainingTimeAry.map((val, i) => {
+                            return (
+                              <View
+                                key={i}
+                                style={{
+                                  flexDirection: 'row',
+                                  gap: 5,
+                                }}>
+                                <View
+                                  style={{
+                                    backgroundColor: '#F4DBBA',
+                                    borderRadius: 6,
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    width: 20,
+                                    height: 20,
+                                  }}
+                                >
+                                  <Text style={styles.countdownText}>
+                                    {val}
+                                  </Text>
+
+                                </View>
+                                {i % 2 === 1 && i < remainingTimeAry.length - 1 && (
+                                  <Text style={{ ...styles.countdownText, padding: 1, color: '#F4DBBA' }}>
+                                    :
+                                  </Text>
+                                )}
+                              </View>
+                            );
+                          })}
+                        </View>
+                      </View>
+
+                      {userState.user?.isVip() && (
+                        <TouchableOpacity
+                          onPress={() => {
+                            navigation.navigate("VIP明细", {
+                              userState: userState.user!,
+                            });
+                          }}
+                        >
+                          <Text style={{ ...textVariants.subBody, color: "#9c9c9c" }}>VIP明细</Text>
+                        </TouchableOpacity>
+                      )}
+                    </View>
+                  </View>
+                </View>
+
+                <ScrollView
+                  refreshControl={
+                    <RefreshControl
+                      refreshing={refreshing}
+                      onRefresh={handleRefresh}
+                      tintColor="#FAC33D"
+                    />
+                  }
+                  ref={scrollRef}
+                  style={{
+                    flex: 1,
+                    paddingHorizontal: 20,
+                  }}
+                  showsVerticalScrollIndicator={false}
+                >
+                  <VipCard
+                    userState={userState.user!}
+                    membershipProduct={membershipProducts}
+                    selectedMembership={membershipSelected}
+                    onMembershipSelect={setSelectedMembership}
+                    zfOptions={zfOptions}
+                    selectedZf={zfSelected}
+                    onZfSelect={setSelectedZf}
+                  />
+                </ScrollView>
+
+                <View style={styles.tncContainer}>
+                  <TouchableOpacity
+                    onPress={() => {
+                      navigation.navigate("隐私政策");
+                    }}
+                  >
+                    <Text style={{ ...textVariants.subBody, color: "#9c9c9c" }}>隐私协议 </Text>
+                  </TouchableOpacity>
+                  <Text style={{ ...textVariants.subBody, color: "#9c9c9c" }}>| </Text>
+                  <TouchableOpacity
+                    onPress={() => {
+                      navigation.navigate("用户协议");
+                    }}
+                  >
+                    <Text style={{ ...textVariants.subBody, color: "#9c9c9c" }}>用户服务协议 </Text>
+                  </TouchableOpacity>
+                  <Text style={{ ...textVariants.subBody, color: "#9c9c9c" }}>| </Text>
+
+                  <TouchableOpacity
+                    onPress={() => {
+                      navigation.navigate("续费服务");
+                    }}
+                  >
+                    <Text style={{ ...textVariants.subBody, color: "#9c9c9c" }}>自动续费协议 </Text>
+                  </TouchableOpacity>
+                </View>
               </View>
-            ) : null}
-          </ScrollView>
+            )}
+
+            {/* {IS_IOS ? (
+          <View style={{ ...styles.footerContainer }}>
+            <Text style={{ ...textVariants.small }}>
+              活动由此APP公司提供 与苹果公司Apple.Inc 无关
+            </Text>
+          </View>
+        ) : null} */}
+          </ScreenContainer >
+        ) : (
+          <SplashCard
+            index={index}
+            uri={item.url}
+            isLast={index === screenState.showEventSplashData.length - 1}
+          />
         )}
-      </ScreenContainer>
-    </>
+
+      </>
+    );
+  };
+
+  return (
+    <View style={{ flex: 1, backgroundColor: "#000" }}>
+      <Carousel
+        autoPlay={false}
+        ref={carouselRef}
+        width={width}
+        height={height}
+        data={screenState.showEventSplashData}
+        scrollAnimationDuration={100}
+        onScrollBegin={() => { }}
+        enabled={screenState.showEventSplash !== false}
+        loop={false}
+        onSnapToItem={(index) => {
+          setActiveIndex(index);
+          if (index === screenState.showEventSplashData.length - 1) {
+            setIsLastShown(true);
+
+            dispatch(setShowEventSplash(false));
+            // dispatch(
+            //   setShowEventSplashData([
+            //     {
+            //       created_at: "",
+            //       intro_page_id: 1,
+            //       intro_page_image_url: "/upload/vod/111.jpeg",
+            //       intro_page_name: "首页1",
+            //       url: "https://yingshi.tv/upload/vod/111.jpeg",
+            //     },
+            //   ])
+            // );
+          }
+        }}
+        onScrollEnd={(index) => {
+          setActiveIndex(index);
+          if (index === screenState.showEventSplashData.length - 1) {
+            setIsLastShown(true);
+            dispatch(setShowEventSplash(false));
+
+            // dispatch(
+            //   setShowEventSplashData([
+            //     {
+            //       created_at: "",
+            //       intro_page_id: 1,
+            //       intro_page_image_url: "/upload/vod/111.jpeg",
+            //       intro_page_name: "首页1",
+            //       url: "https://yingshi.tv/upload/vod/111.jpeg",
+            //     },
+            //   ])
+            // );
+          }
+        }}
+        renderItem={renderCarousel}
+      />
+      {/* ||
+        screenState.showEventSplash == true */}
+      {activeIndex !== screenState.showEventSplashData.length - 1 &&
+        screenState.showEventSplashData.length != 0 &&
+        screenState.showEventSplashData &&
+        isLastShown != true &&
+        screenState.showEventSplash == true && (
+          <CarouselPagination
+            data={screenState.showEventSplashData}
+            dashStyle={true}
+            activeIndex={activeIndex}
+          />
+        )}
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   btnText: {
     fontFamily: "PingFang SC",
-    fontSize: 14,
-    fontWeight: "700",
+    fontSize: 18,
+    fontWeight: "900",
     color: "black",
+  },
+  countdownLabel: {
+    fontFamily: "PingFang SC",
+    fontSize: 18,
+    fontWeight: "900",
+    color: "#D3AC7B",
+    textAlignVertical: "center",
   },
   summaryLabel: {
     flex: 1,
@@ -781,17 +1223,15 @@ const styles = StyleSheet.create({
   summaryContainer: {
     width: "100%",
     padding: 15,
+    marginBottom: 25,
     position: "relative",
-    flexDirection: "row",
-    backgroundColor: "#1D2023",
-    alignItems: "center",
   },
   tncContainer: {
-    backgroundColor: "#1F2224",
     alignItems: "center",
+    justifyContent: 'center',
     marginHorizontal: 15,
-    borderRadius: 10,
-    padding: 10,
+    flexDirection: 'row',
+    paddingVertical: 5,
   },
   footerContainer: {
     alignItems: "center",
@@ -804,4 +1244,26 @@ const styles = StyleSheet.create({
     padding: 10,
     alignItems: "center",
   },
+  countdownContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 5,
+  },
+  countdownText: {
+    textAlign: "center",
+    textAlignVertical: 'center',
+    color: '#1D2023',
+    fontSize: 14,
+    fontFamily: 'Archivo-Regular',
+    fontWeight: '900',
+    lineHeight: 15,
+  },
+  video: {
+    position: "absolute", // Position the video absolutely within the container
+    top: 0, // Align the video to the top of the container
+    left: 0, // Align the video to the left of the container
+    right: 0, // Align the video to the right of the container
+    bottom: 0, // Align the video to the bottom of the container
+  }
 });

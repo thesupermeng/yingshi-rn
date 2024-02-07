@@ -467,13 +467,12 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                     ...styles.btn,
                   }}
                   onPress={() => {
-
-
-                    if (UMENG_CHANNEL == "GOOGLE_PLAY") {
-                      navigation.navigate("付费Google");
-                    } else {
-                      navigation.navigate("付费VIP");
-                    }
+                    navigation.navigate("付费VIP");
+                    // if (UMENG_CHANNEL == "GOOGLE_PLAY") {
+                    //   navigation.navigate("付费Google");
+                    // } else {
+                    //   navigation.navigate("付费VIP");
+                    // }
                     // dispatch(showLoginAction());
                   }}
                 >
