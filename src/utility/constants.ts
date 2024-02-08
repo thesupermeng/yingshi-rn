@@ -140,6 +140,7 @@ export const EVENT_ANALYSIS_INTERVEL_SECONDS = 300;
 
 export const SUBSCRIPTION_TYPE = 'subs';
 export const IAP_TYPE = 'iap';
+export const SI_FANG = '4_Fang';
 
 export const CHAT_SEND_COOLDOWN = 3;
 export const CHAT_BOX_MAX_ITEM = 150;
@@ -151,5 +152,6 @@ export const VIP_PROMOTION_PURCHASE_MAX = 50000;
 export const VIP_PROMOTION_PURCHASE_RANDOM = 10000;
 
 export const DOWNLOAD_FEATURE_ENABLED = true;
+export const DOWNLOAD_FEATURE_MAX_QUEUE = 10; 
 
 export const EVENT_SPLASH_SHOW_DURATION = 7 * 24 * 60 * 60 * 1000; // 1 week

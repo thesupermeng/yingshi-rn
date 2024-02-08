@@ -7,7 +7,8 @@ import {
   ScrollView,
   Dimensions,
   Animated,
-  FlatList
+  FlatList,
+  Platform
 } from "react-native";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import { VodEpisodeListType, VodEpisodeStatusType } from "@type/ajaxTypes";
@@ -24,10 +25,11 @@ import DeviceInfo from "react-native-device-info";
 import { Provider, Toast } from "@ant-design/react-native";
 import { debounce, throttle } from "lodash";
 import { CPopup } from "@utility/popup";
+import { DOWNLOAD_FEATURE_MAX_QUEUE } from "@utility/constants";
 
 const throttledToast = debounce((msg: string) => {
-    CPopup.showToast(msg)
-  }, 1000)
+  CPopup.showToast(msg)
+}, 1000)
 
 
 interface Props {
@@ -41,6 +43,7 @@ interface Props {
   activeEpisode?: number;
   onDownload: (nid: number) => void;
   setShowAdOverlay: (show: boolean) => void;
+  onPressToDownload: () => void,
 }
 function SelectDownloadComponent({
   vodId,
@@ -53,6 +56,7 @@ function SelectDownloadComponent({
   activeEpisode = 0,
   onDownload,
   setShowAdOverlay,
+  onPressToDownload,
 }: Props) {
   const { colors, textVariants, spacing } = useTheme();
   const EPISODE_RANGE_SIZE = rangeSize;
@@ -69,6 +73,10 @@ function SelectDownloadComponent({
   const downloadVideoReducer: DownloadVideoReducerState = useAppSelector(
     ({ downloadVideoReducer }: RootState) => downloadVideoReducer
   );
+  const [iosCustomToastIsVisible, setIosCustomToastIsVisible] = useState(false)
+  const [iosCustomToastText, setIosCustomToastText] = useState("已加入下载队列，请查看‘我的下载’")
+
+  const debouncedSetIosCustomToastIsVisibleTrue = debounce(() => { setIosCustomToastIsVisible(true) }, 1000)
 
   const ranges = [
     ...Array(
@@ -185,8 +193,29 @@ function SelectDownloadComponent({
     );
   }, [ranges])
 
+  useEffect(() => {
+    if (iosCustomToastIsVisible) {
+      setTimeout(() => {
+        setIosCustomToastIsVisible(false)
+      }, 2000);
+    }
+  }, [iosCustomToastIsVisible])
+
   return (
     <>
+      {iosCustomToastIsVisible && screen === 'landscape' && Platform.OS === 'ios' && <View style={{
+        opacity: 0.8,
+        backgroundColor: 'black',
+        position: 'absolute',
+        top: '50%',
+        left: '-50%',
+        padding: 8,
+        borderRadius: 4
+      }}>
+        <Text style={{ color: 'white', fontSize: 16 }}>
+          {iosCustomToastText}
+        </Text>
+      </View>}
       {screen === 'potrait' && (
         <View
           style={{
@@ -228,17 +257,25 @@ function SelectDownloadComponent({
               <TouchableOpacity
                 key={`expand-${idx}`}
                 onPress={() => {
-                  if (!isVip){
+                  if (!isVip) {
                     handleClose();
                     setShowAdOverlay(true);
                   } else {
-                    onDownload(ep.nid);
-                    // Toast.info({
-                    //   content: <Text style={{color: 'white', top:-100, backgroundColor: '#00000080', padding: 5}}>'已加入下载队列，请查看‘我的下载’'</Text>, 
-                    //   duration: 1, 
-                    //   mask: false
-                    // })
-                    throttledToast('已加入下载队列，请查看‘我的下载’')
+                    if (downloadVideoReducer.queue.length + downloadVideoReducer.currentDownloading.length >= DOWNLOAD_FEATURE_MAX_QUEUE) {
+                      setIosCustomToastText('最多同时下载10个视频，请稍后继续')
+                      if (screen === 'landscape' && Platform.OS === 'ios') debouncedSetIosCustomToastIsVisibleTrue() // if ios landscape, dont show toast 
+                      else CPopup.showToast('最多同时下载10个视频，请稍后继续')
+                    } else {
+                      setIosCustomToastText('已加入下载队列，请查看‘我的下载’')
+                      onDownload(ep.nid);
+                      // Toast.info({
+                      //   content: <Text style={{color: 'white', top:-100, backgroundColor: '#00000080', padding: 5}}>'已加入下载队列，请查看‘我的下载’'</Text>, 
+                      //   duration: 1, 
+                      //   mask: false
+                      // })
+                      if (screen === 'landscape' && Platform.OS === 'ios') debouncedSetIosCustomToastIsVisibleTrue() // if ios landscape, dont show toast 
+                      else throttledToast('已加入下载队列，请查看‘我的下载’')
+                    }
                   }
                 }}
                 disabled={ep.isDownloaded || ep.isDownloading}
@@ -328,8 +365,7 @@ function SelectDownloadComponent({
                 marginBottom: insets.bottom,
               }}
               onPress={() => {
-                navigation.navigate("我的下载")
-                handleClose();
+                onPressToDownload();
               }}
             >
               <DownloadIcon width={24} height={24} />

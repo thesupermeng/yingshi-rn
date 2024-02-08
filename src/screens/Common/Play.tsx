@@ -23,7 +23,7 @@ import FavoriteIcon from "@static/images/favorite.svg";
 import VodDetailIcon from "@static/images/vod_detail.svg";
 import DlVodIcon from "@static/images/download_vod.svg";
 import ScreenContainer from "../../components/container/screenContainer";
-import { useTheme, useFocusEffect, useRoute } from "@react-navigation/native";
+import { useTheme, useFocusEffect, useRoute, useIsFocused } from "@react-navigation/native";
 import { YSConfig } from "../../../ysConfig";
 
 import { RootStackScreenProps } from "@type/navigationTypes";
@@ -105,6 +105,7 @@ import { DownloadStatus, DownloadVideoReducerState, VodDownloadType } from "@typ
 import { CPopup } from "@utility/popup";
 import { UserStateType } from "@redux/reducers/userReducer";
 import { User } from "@models/user";
+import { CRouter } from "../../routes/router";
 
 let insetsTop = 0;
 let insetsBottom = 0;
@@ -468,7 +469,10 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     const state = await NetInfo.fetch();
     const offline = !(state.isConnected && state.isInternetReachable);
     setIsOffline(offline);
-    setDismountPlayer(false); //dismount player when offline
+
+    if (offline) {
+      setDismountPlayer(false); //dismount player when offline
+    }
     // console.log("player is dismounted")
   };
   // useEffect(() => {
@@ -906,6 +910,8 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     ? `${vod?.vod_name} - ${foundSource?.urls?.at(currentEpisode)?.name ?? ""}`
     : vod?.vod_name;
 
+  const focused = useIsFocused();
+
   useEffect(() => {
     checkConnection()
 
@@ -932,11 +938,11 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
     }
 
-    return () => {
-      // console.log('stop server')
-      setVodUri("");
-    };
-  }, [vodUrl]);
+    // return () => {
+    //   // console.log('stop server')
+    //   setVodUri("");
+    // };
+  }, [vodUrl, focused]);
 
   useEffect(() => {
     if (vodUri) {
@@ -984,6 +990,8 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   }, [adultMode]);
 
   useEffect(() => {
+    if (!focused) return;
+
     if (vodUri && vodUri !== "" && videoPlayerRef.current) {
       videoPlayerRef.current?.setPause(false);
     }
@@ -1043,7 +1051,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
             vodTitle={vodPlayerTitle}
             videoType="vod"
             activeEpisode={currentEpisode}
-            episodes={vod?.type_id !== 2 ? foundSource : undefined}
+            episodes={foundSource}
             onEpisodeChange={(id: number) => {
               setCurrentEpisode(id);
               currentEpisodeRef.current = id;
@@ -1410,7 +1418,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                     </TouchableOpacity>
                   )}
 
-                  {DOWNLOAD_FEATURE_ENABLED && <TouchableOpacity
+                  {DOWNLOAD_FEATURE_ENABLED && !isVodRestricted && <TouchableOpacity
                     onPress={() => {
                       setShowDlEpisode(true);
                     }}
@@ -1668,7 +1676,17 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
                 <DownloadVodSelectionModal
                   isVisible={isShowDlEpisode}
-                  handleClose={() => setShowDlEpisode(false)}
+                  handleClose={() => {
+                    setShowDlEpisode(false);
+                  }}
+                  onPressToDownload={() => {
+                    setShowDlEpisode(false);
+                    videoPlayerRef.current?.setPause(true);
+
+                    CRouter.toName("我的下载").then(() => {
+                      videoPlayerRef.current?.setPause(false);
+                    });
+                  }}
                   activeEpisode={currentEpisode}
                   episodes={adultMode ? vod?.vod_play_list : foundSource}
                   onDownload={onDownloadVod}

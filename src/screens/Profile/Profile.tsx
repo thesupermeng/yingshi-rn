@@ -322,7 +322,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                         游客ID:
                       </Text>
                       <Text style={{ color: "#ffffff", fontSize: 20 }}>
-                        {deviceUniqueId}
+                      {deviceUniqueId.slice(0, 16)} 
                       </Text>
                     </>
                   )}
