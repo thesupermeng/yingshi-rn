@@ -1414,7 +1414,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                     </TouchableOpacity>
                   )}
 
-                  {DOWNLOAD_FEATURE_ENABLED && <TouchableOpacity
+                  {DOWNLOAD_FEATURE_ENABLED && !isVodRestricted && <TouchableOpacity
                     onPress={() => {
                       setShowDlEpisode(true);
                     }}
