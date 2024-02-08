@@ -326,7 +326,6 @@ function SelectDownloadComponent({
                 justifyContent: "center",
                 gap: 5,
                 marginBottom: insets.bottom,
-                width: '100%',
               }}
               onPress={() => {
                 navigation.navigate("我的下载")
@@ -354,7 +353,6 @@ function SelectDownloadComponent({
                 padding: spacing.s,
                 borderRadius: 8,
                 marginBottom: insets.bottom,
-                width: '100%',
               }}
               onPress={() => {
                 handleClose();
