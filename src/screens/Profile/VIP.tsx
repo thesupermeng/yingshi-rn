@@ -355,7 +355,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   useEffect(() => {
     if (membershipProducts) {
       const defaultMembership = membershipProducts.find(
-        (product) => product.title === "1个月"  
+        (product) => UMENG_CHANNEL === 'GOOGLE_PLAY' ? product.title === "1个月" : product.title === "12个月"
       );
       if (defaultMembership) {
         setSelectedMembership(defaultMembership);
