@@ -217,7 +217,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const fetchData = async () => {
     const data = await ProductApi.getNativeList();
 
-    if (UMENG_CHANNEL === "GOOGLE_PLAY") {
+    if (UMENG_CHANNEL === "GOOGLE_PLAY" && IS_ANDROID) {
       let oneTime: Array<promoMembershipModel>;
       let subscription: Array<promoMembershipModel>;
 
@@ -346,7 +346,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   }, []);
 
   useEffect(() => {
-    if (connected && UMENG_CHANNEL === 'GOOGLE_PLAY') {
+    if (connected && (UMENG_CHANNEL === "GOOGLE_PLAY" && IS_ANDROID)) {
       console.log('get product of google play dbefjndsvb')
       handleGetGoogleProduct();
     }
@@ -355,7 +355,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   useEffect(() => {
     if (membershipProducts) {
       const defaultMembership = membershipProducts.find(
-        (product) => UMENG_CHANNEL === 'GOOGLE_PLAY' ? product.title === "1个月" : product.title === "12个月"
+        (product) => (UMENG_CHANNEL === "GOOGLE_PLAY" && IS_ANDROID) ? product.title === "1个月" : product.title === "12个月"
       );
       if (defaultMembership) {
         setSelectedMembership(defaultMembership);
@@ -828,7 +828,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
             {!fetching && !isOffline && (
               <View style={{ flex: 1, }}>
                 <View style={{
-                  flex: UMENG_CHANNEL === 'GOOGLE_PLAY' ? 2.2 : (IS_IOS ? 1.5 : 1),
+                  flex: (UMENG_CHANNEL === "GOOGLE_PLAY" && IS_ANDROID) ? 2.2 : (IS_IOS ? 1.5 : 1),
                   overflow: 'hidden',
                 }}>
                   {/* return button  */}

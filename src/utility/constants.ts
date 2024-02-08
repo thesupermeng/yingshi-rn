@@ -140,6 +140,7 @@ export const EVENT_ANALYSIS_INTERVEL_SECONDS = 300;
 
 export const SUBSCRIPTION_TYPE = 'subs';
 export const IAP_TYPE = 'iap';
+export const SI_FANG = '4_Fang';
 
 export const CHAT_SEND_COOLDOWN = 3;
 export const CHAT_BOX_MAX_ITEM = 150;

@@ -5,7 +5,7 @@ import { VipZf } from './vipZf';
 import { useEffect, useState } from 'react';
 import { User } from '@models/user';
 import { FlatList } from 'react-native-gesture-handler';
-import { UMENG_CHANNEL } from '@utility/constants';
+import { IS_IOS, UMENG_CHANNEL } from '@utility/constants';
 
 interface Props {
   userState: User;
@@ -50,7 +50,7 @@ export const VipCard = ({
       />
 
       {/* zf method */}
-      {UMENG_CHANNEL !== "GOOGLE_PLAY" && zfOptions.length > 0 &&
+      {(UMENG_CHANNEL !== "GOOGLE_PLAY" || IS_IOS) && zfOptions.length > 0 &&
         <View
           style={{
             marginBottom: 15,
