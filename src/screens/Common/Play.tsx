@@ -1681,10 +1681,10 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                   }}
                   onPressToDownload={() => {
                     setShowDlEpisode(false);
-                    videoPlayerRef.current.setPause(true);
+                    videoPlayerRef.current?.setPause(true);
 
                     CRouter.toName("我的下载").then(() => {
-                      videoPlayerRef.current.setPause(false);
+                      videoPlayerRef.current?.setPause(false);
                     });
                   }}
                   activeEpisode={currentEpisode}
