@@ -7,7 +7,8 @@ import {
   ScrollView,
   Dimensions,
   Animated,
-  FlatList
+  FlatList,
+  Platform
 } from "react-native";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import { VodEpisodeListType, VodEpisodeStatusType } from "@type/ajaxTypes";
@@ -69,6 +70,10 @@ function SelectDownloadComponent({
   const downloadVideoReducer: DownloadVideoReducerState = useAppSelector(
     ({ downloadVideoReducer }: RootState) => downloadVideoReducer
   );
+  const [iosCustomToastIsVisible, setIosCustomToastIsVisible] = useState(false)
+  const [iosCustomToastText, setIosCustomToastText] = useState("已加入下载队列，请查看‘我的下载’")
+
+  const debouncedSetIosCustomToastIsVisibleTrue = debounce(() => {setIosCustomToastIsVisible(true)}, 1000)
 
   const ranges = [
     ...Array(
@@ -185,8 +190,29 @@ function SelectDownloadComponent({
     );
   }, [ranges])
 
+  useEffect(() => {
+    if (iosCustomToastIsVisible) { 
+      setTimeout(() => {
+        setIosCustomToastIsVisible(false)
+      }, 2000);
+    }
+  }, [iosCustomToastIsVisible])
+
   return (
     <>
+    {iosCustomToastIsVisible && screen === 'landscape' && Platform.OS === 'ios' && <View style={{
+      opacity:0.8, 
+      backgroundColor: 'black', 
+      position: 'absolute', 
+      top: '50%', 
+      left: '-50%',
+      padding: 8, 
+      borderRadius: 4
+      }}>
+      <Text style={{color: 'white', fontSize: 16}}>
+        {iosCustomToastText}
+      </Text>
+    </View>}
       {screen === 'potrait' && (
         <View
           style={{
@@ -238,7 +264,8 @@ function SelectDownloadComponent({
                     //   duration: 1, 
                     //   mask: false
                     // })
-                    throttledToast('已加入下载队列，请查看‘我的下载’')
+                    if (screen === 'landscape' && Platform.OS === 'ios') debouncedSetIosCustomToastIsVisibleTrue() // if ios landscape, dont show toast 
+                    else throttledToast('已加入下载队列，请查看‘我的下载’')
                   }
                 }}
                 disabled={ep.isDownloaded || ep.isDownloading}
