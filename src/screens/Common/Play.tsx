@@ -23,7 +23,7 @@ import FavoriteIcon from "@static/images/favorite.svg";
 import VodDetailIcon from "@static/images/vod_detail.svg";
 import DlVodIcon from "@static/images/download_vod.svg";
 import ScreenContainer from "../../components/container/screenContainer";
-import { useTheme, useFocusEffect, useRoute } from "@react-navigation/native";
+import { useTheme, useFocusEffect, useRoute, useIsFocused } from "@react-navigation/native";
 import { YSConfig } from "../../../ysConfig";
 
 import { RootStackScreenProps } from "@type/navigationTypes";
@@ -906,6 +906,8 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     ? `${vod?.vod_name} - ${foundSource?.urls?.at(currentEpisode)?.name ?? ""}`
     : vod?.vod_name;
 
+  const focused = useIsFocused();
+
   useEffect(() => {
     checkConnection()
 
@@ -936,7 +938,9 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       // console.log('stop server')
       setVodUri("");
     };
-  }, [vodUrl]);
+  }, [vodUrl, focused]);
+
+  console.debug('voduri', vodUri)
 
   useEffect(() => {
     if (vodUri) {
