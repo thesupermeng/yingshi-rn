@@ -1043,7 +1043,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
             vodTitle={vodPlayerTitle}
             videoType="vod"
             activeEpisode={currentEpisode}
-            episodes={vod?.type_id !== 2 ? foundSource : undefined}
+            episodes={foundSource}
             onEpisodeChange={(id: number) => {
               setCurrentEpisode(id);
               currentEpisodeRef.current = id;
