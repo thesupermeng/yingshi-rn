@@ -16,10 +16,11 @@ import CheckBoxSelected from "@static/images/checkbox_selected.svg";
 import CheckBoxUnselected from "@static/images/checkbox_unselected.svg";
 import ConfirmationModal from "../../../components/modal/confirmationModal";
 import { Button } from "@rneui/themed";
-import { pauseVideoDownloadThunk, removeVideoFromDownloadThunk, removeVodFromDownloadThunk, restartVideoDownloadThunk, resumeVideoToDownloadThunk } from "@redux/actions/videoDownloadAction";
+import { manualKillVideoDownloadThunk, pauseVideoDownloadThunk, removeVideoFromDownloadThunk, removeVodFromDownloadThunk, restartVideoDownloadThunk, resumeVideoToDownloadThunk } from "@redux/actions/videoDownloadAction";
 import { addVodToHistory, playVod } from "@redux/actions/vodActions";
 import { debounce, throttle } from "lodash";
 import FastImage from '../../../components/common/customFastImage'
+import NetInfo from "@react-native-community/netinfo";
 
 const LoadingGif = require('@static/images/loading-spinner.gif')
 
@@ -31,11 +32,21 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const dispatch = useAppDispatch();
   const [isLoading, setIsLoading] = useState(false);
+  const [isConnected, setIsConnected] = useState(false)
 
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener((state: any) => {
+      setIsConnected(state.isConnected);
+    });
+
+    return () => {
+      // Unsubscribe from the network status listener when the component unmounts
+      unsubscribe();
+    };
+  }, []);
 
   const download = useAppSelector(({downloadVideoReducer}: RootState) => downloadVideoReducer.downloads.find(dl => dl.vod.vod_id === vodId))
   const state = useAppSelector(({downloadVideoReducer}: RootState) => downloadVideoReducer)
-
 
   if (!download) return <></>
 
@@ -216,6 +227,21 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
     }, 200),
     [allButtonText, download],
   );
+
+
+  useEffect(() => {
+    if (!isConnected){ // when become offline, 
+      if (!state.currentDownloading) return 
+      const targetCurrentDownloading = state.currentDownloading.shift()
+      if (!targetCurrentDownloading) return 
+
+      dispatch(manualKillVideoDownloadThunk( // manually kill the current downloading one.. 
+        download?.vod, 
+        targetCurrentDownloading.vodSourceId, 
+        targetCurrentDownloading.vodUrlNid, 
+      ))
+    }
+  }, [isConnected])
 
   return (
     <ScreenContainer>
