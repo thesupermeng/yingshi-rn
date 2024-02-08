@@ -17,6 +17,7 @@ interface Props {
   vodId?: number;
   isVip: boolean;
   setShowAdOverlay: (show: boolean) => void;
+  onPressToDownload: () => void,
   source: number;
 }
 function DownloadVodSelectionModal({
@@ -30,6 +31,7 @@ function DownloadVodSelectionModal({
   activeEpisode = 0,
   onDownload,
   setShowAdOverlay,
+  onPressToDownload,
 }: Props) {
   const { spacing } = useTheme();
 
@@ -49,6 +51,7 @@ function DownloadVodSelectionModal({
       {isVisible && (
         <SelectDownloadComponent
           handleClose={handleClose}
+          onPressToDownload={onPressToDownload}
           activeEpisode={activeEpisode}
           episodes={episodes}
           onDownload={onDownload}

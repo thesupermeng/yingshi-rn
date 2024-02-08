@@ -105,6 +105,7 @@ import { DownloadStatus, DownloadVideoReducerState, VodDownloadType } from "@typ
 import { CPopup } from "@utility/popup";
 import { UserStateType } from "@redux/reducers/userReducer";
 import { User } from "@models/user";
+import { CRouter } from "../../routes/router";
 
 let insetsTop = 0;
 let insetsBottom = 0;
@@ -468,7 +469,10 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     const state = await NetInfo.fetch();
     const offline = !(state.isConnected && state.isInternetReachable);
     setIsOffline(offline);
-    setDismountPlayer(false); //dismount player when offline
+
+    if (offline) {
+      setDismountPlayer(false); //dismount player when offline
+    }
     // console.log("player is dismounted")
   };
   // useEffect(() => {
@@ -934,13 +938,11 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
     }
 
-    return () => {
-      // console.log('stop server')
-      setVodUri("");
-    };
+    // return () => {
+    //   // console.log('stop server')
+    //   setVodUri("");
+    // };
   }, [vodUrl, focused]);
-
-  console.debug('voduri', vodUri)
 
   useEffect(() => {
     if (vodUri) {
@@ -988,6 +990,8 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   }, [adultMode]);
 
   useEffect(() => {
+    if (!focused) return;
+
     if (vodUri && vodUri !== "" && videoPlayerRef.current) {
       videoPlayerRef.current?.setPause(false);
     }
@@ -1672,7 +1676,17 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
                 <DownloadVodSelectionModal
                   isVisible={isShowDlEpisode}
-                  handleClose={() => setShowDlEpisode(false)}
+                  handleClose={() => {
+                    setShowDlEpisode(false);
+                  }}
+                  onPressToDownload={() => {
+                    setShowDlEpisode(false);
+                    videoPlayerRef.current.setPause(true);
+
+                    CRouter.toName("我的下载").then(() => {
+                      videoPlayerRef.current.setPause(false);
+                    });
+                  }}
                   activeEpisode={currentEpisode}
                   episodes={adultMode ? vod?.vod_play_list : foundSource}
                   onDownload={onDownloadVod}
