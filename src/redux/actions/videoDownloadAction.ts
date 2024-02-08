@@ -583,3 +583,23 @@ export function updateAllVodDetailsThunk(): ThunkAction<void, RootState, any, Do
 
   };
 }
+
+export function manualKillVideoDownloadThunk(
+  vod: VodType,
+  vodSourceId: number,
+  vodUrlNid: number,
+): ThunkAction<void, RootState, any, DownloadVideoActionType> {
+  return async function (dispatch, getState) {
+    const currentState = getState().downloadVideoReducer
+      const targetVod = currentState.downloads.find(download => download.vod.vod_id === vod.vod_id)
+      if (!targetVod) return 
+      const targetEpisode = targetVod.episodes.find(episode => episode.vodSourceId === vodSourceId && episode.vodUrlNid === vodUrlNid)
+      if (!targetEpisode) return 
+      if (targetEpisode.ffmpegSession === null) return 
+
+      FFmpegKit.cancel(targetEpisode.ffmpegSession)
+      dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {status: DownloadStatus.ERROR}))
+      dispatch(endVideoDownload(vod, vodSourceId, vodUrlNid))
+      dispatch(resumeFirstVideoDownload())
+  }
+}
