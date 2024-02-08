@@ -98,7 +98,7 @@ const eighteenPlusControls = ({ }: Props) => {
       }}
     >
       {/* {watchAnytimeAdultMode && <WatchAnytimeVipModal />} */}
-      {(screenState.showAdultTab || Platform.OS === "ios") && (
+      {(screenState.showAdultTab) && (
         <AdultModeSwitch switchStyle={styles.switch} />
       )}
       {watchAnytimeAdultMode && !isVip && !showAdultVipPrivilegeMiniVideo &&
