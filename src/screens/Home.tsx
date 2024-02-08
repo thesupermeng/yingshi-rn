@@ -49,6 +49,7 @@ import EighteenPlusOverlay from "../components/modal/overEighteenOverlay";
 import {
   clearEventSplashLastPageViewTime,
   hideAdultModeDisclaimer,
+  setEventSplashLastPageViewTime,
   setShowAdultTab,
   setShowEventSplashData,
 } from "@redux/actions/screenAction";
@@ -312,7 +313,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
     let splashListTemp = [];
     try {
       if (screenState.eventSplashLastPageViewTime !== undefined &&
-        Date.now() - screenState.eventSplashLastPageViewTime < EVENT_SPLASH_SHOW_DURATION
+        (Date.now() - screenState.eventSplashLastPageViewTime) < EVENT_SPLASH_SHOW_DURATION
       ) {
         return;
       }
@@ -343,10 +344,13 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
       console.log(screenState.showEventSplashData)
       // navigation.navigate("付费Google");
       navigation.navigate("付费VIP");
-      dispatch(clearEventSplashLastPageViewTime());
+
+      if (screenState.showEventSplash == false) {
+        dispatch(setEventSplashLastPageViewTime());
+      }
+
+      // dispatch(clearEventSplashLastPageViewTime());
     }
-
-
   };
 
   // ========== for analytics - end ==========
