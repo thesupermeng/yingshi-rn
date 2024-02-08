@@ -449,7 +449,7 @@ export default forwardRef<RefHandler, Props>(({
                       {headerTitle}
                     </Text>
                   </TouchableOpacity>
-                  {videoType === 'vod' && isFullScreen && onDownloadVod && DOWNLOAD_FEATURE_ENABLED && 
+                  {/*videoType === 'vod' && isFullScreen && onDownloadVod && DOWNLOAD_FEATURE_ENABLED && 
                     <RectButton
                       disallowInterruption={true}
                       onPress={() => { 
@@ -460,7 +460,7 @@ export default forwardRef<RefHandler, Props>(({
                     >
                       <DownloadBtn width={20} height={20} />
                     </RectButton>
-                  }
+                    */}
                   {
                     videoType === 'vod' && !adultMode && <RectButton
                       disallowInterruption={true}
