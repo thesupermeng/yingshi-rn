@@ -19,7 +19,7 @@ import {
 } from "react-native";
 
 import Video from "react-native-video";
-import { useTheme, useNavigation, useRoute } from "@react-navigation/native";
+import { useTheme, useNavigation, useRoute, useIsFocused } from "@react-navigation/native";
 import { debounce } from "lodash";
 
 import { Dimensions } from "react-native";
@@ -163,6 +163,7 @@ export default forwardRef<VideoRef, Props>(
     const navigation = useNavigation();
     const route = useRoute();
     const dispatch = useDispatch();
+    const isFocus = useIsFocused();
 
     const userState = useSelector<UserStateType>('userReducer');
     const bufferRef = useRef(true);
@@ -586,6 +587,8 @@ export default forwardRef<VideoRef, Props>(
     // }, [screenState.interstitialShow]);
 
     useEffect(() => {
+      if (!isFocus) return;
+
       if (screenState.interstitialShow == true && Platform.OS === "ios") {
         setIsPaused(true);
       } else {
