@@ -354,19 +354,9 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
 
               {!User.isVip(userState.user) ? (
                 <>
-                  <TouchableOpacity
-                    style={styles.headerContainerRight2}
-                    onPress={() => {
-                      navigation.navigate("付费VIP");
-                      // if (UMENG_CHANNEL == "GOOGLE_PLAY") {
-                      //   navigation.navigate("付费Google");
-                      // } else {
-                      //   navigation.navigate("付费VIP");
-                      // }
-                    }}
-                  >
+                  <View style={styles.headerContainerRight2}>
                     <VipEntry height={30} />
-                  </TouchableOpacity>
+                  </View>
                 </>
               ) : (
                 <>
