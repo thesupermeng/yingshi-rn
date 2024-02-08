@@ -25,6 +25,7 @@ import DeviceInfo from "react-native-device-info";
 import { Provider, Toast } from "@ant-design/react-native";
 import { debounce, throttle } from "lodash";
 import { CPopup } from "@utility/popup";
+import { DOWNLOAD_FEATURE_MAX_QUEUE } from "@utility/constants";
 
 const throttledToast = debounce((msg: string) => {
     CPopup.showToast(msg)
@@ -258,14 +259,21 @@ function SelectDownloadComponent({
                     handleClose();
                     setShowAdOverlay(true);
                   } else {
-                    onDownload(ep.nid);
-                    // Toast.info({
-                    //   content: <Text style={{color: 'white', top:-100, backgroundColor: '#00000080', padding: 5}}>'已加入下载队列，请查看‘我的下载’'</Text>, 
-                    //   duration: 1, 
-                    //   mask: false
-                    // })
-                    if (screen === 'landscape' && Platform.OS === 'ios') debouncedSetIosCustomToastIsVisibleTrue() // if ios landscape, dont show toast 
-                    else throttledToast('已加入下载队列，请查看‘我的下载’')
+                    if (downloadVideoReducer.queue.length + downloadVideoReducer.currentDownloading.length >= DOWNLOAD_FEATURE_MAX_QUEUE){
+                      setIosCustomToastText('最多同时下载10个视频，请稍后继续')
+                      if (screen === 'landscape' && Platform.OS === 'ios') debouncedSetIosCustomToastIsVisibleTrue() // if ios landscape, dont show toast 
+                      else CPopup.showToast('最多同时下载10个视频，请稍后继续')
+                    } else {
+                      setIosCustomToastText('已加入下载队列，请查看‘我的下载’')
+                      onDownload(ep.nid);
+                      // Toast.info({
+                      //   content: <Text style={{color: 'white', top:-100, backgroundColor: '#00000080', padding: 5}}>'已加入下载队列，请查看‘我的下载’'</Text>, 
+                      //   duration: 1, 
+                      //   mask: false
+                      // })
+                      if (screen === 'landscape' && Platform.OS === 'ios') debouncedSetIosCustomToastIsVisibleTrue() // if ios landscape, dont show toast 
+                      else throttledToast('已加入下载队列，请查看‘我的下载’')
+                    }
                   }
                 }}
                 disabled={ep.isDownloaded || ep.isDownloading}
