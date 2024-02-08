@@ -51,7 +51,7 @@ export default function VipLoginAlertModal({
            
             style={{
               width: 322,
-              height: 340,
+              height: 360,
               borderRadius: 14,
               paddingHorizontal: 16,
               paddingTop: 26,
