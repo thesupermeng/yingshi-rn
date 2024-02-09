@@ -311,17 +311,6 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
           };
         });
 
-        // Find the index of the item with product_name "12个月"
-        const index12Months = siFang.findIndex(
-          (item) => item.title === "12个月"
-        );
-
-        // If found, move it to the first position
-        if (index12Months !== -1) {
-          const item12Months = siFang.splice(index12Months, 1)[0];
-          siFang.splice(0, 0, item12Months);
-        }
-
         // console.log("sifang");
         // console.log(siFang);
         setMembershipProducts(siFang);
@@ -425,7 +414,6 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
 
   const handleZfGateway = async () => {
     try {
-      console.log(membershipSelected.productId)
       const result = await ProductApi.postFinzfOrder({
         productId: parseInt(membershipSelected.productId),
         zfType: zfSelected,
@@ -723,7 +711,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
           <ScreenContainer
             footer={
               <>
-                {membershipSelected && !fetching && (
+                {membershipSelected && !fetching && !isOffline && (
                   <View style={{ ...styles.summaryContainer }}>
                     <TouchableOpacity
                       onPress={handlePurchase}
@@ -1088,6 +1076,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                     zfOptions={zfOptions}
                     selectedZf={zfSelected}
                     onZfSelect={setSelectedZf}
+                    isRefreshing={refreshing}
                   />
                 </ScrollView>
 

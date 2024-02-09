@@ -1,8 +1,8 @@
-import { Platform, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, Platform, StyleSheet, Text, View } from 'react-native';
 import { VipMember } from './vipMember';
 import { promoMembershipModel, zfModel } from '@type/membershipType';
 import { VipZf } from './vipZf';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { User } from '@models/user';
 import { FlatList } from 'react-native-gesture-handler';
 import { IS_IOS, UMENG_CHANNEL } from '@utility/constants';
@@ -15,6 +15,7 @@ interface Props {
   zfOptions: Array<zfModel>;
   selectedZf: string;
   onZfSelect: (zf: string) => void;
+  isRefreshing: boolean;
 }
 
 export const VipCard = ({
@@ -25,7 +26,26 @@ export const VipCard = ({
   zfOptions,
   selectedZf,
   onZfSelect,
+  isRefreshing,
 }: Props) => {
+  const planRef = useRef<FlatList>(null);
+  const screenWidth = Dimensions.get("window").width;
+  
+  const getItemLayout = (data: any, index: number) => { return { length: screenWidth, offset: screenWidth * index, index, }; };
+  const setListPosition = () => {
+    planRef?.current?.scrollToIndex({
+      index: membershipProduct.length -1,
+      animated: true,
+      viewPosition: 0.5,
+    });
+  };
+
+  useEffect(() => {
+    if (isRefreshing == false) {
+      console.log(false)
+      setTimeout(() => {setListPosition()}, 200); 
+    }
+  }, [isRefreshing]);
 
   return (
     <View
@@ -35,7 +55,11 @@ export const VipCard = ({
 
       {/* membership plan */}
       <FlatList
+        ref={planRef}
         horizontal={true}
+        // initialScrollIndex={3}
+        getItemLayout={getItemLayout}
+        onScrollToIndexFailed={() => { }}
         contentContainerStyle={styles.membershipContainer}
         showsHorizontalScrollIndicator={false}
         data={membershipProduct}
