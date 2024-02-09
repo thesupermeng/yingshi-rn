@@ -773,7 +773,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     useCallback(() => {
       setDismountPlayer(false);
       return () => {
-        setDismountPlayer(true);
+        // setDismountPlayer(true);
         if (
           vodSources &&
           //START HERE, SAVE POINT
