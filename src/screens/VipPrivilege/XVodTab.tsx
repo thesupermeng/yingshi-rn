@@ -109,6 +109,7 @@ export default function XVodTab({
       <View style={{ paddingTop: 10 }}>
         <FlatList
           data={data?.data?.categories ? data?.data?.categories : []}
+          keyExtractor={(item: VodData, index: number) => index.toString() + item.type_name}
           initialNumToRender={1}
           windowSize={3}
           maxToRenderPerBatch={3}
