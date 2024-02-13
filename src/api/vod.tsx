@@ -123,10 +123,13 @@ export class VodApi {
 
     static getListByRecommendations = async () => {
         try {
-            const result = await CApi.get(CEndpoint.vodGetList, {
+            const result = await CApi.get(CEndpoint.playlistGetTopicDetail, {
                 query: {
-                    by: 'hits_day',
-                    hot_search: 1,
+                    id: 1,
+                    appName: APP_NAME_CONST,
+                    platform: Platform.OS.toUpperCase(),
+                    channelId: UMENG_CHANNEL,
+                    ip: YSConfig.instance.ip,
                 }
             });
 
@@ -134,9 +137,9 @@ export class VodApi {
                 throw result.message;
             }
 
-            const data = result.data as SuggestVodListType;
+            const data = result.data.vod_list as SuggestVodListType;
 
-            return data.List ?? [];
+            return result.data.vod_list
 
         } catch (e: any) {
             console.error(`[Error ${this.getListByRecommendations.name}]: ${e.toString()}`);
