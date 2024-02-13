@@ -13,6 +13,7 @@ export class CEndpoint {
     static homeGetPages = 'page/v2/typepage';
 
     static playlistGetTopic = 'topic/v1/topic';
+    static playlistGetTopicDetail = 'topic/v1/topic/detail';
     static playlistGetTopicIosTmp = 'topic/v1/topic/temp';
 
     static vodGetTopicType = 'type/v1/type';
