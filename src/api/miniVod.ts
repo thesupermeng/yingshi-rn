@@ -58,7 +58,7 @@ export class MiniVodApi {
       return result.data as MiniVideoListType;
 
     } catch (e: any) {
-      console.error(`[Error ${this.getListByPage.name}]: ${e.toString()}`);
+      console.error(`[Error getListByPage}]: ${e.toString()}`);
       throw e;
     }
   };
@@ -80,7 +80,7 @@ export class MiniVodApi {
       return data.List ?? [];
 
     } catch (e: any) {
-      console.error(`[Error ${this.getRecommendations.name}]: ${e.toString()}`);
+      console.error(`[Error getRecommendations}]: ${e.toString()}`);
       throw e;
     }
   };

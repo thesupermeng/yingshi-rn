@@ -20,7 +20,7 @@ export class AdsApi {
       return result.data as BannerAdType
 
     } catch (e: any) {
-      console.error(`[Error ${this.getBannerAd.name}]: ${e.toString()}`);
+      console.error(`[Error getBannerAd}]: ${e.toString()}`);
       throw e;
     }
   }
@@ -36,7 +36,7 @@ export class AdsApi {
       return result.data as BannerAdType[]
 
     } catch (e: any) {
-      console.error(`[Error ${this.getEventBanner.name}]: ${e.toString()}`);
+      console.error(`[Error getEventBanner}]: ${e.toString()}`);
       throw e;
     }
   }

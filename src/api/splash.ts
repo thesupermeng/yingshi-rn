@@ -20,7 +20,7 @@ export class SplashApi {
       return result.data
 
     } catch (e: any) {
-      console.error(`[Error ${this.getSplash.name}]: ${e.toString()}`);
+      console.error(`[Error getSplash}]: ${e.toString()}`);
       throw e;
     }
   }
