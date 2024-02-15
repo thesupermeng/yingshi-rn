@@ -28,7 +28,7 @@ export class CEndpoint {
     static minivodGetXList = 'miniSVod/v1/miniSVod';
     static minivodGetCollections = (id: number) => `miniVod/v2/collections/${id}`;
 
-    static feedbackPost = 'feedback/v1/submit';
+    static feedbackPost = 'feedback/v2/submit';
 
     static productGetList = 'products/v1/products';
     static nativeProductGetList = 'products/v2/nativeProducts';
