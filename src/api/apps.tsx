@@ -26,7 +26,7 @@ export class AppsApi {
             return result.data;
 
         } catch (e: any) {
-            console.error(`[Error ${this.getLocalIpAddress.name}]: ${e.toString()}`);
+            console.error(`[Error getLocalIpAddress]: ${e.toString()}`);
             YSConfig.instance.setNetworkIp(ipAddress);
         }
         finally {
@@ -52,7 +52,7 @@ export class AppsApi {
             return result.data;
 
         } catch (e: any) {
-            console.error(`[Error ${this.getBottomNav.name}]: ${e.toString()}`);
+            console.error(`[Error getBottomNav}]: ${e.toString()}`);
             throw e;
         }
     };
@@ -78,7 +78,7 @@ export class AppsApi {
             return result.data;
 
         } catch (e: any) {
-            console.error(`[Error ${this.postLocation.name}]: ${e.toString()}`);
+            console.error(`[Error postLocation}]: ${e.toString()}`);
             throw e;
         }
     };
@@ -99,7 +99,7 @@ export class AppsApi {
             return result.data as NavOptionsType[];
 
         } catch (e: any) {
-            console.error(`[Error ${this.getHomeNav.name}]: ${e.toString()}`);
+            console.error(`[Error getHomeNav}]: ${e.toString()}`);
             throw e;
         }
     };
@@ -124,7 +124,7 @@ export class AppsApi {
             return result.data as VodCarousellType;
 
         } catch (e: any) {
-            console.error(`[Error ${this.getHomePages.name}]: ${e.toString()}`);
+            console.error(`[Error getHomePages}]: ${e.toString()}`);
             throw e;
         }
     };

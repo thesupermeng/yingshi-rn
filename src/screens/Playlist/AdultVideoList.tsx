@@ -51,7 +51,9 @@ export default ({ navigation, route }: RootStackScreenProps<'午夜场剧情'>) 
   };
 
   const fetchNextPage = async () => {
-    if (page >= totalPageCount.current) {
+    if (isFetching) return;
+
+    if (page > totalPageCount.current) {
       setHasNextPage(false);
       return;
     } else {
@@ -69,9 +71,9 @@ export default ({ navigation, route }: RootStackScreenProps<'午夜场剧情'>) 
   const renderItem = ({ item, index }: { item: AdultVodType; index: number }) => (
     <View
       style={{
-        width: '48%',
+        width: '50%',
         padding: 5,
-        flex: 1,
+        // flex: 1,
       }}>
       <TouchableOpacity
         key={item.vod_id}

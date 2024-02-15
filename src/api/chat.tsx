@@ -22,7 +22,7 @@ export class ChatApi {
             return streamerPinMsgFromJson(result.data);
 
         } catch (e: any) {
-            console.error(`[Error ${this.getStreamerPinMsg.name}]: ${e.toString()}`);
+            console.error(`[Error getStreamerPinMsg}]: ${e.toString()}`);
             throw e;
         }
     }
