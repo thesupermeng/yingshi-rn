@@ -17,9 +17,9 @@ import EighteenPlusOverlay from "../modal/overEighteenOverlay";
 import CountdownIndicator from "../button/countdownIndicator";
 import AdultModeCountdownIndicator from "./adultModeCountdownIndicator";
 import AdultModeSwitch from "./adultModeSwitch";
-import { screenModel } from "@type/screenType";
-import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
-import { RootState } from "@redux/store";
+import { screenModel } from "@type";
+import { useAppDispatch, useAppSelector, useSelector } from "@hooks";
+import { RootState } from "@redux";
 import {
   acceptOverEighteen,
   disableAdultMode,
@@ -30,12 +30,12 @@ import {
   hideAdultVipPrivilegeMiniVideoAction,
   incrementAdultVideoWatchTime,
   showAdultVipPrivilegeMiniVideoAction,
-} from "@redux/actions/screenAction";
-import { UMENG_CHANNEL } from "@utility/constants";
+} from "@redux";
+import { UMENG_CHANNEL } from "@utility";
 import { AdultVipPrivilegeOverlay } from "../modal/adultVipPrivilegeOverlay";
 import { VipPrivilegeFloatingIndicator } from "./vipPrivilegeFloatingIndicator";
-import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models/user";
+import { UserStateType } from "@redux";
+import { User } from "@models";
 interface Props { }
 
 const eighteenPlusControls = ({ }: Props) => {

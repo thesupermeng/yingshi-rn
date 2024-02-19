@@ -1,16 +1,15 @@
 import React, { useState, memo, useCallback, useEffect, useRef } from 'react';
 import { Dimensions, Linking, Platform, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
-import PlayIcon from '@static/images/blackPlay.svg';
-import PauseIcon from '@static/images/pause.svg';
+import { BlackPlaySvg, PauseSvg } from '@static';
 import Video, { OnProgressData, VideoRef } from 'react-native-video';
 import FastImage from '../../common/customFastImage';
 import { useNavigation, useTheme } from '@react-navigation/native';
-import { useAppDispatch, useAppSelector } from '@hooks/hooks';
-import { DOWNLOAD_WATCH_ANYTIME } from '@utility/constants';
-import { playVod } from '@redux/actions/vodActions';
+import { useAppDispatch, useAppSelector } from '@hooks';
+import { DOWNLOAD_WATCH_ANYTIME } from '@utility';
+import { playVod } from '@redux';
 import RNFetchBlob from 'rn-fetch-blob';
 import { addIdToCache } from '../../../utils/minivodDownloader';
-import { screenModel } from '@type/screenType';
+import { screenModel } from '@type';
 import UmengAnalytics from '../../../../Umeng/UmengAnalytics';
 import BecomeVipOverlay from '../../modal/becomeVipOverlay';
 interface Props {
@@ -27,7 +26,7 @@ interface Props {
     index: number;
 }
 
-const videoBufferGif = require('@static/images/videoBufferLoading.gif')
+const videoBufferGif = require('../../../../static/images/videoBufferLoading.gif')
 
 function ShortAds({
     vod: currentVod,
@@ -297,7 +296,7 @@ function ShortAds({
                                         top: (Dimensions.get('window').height - 130) / 2,
                                         zIndex: 999,
                                     }}>
-                                    {showIcon && (isPause ? <PlayIcon /> : <PauseIcon />)}
+                                    {showIcon && (isPause ? <BlackPlaySvg /> : <PauseSvg />)}
                                 </View>
                             </View>
                         </View>

@@ -4,8 +4,8 @@ import { CBottomSheet } from "../atoms";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import { CTextInput } from "../atoms/textInput";
 import { useDispatch } from "react-redux";
-import { changeScreenAction } from "@redux/actions/screenAction";
-import { updateUsernameState } from "@redux/actions/userAction";
+import { changeScreenAction } from "@redux";
+import { updateUsernameState } from "@redux";
 import { UserApi } from "@api";
 
 
@@ -152,7 +152,7 @@ export const ChangeUsernameModal = ({
                                     position: "relative",
                                     top: 1,
                                 }}
-                                source={require("@static/images/invite/danger.png")}
+                                source={require("../../../../static/images/invite/danger.png")}
                             />
 
                             <Text style={styles.danger}>{usernameErrMsg}</Text>

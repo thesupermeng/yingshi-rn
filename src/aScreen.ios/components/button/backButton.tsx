@@ -1,5 +1,5 @@
 import { StyleSheet, TouchableOpacity, ViewStyle, Platform } from "react-native";
-import BackIcon from "@static/images/back_arrow.svg";
+import { BackArrowSvg } from "@static";
 import { useTheme } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
 interface Props {
@@ -21,11 +21,11 @@ export default function BackButton({
       onPress={onPress ? onPress : () => navigation.goBack()}
       style={{ ...styles.btn, ...btnStyle }}
     >
-      <BackIcon
+      <BackArrowSvg
         style={{
           color: colors.text,
         }}
-      ></BackIcon>
+      ></BackArrowSvg>
     </TouchableOpacity>
   );
 }

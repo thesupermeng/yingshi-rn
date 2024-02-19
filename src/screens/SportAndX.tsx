@@ -25,7 +25,7 @@ import {
   BottomTabScreenProps,
   useBottomTabBarHeight,
 } from "@react-navigation/bottom-tabs";
-import { API_DOMAIN, MATCH_API_DOMAIN } from "@utility/constants";
+import { API_DOMAIN, MATCH_API_DOMAIN } from "@utility";
 import Animated from "react-native-reanimated";
 import FastImage from "react-native-fast-image";
 // import { API } from './util';
@@ -36,25 +36,26 @@ import MatchScheduleNavVip from "../Sports/components/matchSchedule/MatchSchedul
 import NoConnection from "../components/common/noConnection";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 
-import { useAppSelector, useSelector } from "@hooks/hooks";
-import { RootState } from "@redux/store";
+import { useAppSelector, useSelector } from "@hooks";
+import { RootState } from "@redux";
 import { useDispatch } from "react-redux";
 import BecomeVipOverlay from "../components/modal/becomeVipOverlay";
-import { SettingsReducerState } from "@redux/reducers/settingsReducer";
+import { SettingsReducerState } from "@redux";
 import UmengAnalytics from "../../Umeng/UmengAnalytics";
-import XvodTabIcon from "@static/images/xvodTab.svg";
-import SportTabIcon from "@static/images/sportTab.svg";
+import { XvodTabSvg, SportTabSvg } from "@static";
 import XVodTab from "./VipPrivilege/XVodTab";
-import { screenModel } from "@type/screenType";
+import { screenModel } from "@type";
 import {
   disableAdultMode,
   showAdultModeDisclaimer,
-} from "@redux/actions/screenAction";
+} from "@redux";
 import { BlurView } from "../components/blurView";
 import { YSConfig } from "../../ysConfig";
-import VipEntry from '@static/images/splash/VipEntry.svg';
-import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models/user";
+import {
+  VipEntrySvg,
+} from "@static";
+import { UserStateType } from "@redux";
+import { User } from "@models";
 interface NavType {
   has_submenu: boolean;
   ids: Array<number>;
@@ -228,7 +229,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                         bottom: 10,
                       }}
                     >
-                      <SportTabIcon width={32} height={32} />
+                      <SportTabSvg width={32} height={32} />
                     </View>
 
                     <View
@@ -292,7 +293,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                           bottom: 12,
                         }}
                       >
-                        <XvodTabIcon width={32} height={32} />
+                        <XvodTabSvg width={32} height={32} />
                       </View>
 
                       <View
@@ -355,7 +356,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
               {!User.isVip(userState.user) ? (
                 <>
                   <View style={styles.headerContainerRight2}>
-                    <VipEntry height={30} />
+                    <VipEntrySvg height={30} />
                   </View>
                 </>
               ) : (
@@ -363,7 +364,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                   <View style={styles.headerContainerRight}>
                     <Image
                       style={styles.iconStyle}
-                      source={require("@static/images/profile/vipSport.png")}
+                      source={require("../../static/images/profile/vipSport.png")}
                     />
                     <Text
                       style={{

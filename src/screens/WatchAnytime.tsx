@@ -1,13 +1,13 @@
-import { useAppDispatch, useAppSelector, useSelector } from '@hooks/hooks';
+import { useAppDispatch, useAppSelector, useSelector } from '@hooks';
 import UmengAnalytics from '../../Umeng/UmengAnalytics';
 import NetInfo from '@react-native-community/netinfo';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { useFocusEffect, useIsFocused } from '@react-navigation/native';
-import { SettingsReducerState } from '@redux/reducers/settingsReducer';
-import { RootState } from '@redux/store';
-import { MiniVideo } from '@type/ajaxTypes';
-import { screenModel } from '@type/screenType';
-import { API_DOMAIN_TEST } from '@utility/constants';
+import { SettingsReducerState } from '@redux';
+import { RootState } from '@redux';
+import { MiniVideo } from '@type';
+import { screenModel } from '@type';
+import { API_DOMAIN_TEST } from '@utility';
 import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { AppState, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { useMinivodQuery } from '@api';
@@ -16,9 +16,9 @@ import ScreenContainer from '../components/container/screenContainer';
 import MiniVideoList from '../components/videoPlayer/WatchAnytime/miniVodList';
 import NoConnection from './../components/common/noConnection';
 import { CPressable } from '../components/atoms';
-import { showLoginAction } from '@redux/actions/screenAction';
-import { UserStateType } from '@redux/reducers/userReducer';
-import { User } from '@models/user';
+import { showLoginAction } from '@redux';
+import { UserStateType } from '@redux';
+import { User } from '@models';
 
 type MiniVideoResponseType = {
   data: {

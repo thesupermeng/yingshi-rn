@@ -1,26 +1,24 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, FlatList } from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
-import { RootStackScreenProps } from '@type/navigationTypes';
+import { RootStackScreenProps } from '@type';
 import { useTheme } from '@react-navigation/native';
-import { useAppDispatch, useAppSelector } from '@hooks/hooks';
-import { RootState } from '@redux/store';
+import { useAppDispatch, useAppSelector } from '@hooks';
+import { RootState } from '@redux';
 
 import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
-import { VodRecordType, VodReducerState } from '@redux/reducers/vodReducer';
-import { removeVodsFromHistory, playVod } from '@redux/actions/vodActions';
+import { VodRecordType, VodReducerState } from '@redux';
+import { removeVodsFromHistory, playVod } from '@redux';
 import VodHistoryCard from '../../components/vod/vodHistoryCard';
-import CheckBoxSelected from '@static/images/checkbox_selected.svg';
-import CheckBoxUnselected from '@static/images/checkbox_unselected.svg';
-import { AdultVodListType, AdultVodType, VodType } from '@type/ajaxTypes';
+import { AdultVodListType, AdultVodType, VodType } from '@type';
 import { Button } from '@rneui/themed';
 import ConfirmationModal from '../../components/modal/confirmationModal';
 import VodLiveStationListVertical from '../../components/vod/vodLiveStationListVertical';
 import EmptyList from '../../components/common/emptyList';
 import { ScrollView } from 'react-native-gesture-handler';
 import FastImage from '../../components/common/customFastImage';
-import { API_DOMAIN_TEST } from '@utility/constants';
-import { enableAdultMode } from '@redux/actions/screenAction';
+import { API_DOMAIN_TEST } from '@utility';
+import { enableAdultMode } from '@redux';
 import { VodApi } from '@api';
 
 type AdultVodReturnType = {
@@ -139,7 +137,7 @@ export default ({ navigation, route }: RootStackScreenProps<'午夜场剧情'>) 
                     justifyContent: 'center',
                     alignItems: 'center',
                   }}
-                  source={require('@static/images/loading-spinner.gif')}
+                  source={require('../../../static/images/loading-spinner.gif')}
                   resizeMode={'contain'}
                 />
               )}

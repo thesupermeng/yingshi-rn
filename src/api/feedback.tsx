@@ -1,6 +1,6 @@
 import { CEndpoint } from "@constants";
-import { SubmitFeedbackRequest } from "@type/ajaxTypes";
-import { CApi } from "@utility/apiService";
+import { SubmitFeedbackRequest } from "@type";
+import { CApi } from "@utility";
 
 export class FeedbackApi {
     static postFeedback = async (data: SubmitFeedbackRequest) => {

@@ -1,7 +1,7 @@
-import { RootState } from "@redux/store";
+import { RootState } from "@redux";
 import { CustomEventAnalytic } from "../../../Umeng/EventAnalytic";
-import { EVENT_CUSTOM_ON, VIP_PROMOTION_COUNTDOWN_MINUTE, VIP_PROMOTION_INTERVEL_SECONDS, VIP_PROMOTION_PURCHASE_MAX, VIP_PROMOTION_PURCHASE_MIN, VIP_PROMOTION_PURCHASE_RANDOM } from "@utility/constants";
-import { BackgroundActionEventType } from "@redux/reducers/backgroundReducer";
+import { EVENT_CUSTOM_ON, VIP_PROMOTION_COUNTDOWN_MINUTE, VIP_PROMOTION_INTERVEL_SECONDS, VIP_PROMOTION_PURCHASE_MAX, VIP_PROMOTION_PURCHASE_MIN, VIP_PROMOTION_PURCHASE_RANDOM } from "@utility";
+import { BackgroundActionEventType } from "@redux";
 
 export const onBootApp = ({
 

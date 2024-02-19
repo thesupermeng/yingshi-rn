@@ -2,7 +2,7 @@ import { ScrollView, View } from "react-native";
 import { useEffect, useState } from "react";
 import EmptyList from "../common/emptyList";
 import { VipHistoryCard } from "./vipHistoryCard";
-import { User } from "@models/user";
+import { User } from "@models";
 
 interface Props {
   userState: User;

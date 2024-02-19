@@ -1,13 +1,13 @@
 import { ViewStyle } from "react-native";
 import CountdownIndicator from "../button/countdownIndicator";
-import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
-import { screenModel } from "@type/screenType";
-import { ADULT_MODE_PREVIEW_DURATION } from "@utility/constants";
-import { incrementAdultVideoWatchTime, showAdultModeVip } from "@redux/actions/screenAction";
+import { useAppDispatch, useAppSelector, useSelector } from "@hooks";
+import { screenModel } from "@type";
+import { ADULT_MODE_PREVIEW_DURATION } from "@utility";
+import { incrementAdultVideoWatchTime, showAdultModeVip } from "@redux";
 import { memo, useCallback, useEffect } from "react";
 import { useFocusEffect } from "@react-navigation/native";
-import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models/user";
+import { UserStateType } from "@redux";
+import { User } from "@models";
 
 interface Props {
   containerStyle: ViewStyle;

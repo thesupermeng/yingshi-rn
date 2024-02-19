@@ -1,12 +1,12 @@
 import { useNavigation } from "@react-navigation/native";
 import VipPrivilegeModal from "./vipPrivilegeModal"
 import { useCallback } from "react";
-import { useAppDispatch, useAppSelector } from "@hooks/hooks";
-import { screenModel } from "@type/screenType";
-import { UMENG_CHANNEL } from "@utility/constants";
+import { useAppDispatch, useAppSelector } from "@hooks";
+import { screenModel } from "@type";
+import { UMENG_CHANNEL } from "@utility";
 
-const commonModels = require('@static/images/vip_common_models.png');
-const sportBg = require('@static/images/vip_common_background.png');
+const commonModels = require('../../../static/images/vip_common_models.png');
+const sportBg = require('../../../static/images/vip_common_background.png');
 
 interface Props {
   showCondition: boolean;

@@ -1,4 +1,4 @@
-import { RootStackScreenProps } from "@type/navigationTypes";
+import { RootStackScreenProps } from "@type";
 import ScreenContainer from "../../components/container/screenContainer";
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
 import WebView from "react-native-webview";
@@ -8,15 +8,15 @@ import {
   Text,
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
-import { UMENG_CHANNEL } from "@utility/constants";
+import { UMENG_CHANNEL } from "@utility";
 
 const AdEvent = ({ navigation, route }: RootStackScreenProps<'活动页'>) => {
-  const {bannerAd} = route.params
+  const { bannerAd } = route.params
   const [isNavigated, setIsNavigated] = useState(false);
-  
+
   const handleOnMessage = (message: string) => {
     console.debug(message)
-    if (message === 'triggerRnNavigatePurchaseVip'){
+    if (message === 'triggerRnNavigatePurchaseVip') {
       navigation.navigate("付费VIP");
       // if (UMENG_CHANNEL == 'GOOGLE_PLAY')
       // {
@@ -37,21 +37,21 @@ const AdEvent = ({ navigation, route }: RootStackScreenProps<'活动页'>) => {
         onBack={() => isNavigated ? webViewref.current.goBack() : navigation.goBack()}
       />
       <WebView
-          source={{
-            uri: bannerAd.ads_url
-          }}
-          ref={webViewref}
-          style={{ backgroundColor: 'transparent'}}
-          onShouldStartLoadWithRequest={() => true}
-          onMessage={m => handleOnMessage(m.nativeEvent.data)}
-          onNavigationStateChange={(event) => {
-            if (event.url === bannerAd.ads_url) {
-              setIsNavigated(false);
-            } else {
-              setIsNavigated(true);
-            }
-          }}
-        />
+        source={{
+          uri: bannerAd.ads_url
+        }}
+        ref={webViewref}
+        style={{ backgroundColor: 'transparent' }}
+        onShouldStartLoadWithRequest={() => true}
+        onMessage={m => handleOnMessage(m.nativeEvent.data)}
+        onNavigationStateChange={(event) => {
+          if (event.url === bannerAd.ads_url) {
+            setIsNavigated(false);
+          } else {
+            setIsNavigated(true);
+          }
+        }}
+      />
 
     </ScreenContainer>
   )

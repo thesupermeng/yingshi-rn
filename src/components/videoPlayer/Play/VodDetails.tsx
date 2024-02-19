@@ -1,4 +1,4 @@
-import {memo, useCallback, useMemo, useState} from 'react';
+import { memo, useCallback, useMemo, useState } from 'react';
 import {
   FlatList,
   Platform,
@@ -10,15 +10,12 @@ import {
 } from 'react-native';
 import FastImage from '../../common/customFastImage';
 import FavoriteButton from '../../../components/button/favoriteVodButton';
-import FavoriteIcon from '@static/images/favorite.svg';
-import SinaIcon from '@static/images/sina.svg';
-import WeChatIcon from '@static/images/wechat.svg';
-import QQIcon from '@static/images/qq.svg';
-import PYQIcon from '@static/images/pyq.svg';
-import {FavoriteVodReducerState} from '@redux/reducers/vodReducer';
-import {useAppSelector} from '@hooks/hooks';
-import {RootState} from '@redux/store';
-import {useTheme} from '@react-navigation/native';
+import { FavoriteSvg, SinaSvg, WechatSvg, QqSvg, PyqSvg } from '@static';
+
+import { FavoriteVodReducerState } from '@redux';
+import { useAppSelector } from '@hooks';
+import { RootState } from '@redux';
+import { useTheme } from '@react-navigation/native';
 
 const definedValue = (val: any) => {
   if (val === undefined || val === null) {
@@ -33,10 +30,10 @@ interface Props {
   handleOnShare: any;
 }
 
-const VodDetails = ({adultMode, vod, handleOnShare}: Props) => {
-  const {colors, spacing, textVariants} = useTheme();
+const VodDetails = ({ adultMode, vod, handleOnShare }: Props) => {
+  const { colors, spacing, textVariants } = useTheme();
   const vodFavouriteReducer: FavoriteVodReducerState = useAppSelector(
-    ({vodFavouritesReducer}: RootState) => vodFavouritesReducer,
+    ({ vodFavouritesReducer }: RootState) => vodFavouritesReducer,
   );
   const isFavorite = vodFavouriteReducer.favorites.some(
     x => x.vod_id === vod?.vod_id,
@@ -44,8 +41,8 @@ const VodDetails = ({adultMode, vod, handleOnShare}: Props) => {
   const [isCollapsed, setIsCollapsed] = useState(true);
   const [actualNumberOfLines, setActualNumberOfLines] = useState(0);
 
-  const handleTextLayout = useCallback((event: {nativeEvent: {lines: any}}) => {
-    const {lines} = event.nativeEvent;
+  const handleTextLayout = useCallback((event: { nativeEvent: { lines: any } }) => {
+    const { lines } = event.nativeEvent;
     setActualNumberOfLines(lines.length);
   }, []);
 
@@ -54,7 +51,7 @@ const VodDetails = ({adultMode, vod, handleOnShare}: Props) => {
       <View style={styles.videoDescription}>
         {adultMode ? (
           <FastImage
-            source={{uri: vod?.vod_pic}}
+            source={{ uri: vod?.vod_pic }}
             resizeMode={'cover'}
             style={{
               ...styles.descriptionImageHorizontal,
@@ -64,7 +61,7 @@ const VodDetails = ({adultMode, vod, handleOnShare}: Props) => {
           />
         ) : (
           <FastImage
-            source={{uri: vod?.vod_pic}}
+            source={{ uri: vod?.vod_pic }}
             resizeMode={'cover'}
             style={{
               ...styles.descriptionImage,
@@ -87,7 +84,7 @@ const VodDetails = ({adultMode, vod, handleOnShare}: Props) => {
                     alignItems: 'center',
                     gap: spacing.xxs,
                   }}>
-                  <FavoriteIcon
+                  <FavoriteSvg
                     width={18}
                     height={18}
                     style={{
@@ -118,25 +115,24 @@ const VodDetails = ({adultMode, vod, handleOnShare}: Props) => {
             />
           )}
           <Text
-            style={{...textVariants.subBody, color: colors.muted}}
+            style={{ ...textVariants.subBody, color: colors.muted }}
             numberOfLines={2}>
             {`${definedValue(vod?.vod_year)}`}
             {`${definedValue(vod?.vod_area)}`}
             {`${definedValue(vod?.vod_class?.split(',').join(' '))}`}
           </Text>
-          <Text style={{...textVariants.subBody, color: colors.muted}}>
-            {`更新：${
-              vod && !!vod?.vod_time_add
-                ? new Date(vod?.vod_time_add * 1000)
-                    .toISOString()
-                    .slice(0, 10)
-                    .replace(/\//g, '-')
-                : new Date().toISOString().slice(0, 10).replace(/\//g, '-')
-            }`}
+          <Text style={{ ...textVariants.subBody, color: colors.muted }}>
+            {`更新：${vod && !!vod?.vod_time_add
+              ? new Date(vod?.vod_time_add * 1000)
+                .toISOString()
+                .slice(0, 10)
+                .replace(/\//g, '-')
+              : new Date().toISOString().slice(0, 10).replace(/\//g, '-')
+              }`}
           </Text>
           {!adultMode && (
             <TouchableOpacity onPress={handleOnShare}>
-              <View style={{...styles.share, gap: 10}}>
+              <View style={{ ...styles.share, gap: 10 }}>
                 <Text
                   style={{
                     ...textVariants.subBody,
@@ -144,10 +140,10 @@ const VodDetails = ({adultMode, vod, handleOnShare}: Props) => {
                   }}>
                   分享：
                 </Text>
-                <WeChatIcon />
-                <PYQIcon />
-                <SinaIcon />
-                <QQIcon />
+                <WechatSvg />
+                <PyqSvg />
+                <SinaSvg />
+                <QqSvg />
               </View>
             </TouchableOpacity>
           )}
@@ -164,7 +160,7 @@ const VodDetails = ({adultMode, vod, handleOnShare}: Props) => {
           onPress={() => {
             setIsCollapsed(!isCollapsed);
           }}>
-          <View style={{paddingBottom: 18}}>
+          <View style={{ paddingBottom: 18 }}>
             <Text
               onTextLayout={handleTextLayout}
               style={styles.descriptionContainer2Text}
@@ -172,7 +168,7 @@ const VodDetails = ({adultMode, vod, handleOnShare}: Props) => {
               {`${definedValue(vod?.vod_content)}`}
             </Text>
           </View>
-          <View style={{paddingBottom: 0}}>
+          <View style={{ paddingBottom: 0 }}>
             {isCollapsed && actualNumberOfLines >= 2 && (
               <FastImage
                 style={{
@@ -181,7 +177,7 @@ const VodDetails = ({adultMode, vod, handleOnShare}: Props) => {
                   width: 14,
                   alignSelf: 'center',
                 }}
-                source={require('@static/images/down_arrow.png')}
+                source={require('../../../static/images/down_arrow.png')}
                 resizeMode={'contain'}
               />
             )}
@@ -193,7 +189,7 @@ const VodDetails = ({adultMode, vod, handleOnShare}: Props) => {
                   width: 14,
                   alignSelf: 'center',
                 }}
-                source={require('@static/images/up_arrow.png')}
+                source={require('../../../static/images/up_arrow.png')}
                 resizeMode={'contain'}
               />
             )}

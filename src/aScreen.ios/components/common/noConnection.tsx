@@ -5,12 +5,14 @@ import {
   TextStyle,
   TouchableOpacity,
 } from 'react-native';
-import React, {useEffect} from 'react';
-import {useTheme} from '@react-navigation/native';
-import NoWifi from '@static/images/no-wifi.svg';
-import RefreshIcon from '@static/images/refresh.svg';
-import YingshiGreyIcon from '@static/images/yingshi-grey.svg';
-import {useOrientation} from '@hooks/useOrientation';
+import React, { useEffect } from 'react';
+import { useTheme } from '@react-navigation/native';
+import {
+  NoWifiSvg,
+  RefreshSvg,
+  YingshiGreySvg,
+} from '@static';
+import { useOrientation } from '@hooks';
 interface Props {
   onClickRetry?: any;
   isPlay?: boolean;
@@ -21,7 +23,7 @@ export default function NoConnection({
   isPlay = false,
   isPlayBottom = false,
 }: Props) {
-  const {textVariants, colors, icons} = useTheme();
+  const { textVariants, colors, icons } = useTheme();
   const isPotrait = useOrientation();
 
   const getMinHeight = () => {
@@ -44,7 +46,7 @@ export default function NoConnection({
       }}>
       {!isPlay && isPotrait && (
         <>
-          <NoWifi />
+          <NoWifiSvg />
           <Text
             style={{
               ...textVariants.subBody,
@@ -69,8 +71,8 @@ export default function NoConnection({
                 ...styles.refreshBtn,
                 backgroundColor: colors.title,
               }}>
-              <View style={{position: 'relative', top: 2, paddingRight: 3}}>
-                <RefreshIcon />
+              <View style={{ position: 'relative', top: 2, paddingRight: 3 }}>
+                <RefreshSvg />
               </View>
               <Text
                 style={{
@@ -86,7 +88,7 @@ export default function NoConnection({
       {isPlay && (
         <>
           <View>
-            <YingshiGreyIcon />
+            <YingshiGreySvg />
           </View>
           <Text
             style={{
@@ -103,8 +105,8 @@ export default function NoConnection({
                 ...styles.refreshBtn,
                 backgroundColor: colors.title,
               }}>
-              <View style={{position: 'relative', top: 2, paddingRight: 3}}>
-                <RefreshIcon />
+              <View style={{ position: 'relative', top: 2, paddingRight: 3 }}>
+                <RefreshSvg />
               </View>
               <Text
                 style={{

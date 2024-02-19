@@ -1,24 +1,22 @@
 import React, { useEffect, ReactNode } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions, TouchableWithoutFeedback, Pressable } from "react-native";
-import EighteenPlusIcon from "@static/images/eighteen-plus-icon.svg";
-import { screenModel } from "@type/screenType";
-import { useAppSelector } from "@hooks/hooks";
+import { EighteenPlusIconSvg, VipIcon2Svg, CloseSvg } from "@static";
+import { screenModel } from "@type";
+import { useAppSelector } from "@hooks";
 import { BlurView } from "../blurView";
 import FastImage from "../common/customFastImage";
-import VipIcon from "@static/images/vip_icon.svg";
 import LinearGradient from "react-native-linear-gradient";
-import CloseButton from "@static/images/close.svg";
-import { SHOW_ZF_CONST } from "@utility/constants";
+import { SHOW_ZF_CONST } from "@utility";
 import { YSConfig } from "../../../ysConfig";
 
-const adultModels = require("@static/images/vip_adult_models.png");
-const adultBg = require("@static/images/vip_adult_background.png");
+const adultModels = require("../../../static/images/vip_adult_models.png");
+const adultBg = require("../../../static/images/vip_adult_background.png");
 
 interface Props {
   coverImage: any;
   coverBackground: any;
   showBlur: boolean;
-  showDarkBackdrop: boolean; 
+  showDarkBackdrop: boolean;
   benefitsTextsArray: string[];
   titleText: string;
   imageGradientColors: string[];
@@ -31,7 +29,7 @@ interface Props {
 
 export default function VipPrivilegeModal({
   showBlur = false,
-  showDarkBackdrop = false, 
+  showDarkBackdrop = false,
   benefitsTextsArray,
   coverImage,
   coverBackground,
@@ -60,7 +58,7 @@ export default function VipPrivilegeModal({
         <View style={{
           width: "100%",
           height: "100%",
-          transform: isFullscreen ? [{scale: 0.75}] : [], 
+          transform: isFullscreen ? [{ scale: 0.75 }] : [],
         }}>
           {showBlur && (
             <BlurView
@@ -103,13 +101,13 @@ export default function VipPrivilegeModal({
                 }}
                 onPress={onClose}
               >
-                <CloseButton />
+                <CloseSvg />
               </TouchableOpacity>
               <View >
                 <View style={styles.imageContainer}>
                   <FastImage
                     source={coverBackground ?? adultBg}
-                    style={{...styles.image, height: 117}}
+                    style={{ ...styles.image, height: 117 }}
                     resizeMode="cover"
                   />
                   <FastImage
@@ -123,13 +121,13 @@ export default function VipPrivilegeModal({
                     style={styles.imageGradient}
                   />
                 </View>
-                <VipIcon 
+                <VipIcon2Svg
                   style={{
-                    zIndex: 4255235, 
-                    position: 'absolute',  
-                    top: '-15%', 
+                    zIndex: 4255235,
+                    position: 'absolute',
+                    top: '-15%',
                     alignSelf: 'center'
-                    }}
+                  }}
                 />
                 <View style={styles.contentContainer}>
                   <View style={styles.contentGradient}>
@@ -230,7 +228,7 @@ const styles = StyleSheet.create({
   content: {
     display: "flex",
     alignItems: "center",
-    width: "100%",  
+    width: "100%",
     paddingVertical: 50,
   },
   imageContainer: {
@@ -250,7 +248,7 @@ const styles = StyleSheet.create({
     // width: "100%",
     width: 322,
     height: 160.124,
-    
+
   },
   contentGradient: {
     overflow: "hidden",

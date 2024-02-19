@@ -1,22 +1,21 @@
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { FlatList, Keyboard, Text, View } from "react-native"
 import createStyles from "./style";
-import { useAppDispatch, useSelector } from "@hooks/hooks";
+import { useAppDispatch, useSelector } from "@hooks";
 import { CPressable, CTextInput } from "../../../../components/atoms";
-import SendIcon from '@static/images/send.svg';
-import SendFillIcon from '@static/images/send_filled.svg';
-import { COMMENT_MAX_INPUT } from "@utility/constants";
-import { LiveChatMessageType } from "@type/ajaxTypes";
-import { ChatType } from "@redux/reducers/chatReducer";
-import { joinChatRoom, leaveChatRoom, sendChatMessage } from "@redux/actions/chatAction";
+import { SendSvg, SendFilledSvg } from '@static';
+import { COMMENT_MAX_INPUT } from "@utility";
+import { LiveChatMessageType } from "@type";
+import { ChatType } from "@redux";
+import { joinChatRoom, leaveChatRoom, sendChatMessage } from "@redux";
 import { Streamer } from "../../../types/matchTypes";
 import { useTheme } from "@react-navigation/native";
 import { Avatar } from "@rneui/base";
-import { PrivateRoomHistoryType, PrivateRoomType } from "@type/chatTypes";
+import { PrivateRoomHistoryType, PrivateRoomType } from "@type";
 import { debounce } from "lodash";
 import { UnreadCard } from "../../../../components/chat/unread";
-import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models/user";
+import { UserStateType } from "@redux";
+import { User } from "@models";
 
 type Props = {
     matchID: string,
@@ -125,7 +124,7 @@ const PrivateChatPage = ({
                     <Avatar
                         source={false // put condition when user got profile pic
                             ? { uri: '' } // put user profile pic
-                            : require("@static/images/profilePic.png")
+                            : require("../../../../../static/images/profilePic.png")
                         }
                         avatarStyle={{
                             borderRadius: 100,
@@ -143,7 +142,7 @@ const PrivateChatPage = ({
                 <Avatar
                     source={streamer && streamer.avatar && streamer.avatar !== ''
                         ? { uri: streamer.avatar }
-                        : require("@static/images/profilePic.png")
+                        : require("../../../../../static/images/profilePic.png")
                     }
                     avatarStyle={{
                         borderRadius: 100,
@@ -314,8 +313,8 @@ const PrivateChatPage = ({
 
                 <CPressable onPress={onSubmitComment}>
                     {comment.trim().length > 0 && isCommentValid
-                        ? <SendFillIcon />
-                        : <SendIcon style={{ marginLeft: 5, marginRight: 5 }} />
+                        ? <SendFilledSvg />
+                        : <SendSvg style={{ marginLeft: 5, marginRight: 5 }} />
                     }
                 </CPressable>
             </View>

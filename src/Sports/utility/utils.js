@@ -10,7 +10,7 @@ import { Url } from '../middleware/url';
 //   openSettings,
 // } from 'react-native-permissions';
 import RNFS from 'react-native-fs';
-// import AppSettingsAction from '@redux/actions/appSettingsAction';
+// import AppSettingsAction from '@redux';
 // import Config from '../global/env';
 // import { AppConfig } from '../global/appConfig';
 // import { getPredictionShareTimeStamp } from '../global/asyncStorage';
@@ -360,7 +360,7 @@ type scoreObjType = {
 }
 
 export const getMatchScore = (scores, sportType) => {
-  let scoreObj : scoreObjType|null = null;
+  let scoreObj: scoreObjType | null = null;
   if (sportType == 1) {
     scoreObj = {
       homeScore: scores[2],
@@ -526,7 +526,7 @@ export const getMatchStorylineStatus = status => {
 // };
 
 export const createShareLink = async (path, id) => {
-  const params = {path: path, params: {channel_id: Config.channelId}};
+  const params = { path: path, params: { channel_id: Config.channelId } };
   switch (path) {
     case 'news':
       params.params.news_id = id;

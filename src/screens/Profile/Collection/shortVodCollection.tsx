@@ -2,17 +2,16 @@ import React, { useCallback } from 'react';
 import { View, FlatList, Text, StyleSheet } from 'react-native';
 import ScreenContainer from '../../../components/container/screenContainer';
 import { useTheme } from '@react-navigation/native';
-import { useAppDispatch, useAppSelector } from '@hooks/hooks';
-import { RootState } from '@redux/store';
+import { useAppDispatch, useAppSelector } from '@hooks';
+import { RootState } from '@redux';
 
 import TitleWithBackButtonHeader from '../../../components/header/titleWithBackButtonHeader';
-import { FavoriteVodReducerState, VodReducerState } from '@redux/reducers/vodReducer';
+import { FavoriteVodReducerState, VodReducerState } from '@redux';
 import FavoriteVodCard from '../../../components/vod/favoriteVodCard';
 import CollectionHeader from '../../../components/header/myCollectionHeader';
-import { playVod } from '@redux/actions/vodActions';
-import { VodType } from '@type/ajaxTypes';
-import { RootStackScreenProps } from '@type/navigationTypes';
-import EmptyIcon from '@static/images/empty.svg';
+import { playVod } from '@redux';
+import { VodType } from '@type';
+import { RootStackScreenProps } from '@type';
 import EmptyList from '../../../components/common/emptyList';
 
 type FlatListType = {

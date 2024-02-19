@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useMemo, useRef, useCallback} from 'react';
+import React, { useEffect, useState, useMemo, useRef, useCallback } from 'react';
 import {
   View,
   TouchableOpacity,
@@ -10,25 +10,25 @@ import {
   Image,
   SafeAreaView,
 } from 'react-native';
-import {useTheme, useFocusEffect} from '@react-navigation/native';
+import { useTheme, useFocusEffect } from '@react-navigation/native';
 
 import Orientation from 'react-native-orientation-locker';
 
-import {Dimensions} from 'react-native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import { Dimensions } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import FastImage from 'react-native-fast-image';
 import BottomSheet from '@gorhom/bottom-sheet';
-import {DetailTab} from '@type/ajaxTypes';
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import { DetailTab } from '@type';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import MatchSchedule from './MatchSchedule';
-import {tapGestureHandlerProps} from 'react-native-gesture-handler/lib/typescript/handlers/TapGestureHandler';
+import { tapGestureHandlerProps } from 'react-native-gesture-handler/lib/typescript/handlers/TapGestureHandler';
 import MatchScheduleList from './MatchScheduleList';
 
 const Tab = createMaterialTopTabNavigator();
 
 interface Props {
   streamId?: number;
-  tabList?: {title: string; id: number; name: string}[];
+  tabList?: { title: string; id: number; name: string }[];
   setShowBecomeVIPOverlay: any;
 }
 
@@ -37,12 +37,12 @@ export default function MatchScheduleNav({
   streamId,
   setShowBecomeVIPOverlay,
 }: Props) {
-  const {colors, textVariants, spacing} = useTheme();
+  const { colors, textVariants, spacing } = useTheme();
   const width = Dimensions.get('window').width;
 
   const [showLoading, setShowLoading] = useState(true);
 
-  useEffect(() =>{
+  useEffect(() => {
     // fake loading to ensure all assets are loaded 
     setTimeout(() => {
       setShowLoading(false)
@@ -63,8 +63,8 @@ export default function MatchScheduleNav({
       <Tab.Screen
         key={index}
         name={tab.name}
-        options={({route}) => ({
-          tabBarLabel: ({focused, color}) =>
+        options={({ route }) => ({
+          tabBarLabel: ({ focused, color }) =>
             focused ? (
               <Text
                 style={{
@@ -141,27 +141,27 @@ export default function MatchScheduleNav({
   }
 
   return (
-    <SafeAreaView style={{flex: 1}}> 
-      {showLoading && <View 
+    <SafeAreaView style={{ flex: 1 }}>
+      {showLoading && <View
         style={{
-          width: '100%', 
-          height: '100%', 
-          position: 'absolute', 
-          zIndex: 1000, 
+          width: '100%',
+          height: '100%',
+          position: 'absolute',
+          zIndex: 1000,
           backgroundColor: 'rgb(20,22,25)',
-          justifyContent: 'center', 
+          justifyContent: 'center',
           alignItems: 'center'
         }}
       >
         <FastImage
           style={{ height: 150, width: 150 }}
-          source={require("@static/images/home-loading.gif")}
+          source={require("../../../../static/images/home-loading.gif")}
           resizeMode={"contain"}
         />
       </View>}
       <Tab.Navigator
         keyboardDismissMode="none"
-        screenOptions={({route}) => ({
+        screenOptions={({ route }) => ({
           tabBarScrollEnabled: true,
           tabBarIndicatorStyle: {
             // height: 4,
@@ -198,8 +198,8 @@ export default function MatchScheduleNav({
         <Tab.Screen
           key={-1}
           name={'直播'}
-          options={({route}) => ({
-            tabBarLabel: ({focused, color}) =>
+          options={({ route }) => ({
+            tabBarLabel: ({ focused, color }) =>
               focused ? (
                 <Text
                   style={{

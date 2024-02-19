@@ -1,13 +1,12 @@
 import React, { useCallback } from "react"
 import { View, Text, TouchableOpacity } from "react-native"
 import LinearGradient from "react-native-linear-gradient"
-import VipIcon from '@static/images/vip-icon.svg'
-import MoreArrow from '@static/images/more_arrow.svg'
-import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks"
-import { showAdultModeVip } from "@redux/actions/screenAction"
+import { VipIconSvg, MoreArrowSvg } from '@static';
+import { useAppDispatch, useAppSelector, useSelector } from "@hooks"
+import { showAdultModeVip } from "@redux"
 import { useNavigation } from "@react-navigation/native"
-import { UserStateType } from "@redux/reducers/userReducer"
-import { User } from "@models/user"
+import { UserStateType } from "@redux"
+import { User } from "@models"
 
 
 const VipRegisterBar = ({
@@ -40,7 +39,7 @@ const VipRegisterBar = ({
           paddingVertical: 11,
         }}>
         <View style={{ flexDirection: 'row', gap: 8, alignItems: 'center' }}>
-          <VipIcon width={24} height={24} />
+          <VipIconSvg width={24} height={24} />
           <View>
             <Text style={{ color: '#FFE6A5', textShadowColor: 'rgba(0, 0, 0, 0.15)', fontWeight: '600', fontSize: 14, textShadowOffset: { height: 0, width: 4 }, textShadowRadius: 4 }}>邀请好友获得VIP奖励，享更多权益</Text>
             {/* <Text style={{color: '#FFF', textShadowColor: 'rgba(0, 0, 0, 0.15)', fontWeight: '600', fontSize: 12, textShadowOffset: {height:0, width: 4}, textShadowRadius: 4 }}>$18.88/VIP会员180天</Text> */}
@@ -73,7 +72,7 @@ const VipRegisterBar = ({
             >
               立刻邀请
             </Text>
-            <MoreArrow color="#1D2023" width={8} />
+            <MoreArrowSvg color="#1D2023" width={8} />
           </LinearGradient>
         </TouchableOpacity>
       </LinearGradient>

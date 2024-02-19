@@ -2,10 +2,10 @@ import { useNavigation, useTheme } from "@react-navigation/native";
 import React from "react"
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import FastImage from "react-native-fast-image";
-import { VodType } from "@type/ajaxTypes";
-import Logo from '@static/images/ying_ping_logo.svg';
-import { useAppDispatch } from "@hooks/hooks";
-import { playVod } from "@redux/actions/vodActions";
+import { VodType } from "@type";
+import { YingPingLogoSvg } from '@static';
+import { useAppDispatch } from "@hooks";
+import { playVod } from "@redux";
 
 interface Props {
   vod: VodType;
@@ -14,94 +14,94 @@ interface Props {
   isSlide: boolean;
 }
 
-export const YingPingContainer = ({vod, width, imgRatio, isSlide}: Props) => {
+export const YingPingContainer = ({ vod, width, imgRatio, isSlide }: Props) => {
   const { colors, textVariants, spacing } = useTheme();
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const pTagRegex = /(<p>|<\/p>)/g;
-  
+
   const handleOnPress = () => {
     dispatch(playVod(vod));
     navigation.navigate('播放IOS', {
-        vod_id: vod.vod_id,
+      vod_id: vod.vod_id,
     });
   }
 
   return (
     <>
-    {isSlide ? (
-      <TouchableOpacity 
-        style={styles.slideVideoDescription}
-        onPress={handleOnPress}
-      >
-        <View style={{flexDirection: 'row', gap: 8, alignItems: 'center', }}>
-          <Logo width={30} height={31}/>
-          <Text style={{ ...textVariants.body }}>
-            官方推荐
-          </Text>
-        </View>
-        <Text
-          style={{ ...textVariants.subBody, color: colors.muted }}
-          numberOfLines={5}
+      {isSlide ? (
+        <TouchableOpacity
+          style={styles.slideVideoDescription}
+          onPress={handleOnPress}
         >
-          {vod?.vod_content?.replace(pTagRegex, "")}
-        </Text>
-        <View 
-          style={{
-            width: width - spacing.sideOffset - spacing.sideOffset, 
-            height: (width - spacing.sideOffset - spacing.sideOffset) / imgRatio,
-          }}
-        >
-          <FastImage
-            source={{ uri: 'https://yingshi.tv/' + vod.vod_pic_slide }}
-            resizeMode={"cover"}
-            style={styles.slideImage}
-          />
-        </View>
-        <View style={{gap: 3}}>
-          <Text style={{ ...textVariants.bodyBold }}>
-            {vod.vod_name}
-          </Text>
-          <Text style={{ ...textVariants.subBody, color: colors.muted }}>
-            {vod.type_name}
-          </Text>
-        </View>
-      </TouchableOpacity>
-    ) : (
-      <TouchableOpacity 
-        style={styles.videoDescription}
-        onPress={handleOnPress}
-      >
-        <FastImage
-          source={{ uri: vod.vod_pic }}
-          resizeMode={"cover"}
-          style={{
-            ...styles.descriptionImage,
-            ...styles.imageContainer,
-          }}
-        />
-        <View style={styles.descriptionContainer}>
-          <View style={{flexDirection: 'row', gap: 8, alignItems: 'center', }}>
-            <Logo width={30} height={31}/>
+          <View style={{ flexDirection: 'row', gap: 8, alignItems: 'center', }}>
+            <YingPingLogoSvg width={30} height={31} />
             <Text style={{ ...textVariants.body }}>
               官方推荐
             </Text>
           </View>
-          <Text style={{ ...textVariants.bodyBold }}>
-            {vod.vod_name}
-          </Text>
-          <Text style={{ ...textVariants.subBody, color: colors.muted }}>
-            {vod.type_name}
-          </Text>
           <Text
             style={{ ...textVariants.subBody, color: colors.muted }}
-            numberOfLines={3}
+            numberOfLines={5}
           >
             {vod?.vod_content?.replace(pTagRegex, "")}
           </Text>
-        </View>
-      </TouchableOpacity>
-    )}
+          <View
+            style={{
+              width: width - spacing.sideOffset - spacing.sideOffset,
+              height: (width - spacing.sideOffset - spacing.sideOffset) / imgRatio,
+            }}
+          >
+            <FastImage
+              source={{ uri: 'https://yingshi.tv/' + vod.vod_pic_slide }}
+              resizeMode={"cover"}
+              style={styles.slideImage}
+            />
+          </View>
+          <View style={{ gap: 3 }}>
+            <Text style={{ ...textVariants.bodyBold }}>
+              {vod.vod_name}
+            </Text>
+            <Text style={{ ...textVariants.subBody, color: colors.muted }}>
+              {vod.type_name}
+            </Text>
+          </View>
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity
+          style={styles.videoDescription}
+          onPress={handleOnPress}
+        >
+          <FastImage
+            source={{ uri: vod.vod_pic }}
+            resizeMode={"cover"}
+            style={{
+              ...styles.descriptionImage,
+              ...styles.imageContainer,
+            }}
+          />
+          <View style={styles.descriptionContainer}>
+            <View style={{ flexDirection: 'row', gap: 8, alignItems: 'center', }}>
+              <YingPingLogoSvg width={30} height={31} />
+              <Text style={{ ...textVariants.body }}>
+                官方推荐
+              </Text>
+            </View>
+            <Text style={{ ...textVariants.bodyBold }}>
+              {vod.vod_name}
+            </Text>
+            <Text style={{ ...textVariants.subBody, color: colors.muted }}>
+              {vod.type_name}
+            </Text>
+            <Text
+              style={{ ...textVariants.subBody, color: colors.muted }}
+              numberOfLines={3}
+            >
+              {vod?.vod_content?.replace(pTagRegex, "")}
+            </Text>
+          </View>
+        </TouchableOpacity>
+      )}
     </>
   )
 }

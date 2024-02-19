@@ -2,11 +2,11 @@ import React, { memo, useEffect, useState, useMemo } from 'react';
 import { View, Text, StyleSheet, Dimensions, FlatList, Image, Linking } from 'react-native';
 import { useNavigation, useTheme } from '@react-navigation/native';
 
-import { playVod } from '@redux/actions/vodActions';
-import { useAppDispatch } from '@hooks/hooks';
+import { playVod } from '@redux';
+import { useAppDispatch } from '@hooks';
 import VodCard from '../../components/vod/vodCard';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { VodType } from '@type/ajaxTypes';
+import { VodType } from '@type';
 
 
 interface Props {
@@ -46,7 +46,7 @@ function VodListVertical({ vods, numOfRows = 2, outerRowPadding = 0, minNumPerRo
         if (BTN_MARGIN_RIGHT > 16) {
             const excess = (BTN_MARGIN_RIGHT - 16) * (CARDS_PER_ROW - 1);
             BTN_MARGIN_RIGHT = 16;
-            cardWidth += Math.floor(excess / CARDS_PER_ROW)  
+            cardWidth += Math.floor(excess / CARDS_PER_ROW)
         }
 
         setCardsPerRow(CARDS_PER_ROW);
@@ -54,7 +54,7 @@ function VodListVertical({ vods, numOfRows = 2, outerRowPadding = 0, minNumPerRo
         setCardWidth(cardWidth);
         setCardHeight(cardHeight);
     }, []);
-    
+
     return (
         <View style={styles.vodList}>
             {
@@ -74,7 +74,7 @@ function VodListVertical({ vods, numOfRows = 2, outerRowPadding = 0, minNumPerRo
                             marginBottom: Math.min(marginRight, 14)
                         }}
                         onPress={() => {
-                            if(onPress){
+                            if (onPress) {
                                 onPress();
                             }
                             dispatch(playVod(vod));

@@ -1,9 +1,11 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { useTheme } from '@react-navigation/native';
 import LinearGradient from "react-native-linear-gradient";
-import { promoMembershipModel } from "@type/membershipType";
-import Tick from "@static/images/splash/tick.svg";
-import { IS_ANDROID, UMENG_CHANNEL } from "@utility/constants";
+import { promoMembershipModel } from "@type";
+import {
+  TickSvg,
+} from "@static";
+import { IS_ANDROID, UMENG_CHANNEL } from "@utility";
 
 interface Props {
   membershipPlan: promoMembershipModel;
@@ -42,7 +44,7 @@ export const VipMember = ({
 
           {isSelected && (
             <View style={styles.tick}>
-              <Tick width={18} height={18} />
+              <TickSvg width={18} height={18} />
             </View>
           )}
 

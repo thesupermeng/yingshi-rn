@@ -9,15 +9,11 @@ import {
   Platform,
   Image,
 } from 'react-native';
-import FullScreen from '@static/images/fullScreen.svg';
-import MoreMoviesIcon from '@static/images/moreMovies.svg';
-import MinimizeScreen from '@static/images/minimizeScreen.svg';
+import { FullScreenSvg, MoreMoviesSvg, MinimizeScreenSvg, NextEpisodeSvg, SelectEpisodesSvg, LockScreenSvg, } from '@static';
+
 import { TouchableWithoutFeedback } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import { RectButton } from 'react-native-gesture-handler';
-import NextEpisodeIcon from '@static/images/nextEpisode.svg';
-import SelectEpisodesIcon from '@static/images/selectEpisodes.svg';
-import LockScreenIcon from '@static/images/lockScreen.svg';
 import { Slider } from '@rneui/themed';
 import VideoThumbnail from './VideoThumbnail';
 
@@ -57,8 +53,8 @@ export default ({
   showSliderThumbnail = false,
 }: Props) => {
   useEffect(() => { }, []);
-    const { textVariants, colors } = useTheme();
-    const getMinutesFromSeconds = (time: number) => {
+  const { textVariants, colors } = useTheme();
+  const getMinutesFromSeconds = (time: number) => {
     const minutes = time >= 60 ? Math.floor(time / 60) : 0;
     const seconds = Math.floor(time - minutes * 60);
 
@@ -75,7 +71,7 @@ export default ({
     onToggleFullScreen();
   };
 
-  // const thumbImage = require('@static/images/white-dot.png');
+  // const thumbImage = require('../../../../static/images/white-dot.png');
 
   const position = getMinutesFromSeconds(currentTime);
   const fullDuration = getMinutesFromSeconds(duration);
@@ -122,7 +118,7 @@ export default ({
           <Pressable
             onPress={onPressFullScreenBtn}
             style={{ alignItems: 'flex-end' }}>
-            <FullScreen width={30} height={30} />
+            <FullScreenSvg width={30} height={30} />
           </Pressable>
         </View>
       ) : (
@@ -144,12 +140,12 @@ export default ({
                   // thumbImage={Platform.OS === 'ios' ? thumbImage : undefined}
                   thumbStyle={{ height: 15, width: 15 }}
                   // thumbProps={{
-                    // children: showSliderThumbnail && <View style={{
+                  // children: showSliderThumbnail && <View style={{
                   //   children: <VideoThumbnail url='https://upload.wikimedia.org/wikipedia/en/a/a6/Pokémon_Pikachu_art.png' />
                   // }}
                   style={{ flex: 16, marginTop: 2 }}
                 />
-                <View style={{...styles.timeWrapperLandscape}}>
+                <View style={{ ...styles.timeWrapperLandscape }}>
                   <Text style={styles.timeLeftLandscape}>
                     {new Date(currentTime * 1000).toISOString().substring(11, 19)}
                   </Text>
@@ -165,7 +161,7 @@ export default ({
               <RectButton
                 disallowInterruption={true}
                 onPress={onLock}>
-                <LockScreenIcon width={30} height={30} style={{ color: onNextEpisode === undefined ? colors.muted : colors.text }} />
+                <LockScreenSvg width={30} height={30} style={{ color: onNextEpisode === undefined ? colors.muted : colors.text }} />
               </RectButton>
             </View>
             <View style={{ ...styles.row, gap: 20 }}>
@@ -174,7 +170,7 @@ export default ({
                 <RectButton
                   disallowInterruption={true}
                   onPress={onNextEpisode}>
-                  <NextEpisodeIcon width={30} height={30} style={{ color: onNextEpisode === undefined ? colors.muted : colors.text }} />
+                  <NextEpisodeSvg width={30} height={30} style={{ color: onNextEpisode === undefined ? colors.muted : colors.text }} />
                 </RectButton>
               }
               <RectButton
@@ -182,8 +178,8 @@ export default ({
                 onPress={onEpisodeSelection}>
                 {
                   showMoreType === 'movies'
-                    ? <MoreMoviesIcon width={30} height={30} />
-                    : <SelectEpisodesIcon width={30} height={30} />
+                    ? <MoreMoviesSvg width={30} height={30} />
+                    : <SelectEpisodesSvg width={30} height={30} />
                 }
               </RectButton>
               {
@@ -197,7 +193,7 @@ export default ({
               <RectButton
                 disallowInterruption={true}
                 onPress={onPressFullScreenBtn}>
-                <MinimizeScreen width={30} height={30} />
+                <MinimizeScreenSvg width={30} height={30} />
               </RectButton>
             </View>
           </View>

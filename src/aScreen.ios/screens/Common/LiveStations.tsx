@@ -1,33 +1,31 @@
-import React, {useState} from 'react';
-import {View, TouchableOpacity, Text, StyleSheet, FlatList} from 'react-native';
+import React, { useState } from 'react';
+import { View, TouchableOpacity, Text, StyleSheet, FlatList } from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
-import {RootStackScreenProps} from '@type/navigationTypes';
-import {useTheme} from '@react-navigation/native';
-import {useAppDispatch, useAppSelector} from '@hooks/hooks';
-import {RootState} from '@redux/store';
+import { RootStackScreenProps } from '@type';
+import { useTheme } from '@react-navigation/native';
+import { useAppDispatch, useAppSelector } from '@hooks';
+import { RootState } from '@redux';
 
 import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
-import {VodRecordType, VodReducerState} from '@redux/reducers/vodReducer';
-import {removeVodsFromHistory, playVod} from '@redux/actions/vodActions';
+import { VodRecordType, VodReducerState } from '@redux';
+import { removeVodsFromHistory, playVod } from '@redux';
 import VodHistoryCard from '../../components/vod/vodHistoryCard';
-import CheckBoxSelected from '@static/images/checkbox_selected.svg';
-import CheckBoxUnselected from '@static/images/checkbox_unselected.svg';
-import {VodType} from '@type/ajaxTypes';
-import {Button} from '@rneui/themed';
+import { VodType } from '@type';
+import { Button } from '@rneui/themed';
 import ConfirmationModal from '../../components/modal/confirmationModal';
 import VodLiveStationListVertical from '../../components/vod/vodLiveStationListVertical';
 import EmptyList from '../../components/common/emptyList';
-import {ScrollView} from 'react-native-gesture-handler';
+import { ScrollView } from 'react-native-gesture-handler';
 
 type FlatListType = {
   item: VodRecordType;
 };
-export default ({navigation, route}: RootStackScreenProps<'电视台列表'>) => {
-  const {liveStationItemList} = route.params;
-  const {colors, textVariants, icons, spacing} = useTheme();
+export default ({ navigation, route }: RootStackScreenProps<'电视台列表'>) => {
+  const { liveStationItemList } = route.params;
+  const { colors, textVariants, icons, spacing } = useTheme();
   const dispatch = useAppDispatch();
   const vodReducer: VodReducerState = useAppSelector(
-    ({vodReducer}: RootState) => vodReducer,
+    ({ vodReducer }: RootState) => vodReducer,
   );
   const history = vodReducer.history;
   const [isEditing, setIsEditing] = useState(false);
@@ -50,9 +48,9 @@ export default ({navigation, route}: RootStackScreenProps<'电视台列表'>) =>
     <ScreenContainer>
       <TitleWithBackButtonHeader
         title="电视台"
-        headerStyle={{marginBottom: spacing.m}}
+        headerStyle={{ marginBottom: spacing.m }}
       />
-      <ScrollView style={{marginBottom: spacing.xl}}>
+      <ScrollView style={{ marginBottom: spacing.xl }}>
         {liveStationItemList != undefined && liveStationItemList.length > 0 && (
           <View
             style={{

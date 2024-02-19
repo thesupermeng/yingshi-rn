@@ -1,8 +1,8 @@
 import { CEndpoint, CLangKey } from "@constants";
-import { VodPlayListType } from "@type/ajaxTypes";
-import { CApi } from "@utility/apiService";
-import { APP_NAME_CONST, UMENG_CHANNEL } from "@utility/constants";
-import { CLang } from "@utility/langService";
+import { VodPlayListType } from "@type";
+import { CApi } from "@utility";
+import { APP_NAME_CONST, UMENG_CHANNEL } from "@utility";
+import { CLang } from "@utility";
 import { Platform } from "react-native";
 import { YSConfig } from "../../ysConfig";
 

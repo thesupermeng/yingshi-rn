@@ -4,10 +4,9 @@ import LinearGradient from "react-native-linear-gradient";
 import Video from "react-native-video"
 import BackButton from "../button/backButton";
 import { RectButton } from "react-native-gesture-handler";
+import { GmailSvg, DropdownSvg } from '@static';
 import React from "react";
-import ProjectIcon from '@static/images/project.svg'
-import MinimizeScreen from '@static/images/minimizeScreen.svg';
-import FullScreen from '@static/images/fullScreen.svg';
+import { MinimizeScreenSvg, FullScreenSvg } from '@static';
 import { CPressable } from "../atoms";
 import FastImage from '../common/customFastImage';
 
@@ -115,8 +114,8 @@ export const AdVideoImage = ({
                     onPressFullScreenBtn()
                 }}>
                 {isFullScreen
-                    ? <MinimizeScreen width={30} height={30} />
-                    : <FullScreen width={30} height={30} />
+                    ? <MinimizeScreenSvg width={30} height={30} />
+                    : <FullScreenSvg width={30} height={30} />
                 }
             </CPressable>
             {/* </LinearGradient> */}

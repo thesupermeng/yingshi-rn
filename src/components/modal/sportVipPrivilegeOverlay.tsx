@@ -1,15 +1,15 @@
 import { useNavigation } from "@react-navigation/native";
 import VipPrivilegeModal from "./vipPrivilegeModal"
 import { useCallback, useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "@hooks/hooks";
-import { hideAdultVipPrivilegeMiniVideoAction, showAdultVipPrivilegeMiniVideoAction } from "@redux/actions/screenAction";
+import { useAppDispatch, useAppSelector } from "@hooks";
+import { hideAdultVipPrivilegeMiniVideoAction, showAdultVipPrivilegeMiniVideoAction } from "@redux";
 import { View } from "react-native";
-import { screenModel } from "@type/screenType";
+import { screenModel } from "@type";
 import UmengAnalytics from "../../../Umeng/UmengAnalytics";
-import { UMENG_CHANNEL } from "@utility/constants";
+import { UMENG_CHANNEL } from "@utility";
 
-const sportModels = require('@static/images/vip_sport_models.png');
-const sportBg = require('@static/images/vip_sport_background.png');
+const sportModels = require('../../../static/images/vip_sport_models.png');
+const sportBg = require('../../../static/images/vip_sport_background.png');
 
 interface Props {
   showCondition: boolean;

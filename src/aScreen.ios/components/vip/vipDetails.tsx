@@ -1,5 +1,5 @@
 import LinearGradient from "react-native-linear-gradient";
-import { RootStackScreenProps } from "@type/navigationTypes";
+import { RootStackScreenProps } from "@type";
 import ScreenContainer from "../container/screenContainer";
 import TitleWithBackButtonHeader from "../header/titleWithBackButtonHeader";
 import { useTheme } from "@react-navigation/native";
@@ -8,7 +8,7 @@ import { VipNav } from "../tabNavigate/vipNav";
 import { useEffect, useState } from "react";
 import { VipHistoryList } from "./vipHistoryList";
 import { VipInviteHistory } from "./vipInviteHistory";
-import { SHOW_ZF_CONST } from "@utility/constants";
+import { SHOW_ZF_CONST } from "@utility";
 import { YSConfig } from "../../../../ysConfig";
 
 export const VipDetails = ({
@@ -20,7 +20,7 @@ export const VipDetails = ({
 
   let navOptions = [
     { id: 0, name: "邀请记录" },
-    { id: 1, name:  YSConfig.instance.showBecomeVip ? "VIP记录" : "购买记录" },
+    { id: 1, name: YSConfig.instance.showBecomeVip ? "VIP记录" : "购买记录" },
   ];
   if (SHOW_ZF_CONST == false) {
     navOptions = [{ id: 0, name: "邀请记录" }];

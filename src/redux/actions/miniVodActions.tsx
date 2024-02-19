@@ -1,6 +1,6 @@
 import {
     SELECT_MINI_VOD_COLLECTION_ITEM, SET_FROM_MINI_VOD_COLLECTION_ITEM
-} from "@utility/constants";
+} from "@utility";
 
 export const selectMiniVodCollection = (index: number = 0) => {
     return {

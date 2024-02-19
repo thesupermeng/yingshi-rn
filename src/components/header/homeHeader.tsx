@@ -7,15 +7,16 @@ import {
   ViewStyle,
   Text,
 } from "react-native";
-import Logo from "@static/images/logo.svg";
-import VipEntry from "@static/images/splash/VipEntry.svg";
-import History from "@static/images/history.svg";
+import { LogoSvg, HistorySvg, } from "@static";
+import {
+  VipEntrySvg,
+} from "@static";
 import { useTheme } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
-import { SuggestVodListType } from "@type/ajaxTypes";
+import { SuggestVodListType } from "@type";
 import { useMemo } from "react";
 import { VodApi } from "@api";
-import { UMENG_CHANNEL } from "@utility/constants";
+import { UMENG_CHANNEL } from "@utility";
 
 interface Props {
   logo?: React.ReactNode;
@@ -40,7 +41,7 @@ function MainHeader({ logo, navigator, headerStyle }: Props) {
 
   return (
     <View style={{ ...styles.container, ...headerStyle }}>
-      {logo ? logo : <Logo height={36} />}
+      {logo ? logo : <LogoSvg height={36} />}
       <SearchBar
         onPress={() =>
           navigator.navigate("搜索", { initial: randomVod?.vod_name })
@@ -57,7 +58,7 @@ function MainHeader({ logo, navigator, headerStyle }: Props) {
           // }
         }}
       >
-        {<VipEntry height={36} />}
+        {<VipEntrySvg height={36} />}
       </TouchableOpacity>
     </View>
   );

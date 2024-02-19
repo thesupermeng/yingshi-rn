@@ -1,5 +1,5 @@
 import { StyleSheet, TouchableOpacity, ViewStyle, Platform } from "react-native";
-import BackIcon from "@static/images/back_arrow.svg";
+import { BackArrowSvg } from "@static";
 import { useTheme } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
 interface Props {
@@ -20,13 +20,13 @@ export default function BackButton({
     <TouchableOpacity
       onPress={onPress ? onPress : () => navigation.goBack()}
       style={{ ...styles.btn, ...btnStyle }}
-      hitSlop={{top: 20, bottom: 20, left: 20, right: 20}}
+      hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
     >
-      <BackIcon
+      <BackArrowSvg
         style={{
           color: colors.text,
         }}
-      ></BackIcon>
+      ></BackArrowSvg>
     </TouchableOpacity>
   );
 }
@@ -34,5 +34,5 @@ export default function BackButton({
 const styles = StyleSheet.create({
   btn: {
     // paddingTop: (Platform.OS === 'android') ? 10 : 0,
-      },
+  },
 });

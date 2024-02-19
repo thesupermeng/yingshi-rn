@@ -7,16 +7,16 @@ import {
 import ScreenContainer from '../components/container/screenContainer';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { StyleSheet } from 'react-native';
-import { MiniVideo } from '@type/ajaxTypes';
+import { MiniVideo } from '@type';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
-import { API_DOMAIN } from '@utility/constants';
+import { API_DOMAIN } from '@utility';
 import MiniVideoList from '../components/videoPlayer/miniVodList';
 import { useFocusEffect, useIsFocused } from '@react-navigation/native';
 import NoConnection from './../components/common/noConnection';
 import NetInfo from '@react-native-community/netinfo';
-import { SettingsReducerState } from '@redux/reducers/settingsReducer';
-import { useAppSelector } from '@hooks/hooks';
-import { RootState } from '@redux/store';
+import { SettingsReducerState } from '@redux';
+import { useAppSelector } from '@hooks';
+import { RootState } from '@redux';
 import UmengAnalytics from '../../../Umeng/UmengAnalytics';
 import { MiniVodApi } from '@api';
 

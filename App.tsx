@@ -1,7 +1,7 @@
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
-import { persistor, store } from "@redux/store";
+import { persistor, store } from "@redux";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { CheckVersionRequest, MiniVideo } from "@type/ajaxTypes";
+import { CheckVersionRequest, MiniVideo } from "@type";
 import {
   ANDROID_HOME_PAGE_BANNER_ADS,
   API_DOMAIN,
@@ -15,7 +15,7 @@ import {
   TOPON_IOS_APP_ID,
   TOPON_IOS_APP_KEY,
   UMENG_CHANNEL,
-} from "@utility/constants";
+} from "@utility";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Platform, View } from "react-native";
@@ -41,7 +41,7 @@ import {
 import NetInfo from "@react-native-community/netinfo";
 import { AppsApi, PlaylistApi, VodApi } from "@api";
 import { CustomEventAnalytic } from "./Umeng/EventAnalytic";
-import { logIgnore, warnIgnore } from "@utility/helper";
+import { logIgnore, warnIgnore } from "@utility";
 
 const topon_channel = "WEB";
 

@@ -11,9 +11,9 @@ import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { Dimensions } from "react-native";
 import Orientation from "react-native-orientation-locker";
 import { useEffect, useState } from "react";
-import { screenModel } from "@type/screenType";
-import { RootState } from "@redux/store";
-import { useAppSelector } from "@hooks/hooks";
+import { screenModel } from "@type";
+import { RootState } from "@redux";
+import { useAppSelector } from "@hooks";
 interface Props {
   children?: React.ReactNode;
   scrollView?: boolean;
@@ -32,7 +32,7 @@ export default function ScreenContainer({
   header,
   isHome = false,
   isPlay = false,
-  isBgHide =false
+  isBgHide = false
 }: Props) {
   const windowHeight = Dimensions.get("window").height;
   let bottomTabHeight = 0;
@@ -67,7 +67,7 @@ export default function ScreenContainer({
           stickyHeaderIndices={[0]}
           contentContainerStyle={{ paddingBottom: 30 }}
         >
-          <StatusBar backgroundColor={isBgHide ? 'inherit' : 'black'}  barStyle="light-content" />
+          <StatusBar backgroundColor={isBgHide ? 'inherit' : 'black'} barStyle="light-content" />
           {header}
           <View
             style={{
@@ -94,7 +94,7 @@ export default function ScreenContainer({
             // height: displayHeight,
           }}
         >
-          <StatusBar backgroundColor={isBgHide ? 'inherit' : 'black' } barStyle="light-content" />
+          <StatusBar backgroundColor={isBgHide ? 'inherit' : 'black'} barStyle="light-content" />
           <View
             style={{
               ...styles.innerContainer,

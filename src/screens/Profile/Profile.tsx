@@ -10,27 +10,29 @@ import {
   Platform,
 } from "react-native";
 import { useTheme, useFocusEffect } from "@react-navigation/native";
-import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
-import { RootState } from "@redux/store";
+import { useAppDispatch, useAppSelector, useSelector } from "@hooks";
+import { RootState } from "@redux";
 import ShowMoreButton from "../../components/button/showMoreButton";
 
-import CollectionIcon from "@static/images/collection.svg";
-import HistoryIcon from "@static/images/history.svg";
-import FeedbackIcon from "@static/images/feedback.svg";
-import SettingsIcon from "@static/images/settings.svg";
-import InfoIcon from "@static/images/info.svg";
-import DownloadIcon from "@static/images/download.svg";
+import {
+  CollectionSvg,
+  HistorySvg,
+  FeedbackSvg,
+  SettingsSvg,
+  InfoSvg,
+  DownloadSvg,
+  ProfileSvg,
+  MoreArrowSvg,
+  VipIconSvg,
+  VipArrowSvg,
+} from "@static";
+
 import { useNavigation } from "@react-navigation/native";
 
 import Orientation from "react-native-orientation-locker";
-import ProfileIcon from "@static/images/profile.svg";
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
-import MoreArrow from "@static/images/more_arrow.svg";
-import EditIcn from "@static/images/profile/edit.svg";
 
-import VipIcon from "@static/images/vip-icon.svg";
-import VipArrow from "@static/images/vip-arrow.svg";
-import AddIcon from "@static/images/vip/add.svg";
+import { AddSvg, EditSvg, } from "@static";
 import { YSConfig } from "../../../ysConfig";
 
 import {
@@ -38,18 +40,18 @@ import {
   removeScreenAction,
   setShowGuestPurchaseSuccess,
   showLoginAction,
-} from "@redux/actions/screenAction";
+} from "@redux";
 import NotificationModal from "../../components/modal/notificationModal";
-import { updateUserAuth, updateUserReferral } from "@redux/actions/userAction";
+import { updateUserAuth, updateUserReferral } from "@redux";
 import ExpiredOverlay from "../../components/modal/expiredOverlay";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { DOWNLOAD_FEATURE_ENABLED, SHOW_ZF_CONST, UMENG_CHANNEL } from "@utility/constants";
+import { DOWNLOAD_FEATURE_ENABLED, SHOW_ZF_CONST, UMENG_CHANNEL } from "@utility";
 import FastImage from "../../components/common/customFastImage";
 import { UserApi } from "@api";
 import { AppConfig } from "../../Sports/global/appConfig";
 import { BannerContainer } from "../../components/container/bannerContainer";
-import { BannerAdType } from "@type/ajaxTypes";
-import { CApi } from "@utility/apiService";
+import { BannerAdType } from "@type";
+import { CApi } from "@utility";
 import { CEndpoint } from "../../constants/api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AdsApi } from "../../api/ads";
@@ -57,9 +59,9 @@ import UmengAnalytics from "../../../Umeng/UmengAnalytics";
 import DeviceInfo from "react-native-device-info";
 import style from "../../Sports/components/matchDetails/liveChatPage/style";
 import { VipLoginAlertOverlay } from "../../components/modal/vipLoginAlertOverlay";
-import { BackgroundType } from "@redux/reducers/backgroundReducer";
-import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models/user";
+import { BackgroundType } from "@redux";
+import { UserStateType } from "@redux";
+import { User } from "@models";
 
 function Profile({ navigation, route }: BottomTabScreenProps<any>) {
   const navigator = useNavigation();
@@ -293,7 +295,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
             >
               <View style={{ flexDirection: "row" }}>
                 {!User.isLogin(userState.user) || Platform.OS === "android" ? (
-                  <ProfileIcon
+                  <ProfileSvg
                     style={{ color: colors.button, width: 18, height: 18 }}
                   />
                 ) : (
@@ -304,7 +306,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                       marginVertical: 2,
                     }}
                     resizeMode={"contain"}
-                    source={require("@static/images/profilePic.png")}
+                    source={require("../../../static/images/profilePic.png")}
                   />
                 )}
                 <View
@@ -322,7 +324,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                         游客ID:
                       </Text>
                       <Text style={{ color: "#ffffff", fontSize: 20 }}>
-                      {deviceUniqueId.slice(0, 16)} 
+                        {deviceUniqueId.slice(0, 16)}
                       </Text>
                     </>
                   )}
@@ -351,7 +353,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                         {User.isVip(userState.user) && (
                           <Image
                             style={styles.iconStyle}
-                            source={require("@static/images/profile/vip.png")}
+                            source={require("../../../static/images/profile/vip.png")}
                           />
                         )}
                       </View>
@@ -375,7 +377,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                   }}
                 >
                   {User.isLogin(userState.user) && (
-                    <EditIcn width={29} height={29} color={colors.muted} />
+                    <EditSvg width={29} height={29} color={colors.muted} />
                   )}
                 </View>
               </View>
@@ -478,7 +480,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                 >
                   <View style={styles.left}>
                     <View style={styles.icon}>
-                      <VipIcon width={icons.sizes.l} height={icons.sizes.l} />
+                      <VipIconSvg width={icons.sizes.l} height={icons.sizes.l} />
                     </View>
                     <View style={{ gap: 5 }}>
                       <Text
@@ -533,7 +535,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                 >
                   <View style={styles.left}>
                     <View style={styles.icon}>
-                      <AddIcon width={icons.sizes.l} height={icons.sizes.l} />
+                      <AddSvg width={icons.sizes.l} height={icons.sizes.l} />
                     </View>
                     <View style={{ gap: 5 }}>
                       <Text
@@ -569,7 +571,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
               >
                 <View style={styles.left}>
                   <View style={styles.icon}>
-                    <VipIcon width={icons.sizes.l} height={icons.sizes.l} />
+                    <VipIconSvg width={icons.sizes.l} height={icons.sizes.l} />
                   </View>
 
                   <Text
@@ -581,7 +583,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                   </Text>
                 </View>
 
-                <VipArrow
+                <VipArrowSvg
                   width={icons.sizes.l}
                   height={icons.sizes.l}
                   color={colors.muted}
@@ -622,12 +624,12 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
             )} */}
             {DOWNLOAD_FEATURE_ENABLED && <ShowMoreButton
               text="我的下载"
-              leftIcon={<DownloadIcon style={{ color: colors.button }} />}
+              leftIcon={<DownloadSvg style={{ color: colors.button }} />}
               onPress={() => navigation.navigate("我的下载")}
             />}
             <ShowMoreButton
               text="我的收藏"
-              leftIcon={<CollectionIcon style={{ color: colors.button }} />}
+              leftIcon={<CollectionSvg style={{ color: colors.button }} />}
               onPress={() => navigation.navigate("我的收藏")}
             />
             {/* <ShowMoreButton
@@ -637,22 +639,22 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
             /> */}
             <ShowMoreButton
               text="播放历史"
-              leftIcon={<HistoryIcon style={{ color: colors.button }} />}
+              leftIcon={<HistorySvg style={{ color: colors.button }} />}
               onPress={() => navigation.navigate("播放历史")}
             />
             <ShowMoreButton
               text="我要反馈"
-              leftIcon={<FeedbackIcon style={{ color: colors.button }} />}
+              leftIcon={<FeedbackSvg style={{ color: colors.button }} />}
               onPress={() => navigation.navigate("反馈")}
             />
             <ShowMoreButton
               text="设置"
-              leftIcon={<SettingsIcon style={{ color: colors.button }} />}
+              leftIcon={<SettingsSvg style={{ color: colors.button }} />}
               onPress={() => navigation.navigate("设置")}
             />
             <ShowMoreButton
               text="关于我们"
-              leftIcon={<InfoIcon style={{ color: colors.button }} />}
+              leftIcon={<InfoSvg style={{ color: colors.button }} />}
               onPress={() => navigation.navigate("关于我们")}
             />
             {/* <TouchableOpacity

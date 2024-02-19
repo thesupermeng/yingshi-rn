@@ -1,5 +1,5 @@
 import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
-import MoreArrow from '@static/images/more_arrow.svg';
+import { MoreArrowSvg } from '@static';
 import { useTheme } from '@react-navigation/native';
 interface Props {
     onPress?: any,
@@ -29,7 +29,7 @@ export default function ShowMoreButton({ text, onPress, leftIcon, textColor = ''
             {
                 rightIcon
                     ? rightIcon
-                    : <MoreArrow width={icons.sizes.l} height={icons.sizes.l} color={colors.muted} />
+                    : <MoreArrowSvg width={icons.sizes.l} height={icons.sizes.l} color={colors.muted} />
             }
         </TouchableOpacity>
     );

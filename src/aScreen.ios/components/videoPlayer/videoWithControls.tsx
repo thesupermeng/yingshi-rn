@@ -2,7 +2,7 @@ import { MutableRefObject, memo } from "react"
 import { StyleSheet } from "react-native";
 import Video from "react-native-video";
 import VideoControlsOverlay from "./VideoControlsOverlay";
-import { LiveTVStationItem, VodEpisodeListType, VodType } from "@type/ajaxTypes";
+import { LiveTVStationItem, VodEpisodeListType, VodType } from "@type";
 
 
 interface Props {

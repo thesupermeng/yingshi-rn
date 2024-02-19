@@ -1,11 +1,11 @@
 import React from 'react';
-import {useNavigation, useTheme} from '@react-navigation/native';
-import {StyleSheet, View, TouchableOpacity, Text} from 'react-native';
-import {SuggestedVodType} from '@type/ajaxTypes';
-import {useAppDispatch} from '@hooks/hooks';
-import {playVod} from '@redux/actions/vodActions';
+import { useNavigation, useTheme } from '@react-navigation/native';
+import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
+import { SuggestedVodType } from '@type';
+import { useAppDispatch } from '@hooks';
+import { playVod } from '@redux';
 import EmptyList from '../common/emptyList';
-import {addSearchHistory} from '@redux/actions/searchActions';
+import { addSearchHistory } from '@redux';
 
 interface Props {
   searchResultList: Array<SuggestedVodType>;
@@ -18,7 +18,7 @@ export default function SearchResultList({
   onItemSelect,
   keyword,
 }: Props) {
-  const {spacing, textVariants, colors} = useTheme();
+  const { spacing, textVariants, colors } = useTheme();
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const escapeRegExp = (string: string) => {
@@ -36,7 +36,7 @@ export default function SearchResultList({
     return parts.map((part, index) =>
       // Check if the current part is a match (ignoring case)
       new RegExp(escapedKeyword, 'i').test(part) ? (
-        <Text key={index} style={{...textVariants.body, color: colors.primary}}>
+        <Text key={index} style={{ ...textVariants.body, color: colors.primary }}>
           {part}
         </Text>
       ) : (
@@ -52,15 +52,15 @@ export default function SearchResultList({
       {searchResultList.map((item, index) => (
         <TouchableOpacity
           key={`result-${index}`}
-          style={{...styles.suggestion, marginBottom: spacing.l}}
+          style={{ ...styles.suggestion, marginBottom: spacing.l }}
           onPress={() => {
             dispatch(addSearchHistory(item.vod_name));
             if (onItemSelect) {
               onItemSelect(item.vod_name);
             }
           }}>
-          <Text style={{...textVariants.body, width: '100%'} } numberOfLines={1} ellipsizeMode="tail">
-              {highlightText(item.vod_name, keyword)}
+          <Text style={{ ...textVariants.body, width: '100%' }} numberOfLines={1} ellipsizeMode="tail">
+            {highlightText(item.vod_name, keyword)}
           </Text>
         </TouchableOpacity>
       ))}

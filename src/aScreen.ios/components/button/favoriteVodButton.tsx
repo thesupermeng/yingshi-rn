@@ -5,15 +5,15 @@ import {
   View,
   TextStyle,
 } from 'react-native';
-import FavoriteIcon from '@static/images/favorite.svg';
+import { FavoriteSvg } from '@static';
 import { useTheme } from '@react-navigation/native';
-import { useAppDispatch } from '@hooks/hooks';
-import { RootState } from '@redux/store';
+import { useAppDispatch } from '@hooks';
+import { RootState } from '@redux';
 import {
   addVodToFavorites,
   removeVodFromFavorites,
-} from '@redux/actions/vodActions';
-import { VodType } from '@type/ajaxTypes';
+} from '@redux';
+import { VodType } from '@type';
 interface Props {
   vod: VodType;
   onPress?: any;
@@ -57,7 +57,7 @@ export default function FavoriteVodButton({
         {leftIcon ? (
           leftIcon
         ) : (
-          <FavoriteIcon
+          <FavoriteSvg
             width={icons.sizes.m}
             height={icons.sizes.m}
             color={colors.primary}

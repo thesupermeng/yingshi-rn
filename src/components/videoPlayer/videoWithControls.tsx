@@ -2,7 +2,7 @@ import { MutableRefObject, memo } from "react"
 import { Platform, StyleSheet, View } from "react-native";
 import Video from "react-native-video";
 import VideoControlsOverlay from "./VideoControlsOverlay";
-import { LiveTVStationItem, VodEpisodeListType, VodType } from "@type/ajaxTypes";
+import { LiveTVStationItem, VodEpisodeListType, VodType } from "@type";
 import AdultModeCountdownIndicator from "../adultVideo/adultModeCountdownIndicator";
 import { useRoute } from "@react-navigation/native";
 
@@ -113,7 +113,7 @@ const VideoWithControls = ({
      * 
      */
 
-    const conditionalProp = Platform.OS === 'android' && route.name === '体育详情' ? {} : {ref: ref => (videoPlayerRef.current = ref)}
+    const conditionalProp = Platform.OS === 'android' && route.name === '体育详情' ? {} : { ref: ref => (videoPlayerRef.current = ref) }
 
     return (
         <View

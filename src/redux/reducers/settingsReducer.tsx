@@ -1,6 +1,6 @@
-import { HIDE_VOD_PLAYER_GUIDE, ACCEPT_PRIVACY_POLICY, HANDLE_APP_ORIENTATION, HANDLE_DEVICES_ORIENTATION, LOCK_ORIENTATION, UPDATE_NETWORK_INFO } from "@utility/constants"
-import { SearchHistoryActionType, SettingsActionType } from "@type/actionTypes"
-import { VodTopicType, VodType } from "@type/ajaxTypes"
+import { HIDE_VOD_PLAYER_GUIDE, ACCEPT_PRIVACY_POLICY, HANDLE_APP_ORIENTATION, HANDLE_DEVICES_ORIENTATION, LOCK_ORIENTATION, UPDATE_NETWORK_INFO } from "@utility"
+import { SearchHistoryActionType, SettingsActionType } from "@type"
+import { VodTopicType, VodType } from "@type"
 import Orientation, { OrientationType } from "react-native-orientation-locker";
 
 export interface SettingsReducerState {
@@ -82,7 +82,7 @@ export function settingsReducer(state = initialState, action: SettingsActionType
                 ...state,
                 isOffline: !(action.payload?.isConnected && ((action.payload?.isInternetReachable === true || action.payload?.isInternetReachable === null) ? true : false)),
             }
-            
+
         default:
             return state
     }

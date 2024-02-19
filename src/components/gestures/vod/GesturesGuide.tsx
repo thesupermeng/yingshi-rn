@@ -5,11 +5,10 @@ import SystemSetting from 'react-native-system-setting';
 import { BlurView } from '../../blurView';
 import { RectButton } from 'react-native-gesture-handler';
 import { useTheme } from '@react-navigation/native';
-import BrightnessGestureIcon from '@static/images/brightnessGuide.svg';
-import VolumeGestureIcon from '@static/images/volumeGuide.svg';
-import ProgressGestureIcon from '@static/images/progressGuide.svg';
-import { useAppDispatch } from '@hooks/hooks';
-import { hideVodGestureGuide } from '@redux/actions/settingsActions';
+import { BrightnessGuideSvg, VolumeGuideSvg, ProgressGuideSvg } from '@static';
+
+import { useAppDispatch } from '@hooks';
+import { hideVodGestureGuide } from '@redux';
 
 export default () => {
   const { colors, textVariants } = useTheme();
@@ -25,16 +24,16 @@ export default () => {
       />
       <View style={styles.instructions}>
         <View style={{ alignItems: 'flex-start' }}>
-          <BrightnessGestureIcon />
+          <BrightnessGuideSvg />
         </View>
         <View style={{ alignItems: 'center', paddingVertical: 10, gap: 75 }}>
           <Text style={{ ...textVariants.header, fontWeight: '800' }}>
             播放界面操作导航
           </Text>
-          <ProgressGestureIcon />
+          <ProgressGuideSvg />
         </View>
         <View style={{ alignItems: 'flex-end' }}>
-          <VolumeGestureIcon />
+          <VolumeGuideSvg />
         </View>
       </View>
       <View>

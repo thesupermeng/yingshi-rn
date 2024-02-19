@@ -1,15 +1,15 @@
 import React from 'react';
-import {View, TouchableOpacity, Text, StyleSheet, FlatList} from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, FlatList } from 'react-native';
 import ScreenContainer from '../../../components/container/screenContainer';
-import {useNavigation, useTheme} from '@react-navigation/native';
-import {useAppDispatch, useAppSelector} from '@hooks/hooks';
-import {RootState} from '@redux/store';
+import { useNavigation, useTheme } from '@react-navigation/native';
+import { useAppDispatch, useAppSelector } from '@hooks';
+import { RootState } from '@redux';
 
 import TitleWithBackButtonHeader from '../../../components/header/titleWithBackButtonHeader';
 import CollectionHeader from '../../../components/header/myCollectionHeader';
 import FavoritePlaylist from '../../../components/playlist/favoritePlaylist';
-import {VodTopicType} from '@type/ajaxTypes';
-import {RootStackScreenProps} from '@type/navigationTypes';
+import { VodTopicType } from '@type';
+import { RootStackScreenProps } from '@type';
 import EmptyList from '../../../components/common/emptyList';
 
 type FlatListType = {
@@ -18,10 +18,10 @@ type FlatListType = {
 
 export default () => {
   const navigation = useNavigation();
-  const {colors, textVariants, icons, spacing} = useTheme();
+  const { colors, textVariants, icons, spacing } = useTheme();
   const dispatch = useAppDispatch();
   const vodPlaylistReducer = useAppSelector(
-    ({vodPlaylistReducer}: RootState) => vodPlaylistReducer,
+    ({ vodPlaylistReducer }: RootState) => vodPlaylistReducer,
   );
   const favorites = vodPlaylistReducer.playlistFavorites;
   return (
@@ -31,7 +31,7 @@ export default () => {
       {favorites && favorites.length > 0 && (
         <FlatList
           data={favorites}
-          contentContainerStyle={{paddingBottom: 30}}
+          contentContainerStyle={{ paddingBottom: 30 }}
           ListFooterComponent={
             <Text
               style={{
@@ -42,7 +42,7 @@ export default () => {
               没有更多了
             </Text>
           }
-          renderItem={({item}: FlatListType) => (
+          renderItem={({ item }: FlatListType) => (
             <FavoritePlaylist playlist={item} navigator={navigation} />
           )}
         />

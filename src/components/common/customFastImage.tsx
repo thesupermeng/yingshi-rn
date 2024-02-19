@@ -3,18 +3,18 @@ import { Image, ImageURISource, LogBox, StyleSheet, View } from "react-native";
 import { Platform } from "react-native";
 import { ImageProps, ViewProps } from "react-native"
 import FastImage, { FastImageProps } from "react-native-fast-image";
-import LoadingImage from '@static/images/loading_img.svg';
+import { LoadingImgSvg } from '@static';
 import { useTheme } from "@react-navigation/native";
 
 
-type MyImageProp = ImageProps & {source: ImageURISource}
+type MyImageProp = ImageProps & { source: ImageURISource }
 
-type Prop = FastImageProps & {useFastImage?: boolean, alternativeImg?: string[]}
+type Prop = FastImageProps & { useFastImage?: boolean, alternativeImg?: string[] }
 
 LogBox.ignoreLogs([`ReactImageView: Image source "null" doesn't exist`])
 
-const customFastImage = ({useFastImage = false, alternativeImg, ...imageProp}: Prop) => {
-  const [imgUrl, setImgUrl] = useState(typeof imageProp.source == 'number' ? undefined :  imageProp.source?.uri)
+const customFastImage = ({ useFastImage = false, alternativeImg, ...imageProp }: Prop) => {
+  const [imgUrl, setImgUrl] = useState(typeof imageProp.source == 'number' ? undefined : imageProp.source?.uri)
   const initialList = useRef(alternativeImg?.filter(x => x !== ''))
   const [error, setError] = useState(false)
   const [current, setCurrent] = useState(0)
@@ -28,7 +28,7 @@ const customFastImage = ({useFastImage = false, alternativeImg, ...imageProp}: P
       return imageProp.source?.uri
     }
     setCurrent(x => {
-      if (alternativeImg && x < alternativeImg?.length){
+      if (alternativeImg && x < alternativeImg?.length) {
         return x + 1
       }
       return x
@@ -43,23 +43,23 @@ const customFastImage = ({useFastImage = false, alternativeImg, ...imageProp}: P
 
   if (error) { // when all url error, use the default placeholder image
     return (
-      <View style={[{ backgroundColor: colors.loading, ...styles.loadingCard}, imageProp.style]}>
-          <LoadingImage />
+      <View style={[{ backgroundColor: colors.loading, ...styles.loadingCard }, imageProp.style]}>
+        <LoadingImgSvg />
       </View>
     )
   }
 
-  if (useFastImage === true || Platform.OS === "android"){
-    if (typeof imageProp.source == 'number'){ // if source={require(...)}
-    return <FastImage {...imageProp as FastImageProps}/>
+  if (useFastImage === true || Platform.OS === "android") {
+    if (typeof imageProp.source == 'number') { // if source={require(...)}
+      return <FastImage {...imageProp as FastImageProps} />
     } else {
-      return <FastImage key={current.toString() + imgUrl} {...imageProp as FastImageProps} source={{uri: imgUrl}} onError={handleOnError}/>
+      return <FastImage key={current.toString() + imgUrl} {...imageProp as FastImageProps} source={{ uri: imgUrl }} onError={handleOnError} />
     }
   } else {
-    if (typeof imageProp.source == 'number'){ // if source={require(...)}
-      return <Image {...imageProp as MyImageProp}/>
+    if (typeof imageProp.source == 'number') { // if source={require(...)}
+      return <Image {...imageProp as MyImageProp} />
     } else { // if source={{uri:...}}
-      return <Image key={current.toString() + imgUrl} {...imageProp as MyImageProp} source={{...(imageProp.source as ImageURISource), uri: imgUrl}} onError={handleOnError}/>
+      return <Image key={current.toString() + imgUrl} {...imageProp as MyImageProp} source={{ ...(imageProp.source as ImageURISource), uri: imgUrl }} onError={handleOnError} />
     }
   }
 }
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 10,
-},
+  },
 })
 
 export default customFastImage;

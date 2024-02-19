@@ -4,14 +4,14 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import FastImage from "../components/common/customFastImage";
 import Nav from "../../src/navigation/nav";
 import { EventSpash } from "../../src/navigation/eventSplash";
-import NavIos from "@iosScreen/navigation/nav";
+import NavIos from "../aScreen.ios/navigation/nav";
 
 import {
   TOTAL_VIDEO_TO_DOWNLOAD,
   DOWNLOAD_WATCH_ANYTIME,
   GOOGLE_SINGIN_CLIENT_WEB,
   GOOGLE_SINGIN_CLIENT_IOS,
-} from "@utility/constants";
+} from "@utility";
 import { YSConfig } from "../../ysConfig";
 import { Platform } from "react-native";
 import Api from "../../src/Sports/middleware/api";
@@ -24,18 +24,18 @@ import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { downloadFirstNVid } from "../utils/minivodDownloader";
 import { fetchMiniVods } from "../api/miniVod";
 import { AppsApi, SplashApi, UserApi } from "@api";
-import { hideLoginAction } from "@redux/actions/screenAction";
+import { hideLoginAction } from "@redux";
 import { useDispatch } from "react-redux";
 import NetInfo from "@react-native-community/netinfo";
-import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
-import { RootState } from "@redux/store";
-import { screenModel } from "@type/screenType";
+import { useAppDispatch, useAppSelector, useSelector } from "@hooks";
+import { RootState } from "@redux";
+import { screenModel } from "@type";
 import { withIAPContext } from "react-native-iap";
 import DeviceInfo from "react-native-device-info";
-import { addUserAuthState } from "@redux/actions/userAction";
-import { onBootApp, onCloseApp } from "@redux/actions/backgroundAction";
-import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models/user";
+import { addUserAuthState } from "@redux";
+import { onBootApp, onCloseApp } from "@redux";
+import { UserStateType } from "@redux";
+import { User } from "@models";
 
 export default () => {
   const appDispatch = useAppDispatch();
@@ -194,7 +194,7 @@ export default () => {
               }}
             >
               <FastImage
-                source={require("@static/images/home-loading.gif")}
+                source={require("../../static/images/home-loading.gif")}
                 style={{
                   width: 150,
                   height: 150,

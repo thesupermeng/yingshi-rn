@@ -1,10 +1,10 @@
-import React, {Suspense, useCallback, useEffect, useState} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import React, { Suspense, useCallback, useEffect, useState } from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
 import VipModal from './vipModal';
-import {useNavigation, useTheme} from '@react-navigation/native';
+import { useNavigation, useTheme } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useAppDispatch} from '@hooks/hooks';
-import {showLoginAction} from '@redux/actions/screenAction';
+import { useAppDispatch } from '@hooks';
+import { showLoginAction } from '@redux';
 
 interface Props {
   remainingDay: number;
@@ -15,7 +15,7 @@ interface Props {
 export default function ExpiredOverlay({
   remainingDay = 0,
   showVIPOverlay = false,
-  setShowVIPOverlay = () => {},
+  setShowVIPOverlay = () => { },
 }: Props) {
   const navigator = useNavigation();
   const hideVipPrompt = useCallback(async () => {
@@ -28,7 +28,7 @@ export default function ExpiredOverlay({
   //   setShowVIPOverlay(true);
   // }, []);
 
-  const {colors, textVariants, spacing, icons} = useTheme();
+  const { colors, textVariants, spacing, icons } = useTheme();
 
   return (
     <>
@@ -51,7 +51,7 @@ export default function ExpiredOverlay({
                 paddingBottom: 26,
                 paddingHorizontal: 28,
               }}>
-              <View style={{alignItems: 'center', justifyContent: 'center'}}>
+              <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                 <Text
                   style={{
                     fontSize: 20,
@@ -80,7 +80,7 @@ export default function ExpiredOverlay({
                   }}>
                   即可获得额外天数的VIP服务时长
                 </Text>
-                <View style={{paddingTop: 22, alignItems: 'center'}}>
+                <View style={{ paddingTop: 22, alignItems: 'center' }}>
                   <TouchableOpacity
                     onPress={() => {
                       hideVipPrompt();
@@ -103,8 +103,8 @@ export default function ExpiredOverlay({
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => hideVipPrompt()}
-                    style={{paddingTop: 16}}>
-                    <Text style={{color: '#9C9C9C', fontSize: 16}}>取消</Text>
+                    style={{ paddingTop: 16 }}>
+                    <Text style={{ color: '#9C9C9C', fontSize: 16 }}>取消</Text>
                   </TouchableOpacity>
                 </View>
               </View>

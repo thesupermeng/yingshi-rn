@@ -1,7 +1,7 @@
 import vars from './vars';
 import Api from '../middleware/api';
-import {Url} from '../middleware/url';
-import {Alert, Linking, Platform} from 'react-native';
+import { Url } from '../middleware/url';
+import { Alert, Linking, Platform } from 'react-native';
 import ReactNativeBlobUtil from 'react-native-blob-util';
 import {
   PERMISSIONS,
@@ -10,12 +10,12 @@ import {
   openSettings,
 } from 'react-native-permissions';
 import RNFS from 'react-native-fs';
-import AppSettingsAction from '@redux/actions/appSettingsAction';
+import AppSettingsAction from '@redux';
 import Config from '../global/env';
-import {AppConfig} from '../global/appConfig';
-import {getPredictionShareTimeStamp} from '../global/asyncStorage';
-import {createIconSetFromFontello} from 'react-native-vector-icons';
-import {showToast} from './toast';
+import { AppConfig } from '../global/appConfig';
+import { getPredictionShareTimeStamp } from '../global/asyncStorage';
+import { createIconSetFromFontello } from 'react-native-vector-icons';
+import { showToast } from './toast';
 
 /**
  ** Format and return date in Humanize format
@@ -26,7 +26,7 @@ import {showToast} from './toast';
  */
 export const formatDate = (
   value,
-  formatting = {hour: 'numeric', minute: 'numeric', hour12: false},
+  formatting = { hour: 'numeric', minute: 'numeric', hour12: false },
 ) => {
   if (!value) return value;
   return new Intl.DateTimeFormat('zh', formatting).format(new Date(value));
@@ -339,7 +339,7 @@ export const deepCopyArray = array => {
 };
 
 export const liveRoomName = async matchId => {
-  const params = {id: matchId};
+  const params = { id: matchId };
   const res = await Api.call(Url.liveRoomDetail, params, 'GET');
   if (res.success) {
     if (res.data.id === 0) {
@@ -465,7 +465,7 @@ export const adsClick = (apkUrl, landingUrl, adsId) => {
             },
           })
             .fetch('GET', apkUrl)
-            .progress((received, total) => {})
+            .progress((received, total) => { })
             .then(res => {
               AppSettingsAction.instance.sendAdsClick(adsId);
               android.actionViewIntent(
@@ -524,7 +524,7 @@ export const linkClick = link => {
 };
 
 export const createShareLink = async (path, id) => {
-  const params = {path: path, params: {channel_id: Config.channelId}};
+  const params = { path: path, params: { channel_id: Config.channelId } };
   switch (path) {
     case 'news':
       params.params.news_id = id;
@@ -565,10 +565,10 @@ export const mergeDeep = (target, ...sources) => {
   if (isObject(target) && isObject(source)) {
     for (const key in source) {
       if (isObject(source[key])) {
-        if (!target[key]) Object.assign(target, {[key]: {}});
+        if (!target[key]) Object.assign(target, { [key]: {} });
         mergeDeep(target[key], source[key]);
       } else {
-        Object.assign(target, {[key]: source[key]});
+        Object.assign(target, { [key]: source[key] });
       }
     }
   }
@@ -616,7 +616,7 @@ export const convertSeasonList = list => {
         }
         return item;
       });
-      return {id: e?.id, year: formatList.join('-')};
+      return { id: e?.id, year: formatList.join('-') };
     }
     return e;
   });
@@ -634,7 +634,6 @@ export const getRandomColor = () => {
 export const getRandomDeepColor = () => {
   const min = 20;
   const balance = 170;
-  return `rgb(${Math.floor(Math.random() * balance) + min},${
-    Math.floor(Math.random() * balance) + min
-  },${Math.floor(Math.random() * balance) + min})`;
+  return `rgb(${Math.floor(Math.random() * balance) + min},${Math.floor(Math.random() * balance) + min
+    },${Math.floor(Math.random() * balance) + min})`;
 };

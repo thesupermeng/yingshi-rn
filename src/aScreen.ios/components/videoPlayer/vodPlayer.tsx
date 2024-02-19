@@ -24,23 +24,22 @@ import { Dimensions } from "react-native";
 import VideoControlsOverlay from "./VideoControlsOverlay";
 import WebView from "react-native-webview";
 import FastImage from "react-native-fast-image";
-import FastForwardProgressIcon from "@static/images/fastforwardProgress.svg";
-import RewindProgressIcon from "@static/images/rewindProgress.svg";
+import { FastforwardProgressSvg, RewindProgressSvg } from "@static";
 
-import { incrementSportWatchTime, setFullscreenState } from "@redux/actions/screenAction";
+import { incrementSportWatchTime, setFullscreenState } from "@redux";
 
 import {
   LiveTVStationItem,
   VodEpisodeListType,
   VodType,
-} from "@type/ajaxTypes";
+} from "@type";
 import VideoWithControls from "./videoWithControls";
 import { useDispatch } from "react-redux";
-import { useAppSelector, useSelector } from "@hooks/hooks";
-import { screenModel } from "@type/screenType";
-import { NON_VIP_STREAM_TIME_SECONDS } from "@utility/constants";
-import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models/user";
+import { useAppSelector, useSelector } from "@hooks";
+import { screenModel } from "@type";
+import { NON_VIP_STREAM_TIME_SECONDS } from "@utility";
+import { UserStateType } from "@redux";
+import { User } from "@models";
 
 interface Props {
   vod_url?: string;
@@ -531,9 +530,9 @@ export default forwardRef<VideoRef, Props>(
                 }}
               >
                 {seekDirection === "forward" ? (
-                  <FastForwardProgressIcon height={50} width={50} />
+                  <FastforwardProgressSvg height={50} width={50} />
                 ) : (
-                  <RewindProgressIcon height={50} width={50} />
+                  <RewindProgressSvg height={50} width={50} />
                 )}
                 {duration > 3600 ? (
                   <Text
@@ -577,7 +576,7 @@ export default forwardRef<VideoRef, Props>(
               </View>
             ) : (
               <FastImage
-                source={require("@static/images/videoBufferLoading.gif")}
+                source={require("../../../../static/images/videoBufferLoading.gif")}
                 style={{ width: 100, height: 100 }}
                 resizeMode="contain"
               />

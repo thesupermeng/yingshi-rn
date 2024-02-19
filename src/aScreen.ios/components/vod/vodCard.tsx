@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity, Text, ScrollView, Image, View, ViewStyle } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import VodImageCard from './vodImageCard';
-import LoadingImage from '@static/images/loading_img.svg';
+import { LoadingImgSvg } from '@static';
 import { memo } from 'react';
 import { ImageStyle } from 'react-native-fast-image';
 interface Props {
@@ -32,7 +32,7 @@ function VodCard({ vod_name, vod_pic, vodImageStyle = {}, onPress, showInfo, sho
                         marginBottom: 14,
                         ...vodCardContainerStyle
                     }}>
-                        <LoadingImage />
+                        <LoadingImgSvg />
                     </View>
                     : <View style={{
                         width: vodImageStyle?.width !== undefined ? vodImageStyle.width : styles.card.width,

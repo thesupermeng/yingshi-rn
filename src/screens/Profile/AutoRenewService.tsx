@@ -1,12 +1,12 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import ScreenContainer from "../../components/container/screenContainer";
-import { RootStackScreenProps } from "@type/navigationTypes";
+import { RootStackScreenProps } from "@type";
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
 
 import { useTheme } from "@react-navigation/native";
 import { ScrollView } from "react-native-gesture-handler";
-import { APP_NAME_CONST } from "@utility/constants";
+import { APP_NAME_CONST } from "@utility";
 
 export default ({ navigation }: RootStackScreenProps<"续费服务">) => {
   const { textVariants, spacing } = useTheme();

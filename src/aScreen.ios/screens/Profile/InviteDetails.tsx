@@ -10,9 +10,9 @@ import {
   RefreshControl,
 } from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
-import { RootStackScreenProps } from '@type/navigationTypes';
+import { RootStackScreenProps } from '@type';
 import { useTheme } from '@react-navigation/native';
-import { RootState } from '@redux/store';
+import { RootState } from '@redux';
 
 import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
 import axios from 'axios';
@@ -21,7 +21,7 @@ import {
   API_DOMAIN,
   API_DOMAIN_TEST,
   API_DOMAIN_LOCAL,
-} from '@utility/constants';
+} from '@utility';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 
 import InviteStep from '../../components/invite/inviteStep';
@@ -31,14 +31,14 @@ import InviteHeader from '../../components/invite/inviteHeader';
 // import FastImage from 'react-native-fast-image';
 import FastImage from '../../components/common/customFastImage';
 import LinearGradient from 'react-native-linear-gradient';
-import { useAppSelector, useSelector } from '@hooks/hooks';
+import { useAppSelector, useSelector } from '@hooks';
 import {
   updateUserAuth,
   updateUserReferral,
-} from '@redux/actions/userAction';
+} from '@redux';
 import { useDispatch } from 'react-redux';
 import { UserApi } from '@api';
-import { UserStateType } from '@redux/reducers/userReducer';
+import { UserStateType } from '@redux';
 export default ({ navigation }: RootStackScreenProps<'邀请详情'>) => {
   const { colors, textVariants, icons, spacing } = useTheme();
 

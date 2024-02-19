@@ -6,16 +6,16 @@ import React, {
   useEffect,
   useCallback,
 } from 'react';
-import {StyleSheet, TouchableOpacity, Image, ViewStyle} from 'react-native';
-import {useNavigation, useTheme} from '@react-navigation/native';
-import {useQuery} from '@tanstack/react-query';
-import {VodType} from '@type/ajaxTypes';
-import {LiveTVStationItem} from '@type/ajaxTypes';
+import { StyleSheet, TouchableOpacity, Image, ViewStyle } from 'react-native';
+import { useNavigation, useTheme } from '@react-navigation/native';
+import { useQuery } from '@tanstack/react-query';
+import { VodType } from '@type';
+import { LiveTVStationItem } from '@type';
 import VodCard from './vodCard';
-import {useAppDispatch} from '@hooks/hooks';
-import {playVod} from '@redux/actions/vodActions';
-import {VodRecordType} from '@redux/reducers/vodReducer';
-import {FlatList} from 'react-native-gesture-handler';
+import { useAppDispatch } from '@hooks';
+import { playVod } from '@redux';
+import { VodRecordType } from '@redux';
+import { FlatList } from 'react-native-gesture-handler';
 interface Props {
   params?: any[];
   vodStyle?: ViewStyle;
@@ -27,7 +27,7 @@ interface Props {
 }
 type LiveStationType = {
   item: LiveTVStationItem;
-  index: number; 
+  index: number;
 };
 
 export default function VodLiveStationList(
@@ -58,8 +58,8 @@ export default function VodLiveStationList(
     }
   }, [isRefreshing]);
 
-  const renderTvStations = useCallback(({item, index}: LiveStationType) => {
-    if(item.live_station_img_url.charAt(0) == '/'){
+  const renderTvStations = useCallback(({ item, index }: LiveStationType) => {
+    if (item.live_station_img_url.charAt(0) == '/') {
       item.live_station_img_url = 'https://xiangkantv.net' + item.live_station_img_url;
     }
     return (

@@ -1,10 +1,10 @@
-import { ChatActionEventType } from "@redux/reducers/chatReducer";
-import { RootState } from "@redux/store";
+import { ChatActionEventType } from "@redux";
+import { RootState } from "@redux";
 import { CEndpoint } from "../../constants/api";
 import { getUniqueId } from "react-native-device-info";
 import { Socket, io } from "socket.io-client";
-import { chatBotMessageFromJson, liveChatRoomFromJson } from "@type/typeMapping";
-import { LiveChatRoomType } from "@type/ajaxTypes";
+import { chatBotMessageFromJson, liveChatRoomFromJson } from "@type";
+import { LiveChatRoomType } from "@type";
 
 enum SocketEvent {
     Connect = 'connect',

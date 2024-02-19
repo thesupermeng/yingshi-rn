@@ -6,7 +6,7 @@ import { useQuery, useQueries, UseQueryResult } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
 import {
   VodCarousellType,
-} from "@type/ajaxTypes";
+} from "@type";
 import {
   BottomTabScreenProps,
   useBottomTabBarHeight,
@@ -15,7 +15,7 @@ import {
   ANDROID_HOME_PAGE_POP_UP_ADS,
   API_DOMAIN,
   IOS_HOME_PAGE_POP_UP_ADS,
-} from "@utility/constants";
+} from "@utility";
 import CatagoryHome from "../components/container/CatagoryHome";
 import RecommendationHome from "../components/container/RecommendationHome";
 import HomeHeader from "../components/header/homeHeader";
@@ -25,9 +25,9 @@ import FastImage from "../components/common/customFastImage";
 import { useIsFocused } from "@react-navigation/native";
 import NoConnection from "./../components/common/noConnection";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
-import { useAppSelector, useAppDispatch, useSelector } from "@hooks/hooks";
-import { RootState } from "@redux/store";
-import { SettingsReducerState } from "@redux/reducers/settingsReducer";
+import { useAppSelector, useAppDispatch, useSelector } from "@hooks";
+import { RootState } from "@redux";
+import { SettingsReducerState } from "@redux";
 import HomeNav from "../components/tabNavigate/homeNav";
 
 import {
@@ -40,8 +40,8 @@ import { AdsBannerContext } from "../../contexts/AdsBannerContext";
 import UmengAnalytics from "../../../Umeng/UmengAnalytics";
 import { AppsApi } from "@api";
 import DeviceInfo from "react-native-device-info";
-import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models/user";
+import { UserStateType } from "@redux";
+import { User } from "@models";
 
 function Home({ navigation }: BottomTabScreenProps<any>) {
   const isFocused = useIsFocused();
@@ -269,7 +269,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
               {
                 <FastImage
                   style={{ height: 80, width: 80 }}
-                  source={require("@static/images/loading-spinner.gif")}
+                  source={require("../../../static/images/loading-spinner.gif")}
                   resizeMode={"contain"}
                 />
               }
@@ -285,7 +285,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
               }}
             >
               <FastImage
-                source={require("@static/images/home-loading.gif")}
+                source={require("../../../static/images/home-loading.gif")}
                 style={{
                   width: 150,
                   height: 150,

@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useCallback, useMemo, memo } from 'react';
 import { useNavigation, useTheme } from '@react-navigation/native';
-import { VodTopicType, VodType } from '@type/ajaxTypes';
-import { playVod, viewPlaylistDetails } from '@redux/actions/vodActions';
+import { VodTopicType, VodType } from '@type';
+import { playVod, viewPlaylistDetails } from '@redux';
 import { View, StyleSheet, Text, TouchableOpacity, FlatList, Linking } from 'react-native';
-import RightIcon from '@static/images/more_arrow.svg';
+import { MoreArrowSvg, } from '@static';
 import VodCard from '../vod/vodCard';
-import { useAppDispatch } from '@hooks/hooks';
+import { useAppDispatch } from '@hooks';
 import { TextStyle } from 'react-native';
 import appsFlyer from 'react-native-appsflyer';
 import UmengAnalytics from '../../../../Umeng/UmengAnalytics';
@@ -91,7 +91,7 @@ function VodPlaylist({ playlist, titleStyle }: Props) {
               {playlist.topic_name}
             </Text>
 
-            <RightIcon
+            <MoreArrowSvg
               color={colors.text}
               height={icons.sizes.l}
               width={icons.sizes.l}

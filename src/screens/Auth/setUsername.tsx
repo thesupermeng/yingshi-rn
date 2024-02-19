@@ -21,12 +21,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { ResendCountDown } from './resendCountDown';
-import { useAppSelector } from '@hooks/hooks';
-import { RootState } from '@redux/store';
+import { useAppSelector } from '@hooks';
+import { RootState } from '@redux';
 import { InputItem, Button } from '@ant-design/react-native';
-import { ProfileTabParamList } from '@type/navigationTypes';
-import { changeScreenAction } from '@redux/actions/screenAction';
-import { updateUsernameState } from '@redux/actions/userAction';
+import { ProfileTabParamList } from '@type';
+import { changeScreenAction } from '@redux';
+import { updateUsernameState } from '@redux';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import BackButton from '../../components/button/backButton';
 import { UserApi } from '@api';
@@ -205,7 +205,7 @@ export default (props: any) => {
                           position: "relative",
                           top: 1,
                         }}
-                        source={require("@static/images/invite/danger.png")}
+                        source={require("../../../static/images/invite/danger.png")}
                       />
 
                       <Text style={styles.danger}>{usernameErrMsg}</Text>
@@ -237,7 +237,7 @@ export default (props: any) => {
                               position: 'relative',
                               top: 1,
                             }}
-                            source={require('@static/images/invite/danger.png')}
+                            source={require('../../../static/images/invite/danger.png')}
                           />
                         </View>
                         <Text style={styles.danger}>{errMsg} </Text>

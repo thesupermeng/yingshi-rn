@@ -1,5 +1,5 @@
 import { CEndpoint } from "@constants";
-import { CApi } from "@utility/apiService";
+import { CApi } from "@utility";
 import { EventApiJsonType } from "../../Umeng/EventAnalytic";
 
 export class EventApi {

@@ -1,16 +1,16 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { View, Text, StyleSheet, TextInput, Platform } from "react-native";
 import ScreenContainer from "../../components/container/screenContainer";
-import { RootStackScreenProps } from "@type/navigationTypes";
+import { RootStackScreenProps } from "@type";
 import { useFocusEffect, useTheme } from "@react-navigation/native";
-import { RootState } from "@redux/store";
+import { RootState } from "@redux";
 // import NetInfo from '@react-native-community/netinfo';
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
 import { Button, Dialog } from "@rneui/themed";
 import { TouchableOpacity } from "@gorhom/bottom-sheet";
-import FeedbackSuccessIcon from "@static/images/feedback_success.svg";
+import { FeedbackSuccessSvg } from "@static";
 import axios from "axios";
-import { SubmitFeedbackRequest } from "@type/ajaxTypes";
+import { SubmitFeedbackRequest } from "@type";
 import { Keyboard } from "react-native";
 import {
   API_DOMAIN,
@@ -19,10 +19,10 @@ import {
   UMENG_CHANNEL,
   YING_SHI_PRODUCT_IOS,
   YING_SHI_PRODUCT_ANDROID,
-} from "@utility/constants";
+} from "@utility";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
-import { SettingsReducerState } from "@redux/reducers/settingsReducer";
-import { useAppSelector } from "@hooks/hooks";
+import { SettingsReducerState } from "@redux";
+import { useAppSelector } from "@hooks";
 import { YSConfig } from "../../../../ysConfig";
 import { FeedbackApi } from "@api";
 
@@ -147,7 +147,7 @@ export default ({ navigation }: RootStackScreenProps<"反馈">) => {
         backdropStyle={{ backgroundColor: "rgba(0, 0, 0, 0.8)" }}
         onBackdropPress={() => setIsDialogOpen(false)}
       >
-        {!isOffline && <FeedbackSuccessIcon />}
+        {!isOffline && <FeedbackSuccessSvg />}
 
         <Text style={{ ...textVariants.bigHeader, textAlign: 'center' }}>{dialogText}</Text>
       </Dialog>

@@ -2,13 +2,13 @@ import React, { useCallback } from "react";
 import { Modal, TouchableWithoutFeedback, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import VipLoginAlertModal from "./vipLoginAlertModal";
-import { UMENG_CHANNEL } from "@utility/constants";
-import { showLoginAction } from "@redux/actions/screenAction";
-import { useAppDispatch } from "@hooks/hooks";
-import { loginModalShown } from "@redux/actions/backgroundAction";
+import { UMENG_CHANNEL } from "@utility";
+import { showLoginAction } from "@redux";
+import { useAppDispatch } from "@hooks";
+import { loginModalShown } from "@redux";
 
-const commonModels = require('@static/images/vip_promotion_models.png');
-const sportBg = require('@static/images/vip_promotion_background.png');
+const commonModels = require('../../../static/images/vip_promotion_models.png');
+const sportBg = require('../../../static/images/vip_promotion_background.png');
 
 interface Props {
   showCondition: boolean;

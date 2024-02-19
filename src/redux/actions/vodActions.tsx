@@ -1,19 +1,19 @@
 import {
     ADD_VOD_TO_FAVORITES, REMOVE_VOD_FROM_FAVORITES, CLEAR_HISTORY, PLAY_VOD, TOGGLE_VOD_FAVORITES, SELECT_MINI_VOD_COLLECTION_ITEM,
     TOGGLE_PLAYLIST_FAVORITES, VIEW_PLAYLIST, ADD_VOD_TO_HISTORY, REMOVE_VOD_HISTORY
-} from "@utility/constants";
-import { VodActionType } from "@type/actionTypes";
-import { VodSourceType, VodTopicType, VodType } from "@type/ajaxTypes";
+} from "@utility";
+import { VodActionType } from "@type";
+import { VodSourceType, VodTopicType, VodType } from "@type";
 
-export const addVodToFavorites = (vod: VodType, playMode: 'adult'|'normal'='normal') => {
+export const addVodToFavorites = (vod: VodType, playMode: 'adult' | 'normal' = 'normal') => {
     console.debug('playmode added', playMode)
     return (
-    {
-        type: ADD_VOD_TO_FAVORITES,
-        payload: {...vod, playMode: playMode}, 
-        playMode: playMode
-    }
-)
+        {
+            type: ADD_VOD_TO_FAVORITES,
+            payload: { ...vod, playMode: playMode },
+            playMode: playMode
+        }
+    )
 }
 export const removeVodFromFavorites = (vod: VodType) => (
     {
@@ -34,7 +34,7 @@ export const playVod = (vod: VodType, timeWatched?: number, episodeToPlay?: numb
         type: PLAY_VOD,
         payload: [vod],
         timeWatched: timeWatched,
-        episodeWatched: episodeToPlay, 
+        episodeWatched: episodeToPlay,
         vodSourceId: vodSourceId
     }
 }

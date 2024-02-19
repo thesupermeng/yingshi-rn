@@ -10,20 +10,18 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
-import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
+import { useAppDispatch, useAppSelector, useSelector } from "@hooks";
 import {
   changeScreenAction,
   hideBottomSheetAction,
   navigateToProfileScreen,
-} from "@redux/actions/screenAction";
+} from "@redux";
 import SpinnerOverlay from "../modal/SpinnerOverlay";
-import PhoneIcon from '@static/images/phone.svg';
-import MailIcon from '@static/images/mail.svg';
-import GmailIcon from '@static/images/gmail.svg';
-import DropdownIcon from '@static/images/dropdown.svg';
+import { PhoneSvg, MailSvg, GmailSvg, DropdownSvg, } from '@static';
+
 import { CountryPhoneList } from "./countryPhoneList";
 import FastImage from '../common/customFastImage';
-import { CountryPhoneCodeType } from "@type/ajaxTypes";
+import { CountryPhoneCodeType } from "@type";
 import { ReadAgreementPrivacyPolicy } from "./readAgreementPrivacyPolicy";
 
 import {
@@ -31,15 +29,15 @@ import {
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 import { useQuery } from "@tanstack/react-query";
-import { API_DOMAIN } from "@utility/constants";
-import { CPopup } from "@utility/popup";
+import { API_DOMAIN } from "@utility";
+import { CPopup } from "@utility";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import UmengAnalytics from "../../../../Umeng/UmengAnalytics";
 import { useDispatch } from "react-redux";
-import { addUserAuthState } from "@redux/actions/userAction";
+import { addUserAuthState } from "@redux";
 import { UserApi } from "@api";
-import { User } from "@models/user";
-import { UserStateType } from "@redux/reducers/userReducer";
+import { User } from "@models";
+import { UserStateType } from "@redux";
 
 
 export type SigninupRef = {
@@ -450,7 +448,7 @@ const LoginCard = ({
                 />
               }
 
-              <DropdownIcon />
+              <DropdownSvg />
             </TouchableOpacity>
 
             <Text style={{
@@ -489,7 +487,7 @@ const LoginCard = ({
         {((loginValue !== "" && loginValueErrMsg === null) || (loginValueErrMsg && loginValueErrMsg?.includes("稍后"))) && (
           <Image
             style={styles.iconStyle}
-            source={require("@static/images/profile/cricket_tick.png")}
+            source={require("../../../../static/images/profile/cricket_tick.png")}
           />
         )}
 
@@ -503,7 +501,7 @@ const LoginCard = ({
             >
               <Image
                 style={styles.iconStyle}
-                source={require("@static/images/profile/cross.png")}
+                source={require("../../../../static/images/profile/cross.png")}
               />
             </TouchableWithoutFeedback>
           )
@@ -525,7 +523,7 @@ const LoginCard = ({
                 width: 20,
                 marginRight: 5,
               }}
-              source={require("@static/images/invite/danger.png")}
+              source={require("../../../../static/images/invite/danger.png")}
             />
 
             <Text style={styles.danger}>{loginValueErrMsg}</Text>
@@ -562,7 +560,7 @@ const LoginCard = ({
             >
               <Image
                 style={styles.iconStyle}
-                source={require("@static/images/profile/cross.png")}
+                source={require("../../../../static/images/profile/cross.png")}
               />
             </TouchableWithoutFeedback>
           )}
@@ -583,7 +581,7 @@ const LoginCard = ({
                 width: 20,
                 marginRight: 5,
               }}
-              source={require("@static/images/invite/danger.png")}
+              source={require("../../../../static/images/invite/danger.png")}
             />
 
             <Text style={styles.danger}>{referralCodeErrMsg} </Text>
@@ -648,7 +646,7 @@ const LoginCard = ({
           alignItems: 'center',
         }}
       >
-        <GmailIcon style={{ marginRight: 10, }} />
+        <GmailSvg style={{ marginRight: 10, }} />
         <Text style={{
           flex: 1,
           textAlign: 'center',

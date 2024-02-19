@@ -1,17 +1,16 @@
 import React from 'react';
-import {useTheme} from '@react-navigation/native';
-import {VodTopicType, VodType} from '@type/ajaxTypes';
+import { useTheme } from '@react-navigation/native';
+import { VodTopicType, VodType } from '@type';
 import {
   playVod,
   togglePlaylistFavorites,
   viewPlaylistDetails,
-} from '@redux/actions/vodActions';
-import {View, StyleSheet, Text, TouchableOpacity, FlatList} from 'react-native';
-import RightIcon from '@static/images/more_arrow.svg';
+} from '@redux';
+import { View, StyleSheet, Text, TouchableOpacity, FlatList } from 'react-native';
 import VodCard from '../vod/vodCard';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {useAppDispatch} from '@hooks/hooks';
-import FavoriteIcon from '@static/images/favorite.svg';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useAppDispatch } from '@hooks';
+import { FavoriteSvg } from '@static';
 
 interface Props {
   playlist: VodTopicType;
@@ -20,15 +19,15 @@ interface Props {
 type FlatListType = {
   item: VodType;
 };
-export default function FavoritePlaylist({playlist, navigator}: Props) {
-  const {textVariants, spacing, colors, icons} = useTheme();
+export default function FavoritePlaylist({ playlist, navigator }: Props) {
+  const { textVariants, spacing, colors, icons } = useTheme();
   const dispatch = useAppDispatch();
   return (
-    <View style={{...styles.playlist, gap: spacing.s}}>
+    <View style={{ ...styles.playlist, gap: spacing.s }}>
       <TouchableOpacity
         onPress={() => {
           dispatch(viewPlaylistDetails(playlist));
-          navigator.navigate('PlaylistDetail', {topic_id: playlist.topic_id});
+          navigator.navigate('PlaylistDetail', { topic_id: playlist.topic_id });
         }}>
         <View style={styles.header}>
           <Text
@@ -41,11 +40,11 @@ export default function FavoritePlaylist({playlist, navigator}: Props) {
           </Text>
           <TouchableOpacity
             onPress={() => dispatch(togglePlaylistFavorites(playlist))}
-            style={{marginLeft: spacing.xs}}>
-            <FavoriteIcon
+            style={{ marginLeft: spacing.xs }}>
+            <FavoriteSvg
               width={icons.sizes.m}
               height={icons.sizes.m}
-              style={{color: colors.primary, marginRight: spacing.m}}
+              style={{ color: colors.primary, marginRight: spacing.m }}
             />
           </TouchableOpacity>
         </View>
@@ -64,12 +63,12 @@ export default function FavoritePlaylist({playlist, navigator}: Props) {
         showsHorizontalScrollIndicator={false}
         data={playlist.vod_list}
         horizontal
-        renderItem={({item}: FlatListType) => {
+        renderItem={({ item }: FlatListType) => {
           return (
             <VodCard
               vod_name={item.vod_name}
               vod_pic={item.vod_pic}
-              vodImageStyle={{width: 120, height: 180}}
+              vodImageStyle={{ width: 120, height: 180 }}
               onPress={() => {
                 dispatch(playVod(item));
                 navigator.navigate('播放', {

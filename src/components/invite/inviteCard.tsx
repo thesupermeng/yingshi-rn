@@ -11,33 +11,32 @@ import {
 } from "react-native";
 import { useNavigation, useTheme } from "@react-navigation/native";
 
-import WhatsappIcn from "@static/images/invite/whatsapp.svg";
 import FastImage from "../common/customFastImage";
-import TelegramIcn from "@static/images/invite/telegram.svg";
-import FacebookIcn from "@static/images/invite/fb.svg";
-import WechatIcn from "@static/images/invite/wechat.svg";
 
-// import TwitterIcn from '@static/images/invite/twitter.svg';
-import WeiboIcn from "@static/images/invite/weibo.svg";
-import CopyIcn from "@static/images/invite/copy.svg";
-import ProfileIcn from "@static/images/invite/profile-icon.svg";
+// import TwitterIcn from '../../../static/images/invite/twitter.svg';
+import {
+  CopySvg,
+  ProfileIconSvg,
+} from "@static";
 
 import { TouchableOpacity } from "@gorhom/bottom-sheet";
 
 import LinearGradient from "react-native-linear-gradient";
-import { useAppDispatch, useAppSelector } from "@hooks/hooks";
-import { showLoginAction } from "@redux/actions/screenAction";
+import { useAppDispatch, useAppSelector } from "@hooks";
+import { showLoginAction } from "@redux";
 //import Share from "react-native-share";
-import { APP_NAME_CONST, INVITE_DOMAIN } from "@utility/constants";
+import { APP_NAME_CONST, INVITE_DOMAIN } from "@utility";
 import { YSConfig } from "../../../ysConfig";
 import NotificationModal from "../modal/notificationModal";
 
-import SinaIcon from "@static/images/sina.svg";
-import WeChatIcon from "@static/images/wechat.svg";
-import QQIcon from "@static/images/qq.svg";
-import PYQIcon from "@static/images/pyq.svg";
-import { screenModel } from "@type/screenType";
-import { User } from "@models/user";
+import {
+  SinaSvg,
+  WechatSvg,
+  QqSvg,
+  PyqSvg,
+} from "@static";
+import { screenModel } from "@type";
+import { User } from "@models";
 interface Props {
   userState: User;
 }
@@ -308,7 +307,7 @@ export default function InviteCard({ userState = {} }: Props) {
           </View>
 
           <FastImage
-            source={require("@static/images/crown.png")}
+            source={require("../../../static/images/crown.png")}
             style={{
               height: 180,
               width: 240,
@@ -341,7 +340,7 @@ export default function InviteCard({ userState = {} }: Props) {
           <View style={{ ...styles.featureItem, width: screenState.showAdultTab ? "40%" : "30%" }}>
             <View style={styles.imgContainer}>
               <FastImage
-                source={require("@static/images/vip/vip_logo.png")}
+                source={require("../../../static/images/vip/vip_logo.png")}
                 style={styles.featureIcn}
                 resizeMode={"contain"}
               />
@@ -355,7 +354,7 @@ export default function InviteCard({ userState = {} }: Props) {
             <View style={{ ...styles.featureItem, width: screenState.showAdultTab ? "40%" : "30%" }}>
               <View style={styles.imgContainer}>
                 <FastImage
-                  source={require("@static/images/invite/sport.png")}
+                  source={require("../../../static/images/invite/sport.png")}
                   style={styles.featureIcn}
                   resizeMode={"contain"}
                 />
@@ -366,7 +365,7 @@ export default function InviteCard({ userState = {} }: Props) {
             <View style={{ ...styles.featureItem, width: screenState.showAdultTab ? "40%" : "30%" }}>
               <View style={styles.imgContainer}>
                 <FastImage
-                  source={require("@static/images/invite/vip_adult_video.png")}
+                  source={require("../../../static/images/invite/vip_adult_video.png")}
                   style={styles.featureIcn}
                   resizeMode={"contain"}
                 />
@@ -381,7 +380,7 @@ export default function InviteCard({ userState = {} }: Props) {
           <View style={{ ...styles.featureItem, width: screenState.showAdultTab ? "40%" : "30%" }}>
             <View style={styles.imgContainer}>
               <FastImage
-                source={require("@static/images/invite/ads.png")}
+                source={require("../../../static/images/invite/ads.png")}
                 style={styles.featureIcn}
                 resizeMode={"contain"}
               />
@@ -424,16 +423,16 @@ export default function InviteCard({ userState = {} }: Props) {
 
         <View style={{ ...styles.share, gap: 10 }}>
           <TouchableOpacity onPress={toggleShare}>
-            <WeChatIcon />
+            <WechatSvg />
           </TouchableOpacity>
           <TouchableOpacity onPress={toggleShare}>
-            <PYQIcon />
+            <PyqSvg />
           </TouchableOpacity>
           <TouchableOpacity onPress={toggleShare}>
-            <SinaIcon />
+            <SinaSvg />
           </TouchableOpacity>
           <TouchableOpacity onPress={toggleShare}>
-            <QQIcon />
+            <QqSvg />
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -448,7 +447,7 @@ export default function InviteCard({ userState = {} }: Props) {
               setIsDialogOpen(true);
             }}
           >
-            <CopyIcn />
+            <CopySvg />
           </TouchableOpacity>
         </View>
         {/* stat section  */}
@@ -483,7 +482,7 @@ export default function InviteCard({ userState = {} }: Props) {
                 gap: 3,
               }}
             >
-              <ProfileIcn />
+              <ProfileIconSvg />
               <Text style={{ fontSize: 10, color: "#9C9C9C" }}>统计邀请：</Text>
               <Text
                 style={{

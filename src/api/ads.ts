@@ -1,6 +1,6 @@
-import { CApi } from "@utility/apiService"
-import { CEndpoint } from "../constants/api"
-import { BannerAdType } from "@type/ajaxTypes";
+import { CApi } from "@utility"
+import { CEndpoint } from "@constants"
+import { BannerAdType } from "@type";
 import { YSConfig } from "../../ysConfig";
 
 export class AdsApi {

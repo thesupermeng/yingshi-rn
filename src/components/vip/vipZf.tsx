@@ -3,7 +3,7 @@ import { useTheme } from '@react-navigation/native';
 import LinearGradient from "react-native-linear-gradient";
 import FastImage from 'react-native-fast-image';
 // import FastImage from "../common/customFastImage";
-import { zfModel } from "@type/membershipType";
+import { zfModel } from "@type";
 import React from "react";
 
 interface Props {
@@ -45,20 +45,20 @@ export const VipZf = ({
             flexDirection: 'row',
             alignItems: 'center',
           }}>
-            
-          {zfOption.payment_type_icon.includes('https://') ? 
+
+          {zfOption.payment_type_icon.includes('https://') ?
             <FastImage
-              source={{uri: zfOption.payment_type_icon}}
+              source={{ uri: zfOption.payment_type_icon }}
               style={{ width: 40, height: 30, borderRadius: 5, }}
               resizeMode={"contain"}
-            /> : 
+            /> :
             <FastImage
-              source={require('@static/images/vip/google.png')}
+              source={require('../../../static/images/vip/google.png')}
               style={{ width: 40, height: 30, borderRadius: 5, }}
               resizeMode={"contain"}
             />
           }
-          
+
           <Text
             style={{ ...textVariants.bodyBold }}>
             {zfOption.payment_type_name}

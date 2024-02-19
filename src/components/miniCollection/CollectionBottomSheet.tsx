@@ -9,18 +9,18 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { useAppDispatch, useAppSelector } from '@hooks/hooks';
+import { useAppDispatch, useAppSelector } from '@hooks';
 import {
   selectMiniVodCollection,
   setFromMiniVodCollection,
-} from '@redux/actions/miniVodActions';
-import { MiniVodReducerState } from '@redux/reducers/miniVodReducer';
-import { RootState } from '@redux/store';
+} from '@redux';
+import { MiniVodReducerState } from '@redux';
+import { RootState } from '@redux';
 import {
   MiniVideoCollectionItem,
-} from '@type/ajaxTypes';
-import { API_DOMAIN } from '@utility/constants';
-import { getMinuteSecond } from '@utility/helper';
+} from '@type';
+import { API_DOMAIN } from '@utility';
+import { getMinuteSecond } from '@utility';
 import BottomSheet from '../bottomSheet/bottomSheet';
 import { MiniVodApi } from '@api';
 
@@ -36,7 +36,7 @@ interface Props {
   changeCurrentVodIndex?: any;
 }
 
-const loadingSpinnerGif = require('@static/images/loading-spinner.gif');
+const loadingSpinnerGif = require('../../../static/images/loading-spinner.gif');
 
 function CollectionBottomSheet({
   isVisible = false,

@@ -9,7 +9,7 @@ import { miniVodReducer } from './miniVodReducer';
 import { settingsReducer } from './settingsReducer';
 import { searchHistoryReducer } from './searchReducer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { CLEAR_STORAGE_MEMORY } from '@utility/constants';
+import { CLEAR_STORAGE_MEMORY } from '@utility';
 import { userReducer } from './userReducer';
 import { screenReducer } from './screenReducer';
 import { downloadVideoReducer } from './videoDownloadReducer';

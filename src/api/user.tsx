@@ -2,11 +2,11 @@ import { Platform } from "react-native";
 import DeviceInfo from "react-native-device-info";
 import { CEndpoint, CLangKey } from "@constants";
 // import { User } from "@modals";
-import { CApi } from "@utility/apiService";
-import { AMJ_PRODUCT_ANDROID, AMJ_PRODUCT_IOS } from "@utility/constants";
-import { CountryPhoneCodeType } from "@type/ajaxTypes";
+import { CApi } from "@utility";
+import { AMJ_PRODUCT_ANDROID, AMJ_PRODUCT_IOS } from "@utility";
+import { CountryPhoneCodeType } from "@type";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { User } from "@models/user";
+import { User } from "@models";
 
 
 export class UserApi {

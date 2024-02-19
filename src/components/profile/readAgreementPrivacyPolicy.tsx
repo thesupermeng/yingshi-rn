@@ -22,7 +22,7 @@ export const ReadAgreementPrivacyPolicy = ({
         <TouchableOpacity onPress={onPress}>
             {isReadChecked && (
                 <Image
-                    source={require("@static/images/profile/ticked.png")}
+                    source={require("../../../static/images/profile/ticked.png")}
                     style={styles().checkImage}
                     resizeMode="contain"
                 />
@@ -30,7 +30,7 @@ export const ReadAgreementPrivacyPolicy = ({
 
             {!isReadChecked && (
                 <Image
-                    source={require("@static/images/profile/untick.png")}
+                    source={require("../../../static/images/profile/untick.png")}
                     style={styles().checkImage}
                     resizeMode="contain"
                 />

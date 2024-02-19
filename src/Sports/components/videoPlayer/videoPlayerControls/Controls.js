@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Orientation from 'react-native-orientation-locker';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import LiveRoomAction, {
   setVideoControlProp,
   setVideoFullScreen,
@@ -37,20 +37,20 @@ import {
   toggleLockScreen,
   togglePlayPaused,
 } from '../util/util';
-import {VideoLiveType} from '../../../global/const';
-import {StyleSheet} from 'react-native';
-import {ShowControlType} from '../config';
-import {AppConfig} from '../../../global/appConfig';
-import store from '@redux/store';
-import {floatingPlayer} from '@redux/reducers/floatingPlayer';
+import { VideoLiveType } from '../../../global/const';
+import { StyleSheet } from 'react-native';
+import { ShowControlType } from '../config';
+import { AppConfig } from '../../../global/appConfig';
+import { store } from '@redux';
+import { floatingPlayer } from '@redux';
 // import {setPredictionShareTimeStamp} from '../../../global/asyncStorage';
 import debounce from 'lodash.debounce';
-import {useCallback} from 'react';
-import {useEffect} from 'react';
-import AppSettingsAction from '@redux/actions/appSettingsAction';
+import { useCallback } from 'react';
+import { useEffect } from 'react';
+import AppSettingsAction from '@redux';
 import vars from '../../../utility/vars';
 
-export const RenderControl = ({children, onPress, style = {}}) => {
+export const RenderControl = ({ children, onPress, style = {} }) => {
   return (
     <TouchableHighlight
       underlayColor="transparent"
@@ -61,8 +61,8 @@ export const RenderControl = ({children, onPress, style = {}}) => {
     </TouchableHighlight>
   );
 };
-export const Back = ({onPress}) => {
-  const {isFullScreen} = useSelector(state => state.videoPlayerControl);
+export const Back = ({ onPress }) => {
+  const { isFullScreen } = useSelector(state => state.videoPlayerControl);
   const dispatch = useDispatch();
   const onPressBack = () => {
     if (onPress) onPress();
@@ -82,7 +82,7 @@ export const Back = ({onPress}) => {
     </RenderControl>
   );
 };
-export const CastScreenBtn = ({onPress}) => {
+export const CastScreenBtn = ({ onPress }) => {
   return (
     <RenderControl onPress={onPress}>
       <Image source={IconTV0} style={style.commonIcon} resizeMode={'contain'} />
@@ -91,7 +91,7 @@ export const CastScreenBtn = ({onPress}) => {
 };
 
 export const ToggleFullScreen = () => {
-  const {isFullScreen} = useSelector(state => state.videoPlayerControl);
+  const { isFullScreen } = useSelector(state => state.videoPlayerControl);
   const dispatch = useDispatch();
   const onPressToggleFullScreen = () => {
     dispatch(setVideoFullScreen(!isFullScreen));
@@ -111,7 +111,7 @@ export const ToggleFullScreen = () => {
 
 export const PlayPause = () => {
   const dispatch = useDispatch();
-  const {isPaused} = useSelector(state => state.videoPlayerControl);
+  const { isPaused } = useSelector(state => state.videoPlayerControl);
   const onPress = () => {
     dispatch(togglePlayPaused());
   };
@@ -143,7 +143,7 @@ export const Refresh = () => {
 
 export const Pip = () => {
   const dispatch = useDispatch();
-  const {source, matchId, videoType} = useSelector(
+  const { source, matchId, videoType } = useSelector(
     state => state.videoPlayerControl,
   );
   const onPress = () => {
@@ -175,7 +175,7 @@ export const Pip = () => {
     </RenderControl>
   );
 };
-export const Error = ({display, onClick}) => {
+export const Error = ({ display, onClick }) => {
   if (!display) {
     return null;
   }
@@ -184,7 +184,7 @@ export const Error = ({display, onClick}) => {
       pointerEvents="box-none"
       style={[
         VideoPlayerstyles.error.container,
-        {flex: 1, justifyContent: 'center'},
+        { flex: 1, justifyContent: 'center' },
       ]}>
       <View style={style.errorBackContainer}>
         <Back />
@@ -208,7 +208,7 @@ export const Error = ({display, onClick}) => {
   );
 };
 
-export const Locker = ({display}) => {
+export const Locker = ({ display }) => {
   const dispatch = useDispatch();
   const onPress = () => {
     dispatch(toggleLockScreen());
@@ -269,100 +269,100 @@ export const ShareButton = () => {
   const title = `${competitionNameShort} | ${homeName} vs ${awayName}`;
 
   const shareStream = async (title, matchId) => {
-  //   const shareLink = await liveRoomAction.getShareLink(matchId);
-  //   const shareContent = `${title}\n\n${shareLink}`;
-  //   Share.share({message: shareContent}).then(
-  //     async ({action, activityType}) => {
-  //       if (action === 'sharedAction') {
-  //         await setPredictionShareTimeStamp();
-  //         AppSettingsAction.instance.shareLocationClick(
-  //           vars.shareLocation.matchDetail,
-  //           matchId,
-  //         );
-  //       }
-  //     },
-  //   );
-  // };
-  // return (
-  //   <RenderControl
-  //     onPress={() => {
-  //       debouncedShare(title, matchId);
-  //     }}
-  //     style={{
-  //       flex: 0,
-  //       display: 'flex',
-  //       justifyContent: 'center',
-  //       alignItems: 'center',
-  //     }}>
-  //     <Image
-  //       source={ShareWhite}
-  //       style={[style.unlockerIcon]}
-  //       resizeMode={'contain'}
-  //     />
-  //   </RenderControl>
-  // );
-};
+    //   const shareLink = await liveRoomAction.getShareLink(matchId);
+    //   const shareContent = `${title}\n\n${shareLink}`;
+    //   Share.share({message: shareContent}).then(
+    //     async ({action, activityType}) => {
+    //       if (action === 'sharedAction') {
+    //         await setPredictionShareTimeStamp();
+    //         AppSettingsAction.instance.shareLocationClick(
+    //           vars.shareLocation.matchDetail,
+    //           matchId,
+    //         );
+    //       }
+    //     },
+    //   );
+    // };
+    // return (
+    //   <RenderControl
+    //     onPress={() => {
+    //       debouncedShare(title, matchId);
+    //     }}
+    //     style={{
+    //       flex: 0,
+    //       display: 'flex',
+    //       justifyContent: 'center',
+    //       alignItems: 'center',
+    //     }}>
+    //     <Image
+    //       source={ShareWhite}
+    //       style={[style.unlockerIcon]}
+    //       resizeMode={'contain'}
+    //     />
+    //   </RenderControl>
+    // );
+  };
 
-export const style = StyleSheet.create({
-  lockerContainer: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'transparent',
-  },
-  lockerIcon: {
-    position: 'absolute',
-    tintColor: 'white',
-    top: 5,
-    right: 14,
-    width: 40,
-    height: 40,
-  },
-  unlockerIcon: {
-    width: 40,
-    height: 40,
-    tintColor: 'white',
-  },
-  commonIcon: {
-    width: 35,
-    height: 35,
-    margin: 5,
-  },
-  commonIconContainer: {
-    padding: 0,
-  },
-  backContainer: {
-    flex: 0,
-    display: 'flex',
-    padding: 10,
-  },
-  backIcon: {
-    width: 20,
-    height: 20,
-    margin: 5,
-  },
-  errorBackContainer: {
-    position: 'absolute',
-    top: 20,
-    left: 20,
-  },
-  errorIcon: {
-    flex: 0,
-    width: 30,
-    height: 30,
-    marginVertical: 20,
-  },
-  errorButton: {
-    borderWidth: 1,
-    borderRadius: 15,
-    borderColor: '#ffffff',
-    marginVertical: 10,
-    width: 40,
-    height: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  errorButtonText: {
-    backgroundColor: 'transparent',
-    color: 'white',
-    fontSize: 11,
-  },
-});
+  export const style = StyleSheet.create({
+    lockerContainer: {
+      ...StyleSheet.absoluteFillObject,
+      backgroundColor: 'transparent',
+    },
+    lockerIcon: {
+      position: 'absolute',
+      tintColor: 'white',
+      top: 5,
+      right: 14,
+      width: 40,
+      height: 40,
+    },
+    unlockerIcon: {
+      width: 40,
+      height: 40,
+      tintColor: 'white',
+    },
+    commonIcon: {
+      width: 35,
+      height: 35,
+      margin: 5,
+    },
+    commonIconContainer: {
+      padding: 0,
+    },
+    backContainer: {
+      flex: 0,
+      display: 'flex',
+      padding: 10,
+    },
+    backIcon: {
+      width: 20,
+      height: 20,
+      margin: 5,
+    },
+    errorBackContainer: {
+      position: 'absolute',
+      top: 20,
+      left: 20,
+    },
+    errorIcon: {
+      flex: 0,
+      width: 30,
+      height: 30,
+      marginVertical: 20,
+    },
+    errorButton: {
+      borderWidth: 1,
+      borderRadius: 15,
+      borderColor: '#ffffff',
+      marginVertical: 10,
+      width: 40,
+      height: 20,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    errorButtonText: {
+      backgroundColor: 'transparent',
+      color: 'white',
+      fontSize: 11,
+    },
+  });

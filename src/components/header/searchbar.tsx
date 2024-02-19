@@ -1,7 +1,8 @@
-import {SearchBar} from '@rneui/themed';
-import {useTheme} from '@react-navigation/native';
-import {TextInput, StyleSheet, View, TouchableOpacity} from 'react-native';
-import SearchIcon from '@static/images/search.svg';
+import { SearchBar } from '@rneui/themed';
+import { useTheme } from '@react-navigation/native';
+import { TextInput, StyleSheet, View, TouchableOpacity } from 'react-native';
+import { SearchSvg } from '@static';
+
 
 interface Props {
   defaultValue?: string;
@@ -10,9 +11,9 @@ interface Props {
 
 export default function HomeSearchBar({
   defaultValue = '子弹列车',
-  onPress = () => {},
+  onPress = () => { },
 }: Props) {
-  const {colors, icons, textVariants} = useTheme();
+  const { colors, icons, textVariants } = useTheme();
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
       <SearchBar
@@ -31,7 +32,7 @@ export default function HomeSearchBar({
         placeholder="输入搜索关键词"
         placeholderTextColor={colors.text}
         round
-        searchIcon={<SearchIcon color={colors.text} height={23} width={23} />}
+        searchIcon={<SearchSvg color={colors.text} height={23} width={23} />}
         value={defaultValue}
         // showCancel={false}
         showLoading={false}

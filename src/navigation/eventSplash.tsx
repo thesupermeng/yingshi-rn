@@ -20,16 +20,16 @@ import CarouselPagination from "../components/container/CarouselPagination";
 import LinearGradient from "react-native-linear-gradient";
 import FastImage from "../../src/components/common/customFastImage";
 import Video from "react-native-video";
-import { promoMembershipModel } from "@type/membershipType";
+import { promoMembershipModel } from "@type";
 import { ProductApi } from "../api/product";
 import { Purchase, PurchaseError, requestPurchase, requestSubscription, useIAP, withIAPContext } from "react-native-iap";
 import { isPlay } from "react-native-iap/src/internal";
 import SpinnerOverlay from "../components/modal/SpinnerOverlay";
-import { RootState } from "@redux/store";
-import { useAppSelector, useSelector } from "@hooks/hooks";
-import { APP_NAME_CONST, IAP_TYPE, SUBSCRIPTION_TYPE } from "@utility/constants";
+import { RootState } from "@redux";
+import { useAppSelector, useSelector } from "@hooks";
+import { APP_NAME_CONST, IAP_TYPE, SUBSCRIPTION_TYPE } from "@utility";
 import { showToast } from "../Sports/utility/toast";
-import { UserStateType } from "@redux/reducers/userReducer";
+import { UserStateType } from "@redux";
 
 interface Props {
   splashList: any;
@@ -649,7 +649,7 @@ export const EventSpash = ({ splashList }: Props) => {
           <>
             <SplashCard
               index={index}
-              source={require(`@static/images/eventSplash${index + 1}.png`)}
+              source={require(`../../static/images/eventSplash${index + 1}.png`)}
               isLast={index === splashList.length - 1}
             />
           </>

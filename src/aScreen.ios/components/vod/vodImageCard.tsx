@@ -3,7 +3,8 @@ import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import { ImageStyle } from 'react-native-fast-image';
 import FastImage from '../common/customFastImage';
-import PlayIcon from '@static/images/play.svg';
+import { PlaySvg } from '@static';
+
 import LinearGradient from 'react-native-linear-gradient'
 interface Props {
     vod_img: string,
@@ -43,7 +44,7 @@ export default function VodImageCard({ vod_img, vodStyle, onPress, showInfo = ''
             }
             {
                 showPlayIcon && <View style={styles.playIcon}>
-                    <PlayIcon height={iconSize} width={iconSize} />
+                    <PlaySvg height={iconSize} width={iconSize} />
                 </View>
             }
             {/* {

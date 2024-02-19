@@ -23,14 +23,14 @@ import {
   IOS_TOPIC_DETAILS_BANNER_ADS,
   IOS_TOPIC_TAB_BANNER_ADS,
   TOPON_BANNER_HEIGHT,
-} from "@utility/constants";
+} from "@utility";
 import { getNavigationBarHeight } from "react-native-android-navbar-height";
-import { RootState } from "@redux/store";
-import { useAppSelector, useSelector } from "@hooks/hooks";
-import { SettingsReducerState } from "@redux/reducers/settingsReducer";
-import { screenModel } from "@type/screenType";
-import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models/user";
+import { RootState } from "@redux";
+import { useAppSelector, useSelector } from "@hooks";
+import { SettingsReducerState } from "@redux";
+import { screenModel } from "@type";
+import { UserStateType } from "@redux";
+import { User } from "@models";
 // LogBox.ignoreAllLogs();
 interface Props {
   children: ReactNode;

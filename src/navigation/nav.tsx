@@ -38,20 +38,22 @@ import UserAgreementScreen from "../screens/Profile/UserAgreement";
 import ConfigureScreen from "../screens/Profile/Configure";
 import OtpScreen from "../screens/Auth/Otp";
 import SetUsername from "../screens/Auth/setUsername";
-import HomeTabIcon from "@static/images/home_tab.svg";
-import HomeActiveTabIcon from "@static/images/home_tab_active.svg";
-import PlaylistTabIcon from "@static/images/playlist_tab.svg";
-import PlaylistActiveTabIcon from "@static/images/playlist_tab_active.svg";
-import ProfileTabIcon from "@static/images/profile_tab.svg";
-import ProfileActiveTabIcon from "@static/images/profile_tab_active.svg";
-import WatchAnytimeTabIcon from "@static/images/video_tab.svg";
-import WatchAnytimeActiveTabIcon from "@static/images/video_tab_active.svg";
+import {
+  HomeTabSvg,
+  HomeTabActiveSvg,
+  PlaylistTabSvg,
+  PlaylistTabActiveSvg,
+  ProfileTabSvg,
+  ProfileTabActiveSvg,
+  VideoTabSvg,
+  VideoTabActiveSvg,
+  SportsSvg,
+  VipIconSvg,
+  VipIconInactiveSvg,
+} from "@static";
+
 import CatalogScreen from "../screens/Common/Catalog";
 import ShortVodCollectionScreen from "../screens/Profile/Collection/shortVodCollection";
-import SportsIcon from "@static/images/sports.svg";
-
-import VipActionIcon from "@static/images/vip-icon.svg";
-import VipIcon from "@static/images/vip-icon-inactive.svg";
 
 import SportAndX from "./../../src/screens/SportAndX";
 
@@ -64,18 +66,18 @@ import {
   ProfileTabParamList,
   RootStackParamList,
   WatchAnytimeTabParamList,
-} from "@type/navigationTypes";
+} from "@type";
 import RNBootSplash from "react-native-bootsplash";
-import { RootState } from "@redux/store";
+import { RootState } from "@redux";
 import {
   SafeAreaProvider,
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
 import { Platform, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import DeviceInfo from "react-native-device-info";
-import { useAppSelector, useAppDispatch, useSelector } from "@hooks/hooks";
+import { useAppSelector, useAppDispatch, useSelector } from "@hooks";
 import { QueryClient, useQuery } from "@tanstack/react-query";
-import { API_DOMAIN, UMENG_CHANNEL } from "@utility/constants";
+import { API_DOMAIN, UMENG_CHANNEL } from "@utility";
 import { YSConfig } from "../../ysConfig";
 import {
   disableAdultMode,
@@ -93,13 +95,13 @@ import {
   setShowGuestPurchaseSuccess,
   setShowPromotionDialog,
   showLoginAction,
-} from "@redux/actions/screenAction";
+} from "@redux";
 import { Dialog } from "@rneui/themed";
 // import FastImage from "react-native-fast-image";
 import FastImage from "../components/common/customFastImage";
-import { screenModel } from "@type/screenType";
-import { YingshiDarkTheme, YingshiLightTheme } from "@utility/theme";
-import { updateUserAuth, updateUserReferral } from "@redux/actions/userAction";
+import { screenModel } from "@type";
+import { YingshiDarkTheme, YingshiLightTheme } from "@utility";
+import { updateUserAuth, updateUserReferral } from "@redux";
 import ExpiredOverlay from "../components/modal/expiredOverlay";
 import EventRules from "../screens/Profile/EventRules";
 import PrivacyPolicyOverlay from "../components/modal/privacyPolicyOverlay";
@@ -109,8 +111,8 @@ import {
   handleDevicesOrientation,
   lockAppOrientation,
   updateNetworkInfo,
-} from "@redux/actions/settingsActions";
-import { SettingsReducerState } from "@redux/reducers/settingsReducer";
+} from "@redux";
+import { SettingsReducerState } from "@redux";
 import { AdsBannerContext } from "../contexts/AdsBannerContext";
 import VIP from "../screens/Profile/VIP";
 import VIP2 from "../screens/Profile/VIP2";
@@ -126,16 +128,16 @@ import { CRouteInitializer } from "../routes/router";
 import {
   clearQueueOnAppStart,
   updateAllVodDetailsThunk,
-} from "@redux/actions/videoDownloadAction";
+} from "@redux";
 import DownloadCatalog from "../screens/Profile/Download/DownloadCatalog";
 import DownloadDetails from "../screens/Profile/Download/DownloadDetails";
 
 import AutoRenewService from "../screens/Profile/AutoRenewService";
 import { VipPromotionOverlay } from "../components/modal/vipPromotionOverlay";
 import { GuestPurchaseSuccessOverlay } from "../components/modal/guestPurchaseSuccessOverlay";
-import { BackgroundType } from "@redux/reducers/backgroundReducer";
-import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models/user";
+import { BackgroundType } from "@redux";
+import { UserStateType } from "@redux";
+import { User } from "@models";
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -187,60 +189,60 @@ export default () => {
 
             if (route.name === "首页") {
               icon = focused ? (
-                <HomeActiveTabIcon
+                <HomeTabActiveSvg
                   width={iconWidth}
                   color={theme.icons.activeNavIconColor}
                 />
               ) : (
-                <HomeTabIcon
+                <HomeTabSvg
                   width={iconWidth}
                   color={theme.icons.inactiveNavIconColor}
                 />
               );
             } else if (route.name === "播单") {
               icon = focused ? (
-                <PlaylistActiveTabIcon
+                <PlaylistTabActiveSvg
                   width={iconWidth}
                   color={theme.icons.activeNavIconColor}
                 />
               ) : (
-                <PlaylistTabIcon
+                <PlaylistTabSvg
                   width={iconWidth}
                   color={theme.icons.inactiveNavIconColor}
                 />
               );
             } else if (route.name === "我的") {
               icon = focused ? (
-                <ProfileActiveTabIcon
+                <ProfileTabActiveSvg
                   width={iconWidth}
                   color={theme.icons.activeNavIconColor}
                 />
               ) : (
-                <ProfileTabIcon
+                <ProfileTabSvg
                   width={iconWidth}
                   color={theme.icons.inactiveNavIconColor}
                 />
               );
             } else if (route.name === "随心看") {
               icon = focused ? (
-                <WatchAnytimeActiveTabIcon
+                <VideoTabActiveSvg
                   width={iconWidth}
                   color={theme.icons.activeNavIconColor}
                 />
               ) : (
-                <WatchAnytimeTabIcon
+                <VideoTabSvg
                   width={iconWidth}
                   color={theme.icons.inactiveNavIconColor}
                 />
               );
             } else if (route.name === "会员中心") {
               icon = focused ? (
-                <VipActionIcon
+                <VipIconSvg
                   width={iconWidth}
                   color={theme.icons.activeNavIconColor}
                 />
               ) : (
-                <VipIcon
+                <VipIconInactiveSvg
                   width={iconWidth}
                   color={theme.icons.inactiveNavIconColor}
                 />
@@ -762,7 +764,7 @@ export default () => {
             alignItems: "center",
           }}
           resizeMode={"contain"}
-          source={require("@static/images/profile/login-success.gif")}
+          source={require("../../static/images/profile/login-success.gif")}
         />
 
         <Text
@@ -800,7 +802,7 @@ export default () => {
             alignItems: "center",
           }}
           resizeMode={"contain"}
-          source={require("@static/images/profile/login-success.gif")}
+          source={require("../../static/images/profile/login-success.gif")}
         />
 
         <Text

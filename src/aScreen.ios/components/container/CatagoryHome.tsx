@@ -19,17 +19,17 @@ import {
   VodType,
   VodData,
   VodCarousellType,
-} from '@type/ajaxTypes';
+} from '@type';
 // import FastImage from 'react-native-fast-image';
 import FastImage from "../common/customFastImage";
-import { VodReducerState } from '@redux/reducers/vodReducer';
-import { useAppDispatch, useAppSelector } from '@hooks/hooks';
-import { RootState } from '@redux/store';
+import { VodReducerState } from '@redux';
+import { useAppDispatch, useAppSelector } from '@hooks';
+import { RootState } from '@redux';
 import VodHistoryList from '../vod/vodHistoryList';
 import VodLiveStationList from '../vod/vodLiveStationList';
-import { API_DOMAIN, API_DOMAIN_TEST } from '@utility/constants';
+import { API_DOMAIN, API_DOMAIN_TEST } from '@utility';
 import VodListVertical from '../vod/vodListVertical';
-import { playVod, viewPlaylistDetails } from '@redux/actions/vodActions';
+import { playVod, viewPlaylistDetails } from '@redux';
 import { useQuery, useInfiniteQuery } from '@tanstack/react-query';
 import LinearGradient from 'react-native-linear-gradient';
 import Carousel from 'react-native-reanimated-carousel';

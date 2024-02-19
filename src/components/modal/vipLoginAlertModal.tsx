@@ -2,9 +2,9 @@ import React, { useEffect, ReactNode, useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from "react-native";
 import FastImage from "../common/customFastImage";
 import LinearGradient from "react-native-linear-gradient";
-import { useSelector } from "@hooks/hooks";
-import { BackgroundType } from "@redux/reducers/backgroundReducer";
-import { VIP_PROMOTION_COUNTDOWN_MINUTE, VIP_PROMOTION_PURCHASE_MAX } from "@utility/constants";
+import { useSelector } from "@hooks";
+import { BackgroundType } from "@redux";
+import { VIP_PROMOTION_COUNTDOWN_MINUTE, VIP_PROMOTION_PURCHASE_MAX } from "@utility";
 
 interface Props {
   coverImage: any;
@@ -15,7 +15,7 @@ interface Props {
 }
 
 export default function VipLoginAlertModal({
- 
+
   onClose,
   onPurchase,
   showCondition,
@@ -35,7 +35,7 @@ export default function VipLoginAlertModal({
           transform: isFullscreen ? [{ scale: 0.75 }] : []
         }}
       >
- 
+
 
         <View
           style={{
@@ -48,7 +48,7 @@ export default function VipLoginAlertModal({
           }}
         >
           <View
-           
+
             style={{
               width: 322,
               height: 360,
@@ -56,29 +56,29 @@ export default function VipLoginAlertModal({
               paddingHorizontal: 16,
               paddingTop: 26,
               paddingBottom: 12,
-              backgroundColor:'#222222'
+              backgroundColor: '#222222'
             }}
-       
+
           >
 
-<FastImage
-                    style={{
-                      height: 140,
-                      width: 140,
-                      position:'absolute',
-                      left:'30%',
-                      bottom: 270,
-                    }}
-                    resizeMode={"contain"}
-                    source={require("@static/images/splash/alert.png")}
-                  />
+            <FastImage
+              style={{
+                height: 140,
+                width: 140,
+                position: 'absolute',
+                left: '30%',
+                bottom: 270,
+              }}
+              resizeMode={"contain"}
+              source={require("../../../static/images/splash/alert.png")}
+            />
             <View
               style={{
                 flex: 1,
                 gap: 16,
                 flexDirection: 'column',
-                paddingTop:50,
-                paddingBottom:10
+                paddingTop: 50,
+                paddingBottom: 10
               }}>
               <View
                 style={{
@@ -91,12 +91,12 @@ export default function VipLoginAlertModal({
                   }}>
                   登录提醒
                 </Text>
-             
+
               </View>
               <Text style={styles.contentText1}>
-              尊敬的VIP用户，检测到您购买VIP后未登录账户，为享受更佳的视听体验，请马上登录账户合并您的VIP会员信息，登录后您的VIP将继承至最近1次登录的账户内
+                尊敬的VIP用户，检测到您购买VIP后未登录账户，为享受更佳的视听体验，请马上登录账户合并您的VIP会员信息，登录后您的VIP将继承至最近1次登录的账户内
               </Text>
-           
+
             </View>
 
             <View
@@ -108,7 +108,7 @@ export default function VipLoginAlertModal({
                 onPress={onPurchase}
               >
                 <View
-                
+
                   style={styles.purchaseButton}
                 >
                   <Text style={styles.purchaseButtonText}>
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingVertical: 6,
     alignItems: "center",
-    backgroundColor:'#FAC33D'
+    backgroundColor: '#FAC33D'
   },
   purchaseButtonText: {
     color: "#1D2023",
@@ -148,11 +148,11 @@ const styles = StyleSheet.create({
     fontFamily: "PingFang SC",
   },
   cancelButton: {
-   // backgroundColor: "#121314",
+    // backgroundColor: "#121314",
     borderRadius: 8,
     paddingHorizontal: 20,
     paddingVertical: 6,
-    marginTop:8,
+    marginTop: 8,
     alignItems: "center",
   },
   cancelButtonText: {
@@ -165,8 +165,8 @@ const styles = StyleSheet.create({
   },
   titleText: {
     textAlign: 'center',
-   // color: '#F4DBBA',
-    color:'#fff',
+    // color: '#F4DBBA',
+    color: '#fff',
     fontSize: 17,
     fontFamily: 'PingFang SC',
     fontWeight: '700',
@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
     letterSpacing: 0.5,
     textAlign: 'center',
     color: 'white',
-    paddingHorizontal:8
+    paddingHorizontal: 8
   },
   contentText2: {
     fontFamily: 'PingFang SC',

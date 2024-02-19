@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
 import { View, TouchableOpacity, StyleSheet, Text, ViewStyle } from 'react-native';
-import { useAppDispatch, useAppSelector } from "@hooks/hooks";
+import { useAppDispatch, useAppSelector } from "@hooks";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { useTheme, useRoute } from '@react-navigation/native';
 import BackButton from '../button/backButton';
-import { RootStackParamList, RootStackScreenProps } from "@type/navigationTypes";
+import { RootStackParamList, RootStackScreenProps } from "@type";
 import {
     showLoginAction,
-} from "@redux/actions/screenAction";
-import { screenModel } from "@type/screenType";
-import { RootState } from "@redux/store";
+} from "@redux";
+import { screenModel } from "@type";
+import { RootState } from "@redux";
 
 interface Props {
     title?: string,
@@ -33,15 +33,14 @@ export default function PrivacyBackButtonHeader({ title, headerStyle, right, des
     useEffect(() => {
         const unsubscribe = navigation.addListener('beforeRemove', (e) => {
             if (screenReducer.navigateToProfile === true) {
-                 // Check if the previous route was "RegistrationPage" and the destination is "ProfileScreen"
-        // If yes, trigger your custom action
-        const navState = navigation.getState();
-        const currentRouteName = navState.routes[navState.index].name;
-        const previousRouteName = navState.routes[navState.index - 1]?.name;
-        if( previousRouteName !='关于我们')
-        {
-          dispatch(showLoginAction());
-        }
+                // Check if the previous route was "RegistrationPage" and the destination is "ProfileScreen"
+                // If yes, trigger your custom action
+                const navState = navigation.getState();
+                const currentRouteName = navState.routes[navState.index].name;
+                const previousRouteName = navState.routes[navState.index - 1]?.name;
+                if (previousRouteName != '关于我们') {
+                    dispatch(showLoginAction());
+                }
             } else {
                 return
             }

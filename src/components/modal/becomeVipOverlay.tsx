@@ -3,13 +3,13 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import VipModal from './vipModal';
 import { useNavigation, useRoute, useTheme } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useAppDispatch } from '@hooks/hooks';
+import { useAppDispatch } from '@hooks';
 import {
   resetBecomeVip,
   showLoginAction,
-} from '@redux/actions/screenAction';
+} from '@redux';
 import FastImage from 'react-native-fast-image';
-import { SHOW_ZF_CONST } from '@utility/constants';
+import { SHOW_ZF_CONST } from '@utility';
 import { AdultVipPrivilegeOverlay } from './adultVipPrivilegeOverlay';
 import { SportVipPrivilegeOverlay } from './sportVipPrivilegeOverlay';
 import { CommonVipPrivilegeOverlay } from './commonVipPrivilegeOverlay';

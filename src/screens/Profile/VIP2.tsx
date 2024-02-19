@@ -21,18 +21,18 @@ import {
   useIAP,
 } from "react-native-iap";
 import ScreenContainer from "../../components/container/screenContainer";
-import { RootStackScreenProps } from "@type/navigationTypes";
+import { RootStackScreenProps } from "@type";
 import {
   useFocusEffect,
   useNavigation,
   useTheme,
 } from "@react-navigation/native";
-import { RootState } from "@redux/store";
+import { RootState } from "@redux";
 
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
-import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
-import { updateUserAuth } from "@redux/actions/userAction";
+import { useAppDispatch, useAppSelector, useSelector } from "@hooks";
+import { updateUserAuth } from "@redux";
 import { TouchableOpacity } from "react-native";
 import NoConnection from "../../components/common/noConnection";
 import FastImage from "react-native-fast-image";
@@ -44,7 +44,7 @@ import {
   SUBSCRIPTION_TYPE,
   UMENG_CHANNEL,
   VIP_PROMOTION_COUNTDOWN_MINUTE,
-} from "@utility/constants";
+} from "@utility";
 import {
   setShowEventSplashData,
   showLoginAction,
@@ -52,7 +52,7 @@ import {
   setShowPromotionDialog,
   setShowGuestPurchaseSuccess,
   setEventSplashLastPageViewTime,
-} from "@redux/actions/screenAction";
+} from "@redux";
 import { ProductApi, UserApi } from "@api";
 import WebView from "react-native-webview";
 import { YSConfig } from "../../../ysConfig";
@@ -60,7 +60,7 @@ import {
   membershipModel,
   promoMembershipModel,
   zfModel,
-} from "@type/membershipType";
+} from "@type";
 import { Dialog } from "@rneui/themed";
 import { InAppBrowser } from "react-native-inappbrowser-reborn";
 import { VipDialog } from "../../components/vip/vipDialog";
@@ -70,12 +70,12 @@ import { isAndroid } from "react-native-iap/lib/typescript/src/internal";
 import UmengAnalytics from "../../../Umeng/UmengAnalytics";
 import { err } from "react-native-svg/lib/typescript/xml";
 import CarouselPagination from "../../components/container/CarouselPagination";
-import { screenModel } from "@type/screenType";
+import { screenModel } from "@type";
 import LinearGradient from "react-native-linear-gradient";
 import SplashCard from "../../components/common/splashCard";
 import Carousel from "react-native-reanimated-carousel";
 import { showToast } from "../../Sports/utility/toast";
-import CloseButton from "@static/images/close_icon.svg";
+import { CloseIconSvg } from "@static";
 import LottieView from "lottie-react-native";
 const iap_skus = ["yingshi_vip_1_month", "yingshi_vip_12_months"];
 const subs_skus = [
@@ -84,14 +84,16 @@ const subs_skus = [
   "vip_12_month_subscription",
 ];
 
-import Tick from "@static/images/splash/tick.svg";
-import Tick1 from "@static/images/splash/tick1.svg";
-import Tick2 from "@static/images/splash/tick2.svg";
-import { BackgroundType } from "@redux/reducers/backgroundReducer";
-import { SettingsReducerState } from "@redux/reducers/settingsReducer";
-import { UserStateType } from "@redux/reducers/userReducer";
+import {
+  TickSvg,
+  Tick1Svg,
+  Tick2Svg,
+} from "@static";
+import { BackgroundType } from "@redux";
+import { SettingsReducerState } from "@redux";
+import { UserStateType } from "@redux";
 import Video from "react-native-video";
-import { User } from "@models/user";
+import { User } from "@models";
 
 export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
   const {
@@ -566,7 +568,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                 {
                   <FastImage
                     style={{ height: 80, width: 80 }}
-                    source={require("@static/images/loading-spinner.gif")}
+                    source={require("../../../static/images/loading-spinner.gif")}
                     resizeMode={"contain"}
                   />
                 }
@@ -601,7 +603,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                     }
                   }}
                 >
-                  <CloseButton />
+                  <CloseIconSvg />
                 </TouchableOpacity>
 
                 {/* <LottieView
@@ -614,7 +616,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                   loop
                 /> */}
                 <Video
-                  source={require("@static/images/splash/bg.mp4")}
+                  source={require("../../../static/images/splash/bg.mp4")}
                   style={styles.video}
                   resizeMode="cover"
                   repeat={true}
@@ -737,7 +739,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                                     <View
                                       style={{ paddingRight: 5, paddingTop: 5 }}
                                     >
-                                      <Tick width={18} height={18} />
+                                      <TickSvg width={18} height={18} />
                                     </View>
                                   )}
                                 </View>
@@ -898,9 +900,9 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                                     top: 5,
                                   }}
                                 >
-                                  {i === 0 && <Tick1 width={18} height={18} />}
+                                  {i === 0 && <Tick1Svg width={18} height={18} />}
 
-                                  {i === 1 && <Tick2 width={18} height={18} />}
+                                  {i === 1 && <Tick2Svg width={18} height={18} />}
                                 </View>
                               )}
                               <View
@@ -1019,13 +1021,13 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
           </>
         ) : (
           <>
-           <SplashCard
+            <SplashCard
               index={index}
               source={index === 0
-                ? require(`@static/images/eventSplash1.png`)
+                ? require(`../../../static/images/eventSplash1.png`)
                 : index === 1
-                  ? require(`@static/images/eventSplash2.png`)
-                  : require(`@static/images/eventSplash3.png`)
+                  ? require(`../../../static/images/eventSplash2.png`)
+                  : require(`../../../static/images/eventSplash3.png`)
               }
               isLast={index === screenState.showEventSplashData.length - 1}
             />

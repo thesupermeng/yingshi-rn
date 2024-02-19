@@ -8,12 +8,12 @@ import {
   SafeAreaView,
 } from "react-native";
 import ScreenContainer from "../../components/container/screenContainer";
-import { RootStackScreenProps } from "@type/navigationTypes";
+import { RootStackScreenProps } from "@type";
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
 
 import { useTheme } from "@react-navigation/native";
 import { ScrollView } from "react-native-gesture-handler";
-import { APP_NAME_CONST } from "@utility/constants";
+import { APP_NAME_CONST } from "@utility";
 
 export default ({ navigation }: RootStackScreenProps<"活动规则">) => {
   const { colors, textVariants, icons, spacing } = useTheme();
@@ -29,7 +29,7 @@ export default ({ navigation }: RootStackScreenProps<"活动规则">) => {
       <View style={{ gap: spacing.m }}>
         <TitleWithBackButtonHeader
           title="活动规则"
-          // headerStyle={{ marginBottom: spacing.m }}
+        // headerStyle={{ marginBottom: spacing.m }}
         />
 
         <View style={{ marginBottom: 100, paddingLeft: 20, paddingRight: 35 }}>

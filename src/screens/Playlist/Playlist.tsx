@@ -5,19 +5,19 @@ import ScreenContainer from '../../components/container/screenContainer';
 import MainHeader from '../../components/header/homeHeader';
 import { useFocusEffect, useTheme } from '@react-navigation/native';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { VodPlayListType, VodTopicType } from '@type/ajaxTypes';
+import { VodPlayListType, VodTopicType } from '@type';
 import VodPlaylist from '../../components/playlist/vodPlaylist';
 import { BottomTabScreenProps, useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
-import { API_DOMAIN } from '@utility/constants';
+import { API_DOMAIN } from '@utility';
 // import FastImage from 'react-native-fast-image';
 import FastImage from "../../components/common/customFastImage"
 import { useIsFocused } from '@react-navigation/native';
 // import {FlatList, PanGestureHandler} from 'react-native-gesture-handler';
 import NoConnection from './../../components/common/noConnection';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
-import { SettingsReducerState } from '@redux/reducers/settingsReducer';
-import { useAppSelector } from '@hooks/hooks';
-import { RootState } from '@redux/store';
+import { SettingsReducerState } from '@redux';
+import { useAppSelector } from '@hooks';
+import { RootState } from '@redux';
 import UmengAnalytics from '../../../Umeng/UmengAnalytics';
 import { PlaylistApi } from '@api';
 
@@ -191,7 +191,7 @@ function Playlist({ navigation }: BottomTabScreenProps<any>) {
             {
               <FastImage
                 style={{ height: 80, width: 80 }}
-                source={require('@static/images/loading-spinner.gif')}
+                source={require('../../../static/images/loading-spinner.gif')}
                 resizeMode={"contain"}
               />
             }
@@ -218,7 +218,7 @@ function Playlist({ navigation }: BottomTabScreenProps<any>) {
                   {hasNextPage && (
                     <FastImage
                       style={{ height: 80, width: 80 }}
-                      source={require('@static/images/loading-spinner.gif')}
+                      source={require('../../../static/images/loading-spinner.gif')}
                       resizeMode={"contain"}
                     />
                   )}

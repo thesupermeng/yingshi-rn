@@ -1,14 +1,14 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { View, Text, StyleSheet, SafeAreaView, FlatList } from "react-native";
 
-import { API_DOMAIN } from "@utility/constants";
-import { VodData } from "@type/ajaxTypes";
+import { API_DOMAIN } from "@utility";
+import { VodData } from "@type";
 import { useQueries, useQuery } from "@tanstack/react-query";
 
-import { acceptOverEighteen } from "@redux/actions/screenAction";
+import { acceptOverEighteen } from "@redux";
 import EighteenPlusOverlay from "../../components/modal/overEighteenOverlay";
 import { useNavigation, useTheme } from "@react-navigation/native";
-import { useAppDispatch, useAppSelector } from "@hooks/hooks";
+import { useAppDispatch, useAppSelector } from "@hooks";
 import ShowMoreVodButton from "../../components/button/showMoreVodButton";
 import VodListVerticalVip from "./vodListVerticalVip";
 import FastImage from "../../components/common/customFastImage";
@@ -103,7 +103,7 @@ export default function XVodTab({
           }}
         >
           <FastImage
-            source={require("@static/images/loading-spinner.gif")}
+            source={require("../../../static/images/loading-spinner.gif")}
             style={{ width: 100, height: 100 }}
             resizeMode="contain"
           />

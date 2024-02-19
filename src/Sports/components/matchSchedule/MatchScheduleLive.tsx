@@ -13,8 +13,8 @@ import {
   getMatchStatus,
   liveRoomName,
 } from '../../utility/utils';
-import store from '@redux/store';
-// import FollowMatchAction from '@redux/actions/followMatchAction';
+import { store } from '@redux';
+// import FollowMatchAction from '@redux';
 import { useNavigation } from '@react-navigation/native';
 import { MatchDetailsType } from '../../types/matchTypes';
 // import {showToast} from '../../utility/toast';

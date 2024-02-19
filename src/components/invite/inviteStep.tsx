@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TextInput, Image } from "react-native";
 
 import { useTheme } from "@react-navigation/native";
-import ArrowIcn from "@static/images/invite/double-arrow.svg";
-import { APP_NAME_CONST } from "@utility/constants";
+import { DoubleArrowSvg } from "@static";
+import { APP_NAME_CONST } from "@utility";
 export default function InviteStep() {
   const { colors, textVariants, icons, spacing } = useTheme();
   return (
@@ -46,7 +46,7 @@ export default function InviteStep() {
             <Text style={styles.textDesc}>向好友发送邀请</Text>
           </View>
         </View>
-        <ArrowIcn />
+        <DoubleArrowSvg />
         {/* step 2 */}
         <View style={styles.inviteStep}>
           <Text
@@ -62,7 +62,7 @@ export default function InviteStep() {
             <Text style={styles.textDesc}>
               下载
               <Text
-                 style={styles.textDesc}
+                style={styles.textDesc}
               >
                 {"此APP"}
                 {/* {APP_NAME_CONST} */}
@@ -72,7 +72,7 @@ export default function InviteStep() {
             <Text style={styles.textDesc}>且用邀请码登录</Text>
           </View>
         </View>
-        <ArrowIcn />
+        <DoubleArrowSvg />
         {/* step 3  */}
         <View style={styles.inviteStep}>
           <Text

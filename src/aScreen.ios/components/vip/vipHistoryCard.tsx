@@ -1,19 +1,19 @@
 import { useTheme } from "@react-navigation/native";
 import { StyleSheet, Text, View } from "react-native";
-import { vipHistoryResponseType } from "@type/membershipType";
+import { vipHistoryResponseType } from "@type";
 
 interface Props {
   historyItem: vipHistoryResponseType;
 }
 
 export const VipHistoryCard = ({ historyItem }: Props) => {
-  const {colors, spacing, textVariants} = useTheme();
+  const { colors, spacing, textVariants } = useTheme();
   return (
-    <View 
+    <View
       style={{
-        ...styles.card, 
+        ...styles.card,
         alignContent: 'center',
-        backgroundColor: colors.card2, 
+        backgroundColor: colors.card2,
       }}>
       <View
         style={{
@@ -27,14 +27,14 @@ export const VipHistoryCard = ({ historyItem }: Props) => {
           {historyItem.displayText}
         </Text>
         <Text
-          style={{...textVariants.small, color: colors.muted}}>
+          style={{ ...textVariants.small, color: colors.muted }}>
           {historyItem.createdDate}
         </Text>
       </View>
       <View
-        style={{flex: 1, alignSelf: 'center'}}>
+        style={{ flex: 1, alignSelf: 'center' }}>
         <Text
-          style={{...textVariants.subBody, color: colors.primary, alignSelf: 'flex-end'}}>
+          style={{ ...textVariants.subBody, color: colors.primary, alignSelf: 'flex-end' }}>
           +{historyItem.vipDays}天
         </Text>
       </View>

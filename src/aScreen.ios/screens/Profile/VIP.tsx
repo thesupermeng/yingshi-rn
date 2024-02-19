@@ -5,25 +5,25 @@ import {
   StyleSheet,
 } from "react-native";
 import ScreenContainer from "../../components/container/screenContainer";
-import { RootStackScreenProps } from "@type/navigationTypes";
+import { RootStackScreenProps } from "@type";
 import { useTheme } from "@react-navigation/native";
-import { RootState } from "@redux/store";
+import { RootState } from "@redux";
 
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
-import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
-import { updateUserAuth } from "@redux/actions/userAction";
+import { useAppDispatch, useAppSelector, useSelector } from "@hooks";
+import { updateUserAuth } from "@redux";
 import { TouchableOpacity } from "react-native";
 import NoConnection from "../../components/common/noConnection";
 import FastImage from "react-native-fast-image";
 import {
   IS_IOS,
-} from "@utility/constants";
-import { showLoginAction } from "@redux/actions/screenAction";
+} from "@utility";
+import { showLoginAction } from "@redux";
 import UmengAnalytics from "../../../../Umeng/UmengAnalytics";
 import { UserApi } from "@api";
 import WebView from "react-native-webview";
-import { UserStateType } from "@redux/reducers/userReducer";
+import { UserStateType } from "@redux";
 
 export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const [isOffline, setIsOffline] = useState(false);
@@ -144,7 +144,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
             }}
           >
             <FastImage
-              source={require("@static/images/home-loading.gif")}
+              source={require("../../../../static/images/home-loading.gif")}
               style={{
                 width: 150,
                 height: 150,

@@ -1,5 +1,5 @@
-import {MiniVideo} from '@type/ajaxTypes';
-import {DOWNLOAD_BATCH_SIZE, TOTAL_VIDEO_TO_DOWNLOAD} from '@utility/constants';
+import { MiniVideo } from '@type';
+import { DOWNLOAD_BATCH_SIZE, TOTAL_VIDEO_TO_DOWNLOAD } from '@utility';
 import chunk from 'lodash/chunk';
 import RNFetchBlob from 'rn-fetch-blob';
 

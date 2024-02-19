@@ -18,7 +18,7 @@ import ScreenContainer from '../../../components/container/screenContainer';
 import MainHeader from '../../../components/header/homeHeader';
 import { useFocusEffect, useTheme } from '@react-navigation/native';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
-import { DetailTab, BannerAdType, SportTabType } from '@type/ajaxTypes';
+import { DetailTab, BannerAdType, SportTabType } from '@type';
 import VodPlaylist from '../../../components/playlist/vodPlaylist';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import Animated from 'react-native-reanimated';
@@ -48,23 +48,23 @@ import StatisticPage from '../../components/matchDetails/statisticPage';
 import { LineUpType } from '../../types/lineUpTypes';
 import LineUpPage from '../../components/matchDetails/lineUpPage';
 import { useDispatch } from 'react-redux';
-import { useAppDispatch, useAppSelector, useSelector } from '@hooks/hooks';
-import { screenModel } from '@type/screenType';
-import { incrementSportWatchTime } from '@redux/actions/screenAction';
+import { useAppDispatch, useAppSelector, useSelector } from '@hooks';
+import { screenModel } from '@type';
+import { incrementSportWatchTime } from '@redux';
 import BecomeVipOverlay from "../../../components/modal/becomeVipOverlay";
-import { NON_VIP_STREAM_TIME_SECONDS } from '@utility/constants';
+import { NON_VIP_STREAM_TIME_SECONDS } from '@utility';
 import UmengAnalytics from '../../../../Umeng/UmengAnalytics';
-import { RootState } from '@redux/store';
+import { RootState } from '@redux';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { SettingsReducerState } from '@redux/reducers/settingsReducer';
+import { SettingsReducerState } from '@redux';
 import VipRegisterBar from '../../../components/adultVideo/vipRegisterBar';
 import { BannerContainer } from '../../../components/container/bannerContainer';
 import { YSConfig } from '../../../../ysConfig';
 import { AdsApi } from '@api';
 import LiveChatPage from '../../components/matchDetails/liveChatPage';
 import PrivateChatPage from '../../components/matchDetails/privateChatPage';
-import { UserStateType } from '@redux/reducers/userReducer';
-import { User } from '@models/user';
+import { UserStateType } from '@redux';
+import { User } from '@models';
 
 let insetsTop = 0;
 let insetsBottom = 0;
@@ -483,7 +483,7 @@ const MatchDetails = ({ navigation, route }: BottomTabScreenProps<any>) => {
         ) : (
           <View style={styles.fetching}>
             <FastImage
-              source={require('@static/images/loading-spinner.gif')}
+              source={require('../../../../static/images/loading-spinner.gif')}
               style={{ width: 100, height: 80, marginBottom: -20 }}
               resizeMode="contain"
             />

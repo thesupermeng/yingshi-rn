@@ -9,18 +9,13 @@ import {
   Platform,
 } from 'react-native';
 import Video, { OnProgressData } from 'react-native-video';
-import PlayIcon from '@static/images/blackPlay.svg';
-import PauseIcon from '@static/images/pause.svg';
-import PlayZhengPianIcon from '@static/images/play-zhengpian1.svg';
-import PlayBoDanIcon from '@static/images/play-bodan.svg';
+import { BlackPlaySvg, PauseSvg, PlayZhengpian1Svg, PlayBodanSvg, HejiSvg, ExpandHejiSvg } from '@static';
 
 import FastImage from '../common/customFastImage';
 import { Slider } from '@rneui/themed';
-import { useAppDispatch } from '@hooks/hooks';
+import { useAppDispatch } from '@hooks';
 import { useNavigation, useTheme } from '@react-navigation/native';
-import { playVod, viewPlaylistDetails } from '@redux/actions/vodActions';
-import HejiIcon from '@static/images/heji.svg';
-import ExpandUpIcon from '@static/images/expandHeji.svg';
+import { playVod, viewPlaylistDetails } from '@redux';
 import { QueryClient } from '@tanstack/react-query';
 import { debounce } from 'lodash';
 import UmengAnalytics from '../../../../Umeng/UmengAnalytics';
@@ -232,7 +227,7 @@ function ShortVideoPlayer({
           {(isBuffering || (Platform.OS === 'ios' ? !isVideoReadyIos : !isVideoReadyAndroid)) && isShowVideo && (
             <View style={styles.buffering}>
               <FastImage
-                source={require('@static/images/videoBufferLoading.gif')}
+                source={require('../../../../static/images/videoBufferLoading.gif')}
                 style={{ width: 100, height: 100, }}
                 resizeMode="contain"
                 useFastImage={true}
@@ -282,7 +277,7 @@ function ShortVideoPlayer({
               top: (Dimensions.get('window').height - 130) / 2,
               zIndex: 999,
             }}>
-            {showIcon && (isPause ? <PlayIcon /> : <PauseIcon />)}
+            {showIcon && (isPause ? <BlackPlaySvg /> : <PauseSvg />)}
           </View>
           <View
             style={{
@@ -352,11 +347,11 @@ function ShortVideoPlayer({
                               <View>
                                 <FastImage
                                   style={{ flex: 1, borderRadius: 6, position: 'absolute', width: '100%', height: imageContainerHeight - 6, zIndex: 2, top: 5.8 }}
-                                  source={require('@static/images/bodan2.jpeg')}
+                                  source={require('../../../../static/images/bodan2.jpeg')}
                                 />
                                 <FastImage
                                   style={{ flex: 1, borderRadius: 6, position: 'absolute', width: '100%', height: imageContainerHeight - 12, top: 11.8 }}
-                                  source={require('@static/images/bodan3.jpg')}
+                                  source={require('../../../../static/images/bodan3.jpg')}
                                 />
                               </View>
                             }
@@ -399,9 +394,9 @@ function ShortVideoPlayer({
                             <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
                               <View style={{ flexWrap: 'wrap' }}>
                                 {isBodan ?
-                                  <PlayBoDanIcon width={20} height={20} />
+                                  <PlayBodanSvg width={20} height={20} />
                                   :
-                                  <PlayZhengPianIcon width={20} height={20} />
+                                  <PlayZhengpian1Svg width={20} height={20} />
                                 }
                               </View>
                               <View
@@ -449,11 +444,11 @@ function ShortVideoPlayer({
                 }}>
                   <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
                     <View style={{ flex: 1, flexDirection: 'row' }}>
-                      <HejiIcon height={24} width={24} />
+                      <HejiSvg height={24} width={24} />
                       <Text style={{ paddingLeft: 6, alignSelf: 'center', fontSize: 14, color: colors.text, fontWeight: '700' }}>{currentVod.mini_video_collection_title}</Text>
                     </View>
                     <View style={{}}>
-                      <ExpandUpIcon height={24} width={24} />
+                      <ExpandHejiSvg height={24} width={24} />
                     </View>
                   </View>
                 </TouchableOpacity>

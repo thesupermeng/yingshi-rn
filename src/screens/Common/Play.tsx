@@ -19,33 +19,36 @@ import {
   Dimensions,
 } from "react-native";
 import FavoriteButton from "../../components/button/favoriteVodButton";
-import FavoriteIcon from "@static/images/favorite.svg";
-import VodDetailIcon from "@static/images/vod_detail.svg";
-import DlVodIcon from "@static/images/download_vod.svg";
+import {
+  FavoriteSvg,
+  VodDetailSvg,
+  DownloadVodSvg,
+  SinaSvg,
+  WechatSvg,
+  QqSvg,
+  PyqSvg,
+  MoreArrowSvg,
+  SourceIconSvg,
+  VipIconSvg,
+} from "@static";
 import ScreenContainer from "../../components/container/screenContainer";
 import { useTheme, useFocusEffect, useRoute, useIsFocused } from "@react-navigation/native";
 import { YSConfig } from "../../../ysConfig";
 
-import { RootStackScreenProps } from "@type/navigationTypes";
+import { RootStackScreenProps } from "@type";
 import {
   AdultVodListType,
   SuggestedVodType,
   VodSourceType,
   BannerAdType,
-} from "@type/ajaxTypes";
-import { addVodToHistory, playVod } from "@redux/actions/vodActions";
-import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
-import { RootState } from "@redux/store";
+} from "@type";
+import { addVodToHistory, playVod } from "@redux";
+import { useAppDispatch, useAppSelector, useSelector } from "@hooks";
+import { RootState } from "@redux";
 import {
   FavoriteVodReducerState,
   VodReducerState,
-} from "@redux/reducers/vodReducer";
-import SinaIcon from "@static/images/sina.svg";
-import WeChatIcon from "@static/images/wechat.svg";
-import QQIcon from "@static/images/qq.svg";
-import PYQIcon from "@static/images/pyq.svg";
-import MoreArrow from "@static/images/more_arrow.svg";
-import SourceIcon from "@static/images/source_icon.svg";
+} from "@redux";
 import VodEpisodeSelectionModal from "../../components/modal/vodEpisodeSelectionModal";
 // import FastImage from "react-native-fast-image";
 import FastImage from "../../components/common/customFastImage";
@@ -56,18 +59,18 @@ import {
   DOWNLOAD_FEATURE_ENABLED,
   PLAY_HTTP_SERVER_PORT,
   UMENG_CHANNEL,
-} from "@utility/constants";
+} from "@utility";
 import { useQuery } from "@tanstack/react-query";
 import ShowMoreVodButton from "../../components/button/showMoreVodButton";
 import VodListVertical from "../../components/vod/vodListVertical";
 import VodPlayer from "../../components/videoPlayer/vodPlayer";
 import { FlatList } from "react-native-gesture-handler";
-import { SettingsReducerState } from "@redux/reducers/settingsReducer";
+import { SettingsReducerState } from "@redux";
 import BingSearch from "../../components/container/bingSearchContainer";
 
 import NoConnection from "../../components/common/noConnection";
 import NetInfo from "@react-native-community/netinfo";
-import { lockAppOrientation } from "@redux/actions/settingsActions";
+import { lockAppOrientation } from "@redux";
 import { AdsBannerContext } from "../../contexts/AdsBannerContext";
 import { URL } from "react-native-url-polyfill";
 import RNFetchBlob from "rn-fetch-blob";
@@ -75,36 +78,35 @@ import { BridgeServer } from "react-native-http-bridge-refurbished";
 import { debounce } from "lodash";
 
 import LinearGradient from "react-native-linear-gradient";
-import VipIcon from "@static/images/vip-icon.svg";
 import AdultVideoVipModal from "../../components/modal/adultVideoVipModal";
 import VipRegisterBar from "../../components/adultVideo/vipRegisterBar";
 import {
   disableAdultMode,
   enableAdultMode,
   incrementAdultVideoWatchTime,
-} from "@redux/actions/screenAction";
+} from "@redux";
 
 import UmengAnalytics from "../../../Umeng/UmengAnalytics";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { screenModel } from "@type/screenType";
+import { screenModel } from "@type";
 import { VodApi } from "@api";
 
 import DescriptionBottomSheet from "../../components/videoPlayer/Play/vodDescriptionBottomSheet";
 import { VodDescription } from "../../components/videoPlayer/Play/vodDescription";
 
 import { BannerContainer } from "../../components/container/bannerContainer";
-import { CApi } from "@utility/apiService";
+import { CApi } from "@utility";
 import { CEndpoint } from "@constants";
 import BecomeVipOverlay from "../../components/modal/becomeVipOverlay";
 import { AdsApi } from "../../api/ads";
 import SimpleToast from "react-native-simple-toast";
 import DownloadVodSelectionModal from "../../components/modal/downloadVodSelectionModal";
 import DeviceInfo from "react-native-device-info";
-import { addVideoToDownloadThunk } from "@redux/actions/videoDownloadAction";
-import { DownloadStatus, DownloadVideoReducerState, VodDownloadType } from "@type/vodDownloadTypes";
-import { CPopup } from "@utility/popup";
-import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models/user";
+import { addVideoToDownloadThunk } from "@redux";
+import { DownloadStatus, DownloadVideoReducerState, VodDownloadType } from "@type";
+import { CPopup } from "@utility";
+import { UserStateType } from "@redux";
+import { User } from "@models";
 import { CRouter } from "../../routes/router";
 
 let insetsTop = 0;
@@ -382,7 +384,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
         // onPress={() => onPressEpisode(item.id)}
         onPress={() => onPressSource(item.source_id)}
       >
-        <SourceIcon
+        <SourceIconSvg
           style={{
             alignSelf: "center",
             marginRight: 3,
@@ -1033,7 +1035,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
           >
             <FastImage
               style={{ height: 80, width: 80 }}
-              source={require('@static/images/loading-spinner.gif')}
+              source={require('../../../static/images/loading-spinner.gif')}
               resizeMode={'contain'}
             />
           </View>
@@ -1091,7 +1093,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
           >
             <FastImage
               style={{ height: 80, width: 80 }}
-              source={require("@static/images/loading-spinner.gif")}
+              source={require("../../../static/images/loading-spinner.gif")}
               resizeMode={"contain"}
             />
           </View>
@@ -1268,10 +1270,10 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                           >
                             分享：
                           </Text>
-                          <WeChatIcon />
-                          <PYQIcon />
-                          <SinaIcon />
-                          <QQIcon />
+                          <WechatSvg />
+                          <PyqSvg />
+                          <SinaSvg />
+                          <QqSvg />
                         </View>
                       </TouchableOpacity>
                     )}
@@ -1314,7 +1316,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                             width: 14,
                             alignSelf: "center",
                           }}
-                          source={require("@static/images/down_arrow.png")}
+                          source={require("../../../static/images/down_arrow.png")}
                           resizeMode={"contain"}
                         />
                       )}
@@ -1326,7 +1328,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                             width: 14,
                             alignSelf: "center",
                           }}
-                          source={require("@static/images/up_arrow.png")}
+                          source={require("../../../static/images/up_arrow.png")}
                           resizeMode={"contain"}
                         />
                       )}
@@ -1347,7 +1349,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                           gap: spacing.xxs,
                         }}
                       >
-                        <FavoriteIcon
+                        <FavoriteSvg
                           width={18}
                           height={18}
                           style={{
@@ -1394,7 +1396,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                           gap: spacing.xxs,
                         }}
                       >
-                        <VodDetailIcon
+                        <VodDetailSvg
                           width={24}
                           height={24}
                           style={{
@@ -1431,7 +1433,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                         gap: spacing.xxs,
                       }}
                     >
-                      <DlVodIcon
+                      <DownloadVodSvg
                         width={24}
                         height={24}
                         style={{
@@ -1451,7 +1453,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                       </Text>
                       {!isVip && (
                         <View style={{ width: 12, height: '100%' }}>
-                          <VipIcon
+                          <VipIconSvg
                             width={12}
                             height={12}
                             style={{ ...styles.legend }}
@@ -1479,7 +1481,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                       >
                         <FastImage
                           style={{ height: 80, width: 80 }}
-                          source={require("@static/images/loading-spinner.gif")}
+                          source={require("../../../static/images/loading-spinner.gif")}
                           resizeMode={"contain"}
                         />
                       </View>
@@ -1537,7 +1539,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                                 {/* {`${showEpisodeRangeStart + 1
                                   }-${showEpisodeRangeEnd}集`} */}
                               </Text>
-                              <MoreArrow
+                              <MoreArrowSvg
                                 style={{ color: colors.muted }}
                                 height={icons.sizes.m}
                                 width={icons.sizes.m}

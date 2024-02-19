@@ -1,9 +1,7 @@
 import React, { useRef, memo } from 'react';
 import { View, StyleSheet } from 'react-native';
-import Play from '@static/images/blackPlay.svg';
-import Pause from '@static/images/pause.svg';
-import Rewind from '@static/images/rewind.svg';
-import Fastforward from '@static/images/fastforward.svg';
+import { PlaySvg, PauseSvg, RewindSvg, FastforwardSvg, } from '@static';
+
 import { RectButton } from 'react-native-gesture-handler';
 import { useTheme } from '@react-navigation/native';
 
@@ -35,7 +33,7 @@ const MiddleControls = ({
             rippleColor="transparent"
             disallowInterruption={true}
             onPress={() => onSkip(-10)}>
-            <Rewind width={55} height={55} />
+            <RewindSvg width={55} height={55} />
           </RectButton>
         </View>
       )}
@@ -44,9 +42,9 @@ const MiddleControls = ({
         rippleColor="transparent"
         onPress={() => onTogglePlayPause()}>
         {paused ? (
-          <Play width={55} height={55} />
+          <PlaySvg width={55} height={55} />
         ) : (
-          <Pause width={55} height={55} />
+          <PauseSvg width={55} height={55} />
         )}
       </RectButton>
       {videoType !== 'live' && (
@@ -55,7 +53,7 @@ const MiddleControls = ({
             rippleColor="transparent"
             disallowInterruption={true}
             onPress={() => onSkip(10)}>
-            <Fastforward width={55} height={55} />
+            <FastforwardSvg width={55} height={55} />
           </RectButton>
         </View>
       )}

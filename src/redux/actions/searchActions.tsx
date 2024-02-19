@@ -1,6 +1,6 @@
 import {
     CLEAR_SEARCH_HISTORY, ADD_SEARCH_HISTORY
-} from "@utility/constants";
+} from "@utility";
 
 export const clearSearchHistory = () => (
     {

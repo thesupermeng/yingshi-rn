@@ -1,11 +1,14 @@
 import React, { memo } from 'react';
 import SearchBar from './searchbar';
 import { View, TouchableOpacity, StyleSheet, ViewStyle } from 'react-native';
-import Logo from '@static/images/logo.svg';
-import History from '@static/images/history.svg';
+import {
+    LogoSvg,
+    HistorySvg,
+} from '@static';
+
 import { useTheme } from '@react-navigation/native';
 import { useQuery } from '@tanstack/react-query';
-import { API_DOMAIN } from '@utility/constants';
+import { API_DOMAIN } from '@utility';
 import { useMemo } from 'react';
 import { VodApi } from '@api';
 
@@ -33,7 +36,7 @@ function MainHeader({ logo, navigator, headerStyle }: Props) {
             {
                 logo
                     ? logo
-                    : <Logo height={36} />
+                    : <LogoSvg height={36} />
             }
             {/* <SearchBar onPress={() => navigator.navigate('搜索', { initial: randomVod?.vod_name })} defaultValue={randomVod !== undefined ? randomVod.vod_name : ''} /> */}
             {/* <TouchableOpacity onPress={() => navigator.navigate('播放历史')}>

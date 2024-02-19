@@ -1,8 +1,9 @@
 import { useNavigation, useTheme } from "@react-navigation/native";
 import { Text, TouchableOpacity, View } from "react-native";
 import FastImage from "../common/customFastImage";
-import { CommentsType } from "@type/ajaxTypes";
-import CommentIcon from '@static/images/comment.svg';
+import { CommentsType } from "@type";
+import { CommentSvg } from '@static';
+
 import { CommentCard } from "./commentCard";
 
 type VodCommentBoxProps = {
@@ -33,7 +34,7 @@ export const VodCommentBox = ({
                         paddingVertical: 16,
                     }}
                 >
-                    <CommentIcon />
+                    <CommentSvg />
                     <Text style={{
                         ...textVariants.subBody,
                         color: colors.muted,

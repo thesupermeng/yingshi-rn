@@ -1,7 +1,7 @@
 import { CEndpoint } from "@constants";
-import { SubmitFeedbackRequest } from "@type/ajaxTypes";
-import { CApi } from "@utility/apiService";
-import { APP_NAME_CONST } from "@utility/constants";
+import { SubmitFeedbackRequest } from "@type";
+import { CApi } from "@utility";
+import { APP_NAME_CONST } from "@utility";
 import { Platform } from "react-native";
 
 export class ProductApi {

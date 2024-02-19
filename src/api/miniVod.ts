@@ -1,10 +1,10 @@
-import { API_DOMAIN_TEST, DOWNLOAD_WATCH_ANYTIME } from "@utility/constants";
+import { API_DOMAIN_TEST, DOWNLOAD_WATCH_ANYTIME } from "@utility";
 import { getApiCache, getExcludedIds, getIsApiCacheExist } from "../utils/minivodDownloader"
-import { MiniVideo, MiniVideoCollectionItem, MiniVideoListType, MiniVideoVodListType } from "@type/ajaxTypes";
+import { MiniVideo, MiniVideoCollectionItem, MiniVideoListType, MiniVideoVodListType } from "@type";
 import { QueryClient, useInfiniteQuery } from "@tanstack/react-query";
 import shuffle from 'lodash/shuffle'
 
-import { CApi } from "@utility/apiService";
+import { CApi } from "@utility";
 import { CEndpoint } from "@constants";
 
 

@@ -1,17 +1,17 @@
-import {StyleSheet, View} from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import BingSearchButton from '../button/bingSearchButton';
 import BackButton from '../button/backButton';
 
-import {VodType} from '@type/ajaxTypes';
+import { VodType } from '@type';
 
-import BingIcon from '@static/images/bing.svg';
+import { BingSvg } from '@static';
 
 interface Props {
   vod: VodType;
 }
 
-export default function BingSearch({vod}: Props) {
+export default function BingSearch({ vod }: Props) {
   return (
     <LinearGradient
       colors={['rgba(10, 189, 193, 0.20)', 'rgba(0, 0, 0, 0.00)']}
@@ -33,7 +33,7 @@ export default function BingSearch({vod}: Props) {
               <BackButton btnStyle={styles.backBtn} />
 
             </View>
-            <BingIcon style={styles.bingLogo} />
+            <BingSvg style={styles.bingLogo} />
             <BingSearchButton vodTitle={vod.vod_name} />
           </View>
         </LinearGradient>
@@ -52,19 +52,19 @@ const styles = StyleSheet.create({
   bingLogo: {
     marginBottom: 14,
   },
-  backBtn: {  
-    display: 'flex', 
+  backBtn: {
+    display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center', 
+    justifyContent: 'center',
     height: "100%",
     padding: 0
   },
 
-  backBtnContainer:{
+  backBtnContainer: {
     position: 'absolute',
     top: 14,
     left: 10,
-    width:30, 
+    width: 30,
     height: 30,
   }
 });

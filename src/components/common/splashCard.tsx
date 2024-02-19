@@ -40,7 +40,7 @@ function SplashCard({ uri, source, index, isLast = false }: Props) {
       {isLoadImg &&
         <FastImage
           style={{ position: 'absolute', alignSelf: 'center', width: 80, height: 80 }}
-          source={require('@static/images/loading-spinner.gif')}
+          source={require('../../../static/images/loading-spinner.gif')}
           resizeMode={'contain'}
           useFastImage={true}
         />

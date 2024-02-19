@@ -12,12 +12,12 @@ import {
   IOS_HOME_PAGE_POP_UP_ADS,
   IOS_PLAY_DETAILS_POP_UP_ADS,
   NON_VIP_STREAM_TIME_SECONDS,
-} from "@utility/constants";
+} from "@utility";
 import { useAppSelector, useSelector } from "./hooks";
 import { AdsBannerContext } from "../contexts/AdsBannerContext";
-import { screenModel } from "@type/screenType";
-import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models/user";
+import { screenModel } from "@type";
+import { UserStateType } from "@redux";
+import { User } from "@models";
 // LogBox.ignoreAllLogs();
 type PlacementId =
   | typeof ANDROID_HOME_PAGE_POP_UP_ADS
@@ -28,7 +28,7 @@ type PlacementId =
 
 let homePageShown = false;
 let retryCount = 0;
-const useInterstitialAds = () => {
+export const useInterstitialAds = () => {
   const [adsReadyFlag, setAdsReadyFlag] = useState(false);
   const userState = useSelector<UserStateType>('userReducer');
 
@@ -183,5 +183,3 @@ const useInterstitialAds = () => {
 
   return;
 };
-
-export default useInterstitialAds;

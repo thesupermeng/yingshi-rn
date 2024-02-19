@@ -1,17 +1,16 @@
 import { View, Text, TouchableOpacity, ViewStyle, TextStyle, StyleSheet } from 'react-native';
-import { hideAdultModeVip } from '@redux/actions/screenAction';
+import { hideAdultModeVip } from '@redux';
 import VipModal from './vipModal';
 import FastImage from 'react-native-fast-image';
 import { useNavigation } from '@react-navigation/native';
 import { IconClose } from '../../Sports/assets';
 import { useCallback } from 'react';
-import CrossIcon from '@static/images/cross.svg'
-import CloseIcon from '@static/images/close.svg'
-import { useAppDispatch, useAppSelector, useSelector } from '@hooks/hooks';
-import { screenModel } from '@type/screenType';
-import { SHOW_ZF_CONST, UMENG_CHANNEL } from '@utility/constants';
-import { UserStateType } from '@redux/reducers/userReducer';
-import { User } from '@models/user';
+import { CrossSvg, CloseSvg } from '@static';
+import { useAppDispatch, useAppSelector, useSelector } from '@hooks';
+import { screenModel } from '@type';
+import { SHOW_ZF_CONST, UMENG_CHANNEL } from '@utility';
+import { UserStateType } from '@redux';
+import { User } from '@models';
 
 
 const AdultVideoVipModal = () => {
@@ -53,7 +52,7 @@ const AdultVideoVipModal = () => {
                 handleCloseModal()
               }}>
               <View style={styles.closeBtnContainer}>
-                <CloseIcon />
+                <CloseSvg />
               </View>
             </TouchableOpacity>
             <View style={{ alignItems: 'center', justifyContent: 'center' }}>

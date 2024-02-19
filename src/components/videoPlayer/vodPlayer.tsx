@@ -29,31 +29,30 @@ import WebView from "react-native-webview";
 
 import FastImage from "../../components/common/customFastImage";
 
-import FastForwardProgressIcon from "@static/images/fastforwardProgress.svg";
-import RewindProgressIcon from "@static/images/rewindProgress.svg";
+import { FastforwardProgressSvg, RewindProgressSvg, } from "@static";
 
-import { incrementSportWatchTime, setFullscreenState, showAdultModeVip } from "@redux/actions/screenAction";
+import { incrementSportWatchTime, setFullscreenState, showAdultModeVip } from "@redux";
 
 import {
   LiveTVStationItem,
   VodEpisodeListType,
   VodType,
-} from "@type/ajaxTypes";
+} from "@type";
 import VideoWithControls from "./videoWithControls";
 import { useDispatch } from "react-redux";
-import { useAppSelector, useSelector } from "@hooks/hooks";
-import { screenModel } from "@type/screenType";
-import { ADULT_MODE_PREVIEW_DURATION, AD_VIDEO_SECONDS, NON_VIP_STREAM_TIME_SECONDS } from "@utility/constants";
+import { useAppSelector, useSelector } from "@hooks";
+import { screenModel } from "@type";
+import { ADULT_MODE_PREVIEW_DURATION, AD_VIDEO_SECONDS, NON_VIP_STREAM_TIME_SECONDS } from "@utility";
 import { AdVideoImage } from "./AdVideoImage";
-import { VodReducerState } from "@redux/reducers/vodReducer";
+import { VodReducerState } from "@redux";
 import { VodApi } from "@api";
 import { useQuery } from "@tanstack/react-query";
 import UmengAnalytics from "../../../Umeng/UmengAnalytics";
 import InAppBrowser from "react-native-inappbrowser-reborn";
 import ImmersiveMode from "react-native-immersive-mode"
-import { RootState } from "@redux/store";
-import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models/user";
+import { RootState } from "@redux";
+import { UserStateType } from "@redux";
+import { User } from "@models";
 
 LogBox.ignoreLogs([`Trying to load empty source.`]);
 
@@ -796,9 +795,9 @@ export default forwardRef<VideoRef, Props>(
                 }}
               >
                 {seekDirection === "forward" ? (
-                  <FastForwardProgressIcon height={50} width={50} />
+                  <FastforwardProgressSvg height={50} width={50} />
                 ) : (
-                  <RewindProgressIcon height={50} width={50} />
+                  <RewindProgressSvg height={50} width={50} />
                 )}
                 {duration > 3600 ? (
                   <Text
@@ -842,7 +841,7 @@ export default forwardRef<VideoRef, Props>(
               </View>
             ) : (
               <FastImage
-                source={require("@static/images/videoBufferLoading.gif")}
+                source={require("../../../static/images/videoBufferLoading.gif")}
                 style={{ width: 100, height: 100 }}
                 resizeMode={"contain"}
               />

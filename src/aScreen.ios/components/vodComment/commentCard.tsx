@@ -2,11 +2,10 @@ import { useTheme } from "@react-navigation/native";
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet, ActionSheetIOS } from "react-native";
 import FastImage from "react-native-fast-image";
-import { CommentsType } from "@type/ajaxTypes";
-import { CPopup } from "@utility/popup";
-// import DefaultProfileIcon from "@static/images/default_profile.svg";
-import { useAppDispatch } from "@hooks/hooks";
-import { showReportAction } from "@redux/actions/screenAction";
+import { CommentsType } from "@type";
+import { CPopup } from "@utility";
+import { useAppDispatch } from "@hooks";
+import { showReportAction } from "@redux";
 
 interface Props {
   commentItem: CommentsType;

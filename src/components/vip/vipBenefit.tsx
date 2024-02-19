@@ -1,6 +1,6 @@
-import { useAppSelector } from '@hooks/hooks';
+import { useAppSelector } from '@hooks';
 import { useTheme } from '@react-navigation/native';
-import { screenModel } from '@type/screenType';
+import { screenModel } from '@type';
 import { StyleSheet, Text, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
@@ -12,7 +12,7 @@ export const VipBenefit = () => {
 
   const screenState: screenModel = useAppSelector(
     ({ screenReducer }) => screenReducer,
-);
+  );
 
   return (
     <LinearGradient
@@ -31,61 +31,61 @@ export const VipBenefit = () => {
       <View style={styles.featureItem}>
         <View style={styles.imgContainer}>
           <FastImage
-            source={require('@static/images/vip/vip_logo.png')}
+            source={require('../../../static/images/vip/vip_logo.png')}
             style={styles.featureIcn}
             resizeMode={FastImage.resizeMode.contain}
           />
         </View>
         <View>
-          <Text style={{...textVariants.small}}>VIP尊贵标识</Text>
+          <Text style={{ ...textVariants.small }}>VIP尊贵标识</Text>
         </View>
       </View>
       {YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5 ? (
         <View style={styles.featureItem}>
           <View style={styles.imgContainer}>
             <FastImage
-              source={require('@static/images/vip/vip_sport.png')}
+              source={require('../../../static/images/vip/vip_sport.png')}
               style={styles.featureIcn}
               resizeMode={FastImage.resizeMode.contain}
             />
           </View>
-          <Text style={{...textVariants.small}}>体育频道</Text>
+          <Text style={{ ...textVariants.small }}>体育频道</Text>
         </View>
       ) : (
         <></>
       )}
 
-{screenState.showAdultTab && (
-      <View style={styles.featureItem}>
-        <View style={styles.imgContainer}>
-          <FastImage
-            source={require('@static/images/invite/vip_adult_video.png')}
-            style={styles.featureIcn}
-            resizeMode={FastImage.resizeMode.contain}
-          />
+      {screenState.showAdultTab && (
+        <View style={styles.featureItem}>
+          <View style={styles.imgContainer}>
+            <FastImage
+              source={require('../../../static/images/invite/vip_adult_video.png')}
+              style={styles.featureIcn}
+              resizeMode={FastImage.resizeMode.contain}
+            />
+          </View>
+
+
+          <View>
+            <Text style={{ ...textVariants.small }}>夜来香</Text>
+          </View>
+
         </View>
- 
-          
-        <View>
-          <Text style={{...textVariants.small}}>夜来香</Text>
-        </View>
-       
-      </View>
-       )
+      )
       }
       <View style={styles.featureItem}>
         <View style={styles.imgContainer}>
           <FastImage
-            source={require('@static/images/vip/vip_no_ad.png')}
+            source={require('../../../static/images/vip/vip_no_ad.png')}
             style={styles.featureIcn}
             resizeMode={FastImage.resizeMode.contain}
           />
         </View>
         <View>
-          <Text style={{...textVariants.small}}>去广告</Text>
+          <Text style={{ ...textVariants.small }}>去广告</Text>
         </View>
       </View>
-      
+
     </LinearGradient>
   );
 };

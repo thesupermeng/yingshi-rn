@@ -2,10 +2,10 @@ import React, { useCallback, useEffect, useState } from "react";
 import { View, FlatList, Text, StyleSheet, Linking } from "react-native";
 import { useNavigation, useTheme } from "@react-navigation/native";
 
-import { VodType } from "@type/ajaxTypes";
-import { useAppDispatch } from "@hooks/hooks";
+import { VodType } from "@type";
+import { useAppDispatch } from "@hooks";
 import FavoriteVodCard from "./favoriteVodCard";
-import { playVod } from "@redux/actions/vodActions";
+import { playVod } from "@redux";
 
 interface Props {
   vodList: Array<VodType>;

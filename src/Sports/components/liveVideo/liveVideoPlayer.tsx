@@ -4,12 +4,12 @@ import styles from './style';
 import { VideoLiveType } from '../../global/const';
 import { MatchDetailsType, Stream } from '../../types/matchTypes';
 import VodPlayer, { VideoRef } from '../../../components/videoPlayer/vodPlayer';
-import { lockAppOrientation } from '@redux/actions/settingsActions';
-import { RootState } from '@redux/store';
-import { SettingsReducerState } from '@redux/reducers/settingsReducer';
-import { useAppDispatch, useAppSelector } from '@hooks/hooks';
+import { lockAppOrientation } from '@redux';
+import { RootState } from '@redux';
+import { SettingsReducerState } from '@redux';
+import { useAppDispatch, useAppSelector } from '@hooks';
 import WebView from 'react-native-webview';
-import BackIcon from "@static/images/back_arrow.svg";
+import { BackArrowSvg, } from "@static";
 import { useIsFocused, useTheme } from '@react-navigation/native';
 import UmengAnalytics from '../../../../Umeng/UmengAnalytics';
 import CountdownIndicator from '../../../components/button/countdownIndicator';
@@ -33,7 +33,7 @@ interface Props {
 }
 
 const LiveVideo = ({ videoRef, matchID, liveDataState, onLiveEnd, onLoad, streamID, videoSource, setVideoSource, onGoBack, showCountdown = false, countdownTime = 0, onVipCountdownClick, }: Props) => {
-        const { colors } = useTheme();
+    const { colors } = useTheme();
 
     const homeName = liveDataState?.home?.name;
     const awayName = liveDataState?.away?.name;
@@ -155,7 +155,7 @@ const LiveVideo = ({ videoRef, matchID, liveDataState, onLiveEnd, onLoad, stream
                         videoSource?.url !== undefined && (
                             videoSource.type === VideoLiveType.LIVE
                                 ? <>
-                                    {isFocus && 
+                                    {isFocus &&
                                         <VodPlayer
                                             ref={videoRef}
                                             onBack={onHandleBack}
@@ -197,11 +197,11 @@ const LiveVideo = ({ videoRef, matchID, liveDataState, onLiveEnd, onLoad, stream
                                         onPress={onHandleBack}
                                         style={{ position: 'absolute', padding: 20 }}
                                     >
-                                        <BackIcon
+                                        <BackArrowSvg
                                             style={{
                                                 color: colors.text,
                                             }}
-                                        ></BackIcon>
+                                        ></BackArrowSvg>
                                     </TouchableOpacity>
                                 </View>
                         )

@@ -1,15 +1,15 @@
-import {Text, TouchableOpacity, View} from 'react-native';
-import ExpandUpIcon from '@static/images/expandHeji.svg';
-import HejiIcon from '@static/images/heji.svg';
-import {useTheme} from '@react-navigation/native';
+import { Text, TouchableOpacity, View } from 'react-native';
+import { ExpandHejiSvg, HejiSvg } from '@static';
+
+import { useTheme } from '@react-navigation/native';
 
 interface Props {
   handleOnPress: any;
   collectionTitle: string;
 }
 
-const HejiButton = ({handleOnPress, collectionTitle}: Props) => {
-  const {colors} = useTheme();
+const HejiButton = ({ handleOnPress, collectionTitle }: Props) => {
+  const { colors } = useTheme();
   return (
     <View
       style={{
@@ -19,15 +19,15 @@ const HejiButton = ({handleOnPress, collectionTitle}: Props) => {
         paddingLeft: 20,
         paddingRight: 20,
       }}>
-      <TouchableOpacity style={{flex: 1}} onPress={handleOnPress}>
+      <TouchableOpacity style={{ flex: 1 }} onPress={handleOnPress}>
         <View
           style={{
             flex: 1,
             flexDirection: 'row',
             justifyContent: 'space-between',
           }}>
-          <View style={{flex: 1, flexDirection: 'row'}}>
-            <HejiIcon height={24} width={24} />
+          <View style={{ flex: 1, flexDirection: 'row' }}>
+            <HejiSvg height={24} width={24} />
             <Text
               style={{
                 paddingLeft: 6,
@@ -40,7 +40,7 @@ const HejiButton = ({handleOnPress, collectionTitle}: Props) => {
             </Text>
           </View>
           <View style={{}}>
-            <ExpandUpIcon height={24} width={24} />
+            <ExpandHejiSvg height={24} width={24} />
           </View>
         </View>
       </TouchableOpacity>

@@ -11,12 +11,12 @@ import {
 import ScreenContainer from '../../components/container/screenContainer';
 import { useNavigation, useTheme } from '@react-navigation/native';
 
-import { RootStackScreenProps } from '@type/navigationTypes';
+import { RootStackScreenProps } from '@type';
 import {
   VodType,
-} from '@type/ajaxTypes';
-import { playVod } from '@redux/actions/vodActions';
-import { useAppDispatch } from '@hooks/hooks';
+} from '@type';
+import { playVod } from '@redux';
+import { useAppDispatch } from '@hooks';
 import {
   useInfiniteQuery,
   useQuery,
@@ -25,7 +25,6 @@ import {
 import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
 import VodTopicFilter from '../../components/vod/vodTopicFilter';
 import VodCard from '../../components/vod/vodCard';
-import DownArrow from '@static/images/arrow_down_yellow.svg';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Animated, {
   useSharedValue,
@@ -35,7 +34,7 @@ import Animated, {
 import { FlatListProps } from 'react-native/Libraries/Lists/FlatList';
 // import FastImage from 'react-native-fast-image';
 import FastImage from '../common/customFastImage';
-import { LiveTVStationItem } from '@type/ajaxTypes';
+import { LiveTVStationItem } from '@type';
 
 interface Props {
   itemList: Array<LiveTVStationItem>;
@@ -118,7 +117,7 @@ export default function VodLiveStationListVertical({
         <View style={{ ...styles.loading, paddingTop: 20 }}>
           <FastImage
             style={{ height: 80, width: 80 }}
-            source={require('@static/images/loading-spinner.gif')}
+            source={require('../../../static/images/loading-spinner.gif')}
             resizeMode={"contain"}
           />
         </View>

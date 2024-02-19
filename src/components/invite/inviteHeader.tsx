@@ -1,10 +1,9 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, TextInput, Image} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, TextInput, Image } from 'react-native';
 
-import {useTheme} from '@react-navigation/native';
-import ArrowIcn from '@static/images/invite/double-arrow.svg';
+import { useTheme } from '@react-navigation/native';
 export default function InviteStep() {
-  const {colors, textVariants, icons, spacing} = useTheme();
+  const { colors, textVariants, icons, spacing } = useTheme();
 
   const escapeRegExp = (string: string) => {
     return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -43,7 +42,7 @@ export default function InviteStep() {
         return (
           <Text
             key={index}
-            style={{...textVariants.body, color: '#FFFFFF', fontSize: 20}}>
+            style={{ ...textVariants.body, color: '#FFFFFF', fontSize: 20 }}>
             {part}
           </Text>
         );
@@ -61,7 +60,7 @@ export default function InviteStep() {
           alignItems: 'center',
           gap: 9,
         }}>
-        <Text style={{fontSize: 22, color: colors.primary, fontWeight: '700'}}>
+        <Text style={{ fontSize: 22, color: colors.primary, fontWeight: '700' }}>
           双赢奖励
         </Text>
 

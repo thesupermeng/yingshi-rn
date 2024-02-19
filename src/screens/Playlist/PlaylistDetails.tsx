@@ -2,11 +2,11 @@ import React, { memo, useCallback, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
 import { useTheme } from '@react-navigation/native';
-import { useAppSelector } from '@hooks/hooks';
-import { RootState } from '@redux/store';
+import { useAppSelector } from '@hooks';
+import { RootState } from '@redux';
 import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
 import FavoritePlaylistButton from '../../components/button/favoritePlaylistButton';
-import { RootStackScreenProps } from '@type/navigationTypes';
+import { RootStackScreenProps } from '@type';
 import VodWithDescriptionList from '../../components/vod/vodWithDescriptionList';
 import UmengAnalytics from '../../../Umeng/UmengAnalytics';
 

@@ -1,23 +1,22 @@
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { FlatList, Keyboard, Text, View } from "react-native"
-import { useAppDispatch, useSelector } from "@hooks/hooks";
+import { useAppDispatch, useSelector } from "@hooks";
 import { CPressable, CTextInput } from "../../../../components/atoms";
-import SendIcon from '@static/images/send.svg';
-import SendFillIcon from '@static/images/send_filled.svg';
-import { CHAT_BOX_MAX_ITEM, CHAT_SEND_COOLDOWN, COMMENT_MAX_INPUT } from "@utility/constants";
-import { LiveChatMessageType } from "@type/ajaxTypes";
+import { SendSvg, SendFilledSvg } from '@static';
+import { CHAT_BOX_MAX_ITEM, CHAT_SEND_COOLDOWN, COMMENT_MAX_INPUT } from "@utility";
+import { LiveChatMessageType } from "@type";
 import { ChatApi } from "../../../../api/chat";
-import { ChatType } from "@redux/reducers/chatReducer";
+import { ChatType } from "@redux";
 import { useQuery } from "@tanstack/react-query";
-import { joinChatRoom, leaveChatRoom, sendChatMessage } from "@redux/actions/chatAction";
+import { joinChatRoom, leaveChatRoom, sendChatMessage } from "@redux";
 import { Avatar } from "@rneui/base";
 import { useIsFocused, useTheme } from "@react-navigation/native";
 
 import createStyles from "./style";
 import { Streamer } from "../../../types/matchTypes";
 import { UnreadCard } from "../../../../components/chat/unread";
-import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models/user";
+import { UserStateType } from "@redux";
+import { User } from "@models";
 
 type Props = {
     matchID: string,
@@ -185,7 +184,7 @@ const LiveChatPage = ({
                     <Avatar
                         source={streamer.avatar && streamer.avatar !== ''
                             ? { uri: streamer.avatar }
-                            : require("@static/images/profilePic.png")
+                            : require("../../../../../static/images/profilePic.png")
                         }
                         avatarStyle={{
                             borderRadius: 100,
@@ -284,8 +283,8 @@ const LiveChatPage = ({
 
                 <CPressable onPress={onSubmitComment}>
                     {comment.trim().length > 0 && isCommentValid
-                        ? <SendFillIcon />
-                        : <SendIcon style={{ marginLeft: 5, marginRight: 5 }} />
+                        ? <SendFilledSvg />
+                        : <SendSvg style={{ marginLeft: 5, marginRight: 5 }} />
                     }
                 </CPressable>
             </View>

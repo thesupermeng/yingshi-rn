@@ -9,12 +9,11 @@ import {
   FlatList,
 } from "react-native";
 import { useTheme } from "@react-navigation/native";
-import { VodEpisodeListType } from "@type/ajaxTypes";
+import { VodEpisodeListType } from "@type";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import SortAscIcon from "@static/images/sortAsc.svg";
-import SortDescIcon from "@static/images/sortDesc.svg";
+import { SortAscSvg, SortDescSvg } from "@static";
 import BottomSheet from "../bottomSheet/bottomSheet";
-import { VodRecordType } from "@redux/reducers/vodReducer";
+import { VodRecordType } from "@redux";
 
 interface Props {
   onConfirm: any;
@@ -146,7 +145,7 @@ function VodEpisodeSelectionModal({
         />
         <TouchableOpacity style={styles.sortBtn} onPress={sort}>
           <View style={{ paddingTop: 4 }}>
-            {sortBy === "asc" ? <SortAscIcon /> : <SortDescIcon />}
+            {sortBy === "asc" ? <SortAscSvg /> : <SortDescSvg />}
           </View>
           <Text
             style={{

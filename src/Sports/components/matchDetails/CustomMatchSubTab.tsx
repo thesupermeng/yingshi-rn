@@ -7,7 +7,7 @@ import { Dimensions } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import FastImage from 'react-native-fast-image';
 import BottomSheet from '@gorhom/bottom-sheet';
-import { DetailTab } from '@type/ajaxTypes';
+import { DetailTab } from '@type';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import ScreenContainer from '../../../components/container/screenContainer';
 import Chart from '../statisticCharts/Chart';

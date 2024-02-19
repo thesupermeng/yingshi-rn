@@ -1,17 +1,17 @@
 import React, { useEffect, ReactNode } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import EighteenPlusIcon from '@static/images/eighteen-plus-icon.svg';
-import { screenModel } from '@type/screenType';
-import { useAppSelector } from '@hooks/hooks';
+import { EighteenPlusIconSvg } from '@static';
+import { screenModel } from '@type';
+import { useAppSelector } from '@hooks';
 import { BlurView } from '../blurView';
 
 interface Props {
   handleAccept: any
   handleReject: any
-  isRadius?:boolean
+  isRadius?: boolean
 }
 
-export default function EighteenPlusOverlay({ handleAccept, handleReject , isRadius=false }: Props) {
+export default function EighteenPlusOverlay({ handleAccept, handleReject, isRadius = false }: Props) {
   const screenState: screenModel = useAppSelector(
     ({ screenReducer }) => screenReducer
   )
@@ -28,12 +28,12 @@ export default function EighteenPlusOverlay({ handleAccept, handleReject , isRad
             position: 'absolute',
             width: '100%',
             height: '100%',
-            borderRadius : isRadius ? 15:0
+            borderRadius: isRadius ? 15 : 0
           }}
         />
         <View style={{ flex: 1, position: 'relative', alignItems: 'center', justifyContent: 'center', alignSelf: 'center', alignContent: 'center', marginBottom: '18%' }}>
           <View style={{ position: 'relative', alignItems: 'center' }}>
-            <EighteenPlusIcon style={{ position: 'absolute', zIndex: 100, top: 0 }}></EighteenPlusIcon>
+            <EighteenPlusIconSvg style={{ position: 'absolute', zIndex: 100, top: 0 }}></EighteenPlusIconSvg>
             <View
               style={{
                 backgroundColor: 'rgba(34, 34, 34, 0.9)',

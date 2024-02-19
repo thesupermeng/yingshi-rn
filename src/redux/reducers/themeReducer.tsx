@@ -1,10 +1,10 @@
-import { DARK_THEME, LIGHT_THEME } from "@utility/constants";
-import { ThemeActionType } from "@type/actionTypes";
+import { DARK_THEME, LIGHT_THEME } from "@utility";
+import { ThemeActionType } from "@type";
 const initialState = {
   theme: true
 };
 
-export default (theme = initialState, { type } : ThemeActionType) => {
+export default (theme = initialState, { type }: ThemeActionType) => {
   switch (type) {
     case DARK_THEME:
       return { theme: true };

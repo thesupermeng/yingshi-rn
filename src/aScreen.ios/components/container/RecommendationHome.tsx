@@ -18,28 +18,27 @@ import {
   VodTopicType,
   VodType,
   VodCarousellType,
-} from "@type/ajaxTypes";
+} from "@type";
 // import FastImage from "react-native-fast-image";
 import FastImage from "../common/customFastImage";
-import { VodReducerState } from "@redux/reducers/vodReducer";
-import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
-import { RootState } from "@redux/store";
+import { VodReducerState } from "@redux";
+import { useAppDispatch, useAppSelector, useSelector } from "@hooks";
+import { RootState } from "@redux";
 import VodHistoryList from "../vod/vodHistoryList";
 import VodLiveStationList from "../vod/vodLiveStationList";
-import { API_DOMAIN, API_DOMAIN_TEST } from "@utility/constants";
+import { API_DOMAIN, API_DOMAIN_TEST } from "@utility";
 import VodListVertical from "../vod/vodListVertical";
-import { playVod, viewPlaylistDetails } from "@redux/actions/vodActions";
+import { playVod, viewPlaylistDetails } from "@redux";
 import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
 import LinearGradient from "react-native-linear-gradient";
 import Carousel from "react-native-reanimated-carousel";
 
 import CarouselPagination from "./CarouselPagination";
-import LoadingIcon from "@static/images/MutedVolume.svg";
 import { Image } from "react-native";
 import { YingPingContainer } from "../container/yingPingContainer";
 import { AppsApi, PlaylistApi } from "@api";
-import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models/user";
+import { UserStateType } from "@redux";
+import { User } from "@models";
 
 interface NavType {
   id: number;
@@ -386,7 +385,7 @@ const RecommendationHome = ({
         //           justifyContent: "center",
         //           alignItems: "center",
         //         }}
-        //         source={require("@static/images/loading-spinner.gif")}
+        //         source={require("../../../../static/images/loading-spinner.gif")}
         //         resizeMode={"contain"}
         //       />
         //     )}
@@ -418,7 +417,7 @@ const RecommendationHome = ({
           >
             <FastImage
               style={{ height: 80, width: 80 }}
-              source={require("@static/images/loading-spinner.gif")}
+              source={require("../../../../static/images/loading-spinner.gif")}
               resizeMode={"contain"}
             />
           </View>

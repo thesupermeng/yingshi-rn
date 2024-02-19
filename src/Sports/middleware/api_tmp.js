@@ -3,7 +3,7 @@ import { Platform } from 'react-native';
 // import {getAccessToken, getAuthToken} from '../global/asyncStorage';
 import Config from '../global/env';
 // import {addHeaderSignature} from './util';
-import { MATCH_API_DOMAIN } from '@utility/constants';
+import { MATCH_API_DOMAIN } from '@utility';
 
 
 const printResponseLog = (api, response, success) => {
@@ -112,17 +112,17 @@ export default class Api {
     try {
       const response = await axios(configuratinObject);
       // console.log(configuratinObject)
-      const {code, data, msg} = response.data;
+      const { code, data, msg } = response.data;
       // console.log(data, msg, code);
       if (response.status === 200) {
         if (code == 0) {
-          return {success: true, data: data, message: msg};
+          return { success: true, data: data, message: msg };
         } else {
-          return {success: false, data: data, message: msg};
+          return { success: false, data: data, message: msg };
         }
       } else {
-        
-        return {success: false, data: null, message: msg};
+
+        return { success: false, data: null, message: msg };
       }
     } catch (error) {
       // console.log("ERR", error)
@@ -133,9 +133,9 @@ export default class Api {
 
       if (status === 401) {
 
-        return {success: false, data: null, message: msg ?? ''};
+        return { success: false, data: null, message: msg ?? '' };
       } else {
-        return {success: false, data: null, message: 'Internal Server Error'};
+        return { success: false, data: null, message: 'Internal Server Error' };
       }
     }
   };

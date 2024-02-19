@@ -1,16 +1,16 @@
 import React, { useState, useCallback, useEffect, forwardRef, useImperativeHandle, useRef } from 'react';
 import { View, FlatList, RefreshControl } from 'react-native';
-import { MiniVideo } from '@type/ajaxTypes';
+import { MiniVideo } from '@type';
 import ShortVod from '../../components/videoPlayer/shortVod';
 import FastImage from "../common/customFastImage";
 import { useTheme } from '@react-navigation/native';
 import { StyleSheet } from 'react-native';
 import UmengAnalytics from '../../../../Umeng/UmengAnalytics';
-import { useAppDispatch, useAppSelector, useSelector } from '@hooks/hooks';
-import { MINI_SHOW_LOGIN_NUMBER } from '@utility/constants';
-import { showLoginAction } from '@redux/actions/screenAction';
+import { useAppDispatch, useAppSelector, useSelector } from '@hooks';
+import { MINI_SHOW_LOGIN_NUMBER } from '@utility';
+import { showLoginAction } from '@redux';
 import ShortAds from './shortAds';
-import { UserStateType } from '@redux/reducers/userReducer';
+import { UserStateType } from '@redux';
 
 interface Props {
     miniVodListRef: any,
@@ -234,7 +234,7 @@ export default forwardRef<MiniVodRef, Props>(
                         }}
                     >
                         <FastImage
-                            source={require("@static/images/home-loading.gif")}
+                            source={require("../../../../static/images/home-loading.gif")}
                             style={{
                                 width: 150,
                                 height: 150,
@@ -272,7 +272,7 @@ export default forwardRef<MiniVodRef, Props>(
                                 {
                                     hasNextPage && <FastImage
                                         style={{ height: 80, width: 80 }}
-                                        source={require('@static/images/loading-spinner.gif')}
+                                        source={require('../../../../static/images/loading-spinner.gif')}
                                         resizeMode={'contain'}
                                     />
                                 }

@@ -2,26 +2,23 @@
   "extends": "@tsconfig/react-native/tsconfig.json",
   "compilerOptions": {
     "paths": {
-      "@redux/*": [
-        "./src/redux/*"
+      "@redux": [
+        "./src/redux/index.tsx"
       ],
-      "@hooks/*": [
-        "./src/hooks/*"
+      "@hooks": [
+        "./src/hooks/index.tsx"
       ],
-      "@type/*": [
-        "./src/types/*"
+      "@type": [
+        "./src/types/index.tsx"
       ],
-      "@utility/*": [
-        "./src/utility/*"
+      "@utility": [
+        "./src/utility/index.tsx"
       ],
-      "@static/*": [
-        "./static/*"
+      "@static": [
+        "./static/index.js"
       ],
       "@androidScreen/*": [
         "./src/aScreen.android/*"
-      ],
-      "@iosScreen/*": [
-        "./src/aScreen.ios/*"
       ],
       "@api": [
         "./src/api/index.tsx"
@@ -29,8 +26,8 @@
       "@constants": [
         "./src/constants/index.tsx"
       ],
-      "@models/*": [
-        "./src/models/*"
+      "@models": [
+        "./src/models/index.ts"
       ],
     },
   }

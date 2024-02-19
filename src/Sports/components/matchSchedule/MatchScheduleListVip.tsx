@@ -4,8 +4,8 @@ import { useFocusEffect, useTheme } from "@react-navigation/native";
 import styles from "./style";
 import { TouchableOpacity } from "react-native";
 import { formatMatchDate } from "../../utility/utils";
-import { RootState } from "@redux/store";
-// import FollowMatchAction from '@redux/actions/followMatchAction';
+import { RootState } from "@redux";
+// import FollowMatchAction from '@redux';
 import { MatchDetailsType } from "../../types/matchTypes";
 // import {showToast} from '../../utility/toast';
 import { Url } from "../../middleware/url";
@@ -14,14 +14,14 @@ import Api from "../../middleware/api";
 import MatchScheduleVip from "./MatchScheduleVip";
 // import FastImage from 'react-native-fast-image';
 import FastImage from "../../../components/common/customFastImage";
-import { TOPON_BANNER_HEIGHT } from "@utility/constants";
-import { BannerAdType } from "@type/ajaxTypes";
-import { CApi } from "@utility/apiService";
+import { TOPON_BANNER_HEIGHT } from "@utility";
+import { BannerAdType } from "@type";
+import { CApi } from "@utility";
 import { CEndpoint } from "@constants";
 import { YSConfig } from "../../../../ysConfig";
 import { BannerContainer } from "../../../components/container/bannerContainer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useAppSelector } from "@hooks/hooks";
+import { useAppSelector } from "@hooks";
 import UmengAnalytics from "../../../../Umeng/UmengAnalytics";
 import { AdsApi } from "../../../api/ads";
 
@@ -291,7 +291,7 @@ const MatchScheduleList = ({
         >
           <FastImage
             style={{ height: 150, width: 150 }}
-            source={require("@static/images/home-loading.gif")}
+            source={require("../../../../static/images/home-loading.gif")}
             resizeMode={"contain"}
           />
         </View>
@@ -358,7 +358,7 @@ const MatchScheduleList = ({
           }}
         >
           <FastImage
-            source={require("@static/images/loading-spinner.gif")}
+            source={require("../../../../static/images/loading-spinner.gif")}
             style={{ width: 100, height: 100 }}
             resizeMode="contain"
           />

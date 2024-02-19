@@ -1,10 +1,10 @@
 import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
-import FavoriteIcon from '@static/images/favorite.svg';
+import { FavoriteSvg } from '@static';
 import { useTheme } from '@react-navigation/native';
-import { useAppSelector, useAppDispatch } from '@hooks/hooks';
-import { RootState } from '@redux/store';
-import { togglePlaylistFavorites } from '@redux/actions/vodActions';
-import { VodTopicType } from '@type/ajaxTypes';
+import { useAppSelector, useAppDispatch } from '@hooks';
+import { RootState } from '@redux';
+import { togglePlaylistFavorites } from '@redux';
+import { VodTopicType } from '@type';
 interface Props {
     playlist: VodTopicType,
     leftIcon?: React.ReactNode,
@@ -21,7 +21,7 @@ export default function FavoritePlaylistButton({ leftIcon, buttonStyle, playlist
             {
                 leftIcon ?
                     leftIcon
-                    : <FavoriteIcon width={icons.sizes.m} height={icons.sizes.m} style={{ color: isFavorited ? colors.background : colors.muted, ...buttonStyle, }} />
+                    : <FavoriteSvg width={icons.sizes.m} height={icons.sizes.m} style={{ color: isFavorited ? colors.background : colors.muted, ...buttonStyle, }} />
             }
             <Text
                 style={{ ...textVariants.small, color: isFavorited ? colors.background : 'white', ...styles.text, paddingBottom: 3 }}>

@@ -9,19 +9,19 @@ import { View, Text, TouchableOpacity, Alert, Linking } from "react-native";
 import RegengModal from "./regengModal";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useAppDispatch } from "@hooks/hooks";
+import { useAppDispatch } from "@hooks";
 
 // import FastImage from 'react-native-fast-image';
 import FastImage from "../common/customFastImage";
 import CodePush from "react-native-code-push";
 import { TermsAcceptContext } from "../../contexts/TermsAcceptedContext";
 import RNRestart from "react-native-restart";
-import { CPopup } from "@utility/popup";
+import { CPopup } from "@utility";
 import { YSConfig } from "../../../ysConfig";
 import RNExitApp from "react-native-exit-app";
-interface Props {}
+interface Props { }
 
-export default function RegengOverlay({}: Props) {
+export default function RegengOverlay({ }: Props) {
   const { accepted } = useContext(TermsAcceptContext);
 
   const { colors, textVariants, spacing, icons } = useTheme();
@@ -41,7 +41,7 @@ export default function RegengOverlay({}: Props) {
     if (YSConfig.instance.updateUrl != "") {
       const supported = await Linking.canOpenURL(YSConfig.instance.updateUrl);
       if (YSConfig.instance.updateAction != 1) {
-      setIsCancelledShowRegengOverlay(true);
+        setIsCancelledShowRegengOverlay(true);
       }
       if (supported) {
         await Linking.openURL(YSConfig.instance.updateUrl);
@@ -289,7 +289,7 @@ export default function RegengOverlay({}: Props) {
                     }}
                   ></Text>
                   <FastImage
-                    source={require("@static/images/videoBufferLoading.gif")}
+                    source={require("../../../static/images/videoBufferLoading.gif")}
                     style={{ width: 100, height: 100 }}
                     resizeMode="contain"
                   />

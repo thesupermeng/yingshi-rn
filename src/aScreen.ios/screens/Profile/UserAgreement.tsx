@@ -5,14 +5,14 @@ import {
   StyleSheet,
 } from "react-native";
 import ScreenContainer from "../../components/container/screenContainer";
-import { RootStackScreenProps } from "@type/navigationTypes";
+import { RootStackScreenProps } from "@type";
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
 
 import { useTheme } from "@react-navigation/native";
-import { APP_NAME_CONST,APP_NAME_CONST2 } from "@utility/constants";
-import { showLoginAction } from "@redux/actions/screenAction";
-import { useAppDispatch, useSelector } from "@hooks/hooks";
-import { screenModel } from "@type/screenType";
+import { APP_NAME_CONST, APP_NAME_CONST2 } from "@utility";
+import { showLoginAction } from "@redux";
+import { useAppDispatch, useSelector } from "@hooks";
+import { screenModel } from "@type";
 
 export default ({ navigation }: RootStackScreenProps<"用户协议">) => {
   const { textVariants, spacing } = useTheme();
@@ -22,13 +22,12 @@ export default ({ navigation }: RootStackScreenProps<"用户协议">) => {
   useEffect(() => {
     const unsubscribe = navigation.addListener('beforeRemove', (e) => {
       if (screenReducer.navigateToProfile === true) {
-      // Check if the previous route was "RegistrationPage" and the destination is "ProfileScreen"
+        // Check if the previous route was "RegistrationPage" and the destination is "ProfileScreen"
         // If yes, trigger your custom action
         const navState = navigation.getState();
         const currentRouteName = navState.routes[navState.index].name;
         const previousRouteName = navState.routes[navState.index - 1]?.name;
-        if( previousRouteName !='关于我们')
-        {
+        if (previousRouteName != '关于我们') {
           dispatch(showLoginAction());
         }
       } else {

@@ -1,6 +1,6 @@
-import { LiveChatRoomType } from '@type/ajaxTypes';
-import { LiveRoomHistoryType, LiveRoomType, PrivateRoomHistoryType, PrivateRoomType } from '@type/chatTypes';
-import { CHAT_BOX_MAX_ITEM } from '@utility/constants';
+import { LiveChatRoomType } from '@type';
+import { LiveRoomHistoryType, LiveRoomType, PrivateRoomHistoryType, PrivateRoomType } from '@type';
+import { CHAT_BOX_MAX_ITEM } from '@utility';
 
 export enum ChatActionEventType {
     JOIN_LIVE_ROOM = 'JOIN_LIVE_ROOM',

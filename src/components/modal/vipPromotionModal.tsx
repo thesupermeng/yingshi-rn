@@ -2,9 +2,9 @@ import React, { useEffect, ReactNode, useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from "react-native";
 import FastImage from "../common/customFastImage";
 import LinearGradient from "react-native-linear-gradient";
-import { useSelector } from "@hooks/hooks";
-import { BackgroundType } from "@redux/reducers/backgroundReducer";
-import { VIP_PROMOTION_COUNTDOWN_MINUTE, VIP_PROMOTION_PURCHASE_MAX } from "@utility/constants";
+import { useSelector } from "@hooks";
+import { BackgroundType } from "@redux";
+import { VIP_PROMOTION_COUNTDOWN_MINUTE, VIP_PROMOTION_PURCHASE_MAX } from "@utility";
 
 interface Props {
   coverImage: any;

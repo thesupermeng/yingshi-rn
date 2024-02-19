@@ -1,5 +1,5 @@
-import {useRef, useState} from 'react';
-import {useEffect} from 'react';
+import { useRef, useState } from 'react';
+import { useEffect } from 'react';
 import {
   Alert,
   Image,
@@ -9,17 +9,17 @@ import {
   View,
 } from 'react-native';
 import DefaultThumbnail from '../../defaultThumbnail';
-import {adsClick, linkClick} from '../../../utility/utils';
+import { adsClick, linkClick } from '../../../utility/utils';
 import {
   BaiduAds,
   IconCloseBorderLess,
   IconDefaultThumbnail,
 } from '../../../assets';
 import styles from './style';
-import {Back} from '../videoPlayerControls/Controls';
-import AppSettingsAction from '@redux/actions/appSettingsAction';
+import { Back } from '../videoPlayerControls/Controls';
+import AppSettingsAction from '@redux';
 
-const VideoAdsComp = ({item, callBack}) => {
+const VideoAdsComp = ({ item, callBack }) => {
   const [time, setTime] = useState(10);
   const timerRef = useRef(time);
 
@@ -55,7 +55,7 @@ const VideoAdsComp = ({item, callBack}) => {
           iconDefault={IconDefaultThumbnail}>
           <ImageBackground
             style={styles.adsContent}
-            source={{uri: item?.ad_url ?? ''}}
+            source={{ uri: item?.ad_url ?? '' }}
             resizeMode={'contain'}>
             <ImageBackground
               source={require('./images/top_overlay.png')}
@@ -76,10 +76,10 @@ const VideoAdsComp = ({item, callBack}) => {
                 onPress={() => {
                   linkClick(item?.ad_redirect_url);
                 }}>
-                <View style={[styles.adsTagContainer, {marginRight: 1}]}>
+                <View style={[styles.adsTagContainer, { marginRight: 1 }]}>
                   <Image
                     resizeMode={'contain'}
-                    style={{width: 13, height: 13, marginRight: 2}}
+                    style={{ width: 13, height: 13, marginRight: 2 }}
                     source={BaiduAds}></Image>
                   <Text style={styles.adsTagText}>广告</Text>
                 </View>

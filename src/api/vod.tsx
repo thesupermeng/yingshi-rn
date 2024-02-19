@@ -1,10 +1,10 @@
 import { CEndpoint, CLangKey } from "@constants";
-import { FilterOptionsType, SuggestVodListType, VodType, CommentsResponseDataType, AdultVodListType, VodPlayerAdType } from "@type/ajaxTypes";
-import { CApi } from "@utility/apiService";
-import { AD_VIDEO_SECONDS, APP_NAME_CONST, UMENG_CHANNEL } from "@utility/constants";
+import { FilterOptionsType, SuggestVodListType, VodType, CommentsResponseDataType, AdultVodListType, VodPlayerAdType } from "@type";
+import { CApi } from "@utility";
+import { AD_VIDEO_SECONDS, APP_NAME_CONST, UMENG_CHANNEL } from "@utility";
 import { Platform } from "react-native";
 import { YSConfig } from "../../ysConfig";
-import { CLang } from "@utility/langService";
+import { CLang } from "@utility";
 
 export class VodApi {
     static getTopicType = async () => {

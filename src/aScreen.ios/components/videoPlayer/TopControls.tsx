@@ -1,9 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { View, PanResponder, StyleSheet, Dimensions, Text } from 'react-native';
 import Slider from '@react-native-community/slider';
-import Pip from '@static/images/pip.svg';
-import ScreenCast from '@static/images/screenCast.svg';
-import VideoShare from '@static/images/videoShare.svg';
 import { TouchableWithoutFeedback } from 'react-native';
 
 type Props = {

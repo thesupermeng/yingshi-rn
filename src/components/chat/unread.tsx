@@ -1,6 +1,6 @@
 import { useTheme } from "@react-navigation/native";
 import { Platform, Text, TouchableOpacity, View, ViewStyle } from "react-native"
-import DownIcon from '@static/images/down_arrow.svg';
+import { DownArrowSvg } from '@static';
 
 
 type Props = {
@@ -37,6 +37,6 @@ export const UnreadCard = ({
             {text.toFixed(0)} 条新消息
         </Text>
 
-        <DownIcon width={14} height={14} />
+        <DownArrowSvg width={14} height={14} />
     </TouchableOpacity>
 }

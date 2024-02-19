@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { EventApi } from "../src/api/event";
-import { EVENT_ANALYSIS_INTERVEL_SECONDS } from "@utility/constants";
+import { EVENT_ANALYSIS_INTERVEL_SECONDS } from "@utility";
 
 type _EventParamsType = {
     desc_1: string,

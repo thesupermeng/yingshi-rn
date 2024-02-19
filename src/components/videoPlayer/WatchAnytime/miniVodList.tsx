@@ -10,17 +10,17 @@ import React, {
 } from 'react';
 import { FlatList, NativeScrollEvent, NativeSyntheticEvent, RefreshControl, StyleSheet, View } from 'react-native';
 import ShortVod from './shortVod';
-import { MiniVideo } from '@type/ajaxTypes';
+import { MiniVideo } from '@type';
 import FastImage from '../../common/customFastImage';
 
-import { useAppDispatch, useAppSelector, useSelector } from '@hooks/hooks';
+import { useAppDispatch, useAppSelector, useSelector } from '@hooks';
 import UmengAnalytics from '../../../../Umeng/UmengAnalytics';
-import { showAdultModeVip, showLoginAction } from '@redux/actions/screenAction';
-import { screenModel } from '@type/screenType';
-import { ADULT_MODE_PREVIEW_DURATION, MINI_SHOW_LOGIN_NUMBER } from '@utility/constants';
+import { showAdultModeVip, showLoginAction } from '@redux';
+import { screenModel } from '@type';
+import { ADULT_MODE_PREVIEW_DURATION, MINI_SHOW_LOGIN_NUMBER } from '@utility';
 import ShortAds from './shortAds';
-import { UserStateType } from '@redux/reducers/userReducer';
-import { User } from '@models/user';
+import { UserStateType } from '@redux';
+import { User } from '@models';
 
 interface Props {
   miniVodListRef: any;
@@ -43,8 +43,8 @@ type MiniVodRef = {
   setPause: (pause: boolean) => void;
 };
 
-const homeLoadingGif = require('@static/images/home-loading.gif');
-const loadingSpinnerGif = require('@static/images/loading-spinner.gif');
+const homeLoadingGif = require('../../../../static/images/home-loading.gif');
+const loadingSpinnerGif = require('../../../../static/images/loading-spinner.gif');
 
 export default forwardRef<MiniVodRef, Props>(
   (

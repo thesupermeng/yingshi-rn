@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity, Text, ScrollView, Image, View, ViewStyle } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import VodImageCard from './vodImageCard';
-import LoadingImage from '@static/images/loading_img.svg';
+import { LoadingImgSvg } from '@static';
 import { memo } from 'react';
 import { ImageStyle } from 'react-native-fast-image';
 interface Props {
@@ -14,22 +14,22 @@ interface Props {
     showPlayIcon?: boolean
     showInfo?: string
     shadowBottom?: boolean
-    index? : number
+    index?: number
     vod_pic_list?: string[]
 }
 
-function VodCard({ vod_name, vod_pic, vodImageStyle = {}, onPress, showInfo, showPlayIcon = false, shadowBottom = false, vodCardContainerStyle={}, index, vod_pic_list }: Props) {
+function VodCard({ vod_name, vod_pic, vodImageStyle = {}, onPress, showInfo, showPlayIcon = false, shadowBottom = false, vodCardContainerStyle = {}, index, vod_pic_list }: Props) {
     const { colors, textVariants, spacing } = useTheme();
     return (
         <View style={{ marginRight: vodImageStyle?.marginRight !== undefined ? vodImageStyle.marginRight : spacing.m }}>
             {
                 vod_name == undefined || vod_pic === undefined
                     ? <View style={{ height: vodImageStyle?.height !== undefined ? vodImageStyle.height : 200, backgroundColor: colors.loading, ...styles.loadingCard, ...vodImageStyle, }}>
-                        <LoadingImage />
+                        <LoadingImgSvg />
                     </View>
                     : <View style={{
-                        width: vodImageStyle?.width !== undefined ? vodImageStyle.width : styles.card.width, 
-                        marginBottom : 14, 
+                        width: vodImageStyle?.width !== undefined ? vodImageStyle.width : styles.card.width,
+                        marginBottom: 14,
                         ...vodCardContainerStyle
                     }}>
                         <VodImageCard vod_img={vod_pic} shadowBottom={shadowBottom} vodStyle={{ ...styles.card, ...vodImageStyle }} onPress={onPress} showPlayIcon={showPlayIcon} showInfo={showInfo} index={index} vod_pic_list={vod_pic_list} />

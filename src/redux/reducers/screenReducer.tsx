@@ -3,7 +3,7 @@ export interface screenActionType {
   payload: string;
 }
 
-import { screenModel } from "@type/screenType";
+import { screenModel } from "@type";
 
 const initialState: screenModel = {
   showEventSplash: true,

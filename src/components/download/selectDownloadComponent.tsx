@@ -11,21 +11,19 @@ import {
   Platform
 } from "react-native";
 import { useNavigation, useTheme } from "@react-navigation/native";
-import { VodEpisodeListType, VodEpisodeStatusType } from "@type/ajaxTypes";
+import { VodEpisodeListType, VodEpisodeStatusType } from "@type";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import DownloadIcon from '@static/images/download.svg'
-import DlIcon from "@static/images/download_icon.svg";
-import VipIcon from "@static/images/vip-icon.svg"
-import FinishIcon from "@static/images/downloaded_icon.svg";
-import { DownloadStatus, DownloadVideoReducerState } from "@type/vodDownloadTypes";
-import { useAppSelector } from "@hooks/hooks";
-import { RootState } from "@redux/store";
+import { DownloadSvg } from '@static';
+import { DownloadIconSvg, VipIconSvg, DownloadedIconSvg, } from "@static";
+import { DownloadStatus, DownloadVideoReducerState } from "@type";
+import { useAppSelector } from "@hooks";
+import { RootState } from "@redux";
 import DeviceInfo from "react-native-device-info";
 import { Provider, Toast } from "@ant-design/react-native";
 import { debounce, throttle } from "lodash";
-import { CPopup } from "@utility/popup";
-import { DOWNLOAD_FEATURE_MAX_QUEUE } from "@utility/constants";
+import { CPopup } from "@utility";
+import { DOWNLOAD_FEATURE_MAX_QUEUE } from "@utility";
 
 const throttledToast = debounce((msg: string) => {
   CPopup.showToast(msg)
@@ -316,7 +314,7 @@ function SelectDownloadComponent({
                   </Text>
 
                   {ep.isDownloading && (
-                    <DlIcon
+                    <DownloadIconSvg
                       style={{
                         position: "absolute",
                         right: -8,
@@ -332,7 +330,7 @@ function SelectDownloadComponent({
                       borderTopRightRadius: 8,
                       borderBottomLeftRadius: 8
                     }}>
-                      <FinishIcon
+                      <DownloadedIconSvg
                         width={10}
                         height={10}
                       />
@@ -341,7 +339,7 @@ function SelectDownloadComponent({
 
                   {!isVip && !ep.isDownloaded && (
                     <View style={{ ...styles.legend }}>
-                      <VipIcon
+                      <VipIconSvg
                         width={14}
                         height={14}
                       />
@@ -368,7 +366,7 @@ function SelectDownloadComponent({
                 onPressToDownload();
               }}
             >
-              <DownloadIcon width={24} height={24} />
+              <DownloadSvg width={24} height={24} />
               <Text
                 style={{
                   ...styles.title,

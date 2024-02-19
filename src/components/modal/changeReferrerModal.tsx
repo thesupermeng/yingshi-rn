@@ -2,12 +2,12 @@ import { useState } from "react";
 import { Image, Keyboard, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { CBottomSheet, CTextInput } from "../atoms";
 import { useNavigation, useTheme } from "@react-navigation/native";
-import { useSelector } from "@hooks/hooks";
+import { useSelector } from "@hooks";
 import { useDispatch } from "react-redux";
-import { changeScreenAction } from "@redux/actions/screenAction";
-import { updateUserAuth } from "@redux/actions/userAction";
+import { changeScreenAction } from "@redux";
+import { updateUserAuth } from "@redux";
 import { UserApi } from "@api";
-import { UserStateType } from "@redux/reducers/userReducer";
+import { UserStateType } from "@redux";
 
 
 interface Props {
@@ -141,7 +141,7 @@ export const ChangeReferrerModal = ({
                                     position: "relative",
                                     top: 1,
                                 }}
-                                source={require("@static/images/invite/danger.png")}
+                                source={require("../../../static/images/invite/danger.png")}
                             />
 
                             <Text style={styles.danger}>{referrerErrMsg}</Text>

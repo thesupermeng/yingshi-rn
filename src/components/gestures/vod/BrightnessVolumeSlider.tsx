@@ -1,9 +1,6 @@
 import React, { useEffect } from 'react';
 import { View, StyleSheet, Image, Text } from 'react-native';
-import Moon from '@static/images/Moon.svg';
-import Sun from '@static/images/Sun.svg';
-import MutedVolume from '@static/images/MutedVolume.svg';
-import Volume from '@static/images/Volume.svg';
+import { MoonSvg, SunSvg, MutedVolumeSvg, VolumeSvg } from '@static';
 
 type Props = {
   percent: number;
@@ -13,13 +10,13 @@ type Props = {
 export default ({ percent, icon }: Props) => {
   return (
     <View style={styles.smallContainer}>
-      {icon == 'Moon' && <Moon width={24} height={24} style={styles.icon} />}
-      {icon == 'Sun' && <Sun width={24} height={24} style={styles.icon} />}
+      {icon == 'Moon' && <MoonSvg width={24} height={24} style={styles.icon} />}
+      {icon == 'Sun' && <SunSvg width={24} height={24} style={styles.icon} />}
       {icon == 'MutedVolume' && (
-        <MutedVolume width={24} height={24} style={styles.icon} />
+        <MutedVolumeSvg width={24} height={24} style={styles.icon} />
       )}
       {icon == 'Volume' && (
-        <Volume width={24} height={24} style={styles.icon} />
+        <VolumeSvg width={24} height={24} style={styles.icon} />
       )}
       <View style={styles.statBar}>
         <View

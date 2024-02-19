@@ -11,7 +11,7 @@ import {
   Modal,
 } from "react-native";
 import ScreenContainer from "../../components/container/screenContainer";
-import { RootStackScreenProps } from "@type/navigationTypes";
+import { RootStackScreenProps } from "@type";
 import {
   useFocusEffect,
   useNavigation,
@@ -22,25 +22,25 @@ import TitleWithBackButtonHeader from "../../components/header/titleWithBackButt
 import { Button, Dialog } from "@rneui/themed";
 import ShowMoreButton from "../../components/button/showMoreButton";
 import NotificationModal from "../../components/modal/notificationModal";
-import MoreArrow from "@static/images/more_arrow.svg";
+import { MoreArrowSvg } from "@static";
 import ConfirmationModal from "../../components/modal/confirmationModal";
-import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
-import { clearStorageMemory } from "@redux/actions/settingsActions";
+import { useAppDispatch, useAppSelector, useSelector } from "@hooks";
+import { clearStorageMemory } from "@redux";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 
-import { removeUserAuthState } from "@redux/actions/userAction";
-import { changeScreenAction } from "@redux/actions/screenAction";
-import { RootState } from "@redux/store";
+import { removeUserAuthState } from "@redux";
+import { changeScreenAction } from "@redux";
+import { RootState } from "@redux";
 
-import { APP_VERSION } from "@utility/constants";
-import { SettingsReducerState } from "@redux/reducers/settingsReducer";
+import { APP_VERSION } from "@utility";
+import { SettingsReducerState } from "@redux";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
-import { CApi } from "@utility/apiService";
+import { CApi } from "@utility";
 import { clearMinivodApiCache } from "../../utils/minivodDownloader";
 import { UserApi } from "../../api/user";
-import { addUserAuthState } from "@redux/actions/userAction";
-import { UserStateType } from '@redux/reducers/userReducer';
-import { User } from "@models/user";
+import { addUserAuthState } from "@redux";
+import { UserStateType } from '@redux';
+import { User } from "@models";
 
 export default ({ navigation }: RootStackScreenProps<"设置">) => {
   const { colors, textVariants, icons, spacing } = useTheme();
@@ -174,7 +174,7 @@ export default ({ navigation }: RootStackScreenProps<"设置">) => {
                     >
                       当前版本{APP_VERSION}
                     </Text>
-                    <MoreArrow
+                    <MoreArrowSvg
                       width={icons.sizes.l}
                       height={icons.sizes.l}
                       color={colors.muted}

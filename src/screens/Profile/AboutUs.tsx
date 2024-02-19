@@ -7,20 +7,20 @@ import {
   TouchableOpacity,
 } from "react-native";
 import ScreenContainer from "../../components/container/screenContainer";
-import { RootStackScreenProps } from "@type/navigationTypes";
+import { RootStackScreenProps } from "@type";
 import { useTheme } from "@react-navigation/native";
-import { RootState } from "@redux/store";
+import { RootState } from "@redux";
 
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
 import { Button } from "@rneui/themed";
 import ShowMoreButton from "../../components/button/showMoreButton";
-import Logo2 from "@static/images/logo2.svg";
+import { Logo2Svg } from "@static";
 import NotificationModal from "../../components/modal/notificationModal";
 import {
   APP_EMAIL_CONST,
   APP_NAME_CONST,
   APP_VERSION,
-} from "@utility/constants";
+} from "@utility";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import RNRestart from 'react-native-restart';
 
@@ -43,7 +43,7 @@ export default ({ navigation }: RootStackScreenProps<"关于我们">) => {
   }
 
   useEffect(() => {
-    if(countToggleB == 8){
+    if (countToggleB == 8) {
       switchToggle();
     }
   }, [countToggleB])
@@ -63,7 +63,7 @@ export default ({ navigation }: RootStackScreenProps<"关于我们">) => {
       <View style={{ gap: spacing.m }}>
         <TitleWithBackButtonHeader title="关于我们" />
         <View style={styles.logo}>
-          <Logo2 height={icons.sizes.xxl} width={icons.sizes.xxl} />
+          <Logo2Svg height={icons.sizes.xxl} width={icons.sizes.xxl} />
         </View>
         <TouchableOpacity onPress={spamToggleB}>
           <Text style={{ textAlign: "center", ...textVariants.body }}>

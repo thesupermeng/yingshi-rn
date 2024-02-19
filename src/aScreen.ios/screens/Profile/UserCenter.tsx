@@ -8,17 +8,17 @@ import {
   Platform,
 } from "react-native";
 import ScreenContainer from "../../components/container/screenContainer";
-import { RootStackScreenProps } from "@type/navigationTypes";
+import { RootStackScreenProps } from "@type";
 import { useTheme } from "@react-navigation/native";
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
-import { useSelector } from "@hooks/hooks";
+import { useSelector } from "@hooks";
 import { TouchableOpacity } from "@gorhom/bottom-sheet";
 import NotificationModal from "../../components/modal/notificationModal";
-import { CPopup } from "@utility/popup";
+import { CPopup } from "@utility";
 import FastImage from "../../components/common/customFastImage";
 import { ChangeUsernameModal } from "../../components/modal/changeUsernameModal";
 import { ChangeReferrerModal } from "../../components/modal/changeReferrerModal";
-import { UserStateType } from "@redux/reducers/userReducer";
+import { UserStateType } from "@redux";
 
 export default ({ navigation }: RootStackScreenProps<"个人中心">) => {
   const { colors } = useTheme();
@@ -77,7 +77,7 @@ export default ({ navigation }: RootStackScreenProps<"个人中心">) => {
                 height: 34,
                 width: 34,
               }}
-              source={require('@static/images/profilePic.png')}
+              source={require('../../../../static/images/profilePic.png')}
             />
           </TouchableOpacity>
 
@@ -155,7 +155,7 @@ export default ({ navigation }: RootStackScreenProps<"个人中心">) => {
                   position: 'relative',
                   top: 2,
                 }}
-                source={require('@static/images/profile/copy.png')}
+                source={require('../../../../static/images/profile/copy.png')}
               />
             </View>
           </TouchableOpacity>

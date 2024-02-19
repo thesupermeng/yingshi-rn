@@ -3,7 +3,7 @@ import {
   StyleSheet,
 } from "react-native";
 import { useTheme } from "@react-navigation/native";
-import { VodEpisodeListType } from "@type/ajaxTypes";
+import { VodEpisodeListType } from "@type";
 import BottomSheet from "../bottomSheet/bottomSheet";
 import SelectDownloadComponent from "../download/selectDownloadComponent";
 

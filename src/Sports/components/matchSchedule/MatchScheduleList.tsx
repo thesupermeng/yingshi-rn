@@ -9,8 +9,8 @@ import { useTheme } from '@react-navigation/native';
 import styles from './style';
 import { TouchableOpacity } from 'react-native';
 import { formatMatchDate } from '../../utility/utils';
-import { RootState } from '@redux/store';
-// import FollowMatchAction from '@redux/actions/followMatchAction';
+import { RootState } from '@redux';
+// import FollowMatchAction from '@redux';
 import { MatchDetailsType } from '../../types/matchTypes';
 // import {showToast} from '../../utility/toast';
 import { Url } from '../../middleware/url';
@@ -19,13 +19,13 @@ import Api from '../../middleware/api';
 import MatchSchedule from './MatchSchedule';
 // import FastImage from 'react-native-fast-image';
 import FastImage from '../../../components/common/customFastImage';
-import { TOPON_BANNER_HEIGHT } from '@utility/constants';
+import { TOPON_BANNER_HEIGHT } from '@utility';
 
 interface Props {
   matchTypeID: number;
   status?: number;
   setShowBecomeVIPOverlay: any;
-  bgDark?:boolean
+  bgDark?: boolean
 }
 
 type MatchType = {
@@ -81,11 +81,11 @@ const MatchScheduleList = ({
     return Url.matches11 + url;
   };
 
-  const url = getUrl(); 
+  const url = getUrl();
 
   const fetchData = useCallback(async () => {
     const data = (await Api.call(url, {}, 'GET')).data
-    
+
     if (data !== undefined) {
       const dates = Object.keys(data);
       let lst: MatchType[] = isFetchNext ? matches.data : [];
@@ -152,13 +152,13 @@ const MatchScheduleList = ({
         ) : (
           item?.data !== undefined && (
             <>
-      
-            <MatchSchedule
-          bgDark={true}
-              setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
-              key={index}
-              matchSche={item?.data}
-            />
+
+              <MatchSchedule
+                bgDark={true}
+                setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
+                key={index}
+                matchSche={item?.data}
+              />
             </>
           )
         )}
@@ -168,7 +168,7 @@ const MatchScheduleList = ({
 
   const handleRefresh = () => {
     setShowLoading(true)
-    flatlistRef?.current?.scrollToOffset({animated:false, offset:0})
+    flatlistRef?.current?.scrollToOffset({ animated: false, offset: 0 })
     setTimeout(() => {
       setShowLoading(false)
     }, 1000)
@@ -192,7 +192,7 @@ const MatchScheduleList = ({
           // }}
           onEndReachedThreshold={0.9}
           stickyHeaderIndices={matches.headers}
-          ListFooterComponent={<View style={{paddingTop: TOPON_BANNER_HEIGHT + 20}}/>}
+          ListFooterComponent={<View style={{ paddingTop: TOPON_BANNER_HEIGHT + 20 }} />}
         />
       ) : (
         <View style={{ height: height }}>
@@ -201,16 +201,16 @@ const MatchScheduleList = ({
       )}
 
       {showLoading && <View style={{
-        position: 'absolute', 
-        backgroundColor: colors.background, 
-        zIndex: 1, 
-        width: '100%', 
-        height: '100%', 
-        justifyContent: 'center', 
-        alignItems: 'center', 
+        position: 'absolute',
+        backgroundColor: colors.background,
+        zIndex: 1,
+        width: '100%',
+        height: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
       }}>
         <FastImage
-          source={require('@static/images/loading-spinner.gif')}
+          source={require('../../../../static/images/loading-spinner.gif')}
           style={{ width: 100, height: 100 }}
           resizeMode="contain"
         />
@@ -220,7 +220,7 @@ const MatchScheduleList = ({
         style={styles.refresh}
         onPress={() => {
           fetchData();
-          handleRefresh(); 
+          handleRefresh();
         }}>
         <FastImage
           source={require('../../assets/images/IconRefresh.png')}

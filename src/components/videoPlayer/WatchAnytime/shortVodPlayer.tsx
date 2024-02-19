@@ -9,30 +9,26 @@ import {
   View,
 } from 'react-native';
 import Video, { OnProgressData, VideoRef } from 'react-native-video';
-import PlayIcon from '@static/images/blackPlay.svg';
-import PauseIcon from '@static/images/pause.svg';
-import PlayBoDanIcon from '@static/images/play-bodan.svg';
-import PlayZhengPianIcon from '@static/images/play-zhengpian1.svg';
+import { BlackPlaySvg, PauseSvg } from '@static';
 
 import { useNavigation, useTheme } from '@react-navigation/native';
 import { Slider } from '@rneui/themed';
 import { QueryClient } from '@tanstack/react-query';
 import { debounce } from 'lodash';
 import RNFetchBlob from 'rn-fetch-blob';
-import HejiIcon from '@static/images/heji.svg';
-import { useAppDispatch, useAppSelector, useSelector } from '@hooks/hooks';
+import { useAppDispatch, useAppSelector, useSelector } from '@hooks';
 import UmengAnalytics from '../../../../Umeng/UmengAnalytics';
-import { showAdultModeVip } from '@redux/actions/screenAction';
-import { playVod, viewPlaylistDetails } from '@redux/actions/vodActions';
-import { screenModel } from '@type/screenType';
-import { ADULT_MODE_PREVIEW_DURATION, DOWNLOAD_WATCH_ANYTIME } from '@utility/constants';
+import { showAdultModeVip } from '@redux';
+import { playVod, viewPlaylistDetails } from '@redux';
+import { screenModel } from '@type';
+import { ADULT_MODE_PREVIEW_DURATION, DOWNLOAD_WATCH_ANYTIME } from '@utility';
 import FastImage from '../../common/customFastImage';
 import RedirectButton from './RedirectButton';
 import DescriptionBar from './DescriptionBar';
 import HejiButton from './HejiButton';
 import { addIdToCache } from '../../../utils/minivodDownloader';
-import { UserStateType } from '@redux/reducers/userReducer';
-import { User } from '@models/user';
+import { UserStateType } from '@redux';
+import { User } from '@models';
 
 interface Props {
   thumbnail?: string;
@@ -56,7 +52,7 @@ const truncateVodName = (vodName: string) => {
     : vodName;
 };
 
-const videoBufferGif = require('@static/images/videoBufferLoading.gif')
+const videoBufferGif = require('../../../../static/images/videoBufferLoading.gif')
 
 function ShortVideoPlayer({
   vod,
@@ -448,7 +444,7 @@ function ShortVideoPlayer({
                   top: (Dimensions.get('window').height - 130) / 2,
                   zIndex: 999,
                 }}>
-                {showIcon && (isPause ? <PlayIcon /> : <PauseIcon />)}
+                {showIcon && (isPause ? <BlackPlaySvg /> : <PauseSvg />)}
               </View>
               {bottomContent()}
               {!disableSeek && (

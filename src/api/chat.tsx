@@ -1,7 +1,7 @@
 import { CEndpoint } from "@constants";
-import { StreamerPinMsgType } from "@type/ajaxTypes";
-import { streamerPinMsgFromJson } from "@type/typeMapping";
-import { CApi } from "@utility/apiService";
+import { StreamerPinMsgType } from "@type";
+import { streamerPinMsgFromJson } from "@type";
+import { CApi } from "@utility";
 
 export class ChatApi {
     static getStreamerPinMsg = async (): Promise<StreamerPinMsgType> => {

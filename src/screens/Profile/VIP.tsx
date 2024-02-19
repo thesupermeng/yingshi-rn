@@ -17,12 +17,12 @@ import {
   useIAP,
 } from "react-native-iap";
 import ScreenContainer from "../../components/container/screenContainer";
-import { RootStackScreenProps } from "@type/navigationTypes";
+import { RootStackScreenProps } from "@type";
 import { useTheme } from "@react-navigation/native";
 
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
-import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
-import { updateUserAuth } from "@redux/actions/userAction";
+import { useAppDispatch, useAppSelector, useSelector } from "@hooks";
+import { updateUserAuth } from "@redux";
 import { TouchableOpacity } from "react-native";
 import NoConnection from "../../components/common/noConnection";
 import FastImage from "react-native-fast-image";
@@ -35,26 +35,28 @@ import {
   SUBSCRIPTION_TYPE,
   UMENG_CHANNEL,
   VIP_PROMOTION_COUNTDOWN_MINUTE,
-} from "@utility/constants";
-import { setEventSplashLastPageViewTime, setShowEventSplash, setShowGuestPurchaseSuccess, setShowPromotionDialog, showLoginAction } from "@redux/actions/screenAction";
+} from "@utility";
+import { setEventSplashLastPageViewTime, setShowEventSplash, setShowGuestPurchaseSuccess, setShowPromotionDialog, showLoginAction } from "@redux";
 import { ProductApi, UserApi } from "@api";
 import WebView from "react-native-webview";
 import { YSConfig } from "../../../ysConfig";
 import { VipCard } from "../../components/vip/vipCard";
-import { membershipModel, promoMembershipModel, zfModel } from "@type/membershipType";
+import { membershipModel, promoMembershipModel, zfModel } from "@type";
 import { InAppBrowser } from 'react-native-inappbrowser-reborn';
 import { VipDialog } from "../../components/vip/vipDialog";
 import SpinnerOverlay from "../../components/modal/SpinnerOverlay";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import UmengAnalytics from "../../../Umeng/UmengAnalytics";
-import { UserStateType } from "@redux/reducers/userReducer";
+import { UserStateType } from "@redux";
 import LinearGradient from "react-native-linear-gradient";
 import Video from "react-native-video";
-import { BackgroundType } from "@redux/reducers/backgroundReducer";
-import CloseButton from "@static/images/close_icon.svg";
-import Tick1 from "@static/images/splash/tick1.svg";
-import Tick2 from "@static/images/splash/tick2.svg";
-import { screenModel } from "@type/screenType";
+import { BackgroundType } from "@redux";
+import { CloseIconSvg } from "@static";
+import {
+  Tick1Svg,
+  Tick2Svg,
+} from "@static";
+import { screenModel } from "@type";
 import SplashCard from "../../components/common/splashCard";
 import Carousel from "react-native-reanimated-carousel";
 import CarouselPagination from "../../components/container/CarouselPagination";
@@ -642,7 +644,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                 setDialogText(successDialogText);
                 setIsDialogOpen(true);
                 setIsSuccess(true);
-                 navigation.goBack()
+                navigation.goBack()
               } else {
                 dispatch(setShowGuestPurchaseSuccess(true));
                 setIsVisible(false);
@@ -769,7 +771,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                 }}
               >
                 <FastImage
-                  source={require("@static/images/home-loading.gif")}
+                  source={require("../../../static/images/home-loading.gif")}
                   style={{
                     width: 150,
                     height: 150,
@@ -836,11 +838,11 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                       }
                     }}
                   >
-                    <CloseButton />
+                    <CloseIconSvg />
                   </TouchableOpacity>
 
                   <Video
-                    source={require("@static/images/splash/bg.mp4")}
+                    source={require("../../../static/images/splash/bg.mp4")}
                     style={styles.video}
                     resizeMode="cover"
                     repeat={true}
@@ -930,9 +932,9 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                                       top: 5,
                                     }}
                                   >
-                                    {i === 0 && <Tick1 width={18} height={18} />}
+                                    {i === 0 && <Tick1Svg width={18} height={18} />}
 
-                                    {i === 1 && <Tick2 width={18} height={18} />}
+                                    {i === 1 && <Tick2Svg width={18} height={18} />}
                                   </View>
                                 )}
                                 <View
@@ -1121,14 +1123,14 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
           <SplashCard
             index={index}
             source={index === 0
-              ? require(`@static/images/eventSplash1.png`)
+              ? require(`../../../static/images/eventSplash1.png`)
               : index === 1
-                ? require(`@static/images/eventSplash2.png`)
-                : require(`@static/images/eventSplash3.png`)
+                ? require(`../../../static/images/eventSplash2.png`)
+                : require(`../../../static/images/eventSplash3.png`)
             }
             isLast={index === screenState.showEventSplashData.length - 1}
           />
-          
+
         )}
 
       </>

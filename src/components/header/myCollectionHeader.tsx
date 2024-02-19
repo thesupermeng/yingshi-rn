@@ -2,11 +2,11 @@ import { View, TouchableOpacity, StyleSheet, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '@type/navigationTypes';
+import { RootStackParamList } from '@type';
 
 interface Props {
     route: '视频收藏' | '播单收藏' | '合集收藏',
-    navigator: NativeStackNavigationProp<RootStackParamList,  '视频收藏' | '播单收藏' | '合集收藏', any>
+    navigator: NativeStackNavigationProp<RootStackParamList, '视频收藏' | '播单收藏' | '合集收藏', any>
 }
 
 export default function CollectionHeader({ route, navigator }: Props) {
@@ -31,7 +31,7 @@ export default function CollectionHeader({ route, navigator }: Props) {
     }
 
     return (
-        <View style={{...styles.container, gap: spacing.l}}>
+        <View style={{ ...styles.container, gap: spacing.l }}>
             <TouchableOpacity onPress={navigate('视频收藏')} >
                 <Text style={btnStyle('视频收藏')}>视频</Text>
                 <View style={underlineStyle('视频收藏')}></View>

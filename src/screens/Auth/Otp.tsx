@@ -16,14 +16,14 @@ import { useDispatch } from 'react-redux';
 import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
 
 import { ResendCountDown } from './resendCountDown';
-import { addUserAuthState } from '@redux/actions/userAction';
+import { addUserAuthState } from '@redux';
 
-import { changeScreenAction } from '@redux/actions/screenAction';
+import { changeScreenAction } from '@redux';
 import UmengAnalytics from '../../../Umeng/UmengAnalytics';
 import { UserApi } from '@api';
-import { useSelector } from '@hooks/hooks';
-import { User } from '@models/user';
-import { UserStateType } from '@redux/reducers/userReducer';
+import { useSelector } from '@hooks';
+import { User } from '@models';
+import { UserStateType } from '@redux';
 
 
 export default (props: any) => {
@@ -262,7 +262,7 @@ const OtpInputs = ({
           }}>
           <Image
             style={styles.iconStyle}
-            source={require('@static/images/invite/danger.png')}
+            source={require('../../../static/images/invite/danger.png')}
           />
 
           <Text style={styles.danger}>验证码不正确，请重试</Text>

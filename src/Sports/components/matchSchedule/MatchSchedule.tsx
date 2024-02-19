@@ -12,15 +12,15 @@ import {
   getMatchStatus,
   liveRoomName,
 } from "../../utility/utils";
-import store, { RootState } from "@redux/store";
-// import FollowMatchAction from '@redux/actions/followMatchAction';
+import { store, RootState } from "@redux";
+// import FollowMatchAction from '@redux';
 import { useNavigation } from "@react-navigation/native";
 import { MatchDetailsType } from "../../types/matchTypes";
 import BecomeVipOverlay from "../../../components/modal/becomeVipOverlay";
-import { useAppSelector, useSelector } from "@hooks/hooks";
-import { showBecomeVip } from "@redux/actions/screenAction";
+import { useAppSelector, useSelector } from "@hooks";
+import { showBecomeVip } from "@redux";
 import { useDispatch } from "react-redux";
-import { screenModel } from "@type/screenType";
+import { screenModel } from "@type";
 import UmengAnalytics from "../../../../Umeng/UmengAnalytics";
 
 interface Props {

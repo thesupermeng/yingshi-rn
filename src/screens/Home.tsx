@@ -10,7 +10,7 @@ import ScreenContainer from "../components/container/screenContainer";
 import { useFocusEffect, useRoute, useTheme } from "@react-navigation/native";
 import { useQuery, useQueries, UseQueryResult } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
-import { NavOptionsType, VodCarousellType } from "@type/ajaxTypes";
+import { NavOptionsType, VodCarousellType } from "@type";
 import {
   BottomTabScreenProps,
   useBottomTabBarHeight,
@@ -22,7 +22,7 @@ import {
   EVENT_SPLASH_SHOW_DURATION,
   IOS_HOME_PAGE_POP_UP_ADS,
   UMENG_CHANNEL,
-} from "@utility/constants";
+} from "@utility";
 import CatagoryHome from "../components/container/CatagoryHome";
 import RecommendationHome from "../components/container/RecommendationHome";
 import HomeHeader from "../components/header/homeHeader";
@@ -32,9 +32,9 @@ import FastImage from "../components/common/customFastImage";
 import { useIsFocused } from "@react-navigation/native";
 import NoConnection from "./../components/common/noConnection";
 import NetInfo from "@react-native-community/netinfo";
-import { useAppSelector, useAppDispatch, useSelector } from "@hooks/hooks";
-import { RootState } from "@redux/store";
-import { SettingsReducerState } from "@redux/reducers/settingsReducer";
+import { useAppSelector, useAppDispatch, useSelector } from "@hooks";
+import { RootState } from "@redux";
+import { SettingsReducerState } from "@redux";
 import HomeNav from "../components/tabNavigate/homeNav";
 
 import {
@@ -44,7 +44,7 @@ import {
 } from "./../../AnyThinkAds/ATReactNativeSDK";
 import { AdsBannerContext } from "../contexts/AdsBannerContext";
 
-import useInterstitialAds from "@hooks/useInterstitialAds";
+import { useInterstitialAds } from "@hooks";
 import EighteenPlusOverlay from "../components/modal/overEighteenOverlay";
 import {
   clearEventSplashLastPageViewTime,
@@ -52,14 +52,14 @@ import {
   setEventSplashLastPageViewTime,
   setShowAdultTab,
   setShowEventSplashData,
-} from "@redux/actions/screenAction";
-import { screenModel } from "@type/screenType";
+} from "@redux";
+import { screenModel } from "@type";
 import { AppsApi, SplashApi } from "@api";
 import UmengAnalytics from "../../Umeng/UmengAnalytics";
 import DeviceInfo from "react-native-device-info";
 import { EventSpash } from "../navigation/eventSplash";
-import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models/user";
+import { UserStateType } from "@redux";
+import { User } from "@models";
 
 function Home({ navigation }: BottomTabScreenProps<any>) {
   const dispatch = useAppDispatch();
@@ -440,7 +440,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
                   {
                     <FastImage
                       style={{ height: 80, width: 80 }}
-                      source={require("@static/images/loading-spinner.gif")}
+                      source={require("../../static/images/loading-spinner.gif")}
                       resizeMode={"contain"}
                     />
                   }
@@ -456,7 +456,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
                   }}
                 >
                   <FastImage
-                    source={require("@static/images/home-loading.gif")}
+                    source={require("../../static/images/home-loading.gif")}
                     style={{
                       width: 150,
                       height: 150,

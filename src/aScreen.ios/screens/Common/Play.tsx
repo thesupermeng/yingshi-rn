@@ -21,25 +21,20 @@ import {
   Keyboard,
 } from "react-native";
 import FavoriteButton from "../../components/button/favoriteVodButton";
-import FavoriteIcon from "@static/images/favorite.svg";
+import { FavoriteSvg } from "@static";
 import ScreenContainer from "../../components/container/screenContainer";
 import { useTheme, useFocusEffect, useRoute } from "@react-navigation/native";
 import { YSConfig } from "../../../../ysConfig";
 
-import { RootStackScreenProps } from "@type/navigationTypes";
-import { SuggestedVodType, CommentsType } from "@type/ajaxTypes";
-import { addVodToHistory, playVod } from "@redux/actions/vodActions";
-import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
-import { RootState } from "@redux/store";
+import { RootStackScreenProps } from "@type";
+import { SuggestedVodType, CommentsType } from "@type";
+import { addVodToHistory, playVod } from "@redux";
+import { useAppDispatch, useAppSelector, useSelector } from "@hooks";
+import { RootState } from "@redux";
 import {
   FavoriteVodReducerState,
   VodReducerState,
-} from "@redux/reducers/vodReducer";
-import SinaIcon from "@static/images/sina.svg";
-import WeChatIcon from "@static/images/wechat.svg";
-import QQIcon from "@static/images/qq.svg";
-import PYQIcon from "@static/images/pyq.svg";
-import MoreArrow from "@static/images/more_arrow.svg";
+} from "@redux";
 import VodEpisodeSelectionModal from "../../components/modal/vodEpisodeSelectionModal";
 // import FastImage from "react-native-fast-image";
 import FastImage from "../../components/common/customFastImage";
@@ -49,19 +44,19 @@ import {
   APP_NAME_CONST,
   PLAY_HTTP_SERVER_PORT,
   UMENG_CHANNEL,
-} from "@utility/constants";
+} from "@utility";
 import { useQuery } from "@tanstack/react-query";
 import ShowMoreVodButton from "../../components/button/showMoreVodButton";
 import VodListVertical from "../../components/vod/vodListVertical";
 import VodPlayer from "../../components/videoPlayer/vodPlayer";
 import { FlatList } from "react-native-gesture-handler";
-import { SettingsReducerState } from "@redux/reducers/settingsReducer";
+import { SettingsReducerState } from "@redux";
 import BingSearch from "../../components/container/bingSearchContainer";
-import SubmitBtn from "@static/images/submitBtn.svg";
+import { SubmitBtnSvg } from "@static";
 
 import NoConnection from "../../components/common/noConnection";
 import NetInfo from "@react-native-community/netinfo";
-import { lockAppOrientation } from "@redux/actions/settingsActions";
+import { lockAppOrientation } from "@redux";
 import { AdsBannerContext } from "../../../contexts/AdsBannerContext";
 import { URL } from "react-native-url-polyfill";
 import RNFetchBlob from "rn-fetch-blob";
@@ -71,12 +66,12 @@ import TitleWithBackButtonHeader from "../../components/header/titleWithBackButt
 import { InAppBrowser } from "react-native-inappbrowser-reborn";
 import UmengAnalytics from "../../../../Umeng/UmengAnalytics";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { showLoginAction } from "@redux/actions/screenAction";
+import { showLoginAction } from "@redux";
 import { VodCommentBox } from "../../components/vodComment";
-import { CPopup } from "@utility/popup";
+import { CPopup } from "@utility";
 import { VodApi } from "@api";
-import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models/user";
+import { UserStateType } from "@redux";
+import { User } from "@models";
 
 type VideoRef = {
   setPause: (param: boolean) => void;
@@ -719,7 +714,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
                           storeUserComments();
                         }}
                       >
-                        <SubmitBtn
+                        <SubmitBtnSvg
                           fill={comment.length ? "#FAC33D" : "#3A3A3A"}
                         />
                       </TouchableOpacity>
@@ -763,7 +758,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
             >
               <FastImage
                 style={{ height: 80, width: 80 }}
-                source={require("@static/images/loading-spinner.gif")}
+                source={require("../../../../static/images/loading-spinner.gif")}
                 resizeMode={"contain"}
               />
             </View>
@@ -805,7 +800,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
                                 gap: spacing.xxs,
                               }}
                             >
-                              <FavoriteIcon
+                              <FavoriteSvg
                                 width={18}
                                 height={18}
                                 style={{
@@ -936,7 +931,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
                               width: 14,
                               alignSelf: "center",
                             }}
-                            source={require("@static/images/down_arrow.png")}
+                            source={require("../../../../static/images/down_arrow.png")}
                             resizeMode={"contain"}
                           />
                         )}
@@ -948,7 +943,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
                               width: 14,
                               alignSelf: "center",
                             }}
-                            source={require("@static/images/up_arrow.png")}
+                            source={require("../../../../static/images/up_arrow.png")}
                             resizeMode={"contain"}
                           />
                         )}
@@ -973,7 +968,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
                         >
                           <FastImage
                             style={{ height: 80, width: 80 }}
-                            source={require("@static/images/loading-spinner.gif")}
+                            source={require("../../../../static/images/loading-spinner.gif")}
                             resizeMode={"contain"}
                           />
                         </View>

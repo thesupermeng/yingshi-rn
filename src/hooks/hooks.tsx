@@ -1,5 +1,5 @@
 import { TypedUseSelectorHook, useDispatch, useSelector as reduxUseSelector } from 'react-redux'
-import type { RootState, AppDispatchType } from '@redux/store'
+import type { RootState, AppDispatchType } from '@redux'
 
 // Use throughout your app instead of plain `useDispatch` and `useSelector`
 export const useAppDispatch: () => AppDispatchType = useDispatch

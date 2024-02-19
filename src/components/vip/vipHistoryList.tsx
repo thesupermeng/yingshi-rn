@@ -3,7 +3,7 @@ import { VipHistoryCard } from "./vipHistoryCard";
 import { ScrollView } from "react-native-gesture-handler";
 import { useEffect, useState } from "react";
 import { YSConfig } from "../../../ysConfig";
-import { User } from "@models/user";
+import { User } from "@models";
 
 interface Props {
   userState: User;

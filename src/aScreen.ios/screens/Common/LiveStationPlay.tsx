@@ -3,8 +3,8 @@ import { View, Text, StyleSheet, ScrollView } from "react-native";
 import ScreenContainer from "../../components/container/screenContainer";
 import { useTheme, useFocusEffect } from "@react-navigation/native";
 
-import { RootStackScreenProps } from "@type/navigationTypes";
-import { useAppDispatch, useAppSelector } from "@hooks/hooks";
+import { RootStackScreenProps } from "@type";
+import { useAppDispatch, useAppSelector } from "@hooks";
 
 import { Dimensions } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -12,9 +12,9 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import FastImage from "../../components/common/customFastImage";
 import VodLiveStationListVertical from "../../components/vod/vodLiveStationListVertical";
 import VodPlayer from "../../components/videoPlayer/vodPlayer";
-import { SettingsReducerState } from "@redux/reducers/settingsReducer";
-import { RootState } from "@redux/store";
-import { lockAppOrientation } from "@redux/actions/settingsActions";
+import { SettingsReducerState } from "@redux";
+import { RootState } from "@redux";
+import { lockAppOrientation } from "@redux";
 
 export default ({ navigation, route }: RootStackScreenProps<"电视台播放">) => {
   const { liveStationItemList, liveStationItem } = route.params;

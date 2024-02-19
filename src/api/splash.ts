@@ -1,6 +1,6 @@
-import { CApi } from "@utility/apiService"
+import { CApi } from "@utility"
 import { CEndpoint } from "../constants/api"
-import { BannerAdType } from "@type/ajaxTypes";
+import { BannerAdType } from "@type";
 import { YSConfig } from "../../ysConfig";
 
 export class SplashApi {

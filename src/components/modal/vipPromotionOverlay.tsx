@@ -2,12 +2,12 @@ import React, { useCallback } from "react";
 import { Modal, TouchableWithoutFeedback, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import VipPromotionModal from "./vipPromotionModal";
-import { UMENG_CHANNEL } from "@utility/constants";
+import { UMENG_CHANNEL } from "@utility";
 import { useDispatch } from "react-redux";
-import { vipPromotionModalShown } from "@redux/actions/backgroundAction";
+import { vipPromotionModalShown } from "@redux";
 
-const commonModels = require('@static/images/vip_promotion_models.png');
-const sportBg = require('@static/images/vip_promotion_background.png');
+const commonModels = require('../../../static/images/vip_promotion_models.png');
+const sportBg = require('../../../static/images/vip_promotion_background.png');
 
 interface Props {
   showCondition: boolean;
@@ -21,7 +21,7 @@ export const VipPromotionOverlay = ({ showCondition, onClose }: Props) => {
   const onCloseModal = () => {
     onClose();
     dispatch(vipPromotionModalShown());
-    navigator.navigate("Home", {screen: '首页'})
+    navigator.navigate("Home", { screen: '首页' })
   }
 
   const handleOnPurchase = useCallback(() => {

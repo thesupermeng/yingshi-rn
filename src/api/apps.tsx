@@ -1,10 +1,10 @@
 import { CEndpoint, CLangKey } from "@constants";
-import { CApi } from "@utility/apiService";
-import { APP_NAME_CONST, APP_VERSION, UMENG_CHANNEL } from "@utility/constants";
-import { CLang } from "@utility/langService";
+import { CApi } from "@utility";
+import { APP_NAME_CONST, APP_VERSION, UMENG_CHANNEL } from "@utility";
+import { CLang } from "@utility";
 import { Platform } from "react-native";
 import { YSConfig } from "../../ysConfig";
-import { NavOptionsType, VodCarousellType } from "@type/ajaxTypes";
+import { NavOptionsType, VodCarousellType } from "@type";
 
 export class AppsApi {
     static getLocalIpAddress = async () => {

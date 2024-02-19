@@ -1,19 +1,19 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { FlatList, Keyboard, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { RootStackScreenProps } from "@type/navigationTypes";
+import { RootStackScreenProps } from "@type";
 import { CommentCard } from "../components/vodComment/commentCard";
-import { CommentsType } from "@type/ajaxTypes";
+import { CommentsType } from "@type";
 import ScreenContainer from "../components/container/screenContainer";
 import TitleWithBackButtonHeader from "../components/header/titleWithBackButtonHeader";
 import { useTheme } from "@react-navigation/native";
-import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
-import { RootState } from "@redux/store";
-import SubmitBtn from "@static/images/submitBtn.svg"
+import { useAppDispatch, useAppSelector, useSelector } from "@hooks";
+import { RootState } from "@redux";
+import { SubmitBtnSvg } from "@static";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { showLoginAction } from "@redux/actions/screenAction";
-import { CPopup } from "@utility/popup";
-import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models/user";
+import { showLoginAction } from "@redux";
+import { CPopup } from "@utility";
+import { UserStateType } from "@redux";
+import { User } from "@models";
 
 export const AllCommentScreen = ({ navigation, route }: RootStackScreenProps<"全部评论">) => {
   const { vod_id, vod_name, commentItems } = route.params;
@@ -110,7 +110,7 @@ export const AllCommentScreen = ({ navigation, route }: RootStackScreenProps<"�
                     storeUserComments();
                   }}
                 >
-                  <SubmitBtn fill={comment.length ? "#FAC33D" : "#3A3A3A"} />
+                  <SubmitBtnSvg fill={comment.length ? "#FAC33D" : "#3A3A3A"} />
                 </TouchableOpacity>
               </>
             ) : (
