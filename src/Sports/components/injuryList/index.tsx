@@ -2,17 +2,17 @@ import { TabActions } from '@react-navigation/native';
 import { View, Image, Text, ImageBackground } from 'react-native';
 import { HomeIcon, AwayIcon } from '../../assets';
 import InjuryComponent from './injuryComponent';
-import styles from './style';
-import { Home, Away, Injury } from '../../types/liveMatchTypes';
+import styles from './yys_nbatrophy';
+import { yys_calendar, yysTyping, yysUpdatesBackwhite } from '../../types/yys_iconnointernet_guide';
 
-interface Props {
-  homeTeam?: Home
-  awayTeam?: Away
-  homePlayerList?: Injury[]
-  awayPlayerList?: Injury[]
+interface yysIconarrowrightorangeStation {
+  homeTeam?: yys_calendar
+  awayTeam?: yysTyping
+  homePlayerList?: yysUpdatesBackwhite[]
+  awayPlayerList?: yysUpdatesBackwhite[]
 }
 
-const InjuryList = ({ homeTeam, awayTeam, homePlayerList = [], awayPlayerList = [] }: Props) => {
+const InjuryList = ({ homeTeam, awayTeam, homePlayerList = [], awayPlayerList = [] }: yysIconarrowrightorangeStation) => {
   return (
     <View>
       <View style={styles.titleView}>
@@ -61,7 +61,7 @@ const InjuryList = ({ homeTeam, awayTeam, homePlayerList = [], awayPlayerList = 
           {
             homePlayerList?.length > 0 && homePlayerList.map((item, index) => {
               return (
-                <InjuryComponent key={"homePlayer" + index} data={item} isHome={true}></InjuryComponent>
+                <InjuryComponent key={"subtextTrash" + index} data={item} isHome={true}></InjuryComponent>
               )
             })
           }
@@ -70,7 +70,7 @@ const InjuryList = ({ homeTeam, awayTeam, homePlayerList = [], awayPlayerList = 
           {
             awayPlayerList?.length > 0 && awayPlayerList.map((item, index) => {
               return (
-                <InjuryComponent key={"awayPlayer" + index} data={item} isHome={false}></InjuryComponent>
+                <InjuryComponent key={"mbbannerShrinkLibavdevice" + index} data={item} isHome={false}></InjuryComponent>
               )
             })
           }

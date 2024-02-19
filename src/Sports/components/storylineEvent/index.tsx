@@ -4,18 +4,16 @@ import StorylineTap from './storylineTab';
 import StorylineTapList from './storylineTabList';
 import { WhistleOrange, OrangeClock } from '../../assets';
 
-//style
-import styles from './style';
-import { MatchUpdatesType } from '../../types/matchUpdatesType';
-// import FastImage from 'react-native-fast-image';
-import FastImage from '../../../components/common/customFastImage';
+import styles from './yys_nbatrophy';
+import { yysTeam } from '../../types/yys_arrow_modules';
+import FastImage from '../../../components/common/yys_alert_backwhite';
 
 
-interface Props {
-  liveRoomUpdate?: MatchUpdatesType
+interface yysIconarrowrightorangeStation {
+  liveRoomUpdate?: yysTeam
 }
 
-const StorylineEvent = ({ liveRoomUpdate }: Props) => {
+const StorylineEvent = ({ liveRoomUpdate }: yysIconarrowrightorangeStation) => {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   return (

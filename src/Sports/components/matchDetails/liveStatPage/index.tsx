@@ -3,7 +3,7 @@ import { Text, View, ScrollView, Dimensions } from 'react-native';
 import AreaChart from '../../areaChart';
 import CustomMatchDetailsTabBar from '../../customMatchDetailsTabBar';
 import StatisticsChart from '../../statisticsChart';
-import styles from './style';
+import styles from './yys_nbatrophy';
 import MatchStatisticTab from './matchStatisticTab';
 import FootballIconComponent from '../../footballIconComponent';
 import AreaChartBasketball from '../../areaChartBasketball';
@@ -11,31 +11,29 @@ import MatchStatistic from '../../matchStatistic';
 import StorylineEvent from '../../storylineEvent';
 import BasketballLiveDetails from '../../basketballLiveDetails';
 import LiveScoreBasketball from '../../liveScoreBasketball';
-import { MatchDetailWithRankingData } from '../../../types/liveMatchTypes';
-import { MatchUpdatesType } from '../../../types/matchUpdatesType';
+import { yysDicelogoFootballfield } from '../../../types/yys_iconnointernet_guide';
+import { yysTeam } from '../../../types/yys_arrow_modules';
 import Weather from '../../weather';
-import EmptyDataPage from '../../EmptyDataPage';
+import EmptyDataPage from '../../yys_iconnewsshare';
 import { useIsFocused } from '@react-navigation/native';
-// import AdsComp from '../../../components/adsComp';
-// import {useAds} from '@hooks/useAds';
 
-interface Props {
-  liveRoomMatchDetails?: MatchDetailWithRankingData
-  liveRoomUpdate?: MatchUpdatesType
+interface yysIconarrowrightorangeStation {
+  liveRoomMatchDetails?: yysDicelogoFootballfield
+  liveRoomUpdate?: yysTeam
 }
 
-type Tab = {
+type yysUnimplementedview = {
   name: string
   children: React.ReactNode
 }
 
-const LiveStatPage = ({ liveRoomUpdate, liveRoomMatchDetails }: Props) => {
+const LiveStatPage = ({ liveRoomUpdate, liveRoomMatchDetails }: yysIconarrowrightorangeStation) => {
   const isFocus = useIsFocused();
 
   // const adsList = useSelector(state => state.adsList);
-  // const [ads] = useAds(adsList);
+  
 
-  const tabBar: Tab[] = [
+  const tabBar: yysUnimplementedview[] = [
     {
       name: '重要事件',
       children: <StorylineEvent liveRoomUpdate={liveRoomUpdate} />,
@@ -61,7 +59,7 @@ const LiveStatPage = ({ liveRoomUpdate, liveRoomMatchDetails }: Props) => {
   }
 
   if (liveRoomMatchDetails?.sports_type === 1) {
-    // 比赛未开赛
+    
     if (liveRoomMatchDetails.status === 0) {
       return (
         <ScrollView style={{ backgroundColor: '#14161A' }}>

@@ -1,4 +1,4 @@
-import {VideoLiveType} from '../../global/const';
+import {VideoLiveType} from '../../global/yys_profileinactive_alert';
 
 export const AnimationDuration = 300;
 export const AnimationHeight = 400;

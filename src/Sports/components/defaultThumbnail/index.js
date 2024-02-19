@@ -1,9 +1,9 @@
 import React from 'react';
 import {Image, View} from 'react-native';
 import {Grayscale} from 'react-native-color-matrix-image-filters';
-import Config from '../../global/env';
-import styles from './style';
-import {AppConfig} from '../../global/appConfig';
+import Config from '../../global/yys_baiduads_eighteen_view';
+import styles from './yys_nbatrophy';
+import {yysDefaultlogoBackward} from '../../global/yys_unlock';
 
 const DefaultThumbnail = ({
   width,
@@ -26,7 +26,7 @@ const DefaultThumbnail = ({
         }}
         source={iconDefault ?? Config.defaultThumbnailBg}
       />
-      {AppConfig.instance.funeralMode ? (
+      {yysDefaultlogoBackward.instance.funeralMode ? (
         <Grayscale style={{width: '100%'}}>{children}</Grayscale>
       ) : (
         children

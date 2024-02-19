@@ -1,17 +1,17 @@
 import {ScrollView, SafeAreaView, View} from 'react-native';
 import {useSelector} from 'react-redux';
-import GoalDistribution from '../../../goalDistribution';
+import yysFullIconnewsshare from '../../../goalDistribution';
 import MatchHistory from '../../../matchHistory';
 import SubsComponent from '../../../substituteComponent';
-import styles from './style';
-import EmptyDataPage from '../../../EmptyDataPage';
-import { MatchDetailWithRankingData } from '../../../../types/liveMatchTypes';
+import styles from './yys_nbatrophy';
+import EmptyDataPage from '../../../yys_iconnewsshare';
+import { yysDicelogoFootballfield } from '../../../../types/yys_iconnointernet_guide';
 
-interface Props {
-  liveRoomMatchDetails?: MatchDetailWithRankingData,
+interface yysIconarrowrightorangeStation {
+  liveRoomMatchDetails?: yysDicelogoFootballfield,
 }
 
-const FootballDataPage = ({liveRoomMatchDetails} : Props) => {
+const FootballDataPage = ({liveRoomMatchDetails} : yysIconarrowrightorangeStation) => {
   return (
     <SafeAreaView style={{height: '100%'}}>
       {liveRoomMatchDetails?.football_match_analysis == undefined &&
@@ -46,7 +46,7 @@ const FootballDataPage = ({liveRoomMatchDetails} : Props) => {
           liveRoomMatchDetails?.football_match_analysis?.goal_distribution
             ?.away_scored?.length > 0 && (
             <View>
-              <GoalDistribution
+              <yysFullIconnewsshare
                 homeTeam={liveRoomMatchDetails?.home}
                 awayTeam={liveRoomMatchDetails?.away}
                 data={

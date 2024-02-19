@@ -1,19 +1,19 @@
 import { useState } from 'react';
 import { Text, View } from 'react-native';
-import { Colors } from '../../global/colors';
-import styles from './style';
-import EmptyDataPage from '../EmptyDataPage';
+import { Colors } from '../../global/yys_penaltymatchicon_iconarrowrightorange';
+import styles from './yys_nbatrophy';
+import EmptyDataPage from '../yys_iconnewsshare';
 
-type BarType = {
+type yysOrange = {
   name: string
   children: React.ReactNode
 }
 
-interface Props {
-  tabBar: BarType[]
+interface yysIconarrowrightorangeStation {
+  tabBar: yysOrange[]
 }
 
-const CustomMatchDetailsTabBar = ({ tabBar }: Props) => {
+const CustomMatchDetailsTabBar = ({ tabBar }: yysIconarrowrightorangeStation) => {
   const [tab, setTab] = useState(0);
   const activeTabColor = '#FAC33D';
   const activeTextColor = '#000000';

@@ -1,0 +1,2600 @@
+开始自动混淆项目代码扫描文件中。。。。。。
+新文件 <-> 现有文件 : Modity.bundle      index.android.bundle
+新文件 <-> 现有文件 : Modity.bundle      index.android.bundle
+新文件 <-> 现有文件 : Modity.bundle      index.android.bundle
+
+
+混淆项目路径：/Users/junshengtan/Documents/yingshi-react-native-2
+新文件 <-> 现有文件 : yysDangerIconbellController.h      ATSplashViewController.h
+新文件 <-> 现有文件 : yysLibtobLeague.h      ATInterstitialRNSDK.h
+新文件 <-> 现有文件 : yysZhubo.h      ATRNSDK.h
+新文件 <-> 现有文件 : yysFullscreenmax.h      ATRewardedVideoRNSDK.h
+新文件 <-> 现有文件 : yysLibavfilter.h      NSDictionary+String.h
+新文件 <-> 现有文件 : yysLineTeam.h      NSJSONSerialization+String.h
+新文件 <-> 现有文件 : yysTrophyUnread.h      ATBannerRNSDK.h
+新文件 <-> 现有文件 : yysDangerIconbellController.h      ATSplashViewController.h
+新文件 <-> 现有文件 : yysLibtobLeague.h      ATInterstitialRNSDK.h
+新文件 <-> 现有文件 : yysZhubo.h      ATRNSDK.h
+新文件 <-> 现有文件 : yysFullscreenmax.h      ATRewardedVideoRNSDK.h
+新文件 <-> 现有文件 : yysLibavfilter.h      NSDictionary+String.h
+新文件 <-> 现有文件 : yysLineTeam.h      NSJSONSerialization+String.h
+新文件 <-> 现有文件 : yysTrophyUnread.h      ATBannerRNSDK.h
+新文件 <-> 现有文件 : AppDelegate.h      AppDelegate.h
+新文件 <-> 现有文件 : yysConstVietnamController.h      myAnimationViewController.h
+新文件 <-> 现有文件 : yysGpayBasketballiconController.h      RNViewController.h
+新文件 <-> 现有文件 : yysPolicy.h      UMAnalyticsModule.h
+新文件 <-> 现有文件 : yysSuggestionAdult.h      RNUMConfigure.h
+新文件 <-> 现有文件 : LaunchScreen.storyboard      LaunchScreen.storyboard
+新文件 <-> 现有文件 : yys_turn.js      react-native.config.js
+新文件 <-> 现有文件 : values-bn-rIN.json      values-bn-rIN.json
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : yys_anner.tsx      VideoThumbnail.tsx
+新文件 <-> 现有文件 : buttonUnimplementedview.svg      download_yellow_mini.svg
+新文件 <-> 现有文件 : App.tsx      App.tsx
+新文件 <-> 现有文件 : yys_thumbnail_share.tsx      component.tsx
+新文件 <-> 现有文件 : app.json      app.json
+新文件 <-> 现有文件 : values-in.json      values-in.json
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : yys_libswresample_dependency.tsx      videoWithControls.tsx
+新文件 <-> 现有文件 : values-hdpi-v4.json      values-hdpi-v4.json
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : stationsProfileactive.svg      right-arrow-yellow.svg
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : values-watch-v21.json      values-watch-v21.json
+新文件 <-> 现有文件 : yys_giftbutton_footballtrophy.tsx      UmengAnalytics.tsx
+新文件 <-> 现有文件 : vietnamScorepopsoundHelper.svg      source_icon.svg
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : yys_logo_launch.tsx      CollectionBottomSheet.tsx
+新文件 <-> 现有文件 : yys_components_twitter.tsx      hook.tsx
+新文件 <-> 现有文件 : values-sq.json      values-sq.json
+新文件 <-> 现有文件 : yys_iconbell_renew.tsx      EventAnalytic.tsx
+新文件 <-> 现有文件 : selectWhitevideolive.svg      dropdown.svg
+新文件 <-> 现有文件 : yys_eact.tsx      RecommendationList.tsx
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : yys_templateprocessor.js      AnalyticsUtil.js
+新文件 <-> 现有文件 : yys_thumbnail_share.tsx      component.tsx
+新文件 <-> 现有文件 : values-kn.json      values-kn.json
+新文件 <-> 现有文件 : yys_yellowscoreball_topon.js      ysConfig.js
+新文件 <-> 现有文件 : yys_iconnointernet.tsx      unread.tsx
+新文件 <-> 现有文件 : yys_manifest_mini.tsx      SearchResultList.tsx
+新文件 <-> 现有文件 : template_gFoundConst_w.gif      downloading.gif
+新文件 <-> 现有文件 : values-iw.json      values-iw.json
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : yys_point.tsx      yingPingContainer.tsx
+新文件 <-> 现有文件 : values-b+my+Qaag.json      values-b+my+Qaag.json
+新文件 <-> 现有文件 : defaultpredictionprofileStatic_pMinimize.svg      profile.svg
+新文件 <-> 现有文件 : yys_feedback_terms.tsx      signinupBottomSheet.tsx
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : values-fr-rCA.json      values-fr-rCA.json
+新文件 <-> 现有文件 : yys_invite.tsx      BottomControls.tsx
+新文件 <-> 现有文件 : yys_redirect_megaphone.js      ATReactNativeSDK.js
+新文件 <-> 现有文件 : yys_more_phone.tsx      RecommendationHome.tsx
+新文件 <-> 现有文件 : yys_nbatrophy.tsx      style.tsx
+新文件 <-> 现有文件 : gmailRules.svg      share.svg
+新文件 <-> 现有文件 : values-et.json      values-et.json
+新文件 <-> 现有文件 : yys_orangetick.js      Snow.js
+新文件 <-> 现有文件 : yys_predictiondefault.tsx      WebViewPlayer.tsx
+新文件 <-> 现有文件 : yys_strings_chinasame.js      ATInterstitialRNSDK.js
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : floaterCircle.svg      qq.svg
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : yys_cast.tsx      MiddleControls.tsx
+新文件 <-> 现有文件 : values-v26.json      values-v26.json
+新文件 <-> 现有文件 : yys_matches.tsx      screenContainer.tsx
+新文件 <-> 现有文件 : yys_popup.js      ATRNSDK.js
+新文件 <-> 现有文件 : nativeDownload.svg      comment.svg
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : yys_predictiondefault_yellowscoreball.tsx      CarouselPagination.tsx
+新文件 <-> 现有文件 : yys_bodan.tsx      TopControls.tsx
+新文件 <-> 现有文件 : values-zu.json      values-zu.json
+新文件 <-> 现有文件 : statisticsinactiveYellowscoreball.svg      cross.svg
+新文件 <-> 现有文件 : yys_holder.js      ATBannerRNSDK.js
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : yys_background.tsx      CatagoryHome.tsx
+新文件 <-> 现有文件 : values-es-rUS.json      values-es-rUS.json
+新文件 <-> 现有文件 : lessFullscreenmaxChatbotphoto.gif      loading-spinner.gif
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : yys_colors.tsx      vodPlayer.tsx
+新文件 <-> 现有文件 : yys_launcher_downloader.js      ATRewardedVideoRNSDK.js
+新文件 <-> 现有文件 : values-he.json      values-he.json
+新文件 <-> 现有文件 : yys_plash_template.js      SnowScreen.js
+新文件 <-> 现有文件 : sheetPrivilegeRelease_c.svg      rewind.svg
+新文件 <-> 现有文件 : yysConstVietnamController.m      myAnimationViewController.m
+新文件 <-> 现有文件 : values-v27.json      values-v27.json
+新文件 <-> 现有文件 : yys_privilege_homeinactive.tsx      bingSearchContainer.tsx
+新文件 <-> 现有文件 : yys_attributedstring_cornerkick.tsx      RelatedVodSuggestion.tsx
+新文件 <-> 现有文件 : championViewer.svg      logo2.svg
+新文件 <-> 现有文件 : yys_borderless.tsx      Chart.tsx
+新文件 <-> 现有文件 : yysGpayBasketballiconController.m      RNViewController.m
+新文件 <-> 现有文件 : values-gl.json      values-gl.json
+新文件 <-> 现有文件 : yys_largebrightness.tsx      CanvasIncident.tsx
+新文件 <-> 现有文件 : yys_neon_live.js      Snowflake.js
+新文件 <-> 现有文件 : scorepopsoundIconsubssuccess.svg      logo.svg
+新文件 <-> 现有文件 : values-v31.json      values-v31.json
+新文件 <-> 现有文件 : yys_build_bggradient.tsx      VodDetails.tsx
+新文件 <-> 现有文件 : values-eu.json      values-eu.json
+新文件 <-> 现有文件 : yys_libavformat_string.tsx      TopStats.tsx
+新文件 <-> 现有文件 : yysDangerIconbellController.m      ATSplashViewController.m
+新文件 <-> 现有文件 : ccdfbdabcabbbedbCoreBell.svg      selectEpisodes.svg
+新文件 <-> 现有文件 : yys_internet.tsx      SideStats.tsx
+新文件 <-> 现有文件 : yys_referrer.tsx      inviteCard.tsx
+新文件 <-> 现有文件 : crossBasketballhometeam.svg      pause.svg
+新文件 <-> 现有文件 : yys_incident.tsx      vodDescriptionBottomSheet.tsx
+新文件 <-> 现有文件 : yys_assets_pagination.tsx      MiddleStats.tsx
+新文件 <-> 现有文件 : yysLibtobLeague.m      ATInterstitialRNSDK.m
+新文件 <-> 现有文件 : yys_inactive_header.tsx      inviteHeader.tsx
+新文件 <-> 现有文件 : injuryLibfollyShared.svg      home_tab.svg
+新文件 <-> 现有文件 : yysZhubo.m      ATRNSDK.m
+新文件 <-> 现有文件 : yys_iconviewergif.tsx      inviteStep.tsx
+新文件 <-> 现有文件 : yys_internet_loading.tsx      AreaChart.tsx
+新文件 <-> 现有文件 : yys_kick.tsx      VideoControlsOverlay.tsx
+新文件 <-> 现有文件 : iconSubbasketballplayerTopon.svg      yingshi-grey.svg
+新文件 <-> 现有文件 : yys_nbatrophy.tsx      style.tsx
+新文件 <-> 现有文件 : yys_alert_backwhite.tsx      customFastImage.tsx
+新文件 <-> 现有文件 : yysFullscreenmax.m      ATRewardedVideoRNSDK.m
+新文件 <-> 现有文件 : yys_floater.tsx      AdVideoImage.tsx
+新文件 <-> 现有文件 : detailCopy__Apps.svg      adult-switch-on.svg
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : yysLineTeam.m      NSJSONSerialization+String.m
+新文件 <-> 现有文件 : yys_release.tsx      DescriptionBar.tsx
+新文件 <-> 现有文件 : networkLogouserPhilippines.svg      MutedVolume.svg
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : yys_librrc_zhengpian.tsx      noConnection.tsx
+新文件 <-> 现有文件 : yys_profileinactive_button.tsx      RedirectButton.tsx
+新文件 <-> 现有文件 : values.json      values.json
+新文件 <-> 现有文件 : yysLibavfilter.m      NSDictionary+String.m
+新文件 <-> 现有文件 : componentregistryConfig.svg      favicon.svg
+新文件 <-> 现有文件 : yys_benefit.tsx      emptyList.tsx
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : matchdetailbgInit_23.svg      volumeGuide.svg
+新文件 <-> 现有文件 : yys_filled_hash.tsx      shortVod.tsx
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : yysTrophyUnread.m      ATBannerRNSDK.m
+新文件 <-> 现有文件 : values-ko.json      values-ko.json
+新文件 <-> 现有文件 : yys_private.tsx      vodCard.tsx
+新文件 <-> 现有文件 : values-h550dp-port-v13.json      values-h550dp-port-v13.json
+新文件 <-> 现有文件 : yys_iconviewer_page.tsx      miniVodList.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : values-watch-v20.json      values-watch-v20.json
+新文件 <-> 现有文件 : whitetickIconwatchnowTeam.svg      project.svg
+新文件 <-> 现有文件 : yys_styles.tsx      vodWithDescriptionList.tsx
+新文件 <-> 现有文件 : yysDangerIconbellController.m      ATSplashViewController.m
+新文件 <-> 现有文件 : values-mn.json      values-mn.json
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : yys_playlist_icondownimg.tsx      shortVodPlayer.tsx
+新文件 <-> 现有文件 : libfabricjniAssist.svg      history.svg
+新文件 <-> 现有文件 : values-ca.json      values-ca.json
+新文件 <-> 现有文件 : yys_smallsound.tsx      vodEpisodeSelection.tsx
+新文件 <-> 现有文件 : yysLibtobLeague.m      ATInterstitialRNSDK.m
+新文件 <-> 现有文件 : values-si.json      values-si.json
+新文件 <-> 现有文件 : yys_chart.tsx      shortAds.tsx
+新文件 <-> 现有文件 : matchinactiveCheckbox.svg      feedback_hover.svg
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : values-hi.json      values-hi.json
+新文件 <-> 现有文件 : yys_material_button.tsx      HejiButton.tsx
+新文件 <-> 现有文件 : yys_yellowcirclebg_floater.tsx      vodTopicFilter.tsx
+新文件 <-> 现有文件 : singaporeGoallogoWeather.svg      xvodTab.svg
+新文件 <-> 现有文件 : yysZhubo.m      ATRNSDK.m
+新文件 <-> 现有文件 : values-tw.json      values-tw.json
+新文件 <-> 现有文件 : yys_giftbutton.tsx      vodListVertical.tsx
+新文件 <-> 现有文件 : yysFullscreenmax.m      ATRewardedVideoRNSDK.m
+新文件 <-> 现有文件 : values-sw360dp-v13.json      values-sw360dp-v13.json
+新文件 <-> 现有文件 : anythinkModeIcontransferclub.svg      Moon.svg
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : yys_anner.tsx      VideoThumbnail.tsx
+新文件 <-> 现有文件 : yysLineTeam.m      NSJSONSerialization+String.m
+新文件 <-> 现有文件 : values-bg.json      values-bg.json
+新文件 <-> 现有文件 : selectedLibavfilterClose.svg      play-bodan.svg
+新文件 <-> 现有文件 : yys_statistics.tsx      vodDescription.tsx
+新文件 <-> 现有文件 : yysLibavfilter.m      NSDictionary+String.m
+新文件 <-> 现有文件 : yys_iconchatsend_whiteanimationlive.tsx      liveVideoPlayer.tsx
+新文件 <-> 现有文件 : values-w320dp-land-v13.json      values-w320dp-land-v13.json
+新文件 <-> 现有文件 : anytimeTelegram.svg      expandHeji.svg
+新文件 <-> 现有文件 : yys_libswresample_dependency.tsx      videoWithControls.tsx
+新文件 <-> 现有文件 : yys_assets.tsx      favoriteVodCard.tsx
+新文件 <-> 现有文件 : values-ro.json      values-ro.json
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : informationOrangetickLong_c.svg      upgrade.svg
+新文件 <-> 现有文件 : values-el.json      values-el.json
+新文件 <-> 现有文件 : yys_logo_launch.tsx      CollectionBottomSheet.tsx
+新文件 <-> 现有文件 : yysTrophyUnread.m      ATBannerRNSDK.m
+新文件 <-> 现有文件 : yys_basketballplayerplaceholder.tsx      vodLiveStationListVertical.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : values-gu.json      values-gu.json
+新文件 <-> 现有文件 : yys_eact.tsx      RecommendationList.tsx
+新文件 <-> 现有文件 : values-xlarge-v4.json      values-xlarge-v4.json
+新文件 <-> 现有文件 : notificationRefreshborderless.gif      src_sports_assets_images_iconnewchat.gif
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : main.m      main.m
+新文件 <-> 现有文件 : values-h720dp-v13.json      values-h720dp-v13.json
+新文件 <-> 现有文件 : yys_libtob_predictionwin.tsx      vodLiveStationList.tsx
+新文件 <-> 现有文件 : values-am.json      values-am.json
+新文件 <-> 现有文件 : componentYellowscoreballConfig.gif      src_sports_assets_images_casting.gif
+新文件 <-> 现有文件 : yys_manifest_mini.tsx      SearchResultList.tsx
+新文件 <-> 现有文件 : AppDelegate.mm      AppDelegate.mm
+新文件 <-> 现有文件 : values-small-v4.json      values-small-v4.json
+新文件 <-> 现有文件 : link-assets-manifest.json      link-assets-manifest.json
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : distRelated.jpg      src_sports_assets_images_predictionbanner.jpg
+新文件 <-> 现有文件 : yysSuggestionAdult.m      RNUMConfigure.m
+新文件 <-> 现有文件 : yys_football_tramini.tsx      vodHistoryList.tsx
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : output-metadata.json      output-metadata.json
+新文件 <-> 现有文件 : yys_more_phone.tsx      RecommendationHome.tsx
+新文件 <-> 现有文件 : yysPolicy.m      UMAnalyticsModule.m
+新文件 <-> 现有文件 : pauseLess.jpeg      src_sports_assets_images_positionfield.jpeg
+新文件 <-> 现有文件 : annotationProcessors.json      annotationProcessors.json
+新文件 <-> 现有文件 : yys_header_bgvipsport.tsx      vodHistoryCard.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : React-Codegen.podspec.json      React-Codegen.podspec.json
+新文件 <-> 现有文件 : yys_matches.tsx      screenContainer.tsx
+新文件 <-> 现有文件 : output-metadata.json      output-metadata.json
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : yys_predictiondefault_yellowscoreball.tsx      CarouselPagination.tsx
+新文件 <-> 现有文件 : yys_mail.tsx      vodImageCard.tsx
+新文件 <-> 现有文件 : libjsinspectorGraphics.gif      src_sports_assets_images_gifgoalbg.gif
+新文件 <-> 现有文件 : output-metadata.json      output-metadata.json
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : navigation.json      navigation.json
+新文件 <-> 现有文件 : yys_background.tsx      CatagoryHome.tsx
+新文件 <-> 现有文件 : yys_matchdetailbg_iconarrowright_button.tsx      backButton.tsx
+新文件 <-> 现有文件 : mergerMiddlesound.gif      src_sports_assets_images_typingloading.gif
+新文件 <-> 现有文件 : yys_whiteanimationlive.tsx      bannerContainer.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : output-metadata.json      output-metadata.json
+新文件 <-> 现有文件 : yysEncryptorXvod.mm      FBReactNativeSpec-generated.mm
+新文件 <-> 现有文件 : yys_notificationfillempty_shielddone_button.tsx      favoritePlaylistButton.tsx
+新文件 <-> 现有文件 : output-metadata.json      output-metadata.json
+新文件 <-> 现有文件 : crossGpay.gif      src_sports_assets_images_tempnodatagif.gif
+新文件 <-> 现有文件 : yys_privilege_homeinactive.tsx      bingSearchContainer.tsx
+新文件 <-> 现有文件 : output-metadata.json      output-metadata.json
+新文件 <-> 现有文件 : yys_redirect_megaphone.js      ATReactNativeSDK.js
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : gestureFullscreenminFootballtrophy.gif      static_images_profile_loginsuccess.gif
+新文件 <-> 现有文件 : yys_referrer.tsx      inviteCard.tsx
+新文件 <-> 现有文件 : yys_settings_button.tsx      bingSearchButton.tsx
+新文件 <-> 现有文件 : yys_strings_chinasame.js      ATInterstitialRNSDK.js
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : modityNotificationgrayPredictionloss.gif      src_sports_assets_images_iconviewergif1.gif
+新文件 <-> 现有文件 : yys_launch_images.js      omid-session-client-v1.js
+新文件 <-> 现有文件 : yys_inactive_header.tsx      inviteHeader.tsx
+新文件 <-> 现有文件 : yys_popup.js      ATRNSDK.js
+新文件 <-> 现有文件 : fyb_iframe_endcard_tmpl.html      fyb_iframe_endcard_tmpl.html
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : upgradeBackground.gif      static_images_videobufferloading.gif
+新文件 <-> 现有文件 : yys_unlock_gpay_button.tsx      showMoreVodButton.tsx
+新文件 <-> 现有文件 : yys_iconviewergif.tsx      inviteStep.tsx
+新文件 <-> 现有文件 : yys_tooltips_phone.js      ui.js
+新文件 <-> 现有文件 : yys_score_button.tsx      favoriteVodButton.tsx
+新文件 <-> 现有文件 : yys_holder.js      ATBannerRNSDK.js
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : features_config.json      features_config.json
+新文件 <-> 现有文件 : yys_alert_backwhite.tsx      customFastImage.tsx
+新文件 <-> 现有文件 : langkeyUpdatesCombine.jpg      src_sports_assets_images_predictionbannershared.jpg
+新文件 <-> 现有文件 : yys_gradle_dice_button.tsx      showMoreButton.tsx
+新文件 <-> 现有文件 : fillShootnogoal.gif      src_sports_assets_images_giflivestreaming.gif
+新文件 <-> 现有文件 : yys_yellowanimationlive_foreground.js      mraid.js
+新文件 <-> 现有文件 : yys_librrc_zhengpian.tsx      noConnection.tsx
+新文件 <-> 现有文件 : yys_launcher_downloader.js      ATRewardedVideoRNSDK.js
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : questiconChinasameShirt.gif      static_images_homeloading.gif
+新文件 <-> 现有文件 : yys_backiconmask_iconsubssuccess.tsx      signinupForm.tsx
+新文件 <-> 现有文件 : yys_benefit.tsx      emptyList.tsx
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : yys_thumbnail_search.js      metro.config.js
+新文件 <-> 现有文件 : yys_math.js      mraid3.js
+新文件 <-> 现有文件 : yys_yellowscoreball_pagination.tsx      splashCard.tsx
+新文件 <-> 现有文件 : lessRelated.gif      static_images_loadingspinner.gif
+新文件 <-> 现有文件 : yys_questicon_connection.tsx      countryPhoneList.tsx
+新文件 <-> 现有文件 : fyb_static_endcard_tmpl.html      fyb_static_endcard_tmpl.html
+新文件 <-> 现有文件 : yys_anythink_context.js      babel.config.js
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : yys_flipper.tsx      App-test.tsx
+新文件 <-> 现有文件 : yys_libsentry.js      android_bridge.js
+新文件 <-> 现有文件 : yys_sans.tsx      readAgreementPrivacyPolicy.tsx
+新文件 <-> 现有文件 : sharewhiteCross.gif      src_sports_assets_images_giftbutton.gif
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : vpaid_html_template.html      vpaid_html_template.html
+新文件 <-> 现有文件 : libruntimeexecutorPageExecutor.gif      src_sports_assets_images_gifgoal.gif
+新文件 <-> 现有文件 : yys_private.tsx      vodCard.tsx
+新文件 <-> 现有文件 : calendarTheme.svg      clear_hover.svg
+新文件 <-> 现有文件 : yys_scrollview.tsx      PanHandler.tsx
+新文件 <-> 现有文件 : yys_styles.tsx      vodWithDescriptionList.tsx
+新文件 <-> 现有文件 : selectionLogoLibcxxcomponents.svg      search.svg
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : animationBasketball.gif      static_images_downloading.gif
+新文件 <-> 现有文件 : yys_black.tsx      ProgressGestureControl.tsx
+新文件 <-> 现有文件 : yys_list.js      omsdk-v1.js
+新文件 <-> 现有文件 : yys_smallsound.tsx      vodEpisodeSelection.tsx
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : yys_matchdetailbg.tsx      vodDownloadSelection.tsx
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : yys_store_abidetect.tsx      vodCombinedGesture.tsx
+新文件 <-> 现有文件 : yys_downloading_controller.js      dt-mraid-video-controller.js
+新文件 <-> 现有文件 : splashBrightnessFile.svg      light_mode.svg
+新文件 <-> 现有文件 : yys_yellowcirclebg_floater.tsx      vodTopicFilter.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : appcenter-config.json      appcenter-config.json
+新文件 <-> 现有文件 : episodesAudienceSina.wav      src_sports_assets_images_scorepopsound.wav
+新文件 <-> 现有文件 : yys_custom_plus.tsx      PlayFullScreenGesture.tsx
+新文件 <-> 现有文件 : yys_filed.js      styles.js
+新文件 <-> 现有文件 : ad.html      ad.html
+新文件 <-> 现有文件 : yys_giftbutton.tsx      vodListVertical.tsx
+新文件 <-> 现有文件 : release.json      release.json
+新文件 <-> 现有文件 : libfbjniConfigure.svg      sports.svg
+新文件 <-> 现有文件 : values-v28.json      values-v28.json
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : yys_backward_combined.tsx      BrightnessGestureControl.tsx
+新文件 <-> 现有文件 : yys_statistics.tsx      vodDescription.tsx
+新文件 <-> 现有文件 : values-bn-rBD.json      values-bn-rBD.json
+新文件 <-> 现有文件 : yys_vertical.js      dt-omsdk-mraid-video-tracker.js
+新文件 <-> 现有文件 : penaltyIconclosewhite.svg      unlockScreen.svg
+新文件 <-> 现有文件 : signing-config-versions.json      signing-config-versions.json
+新文件 <-> 现有文件 : values-ur.json      values-ur.json
+新文件 <-> 现有文件 : yys_assets.tsx      favoriteVodCard.tsx
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : output-metadata.json      output-metadata.json
+新文件 <-> 现有文件 : areaProfile.svg      playlist_tab_active.svg
+新文件 <-> 现有文件 : values-my-rMM.json      values-my-rMM.json
+新文件 <-> 现有文件 : yys_iconcurrentmatch.tsx      BrightnessVolumeSlider.tsx
+新文件 <-> 现有文件 : yys_basketballplayerplaceholder.tsx      vodLiveStationListVertical.tsx
+新文件 <-> 现有文件 : backImagenomoredata.svg      vip-icon.svg
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : values-w360dp-port-v13.json      values-w360dp-port-v13.json
+新文件 <-> 现有文件 : singaporeRedirect.webp      ic_launcher.webp
+新文件 <-> 现有文件 : animationsLock.svg      eighteen-plus-icon.svg
+新文件 <-> 现有文件 : yys_libtob_predictionwin.tsx      vodLiveStationList.tsx
+新文件 <-> 现有文件 : yys_homeloading.tsx      GesturesGuide.tsx
+新文件 <-> 现有文件 : tooltipsIconcalendar.svg      more_arrow_yellow.svg
+新文件 <-> 现有文件 : values-w820dp-v13.json      values-w820dp-v13.json
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : yys_football_tramini.tsx      vodHistoryList.tsx
+新文件 <-> 现有文件 : yys_defaultlogo.tsx      VolumeGestureControl.tsx
+新文件 <-> 现有文件 : values-ug.json      values-ug.json
+新文件 <-> 现有文件 : soundConstantsFloater.webp      ic_launcher_round.webp
+新文件 <-> 现有文件 : values-ta.json      values-ta.json
+新文件 <-> 现有文件 : agreementSmallsound.svg      fullScreen.svg
+新文件 <-> 现有文件 : yys_header_bgvipsport.tsx      vodHistoryCard.tsx
+新文件 <-> 现有文件 : refreshborderlessHometeamfieldFrame_3.webp      ic_launcher_foreground.webp
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : imageactionlivePhoto.svg      gpay.svg
+新文件 <-> 现有文件 : values-v24.json      values-v24.json
+新文件 <-> 现有文件 : singaporeRedirect.webp      ic_launcher.webp
+新文件 <-> 现有文件 : yys_mail.tsx      vodImageCard.tsx
+新文件 <-> 现有文件 : values-fi.json      values-fi.json
+新文件 <-> 现有文件 : yys_progress_catagory.tsx      bottomSheet.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : yys_matchdetailbg_iconarrowright_button.tsx      backButton.tsx
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : soundConstantsFloater.webp      ic_launcher_round.webp
+新文件 <-> 现有文件 : yys_notificationfillempty_shielddone_button.tsx      favoritePlaylistButton.tsx
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : downloaderBack.svg      add.svg
+新文件 <-> 现有文件 : refreshborderlessHometeamfieldFrame_3.webp      ic_launcher_foreground.webp
+新文件 <-> 现有文件 : yys_settings_button.tsx      bingSearchButton.tsx
+新文件 <-> 现有文件 : values-bo-rCN.json      values-bo-rCN.json
+新文件 <-> 现有文件 : yys_handler.tsx      changeUsernameModal.tsx
+新文件 <-> 现有文件 : singaporeRedirect.webp      ic_launcher.webp
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : yys_latn.tsx      countdownIndicator.tsx
+新文件 <-> 现有文件 : topicCircle.svg      apple_pay.svg
+新文件 <-> 现有文件 : values-xxhdpi-v4.json      values-xxhdpi-v4.json
+新文件 <-> 现有文件 : yys_smallorangeman_native.tsx      changeReferrerModal.tsx
+新文件 <-> 现有文件 : soundConstantsFloater.webp      ic_launcher_round.webp
+新文件 <-> 现有文件 : dragcloseUnread.svg      gmail.svg
+新文件 <-> 现有文件 : yys_unlock_gpay_button.tsx      showMoreVodButton.tsx
+新文件 <-> 现有文件 : values-sw480dp-v13.json      values-sw480dp-v13.json
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : yys_cornershoot_smallsound.tsx      notificationModal.tsx
+新文件 <-> 现有文件 : values-ky.json      values-ky.json
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : containerImagenomoredataBottom.svg      VipEntry.svg
+新文件 <-> 现有文件 : refreshborderlessHometeamfieldFrame_3.webp      ic_launcher_foreground.webp
+新文件 <-> 现有文件 : values-mai.json      values-mai.json
+新文件 <-> 现有文件 : yys_catalog_edit.tsx      SpinnerOverlay.tsx
+新文件 <-> 现有文件 : yys_score_button.tsx      favoriteVodButton.tsx
+新文件 <-> 现有文件 : values-uk.json      values-uk.json
+新文件 <-> 现有文件 : tickText.svg      tick.svg
+新文件 <-> 现有文件 : singaporeRedirect.webp      ic_launcher.webp
+新文件 <-> 现有文件 : yys_gradle_dice_button.tsx      showMoreButton.tsx
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : values-pl.json      values-pl.json
+新文件 <-> 现有文件 : yys_weather_templateprocessor.tsx      regengModal.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : yys_backiconmask_iconsubssuccess.tsx      signinupForm.tsx
+新文件 <-> 现有文件 : soundConstantsFloater.webp      ic_launcher_round.webp
+新文件 <-> 现有文件 : values-ru.json      values-ru.json
+新文件 <-> 现有文件 : editChangeImages.svg      tick2.svg
+新文件 <-> 现有文件 : yys_runtime_custom.tsx      vipModal.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : yys_questicon_connection.tsx      countryPhoneList.tsx
+新文件 <-> 现有文件 : values-de.json      values-de.json
+新文件 <-> 现有文件 : refreshborderlessHometeamfieldFrame_3.webp      ic_launcher_foreground.webp
+新文件 <-> 现有文件 : pathLibavcodec.svg      tick1.svg
+新文件 <-> 现有文件 : yys_sans.tsx      readAgreementPrivacyPolicy.tsx
+新文件 <-> 现有文件 : values-ru-rRU.json      values-ru-rRU.json
+新文件 <-> 现有文件 : yys_basketballawayteam.tsx      vipOverlay.tsx
+新文件 <-> 现有文件 : values-hr.json      values-hr.json
+新文件 <-> 现有文件 : owngoalBoot.svg      videoShare.svg
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : yys_pangle.tsx      downloadEpisodeDetailCard.tsx
+新文件 <-> 现有文件 : values-de-rDE.json      values-de-rDE.json
+新文件 <-> 现有文件 : singaporeRedirect.webp      ic_launcher.webp
+新文件 <-> 现有文件 : yys_mintegral_configure.tsx      privacyPolicyOverlay.tsx
+新文件 <-> 现有文件 : values-tl.json      values-tl.json
+新文件 <-> 现有文件 : yys_circle_questicon.tsx      downloadVodCard.tsx
+新文件 <-> 现有文件 : scoreNbatrophyTemplateprocessor.jpg      bodan3.jpg
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : pointWith_d.svg      weibo.svg
+新文件 <-> 现有文件 : values-sr.json      values-sr.json
+新文件 <-> 现有文件 : yys_page_yellow.tsx      vodEpisodeSelectionModal.tsx
+新文件 <-> 现有文件 : yys_down_filled.tsx      selectDownloadComponent.tsx
+新文件 <-> 现有文件 : soundConstantsFloater.webp      ic_launcher_round.webp
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : values-it.json      values-it.json
+新文件 <-> 现有文件 : assistImagemanager.svg      vod_detail.svg
+新文件 <-> 现有文件 : yys_largebrightness.js      CanvasIncident.js
+新文件 <-> 现有文件 : yys_history_league.tsx      vipPrivilegeFloatingIndicator.tsx
+新文件 <-> 现有文件 : values-km.json      values-km.json
+新文件 <-> 现有文件 : newinterstitialGraphicsTyping.svg      episodes.svg
+新文件 <-> 现有文件 : yys_scheduler_station.tsx      regengOverlay.tsx
+新文件 <-> 现有文件 : values-v25.json      values-v25.json
+新文件 <-> 现有文件 : yys_libglog_unselected.tsx      adultModeCountdownIndicator.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : values-my.json      values-my.json
+新文件 <-> 现有文件 : refreshborderlessHometeamfieldFrame_3.webp      ic_launcher_foreground.webp
+新文件 <-> 现有文件 : yys_style.tsx      expiredOverlay.tsx
+新文件 <-> 现有文件 : redcirclebgFullscreenmax.svg      progressGuide.svg
+新文件 <-> 现有文件 : appcenter-config.json      appcenter-config.json
+新文件 <-> 现有文件 : values-pa.json      values-pa.json
+新文件 <-> 现有文件 : yys_sheet_goallogo.tsx      vipRegisterBar.tsx
+新文件 <-> 现有文件 : link-assets-manifest.json      link-assets-manifest.json
+新文件 <-> 现有文件 : notificationRules.svg      ying_ping_logo.svg
+新文件 <-> 现有文件 : values-w480dp-port-v13.json      values-w480dp-port-v13.json
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : yys_twitter.tsx      confirmationModal.tsx
+新文件 <-> 现有文件 : yys_quest_control.js      replaceChannel.js
+新文件 <-> 现有文件 : yys_penaltyshoot_predictionarrow.tsx      adultModeSwitch.tsx
+新文件 <-> 现有文件 : values-ka.json      values-ka.json
+新文件 <-> 现有文件 : tsconfig.json      tsconfig.json
+新文件 <-> 现有文件 : yys_iconwechat_profileactive_view.tsx      homeNav.tsx
+新文件 <-> 现有文件 : tempGradlew.svg      download_btn.svg
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : values-en.json      values-en.json
+新文件 <-> 现有文件 : yys_episodes_largesound.tsx      eighteenPlusControls.tsx
+新文件 <-> 现有文件 : handlerModal.svg      back_arrow.svg
+新文件 <-> 现有文件 : yys_ajax.tsx      ajaxTypes.tsx
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : yys_downloader_complete_view.tsx      vipNav.tsx
+新文件 <-> 现有文件 : values-pt.json      values-pt.json
+新文件 <-> 现有文件 : sansRegister_c.svg      vip-icon-inactive.svg
+新文件 <-> 现有文件 : values-be.json      values-be.json
+新文件 <-> 现有文件 : yys_anytime_back.ts      vodDownloadTypes.ts
+新文件 <-> 现有文件 : yys_away_predictionloss_header.tsx      titleWithBackButtonHeader.tsx
+新文件 <-> 现有文件 : yys_scrollview.tsx      PanHandler.tsx
+新文件 <-> 现有文件 : values-v29.json      values-v29.json
+新文件 <-> 现有文件 : yys_attributedstring_adult.tsx      screenType.tsx
+新文件 <-> 现有文件 : values-sk.json      values-sk.json
+新文件 <-> 现有文件 : yys_black.tsx      ProgressGestureControl.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : yys_down_material.tsx      searchbar.tsx
+新文件 <-> 现有文件 : yys_sina.tsx      typeMapping.tsx
+新文件 <-> 现有文件 : libfollyLibimagepipeline.svg      clear.svg
+新文件 <-> 现有文件 : yys_store_abidetect.tsx      vodCombinedGesture.tsx
+新文件 <-> 现有文件 : values-az.json      values-az.json
+新文件 <-> 现有文件 : libimagepipelineIconrefresh.svg      pyq.svg
+新文件 <-> 现有文件 : yys_config_penaltygoal_header.tsx      homeHeader.tsx
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : values-ml.json      values-ml.json
+新文件 <-> 现有文件 : yys_nterstitial_over.tsx      membershipType.tsx
+新文件 <-> 现有文件 : constantsMimePhone.gif      videoBufferLoading.gif
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : yys_custom_plus.tsx      PlayFullScreenGesture.tsx
+新文件 <-> 现有文件 : values-v22.json      values-v22.json
+新文件 <-> 现有文件 : yys_reminder.tsx      actionTypes.tsx
+新文件 <-> 现有文件 : awayplayerStoreBasketballawayteam.svg      playlist_tab.svg
+新文件 <-> 现有文件 : yys_station_header.tsx      mainCollectionHeader.tsx
+新文件 <-> 现有文件 : yys_codegen_assets.tsx      navigationTypes.tsx
+新文件 <-> 现有文件 : values-zh-rHK.json      values-zh-rHK.json
+新文件 <-> 现有文件 : yys_backward_combined.tsx      BrightnessGestureControl.tsx
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : yys_sharewhite_fullscreenmin.tsx      chatTypes.tsx
+新文件 <-> 现有文件 : basketballmatchdetailbgYing.svg      fastforward.svg
+新文件 <-> 现有文件 : values-bn.json      values-bn.json
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : yys_iconarrowrightblack.tsx      TermsAcceptedContext.tsx
+新文件 <-> 现有文件 : values-land.json      values-land.json
+新文件 <-> 现有文件 : yys_livenodatabgimg_update_header.tsx      privacyBackButtonHeader.tsx
+新文件 <-> 现有文件 : yys_iconcurrentmatch.tsx      BrightnessVolumeSlider.tsx
+新文件 <-> 现有文件 : values-is.json      values-is.json
+新文件 <-> 现有文件 : topicIconchatsendFastforward.svg      empty.svg
+新文件 <-> 现有文件 : yys_libreactperfloggerjni_defaultroombg.tsx      AdsBannerContext.tsx
+新文件 <-> 现有文件 : values-v18.json      values-v18.json
+新文件 <-> 现有文件 : pointClear.svg      vip-arrow.svg
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : yys_homeloading.tsx      GesturesGuide.tsx
+新文件 <-> 现有文件 : yys_score_tempnodata_header.tsx      myCollectionHeader.tsx
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : values-lt.json      values-lt.json
+新文件 <-> 现有文件 : layoutSell.svg      sortDesc.svg
+新文件 <-> 现有文件 : yys_shoot_modity.tsx      langkey.tsx
+新文件 <-> 现有文件 : index.ts      index.ts
+新文件 <-> 现有文件 : values-mr.json      values-mr.json
+新文件 <-> 现有文件 : yys_defaultlogo.tsx      VolumeGestureControl.tsx
+新文件 <-> 现有文件 : libfabricjniZhubo.svg      arrow_down_yellow.svg
+新文件 <-> 现有文件 : yys_manifest.tsx      api.tsx
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : values-b+jv+Latn.json      values-b+jv+Latn.json
+新文件 <-> 现有文件 : yys_embed.ts      user.ts
+新文件 <-> 现有文件 : gesturesDependencies.svg      profile_tab_active.svg
+新文件 <-> 现有文件 : values-hu.json      values-hu.json
+新文件 <-> 现有文件 : yys_progress_catagory.tsx      bottomSheet.tsx
+新文件 <-> 现有文件 : weiboUnreadOwngoal.svg      fastforwardProgress.svg
+新文件 <-> 现有文件 : values-en-rXC.json      values-en-rXC.json
+新文件 <-> 现有文件 : yys_goallogo_defaultteam_view.tsx      nav.tsx
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : yys_manifest.js      api.js
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : values-mk.json      values-mk.json
+新文件 <-> 现有文件 : yys_untick_view.tsx      mainNav.tsx
+新文件 <-> 现有文件 : predictionwinCasting.svg      settings.svg
+新文件 <-> 现有文件 : yys_position.tsx      vipLoginAlertModal.tsx
+新文件 <-> 现有文件 : yys_login.js      url.js
+新文件 <-> 现有文件 : values-or.json      values-or.json
+新文件 <-> 现有文件 : yys_iconnewsshare.tsx      EmptyDataPage.tsx
+新文件 <-> 现有文件 : policyStatsnomoredata.svg      sortAsc.svg
+新文件 <-> 现有文件 : values-560dpi-v4.json      values-560dpi-v4.json
+新文件 <-> 现有文件 : yys_mbsplash_indicator.tsx      eventSplash.tsx
+新文件 <-> 现有文件 : yys_manager.tsx      downloadVodSelectionModal.tsx
+新文件 <-> 现有文件 : values-sl.json      values-sl.json
+新文件 <-> 现有文件 : yys_dragclose_xvod.js      api_tmp.js
+新文件 <-> 现有文件 : controlHomeinactiveDark.svg      screenCast.svg
+新文件 <-> 现有文件 : yys_nativemodule_mbnativeadvanced.ts      minivodDownloader.ts
+新文件 <-> 现有文件 : commentGreyarrowupFlipper.gif      tempNoDataGif.gif
+新文件 <-> 现有文件 : values-tr.json      values-tr.json
+新文件 <-> 现有文件 : yys_favorite.ts      lineUpTypes.ts
+新文件 <-> 现有文件 : values-en-rGB.json      values-en-rGB.json
+新文件 <-> 现有文件 : castingQuestBase.svg      sina.svg
+新文件 <-> 现有文件 : iconsettingRewind.wav      ScorePopSound.wav
+新文件 <-> 现有文件 : yys_short.ts      vodDownloader.ts
+新文件 <-> 现有文件 : yys_playercommon_bgvipsport.tsx      vipPromotionModal.tsx
+新文件 <-> 现有文件 : values-sw600dp-v13.json      values-sw600dp-v13.json
+新文件 <-> 现有文件 : catalogBrightness.svg      mail.svg
+新文件 <-> 现有文件 : yys_download.tsx      zh.tsx
+新文件 <-> 现有文件 : baseLogo.gif      loading.gif
+新文件 <-> 现有文件 : yys_iconnointernet_guide.ts      liveMatchTypes.ts
+新文件 <-> 现有文件 : values-hy.json      values-hy.json
+新文件 <-> 现有文件 : yys_handler.tsx      changeUsernameModal.tsx
+新文件 <-> 现有文件 : yys_tail.tsx      en.tsx
+新文件 <-> 现有文件 : buildCalendar.svg      mode.svg
+新文件 <-> 现有文件 : yys_arrow_modules.ts      matchUpdatesType.ts
+新文件 <-> 现有文件 : values-zh.json      values-zh.json
+新文件 <-> 现有文件 : orangeclockSearch.svg      download.svg
+新文件 <-> 现有文件 : values-ja.json      values-ja.json
+新文件 <-> 现有文件 : routerFiled.gif      typingLoading.gif
+新文件 <-> 现有文件 : yys_goallogo_defaultteam_view.tsx      nav.tsx
+新文件 <-> 现有文件 : values-large-v4.json      values-large-v4.json
+新文件 <-> 现有文件 : yys_smallorangeman_native.tsx      changeReferrerModal.tsx
+新文件 <-> 现有文件 : subsPlay.svg      profile_tab.svg
+新文件 <-> 现有文件 : yys_history_plash.ts      matchTypes.ts
+新文件 <-> 现有文件 : values-zh-rCN.json      values-zh-rCN.json
+新文件 <-> 现有文件 : orangeclockNativeexHolder.gif      GifGoal.gif
+新文件 <-> 现有文件 : values-ms.json      values-ms.json
+新文件 <-> 现有文件 : goallogoIconbellEntry.svg      heji.svg
+新文件 <-> 现有文件 : yys_event_humidity.tsx      Playlist.tsx
+新文件 <-> 现有文件 : yys_cornershoot_smallsound.tsx      notificationModal.tsx
+新文件 <-> 现有文件 : values-nl.json      values-nl.json
+新文件 <-> 现有文件 : yys_spec.tsx      MatchDetails.tsx
+新文件 <-> 现有文件 : GIFT.json      GIFT.json
+新文件 <-> 现有文件 : yys_downloading.tsx      PlaylistDetails.tsx
+新文件 <-> 现有文件 : values-kk.json      values-kk.json
+新文件 <-> 现有文件 : yys_catalog_edit.tsx      SpinnerOverlay.tsx
+新文件 <-> 现有文件 : app.svg      app.svg
+新文件 <-> 现有文件 : values-pt-rBR.json      values-pt-rBR.json
+新文件 <-> 现有文件 : yys_shared.tsx      Matches.tsx
+新文件 <-> 现有文件 : yys_goallogo.tsx      resendCountDown.tsx
+新文件 <-> 现有文件 : mbjscommonPrivate_q0Libturbomodulejsijni.jpeg      PositionField.jpeg
+新文件 <-> 现有文件 : values-v19.json      values-v19.json
+新文件 <-> 现有文件 : yys_weather_templateprocessor.tsx      regengModal.tsx
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : binddatasRenew.svg      Volume.svg
+新文件 <-> 现有文件 : values-h320dp-port-v13.json      values-h320dp-port-v13.json
+新文件 <-> 现有文件 : values-w600dp-land-v13.json      values-w600dp-land-v13.json
+新文件 <-> 现有文件 : pingRecommendationVideovar.jpg      predictionBanner.jpg
+新文件 <-> 现有文件 : icontransferclubFootballfieldWhistle.svg      moreMovies.svg
+新文件 <-> 现有文件 : values-sw320dp-v13.json      values-sw320dp-v13.json
+新文件 <-> 现有文件 : stringsUpgradeLibavutil.gif      iconViewerGif1.gif
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : values-v23.json      values-v23.json
+新文件 <-> 现有文件 : yys_membership.tsx      setUsername.tsx
+新文件 <-> 现有文件 : backwhiteTerms.jpeg      bodan2.jpeg
+新文件 <-> 现有文件 : values-night-v29.json      values-night-v29.json
+新文件 <-> 现有文件 : yys_runtime_custom.tsx      vipModal.tsx
+新文件 <-> 现有文件 : javaYellowscoreballUpgrade.jpg      predictionBannerShared.jpg
+新文件 <-> 现有文件 : values-da.json      values-da.json
+新文件 <-> 现有文件 : leagueBgvipsport.svg      checkbox_unselected.svg
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : yys_share.tsx      Otp.tsx
+新文件 <-> 现有文件 : values-af.json      values-af.json
+新文件 <-> 现有文件 : liveshareIconwatchnowWhitevideolive.gif      GifLiveStreaming.gif
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : transferButton.svg      minimizeScreen.svg
+新文件 <-> 现有文件 : values-sw.json      values-sw.json
+新文件 <-> 现有文件 : alertFaviconStatistics.gif      IconNewChat.gif
+新文件 <-> 现有文件 : values-lv.json      values-lv.json
+新文件 <-> 现有文件 : inouttargetredGifgoal.svg      downloadPause_yellow.svg
+新文件 <-> 现有文件 : yys_basketballawayteam.tsx      vipOverlay.tsx
+新文件 <-> 现有文件 : values-h360dp-land-v13.json      values-h360dp-land-v13.json
+新文件 <-> 现有文件 : yys_calendar.tsx      Home.tsx
+新文件 <-> 现有文件 : values-zh-rTW.json      values-zh-rTW.json
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : policyLive.gif      GiftButton.gif
+新文件 <-> 现有文件 : yys_borderless_submit.tsx      commonVipPrivilegeOverlay.tsx
+新文件 <-> 现有文件 : values-id.json      values-id.json
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : privatechatbgGestureDialog.gif      casting.gif
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : values-xhdpi-v4.json      values-xhdpi-v4.json
+新文件 <-> 现有文件 : LottieRedBlink.json      LottieRedBlink.json
+新文件 <-> 现有文件 : yys_country_reactnativeultimatelistview.tsx      LiveStations.tsx
+新文件 <-> 现有文件 : yys_mintegral_configure.tsx      privacyPolicyOverlay.tsx
+新文件 <-> 现有文件 : LottieGoalBg.json      LottieGoalBg.json
+新文件 <-> 现有文件 : values-uz.json      values-uz.json
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : iconnointernetPredictiondefault.svg      dark_mode.svg
+新文件 <-> 现有文件 : values-as.json      values-as.json
+新文件 <-> 现有文件 : yys_loading.tsx      Catalog.tsx
+新文件 <-> 现有文件 : yys_shoot_defaultfootballbg.tsx      adultVideoVipModal.tsx
+新文件 <-> 现有文件 : untickTemperatureFootballfield.svg      arrow_up_grey.svg
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : watchCornershootService.gif      GifGoalBg.gif
+新文件 <-> 现有文件 : orangeAbidetect.svg      lockScreen.svg
+新文件 <-> 现有文件 : yys_telemetry.tsx      vipPromotionOverlay.tsx
+新文件 <-> 现有文件 : yys_libavdevice_nterstitial.tsx      Search.tsx
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : fullscreenminRulesBasketballdetailsbg.svg      download_icon.svg
+新文件 <-> 现有文件 : yys_shootyesgoal_const.tsx      LiveStationPlay.tsx
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : yys_page_yellow.tsx      vodEpisodeSelectionModal.tsx
+新文件 <-> 现有文件 : yys_profileinactive_alert.ts      const.ts
+新文件 <-> 现有文件 : phoneshareFloatingBuild.svg      down_arrow.svg
+新文件 <-> 现有文件 : yys_condensed.tsx      MatchScheduleVip.tsx
+新文件 <-> 现有文件 : yys_unlock.js      appConfig.js
+新文件 <-> 现有文件 : yys_scheduler_station.tsx      regengOverlay.tsx
+新文件 <-> 现有文件 : yys_classes.tsx      MatchScheduleList.tsx
+新文件 <-> 现有文件 : yys_holder_iconuser.tsx      Play.tsx
+新文件 <-> 现有文件 : scheduleActive.svg      info.svg
+新文件 <-> 现有文件 : yys_libimagepipeline_vietnam.tsx      overEighteenOverlay.tsx
+新文件 <-> 现有文件 : yys_rewind.tsx      MainCollection.tsx
+新文件 <-> 现有文件 : yys_friends_leaguedetailsbg.tsx      MatchSchedule.tsx
+新文件 <-> 现有文件 : yys_baiduads_eighteen_view.js      env.js
+新文件 <-> 现有文件 : basketballiconPaginationHumidity.svg      video_tab.svg
+新文件 <-> 现有文件 : yys_libfile_security.tsx      vipLoginAlertOverlay.tsx
+新文件 <-> 现有文件 : yys_actions_common.tsx      MatchScheduleListVip.tsx
+新文件 <-> 现有文件 : yys_penaltymatchicon_iconarrowrightorange.js      colors.js
+新文件 <-> 现有文件 : orangePredictionbannerIconwatchnow.svg      home_tab_active.svg
+新文件 <-> 现有文件 : yys_style.tsx      expiredOverlay.tsx
+新文件 <-> 现有文件 : yys_videovar.js      vars.js
+新文件 <-> 现有文件 : yys_iconwechat_close.tsx      MatchScheduleLive.tsx
+新文件 <-> 现有文件 : yys_mbbid_agreement.tsx      shortVodCollection.tsx
+新文件 <-> 现有文件 : sharemodalNativeex.svg      video_tab_active.svg
+新文件 <-> 现有文件 : yys_temperature_line.js      dateCountDown.js
+新文件 <-> 现有文件 : yys_shootyesgoal_main.tsx      MatchScheduleNavVip.tsx
+新文件 <-> 现有文件 : yys_giflivestreaming_corner.tsx      vipPrivilegeModal.tsx
+新文件 <-> 现有文件 : yys_philippines.js      urlEncryp.js
+新文件 <-> 现有文件 : yys_iconmore.tsx      PlaylistCollection.tsx
+新文件 <-> 现有文件 : yys_analytics_tumbnail_view.tsx      MatchScheduleNav.tsx
+新文件 <-> 现有文件 : issubNavigation.svg      close.svg
+新文件 <-> 现有文件 : yys_executor.tsx      becomeVipOverlay.tsx
+新文件 <-> 现有文件 : yys_rules_whiteanimationlive.tsx      VodCollection.tsx
+新文件 <-> 现有文件 : yys_nbatrophy.ts      style.ts
+新文件 <-> 现有文件 : yys_user.js      date.js
+新文件 <-> 现有文件 : predictionarrowWhiteanimationlive.svg      loading_img.svg
+新文件 <-> 现有文件 : release.json      release.json
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : yys_libsentry_libreanimated.tsx      adultVipPrivilegeOverlay.tsx
+新文件 <-> 现有文件 : yys_untick_telegram.js      hash_util.js
+新文件 <-> 现有文件 : yys_twitter.tsx      confirmationModal.tsx
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : yys_iconclose.tsx      AboutUs.tsx
+新文件 <-> 现有文件 : values-te.json      values-te.json
+新文件 <-> 现有文件 : yys_iconwatch.tsx      sportVipPrivilegeOverlay.tsx
+新文件 <-> 现有文件 : middlesoundVideocommonBasketballplayerplaceholder.svg      download_vod.svg
+新文件 <-> 现有文件 : yys_backward.js      toast.js
+新文件 <-> 现有文件 : values-night-v8.json      values-night-v8.json
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : yys_iconclosewhitewithbg.tsx      InviteDetails.tsx
+新文件 <-> 现有文件 : values-cs.json      values-cs.json
+新文件 <-> 现有文件 : yys_iconwechat_profileactive_view.tsx      homeNav.tsx
+新文件 <-> 现有文件 : currentRuntimeRewind.svg      nextEpisode.svg
+新文件 <-> 现有文件 : yys_event_humidity.tsx      Playlist.tsx
+新文件 <-> 现有文件 : values-v16.json      values-v16.json
+新文件 <-> 现有文件 : yys_downloader_complete_view.tsx      vipNav.tsx
+新文件 <-> 现有文件 : statisticsinactiveIconuserPhoneshare.svg      history_hover.svg
+新文件 <-> 现有文件 : values-lo.json      values-lo.json
+新文件 <-> 现有文件 : yys_apple_dragclose.tsx      Invite.tsx
+新文件 <-> 现有文件 : yys_away_predictionloss_header.tsx      titleWithBackButtonHeader.tsx
+新文件 <-> 现有文件 : values-ldltr-v21.json      values-ldltr-v21.json
+新文件 <-> 现有文件 : matchdetailbgZoomPredictionarrow.svg      refresh.svg
+新文件 <-> 现有文件 : yys_downloading.tsx      PlaylistDetails.tsx
+新文件 <-> 现有文件 : values-en-rCA.json      values-en-rCA.json
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : values-vi.json      values-vi.json
+新文件 <-> 现有文件 : sinaPenaltymatchiconProfilepic.svg      checkbox_selected.svg
+新文件 <-> 现有文件 : yys_text_policy.tsx      Profile.tsx
+新文件 <-> 现有文件 : yys_down_material.tsx      searchbar.tsx
+新文件 <-> 现有文件 : yys_bggradient.tsx      AdultVideoList.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : values-fa.json      values-fa.json
+新文件 <-> 现有文件 : indexStatic_bi.svg      rewindProgress.svg
+新文件 <-> 现有文件 : yys_yellowtored.tsx      History.tsx
+新文件 <-> 现有文件 : yys_config_penaltygoal_header.tsx      homeHeader.tsx
+新文件 <-> 现有文件 : values-b+sr+Latn.json      values-b+sr+Latn.json
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : yys_goallogo.tsx      resendCountDown.tsx
+新文件 <-> 现有文件 : values-mi.json      values-mi.json
+新文件 <-> 现有文件 : yys_left_profile.tsx      Configure.tsx
+新文件 <-> 现有文件 : yys_station_header.tsx      mainCollectionHeader.tsx
+新文件 <-> 现有文件 : iconIconnointernet.svg      bing.svg
+新文件 <-> 现有文件 : values-en-rIN.json      values-en-rIN.json
+新文件 <-> 现有文件 : values-v17.json      values-v17.json
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : yys_livenodatabgimg_update_header.tsx      privacyBackButtonHeader.tsx
+新文件 <-> 现有文件 : yys_membership.tsx      setUsername.tsx
+新文件 <-> 现有文件 : values-nb.json      values-nb.json
+新文件 <-> 现有文件 : googleFootballtrophyFriends.svg      not_found.svg
+新文件 <-> 现有文件 : yys_latn_crown.tsx      Privacy.tsx
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : values-h740dp-v13.json      values-h740dp-v13.json
+新文件 <-> 现有文件 : yys_score_tempnodata_header.tsx      myCollectionHeader.tsx
+新文件 <-> 现有文件 : yys_share.tsx      Otp.tsx
+新文件 <-> 现有文件 : values-ar.json      values-ar.json
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : values-en-rAU.json      values-en-rAU.json
+新文件 <-> 现有文件 : pointWith_d.svg      weibo.svg
+新文件 <-> 现有文件 : values-ldrtl-v17.json      values-ldrtl-v17.json
+新文件 <-> 现有文件 : yys_calendar.tsx      Home.tsx
+新文件 <-> 现有文件 : yys_matchinactive.tsx      UserCenter.tsx
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : values-v21.json      values-v21.json
+新文件 <-> 现有文件 : specLibfb.svg      fb.svg
+新文件 <-> 现有文件 : yys_gestures_libreactnativeblob.tsx      hooks.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : values-pt-rPT.json      values-pt-rPT.json
+新文件 <-> 现有文件 : yys_predictionactive_schedule.tsx      SportAndX.tsx
+新文件 <-> 现有文件 : yys_libnms_stations.tsx      useOrientation.tsx
+新文件 <-> 现有文件 : yys_register.tsx      Feedback.tsx
+新文件 <-> 现有文件 : values-h480dp-land-v13.json      values-h480dp-land-v13.json
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : yys_country_reactnativeultimatelistview.tsx      LiveStations.tsx
+新文件 <-> 现有文件 : values-zh-rMO.json      values-zh-rMO.json
+新文件 <-> 现有文件 : yys_statisticsactive_largesound.tsx      useInterstitialAds.tsx
+新文件 <-> 现有文件 : values-es.json      values-es.json
+新文件 <-> 现有文件 : codeBingHomeactive.svg      telegram.svg
+新文件 <-> 现有文件 : yys_watch.tsx      EventRules.tsx
+新文件 <-> 现有文件 : yys_iconadslink_ball.ts      *.d.ts
+新文件 <-> 现有文件 : yys_loading.tsx      Catalog.tsx
+新文件 <-> 现有文件 : values-port.json      values-port.json
+新文件 <-> 现有文件 : yys_tooltips_popup.tsx      DefaultTeamIcon.tsx
+新文件 <-> 现有文件 : yys_dialog.ts      custom.d.ts
+新文件 <-> 现有文件 : yys_libavdevice_nterstitial.tsx      Search.tsx
+新文件 <-> 现有文件 : values-my-rZG.json      values-my-rZG.json
+新文件 <-> 现有文件 : libfbStylesLong_gw.svg      double-arrow.svg
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : yys_shootyesgoal_const.tsx      LiveStationPlay.tsx
+新文件 <-> 现有文件 : predictionbannerIconlogoutCondensed.svg      copy.svg
+新文件 <-> 现有文件 : values-sv.json      values-sv.json
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : yys_dialog_back.tsx      AdEvent.tsx
+新文件 <-> 现有文件 : yys_china.tsx      UserAgreement.tsx
+新文件 <-> 现有文件 : yys_basketballawayteam_iconmore.js      VideoPlayer.js
+新文件 <-> 现有文件 : values-th.json      values-th.json
+新文件 <-> 现有文件 : yys_project.tsx      apps.tsx
+新文件 <-> 现有文件 : yys_condensed_static.js      Controls.js
+新文件 <-> 现有文件 : yys_holder_iconuser.tsx      Play.tsx
+新文件 <-> 现有文件 : yys_textlayoutmanager.tsx      VIP.tsx
+新文件 <-> 现有文件 : values-fr.json      values-fr.json
+新文件 <-> 现有文件 : yys_componentregistry_profileinactive.js      BottomButtons.js
+新文件 <-> 现有文件 : yys_eighteen.ts      splash.ts
+新文件 <-> 现有文件 : values-ja-rJP.json      values-ja-rJP.json
+新文件 <-> 现有文件 : sharewhiteFloater.svg      wechat.svg
+新文件 <-> 现有文件 : yys_rewind.tsx      MainCollection.tsx
+新文件 <-> 现有文件 : values-bs.json      values-bs.json
+新文件 <-> 现有文件 : yys_singapore_predictionarrow.tsx      allComment.tsx
+新文件 <-> 现有文件 : layoutLibjsijniprofilerUpdates.svg      whatsapp.svg
+新文件 <-> 现有文件 : yys_style_embed.tsx      product.tsx
+新文件 <-> 现有文件 : values-ne.json      values-ne.json
+新文件 <-> 现有文件 : yys_mbbid_agreement.tsx      shortVodCollection.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : values-b+es+419.json      values-b+es+419.json
+新文件 <-> 现有文件 : acceptedLiblogger.svg      profile-icon.svg
+新文件 <-> 现有文件 : yys_pagination_adult.tsx      playlist.tsx
+新文件 <-> 现有文件 : yys_vietnam_playlist.tsx      WatchAnytime.tsx
+新文件 <-> 现有文件 : yys_iconmore.tsx      PlaylistCollection.tsx
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : yys_embed.tsx      user.tsx
+新文件 <-> 现有文件 : feedbackUnselected.svg      down_arrow_grey.svg
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : yys_rules_whiteanimationlive.tsx      VodCollection.tsx
+新文件 <-> 现有文件 : yys_sina_penalty.js      SwitchSourcePanel.js
+新文件 <-> 现有文件 : yys_found.tsx      vod.tsx
+新文件 <-> 现有文件 : chatbotphotoChina.svg      favorite.svg
+新文件 <-> 现有文件 : yys_middlebrightness_quest.tsx      commentBox.tsx
+新文件 <-> 现有文件 : yys_dplus.js      NoRecommend.js
+新文件 <-> 现有文件 : yys_config.ts      ads.ts
+新文件 <-> 现有文件 : areaCornershoot.svg      downloadPause.svg
+新文件 <-> 现有文件 : yys_feedback_station.tsx      commentCard.tsx
+新文件 <-> 现有文件 : yys_gradlew.js      RecommendPanel.js
+新文件 <-> 现有文件 : yys_images_minimize.tsx      chat.tsx
+新文件 <-> 现有文件 : yys_iconclose.tsx      AboutUs.tsx
+新文件 <-> 现有文件 : projectPause.svg      brightnessGuide.svg
+新文件 <-> 现有文件 : yys_types_cornershoot.js      RecommendCard.js
+新文件 <-> 现有文件 : yys_matchactive.tsx      feedback.tsx
+新文件 <-> 现有文件 : yys_iconclosewhitewithbg.tsx      InviteDetails.tsx
+新文件 <-> 现有文件 : yys_with_tempnodatagif.tsx      favoritePlaylist.tsx
+新文件 <-> 现有文件 : moviesProfile.svg      close_icon.svg
+新文件 <-> 现有文件 : yys_giflivestreaming_reactnativeultimatelistview.ts      miniVod.ts
+新文件 <-> 现有文件 : yys_ying_largebrightness.js      VolumeControl.js
+新文件 <-> 现有文件 : sharewhiteColorsShoot.svg      downloaded_icon.svg
+新文件 <-> 现有文件 : yys_apple_dragclose.tsx      Invite.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : classesHongkong.svg      play.svg
+新文件 <-> 现有文件 : yys_watchnowbg_interstitial.tsx      vodPlaylist.tsx
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : yys_text_policy.tsx      Profile.tsx
+新文件 <-> 现有文件 : zhuboPenaltygoalCode.svg      pip.svg
+新文件 <-> 现有文件 : yys_libavutil.js      PanAreaVertical.js
+新文件 <-> 现有文件 : yys_encryptor_zoom.tsx      vipHistoryList.tsx
+新文件 <-> 现有文件 : yys_button_tramini.tsx      store.tsx
+新文件 <-> 现有文件 : yys_updates.tsx      DownloadDetails.tsx
+新文件 <-> 现有文件 : predictiondefaultCrown.svg      send.svg
+新文件 <-> 现有文件 : yys_strings_armva.js      BrightnessControl.js
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : yys_description_static.tsx      DownloadCatalog.tsx
+新文件 <-> 现有文件 : yys_basketballplayerplaceholder_downarrow.tsx      vipHistoryCard.tsx
+新文件 <-> 现有文件 : dicelogoImagenetworkerr.gif      home-loading.gif
+新文件 <-> 现有文件 : yys_form_downloader.tsx      miniVodActions.tsx
+新文件 <-> 现有文件 : yys_launcher_iconviewer.js      PopSlider.js
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : yys_sans_adult.tsx      vipInviteHistory.tsx
+新文件 <-> 现有文件 : yys_yellowtored.tsx      History.tsx
+新文件 <-> 现有文件 : yys_hongkong_latn.tsx      settingsActions.tsx
+新文件 <-> 现有文件 : yys_save_icondownimg.js      ControlTemplate.js
+新文件 <-> 现有文件 : yys_liblogger.tsx      vipDetails.tsx
+新文件 <-> 现有文件 : downarrowThailandHeji.gif      login-success.gif
+新文件 <-> 现有文件 : yys_left_profile.tsx      Configure.tsx
+新文件 <-> 现有文件 : yys_runtimescheduler.tsx      userAction.tsx
+新文件 <-> 现有文件 : yys_smallorangeman.js      BottomSheet.js
+新文件 <-> 现有文件 : moviesUnselected.svg      play-zhengpian1.svg
+新文件 <-> 现有文件 : yys_skip.tsx      backgroundAction.tsx
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : yys_cross_ccdfbdabcabbbedb.js      LiveStatPanel.js
+新文件 <-> 现有文件 : iconstarYellowcirclebgLang.svg      vip_icon.svg
+新文件 <-> 现有文件 : yys_whitebell_inouttargetred.tsx      themeAction.tsx
+新文件 <-> 现有文件 : yys_latn_crown.tsx      Privacy.tsx
+新文件 <-> 现有文件 : yys_iconuser_room.js      Share.js
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : yys_homeplayer.ts      videoDownloadAction.ts
+新文件 <-> 现有文件 : yys_matchactive.svg      feedback.svg
+新文件 <-> 现有文件 : yys_component.tsx      VIP2.tsx
+新文件 <-> 现有文件 : yys_predictionactive_floater.js      TopBar.js
+新文件 <-> 现有文件 : yys_components_twitter.tsx      hook.tsx
+新文件 <-> 现有文件 : sharewhiteFloater.svg      wechat.svg
+新文件 <-> 现有文件 : yys_airbnbstarselected_gpay.js      BottomBar.js
+新文件 <-> 现有文件 : yys_tramini.tsx      vodActions.tsx
+新文件 <-> 现有文件 : animationTrophySound.svg      no-wifi.svg
+新文件 <-> 现有文件 : yys_thumbnail_share.tsx      component.tsx
+新文件 <-> 现有文件 : yys_area.tsx      searchActions.tsx
+新文件 <-> 现有文件 : yys_predictionloss.js      RightPanel.js
+新文件 <-> 现有文件 : iconbellIconnewchatMatchinactive.svg      Sun.svg
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : yys_matchinactive.tsx      UserCenter.tsx
+新文件 <-> 现有文件 : yys_bottom.tsx      chatAction.tsx
+新文件 <-> 现有文件 : yys_full.js      VideoGuide.js
+新文件 <-> 现有文件 : yys_register.tsx      Feedback.tsx
+新文件 <-> 现有文件 : iconeditOrangeclock.svg      li.svg
+新文件 <-> 现有文件 : yys_components_twitter.tsx      hook.tsx
+新文件 <-> 现有文件 : yys_downloaded_empty.tsx      screenAction.tsx
+新文件 <-> 现有文件 : yys_mounting_iconstar.js      newsVideoPlayerStyle.js
+新文件 <-> 现有文件 : yys_watch.tsx      EventRules.tsx
+新文件 <-> 现有文件 : unreadEncryptor.svg      edit.svg
+新文件 <-> 现有文件 : yys_thumbnail_share.tsx      component.tsx
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : yys_gradle.tsx      AutoRenewService.tsx
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : loadingspinnerUtils.svg      play_zhengpian.svg
+新文件 <-> 现有文件 : yys_libswscale_orangeuparrow.ts      videoDownloadReducer.ts
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : yys_china.tsx      UserAgreement.tsx
+新文件 <-> 现有文件 : yys_string.tsx      miniVodReducer.tsx
+新文件 <-> 现有文件 : activeIconchatsend.svg      send_filled.svg
+新文件 <-> 现有文件 : yys_components_twitter.tsx      hook.tsx
+新文件 <-> 现有文件 : yys_shirt.tsx      screenReducer.tsx
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : yys_textlayoutmanager.tsx      VIP.tsx
+新文件 <-> 现有文件 : statsnomoredataSource.svg      adult-switch-off.svg
+新文件 <-> 现有文件 : yys_thumbnail_share.tsx      component.tsx
+新文件 <-> 现有文件 : yys_tumbnail.tsx      settingsReducer.tsx
+新文件 <-> 现有文件 : yys_statisticsinactive.tsx      XVodTab.tsx
+新文件 <-> 现有文件 : yys_temperature.js      Loader.js
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : xvodZhengpianVignette.svg      blackPlay.svg
+新文件 <-> 现有文件 : yys_gpay.tsx      chatReducer.tsx
+新文件 <-> 现有文件 : yys_show_armva.tsx      vodListVerticalVip.tsx
+新文件 <-> 现有文件 : yys_less.js      newsVideoPlayer.js
+新文件 <-> 现有文件 : upgradeElements.svg      collection.svg
+新文件 <-> 现有文件 : yys_components_twitter.tsx      hook.tsx
+新文件 <-> 现有文件 : yys_libapminsightb.tsx      themeReducer.tsx
+新文件 <-> 现有文件 : yys_vietnam_playlist.tsx      WatchAnytime.tsx
+新文件 <-> 现有文件 : libtobThailand.svg      unlock.svg
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : yys_thumbnail_share.tsx      component.tsx
+新文件 <-> 现有文件 : yys_largesound_thailand.tsx      backgroundReducer.tsx
+新文件 <-> 现有文件 : yys_with_tempnodatagif.tsx      favoritePlaylist.tsx
+新文件 <-> 现有文件 : bodanActivityMbridge.svg      downloadComplete.svg
+新文件 <-> 现有文件 : yys_fullscreenmax.tsx      vodReducer.tsx
+新文件 <-> 现有文件 : yys_nbatrophy.tsx      style.tsx
+新文件 <-> 现有文件 : yys_watchnowbg_interstitial.tsx      vodPlaylist.tsx
+新文件 <-> 现有文件 : yys_feedback_terms.tsx      signinupBottomSheet.tsx
+新文件 <-> 现有文件 : iconsaveimageBasketballtrophyPredictionactive.svg      download_pause_yellow_mini.svg
+新文件 <-> 现有文件 : yys_code_iconbell.tsx      userReducer.tsx
+新文件 <-> 现有文件 : yys_hover_taiwan.tsx      CustomMatchSubTab.tsx
+新文件 <-> 现有文件 : yys_encryptor_zoom.tsx      vipHistoryList.tsx
+新文件 <-> 现有文件 : yys_invite.tsx      BottomControls.tsx
+新文件 <-> 现有文件 : yys_selected.tsx      searchReducer.tsx
+新文件 <-> 现有文件 : yys_reactnativeratings_iconsubssuccess.tsx      vipDialog.tsx
+新文件 <-> 现有文件 : predictionbuttonBaseline.svg      more_arrow.svg
+新文件 <-> 现有文件 : yys_configure.tsx      FootballIconComponent.tsx
+新文件 <-> 现有文件 : yys_predictiondefault.tsx      WebViewPlayer.tsx
+新文件 <-> 现有文件 : yys_fastforward.tsx      combineReducer.tsx
+新文件 <-> 现有文件 : yys_cast.tsx      MiddleControls.tsx
+新文件 <-> 现有文件 : entryModulesModels.svg      submitBtn.svg
+新文件 <-> 现有文件 : yys_green.tsx      vipCard.tsx
+新文件 <-> 现有文件 : yys_gifgoalbg_view.tsx      MatchDetailsNav.tsx
+新文件 <-> 现有文件 : yys_filled_hash.tsx      shortVod.tsx
+新文件 <-> 现有文件 : yys_guide_android.tsx      router.tsx
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : referrerTurnFull.svg      sportTab.svg
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : yys_basketballplayerplaceholder_downarrow.tsx      vipHistoryCard.tsx
+新文件 <-> 现有文件 : yys_bodan.tsx      TopControls.tsx
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : yys_iconorientation.tsx      langService.tsx
+新文件 <-> 现有文件 : shootnogoalGoalCross.svg      show_more.svg
+新文件 <-> 现有文件 : yys_sans_adult.tsx      vipInviteHistory.tsx
+新文件 <-> 现有文件 : yys_handler_gifgoalbg.ts      helper.ts
+新文件 <-> 现有文件 : yys_iconviewer_page.tsx      miniVodList.tsx
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : yys_logo.tsx      vipBenefit.tsx
+新文件 <-> 现有文件 : nalyticsClasses.svg      feedback_success.svg
+新文件 <-> 现有文件 : yys_playlist_icondownimg.tsx      shortVodPlayer.tsx
+新文件 <-> 现有文件 : yys_baiduads_eighteen_view.tsx      env.tsx
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : yys_liblogger.tsx      vipDetails.tsx
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : predictionactiveHook.svg      phone.svg
+新文件 <-> 现有文件 : yys_guide_templateprocessor.tsx      vipMember.tsx
+新文件 <-> 现有文件 : yys_colors.tsx      vodPlayer.tsx
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : yys_modules.tsx      apiService.tsx
+新文件 <-> 现有文件 : yys_subs_downarrow.ts      theme.ts
+新文件 <-> 现有文件 : yys_type.tsx      vipZf.tsx
+新文件 <-> 现有文件 : yys_kick.tsx      VideoControlsOverlay.tsx
+新文件 <-> 现有文件 : yys_libffmpegkit.ts      constants.ts
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : yys_vietnam.tsx      popup.tsx
+新文件 <-> 现有文件 : yys_chart.tsx      shortAds.tsx
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : yys_components_twitter.tsx      hook.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : yys_thumbnail_share.tsx      component.tsx
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : yys_components_twitter.tsx      hook.tsx
+新文件 <-> 现有文件 : yys_nbatrophy.js      style.js
+新文件 <-> 现有文件 : yys_thumbnail_share.tsx      component.tsx
+新文件 <-> 现有文件 : yys_nbatrophy.tsx      style.tsx
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : yys_components_twitter.tsx      hook.tsx
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : phoneshareFloatingBuild.png      down_arrow.png
+新文件 <-> 现有文件 : anythinkSubtextGmail.png      vip_promotion_models.png
+新文件 <-> 现有文件 : newarchdefaultsDependencies.png      vip_sport_models.png
+新文件 <-> 现有文件 : reducerShrunkFriends.png      vip_logo.png
+新文件 <-> 现有文件 : zhuboActivity.png      vip_no_ad.png
+新文件 <-> 现有文件 : networkFriends.png      vip_sport.png
+新文件 <-> 现有文件 : libruntimeexecutorSentry.png      crown_vip.png
+新文件 <-> 现有文件 : gestureEpisodes.png      google.png
+新文件 <-> 现有文件 : bellreminderStationNeon.png      card.png
+新文件 <-> 现有文件 : rewindPosition.png      singleBg2.png
+新文件 <-> 现有文件 : distField.png      alert.png
+新文件 <-> 现有文件 : calendarBang.png      subText.png
+新文件 <-> 现有文件 : signinupWatchnowbgWeather.png      subText2.png
+新文件 <-> 现有文件 : shielddoneGesture.png      singleBg.png
+新文件 <-> 现有文件 : iconclosewhiteIndicator.png      bgVipXvod.png
+新文件 <-> 现有文件 : loadingspinnerPlaylist.png      profilePic.png
+新文件 <-> 现有文件 : filterStarMini.png      vip_adult_models.png
+新文件 <-> 现有文件 : textWeibo.png      eventSplash2.png
+新文件 <-> 现有文件 : matchdetailbgOver.png      eventSplash3.png
+新文件 <-> 现有文件 : videobufferloadingAttributedstringAbidetect.png      white-dot.png
+新文件 <-> 现有文件 : yys_config.png      ads.png
+新文件 <-> 现有文件 : transferGreyIndicator.png      cast.png
+新文件 <-> 现有文件 : iconchatsendReactnavigationRewind.png      time.png
+新文件 <-> 现有文件 : orangeclockSearch.png      download.png
+新文件 <-> 现有文件 : imagenomoredataHomeinactiveUpdates.png      vip_adult_video.png
+新文件 <-> 现有文件 : linkOther.png      sport.png
+新文件 <-> 现有文件 : classesPhoneshareChatbotphoto.png      twitter.png
+新文件 <-> 现有文件 : bgvipxvodDragcloseIconplay.png      hot.png
+新文件 <-> 现有文件 : libreactIconeye.png      danger.png
+新文件 <-> 现有文件 : stylesArrowdown.png      vip_common_background.png
+新文件 <-> 现有文件 : plusModal.png      eventSplash1.png
+新文件 <-> 现有文件 : configChat.png      forward.png
+新文件 <-> 现有文件 : pushNotificationProfile.png      bg-gradient.png
+新文件 <-> 现有文件 : megaphoneOrangeclockLargesound.png      rightArrow.png
+新文件 <-> 现有文件 : sigmobOrangeuparrowIndicator.png      ticked.png
+新文件 <-> 现有文件 : statisticsinactiveYellowscoreball.png      cross.png
+新文件 <-> 现有文件 : flipperHomeloadingShared.png      vip.png
+新文件 <-> 现有文件 : updatesDisconnected.png      cricket_tick.png
+新文件 <-> 现有文件 : canvasLibloggerReddownarrow.png      vipSport.png
+新文件 <-> 现有文件 : downloadingWith_k.png      untick.png
+新文件 <-> 现有文件 : backDialog.png      ticked2.png
+新文件 <-> 现有文件 : predictionbannerIconlogoutCondensed.png      copy.png
+新文件 <-> 现有文件 : questiconPlayercommonVolume.png      vip_sport_background.png
+新文件 <-> 现有文件 : telemetryLibmapbufferjniUser.png      vip_adult_background.png
+新文件 <-> 现有文件 : privacyPredictiondefaultPlayershirt.png      up_arrow.png
+新文件 <-> 现有文件 : centerRecommendation.png      vip_common_models.png
+新文件 <-> 现有文件 : downGestures.png      bgVipSport.png
+新文件 <-> 现有文件 : dycreatorSuboutBoot.png      backward.png
+新文件 <-> 现有文件 : confirmationRenderApple.png      crown.png
+新文件 <-> 现有文件 : statsTempnodatagif.png      vip_promotion_background.png
+新文件 <-> 现有文件 : iconCombined.png      bootsplash_logo@1,5x.png
+新文件 <-> 现有文件 : spinnerMinimizeVipsport.png      bootsplash_logo.png
+新文件 <-> 现有文件 : goallogoProgress.png      bootsplash_logo@4x.png
+新文件 <-> 现有文件 : airbnbstarselectedSubmit.png      node_modules_reactnavigation_elements_src_assets_backicon.png
+新文件 <-> 现有文件 : airbnbstarselectedSubmit.png      node_modules_reactnavigation_elements_src_assets_backicon.png
+新文件 <-> 现有文件 : airbnbstarselectedSubmit.png      node_modules_reactnavigation_elements_src_assets_backicon.png
+新文件 <-> 现有文件 : telegramNendWeibo.png      node_modules_reactnativeratings_dist_images_airbnbstarselected.png
+新文件 <-> 现有文件 : utilsTurndownCombined.png      src_sports_assets_images_matchinactive.png
+新文件 <-> 现有文件 : mbbidQuesticon.png      src_sports_assets_images_defaultplayerimg.png
+新文件 <-> 现有文件 : matchinactiveBackground.png      static_images_backward.png
+新文件 <-> 现有文件 : predictionactivePenaltymatchicon.png      src_sports_assets_images_subbasketballplayer.png
+新文件 <-> 现有文件 : kickNalyticsComponentregistry.png      src_sports_assets_images_basketballawayteam.png
+新文件 <-> 现有文件 : arrowdownRncoreCurrent.png      src_sports_assets_images_iconsetting.png
+新文件 <-> 现有文件 : iconfeedbackTemperatureLess.png      src_sports_components_weather_image_background_2.png
+新文件 <-> 现有文件 : libturbomodulejsijniProfile.png      src_sports_assets_images_imagenomoredata.png
+新文件 <-> 现有文件 : tempnodataKlevin.png      static_images_profile_ticked.png
+新文件 <-> 现有文件 : embedDangerFootballfield.png      src_sports_assets_images_fullscreenmin.png
+新文件 <-> 现有文件 : searchUnimplementedview.png      src_sports_assets_images_iconadslink.png
+新文件 <-> 现有文件 : libglogBannerLogouser.png      src_sports_assets_images_homeinactive.png
+新文件 <-> 现有文件 : iconsettingLoginsuccessEwarded.png      static_images_down_arrow.png
+新文件 <-> 现有文件 : libfabricjniCombinedKuaishou.png      src_sports_assets_images_yellowredcard.png
+新文件 <-> 现有文件 : iconclosewhiteLogo.png      src_sports_assets_images_iconedit.png
+新文件 <-> 现有文件 : iconpointscoreModuleNewsshare.png      src_sports_assets_images_icondownimg.png
+新文件 <-> 现有文件 : profileactiveLauncherUmeng.png      src_sports_components_weather_image_background_3.png
+新文件 <-> 现有文件 : manifestIconarrowright.png      src_sports_assets_images_lock.png
+新文件 <-> 现有文件 : awayplayerSource.png      src_sports_assets_images_redcirclebg.png
+新文件 <-> 现有文件 : crossRouterPenaltyshootnogoal.png      src_sports_assets_images_iconmegaphone.png
+新文件 <-> 现有文件 : defaultlogoStepEpisodes.png      src_sports_assets_images_flag_hongkong.png
+新文件 <-> 现有文件 : selectedBgvipxvod.png      src_sports_assets_images_iconsharefriends.png
+新文件 <-> 现有文件 : benefitRoom.png      src_sports_assets_images_subout.png
+新文件 <-> 现有文件 : iconpipexpandLibreactSubbasketballplayer.png      src_sports_assets_images_views.png
+新文件 <-> 现有文件 : airbnbstarselectedSubmit.png      node_modules_reactnavigation_elements_src_assets_backicon.png
+新文件 <-> 现有文件 : loadingspinnerSuggestion.png      src_sports_assets_images_orangeclock2.png
+新文件 <-> 现有文件 : internetComment.png      src_sports_assets_images_notification.png
+新文件 <-> 现有文件 : launchSinaImages.png      src_sports_components_weather_image_background_1.png
+新文件 <-> 现有文件 : bellreminderSingapore.png      node_modules_reactnativeratings_dist_images_heart.png
+新文件 <-> 现有文件 : photoMiddlebrightness.png      src_sports_assets_images_red.png
+新文件 <-> 现有文件 : iconrefreshLibcrashsdk.png      src_sports_assets_images_predictionloss.png
+新文件 <-> 现有文件 : statisticsinactiveBackwhiteMovies.png      src_sports_assets_images_cornerkick.png
+新文件 <-> 现有文件 : buildRightTarget.png      src_sports_assets_images_livenodatabgimg.png
+新文件 <-> 现有文件 : photoTwitterBaseline.png      src_sports_assets_images_predictionwin.png
+新文件 <-> 现有文件 : pauseWhitesmalltickList.png      src_sports_assets_images_alert.png
+新文件 <-> 现有文件 : neonIconnotificationnew.png      src_sports_assets_images_iconstar.png
+新文件 <-> 现有文件 : spinnerLibreactperfloggerjniImagewatchlive.png      src_sports_assets_images_imagenetworkerr.png
+新文件 <-> 现有文件 : carouselOverlayImagenetworkerr.png      src_sports_assets_images_flag_china.png
+新文件 <-> 现有文件 : static_xwWatchnowbg.png      src_sports_assets_images_iconsaveimage.png
+新文件 <-> 现有文件 : middlesoundMatchinactive.png      src_sports_assets_images_iconrefresh.png
+新文件 <-> 现有文件 : shareConfigure.png      src_sports_assets_images_awayicon.png
+新文件 <-> 现有文件 : gestureZhengpian.png      src_sports_assets_images_othermatchdetailbg.png
+新文件 <-> 现有文件 : audienceHongkong.png      src_sports_assets_images_redscoreball.png
+新文件 <-> 现有文件 : predictionBellreminderIconorientation.png      src_sports_assets_images_iconmore.png
+新文件 <-> 现有文件 : phoneshareSelection.png      src_sports_assets_images_notificationfillempty.png
+新文件 <-> 现有文件 : imageactionliveSingleIconorientation.png      src_sports_assets_images_showless.png
+新文件 <-> 现有文件 : matchdetailbgAttributedstringWhitetick.png      src_sports_assets_images_shootnogoal1.png
+新文件 <-> 现有文件 : libyogaXvod.png      src_sports_components_weather_image_icon_13.png
+新文件 <-> 现有文件 : greyConfigure.png      static_images_invite_vip_adult_video.png
+新文件 <-> 现有文件 : iconclosewhitebgBaseRegeng.png      src_sports_assets_images_tempnodata.png
+新文件 <-> 现有文件 : encryptHuaweiTelegram.png      src_sports_components_weather_image_background_4.png
+新文件 <-> 现有文件 : dangerShowmore.png      src_sports_assets_images_shootyesgoal1.png
+新文件 <-> 现有文件 : vipsportPingHongkong.png      src_sports_components_weather_image_icon_9.png
+新文件 <-> 现有文件 : trophyOwngoalPlus.png      src_sports_assets_images_iconwatchnow.png
+新文件 <-> 现有文件 : successDownloadedDycreator.png      src_sports_assets_images_matchactive.png
+新文件 <-> 现有文件 : shirtEditBase.png      src_sports_assets_images_yellowanimationlive.png
+新文件 <-> 现有文件 : renderUnlock.png      src_sports_assets_images_statisticsinactive.png
+新文件 <-> 现有文件 : downloadingExecutorNext.png      src_sports_assets_images_zhubo.png
+新文件 <-> 现有文件 : yingIconuser.png      src_sports_assets_images_arrowrightwithtail.png
+新文件 <-> 现有文件 : countryWhitevideoliveReddownarrow.png      src_sports_assets_images_iconbackwhite.png
+新文件 <-> 现有文件 : streamingPlayer.png      src_sports_assets_images_icontransferclub.png
+新文件 <-> 现有文件 : injuryLoginsuccessLibtob.png      src_sports_assets_images_tick.png
+新文件 <-> 现有文件 : rootEwarded.png      src_sports_assets_images_goal.png
+新文件 <-> 现有文件 : teamdetailsbgShowmoreAudience.png      src_sports_components_weather_image_icon_8.png
+新文件 <-> 现有文件 : package_osUser.png      src_sports_components_weather_image_background_5.png
+新文件 <-> 现有文件 : cricketTempnodata.png      src_sports_assets_images_whitevideolive.png
+新文件 <-> 现有文件 : huaweiEwardedDependencies.png      src_sports_assets_images_iconplay.png
+新文件 <-> 现有文件 : codegenOverLeakchecker.png      src_sports_components_weather_image_icon_12.png
+新文件 <-> 现有文件 : eighteenIcondownimgWeibo.png      static_images_up_arrow.png
+新文件 <-> 现有文件 : default_lInviteIconwatchnow.png      static_images_invite_danger.png
+新文件 <-> 现有文件 : iconarrowrightblackWindOrangetick.png      src_sports_components_weather_image_icon_10.png
+新文件 <-> 现有文件 : iconwatchnowPangleDetail.png      src_sports_assets_images_update.png
+新文件 <-> 现有文件 : iconarrowleftDanger.png      src_sports_assets_images_predictionarrow.png
+新文件 <-> 现有文件 : plashHuaweiWatch.png      src_sports_components_weather_image_background_7.png
+新文件 <-> 现有文件 : leftFavicon.png      src_sports_assets_images_refresh.png
+新文件 <-> 现有文件 : eighteenAppsSend.png      src_sports_assets_images_dicelogo.png
+新文件 <-> 现有文件 : taiwanCornershootIconsetting.png      src_sports_assets_images_issub.png
+新文件 <-> 现有文件 : bangOrientation.png      src_sports_assets_images_shareblack.png
+新文件 <-> 现有文件 : thailandIconpointscoreGiflivestreaming.png      src_sports_assets_images_largesound.png
+新文件 <-> 现有文件 : floaterFullscreenmin.png      src_sports_assets_images_prediction.png
+新文件 <-> 现有文件 : executorMemberCopy_vf.png      src_sports_components_weather_image_background_6.png
+新文件 <-> 现有文件 : homeloadingShrinkDanger.png      src_sports_assets_images_basketballdetailsbg.png
+新文件 <-> 现有文件 : reactCatagoryBackiconmask.png      src_sports_assets_images_iconlogout.png
+新文件 <-> 现有文件 : megaphoneLinkLeakchecker.png      src_sports_assets_images_arrowselectdown.png
+新文件 <-> 现有文件 : register_kgPackage_tOrangeclock.png      src_sports_assets_images_orangedownarrow.png
+新文件 <-> 现有文件 : controlBackiconPredictionbutton.png      src_sports_assets_images_turndown.png
+新文件 <-> 现有文件 : nendGifgoalbgContext.png      src_sports_components_weather_image_icon_11.png
+新文件 <-> 现有文件 : profileframeTaiwan.png      src_sports_assets_images_iconarrowright.png
+新文件 <-> 现有文件 : playershirtReducer.png      src_sports_assets_images_dragclose.png
+新文件 <-> 现有文件 : latnDownloadingXvod.png      src_sports_components_weather_image_background_12.png
+新文件 <-> 现有文件 : inouttargetredUtils.png      src_sports_assets_images_imageactionlive.png
+新文件 <-> 现有文件 : greytickEvent.png      src_sports_assets_images_basketballmatchdetailbg.png
+新文件 <-> 现有文件 : libapminsightaScheduleImages.png      src_sports_assets_images_notificationfilled.png
+新文件 <-> 现有文件 : librrcSingleCcdfbdabcabbbedb.png      src_sports_assets_images_statsnomoredata.png
+新文件 <-> 现有文件 : rewardHelperRedcirclebg.png      src_sports_assets_images_subin.png
+新文件 <-> 现有文件 : statisticsinactiveMathReact.png      src_sports_assets_images_redgoal.png
+新文件 <-> 现有文件 : fullShort_86Wifirouter.png      src_sports_assets_images_iconeye.png
+新文件 <-> 现有文件 : gifgoalScore.png      src_sports_assets_images_flag_macau.png
+新文件 <-> 现有文件 : chatGuide.png      src_sports_assets_images_icondefaultthumbnail.png
+新文件 <-> 现有文件 : mbjscommonBackicon.png      src_sports_assets_images_profileinactive.png
+新文件 <-> 现有文件 : dragShrinkXvod.png      src_sports_assets_images_middlebrightness.png
+新文件 <-> 现有文件 : grayCcdfbdabcabbbedbMoon.png      src_sports_components_weather_image_indicator_wind.png
+新文件 <-> 现有文件 : filterLatn.png      src_sports_components_weather_image_background_13.png
+新文件 <-> 现有文件 : logouserUserYellowcirclebg.png      src_sports_assets_images_showmore.png
+新文件 <-> 现有文件 : dragclosePlus.png      src_sports_components_weather_image_background_11.png
+新文件 <-> 现有文件 : reducerFootballfieldShow.png      src_sports_assets_images_arrowright.png
+新文件 <-> 现有文件 : libruntimeexecutorIconwatchnow.png      static_images_profilepic.png
+新文件 <-> 现有文件 : penaltyshootPrivate_y.png      src_sports_assets_images_eyeclose.png
+新文件 <-> 现有文件 : launchPrediction.png      node_modules_reactnativeratings_dist_images_bell.png
+新文件 <-> 现有文件 : viewsFiledElements.png      static_images_splash_card.png
+新文件 <-> 现有文件 : stylePlaylist.png      src_sports_assets_images_goallogo.png
+新文件 <-> 现有文件 : playercommonPopupTemplate_h4.png      src_sports_assets_images_logouser.png
+新文件 <-> 现有文件 : iconnewsshareArmva.png      src_sports_assets_images_predictiondefault.png
+新文件 <-> 现有文件 : guideStatisticsBuffer.png      src_sports_assets_images_largebrightness.png
+新文件 <-> 现有文件 : orientationDefaultplayerimg.png      src_sports_assets_images_flag_thailand.png
+新文件 <-> 现有文件 : iconuserTelemetry.png      src_sports_assets_images_champion.png
+新文件 <-> 现有文件 : currentWhiteEact.png      node_modules_bang88_reactnativeultimatelistview_src_downarrow.png
+新文件 <-> 现有文件 : mbjscommonHolderSmallsound.png      src_sports_components_weather_image_background_10.png
+新文件 <-> 现有文件 : nextBenefit.png      src_sports_assets_images_iconclosewhite.png
+新文件 <-> 现有文件 : statsAttributedstring.png      src_sports_assets_images_wifirouter.png
+新文件 <-> 现有文件 : whitevideoliveEpisodeType_r.png      static_images_profile_copy.png
+新文件 <-> 现有文件 : securityForm.png      src_sports_assets_images_tv3.png
+新文件 <-> 现有文件 : icondownimgReducer.png      src_sports_assets_images_yellow.png
+新文件 <-> 现有文件 : hometeamfieldSmallsound.png      src_sports_assets_images_flag_philippines.png
+新文件 <-> 现有文件 : tailIconmoreReward.png      static_images_vip_common_models.png
+新文件 <-> 现有文件 : sliderScheduleDice.png      src_sports_assets_images_basketballicon.png
+新文件 <-> 现有文件 : imagenomoredataScheduleUsername.png      static_images_vip_google.png
+新文件 <-> 现有文件 : bodanPush.png      src_sports_assets_images_defaultteam.png
+新文件 <-> 现有文件 : const_zvNative.png      src_sports_assets_images_phoneshare.png
+新文件 <-> 现有文件 : stylesLeague.png      src_sports_assets_images_arrowup.png
+新文件 <-> 现有文件 : projectDelegate_uDescription_g.png      src_sports_assets_images_notificationgray.png
+新文件 <-> 现有文件 : greyarrowupAwayiconBackward.png      src_sports_assets_images_baiduads.png
+新文件 <-> 现有文件 : downloadTelegramGreyarrowup.png      src_sports_assets_images_playershirt.png
+新文件 <-> 现有文件 : package_tTrophy.png      src_sports_assets_images_assist.png
+新文件 <-> 现有文件 : volumeWatchPredictionbannershared.png      src_sports_assets_images_cornershoot.png
+新文件 <-> 现有文件 : shareBaidu.png      src_sports_assets_images_iconrightorange.png
+新文件 <-> 现有文件 : lineGreytick.png      src_sports_assets_images_profileframe.png
+新文件 <-> 现有文件 : rewardWatchnowbg.png      src_sports_components_weather_image_indicator_humidity.png
+新文件 <-> 现有文件 : disconnectedTramini.png      src_sports_assets_images_tv0.png
+新文件 <-> 现有文件 : imagewatchliveHomeloadingWeibo.png      src_sports_assets_images_iconclosewhitewithbg.png
+新文件 <-> 现有文件 : bridgeBaselineIconarrowright.png      src_sports_assets_images_iconwatch.png
+新文件 <-> 现有文件 : basketballawayteamFaviconBenefit.png      src_sports_assets_images_whitesmalltick.png
+新文件 <-> 现有文件 : mainShort_xIconclosewhitebg.png      static_images_vip_vip_sport.png
+新文件 <-> 现有文件 : libswscaleNalyticsSubmit.png      src_sports_assets_images_iconarrowrightblack.png
+新文件 <-> 现有文件 : middleOrangeclockProduct.png      src_sports_assets_images_defaultprofilepic.png
+新文件 <-> 现有文件 : matchdetailbgScheduleTramini.png      src_sports_assets_images_teamdetailsbg.png
+新文件 <-> 现有文件 : moviesFloater.png      src_sports_assets_images_defaultfootballbg.png
+新文件 <-> 现有文件 : imageAwayicon.png      static_images_vip_vip_no_ad.png
+新文件 <-> 现有文件 : distPhoto.png      src_sports_assets_images_smallorangeman.png
+新文件 <-> 现有文件 : plusHomeinactiveLibtob.png      src_sports_components_weather_image_indicator_temperature.png
+新文件 <-> 现有文件 : selectBellResult.png      src_sports_assets_images_hometeamfield.png
+新文件 <-> 现有文件 : yellowanimationliveThailand.png      src_sports_assets_images_newsshare.png
+新文件 <-> 现有文件 : centerAbout.png      src_sports_assets_images_greyarrowup.png
+新文件 <-> 现有文件 : iconsubssuccessMbnative.png      static_images_vip_promotion_models.png
+新文件 <-> 现有文件 : nbatrophyAudiencePressure.png      src_sports_assets_images_tv1.png
+新文件 <-> 现有文件 : downloadedMailLibapminsighta.png      src_sports_assets_images_greenarrowup.png
+新文件 <-> 现有文件 : hooksHalf.png      src_sports_assets_images_backwhite.png
+新文件 <-> 现有文件 : iconplayLink.png      src_sports_assets_images_fullscreenmax.png
+新文件 <-> 现有文件 : shareblackFullBrightness.png      src_sports_assets_images_footballfiledlayout.png
+新文件 <-> 现有文件 : iconfeedbackViews.png      src_sports_assets_images_iconclose.png
+新文件 <-> 现有文件 : librrcIndicatorZoom.png      src_sports_assets_images_liveendmodallogo.png
+新文件 <-> 现有文件 : roundIconarrowrightMath.png      src_sports_assets_images_privatechatbg.png
+新文件 <-> 现有文件 : fillPenaltyshootnogoalNewarchdefaults.png      src_sports_assets_images_iconbellactive.png
+新文件 <-> 现有文件 : leagueTeamdetailsbgIconeye.png      src_sports_assets_images_iconviewer.png
+新文件 <-> 现有文件 : telemetryFullscreenmax.png      src_sports_assets_images_smallsound.png
+新文件 <-> 现有文件 : utilsRightUmeng.png      src_sports_assets_images_orangetick.png
+新文件 <-> 现有文件 : nalyticsComment.png      src_sports_assets_images_iconfeedback.png
+新文件 <-> 现有文件 : halffieldimageBasketballplayerplaceholder.png      src_sports_assets_images_iconnotificationnew.png
+新文件 <-> 现有文件 : pointReactnativeratingsDownload.png      src_sports_assets_images_chatbotphoto.png
+新文件 <-> 现有文件 : awayteamfieldCatalogLibreactnativeblob.png      src_sports_assets_images_arrowdown.png
+新文件 <-> 现有文件 : projectExampleimageEpisodes.png      src_sports_assets_images_whistleorange2.png
+新文件 <-> 现有文件 : libavfilterEmbedInit_mn.png      static_images_profile_untick.png
+新文件 <-> 现有文件 : expandLibapminsightbIconmore.png      src_sports_assets_images_iconchatsend.png
+新文件 <-> 现有文件 : utilsCommon.png      src_sports_components_weather_image_indicator_pressure.png
+新文件 <-> 现有文件 : penaltyshootMapbuffer.png      static_images_vip_adult_models.png
+新文件 <-> 现有文件 : iconpipexpandActive.png      src_sports_assets_images_flag_malaysia.png
+新文件 <-> 现有文件 : cornerkickTelegram.png      src_sports_assets_images_iconpipshrink.png
+新文件 <-> 现有文件 : time_sNetworkPoint.png      src_sports_assets_images_iconorientation.png
+新文件 <-> 现有文件 : ajaxCast.png      src_sports_assets_images_flag_vietnam.png
+新文件 <-> 现有文件 : videocommonAccepted.png      src_sports_assets_images_orangeuparrow.png
+新文件 <-> 现有文件 : filledFullscreenminTaiwan.png      static_images_crown.png
+新文件 <-> 现有文件 : libjsinspectorNewsCanvas.png      static_images_splash_alert.png
+新文件 <-> 现有文件 : philippinesSellmathbackgroundProfileframe.png      src_sports_assets_images_trash.png
+新文件 <-> 现有文件 : penaltyshootnogoalHalfIconshare.png      node_modules_reactnativeratings_dist_images_star.png
+新文件 <-> 现有文件 : libcrashsdkBgvipxvodPrivatechatbg.png      src_sports_assets_images_iconsubssuccess.png
+新文件 <-> 现有文件 : floaterIconarrowrightorangePredictiondefault.png      node_modules_reactnativeratings_dist_images_airbnbstar.png
+新文件 <-> 现有文件 : mergerDplus.png      src_sports_assets_images_questicon.png
+新文件 <-> 现有文件 : gesturesPointIconschedule.png      src_sports_assets_images_iconuser.png
+新文件 <-> 现有文件 : release_1vForegroundPhilippines.png      static_images_profile_cricket_tick.png
+新文件 <-> 现有文件 : iconadslinkLatn.png      src_sports_assets_images_iconcurrentmatch.png
+新文件 <-> 现有文件 : redgoalSelectedLogouser.png      src_sports_assets_images_flag_taiwan.png
+新文件 <-> 现有文件 : iconpointscoreBackwhite.png      src_sports_assets_images_awayplayer.png
+新文件 <-> 现有文件 : backiconmaskRedscoreballHalffieldimage.png      static_images_profile_vip.png
+新文件 <-> 现有文件 : tickSell.png      src_sports_assets_images_defaultroombg.png
+新文件 <-> 现有文件 : searchInjury.png      src_sports_assets_images_iconarrowrightorange.png
+新文件 <-> 现有文件 : crownEyecloseFullscreenmax.png      src_sports_assets_images_refreshborderless.png
+新文件 <-> 现有文件 : whiteDropdownTime_cn.png      src_sports_assets_images_eyeopen.png
+新文件 <-> 现有文件 : libyogaUsernameSigmob.png      src_sports_assets_images_sharemodal.png
+新文件 <-> 现有文件 : defaultroombgMapbuffer.png      src_sports_assets_images_yellowcirclebg1.png
+新文件 <-> 现有文件 : awayplayerStatic_p.png      src_sports_assets_images_owngoal.png
+新文件 <-> 现有文件 : circleGift.png      static_images_vip_crown_vip.png
+新文件 <-> 现有文件 : reactnativejsVertical.png      src_sports_assets_images_yellowscoreball.png
+新文件 <-> 现有文件 : successIconRuntime.png      src_sports_assets_images_basketballplayerplaceholder.png
+新文件 <-> 现有文件 : predictionactiveScrollview.png      src_sports_assets_images_close.png
+新文件 <-> 现有文件 : inouttargetyellowUimanagerMuted.png      src_sports_assets_images_penaltyshootnogoal.png
+新文件 <-> 现有文件 : pressureShielddone.png      src_sports_assets_images_sharewhite.png
+新文件 <-> 现有文件 : telemetryUnreadVideojs.png      src_sports_assets_images_iconwechat.png
+新文件 <-> 现有文件 : smallLargeVolume.png      src_sports_assets_images_defaultbasketballbg.png
+新文件 <-> 现有文件 : vignetteConfirmation.png      src_sports_assets_images_arrowdown1.png
+新文件 <-> 现有文件 : binddatasMintegral.png      static_images_vip_common_background.png
+新文件 <-> 现有文件 : canvasLeagueLayout.png      src_sports_assets_images_nbatrophy.png
+新文件 <-> 现有文件 : long_bIconsaveimage.png      src_sports_assets_images_tooltips.png
+新文件 <-> 现有文件 : libfbHolder.png      node_modules_reactnativeratings_dist_images_rocket.png
+新文件 <-> 现有文件 : vignetteZoom.png      static_images_splash_subtext.png
+新文件 <-> 现有文件 : plusJavaArrowselectdown.png      static_images_bgvipxvod.png
+新文件 <-> 现有文件 : penaltymatchiconIconmegaphone.png      src_sports_assets_images_inouttargetred.png
+新文件 <-> 现有文件 : launchMalaysia.png      src_sports_components_weather_image_icon_6.png
+新文件 <-> 现有文件 : matchdetailbgSharemodalBgvipxvod.png      src_sports_assets_images_bellreminder.png
+新文件 <-> 现有文件 : orangedownarrowRenewGreytick.png      src_sports_assets_images_chatroombackground.png
+新文件 <-> 现有文件 : schedulerNativeBasketball.png      src_sports_assets_images_injury.png
+新文件 <-> 现有文件 : headerHolderTail.png      src_sports_assets_images_iconshare.png
+新文件 <-> 现有文件 : lineStatisticsactiveQuest.png      src_sports_assets_images_live.png
+新文件 <-> 现有文件 : productProductLibyoga.png      static_images_invite_time.png
+新文件 <-> 现有文件 : libnmsShowless.png      src_sports_components_weather_image_icon_7.png
+新文件 <-> 现有文件 : thailandReact.png      src_sports_assets_images_defaultpredictionprofile.png
+新文件 <-> 现有文件 : sigmobIconcurrentmatch.png      src_sports_assets_images_sub.png
+新文件 <-> 现有文件 : settingDelegate_gw.png      src_sports_assets_images_imagewatchlive.png
+新文件 <-> 现有文件 : scrollviewIndexSingle.png      static_images_vip_promotion_background.png
+新文件 <-> 现有文件 : videojsLaunch.png      src_sports_assets_images_watchnowbg.png
+新文件 <-> 现有文件 : appsMember.png      static_images_invite_sport.png
+新文件 <-> 现有文件 : othermatchdetailbgLinkHometeamfield.png      src_sports_assets_images_predictionbutton.png
+新文件 <-> 现有文件 : modelsBasketballdetailsbgHook.png      src_sports_assets_images_videovar1.png
+新文件 <-> 现有文件 : imageactionliveIconmegaphonePredictionbutton.png      src_sports_assets_images_penaltymatchicon.png
+新文件 <-> 现有文件 : resultFastRuntime.png      static_images_profile_cross.png
+新文件 <-> 现有文件 : shootnogoalLargebrightness.png      src_sports_assets_images_sellmathbackground.png
+新文件 <-> 现有文件 : mbbannerLang.png      src_sports_assets_images_iconqq.png
+新文件 <-> 现有文件 : reactnavigationConfigureIconplay.png      src_sports_assets_images_liveshare.png
+新文件 <-> 现有文件 : iconwatchnowNotificationgray.png      src_sports_components_weather_image_background_8.png
+新文件 <-> 现有文件 : gradlewSwitch_2Libreactperfloggerjni.png      src_sports_components_weather_image_icon_5.png
+新文件 <-> 现有文件 : rightValuesFile.png      static_images_vip_vip_logo.png
+新文件 <-> 现有文件 : circleFastforwardMime.png      src_sports_assets_images_yellowvideolive.png
+新文件 <-> 现有文件 : mbbidDownloading.png      static_images_bgvipsport.png
+新文件 <-> 现有文件 : predictionStatisticsTurndown.png      src_sports_assets_images_predictionactive.png
+新文件 <-> 现有文件 : reducerLibfabricjniSports.png      src_sports_assets_images_iconclosewhitebg.png
+新文件 <-> 现有文件 : settingBinddatas.png      src_sports_assets_images_smallbrightness.png
+新文件 <-> 现有文件 : elementsWatchnowbgChange.png      static_images_vip_adult_background.png
+新文件 <-> 现有文件 : zhengpianIconarrowright.png      src_sports_assets_images_shielddone.png
+新文件 <-> 现有文件 : bottomChatbotphoto.png      src_sports_assets_images_leaguedetailsbg.png
+新文件 <-> 现有文件 : bootsplashHookTaiwan.png      src_sports_assets_images_emojiheart.png
+新文件 <-> 现有文件 : imageIconwechatDown.png      src_sports_assets_images_floater.png
+新文件 <-> 现有文件 : switch_zLibsentryPredictionarrow.png      src_sports_assets_images_iconcalendar.png
+新文件 <-> 现有文件 : collectionLinkAnner.png      src_sports_assets_images_halffieldimage.png
+新文件 <-> 现有文件 : runtimeschedulerAssist.png      src_sports_assets_images_iconnewsshare.png
+新文件 <-> 现有文件 : showHeart.png      src_sports_assets_images_yellowtored.png
+新文件 <-> 现有文件 : iconwechatLibmapbufferjniKick.png      src_sports_components_weather_image_icon_4.png
+新文件 <-> 现有文件 : nextReminder.png      src_sports_assets_images_iconnointernet.png
+新文件 <-> 现有文件 : downloadedRootMintegral.png      src_sports_assets_images_matchdetailbg.png
+新文件 <-> 现有文件 : libglogPenaltyshootnogoalAnner.png      src_sports_assets_images_iconbell.png
+新文件 <-> 现有文件 : recommendationDicelogoText.png      src_sports_assets_images_back.png
+新文件 <-> 现有文件 : unselectedGreenLibreactnativejni.png      src_sports_assets_images_iconschedule.png
+新文件 <-> 现有文件 : runtimeMode.png      src_sports_assets_images_basketballtrophy.png
+新文件 <-> 现有文件 : checkboxRenew.png      src_sports_assets_images_footballfield.png
+新文件 <-> 现有文件 : teamVerticalConfirmation.png      src_sports_assets_images_homeplayer.png
+新文件 <-> 现有文件 : sansAnimations.png      src_sports_assets_images_homeicon.png
+新文件 <-> 现有文件 : hookBecome.png      src_sports_assets_images_homeactive.png
+新文件 <-> 现有文件 : launcherDefault_mCricket.png      static_images_splash_subtext2.png
+新文件 <-> 现有文件 : whiteIconsharefriendsIconadslink.png      src_sports_assets_images_whiteanimationlive.png
+新文件 <-> 现有文件 : libreanimatedPenaltygoal.png      src_sports_assets_images_iconpipexpand.png
+新文件 <-> 现有文件 : rocketPenalty.png      static_images_vip_sport_background.png
+新文件 <-> 现有文件 : homeactivePenaltyFullscreenmin.png      src_sports_assets_images_penaltyshoot.png
+新文件 <-> 现有文件 : placeholderResult.png      static_images_profile_bggradient.png
+新文件 <-> 现有文件 : gradleBinddatas.png      src_sports_assets_images_middlesound.png
+新文件 <-> 现有文件 : commonMiddleMember.png      src_sports_assets_images_iconarrowleft.png
+新文件 <-> 现有文件 : emojiheartDownloadedIconwatch.png      src_sports_assets_images_footballtrophy.png
+新文件 <-> 现有文件 : dragcloseAirbnbstarselected.png      src_sports_assets_images_disconnectedlogo.png
+新文件 <-> 现有文件 : libavutilFavicon.png      node_modules_reactnavigation_elements_src_assets_backiconmask.png
+新文件 <-> 现有文件 : entryStatisticsactiveTemp.png      src_sports_components_weather_image_icon_1.png
+新文件 <-> 现有文件 : viewsSigmobUnimplementedview.png      src_sports_assets_images_statisticsactive.png
+新文件 <-> 现有文件 : backwhiteShielddoneBottom.png      src_sports_assets_images_awayteamfield.png
+新文件 <-> 现有文件 : plashTypesPhone.png      src_sports_assets_images_profileactive.png
+新文件 <-> 现有文件 : splashLibruntimeexecutorStyles.png      static_images_invite_ads.png
+新文件 <-> 现有文件 : pathCompleteAction.png      src_sports_components_weather_image_icon_3.png
+新文件 <-> 现有文件 : defaultplayerimgMatchinactiveSigmob.png      src_sports_assets_images_whitetick.png
+新文件 <-> 现有文件 : lineService.png      src_sports_assets_images_reddownarrow.png
+新文件 <-> 现有文件 : phoneshareSplashRedirect.png      src_sports_assets_images_flag_singapore.png
+新文件 <-> 现有文件 : robotoUpdate_wdMode.png      src_sports_assets_images_greytick.png
+新文件 <-> 现有文件 : whiteanimationliveSelected.png      src_sports_assets_images_iconarrowrightwhite.png
+新文件 <-> 现有文件 : leftUnread.png      static_images_profile_vipsport.png
+新文件 <-> 现有文件 : overlayCricket.png      src_sports_assets_images_exampleimage.png
+新文件 <-> 现有文件 : shielddoneIssubWith_3q.png      static_images_vip_sport_models.png
+新文件 <-> 现有文件 : streamingInternet.png      src_sports_assets_images_basketballhometeam.png
+新文件 <-> 现有文件 : reactnavigationRulesIconsetting.png      src_sports_assets_images_inouttargetyellow.png
+新文件 <-> 现有文件 : emojiIconbellLink.png      src_sports_assets_images_iconpointscore.png
+新文件 <-> 现有文件 : ccdfbdabcabbbedbLibfollyTypes.png      src_sports_assets_images_whitebell.png
+新文件 <-> 现有文件 : encryptPredictiondefault.png      src_sports_components_weather_image_icon_2.png
+新文件 <-> 现有文件 : circleReminderStore.png      src_sports_assets_images_defaultlogo.png
+新文件 <-> 现有文件 : iconuserSend.png      static_images_forward.png
+新文件 <-> 现有文件 : basketballInouttargetyellow.png      src_sports_assets_images_penaltygoal.png
+新文件 <-> 现有文件 : airbnbstarselectedSubmit.png      node_modules_reactnavigation_elements_src_assets_backicon.png
+新文件 <-> 现有文件 : iconcurrentmatchDependencyProgress.png      nend_information_icon.png
+新文件 <-> 现有文件 : libavfilterMimoSave.png      nend_button_cancel.png
+新文件 <-> 现有文件 : spinnerMinimizeVipsport.png      bootsplash_logo.png
+新文件 <-> 现有文件 : spinnerMinimizeVipsport.png      bootsplash_logo.png
+新文件 <-> 现有文件 : spinnerMinimizeVipsport.png      bootsplash_logo.png
+新文件 <-> 现有文件 : spinnerMinimizeVipsport.png      bootsplash_logo.png
+新文件 <-> 现有文件 : spinnerMinimizeVipsport.png      bootsplash_logo.png
+新文件 <-> 现有文件 : bggradientVideojs.png      loader-icon.png
+新文件 <-> 现有文件 : countdownIconplayActive.png      volume.png
+新文件 <-> 现有文件 : greytickValues.png      expand.png
+新文件 <-> 现有文件 : leaguedetailsbgGraphics.png      error-icon.png
+新文件 <-> 现有文件 : robotoStation.png      noDataIcon.png
+新文件 <-> 现有文件 : animationDownloaderSchedule.png      lock.png
+新文件 <-> 现有文件 : libhermesMegaphone.png      shrink.png
+新文件 <-> 现有文件 : homeiconCode.png      bottom-vignette.png
+新文件 <-> 现有文件 : crossBasketballhometeam.png      pause.png
+新文件 <-> 现有文件 : showmoreCodegen.png      vignette.png
+新文件 <-> 现有文件 : libtobThailand.png      unlock.png
+新文件 <-> 现有文件 : vipsportReactnativeultimatelistviewLight.png      top-vignette.png
+新文件 <-> 现有文件 : libjsijniprofilerTemplateprocessor.png      playerGuide.png
+新文件 <-> 现有文件 : classesHongkong.png      play.png
+新文件 <-> 现有文件 : gpayIncident.png      back.png
+新文件 <-> 现有文件 : macauReactnativeratingsAttributedstring.png      top_overlay.png
+新文件 <-> 现有文件 : tempCodegenTicked.png      8.png
+新文件 <-> 现有文件 : crossBridge.png      9.png
+新文件 <-> 现有文件 : graphicsTypesChampion.png      12.png
+新文件 <-> 现有文件 : statsnomoredataSmallbrightnessControl.png      13.png
+新文件 <-> 现有文件 : zhengpianInouttargetred.png      11.png
+新文件 <-> 现有文件 : inviteAudienceIconsaveimage.png      10.png
+新文件 <-> 现有文件 : renderPenaltymatchicon.png      4.png
+新文件 <-> 现有文件 : backwhiteFilterLibreactperfloggerjni.png      5.png
+新文件 <-> 现有文件 : iconviewerThemeDisconnected.png      7.png
+新文件 <-> 现有文件 : dragcloseLibavformat.png      6.png
+新文件 <-> 现有文件 : smallorangemanGreenarrowupRoot.png      2.png
+新文件 <-> 现有文件 : iconeditMatchinactive.png      3.png
+新文件 <-> 现有文件 : basketballplayerplaceholderGiftbutton.png      1.png
+新文件 <-> 现有文件 : privatechatbgClose.png      pressure.png
+新文件 <-> 现有文件 : trashMore.png      temperature.png
+新文件 <-> 现有文件 : pingScheduleVipsport.png      wind.png
+新文件 <-> 现有文件 : iconarrowrightModePrivacy.png      humidity.png
+新文件 <-> 现有文件 : tempCodegenTicked.png      8.png
+新文件 <-> 现有文件 : crossBridge.png      9.png
+新文件 <-> 现有文件 : graphicsTypesChampion.png      12.png
+新文件 <-> 现有文件 : statsnomoredataSmallbrightnessControl.png      13.png
+新文件 <-> 现有文件 : zhengpianInouttargetred.png      11.png
+新文件 <-> 现有文件 : inviteAudienceIconsaveimage.png      10.png
+新文件 <-> 现有文件 : renderPenaltymatchicon.png      4.png
+新文件 <-> 现有文件 : backwhiteFilterLibreactperfloggerjni.png      5.png
+新文件 <-> 现有文件 : iconviewerThemeDisconnected.png      7.png
+新文件 <-> 现有文件 : dragcloseLibavformat.png      6.png
+新文件 <-> 现有文件 : smallorangemanGreenarrowupRoot.png      2.png
+新文件 <-> 现有文件 : iconeditMatchinactive.png      3.png
+新文件 <-> 现有文件 : basketballplayerplaceholderGiftbutton.png      1.png
+新文件 <-> 现有文件 : iconplayMounting.png      videoVAR1.png
+新文件 <-> 现有文件 : friendsFileViews.png      predictionArrow.png
+新文件 <-> 现有文件 : unimplementedviewLibsentryLeaguedetailsbg.png      liveShare.png
+新文件 <-> 现有文件 : imagenomoredataCricketBgvipxvod.png      redDownArrow.png
+新文件 <-> 现有文件 : eighteenPopupTextlayoutmanager.png      InOutTargetOrange.png
+新文件 <-> 现有文件 : iconarrowrightblackCodegenCornershoot.png      IconTransferClub.png
+新文件 <-> 现有文件 : libbufferRoundRelease_w.png      example-image.png
+新文件 <-> 现有文件 : delegate_czTextinputSports.png      basketballAwayTeam.png
+新文件 <-> 现有文件 : codeIconchatsendBellreminder.png      footballFiledLayout.png
+新文件 <-> 现有文件 : reminderLibreactperfloggerjni.png      eye-close.png
+新文件 <-> 现有文件 : statisticsinactiveQuesticonTheme.png      ArrowSelectDown.png
+新文件 <-> 现有文件 : guideRewindCodegen.png      orangeDownArrow.png
+新文件 <-> 现有文件 : matchdetailbgScore.png      imageAppUpdate.png
+新文件 <-> 现有文件 : foundChatLibavcodec.png      defaultTumbnailBg.png
+新文件 <-> 现有文件 : halffieldimageLibfb.png      LogoTopHeader.png
+新文件 <-> 现有文件 : carouselIconbackwhitePlayershirt.png      logoNewsTop.png
+新文件 <-> 现有文件 : crossChampion.png      imageAoLong.png
+新文件 <-> 现有文件 : benefitFootballfiledlayout.png      logoNews.png
+新文件 <-> 现有文件 : iconeditCopy_aiAnimations.png      shootYesGoal.png
+新文件 <-> 现有文件 : libcrashsdkAppsMapbuffer.png      subIn.png
+新文件 <-> 现有文件 : switch_4ySearch.png      IconNotificationNew.png
+新文件 <-> 现有文件 : renderMailMerger.png      shootYesGoal1.png
+新文件 <-> 现有文件 : videojsSina.png      penaltyShoot.png
+新文件 <-> 现有文件 : bodanDefaultbasketballbg.png      phoneShare.png
+新文件 <-> 现有文件 : episodesCricketNewinterstitial.png      china.png
+新文件 <-> 现有文件 : humidityMbnativeDicelogo.png      taiwan.png
+新文件 <-> 现有文件 : launcherLeakchecker.png      macau.png
+新文件 <-> 现有文件 : selectionModal.png      malaysia.png
+新文件 <-> 现有文件 : whiteChampionCasting.png      thailand.png
+新文件 <-> 现有文件 : showmoreCount.png      philippines.png
+新文件 <-> 现有文件 : modulesControls.png      singapore.png
+新文件 <-> 现有文件 : largebrightnessLibfb.png      hongkong.png
+新文件 <-> 现有文件 : formRuntime.png      vietnam.png
+新文件 <-> 现有文件 : cornerkickProfilepic.png      IconBackWhite.png
+新文件 <-> 现有文件 : tickText.png      tick.png
+新文件 <-> 现有文件 : countdownLibreactperfloggerjni.png      iconShare.png
+新文件 <-> 现有文件 : tempnodataLoadingspinnerMaterial.png      update.png
+新文件 <-> 现有文件 : graphBasketballplayerplaceholderKlevin.png      floater.png
+新文件 <-> 现有文件 : reducerIconwatchnow.png      goal.png
+新文件 <-> 现有文件 : holderShootyesgoal.png      otherMatchDetailBG.png
+新文件 <-> 现有文件 : chatTransferVertical.png      predictionLoss.png
+新文件 <-> 现有文件 : nodeImages.png      greyTick.png
+新文件 <-> 现有文件 : rulesIconqqAnalytic.png      whiteTick.png
+新文件 <-> 现有文件 : reactnavigationLiveendmodallogoTemplateprocessor.png      sub.png
+新文件 <-> 现有文件 : dicelogoWhitevideolive.png      arrowRightWithTail.png
+新文件 <-> 现有文件 : mbsplashSlider.png      whiteVideoLive.png
+新文件 <-> 现有文件 : reactnativeultimatelistviewRocketGesture.png      StatisticsInactive.png
+新文件 <-> 现有文件 : skipZhuboAbidetect.png      predictionWin.png
+新文件 <-> 现有文件 : libavcodecPositionfieldForm.png      DefaultPlayerImg.png
+新文件 <-> 现有文件 : largebrightnessUpdate_j.png      ArrowRight.png
+新文件 <-> 现有文件 : yingFrame_v1Sellmathbackground.png      whistleOrange.png
+新文件 <-> 现有文件 : loginsuccessFileInternet.png      imageNetworkErr.png
+新文件 <-> 现有文件 : unlockInjuryReactnativeultimatelistview.png      IconSchedule.png
+新文件 <-> 现有文件 : yellowanimationliveCornershootSubtext.png      subOut.png
+新文件 <-> 现有文件 : shootyesgoalHeaderWhitebell.png      iconSaveImage.png
+新文件 <-> 现有文件 : libyogaMegaphoneNotificationgray.png      IconShareFriends.png
+新文件 <-> 现有文件 : splashChatroombackground.png      whiteBell.png
+新文件 <-> 现有文件 : kickYellowscoreballGemfile.png      IconCalendar.png
+新文件 <-> 现有文件 : shielddoneTempnodata.png      iconArrowRight.png
+新文件 <-> 现有文件 : airbnbstarselectedMutedSharewhite.png      matchInactive.png
+新文件 <-> 现有文件 : predictionYellowscoreball.png      bellReminder.png
+新文件 <-> 现有文件 : pingRecommendationVideovar.png      predictionBanner.png
+新文件 <-> 现有文件 : redcirclebgRobotoLibreanimated.png      imageNoMoreData.png
+新文件 <-> 现有文件 : photoAlert.png      iconBell.png
+新文件 <-> 现有文件 : macauPredictionbannershared.png      fullScreenMin.png
+新文件 <-> 现有文件 : libreactReact.png      yellowRedCard.png
+新文件 <-> 现有文件 : updatesNotificationgray.png      defaultBasketballBg.png
+新文件 <-> 现有文件 : animationDownloaderSchedule.png      lock.png
+新文件 <-> 现有文件 : reactnativeratingsBaseline.png      IconMegaphone.png
+新文件 <-> 现有文件 : newinterstitialLangkeyLibreactnativejni.png      notificationGray.png
+新文件 <-> 现有文件 : middlebrightnessAnytime.png      basketballPlayerPlaceholder.png
+新文件 <-> 现有文件 : shootnogoalRedirect.png      defaultProfilePic.png
+新文件 <-> 现有文件 : shareblackDefaultlogoEpisode.png      middleSound.png
+新文件 <-> 现有文件 : homePackage_z.png      defaultFootballBg.png
+新文件 <-> 现有文件 : switch_nActivity.png      assist.png
+新文件 <-> 现有文件 : owngoalTextlayoutmanager.png      shareBlack.png
+新文件 <-> 现有文件 : colorsSubin.png      ArrowDown.png
+新文件 <-> 现有文件 : libreactnativeblobIncidentPredictionbutton.png      views.png
+新文件 <-> 现有文件 : blackVideocommon.png      notificationFilled.png
+新文件 <-> 现有文件 : toponHelperProject.png      yellow.png
+新文件 <-> 现有文件 : predictionactiveDependenciesFrame_eh.png      iconUser.png
+新文件 <-> 现有文件 : sideCopy_t.png      homeTeamField.png
+新文件 <-> 现有文件 : typingLiveendmodallogo.png      TeamDetailsBg.png
+新文件 <-> 现有文件 : colorsStylesIconsubssuccess.png      prediction.png
+新文件 <-> 现有文件 : morePredictionactiveActivity.png      iconLogout.png
+新文件 <-> 现有文件 : indicatorIconchatsendSport.png      largeSound.png
+新文件 <-> 现有文件 : largesoundSpecField.png      yellow-animation-live.png
+新文件 <-> 现有文件 : screenLong_h8Static_j.png      backWhite.png
+新文件 <-> 现有文件 : imagenomoredataRenew.png      tempNoData.png
+新文件 <-> 现有文件 : flipperSuccess.png      tooltips.png
+新文件 <-> 现有文件 : bgvipsportBlack.png      IconRightOrange.png
+新文件 <-> 现有文件 : inviteTrophy.png      penaltyGoal.png
+新文件 <-> 现有文件 : subinFeedback.png      iconClose.png
+新文件 <-> 现有文件 : register_agBasketballdetailsbgPredictionbannershared.png      defaultLogo.png
+新文件 <-> 现有文件 : distField.png      alert.png
+新文件 <-> 现有文件 : reactnavigationIconsharefriendsHolder.png      PredictionDefault.png
+新文件 <-> 现有文件 : mbbidIconmoreIconwechat.png      cornerKick.png
+新文件 <-> 现有文件 : mimoWatch.png      IconChatSend.png
+新文件 <-> 现有文件 : informationSellmathbackgroundShort_9.png      chatBotPhoto.png
+新文件 <-> 现有文件 : libfileHumidity.png      iconFeedback.png
+新文件 <-> 现有文件 : middlesoundMounting.png      largeBrightness.png
+新文件 <-> 现有文件 : qaagIcondownimgHistory.png      IconArrowRightOrange.png
+新文件 <-> 现有文件 : unreadHeji.png      middleBrightness.png
+新文件 <-> 现有文件 : twitterLibjsijniprofiler.png      nbaTrophy.png
+新文件 <-> 现有文件 : footballfiledlayoutCanvas.png      basketballIcon.png
+新文件 <-> 现有文件 : reactnativeultimatelistviewInouttargetyellow.png      AnimationLiveWhite.png
+新文件 <-> 现有文件 : matchinactiveTemp.png      zhubo.png
+新文件 <-> 现有文件 : greyarrowupYellowredcardDefaultteam.png      iconCloseWhite.png
+新文件 <-> 现有文件 : iconnotificationnewMinivodChat.png      ImageActionLive.png
+新文件 <-> 现有文件 : analyticsRuntimescheduler.png      questIcon.png
+新文件 <-> 现有文件 : iconstarIconrefresh.png      basketballMatchDetailBG.png
+新文件 <-> 现有文件 : borderlessAcceptedMain.png      StatsNoMoreData.png
+新文件 <-> 现有文件 : iconsubssuccessProject.png      eye-open.png
+新文件 <-> 现有文件 : darkNews.png      ownGoal.png
+新文件 <-> 现有文件 : countryStations.png      InOutTargetGreen.png
+新文件 <-> 现有文件 : basketballHomeactive.png      iconArrowRightWhite.png
+新文件 <-> 现有文件 : iconchatsendSpecHomeplayer.png      smallOrangeMan.png
+新文件 <-> 现有文件 : gifgoalbgTeam.png      wifi-router.png
+新文件 <-> 现有文件 : iconstarGraph.png      arrow-down.png
+新文件 <-> 现有文件 : friendsRncoreGreenarrowup.png      greenScoreBall.png
+新文件 <-> 现有文件 : tempnodatagifMathAbout.png      yellowToRed.png
+新文件 <-> 现有文件 : predictionbannerLeakchecker.png      whiteSmallTick.png
+新文件 <-> 现有文件 : issubAwayList.png      profileInactive.png
+新文件 <-> 现有文件 : liveDefaultlogo.png      isSub.png
+新文件 <-> 现有文件 : bannerTransfer.png      yellowCircleBG1.png
+新文件 <-> 现有文件 : nativeEmbed.png      matchActive.png
+新文件 <-> 现有文件 : weiboChinasame.png      subBasketballPlayer.png
+新文件 <-> 现有文件 : castingZhengpianLibreactnativeblob.png      iconBellActive.png
+新文件 <-> 现有文件 : animationsRelease_9Imagemanager.png      yellowScoreBall.png
+新文件 <-> 现有文件 : redgoalCross.png      redGoal.png
+新文件 <-> 现有文件 : castMoonAwayicon.png      IconCurrentMatch.png
+新文件 <-> 现有文件 : inouttargetredShowlessBackwhite.png      greenArrowUp.png
+新文件 <-> 现有文件 : shielddoneBase.png      IconDefaultThumbnail.png
+新文件 <-> 现有文件 : footballfieldPause.png      iconEye.png
+新文件 <-> 现有文件 : libfileLibjsinspector.png      TV3.png
+新文件 <-> 现有文件 : dicelogoRefreshborderlessAway.png      baiduAds.png
+新文件 <-> 现有文件 : dycreatorWeiboChat.png      TV1.png
+新文件 <-> 现有文件 : promotionWhitesmalltickNotificationfillempty.png      homeActive.png
+新文件 <-> 现有文件 : routerBanner.png      refreshBorderless.png
+新文件 <-> 现有文件 : screenFrame_82.png      defaultRoomBg.png
+新文件 <-> 现有文件 : subtextTrash.png      homePlayer.png
+新文件 <-> 现有文件 : unselectedImageDrag.png      profileFrame.png
+新文件 <-> 现有文件 : whistleorangeProfileactive.png      live-no-data-bg-img.png
+新文件 <-> 现有文件 : whistleRewardvideoNode.png      TV0.png
+新文件 <-> 现有文件 : homeInfoMath.png      whistleOrange2.png
+新文件 <-> 现有文件 : navigationMaterialBridge.png      IconAdsLink.png
+新文件 <-> 现有文件 : type_ntBackiconmaskTopon.png      iconWatch.png
+新文件 <-> 现有文件 : iconwechatProfilepicVideojs.png      ArrowUp.png
+新文件 <-> 现有文件 : animationsGoogleComponents.png      iconSetting.png
+新文件 <-> 现有文件 : greytickTextinput.png      IconPipShrink.png
+新文件 <-> 现有文件 : shrunkNetworkPopup.png      WatchNowBg.png
+新文件 <-> 现有文件 : benefitDown.png      iconOrientation.png
+新文件 <-> 现有文件 : predictionbuttonNbatrophyUtils.png      orangeUpArrow.png
+新文件 <-> 现有文件 : inviteVideo.png      redCircleBG.png
+新文件 <-> 现有文件 : internetSplash.png      liveEndModalLogo.png
+新文件 <-> 现有文件 : basketballCountdownIncident.png      IconDownImg.png
+新文件 <-> 现有文件 : downloadingHuawei.png      newsShare.png
+新文件 <-> 现有文件 : mbsplashAjaxBaiduads.png      emojiHeart.png
+新文件 <-> 现有文件 : statsnomoredataLibjsiLoading.png      IconSubsSuccess.png
+新文件 <-> 现有文件 : favoriteLibavcodecLargebrightness.png      defaultPredictionProfile.png
+新文件 <-> 现有文件 : arrowrightPhotoWhitevideolive.png      gift.png
+新文件 <-> 现有文件 : huaweiSansStore.png      IconCloseWhiteWithBg.png
+新文件 <-> 现有文件 : hoverIconschedule.png      penaltyShootNoGoal.png
+新文件 <-> 现有文件 : rncoreEmojiMain.png      champion.png
+新文件 <-> 现有文件 : selectedStrings.png      fullScreenMax.png
+新文件 <-> 现有文件 : clearLibloggerReactnavigation.png      privateChatBG.png
+新文件 <-> 现有文件 : hookLibapminsightbSell.png      showMore.png
+新文件 <-> 现有文件 : eyeopenBecome.png      goalLogo.png
+新文件 <-> 现有文件 : eactAppleSellmathbackground.png      logoUser.png
+新文件 <-> 现有文件 : selectionIcondefaultthumbnail.png      basketballDetailsBG.png
+新文件 <-> 现有文件 : iconmoreIncidentBaidu.png      IconRefresh.png
+新文件 <-> 现有文件 : iconcalendarMovies.png      PlayerShirt.png
+新文件 <-> 现有文件 : leakcheckerDefaultpredictionprofileLibbuffer.png      imageWatchLive.png
+新文件 <-> 现有文件 : filterPressureWhitebell.png      cornerShoot.png
+新文件 <-> 现有文件 : ccdfbdabcabbbedbBorderless.png      shareWhite.png
+新文件 <-> 现有文件 : icondefaultthumbnailJava.png      chatRoomBackground.png
+新文件 <-> 现有文件 : gradlewFeedbackMoon.png      InOutTargetYellow.png
+新文件 <-> 现有文件 : imagesClock.png      profileActive.png
+新文件 <-> 现有文件 : toponDefaultbasketballbg.png      defaultTeam.png
+新文件 <-> 现有文件 : liveBlack.png      iconPlay.png
+新文件 <-> 现有文件 : navigationAndroidCornershoot.png      shield-done.png
+新文件 <-> 现有文件 : currentAwayiconDesc.png      away-icon.png
+新文件 <-> 现有文件 : backgroundGifgoalbgHistory.png      StatisticsActive.png
+新文件 <-> 现有文件 : contextFriends.png      showLess.png
+新文件 <-> 现有文件 : iconarrowrightorangeChinasameArrowrightwithtail.png      assistGoal.png
+新文件 <-> 现有文件 : sheetBackward.png      IconWechat.png
+新文件 <-> 现有文件 : basketballmatchdetailbgHomeloadingCodegen.png      InOutTargetRed.png
+新文件 <-> 现有文件 : mountingBrightness.png      disconnectedLogo.png
+新文件 <-> 现有文件 : airbnbstarGiftbuttonScheduler.png      video-live.png
+新文件 <-> 现有文件 : awayWhitesmalltickChatbotphoto.png      volumeWithSound.png
+新文件 <-> 现有文件 : catagoryIssubCasting.png      footballField.png
+新文件 <-> 现有文件 : temperatureIconsaveimageNewinterstitial.png      IconWatchNow.png
+新文件 <-> 现有文件 : promotionArrowrightSort.png      iconNoInternet.png
+新文件 <-> 现有文件 : mbbannerShrinkLibavdevice.png      awayPlayer.png
+新文件 <-> 现有文件 : switch_hElementsKick.png      trash.png
+新文件 <-> 现有文件 : popupTemplate_gePositionfield.png      turnDown.png
+新文件 <-> 现有文件 : basketballawayteamBottomEdit.png      sellMathBackground.png
+新文件 <-> 现有文件 : modityAssist.png      HalfFieldImage.png
+新文件 <-> 现有文件 : liveIconchatsend.png      shootNoGoal1.png
+新文件 <-> 现有文件 : backiconmaskCatagory.png      IconPipExpand.png
+新文件 <-> 现有文件 : dicelogoInouttargetyellowStyles.png      shareModal.png
+新文件 <-> 现有文件 : rewindNextIndex.png      greenCircleBG.png
+新文件 <-> 现有文件 : unimplementedviewRedscoreballClose.png      greyArrowUp.png
+新文件 <-> 现有文件 : iconnewsshareLoginMath.png      arrow-down1.png
+新文件 <-> 现有文件 : baiduLeagueUtils.png      iconArrowLeft.png
+新文件 <-> 现有文件 : penaltyFill.png      home-icon.png
+新文件 <-> 现有文件 : dragcloseCarouselInactive.png      awayTeamField.png
+新文件 <-> 现有文件 : floaterLibjsinspector.png      diceLogo.png
+新文件 <-> 现有文件 : friendsAwayteamfieldDragclose.png      iconEdit.png
+新文件 <-> 现有文件 : iconbackwhiteFootballfieldIconfeedback.png      injury.png
+新文件 <-> 现有文件 : libavutilInformationArrowrightwithtail.png      whiteAnimationLive.png
+新文件 <-> 现有文件 : cancelNewinterstitial.png      yellowVideoLive.png
+新文件 <-> 现有文件 : roomNativemodule.png      notification.png
+新文件 <-> 现有文件 : dragcloseAnnerExampleimage.png      footballTrophy.png
+新文件 <-> 现有文件 : iconchatsendGoallogoGradlew.png      animation-live.png
+新文件 <-> 现有文件 : newsshareHomeactiveVertical.png      orangeClock2.png
+新文件 <-> 现有文件 : renewWifirouterMinimize.png      smallBrightness.png
+新文件 <-> 现有文件 : searchGuide.png      orangeScoreBall.png
+新文件 <-> 现有文件 : libavfilterInformationSharewhite.png      IconNewsShare.png
+新文件 <-> 现有文件 : recommendationMatchinactiveChatbotphoto.png      LeagueDetailsBg.png
+新文件 <-> 现有文件 : sellBasketballiconAirbnbstarselected.png      orangeClock.png
+新文件 <-> 现有文件 : penaltygoalReact.png      notificationFillEmpty.png
+新文件 <-> 现有文件 : basketballmatchdetailbgYellowredcardBanner.png      redScoreBall.png
+新文件 <-> 现有文件 : fastAttributedstring.png      dragClose.png
+新文件 <-> 现有文件 : libffmpegkitIcondefaultthumbnailCombined.png      matchDetailBG.png
+新文件 <-> 现有文件 : gpayIncident.png      back.png
+新文件 <-> 现有文件 : encryptorSingleExampleimage.png      homeInactive.png
+新文件 <-> 现有文件 : zhengpianAnalyticGreen.png      predictionActive.png
+新文件 <-> 现有文件 : darkLoadingspinnerReactnavigation.png      shootNoGoal.png
+新文件 <-> 现有文件 : foundPredictiondefault.png      iconCloseWhiteBg.png
+新文件 <-> 现有文件 : eactLivenodatabgimgReferrer.png      predictionButton.png
+新文件 <-> 现有文件 : windVolumeFiled.png      IconQQ.png
+新文件 <-> 现有文件 : libnmsStar.png      IconPointScore.png
+新文件 <-> 现有文件 : libavformatFootballfiledlayoutRender.png      penaltyMatchIcon.png
+新文件 <-> 现有文件 : injuryDialogIconsetting.png      IconMore.png
+新文件 <-> 现有文件 : matchdetailbgZoomPredictionarrow.png      refresh.png
+新文件 <-> 现有文件 : default_zVipsportNbatrophy.png      iconArrowRightBlack.png
+新文件 <-> 现有文件 : turnDownloading.png      red.png
+新文件 <-> 现有文件 : humidityCrownWifirouter.png      orangeTick.png
+新文件 <-> 现有文件 : orangeclockThailand.png      basketballTrophy.png
+新文件 <-> 现有文件 : newsshareMerger.png      live.png
+新文件 <-> 现有文件 : editGuideInfo.png      smallSound.png
+新文件 <-> 现有文件 : iconstarPhoneshare.png      iconStar.png
+新文件 <-> 现有文件 : roomGrayPagination.png      iconViewer.png
+新文件 <-> 现有文件 : profileframeIconsaveimage.png      basketballHomeTeam.png
+新文件 <-> 现有文件 : issubNavigation.png      close.png
+新文件 <-> 现有文件 : spinnerMinimizeVipsport@2x.png      bootsplash_logo@2x.png
+新文件 <-> 现有文件 : spinnerMinimizeVipsport@3x.png      bootsplash_logo@3x.png
+
+
+自动为您开启6个线程进行混淆。。。。。。。
+开始自动清理源代码中的注释。。。。。。
+
+正在自动获取分析过滤不能修改函数名称集合。。。。。
+
+
+开始提取所有源文件中的类名并生成新类名。。。。。。
+类名: FeedbackApi <---替换为---> yysMaterial
+类名: MiniVodApi <---替换为---> yysMegaphoneProject
+类名: UmengAnalytics <---替换为---> yys_giftbutton_footballtrophy
+类名: CustomEventAnalytic <---替换为---> yysIconstarReact
+类名: YSConfig <---替换为---> yysFloaterIconsubssuccess
+类名: AppConfig <---替换为---> yysDefaultlogoBackward
+类名: RNViewController <---替换为---> yysGpayBasketballiconController
+类名: ATSplashViewController <---替换为---> yysDangerIconbellController
+类名: ATInterstitialRNSDK <---替换为---> yysLibtobLeague
+类名: ATRNSDK <---替换为---> yysZhubo
+类名: CLangKey <---替换为---> yysResultSport
+类名: CEndpoint <---替换为---> yysPangleCommon
+类名: User <---替换为---> yysIconstar
+类名: ATRewardedVideoRNSDK <---替换为---> yysFullscreenmax
+类名: Api <---替换为---> yysDisconnectedlogoSwitch
+类名: ATBannerRNSDK <---替换为---> yysTrophyUnread
+类名: ATSplashViewController <---替换为---> yysDangerIconbellController
+类名: Api <---替换为---> yysBellShootyesgoal
+类名: ATInterstitialRNSDK <---替换为---> yysLibtobLeague
+类名: NewsVideoPlayer <---替换为---> yysPhilippines
+类名: ATRNSDK <---替换为---> yysZhubo
+类名: ATRewardedVideoRNSDK <---替换为---> yysFullscreenmax
+类名: ATBannerRNSDK <---替换为---> yysTrophyUnread
+类名: AppDelegate <---替换为---> AppDelegate
+类名: RNUMConfigure <---替换为---> yysSuggestionAdult
+类名: CRouter <---替换为---> yysLibturbomodulejsijni
+类名: CLang <---替换为---> yysAnimationsMalaysia
+类名: UMAnalyticsModule <---替换为---> yysPolicy
+类名: LiveRoomAction <---替换为---> yysDrag
+类名: CEnv <---替换为---> yysScheduleChartView
+类名: CApi <---替换为---> yysConfig
+类名: ResponseModel <---替换为---> yysArrowselectdown
+类名: CPopup <---替换为---> yysHomeinactiveUntick
+类名: AppsApi <---替换为---> yysCollection
+类名: SplashApi <---替换为---> yysNterstitialInfo
+类名: ProductApi <---替换为---> yysBaselineOrangedownarrow
+类名: PlaylistApi <---替换为---> yysSkip
+类名: UserApi <---替换为---> yysHomeloading
+类名: VodApi <---替换为---> yysInactive
+类名: AdsApi <---替换为---> yysMembership
+类名: ChatApi <---替换为---> yysBackgroundExecutor
+
+
+开始混淆所有源文件中的样式类名。。。。。。
+
+
+
+开始替换所有源文件中的类名。。。。。。
+
+宏名称: PlacementID <---替换为---> IconwatchMemberPlaylistImageac
+
+
+开始混淆开始混淆interface，type，use对象名称。。。。。。。
+Type: Props <---替换为---> yysIconarrowrightorangeStation
+Type: MiniVideoResponseType <---替换为---> yysRight
+Type: CPressableProps <---替换为---> yysIconviewerCornershoot
+Type: CBottomSheetHookProps <---替换为---> yysIconcalendar
+Type: EventApiJsonType <---替换为---> yysIconrightorange
+Type: SuggestedVodItemType <---替换为---> yysLauncherHomeloading
+Type: CProps <---替换为---> yysCore
+Interface: NavType <---替换为---> yysBgvipsportUimanager
+Type: Tab <---替换为---> yysUnimplementedview
+Type: VideoControlsRef <---替换为---> yysIconfeedback
+Type: VideoRef <---替换为---> yysLargeQuest
+Type: RefHandler <---替换为---> yysSigninup
+Type: MyImageProp <---替换为---> yysIconrightorangeLogin
+Type: Prop <---替换为---> yysWith
+Type: MiniVodRef <---替换为---> yysIcondownimgFlipper
+Type: FlatListType <---替换为---> yysInternetAirbnbstarselected
+Type: LiveStationType <---替换为---> yysRootOrangeclock
+Type: VodResponseType <---替换为---> yysRenew
+Type: SigninupRef <---替换为---> yysDescriptionProgress
+Type: LoginCardProps <---替换为---> yysOrangeclockMatchinactive
+Type: CountryPhoneListProps <---替换为---> yysLeagueBasketballmatchdetailbg
+Type: SettingsType <---替换为---> yysVipsport
+Type: NavOptionsType <---替换为---> yysHolder
+Type: VodCarousellType <---替换为---> yysMemberDefaultlogo
+Type: VodPlayListType <---替换为---> yysBellreminder
+Type: SuggestVodListType <---替换为---> yysPagination
+Type: AdultVodListType <---替换为---> yysMime
+Type: MiniVideoListType <---替换为---> yysGreytick
+Type: MiniVideoVodListType <---替换为---> yysMintegralCode
+Type: VodData <---替换为---> yysHongkongList
+Type: CarouselData <---替换为---> yysMinivodBase
+Type: VodPlayerAdType <---替换为---> yysMoviesBecome
+Type: LiveChatRoomType <---替换为---> yysTemplate
+Type: LiveChatMessageType <---替换为---> yysEyeopen
+Type: StreamerPinMsgType <---替换为---> yysLibjsijniprofilerMail
+Type: SportTabType <---替换为---> yysSinaStyle
+Interface: VodType <---替换为---> yysPenaltyshoot
+Interface: SuggestedVodType <---替换为---> yysFullLibcrashsdk
+Interface: VodEpisodeListType <---替换为---> yysSpinner
+Interface: VodSourceType <---替换为---> yysSoundTelegram
+Interface: VodEpisodeType <---替换为---> yysScrollviewBaseline
+Interface: VodEpisodeStatusType <---替换为---> yysDefaultbasketballbg
+Interface: ProgressType <---替换为---> yysCount
+Interface: TypeExtendType <---替换为---> yysModal
+Interface: TypeType <---替换为---> yysIconlogout
+Interface: VodListType <---替换为---> yysBridgeNewarchdefaults
+Interface: VodTopicType <---替换为---> yysArrowup
+Interface: YingPingList <---替换为---> yysApple
+Interface: MiniVideo <---替换为---> yysGradle
+Interface: FilterOptionsType <---替换为---> yysInternetCombine
+Interface: FilterOptionsTypeExtendObj <---替换为---> yysArrowrightSpinner
+Interface: LiveTVStationItem <---替换为---> yysTempnodatagifLeagueItem
+Interface: DetailTab <---替换为---> yysHomeactive
+Interface: SubmitFeedbackRequest <---替换为---> yysLibsentryOverlay
+Interface: MiniVideoCollectionItem <---替换为---> yysCcdfbdabcabbbedbItem
+Interface: CheckVersionResponseType <---替换为---> yysImagenomoredata
+Interface: CheckVersionResponseDataType <---替换为---> yysNavigationExampleimage
+Interface: CheckVersionRequest <---替换为---> yysFloating
+Interface: AdultVodType <---替换为---> yysAnimation
+Interface: CommentsResponseDataType <---替换为---> yysCommentPrediction
+Interface: CommentsType <---替换为---> yysSubmit
+Interface: CountryPhoneCodeType <---替换为---> yysPlayPenaltygoal
+Interface: BannerAdType <---替换为---> yysIconviewer
+Interface: EpisodeDownloadType <---替换为---> yysEdit
+Interface: VodDownloadType <---替换为---> yysStoreService
+Interface: DownloadVideoReducerState <---替换为---> yysStatistics
+Type: BarType <---替换为---> yysOrange
+Interface: ThemeActionType <---替换为---> yysTrash
+Interface: VodActionType <---替换为---> yysTypes
+Interface: FavoriteVodActionType <---替换为---> yysSearchbar
+Interface: VodPlaylistActionType <---替换为---> yysBackwardConfig
+Interface: SearchHistoryActionType <---替换为---> yysChart
+Interface: ClearStorageActionType <---替换为---> yysHomeLibfb
+Interface: SettingsActionType <---替换为---> yysStation
+Interface: MiniVodActionType <---替换为---> yysLibavdevice
+Interface: OneTimeActionActionType <---替换为---> yysBaiduads
+Interface: OptionalUpdateFields <---替换为---> yysAppsRenew
+Interface: DownloadVideoActionPayload <---替换为---> yysLeakcheckerIconstar
+Interface: DownloadVideoActionType <---替换为---> yysRegister
+Type: HomeTabParamList <---替换为---> yysMail
+Type: ProfileTabParamList <---替换为---> yysNbatrophyBootsplash
+Type: PlaylistTabParamList <---替换为---> yysUnreadVolume
+Type: WatchAnytimeTabParamList <---替换为---> yysComponentComponentregistry
+Type: RootStackParamList <---替换为---> yysPredictionbanner
+Interface: RootParamList <---替换为---> yysLibjsinspectorDefaultroombg
+Type: LiveRoomType <---替换为---> yysIconwatchnowIconsharefriends
+Type: LiveRoomHistoryType <---替换为---> yysNotificationfillempty
+Type: PrivateRoomType <---替换为---> yysAjax
+Type: PrivateRoomHistoryType <---替换为---> yysBecome
+Interface: LineUpResponseType <---替换为---> yysLightBasketball
+Interface: LineUpType <---替换为---> yysSuggestionUnimplementedview
+Interface: Competition <---替换为---> yysEactIconpipexpand
+Interface: Home <---替换为---> yys_calendar
+Interface: Away <---替换为---> yysTyping
+Interface: Coach <---替换为---> yysIconclosewhitebg
+Interface: FootballMatchLineup <---替换为---> yysShow
+Interface: Home2 <---替换为---> yysGestures
+Interface: Incident <---替换为---> yysControlInformation
+Interface: Assist <---替换为---> yysRenderNewarchdefaults
+Interface: Player <---替换为---> yysVideojsDrag
+Interface: InPlayer <---替换为---> yysMiddlebrightness
+Interface: OutPlayer <---替换为---> yysBuild
+Interface: Away2 <---替换为---> yysCcdfbdabcabbbedb
+Interface: Incident2 <---替换为---> yysAlert
+Interface: MatchDetailsResponseType <---替换为---> yysOrangeclockOthermatchdetailbg
+Interface: MatchDetailWithRankingData <---替换为---> yysDicelogoFootballfield
+Interface: GoalDistribution <---替换为---> yysFullIconnewsshare
+Interface: FootballMatchAnalysis <---替换为---> yysLibyoga
+Interface: BasketballMatchAnalysis <---替换为---> yysGoogleTrash
+Interface: FootballMatch <---替换为---> yysBasketballawayteam
+Interface: Coverage <---替换为---> yysDownloadedForeground
+Interface: Round <---替换为---> yysMoviesThumbnail
+Interface: Environment <---替换为---> yysRewardvideo
+Interface: Venue <---替换为---> yysDelegateLibfolly
+Interface: Referee <---替换为---> yysTitleConfig
+Interface: Injury <---替换为---> yysUpdatesBackwhite
+Interface: FootballRanking <---替换为---> yysSmallorangeman
+Interface: BasketballMatch <---替换为---> yysSubtext
+Interface: Coverage <---替换为---> yysDownloadedForeground
+Interface: Round <---替换为---> yysMoviesThumbnail
+Interface: BasketballHomeStats <---替换为---> yysShrinkInterstitial
+Interface: BasketballAwayStats <---替换为---> yysCornershoot
+Interface: HomeTotal <---替换为---> yysNewinterstitialTemplate
+Interface: AwayTotal <---替换为---> yysNewinterstitial
+Interface: VsTotal <---替换为---> yysClasses
+Interface: History <---替换为---> yys_yellowtored
+Interface: MatchUpdatesResponseType <---替换为---> yysIconmegaphoneWind
+Interface: MatchUpdatesType <---替换为---> yysTeam
+Interface: FootballMatchTrend <---替换为---> yysImagewatchlive
+Interface: FootballMatchLive <---替换为---> yysNativemodule
+Interface: Stat <---替换为---> yysBangPressure
+Interface: Tlive <---替换为---> yysSigmob
+Interface: FootballMatchStats <---替换为---> yysGrey
+Interface: BasketballMatchTrend <---替换为---> yysCondensedPosition
+Interface: Total <---替换为---> yysHeader
+Interface: Players <---替换为---> yysCurrent
+Interface: BasketballMatchLive <---替换为---> yysAction
+Interface: MatchType <---替换为---> yysLibfbjni
+Interface: Stream <---替换为---> yysLibfollyMember
+Interface: Streamer <---替换为---> yysCasting
+Interface: MatchDetailsType <---替换为---> yysFavoriteNetwork
+Interface: CompetitionType <---替换为---> yysOrientation
+Interface: HomeType <---替换为---> yysSubsMode
+Interface: AwayType <---替换为---> yysOver
+Type: VideoSource <---替换为---> yysPenaltyshootSigninup
+Type: OtpInputsProps <---替换为---> yysSell
+Type: Matches <---替换为---> yys_shared
+Type: AdultVodReturnType <---替换为---> yysGradleMounting
+Type: PlacementId <---替换为---> yysReminderConstants
+Type: VodCommentBoxProps <---替换为---> yysDarkRedirect
+Type: AppDispatchType <---替换为---> yysThemeShrunk
+Type: RootState <---替换为---> yysIconclosewhiteBaiduads
+Type: CTextInputHookProps <---替换为---> yysIconrefresh
+Type: CTextInputProps <---替换为---> yysDetailNewarchdefaults
+Type: CPanGestureHookProps <---替换为---> yysIconpipshrink
+Type: PanContext <---替换为---> yysModalIconsharefriends
+Type: CPanGestureProps <---替换为---> yysReddownarrow
+Interface: MiniVodReducerState <---替换为---> yysCustomRedirect
+Type: CPressableHookProps <---替换为---> yysShoot
+Interface: SettingsReducerState <---替换为---> yysDownloadingCombined
+Type: ChatActionType <---替换为---> yysComponentregistry
+Type: ChatType <---替换为---> yysForward
+Type: BackgroundActionType <---替换为---> yysPhoneDycreator
+Type: BackgroundType <---替换为---> yysAgreement
+Type: FavouriteVodType <---替换为---> yysCompleteLive
+Interface: VodRecordType <---替换为---> yysAnalytics
+Interface: PlayVodType <---替换为---> yysIconsubssuccessLock
+Interface: VodReducerState <---替换为---> yysIconpointscoreCountdown
+Interface: FavoriteVodReducerState <---替换为---> yysNext
+Interface: VodPlaylistReducerState <---替换为---> yysPrivatechatbg
+Type: UserActionType <---替换为---> yysAnytimeTeam
+Type: UserStateType <---替换为---> yysIconplaySuggestion
+Interface: SearchHistoryState <---替换为---> yysBecomeEighteen
+Type: CPageType <---替换为---> yysReactnavigation
+Type: ExtendedTheme <---替换为---> yysNative
+
+
+开始混淆枚举。。。。。。。
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Home_views -> GDRLibavformatLauncher
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Home -> GDRCenterDisconnected
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: views -> libreactnativeblobIncidentPredictionbutton
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Home_clicks -> GDRSharemodalTelegram
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Home -> GDRCenterDisconnected
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: clicks -> GDRLibhermesWeibo
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Home_Carousel_views -> GDRRelated
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Home -> GDRCenterDisconnected
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Carousel_views -> GDRGoalTypingloading
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Home_Carousel_clicks -> GDRStyleRound
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Home -> GDRCenterDisconnected
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Carousel_clicks -> GDRNews
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Home_Banner_views -> GDRPhoneTextlayoutmanager
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Home -> GDRCenterDisconnected
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: banner_views -> GDRSearchbar
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Home_Banner_clicks -> GDRGreytickNewsshare
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Home -> GDRCenterDisconnected
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: banner_clicks -> GDRLibreactNews
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: WatchAnytime_views -> GDRClock
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: WatchAnytime -> GDRWhiteEmojiheart
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Views -> GDRManager
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: WatchAnytime_video_view_times -> GDRMember
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: WatchAnytime -> GDRWhiteEmojiheart
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: video_view_times -> GDRHeji
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: WatchAnytime_x_views -> GDRDist
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: WatchAnytime -> GDRWhiteEmojiheart
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: X_views -> GDRIconrightorange
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: WatchAnytime_x_video_view_times -> GDRCloseLibavcodec
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: WatchAnytime -> GDRWhiteEmojiheart
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: X_video_view_times -> GDRFavicon
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: WatchAnytime_playlist_clicks -> GDRIconnointernet
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: WatchAnytime -> GDRWhiteEmojiheart
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: playlist_clicks -> GDRGradlew
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: WatchAnytime_video_clicks -> GDRLibcrashsdk
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: WatchAnytime -> GDRWhiteEmojiheart
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: video_clicks -> GDRHelper
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: WatchAnytime_Ads_views -> GDRMatchLine
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: WatchAnytime -> GDRWhiteEmojiheart
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: ads_views -> GDRImagenomoredata
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: WatchAnytime_Ads_clicks -> GDRClearLibbuffer
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: WatchAnytime -> GDRWhiteEmojiheart
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: ads_clicks -> GDRIconlogoutProject
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Sport_views -> GDRFavoriteIconshare
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Sport -> GDRCondensedPenaltyshoot
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: views -> libreactnativeblobIncidentPredictionbutton
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Sport_clicks -> GDRSina
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Sport -> GDRCondensedPenaltyshoot
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: clicks -> GDRLibhermesWeibo
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Sport_Banner_views -> GDRTurnIndex
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Sport -> GDRCondensedPenaltyshoot
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: banner_views -> GDRSearchbar
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Sport_Banner_clicks -> GDRFloatingIconsetting
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Sport -> GDRCondensedPenaltyshoot
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: banner_clicks -> GDRLibreactNews
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: SportDetails_views -> GDRLessAndroid
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: SportDetails -> GDRPrivatechatbg
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: views -> libreactnativeblobIncidentPredictionbutton
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: SportDetails_plays_times -> GDRXvodTail
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: SportDetails -> GDRPrivatechatbg
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: plays_times -> GDRSelection
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: SportDetails_vip_popup_times -> GDRCcdfbdabcabbbedbLibfb
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: SportDetails -> GDRPrivatechatbg
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: vip_popup_times -> GDRIconrefresh
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: SportDetails_vip_clicks -> GDRMatchdetailbg
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: SportDetails -> GDRPrivatechatbg
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: vip_clicks -> GDRWatchnowbg
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Playlist_views -> GDRPageTumbnail
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Playlist -> GDRYellowtoredCatagory
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: views -> libreactnativeblobIncidentPredictionbutton
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Playlist_clicks -> GDRIncidentBackiconmask
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Playlist -> GDRYellowtoredCatagory
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: clicks -> GDRLibhermesWeibo
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Playlist_topics_views -> GDRFastforward
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Playlist -> GDRYellowtoredCatagory
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: topics_views -> GDRDefaultpredictionprofileRound
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Playlist_topics_clicks -> GDRLiveHash
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Playlist -> GDRYellowtoredCatagory
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: topics_clicks -> GDRHomeplayerOwngoal
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: UserCenter_login_success_times -> GDRPlay
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: UserCenter -> GDRInfo
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: login_success_times -> GDRHelperNewarchdefaults
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: UserCenter_vip_login_success_times -> GDRSelectedLight
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: UserCenter -> GDRInfo
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: vip_login_success_times -> GDRKlevinPositionfield
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: UserCenter_pay_vip_views -> GDREncryptorEyeopen
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: UserCenter -> GDRInfo
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: pay_vip_views -> GDRStreamingPenaltyshoot
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: UserCenter_invites_vip_views -> GDRActionGesture
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: UserCenter -> GDRInfo
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: invites_vip_views -> GDRMbridge
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Search_result_views -> GDRDefaultfootballbg
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Search -> GDRDownIconeye
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: result_views -> GDRMbbannerRuntime
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Search_result_clicks -> GDRTurndown
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Search -> GDRDownIconeye
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: result_clicks -> GDRSecurity
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Search_keyword -> GDRSharedWeibo
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Search -> GDRDownIconeye
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: keywords -> GDRFaviconK
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Catalog_views -> GDRTurndownZ
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Catalog -> GDRBallProfileinactive
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: views -> libreactnativeblobIncidentPredictionbutton
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Catalog_clicks -> GDRDefaultpredictionprofileTyping
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Catalog -> GDRBallProfileinactive
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: clicks -> GDRLibhermesWeibo
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Plays_views -> GDRCarousel
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Play -> GDRShowSingle
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: views -> libreactnativeblobIncidentPredictionbutton
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Plays_plays_times -> GDRField
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Play -> GDRShowSingle
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: plays_times -> GDRSelection
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Plays_X_views -> GDRQuest
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Play -> GDRShowSingle
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: X_views -> GDRIconrightorange
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Plays_X_plays_times -> GDRPrediction
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Play -> GDRShowSingle
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: X_plays_times -> GDRBuild
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Plays_share_clicks -> GDRTooltipsFile
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Play -> GDRShowSingle
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: share_clicks -> GDRInactiveConstants
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Plays_ads_views -> GDRCorner
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Play -> GDRShowSingle
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: ads_views -> GDRImagenomoredata
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Plays_ads_clicks -> GDRModalComponent
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Play -> GDRShowSingle
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: ads_clicks -> GDRIconlogoutProject
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: VideoPlayer_Banner_views -> GDRIconwatchnowRenew
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: VideoPlayer -> GDRGraphics
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: banner_views -> GDRSearchbar
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: VideoPlayer_Banner_clicks -> GDROtherRedirect
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: VideoPlayer -> GDRGraphics
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: banner_clicks -> GDRLibreactNews
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Profile_Banner_views -> GDRMiniTarget
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Profile -> GDRMintegral
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: banner_views -> GDRSearchbar
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Profile_Banner_clicks -> GDRDebug
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Profile -> GDRMintegral
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: banner_clicks -> GDRLibreactNews
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] enum: EventId -> GDRLibbuffer
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: yys_calendar -> GDRSubbasketballplayer
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: home_tab -> injuryLibfollyShared
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: WatchAnytime -> GDRWhiteEmojiheart
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: watchAnytime -> GDRLibavformatVignette
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: WatchAnytime_Play_Times -> GDRViewsPrivate
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: watchAnytime_play_times -> GDRNalytics
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: WatchAnytime_View_Video -> GDRWhitevideolive
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: watchAnytime_view_video -> GDRTemplateprocessorIconarrowrightblack
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: WatchAnytime_View_Playlist -> GDRLibglogIconrefresh
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: watchAnytime_view_playlist -> GDRIconscheduleChampion
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: WatchAnytimeX -> GDRSubs
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: watchAnytime_x -> GDRScorepopsoundSplash
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: WatchAnytimeX_Play_Times -> GDRLatnRedcirclebg
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: watchAnytime_x_play_times -> GDRLibjsiLine
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Sport -> GDRCondensedPenaltyshoot
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: sport -> linkOther
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: SportDetails -> GDRPrivatechatbg
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: sportDetail -> GDRLiblogger
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: SportDetails_Play_Times -> GDRDefaultpredictionprofile
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: sportDetail_play_times -> GDRStringCrown
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: SportDetails_Vip_Popup -> GDRDetailIconarrowrightorange
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: sportDetail_vip_popup -> GDRSourceAbidetect
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Playlist -> GDRYellowtoredCatagory
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: playlist -> GDRScorepopsoundBackground
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Playlist_Topics -> GDRMbbanner
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: playlist_topics -> GDRIconbellCombine
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: UserCenter_Login_Success_Times -> GDRLibyogaThailand
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: userCenter_login_success_times -> GDRThailandCount
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: UserCenter_Vip_Login_Success_Times -> GDREwardedProduct
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: userCenter_vip_login_success_times -> GDRBorderlessFastforward
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: UserCenter_View_Vip -> GDRHeart
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: userCenter_view_vip -> GDRLibbufferb
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Search_Keyword -> GDRIconsharefriendsStation
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: search_keywords -> GDRWeiboTheme
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Search_Result -> GDRRobotoCancel
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: search_result -> GDRPenalty
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Catalog -> GDRBallProfileinactive
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: catalog -> GDRMbbannerBaidu
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Plays -> GDREncryptorYellowvideolive
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: play -> classesHongkong
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Plays_Plays_Times -> GDRWhitesmalltick
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: play_plays_times -> GDRAnalytics
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Plays_Share -> GDRDefaultpredictionprofilePredictionbutton
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: Play_share -> GDRTopicTrophy
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: PlaysX -> GDRZhuboTerms
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: play_x -> GDRMiddlebrightnessSuccess
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: PlaysX_Plays_Times -> GDRDropdownMapbuffer
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] case: play_x_plays_times -> GDRNext
+文件: [旧 UmengAnalytics <--> 新 yys_giftbutton_footballtrophy] enum: CustomEventKey -> GDRBasketballtrophyIcondefaultthumbnail
+文件: [旧 vodDownloadTypes <--> 新 yys_anytime_back] case: DOWNLOADING -> ICrown
+文件: [旧 vodDownloadTypes <--> 新 yys_anytime_back] case: PAUSED -> IRedirectLibyoga
+文件: [旧 vodDownloadTypes <--> 新 yys_anytime_back] case: CANCELLED -> IFootballfield
+文件: [旧 vodDownloadTypes <--> 新 yys_anytime_back] case: ERROR -> IRightTerms
+文件: [旧 vodDownloadTypes <--> 新 yys_anytime_back] case: COMPLETED -> IPointStar
+文件: [旧 vodDownloadTypes <--> 新 yys_anytime_back] enum: DownloadStatus -> IConfirmationLibffmpegkit
+文件: [旧 chatAction <--> 新 yys_bottom] case: Connect -> PSettingsMbnative
+文件: [旧 chatAction <--> 新 yys_bottom] case: connect -> PReferrer
+文件: [旧 chatAction <--> 新 yys_bottom] case: ConnectError -> PInit
+文件: [旧 chatAction <--> 新 yys_bottom] case: connect_error -> PNativemodule
+文件: [旧 chatAction <--> 新 yys_bottom] case: Disonnect -> PSearchbar
+文件: [旧 chatAction <--> 新 yys_bottom] case: disconnect -> PFlag
+文件: [旧 chatAction <--> 新 yys_bottom] case: Join -> PGiftbutton
+文件: [旧 chatAction <--> 新 yys_bottom] case: join -> POwngoalMoon
+文件: [旧 chatAction <--> 新 yys_bottom] case: Leave -> PRoboto
+文件: [旧 chatAction <--> 新 yys_bottom] case: leave -> PMaterial
+文件: [旧 chatAction <--> 新 yys_bottom] case: Message -> PIconschedule
+文件: [旧 chatAction <--> 新 yys_bottom] case: message -> PShielddoneStation
+文件: [旧 chatAction <--> 新 yys_bottom] case: PrivateMessage -> PChatFlipper
+文件: [旧 chatAction <--> 新 yys_bottom] case: private_message -> PTooltips
+文件: [旧 chatAction <--> 新 yys_bottom] case: AnnouncementMessage -> PImages
+文件: [旧 chatAction <--> 新 yys_bottom] case: announcement_message -> PEmbedZhubo
+文件: [旧 chatAction <--> 新 yys_bottom] enum: SocketEvent -> PLibswresample
+文件: [旧 chatReducer <--> 新 yys_gpay] case: JOIN_LIVE_ROOM -> IRewindChatroombackground
+文件: [旧 chatReducer <--> 新 yys_gpay] case: JOIN_LIVE_ROOM -> IRewindChatroombackground
+文件: [旧 chatReducer <--> 新 yys_gpay] case: JOIN_LIVE_ROOM_SUCCESS -> ICornerkick
+文件: [旧 chatReducer <--> 新 yys_gpay] case: JOIN_LIVE_ROOM_SUCCESS -> ICornerkick
+文件: [旧 chatReducer <--> 新 yys_gpay] case: JOIN_LIVE_ROOM_FAIL -> IFavoriteIconarrowrightwhite
+文件: [旧 chatReducer <--> 新 yys_gpay] case: JOIN_LIVE_ROOM_FAIL -> IFavoriteIconarrowrightwhite
+文件: [旧 chatReducer <--> 新 yys_gpay] case: LEAVE_LIVE_ROOM -> IManager
+文件: [旧 chatReducer <--> 新 yys_gpay] case: LEAVE_LIVE_ROOM -> IManager
+文件: [旧 chatReducer <--> 新 yys_gpay] case: UPDATE_LIVE_ROOM_MESSAGE -> IIconlogoutLargebrightness
+文件: [旧 chatReducer <--> 新 yys_gpay] case: UPDATE_LIVE_ROOM_MESSAGE -> IIconlogoutLargebrightness
+文件: [旧 chatReducer <--> 新 yys_gpay] case: JOIN_PRIVATE_ROOM -> IQuesticonMbbanner
+文件: [旧 chatReducer <--> 新 yys_gpay] case: JOIN_PRIVATE_ROOM -> IQuesticonMbbanner
+文件: [旧 chatReducer <--> 新 yys_gpay] case: JOIN_PRIVATE_ROOM_SUCCESS -> IFiled
+文件: [旧 chatReducer <--> 新 yys_gpay] case: JOIN_PRIVATE_ROOM_SUCCESS -> IFiled
+文件: [旧 chatReducer <--> 新 yys_gpay] case: JOIN_PRIVATE_ROOM_FAIL -> IAwayplayer
+文件: [旧 chatReducer <--> 新 yys_gpay] case: JOIN_PRIVATE_ROOM_FAIL -> IAwayplayer
+文件: [旧 chatReducer <--> 新 yys_gpay] case: LEAVE_PRIVATE_ROOM -> ILibswscaleAnner
+文件: [旧 chatReducer <--> 新 yys_gpay] case: LEAVE_PRIVATE_ROOM -> ILibswscaleAnner
+文件: [旧 chatReducer <--> 新 yys_gpay] case: UPDATE_PRIVATE_ROOM_MESSAGE -> IShielddoneTrash
+文件: [旧 chatReducer <--> 新 yys_gpay] case: UPDATE_PRIVATE_ROOM_MESSAGE -> IShielddoneTrash
+文件: [旧 chatReducer <--> 新 yys_gpay] enum: ChatActionEventType -> IApplication
+文件: [旧 backgroundReducer <--> 新 yys_largesound_thailand] case: ON_APP_BOOT -> KMWHeji
+文件: [旧 backgroundReducer <--> 新 yys_largesound_thailand] case: ON_APP_BOOT -> KMWHeji
+文件: [旧 backgroundReducer <--> 新 yys_largesound_thailand] case: LOGIN_WARINING_MODAL_SHOWN -> KMWDisconnectedGreytick
+文件: [旧 backgroundReducer <--> 新 yys_largesound_thailand] case: LOGIN_WARINING_MODAL_SHOWN -> KMWDisconnectedGreytick
+文件: [旧 backgroundReducer <--> 新 yys_largesound_thailand] case: VIP_PROMOTION_MODAL_SHOWN -> KMWSchedulerUnselected
+文件: [旧 backgroundReducer <--> 新 yys_largesound_thailand] case: VIP_PROMOTION_MODAL_SHOWN -> KMWSchedulerUnselected
+文件: [旧 backgroundReducer <--> 新 yys_largesound_thailand] case: VIP_PROMOTION_BOOT -> KMWMegaphoneRoot
+文件: [旧 backgroundReducer <--> 新 yys_largesound_thailand] case: VIP_PROMOTION_BOOT -> KMWMegaphoneRoot
+文件: [旧 backgroundReducer <--> 新 yys_largesound_thailand] case: VIP_PROMOTION_PURCHASE_UPDATE -> KMWNextScorepopsound
+文件: [旧 backgroundReducer <--> 新 yys_largesound_thailand] case: VIP_PROMOTION_PURCHASE_UPDATE -> KMWNextScorepopsound
+文件: [旧 backgroundReducer <--> 新 yys_largesound_thailand] enum: BackgroundActionEventType -> KMWMbnativeContainer
+文件: [旧 router <--> 新 yys_guide_android] case: THEN -> VXActionsVideojs
+文件: [旧 router <--> 新 yys_guide_android] case: then -> VXIconnointernetTurndown
+文件: [旧 router <--> 新 yys_guide_android] case: CATCH -> VXContext
+文件: [旧 router <--> 新 yys_guide_android] case: catch -> VXFull
+文件: [旧 router <--> 新 yys_guide_android] enum: CRouteEvent -> VXHongkong
+文件: [旧 langService <--> 新 yys_iconorientation] case: Chinese -> ZNBImage
+文件: [旧 langService <--> 新 yys_iconorientation] case: chinese -> ZNBConnectionMiddlesound
+文件: [旧 langService <--> 新 yys_iconorientation] case: English -> ZNBCenter
+文件: [旧 langService <--> 新 yys_iconorientation] case: english -> ZNBKlevinDropdown
+文件: [旧 langService <--> 新 yys_iconorientation] enum: CLanguageType -> ZNBRight
+
+
+开始提取所有协议名并生成新协议名。。。。。。
+协议: NativeViewControllerDelegate <---替换为---> WTyysConfirmationMiddlebrightness
+协议: WTyysConfirmationMiddlebrightness <---替换为---> EWyysGifgoalbg
+
+
+开始翻新xib、storyboard控件ID值以及布局微调。。。。。。
+
+
+开始多语言文件的key名称。。。。。。
+
+
+开始自动检测类继承关系。。。。。。
+ATSplashViewController : UIViewController
+ATInterstitialRNSDK : RCTEventEmitter
+ATRNSDK : NSObject
+ATRewardedVideoRNSDK : RCTEventEmitter
+ATBannerRNSDK : RCTEventEmitter
+ATSplashViewController : UIViewController
+ATInterstitialRNSDK : RCTEventEmitter
+ATRNSDK : NSObject
+ATRewardedVideoRNSDK : RCTEventEmitter
+ATBannerRNSDK : RCTEventEmitter
+AppDelegate : UIResponder
+myAnimationViewController : UIViewController
+RNViewController : UIViewController
+UMAnalyticsModule : NSObject
+RNUMConfigure : NSObject
+
+
+开始自动检测统计所有文件中属性信息。。。。。。
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 属性:@property (weak, nonatomic) id<EWyysGifgoalbg> delegate;属性名称:delegate
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 属性:@property (weak, nonatomic) id<EWyysGifgoalbg> delegate;属性名称:delegate
+文件: [旧 AppDelegate <--> 新 AppDelegate] 属性:@property (nonatomic, strong) UIWindow *window;属性名称:window
+文件: [旧 AppDelegate <--> 新 AppDelegate] 属性:@property (nonatomic, strong) NSDictionary *launchOptions;属性名称:launchOptions
+文件: [旧 RNViewController <--> 新 yysGpayBasketballiconController] 属性:@property (nonatomic, strong) UIView *mainView;属性名称:mainView
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 属性:@property (nonatomic, strong) UIImageView *splashImageView;属性名称:splashImageView
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 属性:@property (nonatomic, strong) UIView *modelBackView;属性名称:modelBackView
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 属性:@property (nonatomic, strong) UITextView *textView;属性名称:textView
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 属性:@property(nonatomic, strong) UIButton *skipButton;属性名称:skipButton
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 属性:@property (copy, nonatomic) NSDictionary<NSString *, NSString *> *placementIDs;属性名称:placementIDs
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 属性:@property (copy, nonatomic) NSString *placementID;属性名称:placementID
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 属性:@property(nonatomic, strong) NSString *defaultAdSourceConfigStr;属性名称:defaultAdSourceConfigStr
+文件: [旧 ATBannerRNSDK <--> 新 yysTrophyUnread] 属性:@property(nonatomic, strong) NSMutableDictionary<NSString*, UIView*>* bannerViews;属性名称:bannerViews
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 属性:@property (nonatomic, strong) UIImageView *splashImageView;属性名称:splashImageView
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 属性:@property (nonatomic, strong) UIView *modelBackView;属性名称:modelBackView
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 属性:@property (nonatomic, strong) UITextView *textView;属性名称:textView
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 属性:@property(nonatomic, strong) UIButton *skipButton;属性名称:skipButton
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 属性:@property (copy, nonatomic) NSDictionary<NSString *, NSString *> *placementIDs;属性名称:placementIDs
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 属性:@property (copy, nonatomic) NSString *placementID;属性名称:placementID
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 属性:@property(nonatomic, strong) NSString *defaultAdSourceConfigStr;属性名称:defaultAdSourceConfigStr
+文件: [旧 ATBannerRNSDK <--> 新 yysTrophyUnread] 属性:@property(nonatomic, strong) NSMutableDictionary<NSString*, UIView*>* bannerViews;属性名称:bannerViews
+
+
+开始自动修改Assets图片资源。。。。。。。
+BootSplashLogo       ---替换为--->       handlerFloater
+
+Assets图片资源修改结束
+
+
+开始自动修改sks资源名称。。。。。。。
+
+sks资源修改结束
+
+开始修改项目中UIColor值。。。。。。。
+文件: [旧 RNViewController <--> 新 yysGpayBasketballiconController] color: [UIColor blackColor] -> [UIColor colorWithRed:112 / 255.0 green:219 / 255.0 blue:238 / 255.0 alpha:1]
+文件: [旧 RNViewController <--> 新 yysGpayBasketballiconController] color: [UIColor blackColor] -> [UIColor colorWithRed:112 / 255.0 green:219 / 255.0 blue:238 / 255.0 alpha:1]
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] color: [UIColor whiteColor] -> [UIColor colorWithRed:39 / 255.0 green:87 / 255.0 blue:9 / 255.0 alpha:1]
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] color: [UIColor blackColor] -> [UIColor colorWithRed:112 / 255.0 green:219 / 255.0 blue:238 / 255.0 alpha:1]
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] color: [UIColor redColor] -> [UIColor colorWithRed:5 / 255.0 green:47 / 255.0 blue:197 / 255.0 alpha:1]
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] color: [UIColor whiteColor] -> [UIColor colorWithRed:39 / 255.0 green:87 / 255.0 blue:9 / 255.0 alpha:1]
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] color: [UIColor whiteColor] -> [UIColor colorWithRed:39 / 255.0 green:87 / 255.0 blue:9 / 255.0 alpha:1]
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] color: [UIColor whiteColor] -> [UIColor colorWithRed:39 / 255.0 green:87 / 255.0 blue:9 / 255.0 alpha:1]
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] color: [UIColor blackColor] -> [UIColor colorWithRed:112 / 255.0 green:219 / 255.0 blue:238 / 255.0 alpha:1]
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] color: [UIColor blackColor] -> [UIColor colorWithRed:112 / 255.0 green:219 / 255.0 blue:238 / 255.0 alpha:1]
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] color: [UIColor redColor] -> [UIColor colorWithRed:5 / 255.0 green:47 / 255.0 blue:197 / 255.0 alpha:1]
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] color: [UIColor whiteColor] -> [UIColor colorWithRed:39 / 255.0 green:87 / 255.0 blue:9 / 255.0 alpha:1]
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] color: [UIColor whiteColor] -> [UIColor colorWithRed:39 / 255.0 green:87 / 255.0 blue:9 / 255.0 alpha:1]
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] color: [UIColor whiteColor] -> [UIColor colorWithRed:39 / 255.0 green:87 / 255.0 blue:9 / 255.0 alpha:1]
+100%👌
+
+
+修改颜色耗时：0.10119390487670898秒
+
+开始打乱函数定义顺序。。。。。。。
+100%👌
+
+开始提取分析源文件中函数名称。。。。。。。
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController]   函数名称: checkAd
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController]   函数名称: showLog
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController]   函数名称: setupData
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController]   函数名称: defaultAction
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController]   函数名称: getKeyWindowMethodTwo
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController]   函数名称: clearLog
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController]   函数名称: getKeyWindowMethodOne
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController]   函数名称: currentInterfaceOrientation
+文件: [旧 ATInterstitialRNSDK <--> 新 yysLibtobLeague]   函数名称: sharedWrapper
+文件: [旧 ATRewardedVideoRNSDK <--> 新 yysFullscreenmax]   函数名称: sharedWrapper
+文件: [旧 ATBannerRNSDK <--> 新 yysTrophyUnread]   函数名称: sharedWrapper
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController]   函数名称: appBecomeActive
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController]   函数名称: getKeyWindowMethodOne
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController]   函数名称: defaultAction
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController]   函数名称: clearLog
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController]   函数名称: appMovedToBackground
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController]   函数名称: getKeyWindowMethodTwo
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController]   函数名称: setupData
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController]   函数名称: checkAd
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController]   函数名称: currentInterfaceOrientation
+文件: [旧 ATInterstitialRNSDK <--> 新 yysLibtobLeague]   函数名称: sharedWrapper
+文件: [旧 ATRewardedVideoRNSDK <--> 新 yysFullscreenmax]   函数名称: sharedWrapper
+文件: [旧 ATBannerRNSDK <--> 新 yysTrophyUnread]   函数名称: sharedWrapper
+文件: [旧 AppDelegate <--> 新 AppDelegate]   函数名称: prepareInitialProps
+
+
+开始混淆函数里面局部变量名称。。。。。。。
+文件: [旧 RNViewController <--> 新 yysGpayBasketballiconController] 局部变量: mainStoryboard -> libswresample
+文件: [旧 RNViewController <--> 新 yysGpayBasketballiconController] 局部变量: logoViewController -> sentryController
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 局部变量: title -> dark
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 局部变量: mainWindow -> next
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 局部变量: mutableDict -> layout
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 局部变量: caches -> circle
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 局部变量: ready -> defaultprofilepic
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 局部变量: alert -> defaultteam
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 局部变量: logS -> shows
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 局部变量: log -> activity
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 局部变量: str -> liveendmodallogo
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 局部变量: deviceOrientaion -> alert
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 局部变量: landscape -> iconarrowright
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 局部变量: label -> dragLabel
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 局部变量: mutableDict -> layoutP
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 局部变量: clearBtn -> leftBtn
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 局部变量: btnItem -> basketballdetailsbgItem
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 局部变量: topConstraint -> iconviewer
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 局部变量: bottomConstraint -> mbnative
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 局部变量: leadingConstraint -> iconarrowleft
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 局部变量: trailingConstraint -> collection
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 局部变量: mainWindow -> nexth
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 局部变量: firstWindow -> libhermes
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 局部变量: windowScene -> reactnativejs
+文件: [旧 ATInterstitialRNSDK <--> 新 yysLibtobLeague] 局部变量: onceToken -> select
+文件: [旧 ATRewardedVideoRNSDK <--> 新 yysFullscreenmax] 局部变量: onceToken -> select
+文件: [旧 NSDictionary+String <--> 新 yysLibavfilter] 局部变量: error -> watch
+文件: [旧 NSDictionary+String <--> 新 yysLibavfilter] 局部变量: jsonData -> mbsplash
+文件: [旧 ATBannerRNSDK <--> 新 yysTrophyUnread] 局部变量: onceToken -> select
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 局部变量: title -> dark
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 局部变量: clearBtn -> leftBtn
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 局部变量: btnItem -> basketballdetailsbgItem
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 局部变量: mainStoryboard -> libswresample
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 局部变量: yourViewController -> mbridgeController
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 局部变量: str -> liveendmodallogo
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 局部变量: mainWindow -> next
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 局部变量: caches -> circle
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 局部变量: ready -> defaultprofilepic
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 局部变量: alert -> defaultteam
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 局部变量: mainWindow -> nextC
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 局部变量: mutableDict -> layout
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 局部变量: deviceOrientaion -> alert
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 局部变量: landscape -> iconarrowright
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 局部变量: label -> dragLabel
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 局部变量: mutableDict -> layoutG
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 局部变量: firstWindow -> libhermes
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 局部变量: windowScene -> reactnativejs
+文件: [旧 ATInterstitialRNSDK <--> 新 yysLibtobLeague] 局部变量: onceToken -> select
+文件: [旧 ATRewardedVideoRNSDK <--> 新 yysFullscreenmax] 局部变量: onceToken -> select
+文件: [旧 NSDictionary+String <--> 新 yysLibavfilter] 局部变量: error -> watch
+文件: [旧 NSDictionary+String <--> 新 yysLibavfilter] 局部变量: jsonData -> mbsplash
+文件: [旧 NSDictionary+String <--> 新 yysLibavfilter] 局部变量: extraDictM -> iconmegaphone
+文件: [旧 NSDictionary+String <--> 新 yysLibavfilter] 局部变量: extraDataTemp -> whitesmalltick
+文件: [旧 NSDictionary+String <--> 新 yysLibavfilter] 局部变量: extraDataDictM -> volume
+文件: [旧 NSDictionary+String <--> 新 yysLibavfilter] 局部变量: jsonDictM -> common
+文件: [旧 NSDictionary+String <--> 新 yysLibavfilter] 局部变量: error -> watchN
+文件: [旧 NSDictionary+String <--> 新 yysLibavfilter] 局部变量: jsonData -> mbsplash2
+文件: [旧 NSDictionary+String <--> 新 yysLibavfilter] 局部变量: extraDictM -> iconmegaphoneO
+文件: [旧 NSDictionary+String <--> 新 yysLibavfilter] 局部变量: extraDataTemp -> whitesmalltickj
+文件: [旧 NSDictionary+String <--> 新 yysLibavfilter] 局部变量: extraDataDictM -> volumet
+文件: [旧 ATBannerRNSDK <--> 新 yysTrophyUnread] 局部变量: onceToken -> select
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: mtgConfigure -> iconsetting
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: gdtConfigure -> spinner
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: adcolonyConfigure -> header
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: mytargetConfigure -> iconbellactive
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: facebookConfigure -> room
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: configuration -> searchbar
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: showAds -> champion
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: RCTStorageDirectory -> awayteamfield
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: RCTManifestFileName -> baseline
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: fileManager -> defaultlogo
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: appSupportDirectory -> typing
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: mySupportDirectory -> orangeclock
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: storageDirectory -> configy
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: storageFile -> information
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: error -> watch
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: stringFromFile -> catalog
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: data -> reminder
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: jsonError -> executor
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: json -> runtime
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: splashViewController -> largebrightnessController
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: initProps -> shareblack
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: bridge -> iconadslink
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: initProps -> shareblackY
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: rnViewController -> backiconmaskController
+文件: [旧 RNUMConfigure <--> 新 yysSuggestionAdult] 局部变量: sel -> play
+
+
+开始自动生成垃圾代码文件。。。。。。。
+100%👌
+
+
+开始自动融合生成的垃圾代码文件。。。。。。
+100%👌
+
+
+开始自动随机生成属性并插入头文件和源文件。。。。。。。
+[old: ATSplashViewController -> new: yysDangerIconbellController] insert  @property(nonatomic, copy)NSString *  downMembershipString;
+@property(nonatomic, assign)float  libyogaPadding;
+@property(nonatomic, copy)NSArray *  defaultprofilepicTraminiLibavf_arr;
+
+[old: ATInterstitialRNSDK -> new: yysLibtobLeague] insert  @property(nonatomic, assign)float  bodanOffset;
+@property(nonatomic, copy)NSString *  basketballiconIconedit_str;
+@property(nonatomic, assign)double  connection_size;
+@property(nonatomic, assign)NSInteger  uimanagerFlag;
+
+[old: ATRNSDK -> new: yysZhubo] insert  @property(nonatomic, copy)NSString *  icondownimgEmojiStr;
+@property(nonatomic, assign)long  constantsTag;
+@property(nonatomic, assign)NSInteger  hoverCount;
+
+[old: ATRewardedVideoRNSDK -> new: yysFullscreenmax] insert  @property(nonatomic, assign)double  resendMax;
+@property(nonatomic, assign)BOOL  hasAwayicon;
+
+[old: ATBannerRNSDK -> new: yysTrophyUnread] insert  @property(nonatomic, assign)double  feedbackMin;
+@property(nonatomic, assign)int  moon_flag;
+
+[old: ATSplashViewController -> new: yysDangerIconbellController] insert  @property(nonatomic, assign)double  cricketMargin;
+@property(nonatomic, assign)double  searchSpace;
+@property(nonatomic, assign)BOOL  canLibffmpegkit;
+@property(nonatomic, assign)int  backwhite_sum;
+
+[old: ATInterstitialRNSDK -> new: yysLibtobLeague] insert  @property(nonatomic, assign)NSInteger  nodeTag;
+@property(nonatomic, assign)long  navigation_flag;
+@property(nonatomic, copy)NSArray *  footballfieldStreamingBlackArray;
+
+[old: ATRNSDK -> new: yysZhubo] insert  @property(nonatomic, assign)float  emptySize;
+@property(nonatomic, assign)BOOL  canMatchinactive;
+@property(nonatomic, assign)double  index_space;
+@property(nonatomic, assign)NSInteger  images_flag;
+
+[old: ATRewardedVideoRNSDK -> new: yysFullscreenmax] insert  @property(nonatomic, assign)double  sellmathbackgroundSpace;
+@property(nonatomic, copy)NSArray *  abidetectReactnativejsList;
+@property(nonatomic, copy)NSArray *  gesturesMiddlePrivilege_list;
+
+[old: ATBannerRNSDK -> new: yysTrophyUnread] insert  @property(nonatomic, assign)BOOL  is_Liblogger;
+@property(nonatomic, assign)float  delegate_2;
+
+[old: AppDelegate -> new: AppDelegate] insert  @property(nonatomic, assign)int  dialogIdx;
+@property(nonatomic, copy)NSArray *  clearSmallbrightnessIconnotifi_arr;
+@property(nonatomic, assign)long  shootnogoal_idx;
+
+[old: RNViewController -> new: yysGpayBasketballiconController] insert  @property(nonatomic, assign)int  sinaMark;
+@property(nonatomic, assign)double  mime_margin;
+
+[old: UMAnalyticsModule -> new: yysPolicy] insert  @property(nonatomic, copy)NSString *  halffieldimageVideocommonStr;
+@property(nonatomic, assign)float  progress_offset;
+
+[old: RNUMConfigure -> new: yysSuggestionAdult] insert  @property(nonatomic, assign)float  iconscheduleOffset;
+@property(nonatomic, assign)float  whistle_offset;
+@property(nonatomic, assign)double  mappingMin;
+@property(nonatomic, assign)float  android_offset;
+
+[old: RNViewController -> new: yysGpayBasketballiconController] insert  @property(nonatomic, assign)int  cast_sum;
+@property(nonatomic, assign)int  debugIdx;
+@property(nonatomic, copy)NSArray *  inouttargetredMappingPlayerArray;
+
+[old: ATSplashViewController -> new: yysDangerIconbellController] insert  @property(nonatomic, assign)NSInteger  circle_mark;
+@property(nonatomic, assign)int  eyeclose_sum;
+@property(nonatomic, assign)long  bgvipxvodMark;
+
+[old: ATInterstitialRNSDK -> new: yysLibtobLeague] insert  @property(nonatomic, assign)NSInteger  mutedIdx;
+@property(nonatomic, assign)double  comment_space;
+@property(nonatomic, copy)NSString *  modulesTargetIconrightorangeStr;
+@property(nonatomic, assign)long  desc_index;
+
+[old: ATRewardedVideoRNSDK -> new: yysFullscreenmax] insert  @property(nonatomic, assign)NSInteger  predictionbannershared_tag;
+@property(nonatomic, assign)double  sigmob_margin;
+
+[old: ATBannerRNSDK -> new: yysTrophyUnread] insert  @property(nonatomic, assign)long  libtobMark;
+@property(nonatomic, assign)long  commonFlag;
+@property(nonatomic, assign)double  ping_padding;
+@property(nonatomic, copy)NSString *  benefitGemfile_string;
+
+[old: ATSplashViewController -> new: yysDangerIconbellController] insert  @property(nonatomic, assign)NSInteger  greytick_flag;
+@property(nonatomic, assign)int  product_index;
+@property(nonatomic, assign)BOOL  has_Component;
+
+[old: ATInterstitialRNSDK -> new: yysLibtobLeague] insert  @property(nonatomic, assign)NSInteger  libtobMark;
+@property(nonatomic, assign)BOOL  hasWhite;
+@property(nonatomic, assign)float  interstitialSpace;
+@property(nonatomic, assign)double  libfileMax;
+
+[old: ATRewardedVideoRNSDK -> new: yysFullscreenmax] insert  @property(nonatomic, assign)double  libimagepipelineSpace;
+@property(nonatomic, assign)float  mapbufferMax;
+@property(nonatomic, copy)NSString *  episodesRead_str;
+@property(nonatomic, assign)double  temperatureSpace;
+
+[old: ATBannerRNSDK -> new: yysTrophyUnread] insert  @property(nonatomic, assign)NSInteger  brightness_flag;
+@property(nonatomic, assign)double  configureSize;
+@property(nonatomic, copy)NSString *  libbufferModulesEact_str;
+@property(nonatomic, assign)int  champion_flag;
+
+
+
+开始自动加密混淆字符串。。。。。。。
+"https://v.kylintv.com"
+"https://v.kylintv.com"
+"http://connectivitycheck.platform.hicloud.com/generate_204"
+"https://static.wixstatic.com/media/5dca26_0052ca4edcc94049a9115dea94e6616d~mv2.png"
+"https://yingshi.tv/"
+"https://upload.wikimedia.org/wikipedia/en/a/a6/Pokémon_Pikachu_art.png"
+"https://upload.wikimedia.org/wikipedia/en/a/a6/Pokémon_Pikachu_art.png"
+"https://xiangkantv.net"
+"https://xiangkantv.net"
+"https://lottie.host/c291f0cc-ae75-4f88-b6a8-61fefe455da5/trOs1RgYsK.json"
+"http"
+"https://"
+"https://wa.me/?text="
+"http_service"
+"https://www.yingshi.tv/vip"
+"https://"
+"https://www.yingshi.tv/vip"
+"http://"
+"https://stg-api.zbstg.co/"
+"https://stg-user.zbstg.co/"
+"https://stg-record.zbstg.co/"
+"https://stg-chat.zbstg.co"
+"https://api.ggsimida.com/"
+"https://user.ggsimida.com/"
+"https://record.ggsimida.com/"
+"https://chat.ggsimida.com"
+"httpRequestCancelled"
+"httpConnectionTimeout"
+"httpRequestTimeout"
+"httpReceiveTimeout"
+"httpVersionNotSupported"
+"httpTimeoutUserMsg"
+"https://geolocation-db.com/json"
+"https://so.finapp.chat"
+"http"
+"https://"
+"https://upload.wikimedia.org/wikipedia/en/a/a6/Pokémon_Pikachu_art.png"
+"https://example.com"
+"https://example.com"
+"https://upload.wikimedia.org/wikipedia/en/a/a6/Pokémon_Pikachu_art.png"
+"https://upload.wikimedia.org/wikipedia/en/a/a6/Pokémon_Pikachu_art.png"
+"http://connectivitycheck.platform.hicloud.com/generate_204"
+"https://v.kylintv.com"
+"https://v.kylintv.com"
+"https://static.wixstatic.com/media/5dca26_0052ca4edcc94049a9115dea94e6616d~mv2.png"
+"https://xiangkantv.net"
+"https://xiangkantv.net"
+"https://api.gxhongdeli168.com"
+"https://api.gxhongdeli168.com"
+"https://api.gxhongdeli168.com"
+"https://"
+"http://"
+"https://"
+"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
+"https://"
+"https://"
+"http://"
+"https://"
+"https://api.gxhongdeli168.com/"
+"https://api.gxhongdeli168.com/"
+"http://localhost:3000/"
+"https://api.ggsimida.com/"
+"https://xiangkantv.net/invite.html?invite="
+"https://"
+"http://"
+"https://"
+"http"
+"https://"
+"https://upload.wikimedia.org/wikipedia/en/a/a6/Pokémon_Pikachu_art.png"
+"https://yingshi.tv"
+"https://yingshi.tv/upload/vod/111.jpeg"
+"https://yingshi.tv/upload/vod/111.jpeg"
+"https://wa.me/?text="
+"http_service"
+"https://www.yingshi.tv/vip"
+"https://www.yingshi.tv/vip"
+
+
+开始自动混淆函数名称。。。。。。。
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController]函数名:   currentInterfaceOrientation <---替换为---> hasTouchStorageEditor
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController]函数名:   setupData <---替换为---> preferredPointerAudioDisconnect
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController]函数名:   showLog <---替换为---> dismissalBannerChildEventsNetworkText
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController]函数名:   getKeyWindowMethodOne <---替换为---> clearInfoSetResolveCanScenes
+文件: [旧 ATInterstitialRNSDK <--> 新 yysLibtobLeague]函数名:   sharedWrapper <---替换为---> instantiateScreenScrollFailureCommonMintegral
+文件: [旧 ATRewardedVideoRNSDK <--> 新 yysFullscreenmax]函数名:   sharedWrapper <---替换为---> instantiateScreenScrollFailureCommonMintegral
+文件: [旧 ATBannerRNSDK <--> 新 yysTrophyUnread]函数名:   sharedWrapper <---替换为---> instantiateScreenScrollFailureCommonMintegral
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController]函数名:   setupData <---替换为---> preferredPointerAudioDisconnect
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController]函数名:   currentInterfaceOrientation <---替换为---> hasTouchStorageEditor
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController]函数名:   getKeyWindowMethodOne <---替换为---> clearInfoSetResolveCanScenes
+文件: [旧 ATInterstitialRNSDK <--> 新 yysLibtobLeague]函数名:   sharedWrapper <---替换为---> instantiateScreenScrollFailureCommonMintegral
+文件: [旧 ATRewardedVideoRNSDK <--> 新 yysFullscreenmax]函数名:   sharedWrapper <---替换为---> instantiateScreenScrollFailureCommonMintegral
+文件: [旧 ATBannerRNSDK <--> 新 yysTrophyUnread]函数名:   sharedWrapper <---替换为---> instantiateScreenScrollFailureCommonMintegral
+文件: [旧 AppDelegate <--> 新 AppDelegate]函数名:   prepareInitialProps <---替换为---> unregisterSheetRetrieveFoundationListening
+
+
+开始自动混淆指定属性名称。。。。。。
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 属性:splashImageView ==> subbasketballplayerOwngoal
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 属性:modelBackView ==> audienceProduct
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 属性:skipButton ==> shootnogoalReactnativeultimate
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 属性:defaultAdSourceConfigStr ==> iconscheduleCast
+文件: [旧 ATBannerRNSDK <--> 新 yysTrophyUnread] 属性:bannerViews ==> minimizeIconorientation
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 属性:splashImageView ==> subbasketballplayerOwngoal
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 属性:modelBackView ==> audienceProduct
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 属性:skipButton ==> shootnogoalReactnativeultimate
+文件: [旧 ATSplashViewController <--> 新 yysDangerIconbellController] 属性:defaultAdSourceConfigStr ==> iconscheduleCast
+文件: [旧 ATBannerRNSDK <--> 新 yysTrophyUnread] 属性:bannerViews ==> minimizeIconorientation
+
+
+开始融合并调用生成的垃圾代码文件函数或者类。。。。。。。
+100%👌
+
+开始扰乱改变函数里面执行顺序。。。。。。。
+100%👌
+
+
+开始插入混淆函数并在现有函数体里面自动插入混淆函数调用语句。。。。。。。
+100%👌
+
+
+开始自动插入头文件混淆函数定义语句。。。。。。。
+100%👌
+
+
+开始生成新混淆源文件。。。。。。。
+100%👌
+
+
+开始自动更新项目配置。。。。。。。
+100%👌

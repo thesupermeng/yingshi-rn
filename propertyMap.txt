@@ -1,0 +1,7 @@
+{
+  "bannerViews" : "minimizeIconorientation",
+  "splashImageView" : "subbasketballplayerOwngoal",
+  "defaultAdSourceConfigStr" : "iconscheduleCast",
+  "modelBackView" : "audienceProduct",
+  "skipButton" : "shootnogoalReactnativeultimate"
+}

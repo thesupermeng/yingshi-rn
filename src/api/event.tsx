@@ -1,13 +1,13 @@
-import { CEndpoint } from "@constants";
-import { CApi } from "@utility";
-import { EventApiJsonType } from "../../Umeng/EventAnalytic";
+import { yysPangleCommon } from "@constants";
+import { yysConfig } from "@utility";
+import { yysIconrightorange } from "../../Umeng/yys_iconbell_renew";
 
 export class EventApi {
-    static postEvents = async (events: EventApiJsonType) => {
+    static postEvents = async (events: yysIconrightorange) => {
         try {
             if (events.stats.length <= 0) return;
 
-            const result = await CApi.post(CEndpoint.eventPost, {
+            const result = await yysConfig.post(yysPangleCommon.eventPost, {
                 body: events,
             });
 

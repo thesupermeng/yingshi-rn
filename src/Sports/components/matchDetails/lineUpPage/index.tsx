@@ -1,25 +1,23 @@
 import { ScrollView, View } from 'react-native';
 import LineUpFootball from '../../../components/lineUpFootball';
 import SubsComponent from '../../substituteComponent';
-import styles from './style';
+import styles from './yys_nbatrophy';
 import FootballIconComponent from '../../../components/footballIconComponent';
-import EmptyDataPage from '../../EmptyDataPage';
-import { MatchDetailWithRankingData } from '../../../types/liveMatchTypes';
-import { LineUpType } from '../../../types/lineUpTypes';
+import EmptyDataPage from '../../yys_iconnewsshare';
+import { yysDicelogoFootballfield } from '../../../types/yys_iconnointernet_guide';
+import { yysSuggestionUnimplementedview } from '../../../types/yys_favorite';
 import { useIsFocused } from '@react-navigation/native';
 
-// import AdsComp from '../../../components/adsComp';
-// import {useAds} from '@hooks/useAds';
-interface Props {
-  liveRoomMatchDetails?: MatchDetailWithRankingData,
-  liveRoomLineup?: LineUpType
+interface yysIconarrowrightorangeStation {
+  liveRoomMatchDetails?: yysDicelogoFootballfield,
+  liveRoomLineup?: yysSuggestionUnimplementedview
 }
 
 
-const LineUpPage = ({ liveRoomLineup, liveRoomMatchDetails }: Props) => {
+const LineUpPage = ({ liveRoomLineup, liveRoomMatchDetails }: yysIconarrowrightorangeStation) => {
   const isFocus = useIsFocused();
   // const adsList = useSelector(state => state.adsList);
-  // const [ads] = useAds(adsList);
+  
 
   return (
     <View>

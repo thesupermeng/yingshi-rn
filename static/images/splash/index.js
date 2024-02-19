@@ -1,7 +1,7 @@
-import TickSvg from './tick.svg';
-import Tick1Svg from './tick1.svg';
-import Tick2Svg from './tick2.svg';
-import VipEntrySvg from './VipEntry.svg';
+import TickSvg from './tickText.svg';
+import Tick1Svg from './pathLibavcodec.svg';
+import Tick2Svg from './editChangeImages.svg';
+import VipEntrySvg from './containerImagenomoredataBottom.svg';
 
 export {
     TickSvg,

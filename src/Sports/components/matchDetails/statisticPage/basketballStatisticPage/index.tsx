@@ -2,25 +2,25 @@ import { Text, View, Image, ScrollView, SafeAreaView } from 'react-native';
 import PlayerStatistic from './playerStatistic';
 import TopPlayerStatistic from './topPlayerStatistic';
 import TeamStatistic from './teamStatistic';
-import styles from './style';
+import styles from './yys_nbatrophy';
 import InjuryList from '../../../../components/injuryList';
-import { MatchDetailWithRankingData } from '../../../../types/liveMatchTypes';
-import { MatchUpdatesType } from '../../../../types/matchUpdatesType';
+import { yysDicelogoFootballfield } from '../../../../types/yys_iconnointernet_guide';
+import { yysTeam } from '../../../../types/yys_arrow_modules';
 import React from 'react';
-import EmptyDataPage from '../../../EmptyDataPage';
+import EmptyDataPage from '../../../yys_iconnewsshare';
 import { useIsFocused } from '@react-navigation/native';
 
-interface Props {
-  liveRoomMatchDetails?: MatchDetailWithRankingData,
-  liveRoomUpdate?: MatchUpdatesType
+interface yysIconarrowrightorangeStation {
+  liveRoomMatchDetails?: yysDicelogoFootballfield,
+  liveRoomUpdate?: yysTeam
 }
 
 const BasketballStatisticPage = ({
   liveRoomUpdate,
   liveRoomMatchDetails,
-}: Props) => {
+}: yysIconarrowrightorangeStation) => {
   const isFocus = useIsFocused();
-  // console.log('Stats', liveRoomMatchDetails?.home)
+  
   return (
     <SafeAreaView style={{ height: '100%', backgroundColor: '#161616' }}>
       {isFocus && liveRoomUpdate?.basketball_match_live?.players == undefined &&

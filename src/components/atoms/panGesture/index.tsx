@@ -1,1 +1,1 @@
-export * from './component';
+export * from './yys_thumbnail_share';

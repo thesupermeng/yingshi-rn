@@ -1,6 +1,6 @@
-import AddSvg from './add.svg';
-import ApplePaySvg from './apple_pay.svg';
-import GPaySvg from './gpay.svg';
+import AddSvg from './downloaderBack.svg';
+import ApplePaySvg from './topicCircle.svg';
+import GPaySvg from './imageactionlivePhoto.svg';
 
 export {
     AddSvg,

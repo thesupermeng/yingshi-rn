@@ -1,18 +1,18 @@
 import {View, ScrollView} from 'react-native';
 import BasketballStatisticPage from './basketballStatisticPage';
 import {useSelector} from 'react-redux';
-import { MatchDetailWithRankingData } from '../../../types/liveMatchTypes';
-import { MatchUpdatesType } from '../../../types/matchUpdatesType';
+import { yysDicelogoFootballfield } from '../../../types/yys_iconnointernet_guide';
+import { yysTeam } from '../../../types/yys_arrow_modules';
 
-interface Props {
-  liveRoomMatchDetails?: MatchDetailWithRankingData,
-  liveRoomUpdate?: MatchUpdatesType
+interface yysIconarrowrightorangeStation {
+  liveRoomMatchDetails?: yysDicelogoFootballfield,
+  liveRoomUpdate?: yysTeam
 }
 
 
 
-const StatisticPage = ({liveRoomUpdate, liveRoomMatchDetails} : Props) => {
-  // const [ads] = useAds(adsList);
+const StatisticPage = ({liveRoomUpdate, liveRoomMatchDetails} : yysIconarrowrightorangeStation) => {
+  
   return (
     <View>
       <BasketballStatisticPage

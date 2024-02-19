@@ -1,6 +1,8 @@
 #import <UIKit/UIKit.h>
 
 #import "AppDelegate.h"
+#import "yysLibavfilter.h"
+
 
 int main(int argc, char *argv[])
 {
