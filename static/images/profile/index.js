@@ -1,5 +1,5 @@
-import EditSvg from './edit.svg';
+// import EditSvg from './edit.svg';
 
 export {
-    EditSvg,
+
 }

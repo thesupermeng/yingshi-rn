@@ -34,6 +34,7 @@ import DownloadVodSvg from './download_vod.svg';
 import DownloadYellowMiniSvg from './download_yellow_mini.svg';
 import DownloadedIconSvg from './downloaded_icon.svg';
 import DropdownSvg from './dropdown.svg';
+import EditSvg from './edit.svg';
 import EighteenPlusIconSvg from './eighteen-plus-icon.svg';
 import EmptySvg from './empty.svg';
 import EpisodesSvg from './episodes.svg';
@@ -163,6 +164,7 @@ export {
     DownloadYellowMiniSvg,
     DownloadedIconSvg,
     DropdownSvg,
+    EditSvg,
     EighteenPlusIconSvg,
     EmptySvg,
     EpisodesSvg,

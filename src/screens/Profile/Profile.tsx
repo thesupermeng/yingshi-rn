@@ -25,6 +25,8 @@ import {
   MoreArrowSvg,
   VipIconSvg,
   VipArrowSvg,
+  AddSvg,
+  EditSvg,
 } from "@static";
 
 import { useNavigation } from "@react-navigation/native";
@@ -32,7 +34,6 @@ import { useNavigation } from "@react-navigation/native";
 import Orientation from "react-native-orientation-locker";
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 
-import { AddSvg, EditSvg, } from "@static";
 import { YSConfig } from "../../../ysConfig";
 
 import {
