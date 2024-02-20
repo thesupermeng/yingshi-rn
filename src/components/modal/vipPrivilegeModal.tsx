@@ -18,7 +18,7 @@ interface Props {
   coverImage: any;
   coverBackground: any;
   showBlur: boolean;
-  showDarkBackdrop: boolean; 
+  showDarkBackdrop: boolean;
   benefitsTextsArray: string[];
   titleText: string;
   imageGradientColors: string[];
@@ -31,7 +31,7 @@ interface Props {
 
 export default function VipPrivilegeModal({
   showBlur = false,
-  showDarkBackdrop = false, 
+  showDarkBackdrop = false,
   benefitsTextsArray,
   coverImage,
   coverBackground,
@@ -60,7 +60,7 @@ export default function VipPrivilegeModal({
         <View style={{
           width: "100%",
           height: "100%",
-          transform: isFullscreen ? [{scale: 0.75}] : [], 
+          transform: isFullscreen ? [{ scale: 0.75 }] : [],
         }}>
           {showBlur && (
             <BlurView
@@ -97,7 +97,7 @@ export default function VipPrivilegeModal({
               <TouchableOpacity
                 style={{
                   position: "absolute",
-                  top: "-50%",
+                  top: "-45%",
                   right: 15,
                   zIndex: 200,
                 }}
@@ -109,7 +109,7 @@ export default function VipPrivilegeModal({
                 <View style={styles.imageContainer}>
                   <FastImage
                     source={coverBackground ?? adultBg}
-                    style={{...styles.image, height: 117}}
+                    style={{ ...styles.image, height: 117 }}
                     resizeMode="cover"
                   />
                   <FastImage
@@ -123,13 +123,13 @@ export default function VipPrivilegeModal({
                     style={styles.imageGradient}
                   />
                 </View>
-                <VipIcon 
+                <VipIcon
                   style={{
-                    zIndex: 4255235, 
-                    position: 'absolute',  
-                    top: '-15%', 
+                    zIndex: 4255235,
+                    position: 'absolute',
+                    top: '-15%',
                     alignSelf: 'center'
-                    }}
+                  }}
                 />
                 <View style={styles.contentContainer}>
                   <View style={styles.contentGradient}>
@@ -230,7 +230,7 @@ const styles = StyleSheet.create({
   content: {
     display: "flex",
     alignItems: "center",
-    width: "100%",  
+    width: "100%",
     paddingVertical: 50,
   },
   imageContainer: {
@@ -250,7 +250,7 @@ const styles = StyleSheet.create({
     // width: "100%",
     width: 322,
     height: 160.124,
-    
+
   },
   contentGradient: {
     overflow: "hidden",

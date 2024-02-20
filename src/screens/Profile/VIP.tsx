@@ -314,7 +314,9 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         // console.log("sifang");
         // console.log(siFang);
         setMembershipProducts(siFang);
-        setFetching(false);
+        setTimeout(() => {
+          setFetching(false);
+        }, 1000);
       }
     }
   };

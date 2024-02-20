@@ -25,6 +25,7 @@ interface Props {
     currentDuration: number;
     isActive: boolean;
     index: number;
+    onPressAds: () => void,
 }
 
 const videoBufferGif = require('@static/images/videoBufferLoading.gif')
@@ -39,6 +40,7 @@ function ShortAds({
     currentDuration,
     isActive,
     index,
+    onPressAds,
 }: Props) {
     const { colors } = useTheme();
     const [showVod, setShowVod] = useState(true);
@@ -190,7 +192,7 @@ function ShortAds({
         if (!currentVod?.ads_url || currentVod?.ads_url == '') {
             //  videoRef.current.setPause(true);
             onManualPause(true);
-            setShowAdOverlay(true);
+            onPressAds();
             return;
         }
 
@@ -205,13 +207,6 @@ function ShortAds({
             ads_name: currentVod.ads_name,
         });
     }
-
-    const [isShowAdOverlay, setShowAdOverlay] = useState(false);
-    const onCloseAdOverlay = () => {
-        onManualPause(true);
-        //  videoRef.current.setPause(false);
-        setShowAdOverlay(false);
-    };
 
     return (
         <>
@@ -333,14 +328,6 @@ function ShortAds({
                     </View>
                 </>
             )}
-
-            <BecomeVipOverlay
-                setShowBecomeVIPOverlay={setShowAdOverlay}
-                showBecomeVIPOverlay={isShowAdOverlay}
-                isJustClose={true}
-                selectedTab="common"
-                onClose={onCloseAdOverlay}
-            />
         </>
     )
 
