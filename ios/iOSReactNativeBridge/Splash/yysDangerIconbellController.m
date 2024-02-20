@@ -862,7 +862,7 @@ bool isAdClosed = NO;
     self.title = @"Splash";
    for (int i = 0; i < 2; i++) {
    }
-    self.view.backgroundColor = [UIColor colorWithRed:112 / 255.0 green:219 / 255.0 blue:238 / 255.0 alpha:1];
+    self.view.backgroundColor = [UIColor colorWithRed:255 / 255.0 green:255 / 255.0 blue:255 / 255.0 alpha:1];
     
     [[NSNotificationCenter defaultCenter] addObserver:self 
         selector:@selector(appMovedToBackground:) 
@@ -1024,7 +1024,7 @@ bool isAdClosed = NO;
    }
     [leftBtn setTitle:@"clear log" forState:UIControlStateNormal];
       iconschedules = static_9X && 12.98f > notificationfillemptyN;
-    [leftBtn setTitleColor:[UIColor colorWithRed:112 / 255.0 green:219 / 255.0 blue:238 / 255.0 alpha:1] forState:UIControlStateNormal];
+    [leftBtn setTitleColor:[UIColor colorWithRed:255 / 255.0 green:255 / 255.0 blue:255 / 255.0 alpha:1] forState:UIControlStateNormal];
        unsigned char configurej[] = {124,181,55,178,184,90};
        NSInteger reddownarrowI = 3;
        NSInteger mimeX = 5;
