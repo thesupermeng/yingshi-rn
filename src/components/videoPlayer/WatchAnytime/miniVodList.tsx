@@ -37,6 +37,7 @@ interface Props {
   isRefreshing: boolean;
   isPressTabScroll: boolean;
   isFocusLogin: React.MutableRefObject<boolean>,
+  onPressAds: () => void,
 }
 
 type MiniVodRef = {
@@ -61,6 +62,7 @@ export default forwardRef<MiniVodRef, Props>(
       isRefreshing = false,
       isPressTabScroll = false,
       isFocusLogin,
+      onPressAds,
     }: Props,
     ref,
   ) => {
@@ -235,13 +237,13 @@ export default forwardRef<MiniVodRef, Props>(
                     displayHeight={displayHeight ? displayHeight : 0}
                     isPause={isPause || current !== index}
                     onManualPause={current => {
-                      console.log('click pause');
                       setPause(!current);
                     }}
                     isShowVideo={current >= prevPosition && current < index + 2}
                     currentDuration={videoCurrentDurations[index]}
                     isActive={isActive}
                     index={index}
+                    onPressAds={onPressAds}
                   />
                   : <ShortVod
                     vod={item}
