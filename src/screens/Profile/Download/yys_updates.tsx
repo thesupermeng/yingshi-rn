@@ -29,7 +29,7 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const dispatch = useAppDispatch();
   const [isLoading, setIsLoading] = useState(false);
-  const [isConnected, setIsConnected] = useState(false)
+  const [isConnected, setIsConnected] = useState(true)
 
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener((state: any) => {

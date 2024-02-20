@@ -1140,11 +1140,11 @@ function startVideoDownloadThunk(
         return
       }
       
-      if (targetEpisode?.progress.percentage < 95) {
+      // if (targetEpisode?.progress.percentage < 95) {
         
-        handleError(); 
-        return
-      }
+      //   handleError(); 
+      //   return
+      // }
       dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {
         status: IConfirmationLibffmpegkit.IPointStar,
         sizeInBytes: finalSizeInBytes,
