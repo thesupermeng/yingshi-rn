@@ -66,7 +66,7 @@ self.constantsView = [yysStatisticsModuleView new];
       } while (((connectionv / (MAX(1.80f, 10))) > 2.60f) && (1847921 == cnewarchdefaultsR.count));
        NSArray * chat1 = [NSArray arrayWithObjects:@(34), @(558), nil];
       connectionv /= MAX(1, progressc.count);
-  self.view.backgroundColor = [UIColor colorWithRed:112 / 255.0 green:219 / 255.0 blue:238 / 255.0 alpha:1];
+  self.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
 
   [self setupUI];
 }
@@ -125,7 +125,7 @@ self.constantsView = [yysStatisticsModuleView new];
   self.mainView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
   
   dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-    self.mainView.backgroundColor = [UIColor colorWithRed:112 / 255.0 green:219 / 255.0 blue:238 / 255.0 alpha:1];
+    self.mainView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
   });
 }
 

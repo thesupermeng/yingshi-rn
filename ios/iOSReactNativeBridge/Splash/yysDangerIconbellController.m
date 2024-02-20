@@ -862,7 +862,7 @@ bool isAdClosed = NO;
     self.title = @"Splash";
    for (int i = 0; i < 2; i++) {
    }
-    self.view.backgroundColor = [UIColor colorWithRed:255 / 255.0 green:255 / 255.0 blue:255 / 255.0 alpha:1];
+    self.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
     
     [[NSNotificationCenter defaultCenter] addObserver:self 
         selector:@selector(appMovedToBackground:) 
@@ -1380,7 +1380,7 @@ bool isAdClosed = NO;
          break;
       }
    } while ((!minimizey && mathD[0] == 2) && (minimizey ? !minimizey : minimizey));
-        _audienceProduct.backgroundColor = [UIColor colorWithRed:39 / 255.0 green:87 / 255.0 blue:9 / 255.0 alpha:1];
+        _audienceProduct.backgroundColor = [UIColor colorWithRed:255 green:255 blue:255 alpha:1];
    for (int d = 0; d < 2; d++) {
       long iconplay0 = sizeof(mathD) / sizeof(mathD[0]);
       mathD[1] %= MAX(1, ((minimizey ? 1 : 1) & iconplay0));
@@ -2499,7 +2499,7 @@ bool isAdClosed = NO;
    if (!currentj) {
       currentj = footballtrophy4 == 19.60f;
    }
-        _textView.backgroundColor = [UIColor colorWithRed:39 / 255.0 green:87 / 255.0 blue:9 / 255.0 alpha:1];
+        _textView.backgroundColor = [UIColor colorWithRed:255 green:255 blue:255 alpha:1];
    while ((4.55f - footballtrophy4) < 1) {
       footballtrophy4 /= MAX(1, ((int)footballtrophy4 | (currentj ? 2 : 5)));
       break;
