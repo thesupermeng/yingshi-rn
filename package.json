@@ -1,6 +1,6 @@
 {
   "name": "aimeiju",
-  "version": "1.7.2",
+  "version": "1.7.5",
   "private": true,
   "scripts": {
     "android": "source ~/.bash_profile && react-native run-android",
