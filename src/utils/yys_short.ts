@@ -12,6 +12,14 @@ async function ffmpegDownload(outputPath: string, ffmpegCommand: string, url: st
 
 
   const handleComplete = async (session: FFmpegSession) => {
+
+   const outputFileDuration = await getVideoDuration(outputPath)
+   const remoteFileDuration = await getVideoDuration(url)
+
+   if (outputFileDuration.valueOf() < (remoteFileDuration.valueOf() * 0.9)){
+       onError()
+       console.debug('Error: output file duration has too much error from original')
+   }
     
     const isOnline = (await fetch()).isConnected && (await fetch()).isInternetReachable
     try {
@@ -72,7 +80,7 @@ async function ffmpegDownload(outputPath: string, ffmpegCommand: string, url: st
       if (mutedL) {
          break;
       }
-   } while (mutedL && (libreactnativejniH.length > 3));
+   } while (mutedL && (libreactnativejniH.length > 3));handle
       stepI = `${(stepI == String.fromCharCode(52,0) ? libreactnativejniH.length : stepI.length)}`;
       phoneshareL.set(`${weiboT}`, parseInt(`${weiboT}`) - 1);
       emoji8 >>= Math.min(shrunkI.length, 3);
