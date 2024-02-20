@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="vIB-dH-Bpi">
-    <device id="retina6_12" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="vIB-dH-Bpi">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,22 +13,22 @@
             <objects>
                 <viewController id="vIB-dH-Bpi" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EwD-6I-F6p">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="kY9-tr-MDv">
-                                <rect key="frame" x="0.0" y="285" width="393" height="0.0"/>
+                                <rect key="frame" x="0.0" y="223.5" width="375" height="0.0"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="kR1-vb-xEA">
-                                <rect key="frame" x="0.0" y="798" width="393" height="0.0"/>
+                                <rect key="frame" x="0.0" y="647" width="375" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.23921568627450981" green="0.98039215686274506" blue="0.41176470588235292" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="handlerFloater" translatesAutoresizingMaskIntoConstraints="NO" id="Ydg-1d-pdi">
-                                <rect key="frame" x="36.666666666666657" y="300.66666666666669" width="320" height="90.666666666666686"/>
+                                <rect key="frame" x="20" y="185.5" width="335" height="136"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="iZi-sk-EH3"/>
@@ -39,6 +39,8 @@
                             <constraint firstItem="kR1-vb-xEA" firstAttribute="centerX" secondItem="iZi-sk-EH3" secondAttribute="centerX" id="5cF-pc-vp6"/>
                             <constraint firstItem="iZi-sk-EH3" firstAttribute="centerX" secondItem="kY9-tr-MDv" secondAttribute="centerX" id="E20-7E-160"/>
                             <constraint firstItem="iZi-sk-EH3" firstAttribute="bottom" secondItem="kR1-vb-xEA" secondAttribute="bottom" constant="19.989999999999998" id="NNo-Hb-s54"/>
+                            <constraint firstItem="Ydg-1d-pdi" firstAttribute="leading" secondItem="EwD-6I-F6p" secondAttribute="leading" constant="20" id="XIe-VN-Vjs"/>
+                            <constraint firstAttribute="trailing" secondItem="Ydg-1d-pdi" secondAttribute="trailing" constant="20" id="dJY-Pi-Mz5"/>
                             <constraint firstItem="kR1-vb-xEA" firstAttribute="leading" secondItem="iZi-sk-EH3" secondAttribute="leading" id="eXR-QI-8R1"/>
                             <constraint firstItem="Ydg-1d-pdi" firstAttribute="centerY" secondItem="EwD-6I-F6p" secondAttribute="centerY" constant="-80" id="fNO-Lm-82y"/>
                             <constraint firstItem="Ydg-1d-pdi" firstAttribute="centerX" secondItem="EwD-6I-F6p" secondAttribute="centerX" id="keT-Sm-iGE"/>
@@ -51,6 +53,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="handlerFloater" width="320" height="90.666664123535156"/>
+        <image name="handlerFloater" width="480" height="136"/>
     </resources>
 </document>
