@@ -19,6 +19,7 @@ import { CPressable } from '../components/atoms';
 import { showLoginAction } from '@redux/actions/screenAction';
 import { UserStateType } from '@redux/reducers/userReducer';
 import { User } from '@models/user';
+import BecomeVipOverlay from '../components/modal/becomeVipOverlay';
 
 type MiniVideoResponseType = {
   data: {
@@ -40,6 +41,7 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [isOffline, setIsOffline] = useState(false);
   const [isPressTabScroll, setPressTabScroll] = useState(false);
+  const [isShowAdOverlay, setShowAdOverlay] = useState(false);
   const miniVodRef = useRef<MiniVodRef>();
   const miniVodListRef = useRef<any>();
   const dispatch = useAppDispatch();
@@ -189,6 +191,14 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
     dispatch(showLoginAction());
   }
 
+  const onPressAds = () => {
+    setShowAdOverlay(true);
+  };
+
+  const onCloseAdOverlay = () => {
+    setShowAdOverlay(false);
+  };
+
   return (
     <ScreenContainer containerStyle={styles.containerStyle}>
       <View style={styles.titleTextContainer}>
@@ -210,6 +220,7 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
           isPressTabScroll={isPressTabScroll}
           key={adultMode.toString()}
           isFocusLogin={isFocusLogin}
+          onPressAds={onPressAds}
         />
       )}
       {isFocusLogin.current &&
@@ -223,6 +234,14 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
           }}
         />
       }
+
+      <BecomeVipOverlay
+        setShowBecomeVIPOverlay={setShowAdOverlay}
+        showBecomeVIPOverlay={isShowAdOverlay}
+        isJustClose={true}
+        selectedTab="common"
+        onClose={onCloseAdOverlay}
+      />
 
       {isOffline && <NoConnection onClickRetry={checkConnection} />}
     </ScreenContainer>
