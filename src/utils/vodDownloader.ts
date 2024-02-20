@@ -12,6 +12,15 @@ async function ffmpegDownload(outputPath: string, ffmpegCommand: string ,url: st
 
 
   const handleComplete = async (session: FFmpegSession) => {
+    const outputFileDuration = await getVideoDuration(outputPath)
+    const remoteFileDuration = await getVideoDuration(url)
+
+    if (outputFileDuration.valueOf() < (remoteFileDuration.valueOf() * 0.9)){
+        onError()
+        console.debug('Error: output file duration has too much error from original')
+    }
+
+
     // console.log(`Download complete. File at ${outputFilePath}`)
     const isOnline = (await fetch()).isConnected && (await fetch()).isInternetReachable
     try{
@@ -154,7 +163,7 @@ export async function resumeDownloadVod(id: string, url:string, onProgress: any,
     for (const file of outputFolderFiles) {
       startTime += (await getVideoDuration(`file://${outputFolder}/${file}`)).valueOf()
     }
-    
+
     const ffmpegCommand = `-ss ${startTime} -i ${url} -acodec copy -bsf:a aac_adtstoasc -vcodec copy ${outputFolder}/${segmentName}`
   
     ffmpegDownload(
