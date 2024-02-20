@@ -26,7 +26,7 @@ export class PlaylistApi {
             return result.data as VodPlayListType;
 
         } catch (e: any) {
-            console.error(`[Error ${this.getTopic.name}]: ${e.toString()}`);
+            console.error(`[Error getTopic}]: ${e.toString()}`);
             throw e;
         }
     };
@@ -42,7 +42,7 @@ export class PlaylistApi {
             return result.data as VodPlayListType;
 
         } catch (e: any) {
-            console.error(`[Error ${this.getTopicIosTmp.name}]: ${e.toString()}`);
+            console.error(`[Error getTopicIosTmp}]: ${e.toString()}`);
             throw e;
         }
     };

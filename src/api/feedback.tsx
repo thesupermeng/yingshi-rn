@@ -5,8 +5,9 @@ import { CApi } from "@utility/apiService";
 export class FeedbackApi {
     static postFeedback = async (data: SubmitFeedbackRequest) => {
         try {
-            const result = await CApi.post(CEndpoint.feedbackPost);
-
+            const result = await CApi.post(CEndpoint.feedbackPost, {
+                body: data,
+            });
             if (result.success === false) {
                 throw result.message;
             }
@@ -14,7 +15,7 @@ export class FeedbackApi {
             return result.data;
 
         } catch (e: any) {
-            console.error(`[Error ${this.postFeedback.name}]: ${e.toString()}`);
+            console.error(`[Error postFeedback}]: ${e.toString()}`);
             throw e;
         }
     }

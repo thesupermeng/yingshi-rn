@@ -27,42 +27,46 @@ export default function XVodTab({
   const isVip = useAppSelector(({ userReducer }) => !(Number(userReducer.userMemberExpired) <= Number(userReducer.userCurrentTimestamp) || userReducer.userToken === ""))
 
   const listItem = useCallback(
-    ({ item, index }: { item: VodData; index: number }) => (
-      <View
-        key={`${item.type_name}-${index}`}
-        style={{
-          gap: spacing.m,
-          paddingLeft: spacing.sideOffset,
-          paddingRight: spacing.sideOffset,
-          backgroundColor: "#0c0c0c",
-          borderRadius: 15,
-          marginBottom: 15,
-          paddingTop: 4,
-          paddingBottom: 4,
-        }}
-      >
-        <ShowMoreVodButton
-          text={item.type_name.trim()}
-          onPress={() => {
-            navigation.navigate("午夜场剧情", {
-              class: item.vod_list[0].vod_class,
-            });
+    ({ item, index }: { item: VodData; index: number }) => {
+      if ((item?.vod_list?.length ?? 0) === 0) return <></>;
+
+      return (
+        <View
+          key={`${item.type_name}-${index}`}
+          style={{
+            gap: spacing.m,
+            paddingLeft: spacing.sideOffset,
+            paddingRight: spacing.sideOffset,
+            backgroundColor: "#0c0c0c",
+            borderRadius: 15,
+            marginBottom: 15,
+            paddingTop: 4,
+            paddingBottom: 4,
           }}
-        />
-        {
-          // is 午夜场剧情
-          item?.vod_list && (
-            <VodListVerticalVip
-              numOfRows={2}
-              vods={item?.vod_list}
-              minNumPerRow={2}
-              heightToWidthRatio={1 / 1.814}
-              playerMode="adult"
-            />
-          )
-        }
-      </View>
-    ),
+        >
+          <ShowMoreVodButton
+            text={item.type_name.trim()}
+            onPress={() => {
+              navigation.navigate("午夜场剧情", {
+                class: item.vod_list[0].vod_class,
+              });
+            }}
+          />
+          {
+            // is 午夜场剧情
+            item?.vod_list && (
+              <VodListVerticalVip
+                numOfRows={2}
+                vods={item?.vod_list}
+                minNumPerRow={2}
+                heightToWidthRatio={1 / 1.814}
+                playerMode="adult"
+              />
+            )
+          }
+        </View>
+      );
+    },
     []
   );
 
@@ -109,6 +113,7 @@ export default function XVodTab({
       <View style={{ paddingTop: 10 }}>
         <FlatList
           data={data?.data?.categories ? data?.data?.categories : []}
+          keyExtractor={(item: VodData, index: number) => index.toString() + item.type_name}
           initialNumToRender={1}
           windowSize={3}
           maxToRenderPerBatch={3}
