@@ -36,17 +36,17 @@ export type yysComponentComponentregistry = {
 
 export type yysPredictionbanner = {
   Profile: BottomTabScreenProps<yysNbatrophyBootsplash>;
-  
+
   Playlist: BottomTabScreenProps<yysUnreadVolume>;
   WatchAnytime: BottomTabScreenProps<yysComponentComponentregistry>;
-  // yys_calendar: BottomTabScreenProps<yysMail>;
-  yys_calendar: any;
+  // Home: BottomTabScreenProps<yysMail>;
+  Home: any;
   我的收藏: undefined;
   合集收藏: undefined;
   播放历史: undefined;
   反馈: undefined;
   邀请: undefined;
-  
+
   个人中心: undefined;
   设置: undefined;
   关于我们: undefined;
@@ -96,7 +96,7 @@ export type yysPredictionbanner = {
     action?: string;
     referralCode?: string;
     countryId?: number,
-    
+
   };
   SetUsername: undefined;
   活动规则: undefined;
