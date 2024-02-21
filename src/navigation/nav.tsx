@@ -869,7 +869,7 @@ export default () => {
         backdropStyle={{ backgroundColor: "rgba(0, 0, 0, 0.8)" }}
         onBackdropPress={() => setShowPurchasePendingOverlay(false)}
       >
-        <FastImage
+        {/* <FastImage
           useFastImage={true}
           key={gifKey}
           style={{
@@ -883,7 +883,7 @@ export default () => {
           }}
           resizeMode={"contain"}
           source={require("@static/images/profile/login-success.gif")}
-        />
+        /> */}
 
         <Text
           style={{
@@ -894,10 +894,10 @@ export default () => {
             paddingTop: 10
           }}
         >
-          购买待定
+          VIP会员
         </Text>
 
-        {/* <Text
+         <Text
           style={{
             color: "#fff",
             fontFamily: "PingFang SC",
@@ -908,8 +908,8 @@ export default () => {
             lineHeight: 24
           }}
         >
-          恭喜您成为尊贵的影视TV会员，立即登录账号合并您的VIP会员，可以多设备使用VIP会员账号
-        </Text> */}
+          请耐心等待VIP生效，或尝试刷新个人中心/重启应用
+        </Text> 
 
         <TouchableOpacity
           style={{ width: '100%' }}
@@ -922,7 +922,7 @@ export default () => {
             style={styles.purchaseButton}
           >
             <Text style={styles.purchaseButtonText}>
-              去登录
+              确定
             </Text>
           </View>
         </TouchableOpacity>

@@ -362,9 +362,10 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   }, [membershipSelected]);
 
   const handlePurchase = async () => {
-
+ 
     // dispatch(setShowPurchasePending(true));
-    // return ; 
+    // navigation.goBack()
+    // return;
     // if(!isBtnEnable)
     // {
 
@@ -527,9 +528,8 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
       clearTimeout(pendingTimeoutRef.current);
     } else {
       console.log("order still in progress");
-     // dispatch(setShowPurchasePending(true));
-      // navigation.goBack()
-     // console.log("order still in progress");
+     dispatch(setShowPurchasePending(true));
+      navigation.goBack()
     }
   };
 
