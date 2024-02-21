@@ -414,7 +414,7 @@ const RecommendationHome = ({
   //     }}
   //   />
   // };
-  console.log(bannerAd);
+
   return (
     <View style={{ width: width }}>
       {/* {showBecomeVIPOverlay && (
