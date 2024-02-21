@@ -28,7 +28,8 @@ const initialState: screenModel = {
   showAdultTab: false,
   showAdultVipPrivilegeMiniVideo: false,
   showPromotionDialog: false,
-  showGuestPurchaseSuccess: false
+  showGuestPurchaseSuccess: false,
+  showPurchasePending:false
 };
 
 export function screenReducer(state = initialState, action: screenActionType) {
@@ -227,6 +228,13 @@ export function screenReducer(state = initialState, action: screenActionType) {
         ...state,
         showGuestPurchaseSuccess: action.payload,
       };
+      case "set_show_purchase_pending":
+        return {
+          ...state,
+          showPurchasePending: action.payload,
+        };
+
+      
     default:
       return state;
   }

@@ -92,6 +92,7 @@ import {
   resetSportWatchTime,
   setShowGuestPurchaseSuccess,
   setShowPromotionDialog,
+  setShowPurchasePending,
   showLoginAction,
 } from "@redux/actions/screenAction";
 import { Dialog } from "@rneui/themed";
@@ -296,7 +297,7 @@ export default () => {
 
   const [showBecomeVIPOverlay, setShowBecomeVIPOverlay] = useState(false);
   const [showGuestPurchaseSuccessOverlay, setShowGuestPurchaseSuccessOverlay] = useState(false);
-
+  const [showPurchasePendingOverlay, setShowPurchasePendingOverlay] = useState(false);
 
   const renderOverlay = () => {
     return <VipPromotionOverlay
@@ -376,9 +377,12 @@ export default () => {
     if (screenState.showGuestPurchaseSuccess == true) {
       dispatch(setShowGuestPurchaseSuccess(false));
       setShowGuestPurchaseSuccessOverlay(true)
-
     }
 
+    if (screenState.showPurchasePending == true) {
+      dispatch(setShowPurchasePending(false));
+      setShowPurchasePendingOverlay(true)
+    }
 
   }, [screenState]);
 
@@ -855,6 +859,83 @@ export default () => {
 
       </Dialog>
 
+
+      <Dialog
+        isVisible={showPurchasePendingOverlay}
+        overlayStyle={{
+          backgroundColor: "rgba(34, 34, 34, 1)",
+          ...styles.overlay,
+        }}
+        backdropStyle={{ backgroundColor: "rgba(0, 0, 0, 0.8)" }}
+        onBackdropPress={() => setShowPurchasePendingOverlay(false)}
+      >
+        <FastImage
+          useFastImage={true}
+          key={gifKey}
+          style={{
+            height: 80,
+            width: 80,
+            marginRight: 5,
+            position: "relative",
+            top: 1,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+          resizeMode={"contain"}
+          source={require("@static/images/profile/login-success.gif")}
+        />
+
+        <Text
+          style={{
+            color: "#fff",
+            fontFamily: "PingFang SC",
+            fontSize: 18,
+            fontWeight: "600",
+            paddingTop: 10
+          }}
+        >
+          购买待定
+        </Text>
+
+        {/* <Text
+          style={{
+            color: "#fff",
+            fontFamily: "PingFang SC",
+            fontSize: 14,
+            fontWeight: "600",
+            paddingTop: 14,
+            textAlign: 'center',
+            lineHeight: 24
+          }}
+        >
+          恭喜您成为尊贵的影视TV会员，立即登录账号合并您的VIP会员，可以多设备使用VIP会员账号
+        </Text> */}
+
+        <TouchableOpacity
+          style={{ width: '100%' }}
+          onPress={() => {
+            setShowPurchasePendingOverlay(false)
+          //  dispatch(showLoginAction());
+          }}
+        >
+          <View
+            style={styles.purchaseButton}
+          >
+            <Text style={styles.purchaseButtonText}>
+              去登录
+            </Text>
+          </View>
+        </TouchableOpacity>
+        {/* <TouchableOpacity
+          style={styles.cancelButton}
+          onPress={() => { setShowGuestPurchaseSuccessOverlay(false) }}
+        >
+          <Text style={styles.cancelButtonText}>
+            取消
+          </Text>
+        </TouchableOpacity> */}
+
+      </Dialog>
     </SafeAreaProvider>
   );
 };
