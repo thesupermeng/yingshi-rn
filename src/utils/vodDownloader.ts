@@ -76,7 +76,7 @@ export async function downloadVod(id: string, url: string, onProgress: (progress
   const outputFilePath = `${RNFetchBlob.fs.dirs.DocumentDir}/SavedVideos/${id}.mp4`
   const ffmpegScript = `-i ${url} -acodec copy -bsf:a aac_adtstoasc -vcodec copy ${outputFilePath}`
 
-  const handleOnComplete = async () => {
+  const handleOnComplete = async (args) => {
     try{
       const outputFileDuration = await getVideoDuration(outputFilePath)
       const remoteFileDuration = await getVideoDurationFFprobe(url)
@@ -89,7 +89,7 @@ export async function downloadVod(id: string, url: string, onProgress: (progress
       console.error(e)
       console.error("Error reading video duration.. skipping check for completeness")
     }
-    onComplete();
+    onComplete(args);
   }
 
   ffmpegDownload(outputFilePath, ffmpegScript, url, onProgress, handleOnComplete, onError, onSessionCreated)
@@ -238,7 +238,7 @@ export async function concatPartialVideos(id: string, onComplete: any, onError: 
   await RNFetchBlob.fs.writeFile(listTxtPath, listTxt)
   await RNFetchBlob.fs.mkdir(outputFolder).catch(err => {})
 
-  const handleComplete = async () => {
+  const handleComplete = async (args) => {
     try{
       const outputFileDuration = await getVideoDuration(`${outputFolder}/${id}.mp4`)
       const remoteFileDuration = await getVideoDurationFFprobe(url)
@@ -255,7 +255,7 @@ export async function concatPartialVideos(id: string, onComplete: any, onError: 
 
     try{
       RNFetchBlob.fs.unlink(inputFolder)
-      onComplete(); 
+      onComplete(args); 
     } catch (e) {
       onError()
       // TODO : Enhancement: can view what are the logs, identify error string, trigger on error. Right now technically will not have errors
