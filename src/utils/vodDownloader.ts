@@ -12,20 +12,7 @@ async function ffmpegDownload(outputPath: string, ffmpegCommand: string ,url: st
 
 
   const handleComplete = async (session: FFmpegSession) => {
-    try{
-      const outputFileDuration = await getVideoDuration(outputPath)
-      const remoteFileDuration = await getVideoDurationFFprobe(url)
-  
-      if (outputFileDuration.valueOf() < (remoteFileDuration * 0.9)){
-          onError()
-          console.debug('Error: output file duration has too much error from original')
-      }
-    } catch (e) {
-      console.error(e)
-      console.error("Error reading video duration.. skipping check for completeness")
-    }
-
-
+    
     // console.log(`Download complete. File at ${outputFilePath}`)
     const isOnline = (await fetch()).isConnected && (await fetch()).isInternetReachable
     try{
@@ -89,7 +76,23 @@ export async function downloadVod(id: string, url: string, onProgress: (progress
   const outputFilePath = `${RNFetchBlob.fs.dirs.DocumentDir}/SavedVideos/${id}.mp4`
   const ffmpegScript = `-i ${url} -acodec copy -bsf:a aac_adtstoasc -vcodec copy ${outputFilePath}`
 
-  ffmpegDownload(outputFilePath, ffmpegScript, url, onProgress, onComplete, onError, onSessionCreated)
+  const handleOnComplete = async () => {
+    try{
+      const outputFileDuration = await getVideoDuration(outputFilePath)
+      const remoteFileDuration = await getVideoDurationFFprobe(url)
+  
+      if (outputFileDuration.valueOf() < (remoteFileDuration * 0.9)){
+          onError()
+          console.debug('Error: output file duration has too much error from original')
+      }
+    } catch (e) {
+      console.error(e)
+      console.error("Error reading video duration.. skipping check for completeness")
+    }
+    onComplete();
+  }
+
+  ffmpegDownload(outputFilePath, ffmpegScript, url, onProgress, handleOnComplete, onError, onSessionCreated)
   
 }
 
@@ -186,7 +189,7 @@ export async function resumeDownloadVod(id: string, url:string, onProgress: any,
 
 }
 
-export async function concatPartialVideos(id: string, onComplete: any, onError: any,) {
+export async function concatPartialVideos(id: string, onComplete: any, onError: any, url: string) {
   const inputFolder = `${RNFetchBlob.fs.dirs.DocumentDir}/PartialDownload/${id}`
   if (!(await RNFetchBlob.fs.exists(inputFolder))){
     // partial downloads for this video does not exist.. 
@@ -236,6 +239,20 @@ export async function concatPartialVideos(id: string, onComplete: any, onError: 
   await RNFetchBlob.fs.mkdir(outputFolder).catch(err => {})
 
   const handleComplete = async () => {
+    try{
+      const outputFileDuration = await getVideoDuration(`${outputFolder}/${id}.mp4`)
+      const remoteFileDuration = await getVideoDurationFFprobe(url)
+  
+      if (outputFileDuration.valueOf() < (remoteFileDuration * 0.9)){
+          onError()
+          console.debug('Error: output file duration has too much error from original')
+      }
+    } catch (e) {
+      console.error(e)
+      console.error("Error reading video duration.. skipping check for completeness")
+    }
+
+
     try{
       RNFetchBlob.fs.unlink(inputFolder)
       onComplete(); 

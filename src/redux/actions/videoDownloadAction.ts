@@ -446,6 +446,9 @@ function resumeVideoDownloadThunk(
 
     dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {status:DownloadStatus.DOWNLOADING}))
 
+    const isAdult = initialState.downloads.find(x => x.vod.vod_id === vod.vod_id)?.vodIsAdult
+    const url = getUrlOfVod(vod, vodSourceId, vodUrlNid, isAdult)
+
     const throttledUpdate = throttle((percentage) => {
       const currentState = getState().downloadVideoReducer.downloads.find(x => x.vod.vod_id === vod.vod_id)?.episodes.find(x => x.vodSourceId === vodSourceId && x.vodUrlNid === vodUrlNid)
       if (currentState?.status === DownloadStatus.DOWNLOADING){
@@ -519,7 +522,8 @@ function resumeVideoDownloadThunk(
           }))
           onDownloadEnd()          
         }, 
-        handleError
+        handleError, 
+        url
       )
     }
 
@@ -537,9 +541,6 @@ function resumeVideoDownloadThunk(
         dispatch(updateVideoDownload(vod, vodSourceId, vodUrlNid, {ffmpegSession: session.getSessionId()}))
       }
     }
-
-    const isAdult = initialState.downloads.find(x => x.vod.vod_id === vod.vod_id)?.vodIsAdult
-    const url = getUrlOfVod(vod, vodSourceId, vodUrlNid, isAdult)
 
     if (!url) return  
     if (initialState.currentDownloading.length >= MAX_CONCURRENT_VIDEO_DOWNLOAD) return; 
