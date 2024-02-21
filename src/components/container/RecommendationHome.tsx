@@ -23,7 +23,7 @@ import {
 // import FastImage from "react-native-fast-image";
 import FastImage from "../common/customFastImage"
 import { VodReducerState } from "@redux/reducers/vodReducer";
-import { useAppDispatch, useAppSelector } from "@hooks/hooks";
+import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
 import { RootState } from "@redux/store";
 import VodHistoryList from "../vod/vodHistoryList";
 import VodLiveStationList from "../vod/vodLiveStationList";
@@ -47,6 +47,8 @@ import UmengAnalytics from "../../../Umeng/UmengAnalytics";
 import { AdsApi } from "../../api/ads";
 import DeviceInfo from "react-native-device-info";
 import { VipPromotionOverlay } from "../modal/vipPromotionOverlay";
+import { UserStateType } from "@redux/reducers/userReducer";
+import { User } from "@models/user";
 
 interface NavType {
   id: number;
@@ -91,7 +93,8 @@ const RecommendationHome = ({
   // const {width, height} = Dimensions.get('window');
   const [width, setWidth] = useState(Dimensions.get("window").width);
   const [imgRatio, setImgRatio] = useState(1.883);
-  const isVip = useAppSelector(({ userReducer }) => !(Number(userReducer.userMemberExpired) <= Number(userReducer.userCurrentTimestamp) || userReducer.userToken === ""))
+  const userState = useSelector<UserStateType>('userReducer');
+  const isVip = User.isVip(userState.user);
   useEffect(() => {
     setWidth(Number(Dimensions.get("window").width));
 

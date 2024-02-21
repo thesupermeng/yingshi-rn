@@ -772,8 +772,10 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   useFocusEffect(
     useCallback(() => {
       setDismountPlayer(false);
+      videoPlayerRef.current?.setPause(false)
       return () => {
         // setDismountPlayer(true);
+        videoPlayerRef.current?.setPause(true)
         if (
           vodSources &&
           //START HERE, SAVE POINT

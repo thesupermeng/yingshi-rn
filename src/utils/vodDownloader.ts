@@ -12,12 +12,17 @@ async function ffmpegDownload(outputPath: string, ffmpegCommand: string ,url: st
 
 
   const handleComplete = async (session: FFmpegSession) => {
-    const outputFileDuration = await getVideoDuration(outputPath)
-    const remoteFileDuration = await getVideoDuration(url)
-
-    if (outputFileDuration.valueOf() < (remoteFileDuration.valueOf() * 0.9)){
-        onError()
-        console.debug('Error: output file duration has too much error from original')
+    try{
+      const outputFileDuration = await getVideoDuration(outputPath)
+      const remoteFileDuration = await getVideoDurationFFprobe(url)
+  
+      if (outputFileDuration.valueOf() < (remoteFileDuration * 0.9)){
+          onError()
+          console.debug('Error: output file duration has too much error from original')
+      }
+    } catch (e) {
+      console.error(e)
+      console.error("Error reading video duration.. skipping check for completeness")
     }
 
 
@@ -247,4 +252,9 @@ export async function concatPartialVideos(id: string, onComplete: any, onError: 
     () => {}, //* onLog, if wan do error checking probably is here
     () => {} //* onStat, probably no use.. 
   )
+}
+
+async function getVideoDurationFFprobe(url: string) {
+  const command = `-i ${url} -show_entries format=duration -v quiet -of csv="p=0"`; 
+  return +(await (await FFprobeKit.execute(command)).getOutput())
 }

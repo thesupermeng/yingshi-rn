@@ -21,9 +21,11 @@ import { CEndpoint } from "@constants";
 import { YSConfig } from "../../../../ysConfig";
 import { BannerContainer } from "../../../components/container/bannerContainer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useAppSelector } from "@hooks/hooks";
+import { useAppSelector, useSelector } from "@hooks/hooks";
 import UmengAnalytics from "../../../../Umeng/UmengAnalytics";
 import { AdsApi } from "../../../api/ads";
+import { UserStateType } from "@redux/reducers/userReducer";
+import { User } from "@models/user";
 
 interface Props {
   matchTypeID: number;
@@ -60,7 +62,8 @@ const MatchScheduleList = ({
   const [showLoading, setShowLoading] = useState(false);
   const [showLoading2, setShowLoading2] = useState(false);
   const [bannerAd, setBannerAd] = useState<BannerAdType>();
-  const isVip = useAppSelector(({ userReducer }) => !(Number(userReducer.userMemberExpired) <= Number(userReducer.userCurrentTimestamp) || userReducer.userToken === ""))
+  const userState = useSelector<UserStateType>('userReducer');
+  const isVip = User.isVip(userState.user);
 
 
   const [matches, setMatches] = useState<Matches>({
