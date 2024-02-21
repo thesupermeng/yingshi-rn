@@ -22,4 +22,5 @@ export interface screenModel {
   showAdultVipPrivilegeMiniVideo: boolean;
   showPromotionDialog: boolean;
   showGuestPurchaseSuccess: boolean;
+  showPurchasePending: boolean;
 }

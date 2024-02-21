@@ -333,7 +333,6 @@ const MatchDetails = ({ navigation, route }: BottomTabScreenProps<any>) => {
 
   const fetchBannerAd = async () => {
     const banner = await AdsApi.getBannerAd(111);
-
     if (banner) {
       setBannerAd(banner);
     } else {
@@ -450,7 +449,7 @@ const MatchDetails = ({ navigation, route }: BottomTabScreenProps<any>) => {
           videoRef.current?.setPause(true);
         }} />
 
-        {/* {bannerAd && (
+        {bannerAd &&  !User.isVip(userState.user) && (
           <View style={{
             // paddingLeft: spacing.sideOffset,
             // paddingRight: spacing.sideOffset,
@@ -461,16 +460,24 @@ const MatchDetails = ({ navigation, route }: BottomTabScreenProps<any>) => {
               onMount={() => {
                 UmengAnalytics.videoPlayerBannerViewAnalytics({
                   playerType: 'sport',
+                  ads_slot_id: bannerAd.ads_slot_id,
+                  ads_id: bannerAd.ads_id,
+                  ads_title: bannerAd.ads_title,
+                  ads_name: bannerAd.ads_name,
                 });
               }}
               onPress={() => {
                 UmengAnalytics.videoPlayerBannerClickAnalytics({
                   playerType: 'sport',
+                  ads_slot_id: bannerAd.ads_slot_id,
+                  ads_id: bannerAd.ads_id,
+                  ads_title: bannerAd.ads_title,
+                  ads_name: bannerAd.ads_name,
                 });
               }}
             />
           </View>
-        )} */}
+        )}
 
         {settingsReducer.appOrientation === 'PORTRAIT' && ((isNavVisible &&
           isFullyLoaded && tabList.length > 0) ? (

@@ -36,7 +36,7 @@ import {
   UMENG_CHANNEL,
   VIP_PROMOTION_COUNTDOWN_MINUTE,
 } from "@utility/constants";
-import { setEventSplashLastPageViewTime, setShowEventSplash, setShowGuestPurchaseSuccess, setShowPromotionDialog, showLoginAction } from "@redux/actions/screenAction";
+import { setEventSplashLastPageViewTime, setShowEventSplash, setShowGuestPurchaseSuccess, setShowPromotionDialog, setShowPurchasePending, showLoginAction } from "@redux/actions/screenAction";
 import { ProductApi, UserApi } from "@api";
 import WebView from "react-native-webview";
 import { YSConfig } from "../../../ysConfig";
@@ -362,6 +362,15 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   }, [membershipSelected]);
 
   const handlePurchase = async () => {
+ 
+    // dispatch(setShowPurchasePending(true));
+    // navigation.goBack()
+    // return;
+    // if(!isBtnEnable)
+    // {
+
+    //   return;
+    // }
     setIsBtnEnable(false);
     try {
       setIsVisible(true);
@@ -499,6 +508,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     console.log("order status: ", result);
 
     if (result.transaction_status_string === "COMPLETED") {
+      handleRefresh();
       if (userState.user?.isLogin()) {
         setDialogText(successDialogText);
         setIsDialogOpen(true);
@@ -518,6 +528,8 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
       clearTimeout(pendingTimeoutRef.current);
     } else {
       console.log("order still in progress");
+     dispatch(setShowPurchasePending(true));
+      navigation.goBack()
     }
   };
 

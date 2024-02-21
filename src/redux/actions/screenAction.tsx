@@ -158,5 +158,10 @@ export const setShowGuestPurchaseSuccess = (action: any) => ({
   payload: action,
 });
 
+export const setShowPurchasePending = (action: any) => ({
+  type: "set_show_purchase_pending",
+  payload: action,
+});
+
 
 
