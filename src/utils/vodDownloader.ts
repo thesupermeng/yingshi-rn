@@ -83,13 +83,16 @@ export async function downloadVod(id: string, url: string, onProgress: (progress
   
       if (outputFileDuration.valueOf() < (remoteFileDuration * 0.9)){
           onError()
-          console.debug('Error: output file duration has too much error from original')
+          console.error('Error: output file duration has too much error from original')
+      } else {
+        onComplete(args);
       }
     } catch (e) {
+      onError()
       console.error(e)
       console.error("Error reading video duration.. skipping check for completeness")
     }
-    onComplete(args);
+    
   }
 
   ffmpegDownload(outputFilePath, ffmpegScript, url, onProgress, handleOnComplete, onError, onSessionCreated)
@@ -245,20 +248,20 @@ export async function concatPartialVideos(id: string, onComplete: any, onError: 
   
       if (outputFileDuration.valueOf() < (remoteFileDuration * 0.9)){
           onError()
-          console.debug('Error: output file duration has too much error from original')
+          console.error('Error: output file duration has too much error from original')
+      } else {
+        try{
+          RNFetchBlob.fs.unlink(inputFolder)
+          onComplete(args); 
+        } catch (e) {
+          onError()
+          // TODO : Enhancement: can view what are the logs, identify error string, trigger on error. Right now technically will not have errors
+        }
       }
     } catch (e) {
+      onError()
       console.error(e)
       console.error("Error reading video duration.. skipping check for completeness")
-    }
-
-
-    try{
-      RNFetchBlob.fs.unlink(inputFolder)
-      onComplete(args); 
-    } catch (e) {
-      onError()
-      // TODO : Enhancement: can view what are the logs, identify error string, trigger on error. Right now technically will not have errors
     }
     
   }
