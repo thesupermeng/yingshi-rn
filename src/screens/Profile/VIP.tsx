@@ -499,6 +499,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     console.log("order status: ", result);
 
     if (result.transaction_status_string === "COMPLETED") {
+      handleRefresh();
       if (userState.user?.isLogin()) {
         setDialogText(successDialogText);
         setIsDialogOpen(true);
