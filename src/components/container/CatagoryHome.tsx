@@ -22,7 +22,7 @@ import {
 // import FastImage from 'react-native-fast-image';
 import FastImage from "../common/customFastImage";
 import { VodReducerState } from '@redux/reducers/vodReducer';
-import { useAppDispatch, useAppSelector } from '@hooks/hooks';
+import { useAppDispatch, useAppSelector, useSelector } from '@hooks/hooks';
 import { RootState } from '@redux/store';
 import VodHistoryList from '../vod/vodHistoryList';
 import VodLiveStationList from '../vod/vodLiveStationList';
@@ -55,6 +55,8 @@ import { BannerContainer } from './bannerContainer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import UmengAnalytics from '../../../Umeng/UmengAnalytics';
 import { AdsApi } from '../../api/ads';
+import { User } from '@models/user';
+import { UserStateType } from '@redux/reducers/userReducer';
 // import {FlatList, PanGestureHandler} from 'react-native-gesture-handler';
 
 interface NavType {
@@ -84,7 +86,8 @@ const CatagoryHome = ({
   handleRejectEighteenPlus,
   isTabFocus = false,
 }: Props) => {
-  const isVip = useAppSelector(({ userReducer }) => !(Number(userReducer.userMemberExpired) <= Number(userReducer.userCurrentTimestamp) || userReducer.userToken === ""))
+  const userState = useSelector<UserStateType>('userReducer');
+  const isVip = User.isVip(userState.user);
 
   const { colors, textVariants, spacing } = useTheme();
   const dispatch = useAppDispatch();

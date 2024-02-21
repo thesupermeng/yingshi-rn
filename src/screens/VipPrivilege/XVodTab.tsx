@@ -8,11 +8,13 @@ import { useQueries, useQuery } from "@tanstack/react-query";
 import { acceptOverEighteen } from "@redux/actions/screenAction";
 import EighteenPlusOverlay from "../../components/modal/overEighteenOverlay";
 import { useNavigation, useTheme } from "@react-navigation/native";
-import { useAppDispatch, useAppSelector } from "@hooks/hooks";
+import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
 import ShowMoreVodButton from "../../components/button/showMoreVodButton";
 import VodListVerticalVip from "./vodListVerticalVip";
 import FastImage from "../../components/common/customFastImage";
 import { AppsApi } from "@api";
+import { User } from "@models/user";
+import { UserStateType } from "@redux/reducers/userReducer";
 interface Props {
   handleRejectEighteenPlus: any;
 }
@@ -24,7 +26,8 @@ export default function XVodTab({
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const [showLoading, setShowLoading] = useState(false);
-  const isVip = useAppSelector(({ userReducer }) => !(Number(userReducer.userMemberExpired) <= Number(userReducer.userCurrentTimestamp) || userReducer.userToken === ""))
+  const userState = useSelector<UserStateType>('userReducer');
+  const isVip = User.isVip(userState.user);
 
   const listItem = useCallback(
     ({ item, index }: { item: VodData; index: number }) => {
