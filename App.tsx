@@ -63,6 +63,9 @@ warnIgnore([
   '`new NativeEventEmitter()` was called with a non-null argument without the required',
   `ReactImageView: Image source "null" doesn't exist`,
   'StatusBar._updatePropsStack',
+  'ATBanner',
+  'ATInterstitial',
+  'source.uri should not be an empty string',
 ]);
 
 logIgnore([
@@ -265,10 +268,6 @@ let App = () => {
     // initInterstitialAdListener();
   }
 
-  console.log("YSConfig.instance.areaConfig");
-
-  console.log(YSConfig.instance.areaConfig);
-
   // re geng
   const [showRegengOverlay, setShowRegengOverlay] = useState(false);
   useEffect(() => {
@@ -304,15 +303,9 @@ let App = () => {
     YSConfig.instance.setUpdateUrl(response.data.update_res.update_url);
     YSConfig.instance.setUpdateDesc(response.data.update_res.update_desc);
 
-    console.log("ADAAAGGG");
-    console.log(YSConfig.instance.updateAction);
     if (v2 > v1 && updateType != 0) {
-      console.log("??");
       CodePush.checkForUpdate().then((update) => {
-        // console.log("----+---");
-        // console.log(update);
         if (update) {
-          //  console.log(update + "AZZZZ?!");
           if (updateType == 1 || updateType == 2) {
             setShowRegengOverlay(true);
           }
@@ -322,7 +315,6 @@ let App = () => {
             });
           }
         } else {
-          console.log("EHH?");
         }
       });
     }
