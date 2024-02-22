@@ -12,7 +12,7 @@ type CProps = {
 };
 
 export default function VipGuideModal({onClose}: CProps) {
-  const runFunc = () => {
+  const closeModal = () => {
     onClose(false);
   };
 
@@ -56,7 +56,9 @@ export default function VipGuideModal({onClose}: CProps) {
         <View style={{height: 10}} />
         <View>
           <View style={{alignSelf: 'center'}}>
-            <Text style={[styles.confirmText]}>我知道了</Text>
+            <Text style={[styles.confirmText]} onPress={() => closeModal()}>
+              我知道了
+            </Text>
           </View>
         </View>
       </View>
