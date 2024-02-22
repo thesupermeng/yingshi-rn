@@ -1,4 +1,4 @@
-import { useFocusEffect, useTheme } from '@react-navigation/native';
+import {useFocusEffect, useTheme} from '@react-navigation/native';
 import React, {
   forwardRef,
   useCallback,
@@ -8,19 +8,29 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { FlatList, NativeScrollEvent, NativeSyntheticEvent, RefreshControl, StyleSheet, View } from 'react-native';
+import {
+  FlatList,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  RefreshControl,
+  StyleSheet,
+  View,
+} from 'react-native';
 import ShortVod from './shortVod';
-import { MiniVideo } from '@type/ajaxTypes';
+import {MiniVideo} from '@type/ajaxTypes';
 import FastImage from '../../common/customFastImage';
 
-import { useAppDispatch, useAppSelector, useSelector } from '@hooks/hooks';
+import {useAppDispatch, useAppSelector, useSelector} from '@hooks/hooks';
 import UmengAnalytics from '../../../../Umeng/UmengAnalytics';
-import { showAdultModeVip, showLoginAction } from '@redux/actions/screenAction';
-import { screenModel } from '@type/screenType';
-import { ADULT_MODE_PREVIEW_DURATION, MINI_SHOW_LOGIN_NUMBER } from '@utility/constants';
+import {showAdultModeVip, showLoginAction} from '@redux/actions/screenAction';
+import {screenModel} from '@type/screenType';
+import {
+  ADULT_MODE_PREVIEW_DURATION,
+  MINI_SHOW_LOGIN_NUMBER,
+} from '@utility/constants';
 import ShortAds from './shortAds';
-import { UserStateType } from '@redux/reducers/userReducer';
-import { User } from '@models/user';
+import {UserStateType} from '@redux/reducers/userReducer';
+import {User} from '@models/user';
 
 interface Props {
   miniVodListRef: any;
@@ -36,8 +46,8 @@ interface Props {
   handleRefreshMiniVod?: any;
   isRefreshing: boolean;
   isPressTabScroll: boolean;
-  isFocusLogin: React.MutableRefObject<boolean>,
-  onPressAds: () => void,
+  isFocusLogin: React.MutableRefObject<boolean>;
+  onPressAds: () => void;
 }
 
 type MiniVodRef = {
@@ -66,7 +76,7 @@ export default forwardRef<MiniVodRef, Props>(
     }: Props,
     ref,
   ) => {
-    const { spacing } = useTheme();
+    const {spacing} = useTheme();
 
     const [isInitFetching, setInitFetching] = useState(true);
     const [displayHeight, setDisplayHeight] = useState<number>(0);
@@ -83,7 +93,7 @@ export default forwardRef<MiniVodRef, Props>(
     const [curAnalyticsIndex, setCurAnalyticsIndex] = useState(0);
 
     const screenState: screenModel = useAppSelector(
-      ({ screenReducer }) => screenReducer,
+      ({screenReducer}) => screenReducer,
     );
     const userState = useSelector<UserStateType>('userReducer');
     const swipeCount = useRef(0);
@@ -196,8 +206,22 @@ export default forwardRef<MiniVodRef, Props>(
     }, [videos]);
 
     useEffect(() => {
-      setPause(isFetching || isRefreshing || !isActive || isScrolling || screenState.loginShow || isFocusLogin.current);
-    }, [isFetching, isRefreshing, isActive, isScrolling, screenState.loginShow, isFocusLogin.current]);
+      setPause(
+        isFetching ||
+          isRefreshing ||
+          !isActive ||
+          isScrolling ||
+          screenState.loginShow ||
+          isFocusLogin.current,
+      );
+    }, [
+      isFetching,
+      isRefreshing,
+      isActive,
+      isScrolling,
+      screenState.loginShow,
+      isFocusLogin.current,
+    ]);
 
     const refreshComponent = useCallback(() => {
       return (
@@ -223,50 +247,57 @@ export default forwardRef<MiniVodRef, Props>(
     };
 
     const renderItem = useCallback(
-      ({ item, index }: { item: MiniVideo; index: number }) => {
+      ({item, index}: {item: MiniVideo; index: number}) => {
         let prevPosition = Math.max(0, index - 1);
 
         return (
-          <View style={{ height: displayHeight ? displayHeight : 0 }}>
-            {displayHeight != 0 && (current >= prevPosition && current < index + 2) && (
-              <>
-                {item.is_ads
-                  ? <ShortAds
-                    vod={item}
-                    thumbnail={item.ads_thumbnail}
-                    displayHeight={displayHeight ? displayHeight : 0}
-                    isPause={isPause || current !== index}
-                    onManualPause={current => {
-                      setPause(!current);
-                    }}
-                    isShowVideo={current >= prevPosition && current < index + 2}
-                    currentDuration={videoCurrentDurations[index]}
-                    isActive={isActive}
-                    index={index}
-                    onPressAds={onPressAds}
-                  />
-                  : <ShortVod
-                    vod={item}
-                    thumbnail={item.mini_video_origin_cover}
-                    displayHeight={displayHeight ? displayHeight : 0}
-                    isPause={isPause || current !== index}
-                    onManualPause={current => {
-                      console.log('click pause');
-                      setPause(!current);
-                    }}
-                    isShowVideo={current >= prevPosition && current < index + 2}
-                    // isShowVideo={current === index && !isScrolling && !isPressTabScroll}
-                    currentDuration={videoCurrentDurations[index]}
-                    updateVideoDuration={duration =>
-                      updateVideoDuration(index, duration)
-                    }
-                    isActive={isActive}
-                  />
-                }
-              </>
-            )}
+          <View style={{height: displayHeight ? displayHeight : 0}}>
+            {displayHeight != 0 &&
+              current >= prevPosition &&
+              current < index + 2 && (
+                <>
+                  {item.is_ads ? (
+                    <ShortAds
+                      vod={item}
+                      thumbnail={item.ads_thumbnail}
+                      displayHeight={displayHeight ? displayHeight : 0}
+                      isPause={isPause || current !== index}
+                      onManualPause={current => {
+                        setPause(!current);
+                      }}
+                      isShowVideo={
+                        current >= prevPosition && current < index + 2
+                      }
+                      currentDuration={videoCurrentDurations[index]}
+                      isActive={isActive}
+                      index={index}
+                      onPressAds={onPressAds}
+                    />
+                  ) : (
+                    <ShortVod
+                      vod={item}
+                      thumbnail={item.mini_video_origin_cover}
+                      displayHeight={displayHeight ? displayHeight : 0}
+                      isPause={isPause || current !== index}
+                      onManualPause={current => {
+                        console.log('click pause');
+                        setPause(!current);
+                      }}
+                      isShowVideo={
+                        current >= prevPosition && current < index + 2
+                      }
+                      // isShowVideo={current === index && !isScrolling && !isPressTabScroll}
+                      currentDuration={videoCurrentDurations[index]}
+                      updateVideoDuration={duration =>
+                        updateVideoDuration(index, duration)
+                      }
+                      isActive={isActive}
+                    />
+                  )}
+                </>
+              )}
           </View>
-        )
+        );
       },
       [
         current,
@@ -280,7 +311,7 @@ export default forwardRef<MiniVodRef, Props>(
     );
 
     const onLayoutRender = useCallback((event: any) => {
-      var { height } = event.nativeEvent.layout;
+      var {height} = event.nativeEvent.layout;
       const heightStr: string = height.toFixed(5);
 
       // use substring to prevent rounding
@@ -319,7 +350,7 @@ export default forwardRef<MiniVodRef, Props>(
     }, [current, isFocusLogin.current]);
 
     return (
-      <View style={{ flex: 1 }} onLayout={onLayoutRender}>
+      <View style={{flex: 1}} onLayout={onLayoutRender}>
         {isInitFetching ? (
           <View style={styles.loadingContainer}>
             <FastImage
@@ -345,16 +376,16 @@ export default forwardRef<MiniVodRef, Props>(
             keyExtractor={(item: any, index: any) =>
               item.mini_video_id.toString()
             }
-            viewabilityConfig={{ viewAreaCoveragePercentThreshold: 100 }}
+            viewabilityConfig={{viewAreaCoveragePercentThreshold: 100}}
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
             onEndReached={hanldeOnEndReached}
             onEndReachedThreshold={0.8}
             ListFooterComponent={
-              <View style={{ ...styles.loading, marginBottom: spacing.xl }}>
+              <View style={{...styles.loading, marginBottom: spacing.xl}}>
                 {hasNextPage && (
                   <FastImage
-                    style={{ height: 80, width: 80 }}
+                    style={{height: 80, width: 80}}
                     source={loadingSpinnerGif}
                     resizeMode={'contain'}
                   />

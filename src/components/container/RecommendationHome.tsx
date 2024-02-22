@@ -56,9 +56,8 @@ import {VipPromotionOverlay} from '../modal/vipPromotionOverlay';
 import {UserStateType} from '@redux/reducers/userReducer';
 import {User} from '@models/user';
 import VipGuideModal from '../modal/vipGuide';
-import {ModalBannerContainer} from './modalBannerContainer';
-import { screenModel } from '@type/screenType';
-import { setIsHomeGuideShown } from '@redux/actions/screenAction';
+import {screenModel} from '@type/screenType';
+import {setIsHomeGuideShown} from '@redux/actions/screenAction';
 
 interface NavType {
   id: number;
@@ -115,18 +114,16 @@ const RecommendationHome = ({
   const [vipGuideModal, setVipGuideModal] = useState(false);
 
   const screenState: screenModel = useAppSelector(
-    ({ screenReducer }) => screenReducer,
+    ({screenReducer}) => screenReducer,
   );
 
   useEffect(() => {
-      if(screenState.isHomeGuideShown==false)
-      {
-        setVipGuideModal(true);
-        dispatch(setIsHomeGuideShown(true));
-      }
+    if (screenState.isHomeGuideShown == false) {
+      setVipGuideModal(true);
+      dispatch(setIsHomeGuideShown(true));
+    }
     //  setVipGuideModal(true);
   }, []);
-
 
   useEffect(() => {
     setWidth(Number(Dimensions.get('window').width));
@@ -760,10 +757,8 @@ const styles = StyleSheet.create({
   spotlight: {
     flex: 1,
     zIndex: 99,
-    // ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFillObject,
     backgroundColor: 'rgba(0, 0, 0, 0.8)', // Semi-transparent black
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   spotlightHole: {
     backgroundColor: 'transparent', // Transparent background
