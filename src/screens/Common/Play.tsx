@@ -615,7 +615,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       vod.vod_play_list = vodDetails.vod_play_list;
       vod.vod_play_url = vodDetails.vod_play_url;
       // setVod(vod);
-      dispatch(playVod(vod, currentTimeRef.current, currentEpisode, currentSourceId));
+      dispatch(playVod(vod, undefined, currentEpisode, currentSourceId));
     }
 
     const isRestricted = vodDetails?.vod_restricted === 1;
