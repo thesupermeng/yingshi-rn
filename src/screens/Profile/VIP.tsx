@@ -846,7 +846,10 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                       if (!userState.user?.isLogin() && userState.user?.isVip()) {
                         navigation.goBack();
                       } else {
-                        dispatch(setShowPromotionDialog(true));
+                          if(screenState.isHomeGuideShown==true)
+                          {
+                            dispatch(setShowPromotionDialog(true));
+                          }
                         navigation.goBack();
                       }
                     }}
