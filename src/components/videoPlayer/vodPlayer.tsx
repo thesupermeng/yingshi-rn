@@ -314,6 +314,10 @@ export default forwardRef<VideoRef, Props>(
             lockOrientation("PORTRAIT");
             StatusBar.setHidden(false);
             setIsFullScreen(false);
+
+            if (Platform.OS === "android") {
+              navigation.setOptions({ orientation: "portrait" });
+            }
           } else {
             adVideoRef.current?.setNativeProps({ paused: true })
             videoPlayerRef.current?.setNativeProps({ paused: true })
