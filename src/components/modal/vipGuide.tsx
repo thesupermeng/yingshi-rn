@@ -5,21 +5,15 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
 
 type CProps = {
-  children?: React.ReactNode;
-  isVisible: boolean;
-  onBackdropPress?: () => void;
-  height?: string | number;
-  maxHeight?: string | number;
-  minHeight?: string | number;
-  style?: ViewStyle;
-  backdropColor?: string;
   supportedOrientations?: ('portrait' | 'landscape')[];
-  disabledKeyboardAvoiding?: boolean;
   isLoading?: boolean;
+  onClose: CallableFunction;
 };
 
-export default function VipGuideModal({}: CProps) {
-  const navigator = useNavigation();
+export default function VipGuideModal({onClose}: CProps) {
+  const runFunc = () => {
+    onClose(false);
+  };
 
   return (
     <View style={{paddingHorizontal: 10}}>
@@ -66,6 +60,7 @@ export default function VipGuideModal({}: CProps) {
             // borderColor: 'grey',
           }}> */}
       <Text
+        onPress={() => runFunc()}
         style={{
           borderRadius: 30,
           borderWidth: 1,

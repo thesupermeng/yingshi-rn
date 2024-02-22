@@ -110,6 +110,7 @@ const RecommendationHome = ({
     height: 0,
   });
   const componentRef = useRef<View>(null); // Create a ref for the component
+  const [vipGuideModal, setVipGuideModal] = useState(true);
 
   useEffect(() => {
     setWidth(Number(Dimensions.get('window').width));
@@ -520,7 +521,7 @@ const RecommendationHome = ({
                 )}
 
                 {bannerAd && (
-                  <Modal visible={true} transparent={true}>
+                  <Modal visible={vipGuideModal} transparent={true}>
                     <View style={{flex: 1, backgroundColor: 'rgba(0,0,0,0.8)'}}>
                       <View
                         style={{
@@ -537,7 +538,9 @@ const RecommendationHome = ({
                           }}>
                           {renderBanner(bannerAd)}
                         </View>
-                        <VipGuideModal isVisible={true} />
+                        <VipGuideModal
+                          onClose={(value: boolean) => setVipGuideModal(value)}
+                        />
                       </View>
                     </View>
                   </Modal>
