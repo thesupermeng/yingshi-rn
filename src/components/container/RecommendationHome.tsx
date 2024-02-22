@@ -9,6 +9,8 @@ import {
   Dimensions,
   FlatList,
   Linking,
+  Animated,
+  Modal,
 } from 'react-native';
 // import {FlatList, PanGestureHandler} from 'react-native-gesture-handler';
 import {
@@ -54,6 +56,7 @@ import {VipPromotionOverlay} from '../modal/vipPromotionOverlay';
 import {UserStateType} from '@redux/reducers/userReducer';
 import {User} from '@models/user';
 import VipGuideModal from '../modal/vipGuide';
+import {ModalBannerContainer} from './modalBannerContainer';
 
 interface NavType {
   id: number;
@@ -100,6 +103,14 @@ const RecommendationHome = ({
   const [imgRatio, setImgRatio] = useState(1.883);
   const userState = useSelector<UserStateType>('userReducer');
   const isVip = User.isVip(userState.user);
+  const [refPosition, setRefPosition] = useState({
+    x: 0,
+    y: 0,
+    width: 0,
+    height: 0,
+  });
+  const componentRef = useRef<View>(null); // Create a ref for the component
+
   useEffect(() => {
     setWidth(Number(Dimensions.get('window').width));
 
@@ -408,15 +419,18 @@ const RecommendationHome = ({
     </View>
   );
 
-  const componentRef = useRef<View>(null); // Create a ref for the component
-
   useEffect(() => {
-    if (componentRef.current) {
+    getPosition();
+  }, []);
+
+  const getPosition = () => {
+    if (componentRef.current != null) {
       componentRef.current.measure((x, y, width, height, pageX, pageY) => {
         console.log('Position:', {x, y, width, height, pageX, pageY});
+        setRefPosition({x: pageX, y: pageY, width: width, height: height});
       });
     }
-  }, [componentRef]);
+  };
 
   // const [showBecomeVIPOverlay, setShowBecomeVIPOverlay] = useState(true);
   // const renderOverlay = () => {
@@ -430,18 +444,6 @@ const RecommendationHome = ({
 
   return (
     <View style={{width: width}}>
-      <VipGuideModal isVisible={true} />
-      {/* {showBecomeVIPOverlay && (
-        <View
-          style={{
-            height: '100%',
-            width: '100%',
-            position: 'absolute',
-            zIndex: 10000,
-          }}>
-          {renderOverlay()}
-        </View>
-      )} */}
       {data?.live_station_list && data?.live_station_list.length > 0 && (
         <FlatList
           refreshControl={
@@ -518,7 +520,32 @@ const RecommendationHome = ({
                 )}
 
                 {bannerAd && (
+                  <Modal visible={true} transparent={true}>
+                    <View style={{flex: 1, backgroundColor: 'rgba(0,0,0,0.8)'}}>
+                      <View
+                        style={{
+                          position: 'absolute',
+                          bottom: refPosition.x,
+                          top: refPosition.y,
+                          width: refPosition.width,
+                          height: refPosition.height,
+                        }}>
+                        <View
+                          style={{
+                            paddingLeft: spacing.sideOffset,
+                            paddingRight: spacing.sideOffset,
+                          }}>
+                          {renderBanner(bannerAd)}
+                        </View>
+                        <VipGuideModal isVisible={true} />
+                      </View>
+                    </View>
+                  </Modal>
+                )}
+
+                {bannerAd && (
                   <View
+                    onLayout={() => getPosition()}
                     ref={componentRef}
                     style={{
                       paddingLeft: spacing.sideOffset,
@@ -710,5 +737,21 @@ const styles = StyleSheet.create({
     // width: '15%',
     maxWidth: '15%',
     objectFix: 'contain',
+  },
+  spotlight: {
+    flex: 1,
+    zIndex: 99,
+    // ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0, 0, 0, 0.8)', // Semi-transparent black
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  spotlightHole: {
+    backgroundColor: 'transparent', // Transparent background
+    width: 50,
+    height: 50,
+    borderWidth: 1,
+    borderColor: '#FFF', // White border
+    transform: [{scale: 5}], // Adjust scale as needed
   },
 });
