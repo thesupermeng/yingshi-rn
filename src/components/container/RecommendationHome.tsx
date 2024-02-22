@@ -57,6 +57,8 @@ import {UserStateType} from '@redux/reducers/userReducer';
 import {User} from '@models/user';
 import VipGuideModal from '../modal/vipGuide';
 import {ModalBannerContainer} from './modalBannerContainer';
+import { screenModel } from '@type/screenType';
+import { setIsHomeGuideShown } from '@redux/actions/screenAction';
 
 interface NavType {
   id: number;
@@ -110,7 +112,21 @@ const RecommendationHome = ({
     height: 0,
   });
   const componentRef = useRef<View>(null); // Create a ref for the component
-  const [vipGuideModal, setVipGuideModal] = useState(true);
+  const [vipGuideModal, setVipGuideModal] = useState(false);
+
+  const screenState: screenModel = useAppSelector(
+    ({ screenReducer }) => screenReducer,
+  );
+
+  useEffect(() => {
+      if(screenState.isHomeGuideShown==false)
+      {
+        setVipGuideModal(true);
+        dispatch(setIsHomeGuideShown(true));
+      }
+    //  setVipGuideModal(true);
+  }, []);
+
 
   useEffect(() => {
     setWidth(Number(Dimensions.get('window').width));

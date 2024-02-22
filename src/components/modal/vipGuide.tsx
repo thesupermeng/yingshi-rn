@@ -1,7 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
 import {Image, StyleSheet, ViewStyle} from 'react-native';
 import {View, Text} from 'react-native';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {TouchableOpacity} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {Colors} from '../../Sports/global/colors';
 
@@ -15,6 +15,8 @@ export default function VipGuideModal({onClose}: CProps) {
   const closeModal = () => {
     onClose(false);
   };
+
+  const navigator = useNavigation();
 
   return (
     <View style={{paddingHorizontal: 10}}>
@@ -34,7 +36,11 @@ export default function VipGuideModal({onClose}: CProps) {
             <Text style={[styles.goldText]}>{`纯净观看`}</Text>
           </Text>
           <View style={{paddingHorizontal: 10, width: '100%', paddingTop: 10}}>
-            <TouchableOpacity onPress={() => {}}>
+            <TouchableOpacity onPress={() => {
+  navigator.navigate("付费VIP");
+closeModal()
+
+            }}>
               <LinearGradient
                 colors={['#D1AC7D', '#B1885F']}
                 locations={[0.0, 0.99]}
