@@ -42,6 +42,7 @@ import NetInfo from "@react-native-community/netinfo";
 import { AppsApi, PlaylistApi, VodApi } from "@api";
 import { CustomEventAnalytic } from "./Umeng/EventAnalytic";
 import { logIgnore, warnIgnore } from "@utility/helper";
+import appsFlyer from "react-native-appsflyer";
 
 const topon_channel = "WEB";
 
@@ -76,37 +77,37 @@ logIgnore([
 
 let App = () => {
   CodePush.notifyAppReady();
-  // appsFlyer.initSdk(
-  //   {
-  //     devKey: APPSFLYER_DEVKEY,
-  //     isDebug: false,
-  //     //appId: '41*****44',
-  //     onInstallConversionDataListener: true,
-  //     onDeepLinkListener: true,
-  //     timeToWaitForATTUserAuthorization: 10,
-  //   },
-  //   result => {
-  //     // console.log(result);
-  //     const eventName = 'open_app';
-  //     const eventValues = {
-  //       ip: '1',
-  //     };
+  appsFlyer.initSdk(
+    {
+      devKey: 'wrxTHihLJNWrrusXtgRJZa',
+      isDebug: false,
+      //appId: '41*****44', IOS only.. need get from ap store
+      onInstallConversionDataListener: true,
+      onDeepLinkListener: true,
+      timeToWaitForATTUserAuthorization: 10,
+    },
+    result => {
+      // console.log(result);
+      const eventName = 'open_app';
+      const eventValues = {
+        ip: YSConfig.instance.ip,
+      };
 
-  //     appsFlyer.logEvent(
-  //       eventName,
-  //       eventValues,
-  //       res => {
-  //         // console.log(res);
-  //       },
-  //       err => {
-  //         console.error(err);
-  //       },
-  //     );
-  //   },
-  //   error => {
-  //     console.error(error);
-  //   },
-  // );
+      appsFlyer.logEvent(
+        eventName,
+        eventValues,
+        res => {
+          // console.log(res);
+        },
+        err => {
+          console.error(err);
+        },
+      );
+    },
+    error => {
+      console.error(error);
+    },
+  );
 
   const queryClient = new QueryClient({
     defaultOptions: {
