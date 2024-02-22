@@ -164,4 +164,34 @@ export const setShowPurchasePending = (action: any) => ({
 });
 
 
+// 1
+export const setIsHomeGuideShown = (action: any) => ({
+  type: "set_is_home_guide_shown",
+  payload: action,
+});
+
+// 2
+export const setIsMiniVodGuideShown = (action: any) => ({
+  type: "set_is_mini_vod_guide_shown",
+  payload: action,
+});
+
+// 3
+export const setIsPlayGuideShown = (action: any) => ({
+  type: "set_is_play_guide_shown",
+  payload: action,
+});
+
+// 4
+export const setIsPlayGuideShown2 = (action: any) => ({
+  type: "set_is_play_guide_shown_2",
+  payload: action,
+});
+
+// 5
+export const setIsSportGuideShown = (action: any) => ({
+  type: "set_is_sport_guide_shown",
+  payload: action,
+});
+
 
