@@ -109,7 +109,7 @@ export default function VipPromotionModal({
                         }}>
                         <View
                           style={{
-                            backgroundColor: '#F4DBBA',
+                            backgroundColor: '#FA3E3E',
                             borderRadius: 6,
                             justifyContent: 'center',
                             alignItems: 'center',
@@ -125,7 +125,7 @@ export default function VipPromotionModal({
 
                         </View>
                         {i % 2 === 1 && i < remainingTimeAry.length - 1 && (
-                          <Text style={{ ...styles.countdownText, padding: 1, color: '#F4DBBA' }}>
+                          <Text style={{ ...styles.countdownText, padding: 1, color: '#FA3E3E' }}>
                             :
                           </Text>
                         )}
@@ -140,7 +140,7 @@ export default function VipPromotionModal({
               <Text style={styles.contentText2}>
                 限时优惠
                 <Text style={{ ...styles.contentText2, color: '#FAC33D' }}>{VIP_PROMOTION_PURCHASE_MAX / 10000}万</Text>名额，已有
-                <Text style={{ ...styles.contentText2, color: '#FAC33D' }}>{backgroundState.vipPromotionPurchaseNum}人</Text>购买
+                <Text style={{ ...styles.contentText2, color: '#FA3E3E' }}>{backgroundState.vipPromotionPurchaseNum}人</Text>购买
               </Text>
             </View>
 
@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
   countdownText: {
     textAlign: "center",
     textAlignVertical: 'center',
-    color: '#1D2023',
+    color: '#FFF',
     fontSize: 14,
     fontFamily: 'Archivo-Regular',
     fontWeight: '800',

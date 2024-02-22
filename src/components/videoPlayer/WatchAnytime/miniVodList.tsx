@@ -21,6 +21,7 @@ import { ADULT_MODE_PREVIEW_DURATION, MINI_SHOW_LOGIN_NUMBER } from '@utility/co
 import ShortAds from './shortAds';
 import { UserStateType } from '@redux/reducers/userReducer';
 import { User } from '@models/user';
+import { AdultVipPrivilegeOverlay } from './../../modal/adultVipPrivilegeOverlay';
 
 interface Props {
   miniVodListRef: any;
@@ -66,6 +67,9 @@ export default forwardRef<MiniVodRef, Props>(
     }: Props,
     ref,
   ) => {
+
+    const [showAdultVIPOverlay, setShowAdultVIPOverlay] = useState(false);
+
     const { spacing } = useTheme();
 
     const [isInitFetching, setInitFetching] = useState(true);
@@ -107,6 +111,12 @@ export default forwardRef<MiniVodRef, Props>(
         setPause(true);
       }
     }, [videoCurrentDurations[current], isPause]);
+
+    useEffect(() => {
+      if(current > 0 && current % 4 == 0 && !isVip && adultMode){
+        setShowAdultVIPOverlay(true);
+      }
+    }, [current]);
 
     useEffect(() => {
       if (adultModeDisclaimerShow || adultModeVipShow) {
@@ -156,7 +166,7 @@ export default forwardRef<MiniVodRef, Props>(
     }, [collectionPartialVideos]);
 
     useEffect(() => {
-      if (current > curAnalyticsIndex) {
+      if (current > curAnalyticsIndex && current < collectionPartialVideos.length) {
         setCurAnalyticsIndex(current);
 
         UmengAnalytics.watchAnytimeVideoViewTimesAnalytics({
@@ -225,7 +235,6 @@ export default forwardRef<MiniVodRef, Props>(
     const renderItem = useCallback(
       ({ item, index }: { item: MiniVideo; index: number }) => {
         let prevPosition = Math.max(0, index - 1);
-
         return (
           <View style={{ height: displayHeight ? displayHeight : 0 }}>
             {displayHeight != 0 && (current >= prevPosition && current < index + 2) && (
@@ -290,6 +299,9 @@ export default forwardRef<MiniVodRef, Props>(
     }, []);
 
     const hanldeOnEndReached = useCallback(() => {
+      if(!isVip ){
+        dispatch(showLoginAction());
+      }
       if (hasNextPage && !isFetchingNextPage && !isFetching) {
         fetchNextPage();
       }
@@ -312,62 +324,75 @@ export default forwardRef<MiniVodRef, Props>(
       if (swipeCount.current < MINI_SHOW_LOGIN_NUMBER) {
         swipeCount.current++;
       } else {
-        isFocusLogin.current = true;
-        dispatch(showLoginAction());
+        // isFocusLogin.current = true;
+        // dispatch(showLoginAction());
         // swipeCount.current = 0;
       }
     }, [current, isFocusLogin.current]);
 
     return (
-      <View style={{ flex: 1 }} onLayout={onLayoutRender}>
-        {isInitFetching ? (
-          <View style={styles.loadingContainer}>
-            <FastImage
-              source={homeLoadingGif}
-              style={styles.homeLoadingImage}
-              resizeMode={'contain'}
-              useFastImage={true}
+      <>
+        <View style={{ flex: 1 }} onLayout={onLayoutRender}>
+          {isInitFetching ? (
+            <View style={styles.loadingContainer}>
+              <FastImage
+                source={homeLoadingGif}
+                style={styles.homeLoadingImage}
+                resizeMode={'contain'}
+                useFastImage={true}
+              />
+            </View>
+          ) : (
+            <FlatList
+              ref={miniVodListRef}
+              data={collectionPartialVideos}
+              initialNumToRender={5}
+              maxToRenderPerBatch={3}
+              windowSize={3}
+              refreshControl={refreshComponent()}
+              renderItem={renderItem}
+              horizontal={false}
+              // isRefreshing will change disable (because if pagingEnabled=true, refresh loading will not working)
+              pagingEnabled={isRefreshing ? false : true}
+              scrollEnabled={isRefreshing ? false : true}
+              keyExtractor={(item: any, index: any) =>
+                item.mini_video_id.toString()
+              }
+              viewabilityConfig={{ viewAreaCoveragePercentThreshold: 100 }}
+              showsHorizontalScrollIndicator={false}
+              showsVerticalScrollIndicator={false}
+              onEndReached={hanldeOnEndReached}
+              onEndReachedThreshold={0.8}
+              ListFooterComponent={
+                isVip ?
+                <View style={{ ...styles.loading, marginBottom: spacing.xl }}>
+                  {hasNextPage && (
+                    <FastImage
+                      style={{ height: 80, width: 80 }}
+                      source={loadingSpinnerGif}
+                      resizeMode={'contain'}
+                    />
+                  )}
+                </View>
+                :
+                <></>
+              }
+              onScroll={handleOnScroll}
+              onScrollBeginDrag={handleOnScrollBeginDrag}
+              onMomentumScrollEnd={handleOnMomentumScrollEnd}
+              scrollsToTop={false}
             />
-          </View>
-        ) : (
-          <FlatList
-            ref={miniVodListRef}
-            data={collectionPartialVideos}
-            initialNumToRender={5}
-            maxToRenderPerBatch={3}
-            windowSize={3}
-            refreshControl={refreshComponent()}
-            renderItem={renderItem}
-            horizontal={false}
-            // isRefreshing will change disable (because if pagingEnabled=true, refresh loading will not working)
-            pagingEnabled={isRefreshing ? false : true}
-            scrollEnabled={isRefreshing ? false : true}
-            keyExtractor={(item: any, index: any) =>
-              item.mini_video_id.toString()
-            }
-            viewabilityConfig={{ viewAreaCoveragePercentThreshold: 100 }}
-            showsHorizontalScrollIndicator={false}
-            showsVerticalScrollIndicator={false}
-            onEndReached={hanldeOnEndReached}
-            onEndReachedThreshold={0.8}
-            ListFooterComponent={
-              <View style={{ ...styles.loading, marginBottom: spacing.xl }}>
-                {hasNextPage && (
-                  <FastImage
-                    style={{ height: 80, width: 80 }}
-                    source={loadingSpinnerGif}
-                    resizeMode={'contain'}
-                  />
-                )}
-              </View>
-            }
-            onScroll={handleOnScroll}
-            onScrollBeginDrag={handleOnScrollBeginDrag}
-            onMomentumScrollEnd={handleOnMomentumScrollEnd}
-            scrollsToTop={false}
-          />
-        )}
-      </View>
+          )}
+        </View>
+        <AdultVipPrivilegeOverlay
+          showCondition={showAdultVIPOverlay}
+          addPaddingTop={true}
+          onClose={() => {
+            // if (onClose) onClose();
+            setShowAdultVIPOverlay(false);
+          }}
+        />
+      </>
     );
   },
 );

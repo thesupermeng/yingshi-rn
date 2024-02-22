@@ -145,7 +145,7 @@ export const SI_FANG = '4_Fang';
 export const CHAT_SEND_COOLDOWN = 3;
 export const CHAT_BOX_MAX_ITEM = 150;
 
-export const VIP_PROMOTION_INTERVEL_SECONDS = 60; // second
+export const VIP_PROMOTION_INTERVEL_SECONDS = 3; // second
 export const VIP_PROMOTION_COUNTDOWN_MINUTE = 300; // minute
 export const VIP_PROMOTION_PURCHASE_MIN = 25000;
 export const VIP_PROMOTION_PURCHASE_MAX = 50000;

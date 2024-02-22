@@ -27,6 +27,7 @@ interface Props {
   onPurchase?: any;
   onInvite?: any;
   showCondition?: boolean;
+  addPaddingTop?: boolean;
 }
 
 export default function VipPrivilegeModal({
@@ -42,6 +43,7 @@ export default function VipPrivilegeModal({
   onPurchase,
   onInvite,
   showCondition,
+  addPaddingTop = false,
 }: Props) {
   const isFullscreen = Dimensions.get('window').height < Dimensions.get('window').width
 
@@ -49,13 +51,15 @@ export default function VipPrivilegeModal({
   if (showCondition)
     return (
       <Pressable
-        style={{
+        style={[{
           position: "absolute",
           width: "100%",
           height: "100%",
           backgroundColor: `rgba(0, 0, 0, ${showDarkBackdrop ? 0.65 : 0})`
-        }}
-        onPress={onClose}
+        },
+        addPaddingTop && {
+          paddingTop: '10%'
+        },]}
       >
         <View style={{
           width: "100%",
