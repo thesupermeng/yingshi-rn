@@ -9,9 +9,10 @@ type CProps = {
   supportedOrientations?: ('portrait' | 'landscape')[];
   isLoading?: boolean;
   onClose: CallableFunction;
+  width?: string | number;
 };
 
-export default function VipGuideModal({onClose}: CProps) {
+export default function VipGuideModal({onClose, width}: CProps) {
   const closeModal = () => {
     onClose(false);
   };
@@ -25,7 +26,7 @@ export default function VipGuideModal({onClose}: CProps) {
       </View>
       <View
         style={{
-          width: '70%',
+          width: width ?? '70%',
           alignSelf: 'flex-end',
         }}>
         <View style={[styles.buyContainer]}>
@@ -36,11 +37,11 @@ export default function VipGuideModal({onClose}: CProps) {
             <Text style={[styles.goldText]}>{`纯净观看`}</Text>
           </Text>
           <View style={{paddingHorizontal: 10, width: '100%', paddingTop: 10}}>
-            <TouchableOpacity onPress={() => {
-  navigator.navigate("付费VIP");
-closeModal()
-
-            }}>
+            <TouchableOpacity
+              onPress={() => {
+                navigator.navigate('付费VIP');
+                closeModal();
+              }}>
               <LinearGradient
                 colors={['#D1AC7D', '#B1885F']}
                 locations={[0.0, 0.99]}
