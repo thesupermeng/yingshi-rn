@@ -391,7 +391,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<'播放'>) => {
       setTimeout(() => {
       setVipGuideModal(true);
       dispatch(setIsPlayGuideShown(true));
-    }, 1200);
+    }, 1300);
     }
   }, []);
 

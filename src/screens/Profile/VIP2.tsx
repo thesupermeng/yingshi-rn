@@ -207,7 +207,8 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
           productSKU: product.product_ios_product_id,
           title: product.product_name,
           price: product.product_price,
-          promoPrice:
+          promoPrice: product.product_promo_price,
+          promoPriceStr:
             product.currency.currency_symbol +
             " " +
             product.product_promo_price,
@@ -230,7 +231,8 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
           productSKU: product.product_ios_product_id,
           title: product.product_name,
           price: product.product_price,
-          promoPrice:
+          promoPrice: product.product_promo_price,
+          promoPriceStr:
             product.currency.currency_symbol + product.product_promo_price,
           localizedPrice:
             product.currency.currency_symbol +
@@ -596,8 +598,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                       // setShowBecomeVIPOverlay(true)
                       navigation.goBack();
                     } else {
-                      if(screenState.isHomeGuideShown==true)
-                      {
+                      if (screenState.isHomeGuideShown == true) {
                         dispatch(setShowPromotionDialog(true));
                       }
                       navigation.goBack();
@@ -658,7 +659,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                           <Text style={styles.purchaseText}>
                             立即解锁{" "}
                             {productSelected &&
-                              `- 总额${productSelected.promoPrice}`}
+                              `- 总额${productSelected.promoPriceStr}`}
                           </Text>
                         </LinearGradient>
                       </TouchableOpacity>
@@ -748,7 +749,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                                 <View style={styles.textContainer}>
                                   <Text style={styles.promo}>{item.title}</Text>
                                   <Text style={styles.promo2}>
-                                    {item.promoPrice}
+                                    {item.promoPriceStr}
                                   </Text>
                                   <Text style={styles.promo3}>
                                     {item.localizedPrice}
@@ -1022,7 +1023,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
           </>
         ) : (
           <>
-           <SplashCard
+            <SplashCard
               index={index}
               source={index === 0
                 ? require(`@static/images/eventSplash1.png`)

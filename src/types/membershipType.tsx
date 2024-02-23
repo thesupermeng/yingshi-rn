@@ -1,3 +1,10 @@
+export interface Currency {
+  currencyId: string,
+  currencyCode: string,
+  currencyName: string,
+  currencySymbol: string,
+}
+
 export interface membershipModel {
   productId: string;
   productSKU: string;
@@ -7,10 +14,12 @@ export interface membershipModel {
   description: string;
   subscriptionDays: number;
   zfOptions: zfModel[];
+  currency: Currency;
 }
 
 export interface promoMembershipModel extends membershipModel {
   promoPrice: string;
+  promoPriceStr: string;
   productType: string;
 }
 

@@ -2,12 +2,20 @@ import { RootState } from "@redux/store";
 import { CustomEventAnalytic } from "../../../Umeng/EventAnalytic";
 import { EVENT_CUSTOM_ON, VIP_PROMOTION_COUNTDOWN_MINUTE, VIP_PROMOTION_INTERVEL_SECONDS, VIP_PROMOTION_PURCHASE_MAX, VIP_PROMOTION_PURCHASE_MIN, VIP_PROMOTION_PURCHASE_RANDOM } from "@utility/constants";
 import { BackgroundActionEventType } from "@redux/reducers/backgroundReducer";
+import AppsFlyerAnalytics from "../../../AppsFlyer/AppsFlyerAnalytic";
 
 export const onBootApp = ({
 
 } = {}) => async (dispatch: any, getState: () => RootState) => {
     try {
         const backgroundState = getState().backgroundReducer;
+
+        if (backgroundState.firstBoot) {
+            dispatch({
+                type: BackgroundActionEventType.ON_FIRST_BOOT,
+            });
+            AppsFlyerAnalytics.install();
+        }
 
         dispatch({
             type: BackgroundActionEventType.ON_APP_BOOT,

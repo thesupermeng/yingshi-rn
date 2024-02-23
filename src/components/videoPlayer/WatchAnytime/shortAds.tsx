@@ -255,7 +255,7 @@ function ShortAds({
               }
             }}
           >
-            <View>
+            <>
               <View style={[styles.container, { height: displayHeight }]}>
                 {(isBuffering ||
                   (Platform.OS === "ios"
@@ -282,7 +282,22 @@ function ShortAds({
                     />
                   )}
                 {(currentVod?.is_video ?? true) !== false ? (
-                  <View style={{ zIndex: 99 }}>
+          <Modal visible={visible} transparent={true}>
+          <View
+            style={{
+              flex: 1,
+              paddingTop: screenHeight / 1.7,
+              backgroundColor: "rgba(0,0,0,0.8)",
+            }}
+          >
+            <VipGuideModal
+              width={250}
+              onClose={(value: boolean) => {
+                onManualPause(true);
+                setVisible(value);
+              }}
+            />
+          </View>
                     <Video
                       onLayout={() => {}}
                       ref={videoRef}
@@ -314,7 +329,7 @@ function ShortAds({
                       onProgress={handleProgress}
                       progressUpdateInterval={1500}
                     />
-                  </View>
+                </Modal>
                 ) : (
                   <FastImage
                     resizeMode="contain"
@@ -336,26 +351,11 @@ function ShortAds({
                   {showIcon && (isPause ? <PlayIcon /> : <PauseIcon />)}
                 </View>
               </View>
-            </View>
+            </>
           </TouchableWithoutFeedback>
 
-          <Modal visible={visible} transparent={true}>
-            <View
-              style={{
-                flex: 1,
-                paddingTop: screenHeight / 1.7,
-                backgroundColor: "rgba(0,0,0,0.5)",
-              }}
-            >
-              <VipGuideModal
-                width={250}
-                onClose={(value: boolean) => {
-                  onManualPause(true);
-                  setVisible(value);
-                }}
-              />
-            </View>
-          </Modal>
+        
+     
 
           <View style={styles.bottomContainer}>
             <View style={styles.tagContainer}>
