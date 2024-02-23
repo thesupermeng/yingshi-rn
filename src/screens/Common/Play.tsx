@@ -590,7 +590,8 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   });
 
   const fetchBannerAd = async () => {
-    const banner = await AdsApi.getBannerAd(adultMode ? 113 : 112);
+    const bannerRes = await AdsApi.getBannerAd(adultMode ? 113 : 112);
+    const banner = bannerRes.ads;
 
     if (banner) {
       setBannerAd(banner);

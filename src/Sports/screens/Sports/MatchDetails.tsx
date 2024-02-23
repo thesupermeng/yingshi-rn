@@ -332,7 +332,9 @@ const MatchDetails = ({ navigation, route }: BottomTabScreenProps<any>) => {
   }
 
   const fetchBannerAd = async () => {
-    const banner = await AdsApi.getBannerAd(111);
+    const bannerRes = await AdsApi.getBannerAd(111);
+    const banner = bannerRes.ads;
+
     if (banner) {
       setBannerAd(banner);
     } else {

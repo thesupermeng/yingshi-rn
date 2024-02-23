@@ -122,7 +122,8 @@ const CatagoryHome = ({
   };
 
   const fetchBannerAd = async () => {
-    const banner = await AdsApi.getBannerAd(navId >= 3 ? 101 + navId : 100 + navId);
+    const bannerRes = await AdsApi.getBannerAd(navId >= 3 ? 101 + navId : 100 + navId);
+    const banner = bannerRes.ads;
 
     if (banner) {
       setBannerAd(banner);
