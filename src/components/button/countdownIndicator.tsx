@@ -55,7 +55,7 @@ const CountdownIndicator = ({
       setTimeout(() => {
         setVipGuideModal(true);
         dispatch(setIsSportGuideShown(true));
-      }, 1000);
+      }, 1300);
     }
   }, [timer]);
 
@@ -64,7 +64,7 @@ const CountdownIndicator = ({
   }, []);
 
   const getPosition = () => {
-    if (componentRef.current != null) {
+    if (componentRef && componentRef.current != null) {
       componentRef.current.measure((x, y, width, height, pageX, pageY) => {
         console.log('Position:', {x, y, width, height, pageX, pageY});
         setRefPosition({x: pageX, y: pageY, width: width, height: height});
@@ -73,6 +73,7 @@ const CountdownIndicator = ({
   };
   return (
     <>
+ 
       <View
         style={containerStyle}
         onLayout={() => getPosition()}
@@ -96,6 +97,29 @@ const CountdownIndicator = ({
 
       <Modal visible={vipGuideModal} transparent={true}>
         <View style={{flex: 1, backgroundColor: 'rgba(0,0,0,0.8)'}}>
+        <View
+        style={{
+          position: 'absolute',
+          top: refPosition.y ,
+          left: refPosition.x ,
+        }}>
+        <View style={styles.timerIndicatorContainer}>
+          <Text
+            numberOfLines={1}
+            style={{...styles.indicatorText, color: '#FFFFFF'}}>
+            {timer >= 0 ? `试看${formatTimer(timer)}后结束` : '试看结束'}
+          </Text>
+          <Divider color="#FFFFFF33" orientation="vertical" width={1} />
+          <TouchableOpacity onPress={onClickVip}>
+            <Text
+              numberOfLines={1}
+              style={{...styles.indicatorText, color: '#FAC33D'}}>
+              {vipButtonText}
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+
           <View
             style={{
               position: 'absolute',
