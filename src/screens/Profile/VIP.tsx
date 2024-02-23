@@ -879,16 +879,19 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                       ) {
                         navigation.goBack();
                       } else {
-                        if (screenState.isHomeGuideShown == true) {
+                        if (screenState.isHomeGuideShown === true) {
                           dispatch(setShowPromotionDialog(true));
+                       
                         }
-                        navigation.goBack();
+                        else
+                        {
+                          navigation.goBack();
+                        }
                       }
                     }}
                   >
                     <CloseButton />
                   </TouchableOpacity>
-
                   <Video
                     source={require("@static/images/splash/bg.mp4")}
                     style={styles.video}
@@ -1193,6 +1196,12 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                       自动续费协议{" "}
                     </Text>
                   </TouchableOpacity>
+                </View>
+                <View style={styles.tncContainer}>
+                <Text style={{ ...textVariants.subBody, color: "#9c9c9c" }}>
+                    {"如遇支付问题，请联系"}
+                    <Text style={{textDecorationLine : 'underline'}}>contact.movie9@gmail.com</Text> 
+                  </Text>
                 </View>
               </View>
             )}
