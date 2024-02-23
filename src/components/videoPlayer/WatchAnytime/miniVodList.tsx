@@ -22,6 +22,7 @@ import ShortAds from './shortAds';
 import { UserStateType } from '@redux/reducers/userReducer';
 import { User } from '@models/user';
 import { AdultVipPrivilegeOverlay } from './../../modal/adultVipPrivilegeOverlay';
+import BecomeVipOverlay from "./../../modal/becomeVipOverlay";
 
 interface Props {
   miniVodListRef: any;
@@ -384,9 +385,20 @@ export default forwardRef<MiniVodRef, Props>(
             />
           )}
         </View>
+        {/* <BecomeVipOverlay
+          setShowBecomeVIPOverlay={setShowAdultVIPOverlay}
+          showBecomeVIPOverlay={showAdultVIPOverlay}
+          selectedTab='xvod'
+          onClose={() => {
+            // if (onClose) onClose();
+            setShowAdultVIPOverlay(false);
+          }}
+        /> */}
+
         <AdultVipPrivilegeOverlay
           showCondition={showAdultVIPOverlay}
           addPaddingTop={true}
+          showDarkBackdrop={true}
           onClose={() => {
             // if (onClose) onClose();
             setShowAdultVIPOverlay(false);

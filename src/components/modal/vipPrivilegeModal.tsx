@@ -55,7 +55,8 @@ export default function VipPrivilegeModal({
           position: "absolute",
           width: "100%",
           height: "100%",
-          backgroundColor: `rgba(0, 0, 0, ${showDarkBackdrop ? 0.65 : 0})`
+          zIndex: 999999999,
+          backgroundColor: `rgba(0, 0, 0, ${showDarkBackdrop ? 0.75 : 0})`
         },
         addPaddingTop && {
           paddingTop: '10%'

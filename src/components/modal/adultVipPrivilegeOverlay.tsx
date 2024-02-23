@@ -14,9 +14,10 @@ interface Props {
   onClose: any;
   showBlur?: boolean;
   addPaddingTop?: boolean;
+  showDarkBackdrop?: boolean;
 }
 
-export const AdultVipPrivilegeOverlay = ({showCondition, onClose, showBlur, addPaddingTop = false}: Props) => {
+export const AdultVipPrivilegeOverlay = ({showCondition, onClose, showBlur, addPaddingTop = false, showDarkBackdrop = false}: Props) => {
 
   const navigator = useNavigation()
   const dispatch = useAppDispatch()
@@ -39,6 +40,7 @@ export const AdultVipPrivilegeOverlay = ({showCondition, onClose, showBlur, addP
   return (
 
     <VipPrivilegeModal
+      showDarkBackdrop={showDarkBackdrop}
       addPaddingTop={addPaddingTop}
       titleText={"VIP升级权益"}
       benefitsTextsArray={['高清体育赛事  零时差感受赛场激情', '海量福利视频 你想要的这里都有', '高清画质 无广告观影体验']}
