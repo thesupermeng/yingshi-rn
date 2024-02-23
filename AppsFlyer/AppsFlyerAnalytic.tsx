@@ -1,6 +1,7 @@
 import appsFlyer from "react-native-appsflyer";
 import { YSConfig } from "../ysConfig";
 import { Platform } from "react-native";
+import { APPSFLYER_PAYMENT_PUBLIC_KEY } from "@utility/constants";
 
 enum CustomEventKey {
     Install = 'install',
@@ -68,7 +69,7 @@ export default class AppsFlyerAnalytics {
         if (this.#enable === false) return;
 
         const transactionData = {
-            publicKey: '', // todo: replace google console public key
+            publicKey: APPSFLYER_PAYMENT_PUBLIC_KEY,
             currency,
             signature,
             purchaseData,

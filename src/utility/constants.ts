@@ -47,6 +47,8 @@ export const CLEAR_STORAGE_MEMORY = 'clear_storage_memory';
 export const APPSFLYER_DEVKEY = 'wrxTHihLJNWrrusXtgRJZa';
 export const APPSFLYER_APPID = Platform.OS === 'android' ? 'com.yingshitv' : '';
 
+export const APPSFLYER_PAYMENT_PUBLIC_KEY = 'd982f05dc03f72ee3d7d876409cf530a91897bee';
+
 export const INVITE_DOMAIN = 'https://xiangkantv.net/invite.html?invite=';
 
 // const ALL_UMENG_CHANNELS = {
