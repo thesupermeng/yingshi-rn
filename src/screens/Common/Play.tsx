@@ -387,16 +387,16 @@ const Play = ({ navigation, route }: RootStackScreenProps<'播放'>) => {
   );
 
   useEffect(() => {
-    if (screenState.isPlayGuideShown == true) {
+    if (screenState.isPlayGuideShown == false) {
       setTimeout(() => {
       setVipGuideModal(true);
       dispatch(setIsPlayGuideShown(true));
-    }, 1000);
+    }, 1200);
     }
   }, []);
 
   const onAdsMount = () => {
-    if (screenState.isPlayGuideShown2 == true) {
+    if (screenState.isPlayGuideShown2 == false) {
       setTimeout(() => {
         videoPlayerRef.current?.setPause(true); // pause video
         setVipGuideModalDL(true);
@@ -1818,7 +1818,8 @@ const Play = ({ navigation, route }: RootStackScreenProps<'播放'>) => {
                   right: screenWidth.width / 7,
                 }}>
                 <VipGuideModal
-                  width="150%"
+                contentTemplate={2}
+                  width="160%"
                   onClose={(value: boolean) => {
                     setVipGuideModal(value)
                   }}

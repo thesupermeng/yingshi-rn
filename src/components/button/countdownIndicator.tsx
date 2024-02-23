@@ -124,10 +124,11 @@ const CountdownIndicator = ({
             style={{
               position: 'absolute',
               top: refPosition.y + 30,
-              left: 115,
+              left: 55,
             }}>
             <VipGuideModal
-              width="165%"
+            contentTemplate={3}
+              width="120%"
               isLeft={true}
               onClose={(value: boolean) => setVipGuideModal(value)}
             />

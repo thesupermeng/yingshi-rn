@@ -70,6 +70,7 @@ import SplashCard from "../../components/common/splashCard";
 import Carousel from "react-native-reanimated-carousel";
 import CarouselPagination from "../../components/container/CarouselPagination";
 import { User } from "@models/user";
+import { CPopup } from "@utility/popup";
 
 const iap_skus = ["yingshi_vip_1_month", "yingshi_vip_12_months"];
 const subs_skus = [
@@ -879,14 +880,10 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                       ) {
                         navigation.goBack();
                       } else {
-                        if (screenState.isHomeGuideShown === true) {
+                        if (screenState.isHomeGuideShown == true) {
                           dispatch(setShowPromotionDialog(true));
-                       
                         }
-                        else
-                        {
-                          navigation.goBack();
-                        }
+                        navigation.goBack();
                       }
                     }}
                   >

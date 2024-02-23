@@ -19,7 +19,6 @@ import BackIcon from '@static/images/back_arrow.svg';
 import {useIsFocused, useTheme} from '@react-navigation/native';
 import UmengAnalytics from '../../../../Umeng/UmengAnalytics';
 import CountdownIndicator from '../../../components/button/countdownIndicator';
-import VipGuideModal from '../../../components/modal/vipGuide';
 
 interface Props {
   videoRef?: React.MutableRefObject<VideoRef | null>;
