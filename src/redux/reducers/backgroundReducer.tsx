@@ -1,5 +1,6 @@
 
 export enum BackgroundActionEventType {
+    ON_FIRST_BOOT = 'ON_FIRST_BOOT',
     ON_APP_BOOT = 'ON_APP_BOOT',
     LOGIN_WARINING_MODAL_SHOWN = 'LOGIN_WARINING_MODAL_SHOWN',
     VIP_PROMOTION_MODAL_SHOWN = 'VIP_PROMOTION_MODAL_SHOWN',
@@ -13,6 +14,7 @@ export type BackgroundActionType = {
 }
 
 export type BackgroundType = {
+    firstBoot: boolean,
     isLoginModalShown: boolean,
     isVipPromotionModalShown: boolean,
     vipPromotionCountdownStart: number,
@@ -21,6 +23,7 @@ export type BackgroundType = {
 }
 
 const initialState: BackgroundType = {
+    firstBoot: true,
     isLoginModalShown: false,
     isVipPromotionModalShown: false,
     vipPromotionCountdownStart: 0,
@@ -30,6 +33,12 @@ const initialState: BackgroundType = {
 
 export const backgroundReducer = (state = initialState, action: BackgroundActionType): BackgroundType => {
     switch (action.type) {
+        case BackgroundActionEventType.ON_FIRST_BOOT: {
+            return {
+                ...state,
+                firstBoot: false,
+            }
+        }
         case BackgroundActionEventType.ON_APP_BOOT: {
             return {
                 ...state,
