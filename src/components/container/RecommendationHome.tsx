@@ -97,7 +97,6 @@ const RecommendationHome = ({
   const [activeIndex, setActiveIndex] = useState(0);
   const [results, setResults] = useState<Array<VodTopicType>>([]);
   const [bannerAd, setBannerAd] = useState<BannerAdType>();
-  const [bannerAdList, setBannerAdList] = useState<Array<BannerAdType>>([]);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const carouselRef = useRef<any>();
   // const {width, height} = Dimensions.get('window');
@@ -214,16 +213,12 @@ const RecommendationHome = ({
   );
 
   const fetchBannerAd = async () => {
-    const bannerRes = await AdsApi.getBannerAd(100);
-    const banner = bannerRes.ads;
-    const bannerList = bannerRes.ads_list;
+    const banner = await AdsApi.getBannerAd(100);
 
     if (banner) {
       setBannerAd(banner);
-      setBannerAdList(bannerList)
     } else {
       setBannerAd(undefined);
-      setBannerAdList([]);
     }
   };
 
@@ -236,7 +231,6 @@ const RecommendationHome = ({
       fetchBannerAd();
     } else {
       setBannerAd(undefined);
-      setBannerAdList([]);
     }
   };
 
@@ -251,32 +245,24 @@ const RecommendationHome = ({
       const currentCarousel =
         data.carousel[carouselRef.current.getCurrentIndex()];
 
-    if (isTabFocus && carouselRef.current && currentCarousel?.is_ads) {
-      UmengAnalytics.homeTabCarouselViewAnalytics({
-        tab_id: navId?.toString() ?? '0',
-        tab_name: tabName ?? '',
-        ads_slot_id: currentCarousel.ads_slot_id,
-        ads_id: currentCarousel.ads_id,
-        ads_title: currentCarousel.ads_event_title,
-        ads_name: currentCarousel.ads_name,
-      });
-    }
-  }, [data, isTabFocus, carouselRef.current?.getCurrentIndex()]));
+      if (isTabFocus && carouselRef.current && currentCarousel?.is_ads) {
+        UmengAnalytics.homeTabCarouselViewAnalytics({
+          tab_id: navId?.toString() ?? '0',
+          tab_name: tabName ?? '',
+          ads_slot_id: currentCarousel.ads_slot_id,
+          ads_id: currentCarousel.ads_id,
+          ads_title: currentCarousel.ads_event_title,
+          ads_name: currentCarousel.ads_name,
+        });
+      }
+    }, [data, isTabFocus, carouselRef.current?.getCurrentIndex()]),
+  );
 
-  const renderBanner = useCallback((allBannerAds: BannerAdType[]) => {
-
-    if(allBannerAds.length < 1){
-      return (
-        <></>
-      )
-    }
-
-    const ads = allBannerAds[Math.floor(Math.random() * allBannerAds.length)];
-
-    return (
+  const renderBanner = useCallback(
+    (bannerAd: BannerAdType) => (
       <BannerContainer
-        bannerAd={ads}
-        onMount={({ id, name, slot_id, title }) => {
+        bannerAd={bannerAd}
+        onMount={({id, name, slot_id, title}) => {
           UmengAnalytics.homeTabBannerViewAnalytics({
             tab_id: navId?.toString() ?? '0',
             tab_name: tabName ?? '',
@@ -286,7 +272,7 @@ const RecommendationHome = ({
             ads_title: title,
           });
         }}
-        onPress={({ id, name, slot_id, title }) => {
+        onPress={({id, name, slot_id, title}) => {
           UmengAnalytics.homeTabBannerClickAnalytics({
             tab_id: navId?.toString() ?? '0',
             tab_name: tabName ?? '',
@@ -297,8 +283,9 @@ const RecommendationHome = ({
           });
         }}
       />
-    )
-  }, [navId, tabName]);
+    ),
+    [navId, tabName],
+  );
 
   const renderCarousel = useCallback(
     ({item, index}: {item: any; index: number}) => {
@@ -384,78 +371,81 @@ const RecommendationHome = ({
             />
           </View>
           <VodListVertical vods={item.vod_list} />
-          {(data.yunying.length + data.categories.length + index + 1) % 3 === 0 && bannerAd && (
-            renderBanner(bannerAdList)
-          )}
+          {(data.yunying.length + data.categories.length + index + 1) % 3 ===
+            0 &&
+            bannerAd &&
+            renderBanner(bannerAd)}
         </View>
       </View>
     ),
     [data],
   );
 
-  const yunyingMap = (item: any, index: any) => {
-
-    return (
-      <View
-        key={item.type_name}
-        style={{
-          paddingLeft: spacing.sideOffset,
-          paddingRight: spacing.sideOffset,
-          gap: spacing.xxs,
-        }}
-      >
-        <View>
-          <ShowMoreVodButton
-            text={item.type_name}
-            onPress={() => {
-              navigation.navigate("片库", {
-                type_id: 1,
-              });
-            }}
-          />
-        </View>
-        <VodListVertical vods={item.vod_list} />
-  
-        {(index + 1) % 3 === 0 && bannerAd && (
-          renderBanner(bannerAdList)
-        )}
-      </View>
-    )
-  };
-
-  const categoriesMap = (category: any, index: any) => {
-    
-    return (
-      <View
-        key={`category-${index}`}
-        style={{
-          paddingLeft: spacing.sideOffset,
-          paddingRight: spacing.sideOffset,
-          paddingTop: 5,
-        }}
-      >
-        <View
-          style={{
-            paddingBottom: 5,
+  const yunyingMap = (item: any, index: any) => (
+    <View
+      key={item.type_name}
+      style={{
+        paddingLeft: spacing.sideOffset,
+        paddingRight: spacing.sideOffset,
+        gap: spacing.xxs,
+      }}>
+      <View>
+        <ShowMoreVodButton
+          text={item.type_name}
+          onPress={() => {
+            navigation.navigate('片库', {
+              type_id: 1,
+            });
           }}
-        >
-          <ShowMoreVodButton
-            text={category.type_name}
-            onPress={() => {
-              navigation.navigate("片库", {
-                type_id: category.type_id,
-              });
-            }}
-          />
-        </View>
-        <VodListVertical vods={category.vod_list} />
-
-        {(data.yunying.length + index + 1) % 3 === 0 && bannerAd && (
-            renderBanner(bannerAdList)
-        )}
+        />
       </View>
-    )
-  }
+      <VodListVertical vods={item.vod_list} />
+
+      {(index + 1) % 3 === 0 && bannerAd && renderBanner(bannerAd)}
+    </View>
+  );
+
+  const categoriesMap = (category: any, index: any) => (
+    <View
+      key={`category-${index}`}
+      style={{
+        paddingLeft: spacing.sideOffset,
+        paddingRight: spacing.sideOffset,
+        paddingTop: 5,
+      }}>
+      <View
+        style={{
+          paddingBottom: 5,
+        }}>
+        <ShowMoreVodButton
+          text={category.type_name}
+          onPress={() => {
+            navigation.navigate('片库', {
+              type_id: category.type_id,
+            });
+          }}
+        />
+      </View>
+      <VodListVertical vods={category.vod_list} />
+
+      {(data.yunying.length + index + 1) % 3 === 0 &&
+        bannerAd &&
+        renderBanner(bannerAd)}
+    </View>
+  );
+
+  useEffect(() => {
+    getPosition();
+  }, []);
+
+  const getPosition = () => {
+    if (componentRef.current != null) {
+      componentRef.current.measure((x, y, width, height, pageX, pageY) => {
+        console.log('Position:', {x, y, width, height, pageX, pageY});
+        setRefPosition({x: pageX, y: pageY, width: width, height: height});
+      });
+    }
+  };
 
   // const [showBecomeVIPOverlay, setShowBecomeVIPOverlay] = useState(true);
   // const renderOverlay = () => {
@@ -560,7 +550,7 @@ const RecommendationHome = ({
                             paddingLeft: spacing.sideOffset,
                             paddingRight: spacing.sideOffset,
                           }}>
-                          {renderBanner(bannerAdList)}
+                          {renderBanner(bannerAd)}
                         </View>
                         <VipGuideModal
                           onClose={(value: boolean) => 
