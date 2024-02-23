@@ -568,7 +568,14 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         setIsSuccess(true);
         navigation.goBack();
 
-        AppsFlyerAnalytics.zfPaymentSuccessTimesAnalytics(result);
+        if (currentPurchase && currentPurchase.transactionId) {
+          AppsFlyerAnalytics.zfPaymentSuccessTimesAnalytics({
+            productIdentifier: result.product_id,
+            transactionId: result.transaction_id,
+            price: membershipSelected.promoPrice ?? membershipSelected.price,
+            currency: membershipSelected.currency.currencyCode,
+          });
+        }
       } else {
         dispatch(setShowGuestPurchaseSuccess(true));
         setIsVisible(false);

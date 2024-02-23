@@ -59,7 +59,7 @@ export default class AppsFlyerAnalytics {
         currency: string,
     }) => {
         const transactionData = {
-            publicKey: '',
+            publicKey: '', // todo: replace google console public key
             currency,
             signature,
             purchaseData,
@@ -97,10 +97,25 @@ export default class AppsFlyerAnalytics {
         }
     }
 
-    static zfPaymentSuccessTimesAnalytics = (transaction: any) => {
+    static zfPaymentSuccessTimesAnalytics = ({
+        productIdentifier,
+        transactionId,
+        price,
+        currency,
+    }: {
+        productIdentifier: string,
+        transactionId: string,
+        price: string,
+        currency: string,
+    }) => {
         appsFlyer.logEvent(
             CustomEventKey.UserCenter_Payment_Success_Times,
-            transaction,
+            {
+                currency,
+                price,
+                productIdentifier,
+                transactionId,
+            },
             res => {
                 if (this.showLog) console.log('trigger event id:', CustomEventKey.UserCenter_Payment_Success_Times);
             },
