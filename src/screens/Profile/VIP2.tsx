@@ -596,7 +596,10 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                       // setShowBecomeVIPOverlay(true)
                       navigation.goBack();
                     } else {
-                      dispatch(setShowPromotionDialog(true));
+                      if(screenState.isHomeGuideShown==true)
+                      {
+                        dispatch(setShowPromotionDialog(true));
+                      }
                       navigation.goBack();
                     }
                   }}
