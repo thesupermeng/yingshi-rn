@@ -567,6 +567,8 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         setIsDialogOpen(true);
         setIsSuccess(true);
         navigation.goBack();
+
+        AppsFlyerAnalytics.zfPaymentSuccessTimesAnalytics(result);
       } else {
         dispatch(setShowGuestPurchaseSuccess(true));
         setIsVisible(false);
@@ -604,8 +606,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     console.log("iap json posted: ", iapTrans);
 
     if (currentPurchase && currentPurchase.transactionId) {
-      AppsFlyerAnalytics.userCenterPaymentSuccessTimesAnalytics({
-        type: 'google',
+      AppsFlyerAnalytics.googlePaymentSuccessTimesAnalytics({
         productIdentifier: currentPurchase.productId,
         signature: currentPurchase.signatureAndroid,
         transactionId: currentPurchase.transactionId,
@@ -650,8 +651,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     console.log("subs json posted: ", subsTrans);
 
     if (currentPurchase && currentPurchase.transactionId) {
-      AppsFlyerAnalytics.userCenterPaymentSuccessTimesAnalytics({
-        type: 'google',
+      AppsFlyerAnalytics.googlePaymentSuccessTimesAnalytics({
         productIdentifier: currentPurchase.productId,
         signature: currentPurchase.signatureAndroid,
         transactionId: currentPurchase.transactionId,

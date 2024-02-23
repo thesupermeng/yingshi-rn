@@ -43,8 +43,7 @@ export default class AppsFlyerAnalytics {
         );
     }
 
-    static userCenterPaymentSuccessTimesAnalytics = ({
-        type,
+    static googlePaymentSuccessTimesAnalytics = ({
         productIdentifier,
         signature,
         transactionId,
@@ -52,7 +51,6 @@ export default class AppsFlyerAnalytics {
         price,
         currency,
     }: {
-        type: 'google' | '4fang',
         productIdentifier: string,
         signature?: string,
         transactionId: string,
@@ -68,9 +66,7 @@ export default class AppsFlyerAnalytics {
             price,
             productIdentifier,
             transactionId,
-            additionalParameters: {
-                paymentType: type,
-            },
+            additionalParameters: {},
         }
 
         appsFlyer.logEvent(
@@ -84,7 +80,7 @@ export default class AppsFlyerAnalytics {
             },
         );
 
-        if (type === 'google' && signature && purchaseData) {
+        if (signature && purchaseData) {
             appsFlyer.validateAndLogInAppPurchase(
                 {
                     ...transactionData,
@@ -99,6 +95,19 @@ export default class AppsFlyerAnalytics {
                 },
             );
         }
+    }
+
+    static zfPaymentSuccessTimesAnalytics = (transaction: any) => {
+        appsFlyer.logEvent(
+            CustomEventKey.UserCenter_Payment_Success_Times,
+            transaction,
+            res => {
+                if (this.showLog) console.log('trigger event id:', CustomEventKey.UserCenter_Payment_Success_Times);
+            },
+            err => {
+                if (this.showLog) console.error('error event id:', CustomEventKey.UserCenter_Payment_Success_Times);
+            },
+        );
     }
 
     static userCenterLoginSuccessTimesAnalytics = () => {
