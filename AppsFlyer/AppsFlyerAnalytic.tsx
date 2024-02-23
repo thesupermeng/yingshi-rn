@@ -1,5 +1,6 @@
 import appsFlyer from "react-native-appsflyer";
 import { YSConfig } from "../ysConfig";
+import { Platform } from "react-native";
 
 enum CustomEventKey {
     Install = 'install',
@@ -10,35 +11,41 @@ enum CustomEventKey {
 }
 
 export default class AppsFlyerAnalytics {
-    static showLog: boolean = true;
+    // todo: remove when done ios version
+    static #enable: boolean = Platform.OS === 'android';
+    static #showLog: boolean = true;
 
     // for install (first time on boot)
     static install = () => {
+        if (this.#enable === false) return;
+
         const ip: string = YSConfig.instance.ip;
 
         appsFlyer.logEvent(
             CustomEventKey.Install,
             { ip, },
             res => {
-                if (this.showLog) console.log('trigger event id:', CustomEventKey.Install);
+                if (this.#showLog) console.log('trigger event id:', CustomEventKey.Install);
             },
             err => {
-                if (this.showLog) console.error('error event id:', CustomEventKey.Install);
+                if (this.#showLog) console.error('error event id:', CustomEventKey.Install);
             },
         );
     }
 
     static appBoot = () => {
+        if (this.#enable === false) return;
+
         const ip: string = YSConfig.instance.ip;
 
         appsFlyer.logEvent(
             CustomEventKey.App_Boot,
             { ip, },
             res => {
-                if (this.showLog) console.log('trigger event id:', CustomEventKey.App_Boot);
+                if (this.#showLog) console.log('trigger event id:', CustomEventKey.App_Boot);
             },
             err => {
-                if (this.showLog) console.error('error event id:', CustomEventKey.App_Boot);
+                if (this.#showLog) console.error('error event id:', CustomEventKey.App_Boot);
             },
         );
     }
@@ -58,6 +65,8 @@ export default class AppsFlyerAnalytics {
         price: string,
         currency: string,
     }) => {
+        if (this.#enable === false) return;
+
         const transactionData = {
             publicKey: '', // todo: replace google console public key
             currency,
@@ -73,10 +82,10 @@ export default class AppsFlyerAnalytics {
             CustomEventKey.UserCenter_Payment_Success_Times,
             transactionData,
             res => {
-                if (this.showLog) console.log('trigger event id:', CustomEventKey.UserCenter_Payment_Success_Times);
+                if (this.#showLog) console.log('trigger event id:', CustomEventKey.UserCenter_Payment_Success_Times);
             },
             err => {
-                if (this.showLog) console.error('error event id:', CustomEventKey.UserCenter_Payment_Success_Times);
+                if (this.#showLog) console.error('error event id:', CustomEventKey.UserCenter_Payment_Success_Times);
             },
         );
 
@@ -88,10 +97,10 @@ export default class AppsFlyerAnalytics {
                     purchaseData,
                 },
                 res => {
-                    if (this.showLog) console.log('trigger event id:', CustomEventKey.UserCenter_Payment_Success_Times);
+                    if (this.#showLog) console.log('trigger event id:', CustomEventKey.UserCenter_Payment_Success_Times);
                 },
                 err => {
-                    if (this.showLog) console.error('error event id:', CustomEventKey.UserCenter_Payment_Success_Times);
+                    if (this.#showLog) console.error('error event id:', CustomEventKey.UserCenter_Payment_Success_Times);
                 },
             );
         }
@@ -108,6 +117,8 @@ export default class AppsFlyerAnalytics {
         price: string,
         currency: string,
     }) => {
+        if (this.#enable === false) return;
+
         appsFlyer.logEvent(
             CustomEventKey.UserCenter_Payment_Success_Times,
             {
@@ -117,28 +128,32 @@ export default class AppsFlyerAnalytics {
                 transactionId,
             },
             res => {
-                if (this.showLog) console.log('trigger event id:', CustomEventKey.UserCenter_Payment_Success_Times);
+                if (this.#showLog) console.log('trigger event id:', CustomEventKey.UserCenter_Payment_Success_Times);
             },
             err => {
-                if (this.showLog) console.error('error event id:', CustomEventKey.UserCenter_Payment_Success_Times);
+                if (this.#showLog) console.error('error event id:', CustomEventKey.UserCenter_Payment_Success_Times);
             },
         );
     }
 
     static userCenterLoginSuccessTimesAnalytics = () => {
+        if (this.#enable === false) return;
+
         appsFlyer.logEvent(
             CustomEventKey.UserCenter_Login_Success_Times,
             {},
             res => {
-                if (this.showLog) console.log('trigger event id:', CustomEventKey.UserCenter_Login_Success_Times);
+                if (this.#showLog) console.log('trigger event id:', CustomEventKey.UserCenter_Login_Success_Times);
             },
             err => {
-                if (this.showLog) console.error('error event id:', CustomEventKey.UserCenter_Login_Success_Times);
+                if (this.#showLog) console.error('error event id:', CustomEventKey.UserCenter_Login_Success_Times);
             },
         );
     }
 
     static playsPlaysTimesAnalytics = ({ vod_id, vod_name, isXmode = false }: { vod_id: string, vod_name: string, isXmode?: boolean }) => {
+        if (this.#enable === false) return;
+
         appsFlyer.logEvent(
             CustomEventKey.Plays_Plays_Times,
             {
@@ -147,10 +162,10 @@ export default class AppsFlyerAnalytics {
                 'vod_name': vod_name,
             },
             res => {
-                if (this.showLog) console.log('trigger event id:', CustomEventKey.Plays_Plays_Times);
+                if (this.#showLog) console.log('trigger event id:', CustomEventKey.Plays_Plays_Times);
             },
             err => {
-                if (this.showLog) console.error('error event id:', CustomEventKey.Plays_Plays_Times);
+                if (this.#showLog) console.error('error event id:', CustomEventKey.Plays_Plays_Times);
             },
         );
     }
