@@ -1,4 +1,4 @@
-import {useAppDispatch, useAppSelector} from '@hooks/hooks';
+import {useAppDispatch, useAppSelector, useSelector} from '@hooks/hooks';
 import {setIsSportGuideShown} from '@redux/actions/screenAction';
 import {Divider} from '@rneui/base';
 import {screenModel} from '@type/screenType';
