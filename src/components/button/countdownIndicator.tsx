@@ -13,7 +13,8 @@ import {
   Dimensions,
 } from 'react-native';
 import VipGuideModal from '../modal/vipGuide';
-
+import { UserStateType } from '@redux/reducers/userReducer';
+import {User} from '@models/user';
 interface Props {
   timer: number; //number of seconds left
   onClickVip: (...args: any) => void;
@@ -45,13 +46,17 @@ const CountdownIndicator = ({
   });
   const componentRef = useRef<View>(null); // Create a ref for the component
   const [vipGuideModal, setVipGuideModal] = useState(false);
+
+  const userState = useSelector<UserStateType>('userReducer');
+  const isVip = User.isVip(userState.user);
+  
   const screenState: screenModel = useAppSelector(
     ({screenReducer}) => screenReducer,
   );
   const dispatch = useAppDispatch();
   // const dispatch = useAppDispatch();
   useEffect(() => {
-    if (screenState.isSportGuideShown == false) {
+    if (screenState.isSportGuideShown == false && !isVip) {
       setTimeout(() => {
         setVipGuideModal(true);
         dispatch(setIsSportGuideShown(true));

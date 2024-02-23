@@ -15,7 +15,7 @@ import PauseIcon from "@static/images/pause.svg";
 import Video, { OnProgressData, VideoRef } from "react-native-video";
 import FastImage from "../../common/customFastImage";
 import { useNavigation, useTheme } from "@react-navigation/native";
-import { useAppDispatch, useAppSelector } from "@hooks/hooks";
+import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
 import { DOWNLOAD_WATCH_ANYTIME } from "@utility/constants";
 import { playVod } from "@redux/actions/vodActions";
 import RNFetchBlob from "rn-fetch-blob";
@@ -26,6 +26,8 @@ import BecomeVipOverlay from "../../modal/becomeVipOverlay";
 import VipGuideModal from "../../modal/vipGuide";
 import { CPopup } from "@utility/popup";
 import { setIsMiniVodGuideShown } from "@redux/actions/screenAction";
+import { UserStateType } from "@redux/reducers/userReducer";
+import {User} from '@models/user';
 interface Props {
   thumbnail?: string;
   displayHeight: number;
@@ -88,6 +90,8 @@ function ShortAds({
   const [isVideoReadyAndroid, setVideoReadyAndroid] = useState(false);
   const [miniVodUrl, setMiniVodUrl] = useState(currentVod.ads_pic);
 
+
+
   console.log(videoRef.current);
 
   useEffect(() => {
@@ -110,11 +114,13 @@ function ShortAds({
     },
     [adultMode]
   );
+  const userState = useSelector<UserStateType>('userReducer');
+  const isVip = User.isVip(userState.user);
 
   const handleProgress = useCallback(
     (progress: OnProgressData) => {
       //setVisible(true)
-      if (screenState.isMiniVodGuideShown == false) {
+      if (screenState.isMiniVodGuideShown == false && !isVip) {
         onManualPause(true);
         setVisible(true);
         dispatch(setIsMiniVodGuideShown(true));
