@@ -88,7 +88,8 @@ interface Props {
   vodID?: number,
   sourceID?: number,
   onDownloadVod?: (nid: number) => void,
-  setShowAdOverlay: (show: boolean) => void
+  setShowAdOverlay: (show: boolean) => void,
+  onAdsMount?: () => void,
 }
 
 type VideoControlsRef = {
@@ -139,7 +140,8 @@ export default forwardRef<VideoRef, Props>(
       vodID,
       sourceID,
       onDownloadVod,
-      setShowAdOverlay
+      setShowAdOverlay,
+      onAdsMount,
     }: Props,
     ref
   ) => {
@@ -217,14 +219,16 @@ export default forwardRef<VideoRef, Props>(
         setShowAd(false);
         return;
       }
-
-      adCountdownIntervalRef.current = setInterval(() => {
-        setAdCountdownTime(prev => prev - 1);
-      }, 1000)
+      if (adCountdownIntervalRef.current === null) {
+        adCountdownIntervalRef.current = setInterval(() => {
+          setAdCountdownTime(prev => prev - 1);
+        }, 1000)
+      }
 
       return () => {
         if (adCountdownIntervalRef.current) {
           clearInterval(adCountdownIntervalRef.current);
+          adCountdownIntervalRef.current = null;
         }
       }
     }, [adCountdownTime]);
@@ -237,6 +241,7 @@ export default forwardRef<VideoRef, Props>(
 
         if (pauseVideo === true && adCountdownIntervalRef.current) {
           clearInterval(adCountdownIntervalRef.current);
+          adCountdownIntervalRef.current = null;
         } else if (pauseVideo === false && showAd) {
           adCountdownIntervalRef.current = setInterval(() => {
             setAdCountdownTime(prev => prev - 1);
@@ -710,6 +715,7 @@ export default forwardRef<VideoRef, Props>(
               onGoBack={onGoBack}
               onShare={onShare}
               onPressFullScreenBtn={onToggleFullScreen}
+              onMount={onAdsMount}
             />
           </View>
         }

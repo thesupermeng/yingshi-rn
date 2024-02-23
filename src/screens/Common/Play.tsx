@@ -30,18 +30,18 @@ import {
   useRoute,
   useIsFocused,
 } from '@react-navigation/native';
-import {YSConfig} from '../../../ysConfig';
+import { YSConfig } from '../../../ysConfig';
 
-import {RootStackScreenProps} from '@type/navigationTypes';
+import { RootStackScreenProps } from '@type/navigationTypes';
 import {
   AdultVodListType,
   SuggestedVodType,
   VodSourceType,
   BannerAdType,
 } from '@type/ajaxTypes';
-import {addVodToHistory, playVod} from '@redux/actions/vodActions';
-import {useAppDispatch, useAppSelector, useSelector} from '@hooks/hooks';
-import {RootState} from '@redux/store';
+import { addVodToHistory, playVod } from '@redux/actions/vodActions';
+import { useAppDispatch, useAppSelector, useSelector } from '@hooks/hooks';
+import { RootState } from '@redux/store';
 import {
   FavoriteVodReducerState,
   VodReducerState,
@@ -63,22 +63,22 @@ import {
   PLAY_HTTP_SERVER_PORT,
   UMENG_CHANNEL,
 } from '@utility/constants';
-import {useQuery} from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import ShowMoreVodButton from '../../components/button/showMoreVodButton';
 import VodListVertical from '../../components/vod/vodListVertical';
 import VodPlayer from '../../components/videoPlayer/vodPlayer';
-import {FlatList} from 'react-native-gesture-handler';
-import {SettingsReducerState} from '@redux/reducers/settingsReducer';
+import { FlatList } from 'react-native-gesture-handler';
+import { SettingsReducerState } from '@redux/reducers/settingsReducer';
 import BingSearch from '../../components/container/bingSearchContainer';
 
 import NoConnection from '../../components/common/noConnection';
 import NetInfo from '@react-native-community/netinfo';
-import {lockAppOrientation} from '@redux/actions/settingsActions';
-import {AdsBannerContext} from '../../contexts/AdsBannerContext';
-import {URL} from 'react-native-url-polyfill';
+import { lockAppOrientation } from '@redux/actions/settingsActions';
+import { AdsBannerContext } from '../../contexts/AdsBannerContext';
+import { URL } from 'react-native-url-polyfill';
 import RNFetchBlob from 'rn-fetch-blob';
-import {BridgeServer} from 'react-native-http-bridge-refurbished';
-import {debounce} from 'lodash';
+import { BridgeServer } from 'react-native-http-bridge-refurbished';
+import { debounce } from 'lodash';
 
 import LinearGradient from 'react-native-linear-gradient';
 import VipIcon from '@static/images/vip-icon.svg';
@@ -93,31 +93,31 @@ import {
 } from '@redux/actions/screenAction';
 
 import UmengAnalytics from '../../../Umeng/UmengAnalytics';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {screenModel} from '@type/screenType';
-import {VodApi} from '@api';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { screenModel } from '@type/screenType';
+import { VodApi } from '@api';
 
 import DescriptionBottomSheet from '../../components/videoPlayer/Play/vodDescriptionBottomSheet';
-import {VodDescription} from '../../components/videoPlayer/Play/vodDescription';
+import { VodDescription } from '../../components/videoPlayer/Play/vodDescription';
 
-import {BannerContainer} from '../../components/container/bannerContainer';
-import {CApi} from '@utility/apiService';
-import {CEndpoint} from '@constants';
+import { BannerContainer } from '../../components/container/bannerContainer';
+import { CApi } from '@utility/apiService';
+import { CEndpoint } from '@constants';
 import BecomeVipOverlay from '../../components/modal/becomeVipOverlay';
-import {AdsApi} from '../../api/ads';
+import { AdsApi } from '../../api/ads';
 import SimpleToast from 'react-native-simple-toast';
 import DownloadVodSelectionModal from '../../components/modal/downloadVodSelectionModal';
 import DeviceInfo from 'react-native-device-info';
-import {addVideoToDownloadThunk} from '@redux/actions/videoDownloadAction';
+import { addVideoToDownloadThunk } from '@redux/actions/videoDownloadAction';
 import {
   DownloadStatus,
   DownloadVideoReducerState,
   VodDownloadType,
 } from '@type/vodDownloadTypes';
-import {CPopup} from '@utility/popup';
-import {UserStateType} from '@redux/reducers/userReducer';
-import {User} from '@models/user';
-import {CRouter} from '../../routes/router';
+import { CPopup } from '@utility/popup';
+import { UserStateType } from '@redux/reducers/userReducer';
+import { User } from '@models/user';
+import { CRouter } from '../../routes/router';
 import VipGuideModal from '../../components/modal/vipGuide';
 
 let insetsTop = 0;
@@ -249,28 +249,28 @@ const getNoAdsUri = async (url: string, vodId: string) => {
   // return `http://localhost:${PLAY_HTTP_SERVER_PORT}/${videoSubfolder}/index.m3u8`;
 };
 
-const Play = ({navigation, route}: RootStackScreenProps<'播放'>) => {
-  const {setRoute: setAdsRoute} = useContext(AdsBannerContext);
+const Play = ({ navigation, route }: RootStackScreenProps<'播放'>) => {
+  const { setRoute: setAdsRoute } = useContext(AdsBannerContext);
   useFocusEffect(() => {
     // for banner ads
     setAdsRoute(route.name);
   });
 
-  const {colors, spacing, textVariants, icons} = useTheme();
+  const { colors, spacing, textVariants, icons } = useTheme();
   const dispatch = useAppDispatch();
 
   const vodReducer: VodReducerState = useAppSelector(
-    ({vodReducer}: RootState) => vodReducer,
+    ({ vodReducer }: RootState) => vodReducer,
   );
   const vodFavouriteReducer: FavoriteVodReducerState = useAppSelector(
-    ({vodFavouritesReducer}: RootState) => vodFavouritesReducer,
+    ({ vodFavouritesReducer }: RootState) => vodFavouritesReducer,
   );
   const settingsReducer: SettingsReducerState = useAppSelector(
-    ({settingsReducer}: RootState) => settingsReducer,
+    ({ settingsReducer }: RootState) => settingsReducer,
   );
   const userState = useSelector<UserStateType>('userReducer');
   const screenState: screenModel = useAppSelector(
-    ({screenReducer}) => screenReducer,
+    ({ screenReducer }) => screenReducer,
   );
   const adultMode = route.params.player_mode === 'adult' ? true : false;
   const [isShowAdOverlay, setShowAdOverlay] = useState(false);
@@ -303,8 +303,8 @@ const Play = ({navigation, route}: RootStackScreenProps<'播放'>) => {
   const [actualNumberOfLines, setActualNumberOfLines] = useState(0);
   const textRef = useRef(null);
 
-  const handleTextLayout = (event: {nativeEvent: {lines: any}}) => {
-    const {lines} = event.nativeEvent;
+  const handleTextLayout = (event: { nativeEvent: { lines: any } }) => {
+    const { lines } = event.nativeEvent;
     setActualNumberOfLines(lines.length);
   };
 
@@ -352,7 +352,7 @@ const Play = ({navigation, route}: RootStackScreenProps<'播放'>) => {
   const screenWidth = Dimensions.get('window');
 
   const downloadedVod: VodDownloadType | undefined = useAppSelector(
-    ({downloadVideoReducer}: RootState) => {
+    ({ downloadVideoReducer }: RootState) => {
       return downloadVideoReducer.downloads.find(
         download => download.vod.vod_id === vod?.vod_id,
       );
@@ -360,16 +360,16 @@ const Play = ({navigation, route}: RootStackScreenProps<'播放'>) => {
   );
   const episode = adultMode
     ? downloadedVod?.episodes.find(
-        ep =>
-          ep.vodUrlNid === currentEpisode &&
-          ep.status === DownloadStatus.COMPLETED,
-      )
+      ep =>
+        ep.vodUrlNid === currentEpisode &&
+        ep.status === DownloadStatus.COMPLETED,
+    )
     : downloadedVod?.episodes.find(
-        ep =>
-          ep.vodSourceId === currentSourceId &&
-          ep.vodUrlNid === currentEpisode &&
-          ep.status === DownloadStatus.COMPLETED,
-      );
+      ep =>
+        ep.vodSourceId === currentSourceId &&
+        ep.vodUrlNid === currentEpisode &&
+        ep.status === DownloadStatus.COMPLETED,
+    );
 
   //For pausing video player when switch source
   const onPressSource = useCallback(
@@ -390,16 +390,26 @@ const Play = ({navigation, route}: RootStackScreenProps<'播放'>) => {
     if (screenState.isPlayGuideShown2 == false) {
       setVipGuideModalDL(true);
       dispatch(setIsPlayGuideShown2(true));
+      videoPlayerRef.current?.setPause(true); // pause video
     }
 
+    // if (screenState.isPlayGuideShown == false) {
+    //   videoPlayerRef.current?.setPause(true); // pause video
+    //   setVipGuideModal(true);
+    //   dispatch(setIsPlayGuideShown(true));
+    // }
+
+    //  setVipGuideModal(true);
+  }, []);
+
+  const onAdsMount = () => {
     if (screenState.isPlayGuideShown == false) {
+      console.debug('pause when mount')
       videoPlayerRef.current?.setPause(true); // pause video
       setVipGuideModal(true);
       dispatch(setIsPlayGuideShown(true));
     }
-
-    //  setVipGuideModal(true);
-  }, []);
+  }
 
   // For adding loading spinner before load player
   // const onPressSource = useCallback((itemId: any) => {
@@ -419,7 +429,7 @@ const Play = ({navigation, route}: RootStackScreenProps<'播放'>) => {
   // }, [currentSourceId]);
 
   const renderSources = useCallback(
-    ({item, index}) => (
+    ({ item, index }) => (
       <TouchableOpacity
         style={{
           flexDirection: 'row',
@@ -471,7 +481,7 @@ const Play = ({navigation, route}: RootStackScreenProps<'播放'>) => {
   );
 
   let foundSource = vodSources.find(
-    ({source_id}) => source_id === currentSourceId,
+    ({ source_id }) => source_id === currentSourceId,
   )?.vod_play_list;
   const showEpisodeRangeEnd = useMemo(
     () =>
@@ -491,13 +501,10 @@ const Play = ({navigation, route}: RootStackScreenProps<'播放'>) => {
       UmengAnalytics.playsShareClicksAnalytics();
       // ========== for analytics - end ==========
 
-      let msg = `《${
-        vod?.vod_name
-      }》高清播放${'\n'}https://yingshi.tv/index.php/vod/play/id/${
-        vod?.vod_id
-      }/sid/1/nid/${
-        currentEpisode + 1
-      }.html${'\n'}${APP_NAME_CONST}-海量高清视频在线观看`;
+      let msg = `《${vod?.vod_name
+        }》高清播放${'\n'}https://yingshi.tv/index.php/vod/play/id/${vod?.vod_id
+        }/sid/1/nid/${currentEpisode + 1
+        }.html${'\n'}${APP_NAME_CONST}-海量高清视频在线观看`;
 
       if (APP_NAME_CONST == '爱美剧') {
         msg = `海量视频内容 随时随地 想看就看 ${'\n'}https://xiangkantv.net/share.html`;
@@ -639,7 +646,7 @@ const Play = ({navigation, route}: RootStackScreenProps<'播放'>) => {
     }
   };
 
-  const {data: vodDetails, isFetching: isFetchingVodDetails} = useQuery({
+  const { data: vodDetails, isFetching: isFetchingVodDetails } = useQuery({
     queryKey: ['vodDetails', vod?.vod_id, isOffline],
     queryFn: () => handleFetchVodDetail(),
   });
@@ -838,7 +845,7 @@ const Play = ({navigation, route}: RootStackScreenProps<'播放'>) => {
           // vod?.vod_play_list.urls?.find((url) => url.nid === currentEpisode)
           //   ?.url
           vodSources
-            ?.find(({source_id}) => source_id === currentSourceId)
+            ?.find(({ source_id }) => source_id === currentSourceId)
             ?.vod_play_list.urls?.find(url => url.nid === currentEpisode)
         ) {
           saveVodToHistory(vod);
@@ -856,7 +863,7 @@ const Play = ({navigation, route}: RootStackScreenProps<'播放'>) => {
   }, []);
 
   const renderEpisodes = useCallback(
-    ({item}) => (
+    ({ item }) => (
       <TouchableOpacity
         style={{
           backgroundColor:
@@ -951,7 +958,7 @@ const Play = ({navigation, route}: RootStackScreenProps<'播放'>) => {
   if (vodSources.length > 0 && !adultMode) {
     if (vodSources.map(v => v.source_id).includes(currentSourceId)) {
       vodUrl = vodSources
-        ?.find(({source_id}) => source_id === currentSourceId)
+        ?.find(({ source_id }) => source_id === currentSourceId)
         ?.vod_play_list.urls?.find(url => url.nid === currentEpisode)?.url;
     } else {
       setCurrentSourceId(vodSources?.at(0)?.source_id);
@@ -1071,11 +1078,11 @@ const Play = ({navigation, route}: RootStackScreenProps<'播放'>) => {
 
   const isEpisodeDownloaded = adultMode
     ? downloadedVod?.episodes.find(x => x.vodUrlNid === currentEpisode)
-        ?.status === DownloadStatus.COMPLETED
+      ?.status === DownloadStatus.COMPLETED
     : downloadedVod?.episodes.find(
-        x =>
-          x.vodSourceId === currentSourceId && x.vodUrlNid === currentEpisode,
-      )?.status === DownloadStatus.COMPLETED;
+      x =>
+        x.vodSourceId === currentSourceId && x.vodUrlNid === currentEpisode,
+    )?.status === DownloadStatus.COMPLETED;
 
   // useEffect(() => {
   //   getPosition();
@@ -1084,8 +1091,8 @@ const Play = ({navigation, route}: RootStackScreenProps<'播放'>) => {
   const getPosition = () => {
     if (componentRef.current != null) {
       componentRef.current.measure((x, y, width, height, pageX, pageY) => {
-        console.log('Position:', {x, y, width, height, pageX, pageY});
-        setRefPosition({x: pageX, y: pageY, width: width, height: height});
+        console.log('Position:', { x, y, width, height, pageX, pageY });
+        setRefPosition({ x: pageX, y: pageY, width: width, height: height });
       });
     }
   };
@@ -1156,6 +1163,7 @@ const Play = ({navigation, route}: RootStackScreenProps<'播放'>) => {
             onDownloadVod={onDownloadVod}
             sourceID={currentSourceId}
             setShowAdOverlay={setShowAdOverlay}
+            onAdsMount={onAdsMount}
           />
         )}
         {isOffline && dismountPlayer && episode && (
@@ -1169,7 +1177,7 @@ const Play = ({navigation, route}: RootStackScreenProps<'播放'>) => {
               alignSelf: 'center',
             }}>
             <FastImage
-              style={{height: 80, width: 80}}
+              style={{ height: 80, width: 80 }}
               source={require('@static/images/loading-spinner.gif')}
               resizeMode={'contain'}
             />
@@ -1192,7 +1200,7 @@ const Play = ({navigation, route}: RootStackScreenProps<'播放'>) => {
                 }}>
                 <BannerContainer
                   bannerAd={bannerAd}
-                  onMount={({id, name, slot_id, title}) => {
+                  onMount={({ id, name, slot_id, title }) => {
                     UmengAnalytics.videoPlayerBannerViewAnalytics({
                       playerType: adultMode ? 'xVideo' : 'normal',
                       ads_id: id,
@@ -1201,7 +1209,7 @@ const Play = ({navigation, route}: RootStackScreenProps<'播放'>) => {
                       ads_title: title,
                     });
                   }}
-                  onPress={({id, name, slot_id, title}) => {
+                  onPress={({ id, name, slot_id, title }) => {
                     UmengAnalytics.videoPlayerBannerClickAnalytics({
                       playerType: adultMode ? 'xVideo' : 'normal',
                       ads_id: id,
@@ -1218,7 +1226,7 @@ const Play = ({navigation, route}: RootStackScreenProps<'播放'>) => {
               nestedScrollEnabled={true}
               // contentContainerStyle={{ marginTop: spacing.s }}
               contentInsetAdjustmentBehavior="automatic">
-              <View style={{...styles.descriptionContainer2, gap: spacing.m}}>
+              <View style={{ ...styles.descriptionContainer2, gap: spacing.m }}>
                 <View style={styles.videoDescription}>
                   {adultMode ? (
                     <FastImage
@@ -1313,26 +1321,26 @@ const Play = ({navigation, route}: RootStackScreenProps<'播放'>) => {
                       // />
                     )}
                     <Text
-                      style={{...textVariants.subBody, color: colors.muted}}
+                      style={{ ...textVariants.subBody, color: colors.muted }}
                       numberOfLines={2}>
                       {`${definedValue(vod?.vod_year)}`}
                       {`${definedValue(vod?.vod_area)}`}
                       {`${definedValue(vod?.vod_class?.split(',').join(' '))}`}
                     </Text>
                     <Text
-                      style={{...textVariants.subBody, color: colors.muted}}>
+                      style={{ ...textVariants.subBody, color: colors.muted }}>
                       {(() => {
                         try {
                           const dateValue =
                             vod && !!vod?.vod_time_add
                               ? new Date(vod?.vod_time_add * 1000)
-                                  .toISOString()
-                                  .slice(0, 10)
-                                  .replace(/\//g, '-')
+                                .toISOString()
+                                .slice(0, 10)
+                                .replace(/\//g, '-')
                               : new Date()
-                                  .toISOString()
-                                  .slice(0, 10)
-                                  .replace(/\//g, '-');
+                                .toISOString()
+                                .slice(0, 10)
+                                .replace(/\//g, '-');
 
                           return `更新：${dateValue}`;
                         } catch (error) {
@@ -1344,7 +1352,7 @@ const Play = ({navigation, route}: RootStackScreenProps<'播放'>) => {
 
                     {!adultMode && (
                       <TouchableOpacity onPress={onShare}>
-                        <View style={{...styles.share, gap: 10}}>
+                        <View style={{ ...styles.share, gap: 10 }}>
                           <Text
                             style={{
                               ...textVariants.subBody,
@@ -1523,11 +1531,11 @@ const Play = ({navigation, route}: RootStackScreenProps<'播放'>) => {
                           下载
                         </Text>
                         {!isVip && (
-                          <View style={{width: 12, height: '100%'}}>
+                          <View style={{ width: 12, height: '100%' }}>
                             <VipIcon
                               width={12}
                               height={12}
-                              style={{...styles.legend}}
+                              style={{ ...styles.legend }}
                             />
                           </View>
                         )}
@@ -1550,7 +1558,7 @@ const Play = ({navigation, route}: RootStackScreenProps<'播放'>) => {
                           alignSelf: 'center',
                         }}>
                         <FastImage
-                          style={{height: 80, width: 80}}
+                          style={{ height: 80, width: 80 }}
                           source={require('@static/images/loading-spinner.gif')}
                           resizeMode={'contain'}
                         />
@@ -1561,21 +1569,21 @@ const Play = ({navigation, route}: RootStackScreenProps<'播放'>) => {
                       {/* For multiple source UI */}
                       {!adultMode && (
                         <>
-                          <View style={{...styles.spaceApart, gap: spacing.l}}>
+                          <View style={{ ...styles.spaceApart, gap: spacing.l }}>
                             <Text style={textVariants.body}>播放源</Text>
                           </View>
                           <FlatList
                             horizontal={true}
                             showsHorizontalScrollIndicator={false}
                             initialNumToRender={10}
-                            onScrollToIndexFailed={() => {}}
+                            onScrollToIndexFailed={() => { }}
                             ref={sourceRef}
                             data={vodSources}
                             // data={staticDummyData.map(item => item.url)}
                             renderItem={renderSources}
                             // onContentSizeChange={onContentSizeChange}
                             ListFooterComponent={
-                              <View style={{paddingHorizontal: 20}} />
+                              <View style={{ paddingHorizontal: 20 }} />
                             }
                             keyExtractor={(item, index) => index.toString()}
                           />
@@ -1584,7 +1592,7 @@ const Play = ({navigation, route}: RootStackScreenProps<'播放'>) => {
                       {/* For multiple source UI */}
                       {foundSource !== undefined && (
                         <>
-                          <View style={{...styles.spaceApart, gap: spacing.l}}>
+                          <View style={{ ...styles.spaceApart, gap: spacing.l }}>
                             <Text style={textVariants.body}>选集播放</Text>
                             <TouchableOpacity
                               style={styles.share}
@@ -1596,16 +1604,15 @@ const Play = ({navigation, route}: RootStackScreenProps<'播放'>) => {
                                   color: colors.muted,
                                   fontSize: 15,
                                 }}>
-                                {`${
-                                  foundSource
-                                    ? `1-${foundSource.url_count || 0}集`
-                                    : 'No episodes available'
-                                }`}
+                                {`${foundSource
+                                  ? `1-${foundSource.url_count || 0}集`
+                                  : 'No episodes available'
+                                  }`}
                                 {/* {`${showEpisodeRangeStart + 1
                                   }-${showEpisodeRangeEnd}集`} */}
                               </Text>
                               <MoreArrow
-                                style={{color: colors.muted}}
+                                style={{ color: colors.muted }}
                                 height={icons.sizes.m}
                                 width={icons.sizes.m}
                               />
@@ -1615,7 +1622,7 @@ const Play = ({navigation, route}: RootStackScreenProps<'播放'>) => {
                             horizontal={true}
                             showsHorizontalScrollIndicator={false}
                             initialNumToRender={10}
-                            onScrollToIndexFailed={() => {}}
+                            onScrollToIndexFailed={() => { }}
                             ref={episodeRef}
                             // data={vod?.vod_play_list.urls?.slice(
                             //   showEpisodeRangeStart,
@@ -1628,7 +1635,7 @@ const Play = ({navigation, route}: RootStackScreenProps<'播放'>) => {
                             renderItem={renderEpisodes}
                             // onContentSizeChange={onContentSizeChange}
                             ListFooterComponent={
-                              <View style={{paddingHorizontal: 20}} />
+                              <View style={{ paddingHorizontal: 20 }} />
                             }
                             keyExtractor={(item, index) =>
                               `${item.name.toString()}-${index.toString()}`
@@ -1643,7 +1650,7 @@ const Play = ({navigation, route}: RootStackScreenProps<'播放'>) => {
                           {vod &&
                             suggestedSVods !== undefined &&
                             suggestedSVods?.length > 0 && (
-                              <View style={{gap: spacing.l, marginBottom: 60}}>
+                              <View style={{ gap: spacing.l, marginBottom: 60 }}>
                                 <ShowMoreVodButton
                                   isPlayScreen={true}
                                   // text={`相关${vod?.vod_class ?? '影片'}`}
@@ -1679,9 +1686,9 @@ const Play = ({navigation, route}: RootStackScreenProps<'播放'>) => {
                       ) : (
                         <>
                           {vod &&
-                          suggestedVods !== undefined &&
-                          suggestedVods?.length > 0 ? (
-                            <View style={{gap: spacing.l, marginBottom: 60}}>
+                            suggestedVods !== undefined &&
+                            suggestedVods?.length > 0 ? (
+                            <View style={{ gap: spacing.l, marginBottom: 60 }}>
                               <ShowMoreVodButton
                                 isPlayScreen={true}
                                 text={`相关${vod?.type_name ?? '相关推荐'}`}
@@ -1697,7 +1704,7 @@ const Play = ({navigation, route}: RootStackScreenProps<'播放'>) => {
                               <VodListVertical
                                 vods={suggestedVods}
                                 outerRowPadding={2 * (20 - spacing.sideOffset)}
-                                onPress={({vodId}) => {
+                                onPress={({ vodId }) => {
                                   if (vodId !== vod.vod_id) {
                                     videoPlayerRef.current?.setPause(true);
                                   }
@@ -1710,7 +1717,7 @@ const Play = ({navigation, route}: RootStackScreenProps<'播放'>) => {
                             </View>
                           ) : (
                             <>
-                              <View style={{marginBottom: 60}}></View>
+                              <View style={{ marginBottom: 60 }}></View>
                             </>
                           )}
                         </>
@@ -1768,7 +1775,7 @@ const Play = ({navigation, route}: RootStackScreenProps<'播放'>) => {
         {/* display vip guide */}
         {DOWNLOAD_FEATURE_ENABLED && !isVodRestricted && (
           <Modal visible={vipGuideModal} transparent={true}>
-            <View style={{flex: 1, backgroundColor: 'rgba(0,0,0,0.8)'}}>
+            <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.8)' }}>
               <View
                 style={{
                   position: 'absolute',
@@ -1800,11 +1807,11 @@ const Play = ({navigation, route}: RootStackScreenProps<'播放'>) => {
                     下载
                   </Text>
                   {!isVip && (
-                    <View style={{width: 12, height: '100%'}}>
+                    <View style={{ width: 12, height: '100%' }}>
                       <VipIcon
                         width={12}
                         height={12}
-                        style={{...styles.legend}}
+                        style={{ ...styles.legend }}
                       />
                     </View>
                   )}
@@ -1818,8 +1825,7 @@ const Play = ({navigation, route}: RootStackScreenProps<'播放'>) => {
                 }}>
                 <VipGuideModal
                   width="100%"
-                  onClose={(value: boolean) => 
-                  {
+                  onClose={(value: boolean) => {
 
                     videoPlayerRef.current?.setPause(false);
                     setVipGuideModal(value)
