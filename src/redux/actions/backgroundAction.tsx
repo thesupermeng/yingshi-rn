@@ -1,8 +1,9 @@
 import { RootState } from "@redux/store";
 import { CustomEventAnalytic } from "../../../Umeng/EventAnalytic";
-import { EVENT_CUSTOM_ON, VIP_PROMOTION_COUNTDOWN_MINUTE, VIP_PROMOTION_INTERVEL_SECONDS, VIP_PROMOTION_PURCHASE_MAX, VIP_PROMOTION_PURCHASE_MIN, VIP_PROMOTION_PURCHASE_RANDOM } from "@utility/constants";
+import { APPSFLYER_APPID, APPSFLYER_DEVKEY, EVENT_CUSTOM_ON, VIP_PROMOTION_COUNTDOWN_MINUTE, VIP_PROMOTION_INTERVEL_SECONDS, VIP_PROMOTION_PURCHASE_MAX, VIP_PROMOTION_PURCHASE_MIN, VIP_PROMOTION_PURCHASE_RANDOM } from "@utility/constants";
 import { BackgroundActionEventType } from "@redux/reducers/backgroundReducer";
 import AppsFlyerAnalytics from "../../../AppsFlyer/AppsFlyerAnalytic";
+import appsFlyer from "react-native-appsflyer";
 
 export const onBootApp = ({
 
@@ -10,16 +11,39 @@ export const onBootApp = ({
     try {
         const backgroundState = getState().backgroundReducer;
 
-        if (backgroundState.firstBoot) {
-            dispatch({
-                type: BackgroundActionEventType.ON_FIRST_BOOT,
-            });
-            AppsFlyerAnalytics.install();
-        }
-
         dispatch({
             type: BackgroundActionEventType.ON_APP_BOOT,
         });
+
+        // ========== appsflyer event ==========
+        appsFlyer.initSdk(
+            {
+                devKey: APPSFLYER_DEVKEY,
+                isDebug: false,
+                appId: APPSFLYER_APPID,
+                onInstallConversionDataListener: true,
+                onDeepLinkListener: true,
+                timeToWaitForATTUserAuthorization: 10,
+            },
+            result => {
+                console.log('Apps Flyer init success');
+
+                // because appsFlyer after init need some time
+                setTimeout(() => {
+                    if (backgroundState.firstBoot) {
+                        dispatch({
+                            type: BackgroundActionEventType.ON_FIRST_BOOT,
+                        });
+                        AppsFlyerAnalytics.install();
+                    }
+
+                    AppsFlyerAnalytics.appBoot();
+                }, 2000);
+            },
+            error => {
+                console.error(error);
+            },
+        );
 
         // ========== custom event ==========
         CustomEventAnalytic.foundLocalPush();
