@@ -124,7 +124,6 @@ export class CustomEventAnalytic {
     }
 
     static foundLocalPush = async () => {
-        // todo: search & push 
         const jsonStr = await AsyncStorage.getItem(this.#localKey);
 
         if (jsonStr === null) return;
