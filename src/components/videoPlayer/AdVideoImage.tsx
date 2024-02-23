@@ -4,7 +4,7 @@ import LinearGradient from "react-native-linear-gradient";
 import Video from "react-native-video"
 import BackButton from "../button/backButton";
 import { RectButton } from "react-native-gesture-handler";
-import React from "react";
+import React, { useEffect } from "react";
 import ProjectIcon from '@static/images/project.svg'
 import MinimizeScreen from '@static/images/minimizeScreen.svg';
 import FullScreen from '@static/images/fullScreen.svg';
@@ -24,6 +24,8 @@ type Props = {
     onGoBack: () => void,
     onShare: () => void,
     onPressFullScreenBtn: () => void,
+    onMount?: () => void,
+    onUmmount?: () => void,
 }
 
 export const AdVideoImage = ({
@@ -38,8 +40,17 @@ export const AdVideoImage = ({
     onGoBack,
     onShare,
     onPressFullScreenBtn,
+    onMount,
+    onUmmount,
 }: Props) => {
     const { colors } = useTheme();
+
+    useEffect(() => {
+        if (onMount) onMount();
+        return () => {
+            if (onUmmount) onUmmount();
+        }
+    }, []);
 
     return <CPressable
         onPress={onPressAd}

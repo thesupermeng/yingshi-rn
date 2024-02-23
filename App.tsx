@@ -42,6 +42,7 @@ import NetInfo from "@react-native-community/netinfo";
 import { AppsApi, PlaylistApi, VodApi } from "@api";
 import { CustomEventAnalytic } from "./Umeng/EventAnalytic";
 import { logIgnore, warnIgnore } from "@utility/helper";
+import appsFlyer from "react-native-appsflyer";
 
 const topon_channel = "GOOGLE_PLAY";
 
@@ -63,6 +64,9 @@ warnIgnore([
   '`new NativeEventEmitter()` was called with a non-null argument without the required',
   `ReactImageView: Image source "null" doesn't exist`,
   'StatusBar._updatePropsStack',
+  'ATBanner',
+  'ATInterstitial',
+  'source.uri should not be an empty string',
 ]);
 
 logIgnore([
@@ -73,37 +77,37 @@ logIgnore([
 
 let App = () => {
   CodePush.notifyAppReady();
-  // appsFlyer.initSdk(
-  //   {
-  //     devKey: APPSFLYER_DEVKEY,
-  //     isDebug: false,
-  //     //appId: '41*****44',
-  //     onInstallConversionDataListener: true,
-  //     onDeepLinkListener: true,
-  //     timeToWaitForATTUserAuthorization: 10,
-  //   },
-  //   result => {
-  //     // console.log(result);
-  //     const eventName = 'open_app';
-  //     const eventValues = {
-  //       ip: '1',
-  //     };
+  appsFlyer.initSdk(
+    {
+      devKey: 'wrxTHihLJNWrrusXtgRJZa',
+      isDebug: false,
+      //appId: '41*****44', IOS only.. need get from ap store
+      onInstallConversionDataListener: true,
+      onDeepLinkListener: true,
+      timeToWaitForATTUserAuthorization: 10,
+    },
+    result => {
+      // console.log(result);
+      const eventName = 'open_app';
+      const eventValues = {
+        ip: YSConfig.instance.ip,
+      };
 
-  //     appsFlyer.logEvent(
-  //       eventName,
-  //       eventValues,
-  //       res => {
-  //         // console.log(res);
-  //       },
-  //       err => {
-  //         console.error(err);
-  //       },
-  //     );
-  //   },
-  //   error => {
-  //     console.error(error);
-  //   },
-  // );
+      appsFlyer.logEvent(
+        eventName,
+        eventValues,
+        res => {
+          // console.log(res);
+        },
+        err => {
+          console.error(err);
+        },
+      );
+    },
+    error => {
+      console.error(error);
+    },
+  );
 
   const queryClient = new QueryClient({
     defaultOptions: {
@@ -265,10 +269,6 @@ let App = () => {
     // initInterstitialAdListener();
   }
 
-  console.log("YSConfig.instance.areaConfig");
-
-  console.log(YSConfig.instance.areaConfig);
-
   // re geng
   const [showRegengOverlay, setShowRegengOverlay] = useState(false);
   useEffect(() => {
@@ -304,15 +304,9 @@ let App = () => {
     YSConfig.instance.setUpdateUrl(response.data.update_res.update_url);
     YSConfig.instance.setUpdateDesc(response.data.update_res.update_desc);
 
-    console.log("ADAAAGGG");
-    console.log(YSConfig.instance.updateAction);
     if (v2 > v1 && updateType != 0) {
-      console.log("??");
       CodePush.checkForUpdate().then((update) => {
-        // console.log("----+---");
-        // console.log(update);
         if (update) {
-          //  console.log(update + "AZZZZ?!");
           if (updateType == 1 || updateType == 2) {
             setShowRegengOverlay(true);
           }
@@ -322,7 +316,6 @@ let App = () => {
             });
           }
         } else {
-          console.log("EHH?");
         }
       });
     }

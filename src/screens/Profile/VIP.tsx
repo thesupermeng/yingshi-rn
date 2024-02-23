@@ -58,6 +58,7 @@ import { screenModel } from "@type/screenType";
 import SplashCard from "../../components/common/splashCard";
 import Carousel from "react-native-reanimated-carousel";
 import CarouselPagination from "../../components/container/CarouselPagination";
+import { User } from "@models/user";
 
 const iap_skus = ["yingshi_vip_1_month", "yingshi_vip_12_months"];
 const subs_skus = [
@@ -362,7 +363,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   }, [membershipSelected]);
 
   const handlePurchase = async () => {
- 
+
     // dispatch(setShowPurchasePending(true));
     // navigation.goBack()
     // return;
@@ -528,7 +529,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
       clearTimeout(pendingTimeoutRef.current);
     } else {
       console.log("order still in progress");
-     dispatch(setShowPurchasePending(true));
+      dispatch(setShowPurchasePending(true));
       navigation.goBack()
     }
   };
@@ -656,7 +657,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                 setDialogText(successDialogText);
                 setIsDialogOpen(true);
                 setIsSuccess(true);
-                 navigation.goBack()
+                navigation.goBack()
               } else {
                 dispatch(setShowGuestPurchaseSuccess(true));
                 setIsVisible(false);
@@ -845,7 +846,10 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                       if (!userState.user?.isLogin() && userState.user?.isVip()) {
                         navigation.goBack();
                       } else {
-                        dispatch(setShowPromotionDialog(true));
+                          if(screenState.isHomeGuideShown==true)
+                          {
+                            dispatch(setShowPromotionDialog(true));
+                          }
                         navigation.goBack();
                       }
                     }}
@@ -1052,7 +1056,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                         </View>
                       </View>
 
-                      {userState.user?.isVip() && (
+                      {User.isVip(userState.user) && (
                         <TouchableOpacity
                           onPress={() => {
                             navigation.navigate("VIP明细", {
@@ -1142,7 +1146,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
             }
             isLast={index === screenState.showEventSplashData.length - 1}
           />
-          
+
         )}
 
       </>
