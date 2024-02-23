@@ -119,7 +119,7 @@ import { UserStateType } from '@redux/reducers/userReducer';
 import { User } from '@models/user';
 import { CRouter } from '../../routes/router';
 import VipGuideModal from '../../components/modal/vipGuide';
-
+import AppsFlyerAnalytics from "../../../AppsFlyer/AppsFlyerAnalytic";
 let insetsTop = 0;
 let insetsBottom = 0;
 
@@ -1020,6 +1020,12 @@ const Play = ({ navigation, route }: RootStackScreenProps<'播放'>) => {
   const onReadyForDisplay = () => {
     if (vod && !isReadyPlay) {
       UmengAnalytics.playsPlaysTimesAnalytics({
+        vod_id: vod.vod_id.toString(),
+        vod_name: vod.vod_name,
+        isXmode: adultMode,
+      });
+
+      AppsFlyerAnalytics.playsPlaysTimesAnalytics({
         vod_id: vod.vod_id.toString(),
         vod_name: vod.vod_name,
         isXmode: adultMode,

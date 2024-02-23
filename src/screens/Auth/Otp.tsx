@@ -24,6 +24,7 @@ import { UserApi } from '@api';
 import { useSelector } from '@hooks/hooks';
 import { User } from '@models/user';
 import { UserStateType } from '@redux/reducers/userReducer';
+import AppsFlyerAnalytics from '../../../AppsFlyer/AppsFlyerAnalytic';
 
 
 export default (props: any) => {
@@ -205,6 +206,7 @@ const OtpInputs = ({
 
       // ========== for analytics - start ==========
       UmengAnalytics.userCenterLoginSuccessTimesAnalytics();
+      AppsFlyerAnalytics.userCenterLoginSuccessTimesAnalytics();
 
       if (user.isVip()) {
         UmengAnalytics.userCenterVipLoginSuccessTimesAnalytics();
