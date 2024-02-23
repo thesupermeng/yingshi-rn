@@ -119,8 +119,10 @@ const RecommendationHome = ({
 
   useEffect(() => {
     if (screenState.isHomeGuideShown == false) {
+      setTimeout(() => {
       setVipGuideModal(true);
       dispatch(setIsHomeGuideShown(true));
+    }, 50);
     }
     //  setVipGuideModal(true);
   }, []);
