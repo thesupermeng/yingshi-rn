@@ -60,7 +60,7 @@ export default function VipGuideModal({onClose, width}: CProps) {
             </TouchableOpacity>
           </View>
         </View>
-        <View style={{height: 10}} />
+        <View style={{height: 12}} />
         <View>
           <View style={{alignSelf: 'center'}}>
             <Text style={[styles.confirmText]} onPress={() => closeModal()}>
@@ -79,23 +79,23 @@ const styles = StyleSheet.create({
     borderColor: 'white',
     borderWidth: 1,
     marginHorizontal: 10,
-    paddingVertical: 10,
+    paddingVertical: 12,
   },
   normalText: {
-    fontSize: 20,
+    fontSize: 18,
     color: 'white',
     textAlign: 'center',
   },
   goldText: {
-    fontSize: 20,
+    fontSize: 18,
     color: '#BB9266',
     textAlign: 'center',
   },
   confirmText: {
     borderRadius: 30,
     borderWidth: 1,
-    borderColor: 'grey',
-    color: 'grey',
+    borderColor: '#9C9C9C',
+    color: '#9C9C9C',
     fontSize: 12,
     paddingHorizontal: 10,
     paddingVertical: 5,
