@@ -1245,12 +1245,14 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                   </TouchableOpacity>
                 </View>
                 <View style={styles.tncContainer}>
+                  <TouchableOpacity onPress={openEmailApp}>
                   <Text style={{ ...textVariants.subBody, color: "#9c9c9c" }}>
                     {"如遇支付问题，请联系"}
-                    <Text onPress={openEmailApp} style={{ textDecorationLine: "underline" }}>
+                    <Text  style={{ textDecorationLine: "underline" }}>
                       contact.movie9@gmail.com
                     </Text>
                   </Text>
+                  </TouchableOpacity>
                 </View>
               </View>
             )}
