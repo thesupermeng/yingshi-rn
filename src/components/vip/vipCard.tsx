@@ -37,7 +37,8 @@ export const VipCard = ({
     //  index: membershipProduct.length -1,
       index: 0,
       animated: true,
-      viewPosition: 0.5,
+      viewPosition: 0,
+      //  viewPosition: 0.5,
     });
 
   };
