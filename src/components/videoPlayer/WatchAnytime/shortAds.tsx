@@ -342,6 +342,7 @@ function ShortAds({
               }}
             >
               <VipGuideModal
+                width={250}
                 onClose={(value: boolean) => {
                   onManualPause(true);
                   setVisible(value);
