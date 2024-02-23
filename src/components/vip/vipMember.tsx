@@ -54,7 +54,7 @@ export const VipMember = ({
             </Text>
             <Text
               style={styles.promoPriceText}>
-              {membershipPlan.promoPrice}
+              {membershipPlan.promoPriceStr}
             </Text>
             <Text
               style={styles.oriPriceText}>

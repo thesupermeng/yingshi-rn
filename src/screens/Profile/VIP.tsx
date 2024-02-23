@@ -71,6 +71,7 @@ import Carousel from "react-native-reanimated-carousel";
 import CarouselPagination from "../../components/container/CarouselPagination";
 import { User } from "@models/user";
 import { CPopup } from "@utility/popup";
+import AppsFlyerAnalytics from "../../../AppsFlyer/AppsFlyerAnalytic";
 
 const iap_skus = ["yingshi_vip_1_month", "yingshi_vip_12_months"];
 const subs_skus = [
@@ -151,7 +152,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const [countdownSecond, setCountdownSecond] = useState(
     (VIP_PROMOTION_COUNTDOWN_MINUTE * 60 * 1000 -
       (Date.now() - backgroundState.vipPromotionCountdownStart)) /
-      1000
+    1000
   );
 
   const hours = Math.floor(countdownSecond / 60 / 60);
@@ -172,7 +173,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
       setCountdownSecond(
         (VIP_PROMOTION_COUNTDOWN_MINUTE * 60 * 1000 -
           (Date.now() - backgroundState.vipPromotionCountdownStart)) /
-          1000
+        1000
       );
     }, 1000);
 
@@ -217,7 +218,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         const offline = !(
           state.isConnected &&
           (state.isInternetReachable === true ||
-          state.isInternetReachable === null
+            state.isInternetReachable === null
             ? true
             : false)
         );
@@ -241,7 +242,8 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
             productSKU: product.product_ios_product_id,
             title: product.product_name,
             price: product.product_price,
-            promoPrice:
+            promoPrice: product.product_promo_price,
+            promoPriceStr:
               product.currency.currency_symbol +
               " " +
               product.product_promo_price,
@@ -257,6 +259,12 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
               },
             ],
             productType: IAP_TYPE,
+            currency: {
+              currencyId: product.currency?.currency_id.toString(),
+              currencyCode: product.currency?.currency_code,
+              currencyName: product.currency?.currency_name,
+              currencySymbol: product.currency?.currency_symbol,
+            },
           };
         });
 
@@ -266,7 +274,8 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
             productSKU: product.product_ios_product_id,
             title: product.product_name,
             price: product.product_price,
-            promoPrice:
+            promoPrice: product.product_promo_price,
+            promoPriceStr:
               product.currency.currency_symbol + product.product_promo_price,
             localizedPrice:
               product.currency.currency_symbol +
@@ -283,6 +292,12 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
               },
             ],
             productType: SUBSCRIPTION_TYPE,
+            currency: {
+              currencyId: product.currency?.currency_id.toString(),
+              currencyCode: product.currency?.currency_code,
+              currencyName: product.currency?.currency_name,
+              currencySymbol: product.currency?.currency_symbol,
+            },
           };
         });
 
@@ -321,7 +336,8 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
             productSKU: product.product_ios_product_id,
             title: product.product_name,
             price: product.product_price,
-            promoPrice:
+            promoPrice: product.product_promo_price,
+            promoPriceStr:
               product.currency.currency_symbol + " " + product.product_price,
             localizedPrice:
               product.currency.currency_symbol +
@@ -587,6 +603,18 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     };
     console.log("iap json posted: ", iapTrans);
 
+    if (currentPurchase && currentPurchase.transactionId) {
+      AppsFlyerAnalytics.userCenterPaymentSuccessTimesAnalytics({
+        type: 'google',
+        productIdentifier: currentPurchase.productId,
+        signature: currentPurchase.signatureAndroid,
+        transactionId: currentPurchase.transactionId,
+        purchaseData: currentPurchase.signatureAndroid,
+        price: membershipSelected.promoPrice ?? membershipSelected.price,
+        currency: membershipSelected.currency.currencyCode,
+      });
+    }
+
     try {
       const result = await ProductApi.postAndroidIAP(iapTrans);
 
@@ -620,6 +648,18 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
       transactionReceipt: sub.transactionReceipt,
     };
     console.log("subs json posted: ", subsTrans);
+
+    if (currentPurchase && currentPurchase.transactionId) {
+      AppsFlyerAnalytics.userCenterPaymentSuccessTimesAnalytics({
+        type: 'google',
+        productIdentifier: currentPurchase.productId,
+        signature: currentPurchase.signatureAndroid,
+        transactionId: currentPurchase.transactionId,
+        purchaseData: currentPurchase.signatureAndroid,
+        price: membershipSelected.promoPrice ?? membershipSelected.price,
+        currency: membershipSelected.currency.currencyCode,
+      });
+    }
 
     try {
       const result = await ProductApi.postAndroidSubscriptions(subsTrans);
@@ -754,9 +794,9 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     return (
       <>
         {index === screenState.showEventSplashData.length - 1 ||
-        screenState.showEventSplash == false ||
-        isLastShown ||
-        screenState.showEventSplashData.length == 0 ? (
+          screenState.showEventSplash == false ||
+          isLastShown ||
+          screenState.showEventSplashData.length == 0 ? (
           <ScreenContainer
             footer={
               <>
@@ -781,7 +821,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                         <Text style={styles.btnText}>
                           立即解锁{" "}
                           {membershipSelected &&
-                            `- 总额${membershipSelected.promoPrice}`}
+                            `- 总额${membershipSelected.promoPriceStr}`}
                         </Text>
                       </LinearGradient>
                     </TouchableOpacity>
@@ -870,8 +910,8 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                       UMENG_CHANNEL === "GOOGLE_PLAY" && IS_ANDROID
                         ? 2.2
                         : IS_IOS
-                        ? 1.5
-                        : 1,
+                          ? 1.5
+                          : 1,
                     overflow: "hidden",
                   }}
                 >
@@ -1230,8 +1270,8 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
               index === 0
                 ? require(`@static/images/eventSplash1.png`)
                 : index === 1
-                ? require(`@static/images/eventSplash2.png`)
-                : require(`@static/images/eventSplash3.png`)
+                  ? require(`@static/images/eventSplash2.png`)
+                  : require(`@static/images/eventSplash3.png`)
             }
             isLast={index === screenState.showEventSplashData.length - 1}
           />
@@ -1249,7 +1289,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         height={height}
         data={screenState.showEventSplashData}
         scrollAnimationDuration={100}
-        onScrollBegin={() => {}}
+        onScrollBegin={() => { }}
         enabled={screenState.showEventSplash !== false}
         loop={false}
         onSnapToItem={(index) => {

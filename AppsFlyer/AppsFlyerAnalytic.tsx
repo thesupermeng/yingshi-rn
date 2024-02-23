@@ -2,6 +2,7 @@ import appsFlyer from "react-native-appsflyer";
 import { YSConfig } from "../ysConfig";
 
 enum CustomEventKey {
+    Install = 'install',
     App_Boot = 'open_app',
     UserCenter_Payment_Success_Times = 'userCenter_payment_success_times',
     UserCenter_Login_Success_Times = 'userCenter_login_success_times',
@@ -10,6 +11,22 @@ enum CustomEventKey {
 
 export default class AppsFlyerAnalytics {
     static showLog: boolean = true;
+
+    // for install (first time on boot)
+    static install = () => {
+        const ip: string = YSConfig.instance.ip;
+
+        appsFlyer.logEvent(
+            CustomEventKey.Install,
+            { ip, },
+            res => {
+                if (this.showLog) console.log('trigger event id:', CustomEventKey.Install);
+            },
+            err => {
+                if (this.showLog) console.error('error event id:', CustomEventKey.Install);
+            },
+        );
+    }
 
     static appBoot = () => {
         const ip: string = YSConfig.instance.ip;
@@ -27,7 +44,7 @@ export default class AppsFlyerAnalytics {
     }
 
     static userCenterPaymentSuccessTimesAnalytics = ({
-        publicKey,
+        type,
         productIdentifier,
         signature,
         transactionId,
@@ -35,25 +52,30 @@ export default class AppsFlyerAnalytics {
         price,
         currency,
     }: {
-        publicKey: string,
+        type: 'google' | '4fang',
         productIdentifier: string,
-        signature: string,
+        signature?: string,
         transactionId: string,
-        purchaseData: string,
+        purchaseData?: string,
         price: string,
         currency: string,
     }) => {
-        appsFlyer.validateAndLogInAppPurchase(
-            {
-                publicKey,
-                currency,
-                signature,
-                purchaseData,
-                price,
-                productIdentifier,
-                transactionId,
-                additionalParameters: {},
+        const transactionData = {
+            publicKey: '',
+            currency,
+            signature,
+            purchaseData,
+            price,
+            productIdentifier,
+            transactionId,
+            additionalParameters: {
+                paymentType: type,
             },
+        }
+
+        appsFlyer.logEvent(
+            CustomEventKey.UserCenter_Payment_Success_Times,
+            transactionData,
             res => {
                 if (this.showLog) console.log('trigger event id:', CustomEventKey.UserCenter_Payment_Success_Times);
             },
@@ -61,6 +83,22 @@ export default class AppsFlyerAnalytics {
                 if (this.showLog) console.error('error event id:', CustomEventKey.UserCenter_Payment_Success_Times);
             },
         );
+
+        if (type === 'google' && signature && purchaseData) {
+            appsFlyer.validateAndLogInAppPurchase(
+                {
+                    ...transactionData,
+                    signature,
+                    purchaseData,
+                },
+                res => {
+                    if (this.showLog) console.log('trigger event id:', CustomEventKey.UserCenter_Payment_Success_Times);
+                },
+                err => {
+                    if (this.showLog) console.error('error event id:', CustomEventKey.UserCenter_Payment_Success_Times);
+                },
+            );
+        }
     }
 
     static userCenterLoginSuccessTimesAnalytics = () => {
