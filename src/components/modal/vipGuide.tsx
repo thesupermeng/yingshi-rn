@@ -10,9 +10,14 @@ type CProps = {
   isLoading?: boolean;
   onClose: CallableFunction;
   width?: string | number;
+  isLeft?: boolean;
 };
 
-export default function VipGuideModal({onClose, width}: CProps) {
+export default function VipGuideModal({
+  onClose,
+  width,
+  isLeft = false,
+}: CProps) {
   const closeModal = () => {
     onClose(false);
   };
@@ -21,13 +26,20 @@ export default function VipGuideModal({onClose, width}: CProps) {
 
   return (
     <View style={{paddingHorizontal: 10}}>
-      <View style={{alignSelf: 'flex-end', paddingRight: 30}}>
-        <Image source={require(`@static/images/vip_guide_arrow.png`)}></Image>
-      </View>
+      {isLeft ? (
+        <View style={{alignSelf: 'flex-start', paddingLeft: 30}}>
+          <Image source={require(`@static/images/vip_guide_arrow.png`)}></Image>
+        </View>
+      ) : (
+        <View style={{alignSelf: 'flex-end', paddingRight: 30}}>
+          <Image source={require(`@static/images/vip_guide_arrow.png`)}></Image>
+        </View>
+      )}
       <View
         style={{
           width: width ?? '70%',
           alignSelf: 'flex-end',
+          justifyContent: 'flex-end',
         }}>
         <View style={[styles.buyContainer]}>
           <Text style={[styles.normalText]}>

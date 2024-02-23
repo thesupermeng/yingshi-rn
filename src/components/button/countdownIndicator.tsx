@@ -1,8 +1,8 @@
-import { useAppDispatch, useAppSelector } from "@hooks/hooks";
-import { setIsSportGuideShown } from "@redux/actions/screenAction";
-import { Divider } from "@rneui/base";
-import { screenModel } from "@type/screenType";
-import { useEffect, useRef, useState } from "react";
+import {useAppDispatch, useAppSelector} from '@hooks/hooks';
+import {setIsSportGuideShown} from '@redux/actions/screenAction';
+import {Divider} from '@rneui/base';
+import {screenModel} from '@type/screenType';
+import {useEffect, useRef, useState} from 'react';
 import {
   View,
   Text,
@@ -11,8 +11,8 @@ import {
   TextStyle,
   Modal,
   Dimensions,
-} from "react-native";
-import VipGuideModal from "../modal/vipGuide";
+} from 'react-native';
+import VipGuideModal from '../modal/vipGuide';
 
 interface Props {
   timer: number; //number of seconds left
@@ -25,7 +25,7 @@ const formatTimer = (numOfSeconds: number) => {
   const minutes = Math.floor(numOfSeconds / 60);
   const seconds = numOfSeconds % 60;
 
-  return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+  return `${minutes}:${seconds.toString().padStart(2, '0')}`;
 };
 
 const CountdownIndicator = ({
@@ -34,8 +34,8 @@ const CountdownIndicator = ({
   vipButtonText,
   containerStyle,
 }: Props) => {
-  const screenHeight = Dimensions.get("window").height;
-  const screenWidth = Dimensions.get("window");
+  const screenHeight = Dimensions.get('window').height;
+  const screenWidth = Dimensions.get('window');
   const [visible, setVisible] = useState(true);
   const [refPosition, setRefPosition] = useState({
     x: 0,
@@ -46,31 +46,28 @@ const CountdownIndicator = ({
   const componentRef = useRef<View>(null); // Create a ref for the component
   const [vipGuideModal, setVipGuideModal] = useState(true);
   const screenState: screenModel = useAppSelector(
-    ({ screenReducer }) => screenReducer
+    ({screenReducer}) => screenReducer,
   );
   const dispatch = useAppDispatch();
   // const dispatch = useAppDispatch();
   useEffect(() => {
     if (screenState.isSportGuideShown == false) {
-      setVipGuideModal(true);
-      dispatch(setIsSportGuideShown(true));
+      setTimeout(() => {
+        setVipGuideModal(true);
+        dispatch(setIsSportGuideShown(true));
+      }, 100);
     }
-    //  setVipGuideModal(true);
   }, []);
 
   useEffect(() => {
     getPosition();
   }, []);
-
-  useEffect(() => {
-    getPosition();
-  }, [componentRef]);
 
   const getPosition = () => {
     if (componentRef.current != null) {
       componentRef.current.measure((x, y, width, height, pageX, pageY) => {
-        console.log("Position:", { x, y, width, height, pageX, pageY });
-        setRefPosition({ x: pageX, y: pageY, width: width, height: height });
+        console.log('Position:', {x, y, width, height, pageX, pageY});
+        setRefPosition({x: pageX, y: pageY, width: width, height: height});
       });
     }
   };
@@ -79,21 +76,18 @@ const CountdownIndicator = ({
       <View
         style={containerStyle}
         onLayout={() => getPosition()}
-        ref={componentRef}
-      >
+        ref={componentRef}>
         <View style={styles.timerIndicatorContainer}>
           <Text
             numberOfLines={1}
-            style={{ ...styles.indicatorText, color: "#FFFFFF" }}
-          >
-            {timer >= 0 ? `试看${formatTimer(timer)}后结束` : "试看结束"}
+            style={{...styles.indicatorText, color: '#FFFFFF'}}>
+            {timer >= 0 ? `试看${formatTimer(timer)}后结束` : '试看结束'}
           </Text>
           <Divider color="#FFFFFF33" orientation="vertical" width={1} />
           <TouchableOpacity onPress={onClickVip}>
             <Text
               numberOfLines={1}
-              style={{ ...styles.indicatorText, color: "#FAC33D" }}
-            >
+              style={{...styles.indicatorText, color: '#FAC33D'}}>
               {vipButtonText}
             </Text>
           </TouchableOpacity>
@@ -101,16 +95,16 @@ const CountdownIndicator = ({
       </View>
 
       <Modal visible={vipGuideModal} transparent={true}>
-        <View style={{ flex: 1, backgroundColor: "rgba(0,0,0,0.8)" }}>
+        <View style={{flex: 1, backgroundColor: 'rgba(0,0,0,0.8)'}}>
           <View
             style={{
-              position: "absolute",
+              position: 'absolute',
               top: refPosition.y + 30,
-              right: screenWidth.width / 7,
-            }}
-          >
+              left: 20,
+            }}>
             <VipGuideModal
               width="100%"
+              isLeft={true}
               onClose={(value: boolean) => setVipGuideModal(value)}
             />
           </View>
@@ -122,10 +116,10 @@ const CountdownIndicator = ({
 
 const styles: Record<string, ViewStyle | TextStyle> = {
   timerIndicatorContainer: {
-    backgroundColor: "rgba(0, 0, 0, 0.60)",
+    backgroundColor: 'rgba(0, 0, 0, 0.60)',
     borderRadius: 4,
-    display: "flex",
-    flexDirection: "row",
+    display: 'flex',
+    flexDirection: 'row',
     gap: 3,
     paddingVertical: 4,
     paddingHorizontal: 5,
