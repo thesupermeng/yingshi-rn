@@ -287,15 +287,15 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         });
 
         // Find the index of the item with product_name "12个月"
-        const index12Months = subscription.findIndex(
-          (item) => item.title === "12个月"
-        );
+        // const index12Months = subscription.findIndex(
+        //   (item) => item.title === "12个月"
+        // );
 
         // If found, move it to the first position
-        if (index12Months !== -1) {
-          const item12Months = subscription.splice(index12Months, 1)[0];
-          subscription.unshift(item12Months);
-        }
+        // if (index12Months !== -1) {
+        //   const item12Months = subscription.splice(index12Months, 1)[0];
+        //   subscription.unshift(item12Months);
+        // }
 
         // console.log("subscription");
         // console.log(subscription);
