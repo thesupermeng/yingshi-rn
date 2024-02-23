@@ -76,7 +76,7 @@ export default class AppsFlyerAnalytics {
             price,
             productIdentifier,
             transactionId,
-            additionalParameters: {},
+            // additionalParameters: {},
         }
 
         appsFlyer.logEvent(
@@ -94,14 +94,17 @@ export default class AppsFlyerAnalytics {
             appsFlyer.validateAndLogInAppPurchase(
                 {
                     ...transactionData,
-                    signature,
-                    purchaseData,
+                    signature: signature ?? '',
+                    purchaseData: purchaseData ?? '',
                 },
                 res => {
-                    if (this.#showLog) console.log('trigger event id:', CustomEventKey.UserCenter_Payment_Success_Times);
+                    if (this.#showLog) console.log('trigger payment id:', CustomEventKey.UserCenter_Payment_Success_Times);
                 },
                 err => {
-                    if (this.#showLog) console.error('error event id:', CustomEventKey.UserCenter_Payment_Success_Times);
+                    if (this.#showLog) {
+                        console.error('error payment id:', CustomEventKey.UserCenter_Payment_Success_Times);
+                        console.error(err)
+                    }
                 },
             );
         }
