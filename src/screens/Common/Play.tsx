@@ -347,8 +347,8 @@ const Play = ({navigation, route}: RootStackScreenProps<'播放'>) => {
     height: 0,
   });
   const componentRef = useRef<View>(null); // Create a ref for the component
-  const [vipGuideModal, setVipGuideModal] = useState(true);
-  const [vipGuideModalDL, setVipGuideModalDL] = useState(true);
+  const [vipGuideModal, setVipGuideModal] = useState(false);
+  const [vipGuideModalDL, setVipGuideModalDL] = useState(false);
   const screenWidth = Dimensions.get('window');
 
   const downloadedVod: VodDownloadType | undefined = useAppSelector(
@@ -393,7 +393,7 @@ const Play = ({navigation, route}: RootStackScreenProps<'播放'>) => {
     }
 
     if (screenState.isPlayGuideShown == false) {
-      videoPlayerRef.current?.setPause(true); // Resume playing the video
+      videoPlayerRef.current?.setPause(true); // pause video
       setVipGuideModal(true);
       dispatch(setIsPlayGuideShown(true));
     }
