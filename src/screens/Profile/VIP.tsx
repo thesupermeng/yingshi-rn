@@ -37,6 +37,7 @@ import {
   VIP_PROMOTION_COUNTDOWN_MINUTE,
 } from "@utility/constants";
 import {
+  changeScreenAction,
   setEventSplashLastPageViewTime,
   setShowEventSplash,
   setShowGuestPurchaseSuccess,
@@ -736,6 +737,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
               handleRefresh();
 
               if (userState.user?.isLogin()) {
+                dispatch(changeScreenAction(successDialogText[0]));
                 setDialogText(successDialogText);
                 setIsDialogOpen(true);
                 setIsSuccess(true);
