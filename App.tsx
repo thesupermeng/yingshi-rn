@@ -93,24 +93,6 @@ let App = () => {
   const [isConnected, setIsConnected] = useState(true);
   const [count, setCount] = useState(0);
   useEffect(() => {
-    appsFlyer.initSdk(
-      {
-        devKey: APPSFLYER_DEVKEY,
-        isDebug: false,
-        appId: APPSFLYER_APPID,
-        onInstallConversionDataListener: true,
-        onDeepLinkListener: true,
-        timeToWaitForATTUserAuthorization: 10,
-      },
-      result => {
-        console.log('Apps Flyer init success');
-        AppsFlyerAnalytics.appBoot();
-      },
-      error => {
-        console.error(error);
-      },
-    );
-
     const unsubscribe = NetInfo.addEventListener((state: any) => {
       setIsConnected(state.isConnected);
     });

@@ -5,6 +5,7 @@ import { getUniqueId } from "react-native-device-info";
 import { Socket, io } from "socket.io-client";
 import { chatBotMessageFromJson, liveChatRoomFromJson } from "@type/typeMapping";
 import { LiveChatRoomType } from "@type/ajaxTypes";
+import { User } from "@models/user";
 
 enum SocketEvent {
     Connect = 'connect',
@@ -45,9 +46,9 @@ export const joinChatRoom = ({
         const uuid = await getUniqueId();
 
         const roomIdWithPrefix = `${isPrivate ? 'private' : 'live'}:${roomId}`;
-        // TODO: need change when done guest user
-        let userId = userState.userId !== undefined && userState.userId !== '' ? userState.userId : `guest:${uuid}`;
-        let userName = userState.userId !== undefined && userState.userId !== '' ? userState.userName : `guest-${uuid.substring(0, 6)}`;
+
+        let userId = !User.isLogin(userState.user) ? userState.user!.userId : `guest:${uuid}`;
+        let userName = !User.isLogin(userState.user) ? userState.user!.userName : `guest-${uuid.substring(0, 6)}`;
 
         const ws = io(CEndpoint.chatSocket, {
             autoConnect: false,

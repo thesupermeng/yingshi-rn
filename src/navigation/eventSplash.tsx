@@ -78,7 +78,8 @@ export const EventSpash = ({ splashList }: Props) => {
           productSKU: product.product_ios_product_id,
           title: product.product_name,
           price: product.product_price,
-          promoPrice: product.currency.currency_symbol + " " + product.product_promo_price,
+          promoPrice: product.product_promo_price,
+          promoPriceStr: product.currency.currency_symbol + " " + product.product_promo_price,
           localizedPrice:
             product.currency.currency_symbol + " " + product.product_price,
           description: product.product_desc,
@@ -98,7 +99,8 @@ export const EventSpash = ({ splashList }: Props) => {
           productSKU: product.product_ios_product_id,
           title: product.product_name,
           price: product.product_price,
-          promoPrice:
+          promoPrice: product.product_promo_price,
+          promoPriceStr:
             product.currency.currency_symbol + product.product_promo_price,
           localizedPrice:
             product.currency.currency_symbol + (product.product_name === '1个月' ? product.product_price : product.fake_price),
@@ -576,7 +578,7 @@ export const EventSpash = ({ splashList }: Props) => {
 
                             <View style={styles.textContainer}>
                               <Text style={styles.promo}>{subscription.title}</Text>
-                              <Text style={styles.promo2}>{subscription.promoPrice}</Text>
+                              <Text style={styles.promo2}>{subscription.promoPriceStr}</Text>
                               <Text style={styles.promo3}>{subscription.localizedPrice}</Text>
                             </View>
                           </View>
@@ -620,7 +622,7 @@ export const EventSpash = ({ splashList }: Props) => {
                         }}
                       >
                         <Text style={styles.purchaseText}>
-                          立即解锁 {productSelected && `- 总额${productSelected.promoPrice}`}
+                          立即解锁 {productSelected && `- 总额${productSelected.promoPriceStr}`}
                         </Text>
                       </LinearGradient>
                     </TouchableOpacity>
