@@ -44,7 +44,7 @@ const CountdownIndicator = ({
     height: 0,
   });
   const componentRef = useRef<View>(null); // Create a ref for the component
-  const [vipGuideModal, setVipGuideModal] = useState(true);
+  const [vipGuideModal, setVipGuideModal] = useState(false);
   const screenState: screenModel = useAppSelector(
     ({screenReducer}) => screenReducer,
   );
@@ -55,9 +55,9 @@ const CountdownIndicator = ({
       setTimeout(() => {
         setVipGuideModal(true);
         dispatch(setIsSportGuideShown(true));
-      }, 100);
+      }, 1000);
     }
-  }, []);
+  }, [timer]);
 
   useEffect(() => {
     getPosition();
@@ -100,10 +100,10 @@ const CountdownIndicator = ({
             style={{
               position: 'absolute',
               top: refPosition.y + 30,
-              left: 20,
+              left: 115,
             }}>
             <VipGuideModal
-              width="100%"
+              width="165%"
               isLeft={true}
               onClose={(value: boolean) => setVipGuideModal(value)}
             />
