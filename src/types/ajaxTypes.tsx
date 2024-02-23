@@ -474,7 +474,10 @@ export interface BannerAdType {
     ads_desc1: string
     ads_desc2: string
     ads_redirect_type: number
-
+}
+export interface BannerAdTypeRes {
+    ads: BannerAdType,
+    ads_list: BannerAdType[]
 }
 
 export type LiveChatRoomType = {

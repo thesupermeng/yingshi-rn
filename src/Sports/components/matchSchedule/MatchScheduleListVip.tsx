@@ -62,6 +62,7 @@ const MatchScheduleList = ({
   const [showLoading, setShowLoading] = useState(false);
   const [showLoading2, setShowLoading2] = useState(false);
   const [bannerAd, setBannerAd] = useState<BannerAdType>();
+  const [bannerAdList, setBannerAdList] = useState<Array<BannerAdType>>([]);
   const userState = useSelector<UserStateType>('userReducer');
   const isVip = User.isVip(userState.user);
 
@@ -144,12 +145,16 @@ const MatchScheduleList = ({
   }, []);
 
   const fetchBannerAd = async () => {
-    const banner = await AdsApi.getBannerAd(110);
+    const bannerRes = await AdsApi.getBannerAd(110);
+    const banner = bannerRes.ads;
+    const bannerList = bannerRes.ads_list;
 
     if (banner) {
       setBannerAd(banner);
+      setBannerAdList(bannerList);
     } else {
       setBannerAd(undefined);
+      setBannerAdList([]);
     }
   }
 
@@ -162,6 +167,7 @@ const MatchScheduleList = ({
       fetchBannerAd();
     } else {
       setBannerAd(undefined);
+      setBannerAdList([]);
     }
   };
 
@@ -178,6 +184,7 @@ const MatchScheduleList = ({
     item: { date: string | undefined; data: MatchDetailsType | undefined };
     index: number;
   }) => {
+
     return (
       <View style={{ width: "100%" }}>
         {item?.date !== undefined ? (
@@ -210,12 +217,12 @@ const MatchScheduleList = ({
                 matchSche={item?.data}
               />
 
-              {(index + 1) % 5 === 0 && bannerAd && (
+              {(index + 1) % 5 === 0 && bannerAd && bannerAdList.length > 0 && (
                 <View style={{
                   paddingVertical: 5
                 }}>
                   <BannerContainer
-                    bannerAd={bannerAd}
+                    bannerAd={bannerAdList[Math.floor(Math.random() * bannerAdList.length)]}
                     onMount={({ id, name, slot_id, title }) => {
                       UmengAnalytics.sportBannerViewAnalytics({
                         ads_id: id,

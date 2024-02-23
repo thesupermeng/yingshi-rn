@@ -49,7 +49,7 @@ export const VipCard = ({
       setTimeout(() => {setListPosition()}, 200); 
     }
   }, [isRefreshing]);
-
+  
   return (
     <View
       style={{

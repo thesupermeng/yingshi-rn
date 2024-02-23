@@ -1,6 +1,6 @@
 import { CApi } from "@utility/apiService"
 import { CEndpoint } from "../constants/api"
-import { BannerAdType } from "@type/ajaxTypes";
+import { BannerAdType, BannerAdTypeRes } from "@type/ajaxTypes";
 import { YSConfig } from "../../ysConfig";
 
 export class AdsApi {
@@ -17,7 +17,7 @@ export class AdsApi {
         throw result.message
       }
 
-      return result.data as BannerAdType
+      return result.data as BannerAdTypeRes
 
     } catch (e: any) {
       console.error(`[Error getBannerAd}]: ${e.toString()}`);

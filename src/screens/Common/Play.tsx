@@ -396,7 +396,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<'播放'>) => {
   }, []);
 
   const onAdsMount = () => {
-    if (screenState.isPlayGuideShown2 == false !isVip) {
+    if (screenState.isPlayGuideShown2 == false && !isVip) {
       setTimeout(() => {
         videoPlayerRef.current?.setPause(true); // pause video
         setVipGuideModalDL(true);
@@ -646,7 +646,8 @@ const Play = ({ navigation, route }: RootStackScreenProps<'播放'>) => {
   });
 
   const fetchBannerAd = async () => {
-    const banner = await AdsApi.getBannerAd(adultMode ? 113 : 112);
+    const bannerRes = await AdsApi.getBannerAd(adultMode ? 113 : 112);
+    const banner = bannerRes.ads;
 
     if (banner) {
       setBannerAd(banner);
