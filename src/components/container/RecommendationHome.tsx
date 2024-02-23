@@ -57,7 +57,7 @@ import {UserStateType} from '@redux/reducers/userReducer';
 import {User} from '@models/user';
 import VipGuideModal from '../modal/vipGuide';
 import {screenModel} from '@type/screenType';
-import {setIsHomeGuideShown} from '@redux/actions/screenAction';
+import {setIsHomeGuideShown, setShowPromotionDialog} from '@redux/actions/screenAction';
 
 interface NavType {
   id: number;
@@ -118,9 +118,10 @@ const RecommendationHome = ({
   );
 
   useEffect(() => {
-    if (screenState.isHomeGuideShown == false) {
+    if (screenState.isHomeGuideShown != true) {
+      setTimeout(() => {
       setVipGuideModal(true);
-      dispatch(setIsHomeGuideShown(true));
+    }, 50);
     }
     //  setVipGuideModal(true);
   }, []);
@@ -552,7 +553,13 @@ const RecommendationHome = ({
                           {renderBanner(bannerAd)}
                         </View>
                         <VipGuideModal
-                          onClose={(value: boolean) => setVipGuideModal(value)}
+                          onClose={(value: boolean) => 
+                            {
+                              dispatch(setIsHomeGuideShown(true));
+                              setVipGuideModal(value)
+                              dispatch(setShowPromotionDialog(true));
+                            }
+                          }
                         />
                       </View>
                     </View>

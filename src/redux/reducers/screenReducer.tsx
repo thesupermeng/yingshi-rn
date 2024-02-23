@@ -30,7 +30,7 @@ const initialState: screenModel = {
   showPromotionDialog: false,
   showGuestPurchaseSuccess: false,
   showPurchasePending:false,
-  isHomeGuideShown : false, //1
+  isHomeGuideShown : 'null', //1
   isMiniVodGuideShown : false, //2
   isPlayGuideShown : false, //3
   isPlayGuideShown2 :  false, //4

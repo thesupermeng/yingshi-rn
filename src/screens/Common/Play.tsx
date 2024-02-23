@@ -119,7 +119,7 @@ import { UserStateType } from '@redux/reducers/userReducer';
 import { User } from '@models/user';
 import { CRouter } from '../../routes/router';
 import VipGuideModal from '../../components/modal/vipGuide';
-
+import AppsFlyerAnalytics from "../../../AppsFlyer/AppsFlyerAnalytic";
 let insetsTop = 0;
 let insetsBottom = 0;
 
@@ -388,25 +388,20 @@ const Play = ({ navigation, route }: RootStackScreenProps<'播放'>) => {
 
   useEffect(() => {
     if (screenState.isPlayGuideShown == false) {
+      setTimeout(() => {
       setVipGuideModal(true);
       dispatch(setIsPlayGuideShown(true));
+    }, 1200);
     }
-
-    // if (screenState.isPlayGuideShown == false) {
-    //   videoPlayerRef.current?.setPause(true); // pause video
-    //   setVipGuideModal(true);
-    //   dispatch(setIsPlayGuideShown(true));
-    // }
-
-    //  setVipGuideModal(true);
   }, []);
 
   const onAdsMount = () => {
     if (screenState.isPlayGuideShown2 == false) {
-      console.debug('pause when mount')
-      videoPlayerRef.current?.setPause(true); // pause video
-      setVipGuideModalDL(true);
-      dispatch(setIsPlayGuideShown2(true));
+      setTimeout(() => {
+        videoPlayerRef.current?.setPause(true); // pause video
+        setVipGuideModalDL(true);
+        dispatch(setIsPlayGuideShown2(true));
+      }, 20);
     }
   }
 
@@ -1025,6 +1020,12 @@ const Play = ({ navigation, route }: RootStackScreenProps<'播放'>) => {
   const onReadyForDisplay = () => {
     if (vod && !isReadyPlay) {
       UmengAnalytics.playsPlaysTimesAnalytics({
+        vod_id: vod.vod_id.toString(),
+        vod_name: vod.vod_name,
+        isXmode: adultMode,
+      });
+
+      AppsFlyerAnalytics.playsPlaysTimesAnalytics({
         vod_id: vod.vod_id.toString(),
         vod_name: vod.vod_name,
         isXmode: adultMode,
@@ -1823,10 +1824,9 @@ const Play = ({ navigation, route }: RootStackScreenProps<'播放'>) => {
                   right: screenWidth.width / 7,
                 }}>
                 <VipGuideModal
-                  width="100%"
+                contentTemplate={2}
+                  width="160%"
                   onClose={(value: boolean) => {
-
-                  
                     setVipGuideModal(value)
                   }}
                 />

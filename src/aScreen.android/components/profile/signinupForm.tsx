@@ -41,6 +41,7 @@ import { UserApi } from "@api";
 import { RootState } from "@redux/store";
 import { User } from "@models/user";
 import { UserStateType } from "@redux/reducers/userReducer";
+import AppsFlyerAnalytics from "../../../../AppsFlyer/AppsFlyerAnalytic";
 
 
 export type SigninupRef = {
@@ -220,6 +221,7 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
 
       // ========== for analytics - start ==========
       UmengAnalytics.userCenterLoginSuccessTimesAnalytics();
+      AppsFlyerAnalytics.userCenterLoginSuccessTimesAnalytics();
 
       if (user.isVip()) {
         UmengAnalytics.userCenterVipLoginSuccessTimesAnalytics();

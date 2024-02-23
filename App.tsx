@@ -6,6 +6,8 @@ import {
   ANDROID_HOME_PAGE_BANNER_ADS,
   API_DOMAIN,
   API_DOMAIN_TEST,
+  APPSFLYER_APPID,
+  APPSFLYER_DEVKEY,
   APP_NAME_CONST,
   APP_VERSION,
   EVENT_CUSTOM_START,
@@ -43,6 +45,7 @@ import { AppsApi, PlaylistApi, VodApi } from "@api";
 import { CustomEventAnalytic } from "./Umeng/EventAnalytic";
 import { logIgnore, warnIgnore } from "@utility/helper";
 import appsFlyer from "react-native-appsflyer";
+import AppsFlyerAnalytics from "./AppsFlyer/AppsFlyerAnalytic";
 
 const topon_channel = "GOOGLE_PLAY";
 
@@ -72,42 +75,12 @@ warnIgnore([
 logIgnore([
   /Opening .* for reading/,
   /\[.*\] pts has no value/,
-  /frame=.*fps=.*q=.*size=.*time=.*bitrate=.*speed=.*/
+  /frame=.*fps=.*q=.*size=.*time=.*bitrate=.*speed=.*/,
+  'ATBanner',
 ])
 
 let App = () => {
   CodePush.notifyAppReady();
-  appsFlyer.initSdk(
-    {
-      devKey: 'wrxTHihLJNWrrusXtgRJZa',
-      isDebug: false,
-      //appId: '41*****44', IOS only.. need get from ap store
-      onInstallConversionDataListener: true,
-      onDeepLinkListener: true,
-      timeToWaitForATTUserAuthorization: 10,
-    },
-    result => {
-      // console.log(result);
-      const eventName = 'open_app';
-      const eventValues = {
-        ip: YSConfig.instance.ip,
-      };
-
-      appsFlyer.logEvent(
-        eventName,
-        eventValues,
-        res => {
-          // console.log(res);
-        },
-        err => {
-          console.error(err);
-        },
-      );
-    },
-    error => {
-      console.error(error);
-    },
-  );
 
   const queryClient = new QueryClient({
     defaultOptions: {
@@ -120,6 +93,24 @@ let App = () => {
   const [isConnected, setIsConnected] = useState(true);
   const [count, setCount] = useState(0);
   useEffect(() => {
+    appsFlyer.initSdk(
+      {
+        devKey: APPSFLYER_DEVKEY,
+        isDebug: false,
+        appId: APPSFLYER_APPID,
+        onInstallConversionDataListener: true,
+        onDeepLinkListener: true,
+        timeToWaitForATTUserAuthorization: 10,
+      },
+      result => {
+        console.log('Apps Flyer init success');
+        AppsFlyerAnalytics.appBoot();
+      },
+      error => {
+        console.error(error);
+      },
+    );
+
     const unsubscribe = NetInfo.addEventListener((state: any) => {
       setIsConnected(state.isConnected);
     });

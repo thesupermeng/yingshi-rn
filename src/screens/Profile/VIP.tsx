@@ -36,13 +36,24 @@ import {
   UMENG_CHANNEL,
   VIP_PROMOTION_COUNTDOWN_MINUTE,
 } from "@utility/constants";
-import { setEventSplashLastPageViewTime, setShowEventSplash, setShowGuestPurchaseSuccess, setShowPromotionDialog, setShowPurchasePending, showLoginAction } from "@redux/actions/screenAction";
+import {
+  setEventSplashLastPageViewTime,
+  setShowEventSplash,
+  setShowGuestPurchaseSuccess,
+  setShowPromotionDialog,
+  setShowPurchasePending,
+  showLoginAction,
+} from "@redux/actions/screenAction";
 import { ProductApi, UserApi } from "@api";
 import WebView from "react-native-webview";
 import { YSConfig } from "../../../ysConfig";
 import { VipCard } from "../../components/vip/vipCard";
-import { membershipModel, promoMembershipModel, zfModel } from "@type/membershipType";
-import { InAppBrowser } from 'react-native-inappbrowser-reborn';
+import {
+  membershipModel,
+  promoMembershipModel,
+  zfModel,
+} from "@type/membershipType";
+import { InAppBrowser } from "react-native-inappbrowser-reborn";
 import { VipDialog } from "../../components/vip/vipDialog";
 import SpinnerOverlay from "../../components/modal/SpinnerOverlay";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -59,6 +70,7 @@ import SplashCard from "../../components/common/splashCard";
 import Carousel from "react-native-reanimated-carousel";
 import CarouselPagination from "../../components/container/CarouselPagination";
 import { User } from "@models/user";
+import { CPopup } from "@utility/popup";
 
 const iap_skus = ["yingshi_vip_1_month", "yingshi_vip_12_months"];
 const subs_skus = [
@@ -90,14 +102,14 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     promoMembershipModel[]
   >([]);
 
-  const [membershipSelected, setSelectedMembership] = useState<promoMembershipModel>(
-    membershipProducts[0]
-  );
+  const [membershipSelected, setSelectedMembership] = useState<
+    promoMembershipModel
+  >(membershipProducts[0]);
   const [zfOptions, setZfOptions] = useState<zfModel[]>([]);
   const [zfSelected, setSelectedZf] = useState("");
   const [isOffline, setIsOffline] = useState(false);
   const { textVariants, spacing } = useTheme();
-  const userState = useSelector<UserStateType>('userReducer');
+  const userState = useSelector<UserStateType>("userReducer");
 
   const [loading, setIsLoading] = useState(true);
   const [fetching, setFetching] = useState(true);
@@ -139,7 +151,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const [countdownSecond, setCountdownSecond] = useState(
     (VIP_PROMOTION_COUNTDOWN_MINUTE * 60 * 1000 -
       (Date.now() - backgroundState.vipPromotionCountdownStart)) /
-    1000
+      1000
   );
 
   const hours = Math.floor(countdownSecond / 60 / 60);
@@ -160,7 +172,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
       setCountdownSecond(
         (VIP_PROMOTION_COUNTDOWN_MINUTE * 60 * 1000 -
           (Date.now() - backgroundState.vipPromotionCountdownStart)) /
-        1000
+          1000
       );
     }, 1000);
 
@@ -205,7 +217,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         const offline = !(
           state.isConnected &&
           (state.isInternetReachable === true ||
-            state.isInternetReachable === null
+          state.isInternetReachable === null
             ? true
             : false)
         );
@@ -237,11 +249,13 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
               product.currency.currency_symbol + " " + product.product_price,
             description: product.product_desc,
             subscriptionDays: product.product_value,
-            zfOptions: [{
-              payment_type_code: "GOOGLE_PAY",
-              payment_type_name: "Google Pay",
-              payment_type_icon: "google.png",
-            }],
+            zfOptions: [
+              {
+                payment_type_code: "GOOGLE_PAY",
+                payment_type_name: "Google Pay",
+                payment_type_icon: "google.png",
+              },
+            ],
             productType: IAP_TYPE,
           };
         });
@@ -261,11 +275,13 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                 : product.product_fake_price),
             description: product.product_desc,
             subscriptionDays: product.product_value,
-            zfOptions: [{
-              payment_type_code: "GOOGLE_PAY",
-              payment_type_name: "Google Pay",
-              payment_type_icon: "google.png",
-            }],
+            zfOptions: [
+              {
+                payment_type_code: "GOOGLE_PAY",
+                payment_type_name: "Google Pay",
+                payment_type_icon: "google.png",
+              },
+            ],
             productType: SUBSCRIPTION_TYPE,
           };
         });
@@ -275,10 +291,10 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
           (item) => item.title === "12个月"
         );
 
-        // If found, move it to the second position
+        // If found, move it to the first position
         if (index12Months !== -1) {
           const item12Months = subscription.splice(index12Months, 1)[0];
-          subscription.splice(1, 0, item12Months);
+          subscription.unshift(item12Months);
         }
 
         // console.log("subscription");
@@ -293,24 +309,35 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
       let siFang: Array<promoMembershipModel>;
 
       if (data) {
-        siFang = data['4_fang_items'].map((product: any) => {
+        siFang = data["4_fang_items"].map((product: any) => {
           return {
             productId: product.product_id,
             productSKU: product.product_ios_product_id,
             title: product.product_name,
             price: product.product_price,
             promoPrice:
+              product.currency.currency_symbol + " " + product.product_price,
+            localizedPrice:
               product.currency.currency_symbol +
               " " +
-              product.product_price,
-            localizedPrice:
-              product.currency.currency_symbol + " " + product.product_fake_price,
+              product.product_fake_price,
             description: product.product_desc,
             subscriptionDays: product.product_value,
             zfOptions: product.payment_options,
             productType: SI_FANG,
           };
         });
+
+        // Find the index of the item with product_name "12个月"
+        const index12Months = siFang.findIndex(
+          (item) => item.title === "12个月"
+        );
+
+        // If found, move it to the first position
+        if (index12Months !== -1) {
+          const item12Months = siFang.splice(index12Months, 1)[0];
+          siFang.unshift(item12Months);
+        }
 
         // console.log("sifang");
         // console.log(siFang);
@@ -338,16 +365,18 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   }, []);
 
   useEffect(() => {
-    if (connected && (UMENG_CHANNEL === "GOOGLE_PLAY" && IS_ANDROID)) {
-      console.log('get product of google play dbefjndsvb')
+    if (connected && UMENG_CHANNEL === "GOOGLE_PLAY" && IS_ANDROID) {
+      console.log("get product of google play dbefjndsvb");
       handleGetGoogleProduct();
     }
   }, [connected]);
 
   useEffect(() => {
     if (membershipProducts) {
-      const defaultMembership = membershipProducts.find(
-        (product) => (UMENG_CHANNEL === "GOOGLE_PLAY" && IS_ANDROID) ? product.title === "1个月" : product.title === "12个月"
+      const defaultMembership = membershipProducts.find((product) =>
+        UMENG_CHANNEL === "GOOGLE_PLAY" && IS_ANDROID
+          ? product.title === "1个月"
+          : product.title === "12个月"
       );
       if (defaultMembership) {
         setSelectedMembership(defaultMembership);
@@ -363,7 +392,6 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   }, [membershipSelected]);
 
   const handlePurchase = async () => {
-
     // dispatch(setShowPurchasePending(true));
     // navigation.goBack()
     // return;
@@ -378,7 +406,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
 
       if (zfSelected === "GOOGLE_PAY") {
         console.log("google method");
-        console.log('the data: ', membershipSelected)
+        console.log("the data: ", membershipSelected);
 
         if (membershipSelected.productType === "iap") {
           await requestPurchase({ skus: [membershipSelected.productSKU] });
@@ -401,7 +429,6 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
             throw new Error("subscription plan not found");
           }
         }
-
       } else {
         console.log("4 fang method");
         handleZfGateway();
@@ -434,8 +461,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
 
       if (result.paymentData.url) {
         openLink(result.paymentData.url, result.transaction_id);
-      } else throw new Error('no url is retuned');
-
+      } else throw new Error("no url is retuned");
     } catch (error) {
       console.log("error catch: ", error);
       setDialogText(axiosErrorText);
@@ -514,13 +540,12 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         setDialogText(successDialogText);
         setIsDialogOpen(true);
         setIsSuccess(true);
-        navigation.goBack()
+        navigation.goBack();
       } else {
         dispatch(setShowGuestPurchaseSuccess(true));
         setIsVisible(false);
         setIsBtnEnable(true);
-        navigation.goBack()
-
+        navigation.goBack();
       }
       clearTimeout(pendingTimeoutRef.current);
     } else if (result.transaction_status_string === "FAILED") {
@@ -530,13 +555,13 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     } else {
       console.log("order still in progress");
       dispatch(setShowPurchasePending(true));
-      navigation.goBack()
+      navigation.goBack();
     }
   };
 
   const saveFinishIAP = async (transStatus: string, error: any) => {
     const iapTrans = {
-      user_id: userState.user?.userId ?? '',
+      user_id: userState.user?.userId ?? "",
       product_id: membershipSelected?.productId,
       transaction_type: "SUBSCRIBE_VIP",
       zf_channel: "GOOGLE_PAY",
@@ -657,12 +682,12 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                 setDialogText(successDialogText);
                 setIsDialogOpen(true);
                 setIsSuccess(true);
-                navigation.goBack()
+                navigation.goBack();
               } else {
                 dispatch(setShowGuestPurchaseSuccess(true));
                 setIsVisible(false);
                 setIsBtnEnable(true);
-                navigation.goBack()
+                navigation.goBack();
               }
             } else {
               console.log("success", success);
@@ -690,7 +715,6 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
 
     checkCurrentPurchase();
   }, [currentPurchase, finishTransaction]);
-
 
   const handleConfirm = () => {
     setIsDialogOpen(false);
@@ -720,9 +744,9 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     return (
       <>
         {index === screenState.showEventSplashData.length - 1 ||
-          screenState.showEventSplash == false ||
-          isLastShown ||
-          screenState.showEventSplashData.length == 0 ? (
+        screenState.showEventSplash == false ||
+        isLastShown ||
+        screenState.showEventSplashData.length == 0 ? (
           <ScreenContainer
             footer={
               <>
@@ -829,11 +853,18 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         )} */}
 
             {!fetching && !isOffline && (
-              <View style={{ flex: 1, }}>
-                <View style={{
-                  flex: (UMENG_CHANNEL === "GOOGLE_PLAY" && IS_ANDROID) ? 2.2 : (IS_IOS ? 1.5 : 1),
-                  overflow: 'hidden',
-                }}>
+              <View style={{ flex: 1 }}>
+                <View
+                  style={{
+                    flex:
+                      UMENG_CHANNEL === "GOOGLE_PLAY" && IS_ANDROID
+                        ? 2.2
+                        : IS_IOS
+                        ? 1.5
+                        : 1,
+                    overflow: "hidden",
+                  }}
+                >
                   {/* return button  */}
                   <TouchableOpacity
                     style={{
@@ -843,20 +874,21 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                       zIndex: 200,
                     }}
                     onPress={() => {
-                      if (!userState.user?.isLogin() && userState.user?.isVip()) {
+                      if (
+                        !userState.user?.isLogin() &&
+                        userState.user?.isVip()
+                      ) {
                         navigation.goBack();
                       } else {
-                          if(screenState.isHomeGuideShown==true)
-                          {
-                            dispatch(setShowPromotionDialog(true));
-                          }
+                        if (screenState.isHomeGuideShown == true) {
+                          dispatch(setShowPromotionDialog(true));
+                        }
                         navigation.goBack();
                       }
                     }}
                   >
                     <CloseButton />
                   </TouchableOpacity>
-
                   <Video
                     source={require("@static/images/splash/bg.mp4")}
                     style={styles.video}
@@ -865,10 +897,10 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                   />
                   <LinearGradient
                     colors={[
-                      'rgba(20, 22, 26, 0)',
-                      'rgba(20, 22, 26, 0.27912)',
-                      'rgba(20, 22, 26, 0.9)',
-                      '#14161A'
+                      "rgba(20, 22, 26, 0)",
+                      "rgba(20, 22, 26, 0.27912)",
+                      "rgba(20, 22, 26, 0.9)",
+                      "#14161A",
                     ]}
                     locations={[0, 0.206, 0.3967, 0.8086]}
                     start={{ x: 0.5, y: 0 }}
@@ -885,11 +917,12 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                       paddingBottom: 10,
                       bottom: 0,
                       gap: 15,
-                    }}>
+                    }}
+                  >
                     <FastImage
                       source={require("./../../../static/images/splash/card.png")}
                       style={{
-                        width: '100%',
+                        width: "100%",
                         aspectRatio: 16 / 9,
                       }}
                       resizeMode="contain"
@@ -897,13 +930,13 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
 
                     {/* oneTimeProducts / single purchase  */}
                     {oneTimeProducts && oneTimeProducts.length > 0 && (
-                      <View style={{
-                        paddingHorizontal: 10,
-                        gap: 15,
-                      }}>
-                        <Text style={styles.countdownLabel}>
-                          单次购买
-                        </Text>
+                      <View
+                        style={{
+                          paddingHorizontal: 10,
+                          gap: 15,
+                        }}
+                      >
+                        <Text style={styles.countdownLabel}>单次购买</Text>
                         <View
                           style={{
                             gap: 15,
@@ -919,9 +952,14 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                                 height: 70,
                                 overflow: "hidden",
                                 borderRadius: 8,
-                                borderWidth: membershipSelected === product ? 2 : 0,
-                                borderColor: membershipSelected === product ?
-                                  (i === 0 ? '#AE845B' : '#fff') : 'transparent'
+                                borderWidth:
+                                  membershipSelected === product ? 2 : 0,
+                                borderColor:
+                                  membershipSelected === product
+                                    ? i === 0
+                                      ? "#AE845B"
+                                      : "#fff"
+                                    : "transparent",
                               }}
                               onPress={() => {
                                 setSelectedMembership(product);
@@ -948,9 +986,13 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                                       top: 5,
                                     }}
                                   >
-                                    {i === 0 && <Tick1 width={18} height={18} />}
+                                    {i === 0 && (
+                                      <Tick1 width={18} height={18} />
+                                    )}
 
-                                    {i === 1 && <Tick2 width={18} height={18} />}
+                                    {i === 1 && (
+                                      <Tick2 width={18} height={18} />
+                                    )}
                                   </View>
                                 )}
                                 <View
@@ -1007,35 +1049,38 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                     )}
 
                     {/* countdown container */}
-                    <View style={{
-                      flex: 1,
-                      flexDirection: 'row',
-                      paddingHorizontal: 10,
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                    }}>
-                      <View style={{
-                        gap: 12,
-                        flexDirection: 'row'
-                      }}>
-                        <Text style={styles.countdownLabel}>
-                          限时优惠
-                        </Text>
+                    <View
+                      style={{
+                        flex: 1,
+                        flexDirection: "row",
+                        paddingHorizontal: 10,
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <View
+                        style={{
+                          gap: 12,
+                          flexDirection: "row",
+                        }}
+                      >
+                        <Text style={styles.countdownLabel}>限时优惠</Text>
                         <View style={styles.countdownContainer}>
                           {remainingTimeAry.map((val, i) => {
                             return (
                               <View
                                 key={i}
                                 style={{
-                                  flexDirection: 'row',
+                                  flexDirection: "row",
                                   gap: 5,
-                                }}>
+                                }}
+                              >
                                 <View
                                   style={{
-                                    backgroundColor: '#F4DBBA',
+                                    backgroundColor: "#F4DBBA",
                                     borderRadius: 6,
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
+                                    justifyContent: "center",
+                                    alignItems: "center",
                                     width: 20,
                                     height: 20,
                                   }}
@@ -1043,13 +1088,19 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                                   <Text style={styles.countdownText}>
                                     {val}
                                   </Text>
-
                                 </View>
-                                {i % 2 === 1 && i < remainingTimeAry.length - 1 && (
-                                  <Text style={{ ...styles.countdownText, padding: 1, color: '#F4DBBA' }}>
-                                    :
-                                  </Text>
-                                )}
+                                {i % 2 === 1 &&
+                                  i < remainingTimeAry.length - 1 && (
+                                    <Text
+                                      style={{
+                                        ...styles.countdownText,
+                                        padding: 1,
+                                        color: "#F4DBBA",
+                                      }}
+                                    >
+                                      :
+                                    </Text>
+                                  )}
                               </View>
                             );
                           })}
@@ -1064,7 +1115,14 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                             });
                           }}
                         >
-                          <Text style={{ ...textVariants.subBody, color: "#9c9c9c" }}>VIP明细</Text>
+                          <Text
+                            style={{
+                              ...textVariants.subBody,
+                              color: "#9c9c9c",
+                            }}
+                          >
+                            VIP明细
+                          </Text>
                         </TouchableOpacity>
                       )}
                     </View>
@@ -1082,7 +1140,9 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                   ref={scrollRef}
                   style={{
                     flex: 1,
-                    paddingHorizontal: 20,
+                    marginRight: 20,
+                    paddingLeft:20,
+                    paddingRight:20
                   }}
                   showsVerticalScrollIndicator={false}
                 >
@@ -1104,25 +1164,41 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                       navigation.navigate("隐私政策");
                     }}
                   >
-                    <Text style={{ ...textVariants.subBody, color: "#9c9c9c" }}>隐私协议 </Text>
+                    <Text style={{ ...textVariants.subBody, color: "#9c9c9c" }}>
+                      隐私协议{" "}
+                    </Text>
                   </TouchableOpacity>
-                  <Text style={{ ...textVariants.subBody, color: "#9c9c9c" }}>| </Text>
+                  <Text style={{ ...textVariants.subBody, color: "#9c9c9c" }}>
+                    |{" "}
+                  </Text>
                   <TouchableOpacity
                     onPress={() => {
                       navigation.navigate("用户协议");
                     }}
                   >
-                    <Text style={{ ...textVariants.subBody, color: "#9c9c9c" }}>用户服务协议 </Text>
+                    <Text style={{ ...textVariants.subBody, color: "#9c9c9c" }}>
+                      用户服务协议{" "}
+                    </Text>
                   </TouchableOpacity>
-                  <Text style={{ ...textVariants.subBody, color: "#9c9c9c" }}>| </Text>
+                  <Text style={{ ...textVariants.subBody, color: "#9c9c9c" }}>
+                    |{" "}
+                  </Text>
 
                   <TouchableOpacity
                     onPress={() => {
                       navigation.navigate("续费服务");
                     }}
                   >
-                    <Text style={{ ...textVariants.subBody, color: "#9c9c9c" }}>自动续费协议 </Text>
+                    <Text style={{ ...textVariants.subBody, color: "#9c9c9c" }}>
+                      自动续费协议{" "}
+                    </Text>
                   </TouchableOpacity>
+                </View>
+                <View style={styles.tncContainer}>
+                <Text style={{ ...textVariants.subBody, color: "#9c9c9c" }}>
+                    {"如遇支付问题，请联系"}
+                    <Text style={{textDecorationLine : 'underline'}}>contact.movie9@gmail.com</Text> 
+                  </Text>
                 </View>
               </View>
             )}
@@ -1134,21 +1210,20 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
             </Text>
           </View>
         ) : null} */}
-          </ScreenContainer >
+          </ScreenContainer>
         ) : (
           <SplashCard
             index={index}
-            source={index === 0
-              ? require(`@static/images/eventSplash1.png`)
-              : index === 1
+            source={
+              index === 0
+                ? require(`@static/images/eventSplash1.png`)
+                : index === 1
                 ? require(`@static/images/eventSplash2.png`)
                 : require(`@static/images/eventSplash3.png`)
             }
             isLast={index === screenState.showEventSplashData.length - 1}
           />
-
         )}
-
       </>
     );
   };
@@ -1162,7 +1237,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         height={height}
         data={screenState.showEventSplashData}
         scrollAnimationDuration={100}
-        onScrollBegin={() => { }}
+        onScrollBegin={() => {}}
         enabled={screenState.showEventSplash !== false}
         loop={false}
         onSnapToItem={(index) => {
@@ -1249,9 +1324,9 @@ const styles = StyleSheet.create({
   },
   tncContainer: {
     alignItems: "center",
-    justifyContent: 'center',
+    justifyContent: "center",
     marginHorizontal: 15,
-    flexDirection: 'row',
+    flexDirection: "row",
     paddingVertical: 5,
   },
   footerContainer: {
@@ -1266,18 +1341,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   countdownContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
     gap: 5,
   },
   countdownText: {
     textAlign: "center",
-    textAlignVertical: 'center',
-    color: '#1D2023',
+    textAlignVertical: "center",
+    color: "#1D2023",
     fontSize: 14,
-    fontFamily: 'Archivo-Regular',
-    fontWeight: '900',
+    fontFamily: "Archivo-Regular",
+    fontWeight: "900",
     lineHeight: 15,
   },
   video: {
@@ -1286,5 +1361,5 @@ const styles = StyleSheet.create({
     left: 0, // Align the video to the left of the container
     right: 0, // Align the video to the right of the container
     bottom: 0, // Align the video to the bottom of the container
-  }
+  },
 });

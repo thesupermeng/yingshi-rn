@@ -34,10 +34,13 @@ export const VipCard = ({
   const getItemLayout = (data: any, index: number) => { return { length: screenWidth, offset: screenWidth * index, index, }; };
   const setListPosition = () => {
     planRef?.current?.scrollToIndex({
-      index: membershipProduct.length -1,
+    //  index: membershipProduct.length -1,
+      index: 0,
       animated: true,
-      viewPosition: 0.5,
+      viewPosition: 0,
+      //  viewPosition: 0.5,
     });
+
   };
 
   useEffect(() => {
@@ -51,6 +54,7 @@ export const VipCard = ({
     <View
       style={{
         flexDirection: 'column',
+      //  marginLeft:20
       }}>
 
       {/* membership plan */}

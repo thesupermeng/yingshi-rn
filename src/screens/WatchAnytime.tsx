@@ -20,6 +20,7 @@ import { showLoginAction } from '@redux/actions/screenAction';
 import { UserStateType } from '@redux/reducers/userReducer';
 import { User } from '@models/user';
 import BecomeVipOverlay from '../components/modal/becomeVipOverlay';
+import { ADULT_MODE_PREVIEW_DURATION, MINI_SHOW_LOGIN_NUMBER } from '@utility/constants';
 
 type MiniVideoResponseType = {
   data: {
@@ -148,6 +149,10 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
       let filtered = videos?.pages.flat().filter(x => x)
       if (isVip) {
         filtered = filtered.filter(x => !x.is_ads)
+      } else {
+        if(!adultMode){
+          filtered = filtered.slice(0, MINI_SHOW_LOGIN_NUMBER + 1);
+        }
       }
       setFlattenedVideos(filtered); // remove null values
     }
