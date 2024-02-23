@@ -396,7 +396,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<'播放'>) => {
   }, []);
 
   const onAdsMount = () => {
-    if (screenState.isPlayGuideShown2 == false !isVip) {
+    if (screenState.isPlayGuideShown2 == false && !isVip) {
       setTimeout(() => {
         videoPlayerRef.current?.setPause(true); // pause video
         setVipGuideModalDL(true);
