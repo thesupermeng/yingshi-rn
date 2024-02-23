@@ -617,7 +617,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         productIdentifier: currentPurchase.productId,
         signature: currentPurchase.signatureAndroid,
         transactionId: currentPurchase.transactionId,
-        purchaseData: currentPurchase.signatureAndroid,
+        purchaseData: currentPurchase.dataAndroid,
         price: membershipSelected.promoPrice ?? membershipSelected.price,
         currency: membershipSelected.currency.currencyCode,
       });
@@ -662,7 +662,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         productIdentifier: currentPurchase.productId,
         signature: currentPurchase.signatureAndroid,
         transactionId: currentPurchase.transactionId,
-        purchaseData: currentPurchase.signatureAndroid,
+        purchaseData: currentPurchase.dataAndroid,
         price: membershipSelected.promoPrice ?? membershipSelected.price,
         currency: membershipSelected.currency.currencyCode,
       });
