@@ -287,15 +287,21 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         });
 
         // Find the index of the item with product_name "12个月"
-        // const index12Months = subscription.findIndex(
-        //   (item) => item.title === "12个月"
-        // );
+        const index12Months = subscription.findIndex(
+          (item) => item.title === "12个月"
+        );
 
         // If found, move it to the first position
         // if (index12Months !== -1) {
         //   const item12Months = subscription.splice(index12Months, 1)[0];
         //   subscription.unshift(item12Months);
         // }
+
+        // If found, move it to the second position
+        if (index12Months !== -1) {
+          const item12Months = subscription.splice(index12Months, 1)[0];
+          subscription.splice(1, 0, item12Months);
+        }
 
         // console.log("subscription");
         // console.log(subscription);
@@ -467,6 +473,10 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
       setDialogText(axiosErrorText);
       setIsDialogOpen(true);
     }
+  };
+
+  const openEmailApp = () => {
+    Linking.openURL('mailto:contact.movie9@gmail.com');
   };
 
   const getDeepLink = (path = "") => {
@@ -1141,8 +1151,8 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                   style={{
                     flex: 1,
                     marginRight: 20,
-                    paddingLeft:20,
-                    paddingRight:20
+                    paddingLeft: 20,
+                    paddingRight: 20,
                   }}
                   showsVerticalScrollIndicator={false}
                 >
@@ -1195,9 +1205,11 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                   </TouchableOpacity>
                 </View>
                 <View style={styles.tncContainer}>
-                <Text style={{ ...textVariants.subBody, color: "#9c9c9c" }}>
+                  <Text style={{ ...textVariants.subBody, color: "#9c9c9c" }}>
                     {"如遇支付问题，请联系"}
-                    <Text style={{textDecorationLine : 'underline'}}>contact.movie9@gmail.com</Text> 
+                    <Text onPress={openEmailApp} style={{ textDecorationLine: "underline" }}>
+                      contact.movie9@gmail.com
+                    </Text>
                   </Text>
                 </View>
               </View>
