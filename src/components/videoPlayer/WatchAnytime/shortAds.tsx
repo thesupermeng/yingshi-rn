@@ -282,7 +282,7 @@ function ShortAds({
                     />
                   )}
                 {(currentVod?.is_video ?? true) !== false ? (
-                  <View style={{ zIndex: 99 }}>
+                 
                     <Video
                       onLayout={() => {}}
                       ref={videoRef}
@@ -314,7 +314,7 @@ function ShortAds({
                       onProgress={handleProgress}
                       progressUpdateInterval={1500}
                     />
-                  </View>
+                
                 ) : (
                   <FastImage
                     resizeMode="contain"
