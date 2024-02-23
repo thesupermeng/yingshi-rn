@@ -1,4 +1,4 @@
-import React, { memo, useState, useRef, useEffect, useCallback } from "react";
+import React, {memo, useState, useRef, useEffect, useCallback} from 'react';
 import {
   StyleSheet,
   Text,
@@ -9,46 +9,55 @@ import {
   Dimensions,
   FlatList,
   Linking,
-} from "react-native";
+  Animated,
+  Modal,
+} from 'react-native';
 // import {FlatList, PanGestureHandler} from 'react-native-gesture-handler';
-import { useFocusEffect, useNavigation, useTheme } from "@react-navigation/native";
-import Swiper from "react-native-swiper";
-import ShowMoreVodButton from "../button/showMoreVodButton";
+import {
+  useFocusEffect,
+  useNavigation,
+  useTheme,
+} from '@react-navigation/native';
+import Swiper from 'react-native-swiper';
+import ShowMoreVodButton from '../button/showMoreVodButton';
 import {
   VodTopicType,
   VodPlayListType,
   VodCarousellType,
   BannerAdType,
-} from "@type/ajaxTypes";
+} from '@type/ajaxTypes';
 // import FastImage from "react-native-fast-image";
-import FastImage from "../common/customFastImage"
-import { VodReducerState } from "@redux/reducers/vodReducer";
-import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
-import { RootState } from "@redux/store";
-import VodHistoryList from "../vod/vodHistoryList";
-import VodLiveStationList from "../vod/vodLiveStationList";
-import { API_DOMAIN, API_DOMAIN_TEST } from "@utility/constants";
-import VodListVertical from "../vod/vodListVertical";
-import { playVod, viewPlaylistDetails } from "@redux/actions/vodActions";
-import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
-import LinearGradient from "react-native-linear-gradient";
-import Carousel from "react-native-reanimated-carousel";
+import FastImage from '../common/customFastImage';
+import {VodReducerState} from '@redux/reducers/vodReducer';
+import {useAppDispatch, useAppSelector, useSelector} from '@hooks/hooks';
+import {RootState} from '@redux/store';
+import VodHistoryList from '../vod/vodHistoryList';
+import VodLiveStationList from '../vod/vodLiveStationList';
+import {API_DOMAIN, API_DOMAIN_TEST} from '@utility/constants';
+import VodListVertical from '../vod/vodListVertical';
+import {playVod, viewPlaylistDetails} from '@redux/actions/vodActions';
+import {useQuery, useInfiniteQuery} from '@tanstack/react-query';
+import LinearGradient from 'react-native-linear-gradient';
+import Carousel from 'react-native-reanimated-carousel';
 
-import CarouselPagination from "./CarouselPagination";
-import LoadingIcon from "@static/images/MutedVolume.svg";
-import { Image } from "react-native";
-import { PlaylistApi } from "../../api/playlist";
-import { CApi } from "@utility/apiService";
-import { CEndpoint } from "@constants";
-import { YSConfig } from "../../../ysConfig";
-import { BannerContainer } from "./bannerContainer";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import UmengAnalytics from "../../../Umeng/UmengAnalytics";
-import { AdsApi } from "../../api/ads";
-import DeviceInfo from "react-native-device-info";
-import { VipPromotionOverlay } from "../modal/vipPromotionOverlay";
-import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models/user";
+import CarouselPagination from './CarouselPagination';
+import LoadingIcon from '@static/images/MutedVolume.svg';
+import {Image} from 'react-native';
+import {PlaylistApi} from '../../api/playlist';
+import {CApi} from '@utility/apiService';
+import {CEndpoint} from '@constants';
+import {YSConfig} from '../../../ysConfig';
+import {BannerContainer} from './bannerContainer';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import UmengAnalytics from '../../../Umeng/UmengAnalytics';
+import {AdsApi} from '../../api/ads';
+import DeviceInfo from 'react-native-device-info';
+import {VipPromotionOverlay} from '../modal/vipPromotionOverlay';
+import {UserStateType} from '@redux/reducers/userReducer';
+import {User} from '@models/user';
+import VipGuideModal from '../modal/vipGuide';
+import {screenModel} from '@type/screenType';
+import {setIsHomeGuideShown, setShowPromotionDialog} from '@redux/actions/screenAction';
 
 interface NavType {
   id: number;
@@ -64,7 +73,7 @@ interface Props {
   onRefresh?: any;
   refreshProp?: boolean;
   onLoad?: any;
-  isTabFocus?: boolean,
+  isTabFocus?: boolean;
 }
 
 const RecommendationHome = ({
@@ -74,14 +83,14 @@ const RecommendationHome = ({
   tabName,
   onRefresh,
   refreshProp = false,
-  onLoad = () => { },
+  onLoad = () => {},
   isTabFocus = false,
 }: Props) => {
-  const { colors, textVariants, spacing } = useTheme();
+  const {colors, textVariants, spacing} = useTheme();
   const vodReducer: VodReducerState = useAppSelector(
-    ({ vodReducer }: RootState) => vodReducer
+    ({vodReducer}: RootState) => vodReducer,
   );
-  const history = vodReducer.history.filter((e) => !e.isAdultVideo);
+  const history = vodReducer.history.filter(e => !e.isAdultVideo);
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const [totalPage, setTotalPage] = useState(0);
@@ -92,12 +101,34 @@ const RecommendationHome = ({
   const [isRefreshing, setIsRefreshing] = useState(false);
   const carouselRef = useRef<any>();
   // const {width, height} = Dimensions.get('window');
-  const [width, setWidth] = useState(Dimensions.get("window").width);
+  const [width, setWidth] = useState(Dimensions.get('window').width);
   const [imgRatio, setImgRatio] = useState(1.883);
   const userState = useSelector<UserStateType>('userReducer');
   const isVip = User.isVip(userState.user);
+  const [refPosition, setRefPosition] = useState({
+    x: 0,
+    y: 0,
+    width: 0,
+    height: 0,
+  });
+  const componentRef = useRef<View>(null); // Create a ref for the component
+  const [vipGuideModal, setVipGuideModal] = useState(false);
+
+  const screenState: screenModel = useAppSelector(
+    ({screenReducer}) => screenReducer,
+  );
+
   useEffect(() => {
-    setWidth(Number(Dimensions.get("window").width));
+    if (screenState.isHomeGuideShown != true && !isVip) {
+      setTimeout(() => {
+      setVipGuideModal(true);
+    }, 50);
+    }
+    //  setVipGuideModal(true);
+  }, []);
+
+  useEffect(() => {
+    setWidth(Number(Dimensions.get('window').width));
 
     if (data.carousel.length > 0) {
       Image.getSize(data.carousel[0].carousel_pic_mobile, (w, h) => {
@@ -106,36 +137,31 @@ const RecommendationHome = ({
     }
   }, []);
 
-
-
-
   useEffect(() => {
-    handleTabletFold()
+    handleTabletFold();
   }, []);
 
+  const [deviceName, setDeviceName] = useState('');
 
-
-  const [deviceName, setDeviceName] = useState("");
-
-  DeviceInfo.getDeviceName().then((d) => {
+  DeviceInfo.getDeviceName().then(d => {
     setDeviceName(d.toLowerCase());
   });
   const handleTabletFold = async () => {
-    Dimensions.addEventListener('change', (e) => {
-      const includesKeywords = ['flip', 'fold', 'mate x3', 'mate xs'].some(keyword => deviceName.includes(keyword));
+    Dimensions.addEventListener('change', e => {
+      const includesKeywords = ['flip', 'fold', 'mate x3', 'mate xs'].some(
+        keyword => deviceName.includes(keyword),
+      );
       if (DeviceInfo.isTablet() || includesKeywords) {
-        setWidth(Number(Dimensions.get("window").width));
+        setWidth(Number(Dimensions.get('window').width));
         if (data.carousel.length > 0) {
           Image.getSize(data.carousel[0].carousel_pic_mobile, (w, h) => {
             setImgRatio(w / h);
           });
         }
-        handleRefresh()
+        handleRefresh();
       }
-    })
-
-  }
-
+    });
+  };
 
   // Function to handle the pull-to-refresh action
   const handleRefresh = async () => {
@@ -146,17 +172,16 @@ const RecommendationHome = ({
       setActiveIndex(0);
       if (carouselRef) {
         setIsRefreshing(false);
-        carouselRef?.current?.scrollTo({ index: 0, animated: false });
+        carouselRef?.current?.scrollTo({index: 0, animated: false});
       }
     }, 0);
   };
 
   const fetchPlaylist = (page: number) =>
-    PlaylistApi.getTopic(page)
-      .then((results: VodPlayListType) => {
-        setTotalPage(Number(results.TotalPageCount));
-        return Object.values(results.List);
-      });
+    PlaylistApi.getTopic(page).then((results: VodPlayListType) => {
+      setTotalPage(Number(results.TotalPageCount));
+      return Object.values(results.List);
+    });
   const {
     data: playlists,
     isSuccess,
@@ -166,8 +191,8 @@ const RecommendationHome = ({
     isFetching,
     refetch,
   } = useInfiniteQuery(
-    ["vodPlaylist"],
-    ({ pageParam = 1 }) => fetchPlaylist(pageParam),
+    ['vodPlaylist'],
+    ({pageParam = 1}) => fetchPlaylist(pageParam),
     {
       getNextPageParam: (lastPage, allPages) => {
         if (lastPage === null) {
@@ -180,12 +205,12 @@ const RecommendationHome = ({
         }
         return nextPage;
       },
-      onSuccess: (data) => {
+      onSuccess: data => {
         if (data && data?.pages) {
           setResults([...results, ...data.pages[data.pages.length - 1].flat()]);
         }
       },
-    }
+    },
   );
 
   const fetchBannerAd = async () => {
@@ -200,7 +225,7 @@ const RecommendationHome = ({
       setBannerAd(undefined);
       setBannerAdList([]);
     }
-  }
+  };
 
   useEffect(() => {
     onLoad();
@@ -218,11 +243,13 @@ const RecommendationHome = ({
   useFocusEffect(
     useCallback(() => {
       shouldShowAds();
-    }, [isVip])
+    }, [isVip]),
   );
 
-  useFocusEffect(useCallback(() => {
-    const currentCarousel = data.carousel[carouselRef.current.getCurrentIndex()];
+  useFocusEffect(
+    useCallback(() => {
+      const currentCarousel =
+        data.carousel[carouselRef.current.getCurrentIndex()];
 
     if (isTabFocus && carouselRef.current && currentCarousel?.is_ads) {
       UmengAnalytics.homeTabCarouselViewAnalytics({
@@ -274,15 +301,20 @@ const RecommendationHome = ({
   }, [navId, tabName]);
 
   const renderCarousel = useCallback(
-    ({ item, index }: { item: any; index: number }) => {
-
-      const key = item.is_ads ? (item.carousel_id + item.carousel_pic_mobile) : item.carousel_id;
+    ({item, index}: {item: any; index: number}) => {
+      const key = item.is_ads
+        ? item.carousel_id + item.carousel_pic_mobile
+        : item.carousel_id;
       return (
         <TouchableOpacity
           key={`slider-${key}`}
           onPress={() => {
             if (item.is_ads == true) {
-              const url = item.ads_url.includes('https://') || item.ads_url.includes('http://') ? item.ads_url : 'https://' + item.ads_url;
+              const url =
+                item.ads_url.includes('https://') ||
+                item.ads_url.includes('http://')
+                  ? item.ads_url
+                  : 'https://' + item.ads_url;
               Linking.openURL(url);
 
               UmengAnalytics.homeTabCarouselClickAnalytics({
@@ -295,60 +327,57 @@ const RecommendationHome = ({
               });
             } else {
               dispatch(playVod(item.vod));
-              navigation.navigate("播放", {
+              navigation.navigate('播放', {
                 vod_id: item.carousel_content_id,
               });
             }
-          }}
-        >
+          }}>
           <FastImage
             key={`slider2-${key}`}
             style={styles.image}
             source={{
               uri: item.carousel_pic_mobile,
-              priority: "normal",
+              priority: 'normal',
             }}
-            resizeMode={"contain"}
+            resizeMode={'contain'}
             useFastImage={true}
           />
           <LinearGradient
-            colors={["transparent", "black"]}
-            start={{ x: 0.8, y: 0 }}
-            end={{ x: 0.8, y: 0.9 }}
+            colors={['transparent', 'black']}
+            start={{x: 0.8, y: 0}}
+            end={{x: 0.8, y: 0.9}}
             style={styles.bottomBlur}
           />
           <Text
             style={{
               ...textVariants.bodyBold,
               ...styles.carouselTag,
-              color: "white",
+              color: 'white',
             }}
-            numberOfLines={1}
-          >
+            numberOfLines={1}>
             {item.carousel_name}
           </Text>
         </TouchableOpacity>
       );
     },
-    []
+    [],
   );
 
   const renderContent = useCallback(
-    ({ item, index }: { item: VodTopicType; index: number }) => (
+    ({item, index}: {item: VodTopicType; index: number}) => (
       <View
         style={{
           paddingLeft: spacing.sideOffset,
           paddingRight: spacing.sideOffset,
-        }}
-      >
+        }}>
         {/* previous style={{ gap: spacing.m }} */}
-        <View key={`${item.topic_name}-${index}`} style={{ paddingTop: 10 }}>
-          <View style={{ paddingBottom: 5 }}>
+        <View key={`${item.topic_name}-${index}`} style={{paddingTop: 10}}>
+          <View style={{paddingBottom: 5}}>
             <ShowMoreVodButton
               text={item.topic_name}
               onPress={() => {
                 dispatch(viewPlaylistDetails(item));
-                navigation.navigate("PlaylistDetail", {
+                navigation.navigate('PlaylistDetail', {
                   topic_id: item.topic_id,
                 });
               }}
@@ -361,7 +390,7 @@ const RecommendationHome = ({
         </View>
       </View>
     ),
-    [data]
+    [data],
   );
 
   const yunyingMap = (item: any, index: any) => {
@@ -439,18 +468,7 @@ const RecommendationHome = ({
   // };
 
   return (
-    <View style={{ width: width }}>
-      {/* {showBecomeVIPOverlay && (
-        <View
-          style={{
-            height: '100%',
-            width: '100%',
-            position: 'absolute',
-            zIndex: 10000,
-          }}>
-          {renderOverlay()}
-        </View>
-      )} */}
+    <View style={{width: width}}>
       {data?.live_station_list && data?.live_station_list.length > 0 && (
         <FlatList
           refreshControl={
@@ -467,12 +485,11 @@ const RecommendationHome = ({
                 <View
                   style={{
                     flex: 1,
-                    justifyContent: "center",
-                    alignItems: "center",
+                    justifyContent: 'center',
+                    alignItems: 'center',
                     borderRadius: 17,
                     zIndex: 9999,
-                  }}
-                >
+                  }}>
                   <Carousel
                     ref={carouselRef}
                     loop
@@ -485,10 +502,10 @@ const RecommendationHome = ({
                     data={data.carousel}
                     scrollAnimationDuration={120}
                     autoPlayInterval={2300}
-                    onSnapToItem={(index) => {
+                    onSnapToItem={index => {
                       setActiveIndex(index);
                     }}
-                    onScrollEnd={(index) => {
+                    onScrollEnd={index => {
                       setActiveIndex(index);
                     }}
                     renderItem={renderCarousel}
@@ -508,16 +525,15 @@ const RecommendationHome = ({
                         paddingLeft: spacing.sideOffset,
                         paddingRight: spacing.sideOffset,
                         paddingBottom: 5,
-                      }}
-                    >
+                      }}>
                       <ShowMoreVodButton
                         text="继续看"
                         onPress={() => {
-                          navigation.navigate("播放历史");
+                          navigation.navigate('播放历史');
                         }}
                       />
                     </View>
-                    <View style={{ paddingLeft: spacing.sideOffset }}>
+                    <View style={{paddingLeft: spacing.sideOffset}}>
                       <VodHistoryList
                         vodStyle={styles.vod_hotlist}
                         vodList={history.slice(0, 10)}
@@ -529,30 +545,62 @@ const RecommendationHome = ({
                 )}
 
                 {bannerAd && (
-                  <View style={{
-                    paddingLeft: spacing.sideOffset,
-                    paddingRight: spacing.sideOffset,
-                    paddingBottom: 5
-                  }}>
-                    {
-                      renderBanner(bannerAdList)
-                    }
+                  <Modal visible={vipGuideModal} transparent={true}>
+                    <View style={{flex: 1, backgroundColor: 'rgba(0,0,0,0.8)'}}>
+                      <View
+                        style={{
+                          position: 'absolute',
+                          bottom: refPosition.x,
+                          top: refPosition.y,
+                          width: refPosition.width,
+                          height: refPosition.height,
+                        }}>
+                        <View
+                          style={{
+                            paddingLeft: spacing.sideOffset,
+                            paddingRight: spacing.sideOffset,
+                          }}>
+                          {renderBanner(bannerAdList)}
+                        </View>
+                        <VipGuideModal
+                          onClose={(value: boolean) => 
+                            {
+                              dispatch(setIsHomeGuideShown(true));
+                              setVipGuideModal(value)
+                              dispatch(setShowPromotionDialog(true));
+                            }
+                          }
+                        />
+                      </View>
+                    </View>
+                  </Modal>
+                )}
+
+                {bannerAd && (
+                  <View
+                    onLayout={() => getPosition()}
+                    ref={componentRef}
+                    style={{
+                      paddingLeft: spacing.sideOffset,
+                      paddingRight: spacing.sideOffset,
+                      paddingBottom: 5,
+                    }}>
+                    {renderBanner(bannerAd)}
                   </View>
                 )}
 
-                <View style={{ gap: spacing.m }}>
+                <View style={{gap: spacing.m}}>
                   <View
                     style={{
                       paddingLeft: spacing.sideOffset,
                       paddingRight: spacing.sideOffset,
-                    }}
-                  >
+                    }}>
                     {data?.live_station_list &&
-                      data?.live_station_list.length > 0 ? (
+                    data?.live_station_list.length > 0 ? (
                       <ShowMoreVodButton
                         text="电视台推荐"
                         onPress={() => {
-                          navigation.navigate("电视台列表", {
+                          navigation.navigate('电视台列表', {
                             liveStationItemList: data?.live_station_list,
                           });
                         }}
@@ -564,8 +612,8 @@ const RecommendationHome = ({
                     )}
                   </View>
                   {data?.live_station_list &&
-                    data?.live_station_list.length > 0 ? (
-                    <View style={{ paddingLeft: spacing.sideOffset }}>
+                  data?.live_station_list.length > 0 ? (
+                    <View style={{paddingLeft: spacing.sideOffset}}>
                       <VodLiveStationList
                         vodStyle={styles.vod_live_station}
                         liveStationList={data?.live_station_list}
@@ -575,7 +623,7 @@ const RecommendationHome = ({
                     </View>
                   ) : (
                     <View
-                      style={{ paddingLeft: spacing.sideOffset, height: 134 }}
+                      style={{paddingLeft: spacing.sideOffset, height: 134}}
                     />
                   )}
                 </View>
@@ -600,7 +648,7 @@ const RecommendationHome = ({
           renderItem={renderContent}
           disableVirtualization={true}
           ListFooterComponent={
-            <View style={{ ...styles.loading, marginBottom: 60 }}>
+            <View style={{...styles.loading, marginBottom: 60}}>
               {hasNextPage && (
                 <FastImage
                   style={{
@@ -608,11 +656,11 @@ const RecommendationHome = ({
                     width: 80,
 
                     flex: 1,
-                    justifyContent: "center",
-                    alignItems: "center",
+                    justifyContent: 'center',
+                    alignItems: 'center',
                   }}
-                  source={require("@static/images/loading-spinner.gif")}
-                  resizeMode={"contain"}
+                  source={require('@static/images/loading-spinner.gif')}
+                  resizeMode={'contain'}
                 />
               )}
               {!(isFetchingNextPage || isFetching) && !hasNextPage && (
@@ -621,8 +669,7 @@ const RecommendationHome = ({
                     ...textVariants.subBody,
                     color: colors.muted,
                     paddingTop: 12,
-                  }}
-                >
+                  }}>
                   已经到底了
                 </Text>
               )}
@@ -643,15 +690,15 @@ const styles = StyleSheet.create({
     zIndex: 99,
   },
   image: {
-    width: "100%",
-    height: "100%",
+    width: '100%',
+    height: '100%',
     borderRadius: 17,
     // backgroundColor: 'orange'
   },
   text: {
-    color: "#fff",
+    color: '#fff',
     fontSize: 30,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   dotStyle: {
     width: 6,
@@ -675,21 +722,21 @@ const styles = StyleSheet.create({
   },
   nav: {
     flexGrow: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
     marginBottom: 10,
   },
   catalogNav: {
     flexGrow: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
     marginTop: 5,
   },
   vodList: {
-    display: "flex",
-    flexDirection: "row",
-    flexWrap: "wrap",
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   bottomBlur: {
-    position: "absolute",
+    position: 'absolute',
     left: 0,
     right: 0,
     bottom: 0,
@@ -700,28 +747,42 @@ const styles = StyleSheet.create({
     opacity: 0.8,
   },
   carouselTag: {
-    position: "absolute",
+    position: 'absolute',
     bottom: 25,
     left: 20,
     marginRight: 16,
   },
   loading: {
-    flexDirection: "row",
-    justifyContent: "center",
+    flexDirection: 'row',
+    justifyContent: 'center',
     flex: 1,
   },
   banner: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     marginTop: 4,
     marginBottom: 5,
   },
   icon: {
-    color: "white",
+    color: 'white',
     // width: '15%',
-    maxWidth: "15%",
-    objectFix: "contain",
+    maxWidth: '15%',
+    objectFix: 'contain',
+  },
+  spotlight: {
+    flex: 1,
+    zIndex: 99,
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0, 0, 0, 0.8)', // Semi-transparent black
+  },
+  spotlightHole: {
+    backgroundColor: 'transparent', // Transparent background
+    width: 50,
+    height: 50,
+    borderWidth: 1,
+    borderColor: '#FFF', // White border
+    transform: [{scale: 5}], // Adjust scale as needed
   },
 });

@@ -45,6 +45,7 @@ export const CLEAR_SEARCH_HISTORY = 'clear_search_history';
 export const CLEAR_STORAGE_MEMORY = 'clear_storage_memory';
 
 export const APPSFLYER_DEVKEY = 'wrxTHihLJNWrrusXtgRJZa';
+export const APPSFLYER_APPID = Platform.OS === 'android' ? 'com.yingshitv' : '';
 
 export const INVITE_DOMAIN = 'https://xiangkantv.net/invite.html?invite=';
 
@@ -152,6 +153,6 @@ export const VIP_PROMOTION_PURCHASE_MAX = 50000;
 export const VIP_PROMOTION_PURCHASE_RANDOM = 10000;
 
 export const DOWNLOAD_FEATURE_ENABLED = true;
-export const DOWNLOAD_FEATURE_MAX_QUEUE = 10; 
+export const DOWNLOAD_FEATURE_MAX_QUEUE = 10;
 
 export const EVENT_SPLASH_SHOW_DURATION = 7 * 24 * 60 * 60 * 1000; // 1 week
