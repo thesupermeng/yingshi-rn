@@ -387,19 +387,21 @@ const Play = ({ navigation, route }: RootStackScreenProps<'播放'>) => {
   );
 
   useEffect(() => {
-    if (screenState.isPlayGuideShown == true) {
+    if (screenState.isPlayGuideShown == false) {
+      setTimeout(() => {
       setVipGuideModal(true);
       dispatch(setIsPlayGuideShown(true));
+    }, 50);
     }
-
   }, []);
 
   const onAdsMount = () => {
-    if (screenState.isPlayGuideShown2 == true) {
-      console.debug('pause when mount')
-      videoPlayerRef.current?.setPause(true); // pause video
-      setVipGuideModalDL(true);
-      dispatch(setIsPlayGuideShown2(true));
+    if (screenState.isPlayGuideShown2 == false) {
+      setTimeout(() => {
+        videoPlayerRef.current?.setPause(true); // pause video
+        setVipGuideModalDL(true);
+        dispatch(setIsPlayGuideShown2(true));
+      }, 50);
     }
   }
 
