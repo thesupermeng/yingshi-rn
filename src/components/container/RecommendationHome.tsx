@@ -97,6 +97,7 @@ const RecommendationHome = ({
   const [activeIndex, setActiveIndex] = useState(0);
   const [results, setResults] = useState<Array<VodTopicType>>([]);
   const [bannerAd, setBannerAd] = useState<BannerAdType>();
+  const [bannerAdList, setBannerAdList] = useState<Array<BannerAdType>>([]);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const carouselRef = useRef<any>();
   // const {width, height} = Dimensions.get('window');
@@ -213,12 +214,16 @@ const RecommendationHome = ({
   );
 
   const fetchBannerAd = async () => {
-    const banner = await AdsApi.getBannerAd(100);
+    const bannerRes = await AdsApi.getBannerAd(100);
+    const banner = bannerRes.ads;
+    const bannerList = bannerRes.ads_list;
 
     if (banner) {
       setBannerAd(banner);
+      setBannerAdList(bannerList);
     } else {
       setBannerAd(undefined);
+      setBannerAdList([]);
     }
   };
 
@@ -231,6 +236,7 @@ const RecommendationHome = ({
       fetchBannerAd();
     } else {
       setBannerAd(undefined);
+      setBannerAdList([]);
     }
   };
 
@@ -259,31 +265,42 @@ const RecommendationHome = ({
   );
 
   const renderBanner = useCallback(
-    (bannerAd: BannerAdType) => (
-      <BannerContainer
-        bannerAd={bannerAd}
-        onMount={({id, name, slot_id, title}) => {
-          UmengAnalytics.homeTabBannerViewAnalytics({
-            tab_id: navId?.toString() ?? '0',
-            tab_name: tabName ?? '',
-            ads_id: id,
-            ads_name: name,
-            ads_slot_id: slot_id,
-            ads_title: title,
-          });
-        }}
-        onPress={({id, name, slot_id, title}) => {
-          UmengAnalytics.homeTabBannerClickAnalytics({
-            tab_id: navId?.toString() ?? '0',
-            tab_name: tabName ?? '',
-            ads_id: id,
-            ads_name: name,
-            ads_slot_id: slot_id,
-            ads_title: title,
-          });
-        }}
-      />
-    ),
+    (allBannerAds: BannerAdType[]) => {
+
+      if(allBannerAds.length < 1){
+        return (
+          <></>
+        )
+      }
+  
+      const ads = allBannerAds[Math.floor(Math.random() * allBannerAds.length)];
+
+      return (
+        <BannerContainer
+          bannerAd={ads}
+          onMount={({id, name, slot_id, title}) => {
+            UmengAnalytics.homeTabBannerViewAnalytics({
+              tab_id: navId?.toString() ?? '0',
+              tab_name: tabName ?? '',
+              ads_id: id,
+              ads_name: name,
+              ads_slot_id: slot_id,
+              ads_title: title,
+            });
+          }}
+          onPress={({id, name, slot_id, title}) => {
+            UmengAnalytics.homeTabBannerClickAnalytics({
+              tab_id: navId?.toString() ?? '0',
+              tab_name: tabName ?? '',
+              ads_id: id,
+              ads_name: name,
+              ads_slot_id: slot_id,
+              ads_title: title,
+            });
+          }}
+        />
+      )
+    },
     [navId, tabName],
   );
 
@@ -374,7 +391,7 @@ const RecommendationHome = ({
           {(data.yunying.length + data.categories.length + index + 1) % 3 ===
             0 &&
             bannerAd &&
-            renderBanner(bannerAd)}
+            renderBanner(bannerAdList)}
         </View>
       </View>
     ),
@@ -401,7 +418,7 @@ const RecommendationHome = ({
       </View>
       <VodListVertical vods={item.vod_list} />
 
-      {(index + 1) % 3 === 0 && bannerAd && renderBanner(bannerAd)}
+      {(index + 1) % 3 === 0 && bannerAd && renderBanner(bannerAdList)}
     </View>
   );
 
@@ -430,7 +447,7 @@ const RecommendationHome = ({
 
       {(data.yunying.length + index + 1) % 3 === 0 &&
         bannerAd &&
-        renderBanner(bannerAd)}
+        renderBanner(bannerAdList)}
     </View>
   );
 
@@ -550,7 +567,7 @@ const RecommendationHome = ({
                             paddingLeft: spacing.sideOffset,
                             paddingRight: spacing.sideOffset,
                           }}>
-                          {renderBanner(bannerAd)}
+                          {renderBanner(bannerAdList)}
                         </View>
                         <VipGuideModal
                           onClose={(value: boolean) => 
@@ -575,7 +592,7 @@ const RecommendationHome = ({
                       paddingRight: spacing.sideOffset,
                       paddingBottom: 5,
                     }}>
-                    {renderBanner(bannerAd)}
+                    {renderBanner(bannerAdList)}
                   </View>
                 )}
 
