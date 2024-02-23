@@ -33,6 +33,7 @@ export const onBootApp = ({
         const countdownMilisecond = VIP_PROMOTION_COUNTDOWN_MINUTE * 60 * 1000; // 60 second & 1000 milisecond
 
         const interval = setInterval(() => {
+            console.log('COUNT INTERVAL');
             const currentPurchase = getState().backgroundReducer.vipPromotionPurchaseNum;
             const minuteRemain = Math.floor(VIP_PROMOTION_COUNTDOWN_MINUTE - ((Date.now() - getState().backgroundReducer.vipPromotionCountdownStart) / 1000 / 60)); //change to minute
 
@@ -62,6 +63,12 @@ export const onBootApp = ({
         } else if (now - backgroundState.vipPromotionCountdownStart < countdownMilisecond) {
             dispatch({
                 type: BackgroundActionEventType.VIP_PROMOTION_BOOT,
+                payload: {
+                    interval: interval,
+                }
+            })
+        } else {
+            dispatch({
                 payload: {
                     interval: interval,
                 }
