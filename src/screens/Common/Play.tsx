@@ -88,6 +88,8 @@ import {
   disableAdultMode,
   enableAdultMode,
   incrementAdultVideoWatchTime,
+  setIsPlayGuideShown,
+  setIsPlayGuideShown2,
 } from '@redux/actions/screenAction';
 
 import UmengAnalytics from '../../../Umeng/UmengAnalytics';
@@ -116,7 +118,6 @@ import {CPopup} from '@utility/popup';
 import {UserStateType} from '@redux/reducers/userReducer';
 import {User} from '@models/user';
 import {CRouter} from '../../routes/router';
-import {setIsHomeGuideShown} from '@redux/actions/screenAction';
 import VipGuideModal from '../../components/modal/vipGuide';
 
 let insetsTop = 0;
@@ -386,10 +387,17 @@ const Play = ({navigation, route}: RootStackScreenProps<'播放'>) => {
   );
 
   useEffect(() => {
-    if (screenState.isHomeGuideShown == false) {
-      setVipGuideModal(true);
-      dispatch(setIsHomeGuideShown(true));
+    if (screenState.isPlayGuideShown2 == false) {
+      setVipGuideModalDL(true);
+      dispatch(setIsPlayGuideShown2(true));
     }
+
+    if (screenState.isPlayGuideShown == false) {
+      videoPlayerRef.current?.setPause(true); // Resume playing the video
+      setVipGuideModal(true);
+      dispatch(setIsPlayGuideShown(true));
+    }
+
     //  setVipGuideModal(true);
   }, []);
 
@@ -1810,7 +1818,12 @@ const Play = ({navigation, route}: RootStackScreenProps<'播放'>) => {
                 }}>
                 <VipGuideModal
                   width="100%"
-                  onClose={(value: boolean) => setVipGuideModal(value)}
+                  onClose={(value: boolean) => 
+                  {
+
+                    videoPlayerRef.current?.setPause(false);
+                    setVipGuideModal(value)
+                  }}
                 />
               </View>
             </View>
