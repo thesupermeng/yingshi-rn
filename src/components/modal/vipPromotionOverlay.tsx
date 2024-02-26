@@ -21,7 +21,7 @@ export const VipPromotionOverlay = ({ showCondition, onClose }: Props) => {
   const onCloseModal = () => {
     onClose();
     dispatch(vipPromotionModalShown());
-    navigator.navigate("Home", {screen: '首页'})
+   // navigator.navigate("Home", {screen: '首页'})
   }
 
   const handleOnPurchase = useCallback(() => {

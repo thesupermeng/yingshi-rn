@@ -8,6 +8,7 @@ import {
   Platform,
   Linking,
   Dimensions,
+  BackHandler,
 } from "react-native";
 import {
   Purchase,
@@ -781,6 +782,53 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
 
     checkCurrentPurchase();
   }, [currentPurchase, finishTransaction]);
+
+
+  useEffect(() => {
+    const removeBackPressListener = BackHandler.addEventListener(
+      "hardwareBackPress",
+      () => {
+        // just direct go back (go back the event will handle by beforeRemove)
+        if (
+          !userState.user?.isLogin() &&
+          userState.user?.isVip()
+        ) {
+          navigation.goBack();
+        } else {
+          if (screenState.isHomeGuideShown == true) {
+            dispatch(setShowPromotionDialog(true));
+          }
+          navigation.goBack();
+        }
+        return true;
+      }
+    );
+
+    // handle go back event (except IOS swipe back)
+    // const onBeforeRemoveListener = navigation.addListener(
+    //   "beforeRemove",
+    //   (e: any) => {
+    //     if (
+    //       !(
+    //         Platform.OS === "ios" &&
+    //         e.data.action.type.toLocaleLowerCase() === "pop"
+    //       )
+    //     ) {
+    //       // preventDefault cannot working in IOS swipe back and will have error
+    //       // use "gestureEnabled: false" to handle ios swipe back function
+    //       e.preventDefault();
+    //     }
+
+  
+    //   }
+    // );
+
+    return () => {
+      removeBackPressListener.remove();
+    //   onBeforeRemoveListener();
+    };
+  }, []);
+
 
   const handleConfirm = () => {
     setIsDialogOpen(false);
