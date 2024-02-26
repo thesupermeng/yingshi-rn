@@ -613,16 +613,16 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     };
     console.log("iap json posted: ", iapTrans);
 
-    // if (currentPurchase && currentPurchase.transactionId) {
-    //   AppsFlyerAnalytics.googlePaymentSuccessTimesAnalytics({
-    //     productIdentifier: currentPurchase.productId,
-    //     signature: currentPurchase.signatureAndroid,
-    //     transactionId: currentPurchase.transactionId,
-    //     purchaseData: currentPurchase.signatureAndroid,
-    //     price: membershipSelected.promoPrice ?? membershipSelected.price,
-    //     currency: membershipSelected.currency.currencyCode,
-    //   });
-    // }
+    if (currentPurchase && currentPurchase.transactionId) {
+      AppsFlyerAnalytics.googlePaymentSuccessTimesAnalytics({
+        productIdentifier: currentPurchase.productId,
+        signature: currentPurchase.signatureAndroid,
+        transactionId: currentPurchase.transactionId,
+        purchaseData: currentPurchase.dataAndroid,
+        price: membershipSelected.promoPrice ?? membershipSelected.price,
+        currency: membershipSelected.currency.currencyCode,
+      });
+    }
 
     try {
       const result = await ProductApi.postAndroidIAP(iapTrans);
@@ -658,16 +658,16 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     };
     console.log("subs json posted: ", subsTrans);
 
-    // if (currentPurchase && currentPurchase.transactionId) {
-    //   AppsFlyerAnalytics.googlePaymentSuccessTimesAnalytics({
-    //     productIdentifier: currentPurchase.productId,
-    //     signature: currentPurchase.signatureAndroid,
-    //     transactionId: currentPurchase.transactionId,
-    //     purchaseData: currentPurchase.signatureAndroid,
-    //     price: membershipSelected.promoPrice ?? membershipSelected.price,
-    //     currency: membershipSelected.currency.currencyCode,
-    //   });
-    // }
+    if (currentPurchase && currentPurchase.transactionId) {
+      AppsFlyerAnalytics.googlePaymentSuccessTimesAnalytics({
+        productIdentifier: currentPurchase.productId,
+        signature: currentPurchase.signatureAndroid,
+        transactionId: currentPurchase.transactionId,
+        purchaseData: currentPurchase.dataAndroid,
+        price: membershipSelected.promoPrice ?? membershipSelected.price,
+        currency: membershipSelected.currency.currencyCode,
+      });
+    }
 
     try {
       const result = await ProductApi.postAndroidSubscriptions(subsTrans);

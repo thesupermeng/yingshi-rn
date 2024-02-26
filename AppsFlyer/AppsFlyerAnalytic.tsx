@@ -76,7 +76,7 @@ export default class AppsFlyerAnalytics {
             price,
             productIdentifier,
             transactionId,
-            // additionalParameters: {},
+            additionalParameters: {'foo': 'bar'},
         }
 
         appsFlyer.logEvent(
