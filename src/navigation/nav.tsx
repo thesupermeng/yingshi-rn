@@ -369,8 +369,8 @@ export default () => {
     }
 
 
-    console.log('screenState.showPromotionDialog')
-    console.log(screenState.showPromotionDialog)
+    // console.log('screenState.showPromotionDialog')
+    // console.log(screenState.showPromotionDialog)
     if (screenState.showPromotionDialog == true) {
       dispatch(setShowPromotionDialog(false));
       setShowBecomeVIPOverlay(true)
