@@ -63,7 +63,7 @@ export const VipDetails = ({
           </Text>
         </View>
 
-        {SHOW_ZF_CONST && (
+        {/* {SHOW_ZF_CONST && (
           <View style={styles.featureItem}>
             <Text style={{ ...textVariants.bigHeader }}>
               {userState.userPaidVipList.total_purchased_amount
@@ -74,7 +74,7 @@ export const VipDetails = ({
               购买总额 (CNY)
             </Text>
           </View>
-        )}
+        )} */}
       </LinearGradient>
       <VipNav
         tabList={navOptions.map((e) => ({
