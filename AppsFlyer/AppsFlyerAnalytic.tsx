@@ -1,7 +1,7 @@
 import appsFlyer from "react-native-appsflyer";
 import { YSConfig } from "../ysConfig";
 import { Platform } from "react-native";
-import { APPSFLYER_PAYMENT_PUBLIC_KEY } from "@utility/constants";
+import { APPSFLYER_PAYMENT_PUBLIC_KEY  , ENABLE_APPSFLYER} from "@utility/constants";
 
 enum CustomEventKey {
     Install = 'install',
@@ -13,7 +13,7 @@ enum CustomEventKey {
 
 export default class AppsFlyerAnalytics {
     // todo: remove when done ios version
-    static #enable: boolean = Platform.OS === 'android';
+    static #enable: boolean = (Platform.OS === 'android' && ENABLE_APPSFLYER) ;
     static #showLog: boolean = true;
 
     // for install (first time on boot)
