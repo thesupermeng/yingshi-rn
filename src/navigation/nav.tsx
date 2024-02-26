@@ -368,6 +368,9 @@ export default () => {
       dispatch(hideLoginAction());
     }
 
+
+    console.log('screenState.showPromotionDialog')
+    console.log(screenState.showPromotionDialog)
     if (screenState.showPromotionDialog == true) {
       dispatch(setShowPromotionDialog(false));
       setShowBecomeVIPOverlay(true)
@@ -574,7 +577,9 @@ export default () => {
         onStateChange={handleStateChange}
       >
 
-        {!appState.isVipPromotionModalShown && showBecomeVIPOverlay && (
+  {/* {!appState.isVipPromotionModalShown && showBecomeVIPOverlay && ( */}
+  {/* todo  remove isVipPromotionModalShown in app state  */}
+        {showBecomeVIPOverlay && (
           <View
             style={{
               height: '100%',

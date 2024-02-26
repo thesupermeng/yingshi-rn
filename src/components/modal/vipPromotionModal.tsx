@@ -1,5 +1,5 @@
-import React, { useEffect, ReactNode, useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from "react-native";
+import React, { useEffect, ReactNode, useState, useRef } from "react";
+import { View, Text, TouchableOpacity, StyleSheet, Dimensions, Animated } from "react-native";
 import FastImage from "../common/customFastImage";
 import LinearGradient from "react-native-linear-gradient";
 import { useSelector } from "@hooks/hooks";
@@ -39,6 +39,28 @@ export default function VipPromotionModal({
 
   const isFullscreen = Dimensions.get('window').height < Dimensions.get('window').width;
 
+  // Animation
+  const fontSizeAnim = useRef(new Animated.Value(14)).current;
+
+  useEffect(() => {
+    if (backgroundState.vipPromotionPurchaseNum !== undefined) {
+      // Animate font size change
+      Animated.sequence([
+        Animated.timing(fontSizeAnim, {
+          toValue: 16, // Increase font size
+          duration: 280, // Duration of animation (500ms)
+          useNativeDriver: false,
+        }),
+        Animated.timing(fontSizeAnim, {
+          toValue: 14, // Revert font size back to original
+          duration: 200, // Duration of animation (500ms)
+          useNativeDriver: false,
+        }),
+      ]).start();
+    }
+  }, [backgroundState.vipPromotionPurchaseNum]);
+
+  
   useEffect(() => {
     const countdownInterval = setInterval(() => {
       setCountdownSecond(((VIP_PROMOTION_COUNTDOWN_MINUTE * 60 * 1000) - (Date.now() - backgroundState.vipPromotionCountdownStart)) / 1000);
@@ -134,14 +156,38 @@ export default function VipPromotionModal({
                   })}
                 </View>
               </View>
+
+
+
+
               <Text style={styles.contentText1}>
                 限时优惠，立即升级会员可享受最低4折优惠，先到先得！已有99.5%用户抢先购买，解锁了更多影视权益。您确定要错过这个升级体验的最好机会吗？
               </Text>
-              <Text style={styles.contentText2}>
+              {/* <Text style={styles.contentText2}>
                 限时优惠
                 <Text style={{ ...styles.contentText2, color: '#FAC33D' }}>{VIP_PROMOTION_PURCHASE_MAX / 10000}万</Text>名额，已有
-                <Text style={{ ...styles.contentText2, color: '#FA3E3E' }}>{backgroundState.vipPromotionPurchaseNum}人</Text>购买
-              </Text>
+                <Animated.Text style={{ ...styles.contentText2, color: '#FA3E3E', fontSize: fontSizeAnim  , position:'relative', paddingHorizontal:10}}>
+                  {backgroundState.vipPromotionPurchaseNum}人
+                </Animated.Text>
+                购买
+              </Text> */}
+
+<View style={{ flexDirection: 'row', alignItems: 'center', justifyContent:'center' }}>
+  <Text style={styles.contentText2}>
+    限时优惠
+    <Text style={{ ...styles.contentText2, color: '#FAC33D', marginLeft: 5, marginRight: 5 }}>{VIP_PROMOTION_PURCHASE_MAX / 10000}万</Text>名额，已有
+  </Text>
+  <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width:68 }}>
+    <Animated.Text style={{ ...styles.contentText2, color: '#FA3E3E', fontSize: fontSizeAnim }}>
+      {backgroundState.vipPromotionPurchaseNum}人
+    </Animated.Text>
+  </View>
+  <Text style={styles.contentText2}>购买</Text>
+</View>
+
+              
+
+
             </View>
 
             <View
