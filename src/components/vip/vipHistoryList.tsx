@@ -21,15 +21,13 @@ export const VipHistoryList = ({ userState }: Props) => {
         displayText =
           "购买" +
           history.transaction_status_string.replace("支付", "") +
-          history.product_name +
-          "VIP (¥ " +
-          history.product_price +
-          ")";
+          history.product_name + history.product_name_2 
         return {
           displayText: displayText,
           createdDate: history.start_date,
           vipDays: history.num_days,
           status: history.transaction_status,
+          transactionNo: history.transaction_no,
         };
       });
       console.log("historyList");

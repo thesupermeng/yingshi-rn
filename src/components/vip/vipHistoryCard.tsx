@@ -28,6 +28,10 @@ export const VipHistoryCard = ({ historyItem }: Props) => {
         </Text>
         <Text
           style={{...textVariants.small, color: colors.muted}}>
+          {historyItem.transactionNo}
+        </Text>
+        <Text
+          style={{...textVariants.small, color: colors.muted}}>
           {historyItem.createdDate}
         </Text>
       </View>

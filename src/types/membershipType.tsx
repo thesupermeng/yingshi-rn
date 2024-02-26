@@ -34,4 +34,5 @@ export interface vipHistoryResponseType {
   createdDate: string;
   vipDays: number;
   status: number;
+  transactionNo: string;
 }
