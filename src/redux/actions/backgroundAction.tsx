@@ -9,6 +9,8 @@ export const onBootApp = ({
 
 } = {}) => async (dispatch: any, getState: () => RootState) => {
     try {
+
+        console.log('onBootApp')
         const backgroundState = getState().backgroundReducer;
 
         dispatch({
