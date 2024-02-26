@@ -18,10 +18,7 @@ export const VipHistoryList = ({ userState }: Props) => {
     let displayText;
     if (historyData) {
       historyList = historyData.map((history: any) => {
-        displayText =
-          "购买" +
-          history.transaction_status_string.replace("支付", "") +
-          history.product_name + history.product_name_2 
+        displayText = history.product_name_2 
         return {
           displayText: displayText,
           createdDate: history.start_date,
