@@ -23,7 +23,7 @@ export interface screenModel {
   showPromotionDialog: boolean;
   showGuestPurchaseSuccess: boolean;
   showPurchasePending: boolean;
-  isHomeGuideShown :  boolean; //1
+  isHomeGuideShown :  any; //1
   isMiniVodGuideShown :  boolean;//2
   isPlayGuideShown :  boolean;//3
   isPlayGuideShown2 :  boolean;//4
