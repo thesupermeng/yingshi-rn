@@ -180,7 +180,7 @@ export default forwardRef<VideoRef, Props>(
     const disableSeek = useRef(false)
 
     const adVideoRef = useRef<Video | null>();
-    const adCountdownIntervalRef = useRef<NodeJS.Timeout | null>();
+    const adCountdownIntervalRef = useRef<NodeJS.Timeout | null>(null);
     const [showAd, setShowAd] = useState(false);
     const [adCountdownTime, setAdCountdownTime] = useState(AD_VIDEO_SECONDS);
 
