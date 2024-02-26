@@ -391,7 +391,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                     }}
                   >
                     <Text style={{ color: "white" }}>
-                      游客您好，登录可享有跟多服务{" "}
+                      游客您好，登录可享有更多服务{" "}
                     </Text>
 
                     <View
