@@ -156,17 +156,38 @@ export default function VipPromotionModal({
                   })}
                 </View>
               </View>
+
+
+
+
               <Text style={styles.contentText1}>
                 限时优惠，立即升级会员可享受最低4折优惠，先到先得！已有99.5%用户抢先购买，解锁了更多影视权益。您确定要错过这个升级体验的最好机会吗？
               </Text>
-              <Text style={styles.contentText2}>
+              {/* <Text style={styles.contentText2}>
                 限时优惠
                 <Text style={{ ...styles.contentText2, color: '#FAC33D' }}>{VIP_PROMOTION_PURCHASE_MAX / 10000}万</Text>名额，已有
                 <Animated.Text style={{ ...styles.contentText2, color: '#FA3E3E', fontSize: fontSizeAnim  , position:'relative', paddingHorizontal:10}}>
                   {backgroundState.vipPromotionPurchaseNum}人
                 </Animated.Text>
                 购买
-              </Text>
+              </Text> */}
+
+<View style={{ flexDirection: 'row', alignItems: 'center', justifyContent:'center' }}>
+  <Text style={styles.contentText2}>
+    限时优惠
+    <Text style={{ ...styles.contentText2, color: '#FAC33D', marginLeft: 5, marginRight: 5 }}>{VIP_PROMOTION_PURCHASE_MAX / 10000}万</Text>名额，已有
+  </Text>
+  <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width:68 }}>
+    <Animated.Text style={{ ...styles.contentText2, color: '#FA3E3E', fontSize: fontSizeAnim }}>
+      {backgroundState.vipPromotionPurchaseNum}人
+    </Animated.Text>
+  </View>
+  <Text style={styles.contentText2}>购买</Text>
+</View>
+
+              
+
+
             </View>
 
             <View
