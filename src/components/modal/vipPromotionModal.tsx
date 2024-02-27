@@ -177,7 +177,7 @@ export default function VipPromotionModal({
     限时优惠
     <Text style={{ ...styles.contentText2, color: '#FAC33D', marginLeft: 5, marginRight: 5 }}>{VIP_PROMOTION_PURCHASE_MAX / 10000}万</Text>名额，已有
   </Text>
-  <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width:75 }}>
+  <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width:72 }}>
     <Animated.Text style={{ ...styles.contentText2, color: '#FA3E3E', fontSize: fontSizeAnim }}>
       {backgroundState.vipPromotionPurchaseNum}人
     </Animated.Text>
