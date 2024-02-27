@@ -27,7 +27,7 @@ import VipGuideModal from "../../modal/vipGuide";
 import { CPopup } from "@utility/popup";
 import { setIsMiniVodGuideShown } from "@redux/actions/screenAction";
 import { UserStateType } from "@redux/reducers/userReducer";
-import {User} from '@models/user';
+import { User } from '@models/user';
 interface Props {
   thumbnail?: string;
   displayHeight: number;
@@ -89,10 +89,6 @@ function ShortAds({
   const [isVideoReadyIos, setVideoReadyIos] = useState(false);
   const [isVideoReadyAndroid, setVideoReadyAndroid] = useState(false);
   const [miniVodUrl, setMiniVodUrl] = useState(currentVod.ads_pic);
-
-
-
-  console.log(videoRef.current);
 
   useEffect(() => {
     if (!isShowVideo && Platform.OS === "ios") setVideoReadyIos(false);
@@ -261,15 +257,15 @@ function ShortAds({
                   (Platform.OS === "ios"
                     ? !isVideoReadyIos
                     : !isVideoReadyAndroid)) && (
-                  <View style={styles.buffering}>
-                    <FastImage
-                      source={videoBufferGif}
-                      style={{ width: 100, height: 100 }}
-                      resizeMode="contain"
-                      useFastImage={true}
-                    />
-                  </View>
-                )}
+                    <View style={styles.buffering}>
+                      <FastImage
+                        source={videoBufferGif}
+                        style={{ width: 100, height: 100 }}
+                        resizeMode="contain"
+                        useFastImage={true}
+                      />
+                    </View>
+                  )}
                 {(Platform.OS === "ios"
                   ? !isVideoReadyIos
                   : !isVideoReadyAndroid) &&
@@ -282,39 +278,39 @@ function ShortAds({
                     />
                   )}
                 {(currentVod?.is_video ?? true) !== false ? (
-                 
-                    <Video
-                      onLayout={() => {}}
-                      ref={videoRef}
-                      resizeMode="contain"
-                      source={{
-                        uri: miniVodUrl,
-                        headers: {
-                          "User-Agent":
-                            "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36",
-                        },
-                      }}
-                      onReadyForDisplay={handleOnReadyForDisplay}
-                      onBuffer={onBuffer}
-                      repeat={true}
-                      style={{
-                        ...styles.video,
-                        opacity: (
-                          Platform.OS === "ios"
-                            ? isVideoReadyIos
-                            : isVideoReadyAndroid
-                        )
-                          ? 1
-                          : 0,
-                      }}
-                      paused={
-                        isPause || (Platform.OS === "ios" && !isVideoReadyIos)
-                      }
-                      onLoadStart={handleLoadStart}
-                      onProgress={handleProgress}
-                      progressUpdateInterval={1500}
-                    />
-                
+
+                  <Video
+                    onLayout={() => { }}
+                    ref={videoRef}
+                    resizeMode="contain"
+                    source={{
+                      uri: miniVodUrl,
+                      headers: {
+                        "User-Agent":
+                          "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36",
+                      },
+                    }}
+                    onReadyForDisplay={handleOnReadyForDisplay}
+                    onBuffer={onBuffer}
+                    repeat={true}
+                    style={{
+                      ...styles.video,
+                      opacity: (
+                        Platform.OS === "ios"
+                          ? isVideoReadyIos
+                          : isVideoReadyAndroid
+                      )
+                        ? 1
+                        : 0,
+                    }}
+                    paused={
+                      isPause || (Platform.OS === "ios" && !isVideoReadyIos)
+                    }
+                    onLoadStart={handleLoadStart}
+                    onProgress={handleProgress}
+                    progressUpdateInterval={1500}
+                  />
+
                 ) : (
                   <FastImage
                     resizeMode="contain"
