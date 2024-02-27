@@ -10,9 +10,18 @@ export class YSConfig {
   updateDesc = '';
   updateUrl = '';
 
+  isAppsflyerProduction = true;
+
+
   // y == 成为VIP 
   // n == 付费购买VIP
   showBecomeVip = false;
+
+  setIsAppsflyerProduction(config) {
+    console.log('set')
+    console.log(config)
+    this.isAppsflyerProduction = config;
+  }
 
   setTabConfig(tabConfig) {
     this.tabConfig = tabConfig;
