@@ -114,7 +114,7 @@ export default forwardRef<MiniVodRef, Props>(
     }, [videoCurrentDurations[current], isPause]);
 
     useEffect(() => {
-      if(current > 0 && current % 4 == 0 && !isVip && adultMode){
+      if (current > 0 && current % 4 == 0 && !isVip && adultMode) {
         setShowAdultVIPOverlay(true);
       }
     }, [current]);
@@ -300,7 +300,7 @@ export default forwardRef<MiniVodRef, Props>(
     }, []);
 
     const hanldeOnEndReached = useCallback(() => {
-      if(!isVip ){
+      if (!isVip) {
         dispatch(showLoginAction());
       }
       if (hasNextPage && !isFetchingNextPage && !isFetching) {
@@ -322,14 +322,14 @@ export default forwardRef<MiniVodRef, Props>(
     useEffect(() => {
       if (User.isLogin(userState.user)) return;
 
-      if (swipeCount.current < MINI_SHOW_LOGIN_NUMBER) {
+      if (swipeCount.current < MINI_SHOW_LOGIN_NUMBER && !adultMode) {
         swipeCount.current++;
       } else {
         // isFocusLogin.current = true;
         // dispatch(showLoginAction());
         // swipeCount.current = 0;
       }
-    }, [current, isFocusLogin.current]);
+    }, [current, adultMode, isFocusLogin.current]);
 
     return (
       <>
@@ -366,17 +366,17 @@ export default forwardRef<MiniVodRef, Props>(
               onEndReachedThreshold={0.8}
               ListFooterComponent={
                 isVip ?
-                <View style={{ ...styles.loading, marginBottom: spacing.xl }}>
-                  {hasNextPage && (
-                    <FastImage
-                      style={{ height: 80, width: 80 }}
-                      source={loadingSpinnerGif}
-                      resizeMode={'contain'}
-                    />
-                  )}
-                </View>
-                :
-                <></>
+                  <View style={{ ...styles.loading, marginBottom: spacing.xl }}>
+                    {hasNextPage && (
+                      <FastImage
+                        style={{ height: 80, width: 80 }}
+                        source={loadingSpinnerGif}
+                        resizeMode={'contain'}
+                      />
+                    )}
+                  </View>
+                  :
+                  <></>
               }
               onScroll={handleOnScroll}
               onScrollBeginDrag={handleOnScrollBeginDrag}
