@@ -1,4 +1,4 @@
-import React, { useState, memo, useCallback, useEffect, useRef } from "react";
+import React, {useState, memo, useCallback, useEffect, useRef} from 'react';
 import {
   Dimensions,
   Linking,
@@ -9,24 +9,24 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
-} from "react-native";
-import PlayIcon from "@static/images/blackPlay.svg";
-import PauseIcon from "@static/images/pause.svg";
-import Video, { OnProgressData, VideoRef } from "react-native-video";
-import FastImage from "../../common/customFastImage";
-import { useNavigation, useTheme } from "@react-navigation/native";
-import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
-import { DOWNLOAD_WATCH_ANYTIME } from "@utility/constants";
-import { playVod } from "@redux/actions/vodActions";
-import RNFetchBlob from "rn-fetch-blob";
-import { addIdToCache } from "../../../utils/minivodDownloader";
-import { screenModel } from "@type/screenType";
-import UmengAnalytics from "../../../../Umeng/UmengAnalytics";
-import BecomeVipOverlay from "../../modal/becomeVipOverlay";
-import VipGuideModal from "../../modal/vipGuide";
-import { CPopup } from "@utility/popup";
-import { setIsMiniVodGuideShown } from "@redux/actions/screenAction";
-import { UserStateType } from "@redux/reducers/userReducer";
+} from 'react-native';
+import PlayIcon from '@static/images/blackPlay.svg';
+import PauseIcon from '@static/images/pause.svg';
+import Video, {OnProgressData, VideoRef} from 'react-native-video';
+import FastImage from '../../common/customFastImage';
+import {useNavigation, useTheme} from '@react-navigation/native';
+import {useAppDispatch, useAppSelector, useSelector} from '@hooks/hooks';
+import {DOWNLOAD_WATCH_ANYTIME} from '@utility/constants';
+import {playVod} from '@redux/actions/vodActions';
+import RNFetchBlob from 'rn-fetch-blob';
+import {addIdToCache} from '../../../utils/minivodDownloader';
+import {screenModel} from '@type/screenType';
+import UmengAnalytics from '../../../../Umeng/UmengAnalytics';
+import BecomeVipOverlay from '../../modal/becomeVipOverlay';
+import VipGuideModal from '../../modal/vipGuide';
+import {CPopup} from '@utility/popup';
+import {setIsMiniVodGuideShown} from '@redux/actions/screenAction';
+import {UserStateType} from '@redux/reducers/userReducer';
 import {User} from '@models/user';
 interface Props {
   thumbnail?: string;
@@ -43,7 +43,7 @@ interface Props {
   onPressAds: () => void;
 }
 
-const videoBufferGif = require("@static/images/videoBufferLoading.gif");
+const videoBufferGif = require('@static/images/videoBufferLoading.gif');
 
 function ShortAds({
   vod: currentVod,
@@ -57,9 +57,9 @@ function ShortAds({
   index,
   onPressAds,
 }: Props) {
-  const { colors } = useTheme();
+  const {colors} = useTheme();
   const [showVod, setShowVod] = useState(true);
-  const screenHeight = Dimensions.get("window").height;
+  const screenHeight = Dimensions.get('window').height;
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -72,12 +72,12 @@ function ShortAds({
   }, []);
 
   const screenState: screenModel = useAppSelector(
-    ({ screenReducer }) => screenReducer
+    ({screenReducer}) => screenReducer,
   );
-  const { watchAnytimeAdultMode: adultMode } = screenState;
+  const {watchAnytimeAdultMode: adultMode} = screenState;
 
   if (currentVod?.mini_video_original_video_name == undefined) {
-    currentVod.mini_video_original_video_name = "";
+    currentVod.mini_video_original_video_name = '';
   }
 
   const [isBuffering, setIsBuffering] = useState(false);
@@ -90,13 +90,9 @@ function ShortAds({
   const [isVideoReadyAndroid, setVideoReadyAndroid] = useState(false);
   const [miniVodUrl, setMiniVodUrl] = useState(currentVod.ads_pic);
 
-
-
-  console.log(videoRef.current);
-
   useEffect(() => {
-    if (!isShowVideo && Platform.OS === "ios") setVideoReadyIos(false);
-    if (!isShowVideo && Platform.OS === "android") setVideoReadyAndroid(false);
+    if (!isShowVideo && Platform.OS === 'ios') setVideoReadyIos(false);
+    if (!isShowVideo && Platform.OS === 'android') setVideoReadyAndroid(false);
   }, [isShowVideo]);
 
   useEffect(() => {
@@ -112,7 +108,7 @@ function ShortAds({
         setIsBuffering(false);
       }
     },
-    [adultMode]
+    [adultMode],
   );
   const userState = useSelector<UserStateType>('userReducer');
   const isVip = User.isVip(userState.user);
@@ -128,11 +124,11 @@ function ShortAds({
       if (
         progress.currentTime !== currentDuration &&
         !isVideoReadyAndroid &&
-        Platform.OS === "android"
+        Platform.OS === 'android'
       )
         setVideoReadyAndroid(true);
     },
-    [currentDuration, isVideoReadyAndroid]
+    [currentDuration, isVideoReadyAndroid],
   );
 
   const showControls = () => {
@@ -222,16 +218,16 @@ function ShortAds({
   }, []);
 
   const onAdsBtnPress = () => {
-    if (!currentVod?.ads_url || currentVod?.ads_url == "") {
+    if (!currentVod?.ads_url || currentVod?.ads_url == '') {
       //  videoRef.current.setPause(true);
       onManualPause(true);
       onPressAds();
       return;
     }
 
-    const url = currentVod?.ads_url.includes("http")
+    const url = currentVod?.ads_url.includes('http')
       ? currentVod?.ads_url
-      : "https://" + currentVod?.actionUrl;
+      : 'https://' + currentVod?.actionUrl;
 
     Linking.openURL(url);
 
@@ -253,86 +249,81 @@ function ShortAds({
               if (overlayRef.current) {
                 handlePlayPause();
               }
-            }}
-          >
+            }}>
             <View>
-              <View style={[styles.container, { height: displayHeight }]}>
+              <View style={[styles.container, {height: displayHeight}]}>
                 {(isBuffering ||
-                  (Platform.OS === "ios"
+                  (Platform.OS === 'ios'
                     ? !isVideoReadyIos
                     : !isVideoReadyAndroid)) && (
                   <View style={styles.buffering}>
                     <FastImage
                       source={videoBufferGif}
-                      style={{ width: 100, height: 100 }}
+                      style={{width: 100, height: 100}}
                       resizeMode="contain"
                       useFastImage={true}
                     />
                   </View>
                 )}
-                {(Platform.OS === "ios"
+                {(Platform.OS === 'ios'
                   ? !isVideoReadyIos
                   : !isVideoReadyAndroid) &&
                   thumbnail && (
                     <FastImage
-                      source={{ uri: thumbnail }}
+                      source={{uri: thumbnail}}
                       style={styles.video}
                       resizeMode="contain"
                       useFastImage={true}
                     />
                   )}
                 {(currentVod?.is_video ?? true) !== false ? (
-                 
-                    <Video
-                      onLayout={() => {}}
-                      ref={videoRef}
-                      resizeMode="contain"
-                      source={{
-                        uri: miniVodUrl,
-                        headers: {
-                          "User-Agent":
-                            "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36",
-                        },
-                      }}
-                      onReadyForDisplay={handleOnReadyForDisplay}
-                      onBuffer={onBuffer}
-                      repeat={true}
-                      style={{
-                        ...styles.video,
-                        opacity: (
-                          Platform.OS === "ios"
-                            ? isVideoReadyIos
-                            : isVideoReadyAndroid
-                        )
-                          ? 1
-                          : 0,
-                      }}
-                      paused={
-                        isPause || (Platform.OS === "ios" && !isVideoReadyIos)
-                      }
-                      onLoadStart={handleLoadStart}
-                      onProgress={handleProgress}
-                      progressUpdateInterval={1500}
-                    />
-                
+                  <Video
+                    onLayout={() => {}}
+                    ref={videoRef}
+                    resizeMode="contain"
+                    source={{
+                      uri: miniVodUrl,
+                      headers: {
+                        'User-Agent':
+                          'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+                      },
+                    }}
+                    onReadyForDisplay={handleOnReadyForDisplay}
+                    onBuffer={onBuffer}
+                    repeat={true}
+                    style={{
+                      ...styles.video,
+                      opacity: (
+                        Platform.OS === 'ios'
+                          ? isVideoReadyIos
+                          : isVideoReadyAndroid
+                      )
+                        ? 1
+                        : 0,
+                    }}
+                    paused={
+                      isPause || (Platform.OS === 'ios' && !isVideoReadyIos)
+                    }
+                    onLoadStart={handleLoadStart}
+                    onProgress={handleProgress}
+                    progressUpdateInterval={1500}
+                  />
                 ) : (
                   <FastImage
                     resizeMode="contain"
                     source={{
-                      uri:
-                        "https://upload.wikimedia.org/wikipedia/en/a/a6/Pokémon_Pikachu_art.png", //miniVodUrl,
+                      uri: 'https://upload.wikimedia.org/wikipedia/en/a/a6/Pokémon_Pikachu_art.png', //miniVodUrl,
                     }}
                     style={styles.video}
                   />
                 )}
                 <View
                   style={{
-                    position: "absolute",
-                    left: (Dimensions.get("window").width - 80) / 2,
-                    top: (Dimensions.get("window").height - 130) / 2,
+                    position: 'absolute',
+                    left: (Dimensions.get('window').width - 80) / 2,
+                    top: (Dimensions.get('window').height - 130) / 2,
                     zIndex: 999,
-                  }}
-                >
+                  }}>
                   {showIcon && (isPause ? <PlayIcon /> : <PauseIcon />)}
                 </View>
               </View>
@@ -344,9 +335,8 @@ function ShortAds({
               style={{
                 flex: 1,
                 paddingTop: screenHeight / 1.7,
-                backgroundColor: "rgba(0,0,0,0.5)",
-              }}
-            >
+                backgroundColor: 'rgba(0,0,0,0.5)',
+              }}>
               <VipGuideModal
                 width={250}
                 onClose={(value: boolean) => {
@@ -371,8 +361,7 @@ function ShortAds({
               style={{
                 ...styles.adsBtn,
                 backgroundColor: colors.primary,
-              }}
-            >
+              }}>
               <Text style={styles.adsBtnText}>
                 {currentVod.ads_button_text}
               </Text>
@@ -388,63 +377,63 @@ export default memo(ShortAds);
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
+    width: '100%',
   },
   video: {
-    position: "absolute",
-    width: "100%",
-    height: "100%",
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
   },
   buffering: {
     paddingHorizontal: 5,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
     flex: 3,
-    color: "yellow",
-    position: "absolute",
-    top: "40%",
-    left: "36%",
+    color: 'yellow',
+    position: 'absolute',
+    top: '40%',
+    left: '36%',
     zIndex: 999,
   },
   bottomContainer: {
-    position: "absolute",
-    width: "100%",
-    height: "100%",
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
     padding: 20,
-    justifyContent: "flex-end",
+    justifyContent: 'flex-end',
   },
   titleText: {
-    color: "white",
+    color: 'white',
     marginBottom: 12,
     fontSize: 18,
   },
   descText: {
-    color: "white",
+    color: 'white',
     marginBottom: 16,
   },
   tagContainer: {
-    backgroundColor: "#ffffff44",
+    backgroundColor: '#ffffff44',
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 4,
     marginBottom: 10,
-    alignSelf: "baseline",
+    alignSelf: 'baseline',
   },
   tagText: {
-    color: "white",
+    color: 'white',
     fontSize: 12,
   },
   adsBtn: {
-    width: "100%",
+    width: '100%',
     borderRadius: 10,
     padding: 12,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   adsBtnText: {
     fontSize: 18,
-    fontWeight: "900",
-    color: "#000000",
+    fontWeight: '900',
+    color: '#000000',
   },
 });
