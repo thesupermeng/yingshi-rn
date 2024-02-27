@@ -789,17 +789,22 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
       "hardwareBackPress",
       () => {
         // just direct go back (go back the event will handle by beforeRemove)
-        if (
-          !userState.user?.isLogin() &&
-          userState.user?.isVip()
-        ) {
-          navigation.goBack();
-        } else {
-          if (screenState.isHomeGuideShown == true) {
-            dispatch(setShowPromotionDialog(true));
-          }
-          navigation.goBack();
+        // if (
+        //   !userState.user?.isLogin() &&
+        //   userState.user?.isVip()
+        // ) {
+        //   navigation.goBack();
+        // } else {
+        //   if (screenState.isHomeGuideShown == true) {
+        //     dispatch(setShowPromotionDialog(true));
+        //   }
+        //   navigation.goBack();
+        // }
+
+        if (screenState.isHomeGuideShown == true) {
+          dispatch(setShowPromotionDialog(true));
         }
+        navigation.goBack();
         return true;
       }
     );
@@ -988,17 +993,22 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                       zIndex: 200,
                     }}
                     onPress={() => {
-                      if (
-                        !userState.user?.isLogin() &&
-                        userState.user?.isVip()
-                      ) {
-                        navigation.goBack();
-                      } else {
-                        if (screenState.isHomeGuideShown == true) {
-                          dispatch(setShowPromotionDialog(true));
-                        }
-                        navigation.goBack();
+                      // if (
+                      //   !userState.user?.isLogin() &&
+                      //   userState.user?.isVip()
+                      // ) {
+                      //   navigation.goBack();
+                      // } else {
+                      //   if (screenState.isHomeGuideShown == true) {
+                      //     dispatch(setShowPromotionDialog(true));
+                      //   }
+                      //   navigation.goBack();
+                      // }
+                      if (screenState.isHomeGuideShown == true) {
+                        dispatch(setShowPromotionDialog(true));
                       }
+                      navigation.goBack();
+
                     }}
                   >
                     <CloseButton />
