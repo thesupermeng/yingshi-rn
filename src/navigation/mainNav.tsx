@@ -61,7 +61,7 @@ export default () => {
       if (state.isConnected === false) setAreaNavConfig(true);
     });
 
-    appDispatch(onBootApp());
+ 
 
     if (userState.user !== null && userState.user !== undefined) {
       dispatch(addUserAuthState(new User(userState.user)));
@@ -101,7 +101,18 @@ export default () => {
     try {
       const locationResp = await AppsApi.postLocation();
 
+
+
       if (locationResp !== undefined && locationResp !== null) {
+        console.log('locationResp.is_appsflyer_production')
+        console.log(locationResp.is_appsflyer_production)
+        if (locationResp.is_appsflyer_production != undefined) {
+
+          console.log('locationResp.is_appsflyer_production 11')
+          console.log(locationResp.is_appsflyer_production)
+          YSConfig.instance.setIsAppsflyerProduction(locationResp.is_appsflyer_production);
+        }
+
         if (locationResp.status == undefined || locationResp.status == null) {
           YSConfig.instance.setAreaConfig(false);
           setAreaNavConfig(false);
@@ -128,6 +139,8 @@ export default () => {
       setAreaNavConfig(false);
       setLoadedAPI(true);
     }
+
+    appDispatch(onBootApp());
 
     //check super (profile click)
     const access = await AsyncStorage.getItem("access");
