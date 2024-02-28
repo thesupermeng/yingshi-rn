@@ -559,7 +559,7 @@ const RecommendationHome = ({
                           position: 'absolute',
                           bottom: refPosition.x,
                           top: refPosition.y,
-                          width: refPosition.width,
+                          // width: refPosition.width,
                           height: refPosition.height,
                         }}>
                         <View
