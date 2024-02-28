@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   confirmText: {
-    borderRadius: 30,
+    borderRadius: 15,
     borderWidth: 1,
     borderColor: "#9C9C9C",
     color: "#9C9C9C",
@@ -178,5 +178,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 5,
     textAlign: "center",
+    position:'relative',
+    bottom:8
   },
 });
