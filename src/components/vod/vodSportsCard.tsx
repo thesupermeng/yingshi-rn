@@ -8,7 +8,11 @@ import {
 import {useTheme} from '@react-navigation/native';
 import FastImage from 'react-native-fast-image';
 import {MatchDetailsType} from '../../Sports/types/matchTypes';
-import {calculateScore, getMatchStatus} from '../../Sports/utility/utils';
+import {
+  calculateScore,
+  formatMatchDate,
+  getMatchStatus,
+} from '../../Sports/utility/utils';
 import {AwayIcon, HomeIcon} from '../../Sports/assets';
 
 interface Props {
@@ -18,6 +22,7 @@ interface Props {
   activeOpacity?: number;
   isEditing?: boolean;
 }
+
 export default function VodSportCard({
   match_details,
   onPress,
@@ -26,6 +31,23 @@ export default function VodSportCard({
   ...params
 }: Props) {
   const {colors, spacing, textVariants} = useTheme();
+
+  const scoreDisplay = (
+    homeScore: number[],
+    awayScore: number[],
+    sportType: number,
+    isHome?: boolean,
+  ) => {
+    const home = calculateScore(homeScore, sportType);
+    const away = calculateScore(awayScore, sportType);
+    const isHomeShow = isHome ?? true;
+
+    if (home > away && isHomeShow) {
+      return <Text style={{fontSize: 14, color: colors.primary}}>{home}</Text>;
+    } else {
+      return <Text style={{fontSize: 14, color: 'white'}}>{away}</Text>;
+    }
+  };
 
   return (
     <TouchableOpacity activeOpacity={activeOpacity} onPress={onPress}>
@@ -49,10 +71,20 @@ export default function VodSportCard({
               </View>
             ) : (
               <Text style={textVariants.small}>
-                {getMatchStatus(
+                {/* {getMatchStatus(
                   match_details?.state,
                   match_details?.status,
                   match_details?.sports_type,
+                )} */}
+                {new Date(match_details?.match_time_ts * 1000).toLocaleString(
+                  'zh-Hans-CN',
+                  {
+                    month: 'short',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false,
+                  },
                 )}
               </Text>
             )}
@@ -75,19 +107,18 @@ export default function VodSportCard({
               </ImageBackground>
             )}
             <Text
-              style={{...textVariants.small, flexShrink: 1, color: 'white'}}
+              style={{fontSize: 14, flexShrink: 1, color: 'white'}}
               numberOfLines={1}
               ellipsizeMode={'tail'}>
               {match_details.home?.name}
             </Text>
           </View>
           <View>
-            <Text style={{...textVariants.small}}>
-              {calculateScore(
-                match_details?.home_score,
-                match_details?.sports_type,
-              )}
-            </Text>
+            {scoreDisplay(
+              match_details?.home_score,
+              match_details?.away_score,
+              match_details?.sports_type,
+            )}
           </View>
         </View>
 
@@ -107,19 +138,19 @@ export default function VodSportCard({
               </ImageBackground>
             )}
             <Text
-              style={{...textVariants.small, flexShrink: 1, color: 'white'}}
+              style={{fontSize: 14, flexShrink: 1, color: 'white'}}
               numberOfLines={1}
               ellipsizeMode={'tail'}>
               {match_details.away?.name}
             </Text>
           </View>
           <View>
-            <Text style={{...textVariants.small}}>
-              {calculateScore(
-                match_details?.away_score,
-                match_details?.sports_type,
-              )}
-            </Text>
+            {scoreDisplay(
+              match_details?.home_score,
+              match_details?.away_score,
+              match_details?.sports_type,
+              false,
+            )}
           </View>
         </View>
       </View>
