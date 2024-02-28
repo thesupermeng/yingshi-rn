@@ -11,6 +11,7 @@ import {
   Linking,
   Animated,
   Modal,
+  Platform,
 } from "react-native";
 // import {FlatList, PanGestureHandler} from 'react-native-gesture-handler';
 import {
@@ -612,15 +613,23 @@ const RecommendationHome = ({
                         >
                           {renderBanner(bannerAdList)}
                         </View>
-
                         {distanceToBottom <= 255 ? (
-                          <VipGuideModal2
-                            onClose={(value: boolean) => {
-                              dispatch(setIsHomeGuideShown(true));
-                              setVipGuideModal(value);
-                              dispatch(setShowPromotionDialog(true));
-                            }}
-                          />
+                          <>
+                            <View
+                              style={{
+                                position: "relative",
+                                bottom: Platform.OS === "ios" ? 0 : 20,
+                              }}
+                            >
+                              <VipGuideModal2
+                                onClose={(value: boolean) => {
+                                  dispatch(setIsHomeGuideShown(true));
+                                  setVipGuideModal(value);
+                                  dispatch(setShowPromotionDialog(true));
+                                }}
+                              />
+                            </View>
+                          </>
                         ) : (
                           <VipGuideModal
                             onClose={(value: boolean) => {
