@@ -622,22 +622,17 @@ const RecommendationHome = ({
                       paddingLeft: spacing.sideOffset,
                       paddingRight: spacing.sideOffset,
                     }}>
-                    {data?.live_station_list &&
-                    data?.live_station_list.length > 0 ? (
+                    {sportList && sportList.length > 0 && (
                       <ShowMoreVodButton
                         text="体育推荐"
                         onPress={() =>
                           navigation.navigate('Home', {screen: '会员中心'})
                         }
                       />
-                    ) : (
-                      <View style={styles.banner}>
-                        <Text style={textVariants.header}>体育推荐</Text>
-                      </View>
                     )}
                   </View>
 
-                  {sportList && sportList.length > 0 ? (
+                  {sportList && sportList.length > 0 && (
                     <View
                       style={{
                         paddingLeft: spacing.sideOffset,
@@ -648,10 +643,6 @@ const RecommendationHome = ({
                         isRefreshing={isRefreshing}
                       />
                     </View>
-                  ) : (
-                    <View
-                      style={{paddingLeft: spacing.sideOffset, height: 134}}
-                    />
                   )}
                 </View>
 

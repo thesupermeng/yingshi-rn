@@ -69,6 +69,7 @@ export default function VodSportsList(
       horizontal
       showsHorizontalScrollIndicator={false}
       renderItem={renderSportCard}
+      overScrollMode="never"
     />
   );
 }
