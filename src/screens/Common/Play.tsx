@@ -388,14 +388,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     [currentSourceId]
   );
 
-  useEffect(() => {
-    if (screenState.isPlayGuideShown == false && !isVip) {
-      setTimeout(() => {
-        setVipGuideModal(true);
-        dispatch(setIsPlayGuideShown(true));
-      }, 1300);
-    }
-  }, []);
+
 
   const onAdsMount = () => {
     if (screenState.isPlayGuideShown2 == false && !isVip) {
@@ -403,7 +396,17 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
         videoPlayerRef.current?.setPause(true); // pause video
         setVipGuideModalDL(true);
         dispatch(setIsPlayGuideShown2(true));
-      }, 20);
+      }, 50);
+
+      if (screenState.isPlayGuideShown == false && !isVip) {
+        setTimeout(() => {
+          setVipGuideModal(true);
+          dispatch(setIsPlayGuideShown(true));
+        }, 20);
+      }
+
+
+      
     }
   };
 
@@ -1111,6 +1114,8 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
         setDistanceToBottom(distance);
         console.log("distanceToBottom");
         console.log(distanceToBottom);
+
+     
       });
     }
   };
