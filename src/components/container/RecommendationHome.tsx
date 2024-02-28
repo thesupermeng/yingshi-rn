@@ -636,9 +636,17 @@ const RecommendationHome = ({
                       </View>
                     )}
                   </View>
+
                   {sportList && sportList.length > 0 ? (
-                    <View style={{paddingLeft: spacing.sideOffset}}>
-                      <VodSportsList sportList={sportList} />
+                    <View
+                      style={{
+                        paddingLeft: spacing.sideOffset,
+                        paddingBottom: 5,
+                      }}>
+                      <VodSportsList
+                        sportList={sportList}
+                        isRefreshing={isRefreshing}
+                      />
                     </View>
                   ) : (
                     <View

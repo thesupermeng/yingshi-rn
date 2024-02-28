@@ -8,11 +8,7 @@ import {
 import {useTheme} from '@react-navigation/native';
 import FastImage from 'react-native-fast-image';
 import {MatchDetailsType} from '../../Sports/types/matchTypes';
-import {
-  calculateScore,
-  formatMatchDate,
-  getMatchStatus,
-} from '../../Sports/utility/utils';
+import {calculateScore, getMatchStatus} from '../../Sports/utility/utils';
 import {AwayIcon, HomeIcon} from '../../Sports/assets';
 
 interface Props {

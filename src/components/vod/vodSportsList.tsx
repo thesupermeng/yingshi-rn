@@ -1,23 +1,8 @@
-import React, {
-  useRef,
-  useState,
-  forwardRef,
-  useImperativeHandle,
-  useEffect,
-  useCallback,
-} from 'react';
-import {StyleSheet, TouchableOpacity, Image, ViewStyle} from 'react-native';
+import React, {useRef, useEffect, useCallback} from 'react';
+import {StyleSheet} from 'react-native';
 import {useNavigation, useTheme} from '@react-navigation/native';
-import {useQuery} from '@tanstack/react-query';
-import {VodType} from '@type/ajaxTypes';
-import {LiveTVStationItem} from '@type/ajaxTypes';
-import VodCard from './vodCard';
 import {useAppDispatch} from '@hooks/hooks';
-import {playVod} from '@redux/actions/vodActions';
-import {VodRecordType} from '@redux/reducers/vodReducer';
 import {FlatList} from 'react-native-gesture-handler';
-import Api from '../../Sports/middleware/api';
-import {Url} from '../../Sports/middleware/url';
 import {MatchDetailsType} from '../../Sports/types/matchTypes';
 import VodSportCard from './vodSportsCard';
 import UmengAnalytics from '../../../Umeng/UmengAnalytics';
@@ -37,7 +22,7 @@ type SportType = {
 };
 
 export default function VodSportsList(
-  {horizontal = true, sportList = [], matchTypeID, status, isRefreshing}: Props,
+  {sportList = [], isRefreshing}: Props,
   ref: any,
 ) {
   const navigation = useNavigation();
@@ -67,7 +52,7 @@ export default function VodSportsList(
     // ========== for analytics - end ==========
   };
 
-  const renderSportCard = useCallback(({item, index}: SportType) => {
+  const renderSportCard = useCallback(({item}: SportType) => {
     return (
       <VodSportCard
         match_details={item}
