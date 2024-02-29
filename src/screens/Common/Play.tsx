@@ -620,7 +620,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   const fetchVodDetails = useCallback(
     () =>
-      VodApi.getDetail(vod?.vod_id.toString() ?? "", {
+      VodApi.getDetail(vod?.vod_id.toString() ?? "", vod?.type_id.toString() ?? "", {
         xMode: adultMode,
       }).then((data) => {
         const isRestricted = data.vod_restricted === 1;
