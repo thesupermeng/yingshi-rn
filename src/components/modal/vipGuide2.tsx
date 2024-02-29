@@ -4,6 +4,7 @@ import { View, Text } from "react-native";
 import { TouchableOpacity } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { Colors } from "../../Sports/global/colors";
+import { useRef, useState } from "react";
 
 type CProps = {
   supportedOrientations?: ("portrait" | "landscape")[];
@@ -14,7 +15,7 @@ type CProps = {
   contentTemplate?: number;
 };
 
-export default function VipGuideModal({
+export default function VipGuideModal2({
   onClose,
   width,
   isLeft = false,
@@ -25,18 +26,27 @@ export default function VipGuideModal({
   };
 
   const navigator = useNavigation();
+  const [refPosition, setRefPosition] = useState({
+    x: 0,
+    y: 0,
+    width: 0,
+    height: 0,
+  });
+  const componentRef = useRef<View>(null); // Create a ref for the component
+
+  const getPosition = () => {
+    if (componentRef.current != null) {
+      componentRef.current.measure((x, y, width, height, pageX, pageY) => {
+        // console.log('Position:', {x, y, width, height, pageX, pageY});
+        setRefPosition({x: pageX, y: pageY, width: width, height: height});
+      });
+    }
+  };
 
   return (
-    <View style={{ paddingHorizontal: 10 }}>
-      {isLeft ? (
-        <View style={{ alignSelf: "flex-start", paddingLeft: 30 }}>
-          <Image source={require(`@static/images/vip_guide_arrow.png`)}></Image>
-        </View>
-      ) : (
-        <View style={{ alignSelf: "flex-end", paddingRight: 30 }}>
-          <Image source={require(`@static/images/vip_guide_arrow.png`)}></Image>
-        </View>
-      )}
+    <View style={{ paddingHorizontal: 10 ,position:'relative' , bottom:255 }}     onLayout={() => getPosition()}
+    ref={componentRef}>
+   
       <View
         style={{
           width: width ?? "70%",
@@ -44,6 +54,13 @@ export default function VipGuideModal({
           justifyContent: isLeft ? "flex-end" : "flex-start",
         }}
       >
+            <View>
+          <View style={{ alignSelf: "center" }}>
+            <Text style={[styles.confirmText]} onPress={() => closeModal()}>
+              我知道了
+            </Text>
+          </View>
+        </View>
         <View style={[styles.buyContainer]}>
           {contentTemplate == 1 && (
             <>
@@ -117,15 +134,19 @@ export default function VipGuideModal({
             </TouchableOpacity>
           </View>
         </View>
-        <View style={{ height: 12 }} />
-        <View>
-          <View style={{ alignSelf: "center" }}>
-            <Text style={[styles.confirmText]} onPress={() => closeModal()}>
-              我知道了
-            </Text>
-          </View>
-        </View>
+        <View style={{ height: 0 }} />
+    
       </View>
+
+      {isLeft ? (
+        <View style={{ alignSelf: "flex-start", paddingLeft: 30 }}>
+          <Image source={require(`@static/images/vip_guide_arrow1.png`)}></Image>
+        </View>
+      ) : (
+        <View style={{ alignSelf: "flex-end", paddingRight: 30 }}>
+          <Image source={require(`@static/images/vip_guide_arrow1.png`)}></Image>
+        </View>
+      )}
     </View>
   );
 }
@@ -157,5 +178,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 5,
     textAlign: "center",
+    position:'relative',
+    bottom:8
   },
 });
