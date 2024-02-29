@@ -300,13 +300,13 @@ export default forwardRef<MiniVodRef, Props>(
     }, []);
 
     const hanldeOnEndReached = useCallback(() => {
-      if (!isVip) {
+      if (!isVip && !adultMode) {
         dispatch(showLoginAction());
       }
       if (hasNextPage && !isFetchingNextPage && !isFetching) {
         fetchNextPage();
       }
-    }, [hasNextPage, isFetchingNextPage, isFetching]);
+    }, [adultMode, hasNextPage, isFetchingNextPage, isFetching]);
 
     const handleOnScrollBeginDrag = useCallback(
       (e: NativeSyntheticEvent<NativeScrollEvent>) => {
