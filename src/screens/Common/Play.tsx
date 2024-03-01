@@ -390,6 +390,11 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   );
 
   const onAdsMount = () => {
+
+    if (screenState.interstitialShow == true) {
+      videoPlayerRef.current?.setPause(true); // pause video
+    }
+
     setTimeout(() => {
       getPosition();
     }, 250);
