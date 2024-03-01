@@ -2322,6 +2322,7 @@ export const AdsBannerContextProvider = ({ children }: yys_ConfigureUimanager) =
    } else {
    
       setTimeout(() => {
+         hideAllBanner();
          showBannerInPosition().then();
        }, 200);
    }
