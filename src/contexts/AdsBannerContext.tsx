@@ -354,7 +354,7 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
               ATBannerRNSDK.createShowAdRect(x, y, width, height)
             );
             ATBannerRNSDK.reShowAd(bannerId);
-          }, 100);
+          }, 500);
         } else {
           //  console.log(2222);
           setTimeout(() => {
@@ -366,7 +366,7 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
             );
 
             ATBannerRNSDK.reShowAd(bannerId);
-          }, 10);
+          }, 200);
         }
       });
     }
@@ -503,7 +503,7 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
         // console.debug('not member')
         setTimeout(() => {
           showBannerInPosition().then();
-        }, 100);
+        }, 300);
       }
     } else {
       console.log("hide banner");

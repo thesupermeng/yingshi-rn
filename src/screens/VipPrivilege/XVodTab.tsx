@@ -29,50 +29,91 @@ export default function XVodTab({
   const userState = useSelector<UserStateType>('userReducer');
   const isVip = User.isVip(userState.user);
 
-  const listItem = useCallback(
-    ({ item, index }: { item: VodData; index: number }) => {
-      if ((item?.vod_list?.length ?? 0) === 0) return <></>;
+  // const listItem = useCallback(
+  //   ({ item, index }: { item: VodData; index: number }) => {
+  //     if ((item?.vod_list?.length ?? 0) === 0) return <></>;
 
-      return (
-        <View
-          key={`${item.type_name}-${index}`}
-          style={{
-            gap: spacing.m,
-            paddingLeft: spacing.sideOffset,
-            paddingRight: spacing.sideOffset,
-            backgroundColor: "#0c0c0c",
-            borderRadius: 15,
-            marginBottom: 15,
-            paddingTop: 4,
-            paddingBottom: 4,
+  //     return (
+  //       <View
+  //         key={`${item.type_name}-${index}`}
+  //         style={{
+  //           gap: spacing.m,
+  //           paddingLeft: spacing.sideOffset,
+  //           paddingRight: spacing.sideOffset,
+  //           backgroundColor: "#0c0c0c",
+  //           borderRadius: 15,
+  //           marginBottom: 15,
+  //           paddingTop: 4,
+  //           paddingBottom: 4,
+  //         }}
+  //       >
+  //         <ShowMoreVodButton
+  //           text={item.type_name.trim()}
+  //           onPress={() => {
+  //             navigation.navigate("午夜场剧情", {
+  //               class: item.vod_list[0].vod_class,
+  //             });
+  //           }}
+  //         />
+  //         {
+  //           is 午夜场剧情
+  //           item?.vod_list && (
+  //             <VodListVerticalVip
+  //               numOfRows={2}
+  //               vods={item?.vod_list}
+  //               minNumPerRow={2}
+  //               heightToWidthRatio={1 / 1.814}
+  //               playerMode="adult"
+  //             />
+  //           )
+  //         }
+  //       </View>
+  //     );
+  //   },
+  //   []
+  // );
+
+ //without use callback  
+  function listItem({ item, index }) {
+    if ((item?.vod_list?.length ?? 0) === 0) return <></>;
+  
+    return (
+      <View
+        key={`${item.type_name}-${index}`}
+        style={{
+          gap: spacing.m,
+          paddingLeft: spacing.sideOffset,
+          paddingRight: spacing.sideOffset,
+          backgroundColor: "#0c0c0c",
+          borderRadius: 15,
+          marginBottom: 15,
+          paddingTop: 4,
+          paddingBottom: 4,
+        }}
+      >
+        <ShowMoreVodButton
+          text={item.type_name.trim()}
+          onPress={() => {
+            navigation.navigate("午夜场剧情", {
+              class: item.vod_list[0].vod_class,
+            });
           }}
-        >
-          <ShowMoreVodButton
-            text={item.type_name.trim()}
-            onPress={() => {
-              navigation.navigate("午夜场剧情", {
-                class: item.vod_list[0].vod_class,
-              });
-            }}
-          />
-          {
-            // is 午夜场剧情
-            item?.vod_list && (
-              <VodListVerticalVip
-                numOfRows={2}
-                vods={item?.vod_list}
-                minNumPerRow={2}
-                heightToWidthRatio={1 / 1.814}
-                playerMode="adult"
-              />
-            )
-          }
-        </View>
-      );
-    },
-    []
-  );
-
+        />
+        {
+          item?.vod_list && (
+            <VodListVerticalVip
+              numOfRows={2}
+              vods={item?.vod_list}
+              minNumPerRow={2}
+              heightToWidthRatio={1 / 1.814}
+              playerMode="adult"
+            />
+          )
+        }
+      </View>
+    );
+  }
+  
   let data = useQuery({
     queryKey: ["HomePage"],
     queryFn: () => AppsApi.getHomePages(99)

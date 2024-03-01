@@ -388,26 +388,27 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     [currentSourceId]
   );
 
-
-
   const onAdsMount = () => {
-    if (screenState.isPlayGuideShown2 == false && !isVip) {
-      setTimeout(() => {
-        videoPlayerRef.current?.setPause(true); // pause video
-        setVipGuideModalDL(true);
-        dispatch(setIsPlayGuideShown2(true));
-      }, 50);
+    setTimeout(() => {
+      getPosition();
+    }, 250);
 
-      if (screenState.isPlayGuideShown == false && !isVip) {
+    setTimeout(() => {
+      if (screenState.isPlayGuideShown2 == false && !isVip) {
         setTimeout(() => {
-          setVipGuideModal(true);
-          dispatch(setIsPlayGuideShown(true));
-        }, 20);
+          videoPlayerRef.current?.setPause(true); // pause video
+          setVipGuideModalDL(true);
+          dispatch(setIsPlayGuideShown2(true));
+        }, 50);
+
+        if (screenState.isPlayGuideShown == false && !isVip) {
+          setTimeout(() => {
+            setVipGuideModal(true);
+            dispatch(setIsPlayGuideShown(true));
+          }, 20);
+        }
       }
-
-
-      
-    }
+    }, 850);
   };
 
   // For adding loading spinner before load player
@@ -620,9 +621,13 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   const fetchVodDetails = useCallback(
     () =>
-      VodApi.getDetail(vod?.vod_id.toString() ?? "", vod?.type_id.toString() ?? "", {
-        xMode: adultMode,
-      }).then((data) => {
+      VodApi.getDetail(
+        vod?.vod_id.toString() ?? "",
+        vod?.type_id.toString() ?? "",
+        {
+          xMode: adultMode,
+        }
+      ).then((data) => {
         const isRestricted = data.vod_restricted === 1;
         if (isRestricted) {
           videoPlayerRef.current?.setPause(true);
@@ -1114,8 +1119,6 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
         setDistanceToBottom(distance);
         console.log("distanceToBottom");
         console.log(distanceToBottom);
-
-     
       });
     }
   };
@@ -1544,7 +1547,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                       }}
                     >
                       <View
-                        onLayout={() => getPosition()}
+                        //  onLayout={() => getPosition()}
                         ref={componentRef}
                         style={{
                           display: "flex",
@@ -1828,10 +1831,8 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
               <View
                 style={{
                   position: "absolute",
+                  top: refPosition.y,
                   left: refPosition.x,
-                  top: refPosition.y + (Platform.OS === "ios" ? 70 : 0),
-                  width: refPosition.width,
-                  height: refPosition.height,
                 }}
               >
                 <View
@@ -1934,7 +1935,10 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
         <View style={[styles.overlayView]}>
           <View
             style={{
-              top: screenWidth.height / 20,
+              top:
+                Platform.OS === "ios"
+                  ? screenWidth.height / 9
+                  : screenWidth.height / 20,
             }}
           >
             <VipGuideModal
