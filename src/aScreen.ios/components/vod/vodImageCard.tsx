@@ -43,7 +43,7 @@ export default function VodImageCard({ vod_img, vodStyle, onPress, showInfo = ''
             }
             {
                 showPlayIcon && <View style={styles.playIcon}>
-                    <PlayIcon height={iconSize} width={iconSize} />
+                    <PlayIcon color={'#00000080'} height={iconSize} width={iconSize} />
                 </View>
             }
             {/* {

@@ -543,7 +543,7 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
                       // lastContentOffset.value = event.contentOffset.y;
                       isFilterCollapse.value = false;
                     }}>
-                    <DownArrow height={icons.sizes.l} width={icons.sizes.l} />
+                    <DownArrow color={colors.primary} height={icons.sizes.l} width={icons.sizes.l} />
                   </TouchableOpacity>
                 </View>
               </Animated.View>

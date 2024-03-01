@@ -17,7 +17,7 @@ interface Props {
     vod_pic_list?: string[]
 }
 
-function VodImageCard({ vod_img, vodStyle, onPress, showInfo = '', showPlayIcon = false, shadowBottom = false, isDisabled, index = -1, vod_pic_list}: Props) {
+function VodImageCard({ vod_img, vodStyle, onPress, showInfo = '', showPlayIcon = false, shadowBottom = false, isDisabled, index = -1, vod_pic_list }: Props) {
     const { colors, textVariants, spacing } = useTheme();
     const iconSize = useMemo(() => 0.3 * parseInt(vodStyle?.height === undefined ? '180' : `${vodStyle.height}`), [vodStyle])
     return (
@@ -45,7 +45,7 @@ function VodImageCard({ vod_img, vodStyle, onPress, showInfo = '', showPlayIcon 
             }
             {
                 showPlayIcon && <View style={styles.playIcon}>
-                    <PlayIcon height={iconSize} width={iconSize} />
+                    <PlayIcon color={'#00000080'} height={iconSize} width={iconSize} />
                 </View>
             }
             {

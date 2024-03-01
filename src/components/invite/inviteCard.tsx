@@ -407,7 +407,7 @@ export default function InviteCard({ userState = {} }: Props) {
         >
           <View
             style={{
-              backgroundColor: colors.primary,
+              backgroundColor: colors.yellow,
               marginHorizontal: 15,
               justifyContent: "center",
               alignItems: "center",

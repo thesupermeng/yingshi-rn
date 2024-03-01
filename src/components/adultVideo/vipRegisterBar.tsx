@@ -5,7 +5,7 @@ import VipIcon from '@static/images/vip-icon.svg'
 import MoreArrow from '@static/images/more_arrow.svg'
 import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks"
 import { showAdultModeVip } from "@redux/actions/screenAction"
-import { useNavigation } from "@react-navigation/native"
+import { useNavigation, useTheme } from "@react-navigation/native"
 import { UserStateType } from "@redux/reducers/userReducer"
 import { User } from "@models/user"
 
@@ -15,6 +15,8 @@ const VipRegisterBar = ({
 }: {
   onPress?: () => void,
 }) => {
+  const { colors } = useTheme();
+
   const dispatch = useAppDispatch()
   const navigator = useNavigation()
   const handleOnPress = useCallback(() => {
@@ -40,7 +42,7 @@ const VipRegisterBar = ({
           paddingVertical: 11,
         }}>
         <View style={{ flexDirection: 'row', gap: 8, alignItems: 'center' }}>
-          <VipIcon width={24} height={24} />
+          <VipIcon color={colors.yellow} width={24} height={24} />
           <View>
             <Text style={{ color: '#FFE6A5', textShadowColor: 'rgba(0, 0, 0, 0.15)', fontWeight: '600', fontSize: 14, textShadowOffset: { height: 0, width: 4 }, textShadowRadius: 4 }}>邀请好友获得VIP奖励，享更多权益</Text>
             {/* <Text style={{color: '#FFF', textShadowColor: 'rgba(0, 0, 0, 0.15)', fontWeight: '600', fontSize: 12, textShadowOffset: {height:0, width: 4}, textShadowRadius: 4 }}>$18.88/VIP会员180天</Text> */}

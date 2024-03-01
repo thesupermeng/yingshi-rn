@@ -1,8 +1,8 @@
 import React from 'react';
-import {Image, ImageBackground, Text, View} from 'react-native';
+import { Image, ImageBackground, Text, View } from 'react-native';
 import styles from './style';
-import {ProgressChart} from 'react-native-chart-kit';
-import {Colors} from '../../global/colors';
+import { ProgressChart } from 'react-native-chart-kit';
+import { Colors } from '../../global/colors';
 import {
   CornerKick,
   InOutTargetRed,
@@ -12,7 +12,7 @@ import {
 } from '../../assets';
 
 const TopStats = props => {
-  const {label, home, away} = props;
+  const { label, home, away } = props;
   // each value represents a goal ring in Progress chart
 
   const totalProgress = home + away;
@@ -30,7 +30,7 @@ const TopStats = props => {
         <Text style={styles.topStatsLabel}>{home}</Text>
         <></>
         <ProgressChart
-          style={{marginHorizontal: 8}}
+          style={{ marginHorizontal: 8 }}
           data={data}
           width={36}
           height={36}
@@ -41,7 +41,7 @@ const TopStats = props => {
             // backgroundGradientTo: 'white',
             backgroundGradientFromOpacity: 0,
             backgroundGradientToOpacity: 0,
-            color: (opacity = 1) => Colors.colorPrimary,
+            color: (opacity = 1) => Colors.colorYellow,
           }}
           hideLegend={true}
           withCustomBarColorFromData={true}
@@ -53,17 +53,17 @@ const TopStats = props => {
 };
 
 const LeftRightStats = props => {
-  const {statsIcon, statsLabel} = props;
+  const { statsIcon, statsLabel } = props;
 
   return (
     <View style={styles.bottomStatsColumnContent}>
       <View style={styles.bottomImageStatsContainer}>
         <Image
-          style={{width: 20, height: 20}}
+          style={{ width: 20, height: 20 }}
           source={statsIcon}
           resizeMode={'contain'}></Image>
       </View>
-      <Text style={{fontSize: 14, fontWeight: '400', color: 'white'}}>
+      <Text style={{ fontSize: 14, fontWeight: '400', color: 'white' }}>
         {statsLabel}
       </Text>
     </View>
@@ -71,11 +71,11 @@ const LeftRightStats = props => {
 };
 
 const CenterStats = props => {
-  const {isHome, inTarget, offTarget} = props;
+  const { isHome, inTarget, offTarget } = props;
 
   return (
     <ImageBackground
-      style={{width: 60, height: 60, position: 'relative'}}
+      style={{ width: 60, height: 60, position: 'relative' }}
       source={isHome ? InOutTargetYellow : InOutTargetRed}
       resizeMode={'stretch'}>
       <Text
@@ -107,7 +107,7 @@ const CenterStats = props => {
 };
 
 const StatisticsChart = props => {
-  const {stats} = props;
+  const { stats } = props;
 
   // Make array become json to achieve 容错问题
   let statsObject = {};

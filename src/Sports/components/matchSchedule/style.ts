@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { color } from 'react-native-reanimated';
+import { Colors } from '../../global/colors';
 
 const styles = StyleSheet.create({
   matchScheduleHeader: {
@@ -205,7 +205,7 @@ const styles = StyleSheet.create({
   viewFooter: {
     height: 15,
     flexDirection: 'row',
-    backgroundColor: '#FAC33D',
+    backgroundColor: Colors.colorPrimary,
     paddingHorizontal: 3,
     paddingVertical: 1,
     borderTopLeftRadius: 2,
@@ -234,7 +234,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
   },
   refresh: {
-    backgroundColor: '#FAC33D',
+    // backgroundColor: '#FAC33D',
     position: 'absolute',
     bottom: 75,
     // right: 30,
@@ -243,7 +243,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderRadius: 25,
-    padding: 6,
+    // padding: 6,
     zIndex: 1
   },
   refreshFont: {
@@ -280,8 +280,8 @@ const styles = StyleSheet.create({
     gap: 16
   },
   pill: {
-    flexDirection: 'row', 
-    alignItems: 'center', 
+    flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'rgba(250, 195, 61, 0.1)',
     padding: 2,
@@ -297,7 +297,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     flex: 1
-},
+  },
 });
 
 export default styles;

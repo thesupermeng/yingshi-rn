@@ -1,5 +1,7 @@
 import { useTheme } from "@react-navigation/native";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import TickedIcon from '@static/images/ticked.svg';
+import { useMemo } from "react";
 
 type Props = {
     isReadChecked: boolean,
@@ -15,45 +17,47 @@ export const ReadAgreementPrivacyPolicy = ({
     onPressPrivacyPolicy,
 }: Props) => {
     const { colors } = useTheme();
+    const styles = useMemo(() => createStyle({ colors }), []);
 
     return <View
-        style={styles().container}
+        style={styles.container}
     >
         <TouchableOpacity onPress={onPress}>
             {isReadChecked && (
-                <Image
-                    source={require("@static/images/profile/ticked.png")}
-                    style={styles().checkImage}
-                    resizeMode="contain"
+                <TickedIcon
+                    style={styles.checkImage}
+                    color={colors.primary}
+                    width={16}
+                    height={16}
                 />
             )}
 
             {!isReadChecked && (
                 <Image
                     source={require("@static/images/profile/untick.png")}
-                    style={styles().checkImage}
+                    style={styles.checkImage}
                     resizeMode="contain"
                 />
             )}
         </TouchableOpacity>
 
-        <Text style={styles().descriptionText}>我已阅读并同意</Text>
+        <Text style={styles.descriptionText}>我已阅读并同意</Text>
 
         <TouchableOpacity
             onPress={onPressUserAgreement}
         >
-            <Text style={styles({ colors }).linkText}>用户协议</Text>
+            <Text style={styles.linkText}>用户协议</Text>
         </TouchableOpacity>
-        <Text style={styles().descriptionText}>和</Text>
+        <Text style={styles.descriptionText}>和</Text>
         <TouchableOpacity
             onPress={onPressPrivacyPolicy}
         >
-            <Text style={styles({ colors }).linkText}>隐私协议</Text>
+            <Text style={styles.linkText}>隐私协议</Text>
         </TouchableOpacity>
     </View>;
 }
 
-const styles = ({ colors }: any = {}) => StyleSheet.create({
+const createStyle = ({ colors }: any) => StyleSheet.create({
     container: {
         flexDirection: "row",
         justifyContent: "center",

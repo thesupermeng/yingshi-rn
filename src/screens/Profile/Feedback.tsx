@@ -19,12 +19,14 @@ import {
   UMENG_CHANNEL,
   YING_SHI_PRODUCT_IOS,
   YING_SHI_PRODUCT_ANDROID,
+  IS_YINGSHIPING,
 } from "@utility/constants";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 import { SettingsReducerState } from "@redux/reducers/settingsReducer";
 import { useAppSelector } from "@hooks/hooks";
 import { YSConfig } from "../../../ysConfig";
 import { FeedbackApi } from "@api";
+import FastImage from "../../components/common/customFastImage";
 
 export default ({ navigation }: RootStackScreenProps<"反馈">) => {
   const { colors, textVariants, icons } = useTheme();
@@ -147,7 +149,14 @@ export default ({ navigation }: RootStackScreenProps<"反馈">) => {
         backdropStyle={{ backgroundColor: "rgba(0, 0, 0, 0.8)" }}
         onBackdropPress={() => setIsDialogOpen(false)}
       >
-        {!isOffline && <FeedbackSuccessIcon />}
+        {!isOffline && IS_YINGSHIPING
+          ? <FastImage
+            source={require("@static/images/feedback_success_yingshipin.gif")}
+            style={{ width: 100, height: 100 }}
+            resizeMode="contain"
+          />
+          : <FeedbackSuccessIcon />
+        }
 
         <Text style={{ ...textVariants.bigHeader, textAlign: 'center' }}>{dialogText}</Text>
       </Dialog>

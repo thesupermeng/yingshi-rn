@@ -1,5 +1,5 @@
-import {DefaultTheme} from '@react-navigation/native';
-import {ColorValue, TextStyle} from 'react-native';
+import { DefaultTheme } from '@react-navigation/native';
+import { ColorValue, TextStyle } from 'react-native';
 export type ExtendedTheme = {
   dark: boolean;
   colors: {
@@ -7,6 +7,9 @@ export type ExtendedTheme = {
     sliderDot: string;
     title: string;
     primary: string;
+    yellow: string,
+    confirm: string,
+    error: string,
     recommendation3: string;
     recommendation2: string;
     background: string;
@@ -105,6 +108,9 @@ export type ExtendedTheme = {
 
 // Add color palettes here:
 const palette = {
+  primary: '#18BC52',
+  confirm: '#0A84FF',
+  error: '#FF1010',
   dark: '#161616',
   black: '#000000',
   light_grey: '#D9D9D9',
@@ -138,7 +144,10 @@ export const YingshiDarkTheme: ExtendedTheme = {
     sliderDot: palette.grey_translucent_3,
     muted: palette.grey2,
     title: palette.yellow,
-    primary: palette.yellow,
+    primary: palette.primary,
+    yellow: palette.yellow,
+    confirm: palette.confirm,
+    error: palette.error,
     recommendation2: palette.orange,
     recommendation3: palette.dark_yellow,
     background: palette.dark,
@@ -222,7 +231,7 @@ export const YingshiDarkTheme: ExtendedTheme = {
     sideOffset: 16,
   },
   icons: {
-    activeNavIconColor: palette.yellow,
+    activeNavIconColor: palette.primary,
     inactiveNavIconColor: palette.dark_grey2,
     iconColor: palette.white,
     sizes: {
@@ -242,7 +251,10 @@ export const YingshiLightTheme: ExtendedTheme = {
     sliderDot: palette.light_grey,
     muted: palette.grey2,
     title: palette.white,
-    primary: palette.yellow,
+    primary: palette.primary,
+    yellow: palette.yellow,
+    confirm: palette.confirm,
+    error: palette.error,
     recommendation2: palette.orange,
     recommendation3: palette.dark_yellow,
     background: palette.white,
@@ -326,7 +338,7 @@ export const YingshiLightTheme: ExtendedTheme = {
     sideOffset: 16,
   },
   icons: {
-    activeNavIconColor: palette.yellow,
+    activeNavIconColor: palette.primary,
     inactiveNavIconColor: palette.light_grey3,
     iconColor: palette.dark,
     sizes: {

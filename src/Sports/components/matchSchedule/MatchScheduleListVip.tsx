@@ -26,6 +26,7 @@ import UmengAnalytics from "../../../../Umeng/UmengAnalytics";
 import { AdsApi } from "../../../api/ads";
 import { UserStateType } from "@redux/reducers/userReducer";
 import { User } from "@models/user";
+import IconRefreshIcon from '@static/images/iconRefresh.svg';
 
 interface Props {
   matchTypeID: number;
@@ -382,10 +383,10 @@ const MatchScheduleList = ({
           handleRefresh();
         }}
       >
-        <FastImage
-          source={require("../../assets/images/IconRefresh.png")}
-          style={{ width: 35, height: 35 }}
-          resizeMode={"contain"}
+        <IconRefreshIcon
+          color={colors.confirm}
+          width={45}
+          height={45}
         />
       </TouchableOpacity>
     </View>
