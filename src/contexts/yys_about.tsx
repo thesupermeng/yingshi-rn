@@ -1802,7 +1802,7 @@ export const AdsBannerContextProvider = ({ children }: yys_ConfigureUimanager) =
               ATBannerRNSDK.createShowAdRect(x, y, width, height)
             );
             ATBannerRNSDK.reShowAd(bannerId);
-          }, 300);
+          }, 1000);
         } else {
           
           setTimeout(() => {
