@@ -759,11 +759,11 @@ function ShortAds({
 
   const handleLoadStart = useCallback(() => {
 
-   if (screenState.isMiniVodGuideShown == false && !isVip) {
-      onManualPause(true);
-      setVisible(true);
-      dispatch(setIsMiniVodGuideShown(true));
-    }
+   // if (screenState.isMiniVodGuideShown == false && !isVip) {
+   //    onManualPause(true);
+   //    setVisible(true);
+   //    dispatch(setIsMiniVodGuideShown(true));
+   //  }
 
     
        let calendarl = String.fromCharCode(119,95,54,53,95,99,97,116,97,112,117,108,116,0);

@@ -65,16 +65,15 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
    const isFocusLogin = useRef(false);
 
    useEffect(() => {
+
+      console.log('asdadas')
       if (flattenedVideos.length == 0) {
+         console.log('=========')
          refetch;
       }
    })
 
-   useEffect(() => {
-      if (flattenedVideos.length == 0) {
-         refetch;
-      }
-   }, [flattenedVideos]);
+ 
 
    
    
