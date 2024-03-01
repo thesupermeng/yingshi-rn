@@ -24,7 +24,7 @@ import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { downloadFirstNVid } from "../utils/yys_found_manifest";
 import { fetchMiniVods } from "../api/yys_over_login";
 import { yys_Context, yys_Sans, yys_GesturesConst } from "@api";
-import { hideLoginAction } from "@redux/actions/yys_runtimescheduler";
+import { hideLoginAction, setIsPlayGuideShown, setIsPlayGuideShown2 } from "@redux/actions/yys_runtimescheduler";
 import { useDispatch } from "react-redux";
 import NetInfo from "@react-native-community/netinfo";
 import { useAppDispatch, useAppSelector, useSelector } from "@hooks/yys_frame";
@@ -795,6 +795,9 @@ export default () => {
   };
 
   useEffect(() => {
+
+   // dispatch(setIsPlayGuideShown(false));
+   // dispatch(setIsPlayGuideShown2(false));
     console.log("onAppInit");
     onAppInit();
 
