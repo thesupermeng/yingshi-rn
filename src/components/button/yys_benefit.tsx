@@ -62,7 +62,7 @@ const CountdownIndicator = ({
       setTimeout(() => {
         setVipGuideModal(true);
         dispatch(setIsSportGuideShown(true));
-      }, 2000);
+      }, 1600);
     }
   }, [timer]);
 

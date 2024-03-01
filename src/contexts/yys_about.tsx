@@ -2300,7 +2300,10 @@ export const AdsBannerContextProvider = ({ children }: yys_ConfigureUimanager) =
       width = screenWidth;
       height = TOPON_BANNER_HEIGHT;
       
-
+      if(screenState.interstitialShow == true)
+      {
+         return
+      }
       showBanner(route, x, y, width, height);
     }
   };
@@ -2317,17 +2320,11 @@ export const AdsBannerContextProvider = ({ children }: yys_ConfigureUimanager) =
   
 
   useEffect(() => {
-   if (screenState.interstitialShow == true) {
-      hideAllBanner();
-   } else {
-   
-      setTimeout(() => {
-         hideAllBanner();
-         showBannerInPosition().then();
-       }, 200);
-   }
- }, [screenState.interstitialShow , route , navbarHeight , systemNavHeight]);
+   hideAllBanner();
+   showBannerInPosition().then();
+ }, [screenState.interstitialShow]);
   
+
 
   useEffect(() => {
     

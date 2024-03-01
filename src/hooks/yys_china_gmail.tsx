@@ -424,19 +424,27 @@ const useInterstitialAds = () => {
           homePageShown = true;
 
       specQ = `${librrcX.size << (Math.min(Math.abs(2), 3))}`;
-          if (screenState.interstitialShow != true) {
-
-            if(screenState.isPlayGuideShown2 == false || screenState.isPlayGuideShown == false )
+    
+            // ANDROID_HOME_PAGE_POP_UP_ADS,
+            // ANDROID_PLAY_DETAILS_POP_UP_ADS,
+            // IOS_HOME_PAGE_POP_UP_ADS,
+            // IOS_PLAY_DETAILS_POP_UP_ADS,
+            // NON_VIP_STREAM_TIME_SECONDS,
+            if((screenState.isPlayGuideShown2 == false || screenState.isPlayGuideShown == false) &&  adsID == IOS_PLAY_DETAILS_POP_UP_ADS)
             {
                return
             }
-            else
+
+            if((screenState.isSportGuideShown == false) &&  adsID == IOS_PLAY_DETAILS_POP_UP_ADS)
             {
-               
-               ATInterstitialRNSDK.showAd(adsID);
+               return
             }
- 
-          }
+
+            if((screenState.isHomeGuideShown == false) &&  adsID == IOS_HOME_PAGE_POP_UP_ADS)
+            {
+               return
+            }
+               ATInterstitialRNSDK.showAd(adsID);
         }
         
       }
