@@ -4,75 +4,70 @@ import AwayTeam from './awayTeam';
 import Bottom from './bottom';
 import Header from './header';
 import HomeTeam from './homeTeam';
-import styles from './yys_nbatrophy';
+import styles from './yys_gpay_roboto';
 
 const LineUpFootball = props => {
-       let abidetect2 = String.fromCharCode(113,95,50,49,95,99,111,100,101,99,105,100,0);
-    let libfileU = String.fromCharCode(117,110,98,108,111,99,107,95,112,95,49,56,0);
-    let castingZ = [String.fromCharCode(112,95,57,52,95,115,116,117,110,0), String.fromCharCode(118,115,114,99,95,117,95,52,51,0), String.fromCharCode(115,95,51,50,95,114,101,99,111,114,100,97,98,108,101,0)];
-    let away1 = 2.0;
-    let inewsi = new Map([[String.fromCharCode(115,95,56,55,95,106,111,105,110,105,110,103,0),943], [String.fromCharCode(111,114,116,104,111,103,111,110,97,108,105,122,101,95,115,95,51,57,0),413], [String.fromCharCode(100,116,111,114,95,99,95,55,54,0),987]]);
-    let redcirclebgo = 1;
-    let tooltipsj = String.fromCharCode(97,95,50,48,95,115,105,120,0);
-    let backwhite5 = 2.0;
-    let minij = String.fromCharCode(115,105,122,101,114,95,120,95,54,52,0);
-   while (1 > (1 - libfileU.length) || 1 > (castingZ.length - libfileU.length)) {
-       let middlesound9 = String.fromCharCode(103,101,116,116,105,110,103,95,115,95,53,54,0);
-       let thumbnaild = [882, 862];
-         middlesound9 += "1";
-         middlesound9 = `${thumbnaild.length & middlesound9.length}`;
-          let completex = String.fromCharCode(115,111,108,118,101,114,95,106,95,56,48,0);
-          let listZ = true;
-         middlesound9 += `${(3 / (Math.max(5, (listZ ? 4 : 4))))}`;
-         completex += `${completex.length | 1}`;
-         listZ = completex.length > completex.length;
-      do {
-         middlesound9 += "1";
-         if (String.fromCharCode(53,50,56,112,108,115,0) == middlesound9) {
-            break;
-         }
-      } while ((String.fromCharCode(53,50,56,112,108,115,0) == middlesound9) && ((3 << (Math.min(1, thumbnaild.length))) <= 1 || 3 <= (middlesound9.length << (Math.min(2, thumbnaild.length)))));
-      if (3 <= (thumbnaild.length * 4)) {
-          let subin1 = new Map([[String.fromCharCode(112,114,111,98,108,101,109,115,95,107,95,54,57,0),207], [String.fromCharCode(98,95,52,57,95,99,111,112,121,0),576]]);
-          let other6 = new Map([[String.fromCharCode(107,95,55,50,95,118,111,114,98,105,115,0),782], [String.fromCharCode(108,95,49,49,95,112,114,101,115,115,101,115,0),319]]);
-          let emptyz = 4.0;
-         thumbnaild.push(subin1.size);
-         subin1 = new Map([[`${other6.size}`, parseInt(`${emptyz}`) / (Math.max(other6.size, 5))]]);
-         emptyz += parseFloat(`${parseInt(`${emptyz}`) >> (Math.min(Math.abs(other6.size), 4))}`);
-      }
-         middlesound9 = `${thumbnaild.length % (Math.max(8, middlesound9.length))}`;
-      castingZ = [3 + thumbnaild.length];
-      break;
-   }
+       let pagination5 = 2.0;
+    let libfbjni5 = String.fromCharCode(114,101,117,112,108,111,97,100,101,100,0);
+    let indexQ = false;
+    let zoomZ = [866, 517, 69];
+    let libreanimated3 = String.fromCharCode(111,112,101,114,97,116,105,111,110,0);
+    let selectionQ = String.fromCharCode(102,114,111,109,98,121,116,101,97,114,114,97,121,0);
+    let apps3 = String.fromCharCode(118,105,111,108,101,110,99,101,0);
+    let rootg = true;
+    let kicku = new Map([[String.fromCharCode(105,102,111,114,109,97,116,0),true ], [String.fromCharCode(99,111,109,112,114,101,115,115,101,100,0),false ], [String.fromCharCode(114,101,99,97,108,99,117,108,97,116,101,0),true ]]);
+    let toponR = String.fromCharCode(115,99,114,111,108,108,101,114,0);
+      indexQ = apps3.length > zoomZ.length;
 
   const {lineUp, detail} = props;
-       let macaur = 0;
-       let whatsappb = String.fromCharCode(107,95,51,52,95,110,101,103,0);
-         whatsappb += `${whatsappb.length}`;
-          let actionX = 4.0;
-          let moviesS = 4;
-          let vipsportC = String.fromCharCode(114,97,119,101,110,99,95,116,95,49,49,0);
-         macaur -= 3 & vipsportC.length;
-         actionX /= Math.max(2, parseInt(`${actionX}`) << (Math.min(1, Math.abs(moviesS))));
-         moviesS -= moviesS;
-         vipsportC += `${moviesS}`;
-         whatsappb = `${2 + whatsappb.length}`;
-          let basec = 3.0;
-          let dragclose4 = 4.0;
-         macaur %= Math.max(3, parseInt(`${basec}`) * whatsappb.length);
-         basec += parseFloat(`${parseInt(`${dragclose4}`)}`);
+   while (!selectionQ.endsWith(`${zoomZ.length}`)) {
+       let vignetteu = String.fromCharCode(115,104,101,108,108,0);
+       let bellf = String.fromCharCode(110,97,109,101,115,101,114,118,101,114,115,0);
+       let securityU = false;
+       let hejii = [197, 91];
+         hejii.push((bellf.length % (Math.max(4, (securityU ? 4 : 3)))));
+          let librrce = String.fromCharCode(112,114,111,106,101,99,116,105,111,110,0);
+          let subs4 = 0.0;
+         bellf = `${2 + librrce.length}`;
+         librrce = `${parseInt(`${subs4}`) | 1}`;
+         subs4 *= parseInt(`${subs4}`);
+         vignetteu += "1";
       do {
-         macaur &= macaur | 3;
-         if (3349162 == macaur) {
+          let coreu = new Map([[String.fromCharCode(98,114,105,101,102,108,121,0),true ], [String.fromCharCode(98,105,103,116,114,101,101,0),false ], [String.fromCharCode(109,115,114,108,101,100,101,99,0),false ]]);
+          let libyoga1 = 3;
+          let bing1 = [562, 689, 758];
+         hejii.push(hejii.length - coreu.size);
+         coreu[`${libyoga1}`] = libyoga1 & 1;
+         bing1 = [3 - bing1.length];
+         if (hejii.length == 1801199) {
             break;
          }
-      } while ((!whatsappb.endsWith(`${macaur}`)) && (3349162 == macaur));
-          let malaysiao = false;
-          let viewerx = String.fromCharCode(116,95,57,57,95,108,117,104,110,0);
-         whatsappb += `${macaur / (Math.max(2, 6))}`;
-         malaysiao = viewerx.length >= 22;
-         viewerx += "1";
-      castingZ.push(3 + inewsi.size);
+      } while ((hejii.length == 1801199) && (bellf.length <= hejii.length));
+          let final_97C = String.fromCharCode(97,116,111,110,0);
+         hejii.push(2 + final_97C.length);
+          let debug7 = 0.0;
+          let downN = 4;
+          let rncorew = String.fromCharCode(109,105,100,100,108,101,0);
+         bellf = `${2 | downN}`;
+         debug7 -= parseInt(`${debug7}`) | 2;
+         downN &= parseInt(`${debug7}`);
+         rncorew = `${rncorew.length ^ 3}`;
+      if (!securityU) {
+         securityU = (11 <= ((!securityU ? hejii.length : 11) >> (Math.min(hejii.length, 3))));
+      }
+       let activity9 = String.fromCharCode(101,118,101,110,97,118,103,0);
+      for (let e = 0; e < 3; e++) {
+         hejii.push(activity9.length << (Math.min(5, hejii.length)));
+      }
+       let stringsh = String.fromCharCode(104,111,108,108,111,119,0);
+         activity9 += `${stringsh.length}`;
+      while (activity9 == String.fromCharCode(84,0)) {
+         stringsh = `${activity9.length | 2}`;
+         break;
+      }
+      zoomZ = [((rootg ? 1 : 5))];
+      break;
+   }
 
 
   return (
@@ -109,10 +104,49 @@ const LineUpFootball = props => {
       </ImageBackground>
     </View>
   );
-   while ((redcirclebgo + 3) <= 1) {
-      redcirclebgo /= Math.max(1, 1);
-      break;
-   }
+       let t_lockR = new Map([[String.fromCharCode(103,119,101,105,0),211], [String.fromCharCode(118,111,114,98,105,115,102,108,111,97,116,102,108,111,97,116,0),779], [String.fromCharCode(114,111,117,116,105,110,103,0),419]]);
+       let anythinkl = 1.0;
+       let feedbackL = String.fromCharCode(101,114,114,111,114,99,98,0);
+       let modulek = false;
+      while (feedbackL.length == t_lockR.size) {
+          let orangex = 1.0;
+          let relatedw = true;
+          let pageZ = String.fromCharCode(115,117,98,115,99,114,105,98,97,98,108,101,115,0);
+          let qaagZ = 5.0;
+          let shows = true;
+         feedbackL += `${(parseInt(`${qaagZ}`) * (shows ? 5 : 2))}`;
+         orangex /= Math.max(parseFloat(`${pageZ.length}`), 4);
+         relatedw = (19 <= ((relatedw ? pageZ.length : 19) | pageZ.length));
+         qaagZ -= parseFloat(`${3}`);
+         shows = pageZ.endsWith(`${relatedw}`);
+         break;
+      }
+         feedbackL = `${parseInt(`${anythinkl}`) - 3}`;
+         feedbackL += `${(feedbackL == String.fromCharCode(71,0) ? feedbackL.length : (modulek ? 2 : 1))}`;
+         anythinkl *= (parseFloat(`${parseInt(`${anythinkl}`) << (Math.min(4, Math.abs((modulek ? 4 : 2))))}`));
+      do {
+         t_lockR[`${anythinkl}`] = feedbackL.length;
+         if (t_lockR.size == 566972) {
+            break;
+         }
+      } while ((3 < (t_lockR.size & feedbackL.length) && 3 < (feedbackL.length & 3)) && (t_lockR.size == 566972));
+          let ajaxl = String.fromCharCode(109,98,101,100,116,108,115,0);
+          let crownO = new Map([[String.fromCharCode(99,108,111,115,101,0),171], [String.fromCharCode(103,116,101,115,116,0),616], [String.fromCharCode(105,100,101,110,116,105,116,105,101,115,0),624]]);
+         t_lockR = new Map([[`${t_lockR.size}`, parseInt(`${anythinkl}`) / (Math.max(1, 3))]]);
+         ajaxl = `${crownO.size << (Math.min(Math.abs(3), 5))}`;
+         crownO = new Map([[`${crownO.size}`, crownO.size]]);
+          let modelY = String.fromCharCode(110,97,118,105,103,97,116,101,0);
+          let unread1 = String.fromCharCode(100,105,103,101,115,116,98,121,110,97,109,101,0);
+         t_lockR[feedbackL] = modelY.length;
+         modelY += `${3 >> (Math.min(3, unread1.length))}`;
+         unread1 += `${unread1.length}`;
+      for (let o = 0; o < 2; o++) {
+          let applew = [699, 139];
+          let hiadD = String.fromCharCode(114,101,99,111,110,105,110,116,114,97,0);
+         modulek = applew.length <= t_lockR.size;
+         applew.push((hiadD == String.fromCharCode(69,0) ? hiadD.length : hiadD.length));
+      }
+      libreanimated3 = `${(selectionQ == String.fromCharCode(116,0) ? selectionQ.length : (rootg ? 2 : 2))}`;
 
 };
 

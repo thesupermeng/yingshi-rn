@@ -1,177 +1,127 @@
 import { View, Text, Image, ImageBackground } from 'react-native';
 import { AwayIcon, HomeIcon } from '../../../assets';
-import styles from './yys_nbatrophy';
+import styles from './yys_gpay_roboto';
 
 const BasketballMatchTeamDetails = data => {
-       let whiteB = 3.0;
-    let libavfilterY = 2;
-    let mapbufferC = true;
-    let eyecloseK = new Map([[String.fromCharCode(105,114,114,101,108,118,97,110,116,95,48,95,52,54,0),false ], [String.fromCharCode(99,111,110,115,117,109,101,95,107,95,53,49,0),true ]]);
-    let nnewinterstitialr = [239, 117, 854];
-    let predictionarrowI = String.fromCharCode(97,116,97,99,101,110,116,101,114,95,102,95,51,55,0);
-    let iconmegaphonee = true;
-    let android6 = 0.0;
-    let changek = 1.0;
-   if ((4 / (Math.max(9, whiteB))) <= 1.97) {
-      android6 *= (parseFloat(`${(mapbufferC ? 4 : 1) * parseInt(`${android6}`)}`));
+       let holder7 = true;
+    let live0 = 4;
+    let yingx = String.fromCharCode(101,95,55,50,95,116,101,114,109,105,110,97,116,101,100,0);
+    let sortz = String.fromCharCode(97,100,100,105,116,105,118,101,95,121,95,55,56,0);
+    let rightt = String.fromCharCode(101,95,48,95,110,111,116,105,102,121,0);
+    let splashv = [351, 970];
+    let pressuret = String.fromCharCode(111,95,53,51,95,100,115,109,111,116,105,111,110,0);
+    let otherE = String.fromCharCode(109,95,56,52,95,114,97,110,103,101,0);
+    let page5 = false;
+    let faviconN = String.fromCharCode(99,111,110,99,101,97,108,101,100,95,101,95,49,52,0);
+    let agreementu = String.fromCharCode(114,111,120,121,95,116,95,57,50,0);
+    let rootz = true;
+    let plusd = String.fromCharCode(102,95,54,51,95,114,97,100,105,117,115,0);
+   if (!sortz.includes(faviconN)) {
+      faviconN = "3";
    }
 
   const totalDataTemp = data?.totalData ?? [];
-   do {
-      libavfilterY &= parseInt(`${android6}`) >> (Math.min(4, Math.abs(3)));
-      if (4777336 == libavfilterY) {
-         break;
-      }
-   } while ((4777336 == libavfilterY) && (android6 >= libavfilterY));
-
-  const thisTimeDataTemp = data?.thisTimeData ?? [];
-       let pangleR = String.fromCharCode(106,95,57,57,95,103,117,101,115,115,101,100,0);
-       let ainit_k7 = String.fromCharCode(115,95,53,51,95,116,114,97,110,0);
-      for (let s = 0; s < 2; s++) {
-          let nendb = 1;
-          let description_xwd = [297, 403];
-          let trophyf = 0.0;
-         pangleR += `${ainit_k7.length | 1}`;
-         nendb += parseInt(`${trophyf}`) << (Math.min(5, Math.abs(1)));
-         description_xwd.push(description_xwd.length ^ 2);
-         trophyf -= parseFloat(`${description_xwd.length}`);
-      }
-         pangleR = `${(pangleR == String.fromCharCode(105,0) ? ainit_k7.length : pangleR.length)}`;
-         ainit_k7 += `${ainit_k7.length}`;
-      do {
-          let iconcurrentmatchU = [String.fromCharCode(102,95,50,52,95,116,114,97,99,105,110,103,0), String.fromCharCode(105,109,112,114,105,110,116,95,103,95,50,51,0)];
-         ainit_k7 = `${pangleR.length - iconcurrentmatchU.length}`;
-         if (2005158 == ainit_k7.length) {
-            break;
-         }
-      } while ((!ainit_k7.endsWith(`${pangleR.length}`)) && (2005158 == ainit_k7.length));
-      while (ainit_k7 != String.fromCharCode(86,0)) {
-         pangleR += `${ainit_k7.length + pangleR.length}`;
-         break;
-      }
-       let bingz = 2;
-       let sportp = 2;
-      eyecloseK = new Map([[`${mapbufferC}`, ((mapbufferC ? 4 : 5) / (Math.max(3, 7)))]]);
-
-  const homeData = data?.homeData;
-   while (mapbufferC) {
-       let formj = 1;
-       let favoritek = true;
-       let roomg = String.fromCharCode(112,97,110,110,105,110,103,95,120,95,56,51,0);
-       let utils9 = true;
-      if (3 < roomg.length && favoritek) {
-          let yellowtoreda = String.fromCharCode(115,117,98,112,105,120,101,108,95,111,95,50,49,0);
-          let turnW = String.fromCharCode(109,95,52,50,95,100,101,99,108,105,110,101,0);
-          let benefit2 = 4.0;
-         favoritek = 9 == turnW.length;
-         yellowtoreda = `${parseInt(`${benefit2}`)}`;
-         turnW = `${parseInt(`${benefit2}`)}`;
-      }
-         formj <<= Math.min(roomg.length, 4);
-         favoritek = (!utils9 ? favoritek : utils9);
-      do {
-         favoritek = formj == 32;
-         if (favoritek ? !favoritek : favoritek) {
-            break;
-         }
-      } while ((favoritek ? !favoritek : favoritek) && ((formj ^ 5) > 4 || favoritek));
-         utils9 = roomg.length >= 27;
-       let gradlewE = String.fromCharCode(118,95,57,48,95,109,101,109,115,121,115,0);
-      do {
-          let singleV = [32, 162];
-          let halfI = 4.0;
-         utils9 = gradlewE.length == 46 || !utils9;
-         singleV.push(parseInt(`${halfI}`));
-         halfI -= parseInt(`${halfI}`) - 2;
-         if (utils9 ? !utils9 : utils9) {
-            break;
-         }
-      } while (((4 * formj) >= 5) && (utils9 ? !utils9 : utils9));
-      do {
-          let whiteanimationlive7 = true;
-         utils9 = roomg.length >= 8;
-         whiteanimationlive7 = !whiteanimationlive7;
-         if (utils9 ? !utils9 : utils9) {
-            break;
-         }
-      } while ((roomg.includes(`${utils9}`)) && (utils9 ? !utils9 : utils9));
-         utils9 = (favoritek ? !utils9 : favoritek);
-      for (let s = 0; s < 2; s++) {
-         favoritek = String.fromCharCode(122,0) == roomg || 7 >= formj;
-      }
-         favoritek = utils9 || gradlewE.length < 19;
-         utils9 = favoritek;
-      mapbufferC = ((roomg.length ^ (utils9 ? roomg.length : 65)) <= 65);
+   while (otherE.length <= 4) {
+      otherE = `${1 | sortz.length}`;
       break;
    }
 
+  const thisTimeDataTemp = data?.thisTimeData ?? [];
+      live0 &= 1 ^ live0;
+
+  const homeData = data?.homeData;
+      pressuret += `${1 * pressuret.length}`;
+
   const awayData = data?.awayData;
-   do {
-      iconmegaphonee = predictionarrowI.length == 44;
-      if (iconmegaphonee ? !iconmegaphonee : iconmegaphonee) {
-         break;
-      }
-   } while ((iconmegaphonee) && (iconmegaphonee ? !iconmegaphonee : iconmegaphonee));
+      rightt += `${(2 | (holder7 ? 1 : 4))}`;
 
   const homeFoul = thisTimeDataTemp[4]?.home;
-       let logo3 = false;
-       let informationd = [202, 741];
-      do {
-         informationd.push(1 << (Math.min(3, informationd.length)));
-         if (informationd.length == 2382392) {
-            break;
-         }
-      } while ((informationd.length == 2382392) && (!logo3));
-      if ((informationd.length / 3) <= 1 || informationd.length <= 3) {
-          let whatsappT = new Map([[String.fromCharCode(102,99,102,115,95,117,95,50,53,0),35], [String.fromCharCode(112,95,54,52,95,101,98,109,108,110,117,109,0),115], [String.fromCharCode(97,95,53,50,95,97,115,105,115,0),738]]);
-          let package_4_W = String.fromCharCode(105,95,52,51,95,114,101,116,114,105,101,114,0);
-          let minimize0 = 5.0;
-          let libfbd = String.fromCharCode(114,111,117,110,100,115,95,100,95,53,53,0);
-          let countryg = [96, 197, 815];
-         logo3 = package_4_W.length > 57;
-         whatsappT[libfbd] = libfbd.length;
-         package_4_W += `${1 & countryg.length}`;
-         minimize0 -= (String.fromCharCode(111,0) == libfbd ? libfbd.length : countryg.length);
-      }
-      do {
-         informationd = [informationd.length & 1];
-         if (informationd.length == 15195) {
-            break;
-         }
-      } while ((informationd.length == 15195) && (informationd.length > 5));
-      do {
-         informationd.push(informationd.length);
-         if (informationd.length == 2816341) {
-            break;
-         }
-      } while ((informationd.length >= 3 || 2 >= (informationd.length & 3)) && (informationd.length == 2816341));
-      while (informationd.length > 1) {
-         informationd = [((logo3 ? 2 : 2) | 2)];
+       let handler8 = String.fromCharCode(98,111,119,108,105,110,103,95,49,95,55,56,0);
+       let hiadn = new Map([[String.fromCharCode(100,97,114,119,105,110,95,103,95,51,48,0),false ], [String.fromCharCode(97,99,116,105,111,110,95,101,95,53,50,0),true ]]);
+       let with_pmQ = [66, 484, 724];
+          let bdxadsdku = String.fromCharCode(100,105,114,101,99,116,108,121,95,98,95,54,52,0);
+         hiadn = new Map([[`${with_pmQ.length}`, (bdxadsdku == String.fromCharCode(90,0) ? with_pmQ.length : bdxadsdku.length)]]);
+         hiadn = new Map([[`${hiadn.size}`, 3 & with_pmQ.length]]);
+         handler8 += `${with_pmQ.length}`;
+      while (5 > (4 + hiadn.size) || 5 > (with_pmQ.length + 4)) {
+          let modez = String.fromCharCode(116,121,112,101,100,101,102,115,95,54,95,49,55,0);
+          let matchm = 2.0;
+          let libimagepipelineM = new Map([[String.fromCharCode(116,111,110,101,109,97,112,95,118,95,57,51,0),String.fromCharCode(119,95,53,57,95,98,105,110,107,0)], [String.fromCharCode(101,95,53,48,95,115,104,111,114,116,101,110,0),String.fromCharCode(122,95,49,57,95,116,114,101,101,116,111,107,0)], [String.fromCharCode(102,95,52,52,95,118,95,49,0),String.fromCharCode(113,122,98,105,110,95,55,95,53,52,0)]]);
+          let goalY = new Map([[String.fromCharCode(111,95,56,52,95,112,117,108,108,0),377], [String.fromCharCode(110,95,54,56,95,99,111,115,113,102,0),592]]);
+         hiadn = new Map([[`${with_pmQ.length}`, 2]]);
+         modez += `${libimagepipelineM.size}`;
+         matchm *= goalY.size / (Math.max(2, 6));
+         libimagepipelineM[`${matchm}`] = modez.length;
+         goalY = new Map([[`${libimagepipelineM.size}`, libimagepipelineM.size * 2]]);
          break;
       }
-          let iconarrowrightorangeu = true;
-          let miniy = String.fromCharCode(118,95,56,50,95,99,111,109,112,117,116,101,100,0);
-          let suboutw = 4.0;
-         logo3 = (miniy.length - parseInt(`${suboutw}`)) == 96;
-         iconarrowrightorangeu = !iconarrowrightorangeu;
-         miniy += `${((iconarrowrightorangeu ? 5 : 5) & 1)}`;
-      nnewinterstitialr = [informationd.length];
+          let fastQ = String.fromCharCode(108,95,52,55,95,99,111,100,101,115,116,114,101,97,109,0);
+          let inactiveC = [366, 232];
+         handler8 = `${fastQ.length}`;
+         fastQ += `${inactiveC.length}`;
+         inactiveC.push(inactiveC.length << (Math.min(inactiveC.length, 2)));
+      otherE += `${handler8.length}`;
 
   const awayFoul = thisTimeDataTemp[4]?.away;
-   if ((eyecloseK.size & libavfilterY) <= 1) {
-      eyecloseK = new Map([[`${nnewinterstitialr.length}`, 3]]);
+   while (3 <= yingx.length) {
+       let sendp = 2.0;
+       let container2 = new Map([[String.fromCharCode(99,97,116,95,50,95,56,55,0),true ], [String.fromCharCode(116,114,117,110,95,101,95,52,0),true ]]);
+       let entry8 = String.fromCharCode(99,95,56,49,95,98,111,100,121,0);
+       let valuesv = String.fromCharCode(117,95,54,55,95,100,105,118,105,100,101,114,0);
+       let navigationy = new Map([[String.fromCharCode(112,95,57,56,95,100,101,115,114,111,121,0),589], [String.fromCharCode(114,95,51,95,97,99,116,105,111,110,0),595]]);
+       let windp = 2.0;
+       let g_unlockk = 1.0;
+         g_unlockk /= Math.max((String.fromCharCode(69,0) == entry8 ? entry8.length : container2.size), 1);
+         g_unlockk += (String.fromCharCode(85,0) == entry8 ? container2.size : entry8.length);
+      do {
+         windp -= parseInt(`${windp}`);
+         if (3957765.0 == windp) {
+            break;
+         }
+      } while ((3957765.0 == windp) && (5.7 > (windp * 4.20) && (4.20 * windp) > 2.15));
+      do {
+         navigationy[entry8] = (String.fromCharCode(108,0) == entry8 ? parseInt(`${g_unlockk}`) : entry8.length);
+         if (2527098 == navigationy.size) {
+            break;
+         }
+      } while ((Array.from(navigationy.keys()).includes(`${g_unlockk}`)) && (2527098 == navigationy.size));
+         entry8 += `${2 * parseInt(`${sendp}`)}`;
+         windp /= Math.max(5, 1);
+          let customr = String.fromCharCode(106,95,55,50,95,112,97,115,116,101,0);
+          let orangeP = 0;
+         entry8 = "3";
+         customr += `${orangeP % (Math.max(3, 6))}`;
+         orangeP &= orangeP;
+         valuesv += `${parseInt(`${windp}`) << (Math.min(Math.abs(1), 3))}`;
+          let securityZ = String.fromCharCode(98,111,120,101,100,95,48,95,57,54,0);
+         container2 = new Map([[entry8, parseInt(`${g_unlockk}`) >> (Math.min(Math.abs(3), 5))]]);
+         securityZ = `${(securityZ == String.fromCharCode(85,0) ? securityZ.length : securityZ.length)}`;
+         g_unlockk -= parseInt(`${sendp}`) - 1;
+       let resendS = 1;
+      if (valuesv.includes(`${sendp}`)) {
+          let sheetu = 3.0;
+          let libsgcoreK = 5;
+          let rightw = true;
+          let renew8 = String.fromCharCode(119,95,55,53,95,101,108,115,101,0);
+          let greyR = String.fromCharCode(97,95,54,50,95,101,120,97,110,100,101,100,0);
+         valuesv = `${navigationy.size}`;
+         sheetu += parseFloat(`${renew8.length}`);
+         libsgcoreK &= 3 >> (Math.min(4, renew8.length));
+         rightw = renew8.length <= parseInt(`${sheetu}`);
+         greyR += `${greyR.length}`;
+      }
+         g_unlockk -= container2.size;
+      agreementu = `${entry8.length}`;
+      break;
    }
 
   const homeLeftPause = thisTimeDataTemp[3]?.home;
-   if (parseInt(`${whiteB}`) <= predictionarrowI.length) {
-      whiteB /= Math.max(2, (parseFloat(`${1 / (Math.max(1, (mapbufferC ? 3 : 5)))}`)));
+   if (page5 || 3 > otherE.length) {
+      otherE += "2";
    }
 
   const awayLeftPause = thisTimeDataTemp[3]?.away;
-   while (android6 > parseFloat(`${predictionarrowI.length}`)) {
-      android6 += parseFloat(`${2}`);
-      break;
-   }
+      agreementu += `${((page5 ? 1 : 2) - live0)}`;
 
   let structuredData = [
     {
@@ -219,27 +169,70 @@ const BasketballMatchTeamDetails = data => {
     
     
   ];
-      nnewinterstitialr = [parseInt(`${whiteB}`)];
+      faviconN = `${1 | pressuret.length}`;
 
 
   let calWidth = (data1, data2) => {
 
-   do {
-      iconmegaphonee = parseFloat(`${nnewinterstitialr.length}`) <= android6;
-      if (iconmegaphonee ? !iconmegaphonee : iconmegaphonee) {
+   if (2 == faviconN.length && !rootz) {
+       let mbnativeO = String.fromCharCode(115,116,114,101,97,109,105,100,95,50,95,54,0);
+       let stationsC = true;
+       let assistx = 3.0;
+      for (let o = 0; o < 3; o++) {
+         assistx -= 2 ^ parseInt(`${assistx}`);
+      }
+      while (5.95 == (assistx / 1.67) && assistx == 1.67) {
+          let clockN = 2;
+          let vignetteA = String.fromCharCode(119,95,56,54,95,112,111,112,111,118,101,114,0);
+         assistx += 2;
+         clockN &= 1 + clockN;
+         vignetteA = `${clockN % (Math.max(3, vignetteA.length))}`;
          break;
       }
-   } while ((iconmegaphonee ? !iconmegaphonee : iconmegaphonee) && (4 < (5 + eyecloseK.size)));
+      while (mbnativeO.length > 3) {
+         mbnativeO += `${(parseInt(`${assistx}`) & (stationsC ? 1 : 3))}`;
+         break;
+      }
+         assistx /= Math.max(3, 5);
+      do {
+         mbnativeO = `${((stationsC ? 4 : 5) - 2)}`;
+         if (String.fromCharCode(98,104,103,107,111,112,98,52,121,103,0) == mbnativeO) {
+            break;
+         }
+      } while ((mbnativeO.endsWith(`${assistx}`)) && (String.fromCharCode(98,104,103,107,111,112,98,52,121,103,0) == mbnativeO));
+      for (let a = 0; a < 3; a++) {
+          let leftF = [53, 891];
+          let tickedZ = [531, 70, 23];
+          let eighteeno = String.fromCharCode(115,100,107,95,97,95,50,52,0);
+          let league4 = 5.0;
+          let telegramR = new Map([[String.fromCharCode(121,95,56,49,95,97,99,102,102,0),334], [String.fromCharCode(112,95,50,95,120,112,111,115,117,114,101,0),402], [String.fromCharCode(116,105,100,121,95,106,95,53,49,0),874]]);
+         mbnativeO = `${leftF.length ^ 2}`;
+         leftF.push(3 ^ parseInt(`${league4}`));
+         tickedZ = [telegramR.size];
+         eighteeno = `${eighteeno.length >> (Math.min(3, tickedZ.length))}`;
+         league4 *= parseFloat(`${2}`);
+         telegramR = new Map([[`${telegramR.size}`, 2 >> (Math.min(5, Math.abs(parseInt(`${league4}`))))]]);
+      }
+      for (let t = 0; t < 1; t++) {
+         stationsC = !stationsC || 39.62 == assistx;
+      }
+         stationsC = (mbnativeO.length * parseInt(`${assistx}`)) == 69;
+      do {
+         mbnativeO += "1";
+         if (mbnativeO.length == 4655463) {
+            break;
+         }
+      } while ((mbnativeO.length == 4655463) && (mbnativeO.startsWith(`${assistx}`)));
+      faviconN = "3";
+   }
     return (Number(data1) / (Number(data1) + Number(data2))) * 100;
-   do {
-      eyecloseK[predictionarrowI] = predictionarrowI.length;
-      if (eyecloseK.size == 1227123) {
-         break;
-      }
-   } while ((4 < (nnewinterstitialr.length * 1)) && (eyecloseK.size == 1227123));
+      live0 &= 1;
 
   };
-      eyecloseK = new Map([[`${nnewinterstitialr.length}`, parseInt(`${android6}`)]]);
+   while (holder7) {
+      page5 = (rightt.length % (Math.max(sortz.length, 8))) > 56;
+      break;
+   }
 
 
   return (
@@ -299,25 +292,47 @@ const BasketballMatchTeamDetails = data => {
           }}>
           {structuredData.map((item, idx) => {
 
-   do {
-      whiteB += parseFloat(`${predictionarrowI.length - 1}`);
-      if (whiteB == 3370230.0) {
-         break;
-      }
-   } while ((4.67 <= (parseFloat(`${libavfilterY}`) - whiteB) && (libavfilterY - parseInt(`${whiteB}`)) <= 4) && (whiteB == 3370230.0));
+      page5 = faviconN.length > 60;
             let tempPercent = 0;
-      predictionarrowI += `${(String.fromCharCode(80,0) == predictionarrowI ? predictionarrowI.length : (mapbufferC ? 3 : 2))}`;
+   if (otherE.length < splashv.length) {
+      otherE += `${((rootz ? 5 : 4))}`;
+   }
 
             tempPercent = calWidth(item.home, item.away) + '%';
-      libavfilterY %= Math.max(predictionarrowI.length, 4);
+       let notificationU = String.fromCharCode(116,117,110,110,101,108,95,56,95,49,0);
+       let sendL = new Map([[String.fromCharCode(97,95,54,51,95,112,97,114,116,115,0),String.fromCharCode(113,95,55,55,95,99,111,110,102,105,114,109,0)], [String.fromCharCode(117,95,54,50,95,119,101,97,107,0),String.fromCharCode(106,95,54,48,95,115,99,114,97,112,101,0)], [String.fromCharCode(111,95,50,50,95,99,101,110,116,101,114,0),String.fromCharCode(107,95,56,48,0)]]);
+       let recommendationt = String.fromCharCode(101,110,116,114,111,112,121,109,118,95,120,95,51,53,0);
+       let rooti = String.fromCharCode(97,100,106,117,115,116,115,95,119,95,57,56,0);
+      do {
+          let goalt = 5.0;
+          let forward4 = 4.0;
+         rooti = `${sendL.size}`;
+         goalt -= parseFloat(`${parseInt(`${forward4}`)}`);
+         if (rooti == String.fromCharCode(114,120,102,100,0)) {
+            break;
+         }
+      } while ((rooti.length == 1 && notificationU.length == 1) && (rooti == String.fromCharCode(114,120,102,100,0)));
+      do {
+         recommendationt = `${rooti.length}`;
+         if (recommendationt == String.fromCharCode(56,50,97,110,95,100,110,0)) {
+            break;
+         }
+      } while ((recommendationt == String.fromCharCode(56,50,97,110,95,100,110,0)) && (5 > notificationU.length && recommendationt != String.fromCharCode(121,0)));
+       let libyogaM = [String.fromCharCode(112,117,108,108,113,117,111,116,101,95,106,95,57,54,0), String.fromCharCode(115,99,97,108,101,100,95,105,95,50,49,0), String.fromCharCode(117,95,49,56,95,97,98,101,108,0)];
+      while (libyogaM.length > 5) {
+          let viewerG = new Map([[String.fromCharCode(114,101,112,108,97,99,105,110,103,95,118,95,53,53,0),874], [String.fromCharCode(101,95,53,51,95,99,117,108,102,114,101,113,0),88], [String.fromCharCode(114,101,110,100,101,114,105,110,103,95,116,95,49,57,0),845]]);
+         libyogaM.push(notificationU.length * 2);
+         viewerG = new Map([[`${viewerG.size}`, 1]]);
+         break;
+      }
+         recommendationt += "3";
+      rootz = sendL.size > 27;
 
             if (item.home == 0 && item.away == 0) {
 
-      whiteB -= parseFloat(`${parseInt(`${android6}`)}`);
+      otherE += `${(String.fromCharCode(108,0) == otherE ? splashv.length : otherE.length)}`;
               tempPercent = '50%';
-   if (4 >= (2 | nnewinterstitialr.length) || (android6 - parseFloat(`${nnewinterstitialr.length}`)) >= 4.94) {
-      nnewinterstitialr.push(((iconmegaphonee ? 2 : 3) % (Math.max(2, 8))));
-   }
+      agreementu = "3";
 
             }
             return (
@@ -372,7 +387,23 @@ const BasketballMatchTeamDetails = data => {
       </View>
     </View>
   );
-      android6 *= parseFloat(`${libavfilterY}`);
+   do {
+       let activity6 = false;
+         activity6 = (!activity6 ? !activity6 : !activity6);
+      if (!activity6) {
+          let constantsf = new Map([[String.fromCharCode(115,116,111,114,97,103,101,115,95,48,95,50,57,0),String.fromCharCode(117,110,100,101,108,101,103,97,116,101,95,107,95,49,55,0)], [String.fromCharCode(113,95,51,48,95,118,105,115,97,0),String.fromCharCode(97,95,50,57,95,114,101,99,105,112,105,101,110,116,115,0)], [String.fromCharCode(98,117,102,102,101,114,101,100,95,100,95,56,0),String.fromCharCode(104,95,53,53,95,115,121,109,98,111,108,105,99,97,116,97,98,108,101,0)]]);
+         activity6 = constantsf.size == 32;
+      }
+          let libyogaz = new Map([[String.fromCharCode(122,95,49,54,95,117,110,99,108,97,109,112,101,100,0),366], [String.fromCharCode(97,116,116,95,98,95,56,57,0),350], [String.fromCharCode(101,95,57,48,95,99,114,101,100,101,110,116,105,97,108,115,0),119]]);
+          let halfq = 4.0;
+         activity6 = halfq > 48.67;
+         libyogaz[`${libyogaz.size}`] = 2;
+         halfq /= Math.max(5, parseFloat(`${libyogaz.size ^ libyogaz.size}`));
+      otherE = "2";
+      if (otherE.length == 2762812) {
+         break;
+      }
+   } while ((otherE.endsWith(agreementu)) && (otherE.length == 2762812));
 
 };
 

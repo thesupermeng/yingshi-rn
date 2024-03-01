@@ -3,14 +3,14 @@ import MatchHistory from '../../../matchHistory';
 import TeamStat from './teamStat';
 import MatchAverage from './matchAverage';
 import CustomMatchDetailsTabBar from '../../../customMatchDetailsTabBar';
-import styles from './yys_nbatrophy';
-import { yysDicelogoFootballfield } from '../../../../types/yys_iconnointernet_guide';
+import styles from './yys_gpay_roboto';
+import { yys_PlusFilter } from '../../../../types/yys_live_libyoga';
 
-interface yysIconarrowrightorangeStation {
-  liveRoomMatchDetails: yysDicelogoFootballfield
+interface yys_ConfigureUimanager {
+  liveRoomMatchDetails: yys_PlusFilter
 }
 
-const BasketballDataPage = ({ liveRoomMatchDetails }: yysIconarrowrightorangeStation) => {
+const BasketballDataPage = ({ liveRoomMatchDetails }: yys_ConfigureUimanager) => {
   const tabBar = [
     {
       name: '球队概况',

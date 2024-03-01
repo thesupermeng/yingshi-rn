@@ -27,10 +27,10 @@
 #import <AnyThinkFacebookAdapter/ATFacebookConfigure.h>
 #import <AnyThinkMintegralAdapter/ATMintegralConfigure.h>
 
-#import "yysDangerIconbellController.h"
-#import "yysGpayBasketballiconController.h"
+#import "yys_WithYellowController.h"
+#import "yys_SubsProxyController.h"
 #import <UMCommon/MobClick.h>
-#import "yysLibavfilter.h"
+#import "yys_DplusMini.h"
 
 
 @implementation AppDelegate
@@ -40,120 +40,190 @@ bool isCurrentMainView = NO;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-       char libswresamplei[] = {98,(char)-27,(char)-63};
-    NSDictionary * colors3 = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithUTF8String:(char []){74,0}],[NSString stringWithUTF8String:(char []){90,0}], nil];
-       unsigned char overlayg[] = {168,111,55,147,81,208,230,25,22,135,230};
-       double roomx = 5.0f;
-      do {
-          unsigned char defaultplayerimgM[] = {197,74,170,122,167,76,100,182,151,37};
-          int iconnewchatq = 5;
-          BOOL libcxxcomponentsy = NO;
-         overlayg[7] ^= (int)roomx & overlayg[1];
-         int temperatureq = sizeof(defaultplayerimgM) / sizeof(defaultplayerimgM[0]);
-         defaultplayerimgM[MAX(5, iconnewchatq % 10)] |= 3 & temperatureq;
-         iconnewchatq <<= MIN(labs(1), 4);
-         libcxxcomponentsy = (defaultplayerimgM[0] << (MIN(2, labs(iconnewchatq)))) == 55;
-         if (colors3.count == 2577275) {
-            break;
-         }
-      } while ((2 >= (2 * roomx) || (overlayg[5] * roomx) >= 2) && (colors3.count == 2577275));
-      for (int g = 0; g < 1; g++) {
-          NSArray * libcrashsdkb = @[@(858), @(4), @(641)];
-         long scorepopsoundU = sizeof(overlayg) / sizeof(overlayg[0]);
-         overlayg[4] += scorepopsoundU;
-      }
-      do {
-          unsigned char gifgoalI[] = {237,200,184,8,141,183,118};
-         roomx -= 3;
-         int libtob9 = sizeof(gifgoalI) / sizeof(gifgoalI[0]);
-         int gesturex = sizeof(gifgoalI) / sizeof(gifgoalI[0]);
-         gifgoalI[1] <<= MIN(labs(libtob9 ^ gesturex), 2);
-         if (3937907.f == roomx) {
-            break;
-         }
-      } while ((3 == (1 * overlayg[10]) || (1 * overlayg[10]) == 1) && (3937907.f == roomx));
-      for (int u = 0; u < 2; u++) {
-          char chatt[] = {(char)-114,(char)-87,(char)-92,(char)-30,70,50,(char)-40,(char)-123,44,112};
-          double libjsijniprofilerV = 5.0f;
-          int sporta = 4;
-         roomx *= (int)roomx;
-         int configv = sizeof(chatt) / sizeof(chatt[0]);
-         chatt[7] |= (int)libjsijniprofilerV >> (MIN(labs(configv), 4));
-         libjsijniprofilerV += (int)libjsijniprofilerV;
-         sporta -= 1;
-      }
-      for (int t = 0; t < 3; t++) {
-         roomx -= 1 + (int)roomx;
-      }
-       NSArray * sportm = @[@(281), @(837), @(845)];
-       NSArray * videoZ = [NSArray arrayWithObjects:@(785), @(832), nil];
-      libswresamplei[1] &= colors3.allKeys.count << (MIN(labs(overlayg[9]), 3));
+       char dragt[] = {(char)-40,(char)-47};
+    char frame_k_[] = {29,89,(char)-105,24,96,(char)-65,(char)-84,(char)-9,114,91,(char)-109,(char)-43};
+    unsigned char indexV[] = {109,181,109,194,65};
+      long interstitialc = sizeof(dragt) / sizeof(dragt[0]);
+      indexV[3] &= interstitialc | frame_k_[2];
 
   [UMConfigure setLogEnabled:NO];
-      libswresamplei[1] %= MAX(libswresamplei[2] * colors3.allValues.count, 1);
+      NSInteger condensedg = sizeof(indexV) / sizeof(indexV[0]);
+      indexV[2] += condensedg % 3;
   [UMConfigure initWithAppkey:@"64a632e5bd4b621232c9e379" channel:@"App Store"];
   
   
   
   [self initRootController];
-   for (int j = 0; j < 2; j++) {
-      libswresamplei[0] >>= MIN(colors3.allKeys.count, 3);
+   while ((dragt[0] ^ indexV[3]) > 5) {
+      long taiwanX = sizeof(frame_k_) / sizeof(frame_k_[0]);
+      dragt[0] ^= taiwanX;
+      break;
    }
   [ATAPI setLogEnabled:NO]; 
 
-  ATMintegralConfigure *iconsetting = [[ATMintegralConfigure alloc] initWithAppid:@"a65093c4e166c3" appkey:@"0b1cab850e5de6fdc1fe0e114a0256eb"];
-   if (5 > (libswresamplei[0] % 4)) {
+  ATMintegralConfigure *form = [[ATMintegralConfigure alloc] initWithAppid:@"a65093c4e166c3" appkey:@"0b1cab850e5de6fdc1fe0e114a0256eb"];
+       NSArray * mergerG = @[@(486), @(713)];
+          char expandV[] = {55,53,(char)-123,82,(char)-1,39,(char)-107,(char)-58,10,117,(char)-48,65};
+         long armvaW = sizeof(expandV) / sizeof(expandV[0]);
+         long diceF = sizeof(expandV) / sizeof(expandV[0]);
+         expandV[9] &= armvaW << (MIN(labs(diceF), 1));
+          double libturbomodulejsijni4 = 4.0f;
+          unsigned char anythinkD[] = {105,145,181,172,78,233,237,68,63};
+         libturbomodulejsijni4 /= MAX(mergerG.count / 3, 5);
+         long editP = sizeof(anythinkD) / sizeof(anythinkD[0]);
+         libturbomodulejsijni4 /= MAX(editP >> (MIN(labs(1), 1)), 1);
+      for (int x = 0; x < 1; x++) {
+          char interstitialG[] = {(char)-23,(char)-126,(char)-3,(char)-22,(char)-21,80,(char)-56,(char)-72};
+          double mbbannerT = 3.0f;
+         mbbannerT -= mergerG.count;
+         long leftJ = sizeof(interstitialG) / sizeof(interstitialG[0]);
+         interstitialG[0] %= MAX((2 + leftJ) >> (MIN(labs(interstitialG[0]), 4)), 5);
+         long greenA = sizeof(interstitialG) / sizeof(interstitialG[0]);
+         mbbannerT += (1 + greenA) / (MAX(3, interstitialG[3]));
+      }
+      int routerL = sizeof(frame_k_) / sizeof(frame_k_[0]);
+      indexV[3] /= MAX(routerL & dragt[0], 2);
+  ATGDTConfigure *videojs = [[ATGDTConfigure alloc] initWithAppid:@"a65093c4e166c3"];
+   for (int l = 0; l < 1; l++) {
+       float componenta = 2.0f;
+       float emojiA = 1.0f;
+       double sportn = 3.0f;
+       unsigned char sharep[] = {32,143,146,27,65};
+       double downloadt = 2.0f;
+      do {
+         NSInteger ksadR = sizeof(sharep) / sizeof(sharep[0]);
+         downloadt += 2 - ksadR;
+         if (downloadt == 4256056.f) {
+            break;
+         }
+      } while ((2.20f <= (downloadt + emojiA) && (downloadt + 2.20f) <= 2.8f) && (downloadt == 4256056.f));
+       unsigned char modityo[] = {44,115,213};
+       unsigned char homeN[] = {18,2,206,96,169,21};
+      if ((5.78f + downloadt) < 2) {
+         downloadt += (int)sportn;
+      }
+      if (3 <= homeN[1]) {
+         NSInteger agreementg = sizeof(sharep) / sizeof(sharep[0]);
+         NSInteger clear9 = sizeof(homeN) / sizeof(homeN[0]);
+         componenta += agreementg | clear9;
+      }
+         downloadt *= 2 | (int)emojiA;
+         sportn += (int)emojiA;
+      for (int a = 0; a < 1; a++) {
+         downloadt -= (int)emojiA << (MIN(1, labs(1)));
+      }
+      while (componenta == 5) {
+         componenta -= (int)downloadt;
+         break;
+      }
+          unsigned char grayU[] = {85,50,227,212,108,180,116,210,177,127,180};
+          NSString * editY = [NSString stringWithUTF8String:(char []){121,95,57,54,95,99,111,111,114,100,105,110,97,116,105,111,110,0}];
+         sportn -= 1;
+         grayU[3] &= 3 >> (MIN(1, labs(grayU[9])));
+      for (int o = 0; o < 1; o++) {
+         modityo[2] *= (int)emojiA;
+      }
+       unsigned char orientationK[] = {234,26,239,103,175,135,121,113,223,221,198,202};
+       long rewindc = 3;
+       long gestureg = 5;
+         long zhengpianZ = sizeof(modityo) / sizeof(modityo[0]);
+         homeN[2] += zhengpianZ;
+      for (int k = 0; k < 3; k++) {
+         rewindc ^= (int)emojiA;
+      }
+      do {
+         emojiA *= rewindc;
+         if (2477244.f == emojiA) {
+            break;
+         }
+      } while ((2477244.f == emojiA) && ((componenta / (MAX(emojiA, 2))) >= 2.32f || (componenta / (MAX(emojiA, 8))) >= 2.32f));
+      frame_k_[8] += (int)sportn;
    }
-  ATGDTConfigure *spinner = [[ATGDTConfigure alloc] initWithAppid:@"a65093c4e166c3"];
-  ATAdColonyConfigure *header = [[ATAdColonyConfigure alloc] initWithAppid:@"a65093c4e166c3" zoneIds:@[]];
-  ATMyTargetConfigure *iconbellactive = [[ATMyTargetConfigure alloc] init];
-  ATFacebookConfigure *room = [[ATFacebookConfigure alloc] init];
+  ATAdColonyConfigure *libreactperfloggerjni = [[ATAdColonyConfigure alloc] initWithAppid:@"a65093c4e166c3" zoneIds:@[]];
+       char shoot_[] = {93,(char)-89};
+       char iconW[] = {(char)-89,(char)-111,(char)-70,(char)-31};
+       float libsentryI = 3.0f;
+          char malaysia7[] = {(char)-65,(char)-12,(char)-31,(char)-37,(char)-46};
+          float libreactnativeblobW = 3.0f;
+          NSDictionary * baiduw = @{[NSString stringWithUTF8String:(char []){103,95,52,55,95,100,121,97,100,105,99,0}]:@(355), [NSString stringWithUTF8String:(char []){115,119,105,122,122,108,101,95,54,95,54,56,0}]:@(988).stringValue, [NSString stringWithUTF8String:(char []){101,95,50,95,115,117,110,114,105,115,101,115,101,116,0}]:@(507).stringValue};
+         libsentryI /= MAX((int)libsentryI, 2);
+         malaysia7[1] &= 1;
+         int progressh = sizeof(malaysia7) / sizeof(malaysia7[0]);
+         libreactnativeblobW /= MAX(1, (int)libreactnativeblobW % (MAX(progressh, 9)));
+         libreactnativeblobW += 2 * baiduw.count;
+         libreactnativeblobW -= 5 * baiduw.count;
+      if ((2 * libsentryI) > 1 || (2 * libsentryI) > 3) {
+         iconW[2] /= MAX(2, shoot_[1]);
+      }
+      while ((libsentryI / (MAX(shoot_[1], 10))) == 5) {
+         int over5 = sizeof(iconW) / sizeof(iconW[0]);
+         libsentryI *= shoot_[1] & over5;
+         break;
+      }
+         shoot_[0] *= (int)libsentryI;
+         NSInteger sigmobU = sizeof(iconW) / sizeof(iconW[0]);
+         iconW[3] -= sigmobU & shoot_[0];
+       NSDictionary * mounting0 = @{[NSString stringWithUTF8String:(char []){97,95,49,52,95,114,101,109,111,118,101,0}]:@(552), [NSString stringWithUTF8String:(char []){107,95,54,56,95,116,105,99,107,115,0}]:@(548).stringValue};
+          char selectionp[] = {(char)-83,9,78,6,(char)-106,(char)-73,108,(char)-112,100,59,36,(char)-108};
+          char hooksX[] = {(char)-112,36,(char)-124,36,(char)-34,27,82,29};
+          NSString * detailQ = [NSString stringWithUTF8String:(char []){104,95,51,48,95,100,121,108,105,98,115,0}];
+         libsentryI *= mounting0.count;
+         long goalH = sizeof(hooksX) / sizeof(hooksX[0]);
+         selectionp[4] /= MAX(selectionp[2] + goalH, 3);
+         shoot_[1] >>= MIN(1, labs((int)libsentryI << (MIN(labs(3), 2))));
+      if (1 == (mounting0.allKeys.count | 1)) {
+         iconW[0] += 1 << (MIN(labs(shoot_[1]), 3));
+      }
+      NSInteger gradle0 = sizeof(shoot_) / sizeof(shoot_[0]);
+      indexV[1] >>= MIN(2, labs(iconW[1] ^ (3 + gradle0)));
+  ATMyTargetConfigure *updates = [[ATMyTargetConfigure alloc] init];
+  ATFacebookConfigure *register_e = [[ATFacebookConfigure alloc] init];
 
 
-  ATSDKConfiguration *searchbar = [[ATSDKConfiguration alloc] init];
-  searchbar.preInitArray = @[
-    iconsetting,
-    spinner,
-    header,
-    iconbellactive,
-    room
+  ATSDKConfiguration *side = [[ATSDKConfiguration alloc] init];
+  side.preInitArray = @[
+    form,
+    videojs,
+    libreactperfloggerjni,
+    updates,
+    register_e
   ];
 
-  NSString *champion = @"true";
+  NSString *animation = @"true";
   
-  NSString *awayteamfield = @"RCTAsyncLocalStorage_V1";
-  NSString *baseline = @"manifest.json";
+  NSString *condensed = @"RCTAsyncLocalStorage_V1";
+  NSString *executor = @"manifest.json";
 
-  NSFileManager *defaultlogo = [NSFileManager defaultManager];
-  NSURL *typing = [[NSFileManager defaultManager] URLForDirectory:NSApplicationSupportDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
-  NSURL *orangeclock = [typing URLByAppendingPathComponent:[[NSBundle mainBundle] bundleIdentifier]];
-  NSURL *configy = [orangeclock URLByAppendingPathComponent:awayteamfield];
-  NSURL *information = [configy URLByAppendingPathComponent:baseline];
+  NSFileManager *uimanager = [NSFileManager defaultManager];
+  NSURL *langkey = [[NSFileManager defaultManager] URLForDirectory:NSApplicationSupportDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
+  NSURL *ksad = [langkey URLByAppendingPathComponent:[[NSBundle mainBundle] bundleIdentifier]];
+  NSURL *football = [ksad URLByAppendingPathComponent:condensed];
+  NSURL *material = [football URLByAppendingPathComponent:executor];
 
-  if ([defaultlogo fileExistsAtPath:information.path]) {
-    NSError *watch;
-    NSString *catalog = [NSString stringWithContentsOfURL:information encoding:NSUTF8StringEncoding error:&watch];
-    if (!watch) {
-      NSData *reminder = [catalog dataUsingEncoding:NSUTF8StringEncoding];
-      NSError *executor;
-      NSDictionary *runtime = [NSJSONSerialization JSONObjectWithData:reminder options:NSJSONReadingMutableContainers error:&executor];
-      if (!executor && runtime[@"showAds"]) {
-        champion = runtime[@"showAds"];
+  if ([uimanager fileExistsAtPath:material.path]) {
+    NSError *adult;
+    NSString *xvod = [NSString stringWithContentsOfURL:material encoding:NSUTF8StringEncoding error:&adult];
+    if (!adult) {
+      NSData *overlay = [xvod dataUsingEncoding:NSUTF8StringEncoding];
+      NSError *control;
+      NSDictionary *floating = [NSJSONSerialization JSONObjectWithData:overlay options:NSJSONReadingMutableContainers error:&control];
+      if (!control && floating[@"showAds"]) {
+        animation = floating[@"showAds"];
       }
     }
   }
 
 
-  [[ATAPI sharedInstance] startWithAppID:@"a65093c4e166c3" appKey:@"ac16f5a19bcbae7438b36f0f7160fbac3" sdkConfigures:searchbar error:nil];
+  [[ATAPI sharedInstance] startWithAppID:@"a65093c4e166c3" appKey:@"ac16f5a19bcbae7438b36f0f7160fbac3" sdkConfigures:side error:nil];
   [[ATAPI sharedInstance] setPresetPlacementConfigPathBundle:[NSBundle mainBundle]];
   
   self.launchOptions = launchOptions;
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
 
-  if([champion isEqualToString:@"true"]){
-    ATSplashViewController *largebrightnessController = [[ATSplashViewController alloc] init];
-    largebrightnessController.delegate = self;
-    self.window.rootViewController = largebrightnessController;
+  if([animation isEqualToString:@"true"]){
+    ATSplashViewController *taiwanController = [[ATSplashViewController alloc] init];
+    taiwanController.delegate = self;
+    self.window.rootViewController = taiwanController;
     [self.window makeKeyAndVisible];
   }else{
     [self nativeViewControllerDidFinish];
@@ -171,159 +241,96 @@ bool isCurrentMainView = NO;
   return YES;
 }
 
--(NSArray *)sharedFastDelivered:(double)condensedSetting {
-    long tailI = 2;
-    unsigned char basketballP[] = {232,183,12,141,102,241,79};
-      tailI ^= basketballP[3] ^ tailI;
-       unsigned char adultp[] = {233,177,77,130,119,236,232};
-       NSInteger currentW = 5;
-       NSArray * watchl = [NSArray arrayWithObjects:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithUTF8String:(char []){117,115,101,114,99,116,120,95,121,95,50,52,0}],@(462), nil], nil];
-       NSInteger rules2 = 1;
-       NSInteger sheetC = 1;
-         currentW >>= MIN(labs(sheetC), 1);
-       float matchesE = 3.0f;
-       float actionw = 0.0f;
-          char rootM[] = {(char)-115,105,(char)-113,107,(char)-53,(char)-85,(char)-52,(char)-122};
-         matchesE -= 1 >> (MIN(5, labs(sheetC)));
-         NSInteger iconarrowrightblacka = sizeof(rootM) / sizeof(rootM[0]);
-         NSInteger shootnogoalO = sizeof(rootM) / sizeof(rootM[0]);
-         rootM[3] /= MAX(shootnogoalO - iconarrowrightblacka, 3);
-         actionw += rules2;
-      while ((matchesE * sheetC) == 3.57f) {
-          NSDictionary * dplusF = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithUTF8String:(char []){100,95,56,50,95,108,97,110,103,105,100,0}],@(557).stringValue, [NSString stringWithUTF8String:(char []){99,111,109,98,105,110,97,116,105,111,110,115,95,110,95,49,48,0}],@(806), nil];
-          double coreQ = 4.0f;
-          double floating4 = 1.0f;
-          NSArray * logoP = [NSArray arrayWithObjects:@(407), @(472), nil];
-         sheetC ^= rules2 % (MAX(6, dplusF.count));
-         coreQ += dplusF.count - 1;
-         coreQ += 2;
-         floating4 += (int)coreQ | 1;
-         coreQ -= 1 + logoP.count;
-         floating4 *= logoP.count;
+-(double)unregisterAnnotationInitial:(NSDictionary *)moduleContainer {
+    long adultm = 0;
+    NSArray * switch_ch3 = [NSArray arrayWithObjects:@(848), @(861), nil];
+      adultm /= MAX(4, switch_ch3.count);
+   do {
+       NSInteger watchp = 1;
+       NSString * specp = [NSString stringWithUTF8String:(char []){118,99,101,110,99,95,98,95,56,50,0}];
+      for (int d = 0; d < 1; d++) {
+         watchp &= specp.length;
+      }
+      while ((watchp << (MIN(specp.length, 3))) < 4 && 1 < (4 << (MIN(1, labs(watchp))))) {
+          int station_ = 1;
+          float mintegral0 = 1.0f;
+          int libruntimeexecutorP = 5;
+          double canvasO = 4.0f;
+          BOOL styles1 = YES;
+         station_ += specp.length << (MIN(labs(3), 4));
+         station_ |= ((styles1 ? 2 : 3) | (int)mintegral0);
+         mintegral0 += (int)mintegral0 - libruntimeexecutorP;
+         libruntimeexecutorP ^= 3 + (int)canvasO;
+         canvasO += libruntimeexecutorP - 3;
+         styles1 = 72.50f > mintegral0;
          break;
       }
-         actionw -= watchl.count;
+         watchp >>= MIN(3, specp.length);
+         watchp /= MAX(1, specp.length);
+       char gemfileP[] = {(char)-17,(char)-97};
+      while (watchp < specp.length) {
+         NSInteger submite = sizeof(gemfileP) / sizeof(gemfileP[0]);
+         watchp &= specp.length + submite;
+         break;
+      }
+      adultm -= switch_ch3.count;
+      if (1004798 == switch_ch3.count) {
+         break;
+      }
+   } while ((5 >= (adultm & 4)) && (1004798 == switch_ch3.count));
+      adultm /= MAX(3, switch_ch3.count + 5);
+   while ((adultm | 2) == 5 && (switch_ch3.count | 2) == 1) {
+       char libavformatP[] = {(char)-24,7,(char)-88};
+       double halfy = 3.0f;
+       NSDictionary * becomej = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithUTF8String:(char []){122,95,53,55,95,118,112,97,116,104,109,101,115,117,114,101,0}],@(368).stringValue, [NSString stringWithUTF8String:(char []){99,95,57,53,95,112,114,101,115,101,110,116,101,114,0}],@(142).stringValue, [NSString stringWithUTF8String:(char []){99,108,111,115,101,95,105,95,49,57,0}],@(254).stringValue, nil];
+      if (3 < (libavformatP[0] << (MIN(labs(4), 5)))) {
+         halfy -= libavformatP[1];
+      }
+          char reminderZ[] = {100,94,(char)-36,51,27,(char)-15,(char)-89,(char)-25,(char)-78};
+          char malaysiai[] = {(char)-32,(char)-88,59,(char)-30,(char)-86};
+         int weiboz = sizeof(malaysiai) / sizeof(malaysiai[0]);
+         halfy *= weiboz / (MAX(5, reminderZ[3]));
+       double runtime3 = 2.0f;
       do {
-         rules2 -= watchl.count;
-         if (303229 == watchl.count) {
+          double floatingT = 2.0f;
+          unsigned char mountingj[] = {187,86};
+          unsigned char mbsplashB[] = {223,189,103,140,202,101,95,213,107,97,87,233};
+          float successR = 1.0f;
+         floatingT += becomej.count;
+         floatingT += mbsplashB[2] & 2;
+         mountingj[0] ^= 3;
+         int plusm = sizeof(mbsplashB) / sizeof(mbsplashB[0]);
+         mbsplashB[3] |= 1 & plusm;
+         successR /= MAX((int)successR - 3, 5);
+         if (becomej.count == 4160243) {
             break;
          }
-      } while ((303229 == watchl.count) && (rules2 == 1));
-      for (int m = 0; m < 1; m++) {
-         currentW += (int)matchesE % 2;
-      }
-      tailI ^= 1;
-      int telegrami = sizeof(adultp) / sizeof(adultp[0]);
-      adultp[3] &= adultp[2] % (MAX(10, (2 + telegrami)));
-   if (5 > (1 << (MIN(2, labs(tailI)))) && (tailI << (MIN(labs(basketballP[3]), 4))) > 1) {
-      long predictionwinL = sizeof(basketballP) / sizeof(basketballP[0]);
-      basketballP[MAX(tailI % 7, 0)] >>= MIN(5, labs(predictionwinL & tailI));
-   }
-   while ((basketballP[5] ^ tailI) == 4) {
-      basketballP[4] ^= 1;
+      } while (([becomej.allValues containsObject:@(halfy)]) && (becomej.count == 4160243));
+         runtime3 *= (int)halfy ^ 2;
+         libavformatP[0] *= becomej.count & 3;
+         halfy -= becomej.count;
+      do {
+          char libtanS[] = {107,(char)-39,119,(char)-120,(char)-92,(char)-71,(char)-113};
+          double form6 = 5.0f;
+          long sansA = 2;
+          float encryptp = 0.0f;
+         halfy /= MAX(3, 1 % (MAX((int)form6, 1)));
+         long appleg = sizeof(libtanS) / sizeof(libtanS[0]);
+         libtanS[1] *= appleg + 3;
+         form6 /= MAX(sansA * 3, 4);
+         encryptp /= MAX(3 * sansA, 5);
+         if (943963.f == halfy) {
+            break;
+         }
+      } while ((943963.f == halfy) && (5 < (libavformatP[0] | 3)));
+          char skipr[] = {(char)-82,2,(char)-27,101,6,96,(char)-42,74,(char)-44};
+         runtime3 -= 3 | skipr[0];
+      adultm >>= MIN(4, labs(2));
       break;
    }
-     long analyticsMembership = 8435;
-     int pingChampion = 8359;
-    NSMutableArray * dynamicallyCaveat = [[NSMutableArray alloc] init];
-    analyticsMembership *= 88;
-    [dynamicallyCaveat addObject: @(analyticsMembership)];
-         int m_38 = (int)analyticsMembership;
-     switch (m_38) {
-          case 83: {
-          m_38 *= 88;
-             break;
+    double fullySvector = 0;
 
-     }
-          case 89: {
-          int x_91 = 1;
-     int q_18 = 0;
-     if (m_38 > q_18) {
-         m_38 = q_18;
-     }
-     while (x_91 < m_38) {
-         x_91 += 1;
-          m_38 /= x_91;
-     int x_24 = x_91;
-              break;
-     }
-             break;
-
-     }
-          case 95: {
-          int x_13 = 1;
-     int e_94 = 1;
-     if (m_38 > e_94) {
-         m_38 = e_94;
-     }
-     while (x_13 < m_38) {
-         x_13 += 1;
-     int w_45 = x_13;
-          if (w_45 != 888) {
-          w_45 += 42;
-          }
-         break;
-     }
-             break;
-
-     }
-          case 84: {
-          m_38 += 78;
-          int d_96 = 1;
-     int m_42 = 0;
-     if (m_38 > m_42) {
-         m_38 = m_42;
-     }
-     while (d_96 < m_38) {
-         d_96 += 1;
-          m_38 /= d_96;
-     int k_2 = d_96;
-          if (k_2 <= 981) {
-          }
-         break;
-     }
-             break;
-
-     }
-     default:
-         break;
-
-     }
-    pingChampion -= pingChampion;
-    [dynamicallyCaveat addObject: @(pingChampion)];
-         int tmp_v_36 = (int)pingChampion;
-     switch (tmp_v_36) {
-          case 44: {
-          int k_44 = 1;
-     int p_24 = 1;
-     if (tmp_v_36 > p_24) {
-         tmp_v_36 = p_24;
-     }
-     while (k_44 <= tmp_v_36) {
-         k_44 += 1;
-          tmp_v_36 /= k_44;
-     int o_77 = k_44;
-          if (o_77 == 475) {
-          o_77 -= 59;
-          }
-         break;
-     }
-             break;
-
-     }
-          case 46: {
-          if (tmp_v_36 <= 494) {
-          tmp_v_36 /= 19;
-     }
-             break;
-
-     }
-     default:
-         break;
-
-     }
-
-    return dynamicallyCaveat;
+    return fullySvector;
 
 }
 
@@ -334,81 +341,79 @@ bool isCurrentMainView = NO;
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
 {
 
-         {
-    [self sharedFastDelivered:6210.0];
-
-}
-
-       NSArray * defaultlogoY = @[@[@(YES)]];
-    NSDictionary * zhengpianZ = @{[NSString stringWithUTF8String:(char []){122,95,49,49,95,100,117,109,0}]:@(564).stringValue, [NSString stringWithUTF8String:(char []){107,108,97,121,116,110,95,101,95,55,54,0}]:@(348)};
-    char downloadedX[] = {90,46,(char)-80,16,(char)-7,(char)-86,36};
-   if ((defaultlogoY.count * 1) >= 1 || (defaultlogoY.count * 1) >= 5) {
-   }
-   do {
-      if (zhengpianZ.count == 2334269) {
-         break;
-      }
-   } while ((downloadedX[5] > 3) && (zhengpianZ.count == 2334269));
-   if (1 < defaultlogoY.count) {
-       double filledO = 2.0f;
-       char animationsQ[] = {122,88,119,(char)-84,112,(char)-44,(char)-19,(char)-74};
-         animationsQ[1] >>= MIN(labs(3 >> (MIN(1, labs((int)filledO)))), 2);
-      if (4 >= animationsQ[5]) {
-         filledO /= MAX(animationsQ[6], 3);
-      }
-      if (filledO < 2) {
-          long libjsij = 4;
-          unsigned char backwhiteH[] = {189,119,181,77,10};
-         filledO /= MAX(1, (int)filledO);
-         libjsij ^= 1;
-         long roundd = sizeof(backwhiteH) / sizeof(backwhiteH[0]);
-         backwhiteH[2] /= MAX(4, 2 | roundd);
-      }
-         animationsQ[6] ^= (int)filledO;
-      do {
-         animationsQ[1] %= MAX(2, 1 ^ (int)filledO);
-         if (4462902 == defaultlogoY.count) {
-            break;
-         }
-      } while ((animationsQ[1] > 5) && (4462902 == defaultlogoY.count));
-      do {
-         animationsQ[6] &= (int)filledO;
-         if (537912 == defaultlogoY.count) {
-            break;
-         }
-      } while ((537912 == defaultlogoY.count) && ((animationsQ[0] | 3) == 4 || 1 == (3 % (MAX(2, animationsQ[0])))));
-      filledO *= defaultlogoY.count;
-   }
+       double descv = 2.0f;
+    long borderlessi = 5;
+      borderlessi &= (int)descv | borderlessi;
+      descv -= 1 ^ (int)descv;
 
 #if DEBUG
   return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index"];
+
+         {
+    [self unregisterAnnotationInitial:@{[NSString stringWithUTF8String:(char []){121,95,49,51,95,115,116,117,98,98,101,100,0}]:@(91).stringValue, [NSString stringWithUTF8String:(char []){97,95,53,55,95,108,105,115,116,101,110,101,114,0}]:@(551).stringValue}];
+
+}
 #else
   return [CodePush bundleURL];
-   do {
-      downloadedX[5] *= zhengpianZ.allValues.count + 1;
-      if (2214024 == defaultlogoY.count) {
-         break;
-      }
-   } while ((2214024 == defaultlogoY.count) && (2 >= zhengpianZ.allKeys.count));
+      descv -= 2 % (MAX(1, (int)descv));
 #endif
 }
 
--(NSDictionary *)whiteHeapHeaderRectangleReload{
-    int showlessF = 5;
-    NSDictionary * yellowcirclebgm = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithUTF8String:(char []){110,95,52,52,95,108,105,98,101,118,101,110,116,0}],@(638).stringValue, [NSString stringWithUTF8String:(char []){116,95,53,95,105,109,112,111,114,116,0}],@(933), [NSString stringWithUTF8String:(char []){116,114,97,110,115,105,116,95,117,95,49,51,0}],@(883), nil];
-      showlessF ^= 3 / (MAX(5, yellowcirclebgm.allValues.count));
-      showlessF /= MAX(4, yellowcirclebgm.count);
-       double libimagepipelinem = 0.0f;
+-(NSInteger)unregisterPkgControl{
+    int xadsdk8 = 0;
+    unsigned char shirt5[] = {109,175,154,187,116};
+   while (xadsdk8 <= 5) {
+      xadsdk8 |= 1;
+      break;
+   }
+      NSInteger baidum = sizeof(shirt5) / sizeof(shirt5[0]);
+      xadsdk8 |= baidum / (MAX(5, xadsdk8));
+   do {
+       NSDictionary * basketballV = @{[NSString stringWithUTF8String:(char []){109,95,48,95,98,117,116,111,110,0}]:@(7694)};
+       char tick5[] = {(char)-37,(char)-98,100,(char)-115,(char)-67,80,117,(char)-116};
+          char policyd[] = {(char)-85,(char)-117,(char)-114,32};
+         long projecty = sizeof(policyd) / sizeof(policyd[0]);
+         long anythinkF = sizeof(policyd) / sizeof(policyd[0]);
+         policyd[1] -= projecty + anythinkF;
+      for (int l = 0; l < 3; l++) {
+         tick5[1] >>= MIN(labs(basketballV.count + tick5[0]), 2);
+      }
+      for (int t = 0; t < 3; t++) {
+      }
+      for (int w = 0; w < 2; w++) {
+      }
+          unsigned char sellK[] = {172,114,248,206,215,29,6,234,207,184};
+         NSInteger specS = sizeof(tick5) / sizeof(tick5[0]);
+         NSInteger serviceK = sizeof(sellK) / sizeof(sellK[0]);
+         tick5[1] /= MAX(5, specS * serviceK);
+      xadsdk8 ^= 2;
+      if (2594806 == xadsdk8) {
+         break;
+      }
+   } while ((2594806 == xadsdk8) && ((4 + shirt5[4]) < 2));
+       unsigned char invite1[] = {133,173,108,224,117,144,167,12};
+          float heartD = 0.0f;
+         invite1[2] >>= MIN(labs(2), 3);
+         heartD /= MAX(4, 2);
       do {
-         libimagepipelinem *= 3 % (MAX((int)libimagepipelinem, 10));
-         if (922192.f == libimagepipelinem) {
+         long anytime2 = sizeof(invite1) / sizeof(invite1[0]);
+         long playercommonD = sizeof(invite1) / sizeof(invite1[0]);
+         invite1[7] |= anytime2 >> (MIN(labs(playercommonD), 4));
+         if (xadsdk8 == 2988330) {
             break;
          }
-      } while ((922192.f == libimagepipelinem) && (libimagepipelinem < 2.55f));
-         libimagepipelinem += (int)libimagepipelinem;
-         libimagepipelinem += 3;
-      showlessF ^= yellowcirclebgm.allValues.count;
-   return yellowcirclebgm;
+      } while ((2 == (invite1[2] % (MAX(4, 9)))) && (xadsdk8 == 2988330));
+          NSArray * views6 = [NSArray arrayWithObjects:@(7040.0), nil];
+          NSInteger hejix = 5;
+          char entryh[] = {(char)-51,37,43,108,(char)-13,51};
+         NSInteger flipper0 = sizeof(entryh) / sizeof(entryh[0]);
+         invite1[MAX(5, hejix % 8)] >>= MIN(labs(3 & flipper0), 5);
+         hejix += views6.count;
+      NSInteger anythinkw = sizeof(shirt5) / sizeof(shirt5[0]);
+      xadsdk8 *= anythinkw;
+    NSInteger cvidCreateexFirst = 0;
+
+    return cvidCreateexFirst;
 
 }
 
@@ -420,218 +425,186 @@ bool isCurrentMainView = NO;
 {
 
          {
-    [self whiteHeapHeaderRectangleReload];
+    [self unregisterPkgControl];
 
 }
 
-       NSDictionary * eighteenl = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithUTF8String:(char []){113,117,97,110,116,105,116,121,95,105,95,55,52,0}],[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithUTF8String:(char []){100,95,53,56,95,103,111,111,100,0}],@(623).stringValue, nil], nil];
-    char libswscaleF[] = {(char)-122,60,(char)-38,(char)-4,62,5,(char)-75,(char)-23,(char)-69,(char)-127};
-       double libmapbufferjnii = 5.0f;
-       int graphk = 5;
-       NSString * iconviewergifT = [NSString stringWithUTF8String:(char []){100,95,55,95,111,117,116,102,105,108,101,115,0}];
-         graphk >>= MIN(2, labs(iconviewergifT.length / (MAX(2, 7))));
-         graphk ^= 4 * iconviewergifT.length;
-      for (int b = 0; b < 2; b++) {
-         graphk <<= MIN(3, labs(2));
-      }
-         libmapbufferjnii -= 3;
-      for (int b = 0; b < 3; b++) {
-          NSArray * stationy = [NSArray arrayWithObjects:@(968), @(317), @(268), nil];
-         libmapbufferjnii /= MAX(iconviewergifT.length * 1, 3);
-      }
-      while ((libmapbufferjnii * 2.42f) < 3.85f && 4.36f < (libmapbufferjnii * 2.42f)) {
-         graphk <<= MIN(5, labs((int)libmapbufferjnii - iconviewergifT.length));
-         break;
-      }
-          unsigned char watchA[] = {32,243,250,105,179,1,13,21,135,29,127,47};
-         graphk /= MAX(graphk, 4);
-         long megaphoneR = sizeof(watchA) / sizeof(watchA[0]);
-         long iconstar4 = sizeof(watchA) / sizeof(watchA[0]);
-         watchA[7] *= megaphoneR % (MAX(10, iconstar4));
-         graphk |= iconviewergifT.length;
+       int final__C = 5;
+    NSInteger smallH = 5;
+    unsigned char agreementA[] = {239,217,234,78,250,5,239,165};
+   do {
+       double temp7 = 5.0f;
+       char valuesC[] = {119,110};
+       NSString * volumec = [NSString stringWithUTF8String:(char []){100,111,116,108,111,99,107,95,52,95,51,53,0}];
+       int securityc = 5;
       do {
-         graphk <<= MIN(iconviewergifT.length, 1);
-         if (iconviewergifT.length == 2400034) {
+          unsigned char sources[] = {89,249,15,226,114,243,255};
+          NSString * sheetM = [NSString stringWithUTF8String:(char []){114,101,106,101,99,116,95,97,95,52,54,0}];
+         securityc >>= MIN(labs(volumec.length << (MIN(labs(1), 3))), 4);
+         sources[2] ^= sheetM.length | 1;
+         if (securityc == 1372256) {
             break;
          }
-      } while ((iconviewergifT.length == 2400034) && (graphk >= 4));
-      graphk |= eighteenl.count;
-   if ((libswscaleF[1] / (MAX(1, libswscaleF[2]))) <= 4) {
-      NSInteger videocommon1 = sizeof(libswscaleF) / sizeof(libswscaleF[0]);
-      libswscaleF[4] -= videocommon1;
+      } while ((securityc == 1372256) && (valuesC[0] == 4));
+         temp7 *= valuesC[1] * 2;
+      while ([volumec containsString:@(securityc).stringValue]) {
+         securityc &= volumec.length >> (MIN(labs(1), 1));
+         break;
+      }
+          long animationsV = 2;
+          BOOL crownj = YES;
+         temp7 *= 3 & volumec.length;
+         animationsV &= (animationsV << (MIN(2, labs((crownj ? 4 : 2)))));
+         crownj = animationsV >= 29;
+       float backa = 5.0f;
+         temp7 /= MAX(5, (int)backa);
+      while (5.21f >= (backa - securityc) || 5.21f >= (securityc - backa)) {
+         securityc -= (int)temp7;
+         break;
+      }
+       long mbsplashW = 2;
+       long traminiJ = 5;
+         temp7 /= MAX(1, 1);
+      while (securityc == backa) {
+         backa *= securityc + volumec.length;
+         break;
+      }
+          int runtimeG = 1;
+          unsigned char libglog3[] = {149,131,104,222};
+         securityc >>= MIN(labs(libglog3[2]), 2);
+         runtimeG -= runtimeG;
+         libglog3[1] *= runtimeG;
+         mbsplashW ^= 1 * volumec.length;
+      smallH %= MAX(5, agreementA[6] & securityc);
+      if (smallH == 1095038) {
+         break;
+      }
+   } while ((2 >= agreementA[5]) && (smallH == 1095038));
+   do {
+      final__C >>= MIN(2, labs(final__C));
+      if (final__C == 3976778) {
+         break;
+      }
+   } while ((final__C == 3976778) && ((4 - final__C) > 1));
+   if (agreementA[0] >= smallH) {
+      agreementA[MAX(final__C % 8, 5)] += smallH * 1;
    }
-   for (int l = 0; l < 1; l++) {
-       float robotoI = 2.0f;
-       unsigned char telegramG[] = {172,104,239,249,65,131,94,134,140,204,188,143};
-         robotoI *= (int)robotoI | telegramG[9];
-         robotoI /= MAX((int)robotoI, 5);
-      while (2 >= (robotoI - 4.73f)) {
-         int acceptede = sizeof(telegramG) / sizeof(telegramG[0]);
-         telegramG[11] &= acceptede;
+   for (int u = 0; u < 2; u++) {
+      smallH %= MAX(1 & agreementA[1], 3);
+   }
+       unsigned char projecti[] = {229,64,234,98,125,29,170,166};
+       char mappingQ[] = {48,42,(char)-79,32,111};
+       unsigned char huaweiB[] = {203,156,225,44,130,112,139,24};
+       unsigned char fastV[] = {47,17,138,154,161,205,82,199,39,114,41,212};
+      while ((mappingQ[1] * 4) > 5 || 1 > (huaweiB[4] * 4)) {
+         int bufferu = sizeof(huaweiB) / sizeof(huaweiB[0]);
+         mappingQ[4] -= bufferu;
          break;
       }
-          double tailN = 0.0f;
-         robotoI /= MAX((int)tailN, 3);
-      while ((5.2f + robotoI) < 1) {
-         long vipsportn = sizeof(telegramG) / sizeof(telegramG[0]);
-         telegramG[1] |= (int)robotoI << (MIN(labs(vipsportn), 5));
+      while ((mappingQ[1] * projecti[1]) > 3) {
+         int watchu = sizeof(projecti) / sizeof(projecti[0]);
+         projecti[7] |= (1 + watchu) / (MAX(huaweiB[2], 3));
          break;
       }
-      do {
-          unsigned char libavcodecU[] = {176,45,12,152,98,188,42};
-          int matchdetailbgp = 4;
-          float rewardT = 4.0f;
-         robotoI *= 1;
-         libavcodecU[0] ^= (int)rewardT >> (MIN(5, labs(matchdetailbgp)));
-         rewardT /= MAX(3, 3);
-         if (robotoI == 2214323.f) {
-            break;
-         }
-      } while ((3 >= (2 % (MAX(3, telegramG[7]))) && 2 >= (robotoI + telegramG[7])) && (robotoI == 2214323.f));
-      libswscaleF[6] -= telegramG[5];
+         int signinup7 = sizeof(huaweiB) / sizeof(huaweiB[0]);
+         projecti[6] -= signinup7 >> (MIN(labs(3), 2));
+      for (int v = 0; v < 2; v++) {
+         int changew = sizeof(fastV) / sizeof(fastV[0]);
+         huaweiB[5] <<= MIN(5, labs(changew));
+      }
+         long chinasame_ = sizeof(huaweiB) / sizeof(huaweiB[0]);
+         huaweiB[1] += fastV[6] & (2 + chinasame_);
+       double hookZ = 0.0f;
+       unsigned char chinaB[] = {203,64,100,212};
+       unsigned char libavformatH[] = {188,82,105,58,43,115,112,100,83,170,176,102};
+         projecti[0] ^= 1 * fastV[10];
+      NSInteger libloggerU = sizeof(projecti) / sizeof(projecti[0]);
+      smallH *= libloggerU;
+   if ((final__C / 2) > 5) {
+      smallH += smallH % 1;
    }
 
   return true;
 }
 
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
-       double pressureS = 1.0f;
-    NSDictionary * backwhiteK = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithUTF8String:(char []){109,117,108,116,105,112,108,105,101,114,95,122,95,50,49,0}],@(711), [NSString stringWithUTF8String:(char []){114,101,109,105,110,100,101,114,115,95,113,95,56,51,0}],@(213).stringValue, nil];
-   for (int q = 0; q < 3; q++) {
-      pressureS /= MAX(2, 2 + backwhiteK.count);
-   }
-      pressureS += backwhiteK.count;
-      pressureS += 3;
-   for (int j = 0; j < 1; j++) {
-       long shielddoneu = 4;
-       unsigned char footballfieldZ[] = {137,8,13,73,204,222,159};
-       long thailand3 = 1;
-       long dicelogof = 3;
-       float iconsubssuccess3 = 5.0f;
-      if (3 >= footballfieldZ[4]) {
-          char data5[] = {(char)-16,(char)-119,(char)-68};
-          NSArray * update_ma = @[@(795), @(226)];
-          unsigned char libloggeru[] = {217,13,249,167,29,228,96,214,81,29,197};
-         footballfieldZ[5] >>= MIN(3, labs(thailand3));
-         data5[2] &= update_ma.count;
-         libloggeru[6] |= 3;
-      }
-         thailand3 ^= 3;
-      if ((thailand3 / (MAX(iconsubssuccess3, 2))) == 5.7f) {
-         iconsubssuccess3 += thailand3 | 3;
-      }
-      do {
-          unsigned char window_fyH[] = {92,140,163};
-          double queste = 1.0f;
-          double dependencyE = 1.0f;
-          NSDictionary * footballF = @{[NSString stringWithUTF8String:(char []){109,97,114,107,95,56,95,56,0}]:@(975)};
-         shielddoneu %= MAX(5, thailand3);
-         window_fyH[0] |= 2 << (MIN(labs(window_fyH[0]), 4));
-         queste /= MAX((int)queste, 1);
-         int videojsh = sizeof(window_fyH) / sizeof(window_fyH[0]);
-         dependencyE += footballF.count * videojsh;
-         dependencyE *= 5 * footballF.count;
-         if (971745 == shielddoneu) {
-            break;
-         }
-      } while (((shielddoneu / (MAX(iconsubssuccess3, 2))) < 3.100f) && (971745 == shielddoneu));
-         shielddoneu |= dicelogof & 3;
-          NSArray * downarrowN = [NSArray arrayWithObjects:@(496), @(130), nil];
-          unsigned char utilsY[] = {110,72,156};
-         shielddoneu >>= MIN(downarrowN.count, 4);
-         long componentsC = sizeof(utilsY) / sizeof(utilsY[0]);
-         utilsY[0] >>= MIN(labs(utilsY[1] >> (MIN(5, labs((2 + componentsC))))), 3);
-      if (4 <= (footballfieldZ[0] & thailand3) || (4 & footballfieldZ[0]) <= 1) {
-          NSArray * goalo = @[@(497), @(729)];
-          NSDictionary * line9 = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithUTF8String:(char []){114,101,108,102,117,110,99,95,57,95,57,57,0}],@(532).stringValue, [NSString stringWithUTF8String:(char []){109,97,99,101,120,97,109,112,108,101,95,114,95,57,48,0}],@(263), nil];
-          BOOL armvaX = YES;
-          NSDictionary * popupP = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithUTF8String:(char []){119,95,51,50,95,104,105,116,115,0}],@(819), nil];
-          NSString * expande = [NSString stringWithUTF8String:(char []){102,95,57,49,95,118,101,108,111,99,105,116,121,0}];
-         thailand3 *= line9.allKeys.count;
-         armvaX = goalo.count % 1;
-         armvaX = line9.count % (MAX(5, 7));
-         armvaX = popupP.count % 1;
-         armvaX = expande.length - 4;
-         armvaX = goalo.count / (MAX(4, 8));
-         armvaX = popupP.count % 1;
-         armvaX = 1 + expande.length;
-      }
-      while ((footballfieldZ[5] & shielddoneu) <= 4) {
-          float progressv = 5.0f;
-          NSArray * combineI = @[[NSString stringWithUTF8String:(char []){114,101,108,111,99,107,95,112,95,54,50,0}], [NSString stringWithUTF8String:(char []){104,95,56,53,95,118,101,114,115,105,111,110,101,100,0}], [NSString stringWithUTF8String:(char []){98,95,50,53,95,97,119,97,114,101,0}]];
-         shielddoneu >>= MIN(labs(3 + footballfieldZ[4]), 1);
-         progressv /= MAX((int)progressv, 3);
-         progressv *= 5 + combineI.count;
-         progressv += combineI.count;
+       double infod = 1.0f;
+    char macau4[] = {4,120,(char)-40,57,68,(char)-127,(char)-12,102,38,105,(char)-78};
+      NSInteger libavfilterH = sizeof(macau4) / sizeof(macau4[0]);
+      infod -= (int)infod - libavfilterH;
+      infod /= MAX(1, macau4[2] * 1);
+       NSString * aboutc = [NSString stringWithUTF8String:(char []){108,95,49,51,95,115,116,114,105,110,103,117,116,105,108,115,0}];
+      while ([aboutc containsString:@(aboutc.length).stringValue]) {
          break;
       }
-      for (int a = 0; a < 2; a++) {
-         shielddoneu += shielddoneu;
-      }
-      if (1 == (shielddoneu | footballfieldZ[0]) || (footballfieldZ[0] | 1) == 1) {
-          char bgvipsportu[] = {(char)-55,(char)-124,101,120};
-          float handlerL = 3.0f;
-         shielddoneu *= 1;
-         bgvipsportu[3] += 2;
-         handlerL -= 2;
-      }
-         dicelogof |= 3;
       do {
-         shielddoneu &= dicelogof;
-         if (shielddoneu == 4494123) {
+         if (aboutc.length == 4642354) {
             break;
          }
-      } while ((2 <= (thailand3 - 5) || (thailand3 - 5) <= 5) && (shielddoneu == 4494123));
-          double dicelogo7 = 3.0f;
-         dicelogof |= (int)dicelogo7 | 3;
-      while (4 == (thailand3 / (MAX(dicelogof, 10)))) {
-          float targetN = 1.0f;
-          BOOL episodesW = YES;
-          unsigned char largeT[] = {147,192,160,107,55,167,61};
-          NSInteger combineC = 4;
-         int airbnbstara = sizeof(largeT) / sizeof(largeT[0]);
-         dicelogof -= airbnbstara;
-         targetN -= (int)targetN ^ combineC;
-         episodesW = combineC == targetN;
-         break;
-      }
-       char inouttargetredA[] = {77,62,63,(char)-72,35,(char)-41,68,(char)-86,93};
-      dicelogof <<= MIN(labs(4 / (MAX(2, backwhiteK.count))), 5);
-   }
+      } while ((aboutc.length == 4642354) && (aboutc.length > 1));
+      infod *= macau4[3];
+      infod -= 1;
 
   return [Orientation getOrientation];
 }
 
--(long)adcolonyAllowLocalizedScenarioAnalytics{
-    char iconnotificationnewe[] = {110,(char)-10,(char)-4,23,115,45};
-    long sentryR = 3;
-       unsigned char iconnewchat4[] = {56,102,192,119,156,108,54,109,194,54,202,164};
-         NSInteger libimagepipelinel = sizeof(iconnewchat4) / sizeof(iconnewchat4[0]);
-         iconnewchat4[4] <<= MIN(labs((2 + libimagepipelinel) << (MIN(labs(iconnewchat4[6]), 5))), 2);
-      do {
-          unsigned char time_0i[] = {54,42,29,49,217,157,162};
-          double redirect4 = 0.0f;
-          BOOL shirtp = YES;
-          float serviceV = 4.0f;
-          float stepe = 2.0f;
-         iconnewchat4[6] >>= MIN(labs(1), 4);
-         time_0i[1] >>= MIN(2, labs(((int)stepe * (shirtp ? 1 : 1))));
-         redirect4 /= MAX(3, 1);
-         shirtp = 70.49f < redirect4;
-         long refreshw = sizeof(time_0i) / sizeof(time_0i[0]);
-         serviceV -= refreshw;
-         stepe /= MAX(5, (int)redirect4);
-         if (sentryR == 3607134) {
-            break;
-         }
-      } while ((sentryR == 3607134) && ((4 | iconnewchat4[1]) == 5));
-         long disconnectedlogoL = sizeof(iconnewchat4) / sizeof(iconnewchat4[0]);
-         long x_viewr = sizeof(iconnewchat4) / sizeof(iconnewchat4[0]);
-         iconnewchat4[9] |= disconnectedlogoL * x_viewr;
-      sentryR *= 3 + iconnotificationnewe[4];
-      iconnotificationnewe[2] %= MAX(2, iconnotificationnewe[3] >> (MIN(1, labs(sentryR))));
-      iconnotificationnewe[MAX(sentryR % 6, 5)] /= MAX(iconnotificationnewe[0] - sentryR, 4);
-   return sentryR;
+-(float)modelCancelShowAnalyticsWindowsInspector:(NSArray *)with_tTrophy {
+    char splashZ[] = {28,(char)-61,(char)-32};
+    long awayU = 4;
+   do {
+       float topic3 = 0.0f;
+       unsigned char zhuboc[] = {219,241,176,138,238,38,33};
+         topic3 += zhuboc[4];
+          NSInteger valuesY = 5;
+          NSInteger schedulerr = 3;
+         topic3 -= 3;
+         valuesY |= 1 - valuesY;
+         schedulerr %= MAX(schedulerr, 3);
+      if ((topic3 + zhuboc[4]) == 3 || 3 == (topic3 + zhuboc[4])) {
+          unsigned char libfbjniL[] = {238,169,127,44,117,193,153};
+          double sell5 = 5.0f;
+         zhuboc[5] &= 3;
+         libfbjniL[3] %= MAX((int)sell5, 5);
+         long typing_ = sizeof(libfbjniL) / sizeof(libfbjniL[0]);
+         sell5 /= MAX(typing_ - (int)sell5, 4);
+      }
+         topic3 += 2;
+          unsigned char lineM[] = {229,200,189,63};
+          char promotionb[] = {5,(char)-40,117,51,(char)-16,117};
+         int hover9 = sizeof(lineM) / sizeof(lineM[0]);
+         zhuboc[5] |= zhuboc[1] / (MAX(1, (3 + hover9)));
+         int sharedA = sizeof(promotionb) / sizeof(promotionb[0]);
+         promotionb[0] <<= MIN(labs(sharedA - 2), 5);
+      while (topic3 < 5) {
+          BOOL header_ = YES;
+          double memberB = 2.0f;
+          char private_tcH[] = {(char)-31,(char)-22,(char)-15,(char)-39,32,66};
+         topic3 /= MAX(2 ^ (int)memberB, 5);
+         long penaltyN = sizeof(private_tcH) / sizeof(private_tcH[0]);
+         header_ = penaltyN <= 65;
+         memberB /= MAX(3, ((header_ ? 1 : 2)));
+         break;
+      }
+      NSInteger crossZ = sizeof(zhuboc) / sizeof(zhuboc[0]);
+      awayU += splashZ[2] | crossZ;
+      if (1559484 == awayU) {
+         break;
+      }
+   } while ((1559484 == awayU) && (2 == (awayU << (MIN(labs(splashZ[2]), 3)))));
+   for (int a = 0; a < 3; a++) {
+      splashZ[2] /= MAX(awayU / 1, 5);
+   }
+      long configurep = sizeof(splashZ) / sizeof(splashZ[0]);
+      awayU |= configurep >> (MIN(5, labs(1)));
+   do {
+      splashZ[0] /= MAX(5, splashZ[0] - 1);
+      if (1735751 == awayU) {
+         break;
+      }
+   } while ((1735751 == awayU) && ((splashZ[1] - awayU) < 4 && (awayU - 4) < 4));
+    float incrementsSetupintrarecon = 0;
+
+    return incrementsSetupintrarecon;
 
 }
 
@@ -639,208 +612,269 @@ bool isCurrentMainView = NO;
 
 
 
-- (NSDictionary *)unregisterSheetRetrieveFoundationListening
+- (NSDictionary *)modelDataStop
 {
 
-       int iconviewergif0 = 2;
-    double usernameX = 4.0f;
-
          {
-    [self adcolonyAllowLocalizedScenarioAnalytics];
+    [self modelCancelShowAnalyticsWindowsInspector:@[@(789), @(808)]];
 
 }
-    char black3[] = {(char)-75,(char)-8,32};
+
+       long robotoy = 3;
+    NSDictionary * switch_8mF = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithUTF8String:(char []){108,111,103,103,101,114,95,56,95,51,0}],@(201).stringValue, nil];
+   while (4 > (robotoy << (MIN(switch_8mF.allValues.count, 5))) || (switch_8mF.allValues.count << (MIN(3, labs(robotoy)))) > 4) {
+      robotoy *= switch_8mF.count + 4;
+      break;
+   }
    do {
-      iconviewergif0 %= MAX((int)usernameX / 3, 2);
-      if (4143854 == iconviewergif0) {
+      robotoy /= MAX(3, switch_8mF.count);
+      if (4090103 == switch_8mF.count) {
          break;
       }
-   } while (((usernameX * iconviewergif0) < 4.57f || 4.57f < (iconviewergif0 * usernameX)) && (4143854 == iconviewergif0));
+   } while ((1 < (switch_8mF.allValues.count + 5)) && (4090103 == switch_8mF.count));
 
-  NSMutableDictionary *shareblack = [NSMutableDictionary new];
+  NSMutableDictionary *list = [NSMutableDictionary new];
   
 #ifdef RCT_NEW_ARCH_ENABLED
-  shareblack[kRNConcurrentRoot] = @([self concurrentRootEnabled]);
+  list[kRNConcurrentRoot] = @([self concurrentRootEnabled]);
 #endif
   
-  return shareblack;
-   do {
-       double fastforwardc = 1.0f;
-       int unimplementedviewh = 0;
-       NSString * shootnogoalb = [NSString stringWithUTF8String:(char []){116,95,53,52,95,100,101,116,101,114,109,105,110,105,115,116,105,99,0}];
-       char rootg[] = {7,96,(char)-42,(char)-33};
-       float javax = 0.0f;
-      do {
-         fastforwardc /= MAX(4, (int)fastforwardc % (MAX(1, 9)));
-         if (fastforwardc == 1615998.f) {
-            break;
-         }
-      } while ((fastforwardc == 1615998.f) && ((fastforwardc / (MAX(7, shootnogoalb.length))) > 1 && (fastforwardc / (MAX(shootnogoalb.length, 4))) > 1));
-         fastforwardc += 3 - unimplementedviewh;
-      for (int x = 0; x < 1; x++) {
-          char alertG[] = {52,69,(char)-112,(char)-49,57,65,(char)-109};
-          NSArray * forwardB = [NSArray arrayWithObjects:@(722), @(121), nil];
-          double template_pV = 0.0f;
-          unsigned char libcxxcomponentsK[] = {152,80,205,162};
-          unsigned char disconnectedlogoA[] = {151,68,209};
-         rootg[1] >>= MIN(labs((int)javax), 2);
-         alertG[5] %= MAX(libcxxcomponentsK[2] / (MAX(3, forwardB.count)), 4);
-         template_pV *= forwardB.count;
-         long airbnbstarc = sizeof(disconnectedlogoA) / sizeof(disconnectedlogoA[0]);
-         template_pV /= MAX(libcxxcomponentsK[0] * airbnbstarc, 1);
-      }
-         fastforwardc *= (int)javax;
-       BOOL matchactivec = NO;
-       BOOL videobufferloading2 = YES;
-          BOOL sideu = NO;
-          NSInteger detailw = 2;
-         fastforwardc -= 3;
-         sideu = sideu;
-         detailw *= ((sideu ? 5 : 2) % (MAX(detailw, 6)));
-         unimplementedviewh %= MAX(5, 2 & (int)javax);
-      while (3.43f > javax) {
-         videobufferloading2 = javax <= 44.19f;
-         break;
-      }
-      for (int i = 0; i < 2; i++) {
-          long imagewatchliveM = 2;
-          double styleH = 4.0f;
-         long actionu = sizeof(rootg) / sizeof(rootg[0]);
-         unimplementedviewh ^= actionu;
-         imagewatchliveM -= (int)styleH | imagewatchliveM;
-         styleH /= MAX(imagewatchliveM, 5);
-      }
-      for (int d = 0; d < 2; d++) {
-          NSInteger disconnectedlogo3 = 4;
-          long profilepica = 5;
-          BOOL invitej = YES;
-          BOOL servicem = YES;
-          char mimoJ[] = {(char)-66,(char)-43,(char)-60,17,89,89,(char)-20,124,69,(char)-10,(char)-69,20};
-         disconnectedlogo3 |= 3 & shootnogoalb.length;
-         disconnectedlogo3 *= (profilepica << (MIN(1, labs((servicem ? 5 : 5)))));
-         profilepica %= MAX(mimoJ[5], 1);
-         invitej = (servicem ? !invitej : !servicem);
-         mimoJ[1] |= profilepica;
-      }
-          NSInteger playQ = 0;
-          char unimplementedviewE[] = {36,19,126,96,(char)-62,(char)-123,85,112};
-         javax += unimplementedviewh;
-         playQ >>= MIN(5, labs(unimplementedviewE[0]));
-         unimplementedviewE[7] >>= MIN(labs(1 % (MAX(5, playQ))), 2);
-      usernameX += (int)fastforwardc;
-      if (usernameX == 1771655.f) {
-         break;
-      }
-   } while (((3.88f * usernameX) > 2.59f) && (usernameX == 1771655.f));
+  return list;
+      robotoy %= MAX(switch_8mF.count, 3);
+      robotoy |= robotoy / (MAX(3, switch_8mF.count));
 }
 
 - (void)initRootController {
-       char line6[] = {(char)-64,(char)-117,122,(char)-49};
-    NSString * modalR = [NSString stringWithUTF8String:(char []){110,95,57,55,95,112,107,99,114,121,112,116,0}];
-   for (int m = 0; m < 3; m++) {
-       char libreactnativejnie[] = {68,(char)-125};
-       double mbnative4 = 0.0f;
-       int weather5 = 0;
-         libreactnativejnie[MAX(weather5 % 2, 0)] *= (int)mbnative4;
-       BOOL close9 = NO;
-       BOOL libffmpegkitL = NO;
-       int orientationo = 5;
-      while (5 > weather5) {
-         orientationo -= 3 - weather5;
+       int type_e1B = 2;
+    float langkeyE = 4.0f;
+   for (int r = 0; r < 3; r++) {
+      langkeyE += (int)langkeyE;
+   }
+   while (2 > (type_e1B << (MIN(labs(2), 5)))) {
+      langkeyE *= 1 << (MIN(labs(type_e1B), 3));
+      break;
+   }
+
+  RCTBridge *launcher = [[RCTBridge alloc] initWithDelegate:self launchOptions:self.launchOptions];
+   do {
+      type_e1B <<= MIN(labs(2 * type_e1B), 4);
+      if (4328405 == type_e1B) {
+         break;
+      }
+   } while ((5 >= type_e1B) && (4328405 == type_e1B));
+  NSDictionary *listJ = [self modelDataStop];
+  rootView = RCTAppSetupDefaultRootView(launcher, @"yingshi", listJ, true);
+}
+
+-(NSDictionary *)unregisterExceptionsProperty:(NSArray *)untickSetting policyLight:(NSInteger)policyLight condensedDropdown:(double)condensedDropdown {
+    double policyg = 2.0f;
+    NSString * brightnessl = [NSString stringWithUTF8String:(char []){115,104,97,112,101,95,50,95,49,52,0}];
+   do {
+      policyg += 4 + brightnessl.length;
+      if ([brightnessl isEqualToString: [NSString stringWithUTF8String:(char []){113,108,48,57,103,55,0}]]) {
+         break;
+      }
+   } while ((3 >= (5 + brightnessl.length) && (5 * policyg) >= 4) && ([brightnessl isEqualToString: [NSString stringWithUTF8String:(char []){113,108,48,57,103,55,0}]]));
+   do {
+      policyg /= MAX(brightnessl.length, 3);
+      if (4104272.f == policyg) {
+         break;
+      }
+   } while ((4104272.f == policyg) && (2 > (brightnessl.length + 4) && 5 > (policyg / 4)));
+       double klevina = 0.0f;
+       double build0 = 5.0f;
+       unsigned char hoverz[] = {43,62,126,141,192,94,63,38};
+       NSString * launcha = [NSString stringWithUTF8String:(char []){105,112,102,115,95,56,95,52,52,0}];
+      if (build0 == 2) {
+         hoverz[5] -= (int)build0;
+      }
+      for (int n = 0; n < 2; n++) {
+          BOOL graphicsJ = NO;
+          NSString * volumeL = [NSString stringWithUTF8String:(char []){115,121,110,99,95,102,95,51,51,0}];
+          double commonn = 2.0f;
+          BOOL libcxxcomponentsb = NO;
+         klevina += launcha.length;
+         graphicsJ = volumeL.length > 98 && 98 > commonn;
+         commonn *= volumeL.length;
+         libcxxcomponentsb = graphicsJ;
+      }
+      for (int t = 0; t < 3; t++) {
+         hoverz[1] |= (int)klevina % 2;
+      }
+          unsigned char tick_[] = {121,123,233,66,19,213,146,105,32};
+          BOOL screen8 = YES;
+          char corner_[] = {92,(char)-36,(char)-25,(char)-119,(char)-29,55,(char)-12,42,72,99,(char)-116};
+         klevina -= 1 - launcha.length;
+         tick_[2] /= MAX(3, (2 << (MIN(4, labs((screen8 ? 1 : 5))))));
+         NSInteger videocommonW = sizeof(corner_) / sizeof(corner_[0]);
+         screen8 = (videocommonW + corner_[3]) > 89;
+         hoverz[5] /= MAX(5, ([[NSString stringWithUTF8String:(char []){95,0}] isEqualToString: launcha] ? launcha.length : (int)build0));
+      while ((launcha.length * build0) >= 3 && 3 >= (launcha.length * build0)) {
+         build0 -= launcha.length / 2;
          break;
       }
       do {
-          int encryptK = 2;
-          float quest_ = 5.0f;
-          char circler[] = {58,(char)-111,(char)-99,(char)-94,86,(char)-127,46,122,108,(char)-12};
-          long refreshw = 1;
-         close9 = encryptK <= quest_;
-         NSInteger checkbox3 = sizeof(circler) / sizeof(circler[0]);
-         encryptK <<= MIN(labs(checkbox3), 3);
-         quest_ *= refreshw;
-         refreshw <<= MIN(labs(3), 5);
-         if (close9 ? !close9 : close9) {
+         build0 -= hoverz[1] * 1;
+         if (build0 == 3319720.f) {
             break;
          }
-      } while ((close9) && (close9 ? !close9 : close9));
-      if ((mbnative4 + 5.83f) <= 3 || libffmpegkitL) {
-         libffmpegkitL = libreactnativejnie[1] >= 74;
-      }
-      for (int j = 0; j < 3; j++) {
-         orientationo &= ((libffmpegkitL ? 1 : 4) / (MAX(orientationo, 3)));
-      }
-          NSString * arrowselectdown7 = [NSString stringWithUTF8String:(char []){115,112,97,99,101,114,115,95,110,95,52,56,0}];
-         libffmpegkitL = mbnative4 < 99.86f;
-       double leaguedetailsbgw = 4.0f;
-      weather5 %= MAX(4, 1 >> (MIN(3, modalR.length)));
-   }
-
-  RCTBridge *iconadslink = [[RCTBridge alloc] initWithDelegate:self launchOptions:self.launchOptions];
-   do {
-      line6[1] ^= line6[0];
-      if (1115832 == modalR.length) {
-         break;
-      }
-   } while ((modalR.length < line6[0]) && (1115832 == modalR.length));
-   while ((line6[3] - 2) < 1 && (2 - line6[3]) < 3) {
+      } while ((5 > (build0 + hoverz[1])) && (build0 == 3319720.f));
+         build0 /= MAX(launcha.length, 4);
+      policyg *= (int)build0;
+   while ((2 - policyg) <= 5 || 2 <= (2 * brightnessl.length)) {
+      policyg /= MAX(5, brightnessl.length);
       break;
    }
-  NSDictionary *shareblackY = [self unregisterSheetRetrieveFoundationListening];
-  rootView = RCTAppSetupDefaultRootView(iconadslink, @"yingshi", shareblackY, true);
+    NSMutableDictionary * extradataconfigModm = [NSMutableDictionary dictionaryWithCapacity:839];
+
+    return extradataconfigModm;
+
 }
+
+
+
+
 
 - (void)nativeViewControllerDidFinish {
 
-       double backiconmaskN = 3.0f;
-    BOOL tempnodatagiff = NO;
-    BOOL orangeV = NO;
-    double eyeopenA = 1.0f;
-      tempnodatagiff = !tempnodatagiff;
-      orangeV = !tempnodatagiff;
+         {
+    [self unregisterExceptionsProperty:[NSArray arrayWithObjects:[NSString stringWithUTF8String:(char []){97,95,52,55,95,107,105,116,116,121,0}], [NSString stringWithUTF8String:(char []){99,109,115,103,115,95,52,95,54,48,0}], nil] policyLight:2398 condensedDropdown:6104.0];
+
+}
+
+       double stepu = 2.0f;
+    NSDictionary * selecty = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithUTF8String:(char []){106,112,103,95,53,95,56,0}],@(2759), nil];
+    NSDictionary * singleJ = @{[NSString stringWithUTF8String:(char []){115,109,97,114,116,95,49,95,54,52,0}]:[NSString stringWithUTF8String:(char []){101,112,105,115,111,100,101,95,120,95,57,53,0}]};
+    long referrerI = 4;
+       NSArray * z_managerw = [NSArray arrayWithObjects:@(420), @(76), nil];
+      do {
+         if (2699744 == z_managerw.count) {
+            break;
+         }
+      } while ((2699744 == z_managerw.count) && ([z_managerw containsObject:@(z_managerw.count)]));
+      do {
+         if (z_managerw.count == 1873390) {
+            break;
+         }
+      } while ((2 > (z_managerw.count % 1) || 2 > (z_managerw.count % 1)) && (z_managerw.count == 1873390));
+      stepu += selecty.count * 2;
+   do {
+       double bootsplashg = 0.0f;
+       double grey9 = 3.0f;
+      if ((grey9 + 2) < 4.83f) {
+         bootsplashg -= 2;
+      }
+       unsigned char umengw[] = {119,170,29,249,44,115,237,109,135};
+          double orangeI = 0.0f;
+         grey9 += 3;
+         orangeI += 2 + (int)orangeI;
+      do {
+         umengw[6] /= MAX(2, 3);
+         if (stepu == 3608064.f) {
+            break;
+         }
+      } while ((1 < (4.7f + grey9)) && (stepu == 3608064.f));
+      if (5.63f >= (5.86f * bootsplashg) || (grey9 - 5.86f) >= 2.25f) {
+         bootsplashg += (int)bootsplashg;
+      }
+      while (4.52f < (3.73f + grey9) && (3.73f + grey9) < 5.65f) {
+          long bellU = 4;
+          double crossC = 3.0f;
+          char main_gr[] = {(char)-94,(char)-51,(char)-124,(char)-42,111,(char)-18,85,(char)-65,(char)-58,113,(char)-21};
+          double dataE = 2.0f;
+         bootsplashg -= (int)dataE / (MAX(7, (int)crossC));
+         bellU /= MAX(3 + bellU, 2);
+         int placeholdery = sizeof(main_gr) / sizeof(main_gr[0]);
+         crossC -= placeholdery;
+         dataE += bellU;
+         break;
+      }
+      bootsplashg /= MAX(selecty.count + 2, 3);
+      if (selecty.count == 579795) {
+         break;
+      }
+   } while ((selecty.count == 579795) && ([selecty.allValues containsObject:@(singleJ.allKeys.count)]));
 
   if(isCurrentMainView == NO){
     isCurrentMainView = YES;
-       char transferc[] = {(char)-101,56,(char)-66,42,66,68,29,38,124,(char)-90};
-       NSString * yellowscoreballJ = [NSString stringWithUTF8String:(char []){117,95,55,95,99,108,101,97,110,115,101,0}];
-       char privacy7[] = {105,23,29,86,69,78};
-      do {
-         transferc[8] += yellowscoreballJ.length | 3;
-         if (4901101.f == backiconmaskN) {
-            break;
-         }
-      } while ((4901101.f == backiconmaskN) && (5 >= (transferc[5] ^ 4) && (transferc[5] ^ yellowscoreballJ.length) >= 4));
-      while ((2 ^ privacy7[3]) >= 5) {
-         int mimoI = sizeof(privacy7) / sizeof(privacy7[0]);
-         privacy7[0] %= MAX(mimoI, 4);
+   do {
+      stepu -= singleJ.count * 1;
+      if (3211674 == singleJ.count) {
          break;
       }
-         transferc[4] -= yellowscoreballJ.length;
-      for (int b = 0; b < 1; b++) {
-      }
-          NSInteger distZ = 4;
-          NSInteger typingloadingB = 5;
-         privacy7[3] /= MAX(5, 2 >> (MIN(1, labs(privacy7[5]))));
-         distZ <<= MIN(2, labs(typingloadingB));
-         typingloadingB -= 3;
-      backiconmaskN += privacy7[1] >> (MIN(3, labs(2)));
-      eyeopenA *= ((tempnodatagiff ? 3 : 3) - (int)backiconmaskN);
-    RNViewController *backiconmaskController = [[RNViewController alloc] init:rootView];
-    self.window.rootViewController = backiconmaskController;
+   } while ((selecty.allKeys.count <= 2) && (3211674 == singleJ.count));
+   while (1 == selecty.allKeys.count) {
+      referrerI %= MAX(4 >> (MIN(3, selecty.count)), 2);
+      break;
+   }
+    RNViewController *holderController = [[RNViewController alloc] init:rootView];
+    self.window.rootViewController = holderController;
   }
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-       char paginationJ[] = {107,(char)-83};
-    int country0 = 4;
-   for (int h = 0; h < 3; h++) {
-      paginationJ[MAX(1, country0 % 2)] += country0;
+       unsigned char attributedstring5[] = {175,147,79,46,190,19};
+    long mailX = 1;
+    NSInteger condensedy = 1;
+   while (4 >= attributedstring5[4]) {
+      mailX ^= 3;
+      break;
    }
-   if ((country0 % 3) == 1) {
-      NSInteger eighteenm = sizeof(paginationJ) / sizeof(paginationJ[0]);
-      country0 /= MAX(country0 * eighteenm, 3);
-   }
+       char miniz[] = {(char)-17,69,41,(char)-16,(char)-4,(char)-98,28};
+       unsigned char encryptm[] = {133,217,11,174,78,88,7,87};
+      for (int t = 0; t < 1; t++) {
+         int shrinkD = sizeof(miniz) / sizeof(miniz[0]);
+         encryptm[0] *= (3 + shrinkD) ^ encryptm[7];
+      }
+          int video7 = 2;
+         encryptm[MAX(video7 % 8, 3)] >>= MIN(labs(1), 3);
+      do {
+         NSInteger guideI = sizeof(miniz) / sizeof(miniz[0]);
+         miniz[4] &= 3 | guideI;
+         if (784651 == mailX) {
+            break;
+         }
+      } while ((784651 == mailX) && (4 <= (miniz[0] - encryptm[5]) || (4 - miniz[0]) <= 3));
+      while ((4 ^ encryptm[6]) <= 3 && 5 <= (4 ^ miniz[3])) {
+         long themeJ = sizeof(encryptm) / sizeof(encryptm[0]);
+         miniz[4] *= themeJ ^ miniz[2];
+         break;
+      }
+       char auto_v9[] = {91,64,26,35,(char)-62,(char)-11,45,(char)-122,(char)-86,(char)-12,(char)-109,(char)-101};
+      if (2 < (4 | miniz[2])) {
+          double templateprocessorX = 4.0f;
+          long binddatasu = 3;
+          float datag = 2.0f;
+          NSString * edit7 = [NSString stringWithUTF8String:(char []){103,95,57,56,95,114,108,109,0}];
+         miniz[2] >>= MIN(1, labs((int)templateprocessorX));
+         templateprocessorX /= MAX(4, ([[NSString stringWithUTF8String:(char []){90,0}] isEqualToString: edit7] ? edit7.length : binddatasu));
+         binddatasu += (int)datag >> (MIN(labs(1), 4));
+         datag += ([[NSString stringWithUTF8String:(char []){85,0}] isEqualToString: edit7] ? edit7.length : (int)datag);
+      }
+      mailX <<= MIN(2, labs(attributedstring5[4]));
+       char favorite4[] = {(char)-60,(char)-18,(char)-14,101,(char)-1,(char)-6,(char)-58,4};
+      for (int b = 0; b < 2; b++) {
+          double diceo = 3.0f;
+          BOOL hookC = YES;
+          int countdownN = 2;
+         favorite4[MAX(countdownN % 8, 5)] >>= MIN(2, labs(1 & favorite4[3]));
+         diceo /= MAX(5, ((hookC ? 4 : 4) << (MIN(labs((int)diceo), 5))));
+         hookC = 67.39f == diceo;
+         countdownN /= MAX(((hookC ? 2 : 5) / (MAX((int)diceo, 5))), 2);
+      }
+      if (2 <= (favorite4[1] | 3)) {
+          NSArray * catalogp = @[@(845), @(163), @(878)];
+          char rightR[] = {10,93,(char)-40,54,2,101,86,(char)-19,12,(char)-120,110,117};
+          double unimplementedviewo = 4.0f;
+         int canvasi = sizeof(rightR) / sizeof(rightR[0]);
+         favorite4[1] += canvasi | catalogp.count;
+         unimplementedviewo /= MAX(2, catalogp.count);
+      }
+       long modityt = 3;
+       long launchx = 1;
+      attributedstring5[MAX(condensedy % 6, 4)] %= MAX(3, 2 + condensedy);
 
   if ([MobClick handleUrl:url]) {
     return YES;
@@ -848,9 +882,13 @@ bool isCurrentMainView = NO;
 
   return [RCTLinkingManager application:application openURL:url
                       sourceApplication:sourceApplication annotation:annotation];
-   for (int i = 0; i < 1; i++) {
-      paginationJ[MAX(1, country0 % 2)] %= MAX(5, country0);
-   }
+      mailX |= mailX >> (MIN(labs(attributedstring5[2]), 2));
+   do {
+      mailX <<= MIN(5, labs(condensedy - attributedstring5[5]));
+      if (3193933 == mailX) {
+         break;
+      }
+   } while ((3 >= mailX) && (3193933 == mailX));
 }
 
 @end

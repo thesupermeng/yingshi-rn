@@ -2,23 +2,23 @@ import { Text, View, Image, ScrollView, SafeAreaView } from 'react-native';
 import PlayerStatistic from './playerStatistic';
 import TopPlayerStatistic from './topPlayerStatistic';
 import TeamStatistic from './teamStatistic';
-import styles from './yys_nbatrophy';
+import styles from './yys_gpay_roboto';
 import InjuryList from '../../../../components/injuryList';
-import { yysDicelogoFootballfield } from '../../../../types/yys_iconnointernet_guide';
-import { yysTeam } from '../../../../types/yys_arrow_modules';
+import { yys_PlusFilter } from '../../../../types/yys_live_libyoga';
+import { yys_YellowHover } from '../../../../types/yys_white_tick';
 import React from 'react';
-import EmptyDataPage from '../../../yys_iconnewsshare';
+import EmptyDataPage from '../../../yys_user_image';
 import { useIsFocused } from '@react-navigation/native';
 
-interface yysIconarrowrightorangeStation {
-  liveRoomMatchDetails?: yysDicelogoFootballfield,
-  liveRoomUpdate?: yysTeam
+interface yys_ConfigureUimanager {
+  liveRoomMatchDetails?: yys_PlusFilter,
+  liveRoomUpdate?: yys_YellowHover
 }
 
 const BasketballStatisticPage = ({
   liveRoomUpdate,
   liveRoomMatchDetails,
-}: yysIconarrowrightorangeStation) => {
+}: yys_ConfigureUimanager) => {
   const isFocus = useIsFocused();
   
   return (

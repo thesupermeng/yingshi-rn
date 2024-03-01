@@ -1,1 +1,1 @@
-export * from './yys_thumbnail_share';
+export * from './yys_brightness_country';

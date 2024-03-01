@@ -15,7 +15,7 @@ import {
   ShootYesGoal,
   ShootNoGoal,
 } from '../../assets';
-import styles from './yys_nbatrophy';
+import styles from './yys_gpay_roboto';
 
 const FootballIconComponent = ({showLessIcon = false}) => {
   return (

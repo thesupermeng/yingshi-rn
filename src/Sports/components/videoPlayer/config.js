@@ -1,4 +1,4 @@
-import {VideoLiveType} from '../../global/yys_profileinactive_alert';
+import {VideoLiveType} from '../../global/yys_dice_kuaishou';
 
 export const AnimationDuration = 300;
 export const AnimationHeight = 400;

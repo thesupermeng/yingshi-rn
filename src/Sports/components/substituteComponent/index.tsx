@@ -1,20 +1,20 @@
 import { TabActions } from '@react-navigation/native';
 import { View, Image, Text, ImageBackground } from 'react-native';
 import { HomeIcon, AwayIcon } from '../../assets';
-import styles from './yys_nbatrophy';
+import styles from './yys_gpay_roboto';
 import SubPlayerComponent from './subPlayerComponent';
-import { yysTyping, yysCcdfbdabcabbbedb, yys_calendar, yysGestures, yysUpdatesBackwhite } from '../../types/yys_iconnointernet_guide';
+import { yys_SecurityConstants, yys_MergerReferrer, yys_dycreator, yys_Logout, yys_Runtime } from '../../types/yys_live_libyoga';
 
-interface yysIconarrowrightorangeStation {
+interface yys_ConfigureUimanager {
   showTeamIcon?: boolean,
   isInjuryList?: boolean,
-  homeTeam?: yys_calendar,
-  awayTeam?: yysTyping,
+  homeTeam?: yys_dycreator,
+  awayTeam?: yys_SecurityConstants,
   homePlayerList?: Array<any>
   awayPlayerList?: Array<any>
 }
 
-const SubsComponent = ({ showTeamIcon = true, isInjuryList = false, homeTeam, awayTeam, homePlayerList = [], awayPlayerList = [] }: yysIconarrowrightorangeStation) => {
+const SubsComponent = ({ showTeamIcon = true, isInjuryList = false, homeTeam, awayTeam, homePlayerList = [], awayPlayerList = [] }: yys_ConfigureUimanager) => {
   return (
     <View style={{backgroundColor: '#14161A'}}>
       <View style={styles.titleView}>
@@ -65,7 +65,7 @@ const SubsComponent = ({ showTeamIcon = true, isInjuryList = false, homeTeam, aw
           {
             homePlayerList?.length > 0 && homePlayerList.map((item, index) => {
               return (
-                <SubPlayerComponent key={"subtextTrash" + index} isInjury={isInjuryList} data={item} isHome={true}></SubPlayerComponent>
+                <SubPlayerComponent key={"xvodPlayerPoint" + index} isInjury={isInjuryList} data={item} isHome={true}></SubPlayerComponent>
               )
             })
           }
@@ -74,7 +74,7 @@ const SubsComponent = ({ showTeamIcon = true, isInjuryList = false, homeTeam, aw
           {
             awayPlayerList?.length > 0 && awayPlayerList.map((item, index) => {
               return (
-                <SubPlayerComponent key={"mbbannerShrinkLibavdevice" + index} isInjury={isInjuryList} data={item} isHome={false}></SubPlayerComponent>
+                <SubPlayerComponent key={"pageTransferBrightness" + index} isInjury={isInjuryList} data={item} isHome={false}></SubPlayerComponent>
               )
             })
           }

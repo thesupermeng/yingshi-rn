@@ -1,7 +1,7 @@
 import vars from './vars';
-import yysDisconnectedlogoSwitch from '../middleware/api';
-import { Url } from '../middleware/url';
-import { Alert, Linking, Platform } from 'react-native';
+import yys_Matches from '../middleware/api';
+import {Url} from '../middleware/url';
+import {Alert, Linking, Platform} from 'react-native';
 import ReactNativeBlobUtil from 'react-native-blob-util';
 import {
   PERMISSIONS,
@@ -10,12 +10,12 @@ import {
   openSettings,
 } from 'react-native-permissions';
 import RNFS from 'react-native-fs';
-import AppSettingsAction from '@redux';
+import AppSettingsAction from '@redux/actions/appSettingsAction';
 import Config from '../global/env';
-import { yysDefaultlogoBackward } from '../global/appConfig';
-import { getPredictionShareTimeStamp } from '../global/asyncStorage';
-import { createIconSetFromFontello } from 'react-native-vector-icons';
-import { showToast } from './toast';
+import {yys_Build} from '../global/appConfig';
+import {getPredictionShareTimeStamp} from '../global/asyncStorage';
+import {createIconSetFromFontello} from 'react-native-vector-icons';
+import {showToast} from './toast';
 
 /**
  ** Format and return date in Humanize format
@@ -26,7 +26,7 @@ import { showToast } from './toast';
  */
 export const formatDate = (
   value,
-  formatting = { hour: 'numeric', minute: 'numeric', hour12: false },
+  formatting = {hour: 'numeric', minute: 'numeric', hour12: false},
 ) => {
   if (!value) return value;
   return new Intl.DateTimeFormat('zh', formatting).format(new Date(value));
@@ -339,8 +339,8 @@ export const deepCopyArray = array => {
 };
 
 export const liveRoomName = async matchId => {
-  const params = { id: matchId };
-  const res = await yysDisconnectedlogoSwitch.call(Url.liveRoomDetail, params, 'GET');
+  const params = {id: matchId};
+  const res = await yys_Matches.call(Url.liveRoomDetail, params, 'GET');
   if (res.success) {
     if (res.data.id === 0) {
       return 'noMatchDetails';
@@ -465,7 +465,7 @@ export const adsClick = (apkUrl, landingUrl, adsId) => {
             },
           })
             .fetch('GET', apkUrl)
-            .progress((received, total) => { })
+            .progress((received, total) => {})
             .then(res => {
               AppSettingsAction.instance.sendAdsClick(adsId);
               android.actionViewIntent(
@@ -524,7 +524,7 @@ export const linkClick = link => {
 };
 
 export const createShareLink = async (path, id) => {
-  const params = { path: path, params: { channel_id: Config.channelId } };
+  const params = {path: path, params: {channel_id: Config.channelId}};
   switch (path) {
     case 'news':
       params.params.news_id = id;
@@ -538,10 +538,10 @@ export const createShareLink = async (path, id) => {
     default:
       break;
   }
-  const response = await yysDisconnectedlogoSwitch.call(Url.createShare, params);
+  const response = await yys_Matches.call(Url.createShare, params);
   if (response.success) {
     const key = response.data;
-    const shareLink = `${yysDefaultlogoBackward.instance.config?.shortUrlDomain}/${key}`;
+    const shareLink = `${yys_Build.instance.config?.shortUrlDomain}/${key}`;
     return shareLink;
   } else {
     return '';
@@ -565,10 +565,10 @@ export const mergeDeep = (target, ...sources) => {
   if (isObject(target) && isObject(source)) {
     for (const key in source) {
       if (isObject(source[key])) {
-        if (!target[key]) Object.assign(target, { [key]: {} });
+        if (!target[key]) Object.assign(target, {[key]: {}});
         mergeDeep(target[key], source[key]);
       } else {
-        Object.assign(target, { [key]: source[key] });
+        Object.assign(target, {[key]: source[key]});
       }
     }
   }
@@ -616,7 +616,7 @@ export const convertSeasonList = list => {
         }
         return item;
       });
-      return { id: e?.id, year: formatList.join('-') };
+      return {id: e?.id, year: formatList.join('-')};
     }
     return e;
   });
@@ -634,6 +634,7 @@ export const getRandomColor = () => {
 export const getRandomDeepColor = () => {
   const min = 20;
   const balance = 170;
-  return `rgb(${Math.floor(Math.random() * balance) + min},${Math.floor(Math.random() * balance) + min
-    },${Math.floor(Math.random() * balance) + min})`;
+  return `rgb(${Math.floor(Math.random() * balance) + min},${
+    Math.floor(Math.random() * balance) + min
+  },${Math.floor(Math.random() * balance) + min})`;
 };

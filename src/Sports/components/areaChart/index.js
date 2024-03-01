@@ -1,7 +1,7 @@
 import React, {memo, useEffect, useState} from 'react';
 import {Image, Text, View} from 'react-native';
 import DefaultTeamIcon from '../defaultTeamIcon';
-import styles from './yys_nbatrophy';
+import styles from './yys_gpay_roboto';
 import {
   CornerKick,
   Goal,
@@ -10,8 +10,8 @@ import {
   YellowCard,
   YellowToRedCard,
 } from '../../assets';
-import {Colors} from '../../global/yys_penaltymatchicon_iconarrowrightorange';
-import {CanvasIncident} from './yys_largebrightness';
+import {Colors} from '../../global/yys_videocommon';
+import {CanvasIncident} from './yys_button_agreement';
 
 const chartHeight = 40;
 const iconHeight = 24;
@@ -26,568 +26,524 @@ const EventIcon = {
 };
 
 const AreaChart = props => {
-       let iconrightorangeh = 0.0;
-    let iconwatchJ = new Map([[String.fromCharCode(122,105,112,95,119,95,57,50,0),String.fromCharCode(115,101,101,100,95,122,95,55,0)], [String.fromCharCode(115,105,110,102,95,103,95,55,56,0),String.fromCharCode(120,95,51,55,95,113,112,105,115,0)]]);
-    let thailandy = String.fromCharCode(99,111,109,112,108,101,109,101,110,116,105,110,103,95,53,95,51,52,0);
-    let incidentE = String.fromCharCode(102,95,56,56,95,102,111,114,109,0);
-    let configY = 0.0;
-    let gestureh = 4.0;
-    let whitesmalltickT = 3.0;
-    let iconarrowleftk = false;
-    let telegramM = String.fromCharCode(108,95,54,57,95,98,121,116,101,115,104,117,109,97,110,0);
-    let cornershootQ = 5;
-    let connectionG = 3;
-    let league6 = [653, 732];
-    let shootk = true;
-    let sound6 = [73, 99, 758];
-      iconrightorangeh *= (parseFloat(`${(iconarrowleftk ? 2 : 1) % (Math.max(parseInt(`${gestureh}`), 6))}`));
+       let scrollviewn = [432, 293];
+    let upgradek = 2.0;
+    let events = String.fromCharCode(99,104,112,108,95,52,95,54,55,0);
+    let headerk = String.fromCharCode(116,95,49,53,95,103,102,109,117,108,0);
+    let scheduler1 = new Map([[String.fromCharCode(98,117,116,116,101,114,102,108,121,95,108,95,52,48,0),541], [String.fromCharCode(99,111,110,102,111,114,109,115,95,49,95,55,0),58], [String.fromCharCode(97,118,101,114,97,103,101,115,95,100,95,48,0),420]]);
+    let textinputU = false;
+    let screeno = 3.0;
+    let moreT = 3;
+    let plusN = true;
+   while (!headerk.includes(`${scheduler1.size}`)) {
+       let leakcheckerN = 5.0;
+       let imagemanagerO = 0;
+       let renewl = String.fromCharCode(108,95,54,51,95,108,105,99,101,110,115,101,0);
+       let chato = 5.0;
+       let qaagr = 5.0;
+       let greeno = new Map([[String.fromCharCode(117,110,99,111,114,114,95,122,95,50,55,0),281], [String.fromCharCode(107,95,51,49,95,115,117,98,112,97,114,116,105,116,105,111,110,0),592]]);
+         greeno = new Map([[`${imagemanagerO}`, 2]]);
+       let borderlessw = 3.0;
+       let mappingA = 3.0;
+      while (greeno[`${borderlessw}`] == null) {
+         borderlessw /= Math.max(3, parseFloat(`${parseInt(`${mappingA}`)}`));
+         break;
+      }
+      for (let t = 0; t < 3; t++) {
+         mappingA += parseFloat(`${renewl.length - 3}`);
+      }
+       let videocommon4 = [797, 826];
+       let playlistx = [418, 577];
+         playlistx.push(2);
+         chato /= Math.max(greeno.size / 3, 2);
+          let saveL = 1;
+         imagemanagerO <<= Math.min(Math.abs(1 << (Math.min(5, renewl.length))), 2);
+         saveL |= 1 ^ saveL;
+         playlistx = [imagemanagerO / 1];
+       let bannerf = false;
+         greeno = new Map([[`${playlistx.length}`, parseInt(`${mappingA}`)]]);
+          let hookj = 2.0;
+          let holder8 = String.fromCharCode(106,95,49,51,95,115,99,97,110,110,101,100,0);
+          let mbnativeadvancedK = String.fromCharCode(119,95,57,55,95,104,118,99,99,0);
+         greeno[renewl] = parseInt(`${leakcheckerN}`);
+         hookj *= parseFloat(`${3 & holder8.length}`);
+         holder8 = `${mbnativeadvancedK.length << (Math.min(4, Math.abs(parseInt(`${hookj}`))))}`;
+         mbnativeadvancedK = `${(mbnativeadvancedK == String.fromCharCode(56,0) ? parseInt(`${hookj}`) : mbnativeadvancedK.length)}`;
+      while ((mappingA / 2.42) >= 1.13 && 5.89 >= (qaagr + 2.42)) {
+          let corex = [455, 443];
+          let expiredD = String.fromCharCode(115,111,105,115,99,111,110,110,101,99,116,105,110,103,95,100,95,54,49,0);
+          let xadsdki = 0.0;
+          let viewerC = 0.0;
+          let statisticsp = 2.0;
+         mappingA -= parseFloat(`${1}`);
+         corex = [parseInt(`${xadsdki}`) * 3];
+         expiredD += `${3 >> (Math.min(Math.abs(parseInt(`${xadsdki}`)), 3))}`;
+         viewerC /= Math.max(parseFloat(`${corex.length}`), 1);
+         statisticsp -= parseFloat(`${expiredD.length ^ 2}`);
+         break;
+      }
+      if (2 < (playlistx.length >> (Math.min(5, videocommon4.length))) || 3 < (2 >> (Math.min(1, videocommon4.length)))) {
+         videocommon4.push(parseInt(`${borderlessw}`) - 1);
+      }
+      headerk += `${parseInt(`${qaagr}`)}`;
+      break;
+   }
 
   const {liveRoomUpdate, chartCallback} = props;
-   for (let w = 0; w < 2; w++) {
-      whitesmalltickT += parseFloat(`${telegramM.length / 3}`);
-   }
+      textinputU = (((textinputU ? 32 : events.length) % (Math.max(1, events.length))) > 32);
 
   const [rightContentWidth, setRightContentWidth] = useState(0);
-      league6 = [parseInt(`${gestureh}`)];
+      upgradek /= Math.max(3, (parseFloat(`${(textinputU ? 5 : 3) | parseInt(`${upgradek}`)}`)));
 
   
 
    do {
-       let backiconmaskP = String.fromCharCode(98,97,99,107,115,105,100,101,95,108,95,57,54,0);
-       let matchactiveT = new Map([[String.fromCharCode(98,114,105,100,103,101,95,113,95,53,51,0),237], [String.fromCharCode(108,95,54,95,105,110,110,101,114,0),707], [String.fromCharCode(115,95,56,54,95,99,116,120,116,0),44]]);
-       let statisticsz = 4;
-       let moreO = String.fromCharCode(97,117,116,104,111,114,105,122,101,100,95,56,95,50,56,0);
-      while (moreO == backiconmaskP) {
-          let sportw = 0.0;
-          let humidityU = 4;
-         backiconmaskP = `${backiconmaskP.length}`;
-         sportw *= humidityU >> (Math.min(5, Math.abs(1)));
-         humidityU -= 3 >> (Math.min(Math.abs(humidityU), 3));
+      scheduler1 = new Map([[`${scheduler1.size}`, events.length ^ scheduler1.size]]);
+      if (scheduler1.size == 1089015) {
          break;
       }
-          let shirtm = String.fromCharCode(97,95,53,48,95,114,116,109,100,0);
-         statisticsz ^= statisticsz >> (Math.min(moreO.length, 5));
-         shirtm = "2";
-         backiconmaskP = "1";
-         moreO += `${(String.fromCharCode(77,0) == backiconmaskP ? matchactiveT.size : backiconmaskP.length)}`;
-       let iconstarE = [708, 102];
-      while ((2 | iconstarE.length) < 2 && (2 | iconstarE.length) < 2) {
-         backiconmaskP += `${3 << (Math.min(4, moreO.length))}`;
-         break;
-      }
-         moreO = `${matchactiveT.size}`;
-          let sinao = new Map([[String.fromCharCode(116,95,50,51,95,115,101,116,99,98,0),588], [String.fromCharCode(118,95,49,95,119,105,107,105,0),319]]);
-          let defaultroombgR = String.fromCharCode(99,104,97,114,115,95,109,95,52,50,0);
-         matchactiveT[`${iconstarE.length}`] = 3 << (Math.min(1, iconstarE.length));
-         sinao[`${defaultroombgR}`] = defaultroombgR.length * 2;
-      for (let i = 0; i < 3; i++) {
-         backiconmaskP += `${moreO.length}`;
-      }
-          let private_7pt = 3.0;
-          let results = String.fromCharCode(105,115,97,108,110,117,109,95,102,95,55,52,0);
-          let guidew = 0.0;
-         backiconmaskP = `${parseInt(`${guidew}`) - 1}`;
-         private_7pt += parseFloat(`${2 * results.length}`);
-         results = "2";
-         guidew += parseFloat(`${parseInt(`${private_7pt}`)}`);
-          let iconnointernetS = String.fromCharCode(105,95,49,48,48,95,114,97,115,116,101,114,105,122,101,115,0);
-          let basketballhometeam6 = 0;
-         moreO += `${iconnointernetS.length}`;
-         iconnointernetS += `${basketballhometeam6}`;
-      if (3 >= (iconstarE.length - 5)) {
-         moreO = `${2 * statisticsz}`;
-      }
-      iconrightorangeh *= (parseFloat(`${(iconarrowleftk ? 1 : 2) * parseInt(`${configY}`)}`));
-      if (iconrightorangeh == 2723246.0) {
-         break;
-      }
-   } while ((4.62 <= (iconrightorangeh / (Math.max(3, whitesmalltickT))) || 1.68 <= (iconrightorangeh / 4.62)) && (iconrightorangeh == 2723246.0));
+   } while ((scheduler1.size < 4 || (4 & scheduler1.size) < 3) && (scheduler1.size == 1089015));
   
 
-   if (1 > (3 ^ cornershootQ) || 3 > (iconwatchJ.size ^ cornershootQ)) {
-      cornershootQ >>= Math.min(Math.abs(1 << (Math.min(1, Math.abs(parseInt(`${gestureh}`))))), 1);
+   for (let f = 0; f < 1; f++) {
+       let streamingF = 4.0;
+       let qinit_0os = String.fromCharCode(102,95,56,49,95,105,102,105,108,116,101,114,0);
+       let nativemodulec = 1.0;
+      while (qinit_0os.length >= 5) {
+         qinit_0os += `${parseInt(`${streamingF}`) / (Math.max(10, parseInt(`${nativemodulec}`)))}`;
+         break;
+      }
+      for (let l = 0; l < 2; l++) {
+         nativemodulec *= 2;
+      }
+      for (let q = 0; q < 2; q++) {
+          let unselected7 = [774, 420];
+          let libcrashsdkT = String.fromCharCode(118,95,54,52,95,98,117,103,115,0);
+          let condensedO = 5;
+          let reminder9 = String.fromCharCode(112,114,111,116,101,99,116,105,111,110,95,56,95,54,48,0);
+          let anytimen = [433, 160];
+         streamingF -= parseFloat(`${anytimen.length * 3}`);
+         unselected7 = [(reminder9 == String.fromCharCode(84,0) ? reminder9.length : unselected7.length)];
+         libcrashsdkT += `${reminder9.length}`;
+         condensedO >>= Math.min(Math.abs(condensedO), 4);
+         anytimen.push((String.fromCharCode(48,0) == libcrashsdkT ? libcrashsdkT.length : reminder9.length));
+      }
+      if (1 <= (2 % (Math.max(1, qinit_0os.length)))) {
+         nativemodulec -= qinit_0os.length;
+      }
+          let modityn = 0;
+          let middlez = String.fromCharCode(116,119,111,119,97,121,95,110,95,52,49,0);
+         streamingF *= parseFloat(`${parseInt(`${streamingF}`) ^ modityn}`);
+         modityn += middlez.length | middlez.length;
+      for (let t = 0; t < 2; t++) {
+         qinit_0os = `${parseInt(`${nativemodulec}`)}`;
+      }
+         qinit_0os += `${qinit_0os.length}`;
+         qinit_0os += `${2 & parseInt(`${nativemodulec}`)}`;
+          let questy = String.fromCharCode(103,95,49,54,95,121,117,118,112,116,111,117,121,118,121,0);
+          let bottome = [762, 962, 777];
+          let dnewarchdefaults_ = String.fromCharCode(114,95,53,57,95,99,111,111,114,100,105,110,97,116,111,114,0);
+         nativemodulec *= 2 ^ dnewarchdefaults_.length;
+         questy += `${questy.length}`;
+         bottome.push(2);
+         dnewarchdefaults_ = `${(String.fromCharCode(102,0) == questy ? bottome.length : questy.length)}`;
+      scheduler1 = new Map([[`${streamingF}`, 1]]);
    }
   
 
-      telegramM = "2";
+      scheduler1[`${moreT}`] = scrollviewn.length + 3;
   
 
-   while (gestureh < 4.12) {
-      gestureh -= 3 - parseInt(`${configY}`);
-      break;
+      scheduler1[`${scrollviewn.length}`] = scheduler1.size;
+  
+
+   if (!events.includes(headerk)) {
+      headerk = "2";
    }
   
 
-      iconarrowleftk = whitesmalltickT > 11.37;
+   for (let y = 0; y < 1; y++) {
+      textinputU = (upgradek - parseFloat(`${scheduler1.size}`)) >= 40.53;
+   }
   
 
-   do {
-      connectionG /= Math.max(1, iconwatchJ.size);
-      if (1451059 == connectionG) {
-         break;
+   if (5 <= (5 & scheduler1.size)) {
+       let eactc = String.fromCharCode(116,119,111,109,95,104,95,53,52,0);
+       let agreementz = String.fromCharCode(102,95,50,54,95,111,102,102,101,114,101,100,0);
+       let neonu = String.fromCharCode(102,95,56,51,95,101,99,100,115,97,0);
+       let tempP = 2;
+         agreementz = `${eactc.length >> (Math.min(Math.abs(2), 3))}`;
+         neonu = `${tempP % (Math.max(neonu.length, 6))}`;
+      if (2 == neonu.length) {
+          let benefitP = false;
+          let libffmpegkitz = String.fromCharCode(101,116,97,95,116,95,49,48,48,0);
+          let libimagepipeliney = 0.0;
+          let libsentryP = 1.0;
+         agreementz = `${parseInt(`${libsentryP}`)}`;
+         benefitP = (parseInt(`${libimagepipeliney}`) - libffmpegkitz.length) < 92;
+         libffmpegkitz = `${libffmpegkitz.length}`;
+         libimagepipeliney /= Math.max(2, (libffmpegkitz.length / (Math.max(1, (benefitP ? 5 : 2)))));
+         libsentryP += parseFloat(`${parseInt(`${libimagepipeliney}`)}`);
       }
-   } while ((!iconarrowleftk) && (1451059 == connectionG));
-  
-
-      cornershootQ /= Math.max(league6.length, 5);
-  
-
-       let sportsi = String.fromCharCode(116,101,115,115,95,117,95,57,57,0);
-       let libavfilterv = String.fromCharCode(106,95,52,57,95,116,114,97,99,107,0);
-       let actionN = [713, 830];
-      for (let y = 0; y < 3; y++) {
-          let arrowrighth = 0.0;
-          let listh = String.fromCharCode(98,108,105,116,95,103,95,55,49,0);
-          let sharewhiteK = false;
-          let valuesZ = String.fromCharCode(115,97,109,112,108,101,114,97,116,101,115,95,108,95,51,52,0);
-          let animationg = [167, 411, 639];
-         actionN = [sportsi.length];
-         arrowrighth += parseInt(`${arrowrighth}`);
-         listh = `${2 | listh.length}`;
-         sharewhiteK = (((!sharewhiteK ? valuesZ.length : 10) / (Math.max(valuesZ.length, 10))) < 10);
-         animationg.push(animationg.length);
+         eactc += `${eactc.length}`;
+       let subsM = 0.0;
+      for (let o = 0; o < 2; o++) {
+         tempP /= Math.max(4, 3);
       }
-      for (let g = 0; g < 2; g++) {
-         libavfilterv += `${libavfilterv.length - sportsi.length}`;
-      }
-         sportsi += `${libavfilterv.length}`;
-      for (let i = 0; i < 3; i++) {
-         actionN = [sportsi.length];
-      }
-         sportsi += `${actionN.length | libavfilterv.length}`;
-         libavfilterv += `${libavfilterv.length}`;
-       let greytick6 = String.fromCharCode(118,112,97,116,104,109,101,115,117,114,101,95,57,95,51,53,0);
-       let searchT = String.fromCharCode(102,105,110,101,95,106,95,53,56,0);
+         agreementz = `${agreementz.length | 1}`;
+         tempP %= Math.max(2, tempP);
+          let redirectP = String.fromCharCode(122,95,56,57,95,99,111,109,112,97,114,101,112,111,119,0);
+         subsM *= parseFloat(`${neonu.length % (Math.max(2, parseInt(`${subsM}`)))}`);
+         redirectP = `${(String.fromCharCode(57,0) == redirectP ? redirectP.length : redirectP.length)}`;
       do {
-         sportsi += `${searchT.length}`;
-         if (String.fromCharCode(119,121,100,0) == sportsi) {
+          let enewinterstitialQ = [449, 759];
+          let large2 = 1.0;
+          let gradlewl = new Map([[String.fromCharCode(119,95,50,56,95,101,120,112,105,114,101,115,0),false ], [String.fromCharCode(119,95,51,52,95,97,108,108,0),false ]]);
+          let memberS = new Map([[String.fromCharCode(115,108,111,119,100,111,119,110,95,108,95,55,54,0),String.fromCharCode(110,97,109,101,115,112,97,99,101,115,95,121,95,56,54,0)], [String.fromCharCode(101,95,52,50,95,98,108,101,110,100,0),String.fromCharCode(104,112,114,101,100,95,102,95,54,48,0)], [String.fromCharCode(112,95,51,95,100,105,97,108,111,103,0),String.fromCharCode(116,95,53,50,95,111,98,115,101,114,118,97,116,105,111,110,0)]]);
+         subsM *= parseFloat(`${tempP / 2}`);
+         enewinterstitialQ = [gradlewl.size];
+         large2 -= 1 - parseInt(`${large2}`);
+         gradlewl[`${large2}`] = parseInt(`${large2}`);
+         memberS[`${enewinterstitialQ.length}`] = enewinterstitialQ.length * 3;
+         if (subsM == 2322316.0) {
             break;
          }
-      } while ((1 > greytick6.length) && (String.fromCharCode(119,121,100,0) == sportsi));
-      if (!sportsi.startsWith(libavfilterv)) {
-         libavfilterv += `${searchT.length}`;
+      } while (((2.45 / (Math.max(5, subsM))) > 5.24) && (subsM == 2322316.0));
+      if (!agreementz.includes(`${subsM}`)) {
+         agreementz += `${parseInt(`${subsM}`)}`;
       }
-      league6 = [1 | parseInt(`${configY}`)];
+       let nalyticsh = new Map([[String.fromCharCode(109,95,49,56,95,97,100,116,115,0),446], [String.fromCharCode(105,95,55,50,95,98,97,99,107,100,114,111,112,0),672]]);
+      scheduler1[neonu] = neonu.length << (Math.min(Math.abs(2), 1));
+   }
   
 
-      telegramM = `${(telegramM == String.fromCharCode(69,0) ? telegramM.length : (iconarrowleftk ? 4 : 2))}`;
+      events = `${3 * moreT}`;
   
 
-   for (let k = 0; k < 2; k++) {
-      thailandy = "1";
+   for (let c = 0; c < 2; c++) {
+      events = `${events.length}`;
+   }
+  
+
+   for (let w = 0; w < 3; w++) {
+      screeno *= events.length;
    }
   const home = liveRoomUpdate?.home;
-   while (2.95 >= iconrightorangeh) {
-       let dialog9 = String.fromCharCode(98,95,52,51,95,112,97,103,105,110,103,0);
-       let libfollyv = 2.0;
-       let favoriten = String.fromCharCode(111,95,49,50,95,101,120,99,101,112,116,105,111,110,115,0);
-       let goallogo8 = String.fromCharCode(118,105,115,105,98,105,108,105,116,105,101,115,95,111,95,54,48,0);
-      while (goallogo8.length >= dialog9.length) {
-         goallogo8 = `${goallogo8.length % 1}`;
-         break;
-      }
-          let iconmegaphoneB = String.fromCharCode(100,111,109,101,115,116,105,99,95,115,95,53,53,0);
-         favoriten = `${goallogo8.length}`;
-         iconmegaphoneB += "3";
-         dialog9 = `${3 + goallogo8.length}`;
-       let dangerr = String.fromCharCode(114,101,103,101,116,95,121,95,57,50,0);
-      if (favoriten.length == goallogo8.length) {
-          let backI = false;
-         goallogo8 = `${dialog9.length}`;
-         backI = backI || !backI;
-      }
-      for (let h = 0; h < 1; h++) {
-         goallogo8 = `${dangerr.length}`;
-      }
-         libfollyv /= Math.max(4, parseFloat(`${parseInt(`${libfollyv}`)}`));
-         favoriten = `${2 ^ dialog9.length}`;
-       let vnewsq = String.fromCharCode(99,111,112,121,100,97,116,97,95,108,95,56,50,0);
-       let analyticv = 2.0;
-       let completer = 4.0;
-          let shootC = 2;
-          let typesy = String.fromCharCode(97,95,54,50,95,115,102,114,97,109,101,0);
-         completer -= parseFloat(`${vnewsq.length >> (Math.min(5, Math.abs(parseInt(`${analyticv}`))))}`);
-         shootC |= (String.fromCharCode(111,0) == typesy ? shootC : typesy.length);
-         dangerr += "3";
-      iconrightorangeh += parseFloat(`${cornershootQ / 3}`);
-      break;
-   }
+      events = `${((textinputU ? 3 : 1))}`;
 
   const away = liveRoomUpdate?.away;
-   if (4 > (league6.length - 5) || 5.43 > (iconrightorangeh + 4.79)) {
-      iconrightorangeh *= parseFloat(`${parseInt(`${iconrightorangeh}`) / (Math.max(3, 2))}`);
-   }
+      screeno /= Math.max(5, 1 - scheduler1.size);
 
   const chartIncident = Array.prototype.filter
     .call(liveRoomUpdate?.football_match_live?.tlive || [], x => x.main === 1)
     .sort((a, b) => {
       if (a.time === b.time) {
 
-       let crownX = [String.fromCharCode(108,95,51,55,95,103,114,111,119,116,104,0), String.fromCharCode(109,95,57,51,95,119,111,114,107,101,114,0), String.fromCharCode(105,95,57,50,95,100,105,114,97,99,100,115,112,0)];
-       let homeinactive8 = false;
-       let expandW = true;
-         homeinactive8 = crownX.length < 74;
-      for (let p = 0; p < 1; p++) {
-         homeinactive8 = expandW;
-      }
-      league6 = [parseInt(`${whitesmalltickT}`) % (Math.max(8, thailandy.length))];
+      events += `${parseInt(`${screeno}`) + scrollviewn.length}`;
         return 0;
       } else if (a.time > b.time) {
 
-      iconrightorangeh /= Math.max(parseFloat(`${telegramM.length / (Math.max(1, 10))}`), 2);
+       let thumbnailA = String.fromCharCode(107,95,56,53,95,115,116,105,114,110,103,0);
+      while (5 >= thumbnailA.length && thumbnailA.length >= 5) {
+         thumbnailA += "2";
+         break;
+      }
+         thumbnailA = `${thumbnailA.length | thumbnailA.length}`;
+      while (thumbnailA.includes(`${thumbnailA.length}`)) {
+         thumbnailA = `${(thumbnailA == String.fromCharCode(106,0) ? thumbnailA.length : thumbnailA.length)}`;
+         break;
+      }
+      textinputU = parseFloat(`${moreT}`) == upgradek;
         return 1;
       } else {
 
-      cornershootQ ^= 3 | connectionG;
+   for (let j = 0; j < 2; j++) {
+      upgradek /= Math.max(parseFloat(`${headerk.length}`), 2);
+   }
         return -1;
-      gestureh /= Math.max(4, cornershootQ * parseInt(`${gestureh}`));
+   while (Array.from(scheduler1.keys()).includes(`${screeno}`)) {
+       let mintegraln = 4.0;
+       let b_locks = 1;
+       let screent = new Map([[String.fromCharCode(102,95,55,48,95,114,101,112,111,114,116,0),799], [String.fromCharCode(109,95,54,57,95,112,114,101,101,110,99,111,100,101,0),149]]);
+       let basketballL = 1.0;
+       let libavcodecI = 3;
+       let hooksa = true;
+          let regengc = false;
+          let scrollvieww = true;
+          let textq = [842, 800];
+         libavcodecI -= b_locks;
+         regengc = textq.length <= 53;
+         scrollvieww = !scrollvieww || regengc;
+         textq.push(textq.length);
+      if (1.8 > (mintegraln / (Math.max(2.72, 7))) || 2.72 > mintegraln) {
+         mintegraln -= parseFloat(`${1}`);
+      }
+      for (let e = 0; e < 1; e++) {
+          let ksadN = 3;
+          let mutedy = String.fromCharCode(112,95,55,53,95,105,111,101,114,114,0);
+          let libffmpegkitf = 0.0;
+          let mailm = 1.0;
+          let toponY = 3.0;
+         screent = new Map([[`${libavcodecI}`, 3 + libavcodecI]]);
+         ksadN ^= parseInt(`${mailm}`) | ksadN;
+         mutedy = "2";
+         libffmpegkitf *= (String.fromCharCode(67,0) == mutedy ? parseInt(`${libffmpegkitf}`) : mutedy.length);
+         mailm += mutedy.length % 2;
+         toponY *= parseInt(`${mailm}`);
+      }
+       let memberx = String.fromCharCode(110,95,55,52,95,115,101,97,114,99,104,0);
+       let selectionx = String.fromCharCode(118,95,57,56,95,114,116,109,100,0);
+      if (4 > (b_locks % 1)) {
+          let y_viewf = String.fromCharCode(100,95,57,57,95,110,97,118,105,103,97,116,105,110,103,0);
+          let latnj = false;
+          let collection2 = String.fromCharCode(112,95,56,55,95,115,107,101,108,101,116,111,110,0);
+          let utilsP = 3;
+         b_locks &= ((latnj ? 5 : 5));
+         y_viewf += "3";
+         latnj = y_viewf.length == collection2.length;
+         collection2 += `${y_viewf.length}`;
+         utilsP -= 3 >> (Math.min(1, y_viewf.length));
+      }
+       let commentY = [696, 424];
+       let libmapbufferjniY = String.fromCharCode(120,95,55,50,95,113,100,101,108,116,97,0);
+       let navigation7 = String.fromCharCode(109,95,57,50,95,100,105,115,97,112,112,101,97,114,0);
+          let libjsinspectorg = [693, 55, 513];
+          let areab = String.fromCharCode(115,117,105,116,101,98,95,99,95,57,51,0);
+         libavcodecI &= libjsinspectorg.length;
+         libjsinspectorg = [1];
+         areab = `${areab.length}`;
+      if (!hooksa) {
+         navigation7 = `${selectionx.length}`;
+      }
+          let proxyc = String.fromCharCode(117,95,53,95,97,118,111,105,100,0);
+          let singapores = 5.0;
+          let downloadingY = 1.0;
+         b_locks ^= 1;
+         proxyc = `${parseInt(`${singapores}`) & proxyc.length}`;
+         singapores += 3 >> (Math.min(Math.abs(parseInt(`${singapores}`)), 5));
+         downloadingY /= Math.max(3, parseFloat(`${parseInt(`${singapores}`)}`));
+       let textv = String.fromCharCode(116,104,117,109,98,110,97,105,108,115,95,119,95,54,48,0);
+       let coreX = String.fromCharCode(112,97,114,116,105,99,105,112,97,110,116,115,95,54,95,56,48,0);
+         b_locks >>= Math.min(2, Math.abs(selectionx.length % (Math.max(10, memberx.length))));
+         b_locks *= b_locks;
+      screeno += screent.size * events.length;
+      break;
+   }
 
       }
     });
-   while (2 >= incidentE.length) {
-       let mbridge7 = String.fromCharCode(105,115,119,104,105,116,101,115,112,97,99,101,95,108,95,53,51,0);
-       let tailW = 4.0;
-       let questicona = 3;
-       let mbbidl = String.fromCharCode(101,95,53,95,97,110,105,109,97,116,101,100,0);
-         mbridge7 += `${mbbidl.length}`;
-       let qaagH = 5.0;
-      while (2 == mbridge7.length) {
-          let referrerU = [966, 512, 402];
-          let dragcloseN = [String.fromCharCode(110,95,57,50,95,111,112,116,105,109,105,122,101,0), String.fromCharCode(118,95,48,95,100,101,102,108,97,116,101,0), String.fromCharCode(122,95,49,56,95,106,105,110,99,108,117,100,101,0)];
-          let main_b4 = String.fromCharCode(118,95,49,51,95,112,114,101,102,101,116,99,104,101,114,0);
-          let lefts = String.fromCharCode(107,95,52,57,95,100,97,116,97,98,108,111,99,107,0);
-          let roomf = 4.0;
-         questicona |= (String.fromCharCode(70,0) == mbbidl ? parseInt(`${qaagH}`) : mbbidl.length);
-         referrerU = [parseInt(`${roomf}`) % 3];
-         dragcloseN.push(1);
-         main_b4 += `${3 / (Math.max(6, main_b4.length))}`;
-         lefts += `${referrerU.length}`;
-         roomf -= parseFloat(`${referrerU.length * 1}`);
-         break;
-      }
-      for (let v = 0; v < 3; v++) {
-         qaagH /= Math.max(5, parseFloat(`${mbridge7.length * parseInt(`${qaagH}`)}`));
-      }
-      if (mbbidl.startsWith(`${questicona}`)) {
-          let defaultteamZ = String.fromCharCode(113,108,111,103,115,95,99,95,53,52,0);
-          let goalZ = 3.0;
-          let h_locks = new Map([[String.fromCharCode(99,111,109,112,101,110,115,97,116,101,100,95,56,95,54,48,0),386], [String.fromCharCode(98,114,101,103,95,51,95,57,55,0),633], [String.fromCharCode(118,95,53,54,95,109,105,110,102,0),698]]);
-          let actionsK = 5.0;
-          let skipR = 5.0;
-         questicona >>= Math.min(defaultteamZ.length, 1);
-         defaultteamZ = `${parseInt(`${goalZ}`)}`;
-         goalZ *= parseInt(`${skipR}`);
-         h_locks[`${skipR}`] = 2 | parseInt(`${skipR}`);
-         actionsK *= parseInt(`${goalZ}`);
-      }
-         mbridge7 += `${questicona}`;
-      if (mbridge7.includes(`${tailW}`)) {
-         tailW -= parseFloat(`${parseInt(`${qaagH}`)}`);
-      }
-      if (!mbbidl.startsWith(`${questicona}`)) {
-         questicona >>= Math.min(Math.abs(1), 4);
-      }
-          let notificationS = new Map([[String.fromCharCode(100,101,99,114,101,97,115,105,110,103,95,111,95,52,53,0),true ], [String.fromCharCode(107,101,121,100,105,114,95,116,95,50,48,0),false ], [String.fromCharCode(116,95,50,55,95,116,105,108,105,110,103,0),true ]]);
-         tailW += parseFloat(`${3 << (Math.min(Math.abs(questicona), 4))}`);
-         notificationS = new Map([[`${notificationS.size}`, notificationS.size]]);
-          let predictiondefaultR = String.fromCharCode(108,105,98,114,97,114,105,101,115,95,55,95,54,49,0);
-          let combinedN = true;
-          let backgroundc = false;
-         mbbidl = `${(2 - (backgroundc ? 2 : 1))}`;
-         predictiondefaultR += `${(predictiondefaultR == String.fromCharCode(110,0) ? predictiondefaultR.length : predictiondefaultR.length)}`;
-         combinedN = predictiondefaultR == predictiondefaultR;
-         qaagH /= Math.max(3, parseFloat(`${questicona & 3}`));
-      for (let f = 0; f < 1; f++) {
-         mbbidl = `${mbridge7.length}`;
-      }
-      telegramM += `${parseInt(`${gestureh}`) >> (Math.min(2, Math.abs(2)))}`;
-      break;
-   }
+      moreT <<= Math.min(parseInt(`${Math.abs((parseInt(`${upgradek}`) >> (Math.min(2, Math.abs((textinputU ? 5 : 2))))))}`), 2);
 
 
   const chartData = liveRoomUpdate?.football_match_trend?.data;
-   while (shootk) {
-      shootk = 80 < iconwatchJ.size;
-      break;
-   }
+      moreT *= (scrollviewn.length * (textinputU ? 4 : 3));
 
   if (!chartData || !chartData.length) {
     chartCallback?.(false);
-      iconarrowleftk = 96 >= incidentE.length;
+   if (1 >= (scheduler1.size | 2) || 5 >= (scheduler1.size | 2)) {
+      headerk += `${(headerk == String.fromCharCode(82,0) ? headerk.length : (textinputU ? 3 : 2))}`;
+   }
 
     return;
   } else {
     chartCallback?.(true);
-      whitesmalltickT -= parseFloat(`${cornershootQ * 3}`);
+   while ((screeno - upgradek) < 4.59 || 4.59 < (screeno - upgradek)) {
+      upgradek += parseFloat(`${3}`);
+      break;
+   }
 
   }
 
   const time = chartData?.length;
-       let type_tue = 4.0;
-       let iconwechatr = String.fromCharCode(119,95,57,51,95,116,114,97,105,116,0);
-       let optionsE = [769, 524, 771];
-         iconwechatr = `${iconwechatr.length}`;
-       let imagenetworkerrt = String.fromCharCode(117,95,49,55,95,117,110,109,105,120,0);
-         iconwechatr += `${optionsE.length / 1}`;
-          let ewarded8 = 1.0;
-         optionsE.push(2);
-         ewarded8 += parseInt(`${ewarded8}`) - parseInt(`${ewarded8}`);
-       let down0 = String.fromCharCode(99,105,110,101,109,97,95,50,95,53,55,0);
-       let type_0p = String.fromCharCode(106,95,52,53,95,101,118,101,110,108,121,0);
-      shootk = parseInt(`${iconrightorangeh}`) > thailandy.length;
-      type_tue -= parseInt(`${type_tue}`);
+       let containerS = 4.0;
+       let spinnerR = 0.0;
+       let signinupa = String.fromCharCode(115,105,102,116,95,57,95,57,56,0);
+         containerS /= Math.max(parseFloat(`${parseInt(`${spinnerR}`)}`), 3);
+       let resendw = 5.0;
+         spinnerR -= parseInt(`${resendw}`) % (Math.max(10, signinupa.length));
+         resendw *= parseFloat(`${2 % (Math.max(2, parseInt(`${containerS}`)))}`);
+      if (2 > (signinupa.length + 4)) {
+         signinupa = `${parseInt(`${containerS}`) ^ 2}`;
+      }
+       let privacya = 4;
+       let libfabricjniB = 1;
+      if ((1 << (Math.min(3, Math.abs(privacya)))) < 1) {
+          let gestures9 = false;
+          let activeF = 0.0;
+          let privilegeO = [455, 79, 749];
+          let singleC = 4.0;
+         libfabricjniB %= Math.max(privilegeO.length * 2, 2);
+         gestures9 = singleC >= 41.84;
+         activeF += ((gestures9 ? 3 : 5) * parseInt(`${activeF}`));
+         privilegeO = [parseInt(`${activeF}`) | 1];
+         singleC /= Math.max(5, (parseFloat(`${(gestures9 ? 5 : 2) - parseInt(`${activeF}`)}`)));
+      }
+          let libreactperfloggerjniT = 1.0;
+          let fileds = false;
+          let animation1 = String.fromCharCode(121,95,57,53,95,115,97,109,101,113,0);
+         spinnerR *= 1 - parseInt(`${containerS}`);
+         libreactperfloggerjniT -= (parseFloat(`${(fileds ? 5 : 3) * parseInt(`${libreactperfloggerjniT}`)}`));
+         fileds = 90.26 < libreactperfloggerjniT;
+         animation1 += `${3 + animation1.length}`;
+         signinupa += `${parseInt(`${spinnerR}`)}`;
+      screeno *= scrollviewn.length & 2;
 
   const totalTime = time <= 90 ? 90 : time;
-       let controlsW = String.fromCharCode(110,95,49,48,95,110,101,119,115,108,101,116,116,101,114,0);
-       let inactiveG = new Map([[String.fromCharCode(98,101,116,97,95,115,95,52,49,0),String.fromCharCode(98,95,55,57,95,112,114,111,99,101,115,115,0)], [String.fromCharCode(102,101,116,99,104,101,114,115,95,101,95,57,56,0),String.fromCharCode(104,117,101,115,95,119,95,56,54,0)], [String.fromCharCode(97,114,111,117,110,100,95,98,95,50,53,0),String.fromCharCode(98,95,50,48,95,115,98,112,114,111,0)]]);
-       let rocketz = String.fromCharCode(112,97,116,104,115,95,115,95,55,53,0);
-      do {
-         inactiveG = new Map([[`${inactiveG.size}`, controlsW.length]]);
-         if (1076716 == inactiveG.size) {
-            break;
-         }
-      } while ((2 < (inactiveG.size ^ 3)) && (1076716 == inactiveG.size));
-      do {
-          let graphL = String.fromCharCode(103,114,111,117,112,110,97,109,101,115,95,110,95,54,51,0);
-          let whiteC = false;
-          let buttonu = 0.0;
-          let whitei = [327, 960, 619];
-         rocketz += `${rocketz.length << (Math.min(4, graphL.length))}`;
-         graphL += `${parseInt(`${buttonu}`) / 1}`;
-         whiteC = whitei.length >= 36;
-         buttonu /= Math.max(4, (2 & (whiteC ? 5 : 2)));
-         whitei = [parseInt(`${buttonu}`)];
-         if (String.fromCharCode(105,50,102,54,0) == rocketz) {
-            break;
-         }
-      } while ((controlsW != rocketz) && (String.fromCharCode(105,50,102,54,0) == rocketz));
-          let libimagepipeliner = String.fromCharCode(98,105,112,114,101,100,95,109,95,50,56,0);
-          let minivod9 = String.fromCharCode(110,95,50,51,95,119,101,108,108,0);
-          let mbbidb = [156, 691, 644];
-         controlsW += `${inactiveG.size & 2}`;
-         libimagepipeliner = `${minivod9.length & 3}`;
-         minivod9 += `${mbbidb.length % (Math.max(6, minivod9.length))}`;
-         mbbidb = [libimagepipeliner.length];
-         rocketz = `${inactiveG.size}`;
-      for (let v = 0; v < 1; v++) {
-          let greyarrowup1 = String.fromCharCode(98,95,55,48,95,119,114,105,116,101,114,0);
-         rocketz = `${(rocketz == String.fromCharCode(112,0) ? inactiveG.size : rocketz.length)}`;
-         greyarrowup1 = `${greyarrowup1.length - greyarrowup1.length}`;
+       let scrollviewQ = true;
+      for (let n = 0; n < 2; n++) {
+         scrollviewQ = !scrollviewQ;
       }
-         controlsW = `${rocketz.length}`;
-      for (let v = 0; v < 1; v++) {
-         inactiveG = new Map([[`${inactiveG.size}`, inactiveG.size]]);
-      }
-      while (inactiveG.size >= 5) {
-         inactiveG[`${controlsW}`] = controlsW.length - inactiveG.size;
-         break;
-      }
-          let lessU = 5.0;
-          let refreshborderlessl = String.fromCharCode(115,95,50,54,95,114,101,115,116,97,114,116,0);
-          let chart_ = 0.0;
-         inactiveG = new Map([[`${inactiveG.size}`, 1 >> (Math.min(2, controlsW.length))]]);
-         lessU -= parseInt(`${chart_}`);
-         refreshborderlessl = `${parseInt(`${lessU}`)}`;
-         chart_ /= Math.max(parseFloat(`${1 << (Math.min(Math.abs(parseInt(`${lessU}`)), 1))}`), 2);
-      connectionG <<= Math.min(3, Math.abs(parseInt(`${configY}`) / 1));
+         scrollviewQ = !scrollviewQ && !scrollviewQ;
+         scrollviewQ = (!scrollviewQ ? !scrollviewQ : !scrollviewQ);
+      textinputU = 72 < moreT;
  
 
-   do {
-      iconrightorangeh *= parseFloat(`${parseInt(`${whitesmalltickT}`)}`);
-      if (iconrightorangeh == 1125783.0) {
-         break;
-      }
-   } while ((2 > (incidentE.length % 3)) && (iconrightorangeh == 1125783.0));
+   for (let d = 0; d < 1; d++) {
+      upgradek += (parseFloat(`${(textinputU ? 5 : 3) * parseInt(`${upgradek}`)}`));
+   }
 
   const minutes = [0, 15, 30, 45, 60, 75, totalTime];
-       let libfollyU = 4;
-          let libfabricjniP = String.fromCharCode(113,95,56,48,95,109,97,105,110,98,117,110,100,108,101,0);
-         libfollyU -= (libfabricjniP == String.fromCharCode(81,0) ? libfollyU : libfabricjniP.length);
-         libfollyU -= libfollyU & libfollyU;
-         libfollyU &= libfollyU;
-      iconwatchJ[`${shootk}`] = ((shootk ? 5 : 1) * 1);
+      scheduler1[`${events}`] = scheduler1.size;
 
 
   
 
-      iconwatchJ = new Map([[`${iconwatchJ.size}`, parseInt(`${iconrightorangeh}`) % (Math.max(iconwatchJ.size, 6))]]);
+   for (let z = 0; z < 2; z++) {
+      plusN = scrollviewn.length <= scheduler1.size;
+   }
   const incidentFilter = incidents => {
 
    do {
-      telegramM += `${telegramM.length % (Math.max(1, 2))}`;
-      if (telegramM.length == 1969489) {
+      events = `${(parseInt(`${screeno}`) / (Math.max(6, (textinputU ? 4 : 2))))}`;
+      if (events.length == 4805299) {
          break;
       }
-   } while ((telegramM.length == 1969489) && ((connectionG % (Math.max(9, telegramM.length))) <= 2 && 3 <= (telegramM.length % (Math.max(2, 6)))));
+   } while (((events.length + moreT) == 5) && (events.length == 4805299));
     var allocateTime;
-   for (let u = 0; u < 1; u++) {
-      connectionG -= parseInt(`${gestureh}`);
-   }
+   do {
+      textinputU = moreT < 41;
+      if (textinputU ? !textinputU : textinputU) {
+         break;
+      }
+   } while (((moreT ^ 3) <= 2) && (textinputU ? !textinputU : textinputU));
 
     return incidents?.map((x, idx) => {
       const curTime = x.time;
-   for (let n = 0; n < 1; n++) {
-      shootk = thailandy.length >= 58;
-   }
+      scheduler1[`${textinputU}`] = ((textinputU ? 3 : 2) & 1);
 
       if (idx > 0) {
 
-      gestureh /= Math.max(parseInt(`${iconrightorangeh}`) << (Math.min(Math.abs(parseInt(`${gestureh}`)), 3)), 5);
+      moreT >>= Math.min(3, Math.abs(parseInt(`${upgradek}`)));
         if (curTime <= allocateTime) {
           return {...x, allocateTime: ++allocateTime};
         } else {
 
-      gestureh *= league6.length ^ parseInt(`${iconrightorangeh}`);
+       let bufferh = 5.0;
+       let dragb = String.fromCharCode(115,121,115,116,101,109,100,101,112,101,110,100,101,110,116,95,122,95,49,53,0);
+       let hoverV = 5.0;
+      for (let j = 0; j < 1; j++) {
+          let historyP = [841, 985];
+          let shareR = [String.fromCharCode(115,101,99,95,105,95,54,48,0), String.fromCharCode(121,95,49,48,48,95,104,101,99,111,0)];
+          let settingsR = String.fromCharCode(100,99,109,112,0);
+         dragb += `${parseInt(`${bufferh}`) % 3}`;
+         historyP.push(1);
+         shareR = [shareR.length & 2];
+         settingsR += "1";
+      }
+         dragb = `${dragb.length}`;
+         hoverV /= Math.max(2, parseFloat(`${parseInt(`${bufferh}`) & 1}`));
+       let recommendationH = false;
+      while (recommendationH && 3 >= dragb.length) {
+         dragb = `${dragb.length & 1}`;
+         break;
+      }
+      do {
+         dragb = `${dragb.length % (Math.max(3, 6))}`;
+         if (dragb == String.fromCharCode(54,114,122,114,56,117,102,110,109,99,0)) {
+            break;
+         }
+      } while ((dragb.length >= 1) && (dragb == String.fromCharCode(54,114,122,114,56,117,102,110,109,99,0)));
+      for (let j = 0; j < 1; j++) {
+          let grayk = 5.0;
+          let fastforwardj = true;
+          let assistE = 5.0;
+          let verticalT = String.fromCharCode(117,95,52,57,95,110,111,110,110,117,108,108,97,100,100,114,101,115,115,0);
+         recommendationH = (!fastforwardj ? !recommendationH : !fastforwardj);
+         grayk /= Math.max(parseFloat(`${verticalT.length >> (Math.min(5, Math.abs(parseInt(`${assistE}`))))}`), 1);
+         assistE *= parseFloat(`${3}`);
+         verticalT = "3";
+      }
+       let usernamey = String.fromCharCode(122,95,53,56,95,112,97,108,109,0);
+       let libcxxcomponentsq = String.fromCharCode(100,101,103,114,97,100,101,100,95,122,95,52,54,0);
+      while ((parseInt(`${hoverV}`) / (Math.max(usernamey.length, 5))) >= 2) {
+         hoverV /= Math.max(parseFloat(`${libcxxcomponentsq.length / 2}`), 3);
+         break;
+      }
+      screeno /= Math.max(5, scrollviewn.length);
           allocateTime = curTime;
-   for (let r = 0; r < 2; r++) {
-      incidentE += `${connectionG}`;
-   }
+       let mbnatived = 0;
+      do {
+         mbnatived += mbnatived;
+         if (mbnatived == 511383) {
+            break;
+         }
+      } while ((mbnatived == 511383) && (1 >= (mbnatived & 1) && (mbnatived & 1) >= 4));
+          let libfbjniO = false;
+          let rewardvideoD = String.fromCharCode(120,95,51,50,95,114,111,116,97,116,105,111,110,0);
+         mbnatived ^= mbnatived;
+         libfbjniO = rewardvideoD.length == 53;
+         rewardvideoD += `${rewardvideoD.length}`;
+      for (let h = 0; h < 2; h++) {
+          let teamd = String.fromCharCode(109,95,57,49,95,108,105,110,101,115,0);
+          let tempw = false;
+          let mutedt = 5;
+          let mbbidL = 5.0;
+         mbnatived %= Math.max(mutedt, 4);
+         teamd += `${parseInt(`${mbbidL}`) / 1}`;
+         tempw = teamd.length > 26 || !tempw;
+         mutedt ^= 2;
+         mbbidL += parseFloat(`${parseInt(`${mbbidL}`) / (Math.max(3, 5))}`);
+      }
+      moreT >>= Math.min(5, Math.abs(1 | parseInt(`${upgradek}`)));
 
           return {...x, allocateTime: allocateTime};
         }
       } else {
 
-   do {
-       let calendarV = 4.0;
-         calendarV -= 3;
-      while (1.14 <= (calendarV / 2.15) || 2.15 <= (calendarV / (Math.max(calendarV, 9)))) {
-         calendarV += parseInt(`${calendarV}`);
-         break;
-      }
-      if ((calendarV / 5.41) < 4.73 && (5.41 / (Math.max(8, calendarV))) < 1.22) {
-         calendarV += parseInt(`${calendarV}`);
-      }
-      iconrightorangeh += parseFloat(`${connectionG & parseInt(`${iconrightorangeh}`)}`);
-      if (726550.0 == iconrightorangeh) {
-         break;
-      }
-   } while ((!Array.from(iconwatchJ.keys()).includes(`${iconrightorangeh}`)) && (726550.0 == iconrightorangeh));
-        allocateTime = curTime;
-   if (5.71 >= (5.75 + gestureh) || (league6.length & 3) >= 4) {
-      gestureh /= Math.max(1, incidentE.length);
+   while (parseInt(`${upgradek}`) >= scrollviewn.length) {
+      upgradek /= Math.max((parseFloat(`${(plusN ? 4 : 2) % (Math.max(3, events.length))}`)), 3);
+      break;
    }
+        allocateTime = curTime;
+      plusN = 12.60 == upgradek && textinputU;
 
         return {...x, allocateTime: curTime};
       }
     });
-      thailandy = `${cornershootQ ^ 2}`;
+   if (headerk.length < 5 && !textinputU) {
+      textinputU = events.length == headerk.length;
+   }
 
   };
-      connectionG /= Math.max(4, parseInt(`${configY}`) ^ 2);
-
   const filteredHomeIncident = incidentFilter(
     chartIncident?.filter(x => x.position === 1),
   );
-   for (let r = 0; r < 2; r++) {
-       let iconcurrentmatchY = 2.0;
-          let minivodA = [575, 446, 480];
-         iconcurrentmatchY *= parseFloat(`${minivodA.length % (Math.max(8, parseInt(`${iconcurrentmatchY}`)))}`);
-         iconcurrentmatchY += parseFloat(`${parseInt(`${iconcurrentmatchY}`) >> (Math.min(Math.abs(parseInt(`${iconcurrentmatchY}`)), 5))}`);
-      for (let o = 0; o < 1; o++) {
-         iconcurrentmatchY /= Math.max(3, parseFloat(`${2}`));
-      }
-      configY *= incidentE.length;
-   }
-
   const filteredAwayIncident = incidentFilter(
     chartIncident?.filter(x => x.position === 2),
   );
-      shootk = league6.includes(iconrightorangeh);
-
 
   
-
-   if (1 < connectionG) {
-      connectionG += parseInt(`${iconrightorangeh}`) + parseInt(`${configY}`);
-   }
   
-
-   if (incidentE.length == 4) {
-      incidentE += `${parseInt(`${configY}`)}`;
-   }
 
   const rightContentlayout = e => {
-
-   for (let k = 0; k < 3; k++) {
-      cornershootQ -= 2 % (Math.max(4, iconwatchJ.size));
-   }
     setRightContentWidth(e.nativeEvent.layout.width);
-      whitesmalltickT -= parseFloat(`${telegramM.length}`);
-
   };
-      sound6.push(parseInt(`${iconrightorangeh}`));
-
 
   const IncidentIcons = ({data}) => {
-
-   for (let c = 0; c < 3; c++) {
-      gestureh += 3 >> (Math.min(4, sound6.length));
-   }
     return (
       <View style={{...styles.eventContent}}>
         {data?.map((e, index) => {
-
-   do {
-       let exampleimage5 = String.fromCharCode(106,95,49,51,95,112,115,102,105,108,101,0);
-      if (exampleimage5 != String.fromCharCode(122,0)) {
-          let resulte = false;
-          let phoneshareX = String.fromCharCode(119,95,55,50,95,105,110,116,101,103,114,97,108,0);
-         exampleimage5 = `${exampleimage5.length | 3}`;
-         resulte = phoneshareX.startsWith(`${resulte}`);
-         phoneshareX += `${((resulte ? 5 : 3) << (Math.min(Math.abs(2), 5)))}`;
-      }
-      while (exampleimage5 != exampleimage5) {
-         exampleimage5 = `${exampleimage5.length}`;
-         break;
-      }
-         exampleimage5 = `${exampleimage5.length}`;
-      configY /= Math.max(3, 1);
-      if (386130.0 == configY) {
-         break;
-      }
-   } while ((386130.0 == configY) && (configY > incidentE.length));
           const size = e.type === 1 || e.type === 29 ? 8 : 10;
-       let assistT = 0.0;
-       let downarrowo = String.fromCharCode(106,95,52,56,95,97,108,116,0);
-       let smallbrightnessn = String.fromCharCode(105,95,50,50,95,100,101,118,112,111,108,108,0);
-          let side0 = 3;
-         assistT += parseFloat(`${smallbrightnessn.length % (Math.max(1, 10))}`);
-         side0 >>= Math.min(5, Math.abs(1));
-       let bgvipxvodJ = true;
-       let nativemoduleb = false;
-         downarrowo = "2";
-      if (nativemoduleb) {
-          let chatroombackgroundb = String.fromCharCode(102,95,57,53,95,119,101,98,112,97,103,101,115,0);
-          let logoD = 4.0;
-          let sharewhiteM = String.fromCharCode(99,97,110,116,95,120,95,53,49,0);
-          let termsT = String.fromCharCode(111,95,55,55,95,112,111,111,112,0);
-         assistT -= parseFloat(`${termsT.length}`);
-         chatroombackgroundb = `${parseInt(`${logoD}`) - sharewhiteM.length}`;
-         logoD *= parseFloat(`${parseInt(`${logoD}`)}`);
-         sharewhiteM += `${parseInt(`${logoD}`)}`;
-         termsT = `${chatroombackgroundb.length % (Math.max(10, parseInt(`${logoD}`)))}`;
-      }
-      if (nativemoduleb) {
-         nativemoduleb = downarrowo.startsWith(`${nativemoduleb}`);
-      }
-         downarrowo = `${2 - parseInt(`${assistT}`)}`;
-          let neonY = [403, 838, 131];
-          let styleZ = 5;
-         bgvipxvodJ = assistT <= 67.47;
-         neonY.push(neonY.length);
-         styleZ &= 3;
-      if (4.7 <= (5.91 * assistT) && nativemoduleb) {
-          let castingc = [681, 342, 123];
-         assistT += parseFloat(`${1 >> (Math.min(3, castingc.length))}`);
-      }
-      do {
-         smallbrightnessn += `${((bgvipxvodJ ? 3 : 2))}`;
-         if (smallbrightnessn == String.fromCharCode(54,119,56,109,100,98,118,0)) {
-            break;
-         }
-      } while ((smallbrightnessn == String.fromCharCode(54,119,56,109,100,98,118,0)) && (smallbrightnessn.endsWith(`${nativemoduleb}`)));
-      telegramM += `${incidentE.length >> (Math.min(Math.abs(1), 3))}`;
-
           return (
             <Image
               key={`filteredHomeIncident-${index}`}

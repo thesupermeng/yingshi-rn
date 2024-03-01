@@ -1,126 +1,64 @@
 import {Image, Text, View} from 'react-native';
 import {logoUser} from '../../../assets';
-import styles from './yys_nbatrophy';
+import styles from './yys_gpay_roboto';
 
 const Bottom = props => {
-       let reactz = 4.0;
-    let shareblackh = String.fromCharCode(100,95,49,52,95,102,105,114,101,0);
-    let latnL = 1;
-    let stringF = 4.0;
-    let librrcm = 4.0;
-    let topicX = new Map([[String.fromCharCode(105,95,52,48,95,117,105,110,116,112,111,119,0),720], [String.fromCharCode(117,116,105,109,101,95,116,95,54,54,0),234], [String.fromCharCode(116,95,51,49,95,102,111,117,114,99,99,0),195]]);
-    let strM = new Map([[String.fromCharCode(99,95,52,52,95,112,114,111,109,111,116,105,110,103,0),428], [String.fromCharCode(99,111,110,110,101,99,116,105,118,105,116,121,95,107,95,56,54,0),7], [String.fromCharCode(113,95,50,55,95,99,104,97,114,97,99,116,101,114,105,115,116,105,99,115,0),351]]);
-    let defaultlogov = String.fromCharCode(101,95,50,55,95,97,115,102,99,114,121,112,116,0);
-    let profileinactiver = new Map([[String.fromCharCode(114,101,116,95,120,95,53,48,0),true ], [String.fromCharCode(117,95,56,56,95,102,108,111,111,114,0),false ], [String.fromCharCode(114,97,110,95,103,95,57,50,0),true ]]);
-    let eactR = String.fromCharCode(111,95,53,50,95,116,114,97,106,101,99,116,111,114,121,0);
-    let mnewarchdefaultsQ = String.fromCharCode(119,95,52,52,95,104,105,116,0);
-    let entryM = [435, 640];
-    let showmorex = 5.0;
-    let graphU = 2.0;
-   while (!eactR.endsWith(defaultlogov)) {
-       let statisticsS = String.fromCharCode(116,114,97,110,115,112,111,114,116,95,111,95,49,48,48,0);
-       let interstitialg = String.fromCharCode(99,97,108,99,117,108,97,116,101,95,53,95,57,51,0);
-          let emojiheartH = String.fromCharCode(99,111,108,108,105,100,101,114,95,122,95,52,49,0);
-          let libcxxcomponents7 = false;
-         statisticsS += `${interstitialg.length / (Math.max(1, 5))}`;
-         emojiheartH += "3";
-         libcxxcomponents7 = ((emojiheartH.length + (libcxxcomponents7 ? 25 : emojiheartH.length)) < 25);
-         statisticsS += `${statisticsS.length}`;
-         interstitialg = `${statisticsS.length % 3}`;
-         statisticsS += "3";
-         statisticsS += `${statisticsS.length}`;
-          let homeiconx = [471, 457];
-          let nexte = 0;
-         interstitialg += `${interstitialg.length}`;
-         homeiconx = [1 & nexte];
-         nexte %= Math.max(homeiconx.length, 1);
-      eactR += `${profileinactiver.size - 1}`;
-      break;
-   }
-      topicX = new Map([[`${librrcm}`, parseInt(`${librrcm}`)]]);
-   while ((profileinactiver.size % (Math.max(3, 4))) >= 4) {
-      eactR = "2";
-      break;
-   }
+       let register_iD = new Map([[String.fromCharCode(115,116,114,111,107,101,115,95,115,95,51,56,0),766], [String.fromCharCode(122,98,117,102,0),945]]);
+    let nterstitialJ = true;
+    let libreactnativeblob0 = 5.0;
+    let streaming2 = String.fromCharCode(105,109,112,114,101,115,115,105,111,110,115,95,48,95,52,50,0);
+    let countrys = String.fromCharCode(115,105,110,113,102,95,103,95,53,57,0);
+    let mbsplash9 = new Map([[String.fromCharCode(100,99,97,97,100,112,99,109,95,104,95,55,54,0),String.fromCharCode(101,110,116,101,114,101,100,95,109,95,51,56,0)], [String.fromCharCode(105,97,100,115,116,120,95,105,95,57,56,0),String.fromCharCode(105,95,51,55,95,112,107,116,104,100,114,0)], [String.fromCharCode(105,99,101,99,97,115,116,0),String.fromCharCode(122,95,51,56,95,100,105,114,97,99,116,97,98,0)]]);
+    let homeg = String.fromCharCode(114,101,99,117,114,115,105,118,101,108,121,0);
+    let injury2 = String.fromCharCode(98,95,53,95,111,114,100,101,114,105,110,103,0);
+    let scrollviewX = false;
+    let pressurew = [321, 779];
+      scrollviewX = 84 > register_iD.size;
+       let roundO = 5.0;
+       let more2 = new Map([[String.fromCharCode(120,97,109,112,108,101,95,113,95,57,52,0),36], [String.fromCharCode(97,99,116,105,118,97,116,101,100,95,120,95,51,56,0),43]]);
+       let neonE = String.fromCharCode(115,116,114,115,116,97,114,116,95,102,95,56,0);
+         neonE = "2";
+         roundO -= more2.size;
+       let views2 = String.fromCharCode(117,114,118,101,0);
+       let unselectedg = String.fromCharCode(114,101,99,105,112,114,111,99,97,108,0);
+      while (roundO <= unselectedg.length) {
+         roundO += parseInt(`${roundO}`) | more2.size;
+         break;
+      }
+          let combinedd = new Map([[String.fromCharCode(112,95,52,55,95,112,114,111,120,121,0),false ], [String.fromCharCode(112,114,101,118,118,101,99,0),false ], [String.fromCharCode(100,95,55,54,95,101,120,97,109,112,108,101,0),true ]]);
+          let prediction3 = String.fromCharCode(109,101,97,115,117,114,101,109,101,110,116,115,95,116,95,50,49,0);
+         unselectedg += `${3 << (Math.min(2, Math.abs(more2.size)))}`;
+         combinedd[`${prediction3}`] = combinedd.size;
+         prediction3 = `${(String.fromCharCode(115,0) == prediction3 ? prediction3.length : combinedd.size)}`;
+      for (let x = 0; x < 2; x++) {
+          let core8 = true;
+          let zhuboQ = String.fromCharCode(116,101,120,116,117,114,101,100,0);
+          let textM = 0.0;
+         views2 = `${3 ^ neonE.length}`;
+         core8 = !core8;
+         zhuboQ += "2";
+         textM *= parseInt(`${textM}`);
+      }
+          let libavfilterb = 2;
+          let expandf = [963, 532, 936];
+         more2 = new Map([[`${libavfilterb}`, libavfilterb]]);
+         expandf.push(expandf.length * expandf.length);
+         neonE += `${neonE.length << (Math.min(5, Math.abs(parseInt(`${roundO}`))))}`;
+         more2 = new Map([[`${roundO}`, neonE.length]]);
+      homeg += `${more2.size}`;
 
   const {teamIcon, formation, coach} = props;
-   while ((mnewarchdefaultsQ.length ^ entryM.length) <= 1 && 2 <= (1 ^ entryM.length)) {
-      mnewarchdefaultsQ += `${strM.size}`;
+   while ((4 | injury2.length) > 4) {
+       let overlayt = 2.0;
+          let unselectedP = new Map([[String.fromCharCode(110,95,51,57,95,105,110,112,117,116,121,0),true ], [String.fromCharCode(100,105,115,97,112,112,101,97,114,0),false ]]);
+         overlayt *= unselectedP.size;
+         overlayt += 1;
+         overlayt += parseInt(`${overlayt}`);
+      libreactnativeblob0 /= Math.max(4, register_iD.size);
       break;
    }
-   for (let q = 0; q < 1; q++) {
-       let largebrightnessL = 5;
-       let latnc = String.fromCharCode(116,121,111,101,95,121,95,54,56,0);
-         latnc = `${largebrightnessL & latnc.length}`;
-          let collectionp = String.fromCharCode(101,95,54,48,95,102,105,108,116,101,114,102,110,0);
-         largebrightnessL *= (String.fromCharCode(76,0) == collectionp ? latnc.length : collectionp.length);
-          let roundJ = String.fromCharCode(115,118,101,99,116,111,114,95,104,95,55,55,0);
-          let launch0 = new Map([[String.fromCharCode(104,97,115,104,97,98,108,101,95,55,95,56,56,0),true ], [String.fromCharCode(104,95,56,49,95,100,116,115,0),true ], [String.fromCharCode(119,95,49,55,95,112,108,97,110,97,114,120,0),false ]]);
-         latnc += `${largebrightnessL * 2}`;
-         roundJ += `${(roundJ == String.fromCharCode(82,0) ? roundJ.length : launch0.size)}`;
-         launch0[roundJ] = launch0.size;
-         latnc = `${(String.fromCharCode(104,0) == latnc ? largebrightnessL : latnc.length)}`;
-         largebrightnessL ^= latnc.length % (Math.max(2, 10));
-         largebrightnessL ^= 1;
-      stringF -= 2;
-   }
-   while ((entryM.length % (Math.max(2, strM.size))) >= 5 && (entryM.length % (Math.max(3, strM.size))) >= 5) {
-       let schedulerK = 4;
-       let dicelogop = [664, 421];
-       let unimplementedview7 = String.fromCharCode(109,95,49,48,95,97,118,105,115,121,110,116,104,0);
-       let stringI = String.fromCharCode(117,95,51,49,0);
-       let shrinkp = String.fromCharCode(99,95,49,55,95,119,114,105,116,101,120,0);
-      while ((schedulerK / (Math.max(shrinkp.length, 10))) >= 2 || 5 >= (2 / (Math.max(7, shrinkp.length)))) {
-         schedulerK %= Math.max(4, 1 | shrinkp.length);
-         break;
-      }
-         schedulerK /= Math.max(5, unimplementedview7.length | schedulerK);
-       let basketballdetailsbgW = new Map([[String.fromCharCode(105,95,56,48,95,97,112,116,120,0),471], [String.fromCharCode(98,95,50,50,95,116,114,97,100,105,116,105,111,110,97,108,0),452], [String.fromCharCode(99,97,99,104,105,110,103,95,105,95,49,51,0),671]]);
-          let nextx = String.fromCharCode(111,95,50,52,95,108,111,103,0);
-         unimplementedview7 = `${nextx.length * basketballdetailsbgW.size}`;
-         dicelogop = [schedulerK];
-      for (let p = 0; p < 2; p++) {
-          let subbasketballplayerO = String.fromCharCode(116,95,51,55,95,109,98,97,102,102,0);
-          let weiboJ = String.fromCharCode(102,95,53,95,118,115,102,114,97,109,101,0);
-          let arrowdownj = [198, 359, 335];
-          let eact5 = String.fromCharCode(108,95,57,95,103,97,112,108,101,115,115,0);
-          let uimanagerq = String.fromCharCode(100,112,97,103,101,95,101,95,53,56,0);
-         unimplementedview7 = `${2 - basketballdetailsbgW.size}`;
-         subbasketballplayerO = `${subbasketballplayerO.length | 3}`;
-         weiboJ = `${(String.fromCharCode(112,0) == weiboJ ? weiboJ.length : arrowdownj.length)}`;
-         arrowdownj = [arrowdownj.length % (Math.max(eact5.length, 3))];
-         eact5 += `${uimanagerq.length}`;
-         uimanagerq = `${2 % (Math.max(8, eact5.length))}`;
-      }
-      while (4 > dicelogop.length) {
-         stringI += `${(stringI == String.fromCharCode(80,0) ? stringI.length : unimplementedview7.length)}`;
-         break;
-      }
-       let langC = String.fromCharCode(107,95,53,56,95,100,117,109,112,105,110,102,111,0);
-       let main_cj = String.fromCharCode(112,111,119,101,114,101,100,95,116,95,54,55,0);
-         unimplementedview7 = `${(String.fromCharCode(57,0) == main_cj ? main_cj.length : basketballdetailsbgW.size)}`;
-       let plashK = String.fromCharCode(111,95,55,49,95,116,104,114,101,97,100,109,101,115,115,97,103,101,0);
-      do {
-          let leakcheckers = false;
-          let d_managerC = 3.0;
-         dicelogop = [langC.length];
-         leakcheckers = !leakcheckers && d_managerC > 59.96;
-         d_managerC += (parseFloat(`${(leakcheckers ? 5 : 5) / (Math.max(7, parseInt(`${d_managerC}`)))}`));
-         if (dicelogop.length == 730980) {
-            break;
-         }
-      } while ((dicelogop.length == 730980) && (!main_cj.startsWith(`${dicelogop.length}`)));
-      while (stringI.startsWith(`${shrinkp.length}`)) {
-         shrinkp += `${1 << (Math.min(3, unimplementedview7.length))}`;
-         break;
-      }
-      for (let b = 0; b < 3; b++) {
-         unimplementedview7 += `${2 ^ schedulerK}`;
-      }
-       let switch_nA = new Map([[String.fromCharCode(114,101,109,97,105,110,95,117,95,49,53,0),920], [String.fromCharCode(102,101,101,95,114,95,56,52,0),32]]);
-       let dropdownj = new Map([[String.fromCharCode(118,95,57,56,95,101,115,116,105,109,97,116,101,115,0),894], [String.fromCharCode(112,111,115,101,95,97,95,51,55,0),887], [String.fromCharCode(97,95,52,52,95,114,101,115,105,100,117,101,0),352]]);
-      strM[`${dicelogop.length}`] = 2 | topicX.size;
-      break;
+   for (let z = 0; z < 3; z++) {
+      libreactnativeblob0 -= streaming2.length % (Math.max(1, 4));
    }
 
 
@@ -141,30 +79,43 @@ const Bottom = props => {
       </View>
     </View>
   );
-      shareblackh += `${mnewarchdefaultsQ.length >> (Math.min(Math.abs(1), 4))}`;
-   do {
-      stringF -= parseInt(`${stringF}`);
-      if (stringF == 780341.0) {
+      register_iD[`${nterstitialJ}`] = (countrys.length ^ (nterstitialJ ? 1 : 4));
+   for (let c = 0; c < 2; c++) {
+       let wcopy_lD = String.fromCharCode(99,114,121,115,116,97,108,104,100,95,51,95,56,57,0);
+       let delegate_mjO = String.fromCharCode(114,95,55,51,95,115,116,101,108,108,97,114,0);
+       let crown9 = [916, 55];
+       let sidez = [458, 499, 744];
+         crown9.push(2);
+      while (delegate_mjO.includes(`${wcopy_lD.length}`)) {
+         wcopy_lD = `${3 - sidez.length}`;
          break;
       }
-   } while ((stringF == 780341.0) && (profileinactiver[`${stringF}`] == null));
-       let iconnointernetv = String.fromCharCode(100,95,49,95,99,97,116,99,104,97,98,108,101,0);
-         iconnointernetv += `${iconnointernetv.length}`;
-      while (iconnointernetv != iconnointernetv) {
-          let videobufferloadingY = 5.0;
-          let codegenq = String.fromCharCode(112,101,114,109,95,111,95,53,55,0);
-          let inviteU = String.fromCharCode(110,95,52,57,0);
-          let str0 = String.fromCharCode(106,114,101,102,95,117,95,56,49,0);
-          let modelQ = 5.0;
-         iconnointernetv = "3";
-         videobufferloadingY *= parseFloat(`${3}`);
-         codegenq += `${parseInt(`${modelQ}`)}`;
-         inviteU += `${parseInt(`${videobufferloadingY}`)}`;
-         str0 += `${(String.fromCharCode(82,0) == str0 ? str0.length : parseInt(`${modelQ}`))}`;
+         wcopy_lD = `${wcopy_lD.length}`;
+          let adultC = String.fromCharCode(102,117,122,122,121,95,50,95,56,51,0);
+         delegate_mjO = "2";
+         adultC += `${adultC.length}`;
+      while (!delegate_mjO.endsWith(`${sidez.length}`)) {
+         delegate_mjO = `${3 + delegate_mjO.length}`;
          break;
       }
-         iconnointernetv = `${iconnointernetv.length}`;
-      profileinactiver = new Map([[defaultlogov, parseInt(`${reactz}`)]]);
+         wcopy_lD += `${sidez.length << (Math.min(Math.abs(2), 4))}`;
+      while (crown9.length >= wcopy_lD.length) {
+         wcopy_lD += `${crown9.length >> (Math.min(delegate_mjO.length, 4))}`;
+         break;
+      }
+         sidez = [wcopy_lD.length];
+         wcopy_lD = `${wcopy_lD.length}`;
+      for (let n = 0; n < 1; n++) {
+         delegate_mjO += `${sidez.length}`;
+      }
+      if ((3 ^ sidez.length) >= 2 || 3 >= (wcopy_lD.length ^ sidez.length)) {
+         wcopy_lD = `${sidez.length >> (Math.min(Math.abs(1), 4))}`;
+      }
+          let pointj = String.fromCharCode(105,95,55,57,95,98,103,114,97,0);
+         delegate_mjO = `${delegate_mjO.length << (Math.min(Math.abs(3), 3))}`;
+         pointj = `${1 ^ pointj.length}`;
+      scrollviewX = libreactnativeblob0 >= 92.69 || 99 >= homeg.length;
+   }
 
 };
 

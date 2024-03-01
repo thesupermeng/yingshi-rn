@@ -1,17 +1,17 @@
 import {ScrollView, SafeAreaView, View} from 'react-native';
 import {useSelector} from 'react-redux';
-import yysFullIconnewsshare from '../../../goalDistribution';
+import yys_RewardvideoGemfile from '../../../goalDistribution';
 import MatchHistory from '../../../matchHistory';
 import SubsComponent from '../../../substituteComponent';
-import styles from './yys_nbatrophy';
-import EmptyDataPage from '../../../yys_iconnewsshare';
-import { yysDicelogoFootballfield } from '../../../../types/yys_iconnointernet_guide';
+import styles from './yys_gpay_roboto';
+import EmptyDataPage from '../../../yys_user_image';
+import { yys_PlusFilter } from '../../../../types/yys_live_libyoga';
 
-interface yysIconarrowrightorangeStation {
-  liveRoomMatchDetails?: yysDicelogoFootballfield,
+interface yys_ConfigureUimanager {
+  liveRoomMatchDetails?: yys_PlusFilter,
 }
 
-const FootballDataPage = ({liveRoomMatchDetails} : yysIconarrowrightorangeStation) => {
+const FootballDataPage = ({liveRoomMatchDetails} : yys_ConfigureUimanager) => {
   return (
     <SafeAreaView style={{height: '100%'}}>
       {liveRoomMatchDetails?.football_match_analysis == undefined &&
@@ -46,7 +46,7 @@ const FootballDataPage = ({liveRoomMatchDetails} : yysIconarrowrightorangeStatio
           liveRoomMatchDetails?.football_match_analysis?.goal_distribution
             ?.away_scored?.length > 0 && (
             <View>
-              <yysFullIconnewsshare
+              <yys_RewardvideoGemfile
                 homeTeam={liveRoomMatchDetails?.home}
                 awayTeam={liveRoomMatchDetails?.away}
                 data={

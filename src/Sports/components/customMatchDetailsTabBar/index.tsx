@@ -1,19 +1,19 @@
 import { useState } from 'react';
 import { Text, View } from 'react-native';
-import { Colors } from '../../global/yys_penaltymatchicon_iconarrowrightorange';
-import styles from './yys_nbatrophy';
-import EmptyDataPage from '../yys_iconnewsshare';
+import { Colors } from '../../global/yys_videocommon';
+import styles from './yys_gpay_roboto';
+import EmptyDataPage from '../yys_user_image';
 
-type yysOrange = {
+type yys_Clock = {
   name: string
   children: React.ReactNode
 }
 
-interface yysIconarrowrightorangeStation {
-  tabBar: yysOrange[]
+interface yys_ConfigureUimanager {
+  tabBar: yys_Clock[]
 }
 
-const CustomMatchDetailsTabBar = ({ tabBar }: yysIconarrowrightorangeStation) => {
+const CustomMatchDetailsTabBar = ({ tabBar }: yys_ConfigureUimanager) => {
   const [tab, setTab] = useState(0);
   const activeTabColor = '#FAC33D';
   const activeTextColor = '#000000';

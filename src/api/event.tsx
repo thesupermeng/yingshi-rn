@@ -1,13 +1,13 @@
-import { yysPangleCommon } from "@constants";
-import { yysConfig } from "@utility";
-import { yysIconrightorange } from "../../Umeng/yys_iconbell_renew";
+import { yys_FavoriteCustom } from "@constants";
+import { yys_StringsVignette } from "@utility/yys_ping";
+import { yys_PhoneLibreactperfloggerjni } from "../../Umeng/yys_search_cancel";
 
 export class EventApi {
-    static postEvents = async (events: yysIconrightorange) => {
+    static postEvents = async (events: yys_PhoneLibreactperfloggerjni) => {
         try {
             if (events.stats.length <= 0) return;
 
-            const result = await yysConfig.post(yysPangleCommon.eventPost, {
+            const result = await yys_StringsVignette.post(yys_FavoriteCustom.eventPost, {
                 body: events,
             });
 

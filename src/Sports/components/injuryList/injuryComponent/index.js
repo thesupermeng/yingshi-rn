@@ -1,11 +1,11 @@
 import {View, Image, Text, ImageBackground} from 'react-native';
-import styles from './yys_nbatrophy';
+import styles from './yys_gpay_roboto';
 import {
   BasketballHomeTeam,
   BasketballAwayTeam,
   InjuryIcon
 } from '../../../assets';
-import vars from '../../../utility/yys_videovar';
+import vars from '../../../utility/yys_textinput';
 
 const InjuryComponent = ({data, isHome = true}) => {
   return (

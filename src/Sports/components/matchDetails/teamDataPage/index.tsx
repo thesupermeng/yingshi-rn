@@ -2,15 +2,15 @@ import { ScrollView, SafeAreaView, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import FootballDataPage from './footballDataPage';
 import BasketballDataPage from './basketballDataPage';
-import ScreenContainer from '../../../../components/container/yys_matches';
-import { yysDicelogoFootballfield } from '../../../types/yys_iconnointernet_guide';
+import ScreenContainer from '../../../../components/container/yys_executor_expand';
+import { yys_PlusFilter } from '../../../types/yys_live_libyoga';
 import { useIsFocused } from '@react-navigation/native';
 
-interface yysIconarrowrightorangeStation {
-  liveRoomMatchDetails?: yysDicelogoFootballfield
+interface yys_ConfigureUimanager {
+  liveRoomMatchDetails?: yys_PlusFilter
 }
 
-const TeamDataPage = ({ liveRoomMatchDetails }: yysIconarrowrightorangeStation) => {
+const TeamDataPage = ({ liveRoomMatchDetails }: yys_ConfigureUimanager) => {
   const isFocus = useIsFocused();
   // const adsList = useSelector(state => state.adsList);
   

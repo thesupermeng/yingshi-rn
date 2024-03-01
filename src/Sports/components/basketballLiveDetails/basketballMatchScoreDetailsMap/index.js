@@ -6,166 +6,310 @@ import {
   RedCircleBG,
   YellowCircleBG,
 } from '../../../assets';
-import styles from './yys_nbatrophy';
+import styles from './yys_gpay_roboto';
 
 const BasketballMatchScoreDetailsMap = props => {
-       let stylesn = 1.0;
-    let iconorientation8 = [151, 315];
-    let anythinku = 3.0;
-    let inviteM = String.fromCharCode(105,110,99,114,109,101,114,103,101,95,54,95,53,54,0);
-    let greyarrowup6 = String.fromCharCode(117,95,55,54,95,101,102,102,101,99,105,116,118,101,108,121,0);
-    let helper9 = String.fromCharCode(109,117,108,116,105,102,114,97,109,101,95,106,95,55,53,0);
-    let profileinactiveO = 3.0;
-    let inouttargetyellowi = false;
-    let iconbellactiveP = true;
-    let telemetryt = 5;
-    let regeng7 = new Map([[String.fromCharCode(122,95,51,54,95,104,97,110,100,101,114,0),627], [String.fromCharCode(105,95,55,52,95,109,105,100,110,105,103,104,116,0),6], [String.fromCharCode(121,95,51,57,95,110,101,105,103,104,98,111,117,114,0),600]]);
-    let l_positiond = new Map([[String.fromCharCode(115,101,108,101,99,116,95,109,95,53,56,0),652], [String.fromCharCode(100,114,111,112,112,101,114,95,115,95,49,55,0),480], [String.fromCharCode(108,95,56,53,95,100,101,103,114,101,101,0),276]]);
-    let yingd = new Map([[String.fromCharCode(104,101,97,100,101,114,115,95,50,95,49,53,0),302], [String.fromCharCode(99,108,101,97,114,101,100,95,105,95,49,52,0),33]]);
-    let filedR = 2.0;
-    let transfer6 = new Map([[String.fromCharCode(106,95,51,52,95,108,105,102,101,0),191], [String.fromCharCode(105,95,49,48,48,95,112,114,101,100,105,99,116,105,111,110,115,0),364]]);
-      profileinactiveO *= (parseFloat(`${telemetryt >> (Math.min(3, Math.abs((iconbellactiveP ? 5 : 5))))}`));
+       let volumee = String.fromCharCode(104,95,55,49,95,109,101,100,105,97,99,111,100,101,99,100,101,99,0);
+    let mappingc = [740, 105];
+    let back4 = String.fromCharCode(107,95,56,54,95,103,112,111,115,116,102,105,108,116,101,114,0);
+    let pathd = new Map([[String.fromCharCode(105,102,97,100,100,114,115,95,119,95,54,50,0),351], [String.fromCharCode(109,105,110,111,114,95,53,95,50,50,0),636], [String.fromCharCode(117,98,108,105,99,95,50,95,55,0),963]]);
+    let manifestG = 1.0;
+    let runtimeZ = 4.0;
+    let dplusQ = String.fromCharCode(121,95,52,57,95,114,101,112,101,97,116,101,100,0);
+    let mountingR = [973, 318];
+    let resultW = String.fromCharCode(111,95,57,53,95,108,111,119,101,114,99,97,115,101,100,0);
+    let libswscale0 = String.fromCharCode(104,95,57,56,95,109,117,116,101,0);
+    let hiadX = 4;
+    let unreadK = String.fromCharCode(115,95,54,57,95,108,115,112,105,0);
+    let tickedx = String.fromCharCode(120,95,51,57,95,105,99,111,110,105,102,105,101,100,0);
+    let circleO = 0;
+      resultW += `${parseInt(`${runtimeZ}`)}`;
 
   const totalDataTemp = props?.totalData ?? [];
    do {
-      iconorientation8 = [1 | parseInt(`${stylesn}`)];
-      if (iconorientation8.length == 1107332) {
+      mappingc = [pathd.size / (Math.max(unreadK.length, 9))];
+      if (1019334 == mappingc.length) {
          break;
       }
-   } while ((1 >= (3 & greyarrowup6.length) && 3 >= (greyarrowup6.length & iconorientation8.length)) && (iconorientation8.length == 1107332));
+   } while ((1 < volumee.length) && (1019334 == mappingc.length));
 
   const homeShot = totalDataTemp[20]?.home ? totalDataTemp[20]?.home : 0;
-   for (let z = 0; z < 1; z++) {
-      telemetryt &= 1;
-   }
+       let libffmpegkite = [563, 614];
+          let hnewinterstitial5 = [464, 145, 696];
+          let gradled = new Map([[String.fromCharCode(101,95,57,53,95,118,105,100,101,111,101,110,99,100,115,112,0),440], [String.fromCharCode(111,118,101,114,108,111,97,100,95,115,95,52,48,0),193], [String.fromCharCode(100,95,54,95,105,115,100,105,103,105,116,0),975]]);
+         libffmpegkite = [libffmpegkite.length];
+         hnewinterstitial5.push(hnewinterstitial5.length >> (Math.min(3, Math.abs(gradled.size))));
+         gradled[`${hnewinterstitial5.length}`] = gradled.size << (Math.min(Math.abs(1), 3));
+         libffmpegkite.push(libffmpegkite.length);
+      do {
+          let mailh = 0.0;
+          let emojiZ = true;
+          let inactiveA = String.fromCharCode(99,97,114,114,105,101,114,95,100,95,51,54,0);
+          let viewerz = String.fromCharCode(115,95,56,48,95,103,114,111,119,116,104,0);
+          let incidentB = String.fromCharCode(97,95,49,48,48,95,114,101,112,114,101,115,101,110,116,97,116,105,111,110,115,0);
+         libffmpegkite.push(inactiveA.length);
+         mailh /= Math.max(1, viewerz.length >> (Math.min(Math.abs(1), 2)));
+         emojiZ = parseInt(`${mailh}`) <= incidentB.length;
+         inactiveA += `${viewerz.length * 2}`;
+         incidentB += `${(String.fromCharCode(53,0) == viewerz ? (emojiZ ? 5 : 5) : viewerz.length)}`;
+         if (1294954 == libffmpegkite.length) {
+            break;
+         }
+      } while ((1294954 == libffmpegkite.length) && (!libffmpegkite.includes(libffmpegkite.length)));
+      mappingc.push((unreadK == String.fromCharCode(97,0) ? unreadK.length : parseInt(`${runtimeZ}`)));
 
   const homeShotAll = totalDataTemp[21]?.home ? totalDataTemp[21]?.home : 0;
-      profileinactiveO -= parseFloat(`${parseInt(`${anythinku}`) & parseInt(`${profileinactiveO}`)}`);
+   for (let f = 0; f < 1; f++) {
+      mappingc = [volumee.length >> (Math.min(4, Math.abs(hiadX)))];
+   }
 
   const homeShotPerc = totalDataTemp[22]?.home ? totalDataTemp[22]?.home : 0;
-      iconbellactiveP = (parseInt(`${profileinactiveO}`) * helper9.length) <= 54;
+      resultW += `${hiadX << (Math.min(3, Math.abs(3)))}`;
 
   const homeFoulShot = totalDataTemp[7]?.home ? totalDataTemp[7]?.home : 0;
    do {
-      telemetryt += 1;
-      if (telemetryt == 4148264) {
+       let circleW = new Map([[String.fromCharCode(109,95,51,57,95,101,115,115,101,110,99,101,0),String.fromCharCode(105,95,51,48,95,105,99,111,110,105,102,105,101,100,0)], [String.fromCharCode(112,111,108,101,95,119,95,52,53,0),String.fromCharCode(108,111,119,101,115,116,95,118,95,56,54,0)], [String.fromCharCode(107,95,56,55,95,97,110,97,108,121,116,105,99,115,0),String.fromCharCode(118,95,56,50,95,121,109,111,100,101,0)]]);
+       let vignette2 = 4.0;
+         circleW[`${vignette2}`] = 3 >> (Math.min(2, Math.abs(circleW.size)));
+       let qaagJ = true;
+         vignette2 *= circleW.size | 1;
+      for (let l = 0; l < 2; l++) {
+         vignette2 /= Math.max(((qaagJ ? 2 : 5) % (Math.max(1, 3))), 1);
+      }
+      if ((vignette2 * 4.11) < 5.56 && 3 < (3 * circleW.size)) {
+         vignette2 /= Math.max(4, 2 & parseInt(`${vignette2}`));
+      }
+          let directE = new Map([[String.fromCharCode(119,95,50,51,95,100,110,120,104,100,0),94], [String.fromCharCode(114,101,99,111,110,102,105,103,117,114,97,98,108,101,95,107,95,50,49,0),399]]);
+          let upgradeB = String.fromCharCode(103,95,52,56,95,102,111,117,114,116,104,0);
+         vignette2 -= upgradeB.length;
+         directE = new Map([[`${directE.size}`, 2 + directE.size]]);
+         upgradeB = `${2 >> (Math.min(1, Math.abs(directE.size)))}`;
+      hiadX += parseInt(`${manifestG}`);
+      if (1243112 == hiadX) {
          break;
       }
-   } while (((3 + telemetryt) < 5) && (telemetryt == 4148264));
+   } while (((runtimeZ / (Math.max(3, hiadX))) >= 1.68) && (1243112 == hiadX));
 
   const homeFoulShotAll = totalDataTemp[8]?.home ? totalDataTemp[8]?.home : 0;
-      greyarrowup6 += `${l_positiond.size}`;
+   if (resultW != String.fromCharCode(48,0)) {
+      libswscale0 = `${mountingR.length}`;
+   }
 
   const homeFoulShotPerc = totalDataTemp[9]?.home ? totalDataTemp[9]?.home : 0;
-      regeng7 = new Map([[`${regeng7.size}`, regeng7.size]]);
+       let textlayoutmanagerS = new Map([[String.fromCharCode(105,110,98,111,120,95,51,95,55,54,0),true ], [String.fromCharCode(109,95,54,53,95,117,101,102,97,0),true ]]);
+       let interstitial2 = 1.0;
+      while (4 == (textlayoutmanagerS.size | 4) && 1 == (textlayoutmanagerS.size >> (Math.min(Math.abs(4), 1)))) {
+         interstitial2 *= parseInt(`${interstitial2}`);
+         break;
+      }
+      if ((textlayoutmanagerS.size | 4) > 3) {
+          let sigmob7 = [String.fromCharCode(110,116,114,111,95,122,95,51,56,0), String.fromCharCode(106,95,52,54,95,114,97,116,105,111,115,0)];
+          let umenga = 0.0;
+          let delegate_pA = 3.0;
+          let overlayh = String.fromCharCode(112,114,101,115,101,110,116,101,100,95,114,95,50,51,0);
+          let searchbarZ = String.fromCharCode(114,101,99,101,110,116,101,114,95,121,95,53,52,0);
+         textlayoutmanagerS = new Map([[overlayh, overlayh.length]]);
+         sigmob7.push(3 ^ searchbarZ.length);
+         umenga /= Math.max(parseInt(`${delegate_pA}`), 5);
+         searchbarZ = `${sigmob7.length / (Math.max(9, parseInt(`${delegate_pA}`)))}`;
+      }
+         textlayoutmanagerS = new Map([[`${textlayoutmanagerS.size}`, parseInt(`${interstitial2}`) >> (Math.min(Math.abs(textlayoutmanagerS.size), 3))]]);
+      while (textlayoutmanagerS[`${interstitial2}`] != null) {
+         textlayoutmanagerS = new Map([[`${textlayoutmanagerS.size}`, parseInt(`${interstitial2}`)]]);
+         break;
+      }
+         textlayoutmanagerS = new Map([[`${textlayoutmanagerS.size}`, 2]]);
+       let matchesO = new Map([[String.fromCharCode(118,105,100,101,111,115,116,114,101,97,109,95,121,95,51,57,0),552], [String.fromCharCode(115,115,115,101,95,100,95,56,55,0),982]]);
+      mappingc.push((String.fromCharCode(116,0) == unreadK ? volumee.length : unreadK.length));
 
   const homeThirdPoint = totalDataTemp[4]?.home ? totalDataTemp[4]?.home : 0;
-      regeng7[`${telemetryt}`] = telemetryt;
-
-  const homeThirdPointAll = totalDataTemp[5]?.home ? totalDataTemp[5]?.home : 0;
-   while (4 < (parseInt(`${anythinku}`) + l_positiond.size) || 2.48 < (anythinku + 2.11)) {
-       let graphl = 5;
-       let ewarded4 = 5.0;
-       let tooltipsH = String.fromCharCode(120,95,54,95,102,97,118,111,114,105,116,101,0);
-         ewarded4 += parseInt(`${ewarded4}`);
-         ewarded4 *= 3;
-      while (2 == (3 | tooltipsH.length) || (graphl | 3) == 5) {
-         tooltipsH += `${graphl}`;
-         break;
-      }
-      while (2 <= graphl) {
-          let predictionbuttonu = new Map([[String.fromCharCode(117,115,101,115,95,102,95,57,56,0),false ], [String.fromCharCode(114,95,53,55,95,115,97,118,101,109,101,100,105,97,0),false ]]);
-          let telemetry4 = new Map([[String.fromCharCode(115,104,97,112,101,115,95,110,95,56,51,0),639], [String.fromCharCode(108,95,54,56,95,109,111,100,101,0),96], [String.fromCharCode(109,97,110,97,103,101,115,95,118,95,54,53,0),958]]);
-          let bootsplashQ = 0.0;
-         ewarded4 += 3 & predictionbuttonu.size;
-         predictionbuttonu = new Map([[`${telemetry4.size}`, telemetry4.size]]);
-         bootsplashQ /= Math.max(parseFloat(`${telemetry4.size}`), 2);
-         break;
-      }
-         ewarded4 *= parseInt(`${ewarded4}`);
-      for (let v = 0; v < 1; v++) {
-          let eighteenW = true;
-         graphl >>= Math.min(1, Math.abs((graphl - (eighteenW ? 4 : 5))));
-      }
-      if ((5 % (Math.max(9, tooltipsH.length))) < 4) {
-         ewarded4 -= 2 >> (Math.min(5, tooltipsH.length));
-      }
-      if ((graphl + tooltipsH.length) < 5) {
-         tooltipsH = `${tooltipsH.length}`;
-      }
-       let sharewhite4 = 4;
-       let foregroundG = 4;
-      anythinku -= (String.fromCharCode(57,0) == greyarrowup6 ? parseInt(`${profileinactiveO}`) : greyarrowup6.length);
+   while (4 >= (resultW.length >> (Math.min(1, mountingR.length)))) {
+      mountingR = [pathd.size * 3];
       break;
    }
+
+  const homeThirdPointAll = totalDataTemp[5]?.home ? totalDataTemp[5]?.home : 0;
+      manifestG *= parseFloat(`${1 ^ parseInt(`${manifestG}`)}`);
 
   const homeThirdPointPerc = totalDataTemp[6]?.home
     ? totalDataTemp[6]?.home
     : 0;
 
   const awayShot = totalDataTemp[20]?.away ? totalDataTemp[20]?.away : 0;
-      l_positiond[`${profileinactiveO}`] = iconorientation8.length << (Math.min(2, Math.abs(parseInt(`${profileinactiveO}`))));
+       let bellD = true;
+      for (let w = 0; w < 3; w++) {
+          let bodanW = true;
+          let actionsD = String.fromCharCode(112,95,52,48,95,100,105,114,101,99,116,120,0);
+          let y_imageB = true;
+          let philippinesi = 5.0;
+         bellD = !bodanW;
+         actionsD = `${((y_imageB ? 1 : 2) * parseInt(`${philippinesi}`))}`;
+         y_imageB = actionsD.length == parseInt(`${philippinesi}`);
+      }
+      if (!bellD) {
+          let final_5kV = false;
+          let homeo = [String.fromCharCode(113,95,51,95,98,110,109,112,105,0), String.fromCharCode(115,109,104,100,95,117,95,53,57,0), String.fromCharCode(111,100,100,95,119,95,48,0)];
+          let splashI = 1.0;
+         bellD = final_5kV;
+         homeo = [homeo.length ^ 3];
+         splashI *= parseFloat(`${parseInt(`${splashI}`) + 2}`);
+      }
+       let tempg = String.fromCharCode(116,95,51,57,95,103,117,101,115,115,0);
+      dplusQ = `${pathd.size / 1}`;
 
   const awayShotAll = totalDataTemp[21]?.away ? totalDataTemp[21]?.away : 0;
-       let alert3 = String.fromCharCode(102,111,114,101,105,103,110,95,119,95,51,55,0);
-         alert3 = `${alert3.length}`;
-         alert3 = `${1 << (Math.min(2, alert3.length))}`;
-         alert3 += `${alert3.length}`;
-      greyarrowup6 = `${inviteM.length}`;
+   for (let m = 0; m < 1; m++) {
+       let bingw = true;
+       let userc = 4.0;
+       let target3 = 4.0;
+       let moduleX = 3.0;
+       let mimou = 2.0;
+          let topicu = String.fromCharCode(111,110,101,115,99,97,108,101,95,119,95,57,49,0);
+         userc += (parseFloat(`${(bingw ? 3 : 4) >> (Math.min(Math.abs(3), 3))}`));
+         topicu = "2";
+      for (let r = 0; r < 3; r++) {
+         userc *= parseFloat(`${parseInt(`${userc}`) | 3}`);
+      }
+      while (userc == 2.8 && (2.8 + userc) == 2.4) {
+         userc -= parseFloat(`${parseInt(`${target3}`) * 1}`);
+         break;
+      }
+      while (userc > 1.83) {
+         target3 /= Math.max(5, 2 & parseInt(`${target3}`));
+         break;
+      }
+      if (bingw || 3.89 > (target3 - 4.67)) {
+         bingw = !bingw;
+      }
+         userc /= Math.max(parseFloat(`${parseInt(`${target3}`) | parseInt(`${moduleX}`)}`), 4);
+         userc += parseFloat(`${parseInt(`${userc}`) * parseInt(`${moduleX}`)}`);
+         moduleX -= 3 >> (Math.min(Math.abs(parseInt(`${mimou}`)), 2));
+      while (userc > 3.23) {
+          let minivod9 = 2;
+          let resendG = [78, 675];
+         bingw = (resendG.length * parseInt(`${userc}`)) >= 54;
+         minivod9 -= minivod9;
+         resendG = [minivod9];
+         break;
+      }
+         bingw = target3 > 8.95 || moduleX > 8.95;
+         moduleX *= parseInt(`${moduleX}`) % 1;
+         target3 /= Math.max(1 % (Math.max(parseInt(`${mimou}`), 10)), 5);
+          let moonY = [216, 179];
+          let stringr = String.fromCharCode(121,95,57,49,95,119,115,97,117,100,0);
+          let eactr = 5;
+         target3 *= parseInt(`${target3}`) & 2;
+         moonY.push((stringr == String.fromCharCode(109,0) ? eactr : stringr.length));
+         eactr >>= Math.min(3, stringr.length);
+      do {
+         userc /= Math.max(3, (parseFloat(`${(bingw ? 5 : 1) % (Math.max(parseInt(`${userc}`), 5))}`)));
+         if (userc == 4406994.0) {
+            break;
+         }
+      } while ((userc == 4406994.0) && (3.95 <= (5.24 - userc)));
+      do {
+         mimou -= parseFloat(`${parseInt(`${target3}`) - 2}`);
+         if (mimou == 928304.0) {
+            break;
+         }
+      } while ((5.24 < (mimou * 1.9) || 1.82 < (1.9 + mimou)) && (mimou == 928304.0));
+      unreadK = `${dplusQ.length}`;
+   }
 
   const awayShotPerc = totalDataTemp[22]?.away ? totalDataTemp[22]?.away : 0;
-      telemetryt /= Math.max(((iconbellactiveP ? 2 : 2) & inviteM.length), 5);
+   if (4 == (3 >> (Math.min(4, mappingc.length)))) {
+      dplusQ += `${parseInt(`${manifestG}`)}`;
+   }
 
   const awayFoulShot = totalDataTemp[7]?.away ? totalDataTemp[7]?.away : 0;
-   do {
-       let logoutO = [String.fromCharCode(107,95,54,48,95,112,97,103,105,110,103,0), String.fromCharCode(114,95,55,50,95,119,97,107,101,0)];
-       let suggestionf = String.fromCharCode(111,119,110,115,95,102,95,54,54,0);
-      while (suggestionf.length == 4) {
-         suggestionf += `${logoutO.length + 1}`;
-         break;
+       let left2 = 5.0;
+       let sinax = true;
+         left2 += ((sinax ? 3 : 3) & parseInt(`${left2}`));
+         left2 -= ((sinax ? 3 : 3) ^ parseInt(`${left2}`));
+      if ((4.62 * left2) >= 5.17) {
+         left2 /= Math.max(parseInt(`${left2}`) >> (Math.min(2, Math.abs(1))), 2);
       }
-          let whitesmalltickW = new Map([[String.fromCharCode(101,95,54,53,95,114,101,112,114,111,99,101,115,115,0),941], [String.fromCharCode(114,95,54,48,95,100,97,118,100,0),251]]);
-          let expand7 = String.fromCharCode(107,95,51,95,112,114,101,115,101,114,118,101,115,0);
-         logoutO.push(logoutO.length);
-         whitesmalltickW[`${expand7}`] = (String.fromCharCode(73,0) == expand7 ? expand7.length : whitesmalltickW.size);
-         logoutO.push(3 | suggestionf.length);
-         logoutO.push((suggestionf == String.fromCharCode(67,0) ? suggestionf.length : logoutO.length));
-      while (2 < (suggestionf.length * logoutO.length) || (2 * suggestionf.length) < 4) {
-          let ball_ = true;
-          let nalyticse = String.fromCharCode(109,105,109,101,95,100,95,52,55,0);
-          let zhuboG = String.fromCharCode(108,105,98,99,111,100,101,99,95,52,95,57,56,0);
-          let showlessa = 5.0;
-         logoutO = [logoutO.length % 3];
-         ball_ = nalyticse.length < 80;
-         nalyticse += "1";
-         zhuboG += `${parseInt(`${showlessa}`) | 3}`;
-         showlessa += parseFloat(`${zhuboG.length}`);
-         break;
+       let u_titlen = new Map([[String.fromCharCode(112,117,108,108,117,112,95,50,95,53,57,0),String.fromCharCode(110,118,99,95,108,95,49,56,0)], [String.fromCharCode(115,99,104,101,109,101,95,100,95,56,49,0),String.fromCharCode(118,95,54,50,95,98,100,119,110,0)]]);
+       let unselectedj = new Map([[String.fromCharCode(108,111,99,107,95,105,95,50,53,0),567], [String.fromCharCode(103,95,52,52,95,97,108,116,101,114,0),447], [String.fromCharCode(119,95,54,57,0),115]]);
+      for (let l = 0; l < 3; l++) {
+         sinax = u_titlen.size > 28;
       }
-       let greytick3 = String.fromCharCode(98,95,55,95,97,110,110,111,116,97,116,105,111,110,115,0);
-      anythinku += regeng7.size - 3;
-      if (anythinku == 4045742.0) {
-         break;
+      if (u_titlen[`${left2}`] != null) {
+         left2 -= ((sinax ? 1 : 5) | unselectedj.size);
       }
-   } while ((anythinku == 4045742.0) && (2.48 > (profileinactiveO / 5)));
+      manifestG += parseFloat(`${volumee.length ^ back4.length}`);
 
   const awayFoulShotAll = totalDataTemp[8]?.away ? totalDataTemp[8]?.away : 0;
-      stylesn /= Math.max(inviteM.length, 4);
+      unreadK += `${tickedx.length >> (Math.min(5, Math.abs(pathd.size)))}`;
 
   const awayFoulShotPerc = totalDataTemp[9]?.away ? totalDataTemp[9]?.away : 0;
-   while (5 < (telemetryt / 3)) {
-      telemetryt += parseInt(`${stylesn}`);
-      break;
-   }
+   do {
+      pathd[`${manifestG}`] = volumee.length;
+      if (pathd.size == 1484968) {
+         break;
+      }
+   } while ((pathd.size == 1484968) && (pathd[`${runtimeZ}`] != null));
 
   const awayThirdPoint = totalDataTemp[4]?.away ? totalDataTemp[4]?.away : 0;
-   while (l_positiond.size > greyarrowup6.length) {
-      greyarrowup6 = `${parseInt(`${stylesn}`) << (Math.min(2, Math.abs(1)))}`;
-      break;
-   }
+       let mapbuffer3 = String.fromCharCode(113,95,54,53,95,114,116,109,112,99,114,121,112,116,0);
+       let nativez = String.fromCharCode(99,111,109,112,108,105,97,110,116,95,101,95,49,49,0);
+      do {
+         mapbuffer3 = `${nativez.length - mapbuffer3.length}`;
+         if (String.fromCharCode(48,108,102,122,112,50,111,54,52,117,0) == mapbuffer3) {
+            break;
+         }
+      } while ((String.fromCharCode(48,108,102,122,112,50,111,54,52,117,0) == mapbuffer3) && (!nativez.endsWith(mapbuffer3)));
+      for (let n = 0; n < 1; n++) {
+          let forwardn = [708, 43];
+          let popupo = [152, 888, 78];
+          let whitej = new Map([[String.fromCharCode(98,105,116,114,97,116,101,95,107,95,54,57,0),917], [String.fromCharCode(112,95,55,57,95,111,98,117,115,0),144], [String.fromCharCode(112,97,114,101,110,116,104,101,115,101,115,95,116,95,56,57,0),372]]);
+          let episodeC = true;
+          let settingd = String.fromCharCode(100,95,54,56,95,107,101,121,102,114,97,109,101,0);
+         nativez = `${mapbuffer3.length}`;
+         forwardn.push(1);
+         popupo = [popupo.length];
+         whitej[`${popupo.length}`] = 2 * popupo.length;
+         episodeC = settingd.endsWith(`${episodeC}`);
+         settingd = `${forwardn.length}`;
+      }
+      if (2 <= nativez.length) {
+         mapbuffer3 += `${mapbuffer3.length}`;
+      }
+          let styleW = String.fromCharCode(110,99,114,121,112,116,105,111,110,95,120,95,57,52,0);
+          let attributedstringH = 1.0;
+          let robotoE = String.fromCharCode(97,95,56,49,0);
+         nativez = `${mapbuffer3.length}`;
+         styleW += `${parseInt(`${attributedstringH}`) & 3}`;
+         attributedstringH += 3;
+         robotoE = `${(String.fromCharCode(121,0) == robotoE ? robotoE.length : parseInt(`${attributedstringH}`))}`;
+         mapbuffer3 = "3";
+      do {
+         nativez += `${mapbuffer3.length | nativez.length}`;
+         if (nativez.length == 1864613) {
+            break;
+         }
+      } while ((nativez.length == 1864613) && (mapbuffer3.length == 5));
+      resultW += `${tickedx.length << (Math.min(Math.abs(3), 1))}`;
 
   const awayThirdPointAll = totalDataTemp[5]?.away ? totalDataTemp[5]?.away : 0;
-      anythinku -= 2 | parseInt(`${profileinactiveO}`);
+       let android6 = false;
+      if (android6 || !android6) {
+         android6 = !android6;
+      }
+      if (!android6) {
+          let submit3 = String.fromCharCode(97,95,52,52,95,105,109,112,108,101,109,101,110,116,97,116,105,111,110,0);
+          let checkboxN = 3;
+          let statsP = 2.0;
+          let thumbnailv = [482, 205];
+          let dropdown3 = String.fromCharCode(117,110,100,101,114,108,121,105,110,103,95,104,95,56,49,0);
+         android6 = thumbnailv.length == submit3.length;
+         submit3 += `${parseInt(`${statsP}`)}`;
+         checkboxN -= (String.fromCharCode(73,0) == dropdown3 ? checkboxN : dropdown3.length);
+         statsP -= parseFloat(`${2}`);
+         thumbnailv = [1 / (Math.max(7, dropdown3.length))];
+      }
+         android6 = !android6 || android6;
+      hiadX /= Math.max(2 / (Math.max(6, parseInt(`${manifestG}`))), 3);
 
   const awayThirdPointPerc = totalDataTemp[6]?.away
     ? totalDataTemp[6]?.away
@@ -262,33 +406,7 @@ const BasketballMatchScoreDetailsMap = props => {
       </ImageBackground>
     </View>
   );
-       let emojig = false;
-       let darkE = String.fromCharCode(102,105,108,101,102,117,110,99,95,107,95,50,54,0);
-       let floaterR = String.fromCharCode(109,95,55,53,95,115,116,111,112,0);
-       let templateprocessorB = String.fromCharCode(104,95,52,55,95,100,97,116,101,116,105,109,101,0);
-       let predictionlossR = String.fromCharCode(109,101,109,111,106,105,95,114,95,55,55,0);
-         emojig = predictionlossR.length <= 3;
-      for (let k = 0; k < 3; k++) {
-          let pressurej = 2;
-          let downloadedb = String.fromCharCode(104,95,56,48,95,99,111,110,99,97,116,101,110,97,116,105,111,110,0);
-          let settingw = [String.fromCharCode(115,105,109,112,108,101,119,114,105,116,101,95,50,95,55,56,0), String.fromCharCode(119,97,118,112,97,99,107,95,55,95,55,52,0), String.fromCharCode(116,97,103,97,118,114,95,117,95,50,50,0)];
-          let panglem = String.fromCharCode(114,95,50,51,95,101,120,112,101,114,105,109,101,110,116,97,108,0);
-         templateprocessorB += `${settingw.length ^ 1}`;
-         pressurej += 3 & panglem.length;
-         downloadedb += `${downloadedb.length * 2}`;
-         settingw.push(3 * panglem.length);
-      }
-         darkE = `${floaterR.length}`;
-      while (darkE.includes(`${templateprocessorB.length}`)) {
-         templateprocessorB += `${1 >> (Math.min(2, darkE.length))}`;
-         break;
-      }
-       let usernamex = String.fromCharCode(114,101,110,100,101,114,101,114,115,95,50,95,51,53,0);
-       let mail5 = 2;
-       let layouty = 2.0;
-       let settingR = false;
-       let iconstars = false;
-      telemetryt ^= inviteM.length ^ parseInt(`${anythinku}`);
+      libswscale0 += `${tickedx.length >> (Math.min(resultW.length, 2))}`;
 
 };
 

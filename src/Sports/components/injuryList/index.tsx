@@ -2,17 +2,17 @@ import { TabActions } from '@react-navigation/native';
 import { View, Image, Text, ImageBackground } from 'react-native';
 import { HomeIcon, AwayIcon } from '../../assets';
 import InjuryComponent from './injuryComponent';
-import styles from './yys_nbatrophy';
-import { yys_calendar, yysTyping, yysUpdatesBackwhite } from '../../types/yys_iconnointernet_guide';
+import styles from './yys_gpay_roboto';
+import { yys_dycreator, yys_SecurityConstants, yys_Runtime } from '../../types/yys_live_libyoga';
 
-interface yysIconarrowrightorangeStation {
-  homeTeam?: yys_calendar
-  awayTeam?: yysTyping
-  homePlayerList?: yysUpdatesBackwhite[]
-  awayPlayerList?: yysUpdatesBackwhite[]
+interface yys_ConfigureUimanager {
+  homeTeam?: yys_dycreator
+  awayTeam?: yys_SecurityConstants
+  homePlayerList?: yys_Runtime[]
+  awayPlayerList?: yys_Runtime[]
 }
 
-const InjuryList = ({ homeTeam, awayTeam, homePlayerList = [], awayPlayerList = [] }: yysIconarrowrightorangeStation) => {
+const InjuryList = ({ homeTeam, awayTeam, homePlayerList = [], awayPlayerList = [] }: yys_ConfigureUimanager) => {
   return (
     <View>
       <View style={styles.titleView}>
@@ -61,7 +61,7 @@ const InjuryList = ({ homeTeam, awayTeam, homePlayerList = [], awayPlayerList = 
           {
             homePlayerList?.length > 0 && homePlayerList.map((item, index) => {
               return (
-                <InjuryComponent key={"subtextTrash" + index} data={item} isHome={true}></InjuryComponent>
+                <InjuryComponent key={"xvodPlayerPoint" + index} data={item} isHome={true}></InjuryComponent>
               )
             })
           }
@@ -70,7 +70,7 @@ const InjuryList = ({ homeTeam, awayTeam, homePlayerList = [], awayPlayerList = 
           {
             awayPlayerList?.length > 0 && awayPlayerList.map((item, index) => {
               return (
-                <InjuryComponent key={"mbbannerShrinkLibavdevice" + index} data={item} isHome={false}></InjuryComponent>
+                <InjuryComponent key={"pageTransferBrightness" + index} data={item} isHome={false}></InjuryComponent>
               )
             })
           }

@@ -6,7 +6,7 @@ import {
   BasketballIcon,
   SubBasketballPlayer
 } from '../../../../../assets';
-import styles from './yys_nbatrophy';
+import styles from './yys_gpay_roboto';
 import PlayerStats from '../../../../../components/playerStats';
 import {useState} from 'react';
 

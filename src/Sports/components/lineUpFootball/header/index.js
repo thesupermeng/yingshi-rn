@@ -1,39 +1,64 @@
 import {Image, Text, View} from 'react-native';
 import {logoUser} from '../../../assets';
-import styles from './yys_nbatrophy';
+import styles from './yys_gpay_roboto';
 
 const Header = props => {
-       let fastforwardE = [344, 905, 62];
-    let debugv = new Map([[String.fromCharCode(115,95,56,55,95,115,117,98,116,101,120,116,0),16], [String.fromCharCode(115,116,114,105,100,101,98,95,113,95,54,0),309], [String.fromCharCode(105,95,52,52,95,115,115,108,114,111,111,116,115,0),947]]);
-    let airbnbstar2 = String.fromCharCode(107,95,53,50,95,115,97,109,112,108,101,114,0);
-    let h_hashg = false;
-    let sourcex = false;
-    let usernamey = true;
-    let encryptorO = 3.0;
-    let profileJ = String.fromCharCode(105,99,111,110,105,99,95,52,95,52,54,0);
-    let networkb = 2;
-    let iconarrowrightblackx = 5;
-    let encryptor_ = [506, 560];
-    let profileinactiveE = 1;
-    let librrco = String.fromCharCode(109,95,57,51,95,110,105,115,116,122,0);
-    let combined9 = String.fromCharCode(107,95,54,50,95,99,111,109,112,105,108,101,111,112,116,105,111,110,103,101,116,0);
-   if ((debugv.size + 1) >= 4 || debugv.size >= 1) {
-      h_hashg = (fastforwardE.length ^ iconarrowrightblackx) >= 57;
-   }
-   for (let a = 0; a < 2; a++) {
-      usernamey = profileinactiveE <= 11 || encryptorO <= 39.65;
-   }
-   for (let n = 0; n < 3; n++) {
-      iconarrowrightblackx -= encryptor_.length << (Math.min(1, Math.abs(networkb)));
+       let libreanimated9 = 2;
+    let connection5 = String.fromCharCode(102,114,97,109,101,98,117,102,102,101,114,115,95,54,95,54,50,0);
+    let u_imagej = String.fromCharCode(103,95,54,55,95,97,108,108,111,99,99,111,109,109,111,110,0);
+    let philippinesz = String.fromCharCode(109,95,49,54,95,111,110,101,112,97,115,115,0);
+    let control9 = String.fromCharCode(97,95,49,57,95,115,101,110,99,0);
+    let xvodA = new Map([[String.fromCharCode(107,95,49,51,95,114,101,109,105,110,100,101,114,0),String.fromCharCode(117,95,50,54,95,99,111,109,112,108,101,116,101,115,0)], [String.fromCharCode(102,108,105,112,112,101,100,95,111,95,50,51,0),String.fromCharCode(98,95,48,95,102,108,97,116,116,101,110,101,100,0)]]);
+    let searchG = [13, 82];
+    let anytimek = String.fromCharCode(101,120,112,111,115,117,114,101,95,98,95,53,48,0);
+    let caste = 0;
+    let sansm = 4.0;
+       let hearti = 4;
+       let pauseH = 2.0;
+       let minix = String.fromCharCode(122,95,51,56,95,115,119,105,112,101,0);
+      if (parseInt(`${pauseH}`) >= minix.length) {
+         minix = `${parseInt(`${pauseH}`) % (Math.max(5, hearti))}`;
+      }
+      do {
+         pauseH *= parseFloat(`${minix.length}`);
+         if (643429.0 == pauseH) {
+            break;
+         }
+      } while ((1 > hearti) && (643429.0 == pauseH));
+         hearti |= parseInt(`${pauseH}`) - 3;
+         hearti -= (String.fromCharCode(65,0) == minix ? hearti : minix.length);
+      do {
+         hearti ^= minix.length;
+         if (3007589 == hearti) {
+            break;
+         }
+      } while (((4.82 * pauseH) <= 3.75 && 5 <= (hearti - 1)) && (3007589 == hearti));
+         pauseH += parseFloat(`${3 / (Math.max(1, parseInt(`${pauseH}`)))}`);
+         minix = `${parseInt(`${pauseH}`)}`;
+      if (pauseH >= hearti) {
+         hearti += hearti;
+      }
+          let downloadingM = [18, 923];
+          let spinner1 = String.fromCharCode(114,101,115,101,116,95,122,95,55,56,0);
+          let black0 = true;
+         pauseH /= Math.max(4, parseFloat(`${1 / (Math.max(parseInt(`${pauseH}`), 4))}`));
+         downloadingM.push(downloadingM.length << (Math.min(spinner1.length, 2)));
+         spinner1 = `${spinner1.length}`;
+         black0 = (((black0 ? 2 : spinner1.length) + spinner1.length) < 2);
+      anytimek = `${1 | searchG.length}`;
+   while (anytimek.endsWith(`${caste}`)) {
+      caste &= 1 - u_imagej.length;
+      break;
    }
 
   const {teamIcon, formation, coach, referee, location} = props;
-      networkb *= 3 + encryptor_.length;
-   while (!h_hashg || !sourcex) {
-      h_hashg = networkb < parseInt(`${encryptorO}`);
-      break;
-   }
-      fastforwardE = [airbnbstar2.length];
+      caste /= Math.max(xvodA.size, 4);
+   do {
+      u_imagej += `${searchG.length + libreanimated9}`;
+      if (u_imagej.length == 3302785) {
+         break;
+      }
+   } while ((u_imagej.length < searchG.length) && (u_imagej.length == 3302785));
 
 
   return (
@@ -57,36 +82,10 @@ const Header = props => {
       </View>
     </View>
   );
-       let combineo = 1.0;
-         combineo /= Math.max(1, 2);
-         combineo -= 1 % (Math.max(parseInt(`${combineo}`), 4));
-          let gemfileI = false;
-          let historyT = false;
-         combineo *= ((gemfileI ? 3 : 4) ^ parseInt(`${combineo}`));
-         gemfileI = historyT && historyT;
-      sourcex = airbnbstar2.length > 72;
-       let iconarrowrightwhite_ = 2.0;
-      if (1.86 >= iconarrowrightwhite_) {
-         iconarrowrightwhite_ /= Math.max(1, parseFloat(`${parseInt(`${iconarrowrightwhite_}`) % 2}`));
-      }
-      if (iconarrowrightwhite_ == 4.99) {
-          let reactD = 4.0;
-          let weatherm = String.fromCharCode(110,105,100,108,110,95,112,95,51,49,0);
-          let routerf = 5;
-          let main_on = [321, 654];
-          let watchT = new Map([[String.fromCharCode(119,95,57,55,95,113,105,110,116,102,108,111,97,116,0),true ], [String.fromCharCode(112,114,101,109,117,108,116,105,112,108,105,101,100,95,111,95,54,57,0),false ]]);
-         iconarrowrightwhite_ *= parseFloat(`${3 << (Math.min(Math.abs(routerf), 1))}`);
-         reactD *= (weatherm == String.fromCharCode(71,0) ? weatherm.length : watchT.size);
-         routerf -= 3;
-         main_on.push(watchT.size);
-      }
-       let predictionactive1 = 2;
-       let inouttargetyellown = 0;
-      usernamey = profileJ.length <= 79 && !usernamey;
-   while (2 >= (profileJ.length * 3)) {
-      iconarrowrightblackx &= ((usernamey ? 1 : 5));
-      break;
+   for (let c = 0; c < 2; c++) {
+      u_imagej += "3";
    }
+      libreanimated9 >>= Math.min(Math.abs(caste), 4);
 
 };
 

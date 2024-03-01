@@ -1,20 +1,20 @@
 import { ScrollView, View } from 'react-native';
 import LineUpFootball from '../../../components/lineUpFootball';
 import SubsComponent from '../../substituteComponent';
-import styles from './yys_nbatrophy';
+import styles from './yys_gpay_roboto';
 import FootballIconComponent from '../../../components/footballIconComponent';
-import EmptyDataPage from '../../yys_iconnewsshare';
-import { yysDicelogoFootballfield } from '../../../types/yys_iconnointernet_guide';
-import { yysSuggestionUnimplementedview } from '../../../types/yys_favorite';
+import EmptyDataPage from '../../yys_user_image';
+import { yys_PlusFilter } from '../../../types/yys_live_libyoga';
+import { yys_Bootsplash } from '../../../types/yys_canvas';
 import { useIsFocused } from '@react-navigation/native';
 
-interface yysIconarrowrightorangeStation {
-  liveRoomMatchDetails?: yysDicelogoFootballfield,
-  liveRoomLineup?: yysSuggestionUnimplementedview
+interface yys_ConfigureUimanager {
+  liveRoomMatchDetails?: yys_PlusFilter,
+  liveRoomLineup?: yys_Bootsplash
 }
 
 
-const LineUpPage = ({ liveRoomLineup, liveRoomMatchDetails }: yysIconarrowrightorangeStation) => {
+const LineUpPage = ({ liveRoomLineup, liveRoomMatchDetails }: yys_ConfigureUimanager) => {
   const isFocus = useIsFocused();
   // const adsList = useSelector(state => state.adsList);
   

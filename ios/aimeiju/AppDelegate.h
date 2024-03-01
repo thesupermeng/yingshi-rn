@@ -1,22 +1,23 @@
 #import <RCTAppDelegate.h>
 #import <UIKit/UIKit.h>
-#import "yysDangerIconbellController.h"
+#import "yys_WithYellowController.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, RCTBridgeDelegate, EWyysGifgoalbg>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, RCTBridgeDelegate, NByys_Selected>
 
 
-@property(nonatomic, assign)int  dialogIdx;
-@property(nonatomic, copy)NSArray *  clearSmallbrightnessIconnotifi_arr;
-@property(nonatomic, assign)long  shootnogoal_idx;
-
+@property(nonatomic, assign)int  iconCount;
+@property(nonatomic, assign)long  fast_flag;
 
 
 
--(NSArray *)sharedFastDelivered:(double)condensedSetting;
 
--(NSDictionary *)whiteHeapHeaderRectangleReload;
+-(double)unregisterAnnotationInitial:(NSDictionary *)moduleContainer;
 
--(long)adcolonyAllowLocalizedScenarioAnalytics;
+-(NSInteger)unregisterPkgControl;
+
+-(float)modelCancelShowAnalyticsWindowsInspector:(NSArray *)with_tTrophy;
+
+-(NSDictionary *)unregisterExceptionsProperty:(NSArray *)untickSetting policyLight:(NSInteger)policyLight condensedDropdown:(double)condensedDropdown;
 
 
 @property (nonatomic, strong) UIWindow *window;

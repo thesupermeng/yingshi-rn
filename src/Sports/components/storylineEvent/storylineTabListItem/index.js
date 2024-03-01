@@ -6,176 +6,151 @@ import {GoalLogo, PenaltyMatchIcon} from '../../../assets';
 import StorylineTap from '../storylineTab';
 import {getMatchStorylineStatus} from '../../../utility/utils';
 
-import styles from './yys_nbatrophy';
+import styles from './yys_gpay_roboto';
 
 const StorylineTabListItem = props => {
-       let gesturem = String.fromCharCode(110,111,110,99,111,110,116,97,99,116,95,98,95,49,54,0);
-    let muted2 = false;
-    let libjsid = true;
-    let borderlessS = String.fromCharCode(99,111,100,101,114,95,57,95,53,57,0);
-    let updatesY = new Map([[String.fromCharCode(101,95,49,50,95,102,116,118,100,111,99,0),102], [String.fromCharCode(103,95,54,57,95,115,115,105,109,118,0),160], [String.fromCharCode(109,115,109,112,101,103,118,95,121,95,57,55,0),126]]);
-    let vipsport7 = new Map([[String.fromCharCode(115,95,48,95,110,111,110,110,117,108,108,99,111,110,116,101,110,116,115,0),626], [String.fromCharCode(109,95,53,95,109,101,110,117,115,0),934], [String.fromCharCode(101,95,51,57,95,104,112,105,99,0),867]]);
-    let favoriteR = 1.0;
-    let d_viewz = false;
-    let anytimeg = 5.0;
-    let securityC = 2;
-    let cleary = 3.0;
-    let iconsharefriendsf = new Map([[String.fromCharCode(97,95,52,48,95,115,105,110,101,0),649], [String.fromCharCode(100,95,56,52,95,99,111,111,114,100,105,110,97,116,111,114,115,0),283]]);
-   for (let q = 0; q < 2; q++) {
-      muted2 = 1.87 == anytimeg;
-   }
-
-  const arrayValue = props?.data;
+       let directq = String.fromCharCode(101,100,103,101,115,95,115,95,49,51,0);
+    let google1 = String.fromCharCode(100,101,115,104,97,107,101,95,56,95,52,53,0);
+    let mathT = String.fromCharCode(101,110,118,95,101,95,49,50,0);
+    let miniJ = 4;
+    let soundL = String.fromCharCode(111,95,54,52,95,115,117,112,112,114,101,115,115,105,111,110,0);
+    let commentK = String.fromCharCode(111,95,56,52,95,119,97,105,116,105,110,103,0);
+    let castingh = String.fromCharCode(118,95,51,48,95,99,117,100,97,0);
+    let z_imageZ = true;
    do {
-       let rewardvideof = 2.0;
-      for (let c = 0; c < 1; c++) {
-         rewardvideof /= Math.max(2 - parseInt(`${rewardvideof}`), 2);
+       let l_imagev = String.fromCharCode(97,99,116,117,97,108,105,122,97,116,105,111,110,95,51,95,50,50,0);
+       let gdtadvE = new Map([[String.fromCharCode(103,95,54,54,95,115,117,98,115,99,114,105,98,97,98,108,101,115,0),654], [String.fromCharCode(116,100,115,102,95,97,95,51,55,0),955], [String.fromCharCode(101,95,50,54,95,115,112,114,105,116,101,115,0),932]]);
+       let popupq = new Map([[String.fromCharCode(119,114,106,112,103,99,111,109,95,120,95,52,53,0),459], [String.fromCharCode(112,97,116,116,101,114,110,95,120,95,53,53,0),251], [String.fromCharCode(100,95,51,51,95,97,112,111,108,108,111,0),770]]);
+       let soundJ = [244, 208, 302];
+      if ((popupq.size + gdtadvE.size) <= 5 || (gdtadvE.size + 5) <= 3) {
+         gdtadvE = new Map([[`${popupq.size}`, 1]]);
       }
-      do {
-         rewardvideof *= parseInt(`${rewardvideof}`);
-         if (4619786.0 == rewardvideof) {
-            break;
-         }
-      } while ((1.98 > (rewardvideof / (Math.max(9, rewardvideof)))) && (4619786.0 == rewardvideof));
-      for (let r = 0; r < 2; r++) {
-         rewardvideof += parseInt(`${rewardvideof}`);
+      for (let x = 0; x < 2; x++) {
+         gdtadvE[l_imagev] = (String.fromCharCode(73,0) == l_imagev ? l_imagev.length : soundJ.length);
       }
-      muted2 = anytimeg == 44.31;
-      if (muted2 ? !muted2 : muted2) {
+       let unreadA = 5.0;
+         unreadA -= parseFloat(`${1}`);
+         l_imagev += `${popupq.size}`;
+         soundJ = [1];
+      while (5.2 < unreadA) {
+         soundJ.push(soundJ.length);
          break;
       }
-   } while ((1 == gesturem.length && muted2) && (muted2 ? !muted2 : muted2));
+      do {
+         popupq[`${soundJ.length}`] = gdtadvE.size >> (Math.min(soundJ.length, 2));
+         if (popupq.size == 1506553) {
+            break;
+         }
+      } while ((1 > (popupq.size << (Math.min(2, soundJ.length))) && (popupq.size << (Math.min(Math.abs(1), 1))) > 4) && (popupq.size == 1506553));
+      do {
+          let floating7 = String.fromCharCode(99,97,118,115,95,113,95,52,50,0);
+          let gpayn = [363, 592];
+          let bridgej = String.fromCharCode(98,108,117,114,97,121,95,101,95,57,56,0);
+          let macaue = String.fromCharCode(119,95,52,51,95,114,101,97,115,115,101,109,98,108,121,0);
+          let actionsl = String.fromCharCode(119,101,98,102,105,108,101,95,108,95,57,56,0);
+         gdtadvE = new Map([[`${gdtadvE.size}`, (String.fromCharCode(98,0) == l_imagev ? gdtadvE.size : l_imagev.length)]]);
+         floating7 = `${gpayn.length}`;
+         gpayn.push(macaue.length >> (Math.min(Math.abs(3), 5)));
+         bridgej = `${actionsl.length ^ macaue.length}`;
+         actionsl += `${(String.fromCharCode(117,0) == bridgej ? actionsl.length : bridgej.length)}`;
+         if (gdtadvE.size == 3811145) {
+            break;
+         }
+      } while ((2 <= (gdtadvE.size * 3) || (gdtadvE.size * 3) <= 3) && (gdtadvE.size == 3811145));
+      do {
+         popupq = new Map([[`${popupq.size}`, parseInt(`${unreadA}`) + 2]]);
+         if (popupq.size == 3967744) {
+            break;
+         }
+      } while ((4 > soundJ.length) && (popupq.size == 3967744));
+         soundJ = [gdtadvE.size - parseInt(`${unreadA}`)];
+      if (Array.from(popupq.values()).includes(unreadA)) {
+          let modal2 = String.fromCharCode(112,95,56,48,95,115,119,105,116,99,104,101,100,0);
+          let twitter4 = 2.0;
+         unreadA += parseFloat(`${parseInt(`${twitter4}`) | 2}`);
+         modal2 += "1";
+         twitter4 *= (parseFloat(`${String.fromCharCode(121,0) == modal2 ? modal2.length : modal2.length}`));
+      }
+      soundL = `${2 << (Math.min(4, soundL.length))}`;
+      if (String.fromCharCode(51,108,95,101,51,113,0) == soundL) {
+         break;
+      }
+   } while ((3 <= mathT.length) && (String.fromCharCode(51,108,95,101,51,113,0) == soundL));
+
+  const arrayValue = props?.data;
+       let libreact_ = 3.0;
+         libreact_ *= 3;
+      if ((libreact_ - libreact_) < 2.47) {
+         libreact_ -= parseInt(`${libreact_}`) & 3;
+      }
+          let descX = String.fromCharCode(112,95,49,53,95,97,110,110,101,120,98,109,112,0);
+         libreact_ /= Math.max(4, descX.length);
+      miniJ >>= Math.min(3, Math.abs(2));
 
   const dataTesting = {imageName: GoalLogo, textName: '123'};
   // const dataTime = arrayValue?.time > 90 ? 90 : arrayValue?.time;
-      cleary += parseFloat(`${parseInt(`${favoriteR}`) * 3}`);
+      directq += `${miniJ >> (Math.min(soundL.length, 4))}`;
 
   const dataTime = arrayValue?.time;
-   if (5 > (parseInt(`${favoriteR}`) - updatesY.size)) {
-      favoriteR *= (String.fromCharCode(106,0) == gesturem ? gesturem.length : parseInt(`${anytimeg}`));
-   }
+       let otheru = String.fromCharCode(112,114,111,108,111,110,103,95,108,95,48,0);
+      if (!otheru.startsWith(otheru)) {
+         otheru = `${otheru.length >> (Math.min(otheru.length, 5))}`;
+      }
+       let internet8 = false;
+       let fullZ = true;
+      if (!fullZ) {
+         internet8 = (20 >= ((internet8 ? 20 : otheru.length) / (Math.max(1, otheru.length))));
+      }
+      soundL = `${2 - castingh.length}`;
 
   const dataType = arrayValue?.type;
-   do {
-       let inouttargetredg = 3;
-       let editU = String.fromCharCode(113,95,55,95,112,101,114,109,105,116,116,101,100,0);
-       let holderu = String.fromCharCode(108,105,99,101,110,115,101,115,95,100,95,56,48,0);
-         inouttargetredg |= 2;
-      for (let l = 0; l < 3; l++) {
-         holderu = `${(String.fromCharCode(78,0) == editU ? inouttargetredg : editU.length)}`;
-      }
-      do {
-          let kuaishouX = String.fromCharCode(115,97,109,101,113,95,116,95,55,56,0);
-         inouttargetredg ^= editU.length / (Math.max(5, kuaishouX.length));
-         if (3696735 == inouttargetredg) {
-            break;
-         }
-      } while ((holderu.length == inouttargetredg) && (3696735 == inouttargetredg));
-         holderu += `${editU.length}`;
-         holderu += "1";
-      do {
-         inouttargetredg -= editU.length ^ 2;
-         if (inouttargetredg == 197015) {
-            break;
-         }
-      } while ((1 > (holderu.length - 4)) && (inouttargetredg == 197015));
-      for (let v = 0; v < 2; v++) {
-         editU += `${(holderu == String.fromCharCode(49,0) ? holderu.length : inouttargetredg)}`;
-      }
-          let selectionR = String.fromCharCode(121,95,57,50,95,116,121,112,101,100,101,102,115,0);
-          let editD = new Map([[String.fromCharCode(114,95,53,49,95,99,111,110,110,101,99,116,105,118,105,116,121,0),839], [String.fromCharCode(113,95,56,53,95,109,117,108,116,105,115,105,103,0),521]]);
-         editU = "2";
-         selectionR += `${editD.size << (Math.min(selectionR.length, 4))}`;
-         editD = new Map([[`${editD.size}`, editD.size << (Math.min(selectionR.length, 1))]]);
-      do {
-          let downloadingk = new Map([[String.fromCharCode(117,99,108,111,99,107,95,114,95,55,49,0),false ], [String.fromCharCode(117,95,55,57,95,115,101,115,115,105,111,110,0),true ], [String.fromCharCode(99,95,51,52,95,112,114,111,99,101,115,115,105,110,103,0),true ]]);
-          let rewardz = String.fromCharCode(98,117,102,114,101,102,95,106,95,50,54,0);
-          let typesY = 5;
-          let icondownimgt = String.fromCharCode(109,95,49,51,95,110,101,116,119,111,114,107,0);
-         editU += `${rewardz.length}`;
-         downloadingk[icondownimgt] = downloadingk.size;
-         rewardz = `${(String.fromCharCode(102,0) == icondownimgt ? icondownimgt.length : typesY)}`;
-         typesY %= Math.max(3, downloadingk.size);
-         if (editU == String.fromCharCode(102,97,117,54,103,0)) {
-            break;
-         }
-      } while ((editU == String.fromCharCode(102,97,117,54,103,0)) && (4 < editU.length));
-      borderlessS += "3";
-      if (borderlessS.length == 1264544) {
-         break;
-      }
-   } while (((borderlessS.length << (Math.min(Math.abs(2), 3))) <= 3 && (2 >> (Math.min(3, borderlessS.length))) <= 1) && (borderlessS.length == 1264544));
+      miniJ += 2;
 
   const matchStorylineStatus = getMatchStorylineStatus(dataType);
-   if ((vipsport7.size << (Math.min(Math.abs(5), 1))) >= 3 || (vipsport7.size << (Math.min(gesturem.length, 2))) >= 5) {
-      gesturem += `${((muted2 ? 3 : 5) ^ parseInt(`${favoriteR}`))}`;
-   }
-
-  
-
-       let regengu = String.fromCharCode(116,104,101,109,101,115,95,112,95,55,51,0);
-       let textinputn = 1;
-       let sourceY = 0.0;
-          let orientationQ = 3.0;
-         regengu = "3";
-         orientationQ *= parseFloat(`${1 - parseInt(`${orientationQ}`)}`);
-      for (let h = 0; h < 2; h++) {
-         textinputn += textinputn;
-      }
-      for (let o = 0; o < 2; o++) {
-         textinputn += regengu.length;
-      }
-         sourceY /= Math.max(5, parseFloat(`${parseInt(`${sourceY}`) << (Math.min(Math.abs(1), 4))}`));
-         sourceY /= Math.max(5, parseFloat(`${3 % (Math.max(10, regengu.length))}`));
-         regengu = `${textinputn}`;
-          let java2 = 1;
-          let countdowny = String.fromCharCode(102,95,57,57,95,112,97,99,107,97,103,101,100,0);
-          let videojst = 2.0;
-         textinputn /= Math.max(4, textinputn & 2);
-         java2 |= countdowny.length;
-         countdowny += `${parseInt(`${videojst}`)}`;
-         videojst -= parseFloat(`${countdowny.length ^ 3}`);
-         sourceY -= parseFloat(`${parseInt(`${sourceY}`)}`);
-         textinputn >>= Math.min(Math.abs((regengu == String.fromCharCode(114,0) ? regengu.length : textinputn)), 4);
-      muted2 = 50 >= regengu.length;
-  const isHome = arrayValue?.position == 1 ? true : false;
-       let listh = String.fromCharCode(112,117,98,108,105,99,105,116,121,95,98,95,56,52,0);
-       let componentV = false;
-      do {
-         componentV = listh.endsWith(`${componentV}`);
-         if (componentV ? !componentV : componentV) {
-            break;
-         }
-      } while ((componentV ? !componentV : componentV) && (4 < listh.length));
-      for (let w = 0; w < 3; w++) {
-         listh += `${(listh == String.fromCharCode(90,0) ? (componentV ? 2 : 1) : listh.length)}`;
-      }
-       let floaterb = String.fromCharCode(120,95,56,49,95,114,101,97,100,102,117,108,108,0);
-         componentV = floaterb.length == 43;
-      if (!componentV) {
-          let combineT = true;
-          let windA = [260, 458];
-         floaterb = `${floaterb.length}`;
-         combineT = combineT || windA.length > 35;
-         windA.push((windA.length - (combineT ? 1 : 3)));
-      }
-      while (!componentV) {
-         componentV = componentV || floaterb.length == 76;
+   do {
+      castingh += `${google1.length >> (Math.min(mathT.length, 4))}`;
+      if (castingh.length == 2591129) {
          break;
       }
-      gesturem += `${((d_viewz ? 3 : 4))}`;
-
-  const systemExcluded = [11, 12, 19, 26, 27];
-   if (!muted2) {
-      cleary += parseFloat(`${3 + updatesY.size}`);
-   }
-
-  const panaltyBattleType = [29, 30];
-      cleary *= (parseFloat(`${borderlessS == String.fromCharCode(81,0) ? borderlessS.length : (muted2 ? 1 : 4)}`));
+   } while ((commentK.endsWith(castingh)) && (castingh.length == 2591129));
 
   
 
-      favoriteR *= 1 & parseInt(`${anytimeg}`);
+      mathT = "2";
+  const isHome = arrayValue?.position == 1 ? true : false;
+   if (1 < castingh.length) {
+      castingh = `${miniJ | 3}`;
+   }
+
+  const systemExcluded = [11, 12, 19, 26, 27];
+      mathT = "3";
+
+  const panaltyBattleType = [29, 30];
+   if (!soundL.includes(`${directq.length}`)) {
+       let fasti = [530, 596, 124];
+       let recommendationt = false;
+          let types0 = String.fromCharCode(104,95,54,95,102,105,114,101,100,0);
+         fasti = [(types0 == String.fromCharCode(75,0) ? (recommendationt ? 5 : 4) : types0.length)];
+       let libreactnativejniH = new Map([[String.fromCharCode(106,95,52,54,95,107,97,108,109,97,110,0),234], [String.fromCharCode(107,95,51,55,95,116,111,103,103,108,101,0),228], [String.fromCharCode(115,101,115,115,105,111,110,115,95,99,95,57,53,0),245]]);
+       let zhuboC = new Map([[String.fromCharCode(98,95,57,53,95,102,111,114,101,105,103,110,0),5], [String.fromCharCode(105,95,56,57,95,120,108,97,98,101,108,104,101,105,103,104,116,0),63]]);
+      while (libreactnativejniH.size >= 2 && (libreactnativejniH.size - 2) >= 2) {
+         libreactnativejniH = new Map([[`${zhuboC.size}`, zhuboC.size]]);
+         break;
+      }
+         recommendationt = fasti.length <= libreactnativejniH.size;
+      while (!Array.from(zhuboC.keys()).includes(`${libreactnativejniH.size}`)) {
+         zhuboC[`${libreactnativejniH.size}`] = zhuboC.size ^ 3;
+         break;
+      }
+      if (1 >= (4 >> (Math.min(2, fasti.length)))) {
+         zhuboC[`${recommendationt}`] = 3 | libreactnativejniH.size;
+      }
+      directq += `${(1 - (z_imageZ ? 3 : 4))}`;
+   }
+
+  
+
+      z_imageZ = z_imageZ && mathT.length > 24;
   return (
     <View style={styles.mainContainer}>
       {!isHome && (
@@ -230,10 +205,7 @@ const StorylineTabListItem = props => {
       {isHome && <View style={{flex: 1}}></View>}
     </View>
   );
-   while (d_viewz) {
-      muted2 = gesturem == String.fromCharCode(56,0) || 55 == securityC;
-      break;
-   }
+      castingh = "1";
 
 };
 

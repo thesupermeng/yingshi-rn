@@ -4,16 +4,16 @@ import StorylineTap from './storylineTab';
 import StorylineTapList from './storylineTabList';
 import { WhistleOrange, OrangeClock } from '../../assets';
 
-import styles from './yys_nbatrophy';
-import { yysTeam } from '../../types/yys_arrow_modules';
-import FastImage from '../../../components/common/yys_alert_backwhite';
+import styles from './yys_gpay_roboto';
+import { yys_YellowHover } from '../../types/yys_white_tick';
+import FastImage from '../../../components/common/yys_vertical_collection';
 
 
-interface yysIconarrowrightorangeStation {
-  liveRoomUpdate?: yysTeam
+interface yys_ConfigureUimanager {
+  liveRoomUpdate?: yys_YellowHover
 }
 
-const StorylineEvent = ({ liveRoomUpdate }: yysIconarrowrightorangeStation) => {
+const StorylineEvent = ({ liveRoomUpdate }: yys_ConfigureUimanager) => {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   return (

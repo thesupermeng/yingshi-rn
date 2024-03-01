@@ -3,7 +3,7 @@ import { Text, View, ScrollView, Dimensions } from 'react-native';
 import AreaChart from '../../areaChart';
 import CustomMatchDetailsTabBar from '../../customMatchDetailsTabBar';
 import StatisticsChart from '../../statisticsChart';
-import styles from './yys_nbatrophy';
+import styles from './yys_gpay_roboto';
 import MatchStatisticTab from './matchStatisticTab';
 import FootballIconComponent from '../../footballIconComponent';
 import AreaChartBasketball from '../../areaChartBasketball';
@@ -11,29 +11,29 @@ import MatchStatistic from '../../matchStatistic';
 import StorylineEvent from '../../storylineEvent';
 import BasketballLiveDetails from '../../basketballLiveDetails';
 import LiveScoreBasketball from '../../liveScoreBasketball';
-import { yysDicelogoFootballfield } from '../../../types/yys_iconnointernet_guide';
-import { yysTeam } from '../../../types/yys_arrow_modules';
+import { yys_PlusFilter } from '../../../types/yys_live_libyoga';
+import { yys_YellowHover } from '../../../types/yys_white_tick';
 import Weather from '../../weather';
-import EmptyDataPage from '../../yys_iconnewsshare';
+import EmptyDataPage from '../../yys_user_image';
 import { useIsFocused } from '@react-navigation/native';
 
-interface yysIconarrowrightorangeStation {
-  liveRoomMatchDetails?: yysDicelogoFootballfield
-  liveRoomUpdate?: yysTeam
+interface yys_ConfigureUimanager {
+  liveRoomMatchDetails?: yys_PlusFilter
+  liveRoomUpdate?: yys_YellowHover
 }
 
-type yysUnimplementedview = {
+type yys_GmailAndroid = {
   name: string
   children: React.ReactNode
 }
 
-const LiveStatPage = ({ liveRoomUpdate, liveRoomMatchDetails }: yysIconarrowrightorangeStation) => {
+const LiveStatPage = ({ liveRoomUpdate, liveRoomMatchDetails }: yys_ConfigureUimanager) => {
   const isFocus = useIsFocused();
 
   // const adsList = useSelector(state => state.adsList);
   
 
-  const tabBar: yysUnimplementedview[] = [
+  const tabBar: yys_GmailAndroid[] = [
     {
       name: '重要事件',
       children: <StorylineEvent liveRoomUpdate={liveRoomUpdate} />,

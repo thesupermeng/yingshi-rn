@@ -1,6 +1,6 @@
-import vars from './yys_videovar';
-import yysDisconnectedlogoSwitch from '../middleware/yys_manifest';
-import { Url } from '../middleware/yys_login';
+import vars from './yys_textinput';
+import yys_Matches from '../middleware/yys_libjsi';
+import {Url} from '../middleware/yys_desc_resend';
 // import { Alert, Linking, Platform } from 'react-native';
 // import ReactNativeBlobUtil from 'react-native-blob-util';
 // import {
@@ -10,12 +10,12 @@ import { Url } from '../middleware/yys_login';
 //   openSettings,
 // } from 'react-native-permissions';
 import RNFS from 'react-native-fs';
-// import AppSettingsAction from '@redux';
-// import Config from '../global/yys_baiduads_eighteen_view';
-// import { yysDefaultlogoBackward } from '../global/yys_unlock';
+// import AppSettingsAction from '@redux/actions/appSettingsAction';
+// import Config from '../global/yys_unselected_view';
+// import { yys_Build } from '../global/yys_chart';
 // import { getPredictionShareTimeStamp } from '../global/asyncStorage';
 // import { createIconSetFromFontello } from 'react-native-vector-icons';
-// import { showToast } from './yys_backward';
+// import { showToast } from './yys_team_copy';
 
 /**
  ** Format and return date in Humanize format
@@ -335,8 +335,8 @@ export const deepCopyArray = array => {
 };
 
 export const liveRoomName = async matchId => {
-  const params = { id: matchId };
-  const res = await yysDisconnectedlogoSwitch.call(Url.liveRoomDetail, params, 'GET');
+  const params = {id: matchId};
+  const res = await yys_Matches.call(Url.liveRoomDetail, params, 'GET');
   if (res.success) {
     if (res.data.id === 0) {
       return 'noMatchDetails';
@@ -357,7 +357,7 @@ type scoreObjType = {
   homeScore: number,
   awayScore: number,
   state: number,
-}
+};
 
 export const getMatchScore = (scores, sportType) => {
   let scoreObj: scoreObjType | null = null;
@@ -526,7 +526,7 @@ export const getMatchStorylineStatus = status => {
 // };
 
 export const createShareLink = async (path, id) => {
-  const params = { path: path, params: { channel_id: Config.channelId } };
+  const params = {path: path, params: {channel_id: Config.channelId}};
   switch (path) {
     case 'news':
       params.params.news_id = id;
@@ -540,10 +540,10 @@ export const createShareLink = async (path, id) => {
     default:
       break;
   }
-  const response = await yysDisconnectedlogoSwitch.call(Url.createShare, params);
+  const response = await yys_Matches.call(Url.createShare, params);
   if (response.success) {
     const key = response.data;
-    const shareLink = `${yysDefaultlogoBackward.instance.config?.shortUrlDomain}/${key}`;
+    const shareLink = `${yys_Build.instance.config?.shortUrlDomain}/${key}`;
     return shareLink;
   } else {
     return '';
@@ -567,10 +567,10 @@ export const mergeDeep = (target, ...sources) => {
   if (isObject(target) && isObject(source)) {
     for (const key in source) {
       if (isObject(source[key])) {
-        if (!target[key]) Object.assign(target, { [key]: {} });
+        if (!target[key]) Object.assign(target, {[key]: {}});
         mergeDeep(target[key], source[key]);
       } else {
-        Object.assign(target, { [key]: source[key] });
+        Object.assign(target, {[key]: source[key]});
       }
     }
   }
@@ -618,7 +618,7 @@ export const convertSeasonList = list => {
         }
         return item;
       });
-      return { id: e?.id, year: formatList.join('-') };
+      return {id: e?.id, year: formatList.join('-')};
     }
     return e;
   });
@@ -636,6 +636,7 @@ export const getRandomColor = () => {
 export const getRandomDeepColor = () => {
   const min = 20;
   const balance = 170;
-  return `rgb(${Math.floor(Math.random() * balance) + min},${Math.floor(Math.random() * balance) + min
-    },${Math.floor(Math.random() * balance) + min})`;
+  return `rgb(${Math.floor(Math.random() * balance) + min},${
+    Math.floor(Math.random() * balance) + min
+  },${Math.floor(Math.random() * balance) + min})`;
 };

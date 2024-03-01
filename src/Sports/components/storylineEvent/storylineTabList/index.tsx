@@ -6,15 +6,15 @@ import { GoalLogo } from '../../../assets';
 import StorylineTap from '../storylineTab';
 import StorylineTabListItem from '../storylineTabListItem';
 
-import styles from './yys_nbatrophy';
-import { yysTeam } from '../../../types/yys_arrow_modules';
+import styles from './yys_gpay_roboto';
+import { yys_YellowHover } from '../../../types/yys_white_tick';
 
-interface yysIconarrowrightorangeStation {
-  liveRoomUpdate?: yysTeam
+interface yys_ConfigureUimanager {
+  liveRoomUpdate?: yys_YellowHover
   isEnabled?: boolean
 }
 
-const StorylineTapList = ({ liveRoomUpdate, isEnabled=true }: yysIconarrowrightorangeStation) => {
+const StorylineTapList = ({ liveRoomUpdate, isEnabled=true }: yys_ConfigureUimanager) => {
   const arrayValue = liveRoomUpdate?.football_match_live?.incidents ?? [];
 
   const dataTesting = { imageName: GoalLogo, textName: '123' };

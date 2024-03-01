@@ -1,7 +1,7 @@
 {
-  "bannerViews" : "minimizeIconorientation",
-  "splashImageView" : "subbasketballplayerOwngoal",
-  "defaultAdSourceConfigStr" : "iconscheduleCast",
-  "modelBackView" : "audienceProduct",
-  "skipButton" : "shootnogoalReactnativeultimate"
+  "splashImageView" : "roundResult",
+  "modelBackView" : "logoutNews",
+  "defaultAdSourceConfigStr" : "holderFloater",
+  "skipButton" : "leftMinimize",
+  "bannerViews" : "reducerStreaming"
 }

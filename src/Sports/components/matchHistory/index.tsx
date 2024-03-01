@@ -1,14 +1,14 @@
 import { SafeAreaView, View, Text, Image, ImageBackground } from 'react-native';
-import styles from './yys_nbatrophy';
+import styles from './yys_gpay_roboto';
 import { HomeIcon, AwayIcon } from '../../assets';
 import { calculateScore } from '../../utility/utils';
-import { yysTyping, V } from '../../types/yys_iconnointernet_guide';
-import { yysFavoriteNetwork } from '../../types/yys_history_plash';
+import { yys_SecurityConstants, V } from '../../types/yys_live_libyoga';
+import { yys_List } from '../../types/yys_league_mounting';
 
-interface yysIconarrowrightorangeStation {
+interface yys_ConfigureUimanager {
   data?: V[]
   dataTotal?: any
-  teamDetails?: yysTyping
+  teamDetails?: yys_SecurityConstants
   isHome?: boolean
   title?: string
   sportsType?: number
@@ -21,7 +21,7 @@ const MatchHistory = ({
   isHome = true,
   title = '',
   sportsType = 3,
-}: yysIconarrowrightorangeStation) => {
+}: yys_ConfigureUimanager) => {
 
   console.log("SPORTS TYPE", sportsType)
 

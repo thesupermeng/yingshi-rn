@@ -1,2 +1,2 @@
-export * from './yys_middlebrightness_quest';
-export * from './yys_feedback_station';
+export * from './yys_libtan_promotion';
+export * from './yys_qaag';
