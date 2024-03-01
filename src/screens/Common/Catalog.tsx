@@ -199,17 +199,30 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
   };
 
   const fetchVods = useCallback(
-    (page: number) => VodApi.getList({
-      page,
-      limit: LIMIT_PER_PAGE,
-      tid: currentTopicId.toString(),
-      by: orderBy.value,
-      category: topicClass.value !== '全部类型' ? topicClass.value : undefined,
-      area: area.value !== '全部地区' ? area.value : undefined,
-      lang: lang.value !== '全部语言' ? lang.value : undefined,
-      year: year.value !== '全部时间' ? year.value : undefined,
-      orderBy: 'desc',
-    }).then((data) => data.List as SuggestedVodType[]),
+    (page: number) => {
+      if(currentTopicId.toString() == "46" || currentTopicId.toString() == "44"){
+        return VodApi.getList({
+          page,
+          limit: LIMIT_PER_PAGE,
+          tid: currentTopicId.toString(),
+          by: orderBy.value,
+          year: year.value !== '全部时间' ? year.value : undefined,
+          orderBy: 'desc',
+        }).then((data) => data.List as SuggestedVodType[])
+      }else{
+      return VodApi.getList({
+          page,
+          limit: LIMIT_PER_PAGE,
+          tid: currentTopicId.toString(),
+          by: orderBy.value,
+          category: topicClass.value !== '全部类型' ? topicClass.value : undefined,
+          area: area.value !== '全部地区' ? area.value : undefined,
+          lang: lang.value !== '全部语言' ? lang.value : undefined,
+          year: year.value !== '全部时间' ? year.value : undefined,
+          orderBy: 'desc',
+        }).then((data) => data.List as SuggestedVodType[])
+      }
+    },
     [area, year, lang, topicClass, currentTopicId, orderBy],
   );
 
@@ -421,7 +434,7 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
     },
     [topicOptions, currentTopicId],
   );
-
+  
   return (
     <>
       <ScreenContainer>
@@ -429,7 +442,7 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
           title="片库"
         // headerStyle={{marginBottom: spacing.s}}
         />
-        <Animated.View>
+        <Animated.View style={{ paddingTop: 16 }}>
           <FlatList
             data={topicOptions}
             horizontal

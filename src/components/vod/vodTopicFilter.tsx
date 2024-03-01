@@ -26,19 +26,19 @@ export default ({ init, callback, options = [] }: Props) => {
         const [selectedItem, setSelectedItem] = useState<Option>();
     
         useEffect(() => {
-            if (selectedItem !== null && flatListRef.current) {
-            const index = options.findIndex(option => option.text === init.text)
-            if (index !== -1) {
-                const itemHeight = options.length /* Calculate the length of options */;
-                const offset = index * itemHeight;
-            setTimeout(() => {
-                if (index >= 10) {
-                    flatListRef.current.scrollToItem({ animated: false, item: options[index], viewPosition: -0.5 })
-                } else {
-                    flatListRef.current.scrollToOffset({ animated: false, offset });
+            if (selectedItem !== null && flatListRef.current && options.length > 2) {
+                const index = options.findIndex(option => option.text === init.text)
+                if (index !== -1) {
+                    const itemHeight = options.length /* Calculate the length of options */;
+                    const offset = index * itemHeight;
+                    setTimeout(() => {
+                        if (index >= 10) {
+                            flatListRef.current.scrollToItem({ animated: false, item: options[index], viewPosition: -0.5 })
+                        } else {
+                            flatListRef.current.scrollToOffset({ animated: false, offset });
+                        }
+                    }, 200);
                 }
-            }, 200);
-              }
             }
           }, [selectedItem, options]);
     
@@ -47,29 +47,40 @@ export default ({ init, callback, options = [] }: Props) => {
             offset: spacing.m * index,
             index,
           });
-    
     return (
-        <View style={{marginTop: spacing.m}}>
-            <FlatList
-                ref = {flatListRef}
-                data={options}
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                renderItem={({ item }: FlatListType) => {
-                    return <TouchableOpacity style={{ marginRight: spacing.m, justifyContent: 'center', display: 'flex' }} 
-                    // onPress={() => callback(item)}>
-                    onPress={() => {setSelectedItem(item); callback && callback(item)}}>
-                        <Text style={{
-                            textAlign: 'center',
-                            fontSize: textVariants.subBody.fontSize,
-                            color: init.value === item.value ? colors.primary : colors.muted
-                        }}>{item.text}</Text>
-                    </TouchableOpacity>
-                }}
-            getItemLayout = {getItemLayout}
+        <>
+            {options.length > 2 ?
+                (
+                    <View style={{marginTop: spacing.m}}>
+                        <FlatList
+                            ref = {flatListRef}
+                            data={options}
+                            horizontal
+                            showsHorizontalScrollIndicator={false}
+                            renderItem={({ item }: FlatListType) => {
+                                return <TouchableOpacity style={{ marginRight: spacing.m, justifyContent: 'center', display: 'flex' }} 
+                                // onPress={() => callback(item)}>
+                                onPress={() => {setSelectedItem(item); callback && callback(item)}}>
+                                    <Text style={{
+                                        textAlign: 'center',
+                                        fontSize: textVariants.subBody.fontSize,
+                                        color: init.value === item.value ? colors.primary : colors.muted
+                                    }}>{item.text}</Text>
+                                </TouchableOpacity>
+                            }}
+                        getItemLayout = {getItemLayout}
 
-            />
-        </View>
+                        />
+                    </View>
+                )
+
+                :
+
+                (
+                    <></>
+                )
+            }
+        </>
     )
 
 }

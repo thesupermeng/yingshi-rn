@@ -10,13 +10,13 @@ export class CEndpoint {
     static userGetCountries = 'country/v1/country';
 
     static homeGetNav = 'nav/v1/navItems';
-    static homeGetPages = 'page/v2/typepage';
+    static homeGetPages = 'page/v3/typepage';
 
     static playlistGetTopic = 'topic/v1/topic';
     static playlistGetTopicDetail = 'topic/v1/topic/detail';
     static playlistGetTopicIosTmp = 'topic/v1/topic/temp';
 
-    static vodGetTopicType = 'type/v1/type';
+    static vodGetTopicType = 'type/v2/type';
     static vodGetDetail = 'vod/v3/vod/detail';
     static vodGetXDetail = 'svod/v1/vod/detail';
     static vodGetList = 'vod/v3/vod';
