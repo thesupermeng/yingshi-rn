@@ -1,5 +1,5 @@
-import { RootState } from "@redux/store";
-import { CustomEventAnalytic } from "../../../Umeng/EventAnalytic";
+import {RootState} from '@redux/store';
+import {CustomEventAnalytic} from '../../../Umeng/EventAnalytic';
 import {
   APPSFLYER_APPID,
   APPSFLYER_DEVKEY,
@@ -9,145 +9,140 @@ import {
   VIP_PROMOTION_PURCHASE_MAX,
   VIP_PROMOTION_PURCHASE_MIN,
   VIP_PROMOTION_PURCHASE_RANDOM,
-} from "@utility/constants";
-import { BackgroundActionEventType } from "@redux/reducers/backgroundReducer";
-import AppsFlyerAnalytics from "../../../AppsFlyer/AppsFlyerAnalytic";
-import appsFlyer from "react-native-appsflyer";
+} from '@utility/constants';
+import {BackgroundActionEventType} from '@redux/reducers/backgroundReducer';
+import AppsFlyerAnalytics from '../../../AppsFlyer/AppsFlyerAnalytic';
+import appsFlyer from 'react-native-appsflyer';
 
-export const onBootApp = ({} = {}) => async (
-  dispatch: any,
-  getState: () => RootState
-) => {
-  try {
-    console.log("onBootApp");
-    const backgroundState = getState().backgroundReducer;
+export const onBootApp =
+  ({} = {}) =>
+  async (dispatch: any, getState: () => RootState) => {
+    try {
+      console.log('onBootApp');
+      const backgroundState = getState().backgroundReducer;
 
- 
+      // ========== vip promotion modal ==========
+      const now = Date.now();
+      const countdownMilisecond = VIP_PROMOTION_COUNTDOWN_MINUTE * 60 * 1000; // 60 second & 1000 milisecond
 
-    // ========== vip promotion modal ==========
-    const now = Date.now();
-    const countdownMilisecond = VIP_PROMOTION_COUNTDOWN_MINUTE * 60 * 1000; // 60 second & 1000 milisecond
+      const interval = setInterval(() => {
+        console.log('COUNT INTERVAL');
+        const currentPurchase =
+          getState().backgroundReducer.vipPromotionPurchaseNum;
+        const minuteRemain = Math.floor(
+          VIP_PROMOTION_COUNTDOWN_MINUTE -
+            (Date.now() -
+              getState().backgroundReducer.vipPromotionCountdownStart) /
+              1000 /
+              60,
+        ); //change to minute
 
-    const interval = setInterval(() => {
-      console.log("COUNT INTERVAL");
-      const currentPurchase = getState().backgroundReducer
-        .vipPromotionPurchaseNum;
-      const minuteRemain = Math.floor(
-        VIP_PROMOTION_COUNTDOWN_MINUTE -
-          (Date.now() -
-            getState().backgroundReducer.vipPromotionCountdownStart) /
-            1000 /
-            60
-      ); //change to minute
+        const purchaseRemain = VIP_PROMOTION_PURCHASE_MAX - currentPurchase;
+        const eachRandomRange = purchaseRemain / minuteRemain;
 
-      const purchaseRemain = VIP_PROMOTION_PURCHASE_MAX - currentPurchase;
-      const eachRandomRange = purchaseRemain / minuteRemain;
+        const random = Math.floor(Math.random() * eachRandomRange + 1);
 
-      const random = Math.floor(Math.random() * eachRandomRange + 1);
+        dispatch({
+          type: BackgroundActionEventType.VIP_PROMOTION_PURCHASE_UPDATE,
+          payload: currentPurchase + random,
+        });
+      }, VIP_PROMOTION_INTERVEL_SECONDS * 1000);
 
+      if (
+        backgroundState.vipPromotionCountdownStart === 0 ||
+        now - backgroundState.vipPromotionCountdownStart > countdownMilisecond
+      ) {
+        const randomPurchase = Math.floor(
+          Math.random() * VIP_PROMOTION_PURCHASE_RANDOM +
+            VIP_PROMOTION_PURCHASE_MIN,
+        );
+
+        dispatch({
+          type: BackgroundActionEventType.VIP_PROMOTION_BOOT,
+          payload: {
+            start: now,
+            purchase: randomPurchase,
+            interval: interval,
+          },
+        });
+      } else if (
+        now - backgroundState.vipPromotionCountdownStart <
+        countdownMilisecond
+      ) {
+        dispatch({
+          type: BackgroundActionEventType.VIP_PROMOTION_BOOT,
+          payload: {
+            interval: interval,
+          },
+        });
+      } else {
+        dispatch({
+          payload: {
+            interval: interval,
+          },
+        });
+      }
+      // ========== end  vip promotion modal ==========
+
+      console.log('BackgroundActionEventType.ON_APP_BOOT');
       dispatch({
-        type: BackgroundActionEventType.VIP_PROMOTION_PURCHASE_UPDATE,
-        payload: currentPurchase + random,
-      });
-    }, VIP_PROMOTION_INTERVEL_SECONDS * 1000);
-
-    if (
-      backgroundState.vipPromotionCountdownStart === 0 ||
-      now - backgroundState.vipPromotionCountdownStart > countdownMilisecond
-    ) {
-      const randomPurchase = Math.floor(
-        Math.random() * VIP_PROMOTION_PURCHASE_RANDOM +
-          VIP_PROMOTION_PURCHASE_MIN
-      );
-
-      dispatch({
-        type: BackgroundActionEventType.VIP_PROMOTION_BOOT,
-        payload: {
-          start: now,
-          purchase: randomPurchase,
-          interval: interval,
-        },
-      });
-    } else if (
-      now - backgroundState.vipPromotionCountdownStart <
-      countdownMilisecond
-    ) {
-      dispatch({
-        type: BackgroundActionEventType.VIP_PROMOTION_BOOT,
-        payload: {
-          interval: interval,
-        },
-      });
-    } else {
-      dispatch({
-        payload: {
-          interval: interval,
-        },
-      });
-    }
-    // ========== end  vip promotion modal ==========
-
-console.log('BackgroundActionEventType.ON_APP_BOOT')
-    dispatch({
         type: BackgroundActionEventType.ON_APP_BOOT,
       });
 
+      // ========== appsflyer event ==========
+      appsFlyer.initSdk(
+        {
+          devKey: APPSFLYER_DEVKEY,
+          isDebug: false,
+          appId: APPSFLYER_APPID,
+          onInstallConversionDataListener: true,
+          onDeepLinkListener: true,
+          timeToWaitForATTUserAuthorization: 10,
+        },
+        result => {
+          console.log('Apps Flyer init success');
 
-    // ========== appsflyer event ==========
-    appsFlyer.initSdk(
-      {
-        devKey: APPSFLYER_DEVKEY,
-        isDebug: false,
-        appId: APPSFLYER_APPID,
-        onInstallConversionDataListener: true,
-        onDeepLinkListener: true,
-        timeToWaitForATTUserAuthorization: 10,
-      },
-      (result) => {
-        console.log("Apps Flyer init success");
+          // because appsFlyer after init need some time
+          setTimeout(() => {
+            if (backgroundState.firstBoot) {
+              dispatch({
+                type: BackgroundActionEventType.ON_FIRST_BOOT,
+              });
+              AppsFlyerAnalytics.install();
+            }
 
-        // because appsFlyer after init need some time
-        setTimeout(() => {
-          if (backgroundState.firstBoot) {
-            dispatch({
-              type: BackgroundActionEventType.ON_FIRST_BOOT,
-            });
-            AppsFlyerAnalytics.install();
-          }
+            AppsFlyerAnalytics.appBoot();
+          }, 2000);
+        },
+        error => {
+          console.error(error);
+        },
+      );
 
-          AppsFlyerAnalytics.appBoot();
-        }, 2000);
-      },
-      (error) => {
-        console.error(error);
+      // ========== custom event ==========
+      CustomEventAnalytic.foundLocalPush();
+
+      if (EVENT_CUSTOM_ON) {
+        CustomEventAnalytic.start();
       }
-    );
+    } catch (e) {}
+  };
 
-    // ========== custom event ==========
-    CustomEventAnalytic.foundLocalPush();
+export const onCloseApp =
+  ({} = {}) =>
+  async (dispatch: any, getState: () => RootState) => {
+    try {
+      const backgroundState = getState().backgroundReducer;
 
-    if (EVENT_CUSTOM_ON) {
-      CustomEventAnalytic.start();
-    }
-  } catch (e) {}
-};
+      // ========== custom event ==========
+      CustomEventAnalytic.close();
 
-export const onCloseApp = ({} = {}) => async (
-  dispatch: any,
-  getState: () => RootState
-) => {
-  try {
-    const backgroundState = getState().backgroundReducer;
-
-    // ========== custom event ==========
-    CustomEventAnalytic.close();
-
-    // ========== vip promotion modal ==========
-    if (backgroundState.vipPromotionIntervel) {
-      clearInterval(backgroundState.vipPromotionIntervel);
-    }
-  } catch (e) {}
-};
+      // ========== vip promotion modal ==========
+      if (backgroundState.vipPromotionIntervel) {
+        clearInterval(backgroundState.vipPromotionIntervel);
+      }
+    } catch (e) {}
+  };
 
 export const loginModalShown = () => ({
   type: BackgroundActionEventType.LOGIN_WARINING_MODAL_SHOWN,
