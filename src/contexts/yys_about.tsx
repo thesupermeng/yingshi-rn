@@ -2315,6 +2315,17 @@ export const AdsBannerContextProvider = ({ children }: yys_ConfigureUimanager) =
   }, []);
 
   
+
+  useEffect(() => {
+   if (screenState.interstitialShow == true) {
+      hideAllBanner();
+   } else {
+   
+      setTimeout(() => {
+         showBannerInPosition().then();
+       }, 200);
+   }
+ }, [screenState.interstitialShow]);
   
   
   
