@@ -524,7 +524,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
    if (libsentryT.length >= mbnative_.length) {
       mbnative_ += "2";
    }
-        dispatch(setIsPlayGuideShown2(true));
+     
       }, 50);
 
        let libjsinspectorX = 4.0;
@@ -701,7 +701,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
        let t_count2 = true;
       mbnative_ += "1";
    }
-          dispatch(setIsPlayGuideShown(true));
+       
         }, 20);
       }
 
@@ -6591,6 +6591,9 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
           >
             <VipGuideModal
               onClose={(value: boolean) => {
+
+               dispatch(setIsPlayGuideShown(true));
+               dispatch(setIsPlayGuideShown2(true));
                 videoPlayerRef.current?.setPause(false);
                 setVipGuideModalDL(value);
               }}

@@ -425,7 +425,17 @@ const useInterstitialAds = () => {
 
       specQ = `${librrcX.size << (Math.min(Math.abs(2), 3))}`;
           if (screenState.interstitialShow != true) {
-            ATInterstitialRNSDK.showAd(adsID);
+
+            if(screenState.isPlayGuideShown2 == false || screenState.isPlayGuideShown == false )
+            {
+               return
+            }
+            else
+            {
+               
+               ATInterstitialRNSDK.showAd(adsID);
+            }
+ 
           }
         }
         
