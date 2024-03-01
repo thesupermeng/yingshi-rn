@@ -1,0 +1,2 @@
+primary: '#FAC33D'
+APP_NAME_CONST = '爱美剧'

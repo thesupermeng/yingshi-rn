@@ -1,5 +1,7 @@
+
 1. image
 - open xcode and change image of bootsplashlogo & appicon
+- change android res of ic_launcher & bootsplash logo
 - change image eventsplash1,2,3 (static/images)
 - change home-loading gif (static/images)
 - change login-success gif (static/images/profile)
