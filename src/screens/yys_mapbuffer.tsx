@@ -70,6 +70,15 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
       }
    })
 
+   useEffect(() => {
+      if (flattenedVideos.length == 0) {
+         refetch;
+      }
+   }, [flattenedVideos]);
+
+   
+   
+
    const handleAppStateChange = (nextAppState: any) => {
       setIsInBackground(nextAppState !== 'active');
    };
