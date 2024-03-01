@@ -149,12 +149,21 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
       let filtered = videos?.pages.flat().filter(x => x)
       if (isVip) {
         filtered = filtered.filter(x => !x.is_ads)
+        miniVodListRef.current.scrollToOffset({
+          index: 0,
+        });
       } else {
-        if(!adultMode){
+        if (!adultMode) {
           filtered = filtered.slice(0, MINI_SHOW_LOGIN_NUMBER + 1);
         }
       }
       setFlattenedVideos(filtered); // remove null values
+      if (filtered.length > 0) {
+        miniVodListRef.current.scrollToOffset({
+          index: 0,
+          animated: false,
+        });
+      }
     }
   }, [videos]);
 
