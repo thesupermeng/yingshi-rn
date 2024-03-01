@@ -57,16 +57,16 @@ const CountdownIndicator = ({
   
   useEffect(() => {
     if (screenState.isSportGuideShown == false && !isVip) {
+   getPosition();
+
       setTimeout(() => {
         setVipGuideModal(true);
         dispatch(setIsSportGuideShown(true));
-      }, 1300);
+      }, 2000);
     }
   }, [timer]);
 
-  useEffect(() => {
-    getPosition();
-  }, []);
+
 
   const getPosition = () => {
        let gmaila = 4.0;
@@ -519,7 +519,7 @@ const CountdownIndicator = ({
  
       <View
         style={containerStyle}
-        onLayout={() => getPosition()}
+       // onLayout={() => getPosition()}
         ref={componentRef}>
         <View style={styles.timerIndicatorContainer}>
           <Text

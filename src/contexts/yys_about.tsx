@@ -2326,11 +2326,7 @@ export const AdsBannerContextProvider = ({ children }: yys_ConfigureUimanager) =
          showBannerInPosition().then();
        }, 200);
    }
- }, [screenState.interstitialShow]);
-  
-  
-  
-
+ }, [screenState.interstitialShow , route , navbarHeight , systemNavHeight]);
   
 
   useEffect(() => {
