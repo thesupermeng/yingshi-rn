@@ -35,7 +35,7 @@ const initialState: screenModel = {
   isPlayGuideShown : false, //3
   isPlayGuideShown2 :  false, //4
   isSportGuideShown : false, //5
-  
+  autoSelectSport : false, //6
 };
 
 export function screenReducer(state = initialState, action: screenActionType) {
@@ -269,8 +269,12 @@ export function screenReducer(state = initialState, action: screenActionType) {
             ...state,
             isSportGuideShown: action.payload,
           };
-
-      
+                        //6 
+        case "set_auto_select_sport":
+          return {
+            ...state,
+            autoSelectSport: action.payload,
+          };
     default:
       return state;
   }
