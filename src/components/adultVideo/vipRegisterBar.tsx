@@ -46,36 +46,38 @@ const VipRegisterBar = ({
             {/* <Text style={{color: '#FFF', textShadowColor: 'rgba(0, 0, 0, 0.15)', fontWeight: '600', fontSize: 12, textShadowOffset: {height:0, width: 4}, textShadowRadius: 4 }}>$18.88/VIP会员180天</Text> */}
           </View>
         </View>
-        <TouchableOpacity
-          onPress={handleOnPress}
-        >
-          <LinearGradient
-            colors={['#FAC33D', '#ECA700']}
-            start={{ x: 0.05, y: 0.05 }}
-            end={{ x: 1, y: 1 }}
-            angle={126}
-            style={{
-              paddingHorizontal: 10,
-              paddingVertical: 6,
-              borderRadius: 100,
-              flexDirection: 'row',
-              justifyContent: 'flex-start'
-
-            }}
+        {User.isLogin(userState.user) &&
+          <TouchableOpacity
+            onPress={handleOnPress}
           >
-            <Text
+            <LinearGradient
+              colors={['#FAC33D', '#ECA700']}
+              start={{ x: 0.05, y: 0.05 }}
+              end={{ x: 1, y: 1 }}
+              angle={126}
               style={{
-                fontWeight: '600',
-                fontSize: 12,
-                color: '#1D2023',
-                paddingRight: 4
+                paddingHorizontal: 10,
+                paddingVertical: 6,
+                borderRadius: 100,
+                flexDirection: 'row',
+                justifyContent: 'flex-start'
+
               }}
             >
-              立刻邀请
-            </Text>
-            <MoreArrow color="#1D2023" width={8} />
-          </LinearGradient>
-        </TouchableOpacity>
+              <Text
+                style={{
+                  fontWeight: '600',
+                  fontSize: 12,
+                  color: '#1D2023',
+                  paddingRight: 4
+                }}
+              >
+                立刻邀请
+              </Text>
+              <MoreArrow color="#1D2023" width={8} />
+            </LinearGradient>
+          </TouchableOpacity>
+        }
       </LinearGradient>
     )
 }
