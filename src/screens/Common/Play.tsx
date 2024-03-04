@@ -351,6 +351,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const componentRef = useRef<View>(null); // Create a ref for the component
   const [vipGuideModal, setVipGuideModal] = useState(false);
   const [vipGuideModalDL, setVipGuideModalDL] = useState(false);
+  const [vipGuideModalOpen, setVipGuideModalOpen] = useState(false);
   const screenWidth = Dimensions.get("window");
 
   const downloadedVod: VodDownloadType | undefined = useAppSelector(
@@ -362,16 +363,16 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   );
   const episode = adultMode
     ? downloadedVod?.episodes.find(
-        (ep) =>
-          ep.vodUrlNid === currentEpisode &&
-          ep.status === DownloadStatus.COMPLETED
-      )
+      (ep) =>
+        ep.vodUrlNid === currentEpisode &&
+        ep.status === DownloadStatus.COMPLETED
+    )
     : downloadedVod?.episodes.find(
-        (ep) =>
-          ep.vodSourceId === currentSourceId &&
-          ep.vodUrlNid === currentEpisode &&
-          ep.status === DownloadStatus.COMPLETED
-      );
+      (ep) =>
+        ep.vodSourceId === currentSourceId &&
+        ep.vodUrlNid === currentEpisode &&
+        ep.status === DownloadStatus.COMPLETED
+    );
 
   //For pausing video player when switch source
   const onPressSource = useCallback(
@@ -388,26 +389,34 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     [currentSourceId]
   );
 
-
-
   const onAdsMount = () => {
-    if (screenState.isPlayGuideShown2 == false && !isVip) {
-      setTimeout(() => {
-        videoPlayerRef.current?.setPause(true); // pause video
-        setVipGuideModalDL(true);
-        dispatch(setIsPlayGuideShown2(true));
-      }, 50);
 
-      if (screenState.isPlayGuideShown == false && !isVip) {
-        setTimeout(() => {
-          setVipGuideModal(true);
-          dispatch(setIsPlayGuideShown(true));
-        }, 20);
-      }
-
-
-      
+    if (screenState.interstitialShow == true) {
+      videoPlayerRef.current?.setPause(true); // pause video
     }
+
+    setTimeout(() => {
+      getPosition();
+    }, 250);
+
+    setTimeout(() => {
+      if (screenState.isPlayGuideShown2 == false && !isVip) {
+        setTimeout(() => {
+          videoPlayerRef.current?.setPause(true); // pause video
+          setVipGuideModalDL(true);
+          setVipGuideModalOpen(true);
+          dispatch(setIsPlayGuideShown2(true));
+        }, 50);
+
+        if (screenState.isPlayGuideShown == false && !isVip) {
+          setTimeout(() => {
+            setVipGuideModal(true);
+            setVipGuideModalOpen(true);
+            dispatch(setIsPlayGuideShown(true));
+          }, 20);
+        }
+      }
+    }, 850);
   };
 
   // For adding loading spinner before load player
@@ -502,13 +511,10 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       UmengAnalytics.playsShareClicksAnalytics();
       // ========== for analytics - end ==========
 
-      let msg = `《${
-        vod?.vod_name
-      }》高清播放${"\n"}https://yingshi.tv/index.php/vod/play/id/${
-        vod?.vod_id
-      }/sid/1/nid/${
-        currentEpisode + 1
-      }.html${"\n"}${APP_NAME_CONST}-海量高清视频在线观看`;
+      let msg = `《${vod?.vod_name
+        }》高清播放${"\n"}https://yingshi.tv/index.php/vod/play/id/${vod?.vod_id
+        }/sid/1/nid/${currentEpisode + 1
+        }.html${"\n"}${APP_NAME_CONST}-海量高清视频在线观看`;
 
       if (APP_NAME_CONST == "爱美剧") {
         msg = `海量视频内容 随时随地 想看就看 ${"\n"}https://xiangkantv.net/share.html`;
@@ -620,9 +626,13 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   const fetchVodDetails = useCallback(
     () =>
-      VodApi.getDetail(vod?.vod_id.toString() ?? "", vod?.type_id.toString() ?? "", {
-        xMode: adultMode,
-      }).then((data) => {
+      VodApi.getDetail(
+        vod?.vod_id.toString() ?? "",
+        vod?.type_id.toString() ?? "",
+        {
+          xMode: adultMode,
+        }
+      ).then((data) => {
         const isRestricted = data.vod_restricted === 1;
         if (isRestricted) {
           videoPlayerRef.current?.setPause(true);
@@ -1093,11 +1103,11 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   const isEpisodeDownloaded = adultMode
     ? downloadedVod?.episodes.find((x) => x.vodUrlNid === currentEpisode)
-        ?.status === DownloadStatus.COMPLETED
+      ?.status === DownloadStatus.COMPLETED
     : downloadedVod?.episodes.find(
-        (x) =>
-          x.vodSourceId === currentSourceId && x.vodUrlNid === currentEpisode
-      )?.status === DownloadStatus.COMPLETED;
+      (x) =>
+        x.vodSourceId === currentSourceId && x.vodUrlNid === currentEpisode
+    )?.status === DownloadStatus.COMPLETED;
 
   // useEffect(() => {
   //   getPosition();
@@ -1114,8 +1124,6 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
         setDistanceToBottom(distance);
         console.log("distanceToBottom");
         console.log(distanceToBottom);
-
-     
       });
     }
   };
@@ -1188,6 +1196,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
             sourceID={currentSourceId}
             setShowAdOverlay={setShowAdOverlay}
             onAdsMount={onAdsMount}
+            vipGuideModalOpen={vipGuideModalOpen}
           />
         )}
         {isOffline && dismountPlayer && episode && (
@@ -1364,13 +1373,13 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                           const dateValue =
                             vod && !!vod?.vod_time_add
                               ? new Date(vod?.vod_time_add * 1000)
-                                  .toISOString()
-                                  .slice(0, 10)
-                                  .replace(/\//g, "-")
+                                .toISOString()
+                                .slice(0, 10)
+                                .replace(/\//g, "-")
                               : new Date()
-                                  .toISOString()
-                                  .slice(0, 10)
-                                  .replace(/\//g, "-");
+                                .toISOString()
+                                .slice(0, 10)
+                                .replace(/\//g, "-");
 
                           return `更新：${dateValue}`;
                         } catch (error) {
@@ -1544,7 +1553,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                       }}
                     >
                       <View
-                        onLayout={() => getPosition()}
+                        //  onLayout={() => getPosition()}
                         ref={componentRef}
                         style={{
                           display: "flex",
@@ -1618,7 +1627,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                             horizontal={true}
                             showsHorizontalScrollIndicator={false}
                             initialNumToRender={10}
-                            onScrollToIndexFailed={() => {}}
+                            onScrollToIndexFailed={() => { }}
                             ref={sourceRef}
                             data={vodSources}
                             // data={staticDummyData.map(item => item.url)}
@@ -1650,11 +1659,10 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                                   fontSize: 15,
                                 }}
                               >
-                                {`${
-                                  foundSource
-                                    ? `1-${foundSource.url_count || 0}集`
-                                    : "No episodes available"
-                                }`}
+                                {`${foundSource
+                                  ? `1-${foundSource.url_count || 0}集`
+                                  : "No episodes available"
+                                  }`}
                                 {/* {`${showEpisodeRangeStart + 1
                                   }-${showEpisodeRangeEnd}集`} */}
                               </Text>
@@ -1669,7 +1677,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                             horizontal={true}
                             showsHorizontalScrollIndicator={false}
                             initialNumToRender={10}
-                            onScrollToIndexFailed={() => {}}
+                            onScrollToIndexFailed={() => { }}
                             ref={episodeRef}
                             // data={vod?.vod_play_list.urls?.slice(
                             //   showEpisodeRangeStart,
@@ -1735,8 +1743,8 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                       ) : (
                         <>
                           {vod &&
-                          suggestedVods !== undefined &&
-                          suggestedVods?.length > 0 ? (
+                            suggestedVods !== undefined &&
+                            suggestedVods?.length > 0 ? (
                             <View style={{ gap: spacing.l, marginBottom: 60 }}>
                               <ShowMoreVodButton
                                 isPlayScreen={true}
@@ -1828,10 +1836,8 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
               <View
                 style={{
                   position: "absolute",
+                  top: refPosition.y,
                   left: refPosition.x,
-                  top: refPosition.y + (Platform.OS === "ios" ? 70 : 0),
-                  width: refPosition.width,
-                  height: refPosition.height,
                 }}
               >
                 <View
@@ -1934,13 +1940,17 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
         <View style={[styles.overlayView]}>
           <View
             style={{
-              top: screenWidth.height / 20,
+              top:
+                Platform.OS === "ios"
+                  ? screenWidth.height / 9
+                  : screenWidth.height / 20,
             }}
           >
             <VipGuideModal
               onClose={(value: boolean) => {
                 videoPlayerRef.current?.setPause(false);
                 setVipGuideModalDL(value);
+                setVipGuideModalOpen(false);
               }}
             />
           </View>

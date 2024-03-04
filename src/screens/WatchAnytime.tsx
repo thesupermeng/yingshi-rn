@@ -150,11 +150,17 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
       if (isVip) {
         filtered = filtered.filter(x => !x.is_ads)
       } else {
-        if(!adultMode){
+        if (!adultMode) {
           filtered = filtered.slice(0, MINI_SHOW_LOGIN_NUMBER + 1);
         }
       }
       setFlattenedVideos(filtered); // remove null values
+      if (filtered.length > 0) {
+        miniVodListRef.current?.scrollToOffset({
+          index: 0,
+          animated: false,
+        });
+      }
     }
   }, [videos]);
 

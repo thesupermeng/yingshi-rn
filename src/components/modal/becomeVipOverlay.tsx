@@ -90,7 +90,7 @@ function ExpiredOverlay({
   );
 }
 
-export default memo(ExpiredOverlay)
+export default ExpiredOverlay
 
 const styles = StyleSheet.create({
   closeBtnContainer: {

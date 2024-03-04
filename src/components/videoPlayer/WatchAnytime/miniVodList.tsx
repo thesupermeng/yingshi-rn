@@ -303,7 +303,7 @@ export default forwardRef<MiniVodRef, Props>(
       if (!isVip && !adultMode) {
         dispatch(showLoginAction());
       }
-      if (hasNextPage && !isFetchingNextPage && !isFetching) {
+      else if (hasNextPage && !isFetchingNextPage && !isFetching) {
         fetchNextPage();
       }
     }, [adultMode, hasNextPage, isFetchingNextPage, isFetching]);
