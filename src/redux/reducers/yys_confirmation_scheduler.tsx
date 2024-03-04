@@ -270,6 +270,14 @@ export function screenReducer(state = initialState, action: screenActionType) {
             isSportGuideShown: action.payload,
           };
 
+                             //6 
+        case "set_auto_select_sport":
+          return {
+            ...state,
+            autoSelectSport: action.payload,
+          };
+
+
       
     default:
       return state;

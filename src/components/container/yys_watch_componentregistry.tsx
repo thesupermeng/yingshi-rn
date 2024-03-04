@@ -83,6 +83,7 @@ import VipGuideModal2 from "../modal/yys_country_title";
 import VipGuideModal from "../modal/yys_libavfilter_dark";
 import { screenModel } from "@type/yys_service_setting";
 import {
+   setAutoSelectSport,
   setIsHomeGuideShown,
   setShowPromotionDialog,
 } from "@redux/actions/yys_runtimescheduler";
@@ -3472,7 +3473,13 @@ const RecommendationHome = ({
                       <ShowMoreVodButton
                         text="体育推荐"
                         onPress={() =>
-                          navigation.navigate("Home", { screen: "会员中心" })
+                           {
+                              dispatch(setAutoSelectSport(true));
+                              setTimeout(() => {
+                                 navigation.navigate("Home", { screen: "会员中心" })
+                               }, 0);
+                       
+                            }
                         }
                       />
                     )}

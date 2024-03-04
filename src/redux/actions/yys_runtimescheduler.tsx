@@ -185,4 +185,10 @@ export const setIsSportGuideShown = (action: any) => ({
   payload: action,
 });
 
+// 6
+export const setAutoSelectSport = (action: any) => ({
+  type: "set_auto_select_sport",
+  payload: action,
+});
+
 

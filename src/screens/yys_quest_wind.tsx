@@ -47,6 +47,7 @@ import XVodTab from "./VipPrivilege/yys_renew";
 import { screenModel } from "@type/yys_service_setting";
 import {
   disableAdultMode,
+  setAutoSelectSport,
   showAdultModeDisclaimer,
 } from "@redux/actions/yys_runtimescheduler";
 import { BlurView } from "../components/blurView";
@@ -369,6 +370,14 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     setSelectedTab("sport");
   };
 
+  useEffect(() => {
+   console.log("screenState.autoSelectSport")
+   console.log(screenState.autoSelectSport)
+   if (screenState.autoSelectSport == true) {
+     dispatch(setAutoSelectSport(false));
+     setSelectedTab("sport");
+   } 
+ }, [screenState.autoSelectSport])
   
   useFocusEffect(useCallback(() => {
     yys_event_common.sportViewsAnalytics();
