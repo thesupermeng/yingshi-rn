@@ -73,10 +73,10 @@ export default function XVodTab({
   //   []
   // );
 
- //without use callback  
+  //without use callback  
   function listItem({ item, index }) {
     if ((item?.vod_list?.length ?? 0) === 0) return <></>;
-  
+
     return (
       <View
         key={`${item.type_name}-${index}`}
@@ -113,7 +113,7 @@ export default function XVodTab({
       </View>
     );
   }
-  
+
   let data = useQuery({
     queryKey: ["HomePage"],
     queryFn: () => AppsApi.getHomePages(99)
@@ -158,7 +158,7 @@ export default function XVodTab({
         <FlatList
           data={data?.data?.categories ? data?.data?.categories : []}
           keyExtractor={(item: VodData, index: number) => index.toString() + item.type_name}
-          initialNumToRender={1}
+          initialNumToRender={(data?.data?.categories ? data?.data?.categories : []).length}
           windowSize={3}
           maxToRenderPerBatch={3}
           renderItem={listItem}
