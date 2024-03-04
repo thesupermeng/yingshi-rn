@@ -63,6 +63,7 @@ import {
 } from '@redux/actions/screenAction';
 import messaging from '@react-native-firebase/messaging';
 import firebase from '@react-native-firebase/app';
+import {FirebaseNotification} from '@utility/firebaseNotification';
 
 interface NavType {
   id: number;
@@ -145,8 +146,16 @@ const RecommendationHome = ({
   useEffect(() => {
     handleTabletFold();
 
-    getFCMtoken();
+    initFirebase();
   }, []);
+
+  const initFirebase = async () => {
+    try {
+      await FirebaseNotification.checkPermissionAndGetoken();
+    } catch (err) {
+      console.log('Firebase init failed', err);
+    }
+  };
 
   const getFCMtoken = async () => {
     try {
