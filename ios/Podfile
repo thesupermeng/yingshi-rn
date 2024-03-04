@@ -20,6 +20,7 @@ linkage = ENV['USE_FRAMEWORKS']
 if linkage != nil
   Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
   use_frameworks! :linkage => linkage.to_sym
+  $RNFirebaseAsStaticFramework = true
 end
 
 target 'aimeiju' do
@@ -127,6 +128,8 @@ target 'aimeiju' do
 
 # CodePush plugin dependency
   pod 'CodePush', :path => '../node_modules/react-native-code-push'
+  pod 'GoogleUtilities', :modular_headers => true
+  pod 'FirebaseCore', :modular_headers => true
 
   post_install do |installer|
     react_native_post_install(
