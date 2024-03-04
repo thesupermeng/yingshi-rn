@@ -25,7 +25,7 @@ export default ({ navigation }: RootStackScreenProps<"个人中心">) => {
 
   const userState = useSelector<UserStateType>('userReducer');
 
-  const [username, setUsername] = useState(userState.userName);
+  const [username, setUsername] = useState(userState.user?.userName ?? '');
 
   const [isShowUsernameModal, setShowUsernameModal] = useState(false);
   const [isShowReferrerModal, setShowReferrerModal] = useState(false);
