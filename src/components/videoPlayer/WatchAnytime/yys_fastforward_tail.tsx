@@ -1181,9 +1181,9 @@ export default forwardRef<yys_CatalogGuide, yys_ConfigureUimanager>(
 
          setIsScrolling(false);
 
-         if (isFocus && yys_RelatedTooltips.isGuest(userState.user) && !yys_RelatedTooltips.isVip(userState.user) && swipeCount.current >= MINI_SHOW_LOGIN_NUMBER && current >= MINI_SHOW_LOGIN_NUMBER) {
-            dispatch(showLoginAction());
-         }
+         // if (isFocus && yys_RelatedTooltips.isGuest(userState.user) && !yys_RelatedTooltips.isVip(userState.user) && swipeCount.current >= MINI_SHOW_LOGIN_NUMBER && current >= MINI_SHOW_LOGIN_NUMBER) {
+         //    dispatch(showLoginAction());
+         // }
       }, [userState.user, current, isFocus]);
 
       useEffect(() => {
