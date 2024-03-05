@@ -1,4 +1,4 @@
-import { useFocusEffect, useTheme } from '@react-navigation/native';
+import { useFocusEffect, useIsFocused, useTheme } from '@react-navigation/native';
 import React, {
    forwardRef,
    useCallback,
@@ -72,6 +72,7 @@ export default forwardRef<yys_CatalogGuide, yys_ConfigureUimanager>(
       const [showAdultVIPOverlay, setShowAdultVIPOverlay] = useState(false);
 
       const { spacing } = useTheme();
+      const isFocus = useIsFocused();
 
       const [isInitFetching, setInitFetching] = useState(true);
       const [displayHeight, setDisplayHeight] = useState<number>(0);
@@ -1180,10 +1181,10 @@ export default forwardRef<yys_CatalogGuide, yys_ConfigureUimanager>(
 
          setIsScrolling(false);
 
-         if (yys_RelatedTooltips.isGuest(userState.user) && !yys_RelatedTooltips.isVip(userState.user) && swipeCount.current >= MINI_SHOW_LOGIN_NUMBER && current >= MINI_SHOW_LOGIN_NUMBER) {
+         if (isFocus && yys_RelatedTooltips.isGuest(userState.user) && !yys_RelatedTooltips.isVip(userState.user) && swipeCount.current >= MINI_SHOW_LOGIN_NUMBER && current >= MINI_SHOW_LOGIN_NUMBER) {
             dispatch(showLoginAction());
          }
-      }, [userState.user, current]);
+      }, [userState.user, current, isFocus]);
 
       useEffect(() => {
          if (yys_RelatedTooltips.isLogin(userState.user) || yys_RelatedTooltips.isVip(userState.user)) return;
