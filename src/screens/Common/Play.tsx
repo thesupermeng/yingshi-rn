@@ -395,9 +395,9 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       videoPlayerRef.current?.setPause(true); // pause video
     }
 
-    setTimeout(() => {
-      getPosition();
-    }, 250);
+    // setTimeout(() => {
+    //   getPosition();
+    // }, 250);
 
     setTimeout(() => {
       if (screenState.isPlayGuideShown2 == false && !isVip) {
@@ -1553,7 +1553,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                       }}
                     >
                       <View
-                        //  onLayout={() => getPosition()}
+                       onLayout={() => getPosition()}
                         ref={componentRef}
                         style={{
                           display: "flex",

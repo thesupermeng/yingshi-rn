@@ -158,6 +158,8 @@ export default () => {
   };
 
   useEffect(() => {
+
+
     console.log("onAppInit");
     onAppInit();
 
