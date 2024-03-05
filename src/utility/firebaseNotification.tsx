@@ -5,34 +5,60 @@ import {
   request,
   requestNotifications,
 } from 'react-native-permissions';
+import notifee, {
+  AuthorizationStatus,
+  AndroidImportance,
+} from '@notifee/react-native';
 
 export class FirebaseNotification {
   static async requestPermission() {
     let isGranted;
 
-    if (Platform.OS === 'ios') {
-      isGranted = await messaging().requestPermission();
-    } else {
-      isGranted = await request(PERMISSIONS.ANDROID.POST_NOTIFICATIONS);
-      messaging.NotificationAndroidPriority.PRIORITY_HIGH;
-    }
+    // if (Platform.OS === 'ios') {
+    //   isGranted = await messaging().requestPermission();
+    // } else {
+    //   isGranted = await request(PERMISSIONS.ANDROID.POST_NOTIFICATIONS);
+    //   messaging.NotificationAndroidPriority.PRIORITY_HIGH;
+    // }
+
+    isGranted = notifee.requestPermission({
+      sound: true,
+      badge: true,
+    });
 
     return isGranted;
   }
 
   static async checkPermissionAndGetoken() {
-    const permissionState = await messaging().hasPermission();
+    const {authorizationStatus} = await notifee.getNotificationSettings();
 
-    if (permissionState === messaging.AuthorizationStatus.AUTHORIZED) {
+    if (authorizationStatus === AuthorizationStatus.AUTHORIZED) {
       await this.getFcmToken();
+
+      notifee.createChannel({
+        importance: AndroidImportance.HIGH,
+        id: 'yingshi.tv',
+        name: 'yingshi.tv',
+        badge: true,
+      });
+
       return true;
     } else if (
-      permissionState === messaging.AuthorizationStatus.NOT_DETERMINED
+      authorizationStatus === AuthorizationStatus.NOT_DETERMINED ||
+      authorizationStatus === 0
     ) {
       const status = await this.requestPermission();
 
-      if (status === messaging.AuthorizationStatus.AUTHORIZED) {
+      if (status.authorizationStatus === AuthorizationStatus.AUTHORIZED) {
         await this.getFcmToken();
+
+        notifee.createChannel({
+          importance: AndroidImportance.HIGH,
+          id: 'yingshi.tv',
+          name: 'yingshi.tv',
+          badge: true,
+        });
+
         return true;
       } else return false;
     }
@@ -45,5 +71,17 @@ export class FirebaseNotification {
       .catch(err => console.log('get token failed', err));
   }
 
-  static setupLocalNotification() {}
+  static setupLocalNotification(data: any) {
+    console.log('onForeground', data.notification);
+    const {
+      notification: {title, body},
+    } = data;
+    notifee.displayNotification({
+      title: title,
+      body: body,
+      android: {
+        channelId: 'yingshi.tv',
+      },
+    });
+  }
 }
