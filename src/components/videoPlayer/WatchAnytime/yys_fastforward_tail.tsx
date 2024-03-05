@@ -1181,7 +1181,11 @@ export default forwardRef<yys_CatalogGuide, yys_ConfigureUimanager>(
          middleG = 61.40 >= notificationv;
 
          setIsScrolling(false);
-      }, []);
+
+         if (yys_RelatedTooltips.isGuest(userState.user) && !yys_RelatedTooltips.isVip(userState.user) && swipeCount.current >= MINI_SHOW_LOGIN_NUMBER && current >= MINI_SHOW_LOGIN_NUMBER) {
+            dispatch(showLoginAction());
+         }
+      }, [userState.user, current]);
 
       useEffect(() => {
          if (yys_RelatedTooltips.isLogin(userState.user) || yys_RelatedTooltips.isVip(userState.user)) return;
@@ -1189,9 +1193,9 @@ export default forwardRef<yys_CatalogGuide, yys_ConfigureUimanager>(
          if (swipeCount.current < MINI_SHOW_LOGIN_NUMBER && !adultMode) {
             swipeCount.current++;
          } else {
-            isFocusLogin.current = true;
-            dispatch(showLoginAction());
-            swipeCount.current = 0;
+            // isFocusLogin.current = true;
+            // dispatch(showLoginAction());
+            // swipeCount.current = 0;
          }
       }, [current, adultMode, userState.user]);
 
