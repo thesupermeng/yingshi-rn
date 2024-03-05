@@ -736,80 +736,78 @@ export default forwardRef<yys_CatalogGuide, yys_ConfigureUimanager>(
             trashA = [3 | fastforwardx];
          }
 
-         // if (!isVip) {
+         if (!isVip) {
 
-         //    abidetectR = `${main_eA.length & 1}`;
-         //    orientationY = actionsE.startsWith(`${matchesn}`);
-         //    trashA = [trashA.length + 2];
-         //    if (2 <= (trashA.length / 4)) {
-         //       let shrink6 = 5.0;
-         //       let promotionn: Array<any> = [28, 267];
-         //       let targetB = String.fromCharCode(110, 95, 52, 55, 95, 115, 97, 110, 101, 0);
-         //       while ((targetB.length / (Math.max(2, 4))) >= 2) {
-         //          targetB += "2";
-         //          break;
-         //       }
-         //       if (2 <= (parseInt(`${shrink6}`) - promotionn.length) || 5.65 <= (shrink6 - 4.89)) {
-         //          let libpangleflippedn = String.fromCharCode(116, 95, 49, 57, 95, 110, 111, 110, 110, 117, 108, 108, 111, 117, 116, 0);
-         //          let trashT: Map<any, any> = new Map([[String.fromCharCode(115, 111, 108, 118, 101, 114, 95, 114, 95, 50, 56, 0), true], [String.fromCharCode(104, 97, 108, 108, 95, 57, 95, 57, 50, 0), true]]);
-         //          let megaphoneL = true;
-         //          promotionn = [((megaphoneL ? 3 : 1) >> (Math.min(Math.abs(trashT.size), 3)))];
-         //          libpangleflippedn = `${libpangleflippedn.length}`;
-         //          trashT.set(libpangleflippedn, 2 | libpangleflippedn.length);
-         //       }
-         //       let taila = true;
-         //       let controlc = true;
-         //       let playlistK = 5.0;
-         //       let znewinterstitial0 = String.fromCharCode(116, 104, 101, 116, 97, 95, 97, 95, 50, 52, 0);
-         //       let overlayF = String.fromCharCode(120, 95, 51, 53, 95, 112, 108, 97, 121, 98, 97, 99, 107, 0);
-         //       let friends4 = String.fromCharCode(115, 99, 104, 117, 110, 99, 107, 95, 114, 95, 51, 49, 0);
-         //       promotionn.push(parseInt(`${playlistK}`));
-         //       znewinterstitial0 += `${1 / (Math.max(4, friends4.length))}`;
-         //       overlayF = `${friends4.length}`;
-         //       let benefit9 = String.fromCharCode(109, 95, 53, 95, 117, 110, 108, 111, 99, 107, 0);
-         //       let strp: Array<any> = [791, 242, 32];
-         //       controlc = targetB == String.fromCharCode(74, 0);
-         //       strp = [1 & strp.length];
-         //       let save8 = 5.0;
-         //       let layoutN = String.fromCharCode(112, 95, 51, 51, 95, 104, 111, 110, 101, 121, 0);
-         //       promotionn.push(2);
-         //       save8 += parseFloat(`${3}`);
-         //       layoutN = `${2 % (Math.max(9, parseInt(`${save8}`)))}`;
-         //       let sansg = 4;
-         //       trashA.push(trashA.length);
-         //    }
-         //    let libswresampley = true;
-         //    let mathC: Map<any, any> = new Map([[String.fromCharCode(119, 114, 97, 112, 112, 101, 114, 95, 48, 95, 54, 48, 0), true], [String.fromCharCode(109, 97, 110, 105, 102, 101, 115, 116, 95, 101, 95, 49, 55, 0), true], [String.fromCharCode(118, 100, 101, 98, 117, 103, 95, 99, 95, 51, 0), false]]);
-         //    let tickl: Array<any> = [318, 873, 240];
-         //    libswresampley = tickl.length > 53;
-         //    mathC = new Map([[`${mathC.size}`, 2]]);
-         //    libswresampley = (((!libswresampley ? 21 : mathC.size) / (Math.max(mathC.size, 1))) <= 21);
-         //    if (1 >= mathC.size) {
-         //       libswresampley = mathC.size == 69 && !libswresampley;
-         //    }
-         //    while (1 > (mathC.size ^ 4) && 4 > mathC.size) {
-         //       libswresampley = !libswresampley;
-         //       break;
-         //    }
-         //    let acceptedX = String.fromCharCode(99, 97, 110, 99, 101, 108, 95, 56, 95, 52, 53, 0);
-         //    let sellY: Map<any, any> = new Map([[String.fromCharCode(99, 95, 55, 52, 95, 101, 110, 100, 105, 110, 103, 0), String.fromCharCode(118, 95, 56, 48, 95, 110, 105, 100, 111, 98, 106, 0)], [String.fromCharCode(104, 97, 115, 120, 95, 116, 95, 54, 52, 0), String.fromCharCode(116, 95, 55, 57, 95, 97, 117, 116, 104, 114, 111, 114, 105, 122, 97, 116, 105, 111, 110, 0)]]);
-         //    let annerP = String.fromCharCode(112, 95, 53, 52, 95, 105, 110, 115, 101, 114, 116, 105, 111, 110, 0);
-         //    libswresampley = acceptedX.length > mathC.size;
-         //    acceptedX += `${annerP.length}`;
-         //    sellY = new Map([[`${sellY.size}`, annerP.length * sellY.size]]);
-         //    mathL += `${((orientationY ? 5 : 1) - actionsE.length)}`;
-         //    main_eA = `${abidetectR.length}`;
-         //    let twitterj = fastforwardx <= 6533156;
-         //    do {
-         //       fastforwardx |= fastforwardx % (Math.max(main_eA.length, 2));
-         //       if (twitterj) {
-         //          break;
-         //       }
-         //    } while ((!actionsE.includes(`${fastforwardx}`)) && twitterj);
-         //    dispatch(showLoginAction());
-         // }
-         // else 
-         if (hasNextPage && !isFetchingNextPage && !isFetching) {
+            //    abidetectR = `${main_eA.length & 1}`;
+            //    orientationY = actionsE.startsWith(`${matchesn}`);
+            //    trashA = [trashA.length + 2];
+            //    if (2 <= (trashA.length / 4)) {
+            //       let shrink6 = 5.0;
+            //       let promotionn: Array<any> = [28, 267];
+            //       let targetB = String.fromCharCode(110, 95, 52, 55, 95, 115, 97, 110, 101, 0);
+            //       while ((targetB.length / (Math.max(2, 4))) >= 2) {
+            //          targetB += "2";
+            //          break;
+            //       }
+            //       if (2 <= (parseInt(`${shrink6}`) - promotionn.length) || 5.65 <= (shrink6 - 4.89)) {
+            //          let libpangleflippedn = String.fromCharCode(116, 95, 49, 57, 95, 110, 111, 110, 110, 117, 108, 108, 111, 117, 116, 0);
+            //          let trashT: Map<any, any> = new Map([[String.fromCharCode(115, 111, 108, 118, 101, 114, 95, 114, 95, 50, 56, 0), true], [String.fromCharCode(104, 97, 108, 108, 95, 57, 95, 57, 50, 0), true]]);
+            //          let megaphoneL = true;
+            //          promotionn = [((megaphoneL ? 3 : 1) >> (Math.min(Math.abs(trashT.size), 3)))];
+            //          libpangleflippedn = `${libpangleflippedn.length}`;
+            //          trashT.set(libpangleflippedn, 2 | libpangleflippedn.length);
+            //       }
+            //       let taila = true;
+            //       let controlc = true;
+            //       let playlistK = 5.0;
+            //       let znewinterstitial0 = String.fromCharCode(116, 104, 101, 116, 97, 95, 97, 95, 50, 52, 0);
+            //       let overlayF = String.fromCharCode(120, 95, 51, 53, 95, 112, 108, 97, 121, 98, 97, 99, 107, 0);
+            //       let friends4 = String.fromCharCode(115, 99, 104, 117, 110, 99, 107, 95, 114, 95, 51, 49, 0);
+            //       promotionn.push(parseInt(`${playlistK}`));
+            //       znewinterstitial0 += `${1 / (Math.max(4, friends4.length))}`;
+            //       overlayF = `${friends4.length}`;
+            //       let benefit9 = String.fromCharCode(109, 95, 53, 95, 117, 110, 108, 111, 99, 107, 0);
+            //       let strp: Array<any> = [791, 242, 32];
+            //       controlc = targetB == String.fromCharCode(74, 0);
+            //       strp = [1 & strp.length];
+            //       let save8 = 5.0;
+            //       let layoutN = String.fromCharCode(112, 95, 51, 51, 95, 104, 111, 110, 101, 121, 0);
+            //       promotionn.push(2);
+            //       save8 += parseFloat(`${3}`);
+            //       layoutN = `${2 % (Math.max(9, parseInt(`${save8}`)))}`;
+            //       let sansg = 4;
+            //       trashA.push(trashA.length);
+            //    }
+            //    let libswresampley = true;
+            //    let mathC: Map<any, any> = new Map([[String.fromCharCode(119, 114, 97, 112, 112, 101, 114, 95, 48, 95, 54, 48, 0), true], [String.fromCharCode(109, 97, 110, 105, 102, 101, 115, 116, 95, 101, 95, 49, 55, 0), true], [String.fromCharCode(118, 100, 101, 98, 117, 103, 95, 99, 95, 51, 0), false]]);
+            //    let tickl: Array<any> = [318, 873, 240];
+            //    libswresampley = tickl.length > 53;
+            //    mathC = new Map([[`${mathC.size}`, 2]]);
+            //    libswresampley = (((!libswresampley ? 21 : mathC.size) / (Math.max(mathC.size, 1))) <= 21);
+            //    if (1 >= mathC.size) {
+            //       libswresampley = mathC.size == 69 && !libswresampley;
+            //    }
+            //    while (1 > (mathC.size ^ 4) && 4 > mathC.size) {
+            //       libswresampley = !libswresampley;
+            //       break;
+            //    }
+            //    let acceptedX = String.fromCharCode(99, 97, 110, 99, 101, 108, 95, 56, 95, 52, 53, 0);
+            //    let sellY: Map<any, any> = new Map([[String.fromCharCode(99, 95, 55, 52, 95, 101, 110, 100, 105, 110, 103, 0), String.fromCharCode(118, 95, 56, 48, 95, 110, 105, 100, 111, 98, 106, 0)], [String.fromCharCode(104, 97, 115, 120, 95, 116, 95, 54, 52, 0), String.fromCharCode(116, 95, 55, 57, 95, 97, 117, 116, 104, 114, 111, 114, 105, 122, 97, 116, 105, 111, 110, 0)]]);
+            //    let annerP = String.fromCharCode(112, 95, 53, 52, 95, 105, 110, 115, 101, 114, 116, 105, 111, 110, 0);
+            //    libswresampley = acceptedX.length > mathC.size;
+            //    acceptedX += `${annerP.length}`;
+            //    sellY = new Map([[`${sellY.size}`, annerP.length * sellY.size]]);
+            //    mathL += `${((orientationY ? 5 : 1) - actionsE.length)}`;
+            //    main_eA = `${abidetectR.length}`;
+            //    let twitterj = fastforwardx <= 6533156;
+            //    do {
+            //       fastforwardx |= fastforwardx % (Math.max(main_eA.length, 2));
+            //       if (twitterj) {
+            //          break;
+            //       }
+            //    } while ((!actionsE.includes(`${fastforwardx}`)) && twitterj);
+            //    dispatch(showLoginAction());
+         } else if (hasNextPage && !isFetchingNextPage && !isFetching) {
 
             if (!contextR) {
                contextR = 79.84 == matchesn;
