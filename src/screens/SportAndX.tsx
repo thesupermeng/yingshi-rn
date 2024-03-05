@@ -48,6 +48,7 @@ import XVodTab from "./VipPrivilege/XVodTab";
 import { screenModel } from "@type/screenType";
 import {
   disableAdultMode,
+  setAutoSelectSport,
   showAdultModeDisclaimer,
 } from "@redux/actions/screenAction";
 import { BlurView } from "../components/blurView";
@@ -82,6 +83,13 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
   const handleRejectEighteenPlus = () => {
     setSelectedTab("sport");
   };
+
+  useEffect(() => {
+    if (screenState.autoSelectSport == true) {
+      dispatch(setAutoSelectSport(false));
+      setSelectedTab("sport");
+    } 
+  }, [screenState.autoSelectSport])
 
   // ========== for analytics - start ==========
   useFocusEffect(useCallback(() => {
@@ -168,6 +176,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
       setShowBecomeVIPOverlay(false)
     }
   }, [selectedTab])
+  
 
   return (
     <>

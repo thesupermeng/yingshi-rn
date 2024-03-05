@@ -76,6 +76,7 @@ const VipRegisterBar = ({
             <MoreArrow color="#1D2023" width={8} />
           </LinearGradient>
         </TouchableOpacity>
+
       </LinearGradient>
     )
 }

@@ -28,7 +28,6 @@ import {playVod, viewPlaylistDetails} from '@redux/actions/vodActions';
 import {useQuery, useInfiniteQuery} from '@tanstack/react-query';
 import LinearGradient from 'react-native-linear-gradient';
 import Carousel from 'react-native-reanimated-carousel';
-
 import CarouselPagination from './CarouselPagination';
 import LoadingIcon from '@static/images/MutedVolume.svg';
 import {Image} from 'react-native';

@@ -132,7 +132,7 @@ export const TOTAL_VIDEO_TO_DOWNLOAD = 300;
 
 export const COMMENT_MAX_INPUT = 200;
 
-export const MINI_SHOW_LOGIN_NUMBER = 10;
+export const MINI_SHOW_LOGIN_NUMBER = Platform.OS === 'ios' ? 299 : 10;
 
 export const AD_VIDEO_SECONDS = 10;
 
