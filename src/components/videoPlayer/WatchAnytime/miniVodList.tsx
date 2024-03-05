@@ -300,10 +300,11 @@ export default forwardRef<MiniVodRef, Props>(
     }, []);
 
     const hanldeOnEndReached = useCallback(() => {
-      if (!isVip && !adultMode) {
-        dispatch(showLoginAction());
-      }
-      else if (hasNextPage && !isFetchingNextPage && !isFetching) {
+      // if (!isVip && !adultMode) {
+      //   dispatch(showLoginAction());
+      // }
+      //else 
+      if (hasNextPage && !isFetchingNextPage && !isFetching) {
         fetchNextPage();
       }
     }, [adultMode, hasNextPage, isFetchingNextPage, isFetching]);
@@ -320,16 +321,16 @@ export default forwardRef<MiniVodRef, Props>(
     }, []);
 
     useEffect(() => {
-      if (User.isLogin(userState.user)) return;
+      if (User.isLogin(userState.user) || User.isVip(userState.user)) return;
 
       if (swipeCount.current < MINI_SHOW_LOGIN_NUMBER && !adultMode) {
         swipeCount.current++;
       } else {
-        // isFocusLogin.current = true;
-        // dispatch(showLoginAction());
-        // swipeCount.current = 0;
+        isFocusLogin.current = true;
+        dispatch(showLoginAction());
+        swipeCount.current = 0;
       }
-    }, [current, adultMode, isFocusLogin.current]);
+    }, [current, adultMode, userState.user]);
 
     return (
       <>
