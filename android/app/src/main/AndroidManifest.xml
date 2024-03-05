@@ -49,7 +49,7 @@
               <action android:name="android.intent.action.VIEW" />
               <category android:name="android.intent.category.DEFAULT" />
               <category android:name="android.intent.category.BROWSABLE" />
-              <data android:scheme="um.650938dcb2f6fa00ba556645" />
+              <data android:scheme="um.65e675eda7208a5af1b4eebb" />
           </intent-filter>
 
           <intent-filter>
