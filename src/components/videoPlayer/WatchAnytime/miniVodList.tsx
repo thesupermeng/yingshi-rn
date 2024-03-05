@@ -1,4 +1,4 @@
-import { useFocusEffect, useTheme } from '@react-navigation/native';
+import { useFocusEffect, useIsFocused, useTheme } from '@react-navigation/native';
 import React, {
   forwardRef,
   useCallback,
@@ -72,6 +72,7 @@ export default forwardRef<MiniVodRef, Props>(
     const [showAdultVIPOverlay, setShowAdultVIPOverlay] = useState(false);
 
     const { spacing } = useTheme();
+    const isFocus = useIsFocused();
 
     const [isInitFetching, setInitFetching] = useState(true);
     const [displayHeight, setDisplayHeight] = useState<number>(0);
@@ -317,10 +318,10 @@ export default forwardRef<MiniVodRef, Props>(
     const handleOnMomentumScrollEnd = useCallback(() => {
       setIsScrolling(false);
 
-      if (User.isGuest(userState.user) && !User.isVip(userState.user) && swipeCount.current >= MINI_SHOW_LOGIN_NUMBER && current >= MINI_SHOW_LOGIN_NUMBER) {
+      if (isFocus && User.isGuest(userState.user) && !User.isVip(userState.user) && swipeCount.current >= MINI_SHOW_LOGIN_NUMBER && current >= MINI_SHOW_LOGIN_NUMBER) {
         dispatch(showLoginAction());
       }
-    }, [userState.user, current]);
+    }, [userState.user, current, isFocus]);
 
     useEffect(() => {
       if (User.isLogin(userState.user) || User.isVip(userState.user)) return;
