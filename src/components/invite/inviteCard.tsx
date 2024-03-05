@@ -394,7 +394,7 @@ export default function InviteCard({ userState = {} }: Props) {
         {/* invite button  component  */}
         <TouchableOpacity
           onPress={() => {
-            if (userState.userToken == "") {
+            if (!User.isLogin(userState)) {
               console.log("toggle login");
               dispatch(showLoginAction());
               // console.log('props{');

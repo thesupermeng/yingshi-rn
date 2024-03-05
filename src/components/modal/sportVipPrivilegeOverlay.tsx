@@ -68,6 +68,7 @@ export const SportVipPrivilegeOverlay = ({ showCondition, onClose, showBlur }: P
       onClose={onClose}
       showBlur={showBlur}
       showCondition={showCondition}
+      showDarkBackdrop={true}
     />
 
   )

@@ -742,7 +742,7 @@
 				CODEPUSH_KEY = "bANlp7AwlK57caU3h80moPva099ffOii-VPk9";
 				CODE_SIGN_IDENTITY = "Apple Distribution: Nanning Zhengquan Network Technology Co., Ltd. (UT59Y32H85)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = UT59Y32H85;
 				ENABLE_BITCODE = NO;
@@ -765,7 +765,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.7.0;
+				MARKETING_VERSION = 1.7.8;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -791,7 +791,7 @@
 				CODEPUSH_KEY = "bANlp7AwlK57caU3h80moPva099ffOii-VPk9";
 				CODE_SIGN_IDENTITY = "Apple Distribution: Nanning Zhengquan Network Technology Co., Ltd. (UT59Y32H85)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = UT59Y32H85;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -813,7 +813,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.7.0;
+				MARKETING_VERSION = 1.7.8;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1067,7 +1067,7 @@
 				CODEPUSH_KEY = "bANlp7AwlK57caU3h80moPva099ffOii-VPk9";
 				CODE_SIGN_IDENTITY = "Apple Distribution: Nanning Zhengquan Network Technology Co., Ltd. (UT59Y32H85)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = UT59Y32H85;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1089,7 +1089,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.7.0;
+				MARKETING_VERSION = 1.7.8;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

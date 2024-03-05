@@ -224,7 +224,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                     </Text>
                   </>
                 )}
-                {!User.isLogin(userState.user) && (
+                {User.isLogin(userState.user) && (
                   <>
                     <View
                       style={{
