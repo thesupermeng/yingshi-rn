@@ -300,11 +300,9 @@ export default forwardRef<MiniVodRef, Props>(
     }, []);
 
     const hanldeOnEndReached = useCallback(() => {
-      // if (!isVip && !adultMode) {
-      //   dispatch(showLoginAction());
-      // }
-      //else 
-      if (hasNextPage && !isFetchingNextPage && !isFetching) {
+      if (!isVip && !adultMode) {
+        //   dispatch(showLoginAction());
+      } else if (hasNextPage && !isFetchingNextPage && !isFetching) {
         fetchNextPage();
       }
     }, [adultMode, hasNextPage, isFetchingNextPage, isFetching]);
