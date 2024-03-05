@@ -89,7 +89,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
       dispatch(setAutoSelectSport(false));
       setSelectedTab("sport");
     } 
-  }, [])
+  }, [screenState.autoSelectSport])
 
   // ========== for analytics - start ==========
   useFocusEffect(useCallback(() => {
