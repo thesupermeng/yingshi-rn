@@ -349,7 +349,11 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
 
   // for auto select 短剧
   useEffect(() => {
-    setCurrentTopicId(46);
+    // console.log("route.params.class")
+    // console.log(route.params.class)
+
+    if(route.params.class =='短剧' )
+   setCurrentTopicId(46);
   }, [topicOptions]);
   
 
