@@ -8,7 +8,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { FlatList, NativeScrollEvent, NativeSyntheticEvent, RefreshControl, StyleSheet, View } from 'react-native';
+import { FlatList, NativeScrollEvent, NativeSyntheticEvent, Platform, RefreshControl, StyleSheet, View } from 'react-native';
 import ShortVod from './shortVod';
 import { MiniVideo } from '@type/ajaxTypes';
 import FastImage from '../../common/customFastImage';
@@ -318,7 +318,13 @@ export default forwardRef<MiniVodRef, Props>(
     const handleOnMomentumScrollEnd = useCallback(() => {
       setIsScrolling(false);
 
-      if (isFocus && User.isGuest(userState.user) && !User.isVip(userState.user) && swipeCount.current >= MINI_SHOW_LOGIN_NUMBER && current >= MINI_SHOW_LOGIN_NUMBER) {
+      if (isFocus
+        && Platform.OS !== 'ios'
+        && User.isGuest(userState.user)
+        && !User.isVip(userState.user)
+        && swipeCount.current >= MINI_SHOW_LOGIN_NUMBER
+        && current >= MINI_SHOW_LOGIN_NUMBER
+      ) {
         dispatch(showLoginAction());
       }
     }, [userState.user, current, isFocus]);
