@@ -7,7 +7,7 @@ import PrivacyBackButtonHeader from "../../components/header/yys_team_header";
 
 import { useTheme } from "@react-navigation/native";
 import { ScrollView } from "react-native-gesture-handler";
-import { APP_NAME_CONST, APP_NAME_CONST2 } from "@utility/yys_ajax_switch";
+import { APP_NAME_CONST2 } from "@utility/yys_ajax_switch";
 
 export default ({ navigation }: RootStackScreenProps<"隐私政策">) => {
    const { colors, textVariants, icons, spacing } = useTheme();

@@ -9,7 +9,7 @@ import { RootStackScreenProps } from "@type/yys_settings";
 import TitleWithBackButtonHeader from "../../components/header/yys_anner_header";
 
 import { useTheme } from "@react-navigation/native";
-import { APP_NAME_CONST, APP_NAME_CONST2 } from "@utility/yys_ajax_switch";
+import { APP_NAME_CONST2 } from "@utility/yys_ajax_switch";
 import { showLoginAction } from "@redux/actions/yys_runtimescheduler";
 import { useAppDispatch, useSelector } from "@hooks/yys_frame";
 import { screenModel } from "@type/yys_service_setting";
