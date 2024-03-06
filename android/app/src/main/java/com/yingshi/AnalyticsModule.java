@@ -1,4 +1,4 @@
-package com.yingshitv;
+package com.yingshipin;
 
 import android.util.Log;
 
