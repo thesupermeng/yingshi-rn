@@ -5,6 +5,7 @@
 - change image eventsplash1,2,3 (static/images)
 - change home-loading gif (static/images)
 - change login-success gif (static/images/profile)
+- change card png (static/images/splash)
 
 
 2. svg
