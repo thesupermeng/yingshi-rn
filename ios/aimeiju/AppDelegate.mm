@@ -1,4 +1,5 @@
 #import "AppDelegate.h"
+#import <Firebase.h>
 #import <AVFoundation/AVFoundation.h>
 #import <React/RCTBundleURLProvider.h>
 #import "Orientation.h"
@@ -35,6 +36,7 @@ bool isCurrentMainView = NO;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  [FIRApp configure];
   [UMConfigure setLogEnabled:NO];
   [UMConfigure initWithAppkey:@"64a632e5bd4b621232c9e379" channel:@"App Store"];
 //  self.moduleName = @"yingshi";
@@ -108,6 +110,8 @@ bool isCurrentMainView = NO;
   }
 
   
+  [AppCenterReactNativeShared setStartAutomatically:YES];
+  [AppCenterReactNativeShared setAppSecret:@"0e80fde0-ed4b-4c61-9f6c-0bc1fc316e3f"]
  [AppCenterReactNative register];
  [AppCenterReactNativeAnalytics registerWithInitiallyEnabled:true];
  [AppCenterReactNativeCrashes registerWithAutomaticProcessing];

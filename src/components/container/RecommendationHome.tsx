@@ -60,13 +60,18 @@ import VipGuideModal2 from "../modal/vipGuide2";
 import VipGuideModal from "../modal/vipGuide";
 import { screenModel } from "@type/screenType";
 import {
+  setAutoSelectSport,
   setIsHomeGuideShown,
+  setIsSportGuideShown,
   setShowPromotionDialog,
 } from "@redux/actions/screenAction";
 import { Url } from "../../Sports/middleware/url";
 import Api from "../../Sports/middleware/api";
 import { MatchDetailsType } from "../../Sports/types/matchTypes";
 import VodSportsList from "../vod/vodSportsList";
+import messaging from '@react-native-firebase/messaging';
+import firebase from '@react-native-firebase/app';
+import {FirebaseNotification} from '@utility/firebaseNotification';
 
 interface NavType {
   id: number;
@@ -151,7 +156,27 @@ const RecommendationHome = ({
   useEffect(() => {
     handleTabletFold();
     fetchMatchData();
+    initFirebase();
   }, []);
+
+  const initFirebase = async () => {
+    try {
+      await FirebaseNotification.checkPermissionAndGetoken();
+    } catch (err) {
+      console.log('Firebase init failed', err);
+    }
+  };
+
+  const getFCMtoken = async () => {
+    try {
+      messaging()
+        .getToken()
+        .then(token => console.log('fcm_token', token));
+    } catch (err) {
+      console.log('fcm_error');
+    }
+  };
+
 
   const [deviceName, setDeviceName] = useState("");
 
@@ -669,7 +694,10 @@ const RecommendationHome = ({
                       <ShowMoreVodButton
                         text="体育推荐"
                         onPress={() =>
-                          navigation.navigate("Home", { screen: "会员中心" })
+                  {
+                    dispatch(setAutoSelectSport(true));
+                    navigation.navigate("Home", { screen: "会员中心" })
+                  }
                         }
                       />
                     )}

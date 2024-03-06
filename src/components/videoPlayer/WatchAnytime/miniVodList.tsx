@@ -1,4 +1,4 @@
-import { useFocusEffect, useTheme } from '@react-navigation/native';
+import { useFocusEffect, useIsFocused, useTheme } from '@react-navigation/native';
 import React, {
   forwardRef,
   useCallback,
@@ -8,7 +8,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { FlatList, NativeScrollEvent, NativeSyntheticEvent, RefreshControl, StyleSheet, View } from 'react-native';
+import { FlatList, NativeScrollEvent, NativeSyntheticEvent, Platform, RefreshControl, StyleSheet, View } from 'react-native';
 import ShortVod from './shortVod';
 import { MiniVideo } from '@type/ajaxTypes';
 import FastImage from '../../common/customFastImage';
@@ -72,6 +72,7 @@ export default forwardRef<MiniVodRef, Props>(
     const [showAdultVIPOverlay, setShowAdultVIPOverlay] = useState(false);
 
     const { spacing } = useTheme();
+    const isFocus = useIsFocused();
 
     const [isInitFetching, setInitFetching] = useState(true);
     const [displayHeight, setDisplayHeight] = useState<number>(0);
@@ -301,9 +302,8 @@ export default forwardRef<MiniVodRef, Props>(
 
     const hanldeOnEndReached = useCallback(() => {
       if (!isVip && !adultMode) {
-        dispatch(showLoginAction());
-      }
-      if (hasNextPage && !isFetchingNextPage && !isFetching) {
+        //   dispatch(showLoginAction());
+      } else if (hasNextPage && !isFetchingNextPage && !isFetching) {
         fetchNextPage();
       }
     }, [adultMode, hasNextPage, isFetchingNextPage, isFetching]);
@@ -317,10 +317,20 @@ export default forwardRef<MiniVodRef, Props>(
 
     const handleOnMomentumScrollEnd = useCallback(() => {
       setIsScrolling(false);
-    }, []);
+
+      if (isFocus
+        && Platform.OS !== 'ios'
+        && User.isGuest(userState.user)
+        && !User.isVip(userState.user)
+        && swipeCount.current >= MINI_SHOW_LOGIN_NUMBER
+        && current >= MINI_SHOW_LOGIN_NUMBER
+      ) {
+        dispatch(showLoginAction());
+      }
+    }, [userState.user, current, isFocus]);
 
     useEffect(() => {
-      if (User.isLogin(userState.user)) return;
+      if (User.isLogin(userState.user) || User.isVip(userState.user)) return;
 
       if (swipeCount.current < MINI_SHOW_LOGIN_NUMBER && !adultMode) {
         swipeCount.current++;
@@ -329,7 +339,7 @@ export default forwardRef<MiniVodRef, Props>(
         // dispatch(showLoginAction());
         // swipeCount.current = 0;
       }
-    }, [current, adultMode, isFocusLogin.current]);
+    }, [current, adultMode, userState.user]);
 
     return (
       <>

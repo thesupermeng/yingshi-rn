@@ -103,7 +103,7 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
     route.params.type_id === undefined ? 1 : route.params.type_id,
   );
   const [topicClass, setTopicClass] = useState(
-    route.params.class === undefined || route.params.class.startsWith('全部')
+    route.params.class === undefined || route.params.class.startsWith('全部') || route.params.class.startsWith('短剧')
       ? sameTextAndValueObj('全部类型')
       : sameTextAndValueObj(route.params.class),
   );
@@ -347,6 +347,16 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
   }, [currentTopicId, topicOptions]);
   // ========== for analytics - end ==========
 
+  // for auto select 短剧
+  useEffect(() => {
+    // console.log("route.params.class")
+    // console.log(route.params.class)
+
+    if(route.params.class =='短剧' )
+   setCurrentTopicId(46);
+  }, [topicOptions]);
+  
+
   useEffect(() => {
     const eventName = 'catalog';
     const eventValues = {
@@ -373,7 +383,6 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
           onPress={() => {
             reset();
             setCurrentTopicId(item.id);
-            console.log(item.id, currentTopicId);
           }}>
           <Text
             style={{

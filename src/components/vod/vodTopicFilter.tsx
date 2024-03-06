@@ -32,12 +32,17 @@ export default ({ init, callback, options = [] }: Props) => {
                     const itemHeight = options.length /* Calculate the length of options */;
                     const offset = index * itemHeight;
                     setTimeout(() => {
-                        if (index >= 10) {
-                            flatListRef.current.scrollToItem({ animated: false, item: options[index], viewPosition: -0.5 })
-                        } else {
-                            flatListRef.current.scrollToOffset({ animated: false, offset });
+                        try {
+                            if (index >= 10) {
+                                flatListRef.current.scrollToItem({ animated: false, item: options[index], viewPosition: -0.85 })
+                            } else {
+                                flatListRef.current.scrollToOffset({ animated: false, offset });
+                            }
+                        } catch (err: any) {
+                            console.log("err crash")
+                            console.log(err)   
                         }
-                    }, 200);
+                    }, 400);
                 }
             }
           }, [selectedItem, options]);

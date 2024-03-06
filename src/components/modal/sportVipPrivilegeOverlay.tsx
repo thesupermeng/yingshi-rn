@@ -1,12 +1,14 @@
 import { useNavigation } from "@react-navigation/native";
 import VipPrivilegeModal from "./vipPrivilegeModal"
 import { useCallback, useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "@hooks/hooks";
-import { hideAdultVipPrivilegeMiniVideoAction, showAdultVipPrivilegeMiniVideoAction } from "@redux/actions/screenAction";
+import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
+import { hideAdultVipPrivilegeMiniVideoAction, showAdultVipPrivilegeMiniVideoAction, showLoginAction } from "@redux/actions/screenAction";
 import { View } from "react-native";
 import { screenModel } from "@type/screenType";
 import UmengAnalytics from "../../../Umeng/UmengAnalytics";
 import { UMENG_CHANNEL } from "@utility/constants";
+import { User } from "@models/user";
+import { UserStateType } from "@redux/reducers/userReducer";
 
 const sportModels = require('@static/images/vip_sport_models.png');
 const sportBg = require('@static/images/vip_sport_background.png');
@@ -24,7 +26,7 @@ export const SportVipPrivilegeOverlay = ({ showCondition, onClose, showBlur }: P
   const screenState: screenModel = useAppSelector(
     ({ screenReducer }) => screenReducer
   );
-
+  const userState = useSelector<UserStateType>('userReducer');
 
   const handleOnPurchase = useCallback(() => {
     onClose({ isAutoClose: true })
@@ -46,7 +48,13 @@ export const SportVipPrivilegeOverlay = ({ showCondition, onClose, showBlur }: P
 
   const handleOnInvite = useCallback(() => {
     onClose({ isAutoClose: true })
-    navigator.navigate('邀请');
+
+    if (User.isGuest(userState.user)) {
+      dispatch(showLoginAction());
+    } else {
+      navigator.navigate('邀请');
+    }
+
     // ========== for analytics - start ==========
     UmengAnalytics.sportDetailsVipPopupClicksAnalytics('invite');
     // ========== for analytics - end ==========
@@ -68,6 +76,7 @@ export const SportVipPrivilegeOverlay = ({ showCondition, onClose, showBlur }: P
       onClose={onClose}
       showBlur={showBlur}
       showCondition={showCondition}
+      showDarkBackdrop={true}
     />
 
   )

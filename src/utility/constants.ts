@@ -64,7 +64,7 @@ export const INVITE_DOMAIN = 'https://xiangkantv.net/invite.html?invite=';
 
 export const UMENG_CHANNEL = "GOOGLE_PLAY";
 
-export const APP_VERSION = "1.7.0";
+export const APP_VERSION = "1.7.8";
 
 export const TOPON_ANDROID_APP_ID = 'a65e577384c125';
 export const TOPON_ANDROID_APP_KEY = 'ad83e042ddc3e6904c1f63bcc575a6bd7';
@@ -135,7 +135,7 @@ export const TOTAL_VIDEO_TO_DOWNLOAD = 300;
 
 export const COMMENT_MAX_INPUT = 200;
 
-export const MINI_SHOW_LOGIN_NUMBER = 10;
+export const MINI_SHOW_LOGIN_NUMBER = Platform.OS === 'ios' ? 299 : 10;
 
 export const AD_VIDEO_SECONDS = 10;
 

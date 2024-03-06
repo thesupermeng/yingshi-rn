@@ -90,6 +90,7 @@ interface Props {
   onDownloadVod?: (nid: number) => void,
   setShowAdOverlay: (show: boolean) => void,
   onAdsMount?: () => void,
+  vipGuideModalOpen?: boolean,
 }
 
 type VideoControlsRef = {
@@ -142,6 +143,7 @@ export default forwardRef<VideoRef, Props>(
       onDownloadVod,
       setShowAdOverlay,
       onAdsMount,
+      vipGuideModalOpen = false,
     }: Props,
     ref
   ) => {
@@ -598,20 +600,20 @@ export default forwardRef<VideoRef, Props>(
     useEffect(() => {
       if (!isFocus) return;
 
-      if (screenState.interstitialShow == true && Platform.OS === "ios") {
+      if ((screenState.interstitialShow == true || vipGuideModalOpen === true) && Platform.OS === "ios") {
         setIsPaused(true);
       } else {
         setIsPaused(false);
       }
-    }, [screenState.interstitialShow]);
+    }, [screenState.interstitialShow, vipGuideModalOpen]);
 
     useEffect(() => {
-      if (screenState.interstitialShow === true) {
+      if (screenState.interstitialShow === true || vipGuideModalOpen === true) {
         adVideoRef.current?.setNativeProps({ paused: true })
       } else {
         adVideoRef.current?.setNativeProps({ paused: false })
       }
-    }, [screenState.interstitialShow]);
+    }, [screenState.interstitialShow, vipGuideModalOpen]);
 
     useEffect(() => {
       if (route.name == '体育详情') {
