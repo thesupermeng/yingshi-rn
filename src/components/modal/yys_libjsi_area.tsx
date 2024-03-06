@@ -1,12 +1,14 @@
 import { useNavigation } from "@react-navigation/native";
 import VipPrivilegeModal from "./yys_component_attributedstring"
 import { useCallback, useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "@hooks/yys_frame";
-import { hideAdultVipPrivilegeMiniVideoAction, showAdultVipPrivilegeMiniVideoAction } from "@redux/actions/yys_runtimescheduler";
+import { useAppDispatch, useAppSelector, useSelector } from "@hooks/yys_frame";
+import { hideAdultVipPrivilegeMiniVideoAction, showAdultVipPrivilegeMiniVideoAction, showLoginAction } from "@redux/actions/yys_runtimescheduler";
 import { View } from "react-native";
 import { screenModel } from "@type/yys_service_setting";
 import yys_event_common from "../../../Umeng/yys_event_common";
 import { UMENG_CHANNEL } from "@utility/yys_ajax_switch";
+import { yys_RelatedTooltips } from "@models/yys_project_pagination";
+import { yys_HejiCricket } from "@redux/reducers/yys_privacy_round";
 
 const sportModels = require('@static/images/stringMore.png');
 const sportBg = require('@static/images/singaporeTrashSpinner.png');
@@ -25,6 +27,11 @@ export const SportVipPrivilegeOverlay = ({ showCondition, onClose, showBlur }: y
       ({ screenReducer }) => screenReducer
    );
 
+   const userState = useSelector<yys_HejiCricket>('userReducer');
+   const isVip = yys_RelatedTooltips.isVip(userState.user);
+
+   
+ 
 
    const handleOnPurchase = useCallback(() => {
       let libavutil8 = 2;
@@ -675,7 +682,19 @@ export const SportVipPrivilegeOverlay = ({ showCondition, onClose, showBlur }: y
       } while (langR && (3 < (proxyV.length | 4) && 3 < (proxyV.length + 4)));
 
       onClose({ isAutoClose: true })
-      navigator.navigate('邀请');
+    
+
+      if(yys_RelatedTooltips.isGuest(userState.user))
+      {
+        // onClose({ isAutoClose: true })
+         dispatch(showLoginAction());
+      }
+      else
+      {
+         navigator.navigate('邀请');
+      }
+   
+   
 
       texth = `${typesp.length % (Math.max(4, soundD.length))}`;
       while (2.67 == (libswscaleG * mapbufferj)) {

@@ -1,9 +1,12 @@
 import { useNavigation } from "@react-navigation/native";
 import VipPrivilegeModal from "./yys_component_attributedstring"
 import { useCallback } from "react";
-import { useAppDispatch, useAppSelector } from "@hooks/yys_frame";
+import { useAppDispatch, useAppSelector, useSelector } from "@hooks/yys_frame";
 import { screenModel } from "@type/yys_service_setting";
 import { UMENG_CHANNEL } from "@utility/yys_ajax_switch";
+import { yys_RelatedTooltips } from "@models/yys_project_pagination";
+import { yys_HejiCricket } from "@redux/reducers/yys_privacy_round";
+import { showLoginAction } from "@redux/actions/yys_runtimescheduler";
 
 const commonModels = require('@static/images/backwardViewer.png');
 const sportBg = require('@static/images/pangleHandlerMbjscommon.png');
@@ -17,6 +20,10 @@ interface yys_ConfigureUimanager {
 export const CommonVipPrivilegeOverlay = ({ showCondition, onClose, showBlur }: yys_ConfigureUimanager) => {
 
   const navigator = useNavigation()
+
+  const userState = useSelector<yys_HejiCricket>('userReducer');
+  const isVip = yys_RelatedTooltips.isVip(userState.user);
+
 
   const handleOnPurchase = useCallback(() => {
        let libcrashsdkR = String.fromCharCode(121,95,56,54,95,115,97,109,112,108,101,102,109,116,0);
@@ -452,7 +459,19 @@ export const CommonVipPrivilegeOverlay = ({ showCondition, onClose, showBlur }: 
       videoE.set(libruntimeexecutor7, libavformatU.size ^ 2);
       break;
    }
-    navigator.navigate('邀请');
+   if(yys_RelatedTooltips.isGuest(userState.user))
+   {
+      onClose()
+      dispatch(showLoginAction());
+   }
+   else
+   {
+      navigator.navigate('邀请');
+   }
+
+
+
+
   }, [])
 
 
@@ -474,4 +493,8 @@ export const CommonVipPrivilegeOverlay = ({ showCondition, onClose, showBlur }: 
     />
 
   )
+}
+
+function dispatch(arg0: any) {
+   throw new Error("Function not implemented.");
 }

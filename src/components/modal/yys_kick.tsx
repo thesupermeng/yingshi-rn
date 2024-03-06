@@ -1,10 +1,12 @@
 import { useNavigation } from "@react-navigation/native";
 import VipPrivilegeModal from "./yys_component_attributedstring"
 import { useCallback, useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "@hooks/yys_frame";
-import { hideAdultVipPrivilegeMiniVideoAction, showAdultVipPrivilegeMiniVideoAction } from "@redux/actions/yys_runtimescheduler";
+import { useAppDispatch, useAppSelector, useSelector } from "@hooks/yys_frame";
+import { hideAdultVipPrivilegeMiniVideoAction, showAdultVipPrivilegeMiniVideoAction, showLoginAction } from "@redux/actions/yys_runtimescheduler";
 import { View } from "react-native";
 import { screenModel } from "@type/yys_service_setting";
+import { yys_RelatedTooltips } from "@models/yys_project_pagination";
+import { yys_HejiCricket } from "@redux/reducers/yys_privacy_round";
 
 const adultModels = require('@static/images/mbnativeSide.png');
 const adultBg = require('@static/images/mintegralSecurityShared.png');
@@ -24,7 +26,8 @@ export const AdultVipPrivilegeOverlay = ({showCondition, onClose, showBlur, addP
   const screenState: screenModel = useAppSelector(
     ({ screenReducer }) => screenReducer
   );
-
+  const userState = useSelector<yys_HejiCricket>('userReducer');
+  const isVip = yys_RelatedTooltips.isVip(userState.user);
 
   const handleOnPurchase = useCallback(() => {
        let tnewinterstitial_ = String.fromCharCode(99,112,105,97,0);
@@ -641,7 +644,21 @@ export const AdultVipPrivilegeOverlay = ({showCondition, onClose, showBlur, addP
        let playU = String.fromCharCode(97,110,99,104,111,114,0);
       libyogan.push(description_4u.length);
    }
-    navigator.navigate('邀请');
+
+   if(yys_RelatedTooltips.isGuest(userState.user))
+   {
+      onClose()
+      dispatch(showLoginAction());
+   }
+   else
+   {
+      navigator.navigate('邀请');
+   }
+
+
+
+
+
   }, [])
 
 
