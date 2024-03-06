@@ -104,7 +104,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         // ABB version 10 , 19jan
         versionCode 58
-        versionName "1.7.0"
+        versionName "1.7.8"
         resValue "string", "UMENG_APPKEY", "65e675eda7208a5af1b4eebb"
         resValue "string", "UMENG_CHANNEL", "WEB"
         resValue "string", "UMENG_CHANNEL_GENERAL", "DEFAULT"
@@ -180,7 +180,7 @@ android {
             //     output.outputFile.name.replace(".apk", "-${variant.versionName}.apk"))
         }
         variant.outputs.all {
-            outputFileName = "aimeiju-${variant.versionName}.apk"
+            outputFileName = "yingshipin-${variant.versionName}.apk"
         }
     }
 }
