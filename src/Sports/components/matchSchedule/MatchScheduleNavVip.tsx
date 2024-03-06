@@ -52,7 +52,7 @@ export default function MatchScheduleNav({
                   fontSize: textVariants.selected.fontSize,
                   color: colors.primary,
                   height: 30,
-                  width: 40,
+                  width: 50,
                   textAlignVertical: "bottom",
                   fontWeight: textVariants.selected.fontWeight,
                 }}
@@ -65,7 +65,7 @@ export default function MatchScheduleNav({
                   fontSize: textVariants.unselected.fontSize,
                   color: colors.muted,
                   height: 30,
-                  width: 40,
+                  width: 50,
                   textAlignVertical: "bottom",
                   fontWeight: textVariants.unselected.fontWeight,
                 }}
@@ -143,7 +143,7 @@ export default function MatchScheduleNav({
             alignItems: "center",
             display: "flex",
             flexDirection: "row-reverse",
-            width: 50,
+            width: 60,
             paddingTop: 0,
             paddingBottom: 0,
           },
