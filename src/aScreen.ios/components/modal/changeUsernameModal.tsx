@@ -3,9 +3,11 @@ import { Image, Keyboard, StyleSheet, Text, TouchableOpacity, View } from "react
 import { CBottomSheet } from "../atoms";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import { CTextInput } from "../atoms/textInput";
+import { useSelector } from "@hooks/hooks";
 import { useDispatch } from "react-redux";
 import { changeScreenAction } from "@redux/actions/screenAction";
 import { updateUsernameState } from "@redux/actions/userAction";
+import SpinnerOverlay from "./SpinnerOverlay";
 import { UserApi } from "@api";
 
 
@@ -168,7 +170,7 @@ export const ChangeUsernameModal = ({
                         paddingRight: 10,
                     }}
                 >
-                    {username.replace(/\s+/g, "").length}/18
+                    {username?.replace(/\s+/g, "").length}/18
                 </Text>
             </View>
         </CBottomSheet>
