@@ -742,7 +742,7 @@
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "获取您的地区，为你推荐身边的更多优惠信息";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app does not require access to the microphone.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app requires access to the photo library.";
-				INFOPLIST_KEY_NSUserTrackingUsageDescription = "是否允许爱美剧跟踪您在其他公司的App和网站上的活动";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "是否允许萤视频跟踪您在其他公司的App和网站上的活动";
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = armv7;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -790,7 +790,7 @@
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "获取您的地区，为你推荐身边的更多优惠信息";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app does not require access to the microphone.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app requires access to the photo library.";
-				INFOPLIST_KEY_NSUserTrackingUsageDescription = "是否允许爱美剧跟踪您在其他公司的App和网站上的活动";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "是否允许萤视频跟踪您在其他公司的App和网站上的活动";
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = armv7;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -1072,7 +1072,7 @@
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "获取您的地区，为你推荐身边的更多优惠信息";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app does not require access to the microphone.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app requires access to the photo library.";
-				INFOPLIST_KEY_NSUserTrackingUsageDescription = "是否允许爱美剧跟踪您在其他公司的App和网站上的活动";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "是否允许萤视频跟踪您在其他公司的App和网站上的活动";
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = armv7;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
