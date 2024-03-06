@@ -9,7 +9,7 @@ import { RootStackScreenProps } from "@type/yys_settings";
 import TitleWithBackButtonHeader from "../../components/header/yys_anner_header";
 
 import { useTheme } from "@react-navigation/native";
-import { APP_NAME_CONST,APP_NAME_CONST2 } from "@utility/yys_ajax_switch";
+import { APP_NAME_CONST, APP_NAME_CONST2 } from "@utility/yys_ajax_switch";
 import { showLoginAction } from "@redux/actions/yys_runtimescheduler";
 import { useAppDispatch, useSelector } from "@hooks/yys_frame";
 import { screenModel } from "@type/yys_service_setting";
@@ -22,13 +22,12 @@ export default ({ navigation }: RootStackScreenProps<"用户协议">) => {
   useEffect(() => {
     const unsubscribe = navigation.addListener('beforeRemove', (e) => {
       if (screenReducer.navigateToProfile === true) {
-      
-        
+
+
         const navState = navigation.getState();
         const currentRouteName = navState.routes[navState.index].name;
         const previousRouteName = navState.routes[navState.index - 1]?.name;
-        if( previousRouteName !='关于我们')
-        {
+        if (previousRouteName != '关于我们') {
           dispatch(showLoginAction());
         }
       } else {
@@ -45,10 +44,10 @@ export default ({ navigation }: RootStackScreenProps<"用户协议">) => {
       <View style={{ gap: spacing.m }}>
         <TitleWithBackButtonHeader title="用户协议" />
         <Text style={{ ...textVariants.header, textAlign: "center" }}>
-          {APP_NAME_CONST}用户协议
+          {APP_NAME_CONST2}用户服务协议
         </Text>
         <Text style={textVariants.body}>
-          {`《${APP_NAME_CONST}用户服务协议》\n` +
+          {`本《用户服务协议》将帮助您了解以下内容：\n` +
             `一、协议的定义及服务说明\n` +
             `二、您的${APP_NAME_CONST2}账号\n` +
             `三、服务使用规则\n` +

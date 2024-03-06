@@ -55,6 +55,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="sansTempMounting" width="480" height="136"/>
+        <image name="sansTempMounting" width="280" height="68"/>
     </resources>
 </document>
