@@ -370,7 +370,7 @@ export default ({ navigation }: RootStackScreenProps<"活动规则">) => {
             <Text
               style={{ ...textVariants.small, fontSize: 14, lineHeight: 22 }}
             >
-              好友下载{APP_NAME_CONST2} APP
+              好友下载{APP_NAME_CONST2} 
             </Text>
           </View>
 
@@ -384,7 +384,7 @@ export default ({ navigation }: RootStackScreenProps<"活动规则">) => {
             <Text
               style={{ ...textVariants.small, fontSize: 14, lineHeight: 22 }}
             >
-              好友注册{APP_NAME_CONST2} APP（需填写邀请码）
+              好友注册{APP_NAME_CONST2} 
             </Text>
           </View>
 
