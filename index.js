@@ -22,9 +22,15 @@ AppRegistry.registerRunnable(appName, async initialProps => {
     messagingSenderId: '699123886701',
   };
 
-  messaging().setBackgroundMessageHandler(async remoteMessage => {
-    console.log('Message handled in the background!', remoteMessage);
-  });
+
+
+  try {
+    messaging().setBackgroundMessageHandler(async remoteMessage => {
+      console.log('Message handled in the background!', remoteMessage);
+    });
+  } catch (err) {
+    console.log('messaging initialize error');
+  }
 
   try {
     // ATRNSDK.initSDK('a5aa1f9deda26d', '4f7b9ac17decb9babec83aac078742c7');
