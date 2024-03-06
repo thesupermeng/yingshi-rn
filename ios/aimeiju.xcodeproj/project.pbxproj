@@ -737,7 +737,7 @@
 					"$(PROJECT_DIR)/Core",
 				);
 				INFOPLIST_FILE = aimeiju/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "爱美剧";
+				INFOPLIST_KEY_CFBundleDisplayName = "萤视频";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires access to the camera.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "获取您的地区，为你推荐身边的更多优惠信息";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app does not require access to the microphone.";
@@ -785,7 +785,7 @@
 					"$(PROJECT_DIR)/Core",
 				);
 				INFOPLIST_FILE = aimeiju/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "爱美剧";
+				INFOPLIST_KEY_CFBundleDisplayName = "萤视频";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires access to the camera.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "获取您的地区，为你推荐身边的更多优惠信息";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app does not require access to the microphone.";
@@ -1067,7 +1067,7 @@
 					"$(PROJECT_DIR)/Core",
 				);
 				INFOPLIST_FILE = aimeiju/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "爱美剧";
+				INFOPLIST_KEY_CFBundleDisplayName = "萤视频";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires access to the camera.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "获取您的地区，为你推荐身边的更多优惠信息";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app does not require access to the microphone.";
