@@ -13,7 +13,7 @@ import TitleWithBackButtonHeader from "../../components/header/yys_anner_header"
 
 import { useTheme } from "@react-navigation/native";
 import { ScrollView } from "react-native-gesture-handler";
-import { APP_NAME_CONST } from "@utility/yys_ajax_switch";
+import { APP_NAME_CONST2 } from "@utility/yys_ajax_switch";
 
 export default ({ navigation }: RootStackScreenProps<"活动规则">) => {
   const { colors, textVariants, icons, spacing } = useTheme();
@@ -370,7 +370,7 @@ export default ({ navigation }: RootStackScreenProps<"活动规则">) => {
             <Text
               style={{ ...textVariants.small, fontSize: 14, lineHeight: 22 }}
             >
-              好友下载{APP_NAME_CONST} APP
+              好友下载{APP_NAME_CONST2} APP
             </Text>
           </View>
 
@@ -384,7 +384,7 @@ export default ({ navigation }: RootStackScreenProps<"活动规则">) => {
             <Text
               style={{ ...textVariants.small, fontSize: 14, lineHeight: 22 }}
             >
-              好友注册{APP_NAME_CONST} APP（需填写邀请码）
+              好友注册{APP_NAME_CONST2} APP（需填写邀请码）
             </Text>
           </View>
 
