@@ -107,3 +107,5 @@ appcenter codepush release-react -a developeryingshi/yingshi-ios-new -d Producti
 
 and android codepush, change replaceChannel key also
 appcenter codepush release-react -a developeryingshi/yingshi-android-new -d Production
+
+appcenter codepush release-react -a developeryingshi/yingshipin -d Production
