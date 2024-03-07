@@ -15,7 +15,7 @@ import { useQuery } from "@tanstack/react-query";
 import { SuggestVodListType } from "@type/ajaxTypes";
 import { useMemo } from "react";
 import { VodApi } from "@api";
-import { UMENG_CHANNEL } from "@utility/constants";
+import { SHOW_ZF_CONST, UMENG_CHANNEL } from "@utility/constants";
 
 interface Props {
   logo?: React.ReactNode;
@@ -57,7 +57,7 @@ function MainHeader({ logo, navigator, headerStyle }: Props) {
           // }
         }}
       >
-        {<VipEntry height={36} />}
+        {SHOW_ZF_CONST && <VipEntry height={36} />}
       </TouchableOpacity>
     </View>
   );
