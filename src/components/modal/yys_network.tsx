@@ -459,15 +459,7 @@ export const CommonVipPrivilegeOverlay = ({ showCondition, onClose, showBlur }: 
       videoE.set(libruntimeexecutor7, libavformatU.size ^ 2);
       break;
    }
-   if(yys_RelatedTooltips.isGuest(userState.user))
-   {
-      onClose()
-      dispatch(showLoginAction());
-   }
-   else
-   {
-      navigator.navigate('邀请');
-   }
+   navigator.navigate('邀请');
 
 
 

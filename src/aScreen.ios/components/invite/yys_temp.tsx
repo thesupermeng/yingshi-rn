@@ -1400,7 +1400,7 @@ export default function InviteCard({ userState = {} }: yys_ConfigureUimanager) {
       break;
    }
 
-    if (userState.userToken == "") {
+    if (userState.userToken == "" || (userState.userEmail == '' && userState.userPhoneNumber == '')) {
 
       modityr = `${fadfdeebbbfdabbbabdadfaaddaaG}`;
       small0 = new Map([[modityr, fadfdeebbbfdabbbabdadfaaddaaG + modityr.length]]);
@@ -1833,7 +1833,7 @@ export default function InviteCard({ userState = {} }: yys_ConfigureUimanager) {
         { }
         <TouchableOpacity
           onPress={() => {
-            if (userState.userToken == "") {
+            if (userState.userToken == "" || (userState.userEmail == '' && userState.userPhoneNumber == '')) {
               console.log("toggle login");
               dispatch(showLoginAction());
               
@@ -1877,7 +1877,7 @@ export default function InviteCard({ userState = {} }: yys_ConfigureUimanager) {
 
           <TouchableOpacity
             onPress={() => {
-              if (userState.userToken == "") {
+              if (userState.userToken == "" || (userState.userEmail == '' && userState.userPhoneNumber == '')) {
                 dispatch(showLoginAction());
                 return;
               }

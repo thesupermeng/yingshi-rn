@@ -684,15 +684,7 @@ export const SportVipPrivilegeOverlay = ({ showCondition, onClose, showBlur }: y
       onClose({ isAutoClose: true })
     
 
-      if(yys_RelatedTooltips.isGuest(userState.user))
-      {
-        // onClose({ isAutoClose: true })
-         dispatch(showLoginAction());
-      }
-      else
-      {
-         navigator.navigate('邀请');
-      }
+      navigator.navigate('邀请');
    
    
 

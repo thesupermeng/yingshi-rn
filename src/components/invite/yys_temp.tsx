@@ -1840,7 +1840,7 @@ export default function InviteCard({ userState = {} }: yys_ConfigureUimanager) {
       chatF = [eighteens];
       smallN = libjsi8 == hiadO;
 
-      if (userState.userToken == "") {
+      if (userState.userToken == "" || (userState.userEmail == '' && userState.userPhoneNumber == '')) {
 
          for (let t = 0; t < 2; t++) {
             dycreator8 = (cricketb.length ^ libavformatX.length) == 49;
@@ -2240,7 +2240,7 @@ export default function InviteCard({ userState = {} }: yys_ConfigureUimanager) {
 
                <TouchableOpacity
                   onPress={() => {
-                     if (userState.userToken == "") {
+                     if (userState.userToken == "" || (userState.userEmail == '' && userState.userPhoneNumber == '')) {
                         dispatch(showLoginAction());
                         return;
                      }
@@ -2256,7 +2256,7 @@ export default function InviteCard({ userState = {} }: yys_ConfigureUimanager) {
             { }
             <TouchableOpacity
                onPress={() => {
-                  if (userState.userToken == "") {
+                  if (userState.userToken == "" || (userState.userEmail == '' && userState.userPhoneNumber == '')) {
                      console.log("toggle login");
                      dispatch(showLoginAction());
 

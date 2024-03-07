@@ -3144,13 +3144,14 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                   }}
                   onPress={() => {
 
-                    if (yys_RelatedTooltips.isGuest(userState.user)) {
-                      dispatch(showLoginAction());
-                    }
-                    else {
-                      navigation.navigate("邀请");
-                    }
+                  //   if (yys_RelatedTooltips.isGuest(userState.user)) {
+                  //     dispatch(showLoginAction());
+                  //   }
+                  //   else {
+                  //     navigation.navigate("邀请");
+                  //   }
 
+                    navigation.navigate("邀请");
                   }}
                 >
                   <View style={styles.left}>

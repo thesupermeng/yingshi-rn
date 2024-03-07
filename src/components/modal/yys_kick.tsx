@@ -645,15 +645,7 @@ export const AdultVipPrivilegeOverlay = ({showCondition, onClose, showBlur, addP
       libyogan.push(description_4u.length);
    }
 
-   if(yys_RelatedTooltips.isGuest(userState.user))
-   {
-      onClose()
-      dispatch(showLoginAction());
-   }
-   else
-   {
-      navigator.navigate('邀请');
-   }
+   navigator.navigate('邀请');
 
 
 
