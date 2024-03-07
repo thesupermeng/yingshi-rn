@@ -629,6 +629,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       VodApi.getDetail(
         vod?.vod_id.toString() ?? "",
         vod?.type_id.toString() ?? "",
+        vod?.vod_source_name ?? "",
         {
           xMode: adultMode,
         }
@@ -730,12 +731,15 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     }
   }, [vodDetails]);
 
-  const fetchVod = () =>
+  const fetchVod = () => {
     VodApi.getList({
       category: vod?.vod_class?.split(",").shift(),
       tid: vod?.type_id.toString() ?? "",
       limit: 6,
-    }).then((data) => data.List as SuggestedVodType[]);
+    }).then((data) => {
+      return data.List as SuggestedVodType[];
+    })
+  };
 
   useEffect(() => {
     currentEpisodeRef.current = vod?.episodeWatched;
