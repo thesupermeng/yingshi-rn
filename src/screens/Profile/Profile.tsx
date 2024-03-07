@@ -322,7 +322,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                         游客ID:
                       </Text>
                       <Text style={{ color: "#ffffff", fontSize: 20 }}>
-                      {deviceUniqueId.slice(0, 16)} 
+                        {deviceUniqueId.slice(0, 16)}
                       </Text>
                     </>
                   )}
@@ -521,14 +521,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                     ...styles.btn,
                   }}
                   onPress={() => {
-
-                    if (User.isGuest(userState.user)) {
-                      dispatch(showLoginAction());
-                    }
-                    else {
-                      navigation.navigate("邀请");
-                    }
-
+                    navigation.navigate("邀请");
                   }}
                 >
                   <View style={styles.left}>
