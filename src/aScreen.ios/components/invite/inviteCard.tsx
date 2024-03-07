@@ -232,7 +232,7 @@ export default function InviteCard({ userState = {} }: Props) {
   // };
 
   const toggleShare = async () => {
-    if (userState.userToken == "") {
+    if (User.isGuest(userState)) {
       dispatch(showLoginAction());
       return;
     }
@@ -390,7 +390,7 @@ export default function InviteCard({ userState = {} }: Props) {
         {/* invite button  component  */}
         <TouchableOpacity
           onPress={() => {
-            if (userState.userToken == "") {
+            if (User.isGuest(userState)) {
               console.log("toggle login");
               dispatch(showLoginAction());
               // console.log('props{');

@@ -232,7 +232,7 @@ export default function InviteCard({ userState = {} }: Props) {
   // };
 
   const toggleShare = async () => {
-    if (userState.userToken == "") {
+    if (User.isGuest(userState)) {
       dispatch(showLoginAction());
       return;
     }

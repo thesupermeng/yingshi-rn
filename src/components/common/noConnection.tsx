@@ -9,10 +9,8 @@ import React, { useEffect } from 'react';
 import { useTheme } from '@react-navigation/native';
 import NoWifi from '@static/images/no-wifi.svg';
 import RefreshIcon from '@static/images/refresh.svg';
-import LogoIcon from '@static/images/logo_no_connection.svg';
+import YingshiGreyIcon from '@static/images/yingshi-grey.svg';
 import { useOrientation } from '@hooks/useOrientation';
-import { IS_YINGSHIPING } from '@utility/constants';
-
 interface Props {
   onClickRetry?: any;
   isPlay?: boolean;
@@ -69,7 +67,7 @@ export default function NoConnection({
             <View
               style={{
                 ...styles.refreshBtn,
-                backgroundColor: IS_YINGSHIPING ? colors.text : colors.yellow,
+                backgroundColor: colors.title,
               }}>
               <View style={{ position: 'relative', top: 2, paddingRight: 3 }}>
                 <RefreshIcon />
@@ -87,9 +85,9 @@ export default function NoConnection({
       )}
       {isPlay && (
         <>
-          <View>
+          {/* <View>
             <LogoIcon />
-          </View>
+          </View> */}
           <Text
             style={{
               ...textVariants.subBody,
@@ -103,7 +101,7 @@ export default function NoConnection({
             <View
               style={{
                 ...styles.refreshBtn,
-                backgroundColor: IS_YINGSHIPING ? colors.text : colors.yellow,
+                backgroundColor: colors.title,
               }}>
               <View style={{ position: 'relative', top: 2, paddingRight: 3 }}>
                 <RefreshIcon />
