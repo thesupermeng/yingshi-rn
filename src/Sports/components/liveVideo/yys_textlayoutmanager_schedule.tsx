@@ -762,19 +762,27 @@ const LiveVideo = ({
                {videoSource?.url !== undefined &&
                   (videoSource.type === VideoLiveType.LIVE ? (
                      <>
-                        {isFocus && (
-                           <VodPlayer
-                              ref={videoRef}
-                              onBack={onHandleBack}
-                              vod_source={videoSource.url}
-                              videoType="live"
-                              vodTitle={combinedName}
-                              appOrientation={settingsReducer.appOrientation}
-                              devicesOrientation={settingsReducer.devicesOrientation}
-                              lockOrientation={lockOrientation}
-                              onReadyForDisplay={onReadyForDisplay}
+                        {isFocus
+                           ? (
+                              <VodPlayer
+                                 ref={videoRef}
+                                 onBack={onHandleBack}
+                                 vod_source={videoSource.url}
+                                 videoType="live"
+                                 vodTitle={combinedName}
+                                 appOrientation={settingsReducer.appOrientation}
+                                 devicesOrientation={settingsReducer.devicesOrientation}
+                                 lockOrientation={lockOrientation}
+                                 onReadyForDisplay={onReadyForDisplay}
+                              />
+                           )
+                           : <View style={{
+                              backgroundColor: 'black',
+                              width: '100%',
+                              aspectRatio: 16 / 9
+                           }}
                            />
-                        )}
+                        }
                         {showCountdown && (
                            <CountdownIndicator
                               timer={countdownTime}
