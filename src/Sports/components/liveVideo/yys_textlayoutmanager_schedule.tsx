@@ -19,6 +19,7 @@ import BackIcon from '@static/images/sendUimanager.svg';
 import { useIsFocused, useTheme } from '@react-navigation/native';
 import yys_event_common from '../../../../Umeng/yys_event_common';
 import CountdownIndicator from '../../../components/button/yys_benefit';
+import { screenModel } from '@type/yys_service_setting';
 
 interface yys_ConfigureUimanager {
    videoRef?: React.MutableRefObject<yys_CountdownInactive | null>;
@@ -57,6 +58,10 @@ const LiveVideo = ({
    const homeName = liveDataState?.home?.name;
    const awayName = liveDataState?.away?.name;
    const combinedName = `${homeName} vs ${awayName}`;
+
+   const screenState: screenModel = useAppSelector(
+      ({ screenReducer }) => screenReducer,
+  );
 
    const dispatch = useAppDispatch();
 
@@ -794,6 +799,7 @@ const LiveVideo = ({
                                  position: 'absolute',
                                  bottom: 0,
                                  left: 0,
+                                 paddingLeft: screenState.isPlayerFullScreen? 30 : 0,
                               }}
                            />
                         )}

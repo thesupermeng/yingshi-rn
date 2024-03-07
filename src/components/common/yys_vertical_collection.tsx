@@ -783,7 +783,7 @@ const customFastImage = ({useFastImage = false, alternativeImg, ...imageProp}: y
   if (error) { // when all url error, use the default placeholder image
     return (
       <View style={[{ backgroundColor: colors.loading, ...styles.loadingCard}, imageProp.style]}>
-          <LoadingImage />
+         <LoadingImage  width={20}  height={20}/>
       </View>
     )
   }
@@ -805,7 +805,7 @@ const customFastImage = ({useFastImage = false, alternativeImg, ...imageProp}: y
 
 const styles = StyleSheet.create({
   loadingCard: {
-    marginRight: 20,
+    marginRight: 10,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
