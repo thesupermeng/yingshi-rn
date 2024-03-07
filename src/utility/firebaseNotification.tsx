@@ -84,4 +84,12 @@ export class FirebaseNotification {
       },
     });
   }
+
+  static subscibeToTopic(topic: string) {
+    messaging().subscribeToTopic(topic);
+  }
+
+  static unSubscribeFromTopic(topic: string) {
+    messaging().unsubscribeFromTopic(topic);
+  }
 }

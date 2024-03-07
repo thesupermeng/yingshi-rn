@@ -72,6 +72,7 @@ warnIgnore([
   'ATBanner',
   'ATInterstitial',
   'source.uri should not be an empty string',
+  '[notifee]',
 ]);
 
 logIgnore([
