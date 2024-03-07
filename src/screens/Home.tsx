@@ -21,6 +21,7 @@ import {
   API_DOMAIN_TEST,
   EVENT_SPLASH_SHOW_DURATION,
   IOS_HOME_PAGE_POP_UP_ADS,
+  SHOW_ZF_CONST,
   UMENG_CHANNEL,
 } from "@utility/constants";
 import CatagoryHome from "../components/container/CatagoryHome";
@@ -337,20 +338,20 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
       dispatch(setShowEventSplashData([{ "created_at": "", "intro_page_id": 1, "intro_page_image_url": "/upload/vod/111.jpeg", "intro_page_name": "首页1", "url": "https://yingshi.tv/upload/vod/111.jpeg" }]));
     }
 
-    if (
-      screenState.showEventSplashData) {
-      console.log("==================== splashList from main ======================")
-      console.log(screenState.showEventSplash)
-      console.log(screenState.showEventSplashData)
-      // navigation.navigate("付费Google");
-      navigation.navigate("付费VIP");
+    //   if (SHOW_ZF_CONST &&
+    //     screenState.showEventSplashData) {
+    //     console.log("==================== splashList from main ======================")
+    //     console.log(screenState.showEventSplash)
+    //     console.log(screenState.showEventSplashData)
+    //     // navigation.navigate("付费Google");
+    //     navigation.navigate("付费VIP");
 
-      if (screenState.showEventSplash == false) {
-        dispatch(setEventSplashLastPageViewTime());
-      }
+    //     if (screenState.showEventSplash == false) {
+    //       dispatch(setEventSplashLastPageViewTime());
+    //     }
 
-      // dispatch(clearEventSplashLastPageViewTime());
-    }
+    //     // dispatch(clearEventSplashLastPageViewTime());
+    //   }
   };
 
   // ========== for analytics - end ==========

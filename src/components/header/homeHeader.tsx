@@ -47,18 +47,20 @@ function MainHeader({ logo, navigator, headerStyle }: Props) {
         }
         defaultValue={randomVod !== undefined ? randomVod.vod_name : ""}
       />
-      <TouchableOpacity
-        onPress={() => {
-          navigator.navigate("付费VIP");
-          // if (UMENG_CHANNEL == "GOOGLE_PLAY") {
-          //   navigator.navigate("付费Google");
-          // } else {
-          //   navigator.navigate("付费VIP");
-          // }
-        }}
-      >
-        {SHOW_ZF_CONST && <VipEntry height={36} />}
-      </TouchableOpacity>
+      {SHOW_ZF_CONST &&
+        <TouchableOpacity
+          onPress={() => {
+            navigator.navigate("付费VIP");
+            // if (UMENG_CHANNEL == "GOOGLE_PLAY") {
+            //   navigator.navigate("付费Google");
+            // } else {
+            //   navigator.navigate("付费VIP");
+            // }
+          }}
+        >
+          <VipEntry height={36} />
+        </TouchableOpacity>
+      }
     </View>
   );
 }
