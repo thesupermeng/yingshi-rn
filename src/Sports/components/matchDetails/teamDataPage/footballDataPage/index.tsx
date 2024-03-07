@@ -1,6 +1,6 @@
-import {ScrollView, SafeAreaView, View} from 'react-native';
-import {useSelector} from 'react-redux';
-import yys_RewardvideoGemfile from '../../../goalDistribution';
+import { ScrollView, SafeAreaView, View } from 'react-native';
+import { useSelector } from 'react-redux';
+import Yys_RewardvideoGemfile from '../../../goalDistribution';
 import MatchHistory from '../../../matchHistory';
 import SubsComponent from '../../../substituteComponent';
 import styles from './yys_gpay_roboto';
@@ -11,9 +11,9 @@ interface yys_ConfigureUimanager {
   liveRoomMatchDetails?: yys_PlusFilter,
 }
 
-const FootballDataPage = ({liveRoomMatchDetails} : yys_ConfigureUimanager) => {
+const FootballDataPage = ({ liveRoomMatchDetails }: yys_ConfigureUimanager) => {
   return (
-    <SafeAreaView style={{height: '100%'}}>
+    <SafeAreaView style={{ height: '100%' }}>
       {liveRoomMatchDetails?.football_match_analysis == undefined &&
         liveRoomMatchDetails?.football_away_injuries == undefined && (
           <EmptyDataPage />
@@ -40,13 +40,13 @@ const FootballDataPage = ({liveRoomMatchDetails} : yys_ConfigureUimanager) => {
         {liveRoomMatchDetails?.home != undefined &&
           liveRoomMatchDetails?.away != undefined &&
           liveRoomMatchDetails?.football_match_analysis?.goal_distribution !=
-            undefined &&
+          undefined &&
           liveRoomMatchDetails?.football_match_analysis?.goal_distribution
             ?.home_scored?.length > 0 &&
           liveRoomMatchDetails?.football_match_analysis?.goal_distribution
             ?.away_scored?.length > 0 && (
             <View>
-              <yys_RewardvideoGemfile
+              <Yys_RewardvideoGemfile
                 homeTeam={liveRoomMatchDetails?.home}
                 awayTeam={liveRoomMatchDetails?.away}
                 data={
@@ -60,7 +60,7 @@ const FootballDataPage = ({liveRoomMatchDetails} : yys_ConfigureUimanager) => {
         {liveRoomMatchDetails?.football_match_analysis?.history?.vs !=
           undefined &&
           liveRoomMatchDetails?.football_match_analysis?.history?.vs_total !=
-            undefined &&
+          undefined &&
           liveRoomMatchDetails?.home != undefined && (
             <View>
               <MatchHistory
@@ -82,7 +82,7 @@ const FootballDataPage = ({liveRoomMatchDetails} : yys_ConfigureUimanager) => {
         {liveRoomMatchDetails?.football_match_analysis?.history?.home !=
           undefined &&
           liveRoomMatchDetails?.football_match_analysis?.history?.home_total !=
-            undefined &&
+          undefined &&
           liveRoomMatchDetails?.home != undefined && (
             <MatchHistory
               title="近期战绩"
@@ -100,7 +100,7 @@ const FootballDataPage = ({liveRoomMatchDetails} : yys_ConfigureUimanager) => {
         {liveRoomMatchDetails?.football_match_analysis?.history?.away !=
           undefined &&
           liveRoomMatchDetails?.football_match_analysis?.history?.away_total !=
-            undefined &&
+          undefined &&
           liveRoomMatchDetails?.away != undefined && (
             <MatchHistory
               data={
