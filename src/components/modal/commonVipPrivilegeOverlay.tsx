@@ -38,13 +38,7 @@ export const CommonVipPrivilegeOverlay = ({ showCondition, onClose, showBlur }: 
 
   const handleOnInvite = useCallback(() => {
     onClose()
-
-    if (User.isGuest(userState.user)) {
-      dispatch(showLoginAction());
-    } else {
-      navigator.navigate('邀请');
-    }
-
+    navigator.navigate('邀请');
   }, [])
 
 
