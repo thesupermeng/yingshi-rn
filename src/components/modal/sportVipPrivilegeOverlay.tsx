@@ -48,12 +48,7 @@ export const SportVipPrivilegeOverlay = ({ showCondition, onClose, showBlur }: P
 
   const handleOnInvite = useCallback(() => {
     onClose({ isAutoClose: true })
-
-    if (User.isGuest(userState.user)) {
-      dispatch(showLoginAction());
-    } else {
-      navigator.navigate('邀请');
-    }
+    navigator.navigate('邀请');
 
     // ========== for analytics - start ==========
     UmengAnalytics.sportDetailsVipPopupClicksAnalytics('invite');

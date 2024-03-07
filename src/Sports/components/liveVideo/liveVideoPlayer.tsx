@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback, memo, useRef} from 'react';
+import React, { useState, useEffect, useCallback, memo, useRef } from 'react';
 import {
   Dimensions,
   Modal,
@@ -7,16 +7,16 @@ import {
   View,
 } from 'react-native';
 import styles from './style';
-import {VideoLiveType} from '../../global/const';
-import {MatchDetailsType, Stream} from '../../types/matchTypes';
-import VodPlayer, {VideoRef} from '../../../components/videoPlayer/vodPlayer';
-import {lockAppOrientation} from '@redux/actions/settingsActions';
-import {RootState} from '@redux/store';
-import {SettingsReducerState} from '@redux/reducers/settingsReducer';
-import {useAppDispatch, useAppSelector} from '@hooks/hooks';
+import { VideoLiveType } from '../../global/const';
+import { MatchDetailsType, Stream } from '../../types/matchTypes';
+import VodPlayer, { VideoRef } from '../../../components/videoPlayer/vodPlayer';
+import { lockAppOrientation } from '@redux/actions/settingsActions';
+import { RootState } from '@redux/store';
+import { SettingsReducerState } from '@redux/reducers/settingsReducer';
+import { useAppDispatch, useAppSelector } from '@hooks/hooks';
 import WebView from 'react-native-webview';
 import BackIcon from '@static/images/back_arrow.svg';
-import {useIsFocused, useTheme} from '@react-navigation/native';
+import { useIsFocused, useTheme } from '@react-navigation/native';
 import UmengAnalytics from '../../../../Umeng/UmengAnalytics';
 import CountdownIndicator from '../../../components/button/countdownIndicator';
 
@@ -52,7 +52,7 @@ const LiveVideo = ({
   countdownTime = 0,
   onVipCountdownClick,
 }: Props) => {
-  const {colors} = useTheme();
+  const { colors } = useTheme();
 
   const homeName = liveDataState?.home?.name;
   const awayName = liveDataState?.away?.name;
@@ -62,7 +62,7 @@ const LiveVideo = ({
 
   const [isReadyPlay, setReadyPlay] = useState(false);
   const settingsReducer: SettingsReducerState = useAppSelector(
-    ({settingsReducer}: RootState) => settingsReducer,
+    ({ settingsReducer }: RootState) => settingsReducer,
   );
 
   // const {
@@ -177,19 +177,27 @@ const LiveVideo = ({
           {videoSource?.url !== undefined &&
             (videoSource.type === VideoLiveType.LIVE ? (
               <>
-                {isFocus && (
-                  <VodPlayer
-                    ref={videoRef}
-                    onBack={onHandleBack}
-                    vod_source={videoSource.url}
-                    videoType="live"
-                    vodTitle={combinedName}
-                    appOrientation={settingsReducer.appOrientation}
-                    devicesOrientation={settingsReducer.devicesOrientation}
-                    lockOrientation={lockOrientation}
-                    onReadyForDisplay={onReadyForDisplay}
+                {isFocus
+                  ? (
+                    <VodPlayer
+                      ref={videoRef}
+                      onBack={onHandleBack}
+                      vod_source={videoSource.url}
+                      videoType="live"
+                      vodTitle={combinedName}
+                      appOrientation={settingsReducer.appOrientation}
+                      devicesOrientation={settingsReducer.devicesOrientation}
+                      lockOrientation={lockOrientation}
+                      onReadyForDisplay={onReadyForDisplay}
+                    />
+                  )
+                  : <View style={{
+                    backgroundColor: 'black',
+                    width: '100%',
+                    aspectRatio: 16 / 9
+                  }}
                   />
-                )}
+                }
                 {showCountdown && (
                   <CountdownIndicator
                     timer={countdownTime}
@@ -211,10 +219,10 @@ const LiveVideo = ({
                   width: '100%',
                   aspectRatio: 16 / 9,
                 }}>
-                <WebView resizeMode="contain" source={{uri: videoSource.url}} />
+                <WebView resizeMode="contain" source={{ uri: videoSource.url }} />
                 <TouchableOpacity
                   onPress={onHandleBack}
-                  style={{position: 'absolute', padding: 20}}>
+                  style={{ position: 'absolute', padding: 20 }}>
                   <BackIcon
                     style={{
                       color: colors.text,

@@ -36,13 +36,7 @@ export const AdultVipPrivilegeOverlay = ({ showCondition, onClose, showBlur, add
 
   const handleOnInvite = useCallback(() => {
     onClose()
-
-    if (User.isGuest(userState.user)) {
-      dispatch(showLoginAction());
-    } else {
-      navigator.navigate('邀请');
-    }
-
+    navigator.navigate('邀请');
   }, [])
 
 
