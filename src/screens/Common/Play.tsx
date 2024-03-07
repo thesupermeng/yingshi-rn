@@ -517,7 +517,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
         }.html${"\n"}${APP_NAME_CONST}-海量高清视频在线观看`;
 
       if (APP_NAME_CONST == "爱美剧") {
-        msg = `海量视频内容 随时随地 想看就看 ${"\n"}https://xiangkantv.net/share.html`;
+        msg = `海量视频内容 随时随地 想看就看 ${"\n"}https://dasdui.site/share.html`;
       }
 
       const result = await Share.share({
@@ -1553,7 +1553,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                       }}
                     >
                       <View
-                       onLayout={() => getPosition()}
+                        onLayout={() => getPosition()}
                         ref={componentRef}
                         style={{
                           display: "flex",
