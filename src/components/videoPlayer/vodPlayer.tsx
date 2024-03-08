@@ -470,6 +470,12 @@ export default forwardRef<VideoRef, Props>(
 
     const onSeekGesture = (time: number) => {
       if (disableSeek.current === true) return
+
+      if (isSeekErrorRef.current === true) {
+        isSeekErrorRef.current = false;
+        return;
+      }
+
       if (currentTime < time) {
         setSeekDirection("forward");
       } else {
