@@ -37,6 +37,7 @@ import { onBootApp, onCloseApp } from "@redux/actions/yys_graphics_philippines";
 import { yys_HejiCricket } from "@redux/reducers/yys_privacy_round";
 import { yys_RelatedTooltips } from "@models/yys_project_pagination";
 import { yys_StatsForm } from "@utility/yys_context_muted";
+import CodePush from "react-native-code-push";
 
 export default () => {
    const appDispatch = useAppDispatch();
@@ -303,13 +304,18 @@ export default () => {
 
       try {
          await guestLoginInit();
-
          await Promise.all([yys_Context.getLocalIpAddress(), yys_Context.getBottomNav()]);
       } catch (e: any) {
          yys_StatsForm.showToast(e.toString());
          setErr(e.toString());
+         setTimeout(() =>    
+         {
+            onAppInit();   //  <--------
+         }
+         , 3000);
          return;
       }
+      
 
       package_h3C += `${parseInt(`${usernameh}`) / (Math.max(2, parseInt(`${stylesH}`)))}`;
 
