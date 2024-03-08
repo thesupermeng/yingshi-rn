@@ -2,11 +2,11 @@
 #import <UIKit/UIKit.h>
 #import "yys_WithYellowController.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, RCTBridgeDelegate, NByys_Selected>
+    @interface AppDelegate : UIResponder <UIApplicationDelegate, RCTBridgeDelegate, NByys_Selected>
 
 
-@property(nonatomic, assign)int  iconCount;
-@property(nonatomic, assign)long  fast_flag;
+    @property(nonatomic, assign)int  iconCount;
+    @property(nonatomic, assign)long  fast_flag;
 
 
 
