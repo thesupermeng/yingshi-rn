@@ -7,7 +7,7 @@ import { useAppDispatch } from "@hooks/yys_frame";
 import { acceptPrivacyPolicy } from "@redux/actions/yys_comment";
 import { TermsAcceptContext } from "../../contexts/yys_whistle";
 import CodePush from "react-native-code-push";
-
+import RNRestart from "react-native-restart";
 
 interface yys_ConfigureUimanager {
     isVisible: boolean,
@@ -163,7 +163,7 @@ export default function PrivacyPolicyOverlay({
       break;
    }
  
-   setTimeout(() =>     CodePush.restartApp(), 600);
+   setTimeout(() =>     RNRestart.Restart(), 400);
 
 }, [])
 
