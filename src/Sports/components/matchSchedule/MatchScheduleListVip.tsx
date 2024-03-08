@@ -1,4 +1,4 @@
-import React, { memo, useState, useRef, useEffect, useCallback } from "react";
+import React, { memo, useState, useRef, useEffect, useCallback, useLayoutEffect } from "react";
 import { View, Text, FlatList, Dimensions } from "react-native";
 import { useFocusEffect, useTheme } from "@react-navigation/native";
 import styles from "./style";
@@ -26,7 +26,7 @@ import UmengAnalytics from "../../../../Umeng/UmengAnalytics";
 import { AdsApi } from "../../../api/ads";
 import { UserStateType } from "@redux/reducers/userReducer";
 import { User } from "@models/user";
-import IconRefreshIcon from '@static/images/iconRefresh.svg';
+import { screenModel } from "@type/screenType";
 
 interface Props {
   matchTypeID: number;
@@ -66,6 +66,7 @@ const MatchScheduleList = ({
   const [bannerAdList, setBannerAdList] = useState<Array<BannerAdType>>([]);
   const userState = useSelector<UserStateType>('userReducer');
   const isVip = User.isVip(userState.user);
+  const screenState = useSelector<screenModel>('screenReducer');
 
 
   const [matches, setMatches] = useState<Matches>({
@@ -284,6 +285,16 @@ const MatchScheduleList = ({
     handleInitialLoading();
   }, [handleInitialLoading]);
 
+  useEffect(() => {
+    flatlistRef
+  }, []);
+
+  useEffect(() => {
+    if (screenState.autoSelectSport == true) {
+      handleRefresh();
+    }
+  }, [screenState.autoSelectSport])
+
   return (
     <View style={{ flex: 1 }}>
 
@@ -383,10 +394,10 @@ const MatchScheduleList = ({
           handleRefresh();
         }}
       >
-        <IconRefreshIcon
-          color={colors.confirm}
-          width={45}
-          height={45}
+        <FastImage
+          source={require("../../assets/images/IconRefresh.png")}
+          style={{ width: 35, height: 35 }}
+          resizeMode={"contain"}
         />
       </TouchableOpacity>
     </View>
