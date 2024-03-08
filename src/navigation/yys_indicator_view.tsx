@@ -306,8 +306,7 @@ export default () => {
 
          await Promise.all([yys_Context.getLocalIpAddress(), yys_Context.getBottomNav()]);
       } catch (e: any) {
-         yys_StatsForm.showToast(e.toString());
-         setErr(e.toString());
+         // yys_StatsForm.showToast(e.toString());
          return;
       }
 
@@ -839,12 +838,8 @@ export default () => {
    useEffect(() => {
       if (loadedAPI === false && isConnected === true) {
          onAppInit();
-         setIsRun(true);
       }
    }, [loadedAPI, isConnected]);
-
-   const [isRun, setIsRun] = useState(false);
-   const [err, setErr] = useState('');
 
    return (
       <>
@@ -863,8 +858,6 @@ export default () => {
                         backgroundColor: "#161616",
                      }}
                   >
-                     <Text style={{ color: 'white' }}>{isRun.toString()}</Text>
-                     <Text style={{ color: 'white' }}>{err}</Text>
                      <FastImage
                         source={require("@static/images/indexTyping.gif")}
                         style={{
