@@ -15,6 +15,7 @@ import {
 import VipGuideModal from '../modal/vipGuide';
 import { UserStateType } from '@redux/reducers/userReducer';
 import {User} from '@models/user';
+import { RootState } from '@redux/store';
 interface Props {
   timer: number; //number of seconds left
   onClickVip: (...args: any) => void;
@@ -47,6 +48,10 @@ const CountdownIndicator = ({
   const componentRef = useRef<View>(null); // Create a ref for the component
   const [vipGuideModal, setVipGuideModal] = useState(false);
 
+  
+
+
+
   const userState = useSelector<UserStateType>('userReducer');
   const isVip = User.isVip(userState.user);
   
@@ -63,6 +68,9 @@ const CountdownIndicator = ({
       }, 1300);
     }
   }, [timer]);
+
+
+
 
   useEffect(() => {
     getPosition();
@@ -83,7 +91,7 @@ const CountdownIndicator = ({
         style={containerStyle}
         onLayout={() => getPosition()}
         ref={componentRef}>
-        <View style={styles.timerIndicatorContainer}>
+        <View style={{...styles.timerIndicatorContainer, marginLeft: screenState.isPlayerFullScreen ? 10 : 0}}>
           <Text
             numberOfLines={1}
             style={{...styles.indicatorText, color: '#FFFFFF'}}>
@@ -108,7 +116,7 @@ const CountdownIndicator = ({
           top: refPosition.y ,
           left: refPosition.x ,
         }}>
-        <View style={styles.timerIndicatorContainer}>
+        <View style={{...styles.timerIndicatorContainer, marginLeft: screenState.isPlayerFullScreen ? 20 : 0}}>
           <Text
             numberOfLines={1}
             style={{...styles.indicatorText, color: '#FFFFFF'}}>
@@ -154,6 +162,7 @@ const styles: Record<string, ViewStyle | TextStyle> = {
     paddingVertical: 4,
     paddingHorizontal: 5,
     flex: 1,
+
   },
   indicatorText: {
     fontSize: 14,

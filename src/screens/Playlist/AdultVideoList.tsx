@@ -68,42 +68,44 @@ export default ({ navigation, route }: RootStackScreenProps<'午夜场剧情'>) 
     setPage(page => page + 1);
   };
 
-  const renderItem = ({ item, index }: { item: AdultVodType; index: number }) => (
-    <View
-      style={{
-        width: '50%',
-        padding: 5,
-        // flex: 1,
-      }}>
-      <TouchableOpacity
-        key={item.vod_id}
-        style={styles.cardItem}
-        onPress={() => {
-          console.debug('vod pressed', item.vod_name);
-          dispatch(playVod(item));
-          navigation.navigate('播放', {
-            vod_id: item?.vod_id,
-            player_mode: 'adult'
-          });
-          // dispatch(enableAdultMode())
-        }}>
-        <FastImage
-          style={{ flex: 1, borderRadius: 10 }}
-          source={{
-            uri: item.vod_pic,
-          }}
-        />
-      </TouchableOpacity>
+  const renderItem = ({ item, index }: { item: AdultVodType; index: number }) => {
+    return (
       <View
         style={{
-          width: '100%',
+          width: '50%',
+          padding: 5,
+          // flex: 1,
         }}>
-        <Text style={styles.cardTitle} numberOfLines={2}>
-          {item.vod_name}
-        </Text>
+        <TouchableOpacity
+          key={item.vod_id}
+          style={styles.cardItem}
+          onPress={() => {
+            console.debug('vod pressed', item.vod_name);
+            dispatch(playVod(item));
+            navigation.navigate('播放', {
+              vod_id: item?.vod_id,
+              player_mode: 'adult'
+            });
+            // dispatch(enableAdultMode())
+          }}>
+          <FastImage
+            style={{ flex: 1, borderRadius: 10 }}
+            source={{
+              uri: item.vod_pic,
+            }}
+          />
+        </TouchableOpacity>
+        <View
+          style={{
+            width: '100%',
+          }}>
+          <Text style={styles.cardTitle} numberOfLines={2}>
+            {item.vod_name}
+          </Text>
+        </View>
       </View>
-    </View>
-  );
+    )
+  };
 
   useEffect(() => {
     fetchVod(page).then(data => {

@@ -11,6 +11,7 @@ import {
   DOWNLOAD_WATCH_ANYTIME,
   GOOGLE_SINGIN_CLIENT_WEB,
   GOOGLE_SINGIN_CLIENT_IOS,
+  SHOW_ZF_CONST,
 } from "@utility/constants";
 import { YSConfig } from "../../ysConfig";
 import { Platform } from "react-native";
@@ -24,7 +25,7 @@ import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { downloadFirstNVid } from "../utils/minivodDownloader";
 import { fetchMiniVods } from "../api/miniVod";
 import { AppsApi, SplashApi, UserApi } from "@api";
-import { hideLoginAction } from "@redux/actions/screenAction";
+import { hideLoginAction, setIsHomeGuideShown, setIsMiniVodGuideShown, setIsPlayGuideShown, setIsPlayGuideShown2, setIsSportGuideShown } from "@redux/actions/screenAction";
 import { useDispatch } from "react-redux";
 import NetInfo from "@react-native-community/netinfo";
 import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
@@ -159,6 +160,14 @@ export default () => {
 
   useEffect(() => {
 
+    if(SHOW_ZF_CONST == false)
+    {
+      dispatch(setIsSportGuideShown(true));
+      dispatch(setIsPlayGuideShown(true));
+      dispatch(setIsPlayGuideShown2(true));
+      dispatch(setIsHomeGuideShown(true));
+      dispatch(setIsMiniVodGuideShown(true));
+    }
 
     console.log("onAppInit");
     onAppInit();

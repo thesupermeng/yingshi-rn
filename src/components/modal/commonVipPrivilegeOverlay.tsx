@@ -1,9 +1,12 @@
 import { useNavigation } from "@react-navigation/native";
 import VipPrivilegeModal from "./vipPrivilegeModal"
 import { useCallback } from "react";
-import { useAppDispatch, useAppSelector } from "@hooks/hooks";
+import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
 import { screenModel } from "@type/screenType";
 import { UMENG_CHANNEL } from "@utility/constants";
+import { User } from "@models/user";
+import { showLoginAction } from "@redux/actions/screenAction";
+import { UserStateType } from "@redux/reducers/userReducer";
 
 const commonModels = require('@static/images/vip_common_models.png');
 const sportBg = require('@static/images/vip_common_background.png');
@@ -17,6 +20,8 @@ interface Props {
 export const CommonVipPrivilegeOverlay = ({ showCondition, onClose, showBlur }: Props) => {
 
   const navigator = useNavigation()
+  const dispatch = useAppDispatch()
+  const userState = useSelector<UserStateType>('userReducer');
 
   const handleOnPurchase = useCallback(() => {
     onClose()

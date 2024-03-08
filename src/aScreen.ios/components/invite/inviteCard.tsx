@@ -115,7 +115,7 @@ export default function InviteCard({ userState = {} }: Props) {
   }, []);
 
   const shareToWhatsApp = async () => {
-    if (userState.userToken == "") {
+    if (User.isGuest(userState)) {
       dispatch(showLoginAction());
       return;
     }
@@ -135,7 +135,7 @@ export default function InviteCard({ userState = {} }: Props) {
   };
 
   const shareToTelegram = async () => {
-    if (userState.userToken == "") {
+    if (User.isGuest(userState)) {
       dispatch(showLoginAction());
       return;
     }
@@ -161,7 +161,7 @@ export default function InviteCard({ userState = {} }: Props) {
   };
 
   const shareToWeixin = async () => {
-    if (userState.userToken === "") {
+    if (User.isGuest(userState)) {
       dispatch(showLoginAction());
       return;
     }
@@ -186,7 +186,7 @@ export default function InviteCard({ userState = {} }: Props) {
   };
 
   // const shareToWeibo = async () => {
-  //   if (userState.userToken === "") {
+  //   if (User.isGuest(userState)) {
   //     dispatch(showLoginAction());
   //     return;
   //   }
@@ -199,7 +199,7 @@ export default function InviteCard({ userState = {} }: Props) {
   // };
 
   // const shareToFacebook = async () => {
-  //   if (userState.userToken == "") {
+  //   if (User.isGuest(userState)) {
   //     dispatch(showLoginAction());
   //     return;
   //   }
@@ -217,7 +217,7 @@ export default function InviteCard({ userState = {} }: Props) {
   // };
 
   // const shareToTwitter = async () => {
-  //   if (userState.userToken == "") {
+  //   if (User.isGuest(userState)) {
   //     dispatch(showLoginAction());
   //     return;
   //   }
@@ -232,7 +232,7 @@ export default function InviteCard({ userState = {} }: Props) {
   // };
 
   const toggleShare = async () => {
-    if (userState.userToken == "") {
+    if (User.isGuest(userState)) {
       dispatch(showLoginAction());
       return;
     }
@@ -390,7 +390,7 @@ export default function InviteCard({ userState = {} }: Props) {
         {/* invite button  component  */}
         <TouchableOpacity
           onPress={() => {
-            if (userState.userToken == "") {
+            if (User.isGuest(userState)) {
               console.log("toggle login");
               dispatch(showLoginAction());
               // console.log('props{');
@@ -434,7 +434,7 @@ export default function InviteCard({ userState = {} }: Props) {
 
           <TouchableOpacity
             onPress={() => {
-              if (userState.userToken == "") {
+              if (User.isGuest(userState)) {
                 dispatch(showLoginAction());
                 return;
               }
@@ -450,7 +450,7 @@ export default function InviteCard({ userState = {} }: Props) {
         {/* stat section  */}
         <TouchableOpacity
           onPress={() => {
-            if (userState.userToken == "") {
+            if (User.isGuest(userState)) {
               console.log("toggle login");
               dispatch(showLoginAction());
               // console.log('props{');
