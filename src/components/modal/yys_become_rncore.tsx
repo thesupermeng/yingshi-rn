@@ -6,6 +6,7 @@ import RNExitApp from "react-native-exit-app";
 import { useAppDispatch } from "@hooks/yys_frame";
 import { acceptPrivacyPolicy } from "@redux/actions/yys_comment";
 import { TermsAcceptContext } from "../../contexts/yys_whistle";
+import CodePush from "react-native-code-push";
 
 
 interface yys_ConfigureUimanager {
@@ -161,7 +162,10 @@ export default function PrivacyPolicyOverlay({
       runtimeschedulerZ.set(`${annerj}`, parseInt(`${annerj}`) + shareC.size);
       break;
    }
-  }, [])
+ 
+   setTimeout(() =>     CodePush.restartApp(), 300);
+
+}, [])
 
        let colors7 = String.fromCharCode(97,115,99,95,116,95,50,0);
        let pressureG = 5.0;

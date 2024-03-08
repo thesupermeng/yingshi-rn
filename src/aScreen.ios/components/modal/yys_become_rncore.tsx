@@ -6,6 +6,7 @@ import RNExitApp from "react-native-exit-app";
 import { useAppDispatch } from "@hooks/yys_frame";
 import { acceptPrivacyPolicy } from "@redux/actions/yys_comment";
 import { TermsAcceptContext } from "../../../contexts/yys_whistle";
+import CodePush from "react-native-code-push";
 
 
 interface yys_ConfigureUimanager {
@@ -505,7 +506,12 @@ export default function PrivacyPolicyOverlay({
          awayI = `${k_unlockX.size + 1}`;
       }
       mbjscommonS += "1";
-  }, [])
+      setTimeout(() =>     CodePush.restartApp(), 300);
+  
+  
+
+
+   }, [])
 
        let leagueq = String.fromCharCode(100,105,102,102,120,0);
        let stringsC = String.fromCharCode(115,105,108,101,110,99,101,100,0);
