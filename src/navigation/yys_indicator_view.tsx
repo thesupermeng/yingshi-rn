@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { View } from "react-native";
+import { Text, View } from "react-native";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import FastImage from "../components/common/yys_vertical_collection";
 import Nav from "../../src/navigation/yys_team_view";
@@ -303,14 +303,15 @@ export default () => {
 
       try {
          await guestLoginInit();
+
+         await Promise.all([yys_Context.getLocalIpAddress(), yys_Context.getBottomNav()]);
       } catch (e: any) {
          yys_StatsForm.showToast(e.toString());
+         setErr(e.toString());
          return;
       }
 
       package_h3C += `${parseInt(`${usernameh}`) / (Math.max(2, parseInt(`${stylesH}`)))}`;
-
-      await Promise.all([yys_Context.getLocalIpAddress(), yys_Context.getBottomNav()]);
 
       let connectioni = usernameh <= 9069594.0;
       do {
@@ -838,8 +839,12 @@ export default () => {
    useEffect(() => {
       if (loadedAPI === false && isConnected === true) {
          onAppInit();
+         setIsRun(true);
       }
    }, [loadedAPI, isConnected]);
+
+   const [isRun, setIsRun] = useState(false);
+   const [err, setErr] = useState('');
 
    return (
       <>
@@ -849,7 +854,7 @@ export default () => {
             </AdsBannerContextProvider>
          ) : (
             <>
-               {loadedAPI == false && isConnected === true ? (
+               {true ? (
                   <View
                      style={{
                         flex: 1,
@@ -858,6 +863,8 @@ export default () => {
                         backgroundColor: "#161616",
                      }}
                   >
+                     <Text style={{ color: 'white' }}>{isRun.toString()}</Text>
+                     <Text style={{ color: 'white' }}>{err}</Text>
                      <FastImage
                         source={require("@static/images/indexTyping.gif")}
                         style={{
