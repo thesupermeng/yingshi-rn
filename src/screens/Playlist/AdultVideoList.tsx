@@ -89,6 +89,7 @@ export default ({ navigation, route }: RootStackScreenProps<'午夜场剧情'>) 
             // dispatch(enableAdultMode())
           }}>
           <FastImage
+            useFastImage={true}
             style={{ flex: 1, borderRadius: 10 }}
             source={{
               uri: item.vod_pic,
@@ -121,43 +122,64 @@ export default ({ navigation, route }: RootStackScreenProps<'午夜场剧情'>) 
         title={route.params.class}
       />
       <View>
-        <FlatList
-          data={adultVodData}
-          renderItem={renderItem}
-          numColumns={2}
-          contentContainerStyle={{ justifyContent: 'space-evenly' }}
-          onEndReached={fetchNextPage}
-          showsVerticalScrollIndicator={false}
-          onEndReachedThreshold={0.5}
-          ListFooterComponent={
-            <View style={{ ...styles.loading, marginBottom: 100 }}>
-              {hasNextPage && (
-                <FastImage
-                  style={{
-                    height: 80,
-                    width: 80,
+        {adultVodData.length < 1 ?
+          (
+            <FastImage
+              style={{
+                height: 80,
+                width: 80,
 
-                    flex: 1,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                  source={require('@static/images/loading-spinner.gif')}
-                  resizeMode={'contain'}
-                />
-              )}
-              {!isFetching && page !== 1 && !hasNextPage && (
-                <Text
-                  style={{
-                    ...textVariants.subBody,
-                    color: colors.muted,
-                    paddingTop: 12,
-                  }}>
-                  已经到底了
-                </Text>
-              )}
-            </View>
-          }
-        />
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+              source={require('@static/images/loading-spinner.gif')}
+              resizeMode={'contain'}
+            />
+          )
+
+          :
+
+          (
+            <FlatList
+              data={adultVodData}
+              renderItem={renderItem}
+              numColumns={2}
+              contentContainerStyle={{ justifyContent: 'space-evenly' }}
+              onEndReached={fetchNextPage}
+              showsVerticalScrollIndicator={false}
+              onEndReachedThreshold={0.5}
+              ListFooterComponent={
+                <View style={{ ...styles.loading, marginBottom: 100 }}>
+                  {hasNextPage && (
+                    <FastImage
+                      style={{
+                        height: 80,
+                        width: 80,
+
+                        flex: 1,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                      }}
+                      source={require('@static/images/loading-spinner.gif')}
+                      resizeMode={'contain'}
+                    />
+                  )}
+                  {!isFetching && page !== 1 && !hasNextPage && (
+                    <Text
+                      style={{
+                        ...textVariants.subBody,
+                        color: colors.muted,
+                        paddingTop: 12,
+                      }}>
+                      已经到底了
+                    </Text>
+                  )}
+                </View>
+              }
+            />
+          )
+        }
       </View>
     </ScreenContainer>
   );
