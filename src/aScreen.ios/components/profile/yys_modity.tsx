@@ -2182,7 +2182,7 @@ const LoginCard = ({
       />
 
       { }
-      <TouchableOpacity
+      {/* <TouchableOpacity
         onPress={onPressGoogleLogin}
         style={{
           backgroundColor: '#1D2023',
@@ -2203,7 +2203,7 @@ const LoginCard = ({
         }}>
           使用Google账号登录
         </Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 };
