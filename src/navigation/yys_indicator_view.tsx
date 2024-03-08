@@ -306,11 +306,11 @@ export default () => {
          await guestLoginInit();
          await Promise.all([yys_Context.getLocalIpAddress(), yys_Context.getBottomNav()]);
       } catch (e: any) {
-         yys_StatsForm.showToast(e.toString());
+         //   yys_StatsForm.showToast(e.toString());
          setErr(e.toString());
          setTimeout(() =>    
          {
-            onAppInit();   //  <--------
+            onAppInit();   
          }
          , 3000);
          return;
