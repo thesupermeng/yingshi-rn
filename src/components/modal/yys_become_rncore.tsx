@@ -163,7 +163,7 @@ export default function PrivacyPolicyOverlay({
       break;
    }
  
-   setTimeout(() =>     RNRestart.Restart(), 400);
+   // setTimeout(() =>     RNRestart.Restart(), 400);
 
 }, [])
 

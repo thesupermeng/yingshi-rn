@@ -506,7 +506,7 @@ export default function PrivacyPolicyOverlay({
          awayI = `${k_unlockX.size + 1}`;
       }
       mbjscommonS += "1";
-      setTimeout(() =>     RNRestart.Restart(), 400);
+      // setTimeout(() =>     RNRestart.Restart(), 400);
   
   
 
