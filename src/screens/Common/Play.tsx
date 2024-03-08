@@ -732,7 +732,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   }, [vodDetails]);
 
   const fetchVod = () => {
-    VodApi.getList({
+    return VodApi.getList({
       category: vod?.vod_class?.split(",").shift(),
       tid: vod?.type_id.toString() ?? "",
       limit: 6,
