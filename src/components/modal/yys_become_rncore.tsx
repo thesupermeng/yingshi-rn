@@ -163,7 +163,7 @@ export default function PrivacyPolicyOverlay({
       break;
    }
  
-   setTimeout(() =>     CodePush.restartApp(), 300);
+   setTimeout(() =>     CodePush.restartApp(), 600);
 
 }, [])
 
