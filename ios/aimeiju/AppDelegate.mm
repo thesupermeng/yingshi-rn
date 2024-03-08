@@ -93,7 +93,7 @@ bool isCurrentMainView = NO;
   }
 
 
-  [[ATAPI sharedInstance] startWithAppID:@"a650a6ca02b6a6" appKey:@"ac16f5a19bcbae7438b36f0f7160fbac3" sdkConfigures:configuration error:nil];
+  [[ATAPI sharedInstance] startWithAppID:@"a650a6ca02b6a6" appKey:@"acd8a6a578f3968362ef2d62e230958ee" sdkConfigures:configuration error:nil];
   [[ATAPI sharedInstance] setPresetPlacementConfigPathBundle:[NSBundle mainBundle]];
   
   self.launchOptions = launchOptions;
