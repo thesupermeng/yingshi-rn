@@ -94,7 +94,7 @@ const useInterstitialAds = () => {
         } else {
           homePageShown = true;
           if (screenState.interstitialShow != true) {
-            //  ATInterstitialRNSDK.showAd(adsID);
+           ATInterstitialRNSDK.showAd(adsID);
           }
         }
         //
