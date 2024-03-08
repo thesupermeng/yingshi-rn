@@ -854,7 +854,7 @@ export default () => {
             </AdsBannerContextProvider>
          ) : (
             <>
-               {true ? (
+               {loadedAPI == false && isConnected === true ? (
                   <View
                      style={{
                         flex: 1,
