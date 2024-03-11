@@ -82,7 +82,7 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import ShowMoreVodButton from "../../components/button/yys_native_button";
 import VodListVertical from "../../components/vod/yys_downloader";
-import VodPlayer from "../../components/videoPlayer/yys_heji";
+import VodPlayerMin from "../../components/videoPlayer/yys_heji_min";
 import { FlatList } from "react-native-gesture-handler";
 import { yys_Videocommon } from "@redux/reducers/yys_libavdevice";
 import BingSearch from "../../components/container/yys_skip";
@@ -11341,26 +11341,18 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
                       yuGaoUrl && (
                   
                    
-
-                          <Video
-                          mixWithOthers="mix"
-                          disableFocus
-                         // rate={playbackRate}
-                          ignoreSilentSwitch="ignore"
-                        //  ref={ref => (videoPlayerRef.current = ref)}
-                          fullscreen={false}
-                        //  onBuffer={onBuffer}
-                        //  paused={isPaused}
-                          resizeMode="contain"
-                          playWhenInactive={true}
-                          source={
-                            {
-                               uri: yuGaoUrl,
-                           }
-                          }
-                          progressUpdateInterval={1000}
-                          style={styles.video}
-                      />
+                        <VodPlayerMin
+                     //   ref={videoRef}
+                     //   onBack={onHandleBack}
+                       vod_url={yuGaoUrl}
+                        videoType="vod"
+                      //  vodTitle={ vod?.vod_name}
+                        appOrientation={settingsReducer.appOrientation}
+                        devicesOrientation={settingsReducer.devicesOrientation}
+                        lockOrientation={lockOrientation}
+                       // onReadyForDisplay={onReadyForDisplay}
+                     />
+                      
                    
           
 
