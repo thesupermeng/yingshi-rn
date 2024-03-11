@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState, memo } from "react";
+import React, {useCallback, useEffect, useState, memo} from 'react';
 import {
   View,
   TouchableOpacity,
@@ -8,65 +8,69 @@ import {
   ScrollView,
   RefreshControl,
   Platform,
-} from "react-native";
-import { useTheme, useFocusEffect } from "@react-navigation/native";
-import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
-import { RootState } from "@redux/store";
-import ShowMoreButton from "../../components/button/showMoreButton";
+} from 'react-native';
+import {useTheme, useFocusEffect} from '@react-navigation/native';
+import {useAppDispatch, useAppSelector, useSelector} from '@hooks/hooks';
+import {RootState} from '@redux/store';
+import ShowMoreButton from '../../components/button/showMoreButton';
 
-import CollectionIcon from "@static/images/collection.svg";
-import HistoryIcon from "@static/images/history.svg";
-import FeedbackIcon from "@static/images/feedback.svg";
-import SettingsIcon from "@static/images/settings.svg";
-import InfoIcon from "@static/images/info.svg";
-import DownloadIcon from "@static/images/download.svg";
-import { useNavigation } from "@react-navigation/native";
+import CollectionIcon from '@static/images/collection.svg';
+import HistoryIcon from '@static/images/history.svg';
+import FeedbackIcon from '@static/images/feedback.svg';
+import SettingsIcon from '@static/images/settings.svg';
+import InfoIcon from '@static/images/info.svg';
+import DownloadIcon from '@static/images/download.svg';
+import {useNavigation} from '@react-navigation/native';
 
-import Orientation from "react-native-orientation-locker";
-import ProfileIcon from "@static/images/profile.svg";
-import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
-import MoreArrow from "@static/images/more_arrow.svg";
-import EditIcn from "@static/images/profile/edit.svg";
+import Orientation from 'react-native-orientation-locker';
+import ProfileIcon from '@static/images/profile.svg';
+import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
+import MoreArrow from '@static/images/more_arrow.svg';
+import EditIcn from '@static/images/profile/edit.svg';
 
-import VipIcon from "@static/images/vip-icon.svg";
-import VipArrow from "@static/images/vip-arrow.svg";
-import AddIcon from "@static/images/vip/add.svg";
-import { YSConfig } from "../../../ysConfig";
+import VipIcon from '@static/images/vip-icon.svg';
+import VipArrow from '@static/images/vip-arrow.svg';
+import AddIcon from '@static/images/vip/add.svg';
+import {YSConfig} from '../../../ysConfig';
 
 import {
   hideBottomSheetAction,
   removeScreenAction,
   setShowGuestPurchaseSuccess,
   showLoginAction,
-} from "@redux/actions/screenAction";
-import NotificationModal from "../../components/modal/notificationModal";
-import { updateUserAuth, updateUserReferral } from "@redux/actions/userAction";
-import ExpiredOverlay from "../../components/modal/expiredOverlay";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { DOWNLOAD_FEATURE_ENABLED, SHOW_ZF_CONST, UMENG_CHANNEL } from "@utility/constants";
-import FastImage from "../../components/common/customFastImage";
-import { UserApi } from "@api";
-import { AppConfig } from "../../Sports/global/appConfig";
-import { BannerContainer } from "../../components/container/bannerContainer";
-import { BannerAdType } from "@type/ajaxTypes";
-import { CApi } from "@utility/apiService";
-import { CEndpoint } from "../../constants/api";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { AdsApi } from "../../api/ads";
-import UmengAnalytics from "../../../Umeng/UmengAnalytics";
-import DeviceInfo from "react-native-device-info";
-import style from "../../Sports/components/matchDetails/liveChatPage/style";
-import { VipLoginAlertOverlay } from "../../components/modal/vipLoginAlertOverlay";
-import { BackgroundType } from "@redux/reducers/backgroundReducer";
-import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models/user";
+} from '@redux/actions/screenAction';
+import NotificationModal from '../../components/modal/notificationModal';
+import {updateUserAuth, updateUserReferral} from '@redux/actions/userAction';
+import ExpiredOverlay from '../../components/modal/expiredOverlay';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {
+  DOWNLOAD_FEATURE_ENABLED,
+  SHOW_ZF_CONST,
+  UMENG_CHANNEL,
+} from '@utility/constants';
+import FastImage from '../../components/common/customFastImage';
+import {UserApi} from '@api';
+import {AppConfig} from '../../Sports/global/appConfig';
+import {BannerContainer} from '../../components/container/bannerContainer';
+import {BannerAdType} from '@type/ajaxTypes';
+import {CApi} from '@utility/apiService';
+import {CEndpoint} from '../../constants/api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {AdsApi} from '../../api/ads';
+import UmengAnalytics from '../../../Umeng/UmengAnalytics';
+import DeviceInfo from 'react-native-device-info';
+import style from '../../Sports/components/matchDetails/liveChatPage/style';
+import {VipLoginAlertOverlay} from '../../components/modal/vipLoginAlertOverlay';
+import {BackgroundType} from '@redux/reducers/backgroundReducer';
+import {UserStateType} from '@redux/reducers/userReducer';
+import {User} from '@models/user';
 
-function Profile({ navigation, route }: BottomTabScreenProps<any>) {
+function Profile({navigation, route}: BottomTabScreenProps<any>) {
   const navigator = useNavigation();
-  const { colors, textVariants, icons, spacing } = useTheme();
+  const {colors, textVariants, icons, spacing} = useTheme();
   const dispatch = useAppDispatch();
   const [refreshing, setRefreshing] = useState(false);
-  const [displayedDate, setDisplayedDate] = useState("");
+  const [displayedDate, setDisplayedDate] = useState('');
   const userState = useSelector<UserStateType>('userReducer');
   const appState = useSelector<BackgroundType>('backgroundReducer');
   // console.log("Profile")
@@ -96,7 +100,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
   const insets = useSafeAreaInsets();
 
   useEffect(() => {
-    const unsubscribe = navigation.addListener("blur", () => {
+    const unsubscribe = navigation.addListener('blur', () => {
       // when the user leaves the screen, close bottom sheet
       dispatch(hideBottomSheetAction());
     });
@@ -109,7 +113,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
       return () => {
         // Orientation.unlockAllOrientations();
       };
-    }, [])
+    }, []),
   );
 
   // useEffect(() => {
@@ -117,28 +121,26 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
   //   refreshUserState();
   // }, []);
   const escapeRegExp = (string: string) => {
-    return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   };
   const highlightText = (text: string, keyword: string) => {
     // Escape the keyword for use in the regular expression
     const escapedKeyword = escapeRegExp(keyword);
-    const parts = text.split(new RegExp(`(${escapedKeyword})`, "gi"));
+    const parts = text.split(new RegExp(`(${escapedKeyword})`, 'gi'));
     return parts.map((part, index) =>
       part.toLowerCase() === keyword.toLowerCase() ? (
         <Text
           key={index}
-          style={{ ...textVariants.body, color: colors.primary, fontSize: 15 }}
-        >
+          style={{...textVariants.body, color: colors.primary, fontSize: 15}}>
           {part}
         </Text>
       ) : (
         <Text
           key={index}
-          style={{ ...textVariants.body, color: "#FFF0CA", fontSize: 15 }}
-        >
+          style={{...textVariants.body, color: '#FFF0CA', fontSize: 15}}>
           {part}
         </Text>
-      )
+      ),
     );
   };
 
@@ -159,10 +161,10 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
   useFocusEffect(
     useCallback(() => {
       shouldShowAds();
-    }, [])
+    }, []),
   );
 
-  const [deviceUniqueId, setDeviceUniqueId] = useState("");
+  const [deviceUniqueId, setDeviceUniqueId] = useState('');
 
   const setDeviceId = async () => {
     let deviceId = await DeviceInfo.getUniqueId();
@@ -174,7 +176,9 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
   }, []);
 
   useEffect(() => {
-    let date = new Date(Number(userState.user?.userMemberExpired ?? '0') * 1000); // Multiply by 1000 to convert from seconds to milliseconds
+    let date = new Date(
+      Number(userState.user?.userMemberExpired ?? '0') * 1000,
+    ); // Multiply by 1000 to convert from seconds to milliseconds
     //Extract year, month, and day
     let year = date.getFullYear();
     let month = date.getMonth() + 1; // Months are 0-based, so add 1
@@ -182,7 +186,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
     setDisplayedDate(`${year}年${month}月${day}日`);
   }, [userState.user?.userMemberExpired]);
 
-  const onBannerView = useCallback(({ id, name, slot_id, title }: any) => {
+  const onBannerView = useCallback(({id, name, slot_id, title}: any) => {
     UmengAnalytics.profileBannerViewAnalytics({
       ads_id: id,
       ads_name: name,
@@ -191,7 +195,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
     });
   }, []);
 
-  const onBannerPress = useCallback(({ id, name, slot_id, title }: any) => {
+  const onBannerPress = useCallback(({id, name, slot_id, title}: any) => {
     UmengAnalytics.profileBannerClickAnalytics({
       ads_id: id,
       ads_name: name,
@@ -199,8 +203,6 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
       ads_title: title,
     });
   }, []);
-
-
 
   const [showBecomeVIPOverlay, setShowBecomeVIPOverlay] = useState(false);
 
@@ -216,14 +218,11 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
   };
 
   useEffect(() => {
-
-
     // guest with VIP show login alert
     if (User.isGuest(userState.user) && User.isVip(userState.user)) {
-      setShowBecomeVIPOverlay(true)
+      setShowBecomeVIPOverlay(true);
     }
   }, []);
-
 
   // useFocusEffect(
   //   useCallback(() => {
@@ -231,26 +230,24 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
   //   }, [])
   // );
 
-
   return (
     <>
-      <View style={{ paddingTop: insets.top }}>
+      <View style={{paddingTop: insets.top}}>
         {!appState.isLoginModalShown && showBecomeVIPOverlay && (
           <View
             style={{
-              height: "100%",
-              width: "100%",
-              position: "absolute",
+              height: '100%',
+              width: '100%',
+              position: 'absolute',
               zIndex: 10000,
-            }}
-          >
+            }}>
             {renderOverlay()}
           </View>
         )}
         {/* <ScreenContainer> */}
         {/* <SafeAreaView> */}
         <ScrollView
-          style={{ paddingHorizontal: 15 }}
+          style={{paddingHorizontal: 15}}
           refreshControl={
             <RefreshControl
               refreshing={refreshing}
@@ -258,16 +255,14 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
               tintColor="#FAC33D"
             />
           }
-          showsVerticalScrollIndicator={false}
-        >
-          <View style={{ ...styles.topNav }}>
+          showsVerticalScrollIndicator={false}>
+          <View style={{...styles.topNav}}>
             <Text
               style={{
                 ...textVariants.bigHeader,
                 color: colors.text,
                 fontSize: 22,
-              }}
-            >
+              }}>
               我的
             </Text>
           </View>
@@ -275,26 +270,23 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
           <TouchableOpacity
             activeOpacity={1}
             onPress={() => {
-
               if (!User.isLogin(userState.user)) {
                 dispatch(showLoginAction());
                 // console.log('props{');
                 // setActionType('login');
                 // setSignUpOrLogin(true);
               } else {
-                navigation.navigate("个人中心");
+                navigation.navigate('个人中心');
               }
-            }}
-          >
+            }}>
             <View
               style={{
                 ...styles.btnHeader,
-              }}
-            >
-              <View style={{ flexDirection: "row" }}>
-                {!User.isLogin(userState.user) || Platform.OS === "android" ? (
+              }}>
+              <View style={{flexDirection: 'row'}}>
+                {!User.isLogin(userState.user) || Platform.OS === 'android' ? (
                   <ProfileIcon
-                    style={{ color: colors.button, width: 18, height: 18 }}
+                    style={{color: colors.button, width: 18, height: 18}}
                   />
                 ) : (
                   <FastImage
@@ -303,25 +295,24 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                       width: 36,
                       marginVertical: 2,
                     }}
-                    resizeMode={"contain"}
-                    source={require("@static/images/profilePic.png")}
+                    resizeMode={'contain'}
+                    source={require('@static/images/profilePic.png')}
                   />
                 )}
                 <View
                   style={{
-                    flexDirection: "column",
+                    flexDirection: 'column',
                     flex: 1,
                     gap: 5,
-                    justifyContent: "center",
+                    justifyContent: 'center',
                     paddingLeft: 12,
-                  }}
-                >
+                  }}>
                   {User.isGuest(userState.user) && (
                     <>
-                      <Text style={{ color: "#ffffff", fontSize: 14 }}>
+                      <Text style={{color: '#ffffff', fontSize: 14}}>
                         游客ID:
                       </Text>
-                      <Text style={{ color: "#ffffff", fontSize: 20 }}>
+                      <Text style={{color: '#ffffff', fontSize: 20}}>
                         {deviceUniqueId.slice(0, 16)}
                       </Text>
                     </>
@@ -330,28 +321,25 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                     <>
                       <View
                         style={{
-                          flexDirection: "row",
-                          justifyContent: "flex-start",
-                          alignItems: "center",
+                          flexDirection: 'row',
+                          justifyContent: 'flex-start',
+                          alignItems: 'center',
                           paddingRight: 30,
-                        }}
-                      >
+                        }}>
                         <Text
                           style={{
-                            color: "#ffffff",
+                            color: '#ffffff',
                             fontSize: 20,
                           }}
                           numberOfLines={1}
-                          ellipsizeMode="tail"
-                        >
+                          ellipsizeMode="tail">
                           {userState.user.userName}
                         </Text>
-
 
                         {User.isVip(userState.user) && (
                           <Image
                             style={styles.iconStyle}
-                            source={require("@static/images/profile/vip.png")}
+                            source={require('@static/images/profile/vip.png')}
                           />
                         )}
                       </View>
@@ -359,90 +347,82 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                       {/* {userState.userMemberExpired == '0' && (
                       <Text style={{fontSize: 14}}>VIP会员已经到期</Text>
                     )} */}
-                      {User.isVip(userState.user) &&
-                        (
-                          <Text style={{ color: colors.primary, fontSize: 14 }}>
-                            VIP会员有效日期至{displayedDate}
-                          </Text>
-                        )}
+                      {User.isVip(userState.user) && (
+                        <Text style={{color: colors.primary, fontSize: 14}}>
+                          VIP会员有效日期至{displayedDate}
+                        </Text>
+                      )}
                     </>
                   )}
                 </View>
 
                 <View
                   style={{
-                    justifyContent: "center",
-                  }}
-                >
+                    justifyContent: 'center',
+                  }}>
                   {User.isLogin(userState.user) && (
                     <EditIcn width={29} height={29} color={colors.muted} />
                   )}
                 </View>
               </View>
               {/* 游客 no vip  */}
-              {User.isGuest(userState.user) &&
-                !User.isVip(userState.user) && (
+              {User.isGuest(userState.user) && !User.isVip(userState.user) && (
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    paddingTop: 10,
+                    alignItems: 'center',
+                  }}>
+                  <Text style={{color: 'white'}}>
+                    游客您好，登录可享有更多服务{' '}
+                  </Text>
+
                   <View
                     style={{
-                      flexDirection: "row",
-                      justifyContent: "space-between",
-                      paddingTop: 10,
-                      alignItems: "center",
-                    }}
-                  >
-                    <Text style={{ color: "white" }}>
-                      游客您好，登录可享有更多服务{" "}
+                      backgroundColor: '#FAC33D',
+                      paddingHorizontal: 16,
+                      paddingVertical: 5,
+                      borderRadius: 10,
+                    }}>
+                    <Text style={{color: '#000', fontWeight: '700'}}>
+                      登录{' '}
                     </Text>
-
-                    <View
-                      style={{
-                        backgroundColor: "#FAC33D",
-                        paddingHorizontal: 16,
-                        paddingVertical: 5,
-                        borderRadius: 10,
-                      }}
-                    >
-                      <Text style={{ color: "#000", fontWeight: "700" }}>
-                        登录{" "}
-                      </Text>
-                    </View>
                   </View>
-                )}
+                </View>
+              )}
 
               {/* 游客 got vip  */}
-              {User.isGuest(userState.user) &&
-                User.isVip(userState.user) && (
+              {User.isGuest(userState.user) && User.isVip(userState.user) && (
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    paddingTop: 10,
+                    alignItems: 'center',
+                  }}>
+                  <Text style={{color: colors.primary}}>
+                    VIP会员有效日期至{displayedDate}
+                  </Text>
+
                   <View
                     style={{
-                      flexDirection: "row",
-                      justifyContent: "space-between",
-                      paddingTop: 10,
-                      alignItems: "center",
-                    }}
-                  >
-                    <Text style={{ color: colors.primary }}>
-                      VIP会员有效日期至{displayedDate}
+                      backgroundColor: '#FAC33D',
+                      paddingHorizontal: 16,
+                      paddingVertical: 5,
+                      borderRadius: 10,
+                    }}>
+                    <Text style={{color: '#000', fontWeight: '700'}}>
+                      登录{' '}
                     </Text>
-
-                    <View
-                      style={{
-                        backgroundColor: "#FAC33D",
-                        paddingHorizontal: 16,
-                        paddingVertical: 5,
-                        borderRadius: 10,
-                      }}
-                    >
-                      <Text style={{ color: "#000", fontWeight: "700" }}>
-                        登录{" "}
-                      </Text>
-                    </View>
                   </View>
-                )}
+                </View>
+              )}
             </View>
           </TouchableOpacity>
 
           {bannerAd &&
-            bannerAd.map((ad) => {
+            bannerAd.map(ad => {
               return (
                 <BannerContainer
                   bannerAd={ad}
@@ -453,54 +433,50 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
               );
             })}
 
-          <View style={{ marginBottom: -30, flex: 3, paddingBottom: 120 }}>
+          <View style={{marginBottom: -30, flex: 3, paddingBottom: 120}}>
             {SHOW_ZF_CONST && (
               <View
                 style={{
-                  flexDirection: "row",
-                  justifyContent: "space-evenly",
+                  flexDirection: 'row',
+                  justifyContent: 'space-evenly',
                   gap: 10,
-                }}
-              >
+                }}>
                 <TouchableOpacity
                   style={{
                     ...styles.btn,
                   }}
                   onPress={() => {
-                    navigation.navigate("付费VIP");
+                    navigation.navigate('付费VIP');
                     // if (UMENG_CHANNEL == "GOOGLE_PLAY") {
                     //   navigation.navigate("付费Google");
                     // } else {
                     //   navigation.navigate("付费VIP");
                     // }
                     // dispatch(showLoginAction());
-                  }}
-                >
+                  }}>
                   <View style={styles.left}>
                     <View style={styles.icon}>
                       <VipIcon width={icons.sizes.l} height={icons.sizes.l} />
                     </View>
-                    <View style={{ gap: 5 }}>
+                    <View style={{gap: 5}}>
                       <Text
                         style={{
                           ...textVariants.body,
-                        }}
-                      >
+                        }}>
                         {highlightText(
                           YSConfig.instance.showBecomeVip
-                            ? "成为VIP"
-                            : "付费VIP",
-                          ""
+                            ? '成为VIP'
+                            : '付费VIP',
+                          '',
                         )}
                       </Text>
                       {YSConfig.instance.tabConfig != null &&
-                        YSConfig.instance.len == 5 ? (
+                      YSConfig.instance.len == 5 ? (
                         <Text
                           style={{
                             ...textVariants.small,
                             color: colors.button,
-                          }}
-                        >
+                          }}>
                           去广告 看体育直播
                         </Text>
                       ) : (
@@ -508,8 +484,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                           style={{
                             ...textVariants.small,
                             color: colors.button,
-                          }}
-                        >
+                          }}>
                           去广告
                         </Text>
                       )}
@@ -521,27 +496,24 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                     ...styles.btn,
                   }}
                   onPress={() => {
-                    navigation.navigate("邀请");
-                  }}
-                >
+                    navigation.navigate('邀请');
+                  }}>
                   <View style={styles.left}>
                     <View style={styles.icon}>
                       <AddIcon width={icons.sizes.l} height={icons.sizes.l} />
                     </View>
-                    <View style={{ gap: 5 }}>
+                    <View style={{gap: 5}}>
                       <Text
                         style={{
                           ...textVariants.body,
-                        }}
-                      >
-                        {highlightText("邀请好友", "")}
+                        }}>
+                        {highlightText('邀请好友', '')}
                       </Text>
                       <Text
                         style={{
                           ...textVariants.small,
                           color: colors.button,
-                        }}
-                      >
+                        }}>
                         VIP奖励 享更多权益
                       </Text>
                     </View>
@@ -554,12 +526,11 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
               <TouchableOpacity
                 style={{
                   ...styles.btn,
-                  backgroundColor: "#2d2e30",
+                  backgroundColor: '#2d2e30',
                 }}
                 onPress={() => {
-                  navigation.navigate("邀请");
-                }}
-              >
+                  navigation.navigate('邀请');
+                }}>
                 <View style={styles.left}>
                   <View style={styles.icon}>
                     <VipIcon width={icons.sizes.l} height={icons.sizes.l} />
@@ -568,9 +539,8 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                   <Text
                     style={{
                       ...textVariants.body,
-                    }}
-                  >
-                    {highlightText("邀请好友获得VIP奖励，享更多权益", "VIP")}
+                    }}>
+                    {highlightText('邀请好友获得VIP奖励，享更多权益', 'VIP')}
                   </Text>
                 </View>
 
@@ -613,15 +583,17 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                 />
               </TouchableOpacity>
             )} */}
-            {DOWNLOAD_FEATURE_ENABLED && <ShowMoreButton
-              text="我的下载"
-              leftIcon={<DownloadIcon style={{ color: colors.button }} />}
-              onPress={() => navigation.navigate("我的下载")}
-            />}
+            {DOWNLOAD_FEATURE_ENABLED && (
+              <ShowMoreButton
+                text="我的下载"
+                leftIcon={<DownloadIcon style={{color: colors.button}} />}
+                onPress={() => navigation.navigate('我的下载')}
+              />
+            )}
             <ShowMoreButton
               text="我的收藏"
-              leftIcon={<CollectionIcon style={{ color: colors.button }} />}
-              onPress={() => navigation.navigate("我的收藏")}
+              leftIcon={<CollectionIcon style={{color: colors.button}} />}
+              onPress={() => navigation.navigate('我的收藏')}
             />
             {/* <ShowMoreButton
               text="我的下载"
@@ -630,23 +602,28 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
             /> */}
             <ShowMoreButton
               text="播放历史"
-              leftIcon={<HistoryIcon style={{ color: colors.button }} />}
-              onPress={() => navigation.navigate("播放历史")}
+              leftIcon={<HistoryIcon style={{color: colors.button}} />}
+              onPress={() => navigation.navigate('播放历史')}
+            />
+            <ShowMoreButton
+              text="本地视频"
+              leftIcon={<SettingsIcon style={{color: colors.button}} />}
+              onPress={() => navigation.navigate('本地视频')}
             />
             <ShowMoreButton
               text="我要反馈"
-              leftIcon={<FeedbackIcon style={{ color: colors.button }} />}
-              onPress={() => navigation.navigate("反馈")}
+              leftIcon={<FeedbackIcon style={{color: colors.button}} />}
+              onPress={() => navigation.navigate('反馈')}
             />
             <ShowMoreButton
               text="设置"
-              leftIcon={<SettingsIcon style={{ color: colors.button }} />}
-              onPress={() => navigation.navigate("设置")}
+              leftIcon={<SettingsIcon style={{color: colors.button}} />}
+              onPress={() => navigation.navigate('设置')}
             />
             <ShowMoreButton
               text="关于我们"
-              leftIcon={<InfoIcon style={{ color: colors.button }} />}
-              onPress={() => navigation.navigate("关于我们")}
+              leftIcon={<InfoIcon style={{color: colors.button}} />}
+              onPress={() => navigation.navigate('关于我们')}
             />
             {/* <TouchableOpacity
               style={{
@@ -698,11 +675,11 @@ export default memo(Profile);
 const styles = StyleSheet.create({
   topNav: {
     paddingTop: 8,
-    display: "flex",
-    flexDirection: "row",
-    width: "100%",
-    alignItems: "center",
-    justifyContent: "space-between",
+    display: 'flex',
+    flexDirection: 'row',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     marginBottom: 8,
   },
   icon: {
@@ -711,33 +688,33 @@ const styles = StyleSheet.create({
     width: 24,
   },
   left: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   btn: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     paddingRight: 15,
     paddingLeft: 15,
     paddingTop: 15,
     paddingBottom: 15,
-    width: "100%",
+    width: '100%',
     borderRadius: 10,
     marginTop: 20,
-    backgroundColor: "#1A1E21",
+    backgroundColor: '#1A1E21',
     flex: 1,
   },
   btnHeader: {
-    width: "100%",
-    backgroundColor: "#1A1E21",
+    width: '100%',
+    backgroundColor: '#1A1E21',
     borderRadius: 10,
     padding: 10,
   },
   highlightColor: {
-    color: "#FAC33D", // Change this color to your desired highlight color
+    color: '#FAC33D', // Change this color to your desired highlight color
   },
   iconStyle: {
     height: 22,
