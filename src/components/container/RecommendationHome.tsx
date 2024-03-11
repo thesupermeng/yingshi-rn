@@ -162,6 +162,7 @@ const RecommendationHome = ({
   const initFirebase = async () => {
     try {
       await FirebaseNotification.checkPermissionAndGetoken();
+      FirebaseNotification.subscibeToTopic('insidertest');
     } catch (err) {
       console.log('Firebase init failed', err);
     }
