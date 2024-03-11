@@ -101,6 +101,7 @@ import {
    removeScreenAction,
    resetBottomSheetAction,
    resetSportWatchTime,
+   showLoginAction,
 } from "@redux/actions/yys_runtimescheduler";
 import { Dialog } from "@rneui/themed";
 import FastImage from "../components/common/yys_vertical_collection";
@@ -132,6 +133,9 @@ import { yys_GesturesConst } from "@api";
 import { CRouteInitializer } from "../../routes/yys_become_bootsplash";
 import { yys_HejiCricket } from "@redux/reducers/yys_privacy_round";
 import { yys_RelatedTooltips } from "@models/yys_project_pagination";
+import { UploadVideo } from "../screens/upload/uploadVideo";
+import { UploadHistory } from "../screens/upload/uploadHistory";
+import { loginChecking } from "./middleware";
 
 export default () => {
    const Stack = createNativeStackNavigator<yys_ServiceBridge>();
@@ -1859,6 +1863,18 @@ export default () => {
                   component={VipDetails}
                   options={{ orientation: "portrait" }}
                />
+
+               <Stack.Screen
+                  name="uploadVideo"
+                  component={UploadVideo}
+                  options={{ orientation: "portrait" }}
+               />
+
+               <Stack.Screen
+                  name="uploadHistory"
+                  component={UploadHistory}
+                  options={{ orientation: "portrait" }}
+               />
             </Stack.Navigator>
             {settingsReducer.appOrientation === "PORTRAIT" && (
                <>
@@ -1877,7 +1893,22 @@ export default () => {
                showVIPOverlay={showVIPOverlay}
                setShowVIPOverlay={setShowVIPOverlay}
             />
-            <CRouteInitializer />
+            <CRouteInitializer
+               middlewares={{
+                  'uploadVideo': [
+                     (page) => loginChecking(page, {
+                        userState,
+                        showLogin: () => dispatch(showLoginAction()),
+                     }),
+                  ],
+                  'uploadHistory': [
+                     (page) => loginChecking(page, {
+                        userState,
+                        showLogin: () => dispatch(showLoginAction()),
+                     }),
+                  ],
+               }}
+            />
          </NavigationContainer>
          <Dialog
             isVisible={isDialogOpen}

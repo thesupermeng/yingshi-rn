@@ -3,6 +3,7 @@ import {
    View,
    Text,
    AppState,
+   TouchableOpacity,
 } from 'react-native';
 import ScreenContainer from '../components/container/yys_executor_expand';
 import { useInfiniteQuery } from '@tanstack/react-query';
@@ -11,7 +12,7 @@ import { yys_ScrollviewPangle } from '@type/yys_libzeus';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { API_DOMAIN } from '@utility/yys_ajax_switch';
 import MiniVideoList from '../components/videoPlayer/yys_fastforward_tail';
-import { useFocusEffect, useIsFocused } from '@react-navigation/native';
+import { useFocusEffect, useIsFocused, useTheme } from '@react-navigation/native';
 import NoConnection from './../components/common/yys_armva_classes';
 import NetInfo from '@react-native-community/netinfo';
 import { yys_Videocommon } from '@redux/reducers/yys_libavdevice';
@@ -19,6 +20,8 @@ import { useAppSelector } from '@hooks/yys_frame';
 import { yys_MintegralLibavdevice } from '@redux/yys_sport_shrink';
 import yys_event_common from '../../../Umeng/yys_event_common';
 import { useMinivodQuery, yys_Inactive } from '@api';
+import AddIcon from '@static/images/add.svg';
+import { yys_DetailWhistle } from '../../routes/yys_become_bootsplash';
 
 type yys_ReminderShoot = {
    data: {
@@ -32,6 +35,8 @@ type yys_CatalogGuide = {
 
 export default ({ navigation }: BottomTabScreenProps<any>) => {
    const isFocused = useIsFocused();
+
+   const { colors } = useTheme();
 
    const [isInBackground, setIsInBackground] = useState(false);
    const [isRefreshing, setIsRefreshing] = useState(false);
@@ -1286,11 +1291,30 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
       setIsInBackground(nextAppState !== "active");
    };
 
+   const onAddPress = () => {
+      yys_DetailWhistle.toName('uploadVideo');
+   }
+
    return (
       <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0, paddingBottom: 10 }}>
-         <View style={{ position: 'absolute', top: 0, left: 0, padding: 20, zIndex: 50, width: '100%', flexDirection: 'row', alignItems: 'center' }}>
+         <View style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            padding: 20,
+            zIndex: 50,
+            width: '100%',
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+         }}>
             <Text style={{ color: '#FFF', fontSize: 20 }}>随心看</Text>
+
+            <TouchableOpacity onPress={onAddPress}>
+               <AddIcon width={24} height={24} style={{ color: 'white' }} />
+            </TouchableOpacity>
          </View>
+
          {!isOffline &&
             <MiniVideoList
                ref={miniVodRef}

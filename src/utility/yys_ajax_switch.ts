@@ -427,3 +427,7 @@ export const DOWNLOAD_FEATURE_ENABLED = true;
 export const DOWNLOAD_FEATURE_MAX_QUEUE = 10;
 
 export const EVENT_SPLASH_SHOW_DURATION = 7 * 24 * 60 * 60 * 1000; // 1 week
+
+
+export const VIDEO_UPLOAD_DEFAULT_SIZE = 1000000; // 1 mb
+export const VIDEO_UPLOAD_SPEED = 900000; // 200 kb

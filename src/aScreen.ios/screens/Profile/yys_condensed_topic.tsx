@@ -30,6 +30,7 @@ import EditIcn from "@static/images/profile/managerPhotoMbnativeadvanced.svg";
 import VipIcon from "@static/images/feedbackComment.svg";
 import VipArrow from "@static/images/gmailActivity.svg";
 import AddIcon from "@static/images/vip/langMovies.svg";
+import AddVideoIcon from "@static/images/add.svg";
 
 import {
    hideBottomSheetAction,
@@ -46,6 +47,7 @@ import FastImage from "../../components/common/yys_vertical_collection";
 import { yys_GesturesConst } from "@api";
 import { yys_HejiCricket } from "@redux/reducers/yys_privacy_round";
 import { yys_RelatedTooltips } from "@models/yys_project_pagination";
+import { yys_DetailWhistle } from "../../../routes/yys_become_bootsplash";
 
 function Profile({ navigation, route }: BottomTabScreenProps<any>) {
    const navigator = useNavigation();
@@ -1377,6 +1379,11 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
               leftIcon={<HistoryIcon style={{ color: colors.button }} />}
               onPress={() => navigation.navigate("播放历史")}
             /> */}
+                  <ShowMoreButton
+                     text="上传视频"
+                     leftIcon={<AddVideoIcon style={{ color: colors.button }} />}
+                     onPress={() => yys_DetailWhistle.toName('uploadVideo')}
+                  />
                   <ShowMoreButton
                      text="我要反馈"
                      leftIcon={<FeedbackIcon style={{ color: colors.button }} />}

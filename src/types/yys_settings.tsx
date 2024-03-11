@@ -36,7 +36,7 @@ export type yys_Libreactperfloggerjni = {
 
 export type yys_ServiceBridge = {
   Profile: BottomTabScreenProps<yys_Product>;
-  
+
   Playlist: BottomTabScreenProps<yys_CornerAccepted>;
   WatchAnytime: BottomTabScreenProps<yys_Libreactperfloggerjni>;
   // yys_dycreator: BottomTabScreenProps<yys_BaiduLight>;
@@ -46,7 +46,7 @@ export type yys_ServiceBridge = {
   播放历史: undefined;
   反馈: undefined;
   邀请: undefined;
-  
+
   个人中心: undefined;
   设置: undefined;
   关于我们: undefined;
@@ -96,7 +96,7 @@ export type yys_ServiceBridge = {
     action?: string;
     referralCode?: string;
     countryId?: number,
-    
+
   };
   SetUsername: undefined;
   活动规则: undefined;
@@ -116,6 +116,8 @@ export type yys_ServiceBridge = {
     vodId: number
   };
   续费服务: undefined,
+  uploadVideo: undefined,
+  uploadHistory: undefined,
 };
 
 export type RootStackScreenProps<
