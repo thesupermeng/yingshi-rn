@@ -463,9 +463,7 @@ export default forwardRef<yys_DangerKsad, yys_ConfigureUimanager>(({
   }, []);
 
   const handleFastForward = (time: any) => {
-    delayControls(false);
-    
-    onFastForward(time);
+  
   };
 
   const handlePlayPause = () => {

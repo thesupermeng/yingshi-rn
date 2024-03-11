@@ -141,9 +141,9 @@ const VideoWithControlsMin = ({
                 progressUpdateInterval={1000}
                 onProgress={onVideoProgessing}
                 onSeek={data => {
-                    if (currentTimeRef) {
-                        currentTimeRef.current = data.currentTime;
-                    }
+                    // if (currentTimeRef) {
+                    //     currentTimeRef.current = data.currentTime;
+                    // }
                 }}
                 onReadyForDisplay={onReadyForDisplay}
                 style={styles.video}

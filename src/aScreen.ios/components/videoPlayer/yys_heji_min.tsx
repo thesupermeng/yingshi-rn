@@ -5136,7 +5136,7 @@ export default forwardRef<yys_CountdownInactive, yys_ConfigureUimanager>(
               getNextEpisode={getNextEpisode}
               onVideoLoaded={onVideoLoaded}
               onVideoProgessing={onVideoProgessing}
-              onSeek={onSeek}
+            //  onSeek={onSeek}
               onSeekGesture={onSeekGesture}
               onSkip={onSkip}
               onTogglePlayPause={onTogglePlayPause}
