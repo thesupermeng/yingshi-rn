@@ -49,9 +49,14 @@ export const UploadVideo = ({
     }
 
     const onUploadPress = async () => {
-          
+
+// console.log('aadasda')
+//         console.log(!userState.user?.isLogin())
+//           return
         if (!userState.user?.isLogin()) {
               dispatch(showLoginAction());
+          return
+
         }
 
         try {
