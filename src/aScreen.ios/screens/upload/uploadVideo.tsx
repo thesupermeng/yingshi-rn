@@ -12,6 +12,9 @@ import { Asset, launchImageLibrary } from 'react-native-image-picker';
 import { UploadResultOverlay } from "../../components/modal/uploadResultOverlay";
 import { UploadProgressOverlay } from "../../components/modal/uploadProgressOverlay";
 import { VIDEO_UPLOAD_DEFAULT_SIZE, VIDEO_UPLOAD_SPEED } from "@utility/yys_ajax_switch";
+import { useAppDispatch, useAppSelector, useSelector } from "@hooks/yys_frame";
+import { yys_HejiCricket } from "@redux/reducers/yys_privacy_round";
+import { showLoginAction } from "@redux/actions/yys_runtimescheduler";
 
 export const UploadVideo = ({
     route,
@@ -19,14 +22,15 @@ export const UploadVideo = ({
 }: RootStackScreenProps<'uploadVideo'>) => {
     const defaultFileSize = VIDEO_UPLOAD_DEFAULT_SIZE;
     const uploadSpeed = VIDEO_UPLOAD_SPEED;
-
+    //const userState = useSelector<yys_HejiCricket>('userReducer');
     const { textVariants, colors } = useTheme();
     const [isGrantPhotePermission, setGrantPhotePermission] = useState(false);
     const [videoSelected, setVideoSelected] = useState<Asset>();
     const [uploadProgress, setUploadProgress] = useState<number | undefined>();
     const [progressTimer, setProgressTimer] = useState<NodeJS.Timeout | undefined>();
     const [showSuccess, setShowSuccess] = useState(false);
-
+    const dispatch = useAppDispatch();
+    const userState = useSelector<yys_HejiCricket>('userReducer');
     useEffect(() => {
         if (Platform.OS === 'ios') {
             check(PERMISSIONS.IOS.PHOTO_LIBRARY).then((result) => {
@@ -45,6 +49,11 @@ export const UploadVideo = ({
     }
 
     const onUploadPress = async () => {
+          
+        if (!userState.user?.isLogin()) {
+              dispatch(showLoginAction());
+        }
+
         try {
             setVideoSelected(undefined);
 
@@ -213,3 +222,4 @@ export const UploadVideo = ({
         </ScreenContainer>
     );
 }
+

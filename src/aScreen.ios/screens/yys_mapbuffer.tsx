@@ -1292,7 +1292,8 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
    };
 
    const onAddPress = () => {
-      yys_DetailWhistle.toName('uploadVideo');
+          // yys_DetailWhistle.toName('uploadVideo')
+          navigation.navigate("uploadVideo")
    }
 
    return (
