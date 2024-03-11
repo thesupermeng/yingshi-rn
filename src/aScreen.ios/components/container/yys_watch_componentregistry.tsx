@@ -17,6 +17,7 @@ import {
   yys_BrightnessCopy,
   yys_Bing,
   yys_NotificationGray,
+  yys_Encrypt,
 } from "@type/yys_libzeus";
 import FastImage from "../common/yys_vertical_collection";
 import { yys_BorderlessLibruntimeexecutor } from "@redux/reducers/yys_full";
@@ -682,6 +683,9 @@ const RecommendationHome = ({
   const [totalPage, setTotalPage] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
   const [results, setResults] = useState<Array<yys_BrightnessCopy>>([]);
+
+
+  const [yuGaoList, setYuGaoList] = useState(null); // yys_Encrypt
   const [isRefreshing, setIsRefreshing] = useState(false);
   const carouselRef = useRef<any>();
   
@@ -1182,6 +1186,9 @@ const RecommendationHome = ({
     yys_Context.getHomePages(1000, isVip)
       .then((data) => {
         setResults(data.topic_list);
+        console.log("data yugaopian_list")
+        console.log(data.yugaopian_list)
+        setYuGaoList(data.yugaopian_list)
         return data;
       });
 
@@ -1321,6 +1328,29 @@ const RecommendationHome = ({
               <View>
                 <View style={{ gap: spacing.m }}></View>
 
+                 {/* todo  */}
+                 {yuGaoList &&  (
+                    <View
+                      key={yuGaoList.type_name}
+                      style={{
+                        paddingLeft: spacing.sideOffset,
+                        paddingRight: spacing.sideOffset,
+                        gap: spacing.xxs,
+                      }}
+                    >
+                      <View>
+                        <ShowMoreVodButton
+                          text={yuGaoList.type_name}
+                          onPress={() => {
+                           console.log('onpress yugao')
+                          }}
+                        />
+                      </View>
+                      <VodListVertical vods={yuGaoList.vod_list} />
+                    </View>
+                  )} 
+
+
                 {yingPingList && yingPingList.yingping_list.vod_list.length > 0 && (
                   <View
                     style={{
@@ -1342,30 +1372,8 @@ const RecommendationHome = ({
                   </View>
                 )}
 
-                {/* {data?.yunying &&
-                  data.yunying.length > 0 &&
-                  data.yunying.map((item, index) => (
-                    <View
-                      key={item.type_name}
-                      style={{
-                        paddingLeft: spacing.sideOffset,
-                        paddingRight: spacing.sideOffset,
-                        gap: spacing.xxs,
-                      }}
-                    >
-                      <View>
-                        <ShowMoreVodButton
-                          text={item.type_name}
-                          onPress={() => {
-                            navigation.navigate("片库", {
-                              type_id: item.vod_list[0].type_id,
-                            });
-                          }}
-                        />
-                      </View>
-                      <VodListVertical vods={item.vod_list} />
-                    </View>
-                  ))} */}
+
+
 
                 {yingPingList?.categories &&
                   yingPingList.categories.length > 0 &&

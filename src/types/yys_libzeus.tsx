@@ -21,6 +21,7 @@ export type yys_NotificationGray = {
     yunying: Array<yys_Encrypt>,
     categories: Array<yys_Encrypt>,
     live_station_list: Array<yys_StyleItem>
+    yugaopian_list: Array<yys_Encrypt>
 }
 
 export type yys_Anythink = PaggingResponseType<{
