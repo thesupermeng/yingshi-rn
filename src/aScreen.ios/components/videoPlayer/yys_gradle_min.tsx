@@ -1010,7 +1010,14 @@ export default forwardRef<yys_DangerKsad, yys_ConfigureUimanager>(({
   const onSeek = (time: number) => {
     
     delayControls(false);
-    onVideoSeek(time);
+    try{
+      onVideoSeek(time);
+    }
+    catch(err)
+    {
+      console.log('crash')
+    }
+   
   };
 
   const handleFullScreen = () => {
@@ -3480,7 +3487,7 @@ export default forwardRef<yys_DangerKsad, yys_ConfigureUimanager>(({
       style={{ ...styles.controlsOverlay }}>
       <VodCombinedGesture
         vodType={videoType}
-        enabled={showSlider === 'none'}
+        enabled={false}
         onSkipBackwards={() => handleFastForward(-10)}
         onSkipForward={() => handleFastForward(10)}
         onSingleTap={changeControlsState}
@@ -3547,10 +3554,10 @@ export default forwardRef<yys_DangerKsad, yys_ConfigureUimanager>(({
           </RectButton>
         </View>
       }
-      {
+      {/* {
         isFullScreen && showGuide &&
         <GesturesGuide />
-      }
+      } */}
       {
         showControls && !isLocked && (
           showSlider !== 'none' && isFullScreen

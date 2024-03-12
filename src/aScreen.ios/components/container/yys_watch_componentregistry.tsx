@@ -1276,10 +1276,10 @@ const RecommendationHome = ({
   );
 
   return (
-    <View style={{ width: width }}>
+    <View style={{ width: width  }}>
       {yingPingList ? (
         <FlatList
-          style={{ paddingBottom: 10 }}
+          style={{ paddingBottom: 10}}
           refreshControl={
             <RefreshControl
               refreshing={isRefreshing}
@@ -1405,6 +1405,11 @@ const RecommendationHome = ({
                   ))}
               </View>
             </>
+          }
+          ListFooterComponent={
+            <View style={{ paddingBottom:100 }}>
+      
+            </View>
           }
           data={results}
           
