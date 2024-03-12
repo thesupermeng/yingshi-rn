@@ -188,6 +188,8 @@ export default forwardRef<VideoRef, Props>(
 
     const isOffline = useAppSelector(({ settingsReducer }: RootState) => settingsReducer.isOffline)
 
+    const isSeekErrorRef = useRef(false);
+
     const { data: playerVodAds, isFetching: isFetchAds } = useQuery({
       queryKey: ["playerAdsVideo"],
       queryFn: () => VodApi.getPlayerAdVideo(),
@@ -468,6 +470,12 @@ export default forwardRef<VideoRef, Props>(
 
     const onSeekGesture = (time: number) => {
       if (disableSeek.current === true) return
+
+      if (isSeekErrorRef.current === true) {
+        isSeekErrorRef.current = false;
+        return;
+      }
+
       if (currentTime < time) {
         setSeekDirection("forward");
       } else {
@@ -523,6 +531,11 @@ export default forwardRef<VideoRef, Props>(
 
     const onSkip = (time: any) => {
       if (disableSeek.current === true) return
+
+      if (isSeekErrorRef.current === true) {
+        isSeekErrorRef.current = false;
+        return;
+      }
 
       if (videoPlayerRef?.current) {
         if (time > 0 && isLastForward == false) {
@@ -781,6 +794,7 @@ export default forwardRef<VideoRef, Props>(
                 sourceID={sourceID}
                 onDownloadVod={onDownloadVod}
                 setShowAdOverlay={setShowAdOverlay}
+                isSeekErrorRef={isSeekErrorRef}
               />
             )}
           </View>

@@ -68,42 +68,45 @@ export default ({ navigation, route }: RootStackScreenProps<'午夜场剧情'>) 
     setPage(page => page + 1);
   };
 
-  const renderItem = ({ item, index }: { item: AdultVodType; index: number }) => (
-    <View
-      style={{
-        width: '50%',
-        padding: 5,
-        // flex: 1,
-      }}>
-      <TouchableOpacity
-        key={item.vod_id}
-        style={styles.cardItem}
-        onPress={() => {
-          console.debug('vod pressed', item.vod_name);
-          dispatch(playVod(item));
-          navigation.navigate('播放', {
-            vod_id: item?.vod_id,
-            player_mode: 'adult'
-          });
-          // dispatch(enableAdultMode())
-        }}>
-        <FastImage
-          style={{ flex: 1, borderRadius: 10 }}
-          source={{
-            uri: item.vod_pic,
-          }}
-        />
-      </TouchableOpacity>
+  const renderItem = ({ item, index }: { item: AdultVodType; index: number }) => {
+    return (
       <View
         style={{
-          width: '100%',
+          width: '50%',
+          padding: 5,
+          // flex: 1,
         }}>
-        <Text style={styles.cardTitle} numberOfLines={2}>
-          {item.vod_name}
-        </Text>
+        <TouchableOpacity
+          key={item.vod_id}
+          style={styles.cardItem}
+          onPress={() => {
+            console.debug('vod pressed', item.vod_name);
+            dispatch(playVod(item));
+            navigation.navigate('播放', {
+              vod_id: item?.vod_id,
+              player_mode: 'adult'
+            });
+            // dispatch(enableAdultMode())
+          }}>
+          <FastImage
+            useFastImage={true}
+            style={{ flex: 1, borderRadius: 10 }}
+            source={{
+              uri: item.vod_pic,
+            }}
+          />
+        </TouchableOpacity>
+        <View
+          style={{
+            width: '100%',
+          }}>
+          <Text style={styles.cardTitle} numberOfLines={2}>
+            {item.vod_name}
+          </Text>
+        </View>
       </View>
-    </View>
-  );
+    )
+  };
 
   useEffect(() => {
     fetchVod(page).then(data => {
@@ -119,43 +122,64 @@ export default ({ navigation, route }: RootStackScreenProps<'午夜场剧情'>) 
         title={route.params.class}
       />
       <View>
-        <FlatList
-          data={adultVodData}
-          renderItem={renderItem}
-          numColumns={2}
-          contentContainerStyle={{ justifyContent: 'space-evenly' }}
-          onEndReached={fetchNextPage}
-          showsVerticalScrollIndicator={false}
-          onEndReachedThreshold={0.5}
-          ListFooterComponent={
-            <View style={{ ...styles.loading, marginBottom: 100 }}>
-              {hasNextPage && (
-                <FastImage
-                  style={{
-                    height: 80,
-                    width: 80,
+        {adultVodData.length < 1 ?
+          (
+            <FastImage
+              style={{
+                height: 80,
+                width: 80,
 
-                    flex: 1,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                  source={require('@static/images/loading-spinner.gif')}
-                  resizeMode={'contain'}
-                />
-              )}
-              {!isFetching && page !== 1 && !hasNextPage && (
-                <Text
-                  style={{
-                    ...textVariants.subBody,
-                    color: colors.muted,
-                    paddingTop: 12,
-                  }}>
-                  已经到底了
-                </Text>
-              )}
-            </View>
-          }
-        />
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+              source={require('@static/images/loading-spinner.gif')}
+              resizeMode={'contain'}
+            />
+          )
+
+          :
+
+          (
+            <FlatList
+              data={adultVodData}
+              renderItem={renderItem}
+              numColumns={2}
+              contentContainerStyle={{ justifyContent: 'space-evenly' }}
+              onEndReached={fetchNextPage}
+              showsVerticalScrollIndicator={false}
+              onEndReachedThreshold={0.5}
+              ListFooterComponent={
+                <View style={{ ...styles.loading, marginBottom: 100 }}>
+                  {hasNextPage && (
+                    <FastImage
+                      style={{
+                        height: 80,
+                        width: 80,
+
+                        flex: 1,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                      }}
+                      source={require('@static/images/loading-spinner.gif')}
+                      resizeMode={'contain'}
+                    />
+                  )}
+                  {!isFetching && page !== 1 && !hasNextPage && (
+                    <Text
+                      style={{
+                        ...textVariants.subBody,
+                        color: colors.muted,
+                        paddingTop: 12,
+                      }}>
+                      已经到底了
+                    </Text>
+                  )}
+                </View>
+              }
+            />
+          )
+        }
       </View>
     </ScreenContainer>
   );

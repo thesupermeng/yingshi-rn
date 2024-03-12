@@ -23,7 +23,7 @@ export class VodApi {
         }
     }
 
-    static getDetail = async (id: string, typeId: string, { xMode = false }: { xMode?: boolean } = {}) => {
+    static getDetail = async (id: string, typeId: string, vodSourceName = "", { xMode = false }: { xMode?: boolean } = {}) => {
         try {
             const result = await CApi.get(xMode ? CEndpoint.vodGetXDetail : CEndpoint.vodGetDetail, {
                 query: {
@@ -32,7 +32,8 @@ export class VodApi {
                     platform: Platform.OS.toUpperCase(),
                     channelId: UMENG_CHANNEL,
                     ip: YSConfig.instance.ip,
-                    tid: typeId
+                    tid: typeId,
+                    vod_source_name: vodSourceName
                 }
             });
 

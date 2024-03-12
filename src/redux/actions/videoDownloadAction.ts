@@ -577,7 +577,7 @@ export function updateAllVodDetailsThunk(): ThunkAction<void, RootState, any, Do
   return async function (dispatch, getState) {
     const downloads = getState().downloadVideoReducer.downloads
     downloads.forEach(async (download) => {
-      const newVod = await VodApi.getDetail(download.vod.vod_id.toString(), {xMode: download.vodIsAdult})
+      const newVod = await VodApi.getDetail(download.vod.vod_id.toString(), download.vod.type_id.toString(), download.vod.vod_source_name, {xMode: download.vodIsAdult})
       dispatch(updateVodDetails(newVod))
     })
 

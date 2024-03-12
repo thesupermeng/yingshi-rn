@@ -170,7 +170,7 @@ export const ChangeUsernameModal = ({
                         paddingRight: 10,
                     }}
                 >
-                    {username.replace(/\s+/g, "").length}/18
+                    {username?.replace(/\s+/g, "").length}/18
                 </Text>
             </View>
         </CBottomSheet>

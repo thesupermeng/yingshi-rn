@@ -117,7 +117,8 @@ export interface VodType {
     vod_play_list: VodEpisodeListType,
     vod_restricted: number,
     vod_sources: VodSourceType[],
-    preferred_source_id: number
+    preferred_source_id: number,
+    vod_source_name: string,
 }
 
 export interface SuggestedVodType extends VodType {
@@ -417,6 +418,7 @@ export interface AdultVodType {
     vod_play_url: string
     vod_play_list: VodEpisodeListType
     vod_restricted: number
+    vod_source_name: string
 }
 
 export interface CommentsResponseDataType {

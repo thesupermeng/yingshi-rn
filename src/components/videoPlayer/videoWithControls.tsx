@@ -47,7 +47,8 @@ interface Props {
     vodID?: number,
     sourceID?: number,
     onDownloadVod?: (nid: number) => void,
-    setShowAdOverlay: (show: boolean) => void
+    setShowAdOverlay: (show: boolean) => void,
+    isSeekErrorRef: React.MutableRefObject<boolean>,
 }
 
 const VideoWithControls = ({
@@ -90,7 +91,8 @@ const VideoWithControls = ({
     vodID,
     sourceID,
     onDownloadVod,
-    setShowAdOverlay
+    setShowAdOverlay,
+    isSeekErrorRef,
 }: Props) => {
 
     const route = useRoute()
@@ -113,7 +115,7 @@ const VideoWithControls = ({
      * 
      */
 
-    const conditionalProp = Platform.OS === 'android' && route.name === '体育详情' ? {} : {ref: ref => (videoPlayerRef.current = ref)}
+    const conditionalProp = Platform.OS === 'android' && route.name === '体育详情' ? {} : { ref: ref => (videoPlayerRef.current = ref) }
 
     return (
         <View
@@ -152,6 +154,11 @@ const VideoWithControls = ({
                 progressUpdateInterval={1000}
                 onProgress={onVideoProgessing}
                 onSeek={data => {
+                    if ((data.currentTime === 0 || data.currentTime === 0.001) && currentTimeRef.current > 10) {
+                        isSeekErrorRef.current = true;
+                        return;
+                    }
+
                     if (currentTimeRef) {
                         currentTimeRef.current = data.currentTime;
                     }

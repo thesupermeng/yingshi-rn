@@ -15,7 +15,7 @@ import { useQuery } from "@tanstack/react-query";
 import { SuggestVodListType } from "@type/ajaxTypes";
 import { useMemo } from "react";
 import { VodApi } from "@api";
-import { UMENG_CHANNEL } from "@utility/constants";
+import { SHOW_ZF_CONST, UMENG_CHANNEL } from "@utility/constants";
 
 interface Props {
   logo?: React.ReactNode;
@@ -47,18 +47,20 @@ function MainHeader({ logo, navigator, headerStyle }: Props) {
         }
         defaultValue={randomVod !== undefined ? randomVod.vod_name : ""}
       />
-      <TouchableOpacity
-        onPress={() => {
-          navigator.navigate("付费VIP");
-          // if (UMENG_CHANNEL == "GOOGLE_PLAY") {
-          //   navigator.navigate("付费Google");
-          // } else {
-          //   navigator.navigate("付费VIP");
-          // }
-        }}
-      >
-        {<VipEntry height={36} />}
-      </TouchableOpacity>
+      {SHOW_ZF_CONST &&
+        <TouchableOpacity
+          onPress={() => {
+            navigator.navigate("付费VIP");
+            // if (UMENG_CHANNEL == "GOOGLE_PLAY") {
+            //   navigator.navigate("付费Google");
+            // } else {
+            //   navigator.navigate("付费VIP");
+            // }
+          }}
+        >
+          <VipEntry height={36} />
+        </TouchableOpacity>
+      }
     </View>
   );
 }

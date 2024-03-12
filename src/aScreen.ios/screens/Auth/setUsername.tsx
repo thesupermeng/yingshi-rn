@@ -221,7 +221,7 @@ export default (props: any) => {
 
                   <Text
                     style={{ fontWeight: '600', fontSize: 15, color: '#9C9C9C' }}>
-                    {username.replace(/\s+/g, "").length}/18
+                    {username?.replace(/\s+/g, "").length}/18
                   </Text>
                 </View>
 
