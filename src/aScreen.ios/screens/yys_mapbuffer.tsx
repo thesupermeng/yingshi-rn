@@ -936,7 +936,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
       isFetching,
       refetch,
       remove,
-   } = useMinivodQuery('normal', true);
+   } = useMinivodQuery('normal', true, { isAscreen: true });
 
    // const { data: videos, isSuccess, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching, refetch } =
    //    useInfiniteQuery(['watchAnytime'], ({ pageParam = 1 }) => fetchVods(pageParam), {

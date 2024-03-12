@@ -19,6 +19,7 @@ type yys_GesturesSetting = {
     supportedOrientations?: ("portrait" | "landscape")[];
     disabledKeyboardAvoiding?: boolean,
     isLoading?: boolean,
+    backgroundColor?: string,
 }
 
 export const CBottomSheet = ({
@@ -34,12 +35,13 @@ export const CBottomSheet = ({
     supportedOrientations = ['portrait'],
     disabledKeyboardAvoiding = false,
     isLoading = false,
+    backgroundColor,
 }: yys_GesturesSetting) => {
     const { colors } = useTheme();
 
     const styles = useMemo(() => styleCBottomSheet({
         backdropColor: backdropColor,
-        bottomsheetColor: colors.bottomSheet,
+        bottomsheetColor: backgroundColor ?? colors.bottomSheet,
         bottomsheetPaddingTop: showWhiteLine ? 0 : 40,
         contentContainerHeight: height,
     }), [backdropColor, colors.bottomSheet, showWhiteLine, height]);
@@ -144,6 +146,6 @@ const styleCBottomSheet = ({
             : '100%',
         paddingHorizontal: 20,
         marginVertical: 20,
-        
+
     }
 });

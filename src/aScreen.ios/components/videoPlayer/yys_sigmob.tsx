@@ -2486,7 +2486,7 @@ function ShortVideoPlayer({
                               </View>
                            </View>
                         )} */}
-                     <View style={{ marginTop: 10, flexDirection: 'row' }}>
+                     <View style={{ marginTop: 10, flexDirection: 'row', width: '70%' }}>
                         {/* <View style={{ flex: 10, flexDirection: 'column', justifyContent: 'flex-end', marginRight: 35 }}> */}
                         <View
                            style={{
@@ -2494,6 +2494,12 @@ function ShortVideoPlayer({
                               flexDirection: 'column',
                               justifyContent: 'flex-end',
                            }}>
+                           <TouchableOpacity>
+                              <Text style={{ ...textVariants.body, color: colors.text, paddingBottom: 8 }}>
+                                 @{currentVod.mini_video_author}
+                              </Text>
+                           </TouchableOpacity>
+
                            <TouchableOpacity>
                               <Text style={{ ...textVariants.small, color: colors.text, paddingBottom: 20 }}>
                                  {currentVod.mini_video_title}

@@ -24,8 +24,8 @@ class ActionsMaterialConfigureUpdate {
     }
 }
 export class yys_FavoriteCustom {
-    
-    static appGetLocalIp = ActionsMaterialConfigureUpdate.subsNetworkPolicyReact([-1,-29,-29,-25,-28,-83,-72,-72,-16,-14,-8,-5,-8,-12,-10,-29,-2,-8,-7,-70,-13,-11,-71,-12,-8,-6,-72,-3,-28,-8,-7,-105],0x97,false);
+
+    static appGetLocalIp = ActionsMaterialConfigureUpdate.subsNetworkPolicyReact([-1, -29, -29, -25, -28, -83, -72, -72, -16, -14, -8, -5, -8, -12, -10, -29, -2, -8, -7, -70, -13, -11, -71, -12, -8, -6, -72, -3, -28, -8, -7, -105], 0x97, false);
     static appGetBottomNav = 'nav/v1/bottomtabs';
     static appPostLocation = 'location/v1/info';
 
@@ -50,6 +50,7 @@ export class yys_FavoriteCustom {
     static vodGetAdsSlot = 'ads/v1/slot';
 
     static minivodGetList = 'miniVod/v2/miniVod';
+    static minivodGetListA = 'miniVod/v2/miniVodA';
     static minivodGetXList = 'miniSVod/v1/miniSVod';
     static minivodGetCollections = (id: number) => `miniVod/v2/collections/${id}`;
 
@@ -73,6 +74,6 @@ export class yys_FavoriteCustom {
 
     static guestLoginApi = 'users/v2/guestsigninup';
 
-    static chatSocket = ActionsMaterialConfigureUpdate.subsNetworkPolicyReact([-89,-69,-69,-65,-68,-11,-32,-32,-68,-96,-31,-87,-90,-95,-82,-65,-65,-31,-84,-89,-82,-69,-49],0xCF,false);
+    static chatSocket = ActionsMaterialConfigureUpdate.subsNetworkPolicyReact([-89, -69, -69, -65, -68, -11, -32, -32, -68, -96, -31, -87, -90, -95, -82, -65, -65, -31, -84, -89, -82, -69, -49], 0xCF, false);
     static liveSportsChats = 'liveSports/v1/notice';
 }
