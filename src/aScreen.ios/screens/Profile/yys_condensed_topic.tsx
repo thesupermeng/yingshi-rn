@@ -1075,9 +1075,6 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
       setDisplayedDate(`${year}年${month}月${day}日`);
    }, [userState.user?.userMemberExpired]);
 
-   console.log('11111')
-   console.log(userState.user)
-
    return (
       <>
          <View style={{ paddingTop: insets.top }}>
