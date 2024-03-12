@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>需要访问您的相册权限</string>
 	<key>NSUserTrackingUsageDescription</key>
 	<string>是否允许正茄影视跟踪您在其他公司的App和网站上的活动</string>
 	<key>CFBundleSignature</key>
@@ -20,12 +22,12 @@
 				<string>com.googleusercontent.apps.699123886701-ok49jlua77cf0omih5g1u9f1irflnrq3</string>
 			</array>
 		</dict>
-    <dict>
-      <key>CFBundleURLSchemes</key>
-      <array>
-        <string>um.64a632e5bd4b621232c9e379</string>
-      </array>
-    </dict>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>um.64a632e5bd4b621232c9e379</string>
+			</array>
+		</dict>
 	</array>
 	<key>CodePushDeploymentKey</key>
 	<string>bANlp7AwlK57caU3h80moPva099ffOii-VPk9</string>
