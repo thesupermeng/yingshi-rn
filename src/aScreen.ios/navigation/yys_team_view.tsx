@@ -1896,10 +1896,10 @@ export default () => {
             <CRouteInitializer
                middlewares={{
                   'uploadVideo': [
-                     (page) => loginChecking(page, {
-                        userState,
-                        showLogin: () => dispatch(showLoginAction()),
-                     }),
+                     // (page) => loginChecking(page, {
+                     //    userState,
+                     //    showLogin: () => dispatch(showLoginAction()),
+                     // }),
                   ],
                   'uploadHistory': [
                      (page) => loginChecking(page, {

@@ -936,7 +936,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
       isFetching,
       refetch,
       remove,
-   } = useMinivodQuery('normal', false);
+   } = useMinivodQuery('normal', true);
 
    // const { data: videos, isSuccess, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching, refetch } =
    //    useInfiniteQuery(['watchAnytime'], ({ pageParam = 1 }) => fetchVods(pageParam), {
@@ -1292,8 +1292,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
    };
 
    const onAddPress = () => {
-          // yys_DetailWhistle.toName('uploadVideo')
-          navigation.navigate("uploadVideo")
+      yys_DetailWhistle.toName('uploadVideo')
    }
 
    return (

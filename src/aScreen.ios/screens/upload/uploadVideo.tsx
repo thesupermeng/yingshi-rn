@@ -15,6 +15,7 @@ import { VIDEO_UPLOAD_DEFAULT_SIZE, VIDEO_UPLOAD_SPEED } from "@utility/yys_ajax
 import { useAppDispatch, useAppSelector, useSelector } from "@hooks/yys_frame";
 import { yys_HejiCricket } from "@redux/reducers/yys_privacy_round";
 import { showLoginAction } from "@redux/actions/yys_runtimescheduler";
+import { yys_RelatedTooltips } from '@models/yys_project_pagination';
 
 export const UploadVideo = ({
     route,
@@ -22,7 +23,7 @@ export const UploadVideo = ({
 }: RootStackScreenProps<'uploadVideo'>) => {
     const defaultFileSize = VIDEO_UPLOAD_DEFAULT_SIZE;
     const uploadSpeed = VIDEO_UPLOAD_SPEED;
-    //const userState = useSelector<yys_HejiCricket>('userReducer');
+
     const { textVariants, colors } = useTheme();
     const [isGrantPhotePermission, setGrantPhotePermission] = useState(false);
     const [videoSelected, setVideoSelected] = useState<Asset>();
@@ -31,6 +32,7 @@ export const UploadVideo = ({
     const [showSuccess, setShowSuccess] = useState(false);
     const dispatch = useAppDispatch();
     const userState = useSelector<yys_HejiCricket>('userReducer');
+
     useEffect(() => {
         if (Platform.OS === 'ios') {
             check(PERMISSIONS.IOS.PHOTO_LIBRARY).then((result) => {
@@ -49,14 +51,9 @@ export const UploadVideo = ({
     }
 
     const onUploadPress = async () => {
-
-// console.log('aadasda')
-//         console.log(!userState.user?.isLogin())
-//           return
-        if (!userState.user?.isLogin()) {
-              dispatch(showLoginAction());
-          return
-
+        if (yys_RelatedTooltips.isGuest(userState.user)) {
+            dispatch(showLoginAction());
+            return;
         }
 
         try {
@@ -140,7 +137,7 @@ export const UploadVideo = ({
                 <Text>上传视频</Text>
             </TouchableOpacity>
         </View>);
-    }, [textVariants, colors]);
+    }, [textVariants, colors, userState]);
 
     const UngrantedBody = useCallback(() => {
         return (<View style={{

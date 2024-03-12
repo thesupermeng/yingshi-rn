@@ -1383,11 +1383,8 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                      text="上传视频"
                      leftIcon={<AddVideoIcon style={{ color: colors.button }} />}
                      onPress={() => {
-                        // yys_DetailWhistle.toName('uploadVideo')
-                        navigation.navigate("uploadVideo")
-                     }
-                  
-                  }
+                        yys_DetailWhistle.toName('uploadVideo')
+                     }}
                   />
                   <ShowMoreButton
                      text="我要反馈"
