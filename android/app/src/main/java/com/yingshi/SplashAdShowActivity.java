@@ -54,7 +54,7 @@ public class SplashAdShowActivity extends Activity implements ATSplashExListener
         // super.onCreate(savedInstanceState); // or super.onCreate(null) with
         // react-native-screens
         super.onCreate(null);
-        ATSDK.init(this, "a65e577384c125", "ad83e042ddc3e6904c1f63bcc575a6bd7");
+        ATSDK.init(this, "a65e577384c125", "acd8a6a578f3968362ef2d62e230958ee");
 
         setContentView(R.layout.splash_ad_show);
 

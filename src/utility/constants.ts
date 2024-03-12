@@ -67,10 +67,10 @@ export const UMENG_CHANNEL = "GOOGLEPLAY_YINGSHIPIN";
 export const APP_VERSION = "1.7.8";
 
 export const TOPON_ANDROID_APP_ID = 'a65e577384c125';
-export const TOPON_ANDROID_APP_KEY = 'ad83e042ddc3e6904c1f63bcc575a6bd7';
+export const TOPON_ANDROID_APP_KEY = 'acd8a6a578f3968362ef2d62e230958ee';
 
 export const TOPON_IOS_APP_ID = 'a650a6ca02b6a6';
-export const TOPON_IOS_APP_KEY = 'acd8a6a578f3968362ef2d62e230958ee';
+export const TOPON_IOS_APP_KEY = 'a1d5a4e8e7e2bb06880eb2cda108716ed';
 
 // topon 横幅广告
 export const ANDROID_HOME_PAGE_BANNER_ADS = 'b1febuttf42o2j';
