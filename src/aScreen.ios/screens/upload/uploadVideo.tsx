@@ -205,7 +205,7 @@ export const UploadVideo = ({
                 }
             />
 
-            {!isGrantPhotePermission
+            {isGrantPhotePermission
                 ? <GrantedBody />
                 : <UngrantedBody />
             }
