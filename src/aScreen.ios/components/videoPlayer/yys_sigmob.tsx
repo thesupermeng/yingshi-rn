@@ -2503,7 +2503,7 @@ function ShortVideoPlayer({
                      </View>
                   </View>
 
-                  {currentVod.is_collection?.toLowerCase() == "y" &&
+                  {/* {currentVod.is_collection?.toLowerCase() == "y" &&
                      <View style={{ backgroundColor: '#171717', paddingBottom: 18, paddingTop: 12, paddingLeft: 20, paddingRight: 20 }}>
                         <TouchableOpacity style={{ flex: 1 }} onPress={() => {
                            openBottomSheet();
@@ -2519,7 +2519,7 @@ function ShortVideoPlayer({
                            </View>
                         </TouchableOpacity>
                      </View>
-                  }
+                  } */}
                </View>
                <Slider
                   style={styles.slider}
