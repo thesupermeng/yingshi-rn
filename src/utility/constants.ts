@@ -62,7 +62,7 @@ export const INVITE_DOMAIN = 'https://dasdui.site/invite.html?invite=';
 //     'MI_GETAPPS': 'MI_GETAPPS',
 // }
 
-export const UMENG_CHANNEL = "GOOGLE_PLAY";
+export const UMENG_CHANNEL = "GOOGLEPLAY_YINGSHIPIN";
 
 export const APP_VERSION = "1.7.8";
 
