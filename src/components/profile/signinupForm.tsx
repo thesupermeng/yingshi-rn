@@ -302,9 +302,11 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
         userId: userState.user?.userId ?? '',
       });
     } catch (err: any) {
-      setSubmitting(false);
-      setLoginValueErrMsg(err.message);
-      return;
+      if (!err?.message.includes('验证码已发送')) {
+        setSubmitting(false);
+        setLoginValueErrMsg(err.message);
+        return;
+      }
     }
 
     setSubmitting(false);

@@ -15,6 +15,21 @@
  *   
  *   method inside: toNamed, offNamed
  *      then => listen and callback if next screen close (callback params are receive from back method)
+ * 
+ * middlewares:
+ *   key => page name
+ *   value => middleware function of array
+ *   middleware => middleware return page name for navigate, if return undefined will not navigate
+ * 
+ *   example:
+ *     middlewares = {
+ *       'profile': [middleware1, middleware2]
+ *     }
+ * 
+ *     middleware1 = (page: string | undefined) => {
+ *       if(user no login) return 'login'; // go to login page
+ *       return page;
+ *     }
  */
 
 import { useEffect } from "react";
@@ -38,6 +53,7 @@ export type CPageType = {
 }
 
 export class CRouter {
+    static #middlewares: { [key: string]: [] | [(page: string) => string | undefined] } = {};
     static #navigator: NavigationProp<{ [key: string]: any }> | null = null;
     static #historiesPages: CPageType[] = [];
 
@@ -45,11 +61,19 @@ export class CRouter {
     // use for handle navigate pop action
     static #lastActoinPageName = '';
 
-    static init = (navigation: NavigationProp<any>) => {
+    static init = (navigation: NavigationProp<any>, {
+        middlewares = {}
+    }: {
+        middlewares: { [key: string]: [] | [(page: string) => string | undefined] },
+    }) => {
         if (this.#navigator !== null) return;
 
         this.#navigator = navigation;
         this.#navigator.addListener('state', this.#matchHistory);
+
+        if (middlewares !== undefined && middlewares !== null) {
+            this.#middlewares = middlewares;
+        }
     }
 
     static closeRouter = () => {
@@ -60,7 +84,22 @@ export class CRouter {
         this.#navigator = navigation;
     }
 
+    static updateMiddlewares = (middlewares: { [key: string]: [] | [(page: string) => string | undefined] }) => {
+        this.#middlewares = middlewares;
+    }
+
     static toName = (page: string, { params }: { params?: any } = {}) => {
+        if (page in this.#middlewares) {
+            const pageMiddleware = this.#middlewares[page];
+
+            for (const middleware of pageMiddleware) {
+                const result = middleware(page);
+
+                if (result === undefined) return;
+                else page = result;
+            }
+        }
+
         const then = (callback?: (params: any) => void) => {
             this.pendingEvent.push({
                 pageName: page,
@@ -75,6 +114,17 @@ export class CRouter {
     }
 
     static offName = (page: string, { params }: { params?: any } = {}) => {
+        if (page in this.#middlewares) {
+            const pageMiddleware = this.#middlewares[page];
+
+            for (const middleware of pageMiddleware) {
+                const result = middleware(page);
+
+                if (result === undefined) return;
+                else page = result;
+            }
+        }
+
         const then = (callback?: (params: any) => void) => {
             this.pendingEvent.push({
                 pageName: page,
@@ -240,18 +290,23 @@ export class CRouter {
     }
 }
 
-export const CRouteInitializer = () => {
+export const CRouteInitializer = ({
+    middlewares = {},
+}: {
+    middlewares?: { [key: string]: [] | [(page: string) => string | undefined] },
+}) => {
     const navigator = useNavigation<NavigationProp<{ [key: string]: any }>>();
 
     useEffect(() => {
-        CRouter.init(navigator);
+        CRouter.init(navigator, { middlewares });
 
         return CRouter.closeRouter;
     }, []);
 
     useEffect(() => {
         CRouter.updateNavigator(navigator);
-    }, [navigator]);
+        CRouter.updateMiddlewares(middlewares);
+    }, [navigator, middlewares]);
 
     return <></>
 }
