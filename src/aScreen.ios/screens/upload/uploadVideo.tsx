@@ -1,13 +1,13 @@
 import { RootStackScreenProps } from "@type/yys_settings";
 import ScreenContainer from "../../components/container/yys_executor_expand";
 import TitleWithBackButtonHeader from "../../components/header/yys_anner_header";
-import { Platform, Text, TouchableOpacity, View } from "react-native";
+import { Alert, Linking, Platform, Text, TouchableOpacity, View } from "react-native";
 import AddIcon from '@static/images/add.svg';
 import AlbumIcon from '@static/images/album.svg';
 import { useTheme } from "@react-navigation/native";
 import { yys_DetailWhistle } from "../../../routes/yys_become_bootsplash";
 import { useCallback, useEffect, useState } from "react";
-import { PERMISSIONS, RESULTS, request, check } from "react-native-permissions";
+import Permissions, { PERMISSIONS, RESULTS, request, check } from "react-native-permissions";
 import { Asset, launchImageLibrary } from 'react-native-image-picker';
 import { UploadResultOverlay } from "../../components/modal/uploadResultOverlay";
 import { UploadProgressOverlay } from "../../components/modal/uploadProgressOverlay";
@@ -95,7 +95,18 @@ export const UploadVideo = ({
                 if (result == RESULTS.GRANTED) {
                     setGrantPhotePermission(true);
                 } else {
+
                     setGrantPhotePermission(false);
+                    Alert.alert(
+                        '需要权限',
+                        '要启用此功能，请在设置中授予权限。',
+                        [
+                            { text: '取消', onPress: () => console.log('取消按下'), style: 'cancel' },
+                            { text: '打开设置', onPress: () => Linking.openSettings() }
+                        ],
+                        { cancelable: false }
+                    );
+                  
                 }
             });
         }
@@ -138,6 +149,122 @@ export const UploadVideo = ({
             </TouchableOpacity>
         </View>);
     }, [textVariants, colors, userState]);
+
+    const [hasPermission, setHasPermission] = useState<boolean>(false);
+
+    const openSettingsAlert = useCallback(({title}: {title: string}) => {
+      Alert.alert(title, '', [
+        {
+          isPreferred: true,
+          style: 'default',
+          text: 'Open Settings',
+          onPress: () => Linking?.openSettings(),
+        },
+        {
+          isPreferred: false,
+          style: 'destructive',
+          text: 'Cancel',
+          onPress: () => {},
+        },
+      ]);
+    }, []);
+  
+    const checkAndroidPermissions = useCallback(async () => {
+      if (parseInt(Platform.Version as string, 10) >= 33) {
+        const permissions = await Permissions.checkMultiple([
+          PERMISSIONS.ANDROID.READ_MEDIA_IMAGES,
+          PERMISSIONS.ANDROID.READ_MEDIA_VIDEO,
+        ]);
+        if (
+          permissions[PERMISSIONS.ANDROID.READ_MEDIA_IMAGES] ===
+            Permissions.RESULTS.GRANTED &&
+          permissions[PERMISSIONS.ANDROID.READ_MEDIA_VIDEO] ===
+            Permissions.RESULTS.GRANTED
+        ) {
+          setHasPermission(true);
+          return;
+        }
+        const res = await Permissions.requestMultiple([
+          PERMISSIONS.ANDROID.READ_MEDIA_IMAGES,
+          PERMISSIONS.ANDROID.READ_MEDIA_VIDEO,
+        ]);
+        if (
+          res[PERMISSIONS.ANDROID.READ_MEDIA_IMAGES] ===
+            Permissions.RESULTS.GRANTED &&
+          res[PERMISSIONS.ANDROID.READ_MEDIA_VIDEO] ===
+            Permissions.RESULTS.GRANTED
+        ) {
+          setHasPermission(true);
+        }
+        if (
+          res[PERMISSIONS.ANDROID.READ_MEDIA_IMAGES] ===
+            Permissions.RESULTS.DENIED ||
+          res[PERMISSIONS.ANDROID.READ_MEDIA_VIDEO] === Permissions.RESULTS.DENIED
+        ) {
+          checkAndroidPermissions();
+        }
+        if (
+          res[PERMISSIONS.ANDROID.READ_MEDIA_IMAGES] ===
+            Permissions.RESULTS.BLOCKED ||
+          res[PERMISSIONS.ANDROID.READ_MEDIA_VIDEO] ===
+            Permissions.RESULTS.BLOCKED
+        ) {
+          openSettingsAlert({
+            title: 'Please allow access to your photos and videos from settings',
+          });
+        }
+      } else {
+        const permission = await Permissions.check(
+          PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE,
+        );
+        if (permission === Permissions.RESULTS.GRANTED) {
+          setHasPermission(true);        
+          return;
+        }
+        const res = await Permissions.request(
+          PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE,
+        );
+        if (res === Permissions.RESULTS.GRANTED) {
+          setHasPermission(true);
+        }
+        if (res === Permissions.RESULTS.DENIED) {
+          checkAndroidPermissions();
+        }
+        if (res === Permissions.RESULTS.BLOCKED) {
+          openSettingsAlert({
+            title: 'Please allow access to the photo library from settings',
+          });
+        }
+      }
+    }, [openSettingsAlert]);
+  
+    const checkPermission = useCallback(async () => {
+      if (Platform.OS === 'ios') {
+        const permission = await Permissions.check(PERMISSIONS.IOS.PHOTO_LIBRARY);
+        if (permission === Permissions.RESULTS.GRANTED ||
+            permission === Permissions.RESULTS.LIMITED) {
+          setHasPermission(true);
+          return;
+        }
+        const res = await Permissions.request(PERMISSIONS.IOS.PHOTO_LIBRARY);
+        if (res === Permissions.RESULTS.GRANTED ||
+            res === Permissions.RESULTS.LIMITED) {
+          setHasPermission(true);
+        }
+        if (res === Permissions.RESULTS.BLOCKED) {
+          openSettingsAlert({
+            title: 'Please allow access to the photo library from settings',
+          });
+        }
+      } else if (Platform.OS === 'android') {
+        checkAndroidPermissions();
+      }
+    }, [checkAndroidPermissions, openSettingsAlert]);
+  
+    useEffect(() => {
+      checkPermission();
+    }, [checkPermission]);
+  
 
     const UngrantedBody = useCallback(() => {
         return (<View style={{
