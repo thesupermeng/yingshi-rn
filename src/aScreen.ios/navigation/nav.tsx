@@ -4,75 +4,75 @@ import React, {
   useRef,
   useCallback,
   useContext,
-} from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   NavigationContainer,
   NavigationState,
   useTheme,
-} from "@react-navigation/native";
+} from '@react-navigation/native';
 
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-import HomeScreen from "../screens/Home";
-import PlaylistScreen from "../screens/Playlist/Playlist";
-import ProfileScreen from "../screens/Profile/Profile";
-import WatchAnytime from "../screens/WatchAnytime";
-import SearchScreen from "../screens/Common/Search";
-import PlayScreen from "../screens/Common/Play";
-import { AllCommentScreen } from "../screens/allComment";
-import LiveStationPlayScreen from "../screens/Common/LiveStationPlay";
+import HomeScreen from '../screens/Home';
+import PlaylistScreen from '../screens/Playlist/Playlist';
+import ProfileScreen from '../screens/Profile/Profile';
+import WatchAnytime from '../screens/WatchAnytime';
+import SearchScreen from '../screens/Common/Search';
+import PlayScreen from '../screens/Common/Play';
+import {AllCommentScreen} from '../screens/allComment';
+import LiveStationPlayScreen from '../screens/Common/LiveStationPlay';
 // import VodCollectionScreen from '../screens/Profile/Collection/VodCollection';
 // import PlaylistCollectionScreen from '../screens/Profile/Collection/PlaylistCollection';
-import FeedbackScreen from "../screens/Profile/Feedback";
-import Invite from "../screens/Profile/Invite";
-import InviteDetails from "../screens/Profile/InviteDetails";
-import UserCenter from "../screens/Profile/UserCenter";
-import MainCollectionScreen from "../screens/Profile/Collection/MainCollection";
-import PlaylistDetailsScreen from "../screens/Playlist/PlaylistDetails";
-import HistoryScreen from "../screens/Profile/History";
-import LiveStationsScreen from "../screens/Common/LiveStations";
-import AboutUsScreen from "../screens/Profile/AboutUs";
-import PrivacyScreen from "../screens/Profile/Privacy";
-import UserAgreementScreen from "../screens/Profile/UserAgreement";
-import ConfigureScreen from "../screens/Profile/Configure";
-import OtpScreen from "../screens/Auth/Otp";
-import SetUsername from "../screens/Auth/setUsername";
-import HomeTabIcon from "@static/images/home_tab.svg";
-import HomeActiveTabIcon from "@static/images/home_tab_active.svg";
-import PlaylistTabIcon from "@static/images/playlist_tab.svg";
-import PlaylistActiveTabIcon from "@static/images/playlist_tab_active.svg";
-import ProfileTabIcon from "@static/images/profile_tab.svg";
-import ProfileActiveTabIcon from "@static/images/profile_tab_active.svg";
-import WatchAnytimeTabIcon from "@static/images/video_tab.svg";
-import WatchAnytimeActiveTabIcon from "@static/images/video_tab_active.svg";
-import CatalogScreen from "../screens/Common/Catalog";
-import ShortVodCollectionScreen from "../screens/Profile/Collection/shortVodCollection";
-import SportsIcon from "@static/images/sports.svg";
+import FeedbackScreen from '../screens/Profile/Feedback';
+import Invite from '../screens/Profile/Invite';
+import InviteDetails from '../screens/Profile/InviteDetails';
+import UserCenter from '../screens/Profile/UserCenter';
+import MainCollectionScreen from '../screens/Profile/Collection/MainCollection';
+import PlaylistDetailsScreen from '../screens/Playlist/PlaylistDetails';
+import HistoryScreen from '../screens/Profile/History';
+import LiveStationsScreen from '../screens/Common/LiveStations';
+import AboutUsScreen from '../screens/Profile/AboutUs';
+import PrivacyScreen from '../screens/Profile/Privacy';
+import UserAgreementScreen from '../screens/Profile/UserAgreement';
+import ConfigureScreen from '../screens/Profile/Configure';
+import OtpScreen from '../screens/Auth/Otp';
+import SetUsername from '../screens/Auth/setUsername';
+import HomeTabIcon from '@static/images/home_tab.svg';
+import HomeActiveTabIcon from '@static/images/home_tab_active.svg';
+import PlaylistTabIcon from '@static/images/playlist_tab.svg';
+import PlaylistActiveTabIcon from '@static/images/playlist_tab_active.svg';
+import ProfileTabIcon from '@static/images/profile_tab.svg';
+import ProfileActiveTabIcon from '@static/images/profile_tab_active.svg';
+import WatchAnytimeTabIcon from '@static/images/video_tab.svg';
+import WatchAnytimeActiveTabIcon from '@static/images/video_tab_active.svg';
+import CatalogScreen from '../screens/Common/Catalog';
+import ShortVodCollectionScreen from '../screens/Profile/Collection/shortVodCollection';
+import SportsIcon from '@static/images/sports.svg';
 // import MatchesScreen from "../Sports/screens/Sports/Matches";
 // import MatchDetailsScreen from "../Sports/screens/Sports/MatchDetails";
-import { useDispatch } from "react-redux";
-import SigninupBottomSheet from "../components/auth/signinupBottomSheet";
+import {useDispatch} from 'react-redux';
+import SigninupBottomSheet from '../components/auth/signinupBottomSheet';
 import {
   HomeTabParamList,
   PlaylistTabParamList,
   ProfileTabParamList,
   RootStackParamList,
   WatchAnytimeTabParamList,
-} from "@type/navigationTypes";
-import RNBootSplash from "react-native-bootsplash";
-import { RootState } from "@redux/store";
+} from '@type/navigationTypes';
+import RNBootSplash from 'react-native-bootsplash';
+import {RootState} from '@redux/store';
 import {
   SafeAreaProvider,
   useSafeAreaInsets,
-} from "react-native-safe-area-context";
-import { LogBox, Platform, StyleSheet, Text, View } from "react-native";
-import DeviceInfo from "react-native-device-info";
-import { useAppSelector, useAppDispatch, useSelector } from "@hooks/hooks";
-import { QueryClient, useQuery } from "@tanstack/react-query";
-import { API_DOMAIN, UMENG_CHANNEL } from "@utility/constants";
-import { YSConfig } from "../../../ysConfig";
+} from 'react-native-safe-area-context';
+import {LogBox, Platform, StyleSheet, Text, View} from 'react-native';
+import DeviceInfo from 'react-native-device-info';
+import {useAppSelector, useAppDispatch, useSelector} from '@hooks/hooks';
+import {QueryClient, useQuery} from '@tanstack/react-query';
+import {API_DOMAIN, UMENG_CHANNEL} from '@utility/constants';
+import {YSConfig} from '../../../ysConfig';
 import {
   hideLoginAction,
   interstitialClose,
@@ -80,48 +80,45 @@ import {
   removeScreenAction,
   resetBottomSheetAction,
   resetSportWatchTime,
-} from "@redux/actions/screenAction";
-import { Dialog } from "@rneui/themed";
+} from '@redux/actions/screenAction';
+import {Dialog} from '@rneui/themed';
 // import FastImage from "react-native-fast-image";
-import FastImage from "../components/common/customFastImage";
-import { screenModel } from "@type/screenType";
-import { YingshiDarkTheme, YingshiLightTheme } from "@utility/theme";
-import {
-  updateUserAuth,
-  updateUserReferral,
-} from "@redux/actions/userAction";
-import ExpiredOverlay from "../components/modal/expiredOverlay";
-import EventRules from "../screens/Profile/EventRules";
-import PrivacyPolicyOverlay from "../components/modal/privacyPolicyOverlay";
-import Orientation from "react-native-orientation-locker";
+import FastImage from '../components/common/customFastImage';
+import {screenModel} from '@type/screenType';
+import {YingshiDarkTheme, YingshiLightTheme} from '@utility/theme';
+import {updateUserAuth, updateUserReferral} from '@redux/actions/userAction';
+import ExpiredOverlay from '../components/modal/expiredOverlay';
+import EventRules from '../screens/Profile/EventRules';
+import PrivacyPolicyOverlay from '../components/modal/privacyPolicyOverlay';
+import Orientation from 'react-native-orientation-locker';
 import {
   handleAppOrientation,
   handleDevicesOrientation,
   lockAppOrientation,
   updateNetworkInfo,
-} from "@redux/actions/settingsActions";
-import { SettingsReducerState } from "@redux/reducers/settingsReducer";
-import { AdsBannerContext } from "../../contexts/AdsBannerContext";
-import VIP from "../screens/Profile/VIP";
-import { withIAPContext } from "react-native-iap";
-import { VipDetails } from "../components/vip/vipDetails";
-import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
+} from '@redux/actions/settingsActions';
+import {SettingsReducerState} from '@redux/reducers/settingsReducer';
+import {AdsBannerContext} from '../../contexts/AdsBannerContext';
+import VIP from '../screens/Profile/VIP';
+import {withIAPContext} from 'react-native-iap';
+import {VipDetails} from '../components/vip/vipDetails';
+import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
 
-import { ATInterstitialRNSDK } from "./../../../AnyThinkAds/ATReactNativeSDK";
-import { UserApi } from "@api";
-import { CRouteInitializer } from "../../routes/router";
-import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models/user";
+import {ATInterstitialRNSDK} from './../../../AnyThinkAds/ATReactNativeSDK';
+import {UserApi} from '@api';
+import {CRouteInitializer} from '../../routes/router';
+import {UserStateType} from '@redux/reducers/userReducer';
+import {User} from '@models/user';
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
   const HomeTab = createBottomTabNavigator<HomeTabParamList>();
-  const { colors, textVariants, spacing } = useTheme();
+  const {colors, textVariants, spacing} = useTheme();
   const settingsReducer: SettingsReducerState = useAppSelector(
-    ({ settingsReducer }: RootState) => settingsReducer
+    ({settingsReducer}: RootState) => settingsReducer,
   );
   const themeReducer = useAppSelector(
-    ({ themeReducer }: RootState) => themeReducer
+    ({themeReducer}: RootState) => themeReducer,
   );
   const theme = themeReducer.theme ? YingshiDarkTheme : YingshiLightTheme;
 
@@ -137,19 +134,19 @@ export default () => {
   const HomeTabScreen = useCallback(() => {
     return (
       <HomeTab.Navigator
-        screenOptions={({ route }) => ({
+        screenOptions={({route}) => ({
           headerShown: false,
           tabBarStyle:
-            hasNotch || Platform.OS === "android"
+            hasNotch || Platform.OS === 'android'
               ? styles.navStyleWithNotch
               : styles.navStyle,
           tabBarLabelStyle: {
             paddingBottom: 6,
           },
-          tabBarIcon: ({ focused, color, size }) => {
+          tabBarIcon: ({focused, color, size}) => {
             let icon: React.ReactNode;
 
-            if (route.name === "首页") {
+            if (route.name === '首页') {
               icon = focused ? (
                 <HomeActiveTabIcon
                   width={iconWidth}
@@ -161,7 +158,7 @@ export default () => {
                   color={theme.icons.inactiveNavIconColor}
                 />
               );
-            } else if (route.name === "播单") {
+            } else if (route.name === '播单') {
               icon = focused ? (
                 <PlaylistActiveTabIcon
                   width={iconWidth}
@@ -173,7 +170,7 @@ export default () => {
                   color={theme.icons.inactiveNavIconColor}
                 />
               );
-            } else if (route.name === "我的") {
+            } else if (route.name === '我的') {
               icon = focused ? (
                 <ProfileActiveTabIcon
                   width={iconWidth}
@@ -185,7 +182,7 @@ export default () => {
                   color={theme.icons.inactiveNavIconColor}
                 />
               );
-            } else if (route.name === "随心看") {
+            } else if (route.name === '随心看') {
               icon = focused ? (
                 <WatchAnytimeActiveTabIcon
                   width={iconWidth}
@@ -197,7 +194,7 @@ export default () => {
                   color={theme.icons.inactiveNavIconColor}
                 />
               );
-            } else if (route.name === "体育") {
+            } else if (route.name === '体育') {
               icon = focused ? (
                 <SportsIcon
                   width={iconWidth}
@@ -212,8 +209,7 @@ export default () => {
             }
             return icon;
           },
-        })}
-      >
+        })}>
         {YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5 ? (
           <>
             <HomeTab.Screen name="首页" component={HomeScreen} />
@@ -263,14 +259,14 @@ export default () => {
   const refreshUserState = async () => {
     const result = await UserApi.getUserDetails();
     if (result == null) {
-      await AsyncStorage.removeItem("showAds");
+      await AsyncStorage.removeItem('showAds');
       return;
     }
 
     if (result.user.current_timestamp < result.user.vip_end_time) {
-      await AsyncStorage.setItem("showAds", "false");
+      await AsyncStorage.setItem('showAds', 'false');
     } else {
-      await AsyncStorage.setItem("showAds", "true");
+      await AsyncStorage.setItem('showAds', 'true');
     }
     await dispatch(updateUserAuth(result));
     return;
@@ -310,7 +306,7 @@ export default () => {
   const dispatch = useDispatch();
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
   const screenState: screenModel = useAppSelector(
-    ({ screenReducer }: RootState) => screenReducer
+    ({screenReducer}: RootState) => screenReducer,
   );
   const [gifKey, setGifKey] = useState(0);
 
@@ -322,7 +318,7 @@ export default () => {
       setTimeout(() => {
         setIsDialogOpen(true);
       }, 50);
-      setGifKey((prevKey) => prevKey + 1);
+      setGifKey(prevKey => prevKey + 1);
       setTimeout(() => {
         setIsDialogOpen(false);
       }, 3000);
@@ -342,13 +338,13 @@ export default () => {
     refreshUserState();
 
     // init orientation by current
-    Orientation.getOrientation((orientation) => {
+    Orientation.getOrientation(orientation => {
       dispatch(handleAppOrientation(orientation));
     });
-    Orientation.getDeviceOrientation((orientation) => {
+    Orientation.getDeviceOrientation(orientation => {
       dispatch(handleDevicesOrientation(orientation));
       // defalut set portrait
-      dispatch(lockAppOrientation("PORTRAIT"));
+      dispatch(lockAppOrientation('PORTRAIT'));
     });
 
     const appOrientationListener = (orientation: string) => {
@@ -364,11 +360,11 @@ export default () => {
     NetInfo.configure({
       // this is huawei url
       reachabilityUrl:
-        "http://connectivitycheck.platform.hicloud.com/generate_204",
+        'http://connectivitycheck.platform.hicloud.com/generate_204',
     });
 
     const removeNetInfoListener = NetInfo.addEventListener(
-      (state: NetInfoState) => dispatch(updateNetworkInfo(state))
+      (state: NetInfoState) => dispatch(updateNetworkInfo(state)),
     );
 
     return () => {
@@ -378,14 +374,14 @@ export default () => {
     };
   }, []);
 
-  const { setRoute: setAdsRoute } = useContext(AdsBannerContext);
+  const {setRoute: setAdsRoute} = useContext(AdsBannerContext);
 
   const handleStateChange = (state: Readonly<NavigationState> | undefined) => {
     // for banner ads
     if (!state) return;
     const currentRoute = state.routes[state.routes.length - 1]; // last item in stack
 
-    if (currentRoute.name !== "Home") {
+    if (currentRoute.name !== 'Home') {
       setAdsRoute(currentRoute.name);
     } else {
       const homeState = currentRoute.state;
@@ -405,20 +401,20 @@ export default () => {
     ATInterstitialRNSDK.setAdListener(
       ATInterstitialRNSDK.onInterstitialLoaded,
       (event: any) => {
-        console.log("ATInterstitialLoaded: " + event.placementId);
-      }
+        console.log('ATInterstitialLoaded: ' + event.placementId);
+      },
     );
 
     ATInterstitialRNSDK.setAdListener(
       ATInterstitialRNSDK.onInterstitialFail,
       (event: any) => {
         console.warn(
-          "ATInterstitialLoadFail: " +
-          event.placementId +
-          ", errorMsg: " +
-          event.errorMsg
+          'ATInterstitialLoadFail: ' +
+            event.placementId +
+            ', errorMsg: ' +
+            event.errorMsg,
         );
-      }
+      },
     );
 
     ATInterstitialRNSDK.setAdListener(
@@ -431,20 +427,20 @@ export default () => {
         //     ", adCallbackInfo: " +
         //     event.adCallbackInfo
         // );
-        console.log("ATInterstitialAdShow: " + event.placementId);
-      }
+        console.log('ATInterstitialAdShow: ' + event.placementId);
+      },
     );
 
     ATInterstitialRNSDK.setAdListener(
       ATInterstitialRNSDK.onInterstitialPlayStart,
       (event: any) => {
         console.log(
-          "ATInterstitialPlayStart: " +
-          event.placementId +
-          ", adCallbackInfo: " +
-          event.adCallbackInfo
+          'ATInterstitialPlayStart: ' +
+            event.placementId +
+            ', adCallbackInfo: ' +
+            event.adCallbackInfo,
         );
-      }
+      },
     );
 
     ATInterstitialRNSDK.setAdListener(
@@ -456,34 +452,34 @@ export default () => {
         //     ", adCallbackInfo: " +
         //     event.adCallbackInfo
         // );
-        console.log("ATInterstitialPlayEnd");
-      }
+        console.log('ATInterstitialPlayEnd');
+      },
     );
 
     ATInterstitialRNSDK.setAdListener(
       ATInterstitialRNSDK.onInterstitialPlayFail,
       (event: any) => {
         console.log(
-          "ATInterstitialPlayFail: " +
-          event.placementId +
-          ", errorMsg: " +
-          event.errorMsg +
-          ", adCallbackInfo: " +
-          event.adCallbackInfo
+          'ATInterstitialPlayFail: ' +
+            event.placementId +
+            ', errorMsg: ' +
+            event.errorMsg +
+            ', adCallbackInfo: ' +
+            event.adCallbackInfo,
         );
-      }
+      },
     );
 
     ATInterstitialRNSDK.setAdListener(
       ATInterstitialRNSDK.onInterstitialClick,
       (event: any) => {
         console.log(
-          "ATInterstitialClick: " +
-          event.placementId +
-          ", adCallbackInfo: " +
-          event.adCallbackInfo
+          'ATInterstitialClick: ' +
+            event.placementId +
+            ', adCallbackInfo: ' +
+            event.adCallbackInfo,
         );
-      }
+      },
     );
 
     ATInterstitialRNSDK.setAdListener(
@@ -496,8 +492,8 @@ export default () => {
         //     ", adCallbackInfo: " +
         //     event.adCallbackInfo
         // );
-        console.log("ATInterstitialClose: " + event.placementId);
-      }
+        console.log('ATInterstitialClose: ' + event.placementId);
+      },
     );
   };
 
@@ -511,17 +507,15 @@ export default () => {
       <NavigationContainer
         theme={theme}
         onReady={() => RNBootSplash.hide()}
-        onStateChange={handleStateChange}
-      >
+        onStateChange={handleStateChange}>
         <Stack.Navigator
           initialRouteName="Home"
-          screenOptions={({ route }) => ({
+          screenOptions={({route}) => ({
             headerShown: false,
             autoHideHomeIndicator: true,
-            animation: "slide_from_right",
-            orientation: "portrait",
-          })}
-        >
+            animation: 'slide_from_right',
+            orientation: 'portrait',
+          })}>
           <Stack.Screen name="Home" component={HomeTabScreen} />
 
           <Stack.Screen name="我的收藏" component={MainCollectionScreen} />
@@ -529,7 +523,7 @@ export default () => {
           <Stack.Screen
             name="邀请"
             component={Invite}
-            options={{ orientation: "portrait" }}
+            options={{orientation: 'portrait'}}
           />
           {/* <Stack.Screen
             name="邀请详情"
@@ -539,26 +533,26 @@ export default () => {
           <Stack.Screen
             name="活动规则"
             component={EventRules}
-            options={{ orientation: "portrait" }}
+            options={{orientation: 'portrait'}}
           />
           <Stack.Screen
             name="个人中心"
             component={UserCenter}
-            options={{ orientation: "portrait" }}
+            options={{orientation: 'portrait'}}
           />
           <Stack.Screen
             name="播放IOS"
             component={PlayScreen}
-            initialParams={{ vod_id: 1 }}
-            options={{ orientation: "all" }}
+            initialParams={{vod_id: 1}}
+            options={{orientation: 'all'}}
           />
           <Stack.Screen
             name="全部评论"
             component={AllCommentScreen}
             initialParams={{
               vod_id: 0,
-              vod_name: "",
-              commentItems: undefined
+              vod_name: '',
+              commentItems: undefined,
             }}
           />
           <Stack.Screen name="播放历史" component={HistoryScreen} />
@@ -566,7 +560,7 @@ export default () => {
           <Stack.Screen
             name="搜索"
             component={SearchScreen}
-            initialParams={{ initial: "" }}
+            initialParams={{initial: ''}}
           />
           <Stack.Screen
             name="PlaylistDetail"
@@ -577,7 +571,7 @@ export default () => {
           <Stack.Screen
             name="片库"
             component={CatalogScreen}
-            initialParams={{ type_id: 1 }}
+            initialParams={{type_id: 1}}
           />
           <Stack.Screen name="设置" component={ConfigureScreen} />
           <Stack.Screen name="合集收藏" component={ShortVodCollectionScreen} />
@@ -593,7 +587,7 @@ export default () => {
           <Stack.Screen
             name="电视台列表"
             component={LiveStationsScreen}
-            initialParams={{ liveStationItemList: undefined }}
+            initialParams={{liveStationItemList: undefined}}
           />
           <Stack.Screen
             name="电视台播放"
@@ -602,38 +596,38 @@ export default () => {
               liveStationItemList: undefined,
               liveStationItem: undefined,
             }}
-            options={{ orientation: "all" }}
+            options={{orientation: 'all'}}
           />
           <Stack.Screen
             name="OTP"
             component={OtpScreen}
-            options={{ orientation: "portrait" }}
+            options={{orientation: 'portrait'}}
           />
           <Stack.Screen
             name="SetUsername"
             component={SetUsername}
-            options={{ orientation: "portrait" }}
+            options={{orientation: 'portrait'}}
           />
 
           <Stack.Screen
             name="Profile"
             component={ProfileScreen}
-            options={{ orientation: "portrait" }}
+            options={{orientation: 'portrait'}}
           />
 
           <Stack.Screen
             name="付费VIP"
             component={useCallback(withIAPContext(VIP), [])}
-            options={{ orientation: "portrait" }}
+            options={{orientation: 'portrait'}}
           />
 
           <Stack.Screen
             name="VIP明细"
             component={VipDetails}
-            options={{ orientation: "portrait" }}
+            options={{orientation: 'portrait'}}
           />
         </Stack.Navigator>
-        {settingsReducer.appOrientation === "PORTRAIT" && ( // only show if portrait
+        {settingsReducer.appOrientation === 'PORTRAIT' && ( // only show if portrait
           <>
             <SigninupBottomSheet
               isVisible={isShowLogin}
@@ -655,12 +649,11 @@ export default () => {
       <Dialog
         isVisible={isDialogOpen}
         overlayStyle={{
-          backgroundColor: "rgba(34, 34, 34, 1)",
+          backgroundColor: 'rgba(34, 34, 34, 1)',
           ...styles.overlay,
         }}
-        backdropStyle={{ backgroundColor: "rgba(0, 0, 0, 0.8)" }}
-        onBackdropPress={() => setIsDialogOpen(false)}
-      >
+        backdropStyle={{backgroundColor: 'rgba(0, 0, 0, 0.8)'}}
+        onBackdropPress={() => setIsDialogOpen(false)}>
         <FastImage
           useFastImage={true}
           key={gifKey}
@@ -668,23 +661,22 @@ export default () => {
             height: 80,
             width: 80,
             marginRight: 5,
-            position: "relative",
+            position: 'relative',
             top: 1,
-            justifyContent: "center",
-            alignItems: "center",
+            justifyContent: 'center',
+            alignItems: 'center',
           }}
-          resizeMode={"contain"}
-          source={require("@static/images/profile/login-success.gif")}
+          resizeMode={'contain'}
+          source={require('@static/images/profile/login-success.gif')}
         />
 
         <Text
           style={{
-            color: "#fff",
-            fontFamily: "PingFang SC",
+            color: '#fff',
+            fontFamily: 'PingFang SC',
             fontSize: 20,
-            fontWeight: "600",
-          }}
-        >
+            fontWeight: '600',
+          }}>
           {screenState.screenAction}
         </Text>
       </Dialog>
@@ -697,22 +689,22 @@ const styles = StyleSheet.create({
     paddingTop: 0,
     paddingBottom: 12,
     height: 65,
-    position: "relative",
+    position: 'relative',
     // bottom: 25,
   },
   navStyle: {
     // flex: 0,
     // flexGrow: 0
     flex: 0,
-    alignContent: "center",
-    alignItems: "center",
-    alignSelf: "center",
+    alignContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
   },
   overlay: {
     borderRadius: 14,
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
     padding: 20,
   },
 });

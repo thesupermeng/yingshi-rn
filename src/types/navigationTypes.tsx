@@ -1,8 +1,15 @@
-import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import type { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { VodType, VodTopicType, LiveTVStationItem, CommentsType, BannerAdType } from "./ajaxTypes";
-import { User } from "@models/user";
+import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import type {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {
+  VodType,
+  VodTopicType,
+  LiveTVStationItem,
+  CommentsType,
+  BannerAdType,
+} from './ajaxTypes';
+import {User} from '@models/user';
+import {PhotoIdentifier} from '@react-native-camera-roll/camera-roll';
 
 // https://reactnavigation.org/docs/typescript/
 export type HomeTabParamList = {
@@ -45,6 +52,10 @@ export type RootStackParamList = {
   我的收藏: undefined;
   合集收藏: undefined;
   播放历史: undefined;
+  本地视频: undefined;
+  本机播放: {
+    videoInfo: PhotoIdentifier;
+  };
   反馈: undefined;
   邀请: undefined;
   // 邀请详情: undefined;
@@ -53,19 +64,19 @@ export type RootStackParamList = {
   关于我们: undefined;
   分享App: undefined;
   播放: {
-    vod_id: VodType["vod_id"];
-    player_mode?: "adult" | 'normal';
+    vod_id: VodType['vod_id'];
+    player_mode?: 'adult' | 'normal';
   };
   全部评论: {
-    vod_id: VodType["vod_id"];
-    vod_name: VodType["vod_name"];
+    vod_id: VodType['vod_id'];
+    vod_name: VodType['vod_name'];
     commentItems: CommentsType[];
   };
   搜索: {
     initial: string;
   };
   PlaylistDetail: {
-    topic_id: VodTopicType["topic_id"];
+    topic_id: VodTopicType['topic_id'];
   };
   隐私政策: undefined;
   用户协议: undefined;
@@ -87,8 +98,8 @@ export type RootStackParamList = {
   体育详情: {
     matchId?: number;
     streamerId?: number;
-    sportType?: "足球" | "篮球";
-    screen?: string,
+    sportType?: '足球' | '篮球';
+    screen?: string;
   };
   合集播放: {};
   OTP: {
@@ -96,7 +107,7 @@ export type RootStackParamList = {
     phone?: string;
     action?: string;
     referralCode?: string;
-    countryId?: number,
+    countryId?: number;
     // deviceId?: string;
   };
   SetUsername: undefined;
@@ -114,30 +125,26 @@ export type RootStackParamList = {
   };
   我的下载: undefined;
   下载详情: {
-    vodId: number
+    vodId: number;
   };
-  续费服务: undefined,
+  续费服务: undefined;
 };
 
-export type RootStackScreenProps<
-  T extends keyof RootStackParamList
-> = NativeStackScreenProps<RootStackParamList, T>;
+export type RootStackScreenProps<T extends keyof RootStackParamList> =
+  NativeStackScreenProps<RootStackParamList, T>;
 
-export type HomeTabScreenProps<
-  T extends keyof HomeTabParamList
-> = BottomTabScreenProps<HomeTabParamList, T>;
-export type ProfileTabScreenProps<
-  T extends keyof ProfileTabParamList
-> = BottomTabScreenProps<ProfileTabParamList, T>;
-export type PlaylistTabScreenProps<
-  T extends keyof PlaylistTabParamList
-> = BottomTabScreenProps<PlaylistTabParamList, T>;
+export type HomeTabScreenProps<T extends keyof HomeTabParamList> =
+  BottomTabScreenProps<HomeTabParamList, T>;
+export type ProfileTabScreenProps<T extends keyof ProfileTabParamList> =
+  BottomTabScreenProps<ProfileTabParamList, T>;
+export type PlaylistTabScreenProps<T extends keyof PlaylistTabParamList> =
+  BottomTabScreenProps<PlaylistTabParamList, T>;
 export type WatchAnytimeTabScreenProps<
-  T extends keyof WatchAnytimeTabParamList
+  T extends keyof WatchAnytimeTabParamList,
 > = BottomTabScreenProps<WatchAnytimeTabParamList, T>;
 
 declare global {
   namespace ReactNavigation {
-    interface RootParamList extends RootStackParamList { }
+    interface RootParamList extends RootStackParamList {}
   }
 }

@@ -26,7 +26,7 @@ export const onBootApp =
       const countdownMilisecond = VIP_PROMOTION_COUNTDOWN_MINUTE * 60 * 1000; // 60 second & 1000 milisecond
 
       const interval = setInterval(() => {
-        console.log('COUNT INTERVAL');
+        // console.log('COUNT INTERVAL');
         const currentPurchase =
           getState().backgroundReducer.vipPromotionPurchaseNum;
         const minuteRemain = Math.floor(
