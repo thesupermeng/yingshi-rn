@@ -1920,8 +1920,7 @@ const LoginCard = ({
    const { colors } = useTheme();
    const dispatch = useAppDispatch();
    const navigation = useNavigation();
-   console.log('loginValue: ', loginValue)
-   console.log('loginValueErrMsg: ', loginValueErrMsg)
+
    return (
       <View style={styles.card}>
          <Text style={styles.title}>「登录/注册」解锁更多精彩内容！</Text>

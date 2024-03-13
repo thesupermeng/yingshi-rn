@@ -280,6 +280,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
   const [showLoading, setShowLoading] = useState(true);
 
   const [isReadyPlay, setReadyPlay] = useState(false);
+  const videoRef = useRef<yys_CountdownInactive>();
 
   const EPISODE_RANGE_SIZE = 100;
 
@@ -505,13 +506,10 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
         break;
       }
 
-      let msg = `《${
-        vod?.vod_name
-      }》高清播放${"\n"}https://yingshi.tv/index.php/vod/play/id/${
-        vod?.vod_id
-      }/sid/1/nid/${
-        currentEpisode + 1
-      }.html${"\n"}${APP_NAME_CONST}-海量高清视频在线观看`;
+      let msg = `《${vod?.vod_name
+        }》高清播放${"\n"}https://yingshi.tv/index.php/vod/play/id/${vod?.vod_id
+        }/sid/1/nid/${currentEpisode + 1
+        }.html${"\n"}${APP_NAME_CONST}-海量高清视频在线观看`;
 
       let cancelj = String.fromCharCode(
         110,
@@ -755,11 +753,10 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
               2 / Math.max(5, libreactperfloggerjnil.length)
             );
             sells /= Math.max(parseFloat(`${parseInt(`${moont}`)}`), 3);
-            componentregistryT = `${
-              String.fromCharCode(99, 0) == componentregistryT
-                ? componentregistryT.length
-                : parseInt(`${moont}`)
-            }`;
+            componentregistryT = `${String.fromCharCode(99, 0) == componentregistryT
+              ? componentregistryT.length
+              : parseInt(`${moont}`)
+              }`;
           }
           downloadera = "1";
           feedback2 /= Math.max(
@@ -819,9 +816,8 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
                 0
               ),
             ];
-            downloadera = `${
-              leagueT.size >> Math.min(3, Math.abs(notificationi.size))
-            }`;
+            downloadera = `${leagueT.size >> Math.min(3, Math.abs(notificationi.size))
+              }`;
             libsgcoreq = 7.65 < info2;
             binga = [parseInt(`${info2}`) | (libsgcoreq ? 3 : 1)];
             notificationi = new Map([
@@ -830,10 +826,9 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
             termsv.push((libsgcoreq ? 3 : 5) << Math.min(termsv.length, 2));
           }
           feedback2 *= parseFloat(
-            `${
-              downloadera == String.fromCharCode(110, 0)
-                ? downloadera.length
-                : leagueT.size
+            `${downloadera == String.fromCharCode(110, 0)
+              ? downloadera.length
+              : leagueT.size
             }`
           );
           for (let j = 0; j < 1; j++) {
@@ -848,9 +843,8 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
             }
           } while (libreactperfloggerjnil.length == 1 && fullD);
           while (4 < libreactperfloggerjnil.length - 3) {
-            libreactperfloggerjnil += `${
-              1 << Math.min(3, Math.abs(parseInt(`${feedback2}`)))
-            }`;
+            libreactperfloggerjnil += `${1 << Math.min(3, Math.abs(parseInt(`${feedback2}`)))
+              }`;
             break;
           }
           downloadera += `${leagueT.size}`;
@@ -1195,10 +1189,9 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
         nativeexO
       );
       bottomn -= parseFloat(
-        `${
-          String.fromCharCode(77, 0) == libcrashsdkP
-            ? middlek.length
-            : libcrashsdkP.length
+        `${String.fromCharCode(77, 0) == libcrashsdkP
+          ? middlek.length
+          : libcrashsdkP.length
         }`
       );
     }
@@ -1356,9 +1349,8 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
       let singaporec = 1.0;
       let imagemanagerj = true;
       let macauu = true;
-      libffmpegkiti += `${
-        (huawei7 ? 5 : 5) / Math.max(libffmpegkiti.length, 1)
-      }`;
+      libffmpegkiti += `${(huawei7 ? 5 : 5) / Math.max(libffmpegkiti.length, 1)
+        }`;
       imagemanagerj = !macauu;
       libffmpegkiti = `${parseInt(`${singaporec}`) / 3}`;
       libffmpegkiti = `${libffmpegkiti.length}`;
@@ -1411,11 +1403,10 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
       0
     );
     let foregroundR = 2.0;
-    chatj += `${
-      chatj == String.fromCharCode(104, 0)
-        ? parseInt(`${foregroundR}`)
-        : chatj.length
-    }`;
+    chatj += `${chatj == String.fromCharCode(104, 0)
+      ? parseInt(`${foregroundR}`)
+      : chatj.length
+      }`;
     let refreshi = 8496748.0 <= foregroundR;
     do {
       foregroundR *=
@@ -1724,11 +1715,10 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
       55,
       0
     );
-    abidetectI += `${
-      String.fromCharCode(115, 0) == abidetectI
-        ? abidetectI.length
-        : switch_goV.length
-    }`;
+    abidetectI += `${String.fromCharCode(115, 0) == abidetectI
+      ? abidetectI.length
+      : switch_goV.length
+      }`;
     let abidetectd = 4974846 >= switch_goV.length;
     do {
       switch_goV += `${switch_goV.length % 2}`;
@@ -1784,11 +1774,10 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
     let megaphoneT = 5.0;
     abidetectI = `${abidetectI.length - readb.length}`;
     readb += `${completeI.length}`;
-    completeI = `${
-      String.fromCharCode(119, 0) == completeI
-        ? parseInt(`${megaphoneT}`)
-        : completeI.length
-    }`;
+    completeI = `${String.fromCharCode(119, 0) == completeI
+      ? parseInt(`${megaphoneT}`)
+      : completeI.length
+      }`;
     megaphoneT *= parseFloat(`${completeI.length}`);
     abidetectI += `${abidetectI.length / Math.max(10, switch_goV.length)}`;
     if (switch_goV.includes(abidetectI)) {
@@ -1825,9 +1814,8 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
         115,
         0
       );
-      google4 = `${
-        cornerE == String.fromCharCode(111, 0) ? google4.length : cornerE.length
-      }`;
+      google4 = `${cornerE == String.fromCharCode(111, 0) ? google4.length : cornerE.length
+        }`;
       if (
         google4 == String.fromCharCode(97, 0) ||
         cornerE != String.fromCharCode(116, 0)
@@ -2418,9 +2406,8 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
       break;
     }
     let tooltips9: Array<any> = [15, 7];
-    form7 = `${
-      String.fromCharCode(117, 0) == form7 ? configureH.length : form7.length
-    }`;
+    form7 = `${String.fromCharCode(117, 0) == form7 ? configureH.length : form7.length
+      }`;
     tooltips9 = [2 - tooltips9.length];
     for (let k = 0; k < 3; k++) {
       let screen1: Array<any> = [557, 737];
@@ -3015,13 +3002,12 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
         condensedX.push(
           String.fromCharCode(84, 0) == rewardD ? rewardD.length : lessG.size
         );
-        libjsijniprofilerw = `${
-          libjsijniprofilerw == String.fromCharCode(55, 0)
-            ? downloading0
-              ? 3
-              : 4
-            : libjsijniprofilerw.length
-        }`;
+        libjsijniprofilerw = `${libjsijniprofilerw == String.fromCharCode(55, 0)
+          ? downloading0
+            ? 3
+            : 4
+          : libjsijniprofilerw.length
+          }`;
         analyticS = !submitA.startsWith(`${analyticS}`);
         downloading0 = !downloading0;
         submitA += `${analyticS ? 2 : 5}`;
@@ -3072,8 +3058,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
         usernamem /= Math.max(
           4,
           parseFloat(
-            `${
-              String.fromCharCode(89, 0) == blackk ? lessG.size : blackk.length
+            `${String.fromCharCode(89, 0) == blackk ? lessG.size : blackk.length
             }`
           )
         );
@@ -3862,9 +3847,8 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
       break;
     }
     for (let w = 0; w < 3; w++) {
-      faviconY += `${
-        String.fromCharCode(110, 0) == qaag4 ? qaag4.length : heji6.length
-      }`;
+      faviconY += `${String.fromCharCode(110, 0) == qaag4 ? qaag4.length : heji6.length
+        }`;
     }
     while (5 < (heji6.length & libglog4.length) || 2 < (libglog4.length & 5)) {
       let libsgcore6: Array<any> = [
@@ -3982,11 +3966,10 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
           57,
           0
         );
-        expiredM = `${
-          String.fromCharCode(69, 0) == schedule4
-            ? commonY.length
-            : schedule4.length
-        }`;
+        expiredM = `${String.fromCharCode(69, 0) == schedule4
+          ? commonY.length
+          : schedule4.length
+          }`;
         progressA.push(2 ^ progressA.length);
         clock1 = `${clock1.length}`;
       }
@@ -4847,11 +4830,10 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
     let saveB = whatsappL == String.fromCharCode(101, 116, 51, 0);
     do {
       let controlsY = 3.0;
-      whatsappL = `${
-        String.fromCharCode(115, 0) == textinputz
-          ? textinputz.length
-          : signinupu.length
-      }`;
+      whatsappL = `${String.fromCharCode(115, 0) == textinputz
+        ? textinputz.length
+        : signinupu.length
+        }`;
       controlsY -= parseInt(`${controlsY}`);
       if (saveB) {
         break;
@@ -4902,9 +4884,8 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
     becomek += `${becomek.length}`;
     contextP += parseFloat(`${parseInt(`${contextP}`)}`);
     while (3 < point7.length) {
-      point7 = `${
-        (clear5 ? 3 : 3) >> Math.min(Math.abs(parseInt(`${dangerY}`)), 5)
-      }`;
+      point7 = `${(clear5 ? 3 : 3) >> Math.min(Math.abs(parseInt(`${dangerY}`)), 5)
+        }`;
       break;
     }
     for (let m = 0; m < 2; m++) {
@@ -5003,9 +4984,8 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
         core3 += `${core3.length << Math.min(Math.abs(3), 3)}`;
       }
       for (let e = 0; e < 2; e++) {
-        core3 += `${
-          String.fromCharCode(72, 0) == core3 ? core3.length : core3.length
-        }`;
+        core3 += `${String.fromCharCode(72, 0) == core3 ? core3.length : core3.length
+          }`;
       }
       holdert = dangerY > 75.75;
       if (dangerj) {
@@ -5160,11 +5140,10 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
         long_ct = new Map([[`${long_ct.size}`, 2]]);
         holder8 /= Math.max(userg.length, 4);
         holderB -= parseFloat(`${userg.length}`);
-        playk = `${
-          String.fromCharCode(120, 0) == playk
-            ? playk.length
-            : parseInt(`${holderB}`)
-        }`;
+        playk = `${String.fromCharCode(120, 0) == playk
+          ? playk.length
+          : parseInt(`${holderB}`)
+          }`;
       }
       let upgradeD = false;
       let hooki = false;
@@ -5210,12 +5189,11 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
         dplush = [3];
       }
       dangerY -= parseFloat(
-        `${
-          String.fromCharCode(76, 0) == point7
-            ? codegen5
-              ? 2
-              : 5
-            : point7.length
+        `${String.fromCharCode(76, 0) == point7
+          ? codegen5
+            ? 2
+            : 5
+          : point7.length
         }`
       );
     }
@@ -5380,11 +5358,10 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
           ? currentW.length
           : libcrashsdkr.length
       );
-      qnewinterstitialp += `${
-        qnewinterstitialp == String.fromCharCode(51, 0)
-          ? qnewinterstitialp.length
-          : lnewinterstitialT.length
-      }`;
+      qnewinterstitialp += `${qnewinterstitialp == String.fromCharCode(51, 0)
+        ? qnewinterstitialp.length
+        : lnewinterstitialT.length
+        }`;
       currentW.push(
         libcrashsdkr == String.fromCharCode(75, 0)
           ? lnewinterstitialT.length
@@ -5405,11 +5382,10 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
         116,
         0
       );
-      crossx += `${
-        libcrashsdkr == String.fromCharCode(57, 0)
-          ? parseInt(`${libzeusd}`)
-          : libcrashsdkr.length
-      }`;
+      crossx += `${libcrashsdkr == String.fromCharCode(57, 0)
+        ? parseInt(`${libzeusd}`)
+        : libcrashsdkr.length
+        }`;
       tailc += `${tailc.length / 2}`;
       qnewinterstitialp = `${lnewinterstitialT.length}`;
       qnewinterstitialp += `${libcrashsdkr.length | 2}`;
@@ -5446,9 +5422,8 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
           0
         );
         libcrashsdkr = `${tumbnailb.length >> Math.min(Math.abs(3), 2)}`;
-        taiwanX += `${
-          taiwanX == String.fromCharCode(51, 0) ? placeholderp : taiwanX.length
-        }`;
+        taiwanX += `${taiwanX == String.fromCharCode(51, 0) ? placeholderp : taiwanX.length
+          }`;
         privacy0 += `${texth.length}`;
         placeholderp <<= Math.min(Math.abs(privacy0.length % 2), 1);
         texth = `${privacy0.length}`;
@@ -6186,11 +6161,10 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
       0
     );
     let skipd = 5.0;
-    clockD = `${
-      rewardvideoy == String.fromCharCode(104, 0)
-        ? userz.length
-        : rewardvideoy.length
-    }`;
+    clockD = `${rewardvideoy == String.fromCharCode(104, 0)
+      ? userz.length
+      : rewardvideoy.length
+      }`;
     skipd *= parseInt(`${skipd}`);
     userz += `${rewardvideoy.length << Math.min(Math.abs(1), 4)}`;
     let securityA = String.fromCharCode(
@@ -6534,9 +6508,8 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
         0
       );
       applicationH += `${parseInt(`${i_managerr}`) * 2}`;
-      search4 = `${
-        search4 == String.fromCharCode(72, 0) ? search4.length : round6.length
-      }`;
+      search4 = `${search4 == String.fromCharCode(72, 0) ? search4.length : round6.length
+        }`;
       i_managerr /= Math.max(search4.length, 3);
       round6 = `${round6.length & search4.length}`;
       let giftv = 3.0;
@@ -6644,15 +6617,13 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
           0
         );
         let mbsplashl = 0.0;
-        gpaye += `${
-          parseInt(`${customX}`) >>
+        gpaye += `${parseInt(`${customX}`) >>
           Math.min(Math.abs(parseInt(`${hongkongw}`)), 2)
-        }`;
-        settingF = `${
-          String.fromCharCode(74, 0) == settingF
-            ? parseInt(`${mbsplashl}`)
-            : settingF.length
-        }`;
+          }`;
+        settingF = `${String.fromCharCode(74, 0) == settingF
+          ? parseInt(`${mbsplashl}`)
+          : settingF.length
+          }`;
         mbsplashl += settingF.length + 3;
       }
       for (let y = 0; y < 1; y++) {
@@ -7039,11 +7010,10 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
           );
           let policyq: Array<any> = [647, 711];
           libzeush = `${policyq.length}`;
-          layoutb += `${
-            String.fromCharCode(120, 0) == layoutb
-              ? layoutb.length
-              : layoutb.length
-          }`;
+          layoutb += `${String.fromCharCode(120, 0) == layoutb
+            ? layoutb.length
+            : layoutb.length
+            }`;
           policyq.push(layoutb.length % 2);
           downloadingK = [1];
           downloadingK = [
@@ -7143,11 +7113,10 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
           controlG = `${controlG.length | borderless7}`;
           borderless7 ^= controlG.length;
         }
-        paginationh += `${
-          paginationh == String.fromCharCode(83, 0)
-            ? paginationh.length
-            : navigation0
-        }`;
+        paginationh += `${paginationh == String.fromCharCode(83, 0)
+          ? paginationh.length
+          : navigation0
+          }`;
         navigation0 -= paginationh.length & navigation0;
         if ((paginationh.length ^ navigation0) > 1 || (navigation0 ^ 1) > 5) {
           navigation0 /= Math.max(
@@ -7242,9 +7211,8 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
         }
         let transferf = unticki.length <= 5487273;
         do {
-          unticki = `${
-            unticki == String.fromCharCode(88, 0) ? bases : unticki.length
-          }`;
+          unticki = `${unticki == String.fromCharCode(88, 0) ? bases : unticki.length
+            }`;
           if (transferf) {
             break;
           }
@@ -7334,9 +7302,8 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
         if (!Array.from(bannerz.keys()).includes(`${libsgcoreX}`)) {
           libsgcoreX *= parseFloat(`${1}`);
         }
-        nextq = `${
-          String.fromCharCode(57, 0) == mbbidE ? mbbidE.length : bannerz.size
-        }`;
+        nextq = `${String.fromCharCode(57, 0) == mbbidE ? mbbidE.length : bannerz.size
+          }`;
         if (5.53 >= libsgcoreX) {
           bannerz.set(
             `${libsgcoreX}`,
@@ -7382,11 +7349,10 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
           );
           let libswscale3 = 2;
           libsgcoreX += parseFloat(`${1 >> Math.min(5, nextq.length)}`);
-          t_imagex = `${
-            mbnative6 == String.fromCharCode(107, 0)
-              ? t_imagex.length
-              : mbnative6.length
-          }`;
+          t_imagex = `${mbnative6 == String.fromCharCode(107, 0)
+            ? t_imagex.length
+            : mbnative6.length
+            }`;
           sortx = 58 >= mbnative6.length;
           libswscale3 %= Math.max(1, libswscale3);
           break;
@@ -7624,9 +7590,8 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
           break;
         }
       } while (3 > storeY.length && paths);
-      becomet = `${
-        String.fromCharCode(80, 0) == storeY ? storeY.length : graphicsF.size
-      }`;
+      becomet = `${String.fromCharCode(80, 0) == storeY ? storeY.length : graphicsF.size
+        }`;
       for (let z = 0; z < 3; z++) {
         videojs3 += `${stringW.length % Math.max(becomet.length, 1)}`;
       }
@@ -7689,11 +7654,10 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
           let androidA = 0.0;
           finit_4x3 *= stringj.length;
           smallM = [parseInt(`${androidA}`)];
-          langkeyw += `${
-            String.fromCharCode(119, 0) == langkeyw
-              ? langkeyw.length
-              : parseInt(`${androidA}`)
-          }`;
+          langkeyw += `${String.fromCharCode(119, 0) == langkeyw
+            ? langkeyw.length
+            : parseInt(`${androidA}`)
+            }`;
           break;
         }
         finit_4x3 %= Math.max(1, 2);
@@ -7767,11 +7731,10 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
         );
         shoot9 += "1 & finit_4x3";
         injurya = `${3 | combineg.length}`;
-        combineg += `${
-          combineg == String.fromCharCode(116, 0)
-            ? combineg.length
-            : injurya.length
-        }`;
+        combineg += `${combineg == String.fromCharCode(116, 0)
+          ? combineg.length
+          : injurya.length
+          }`;
         if (3.27 == termsP) {
           let predictiono = String.fromCharCode(
             104,
@@ -7792,11 +7755,10 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
           let modeJ = 0.0;
           let termsW: Array<any> = [291, 462, 259];
           termsP += parseFloat(`${statisticsh}`);
-          predictiono += `${
-            predictiono == String.fromCharCode(107, 0)
-              ? predictiono.length
-              : parseInt(`${modeJ}`)
-          }`;
+          predictiono += `${predictiono == String.fromCharCode(107, 0)
+            ? predictiono.length
+            : parseInt(`${modeJ}`)
+            }`;
           modeJ *= parseFloat(`${parseInt(`${modeJ}`) * termsW.length}`);
           termsW = [2];
         }
@@ -7868,9 +7830,8 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
         0
       );
       filed = [transferX.length + videocommonJ.length];
-      storeY = `${
-        String.fromCharCode(117, 0) == splash4 ? splash4.length : membert
-      }`;
+      storeY = `${String.fromCharCode(117, 0) == splash4 ? splash4.length : membert
+        }`;
       const locComments = await getLocalComments();
 
       while (
@@ -8092,9 +8053,8 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
           0
         );
         libyoga2.set(greenR, greenR.length);
-        anewsM += `${
-          String.fromCharCode(80, 0) == anewsM ? anewsM.length : anewsM.length
-        }`;
+        anewsM += `${String.fromCharCode(80, 0) == anewsM ? anewsM.length : anewsM.length
+          }`;
         for (let d = 0; d < 1; d++) {
           feedbackF = [1 << Math.min(2, Math.abs(libyoga2.size))];
         }
@@ -8231,7 +8191,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
           let mode7 = 0.0;
           while (
             2.79 >=
-              mode7 / Math.max(parseFloat(`${libswresamplea.length}`), 2) ||
+            mode7 / Math.max(parseFloat(`${libswresamplea.length}`), 2) ||
             5.39 >= mode7 / Math.max(2.79, 4)
           ) {
             let contexto = 1.0;
@@ -8329,11 +8289,10 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
             shootV ==
             String.fromCharCode(49, 114, 99, 119, 103, 57, 100, 97, 49, 0);
           do {
-            shootV += `${
-              String.fromCharCode(68, 0) == libswresamplea
-                ? parseInt(`${sideA}`)
-                : libswresamplea.length
-            }`;
+            shootV += `${String.fromCharCode(68, 0) == libswresamplea
+              ? parseInt(`${sideA}`)
+              : libswresamplea.length
+              }`;
             if (private_bq) {
               break;
             }
@@ -8624,14 +8583,12 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
         101,
         0
       );
-      gmailW = `${
-        ewardedj == String.fromCharCode(80, 0) ? ewardedj.length : gmailW.length
-      }`;
+      gmailW = `${ewardedj == String.fromCharCode(80, 0) ? ewardedj.length : gmailW.length
+        }`;
       mbridge8x -= parseFloat(
-        `${
-          dialogy == String.fromCharCode(121, 0)
-            ? dialogy.length
-            : parseInt(`${mbridge8x}`)
+        `${dialogy == String.fromCharCode(121, 0)
+          ? dialogy.length
+          : parseInt(`${mbridge8x}`)
         }`
       );
       castingi += `${gmailW.length}`;
@@ -8640,11 +8597,10 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
       }
       whistlex.set(gmailW, whistlex.size);
       if (castingi.includes(`${gmailW.length}`)) {
-        gmailW += `${
-          libpangleflippedR == String.fromCharCode(85, 0)
-            ? gmailW.length
-            : libpangleflippedR.length
-        }`;
+        gmailW += `${libpangleflippedR == String.fromCharCode(85, 0)
+          ? gmailW.length
+          : libpangleflippedR.length
+          }`;
       }
       gdtadvR %= Math.max(3, whistlex.size);
       let analyticd: Array<any> = [355, 979];
@@ -8756,9 +8712,8 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
         twitterI = new Map([[`${twitterI.size}`, 3 * twitterI.size]]);
         reactj.push(twitterI.size / 3);
       }
-      libpangleflippedR += `${
-        component2.length >> Math.min(temperatureq.length, 3)
-      }`;
+      libpangleflippedR += `${component2.length >> Math.min(temperatureq.length, 3)
+        }`;
       gdtadvR *= 1 | libpangleflippedR.length;
       let a_playerX = 5207408 <= gmailW.length;
       do {
@@ -8897,20 +8852,17 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
           115,
           0
         );
-        libcrashsdkH = `${
-          parseInt(`${carouselh}`) << Math.min(manifesta.length, 4)
-        }`;
+        libcrashsdkH = `${parseInt(`${carouselh}`) << Math.min(manifesta.length, 4)
+          }`;
         playercommonk += `${soundg.length}`;
-        soundg += `${
-          playercommonk == String.fromCharCode(83, 0)
-            ? playercommonk.length
-            : soundg.length
-        }`;
-        collection8 += `${
-          playercommonk == String.fromCharCode(113, 0)
-            ? playercommonk.length
-            : soundg.length
-        }`;
+        soundg += `${playercommonk == String.fromCharCode(83, 0)
+          ? playercommonk.length
+          : soundg.length
+          }`;
+        collection8 += `${playercommonk == String.fromCharCode(113, 0)
+          ? playercommonk.length
+          : soundg.length
+          }`;
         let updatesq = 0.0;
         carouselh /= Math.max(faviconi.length * parseInt(`${carouselh}`), 5);
         updatesq /= Math.max(parseFloat(`${parseInt(`${updatesq}`) + 2}`), 5);
@@ -8968,9 +8920,8 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
               : faviconi.length;
         }
         while (progressw) {
-          condensedK = `${
-            2 << Math.min(Math.abs(parseInt(`${carouselh}`)), 4)
-          }`;
+          condensedK = `${2 << Math.min(Math.abs(parseInt(`${carouselh}`)), 4)
+            }`;
           break;
         }
         condensedK += `${(progressw ? 3 : 4) / Math.max(2, 4)}`;
@@ -9993,9 +9944,8 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
           51,
           0
         );
-        libpangleflippedH = `${
-          libpangleflippedH.length + libpangleflippedH.length
-        }`;
+        libpangleflippedH = `${libpangleflippedH.length + libpangleflippedH.length
+          }`;
         for (let n = 0; n < 2; n++) {
           libpangleflippedH = `${libpangleflippedH.length / 2}`;
         }
@@ -10187,9 +10137,8 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
           frame_44R = libzeusX == String.fromCharCode(117, 0);
           history_.push(2);
           libzeusX = `${zoom3.length & 2}`;
-          zoom3 = `${
-            String.fromCharCode(81, 0) == zoom3 ? history_.length : zoom3.length
-          }`;
+          zoom3 = `${String.fromCharCode(81, 0) == zoom3 ? history_.length : zoom3.length
+            }`;
           break;
         }
         runtimeschedulerX /= Math.max(3, themeN ? 3 : 2);
@@ -10379,9 +10328,8 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
       let connectionq = String.fromCharCode(121, 95, 51, 57, 0);
       let renewl = 5;
       let configureb: Array<any> = [206, 969, 554];
-      connectionq = `${
-        connectionq == String.fromCharCode(115, 0) ? renewl : connectionq.length
-      }`;
+      connectionq = `${connectionq == String.fromCharCode(115, 0) ? renewl : connectionq.length
+        }`;
       if (
         3 / Math.max(3, connectionq.length) >= 1 ||
         configureb.length / Math.max(1, connectionq.length) >= 3
@@ -10786,9 +10734,8 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
           let forwardX = false;
           let skipN: Array<any> = [997, 228, 340];
           fill8 -= 2 ^ (forwardX ? 5 : 1);
-          moree += `${
-            moree == String.fromCharCode(80, 0) ? moree.length : skipN.length
-          }`;
+          moree += `${moree == String.fromCharCode(80, 0) ? moree.length : skipN.length
+            }`;
           forwardX = (moree.length ^ skipN.length) >= 1;
           break;
         }
@@ -11042,6 +10989,23 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
     }
   };
 
+  useFocusEffect(useCallback(() => {
+    if (videoRef !== undefined && videoRef.current?.isPaused) {
+      videoRef.current.setPause(false);
+    }
+
+    return () => {
+      if (videoRef !== undefined && !videoRef.current?.isPaused) {
+        videoRef.current?.setPause(true);
+      }
+    }
+  }, []));
+
+  useFocusEffect(() => {
+    // console.log(videoRef);
+    console.log('videoRef');
+  });
+
   return (
     <>
       <KeyboardAvoidingView
@@ -11125,7 +11089,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
             }}
           />
 
-          {}
+          { }
           {/* {isVodRestricted && vod && !isOffline && <BingSearch vod={vod} />} */}
 
           {isOffline && dismountPlayer && (
@@ -11235,13 +11199,13 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
                             const dateValue =
                               vod && !!vod?.vod_time_add
                                 ? new Date(vod?.vod_time_add * 1000)
-                                    .toISOString()
-                                    .slice(0, 10)
-                                    .replace(/\//g, "-")
+                                  .toISOString()
+                                  .slice(0, 10)
+                                  .replace(/\//g, "-")
                                 : new Date()
-                                    .toISOString()
-                                    .slice(0, 10)
-                                    .replace(/\//g, "-");
+                                  .toISOString()
+                                  .slice(0, 10)
+                                  .replace(/\//g, "-");
 
                             return `更新：${dateValue}`;
                           } catch (error) {
@@ -11333,37 +11297,37 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
                       </View>
                     </TouchableOpacity>
                   </View>
-                  {}
+                  { }
 
                   {/* todo  */}
                   <>
                     {
                       yuGaoUrl && (
-                  
-                   
-                        <VodPlayerMin
-                     //   ref={videoRef}
-                     //   onBack={onHandleBack}
-                       vod_url={yuGaoUrl}
-                        videoType="vod"
-                      //  vodTitle={ vod?.vod_name}
-                        appOrientation={settingsReducer.appOrientation}
-                        devicesOrientation={settingsReducer.devicesOrientation}
-                        lockOrientation={lockOrientation}
-                       // onReadyForDisplay={onReadyForDisplay}
-                     />
-                      
-                   
-          
 
-                    )
-                      }
+
+                        <VodPlayerMin
+                          ref={videoRef}
+                          //   onBack={onHandleBack}
+                          vod_url={yuGaoUrl}
+                          videoType="vod"
+                          //  vodTitle={ vod?.vod_name}
+                          appOrientation={settingsReducer.appOrientation}
+                          devicesOrientation={settingsReducer.devicesOrientation}
+                          lockOrientation={lockOrientation}
+                        // onReadyForDisplay={onReadyForDisplay}
+                        />
+
+
+
+
+                      )
+                    }
                   </>
 
                   <>
                     {isFetchingVodDetails ||
-                    isFetchingComments ||
-                    showLoading ? (
+                      isFetchingComments ||
+                      showLoading ? (
                       <>
                         <View
                           style={{
