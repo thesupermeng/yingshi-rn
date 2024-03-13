@@ -130,14 +130,14 @@ export const UploadVideo = ({
             }}>
                 点击上传视频
             </Text>
-            <Text style={{
+            {/* <Text style={{
                 ...textVariants.header,
                 marginBottom: 20,
                 textAlign: 'center',
                 width: '70%',
             }}>
                 暂无视频，您可以上传本地视频至随心看
-            </Text>
+            </Text> */}
 
             <TouchableOpacity onPress={onUploadPress} style={{
                 backgroundColor: colors.primary,
