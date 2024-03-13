@@ -13,6 +13,7 @@ import 'react-native-gesture-handler';
 import {PERMISSIONS, RESULTS, request} from 'react-native-permissions';
 import {name as appName} from './app.json';
 import messaging from '@react-native-firebase/messaging';
+import notifee from '@notifee/react-native';
 
 AppRegistry.registerRunnable(appName, async initialProps => {
   CodePush.notifyAppReady();
@@ -24,6 +25,7 @@ AppRegistry.registerRunnable(appName, async initialProps => {
 
   messaging().setBackgroundMessageHandler(async remoteMessage => {
     console.log('Message handled in the background!', remoteMessage);
+    notifee.displayNotification(remoteMessage.data);
   });
 
   try {
