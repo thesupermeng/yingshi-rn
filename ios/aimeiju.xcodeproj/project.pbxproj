@@ -893,7 +893,7 @@
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires access to the camera.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "获取您的地区，为你推荐身边的更多优惠信息";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app does not require access to the microphone.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app requires access to the photo library.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "需要访问您的相册权限";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "是否允许正茄影视跟踪您在其他公司的App和网站上的活动";
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = armv7;
@@ -941,7 +941,7 @@
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires access to the camera.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "获取您的地区，为你推荐身边的更多优惠信息";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app does not require access to the microphone.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app requires access to the photo library.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "需要访问您的相册权限";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "是否允许正茄影视跟踪您在其他公司的App和网站上的活动";
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = armv7;
@@ -1039,6 +1039,8 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-Wl",
+					"-Wl",
+					"-ld_classic",
 				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
@@ -1113,6 +1115,8 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-Wl",
+					"-Wl",
+					"-ld_classic",
 				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
@@ -1188,6 +1192,8 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-Wl",
+					"-Wl",
+					"-ld_classic",
 				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
@@ -1217,7 +1223,7 @@
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires access to the camera.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "获取您的地区，为你推荐身边的更多优惠信息";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app does not require access to the microphone.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app requires access to the photo library.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "需要访问您的相册权限";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "是否允许正茄影视跟踪您在其他公司的App和网站上的活动";
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = armv7;
