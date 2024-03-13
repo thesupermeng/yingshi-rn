@@ -25,7 +25,14 @@ import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { downloadFirstNVid } from "../utils/minivodDownloader";
 import { fetchMiniVods } from "../api/miniVod";
 import { AppsApi, SplashApi, UserApi } from "@api";
-import { hideLoginAction, setIsHomeGuideShown, setIsMiniVodGuideShown, setIsPlayGuideShown, setIsPlayGuideShown2, setIsSportGuideShown } from "@redux/actions/screenAction";
+import {
+  hideLoginAction,
+  setIsHomeGuideShown,
+  setIsMiniVodGuideShown,
+  setIsPlayGuideShown,
+  setIsPlayGuideShown2,
+  setIsSportGuideShown,
+} from "@redux/actions/screenAction";
 import { useDispatch } from "react-redux";
 import NetInfo from "@react-native-community/netinfo";
 import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
@@ -44,7 +51,7 @@ export default () => {
   const [areaNavConfig, setAreaNavConfig] = useState(false);
   const [isSuper, setIsSuper] = useState(false);
 
-  const userState = useSelector<UserStateType>('userReducer');
+  const userState = useSelector<UserStateType>("userReducer");
 
   const dispatch = useDispatch();
 
@@ -61,8 +68,6 @@ export default () => {
       setIsConnected(state.isConnected);
       if (state.isConnected === false) setAreaNavConfig(true);
     });
-
- 
 
     if (userState.user !== null && userState.user !== undefined) {
       dispatch(addUserAuthState(new User(userState.user)));
@@ -86,9 +91,14 @@ export default () => {
   };
 
   const onAppInit = async () => {
-    await guestLoginInit();
-
-    await Promise.all([AppsApi.getLocalIpAddress(), AppsApi.getBottomNav()]);
+    try {
+      await guestLoginInit();
+      await Promise.all([AppsApi.getLocalIpAddress(), AppsApi.getBottomNav()]);
+    } catch (err) {
+      setTimeout(() => {
+        onAppInit;
+      }, 3000);
+    }
 
     const res = await Api.call(
       Url.getConfig,
@@ -102,16 +112,15 @@ export default () => {
     try {
       const locationResp = await AppsApi.postLocation();
 
-
-
       if (locationResp !== undefined && locationResp !== null) {
-        console.log('locationResp.is_appsflyer_production')
-        console.log(locationResp.is_appsflyer_production)
+        console.log("locationResp.is_appsflyer_production");
+        console.log(locationResp.is_appsflyer_production);
         if (locationResp.is_appsflyer_production != undefined) {
-
-          console.log('locationResp.is_appsflyer_production 11')
-          console.log(locationResp.is_appsflyer_production)
-          YSConfig.instance.setIsAppsflyerProduction(locationResp.is_appsflyer_production);
+          console.log("locationResp.is_appsflyer_production 11");
+          console.log(locationResp.is_appsflyer_production);
+          YSConfig.instance.setIsAppsflyerProduction(
+            locationResp.is_appsflyer_production
+          );
         }
 
         if (locationResp.status == undefined || locationResp.status == null) {
@@ -159,9 +168,7 @@ export default () => {
   };
 
   useEffect(() => {
-
-    if(SHOW_ZF_CONST == false)
-    {
+    if (SHOW_ZF_CONST == false) {
       dispatch(setIsSportGuideShown(true));
       dispatch(setIsPlayGuideShown(true));
       dispatch(setIsPlayGuideShown2(true));

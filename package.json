@@ -20,6 +20,7 @@
     "android-apk-fenxiang-release": "export APK_CHANNEL=FEN_XIANG&& npm run build-release",
     "android-apk-liulanqi-release": "export APK_CHANNEL=LIU_LAN_QI&& npm run build-release",
     "android-apk-googleplay-release": "export APK_CHANNEL=GOOGLE_PLAY&& npm run build-release",
+    "android-apk-googleplay-ysp-release": "export APK_CHANNEL=GOOGLEPLAY_YINGSHIPIN&& npm run build-release",
     "android-apk-oppo-release": "export APK_CHANNEL=OPPO_APP_MARKET&& npm run build-release",
     "android-apk-huawei-release": "export APK_CHANNEL=HUAWEI_APP_GALLERY_OVERSEAS&& npm run build-release",
     "android-apk-vivo-release": "export APK_CHANNEL=VIVO_APP_STORE&& npm run build-release",
@@ -46,6 +47,7 @@
   "dependencies": {
     "@ant-design/react-native": "^5.0.4",
     "@gorhom/bottom-sheet": "^4.4.7",
+    "@notifee/react-native": "^7.8.2",
     "@react-native-async-storage/async-storage": "^1.18.2",
     "@react-native-camera-roll/camera-roll": "^5.10.0",
     "@react-native-community/blur": "^4.3.2",
