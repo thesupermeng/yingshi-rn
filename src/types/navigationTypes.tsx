@@ -9,6 +9,7 @@ import {
   BannerAdType,
 } from './ajaxTypes';
 import {User} from '@models/user';
+import {PhotoIdentifier} from '@react-native-camera-roll/camera-roll';
 
 // https://reactnavigation.org/docs/typescript/
 export type HomeTabParamList = {
@@ -52,6 +53,9 @@ export type RootStackParamList = {
   合集收藏: undefined;
   播放历史: undefined;
   本地视频: undefined;
+  本机播放: {
+    videoInfo: PhotoIdentifier;
+  };
   反馈: undefined;
   邀请: undefined;
   // 邀请详情: undefined;

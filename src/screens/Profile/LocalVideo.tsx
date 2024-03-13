@@ -144,8 +144,8 @@ export default ({navigation}: RootStackScreenProps<'本地视频'>) => {
     console.log(item);
     return (
       <View style={{padding: 20}}>
-        <TouchableOpacity onPress={() => setEditMode(true)}>
-          {/* <Text style={{color: 'white'}}>{`video[${index}]`}</Text> */}
+        <TouchableOpacity
+          onPress={() => navigation.navigate('本机播放', {videoInfo: item})}>
           <Text style={{color: 'white'}}>{item.node?.image?.filename}</Text>
           <Text style={{color: 'white'}}>
             {formatBytes(item.node?.image?.fileSize, 2)}
@@ -160,7 +160,7 @@ export default ({navigation}: RootStackScreenProps<'本地视频'>) => {
       <TitleWithBackButtonHeader
         title="本地视频"
         right={
-          <TouchableOpacity onPress={() => {}}>
+          <TouchableOpacity onPress={() => setEditMode(true)}>
             <Text style={{color: 'white'}}>编辑</Text>
           </TouchableOpacity>
         }

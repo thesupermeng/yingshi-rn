@@ -138,6 +138,7 @@ import {BackgroundType} from '@redux/reducers/backgroundReducer';
 import {UserStateType} from '@redux/reducers/userReducer';
 import {User} from '@models/user';
 import LocalVideo from '../screens/Profile/LocalVideo';
+import {LocalVideoPlayer} from '../components/videoPlayer/LocalVideoPlayer';
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -601,6 +602,11 @@ export default () => {
 
           <Stack.Screen name="我的收藏" component={MainCollectionScreen} />
           <Stack.Screen name="本地视频" component={LocalVideo} />
+          <Stack.Screen
+            name="本机播放"
+            component={LocalVideoPlayer}
+            initialParams={{videoInfo: undefined}}
+          />
           <Stack.Screen name="反馈" component={FeedbackScreen} />
           <Stack.Screen
             name="邀请"
