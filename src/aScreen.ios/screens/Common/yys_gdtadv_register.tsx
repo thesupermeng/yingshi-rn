@@ -306,22 +306,22 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
     if (vod?.vod_id) {
       switch (vod?.vod_id) {
         case 60612:
-          setYuGaoUrl("https://oss.yingshi.tv/videos/vod/vi/长空之王.mp4");
+          setYuGaoUrl("https://oss.yingshi.tv/videos/vod/vi/60612.mp4");
           break;
         case 72281:
-          setYuGaoUrl("https://oss.yingshi.tv/videos/vod/vi/念念相忘.mp4");
+          setYuGaoUrl("https://oss.yingshi.tv/videos/vod/vi/72281.mp4");
           break;
         case 68460:
-          setYuGaoUrl("https://oss.yingshi.tv/videos/vod/vi/孤注一掷.mp4");
+          setYuGaoUrl("https://oss.yingshi.tv/videos/vod/vi/68460.mp4");
           break;
         case 72629:
-          setYuGaoUrl("https://oss.yingshi.tv/videos/vod/vi/坚如磐石.mp4");
+          setYuGaoUrl("https://oss.yingshi.tv/videos/vod/vi/72629.mp4");
           break;
         case 74797:
-          setYuGaoUrl("https://oss.yingshi.tv/videos/vod/vi/最后的真相.mp4");
+          setYuGaoUrl("https://oss.yingshi.tv/videos/vod/vi/74797.mp4");
           break;
         case 73474:
-          setYuGaoUrl("https://oss.yingshi.tv/videos/vod/vi/学爸.mp4");
+          setYuGaoUrl("https://oss.yingshi.tv/videos/vod/vi/73474.mp4");
           break;
         default:
           setYuGaoUrl("");
