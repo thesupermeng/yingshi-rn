@@ -1186,8 +1186,8 @@ const RecommendationHome = ({
     yys_Context.getHomePages(1000, isVip)
       .then((data) => {
         setResults(data.topic_list);
-        console.log("data yugaopian_list")
-        console.log(data.yugaopian_list)
+      //   console.log("data yugaopian_list")
+      //   console.log(data.yugaopian_list)
         setYuGaoList(data.yugaopian_list)
         return data;
       });
@@ -1403,7 +1403,7 @@ const RecommendationHome = ({
                       <VodListVertical vods={category.vod_list} />
                     </View>
                   ))}
-              </View>
+              </View
             </>
           }
           ListFooterComponent={
