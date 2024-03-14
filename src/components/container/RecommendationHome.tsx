@@ -520,7 +520,7 @@ const RecommendationHome = ({
 
   return (
     <View style={{width: width}}>
-      {data?.live_station_list && data?.live_station_list.length > 0 && (
+      {data && (
         <FlatList
           refreshControl={
             <RefreshControl
