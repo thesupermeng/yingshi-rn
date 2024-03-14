@@ -1039,6 +1039,6 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>CFBundleShortVersionString</key>
-	<string>1.7.8</string>
+	<string>1.8.3</string>
 </dict>
 </plist>
