@@ -351,7 +351,7 @@ export default function InviteCard({ userState = {} }: Props) {
             </View>
           </View>
 
-          {YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5 &&
+          {/* {YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5 &&
             <View style={{ ...styles.featureItem, width: screenState.showAdultTab ? "40%" : "30%" }}>
               <View style={styles.imgContainer}>
                 <FastImage
@@ -361,8 +361,8 @@ export default function InviteCard({ userState = {} }: Props) {
                 />
               </View>
               <Text style={styles.featureTitle}>体育频道</Text>
-            </View>}
-          {screenState.showAdultTab && (
+            </View>} */}
+          {/* {screenState.showAdultTab && (
             <View style={{ ...styles.featureItem, width: screenState.showAdultTab ? "40%" : "30%" }}>
               <View style={styles.imgContainer}>
                 <FastImage
@@ -377,7 +377,7 @@ export default function InviteCard({ userState = {} }: Props) {
               </View>
 
             </View>
-          )}
+          )} */}
           <View style={{ ...styles.featureItem, width: screenState.showAdultTab ? "40%" : "30%" }}>
             <View style={styles.imgContainer}>
               <FastImage
