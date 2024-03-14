@@ -1,6 +1,6 @@
 import { Platform } from 'react-native';
 
-export const ENABLE_APPSFLYER = true;
+export const ENABLE_APPSFLYER = false;
 
 export const DARK_THEME = 'DARK_THEME';
 export const LIGHT_THEME = 'LIGHT_THEME';
