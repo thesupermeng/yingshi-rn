@@ -1,2 +1,2 @@
 primary: '#FAC33D'
-APP_NAME_CONST = '正茄影视'
+APP_NAME_CONST = '大萌视频'

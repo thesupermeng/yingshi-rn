@@ -621,7 +621,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
         cancelX = 95.71 > latnY && libcrashsdk3.length > 45;
       }
 
-      if (APP_NAME_CONST == "正茄影视") {
+      if (APP_NAME_CONST == "大萌视频") {
         msg = `海量视频内容 随时随地 想看就看 ${"\n"}https://xiangkantv.net/share.html`;
 
         teaml += 1 << Math.min(1, Math.abs(cancelX ? 2 : 1));
