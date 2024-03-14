@@ -381,7 +381,7 @@ export const IS_IOS = Platform.OS === 'ios';
 export const IS_ANDROID = Platform.OS === 'android';
 
 export const APP_NAME_FOR_API = '爱美剧';
-export const APP_NAME_CONST = '正茄影视';
+export const APP_NAME_CONST = '大萌影视';
 export const APP_NAME_CONST2 = '该APP';
 export const APP_EMAIL_CONST = 'contact.movie9@gmail.com';
 

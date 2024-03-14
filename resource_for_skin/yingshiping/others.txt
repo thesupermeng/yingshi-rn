@@ -1,0 +1,2 @@
+primary: '#18BC52'
+APP_NAME_CONST = '萤视频'

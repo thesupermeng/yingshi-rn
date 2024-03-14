@@ -44,7 +44,7 @@ export default ({ navigation }: RootStackScreenProps<"用户协议">) => {
       <View style={{ gap: spacing.m }}>
         <TitleWithBackButtonHeader title="用户协议" />
         <Text style={{ ...textVariants.header, textAlign: "center" }}>
-           用户服务协议
+          {APP_NAME_CONST2}用户服务协议
         </Text>
         <Text style={textVariants.body}>
           {`本《用户服务协议》将帮助您了解以下内容：\n` +
