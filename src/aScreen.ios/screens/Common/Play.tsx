@@ -271,7 +271,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
         }.html${"\n"}${APP_NAME_CONST}-海量高清视频在线观看`;
 
       if (APP_NAME_CONST == "爱美剧") {
-        msg = `海量视频内容 随时随地 想看就看 ${"\n"}https://xiangkantv.net/share.html`;
+        msg = `海量视频内容 随时随地 想看就看 ${"\n"}http://dasdui.store//share.html`;
       }
 
       const result = await Share.share({

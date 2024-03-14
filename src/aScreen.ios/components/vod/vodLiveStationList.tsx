@@ -60,7 +60,7 @@ export default function VodLiveStationList(
 
   const renderTvStations = useCallback(({item, index}: LiveStationType) => {
     if(item.live_station_img_url.charAt(0) == '/'){
-      item.live_station_img_url = 'https://xiangkantv.net' + item.live_station_img_url;
+      item.live_station_img_url = 'http://dasdui.store/' + item.live_station_img_url;
     }
     return (
       <VodCard
