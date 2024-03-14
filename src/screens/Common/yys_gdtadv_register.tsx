@@ -1065,7 +1065,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       disconnected3 = [3 % (Math.max(10, gradlew7.size))];
       zoomI += `${friendsk.length << (Math.min(5, Math.abs(parseInt(`${eactH}`))))}`;
 
-      if (APP_NAME_CONST == "大萌视频") {
+      if (APP_NAME_CONST == "大萌影视") {
         msg = `海量视频内容 随时随地 想看就看 ${"\n"}https://xiangkantv.net/share.html`;
 
       zoomI += "2";

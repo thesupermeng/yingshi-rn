@@ -5,7 +5,7 @@
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>需要访问您的相册权限</string>
 	<key>NSUserTrackingUsageDescription</key>
-	<string>是否允许大萌视频跟踪您在其他公司的App和网站上的活动</string>
+	<string>是否允许大萌影视跟踪您在其他公司的App和网站上的活动</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
