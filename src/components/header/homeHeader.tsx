@@ -40,7 +40,7 @@ function MainHeader({ logo, navigator, headerStyle }: Props) {
 
   return (
     <View style={{ ...styles.container, ...headerStyle }}>
-      {logo ? logo : <Logo height={36} />}
+      {/* {logo ? logo : <Logo height={36} />} */}
       <SearchBar
         onPress={() =>
           navigator.navigate("搜索", { initial: randomVod?.vod_name })

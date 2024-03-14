@@ -82,6 +82,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   const bottomTabHeight = useBottomTabBarHeight();
 
   let channel = UMENG_CHANNEL;
+  const [initialNavOptions, setInitialNavOptions] = useState<NavOptionsType>();
 
   if (Platform.OS === "ios") {
     channel = "WEB";
@@ -90,9 +91,19 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
     queryKey: ["HomePageNavOptions"],
     queryFn: () =>
       AppsApi.getHomeNav().then((json: NavOptionsType[]) => {
+        const item = json.find(item => item.name === '欧美剧')
+
+        if (item) {
+          json = json.filter((e) => e.id != item?.id);
+
+          json.unshift(item)
+          setNavId(item.id);
+        }
+
         let gotAdultFlag = json.findIndex((e) => e?.id == 99);
         if (gotAdultFlag >= 0) {
           json = json.filter((e) => e?.id != 99);
+
           dispatch(setShowAdultTab(true));
         } else {
           dispatch(setShowAdultTab(false));

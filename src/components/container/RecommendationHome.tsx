@@ -1,4 +1,4 @@
-import React, {memo, useState, useRef, useEffect, useCallback} from 'react';
+import React, { memo, useState, useRef, useEffect, useCallback } from 'react';
 import {
   StyleSheet,
   Text,
@@ -29,49 +29,49 @@ import {
 } from '@type/ajaxTypes';
 // import FastImage from "react-native-fast-image";
 import FastImage from '../common/customFastImage';
-import {VodReducerState} from '@redux/reducers/vodReducer';
-import {useAppDispatch, useAppSelector, useSelector} from '@hooks/hooks';
-import {RootState} from '@redux/store';
+import { VodReducerState } from '@redux/reducers/vodReducer';
+import { useAppDispatch, useAppSelector, useSelector } from '@hooks/hooks';
+import { RootState } from '@redux/store';
 import VodHistoryList from '../vod/vodHistoryList';
 import VodLiveStationList from '../vod/vodLiveStationList';
-import {API_DOMAIN, API_DOMAIN_TEST} from '@utility/constants';
+import { API_DOMAIN, API_DOMAIN_TEST } from '@utility/constants';
 import VodListVertical from '../vod/vodListVertical';
-import {playVod, viewPlaylistDetails} from '@redux/actions/vodActions';
-import {useQuery, useInfiniteQuery} from '@tanstack/react-query';
+import { playVod, viewPlaylistDetails } from '@redux/actions/vodActions';
+import { useQuery, useInfiniteQuery } from '@tanstack/react-query';
 import LinearGradient from 'react-native-linear-gradient';
 import Carousel from 'react-native-reanimated-carousel';
 
 import CarouselPagination from './CarouselPagination';
 import LoadingIcon from '@static/images/MutedVolume.svg';
-import {Image} from 'react-native';
-import {PlaylistApi} from '../../api/playlist';
-import {CApi} from '@utility/apiService';
-import {CEndpoint} from '@constants';
-import {YSConfig} from '../../../ysConfig';
-import {BannerContainer} from './bannerContainer';
+import { Image } from 'react-native';
+import { PlaylistApi } from '../../api/playlist';
+import { CApi } from '@utility/apiService';
+import { CEndpoint } from '@constants';
+import { YSConfig } from '../../../ysConfig';
+import { BannerContainer } from './bannerContainer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import UmengAnalytics from '../../../Umeng/UmengAnalytics';
-import {AdsApi} from '../../api/ads';
+import { AdsApi } from '../../api/ads';
 import DeviceInfo from 'react-native-device-info';
-import {VipPromotionOverlay} from '../modal/vipPromotionOverlay';
-import {UserStateType} from '@redux/reducers/userReducer';
-import {User} from '@models/user';
+import { VipPromotionOverlay } from '../modal/vipPromotionOverlay';
+import { UserStateType } from '@redux/reducers/userReducer';
+import { User } from '@models/user';
 import VipGuideModal2 from '../modal/vipGuide2';
 import VipGuideModal from '../modal/vipGuide';
-import {screenModel} from '@type/screenType';
+import { screenModel } from '@type/screenType';
 import {
   setAutoSelectSport,
   setIsHomeGuideShown,
   setIsSportGuideShown,
   setShowPromotionDialog,
 } from '@redux/actions/screenAction';
-import {Url} from '../../Sports/middleware/url';
+import { Url } from '../../Sports/middleware/url';
 import Api from '../../Sports/middleware/api';
-import {MatchDetailsType} from '../../Sports/types/matchTypes';
+import { MatchDetailsType } from '../../Sports/types/matchTypes';
 import VodSportsList from '../vod/vodSportsList';
 import messaging from '@react-native-firebase/messaging';
 import firebase from '@react-native-firebase/app';
-import {FirebaseNotification} from '@utility/firebaseNotification';
+import { FirebaseNotification } from '@utility/firebaseNotification';
 
 interface NavType {
   id: number;
@@ -97,12 +97,12 @@ const RecommendationHome = ({
   tabName,
   onRefresh,
   refreshProp = false,
-  onLoad = () => {},
+  onLoad = () => { },
   isTabFocus = false,
 }: Props) => {
-  const {colors, textVariants, spacing} = useTheme();
+  const { colors, textVariants, spacing } = useTheme();
   const vodReducer: VodReducerState = useAppSelector(
-    ({vodReducer}: RootState) => vodReducer,
+    ({ vodReducer }: RootState) => vodReducer,
   );
   const history = vodReducer.history.filter(e => !e.isAdultVideo);
   const dispatch = useAppDispatch();
@@ -131,7 +131,7 @@ const RecommendationHome = ({
   const [sportList, setSportList] = useState<Array<MatchDetailsType>>([]);
 
   const screenState: screenModel = useAppSelector(
-    ({screenReducer}) => screenReducer,
+    ({ screenReducer }) => screenReducer,
   );
 
   useEffect(() => {
@@ -199,7 +199,7 @@ const RecommendationHome = ({
       setActiveIndex(0);
       if (carouselRef) {
         setIsRefreshing(false);
-        carouselRef?.current?.scrollTo({index: 0, animated: false});
+        carouselRef?.current?.scrollTo({ index: 0, animated: false });
       }
     }, 0);
   };
@@ -235,7 +235,7 @@ const RecommendationHome = ({
     refetch,
   } = useInfiniteQuery(
     ['vodPlaylist'],
-    ({pageParam = 1}) => fetchPlaylist(pageParam),
+    ({ pageParam = 1 }) => fetchPlaylist(pageParam),
     {
       getNextPageParam: (lastPage, allPages) => {
         if (lastPage === null) {
@@ -318,7 +318,7 @@ const RecommendationHome = ({
       return (
         <BannerContainer
           bannerAd={ads}
-          onMount={({id, name, slot_id, title}) => {
+          onMount={({ id, name, slot_id, title }) => {
             UmengAnalytics.homeTabBannerViewAnalytics({
               tab_id: navId?.toString() ?? '0',
               tab_name: tabName ?? '',
@@ -328,7 +328,7 @@ const RecommendationHome = ({
               ads_title: title,
             });
           }}
-          onPress={({id, name, slot_id, title}) => {
+          onPress={({ id, name, slot_id, title }) => {
             UmengAnalytics.homeTabBannerClickAnalytics({
               tab_id: navId?.toString() ?? '0',
               tab_name: tabName ?? '',
@@ -345,7 +345,7 @@ const RecommendationHome = ({
   );
 
   const renderCarousel = useCallback(
-    ({item, index}: {item: any; index: number}) => {
+    ({ item, index }: { item: any; index: number }) => {
       const key = item.is_ads
         ? item.carousel_id + item.carousel_pic_mobile
         : item.carousel_id;
@@ -356,7 +356,7 @@ const RecommendationHome = ({
             if (item.is_ads == true) {
               const url =
                 item.ads_url.includes('https://') ||
-                item.ads_url.includes('http://')
+                  item.ads_url.includes('http://')
                   ? item.ads_url
                   : 'https://' + item.ads_url;
               Linking.openURL(url);
@@ -388,8 +388,8 @@ const RecommendationHome = ({
           />
           <LinearGradient
             colors={['transparent', 'black']}
-            start={{x: 0.8, y: 0}}
-            end={{x: 0.8, y: 0.9}}
+            start={{ x: 0.8, y: 0 }}
+            end={{ x: 0.8, y: 0.9 }}
             style={styles.bottomBlur}
           />
           <Text
@@ -408,15 +408,15 @@ const RecommendationHome = ({
   );
 
   const renderContent = useCallback(
-    ({item, index}: {item: VodTopicType; index: number}) => (
+    ({ item, index }: { item: VodTopicType; index: number }) => (
       <View
         style={{
           paddingLeft: spacing.sideOffset,
           paddingRight: spacing.sideOffset,
         }}>
         {/* previous style={{ gap: spacing.m }} */}
-        <View key={`${item.topic_name}-${index}`} style={{paddingTop: 10}}>
-          <View style={{paddingBottom: 5}}>
+        <View key={`${item.topic_name}-${index}`} style={{ paddingTop: 10 }}>
+          <View style={{ paddingBottom: 5 }}>
             <ShowMoreVodButton
               text={item.topic_name}
               onPress={() => {
@@ -499,7 +499,7 @@ const RecommendationHome = ({
     if (componentRef.current != null) {
       componentRef.current.measure((x, y, width, height, pageX, pageY) => {
         // console.log('Position:', {x, y, width, height, pageX, pageY});
-        setRefPosition({x: pageX, y: pageY, width: width, height: height});
+        setRefPosition({ x: pageX, y: pageY, width: width, height: height });
 
         const screenHeight = Dimensions.get('window').height;
         const distance = screenHeight - pageY - height;
@@ -519,7 +519,7 @@ const RecommendationHome = ({
   // };
 
   return (
-    <View style={{width: width}}>
+    <View style={{ width: width }}>
       {data && (
         <FlatList
           refreshControl={
@@ -584,7 +584,7 @@ const RecommendationHome = ({
                         }}
                       />
                     </View>
-                    <View style={{paddingLeft: spacing.sideOffset}}>
+                    <View style={{ paddingLeft: spacing.sideOffset }}>
                       <VodHistoryList
                         vodStyle={styles.vod_hotlist}
                         vodList={history.slice(0, 10)}
@@ -597,7 +597,7 @@ const RecommendationHome = ({
 
                 {bannerAd && distanceToBottom != 0 && (
                   <Modal visible={vipGuideModal} transparent={true}>
-                    <View style={{flex: 1, backgroundColor: 'rgba(0,0,0,0.8)'}}>
+                    <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.8)' }}>
                       <View
                         style={{
                           position: 'absolute',
@@ -656,7 +656,7 @@ const RecommendationHome = ({
                   </View>
                 )}
 
-                <View style={{gap: spacing.m}}>
+                {/* <View style={{gap: spacing.m}}>
                   <View
                     style={{
                       paddingLeft: spacing.sideOffset,
@@ -685,16 +685,16 @@ const RecommendationHome = ({
                       />
                     </View>
                   )}
-                </View>
+                </View> */}
 
-                <View style={{gap: spacing.m}}>
+                <View style={{ gap: spacing.m }}>
                   <View
                     style={{
                       paddingLeft: spacing.sideOffset,
                       paddingRight: spacing.sideOffset,
                     }}>
                     {data?.live_station_list &&
-                    data?.live_station_list.length > 0 ? (
+                      data?.live_station_list.length > 0 ? (
                       <ShowMoreVodButton
                         text="电视台推荐"
                         onPress={() => {
@@ -710,8 +710,8 @@ const RecommendationHome = ({
                     )}
                   </View>
                   {data?.live_station_list &&
-                  data?.live_station_list.length > 0 ? (
-                    <View style={{paddingLeft: spacing.sideOffset}}>
+                    data?.live_station_list.length > 0 ? (
+                    <View style={{ paddingLeft: spacing.sideOffset }}>
                       <VodLiveStationList
                         vodStyle={styles.vod_live_station}
                         liveStationList={data?.live_station_list}
@@ -721,7 +721,7 @@ const RecommendationHome = ({
                     </View>
                   ) : (
                     <View
-                      style={{paddingLeft: spacing.sideOffset, height: 134}}
+                      style={{ paddingLeft: spacing.sideOffset, height: 134 }}
                     />
                   )}
                 </View>
@@ -746,7 +746,7 @@ const RecommendationHome = ({
           renderItem={renderContent}
           disableVirtualization={true}
           ListFooterComponent={
-            <View style={{...styles.loading, marginBottom: 60}}>
+            <View style={{ ...styles.loading, marginBottom: 60 }}>
               {hasNextPage && (
                 <FastImage
                   style={{
@@ -881,6 +881,6 @@ const styles = StyleSheet.create({
     height: 50,
     borderWidth: 1,
     borderColor: '#FFF', // White border
-    transform: [{scale: 5}], // Adjust scale as needed
+    transform: [{ scale: 5 }], // Adjust scale as needed
   },
 });

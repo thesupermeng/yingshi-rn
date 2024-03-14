@@ -255,16 +255,16 @@ export default () => {
           <>
             <HomeTab.Screen name="首页" component={HomeScreen} />
             <HomeTab.Screen name="随心看" component={WatchAnytime} />
-            <HomeTab.Screen name="会员中心" component={SportAndX} />
-            <HomeTab.Screen name="播单" component={PlaylistScreen} />
+            {/* <HomeTab.Screen name="会员中心" component={SportAndX} />
+            <HomeTab.Screen name="播单" component={PlaylistScreen} /> */}
             <HomeTab.Screen name="我的" component={ProfileScreen} />
           </>
         ) : (
           <>
             <HomeTab.Screen name="首页" component={HomeScreen} />
             <HomeTab.Screen name="随心看" component={WatchAnytime} />
-            <HomeTab.Screen name="会员中心" component={SportAndX} />
-            <HomeTab.Screen name="播单" component={PlaylistScreen} />
+            {/* <HomeTab.Screen name="会员中心" component={SportAndX} />
+            <HomeTab.Screen name="播单" component={PlaylistScreen} /> */}
             <HomeTab.Screen name="我的" component={ProfileScreen} />
           </>
         )}
@@ -577,8 +577,8 @@ export default () => {
         onStateChange={handleStateChange}
       >
 
-  {/* {!appState.isVipPromotionModalShown && showBecomeVIPOverlay && ( */}
-  {/* todo  remove isVipPromotionModalShown in app state  */}
+        {/* {!appState.isVipPromotionModalShown && showBecomeVIPOverlay && ( */}
+        {/* todo  remove isVipPromotionModalShown in app state  */}
         {showBecomeVIPOverlay && (
           <View
             style={{
@@ -902,7 +902,7 @@ export default () => {
           VIP会员
         </Text>
 
-         <Text
+        <Text
           style={{
             color: "#fff",
             fontFamily: "PingFang SC",
@@ -914,13 +914,13 @@ export default () => {
           }}
         >
           请耐心等待VIP生效，或尝试刷新个人中心/重启应用
-        </Text> 
+        </Text>
 
         <TouchableOpacity
           style={{ width: '100%' }}
           onPress={() => {
             setShowPurchasePendingOverlay(false)
-          //  dispatch(showLoginAction());
+            //  dispatch(showLoginAction());
           }}
         >
           <View
