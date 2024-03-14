@@ -107,3 +107,10 @@ appcenter codepush release-react -a developeryingshi/yingshi-ios-new -d Producti
 
 and android codepush, change replaceChannel key also
 appcenter codepush release-react -a developeryingshi/yingshi-android-new -d Production
+
+
+codepush change skin 3 place to replace secret string 
+
+replace channel 
+codePushDeploymentKey = 'yKccuj7iqcdUJBfjKi4dYg0Q4apstPlWZ2RxX';
+strings.xml
