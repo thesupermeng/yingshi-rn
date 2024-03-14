@@ -215,7 +215,7 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
       <View style={styles.titleTextContainer}>
         <Text style={styles.titleText}>随心看</Text>
       </View>
-      <EighteenPlusControls />
+      {/* <EighteenPlusControls /> */}
       {!isOffline && (
         <MiniVideoList
           ref={miniVodRef}
