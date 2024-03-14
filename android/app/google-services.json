@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:699123886701:android:0049b655cfc5bcd5922d64",
         "android_client_info": {
-          "package_name": "com.yingshitv"
+          "package_name": "com.aimeiju"
         }
       },
       "oauth_client": [
@@ -34,7 +34,7 @@
               "client_id": "699123886701-ok49jlua77cf0omih5g1u9f1irflnrq3.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.yingshiapp.yingshi"
+                "bundle_id": "com.aimeijuapp.yingshi"
               }
             }
           ]
