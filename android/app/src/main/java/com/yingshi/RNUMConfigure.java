@@ -1,4 +1,4 @@
-package com.yingshitv;
+package com.aimeiju;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -10,7 +10,7 @@ import android.util.Log;
 
 import com.umeng.commonsdk.UMConfigure;
 
-import com.yingshitv.AnalyticsModule;
+import com.aimeiju.AnalyticsModule;
 /**
  * Created by wangfei on 17/9/14.
  */

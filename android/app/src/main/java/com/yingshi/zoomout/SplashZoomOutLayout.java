@@ -1,4 +1,4 @@
-package com.yingshitv.zoomout;
+package com.aimeiju.zoomout;
 
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;

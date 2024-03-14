@@ -1,8 +1,8 @@
-package com.yingshitv;
+package com.aimeiju;
 
 import static com.facebook.react.views.textinput.ReactEditText.DEBUG_MODE;
 
-import com.yingshitv.SQLiteDBHelper;
+import com.aimeiju.SQLiteDBHelper;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
@@ -16,8 +16,8 @@ import android.os.Bundle;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
 
-import com.yingshitv.SplashAdShowActivity;
-import com.yingshitv.RNUMConfigure;
+import com.aimeiju.SplashAdShowActivity;
+import com.aimeiju.RNUMConfigure;
 import android.content.Context;
 import android.util.Log;
 
