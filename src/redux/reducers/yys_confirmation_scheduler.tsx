@@ -35,6 +35,7 @@ const initialState: screenModel = {
   isPlayGuideShown : false, 
   isPlayGuideShown2 :  false, 
   isSportGuideShown : false, 
+  yuGaoState:null
   
 };
 
@@ -276,7 +277,12 @@ export function screenReducer(state = initialState, action: screenActionType) {
             ...state,
             autoSelectSport: action.payload,
           };
-
+                       //6 
+                       case "set_yu_gao":
+                        return {
+                          ...state,
+                          yuGaoState: action.payload,
+                        };
 
       
     default:

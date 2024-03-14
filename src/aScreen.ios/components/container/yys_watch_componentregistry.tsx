@@ -39,6 +39,8 @@ import { YingPingContainer } from "../container/yys_baidu_detail";
 import { yys_Context, yys_MaterialModal } from "@api";
 import { yys_HejiCricket } from "@redux/reducers/yys_privacy_round";
 import { yys_RelatedTooltips } from "@models/yys_project_pagination";
+import { screenModel } from "@type/yys_service_setting";
+import { setYuGao } from "@redux/actions/yys_runtimescheduler";
 
 interface yys_ControlsVolume {
   id: number;
@@ -677,6 +679,10 @@ const RecommendationHome = ({
   const vodReducer: yys_BorderlessLibruntimeexecutor = useAppSelector(
     ({ vodReducer }: yys_MintegralLibavdevice) => vodReducer
   );
+
+  const screenState: screenModel = useAppSelector(
+   ({ screenReducer }) => screenReducer
+ );
   const history = vodReducer.history;
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
@@ -685,7 +691,9 @@ const RecommendationHome = ({
   const [results, setResults] = useState<Array<yys_BrightnessCopy>>([]);
 
 
-  const [yuGaoList, setYuGaoList] = useState(null); // yys_Encrypt
+  const [yuGaoList, setYuGaoList] = useState(screenState.yuGaoState); // yys_Encrypt
+
+  
   const [isRefreshing, setIsRefreshing] = useState(false);
   const carouselRef = useRef<any>();
   
@@ -706,6 +714,8 @@ const RecommendationHome = ({
   }, []);
   
   const handleRefresh = async () => {
+
+   console.log('handleRefresh')
        let whatsappA = 3.0;
     let friendss = false;
     let acceptedg: Array<any> = [2, 671];
@@ -1180,14 +1190,18 @@ const RecommendationHome = ({
   
   
   
-  
 
   const fetchYingPing = () =>
     yys_Context.getHomePages(1000, isVip)
       .then((data) => {
         setResults(data.topic_list);
-      
-        setYuGaoList(data.yugaopian_list)
+      if(screenState.yuGaoState==null)
+      {
+
+         setYuGaoList(data.yugaopian_list)
+         dispatch(setYuGao(data.yugaopian_list))
+      }
+   
         return data;
       });
 
