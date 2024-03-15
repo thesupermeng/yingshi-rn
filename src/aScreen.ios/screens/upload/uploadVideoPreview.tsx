@@ -67,17 +67,29 @@ export const UploadVideoPreview = ({
         }
 
         try {
-            setUploadProgress(0);
+            // setUploadProgress(0);
 
-            const percentagePerSecond = 100 / ((uploadAssets.fileSize ?? defaultFileSize) / uploadSpeed);
+            // const percentagePerSecond = 100 / ((uploadAssets.fileSize ?? defaultFileSize) / uploadSpeed);
 
-            const uploadTimer = setInterval(() => {
-                setUploadProgress(prev => {
-                    return (prev ?? 0) + percentagePerSecond
-                });
-            }, 1000);
+            // const uploadTimer = setInterval(() => {
+            //     setUploadProgress(prev => {
+            //         return (prev ?? 0) + percentagePerSecond
+            //     });
+            // }, 1000);
 
-            setProgressTimer(uploadTimer);
+            // setProgressTimer(uploadTimer);
+
+            dispatch(saveUploadHistory({
+                title: videoTitle,
+                thumbnail: videoThumbnail ?? '',
+            }));
+
+            setShowSuccess(true);
+
+            setTimeout(() => {
+                setShowSuccess(false);
+                yys_DetailWhistle.back();
+            }, 2000);
 
         } catch (e: any) {
 
@@ -97,32 +109,37 @@ export const UploadVideoPreview = ({
         setVideoTitle(value);
     }
 
-    useEffect(() => {
-        if (uploadProgress !== undefined && uploadProgress >= 100) {
-            clearInterval(progressTimer);
+    // useEffect(() => {
+    //     if (uploadProgress !== undefined && uploadProgress >= 100) {
+    //         clearInterval(progressTimer);
 
-            dispatch(saveUploadHistory({
-                title: videoTitle,
-                thumbnail: videoThumbnail ?? '',
-            }));
+    //         dispatch(saveUploadHistory({
+    //             title: videoTitle,
+    //             thumbnail: videoThumbnail ?? '',
+    //         }));
 
-            setUploadProgress(undefined);
-            setProgressTimer(undefined);
+    //         setUploadProgress(undefined);
+    //         setProgressTimer(undefined);
 
-            setShowSuccess(true);
+    //         setShowSuccess(true);
 
-            setTimeout(() => {
-                setShowSuccess(false);
-                yys_DetailWhistle.back();
-            }, 2000);
-        }
-    }, [uploadProgress]);
+    //         setTimeout(() => {
+    //             setShowSuccess(false);
+    //             yys_DetailWhistle.back();
+    //         }, 2000);
+    //     }
+    // }, [uploadProgress]);
 
     return (
         <ScreenContainer containerStyle={styles.container}>
             <TitleWithBackButtonHeader
                 title="发布视频"
                 onBack={onBackPress}
+                right={
+                    <TouchableOpacity onPress={onUploadPress}>
+                        <Text style={styles.confirmBtnText}>发布</Text>
+                    </TouchableOpacity>
+                }
             />
 
             <CTextInput
@@ -143,7 +160,7 @@ export const UploadVideoPreview = ({
                 <Text style={styles.errMsgText}>* {videoTitleErrMsg}</Text>
             }
 
-            {videoThumbnail && videoThumbnail !== ''
+            {videoThumbnail && videoThumbnail !== '' && false
                 ? <FastImage
                     useFastImage={true}
                     style={styles.thumbnail}
@@ -155,13 +172,13 @@ export const UploadVideoPreview = ({
                 : <DefaultVideoThumbnail />
             }
 
-            <View style={{ flex: 1, }} />
+            {/* <View style={{ flex: 1, }} />
 
             <TouchableOpacity onPress={onUploadPress} style={styles.confirmBtn}>
                 <Text style={styles.confirmBtnText}>
                     发布
                 </Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
 
             {uploadProgress !== undefined &&
                 <UploadProgressOverlay
@@ -213,7 +230,7 @@ const createStyles = ({ colors, textVariants }: any) => StyleSheet.create({
     },
     confirmBtnText: {
         ...textVariants.body,
-        color: 'black',
+        color: colors.primary,
         textAlign: 'center',
     },
 });

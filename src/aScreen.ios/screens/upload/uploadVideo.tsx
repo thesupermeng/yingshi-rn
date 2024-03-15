@@ -69,24 +69,19 @@ export const UploadVideo = ({
             }
 
             if (result.assets && result.assets.length > 0) {
-                yys_DetailWhistle.toName('uploadVideoPreview', {
-                    params: {
-                        assets: result.assets[0],
-                    },
-                });
-                // setVideoSelected(result.assets[0]);
-                // setUploadProgress(0);
+                setVideoSelected(result.assets[0]);
+                setUploadProgress(0);
 
-                // const percentagePerSecond = 100 / ((result.assets[0].fileSize ?? defaultFileSize) / uploadSpeed);
+                const percentagePerSecond = 100 / ((result.assets[0].fileSize ?? defaultFileSize) / uploadSpeed);
 
 
-                // const uploadTimer = setInterval(() => {
-                //     setUploadProgress(prev => {
-                //         return (prev ?? 0) + percentagePerSecond
-                //     });
-                // }, 1000);
+                const uploadTimer = setInterval(() => {
+                    setUploadProgress(prev => {
+                        return (prev ?? 0) + percentagePerSecond
+                    });
+                }, 1000);
 
-                // setProgressTimer(uploadTimer);
+                setProgressTimer(uploadTimer);
             }
 
         } catch (e: any) {
@@ -193,20 +188,32 @@ export const UploadVideo = ({
         </View>);
     }, [textVariants, colors]);
 
-    // useEffect(() => {
-    //     if (uploadProgress !== undefined && uploadProgress >= 100) {
-    //         clearInterval(progressTimer);
+    useEffect(() => {
+        if (uploadProgress !== undefined && uploadProgress >= 100) {
+            clearInterval(progressTimer);
 
-    //         setUploadProgress(undefined);
-    //         setProgressTimer(undefined);
+            setUploadProgress(undefined);
+            setProgressTimer(undefined);
 
-    //         setShowSuccess(true);
+            yys_DetailWhistle.toName('uploadVideoPreview', {
+                params: {
+                    assets: videoSelected,
+                },
+            });
 
-    //         setTimeout(() => {
-    //             setShowSuccess(false);
-    //         }, 2000);
-    //     }
-    // }, [uploadProgress]);
+            // setShowSuccess(true);
+
+            // setTimeout(() => {
+            //     setShowSuccess(false);
+
+            //     yys_DetailWhistle.toName('uploadVideoPreview', {
+            //         params: {
+            //             assets: videoSelected,
+            //         },
+            //     });
+            // }, 2000);
+        }
+    }, [uploadProgress]);
 
     return (
         <ScreenContainer>
@@ -226,13 +233,13 @@ export const UploadVideo = ({
                 : <UngrantedBody />
             }
 
-            {/* {uploadProgress !== undefined &&
+            {uploadProgress !== undefined &&
                 <UploadProgressOverlay
                     value={uploadProgress}
                 />
             }
 
-            {showSuccess &&
+            {/* {showSuccess &&
                 <UploadResultOverlay
 
                 />

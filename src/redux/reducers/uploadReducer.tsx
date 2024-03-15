@@ -2,6 +2,7 @@ import { UploadVideoType } from "@type/yys_libzeus"
 
 export enum UploadActionType {
     SAVE_UPLOAD_HISTORY = 'SAVE_UPLOAD_HISTORY',
+    REMOVE_UPLOAD_HISTORY = 'REMOVE_UPLOAD_HISTORY',
 }
 
 type UploadAction = {
@@ -37,6 +38,20 @@ export const uploadReducer = (state = initialState, action: UploadAction): Uploa
             return {
                 ...state,
                 uploadHistory: [newVideo, ...state.uploadHistory],
+            }
+        }
+        case UploadActionType.REMOVE_UPLOAD_HISTORY: {
+            const ids: number[] = action.payload;
+
+            let uploadHistory = state.uploadHistory;
+
+            if (ids.length > 0) {
+                uploadHistory = state.uploadHistory.filter((video) => !ids.includes(video?.id ?? -1));
+            }
+
+            return {
+                ...state,
+                uploadHistory: uploadHistory,
             }
         }
         default: return state;
