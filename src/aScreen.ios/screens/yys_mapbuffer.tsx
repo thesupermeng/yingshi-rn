@@ -1310,9 +1310,9 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
          }}>
             <Text style={{ color: '#FFF', fontSize: 20 }}>随心看</Text>
 
-            <TouchableOpacity onPress={onAddPress}>
+            {/* <TouchableOpacity onPress={onAddPress}>
                <AddIcon width={24} height={24} style={{ color: 'white' }} />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
          </View>
 
          {!isOffline &&
