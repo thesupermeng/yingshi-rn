@@ -15,6 +15,8 @@ import { screenReducer } from './yys_confirmation_scheduler';
 import { downloadVideoReducer } from './yys_minimize_with';
 import { chatReducer } from './yys_bell_gdtadv';
 import { backgroundReducer } from './yys_animation_animations';
+import { uploadReducer } from './uploadReducer';
+
 const appReducer = combineReducers({
   themeReducer,
   vodPlaylistReducer,
@@ -28,20 +30,21 @@ const appReducer = combineReducers({
   downloadVideoReducer,
   chatReducer,
   backgroundReducer,
+  uploadReducer,
 });
 
 export default (state: any, action: any) => {
   if (action.type === CLEAR_STORAGE_MEMORY) {
-    
+
     const { screenReducer, userReducer } = state;
 
-    
+
     state = {
       screenReducer,
       userReducer,
     };
 
-    
+
     AsyncStorage.removeItem('persist:root');
   }
   return appReducer(state, action);

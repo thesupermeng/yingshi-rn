@@ -1,7 +1,7 @@
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import type { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { yys_Bing, yys_BrightnessCopy, yys_StyleItem, yys_InviteAway, yys_Xadsdk } from "./yys_libzeus";
+import { yys_Bing, yys_BrightnessCopy, yys_StyleItem, yys_InviteAway, yys_Xadsdk, UploadVideoPreviewParams } from "./yys_libzeus";
 import { yys_RelatedTooltips } from "@models/yys_project_pagination";
 
 export type yys_BaiduLight = {
@@ -117,6 +117,7 @@ export type yys_ServiceBridge = {
   };
   续费服务: undefined,
   uploadVideo: undefined,
+  uploadVideoPreview: UploadVideoPreviewParams,
   uploadHistory: undefined,
 };
 

@@ -1,3 +1,5 @@
+import { Asset } from "react-native-image-picker"
+
 export type PaggingResponseType<T> = {
     Page: number
     TotalPageCount: number
@@ -489,10 +491,10 @@ export type yys_FlipperLibzeus = {
 export type yys_TooltipsKlevin = {
     userId: string,
     userName: string,
-     
+
     role: number,
     message: string,
-     
+
     visibility: number,
     createAt: string,
 }
@@ -512,4 +514,16 @@ export type yys_StatsHeji = {
         enabled_live: string,
         enabled_sports_chatroom: string,
     }
+}
+
+export type UploadVideoPreviewParams = {
+    assets: Asset,
+}
+
+export type UploadVideoType = {
+    id?: number,
+    title: string,
+    thumbnail: string,
+    createAt?: string,
+    status?: string,
 }

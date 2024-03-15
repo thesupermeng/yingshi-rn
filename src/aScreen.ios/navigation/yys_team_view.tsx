@@ -136,6 +136,7 @@ import { yys_RelatedTooltips } from "@models/yys_project_pagination";
 import { UploadVideo } from "../screens/upload/uploadVideo";
 import { UploadHistory } from "../screens/upload/uploadHistory";
 import { loginChecking } from "./middleware";
+import { UploadVideoPreview } from "../screens/upload/uploadVideoPreview";
 
 export default () => {
    const Stack = createNativeStackNavigator<yys_ServiceBridge>();
@@ -1871,6 +1872,12 @@ export default () => {
                />
 
                <Stack.Screen
+                  name="uploadVideoPreview"
+                  component={UploadVideoPreview}
+                  options={{ orientation: "portrait" }}
+               />
+
+               <Stack.Screen
                   name="uploadHistory"
                   component={UploadHistory}
                   options={{ orientation: "portrait" }}
@@ -1900,6 +1907,12 @@ export default () => {
                      //    userState,
                      //    showLogin: () => dispatch(showLoginAction()),
                      // }),
+                  ],
+                  'uploadVideoPreview': [
+                     (page) => loginChecking(page, {
+                        userState,
+                        showLogin: () => dispatch(showLoginAction()),
+                     }),
                   ],
                   'uploadHistory': [
                      (page) => loginChecking(page, {
