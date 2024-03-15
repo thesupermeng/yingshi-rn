@@ -123,6 +123,11 @@ export const UploadVideoPreview = ({
             <TitleWithBackButtonHeader
                 title="发布视频"
                 onBack={onBackPress}
+                right={
+                    <TouchableOpacity onPress={onUploadPress}>
+                        <Text style={styles.confirmBtnText}>发布</Text>
+                    </TouchableOpacity>
+                }
             />
 
             <CTextInput
@@ -143,7 +148,7 @@ export const UploadVideoPreview = ({
                 <Text style={styles.errMsgText}>* {videoTitleErrMsg}</Text>
             }
 
-            {videoThumbnail && videoThumbnail !== ''
+            {videoThumbnail && videoThumbnail !== '' && false
                 ? <FastImage
                     useFastImage={true}
                     style={styles.thumbnail}
@@ -155,13 +160,13 @@ export const UploadVideoPreview = ({
                 : <DefaultVideoThumbnail />
             }
 
-            <View style={{ flex: 1, }} />
+            {/* <View style={{ flex: 1, }} />
 
             <TouchableOpacity onPress={onUploadPress} style={styles.confirmBtn}>
                 <Text style={styles.confirmBtnText}>
                     发布
                 </Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
 
             {uploadProgress !== undefined &&
                 <UploadProgressOverlay
@@ -213,7 +218,7 @@ const createStyles = ({ colors, textVariants }: any) => StyleSheet.create({
     },
     confirmBtnText: {
         ...textVariants.body,
-        color: 'black',
+        color: colors.primary,
         textAlign: 'center',
     },
 });
