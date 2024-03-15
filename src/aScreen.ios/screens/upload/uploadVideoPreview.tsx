@@ -169,7 +169,7 @@ export const UploadVideoPreview = ({
                         uri: videoThumbnail,
                     }}
                 />
-                : <DefaultVideoThumbnail />
+                : <DefaultVideoThumbnail style={styles.thumbnail} />
             }
 
             {/* <View style={{ flex: 1, }} />
