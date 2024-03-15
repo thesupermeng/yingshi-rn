@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { View } from "react-native";
+import { Linking, View } from "react-native";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import FastImage from "../components/common/customFastImage";
 import Nav from "../../src/navigation/nav";
@@ -44,9 +44,13 @@ import { addUserAuthState } from "@redux/actions/userAction";
 import { onBootApp, onCloseApp } from "@redux/actions/backgroundAction";
 import { UserStateType } from "@redux/reducers/userReducer";
 import { User } from "@models/user";
-
+import { FirebaseNotification } from "@utility/firebaseNotification";
+import { useNavigation } from "@react-navigation/native";
+import messaging from "@react-native-firebase/messaging";
+import WebView from "react-native-webview";
 export default () => {
   const appDispatch = useAppDispatch();
+  // const navigation = useNavigation();
   const [loadedAPI, setLoadedAPI] = useState(false);
   const [areaNavConfig, setAreaNavConfig] = useState(false);
   const [isSuper, setIsSuper] = useState(false);
@@ -206,6 +210,74 @@ export default () => {
       }
     }
   }, [data, isVip]);
+
+
+  // useEffect(() => {
+  //   const unsubscribe = messaging().onMessage(async (remoteMessage) => {
+  //     FirebaseNotification.setupLocalNotification(
+  //       JSON.stringify(remoteMessage),
+  //       remoteMessage
+  //     );
+
+  //     const notificationBody = remoteMessage.data;
+  //     const notificationBody = remoteMessage.notification?.body;
+  //     if (notificationBody && notificationBody.notification_redirect_type) {
+  //       Display notification body using Alert
+  //       console.log("Display notification body using console");
+  //       console.log(notificationBody);
+
+  //       1=webview 拿notification_url
+  //       2=browser inside app 拿notification_url
+  //       3=browser outside app 拿notification_url
+  //       4=home 去主页
+  //       5=vod 去某某视频播放页，拿vod_id
+
+  //       if (
+  //         notificationBody.notification_redirect_type == "1" &&
+  //         notificationBody.notification_url
+  //       ) {
+  //         openInBrowser(notificationBody.notification_url.toString());
+  //       }
+  //       2=browser inside app
+  //       if (
+  //         notificationBody.notification_redirect_type == "2" &&
+  //         notificationBody.notification_url
+  //       ) {
+  //         Linking.openURL(
+  //           notificationBody.notification_url.toString()
+  //         ).catch((err) => console.error("Error opening URL:", err));
+  //       }
+  //       3=browser outside app
+  //       if (
+  //         notificationBody.notification_redirect_type == "3" &&
+  //         notificationBody.notification_url
+  //       ) {
+  //         Linking.openURL(
+  //           notificationBody.notification_url.toString()
+  //         ).catch((err) => console.error("Error opening external link:", err));
+  //       }
+
+  //       if (notificationBody.notification_redirect_type == "4") {
+  //         navigation.navigate("Home", { screen: "首页" });
+  //       }
+  //       if (
+  //         notificationBody.notification_redirect_type == "5" &&
+  //         notificationBody.vod_id
+  //       ) {
+  //         navigation.navigate("播放", {
+  //           vod_id: Number(notificationBody.vod_id),
+  //         });
+  //       }
+  //       Alert.alert('Notification', notificationBody);
+  //     }
+  //   });
+  //   return unsubscribe;
+  // }, []);
+
+  const openInBrowser = (url: any) => {
+    // You can customize the WebView component with additional props if needed
+    return <WebView source={{ uri: url }} style={{ flex: 1 }} />;
+  };
 
   return (
     <>
