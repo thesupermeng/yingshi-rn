@@ -124,6 +124,14 @@ let App = () => {
         // JSON.stringify(remoteMessage),
         remoteMessage,
       );
+
+      const notificationBody = remoteMessage.notification?.body;
+      if (notificationBody) {
+        // Display notification body using Alert
+        console.log('Display notification body using console')
+        console.log(notificationBody)
+       // Alert.alert('Notification', notificationBody);
+      }
     });
     return unsubscribe;
   }, []);
