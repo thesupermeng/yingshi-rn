@@ -7,10 +7,12 @@ export const UploadProgressOverlay = ({
     value,
     minValue = 0,
     maxValue = 100,
+    backgroundColor,
 }: {
     value: number,
     minValue?: number,
     maxValue?: number,
+    backgroundColor?: string,
 }) => {
     const { textVariants, colors } = useTheme();
 
@@ -18,10 +20,11 @@ export const UploadProgressOverlay = ({
         <View style={{
             position: 'absolute',
             width: '100%',
-            height: '80%',
+            height: '100%',
             alignSelf: 'center',
             justifyContent: 'center',
             alignItems: 'center',
+            backgroundColor: backgroundColor,
         }}>
             <View style={{
                 backgroundColor: '#222222C8',

@@ -236,6 +236,7 @@ export const UploadVideo = ({
             {uploadProgress !== undefined &&
                 <UploadProgressOverlay
                     value={uploadProgress}
+                    backgroundColor={'#000000aa'}
                 />
             }
 
