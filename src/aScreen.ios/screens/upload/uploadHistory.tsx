@@ -83,7 +83,7 @@ export const UploadHistory = ({
                 </TouchableOpacity>
             )}
 
-            {item.thumbnail && item.thumbnail !== ''
+            {item.thumbnail && item.thumbnail !== '' && false
                 ? <FastImage
                     useFastImage={true}
                     style={styles.thumbnail}
