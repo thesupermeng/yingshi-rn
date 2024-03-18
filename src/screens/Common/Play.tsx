@@ -750,7 +750,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     );
     setCurrentSourceId(vod?.vodSourceId);
   }, [vod]);
-
+  
   const {
     data: suggestedVods,
     isFetching: isFetchingSuggestedVod,
@@ -1722,6 +1722,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                                       navigation.navigate("午夜场剧情", {
                                         // class: item.vod_list[0].vod_class
                                         class: vod?.vod_class,
+                                        vod_source_name: "",
                                       });
                                     }, 150);
                                   }}

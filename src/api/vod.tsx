@@ -65,6 +65,7 @@ export class VodApi {
         rand,
         orderBy = 'asc',
         xMode = false,
+        vod_source_name = "",
     }: {
         tid?: string,
         page?: number,
@@ -77,6 +78,7 @@ export class VodApi {
         rand?: number,
         orderBy?: 'desc' | 'asc'
         xMode?: boolean,
+        vod_source_name?: string,
     }) => {
         try {
             let query: any = {
@@ -106,13 +108,13 @@ export class VodApi {
             if (rand) {
                 query['rand'] = rand;
             }
-            console.log('QUERY : ');
-            console.log(query);
-
+            if(vod_source_name != "" && xMode == true){
+                query['vod_source_name'] = vod_source_name;
+            }
             const result = await CApi.get(xMode ? CEndpoint.vodGetXList : CEndpoint.vodGetList, {
                 query,
             });
-
+            
             if (result.success === false) {
                 throw result.message;
             }

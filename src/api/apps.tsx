@@ -4,7 +4,7 @@ import { APP_NAME_CONST, APP_VERSION, UMENG_CHANNEL } from "@utility/constants";
 import { CLang } from "@utility/langService";
 import { Platform } from "react-native";
 import { YSConfig } from "../../ysConfig";
-import { NavOptionsType, VodCarousellType } from "@type/ajaxTypes";
+import { NavOptionsType, VodCarousellType, XVodData } from "@type/ajaxTypes";
 
 export class AppsApi {
     static getLocalIpAddress = async () => {
@@ -112,7 +112,6 @@ export class AppsApi {
                     platform: Platform.OS,
                     channelId: UMENG_CHANNEL,
                     appName: APP_NAME_CONST,
-                    // appName: '影视TV',
                     ads: !isVip,
                 },
             });
@@ -122,6 +121,30 @@ export class AppsApi {
             }
 
             return result.data as VodCarousellType;
+
+        } catch (e: any) {
+            console.error(`[Error getHomePages}]: ${e.toString()}`);
+            throw e;
+        }
+    };
+
+    static getXVodList = async (page: number = 1) => {
+        try {
+            const result = await CApi.get(CEndpoint.homeGetPages, {
+                query: {
+                    id: 99,
+                    platform: Platform.OS,
+                    channelId: UMENG_CHANNEL,
+                    appName: APP_NAME_CONST,
+                    page: page,
+                    limit: 6
+                },
+            });
+            if (result.success === false) {
+                throw result.message;
+            }
+
+            return result.data.categories as Array<XVodData>;
 
         } catch (e: any) {
             console.error(`[Error getHomePages}]: ${e.toString()}`);

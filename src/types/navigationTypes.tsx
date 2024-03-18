@@ -108,6 +108,7 @@ export type RootStackParamList = {
   };
   午夜场剧情: {
     class: string;
+    vod_source_name: string;
   };
   活动页: {
     bannerAd: BannerAdType;
