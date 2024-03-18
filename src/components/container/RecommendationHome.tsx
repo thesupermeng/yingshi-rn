@@ -103,7 +103,7 @@ const RecommendationHome = ({
   tabName,
   onRefresh,
   refreshProp = false,
-  onLoad = () => {},
+  onLoad = () => { },
   isTabFocus = false,
 }: Props) => {
   const { colors, textVariants, spacing } = useTheme();
@@ -162,54 +162,7 @@ const RecommendationHome = ({
   useEffect(() => {
     handleTabletFold();
     fetchMatchData();
-     initFirebase();
   }, []);
-
-  const initFirebase = async () => {
-    try {
-      await FirebaseNotification.checkPermissionAndGetoken();
-      FirebaseNotification.subscibeToTopic("insidertest");
-
-      FirebaseNotification.subscibeToTopic(
-        `PRODUCTION_${UMENG_CHANNEL}-${Platform.OS.toUpperCase()}_${APP_NAME_CONST}_general`
-      );
-
-      console.log("订阅 firebase messagin");
-      console.log(
-        `PRODUCTION_${UMENG_CHANNEL}-${Platform.OS.toUpperCase()}_${APP_NAME_CONST}_general`
-      );
-    } catch (err) {
-      console.log("Firebase init failed", err);
-    }
-  };
-  const openInBrowser = (url: any) => {
-    // You can customize the WebView component with additional props if needed
-    return <WebView source={{ uri: url }} style={{ flex: 1 }} />;
-  };
- 
-  useEffect(() => {
-    const unsubscribe = messaging().onNotificationOpenedApp(async (remoteMessage) => {
-      const notificationBody = remoteMessage.data;
-      if (notificationBody && notificationBody.notification_redirect_type) {
-        if (notificationBody.notification_redirect_type === "1" && notificationBody.notification_url) {
-          openInBrowser(notificationBody.notification_url.toString());
-        } else if (notificationBody.notification_redirect_type === "2" && notificationBody.notification_url) {
-          Linking.openURL(notificationBody.notification_url.toString())
-            .catch((err) => console.error("Error opening URL:", err));
-        } else if (notificationBody.notification_redirect_type === "3" && notificationBody.notification_url) {
-          Linking.openURL(notificationBody.notification_url.toString())
-            .catch((err) => console.error("Error opening external link:", err));
-        } else if (notificationBody.notification_redirect_type === "4") {
-          navigation.navigate("Home", { screen: "首页" });
-        } else if (notificationBody.notification_redirect_type === "5" && notificationBody.vod_id) {
-          navigation.navigate("播放", { vod_id: Number(notificationBody.vod_id) });
-        }
-      }
-    });
-
-    return unsubscribe;
-  }, []);
-  
 
   const [deviceName, setDeviceName] = useState("");
 
@@ -402,7 +355,7 @@ const RecommendationHome = ({
             if (item.is_ads == true) {
               const url =
                 item.ads_url.includes("https://") ||
-                item.ads_url.includes("http://")
+                  item.ads_url.includes("http://")
                   ? item.ads_url
                   : "https://" + item.ads_url;
               Linking.openURL(url);
@@ -757,7 +710,7 @@ const RecommendationHome = ({
                     }}
                   >
                     {data?.live_station_list &&
-                    data?.live_station_list.length > 0 ? (
+                      data?.live_station_list.length > 0 ? (
                       <ShowMoreVodButton
                         text="电视台推荐"
                         onPress={() => {
@@ -773,7 +726,7 @@ const RecommendationHome = ({
                     )}
                   </View>
                   {data?.live_station_list &&
-                  data?.live_station_list.length > 0 ? (
+                    data?.live_station_list.length > 0 ? (
                     <View style={{ paddingLeft: spacing.sideOffset }}>
                       <VodLiveStationList
                         vodStyle={styles.vod_live_station}

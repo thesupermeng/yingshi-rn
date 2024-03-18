@@ -824,13 +824,13 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     //       e.preventDefault();
     //     }
 
-  
+
     //   }
     // );
 
     return () => {
       removeBackPressListener.remove();
-    //   onBeforeRemoveListener();
+      //   onBeforeRemoveListener();
     };
   }, []);
 
@@ -1011,7 +1011,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
 
                     }}
                   >
-                    <CloseButton />
+                    <CloseButton color="white" />
                   </TouchableOpacity>
                   <Video
                     source={require("@static/images/splash/bg.mp4")}
@@ -1320,12 +1320,12 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                 </View>
                 <View style={styles.tncContainer}>
                   <TouchableOpacity onPress={openEmailApp}>
-                  <Text style={{ ...textVariants.subBody, color: "#9c9c9c" }}>
-                    {"如遇支付问题，请联系"}
-                    <Text  style={{ textDecorationLine: "underline" }}>
-                      contact.movie9@gmail.com
+                    <Text style={{ ...textVariants.subBody, color: "#9c9c9c" }}>
+                      {"如遇支付问题，请联系"}
+                      <Text style={{ textDecorationLine: "underline" }}>
+                        contact.movie9@gmail.com
+                      </Text>
                     </Text>
-                  </Text>
                   </TouchableOpacity>
                 </View>
               </View>

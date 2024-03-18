@@ -117,6 +117,9 @@ export type RootStackParamList = {
     vodId: number
   };
   续费服务: undefined,
+  Webview: {
+    url: string,
+  },
 };
 
 export type RootStackScreenProps<

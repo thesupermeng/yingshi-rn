@@ -605,7 +605,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                     }
                   }}
                 >
-                  <CloseButton />
+                  <CloseButton color="white" />
                 </TouchableOpacity>
 
                 {/* <LottieView
