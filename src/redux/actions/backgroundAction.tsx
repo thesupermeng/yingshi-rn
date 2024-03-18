@@ -213,7 +213,6 @@ const _notificationHandle = (data: {
 }: {
   dispatch: any,
 }) => {
-  console.debug('_notificationHandle');
   if (data) {
     const type = data.notification_redirect_type?.toString();
     const url = data.notification_url?.toString();
