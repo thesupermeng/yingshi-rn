@@ -91,7 +91,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
     queryKey: ["HomePageNavOptions"],
     queryFn: () =>
       AppsApi.getHomeNav().then((json: NavOptionsType[]) => {
-        const item = json.find(item => item.name === '欧美剧')
+        const item = json.find(item => item.name === '韩剧')
 
         if (item) {
           json = json.filter((e) => e.id != item?.id);

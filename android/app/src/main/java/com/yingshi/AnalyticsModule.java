@@ -1,4 +1,4 @@
-package com.aimeiju;
+package com.aihanju;
 
 import android.util.Log;
 

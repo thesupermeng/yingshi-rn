@@ -1,4 +1,4 @@
-package com.aimeiju;
+package com.aihanju;
 
 import android.app.Application;
 import com.facebook.react.PackageList;
@@ -9,7 +9,7 @@ import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
 import com.facebook.react.defaults.DefaultReactNativeHost;
 import com.facebook.soloader.SoLoader;
 import java.util.List;
-// import com.aimeiju.ATReactNativeBridgePackage;
+// import com.aihanju.ATReactNativeBridgePackage;
 import com.anythink.reactnativejs.ATReactNativeBridgePackage;
 import com.microsoft.codepush.react.CodePush;
 

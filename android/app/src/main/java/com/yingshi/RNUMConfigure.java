@@ -1,4 +1,4 @@
-package com.aimeiju;
+package com.aihanju;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -10,7 +10,7 @@ import android.util.Log;
 
 import com.umeng.commonsdk.UMConfigure;
 
-import com.aimeiju.AnalyticsModule;
+import com.aihanju.AnalyticsModule;
 /**
  * Created by wangfei on 17/9/14.
  */

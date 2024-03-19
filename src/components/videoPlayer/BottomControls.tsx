@@ -94,7 +94,7 @@ export default ({
                 onValueChange={onSlideProgressBar}
                 onSlidingStart={onSlideStart}
                 onSlidingComplete={onSlideComplete}
-                minimumTrackTintColor={'#FAC33D'}
+                minimumTrackTintColor={colors.primary}
                 maximumTrackTintColor='rgba(255,255,255,0.2)'
                 thumbTintColor={'#FFFFFF'}
                 thumbStyle={{ height: 15, width: 15 }}
@@ -138,7 +138,7 @@ export default ({
                   onValueChange={onSlideProgressBar}
                   onSlidingStart={onSlideStart}
                   onSlidingComplete={onSlideComplete}
-                  minimumTrackTintColor={'#FAC33D'}
+                  minimumTrackTintColor={colors.primary}
                   maximumTrackTintColor='rgba(255,255,255,0.2)'
                   thumbTintColor={'#FFFFFF'}
                   // thumbImage={Platform.OS === 'ios' ? thumbImage : undefined}

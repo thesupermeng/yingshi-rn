@@ -5,7 +5,7 @@
  * https://github.com/toponteam/TopOn-Android-SDK/blob/master/LICENSE
  */
 
-package com.aimeiju;
+package com.aihanju;
 
 import android.app.Activity;
 import android.content.Context;
@@ -29,8 +29,8 @@ import com.anythink.core.api.AdError;
 import com.anythink.splashad.api.ATSplashAd;
 import com.anythink.splashad.api.ATSplashAdExtraInfo;
 import com.anythink.splashad.api.ATSplashExListener;
-import com.aimeiju.zoomout.SplashEyeAdHolder;
-import com.aimeiju.zoomout.SplashZoomOutManager;
+import com.aihanju.zoomout.SplashEyeAdHolder;
+import com.aihanju.zoomout.SplashZoomOutManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.Cursor;

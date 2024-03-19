@@ -293,7 +293,7 @@ function SelectDownloadComponent({
                 >
                   {ep.isDownloading && (
                     <Animated.View style={{
-                      backgroundColor: ep.isDownloading ? '#FAC33D' : colors.search,
+                      backgroundColor: ep.isDownloading ? colors.primary : colors.search,
                       position: "absolute",
                       bottom: 0,
                       height: ep.progress.percentage / 100 * episodeHeight,
@@ -309,7 +309,7 @@ function SelectDownloadComponent({
                       fontSize: 13,
                       textAlign: "center",
                       fontWeight: "500",
-                      color: colors.muted,
+                      color: 'white'
                     }}
                   >
                     {`${ep.name}`}
@@ -328,14 +328,14 @@ function SelectDownloadComponent({
                   {ep.isDownloaded && (
                     <View style={{
                       ...styles.legend,
-                      backgroundColor: '#FAC33D29',
+                      backgroundColor: colors.primary + '29',
                       borderTopRightRadius: 8,
                       borderBottomLeftRadius: 8
                     }}>
                       <FinishIcon
                         width={10}
                         height={10}
-                        color={colors.primary}
+                        color={colors.success}
                       />
                     </View>
                   )}
@@ -386,7 +386,7 @@ function SelectDownloadComponent({
           ) : (
             <TouchableOpacity
               style={{
-                backgroundColor: colors.primary,
+                backgroundColor: colors.yellow,
                 marginHorizontal: spacing.sideOffset + 5,
                 padding: spacing.s,
                 borderRadius: 8,

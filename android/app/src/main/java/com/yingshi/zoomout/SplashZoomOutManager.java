@@ -1,4 +1,4 @@
-package com.aimeiju.zoomout;
+package com.aihanju.zoomout;
 
 import android.animation.Animator;
 import android.content.Context;

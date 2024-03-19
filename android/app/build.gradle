@@ -98,9 +98,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.aimeiju"
+    namespace "com.aihanju"
     defaultConfig {
-        applicationId "com.aimeiju"
+        applicationId "com.aihanju"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         // ABB version 2 , 18 march // remember change appsflyer const

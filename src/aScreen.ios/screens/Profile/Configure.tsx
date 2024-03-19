@@ -120,6 +120,7 @@ export default ({ navigation }: RootStackScreenProps<'设置'>) => {
             title="空间清理"
             subtitle="清除所有的缓存"
             confirmationText="清除"
+            confirmationColor={colors.error}
           />
 
           {User.isLogin(userState.user) &&

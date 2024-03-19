@@ -47,7 +47,7 @@ export const CLEAR_SEARCH_HISTORY = 'clear_search_history';
 export const CLEAR_STORAGE_MEMORY = 'clear_storage_memory';
 
 export const APPSFLYER_DEVKEY = 'wrxTHihLJNWrrusXtgRJZa';
-export const APPSFLYER_APPID = Platform.OS === 'android' ? 'com.aimeiju' : '';
+export const APPSFLYER_APPID = Platform.OS === 'android' ? 'com.aihanju' : '';
 
 export const APPSFLYER_PAYMENT_PUBLIC_KEY = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhKAAW+9FvkiSL9GJFYpDtrHYLd3KhlKtXWLe1pCkIGnDf4nF0qqclMfoV6CUY0t7WCyXlnfyb7jkwhQiI9+LdHIKz6Vtjn0nzBB0Y3gfiuuAmbcC9QZ5HPD/AVsKdzr70LkVIg3B320gc71H2SiI59kSSD0AAb2QAh9NH5cXmm0XWcp30QKtLp8Yjh+RZOBo9p2T9HcNUL+jo5zGFVvUUp2YI6YGVDnry1KeYOukszRv47BzSddrTrbs9UFJd63d1mHDcxtDye0oI/B7P4EyFtCUCUsD3hm4wdqLkTGZ5/6k0K0wwPS7uITU/iSf0KcJ3F3ZsvcJzg1Irqj3NiybDwIDAQAB';
 
@@ -112,20 +112,22 @@ export const AMJ_PRODUCT_IOS = 6;
 export const IS_IOS = Platform.OS === 'ios';
 export const IS_ANDROID = Platform.OS === 'android';
 
-export const APP_NAME_CONST = '爱美剧';
+export const APP_NAME_CONST = '爱韩剧';
 export const APP_NAME_CONST2 = '该APP';
 export const APP_EMAIL_CONST = 'contact.movie9@gmail.com';
+
+export const IS_OTHER_SKIN = APP_NAME_CONST !== '爱美剧';
 
 export const NON_VIP_STREAM_TIME_SECONDS = 300;
 
 export const PLAY_HTTP_SERVER_PORT = 8085;
 
-export const SHOW_ZF_CONST = false;
+export const SHOW_ZF_CONST = true;
 
 export const ADULT_MODE_PREVIEW_DURATION = 300; // number of seconds 
 
 // watch anytime download
-export const DOWNLOAD_WATCH_ANYTIME = Platform.OS === 'android' ? false : true; // 【爱美剧】oneplus 9 手机里的随心看小视频出现卡顿的画面和声音
+export const DOWNLOAD_WATCH_ANYTIME = Platform.OS === 'android' ? false : true; // 【爱韩剧】oneplus 9 手机里的随心看小视频出现卡顿的画面和声音
 export const DOWNLOAD_BATCH_SIZE = 5;
 export const TOTAL_VIDEO_TO_DOWNLOAD = 300;
 // export const CACHE_DURATION = 3; //days

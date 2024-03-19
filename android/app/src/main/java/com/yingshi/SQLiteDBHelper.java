@@ -1,4 +1,4 @@
-package com.aimeiju;
+package com.aihanju;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
